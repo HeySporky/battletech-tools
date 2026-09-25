@@ -1,1 +1,0 @@
-{"mappings":";AAAA,4BAAiB;IAAG,oBAAoB,CAAC,oEAA4C,CAAC;AACtF","sources":["packages/react-aria/intl/previewtrigger/tr-TR.json"],"sourcesContent":["{\n  \"longPressMessage\": \"Önizlemeyi açmak için uzun süre basılı tutun\"\n}\n"],"names":[],"version":3,"file":"tr-TR.js.map"}

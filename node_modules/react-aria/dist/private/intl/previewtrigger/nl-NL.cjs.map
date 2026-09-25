@@ -1,1 +1,0 @@
-{"mappings":"AAAA,iBAAiB;IAAG,oBAAoB,CAAC,iCAAiC,CAAC;AAC3E","sources":["packages/react-aria/intl/previewtrigger/nl-NL.json"],"sourcesContent":["{\n  \"longPressMessage\": \"Lang indrukken voor voorvertoning\"\n}\n"],"names":[],"version":3,"file":"nl-NL.cjs.map"}

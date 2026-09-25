@@ -1,1 +1,0 @@
-{"mappings":";AAAA,4BAAiB;IAAG,oBAAoB,CAAC,iYAA6D,CAAC;AACvG","sources":["packages/react-aria/intl/previewtrigger/ru-RU.json"],"sourcesContent":["{\n  \"longPressMessage\": \"Нажмите и удерживайте, чтобы открыть предварительный просмотр\"\n}\n"],"names":[],"version":3,"file":"ru-RU.mjs.map"}
