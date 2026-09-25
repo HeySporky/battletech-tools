@@ -1,1 +1,0 @@
-{"mappings":"AAAA,iBAAiB;IAAG,oBAAoB,CAAC,6DAAiD,CAAC;AAC3F","sources":["packages/react-aria/intl/previewtrigger/sv-SE.json"],"sourcesContent":["{\n  \"longPressMessage\": \"Håll nedtryckt för att öppna förhandsgranskningen\"\n}\n"],"names":[],"version":3,"file":"sv-SE.cjs.map"}
