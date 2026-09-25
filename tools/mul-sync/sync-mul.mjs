@@ -42,7 +42,7 @@ const SITE = "https://masterunitlist.battletech.com";
 // appears to score request cadence/pattern, not just IP reputation. Override via env if needed.
 const CRAWL_DELAY_MS = Number(process.env.MUL_SYNC_CRAWL_DELAY_MS ?? 15_000);
 const COOLDOWN_MS = 60_000;
-const MAX_DETAIL_PER_RUN = Number(process.env.MUL_SYNC_MAX_DETAIL ?? 300);
+const MAX_DETAIL_PER_RUN = Number(process.env.MUL_SYNC_MAX_DETAIL ?? 700);
 const CHUNK_SIZE = 200;
 const SYNTHETIC_ID_START = 100000;
 const MAX_CONSECUTIVE_CLOUDFLARE_BLOCKS = 3;

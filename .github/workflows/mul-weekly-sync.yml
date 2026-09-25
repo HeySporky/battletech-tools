@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       max_detail:
-        description: "Max units to detail-scrape this run (bigger for manual backfill runs; default matches the weekly cadence)"
+        description: "Max units to detail-scrape this run (700 is about five hours at the observed rate)"
         required: false
-        default: "300"
+        default: "700"
       runner:
         description: "Where to run this. Only pick self-hosted if you have your own runner registered and online."
         required: false
@@ -63,7 +63,7 @@ jobs:
       - name: Sync from masterunitlist.battletech.com
         id: mulsync
         env:
-          MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '300' }}
+          MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '700' }}
         run: npm run mul:sync
 
       - name: Commit and push updates (Linux)
