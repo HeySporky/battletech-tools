@@ -38,7 +38,10 @@ const storePath = path.join(__dirname, "live-units.json");
 const dupeReportPath = path.join(__dirname, "legacy-duplicate-candidates.json");
 
 const SITE = "https://masterunitlist.battletech.com";
-const CRAWL_DELAY_MS = 10_000; // robots.txt: Crawl-delay: 10
+// robots.txt only requires 10s; we default a bit more conservative since Cloudflare's bot-management
+// appears to score request cadence/pattern, not just IP reputation. Override via env if needed.
+const CRAWL_DELAY_MS = Number(process.env.MUL_SYNC_CRAWL_DELAY_MS ?? 15_000);
+const COOLDOWN_MS = 60_000;
 const MAX_DETAIL_PER_RUN = Number(process.env.MUL_SYNC_MAX_DETAIL ?? 300);
 const CHUNK_SIZE = 200;
 const SYNTHETIC_ID_START = 100000;
@@ -251,6 +254,7 @@ async function main() {
         viewport: { width: 1280, height: 800 },
     })).newPage();
 
+    let runError = null;
     try {
         await page.goto(SITE, { waitUntil: "networkidle" });
         const bodyText = await page.locator("body").innerText();
@@ -331,6 +335,7 @@ async function main() {
         console.log(`${needsDetail.length} units need a detail scrape; processing ${batch.length} this run.`);
 
         let consecutiveCloudflareBlocks = 0;
+        let tookCooldown = false;
         for (const [index, opaqueId] of batch.entries()) {
             const entry = store.units[opaqueId];
             try {
@@ -345,7 +350,14 @@ async function main() {
                     consecutiveCloudflareBlocks += 1;
                     console.warn(`Cloudflare blocked ${opaqueId} (${consecutiveCloudflareBlocks}/${MAX_CONSECUTIVE_CLOUDFLARE_BLOCKS} consecutive).`);
                     if (consecutiveCloudflareBlocks >= MAX_CONSECUTIVE_CLOUDFLARE_BLOCKS) {
-                        throw new CloudflareBlockError("Repeated Cloudflare challenges during detail scrape — aborting the rest of this run's batch.");
+                        if (tookCooldown) {
+                            throw new CloudflareBlockError("Repeated Cloudflare challenges during detail scrape — aborting the rest of this run's batch.");
+                        }
+                        // Back off once for a longer cooldown in case this is transient rate-limiting, then give it one more chance.
+                        console.warn(`Backing off for ${COOLDOWN_MS}ms before retrying...`);
+                        await page.waitForTimeout(COOLDOWN_MS);
+                        tookCooldown = true;
+                        consecutiveCloudflareBlocks = 0;
                     }
                 } else {
                     console.warn(`Failed to scrape detail for ${opaqueId}: ${error.message}`);
@@ -356,6 +368,8 @@ async function main() {
                 await page.waitForTimeout(CRAWL_DELAY_MS);
             }
         }
+    } catch (error) {
+        runError = error; // save whatever progress we made before rethrowing, below
     } finally {
         await browser.close();
     }
@@ -381,6 +395,10 @@ async function main() {
 
     console.log(`Wrote ${records.length} live units across ${Math.ceil(records.length / CHUNK_SIZE)} chunk file(s).`);
     console.log(`${dupeCandidates.length} potential legacy duplicates logged to ${path.relative(repoRoot, dupeReportPath)} for manual review.`);
+
+    if (runError) {
+        throw runError; // preserve partial progress on disk, but still fail the run/CI signal
+    }
 }
 
 function setGithubActionsOutput(name, value) {
