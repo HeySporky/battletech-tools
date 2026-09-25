@@ -9,6 +9,14 @@ on:
         description: "Max units to detail-scrape this run (bigger for manual backfill runs; default matches the weekly cadence)"
         required: false
         default: "300"
+      runner:
+        description: "Where to run this. Only pick self-hosted if you have your own runner registered and online."
+        required: false
+        type: choice
+        options:
+          - github-hosted
+          - self-hosted
+        default: github-hosted
 
 permissions:
   contents: write
@@ -20,7 +28,12 @@ concurrency:
 
 jobs:
   sync:
-    runs-on: ubuntu-latest
+    # Scheduled runs (no inputs) and the default dispatch choice both land on the GitHub-hosted runner;
+    # only an explicit "self-hosted" choice uses your own registered runner.
+    runs-on: ${{ github.event.inputs.runner == 'self-hosted' && 'self-hosted' || 'ubuntu-latest' }}
+    defaults:
+      run:
+        shell: bash
     outputs:
       failure-reason: ${{ steps.mulsync.outputs.failure-reason }}
     steps:
@@ -38,8 +51,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install Playwright browser
+      - name: Install Playwright browser (Linux)
+        if: runner.os == 'Linux'
         run: npx playwright install --with-deps chromium
+
+      - name: Install Playwright browser (non-Linux self-hosted)
+        if: runner.os != 'Linux'
+        run: npx playwright install chromium
 
       - name: Sync from masterunitlist.battletech.com
         id: mulsync
