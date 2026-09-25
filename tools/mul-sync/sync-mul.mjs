@@ -280,20 +280,30 @@ async function main() {
         if (isCloudflareChallenge(bodyText)) {
             throw new CloudflareBlockError("Cloudflare challenge blocked the initial site load.");
         }
+        await page.waitForTimeout(2_000); // brief pause before the first data request, like a real page load
 
         const manifest = await fetchJson(page, "/data/manifest.json");
         const files = manifest.files;
 
+        // Fetched one at a time with a small pause between — firing all of these at once (as
+        // Promise.all did previously) is a burst pattern no real browser session produces (the site
+        // only loads what the user's current filter selection needs), and that shape alone seemed to
+        // be enough to trip Cloudflare's bot-management even on the very first request.
+        const INDEX_FETCH_PAUSE_MS = 2_000;
+        async function fetchIndexFile(relativeUrl) {
+            const result = await fetchJson(page, relativeUrl);
+            await page.waitForTimeout(INDEX_FETCH_PAUSE_MS);
+            return result;
+        }
+
         // Faction ids in availability.json match the legacy getMULFactionLabels() taxonomy (verified
         // against the live site), so we only need the availability index itself, not factions.json.
-        const [units, unitTypes, roles, eras, technologies, availability] = await Promise.all([
-            fetchJson(page, `/data/${files.units}`),
-            fetchJson(page, `/data/${files.unit_types}`),
-            fetchJson(page, `/data/${files.roles}`),
-            fetchJson(page, `/data/${files.eras}`),
-            fetchJson(page, `/data/${files.technologies}`),
-            fetchJson(page, `/data/${files.availability}`),
-        ]);
+        const units = await fetchIndexFile(`/data/${files.units}`);
+        const unitTypes = await fetchIndexFile(`/data/${files.unit_types}`);
+        const roles = await fetchIndexFile(`/data/${files.roles}`);
+        const eras = await fetchIndexFile(`/data/${files.eras}`);
+        const technologies = await fetchIndexFile(`/data/${files.technologies}`);
+        const availability = await fetchJson(page, `/data/${files.availability}`);
 
         const unitTypeById = buildLookup(unitTypes);
         const roleById = buildLookup(roles);
