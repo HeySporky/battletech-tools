@@ -9,6 +9,10 @@
  * it directly, skipping `npx playwright install` (which also actively deletes anything it doesn't
  * recognize as installed-by-itself, so this must run instead of, not alongside, that command).
  *
+ * Fetches the FULL chromium build (not chromium-headless-shell) — sync-mul.mjs launches with
+ * `channel: "chromium"` because the specialized headless-shell binary gets reliably Cloudflare-
+ * blocked on masterunitlist.battletech.com while the full build does not (confirmed empirically).
+ *
  * Linux/GitHub-hosted runners are unaffected and keep using the official `playwright install --with-deps`.
  */
 
@@ -23,10 +27,10 @@ const repoRoot = path.resolve(__dirname, "..", "..");
 const browsersJsonPath = path.join(repoRoot, "node_modules", "playwright-core", "browsers.json");
 const cacheDir = path.join(process.env.LOCALAPPDATA ?? "", "ms-playwright");
 
-function loadHeadlessShellRevision() {
+function loadChromiumRevision() {
     const manifest = JSON.parse(fs.readFileSync(browsersJsonPath, "utf8"));
-    const entry = manifest.browsers.find((b) => b.name === "chromium-headless-shell");
-    if (!entry) throw new Error("Could not find chromium-headless-shell entry in browsers.json");
+    const entry = manifest.browsers.find((b) => b.name === "chromium");
+    if (!entry) throw new Error("Could not find chromium entry in browsers.json");
     return { revision: entry.revision, browserVersion: entry.browserVersion };
 }
 
@@ -52,17 +56,17 @@ function download(url, dest, redirectsLeft = 5) {
 }
 
 async function main() {
-    const { revision, browserVersion } = loadHeadlessShellRevision();
-    const installDir = path.join(cacheDir, `chromium_headless_shell-${revision}`);
-    const exePath = path.join(installDir, "chrome-headless-shell-win64", "chrome-headless-shell.exe");
+    const { revision, browserVersion } = loadChromiumRevision();
+    const installDir = path.join(cacheDir, `chromium-${revision}`);
+    const exePath = path.join(installDir, "chrome-win64", "chrome.exe");
 
     if (fs.existsSync(exePath)) {
         console.log(`Already present: ${exePath}`);
         return;
     }
 
-    const url = `https://cdn.playwright.dev/builds/cft/${browserVersion}/win64/chrome-headless-shell-win64.zip`;
-    const zipPath = path.join(process.env.TEMP ?? ".", "chrome-headless-shell-win64.zip");
+    const url = `https://cdn.playwright.dev/builds/cft/${browserVersion}/win64/chrome-win64.zip`;
+    const zipPath = path.join(process.env.TEMP ?? ".", "chrome-win64.zip");
 
     console.log(`Downloading ${url}`);
     await download(url, zipPath);

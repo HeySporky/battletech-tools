@@ -264,6 +264,10 @@ async function main() {
     let nextSyntheticId = Math.max(SYNTHETIC_ID_START, ...existingIds, 0) + 1;
 
     const browser = await chromium.launch({
+        // The default headless-shell binary has a distinct, easily bot-fingerprinted signature that
+        // got reliably Cloudflare-blocked on this site; the regular full Chromium build (run headless
+        // the normal way) does not. Confirmed empirically — see /memories/repo/mul-data-source.md.
+        channel: "chromium",
         args: ["--disable-blink-features=AutomationControlled"],
     });
     // A generic bare headless UA is more likely to trip Cloudflare's bot check than an ordinary desktop UA.
