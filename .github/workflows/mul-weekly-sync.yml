@@ -4,10 +4,19 @@ on:
   schedule:
     - cron: "0 5 * * 1"
   workflow_dispatch:
+    inputs:
+      max_detail:
+        description: "Max units to detail-scrape this run (bigger for manual backfill runs; default matches the weekly cadence)"
+        required: false
+        default: "300"
 
 permissions:
   contents: write
   issues: write
+
+concurrency:
+  group: mul-sync
+  cancel-in-progress: false
 
 jobs:
   sync:
@@ -34,6 +43,8 @@ jobs:
 
       - name: Sync from masterunitlist.battletech.com
         id: mulsync
+        env:
+          MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '300' }}
         run: npm run mul:sync
 
       - name: Commit and push updates
