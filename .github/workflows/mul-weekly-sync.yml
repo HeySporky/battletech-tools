@@ -1,0 +1,151 @@
+name: Weekly MUL Sync
+
+on:
+  schedule:
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      max_detail:
+        description: "Max units to detail-scrape this run (700 is about five hours at the observed rate)"
+        required: false
+        default: "700"
+      runner:
+        description: "Where to run this. Only pick self-hosted if you have your own runner registered and online."
+        required: false
+        type: choice
+        options:
+          - github-hosted
+          - self-hosted
+        default: github-hosted
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: mul-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    # Scheduled runs (no inputs) and the default dispatch choice both land on the GitHub-hosted runner;
+    # only an explicit "self-hosted" choice uses your own registered runner.
+    runs-on: ${{ github.event.inputs.runner == 'self-hosted' && 'self-hosted' || 'ubuntu-latest' }}
+    outputs:
+      failure-reason: ${{ steps.mulsync.outputs.failure-reason }}
+    steps:
+      - name: Check out MUL
+        uses: actions/checkout@v4
+        with:
+          ref: MUL
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browser (Linux)
+        if: runner.os == 'Linux'
+        run: npx playwright install --with-deps chromium
+
+      # playwright-core's own downloader consistently times out fetching from cdn.playwright.dev on
+      # this Windows runner's network (root cause unconfirmed), even though a plain https request to
+      # the same URL succeeds instantly — so we fetch/place the browser ourselves instead of using
+      # `npx playwright install` here. See tools/mul-sync/ensure-chromium-windows.mjs for details.
+      - name: Install Playwright browser (Windows self-hosted)
+        if: runner.os == 'Windows'
+        run: node tools/mul-sync/ensure-chromium-windows.mjs
+
+      - name: Sync from masterunitlist.battletech.com
+        id: mulsync
+        env:
+          MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '700' }}
+        run: npm run mul:sync
+
+      - name: Commit and push updates (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
+          if ! git push origin HEAD:MUL; then
+            echo "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
+            echo "::error::Fix: Settings -> Actions -> General -> Workflow permissions -> select 'Read and write permissions', then save."
+            exit 1
+          fi
+
+      # Use PowerShell on Windows so shell discovery cannot select the WSL bash app-execution alias.
+      - name: Commit and push updates (Windows self-hosted)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul
+          if (git diff --cached --quiet) {
+            Write-Host "No changes to commit."
+            exit 0
+          }
+          git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
+          git push origin HEAD:MUL
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
+            Write-Host "::error::Fix: Settings -> Actions -> General -> Workflow permissions -> select 'Read and write permissions', then save."
+            exit 1
+          }
+
+  alert-on-failure:
+    needs: sync
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or update sync failure alert
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const failureReason = "${{ needs.sync.outputs.failure-reason }}";
+            const isCloudflareBlock = failureReason === "cloudflare-block";
+            const title = isCloudflareBlock ? "Weekly MUL sync blocked by Cloudflare" : "Weekly MUL sync failed";
+            const detail = isCloudflareBlock
+              ? "masterunitlist.battletech.com's Cloudflare bot check blocked the sync this run. No code changes needed unless this keeps happening every week — it will simply retry next scheduled run."
+              : "This looks like a real bug (not a Cloudflare block) — check the job log for the actual error.";
+            const body = [
+              `@${context.repo.owner} the scheduled sync from masterunitlist.battletech.com failed.`,
+              "",
+              detail,
+              "",
+              `Inspect the [workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`,
+            ].join("\n");
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              per_page: 100,
+            });
+            const existing = issues.find((issue) => issue.title === title && !issue.pull_request);
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                assignees: [context.repo.owner],
+              });
+            }
