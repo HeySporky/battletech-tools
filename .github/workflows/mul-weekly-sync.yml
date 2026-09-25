@@ -31,9 +31,6 @@ jobs:
     # Scheduled runs (no inputs) and the default dispatch choice both land on the GitHub-hosted runner;
     # only an explicit "self-hosted" choice uses your own registered runner.
     runs-on: ${{ github.event.inputs.runner == 'self-hosted' && 'self-hosted' || 'ubuntu-latest' }}
-    defaults:
-      run:
-        shell: bash
     outputs:
       failure-reason: ${{ steps.mulsync.outputs.failure-reason }}
     steps:
@@ -65,7 +62,28 @@ jobs:
           MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '300' }}
         run: npm run mul:sync
 
-      - name: Commit and push updates
+      - name: Commit and push updates (Linux)
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul/live
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
+          if ! git push origin HEAD:MUL; then
+            echo "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
+            echo "::error::Fix: Settings -> Actions -> General -> Workflow permissions -> select 'Read and write permissions', then save."
+            exit 1
+          fi
+
+      # Windows' bash-on-PATH is often the WSL app-execution-alias stub, not Git Bash, so point at it explicitly.
+      - name: Commit and push updates (Windows self-hosted)
+        if: runner.os == 'Windows'
+        shell: "C:\\Program Files\\Git\\bin\\bash.exe --noprofile --norc -eo pipefail {0}"
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
