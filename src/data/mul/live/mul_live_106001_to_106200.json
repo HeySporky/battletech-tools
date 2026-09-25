@@ -18,7 +18,22 @@
     },
     "BFType": "BM",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          41,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          74
+        ]
+      }
+    ]
   },
   {
     "Id": 106002,
@@ -39,7 +54,80 @@
     },
     "BFType": "CV",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          33,
+          34,
+          35,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          30,
+          33,
+          34,
+          35,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          33,
+          34,
+          35,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          30,
+          33,
+          34,
+          35,
+          53,
+          54,
+          75,
+          79,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106003,
@@ -60,7 +148,50 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          11
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          39,
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          38,
+          39,
+          40,
+          80
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          24,
+          38,
+          39,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          38,
+          39
+        ]
+      }
+    ]
   },
   {
     "Id": 106004,
@@ -81,7 +212,62 @@
     },
     "BFType": "BM",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29,
+          32,
+          34
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29,
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          32,
+          34,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29,
+          34,
+          54,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106005,
@@ -102,7 +288,59 @@
     },
     "BFType": "BM",
     "EraId": 12,
-    "EraStart": 3020
+    "EraStart": 3020,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          30,
+          34,
+          47
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          34,
+          47,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          34,
+          35,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          30,
+          34,
+          47
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          34,
+          35,
+          75
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          30
+        ]
+      }
+    ]
   },
   {
     "Id": 106006,
@@ -123,7 +361,15 @@
     },
     "BFType": "AF",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          47
+        ]
+      }
+    ]
   },
   {
     "Id": 106007,
@@ -144,7 +390,99 @@
     },
     "BFType": "CI",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          11,
+          17
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106008,
@@ -165,7 +503,94 @@
     },
     "BFType": "BM",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          43,
+          47,
+          48,
+          53,
+          55,
+          56,
+          57,
+          58,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27,
+          34,
+          40,
+          55,
+          57,
+          58
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27,
+          30,
+          34,
+          40,
+          55,
+          57,
+          58
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          43,
+          45,
+          47,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27,
+          34,
+          40,
+          55,
+          57,
+          58
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27,
+          30,
+          34
+        ]
+      }
+    ]
   },
   {
     "Id": 106009,
@@ -186,7 +611,422 @@
     },
     "BFType": "CV",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          37,
+          41,
+          44,
+          46,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          37,
+          46,
+          54,
+          63,
+          74
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          45,
+          46,
+          47,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          21,
+          22,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          46,
+          47,
+          48,
+          53,
+          55,
+          56,
+          57,
+          58,
+          60,
+          61,
+          62,
+          70,
+          73,
+          75
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          27,
+          29,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          73,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          13,
+          15,
+          17,
+          23,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          38,
+          39,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          63,
+          70,
+          73,
+          75,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          21,
+          22,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          45,
+          46,
+          47,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          13,
+          15,
+          17,
+          23,
+          24,
+          27,
+          29,
+          33,
+          34,
+          35,
+          37,
+          38,
+          39,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          63,
+          70,
+          73,
+          75
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          27,
+          29,
+          30,
+          31,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          46,
+          48,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          27,
+          28,
+          29,
+          30,
+          31,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          46,
+          48,
+          54,
+          64
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          13,
+          15,
+          20,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          38,
+          39,
+          43,
+          46,
+          53,
+          54,
+          60,
+          61,
+          63,
+          73,
+          75,
+          76,
+          79,
+          80,
+          81,
+          82,
+          83,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106010,
@@ -207,7 +1047,8 @@
     },
     "BFType": "BA",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": []
   },
   {
     "Id": 106011,
@@ -228,7 +1069,40 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          32
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          54
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          31,
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106012,
@@ -249,7 +1123,114 @@
     },
     "BFType": "CI",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106013,
@@ -270,7 +1251,103 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          27,
+          29,
+          30,
+          32,
+          34,
+          54,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27,
+          30,
+          34
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          33,
+          34,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          30,
+          33,
+          34,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          27,
+          29,
+          30,
+          32,
+          34,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          33,
+          34,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          30,
+          33,
+          34,
+          35,
+          46,
+          53
+        ]
+      }
+    ]
   },
   {
     "Id": 106014,
@@ -291,7 +1368,198 @@
     },
     "BFType": "CV",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          63
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          23,
+          38,
+          39,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          23,
+          38,
+          39,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          23,
+          38,
+          39,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106015,
@@ -312,7 +1580,8 @@
     },
     "BFType": "BA",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": []
   },
   {
     "Id": 106016,
@@ -333,7 +1602,101 @@
     },
     "BFType": "AF",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          29,
+          30,
+          41,
+          44,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          29,
+          30,
+          63,
+          74
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          18
+        ]
+      }
+    ]
   },
   {
     "Id": 106017,
@@ -354,7 +1717,86 @@
     },
     "BFType": "BM",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          10
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          10,
+          15,
+          21
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          10,
+          15,
+          19,
+          21,
+          22
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          10,
+          15,
+          19,
+          21,
+          22
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          10,
+          15,
+          21
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          10,
+          15,
+          21
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          34,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106018,
@@ -375,7 +1817,51 @@
     },
     "BFType": "CI",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          35
+        ]
+      }
+    ]
   },
   {
     "Id": 106019,
@@ -396,7 +1882,54 @@
     },
     "BFType": "CI",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          18
+        ]
+      }
+    ]
   },
   {
     "Id": 106020,
@@ -417,7 +1950,36 @@
     },
     "BFType": "BM",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          30,
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          30,
+          34,
+          76
+        ]
+      }
+    ]
   },
   {
     "Id": 106021,
@@ -438,7 +2000,56 @@
     },
     "BFType": "CI",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          46
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          46,
+          61
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          46,
+          61
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          46,
+          61
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          46
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          46,
+          61
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          46,
+          61
+        ]
+      }
+    ]
   },
   {
     "Id": 106022,
@@ -459,7 +2070,15 @@
     },
     "BFType": "PM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          2
+        ]
+      }
+    ]
   },
   {
     "Id": 106023,
@@ -480,7 +2099,26 @@
     },
     "BFType": "BA",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          39,
+          80
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          38,
+          39,
+          63,
+          76,
+          80
+        ]
+      }
+    ]
   },
   {
     "Id": 106024,
@@ -501,7 +2139,42 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106025,
@@ -522,7 +2195,75 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          29,
+          32,
+          34,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29,
+          32,
+          34,
+          60
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          34,
+          46,
+          60,
+          61,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          46,
+          60
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          32,
+          34,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          34,
+          46,
+          60,
+          61,
+          75
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          46,
+          60
+        ]
+      }
+    ]
   },
   {
     "Id": 106026,
@@ -543,7 +2284,8 @@
     },
     "BFType": "BA",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": []
   },
   {
     "Id": 106027,
@@ -564,7 +2306,68 @@
     },
     "BFType": "CI",
     "EraId": 12,
-    "EraStart": 3020
+    "EraStart": 3020,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          29,
+          32,
+          54,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29,
+          32
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29,
+          54
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          32,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          29,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29,
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106028,
@@ -585,7 +2388,69 @@
     },
     "BFType": "CV",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          29,
+          32,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29,
+          32
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29,
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          32,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29,
+          34,
+          54,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106029,
@@ -606,7 +2471,15 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          6
+        ]
+      }
+    ]
   },
   {
     "Id": 106030,
@@ -627,7 +2500,39 @@
     },
     "BFType": "BA",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          48
+        ]
+      }
+    ]
   },
   {
     "Id": 106031,
@@ -648,7 +2553,63 @@
     },
     "BFType": "SV",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106032,
@@ -669,7 +2630,24 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          30,
+          37,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          30,
+          79
+        ]
+      }
+    ]
   },
   {
     "Id": 106033,
@@ -690,7 +2668,51 @@
     },
     "BFType": "SV",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5
+        ]
+      }
+    ]
   },
   {
     "Id": 106034,
@@ -711,7 +2733,31 @@
     },
     "BFType": "CV",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          63
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106035,
@@ -732,7 +2778,61 @@
     },
     "BFType": "PM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          13,
+          20
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          10,
+          13,
+          17,
+          62,
+          67
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          13,
+          17
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          10,
+          13,
+          15,
+          17,
+          21
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13
+        ]
+      }
+    ]
   },
   {
     "Id": 106036,
@@ -753,7 +2853,17 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          7,
+          67
+        ]
+      }
+    ]
   },
   {
     "Id": 106037,
@@ -774,7 +2884,63 @@
     },
     "BFType": "AF",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          76
+        ]
+      }
+    ]
   },
   {
     "Id": 106038,
@@ -795,7 +2961,27 @@
     },
     "BFType": "BM",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          73
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          73
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          73
+        ]
+      }
+    ]
   },
   {
     "Id": 106039,
@@ -816,7 +3002,8 @@
     },
     "BFType": "BA",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": []
   },
   {
     "Id": 106040,
@@ -837,7 +3024,56 @@
     },
     "BFType": "BM",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          5,
+          54
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          32,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          32
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          32,
+          64
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          5,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          5,
+          54,
+          64
+        ]
+      }
+    ]
   },
   {
     "Id": 106041,
@@ -858,7 +3094,46 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          31,
+          34,
+          38,
+          39,
+          48,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          31,
+          34,
+          38,
+          39,
+          48,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106042,
@@ -879,7 +3154,46 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27,
+          34,
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27,
+          34,
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27,
+          34,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27,
+          34
+        ]
+      }
+    ]
   },
   {
     "Id": 106043,
@@ -900,7 +3214,36 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          31,
+          34,
+          38,
+          48,
+          63
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          20,
+          38,
+          39,
+          48,
+          63,
+          73,
+          79,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106044,
@@ -921,7 +3264,69 @@
     },
     "BFType": "AF",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          33
+        ]
+      }
+    ]
   },
   {
     "Id": 106045,
@@ -942,7 +3347,53 @@
     },
     "BFType": "PM",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          6,
+          12,
+          13,
+          19,
+          62,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          6,
+          12,
+          13,
+          19
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13
+        ]
+      }
+    ]
   },
   {
     "Id": 106046,
@@ -963,7 +3414,23 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          34,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106047,
@@ -984,7 +3451,21 @@
     },
     "BFType": "BM",
     "EraId": 12,
-    "EraStart": 3020
+    "EraStart": 3020,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106048,
@@ -1005,7 +3486,8 @@
     },
     "BFType": "BA",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": []
   },
   {
     "Id": 106049,
@@ -1026,7 +3508,189 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          43,
+          45,
+          47,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          43,
+          47,
+          48,
+          53,
+          55,
+          56,
+          57,
+          58,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          31,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          40,
+          43,
+          46,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          31,
+          33,
+          34,
+          35,
+          37,
+          40,
+          43,
+          46,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          43,
+          45,
+          47,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          31,
+          33,
+          34,
+          35,
+          37,
+          38,
+          40,
+          43,
+          46,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          38,
+          43,
+          46,
+          48,
+          53,
+          54,
+          60,
+          61,
+          75,
+          79,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106050,
@@ -1047,7 +3711,48 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          17,
+          27
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          17,
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          17,
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          17,
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27,
+          63,
+          79
+        ]
+      }
+    ]
   },
   {
     "Id": 106051,
@@ -1068,7 +3773,15 @@
     },
     "BFType": "BA",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 13,
+        "FactionIds": [
+          20
+        ]
+      }
+    ]
   },
   {
     "Id": 106052,
@@ -1089,7 +3802,42 @@
     },
     "BFType": "CV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29,
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29
+        ]
+      }
+    ]
   },
   {
     "Id": 106053,
@@ -1110,7 +3858,33 @@
     },
     "BFType": "BM",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          34,
+          35,
+          54
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          34,
+          35,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          34,
+          35,
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106054,
@@ -1131,7 +3905,68 @@
     },
     "BFType": "CI",
     "EraId": 12,
-    "EraStart": 3020
+    "EraStart": 3020,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          29,
+          32,
+          54,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29,
+          32
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29,
+          54
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          32,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          29,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29,
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106055,
@@ -1152,7 +3987,135 @@
     },
     "BFType": "BM",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          30,
+          44,
+          54
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          29,
+          30,
+          54,
+          74
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          47
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          35,
+          36,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          35,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          46,
+          53,
+          54,
+          60,
+          61,
+          75,
+          80
+        ]
+      }
+    ]
   },
   {
     "Id": 106056,
@@ -1173,7 +4136,50 @@
     },
     "BFType": "CV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27,
+          29,
+          32
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29,
+          54,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106057,
@@ -1194,7 +4200,108 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          10,
+          12,
+          14,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          14,
+          17,
+          19,
+          22,
+          23,
+          62,
+          67
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          17,
+          23,
+          38,
+          39,
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          17,
+          23,
+          27,
+          38,
+          39,
+          40,
+          63
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          14,
+          17,
+          19,
+          21,
+          22,
+          23
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          17,
+          23,
+          38,
+          39,
+          40,
+          63
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27,
+          38,
+          39,
+          63,
+          79
+        ]
+      }
+    ]
   },
   {
     "Id": 106058,
@@ -1215,7 +4322,33 @@
     },
     "BFType": "BM",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5
+        ]
+      }
+    ]
   },
   {
     "Id": 106059,
@@ -1236,7 +4369,149 @@
     },
     "BFType": "CV",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          34,
+          43,
+          45,
+          47,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          43,
+          47,
+          48,
+          53,
+          55,
+          56,
+          57,
+          58,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          34,
+          37
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          34,
+          43,
+          45,
+          47,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          34,
+          43,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          5,
+          27,
+          28,
+          29,
+          30,
+          34,
+          43,
+          54,
+          64
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          34,
+          37
+        ]
+      }
+    ]
   },
   {
     "Id": 106060,
@@ -1257,7 +4532,8 @@
     },
     "BFType": "BA",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": []
   },
   {
     "Id": 106061,
@@ -1278,7 +4554,57 @@
     },
     "BFType": "AF",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          68
+        ]
+      },
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          29,
+          30,
+          54
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          30,
+          47
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          47
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          30,
+          47
+        ]
+      }
+    ]
   },
   {
     "Id": 106062,
@@ -1299,7 +4625,68 @@
     },
     "BFType": "BM",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27,
+          34,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27,
+          30,
+          33,
+          34,
+          35,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27,
+          34,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27,
+          30,
+          33,
+          34,
+          35,
+          53,
+          75,
+          79
+        ]
+      }
+    ]
   },
   {
     "Id": 106063,
@@ -1320,7 +4707,28 @@
     },
     "BFType": "AF",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          46
+        ]
+      },
+      {
+        "EraId": 2,
+        "FactionIds": [
+          33,
+          46
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          46
+        ]
+      }
+    ]
   },
   {
     "Id": 106064,
@@ -1341,7 +4749,8 @@
     },
     "BFType": "BA",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": []
   },
   {
     "Id": 106065,
@@ -1362,7 +4771,21 @@
     },
     "BFType": "BA",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          48
+        ]
+      }
+    ]
   },
   {
     "Id": 106066,
@@ -1383,7 +4806,8 @@
     },
     "BFType": "BA",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": []
   },
   {
     "Id": 106067,
@@ -1404,7 +4828,27 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106068,
@@ -1425,7 +4869,212 @@
     },
     "BFType": "BM",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          48
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          21,
+          22,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          43,
+          47,
+          48,
+          53,
+          55,
+          56,
+          57,
+          58,
+          62,
+          67,
+          70,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          24,
+          39,
+          40,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          34,
+          38,
+          39,
+          40,
+          48,
+          63,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          21,
+          22,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          43,
+          45,
+          47,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          24,
+          39,
+          40,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          34,
+          38,
+          39,
+          48,
+          63,
+          76,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106069,
@@ -1446,7 +5095,15 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          47
+        ]
+      }
+    ]
   },
   {
     "Id": 106070,
@@ -1467,7 +5124,51 @@
     },
     "BFType": "BM",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          8,
+          10,
+          19,
+          21
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          38
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          38,
+          63
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          10,
+          19
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          38,
+          63
+        ]
+      }
+    ]
   },
   {
     "Id": 106071,
@@ -1488,7 +5189,98 @@
     },
     "BFType": "CV",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          43,
+          46,
+          53,
+          54,
+          60,
+          61,
+          75,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106072,
@@ -1509,7 +5301,42 @@
     },
     "BFType": "CV",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          31,
+          34,
+          48
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          34,
+          48
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          48
+        ]
+      }
+    ]
   },
   {
     "Id": 106073,
@@ -1530,7 +5357,21 @@
     },
     "BFType": "BM",
     "EraId": 12,
-    "EraStart": 3020
+    "EraStart": 3020,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106074,
@@ -1551,7 +5392,181 @@
     },
     "BFType": "AF",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106075,
@@ -1572,7 +5587,48 @@
     },
     "BFType": "BA",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106076,
@@ -1593,7 +5649,22 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          80
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          76,
+          80
+        ]
+      }
+    ]
   },
   {
     "Id": 106077,
@@ -1614,7 +5685,35 @@
     },
     "BFType": "AF",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          68
+        ]
+      },
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          27,
+          30,
+          41,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          5,
+          27,
+          30,
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106078,
@@ -1635,7 +5734,15 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29
+        ]
+      }
+    ]
   },
   {
     "Id": 106079,
@@ -1656,7 +5763,39 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13
+        ]
+      }
+    ]
   },
   {
     "Id": 106080,
@@ -1677,7 +5816,37 @@
     },
     "BFType": "BA",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          80
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          76,
+          80
+        ]
+      }
+    ]
   },
   {
     "Id": 106081,
@@ -1698,7 +5867,141 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          43,
+          45,
+          47,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          43,
+          47,
+          48,
+          53,
+          55,
+          56,
+          57,
+          58,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          43,
+          45,
+          47,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          53
+        ]
+      }
+    ]
   },
   {
     "Id": 106082,
@@ -1719,7 +6022,34 @@
     },
     "BFType": "CV",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          54,
+          82
+        ]
+      }
+    ]
   },
   {
     "Id": 106083,
@@ -1740,7 +6070,15 @@
     },
     "BFType": "SV",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106084,
@@ -1761,7 +6099,29 @@
     },
     "BFType": "CV",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          15,
+          20,
+          76
+        ]
+      }
+    ]
   },
   {
     "Id": 106085,
@@ -1782,7 +6142,66 @@
     },
     "BFType": "BM",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          29,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29,
+          60
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          60
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          60
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          60
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          29
+        ]
+      }
+    ]
   },
   {
     "Id": 106086,
@@ -1803,7 +6222,15 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          47
+        ]
+      }
+    ]
   },
   {
     "Id": 106087,
@@ -1824,7 +6251,42 @@
     },
     "BFType": "BM",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          34,
+          56
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          30,
+          34,
+          55,
+          56,
+          58,
+          59
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          34,
+          56
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          30,
+          34,
+          46
+        ]
+      }
+    ]
   },
   {
     "Id": 106088,
@@ -1845,7 +6307,98 @@
     },
     "BFType": "BM",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          6,
+          11,
+          12,
+          14,
+          20,
+          21
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          6,
+          7,
+          11,
+          12,
+          13,
+          14,
+          21,
+          67,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          34,
+          39,
+          48,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          34,
+          39,
+          48,
+          73
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          6,
+          11,
+          12,
+          13,
+          14,
+          21
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          34,
+          39,
+          48,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          6,
+          11,
+          12,
+          14
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          6,
+          11,
+          12,
+          14
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          39,
+          48,
+          73
+        ]
+      }
+    ]
   },
   {
     "Id": 106089,
@@ -1866,7 +6419,8 @@
     },
     "BFType": "BA",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": []
   },
   {
     "Id": 106090,
@@ -1887,7 +6441,44 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          32,
+          47
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          54,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106091,
@@ -1908,7 +6499,8 @@
     },
     "BFType": "BA",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": []
   },
   {
     "Id": 106092,
@@ -1929,7 +6521,21 @@
     },
     "BFType": "CV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          13
+        ]
+      }
+    ]
   },
   {
     "Id": 106093,
@@ -1950,7 +6556,22 @@
     },
     "BFType": "BA",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          30,
+          34
+        ]
+      }
+    ]
   },
   {
     "Id": 106094,
@@ -1971,7 +6592,27 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          30
+        ]
+      }
+    ]
   },
   {
     "Id": 106095,
@@ -1992,7 +6633,24 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          23,
+          54,
+          80
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          54,
+          76
+        ]
+      }
+    ]
   },
   {
     "Id": 106096,
@@ -2013,7 +6671,15 @@
     },
     "BFType": "BM",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          44
+        ]
+      }
+    ]
   },
   {
     "Id": 106097,
@@ -2034,7 +6700,39 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106098,
@@ -2055,7 +6753,46 @@
     },
     "BFType": "CV",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29
+        ]
+      }
+    ]
   },
   {
     "Id": 106099,
@@ -2076,7 +6813,21 @@
     },
     "BFType": "AF",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5
+        ]
+      }
+    ]
   },
   {
     "Id": 106100,
@@ -2097,7 +6848,83 @@
     },
     "BFType": "AF",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          15,
+          21,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          15,
+          21
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106101,
@@ -2118,7 +6945,43 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          13,
+          15
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          15,
+          63
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          15,
+          63,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106102,
@@ -2139,7 +7002,15 @@
     },
     "BFType": "BM",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106103,
@@ -2160,7 +7031,8 @@
     },
     "BFType": "BA",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": []
   },
   {
     "Id": 106104,
@@ -2181,7 +7053,16 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          7,
+          67
+        ]
+      }
+    ]
   },
   {
     "Id": 106105,
@@ -2202,7 +7083,8 @@
     },
     "BFType": "BA",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": []
   },
   {
     "Id": 106106,
@@ -2223,7 +7105,29 @@
     },
     "BFType": "AF",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          15,
+          20,
+          76
+        ]
+      }
+    ]
   },
   {
     "Id": 106107,
@@ -2244,7 +7148,23 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          15,
+          34,
+          81
+        ]
+      }
+    ]
   },
   {
     "Id": 106108,
@@ -2265,7 +7185,21 @@
     },
     "BFType": "BM",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          43
+        ]
+      }
+    ]
   },
   {
     "Id": 106109,
@@ -2286,7 +7220,181 @@
     },
     "BFType": "AF",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106110,
@@ -2307,7 +7415,17 @@
     },
     "BFType": "BA",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 13,
+        "FactionIds": [
+          15,
+          20,
+          76
+        ]
+      }
+    ]
   },
   {
     "Id": 106111,
@@ -2328,7 +7446,8 @@
     },
     "BFType": "BA",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": []
   },
   {
     "Id": 106112,
@@ -2349,7 +7468,64 @@
     },
     "BFType": "BA",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          34,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          30,
+          34,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          34,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          30,
+          34,
+          53
+        ]
+      }
+    ]
   },
   {
     "Id": 106113,
@@ -2370,7 +7546,29 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          29,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          65
+        ]
+      }
+    ]
   },
   {
     "Id": 106114,
@@ -2391,7 +7589,95 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          32,
+          33,
+          34,
+          47
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          33,
+          34,
+          35,
+          38,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          30,
+          33,
+          34,
+          35,
+          38,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          33,
+          34,
+          35,
+          38,
+          40,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          30,
+          33,
+          34,
+          35,
+          38,
+          53,
+          75,
+          79
+        ]
+      }
+    ]
   },
   {
     "Id": 106115,
@@ -2412,7 +7698,55 @@
     },
     "BFType": "BA",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          6,
+          8,
+          19,
+          21
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          38
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          38,
+          63
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          6,
+          8,
+          21
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          38,
+          63
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          38,
+          63
+        ]
+      }
+    ]
   },
   {
     "Id": 106116,
@@ -2433,7 +7767,36 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          31,
+          34,
+          38,
+          48,
+          63
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          20,
+          38,
+          39,
+          48,
+          63,
+          73,
+          79,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106117,
@@ -2454,7 +7817,176 @@
     },
     "BFType": "AF",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          63,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          63
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106118,
@@ -2475,7 +8007,27 @@
     },
     "BFType": "CV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          47
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          18
+        ]
+      }
+    ]
   },
   {
     "Id": 106119,
@@ -2496,7 +8048,66 @@
     },
     "BFType": "CV",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          34,
+          43,
+          53,
+          54,
+          79,
+          80,
+          81,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106120,
@@ -2517,7 +8128,87 @@
     },
     "BFType": "CV",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          41,
+          44
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          27,
+          29,
+          30,
+          54,
+          63,
+          74
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          18
+        ]
+      }
+    ]
   },
   {
     "Id": 106121,
@@ -2538,7 +8229,15 @@
     },
     "BFType": "CV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          47
+        ]
+      }
+    ]
   },
   {
     "Id": 106122,
@@ -2559,7 +8258,157 @@
     },
     "BFType": "SV",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          47,
+          53,
+          55,
+          56,
+          57,
+          58,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          43,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          5,
+          27,
+          28,
+          29,
+          30,
+          43,
+          54,
+          64
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          43,
+          53,
+          54,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106123,
@@ -2580,7 +8429,206 @@
     },
     "BFType": "CI",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          63
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106124,
@@ -2601,7 +8649,68 @@
     },
     "BFType": "AF",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          15,
+          20,
+          76
+        ]
+      }
+    ]
   },
   {
     "Id": 106125,
@@ -2622,7 +8731,64 @@
     },
     "BFType": "BM",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          13,
+          15,
+          23,
+          24,
+          38,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          54,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          23,
+          24,
+          38,
+          73
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          54,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106126,
@@ -2643,7 +8809,269 @@
     },
     "BFType": "SV",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          37,
+          41,
+          44,
+          46,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          5,
+          9,
+          18,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          37,
+          46,
+          54,
+          74
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          9,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          45,
+          46,
+          47,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          9,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          46,
+          47,
+          53,
+          55,
+          56,
+          57,
+          58,
+          60,
+          61,
+          70,
+          73,
+          75
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          35,
+          36,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          73,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          73,
+          75
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          9,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          45,
+          46,
+          47,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          35,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          73,
+          75
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          5,
+          9,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          46,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          5,
+          9,
+          27,
+          28,
+          29,
+          30,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          46,
+          54,
+          64
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          43,
+          46,
+          53,
+          54,
+          60,
+          61,
+          73,
+          75,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106127,
@@ -2664,7 +9092,21 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106128,
@@ -2685,7 +9127,48 @@
     },
     "BFType": "CV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          32
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          34,
+          54,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106129,
@@ -2706,7 +9189,33 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          64
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          34
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          34
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          64
+        ]
+      }
+    ]
   },
   {
     "Id": 106130,
@@ -2727,7 +9236,133 @@
     },
     "BFType": "SV",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          47,
+          53,
+          55,
+          56,
+          57,
+          58,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          43,
+          53,
+          54,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106131,
@@ -2748,7 +9383,8 @@
     },
     "BFType": "BA",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": []
   },
   {
     "Id": 106132,
@@ -2769,7 +9405,22 @@
     },
     "BFType": "PM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          14,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          73
+        ]
+      }
+    ]
   },
   {
     "Id": 106133,
@@ -2790,7 +9441,65 @@
     },
     "BFType": "SV",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          29,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106134,
@@ -2811,7 +9520,110 @@
     },
     "BFType": "BM",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          27,
+          33,
+          34,
+          36,
+          37,
+          41,
+          44,
+          46,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          33,
+          34,
+          36,
+          37,
+          46,
+          54,
+          74
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          32,
+          33,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          32,
+          33,
+          48,
+          75
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          33,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          33
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          32,
+          33,
+          48,
+          64
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          33,
+          75
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          5,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          5,
+          54,
+          64
+        ]
+      }
+    ]
   },
   {
     "Id": 106135,
@@ -2832,7 +9644,96 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          28,
+          29,
+          30,
+          32,
+          34
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          39,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          34,
+          39,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          39,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          34,
+          39,
+          43,
+          53,
+          54,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106136,
@@ -2853,7 +9754,74 @@
     },
     "BFType": "SV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          30,
+          33,
+          75
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          33,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          30,
+          33,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          33,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          30,
+          33,
+          53,
+          75
+        ]
+      }
+    ]
   },
   {
     "Id": 106137,
@@ -2874,7 +9842,40 @@
     },
     "BFType": "CV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          11,
+          28
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          39
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          39
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          39
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          39
+        ]
+      }
+    ]
   },
   {
     "Id": 106138,
@@ -2895,7 +9896,58 @@
     },
     "BFType": "BM",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          13,
+          15,
+          27,
+          29,
+          30,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          73
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          23,
+          73
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          13,
+          27,
+          29,
+          30,
+          43,
+          53,
+          54,
+          73,
+          81,
+          82,
+          83,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106139,
@@ -2916,7 +9968,123 @@
     },
     "BFType": "CV",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          13
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          10,
+          12,
+          13,
+          14,
+          19,
+          21,
+          48
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          10,
+          12,
+          14,
+          19,
+          22,
+          24,
+          48,
+          62
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          10,
+          12,
+          14,
+          19,
+          21,
+          22,
+          48
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          8,
+          10,
+          13,
+          14,
+          17,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          48,
+          76,
+          80
+        ]
+      }
+    ]
   },
   {
     "Id": 106140,
@@ -2937,7 +10105,130 @@
     },
     "BFType": "AF",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          9,
+          27,
+          28,
+          29,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          46,
+          48,
+          54,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          9,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          46,
+          47,
+          48,
+          60,
+          61,
+          75
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          33,
+          34,
+          35,
+          36,
+          37,
+          40,
+          46,
+          54,
+          60,
+          61,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          33,
+          34,
+          35,
+          37,
+          46,
+          60,
+          61,
+          75
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          9,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          46,
+          48,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          33,
+          34,
+          35,
+          37,
+          46,
+          54,
+          60,
+          61,
+          75
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          33,
+          34,
+          35,
+          37,
+          46,
+          60,
+          61,
+          75
+        ]
+      }
+    ]
   },
   {
     "Id": 106141,
@@ -2958,7 +10249,30 @@
     },
     "BFType": "BM",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          29,
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          29
+        ]
+      }
+    ]
   },
   {
     "Id": 106142,
@@ -2979,7 +10293,51 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          18,
+          28,
+          47
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          18,
+          28,
+          47
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          18,
+          28,
+          47
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40
+        ]
+      }
+    ]
   },
   {
     "Id": 106143,
@@ -3000,7 +10358,67 @@
     },
     "BFType": "BA",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          29,
+          32,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29,
+          32,
+          60
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          34,
+          60
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29,
+          34,
+          60
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29,
+          32,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          34,
+          60
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29,
+          34,
+          60
+        ]
+      }
+    ]
   },
   {
     "Id": 106144,
@@ -3021,7 +10439,215 @@
     },
     "BFType": "IM",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          36,
+          37,
+          41,
+          46,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          27,
+          29,
+          30,
+          33,
+          36,
+          37,
+          46,
+          54,
+          63,
+          74
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          10,
+          12,
+          13,
+          14,
+          18,
+          19,
+          21,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          10,
+          12,
+          14,
+          18,
+          19,
+          22,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          47,
+          53,
+          55,
+          56,
+          57,
+          58,
+          62,
+          70,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          73
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          5,
+          6,
+          7,
+          10,
+          12,
+          14,
+          18,
+          19,
+          21,
+          22,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          73
+        ]
+      }
+    ]
   },
   {
     "Id": 106145,
@@ -3042,7 +10668,46 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29,
+          34,
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29,
+          34,
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29,
+          34,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29,
+          34
+        ]
+      }
+    ]
   },
   {
     "Id": 106146,
@@ -3063,7 +10728,39 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29
+        ]
+      }
+    ]
   },
   {
     "Id": 106147,
@@ -3084,7 +10781,89 @@
     },
     "BFType": "AF",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          36,
+          37,
+          41,
+          44,
+          46,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          27,
+          29,
+          30,
+          33,
+          54,
+          63,
+          74
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          33
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          33
+        ]
+      }
+    ]
   },
   {
     "Id": 106148,
@@ -3105,7 +10884,43 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          24
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          80
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          76,
+          80
+        ]
+      }
+    ]
   },
   {
     "Id": 106149,
@@ -3126,7 +10941,84 @@
     },
     "BFType": "CV",
     "EraId": 12,
-    "EraStart": 3020
+    "EraStart": 3020,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          18,
+          27,
+          28,
+          29,
+          32,
+          48,
+          54,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          18,
+          27,
+          28,
+          29,
+          32,
+          47,
+          48
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27,
+          29,
+          40,
+          48,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40,
+          48
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          18,
+          27,
+          28,
+          29,
+          32,
+          47,
+          48,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27,
+          40,
+          48
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          48
+        ]
+      }
+    ]
   },
   {
     "Id": 106150,
@@ -3147,7 +11039,45 @@
     },
     "BFType": "BM",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          43
+        ]
+      }
+    ]
   },
   {
     "Id": 106151,
@@ -3168,7 +11098,158 @@
     },
     "BFType": "BM",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          63
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          6,
+          8,
+          11,
+          12,
+          15,
+          17,
+          19,
+          20,
+          22,
+          23,
+          24,
+          27,
+          29,
+          32,
+          54,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          6,
+          8,
+          10,
+          11,
+          12,
+          13,
+          15,
+          17,
+          19,
+          21,
+          23,
+          24,
+          27,
+          29,
+          32,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          15,
+          24,
+          38,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          15,
+          38,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          6,
+          8,
+          10,
+          11,
+          12,
+          13,
+          15,
+          17,
+          19,
+          23,
+          24,
+          27,
+          29,
+          32,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          15,
+          24,
+          38,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          12,
+          13,
+          15,
+          19,
+          20,
+          21
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          12,
+          15,
+          19,
+          20
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          38,
+          73
+        ]
+      }
+    ]
   },
   {
     "Id": 106152,
@@ -3189,7 +11270,340 @@
     },
     "BFType": "CV",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          37,
+          41,
+          44,
+          46,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          37,
+          46,
+          54,
+          63,
+          74
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          21,
+          22,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          47,
+          53,
+          55,
+          56,
+          57,
+          58,
+          62,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          27,
+          29,
+          34,
+          38,
+          39,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          13,
+          15,
+          17,
+          23,
+          27,
+          29,
+          30,
+          34,
+          38,
+          39,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          63,
+          70,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          21,
+          22,
+          23,
+          24,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          13,
+          15,
+          17,
+          23,
+          24,
+          27,
+          29,
+          34,
+          38,
+          39,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          63,
+          70
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          27,
+          29,
+          30,
+          43,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          24,
+          27,
+          28,
+          29,
+          30,
+          43,
+          54,
+          64
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          13,
+          15,
+          20,
+          27,
+          29,
+          30,
+          34,
+          38,
+          39,
+          43,
+          53,
+          54,
+          63,
+          76,
+          79,
+          80,
+          81,
+          82,
+          83,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106153,
@@ -3210,7 +11624,73 @@
     },
     "BFType": "CV",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          31,
+          34,
+          48
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          31,
+          34,
+          48
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          34,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          34,
+          54
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          34,
+          48
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          34,
+          54
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          48
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          34,
+          54,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106154,
@@ -3231,7 +11711,21 @@
     },
     "BFType": "BA",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106155,
@@ -3252,7 +11746,153 @@
     },
     "BFType": "CV",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          34,
+          43,
+          45,
+          47,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          43,
+          47,
+          48,
+          53,
+          55,
+          56,
+          57,
+          58,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27,
+          34,
+          37
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          34,
+          43,
+          45,
+          47,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          34,
+          43,
+          48,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          5,
+          27,
+          28,
+          29,
+          30,
+          34,
+          43,
+          48,
+          54,
+          64
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27,
+          34,
+          37
+        ]
+      }
+    ]
   },
   {
     "Id": 106156,
@@ -3273,7 +11913,64 @@
     },
     "BFType": "CV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          33,
+          53,
+          55,
+          56,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          30,
+          33,
+          53,
+          55,
+          56,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          33,
+          53,
+          55,
+          56,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          30,
+          33,
+          53
+        ]
+      }
+    ]
   },
   {
     "Id": 106157,
@@ -3294,7 +11991,113 @@
     },
     "BFType": "SV",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          9,
+          31,
+          33,
+          34,
+          35,
+          36,
+          37,
+          46,
+          48,
+          60,
+          61,
+          75
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          31,
+          34,
+          40,
+          43,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          31,
+          34,
+          40,
+          43,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          31,
+          34,
+          40,
+          43,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          31,
+          34,
+          43,
+          48,
+          53,
+          54,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106158,
@@ -3315,7 +12118,22 @@
     },
     "BFType": "AF",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          54
+        ]
+      },
+      {
+        "EraId": 2,
+        "FactionIds": [
+          41,
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106159,
@@ -3336,7 +12154,23 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27,
+          39
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27,
+          39
+        ]
+      }
+    ]
   },
   {
     "Id": 106160,
@@ -3357,7 +12191,34 @@
     },
     "BFType": "BM",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          18,
+          38,
+          39,
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          18,
+          38,
+          39,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          38,
+          39
+        ]
+      }
+    ]
   },
   {
     "Id": 106161,
@@ -3378,7 +12239,50 @@
     },
     "BFType": "AF",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          17,
+          27
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          17,
+          27
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27,
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106162,
@@ -3399,7 +12303,17 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          7,
+          67
+        ]
+      }
+    ]
   },
   {
     "Id": 106163,
@@ -3420,7 +12334,16 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          7,
+          67
+        ]
+      }
+    ]
   },
   {
     "Id": 106164,
@@ -3441,7 +12364,101 @@
     },
     "BFType": "SV",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 2,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          30,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          30,
+          53
+        ]
+      }
+    ]
   },
   {
     "Id": 106165,
@@ -3462,7 +12479,62 @@
     },
     "BFType": "BM",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          53,
+          55,
+          57,
+          70
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          55,
+          57,
+          70
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          30
+        ]
+      }
+    ]
   },
   {
     "Id": 106166,
@@ -3483,7 +12555,39 @@
     },
     "BFType": "BM",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29
+        ]
+      }
+    ]
   },
   {
     "Id": 106167,
@@ -3504,7 +12608,51 @@
     },
     "BFType": "AF",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106168,
@@ -3525,7 +12673,194 @@
     },
     "BFType": "AF",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          13,
+          21
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          40,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          40,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          40,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106169,
@@ -3546,7 +12881,37 @@
     },
     "BFType": "BM",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          20,
+          34,
+          43,
+          63
+        ]
+      }
+    ]
   },
   {
     "Id": 106170,
@@ -3567,7 +12932,27 @@
     },
     "BFType": "BM",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          15
+        ]
+      }
+    ]
   },
   {
     "Id": 106171,
@@ -3588,7 +12973,15 @@
     },
     "BFType": "SV",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          30
+        ]
+      }
+    ]
   },
   {
     "Id": 106172,
@@ -3609,7 +13002,8 @@
     },
     "BFType": "BA",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": []
   },
   {
     "Id": 106173,
@@ -3630,7 +13024,15 @@
     },
     "BFType": "BM",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          5
+        ]
+      }
+    ]
   },
   {
     "Id": 106174,
@@ -3651,7 +13053,58 @@
     },
     "BFType": "CV",
     "EraId": 10,
-    "EraStart": 3101
+    "EraStart": 3101,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          30,
+          33,
+          34,
+          35,
+          40,
+          46,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          33,
+          34,
+          35,
+          40,
+          46,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          30,
+          33,
+          34,
+          35,
+          46,
+          53,
+          75
+        ]
+      }
+    ]
   },
   {
     "Id": 106175,
@@ -3672,7 +13125,111 @@
     },
     "BFType": "CV",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": [
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          35,
+          36,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          35,
+          37,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          43,
+          46,
+          53,
+          54,
+          60,
+          61,
+          75,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106176,
@@ -3693,7 +13250,211 @@
     },
     "BFType": "CI",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          63
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          10,
+          12,
+          13,
+          14,
+          18,
+          19,
+          21,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106177,
@@ -3714,7 +13475,201 @@
     },
     "BFType": "CV",
     "EraId": 3,
-    "EraStart": 2781
+    "EraStart": 2781,
+    "Availability": [
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          63
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          63,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          63
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106178,
@@ -3735,7 +13690,38 @@
     },
     "BFType": "PM",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          2,
+          7,
+          10,
+          17,
+          21,
+          22,
+          23
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          17
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          7,
+          10,
+          17,
+          21,
+          23
+        ]
+      }
+    ]
   },
   {
     "Id": 106179,
@@ -3756,7 +13742,23 @@
     },
     "BFType": "AF",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          30
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          5,
+          30
+        ]
+      }
+    ]
   },
   {
     "Id": 106180,
@@ -3777,7 +13779,8 @@
     },
     "BFType": "BA",
     "EraId": 6,
-    "EraStart": 3081
+    "EraStart": 3081,
+    "Availability": []
   },
   {
     "Id": 106181,
@@ -3798,7 +13801,24 @@
     },
     "BFType": "BM",
     "EraId": 7,
-    "EraStart": 3131
+    "EraStart": 3131,
+    "Availability": [
+      {
+        "EraId": 7,
+        "FactionIds": [
+          15
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          15,
+          34,
+          48,
+          81
+        ]
+      }
+    ]
   },
   {
     "Id": 106182,
@@ -3819,7 +13839,19 @@
     },
     "BFType": "SV",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          5,
+          30,
+          33,
+          34,
+          46
+        ]
+      }
+    ]
   },
   {
     "Id": 106183,
@@ -3840,7 +13872,8 @@
     },
     "BFType": "BA",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": []
   },
   {
     "Id": 106184,
@@ -3861,7 +13894,15 @@
     },
     "BFType": "AF",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          68
+        ]
+      }
+    ]
   },
   {
     "Id": 106185,
@@ -3882,7 +13923,15 @@
     },
     "BFType": "AF",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          34
+        ]
+      }
+    ]
   },
   {
     "Id": 106186,
@@ -3903,7 +13952,8 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": []
   },
   {
     "Id": 106187,
@@ -3924,7 +13974,53 @@
     },
     "BFType": "BM",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          32
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          29,
+          34,
+          54
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          32
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          34,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          29,
+          34,
+          54,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106188,
@@ -3945,7 +14041,15 @@
     },
     "BFType": "SV",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106189,
@@ -3966,7 +14070,45 @@
     },
     "BFType": "BM",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5
+        ]
+      }
+    ]
   },
   {
     "Id": 106190,
@@ -3987,7 +14129,217 @@
     },
     "BFType": "CV",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          44
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          1,
+          2,
+          5,
+          6,
+          7,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24,
+          25,
+          26,
+          63,
+          74
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          62,
+          67,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          40,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          40,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          40,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          20,
+          21,
+          22,
+          24
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106191,
@@ -4008,7 +14360,8 @@
     },
     "BFType": "BA",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": []
   },
   {
     "Id": 106192,
@@ -4029,7 +14382,238 @@
     },
     "BFType": "CI",
     "EraId": 1,
-    "EraStart": 2005
+    "EraStart": 2005,
+    "Availability": [
+      {
+        "EraId": 1,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          37,
+          41,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 2,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          41,
+          44,
+          54,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          54
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          9,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          36,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          9,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          36,
+          48,
+          75
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          31,
+          33,
+          34,
+          36,
+          37,
+          38,
+          40,
+          43,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          31,
+          33,
+          34,
+          37,
+          38,
+          40,
+          43,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          9,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          36,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          31,
+          33,
+          34,
+          37,
+          38,
+          40,
+          43,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          36,
+          48,
+          54
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          5,
+          27,
+          28,
+          29,
+          30,
+          33,
+          34,
+          36,
+          54,
+          64
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          31,
+          33,
+          34,
+          37,
+          38,
+          43,
+          48,
+          53,
+          54,
+          75,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106193,
@@ -4050,7 +14634,88 @@
     },
     "BFType": "BM",
     "EraId": 12,
-    "EraStart": 3020
+    "EraStart": 3020,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          47,
+          53,
+          55,
+          56,
+          57,
+          58,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          43,
+          45,
+          47,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          5
+        ]
+      }
+    ]
   },
   {
     "Id": 106194,
@@ -4071,7 +14736,149 @@
     },
     "BFType": "CV",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          43,
+          45,
+          47,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          34,
+          43,
+          47,
+          48,
+          53,
+          55,
+          56,
+          57,
+          58,
+          60,
+          70
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          70
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          5,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          34,
+          43,
+          45,
+          47,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          34,
+          40,
+          43,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          70
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          34,
+          43,
+          53,
+          54,
+          82,
+          83
+        ]
+      }
+    ]
   },
   {
     "Id": 106195,
@@ -4092,7 +14899,97 @@
     },
     "BFType": "BA",
     "EraId": 5,
-    "EraStart": 3068
+    "EraStart": 3068,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          1,
+          2,
+          6,
+          7,
+          8,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          17,
+          19,
+          21,
+          22,
+          23,
+          24,
+          48,
+          62,
+          73
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          8,
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          48,
+          73
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          38,
+          39,
+          48,
+          63,
+          73,
+          80
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          13,
+          15,
+          17,
+          23,
+          24,
+          38,
+          39,
+          48,
+          63,
+          73
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          13,
+          15,
+          20,
+          38,
+          39,
+          48,
+          63,
+          73,
+          76,
+          79,
+          80,
+          81,
+          190
+        ]
+      }
+    ]
   },
   {
     "Id": 106196,
@@ -4113,7 +15010,83 @@
     },
     "BFType": "BM",
     "EraId": 4,
-    "EraStart": 3050
+    "EraStart": 3050,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          18,
+          29,
+          31,
+          32,
+          34,
+          48,
+          54,
+          65
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          18,
+          29,
+          31,
+          32,
+          34,
+          48
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          23,
+          29,
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          23,
+          29,
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          18,
+          29,
+          31,
+          32,
+          34,
+          48,
+          65
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          23,
+          29,
+          34,
+          40,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          29,
+          34,
+          54
+        ]
+      }
+    ]
   },
   {
     "Id": 106197,
@@ -4134,7 +15107,77 @@
     },
     "BFType": "CI",
     "EraId": 12,
-    "EraStart": 3020
+    "EraStart": 3020,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          30,
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          53,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          30,
+          53
+        ]
+      }
+    ]
   },
   {
     "Id": 106198,
@@ -4155,7 +15198,45 @@
     },
     "BFType": "SV",
     "EraId": 8,
-    "EraStart": 3062
+    "EraStart": 3062,
+    "Availability": [
+      {
+        "EraId": 5,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          27
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          27
+        ]
+      }
+    ]
   },
   {
     "Id": 106199,
@@ -4176,7 +15257,56 @@
     },
     "BFType": "BM",
     "EraId": 2,
-    "EraStart": 2571
+    "EraStart": 2571,
+    "Availability": [
+      {
+        "EraId": 2,
+        "FactionIds": [
+          41,
+          68
+        ]
+      },
+      {
+        "EraId": 3,
+        "FactionIds": [
+          18,
+          29
+        ]
+      },
+      {
+        "EraId": 4,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          18
+        ]
+      }
+    ]
   },
   {
     "Id": 106200,
@@ -4197,6 +15327,62 @@
     },
     "BFType": "CI",
     "EraId": 11,
-    "EraStart": 2901
+    "EraStart": 2901,
+    "Availability": [
+      {
+        "EraId": 4,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 5,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 6,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 7,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 8,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 10,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 12,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          35
+        ]
+      }
+    ]
   }
 ]

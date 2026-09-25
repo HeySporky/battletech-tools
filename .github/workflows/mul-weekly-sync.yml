@@ -84,10 +84,14 @@ jobs:
             exit 1
           fi
 
-      # Windows' bash-on-PATH is often the WSL app-execution-alias stub, not Git Bash, so point at it explicitly.
+      # Windows' bash-on-PATH is often the WSL app-execution-alias stub, not Git Bash. GitHub's custom
+      # `shell:` field can't handle the space in "C:\Program Files\Git\bin\bash.exe" (it truncates at
+      # the first space and crashes), so prepend Git's bin dir to PATH instead and use plain `shell: bash`.
       - name: Commit and push updates (Windows self-hosted)
         if: runner.os == 'Windows'
-        shell: "C:\\Program Files\\Git\\bin\\bash.exe --noprofile --norc -eo pipefail {0}"
+        shell: bash
+        env:
+          PATH: "C:\\Program Files\\Git\\bin;${{ env.PATH }}"
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
