@@ -93,14 +93,33 @@ async function saveJson(filePath, data) {
     await fs.writeFile(filePath, `${JSON.stringify(data, null, 2)}\n`, "utf8");
 }
 
-async function fetchJson(page, relativeUrl) {
-    return page.evaluate(async (url) => {
-        const res = await fetch(url, { headers: { accept: "application/json" } });
-        if (!res.ok) {
-            throw new Error(`Request failed: ${res.status} ${url}`);
+async function fetchJson(page, relativeUrl, { retries = 2, retryDelayMs = 3000 } = {}) {
+    const url = `${SITE}${relativeUrl}`;
+    for (let attempt = 0; ; attempt += 1) {
+        const result = await page.evaluate(async (u) => {
+            const res = await fetch(u, { headers: { accept: "application/json" } });
+            return { ok: res.ok, status: res.status, body: res.ok ? await res.json() : null };
+        }, url);
+
+        if (result.ok) {
+            return result.body;
         }
-        return res.json();
-    }, `${SITE}${relativeUrl}`);
+
+        // 403/429 on a data endpoint (as opposed to the "Just a moment" HTML challenge page) is
+        // Cloudflare's WAF/bot-management rejecting the request outright, often by IP/ASN reputation
+        // rather than by detecting automation in the page itself.
+        const isBotBlock = result.status === 403 || result.status === 429;
+        if (isBotBlock && attempt < retries) {
+            console.warn(`Request to ${url} got ${result.status}; retrying in ${retryDelayMs}ms (attempt ${attempt + 1}/${retries})...`);
+            await page.waitForTimeout(retryDelayMs);
+            continue;
+        }
+
+        if (isBotBlock) {
+            throw new CloudflareBlockError(`Request blocked with ${result.status} after ${attempt + 1} attempt(s): ${url}`);
+        }
+        throw new Error(`Request failed: ${result.status} ${url}`);
+    }
 }
 
 function buildLookup(records, keyField = "id") {
