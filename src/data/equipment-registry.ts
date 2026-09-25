@@ -171,13 +171,15 @@ export function getEquipmentListByTech(techTag: string, includeCustom: boolean =
 
     switch (normalizedTech) {
         case "clan":
-            return cloneEquipment([...universalEquipment, ...getCatalogByTech("clan"), ...customEquipment]);
+            return cloneEquipment([...getCatalogByTech("clan"), ...customEquipment, ...universalEquipment]);
         case "mis":
-            return cloneEquipment([...universalEquipment, ...getCatalogByTech("is"), ...getCatalogByTech("clan"), ...customEquipment]);
+            return cloneEquipment([...getCatalogByTech("is"), ...getCatalogByTech("clan"), ...customEquipment, ...universalEquipment]);
         case "mclan":
-            return cloneEquipment([...universalEquipment, ...getCatalogByTech("clan"), ...getCatalogByTech("is"), ...customEquipment]);
+            return cloneEquipment([...getCatalogByTech("clan"), ...getCatalogByTech("is"), ...customEquipment, ...universalEquipment]);
+        case "custom":
+            return cloneEquipment([...getCatalogByTech("custom"), ...universalEquipment]);
         case "is":
         default:
-            return cloneEquipment([...universalEquipment, ...getCatalogByTech("is"), ...customEquipment]);
+            return cloneEquipment([...getCatalogByTech("is"), ...customEquipment, ...universalEquipment]);
     }
 }
