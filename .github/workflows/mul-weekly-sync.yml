@@ -64,6 +64,20 @@ jobs:
           MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '700' }}
         run: npm run mul:sync
 
+      - name: Preserve sync output
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mul-sync-${{ github.run_id }}
+          path: |
+            tools/mul-sync/live-units.json
+            tools/mul-sync/legacy-duplicate-candidates.json
+            src/data/mul/*.json
+            src/data/mul/live/*.json
+            src/data/mul/archive/*.json
+          if-no-files-found: warn
+          retention-days: 7
+
       - name: Commit and push updates
         shell: bash
         run: |
@@ -75,9 +89,16 @@ jobs:
             exit 0
           fi
           git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
+          git fetch origin MUL
+          if ! git rebase origin/MUL; then
+            git rebase --abort
+            echo "::error::MUL advanced during this run and the generated data conflicted while rebasing."
+            echo "::error::The sync output is preserved in the mul-sync-${{ github.run_id }} workflow artifact."
+            exit 1
+          fi
           if ! git push origin HEAD:MUL; then
-            echo "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
-            echo "::error::Fix: Settings -> Actions -> General -> Workflow permissions -> select 'Read and write permissions', then save."
+            echo "::error::git push failed after rebasing onto the latest origin/MUL. Inspect the git remote error above."
+            echo "::error::The sync output is preserved in the mul-sync-${{ github.run_id }} workflow artifact."
             exit 1
           fi
 
