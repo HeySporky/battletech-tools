@@ -471,6 +471,9 @@ async function main() {
     const page = await context.newPage();
 
     let runError = null;
+    let needsDetailCount = 0;
+    let detailScrapedThisRun = 0;
+    let archivedCount = 0;
     try {
         await page.goto(SITE, { waitUntil: "networkidle" });
         let bodyText = await page.locator("body").innerText();
@@ -569,13 +572,14 @@ async function main() {
             }
         }
 
-        const archivedLegacyCount = await archiveExactLegacyMatches(
+        needsDetailCount = needsDetail.length;
+        archivedCount = await archiveExactLegacyMatches(
             Object.values(store.units)
                 .filter((entry) => entry.detailScrapedAt)
                 .map((entry) => entry.record)
         );
-        if (archivedLegacyCount > 0) {
-            console.log(`Archived ${archivedLegacyCount} exact Name+Model legacy record(s).`);
+        if (archivedCount > 0) {
+            console.log(`Archived ${archivedCount} exact Name+Model legacy record(s).`);
         }
 
         const batch = needsDetail.slice(0, MAX_DETAIL_PER_RUN);
@@ -592,6 +596,7 @@ async function main() {
                 Object.assign(entry.record, detailFields);
                 entry.detailScrapedAt = new Date().toISOString();
                 consecutiveCloudflareBlocks = 0;
+                detailScrapedThisRun += 1;
                 console.log(`[${index + 1}/${batch.length}] scraped ${entry.record.Name} ${entry.record.Variant ?? ""}`.trim());
             } catch (error) {
                 if (error instanceof CloudflareBlockError) {
@@ -633,6 +638,18 @@ async function main() {
 
     await saveJson(storePath, store);
     await saveJson(dupeReportPath, dupeCandidates);
+    await appendGithubStepSummary(
+        [
+            "## Weekly MUL Sync",
+            "",
+            needsDetailCount === 0
+                ? "No new or changed units found this run."
+                : `**${needsDetailCount}** new/changed unit(s) found in the index; detail-scraped **${detailScrapedThisRun}** this run.`,
+            "",
+            `- Legacy records archived (exact match, fully detailed): ${archivedCount}`,
+            `- Potential legacy duplicates logged for review: ${dupeCandidates.length}`,
+        ].join("\n")
+    );
 
     // Regenerate the exported chunk files from scratch — cheap, deterministic, and avoids
     // incremental-patch bugs.
@@ -662,6 +679,12 @@ function setGithubActionsOutput(name, value) {
     const outputFile = process.env.GITHUB_OUTPUT;
     if (!outputFile) return; // not running inside GitHub Actions (e.g. local dev)
     fs.appendFile(outputFile, `${name}=${value}\n`).catch(() => undefined);
+}
+
+async function appendGithubStepSummary(markdown) {
+    const summaryFile = process.env.GITHUB_STEP_SUMMARY;
+    if (!summaryFile) return; // not running inside GitHub Actions (e.g. local dev)
+    await fs.appendFile(summaryFile, `${markdown}\n`).catch(() => undefined);
 }
 
 main().catch((error) => {
