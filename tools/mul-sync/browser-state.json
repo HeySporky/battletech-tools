@@ -1,0 +1,27 @@
+{
+  "cookies": [
+    {
+      "name": "_I_",
+      "value": "a929149e40a70d08b6587122731c09181845de25092931683a465848cb9e7fe3-1790493421-21",
+      "domain": ".masterunitlist.battletech.com",
+      "path": "/",
+      "expires": 1793085421.792793,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "cf_clearance",
+      "value": "StYvRy_YKmLEuIu..TVpIYX37D6olDrEmy5orPieIN4-1790504287-1.2.1.1-7LeE6Z.zWsxMBSe2th6N6QS1p2S1VSYJ.QPyPwaXZs8W6CGEN1WUB5UOrBRqENNU9U7rYzHy858FjPPEy_EcViiCBojJfSgO4GrBz78KVLLe8_PpZl7MMdLS3gpIlOh9IRyib8BGCscGFGLsNlmTrp._bqmNAch6WIFoStrES75fSHfL2g9TKx5nLVBc4hcSeviEwLycZrnXDit2EeoGbVmbBFKcRLJ44KvkYddJrErv5QbSn7br70TfarLoh6xqMKlgbJybtfM8y7xJpggK6_Ua4xOroROo65qxOdPs0Y89uyG0.UQ51WrMiofU9yGnQMnbb5Ay63aPEuZNkkT71ZSZZ9L._e5sMpCxtWmYlIbe5jSg4.0sDyKl73pqpXEHqqO9K66e4eYyDbqpKbhS_lF0Uq50omhdAx5aAmQ3ZSY",
+      "domain": ".battletech.com",
+      "path": "/",
+      "expires": 1822040287.417555,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None",
+      "partitionKey": "https://battletech.com",
+      "_crHasCrossSiteAncestor": false
+    }
+  ],
+  "origins": []
+}
