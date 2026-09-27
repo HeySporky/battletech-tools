@@ -6,9 +6,9 @@ on:
   workflow_dispatch:
     inputs:
       max_detail:
-        description: "Max units to detail-scrape this run (700 is about five hours at the observed rate)"
+        description: "Max units to detail-scrape this run (900 is about five hours at the observed rate)"
         required: false
-        default: "700"
+        default: "900"
 
 permissions:
   contents: write
