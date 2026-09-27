@@ -132,11 +132,41 @@ async function fetchJson(page, relativeUrl, { retries = 2, retryDelayMs = 3000 }
     for (let attempt = 0; ; attempt += 1) {
         const result = await page.evaluate(async (u) => {
             const res = await fetch(u, { headers: { accept: "application/json" } });
-            return { ok: res.ok, status: res.status, body: res.ok ? await res.json() : null };
+            const text = await res.text();
+            return { ok: res.ok, status: res.status, text };
         }, url);
 
         if (result.ok) {
-            return result.body;
+            const trimmed = result.text.trimStart();
+
+            // A 2xx status with an HTML body means Cloudflare (or some other intermediary) served
+            // an interstitial/error page instead of the JSON payload we asked for. This is the case
+            // the original isBotBlock check (403/429 only) never caught.
+            if (trimmed.startsWith("<")) {
+                if (isCloudflareChallenge(result.text)) {
+                    if (attempt < retries) {
+                        console.warn(
+                            `Cloudflare challenge (200 OK, HTML body) fetching ${url}; retrying in ${retryDelayMs}ms (attempt ${attempt + 1}/${retries})...`
+                        );
+                        await page.waitForTimeout(retryDelayMs);
+                        continue;
+                    }
+                    throw new CloudflareBlockError(
+                        `Cloudflare challenge (200 OK, HTML body) blocked JSON fetch after ${attempt + 1} attempt(s): ${url}`
+                    );
+                }
+                throw new Error(
+                    `Expected JSON from ${url} but got HTML with a 200 status. First 200 chars: ${result.text.slice(0, 200)}`
+                );
+            }
+
+            try {
+                return JSON.parse(result.text);
+            } catch (err) {
+                throw new Error(
+                    `Failed to parse JSON from ${url}: ${err.message}. Body started with: ${result.text.slice(0, 200)}`
+                );
+            }
         }
 
         // 403/429 on a data endpoint (as opposed to the "Just a moment" HTML challenge page) is
