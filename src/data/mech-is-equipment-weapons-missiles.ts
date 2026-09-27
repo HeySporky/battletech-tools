@@ -6,7 +6,9 @@ import { IEquipmentItem } from "./data-interfaces";
 export const mechISEquipmentMissiles: IEquipmentItem[] = [
     {
         name: "LRM 5",
+        altNames: [],
         tag: "lrm-5",
+        altTags: [],
         sort: "lrm-a",
         category: "Missile Weapons",
         alternateName: "LRM-5",
@@ -63,7 +65,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "LRM 5 + Artemis IV",
+        altNames: [],
         tag: "lrm-5-artemis-iv",
+        altTags: [],
         sort: "lrm-a-artemis-iv",
         category: "Missile Weapons",
         damage: 0,
@@ -119,7 +123,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "LRM 10",
+        altNames: [],
         tag: "lrm-10",
+        altTags: [],
         sort: "lrm-b",
         category: "Missile Weapons",
         alternateName: "LRM-10",
@@ -176,7 +182,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "LRM 10 + Artemis IV",
+        altNames: [],
         tag: "lrm-10-artemis-iv",
+        altTags: [],
         sort: "lrm-b-artemis-iv",
         category: "Missile Weapons",
         damage: 0,
@@ -232,7 +240,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "LRM 15",
+        altNames: [],
         tag: "lrm-15",
+        altTags: [],
         sort: "lrm-c",
         category: "Missile Weapons",
         alternateName: "LRM-15",
@@ -289,7 +299,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "LRM 15 + Artemis IV",
+        altNames: [],
         tag: "lrm-15-artemis-iv",
+        altTags: [],
         sort: "lrm-c-artemis-iv",
         category: "Missile Weapons",
         damage: 0,
@@ -345,7 +357,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "LRM 20",
+        altNames: [],
         tag: "lrm-20",
+        altTags: [],
         sort: "lrm-d",
         category: "Missile Weapons",
         alternateName: "LRM-20",
@@ -402,7 +416,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "LRM 20 + Artemis IV",
+        altNames: [],
         tag: "lrm-20-artemis-iv",
+        altTags: [],
         sort: "lrm-d-artemis-iv",
         category: "Missile Weapons",
         damage: 0,
@@ -458,7 +474,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "SRM 2",
+        altNames: [],
         tag: "srm-2",
+        altTags: [],
         sort: "srm-2",
         category: "Missile Weapons",
         alternateName: "SRM-2",
@@ -514,7 +532,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "SRM 2 + Artemis IV",
+        altNames: [],
         tag: "srm-2-artemis-iv",
+        altTags: [],
         sort: "srm-2-artemis-iv",
         category: "Missile Weapons",
         damage: 0,
@@ -569,7 +589,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "SRM 4",
+        altNames: [],
         tag: "srm-4",
+        altTags: [],
         sort: "srm-4",
         category: "Missile Weapons",
         alternateName: "SRM-4",
@@ -625,7 +647,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "SRM 4 + Artemis IV",
+        altNames: [],
         tag: "srm-4-artemis-iv",
+        altTags: [],
         sort: "srm-4-artemis-iv",
         category: "Missile Weapons",
         damage: 0,
@@ -680,7 +704,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "SRM 6",
+        altNames: [],
         tag: "srm-6",
+        altTags: [],
         sort: "srm-6",
         category: "Missile Weapons",
         alternateName: "SRM-6",
@@ -736,7 +762,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "SRM 6 + Artemis IV",
+        altNames: [],
         tag: "srm-6-artemis-iv",
+        altTags: [],
         sort: "srm-6-artemis-iv",
         category: "Missile Weapons",
         damage: 0,
@@ -791,7 +819,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "Streak SRM 2",
+        altNames: [],
         tag: "streak-srm-2",
+        altTags: [],
         sort: "streak-srm-2",
         category: "Missile Weapons",
         alternateName: "Streak SRM-2",
@@ -847,7 +877,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "Streak SRM 4",
+        altNames: [],
         tag: "streak-srm-4",
+        altTags: [],
         sort: "streak-srm-4",
         category: "Missile Weapons",
         alternateName: "Streak SRM-4",
@@ -903,7 +935,9 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
     },
     {
         name: "Streak SRM 6",
+        altNames: [],
         tag: "streak-srm-6",
+        altTags: [],
         sort: "streak-srm-6",
         category: "Missile Weapons",
         alternateName: "Streak SRM-6",
