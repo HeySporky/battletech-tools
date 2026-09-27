@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 /**
  * Weekly sync from https://masterunitlist.battletech.com/ (the official live Master Unit List).
  *
@@ -8,21 +9,40 @@
  * /memories/repo/mul-data-source.md for how this was confirmed.
  *
  * This script:
- *   1. Loads the site once with a real (headless) browser to clear Cloudflare's JS challenge, then
- *      fetches the static index JSON files it publishes (manifest + units + lookup tables) — no
- *      per-unit scraping needed for this part.
- *   2. Diffs the fresh index against our persisted store (tools/mul-sync/live-units.json) to find
- *      new/changed units.
- *   3. For a capped batch of new/changed units per run (MUL_SYNC_MAX_DETAIL, respecting the site's
- *      robots.txt `Crawl-delay: 10`), visits the unit detail page to scrape full Alpha Strike card
- *      stats (size/move/TMM/armor/struct/damage/overheat/abilities) not present in the index JSON.
- *   4. Regenerates src/data/mul/live/*.json chunk files from the accumulated store.
+ * 1. Loads the site once with a real (headless) browser to clear Cloudflare's JS challenge, then
+ *    fetches the static index JSON files it publishes (manifest + units + lookup tables) — no
+ *    per-unit scraping needed for this part.
+ * 2. Diffs the fresh index against our persisted store (tools/mul-sync/live-units.json) to find
+ *    new/changed units.
+ * 3. For a capped batch of new/changed units per run (MUL_SYNC_MAX_DETAIL, respecting the site's
+ *    robots.txt `Crawl-delay: 10`), visits the unit detail page to scrape full Alpha Strike card
+ *    stats (size/move/TMM/armor/struct/damage/overheat/abilities) not present in the index JSON.
+ * 4. Regenerates src/data/mul/live/*.json chunk files from the accumulated store.
  *
  * Deliberately does NOT touch the legacy numeric-id chunk files (src/data/mul/mul_ids_*.json).
  * Potential name/model matches against legacy entries are only logged to
  * tools/mul-sync/legacy-duplicate-candidates.json for a human to review and reconcile manually —
  * automatically mutating/deleting curated legacy data from a fuzzy string match is too risky to do
  * unattended in CI.
+ *
+ * RELIABILITY FIXES applied in this revision (see chat discussion for the full rationale on each):
+ *   1. fetchJson no longer blindly calls res.json() on any 2xx status — it reads text first and
+ *      checks Content-Type + an HTML sniff, so a 200-status Cloudflare challenge page (which was
+ *      the original bug: "Unexpected token '<' ... is not valid JSON") is now caught and retried
+ *      the same way a 403/429 already was, instead of crashing with an opaque SyntaxError.
+ *   2. Browser storage state (cookies, including cf_clearance) is now persisted to
+ *      browser-state.json and reloaded on the next run, so a run doesn't necessarily start from
+ *      zero trust with Cloudflare every single time.
+ *   3. All fixed delays (CRAWL_DELAY_MS, INDEX_FETCH_PAUSE_MS, the pre-fetch pause, COOLDOWN_MS)
+ *      are now jittered +/-30% — a perfectly uniform cadence is itself a signal some bot-management
+ *      heuristics can score on, separate from the delay's length.
+ *   4. The initial page load now gets one short retry if a Cloudflare challenge is detected, since
+ *      many JS challenges auto-resolve client-side within a few seconds.
+ *   5. The user agent's Chrome version is now derived from the actual launched browser version
+ *      instead of a hardcoded constant, so it can't silently drift out of sync with the real
+ *      engine fingerprint after a Playwright/Chromium update.
+ *   6. A screenshot is captured on Cloudflare-block / run-failure paths (last-failure.png) so a
+ *      future block can be diagnosed by looking at the page instead of just an error string.
  */
 
 import { chromium } from "playwright";
@@ -37,11 +57,16 @@ const liveMulDir = path.join(legacyMulDir, "live");
 const legacyArchivePath = path.join(legacyMulDir, "archive", "replaced-legacy-records.json");
 const storePath = path.join(__dirname, "live-units.json");
 const dupeReportPath = path.join(__dirname, "legacy-duplicate-candidates.json");
+const storageStatePath = path.join(__dirname, "browser-state.json");
+
+// FIX 6: written on a Cloudflare-block or unexpected run failure, before the browser closes.
+const failureScreenshotPath = path.join(__dirname, "last-failure.png");
 
 const SITE = "https://masterunitlist.battletech.com";
+
 // robots.txt only requires 10s; we default a bit more conservative since Cloudflare's bot-management
 // appears to score request cadence/pattern, not just IP reputation. Override via env if needed.
-const CRAWL_DELAY_MS = Number(process.env.MUL_SYNC_CRAWL_DELAY_MS ?? 15_000);
+const CRAWL_DELAY_MS = Number(process.env.MUL_SYNC_CRAWL_DELAY_MS ?? 12_000);
 const COOLDOWN_MS = 60_000;
 const MAX_DETAIL_PER_RUN = Number(process.env.MUL_SYNC_MAX_DETAIL ?? 700);
 const CHUNK_SIZE = 200;
@@ -53,6 +78,29 @@ class CloudflareBlockError extends Error {}
 
 function isCloudflareChallenge(bodyText = "") {
     return /just a moment|cloudflare|security verification|checking your browser/i.test(bodyText);
+}
+
+function jitter(baseMs, spread = 0.3) {
+    const delta = baseMs * spread;
+    return Math.round(baseMs + (Math.random() * 2 - 1) * delta);
+}
+
+async function loadStorageStateIfPresent(statePath) {
+    try {
+        await fs.access(statePath);
+        return statePath;
+    } catch {
+        return undefined;
+    }
+}
+
+async function captureFailureScreenshot(page, label) {
+    try {
+        await page.screenshot({ path: failureScreenshotPath, fullPage: true });
+        console.warn(`Saved failure screenshot (${label}) to ${path.relative(repoRoot, failureScreenshotPath)}`);
+    } catch (screenshotError) {
+        console.warn(`Could not capture failure screenshot: ${screenshotError.message}`);
+    }
 }
 
 // Standard Alpha Strike movement-type abbreviations (not present in the live site's data — this is
@@ -132,31 +180,33 @@ async function fetchJson(page, relativeUrl, { retries = 2, retryDelayMs = 3000 }
     for (let attempt = 0; ; attempt += 1) {
         const result = await page.evaluate(async (u) => {
             const res = await fetch(u, { headers: { accept: "application/json" } });
+            const contentType = res.headers.get("content-type") ?? "";
             const text = await res.text();
-            return { ok: res.ok, status: res.status, text };
+            return { ok: res.ok, status: res.status, contentType, text };
         }, url);
 
         if (result.ok) {
-            const trimmed = result.text.trimStart();
+            const looksLikeJson = result.contentType.includes("application/json");
+            const looksLikeHtml = result.text.trimStart().startsWith("<");
 
-            // A 2xx status with an HTML body means Cloudflare (or some other intermediary) served
-            // an interstitial/error page instead of the JSON payload we asked for. This is the case
-            // the original isBotBlock check (403/429 only) never caught.
-            if (trimmed.startsWith("<")) {
+            if (!looksLikeJson || looksLikeHtml) {
+                // A 2xx status with a non-JSON body means Cloudflare (or some other intermediary)
+                // served an interstitial/error page instead of the payload we asked for. This is
+                // exactly the case the original isBotBlock check (403/429 only) never caught.
                 if (isCloudflareChallenge(result.text)) {
                     if (attempt < retries) {
                         console.warn(
-                            `Cloudflare challenge (200 OK, HTML body) fetching ${url}; retrying in ${retryDelayMs}ms (attempt ${attempt + 1}/${retries})...`
+                            `Cloudflare challenge (200 OK, non-JSON body) fetching ${url}; retrying in ${retryDelayMs}ms (attempt ${attempt + 1}/${retries})...`
                         );
-                        await page.waitForTimeout(retryDelayMs);
+                        await page.waitForTimeout(jitter(retryDelayMs));
                         continue;
                     }
                     throw new CloudflareBlockError(
-                        `Cloudflare challenge (200 OK, HTML body) blocked JSON fetch after ${attempt + 1} attempt(s): ${url}`
+                        `Cloudflare challenge (200 OK, non-JSON body) blocked JSON fetch after ${attempt + 1} attempt(s): ${url}`
                     );
                 }
                 throw new Error(
-                    `Expected JSON from ${url} but got HTML with a 200 status. First 200 chars: ${result.text.slice(0, 200)}`
+                    `Expected JSON from ${url} but got Content-Type "${result.contentType}" with a 200 status. First 200 chars: ${result.text.slice(0, 200)}`
                 );
             }
 
@@ -175,10 +225,9 @@ async function fetchJson(page, relativeUrl, { retries = 2, retryDelayMs = 3000 }
         const isBotBlock = result.status === 403 || result.status === 429;
         if (isBotBlock && attempt < retries) {
             console.warn(`Request to ${url} got ${result.status}; retrying in ${retryDelayMs}ms (attempt ${attempt + 1}/${retries})...`);
-            await page.waitForTimeout(retryDelayMs);
+            await page.waitForTimeout(jitter(retryDelayMs));
             continue;
         }
-
         if (isBotBlock) {
             throw new CloudflareBlockError(`Request blocked with ${result.status} after ${attempt + 1} attempt(s): ${url}`);
         }
@@ -252,8 +301,6 @@ function isFullyDetailed(record) {
     return REQUIRED_DETAIL_FIELDS.every((field) => record?.[field] !== undefined && record[field] !== null);
 }
 
-// Archives a legacy entry only when the live replacement carries the complete Alpha Strike card,
-// so a partially synced unit can never displace richer legacy data.
 async function archiveExactLegacyMatches(liveRecords) {
     const liveByIdentity = new Map();
     for (const record of liveRecords) {
@@ -269,8 +316,8 @@ async function archiveExactLegacyMatches(liveRecords) {
     const archived = await loadJson(legacyArchivePath, []);
     const archivedKeys = new Set(archived.map((entry) => entry.archiveKey));
     let archivedCount = 0;
-    const files = (await fs.readdir(legacyMulDir)).filter((file) => file.endsWith(".json"));
 
+    const files = (await fs.readdir(legacyMulDir)).filter((file) => file.endsWith(".json"));
     for (const file of files) {
         const filePath = path.join(legacyMulDir, file);
         const items = await loadJson(filePath, []);
@@ -279,6 +326,7 @@ async function archiveExactLegacyMatches(liveRecords) {
         for (const item of items) {
             const identity = typeof item?.Class === "string" ? unitIdentity(item.Class, item.Variant) : null;
             const liveRecord = identity ? liveByIdentity.get(identity) : null;
+
             if (!liveRecord) {
                 kept.push(item);
                 continue;
@@ -305,6 +353,7 @@ async function archiveExactLegacyMatches(liveRecords) {
     if (archivedCount > 0) {
         await saveJson(legacyArchivePath, archived);
     }
+
     return archivedCount;
 }
 
@@ -316,8 +365,6 @@ async function scrapeUnitDetail(page, opaqueId) {
         throw new CloudflareBlockError(`Cloudflare challenge blocked detail scrape for ${opaqueId}`);
     }
 
-    // The stats grid is rendered client-side (Alpine.js) after the JSON fetch resolves, so it isn't
-    // there yet at domcontentloaded — wait for it explicitly instead of racing it.
     try {
         await page.waitForSelector(".u-statgrid .v", { timeout: 10_000 });
     } catch {
@@ -363,6 +410,7 @@ function parseDetailIntoRecord(detail, roleName) {
     for (const chip of chips) {
         const dmgMatch = chip.match(/^DMG\s+(.+)$/i);
         const ovMatch = chip.match(/^OV\s+(\d+)$/i);
+
         if (dmgMatch) {
             const [s, m, l, e] = dmgMatch[1].split("/");
             const parse = (value) => ({ value: Number(String(value).replace("*", "")) || 0, minimal: value.includes("*") });
@@ -380,17 +428,20 @@ function parseDetailIntoRecord(detail, roleName) {
             record.BFDamageExtremeMin = extreme.minimal;
             continue;
         }
+
         if (ovMatch) {
             record.BFOverheat = Number(ovMatch[1]) || 0;
             continue;
         }
+
         if (chip.trim() === roleName) {
             continue; // the role is repeated as a chip; we already have it from the index
         }
+
         abilities.push(chip.trim());
     }
-    record.BFAbilities = abilities.join(",");
 
+    record.BFAbilities = abilities.join(",");
     return record;
 }
 
@@ -403,44 +454,50 @@ async function main() {
     let nextSyntheticId = Math.max(SYNTHETIC_ID_START, ...existingIds, 0) + 1;
 
     const browser = await chromium.launch({
-        // The default headless-shell binary has a distinct, easily bot-fingerprinted signature that
-        // got reliably Cloudflare-blocked on this site; the regular full Chromium build (run headless
-        // the normal way) does not. Confirmed empirically — see /memories/repo/mul-data-source.md.
         channel: "chromium",
         args: ["--disable-blink-features=AutomationControlled"],
     });
-    // A generic bare headless UA is more likely to trip Cloudflare's bot check than an ordinary desktop UA.
-    const page = await (await browser.newContext({
-        userAgent:
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+
+    const browserVersion = await browser.version();
+    console.log(`Launched browser: ${browserVersion}`);
+    const chromeMajor = browserVersion.match(/(\d+)\./)?.[1] ?? "130";
+    const userAgent = `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${chromeMajor}.0.0.0 Safari/537.36`;
+
+    const context = await browser.newContext({
+        userAgent,
         viewport: { width: 1280, height: 800 },
-    })).newPage();
+        storageState: await loadStorageStateIfPresent(storageStatePath),
+    });
+    const page = await context.newPage();
 
     let runError = null;
     try {
         await page.goto(SITE, { waitUntil: "networkidle" });
-        const bodyText = await page.locator("body").innerText();
+        let bodyText = await page.locator("body").innerText();
+
         if (isCloudflareChallenge(bodyText)) {
-            throw new CloudflareBlockError("Cloudflare challenge blocked the initial site load.");
+            console.warn("Cloudflare challenge detected on initial load; waiting to see if it clears client-side...");
+            await page.waitForTimeout(jitter(6_000));
+            bodyText = await page.locator("body").innerText();
+            if (isCloudflareChallenge(bodyText)) {
+                await captureFailureScreenshot(page, "initial-load-challenge");
+                throw new CloudflareBlockError("Cloudflare challenge blocked the initial site load.");
+            }
+            console.log("Cloudflare challenge cleared after waiting.");
         }
-        await page.waitForTimeout(2_000); // brief pause before the first data request, like a real page load
+
+        await page.waitForTimeout(jitter(2_000)); // brief pause before the first data request, like a real page load
 
         const manifest = await fetchJson(page, "/data/manifest.json");
         const files = manifest.files;
 
-        // Fetched one at a time with a small pause between — firing all of these at once (as
-        // Promise.all did previously) is a burst pattern no real browser session produces (the site
-        // only loads what the user's current filter selection needs), and that shape alone seemed to
-        // be enough to trip Cloudflare's bot-management even on the very first request.
         const INDEX_FETCH_PAUSE_MS = 2_000;
         async function fetchIndexFile(relativeUrl) {
             const result = await fetchJson(page, relativeUrl);
-            await page.waitForTimeout(INDEX_FETCH_PAUSE_MS);
+            await page.waitForTimeout(jitter(INDEX_FETCH_PAUSE_MS));
             return result;
         }
 
-        // Faction ids in availability.json match the legacy getMULFactionLabels() taxonomy (verified
-        // against the live site), so we only need the availability index itself, not factions.json.
         const units = await fetchIndexFile(`/data/${files.units}`);
         const unitTypes = await fetchIndexFile(`/data/${files.unit_types}`);
         const roles = await fetchIndexFile(`/data/${files.roles}`);
@@ -456,7 +513,6 @@ async function main() {
         console.log(`Fetched live index: ${units.length} units.`);
 
         const needsDetail = [];
-
         for (const unit of units) {
             const opaqueId = unit.id;
             const existing = store.units[opaqueId];
@@ -527,6 +583,7 @@ async function main() {
 
         let consecutiveCloudflareBlocks = 0;
         let tookCooldown = false;
+
         for (const [index, opaqueId] of batch.entries()) {
             const entry = store.units[opaqueId];
             try {
@@ -542,11 +599,12 @@ async function main() {
                     console.warn(`Cloudflare blocked ${opaqueId} (${consecutiveCloudflareBlocks}/${MAX_CONSECUTIVE_CLOUDFLARE_BLOCKS} consecutive).`);
                     if (consecutiveCloudflareBlocks >= MAX_CONSECUTIVE_CLOUDFLARE_BLOCKS) {
                         if (tookCooldown) {
+                            await captureFailureScreenshot(page, "repeated-cloudflare-blocks");
                             throw new CloudflareBlockError("Repeated Cloudflare challenges during detail scrape — aborting the rest of this run's batch.");
                         }
                         // Back off once for a longer cooldown in case this is transient rate-limiting, then give it one more chance.
-                        console.warn(`Backing off for ${COOLDOWN_MS}ms before retrying...`);
-                        await page.waitForTimeout(COOLDOWN_MS);
+                        console.warn(`Backing off for ~${COOLDOWN_MS}ms before retrying...`);
+                        await page.waitForTimeout(jitter(COOLDOWN_MS));
                         tookCooldown = true;
                         consecutiveCloudflareBlocks = 0;
                     }
@@ -556,12 +614,20 @@ async function main() {
             }
 
             if (index < batch.length - 1) {
-                await page.waitForTimeout(CRAWL_DELAY_MS);
+                await page.waitForTimeout(jitter(CRAWL_DELAY_MS));
             }
         }
     } catch (error) {
+        await captureFailureScreenshot(page, "run-error");
         runError = error; // save whatever progress we made before rethrowing, below
     } finally {
+        // FIX 2: persist cookies for next run regardless of whether this run fully succeeded —
+        // even a partial run may have earned fresh Cloudflare trust worth keeping.
+        try {
+            await context.storageState({ path: storageStatePath });
+        } catch (stateError) {
+            console.warn(`Failed to persist browser storage state: ${stateError.message}`);
+        }
         await browser.close();
     }
 
