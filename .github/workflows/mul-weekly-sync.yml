@@ -9,17 +9,6 @@ on:
         description: "Max units to detail-scrape this run (700 is about five hours at the observed rate)"
         required: false
         default: "700"
-      # Self-hosted execution is retired; the GitHub-hosted runner handles this reliably now that
-      # sync-mul.mjs launches full Chromium. Re-enable this input and the Windows steps below if
-      # Cloudflare ever starts blocking the hosted runners again.
-      # runner:
-      #   description: "Where to run this. Only pick self-hosted if you have your own runner registered and online."
-      #   required: false
-      #   type: choice
-      #   options:
-      #     - github-hosted
-      #     - self-hosted
-      #   default: github-hosted
 
 permissions:
   contents: write
@@ -52,16 +41,10 @@ jobs:
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
 
-      # Retired with the self-hosted runner. playwright-core's own downloader timed out against
-      # cdn.playwright.dev on that Windows network, so the browser was fetched manually instead.
-      # - name: Install Playwright browser (Windows self-hosted)
-      #   if: runner.os == 'Windows'
-      #   run: node tools/mul-sync/ensure-chromium-windows.mjs
-
       - name: Sync from masterunitlist.battletech.com
         id: mulsync
         env:
-          MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '700' }}
+          MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '800' }}
         run: npm run mul:sync
 
       - name: Preserve sync output
@@ -84,6 +67,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul
+          git add -f tools/mul-sync/browser-state.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
@@ -101,26 +85,6 @@ jobs:
             echo "::error::The sync output is preserved in the mul-sync-${{ github.run_id }} workflow artifact."
             exit 1
           fi
-
-      # Retired with the self-hosted runner. Windows shell discovery could select the WSL bash
-      # app-execution alias instead of Git Bash, so this step used PowerShell.
-      # - name: Commit and push updates (Windows self-hosted)
-      #   if: runner.os == 'Windows'
-      #   shell: pwsh
-      #   run: |
-      #     git config user.name "github-actions[bot]"
-      #     git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      #     git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul
-      #     if (git diff --cached --quiet) {
-      #       Write-Host "No changes to commit."
-      #       exit 0
-      #     }
-      #     git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
-      #     git push origin HEAD:MUL
-      #     if ($LASTEXITCODE -ne 0) {
-      #       Write-Host "::error::git push failed. This almost always means the workflow's GITHUB_TOKEN is read-only."
-      #       exit 1
-      #     }
 
   alert-on-failure:
     needs: sync
