@@ -79,3 +79,6 @@ robots.txt
 !.github/
 !.github/workflows/
 !.github/workflows/*.yml
+
+# Browser state for the MUL sync tool (includes cookies and other session data)
+tools/mul-sync/browser-state.json
