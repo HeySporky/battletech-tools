@@ -1,9 +1,9 @@
 [
   {
     "Id": 6450,
-    "Name": "G\u00f9n GN-2O",
+    "Name": "Gùn GN-2O",
     "GroupName": "",
-    "Class": "G\u00f9n",
+    "Class": "Gùn",
     "Variant": "GN-2O",
     "Tonnage": 20,
     "BattleValue": 775,
@@ -61,9 +61,9 @@
   },
   {
     "Id": 6451,
-    "Name": "G\u00f9n GN-2OA",
+    "Name": "Gùn GN-2OA",
     "GroupName": "",
-    "Class": "G\u00f9n",
+    "Class": "Gùn",
     "Variant": "GN-2OA",
     "Tonnage": 20,
     "BattleValue": 685,
@@ -121,9 +121,9 @@
   },
   {
     "Id": 6452,
-    "Name": "G\u00f9n GN-2OB",
+    "Name": "Gùn GN-2OB",
     "GroupName": "",
-    "Class": "G\u00f9n",
+    "Class": "Gùn",
     "Variant": "GN-2OB",
     "Tonnage": 20,
     "BattleValue": 639,
@@ -1339,7 +1339,7 @@
   },
   {
     "Id": 6473,
-    "Title": "Y\u00f9n Y-2",
+    "Title": "Yùn Y-2",
     "Fields": {
       "Tonnage": "40",
       "Battle Value": "953",
@@ -1356,9 +1356,9 @@
   },
   {
     "Id": 6473,
-    "Name": "Y\u00f9n Y-2",
+    "Name": "Yùn Y-2",
     "GroupName": "",
-    "Class": "Y\u00f9n",
+    "Class": "Yùn",
     "Variant": "Y-2",
     "Tonnage": 40,
     "BattleValue": 953,
@@ -2279,67 +2279,6 @@
         ]
       ]
     ]
-  },
-  {
-    "Id": 6490,
-    "Name": "R10 Mechanized ICV Prime",
-    "GroupName": "",
-    "Class": "R10 Mechanized ICV",
-    "Variant": "Prime",
-    "Tonnage": 45,
-    "BattleValue": 746,
-    "Technology": {
-      "Id": 1,
-      "Name": "Inner Sphere",
-      "Image": null,
-      "SortOrder": 0
-    },
-    "Cost": 0,
-    "Rules": "Standard",
-    "TROId": 440,
-    "TRO": "TR:3145",
-    "RSId": 536,
-    "RS": "RS:3145",
-    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
-    "DateIntroduced": "3097",
-    "EraId": 15,
-    "EraStart": 3081,
-    "ImageUrl": "https://i.ibb.co/NxYbBsT/r10-3085.jpg",
-    "IsFeatured": true,
-    "IsPublished": true,
-    "Release": 1,
-    "Type": {
-      "Id": 19,
-      "Name": "Combat Vehicle",
-      "Image": "CombatVehicle.gif",
-      "SortOrder": 1
-    },
-    "Role": {
-      "Id": 109,
-      "Name": "Brawler",
-      "Image": null,
-      "SortOrder": 2
-    },
-    "BFType": "CV",
-    "BFSize": 2,
-    "BFMove": "10\"w",
-    "BFTMM": 0,
-    "BFArmor": 4,
-    "BFStructure": 3,
-    "BFThreshold": 0,
-    "BFDamageShort": 3,
-    "BFDamageShortMin": false,
-    "BFDamageMedium": 3,
-    "BFDamageMediumMin": false,
-    "BFDamageLong": 0,
-    "BFDamageLongMin": false,
-    "BFDamageExtreme": 0,
-    "BFDamageExtemeMin": false,
-    "BFOverheat": 0,
-    "BFPointValue": 25,
-    "BFAbilities": "CASE,IT12,OMNI,SRCH,SRM2/2,TUR(2/2/-,SRM2/2)",
-    "Skill": 0,
-    "FormatedTonnage": "45"
   },
   {
     "Id": 6491,
@@ -4788,67 +4727,6 @@
         ]
       ]
     ]
-  },
-  {
-    "Id": 6527,
-    "Name": "Gun Trailer (Stronghold)",
-    "GroupName": "",
-    "Class": "Gun Trailer",
-    "Variant": "(Stronghold)",
-    "Tonnage": 35,
-    "BattleValue": 224,
-    "Technology": {
-      "Id": 1,
-      "Name": "Inner Sphere",
-      "Image": null,
-      "SortOrder": 0
-    },
-    "Cost": 359942,
-    "Rules": "Advanced",
-    "TROId": 441,
-    "TRO": "TR:3150",
-    "RSId": 467,
-    "RS": "RS:3150",
-    "EraIcon": "https://i.ibb.co/VtCdwyP/era06-republic-dark-age.png",
-    "DateIntroduced": "3092",
-    "EraId": 15,
-    "EraStart": 3081,
-    "ImageUrl": "https://i.ibb.co/YLTRhyy/gun-trailer-3150.png",
-    "IsFeatured": false,
-    "IsPublished": true,
-    "Release": 1,
-    "Type": {
-      "Id": 19,
-      "Name": "Combat Vehicle",
-      "Image": "CombatVehicle.gif",
-      "SortOrder": 1
-    },
-    "Role": {
-      "Id": 112,
-      "Name": "Ambusher",
-      "Image": null,
-      "SortOrder": 1
-    },
-    "BFType": "CV",
-    "BFSize": 1,
-    "BFMove": "0\"t",
-    "BFTMM": 0,
-    "BFArmor": 2,
-    "BFStructure": 2,
-    "BFThreshold": 0,
-    "BFDamageShort": 1,
-    "BFDamageShortMin": false,
-    "BFDamageMedium": 1,
-    "BFDamageMediumMin": false,
-    "BFDamageLong": 0,
-    "BFDamageLongMin": false,
-    "BFDamageExtreme": 0,
-    "BFDamageExtemeMin": false,
-    "BFOverheat": 0,
-    "BFPointValue": 9,
-    "BFAbilities": "EE,HTC,IT4,SRCH,TUR(1/1/0)",
-    "Skill": 0,
-    "FormatedTonnage": "35"
   },
   {
     "Id": 6528,
@@ -10211,7 +10089,7 @@
   },
   {
     "Id": 6599,
-    "Title": "Schildkr\u00f6te Line Tank",
+    "Title": "Schildkröte Line Tank",
     "Fields": {
       "Tonnage": "50",
       "Battle Value": "1,009",
@@ -10235,7 +10113,7 @@
           "Era"
         ],
         [
-          "Schildkr\u00f6te Line Tank (HPPC)",
+          "Schildkröte Line Tank (HPPC)",
           "1,057",
           "28",
           "Advanced",
@@ -10243,7 +10121,7 @@
           ""
         ],
         [
-          "Schildkr\u00f6te Line Tank (Light Gauss)",
+          "Schildkröte Line Tank (Light Gauss)",
           "954",
           "24",
           "Advanced",
@@ -10251,7 +10129,7 @@
           ""
         ],
         [
-          "Schildkr\u00f6te Line Tank (Plasma)",
+          "Schildkröte Line Tank (Plasma)",
           "1,104",
           "29",
           "Advanced",
@@ -10263,9 +10141,9 @@
   },
   {
     "Id": 6599,
-    "Name": "Schildkr\u00f6te Line Tank  ",
+    "Name": "Schildkröte Line Tank  ",
     "GroupName": "",
-    "Class": "Schildkr\u00f6te Line Tank",
+    "Class": "Schildkröte Line Tank",
     "Variant": " ",
     "Tonnage": 50,
     "BattleValue": 1009,
