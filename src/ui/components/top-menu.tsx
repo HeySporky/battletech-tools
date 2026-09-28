@@ -53,6 +53,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     tag: "classic-battletech-mech-creator",
                 },
                 {
+                    label: "Vehicle Creator",
+                    url: "/classic-battletech/vehicle-creator",
+                    tag: "classic-battletech-vehicle-creator",
+                },
+                {
                     label: "Roster",
                     url: "/classic-battletech/roster",
                     tag: "classic-battletech-roster",
@@ -95,6 +100,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "'Mech Creator",
                     url: "/classic-battletech/mech-creator",
                     tag: "classic-battletech-mech-creator",
+                },
+                {
+                    label: "Vehicle Creator",
+                    url: "/classic-battletech/vehicle-creator",
+                    tag: "classic-battletech-vehicle-creator",
                 },
                 {
                     label: "Roster",
