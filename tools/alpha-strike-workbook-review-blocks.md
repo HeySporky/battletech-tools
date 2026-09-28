@@ -174,110 +174,150 @@ Classify each row as `IS`, `Clan`, or `Universal`. Universal requires exact IS/C
 
 | # | Weapon | Heat | S | M | L | E | TC | Notes | Classification |
 |---:|---|---:|---:|---:|---:|---:|---|---|---|
-| 121 | Ultra Autocannon/5 (C) | 2 | 0.75 | 0.75 | 0.75 | 0 | Y |  |  |
-| 122 | Ultra Autocannon/10 (C) | 6 | 1.5 | 1.5 | 1.5 | 0 | Y |  |  |
-| 123 | Ultra Autocannon/20 (C) | 14 | 3 | 3 | 0 | 0 | Y |  |  |
-| 124 | Improved Autocannon/2 | 1 | 0.132 | 0.2 | 0.2 | 0.2 | Y | AC |  |
-| 125 | Improved Autocannon/5 | 1 | 0.375 | 0.5 | 0.5 | 0 | Y | AC |  |
-| 126 | Improved Autocannon/10 | 3 | 1 | 1 | 0 | 0 | Y | AC |  |
-| 127 | Improved Autocannon/20 | 7 | 2 | 2 | 0 | 0 | Y | AC |  |
-| 128 | Improved Gauss Rifle | 1 | 1.245 | 1.5 | 1.5 | 0 | Y |  |  |
-| 129 | Prototype LB 2-X Autocannon | 1 | 0.069 | 0.105 | 0.105 | 0.105 | Y | Flak |  |
-| 130 | Prototype LB 5-X Autocannon | 1 | 0.236 | 0.3 | 0.3 | 0 | Y | Flak |  |
+| 121 | Ultra Autocannon/5 (C) | 2 | 0.75 | 0.75 | 0.75 | 0 | Y |  | Proposed: Both (But Stats Differ) |
+| 122 | Ultra Autocannon/10 (C) | 6 | 1.5 | 1.5 | 1.5 | 0 | Y |  | Proposed: Both (But Stats Differ) |
+| 123 | Ultra Autocannon/20 (C) | 14 | 3 | 3 | 0 | 0 | Y |  | Proposed: Both (But Stats Differ) |
+| 124 | Improved Autocannon/2 | 1 | 0.132 | 0.2 | 0.2 | 0.2 | Y | AC | Proposed: Clan Only |
+| 125 | Improved Autocannon/5 | 1 | 0.375 | 0.5 | 0.5 | 0 | Y | AC | Proposed: Clan Only |
+| 126 | Improved Autocannon/10 | 3 | 1 | 1 | 0 | 0 | Y | AC | Proposed: Clan Only |
+| 127 | Improved Autocannon/20 | 7 | 2 | 2 | 0 | 0 | Y | AC | Proposed: Clan Only |
+| 128 | Improved Gauss Rifle | 1 | 1.245 | 1.5 | 1.5 | 0 | Y |  | Proposed: Clan Only |
+| 129 | Prototype LB 2-X Autocannon | 1 | 0.069 | 0.105 | 0.105 | 0.105 | Y | Flak | Proposed: Clan Only |
+| 130 | Prototype LB 5-X Autocannon | 1 | 0.236 | 0.3 | 0.3 | 0 | Y | Flak | Proposed: Clan Only |
 ## Block 14
 
 | # | Weapon | Heat | S | M | L | E | TC | Notes | Classification |
 |---:|---|---:|---:|---:|---:|---:|---|---|---|
-| 131 | Prototype LB 20-X Autocannon | 6 | 1.26 | 1.26 | 0 | 0 | Y | Flak |  |
-| 132 | Prototype Ultra Autocannon/2 | 2 | 0.225 | 0.3 | 0.3 | 0.3 | Y |  |  |
-| 133 | Prototype Ultra Autocannon/10 | 8 | 1.5 | 1.5 | 1.5 | 0 | Y |  |  |
-| 134 | Prototype Ultra Autocannon/20 | 16 | 3 | 3 | 0 | 0 | Y |  |  |
-| 135 | Large Chemical Laser | 6 | 0.8 | 0.8 | 0 | 0 | Y |  |  |
-| 136 | Medium Chemical Laser | 2 | 0.5 | 0.5 | 0 | 0 | Y |  |  |
-| 137 | Small Chemical Laser | 1 | 0.3 | 0 | 0 | 0 | Y | Point Defense |  |
-| 138 | Large ER Pulse Laser | 13 | 1.05 | 1.05 | 1.05 | 0 | Y |  |  |
-| 139 | Medium ER Pulse Laser | 6 | 0.735 | 0.735 | 0 | 0 | Y |  |  |
-| 140 | Small ER Pulse Laser | 3 | 0.525 | 0.525 | 0 | 0 | Y |  |  |
+| 131 | Prototype LB 20-X Autocannon | 6 | 1.26 | 1.26 | 0 | 0 | Y | Flak | Proposed: Clan Only |
+| 132 | Prototype Ultra Autocannon/2 | 2 | 0.225 | 0.3 | 0.3 | 0.3 | Y |  | Proposed: Clan Only |
+| 133 | Prototype Ultra Autocannon/10 | 8 | 1.5 | 1.5 | 1.5 | 0 | Y |  | Proposed: Clan Only |
+| 134 | Prototype Ultra Autocannon/20 | 16 | 3 | 3 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 135 | Large Chemical Laser | 6 | 0.8 | 0.8 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 136 | Medium Chemical Laser | 2 | 0.5 | 0.5 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 137 | Small Chemical Laser | 1 | 0.3 | 0 | 0 | 0 | Y | Point Defense | Proposed: Clan Only |
+| 138 | Large ER Pulse Laser | 13 | 1.05 | 1.05 | 1.05 | 0 | Y |  | Proposed: Clan Only |
+| 139 | Medium ER Pulse Laser | 6 | 0.735 | 0.735 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 140 | Small ER Pulse Laser | 3 | 0.525 | 0.525 | 0 | 0 | Y |  | Proposed: Clan Only |
 ## Block 15
 
 | # | Weapon | Heat | S | M | L | E | TC | Notes | Classification |
 |---:|---|---:|---:|---:|---:|---:|---|---|---|
-| 141 | Flamer (Vehicle) (C) | 3 | 0.2 | 0 | 0 | 0 | N | Heat, Point Defense |  |
-| 142 | Improved Heavy Large Laser | 18 | 1.6 | 1.6 | 0 | 0 | Y |  |  |
-| 143 | Improved Heavy Medium Laser | 7 | 1 | 1 | 0 | 0 | Y |  |  |
-| 144 | Improved Heavy Small Laser | 3 | 0.6 | 0 | 0 | 0 | Y |  |  |
-| 145 | Prototype ER Medium Laser | 5 | 0.5 | 0.5 | 0 | 0 | Y |  |  |
-| 146 | Prototype ER Small Laser | 2 | 0.3 | 0.3 | 0 | 0 | Y | Point Defense |  |
-| 147 | Improved Large Laser | 8 | 0.8 | 0.8 | 0 | 0 | Y |  |  |
-| 148 | Improved Large Pulse Laser | 10 | 0.99 | 0.99 | 0 | 0 | Y |  |  |
-| 149 | Improved PPC | 10 | 0.75 | 1 | 1 | 0 | Y |  |  |
-| 150 | Enhanced PPC | 15 | 1.2 | 1.2 | 1.2 | 0 | Y |  |  |
+| 141 | Flamer (Vehicle) (C) | 3 | 0.2 | 0 | 0 | 0 | N | Heat, Point Defense | Proposed: Both (Identical Stats) |
+| 142 | Improved Heavy Large Laser | 18 | 1.6 | 1.6 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 143 | Improved Heavy Medium Laser | 7 | 1 | 1 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 144 | Improved Heavy Small Laser | 3 | 0.6 | 0 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 145 | Prototype ER Medium Laser | 5 | 0.5 | 0.5 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 146 | Prototype ER Small Laser | 2 | 0.3 | 0.3 | 0 | 0 | Y | Point Defense | Proposed: Clan Only |
+| 147 | Improved Large Laser | 8 | 0.8 | 0.8 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 148 | Improved Large Pulse Laser | 10 | 0.99 | 0.99 | 0 | 0 | Y |  | Proposed: Clan Only |
+| 149 | Improved PPC | 10 | 0.75 | 1 | 1 | 0 | Y |  | Proposed: Clan Only |
+| 150 | Enhanced PPC | 15 | 1.2 | 1.2 | 1.2 | 0 | Y |  | Proposed: Clan Only (see F6) |
 ## Block 16
 
 | # | Weapon | Heat | S | M | L | E | TC | Notes | Classification |
 |---:|---|---:|---:|---:|---:|---:|---|---|---|
-| 151 | ER PPC w/ Capacitor (C) | 15 | 1 | 1 | 1 | 0 | Y |  |  |
-| 152 | ATM 3 | 2 | 0.6 | 0.4 | 0.2 | 0.2 | N |  |  |
-| 153 | ATM 6 | 4 | 1.5 | 1 | 0.5 | 0.5 | N |  |  |
-| 154 | ATM 9 | 6 | 2.1 | 1.4 | 0.7 | 0.7 | N |  |  |
-| 155 | ATM 12 | 8 | 3 | 2 | 1 | 1 | N |  |  |
-| 156 | LRM 5* (C) (Art IV) | 2 | 0.4 | 0.4 | 0.4 | 0 | N | LRM, Indirect Fire |  |
-| 157 | LRM 5* (C) (Art V) | 2 | 0.42 | 0.42 | 0.42 | 0 | N | LRM, Indirect Fire |  |
-| 158 | LRM 10* (C) (Art IV) | 4 | 0.8 | 0.8 | 0.8 | 0 | N | LRM, Indirect Fire |  |
-| 159 | LRM 10* (C) (Art V) | 4 | 0.84 | 0.84 | 0.84 | 0 | N | LRM, Indirect Fire |  |
-| 160 | LRM 15* (C) (Art IV) | 5 | 1.2 | 1.2 | 1.2 | 0 | N | LRM, Indirect Fire |  |
+| 151 | ER PPC w/ Capacitor (C) | 15 | 1 | 1 | 1 | 0 | Y |  | Proposed: unresolved (see F7) |
+| 152 | ATM 3 | 2 | 0.6 | 0.4 | 0.2 | 0.2 | N |  | Proposed: Clan Only |
+| 153 | ATM 6 | 4 | 1.5 | 1 | 0.5 | 0.5 | N |  | Proposed: Clan Only |
+| 154 | ATM 9 | 6 | 2.1 | 1.4 | 0.7 | 0.7 | N |  | Proposed: Clan Only |
+| 155 | ATM 12 | 8 | 3 | 2 | 1 | 1 | N |  | Proposed: Clan Only |
+| 156 | LRM 5* (C) (Art IV) | 2 | 0.4 | 0.4 | 0.4 | 0 | N | LRM, Indirect Fire | Proposed: Both (But Stats Differ) |
+| 157 | LRM 5* (C) (Art V) | 2 | 0.42 | 0.42 | 0.42 | 0 | N | LRM, Indirect Fire | Proposed: Clan Only, no record (see F8) |
+| 158 | LRM 10* (C) (Art IV) | 4 | 0.8 | 0.8 | 0.8 | 0 | N | LRM, Indirect Fire | Proposed: Both (But Stats Differ) |
+| 159 | LRM 10* (C) (Art V) | 4 | 0.84 | 0.84 | 0.84 | 0 | N | LRM, Indirect Fire | Proposed: Clan Only, no record (see F8) |
+| 160 | LRM 15* (C) (Art IV) | 5 | 1.2 | 1.2 | 1.2 | 0 | N | LRM, Indirect Fire | Proposed: Both (But Stats Differ) |
 ## Block 17
 
 | # | Weapon | Heat | S | M | L | E | TC | Notes | Classification |
 |---:|---|---:|---:|---:|---:|---:|---|---|---|
-| 161 | LRM 15* (C) (Art V) | 5 | 1.26 | 1.26 | 1.26 | 0 | N | LRM, Indirect Fire |  |
-| 162 | LRM 20* (C) (Art IV) | 6 | 1.6 | 1.6 | 1.6 | 0 | N | LRM, Indirect Fire |  |
-| 163 | LRM 20* (C) (Art V) | 6 | 1.68 | 1.68 | 1.68 | 0 | N | LRM, Indirect Fire |  |
-| 164 | ’Mech Mortar-1 (C) | 1 | 0.085 | 0.17 | 0.17 | 0 | N | Indirect Fire |  |
-| 165 | ’Mech Mortar-2 (C) | 2 | 0.085 | 0.17 | 0.17 | 0 | N | Indirect Fire |  |
-| 166 | ’Mech Mortar-4 (C) | 5 | 0.255 | 0.51 | 0.51 | 0 | N | Indirect Fire |  |
-| 167 | ’Mech Mortar-8 (C) | 10 | 0.425 | 0.85 | 0.85 | 0 | N | Indirect Fire |  |
-| 168 | SRM 2* (C) (Art IV) | 2 | 0.4 | 0.4 | 0 | 0 | N | SRM |  |
-| 169 | SRM 2* (C) (Art V) | 2 | 0.42 | 0.42 | 0 | 0 | N | SRM |  |
-| 170 | SRM 4* (C) (Art IV) | 3 | 0.8 | 0.8 | 0 | 0 | N | SRM |  |
+| 161 | LRM 15* (C) (Art V) | 5 | 1.26 | 1.26 | 1.26 | 0 | N | LRM, Indirect Fire | Proposed: Clan Only, no record (see F8) |
+| 162 | LRM 20* (C) (Art IV) | 6 | 1.6 | 1.6 | 1.6 | 0 | N | LRM, Indirect Fire | Proposed: Both (But Stats Differ) |
+| 163 | LRM 20* (C) (Art V) | 6 | 1.68 | 1.68 | 1.68 | 0 | N | LRM, Indirect Fire | Proposed: Clan Only, no record (see F8) |
+| 164 | ’Mech Mortar-1 (C) | 1 | 0.085 | 0.17 | 0.17 | 0 | N | Indirect Fire | Proposed: Both, verify (see F9) |
+| 165 | ’Mech Mortar-2 (C) | 2 | 0.085 | 0.17 | 0.17 | 0 | N | Indirect Fire | Proposed: Both, verify (see F9) |
+| 166 | ’Mech Mortar-4 (C) | 5 | 0.255 | 0.51 | 0.51 | 0 | N | Indirect Fire | Proposed: Both, verify (see F9) |
+| 167 | ’Mech Mortar-8 (C) | 10 | 0.425 | 0.85 | 0.85 | 0 | N | Indirect Fire | Proposed: Both, verify (see F9) |
+| 168 | SRM 2* (C) (Art IV) | 2 | 0.4 | 0.4 | 0 | 0 | N | SRM | Proposed: Both (But Stats Differ) |
+| 169 | SRM 2* (C) (Art V) | 2 | 0.42 | 0.42 | 0 | 0 | N | SRM | Proposed: Clan Only, no record (see F8) |
+| 170 | SRM 4* (C) (Art IV) | 3 | 0.8 | 0.8 | 0 | 0 | N | SRM | Proposed: Both (But Stats Differ) |
 ## Block 18
 
 | # | Weapon | Heat | S | M | L | E | TC | Notes | Classification |
 |---:|---|---:|---:|---:|---:|---:|---|---|---|
-| 171 | SRM 4* (C) (Art V) | 3 | 0.84 | 0.84 | 0 | 0 | N | SRM |  |
-| 172 | SRM 6* (C) (Art IV) | 4 | 1 | 1 | 0 | 0 | N | SRM |  |
-| 173 | SRM 6* (C) (Art V) | 4 | 1.05 | 1.05 | 0 | 0 | N | SRM |  |
-| 174 | Streak LRM 5* (C) | 2 | 0.5 | 0.5 | 0.5 | 0 | N |  |  |
-| 175 | Streak LRM 10* (C) | 4 | 1 | 1 | 1 | 0 | N |  |  |
-| 176 | Streak LRM 15* (C) | 5 | 1.5 | 1.5 | 1.5 | 0 | N |  |  |
-| 177 | Streak LRM 20* (C) | 6 | 2 | 2 | 2 | 0 | N |  |  |
-| 178 | Streak LRM (ProtoMech, per tube)* | 1 | 0.1 | 0.1 | 0.1 | 0 | N |  |  |
-| 179 | Fusillade Launcher | 0 | 0.45 | 0.3 | 0 | 0 | N | IATM |  |
-| 180 | Improved LRM 5 | 2 | 0.15 | 0.3 | 0.3 | 0 | N | Indirect Fire |  |
+| 171 | SRM 4* (C) (Art V) | 3 | 0.84 | 0.84 | 0 | 0 | N | SRM | Proposed: Clan Only, no record (see F8) |
+| 172 | SRM 6* (C) (Art IV) | 4 | 1 | 1 | 0 | 0 | N | SRM | Proposed: Both (But Stats Differ) |
+| 173 | SRM 6* (C) (Art V) | 4 | 1.05 | 1.05 | 0 | 0 | N | SRM | Proposed: Clan Only, no record (see F8) |
+| 174 | Streak LRM 5* (C) | 2 | 0.5 | 0.5 | 0.5 | 0 | N |  | Proposed: Clan Only |
+| 175 | Streak LRM 10* (C) | 4 | 1 | 1 | 1 | 0 | N |  | Proposed: Clan Only |
+| 176 | Streak LRM 15* (C) | 5 | 1.5 | 1.5 | 1.5 | 0 | N |  | Proposed: Clan Only |
+| 177 | Streak LRM 20* (C) | 6 | 2 | 2 | 2 | 0 | N |  | Proposed: Clan Only |
+| 178 | Streak LRM (ProtoMech, per tube)* | 1 | 0.1 | 0.1 | 0.1 | 0 | N |  | Proposed: ProtoMech-only (see F10) |
+| 179 | Fusillade Launcher | 0 | 0.45 | 0.3 | 0 | 0 | N | IATM | Proposed: ProtoMech-only (see F10) |
+| 180 | Improved LRM 5 | 2 | 0.15 | 0.3 | 0.3 | 0 | N | Indirect Fire | Proposed: Clan Only |
 ## Block 19
 
 | # | Weapon | Heat | S | M | L | E | TC | Notes | Classification |
 |---:|---|---:|---:|---:|---:|---:|---|---|---|
-| 181 | Improved LRM 5 (Art IV) | 2 | 0.2 | 0.4 | 0.4 | 0 | N | Indirect Fire |  |
-| 182 | Improved LRM 10 | 4 | 0.3 | 0.6 | 0.6 | 0 | N | Indirect Fire |  |
-| 183 | Improved LRM 10 (Art IV) | 4 | 0.4 | 0.8 | 0.8 | 0 | N | Indirect Fire |  |
-| 184 | Improved LRM 15 | 5 | 0.45 | 0.9 | 0.9 | 0 | N | Indirect Fire |  |
-| 185 | Improved LRM 15 (Art IV) | 5 | 0.6 | 1.2 | 1.2 | 0 | N | Indirect Fire |  |
-| 186 | Improved LRM 20 | 6 | 0.6 | 1.2 | 1.2 | 0 | N | Indirect Fire |  |
-| 187 | Improved LRM 20 (Art IV) | 6 | 0.8 | 1.6 | 1.6 | 0 | N | Indirect Fire |  |
-| 188 | Improved SRM 2 | 2 | 0.2 | 0.2 | 0 | 0 | N |  |  |
-| 189 | Improved SRM 2 (Art IV) | 2 | 0.4 | 0.4 | 0 | 0 | N |  |  |
-| 190 | Improved SRM 4 | 3 | 0.6 | 0.6 | 0 | 0 | N |  |  |
+| 181 | Improved LRM 5 (Art IV) | 2 | 0.2 | 0.4 | 0.4 | 0 | N | Indirect Fire | Proposed: Clan Only, no record (see F11) |
+| 182 | Improved LRM 10 | 4 | 0.3 | 0.6 | 0.6 | 0 | N | Indirect Fire | Proposed: Clan Only |
+| 183 | Improved LRM 10 (Art IV) | 4 | 0.4 | 0.8 | 0.8 | 0 | N | Indirect Fire | Proposed: Clan Only, no record (see F11) |
+| 184 | Improved LRM 15 | 5 | 0.45 | 0.9 | 0.9 | 0 | N | Indirect Fire | Proposed: Clan Only |
+| 185 | Improved LRM 15 (Art IV) | 5 | 0.6 | 1.2 | 1.2 | 0 | N | Indirect Fire | Proposed: Clan Only, no record (see F11) |
+| 186 | Improved LRM 20 | 6 | 0.6 | 1.2 | 1.2 | 0 | N | Indirect Fire | Proposed: Clan Only |
+| 187 | Improved LRM 20 (Art IV) | 6 | 0.8 | 1.6 | 1.6 | 0 | N | Indirect Fire | Proposed: Clan Only, no record (see F11) |
+| 188 | Improved SRM 2 | 2 | 0.2 | 0.2 | 0 | 0 | N |  | Proposed: Clan Only |
+| 189 | Improved SRM 2 (Art IV) | 2 | 0.4 | 0.4 | 0 | 0 | N |  | Proposed: Clan Only, no record (see F11) |
+| 190 | Improved SRM 4 | 3 | 0.6 | 0.6 | 0 | 0 | N |  | Proposed: Clan Only |
 ## Block 20
 
 | # | Weapon | Heat | S | M | L | E | TC | Notes | Classification |
 |---:|---|---:|---:|---:|---:|---:|---|---|---|
-| 191 | Improved SRM 4 (Art IV) | 3 | 0.6 | 0.6 | 0 | 0 | N |  |  |
-| 192 | Improved SRM 6 | 4 | 0.8 | 0.8 | 0 | 0 | N |  |  |
-| 193 | Improved SRM 6 (Art IV) | 4 | 1 | 1 | 0 | 0 | N |  |  |
-| 194 | Prototype Streak SRM 4 | 3 | 0.84 | 0.84 | 0 | 0 | N |  |  |
-| 195 | Prototype Streak SRM 6 | 4 | 1.26 | 1.26 | 0 | 0 | N |  |  |
-| 196 | Improved ATM 3 | 2 | 0.9 | 0.6 | 0.3 | 0.3 | N | IATM |  |
-| 197 | Improved ATM 6 | 4 | 1.8 | 1.2 | 0.6 | 0.6 | N | IATM |  |
-| 198 | Improved ATM 9 | 6 | 2.7 | 1.8 | 0.9 | 0.9 | N | IATM |  |
-| 199 | Improved ATM 12 | 8 | 3.6 | 2.4 | 1.2 | 1.2 | N | IATM |  |
+| 191 | Improved SRM 4 (Art IV) | 3 | 0.6 | 0.6 | 0 | 0 | N |  | Proposed: Clan Only, no record (see F11) |
+| 192 | Improved SRM 6 | 4 | 0.8 | 0.8 | 0 | 0 | N |  | Proposed: Clan Only |
+| 193 | Improved SRM 6 (Art IV) | 4 | 1 | 1 | 0 | 0 | N |  | Proposed: Clan Only, no record (see F11) |
+| 194 | Prototype Streak SRM 4 | 3 | 0.84 | 0.84 | 0 | 0 | N |  | Proposed: Clan Only |
+| 195 | Prototype Streak SRM 6 | 4 | 1.26 | 1.26 | 0 | 0 | N |  | Proposed: Clan Only |
+| 196 | Improved ATM 3 | 2 | 0.9 | 0.6 | 0.3 | 0.3 | N | IATM | Proposed: Clan Only |
+| 197 | Improved ATM 6 | 4 | 1.8 | 1.2 | 0.6 | 0.6 | N | IATM | Proposed: Clan Only |
+| 198 | Improved ATM 9 | 6 | 2.7 | 1.8 | 0.9 | 0.9 | N | IATM | Proposed: Clan Only |
+| 199 | Improved ATM 12 | 8 | 3.6 | 2.4 | 1.2 | 1.2 | N | IATM | Proposed: Clan Only |
+
+## Blocks 13-20 Findings (2026-09-27, awaiting approval)
+
+Classifications above marked "Proposed" are Astech drafts from the current
+catalogs; nothing has been promoted. The workbook (Alpha-Strike-Converter-v2.3)
+is provisional, so any value taken from it keeps a "Provisional workbook
+conversion" note. Catalog vs workbook differences:
+
+- F1 Clan Ultra AC/5/10/20: catalog AS heat 1/1/7 vs workbook 2/6/14. The IS
+  Ultra records already use the workbook's doubled heat (2/8/16). Clan UAC/5
+  short 0.623 vs 0.75; Clan UAC/20 TC N vs Y.
+- F2 Clan Prototype Ultra AC/2/10/20: heat 1/1/7 vs 2/8/16 (copied from the
+  production weapon); Prototype UAC/20 TC N vs Y.
+- F3 Clan Prototype LB 5-X: catalog 0.6/0.6/0/0, TC N, no Flak (bad copy) vs
+  workbook 0.236/0.3/0.3/0, TC Y, Flak.
+- F4 Energy: Large/Medium Chemical Laser heat 8/3 vs 6/2; ER Pulse Large
+  1/1/1/1 vs 1.05/1.05/1.05/0, Medium 0.7 vs 0.735, Small 0.5/0 vs
+  0.525/0.525; Improved Heavy L/M/S 1.52/0.95/0.57 vs 1.6/1/0.6; Clan
+  Prototype ER Medium 0.7/0.7 vs 0.5/0.5 and Small 0.5/0 vs 0.3/0.3 (copied).
+- F5 ATM 3-12 and iATM 3-12: catalog stores the ATM card notation (e.g. ATM 9
+  3/2/1/0) while the workbook gives per-weapon fractions (2.1/1.4/0.7/0.7).
+  These are different models; decide which one the catalog carries.
+- F6 Enhanced PPC (row 150) is IO's Clan Enhanced PPC; the catalog's
+  `enhanced_er_ppc` is the apocryphal-hunt record (TODO) and has E 1.2 vs 0.
+- F7 ER PPC w/ Capacitor (C): no Clan record exists; the IS record is
+  0.75/0.75/0.75 vs the workbook (C) row 1/1/1. Need a source that a Clan
+  capacitor exists before adding one.
+- F8 Clan LRM/SRM + Artemis V rows have no records (see the Artemis V TODO).
+- F9 Clan 'Mech Mortars 1/2/4/8 have the same weight and slots as the IS
+  records in the catalog; verify against TM before classifying as Universal.
+- F10 ProtoMech Streak LRM (per tube) and Fusillade Launcher are ProtoMech
+  weapons; they must not enter the 'Mech lists as 'Mech-legal.
+- F11 Improved LRM/SRM + Artemis IV rows have no records; need a source that
+  the Improved launchers take Artemis IV. Row 191 (iSRM 4 + Art IV 0.6/0.6)
+  equals the plain iSRM 4 and looks like a workbook error.
+- F12 Smaller gaps: all LRM + Artemis IV records have short 0.2/0.4/0.6/0.8 vs
+  workbook 0.4/0.8/1.2/1.6; SRM 4 + Artemis IV 0.6 vs 0.8; LRM 20 + Artemis IV
+  (IS and Clan SL) heat 5 vs 6; Improved LRM 20 heat 5 / TC Y vs 6 / N;
+  Clan Prototype Streak SRM 4/6 0.8/1.2 vs 0.84/1.26. The Improved SRM
+  "range not converted" notes can go (the workbook values match).

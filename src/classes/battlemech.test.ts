@@ -132,6 +132,20 @@ describe("BattleMech equipment catalogs", () => {
         expect(new Set(mixedMech.getAvailableEquipment().map(item => item.tag)).size)
             .toBe(mixedMech.getAvailableEquipment().length);
     });
+
+    it("resolves split IS and Clan Arrow IV tags, including old Clan saves", () => {
+        // IS Arrow IV 15 t, Clan Arrow IV 12 t (catalog records, TO p.96)
+        const mixed = new BattleMech();
+        mixed.setTech("mis");
+        expect(mixed.addEquipmentFromTag("arrow-iv-system", "", "", false, null, undefined, undefined, undefined, undefined, undefined)?.weight).toBe(15);
+        expect(mixed.addEquipmentFromTag("clan-arrow-iv-system", "", "", false, null, undefined, undefined, undefined, undefined, undefined)?.weight).toBe(12);
+        expect(mixed.getAvailableEquipment().filter(item => item.name.startsWith("Arrow IV System"))).toHaveLength(2);
+
+        const clan = new BattleMech();
+        clan.setTech("clan");
+        const restored = clan.addEquipmentFromTag("arrow-iv-system", "", "", false, null, undefined, undefined, undefined, undefined, undefined);
+        expect(restored?.tag).toBe("clan-arrow-iv-system");
+    });
 });
 
 describe("BattleMech armor technology availability", () => {
@@ -229,6 +243,45 @@ describe("BattleMech armor allocation", () => {
         expect(mech.getTotalArmor()).toBeGreaterThan(0);
         expect(mech.getTotalArmor()).toBeLessThanOrEqual(mech.getMaxArmor());
         expect(mech.getUnallocatedArmor()).toBe(0);
+    });
+
+    // Regression: Best Guess dumped its rounding remainder onto the CT front,
+    // pushing CT front + rear past 2x internal structure, so the Step 4 CT (R)
+    // dropdown had no option for its value and rendered blank.
+    it("keeps Best Guess within every location's armor cap on all chassis types", () => {
+        const locations = [
+            "head", "centerTorso", "centerTorsoRear", "leftTorso", "leftTorsoRear",
+            "rightTorso", "rightTorsoRear", "leftArm", "rightArm", "leftLeg",
+            "rightLeg", "centerLeg", "frontLeftLeg", "frontRightLeg",
+        ] as const;
+        for (const type of ["biped", "quad", "tripod", "lam"]) {
+            for (const tonnage of [20, 25, 55, 100]) {
+                const mech = new BattleMech();
+                mech.setType(type);
+                mech.setTonnage(tonnage);
+                const maxTonnage = mech.getMaxArmorTonnage();
+                for (let weight = 0.5; weight < maxTonnage; weight += 0.5) {
+                    // Start from stale Allocate Max values; Best Guess must replace them
+                    mech.allocateArmorMax();
+                    mech.setArmorWeight(weight);
+                    mech.allocateArmorSane();
+
+                    const allocation = mech.getArmorAllocation();
+                    const label = `${type} ${tonnage}t ${weight}t armor`;
+                    for (const location of locations) {
+                        const value = allocation[location] ?? 0;
+                        expect(Number.isInteger(value) && value >= 0, `${label} ${location}=${value}`).toBe(true);
+                    }
+                    expect(allocation.head, label).toBeLessThanOrEqual(9);
+                    expect(allocation.centerTorso, label).toBeGreaterThan(0);
+                    expect(allocation.centerTorso, label).toBeLessThanOrEqual(mech.getMaxCenterTorsoArmor());
+                    expect(allocation.centerTorsoRear, label).toBeLessThanOrEqual(mech.getMaxCenterTorsoRearArmor());
+                    expect(allocation.leftTorsoRear, label).toBeLessThanOrEqual(mech.getMaxLeftTorsoRearArmor());
+                    expect(allocation.rightTorsoRear, label).toBeLessThanOrEqual(mech.getMaxRightTorsoRearArmor());
+                    expect(mech.getUnallocatedArmor(), label).toBe(0);
+                }
+            }
+        }
     });
 
     it("keeps the chassis armor ceiling independent of selected tonnage and synchronizes Allocate Max", () => {

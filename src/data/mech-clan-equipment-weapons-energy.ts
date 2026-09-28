@@ -498,7 +498,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         isAmmo: false,
         name: "Flamer (Clan, Star League)",
         tag: "standard-flamer-clan",
-        altNames: ["Flamer (Clan)"],
+        // "Flamer (Clan)" is the production Clan flamer (clan-flamer); saves resolve this record by tag
+        altNames: [],
         category: "Energy Weapons",
         sort: "flamer, clan, 1",
         damage: 2,

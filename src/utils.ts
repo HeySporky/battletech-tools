@@ -682,17 +682,15 @@ export function getAeroRangeLabel( aeroAbbr: string): string {
     return "";
 }
 
+// Natural sort: numbers compare by value, so "atm 3" sorts before "atm 12"
+const equipmentSortCollator = new Intl.Collator("en", { numeric: true, sensitivity: "base" });
+
 export function sortEquipment (
     a: IEquipmentItem,
     b: IEquipmentItem,
 ): number {
-    if( a.sort.toLocaleLowerCase().trim() >  b.sort.toLocaleLowerCase().trim() ) {
-        return 1;
-    } else if( a.sort.toLocaleLowerCase().trim() <  b.sort.toLocaleLowerCase().trim() ) {
-        return -1;
-    } else {
-        return 0;
-    }
+    return equipmentSortCollator.compare( a.sort.trim(), b.sort.trim() )
+        || equipmentSortCollator.compare( a.name.trim(), b.name.trim() );
 }
 
 export function getTargetColor(

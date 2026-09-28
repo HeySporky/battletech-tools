@@ -151,6 +151,8 @@ tool. Items are ordered by dependency, not by product marketing priority.
 - [ ] Review and classify the remaining workbook rows in
   `tools/alpha-strike-workbook-review-blocks.md`, then promote only after
   source and tech-base decisions are recorded there.
+  - Blocks 13-20: proposed classifications and findings F1-F12 recorded in the
+    ledger (2026-09-27); awaiting approval before any promotion.
   - [ ] Block 13, rows 121-130: Ultra AC/5/10/20 (C), Improved AC/2/5/10/20,
     Improved Gauss Rifle, and Prototype LB 2-X/5-X Autocannons.
   - [ ] Block 14, rows 131-140: Prototype LB 20-X, Prototype UAC/2/10/20,
@@ -217,9 +219,10 @@ tool. Items are ordered by dependency, not by product marketing priority.
 - [ ] Records with no IO munition data, kept as-is: LRM Incendiary, SRM Tear
   Gas, SRT Harpoon, Vehicle/Heavy Flamer Inferno and Water. Historical tags
   ammo-long-tom-ap, ammo-sniper-ap, ammo-thumper-ap have no canon round.
-- [ ] Consider an optional prototype-year field: `introduced` uses the IO
+- [x] Consider an optional prototype-year field: `introduced` uses the IO
   production year, so experimental prototypes (e.g. artillery cannons
-  3012/3032, Bombast 3064) are not available before production.
+  3012/3032, Bombast 3064) are not available before production. (Superseded
+  by the `prototype` year item below.)
 - [x] Optional `prototype` year on weapons and ammunition (374 records);
   shown in construction only at Experimental/Custom rules level, marked
   "(Prototype)". Equipment extinction now always applies (records carry
@@ -253,9 +256,12 @@ tool. Items are ordered by dependency, not by product marketing priority.
   (no canon source found yet).
 - [ ] Play-mode support for the new weapons: MG Array cluster fire, AMS
   interception with ammo use, TAG designation, chemical laser ammo use, HVAC.
-- [ ] Legacy data: base launchers' `battleValueOneShot` values are stale (e.g.
+- [x] Legacy data: base launchers' `battleValueOneShot` values are stale (e.g.
   LRM 10 shows 9; the OS record has 18) and unused by the builder; Clan Arrow IV
   stores range as `maxMapSheets` while IS Arrow IV uses short/medium/long.
+  (Removed the placeholder field from 46 records; the (OS) records carry the
+  one-shot BV. IS and Prototype Arrow IV now use `maxMapSheets: 8`, moved from
+  `long: 8`; verify 8/9 map sheets against TO when the book is in hand.)
 - [ ] Verify IS SRM/Streak SRM/SRT I-OS dates: MegaMek gives production 3056,
   whereas LRM/MRM/Narc I-OS are prototype 3056, production 3081.
 - [x] Misc equipment batch 1 (56 records): Beagle/Bloodhound/Clan Light probes,
@@ -312,15 +318,29 @@ tool. Items are ordered by dependency, not by product marketing priority.
   p.30. Not found yet: IndustrialMech ejection seat, EI (check TW/IO), SRCS,
   ladder, vehicular mine dispenser, cargo, HarJel II, ground-mobile HPG, RISC
   viral jammer, LAM bomb bay/fuel, QuadVee wheels, dumper.
-- [ ] BUG: Step 4 "Best Guess" armor allocation leaves CT (R) blank instead of
-  a number and puts 0 on CT. Fix the auto-allocation and add a regression test.
-- [ ] Step 5 equipment picker: add subtype filters within each main category
+- [x] BUG: Step 4 "Best Guess" armor allocation leaves CT (R) blank instead of
+  a number and puts 0 on CT. The remainder was dumped on the CT front, pushing
+  CT front + rear past 2x structure (dropdown had no matching option), and
+  skipped locations kept stale values. `allocateArmorSane` now clears first,
+  allocates proportionally to each cap and round-robins leftovers without
+  exceeding any cap; regression test sweeps Biped/Quad/Tripod/LAM.
+- [x] Step 5 equipment picker: add subtype filters within each main category
   (Energy: Lasers/PPCs/Flamers...; Ballistic: ACs/Gauss/MGs...; Missile:
   LRM/SRM/ATM/MRM...), keeping "all of the category" available.
-- [ ] Step 5 sorting: natural numeric sort (ATM 3 before ATM 12).
-- [ ] Re-run the duplicate audit across every catalog file (IS, Clan,
+  (`src/data/equipment-subtypes.ts`; ammo is grouped by the weapon it feeds;
+  Melee/Misc have no subtypes.)
+- [x] Step 5 sorting: natural numeric sort (ATM 3 before ATM 12).
+  (`sortEquipment` uses a numeric collator, name as tie-break.)
+- [x] Re-run the duplicate audit across every catalog file (IS, Clan,
   universal, custom, ammo) for duplicate tags, names and altTags hiding in
-  another file.
+  another file. (2026-09-27: IS and Clan Arrow IV shared `arrow-iv-system`, so
+  Mixed Tech hid one; Clan is now `clan-arrow-iv-system` with the old tag in
+  altTags. Removed wrong aliases: "Flamer (Clan)" on the SL flamer, ATM ER
+  names on ATM Standard ammo, launcher names on iGauss/iLRM/iSRM ammo.
+  `addEquipmentFromTag` now prefers an exact tag over aliases. The remaining
+  ~176 cross-file hits are intended IS/Clan split aliases; prototypes share
+  their production weapon's display `alternateName` by design. Tests guard
+  cross-catalog tag uniqueness and same-side altTag shadowing.)
 - [x] Engine audit vs TM/TO/IO: weight table regenerated from the TM p.49
   standard column (12 wrong values, incl. 100, 390, 425-460) and the type
   multipliers; ICE/Fuel Cell 6 CT slots; Fission IS-only, 7,500 C-bills, IO

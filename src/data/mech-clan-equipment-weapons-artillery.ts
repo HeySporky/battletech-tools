@@ -21,8 +21,9 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
     {
         name: "Arrow IV System (Clan)",
         altNames: ["Clan Arrow IV"],
-        tag: "arrow-iv-system",
-        altTags: [],
+        tag: "clan-arrow-iv-system",
+        // Old tag shared with the IS record; kept so existing Clan saves resolve
+        altTags: ["arrow-iv-system"],
         sort: "artillery, arrow iv, clan",
         category: "Artillery Weapons",
         notes: "Missile-based artillery. Fires as indirect area-saturation artillery across map sheets, or pairs with Target Acquisition Gear (TAG) for precision-guided homing strikes against specific hexes.",

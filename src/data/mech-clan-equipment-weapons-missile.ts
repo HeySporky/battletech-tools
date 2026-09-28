@@ -180,7 +180,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2295,
         battleValue: 45,
-        battleValueOneShot: 9,
         heat: 2,
         weight: 2,
         range: {
@@ -241,7 +240,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2592,
         battleValue: 53,
-        battleValueOneShot: 9,
         heat: 2,
         weight: 3,
         range: {
@@ -305,7 +303,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2295,
         battleValue: 90,
-        battleValueOneShot: 9,
         heat: 4,
         weight: 5,
         range: {
@@ -366,7 +363,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2592,
         battleValue: 98,
-        battleValueOneShot: 9,
         heat: 4,
         weight: 6,
         range: {
@@ -430,7 +426,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2295,
         battleValue: 136,
-        battleValueOneShot: 9,
         heat: 5,
         weight: 7,
         range: {
@@ -491,7 +486,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2592,
         battleValue: 144,
-        battleValueOneShot: 9,
         heat: 6,
         weight: 8,
         range: {
@@ -555,7 +549,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2295,
         battleValue: 181,
-        battleValueOneShot: 9,
         heat: 6,
         weight: 10,
         range: {
@@ -616,7 +609,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2592,
         battleValue: 189,
-        battleValueOneShot: 9,
         heat: 6,
         weight: 11,
         range: {
@@ -680,7 +672,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2365,
         battleValue: 21,
-        battleValueOneShot: 9,
         heat: 2,
         weight: 1,
         range: {
@@ -740,7 +731,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2592,
         battleValue: 29,
-        battleValueOneShot: 9,
         heat: 2,
         weight: 2,
         range: {
@@ -803,7 +793,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2365,
         battleValue: 39,
-        battleValueOneShot: 9,
         heat: 3,
         weight: 2,
         range: {
@@ -863,7 +852,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2592,
         battleValue: 47,
-        battleValueOneShot: 9,
         heat: 3,
         weight: 2,
         range: {
@@ -926,7 +914,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2365,
         battleValue: 59,
-        battleValueOneShot: 9,
         heat: 4,
         weight: 3,
         range: {
@@ -986,7 +973,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2592,
         battleValue: 67,
-        battleValueOneShot: 9,
         heat: 4,
         weight: 4,
         range: {
@@ -1049,7 +1035,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 2645,
         battleValue: 30,
-        battleValueOneShot: 9,
         heat: 2,
         weight: 1.5,
         range: {

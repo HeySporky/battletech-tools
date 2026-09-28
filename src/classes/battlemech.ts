@@ -5932,6 +5932,13 @@ export class BattleMech {
         }
 
         let equipmentList = this.getEquipmentList(equipmentListTag, includeCustom);
+        // An exact tag beats an alias, so another record's altTag or display
+        // name (e.g. a prototype's "Narc") can never capture a saved tag.
+        const normalizedTag = equipmentTag.trim().toLowerCase();
+        equipmentList = [
+            ...equipmentList.filter( item => item.tag.toLowerCase() === normalizedTag ),
+            ...equipmentList.filter( item => item.tag.toLowerCase() !== normalizedTag ),
+        ];
 
         for( let item of equipmentList ) {
             if( equipmentMatchesIdentifier(item, equipmentTag)) {
@@ -7155,121 +7162,102 @@ export class BattleMech {
         }
     }
 
+    // Best Guess: spread the purchased armor points proportionally to each
+    // location's cap (head 9, every other location 2x internal structure,
+    // with front + rear torso sharing one cap). Torsos split 7:1
+    // front/rear. Rounding leftovers go round-robin in priority order, left/
+    // right pairs together, so no location ever exceeds its cap and the
+    // Step 4 dropdowns always contain the allocated value.
     public allocateArmorSane(): void {
-        let totalArmor = Math.min(this._maxArmor, this.getChassisMaxArmor());
+        this.allocateArmorClear();
+        const chassisMax = this.getChassisMaxArmor();
+        let remaining = Math.floor(Math.min(this._maxArmor, chassisMax));
+        if (remaining <= 0 || chassisMax <= 0) {
+            this._calc();
+            return;
+        }
+        const percentage = remaining / chassisMax;
         const internalStructure = this.getInternalStructure();
-        if (totalArmor === 0) return;
-        const percentage = totalArmor / this.getChassisMaxArmor();
-        // Establish layout flags natively from our chassis choices
         const typeTag = this.getType().tag.toLowerCase();
         const hasArms = typeTag === "biped" || typeTag === "lam" || typeTag === "tripod";
         const isQuadStyle = typeTag === "quad" || typeTag === "quadvee";
         const isTripod = typeTag === "tripod";
-        // Base structural estimations using explicit, available references
-        const armArmor = hasArms ? Math.floor((internalStructure.rightArm || 0) * 2 * percentage) : 0;
-        const torsoArmor = Math.floor(internalStructure.rightTorso * 1.75 * percentage);
-        const rearArmor = Math.floor(internalStructure.rightTorso * 0.25 * percentage);
-        // Legs require fallback math since base reference properties change across frames
-        const referenceLegIS = internalStructure.rightLeg || internalStructure.frontRightLeg || 0;
-        const legArmor = Math.floor(referenceLegIS * 2 * percentage);
-        const centerTorsoArmor = Math.floor(internalStructure.centerTorso * 1.75 * percentage);
-        const centerTorsoArmorRear = Math.floor(internalStructure.centerTorso * 0.25 * percentage);
-        // Process allocations via structural availability checks
-        // Head Allocation (Max 9 rule enforcement)
-        let headArmor = hasArms ? armArmor : Math.floor(internalStructure.centerTorso * percentage);
-        if (headArmor > 9) headArmor = 9;
-        if (totalArmor >= headArmor) {
-            this.setHeadArmor(headArmor);
-            totalArmor -= headArmor;
-        } else {
-            this.setHeadArmor(0);
-        }
-        // Side Torsos Front & Rear
-        if (totalArmor > torsoArmor) {
-            this.setRightTorsoArmor(torsoArmor);
-            totalArmor -= torsoArmor;
-        }
-        if (totalArmor > rearArmor) {
-            this.setRightTorsoRearArmor(rearArmor);
-            totalArmor -= rearArmor;
-        }
-        if (totalArmor > torsoArmor) {
-            this.setLeftTorsoArmor(torsoArmor);
-            totalArmor -= torsoArmor;
-        }
-        if (totalArmor > rearArmor) {
-            this.setLeftTorsoRearArmor(rearArmor);
-            totalArmor -= rearArmor;
-        }
-        // Dynamic Leg Allocation
-        if (isQuadStyle) {
-            const quadLegs: Array<keyof IArmorAllocation> = ["leftLeg", "rightLeg", "frontLeftLeg", "frontRightLeg"];
-            quadLegs.forEach(legKey => {
-                if (totalArmor > legArmor) {
-                    switch (legKey) {
-                        case "leftLeg":
-                            this.setLeftLegArmor(legArmor);
-                            break;
-                        case "rightLeg":
-                            this.setRightLegArmor(legArmor);
-                            break;
-                        case "frontLeftLeg":
-                            this.setFrontLeftLegArmor(legArmor);
-                            break;
-                        case "frontRightLeg":
-                            this.setFrontRightLegArmor(legArmor);
-                            break;
-                    }
-                    totalArmor -= legArmor;
+
+        const allocation = this._armorAllocation;
+        const structureOf = (location: keyof IArmorAllocation): number =>
+            (internalStructure as unknown as Record<string, number | undefined>)[location] || 0;
+        // Room left in a location, honoring the shared front/rear torso caps
+        const roomIn = (location: keyof IArmorAllocation): number => {
+            const value = allocation[location] || 0;
+            switch (location) {
+                case "head":
+                    return 9 - value;
+                case "centerTorso":
+                case "centerTorsoRear":
+                    return structureOf("centerTorso") * 2 - allocation.centerTorso - allocation.centerTorsoRear;
+                case "leftTorso":
+                case "leftTorsoRear":
+                    return structureOf("leftTorso") * 2 - allocation.leftTorso - allocation.leftTorsoRear;
+                case "rightTorso":
+                case "rightTorsoRear":
+                    return structureOf("rightTorso") * 2 - allocation.rightTorso - allocation.rightTorsoRear;
+                default:
+                    return structureOf(location) * 2 - value;
+            }
+        };
+        const give = (location: keyof IArmorAllocation, points: number): void => {
+            allocation[location] = (allocation[location] || 0) + points;
+            remaining -= points;
+        };
+
+        // Priority order for leftover points; pairs stay symmetrical
+        const slots: Array<Array<keyof IArmorAllocation>> = [
+            ["centerTorso"],
+            ["leftTorso", "rightTorso"],
+            ["leftLeg", "rightLeg"],
+        ];
+        if (isTripod) slots.push(["centerLeg"]);
+        if (isQuadStyle) slots.push(["frontLeftLeg", "frontRightLeg"]);
+        if (hasArms) slots.push(["leftArm", "rightArm"]);
+        slots.push(["head"], ["centerTorsoRear"], ["leftTorsoRear", "rightTorsoRear"]);
+
+        // Proportional base allocation (floors never exceed the purchased points)
+        const frontShare = 1.75;
+        const rearShare = 0.25;
+        for (const slot of slots) {
+            for (const location of slot) {
+                let base: number;
+                if (location === "head") {
+                    base = 9 * percentage;
+                } else if (location === "centerTorsoRear" || location === "leftTorsoRear" || location === "rightTorsoRear") {
+                    base = structureOf(location.replace("Rear", "") as keyof IArmorAllocation) * rearShare * percentage;
+                } else if (location === "centerTorso" || location === "leftTorso" || location === "rightTorso") {
+                    base = structureOf(location) * frontShare * percentage;
+                } else {
+                    base = structureOf(location) * 2 * percentage;
                 }
-            });
-        } else {
-            // Standard Biped/LAM legs plus Tripod's additional Center Leg
-            if (totalArmor > legArmor) {
-                this.setRightLegArmor(legArmor);
-                totalArmor -= legArmor;
-            }
-            if (totalArmor > legArmor) {
-                this.setLeftLegArmor(legArmor);
-                totalArmor -= legArmor;
-            }
-            if (isTripod && totalArmor > legArmor) {
-                this.setCenterLegArmor(legArmor);
-                totalArmor -= legArmor;
+                give(location, Math.min(Math.floor(base), roomIn(location)));
             }
         }
-        // Arm Allocation (Completely skipped for Quad / QuadVee)
-        if (hasArms) {
-            if (totalArmor > armArmor) {
-                this.setRightArmArmor(armArmor);
-                totalArmor -= armArmor;
-            }
-            if (totalArmor > armArmor) {
-                this.setLeftArmArmor(armArmor);
-                totalArmor -= armArmor;
+
+        // Round-robin the leftovers, pairs first, then singles for any odd point
+        for (const allowSplitPairs of [false, true]) {
+            let progressed = true;
+            while (remaining > 0 && progressed) {
+                progressed = false;
+                for (const slot of slots) {
+                    const members = allowSplitPairs ? slot.map(location => [location]) : [slot];
+                    for (const group of members) {
+                        if (remaining >= group.length && group.every(location => roomIn(location) > 0)) {
+                            group.forEach(location => give(location, 1));
+                            progressed = true;
+                        }
+                    }
+                }
             }
         }
-        // Center Torso Rear
-        if (totalArmor > centerTorsoArmorRear) {
-            this.setCenterTorsoRearArmor(centerTorsoArmorRear);
-            totalArmor -= centerTorsoArmorRear;
-        } else {
-            this.setCenterTorsoRearArmor(0);
-        }
-        // Center Torso Front Allocation (Use calculated base, then absorb the remainder)
-        if (totalArmor >= centerTorsoArmor) {
-            this.setCenterTorsoArmor(centerTorsoArmor);
-            totalArmor -= centerTorsoArmor;
-            // Add any remaining fractional or leftover points from the pool right here
-            if (totalArmor > 0) {
-                this.setCenterTorsoArmor(centerTorsoArmor + totalArmor);
-                totalArmor = 0;
-            }
-        } else {
-            // Fallback: If pool is heavily depleted, dump whatever is left
-            this.setCenterTorsoArmor(totalArmor);
-            totalArmor = 0;
-        }
+
+        this._calc();
     }
 
     public allocateArmorMax(): void {

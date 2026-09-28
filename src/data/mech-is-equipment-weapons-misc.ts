@@ -35,7 +35,6 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         extinct: 3046,
         reintroduced: 0,
         battleValue: 39,
-        battleValueOneShot: 0,
         heat: 0,
         heatAero: 0,
         weight: 7.5,
@@ -113,7 +112,6 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         extinct: 0,
         reintroduced: 0,
         battleValue: 0,
-        battleValueOneShot: 0,
         heat: 0,
         weight: 1,
         range: {
@@ -190,7 +188,6 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         extinct: 0,
         reintroduced: 0,
         battleValue: 0,
-        battleValueOneShot: 0,
         heat: 0,
         weight: 5,
         range: {
@@ -268,7 +265,6 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         extinct: 2845,
         reintroduced: 3045,
         battleValue: 61,
-        battleValueOneShot: 0,
         heat: 0,
         weight: 1.5,
         range: {
@@ -345,7 +341,6 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         extinct: 2840,
         reintroduced: 3036,
         battleValue: 0,
-        battleValueOneShot: 0,
         heat: 0,
         weight: 0.5,
         range: {

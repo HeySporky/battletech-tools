@@ -15,6 +15,16 @@ describe("equipment catalog provenance", () => {
         expect(getEquipmentMaximumRangeInHexes(thumper)).toBe(357);
     });
 
+    it("stores Arrow IV range in map sheets like the other artillery pieces", () => {
+        const catalogs = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment);
+        for (const tag of ["arrow-iv-system", "prototype-arrow-iv", "clan-arrow-iv-system"]) {
+            const arrow = catalogs.find(item => item.tag === tag)!;
+            expect(arrow.range.maxMapSheets, tag).toBeGreaterThan(0);
+            expect([arrow.range.short, arrow.range.medium, arrow.range.long], tag).toEqual([0, 0, 0]);
+        }
+        expect(getEquipmentMaximumRangeInHexes(catalogs.find(item => item.tag === "arrow-iv-system")!)).toBe(8 * 17);
+    });
+
     it("prefers explicit Alpha Strike specials over weapon type codes", () => {
         const thumper = mechUniversalEquipment.find(item => item.tag === "thumper-artillery")!;
 
@@ -277,6 +287,33 @@ describe("equipment catalog provenance", () => {
         for (const definition of getEquipmentCatalogDefinitions()) {
             const tags = definition.equipment.map(item => item.tag);
             expect(new Set(tags).size, definition.id).toBe(tags.length);
+        }
+    });
+
+    // Duplicate audit: Mixed Tech lists dedupe by tag, so a tag shared across
+    // files hid one record (IS and Clan Arrow IV both used "arrow-iv-system").
+    it("keeps tags unique across every registered catalog", () => {
+        const owners = new Map<string, string>();
+        for (const definition of getEquipmentCatalogDefinitions()) {
+            for (const item of definition.equipment) {
+                const owner = owners.get(item.tag);
+                expect(owner, `${item.tag} in ${definition.id} is already used in ${owner}`).toBeUndefined();
+                owners.set(item.tag, definition.id);
+            }
+        }
+    });
+
+    it("never uses another record's tag as an altTag on the same tech side", () => {
+        // IS and Clan splits may both keep a historical altTag; tech base picks the record.
+        for (const side of ["is", "clan", "custom"] as const) {
+            const definitions = getEquipmentCatalogDefinitions().filter(definition => definition.techBase === side || definition.techBase === "universal");
+            const items = definitions.flatMap(definition => definition.equipment);
+            const tags = new Set(items.map(item => item.tag));
+            for (const item of items) {
+                for (const altTag of item.altTags ?? []) {
+                    expect(altTag !== item.tag && tags.has(altTag), `${side}: ${item.tag} altTag ${altTag} is another record's tag`).toBe(false);
+                }
+            }
         }
     });
 

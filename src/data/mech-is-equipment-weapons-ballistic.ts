@@ -1203,7 +1203,6 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 3060,
         battleValue: 118,
-        battleValueOneShot: 0,
         heat: 1,
         weight: 8,
         range: {
@@ -1284,7 +1283,6 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         reintroduced: 0,
         prototype: 3060,
         battleValue: 247,
-        battleValueOneShot: 0,
         heat: 1,
         weight: 10,
         range: {
