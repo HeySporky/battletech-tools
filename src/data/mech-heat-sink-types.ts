@@ -7,7 +7,8 @@ import { IHeatSync } from "./data-interfaces";
  * Inner Sphere prototype 2559, production 2567, lost 2865, recovered 3040;
  * Clan prototype 2825, production 2827. Laser (Clan, TO:AUE p.129): prototype 3040,
  * production 3051. Double Heat Sink Prototype (IO:AE p.65, 2559-2567) and Freezers
- * (IO:AE p.96, 3022-3040) exist only as Inner Sphere prototypes.
+ * (IO:AE p.96, 3022-3040) exist only as Inner Sphere prototypes. Compact (TO:AUE p.128):
+ * Inner Sphere prototype 3058, production 3079.
  */
 export const mechHeatSinkTypes: IHeatSync[] = [
 	{
@@ -100,6 +101,28 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		prototype: 3022,
 		introduced: null,
 		extinct: 3040,
+		reintroduced: 0
+	},
+	{
+		name: "Compact",
+		tag: "compact",
+		dissipation: 1,
+		crits: {
+			clan: 0,
+			is: 1
+		},
+		cost: 3000,
+		freeSinks: 10,
+		techBase: "is",
+		weightEach: 1.5,
+		perSlot: 2,
+		engineCapacityMultiplier: 2,
+		book: "TO:AUE",
+		page: 128,
+		notes: "Single-strength sinks at 1.5 tons each, two per critical slot; an engine holds twice its normal number.",
+		prototype: 3058,
+		introduced: 3079,
+		extinct: 0,
 		reintroduced: 0
 	}
 ];

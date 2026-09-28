@@ -1,4 +1,5 @@
 import { IClusterHit } from "../classes/battlemech";
+import type { VariableEquipmentFormula } from "./variable-equipment";
 
 export interface IArmorUnitTypes {
     battlemech: boolean;
@@ -253,6 +254,8 @@ export interface IEquipmentItem {
     criticalsDivisor?: number;
 
     variableSize?: boolean;
+    /** Sizing rule for variable equipment (see variable-equipment.ts); implies variableSize. */
+    variableFormula?: VariableEquipmentFormula;
     isMelee?: boolean;
     costPerItemTon?: number;
     location?: string;
@@ -333,6 +336,12 @@ export interface IHeatSync {
     freeSinks?: number;
     /** Only this technology base builds it (Laser: Clan; prototypes: Inner Sphere). */
     techBase?: "is" | "clan";
+    /** Tons per heat sink beyond the free ones (default 1; Compact 1.5). */
+    weightEach?: number;
+    /** Heat sinks that share one critical slot (default 1; Compact 2). */
+    perSlot?: number;
+    /** Multiplier on the engine's integral capacity, floor(rating / 25) (default 1; Compact 2). */
+    engineCapacityMultiplier?: number;
     book?: string;
     page?: number | null;
     notes?: string;
@@ -440,6 +449,30 @@ export interface IJumpJet {
     extinct: number | null;
     reintroduced: number | null;
     /** Clan availability window when it differs from the Inner Sphere one above. */
+    clanDates?: ITechDates;
+    available?: boolean;
+    availableAsPrototype?: boolean;
+}
+
+export interface IMyomerType {
+    name: string;
+    tag: string;
+    /** Critical slots, spread anywhere except the head. */
+    criticals: number;
+    /** C-bills per 'Mech ton (musculature line of the cost table). */
+    costPerTon: number;
+    /** Offensive BV weight factor (TM p.303: TSM x 1.5; Industrial TSM x 1.15). */
+    bvWeightMultiplier: number;
+    /** Doubles physical weapon damage when hot (TSM and its prototype). */
+    tripleStrength: boolean;
+    techBase?: "is" | "clan";
+    book: string;
+    page: number | null;
+    notes?: string;
+    prototype?: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
     clanDates?: ITechDates;
     available?: boolean;
     availableAsPrototype?: boolean;

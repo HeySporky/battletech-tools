@@ -850,6 +850,24 @@ describe("BattleMech heat sink and gyro availability", () => {
         expect(mech.getCBillCalcHTML()).toContain("6,000 x (Number of Heat Sinks [12])");
     });
 
+    it("weighs and slots Compact heat sinks two per slot with doubled engine capacity (TO:AUE p.128)", () => {
+        expect(heatSink("is", "jihad", "compact").available).toBe(true);
+        expect(heatSink("clan", "jihad", "compact").available).toBe(false);
+        expect(heatSink("is", "clan-inv", "compact", 4).availableAsPrototype).toBe(true);
+
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("jihad");
+        mech.setTonnage(50);
+        mech.setWalkSpeed(4);
+        mech.setHeatSinksType("compact");
+        mech.setAdditionalHeatSinks(10);
+        // 200-rated engine holds floor(200 / 25) x 2 = 16 of the 20 sinks; 4 remain, two per slot.
+        expect(mech.getEngineHeatSinkCapacity()).toBe(16);
+        expect(mech.getHeatSinkCriticalRequirements()).toEqual({ slotsEach: 1, number: 2 });
+        expect(mech.getHeatSinksWeight()).toBe(15);
+    });
+
     it("offers XL, Compact and Heavy-Duty gyros to Inner Sphere designs only", () => {
         const gyros = (tech: string) => {
             const mech = new BattleMech();
@@ -881,5 +899,92 @@ describe("BattleMech internal structure availability", () => {
     it("uses the TechManual structure costs per 'Mech ton", () => {
         expect(structure("is", "jihad", "endo-steel").cost).toBe(1600);
         expect(structure("is", "jihad", "reinforced").cost).toBe(6400);
+    });
+});
+
+describe("BattleMech variable-size equipment", () => {
+    const build = (tonnage: number) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("jihad");
+        mech.setTonnage(tonnage);
+        mech.setWalkSpeed(4);
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string, location = "ra") =>
+        mech.addEquipmentFromTag(tag, "is", location, false, undefined, "", false, [], undefined, undefined)!;
+
+    it("sizes a hatchet and sword from the 'Mech's tonnage (TM pp.220, 237)", () => {
+        const mech = build(55);
+        const hatchet = add(mech, "melee-hatchet");
+        const sword = add(mech, "melee-sword", "la");
+        mech.getInstalledEquipment();
+        expect([hatchet.weight, hatchet.space.battlemech, hatchet.damage, hatchet.battleValue]).toEqual([4, 4, 11, 16.5]);
+        // Sword: 55 / 20 = 2.75, rounded up to the half ton.
+        expect([sword.weight, sword.space.battlemech, sword.damage]).toEqual([3, 4, 7]);
+    });
+
+    it("sizes MASC by tonnage and prices it from the engine rating (TM p.225)", () => {
+        const mech = build(55);
+        const masc = add(mech, "masc", "rt");
+        mech.getInstalledEquipment();
+        expect([masc.weight, masc.space.battlemech, masc.cbills]).toEqual([3, 3, 220 * 3 * 1000]);
+    });
+
+    it("sizes a targeting computer from direct-fire weapons and raises their BV by 25% (TM pp.238, 303)", () => {
+        const mech = build(55);
+        add(mech, "large-laser", "ra");
+        add(mech, "large-laser", "la");
+        add(mech, "medium-laser", "ct");
+        const before = mech.getBattleValue();
+        const tc = add(mech, "targeting-computer", "rt");
+        mech.getInstalledEquipment();
+        // 5 + 5 + 1 = 11 tons of direct-fire weapons / 4, rounded up.
+        expect([tc.weight, tc.space.battlemech, tc.cbills]).toEqual([3, 3, 30000]);
+        expect(mech.hasTargetingComputer()).toBe(true);
+        expect(mech.getBattleValue()).toBeGreaterThan(before);
+    });
+});
+
+describe("BattleMech myomer and MP boosters", () => {
+    const build = (tech = "is", era = "jihad") => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra(era);
+        mech.setTonnage(55);
+        mech.setWalkSpeed(5);
+        return mech;
+    };
+
+    it("offers TSM to the Inner Sphere from 3050 and the prototype only at Experimental (TM p.240, IO:AE p.98)", () => {
+        const myomers = (tech: string, era: string, rulesLevel = 2) =>
+            build(tech, era).getAvailableMyomerTypes(rulesLevel).filter(m => m.available).map(m => m.tag);
+        expect(myomers("is", "jihad")).toEqual(["standard", "tsm", "industrial-tsm"]);
+        expect(myomers("clan", "jihad")).toEqual(["standard"]);
+        expect(myomers("is", "late-sw-rn", 4)).toContain("prototype-tsm");
+    });
+
+    it("spreads TSM slots, prices it and raises the BV weight factor (TM pp.240, 303)", () => {
+        const standard = build();
+        const tsm = build();
+        tsm.setMyomerType("tsm");
+        expect(tsm.hasTripleStrengthMyomer()).toBe(true);
+        expect(tsm.getUnallocatedCritCount() - standard.getUnallocatedCritCount()).toBe(6);
+        expect(tsm.getBVCalcHTML()).toContain("Tonnage modified by 1.5x");
+        expect(tsm.getCBillCalcHTML()).toContain("16,000 x Unit Tonnage [55]");
+        expect(tsm.getBattleValue()).toBeGreaterThan(standard.getBattleValue());
+
+        const copy = new BattleMech();
+        copy.importJSON(tsm.exportJSON());
+        expect(copy.getMyomerType().tag).toBe("tsm");
+    });
+
+    it("rates running MP with MASC engaged for Battle Value", () => {
+        const mech = build();
+        const before = mech.getBattleValue();
+        mech.addEquipmentFromTag("masc", "is", "rt", false, undefined, "", false, [], undefined, undefined);
+        expect(mech.getRunSpeed()).toBe(8);
+        expect(mech.getBVRunSpeed()).toBe(10);
+        expect(mech.getBattleValue()).toBeGreaterThan(before);
     });
 });

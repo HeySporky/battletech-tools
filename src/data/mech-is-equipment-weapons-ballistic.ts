@@ -1065,6 +1065,9 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Hatchet",
         tag: "melee-hatchet",
+        techRating: "b",
+        prototype: 3015,
+        variableFormula: "hatchet",
         sort: "melee, hatchet",
         category: "Melee",
         weight: 0,
@@ -1115,6 +1118,9 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Sword",
         tag: "melee-sword",
+        techRating: "b",
+        prototype: 3050,
+        variableFormula: "sword",
         sort: "melee, sword",
         category: "Melee",
         weight: 0,

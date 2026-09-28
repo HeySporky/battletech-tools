@@ -258,11 +258,34 @@ tool. Items are ordered by dependency, not by product marketing priority.
   stores range as `maxMapSheets` while IS Arrow IV uses short/medium/long.
 - [ ] Verify IS SRM/Streak SRM/SRT I-OS dates: MegaMek gives production 3056,
   whereas LRM/MRM/Narc I-OS are prototype 3056, production 3081.
-- [ ] Canon inventory, equipment (169 'Mech misc items in MegaMek; the
-  catalogs carry ~8): MASC, TSM, Supercharger, Targeting Computer, CASE/CASE
-  II, Artemis IV/V and Apollo FCS, active probes, ECM suites, C3/C3i, physical
-  weapons, industrial equipment, AES, turrets, shields, etc. Most need
-  construction-engine support (movement, weight formulas, crit rules).
+- [x] Misc equipment batch 1 (56 records): Beagle/Bloodhound/Clan Light probes,
+  Angel/Watchdog/Guardian-prototype ECM, C3i, C3 Boosted Slave, C3 Emergency
+  Master, CASE-P, CASE II (IS/Clan), A-Pods, MASS, HarJel, Null/Void signature,
+  Chameleon LPS, MASC (IS/Clan), Supercharger, Targeting Computer (IS/Clan),
+  Chain Whip, Flail, Shields, Spikes, Vibroblades, Mace, Lance, Claw,
+  Retractable Blade, and the TM industrial tools. Defensive BV per TM p.302
+  (ECM, probes, A-Pods, MASS, bridge layers, spikes, shields).
+- [x] Variable-size equipment via `variableFormula` (`src/data/variable-equipment.ts`):
+  Hatchet, Sword (now half-ton rounding), Retractable Blade, Mace, Lance, Claw,
+  Spikes, MASC, Supercharger, Targeting Computer. TC weapons x1.25 BV; MASC and
+  Supercharger boost BV running MP; physical weapon BV x2 with TSM.
+- [x] Myomer picker (Standard, TSM, Industrial TSM, Prototype TSM): spread slots,
+  cost per ton, BV weight factor (x1.5 / x1.15), saved as `myomer_type`.
+- [x] Existing misc record fixes: Clan Active Probe (TM p.204: 200,000, BV 12,
+  was 75,000/40), Clan ECM (TM p.213: 1 t, BV 61, was 1.5 t/75), Guardian ECM and
+  C3 dates, EW Equipment BV 39 (defensive) and dates.
+- [ ] Misc equipment batch 2 (no rulebook ref in the index yet; source each via
+  Sarna): EI Interface, DNI, drone OS/console, SRCS, IndustrialMech ejection
+  seat, recon camera, remote sensor dispenser, sprayer, Radical Heat Sink
+  System, buzzsaw, fluid suction, ladder, laser insulator, vehicular mine
+  dispenser, Blue Shield, booby trap, cargo/liquid storage, chaff pod, comms
+  equipment, collapsible command module, HarJel II/III, paramedic gear,
+  searchlights, ground-mobile HPG, RISC items, Nova CEWS, DIC, LAM bomb bay/fuel.
+- [ ] Misc equipment needing spread/location wiring: Partial Wing, Mechanical
+  Jump Boosters, UMU, Tracks, QuadVee Wheels, Environmental Sealing, AES (BV
+  x1.1/arm, x1.2 legs), turrets, Talons, dumpers, Ram Plate, Blue Shield.
+- [ ] Artemis V and Apollo launcher combos (Artemis IV exists as combined
+  launcher records); large/medium shields reduce walk MP by 1 (TO:AUE).
 - [x] Engine audit vs TM/TO/IO: weight table regenerated from the TM p.49
   standard column (12 wrong values, incl. 100, 390, 425-460) and the type
   multipliers; ICE/Fuel Cell 6 CT slots; Fission IS-only, 7,500 C-bills, IO
@@ -308,8 +331,9 @@ tool. Items are ordered by dependency, not by product marketing priority.
   FASCAM; TO:AUE pp.185, 197-198) via `minefieldBattleValue`; munitions with
   fewer rounds per ton than their family's standard round now get
   proportionally fewer shots (Thunder-Augmented LRM 20: 3, was 6).
-- [ ] Construction gaps still open: Compact heat sinks (two per slot, engine
-  capacity rule to verify); Mechanical Jump Boosters and other misc equipment;
+- [x] Compact heat sinks (TO:AUE p.128): 1.5 t each, two per slot, engine holds
+  floor(rating/25) x 2.
+- [ ] Construction gaps still open:
   primitive fusion engine dates unsourced; special armor play effects
   (Reactive/Reflective damage, Hardened, Heat-Dissipating) not modelled in play;
   Clans' pre-2825 use of Star League Ferro-Fibrous not modelled; artillery

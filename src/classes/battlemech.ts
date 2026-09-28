@@ -1,6 +1,6 @@
 import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
 import { battlemechLocations } from "../data/battlemech-locations";
-import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
+import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
@@ -11,7 +11,9 @@ import { mechGyroTypes } from "../data/mech-gyro-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
 import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
+import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechTypeOptions } from "../data/mech-type-options";
+import { isTargetingComputerWeapon, sizeVariableEquipment } from "../data/variable-equipment";
 import { btTechOptions } from "../data/tech-options";
 import { getHexDistanceFromModifier, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
@@ -146,6 +148,7 @@ export interface IBattleMechExport {
     gyro: string;
     heat_sink_type: string;
     jump_jet_type?: string;
+    myomer_type?: string;
     hideNonAvailableEquipment: boolean;
     introductoryRules?: boolean;
     is_type: string;
@@ -288,7 +291,7 @@ export class BattleMech {
 
     private _selectedInternalStructure = mechInternalStructureTypes[0];
 
-    private _hasTripleStrengthMyomer: boolean = false;
+    private _myomerType: IMyomerType = mechMyomerTypes[0];
     private _omnimech: boolean = false;
     private _remainingTonnage: number = 0;
 
@@ -704,7 +707,7 @@ export class BattleMech {
          * *********************************************************************** */
         this._calcLogBV += "<strong>STEP 2: CALCULATE DEFENSIVE FACTOR MODIFIER - TM p304</strong><br />";
         // 2A. Gather movement metrics using native speed methods
-        const runSpeed = this.getRunSpeed();
+        const runSpeed = this.getBVRunSpeed();
         const jumpSpeed = this.getJumpSpeed();
         const runModifier = getMovementModifier(runSpeed);
         const jumpModifier = getMovementModifier(jumpSpeed) + 1; // Jumping modifier bonus (TM p. 304)
@@ -923,9 +926,10 @@ export class BattleMech {
 
         let modifiedMechTonnage = this.getTonnage();
 
-        if (this._hasTripleStrengthMyomer) {
-            modifiedMechTonnage *= 1.5; // TSM mass multiplier (TM p. 303)
-            this._calcLogBV += `Triple-Strength Myomer (TSM) Active: Tonnage modified by 1.5x -> ${modifiedMechTonnage} tons (Base: ${this.getTonnage()})<br />`;
+        if (this._myomerType.bvWeightMultiplier !== 1) {
+            // TSM x 1.5, Industrial TSM x 1.15 (TM p. 303)
+            modifiedMechTonnage *= this._myomerType.bvWeightMultiplier;
+            this._calcLogBV += `${this._myomerType.name} Active: Tonnage modified by ${this._myomerType.bvWeightMultiplier}x -> ${modifiedMechTonnage} tons (Base: ${this.getTonnage()})<br />`;
         } else {
             this._calcLogBV += `Standard Tonnage Applied: ${modifiedMechTonnage} tons<br />`;
         }
@@ -1016,7 +1020,7 @@ export class BattleMech {
      */
     private _getSpeedFactorModifier(): number {
         // Core formula implementation: Mobility = Run MP + (Jump MP / 2) (TM p. 315)
-        const mobilityScore = this.getRunSpeed() + (this.getJumpSpeed() / 2);
+        const mobilityScore = this.getBVRunSpeed() + (this.getJumpSpeed() / 2);
 
         if (!Number.isFinite(mobilityScore)) {
             return 0.44;
@@ -1124,12 +1128,11 @@ export class BattleMech {
         this._calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\"><strong>Cockpit Subtotal: " + addCommas(cbillDryTotal) + "</strong></td></tr>\n";
 
         // Myomer
-        if( this._hasTripleStrengthMyomer ) {
-            this._calcLogCBill += "<tr><td><strong>Triple-Strength Myomer</strong><br /><span class=\"smaller-text\">16,000 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 16000 * this.getTonnage() ) + "</td></tr>\n";
-            cbillDryTotal += 16000 * this.getTonnage() ;
-        } else {
-            this._calcLogCBill += "<tr><td><strong>Standard Musculature</strong><br /><span class=\"smaller-text\">2,000 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( 2000 * this.getTonnage() ) + "</td></tr>\n";
-            cbillDryTotal += 2000 * this.getTonnage() ;
+        {
+            const myomerName = this._myomerType.tag === "standard" ? "Standard Musculature" : this._myomerType.name;
+            const myomerCost = this._myomerType.costPerTon * this.getTonnage();
+            this._calcLogCBill += "<tr><td><strong>" + myomerName + "</strong><br /><span class=\"smaller-text\">" + addCommas(this._myomerType.costPerTon) + " x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( myomerCost ) + "</td></tr>\n";
+            cbillDryTotal += myomerCost;
         }
 
         // Internal Structure
@@ -1460,7 +1463,13 @@ export class BattleMech {
     }
 
     public getHeatSinksWeight() {
-        return 0 + this._additionalHeatSinks;
+        return this._additionalHeatSinks * (this._heatSinkType.weightEach ?? 1);
+    }
+
+    /** Heat sinks the engine holds without critical slots: floor(rating / 25), doubled for Compact (TO:AUE p.128). */
+    public getEngineHeatSinkCapacity(): number {
+        const rating = this.getEngine()?.rating ?? 0;
+        return Math.floor(rating / 25) * (this._heatSinkType.engineCapacityMultiplier ?? 1);
     }
 
     public getGyroWeight() {
@@ -2806,7 +2815,7 @@ export class BattleMech {
         if( this._additionalHeatSinks > 0)
             this._weights.push({
                 name: "Additional Heat Sinks",
-                weight: this._additionalHeatSinks
+                weight: this.getHeatSinksWeight()
             });
 
         this._calcVariableEquipment();
@@ -2847,7 +2856,9 @@ export class BattleMech {
 
         let findEngine = this.getEngine();
         if( findEngine && findEngine.rating) {
-            this._heatSinkCriticals.number = this._additionalHeatSinks + 10 - Math.floor(findEngine.rating / 25);
+            // Sinks the engine cannot hold need slots; Compact sinks pair up, two per slot.
+            const external = Math.max(0, this._additionalHeatSinks + 10 - this.getEngineHeatSinkCapacity());
+            this._heatSinkCriticals.number = Math.ceil(external / (this._heatSinkType.perSlot ?? 1));
         } else {
             this._heatSinkCriticals.number = 0
         }
@@ -3420,6 +3431,19 @@ export class BattleMech {
             }
         }
 
+        // Myomer critical items (TSM variants spread anywhere but the head)
+        for( let mCounter = 0; mCounter < this._myomerType.criticals; mCounter++) {
+            this._unallocatedCriticals.push({
+                uuid: generateUUID(),
+                name: this._myomerType.name,
+                tag: this._myomerType.tag,
+                rear: false,
+                crits: 1,
+                obj: this._myomerType,
+                movable: true
+            });
+        }
+
         // Get optional equipment...
         // this._calcVariableEquipment();
         for( let elc = 0; elc < this._equipmentList.length; elc++) {
@@ -3450,7 +3474,9 @@ export class BattleMech {
         // Heat Sink Requirements
         let hs_requirements = this.getHeatSinkCriticalRequirements();
         let hs_nickname = "";
-        if( hs_requirements.slotsEach > 1)
+        if( (this._heatSinkType.perSlot ?? 1) > 1)
+            hs_nickname = "Compact Heat Sinks";
+        else if( hs_requirements.slotsEach > 1)
             hs_nickname = "Double Heat Sink";
         else
             hs_nickname ="Heat Sink";
@@ -3677,6 +3703,35 @@ export class BattleMech {
             this._calc();
         }
         return this._jumpJetType;
+    }
+
+    public getMyomerType(): IMyomerType {
+        return this._myomerType;
+    }
+
+    public setMyomerType(tag: string): IMyomerType {
+        const myomer = mechMyomerTypes.find(item => item.tag === tag);
+        if (myomer) {
+            this._myomerType = myomer;
+            this._calc();
+        }
+        return this._myomerType;
+    }
+
+    /** Whether the 'Mech has Triple-Strength Myomer (production or prototype). */
+    public hasTripleStrengthMyomer(): boolean {
+        return this._myomerType.tripleStrength;
+    }
+
+    public getAvailableMyomerTypes(rulesLevel: number = 2): IMyomerType[] {
+        const techTag = this.getTech().tag;
+        const pureTech = techTag === "is" || techTag === "clan" ? techTag : null;
+        return mechMyomerTypes.map(myomer => {
+            const availability = this._techDatesAvailability(myomer, rulesLevel);
+            myomer.availableAsPrototype = availability.asPrototype;
+            myomer.available = availability.available && !(myomer.techBase && pureTech && myomer.techBase !== pureTech);
+            return myomer;
+        });
     }
 
     public getAvailableJumpJets(rulesLevel: number = 2): IJumpJet[] {
@@ -4060,6 +4115,21 @@ export class BattleMech {
 
     public getRunSpeed() {
         return Math.ceil(this.getEffectiveWalkSpeed() * 1.5);
+    }
+
+    /** Running MP with MASC and/or a Supercharger engaged: walk x 2, or x 2.5 with both (TM p.225; TO:AUE p.157). */
+    public getBoostedRunSpeed(): number {
+        const walk = this.getEffectiveWalkSpeed();
+        const masc = this._equipmentList.some(item => item?.variableFormula === "masc-is" || item?.variableFormula === "masc-clan");
+        const supercharger = this._equipmentList.some(item => item?.variableFormula === "supercharger");
+        if (masc && supercharger) return Math.ceil(walk * 2.5);
+        if (masc || supercharger) return walk * 2;
+        return this.getRunSpeed();
+    }
+
+    /** Running MP for Battle Value: MASC and Superchargers count as engaged (TM Battle Value rules). */
+    public getBVRunSpeed(): number {
+        return this.getBoostedRunSpeed();
     }
 
     public getJumpSpeed() {
@@ -5050,6 +5120,7 @@ export class BattleMech {
             gyro: this._gyro.tag,
             heat_sink_type: this.getHeatSinksType(),
             jump_jet_type: this._jumpJetType.tag,
+            myomer_type: this._myomerType.tag,
             hideNonAvailableEquipment: this._hideNonAvailableEquipment,
             introductoryRules: this._introductoryRules,
             is_type: this.getInternalStructureType(),
@@ -5368,6 +5439,8 @@ export class BattleMech {
 
             if( importObject.jump_jet_type)
                 this.setJumpJetType(importObject.jump_jet_type);
+            if( importObject.myomer_type)
+                this.setMyomerType(importObject.myomer_type);
 
             if( importObject.armor_weight)
                 this.setArmorWeight(importObject.armor_weight);
@@ -6671,7 +6744,31 @@ export class BattleMech {
     };
 
     private _calcVariableEquipment() {
+        const directFireWeaponWeight = this._equipmentList
+            .filter(item => item && isTargetingComputerWeapon(item))
+            .reduce((sum, item) => sum + (item.weight || 0), 0);
+        const context = {
+            tonnage: this.getTonnage(),
+            engineRating: this.getEngine()?.rating ?? 0,
+            engineWeight: this.getEngineWeight() ?? 0,
+            directFireWeaponWeight,
+            hasTSM: this._myomerType.tripleStrength,
+        };
         for( let eqC = 0; eqC < this._equipmentList.length; eqC++) {
+            const formula = this._equipmentList[ eqC ]?.variableFormula;
+            if( formula ) {
+                const size = sizeVariableEquipment(formula, context);
+                if( size ) {
+                    const currentItem = this._equipmentList[ eqC ];
+                    currentItem.weight = size.weight;
+                    currentItem.criticals = size.slots;
+                    currentItem.space.battlemech = size.slots;
+                    currentItem.cbills = size.cbills;
+                    if( size.damage !== undefined ) currentItem.damage = size.damage;
+                    if( size.battleValue !== undefined ) currentItem.battleValue = size.battleValue;
+                }
+                continue;
+            }
             if( this._equipmentList[ eqC ] && this._equipmentList[ eqC ].variableSize ) {
 
                 let currentItem = this._equipmentList[ eqC ];
@@ -6744,7 +6841,16 @@ export class BattleMech {
                 .slice(0, 4);
             return linked.reduce((sum, eq) => sum + (eq.battleValue || 0), 0) * 0.67;
         }
+        // Targeting computer: direct-fire weapons x 1.25 (TM p.303).
+        if (this.hasTargetingComputer() && isTargetingComputerWeapon(item)) {
+            return (item.battleValue || 0) * 1.25;
+        }
         return item.battleValue || 0;
+    }
+
+    /** Whether a targeting computer is installed (TM p.238). */
+    public hasTargetingComputer(): boolean {
+        return this._equipmentList.some(item => item?.variableFormula?.startsWith("targeting-computer"));
     }
 
     /** Equipment whose BV counts toward the defensive rating (TM p.302: AMS, ECM, active probes, pods). */

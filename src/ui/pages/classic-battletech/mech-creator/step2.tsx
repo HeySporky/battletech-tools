@@ -37,6 +37,14 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    setMyomerType = ( event: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setMyomerType( event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
     setJumpingMP = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -112,6 +120,24 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                   <option key={option} value={option}>{option} MP</option>
                                 )
                               })}
+                              </select>
+                            </label>
+
+                          <label>
+                          Myomer:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getMyomerType().tag}
+                                onChange={this.setMyomerType}
+                              >
+                                {this.props.appGlobals.currentBattleMech.getAvailableMyomerTypes(this.props.appGlobals.appSettings.mechRulesFilter).map( (myomer) => {
+                                  const selected = myomer.tag === this.props.appGlobals.currentBattleMech?.getMyomerType().tag;
+                                  if( !myomer.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                    return <React.Fragment key={myomer.tag}></React.Fragment>;
+                                  }
+                                  return (
+                                    <option key={myomer.tag} value={myomer.tag} disabled={!myomer.available && !selected}>{myomer.name}{myomer.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                  )
+                                })}
                               </select>
                             </label>
 
