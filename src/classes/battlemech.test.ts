@@ -738,9 +738,9 @@ describe("BattleMech engine construction", () => {
             const mech = build(50, 5, "standard", tech, era);
             return mech.getAvailableJumpJets(rulesLevel).filter(jj => jj.available).map(jj => jj.tag);
         };
-        expect(jumpJets("is", "civil-war")).toEqual(["standard"]);
-        expect(jumpJets("is", "jihad")).toEqual(["standard", "improved"]);
-        expect(jumpJets("clan", "civil-war", 4)).toEqual(["standard", "improved"]); // Clan prototype 3060
+        expect(jumpJets("is", "civil-war")).toEqual(["standard", "umu"]); // UMU 3066
+        expect(jumpJets("is", "jihad")).toEqual(["standard", "improved", "umu"]);
+        expect(jumpJets("clan", "civil-war", 4)).toEqual(["standard", "improved", "umu"]); // Clan prototype 3060
 
         const mech = build(50, 5, "standard", "is", "jihad");
         mech.setJumpJetType("improved");
@@ -986,5 +986,96 @@ describe("BattleMech myomer and MP boosters", () => {
         expect(mech.getRunSpeed()).toBe(8);
         expect(mech.getBVRunSpeed()).toBe(10);
         expect(mech.getBattleValue()).toBeGreaterThan(before);
+    });
+});
+
+describe("BattleMech spread, movement and limb equipment", () => {
+    const build = (tonnage = 50, walk = 5, tech = "is", era = "dark-age") => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra(era);
+        mech.setTonnage(tonnage);
+        mech.setWalkSpeed(walk);
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string, location = "", tech = "is") =>
+        mech.addEquipmentFromTag(tag, tech, location, false, undefined, "", false, [], undefined, undefined)!;
+
+    it("places each slot of spread equipment on its own (TO:AUE p.148)", () => {
+        const mech = build();
+        const before = mech.getUnallocatedCritCount();
+        add(mech, "null-signature-system");
+        expect(mech.getUnallocatedCritCount() - before).toBe(7);
+    });
+
+    it("adds partial wing jump MP without jump heat and +3 heat capacity (TO:AUE p.105)", () => {
+        const mech = build(50, 5);
+        mech.setJumpSpeed(4);
+        const heatBefore = mech.getJumpHeat();
+        const wing = add(mech, "partial-wing");
+        mech.getInstalledEquipment();
+        expect(wing.weight).toBe(3.5);
+        expect(mech.getJumpSpeed()).toBe(6);
+        expect(mech.getJumpHeat()).toBe(heatBefore);
+        expect(mech.getBVCalcHTML()).toBeDefined();
+        expect(mech.getPartialWingHeatBonus()).toBe(3);
+    });
+
+    it("sizes Mechanical Jump Boosters by chosen MP and keeps the size on save (TO:AUE p.105)", () => {
+        const mech = build(55, 5);
+        const booster = add(mech, "mechanical-jump-booster");
+        mech.setEquipmentSize(booster.uuid, 3);
+        mech.getInstalledEquipment();
+        // 55 x 3 x 5% = 8.25, rounded up to the half ton.
+        expect(booster.weight).toBe(8.5);
+        expect(booster.space.battlemech).toBe(4);
+        expect(mech.getMechanicalJumpBoosterSpeed()).toBe(3);
+        expect(mech.getBVJumpSpeed()).toBe(3);
+        const copy = new BattleMech();
+        copy.importJSON(mech.exportJSON());
+        expect(copy.getMechanicalJumpBoosterSpeed()).toBe(3);
+    });
+
+    it("slows 'Mechs carrying medium and large shields (TO:AUE p.103)", () => {
+        const medium = build(50, 5);
+        medium.setJumpSpeed(4);
+        add(medium, "shield-medium", "la");
+        expect(medium.getWalkSpeed()).toBe(4);
+        expect(medium.getJumpSpeed()).toBe(3);
+        const large = build(50, 5);
+        large.setJumpSpeed(4);
+        add(large, "shield-large", "la");
+        expect(large.getJumpSpeed()).toBe(0);
+    });
+
+    it("treats UMUs as underwater MP generating 1 heat (TO:AUE p.107)", () => {
+        const mech = build(50, 5);
+        mech.setJumpJetType("umu");
+        mech.setJumpSpeed(3);
+        expect(mech.getJumpSpeed()).toBe(0);
+        expect(mech.getUMUSpeed()).toBe(3);
+        expect(mech.getJumpHeat()).toBe(1);
+        expect(mech.getJumpJetWeight()).toBe(1.5);
+    });
+
+    it("raises the BV weight factor for AES in an arm (TO:AUE p.91)", () => {
+        const mech = build(50, 5);
+        const aes = add(mech, "aes-arm", "la");
+        mech.getInstalledEquipment();
+        expect([aes.weight, aes.space.battlemech]).toEqual([1.5, 2]);
+        expect(mech.getAESBVMultiplier()).toBe(1.1);
+    });
+
+    it("shows variable equipment sized for the 'Mech in the equipment picker", () => {
+        const mech = build(75, 4);
+        const masc = mech.getAvailableEquipmentByCatalog("is", false, 2).find(item => item.tag === "masc")!;
+        expect([masc.weight, masc.criticals]).toEqual([4, 4]);
+    });
+
+    it("limits additional Compact heat sinks by their 1.5-ton weight", () => {
+        const mech = build(50, 4, "is", "jihad");
+        mech.setHeatSinksType("compact");
+        const tons = mech.getRemainingTonnage();
+        expect(mech.getMaxAdditionalHeatSinks()).toBe(Math.floor(tons / 1.5));
     });
 });

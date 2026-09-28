@@ -256,6 +256,14 @@ export interface IEquipmentItem {
     variableSize?: boolean;
     /** Sizing rule for variable equipment (see variable-equipment.ts); implies variableSize. */
     variableFormula?: VariableEquipmentFormula;
+    /** Each critical slot is placed on its own (spread across locations), e.g. Null Signature System. */
+    spreadSlots?: boolean;
+    /** Label for a user-chosen size on the installed item (e.g. "Jump MP"); its value is `size`. */
+    sizeLabel?: string;
+    /** Largest size the picker offers. */
+    sizeMax?: number;
+    /** Size chosen for this installed item (see sizeLabel). */
+    size?: number;
     isMelee?: boolean;
     costPerItemTon?: number;
     location?: string;
@@ -443,6 +451,8 @@ export interface IJumpJet {
     },
     criticals: number;
     costMultiplier: number;
+    /** UMUs: underwater MP instead of jump MP (TO:AUE p.107). */
+    underwater?: boolean;
     /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
     prototype?: number;
     introduced: number | null;

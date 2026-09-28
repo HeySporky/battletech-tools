@@ -54,6 +54,13 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return false;
     }
 
+    setSize = ( itemUUID: string | undefined, size: number ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setEquipmentSize( itemUUID, size );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
     removeEquipment = ( itemUUID: string | undefined ): boolean => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.removeEquipment(
@@ -199,6 +206,23 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                     <tr>
                                       <td>
                                         {item.name}
+                                        {item.sizeLabel ? (
+                                          <label className="smaller-text">
+                                            {item.sizeLabel}:&nbsp;
+                                            <select
+                                              value={item.size ?? 1}
+                                              onChange={( event: React.FormEvent<HTMLSelectElement>) => this.setSize( item.uuid, +event.currentTarget.value)}
+                                              className="width-auto"
+                                            >
+                                              {Array.from({ length: item.sizeMax ?? 1 }, (_value, index) => index + 1).map( (option) => (
+                                                <option key={option} value={option}>{option}</option>
+                                              ))}
+                                            </select>
+                                          </label>
+                                        ) : null}
+                                        {item.spreadSlots ? (
+                                          <div className="smaller-text">{item.space.battlemech} slots, placed one at a time</div>
+                                        ) : null}
                                       </td>
                                       <td>
                                         {item.minAmmoTons && item.isAmmo && item.minAmmoTons < 1 ? (

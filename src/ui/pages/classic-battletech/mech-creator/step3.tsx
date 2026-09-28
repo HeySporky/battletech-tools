@@ -42,10 +42,8 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
-      let weightDropDownMax = this.props.appGlobals.currentBattleMech.getRemainingTonnage() + this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks();
-      if( weightDropDownMax < this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks()) {
-        weightDropDownMax = this.props.appGlobals.currentBattleMech.getArmorWeight()
-      }
+      const weightDropDownMax = this.props.appGlobals.currentBattleMech.getMaxAdditionalHeatSinks();
+      const heatSinkObj = this.props.appGlobals.currentBattleMech.getHeatSinksObj();
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
@@ -85,6 +83,9 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
 
                               </select>
                             </label>
+                            {heatSinkObj.notes ? (
+                              <p className="text-center smaller-text">{heatSinkObj.notes}{heatSinkObj.book ? " (" + heatSinkObj.book + (heatSinkObj.page ? " p." + heatSinkObj.page : "") + ")" : ""}</p>
+                            ) : null}
 
                             <label>
                               Add additional heat sinks:

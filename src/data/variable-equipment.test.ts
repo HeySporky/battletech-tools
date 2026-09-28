@@ -32,6 +32,18 @@ describe("variable equipment sizing", () => {
         expect(sizeVariableEquipment("targeting-computer-clan", ctx)).toMatchObject({ weight: 5, slots: 5 });
     });
 
+    it("sizes wings, boosters, tracks, sealing, AES and talons (TM pp.216, 249; TO:AUE pp.91, 103, 105)", () => {
+        expect(sizeVariableEquipment("partial-wing-is", ctx)).toMatchObject({ weight: 5.5, slots: 8 });
+        expect(sizeVariableEquipment("partial-wing-clan", ctx)).toMatchObject({ weight: 4, slots: 6 });
+        expect(sizeVariableEquipment("jump-booster", { ...ctx, size: 2 })).toMatchObject({ weight: 7.5, slots: 4, cbills: 150000 });
+        expect(sizeVariableEquipment("jump-booster", { ...ctx, size: 2, isQuad: true })?.slots).toBe(8);
+        expect(sizeVariableEquipment("tracks", ctx)).toMatchObject({ weight: 7.5, slots: 2, cbills: 150000 });
+        expect(sizeVariableEquipment("environmental-sealing", ctx)).toMatchObject({ weight: 7.5, slots: 8, cbills: 16875 });
+        expect(sizeVariableEquipment("aes-arm", ctx)).toMatchObject({ weight: 2.5, slots: 3, cbills: 37500 });
+        expect(sizeVariableEquipment("aes-leg", { ...ctx, isQuad: true })).toMatchObject({ weight: 1.5, cbills: 52500 });
+        expect(sizeVariableEquipment("talons", ctx)).toMatchObject({ weight: 5, slots: 4, battleValue: 8 });
+    });
+
     it("counts energy and ballistic weapons except flamers, machine guns and AMS toward a targeting computer", () => {
         const item = (tag: string, category: string) => ({ tag, category }) as IEquipmentItem;
         expect(isTargetingComputerWeapon(item("large-laser", "Energy Weapons"))).toBe(true);

@@ -13,7 +13,7 @@ import { mechInternalStructureTypes } from "../data/mech-internal-structure-type
 import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
 import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechTypeOptions } from "../data/mech-type-options";
-import { isTargetingComputerWeapon, sizeVariableEquipment } from "../data/variable-equipment";
+import { IVariableEquipmentContext, isTargetingComputerWeapon, sizeVariableEquipment } from "../data/variable-equipment";
 import { btTechOptions } from "../data/tech-options";
 import { getHexDistanceFromModifier, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
@@ -107,6 +107,7 @@ interface IBMEquipmentExport {
     selectedAmmoBinUUID?: string | undefined;
     feedsWeaponTag?: string | undefined;
     currentAdditionalArmor?: number | undefined;
+    size?: number | undefined;
 }
 export interface IBattleMechExport {
 
@@ -708,9 +709,10 @@ export class BattleMech {
         this._calcLogBV += "<strong>STEP 2: CALCULATE DEFENSIVE FACTOR MODIFIER - TM p304</strong><br />";
         // 2A. Gather movement metrics using native speed methods
         const runSpeed = this.getBVRunSpeed();
-        const jumpSpeed = this.getJumpSpeed();
+        const jumpSpeed = this.getBVJumpSpeed();
         const runModifier = getMovementModifier(runSpeed);
-        const jumpModifier = getMovementModifier(jumpSpeed) + 1; // Jumping modifier bonus (TM p. 304)
+        // Jumping modifier bonus (TM p. 304); UMU movement earns no jump bonus.
+        const jumpModifier = Math.max(jumpSpeed > 0 ? getMovementModifier(jumpSpeed) + 1 : 0, getMovementModifier(this.getUMUSpeed()));
         // Determine the optimal Target Movement Modifier (TMM)
         let moveModifier = Math.max(runModifier, jumpModifier);
         this._calcLogBV += `Best Base TMM: ${moveModifier} (Run TMM: ${runModifier}, Jump TMM: ${jumpModifier})<br />`;
@@ -739,20 +741,22 @@ export class BattleMech {
             defensiveFactorModifier += 0.3;
             this._calcLogBV += "Activated Active Mimetic Light Polarization Layering (+0.30)<br />";
         }
-        // -------------------------------------------------------------------------
-        // FUTURE LEVEL 5 EXPANSION APOCRYPHAL HOOKS (Commented out for baseline accuracy)
-        // -------------------------------------------------------------------------
-        // if (this.hasEquipment("null_signature")) {
-        //     defensiveFactorModifier += 0.2;
-        //     this._calcLogBV += "Activated Null Signature System (NSS) Visual Shroud (+0.20)<br />";
-        // }
-        // if (this.hasEquipment("chameleon_frame") || this.hasEquipment("clps")) {
-        //     defensiveFactorModifier += 0.2;
-        //     this._calcLogBV += "Activated Chameleon Light Polarization Shielding (CLPS) (+0.20)<br />";
-        // }
-        // if (this.hasEquipment("poly_fullerene_reactive")) {
-        //     this._calcLogBV += "Detected Poly-Fullerene Reactive Armor (PFRA) Signal Dampening Fields<br />";
-        // }
+        // Signature systems (TO:AUE pp.112, 148, 161): Null Signature and Chameleon each +2 TMM;
+        // Void Signature raises the TMM to 3, or to 4 when it is already 3.
+        const hasEquipmentTag = (tag: string) => this._equipmentList.some(item => item?.tag === tag);
+        if (hasEquipmentTag("null-signature-system") && !(hasBasicStealth || hasPrototypeStealth || hasStandardStealth)) {
+            defensiveFactorModifier += 0.2;
+            this._calcLogBV += "Null Signature System (+0.20)<br />";
+        }
+        if (hasEquipmentTag("chameleon-lps")) {
+            defensiveFactorModifier += 0.2;
+            this._calcLogBV += "Chameleon Light Polarization Shield (+0.20)<br />";
+        }
+        if (hasEquipmentTag("void-signature-system")) {
+            const voidBonus = moveModifier < 3 ? (3 - moveModifier) / 10 : moveModifier === 3 ? 0.1 : 0;
+            defensiveFactorModifier += voidBonus;
+            this._calcLogBV += `Void Signature System (+${voidBonus.toFixed(2)})<br />`;
+        }
         // 2C. Apply the defensive factor to the defensive subtotal (TM p. 303)
         let finalDefensiveBattleRating = defensiveSubtotal * defensiveFactorModifier;
         this._calcLogBV += `Final Defensive Rating Calculation = DBR Subtotal * Defensive Factor: ${finalDefensiveBattleRating.toFixed(2)} = ${defensiveSubtotal.toFixed(2)} x ${defensiveFactorModifier.toFixed(2)}<br />`;
@@ -832,6 +836,12 @@ export class BattleMech {
         
         // Total Heat Dissipation Capacity = 6 + Total Dissipation Points - Max Movement Heat
         mechHeatEfficiency += (this.getHeatSinks() * sinkEfficiencyMultiplier) - this.getMaxMovementHeat();
+        // Partial wing: +3 heat capacity in a standard atmosphere (TO:AUE p.105).
+        mechHeatEfficiency += this.getPartialWingHeatBonus();
+        // RISC Emergency Coolant System: +4 (IO p.91).
+        if (this._equipmentList.some(item => item?.tag === "risc-emergency-coolant-system")) {
+            mechHeatEfficiency += 4;
+        }
         
         this._calcLogBV += `<strong>Heat Efficiency Capacity Pool:</strong> ${mechHeatEfficiency} (6 + Engine Sinks: ${this.getHeatSinks() * sinkEfficiencyMultiplier} - Movement Heat: ${this.getMaxMovementHeat()})<br />`;
         this._calcLogBV += "<strong>Total Weapon Heat Breakdown:</strong> ";
@@ -926,6 +936,12 @@ export class BattleMech {
 
         let modifiedMechTonnage = this.getTonnage();
 
+        // AES: +0.1 per arm, +0.2 (biped) or +0.4 (quad) when every leg has one (TO:AUE p.91).
+        const aesMultiplier = this.getAESBVMultiplier();
+        if (aesMultiplier !== 1) {
+            modifiedMechTonnage *= aesMultiplier;
+            this._calcLogBV += `Actuator Enhancement System: Tonnage modified by ${aesMultiplier}x -> ${modifiedMechTonnage} tons<br />`;
+        }
         if (this._myomerType.bvWeightMultiplier !== 1) {
             // TSM x 1.5, Industrial TSM x 1.15 (TM p. 303)
             modifiedMechTonnage *= this._myomerType.bvWeightMultiplier;
@@ -1020,7 +1036,7 @@ export class BattleMech {
      */
     private _getSpeedFactorModifier(): number {
         // Core formula implementation: Mobility = Run MP + (Jump MP / 2) (TM p. 315)
-        const mobilityScore = this.getBVRunSpeed() + (this.getJumpSpeed() / 2);
+        const mobilityScore = this.getBVRunSpeed() + (Math.max(this.getBVJumpSpeed(), this.getUMUSpeed()) / 2);
 
         if (!Number.isFinite(mobilityScore)) {
             return 0.44;
@@ -1464,6 +1480,13 @@ export class BattleMech {
 
     public getHeatSinksWeight() {
         return this._additionalHeatSinks * (this._heatSinkType.weightEach ?? 1);
+    }
+
+    /** Most additional heat sinks the remaining tonnage allows, at the selected type's weight per sink. */
+    public getMaxAdditionalHeatSinks(): number {
+        const weightEach = this._heatSinkType.weightEach ?? 1;
+        const available = this.getRemainingTonnage() + this.getHeatSinksWeight();
+        return Math.max(this._additionalHeatSinks, Math.floor(available / weightEach + 1e-9));
     }
 
     /** Heat sinks the engine holds without critical slots: floor(rating / 25), doubled for Compact (TO:AUE p.128). */
@@ -2186,6 +2209,10 @@ export class BattleMech {
         html += "Walking".padStart(col1Padding - 10, " " ) + " " + this.getWalkSpeed().toString().padStart(3, " " ) + "\n";
         html += "Running".padStart(col1Padding - 10, " " ) + " " + this.getRunSpeed().toString().padStart(3, " " ) + "\n";
         html += "Jumping".padStart(col1Padding - 10, " " ) + " " + this.getJumpSpeed().toString().padStart(3, " " ) + "\n";
+        if( this.getMechanicalJumpBoosterSpeed() > 0 )
+            html += "Jump Boosters".padStart(col1Padding - 10, " " ) + " " + this.getMechanicalJumpBoosterSpeed().toString().padStart(3, " " ) + "\n";
+        if( this.getUMUSpeed() > 0 )
+            html += "UMU".padStart(col1Padding - 10, " " ) + " " + this.getUMUSpeed().toString().padStart(3, " " ) + "\n";
 
         html += "" + this.getHeatSyncName().padEnd(col1Padding, " " ) + "" + this.getHeatSinks().toString().padEnd(col2Padding, " " ) + "" + this.getHeatSinksWeight() + "\n";
         html += "" + this.getGyroName().padEnd(col1Padding + col2Padding, " " ) + "" + this.getGyroWeight() + "\n";
@@ -2488,6 +2515,10 @@ export class BattleMech {
         html += "<tr><td colspan=\"1\" class=\"text-right\">Walking</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
         html += "<tr><td colspan=\"1\" class=\"text-right\">Running</td><td class=\"text-center\" colspan=\"2\">" + this.getRunSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
         html += "<tr><td colspan=\"1\" class=\"text-right\">Jumping</td><td class=\"text-center\" colspan=\"2\">" + this.getJumpSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
+        if( this.getMechanicalJumpBoosterSpeed() > 0 )
+            html += "<tr><td colspan=\"1\" class=\"text-right\">Jump Boosters</td><td class=\"text-center\" colspan=\"2\">" + this.getMechanicalJumpBoosterSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
+        if( this.getUMUSpeed() > 0 )
+            html += "<tr><td colspan=\"1\" class=\"text-right\">UMU</td><td class=\"text-center\" colspan=\"2\">" + this.getUMUSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
 
         html += "<tr><td colspan=\"1\">" + this.getHeatSyncName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
         html += "<tr><td colspan=\"3\">" + this.getGyroName() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
@@ -2847,7 +2878,7 @@ export class BattleMech {
             number: 0,
         };
         
-        this._heatDissipation = (this._additionalHeatSinks + 10) * this._heatSinkType.dissipation;
+        this._heatDissipation = (this._additionalHeatSinks + 10) * this._heatSinkType.dissipation + this.getPartialWingHeatBonus();
         if( this.getTech().tag === "clan" ) {
             this._heatSinkCriticals.slotsEach = this._heatSinkType.crits.clan;
         } else {
@@ -3456,6 +3487,23 @@ export class BattleMech {
             }
 
 
+            // Spread equipment (signature systems, sealing, tracks...) places each slot on its own.
+            if( this._equipmentList[elc].spreadSlots ) {
+                const baseUUID = this._equipmentList[elc].uuid ?? generateUUID();
+                for( let slotIndex = 0; slotIndex < this._equipmentList[elc].space.battlemech; slotIndex++) {
+                    this._unallocatedCriticals.push({
+                        uuid: baseUUID + ":" + slotIndex,
+                        name: this._equipmentList[elc].name,
+                        tag: this._equipmentList[elc].tag,
+                        rear: false,
+                        crits: 1,
+                        obj: this._equipmentList[elc],
+                        movable: true,
+                    });
+                }
+                continue;
+            }
+
             this._unallocatedCriticals.push({
                 uuid: this._equipmentList[elc].uuid ?? generateUUID(),
                 name: this._equipmentList[elc].name + rearTag,
@@ -3668,7 +3716,10 @@ export class BattleMech {
      * Improved jump jets count half their MP, rounded up.
      */
     public getJumpHeat(): number {
-        const jumpMP = this.getJumpSpeed();
+        // UMUs generate 1 heat however far the unit moves (TO:AUE p.107).
+        if (this._jumpJetType.underwater) return this.getUMUSpeed() > 0 ? 1 : 0;
+        // Movement granted by a partial wing generates no heat.
+        const jumpMP = this.getJumpSpeed() - (this.getJumpSpeed() > 0 ? this.getPartialWingJumpBonus() : 0);
         if (jumpMP <= 0) return 0;
         const heatMP = this._jumpJetType.tag === "improved" ? Math.ceil(jumpMP / 2) : jumpMP;
         return this.isXXLEngine() ? Math.max(6, heatMP * 2) : Math.max(3, heatMP);
@@ -4096,7 +4147,9 @@ export class BattleMech {
         const destroyedLegCount = legLocations.filter(location => this._structureInLocation(location) <= 0).length;
         const destroyedLegs = this.isTripod() ? Math.max(0, destroyedLegCount - 1) : destroyedLegCount;
         const legAdjustedSpeed = Math.floor(this._walkSpeed * Math.max(0, 1 - destroyedLegs * 0.25));
-        return Math.max(0, legAdjustedSpeed - (this.hasActiveModularArmor() ? 1 : 0));
+        // Medium and large shields each cost 1 walking MP (TO:AUE p.103).
+        const shieldPenalty = this._countShields("medium") + this._countShields("large");
+        return Math.max(0, legAdjustedSpeed - (this.hasActiveModularArmor() ? 1 : 0) - shieldPenalty);
     }
 
     public setWalkSpeed(
@@ -4132,8 +4185,53 @@ export class BattleMech {
         return this.getBoostedRunSpeed();
     }
 
+    /** Jumping MP for Battle Value: the better of jump jets and Mechanical Jump Boosters. */
+    public getBVJumpSpeed(): number {
+        return Math.max(this.getJumpSpeed(), this.getMechanicalJumpBoosterSpeed());
+    }
+
+    /** Jump MP from jump jets: shields and modular armor reduce it; a partial wing adds to it (TO:AUE pp.103, 105). */
     public getJumpSpeed() {
+        if (this._jumpJetType.underwater) return 0;
+        return this._applyJumpModifiers(this._jumpSpeed);
+    }
+
+    /** Underwater MP from UMUs (TO:AUE p.107); UMUs replace jump jets. */
+    public getUMUSpeed(): number {
+        if (!this._jumpJetType.underwater || this._countShields("large") > 0) return 0;
         return Math.max(0, this._jumpSpeed - (this.hasActiveModularArmor() ? 1 : 0));
+    }
+
+    /** Jump MP from Mechanical Jump Boosters (TO:AUE p.105): the booster's rated MP, modified like jump jets. */
+    public getMechanicalJumpBoosterSpeed(): number {
+        const booster = this._equipmentList.find(item => item?.variableFormula === "jump-booster");
+        return booster ? this._applyJumpModifiers(Math.max(1, booster.size ?? 1)) : 0;
+    }
+
+    private _applyJumpModifiers(baseMP: number): number {
+        if (baseMP <= 0 || this._countShields("large") > 0) return 0;
+        const mp = baseMP - (this.hasActiveModularArmor() ? 1 : 0) - this._countShields("medium");
+        return Math.max(0, mp > 0 ? mp + this.getPartialWingJumpBonus() : mp);
+    }
+
+    /** Shields mounted of one size (TO:AUE p.103). */
+    private _countShields(size: "small" | "medium" | "large"): number {
+        return this._equipmentList.filter(item => item?.tag === "shield-" + size).length;
+    }
+
+    public hasPartialWing(): boolean {
+        return this._equipmentList.some(item => item?.variableFormula === "partial-wing-is" || item?.variableFormula === "partial-wing-clan");
+    }
+
+    /** Partial wing jump bonus in a standard atmosphere: +2 up to 55 tons, +1 heavier (TO:AUE p.105). */
+    public getPartialWingJumpBonus(): number {
+        if (!this.hasPartialWing()) return 0;
+        return this.getTonnage() <= 55 ? 2 : 1;
+    }
+
+    /** Partial wing heat capacity bonus in a standard atmosphere (TO:AUE p.105). */
+    public getPartialWingHeatBonus(): number {
+        return this.hasPartialWing() ? 3 : 0;
     }
 
     public setJumpSpeed(
@@ -5169,6 +5267,7 @@ export class BattleMech {
                     split_location: this._equipmentList[countEQ].split_location,
                     feedsWeaponTag: this._equipmentList[countEQ].feedsWeaponTag,
                     currentAdditionalArmor: this._equipmentList[countEQ].currentAdditionalArmor,
+                    size: this._equipmentList[countEQ].size,
 
                 });
             } else {
@@ -5190,6 +5289,7 @@ export class BattleMech {
                     selectedAmmoBinUUID: this._equipmentList[countEQ].selectedAmmoBinUUID,
                     feedsWeaponTag: this._equipmentList[countEQ].feedsWeaponTag,
                     currentAdditionalArmor: this._equipmentList[countEQ].currentAdditionalArmor,
+                    size: this._equipmentList[countEQ].size,
                 });
             }
 
@@ -5515,6 +5615,9 @@ export class BattleMech {
                     );
                     if (restoredEquipment && typeof importItem.currentAdditionalArmor === "number") {
                         restoredEquipment.currentAdditionalArmor = importItem.currentAdditionalArmor;
+                    }
+                    if (restoredEquipment && typeof importItem.size === "number") {
+                        restoredEquipment.size = importItem.size;
                     }
                     if (restoredEquipment && importItem.feedsWeaponTag) {
                         restoredEquipment.feedsWeaponTag = importItem.feedsWeaponTag;
@@ -6743,21 +6846,43 @@ export class BattleMech {
         return this._equipmentList;
     };
 
-    private _calcVariableEquipment() {
+    /** Unit values that variable-size equipment is sized from. */
+    private _variableEquipmentContext(): IVariableEquipmentContext {
         const directFireWeaponWeight = this._equipmentList
             .filter(item => item && isTargetingComputerWeapon(item))
             .reduce((sum, item) => sum + (item.weight || 0), 0);
-        const context = {
+        return {
             tonnage: this.getTonnage(),
             engineRating: this.getEngine()?.rating ?? 0,
             engineWeight: this.getEngineWeight() ?? 0,
             directFireWeaponWeight,
             hasTSM: this._myomerType.tripleStrength,
+            isQuad: this.isQuad() || this.isQuadVee(),
         };
+    }
+
+    /** A copy of a variable-size catalog item sized for this 'Mech (for pickers); other items are returned as-is. */
+    public sizeEquipmentForUnit(item: IEquipmentItem): IEquipmentItem {
+        if (!item.variableFormula) return item;
+        const size = sizeVariableEquipment(item.variableFormula, { ...this._variableEquipmentContext(), size: item.size });
+        if (!size) return item;
+        return {
+            ...item,
+            space: { ...item.space, battlemech: size.slots },
+            weight: size.weight,
+            criticals: size.slots,
+            cbills: size.cbills,
+            damage: size.damage ?? item.damage,
+            battleValue: size.battleValue ?? item.battleValue,
+        };
+    }
+
+    private _calcVariableEquipment() {
+        const context = this._variableEquipmentContext();
         for( let eqC = 0; eqC < this._equipmentList.length; eqC++) {
             const formula = this._equipmentList[ eqC ]?.variableFormula;
             if( formula ) {
-                const size = sizeVariableEquipment(formula, context);
+                const size = sizeVariableEquipment(formula, { ...context, size: this._equipmentList[ eqC ].size });
                 if( size ) {
                     const currentItem = this._equipmentList[ eqC ];
                     currentItem.weight = size.weight;
@@ -6846,6 +6971,30 @@ export class BattleMech {
             return (item.battleValue || 0) * 1.25;
         }
         return item.battleValue || 0;
+    }
+
+    /** Set the size of an installed variable item (Mechanical Jump Booster MP), within its catalog limits. */
+    public setEquipmentSize(itemUUID: string | undefined, size: number): IEquipmentItem | null {
+        const item = this._equipmentList.find(eq => eq?.uuid === itemUUID);
+        if (!item || !item.sizeLabel) return null;
+        item.size = Math.max(1, Math.min(item.sizeMax ?? size, Math.round(size)));
+        this._calc();
+        return item;
+    }
+
+    /** BV weight factor from Actuator Enhancement Systems (TO:AUE p.91). */
+    public getAESBVMultiplier(): number {
+        const aes = this._equipmentList.filter(item => item?.variableFormula === "aes-arm" || item?.variableFormula === "aes-leg");
+        let multiplier = 1;
+        for (const arm of ["la", "ra"]) {
+            if (aes.some(item => item.variableFormula === "aes-arm" && item.location === arm)) multiplier += 0.1;
+        }
+        const quad = this.isQuad() || this.isQuadVee();
+        const legs = quad ? ["ll", "rl", "fll", "frl"] : this.isTripod() ? ["ll", "rl", "cl"] : ["ll", "rl"];
+        if (legs.every(leg => aes.some(item => item.variableFormula === "aes-leg" && item.location === leg))) {
+            multiplier += quad ? 0.4 : 0.2;
+        }
+        return Math.round(multiplier * 100) / 100;
     }
 
     /** Whether a targeting computer is installed (TM p.238). */
@@ -7238,7 +7387,8 @@ export class BattleMech {
         rulesLevel: number = 2,
     ): IEquipmentItem[] {
         const equipment = this.getAvailableEquipment(includeCustom, rulesLevel);
-        return catalog === "all" ? equipment : equipment.filter(item => item.catalog === catalog);
+        return (catalog === "all" ? equipment : equipment.filter(item => item.catalog === catalog))
+            .map(item => this.sizeEquipmentForUnit(item));
     }
 
     private _sortInstalledEquipment() {

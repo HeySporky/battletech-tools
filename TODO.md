@@ -274,18 +274,32 @@ tool. Items are ordered by dependency, not by product marketing priority.
 - [x] Existing misc record fixes: Clan Active Probe (TM p.204: 200,000, BV 12,
   was 75,000/40), Clan ECM (TM p.213: 1 t, BV 61, was 1.5 t/75), Guardian ECM and
   C3 dates, EW Equipment BV 39 (defensive) and dates.
-- [ ] Misc equipment batch 2 (no rulebook ref in the index yet; source each via
-  Sarna): EI Interface, DNI, drone OS/console, SRCS, IndustrialMech ejection
-  seat, recon camera, remote sensor dispenser, sprayer, Radical Heat Sink
-  System, buzzsaw, fluid suction, ladder, laser insulator, vehicular mine
-  dispenser, Blue Shield, booby trap, cargo/liquid storage, chaff pod, comms
-  equipment, collapsible command module, HarJel II/III, paramedic gear,
-  searchlights, ground-mobile HPG, RISC items, Nova CEWS, DIC, LAM bomb bay/fuel.
-- [ ] Misc equipment needing spread/location wiring: Partial Wing, Mechanical
-  Jump Boosters, UMU, Tracks, QuadVee Wheels, Environmental Sealing, AES (BV
-  x1.1/arm, x1.2 legs), turrets, Talons, dumpers, Ram Plate, Blue Shield.
+- [x] Misc equipment batch 2 (18 records): Partial Wing (IS/Clan), Mechanical
+  Jump Boosters, Tracks, Environmental Sealing, AES arm/leg (IS/Clan), Talons,
+  Blue Shield, Radical Heat Sink System, RISC Emergency Coolant System, Nova
+  CEWS, Remote Sensor Dispenser (+ prototype), mounted Searchlight, Laser
+  Insulator; UMUs as a jump jet type.
+- [x] Wiring and UI: spread equipment places one slot at a time
+  (`spreadSlots`: signature systems, wings, boosters, tracks, sealing, talons,
+  Blue Shield); size picker for Mechanical Jump Boosters (`sizeLabel`, saved as
+  `size`); equipment picker shows variable items sized for the 'Mech; heat
+  sink count limited by Compact weight and type notes shown; step 2 labels UMU
+  MP; TRO lists booster and UMU MP. Movement: medium/large shields -1 walk,
+  medium -1 jump, large no jump; partial wing jump bonus (no heat) and +3 heat
+  capacity; booster MP counts for BV; UMUs 1 heat. BV: AES weight factor,
+  Null Signature/Chameleon +0.2, Void Signature TMM rule, RISC ECS +4 heat.
+- [ ] Misc equipment still unsourced or needing more wiring: EI Interface, DNI,
+  drone OS/console, SRCS, IndustrialMech ejection seat, recon camera, sprayer,
+  buzzsaw, fluid suction, ladder, vehicular mine dispenser, booby trap,
+  cargo/liquid storage, chaff pod, comms equipment, collapsible command module,
+  HarJel II/III, paramedic gear, ground-mobile HPG, RISC viral jammers / laser
+  pulse module / super-cooled myomer, DIC, LAM bomb bay/fuel, QuadVee wheels,
+  turrets (need a turret-mount toggle), dumpers, Ram Plate. Placement rules for
+  spread items (one per location, side torsos, legs) are not enforced yet;
+  hand-actuator requirements and Claw replacing the hand are not enforced;
+  tracked movement mode not modelled in play.
 - [ ] Artemis V and Apollo launcher combos (Artemis IV exists as combined
-  launcher records); large/medium shields reduce walk MP by 1 (TO:AUE).
+  launcher records).
 - [x] Engine audit vs TM/TO/IO: weight table regenerated from the TM p.49
   standard column (12 wrong values, incl. 100, 390, 425-460) and the type
   multipliers; ICE/Fuel Cell 6 CT slots; Fission IS-only, 7,500 C-bills, IO

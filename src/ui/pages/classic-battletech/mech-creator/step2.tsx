@@ -160,7 +160,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                             </label>
 
                           <label>
-                          Jumping Movement Points:
+                          {this.props.appGlobals.currentBattleMech.getJumpJetType().underwater ? "Underwater Movement Points (UMU)" : "Jumping Movement Points"}:
                               <select
                                 value={this.props.appGlobals.currentBattleMech.getJumpSpeed()}
                                 onChange={this.setJumpingMP}
