@@ -1,8 +1,16 @@
 # BattleTech Tools
 
-## Purpose
+## Licensing & Intellectual Property
 
-This is a development fork of Jeff's Battletech Tools. This will be used to explore keeping the project going as a community maintained codebase.
+### Software License and Purpose
+This project is a community-maintained fork of **Jeff's BattleTech Tools**. The original repository contained an unconfigured MIT License template (`[year] [fullname]`) alongside codebase references to copyleft governance. 
+
+To honor Jeff's intent, resolve this ambiguity, and ensure these tools remain permanently free and open-source for the tabletop community, this project is formally distributed under the **GNU General Public License v3** (see `LICENSE`). Historical files are preserved in `LICENSE-MIT`.
+
+### BattleTech Data Disclaimer
+This software functions strictly as a data-transformation utility to assist players during gameplay. 
+
+**Important:** Any BattleTech unit names, statistics, lore, or imagery processed or displayed by these tools are the exclusive intellectual property of **Catalyst Game Labs, Topps**, and their respective rights holders. This proprietary game data is completely non-commercial, is included without any intent to challenge official copyrights or trademarks, and is **explicitly excluded** from any open-source software licensing (GPLv3) granted herein.
 
 ## Development
 
@@ -31,6 +39,8 @@ PWA Application using Typescript and React
 ### Current Contributors
 
 [Spork](https://github.com/HeySporky)
+
+[NGCFells](https://github.com/NGCFells)
 
 
 ### Previous Contributors
