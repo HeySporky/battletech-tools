@@ -101,7 +101,22 @@
       "Name": "Fighter Craft",
       "Image": null,
       "SortOrder": 3
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "11a",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,BOMB 1,ENE,FUEL 20,SPC,VSTOL,Interceptor"
   },
   {
     "Id": 108602,
@@ -204,7 +219,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 6,
+    "BFDamageMedium": 6,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"w",
+    "BFTMM": 1,
+    "BFArmor": 7,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AC 2/2/-,PRB,RCN,REAR 0*/-/-,SRCH,TUR (5/5/-,AC2/2/-),Juggernaut"
   },
   {
     "Id": 108603,
@@ -269,7 +299,22 @@
       "Name": "IndustrialMech",
       "Image": null,
       "SortOrder": 9
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 4,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "BAR,BFC,CT 17,FC,I-TSM,SEAL,Ambusher"
   },
   {
     "Id": 108604,
@@ -354,7 +399,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "16\"",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": true,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,IF 0*,Striker"
   },
   {
     "Id": 108605,
@@ -436,7 +496,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "18\"/8\"j",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,JMPW 2,Scout"
   },
   {
     "Id": 108606,
@@ -652,7 +727,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,SRM 2/2,Brawler"
   },
   {
     "Id": 108607,
@@ -745,7 +835,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 4,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"j",
+    "BFTMM": 1,
+    "BFArmor": 7,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,FLK 0*/0*/0*,OMNI,Sniper"
   },
   {
     "Id": 108608,
@@ -977,7 +1082,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "10\"j",
+    "BFTMM": 2,
+    "BFArmor": 7,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Sniper"
   },
   {
     "Id": 108609,
@@ -1079,7 +1199,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"j",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 4,Ambusher"
   },
   {
     "Id": 108610,
@@ -1204,7 +1339,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "8\"j",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,FLK 1/1/1,IF 1,REAR 1/1/-,Brawler"
   },
   {
     "Id": 108611,
@@ -1268,7 +1418,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "16\"",
+    "BFTMM": 3,
+    "BFArmor": 5,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3BSS,IF 0*,MHQ 2,Skirmisher"
   },
   {
     "Id": 108612,
@@ -1373,7 +1538,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"j",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ARTAIS -1,Missile Boat"
   },
   {
     "Id": 108613,
@@ -1415,7 +1595,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 5,MEC,SRCH,Ambusher"
   },
   {
     "Id": 108614,
@@ -1470,7 +1665,22 @@
       "Name": "IndustrialMech",
       "Image": null,
       "SortOrder": 9
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 4,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AFC,CASEII,ES,PRB,RCN,SRCH,TSEMP 1,Sniper"
   },
   {
     "Id": 108615,
@@ -1541,7 +1751,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,Juggernaut"
   },
   {
     "Id": 108616,
@@ -1758,7 +1983,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "16\"j",
+    "BFTMM": 3,
+    "BFArmor": 4,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,OMNI,Striker"
   },
   {
     "Id": 108617,
@@ -1860,7 +2100,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "20\"h",
+    "BFTMM": 4,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,IF 1,SRCH,TUR (0*/1/1,IF1),Missile Boat"
   },
   {
     "Id": 108618,
@@ -1953,7 +2208,22 @@
       "Name": "Support Vehicle",
       "Image": null,
       "SortOrder": 8
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 0,
+    "BFMove": "—",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "None"
   },
   {
     "Id": 108619,
@@ -2163,7 +2433,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "16\"h",
+    "BFTMM": 3,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,IF 1,IT 3,SRCH,SRM 1/1,TUR (2/2/-,SRM1/1),Striker"
   },
   {
     "Id": 108620,
@@ -2246,7 +2531,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "8\"t",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,SRCH,TUR (1/1/1),Brawler"
   },
   {
     "Id": 108621,
@@ -2314,7 +2614,22 @@
       "Name": "OmniVehicle",
       "Image": null,
       "SortOrder": 2
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 7,
+    "BFDamageMedium": 7,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 10,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,ECM,OMNI,SRCH,TUR (2/2/2),Juggernaut"
   },
   {
     "Id": 108622,
@@ -2384,7 +2699,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 5,
+    "BFDamageLong": 5,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 8,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,CASE,IF 3,MHQ 1,Missile Boat"
   },
   {
     "Id": 108623,
@@ -2463,7 +2793,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"f",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 2,Ambusher"
   },
   {
     "Id": 108624,
@@ -2520,7 +2865,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "10\"",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASEII,IF 1,LRM 1/1/1,SRM 1/1,Missile Boat"
   },
   {
     "Id": 108625,
@@ -2560,7 +2920,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"j",
+    "BFTMM": 2,
+    "BFArmor": 5,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3I,ENE,MHQ 2,OMNI,Striker"
   },
   {
     "Id": 108626,
@@ -2791,7 +3166,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"m",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 6,HT 1/-/-,Ambusher"
   },
   {
     "Id": 108627,
@@ -2880,7 +3270,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "10\"j",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ECM,ENE,REAR 1/1/-,TSM,Sniper"
   },
   {
     "Id": 108628,
@@ -2944,7 +3349,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "18\"",
+    "BFTMM": 3,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,MEL,SHLD,Striker"
   },
   {
     "Id": 108629,
@@ -2990,7 +3410,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 5,
+    "BFDamageLong": 5,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3I,IF 5,MHQ 2,SRCH,Missile Boat"
   },
   {
     "Id": 108630,
@@ -3078,7 +3513,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 20,Ambusher"
   },
   {
     "Id": 108631,
@@ -3130,7 +3580,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "12\"/10\"j",
+    "BFTMM": 2,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AMS,Scout"
   },
   {
     "Id": 108632,
@@ -3303,7 +3768,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"j",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Skirmisher"
   },
   {
     "Id": 108633,
@@ -3403,7 +3883,22 @@
       "Name": "Fighter Craft",
       "Image": null,
       "SortOrder": 3
-    }
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 6,
+    "BFDamageLong": 4,
+    "BFDamageExtreme": 2,
+    "BFSize": 3,
+    "BFMove": "5a",
+    "BFTMM": 0,
+    "BFArmor": 6,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 2,BOMB 3,FUEL 20,PNT 1,SPC,VSTOL,Attack"
   },
   {
     "Id": 108634,
@@ -3443,7 +3938,22 @@
       "Name": "Support Vehicle",
       "Image": null,
       "SortOrder": 8
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "5a",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,ATMO,CT 15,FUEL 20,MHQ 3,None"
   },
   {
     "Id": 108635,
@@ -3555,7 +4065,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"t",
+    "BFTMM": 1,
+    "BFArmor": 6,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": true,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AC 2/2/-,SRCH,TUR (3/3/0*,AC2/2/-),Juggernaut"
   },
   {
     "Id": 108636,
@@ -3654,7 +4179,22 @@
       "Name": "Fighter Craft",
       "Image": null,
       "SortOrder": 3
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "7a",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,ATMO,BOMB 1,EE,VSTOL,Fast Dogfighter"
   },
   {
     "Id": 108637,
@@ -3878,7 +4418,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "20\"v",
+    "BFTMM": 4,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ATMO,EE,IT 7,SRCH,None"
   },
   {
     "Id": 108638,
@@ -3920,7 +4475,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "20\"",
+    "BFTMM": 4,
+    "BFArmor": 3,
+    "BFStructure": 1,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CR,ECM,ENE,HT 1/1/1,MHQ 1,NOVA,OMNI,PRB,RCN,STL,Scout"
   },
   {
     "Id": 108639,
@@ -4005,7 +4575,22 @@
       "Name": "Advanced Support",
       "Image": null,
       "SortOrder": 10
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 0,
+    "BFMove": "—",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "None"
   },
   {
     "Id": 108640,
@@ -4071,7 +4656,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"",
+    "BFTMM": 2,
+    "BFArmor": 4,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASEII,Sniper"
   },
   {
     "Id": 108641,
@@ -4104,7 +4704,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"j",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 4,MEC,Juggernaut"
   },
   {
     "Id": 108642,
@@ -4180,7 +4795,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 20,Ambusher"
   },
   {
     "Id": 108643,
@@ -4213,7 +4843,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"f",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 5,MDS 1,Ambusher"
   },
   {
     "Id": 108644,
@@ -4246,7 +4891,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": true,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 6,FR,MEC,Ambusher"
   },
   {
     "Id": 108645,
@@ -4313,7 +4973,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "10\"",
+    "BFTMM": 2,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,IF 1,LRM 1/1/1,Brawler"
   },
   {
     "Id": 108646,
@@ -4407,7 +5082,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"f",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 4,MEC,RCN,Ambusher"
   },
   {
     "Id": 108647,
@@ -4501,7 +5191,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"j",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 0*,OVL,Sniper"
   },
   {
     "Id": 108648,
@@ -4891,7 +5596,22 @@
       "Name": "Support Vehicle",
       "Image": null,
       "SortOrder": 8
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 0,
+    "BFMove": "—",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "None"
   },
   {
     "Id": 108649,
@@ -4924,7 +5644,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 0,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 6,FR,LECM,Ambusher"
   },
   {
     "Id": 108650,
@@ -4982,7 +5717,22 @@
       "Name": "IndustrialMech",
       "Image": null,
       "SortOrder": 9
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 4,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "BFC,FC,IF 0*,MEL,TUR (1/1/1),Ambusher"
   },
   {
     "Id": 108651,
@@ -5046,7 +5796,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 4,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 9,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 4,LRM 1/1/2,Missile Boat"
   },
   {
     "Id": 108652,
@@ -5173,7 +5938,22 @@
       "Name": "Fighter Craft",
       "Image": null,
       "SortOrder": 3
-    }
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "5a",
+    "BFTMM": 0,
+    "BFArmor": 8,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 3,BOMB 3,FUEL 20,REAR 1/1/-/-,SNARC,SPC,VSTOL,Attack"
   },
   {
     "Id": 108653,
@@ -5249,7 +6029,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"w",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 20,Ambusher"
   },
   {
     "Id": 108654,
@@ -5480,7 +6275,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"f",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 3,Ambusher"
   },
   {
     "Id": 108655,
@@ -5560,7 +6370,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"t",
+    "BFTMM": 1,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,IF 1,MHQ 1,SRCH,TUR (2/3/2,IF1),Brawler"
   },
   {
     "Id": 108656,
@@ -5601,7 +6426,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "10\"j",
+    "BFTMM": 2,
+    "BFArmor": 5,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AC 1/1/-,Skirmisher"
   },
   {
     "Id": 108657,
@@ -5687,7 +6527,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 6,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,IF 1,LRM 1/1/1,SRM 1/1,Missile Boat"
   },
   {
     "Id": 108658,
@@ -5739,7 +6594,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "14\"f",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 5,RCN,SRCH,Scout"
   },
   {
     "Id": 108659,
@@ -6030,7 +6900,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,SRM 2/2,Brawler"
   },
   {
     "Id": 108660,
@@ -6267,7 +7152,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 5,
+    "BFDamageLong": 4,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "10\"/8\"j",
+    "BFTMM": 2,
+    "BFArmor": 9,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,JMPW 1,OMNI,Skirmisher"
   },
   {
     "Id": 108661,
@@ -6382,7 +7282,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "24\"v",
+    "BFTMM": 4,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ATMO,EE,IT 3.5,SRCH,Scout"
   },
   {
     "Id": 108662,
@@ -6428,7 +7343,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"f",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 1,TSI,Ambusher"
   },
   {
     "Id": 108663,
@@ -6468,7 +7398,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"f",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 5,LMAS,MEC,STL,Ambusher"
   },
   {
     "Id": 108664,
@@ -6541,7 +7486,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "16\"h",
+    "BFTMM": 3,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "BRA,LPRB,RCN,SRCH,TUR (0*/0*/-),Striker"
   },
   {
     "Id": 108665,
@@ -6581,7 +7541,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 4,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ARTAIS -1,ECM,FLK 1/1/1,SRCH,TUR (2/2/1,ARTAIS-1,FLK1/1/1),Missile Boat"
   },
   {
     "Id": 108666,
@@ -6677,7 +7652,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "10\"",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,FLK 1/1/1,Skirmisher"
   },
   {
     "Id": 108667,
@@ -6930,7 +7920,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"",
+    "BFTMM": 2,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "Striker"
   },
   {
     "Id": 108668,
@@ -6963,7 +7968,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"j",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 6,FLK 1/1/-,MEC,RCA,Ambusher"
   },
   {
     "Id": 108669,
@@ -7003,7 +8023,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,CR,DN,OMNI,SRM 1/1,TSM,Striker"
   },
   {
     "Id": 108670,
@@ -7072,7 +8107,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"/10\"j",
+    "BFTMM": 2,
+    "BFArmor": 4,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ECM,ENE,STL,Skirmisher"
   },
   {
     "Id": 108671,
@@ -7147,7 +8197,22 @@
       "Name": "Fighter Craft",
       "Image": null,
       "SortOrder": 3
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "6a",
+    "BFTMM": 0,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 2,BOMB 2,FLK 1/1/-,FUEL 20,PNT 2,REAR 1/1/-,SPC,VSTOL,Dogfighter"
   },
   {
     "Id": 108672,
@@ -7187,7 +8252,22 @@
       "Name": "ProtoMech",
       "Image": null,
       "SortOrder": 6
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "16\"",
+    "BFTMM": 3,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,Scout"
   },
   {
     "Id": 108673,
@@ -7263,7 +8343,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 20,Ambusher"
   },
   {
     "Id": 108674,
@@ -7329,7 +8424,22 @@
       "Name": "Support Vehicle",
       "Image": null,
       "SortOrder": 8
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "30\"v",
+    "BFTMM": 4,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AECM,ATMO,ENE,RCN,Scout"
   },
   {
     "Id": 108675,
@@ -7398,7 +8508,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "24\"",
+    "BFTMM": 4,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,Scout"
   },
   {
     "Id": 108676,
@@ -7480,7 +8605,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,CASE,FC,MHQ 1,SRCH,TUR (3/3/3),Sniper"
   },
   {
     "Id": 108677,
@@ -7526,7 +8666,22 @@
       "Name": "Aerospace Craft",
       "Image": null,
       "SortOrder": 7
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "6a",
+    "BFTMM": 0,
+    "BFArmor": 34,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 3,None"
   },
   {
     "Id": 108678,
@@ -7616,7 +8771,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "22\"",
+    "BFTMM": 4,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,ECM,ENE,MHQ 1,Striker"
   },
   {
     "Id": 108679,
@@ -7695,7 +8865,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "10\"t",
+    "BFTMM": 2,
+    "BFArmor": 4,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 1,REAR 0*/-/-,SRCH,TUR (2/2/1,IF1),Missile Boat"
   },
   {
     "Id": 108680,
@@ -7761,7 +8946,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": true,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 4,MDS 1,MEC,PAR,STL,Scout"
   },
   {
     "Id": 108681,
@@ -7801,7 +9001,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 3,MEC,Ambusher"
   },
   {
     "Id": 108682,
@@ -7855,7 +9070,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "16\"",
+    "BFTMM": 3,
+    "BFArmor": 4,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Sniper"
   },
   {
     "Id": 108683,
@@ -7928,7 +9158,22 @@
       "Name": "Aerospace Craft",
       "Image": null,
       "SortOrder": 7
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "3",
+    "BFTMM": 0,
+    "BFArmor": 131,
+    "BFStructure": 70,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 11,None"
   },
   {
     "Id": 108684,
@@ -7968,7 +9213,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "16\"w",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,SRCH,Scout"
   },
   {
     "Id": 108685,
@@ -8044,7 +9304,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 5,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 7,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,ECM,Brawler"
   },
   {
     "Id": 108686,
@@ -8077,7 +9352,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"f",
+    "BFTMM": 1,
+    "BFArmor": 0,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 6,MEC,SRCH,None"
   },
   {
     "Id": 108687,
@@ -8202,7 +9492,22 @@
       "Name": "Support Vehicle",
       "Image": null,
       "SortOrder": 8
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 0,
+    "BFMove": "—",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "None"
   },
   {
     "Id": 108688,
@@ -8270,7 +9575,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "18\"h",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": true,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,IT 4,SRCH,Scout"
   },
   {
     "Id": 108689,
@@ -8335,7 +9655,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,Brawler"
   },
   {
     "Id": 108690,
@@ -8383,7 +9718,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"/10\"j",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASEII,Skirmisher"
   },
   {
     "Id": 108691,
@@ -8451,7 +9801,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "14\"/8\"j",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AMS,JMPW 2,Striker"
   },
   {
     "Id": 108692,
@@ -8493,7 +9858,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"f",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,CAR 5,MHQ 1,STL,Ambusher"
   },
   {
     "Id": 108693,
@@ -8541,7 +9921,22 @@
       "Name": "Aerospace Craft",
       "Image": null,
       "SortOrder": 7
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "5p",
+    "BFTMM": 0,
+    "BFArmor": 50,
+    "BFStructure": 13,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 5,None"
   },
   {
     "Id": 108694,
@@ -8605,7 +10000,22 @@
       "Name": "Aerospace Craft",
       "Image": null,
       "SortOrder": 7
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "6a",
+    "BFTMM": 0,
+    "BFArmor": 34,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 3,None"
   },
   {
     "Id": 108695,
@@ -8658,7 +10068,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 10,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 2,OMNI,Missile Boat"
   },
   {
     "Id": 108696,
@@ -8716,7 +10141,22 @@
       "Name": "Fighter Craft",
       "Image": null,
       "SortOrder": 3
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "10a",
+    "BFTMM": 0,
+    "BFArmor": 5,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 2,BOMB 1,ENE,FUEL 28,PNT 1,REL,SPC,VSTOL,Interceptor"
   },
   {
     "Id": 108697,
@@ -8792,7 +10232,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "14\"",
+    "BFTMM": 3,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,OMNI,Striker"
   },
   {
     "Id": 108698,
@@ -8861,7 +10316,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "12\"",
+    "BFTMM": 2,
+    "BFArmor": 7,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Skirmisher"
   },
   {
     "Id": 108699,
@@ -8894,7 +10364,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"f",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 6,HT 1/-/-,MEC,RCN,Ambusher"
   },
   {
     "Id": 108700,
@@ -8965,7 +10450,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "18\"h",
+    "BFTMM": 3,
+    "BFArmor": 4,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": true,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AECM,CASE,FLK 0*/0*/0*,IT 5,SRCH,TUR (0*/0*/0*,FLK0*/0*/0*),Striker"
   },
   {
     "Id": 108701,
@@ -9196,7 +10696,22 @@
       "Name": "Aerospace Craft",
       "Image": null,
       "SortOrder": 7
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "0.2k",
+    "BFTMM": 0,
+    "BFArmor": 9,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,None"
   },
   {
     "Id": 108702,
@@ -9474,7 +10989,22 @@
       "Name": "Infantry",
       "Image": null,
       "SortOrder": 5
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "10\"h",
+    "BFTMM": 2,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 11,Scout"
   },
   {
     "Id": 108703,
@@ -9585,7 +11115,22 @@
       "Name": "Combat Vehicle",
       "Image": null,
       "SortOrder": 1
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"s",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,SEAL,SRCH,TOR 2/3/1,None"
   },
   {
     "Id": 108704,
@@ -9618,7 +11163,22 @@
       "Name": "Aerospace Craft",
       "Image": null,
       "SortOrder": 7
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "3p",
+    "BFTMM": 0,
+    "BFArmor": 21,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 2,None"
   },
   {
     "Id": 108705,
@@ -9718,7 +11278,22 @@
       "Name": "Aerospace Craft",
       "Image": null,
       "SortOrder": 7
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "4",
+    "BFTMM": 0,
+    "BFArmor": 211,
+    "BFStructure": 60,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 18,None"
   },
   {
     "Id": 108706,
@@ -9751,7 +11326,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 4,LECM,MEC,RCN,STL,Scout"
   },
   {
     "Id": 108707,
@@ -9827,7 +11417,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 9,
+    "BFStructure": 7,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "Juggernaut"
   },
   {
     "Id": 108708,
@@ -9860,7 +11465,22 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"j",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 6,Juggernaut"
   },
   {
     "Id": 108709,
@@ -9988,7 +11608,22 @@
       "Name": "Fighter Craft",
       "Image": null,
       "SortOrder": 3
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "5a",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,ATMO,BOMB 2,EE,PNT 1,VSTOL,Attack"
   },
   {
     "Id": 108710,
@@ -10028,7 +11663,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 7,
+    "BFStructure": 7,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 2,LRM 1/1/2,Sniper"
   },
   {
     "Id": 108711,
@@ -10165,6 +11815,21 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Brawler"
   }
 ]
