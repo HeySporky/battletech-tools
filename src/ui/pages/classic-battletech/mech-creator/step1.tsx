@@ -57,7 +57,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.toggleOmni();
+        currentMech.toggleOmni(this.props.appGlobals.appSettings.mechRulesFilter);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -92,14 +92,25 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       }
     }
 
-    // Keeps the mech's tonnage within the legal range for its chassis type and rules level.
+    // Keeps the mech's tonnage (and Omni status) within the legal range for its chassis type and rules level.
     clampTonnageToChassisRules = ( currentMech: NonNullable<IAppGlobals["currentBattleMech"]>, rulesLevel: number): void => {
+      if( currentMech.isOmnimech && !currentMech.canBeOmniMech( rulesLevel ) ) {
+        currentMech.toggleOmni( rulesLevel );
+      }
       const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel );
       const tonnage = currentMech.getTonnage();
       if( tonnage < min ) {
         currentMech.setTonnage( min );
       } else if( tonnage > max ) {
         currentMech.setTonnage( max );
+      }
+    }
+
+    updateLAMType = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setLAMType(e.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech(currentMech);
       }
     }
 
@@ -202,13 +213,34 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               value={this.props.appGlobals.currentBattleMech.getType().tag}
                               onChange={this.updateType}
                             >
-                            {mechTypeOptions.map( (option) => {
+                            {mechTypeOptions
+                              .filter( (option) => option.rulesLevel <= this.props.appGlobals.appSettings.mechRulesFilter || option.tag === this.props.appGlobals.currentBattleMech?.getType().tag )
+                              .map( (option) => {
                               return (
-                                <option key={option.tag} value={option.tag}>{option.name}</option>
+                                <option key={option.tag} value={option.tag}>{option.name}{option.notes ? ` (${option.notes})` : ""}</option>
                               )
                             })}
                             </select>
                           </label>
+                          {this.props.appGlobals.currentBattleMech.getRequiredRulesLevel() > this.props.appGlobals.appSettings.mechRulesFilter ? (
+                            <p className="color-red smaller-text">
+                              This design requires the {getRulesLevelOptions().find( (option) => option.id === this.props.appGlobals.currentBattleMech?.getRequiredRulesLevel() )?.name} rules
+                              level and is not legal at the selected level. Printing will ask for confirmation.
+                            </p>
+                          ) : null}
+
+                          {this.props.appGlobals.currentBattleMech.isLAM() ? (
+                            <label>
+                              LAM Type:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getLAMType()}
+                                onChange={this.updateLAMType}
+                              >
+                                <option value="standard">Standard (Mech / AirMech / Fighter)</option>
+                                <option value="bimodal">Bimodal (Mech / Fighter)</option>
+                              </select>
+                            </label>
+                          ) : null}
 
                           {this.props.appGlobals.currentBattleMech.isQuadVee() ? (
                             <label>
@@ -228,6 +260,16 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             checked={this.props.appGlobals.currentBattleMech.isOmnimech}
                             onChange={this.toggleOmni}
                           />
+                          {this.props.appGlobals.currentBattleMech.isLAM() ? (
+                            <p className="smaller-text">
+                              {this.props.appGlobals.currentBattleMech.isOmniLAM()
+                                ? "Omni-LAM (Custom Homebrew, Kronos Battle Systems fan rule): Inner Sphere only, arm actuators are fixed, cost x1.75."
+                                : "Canon LAMs cannot be OmniMechs. The fan-made Omni-LAM is available to Inner Sphere LAMs at the Custom Homebrew rules level."}
+                            </p>
+                          ) : null}
+                          {this.props.appGlobals.currentBattleMech.getOmniLAMViolations().map( (violation) => (
+                            <p key={violation} className="color-red smaller-text">{violation}</p>
+                          ))}
 
                           <label>
                             Mech Era:

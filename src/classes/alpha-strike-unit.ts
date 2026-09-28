@@ -97,6 +97,8 @@ export interface IASMULUnit {
 
 export interface IAlphaStrikeUnitExport {
     mechCreatorUUID: string;
+    /** Rules level id (rules-level-options): from the MUL "Rules" field or the unit's creator. */
+    rulesLevel?: number;
 
 
     customName?: string;
@@ -176,6 +178,9 @@ export class AlphaStrikeUnit {
     public era: string = "";
 
     public tro: string = "";
+
+    /** Rules level id (rules-level-options); undefined when unknown. */
+    public rulesLevel: number | undefined = undefined;
 
     public showDetails: boolean = false;
 
@@ -299,7 +304,7 @@ export class AlphaStrikeUnit {
 
             this.tro = incomingMechData.TRO;
 
-
+            this.rulesLevel = getRulesLevelFromMULRules(incomingMechData.Rules);
 
             this.mulID = incomingMechData.Id;
 
@@ -432,6 +437,8 @@ export class AlphaStrikeUnit {
             this.dateIntroduced = incomingMechData.dateIntroduced;
 
             this.tro = incomingMechData.tro;
+
+            this.rulesLevel = typeof incomingMechData.rulesLevel === "number" ? incomingMechData.rulesLevel : undefined;
 
             this.role =  incomingMechData.role;
 
@@ -1871,6 +1878,7 @@ export class AlphaStrikeUnit {
             tmm:  this.tmm,
             tonnage:  this.tonnage,
             tro:  this.tro,
+            rulesLevel:  this.rulesLevel,
             role:  this.role,
             threshold:  this.threshold,
             pilot:  this._pilot,
@@ -2217,5 +2225,17 @@ export class AlphaStrikeUnit {
 
         this.calcCurrentValues();
         return _calcLogAS;
+    }
+}
+
+/** MUL "Rules" values mapped to rules-level-options ids (Introductory 1 ... Experimental 4). */
+export function getRulesLevelFromMULRules(rules: string | undefined | null): number | undefined {
+    switch ((rules ?? "").trim().toLowerCase()) {
+        case "introductory": return 1;
+        case "standard": return 2;
+        case "advanced": return 3;
+        case "experimental": return 4;
+        case "unofficial": return 5;
+        default: return undefined;
     }
 }

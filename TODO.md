@@ -32,16 +32,17 @@ tool. Items are ordered by dependency, not by product marketing priority.
 - [x] Step 5: Add an Equipment Catalog selector for All Available, Inner
   Sphere, Clan, and Custom equipment. Catalog provenance is attached by the
   shared BattleMech availability query.
-- [ ] Step 6: Fix equipment allocation locations and critical slots.
+- [x] Step 6: Fix equipment allocation locations and critical slots.
   - [x] Tripod displays its Center Leg section and critical slots in Step 6.
   - [x] Quad and QuadVee front-leg headers now use their actual front-leg
     critical arrays, so equipment can be allocated there.
   - [x] Tripod uses the Biped-style arm/leg layout plus its Center Leg, which
     matches its anatomy.
-  - LAM has the correct base display but is missing critical allocations for
-    landing gear, conversion equipment, and other LAM-specific equipment;
-    [x] the model now pre-fills the six mandated avionics/landing-gear slots
-    and filters prohibited equipment.
+  - [x] LAM has the correct base display and the model pre-fills the six
+    mandated avionics/landing-gear slots and filters prohibited equipment.
+    Conversion equipment occupies no critical slots; its weight (10% of
+    tonnage, rounded up) is now in the weight breakdown. Optional LAM
+    equipment (fuel tanks, bomb bays) is tracked below.
   - [x] QuadVee uses Quad anatomy and all four legs reserve their two
     conversion/motive slots; fixed dual-cockpit criticals are also modeled.
   - [x] Add the QuadVee Tracked/Wheeled chassis selection and persist it in
@@ -49,10 +50,79 @@ tool. Items are ordered by dependency, not by product marketing priority.
 
 ### LAM/QuadVee Rules Progress
 
-- [x] LAM jump capability is constrained to 1-3 MP, with Standard Jump Jets
-  and a Standard Gyro enforced by the model.
+- [x] LAM jump capability: Standard Jump Jets are enforced by the model. The
+  1-3 MP clamp and Standard-only gyro were replaced; see below.
 - [x] LAM avionics and landing gear occupy the six mandated critical slots.
 - [x] LAM-prohibited equipment is filtered and blocked from allocation.
+- [x] LAM conversion equipment weight: 10% of tonnage rounded up to a whole
+  ton; QuadVee conversion weight now rounds up the same way (a 55-ton unit
+  carries 6 tons, not 5.5). Cited as IO p.113 (LAM) / p.134 (QuadVee) via
+  MegaMek's TestMek; verify against the book.
+- [x] LAM construction limits: no slot-occupying armor or structure (Endo
+  Steel, ferro-fibrous, etc.), no Hardened armor, Standard or Compact fusion
+  engines only, and no OmniMech construction (IO p.114, confirmed 2026-09-28).
+  Enforced in setters, availability lists, and on conversion of an existing
+  design.
+- [x] LAM Jump MP and gyros (IO p.114, confirmed 2026-09-28): at least 3 Jump
+  MP (the old 1-3 clamp is gone), the usual walking-MP cap applies, and a
+  violation is reported when Walk MP is below 3. Standard, Compact, and
+  Heavy-Duty gyros are allowed; others fall back to Standard.
+- [x] LAM jump jet type limit lifted (user decision 2026-09-28; MegaMek has
+  none). Improved jump jets raise the Jump MP cap to Run MP as usual.
+- [x] Bimodal LAM type selection (Step 1, saved as `lamType`): no AirMech mode
+  (play-mode button hidden), conversion equipment 15% of tonnage, conversion
+  cost 65%, standard BV math without AirMech terms (IO via MegaMek).
+- [x] LAMs keep upper and lower arm actuators in both arms (hands optional;
+  IO via MegaMek TestMek). The Omni-LAM also keeps its hands.
+- [x] LAM Bomb Bay and Fuel Tank in `mech-universal-equipment.ts`, LAM-only
+  through the new `chassisTypes` field, checked 2026-09-28 against
+  Interstellar Operations (2016 PDF from the temp.2000webdesign.com index):
+  - Bomb Bay: 1 t, 1 slot, 5,000 C-bills, tech rating B, at most 20, left or
+    right torso only (IO pp.114, 220-221; our record had rating D and allowed
+    the CT). Dates 2680 prototype / 2684 production (LAM row, IO p.50).
+  - Fuel Tank: 1 t, 1 slot, 200 C-bills, 80 fuel points each on top of the
+    free engine ton (IO pp.114, 221). Introduced "ES"; 2100 is MegaMek's
+    placeholder year for that era. "Explosive" stays unset (no IO rule).
+  - BV: each Bomb Bay and Fuel Tank slot is -15 like explosive ammo, with
+    CASE rules applying (IO pp.192, 196). Previously -1 and 0.
+  - Cost: bays and tanks count as equipment before the conversion cost
+    (IO p.186); loaded bombs add no cost.
+- [x] Bombs in the ammo catalogs (MegaMek BombType; TW/TM/TO:AU&E/IO:AE pages
+  cited there): universal HE (the `-standard` round), Cluster, Inferno,
+  Torpedo, Fuel-Air S/L, and AAA. IS and Clan are split for Laser-Guided, TAG
+  pod, Arrow IV, Arrow IV Homing, Thunder, and AS. IS only: ASEW, LAA, and
+  the Rocket Launcher pod. Bombs carry `bombBaySlots`, are never listed as
+  mountable, and are gated by rules level (Advanced ammo = 3). Step 5 has a
+  LAM bomb loadout. Bombs load only into side-torso bays, and a multi-slot
+  bomb must fit in one location (bays in one location combine: IO errata as
+  quoted by a moderator, bg.battletech.com forums topic 84643; errata document
+  not downloaded). Loaded bombs add no weight: "their weight is largely
+  accounted for during the unit's construction" (IO p.110). The loadout is
+  saved as `bombLoadout`.
+  - [ ] Loaded bomb BV is added after rounding, like external stores
+    (via MegaMek; provisional). IO's LAM BV rules (p.192) don't mention bomb
+    BV; check TM's aerospace external-stores BV rule.
+  - [ ] Not included: the Alamo nuclear missile (optional nuclear rules) and
+    the prototype rocket pod (Experimental).
+  - [ ] IO p.192 also changes LAM BV: add 9 (not 6) to heat sink capacity,
+    subtract AirMech flank movement heat, speed factor = 'Mech Run MP + half
+    AirMech Flank MP, and averaged pilot skills. Check our BV code against it.
+- [x] Remaining LAM limits (IO p.114, confirmed 2026-09-28), reported in
+  Step 6 via `getChassisEquipmentViolations()`:
+  - no equipment split across locations (except avionics and landing gear);
+  - spreadable equipment in a single location;
+  - more than 20 Bomb Bays, and bays outside the side torsos.
+
+  Blocked in the equipment list: artillery, heavy and improved heavy Gauss
+  (need a Piloting skill), supercharger, partial wings, mechanical jump
+  boosters, backhoes, bridge-layers, combines, dumpers, and Chameleon LPS.
+  IO p.114 allows physical attack weapons, so the older TRO:3085-era bans on
+  hatchets, swords, claws, maces, shields, MML, rotary ACs, Artemis, and
+  plasma rifles no longer apply to LAMs (they still apply to Tripods, from a
+  list whose source I have not re-checked).
+
+  Cockpit limits (no torso-mounted, multi-slot, or primitive cockpit) need no
+  code: the model has only the standard and small head cockpits.
 - [x] QuadVee legs reserve two critical slots each for conversion/motive gear.
 - [x] Add QuadVee's fixed 10% conversion/motive tonnage and 4-ton dual cockpit
   accounting.
@@ -94,6 +164,114 @@ tool. Items are ordered by dependency, not by product marketing priority.
     replaced with Biped/LAM, Tripod, and Quad/QuadVee anatomy branches.
     If Quad labels still appear after this fix, the running page is using stale
     build output or a saved record whose `mechType` is not `tripod`.
+
+### Custom Homebrew Chassis Rules (rules level 5 only)
+
+- [x] Omni-LAM (fan rule: Kronos Battle Systems, "Construction Rules Update
+  KBS-3066-07-07-TRO3067 / Chassis Type: Omni-LAM", Inner Sphere, Tech Level 3;
+  <https://drive.google.com/file/d/0B5bLPOivte0vdXllN2Y3MUhhNGM/view>). Canon
+  LAMs stay non-Omni; `canBeOmniMech(rulesLevel)` opens Omni only for Inner
+  Sphere/Mixed IS LAMs at Custom Homebrew. Enforced: arm lower/hand actuators
+  are fixed (restriction 3), cost x1.75. Reported in Steps 1 and 6: left/right
+  equipment weight balance (restriction 1) and equal left/right base-chassis
+  slots (restriction 2). Dropping below rules level 5 or switching to a Clan
+  tech base turns Omni off.
+  - [x] Balance confirmed by the user (2026-09-28): equal equipment tonnage in
+    LA+LT+LL vs RA+RT+RL (head/CT are centerline).
+  - [x] Restriction 2 now compares left/right **pod space** (slots not used by
+    chassis systems or fixed equipment) using the OmniMech base-chassis model.
+  - [x] "Uses LAM battle values": the provisional LAM BV math below applies.
+  - [x] Cost: x1.75 replaces the x1.25 OmniMech multiplier; LAM conversion
+    equipment cost still applies.
+
+### OmniMech Base Chassis
+
+- [x] Installed equipment carries `omniFixed` (saved in exports). Step 5 has a
+  Fixed column, a pod-space summary (slots and tons), and "Strip Pods" to start
+  a new configuration from the base chassis. `getOmniPodSpace()` defines the
+  model line; turning Omni off clears the flags.
+- [x] OmniMech configurations (user decision 2026-09-28: all configurations
+  in one design, with a picker):
+  - Step 5 has New (empty pods), Copy (current pods), Rename, Delete, and an
+    active-configuration picker, plus a per-configuration table of pod tons,
+    BV, and cost.
+  - Each configuration stores its pod items, their critical slots, and its
+    LAM bombs.
+  - The saved `equipment` is always the active configuration, so older
+    saves and other readers keep working. `omniConfigurations` and
+    `activeOmniConfiguration` are added alongside it.
+  - Turning Omni off keeps only the active configuration.
+  - [x] Show the configuration name on record sheets and in the roster
+    (e.g. "Prime"), and let a roster add a specific configuration.
+    `getName()` appends the active configuration when a design has two or
+    more (skipped if the model/name already ends with it). The roster's Add
+    dialog lists one row per configuration (`cloneOmniConfiguration`).
+- [x] Fixed-only equipment (MegaMek `omniFixedOnly`, TM/TO:AUE/IO:AE;
+  provisional) is always on the base chassis and cannot be pod-mounted or
+  stripped:
+  - MASC, Partial Wing, AES;
+  - Null Signature, Void Signature, and Chameleon LPS;
+  - Blue Shield, RISC Emergency Coolant, Tracks, and Environmental Sealing.
+
+  The list is `OMNI_FIXED_ONLY_TAGS` in `equipment-registry.ts`. Engine,
+  gyro, cockpit, structure, armor, and myomer (TSM) are chassis systems and
+  are already outside pod space.
+  - [ ] Heat sinks and jump jets are counts in our model, not equipment, so
+    pod-mounted heat sinks and jump jets (legal per TM) cannot be modeled yet.
+  - [ ] HarJel II/III, Drone OS, SRCS, and Mobile HPG are fixed-only too,
+    but they are not in our catalogs. Sources found 2026-09-28:
+    - HarJel II/III: IO pp.88-89 (rules; BattleMechs only; standard,
+      heavy industrial, or ferro-fibrous armor only; one per location; no
+      mixing II and III), p.191 BV (-1 per slot, armor x1.1/x1.2 in
+      protected locations), pp.220-221 (Clan, F/X-X-X-F, 3136 / 3139,
+      240,000 / 360,000 C-bills, 1 / 2 slots). The tonnage is shown as "2*" /
+      "3*", and I couldn't find that footnote in the PDF text.
+    - SRCS: IO p.140; IO p.221 gives cost 5,000 + (10,000 x IT), variable
+      weight; BV x0.85 of final (p.196).
+    - Drone (Remote) OS: TO pp.305-306. Mobile HPG: TO p.330. Not checked.
+
+### Rules Levels and Printing
+
+- [x] Chassis types carry a rules level (IO p.50 via MegaMek; verify against
+  the book): Biped/Quad 0, Tripod and QuadVee Advanced (3), LAM Experimental
+  (4). Ultra-light and Superheavy tonnage is Advanced; prototype-only
+  equipment is Experimental; custom equipment and the Omni-LAM are Custom
+  Homebrew (5). `getRequiredRulesLevel()` combines these.
+- [x] Step 1 lists only chassis legal at the selected rules level (plus the
+  current one) and warns when the design needs a higher level.
+- [x] Mech record-sheet and Alpha Strike card print pages stamp "Rules Level:
+  X - not tournament legal" above Standard, and ask for confirmation before
+  printing a unit above the selected rules level.
+- [x] Classic roster, Alpha Strike roster, and vehicle record sheet printing
+  use the same guard and stamp (`ui/components/rules-level-print.tsx`). Alpha
+  Strike units take their rules level from the MUL "Rules" field (saved as
+  `rulesLevel`); Vehicles report Superheavy (>100 t) as Advanced plus their
+  equipment's rules levels (`getEquipmentRulesLevel`).
+- [x] Alpha Strike units from the mech creator (`calcAlphaStrike`) carry the
+  design's `getRequiredRulesLevel()`. That now includes loaded bombs. Units
+  built in the AS unit creator have a Rules Level picker. They default to
+  Custom Homebrew, since a hand-built card is not a published MUL card.
+
+### Provisional BV and Cost (verify against the books)
+
+- [x] LAM BV (IO via MegaMek; IO p.192 cited for the TMM): running TMM uses
+  AirMech Flank MP (Jump MP x 3 x 1.5, rounded up) +1 airborne; +3 heat
+  efficiency; movement heat = AirMech Flank MP / 3; speed factor uses Run MP +
+  AirMech Flank MP / 2. `isBattleValueProvisional()` is true for LAMs and the
+  print stamp notes "provisional BV/PV". QuadVee and Tripod BV use the
+  standard math (MegaMek has no QuadVee-specific BV).
+- [x] Cost multipliers and base values (MegaMek's TM/TO:AUE/IO values;
+  provisional): OmniMech x1.25; LAM conversion equipment 75% of (internal
+  structure + equipment); QuadVee 50%; cockpits Tripod 400,000 / Superheavy
+  Tripod 500,000 / QuadVee 375,000 / Superheavy 300,000; Tripod structure
+  x1.2; Superheavy actuators x2, standard myomer 12,000/ton, and the
+  Superheavy structure table (4,000 / 16,000 Endo / 1,600 Composite / 6,400
+  Endo-Composite / 3,000 Industrial).
+- [x] Superheavy gyro costs 500,000 (the Heavy-Duty rate) per ton of its
+  doubled weight. Engines rated above 400 (large engines, which Superheavy
+  designs use) were already x2. IndustrialMechs (Industrial internal
+  structure) use a 1 + tonnage / 400 multiplier (TM / IO via MegaMek
+  MekCostCalculator; provisional).
 
 ## Architecture Direction
 
@@ -306,6 +484,15 @@ tool. Items are ordered by dependency, not by product marketing priority.
   tracked movement mode not modelled in play.
 - [ ] Artemis V and Apollo launcher combos (Artemis IV exists as combined
   launcher records).
+- [ ] After Artemis V is wired in, add the Clan LRM/SRM + Artemis V launcher
+  records from workbook rows 157/159/161/163 (LRM 5/10/15/20: heat 2/4/5/6,
+  0.42/0.84/1.26/1.68 at S/M/L) and 169/171/173 (SRM 2/4/6: heat 2/3/4,
+  0.42/0.84/1.05 at S/M). Alpha Strike values stay "Provisional workbook
+  conversion"; Classic stats need the TO source.
+- [ ] Add the ProtoMech Streak LRM (per tube) and Fusillade Launcher as
+  ProtoMech-only records (every non-ProtoMech `space` slot -1; test-guarded)
+  once their Classic stats are sourced. Workbook: Streak LRM heat 1,
+  0.1/0.1/0.1 per tube; Fusillade heat 0, 0.45/0.3, IATM.
 - [ ] Misc sources, leads from the Ollama/Sarna pass (review-only, in
   \`tools/misc-equipment-sources-staging.jsonl\`; Sarna "TO" pages may be the
   pre-split Tactical Operations, so map them to TO:AR/TO:AUE before use):

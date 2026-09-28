@@ -10,6 +10,7 @@ import './print.scss';
 import AlphaStrikeToggleRulerHexes from "./_toggleRulerHexes";
 import AlphaStrikeUnitToken from '../../../components/svg/alpha-strike-unit-token';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
+import RulesLevelStamp, { getHighestRulesLevel, printWithRulesLevelGuard } from '../../../components/rules-level-print';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const BanIcon = FaBan as any;
 const CheckCircleIcon = FaCheckCircle as any;
@@ -31,6 +32,15 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
       this.setState({
         tokens: !this.state.tokens,
       });
+    }
+
+    // Units above the selected rules level (MUL "Rules") ask for confirmation before printing.
+    print = (): void => {
+      const units = this.props.appGlobals.currentASForce?.groups.flatMap( (group) => group.members ) ?? [];
+      printWithRulesLevelGuard(
+        getHighestRulesLevel( units.map( (unit) => unit.rulesLevel ) ),
+        this.props.appGlobals.appSettings.mechRulesFilter,
+      );
     }
 
     render = (): JSX.Element => {
@@ -78,7 +88,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
           <header className="topmenu">
           <ul className="main-menu">
                 <li><Link title="Click here to leave Play Mode (don't worry, you won't lose your current mech statuses)" className="current" to={`${process.env.PUBLIC_URL}/alpha-strike/roster`}><ArrowCircleLeft /></Link></li>
-                <li><span title="Click here open the Print Dialog" onClick={() => window.print()} className="current" ><PrintIcon /></span></li>
+                <li><span title="Click here open the Print Dialog" onClick={this.print} className="current" ><PrintIcon /></span></li>
                 <li>
                   <AlphaStrikeToggleRulerHexes
                     appGlobals={this.props.appGlobals}
@@ -127,6 +137,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                       <div className="units-summary">
                       {group.getTotalPoints()} points - {group.getTotalUnits()} units
                       </div>
+                      <RulesLevelStamp requiredRulesLevel={getHighestRulesLevel( group.members.map( (unit) => unit.rulesLevel ) )} />
                     </div>
 
                     <div className="section-content">

@@ -149,9 +149,9 @@ Run what's relevant: `npm test`, `npm run lint`, `npx tsc --noEmit -p tsconfig.j
 Compare with the baseline below. Never claim "all green" when it isn't; report
 new failures separately from pre-existing ones.
 
-**Baseline as of 2026-09-27 (after Best Guess fix, Step 5 subtypes/natural sort, duplicate audit; uncommitted)** —
+**Baseline as of 2026-09-28 (after LAM bombs/fuel, Jump MP, gyros, and workbook Blocks 13-20; uncommitted)** —
 update this block when it changes:
-- Vitest: 178 passed / 0 failed. `mul-list-items.test.ts` sits near its 5 s
+- Vitest: 221 passed / 0 failed. `mul-list-items.test.ts` sits near its 5 s
   timeout and can flake under load.
 - ESLint on `src`: 0 errors / 1 warning (`npx eslint src`). Repo-wide
   `npm run lint` also picks up `.venv/` and Node scripts missing Node globals.

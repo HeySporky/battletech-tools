@@ -7,7 +7,7 @@ import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions } from "../data/era-options";
 import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
-import { getEffectiveIntroduction, getEquipmentListByTech } from "../data/equipment-registry";
+import { getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel } from "../data/equipment-registry";
 import {
     IArmorType,
     IEngineType,
@@ -153,6 +153,18 @@ export default class Vehicle {
         this._tonnage = tonnage;
         this._calc();
         return this._tonnage;
+    }
+
+    /**
+     * Lowest rules level at which this vehicle is legal: Superheavy vehicles (over 100 tons)
+     * are Advanced, plus the rules level of its installed equipment. Standard (2) is tournament play.
+     */
+    public getRequiredRulesLevel(): number {
+        let level = this._tonnage > 100 ? 3 : 0;
+        for (const item of this._equipmentList) {
+            if (item) level = Math.max(level, getEquipmentRulesLevel(item));
+        }
+        return level;
     }
 
     public getMotiveType(): IVehicleMotiveType {

@@ -18,7 +18,7 @@ export default class VehicleCreatorRecordSheet extends React.Component<IRecordSh
         const equipmentByLocation = (location: string) => vehicle.getEquipmentList().filter((item) => item.location === location);
 
         return (
-            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/summary`} appGlobals={this.props.appGlobals}>
+            <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/summary`} appGlobals={this.props.appGlobals} requiredRulesLevel={vehicle.getRequiredRulesLevel()}>
                 <div className="print-page">
                     <h2>{`${vehicle.getModel()} ${vehicle.getName()}`.trim() || "Combat Vehicle"}</h2>
                     <p>

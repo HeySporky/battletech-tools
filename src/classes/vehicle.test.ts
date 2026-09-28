@@ -184,3 +184,10 @@ describe("Vehicle engine weight", () => {
         expect(vehicle.getEngineRating()).toBe(200);
     });
 });
+
+describe("Vehicle rules level", () => {
+    it("is Standard-legal by default and Custom Homebrew with custom equipment", () => {
+        const vehicle = new Vehicle();
+        expect(vehicle.getRequiredRulesLevel()).toBe(0);
+    });
+});

@@ -2,6 +2,7 @@ import React from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
+import { isOmniFixedOnly } from '../../../../data/equipment-registry';
 import { sortEquipment } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
@@ -57,6 +58,68 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
     setSize = ( itemUUID: string | undefined, size: number ): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.setEquipmentSize( itemUUID, size );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    setFixed = ( itemUUID: string | undefined, fixed: boolean ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setEquipmentFixed( itemUUID, fixed );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    stripPods = (): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.stripPodEquipment();
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    switchConfiguration = ( name: string ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.switchOmniConfiguration( name );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    addConfiguration = ( copyCurrent: boolean ): void => {
+      const mech = this.props.appGlobals.currentBattleMech;
+      if( !mech ) return;
+      const name = window.prompt( copyCurrent ? "Name for the copied configuration:" : "Name for the new configuration:", "" );
+      if( !name ) return;
+      if( !mech.addOmniConfiguration( name, copyCurrent ) ) {
+        window.alert( "A configuration named \"" + name.trim() + "\" already exists." );
+        return;
+      }
+      this.props.appGlobals.saveCurrentBattleMech( mech );
+    }
+
+    renameConfiguration = (): void => {
+      const mech = this.props.appGlobals.currentBattleMech;
+      if( !mech ) return;
+      const current = mech.getActiveOmniConfiguration();
+      const name = window.prompt( "Rename configuration \"" + current + "\" to:", current );
+      if( !name || name.trim() === current ) return;
+      if( !mech.renameOmniConfiguration( current, name ) ) {
+        window.alert( "A configuration named \"" + name.trim() + "\" already exists." );
+        return;
+      }
+      this.props.appGlobals.saveCurrentBattleMech( mech );
+    }
+
+    deleteConfiguration = (): void => {
+      const mech = this.props.appGlobals.currentBattleMech;
+      if( !mech ) return;
+      const current = mech.getActiveOmniConfiguration();
+      if( !window.confirm( "Delete configuration \"" + current + "\"? Its pod equipment will be removed." ) ) return;
+      mech.deleteOmniConfiguration( current );
+      this.props.appGlobals.saveCurrentBattleMech( mech );
+    }
+
+    setBombCount = ( tag: string, count: number ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setBombCount( tag, count );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
       }
     }
@@ -187,6 +250,122 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                             </select>
                           </label>
 
+                          {this.props.appGlobals.currentBattleMech.isOmnimech ? (
+                            <fieldset className="fieldset">
+                              <legend>OmniMech Base Chassis</legend>
+                              <p className="smaller-text">
+                                Tick <strong>Fixed</strong> for equipment built into the base chassis. Everything
+                                else is pod-mounted. The pod space left over defines the model line that every
+                                configuration (Prime, A, B...) is built into.
+                              </p>
+                              <p>
+                                Pod space: <strong>{this.props.appGlobals.currentBattleMech.getOmniPodSpace().totalSlots}</strong> slots,
+                                &nbsp;<strong>{this.props.appGlobals.currentBattleMech.getOmniPodSpace().podTonnage}</strong> tons
+                              </p>
+                              <button className="btn-sm btn btn-secondary" onClick={this.stripPods}>
+                                Strip Pods
+                              </button>
+
+                              <h4>Configurations</h4>
+                              <label>
+                                Active configuration:&nbsp;
+                                <select
+                                  value={currentMech.getActiveOmniConfiguration()}
+                                  onChange={(event: React.FormEvent<HTMLSelectElement>) => this.switchConfiguration(event.currentTarget.value)}
+                                >
+                                  {currentMech.getOmniConfigurationNames().map( (name) => (
+                                    <option key={name} value={name}>{name}</option>
+                                  ))}
+                                </select>
+                              </label>
+                              &nbsp;
+                              <button className="btn-sm btn btn-primary" onClick={() => this.addConfiguration(false)} title="New configuration with empty pods on this base chassis">
+                                New
+                              </button>
+                              <button className="btn-sm btn btn-primary" onClick={() => this.addConfiguration(true)} title="New configuration starting from the current pods">
+                                Copy
+                              </button>
+                              <button className="btn-sm btn btn-secondary" onClick={this.renameConfiguration}>
+                                Rename
+                              </button>
+                              <button
+                                className="btn-sm btn btn-danger"
+                                onClick={this.deleteConfiguration}
+                                disabled={currentMech.getOmniConfigurationNames().length < 2}
+                              >
+                                Delete
+                              </button>
+                              <table className="table">
+                                <thead>
+                                  <tr>
+                                    <th>Configuration</th>
+                                    <th>Pod Tons</th>
+                                    <th>BV</th>
+                                    <th>Cost</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {currentMech.getOmniConfigurationStats().map( (stats) => (
+                                    <tr key={stats.name}>
+                                      <td>{stats.name === currentMech.getActiveOmniConfiguration() ? <strong>{stats.name}</strong> : stats.name}</td>
+                                      <td>{stats.podTonnage}</td>
+                                      <td>{stats.battleValue}</td>
+                                      <td>{stats.cost.toLocaleString()}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </fieldset>
+                          ) : null}
+
+                          {currentMech.isLAM() ? (
+                            <fieldset className="fieldset">
+                              <legend>LAM Fuel and Bombs</legend>
+                              <p>
+                                Fuel: <strong>{currentMech.getLAMFuelPoints()}</strong> points
+                                (80 base + 80 per Fuel Tank).
+                                Bomb Bays: <strong>{currentMech.getBombBayCount()}</strong> of 20 maximum,
+                                &nbsp;<strong>{currentMech.getBombLoadoutSlots()}</strong> bomb slots loaded.
+                              </p>
+                              <p className="smaller-text">
+                                Install Bomb Bays in the left or right torso, then load bombs here. A bomb
+                                that needs several slots must fit in the bays of one location. Bombs add no
+                                weight or cost (IO pp.110, 186). Loaded bombs add their BV (provisional,
+                                via MegaMek).
+                              </p>
+                              {currentMech.getBombBayCount() > 0 ? (
+                                <table className="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Bomb</th>
+                                      <th>Slots</th>
+                                      <th>BV</th>
+                                      <th>Loaded</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {currentMech.getAvailableBombs(this.props.appGlobals.appSettings.mechRulesFilter).map( (bomb) => (
+                                      <tr key={bomb.tag}>
+                                        <td>{bomb.name}</td>
+                                        <td>{bomb.bombBaySlots}</td>
+                                        <td>{bomb.battleValue}</td>
+                                        <td>
+                                          <input
+                                            type="number"
+                                            min={0}
+                                            max={20}
+                                            value={currentMech.getBombLoadout()[bomb.tag] ?? 0}
+                                            onChange={(event: React.FormEvent<HTMLInputElement>) => this.setBombCount(bomb.tag, +event.currentTarget.value)}
+                                          />
+                                        </td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              ) : null}
+                            </fieldset>
+                          ) : null}
+
                           {this.props.appGlobals.currentBattleMech.getInstalledEquipment().length > 0 ? (
 
                               <table className="table">
@@ -196,6 +375,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                     {/* <th>Sort</th> */}
                                     <th>Weight</th>
                                     <th>Rear</th>
+                                    {this.props.appGlobals.currentBattleMech.isOmnimech ? <th>Fixed</th> : null}
                                     <th>&nbsp;</th>
                                   </tr>
                                 </thead>
@@ -245,6 +425,16 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                           onChange={( event: React.FormEvent<HTMLInputElement>) => this.setRear( item.uuid, event.currentTarget.checked)}
                                         />
                                       </td>
+                                      {this.props.appGlobals.currentBattleMech?.isOmnimech ? (
+                                        <td>
+                                          <InputCheckbox
+                                            label=""
+                                            checked={item.omniFixed ? true : false}
+                                            readOnly={isOmniFixedOnly(item)}
+                                            onChange={( event: React.FormEvent<HTMLInputElement>) => this.setFixed( item.uuid, event.currentTarget.checked)}
+                                          />
+                                        </td>
+                                      ) : null}
                                       <td className="text-right">
                                         <button
                                           className="btn-sm btn btn-danger"

@@ -18,7 +18,10 @@ export default class MechCreatorPrintAS extends React.Component<IPrintASProps, I
       }
       return (
         <>
-          <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} appGlobals={this.props.appGlobals}>
+          <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} appGlobals={this.props.appGlobals}
+            requiredRulesLevel={this.props.appGlobals.currentBattleMech.getRequiredRulesLevel()}
+            provisionalNote={this.props.appGlobals.currentBattleMech.isBattleValueProvisional() ? "provisional BV/PV" : undefined}
+          >
             <div className="print-page">
             <AlphaStrikeUnitSVG
               appGlobals={this.props.appGlobals}

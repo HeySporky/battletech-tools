@@ -11,30 +11,53 @@ import { IMechType } from "./data-interfaces";
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
+// Rules levels follow IO p.50 as implemented by MegaMek (Mek/QuadVee/LandAirMek tech
+// advancement); book not yet in hand. Standard (tournament) play excludes Advanced and
+// Experimental chassis, so they never appear on tournament lists or cards by default.
 export const mechTypeOptions: IMechType[] = [
 	{
 		id: 1,
 		tag: "biped",
 		name: "Biped",
+		rulesLevel: 0,
+		book: "TM",
 	},
 	{
 		id: 2,
 		tag: "quad",
 		name:  "Quad",
+		rulesLevel: 0,
+		book: "TM",
 	},
 	{
 		id: 3,
 		tag: "tripod",
 		name:  "Tripod",
+		rulesLevel: 3,
+		book: "IO",
+		page: 50,
+		notes: "Advanced",
 	},
 	{
 		id: 4,
 		tag: "lam",
 		name:  "LAM",
+		rulesLevel: 4,
+		book: "IO",
+		page: 50,
+		notes: "Experimental",
 	},
 	{
 		id: 5,
 		tag: "quadvee",
 		name:  "QuadVee",
+		rulesLevel: 3,
+		book: "IO",
+		page: 50,
+		notes: "Advanced",
 	}
 ];
+
+export function getMechTypeOptionsForRulesLevel(rulesLevel: number): IMechType[] {
+	return mechTypeOptions.filter(option => option.rulesLevel <= rulesLevel);
+}

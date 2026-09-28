@@ -5,6 +5,7 @@ import { mechUniversalAmmo } from "./mech-universal-ammo";
 import { mechCustomAmmo } from "./mech-custom-ammo";
 import { mechClanAmmo } from "./mech-clan-ammo";
 import { mechISAmmo } from "./mech-is-ammo";
+import { mechClanEquipmentEnergy } from "./mech-clan-equipment-weapons-energy";
 
 describe("equipment catalog provenance", () => {
     it("resolves equipment aliases and preserves artillery map-sheet range", () => {
@@ -13,6 +14,48 @@ describe("equipment catalog provenance", () => {
         expect(equipmentMatchesIdentifier(thumper, "Thumper")).toBe(true);
         expect(equipmentMatchesIdentifier(thumper, "thumper-artillery")).toBe(true);
         expect(getEquipmentMaximumRangeInHexes(thumper)).toBe(357);
+    });
+
+    // Workbook Blocks 13-20 decisions (2026-09-28)
+    it("doubles Alpha Strike heat for every Ultra autocannon (AS:CE conversion)", () => {
+        // Open: the IS Prototype UAC/5 stores Classic heat 2 / 5 slots; MegaMek and the
+        // workbook's AS heat 2 imply Classic heat 1 (MegaMek: 6 slots). Needs the IO page.
+        const unverifiedClassicHeat = ["prototype-autocannon-uac-5"];
+        const ultras = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment)
+            .filter(item => !item.isAmmo && /\bultra\b/i.test(item.name) && !unverifiedClassicHeat.includes(item.tag));
+        expect(ultras.length).toBeGreaterThan(10);
+        for (const ultra of ultras) {
+            expect(ultra.alphaStrike.heat, ultra.tag).toBe(ultra.heat * 2);
+        }
+    });
+
+    it("uses the chemical lasers' own heat for Alpha Strike (TO:AUE p.132)", () => {
+        const chemical = mechClanEquipmentEnergy.filter(item => item.tag.endsWith("chemical-laser"));
+        expect(chemical.map(item => [item.tag, item.alphaStrike.heat])).toEqual(chemical.map(item => [item.tag, item.heat]));
+        expect(chemical.map(item => item.heat)).toEqual([6, 2, 1]);
+    });
+
+    it("keeps 'Mech Mortars universal with ammunition split by side", () => {
+        for (const size of [1, 2, 4, 8]) {
+            const mortar = mechUniversalEquipment.find(item => item.tag === `mech-mortar-${size}`)!;
+            expect(mortar, `mech-mortar-${size}`).toBeDefined();
+            const is = mechISAmmo.find(item => item.tag === "ammo-is-mech-mortar-standard")!;
+            const clan = mechClanAmmo.find(item => item.tag === "ammo-clan-mech-mortar-standard")!;
+            expect(getCompatibleAmmo(mortar, is)).toBe(true);
+            expect(getCompatibleAmmo(mortar, clan)).toBe(true);
+        }
+        const allTags = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment).map(item => item.tag);
+        expect(allTags.filter(tag => /^clan-mech-mortar-\d$/.test(tag))).toEqual([]);
+    });
+
+    it("keeps ProtoMech-only launchers off every non-ProtoMech unit", () => {
+        const protoOnly = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment)
+            .filter(item => /fusillade|protomech streak lrm|streak lrm \(protomech/i.test(item.name));
+        for (const item of protoOnly) {
+            const { protomech, ...others } = item.space;
+            expect(protomech, item.tag).not.toBe(-1);
+            expect(Object.values(others).every(slots => slots === -1), item.tag).toBe(true);
+        }
     });
 
     it("stores Arrow IV range in map sheets like the other artillery pieces", () => {
@@ -133,6 +176,11 @@ describe("equipment catalog provenance", () => {
         for (const [catalog, items] of Object.entries(catalogs)) {
             const weapons = catalog === "is" ? pools.is : catalog === "clan" ? pools.clan : [...pools.is, ...pools.clan];
             for (const ammo of items) {
+                // Bombs load into Bomb Bays (LAM) or fighter bomb slots instead of feeding a weapon.
+                if (ammo.bombBaySlots) {
+                    if (!weapons.some(item => item.tag === "lam-bomb-bay")) unfed.push(`${catalog} ${ammo.tag} (no bomb bay)`);
+                    continue;
+                }
                 if (!weapons.some(weapon => !weapon.isAmmo && getCompatibleAmmo(weapon, ammo))) unfed.push(`${catalog} ${ammo.tag}`);
             }
         }

@@ -271,6 +271,14 @@ export interface IEquipmentItem {
     criticals?: number;
     available?: boolean;
     rulesLevel?: number;
+    /** OmniMech base-chassis (fixed) equipment; everything else on an OmniMech is pod-mounted. */
+    omniFixed?: boolean;
+    /** 'Mech chassis types (mech-type tags) this item may be mounted on, e.g. ["lam"]; unset = any. */
+    chassisTypes?: string[];
+    /** Most copies of this item one unit may mount (e.g. LAM Bomb Bays, 20). */
+    maxPerUnit?: number;
+    /** Bombs: bomb bay (or fighter bomb) slots one bomb occupies. Bombs are loaded, not mounted. */
+    bombBaySlots?: number;
 }
 
 export interface IEquipmentMetadata {
@@ -492,6 +500,11 @@ export interface IMechType {
     id: number;
     tag: string;
     name: string;
+    /** Lowest rules level (rules-level-options ids) at which this chassis is legal. */
+    rulesLevel: number;
+    book?: string;
+    page?: number;
+    notes?: string;
 }
 
 export interface ITechOptions {

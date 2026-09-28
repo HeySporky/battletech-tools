@@ -134,6 +134,44 @@ export function calculateShotsPerTon(totalRoundsPerTon: number, launcherSize: nu
 /** Rules level at which experimental prototypes may be used (Experimental and Custom Homebrew). */
 export const EXPERIMENTAL_RULES_LEVEL = 4;
 
+/** Custom Homebrew rules level: the only level at which fan-made rules are enabled. */
+export const CUSTOM_HOMEBREW_RULES_LEVEL = 5;
+
+/**
+ * 'Mech equipment an OmniMech must build into its base chassis: it can never be pod-mounted.
+ * Via MegaMek's `omniFixedOnly` flags (TM/TO:AUE/IO:AE pages cited there; provisional).
+ * HarJel I stays pod-mountable; HarJel II/III are fixed but not in our catalogs yet.
+ */
+export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
+    "masc", "clan-masc",
+    "partial-wing", "clan-partial-wing",
+    "aes-arm", "aes-leg", "clan-aes-arm", "clan-aes-leg",
+    "null-signature-system", "custom-null-signature-system", "void-signature-system", "chameleon-lps",
+    "blue-shield",
+    "risc-emergency-coolant-system",
+    "tracks",
+    "environmental-sealing",
+];
+
+export function isOmniFixedOnly(item: IEquipmentItem): boolean {
+    return OMNI_FIXED_ONLY_TAGS.includes(item.tag);
+}
+
+/**
+ * Lowest rules level an installed item needs: Custom Homebrew for custom content,
+ * Experimental for prototype-only items, otherwise its own rules level (0 when unknown).
+ */
+export function getEquipmentRulesLevel(item: IEquipmentItem): number {
+    let level = typeof item.rulesLevel === "number" ? item.rulesLevel : 0;
+    if (item.catalog === "custom" || item.category === "Custom Equipment" || item.book === "Custom") {
+        level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
+    }
+    if (item.introduced === null && item.prototype) {
+        level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+    }
+    return level;
+}
+
 /**
  * Year an item becomes usable in construction: its production year, or its
  * IO prototype year when the rules level allows experimental technology.

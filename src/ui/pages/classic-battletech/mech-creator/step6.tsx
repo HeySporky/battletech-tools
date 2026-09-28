@@ -395,6 +395,12 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                           <fieldset className="fieldset">
                             <legend>Instructions</legend>
                             <p>To assign equipment to your critical allocation table, just click on an assignable item then click on an unallocated location.</p>
+                            {[
+                              ...this.props.appGlobals.currentBattleMech.getOmniLAMViolations(),
+                              ...this.props.appGlobals.currentBattleMech.getChassisEquipmentViolations(),
+                            ].map( (violation) => (
+                              <p key={violation} className="color-red">{violation}</p>
+                            ))}
                           </fieldset>
                           <br />
                           {this.state.selectionMessageType ? (

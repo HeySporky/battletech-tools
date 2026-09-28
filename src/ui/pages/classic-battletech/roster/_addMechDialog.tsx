@@ -159,7 +159,7 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
         className="modal modal-xl"
     >
 
-        <h3 className="text-center">Viewing {this.state.viewingUnit.model}</h3>
+        <h3 className="text-center">Viewing {this.state.viewingUnit.getName()}</h3>
         <div className="row">
             <div className='col'>
                 <SanitizedHTML
@@ -196,10 +196,15 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
                         </tr>
                     </thead>
                     {this.props.appGlobals.battleMechSaves.map( (bmDef, bmIndex) => {
-                        let bmObj = new BattleMech( JSON.stringify(bmDef) )
+                        let savedObj = new BattleMech( JSON.stringify(bmDef) )
+                        // An OmniMech with several configurations gets one row per configuration
+                        let configurations = savedObj.getOmniConfigurationNames().length > 1
+                            ? savedObj.getOmniConfigurationNames().map( (name) => savedObj.cloneOmniConfiguration( name ) as BattleMech )
+                            : [savedObj];
                         return (
                             <tbody key={bmIndex}>
-                                <tr>
+                                {configurations.map( (bmObj, configIndex) => (
+                                <tr key={configIndex}>
                                     <td>{bmObj.getName()}</td>
                                     <td className="min-width no-wrap text-left">{bmObj.getTech().name}</td>
                                     <td className="min-width no-wrap text-center">{bmObj.getTonnage()}</td>
@@ -220,6 +225,7 @@ export default class BattleMechAddMechDialog extends React.Component<IBattleMech
                                         </button>
                                     </td>
                                 </tr>
+                                ))}
                             </tbody>
                         )
                     })}

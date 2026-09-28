@@ -1600,7 +1600,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           {this.state.setMovementDialog.isLAM() ? (
             <>
               <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("mech")}>Mech</button>
-              <button className={this.state.setMovementDialog.getTransformationMode() === "airmech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("airmech")}>AirMech</button>
+              {this.state.setMovementDialog.hasAirMechMode() ? (
+                <button className={this.state.setMovementDialog.getTransformationMode() === "airmech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("airmech")}>AirMech</button>
+              ) : null}
               <button className={this.state.setMovementDialog.getTransformationMode() === "aerospace" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("aerospace")}>Aerospace</button>
             </>
           ) : (
