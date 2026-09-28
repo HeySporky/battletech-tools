@@ -21456,7 +21456,22 @@
       "Name": "BattleMech",
       "Image": null,
       "SortOrder": 0
-    }
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 10,
+    "BFStructure": 8,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 1,Juggernaut"
   },
   {
     "Id": 105800,
@@ -21538,6 +21553,21 @@
       "Name": "Battle Armor",
       "Image": null,
       "SortOrder": 4
-    }
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 5,LECM,MEC,Ambusher"
   }
 ]
