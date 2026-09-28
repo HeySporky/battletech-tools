@@ -32,11 +32,25 @@ export const btEraOptions: IEras[] = [
 		yearEnd: 2780
 	},
 	{
-		id: 12,
-		name: "Clan Golden Century (2801-3049)",
-		tag: "golden-century",
+		id: 13,
+		name: "The Exodus (2784-2800)",
+		tag: "the-exodus",
+		yearStart: 2784,
+		yearEnd: 2800
+	},
+	{
+		id: 14,
+		name: "The Founding - Early Clan Era (2801-2824)",
+		tag: "the-founding",
 		yearStart: 2801,
-		yearEnd: 3049
+		yearEnd: 2824
+	},
+	{
+		id: 12,
+		name: "Clan Golden Century (2825–2946)",
+		tag: "golden-century",
+		yearStart: 2825,
+		yearEnd: 2946
 	},
 	{
 		id: 3,
@@ -51,6 +65,13 @@ export const btEraOptions: IEras[] = [
 		tag: "late-sw-lt",
 		yearStart: 2901,
 		yearEnd: 3019
+	},
+	{
+		id: 15,
+		name: "Political Century - Mid Clan Era (2947–3049)",
+		tag: "political-century",
+		yearStart: 2947,
+		yearEnd: 3049
 	},
 	{
 		id: 5,
