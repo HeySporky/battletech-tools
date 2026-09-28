@@ -1,12 +1,20 @@
 import { IMyomerType } from "./data-interfaces";
 
 /*
- * The data here is/may be copyrighted and NOT included in the GPLv3 license.
- *
- * Dates: IO tech progression. TSM: Inner Sphere prototype 3028, production 3050.
- * Industrial TSM: prototype 3035, production 3045. Prototype TSM (IO:AE p.98):
- * 3028 until production TSM replaces it in 3050.
- */
+* DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
+* All lore, stats, and intellectual property belong strictly to Catalyst Game Labs, 
+* Topps, and their respective rights holders. 
+*
+* This open-source utility is a non-commercial fan project designed purely for 
+* tabletop gameplay assistance. Content processed by this file is not intended 
+* to challenge any copyright or trademark status, and this data is explicitly 
+* excluded from the software's underlying license (GNU GPLv3).
+*
+* Dates: IO tech progression. TSM: Inner Sphere prototype 3028, production 3050.
+* Industrial TSM: prototype 3035, production 3045. Prototype TSM (IO:AE p.98):
+* 3028 until production TSM replaces it in 3050.
+*/
+
 export const mechMyomerTypes: IMyomerType[] = [
 	{
 		name: "Standard",

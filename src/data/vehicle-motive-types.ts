@@ -1,13 +1,21 @@
 import { IVehicleMotiveType } from "./data-interfaces";
 
 /*
- * The data here is/may be copyrighted and NOT included in the GPLv3 license.
- *
- * Tonnage bounds per Sarna's Combat Vehicle / Superheavy Combat Vehicle rules summaries.
- * Standard rules cap at standardMaxTonnage; Superheavy configurations (Advanced+ rules,
- * same gating tier as Superheavy/Colossal 'Mechs) unlock up to superheavyMaxTonnage.
- * Conventional Fighters are an Aerospace-domain unit (Phase 3), not a ground/naval motive type.
- */
+* DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
+* All lore, stats, and intellectual property belong strictly to Catalyst Game Labs, 
+* Topps, and their respective rights holders. 
+*
+* This open-source utility is a non-commercial fan project designed purely for 
+* tabletop gameplay assistance. Content processed by this file is not intended 
+* to challenge any copyright or trademark status, and this data is explicitly 
+* excluded from the software's underlying license (GNU GPLv3).
+* 
+* Tonnage bounds per Sarna's Combat Vehicle / Superheavy Combat Vehicle rules summaries.
+* Standard rules cap at standardMaxTonnage; Superheavy configurations (Advanced+ rules,
+* same gating tier as Superheavy/Colossal 'Mechs) unlock up to superheavyMaxTonnage.
+* Conventional Fighters are an Aerospace-domain unit (Phase 3), not a ground/naval motive type.
+*/
+
 export const vehicleMotiveTypes: IVehicleMotiveType[] = [
     { id: 1, tag: "tracked", name: "Tracked", minTonnage: 1, standardMaxTonnage: 100, superheavyMaxTonnage: 200 },
     { id: 2, tag: "wheeled", name: "Wheeled", minTonnage: 1, standardMaxTonnage: 100, superheavyMaxTonnage: 160 },

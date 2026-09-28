@@ -1,7 +1,19 @@
 import { IEquipmentItem } from "./data-interfaces";
+
 /*
-* The data here is/may be copyrighted and NOT included in the GPLv3 license.
-*/
+ * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
+ * All official lore, trademarks, and intellectual property belong strictly to 
+ * Catalyst Game Labs, Topps, and/or their respective corporate rights holders. 
+ * Any original, fan-made content or custom homebrew data processed by this tool 
+ * remains the exclusive property of its respective community creators, which,
+ * where known, has been appropriately attributed.
+ *
+ * This open-source utility is a non-commercial fan project designed purely for 
+ * tabletop gameplay assistance. Content processed by this file is not intended 
+ * to challenge any copyright or trademark status, and this data is explicitly 
+ * excluded from the software's underlying license (GNU GPLv3).
+ */
+
 export const mechClanEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Clan LB 5-X AC",
@@ -59,7 +71,7 @@ export const mechClanEquipmentBallistic: IEquipmentItem[] = [
     { name: "ProtoMech Autocannon/2", tag: "protomech-autocannon-2", ammoTypes: ["ammo-clan-protomech-ac-2-standard"], sort: "protomech autocannon 2", category: "Ballistic Weapons", damage: 2, notes: "Clan-only ProtoMech autocannon; workbook conversion provisional.", damageAero: 2, accuracyModifier: 0, cbills: 95000, introduced: 3070, extinct: 0, reintroduced: 0, battleValue: 34, heat: 1, heatAero: 1, weight: 3.5, ammoBattleValue: 4, range: { min: 0, short: 7, medium: 14, long: 20 }, space: { battlemech: -1, protomech: 1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, shotsPerTon: 40, minAmmoTons: 1, explosive: false, weaponType: ["DB"], techRating: "f", book: "TO", page: 0, alphaStrike: { heat: 1, rangeShort: 0.2, rangeMedium: 0.2, rangeLong: 0.2, rangeExtreme: 0, tc: true, notes: ["AC", "Clan Only", "Provisional workbook conversion"] }, catalog: "clan" },
     { name: "ProtoMech Autocannon/4", tag: "protomech-autocannon-4", ammoTypes: ["ammo-clan-protomech-ac-4-standard"], sort: "protomech autocannon 4", category: "Ballistic Weapons", damage: 4, notes: "Clan-only ProtoMech autocannon; workbook conversion provisional.", damageAero: 4, accuracyModifier: 0, cbills: 133000, introduced: 3070, extinct: 0, reintroduced: 0, battleValue: 49, heat: 1, heatAero: 1, weight: 4.5, ammoBattleValue: 6, range: { min: 0, short: 5, medium: 10, long: 15 }, space: { battlemech: -1, protomech: 1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, shotsPerTon: 20, minAmmoTons: 1, explosive: false, weaponType: ["DB"], techRating: "f", book: "TO", page: 0, alphaStrike: { heat: 1, rangeShort: 0.4, rangeMedium: 0.4, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["AC", "Clan Only", "Provisional workbook conversion"] }, catalog: "clan" },
     { name: "ProtoMech Autocannon/8", tag: "protomech-autocannon-8", ammoTypes: ["ammo-clan-protomech-ac-8-standard"], sort: "protomech autocannon 8", category: "Ballistic Weapons", damage: 8, notes: "Clan-only ProtoMech autocannon; workbook conversion provisional.", damageAero: 8, accuracyModifier: 0, cbills: 175000, introduced: 3070, extinct: 0, reintroduced: 0, battleValue: 66, heat: 2, heatAero: 2, weight: 5.5, ammoBattleValue: 8, range: { min: 0, short: 3, medium: 7, long: 10 }, space: { battlemech: -1, protomech: 2, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, shotsPerTon: 10, minAmmoTons: 1, explosive: false, weaponType: ["DB"], techRating: "f", book: "TO", page: 0, alphaStrike: { heat: 2, rangeShort: 0.8, rangeMedium: 0.8, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["AC", "Clan Only", "Provisional workbook conversion"] }, catalog: "clan" },
-    { name: "AP Gauss Rifle", tag: "ap-gauss-rifle", ammoTypes: ["ammo-clan-ap-gauss-rifle-standard"], sort: "ap gauss rifle", category: "Ballistic Weapons", damage: 0, notes: "Clan-only anti-infantry Gauss weapon; workbook Alpha Strike values are provisional.", damageAero: 0, accuracyModifier: 0, cbills: 8500, introduced: 3069, extinct: 0, reintroduced: 0, prototype: 3065, battleValue: 21, heat: 1, weight: 0.5, ammoBattleValue: 3, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 40, minAmmoTons: 1, explosive: false, weaponType: ["DB"], techRating: "f", book: "TO", page: 0, alphaStrike: { heat: 1, rangeShort: 0.3, rangeMedium: 0.3, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Anti-Infantry", "Clan Only", "Provisional workbook conversion"] }, catalog: "clan" },
+    { name: "AP Gauss Rifle", tag: "ap-gauss-rifle", ammoTypes: ["ammo-clan-ap-gauss-rifle-standard"], sort: "ap gauss rifle", category: "Ballistic Weapons", damage: 0, notes: "Clan-only anti-infantry Gauss weapon; workbook Alpha Strike values are provisional.", damageAero: 0, accuracyModifier: 0, cbills: 8500, introduced: 3069, extinct: 0, reintroduced: 0, prototype: 3065, battleValue: 21, heat: 1, weight: 0.5, ammoBattleValue: 3, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 40, minAmmoTons: 1, explosive: false, weaponType: ["DB"], techRating: "f", book: "TO", page: 0, alphaStrike: { heat: 1, rangeShort: 0.3, rangeMedium: 0.3, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Anti-Infantry", "Clan Only", "Provisional workbook conversion"] }, heatAero: 1, rangeAero: "s", catalog: "clan" },
     {
         name: "Autocannon/2 (Clan, Star League)",
         alternateName: "ac/2",

@@ -1,8 +1,19 @@
 import { IEquipmentItem } from "./data-interfaces";
 
 /*
-* The data here is/may be copyrighted and NOT included in the GPLv3 license.
-*/
+ * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
+ * All official lore, trademarks, and intellectual property belong strictly to 
+ * Catalyst Game Labs, Topps, and/or their respective corporate rights holders. 
+ * Any original, fan-made content or custom homebrew data processed by this tool 
+ * remains the exclusive property of its respective community creators, which,
+ * where known, has been appropriately attributed.
+ *
+ * This open-source utility is a non-commercial fan project designed purely for 
+ * tabletop gameplay assistance. Content processed by this file is not intended 
+ * to challenge any copyright or trademark status, and this data is explicitly 
+ * excluded from the software's underlying license (GNU GPLv3).
+ */
+
 export const mechClanEquipmentMissile: IEquipmentItem[] = [ 
     { isAmmo: false, name: "ATM 3", tag: "atm-3", sort: "atm 3", category: "Missile Weapons", alternateName: "ATM-3", damage: 0, notes: "Clan ATM; direct-fire only.", damageAero: 3, accuracyModifier: 0, cbills: 50000, cbillsOneShot: 0, introduced: 3053, extinct: 0, reintroduced: 0, prototype: 3052, battleValue: 53, heat: 2, weight: 1.5, range: { min: 4, short: 5, medium: 10, long: 15 }, space: { battlemech: 2, protomech: -1, combatVehicle: 2, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 20, ammoBattleValue: 14, minAmmoTons: 1, explosive: false, weaponType: ["MS"], techRating: "f", book: "TM", page: 230, alphaStrike: { heat: 2, rangeShort: 1, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: false, notes: ["ATM (1/1/1)", "Direct Fire"] }, damageClusters: 3, damagePerCluster: 1, heatAero: 2, rangeAero: "m", catalog: "clan" },
     { isAmmo: false, name: "ATM 6", tag: "atm-6", sort: "atm 6", category: "Missile Weapons", alternateName: "ATM-6", damage: 0, notes: "Clan ATM; direct-fire only.", damageAero: 3, accuracyModifier: 0, cbills: 125000, cbillsOneShot: 0, introduced: 3053, extinct: 0, reintroduced: 0, prototype: 3052, battleValue: 105, heat: 4, weight: 3.5, range: { min: 4, short: 5, medium: 10, long: 15 }, space: { battlemech: 3, protomech: -1, combatVehicle: 4, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 10, ammoBattleValue: 26, minAmmoTons: 1, explosive: false, weaponType: ["MS"], techRating: "f", book: "TM", page: 230, alphaStrike: { heat: 4, rangeShort: 2, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: false, notes: ["ATM (2/1/1)", "Direct Fire"] }, damageClusters: 6, damagePerCluster: 1, heatAero: 4, rangeAero: "m", catalog: "clan" },

@@ -300,6 +300,27 @@ tool. Items are ordered by dependency, not by product marketing priority.
   tracked movement mode not modelled in play.
 - [ ] Artemis V and Apollo launcher combos (Artemis IV exists as combined
   launcher records).
+- [ ] Misc sources, leads from the Ollama/Sarna pass (review-only, in
+  \`tools/misc-equipment-sources-staging.jsonl\`; Sarna "TO" pages may be the
+  pre-split Tactical Operations, so map them to TO:AR/TO:AUE before use):
+  Drone OS/Carrier Control TO p.305, Recon Camera TO p.337, Sprayer TM p.248,
+  Fluid Suction TM p.248, Liquid Storage TM p.239, Comms Equipment TM p.212,
+  Paramedic TM p.233, Booby Trap TO p.297, Chaff Pod TO p.299, Collapsible
+  Command Module TO p.301, BattleMech Turret TO p.347, Artemis V TO p.283,
+  Apollo TO p.331, DNI Unbound p.66, Buzzsaw Unbound p.70, RISC Laser Pulse
+  Module IO p.93, Super-Cooled Myomer IO p.94, Ram Plate OTP: Hanseatic Crusade
+  p.30. Not found yet: IndustrialMech ejection seat, EI (check TW/IO), SRCS,
+  ladder, vehicular mine dispenser, cargo, HarJel II, ground-mobile HPG, RISC
+  viral jammer, LAM bomb bay/fuel, QuadVee wheels, dumper.
+- [ ] BUG: Step 4 "Best Guess" armor allocation leaves CT (R) blank instead of
+  a number and puts 0 on CT. Fix the auto-allocation and add a regression test.
+- [ ] Step 5 equipment picker: add subtype filters within each main category
+  (Energy: Lasers/PPCs/Flamers...; Ballistic: ACs/Gauss/MGs...; Missile:
+  LRM/SRM/ATM/MRM...), keeping "all of the category" available.
+- [ ] Step 5 sorting: natural numeric sort (ATM 3 before ATM 12).
+- [ ] Re-run the duplicate audit across every catalog file (IS, Clan,
+  universal, custom, ammo) for duplicate tags, names and altTags hiding in
+  another file.
 - [x] Engine audit vs TM/TO/IO: weight table regenerated from the TM p.49
   standard column (12 wrong values, incl. 100, 390, 425-460) and the type
   multipliers; ICE/Fuel Cell 6 CT slots; Fission IS-only, 7,500 C-bills, IO

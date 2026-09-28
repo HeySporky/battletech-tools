@@ -1,15 +1,23 @@
 import { IHeatSync } from "./data-interfaces";
 
 /*
- * The data here is/may be copyrighted and NOT included in the GPLv3 license.
- *
- * Dates: IO tech progression (single: Early Spaceflight). Double heat sinks:
- * Inner Sphere prototype 2559, production 2567, lost 2865, recovered 3040;
- * Clan prototype 2825, production 2827. Laser (Clan, TO:AUE p.129): prototype 3040,
- * production 3051. Double Heat Sink Prototype (IO:AE p.65, 2559-2567) and Freezers
- * (IO:AE p.96, 3022-3040) exist only as Inner Sphere prototypes. Compact (TO:AUE p.128):
- * Inner Sphere prototype 3058, production 3079.
- */
+* DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
+* All lore, stats, and intellectual property belong strictly to Catalyst Game Labs, 
+* Topps, and their respective rights holders. 
+*
+* This open-source utility is a non-commercial fan project designed purely for 
+* tabletop gameplay assistance. Content processed by this file is not intended 
+* to challenge any copyright or trademark status, and this data is explicitly 
+* excluded from the software's underlying license (GNU GPLv3).
+*
+* Dates: IO tech progression (single: Early Spaceflight). Double heat sinks:
+* Inner Sphere prototype 2559, production 2567, lost 2865, recovered 3040;
+* Clan prototype 2825, production 2827. Laser (Clan, TO:AUE p.129): prototype 3040,
+* production 3051. Double Heat Sink Prototype (IO:AE p.65, 2559-2567) and Freezers
+* (IO:AE p.96, 3022-3040) exist only as Inner Sphere prototypes. Compact (TO:AUE p.128):
+* Inner Sphere prototype 3058, production 3079.
+*/
+
 export const mechHeatSinkTypes: IHeatSync[] = [
 	{
 		name:  "Single",
