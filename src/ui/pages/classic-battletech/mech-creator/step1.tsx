@@ -2,7 +2,6 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { btEraOptions } from '../../../../data/era-options';
-import { mechInternalStructureTypes } from '../../../../data/mech-internal-structure-types';
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
@@ -273,9 +272,13 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               value={this.props.appGlobals.currentBattleMech.getInternalStructureType()}
                               onChange={this.updateStructureType}
                             >
-                            {mechInternalStructureTypes.map( (option) => {
+                            {this.props.appGlobals.currentBattleMech.getAvailableInternalStructures(this.props.appGlobals.appSettings.mechRulesFilter).map( (option) => {
+                              const selected = option.tag === this.props.appGlobals.currentBattleMech?.getInternalStructureType();
+                              if( !option.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                return <React.Fragment key={option.tag}></React.Fragment>;
+                              }
                               return (
-                                <option key={option.tag} value={option.tag}>{option.name}</option>
+                                <option key={option.tag} value={option.tag} disabled={!option.available && !selected}>{option.name}{option.availableAsPrototype ? " (Prototype)" : ""}</option>
                               )
                             })}
                             </select>

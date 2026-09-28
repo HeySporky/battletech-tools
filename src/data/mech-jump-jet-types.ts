@@ -2,6 +2,9 @@ import { IJumpJet } from "./data-interfaces";
 
 /*
  * The data here is/may be copyrighted and NOT included in the GPLv3 license.
+ *
+ * Dates: IO tech progression. Improved jump jets: Inner Sphere prototype 3067,
+ * Clan prototype 3060, production 3068 for both.
  */
 export const mechJumpJetTypes: IJumpJet[] = [
 	{
@@ -15,7 +18,8 @@ export const mechJumpJetTypes: IJumpJet[] = [
 		},
 		criticals: 1,
 		costMultiplier: 200,
-		introduced: 2300,
+		prototype: 2464,
+		introduced: 2471,
 		extinct: 0,
 		reintroduced: 0
 	},
@@ -31,8 +35,10 @@ export const mechJumpJetTypes: IJumpJet[] = [
 		},
 		criticals: 2,
 		costMultiplier: 500,
-		introduced: 3050,
+		prototype: 3067,
+		introduced: 3068,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		clanDates: { prototype: 3060, introduced: 3068, extinct: 0, reintroduced: 0 }
 	}
 ];

@@ -128,7 +128,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                                         key={itemIndex}
                                         className={!item.available ? "disabled" : ""}
                                     >
-                                        <td>{item.name}</td>
+                                        <td>{item.name}{item.availableAsPrototype ? <span className="small-text"> (Prototype)</span> : null}</td>
                                         <td>{item.category}</td>
                                         <td>{item.criticals}</td>
                                         <td>{item.weight}</td>

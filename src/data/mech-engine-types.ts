@@ -2,6 +2,11 @@ import { IEngineType } from "./data-interfaces";
 
 /*
  * The data here is copyrighted and NOT included in the GPLv3 license.
+ *
+ * 'Mech critical slots and cost multipliers: TechManual pp.48-49 and p.278.
+ * Dates: IO tech progression (prototype, production, extinct, reintroduced).
+ * Fission and Light engines are Inner Sphere only; ICE and Fuel Cell engines
+ * use six center torso slots in a 'Mech like a standard fusion engine.
  */
 
 export const mechEngineTypes: IEngineType[] = [
@@ -26,6 +31,7 @@ export const mechEngineTypes: IEngineType[] = [
 			is: { ct: 6, lt: 3, rt: 3 }
 		},
 		costMultiplier: 20000,
+		prototype: 2556,
 		introduced: 2579,
 		extinct: 2865,
 		reintroduced: 3035,
@@ -38,6 +44,7 @@ export const mechEngineTypes: IEngineType[] = [
 			clan: { ct: 6, lt: 2, rt: 2 }
 		},
 		costMultiplier: 20000,
+		prototype: 2824,
 		introduced: 2827,
 		extinct: 0,
 		reintroduced: 0,
@@ -50,6 +57,7 @@ export const mechEngineTypes: IEngineType[] = [
 			is: { ct: 6, lt: 2, rt: 2 }
 		},
 		costMultiplier: 15000,
+		prototype: 3055,
 		introduced: 3062,
 		extinct: 0,
 		reintroduced: 0,
@@ -62,7 +70,8 @@ export const mechEngineTypes: IEngineType[] = [
 			is: { ct: 3 }
 		},
 		costMultiplier: 10000,
-		introduced: 3068,
+		prototype: 3060,
+		introduced: 3066,
 		extinct: 0,
 		reintroduced: 0,
 		rating: 0
@@ -74,7 +83,8 @@ export const mechEngineTypes: IEngineType[] = [
 			is: { ct: 6, lt: 6, rt: 6 }
 		},
 		costMultiplier: 100000,
-		introduced: 3055,
+		prototype: 3055,
+		introduced: 3125,
 		extinct: 0,
 		reintroduced: 0,
 		rating: 0
@@ -86,7 +96,8 @@ export const mechEngineTypes: IEngineType[] = [
 			clan: { ct: 6, lt: 4, rt: 4 }
 		},
 		costMultiplier: 100000,
-		introduced: 3055,
+		prototype: 3030,
+		introduced: 3125,
 		extinct: 0,
 		reintroduced: 0,
 		rating: 0
@@ -96,8 +107,8 @@ export const mechEngineTypes: IEngineType[] = [
 		alternateName: "ICE",
 		tag: "ice",
 		criticals: {
-			is: { ct: 1 },
-			clan: { ct: 1 }
+			is: { ct: 6 },
+			clan: { ct: 6 }
 		},
 		costMultiplier: 1250,
 		introduced: 1950,
@@ -110,11 +121,12 @@ export const mechEngineTypes: IEngineType[] = [
 		alternateName: "FCE",
 		tag: "cell",
 		criticals: {
-			is: { ct: 1 },
-			clan: { ct: 1 }
+			is: { ct: 6 },
+			clan: { ct: 6 }
 		},
 		costMultiplier: 3500,
-		introduced: 2025,
+		prototype: 2300,
+		introduced: 2470,
 		extinct: 0,
 		reintroduced: 0,
 		rating: 0
@@ -123,11 +135,11 @@ export const mechEngineTypes: IEngineType[] = [
 		name: "Fission Engine",
 		tag: "fission",
 		criticals: {
-			is: { ct: 6 },
-			clan: { ct: 6 }
+			is: { ct: 6 }
 		},
-		costMultiplier: 3500,
-		introduced: 1950,
+		costMultiplier: 7500,
+		prototype: 2470,
+		introduced: 2882,
 		extinct: 0,
 		reintroduced: 0,
 		rating: 0
@@ -138,10 +150,10 @@ export const mechEngineTypes: IEngineType[] = [
 		criticals: {
 			is: { ct: 6 }
 		},
-		costMultiplier: 5000, // Shares standard cost multiplier, calculated via tonnage modifiers instead
+		costMultiplier: 5000,
 		introduced: 2300,
-		extinct: 2500, // Replaced completely by modern standards in Military Mechs
-		reintroduced: 3070, // Resurged in Jihad-era RetroTech
+		extinct: 2500, // Unverified: no IO source recorded for these dates
+		reintroduced: 3070,
 		rating: 0
 	}
 ];

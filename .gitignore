@@ -75,6 +75,12 @@ robots.txt
 /ollama*
 /cline_custom_modes.json
 
+# ---------------------------------------------------------------------------
+# Claude Code "Astech" agent definition and rules (local to each developer)
+# ---------------------------------------------------------------------------
+/.claude/agents/astech.md
+/.claude/rules/
+
 # GitHub Actions workflows are required; guard against the broad patterns above.
 !.github/
 !.github/workflows/

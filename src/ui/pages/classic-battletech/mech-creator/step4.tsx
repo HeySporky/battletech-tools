@@ -185,11 +185,11 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     onChange={this.setArmorType}
                                   >
                                     {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                    {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes().map( (armorData, armorIndex) => {
+                                    {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter).map( (armorData, armorIndex) => {
 
                                       if( armorData.available ) {
                                         return (
-                                          <option key={armorIndex} value={armorData.tag}>{armorData.name}</option>
+                                          <option key={armorIndex} value={armorData.tag}>{armorData.name}{armorData.availableAsPrototype ? " (Prototype)" : ""}</option>
                                         )
                                       } else {
                                         if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {

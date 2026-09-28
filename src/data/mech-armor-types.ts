@@ -32,7 +32,10 @@ export const mechArmorTypes: IArmorType[] = [
 		costMultiplier: 10000,
 		introduced: 2470,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		page: 205,
+		book: "TM",
+		prototype: 2460
 	},
 	{
 		name: "Ferro Fibrous",
@@ -60,7 +63,12 @@ export const mechArmorTypes: IArmorType[] = [
 		costMultiplier: 20000,
 		introduced: 2571,
 		extinct: 2810,
-		reintroduced: 3040
+		reintroduced: 3040,
+		notes: "IS Ferro-Fibrous 2571 (Star League); Clan Ferro-Fibrous 2825. The Clans' earlier use of Star League Ferro-Fibrous is not modelled separately.",
+		page: 205,
+		book: "TM",
+		clanDates: { prototype: 2820, introduced: 2825, extinct: 0, reintroduced: 0 },
+		prototype: 2557
 	},
 	{
 		name: "Light Ferro Fibrous",
@@ -88,7 +96,10 @@ export const mechArmorTypes: IArmorType[] = [
 		costMultiplier: 15000,
 		introduced: 3067,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		page: 205,
+		book: "TM",
+		prototype: 3055
 	},
 	{
 		name: "Heavy Ferro Fibrous",
@@ -116,7 +127,10 @@ export const mechArmorTypes: IArmorType[] = [
 		costMultiplier: 25000,
 		introduced: 3069,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		page: 205,
+		book: "TM",
+		prototype: 3056
 	},
 	{
 		name: "Basic Stealth",
@@ -152,7 +166,10 @@ export const mechArmorTypes: IArmorType[] = [
 		costMultiplier: 50000,
 		introduced: 3063,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		page: 206,
+		book: "TM",
+		prototype: 3051
 	},
 	{
 		name: "Hardened Armor",
@@ -180,9 +197,14 @@ export const mechArmorTypes: IArmorType[] = [
 		},
 		critLocs: {},
 		costMultiplier: 15000,
-		introduced: 3047,
+		introduced: 3081,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		page: 93,
+		book: "TO:AUE",
+		bvMultiplier: 2,
+		clanDates: { prototype: 3061, introduced: 3081, extinct: 0, reintroduced: 0 },
+		prototype: 3047
 	},
 	{
 		name: "Laser Reflective Armor",
@@ -210,9 +232,14 @@ export const mechArmorTypes: IArmorType[] = [
 		},
 		critLocs: {},
 		costMultiplier: 30000,
-		introduced: 3058,
+		introduced: 3080,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		page: 93,
+		book: "TO:AUE",
+		bvMultiplier: 1.5,
+		clanDates: { prototype: 3061, introduced: 3080, extinct: 0, reintroduced: 0 },
+		prototype: 3058
 	},
 	{
 		name: "Reactive Armor",
@@ -234,15 +261,17 @@ export const mechArmorTypes: IArmorType[] = [
 			clan: 16,
 			is: 16,
 		},
-		crits: {
-			clan: 5,
-			is: 10,
-		},
+		crits: { clan: 7, is: 14 },
 		critLocs: {},
-		costMultiplier: 40000,
-		introduced: 3063,
+		costMultiplier: 30000,
+		introduced: 3081,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		page: 94,
+		book: "TO:AUE",
+		bvMultiplier: 1.5,
+		clanDates: { prototype: 3065, introduced: 3081, extinct: 0, reintroduced: 0 },
+		prototype: 3063
 	},
 	{
 		name: "Ferro-Lamellor Armor",
@@ -269,10 +298,14 @@ export const mechArmorTypes: IArmorType[] = [
 			is: 0,
 		},
 		critLocs: {},
-		costMultiplier: 60000,
-		introduced: 3070,
+		costMultiplier: 35000,
+		introduced: 3109,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		page: 92,
+		book: "TO:AUE",
+		bvMultiplier: 1.2,
+		prototype: 3070
 	},
 	{
 		name: "Ballistic-Reinforced Armor",
@@ -290,19 +323,17 @@ export const mechArmorTypes: IArmorType[] = [
 			jumpShip: false,
 			warShip: false
 		},
-		armorMultiplier: {
-			clan: 16,
-			is: 16,
-		},
-		crits: {
-			clan: 5,
-			is: 10,
-		},
+		armorMultiplier: { clan: 0, is: 16 * 0.75 },
+		crits: { clan: 0, is: 10 },
 		critLocs: {},
-		costMultiplier: 35000,
-		introduced: 3108,
+		costMultiplier: 25000,
+		introduced: 3131,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		page: 81,
+		book: "IO_AE",
+		bvMultiplier: 1.5,
+		prototype: 3120
 	},
 	{
 		name: "Primitive Armor",
@@ -319,19 +350,16 @@ export const mechArmorTypes: IArmorType[] = [
 			jumpShip: false,
 			warShip: false
 		},
-		armorMultiplier: {
-			clan: 0,
-			is: 10,
-		},
+		armorMultiplier: { clan: 0, is: 16 * 0.67 },
 		crits: {
 			clan: 0,
 			is: 0,
 		},
 		critLocs: {},
 		costMultiplier: 5000,
-		introduced: 2439,
-		extinct: 2550,
-		reintroduced: 3070
+		introduced: 2290,
+		extinct: 0,
+		reintroduced: 0
 	},
 	{
 		name: "Ferro-Aluminum Armor",
@@ -389,7 +417,8 @@ export const mechArmorTypes: IArmorType[] = [
 		costMultiplier: 1200,
 		introduced: 2400,
 		extinct: 0,
-		reintroduced: 0
+		reintroduced: 0,
+		bvMultiplier: 0.5
 	},
 	{
 		name: "Modular Armor",
@@ -427,11 +456,11 @@ export const mechArmorTypes: IArmorType[] = [
 		tag: "mimetic",
 		alphaStrikeAbility: "MAS",
 		unitTypes: {
-			battlemech: true,
+			battlemech: false,
 			protomech: false,
-			combatVehicle: true,
+			combatVehicle: false,
 			supportVehicle: false,
-			aerospaceFighter: true,
+			aerospaceFighter: false,
 			smallCraft: false,
 			dropShip: false,
 			battleArmor: true,
@@ -540,4 +569,64 @@ export const mechArmorTypes: IArmorType[] = [
 		extinct: 0,
 		reintroduced: 0
 	},
+	{
+		name: "Ferro-Fibrous Prototype",
+		tag: "ferro-fibrous-prototype",
+		unitTypes: { battlemech: true, protomech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: false, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
+		crits: { clan: 0, is: 16 },
+		armorMultiplier: { clan: 0, is: 16 * 1.12 },
+		costMultiplier: 60000,
+		introduced: null,
+		extinct: 2571,
+		reintroduced: 3034,
+		prototype: 2557,
+		book: "IO",
+		page: null,
+		notes: "IO prototype: Experimental rules only."
+	},
+	{
+		name: "Heat-Dissipating Armor",
+		tag: "heat-dissipating",
+		unitTypes: { battlemech: true, protomech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: false, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
+		crits: { clan: 6, is: 6 },
+		armorMultiplier: { clan: 16 * 0.625, is: 16 * 0.625 },
+		costMultiplier: 25000,
+		introduced: 3123,
+		extinct: 0,
+		reintroduced: 0,
+		prototype: 3115,
+		clanDates: { prototype: 3115, introduced: 3126, extinct: 0, reintroduced: 0 },
+		bvMultiplier: 1.1,
+		book: "IO_AE",
+		page: 81
+	},
+	{
+		name: "Impact-Resistant Armor",
+		tag: "impact-resistant",
+		unitTypes: { battlemech: true, protomech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: false, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
+		crits: { clan: 0, is: 10 },
+		armorMultiplier: { clan: 0, is: 16 * 0.875 },
+		costMultiplier: 20000,
+		introduced: 3103,
+		extinct: 0,
+		reintroduced: 0,
+		prototype: 3090,
+		book: "IO_AE",
+		page: 81
+	},
+	{
+		name: "Anti-Penetrative Ablation Armor",
+		tag: "anti-penetrative-ablation",
+		unitTypes: { battlemech: true, protomech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: false, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
+		crits: { clan: 0, is: 6 },
+		armorMultiplier: { clan: 0, is: 16 * 0.75 },
+		costMultiplier: 15000,
+		introduced: 3114,
+		extinct: 0,
+		reintroduced: 0,
+		prototype: 3100,
+		bvMultiplier: 1.2,
+		book: "IO_AE",
+		page: 80
+	}
 ];

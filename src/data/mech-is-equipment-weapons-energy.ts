@@ -35,7 +35,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -65,9 +65,10 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 12,
         accuracyModifier: 3,
         cbills: 200000,
-        introduced: 3064,
+        introduced: 3085,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3064,
         battleValue: 137,
         heat: 12,
         weight: 7,
@@ -86,7 +87,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -137,7 +138,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -170,7 +171,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3070,
         extinct: 0,
         reintroduced: 0,
-        battleValue: 1,
+        battleValue: 16,
         heat: 4,
         weight: 1,
         range: {
@@ -188,7 +189,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -224,6 +225,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2620,
         extinct: 2950,
         reintroduced: 3037,
+        prototype: 2610,
         battleValue: 163,
         heat: 12,
         weight: 5,
@@ -242,7 +244,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -276,6 +278,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3058,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3052,
         battleValue: 62,
         heat: 5,
         weight: 1,
@@ -294,7 +297,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -328,6 +331,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2751,
         extinct: 2860,
         reintroduced: 3037,
+        prototype: 2740,
         battleValue: 229,
         heat: 15,
         weight: 7,
@@ -346,7 +350,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -380,6 +384,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3058,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3052,
         battleValue: 17,
         heat: 2,
         weight: 0.5,
@@ -398,7 +403,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -432,7 +437,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3068,
         extinct: 0,
         reintroduced: 0,
-        battleValue: 1,
+        battleValue: 15,
         heat: 5,
         weight: 1.5,
         range: {
@@ -450,7 +455,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 10,
+        shotsPerTon: 10,
+        ammoBattleValue: 2,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -486,6 +492,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3067,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3062,
         battleValue: 317,
         heat: 15,
         weight: 10,
@@ -504,7 +511,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -538,6 +545,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2316,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2306,
         battleValue: 123,
         heat: 8,
         weight: 5,
@@ -556,7 +564,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -590,6 +598,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2609,
         extinct: 2950,
         reintroduced: 3037,
+        prototype: 2595,
         battleValue: 119,
         heat: 10,
         weight: 7,
@@ -608,7 +617,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -642,6 +651,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3130, // Deployed during early Dark Age timeline
         extinct: 0,
         reintroduced: 0,
+        prototype: 3120,
         battleValue: 161,
         heat: 9,
         weight: 8,
@@ -660,7 +670,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -699,10 +709,11 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             medium: -2,
             long: -1
         },
-        cbills: 456000,
-        introduced: 3070,
+        cbills: 465000,
+        introduced: 3072,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3070,
         battleValue: 123,
         heat: 10,
         weight: 9,
@@ -721,7 +732,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -749,19 +760,14 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         damage: 9,
         damageAero: 9,
         accuracyModifier: -2,
-        cbills: 175000,
+        cbills: 275000,
         introduced: 3057,
         extinct: 0,
         reintroduced: 0,
-        battleValue: 119,
-        heat: 10,
+        battleValue: 178,
+        heat: 14,
         weight: 7,
-        range: {
-            min: 0,
-            short: 3,
-            medium: 7,
-            long: 10
-        },
+        range: { min: 0, short: 5, medium: 10, long: 15 },
         space: {
             battlemech: 2,
             protomech: -1,
@@ -771,7 +777,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -800,12 +806,13 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         damage: 0,
         damageAero: 0,
         accuracyModifier: 0,
-        cbills: 150000,
-        introduced: 3079, // Standardized production timeline
+        cbills: 225000,
+        introduced: 3059, // Standardized production timeline
         extinct: 0,
         reintroduced: 0,
         battleValue: 45,
-        heat: 5,
+        battleValueDefensive: true,
+        heat: 7,
         weight: 1.5,
         range: {
             min: 0,
@@ -813,16 +820,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             medium: 0,
             long: 0
         },
-        space: {
-            battlemech: 1,
-            protomech: 1, // Valid: Sits exactly on the 1.5-ton boundary ceiling
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -855,6 +854,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3067,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3064,
         battleValue: 88,
         heat: 5,
         weight: 3,
@@ -873,7 +873,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -906,6 +906,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2300,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2290,
         battleValue: 46,
         heat: 3,
         weight: 1,
@@ -924,7 +925,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -957,6 +958,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2609,
         extinct: 2950,
         reintroduced: 3037,
+        prototype: 2595,
         battleValue: 48,
         heat: 4,
         weight: 2,
@@ -975,7 +977,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1009,6 +1011,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3130, // Deployed alongside large variant during Dark Age
         extinct: 0,
         reintroduced: 0,
+        prototype: 3120,
         battleValue: 65,
         heat: 6,
         weight: 2.5,
@@ -1027,7 +1030,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -1068,9 +1071,10 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             long: -1
         },
         cbills: 200000,
-        introduced: 3070,
+        introduced: 3072,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3070,
         battleValue: 56,
         heat: 7,
         weight: 4,
@@ -1089,7 +1093,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1141,7 +1145,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1175,6 +1179,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3068,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3061,
         battleValue: 210,
         heat: 10,
         weight: 6,
@@ -1193,7 +1198,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 10,
+        shotsPerTon: 10,
+        ammoBattleValue: 26,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1230,6 +1236,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2300,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2290,
         battleValue: 9,
         heat: 1,
         weight: 0.5,
@@ -1248,7 +1255,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1282,6 +1289,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2609,
         extinct: 2950,
         reintroduced: 3037,
+        prototype: 2595,
         battleValue: 12,
         heat: 2,
         weight: 1,
@@ -1300,7 +1308,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1337,6 +1345,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3130, // Deployed alongside its larger siblings
         extinct: 0,
         reintroduced: 0,
+        prototype: 3120,
         battleValue: 14,
         heat: 4,
         weight: 1.5,
@@ -1346,16 +1355,8 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             medium: 2,
             long: 3
         },
-        space: {
-            battlemech: 1,
-            protomech: 1, // Valid: Sits exactly on the 1.5-ton/1-slot maximum limit
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -1396,9 +1397,10 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             long: -1
         },
         cbills: 60000,
-        introduced: 3070,
+        introduced: 3072,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3070,
         battleValue: 22,
         heat: 3,
         weight: 2,
@@ -1417,7 +1419,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1469,7 +1471,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1512,6 +1514,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2784,
         extinct: 2790,
         reintroduced: 3067,
+        prototype: 2695,
         battleValue: 165,
         heat: 10,
         weight: 6,
@@ -1530,7 +1533,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -1561,7 +1564,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 2,
         accuracyModifier: 0,
         cbills: 7500,
-        introduced: 2025,
+        introduced: 1950,
         extinct: 0,
         reintroduced: 0,
         battleValue: 6,
@@ -1582,7 +1585,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1620,6 +1623,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introduced: 2460,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2440,
         battleValue: 176,
         heat: 10,
         weight: 7,
@@ -1638,7 +1642,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1659,70 +1663,19 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         heatAero: 10,
         rangeAero: "m"
     },
-    {
-        isAmmo: false,
-        name: "Vehicle Flamer",
-        tag: "vehicle-flamer",
-        category: "Energy Weapons",
-        sort: "flamer, vehicle",
-        damage: 2,
-        damageAero: 2,
-        accuracyModifier: 0,
-        cbills: 7500,
-        introduced: 1950,
-        extinct: 0,
-        reintroduced: 0,
-        battleValue: 5,
-        heat: 3,
-        weight: 0.5,
-        range: {
-            min: 0,
-            short: 1,
-            medium: 2,
-            long: 3
-        },
-        space: {
-            battlemech: 1,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 20,
-        minAmmoTons: 1,
-        explosive: false,
-        weaponType: [
-            "DE",
-            "H"
-        ],
-        techRating: "b",
-        book: "TM",
-        page: 218,
-        alphaStrike: {
-            heat: 3,
-            rangeShort: 0.2,
-            rangeMedium: 0,
-            rangeLong: 0,
-            rangeExtreme: 0,
-            tc: false,
-            notes: [
-                "Heat",
-                "Point Defense"
-            ]
-        },
-        heatAero: 3,
-        rangeAero: "s"
-    },
-    { name: "Primitive Prototype Large Laser", tag: "primitive-prototype-large-laser", sort: "primitive prototype large laser", category: "Energy Weapons", damage: 8, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 8, accuracyModifier: 0, cbills: 100000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 123, heat: 12, heatAero: 12, weight: 5, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 12, rangeShort: 0.8, rangeMedium: 0.8, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
-    { name: "Primitive Prototype Medium Laser", tag: "primitive-prototype-medium-laser", sort: "primitive prototype medium laser", category: "Energy Weapons", damage: 5, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 5, accuracyModifier: 0, cbills: 20000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 46, heat: 5, heatAero: 5, weight: 1, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 5, rangeShort: 0.5, rangeMedium: 0.5, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
-    { name: "Primitive Prototype Small Laser", tag: "primitive-prototype-small-laser", sort: "primitive prototype small laser", category: "Energy Weapons", damage: 3, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 3, accuracyModifier: 0, cbills: 10000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 18, heat: 2, heatAero: 2, weight: 0.5, range: { min: 0, short: 2, medium: 4, long: 6 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 2, rangeShort: 0.3, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
-    { name: "Primitive Prototype PPC", tag: "primitive-prototype-ppc", sort: "primitive prototype ppc", category: "Energy Weapons", damage: 10, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 10, accuracyModifier: 0, cbills: 140000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 176, heat: 15, heatAero: 15, weight: 7, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 15, rangeShort: 0.75, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
-    { name: "Light PPC w/ Capacitor", tag: "light-ppc-capacitor", sort: "ppc, light, capacitor, 0 weapon", category: "Energy Weapons", damage: 5, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 5, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 88, heat: 5, heatAero: 5, weight: 5, range: { min: 0, short: 6, medium: 12, long: 18 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 5, rangeShort: 0.375, rangeMedium: 0.5, rangeLong: 0.5, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
-    { name: "PPC w/ Capacitor", tag: "ppc-capacitor", sort: "ppc, standard, capacitor, 0 weapon", category: "Energy Weapons", damage: 10, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 10, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 176, heat: 10, heatAero: 10, weight: 7, range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 10, rangeShort: 0.563, rangeMedium: 0.75, rangeLong: 0.75, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
-    { name: "Heavy PPC w/ Capacitor", tag: "heavy-ppc-capacitor", sort: "ppc, heavy, capacitor, 0 weapon", category: "Energy Weapons", damage: 15, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 15, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 229, heat: 15, heatAero: 15, weight: 10, range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 15, rangeShort: 0.75, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
-    { name: "ER PPC w/ Capacitor", tag: "er-ppc-capacitor", sort: "ppc, er, capacitor, 0 weapon", category: "Energy Weapons", damage: 10, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 10, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 229, heat: 15, heatAero: 15, weight: 7, range: { min: 0, short: 7, medium: 14, long: 21 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 15, rangeShort: 0.75, rangeMedium: 0.75, rangeLong: 0.75, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
-    { name: "Snub-Nose PPC w/ Capacitor", tag: "snub-nose-ppc-capacitor", sort: "ppc, snub-nose, capacitor, 0 weapon", category: "Energy Weapons", damage: 10, notes: "PPC capacitor effects are integrated into Alpha Strike damage; capacitor is a separate tabletop record entry.", damageAero: 10, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: 0, reintroduced: 0, battleValue: 229, heat: 10, heatAero: 10, weight: 6, range: { min: 0, short: 9, medium: 18, long: 27 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO", page: 0, alphaStrike: { heat: 10, rangeShort: 0.75, rangeMedium: 0.5, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
-    { name: "RISC Hyper Laser", tag: "risc-hyper-laser", sort: "laser, risc, hyper", category: "Energy Weapons", damage: 20, notes: "RISC experimental Inner Sphere weapon; workbook conversion provisional.", damageAero: 20, accuracyModifier: 0, cbills: 1000000, introduced: 3130, extinct: 0, reintroduced: 0, battleValue: 0, heat: 24, heatAero: 24, weight: 10, range: { min: 0, short: 7, medium: 14, long: 21 }, space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "f", book: "IO", page: 0, alphaStrike: { heat: 24, rangeShort: 2, rangeMedium: 2, rangeLong: 2, rangeExtreme: 2, tc: true, notes: ["Provisional workbook conversion"] }, catalog: "is" }
+    { name: "Primitive Prototype Large Laser", tag: "primitive-prototype-large-laser", sort: "primitive prototype large laser", category: "Energy Weapons", damage: 8, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 8, accuracyModifier: 0, cbills: 100000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 123, heat: 12, heatAero: 12, weight: 5, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 12, rangeShort: 0.8, rangeMedium: 0.8, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
+    { name: "Primitive Prototype Medium Laser", tag: "primitive-prototype-medium-laser", sort: "primitive prototype medium laser", category: "Energy Weapons", damage: 5, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 5, accuracyModifier: 0, cbills: 20000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 46, heat: 5, heatAero: 5, weight: 1, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 5, rangeShort: 0.5, rangeMedium: 0.5, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
+    { name: "Primitive Prototype Small Laser", tag: "primitive-prototype-small-laser", sort: "primitive prototype small laser", category: "Energy Weapons", damage: 3, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 3, accuracyModifier: 0, cbills: 10000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 18, heat: 2, heatAero: 2, weight: 0.5, range: { min: 0, short: 2, medium: 4, long: 6 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 2, rangeShort: 0.3, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
+    { name: "Primitive Prototype PPC", tag: "primitive-prototype-ppc", sort: "primitive prototype ppc", category: "Energy Weapons", damage: 10, notes: "Primitive prototype; extinction aligned to production model availability.", damageAero: 10, accuracyModifier: 0, cbills: 140000, introduced: 2300, extinct: 2470, reintroduced: 0, battleValue: 176, heat: 15, heatAero: 15, weight: 7, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "b", book: "TO", page: 0, alphaStrike: { heat: 15, rangeShort: 0.75, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] } },
+    { name: "Light PPC w/ Capacitor", tag: "light-ppc-capacitor", sort: "ppc, light, capacitor, 0 weapon", category: "Energy Weapons", damage: 5, notes: "Charged shot adds +5 damage and +5 heat (TO:AUE p.149).", damageAero: 5, accuracyModifier: 0, cbills: 300000, introduced: 3067, extinct: 0, reintroduced: 0, prototype: 3064, battleValue: 88, heat: 5, heatAero: 5, weight: 4, range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO:AUE", page: 149, alphaStrike: { heat: 5, rangeShort: 0.375, rangeMedium: 0.5, rangeLong: 0.5, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "PPC w/ Capacitor", tag: "ppc-capacitor", sort: "ppc, standard, capacitor, 0 weapon", category: "Energy Weapons", damage: 10, notes: "Charged shot adds +5 damage and +5 heat (TO:AUE p.149).", damageAero: 10, accuracyModifier: 0, cbills: 350000, introduced: 3060, extinct: 0, reintroduced: 0, battleValue: 176, heat: 10, heatAero: 10, weight: 8, range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO:AUE", page: 149, alphaStrike: { heat: 10, rangeShort: 0.563, rangeMedium: 0.75, rangeLong: 0.75, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "Heavy PPC w/ Capacitor", tag: "heavy-ppc-capacitor", sort: "ppc, heavy, capacitor, 0 weapon", category: "Energy Weapons", damage: 15, notes: "Charged shot adds +5 damage and +5 heat (TO:AUE p.149).", damageAero: 15, accuracyModifier: 0, cbills: 400000, introduced: 3067, extinct: 0, reintroduced: 0, prototype: 3062, battleValue: 317, heat: 15, heatAero: 15, weight: 11, range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO:AUE", page: 149, alphaStrike: { heat: 15, rangeShort: 0.75, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "ER PPC w/ Capacitor", tag: "er-ppc-capacitor", sort: "ppc, er, capacitor, 0 weapon", category: "Energy Weapons", damage: 10, notes: "Charged shot adds +5 damage and +5 heat (TO:AUE p.149).", damageAero: 10, accuracyModifier: 0, cbills: 450000, introduced: 3060, extinct: 0, reintroduced: 0, battleValue: 229, heat: 15, heatAero: 15, weight: 8, range: { min: 0, short: 7, medium: 14, long: 23 }, space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO:AUE", page: 149, alphaStrike: { heat: 15, rangeShort: 0.75, rangeMedium: 0.75, rangeLong: 0.75, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "Snub-Nose PPC w/ Capacitor", tag: "snub-nose-ppc-capacitor", sort: "ppc, snub-nose, capacitor, 0 weapon", category: "Energy Weapons", damage: { short: 10, medium: 8, long: 5, aeroShort: 10, aeroMedium: 8, aeroLong: 0 }, notes: "Charged shot adds +5 damage and +5 heat (TO:AUE p.149).", damageAero: 10, accuracyModifier: 0, cbills: 450000, introduced: 3067, extinct: 0, reintroduced: 0, battleValue: 229, heat: 10, heatAero: 10, weight: 7, range: { min: 0, short: 9, medium: 13, long: 15 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO:AUE", page: 149, alphaStrike: { heat: 10, rangeShort: 0.75, rangeMedium: 0.5, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Capacitor integrated into weapon damage; provisional workbook conversion"] } },
+    { name: "RISC Hyper Laser", tag: "risc-hyper-laser", sort: "laser, risc, hyper", category: "Energy Weapons", damage: 20, notes: "RISC experimental Inner Sphere weapon; workbook conversion provisional.", damageAero: 20, accuracyModifier: 0, cbills: 750000, introduced: 3134, extinct: 0, reintroduced: 0, battleValue: 596, heat: 24, heatAero: 24, weight: 8, range: { min: 0, short: 8, medium: 15, long: 25 }, space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "f", book: "IO", page: 0, alphaStrike: { heat: 24, rangeShort: 2, rangeMedium: 2, rangeLong: 2, rangeExtreme: 2, tc: true, notes: ["Provisional workbook conversion"] }, catalog: "is" },
+    { isAmmo: false, name: "Prototype ER Large Laser", altNames: ["Prototype ER Large Laser"], tag: "prototype-er-large-laser", altTags: [], catalog: "is", sort: "laser, er, 2, large, prototype", category: "Energy Weapons", alternateName: "", damage: 8, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 8, accuracyModifier: 0, cbills: 600000, introduced: null, extinct: 3037, reintroduced: 0, battleValue: 136, heat: 12, weight: 5, range: { min: 0, short: 7, medium: 14, long: 19 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "IO", page: null, alphaStrike: { heat: 12, rangeShort: 0.8, rangeMedium: 0.8, rangeLong: 0.8, rangeExtreme: 0, tc: true, notes: ["Provisional: copied from the production weapon"] }, heatAero: 12, prototype: 3030, rangeAero: "l" },
+    { isAmmo: false, name: "Prototype Large Pulse Laser", altNames: ["Prototype Large Pulse Laser"], tag: "prototype-large-pulse-laser", altTags: [], catalog: "is", sort: "laser, pulse, 2, large, prototype", category: "Energy Weapons", alternateName: "", damage: 9, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 9, accuracyModifier: 0, cbills: 875000, introduced: null, extinct: 2609, reintroduced: 0, battleValue: 108, heat: 10, weight: 7, range: { min: 0, short: 3, medium: 7, long: 10 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["P"], techRating: "e", book: "IO", page: null, alphaStrike: { heat: 10, rangeShort: 0.99, rangeMedium: 0.99, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Provisional: copied from the production weapon"] }, heatAero: 10, prototype: 2595, rangeAero: "m" },
+    { isAmmo: false, name: "Prototype Medium Pulse Laser", altNames: ["Prototype Medium Pulse Laser"], tag: "prototype-medium-pulse-laser", altTags: [], catalog: "is", sort: "laser, pulse, 1, medium, prototype", category: "Energy Weapons", alternateName: "", damage: 6, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 6, accuracyModifier: 0, cbills: 300000, introduced: null, extinct: 2609, reintroduced: 0, battleValue: 43, heat: 4, weight: 2, range: { min: 0, short: 2, medium: 4, long: 6 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["P"], techRating: "e", book: "IO", page: null, alphaStrike: { heat: 4, rangeShort: 0.66, rangeMedium: 0.66, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Provisional: copied from the production weapon"] }, heatAero: 4, prototype: 2595, rangeAero: "s" },
+    { isAmmo: false, name: "Medium Pulse Laser (Recovered Prototype)", altNames: ["Medium Pulse Laser (Recovered Prototype)"], tag: "recovered-prototype-medium-pulse-laser", altTags: [], catalog: "is", sort: "laser, pulse, 1, medium, prototype", category: "Energy Weapons", alternateName: "", damage: 6, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 6, accuracyModifier: 0, cbills: 240000, introduced: null, extinct: 3037, reintroduced: 0, battleValue: 48, heat: 4, weight: 2, range: { min: 0, short: 2, medium: 4, long: 6 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["P"], techRating: "e", book: "IO", page: null, alphaStrike: { heat: 4, rangeShort: 0.66, rangeMedium: 0.66, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Provisional: copied from the production weapon"] }, heatAero: 4, prototype: 3031, rangeAero: "s" },
+    { isAmmo: false, name: "Prototype Small Pulse Laser", altNames: ["Prototype Small Pulse Laser"], tag: "prototype-small-pulse-laser", altTags: [], catalog: "is", sort: "laser, pulse, 0, small, prototype", category: "Energy Weapons", alternateName: "", damage: 3, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 3, accuracyModifier: 0, cbills: 80000, introduced: null, extinct: 2609, reintroduced: 0, battleValue: 11, heat: 2, weight: 1, range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["P", "AI"], techRating: "e", book: "IO", page: null, alphaStrike: { heat: 2, rangeShort: 0.33, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Point Defense", "Provisional: copied from the production weapon"] }, heatAero: 2, prototype: 2595, rangeAero: "s" },
 ]

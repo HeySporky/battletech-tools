@@ -1,8 +1,9 @@
+import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
 import { battlemechLocations } from "../data/battlemech-locations";
-import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructurePerTon, IResolvedInternalStructure, ISplitLocation } from "../data/data-interfaces";
+import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { equipmentMatchesIdentifier, getAlphaStrikeEquipmentDisplayAbilityCodes, getEquipmentListByTech, getEquipmentListForChassis } from "../data/equipment-registry";
+import { EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
@@ -102,6 +103,7 @@ interface IBMEquipmentExport {
     split_location?: ISplitLocation[] | undefined;
     currentAmmo?: number | undefined;
     selectedAmmoBinUUID?: string | undefined;
+    feedsWeaponTag?: string | undefined;
     currentAdditionalArmor?: number | undefined;
 }
 export interface IBattleMechExport {
@@ -143,6 +145,7 @@ export interface IBattleMechExport {
     features: string[],
     gyro: string;
     heat_sink_type: string;
+    jump_jet_type?: string;
     hideNonAvailableEquipment: boolean;
     introductoryRules?: boolean;
     is_type: string;
@@ -545,29 +548,27 @@ export class BattleMech {
         // 1A. Total Armor Factor Valuation (TM p. 302)
         let totalArmorFactor = 2.5 * this.getTotalArmor();
         this._calcLogBV += `Total Armor Factor = Armor Factor x 2.5: ${totalArmorFactor} = 2.5 x ${this.getTotalArmor()}<br />`;
-        if (this._armorType.tag === "commercial") {
-            totalArmorFactor *= 0.5;
-            this._calcLogBV += `Total Armor Factor = 0.5 * Modifier for Commercial Armor: ${totalArmorFactor}<br />`;
-        } else {
-            this._calcLogBV += `Total Armor Factor = 1.0 * Modifier for Non-Commercial Armor: ${totalArmorFactor}<br />`;
-        }
+        // Armor type BV modifier (Commercial 0.5, Hardened 2, Reactive/Reflective/Ballistic-Reinforced 1.5, ...).
+        const armorBVMultiplier = this._armorType.bvMultiplier ?? (this._armorType.tag === "commercial" ? 0.5 : 1);
+        totalArmorFactor *= armorBVMultiplier;
+        this._calcLogBV += `Total Armor Factor = ${armorBVMultiplier} x Modifier for ${this._armorType.name}: ${totalArmorFactor}<br />`;
         // 1B. Internal Structure Points Valuation (TM p. 302)
         let totalInternalStructurePoints = 1.5 * this._totalInternalStructurePoints;
         this._calcLogBV += `Total Internal Structure Points = IS Points x 1.5: ${totalInternalStructurePoints} = 1.5 x ${this._totalInternalStructurePoints}<br />`;
-        if (this.getInternalStructureType() === "industrial") {
-            totalInternalStructurePoints *= 0.5;
-            this._calcLogBV += `Total Internal Structure BV = 0.5 x Industrial Modifier: ${totalInternalStructurePoints}<br />`;
-        } else {
-            this._calcLogBV += `Total Internal Structure BV = 1.0 x Standard/Endo-Steel Modifier: ${totalInternalStructurePoints}<br />`;
-        }
+        // Structure type modifier: Industrial and Composite 0.5, Reinforced 2.
+        const structureBVMultiplier = this._selectedInternalStructure?.bvMultiplier ?? 1;
+        totalInternalStructurePoints *= structureBVMultiplier;
+        this._calcLogBV += `Total Internal Structure BV = ${structureBVMultiplier} x ${this._selectedInternalStructure?.name ?? "Standard"} Modifier: ${totalInternalStructurePoints}<br />`;
         // 1C. Adjust Internal Structure for Engine Type Safety Factor (TM p. 302 / Errata)
         const engineTag = this._engineType.tag;
         let engineModifier = 1.0;
         switch (engineTag) {
             case "light":
-            case "xl":
             case "clan_xl":
                 engineModifier = 0.75;
+                break;
+            case "xl":
+                engineModifier = 0.5; // IS XL (TM p.302)
                 break;
             case "xxl":
                 engineModifier = 0.25; // IS XXL Errata Standard
@@ -589,6 +590,33 @@ export class BattleMech {
         }
         let totalGyroPoints = this.getTonnage() * gyroModifier;
         this._calcLogBV += `Total Gyro BV = ${gyroModifier} x Tonnage for ${gyroType} Gyro: ${totalGyroPoints} = ${gyroModifier} x ${this.getTonnage()}<br />`;
+        // 1D-2. Defensive Equipment (TM p. 302): AMS, ECM, active probes, pods, etc. AMS ammo counts
+        // here too, capped at the BV of the AMS it feeds (Excessive Ammunition rule).
+        let defensiveEquipmentBV = 0;
+        let defensiveAmmoBV = 0;
+        let defensiveAmmoCap = 0;
+        for (const currentItem of this._equipmentList) {
+            if (currentItem.isAmmo || currentItem.tag.startsWith("ammo-")) {
+                const fedWeapon = this.getAmmoBinWeapon(currentItem);
+                if (fedWeapon && this._isDefensiveBVEquipment(fedWeapon)) {
+                    const ammoValue = getAmmoBattleValuePerTon(fedWeapon, currentItem) * currentItem.weight;
+                    defensiveAmmoBV += ammoValue;
+                    this._calcLogBV += `+ Defensive Ammunition: ${currentItem.name} (${currentItem.location}) for ${fedWeapon.name} = ${ammoValue.toFixed(2)}<br />`;
+                }
+            } else if (this._isDefensiveBVEquipment(currentItem)) {
+                defensiveEquipmentBV += currentItem.battleValue || 0;
+                if (currentItem.weaponType?.includes("AMS")) {
+                    defensiveAmmoCap += currentItem.battleValue || 0;
+                }
+                this._calcLogBV += `+ Defensive Equipment: ${currentItem.name} (${currentItem.location || "no location"}) = ${currentItem.battleValue || 0}<br />`;
+            }
+        }
+        if (defensiveAmmoBV > defensiveAmmoCap) {
+            this._calcLogBV += `Defensive ammunition BV ${defensiveAmmoBV.toFixed(2)} exceeds AMS BV ${defensiveAmmoCap}; capped (Excessive Ammunition rule).<br />`;
+            defensiveAmmoBV = defensiveAmmoCap;
+        }
+        defensiveEquipmentBV += defensiveAmmoBV;
+        this._calcLogBV += `Total Defensive Equipment BV: ${defensiveEquipmentBV.toFixed(2)}<br />`;
         // 1E. Get Explosive Ammo Modifiers (TM pp. 302-303)
         let explosiveAmmoModifiers = 0;
         this._calcLogBV += "<strong>Get Explosive Ammo Modifiers (TM p302-303)</strong><br />";
@@ -614,12 +642,12 @@ export class BattleMech {
                 const critArray: any[] = (this._criticals as any)[longKey] || [];
                 critArray.forEach((item) => {
                     if (item && item.obj) {
-                        if (item.obj.explosive) {
+                        if (item.obj.explosive && item.obj.isAmmo) {
                             this._calcLogBV += `Explosive Ammo Crit in ${longKey} (Clan, -15)<br />`;
                             explosiveAmmoModifiers += 15;
                         }
-                        if (item.obj.gauss) {
-                            this._calcLogBV += `Gauss Crit in ${longKey} (Clan, -1)<br />`;
+                        if (BattleMech._isExplosiveComponent(item.obj)) {
+                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Clan, -1)<br />`;
                             explosiveAmmoModifiers += 1;
                         }
                     }
@@ -647,7 +675,7 @@ export class BattleMech {
                 }
                 critArray.forEach((item) => {
                     if (!item || !item.obj) return;
-                    if (item.obj.explosive) {
+                    if (item.obj.explosive && item.obj.isAmmo) {
                         if (isLocationProtected) {
                             this._calcLogBV += `Explosive Ammo in ${longKey} protected by CASE. Penalty negated (0).<br />`;
                         } else {
@@ -655,11 +683,11 @@ export class BattleMech {
                             explosiveAmmoModifiers += 15;
                         }
                     }
-                    if (item.obj.gauss) {
+                    if (BattleMech._isExplosiveComponent(item.obj)) {
                         if (isLocationProtected) {
-                            this._calcLogBV += `Gauss Component in ${longKey} protected by CASE. Penalty negated (0).<br />`;
+                            this._calcLogBV += `Explosive Component (${item.obj.name}) in ${longKey} protected by CASE. Penalty negated (0).<br />`;
                         } else {
-                            this._calcLogBV += `Gauss Crit in ${longKey} (Inner Sphere, -1)<br />`;
+                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Inner Sphere, -1)<br />`;
                             explosiveAmmoModifiers += 1;
                         }
                     }
@@ -669,8 +697,8 @@ export class BattleMech {
         // =====================================================================
         // 1G. COMPILE DEFENSIVE SUBTOTAL (TM p. 303)
         // =====================================================================
-        let defensiveSubtotal = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints - explosiveAmmoModifiers;
-        this._calcLogBV += `Defensive Subtotal (Armor + IS + Gyro - Ammo Penalties): ${defensiveSubtotal} = ${totalArmorFactor} + ${totalInternalStructurePoints} + ${totalGyroPoints} - ${explosiveAmmoModifiers}<br />`;
+        let defensiveSubtotal = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints + defensiveEquipmentBV - explosiveAmmoModifiers;
+        this._calcLogBV += `Defensive Subtotal (Armor + IS + Gyro + Defensive Equipment - Ammo Penalties): ${defensiveSubtotal} = ${totalArmorFactor} + ${totalInternalStructurePoints} + ${totalGyroPoints} + ${defensiveEquipmentBV} - ${explosiveAmmoModifiers}<br />`;
         /* *************************************************************************
          * STEP 2: CALCULATE DEFENSIVE FACTOR MODIFIER & STEALTH GEAR - TM p. 304
          * *********************************************************************** */
@@ -748,19 +776,28 @@ export class BattleMech {
         // 3A. Inventory Scan & Base Value Distribution (TM p. 303)
         for (let eqC = 0; eqC < this._equipmentList.length; eqC++) {
             const currentItem = this._equipmentList[eqC];
-            const baseValue = currentItem.battleValue || 0;
+            const baseValue = this._getWeaponBattleValue(currentItem);
 
-            // Differentiate ammunition bins using absolute explicit tag boundaries
-            if (currentItem.tag.startsWith("ammo-")) {
-                if (!ammoBV[currentItem.tag]) {
-                    ammoBV[currentItem.tag] = 0;
+            if (currentItem.isAmmo || currentItem.tag.startsWith("ammo-")) {
+                // Ammo feeds weapons by family, so group each bin under the weapon it is loaded for.
+                const fedWeapon = this.getAmmoBinWeapon(currentItem);
+                if (!fedWeapon) {
+                    this._calcLogBV += `+ Ignoring Ammunition: ${currentItem.name} (${currentItem.location}), no mounted weapon fires it<br />`;
+                    continue;
                 }
-                // Ammunition BV = Base Ammo Item Value x Tonnage Mass (TM p. 303)
-                const assignedAmmoValue = baseValue * currentItem.weight;
-                ammoBV[currentItem.tag] += assignedAmmoValue;
+                if (this._isDefensiveBVEquipment(fedWeapon)) {
+                    continue; // counted with defensive equipment (step 1D-2)
+                }
+                if (!ammoBV[fedWeapon.tag]) {
+                    ammoBV[fedWeapon.tag] = 0;
+                }
+                // Ammunition BV = per-ton BV for the launcher it feeds x Tonnage Mass (TM p. 303)
+                const perTonValue = getAmmoBattleValuePerTon(fedWeapon, currentItem);
+                const assignedAmmoValue = perTonValue * currentItem.weight;
+                ammoBV[fedWeapon.tag] += assignedAmmoValue;
 
-                this._calcLogBV += `+ Adding Ammunition: ${currentItem.name} (${currentItem.location}) = ${assignedAmmoValue.toFixed(2)} (${baseValue} BV x ${currentItem.weight} tons)<br />`;
-            } else {
+                this._calcLogBV += `+ Adding Ammunition: ${currentItem.name} (${currentItem.location}) for ${fedWeapon.name} = ${assignedAmmoValue.toFixed(2)} (${perTonValue} BV x ${currentItem.weight} tons)<br />`;
+            } else if (!this._isDefensiveBVEquipment(currentItem)) {
                 // Accumulate weapon totals to handle duplicate weapons correctly for the Excessive Ammo Cap
                 if (!weaponBV[currentItem.tag]) {
                     weaponBV[currentItem.tag] = 0;
@@ -770,14 +807,7 @@ export class BattleMech {
         }
 
         // 3B. Map and Simplify Ammunition to Parent Weapon Structures
-        const simplifiedAmmoBV: Record<string, number> = {};
-        for (const weaponKey in weaponBV) {
-            // Standard ammo tags follow the layout pattern: "ammo-weapon_tag"
-            const matchingAmmoTag = `ammo-${weaponKey}`;
-            if (ammoBV[matchingAmmoTag]) {
-                simplifiedAmmoBV[weaponKey] = ammoBV[matchingAmmoTag];
-            }
-        }
+        const simplifiedAmmoBV: Record<string, number> = { ...ammoBV };
 
         // 3C. Enforce Excessive Ammunition Rule Cap (TM p. 303)
         for (const ammoKey in simplifiedAmmoBV) {
@@ -795,7 +825,7 @@ export class BattleMech {
 
         // 3D. Engine Thermal Dissipation Capacity Evaluation (TM p. 303)
         let mechHeatEfficiency = 6; // Baseline structural buffer
-        const sinkEfficiencyMultiplier = this.getHeatSinksType() === "double" ? 2 : 1;
+        const sinkEfficiencyMultiplier = this._heatSinkType.dissipation;
         
         // Total Heat Dissipation Capacity = 6 + Total Dissipation Points - Max Movement Heat
         mechHeatEfficiency += (this.getHeatSinks() * sinkEfficiencyMultiplier) - this.getMaxMovementHeat();
@@ -812,7 +842,7 @@ export class BattleMech {
 
         for (let eqC = 0; eqC < this._equipmentList.length; eqC++) {
             const currentItem = this._equipmentList[eqC];
-            if (currentItem.tag.startsWith("ammo-")) continue;
+            if (currentItem.isAmmo || currentItem.tag.startsWith("ammo-") || this._isDefensiveBVEquipment(currentItem)) continue;
 
             let baseHeat = currentItem.heat || 0;
 
@@ -842,9 +872,9 @@ export class BattleMech {
 
         for (let weaponC = 0; weaponC < this._equipmentList.length; weaponC++) {
             const currentItem = this._equipmentList[weaponC];
-            if (currentItem.tag.startsWith("ammo-")) continue;
+            if (currentItem.isAmmo || currentItem.tag.startsWith("ammo-") || this._isDefensiveBVEquipment(currentItem)) continue;
 
-            const baseBV = currentItem.battleValue || 0;
+            const baseBV = this._getWeaponBattleValue(currentItem);
             const weaponHeat = currentItem.bvHeat || 0;
             let finalWeaponMultiplier = 1.0;
 
@@ -1234,7 +1264,7 @@ export class BattleMech {
         const engineType = this.getEngineType();
         const engineName = engineType.name;
         const engineRating = this.getEngineRating();
-        const engineCostMultiplier = engineType.costMultiplier || 0;
+        const engineCostMultiplier = (engineType.costMultiplier || 0) * (this.isLargeEngine() ? 2 : 1);
         // Execute canonical cost calculation and round to the nearest whole C-Bill
         const engineCost = Math.round((engineCostMultiplier * engineRating * this.getTonnage()) / 75);
         this._calcLogCBill += "<tr><td><strong>Engine: " + engineName + "</strong><br />" +
@@ -1268,20 +1298,11 @@ export class BattleMech {
         // console.log( numberOfHeatSinks );
         // console.log( heatSinkType );
 
-        switch (heatSinkType) {
-            case "single":
-                this._calcLogCBill += "<tr><td><strong>Heat Sinks: " + heatSinksName  + "</strong><br /><span class=\"smaller-text\">" + addCommas(heatSinksCost) + " x (Number of Heat Sinks over 10 [" + (numberOfHeatSinks - 10 ) + "])</span></td><td>" +  addCommas( heatSinksCost * ( numberOfHeatSinks - 10 ) ) + "</td></tr>\n";
-                cbillDryTotal +=  heatSinksCost * ( numberOfHeatSinks - 10 )  ;
-
-                break;
-            case "double":
-                this._calcLogCBill += "<tr><td><strong>Heat Sinks:  " + heatSinksName  + "</strong><br /><span class=\"smaller-text\">" + addCommas(heatSinksCost) + " x (Number of Heat Sinks  [" + (numberOfHeatSinks  ) + "])</span></td><td>" +  addCommas( heatSinksCost * ( numberOfHeatSinks ) ) + "</td></tr>\n";
-                cbillDryTotal +=  heatSinksCost * ( numberOfHeatSinks  )  ;
-
-                break;
-            default:
-                break;
-        }
+        // Single-type sinks: the first 10 are free; double-type sinks are all paid for.
+        const freeSinks = this.getHeatSinksObj().freeSinks ?? (heatSinkType === "single" ? 10 : 0);
+        const paidSinks = Math.max(0, numberOfHeatSinks - freeSinks);
+        this._calcLogCBill += "<tr><td><strong>Heat Sinks: " + heatSinksName  + "</strong><br /><span class=\"smaller-text\">" + addCommas(heatSinksCost) + " x (Number of Heat Sinks" + (freeSinks ? " over " + freeSinks : "") + " [" + paidSinks + "])</span></td><td>" +  addCommas( heatSinksCost * paidSinks ) + "</td></tr>\n";
+        cbillDryTotal +=  heatSinksCost * paidSinks;
 
         // Armor
         let armorName = this.getArmorObj().name;
@@ -1372,7 +1393,7 @@ export class BattleMech {
                     return this._engine.weight.light;
                 }
                 case "compact": {
-                    return this._engine.weight.compact;
+                    return this._engine.weight.compact ?? 0;
                 }
                 case "xxl": {
                     return this._engine.weight.xxl;
@@ -1390,7 +1411,7 @@ export class BattleMech {
                     return this._engine.weight.fission;
                 }
                 case "primitive": {
-                    return this._engine.weight.primitive;
+                    return this._engine.weight.primitive ?? 0;
                 }
             }
             return 0;
@@ -1407,6 +1428,33 @@ export class BattleMech {
 
     }
 
+    /** Engines rated above 400 are large engines (TO:AUE): double cost and two more center torso slots. */
+    public isLargeEngine(): boolean {
+        return this.getEngineRating() > 400;
+    }
+
+    /** Engine column of the ASC p.98 'Mech structure table. */
+    private _getAlphaStrikeStructureColumn(): AlphaStrikeStructureColumn {
+        const large = this.isLargeEngine();
+        switch (this._engineType.tag) {
+            case "clan_xl":
+                return large ? "isXl" : "clanXl";
+            case "clan_xxl":
+                return large ? "clanLargeXxl" : "clanXxl";
+            case "xl":
+                return "isXl";
+            case "light":
+                return large ? "isXl" : "isLight";
+            case "xxl":
+                return large ? "isLargeXxl" : "isXxl";
+            case "compact":
+                return "isCompact";
+            default:
+                // Large fusion (and other large standard-type engines) share the IS Light column.
+                return large ? "isLight" : "standard";
+        }
+    }
+
     public getHeatSinks() {
         return 10 + this._additionalHeatSinks;
     }
@@ -1419,7 +1467,8 @@ export class BattleMech {
         // Superheavy Mechs (>100 tons) of any chassis type require a doubled-weight Superheavy Gyro.
         const superheavyGyroMultiplier = this._tonnage > 100 ? 2 : 1;
         if( this._engine ) {
-            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * superheavyGyroMultiplier);
+            // Gyro weight: engine rating / 100 rounded up, times the gyro multiplier, rounded up to the half ton.
+            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * superheavyGyroMultiplier * 2) / 2;
         } else {
             return 0;
         }
@@ -1429,37 +1478,22 @@ export class BattleMech {
     }
 
     public getInternalStructureWeight(): number {
-        const typeTag = this.getType(); // e.g., 'biped', 'quad', 'tripod', 'lam', 'quadvee'
         const tonnage = this.getTonnage();
-        
-        // Ensure the chassis layout mappings exist to protect against undefined crashes
-        if (
-            this._selectedInternalStructure && 
-            this._selectedInternalStructure.perMechType &&
-            this._selectedInternalStructure.perMechType[typeTag.tag as keyof typeof this._selectedInternalStructure.perMechType] &&
-            this._selectedInternalStructure.perMechType[typeTag.tag as keyof typeof this._selectedInternalStructure.perMechType][tonnage]
-        ) {
-            // Internal structure weight in classic rules is fundamentally derived from 
-            // a multiplier against the Mech's total tonnage based on material technology.
-            // Standard = 10% (0.1), Endo-Steel = 5% (0.05), Endo-Composite = 7.5% (0.075), Reinforced = 20% (0.2)
-            
-            let multiplier = 0.1; // Default fallback to Standard internal structure (10%)
-            const structureTag = this._selectedInternalStructure.tag;
-
-            if (structureTag === "endo-steel") multiplier = 0.05;
-            if (structureTag === "endo-composite") multiplier = 0.075;
-            if (structureTag === "reinforced") multiplier = 0.2;
-            if (structureTag === "industrial") multiplier = 0.1;
-
-            // Superheavy BattleMechs (105-200 tons) double their base internal structure weight multiplier rules!
-            if (tonnage > 100) {
-                multiplier = multiplier * 2;
-            }
-
-            return tonnage * multiplier;
-        }
-
-        return tonnage * 0.1; // Baseline automatic fallback calculation
+        const superheavy = tonnage > 100;
+        // Share of 'Mech tonnage by structure type (TechManual; TO:AUE for Composite, Endo-Composite, Reinforced).
+        // Superheavy 'Mechs double it except for Reinforced and Composite.
+        const factors: Record<string, { base: number, superheavy: number }> = {
+            "standard": { base: 0.1, superheavy: 0.2 },
+            "endo-steel": { base: 0.05, superheavy: 0.1 },
+            "endo-composite": { base: 0.075, superheavy: 0.15 },
+            "composite": { base: 0.05, superheavy: 0.05 },
+            "reinforced": { base: 0.2, superheavy: 0.2 },
+            "industrial": { base: 0.2, superheavy: 0.4 },
+        };
+        const factor = factors[this._selectedInternalStructure?.tag] ?? factors["standard"];
+        const tripodMultiplier = this.getType().tag === "tripod" ? 1.1 : 1;
+        // Structure weight rounds up to the half ton.
+        return Math.ceil(tonnage * (superheavy ? factor.superheavy : factor.base) * tripodMultiplier * 2) / 2;
     }
 
     public getJumpJetWeight() {
@@ -1574,114 +1608,16 @@ export class BattleMech {
         this._calcLogAS += "Converting total armor of " + this.getTotalArmor() + "<br />\n";
         this._calcLogAS += "<strong>Setting Armor to " + this._alphaStrikeForceStats.armor + "</strong><br />\n";
 
-        switch (this._engineType.tag) {
-          case "compact":
-            // Compact Engines grant bonus structure based on tonnage brackets.
-            // For Superheavies (105-200 tons), the baseline formula divides tonnage by 10 and adds bonus scaling.
-            var structurePoints = 0;
-            if (this._tonnage > 100) {
-                // Superheavy / Colossal Scaling (105 to 200 tons) Caps at 20 structure for a maximum 200-ton unit.
-                structurePoints = Math.min(20, Math.ceil(this._tonnage / 10) + 0);
-            } else {
-              // Standard Mech Tonnage Lookup Map (10 to 100 tons)
-              const compactStructureMap: Record<number, number> = { 100: 10, 95: 10, 90: 10, 85: 9, 80: 8, 75: 8, 70: 7, 65: 7, 60: 7, 55: 6, 50: 5, 45: 5, 40: 4, 35: 4, 30: 3, 25: 3, 20: 2, 15: 2, 10: 1 };
-              // Fallback to a math safety formula if tonnage isn't exactly matched on a 5-ton bracket
-              structurePoints = compactStructureMap[this._tonnage] ?? Math.ceil(this._tonnage / 10);
-            }
-            this._alphaStrikeForceStats.structure = structurePoints;
-            this._calcLogAS += `Engine is an IS Compact Engine <strong>setting structure to ${this._alphaStrikeForceStats.structure}</strong><br />\n`;
-            break;
-          case "is_xl":
-          case "clan_xl":
-          case "xxl":
-          case "clan_xxl":
-            // Base math algorithm for standard engine types: Math.ceil(this._tonnage / 10)
-            // Extralight and XXL engines reduce this starting baseline:
-            // - Clan XL: -1 Structure penalty (Minimum 1)
-            // - IS XL: -2 Structure penalty (Minimum 1)
-            // - XXL (Clan & IS): -3 Structure penalty (Minimum 1)
-            structurePoints = 0;
-            var baseCalculatedPoints = Math.ceil(this._tonnage / 10);
-            if (this._tonnage > 100) {
-              // Superheavy / Colossal Scaling (105 to 200 tons) as per standard Alpha Strike superheavy structure curves before applying engine penalty
-              if (this._engineType.tag === "clan_xl") {
-                structurePoints = baseCalculatedPoints - 1;
-              } else if (this._engineType.tag === "is_xl") {
-                structurePoints = baseCalculatedPoints - 2;
-              } else { // XXL
-                structurePoints = baseCalculatedPoints - 3;
-              }
-              structurePoints = Math.min(20, Math.max(1, structurePoints));
-            } else {
-              // Standard Mech Tonnage Lookup Maps (10 to 100 tons) with hardcoded canonical rules matching the official conversion charts
-              const clanXlMap: Record<number, number> = { 100: 7, 95: 7, 90: 7, 85: 6, 80: 5, 75: 5, 70: 4, 65: 4, 60: 4, 55: 4, 50: 3, 45: 3, 40: 3, 35: 3, 30: 2, 25: 2, 20: 1, 15: 1, 10: 1 };
-              const isXlMap: Record<number, number> = { 100: 5, 95: 5, 90: 5, 85: 5, 80: 4, 75: 4, 70: 3, 65: 3, 60: 3, 55: 3, 50: 2, 45: 2, 40: 2, 35: 2, 30: 1, 25: 1, 20: 1, 15: 1, 10: 1 };
-              const xxlMap: Record<number, number> = { 100: 4, 95: 4, 90: 4, 85: 3, 80: 3, 75: 3, 70: 2, 65: 2, 60: 2, 55: 2, 50: 1, 45: 1, 40: 1, 35: 1, 30: 1, 25: 1, 20: 1, 15: 1, 10: 1 };
-              // Map picker block
-              let currentMap: Record<number, number> = clanXlMap;
-              if (this._engineType.tag === "is_xl") currentMap = isXlMap;
-              if (["xxl", "clan_xxl"].includes(this._engineType.tag)) currentMap = xxlMap;
-              // Execute lookup, fall back safely to penalty calculation for non-standard tonnages
-              const penalty = this._engineType.tag === "clan_xl" ? 1 : (this._engineType.tag === "is_xl" ? 2 : 3);
-              structurePoints = currentMap[this._tonnage] ?? Math.max(1, baseCalculatedPoints - penalty);
-            }
-            this._alphaStrikeForceStats.structure = structurePoints;
-            var engineDisplayNames: { [key: string]: string } = {
-              "is_xl": "IS XL",
-              "clan_xl": "Clan XL",
-              "xxl": "XXL",
-              "clan_xxl": "Clan XXL"
-            };
-            this._calcLogAS += `Engine is an ${engineDisplayNames[this._engineType.tag]} Fusion Engine <strong>setting structure to ${this._alphaStrikeForceStats.structure}</strong><br />\n`;
-            break;
-
-          case "light":
-            // Inner Sphere Light Fusion Engine (LFE) Structure Logic. Light Engines suffer a flat -1 Structure modifier penalty (Minimum 1 point).
-            structurePoints = 0;
-            baseCalculatedPoints = Math.ceil(this._tonnage / 10);
-
-            if (this._tonnage > 100) {
-              // Superheavy / Colossal Scaling (105 to 200 tons) with standard -1 structural penalty baseline for Superheavies
-              structurePoints = Math.max(1, baseCalculatedPoints - 1);
-              structurePoints = Math.min(20, structurePoints);
-            } else {
-              // Standard Mech Tonnage Lookup Map (10 to 100 tons)
-              const lightStructureMap: Record<number, number> = { 100: 5, 95: 5, 90: 5, 85: 5, 80: 4,  75: 4,  70: 4,  65: 4, 60: 3,  55: 3,  50: 3, 45: 2,  40: 2,  35: 2,  30: 2, 25: 1,  20: 1,  15: 1,  10: 1 };
-              // Fallback to mathematical modifier logic if tonnage skips a 5-ton bracket
-              structurePoints = lightStructureMap[this._tonnage] || Math.max(1, baseCalculatedPoints - 1);
-            }
-            this._alphaStrikeForceStats.structure = structurePoints;
-            this._calcLogAS += `Engine is an IS Light Engine <strong>setting structure to ${this._alphaStrikeForceStats.structure}</strong><br />\n`;
-            break;
-          case "ice":
-          case "fuel_cell":
-          case "fission":
-          case "primitive":
-          case "standard":
-          default:
-            structurePoints = 0;
-            baseCalculatedPoints = Math.ceil(this._tonnage / 10);
-            if (this._tonnage > 100) {
-              // Superheavy / Colossal Scaling (105 to 200 tons) progression up to the hard ceiling of 20
-              structurePoints = Math.min(20, baseCalculatedPoints);
-            } else {
-              // Standard Mech Tonnage Lookup Map (10 to 100 tons) mathcing the canonical unpenalized Alpha Strike structure progression chart
-              const standardStructureMap: Record<number, number> = { 100: 8, 95: 8, 90: 8, 85: 7, 80: 6,  75: 6, 70: 5,  65: 5,  60: 5, 55: 5, 50: 4,  45: 4, 40: 3,  35: 3, 30: 2,  25: 2, 20: 2,  15: 2, 10: 1 };
-              // Fallback calculation for custom irregular tonnage profiles
-              structurePoints = standardStructureMap[this._tonnage] || baseCalculatedPoints;
-            }
-            this._alphaStrikeForceStats.structure = structurePoints;
-            // Map internal tags to clean logging display values
-            engineDisplayNames = {
-              "ice": "Internal Combustion",
-              "fuel_cell": "Fuel Cell",
-              "fission": "Fission",
-              "primitive": "Primitive Fusion",
-              "standard": "Standard Fusion"
-            };
-            this._calcLogAS += `Engine is a ${engineDisplayNames[this._engineType.tag]} Engine <strong>setting structure to ${this._alphaStrikeForceStats.structure}</strong><br />\n`;
-            break;
-          }
+        // Structure: Alpha Strike Companion p.98, by tonnage and engine type.
+        const structureColumn = this._getAlphaStrikeStructureColumn();
+        let structurePoints = getAlphaStrikeMechStructure(structureColumn, this._tonnage) ?? Math.max(1, Math.ceil(this._tonnage / 10));
+        this._calcLogAS += `Engine is ${this._engineType.name}${this.isLargeEngine() ? " (Large)" : ""}, ASC p.98 column ${structureColumn}: structure ${structurePoints}<br />\n`;
+        if (this.getInternalStructureType() === "reinforced") {
+            structurePoints *= 2;
+            this._calcLogAS += "Reinforced internal structure x 2<br />\n";
+        }
+        this._alphaStrikeForceStats.structure = structurePoints;
+        this._calcLogAS += `<strong>Setting structure to ${structurePoints}</strong><br />\n`;
 
         // Heat Modified Damage, p115 AS companion
         let total_weapon_heat_short = 0;
@@ -2436,8 +2372,8 @@ export class BattleMech {
             if( currentItem.rear)
                 item_location += " (R)"
 
-            if( currentItem.ammoPerTon && currentItem.ammoPerTon > 0) {
-                html += "" + (currentItem.name + " " + currentItem.ammoPerTon).padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + currentItem.space.battlemech.toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
+            if( currentItem.isAmmo && this.getAmmoBinCapacity(currentItem) > 0) {
+                html += "" + (currentItem.name + " " + this.getAmmoBinCapacity(currentItem)).padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + currentItem.space.battlemech.toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
             } else {
                 html += "" + currentItem.name.padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + currentItem.space.battlemech.toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
             }
@@ -2651,8 +2587,8 @@ export class BattleMech {
             if( currentItem.rear)
                 item_location += " (R)"
 
-            if( currentItem.isAmmo && currentItem.ammoPerTon && currentItem.ammoPerTon > 0)
-                html += "<tr><td class=\"text-left\">" + currentItem.name + " " + currentItem.ammoPerTon + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+            if( currentItem.isAmmo && this.getAmmoBinCapacity(currentItem) > 0)
+                html += "<tr><td class=\"text-left\">" + currentItem.name + " " + this.getAmmoBinCapacity(currentItem) + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
             else
                 html += "<tr><td class=\"text-left\">" + currentItem.name + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
         }
@@ -3323,8 +3259,9 @@ export class BattleMech {
             engineCrits = this._engineType.criticals[currentTechTag];
         }
 
-        // Fallback Check: Reset invalid or unvouched tech architectures immediately to standard
-        if (!engineCrits || !engineCrits.ct || engineCrits.ct <= 3) {
+        // Fallback Check: Reset engines with no slot data for this tech base to standard.
+        // Compact engines legitimately use 3 center torso slots.
+        if (!engineCrits || !engineCrits.ct) {
             console.warn("Resetting engine to standard, engine not available for tech profile:", this._engineType?.criticals, currentTechTag);
             this.setEngineType("standard");
             if (this._engineType.criticals && this._engineType.criticals[currentTechTag]) {
@@ -3336,7 +3273,8 @@ export class BattleMech {
         const engineName = this._engineType.name;
         // FIRST ENGINE BLOCK (Slots 1-3): Seats the upper drive mechanism
         // If an engine takes 6 slots, we limit the first sequential chunk to exactly 3 slots. Currently unless I can find something canonical or homebrew somewhere
-        const engineCriticalTorso = engineCrits.ct ?? 0;
+        // Large engines (rating over 400, TO:AUE) add two center torso slots after the gyro.
+        const engineCriticalTorso = (engineCrits.ct ?? 0) + (this.isLargeEngine() ? 2 : 0);
         const initialEngineAllocation = engineCriticalTorso > 3 ? 3 : engineCriticalTorso;
         if (initialEngineAllocation > 0) {
             this._addCriticalItem(
@@ -3694,12 +3632,65 @@ export class BattleMech {
         this._calc();
     }
 
-    public getMaxMovementHeat() {
-        let maxMoveHeat = 2; // standard run heat.
+    /** Heat for running: 2, or 6 with an XXL engine. */
+    public getRunHeat(): number {
+        return this.isXXLEngine() ? 6 : 2;
+    }
 
-        if( this.getJumpSpeed() > 2) {
-            maxMoveHeat = this.getJumpSpeed();
+    /**
+     * Heat for jumping the full jump MP: at least 3, one per MP (XXL: at least 6, two per MP).
+     * Improved jump jets count half their MP, rounded up.
+     */
+    public getJumpHeat(): number {
+        const jumpMP = this.getJumpSpeed();
+        if (jumpMP <= 0) return 0;
+        const heatMP = this._jumpJetType.tag === "improved" ? Math.ceil(jumpMP / 2) : jumpMP;
+        return this.isXXLEngine() ? Math.max(6, heatMP * 2) : Math.max(3, heatMP);
+    }
+
+    public isXXLEngine(): boolean {
+        return this._engineType.tag === "xxl" || this._engineType.tag === "clan_xxl";
+    }
+
+    /**
+     * Highest walking MP an engine can give this 'Mech: rating (walk MP x tonnage) is capped at 400,
+     * or 500 with Large engines, which are Experimental technology (TO:AUE).
+     */
+    public getMaxWalkSpeed(rulesLevel: number = 2): number {
+        const maxRating = rulesLevel >= EXPERIMENTAL_RULES_LEVEL ? 500 : 400;
+        return Math.floor(maxRating / Math.max(1, this.getTonnage()));
+    }
+
+    /** Highest jump MP the jump jet type allows: walking MP, or running MP for Improved jump jets. */
+    public getMaxJumpSpeed(): number {
+        return this._jumpJetType.tag === "improved" ? this.getRunSpeed() : this.getWalkSpeed();
+    }
+
+    public getJumpJetType(): IJumpJet {
+        return this._jumpJetType;
+    }
+
+    public setJumpJetType(tag: string): IJumpJet {
+        const jumpJet = mechJumpJetTypes.find(item => item.tag === tag);
+        if (jumpJet && !this.isLAM()) {
+            this._jumpJetType = jumpJet;
+            this._calc();
         }
+        return this._jumpJetType;
+    }
+
+    public getAvailableJumpJets(rulesLevel: number = 2): IJumpJet[] {
+        return mechJumpJetTypes.map(jumpJet => {
+            const availability = this._techDatesAvailability(jumpJet, rulesLevel);
+            jumpJet.availableAsPrototype = availability.asPrototype;
+            jumpJet.available = availability.available && !(this.isLAM() && jumpJet.tag !== "standard");
+            return jumpJet;
+        });
+    }
+
+    public getMaxMovementHeat() {
+        // Battle Value uses the higher of running and jumping heat (TM p.303).
+        let maxMoveHeat = Math.max(this.getRunHeat(), this.getJumpHeat());
 
         // Stealth Armor
         if( this.getArmorType() === "stealth-basic" ) {
@@ -4229,6 +4220,7 @@ export class BattleMech {
         for( let is of mechInternalStructureTypes) {
             if( isTag === is.tag) {
                 this._selectedInternalStructure = is;
+                this._calc();
                 return this._selectedInternalStructure;
             }
         }
@@ -4423,9 +4415,10 @@ export class BattleMech {
                 return this._gyro;
             }
         }
-        // default to Military Standard if tag not found.
-        this._engineType = mechEngineTypes[0];
-        return this._engineType;
+        // default to the Standard gyro if the name is not found.
+        this._gyro = mechGyroTypes[0];
+        this._calc();
+        return this._gyro;
     }
     public setEngineTypeByName(
         engineName: string,
@@ -4499,11 +4492,7 @@ export class BattleMech {
 
     getHeatSyncName() {
 
-        if( this._heatSinkType.tag === "single" ) {
-            return "Single Heat Sinks";
-        } else {
-            return "Double Heat Sinks";
-        }
+        return this._heatSinkType.name + " Heat Sinks";
 
     }
 
@@ -5060,6 +5049,7 @@ export class BattleMech {
             features: [],
             gyro: this._gyro.tag,
             heat_sink_type: this.getHeatSinksType(),
+            jump_jet_type: this._jumpJetType.tag,
             hideNonAvailableEquipment: this._hideNonAvailableEquipment,
             introductoryRules: this._introductoryRules,
             is_type: this.getInternalStructureType(),
@@ -5106,6 +5096,7 @@ export class BattleMech {
                     uuid: this._equipmentList[countEQ].uuid,
                     weight: this._equipmentList[countEQ].weight,
                     split_location: this._equipmentList[countEQ].split_location,
+                    feedsWeaponTag: this._equipmentList[countEQ].feedsWeaponTag,
                     currentAdditionalArmor: this._equipmentList[countEQ].currentAdditionalArmor,
 
                 });
@@ -5126,6 +5117,7 @@ export class BattleMech {
                     split_location: this._equipmentList[countEQ].split_location,
                     currentAmmo: this._equipmentList[countEQ].currentAmmo,
                     selectedAmmoBinUUID: this._equipmentList[countEQ].selectedAmmoBinUUID,
+                    feedsWeaponTag: this._equipmentList[countEQ].feedsWeaponTag,
                     currentAdditionalArmor: this._equipmentList[countEQ].currentAdditionalArmor,
                 });
             }
@@ -5374,6 +5366,9 @@ export class BattleMech {
             if( importObject.heat_sink_type)
                 this.setHeatSinksType(importObject.heat_sink_type);
 
+            if( importObject.jump_jet_type)
+                this.setJumpJetType(importObject.jump_jet_type);
+
             if( importObject.armor_weight)
                 this.setArmorWeight(importObject.armor_weight);
 
@@ -5447,6 +5442,9 @@ export class BattleMech {
                     );
                     if (restoredEquipment && typeof importItem.currentAdditionalArmor === "number") {
                         restoredEquipment.currentAdditionalArmor = importItem.currentAdditionalArmor;
+                    }
+                    if (restoredEquipment && importItem.feedsWeaponTag) {
+                        restoredEquipment.feedsWeaponTag = importItem.feedsWeaponTag;
                     }
                 }
             }
@@ -5771,7 +5769,8 @@ export class BattleMech {
                 equipmentItem.resolved = false;
 
                 if( currentAmmo === -1 && equipmentItem.isAmmo ) {
-                    equipmentItem.currentAmmo = equipmentItem.ammoPerTon;
+                    // A fresh bin is full; its shot count depends on the weapon it feeds.
+                    equipmentItem.currentAmmo = undefined;
                 } else {
                     equipmentItem.currentAmmo = currentAmmo;
                 }
@@ -6707,29 +6706,85 @@ export class BattleMech {
         }
     }
 
-    public getAvailableEngines(): IEngineType[] {
+    public getAvailableEngines(rulesLevel: number = 2): IEngineType[] {
         let returnValue: IEngineType[] = [];
         const lookupTag = this.getEngineTechBase();
+        const weights = this._engine?.weight;
         for (let engine of mechEngineTypes) {
             // Enforce strict key verification against the normalized tech base
             if (engine.criticals && lookupTag in engine.criticals) {
-                engine.available = this._itemIsAvailable(
-                    engine.introduced, 
-                    engine.extinct, 
-                    engine.reintroduced,
-                    lookupTag === "clan"
-                );
+                const availability = this._datesAvailability(engine, rulesLevel);
+                // No weight at this rating: compact engines cannot be large, primitive tops out at an adjusted 500.
+                const buildableAtRating = !weights || (weights as Record<string, number | undefined>)[engine.tag] !== undefined;
+                engine.availableAsPrototype = availability.asPrototype;
+                engine.available = availability.available && buildableAtRating;
                 returnValue.push(engine);
             }
         }
         return returnValue;
     }
 
-    public getAvailableGyros(): IGyro[] {
+    /**
+     * Non-ammunition components that explode when critically hit (Gauss rifles, Improved Heavy
+     * lasers, etc.): -1 BV per slot (TM p.302), unlike explosive ammunition at -15 per slot.
+     */
+    private static _isExplosiveComponent(item: IEquipmentItem): boolean {
+        return !item.isAmmo && (item.gauss === true || item.explosive === true);
+    }
+
+    /**
+     * A weapon's BV for the offensive rating. Machine gun arrays have no BV of their own: they are
+     * worth 0.67 x the BV of the (up to four) linked machine guns in their location (TM p.228).
+     */
+    private _getWeaponBattleValue(item: IEquipmentItem): number {
+        if (item.linkedWeaponTags?.length) {
+            if (!item.location) return 0;
+            const linked = this._equipmentList
+                .filter(eq => eq !== item && eq.location === item.location && item.linkedWeaponTags!.includes(eq.tag))
+                .slice(0, 4);
+            return linked.reduce((sum, eq) => sum + (eq.battleValue || 0), 0) * 0.67;
+        }
+        return item.battleValue || 0;
+    }
+
+    /** Equipment whose BV counts toward the defensive rating (TM p.302: AMS, ECM, active probes, pods). */
+    private _isDefensiveBVEquipment(item: IEquipmentItem): boolean {
+        return item.battleValueDefensive === true;
+    }
+
+    /**
+     * Availability of a construction component in the selected era: in production,
+     * or (at the Experimental rules level) as a prototype.
+     */
+    private _datesAvailability(dates: ITechDates, rulesLevel: number): { available: boolean, asPrototype: boolean } {
+        // A prototype year with no production year: IO prototype only (Experimental rules).
+        const prototypeOnly = dates.introduced === null && !!dates.prototype;
+        const inProduction = !prototypeOnly && this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced);
+        const effectiveIntroduction = getEffectiveIntroduction(dates, rulesLevel);
+        const asPrototype = !inProduction && effectiveIntroduction !== dates.introduced
+            && this._itemIsAvailable(effectiveIntroduction, dates.extinct, dates.reintroduced);
+        return { available: inProduction || asPrototype, asPrototype };
+    }
+
+    /** Availability using the Clan window for Clan designs; mixed tech may use either. */
+    private _techDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean, asPrototype: boolean } {
+        const techTag = this.getTech().tag;
+        const innerSphere = this._datesAvailability(item, rulesLevel);
+        const clan = this._datesAvailability(item.clanDates ?? item, rulesLevel);
+        if (techTag === "clan") return clan;
+        if (techTag === "is") return innerSphere;
+        if (innerSphere.available && !innerSphere.asPrototype) return innerSphere;
+        if (clan.available && !clan.asPrototype) return clan;
+        return innerSphere.available ? innerSphere : clan;
+    }
+
+    public getAvailableGyros(rulesLevel: number = 2): IGyro[] {
         let returnValue: IGyro[] = [];
 
         for(let gyro of mechGyroTypes ) {
-            gyro.available = this._itemIsAvailable( gyro.introduced, gyro.extinct, gyro.reintroduced);
+            const availability = this._datesAvailability(gyro, rulesLevel);
+            gyro.availableAsPrototype = availability.asPrototype;
+            gyro.available = availability.available && !(gyro.innerSphereOnly && this.getTech().tag === "clan");
 
             returnValue.push( gyro );
         }
@@ -6737,7 +6792,27 @@ export class BattleMech {
         return returnValue;
     }
 
-    public getAvailableArmorTypes(): IArmorType[] {
+    public getAvailableInternalStructures(rulesLevel: number = 2): IInternalStructure[] {
+        return mechInternalStructureTypes.map(structure => {
+            const availability = this._techDatesAvailability(structure, rulesLevel);
+            structure.availableAsPrototype = availability.asPrototype;
+            structure.available = availability.available && !(structure.innerSphereOnly && this.getTech().tag === "clan");
+            return structure;
+        });
+    }
+
+    public getAvailableHeatSinks(rulesLevel: number = 2): IHeatSync[] {
+        return mechHeatSinkTypes.map(heatSink => {
+            const availability = this._techDatesAvailability(heatSink, rulesLevel);
+            const techTag = this.getTech().tag;
+            const pureTech = techTag === "is" || techTag === "clan" ? techTag : null;
+            heatSink.availableAsPrototype = availability.asPrototype;
+            heatSink.available = availability.available && !(heatSink.techBase && pureTech && heatSink.techBase !== pureTech);
+            return heatSink;
+        });
+    }
+
+    public getAvailableArmorTypes(rulesLevel: number = 2): IArmorType[] {
         let returnValue: IArmorType[] = [];
         const techTag = this.getTech().tag;
         const isMixed = techTag === "mis" || techTag === "mclan";
@@ -6747,8 +6822,9 @@ export class BattleMech {
                 && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && (isMixed
                 ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
                 : (techTag === "clan" ? armor.armorMultiplier.clan : armor.armorMultiplier.is) > 0);
-            armor.available = hasCompatibleMultiplier
-                && this._itemIsAvailable( armor.introduced, armor.extinct, armor.reintroduced);
+            const availability = this._techDatesAvailability(armor, rulesLevel);
+            armor.availableAsPrototype = availability.asPrototype;
+            armor.available = hasCompatibleMultiplier && availability.available;
 
             returnValue.push( armor );
         }
@@ -7013,10 +7089,9 @@ export class BattleMech {
         return this.getInternalStructure().leftTorso * 2 - this.getArmorAllocation().leftTorsoRear;
     }
 
-    public getAvailableEquipment(includeCustom: boolean = false): IEquipmentItem[] {
+    public getAvailableEquipment(includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {
         let returnItems: IEquipmentItem[] = [];
         const techTag = this.getTech().tag;
-        const clanAvailability = techTag === "clan" || techTag === "mclan";
 
         const addedTags = new Set<string>();
         const addEquipment = (item: IEquipmentItem, catalog: "is" | "clan" | "custom" | "universal"): void => {
@@ -7025,8 +7100,15 @@ export class BattleMech {
             }
             item.catalog = isUniversalEquipment(item) ? "universal" : item.catalog ?? catalog;
             item.criticals = item.space.battlemech;
-            item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability)
-                && this._isEquipmentAllowedForChassis(item);
+            // Equipment records carry side-specific IS or Clan dates, so extinction always applies.
+            // A prototype year with no production year marks an IO prototype-only item (Experimental).
+            const prototypeOnly = item.introduced === null && !!item.prototype;
+            const inProduction = !prototypeOnly && this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced);
+            const effectiveIntroduction = getEffectiveIntroduction(item, rulesLevel);
+            const asPrototype = !inProduction && effectiveIntroduction !== item.introduced
+                && this._itemIsAvailable(effectiveIntroduction, item.extinct, item.reintroduced);
+            item.availableAsPrototype = asPrototype;
+            item.available = (inProduction || asPrototype) && this._isEquipmentAllowedForChassis(item);
             addedTags.add(item.tag);
             returnItems.push(item);
         };
@@ -7047,8 +7129,9 @@ export class BattleMech {
     public getAvailableEquipmentByCatalog(
         catalog: "all" | "is" | "clan" | "custom" | "universal",
         includeCustom: boolean = false,
+        rulesLevel: number = 2,
     ): IEquipmentItem[] {
-        const equipment = this.getAvailableEquipment(includeCustom);
+        const equipment = this.getAvailableEquipment(includeCustom, rulesLevel);
         return catalog === "all" ? equipment : equipment.filter(item => item.catalog === catalog);
     }
 
@@ -8027,23 +8110,65 @@ export class BattleMech {
         weaponUUID: string,
         ammoUUID: string,
     ) {
-        for( let eq of this._equipmentList ) {
-            if( eq.uuid === weaponUUID  ) {
-                eq.selectedAmmoBinUUID = ammoUUID;
-            }
+        const weapon = this._equipmentList.find(eq => eq.uuid === weaponUUID);
+        const bin = this._equipmentList.find(eq => eq.uuid === ammoUUID && eq.isAmmo);
+        if( !weapon ) {
+            return;
+        }
+        weapon.selectedAmmoBinUUID = ammoUUID;
+        // A ton of ammunition is loaded for one launcher; bind an unbound bin
+        // to the first weapon that draws from it.
+        if( bin && !bin.feedsWeaponTag ) {
+            bin.feedsWeaponTag = weapon.tag;
         }
     }
+
+    /**
+     * The weapon an ammunition bin is loaded for: its bound weapon if set,
+     * otherwise the first mounted weapon that can fire it.
+     */
+    public getAmmoBinWeapon( bin: IEquipmentItem ): IEquipmentItem | null {
+        const weapons = this._equipmentList.filter(eq => !eq.isAmmo && !eq.isEquipment);
+        if( bin.feedsWeaponTag ) {
+            const bound = weapons.find(eq => eq.tag === bin.feedsWeaponTag);
+            if( bound ) {
+                return bound;
+            }
+        }
+        return weapons.find(eq => getCompatibleAmmo(eq, bin)) ?? null;
+    }
+
+    /** Full shot count of an ammunition bin for the weapon it feeds. */
+    public getAmmoBinCapacity( bin: IEquipmentItem ): number {
+        if( !bin.isAmmo ) {
+            return 0;
+        }
+        const weapon = this.getAmmoBinWeapon(bin);
+        const shotsPerTon = weapon ? getWeaponShotsPerTon(weapon, bin) : getAmmoRoundsPerTon(bin);
+        return Math.floor(shotsPerTon * (bin.weight || 1));
+    }
+
+    /** Shots left in an ammunition bin; an untouched bin is full. */
+    public getAmmoBinRemaining( bin: IEquipmentItem ): number {
+        const capacity = this.getAmmoBinCapacity(bin);
+        if( typeof(bin.currentAmmo) !== "number" || bin.currentAmmo < 0 ) {
+            return capacity;
+        }
+        // Records saved before bins counted shots may hold a larger round count.
+        return Math.min(bin.currentAmmo, capacity);
+    }
+
     public toggleResolved(
         eq_index: number
     ) {
         if( this._equipmentList.length > eq_index ) {
             this._equipmentList[eq_index].resolved = !this._equipmentList[eq_index].resolved;
             if( this._equipmentList[eq_index].selectedAmmoBinUUID  ) {
-                const ammoPerShot = this._equipmentList[eq_index].ammoPerShot ?? 1;
+                // One resolved attack spends one shot from the selected bin.
                 if( this._equipmentList[eq_index].resolved )
-                    this._decrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID, ammoPerShot );
+                    this._decrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID );
                 else
-                    this._incrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID, ammoPerShot );
+                    this._incrementAmmoBin( this._equipmentList[eq_index].selectedAmmoBinUUID );
             }
         }
     }
@@ -8051,8 +8176,11 @@ export class BattleMech {
     private _decrementAmmoBin( uuid: string | undefined, amount: number = 1 ) {
         if( uuid ) {
             for( let eq of this._equipmentList ) {
-                if( eq.uuid === uuid && eq.isAmmo && typeof(eq.currentAmmo) !== "undefined" && eq.currentAmmo >= amount ) {
-                    eq.currentAmmo -= amount;
+                if( eq.uuid === uuid && eq.isAmmo ) {
+                    const remaining = this.getAmmoBinRemaining(eq);
+                    if( remaining >= amount ) {
+                        eq.currentAmmo = remaining - amount;
+                    }
                 }
             }
         }
@@ -8061,8 +8189,8 @@ export class BattleMech {
     private _incrementAmmoBin( uuid: string | undefined, amount: number = 1 ) {
         if( uuid ) {
             for( let eq of this._equipmentList ) {
-                if( eq.uuid === uuid && eq.isAmmo && typeof(eq.currentAmmo) !== "undefined" ) {
-                    eq.currentAmmo += amount;
+                if( eq.uuid === uuid && eq.isAmmo ) {
+                    eq.currentAmmo = Math.min(this.getAmmoBinRemaining(eq) + amount, this.getAmmoBinCapacity(eq));
                 }
             }
         }
@@ -8639,7 +8767,7 @@ export class BattleMech {
                 &&
                 !eq.rear
             ) {
-                rv += eq.battleValue ? eq.battleValue : 0
+                rv += eq.battleValue && !eq.isAmmo && !this._isDefensiveBVEquipment(eq) ? eq.battleValue : 0
             }
         }
 
@@ -8705,7 +8833,7 @@ export class BattleMech {
                 )
                 && eq.rear
             ) {
-                rv += eq.battleValue ? eq.battleValue : 0
+                rv += eq.battleValue && !eq.isAmmo && !this._isDefensiveBVEquipment(eq) ? eq.battleValue : 0
             }
         }
 

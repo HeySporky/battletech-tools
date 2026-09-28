@@ -52,7 +52,7 @@ export default class VehicleCreatorEquipmentSelection extends React.Component<IE
                                 <p><strong>Remaining Tonnage</strong>: {vehicle.getRemainingTonnage()}</p>
                                 <AvailableEquipment
                                     appGlobals={this.props.appGlobals}
-                                    equipment={vehicle.getAvailableEquipmentByCatalog("all", this.props.appGlobals.appSettings.mechRulesFilter === 5)}
+                                    equipment={vehicle.getAvailableEquipmentByCatalog("all", this.props.appGlobals.appSettings.mechRulesFilter === 5, this.props.appGlobals.appSettings.mechRulesFilter)}
                                     addFunction={this.addEquipment}
                                     hideUnavailable={false}
                                 />

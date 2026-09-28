@@ -159,3 +159,28 @@ describe("Vehicle Alpha Strike stats", () => {
     });
 });
 
+
+describe("Vehicle engine weight", () => {
+    it("adds x1.5 shielding to fusion engines but not to ICE", () => {
+        const vehicle = new Vehicle();
+        vehicle.setTonnage(25);
+        vehicle.setCruiseMP(4); // rating 100
+        vehicle.setEngineType("standard");
+        expect(vehicle.getEngineWeight()).toBe(4.5); // 3 x 1.5
+        vehicle.setEngineType("ice");
+        expect(vehicle.getEngineWeight()).toBe(6); // 3 x 2, unshielded
+    });
+
+    it("subtracts the motive type's suspension factor from the engine rating", () => {
+        const vehicle = new Vehicle();
+        vehicle.setMotiveType("hover");
+        vehicle.setTonnage(25);
+        vehicle.setCruiseMP(8);
+        expect(vehicle.getSuspensionFactor()).toBe(130);
+        expect(vehicle.getEngineRating()).toBe(70); // 25 x 8 - 130
+        vehicle.setMotiveType("wheeled");
+        expect(vehicle.getEngineRating()).toBe(180); // 200 - 20
+        vehicle.setMotiveType("tracked");
+        expect(vehicle.getEngineRating()).toBe(200);
+    });
+});

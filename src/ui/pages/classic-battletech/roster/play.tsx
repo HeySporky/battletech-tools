@@ -1392,7 +1392,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                       <option value="">-Select Ammo Bin-</option>
                                       {unit.equipmentList.map( (eq, eqIndex) => {
                                         if( getCompatibleAmmo(attack, eq) ) {
-                                          return <option key={eqIndex} value={eq.uuid}>{eq.name} {eq.location} {eq.currentAmmo}/{eq.ammoPerTon}</option>
+                                          return <option key={eqIndex} value={eq.uuid}>{eq.name} {eq.location} {unit.getAmmoBinRemaining(eq)}/{unit.getAmmoBinCapacity(eq)}</option>
                                         } else {
                                           return <React.Fragment key={eqIndex} />
                                         }

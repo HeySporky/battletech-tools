@@ -3,6 +3,7 @@ import { BattleMech } from "./battlemech";
 import { validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
+import { getWeaponAmmoFamilies } from "../data/equipment-registry";
 
 describe("BattleMech engine availability by era", () => {
     it("shows the expected Inner Sphere engines for a Star League mech", () => {
@@ -15,7 +16,20 @@ describe("BattleMech engine availability by era", () => {
             .filter(engine => engine.available)
             .map(engine => engine.tag);
 
-        expect(availableEngineTags).toEqual(["standard", "xl", "ice", "cell", "fission"]);
+        // IO: fission engines are prototypes until production in 2882.
+        expect(availableEngineTags).toEqual(["standard", "xl", "ice", "cell"]);
+    });
+
+    it("offers prototype engines only at the Experimental rules level", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("star-league");
+
+        const standardRules = mech.getAvailableEngines(2).find(engine => engine.tag === "fission");
+        expect(standardRules?.available).toBe(false);
+        const experimental = mech.getAvailableEngines(4).find(engine => engine.tag === "fission");
+        expect(experimental?.available).toBe(true);
+        expect(experimental?.availableAsPrototype).toBe(true);
     });
 
     it("includes engines introduced during the selected era", () => {
@@ -121,9 +135,41 @@ describe("BattleMech equipment catalogs", () => {
 });
 
 describe("BattleMech armor technology availability", () => {
+    it("uses IO production dates, per-tech windows and prototypes for armor (TO:AUE pp.92-94)", () => {
+        const available = (tech: string, era: string, rulesLevel: number) => {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            mech.setEra(era);
+            return mech.getAvailableArmorTypes(rulesLevel).filter(armor => armor.available);
+        };
+        // Hardened armor: prototype 3047, production 3081.
+        expect(available("is", "clan-inv", 2).map(armor => armor.tag)).not.toContain("hardened");
+        expect(available("is", "clan-inv", 4).find(armor => armor.tag === "hardened")?.availableAsPrototype).toBe(true);
+        // Clan Ferro-Fibrous enters production in 2825.
+        expect(available("clan", "star-league", 2).map(armor => armor.tag)).not.toContain("ferro-fibrous");
+        // Prototype-only armor never appears below Experimental.
+        expect(available("is", "star-league", 2).map(armor => armor.tag)).not.toContain("ferro-fibrous-prototype");
+        expect(available("is", "star-league", 4).map(armor => armor.tag)).toContain("ferro-fibrous-prototype");
+    });
+
+    it("applies the armor type BV modifier to the armor factor (TM p.302, TO:AUE)", () => {
+        const withArmor = (tag: string) => {
+            const mech = new BattleMech();
+            mech.setTech("is");
+            mech.setEra("ilClan");
+            mech.setArmorType(tag);
+            mech.getBattleValue();
+            return mech.getBVCalcHTML();
+        };
+        expect(withArmor("hardened")).toContain("Total Armor Factor = 2 x Modifier for Hardened Armor");
+        expect(withArmor("reactive")).toContain("Total Armor Factor = 1.5 x Modifier for Reactive Armor");
+        expect(withArmor("standard")).toContain("Total Armor Factor = 1 x Modifier for Standard");
+    });
+
     it("filters armor by multiplier for pure tech bases and permits both families for mixed bases", () => {
         const clanMech = new BattleMech();
         clanMech.setTech("clan");
+        clanMech.setEra("clan-inv");
         expect(clanMech.getAvailableArmorTypes().filter(armor => armor.available).map(armor => armor.tag))
             .toEqual(["standard", "ferro-fibrous"]);
 
@@ -281,7 +327,7 @@ describe("BattleMech ATM ammunition", () => {
     it("exposes newly added ATM equipment and bins for critical allocation", () => {
         const mech = new BattleMech();
         mech.setTech("clan");
-        const tags = ["atm-6", "ammo-atm-standard", "ammo-atm-er", "ammo-atm-he"];
+        const tags = ["atm-6", "ammo-clan-atm-standard", "ammo-clan-atm-er", "ammo-clan-atm-he"];
 
         for (const tag of tags) {
             expect(mech.addEquipmentFromTag(tag, "clan", "", false, undefined, "", false, [], undefined, undefined)).not.toBeNull();
@@ -301,7 +347,9 @@ describe("BattleMech ATM ammunition", () => {
         mech.selectAmmoBin(weapon.uuid!, ammo.uuid!);
         mech.toggleResolved(weaponIndex);
 
-        expect(ammo.currentAmmo).toBe(54);
+        // ATM 6: 10 shots per ton; one resolved attack spends one shot.
+        expect(mech.getAmmoBinCapacity(ammo)).toBe(10);
+        expect(ammo.currentAmmo).toBe(9);
     });
 
     it("uses the selected ATM profile for Classic range", () => {
@@ -501,5 +549,337 @@ describe("LAM and QuadVee chassis rules", () => {
         expect(tripod.getCriticals().centerTorso.some(item => item?.tag === "multi-pilot-cockpit")).toBe(true);
         tripod.takeDamage(100, "ll", false);
         expect(tripod.getWalkSpeed()).toBe(4);
+    });
+});
+describe("BattleMech ammunition bins", () => {
+    it("counts bin shots from the weapon it feeds and survives export", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        const srm6 = mech.addEquipmentFromTag("srm-6", "is", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        const bin = mech.addEquipmentFromTag("ammo-srm-standard", "is", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        const weaponIndex = mech.equipmentList.findIndex(item => item.uuid === srm6.uuid);
+
+        // SRM 6: 15 shots per ton (not 100 rounds / 6 tubes).
+        expect(mech.getAmmoBinCapacity(bin)).toBe(15);
+        expect(mech.getAmmoBinRemaining(bin)).toBe(15);
+
+        mech.selectAmmoBin(srm6.uuid!, bin.uuid!);
+        expect(bin.feedsWeaponTag).toBe("srm-6");
+        mech.toggleResolved(weaponIndex);
+        expect(mech.getAmmoBinRemaining(bin)).toBe(14);
+
+        // The design export keeps which launcher a ton is loaded for; the play export also keeps spent shots.
+        const design = new BattleMech(mech.exportJSON(true));
+        const designBin = design.equipmentList.find(item => item.uuid === bin.uuid)!;
+        expect(designBin.feedsWeaponTag).toBe("srm-6");
+        expect(design.getAmmoBinRemaining(designBin)).toBe(15);
+
+        const inPlay = new BattleMech(mech.exportJSON());
+        const inPlayBin = inPlay.equipmentList.find(item => item.uuid === bin.uuid)!;
+        expect(inPlayBin.feedsWeaponTag).toBe("srm-6");
+        expect(inPlay.getAmmoBinRemaining(inPlayBin)).toBe(14);
+    });
+
+    it("clamps bins saved with the old round counts to the weapon's shots", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.addEquipmentFromTag("lrm-10", "is", "lt", false, undefined, "", false, [], undefined, undefined);
+        const bin = mech.addEquipmentFromTag("ammo-lrm", "is", "lt", false, undefined, "", false, [], undefined, undefined, 120)!;
+
+        expect(bin.tag).toBe("ammo-lrm-standard");
+        expect(mech.getAmmoBinRemaining(bin)).toBe(12);
+    });
+
+    it("counts family ammo toward BV under the weapon it feeds (TM p.303)", () => {
+        const armed = () => {
+            const mech = new BattleMech();
+            mech.setTech("is");
+            mech.addEquipmentFromTag("lrm-10", "is", "lt", false, undefined, "", false, [], undefined, undefined);
+            return mech;
+        };
+        const noAmmo = armed();
+        const withAmmo = armed();
+        withAmmo.addEquipmentFromTag("ammo-lrm", "is", "lt", false, undefined, "", false, [], undefined, undefined);
+
+        expect(withAmmo.getBattleValue()).toBeGreaterThan(noAmmo.getBattleValue());
+        expect(withAmmo.getBVCalcHTML()).toContain("for LRM 10");
+    });
+
+    it("counts defensive equipment in the defensive rating, not as weapons (TM p.302)", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.addEquipmentFromTag("is-laser-ams", "is", "lt", false, undefined, "", false, [], undefined, undefined);
+        mech.getBattleValue();
+        const log = mech.getBVCalcHTML();
+
+        expect(log).toContain("+ Defensive Equipment: Laser AMS");
+        expect(log).not.toContain("Weapon Laser AMS");
+    });
+
+    it("counts AMS ammunition defensively, capped at the AMS BV (TM p.302)", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        mech.addEquipmentFromTag("clan-ams", "clan", "lt", false, undefined, "", false, [], undefined, undefined);
+        mech.addEquipmentFromTag("ammo-clan-ams-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined);
+        mech.addEquipmentFromTag("ammo-clan-ams-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined);
+        mech.getBattleValue();
+        const log = mech.getBVCalcHTML();
+
+        expect(log).toContain("capped (Excessive Ammunition rule)");
+        expect(log).toContain("Total Defensive Equipment BV: 64.00"); // 32 AMS + ammo capped at 32
+        expect(log).not.toContain("+ Adding Ammunition: AMS");
+    });
+
+    it("values a machine gun array at 0.67 x its linked machine guns in the same location (TM p.228)", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.addEquipmentFromTag("machine-gun", "is", "ra", false, undefined, "", false, [], undefined, undefined);
+        mech.addEquipmentFromTag("machine-gun", "is", "ra", false, undefined, "", false, [], undefined, undefined);
+        mech.addEquipmentFromTag("machine-gun", "is", "la", false, undefined, "", false, [], undefined, undefined);
+        mech.addEquipmentFromTag("is-machine-gun-array", "is", "ra", false, undefined, "", false, [], undefined, undefined);
+        mech.getBattleValue();
+
+        // Two linked MGs (BV 5 each) in the right arm; the left-arm MG is not linked.
+        expect(mech.getBVCalcHTML()).toMatch(/Machine Gun Array \(ra\) - Base BV: 6\.7\b/);
+    });
+
+    it("gives one-shot launchers no ammunition and a quarter of their heat for BV (TM p.303)", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        const launcher = mech.addEquipmentFromTag("lrm-10-os", "is", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        mech.getBattleValue();
+
+        expect(launcher.isOneShot).toBe(true);
+        expect(getWeaponAmmoFamilies(launcher)).toEqual([]);
+        expect(mech.equipmentList.find(item => item.tag === "lrm-10-os")!.bvHeat).toBe(1);
+    });
+});
+
+describe("BattleMech equipment availability", () => {
+    const find = (tag: string, rulesLevel: number, eraTag: string, tech = "is") => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra(eraTag);
+        return mech.getAvailableEquipment(false, rulesLevel).find(eq => eq.tag === tag)!;
+    };
+
+    it("offers IO prototypes only at the Experimental rules level", () => {
+        // Long Tom Cannon: prototype 3032, production 3079 (IO).
+        expect(find("long-tom-cannon", 2, "late-sw-rn").available).toBe(false);
+        const experimental = find("long-tom-cannon", 4, "late-sw-rn");
+        expect(experimental.available).toBe(true);
+        expect(experimental.availableAsPrototype).toBe(true);
+        expect(find("long-tom-cannon", 2, "jihad").availableAsPrototype).toBe(false);
+    });
+
+    it("applies Clan extinction dates to Star League copies", () => {
+        // The Clans fielded the Star League AC/20 until ~2850.
+        expect(find("clan-sl-autocannon-standard-d", 2, "early-sw", "clan").available).toBe(true);
+        expect(find("clan-sl-autocannon-standard-d", 2, "clan-inv", "clan").available).toBe(false);
+    });
+});
+
+describe("BattleMech engine construction", () => {
+    const engineSlots = (mech: BattleMech, location: "centerTorso" | "leftTorso" | "rightTorso") =>
+        mech.getCriticals()[location].filter(item => item?.tag === "engine")
+            .reduce((total, item) => total + (item?.crits ?? 1), 0);
+    const build = (tonnage: number, walk: number, engine: string, tech = "is", era = "jihad") => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra(era);
+        mech.setTonnage(tonnage);
+        mech.setWalkSpeed(walk);
+        mech.setEngineType(engine);
+        mech.calcAlphaStrike();
+        return mech;
+    };
+
+    it("uses the TM p.49 standard fusion weights", () => {
+        expect(build(25, 4, "standard").getEngineWeight()).toBe(3); // rating 100
+        expect(build(65, 6, "standard").getEngineWeight()).toBe(46); // rating 390
+        expect(build(20, 5, "xl").getEngineWeight()).toBe(1.5); // rating 100: 3 x 0.5
+    });
+
+    it("rounds internal structure weight up to the half ton by type", () => {
+        const structure = (tonnage: number, tag: string, type = "biped") => {
+            const mech = build(tonnage, 4, "standard");
+            mech.setType(type);
+            mech.setTonnage(tonnage);
+            mech.setInternalStructureType(tag);
+            return mech.getInternalStructureWeight();
+        };
+        expect(structure(35, "standard")).toBe(3.5);
+        expect(structure(35, "endo-steel")).toBe(2); // 1.75 rounds up
+        expect(structure(50, "composite")).toBe(2.5);
+        expect(structure(50, "endo-composite")).toBe(4); // 3.75 rounds up
+        expect(structure(50, "reinforced")).toBe(10);
+        expect(structure(50, "industrial")).toBe(10); // twice standard
+        expect(structure(50, "standard", "tripod")).toBe(5.5); // x1.1
+    });
+
+    it("uses running or jumping heat for BV movement heat, with XXL and Improved jump jet rules", () => {
+        const standard = build(50, 5, "standard", "is", "ilClan");
+        standard.setJumpSpeed(2);
+        expect(standard.getMaxMovementHeat()).toBe(3); // jump heat is at least 3
+        standard.setJumpSpeed(5);
+        expect(standard.getMaxMovementHeat()).toBe(5);
+        standard.setJumpJetType("improved");
+        expect(standard.getMaxMovementHeat()).toBe(3); // ceil(5 / 2), minimum 3
+        expect(standard.getMaxJumpSpeed()).toBe(standard.getRunSpeed());
+
+        const xxl = build(50, 5, "xxl", "is", "ilClan");
+        expect(xxl.getMaxMovementHeat()).toBe(6); // XXL running heat
+        xxl.setJumpSpeed(4);
+        expect(xxl.getMaxMovementHeat()).toBe(8); // XXL jump heat: 2 per MP, at least 6
+    });
+
+    it("offers Improved jump jets by era and keeps them through a save round trip", () => {
+        const jumpJets = (tech: string, era: string, rulesLevel = 2) => {
+            const mech = build(50, 5, "standard", tech, era);
+            return mech.getAvailableJumpJets(rulesLevel).filter(jj => jj.available).map(jj => jj.tag);
+        };
+        expect(jumpJets("is", "civil-war")).toEqual(["standard"]);
+        expect(jumpJets("is", "jihad")).toEqual(["standard", "improved"]);
+        expect(jumpJets("clan", "civil-war", 4)).toEqual(["standard", "improved"]); // Clan prototype 3060
+
+        const mech = build(50, 5, "standard", "is", "jihad");
+        mech.setJumpJetType("improved");
+        mech.setJumpSpeed(6);
+        const copy = new BattleMech();
+        copy.importJSON(mech.exportJSON());
+        expect(copy.getJumpJetType().tag).toBe("improved");
+    });
+
+    it("offers Large engine ratings (over 400) only at the Experimental rules level", () => {
+        const mech = build(100, 4, "standard");
+        expect(mech.getMaxWalkSpeed(2)).toBe(4); // rating 400
+        expect(mech.getMaxWalkSpeed(4)).toBe(5); // rating 500
+        expect(build(35, 4, "standard").getMaxWalkSpeed(2)).toBe(11); // 385
+    });
+
+    it("rounds gyro weight up to the half ton", () => {
+        const mech = build(50, 5, "standard"); // rating 250
+        mech.setGyroTypeByName("Extra-light (XL) Gyro");
+        expect(mech.getGyroWeight()).toBe(1.5);
+        mech.setGyroTypeByName("Compact Gyro");
+        expect(mech.getGyroWeight()).toBe(4.5);
+        expect(mech.getEngineType().tag).toBe("standard");
+    });
+
+    it("applies structure type BV modifiers and keeps Composite Inner Sphere only (TO:AUE p.154)", () => {
+        const log = (tag: string) => {
+            const mech = build(50, 4, "standard", "is", "ilClan");
+            mech.setInternalStructureType(tag);
+            mech.getBattleValue();
+            return mech.getBVCalcHTML();
+        };
+        expect(log("reinforced")).toContain("Total Internal Structure BV = 2 x Reinforced Modifier");
+        expect(log("composite")).toContain("Total Internal Structure BV = 0.5 x Composite Modifier");
+        expect(log("industrial")).toContain("Total Internal Structure BV = 0.5 x Industrial Modifier");
+
+        const clan = new BattleMech();
+        clan.setTech("clan");
+        clan.setEra("ilClan");
+        expect(clan.getAvailableInternalStructures().find(structure => structure.tag === "composite")?.available).toBe(false);
+    });
+
+    it("keeps compact engines and their three center torso slots", () => {
+        const mech = build(50, 4, "compact");
+        expect(mech.getEngineType().tag).toBe("compact");
+        expect(engineSlots(mech, "centerTorso")).toBe(3);
+    });
+
+    it("gives ICE and fuel cell engines six center torso slots", () => {
+        expect(engineSlots(build(50, 4, "ice"), "centerTorso")).toBe(6);
+        expect(engineSlots(build(50, 4, "cell"), "centerTorso")).toBe(6);
+    });
+
+    it("treats ratings above 400 as large engines (TO:AUE)", () => {
+        const mech = build(100, 5, "standard");
+        expect(mech.isLargeEngine()).toBe(true);
+        expect(engineSlots(mech, "centerTorso")).toBe(8);
+        expect(mech.getAvailableEngines().find(engine => engine.tag === "compact")?.available).toBe(false);
+    });
+
+    it("reads Alpha Strike structure from the ASC p.98 table", () => {
+        expect(build(100, 3, "standard").getAlphaStrikeForceStats().structure).toBe(8);
+        expect(build(100, 3, "xl").getAlphaStrikeForceStats().structure).toBe(4);
+        expect(build(100, 3, "light").getAlphaStrikeForceStats().structure).toBe(6);
+        expect(build(100, 3, "clan_xl", "clan").getAlphaStrikeForceStats().structure).toBe(5);
+        expect(build(50, 4, "compact").getAlphaStrikeForceStats().structure).toBe(5);
+    });
+});
+
+describe("BattleMech heat sink and gyro availability", () => {
+    const heatSink = (tech: string, era: string, tag: string, rulesLevel = 2) => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra(era);
+        return mech.getAvailableHeatSinks(rulesLevel).find(item => item.tag === tag)!;
+    };
+
+    it("follows the IO double heat sink windows for each tech base", () => {
+        // Inner Sphere: production 2567, lost 2865, recovered 3040.
+        expect(heatSink("is", "star-league", "double").available).toBe(true);
+        expect(heatSink("is", "late-sw-lt", "double").available).toBe(false);
+        expect(heatSink("is", "clan-inv", "double").available).toBe(true);
+        // Clan: production 2827.
+        expect(heatSink("clan", "early-sw", "double").available).toBe(true);
+        expect(heatSink("clan", "late-sw-lt", "double").available).toBe(true);
+        expect(heatSink("is", "late-sw-lt", "single").available).toBe(true);
+    });
+
+    it("offers Laser heat sinks to Clans and prototype doubles only at Experimental (TO:AUE p.129, IO:AE)", () => {
+        expect(heatSink("clan", "clan-inv", "laser").available).toBe(true);
+        expect(heatSink("is", "clan-inv", "laser").available).toBe(false);
+        expect(heatSink("is", "age-of-war", "double-prototype").available).toBe(false);
+        expect(heatSink("is", "age-of-war", "double-prototype", 4).availableAsPrototype).toBe(true);
+        expect(heatSink("is", "late-sw-rn", "double-freezers", 4).available).toBe(true);
+        expect(heatSink("clan", "late-sw-rn", "double-freezers", 4).available).toBe(false);
+    });
+
+    it("prices and rates heat sinks from the selected type", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        mech.setEra("clan-inv");
+        mech.setHeatSinksType("laser");
+        mech.setAdditionalHeatSinks(2);
+        mech.getBattleValue();
+        expect(mech.getHeatSyncName()).toBe("Laser Heat Sinks");
+        expect(mech.getBVCalcHTML()).toContain("Engine Sinks: 24");
+        expect(mech.getCBillCalcHTML()).toContain("6,000 x (Number of Heat Sinks [12])");
+    });
+
+    it("offers XL, Compact and Heavy-Duty gyros to Inner Sphere designs only", () => {
+        const gyros = (tech: string) => {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            mech.setEra("jihad");
+            return mech.getAvailableGyros().filter(gyro => gyro.available).map(gyro => gyro.tag);
+        };
+        expect(gyros("is")).toEqual(["standard", "xl", "compact", "heavy-duty"]);
+        expect(gyros("clan")).toEqual(["standard"]);
+    });
+});
+
+describe("BattleMech internal structure availability", () => {
+    const structure = (tech: string, era: string, tag: string) => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra(era);
+        return mech.getAvailableInternalStructures().find(item => item.tag === tag)!;
+    };
+
+    it("follows the IO Endo Steel windows for each tech base", () => {
+        // Inner Sphere: production 2487, lost 2850, recovered 3035. Clan: production 2827.
+        expect(structure("is", "star-league", "endo-steel").available).toBe(true);
+        expect(structure("is", "late-sw-lt", "endo-steel").available).toBe(false);
+        expect(structure("clan", "late-sw-lt", "endo-steel").available).toBe(true);
+        expect(structure("is", "late-sw-lt", "standard").available).toBe(true);
+    });
+
+    it("uses the TechManual structure costs per 'Mech ton", () => {
+        expect(structure("is", "jihad", "endo-steel").cost).toBe(1600);
+        expect(structure("is", "jihad", "reinforced").cost).toBe(6400);
     });
 });

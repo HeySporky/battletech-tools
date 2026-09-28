@@ -176,6 +176,148 @@ tool. Items are ordered by dependency, not by product marketing priority.
 - [ ] Resolve remaining provisional/source gaps separately from classification:
   physical weights and slots absent from workbook rows, Clan alternate-ammo
   variants, specialized torpedo `-T` ammunition, and numeric TOR profiles.
+- [x] Normalize all ammo catalogs to the template format: `roundsPerTon` on
+  ammo, `shotsPerTon` (published counts) on weapons, ammo families,
+  `-standard` tags with IS/Clan prefixes, historical tags kept in `altTags`,
+  and bins that count shots for the launcher they feed.
+- [x] Tech-base reorganization (IO tech-progression windows): universal only
+  when IS and Clan windows are identical; otherwise split into IS and Clan
+  records. Star League weapons the Clans fielded until replaced have Clan
+  copies with Clan extinction dates (ACs/lasers ~2850, LRM 2830, SRM 2836,
+  MG 2826, PPC 2825, SL ER PPC 2860, SL Streak SRM 2 2845).
+- [x] Add missing canonical ammunition: Streak SRM (IS/Clan), Streak LRM,
+  Extended LRM, Clan LB-X cluster, Arrow IV IS FASCAM/Clan smoke/Vibrabomb-IV,
+  artillery Flechette/Illumination/Smoke, Long Tom Davy Crockett-M.
+- [x] Every ammunition record feeds a weapon on its own side (test-enforced);
+  added IS Narc/iNarc/LRT/SRT and Clan Narc/MG/LMG/HMG/Gauss/Heavy Flamer/Flamer.
+- [x] ProtoMech mountability: weapons follow TM rules (IS and Star League
+  copies -1); ammunition is -1 unless a ProtoMech-mountable weapon fires it
+  (test-enforced).
+- [x] A4: IO date audit of every weapon and ammo record (composites use
+  launcher ∩ Artemis IV / PPC Capacitor windows), TM/TO stat corrections for
+  103 weapons and 84 ammo records, duplicate records merged (IS Ultra/Rotary
+  workbook copies, duplicate prototypes), PPC Capacitor records rebuilt,
+  Thunderbolts fire a single missile, artillery cannons universal (3079), and
+  49 missing canonical munitions added (LRM/SRM/Enhanced LRM/Thunderbolt
+  munitions, artillery Fuel-Air, Rotary AC Caseless, ELRM Artemis).
+- [ ] Apocryphal hunt: `enhanced_er_ppc`, `enhanced_er_large_laser`, and
+  `enhanced_clan_lrm_10` do not match IO's Clan Enhanced PPC / Improved Large
+  Laser / Improved LRM statistics; Clan LRM Mag-Pulse ammo has no Clan IO
+  window. Decide canon mapping or move to custom.
+- [x] Clan "Improved" weapons from IO (Improved AC/2-20, Gauss, LRM 5-20,
+  SRM 2-6, Large Pulse, Large Laser, PPC; 2812-2837, reintroduced 3080) with
+  their own ammunition (iAC per calibre, iLRM/iSRM families, iGauss); Improved
+  Heavy lasers (TO:AUE p.133, explosive). Pages other than the iAC (IO p.96)
+  are `page: null` until verified.
+- [ ] Verify Improved SRM 4 BV: MegaMek lists 39 (same as the SRM 4) while the
+  iSRM 2/6 run a third above their SRMs (28/79); record notes the doubt.
+- [ ] Verify whether Improved PPC and Improved AC/20 explode when critically hit
+  (MegaMek flags them; no canon source in hand), and whether HAG and AP Gauss
+  rifles explode like Gauss rifles (not flagged here).
+- [ ] Records with no IO munition data, kept as-is: LRM Incendiary, SRM Tear
+  Gas, SRT Harpoon, Vehicle/Heavy Flamer Inferno and Water. Historical tags
+  ammo-long-tom-ap, ammo-sniper-ap, ammo-thumper-ap have no canon round.
+- [ ] Consider an optional prototype-year field: `introduced` uses the IO
+  production year, so experimental prototypes (e.g. artillery cannons
+  3012/3032, Bombast 3064) are not available before production.
+- [x] Optional `prototype` year on weapons and ammunition (374 records);
+  shown in construction only at Experimental/Custom rules level, marked
+  "(Prototype)". Equipment extinction now always applies (records carry
+  side-specific IS/Clan dates).
+- [x] Thunderbolt special munitions moved to custom (no canon source; Sarna:
+  no Artemis/Narc). Historical ammo-*-ap artillery tags alias the canon
+  Flechette rounds.
+- [x] Canon inventory, weapons: 147 'Mech weapons added. 87 one-shot (OS,
+  TM p.229-232) and improved one-shot (I-OS, TO:AUE p.139) launchers as full
+  records (`isOneShot`, no ammo bins; BV = 1/5 of the standard launcher); Clan
+  Improved weapons; AMS (IS/Clan) + ammo, TAG, Light TAG; Clan ER Flamer; Clan
+  chemical lasers + ammo; MG Arrays (IS/Clan); HVAC/2-10 + ammo; RISC APDS +
+  ammo; Fluid Gun (universal) + ammo; C3 Boosted Master; 21 IO prototypes
+  (prototype-only: `introduced: null` + `prototype`, Experimental rules only).
+- [x] Weapon wiring: defensive equipment (`battleValueDefensive`: AMS, APDS,
+  Laser AMS, ECM, active probes) and AMS ammo now count in the defensive BV (AMS
+  ammo capped at AMS BV) and are excluded from offensive BV/heat; explosive
+  components (Gauss, Improved Heavy lasers) cost -1 BV per slot and explosive
+  ammo -15 (Gauss rifles were charged both, -16/slot); MG Array BV = 0.67 x
+  linked MGs in its location (`linkedWeaponTags`); one-shots never take canon
+  ammo (custom reload ammo still can).
+- [x] Ammo wiring gaps fixed: 30 weapons had no ammo BV (IS AC/5-20, Gauss
+  family, MGs, Rotary/Ultra/LB ACs, Plasma Cannon); HAG 20/30/40, ProtoMech
+  AC/2-8, AP Gauss, Light/Medium/Heavy Rifle, Nail/Rivet Gun had no ammo records
+  at all; Prototype LB 10-X/Gauss/UAC-5 could not load ammo.
+- [ ] Weapons still missing (need sources or construction support): M-Pod,
+  B-Pod (no stats in hand); BattleMech Taser (book unknown); TSEMP Cannon /
+  One-Shot / Repeating; Cruise Missiles 50-120 (TO pp.284-285, with the
+  artillery pass); C3 Remote Sensor Launcher; Light/Heavy Plasma Rifle, Light
+  Blazer, Kinslaughter H ER PPC, Enhanced LRT, Rocket Launcher 1-5, Clan LRM 1
+  (no canon source found yet).
+- [ ] Play-mode support for the new weapons: MG Array cluster fire, AMS
+  interception with ammo use, TAG designation, chemical laser ammo use, HVAC.
+- [ ] Legacy data: base launchers' `battleValueOneShot` values are stale (e.g.
+  LRM 10 shows 9; the OS record has 18) and unused by the builder; Clan Arrow IV
+  stores range as `maxMapSheets` while IS Arrow IV uses short/medium/long.
+- [ ] Verify IS SRM/Streak SRM/SRT I-OS dates: MegaMek gives production 3056,
+  whereas LRM/MRM/Narc I-OS are prototype 3056, production 3081.
+- [ ] Canon inventory, equipment (169 'Mech misc items in MegaMek; the
+  catalogs carry ~8): MASC, TSM, Supercharger, Targeting Computer, CASE/CASE
+  II, Artemis IV/V and Apollo FCS, active probes, ECM suites, C3/C3i, physical
+  weapons, industrial equipment, AES, turrets, shields, etc. Most need
+  construction-engine support (movement, weight formulas, crit rules).
+- [x] Engine audit vs TM/TO/IO: weight table regenerated from the TM p.49
+  standard column (12 wrong values, incl. 100, 390, 425-460) and the type
+  multipliers; ICE/Fuel Cell 6 CT slots; Fission IS-only, 7,500 C-bills, IO
+  dates; IO production/prototype years for all types; Compact engines no longer
+  reset to Standard by the crit allocator; Large engines (>400): x2 cost, +2 CT
+  slots, no Compact; engines honor the Experimental prototype rule.
+- [x] BV fixes: IS XL engine structure modifier x0.5 (was x0.75); family ammo
+  grouped under the weapon it feeds (was silently dropped); per-launcher ammo BV
+  (`ammoBattleValue` on 146 weapons) and munition multipliers
+  (`battleValueMultiplier`, 32 munitions).
+- [x] Alpha Strike structure from the ASC p.98 table (IS XL tag bug fixed; the
+  hand-built maps were wrong for XL/Light/XXL); reinforced structure x2.
+- [x] Gyros, heat sinks, jump jets, internal structure: IO dates with per-tech
+  `clanDates`; XL/Compact/HD gyros IS-only; era-aware heat sink and structure
+  pickers; structure costs per TM (Endo 1,600, Reinforced 6,400, Endo-Composite
+  3,200, Industrial 300). Vehicles: x1.5 fusion/fission shielding.
+- [x] Armor audit (TM p.205-206, TO:AUE pp.92-94, IO:AE pp.80-81): IO production
+  vs prototype dates (Hardened 3081, Reflective 3080, Reactive 3081,
+  Ferro-Lamellor 3109, Ballistic-Reinforced 3131), per-tech `clanDates` (Clan
+  Ferro-Fibrous 2825), Reactive 14/7 slots and 30,000, Ferro-Lamellor 35,000,
+  Ballistic-Reinforced IS-only x0.75 and 25,000, Primitive x0.67 and 2290;
+  added Ferro-Fibrous Prototype, Heat-Dissipating, Impact-Resistant,
+  Anti-Penetrative Ablation; armor BV modifiers (`bvMultiplier`: Hardened 2,
+  Reactive/Reflective/Ballistic-Reinforced 1.5, Ferro-Lamellor/APA 1.2,
+  Heat-Dissipating 1.1); Mimetic marked battle-armor only (FM:ComStar p.147).
+  Armor picker honors the rules level and shows prototypes.
+- [x] Structure: Composite (TO:AUE p.154, IS-only); weights now round up to the
+  half ton with correct factors (Industrial 20%, Composite 5%, tripods x1.1);
+  structure BV modifiers (Industrial/Composite 0.5, Reinforced 2, was only
+  Industrial); structure changes now recalculate the unit.
+- [x] Gyro weight rounds to the half ton (XL 250 = 1.5 t, was 2); unknown gyro
+  names no longer reset the engine.
+- [x] Heat sinks: Laser (Clan, TO:AUE p.129), Double Heat Sink Prototype
+  (IO:AE p.65) and Freezers (IO:AE p.96, prototype-only); BV heat pool, cost
+  and names come from the heat sink record (`dissipation`, `freeSinks`).
+- [x] Jump jets: type picker (Improved JJ), jump MP capped at walk (run for
+  Improved), saved as `jump_jet_type`; BV movement heat = max(running, jumping)
+  with XXL (run 6, jump 2/MP min 6) and Improved JJ (half MP) rules.
+- [x] Large engines (rating > 400) offered only at the Experimental rules level.
+- [x] Vehicle suspension factor (Hover/Wheeled/VTOL/WiGE/Naval) subtracted from
+  the engine rating. Naval over 300 t uses MegaMek's formula, unverified.
+- [x] Minefield munition BV (Thunder, Augmented, Active, Vibrabomb, Inferno,
+  FASCAM; TO:AUE pp.185, 197-198) via `minefieldBattleValue`; munitions with
+  fewer rounds per ton than their family's standard round now get
+  proportionally fewer shots (Thunder-Augmented LRM 20: 3, was 6).
+- [ ] Construction gaps still open: Compact heat sinks (two per slot, engine
+  capacity rule to verify); Mechanical Jump Boosters and other misc equipment;
+  primitive fusion engine dates unsourced; special armor play effects
+  (Reactive/Reflective damage, Hardened, Heat-Dissipating) not modelled in play;
+  Clans' pre-2825 use of Star League Ferro-Fibrous not modelled; artillery
+  Thunder/FASCAM ammo BV not checked against the rack-size formulas;
+  IndustrialMech armor (Industrial/Heavy Industrial/Commercial) not audited.
+- [ ] Calculation engines to update for the new data model: cost, record
+  sheet, and Alpha Strike conversion to consume roundsPerTon/shotsPerTon,
+  prototype, and composite records.
 - [ ] Keep the literal-object rule: do not add generated supplemental imports;
   promote approved records directly into their owning catalog files.
 - [ ] Last validated catalog baseline: `npm test` passes 40 tests,

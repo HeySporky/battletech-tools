@@ -6,8 +6,8 @@ import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions } from "../data/era-options";
-import { getVehicleMotiveType, vehicleMotiveTypes } from "../data/vehicle-motive-types";
-import { getEquipmentListByTech } from "../data/equipment-registry";
+import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
+import { getEffectiveIntroduction, getEquipmentListByTech } from "../data/equipment-registry";
 import {
     IArmorType,
     IEngineType,
@@ -211,9 +211,6 @@ export default class Vehicle {
         return Math.max(0, this._cruiseMP - (this.hasActiveModularArmor() ? 1 : 0));
     }
 
-    // NOTE: rating = tonnage x Cruise MP mirrors the 'Mech walk-MP formula (TechManual).
-    // Motive-type-specific efficiency modifiers (e.g. Hover/Wheeled getting "free" MP) are not
-    // yet modeled here and should be verified before this is treated as construction-final.
     public setCruiseMP(cruiseMP: number): number {
         this._cruiseMP = Math.max(0, cruiseMP);
         this._calc();
@@ -224,8 +221,13 @@ export default class Vehicle {
         return Math.ceil(this.getCruiseMP() * 1.5);
     }
 
+    /** Engine rating = cruise MP x tonnage - suspension factor (TechManual Combat Vehicle construction). */
     public getEngineRating(): number {
-        return Math.ceil(this._tonnage * this._cruiseMP);
+        return Math.max(0, Math.ceil(this._tonnage * this._cruiseMP) - this.getSuspensionFactor());
+    }
+
+    public getSuspensionFactor(): number {
+        return getVehicleSuspensionFactor(this._motiveType.tag, this._tonnage);
     }
 
     public getEngineWeight(): number {
@@ -233,7 +235,10 @@ export default class Vehicle {
         const engineOption = mechEngineOptions.find((option) => option.rating >= requiredRating)
             ?? mechEngineOptions[mechEngineOptions.length - 1];
         const engineTag = this._engineType.tag as keyof typeof engineOption.weight;
-        return engineOption.weight[engineTag] ?? engineOption.weight.standard;
+        const weight = engineOption.weight[engineTag] ?? engineOption.weight.standard;
+        // Fusion and fission engines in vehicles need extra shielding: weight x 1.5 (TechManual, Combat Vehicle engines).
+        const shielded = this._engineType.tag !== "ice" && this._engineType.tag !== "cell";
+        return shielded ? Math.ceil(weight * 1.5 * 2) / 2 : weight;
     }
 
     public getArmorType(): IArmorType {
@@ -494,10 +499,19 @@ export default class Vehicle {
         return overlapsEra || (reintroductionYear > 0 && reintroductionYear <= eraEnd);
     }
 
-    public getAvailableEquipment(includeCustom: boolean = false): IEquipmentItem[] {
+    private _setAvailability(item: IEquipmentItem, rulesLevel: number): void {
+        // Equipment records carry side-specific IS or Clan dates, so extinction always applies.
+        const inProduction = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced);
+        const effectiveIntroduction = getEffectiveIntroduction(item, rulesLevel);
+        const asPrototype = !inProduction && effectiveIntroduction !== item.introduced
+            && this._itemIsAvailable(effectiveIntroduction, item.extinct, item.reintroduced);
+        item.availableAsPrototype = asPrototype;
+        item.available = (inProduction || asPrototype) && this._isEquipmentAllowedForVehicle(item);
+    }
+
+    public getAvailableEquipment(includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {
         const returnItems: IEquipmentItem[] = [];
         const techTag = this._tech.tag;
-        const clanAvailability = techTag === "clan" || techTag === "mclan";
         const includeClan = ["clan", "mclan", "mis"].includes(techTag);
         const includeIS = ["is", "mis", "mclan"].includes(techTag);
 
@@ -505,7 +519,7 @@ export default class Vehicle {
             for (const item of getEquipmentListByTech("clan", includeCustom && !includeIS)) {
                 item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : "clan");
                 item.criticals = item.space.combatVehicle;
-                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced, clanAvailability) && this._isEquipmentAllowedForVehicle(item);
+                this._setAvailability(item, rulesLevel);
                 returnItems.push(item);
             }
         }
@@ -513,7 +527,7 @@ export default class Vehicle {
             for (const item of getEquipmentListByTech("is", includeCustom)) {
                 item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : "is");
                 item.criticals = item.space.combatVehicle;
-                item.available = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced) && this._isEquipmentAllowedForVehicle(item);
+                this._setAvailability(item, rulesLevel);
                 returnItems.push(item);
             }
         }
@@ -521,8 +535,8 @@ export default class Vehicle {
         return returnItems;
     }
 
-    public getAvailableEquipmentByCatalog(catalog: "all" | "is" | "clan" | "custom", includeCustom: boolean = false): IEquipmentItem[] {
-        const equipment = this.getAvailableEquipment(includeCustom);
+    public getAvailableEquipmentByCatalog(catalog: "all" | "is" | "clan" | "custom", includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {
+        const equipment = this.getAvailableEquipment(includeCustom, rulesLevel);
         return catalog === "all" ? equipment : equipment.filter((item) => item.catalog === catalog);
     }
 

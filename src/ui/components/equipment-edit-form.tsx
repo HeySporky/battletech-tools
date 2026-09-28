@@ -108,14 +108,28 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
-    updateAmmoPerTon = (
+    updateRoundsPerTon = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        item.ammoPerTon = +e.currentTarget.value;
+        item.roundsPerTon = +e.currentTarget.value;
+        delete item.ammoPerTon;
+
+        this.props.onChange( item );
+    }
+
+    updateShotsPerTon = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.shotsPerTon = +e.currentTarget.value;
+        delete item.ammoPerTon;
 
         this.props.onChange( item );
     }
@@ -486,7 +500,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                         <InputNumeric
                             step={1}
                             onChange={this.updatePage}
-                            value={this.props.editingItem.page}
+                            value={this.props.editingItem.page ?? 0}
                             label="Page #"
                         />
                     </div>
@@ -635,6 +649,14 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                                 onChange={this.props.onChange}
                             />
 
+                            <InputNumeric
+                                label="Shots Per Ton (0 = no ammo)"
+                                step={1}
+                                min={0}
+                                onChange={this.updateShotsPerTon}
+                                value={this.props.editingItem.shotsPerTon ?? this.props.editingItem.ammoPerTon ?? 0}
+                            />
+
                             <InputCheckbox
                                 label='Is Ultra AC'
                                 onChange={this.updateIsUltra}
@@ -658,11 +680,11 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                             <fieldset className="fieldset">
                                 <legend>Ammo Options</legend>
                                 <InputNumeric
-                                    label="Ammo Per Ton"
+                                    label="Rounds Per Ton"
                                     step={1}
                                     min={1}
-                                    onChange={this.updateAmmoPerTon}
-                                    value={this.props.editingItem.ammoPerTon}
+                                    onChange={this.updateRoundsPerTon}
+                                    value={this.props.editingItem.roundsPerTon ?? this.props.editingItem.ammoPerTon}
                                 />
                                 <InputNumeric
                                     label="Minimum Tonnage"

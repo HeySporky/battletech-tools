@@ -45,7 +45,7 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
             smallCraft: 0,
             dropShip: 0
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         gauss: false,
@@ -121,7 +121,7 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
             smallCraft: 0,
             dropShip: 0
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         gauss: false,
@@ -197,7 +197,7 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
             smallCraft: 0,
             dropShip: 0
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         gauss: false,
@@ -273,7 +273,7 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 0
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         gauss: false,
@@ -350,7 +350,7 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
             smallCraft: -1,
             dropShip: -1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         gauss: false,
@@ -403,7 +403,7 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         weight: 1,
         range: { min: 0, short: 0, medium: 0, long: 0 },
         space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [],
@@ -413,5 +413,8 @@ export const mechISEquipmentMisc: IEquipmentItem[] = [
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         additionalArmor: 10,
         currentAdditionalArmor: 10
-    }
+    },
+    { isAmmo: false, name: "TAG", altNames: ["Target Acquisition Gear", "IS TAG"], tag: "is-tag", altTags: ["tag", "target-acquisition-gear"], catalog: "is", sort: "equipment, tag, is", category: "Miscellaneous Equipment", alternateName: "TAG", damage: 0, notes: "Target Acquisition Gear: designates a target for homing artillery and semi-guided munitions; deals no damage.", damageAero: 0, accuracyModifier: 0, cbills: 50000, introduced: 2600, extinct: 2835, reintroduced: 3044, prototype: 2593, battleValue: 0, heat: 0, weight: 1, range: { min: 0, short: 5, medium: 9, long: 15 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: [], techRating: "e", book: "TM", page: 238, alphaStrike: { specialAbility: ["TAG"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }, heatAero: 0 },
+    { isAmmo: false, name: "Prototype TAG", altNames: ["Prototype TAG"], tag: "prototype-tag", altTags: [], catalog: "is", sort: "equipment, tag, is, prototype", category: "Miscellaneous Equipment", alternateName: "TAG", damage: 0, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 0, accuracyModifier: 0, cbills: 150000, introduced: null, extinct: 2600, reintroduced: 0, battleValue: 0, heat: 0, weight: 1.5, range: { min: 0, short: 5, medium: 9, long: 15 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: [], techRating: "e", book: "IO", page: null, alphaStrike: { specialAbility: ["TAG"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional: copied from the production weapon"] }, heatAero: 0, prototype: 2593 },
+    { isEquipment: true, isAmmo: false, name: "C3 Boosted System (Master)", altNames: ["C3 Boosted Master", "C3BSM"], tag: "c3-boosted-master", altTags: [], catalog: "is", sort: "equipment, c3, boosted master", category: "Misc Equipment", alternateName: "C3BS Master", damage: 0, notes: "Boosted C3 master: resists ECM; network BV applies to the whole force.", damageAero: 0, accuracyModifier: 0, cbills: 3000000, introduced: 3100, extinct: 0, reintroduced: 0, prototype: 3073, battleValue: 0, heat: 0, heatAero: 0, weight: 6, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: [], techRating: "e", book: "TO:AUE", page: 110, alphaStrike: { specialAbility: ["C3BSM"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] } },
 ]

@@ -36,8 +36,18 @@ export interface IArmorType {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    /** Multiplier on the armor factor in the defensive BV (TM p.302, TO:AUE; e.g. Hardened 2, Reactive 1.5). */
+    bvMultiplier?: number;
+    /** IO prototype year; with `introduced: null` the armor exists only as a prototype. */
+    prototype?: number;
+    /** Clan availability window when it differs from the Inner Sphere dates above. */
+    clanDates?: ITechDates;
+    book?: string;
+    page?: number | null;
+    notes?: string;
     critLocs?: ArmorCriticalLocationsByChassis;
     available?: boolean;
+    availableAsPrototype?: boolean;
 }
 
 export interface IEngineOption {
@@ -48,14 +58,15 @@ export interface IEngineOption {
         xl: number;
         clan_xl: number;
         light: number;
-        compact: number;
+        /** Absent above rating 400: compact engines cannot be large engines. */
+        compact?: number;
         xxl: number;
         clan_xxl: number;
         ice: number;
 		cell: number;
 		fission: number;
-        primitive: number;
-        comp?: number;		
+        /** Absent where the primitive-adjusted rating exceeds 500. */
+        primitive?: number;
 	}
 }
 
@@ -78,6 +89,8 @@ export interface IEngineType {
 	name: string;
     alternateName?: string;
 	costMultiplier: number;
+    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
+    prototype?: number;
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
@@ -86,6 +99,8 @@ export interface IEngineType {
     },
     rating: number;
     available?: boolean;
+    /** Set when the engine is offered only as an Experimental prototype. */
+    availableAsPrototype?: boolean;
 }
 
 export interface IDamagePerRange {
@@ -188,6 +203,27 @@ export interface IEquipmentItem {
     weight: number;
     range: IRangeNumbers,
     space: ICriticalSpace,
+    /** IO prototype year when it precedes `introduced` (production); available only at Experimental rules. */
+    prototype?: number;
+    /** Set on listed equipment when it is available only as an Experimental prototype. */
+    availableAsPrototype?: boolean;
+    /** Ammunition: rounds (missiles, slugs, pods) in one ton. */
+    roundsPerTon?: number;
+    /** Weapons: published number of times the weapon fires from one ton of its ammunition. */
+    shotsPerTon?: number;
+    /** Weapons: published shots per ton keyed by ammo family/tag, for launchers whose count depends on the ammo (MML). */
+    shotsPerTonByAmmo?: Record<string, number>;
+    /** Weapons: BV per ton of this weapon's standard ammunition (TM/TO per-launcher ammo BV). */
+    ammoBattleValue?: number;
+    /** Special munitions: multiplier on the launcher's ammo BV (TO:AUE munition BV). */
+    battleValueMultiplier?: number;
+    /** Minefield munitions: BV per ton comes from the launcher's rack size and shots (TO:AUE pp.185, 197-198). */
+    minefieldBattleValue?: "thunder" | "thunder-augmented" | "thunder-inferno" | "thunder-vibrabomb" | "thunder-active" | "fascam";
+    /** Weapon arrays (MG Array): tags of the weapons it links in its own location; its BV derives from them. */
+    linkedWeaponTags?: string[];
+    /** Ammunition bins in a unit: tag of the weapon this bin is loaded for. */
+    feedsWeaponTag?: string;
+    /** @deprecated Legacy field; read only to import older records. Use roundsPerTon (ammo) or shotsPerTon (weapons). */
     ammoPerTon?: number;
     minAmmoTons?: number;
     explosive?: boolean;
@@ -196,7 +232,8 @@ export interface IEquipmentItem {
     techRating?: string;
     unique?: boolean;
     book: string;
-    page: number;
+    /** Rulebook page; null when the page has not been verified in the book. */
+    page: number | null;
     alphaStrike: {
         specialAbility?: string[];
         damageAoE?: number;
@@ -266,10 +303,22 @@ export interface IGyro {
     weight_multiplier: number;
     criticals: number;
     costMultiplier: number;
+    /** Inner Sphere only (TM): not offered to pure Clan designs. */
+    innerSphereOnly?: boolean;
+    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
+    prototype?: number;
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
     available?: boolean;
+    availableAsPrototype?: boolean;
+}
+
+export interface ITechDates {
+    prototype?: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
 }
 
 export interface IHeatSync {
@@ -280,9 +329,22 @@ export interface IHeatSync {
         [key: string]: number;
     },
     cost: number;
+    /** Heat sinks that cost nothing (single-type sinks: the first 10); double-type sinks pay for all. */
+    freeSinks?: number;
+    /** Only this technology base builds it (Laser: Clan; prototypes: Inner Sphere). */
+    techBase?: "is" | "clan";
+    book?: string;
+    page?: number | null;
+    notes?: string;
+    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
+    prototype?: number;
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    /** Clan availability window when it differs from the Inner Sphere one above. */
+    clanDates?: ITechDates;
+    available?: boolean;
+    availableAsPrototype?: boolean;
 }
 
 export interface IInternalStructurePerTon {
@@ -344,9 +406,21 @@ export interface IInternalStructure {
 		// LAMs follow Biped structure but have unique tonnage limits (max 55 tons) and component rules
     	lam: Record<number, IInternalStructurePerTon>;
   	};
+    /** Multiplier on internal structure points in the defensive BV (Industrial/Composite 0.5, Reinforced 2). */
+    bvMultiplier?: number;
+    /** No Clan version exists (Composite). */
+    innerSphereOnly?: boolean;
+    book?: string;
+    page?: number | null;
+    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
+    prototype?: number;
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    /** Clan availability window when it differs from the Inner Sphere one above. */
+    clanDates?: ITechDates;
+    available?: boolean;
+    availableAsPrototype?: boolean;
 }
 
 export interface IJumpJet {
@@ -360,9 +434,15 @@ export interface IJumpJet {
     },
     criticals: number;
     costMultiplier: number;
+    /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
+    prototype?: number;
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    /** Clan availability window when it differs from the Inner Sphere one above. */
+    clanDates?: ITechDates;
+    available?: boolean;
+    availableAsPrototype?: boolean;
 }
 
 export interface IMechType {

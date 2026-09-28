@@ -35,7 +35,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -87,7 +87,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -118,9 +118,10 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 10,
         accuracyModifier: 0,
         cbills: 200000,
-        introduced: 2820,
+        introduced: 2825,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2820,
         battleValue: 248,
         heat: 12,
         weight: 4,
@@ -130,16 +131,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 15,
             long: 25
         },
-        space: {
-            battlemech: 2,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -173,7 +166,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3057,
         extinct: 0,
         reintroduced: 0,
-        battleValue: 271,
+        battleValue: 272,
         heat: 13,
         weight: 6,
         range: {
@@ -182,16 +175,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 15,
             long: 23
         },
-        space: {
-            battlemech: 3,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 3,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -222,9 +207,10 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 7,
         accuracyModifier: 0,
         cbills: 80000,
-        introduced: 3058,
+        introduced: 2824,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2822,
         battleValue: 108,
         heat: 5,
         weight: 1,
@@ -243,7 +229,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -286,16 +272,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 9,
             long: 14
         },
-        space: {
-            battlemech: 2,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 2,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -328,15 +306,11 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3060,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3059,
         battleValue: 7,
         heat: 1,
         weight: 0.25,
-        range: {
-            min: 0,
-            short: 1,
-            medium: 2,
-            long: 3
-        },
+        range: { min: 0, short: 1, medium: 2, long: 4 },
         space: {
             battlemech: 1,
             protomech: 1,
@@ -346,7 +320,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -377,9 +351,10 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 15,
         accuracyModifier: 0,
         cbills: 300000,
-        introduced: 2820,
+        introduced: 2826,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2823,
         battleValue: 412,
         heat: 15,
         weight: 6,
@@ -389,16 +364,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 14,
             long: 23
         },
-        space: {
-            battlemech: 2,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 2,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -425,13 +392,14 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         tag: "er-small-laser-clan",
         sort: "laser, er, clan, 1, small",
         category: "Energy Weapons",
-        damage: 3,
+        damage: 5,
         damageAero: 3,
         accuracyModifier: 0,
         cbills: 11250,
-        introduced: 3058,
+        introduced: 2825,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2822,
         battleValue: 31,
         heat: 2,
         weight: 0.5,
@@ -450,7 +418,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -480,29 +448,21 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damage: 5,
         damageAero: 5,
         accuracyModifier: -1,
-        cbills: 350000,
+        cbills: 30000,
         introduced: 3057,
         extinct: 0,
         reintroduced: 0,
-        battleValue: 47,
+        battleValue: 36,
         heat: 3,
-        weight: 1,
+        weight: 1.5,
         range: {
             min: 0,
             short: 2,
             medium: 4,
             long: 6
         },
-        space: {
-            battlemech: 1,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -525,16 +485,17 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
     },
     {
         isAmmo: false,
-        name: "Flamer (Clan)",
+        name: "Flamer (Clan, Star League)",
         tag: "standard-flamer-clan",
+        altNames: ["Flamer (Clan)"],
         category: "Energy Weapons",
         sort: "flamer, clan, 1",
         damage: 2,
         damageAero: 2,
         accuracyModifier: 0,
         cbills: 7500,
-        introduced: 2025,
-        extinct: 0,
+        introduced: 1950,
+        extinct: 2830,
         reintroduced: 0,
         battleValue: 6,
         heat: 3,
@@ -545,16 +506,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 2,
             long: 3
         },
-        space: {
-            battlemech: 1,
-            protomech: 1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -589,28 +542,21 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 16,
         accuracyModifier: 1,
         cbills: 250000,
-        introduced: 3059,
+        introduced: 3058,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3057,
         battleValue: 244,
         heat: 18,
-        weight: 6,
+        weight: 4,
         range: {
             min: 0,
             short: 5,
             medium: 10,
             long: 15
         },
-        space: {
-            battlemech: 2,
-            protomech: 1,
-            combatVehicle: 1,
-            supportVehicle: 2,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -641,28 +587,21 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 10,
         accuracyModifier: 1,
         cbills: 100000,
-        introduced: 3059,
+        introduced: 3058,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3057,
         battleValue: 76,
         heat: 7,
-        weight: 2,
+        weight: 1,
         range: {
             min: 0,
             short: 3,
             medium: 6,
             long: 9
         },
-        space: {
-            battlemech: 1,
-            protomech: 1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -693,12 +632,13 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 6,
         accuracyModifier: 1,
         cbills: 20000,
-        introduced: 3059,
+        introduced: 3058,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3057,
         battleValue: 15,
         heat: 3,
-        weight: 1,
+        weight: 0.5,
         range: {
             min: 0,
             short: 1,
@@ -714,7 +654,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -739,17 +679,19 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
     },
     {
         isAmmo: false,
-        name: "Large Laser (Clan)",
+        name: "Large Laser (Clan, Star League)",
         tag: "clan-large-laser",
+        altNames: ["Large Laser (Clan)"],
         sort: "laser, clan, 2, large",
         category: "Energy Weapons",
         damage: 8,
         damageAero: 8,
         accuracyModifier: 0,
         cbills: 100000,
-        introduced: 2815,
+        introduced: 2316,
         extinct: 2850,
         reintroduced: 0,
+        prototype: 2306,
         battleValue: 123,
         heat: 8,
         weight: 5,
@@ -768,7 +710,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -799,9 +741,10 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 10,
         accuracyModifier: -2,
         cbills: 175000,
-        introduced: 2826,
+        introduced: 2824,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2820,
         battleValue: 265,
         heat: 10,
         weight: 6,
@@ -811,16 +754,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 14,
             long: 20
         },
-        space: {
-            battlemech: 2,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 2,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -850,12 +785,13 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damage: 0,
         damageAero: 0,
         accuracyModifier: 0,
-        cbills: 150000,
+        cbills: 225000,
         introduced: 3048, // Prototyped right before the initial Clan Invasion
         extinct: 0,
         reintroduced: 0,
-        battleValue: 53,
-        heat: 7, // Trades a higher thermal spikes signature for weight optimization
+        battleValue: 45,
+        battleValueDefensive: true,
+        heat: 5, // Trades a higher thermal spikes signature for weight optimization
         weight: 1,
         range: {
             min: 0,
@@ -863,16 +799,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 0,
             long: 0
         },
-        space: {
-            battlemech: 1,
-            protomech: 1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -895,17 +823,19 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
     },
     {
         isAmmo: false,
-        name: "Medium Laser (Clan)",
+        name: "Medium Laser (Clan, Star League)",
         tag: "medium-laser-clan",
+        altNames: ["Medium Laser (Clan)"],
         sort: "laser, clan, medium, 1",
         category: "Energy Weapons",
         damage: 5,
         damageAero: 5,
         accuracyModifier: 0,
         cbills: 40000,
-        introduced: 2815, // Resumed Clan localized manufacturing date
+        introduced: 2300, // Resumed Clan localized manufacturing date
         extinct: 2850,    // Hard extinction date in Clan Space logs
         reintroduced: 0,
+        prototype: 2290,
         battleValue: 46,
         heat: 3,
         weight: 1,
@@ -915,16 +845,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 6,
             long: 9
         },
-        space: {
-            battlemech: 1,
-            protomech: 1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -955,9 +877,10 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 7,
         accuracyModifier: -2,
         cbills: 60000,
-        introduced: 2826,
+        introduced: 2827,
         extinct: 0,
         reintroduced: 0,
+        prototype: 2825,
         battleValue: 111,
         heat: 4,
         weight: 2,
@@ -967,16 +890,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 8,
             long: 12
         },
-        space: {
-            battlemech: 1,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -1010,6 +925,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3060,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3059,
         battleValue: 12,
         heat: 1,
         weight: 0.5,
@@ -1028,7 +944,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1053,17 +969,19 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         rangeAero: "s"
     },
     {
-        name: "PPC (Clan)",
+        name: "PPC (Clan, Star League)",
         tag: "clan-standard-ppc",
+        altNames: ["PPC (Clan)"],
         sort: "ppc, 3, standard, clan",
         category: "Energy Weapons",
         damage: 10,
         damageAero: 10,
         accuracyModifier: 0,
         cbills: 200000,
-        introduced: 2815, // Adjusted to match Clan localized manufacturing resumption
-        extinct: 2850,    // Hard extinction date in Clan Space logs
+        introduced: 2460, // Adjusted to match Clan localized manufacturing resumption
+        extinct: 2825,    // Hard extinction date in Clan Space logs
         reintroduced: 0,
+        prototype: 2440,
         battleValue: 176,
         heat: 10,
         weight: 7,
@@ -1082,7 +1000,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0, // Adjusted to 0 for pure energy weapon mapping
         explosive: false,
         weaponType: [
@@ -1117,6 +1035,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         introduced: 3069,
         extinct: 0,
         reintroduced: 0,
+        prototype: 3068,
         battleValue: 170,
         heat: 7,
         weight: 3,
@@ -1126,16 +1045,9 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 12,
             long: 18
         },
-        space: {
-            battlemech: 1,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 0,
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 10,
+        ammoBattleValue: 21,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1158,17 +1070,19 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
     },
     {
         isAmmo: false,
-        name: "Small Laser (Clan)",
+        name: "Small Laser (Clan, Star League)",
         tag: "small-laser-clan",
+        altNames: ["Small Laser (Clan)"],
         sort: "laser, clan, 1, small",
         category: "Energy Weapons",
         damage: 3,
         damageAero: 3,
         accuracyModifier: 0,
         cbills: 11250,
-        introduced: 2815, // Resumed Clan localized manufacturing date
+        introduced: 2300, // Resumed Clan localized manufacturing date
         extinct: 2850,    // Hard extinction date in Clan Space logs
         reintroduced: 0,
+        prototype: 2290,
         battleValue: 9,
         heat: 1,
         weight: 0.5,
@@ -1187,7 +1101,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,
         weaponType: [
@@ -1218,9 +1132,10 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         damageAero: 3,
         accuracyModifier: -2,
         cbills: 16000,
-        introduced: 2609,
-        extinct: 2950,
-        reintroduced: 3037,
+        introduced: 2829,
+        extinct: 0,
+        reintroduced: 0,
+        prototype: 2825,
         battleValue: 24,
         heat: 2,
         weight: 1,
@@ -1239,7 +1154,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             smallCraft: 1,
             dropShip: 1
         },
-        ammoPerTon: 0,
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
@@ -1265,18 +1180,124 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
     },
     {
         isAmmo: false,
-        name: "Vehicle Flamer (Clan)",
-        tag: "vehicle-flamer-clan",
+        name: "ER PPC (Clan, Star League)",
+        tag: "clan-sl-er-ppc",
+        catalog: "clan",
+        altNames: [],
+        sort: "ppc, er",
         category: "Energy Weapons",
-        sort: "flamer, vehicle",
+        damage: 10,
+        damageAero: 10,
+        accuracyModifier: 0,
+        cbills: 300000,
+        introduced: 2751,
+        extinct: 2860,
+        reintroduced: 0,
+        prototype: 2740,
+        battleValue: 229,
+        heat: 15,
+        weight: 7,
+        range: {
+            min: 0,
+            short: 7,
+            medium: 14,
+            long: 23
+        },
+        space: {
+            battlemech: 3,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 3,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        shotsPerTon: 0,
+        minAmmoTons: 1,
+        explosive: false,
+        weaponType: [
+            "DE"
+        ],
+        techRating: "e",
+        book: "TM",
+        page: 233,
+        alphaStrike: {
+            heat: 15,
+            rangeShort: 1,
+            rangeMedium: 1,
+            rangeLong: 1,
+            rangeExtreme: 0,
+            tc: true,
+            notes: []
+        },
+        heatAero: 15,
+        rangeAero: "l"
+    },
+    {
+        isAmmo: false,
+        name: "Heavy Flamer (Clan)",
+        tag: "clan-heavy-flamer",
+        ammoTypes: ["ammo-clan-heavy-flamer-standard"],
+        catalog: "clan",
+        category: "Energy Weapons",
+        sort: "flamer, heavy, clan",
+        damage: 4,
+        damageAero: 4,
+        accuracyModifier: 0,
+        cbills: 11250,
+        introduced: 3068,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 15,
+        heat: 5,
+        weight: 1.5,
+        range: {
+            min: 0,
+            short: 2,
+            medium: 3,
+            long: 4
+        },
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 10,
+        ammoBattleValue: 2,
+        minAmmoTons: 1,
+        explosive: false,
+        weaponType: [
+            "DE",
+            "H"
+        ],
+        techRating: "c",
+        book: "TO:AUE",
+        page: 124,
+        alphaStrike: {
+            heat: 5,
+            rangeShort: 0.4,
+            rangeMedium: 0.4,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: false,
+            notes: [
+                "Heat"
+            ]
+        },
+        heatAero: 5
+    },
+    {
+        isAmmo: false,
+        name: "Flamer (Clan)",
+        tag: "clan-flamer",
+        catalog: "clan",
+        category: "Energy Weapons",
+        sort: "flamer, clan",
         damage: 2,
         damageAero: 2,
         accuracyModifier: 0,
         cbills: 7500,
-        introduced: 1950,
+        introduced: 2827,
         extinct: 0,
         reintroduced: 0,
-        battleValue: 5,
+        prototype: 2820,
+        battleValue: 6,
         heat: 3,
         weight: 0.5,
         range: {
@@ -1285,23 +1306,15 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 2,
             long: 3
         },
-        space: {
-            battlemech: 1,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        ammoPerTon: 20,
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
         weaponType: [
             "DE",
             "H"
         ],
-        techRating: "b",
+        techRating: "c",
         book: "TM",
         page: 218,
         alphaStrike: {
@@ -1318,5 +1331,17 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         },
         heatAero: 3,
         rangeAero: "s"
-    }
+    },
+    { name: "Improved PPC", tag: "clan-improved-ppc", altNames: ["Clan Improved PPC"], sort: "ppc, 3, standard, clan improved", category: "Energy Weapons", damage: 10, damageAero: 10, accuracyModifier: 0, cbills: 200000, introduced: 2820, extinct: 2832, reintroduced: 3080, prototype: 2819, battleValue: 176, heat: 10, weight: 6, range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "d", book: "IO", page: null, alphaStrike: { heat: 10, rangeShort: 0.75, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: true, notes: [] }, heatAero: 10, rangeAero: "m", altTags: [], alternateName: "iPPC", catalog: "clan", notes: "Early Clan improved weapon (Interstellar Operations); obsolete by the Invasion, reissued in the Escorpion Imperio from 3080." },
+    { isAmmo: false, name: "Improved Large Pulse Laser", tag: "clan-improved-large-pulse-laser", sort: "laser, pulse, 2, large improved", category: "Energy Weapons", damage: 9, damageAero: 9, accuracyModifier: -2, cbills: 175000, introduced: 2818, extinct: 2826, reintroduced: 3080, prototype: 2815, battleValue: 119, heat: 10, weight: 6, range: { min: 0, short: 3, medium: 7, long: 10 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 1, explosive: false, weaponType: ["P"], techRating: "e", book: "IO", page: null, alphaStrike: { heat: 10, rangeShort: 0.99, rangeMedium: 0.99, rangeLong: 0, rangeExtreme: 0, tc: true, notes: [] }, heatAero: 10, rangeAero: "m", altNames: ["Clan Improved Large Pulse Laser"], altTags: [], alternateName: "iLPL", catalog: "clan", notes: "Early Clan improved weapon (Interstellar Operations); obsolete by the Invasion, reissued in the Escorpion Imperio from 3080." },
+    { isAmmo: false, name: "Improved Large Laser", tag: "clan-improved-large-laser", altNames: ["Clan Improved Large Laser"], sort: "laser, clan, 2, large improved", category: "Energy Weapons", damage: 8, damageAero: 8, accuracyModifier: 0, cbills: 100000, introduced: 2815, extinct: 2830, reintroduced: 3080, prototype: 2812, battleValue: 123, heat: 8, weight: 4, range: { min: 0, short: 5, medium: 10, long: 15 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "c", book: "IO", page: null, alphaStrike: { heat: 8, rangeShort: 0.8, rangeMedium: 0.8, rangeLong: 0, rangeExtreme: 0, tc: true, notes: [] }, heatAero: 8, rangeAero: "m", altTags: [], alternateName: "iLL", catalog: "clan", notes: "Early Clan improved weapon (Interstellar Operations); obsolete by the Invasion, reissued in the Escorpion Imperio from 3080." },
+    { isAmmo: false, name: "Improved Heavy Large Laser", tag: "clan-improved-heavy-large-laser", sort: "laser, heavy, 3, large, clan improved", category: "Energy Weapons", damage: 16, damageAero: 16, accuracyModifier: 1, cbills: 350000, introduced: 3069, extinct: 0, reintroduced: 0, battleValue: 296, heat: 18, weight: 4, range: { min: 0, short: 5, medium: 10, long: 15 }, space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 1, explosive: true, weaponType: ["P"], techRating: "f", book: "TO:AUE", page: 133, alphaStrike: { heat: 18, rangeShort: 1.52, rangeMedium: 1.52, rangeLong: 0, rangeExtreme: 0, tc: true, notes: [] }, heatAero: 18, rangeAero: "m", altNames: ["Clan Improved Heavy Large Laser"], altTags: [], alternateName: "iHLL", catalog: "clan", notes: "Improved heavy laser: explodes like a Gauss rifle when critically hit." },
+    { isAmmo: false, name: "Improved Heavy Medium Laser", tag: "clan-improved-heavy-medium-laser", sort: "laser, heavy, 2, medium, clan improved", category: "Energy Weapons", damage: 10, damageAero: 10, accuracyModifier: 1, cbills: 150000, introduced: 3069, extinct: 0, reintroduced: 0, battleValue: 93, heat: 7, weight: 1, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 1, explosive: true, weaponType: ["DE"], techRating: "f", book: "TO:AUE", page: 133, alphaStrike: { heat: 7, rangeShort: 0.95, rangeMedium: 0.95, rangeLong: 0, rangeExtreme: 0, tc: true, notes: [] }, heatAero: 7, rangeAero: "s", altNames: ["Clan Improved Heavy Medium Laser"], altTags: [], alternateName: "iHML", catalog: "clan", notes: "Improved heavy laser: explodes like a Gauss rifle when critically hit." },
+    { isAmmo: false, name: "Improved Heavy Small Laser", tag: "clan-improved-heavy-small-laser", sort: "laser, heavy, 1, small, clan improved", category: "Energy Weapons", damage: 6, damageAero: 6, accuracyModifier: 1, cbills: 30000, introduced: 3069, extinct: 0, reintroduced: 0, battleValue: 19, heat: 3, weight: 0.5, range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 1, explosive: true, weaponType: ["DE"], techRating: "e", book: "TO:AUE", page: 133, alphaStrike: { heat: 3, rangeShort: 0.57, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Point Defense"] }, heatAero: 3, rangeAero: "s", altNames: ["Clan Improved Heavy Small Laser"], altTags: [], alternateName: "iHSL", catalog: "clan", notes: "Improved heavy laser: explodes like a Gauss rifle when critically hit." },
+    { isAmmo: false, name: "ER Flamer (Clan)", altNames: ["Clan ER Flamer"], tag: "clan-er-flamer", altTags: [], catalog: "clan", sort: "flamer, er, clan", category: "Energy Weapons", alternateName: "ER Flamer", damage: 2, notes: "", damageAero: 2, accuracyModifier: 0, cbills: 15000, introduced: 3067, extinct: 0, reintroduced: 0, battleValue: 16, heat: 4, weight: 1, range: { min: 0, short: 3, medium: 5, long: 7 }, space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE", "H"], techRating: "d", book: "TO:AUE", page: 124, alphaStrike: { heat: 4, rangeShort: 0.2, rangeMedium: 0.2, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Heat"] }, heatAero: 4 },
+    { isAmmo: false, name: "Large Chemical Laser", altNames: ["Clan Large Chemical Laser"], tag: "clan-large-chemical-laser", altTags: [], catalog: "clan", sort: "laser, chemical, large", category: "Energy Weapons", alternateName: "Large Chem Laser", damage: 8, notes: "Chemical laser: fires from explosive ammunition instead of drawing heavy power.", damageAero: 8, accuracyModifier: 0, cbills: 75000, introduced: 3059, extinct: 0, reintroduced: 0, battleValue: 99, heat: 6, weight: 5, range: { min: 0, short: 5, medium: 10, long: 15 }, space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-clan-large-chemical-laser-standard"], shotsPerTon: 10, ammoBattleValue: 12, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO:AUE", page: 132, alphaStrike: { heat: 8, rangeShort: 0.8, rangeMedium: 0.8, rangeLong: 0, rangeExtreme: 0, tc: true, notes: [] }, heatAero: 6, rangeAero: "m" },
+    { isAmmo: false, name: "Medium Chemical Laser", altNames: ["Clan Medium Chemical Laser"], tag: "clan-medium-chemical-laser", altTags: [], catalog: "clan", sort: "laser, chemical, medium", category: "Energy Weapons", alternateName: "Medium Chem Laser", damage: 5, notes: "Chemical laser: fires from explosive ammunition instead of drawing heavy power.", damageAero: 5, accuracyModifier: 0, cbills: 30000, introduced: 3059, extinct: 0, reintroduced: 0, battleValue: 37, heat: 2, weight: 1, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-clan-medium-chemical-laser-standard"], shotsPerTon: 30, ammoBattleValue: 5, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO:AUE", page: 132, alphaStrike: { heat: 3, rangeShort: 0.5, rangeMedium: 0.5, rangeLong: 0, rangeExtreme: 0, tc: true, notes: [] }, heatAero: 2, rangeAero: "m" },
+    { isAmmo: false, name: "Small Chemical Laser", altNames: ["Clan Small Chemical Laser"], tag: "clan-small-chemical-laser", altTags: [], catalog: "clan", sort: "laser, chemical, small", category: "Energy Weapons", alternateName: "Small Chem Laser", damage: 3, notes: "Chemical laser: fires from explosive ammunition instead of drawing heavy power.", damageAero: 3, accuracyModifier: 0, cbills: 10000, introduced: 3059, extinct: 0, reintroduced: 0, battleValue: 7, heat: 1, weight: 0.5, range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-clan-small-chemical-laser-standard"], shotsPerTon: 60, ammoBattleValue: 1, minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "e", book: "TO:AUE", page: 132, alphaStrike: { heat: 1, rangeShort: 0.3, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: true, notes: [] }, heatAero: 1, rangeAero: "s" },
+    { isAmmo: false, name: "Prototype ER Medium Laser (Clan)", altNames: ["Prototype ER Medium Laser (CP)"], tag: "clan-prototype-er-medium-laser", altTags: [], catalog: "clan", sort: "laser, er, clan, 2, medium, prototype", category: "Energy Weapons", alternateName: "", damage: 5, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 7, accuracyModifier: 0, cbills: 80000, introduced: null, extinct: 2824, reintroduced: 0, battleValue: 62, heat: 5, weight: 1.5, range: { min: 0, short: 4, medium: 8, long: 12 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "IO", page: null, alphaStrike: { heat: 5, rangeShort: 0.7, rangeMedium: 0.7, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Provisional: copied from the production weapon"] }, heatAero: 5, prototype: 2819, rangeAero: "m" },
+    { isAmmo: false, name: "Prototype ER Small Laser (Clan)", altNames: ["Prototype ER Small Laser (CP)"], tag: "clan-prototype-er-small-laser", altTags: [], catalog: "clan", sort: "laser, er, clan, 1, small, prototype", category: "Energy Weapons", alternateName: "", damage: 3, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 3, accuracyModifier: 0, cbills: 11250, introduced: null, extinct: 2825, reintroduced: 0, battleValue: 17, heat: 2, weight: 0.5, range: { min: 0, short: 2, medium: 4, long: 5 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "e", book: "IO", page: null, alphaStrike: { heat: 2, rangeShort: 0.5, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Provisional: copied from the production weapon"] }, heatAero: 2, prototype: 2819, rangeAero: "s" },
 ]

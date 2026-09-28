@@ -38,6 +38,8 @@ export interface IEquipmentCatalogSummary {
     weaponCount: number;
     duplicateTags: string[];
     missingSourceCount: number;
+    /** Records whose book is known but whose page has not been verified (page: null). */
+    unverifiedPageCount: number;
 }
 
 const equipmentCatalogDefinitions: IEquipmentCatalogDefinition[] = [
@@ -116,20 +118,192 @@ export function getEquipmentMaximumRangeInHexes(item: IEquipmentItem): number {
     return (item.range.maxMapSheets ?? 0) * 17;
 }
 
+/**
+ * Fallback only: rounds in a ton divided by the launcher's tubes, rounded up.
+ * Published shots-per-ton values (weapon `shotsPerTon`/`shotsPerTonByAmmo`)
+ * always win, because canon deviates from this formula (SRM 6 = 15, not 17).
+ */
 export function calculateShotsPerTon(totalRoundsPerTon: number, launcherSize: number): number {
-    if (!Number.isFinite(totalRoundsPerTon) || !Number.isFinite(launcherSize) || launcherSize <= 0) {
+    if (!Number.isFinite(totalRoundsPerTon) || !Number.isFinite(launcherSize) || totalRoundsPerTon <= 0 || launcherSize <= 0) {
         return 0;
     }
 
-    return Math.floor(totalRoundsPerTon / launcherSize);
+    return Math.ceil(totalRoundsPerTon / launcherSize);
+}
+
+/** Rules level at which experimental prototypes may be used (Experimental and Custom Homebrew). */
+export const EXPERIMENTAL_RULES_LEVEL = 4;
+
+/**
+ * Year an item becomes usable in construction: its production year, or its
+ * IO prototype year when the rules level allows experimental technology.
+ */
+export function getEffectiveIntroduction(item: Pick<IEquipmentItem, "prototype" | "introduced">, rulesLevel: number): number | null {
+    if (rulesLevel >= EXPERIMENTAL_RULES_LEVEL && item.prototype && (!item.introduced || item.prototype < item.introduced)) {
+        return item.prototype;
+    }
+    return item.introduced;
+}
+
+export function getAmmoRoundsPerTon(ammo: IEquipmentItem): number {
+    return ammo.roundsPerTon ?? ammo.ammoPerTon ?? 0;
+}
+
+function stripAmmoFaction(tag: string): string {
+    return tag.toLowerCase().replace(/^ammo-(is|clan)-/, "ammo-");
+}
+
+function getAllAmmo(): IEquipmentItem[] {
+    return equipmentCatalogDefinitions
+        .filter(catalog => catalog.category === "ammunition")
+        .flatMap(catalog => catalog.equipment);
+}
+
+function getCustomAmmo(): IEquipmentItem[] {
+    return equipmentCatalogDefinitions
+        .filter(catalog => catalog.category === "ammunition" && catalog.techBase === "custom")
+        .flatMap(catalog => catalog.equipment);
+}
+
+let standardAmmoBases: { base: string; tag: string }[] | null = null;
+
+function getStandardAmmoBases(): { base: string; tag: string }[] {
+    if (!standardAmmoBases) {
+        standardAmmoBases = getAllAmmo()
+            .filter(ammo => !ammo.isSpecialAmmo && ammo.tag.endsWith("-standard"))
+            .map(ammo => ({ base: stripAmmoFaction(ammo.tag).replace(/-standard$/, ""), tag: stripAmmoFaction(ammo.tag) }))
+            .sort((a, b) => b.base.length - a.base.length);
+    }
+    return standardAmmoBases;
+}
+
+/**
+ * The ammunition family an ammo record belongs to, expressed as the
+ * faction-neutral tag of that family's standard round. Special munitions join
+ * the family whose standard tag is their longest prefix
+ * (ammo-is-lrm-swarm -> ammo-lrm-standard). Unmatched special ammo is its own family.
+ */
+export function getAmmoFamily(ammo: IEquipmentItem): string {
+    const tag = stripAmmoFaction(ammo.tag);
+    if (!ammo.isSpecialAmmo && tag.endsWith("-standard")) {
+        return tag;
+    }
+    return getStandardAmmoBases().find(({ base }) => tag.startsWith(base + "-"))?.tag ?? tag;
+}
+
+/**
+ * Ammo families a weapon can fire: those named by its explicit `ammoTypes`,
+ * plus any family containing a record tagged `ammo-<weapon tag>` (the
+ * historical per-weapon ammo tags kept in `altTags`).
+ */
+export function getWeaponAmmoFamilies(weapon: IEquipmentItem): string[] {
+    const families = new Set<string>();
+    const weaponIdentifiers = [weapon.tag, ...(weapon.altTags ?? [])].map(tag => `ammo-${tag}`);
+    // One-shot launchers carry their single volley and take no canon ammunition bins;
+    // only custom homebrew reload rules (custom catalog ammo) may feed them.
+    const ammoPool = weapon.isOneShot ? getCustomAmmo() : getAllAmmo();
+    for (const ammo of ammoPool) {
+        const explicit = (weapon.ammoTypes ?? []).some(ammoType => equipmentMatchesIdentifier(ammo, ammoType));
+        const conventional = weaponIdentifiers.some(identifier => [ammo.tag, ...(ammo.altTags ?? [])]
+            .some(tag => tag.toLowerCase() === identifier.toLowerCase()));
+        if (explicit || conventional) {
+            families.add(getAmmoFamily(ammo));
+        }
+    }
+    return Array.from(families);
 }
 
 export function getCompatibleAmmo(weapon: IEquipmentItem, ammo: IEquipmentItem): boolean {
-    if (!ammo.isAmmo || !weapon.ammoTypes || weapon.ammoTypes.length === 0) {
+    if (!ammo.isAmmo || weapon.isAmmo) {
         return false;
     }
 
-    return weapon.ammoTypes.some(ammoType => equipmentMatchesIdentifier(ammo, ammoType));
+    return getWeaponAmmoFamilies(weapon).includes(getAmmoFamily(ammo));
+}
+
+/**
+ * How many times `weapon` can fire from one ton of `ammo`. Published values
+ * win: a per-family override (dual-mode launchers such as the MML), then the
+ * weapon's `shotsPerTon`. Only when neither exists is the count derived from
+ * the ammo's rounds per ton and the launcher's tubes.
+ */
+let standardRoundsByFamily: Map<string, number> | null = null;
+
+/** Rounds per ton of a family's standard round (cached: shot counts are read on every render). */
+function getStandardRoundsPerTon(family: string): number {
+    if (!standardRoundsByFamily) {
+        standardRoundsByFamily = new Map();
+        for (const ammo of getAllAmmo()) {
+            if (!ammo.isSpecialAmmo && ammo.tag.endsWith("-standard")) {
+                const key = stripAmmoFaction(ammo.tag);
+                if (!standardRoundsByFamily.has(key)) standardRoundsByFamily.set(key, getAmmoRoundsPerTon(ammo));
+            }
+        }
+    }
+    return standardRoundsByFamily.get(family) ?? 0;
+}
+
+export function getWeaponShotsPerTon(weapon: IEquipmentItem, ammo?: IEquipmentItem): number {
+    if (ammo && weapon.shotsPerTonByAmmo) {
+        const family = getAmmoFamily(ammo);
+        const override = Object.entries(weapon.shotsPerTonByAmmo)
+            .find(([ammoTag]) => stripAmmoFaction(ammoTag) === family || equipmentMatchesIdentifier(ammo, ammoTag));
+        if (override) {
+            return override[1];
+        }
+    }
+
+    const published = weapon.shotsPerTon ?? (weapon.isAmmo ? undefined : weapon.ammoPerTon);
+    if (published && published > 0) {
+        // Munitions packing fewer rounds per ton than the family's standard round (e.g. Thunder-Augmented,
+        // 60 LRM missiles per ton against 120) give proportionally fewer shots.
+        const standardRounds = ammo ? getStandardRoundsPerTon(getAmmoFamily(ammo)) : 0;
+        const ammoRounds = ammo ? getAmmoRoundsPerTon(ammo) : 0;
+        if (standardRounds > 0 && ammoRounds > 0 && ammoRounds !== standardRounds) {
+            return Math.max(1, Math.floor(published * ammoRounds / standardRounds));
+        }
+        return published;
+    }
+
+    if (ammo) {
+        // Only missile launchers spend more than one round per shot.
+        const isLauncher = weapon.category.toLowerCase().includes("missile");
+        const tubes = weapon.ammoPerShot ?? (isLauncher ? weapon.damageClusters : undefined) ?? 1;
+        return calculateShotsPerTon(getAmmoRoundsPerTon(ammo), tubes);
+    }
+
+    return 0;
+}
+
+/**
+ * BV of one ton of ammunition loaded for a weapon: the launcher's standard ammo BV
+ * times the munition's multiplier, or the ammo record's own BV when the weapon
+ * lists none.
+ */
+export function getAmmoBattleValuePerTon(weapon: IEquipmentItem | null, ammo: IEquipmentItem): number {
+    if (weapon && ammo.minefieldBattleValue) {
+        // Minefield munitions (TO:AUE pp.185, 197-198): value from rack size R and shots per ton S.
+        const isArrowIV = /arrow-iv/.test(weapon.tag);
+        const clanArrowIV = weapon.catalog === "clan" || weapon.tag.startsWith("clan") || weapon.name.includes("(Clan");
+        const rack = isArrowIV ? (clanArrowIV ? 30 : 20) : (weapon.damageClusters ?? 0);
+        const shots = getWeaponShotsPerTon(weapon, ammo);
+        switch (ammo.minefieldBattleValue) {
+            case "thunder":
+            case "fascam":
+                return rack * shots / 5 * 4;
+            case "thunder-augmented":
+                return Math.ceil(rack / 2) * 7 * shots / 5 * 4;
+            case "thunder-inferno":
+            case "thunder-vibrabomb":
+                return rack * shots;
+            case "thunder-active":
+                return rack * shots / 5 * 6;
+        }
+    }
+    if (weapon && weapon.ammoBattleValue !== undefined) {
+        return weapon.ammoBattleValue * (ammo.battleValueMultiplier ?? 1);
+    }
+    return ammo.battleValue || 0;
 }
 
 export function getEquipmentCatalogSummaries(): IEquipmentCatalogSummary[] {
@@ -149,7 +323,8 @@ export function getEquipmentCatalogSummaries(): IEquipmentCatalogSummary[] {
             duplicateTags: Array.from(tagCounts.entries())
                 .filter(([, count]) => count > 1)
                 .map(([tag]) => tag),
-            missingSourceCount: definition.equipment.filter(item => !item.book || item.page < 0).length
+            missingSourceCount: definition.equipment.filter(item => !item.book || (item.page !== null && item.page < 0)).length,
+            unverifiedPageCount: definition.equipment.filter(item => item.page === null).length
         };
     });
 }

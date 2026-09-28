@@ -2,6 +2,12 @@ import { IEngineOption } from "./data-interfaces";
 
 /*
 * The data here is/may be copyrighted and NOT included in the GPLv3 license.
+*
+* Standard fusion weights: TechManual p.49 (ratings above 400: TO:AUE large engines).
+* Other columns apply the type multipliers to that weight, rounded up to the half ton:
+* XL x0.5, Light x0.75, Compact x1.5 (not available above 400), XXL x1/3, ICE x2,
+* Fuel Cell x1.2, Fission x1.75 (5 ton minimum). Primitive: IO, rating x1.2 rounded
+* up to the next 5, weighed as standard fusion (not available above an adjusted 500).
 */
 
 export const mechEngineOptions: IEngineOption[] = [
@@ -19,7 +25,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 1,
 			cell: 1,
 			fission: 5,
-			primitive: 1
+			primitive: 0.5
 		}
 	},
 	{
@@ -36,7 +42,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 1,
 			cell: 1,
 			fission: 5,
-			primitive: 1
+			primitive: 0.5
 		}
 	},
 	{
@@ -53,7 +59,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 1,
 			cell: 1,
 			fission: 5,
-			primitive: 1
+			primitive: 0.5
 		}
 	},
 	{
@@ -87,7 +93,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 2,
 			cell: 1.5,
 			fission: 5,
-			primitive: 1.5
+			primitive: 1
 		}
 	},
 	{
@@ -104,7 +110,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 2,
 			cell: 1.5,
 			fission: 5,
-			primitive: 1.5
+			primitive: 1
 		}
 	},
 	{
@@ -155,7 +161,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 3,
 			cell: 2,
 			fission: 5,
-			primitive: 2
+			primitive: 1.5
 		}
 	},
 	{
@@ -240,7 +246,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 4,
 			cell: 2.5,
 			fission: 5,
-			primitive: 2.5
+			primitive: 3
 		}
 	},
 	{
@@ -274,7 +280,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 5,
 			cell: 3,
 			fission: 5,
-			primitive: 3
+			primitive: 3.5
 		}
 	},
 	{
@@ -291,7 +297,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 6,
 			cell: 4,
 			fission: 5.5,
-			primitive: 4
+			primitive: 3.5
 		}
 	},
 	{
@@ -315,17 +321,17 @@ export const mechEngineOptions: IEngineOption[] = [
 		name: "100",
 		rating: 100,
 		weight: {
-			standard: 3.5,
-			xl: 2,
-			clan_xl: 2,
-			light: 3,
-			compact: 5.5,
-			xxl: 1.5,
-			clan_xxl: 1.5,
-			ice: 7,
-			cell: 4.5,
-			fission: 6.5,
-			primitive: 4.5
+			standard: 3,
+			xl: 1.5,
+			clan_xl: 1.5,
+			light: 2.5,
+			compact: 4.5,
+			xxl: 1,
+			clan_xxl: 1,
+			ice: 6,
+			cell: 4,
+			fission: 5.5,
+			primitive: 4
 		}
 	},
 	{
@@ -366,17 +372,17 @@ export const mechEngineOptions: IEngineOption[] = [
 		name: "115",
 		rating: 115,
 		weight: {
-			standard: 3.5,
+			standard: 4,
 			xl: 2,
 			clan_xl: 2,
 			light: 3,
-			compact: 5.5,
+			compact: 6,
 			xxl: 1.5,
 			clan_xxl: 1.5,
-			ice: 7,
-			cell: 4.5,
-			fission: 6.5,
-			primitive: 4.5
+			ice: 8,
+			cell: 5,
+			fission: 7,
+			primitive: 5
 		}
 	},
 	{
@@ -410,7 +416,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 8,
 			cell: 5,
 			fission: 7,
-			primitive: 5
+			primitive: 5.5
 		}
 	},
 	{
@@ -427,7 +433,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 9,
 			cell: 5.5,
 			fission: 8,
-			primitive: 5.5
+			primitive: 6
 		}
 	},
 	{
@@ -444,7 +450,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 9,
 			cell: 5.5,
 			fission: 8,
-			primitive: 5.5
+			primitive: 6
 		}
 	},
 	{
@@ -478,7 +484,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 10,
 			cell: 6,
 			fission: 9,
-			primitive: 6
+			primitive: 7
 		}
 	},
 	{
@@ -512,7 +518,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 11,
 			cell: 7,
 			fission: 10,
-			primitive: 7
+			primitive: 7.5
 		}
 	},
 	{
@@ -529,7 +535,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 12,
 			cell: 7.5,
 			fission: 10.5,
-			primitive: 7.5
+			primitive: 8
 		}
 	},
 	{
@@ -546,7 +552,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 12,
 			cell: 7.5,
 			fission: 10.5,
-			primitive: 7.5
+			primitive: 8.5
 		}
 	},
 	{
@@ -563,7 +569,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 12,
 			cell: 7.5,
 			fission: 10.5,
-			primitive: 7.5
+			primitive: 8.5
 		}
 	},
 	{
@@ -580,7 +586,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 14,
 			cell: 8.5,
 			fission: 12.5,
-			primitive: 8.5
+			primitive: 9
 		}
 	},
 	{
@@ -597,7 +603,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 14,
 			cell: 8.5,
 			fission: 12.5,
-			primitive: 8.5
+			primitive: 10
 		}
 	},
 	{
@@ -614,7 +620,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 15,
 			cell: 9,
 			fission: 13.5,
-			primitive: 9
+			primitive: 10
 		}
 	},
 	{
@@ -631,7 +637,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 15,
 			cell: 9,
 			fission: 13.5,
-			primitive: 9
+			primitive: 10.5
 		}
 	},
 	{
@@ -648,7 +654,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 16,
 			cell: 10,
 			fission: 14,
-			primitive: 10
+			primitive: 11
 		}
 	},
 	{
@@ -665,7 +671,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 17,
 			cell: 10.5,
 			fission: 15,
-			primitive: 10.5
+			primitive: 11.5
 		}
 	},
 	{
@@ -682,7 +688,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 17,
 			cell: 10.5,
 			fission: 15,
-			primitive: 10.5
+			primitive: 12.5
 		}
 	},
 	{
@@ -699,7 +705,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 18,
 			cell: 11,
 			fission: 16,
-			primitive: 11
+			primitive: 13
 		}
 	},
 	{
@@ -716,7 +722,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 19,
 			cell: 11.5,
 			fission: 17,
-			primitive: 11.5
+			primitive: 13.5
 		}
 	},
 	{
@@ -733,7 +739,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 20,
 			cell: 12,
 			fission: 17.5,
-			primitive: 12
+			primitive: 14
 		}
 	},
 	{
@@ -750,7 +756,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 20,
 			cell: 12,
 			fission: 17.5,
-			primitive: 12
+			primitive: 14.5
 		}
 	},
 	{
@@ -767,7 +773,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 21,
 			cell: 13,
 			fission: 18.5,
-			primitive: 13
+			primitive: 16
 		}
 	},
 	{
@@ -784,7 +790,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 22,
 			cell: 13.5,
 			fission: 19.5,
-			primitive: 13.5
+			primitive: 16.5
 		}
 	},
 	{
@@ -801,7 +807,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 23,
 			cell: 14,
 			fission: 20.5,
-			primitive: 14
+			primitive: 17.5
 		}
 	},
 	{
@@ -818,7 +824,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 24,
 			cell: 14.5,
 			fission: 21,
-			primitive: 14.5
+			primitive: 18
 		}
 	},
 	{
@@ -835,7 +841,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 25,
 			cell: 15,
 			fission: 22,
-			primitive: 15
+			primitive: 19
 		}
 	},
 	{
@@ -852,7 +858,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 26,
 			cell: 16,
 			fission: 23,
-			primitive: 16
+			primitive: 20.5
 		}
 	},
 	{
@@ -869,7 +875,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 27,
 			cell: 16.5,
 			fission: 24,
-			primitive: 16.5
+			primitive: 21.5
 		}
 	},
 	{
@@ -886,7 +892,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 28,
 			cell: 17,
 			fission: 24.5,
-			primitive: 17
+			primitive: 22.5
 		}
 	},
 	{
@@ -903,7 +909,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 29,
 			cell: 17.5,
 			fission: 25.5,
-			primitive: 17.5
+			primitive: 23.5
 		}
 	},
 	{
@@ -920,7 +926,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 31,
 			cell: 19,
 			fission: 27.5,
-			primitive: 19
+			primitive: 24.5
 		}
 	},
 	{
@@ -937,7 +943,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 32,
 			cell: 19.5,
 			fission: 28,
-			primitive: 19.5
+			primitive: 27
 		}
 	},
 	{
@@ -954,7 +960,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 33,
 			cell: 20,
 			fission: 29,
-			primitive: 20
+			primitive: 28.5
 		}
 	},
 	{
@@ -971,7 +977,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 35,
 			cell: 21,
 			fission: 31,
-			primitive: 21
+			primitive: 29.5
 		}
 	},
 	{
@@ -988,7 +994,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 36,
 			cell: 22,
 			fission: 31.5,
-			primitive: 22
+			primitive: 31.5
 		}
 	},
 	{
@@ -1005,7 +1011,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 38,
 			cell: 23,
 			fission: 33.5,
-			primitive: 23
+			primitive: 33
 		}
 	},
 	{
@@ -1022,7 +1028,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 39,
 			cell: 23.5,
 			fission: 34.5,
-			primitive: 23.5
+			primitive: 36.5
 		}
 	},
 	{
@@ -1039,7 +1045,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 41,
 			cell: 25,
 			fission: 36,
-			primitive: 25
+			primitive: 38.5
 		}
 	},
 	{
@@ -1056,7 +1062,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 43,
 			cell: 26,
 			fission: 38,
-			primitive: 26
+			primitive: 41
 		}
 	},
 	{
@@ -1073,7 +1079,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 45,
 			cell: 27,
 			fission: 39.5,
-			primitive: 27
+			primitive: 43.5
 		}
 	},
 	{
@@ -1090,7 +1096,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 47,
 			cell: 28.5,
 			fission: 41.5,
-			primitive: 28.5
+			primitive: 46
 		}
 	},
 	{
@@ -1107,7 +1113,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 49,
 			cell: 29.5,
 			fission: 43,
-			primitive: 29.5
+			primitive: 52.5
 		}
 	},
 	{
@@ -1124,7 +1130,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 51,
 			cell: 31,
 			fission: 45,
-			primitive: 31
+			primitive: 56.5
 		}
 	},
 	{
@@ -1141,7 +1147,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 54,
 			cell: 32.5,
 			fission: 47.5,
-			primitive: 32.5
+			primitive: 61
 		}
 	},
 	{
@@ -1158,7 +1164,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 57,
 			cell: 34.5,
 			fission: 50,
-			primitive: 34.5
+			primitive: 66.5
 		}
 	},
 	{
@@ -1175,7 +1181,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 59,
 			cell: 35.5,
 			fission: 52,
-			primitive: 35.5
+			primitive: 72.5
 		}
 	},
 	{
@@ -1192,7 +1198,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 63,
 			cell: 38,
 			fission: 55.5,
-			primitive: 38
+			primitive: 87.5
 		}
 	},
 	{
@@ -1209,7 +1215,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 66,
 			cell: 40,
 			fission: 58,
-			primitive: 40
+			primitive: 97
 		}
 	},
 	{
@@ -1226,7 +1232,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 69,
 			cell: 41.5,
 			fission: 60.5,
-			primitive: 41.5
+			primitive: 107.5
 		}
 	},
 	{
@@ -1243,7 +1249,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 73,
 			cell: 44,
 			fission: 64,
-			primitive: 44
+			primitive: 119.5
 		}
 	},
 	{
@@ -1260,7 +1266,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 77,
 			cell: 46.5,
 			fission: 67.5,
-			primitive: 46.5
+			primitive: 133.5
 		}
 	},
 	{
@@ -1277,7 +1283,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 82,
 			cell: 49.5,
 			fission: 72,
-			primitive: 49.5
+			primitive: 168.5
 		}
 	},
 	{
@@ -1294,41 +1300,41 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 87,
 			cell: 52.5,
 			fission: 76.5,
-			primitive: 52.5
+			primitive: 190
 		}
 	},
 	{
 		name: "390",
 		rating: 390,
 		weight: {
-			standard: 46.5,
-			xl: 23.5,
-			clan_xl: 23.5,
-			light: 35,
-			compact: 70,
+			standard: 46,
+			xl: 23,
+			clan_xl: 23,
+			light: 34.5,
+			compact: 69,
 			xxl: 15.5,
 			clan_xxl: 15.5,
-			ice: 93,
-			cell: 56,
-			fission: 81.5,
-			primitive: 56
+			ice: 92,
+			cell: 55.5,
+			fission: 80.5,
+			primitive: 214.5
 		}
 	},
 	{
 		name: "395",
 		rating: 395,
 		weight: {
-			standard: 49.5,
-			xl: 25,
-			clan_xl: 25,
-			light: 37.5,
-			compact: 74.5,
+			standard: 49,
+			xl: 24.5,
+			clan_xl: 24.5,
+			light: 37,
+			compact: 73.5,
 			xxl: 16.5,
 			clan_xxl: 16.5,
-			ice: 99,
-			cell: 59.5,
-			fission: 87,
-			primitive: 59.5
+			ice: 98,
+			cell: 59,
+			fission: 86,
+			primitive: 243
 		}
 	},
 	{
@@ -1345,7 +1351,7 @@ export const mechEngineOptions: IEngineOption[] = [
 			ice: 105,
 			cell: 63,
 			fission: 92,
-			primitive: 63
+			primitive: 275.5
 		}
 	},
 	{
@@ -1356,13 +1362,12 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 28.5,
 			clan_xl: 28.5,
 			light: 42.5,
-			compact: 85,
 			xxl: 19,
 			clan_xxl: 19,
 			ice: 113,
 			cell: 68,
 			fission: 99,
-			primitive: 68
+			primitive: 356
 		}
 	},
 	{
@@ -1373,13 +1378,12 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 30.5,
 			clan_xl: 30.5,
 			light: 46,
-			compact: 91.5,
 			xxl: 20.5,
 			clan_xxl: 20.5,
 			ice: 122,
 			cell: 73.5,
 			fission: 107,
-			primitive: 73.5
+			primitive: 405.5
 		}
 	},
 	{
@@ -1390,13 +1394,12 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 33.5,
 			clan_xl: 33.5,
 			light: 50,
-			compact: 100,
-			xxl: 22,
-			clan_xxl: 22,
+			xxl: 22.5,
+			clan_xxl: 22.5,
 			ice: 133,
 			cell: 80,
 			fission: 116.5,
-			primitive: 80
+			primitive: 462.5
 		}
 	},
 	{
@@ -1407,149 +1410,131 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 36.5,
 			clan_xl: 36.5,
 			light: 54.5,
-			compact: 109,
-			xxl: 24,
-			clan_xxl: 24,
+			xxl: 24.5,
+			clan_xxl: 24.5,
 			ice: 145,
 			cell: 87,
-			fission: 127,
-			primitive: 87
+			fission: 127
 		}
 	},
 	{
 		name: "425",
 		rating: 425,
 		weight: {
-			standard: 795,
+			standard: 79.5,
 			xl: 40,
 			clan_xl: 40,
 			light: 60,
-			compact: 119.5,
 			xxl: 26.5,
 			clan_xxl: 26.5,
 			ice: 159,
 			cell: 95.5,
-			fission: 139.5,
-			primitive: 95.5
+			fission: 139.5
 		}
 	},
 	{
 		name: "430",
 		rating: 430,
 		weight: {
-			standard: 86.5,
-			xl: 43.5,
-			clan_xl: 43.5,
-			light: 65,
-			compact: 130,
-			xxl: 29,
-			clan_xxl: 29,
-			ice: 173,
-			cell: 104,
-			fission: 151.5,
-			primitive: 104
+			standard: 87.5,
+			xl: 44,
+			clan_xl: 44,
+			light: 66,
+			xxl: 29.5,
+			clan_xxl: 29.5,
+			ice: 175,
+			cell: 105,
+			fission: 153.5
 		}
 	},
 	{
 		name: "435",
 		rating: 435,
 		weight: {
-			standard: 94,
-			xl: 47,
-			clan_xl: 47,
-			light: 70.5,
-			compact: 141,
-			xxl: 31.5,
-			clan_xxl: 31.5,
-			ice: 188,
-			cell: 113,
-			fission: 164.5,
-			primitive: 113
+			standard: 97,
+			xl: 48.5,
+			clan_xl: 48.5,
+			light: 73,
+			xxl: 32.5,
+			clan_xxl: 32.5,
+			ice: 194,
+			cell: 116.5,
+			fission: 170
 		}
 	},
 	{
 		name: "440",
 		rating: 440,
 		weight: {
-			standard: 101.5,
-			xl: 51,
-			clan_xl: 51,
-			light: 76.5,
-			compact: 152.5,
-			xxl: 33.5,
-			clan_xxl: 33.5,
-			ice: 203,
-			cell: 122,
-			fission: 178,
-			primitive: 122
+			standard: 107.5,
+			xl: 54,
+			clan_xl: 54,
+			light: 81,
+			xxl: 36,
+			clan_xxl: 36,
+			ice: 215,
+			cell: 129,
+			fission: 188.5
 		}
 	},
 	{
 		name: "445",
 		rating: 445,
 		weight: {
-			standard: 114,
-			xl: 57,
-			clan_xl: 57,
-			light: 85.5,
-			compact: 171,
-			xxl: 38,
-			clan_xxl: 38,
-			ice: 228,
-			cell: 137,
-			fission: 199.5,
-			primitive: 137
+			standard: 119.5,
+			xl: 60,
+			clan_xl: 60,
+			light: 90,
+			xxl: 40,
+			clan_xxl: 40,
+			ice: 239,
+			cell: 143.5,
+			fission: 209.5
 		}
 	},
 	{
 		name: "450",
 		rating: 450,
 		weight: {
-			standard: 128.5,
-			xl: 64.5,
-			clan_xl: 64.5,
-			light: 96.5,
-			compact: 193,
-			xxl: 42.5,
-			clan_xxl: 42.5,
-			ice: 257,
-			cell: 154.5,
-			fission: 225,
-			primitive: 154.5
+			standard: 133.5,
+			xl: 67,
+			clan_xl: 67,
+			light: 100.5,
+			xxl: 44.5,
+			clan_xxl: 44.5,
+			ice: 267,
+			cell: 160.5,
+			fission: 234
 		}
 	},
 	{
 		name: "455",
 		rating: 455,
 		weight: {
-			standard: 145.5,
-			xl: 73,
-			clan_xl: 73,
-			light: 109.5,
-			compact: 218.5,
-			xxl: 48.5,
-			clan_xxl: 48.5,
-			ice: 291,
-			cell: 175,
-			fission: 255,
-			primitive: 175
+			standard: 150,
+			xl: 75,
+			clan_xl: 75,
+			light: 112.5,
+			xxl: 50,
+			clan_xxl: 50,
+			ice: 300,
+			cell: 180,
+			fission: 262.5
 		}
 	},
 	{
 		name: "460",
 		rating: 460,
 		weight: {
-			standard: 165,
-			xl: 82.5,
-			clan_xl: 82.5,
-			light: 124,
-			compact: 247.5,
-			xxl: 54.5,
-			clan_xxl: 54.5,
-			ice: 330,
-			cell: 198,
-			fission: 289,
-			primitive: 198
+			standard: 168.5,
+			xl: 84.5,
+			clan_xl: 84.5,
+			light: 126.5,
+			xxl: 56.5,
+			clan_xxl: 56.5,
+			ice: 337,
+			cell: 202.5,
+			fission: 295
 		}
 	},
 	{
@@ -1560,13 +1545,11 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 95,
 			clan_xl: 95,
 			light: 142.5,
-			compact: 285,
-			xxl: 63,
-			clan_xxl: 63,
+			xxl: 63.5,
+			clan_xxl: 63.5,
 			ice: 380,
 			cell: 228,
-			fission: 332.5,
-			primitive: 228
+			fission: 332.5
 		}
 	},
 	{
@@ -1577,13 +1560,11 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 107.5,
 			clan_xl: 107.5,
 			light: 161,
-			compact: 322,
-			xxl: 71,
-			clan_xxl: 71,
+			xxl: 71.5,
+			clan_xxl: 71.5,
 			ice: 429,
 			cell: 257.5,
-			fission: 375.5,
-			primitive: 257.5
+			fission: 375.5
 		}
 	},
 	{
@@ -1594,13 +1575,11 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 121.5,
 			clan_xl: 121.5,
 			light: 182.5,
-			compact: 364.5,
-			xxl: 80.5,
-			clan_xxl: 80.5,
+			xxl: 81,
+			clan_xxl: 81,
 			ice: 486,
 			cell: 292,
-			fission: 425.5,
-			primitive: 292
+			fission: 425.5
 		}
 	},
 	{
@@ -1611,13 +1590,11 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 138,
 			clan_xl: 138,
 			light: 207,
-			compact: 413.5,
-			xxl: 91,
-			clan_xxl: 91,
+			xxl: 92,
+			clan_xxl: 92,
 			ice: 551,
 			cell: 331,
-			fission: 482.5,
-			primitive: 331
+			fission: 482.5
 		}
 	},
 	{
@@ -1628,13 +1605,11 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 156.5,
 			clan_xl: 156.5,
 			light: 235,
-			compact: 469.5,
-			xxl: 103.5,
-			clan_xxl: 103.5,
+			xxl: 104.5,
+			clan_xxl: 104.5,
 			ice: 626,
 			cell: 376,
-			fission: 548,
-			primitive: 376
+			fission: 548
 		}
 	},
 	{
@@ -1645,13 +1620,11 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 178,
 			clan_xl: 178,
 			light: 267,
-			compact: 534,
-			xxl: 117.5,
-			clan_xxl: 117.5,
+			xxl: 119,
+			clan_xxl: 119,
 			ice: 712,
 			cell: 427.5,
-			fission: 623,
-			primitive: 427.5
+			fission: 623
 		}
 	},
 	{
@@ -1662,13 +1635,11 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 203,
 			clan_xl: 203,
 			light: 304.5,
-			compact: 608.5,
-			xxl: 134,
-			clan_xxl: 134,
+			xxl: 135.5,
+			clan_xxl: 135.5,
 			ice: 811,
 			cell: 487,
-			fission: 710,
-			primitive: 487
+			fission: 710
 		}
 	},
 	{
@@ -1679,13 +1650,11 @@ export const mechEngineOptions: IEngineOption[] = [
 			xl: 231.5,
 			clan_xl: 231.5,
 			light: 347,
-			compact: 694,
-			xxl: 153,
-			clan_xxl: 153,
+			xxl: 154.5,
+			clan_xxl: 154.5,
 			ice: 925,
 			cell: 555,
-			fission: 809.5,
-			primitive: 555
+			fission: 809.5
 		}
 	}
 ];

@@ -32,3 +32,30 @@ export function getVehicleTonnageBounds(motiveTag: string, rulesLevel: number = 
     };
 }
 
+
+/**
+ * Suspension factor subtracted from cruise MP x tonnage to find a combat vehicle's engine rating
+ * (TechManual Combat Vehicle construction, suspension factor table). Tracked vehicles have none.
+ */
+export function getVehicleSuspensionFactor(motiveTag: string, tonnage: number): number {
+    const byWeight = (steps: [number, number][], beyond: (weight: number) => number): number => {
+        const step = steps.find(([maxTons]) => tonnage <= maxTons);
+        return step ? step[1] : beyond(tonnage);
+    };
+    switch (motiveTag) {
+        case "hover":
+            return byWeight([[10, 40], [20, 85], [30, 130], [40, 175], [50, 235]], w => 235 + 45 * Math.ceil((w - 50) / 25));
+        case "wheeled":
+            return tonnage <= 80 ? 20 : 40;
+        case "vtol":
+            return byWeight([[10, 50], [20, 95], [30, 140]], w => 140 + 45 * Math.ceil((w - 30) / 20));
+        case "wige":
+            return byWeight([[15, 45], [30, 80], [45, 115], [80, 140]], w => 140 + 35 * Math.ceil((w - 80) / 30));
+        case "naval-surface":
+        case "naval-sub":
+            // Over 300 tons: unverified (MegaMek's formula); 30 up to 300 tons.
+            return tonnage <= 300 ? 30 : (() => { const factor = Math.ceil(tonnage / 10); return factor + (factor % 5); })();
+        default:
+            return 0;
+    }
+}

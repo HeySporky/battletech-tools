@@ -73,8 +73,15 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                                 value={this.props.appGlobals.currentBattleMech.getHeatSinksType()}
                                 onChange={this.setHeatSinkType}
                               >
-                                <option value="single">Single</option>
-                                <option value="double">Double</option>
+                                {this.props.appGlobals.currentBattleMech.getAvailableHeatSinks(this.props.appGlobals.appSettings.mechRulesFilter).map( (heatSink) => {
+                                  const selected = heatSink.tag === this.props.appGlobals.currentBattleMech?.getHeatSinksType();
+                                  if( !heatSink.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                    return <React.Fragment key={heatSink.tag}></React.Fragment>;
+                                  }
+                                  return (
+                                    <option key={heatSink.tag} value={heatSink.tag} disabled={!heatSink.available && !selected}>{heatSink.name}{heatSink.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                  );
+                                })}
 
                               </select>
                             </label>

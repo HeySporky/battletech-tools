@@ -262,7 +262,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 smallCraft: 0,
                 dropShip: 0,
             },
-            ammoPerTon: 0,
+            shotsPerTon: 0,
             minAmmoTons: 0,
             explosive: false,
             gauss: false,
@@ -618,7 +618,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 <td className="text-center no-wrap">
                     {item.isAmmo ? (
                         <>
-                            {item.ammoPerTon} shots / ton
+                            {item.roundsPerTon ?? item.ammoPerTon} rounds / ton
                         </>
                     ) : (
                         <>
