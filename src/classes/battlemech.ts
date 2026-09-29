@@ -966,53 +966,18 @@ export class BattleMech {
     }
 
     /**
-     * Calculates the non-linear speed scaling factor applied directly to the Offensive Battle Rating.
-     * Coordinates movement metrics natively with the canonical Speed Factor Table rules (TechManual, p. 315).
+     * Offensive Speed Factor (TechManual p. 316).
+     *
+     * Speed Factor MP = Run MP + round( Jump MP / 2 )
+     * Speed Factor    = ( 1 + ( MP - 5 ) / 10 ) ^ 1.2, rounded to two decimal places
+     *
+     * The Speed Factor Table in the TechManual is this formula evaluated for MP 0-25, so one formula covers every
+     * speed (same implementation as MegaMek's BVCalculator.offensiveSpeedFactor / offensiveSpeedFactorMP).
      */
     private _getSpeedFactorModifier(): number {
-        // Core formula implementation: Mobility = Run MP + (Jump MP / 2) (TM p. 315)
-        const mobilityScore = this.getRunSpeed() + (this.getJumpSpeed() / 2);
+        const speedFactorMP = this.getRunSpeed() + Math.round(this.getJumpSpeed() / 2);
 
-        // Static lookup table replicating the explicit values from TechManual p. 315
-        // Index matches the exact mobilityScore value (Index 0 = 0 MP, Index 5 = 5 MP, etc.)
-        const SPEED_FACTOR_TABLE: number[] = [
-            0.44, // 0 MP
-            0.54, // 1 MP
-            0.65, // 2 MP
-            0.77, // 3 MP
-            0.88, // 4 MP
-            1.00, // 5 MP (Standard Baseline Engine threshold)
-            1.12, // 6 MP
-            1.24, // 7 MP
-            1.37, // 8 MP
-            1.50, // 9 MP
-            1.63, // 10 MP
-            1.76, // 11 MP
-            1.89, // 12 MP
-            2.02, // 13 MP
-            2.16, // 14 MP
-            2.30, // 15 MP
-            2.44, // 16 MP
-            2.58, // 17 MP
-            2.72, // 18 MP
-            2.86, // 19 MP
-            3.00, // 20 MP
-            3.15, // 21 MP
-            3.29, // 22 MP
-            3.44, // 23 MP
-            3.59, // 24 MP
-            3.74  // 25 MP
-        ];
-
-        // Return fixed table array lookups if within bounded limits
-        if (mobilityScore >= 0 && mobilityScore < SPEED_FACTOR_TABLE.length) {
-            return SPEED_FACTOR_TABLE[mobilityScore];
-        }
-
-        // Mathematical Equation Fallback Rule for extreme/high-speed units (TM p. 315 footnote)
-        // Formula: (1 + (Mobility - 5) / 10)^1.2 rounded precisely to two decimal places
-        const highSpeedRaw = Math.pow((1 + (mobilityScore - 5) / 10), 1.2);
-        return parseFloat(highSpeedRaw.toFixed(2));
+        return Math.round(Math.pow(1 + (speedFactorMP - 5) / 10, 1.2) * 100) / 100;
     }
 
     public isQuad() {
