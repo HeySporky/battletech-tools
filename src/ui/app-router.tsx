@@ -24,6 +24,7 @@ import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 const About = React.lazy(() => import("./pages/about"));
 const AlphaStrikeRouter = React.lazy(() => import("./pages/alpha-strike/_router"));
 const ClassicBattleTechRouter = React.lazy(() => import("./pages/classic-battletech/_router"));
+const CustomMULEditor = React.lazy(() => import("./pages/custom-mul-editor"));
 const DevelopmentStatus = React.lazy(() => import("./pages/development-status"));
 const EquipmentEditor = React.lazy(() => import("./pages/equipment-editor"));
 const GameManagementRouter = React.lazy(() => import("./pages/game-management/_router"));
@@ -583,6 +584,12 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 </Route> */}
                 <Route path={`${process.env.PUBLIC_URL}/equipment-editor`}   element={
                     <EquipmentEditor
+                        appGlobals={this.state.appGlobals}
+                    />
+                }/>
+
+                <Route path={`${process.env.PUBLIC_URL}/custom-mul-editor`}   element={
+                    <CustomMULEditor
                         appGlobals={this.state.appGlobals}
                     />
                 }/>

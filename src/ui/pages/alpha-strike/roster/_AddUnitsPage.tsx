@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
-import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
+import { Link } from 'react-router-dom';
+import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
+import { isMULSourceSelection, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
 import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
@@ -30,6 +32,10 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
     private searchTimeout: NodeJS.Timeout | null = null;
 
+    // Kept off React state: setState is applied asynchronously, and cached MUL searches can resolve
+    // before it lands, which made every search look superseded and left "Searching..." up forever.
+    private latestSearchId: string = '';
+
     constructor( props: IAlphaStrikeAddUnitsViewProps ) {
         super(props)
 
@@ -39,7 +45,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
-            lastSearchId: '',
             isSearching: false
         }
     }
@@ -149,6 +154,20 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       this.updateSearchResults();
     }
 
+    updateMULSources = ( event: React.FormEvent<HTMLSelectElement> ): void => {
+      const selection = event.currentTarget.value;
+      if( !isMULSourceSelection( selection ) ) {
+        return;
+      }
+
+      let appSettings = this.props.appGlobals.appSettings;
+
+      appSettings.alphaStrikeMULSources = selection;
+      this.props.appGlobals.saveAppSettings( appSettings );
+
+      this.updateSearchResults();
+    }
+
     updateFactionSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
         
         let appSettings = this.props.appGlobals.appSettings;
@@ -193,9 +212,9 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     updateSearchResults = async (): Promise<void> => {
 
       let currentSearchId = generateUUID();
+      this.latestSearchId = currentSearchId;
 
       this.setState({
-        lastSearchId: currentSearchId,
         isSearching: true
       });
 
@@ -213,7 +232,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           this.props.appGlobals,
         );
 
-        if(this.state.lastSearchId !== currentSearchId) {
+        if(this.latestSearchId !== currentSearchId) {
           console.log("updateSearchResults: searchId mismatch, aborting");
           // Don't set isSearching to false here - a newer search is running
           return;
@@ -253,7 +272,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       } catch (error) {
         console.error("Search failed:", error);
         // Only turn off loading if this was the most recent search
-        if(this.state.lastSearchId === currentSearchId) {
+        if(this.latestSearchId === currentSearchId) {
           this.setState({
             isSearching: false,
           });
@@ -279,8 +298,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
 
     handleSort = ({ target: { value } }: any) => {
-        this.setState({ searchSort: value });
-        this.updateSearchResults();
+        this.setState({ searchSort: value }, () => this.updateSearchResults());
     }
 
     render = (): JSX.Element => {
@@ -303,7 +321,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             label="Search for Units"
         >
             <div className="small-text text-center">
-                We integrate with the <a href="http://masterunitlist.info/" target="_blank" rel="noopener noreferrer">Master Unit List</a> to make sure that all the stats are as official and as up to date as possible.
+                We integrate with the <a href="https://masterunitlist.battletech.com/" target="_blank" rel="noopener noreferrer">Master Unit List</a> to make sure that all the stats are as official and as up to date as possible.
             </div>
 {navigator && navigator.onLine ? (
     <>
@@ -445,7 +463,28 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                     ):null}
                       </div>
                     </div>
-                  
+                    <div className="row">
+                      <div className="col-md-12 text-center">
+                        <label>
+                          Unit Lists:<br />
+                          <select
+                            name="alphaStrikeMULSources"
+                            onChange={this.updateMULSources}
+                            value={this.props.appGlobals.appSettings.alphaStrikeMULSources}
+                          >
+                            {MUL_SOURCE_SELECTIONS.map( (option) => {
+                              return <option key={option.value} value={option.value}>{option.label}</option>
+                            })}
+                          </select>
+                        </label>
+                        <div className="small-text">
+                          {MUL_SOURCE_SELECTIONS.find( (option) => option.value === this.props.appGlobals.appSettings.alphaStrikeMULSources )?.description}
+                          {this.props.appGlobals.appSettings.developerMenu ? (
+                            <>&nbsp;<Link to={`${process.env.PUBLIC_URL}/custom-mul-editor`}>Manage custom units</Link></>
+                          ) : null}
+                        </div>
+                      </div>
+                    </div>
 
                   </fieldset>
 
@@ -578,7 +617,24 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       <Eye />
     </button>
   </td>
-                                <td>{asUnit.Name}</td>
+                                <td>
+                                  {getMULDisplayName(asUnit)}
+                                  {asUnit.MulSource && asUnit.MulSource !== "mul2" ? (
+                                    <>
+                                      &nbsp;<span
+                                        className={asUnit.MulSource === "custom" ? "badge bg-warning text-dark" : "badge bg-secondary"}
+                                        title={asUnit.CustomInfo
+                                          ? `Non-canonical custom by ${asUnit.CustomInfo.author}${asUnit.CustomInfo.source ? ` (${asUnit.CustomInfo.source})` : ""}${asUnit.CustomInfo.local ? " - saved in this browser only" : ""}`
+                                          : "Legacy MUL 1.0 record not listed on the current MUL"}
+                                      >
+                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}{asUnit.CustomInfo?.local ? " (local)" : ""}
+                                      </span>
+                                      {asUnit.MulSource === "mul1" && !asUnit.BFPointValue ? (
+                                        <span className="badge bg-danger" title="This legacy record has no Alpha Strike stats">&nbsp;No AS stats</span>
+                                      ) : null}
+                                    </>
+                                  ) : null}
+                                </td>
 
                                 <td>{asUnit.Rules}</td>
                                 <td>{asUnit.Technology.Name}</td>
@@ -772,6 +828,5 @@ interface IAlphaStrikeAddUnitsViewState {
     contextMenuSearch: number;
     contextMenuSavedBattleMechs: number;
     searchSort: 'Name' | 'BFPointValue';
-    lastSearchId: string;
     isSearching: boolean;
 }

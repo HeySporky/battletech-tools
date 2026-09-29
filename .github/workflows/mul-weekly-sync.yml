@@ -55,7 +55,7 @@ jobs:
           path: |
             tools/mul-sync/live-units.json
             tools/mul-sync/legacy-duplicate-candidates.json
-            src/data/mul/*.json
+            src/data/mul/mul1/*.json
             src/data/mul/live/*.json
             src/data/mul/archive/*.json
           if-no-files-found: warn

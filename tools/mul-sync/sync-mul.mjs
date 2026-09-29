@@ -19,11 +19,12 @@
  *    stats (size/move/TMM/armor/struct/damage/overheat/abilities) not present in the index JSON.
  * 4. Regenerates src/data/mul/live/*.json chunk files from the accumulated store.
  *
- * Deliberately does NOT touch the legacy numeric-id chunk files (src/data/mul/mul_ids_*.json).
- * Potential name/model matches against legacy entries are only logged to
- * tools/mul-sync/legacy-duplicate-candidates.json for a human to review and reconcile manually —
- * automatically mutating/deleting curated legacy data from a fuzzy string match is too risky to do
- * unattended in CI.
+ * MUL 1.0 leftovers (src/data/mul/mul1/mul1-leftovers.json) are legacy numeric-id records the live
+ * site does not list. A leftover is only moved to src/data/mul/archive/ when exactly one fully
+ * detailed live unit has the same full name, the same unit-type family, and the same tonnage.
+ * Anything looser (name-only matches) is just logged to
+ * tools/mul-sync/legacy-duplicate-candidates.json for a human to review — name-only matching once
+ * archived the 45t Tomahawk C fighter as the 100t Tomahawk C BattleMech.
  *
  * RELIABILITY FIXES applied in this revision (see chat discussion for the full rationale on each):
  *   1. fetchJson no longer blindly calls res.json() on any 2xx status — it reads text first and
@@ -52,9 +53,10 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, "..", "..");
-const legacyMulDir = path.join(repoRoot, "src", "data", "mul");
-const liveMulDir = path.join(legacyMulDir, "live");
-const legacyArchivePath = path.join(legacyMulDir, "archive", "replaced-legacy-records.json");
+const mulDataDir = path.join(repoRoot, "src", "data", "mul");
+const liveMulDir = path.join(mulDataDir, "live");
+const mul1LeftoversPath = path.join(mulDataDir, "mul1", "mul1-leftovers.json");
+const legacyArchivePath = path.join(mulDataDir, "archive", "replaced-legacy-records.json");
 const storePath = path.join(__dirname, "live-units.json");
 const dupeReportPath = path.join(__dirname, "legacy-duplicate-candidates.json");
 const storageStatePath = path.join(__dirname, "browser-state.json");
@@ -153,10 +155,47 @@ function normalizeIdentityPart(value) {
     return String(value ?? "").trim().replace(/\s+/g, " ").toLowerCase();
 }
 
+// Full "chassis model" designation. MUL 1.0 splits it as Class + Variant, the live index as n + m,
+// and the split point differs between them ("Von Rohrs (Hebi)" + "VON 4RH-5"), so compare the whole.
 function unitIdentity(name, model) {
     const normalizedName = normalizeIdentityPart(name);
     if (!normalizedName) return null;
-    return `${normalizedName}\u001f${normalizeIdentityPart(model)}`;
+    return normalizeIdentityPart(`${normalizedName} ${model ?? ""}`);
+}
+
+// Coarse unit-type family, so reclassified units still match but a fighter never matches a 'Mech.
+function liveFamily(unitTypeName) {
+    return {
+        BattleMech: "MECH",
+        OmniMech: "MECH",
+        IndustrialMech: "IM",
+        ProtoMech: "PM",
+        "Battle Armor": "BA",
+        Infantry: "CI",
+        "Combat Vehicle": "VEH",
+        OmniVehicle: "VEH",
+        "Support Vehicle": "SV",
+        "Advanced Support": "SV",
+        "Fighter Craft": "AERO",
+        "Aerospace Craft": "AERO",
+    }[unitTypeName] ?? "?";
+}
+
+function mul1Family(typeName) {
+    const t = String(typeName ?? "");
+    if (/^BattleMech/.test(t)) return "MECH";
+    if (/^IndustrialMech/.test(t)) return "IM";
+    if (/^Protomech/i.test(t)) return "PM";
+    if (/^Battle Armor/.test(t)) return "BA";
+    if (/^Infantry/.test(t)) return "CI";
+    if (/^Combat Vehicle/.test(t)) return "VEH";
+    if (/^(Support Vehicle|Advanced Support)/.test(t)) return "SV";
+    if (/^(Aerospace|Advanced Aerospace)/.test(t)) return "AERO";
+    return "?";
+}
+
+function sameTonnage(a, b) {
+    return Number.isFinite(+a) && Number.isFinite(+b) && Math.abs(+a - +b) < 0.051;
 }
 
 async function loadJson(filePath, fallback) {
@@ -261,19 +300,10 @@ function summaryHashOf(unit) {
 
 async function loadLegacyNameIndex() {
     const index = new Map();
-    let files = [];
-    try {
-        files = (await fs.readdir(legacyMulDir)).filter((f) => f.endsWith(".json"));
-    } catch {
-        return index;
-    }
-    for (const file of files) {
-        const items = await loadJson(path.join(legacyMulDir, file), []);
-        for (const item of items) {
-            const key = unitIdentity(item?.Class || item?.Name, item?.Variant);
-            if (key && !index.has(key)) {
-                index.set(key, { file, Id: item.Id, Name: item.Name, Variant: item.Variant });
-            }
+    for (const item of await loadJson(mul1LeftoversPath, [])) {
+        const key = unitIdentity(item?.Class || item?.Name, item?.Variant);
+        if (key && !index.has(key)) {
+            index.set(key, { file: path.basename(mul1LeftoversPath), Id: item.Id, Name: item.Name, Variant: item.Variant });
         }
     }
     return index;
@@ -308,49 +338,45 @@ async function archiveExactLegacyMatches(liveRecords) {
             continue;
         }
         const identity = unitIdentity(record.Name, record.Variant);
-        if (identity && !liveByIdentity.has(identity)) {
-            liveByIdentity.set(identity, record);
+        if (identity) {
+            liveByIdentity.set(identity, [...(liveByIdentity.get(identity) ?? []), record]);
         }
     }
 
+    const leftovers = await loadJson(mul1LeftoversPath, []);
     const archived = await loadJson(legacyArchivePath, []);
     const archivedKeys = new Set(archived.map((entry) => entry.archiveKey));
+    const sourceFile = path.basename(mul1LeftoversPath);
+    const kept = [];
     let archivedCount = 0;
 
-    const files = (await fs.readdir(legacyMulDir)).filter((file) => file.endsWith(".json"));
-    for (const file of files) {
-        const filePath = path.join(legacyMulDir, file);
-        const items = await loadJson(filePath, []);
-        const kept = [];
+    for (const item of leftovers) {
+        const identity = typeof item?.Class === "string" ? unitIdentity(item.Class, item.Variant) : null;
+        const matches = (identity ? liveByIdentity.get(identity) ?? [] : []).filter(
+            (record) => liveFamily(record.Class) === mul1Family(item.Type?.Name) && sameTonnage(record.Tonnage, item.Tonnage)
+        );
 
-        for (const item of items) {
-            const identity = typeof item?.Class === "string" ? unitIdentity(item.Class, item.Variant) : null;
-            const liveRecord = identity ? liveByIdentity.get(identity) : null;
-
-            if (!liveRecord) {
-                kept.push(item);
-                continue;
-            }
-
-            const archiveKey = `${file}\u001f${item.Id}\u001f${identity}`;
-            if (!archivedKeys.has(archiveKey)) {
-                archived.push({
-                    archiveKey,
-                    sourceFile: file,
-                    replacedBy: liveRecord.MulUnitKey,
-                    record: item,
-                });
-                archivedKeys.add(archiveKey);
-            }
-            archivedCount += 1;
+        if (matches.length !== 1) {
+            kept.push(item);
+            continue;
         }
 
-        if (kept.length !== items.length) {
-            await saveJson(filePath, kept);
+        const archiveKey = `${sourceFile}\u001f${item.Id}\u001f${identity}`;
+        if (!archivedKeys.has(archiveKey)) {
+            archived.push({
+                archiveKey,
+                sourceFile,
+                replacedBy: matches[0].MulUnitKey,
+                verifiedBy: "sync-exact",
+                record: item,
+            });
+            archivedKeys.add(archiveKey);
         }
+        archivedCount += 1;
     }
 
     if (archivedCount > 0) {
+        await saveJson(mul1LeftoversPath, kept);
         await saveJson(legacyArchivePath, archived);
     }
 

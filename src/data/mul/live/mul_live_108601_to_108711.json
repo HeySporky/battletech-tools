@@ -9,7 +9,12 @@
     "BattleValue": 806,
     "BFPointValue": 28,
     "DateIntroduced": "3050",
-    "Role": "Interceptor",
+    "Role": {
+      "Id": 14,
+      "Name": "Interceptor",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -17,11 +22,11 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           28,
           29,
@@ -34,7 +39,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           28,
           29,
@@ -45,7 +50,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           29,
           34,
@@ -55,14 +60,14 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           34,
           54
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           28,
           29,
@@ -74,7 +79,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           29,
           34,
@@ -82,7 +87,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           34,
           54,
@@ -90,7 +95,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Fighter Craft",
+      "Image": null,
+      "SortOrder": 3
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "11a",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,BOMB 1,ENE,FUEL 20,SPC,VSTOL,Interceptor"
   },
   {
     "Id": 108602,
@@ -102,7 +128,12 @@
     "BattleValue": 1104,
     "BFPointValue": 39,
     "DateIntroduced": "3057",
-    "Role": "Juggernaut",
+    "Role": {
+      "Id": 4,
+      "Name": "Juggernaut",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -110,11 +141,11 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           29,
           31,
@@ -126,7 +157,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           29,
           31,
@@ -136,7 +167,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           29,
           34,
@@ -145,7 +176,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           29,
           34,
@@ -154,7 +185,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           29,
           32,
@@ -164,7 +195,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           29,
           34,
@@ -173,7 +204,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           29,
           34,
@@ -182,7 +213,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 6,
+    "BFDamageMedium": 6,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"w",
+    "BFTMM": 1,
+    "BFArmor": 7,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AC 2/2/-,PRB,RCN,REAR 0*/-/-,SRCH,TUR (5/5/-,AC2/2/-),Juggernaut"
   },
   {
     "Id": 108603,
@@ -194,7 +246,12 @@
     "BattleValue": 542,
     "BFPointValue": 10,
     "DateIntroduced": "3074",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -202,41 +259,62 @@
       "SortOrder": 0
     },
     "BFType": "IM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           32
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           54,
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": null,
+      "SortOrder": 9
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 4,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "BAR,BFC,CT 17,FC,I-TSM,SEAL,Ambusher"
   },
   {
     "Id": 108604,
@@ -248,7 +326,12 @@
     "BattleValue": 509,
     "BFPointValue": 21,
     "DateIntroduced": "3073",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -256,11 +339,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           29,
           32,
@@ -270,7 +353,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           29,
           34,
@@ -280,7 +363,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           29,
           34,
@@ -290,7 +373,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           29,
           34,
@@ -300,7 +383,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           29,
           34,
@@ -310,7 +393,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "16\"",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": true,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,IF 0*,Striker"
   },
   {
     "Id": 108605,
@@ -322,7 +426,12 @@
     "BattleValue": 270,
     "BFPointValue": 14,
     "DateIntroduced": "2519",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -340,31 +449,7 @@
         ]
       },
       {
-        "EraId": 2,
-        "FactionIds": [
-          30
-        ]
-      },
-      {
-        "EraId": 3,
-        "FactionIds": [
-          30
-        ]
-      },
-      {
-        "EraId": 4,
-        "FactionIds": [
-          30
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          30
-        ]
-      },
-      {
-        "EraId": 8,
+        "EraId": 10,
         "FactionIds": [
           30
         ]
@@ -376,12 +461,57 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 13,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 255,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 256,
         "FactionIds": [
           30
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "18\"/8\"j",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,JMPW 2,Scout"
   },
   {
     "Id": 108606,
@@ -393,7 +523,12 @@
     "BattleValue": 1759,
     "BFPointValue": 41,
     "DateIntroduced": "2760",
-    "Role": "Brawler",
+    "Role": {
+      "Id": 3,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -401,18 +536,18 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 2,
+    "EraId": 10,
     "EraStart": 2571,
     "Availability": [
       {
-        "EraId": 2,
+        "EraId": 10,
         "FactionIds": [
           41,
           44
         ]
       },
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           1,
           2,
@@ -440,7 +575,7 @@
         ]
       },
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -463,7 +598,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -490,7 +625,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           34,
           40,
@@ -498,7 +633,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           30,
           34,
@@ -507,7 +642,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           6,
@@ -528,7 +663,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           34,
           40,
@@ -536,7 +671,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -558,7 +693,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -580,13 +715,34 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           30,
           34
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,SRM 2/2,Brawler"
   },
   {
     "Id": 108607,
@@ -598,7 +754,12 @@
     "BattleValue": 2140,
     "BFPointValue": 38,
     "DateIntroduced": "3052",
-    "Role": "Sniper",
+    "Role": {
+      "Id": 8,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -606,18 +767,18 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           15,
           20
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           6,
@@ -628,14 +789,14 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           15,
           73
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           15,
           63,
@@ -643,7 +804,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           12,
           15,
@@ -651,14 +812,14 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           15,
           73
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           15,
           34,
@@ -668,7 +829,28 @@
           81
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 4,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"j",
+    "BFTMM": 1,
+    "BFArmor": 7,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,FLK 0*/0*/0*,OMNI,Sniper"
   },
   {
     "Id": 108608,
@@ -680,7 +862,12 @@
     "BattleValue": 2057,
     "BFPointValue": 41,
     "DateIntroduced": "2851",
-    "Role": "Sniper",
+    "Role": {
+      "Id": 8,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -688,11 +875,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 3,
+    "EraId": 11,
     "EraStart": 2781,
     "Availability": [
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           10,
           15,
@@ -701,7 +888,7 @@
         ]
       },
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -724,7 +911,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -748,7 +935,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           8,
           13,
@@ -766,7 +953,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           13,
           15,
@@ -785,7 +972,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           6,
@@ -806,7 +993,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           13,
           15,
@@ -824,7 +1011,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -846,7 +1033,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -868,7 +1055,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           13,
           15,
@@ -889,7 +1076,28 @@
           190
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "10\"j",
+    "BFTMM": 2,
+    "BFArmor": 7,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Sniper"
   },
   {
     "Id": 108609,
@@ -901,7 +1109,12 @@
     "BattleValue": 0,
     "BFPointValue": 11,
     "DateIntroduced": "3035",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -909,23 +1122,23 @@
       "SortOrder": 0
     },
     "BFType": "CI",
-    "EraId": 12,
+    "EraId": 256,
     "EraStart": 3020,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           30
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           30
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           53,
           55,
@@ -937,7 +1150,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           30,
           53,
@@ -950,13 +1163,13 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           30
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           53,
           55,
@@ -968,19 +1181,40 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           30
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           30,
           53
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"j",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 4,Ambusher"
   },
   {
     "Id": 108610,
@@ -992,7 +1226,12 @@
     "BattleValue": 1257,
     "BFPointValue": 28,
     "DateIntroduced": "3057",
-    "Role": "Brawler",
+    "Role": {
+      "Id": 3,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1000,18 +1239,18 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           29,
           65
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           9,
           29,
@@ -1028,7 +1267,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           29,
           33,
@@ -1043,7 +1282,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           27,
           29,
@@ -1058,7 +1297,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           29,
           32,
@@ -1066,7 +1305,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           29,
           33,
@@ -1080,7 +1319,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27,
           29,
@@ -1094,7 +1333,28 @@
           75
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "8\"j",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,FLK 1/1/1,IF 1,REAR 1/1/-,Brawler"
   },
   {
     "Id": 108611,
@@ -1106,7 +1366,12 @@
     "BattleValue": 1673,
     "BFPointValue": 48,
     "DateIntroduced": "3077",
-    "Role": "Skirmisher",
+    "Role": {
+      "Id": 6,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1114,40 +1379,61 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "16\"",
+    "BFTMM": 3,
+    "BFArmor": 5,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3BSS,IF 0*,MHQ 2,Skirmisher"
   },
   {
     "Id": 108612,
@@ -1159,7 +1445,12 @@
     "BattleValue": 1368,
     "BFPointValue": 38,
     "DateIntroduced": "3049",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1167,11 +1458,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           5,
           18,
@@ -1183,7 +1474,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           5,
           18,
@@ -1196,7 +1487,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           27,
@@ -1210,7 +1501,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           5,
           18,
@@ -1224,7 +1515,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           27,
@@ -1241,7 +1532,28 @@
           75
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"j",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ARTAIS -1,Missile Boat"
   },
   {
     "Id": 108613,
@@ -1253,7 +1565,12 @@
     "BattleValue": 282,
     "BFPointValue": 14,
     "DateIntroduced": "3135",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1261,18 +1578,39 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 7,
+    "EraId": 16,
     "EraStart": 3131,
     "Availability": [
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           15,
           20,
           76
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 5,MEC,SRCH,Ambusher"
   },
   {
     "Id": 108614,
@@ -1284,7 +1622,12 @@
     "BattleValue": 1186,
     "BFPointValue": 27,
     "DateIntroduced": "3122",
-    "Role": "Sniper",
+    "Role": {
+      "Id": 8,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1292,11 +1635,11 @@
       "SortOrder": 0
     },
     "BFType": "IM",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           30,
           40,
@@ -1304,19 +1647,40 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           40,
           57
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           30
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": null,
+      "SortOrder": 9
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 4,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AFC,CASEII,ES,PRB,RCN,SRCH,TSEMP 1,Sniper"
   },
   {
     "Id": 108615,
@@ -1328,7 +1692,12 @@
     "BattleValue": 1604,
     "BFPointValue": 39,
     "DateIntroduced": "3025",
-    "Role": "Juggernaut",
+    "Role": {
+      "Id": 4,
+      "Name": "Juggernaut",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1336,11 +1705,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 12,
+    "EraId": 256,
     "EraStart": 3020,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           32,
           34,
@@ -1349,34 +1718,55 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           32,
           34
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           34,
           54
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           32,
           34
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           34,
           54
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,Juggernaut"
   },
   {
     "Id": 108616,
@@ -1388,7 +1778,12 @@
     "BattleValue": 1830,
     "BFPointValue": 34,
     "DateIntroduced": "2940",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -1396,11 +1791,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -1424,7 +1819,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -1467,7 +1862,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           13,
           39,
@@ -1476,7 +1871,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           13,
           39,
@@ -1485,7 +1880,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           5,
@@ -1521,7 +1916,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           13,
           39,
@@ -1530,7 +1925,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -1552,7 +1947,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -1574,7 +1969,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           13,
           20,
@@ -1582,7 +1977,28 @@
           73
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "16\"j",
+    "BFTMM": 3,
+    "BFArmor": 4,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,OMNI,Striker"
   },
   {
     "Id": 108617,
@@ -1594,7 +2010,12 @@
     "BattleValue": 412,
     "BFPointValue": 18,
     "DateIntroduced": "2821",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1602,58 +2023,9 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 3,
+    "EraId": 11,
     "EraStart": 2781,
     "Availability": [
-      {
-        "EraId": 3,
-        "FactionIds": [
-          30
-        ]
-      },
-      {
-        "EraId": 4,
-        "FactionIds": [
-          30
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          30
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          53,
-          56,
-          70
-        ]
-      },
-      {
-        "EraId": 7,
-        "FactionIds": [
-          30,
-          53,
-          56,
-          70
-        ]
-      },
-      {
-        "EraId": 8,
-        "FactionIds": [
-          30
-        ]
-      },
-      {
-        "EraId": 10,
-        "FactionIds": [
-          53,
-          56,
-          70
-        ]
-      },
       {
         "EraId": 11,
         "FactionIds": [
@@ -1661,19 +2033,89 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 13,
         "FactionIds": [
           30
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 14,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          53,
+          56,
+          70
+        ]
+      },
+      {
+        "EraId": 16,
+        "FactionIds": [
+          30,
+          53,
+          56,
+          70
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
+          53,
+          56,
+          70
+        ]
+      },
+      {
+        "EraId": 255,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 256,
+        "FactionIds": [
+          30
+        ]
+      },
+      {
+        "EraId": 257,
         "FactionIds": [
           30,
           53
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "20\"h",
+    "BFTMM": 4,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,IF 1,SRCH,TUR (0*/1/1,IF1),Missile Boat"
   },
   {
     "Id": 108618,
@@ -1685,7 +2127,12 @@
     "BattleValue": 0,
     "BFPointValue": 0,
     "DateIntroduced": "3012",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1693,11 +2140,11 @@
       "SortOrder": 0
     },
     "BFType": "SV",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           32,
           54,
@@ -1705,57 +2152,78 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           32
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           32,
           65
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           54,
           82,
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 0,
+    "BFMove": "—",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "None"
   },
   {
     "Id": 108619,
@@ -1767,7 +2235,12 @@
     "BattleValue": 763,
     "BFPointValue": 29,
     "DateIntroduced": "2967",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1775,11 +2248,11 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           5,
           9,
@@ -1806,7 +2279,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           5,
           9,
@@ -1838,7 +2311,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           27,
@@ -1867,7 +2340,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           5,
           9,
@@ -1893,7 +2366,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           33,
@@ -1914,7 +2387,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           5,
           9,
@@ -1933,7 +2406,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           5,
           9,
@@ -1954,7 +2427,28 @@
           64
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "16\"h",
+    "BFTMM": 3,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,IF 1,IT 3,SRCH,SRM 1/1,TUR (2/2/-,SRM1/1),Striker"
   },
   {
     "Id": 108620,
@@ -1966,7 +2460,12 @@
     "BattleValue": 338,
     "BFPointValue": 11,
     "DateIntroduced": "3088",
-    "Role": "Brawler",
+    "Role": {
+      "Id": 3,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -1974,11 +2473,11 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 6,
+    "EraId": 15,
     "EraStart": 3081,
     "Availability": [
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           33,
           35,
@@ -1991,7 +2490,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           33,
           35,
@@ -2003,7 +2502,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           33,
           35,
@@ -2015,7 +2514,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           33,
           35,
@@ -2026,7 +2525,28 @@
           75
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "8\"t",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,SRCH,TUR (1/1/1),Brawler"
   },
   {
     "Id": 108621,
@@ -2038,7 +2558,12 @@
     "BattleValue": 1883,
     "BFPointValue": 51,
     "DateIntroduced": "3068",
-    "Role": "Juggernaut",
+    "Role": {
+      "Id": 4,
+      "Name": "Juggernaut",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2046,44 +2571,65 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           18,
           29
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           29,
           40
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           29,
           40
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           29,
           40
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           29
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "OmniVehicle",
+      "Image": null,
+      "SortOrder": 2
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 7,
+    "BFDamageMedium": 7,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 10,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,ECM,OMNI,SRCH,TUR (2/2/2),Juggernaut"
   },
   {
     "Id": 108622,
@@ -2095,7 +2641,12 @@
     "BattleValue": 2131,
     "BFPointValue": 54,
     "DateIntroduced": "3066",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2103,46 +2654,67 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 8,
+    "EraId": 247,
     "EraStart": 3062,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 5,
+    "BFDamageLong": 5,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 8,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,CASE,IF 3,MHQ 1,Missile Boat"
   },
   {
     "Id": 108623,
@@ -2154,7 +2726,12 @@
     "BattleValue": 0,
     "BFPointValue": 9,
     "DateIntroduced": "2933",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2162,55 +2739,76 @@
       "SortOrder": 0
     },
     "BFType": "CI",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           18,
           47
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           18,
           47
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           18
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           18,
           47
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           18
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           18
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           18
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"f",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 2,Ambusher"
   },
   {
     "Id": 108624,
@@ -2222,7 +2820,12 @@
     "BattleValue": 1612,
     "BFPointValue": 37,
     "DateIntroduced": "3130",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2230,11 +2833,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           30,
           34,
@@ -2243,20 +2846,41 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           40
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           30,
           34,
           80
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "10\"",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASEII,IF 1,LRM 1/1/1,SRM 1/1,Missile Boat"
   },
   {
     "Id": 108625,
@@ -2268,7 +2892,12 @@
     "BattleValue": 1158,
     "BFPointValue": 30,
     "DateIntroduced": "3069",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2276,16 +2905,37 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           47
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"j",
+    "BFTMM": 2,
+    "BFArmor": 5,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3I,ENE,MHQ 2,OMNI,Striker"
   },
   {
     "Id": 108626,
@@ -2297,7 +2947,12 @@
     "BattleValue": 90,
     "BFPointValue": 11,
     "DateIntroduced": "2815",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -2305,11 +2960,11 @@
       "SortOrder": 0
     },
     "BFType": "CI",
-    "EraId": 3,
+    "EraId": 11,
     "EraStart": 2781,
     "Availability": [
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           1,
           2,
@@ -2334,7 +2989,7 @@
         ]
       },
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -2357,7 +3012,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -2382,7 +3037,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           8,
           13,
@@ -2396,7 +3051,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           13,
           15,
@@ -2410,7 +3065,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           6,
@@ -2431,7 +3086,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           13,
           15,
@@ -2445,7 +3100,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -2467,7 +3122,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -2489,7 +3144,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           13,
           15,
@@ -2505,7 +3160,28 @@
           190
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"m",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 6,HT 1/-/-,Ambusher"
   },
   {
     "Id": 108627,
@@ -2517,7 +3193,12 @@
     "BattleValue": 1781,
     "BFPointValue": 39,
     "DateIntroduced": "3075",
-    "Role": "Sniper",
+    "Role": {
+      "Id": 8,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2525,18 +3206,18 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           32,
           34
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           33,
@@ -2547,7 +3228,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           30,
@@ -2560,7 +3241,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           33,
@@ -2572,7 +3253,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           30,
@@ -2583,7 +3264,28 @@
           82
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "10\"j",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ECM,ENE,REAR 1/1/-,TSM,Sniper"
   },
   {
     "Id": 108628,
@@ -2595,7 +3297,12 @@
     "BattleValue": 852,
     "BFPointValue": 25,
     "DateIntroduced": "3074",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2603,40 +3310,61 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           43
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           43
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           43
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           43
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           43
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "18\"",
+    "BFTMM": 3,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,MEL,SHLD,Striker"
   },
   {
     "Id": 108629,
@@ -2648,7 +3376,12 @@
     "BattleValue": 1050,
     "BFPointValue": 35,
     "DateIntroduced": "3064",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2656,22 +3389,43 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 8,
+    "EraId": 247,
     "EraStart": 3062,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           47
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           47
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 5,
+    "BFDamageLong": 5,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3I,IF 5,MHQ 2,SRCH,Missile Boat"
   },
   {
     "Id": 108630,
@@ -2683,7 +3437,12 @@
     "BattleValue": 0,
     "BFPointValue": 5,
     "DateIntroduced": "3010",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2691,64 +3450,85 @@
       "SortOrder": 0
     },
     "BFType": "CI",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
-      {
-        "EraId": 4,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 7,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 8,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 10,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 11,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 12,
-        "FactionIds": [
-          35
-        ]
-      },
       {
         "EraId": 13,
         "FactionIds": [
           35
         ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 16,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 255,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 256,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 257,
+        "FactionIds": [
+          35
+        ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 20,Ambusher"
   },
   {
     "Id": 108631,
@@ -2760,7 +3540,12 @@
     "BattleValue": 649,
     "BFPointValue": 20,
     "DateIntroduced": "3050",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2768,28 +3553,49 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           48
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           48
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           48
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "12\"/10\"j",
+    "BFTMM": 2,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AMS,Scout"
   },
   {
     "Id": 108632,
@@ -2801,7 +3607,12 @@
     "BattleValue": 1989,
     "BFPointValue": 40,
     "DateIntroduced": "2912",
-    "Role": "Skirmisher",
+    "Role": {
+      "Id": 6,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -2809,11 +3620,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -2836,7 +3647,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -2860,21 +3671,21 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           15,
           38
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           15,
           38
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           6,
@@ -2895,14 +3706,14 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           15,
           38
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -2924,7 +3735,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -2946,12 +3757,33 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           38
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"j",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Skirmisher"
   },
   {
     "Id": 108633,
@@ -2963,7 +3795,12 @@
     "BattleValue": 2163,
     "BFPointValue": 47,
     "DateIntroduced": "3060",
-    "Role": "Attack",
+    "Role": {
+      "Id": 10,
+      "Name": "Attack",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -2971,25 +3808,25 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           30,
           47
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           30,
           47
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           40,
           53,
@@ -3002,7 +3839,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           30,
           40,
@@ -3015,14 +3852,14 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           30,
           47
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           40,
           53,
@@ -3034,13 +3871,34 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           30,
           53
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Fighter Craft",
+      "Image": null,
+      "SortOrder": 3
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 6,
+    "BFDamageLong": 4,
+    "BFDamageExtreme": 2,
+    "BFSize": 3,
+    "BFMove": "5a",
+    "BFTMM": 0,
+    "BFArmor": 6,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 2,BOMB 3,FUEL 20,PNT 1,SPC,VSTOL,Attack"
   },
   {
     "Id": 108634,
@@ -3052,7 +3910,12 @@
     "BattleValue": 0,
     "BFPointValue": 17,
     "DateIntroduced": "3021",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -3060,16 +3923,37 @@
       "SortOrder": 0
     },
     "BFType": "SV",
-    "EraId": 12,
+    "EraId": 256,
     "EraStart": 3020,
     "Availability": [
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           27
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "5a",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,ATMO,CT 15,FUEL 20,MHQ 3,None"
   },
   {
     "Id": 108635,
@@ -3081,7 +3965,12 @@
     "BattleValue": 933,
     "BFPointValue": 27,
     "DateIntroduced": "3027",
-    "Role": "Juggernaut",
+    "Role": {
+      "Id": 4,
+      "Name": "Juggernaut",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -3089,11 +3978,11 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 12,
+    "EraId": 256,
     "EraStart": 3020,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           28,
           29,
@@ -3104,7 +3993,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           28,
           29,
@@ -3115,7 +4004,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           29,
           34,
@@ -3126,7 +4015,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           34,
           38,
@@ -3134,7 +4023,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           28,
           29,
@@ -3144,7 +4033,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           29,
           34,
@@ -3154,7 +4043,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           28,
           29,
@@ -3163,14 +4052,35 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           34,
           38,
           60
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"t",
+    "BFTMM": 1,
+    "BFArmor": 6,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": true,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AC 2/2/-,SRCH,TUR (3/3/0*,AC2/2/-),Juggernaut"
   },
   {
     "Id": 108636,
@@ -3182,7 +4092,12 @@
     "BattleValue": 154,
     "BFPointValue": 17,
     "DateIntroduced": "3060",
-    "Role": "Fast Dogfighter",
+    "Role": {
+      "Id": 12,
+      "Name": "Fast Dogfighter",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -3190,23 +4105,23 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           64
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           5
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           33,
@@ -3217,7 +4132,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           30,
@@ -3230,14 +4145,14 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           5,
           64
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           33,
@@ -3248,7 +4163,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           30,
@@ -3258,7 +4173,28 @@
           75
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Fighter Craft",
+      "Image": null,
+      "SortOrder": 3
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "7a",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,ATMO,BOMB 1,EE,VSTOL,Fast Dogfighter"
   },
   {
     "Id": 108637,
@@ -3270,7 +4206,12 @@
     "BattleValue": 152,
     "BFPointValue": 12,
     "DateIntroduced": "3055",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -3278,178 +4219,178 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
-        "FactionIds": [
-          5,
-          9,
-          18,
-          27,
-          28,
-          29,
-          30,
-          31,
-          32,
-          33,
-          34,
-          35,
-          36,
-          37,
-          43,
-          45,
-          46,
-          47,
-          48,
-          54,
-          64,
-          65
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          5,
-          9,
-          18,
-          27,
-          28,
-          29,
-          30,
-          31,
-          32,
-          33,
-          34,
-          35,
-          36,
-          37,
-          43,
-          46,
-          47,
-          48,
-          53,
-          55,
-          56,
-          57,
-          58,
-          60,
-          61,
-          70,
-          75
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          5,
-          27,
-          29,
-          33,
-          34,
-          35,
-          36,
-          37,
-          38,
-          40,
-          43,
-          46,
-          53,
-          54,
-          55,
-          56,
-          57,
-          58,
-          59,
-          60,
-          61,
-          70,
-          75
-        ]
-      },
-      {
-        "EraId": 7,
-        "FactionIds": [
-          5,
-          27,
-          29,
-          30,
-          33,
-          34,
-          35,
-          37,
-          38,
-          40,
-          43,
-          46,
-          53,
-          54,
-          55,
-          56,
-          57,
-          58,
-          59,
-          60,
-          61,
-          70,
-          75
-        ]
-      },
-      {
-        "EraId": 8,
-        "FactionIds": [
-          5,
-          9,
-          18,
-          27,
-          28,
-          29,
-          30,
-          32,
-          33,
-          34,
-          35,
-          36,
-          37,
-          43,
-          45,
-          46,
-          47,
-          48,
-          64,
-          65
-        ]
-      },
-      {
-        "EraId": 10,
-        "FactionIds": [
-          5,
-          27,
-          29,
-          33,
-          34,
-          35,
-          37,
-          38,
-          40,
-          43,
-          46,
-          53,
-          54,
-          55,
-          56,
-          57,
-          58,
-          59,
-          60,
-          61,
-          70,
-          75
-        ]
-      },
-      {
         "EraId": 13,
+        "FactionIds": [
+          5,
+          9,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          45,
+          46,
+          47,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          5,
+          9,
+          18,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          46,
+          47,
+          48,
+          53,
+          55,
+          56,
+          57,
+          58,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 16,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          33,
+          34,
+          35,
+          37,
+          38,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          5,
+          9,
+          18,
+          27,
+          28,
+          29,
+          30,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          43,
+          45,
+          46,
+          47,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          33,
+          34,
+          35,
+          37,
+          38,
+          40,
+          43,
+          46,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          60,
+          61,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 257,
         "FactionIds": [
           5,
           27,
@@ -3471,7 +4412,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "20\"v",
+    "BFTMM": 4,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ATMO,EE,IT 7,SRCH,None"
   },
   {
     "Id": 108638,
@@ -3483,7 +4445,12 @@
     "BattleValue": 1209,
     "BFPointValue": 29,
     "DateIntroduced": "3072",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 3,
       "Name": "Mixed",
@@ -3491,18 +4458,39 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           7,
           67
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "20\"",
+    "BFTMM": 4,
+    "BFArmor": 3,
+    "BFStructure": 1,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CR,ECM,ENE,HT 1/1/1,MHQ 1,NOVA,OMNI,PRB,RCN,STL,Scout"
   },
   {
     "Id": 108639,
@@ -3514,7 +4502,12 @@
     "BattleValue": 0,
     "BFPointValue": 0,
     "DateIntroduced": "2839",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -3522,48 +4515,9 @@
       "SortOrder": 0
     },
     "BFType": "SV",
-    "EraId": 3,
+    "EraId": 11,
     "EraStart": 2781,
     "Availability": [
-      {
-        "EraId": 3,
-        "FactionIds": [
-          18
-        ]
-      },
-      {
-        "EraId": 4,
-        "FactionIds": [
-          18,
-          47
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          18,
-          47
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          40
-        ]
-      },
-      {
-        "EraId": 8,
-        "FactionIds": [
-          18,
-          47
-        ]
-      },
-      {
-        "EraId": 10,
-        "FactionIds": [
-          40
-        ]
-      },
       {
         "EraId": 11,
         "FactionIds": [
@@ -3571,12 +4525,72 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 13,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          18,
+          47
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
+          40
+        ]
+      },
+      {
+        "EraId": 255,
+        "FactionIds": [
+          18
+        ]
+      },
+      {
+        "EraId": 256,
         "FactionIds": [
           18
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 24,
+      "Name": "Advanced Support",
+      "Image": null,
+      "SortOrder": 10
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 0,
+    "BFMove": "—",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "None"
   },
   {
     "Id": 108640,
@@ -3588,7 +4602,12 @@
     "BattleValue": 1121,
     "BFPointValue": 29,
     "DateIntroduced": "3120",
-    "Role": "Sniper",
+    "Role": {
+      "Id": 8,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 3,
       "Name": "Mixed",
@@ -3596,11 +4615,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           30,
           53,
@@ -3613,7 +4632,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           53,
           55,
@@ -3625,13 +4644,34 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           30,
           53
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"",
+    "BFTMM": 2,
+    "BFArmor": 4,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASEII,Sniper"
   },
   {
     "Id": 108641,
@@ -3643,7 +4683,12 @@
     "BattleValue": 354,
     "BFPointValue": 16,
     "DateIntroduced": "3069",
-    "Role": "Juggernaut",
+    "Role": {
+      "Id": 4,
+      "Name": "Juggernaut",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -3651,9 +4696,30 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"j",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 4,MEC,Juggernaut"
   },
   {
     "Id": 108642,
@@ -3665,7 +4731,12 @@
     "BattleValue": 0,
     "BFPointValue": 6,
     "DateIntroduced": "3049",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -3673,52 +4744,73 @@
       "SortOrder": 0
     },
     "BFType": "CI",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
-      {
-        "EraId": 4,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 7,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 8,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 10,
-        "FactionIds": [
-          35
-        ]
-      },
       {
         "EraId": 13,
         "FactionIds": [
           35
         ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 16,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 257,
+        "FactionIds": [
+          35
+        ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 20,Ambusher"
   },
   {
     "Id": 108643,
@@ -3730,7 +4822,12 @@
     "BattleValue": 243,
     "BFPointValue": 12,
     "DateIntroduced": "3050",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -3738,9 +4835,30 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"f",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 5,MDS 1,Ambusher"
   },
   {
     "Id": 108644,
@@ -3752,7 +4870,12 @@
     "BattleValue": 615,
     "BFPointValue": 19,
     "DateIntroduced": "3069",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -3760,9 +4883,30 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": true,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 6,FR,MEC,Ambusher"
   },
   {
     "Id": 108645,
@@ -3774,7 +4918,12 @@
     "BattleValue": 921,
     "BFPointValue": 30,
     "DateIntroduced": "3081",
-    "Role": "Brawler",
+    "Role": {
+      "Id": 3,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -3782,11 +4931,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 6,
+    "EraId": 15,
     "EraStart": 3081,
     "Availability": [
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           17,
           34,
@@ -3794,7 +4943,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           17,
           34,
@@ -3802,7 +4951,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           17,
           34,
@@ -3810,7 +4959,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27,
           34,
@@ -3818,7 +4967,28 @@
           79
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "10\"",
+    "BFTMM": 2,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,IF 1,LRM 1/1/1,Brawler"
   },
   {
     "Id": 108646,
@@ -3830,7 +5000,12 @@
     "BattleValue": 213,
     "BFPointValue": 13,
     "DateIntroduced": "3052",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -3838,11 +5013,11 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           31,
           32,
@@ -3852,7 +5027,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           31,
           32,
@@ -3860,7 +5035,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           31,
           34,
@@ -3868,7 +5043,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           31,
           34,
@@ -3876,7 +5051,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           31,
           32,
@@ -3884,7 +5059,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           31,
           34,
@@ -3892,7 +5067,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           31,
           34,
@@ -3901,7 +5076,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"f",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 4,MEC,RCN,Ambusher"
   },
   {
     "Id": 108647,
@@ -3913,7 +5109,12 @@
     "BattleValue": 1329,
     "BFPointValue": 31,
     "DateIntroduced": "2475",
-    "Role": "Sniper",
+    "Role": {
+      "Id": 8,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -3937,54 +5138,75 @@
         ]
       },
       {
-        "EraId": 2,
-        "FactionIds": [
-          29
-        ]
-      },
-      {
-        "EraId": 3,
-        "FactionIds": [
-          29
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          29,
-          34
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          29,
-          34
-        ]
-      },
-      {
-        "EraId": 7,
-        "FactionIds": [
-          34,
-          60
-        ]
-      },
-      {
         "EraId": 10,
         "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 11,
+        "FactionIds": [
+          29
+        ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          29,
+          34
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          29,
+          34
+        ]
+      },
+      {
+        "EraId": 16,
+        "FactionIds": [
+          34,
+          60
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
           29,
           34,
           60
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           34,
           60
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"j",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 0*,OVL,Sniper"
   },
   {
     "Id": 108648,
@@ -3996,7 +5218,12 @@
     "BattleValue": 0,
     "BFPointValue": 0,
     "DateIntroduced": "2399",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -4008,7 +5235,7 @@
     "EraStart": 2005,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -4053,7 +5280,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -4103,7 +5330,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           8,
@@ -4140,7 +5367,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           13,
@@ -4177,7 +5404,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           5,
@@ -4219,7 +5446,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           13,
@@ -4255,7 +5482,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -4291,7 +5518,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -4329,7 +5556,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           13,
@@ -4363,7 +5590,28 @@
           190
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 0,
+    "BFMove": "—",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "None"
   },
   {
     "Id": 108649,
@@ -4375,7 +5623,12 @@
     "BattleValue": 105,
     "BFPointValue": 10,
     "DateIntroduced": "3083",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -4383,9 +5636,30 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 6,
+    "EraId": 15,
     "EraStart": 3081,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 0,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 6,FR,LECM,Ambusher"
   },
   {
     "Id": 108650,
@@ -4397,7 +5671,12 @@
     "BattleValue": 681,
     "BFPointValue": 22,
     "DateIntroduced": "3081",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -4405,34 +5684,55 @@
       "SortOrder": 0
     },
     "BFType": "IM",
-    "EraId": 6,
+    "EraId": 15,
     "EraStart": 3081,
     "Availability": [
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           61
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           61
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           61
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           61
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 20,
+      "Name": "IndustrialMech",
+      "Image": null,
+      "SortOrder": 9
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 4,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "BFC,FC,IF 0*,MEL,TUR (1/1/1),Ambusher"
   },
   {
     "Id": 108651,
@@ -4444,7 +5744,12 @@
     "BattleValue": 1622,
     "BFPointValue": 47,
     "DateIntroduced": "3074",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -4452,40 +5757,61 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 4,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 9,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 4,LRM 1/1/2,Missile Boat"
   },
   {
     "Id": 108652,
@@ -4497,7 +5823,12 @@
     "BattleValue": 1738,
     "BFPointValue": 44,
     "DateIntroduced": "2703",
-    "Role": "Attack",
+    "Role": {
+      "Id": 10,
+      "Name": "Attack",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -4505,11 +5836,11 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 2,
+    "EraId": 10,
     "EraStart": 2571,
     "Availability": [
       {
-        "EraId": 2,
+        "EraId": 10,
         "FactionIds": [
           5,
           27,
@@ -4523,7 +5854,7 @@
         ]
       },
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           5,
           6,
@@ -4540,7 +5871,7 @@
         ]
       },
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           18,
           27,
@@ -4550,7 +5881,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           17,
           18,
@@ -4561,19 +5892,19 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           73
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           18
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           17,
           18,
@@ -4584,24 +5915,45 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           18
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           18
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           18
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Fighter Craft",
+      "Image": null,
+      "SortOrder": 3
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "5a",
+    "BFTMM": 0,
+    "BFArmor": 8,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 3,BOMB 3,FUEL 20,REAR 1/1/-/-,SNARC,SPC,VSTOL,Attack"
   },
   {
     "Id": 108653,
@@ -4613,7 +5965,12 @@
     "BattleValue": 0,
     "BFPointValue": 10,
     "DateIntroduced": "3057",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -4621,52 +5978,73 @@
       "SortOrder": 0
     },
     "BFType": "CI",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
-      {
-        "EraId": 4,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 7,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 8,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 10,
-        "FactionIds": [
-          35
-        ]
-      },
       {
         "EraId": 13,
         "FactionIds": [
           35
         ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 16,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 257,
+        "FactionIds": [
+          35
+        ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"w",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 20,Ambusher"
   },
   {
     "Id": 108654,
@@ -4678,7 +6056,12 @@
     "BattleValue": 122,
     "BFPointValue": 11,
     "DateIntroduced": "2815",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -4686,11 +6069,11 @@
       "SortOrder": 0
     },
     "BFType": "CI",
-    "EraId": 3,
+    "EraId": 11,
     "EraStart": 2781,
     "Availability": [
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           1,
           2,
@@ -4715,7 +6098,7 @@
         ]
       },
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -4738,7 +6121,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -4763,7 +6146,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           8,
           13,
@@ -4777,7 +6160,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           13,
           15,
@@ -4791,7 +6174,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           6,
@@ -4812,7 +6195,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           13,
           15,
@@ -4826,7 +6209,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -4848,7 +6231,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -4870,7 +6253,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           13,
           15,
@@ -4886,7 +6269,28 @@
           190
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"f",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 3,Ambusher"
   },
   {
     "Id": 108655,
@@ -4898,7 +6302,12 @@
     "BattleValue": 1008,
     "BFPointValue": 31,
     "DateIntroduced": "3063",
-    "Role": "Brawler",
+    "Role": {
+      "Id": 3,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -4906,18 +6315,18 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 8,
+    "EraId": 247,
     "EraStart": 3062,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           27,
           29
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           27,
           29,
@@ -4925,7 +6334,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           27,
           29,
@@ -4933,7 +6342,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           27,
           29,
@@ -4941,7 +6350,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           27,
           29,
@@ -4949,13 +6358,34 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27,
           29
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"t",
+    "BFTMM": 1,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,IF 1,MHQ 1,SRCH,TUR (2/3/2,IF1),Brawler"
   },
   {
     "Id": 108656,
@@ -4967,7 +6397,12 @@
     "BattleValue": 996,
     "BFPointValue": 28,
     "DateIntroduced": "2581",
-    "Role": "Skirmisher",
+    "Role": {
+      "Id": 6,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -4975,17 +6410,38 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 2,
+    "EraId": 10,
     "EraStart": 2571,
     "Availability": [
       {
-        "EraId": 2,
+        "EraId": 10,
         "FactionIds": [
           41,
           46
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "10\"j",
+    "BFTMM": 2,
+    "BFArmor": 5,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AC 1/1/-,Skirmisher"
   },
   {
     "Id": 108657,
@@ -4997,7 +6453,12 @@
     "BattleValue": 1446,
     "BFPointValue": 34,
     "DateIntroduced": "3049",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -5005,11 +6466,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           29,
           32,
@@ -5019,7 +6480,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           29,
           32,
@@ -5027,20 +6488,20 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           34,
           54
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           29,
           32,
@@ -5049,18 +6510,39 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           54
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 6,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,IF 1,LRM 1/1/1,SRM 1/1,Missile Boat"
   },
   {
     "Id": 108658,
@@ -5072,7 +6554,12 @@
     "BattleValue": 226,
     "BFPointValue": 18,
     "DateIntroduced": "3104",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -5080,28 +6567,49 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           13
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           13
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           13
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "14\"f",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 5,RCN,SRCH,Scout"
   },
   {
     "Id": 108659,
@@ -5113,7 +6621,12 @@
     "BattleValue": 1640,
     "BFPointValue": 41,
     "DateIntroduced": "2572",
-    "Role": "Brawler",
+    "Role": {
+      "Id": 3,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -5121,11 +6634,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 2,
+    "EraId": 10,
     "EraStart": 2571,
     "Availability": [
       {
-        "EraId": 2,
+        "EraId": 10,
         "FactionIds": [
           5,
           27,
@@ -5141,7 +6654,7 @@
         ]
       },
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           1,
           2,
@@ -5175,7 +6688,7 @@
         ]
       },
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -5205,7 +6718,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -5247,7 +6760,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           27,
@@ -5267,7 +6780,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           33,
           34,
@@ -5277,7 +6790,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           5,
@@ -5312,7 +6825,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           33,
           34,
@@ -5326,7 +6839,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -5349,7 +6862,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -5372,7 +6885,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           33,
           34,
@@ -5381,7 +6894,28 @@
           73
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,SRM 2/2,Brawler"
   },
   {
     "Id": 108660,
@@ -5393,7 +6927,12 @@
     "BattleValue": 3112,
     "BFPointValue": 57,
     "DateIntroduced": "3001",
-    "Role": "Skirmisher",
+    "Role": {
+      "Id": 6,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -5401,11 +6940,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -5429,7 +6968,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -5472,7 +7011,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           8,
           13,
@@ -5485,7 +7024,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           13,
           15,
@@ -5500,7 +7039,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           5,
@@ -5536,7 +7075,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           13,
           15,
@@ -5549,7 +7088,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -5571,7 +7110,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -5593,7 +7132,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           13,
           15,
@@ -5607,7 +7146,28 @@
           190
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 5,
+    "BFDamageLong": 4,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "10\"/8\"j",
+    "BFTMM": 2,
+    "BFArmor": 9,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,JMPW 1,OMNI,Skirmisher"
   },
   {
     "Id": 108661,
@@ -5619,7 +7179,12 @@
     "BattleValue": 155,
     "BFPointValue": 13,
     "DateIntroduced": "3007",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -5627,11 +7192,11 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           18,
           27,
@@ -5644,7 +7209,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           18,
           27,
@@ -5656,7 +7221,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           27,
           29,
@@ -5666,14 +7231,14 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           40,
           48
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           18,
           27,
@@ -5686,7 +7251,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           27,
           40,
@@ -5694,24 +7259,45 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           48
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           48
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           48
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "24\"v",
+    "BFTMM": 4,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ATMO,EE,IT 3.5,SRCH,Scout"
   },
   {
     "Id": 108662,
@@ -5723,7 +7309,12 @@
     "BattleValue": 113,
     "BFPointValue": 7,
     "DateIntroduced": "3065",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -5731,22 +7322,43 @@
       "SortOrder": 0
     },
     "BFType": "CI",
-    "EraId": 8,
+    "EraId": 247,
     "EraStart": 3062,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           47
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           47
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"f",
+    "BFTMM": 0,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 1,TSI,Ambusher"
   },
   {
     "Id": 108663,
@@ -5758,7 +7370,12 @@
     "BattleValue": 63,
     "BFPointValue": 9,
     "DateIntroduced": "3058",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -5766,16 +7383,37 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           20
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"f",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 5,LMAS,MEC,STL,Ambusher"
   },
   {
     "Id": 108664,
@@ -5787,7 +7425,12 @@
     "BattleValue": 1512,
     "BFPointValue": 40,
     "DateIntroduced": "3140",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 3,
       "Name": "Mixed",
@@ -5795,11 +7438,11 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 7,
+    "EraId": 16,
     "EraStart": 3131,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           27,
@@ -5821,7 +7464,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           27,
@@ -5837,7 +7480,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "16\"h",
+    "BFTMM": 3,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "BRA,LPRB,RCN,SRCH,TUR (0*/0*/-),Striker"
   },
   {
     "Id": 108665,
@@ -5849,7 +7513,12 @@
     "BattleValue": 1224,
     "BFPointValue": 34,
     "DateIntroduced": "3141",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -5857,16 +7526,37 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 7,
+    "EraId": 16,
     "EraStart": 3131,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           18
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 4,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ARTAIS -1,ECM,FLK 1/1/1,SRCH,TUR (2/2/1,ARTAIS-1,FLK1/1/1),Missile Boat"
   },
   {
     "Id": 108666,
@@ -5878,7 +7568,12 @@
     "BattleValue": 1248,
     "BFPointValue": 32,
     "DateIntroduced": "3055",
-    "Role": "Skirmisher",
+    "Role": {
+      "Id": 6,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -5886,11 +7581,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           18,
           29,
@@ -5903,7 +7598,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           18,
           29,
@@ -5914,20 +7609,20 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           34,
           54
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           34
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           18,
           29,
@@ -5939,19 +7634,40 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           34,
           54
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           34
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "10\"",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,FLK 1/1/1,Skirmisher"
   },
   {
     "Id": 108667,
@@ -5963,7 +7679,12 @@
     "BattleValue": 717,
     "BFPointValue": 23,
     "DateIntroduced": "2652",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -5971,11 +7692,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 2,
+    "EraId": 10,
     "EraStart": 2571,
     "Availability": [
       {
-        "EraId": 2,
+        "EraId": 10,
         "FactionIds": [
           29,
           30,
@@ -5986,7 +7707,7 @@
         ]
       },
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           1,
           2,
@@ -6015,7 +7736,7 @@
         ]
       },
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -6046,7 +7767,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -6079,7 +7800,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           8,
           13,
@@ -6096,14 +7817,14 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           34,
           60
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           6,
@@ -6132,7 +7853,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           34,
           54,
@@ -6141,7 +7862,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -6164,7 +7885,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -6187,13 +7908,34 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           34,
           60
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"",
+    "BFTMM": 2,
+    "BFArmor": 3,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "Striker"
   },
   {
     "Id": 108668,
@@ -6205,7 +7947,12 @@
     "BattleValue": 524,
     "BFPointValue": 16,
     "DateIntroduced": "3138",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -6213,9 +7960,30 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 7,
+    "EraId": 16,
     "EraStart": 3131,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "2\"j",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 6,FLK 1/1/-,MEC,RCA,Ambusher"
   },
   {
     "Id": 108669,
@@ -6227,7 +7995,12 @@
     "BattleValue": 3013,
     "BFPointValue": 42,
     "DateIntroduced": "3143",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 3,
       "Name": "Mixed",
@@ -6235,16 +8008,37 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 7,
+    "EraId": 16,
     "EraStart": 3131,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           80
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,CR,DN,OMNI,SRM 1/1,TSM,Striker"
   },
   {
     "Id": 108670,
@@ -6256,7 +8050,12 @@
     "BattleValue": 1530,
     "BFPointValue": 34,
     "DateIntroduced": "3069",
-    "Role": "Skirmisher",
+    "Role": {
+      "Id": 6,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6264,45 +8063,66 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           5,
           33
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           33
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           33
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           33
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           33
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"/10\"j",
+    "BFTMM": 2,
+    "BFArmor": 4,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ECM,ENE,STL,Skirmisher"
   },
   {
     "Id": 108671,
@@ -6314,7 +8134,12 @@
     "BattleValue": 1220,
     "BFPointValue": 36,
     "DateIntroduced": "3068",
-    "Role": "Dogfighter",
+    "Role": {
+      "Id": 11,
+      "Name": "Dogfighter",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6322,11 +8147,11 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           36,
           60,
@@ -6334,7 +8159,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           36,
           38,
@@ -6343,7 +8168,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           38,
           60,
@@ -6351,7 +8176,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           38,
           60,
@@ -6359,14 +8184,35 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           38,
           60,
           61
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Fighter Craft",
+      "Image": null,
+      "SortOrder": 3
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "6a",
+    "BFTMM": 0,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 2,BOMB 2,FLK 1/1/-,FUEL 20,PNT 2,REAR 1/1/-,SPC,VSTOL,Dogfighter"
   },
   {
     "Id": 108672,
@@ -6378,7 +8224,12 @@
     "BattleValue": 82,
     "BFPointValue": 6,
     "DateIntroduced": "3072",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -6386,16 +8237,37 @@
       "SortOrder": 0
     },
     "BFType": "PM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           67
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 23,
+      "Name": "ProtoMech",
+      "Image": null,
+      "SortOrder": 6
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "16\"",
+    "BFTMM": 3,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,Scout"
   },
   {
     "Id": 108673,
@@ -6407,7 +8279,12 @@
     "BattleValue": 0,
     "BFPointValue": 10,
     "DateIntroduced": "3057",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6415,52 +8292,73 @@
       "SortOrder": 0
     },
     "BFType": "CI",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
-      {
-        "EraId": 4,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 7,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 8,
-        "FactionIds": [
-          35
-        ]
-      },
-      {
-        "EraId": 10,
-        "FactionIds": [
-          35
-        ]
-      },
       {
         "EraId": 13,
         "FactionIds": [
           35
         ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 16,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
+          35
+        ]
+      },
+      {
+        "EraId": 257,
+        "FactionIds": [
+          35
+        ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 20,Ambusher"
   },
   {
     "Id": 108674,
@@ -6472,7 +8370,12 @@
     "BattleValue": 232,
     "BFPointValue": 17,
     "DateIntroduced": "3080",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6480,42 +8383,63 @@
       "SortOrder": 0
     },
     "BFType": "SV",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           32
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           54,
           82,
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "30\"v",
+    "BFTMM": 4,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AECM,ATMO,ENE,RCN,Scout"
   },
   {
     "Id": 108675,
@@ -6527,7 +8451,12 @@
     "BattleValue": 795,
     "BFPointValue": 26,
     "DateIntroduced": "3092",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6535,17 +8464,17 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 6,
+    "EraId": 15,
     "EraStart": 3081,
     "Availability": [
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           40
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           27,
@@ -6556,14 +8485,14 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           40
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           27,
@@ -6573,7 +8502,28 @@
           76
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "24\"",
+    "BFTMM": 4,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,Scout"
   },
   {
     "Id": 108676,
@@ -6585,7 +8535,12 @@
     "BattleValue": 992,
     "BFPointValue": 30,
     "DateIntroduced": "3090",
-    "Role": "Sniper",
+    "Role": {
+      "Id": 8,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6593,17 +8548,17 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 6,
+    "EraId": 15,
     "EraStart": 3081,
     "Availability": [
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           29
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           27,
@@ -6616,7 +8571,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           29,
           31,
@@ -6627,7 +8582,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           27,
@@ -6644,7 +8599,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"t",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,CASE,FC,MHQ 1,SRCH,TUR (3/3/3),Sniper"
   },
   {
     "Id": 108677,
@@ -6656,7 +8632,12 @@
     "BattleValue": 10965,
     "BFPointValue": 182,
     "DateIntroduced": "3066",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -6664,22 +8645,43 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 8,
+    "EraId": 247,
     "EraStart": 3062,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           2
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Aerospace Craft",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "6a",
+    "BFTMM": 0,
+    "BFArmor": 34,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 3,None"
   },
   {
     "Id": 108678,
@@ -6691,7 +8693,12 @@
     "BattleValue": 1470,
     "BFPointValue": 36,
     "DateIntroduced": "3058",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6699,23 +8706,23 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           27,
           34,
@@ -6724,7 +8731,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           27,
           30,
@@ -6735,13 +8742,13 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           27,
           34,
@@ -6750,7 +8757,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27,
           30,
@@ -6758,7 +8765,28 @@
           80
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "22\"",
+    "BFTMM": 4,
+    "BFArmor": 2,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,ECM,ENE,MHQ 1,Striker"
   },
   {
     "Id": 108679,
@@ -6770,7 +8798,12 @@
     "BattleValue": 809,
     "BFPointValue": 23,
     "DateIntroduced": "2544",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6788,7 +8821,7 @@
         ]
       },
       {
-        "EraId": 2,
+        "EraId": 10,
         "FactionIds": [
           5,
           41,
@@ -6797,36 +8830,57 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           73
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           73
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           73
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           73
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           73
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 1,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "10\"t",
+    "BFTMM": 2,
+    "BFArmor": 4,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 1,REAR 0*/-/-,SRCH,TUR (2/2/1,IF1),Missile Boat"
   },
   {
     "Id": 108680,
@@ -6838,7 +8892,12 @@
     "BattleValue": 232,
     "BFPointValue": 16,
     "DateIntroduced": "3102",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6846,11 +8905,11 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           30,
           31,
@@ -6861,7 +8920,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           31,
           34,
@@ -6871,7 +8930,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           30,
           31,
@@ -6881,7 +8940,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": true,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 4,MDS 1,MEC,PAR,STL,Scout"
   },
   {
     "Id": 108681,
@@ -6893,7 +8973,12 @@
     "BattleValue": 230,
     "BFPointValue": 16,
     "DateIntroduced": "2868",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -6901,16 +8986,37 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 3,
+    "EraId": 11,
     "EraStart": 2781,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           67
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 3,MEC,Ambusher"
   },
   {
     "Id": 108682,
@@ -6922,7 +9028,12 @@
     "BattleValue": 1904,
     "BFPointValue": 38,
     "DateIntroduced": "3124",
-    "Role": "Sniper",
+    "Role": {
+      "Id": 8,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -6930,30 +9041,51 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           17,
           27
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           17,
           27
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "16\"",
+    "BFTMM": 3,
+    "BFArmor": 4,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Sniper"
   },
   {
     "Id": 108683,
@@ -6965,7 +9097,12 @@
     "BattleValue": 0,
     "BFPointValue": 329,
     "DateIntroduced": "2440",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -6983,39 +9120,60 @@
         ]
       },
       {
-        "EraId": 2,
+        "EraId": 10,
         "FactionIds": [
           44,
           68
         ]
       },
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           54,
           74
         ]
       },
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           47
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           47
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           47
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Aerospace Craft",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "3",
+    "BFTMM": 0,
+    "BFArmor": 131,
+    "BFStructure": 70,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 11,None"
   },
   {
     "Id": 108684,
@@ -7027,7 +9185,12 @@
     "BattleValue": 286,
     "BFPointValue": 12,
     "DateIntroduced": "2801",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7035,16 +9198,37 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 3,
+    "EraId": 11,
     "EraStart": 2781,
     "Availability": [
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           74
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "16\"w",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,SRCH,Scout"
   },
   {
     "Id": 108685,
@@ -7056,7 +9240,12 @@
     "BattleValue": 1774,
     "BFPointValue": 38,
     "DateIntroduced": "3062",
-    "Role": "Brawler",
+    "Role": {
+      "Id": 3,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7064,24 +9253,24 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 8,
+    "EraId": 247,
     "EraStart": 3062,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           29
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           29,
           40
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           29,
@@ -7089,27 +9278,48 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           29,
           65
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           29,
           40
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           29
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 5,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 7,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,ECM,Brawler"
   },
   {
     "Id": 108686,
@@ -7121,7 +9331,12 @@
     "BattleValue": 65,
     "BFPointValue": 6,
     "DateIntroduced": "3058",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7129,9 +9344,30 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"f",
+    "BFTMM": 1,
+    "BFArmor": 0,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 6,MEC,SRCH,None"
   },
   {
     "Id": 108687,
@@ -7143,7 +9379,12 @@
     "BattleValue": 0,
     "BFPointValue": 0,
     "DateIntroduced": "3060",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7151,11 +9392,11 @@
       "SortOrder": 0
     },
     "BFType": "SV",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           5,
           29,
@@ -7165,7 +9406,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           5,
           29,
@@ -7174,7 +9415,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           29,
@@ -7190,7 +9431,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           29,
@@ -7207,7 +9448,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           5,
           29,
@@ -7217,7 +9458,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           29,
@@ -7233,7 +9474,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           20,
@@ -7245,7 +9486,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 24,
+      "Name": "Support Vehicle",
+      "Image": null,
+      "SortOrder": 8
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 0,
+    "BFMove": "—",
+    "BFTMM": 0,
+    "BFArmor": 0,
+    "BFStructure": 0,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "None"
   },
   {
     "Id": 108688,
@@ -7257,7 +9519,12 @@
     "BattleValue": 165,
     "BFPointValue": 9,
     "DateIntroduced": "3070",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7265,44 +9532,65 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           46
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           46,
           75
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           46,
           75
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           46,
           75
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           46,
           75
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "18\"h",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 1,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": true,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,IT 4,SRCH,Scout"
   },
   {
     "Id": 108689,
@@ -7314,7 +9602,12 @@
     "BattleValue": 1039,
     "BFPointValue": 27,
     "DateIntroduced": "3080",
-    "Role": "Brawler",
+    "Role": {
+      "Id": 3,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7322,41 +9615,62 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           32
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           54
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           54,
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "ENE,Brawler"
   },
   {
     "Id": 108690,
@@ -7368,7 +9682,12 @@
     "BattleValue": 1925,
     "BFPointValue": 37,
     "DateIntroduced": "3143",
-    "Role": "Skirmisher",
+    "Role": {
+      "Id": 6,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7376,24 +9695,45 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 7,
+    "EraId": 16,
     "EraStart": 3131,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           29,
           34
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           29,
           34
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "12\"/10\"j",
+    "BFTMM": 2,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASEII,Skirmisher"
   },
   {
     "Id": 108691,
@@ -7405,7 +9745,12 @@
     "BattleValue": 643,
     "BFPointValue": 22,
     "DateIntroduced": "3054",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7413,18 +9758,18 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           18,
           47
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           18,
           47,
@@ -7432,25 +9777,46 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           73
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           18,
           47
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           73
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "14\"/8\"j",
+    "BFTMM": 3,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AMS,JMPW 2,Striker"
   },
   {
     "Id": 108692,
@@ -7462,7 +9828,12 @@
     "BattleValue": 833,
     "BFPointValue": 24,
     "DateIntroduced": "3134",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 3,
       "Name": "Mixed",
@@ -7470,18 +9841,39 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 7,
+    "EraId": 16,
     "EraStart": 3131,
     "Availability": [
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           20,
           63,
           79
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"f",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "C3S,CAR 5,MHQ 1,STL,Ambusher"
   },
   {
     "Id": 108693,
@@ -7493,7 +9885,12 @@
     "BattleValue": 0,
     "BFPointValue": 143,
     "DateIntroduced": "2757",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7501,11 +9898,11 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 2,
+    "EraId": 10,
     "EraStart": 2571,
     "Availability": [
       {
-        "EraId": 2,
+        "EraId": 10,
         "FactionIds": [
           41,
           44,
@@ -7513,12 +9910,33 @@
         ]
       },
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           74
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Aerospace Craft",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "5p",
+    "BFTMM": 0,
+    "BFArmor": 50,
+    "BFStructure": 13,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 5,None"
   },
   {
     "Id": 108694,
@@ -7530,7 +9948,12 @@
     "BattleValue": 13403,
     "BFPointValue": 184,
     "DateIntroduced": "3080",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -7538,40 +9961,61 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           21
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           38
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           38
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           38
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           38
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Aerospace Craft",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "6a",
+    "BFTMM": 0,
+    "BFArmor": 34,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 3,None"
   },
   {
     "Id": 108695,
@@ -7583,7 +10027,12 @@
     "BattleValue": 2237,
     "BFPointValue": 48,
     "DateIntroduced": "3101",
-    "Role": "Missile Boat",
+    "Role": {
+      "Id": 5,
+      "Name": "Missile Boat",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 3,
       "Name": "Mixed",
@@ -7591,29 +10040,50 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           27
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27,
           39
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 10,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 2,OMNI,Missile Boat"
   },
   {
     "Id": 108696,
@@ -7625,7 +10095,12 @@
     "BattleValue": 830,
     "BFPointValue": 31,
     "DateIntroduced": "3130",
-    "Role": "Interceptor",
+    "Role": {
+      "Id": 14,
+      "Name": "Interceptor",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7633,11 +10108,11 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           29,
           34,
@@ -7645,7 +10120,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           29,
           34,
@@ -7653,14 +10128,35 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           29,
           34,
           60
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Fighter Craft",
+      "Image": null,
+      "SortOrder": 3
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "10a",
+    "BFTMM": 0,
+    "BFArmor": 5,
+    "BFStructure": 5,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 2,BOMB 1,ENE,FUEL 28,PNT 1,REL,SPC,VSTOL,Interceptor"
   },
   {
     "Id": 108697,
@@ -7672,7 +10168,12 @@
     "BattleValue": 1437,
     "BFPointValue": 43,
     "DateIntroduced": "3065",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -7680,11 +10181,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 8,
+    "EraId": 247,
     "EraStart": 3062,
     "Availability": [
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -7696,21 +10197,21 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           8,
           38
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           38,
           63
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           6,
@@ -7719,13 +10220,34 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           38,
           63
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "14\"",
+    "BFTMM": 3,
+    "BFArmor": 6,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,OMNI,Striker"
   },
   {
     "Id": 108698,
@@ -7737,7 +10259,12 @@
     "BattleValue": 2570,
     "BFPointValue": 45,
     "DateIntroduced": "3125",
-    "Role": "Skirmisher",
+    "Role": {
+      "Id": 6,
+      "Name": "Skirmisher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -7745,11 +10272,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           15,
           23,
@@ -7762,7 +10289,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           23,
           31,
@@ -7773,7 +10300,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           31,
           34,
@@ -7783,7 +10310,28 @@
           82
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 2,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "12\"",
+    "BFTMM": 2,
+    "BFArmor": 7,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Skirmisher"
   },
   {
     "Id": 108699,
@@ -7795,7 +10343,12 @@
     "BattleValue": 334,
     "BFPointValue": 15,
     "DateIntroduced": "3052",
-    "Role": "Ambusher",
+    "Role": {
+      "Id": 2,
+      "Name": "Ambusher",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7803,9 +10356,30 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"f",
+    "BFTMM": 1,
+    "BFArmor": 2,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 6,HT 1/-/-,MEC,RCN,Ambusher"
   },
   {
     "Id": 108700,
@@ -7817,7 +10391,12 @@
     "BattleValue": 1289,
     "BFPointValue": 33,
     "DateIntroduced": "3103",
-    "Role": "Striker",
+    "Role": {
+      "Id": 9,
+      "Name": "Striker",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -7825,11 +10404,11 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 10,
+    "EraId": 254,
     "EraStart": 3101,
     "Availability": [
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           13,
           23,
@@ -7841,7 +10420,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           13,
           23,
@@ -7853,7 +10432,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           13,
           29,
@@ -7865,7 +10444,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "18\"h",
+    "BFTMM": 3,
+    "BFArmor": 4,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": true,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AECM,CASE,FLK 0*/0*/0*,IT 5,SRCH,TUR (0*/0*/0*,FLK0*/0*/0*),Striker"
   },
   {
     "Id": 108701,
@@ -7877,7 +10477,12 @@
     "BattleValue": 0,
     "BFPointValue": 20,
     "DateIntroduced": "2899",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -7885,11 +10490,11 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 3,
+    "EraId": 11,
     "EraStart": 2781,
     "Availability": [
       {
-        "EraId": 3,
+        "EraId": 11,
         "FactionIds": [
           1,
           2,
@@ -7914,7 +10519,7 @@
         ]
       },
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           1,
           2,
@@ -7937,7 +10542,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           1,
           2,
@@ -7962,7 +10567,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           8,
           13,
@@ -7976,7 +10581,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           13,
           15,
@@ -7990,7 +10595,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           6,
@@ -8011,7 +10616,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           13,
           15,
@@ -8025,7 +10630,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           1,
           2,
@@ -8047,7 +10652,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           1,
           2,
@@ -8069,7 +10674,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           13,
           15,
@@ -8085,7 +10690,28 @@
           190
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Aerospace Craft",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "0.2k",
+    "BFTMM": 0,
+    "BFArmor": 9,
+    "BFStructure": 1,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,None"
   },
   {
     "Id": 108702,
@@ -8097,7 +10723,12 @@
     "BattleValue": 16,
     "BFPointValue": 3,
     "DateIntroduced": "2500",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -8125,7 +10756,7 @@
         ]
       },
       {
-        "EraId": 2,
+        "EraId": 10,
         "FactionIds": [
           5,
           27,
@@ -8141,161 +10772,6 @@
         ]
       },
       {
-        "EraId": 3,
-        "FactionIds": [
-          5,
-          9,
-          27,
-          29,
-          30,
-          33,
-          34,
-          36,
-          46,
-          54
-        ]
-      },
-      {
-        "EraId": 4,
-        "FactionIds": [
-          5,
-          9,
-          27,
-          28,
-          29,
-          30,
-          31,
-          32,
-          33,
-          34,
-          35,
-          36,
-          48,
-          54,
-          64,
-          65
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          5,
-          9,
-          27,
-          28,
-          29,
-          30,
-          31,
-          32,
-          33,
-          34,
-          35,
-          36,
-          48,
-          75
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          5,
-          27,
-          29,
-          31,
-          33,
-          34,
-          35,
-          36,
-          37,
-          38,
-          40,
-          43,
-          48,
-          53,
-          54,
-          55,
-          56,
-          57,
-          58,
-          59,
-          70,
-          75
-        ]
-      },
-      {
-        "EraId": 7,
-        "FactionIds": [
-          5,
-          27,
-          29,
-          30,
-          31,
-          33,
-          34,
-          35,
-          37,
-          38,
-          40,
-          43,
-          48,
-          53,
-          54,
-          55,
-          56,
-          57,
-          58,
-          59,
-          70,
-          75
-        ]
-      },
-      {
-        "EraId": 8,
-        "FactionIds": [
-          5,
-          9,
-          27,
-          28,
-          29,
-          30,
-          31,
-          32,
-          33,
-          34,
-          35,
-          36,
-          48,
-          64,
-          65
-        ]
-      },
-      {
-        "EraId": 10,
-        "FactionIds": [
-          5,
-          27,
-          29,
-          31,
-          33,
-          34,
-          35,
-          37,
-          38,
-          40,
-          43,
-          48,
-          53,
-          54,
-          55,
-          56,
-          57,
-          58,
-          59,
-          70,
-          75
-        ]
-      },
-      {
         "EraId": 11,
         "FactionIds": [
           5,
@@ -8305,6 +10781,161 @@
           30,
           33,
           34,
+          36,
+          46,
+          54
+        ]
+      },
+      {
+        "EraId": 13,
+        "FactionIds": [
+          5,
+          9,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          48,
+          54,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          5,
+          9,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          48,
+          75
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          31,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          40,
+          43,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 16,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          30,
+          31,
+          33,
+          34,
+          35,
+          37,
+          38,
+          40,
+          43,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          5,
+          9,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          48,
+          64,
+          65
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
+          5,
+          27,
+          29,
+          31,
+          33,
+          34,
+          35,
+          37,
+          38,
+          40,
+          43,
+          48,
+          53,
+          54,
+          55,
+          56,
+          57,
+          58,
+          59,
+          70,
+          75
+        ]
+      },
+      {
+        "EraId": 255,
+        "FactionIds": [
+          5,
+          9,
+          27,
+          29,
+          30,
+          33,
+          34,
           35,
           36,
           46,
@@ -8312,7 +10943,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           5,
           9,
@@ -8331,7 +10962,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           27,
@@ -8352,7 +10983,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 21,
+      "Name": "Infantry",
+      "Image": null,
+      "SortOrder": 5
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "10\"h",
+    "BFTMM": 2,
+    "BFArmor": 0,
+    "BFStructure": 1,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 11,Scout"
   },
   {
     "Id": 108703,
@@ -8364,7 +11016,12 @@
     "BattleValue": 963,
     "BFPointValue": 33,
     "DateIntroduced": "2950",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -8372,11 +11029,11 @@
       "SortOrder": 0
     },
     "BFType": "CV",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           27,
           29,
@@ -8386,7 +11043,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           27,
           29,
@@ -8394,7 +11051,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           27,
           29,
@@ -8402,7 +11059,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           27,
           29,
@@ -8410,7 +11067,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           27,
           29,
@@ -8419,7 +11076,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           27,
           29,
@@ -8427,7 +11084,7 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           27,
           29,
@@ -8435,7 +11092,7 @@
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           27,
           29,
@@ -8443,7 +11100,7 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           27,
           29,
@@ -8452,7 +11109,28 @@
           83
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 19,
+      "Name": "Combat Vehicle",
+      "Image": null,
+      "SortOrder": 1
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 1,
+    "BFDamageMedium": 1,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"s",
+    "BFTMM": 1,
+    "BFArmor": 8,
+    "BFStructure": 4,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "EE,SEAL,SRCH,TOR 2/3/1,None"
   },
   {
     "Id": 108704,
@@ -8464,7 +11142,12 @@
     "BattleValue": 0,
     "BFPointValue": 54,
     "DateIntroduced": "2712",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -8472,9 +11155,30 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 2,
+    "EraId": 10,
     "EraStart": 2571,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 17,
+      "Name": "Aerospace Craft",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "3p",
+    "BFTMM": 0,
+    "BFArmor": 21,
+    "BFStructure": 6,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 2,None"
   },
   {
     "Id": 108705,
@@ -8486,7 +11190,12 @@
     "BattleValue": 0,
     "BFPointValue": 434,
     "DateIntroduced": "2947",
-    "Role": "None",
+    "Role": {
+      "Id": 1,
+      "Name": "None",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -8494,11 +11203,11 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           2,
           6,
@@ -8512,7 +11221,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           2,
           6,
@@ -8526,19 +11235,19 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           13
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           13
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           2,
           6,
@@ -8552,18 +11261,39 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           13
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           13
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Aerospace Craft",
+      "Image": null,
+      "SortOrder": 7
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "4",
+    "BFTMM": 0,
+    "BFArmor": 211,
+    "BFStructure": 60,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 18,None"
   },
   {
     "Id": 108706,
@@ -8575,7 +11305,12 @@
     "BattleValue": 150,
     "BFPointValue": 16,
     "DateIntroduced": "3064",
-    "Role": "Scout",
+    "Role": {
+      "Id": 7,
+      "Name": "Scout",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -8583,9 +11318,30 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 8,
+    "EraId": 247,
     "EraStart": 3062,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 0,
+    "BFDamageMedium": 0,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "6\"j",
+    "BFTMM": 1,
+    "BFArmor": 1,
+    "BFStructure": 2,
+    "BFDamageShortMin": true,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "AM,CAR 4,LECM,MEC,RCN,STL,Scout"
   },
   {
     "Id": 108707,
@@ -8597,7 +11353,12 @@
     "BattleValue": 1916,
     "BFPointValue": 44,
     "DateIntroduced": "3057",
-    "Role": "Juggernaut",
+    "Role": {
+      "Id": 4,
+      "Name": "Juggernaut",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -8605,52 +11366,73 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
-      {
-        "EraId": 4,
-        "FactionIds": [
-          43
-        ]
-      },
-      {
-        "EraId": 5,
-        "FactionIds": [
-          43
-        ]
-      },
-      {
-        "EraId": 6,
-        "FactionIds": [
-          43
-        ]
-      },
-      {
-        "EraId": 7,
-        "FactionIds": [
-          43
-        ]
-      },
-      {
-        "EraId": 8,
-        "FactionIds": [
-          43
-        ]
-      },
-      {
-        "EraId": 10,
-        "FactionIds": [
-          43
-        ]
-      },
       {
         "EraId": 13,
         "FactionIds": [
           43
         ]
+      },
+      {
+        "EraId": 14,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 15,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 16,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 247,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 254,
+        "FactionIds": [
+          43
+        ]
+      },
+      {
+        "EraId": 257,
+        "FactionIds": [
+          43
+        ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 5,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 9,
+    "BFStructure": 7,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "Juggernaut"
   },
   {
     "Id": 108708,
@@ -8662,7 +11444,12 @@
     "BattleValue": 689,
     "BFPointValue": 22,
     "DateIntroduced": "3077",
-    "Role": "Juggernaut",
+    "Role": {
+      "Id": 4,
+      "Name": "Juggernaut",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 2,
       "Name": "Clan",
@@ -8670,9 +11457,30 @@
       "SortOrder": 0
     },
     "BFType": "BA",
-    "EraId": 5,
+    "EraId": 14,
     "EraStart": 3068,
-    "Availability": []
+    "Availability": [],
+    "Type": {
+      "Id": 22,
+      "Name": "Battle Armor",
+      "Image": null,
+      "SortOrder": 4
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 3,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 0,
+    "BFDamageExtreme": 0,
+    "BFSize": 1,
+    "BFMove": "4\"j",
+    "BFTMM": 0,
+    "BFArmor": 3,
+    "BFStructure": 2,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CAR 6,Juggernaut"
   },
   {
     "Id": 108709,
@@ -8684,7 +11492,12 @@
     "BattleValue": 0,
     "BFPointValue": 23,
     "DateIntroduced": "3019",
-    "Role": "Attack",
+    "Role": {
+      "Id": 10,
+      "Name": "Attack",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -8692,18 +11505,18 @@
       "SortOrder": 0
     },
     "BFType": "AF",
-    "EraId": 11,
+    "EraId": 255,
     "EraStart": 2901,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           33,
           36
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           5,
           33,
@@ -8715,7 +11528,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           33,
@@ -8728,7 +11541,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           5,
           33,
@@ -8741,7 +11554,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           5,
           33,
@@ -8750,7 +11563,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           33,
@@ -8763,21 +11576,21 @@
         ]
       },
       {
-        "EraId": 11,
+        "EraId": 255,
         "FactionIds": [
           33,
           36
         ]
       },
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           33,
           36
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           5,
           33,
@@ -8789,7 +11602,28 @@
           75
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 17,
+      "Name": "Fighter Craft",
+      "Image": null,
+      "SortOrder": 3
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 2,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 2,
+    "BFMove": "5a",
+    "BFTMM": 0,
+    "BFArmor": 2,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "TH 1,ATMO,BOMB 2,EE,PNT 1,VSTOL,Attack"
   },
   {
     "Id": 108710,
@@ -8801,7 +11635,12 @@
     "BattleValue": 1400,
     "BFPointValue": 40,
     "DateIntroduced": "3022",
-    "Role": "Sniper",
+    "Role": {
+      "Id": 8,
+      "Name": "Sniper",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -8809,16 +11648,37 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 12,
+    "EraId": 256,
     "EraStart": 3020,
     "Availability": [
       {
-        "EraId": 12,
+        "EraId": 256,
         "FactionIds": [
           5
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 1,
+    "BFDamageShort": 2,
+    "BFDamageMedium": 3,
+    "BFDamageLong": 3,
+    "BFDamageExtreme": 0,
+    "BFSize": 4,
+    "BFMove": "6\"",
+    "BFTMM": 1,
+    "BFArmor": 7,
+    "BFStructure": 7,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "IF 2,LRM 1/1/2,Sniper"
   },
   {
     "Id": 108711,
@@ -8830,7 +11690,12 @@
     "BattleValue": 1227,
     "BFPointValue": 31,
     "DateIntroduced": "3049",
-    "Role": "Brawler",
+    "Role": {
+      "Id": 3,
+      "Name": "Brawler",
+      "Image": null,
+      "SortOrder": 0
+    },
     "Technology": {
       "Id": 1,
       "Name": "Inner Sphere",
@@ -8838,11 +11703,11 @@
       "SortOrder": 0
     },
     "BFType": "BM",
-    "EraId": 4,
+    "EraId": 13,
     "EraStart": 3050,
     "Availability": [
       {
-        "EraId": 4,
+        "EraId": 13,
         "FactionIds": [
           5,
           18,
@@ -8862,7 +11727,7 @@
         ]
       },
       {
-        "EraId": 5,
+        "EraId": 14,
         "FactionIds": [
           5,
           18,
@@ -8884,7 +11749,7 @@
         ]
       },
       {
-        "EraId": 6,
+        "EraId": 15,
         "FactionIds": [
           5,
           27,
@@ -8896,7 +11761,7 @@
         ]
       },
       {
-        "EraId": 7,
+        "EraId": 16,
         "FactionIds": [
           30,
           33,
@@ -8907,7 +11772,7 @@
         ]
       },
       {
-        "EraId": 8,
+        "EraId": 247,
         "FactionIds": [
           5,
           18,
@@ -8926,7 +11791,7 @@
         ]
       },
       {
-        "EraId": 10,
+        "EraId": 254,
         "FactionIds": [
           5,
           33,
@@ -8937,13 +11802,34 @@
         ]
       },
       {
-        "EraId": 13,
+        "EraId": 257,
         "FactionIds": [
           33,
           34,
           35
         ]
       }
-    ]
+    ],
+    "Type": {
+      "Id": 18,
+      "Name": "BattleMech",
+      "Image": null,
+      "SortOrder": 0
+    },
+    "BFOverheat": 0,
+    "BFDamageShort": 4,
+    "BFDamageMedium": 4,
+    "BFDamageLong": 2,
+    "BFDamageExtreme": 0,
+    "BFSize": 3,
+    "BFMove": "8\"",
+    "BFTMM": 1,
+    "BFArmor": 5,
+    "BFStructure": 3,
+    "BFDamageShortMin": false,
+    "BFDamageMediumMin": false,
+    "BFDamageLongMin": false,
+    "BFDamageExtremeMin": false,
+    "BFAbilities": "CASE,Brawler"
   }
 ]
