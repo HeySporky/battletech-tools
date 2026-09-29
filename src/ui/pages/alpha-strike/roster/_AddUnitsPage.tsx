@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
-import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
+import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
+import { isMULSourceSelection, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
 import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
@@ -9,8 +10,11 @@ import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 import { generateUUID } from '../../../../utils/generateUUID';
-
 import type { JSX } from "react";
+const Bars = FaBars as any;
+const Eye = FaEye as any;
+const Plus = FaPlus as any;
+const Trash = FaTrash as any;
 
 //TODO: Clearfix Hack for overflowing results
 /*
@@ -27,19 +31,28 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
     private searchTimeout: NodeJS.Timeout | null = null;
 
+    // Kept off React state: setState is applied asynchronously, and cached MUL searches can resolve
+    // before it lands, which made every search look superseded and left "Searching..." up forever.
+    private latestSearchId: string = '';
+
     constructor( props: IAlphaStrikeAddUnitsViewProps ) {
         super(props)
 
 
         this.state = {
-            searchResults: this.props.appGlobals.appSettings.alphasStrikeCachedSearchResults,
+          searchResults: [],
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
-            lastSearchId: '',
             isSearching: false
         }
     }
+
+      componentDidMount() {
+        if (this.props.appGlobals.appSettings.alphaStrikeSearchTerm.trim().length >= 3) {
+          void this.updateSearchResults();
+        }
+      }
 
     componentWillUnmount() {
         // Clean up timeout when component unmounts
@@ -140,6 +153,20 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       this.updateSearchResults();
     }
 
+    updateMULSources = ( event: React.FormEvent<HTMLSelectElement> ): void => {
+      const selection = event.currentTarget.value;
+      if( !isMULSourceSelection( selection ) ) {
+        return;
+      }
+
+      let appSettings = this.props.appGlobals.appSettings;
+
+      appSettings.alphaStrikeMULSources = selection;
+      this.props.appGlobals.saveAppSettings( appSettings );
+
+      this.updateSearchResults();
+    }
+
     updateFactionSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
         
         let appSettings = this.props.appGlobals.appSettings;
@@ -184,9 +211,9 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     updateSearchResults = async (): Promise<void> => {
 
       let currentSearchId = generateUUID();
+      this.latestSearchId = currentSearchId;
 
       this.setState({
-        lastSearchId: currentSearchId,
         isSearching: true
       });
 
@@ -204,7 +231,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           this.props.appGlobals,
         );
 
-        if(this.state.lastSearchId !== currentSearchId) {
+        if(this.latestSearchId !== currentSearchId) {
           console.log("updateSearchResults: searchId mismatch, aborting");
           // Don't set isSearching to false here - a newer search is running
           return;
@@ -237,12 +264,14 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       let appSettings = this.props.appGlobals.appSettings;
 
       appSettings.alphasStrikeCachedSearchResults = data;
+      // Search results stay in memory; saveAppSettings persists preferences and user work, not
+      // deployment data that could hide fresher bundled MUL records after a reload.
       this.props.appGlobals.saveAppSettings( appSettings );
 
       } catch (error) {
         console.error("Search failed:", error);
         // Only turn off loading if this was the most recent search
-        if(this.state.lastSearchId === currentSearchId) {
+        if(this.latestSearchId === currentSearchId) {
           this.setState({
             isSearching: false,
           });
@@ -268,8 +297,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
 
     handleSort = ({ target: { value } }: any) => {
-        this.setState({ searchSort: value });
-        this.updateSearchResults();
+        this.setState({ searchSort: value }, () => this.updateSearchResults());
     }
 
     render = (): JSX.Element => {
@@ -292,7 +320,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             label="Search for Units"
         >
             <div className="small-text text-center">
-                We integrate with the <a href="http://masterunitlist.info/" target="_blank">Master Unit List</a> to make sure that all the stats are as official and as up to date as possible.
+                We integrate with the <a href="https://masterunitlist.battletech.com/" target="_blank" rel="noopener noreferrer">Master Unit List</a> to make sure that all the stats are as official and as up to date as possible.
             </div>
 {navigator && navigator.onLine ? (
     <>
@@ -418,7 +446,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                       <label htmlFor="factionFilter">
                       Add to Faction Filter?<br />
                       {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.map( (factionID) => { 
-                        return <div className="text-left"><button onClick={() => this.addFactionSelected(factionID)} className="btn-sm btn btn-primary"><FaPlus /></button>&nbsp;{getMULFactionLabels(factionID)}</div>
+                        return <div className="text-left"><button onClick={() => this.addFactionSelected(factionID)} className="btn-sm btn btn-primary"><Plus /></button>&nbsp;{getMULFactionLabels(factionID)}</div>
                       })}
                       </label>
                       ) : null}
@@ -428,13 +456,31 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                     <label htmlFor="factionFilter">
                       Current Faction Filter:<br />
                       {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.map( (factionID) => { 
-                        return <div className="text-left"><button onClick={() => this.removeFactionSelected(factionID)} className="btn btn-sm btn-danger"><FaTrash /></button>{getMULFactionLabels(factionID)}</div>
+                        return <div className="text-left"><button onClick={() => this.removeFactionSelected(factionID)} className="btn btn-sm btn-danger"><Trash /></button>{getMULFactionLabels(factionID)}</div>
                       })}
                       </label>
                     ):null}
                       </div>
                     </div>
-                  
+                    <div className="row">
+                      <div className="col-md-12 text-center">
+                        <label>
+                          Unit Lists:<br />
+                          <select
+                            name="alphaStrikeMULSources"
+                            onChange={this.updateMULSources}
+                            value={this.props.appGlobals.appSettings.alphaStrikeMULSources}
+                          >
+                            {MUL_SOURCE_SELECTIONS.map( (option) => {
+                              return <option key={option.value} value={option.value}>{option.label}</option>
+                            })}
+                          </select>
+                        </label>
+                        <div className="small-text">
+                          {MUL_SOURCE_SELECTIONS.find( (option) => option.value === this.props.appGlobals.appSettings.alphaStrikeMULSources )?.description}
+                        </div>
+                      </div>
+                    </div>
 
                   </fieldset>
 
@@ -517,7 +563,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           onClick={() => this.toggleContextMenuSearch(unitIndex)}
           title="Open the context menu for this unit"
         >
-          <FaBars />
+          <Bars />
         </button>
         <ul
           className={this.state.contextMenuSearch === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
@@ -533,7 +579,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                 }}
                 title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
               >
-                <FaPlus />&nbsp;
+                <Plus />&nbsp;
                 Add to {asGroup.getName(asGroupIndex + 1)}
               </li>
             )
@@ -551,7 +597,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         }}
         title="Add this unit to your current group"
       >
-        <FaPlus />
+        <Plus />
       </button>
   )}
 
@@ -564,10 +610,25 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       }}
       title="View this unit's Alpha Strike Card"
     >
-      <FaEye />
+      <Eye />
     </button>
   </td>
-                                <td>{asUnit.Name}</td>
+                                <td>
+                                  {getMULDisplayName(asUnit)}
+                                  {asUnit.MulSource && asUnit.MulSource !== "mul2" ? (
+                                    <>
+                                      &nbsp;<span
+                                        className="badge bg-secondary"
+                                        title="Legacy MUL 1.0 record not listed on the current MUL"
+                                      >
+                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}
+                                      </span>
+                                      {asUnit.MulSource === "mul1" && !asUnit.BFPointValue ? (
+                                        <span className="badge bg-danger" title="This legacy record has no Alpha Strike stats">&nbsp;No AS stats</span>
+                                      ) : null}
+                                    </>
+                                  ) : null}
+                                </td>
 
                                 <td>{asUnit.Rules}</td>
                                 <td>{asUnit.Technology.Name}</td>
@@ -671,31 +732,26 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalGroups() > 1 ?
 (
 <div className="drop-down-menu-container">
-<button
-
-className="btn btn-primary btn-sm"
-onClick={() => this.toggleContextMenuSavedBattleMechs(unitIndex)}
-title="Open the context menu for this unit"
->
-<FaBars />
-</button>
-<ul
-className={this.state.contextMenuSavedBattleMechs === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}
->
-{this.props.appGlobals.currentASForce.groups.map( (asGroup, asGroupIndex) => {
-return (
-<li
-  key={asGroupIndex}
-  onClick={() => this.addToGroup(asUnit, asGroupIndex)}
-  title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
->
-  <FaPlus />&nbsp;
-  Add to {asGroup.getName(asGroupIndex + 1)}
-</li>
-)
-})}
-
-</ul>
+    <button 
+        className="btn btn-primary btn-sm" 
+        onClick={() => this.toggleContextMenuSavedBattleMechs(unitIndex)} 
+        title="Open the context menu for this unit"
+    >
+        <Bars />
+    </button>
+    <ul className={this.state.contextMenuSavedBattleMechs === unitIndex ? "styleless dd-menu active" : "styleless dd-menu"}> 
+        {this.props.appGlobals.currentASForce.groups.map((asGroup, asGroupIndex) => {
+            return (
+                <li 
+                    key={asGroupIndex} 
+                    onClick={() => this.addToGroup(asUnit, asGroupIndex)} 
+                    title={"Adds this unit to your group '" + asGroup.getName(asGroupIndex + 1) + "'"} 
+                >
+                    <Plus />&nbsp; Add to {asGroup.getName(asGroupIndex + 1)}
+                </li>
+            )
+        })}
+    </ul>
 </div>
 ) : (
 <button
@@ -703,7 +759,7 @@ className="btn btn-primary btn-sm no-right-margin"
 onClick={() => this.addToGroup(asUnit, 0)}
 title="Add this unit to your current group"
 >
-<FaPlus />
+<Plus />
 </button>
 )}
 
@@ -712,7 +768,7 @@ className="btn btn-primary btn-sm"
 onClick={() => this.props.openViewUnit(asUnit)}
 title="View this unit's Alpha Strike Card"
 >
-<FaEye />
+<Eye />
 </button>
 </td>
                   <td title={"UUID: " + asUnit.mechCreatorUUID}>{asUnit.name}</td>
@@ -766,6 +822,5 @@ interface IAlphaStrikeAddUnitsViewState {
     contextMenuSearch: number;
     contextMenuSavedBattleMechs: number;
     searchSort: 'Name' | 'BFPointValue';
-    lastSearchId: string;
     isSearching: boolean;
 }
