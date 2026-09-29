@@ -1142,6 +1142,75 @@ describe("OmniMech configurations", () => {
 
 });
 
+// Quads keep their front legs in "fll"/"frl". Hit location tables, the record sheet and saves
+// made before that change still name them "la"/"ra" (TW p.24: quad front legs replace the arms).
+describe("Quad front legs", () => {
+    const buildQuad = () => {
+        const quad = new BattleMech();
+        quad.setType("quad");
+        quad.setTonnage(50);
+        quad.setWalkSpeed(4);
+        quad.setArmorWeight(9.5);
+        quad.allocateArmorMax();
+        return quad;
+    };
+    const intactArmor = (quad: BattleMech, location: string, points: number) =>
+        Array.from({ length: points }, (_, index) => index).filter(index => !quad.armorDamaged(location, index)).length;
+
+    it("puts front-leg hits into the front leg, not the side torso", () => {
+        const quad = buildQuad();
+        const frontLeg = quad.getArmorAllocation().frontLeftLeg ?? 0;
+        const leftTorso = quad.getArmorAllocation().leftTorso;
+        expect(frontLeg).toBeGreaterThan(5);
+
+        quad.takeDamage(5, "la", false);
+
+        expect(intactArmor(quad, "fll", frontLeg)).toBe(frontLeg - 5);
+        expect(intactArmor(quad, "la", frontLeg)).toBe(frontLeg - 5);
+        expect(intactArmor(quad, "lt", leftTorso)).toBe(leftTorso);
+    });
+
+    it("tracks front-leg critical hits under the front-leg location", () => {
+        const quad = buildQuad();
+        expect(quad.getCriticals().frontRightLeg[0]?.tag).toBe("hip");
+
+        quad.toggleCritical("ra", 0);
+
+        expect(quad.isCriticalDamaged("frl", 0)).toBe(true);
+        expect(quad.isCriticalDamaged("ra", 0)).toBe(true);
+        expect(quad.criticalDamage.frl).toEqual([0]);
+    });
+
+    it("loads a quad saved with its front legs in the arm locations", () => {
+        const quad = buildQuad();
+        const laser = quad.addEquipmentFromTag("medium-laser", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const fromIndex = quad.unallocatedCriticals.findIndex(item => item?.uuid === laser.uuid);
+        expect(quad.moveCritical("un", fromIndex, "fll", quad.getCriticals().frontLeftLeg.findIndex(item => !item))).toBe(true);
+        quad.toggleCritical("fll", 4);
+        const current = quad.export(false);
+
+        // The same design as an older save: front legs in the arm locations.
+        const legacy = JSON.parse(JSON.stringify(current));
+        legacy.armor_allocation.leftArm = legacy.armor_allocation.frontLeftLeg;
+        legacy.armor_allocation.rightArm = legacy.armor_allocation.frontRightLeg;
+        delete legacy.armor_allocation.frontLeftLeg;
+        delete legacy.armor_allocation.frontRightLeg;
+        const toArm: Record<string, string> = { fll: "la", frl: "ra" };
+        for (const slot of legacy.allocation) slot.loc = toArm[slot.loc] ?? slot.loc;
+        for (const item of legacy.equipment) item.loc = toArm[item.loc] ?? item.loc;
+        legacy.criticalDamage = { la: legacy.criticalDamage.fll };
+
+        const restored = new BattleMech(JSON.stringify(legacy));
+
+        expect(restored.getArmorAllocation().frontLeftLeg).toBe(current.armor_allocation.frontLeftLeg);
+        expect(restored.getArmorAllocation().frontRightLeg).toBe(current.armor_allocation.frontRightLeg);
+        expect(restored.getArmorAllocation().leftArm ?? 0).toBe(0);
+        expect(restored.getCriticals().frontLeftLeg.some(item => item?.uuid === laser.uuid)).toBe(true);
+        expect(restored.isCriticalDamaged("fll", 4)).toBe(true);
+        expect(restored.getBattleValue()).toBe(quad.getBattleValue());
+    });
+});
+
 describe("BattleMech", () => {
     it("constructs a default mech that survives a JSON round trip", () => {
         const mech = new BattleMech();

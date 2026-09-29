@@ -2143,9 +2143,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
         <InPlayCriticalHitTable
           appGlobals={this.props.appGlobals}
-          location="la"
+          location={this.state.criticalHitDialog.isQuad() ? "fll" : "la"}
           mechData={this.state.criticalHitDialog}
-          critData={this.state.criticalHitDialog.getCriticals().leftArm}
+          critData={this.state.criticalHitDialog.isQuad() ? this.state.criticalHitDialog.getCriticals().frontLeftLeg : this.state.criticalHitDialog.getCriticals().leftArm}
           numberCritSlots={this.state.criticalHitDialog.isQuad() ? 6 : 12}
           onChange={this.updateCriticalHitDialog}
         />
@@ -2226,9 +2226,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
       <InPlayCriticalHitTable
           appGlobals={this.props.appGlobals}
-          location="ra"
+          location={this.state.criticalHitDialog.isQuad() ? "frl" : "ra"}
           mechData={this.state.criticalHitDialog}
-          critData={this.state.criticalHitDialog.getCriticals().rightArm}
+          critData={this.state.criticalHitDialog.isQuad() ? this.state.criticalHitDialog.getCriticals().frontRightLeg : this.state.criticalHitDialog.getCriticals().rightArm}
           numberCritSlots={this.state.criticalHitDialog.isQuad() ? 6 : 12}
           onChange={this.updateCriticalHitDialog}
         />
