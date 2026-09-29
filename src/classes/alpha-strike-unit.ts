@@ -93,7 +93,24 @@ export interface IASMULUnit {
     BFDamageMediumMin?: boolean;
     BFDamageLongMin?: boolean;
     BFDamageExtremeMin?: boolean;
+
+    // Which bundled list served this record; set by the MUL chunk loader, not stored in the data files.
+    MulSource?: MULSource;
 }
+
+// MUL 2.0 records keep the model in Variant ("Black Knight" + "BL-7-KNT"); MUL 1.0 records
+// already carry the full designation in Name.
+export function getMULDisplayName(unit: Pick<IASMULUnit, "Name" | "Variant" | "MulUnitKey">): string {
+    const name = (unit.Name ?? "").trim();
+    const variant = (unit.Variant ?? "").trim();
+    if (!unit.MulUnitKey || !variant || name.toLowerCase().endsWith(variant.toLowerCase())) {
+        return name;
+    }
+    return `${name} ${variant}`;
+}
+
+// mul2: masterunitlist.battletech.com (current). mul1: legacy numeric-id MUL records the live site no longer lists.
+export type MULSource = "mul2" | "mul1";
 
 export interface IAlphaStrikeUnitExport {
     mechCreatorUUID: string;
@@ -290,7 +307,7 @@ export class AlphaStrikeUnit {
             this.costCR = +incomingMechData.Cost;
             this.class = incomingMechData.Class ? incomingMechData.Class : "";
             this.variant = incomingMechData.Variant ? incomingMechData.Variant : "";
-            this.name = incomingMechData.Name;
+            this.name = getMULDisplayName(incomingMechData);
             this.dateIntroduced = incomingMechData.DateIntroduced;
 
             // if( incomingMechData.mechCreatorUUID ) {
