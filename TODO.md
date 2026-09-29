@@ -23,9 +23,9 @@
 
 ## Runtime and tooling
 
-- [x] Node 26 baseline (`.nvmrc` / `.node-version`); `engines` accepts `^22.12 || ^24 || >=26` (Vitest 5's range)
+- [x] Node 26 baseline (`.nvmrc` / `.node-version`); `engines` accepts `^22.22 || ^24 || >=26` (React Router 8 needs 22.22+, Vitest 5 needs 22.12+)
 - [x] Commit `package-lock.json`; `npm ci` everywhere, `npm audit` at 0 vulnerabilities
-- [x] Vite 8, React 19.3, React Router 7 (`react-router`), fast-xml-parser 5, ESLint 10, typescript-eslint 8.71
+- [x] Vite 8, React 19.3, React Router 8 (`react-router`), fast-xml-parser 5, ESLint 10, typescript-eslint 8.71
 - [x] Dual-track TypeScript: `npm run typecheck` uses TS 7 (native) where a binary exists, TS 6.0.3 elsewhere
       (Android/Termux) and for ESLint
 - [x] Sass: `@import` -> `@use`, `darken`/`lighten` -> `color.adjust` (no Dart Sass 3 deprecations left)

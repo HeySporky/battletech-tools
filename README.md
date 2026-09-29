@@ -17,7 +17,7 @@ This software functions strictly as a data-transformation utility to assist play
 Want to contribute? The toolchain is Node + npm only (Vite, TypeScript, Sass are all npm packages), so the
 same steps work on Windows, macOS, Linux and Android.
 
-**Node:** 26 is the baseline (`.nvmrc` / `.node-version`); 22.12+ and 24 also work. Use a version manager so the
+**Node:** 26 is the baseline (`.nvmrc` / `.node-version`); 22.22+ and 24 also work. Use a version manager so the
 repo's pin is picked up automatically.
 
 ### 1. Install Node and Git
