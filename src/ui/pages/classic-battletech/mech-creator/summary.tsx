@@ -3,7 +3,7 @@ import './home.scss';
 import {IAppGlobals} from '../../../app-router';
 import SanitizedHTML from '../../../components/sanitized-html';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import UIPage from '../../../components/ui-page';
