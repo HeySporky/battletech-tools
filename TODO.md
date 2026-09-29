@@ -640,7 +640,7 @@ tool. Items are ordered by dependency, not by product marketing priority.
   (`src/ui/pages/classic-battletech/vehicle-creator/` has Step 1 Chassis,
   Step 2 Armor Allocation, Step 3 Equipment Selection, Step 4 Equipment
   Placement, a weights/Alpha Strike summary page, and a printable record
-  sheet (`record-sheet.tsx` + `svg/tracked-vehicle-diagram-svg.tsx`), all
+  sheet (`record-sheet.tsx` + `svg/vehicle-diagram-svg.tsx`), all
   wired into routing and save/load. The diagram is a hand-built schematic
   (no internet access was available to source official record sheet
   artwork) - front/left/right/rear/turret boxes with structure/armor pip
@@ -658,15 +658,27 @@ tool. Items are ordered by dependency, not by product marketing priority.
   Advanced chin turret; no Hardened armor on VTOL/hover/WiGE; 5% control systems for every vehicle;
   Superheavy structure x2 (non-naval); engine type, Cruise MP and heat sinks in Step 1. Values follow
   MegaMek (TestTank/Tank; book not in hand) and were checked against MUL vehicle tonnages and move codes.
-- [ ] Vehicle heat sinks: count energy-weapon heat and the fusion engine's 10 free heat sinks (heat-neutral
+- [x] Vehicle heat sinks: energy-weapon heat and the fusion engine's 10 free heat sinks (heat-neutral
   requirement), and power amplifiers (10% of energy weapon weight) for non-fusion engines.
-- [ ] Superheavy vehicle locations (front-left/right, rear-left/right) and dual turrets (Advanced).
-- [ ] Vehicular jump jets (hover, wheeled, tracked, WiGE only) once they are in the equipment catalog.
-- [ ] Implement category-specific rules: motive systems, turret arcs, motive
-  damage, flotation/submergence, VTOL crash behavior, and vehicle crews.
-- [ ] Add Alpha Strike conversion for each vehicle category.
-- [ ] Add browser tests covering creation, equipment legality, record rendering,
-  and Alpha Strike output for every category.
+- [x] Superheavy vehicle locations (front-left/right, rear-left/right) and dual turrets (Advanced).
+- [x] Vehicular jump jets (hover, wheeled, tracked, WiGE), Advanced rules level.
+- [x] Crew, item slots and infantry troop space.
+- [x] Battle Value and C-Bill cost; eight published vehicles match their MUL BV exactly
+  (`vehicle.test.ts`).
+- [x] Alpha Strike conversion for every vehicle category, with a printable card; the same eight vehicles
+  match their MUL cards (Sea Skimmer's REAR special aside, a MUL data difference). Conversion rules as
+  implemented by MegaMek.
+- [x] Classic roster play mode for vehicles (2026-09-29): add saved vehicles to a group with crew
+  gunnery/driving (TM p. 305 skill multipliers shared with 'Mechs), clickable armor/structure pips, motive
+  damage (minor/moderate/heavy/immobilized), critical hits (driver, commander, crew stunned/killed,
+  engine, fuel tank, cargo, turret jam/lock/destroyed, sensors, stabilizers), weapon jam/destroy,
+  movement modes with attacker/target modifiers, VTOL crash on rotor loss, and roster printing.
+  Effects as implemented by MegaMek (Tank; book not in hand).
+- [ ] Vehicle hit location tables and critical hit rolls in play mode (damage location is chosen by the
+  player today; cite TW's Combat Vehicle Hit Location and Critical Hits tables from the book).
+- [ ] Turret arcs, flotation/submergence, and naval/VTOL elevation in play mode.
+- [ ] Browser tests for every category (only the roster add/play/print flow has an E2E test so far:
+  `e2e/vehicle-roster.spec.ts`).
 
 ## Phase 2b: ProtoMechs
 

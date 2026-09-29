@@ -1,4 +1,5 @@
 import { generateUUID } from "../utils/generateUUID";
+import { getSkillMultiplier } from "../data/skill-multipliers";
 import Pilot, { IPilot } from "./pilot";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 import { mechArmorTypes } from "../data/mech-armor-types";
@@ -66,6 +67,62 @@ export function formatVehicleASDamage(value: IVehicleASDamageValue): string {
     return value.minimal ? "0*" : `${value.damage}`;
 }
 
+export type VehicleMovementMode = "stationary" | "cruise" | "flank" | "jump";
+
+/** Motive system damage levels (TW, as implemented by MegaMek Tank.addMovementDamage). */
+export interface IVehicleMotiveDamage {
+    minor: boolean;
+    moderate: boolean;
+    heavy: boolean;
+    immobilized: boolean;
+}
+
+/** Vehicle critical hits (TW, as implemented by MegaMek Tank). */
+export interface IVehicleCriticalHits {
+    driverHit: boolean;
+    commanderHit: boolean;
+    crewStunned: boolean;
+    crewKilled: boolean;
+    engineHit: boolean;
+    fuelTankHit: boolean;
+    cargoHit: boolean;
+    turretJammed: boolean;
+    turretLocked: boolean;
+    turretDestroyed: boolean;
+    sensorHits: number;
+    stabilizers: VehicleLocation[];
+}
+
+/** Damage and status tracked while a vehicle is in play. */
+export interface IVehicleInPlay {
+    armorDamage: Partial<Record<VehicleLocation, number>>;
+    structureDamage: Partial<Record<VehicleLocation, number>>;
+    motiveDamage: IVehicleMotiveDamage;
+    criticals: IVehicleCriticalHits;
+    jammedWeapons: string[];
+    destroyedWeapons: string[];
+    movementMode: VehicleMovementMode;
+    hexesMoved: number;
+}
+
+const newInPlay = (): IVehicleInPlay => ({
+    armorDamage: {},
+    structureDamage: {},
+    motiveDamage: { minor: false, moderate: false, heavy: false, immobilized: false },
+    criticals: {
+        driverHit: false, commanderHit: false, crewStunned: false, crewKilled: false, engineHit: false,
+        fuelTankHit: false, cargoHit: false, turretJammed: false, turretLocked: false, turretDestroyed: false,
+        sensorHits: 0, stabilizers: [],
+    },
+    jammedWeapons: [],
+    destroyedWeapons: [],
+    movementMode: "stationary",
+    hexesMoved: 0,
+});
+
+/** A vehicle's sensors are destroyed at 4 hits (as implemented by MegaMek Tank.CRIT_SENSOR). */
+export const VEHICLE_MAX_SENSOR_HITS = 4;
+
 export interface IVehicleExport {
     uuid: string;
     lastUpdated: Date;
@@ -89,6 +146,7 @@ export interface IVehicleExport {
     additionalHeatSinks: number;
     equipment: IVehicleEquipmentExport[];
     pilot?: IPilot;
+    inPlay?: IVehicleInPlay;
 }
 
 // Combat Vehicle internal structure weighs the same 10%/20% of tonnage as 'Mech structure,
@@ -147,6 +205,7 @@ export default class Vehicle {
     private _dualTurret: boolean = false;
     private _jumpMP: number = 0;
     private _troopSpace: number = 0;
+    private _inPlay: IVehicleInPlay = newInPlay();
 
     private _tech: ITechOptions = btTechOptions[0];
     private _era: IEras = btEraOptions[0];
@@ -1396,7 +1455,226 @@ export default class Vehicle {
         return unit;
     }
 
-    public export(): IVehicleExport {
+    // ---------------------------------------------------------------------------------------
+    // Play mode: damage, motive damage and critical hits (TW; effects as implemented by MegaMek)
+    // ---------------------------------------------------------------------------------------
+
+    public newUUID(): void {
+        this._uuid = generateUUID();
+    }
+
+    public getInPlay(): IVehicleInPlay {
+        return this._inPlay;
+    }
+
+    public resetInPlay(): void {
+        this._inPlay = newInPlay();
+    }
+
+    public getArmorRemaining(location: VehicleLocation): number {
+        return Math.max(0, (this._armorAllocation[location] ?? 0) - (this._inPlay.armorDamage[location] ?? 0));
+    }
+
+    public getStructureRemaining(location: VehicleLocation): number {
+        return Math.max(0, (this.getStructureAllocation()[location] ?? 0) - (this._inPlay.structureDamage[location] ?? 0));
+    }
+
+    /**
+     * Applies damage to a location: armor first, then internal structure. Returns what was taken and
+     * whether the location's structure is gone.
+     */
+    public takeDamage(location: VehicleLocation, amount: number): { armor: number; structure: number; locationDestroyed: boolean } {
+        const armorTaken = Math.min(this.getArmorRemaining(location), Math.max(0, amount));
+        this._inPlay.armorDamage[location] = (this._inPlay.armorDamage[location] ?? 0) + armorTaken;
+        const structureTaken = Math.min(this.getStructureRemaining(location), amount - armorTaken);
+        this._inPlay.structureDamage[location] = (this._inPlay.structureDamage[location] ?? 0) + structureTaken;
+        const locationDestroyed = (this.getStructureAllocation()[location] ?? 0) > 0 && this.getStructureRemaining(location) === 0;
+        if (locationDestroyed && (location === "turret" || location === "turret2")) this._inPlay.criticals.turretDestroyed = true;
+        return { armor: armorTaken, structure: structureTaken, locationDestroyed };
+    }
+
+    // Record sheet pips: clicking pip n marks n+1 points of damage, or clears back to n if already marked.
+    public toggleArmorPip(location: VehicleLocation, index: number): void {
+        const damage = this._inPlay.armorDamage[location] ?? 0;
+        this._inPlay.armorDamage[location] = Math.min(this._armorAllocation[location] ?? 0, damage > index ? index : index + 1);
+    }
+
+    public toggleStructurePip(location: VehicleLocation, index: number): void {
+        const damage = this._inPlay.structureDamage[location] ?? 0;
+        this._inPlay.structureDamage[location] = Math.min(this.getStructureAllocation()[location] ?? 0, damage > index ? index : index + 1);
+    }
+
+    public getTotalArmorPoints(): number {
+        return this.getLocations().reduce((sum, loc) => sum + (this._armorAllocation[loc.tag] ?? 0), 0);
+    }
+
+    public getCurrentArmor(): number {
+        return this.getLocations().reduce((sum, loc) => sum + this.getArmorRemaining(loc.tag), 0);
+    }
+
+    public getTotalStructurePoints(): number {
+        const structure = this.getStructureAllocation();
+        return this.getLocations().reduce((sum, loc) => sum + (structure[loc.tag] ?? 0), 0);
+    }
+
+    public getCurrentStructure(): number {
+        return this.getLocations().reduce((sum, loc) => sum + this.getStructureRemaining(loc.tag), 0);
+    }
+
+    public getArmorPercentage(): number {
+        const total = this.getTotalArmorPoints();
+        return total > 0 ? Math.round(this.getCurrentArmor() / total * 100) : 0;
+    }
+
+    public getStructurePercentage(): number {
+        const total = this.getTotalStructurePoints();
+        return total > 0 ? Math.round(this.getCurrentStructure() / total * 100) : 0;
+    }
+
+    /** True once the vehicle has taken any damage, motive damage or critical hit. */
+    public isDamaged(): boolean {
+        const crits = this._inPlay.criticals;
+        return this.getCurrentArmor() < this.getTotalArmorPoints()
+            || this.getCurrentStructure() < this.getTotalStructurePoints()
+            || Object.values(this._inPlay.motiveDamage).some((hit) => hit)
+            || Object.entries(crits).some(([key, value]) => key === "stabilizers" ? (value as VehicleLocation[]).length > 0 : !!value)
+            || this._inPlay.jammedWeapons.length > 0 || this._inPlay.destroyedWeapons.length > 0;
+    }
+
+    public setMotiveDamage(level: keyof IVehicleMotiveDamage, damaged: boolean): void {
+        this._inPlay.motiveDamage[level] = damaged;
+    }
+
+    public setCriticalHit(critical: Exclude<keyof IVehicleCriticalHits, "sensorHits" | "stabilizers">, hit: boolean): void {
+        this._inPlay.criticals[critical] = hit;
+    }
+
+    public setSensorHits(hits: number): void {
+        this._inPlay.criticals.sensorHits = Math.max(0, Math.min(VEHICLE_MAX_SENSOR_HITS, Math.floor(hits)));
+    }
+
+    public setStabilizerHit(location: VehicleLocation, hit: boolean): void {
+        const stabilizers = this._inPlay.criticals.stabilizers.filter((loc) => loc !== location);
+        this._inPlay.criticals.stabilizers = hit ? [...stabilizers, location] : stabilizers;
+    }
+
+    public setWeaponStatus(uuid: string, status: "ok" | "jammed" | "destroyed"): void {
+        this._inPlay.jammedWeapons = this._inPlay.jammedWeapons.filter((id) => id !== uuid);
+        this._inPlay.destroyedWeapons = this._inPlay.destroyedWeapons.filter((id) => id !== uuid);
+        if (status === "jammed") this._inPlay.jammedWeapons.push(uuid);
+        if (status === "destroyed") this._inPlay.destroyedWeapons.push(uuid);
+    }
+
+    public getWeaponStatus(uuid: string | undefined): "ok" | "jammed" | "destroyed" {
+        if (!uuid) return "ok";
+        if (this._inPlay.destroyedWeapons.includes(uuid)) return "destroyed";
+        if (this._inPlay.jammedWeapons.includes(uuid)) return "jammed";
+        return "ok";
+    }
+
+    public setMovement(mode: VehicleMovementMode, hexesMoved: number = 0): void {
+        this._inPlay.movementMode = mode;
+        this._inPlay.hexesMoved = Math.max(0, Math.floor(hexesMoved));
+    }
+
+    /** Start of a new turn: the vehicle has not moved yet. */
+    public turnReset(): void {
+        this.setMovement("stationary", 0);
+    }
+
+    /** Destroyed: a body location (not a turret or rotor) has lost all its structure, or the crew is killed. */
+    public isDestroyed(): boolean {
+        if (this._inPlay.criticals.crewKilled) return true;
+        return this.getLocations().some((loc) => loc.tag !== "turret" && loc.tag !== "turret2" && loc.tag !== "rotor"
+            && (this.getStructureAllocation()[loc.tag] ?? 0) > 0 && this.getStructureRemaining(loc.tag) === 0);
+    }
+
+    /** A VTOL whose rotor is destroyed, or that is immobilized, crashes. */
+    public isCrashed(): boolean {
+        return !!this._motiveType.hasRotor && (this.getStructureRemaining("rotor") === 0 || this.isImmobile());
+    }
+
+    /** Immobile: immobilizing motive damage, an engine hit, or a dead crew (as implemented by MegaMek). */
+    public isImmobile(): boolean {
+        return this._inPlay.motiveDamage.immobilized || this._inPlay.criticals.engineHit || this._inPlay.criticals.crewKilled;
+    }
+
+    /**
+     * Cruise MP after motive damage: moderate -1, heavy halves what is left (rounded up), immobilized 0
+     * (as implemented by MegaMek Tank.addMovementDamage).
+     */
+    public getEffectiveCruiseMP(): number {
+        if (this.isImmobile()) return 0;
+        let mp = this.getCruiseMP();
+        if (this._inPlay.motiveDamage.moderate) mp = Math.max(0, mp - 1);
+        if (this._inPlay.motiveDamage.heavy) mp = Math.ceil(mp / 2);
+        return mp;
+    }
+
+    public getEffectiveFlankMP(): number {
+        return Math.ceil(this.getEffectiveCruiseMP() * 1.5);
+    }
+
+    public getEffectiveJumpMP(): number {
+        return this.isImmobile() ? 0 : this._jumpMP;
+    }
+
+    /** Driving skill roll modifier: motive damage +1/+2/+3, driver hit +2, VTOL rotor stabilizer +3. */
+    public getDrivingModifier(): number {
+        const motive = this._inPlay.motiveDamage;
+        let modifier = (motive.minor ? 1 : 0) + (motive.moderate ? 2 : 0) + (motive.heavy ? 3 : 0);
+        if (this._inPlay.criticals.driverHit) modifier += 2;
+        if (this._motiveType.hasRotor && this._inPlay.criticals.stabilizers.includes("rotor")) modifier += 3;
+        return modifier;
+    }
+
+    /** Attacker movement modifier: stationary 0, cruise +1, flank +2, jump +3 (TW). */
+    public getAttackerMovementModifier(): number {
+        switch (this._inPlay.movementMode) {
+            case "cruise": return 1;
+            case "flank": return 2;
+            case "jump": return 3;
+            default: return 0;
+        }
+    }
+
+    /** Target movement modifier from hexes moved (+1 jumping, +1 airborne VTOL/WiGE). */
+    public getTargetMovementModifier(): number {
+        const mode = this._inPlay.movementMode;
+        if (mode === "stationary") return 0;
+        let modifier = getMovementModifier(this._inPlay.hexesMoved);
+        if (mode === "jump") modifier += 1;
+        if (this._motiveType.hasRotor || this._motiveType.tag === "wige") modifier += 1;
+        return modifier;
+    }
+
+    /**
+     * To-hit modifiers for one of this vehicle's weapons: movement, sensor hits (+1 each), commander
+     * hit (+1), and a stabilizer hit in the weapon's location (movement modifier again). With 4 sensor
+     * hits the vehicle cannot fire (as implemented by MegaMek ComputeAttackerToHitMods).
+     */
+    public getWeaponToHitModifier(weapon: IEquipmentItem): number | null {
+        if (this._inPlay.criticals.sensorHits >= VEHICLE_MAX_SENSOR_HITS || this._inPlay.criticals.crewStunned) return null;
+        const status = this.getWeaponStatus(weapon.uuid);
+        if (status !== "ok") return null;
+        if ((weapon.location === "turret" || weapon.location === "turret2") && this._inPlay.criticals.turretDestroyed) return null;
+        let modifier = this.getAttackerMovementModifier() + this._inPlay.criticals.sensorHits;
+        if (this._inPlay.criticals.commanderHit) modifier += 1;
+        if (weapon.location && this._inPlay.criticals.stabilizers.includes(weapon.location as VehicleLocation)) {
+            modifier += this.getAttackerMovementModifier();
+        }
+        return modifier;
+    }
+
+    /** Battle Value adjusted for gunnery and driving skill (TM p. 305 skill multipliers, as for 'Mechs). */
+    public getPilotAdjustedBattleValue(): number {
+        const gunnery = this._pilot?.gunnery ?? 4;
+        const piloting = this._pilot?.piloting ?? 5;
+        const multiplier = getSkillMultiplier(gunnery, piloting) ?? 1;
+        return Math.round(this._battleValue * multiplier);
+    }
+
+    public export(noInPlayVariables: boolean = false): IVehicleExport {
         return {
             uuid: this._uuid,
             lastUpdated: this.lastUpdated,
@@ -1427,6 +1705,8 @@ export default class Vehicle {
                 selectedAmmoBinUUID: item.selectedAmmoBinUUID,
                 currentAdditionalArmor: item.currentAdditionalArmor,
             })),
+            pilot: this._pilot.export(),
+            inPlay: noInPlayVariables ? undefined : this._inPlay,
         };
     }
 
@@ -1448,6 +1728,11 @@ export default class Vehicle {
             this._dualTurret = !!importObject.dualTurret && this._hasTurret;
             this._jumpMP = importObject.jumpMP || 0;
             this._troopSpace = importObject.troopSpace || 0;
+            const inPlay = newInPlay();
+            this._inPlay = importObject.inPlay
+                ? { ...inPlay, ...importObject.inPlay, criticals: { ...inPlay.criticals, ...importObject.inPlay.criticals },
+                    motiveDamage: { ...inPlay.motiveDamage, ...importObject.inPlay.motiveDamage } }
+                : inPlay;
             this.setTech(importObject.tech);
             this.setEra(importObject.era);
             this.setEngineType(importObject.engineType);
