@@ -1,7 +1,4 @@
-export interface IMechTonnage {
-    tons: number;
-    type: string;
-}
+import { IMechTonnage } from "./data-interfaces";
 /*
 * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
 * All lore, stats, and intellectual property belong strictly to Catalyst Game Labs, 
@@ -12,7 +9,15 @@ export interface IMechTonnage {
 * to challenge any copyright or trademark status, and this data is explicitly 
 * excluded from the software's underlying license (GNU GPLv3).
 */
-export const btMechTonnages = [
+export const btMechTonnages: IMechTonnage[] = [
+    {
+        tons: 10,
+        type: "Ultralight",
+    },
+    {
+        tons: 15,
+        type: "Ultralight",
+    },
     {
         tons: 20,
         type: "Light",
@@ -81,4 +86,109 @@ export const btMechTonnages = [
         tons: 100,
         type: "Assault",
     },
+    {
+        tons: 105,
+        type: "Colossal",
+    },
+    {
+        tons: 110,
+        type: "Colossal",
+    },
+    {
+        tons: 115,
+        type: "Colossal",
+    },
+    {
+        tons: 120,
+        type: "Colossal",
+    },
+    {
+        tons: 125,
+        type: "Colossal",
+    },
+    {
+        tons: 130,
+        type: "Colossal",
+    },
+    {
+        tons: 135,
+        type: "Colossal",
+    },
+    {
+        tons: 140,
+        type: "Colossal",
+    },
+    {
+        tons: 145,
+        type: "Colossal",
+    },
+    {
+        tons: 150,
+        type: "Colossal",
+    },
+    {
+        tons: 155,
+        type: "Colossal",
+    },
+    {
+        tons: 160,
+        type: "Colossal",
+    },
+    {
+        tons: 165,
+        type: "Colossal",
+    },
+    {
+        tons: 170,
+        type: "Colossal",
+    },
+    {
+        tons: 175,
+        type: "Colossal",
+    },
+    {
+        tons: 180,
+        type: "Colossal",
+    },
+    {
+        tons: 185,
+        type: "Colossal",
+    },
+    {
+        tons: 190,
+        type: "Colossal",
+    },
+    {
+        tons: 195,
+        type: "Colossal",
+    },
+    {
+        tons: 200,
+        type: "Colossal",
+    } 
 ]
+
+/*
+ * Returns the min/max tonnage a given chassis type can legally be built at for a given rules level.
+ *
+ * - Biped and Quad chassis support the full range, but Ultra-light and Superheavy tonnages require Advanced+ rules.
+ * - Custom Homebrew (rules level 5) lifts all of the above tonnage restrictions.
+ */
+export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: number = 2): { min: number; max: number } {
+    if (rulesLevel === 5) {
+        return { min: 10, max: 200 };
+    }
+
+    switch (mechTypeTag) {
+        case "biped":
+        case "quad":
+        default:
+            return rulesLevel >= 3 ? { min: 10, max: 200 } : { min: 20, max: 100 };
+    }
+}
+
+// Returns the list of tonnages a chassis type/rules level combination can legally select from.
+export function getAvailableTonnagesForMechType(mechTypeTag: string, rulesLevel: number = 2): IMechTonnage[] {
+    const { min, max } = getTonnageBoundsForMechType(mechTypeTag, rulesLevel);
+    return btMechTonnages.filter((option) => option.tons >= min && option.tons <= max);
+}
