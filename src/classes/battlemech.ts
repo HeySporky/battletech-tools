@@ -2579,13 +2579,19 @@ export class BattleMech {
 
     public makeTROHTML() {
 
+        // TRO output flows through SanitizedHTML raw={true} (dangerouslySetInnerHTML), so
+        // every user-supplied string interpolated below must be HTML-escaped. Chassis name /
+        // model / nickname come straight from imported JSON; equipment names from custom
+        // catalogs can also be attacker-controlled.
+        const esc = (v: unknown) => this._escapeLogText(v);
+
         let html = "<table class=\"mech-tro\">";
         const typeTag = this._mechType.tag.toLowerCase();
 
         // Header Info
-        html += "<tr><td colspan=\"4\">Type: " + this.getName() + "</td></tr>";
-        html += "<tr><td colspan=\"4\">Technology Base: " + this.getTech().name + "</td></tr>";
-        html += "<tr><td colspan=\"4\">Era: " + this.getEra().name + "</td></tr>";
+        html += "<tr><td colspan=\"4\">Type: " + esc(this.getName()) + "</td></tr>";
+        html += "<tr><td colspan=\"4\">Technology Base: " + esc(this.getTech().name) + "</td></tr>";
+        html += "<tr><td colspan=\"4\">Era: " + esc(this.getEra().name) + "</td></tr>";
         html += "<tr><td colspan=\"4\">Tonnage: " + this.getTonnage() + "</td></tr>";
         html += "<tr><td colspan=\"4\">Battle Value: " + this.getBattleValue() + "</td></tr>";
         html += "<tr><td colspan=\"4\">Alpha Strike Value: " + this.getAlphaStrikeValue() + "</td></tr>";
@@ -2600,8 +2606,8 @@ export class BattleMech {
 
         // Equipment
         html += "<tr><th class=\"text-left\" colspan=\"3\">Equipment</th><th class=\"text-center\" colspan=\"1\">Mass</th></tr>";
-        html += "<tr><td colspan=\"3\">Internal Structure ( " + this._selectedInternalStructure.name + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
-        html += "<tr><td colspan=\"1\">" + this.getEngineName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"3\">Internal Structure ( " + esc(this._selectedInternalStructure.name) + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"1\">" + esc(this.getEngineName()) + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
 
         html += "<tr><td colspan=\"1\" class=\"text-right\">Walking</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
         html += "<tr><td colspan=\"1\" class=\"text-right\">Running</td><td class=\"text-center\" colspan=\"2\">" + this.getRunSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
@@ -2611,8 +2617,8 @@ export class BattleMech {
         if( this.getUMUSpeed() > 0 )
             html += "<tr><td colspan=\"1\" class=\"text-right\">UMU</td><td class=\"text-center\" colspan=\"2\">" + this.getUMUSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
 
-        html += "<tr><td colspan=\"1\">" + this.getHeatSyncName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
-        html += "<tr><td colspan=\"3\">" + this.getGyroName() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"1\">" + esc(this.getHeatSyncName()) + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"3\">" + esc(this.getGyroName()) + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
 
         if( this._smallCockpit) {
             html += "<tr><td colspan=\"3\">Small Cockpit</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
@@ -2642,7 +2648,7 @@ export class BattleMech {
             html += "</td></tr>";
         }
 
-        html += "<tr><th colspan=\"1\">Armor Value ( " + this._armorType.name + " )</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
+        html += "<tr><th colspan=\"1\">Armor Value ( " + esc(this._armorType.name) + " )</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
 
         // Armor Factor Table
         html += "<tr><td colspan=\"1\"></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Internal Structure</em></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Armor Value</em></td><td>&nbsp;</td></tr>";
@@ -2696,7 +2702,7 @@ export class BattleMech {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Rear Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
             }
         } else {
-            html += "<tr><td colspan=\"4\">Unsupported 'Mech type: " + this._mechType.name + "</td></tr>";
+            html += "<tr><td colspan=\"4\">Unsupported 'Mech type: " + esc(this._mechType.name) + "</td></tr>";
         }
         // End Factor Table
         html += "</table>";
@@ -2718,10 +2724,12 @@ export class BattleMech {
             if( currentItem.rear)
                 item_location += " (R)"
 
+            const eqName = esc(currentItem.name);
+            const eqLocAbbr = esc(item_location.toUpperCase());
             if( currentItem.isAmmo && this.getAmmoBinCapacity(currentItem) > 0)
-                html += "<tr><td class=\"text-left\">" + currentItem.name + " " + this.getAmmoBinCapacity(currentItem) + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + eqName + " " + this.getAmmoBinCapacity(currentItem) + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
             else
-                html += "<tr><td class=\"text-left\">" + currentItem.name + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + eqName + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
         }
 
         // Isolate the base unit weight per Jump Jet once to eliminate code duplication
@@ -2752,9 +2760,10 @@ export class BattleMech {
             // If matching engines were found, append a clean summary table row
             if (jjObjs.length > 0) {
                 const totalLocationWeight = jjObjs.length * singleJJWeight;
-                const jjName = jjObjs[0].name;
+                const jjName = esc(jjObjs[0].name);
+                const locShortEsc = esc(locationShort);
                 // Fixed the loose dangling </strong> tag from the original snippet
-                html += `<tr><td class="text-left">${jjName}</td><td class="text-center"><strong>${locationShort}</strong></td><td class="text-center">${jjObjs.length}</td><td class="text-center">${totalLocationWeight.toFixed(2)}</td></tr>`;
+                html += `<tr><td class="text-left">${jjName}</td><td class="text-center"><strong>${locShortEsc}</strong></td><td class="text-center">${jjObjs.length}</td><td class="text-center">${totalLocationWeight.toFixed(2)}</td></tr>`;
             }
         }
         // Process any Unallocated/Floating Jump Jets lingering in the construction queue
@@ -2767,7 +2776,7 @@ export class BattleMech {
         }
         if (unallocatedJJs.length > 0) {
             const totalUnallocatedWeight = unallocatedJJs.length * singleJJWeight;
-            const jjName = unallocatedJJs[0].name;
+            const jjName = esc(unallocatedJJs[0].name);
             html += `<tr><td class="text-left">${jjName}</td><td class="text-center"><strong>N/A</strong></td><td class="text-center">${unallocatedJJs.length}</td><td class="text-center">${totalUnallocatedWeight.toFixed(2)}</td></tr>`;
         }
 
@@ -9346,7 +9355,11 @@ export class BattleMech {
 
 
         const options = {
-            ignoreAttributes : false
+            ignoreAttributes : false,
+            // Security note: fast-xml-parser rejects external and parameter entities and
+            // caps internal-entity expansion, so XXE / billion-laughs are not exploitable.
+            // Do NOT disable processEntities — SSW files use standard XML entities in
+            // attribute values (see getSSWXMLBasicInfo for the same rationale).
         };
         const parser = new XMLParser(options);
         let jObj = parser.parse(ssw_xml);

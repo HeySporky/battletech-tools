@@ -1,6 +1,7 @@
 import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../app-router';
 import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
+import { safeImageURL } from '../../../utils/safeImageURL';
 import './alpha-strike-unit-token.scss';
 import BattleTechLogo from '../battletech-logo';
 
@@ -19,7 +20,7 @@ export default class AlphaStrikeUnitToken extends React.Component<IAlphaStrikeUn
 
             <div className={classes.join(" ")}>
                 <div className='front'>
-                    {this.props.asUnit.imageURL ? ( <img alt="unit portrait" src={this.props.asUnit.imageURL}></img> ) : null}
+                    {safeImageURL(this.props.asUnit.imageURL) ? ( <img alt="unit portrait" src={safeImageURL(this.props.asUnit.imageURL)}></img> ) : null}
                     <div className="unit-name">
                         <div className="custom-name">{this.props.asUnit.customName}</div>
                     </div>
