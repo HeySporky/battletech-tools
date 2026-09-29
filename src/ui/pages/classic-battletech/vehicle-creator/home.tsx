@@ -28,7 +28,7 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
         e.preventDefault();
         if (this.props.appGlobals.currentVehicle) {
             const vehicleSaves = this.props.appGlobals.vehicleSaves || [];
-            vehicleSaves.push(this.props.appGlobals.currentVehicle.export());
+            vehicleSaves.push(this.props.appGlobals.currentVehicle.export(true));
             this.props.appGlobals.saveVehicleSaves(vehicleSaves);
         }
     }
@@ -53,7 +53,7 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
                 () => {
                     if (this.props.appGlobals.currentVehicle) {
                         const vehicleSaves = this.props.appGlobals.vehicleSaves;
-                        vehicleSaves[saveIndex] = this.props.appGlobals.currentVehicle.export();
+                        vehicleSaves[saveIndex] = this.props.appGlobals.currentVehicle.export(true);
                         this.props.appGlobals.saveVehicleSaves(vehicleSaves);
                     }
                 }
