@@ -96,9 +96,12 @@ export interface IASMULUnit {
 
     // Which bundled list served this record; set by the MUL chunk loader, not stored in the data files.
     MulSource?: MULSource;
+
+    // Present only on non-canonical custom entries (shared list or this browser's local entries).
+    CustomInfo?: ICustomMULInfo;
 }
 
-// MUL 2.0 records keep the model in Variant ("Black Knight" + "BL-7-KNT"); MUL 1.0 records
+// MUL 2.0 and custom records keep the model in Variant ("Black Knight" + "BL-7-KNT"); MUL 1.0 records
 // already carry the full designation in Name.
 export function getMULDisplayName(unit: Pick<IASMULUnit, "Name" | "Variant" | "MulUnitKey">): string {
     const name = (unit.Name ?? "").trim();
@@ -110,7 +113,19 @@ export function getMULDisplayName(unit: Pick<IASMULUnit, "Name" | "Variant" | "M
 }
 
 // mul2: masterunitlist.battletech.com (current). mul1: legacy numeric-id MUL records the live site no longer lists.
-export type MULSource = "mul2" | "mul1";
+// custom: non-canonical units, from the shared curated list or saved locally in this browser.
+export type MULSource = "mul2" | "mul1" | "custom";
+
+export interface ICustomMULInfo {
+    author: string;
+    source: string;
+    notes: string;
+    createdAt: string;
+    updatedAt: string;
+    // Only on entries saved in this browser; the shared list never stores these.
+    local?: boolean;
+    pullRequestUrl?: string;
+}
 
 export interface IAlphaStrikeUnitExport {
     mechCreatorUUID: string;

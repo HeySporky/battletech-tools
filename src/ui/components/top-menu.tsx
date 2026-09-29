@@ -207,6 +207,14 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 
         menuStructure.push(
             {
+                label: "Custom MUL Editor",
+                url: "/custom-mul-editor",
+                tag: "custom-mul-editor",
+            },
+        );
+
+        menuStructure.push(
+            {
                 label: "SSW Sanity Check",
                 url: "/ssw-sanity-check",
                 tag: "ssw-sanity-check",

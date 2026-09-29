@@ -1,4 +1,5 @@
 import type { IASMULUnit, MULSource } from "../classes/alpha-strike-unit";
+import { getLocalCustomMULUnits } from "./custom-mul-local";
 
 /*
 * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -19,7 +20,7 @@ type MULChunkEntry = Partial<IASMULUnit> & {
 };
 
 // Which bundled lists the user wants searched. Each option is a superset of the one before it.
-export type MULSourceSelection = "mul2" | "mul2+mul1";
+export type MULSourceSelection = "mul2" | "mul2+mul1" | "mul2+mul1+custom";
 
 export const DEFAULT_MUL_SOURCE_SELECTION: MULSourceSelection = "mul2";
 
@@ -34,11 +35,17 @@ export const MUL_SOURCE_SELECTIONS: { value: MULSourceSelection; label: string; 
         label: "MUL 2.0 + MUL 1.0 leftovers",
         description: "Adds legacy MUL 1.0 records that the current MUL no longer lists.",
     },
+    {
+        value: "mul2+mul1+custom",
+        label: "MUL 2.0 + MUL 1.0 + customs",
+        description: "Also adds non-canonical custom units: the shared curated list plus any saved in this browser.",
+    },
 ];
 
 export const MUL_SOURCE_LABELS: Record<MULSource, string> = {
     mul2: "MUL 2.0",
     mul1: "MUL 1.0",
+    custom: "Custom",
 };
 
 export function isMULSourceSelection(value: unknown): value is MULSourceSelection {
@@ -49,6 +56,8 @@ export function getMULSourcesForSelection(selection: MULSourceSelection): MULSou
     switch (selection) {
         case "mul2+mul1":
             return ["mul2", "mul1"];
+        case "mul2+mul1+custom":
+            return ["mul2", "mul1", "custom"];
         default:
             return ["mul2"];
     }
@@ -78,6 +87,7 @@ type ChunkLoaders = Record<string, () => Promise<unknown>>;
 const mulChunkModulesBySource: Record<MULSource, ChunkLoaders> = {
     mul2: import.meta.glob("./mul/live/*.json", { eager: false, import: "default" }) as ChunkLoaders,
     mul1: import.meta.glob("./mul/mul1/*.json", { eager: false, import: "default" }) as ChunkLoaders,
+    custom: import.meta.glob("./mul/custom/*.json", { eager: false, import: "default" }) as ChunkLoaders,
 };
 
 const cachedBySource: Partial<Record<MULSource, Promise<IASMULUnit[]>>> = {};
@@ -147,7 +157,17 @@ function loadMULSource(source: MULSource): Promise<IASMULUnit[]> {
 }
 
 export async function loadMULListItems(selection: MULSourceSelection = DEFAULT_MUL_SOURCE_SELECTION): Promise<IASMULUnit[]> {
-    const lists = await Promise.all(getMULSourcesForSelection(selection).map(loadMULSource));
+    const sources = getMULSourcesForSelection(selection);
+    const lists = await Promise.all(sources.map(loadMULSource));
+
+    // Read fresh on every call (never cached) so entries saved in the Custom MUL Editor show up at once.
+    // They come before the shared list so a local edit of a shared entry wins for its author.
+    if (sources.includes("custom")) {
+        const local = getLocalCustomMULUnits()
+            .filter(isMULListEntry)
+            .map((entry) => ({ ...entry, MulSource: "custom" as const }));
+        lists.splice(sources.indexOf("custom"), 0, local);
+    }
 
     const seen = new Set<string>();
     const uniqueItems: IASMULUnit[] = [];
