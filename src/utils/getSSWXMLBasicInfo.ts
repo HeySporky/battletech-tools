@@ -1,6 +1,6 @@
 import { IRulesLevelOption } from "../data/data-interfaces";
 
-const { XMLParser } = require( "fast-xml-parser" );
+import { XMLParser } from "fast-xml-parser";
 
 export interface ISSWBasicInfo {
     model: string;
