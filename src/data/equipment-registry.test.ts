@@ -45,11 +45,11 @@ describe("equipment catalog provenance", () => {
         const clanItems = getEquipmentListByTech("clan");
         const atm6 = clanItems.find(item => item.tag === "atm-6")!;
         const iatm6 = clanItems.find(item => item.tag === "iatm-6")!;
-        const standardAtm = mechClanAmmo.find(item => item.tag === "ammo-atm-standard")!;
-        const extendedRangeAtm = mechClanAmmo.find(item => item.tag === "ammo-atm-er")!;
-        const highExplosiveAtm = mechClanAmmo.find(item => item.tag === "ammo-atm-he")!;
-        const infernoIatm = mechClanAmmo.find(item => item.tag === "ammo-iatm-inferno")!;
-        const magPulseIatm = mechClanAmmo.find(item => item.tag === "ammo-iatm-mag-pulse")!;
+        const standardAtm = mechClanAmmo.find(item => item.tag === "ammo-clan-atm-standard")!;
+        const extendedRangeAtm = mechClanAmmo.find(item => item.tag === "ammo-clan-atm-er")!;
+        const highExplosiveAtm = mechClanAmmo.find(item => item.tag === "ammo-clan-atm-he")!;
+        const infernoIatm = mechClanAmmo.find(item => item.tag === "ammo-clan-iatm-inferno")!;
+        const magPulseIatm = mechClanAmmo.find(item => item.tag === "ammo-clan-iatm-mag-pulse")!;
 
         expect(atm6.ammoPerShot).toBe(6);
         expect([standardAtm, extendedRangeAtm, highExplosiveAtm].every(ammo => getCompatibleAmmo(atm6, ammo))).toBe(true);
@@ -66,7 +66,10 @@ describe("equipment catalog provenance", () => {
         expect(universal?.equipment).toEqual(mechUniversalEquipment);
         expect(new Set(universal?.equipment.map(item => item.tag)).size).toBe(universal?.equipment.length);
         expect(mechUniversalEquipment.every(item => item.catalog === undefined)).toBe(true);
-        expect(mechUniversalAmmo).toHaveLength(3);
+        // The catalog keeps growing (canon ammo is still being added), so check invariants, not a snapshot count.
+        expect(mechUniversalAmmo.length).toBeGreaterThan(0);
+        expect(mechUniversalAmmo.every(item => item.isAmmo)).toBe(true);
+        expect(new Set(mechUniversalAmmo.map(item => item.tag)).size).toBe(mechUniversalAmmo.length);
         expect(getEquipmentCatalogDefinitions().find(catalog => catalog.id === "mech-universal-ammo")?.equipment).toEqual(mechUniversalAmmo);
         expect(getEquipmentCatalogDefinitions().find(catalog => catalog.id === "mech-custom-ammo")?.equipment).toEqual(mechCustomAmmo);
     });

@@ -283,7 +283,7 @@ describe("BattleMech ATM ammunition", () => {
     it("exposes newly added ATM equipment and bins for critical allocation", () => {
         const mech = new BattleMech();
         mech.setTech("clan");
-        const tags = ["atm-6", "ammo-atm-standard", "ammo-atm-er", "ammo-atm-he"];
+        const tags = ["atm-6", "ammo-clan-atm-standard", "ammo-clan-atm-er", "ammo-clan-atm-he"];
 
         for (const tag of tags) {
             expect(mech.addEquipmentFromTag(tag, "clan", "", false, undefined, "", false, [], undefined, undefined)).not.toBeNull();
@@ -297,7 +297,7 @@ describe("BattleMech ATM ammunition", () => {
         const mech = new BattleMech();
         mech.setTech("clan");
         const weapon = mech.addEquipmentFromTag("atm-6", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
-        const ammo = mech.addEquipmentFromTag("ammo-atm-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        const ammo = mech.addEquipmentFromTag("ammo-clan-atm-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
         const weaponIndex = mech.equipmentList.findIndex(item => item.uuid === weapon.uuid);
 
         mech.selectAmmoBin(weapon.uuid!, ammo.uuid!);
@@ -310,8 +310,8 @@ describe("BattleMech ATM ammunition", () => {
         const mech = new BattleMech();
         mech.setTech("clan");
         const weapon = mech.addEquipmentFromTag("atm-6", "clan", "lt", false, undefined, "a", false, [], undefined, undefined)!;
-        const standardAmmo = mech.addEquipmentFromTag("ammo-atm-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
-        const extendedRangeAmmo = mech.addEquipmentFromTag("ammo-atm-er", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        const standardAmmo = mech.addEquipmentFromTag("ammo-clan-atm-standard", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
+        const extendedRangeAmmo = mech.addEquipmentFromTag("ammo-clan-atm-er", "clan", "lt", false, undefined, "", false, [], undefined, undefined)!;
         const weaponIndex = mech.equipmentList.findIndex(item => item.uuid === weapon.uuid);
         const target = { name: "Target", active: true, range: 20, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false };
 
