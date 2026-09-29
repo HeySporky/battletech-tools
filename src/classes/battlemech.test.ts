@@ -503,6 +503,8 @@ describe("LAM and QuadVee chassis rules", () => {
         const biped = new BattleMech();
         biped.setTransformationMode("vehicle");
         expect(biped.getTransformationMode()).toBe("mech");
+        // Regression: play mode offered no Jump option to Bipeds with jump jets.
+        expect(biped.canUseJumpJetsInCurrentMode()).toBe(true);
     });
 
     it("requires LAM avionics and landing gear in the mandated locations", () => {

@@ -5643,7 +5643,8 @@ export class BattleMech {
             if (this.isQuadVee()) {
                 return this._transformationMode === "mech";
             }
-            return this.isLAM() && ["mech", "airmech", "aerospace"].includes(this._transformationMode);
+            // Bipeds, Quads, Tripods and LAMs (in every LAM mode) may use their jump jets.
+            return true;
         }
 
         public canUsePhysicalAttacksInCurrentMode(): boolean {
