@@ -69,7 +69,7 @@ const allTonnages = { ...baselineBipedData, ...superheavyBipedData };
 
 // Helper function to populate variants dynamically
 function generateStructuresForType(
-  type: 'biped' | 'quad' | 'quadvee',
+  type: 'biped' | 'quad' | 'tripod' | 'quadvee',
   _rulesLevel: number = 2 // Defaults to Standard/Tournament Legal
 ): Record<number, IInternalStructurePerTon> {
   const result: Record<number, IInternalStructurePerTon> = {};
@@ -107,6 +107,22 @@ function generateStructuresForType(
         frontRightLeg: raw.leg, // Front Right Leg
       };
     }
+
+    // Tripod mapping (Clones leg parameter a third time to create centerLeg)
+    if (type === 'tripod') {
+      result[ton] = {
+        tonnage: ton,
+        head: raw.head,
+        centerTorso: raw.ct,
+        leftTorso: raw.torso,
+        rightTorso: raw.torso,
+        leftArm: raw.arm,
+        rightArm: raw.arm,
+        leftLeg: raw.leg,
+        rightLeg: raw.leg,
+        centerLeg: raw.leg,
+      };
+    }
   });
 
   return result;
@@ -126,6 +142,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -142,6 +159,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -157,6 +175,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -173,6 +192,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -191,6 +211,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
       quadvee: generateStructuresForType('quadvee'),
     }
   },
@@ -207,6 +228,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
+      tripod: generateStructuresForType('tripod'),
       quadvee: generateStructuresForType('quadvee'),
     }
   }
