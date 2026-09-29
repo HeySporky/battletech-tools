@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 import { IAppGlobals } from '../../app-router';
 import Error404 from "../error404";
 import SettingsBackupAndRestore from './backup-and-restore';
 import SettingsHome from './home';
+
+import type { JSX } from "react";
 
 export default class SettingsRouter extends React.Component<ISettingsRouterProps, ISettingsRouterState> {
 

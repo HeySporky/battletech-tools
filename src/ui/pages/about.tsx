@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { IAppGlobals } from '../app-router';
 import './about.scss';
 import UIPage from '../components/ui-page';

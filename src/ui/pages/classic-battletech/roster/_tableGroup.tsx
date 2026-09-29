@@ -9,6 +9,7 @@ import StandardModal from '../../../components/standard-modal';
 import StatBar from '../../../components/stat-bar';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechAddMechDialog from './_addMechDialog';
+import type { JSX } from "react";
 // import InPlay from './in-play';
 // import PrintSheet from './print';
 

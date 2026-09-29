@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { ICriticalSlot } from '../../../../classes/battlemech';
 import { ISplitLocation } from '../../../../data/data-interfaces';
 import { IAppGlobals } from '../../../app-router';

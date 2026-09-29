@@ -4,27 +4,27 @@ robots.txt
 node_modules/*
 npm-debug.log
 .htaccess
+.eslintcache
 
-old
-old/*
-old*
+/old
+/old/*
+/old*
 
-boneyard
-boneyard/*
+/boneyard
+/boneyard/*
 
-build/*
-build*
-build
+/build/*
+/build*
+/build
 
-work/*
-work*
-work
+/work/*
+/work*
+/work
 
 /cli-tools/*
 /cli-tools
 
 .DS_Store
-package-lock.json
 .gitlab-ci.yml
 
 /SSW-Master
@@ -34,3 +34,10 @@ package-lock.json
 
 .vscode
 .vscode/*
+
+# Test output
+/coverage
+/playwright-report
+/test-results
+/blob-report
+/playwright/.cache

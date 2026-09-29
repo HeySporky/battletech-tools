@@ -3,6 +3,8 @@ import { IEquipmentItem } from '../../data/data-interfaces';
 import InputCheckbox from './form_elements/input_checkbox';
 import InputNumeric from './form_elements/input_numeric';
 
+import type { JSX } from "react";
+
 export default class RangeInput extends React.Component<IRangeInputProps, IRangeInputState> {
     showDialog: boolean = false;
 

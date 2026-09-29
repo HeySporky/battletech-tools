@@ -4,6 +4,9 @@ import { FiHexagon } from 'react-icons/fi';
 import { IAppGlobals } from '../../../app-router';
 
 
+import type { JSX } from "react";
+
+
 export default class AlphaStrikeToggleRulerHexes extends React.Component<IAlphaStrikeToggleRulerHexesViewProps, IAlphaStrikeToggleRulerHexesViewState> {
 
     toggleAlphaStrikeMeasurementsInHexes = (

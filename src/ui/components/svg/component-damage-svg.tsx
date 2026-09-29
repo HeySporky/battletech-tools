@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { BattleMech } from '../../../classes/battlemech';
 import DamageCircleSVG from './damage-circle-svg';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';

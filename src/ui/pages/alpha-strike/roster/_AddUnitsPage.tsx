@@ -10,6 +10,8 @@ import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 import { generateUUID } from '../../../../utils/generateUUID';
 
+import type { JSX } from "react";
+
 //TODO: Clearfix Hack for overflowing results
 /*
 .clearfix::after {

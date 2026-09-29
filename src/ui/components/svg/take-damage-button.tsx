@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { CONST_HIGHLIGHT_COLOR } from '../../../configVars';
 
 export default class TakeDamageButtonSVG extends React.Component<ITakeDamageButtonSVGProps, ITakeDamageButtonSVGState> {
