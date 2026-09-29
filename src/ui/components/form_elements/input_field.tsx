@@ -2,6 +2,8 @@ import { FaChevronDown, FaChevronUp, FaQuestion } from "react-icons/fa";
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
+import type { JSX } from "react";
+
 export default class InputField extends React.Component<IInputFieldProps, IInputFieldState> {
     constructor(props: IInputFieldProps) {
         super(props);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { FaArrowCircleRight, FaFile, FaFileExport, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { BattleMech, IBattleMechExport } from '../../../../classes/battlemech';

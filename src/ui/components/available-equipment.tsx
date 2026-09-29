@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { IEquipmentItem } from '../../data/data-interfaces';
 import { sortEquipment } from '../../utils';
 import { IAppGlobals } from '../app-router';

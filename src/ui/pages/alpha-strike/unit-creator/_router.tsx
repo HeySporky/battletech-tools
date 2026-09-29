@@ -5,6 +5,9 @@ import Error404 from "../../error404";
 import AlphaStrikeUnitCreatorHome from './home';
 
 
+import type { JSX } from "react";
+
+
 export default class AlphaStrikeUnitCreatorRouter extends React.Component<IAlphaStrikeUnitCreatorRouterProps, IAlphaStrikeUnitCreatorRouterState> {
 
     render = (): JSX.Element => {

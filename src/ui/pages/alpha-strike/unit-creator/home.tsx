@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
 import { IAppGlobals } from '../../../app-router';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';

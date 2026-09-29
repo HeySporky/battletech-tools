@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { BattleMech, IGATOR } from "../../../classes/battlemech";
 import { getTargetColor, getTargetToHitFromWeapon } from '../../../utils';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';

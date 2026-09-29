@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { IEquipmentItem } from '../../../../data/data-interfaces';

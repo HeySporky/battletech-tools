@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { GiMineExplosion } from "react-icons/gi";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { IEquipmentItem } from "../../data/data-interfaces";

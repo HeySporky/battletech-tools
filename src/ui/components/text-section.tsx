@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import type { JSX } from "react";
+
 export default class TextSection extends React.Component<ITextSectionProps, ITextSectionState> {
 
     constructor(props: ITextSectionProps) {

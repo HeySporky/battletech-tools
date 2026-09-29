@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../app-router';
 import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
 import './alpha-strike-unit-token.scss';

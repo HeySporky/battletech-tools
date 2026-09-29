@@ -1,6 +1,6 @@
 
 import { FaExclamationCircle, FaExclamationTriangle } from "react-icons/fa";
-import React from 'react';
+import React, { type JSX } from 'react';
 import { checkFullRestoreData, getFullBackup, IFullBackup, IRestoreMessage, restoreFullBackup } from '../../../dataSaves';
 import { IAppGlobals } from '../../app-router';
 import InputCheckbox from '../../components/form_elements/input_checkbox';

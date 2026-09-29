@@ -1,6 +1,8 @@
 import * as React from 'react';
 import sanitizeHtml from 'sanitize-html';
 
+import type { JSX } from "react";
+
 export default class SanitizedHTML extends React.Component<ISanitizedHTMLProps, ISanitizedHTMLState> {
 
     // For the SanitizeHTML function/module docs go here:

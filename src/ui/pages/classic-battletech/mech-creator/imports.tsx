@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaCheckCircle, FaEye, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { BattleMech } from "../../../../classes/battlemech";

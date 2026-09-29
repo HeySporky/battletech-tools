@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 
 export default class HeatTrackSVG extends React.Component<IHeatTrackSVGProps, IHeatTrackSVGState> {
     strokeColor = "rgb(0,0,0)";

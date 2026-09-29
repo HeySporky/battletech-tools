@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 
 export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheetGroupBoxSVGProps, IRecordSheetGroupBoxSVGState> {
 

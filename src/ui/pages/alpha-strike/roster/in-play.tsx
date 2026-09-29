@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaColumns } from "react-icons/fa";
 import { FiRefreshCcw } from "react-icons/fi";
 import { Link } from 'react-router-dom';
