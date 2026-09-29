@@ -1,6 +1,7 @@
 
 import { FaSquare, FaCheckCircle, FaTimesCircle, FaCheckSquare } from "react-icons/fa";
 import * as React from 'react';
+import type { JSX } from "react";
 const CheckCircle = FaCheckCircle as any;
 const TimesCircle = FaTimesCircle as any;
 const CheckSquare = FaCheckSquare as any;

@@ -1,5 +1,5 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
-import React from 'react';
+import React, { type JSX } from 'react';
 import { Link } from 'react-router-dom';
 import { btEraOptions } from '../../../../data/era-options';
 import { mechInternalStructureTypes } from '../../../../data/mech-internal-structure-types';

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FaRuler } from 'react-icons/fa';
 import { FiHexagon } from 'react-icons/fi';
 import { IAppGlobals } from '../../../app-router';
+import type { JSX } from "react";
 const RulerIcon = FaRuler as any;
 const HexagonIcon = FiHexagon as any;
 

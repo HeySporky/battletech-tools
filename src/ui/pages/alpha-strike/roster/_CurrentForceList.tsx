@@ -8,6 +8,7 @@ import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import { IASPilotAbility } from '../../../../data/alpha-strike-pilot-abilities';
+import type { JSX } from "react";
 const ArrowsAlt = FaArrowsAlt as any;
 const Bars = FaBars as any;
 const Edit = FaEdit as any;

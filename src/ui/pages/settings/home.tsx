@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { Link } from 'react-router-dom';
 import { ESaveDataMode } from '../../../dataSaves';
 import { IAppGlobals } from '../../app-router';

@@ -10,6 +10,7 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from '../../../components/standard-modal';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechTableGroup from './_tableGroup';
+import type { JSX } from "react";
 const CheckCircle = FaCheckCircle as any;
 const Eye = FaEye as any;
 const PlusCircle = FaPlusCircle as any;

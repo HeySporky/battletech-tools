@@ -9,6 +9,8 @@ import InputNumeric from './form_elements/input_numeric';
 import RangeInput from './range-input';
 import TextSection from './text-section';
 
+import type { JSX } from "react";
+
 export default class EquipmentEditForm extends React.Component<IEquipmentEditFormProps, IEquipmentEditFormState> {
 
     constructor(props: IEquipmentEditFormProps) {

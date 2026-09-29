@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { BattleMech, IGATOR } from '../../../classes/battlemech';
 import { CONST_HIGHLIGHT_COLOR } from '../../../configVars';
 import { breakLines } from '../../../utils/breakLines';

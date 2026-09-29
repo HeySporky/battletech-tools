@@ -5,6 +5,8 @@ import Error404 from "../error404";
 import GameManagementHome from './home';
 import MatchPlayRouter from './match-play/_router';
 
+import type { JSX } from "react";
+
 export default class GameManagementRouter extends React.Component<IGameManagementRouterProps, IGameManagementRouterState> {
 
     render = (): JSX.Element => {

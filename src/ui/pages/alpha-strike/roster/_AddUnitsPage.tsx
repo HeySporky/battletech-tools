@@ -9,6 +9,7 @@ import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 import { generateUUID } from '../../../../utils/generateUUID';
+import type { JSX } from "react";
 const Bars = FaBars as any;
 const Eye = FaEye as any;
 const Plus = FaPlus as any;

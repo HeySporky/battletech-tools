@@ -1,6 +1,6 @@
 
 
-import React from 'react';
+import React, { type JSX } from 'react';
 
 export default class DamageCircleSVG extends React.Component<IDamageCircleSVGProps, IDamageCircleSVGState> {
     bgColor = "rgb(255,255,255)";

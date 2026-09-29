@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { BattleMech } from '../../../classes/battlemech';
 import BipedArmorCircles from './biped-armor-circles';
 import DamageCircleSVG from './damage-circle-svg';

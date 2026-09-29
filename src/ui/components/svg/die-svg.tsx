@@ -1,6 +1,6 @@
 
 
-import React from 'react';
+import React, { type JSX } from 'react';
 
 export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> {
 

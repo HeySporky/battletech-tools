@@ -1,5 +1,5 @@
 import { FaDice, FaEye, FaTrash } from "react-icons/fa";
-import React from 'react';
+import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
