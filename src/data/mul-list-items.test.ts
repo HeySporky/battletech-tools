@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { getMULSourcesForSelection, loadMULListItems } from "./mul-list-items";
 
 describe("MUL chunk loader", () => {
@@ -26,8 +26,25 @@ describe("MUL chunk loader", () => {
         expect(items.length).toBe((await loadMULListItems("mul2")).length + legacy.length);
     }, 30_000);
 
+    it("serves this browser's local custom entries only when customs are selected", async () => {
+        const local = { Id: 900123, MulUnitKey: "CUSTOM-LOCALTEST1", Name: "Local Test", Variant: "LT-1", Class: "BattleMech", CustomInfo: { local: true } };
+        const store: Record<string, string> = { localCustomMULUnits: JSON.stringify([local]) };
+        vi.stubGlobal("localStorage", {
+            getItem: (key: string) => store[key] ?? null,
+            setItem: (key: string, value: string) => { store[key] = value; },
+        });
+        try {
+            const withCustoms = await loadMULListItems("mul2+mul1+custom");
+            expect(withCustoms.find((item) => item.MulUnitKey === "CUSTOM-LOCALTEST1")).toMatchObject({ MulSource: "custom", Name: "Local Test" });
+            expect((await loadMULListItems("mul2+mul1")).some((item) => item.MulUnitKey === "CUSTOM-LOCALTEST1")).toBe(false);
+        } finally {
+            vi.unstubAllGlobals();
+        }
+    }, 30_000);
+
     it("expands each selection to a superset of the previous one", () => {
         expect(getMULSourcesForSelection("mul2")).toEqual(["mul2"]);
         expect(getMULSourcesForSelection("mul2+mul1")).toEqual(["mul2", "mul1"]);
+        expect(getMULSourcesForSelection("mul2+mul1+custom")).toEqual(["mul2", "mul1", "custom"]);
     });
 });
