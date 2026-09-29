@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 
 export default class BipedArmorDiagramSVG extends React.Component<IBipedArmorDiagramSVGProps, IBipedArmorDiagramSVGState> {
     bgColor = "rgb(255,255,255)";

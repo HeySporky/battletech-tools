@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../app-router';
 import { IAlert } from '../classes/alerts';
 import SanitizedHTML from './sanitized-html';
+import type { JSX } from "react";
 const TimesCircleIcon = FaTimesCircle as any;
 
 export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowAlertsState> {

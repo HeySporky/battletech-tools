@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
 import { IASPilotAbility } from '../../../data/alpha-strike-pilot-abilities';
 import { IASSpecialAbility } from '../../../data/alpha-strike-special-abilities';

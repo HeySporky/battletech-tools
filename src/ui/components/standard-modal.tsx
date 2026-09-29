@@ -2,6 +2,7 @@ import { FaSave, FaTimesCircle } from "react-icons/fa";
 import * as React from 'react';
 import { Modal } from 'react-bootstrap';
 import InputCheckbox from './form_elements/input_checkbox';
+import type { JSX } from "react";
 const SaveIcon = FaSave as any;
 const TimesCircleIcon = FaTimesCircle as any;
 

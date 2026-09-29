@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import './home.scss';
 import {IAppGlobals} from '../../../app-router';
 import SanitizedHTML from '../../../components/sanitized-html';

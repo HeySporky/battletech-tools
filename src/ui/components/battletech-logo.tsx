@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 
 export default class BattleTechLogo extends React.Component<IBattleTechLogoProps, IBattleTechLogoState> {
 

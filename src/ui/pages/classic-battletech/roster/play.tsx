@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare, FaTable } from "react-icons/fa";
 import { FiRefreshCcw } from 'react-icons/fi';
 import { GiBattleAxe, GiCrosshairArrow, GiHotSurface, GiMagnifyingGlass, GiMissileSwarm } from 'react-icons/gi';

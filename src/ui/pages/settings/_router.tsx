@@ -5,6 +5,8 @@ import Error404 from "../error404";
 import SettingsBackupAndRestore from './backup-and-restore';
 import SettingsHome from './home';
 
+import type { JSX } from "react";
+
 export default class SettingsRouter extends React.Component<ISettingsRouterProps, ISettingsRouterState> {
 
     render = (): JSX.Element => {

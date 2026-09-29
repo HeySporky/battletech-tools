@@ -1,6 +1,7 @@
 import { FaChevronDown, FaChevronUp, FaQuestion } from "react-icons/fa";
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import type { JSX } from "react";
 const ChevronDown = FaChevronDown as any;
 const ChevronUp = FaChevronUp as any;
 const QuestionIcon = FaQuestion as any;
