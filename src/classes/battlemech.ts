@@ -4069,8 +4069,14 @@ export class BattleMech {
         const parsedRating = typeof ratingNumber === "string" 
             ? Number.parseInt(ratingNumber, 10) 
             : Math.floor(ratingNumber);
+        // A rating of 0 means "no engine": reset() and Walk MP 0 (the "-Select Walking Speed-" option) both land here
+        if (parsedRating === 0) {
+            this._engine = null;
+            this._calc();
+            return 0;
+        }
         // Guard Clause: Exit immediately if the incoming data cannot resolve to a valid integer
-        if (Number.isNaN(parsedRating) || parsedRating <= 0) {
+        if (Number.isNaN(parsedRating) || parsedRating < 0) {
             console.error(`setEngine failed: '${ratingNumber}' is not a valid engine rating integer.`);
             return 0;
         }

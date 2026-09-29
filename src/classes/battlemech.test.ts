@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { BattleMech } from "./battlemech";
@@ -42,5 +42,20 @@ describe("BattleMech", () => {
     it.fails("imports a mech with odd Jump MP (Griffin GRF-1N) [known fault, see TODO.md]", () => {
         const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
         new BattleMech().importSSWXML(griffin);
+    });
+
+    // Regression: setEngine(0) is how reset() and Walk MP 0 clear the engine; it used to log an error and keep the
+    // previous engine.
+    it("clears the engine when Walk MP is set back to 0", () => {
+        const errors = vi.spyOn(console, "error").mockImplementation(() => {});
+        const mech = new BattleMech();
+        mech.setTonnage(50);
+        mech.setWalkSpeed(4);
+        expect(mech.getEngine()?.rating).toBe(200);
+
+        mech.setWalkSpeed(0);
+        expect(mech.getEngine()).toBeNull();
+        expect(errors).not.toHaveBeenCalled();
+        errors.mockRestore();
     });
 });
