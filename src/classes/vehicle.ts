@@ -186,6 +186,98 @@ const newInPlay = (): IVehicleInPlay => ({
 /** The fourth sensor hit makes it impossible for the vehicle to fire weapons (TW p. 195). */
 export const VEHICLE_MAX_SENSOR_HITS = 4;
 
+// Sanity bounds for play state read back from saves; far above anything a game reaches, low enough that no
+// loop or display built on them can run away.
+export const VEHICLE_MAX_ELEVATION = 100;
+export const VEHICLE_MAX_HEXES_MOVED = 100;
+const MAX_PLAY_COUNTER = 100;
+
+const VEHICLE_LOCATION_TAGS: VehicleLocation[] = ["front", "left", "right", "rear", "frontLeft", "frontRight", "rearLeft", "rearRight", "rotor", "turret", "turret2"];
+const MOTIVE_HIT_LEVELS: VehicleMotiveHit[] = ["minor", "moderate", "heavy", "immobilized"];
+const MOVEMENT_MODES: VehicleMovementMode[] = ["stationary", "cruise", "flank", "jump"];
+
+/** A finite number from saved data, clamped to [min, max], or the fallback. */
+const savedNumber = (value: unknown, fallback: number, min: number, max: number): number =>
+    typeof value === "number" && Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : fallback;
+
+const savedLocations = (value: unknown): VehicleLocation[] =>
+    Array.isArray(value) ? VEHICLE_LOCATION_TAGS.filter((tag) => value.includes(tag)) : [];
+
+const savedStrings = (value: unknown): string[] =>
+    Array.isArray(value) ? value.filter((entry): entry is string => typeof entry === "string") : [];
+
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+    typeof value === "object" && value !== null && !Array.isArray(value);
+
+const savedLocationPoints = (value: unknown): Partial<Record<VehicleLocation, number>> => {
+    const result: Partial<Record<VehicleLocation, number>> = {};
+    if (!isPlainObject(value)) return result;
+    for (const tag of VEHICLE_LOCATION_TAGS) {
+        if (typeof value[tag] === "number") result[tag] = savedNumber(value[tag], 0, 0, 10000);
+    }
+    return result;
+};
+
+/**
+ * Rebuilds play state from a save, keeping only well-formed values. Saves can come from other people's backup
+ * files, so every field is type-checked, filtered to known values and clamped; anything else takes its default.
+ */
+export const normalizeVehicleInPlay = (saved: unknown): IVehicleInPlay => {
+    const defaults = newInPlay();
+    if (!isPlainObject(saved)) return defaults;
+    const flag = (value: unknown, fallback: boolean) => typeof value === "boolean" ? value : fallback;
+    // Saves from before the Motive System Damage Table stored one flag per level.
+    const legacy = isPlainObject(saved.motiveDamage) ? saved.motiveDamage : null;
+    const motiveHits = Array.isArray(saved.motiveHits)
+        ? saved.motiveHits.filter((hit): hit is VehicleMotiveHit => MOTIVE_HIT_LEVELS.includes(hit as VehicleMotiveHit))
+        : legacy ? MOTIVE_HIT_LEVELS.filter((level) => legacy[level] === true) : [];
+    const c = isPlainObject(saved.criticals) ? saved.criticals : {};
+    const criticals = { ...defaults.criticals };
+    for (const key of Object.keys(criticals) as (keyof IVehicleCriticalHits)[]) {
+        if (typeof criticals[key] === "boolean") (criticals as Record<string, unknown>)[key] = flag(c[key], false);
+    }
+    criticals.crewStunnedTurns = Math.floor(savedNumber(c.crewStunnedTurns, 0, 0, MAX_PLAY_COUNTER));
+    criticals.sensorHits = Math.floor(savedNumber(c.sensorHits, 0, 0, VEHICLE_MAX_SENSOR_HITS));
+    criticals.rotorDamage = Math.floor(savedNumber(c.rotorDamage, 0, 0, MAX_PLAY_COUNTER));
+    criticals.stabilizers = savedLocations(c.stabilizers);
+    const turretFacing: Partial<Record<VehicleTurretLocation, number>> = {};
+    if (isPlainObject(saved.turretFacing)) {
+        for (const turret of ["turret", "turret2"] as VehicleTurretLocation[]) {
+            const facing = saved.turretFacing[turret];
+            if (typeof facing === "number" && Number.isInteger(facing) && facing >= -2 && facing <= 3) turretFacing[turret] = facing;
+        }
+    }
+    const crashDestroyed = saved.crashDestroyed === "exploded" || saved.crashDestroyed === "water" ? saved.crashDestroyed : "";
+    return {
+        armorDamage: savedLocationPoints(saved.armorDamage),
+        structureDamage: savedLocationPoints(saved.structureDamage),
+        motiveHits,
+        rotorHits: Math.floor(savedNumber(saved.rotorHits, 0, 0, MAX_PLAY_COUNTER)),
+        criticals,
+        jammedWeapons: savedStrings(saved.jammedWeapons),
+        destroyedWeapons: savedStrings(saved.destroyedWeapons),
+        movementMode: MOVEMENT_MODES.includes(saved.movementMode as VehicleMovementMode) ? saved.movementMode as VehicleMovementMode : "stationary",
+        hexesMoved: Math.floor(savedNumber(saved.hexesMoved, 0, 0, VEHICLE_MAX_HEXES_MOVED)),
+        landed: flag(saved.landed, defaults.landed),
+        overDeepWater: flag(saved.overDeepWater, defaults.overDeepWater),
+        turretFacing,
+        breachedLocations: savedLocations(saved.breachedLocations),
+        surfaced: flag(saved.surfaced, defaults.surfaced),
+        elevation: Math.floor(savedNumber(saved.elevation, defaults.elevation, 0, VEHICLE_MAX_ELEVATION)),
+        overLandableTerrain: flag(saved.overLandableTerrain, defaults.overLandableTerrain),
+        crashed: flag(saved.crashed, defaults.crashed),
+        crashDestroyed,
+    };
+};
+
+/** Escapes text written into the HTML calculation logs, which the summary page renders as markup. */
+const escapeLogText = (value: unknown): string => String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
 /** Direct-Fire Energy and Pulse weapons stop working after an Engine Hit (TW p. 195). */
 export const isDirectFireEnergyOrPulse = (item: IEquipmentItem): boolean =>
     !!item.weaponType && (item.weaponType.includes("DE") || item.weaponType.includes("P"));
@@ -897,7 +989,10 @@ export default class Vehicle {
     public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string): IEquipmentItem[] {
         const catalogItem = getEquipmentListByTech(this._tech.tag, true).find((item) => item.tag === tag);
         if (catalogItem) {
-            const equipment = { ...catalogItem, location, rear, uuid: uuid || generateUUID() };
+            // Only this vehicle's own locations (never the rotor); saved data may hold anything.
+            const validLocation = typeof location === "string" && location !== "rotor"
+                && this.getLocations().some((loc) => loc.tag === location) ? location : undefined;
+            const equipment = { ...catalogItem, location: validLocation, rear: rear === true, uuid: typeof uuid === "string" && uuid ? uuid : generateUUID() };
             if (equipment.isModularArmor) {
                 equipment.currentAdditionalArmor = equipment.additionalArmor ?? 10;
             }
@@ -1106,7 +1201,7 @@ export default class Vehicle {
             } else if (item.battleValueDefensive) {
                 defensiveEquipmentBV += item.battleValue || 0;
                 if (item.weaponType?.includes("AMS")) amsBV += item.battleValue || 0;
-                log += `+ Defensive Equipment: ${item.name} = ${item.battleValue || 0}<br />`;
+                log += `+ Defensive Equipment: ${escapeLogText(item.name)} = ${item.battleValue || 0}<br />`;
             }
         }
         defensiveEquipmentBV += Math.min(amsAmmoBV, amsBV);
@@ -1141,7 +1236,7 @@ export default class Vehicle {
             const value = baseWeaponBV(item) * (isHalved(item) ? 0.5 : 1);
             weaponBV += value;
             weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + value;
-            log += `+ ${item.name} (${item.location || "unallocated"}) = ${value.toFixed(2)}${isHalved(item) ? " (rear arc x 0.5)" : ""}<br />`;
+            log += `+ ${escapeLogText(item.name)} (${escapeLogText(item.location || "unallocated")}) = ${value.toFixed(2)}${isHalved(item) ? " (rear arc x 0.5)" : ""}<br />`;
         }
 
         const ammoBVByTag: Record<string, number> = {};
@@ -1154,7 +1249,7 @@ export default class Vehicle {
         for (const [tag, value] of Object.entries(ammoBVByTag)) {
             const capped = Math.min(value, weaponBVByTag[tag] ?? 0);
             ammoBV += capped;
-            log += `+ Ammunition for ${tag} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}<br />`;
+            log += `+ Ammunition for ${escapeLogText(tag)} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}<br />`;
         }
 
         const weightBV = this._tonnage / 2;
@@ -1202,7 +1297,7 @@ export default class Vehicle {
         };
         const multiplier = 1 + this._tonnage / (divisors[this._motiveType.tag] ?? 100);
         this._cost = Math.round(subtotal * multiplier);
-        this._calcLogCost = rows.map(([name, value]) => `${name}: ${Math.round(value).toLocaleString()}`).join("<br />")
+        this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${Math.round(value).toLocaleString()}`).join("<br />")
             + `<br />Subtotal ${Math.round(subtotal).toLocaleString()} x ${multiplier.toFixed(3)} (1 + ${this._tonnage} / ${divisors[this._motiveType.tag] ?? 100})`
             + ` = <strong>${this._cost.toLocaleString()}</strong> (provisional)`;
     }
@@ -2084,7 +2179,7 @@ export default class Vehicle {
     }
 
     public setElevation(elevation: number): void {
-        this._inPlay.elevation = Math.max(0, Math.floor(elevation));
+        this._inPlay.elevation = Math.floor(savedNumber(elevation, 0, 0, VEHICLE_MAX_ELEVATION));
     }
 
     public setSurfaced(surfaced: boolean): void {
@@ -2233,7 +2328,7 @@ export default class Vehicle {
 
     public setMovement(mode: VehicleMovementMode, hexesMoved: number = 0): void {
         this._inPlay.movementMode = mode;
-        this._inPlay.hexesMoved = Math.max(0, Math.floor(hexesMoved));
+        this._inPlay.hexesMoved = Math.floor(savedNumber(hexesMoved, 0, 0, VEHICLE_MAX_HEXES_MOVED));
     }
 
     /**
@@ -2474,38 +2569,25 @@ export default class Vehicle {
             this._name = importObject.name || "";
             this._model = importObject.model || "";
             this._nickname = importObject.nickname || "";
-            this._tonnage = importObject.tonnage || 20;
+            this._tonnage = savedNumber(importObject.tonnage, 20, 1, 1000) || 20;
             this._motiveType = getVehicleMotiveType(importObject.motiveType);
             this._hasTurret = importObject.hasTurret ?? true;
             this._dualTurret = !!importObject.dualTurret && this._hasTurret;
-            this._jumpMP = importObject.jumpMP || 0;
-            this._troopSpace = importObject.troopSpace || 0;
-            const inPlay = newInPlay();
-            // NOTE: object-literal spread of untrusted JSON is safe (spread copies own
-            // enumerable properties, so a "__proto__" key from JSON.parse is stored as a
-            // regular data property, not applied via [[Set]] to the prototype).
-            // Do NOT switch this to Object.assign — that path DOES walk the prototype
-            // setter and would open a prototype-pollution primitive.
-            if (importObject.inPlay) {
-                const saved = importObject.inPlay;
-                // Saves from before the Motive System Damage Table stored one flag per level.
-                const legacy = saved.motiveDamage;
-                const motiveHits = saved.motiveHits
-                    ?? (legacy ? (["minor", "moderate", "heavy", "immobilized"] as VehicleMotiveHit[]).filter((level) => legacy[level]) : []);
-                this._inPlay = { ...inPlay, ...saved, motiveHits, criticals: { ...inPlay.criticals, ...saved.criticals } };
-                delete this._inPlay.motiveDamage;
-            } else {
-                this._inPlay = inPlay;
-            }
+            this._jumpMP = Math.floor(savedNumber(importObject.jumpMP, 0, 0, 100));
+            this._troopSpace = savedNumber(importObject.troopSpace, 0, 0, 1000);
+            // Saved play state is rebuilt field by field, never spread in: saves can come from other people's
+            // backups (see normalizeVehicleInPlay). Do not merge untrusted JSON with Object.assign either,
+            // which walks the prototype setter.
+            this._inPlay = normalizeVehicleInPlay(importObject.inPlay);
             this.setTech(importObject.tech);
             this.setEra(importObject.era);
             this.setEngineType(importObject.engineType);
-            this._cruiseMP = importObject.cruiseMP || 0;
+            this._cruiseMP = Math.floor(savedNumber(importObject.cruiseMP, 0, 0, 100));
             this.setArmorType(importObject.armorType);
-            this._armorAllocation = { ...emptyArmorAllocation(), ...(importObject.armorAllocation || {}) };
+            this._armorAllocation = { ...emptyArmorAllocation(), ...savedLocationPoints(importObject.armorAllocation) };
             this._structureType = importObject.structureType || "standard";
             this.setHeatSinkType(importObject.heatSinkType);
-            this._additionalHeatSinks = importObject.additionalHeatSinks || 0;
+            this._additionalHeatSinks = Math.floor(savedNumber(importObject.additionalHeatSinks, 0, 0, 1000));
             if (importObject.pilot) {
                 this._pilot = new Pilot(importObject.pilot);
             }

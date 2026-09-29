@@ -172,9 +172,15 @@ const FACING_AFTER_FALL: VehicleAttackDirection[] = ["front", "right", "right", 
 export const getFacingAfterFallDirection = (roll: number): VehicleAttackDirection =>
     FACING_AFTER_FALL[Math.min(6, Math.max(1, Math.floor(roll))) - 1];
 
-// Falling and crash damage is applied in 5-point Damage Value groupings (TW pp. 68, 197).
+// Falling and crash damage is applied in 5-point Damage Value groupings (TW pp. 68, 197). Damage comes from
+// saved play state, so non-finite values give no groupings and the total is capped far above anything a legal
+// vehicle can take (a 60-ton VTOL falling from elevation 100 takes 606).
+export const MAX_GROUPED_DAMAGE = 5000;
+
 export const getDamageGroupings = (damage: number, size: number = 5): number[] => {
+    if (!Number.isFinite(damage) || !Number.isFinite(size) || size <= 0) return [];
+    const total = Math.min(MAX_GROUPED_DAMAGE, Math.max(0, Math.floor(damage)));
     const groups: number[] = [];
-    for (let left = Math.max(0, Math.floor(damage)); left > 0; left -= size) groups.push(Math.min(size, left));
+    for (let left = total; left > 0; left -= size) groups.push(Math.min(size, left));
     return groups;
 };
