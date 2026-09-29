@@ -325,7 +325,11 @@ export class AlphaStrikeUnit {
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
 
             this.costCR = +incomingMechData.Cost;
-            this.class = incomingMechData.Class ? incomingMechData.Class : "";
+            // MUL 2.0 records use Class for the unit type ("BattleMech") and Name for the chassis;
+            // MUL 1.0 records use Class for the chassis.
+            this.class = incomingMechData.MulUnitKey
+                ? (incomingMechData.Name ?? "").trim()
+                : (incomingMechData.Class ? incomingMechData.Class : "");
             this.variant = incomingMechData.Variant ? incomingMechData.Variant : "";
             this.name = getMULDisplayName(incomingMechData);
             this.dateIntroduced = incomingMechData.DateIntroduced;
@@ -342,7 +346,8 @@ export class AlphaStrikeUnit {
 
             this.tonnage = +incomingMechData.Tonnage;
 
-            this.threshold = +incomingMechData.BFThreshold;
+            // MUL 2.0 records have no BFThreshold; only aerospace units have an armor threshold.
+            this.threshold = Number(incomingMechData.BFThreshold) || 0;
 
             if( incomingMechData.Role && incomingMechData.Role.Name ) {
                 this.role = incomingMechData.Role.Name;

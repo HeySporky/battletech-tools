@@ -306,9 +306,10 @@ function matchesMULDropdownFilters(
     eraFilter: number,
     typeFilter: number,
 ): boolean {
-    if (mechRules && mechRules.trim()) {
+    // MUL 2.0 records carry no Rules level, so the Rules filter only narrows records that have one.
+    if (mechRules && mechRules.trim() && unit.Rules) {
         const allowedRules = MUL_RULES_LEVEL_MAP[mechRules.toLowerCase()];
-        if (allowedRules && !allowedRules.includes((unit.Rules ?? "").toLowerCase())) {
+        if (allowedRules && !allowedRules.includes(unit.Rules.toLowerCase())) {
             return false;
         }
     }
