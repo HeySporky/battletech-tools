@@ -1729,6 +1729,11 @@ export default class Vehicle {
             this._jumpMP = importObject.jumpMP || 0;
             this._troopSpace = importObject.troopSpace || 0;
             const inPlay = newInPlay();
+            // NOTE: object-literal spread of untrusted JSON is safe (spread copies own
+            // enumerable properties, so a "__proto__" key from JSON.parse is stored as a
+            // regular data property, not applied via [[Set]] to the prototype).
+            // Do NOT switch this to Object.assign — that path DOES walk the prototype
+            // setter and would open a prototype-pollution primitive.
             this._inPlay = importObject.inPlay
                 ? { ...inPlay, ...importObject.inPlay, criticals: { ...inPlay.criticals, ...importObject.inPlay.criticals },
                     motiveDamage: { ...inPlay.motiveDamage, ...importObject.inPlay.motiveDamage } }

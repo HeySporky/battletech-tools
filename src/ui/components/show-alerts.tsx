@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { IAppGlobals } from '../app-router';
 import { IAlert } from '../classes/alerts';
 import SanitizedHTML from './sanitized-html';
+import { safeExternalURL } from '../../utils/safeImageURL';
 import type { JSX } from "react";
 const TimesCircleIcon = FaTimesCircle as any;
 
@@ -97,9 +98,9 @@ export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowA
                             (
                              <></>
                             )}
-                            {alert.externalURL ? (
+                            {safeExternalURL(alert.externalURL) ? (
                                 <div className="text-right">
-                                    <a className="btn btn-primary btn-sm" href={alert.externalURL}>Go</a>
+                                    <a className="btn btn-primary btn-sm" href={safeExternalURL(alert.externalURL)} target="_blank" rel="noopener noreferrer">Go</a>
                                 </div>
                             ):
                             (
