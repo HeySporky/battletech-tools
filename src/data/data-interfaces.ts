@@ -535,7 +535,23 @@ export interface IVehicleMotiveType {
     name: string;
     minTonnage: number;
     standardMaxTonnage: number;
-    superheavyMaxTonnage: number;
+    /** Largest Superheavy tonnage (Advanced rules); null when the motive type has no Superheavy version. */
+    superheavyMaxTonnage: number | null;
+    /** Lift/dive equipment weighing 10% of tonnage (hover, VTOL, WiGE, hydrofoil, submarine). */
+    liftEquipment?: string;
+    /** VTOLs have a Rotor location. */
+    hasRotor?: boolean;
+    /** "standard" turret, or "chin" (VTOL chin turret, Advanced rules). */
+    turret: "standard" | "chin";
+    /** Hardened armor is not allowed on VTOL, hover or WiGE vehicles. */
+    allowsHardenedArmor: boolean;
+    /** Vehicular jump jets fit only hover, wheeled, tracked and WiGE vehicles. */
+    allowsJumpJets: boolean;
+    naval: boolean;
+    /** Alpha Strike movement mode code (e.g. 8"t). */
+    alphaStrikeMove: string;
+    book: string;
+    page: number | null;
 }
 
 export interface IVehicleArmorAllocation {
@@ -544,6 +560,15 @@ export interface IVehicleArmorAllocation {
     right: number;
     rear: number;
     turret: number;
+    /** VTOL rotor; absent in saves made before VTOL support. */
+    rotor?: number;
+    /** Superheavy vehicles replace Left/Right with four side locations. */
+    frontLeft?: number;
+    frontRight?: number;
+    rearLeft?: number;
+    rearRight?: number;
+    /** Front turret of a dual-turret vehicle ("turret" is then the rear turret). */
+    turret2?: number;
 }
 
 export interface IVehicleStructureAllocation {
@@ -552,5 +577,14 @@ export interface IVehicleStructureAllocation {
     right: number;
     rear: number;
     turret: number;
+    rotor?: number;
+    frontLeft?: number;
+    frontRight?: number;
+    rearLeft?: number;
+    rearRight?: number;
+    turret2?: number;
 }
+
+export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" | "frontRight" | "rearLeft" | "rearRight"
+    | "rotor" | "turret" | "turret2";
 

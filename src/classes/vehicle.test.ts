@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import Vehicle from "./vehicle";
+import Vehicle, { formatVehicleASDamage } from "./vehicle";
 import { getVehicleTonnageBounds } from "../data/vehicle-motive-types";
 
 describe("Vehicle tonnage bounds by motive type and rules level", () => {
@@ -13,9 +13,10 @@ describe("Vehicle tonnage bounds by motive type and rules level", () => {
         expect(getVehicleTonnageBounds("vtol", 3)).toEqual({ min: 1, max: 60 });
     });
 
-    it("keeps Naval hulls starting at 100 tons regardless of rules level", () => {
-        expect(getVehicleTonnageBounds("naval-surface", 2)).toEqual({ min: 100, max: 555 });
-        expect(getVehicleTonnageBounds("naval-sub", 3)).toEqual({ min: 100, max: 100000 });
+    // Limits as implemented by MegaMek (TestTank.maxTonnage); published MUL vessels run from 25 t up.
+    it("caps Naval hulls at 300 tons (555 Superheavy) with no 100-ton minimum", () => {
+        expect(getVehicleTonnageBounds("naval-surface", 2)).toEqual({ min: 1, max: 300 });
+        expect(getVehicleTonnageBounds("naval-sub", 3)).toEqual({ min: 1, max: 555 });
     });
 });
 
@@ -26,10 +27,10 @@ describe("Vehicle construction basics", () => {
         expect(vehicle.hasTurret()).toBe(true);
     });
 
-    it("removes the turret automatically when switching to a Naval hull", () => {
+    it("keeps the turret when switching to a Naval hull (naval vessels may mount turrets)", () => {
         const vehicle = new Vehicle();
         vehicle.setMotiveType("naval-surface");
-        expect(vehicle.hasTurret()).toBe(false);
+        expect(vehicle.hasTurret()).toBe(true);
     });
 
     it("computes engine rating from tonnage x cruise MP", () => {
@@ -91,10 +92,12 @@ describe("Vehicle construction basics", () => {
 });
 
 describe("Vehicle Internal Structure Table and armor caps", () => {
-    it("gives 1 structure point per 10 tons uniformly across all locations, including the turret", () => {
+    it("gives 1 structure point per 10 tons (rounded up) uniformly across all locations, including the turret", () => {
         const vehicle = new Vehicle();
         vehicle.setTonnage(60);
-        expect(vehicle.getStructureAllocation()).toEqual({ front: 6, left: 6, right: 6, rear: 6, turret: 6 });
+        expect(vehicle.getStructureAllocation()).toMatchObject({ front: 6, left: 6, right: 6, rear: 6, rotor: 0, turret: 6 });
+        vehicle.setTonnage(21);
+        expect(vehicle.getStructureAllocation().front).toBe(3);
     });
 
     it("zeroes out the turret structure entry when the vehicle has no turret", () => {
@@ -145,11 +148,24 @@ describe("Vehicle Alpha Strike stats", () => {
         expect(vehicle.getAlphaStrikeSize()).toBe(4);
     });
 
-    it("converts Cruise MP to inches with no movement suffix for Tracked", () => {
+    it("converts Cruise MP to inches with the t code for Tracked", () => {
         const vehicle = new Vehicle();
         vehicle.setCruiseMP(5);
         expect(vehicle.getAlphaStrikeMovement()).toBe(10);
-        expect(vehicle.getAlphaStrikeMovementType()).toBe("");
+        expect(vehicle.getAlphaStrikeMovementType()).toBe("t");
+    });
+
+    // Codes as printed on Master Unit List cards (e.g. 10"t, 8"w, 18"h, 18"v, 10"g, 24"n, 6"s).
+    it("uses the MUL movement code for every motive type", () => {
+        const vehicle = new Vehicle();
+        const codes: Record<string, string> = {
+            tracked: "t", wheeled: "w", hover: "h", vtol: "v", wige: "g",
+            "naval-surface": "n", hydrofoil: "n", "naval-sub": "s",
+        };
+        for (const [motive, code] of Object.entries(codes)) {
+            vehicle.setMotiveType(motive);
+            expect(vehicle.getAlphaStrikeMovementType(), motive).toBe(code);
+        }
     });
 
     it("uses the h suffix for Hover vehicles", () => {
@@ -190,4 +206,321 @@ describe("Vehicle rules level", () => {
         const vehicle = new Vehicle();
         expect(vehicle.getRequiredRulesLevel()).toBe(0);
     });
+});
+
+// Motive type rules (TechManual Combat Vehicles; values as implemented by MegaMek TestTank / Tank,
+// book not in hand).
+describe("Vehicle motive types", () => {
+    const build = (motive: string, tonnage: number): Vehicle => {
+        const vehicle = new Vehicle();
+        vehicle.setMotiveType(motive);
+        vehicle.setTonnage(tonnage);
+        return vehicle;
+    };
+    const weightOf = (vehicle: Vehicle, name: string) => vehicle.getWeights().find((entry) => entry.name === name)?.weight;
+
+    it("caps each motive type at its standard and Superheavy tonnage", () => {
+        const expected: Record<string, [number, number]> = {
+            wheeled: [80, 160], hover: [50, 100], wige: [80, 160], vtol: [30, 60],
+            "naval-surface": [300, 555], hydrofoil: [100, 100], "naval-sub": [300, 555],
+        };
+        for (const [motive, [standard, superheavy]] of Object.entries(expected)) {
+            expect(getVehicleTonnageBounds(motive, 2), motive).toEqual({ min: 1, max: standard });
+            expect(getVehicleTonnageBounds(motive, 3), motive).toEqual({ min: 1, max: superheavy });
+        }
+    });
+
+    it("subtracts each motive type's suspension factor from the engine rating", () => {
+        expect(build("wheeled", 40).getSuspensionFactor()).toBe(20);
+        expect(build("hover", 10).getSuspensionFactor()).toBe(40);
+        expect(build("vtol", 20).getSuspensionFactor()).toBe(95);
+        expect(build("wige", 15).getSuspensionFactor()).toBe(45);
+        expect(build("hydrofoil", 25).getSuspensionFactor()).toBe(150);
+        expect(build("naval-surface", 100).getSuspensionFactor()).toBe(30);
+        expect(build("naval-sub", 100).getSuspensionFactor()).toBe(30);
+
+        const hover = build("hover", 20);
+        hover.setCruiseMP(10);
+        expect(hover.getEngineRating()).toBe(20 * 10 - 85);
+    });
+
+    it("never rates an engine below 10 and caps Cruise MP at a 400 rating (500 with Large engines)", () => {
+        const vtol = build("vtol", 10);
+        vtol.setCruiseMP(5);
+        expect(vtol.getEngineRating()).toBe(10);
+        expect(build("tracked", 50).getMaxCruiseMP(2)).toBe(8);
+        expect(build("hover", 50).getMaxCruiseMP(2)).toBe(Math.floor((400 + 235) / 50));
+        expect(build("tracked", 50).getMaxCruiseMP(4)).toBe(10);
+    });
+
+    it("adds 5% control systems to every vehicle and 10% lift or dive equipment where needed", () => {
+        expect(weightOf(build("tracked", 40), "Control Systems")).toBe(2);
+        expect(weightOf(build("hover", 25), "Control Systems")).toBe(1.5);
+        expect(weightOf(build("hover", 25), "Lift Equipment")).toBe(2.5);
+        expect(weightOf(build("wige", 40), "Lift Equipment")).toBe(4);
+        expect(weightOf(build("vtol", 25), "Rotor Assembly")).toBe(2.5);
+        expect(weightOf(build("hydrofoil", 50), "Hydrofoil Equipment")).toBe(5);
+        expect(weightOf(build("naval-sub", 100), "Dive Equipment")).toBe(10);
+        for (const motive of ["tracked", "wheeled", "naval-surface"]) {
+            expect(build(motive, 40).getLiftEquipmentWeight(), motive).toBe(0);
+        }
+    });
+
+    it("gives VTOLs a rotor with its own structure and at most 2 armor points", () => {
+        const vtol = build("vtol", 30);
+        vtol.setCruiseMP(8);
+        expect(vtol.getLocations().map((loc) => loc.tag)).toEqual(["front", "left", "right", "rear", "rotor"]);
+        expect(vtol.getStructureAllocation().rotor).toBe(3);
+        vtol.setArmorAllocation("rotor", 10);
+        expect(vtol.getArmorAllocation().rotor).toBe(2);
+        vtol.allocateArmorClear();
+        vtol.setArmorAllocation("front", 20);
+        vtol.allocateMaxArmor();
+        expect(vtol.getArmorAllocation().rotor).toBe(2);
+        expect(build("tracked", 30).getLocations().some((loc) => loc.tag === "rotor")).toBe(false);
+    });
+
+    it("gives VTOLs only a chin turret, which is Advanced", () => {
+        const vtol = build("vtol", 20);
+        expect(vtol.hasTurret()).toBe(false);
+        expect(vtol.getRequiredRulesLevel()).toBe(0);
+        vtol.setHasTurret(true);
+        expect(vtol.getTurretName()).toBe("Chin Turret");
+        expect(vtol.getLocations().map((loc) => loc.name)).toContain("Chin Turret");
+        expect(vtol.getRequiredRulesLevel()).toBe(3);
+    });
+
+    it("puts equipment in body locations or the turret, never the rotor", () => {
+        const vtol = build("vtol", 20);
+        vtol.addEquipmentFromTag("medium-laser");
+        const laser = vtol.getEquipmentList()[0];
+        vtol.setEquipmentLocation(laser.uuid!, "rotor");
+        expect(laser.location ?? "").toBe("");
+        vtol.setEquipmentLocation(laser.uuid!, "front");
+        expect(laser.location).toBe("front");
+    });
+
+    it("returns turret equipment to the unallocated list and drops its armor when the turret is removed", () => {
+        const tank = build("tracked", 50);
+        tank.addEquipmentFromTag("medium-laser");
+        const laser = tank.getEquipmentList()[0];
+        tank.setEquipmentLocation(laser.uuid!, "turret");
+        tank.setArmorAllocation("turret", 10);
+        tank.setMotiveType("vtol");
+        expect(laser.location).toBe("");
+        expect(tank.getArmorAllocation().turret).toBe(0);
+    });
+
+    it("keeps Hardened armor off VTOL, hover and WiGE vehicles", () => {
+        for (const motive of ["vtol", "hover", "wige"]) {
+            expect(build(motive, 20).getAvailableArmorTypes().some((armor) => armor.tag === "hardened"), motive).toBe(false);
+        }
+    });
+
+    it("treats vehicles over the standard cap as Superheavy (Advanced), with double structure except at sea", () => {
+        const wheeled = build("wheeled", 100);
+        expect(wheeled.isSuperheavy()).toBe(true);
+        expect(wheeled.getRequiredRulesLevel()).toBe(3);
+        expect(wheeled.getStructureWeight()).toBe(20);
+        expect(build("wheeled", 80).isSuperheavy()).toBe(false);
+        const vessel = build("naval-surface", 400);
+        expect(vessel.isSuperheavy()).toBe(true);
+        expect(vessel.getStructureWeight()).toBe(40);
+    });
+
+    it("round-trips a VTOL with rotor armor and a chin turret, and loads older saves without a rotor entry", () => {
+        const vtol = build("vtol", 25);
+        vtol.setHasTurret(true);
+        vtol.setArmorAllocation("rotor", 2);
+        const restored = new Vehicle(vtol.exportJSON());
+        expect(restored.getMotiveType().tag).toBe("vtol");
+        expect(restored.hasChinTurret()).toBe(true);
+        expect(restored.getArmorAllocation().rotor).toBe(2);
+
+        const legacy = JSON.parse(build("tracked", 40).exportJSON());
+        delete legacy.armorAllocation.rotor;
+        expect(new Vehicle(JSON.stringify(legacy)).getArmorAllocation().rotor).toBe(0);
+    });
+});
+
+// Crew, heat sinks, power amplifiers, turrets, Superheavy locations, jump jets and item slots
+// (TM / TO:AUE as implemented by MegaMek TestTank, Tank and MegaMekLab; book not in hand).
+describe("Vehicle construction details", () => {
+    const build = (motive: string, tonnage: number): Vehicle => {
+        const vehicle = new Vehicle();
+        vehicle.setMotiveType(motive);
+        vehicle.setTonnage(tonnage);
+        return vehicle;
+    };
+    const place = (vehicle: Vehicle, tag: string, location: string) => {
+        vehicle.addEquipmentFromTag(tag);
+        const item = vehicle.getEquipmentList()[vehicle.getEquipmentList().length - 1];
+        vehicle.setEquipmentLocation(item.uuid!, location);
+        return item;
+    };
+
+    it("crews 1 per 15 tons, rounded up", () => {
+        expect(build("tracked", 15).getCrew()).toBe(1);
+        expect(build("tracked", 50).getCrew()).toBe(4);
+        expect(build("tracked", 100).getCrew()).toBe(7);
+    });
+
+    it("needs heat sinks for energy weapon heat, with free heat sinks from fusion engines only", () => {
+        const tank = build("tracked", 50);
+        place(tank, "large-laser", "front");
+        place(tank, "large-laser", "front");
+        place(tank, "autocannon-standard-b", "front");
+        expect(tank.getRequiredHeatSinks()).toBe(16);
+        expect(tank.getFreeHeatSinks()).toBe(10);
+        expect(tank.getWeightedHeatSinks()).toBe(6);
+        tank.setEngineType("ice");
+        expect(tank.getFreeHeatSinks()).toBe(0);
+        expect(tank.getWeightedHeatSinks()).toBe(16);
+    });
+
+    it("adds power amplifiers (10% of energy weapon weight) without a fusion or fission engine", () => {
+        const tank = build("tracked", 50);
+        place(tank, "large-laser", "front");
+        expect(tank.getPowerAmplifierWeight()).toBe(0);
+        tank.setEngineType("ice");
+        expect(tank.getPowerAmplifierWeight()).toBe(0.5);
+        expect(tank.getWeights().some((entry) => entry.name === "Power Amplifiers")).toBe(true);
+    });
+
+    it("offers dual turrets except on VTOL and WiGE vehicles, weighing each turret separately", () => {
+        const tank = build("tracked", 60);
+        tank.setDualTurret(true);
+        expect(tank.getLocations().map((loc) => loc.name)).toEqual(["Front", "Left", "Right", "Rear", "Front Turret", "Rear Turret"]);
+        place(tank, "large-laser", "turret2");
+        expect(tank.getWeights().find((entry) => entry.name === "Front Turret")?.weight).toBe(0.5);
+        expect(tank.getWeights().find((entry) => entry.name === "Rear Turret")?.weight).toBe(0.5);
+        expect(build("wige", 40).canHaveDualTurret()).toBe(false);
+        expect(build("vtol", 20).canHaveDualTurret()).toBe(false);
+        tank.setHasTurret(false);
+        expect(tank.hasDualTurret()).toBe(false);
+    });
+
+    it("gives Superheavy vehicles front and rear side locations instead of Left/Right", () => {
+        const tank = build("tracked", 150);
+        expect(tank.getLocations().map((loc) => loc.tag)).toEqual(["front", "frontLeft", "frontRight", "rearLeft", "rearRight", "rear", "turret"]);
+        expect(tank.getStructureAllocation().frontLeft).toBe(15);
+        const laser = place(tank, "large-laser", "rearRight");
+        tank.setArmorAllocation("rearRight", 20);
+        tank.setTonnage(100);
+        expect(laser.location).toBe("");
+        expect(tank.getArmorAllocation().rearRight).toBe(0);
+        expect(build("vtol", 50).getLocations().some((loc) => loc.tag === "frontLeft")).toBe(false);
+    });
+
+    it("mounts vehicular jump jets on hover, wheeled, tracked and WiGE only, up to Cruise MP (Advanced)", () => {
+        const hover = build("hover", 40);
+        hover.setCruiseMP(6);
+        expect(hover.setJumpMP(8)).toBe(6);
+        expect(hover.getJumpJetWeight()).toBe(3);
+        expect(hover.getRequiredRulesLevel()).toBe(3);
+        expect(build("tracked", 90).getJumpJetWeight()).toBe(0);
+        const heavy = build("tracked", 90);
+        heavy.setCruiseMP(3);
+        heavy.setJumpMP(2);
+        expect(heavy.getJumpJetWeight()).toBe(4);
+        const vtol = build("vtol", 20);
+        vtol.setCruiseMP(8);
+        expect(vtol.setJumpMP(4)).toBe(0);
+    });
+
+    it("counts item slots: equipment, one per ammo type, one for jump jets, and engine slots", () => {
+        const tank = build("tracked", 50);
+        expect(tank.getTotalItemSlots()).toBe(15);
+        place(tank, "autocannon-standard-b", "front");
+        tank.addEquipmentFromTag("ammo-is-ac-5-standard");
+        tank.addEquipmentFromTag("ammo-is-ac-5-standard");
+        expect(tank.getUsedItemSlots()).toBe(2);
+        tank.setEngineType("xl");
+        expect(tank.getUsedItemSlots()).toBe(4);
+    });
+
+    it("keeps dual turrets and jump MP through a save", () => {
+        const tank = build("hover", 40);
+        tank.setDualTurret(true);
+        tank.setCruiseMP(6);
+        tank.setJumpMP(3);
+        const restored = new Vehicle(tank.exportJSON());
+        expect(restored.hasDualTurret()).toBe(true);
+        expect(restored.getJumpMP()).toBe(3);
+    });
+});
+
+// Published vehicles rebuilt from their record sheets (loadouts from MegaMek unit files), checked
+// against the official Master Unit List: Battle Value, and the whole Alpha Strike card. The Sea
+// Skimmer's MUL card has no REAR for its rear machine gun (MegaMek's conversion gives REAR 0*/-/-
+// for that loadout too), so REAR is left out of its comparison.
+describe("Vehicles against the Master Unit List", () => {
+    type Spec = { name: string; card: string; mul: number; troopSpace?: number; motive: string; tons: number; cruise: number; engine: string; armor: number[]; turret: boolean;
+        eq: [string, string, number?][] };
+    const specs: Spec[] = [
+        { name: "Scorpion", card: '8"t TMM1 SZ1 A2 S2 1/1/1 PV11 EE,SRCH,TUR(1/1/1)', mul: 306, motive: "tracked", tons: 25, cruise: 4, engine: "ice", armor: [16, 11, 11, 10, 16], turret: true,
+            eq: [["machine-gun", "turret"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", "", 0.5], ["ammo-is-ac-5-standard", ""]] },
+        { name: "Vedette", card: '10"t TMM2 SZ2 A3 S3 1/1/1 PV16 EE,SRCH,TUR(0*/1/1)', mul: 475, motive: "tracked", tons: 50, cruise: 5, engine: "ice", armor: [20, 18, 18, 20, 20], turret: true,
+            eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", ""], ["ammo-is-ac-5-standard", ""]] },
+        { name: "Pegasus", card: '16"h TMM3 SZ1 A3 S2 2/2/0 PV25 EE,SRCH,SRM1/1,TUR(2/2/-,SRM1/1)', mul: 640, motive: "hover", tons: 35, cruise: 8, engine: "ice", armor: [26, 19, 19, 19, 21], turret: true,
+            eq: [["medium-laser", "front"], ["srm-6", "turret"], ["srm-6", "turret"], ["ammo-srm-standard", ""]] },
+        { name: "J. Edgar", card: '22"h TMM4 SZ1 A3 S2 1/1/0 PV23 SRCH,TUR(1/1/-)', mul: 544, motive: "hover", tons: 25, cruise: 11, engine: "standard", armor: [30, 19, 19, 12, 24], turret: true,
+            eq: [["medium-laser", "turret"], ["srm-2", "turret"], ["srm-2", "turret"], ["ammo-srm-standard", ""]] },
+        { name: "Condor", card: '16"h TMM3 SZ2 A3 S3 2/2/1 PV27 EE,SRCH,TUR(2/2/1)', mul: 653, motive: "hover", tons: 50, cruise: 8, engine: "ice", armor: [30, 15, 15, 14, 22], turret: true,
+            eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["medium-laser", "turret"], ["medium-laser", "turret"], ["ammo-is-ac-5-standard", ""], ["ammo-machine-gun-standard", "", 0.5]] },
+        { name: "Warrior H-7", card: '18"v TMM3 SZ1 A1 S2 1/1/0* PV15 ATMO,EE,SRCH', mul: 295, motive: "vtol", tons: 21, cruise: 9, engine: "ice", armor: [6, 5, 5, 6, 2], turret: false,
+            eq: [["srm-4", "front"], ["autocannon-standard-a", "front"], ["ammo-srm-standard", ""], ["ammo-is-ac-2-standard", ""]] },
+        { name: "Sea Skimmer", card: '24"n TMM4 SZ1 A1 S2 1/1/0 PV17 EE,SRCH,TUR(1/1/-)', mul: 288, motive: "hydrofoil", tons: 25, cruise: 12, engine: "ice", armor: [9, 7, 7, 4, 5], turret: true,
+            eq: [["machine-gun", "right"], ["machine-gun", "left"], ["machine-gun", "rear"], ["srm-4", "turret"], ["ammo-machine-gun-standard", "", 0.5], ["ammo-srm-standard", ""]] },
+        { name: "Heavy Wheeled APC (MG)", troopSpace: 3, card: '12"w TMM2 SZ1 A2 S1 1/0/0 PV8 EE,IT3,REAR0*/-/-,SRCH', mul: 213, motive: "wheeled", tons: 20, cruise: 6, engine: "ice", armor: [20, 13, 13, 10, 0], turret: false,
+            eq: [["machine-gun", "front"], ["machine-gun", "front"], ["machine-gun", "right"], ["machine-gun", "left"], ["machine-gun", "rear"], ["machine-gun", "rear"],
+                ["ammo-machine-gun-standard", ""], ["ammo-machine-gun-standard", "", 0.5]] },
+    ];
+
+    const build = (spec: Spec): Vehicle => {
+            const vehicle = new Vehicle();
+            vehicle.setMotiveType(spec.motive);
+            vehicle.setTonnage(spec.tons);
+            vehicle.setEngineType(spec.engine);
+            vehicle.setCruiseMP(spec.cruise);
+            vehicle.setHasTurret(spec.turret);
+            const locations = spec.motive === "vtol" ? ["front", "right", "left", "rear", "rotor"] : ["front", "right", "left", "rear", "turret"];
+            locations.forEach((location, index) => vehicle.setArmorAllocation(location as never, spec.armor[index]));
+            for (const [tag, location, weight] of spec.eq) {
+                vehicle.addEquipmentFromTag(tag);
+                const item = vehicle.getEquipmentList()[vehicle.getEquipmentList().length - 1];
+                expect(item.tag).toBe(tag);
+                if (weight) item.weight = weight;
+                if (location) vehicle.setEquipmentLocation(item.uuid!, location);
+            }
+            if (spec.troopSpace) vehicle.setTroopSpace(spec.troopSpace);
+            vehicle.setTonnage(spec.tons);
+            return vehicle;
+    };
+
+    it("builds a printable Alpha Strike unit from the conversion (Scorpion)", () => {
+        const unit = build(specs[0]).getAlphaStrikeUnit();
+        expect(unit.basePoints).toBe(11);
+        expect(unit.type).toBe("CV");
+        expect(unit.move[0]).toMatchObject({ move: 8, type: "t" });
+        expect(unit.armor).toBe(2);
+        expect(unit.abilities).toContain("TUR(1/1/1)");
+    });
+
+    for (const spec of specs) {
+        it(`${spec.name}: BV ${spec.mul}, exact tonnage`, () => {
+            const vehicle = build(spec);
+            expect(vehicle.getBattleValue()).toBe(spec.mul);
+            expect(vehicle.getRemainingTonnage()).toBe(0);
+        });
+
+        it(`${spec.name}: Alpha Strike ${spec.card}`, () => {
+            const as = build(spec).getAlphaStrikeStats();
+            const damage = as.damageValues;
+            const specials = as.specialAbilities.filter((code) => spec.name !== "Sea Skimmer" || !code.startsWith("REAR"));
+            expect(`${as.movement}"${as.movementType} TMM${as.tmm} SZ${as.size} A${as.armor} S${as.structure} `
+                + `${formatVehicleASDamage(damage.short)}/${formatVehicleASDamage(damage.medium)}/${formatVehicleASDamage(damage.long)} `
+                + `PV${as.pointValue} ${specials.join(",")}`).toBe(spec.card);
+        });
+    }
 });
