@@ -1,5 +1,5 @@
 import React from 'react';
-import { MineExplosion } from "react-game-icons";
+import { GiMineExplosion } from "react-icons/gi";
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { IEquipmentItem } from "../../data/data-interfaces";
 import { mechClanEquipmentEnergy } from '../../data/mech-clan-equipment-weapons-energy';
@@ -596,7 +596,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                 <td className="text-center no-wrap ">
                     <div className="text-center explosive-tag">
                     {item.explosive ? (
-                        <MineExplosion />
+                        <GiMineExplosion />
                     ) : null}
                     </div>
                 </td>

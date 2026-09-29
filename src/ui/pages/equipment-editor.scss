@@ -2,6 +2,8 @@
     text-align: center;
     svg {
         fill: red;
-        max-width: 1.5rem;
+        // react-icons renders at 1em by default; keep the previous 1.5rem glyph size.
+        width: 1.5rem;
+        height: 1.5rem;
     }
 }
