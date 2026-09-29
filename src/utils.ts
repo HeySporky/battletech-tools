@@ -3,7 +3,7 @@ import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
 import { CONST_MUL_API_ENABLED } from "./configVars";
 import { IEquipmentItem } from "./data/data-interfaces";
 import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
-import { loadMULListItems } from "./data/mul-list-items";
+import { DEFAULT_MUL_SOURCE_SELECTION, getMULRecordKey, getMULSourcesForSelection, loadMULListItems } from "./data/mul-list-items";
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 
@@ -461,17 +461,18 @@ async function getCachedMULSearchResults(
         matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter) &&
         matchesMULSearchTokens(unit, tokens);
 
-    const bundledMatches = (await loadMULListItems()).filter(matchesAllFilters);
+    const selection = appGlobals?.appSettings.alphaStrikeMULSources ?? DEFAULT_MUL_SOURCE_SELECTION;
+    const allowedSources = getMULSourcesForSelection(selection);
+    const bundledMatches = (await loadMULListItems(selection)).filter(matchesAllFilters);
     const sessionMatches = (appGlobals?.appSettings.alphasStrikeCachedSearchResults ?? [])
+        .filter((unit) => allowedSources.includes(unit.MulSource ?? "mul2"))
         .filter(matchesAllFilters);
-    const seen = new Set(
-        bundledMatches.map((unit) => unit.MulUnitKey ?? `${unit.Name}\u001f${unit.Variant ?? ""}\u001f${unit.Class}`)
-    );
+    const seen = new Set(bundledMatches.map(getMULRecordKey));
 
     // Bundled deployment data is authoritative. Session-only records supplement it without
     // replacing newer records shipped by a subsequent deployment.
     return bundledMatches.concat(sessionMatches.filter((unit) => {
-        const key = unit.MulUnitKey ?? `${unit.Name}\u001f${unit.Variant ?? ""}\u001f${unit.Class}`;
+        const key = getMULRecordKey(unit);
         if (seen.has(key)) {
             return false;
         }

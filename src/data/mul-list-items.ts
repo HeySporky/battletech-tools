@@ -1,4 +1,4 @@
-import type { IASMULUnit } from "../classes/alpha-strike-unit";
+import type { IASMULUnit, MULSource } from "../classes/alpha-strike-unit";
 
 type MULChunkEntry = Partial<IASMULUnit> & {
     Id?: number;
@@ -6,6 +6,42 @@ type MULChunkEntry = Partial<IASMULUnit> & {
     Class?: string;
     Variant?: string;
 };
+
+// Which bundled lists the user wants searched. Each option is a superset of the one before it.
+export type MULSourceSelection = "mul2" | "mul2+mul1";
+
+export const DEFAULT_MUL_SOURCE_SELECTION: MULSourceSelection = "mul2";
+
+export const MUL_SOURCE_SELECTIONS: { value: MULSourceSelection; label: string; description: string }[] = [
+    {
+        value: "mul2",
+        label: "MUL 2.0",
+        description: "Only units on the current Master Unit List (masterunitlist.battletech.com).",
+    },
+    {
+        value: "mul2+mul1",
+        label: "MUL 2.0 + MUL 1.0 leftovers",
+        description: "Adds legacy MUL 1.0 records that the current MUL no longer lists.",
+    },
+];
+
+export const MUL_SOURCE_LABELS: Record<MULSource, string> = {
+    mul2: "MUL 2.0",
+    mul1: "MUL 1.0",
+};
+
+export function isMULSourceSelection(value: unknown): value is MULSourceSelection {
+    return MUL_SOURCE_SELECTIONS.some((option) => option.value === value);
+}
+
+export function getMULSourcesForSelection(selection: MULSourceSelection): MULSource[] {
+    switch (selection) {
+        case "mul2+mul1":
+            return ["mul2", "mul1"];
+        default:
+            return ["mul2"];
+    }
+}
 
 const LEGACY_TYPE_ID_BY_NAME: Record<string, number> = {
     BattleMech: 18,
@@ -26,20 +62,21 @@ const LEGACY_ERA_ID_BY_LIVE_ID: Record<number, number> = {
     8: 247, 10: 254, 11: 255, 12: 256, 13: 257,
 };
 
-const mulChunkModules = {
-    ...import.meta.glob("./mul/*.json", { eager: false, import: "default" }),
-    ...import.meta.glob("./mul/live/**/*.json", { eager: false, import: "default" }),
-} as Record<string, () => Promise<unknown>>;
+type ChunkLoaders = Record<string, () => Promise<unknown>>;
 
-let cachedMULListItems: IASMULUnit[] | null = null;
-let pendingMULListItems: Promise<IASMULUnit[]> | null = null;
+const mulChunkModulesBySource: Record<MULSource, ChunkLoaders> = {
+    mul2: import.meta.glob("./mul/live/*.json", { eager: false, import: "default" }) as ChunkLoaders,
+    mul1: import.meta.glob("./mul/mul1/*.json", { eager: false, import: "default" }) as ChunkLoaders,
+};
+
+const cachedBySource: Partial<Record<MULSource, Promise<IASMULUnit[]>>> = {};
 
 function isMULListEntry(item: unknown): item is IASMULUnit {
     if (!item || typeof item !== "object") {
         return false;
     }
 
-    const record = item as Record<string, unknown>;
+    const record = item as MULChunkEntry;
     return typeof record.Id === "number" && typeof record.Name === "string" && typeof record.Class === "string";
 }
 
@@ -66,46 +103,49 @@ function normalizeLiveEntry(item: IASMULUnit): IASMULUnit {
     };
 }
 
-export let mulListItems: IASMULUnit[] = [];
+export function getMULRecordKey(unit: IASMULUnit): string {
+    return unit.MulUnitKey ?? `${unit.MulSource ?? "mul2"}\u001f${unit.Id}\u001f${unit.Name}\u001f${unit.Variant ?? ""}\u001f${unit.Class}`;
+}
 
-export async function loadMULListItems(): Promise<IASMULUnit[]> {
-    if (cachedMULListItems) {
-        return cachedMULListItems;
+function loadMULSource(source: MULSource): Promise<IASMULUnit[]> {
+    const cached = cachedBySource[source];
+    if (cached) {
+        return cached;
     }
 
-    if (pendingMULListItems) {
-        return pendingMULListItems;
-    }
-
-    pendingMULListItems = (async () => {
+    const pending = (async () => {
         const chunkResults = await Promise.all(
-            Object.entries(mulChunkModules).map(async ([path, loader]) => {
+            Object.entries(mulChunkModulesBySource[source]).map(async ([path, loader]) => {
                 try {
                     const chunkData = await loader();
                     const entries = Array.isArray(chunkData) ? chunkData : [];
-                    return entries.filter(isMULListEntry).map(normalizeLiveEntry);
+                    return entries
+                        .filter(isMULListEntry)
+                        .map((entry) => ({ ...normalizeLiveEntry(entry), MulSource: source }));
                 } catch (error) {
                     console.warn(`Unable to read MUL chunk ${path}:`, error);
                     return [] as IASMULUnit[];
                 }
             })
         );
-
-        const uniqueItems = chunkResults
-            .flat()
-            .filter((item, index, records) =>
-                records.findIndex((candidate) =>
-                    candidate.Id === item.Id &&
-                    candidate.Name === item.Name &&
-                    candidate.Class === item.Class &&
-                    candidate.Variant === item.Variant
-                ) === index
-            );
-
-        cachedMULListItems = uniqueItems;
-        mulListItems = uniqueItems;
-        return uniqueItems;
+        return chunkResults.flat();
     })();
 
-    return pendingMULListItems;
+    cachedBySource[source] = pending;
+    return pending;
+}
+
+export async function loadMULListItems(selection: MULSourceSelection = DEFAULT_MUL_SOURCE_SELECTION): Promise<IASMULUnit[]> {
+    const lists = await Promise.all(getMULSourcesForSelection(selection).map(loadMULSource));
+
+    const seen = new Set<string>();
+    const uniqueItems: IASMULUnit[] = [];
+    for (const item of lists.flat()) {
+        const key = getMULRecordKey(item);
+        if (!seen.has(key)) {
+            seen.add(key);
+            uniqueItems.push(item);
+        }
+    }
+    return uniqueItems;
 }
