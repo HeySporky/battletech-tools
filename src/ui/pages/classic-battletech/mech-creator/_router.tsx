@@ -15,6 +15,8 @@ import MechCreatorStep5 from './step5';
 import MechCreatorStep6 from './step6';
 import MechCreatorSummary from './summary';
 
+import type { JSX } from "react";
+
 export default class MechCreatorRouter extends React.Component<IMechCreatorRouterProps, IMechCreatorRouterState> {
 
     render = (): JSX.Element => {

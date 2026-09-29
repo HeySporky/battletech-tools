@@ -1,9 +1,8 @@
-import React from 'react';
-import { CrosshairArrow, HotSurface, MagnifyingGlass } from 'react-game-icons';
+import React, { type JSX } from 'react';
 import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare, FaTable } from "react-icons/fa";
 import { FiRefreshCcw } from 'react-icons/fi';
-import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
-import { Link } from 'react-router-dom';
+import { GiBattleAxe, GiCrosshairArrow, GiHotSurface, GiMagnifyingGlass, GiMissileSwarm } from 'react-icons/gi';
+import { Link } from 'react-router';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
 import { BattleMechGroup } from '../../../../classes/battlemech-group';
 import { CONST_BATTLETECH_URL, CONST_HIGHLIGHT_COLOR } from '../../../../configVars';
@@ -2469,7 +2468,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onClick={(e) => this.setPhase(e, 4)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(4)}
         >
-          <HotSurface />
+          <GiHotSurface />
         </button>
       </div>
       <div>
@@ -2571,7 +2570,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 className="btn btn-primary btn-sm full-width"
                 onClick={this.openZoomSheet}
               >
-                <MagnifyingGlass /> Zoom
+                <GiMagnifyingGlass /> Zoom
               </button>
               <BattleMechSVG
                 mechData={selectedMech}
@@ -2736,7 +2735,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                 onClick={(e) => this.openSetTargetDialog(unit)}
                                 title={"Open the Target Dialog for " + unit.getName()}
                               >
-                                <CrosshairArrow />
+                                <GiCrosshairArrow />
                               </button>
                             </div>
                           </div>

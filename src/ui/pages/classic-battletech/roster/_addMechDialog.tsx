@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FaCheckCircle, FaEye, FaPlusCircle, FaTimesCircle } from 'react-icons/fa';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { BattleMech } from '../../../../classes/battlemech';
 import { BattleMechGroup } from '../../../../classes/battlemech-group';
 import { getSSWRulesLevelLabel } from '../../../../utils/sswUtils';
@@ -10,6 +10,8 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from '../../../components/standard-modal';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechTableGroup from './_tableGroup';
+
+import type { JSX } from "react";
 
 export default class BattleMechAddMechDialog extends React.Component<IBattleMechAddMechDialogProps, IBattleMechAddMechDialogState> {
 

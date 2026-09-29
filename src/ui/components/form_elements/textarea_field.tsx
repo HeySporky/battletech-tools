@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import type { JSX } from "react";
+
 export default class TextAreaField extends React.Component<ITextAreaFieldProps, ITextAreaFieldState> {
 
     render = (): JSX.Element => {

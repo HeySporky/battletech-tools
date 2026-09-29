@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { type JSX } from 'react';
+import { Link } from 'react-router';
 import { ESaveDataMode } from '../../../dataSaves';
 import { IAppGlobals } from '../../app-router';
 import InputCheckbox from '../../components/form_elements/input_checkbox';
