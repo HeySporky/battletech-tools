@@ -743,6 +743,10 @@ tool. Items are ordered by dependency, not by product marketing priority.
 
 ## Immediate Next Steps
 
+- [x] Upstream PR stack (2026-09-29, HeySporky/battletech-tools): #73 tooling, #74 License, #75 WeaponsNEquip,
+  #76 Quads, #77 QuadVees, #78 Tripods, #79 LAMs, #80 Vehicles, #81 ASupdates (MUL). #75-#80 need #73 and #74;
+  #81 needs #73. #81 supersedes #68.
+
 - [x] Create the canonical schema/interfaces and version migration helpers.
 - [x] Add a domain-neutral equipment catalog metadata model.
 - [x] Write the equipment inventory/completeness report. Canon population gaps
@@ -787,6 +791,18 @@ tool. Items are ordered by dependency, not by product marketing priority.
       JSON save/load then drops that ammo too (not found in the Clan equipment list).
 - [ ] BV differs from SSW's BV2 figure for many bundled mechs (221 of 508 exact) - reportedly addressed on the MUL
       branch; re-check `battlemech.test.ts` against SSW BV once that lands.
+- [x] Play mode offered no Jump to Bipeds/Quads/Tripods (`canUseJumpJetsInCurrentMode` only allowed LAMs and QuadVees).
+- [x] Quads after the front-leg location change: front-leg hits went to the side torso, front-leg criticals were missing
+      from the Critical Hits dialog, the record sheet drew no front-leg armor circles, and older saves (front legs in the
+      arm locations, as upstream stores them) lost that armor and those criticals. Migration in `canonical-record.ts`.
+- [x] Tripods: the play-mode Critical Hits dialog had no center leg.
+- [x] MUL 2.0 cards: printed "BATTLEMECH" as the chassis (Class is the unit type in MUL 2.0), showed "TH NaN"
+      (no BFThreshold), and any Rules search filter hid every MUL 2.0 unit (no Rules field).
+- [ ] MUL 2.0 records have no BFThreshold, Rules or ImageUrl: aerospace cards lack their armor threshold and MUL 2.0
+      units have no rules level. Extend `tools/mul-sync/sync-mul.mjs` to collect them.
+- [ ] `tools/mul-sync/browser-state.json` is committed with live masterunitlist.battletech.com session cookies
+      (including `cf_clearance`). Decide whether the weekly sync needs it in git; if not, remove it from history and
+      ignore it.
 
 ## Lint cleanup backlog (11 problems: 10 errors, 1 warnings)
 
