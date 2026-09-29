@@ -7,6 +7,8 @@ import StandardModal from '../../../components/standard-modal';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import { formationBonuses } from '../../../../data/formation-bonuses';
 
+import type { JSX } from "react";
+
 export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlphaStrikeUnitEditViewModalProps, IAlphaStrikeUnitEditViewModalState> {
 
     constructor(props: IAlphaStrikeUnitEditViewModalProps) {

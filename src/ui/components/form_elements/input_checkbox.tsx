@@ -2,6 +2,8 @@
 import { FaSquare, FaCheckCircle, FaTimesCircle, FaCheckSquare } from "react-icons/fa";
 import * as React from 'react';
 
+import type { JSX } from "react";
+
 export default class InputCheckbox extends React.Component<IInputCheckboxProps, IInputCheckboxState> {
 
     onChange = ( event: React.FormEvent<HTMLInputElement>): void => {

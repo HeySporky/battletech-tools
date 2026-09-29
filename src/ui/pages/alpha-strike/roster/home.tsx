@@ -1,5 +1,5 @@
 import { FaDice, FaDownload, FaFileImport, FaPlusCircle, FaPrint, FaTrash, FaChevronDown, FaChevronUp } from "react-icons/fa";
-import React from 'react';
+import React, { type JSX } from 'react';
 import { Link } from 'react-router-dom';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../../classes/alpha-strike-group';
 import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';

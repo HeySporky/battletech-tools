@@ -6,6 +6,8 @@ import AlphaStrikeHome from './home';
 import AlphaStrikeRosterRouter from './roster/_router';
 import AlphaStrikeUnitCreatorRouter from './unit-creator/_router';
 
+import type { JSX } from "react";
+
 export default class AlphaStrikeRouter extends React.Component<IAlphaStrikeRouterProps, IAlphaStrikeRouterState> {
 
     render = (): JSX.Element => {

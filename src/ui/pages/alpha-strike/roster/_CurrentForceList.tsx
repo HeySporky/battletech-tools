@@ -9,6 +9,8 @@ import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import { IASPilotAbility } from '../../../../data/alpha-strike-pilot-abilities';
 
+import type { JSX } from "react";
+
 export default class CurrentForceList extends React.Component<ICurrentForceListProps, ICurrentForceListState> {
 
     constructor(props: ICurrentForceListProps) {

@@ -11,6 +11,8 @@ import StandardModal from '../../../components/standard-modal';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechTableGroup from './_tableGroup';
 
+import type { JSX } from "react";
+
 export default class BattleMechAddMechDialog extends React.Component<IBattleMechAddMechDialogProps, IBattleMechAddMechDialogState> {
 
     constructor(props: IBattleMechAddMechDialogProps) {

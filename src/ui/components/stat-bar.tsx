@@ -1,6 +1,8 @@
 import * as React from 'react';
 import './stat-bar.scss';
 
+import type { JSX } from "react";
+
 export default class StarBar extends React.Component<IStarBarProps, IStarBarState> {
 
     constructor(props: IStarBarProps) {

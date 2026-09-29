@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { getLocationName } from '../../utils';
 import { getBattleMechToHitChart } from '../../utils/getBattleMechToHitChart';
 

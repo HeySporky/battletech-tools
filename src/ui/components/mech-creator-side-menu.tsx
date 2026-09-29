@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { Link } from 'react-router-dom';
 import { IAppGlobals } from '../app-router';
 import './mech-creator-side-menu.scss';

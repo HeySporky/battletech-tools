@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../app-router';
 import BattleTechLogo from '../battletech-logo';
 import './alpha-strike-card-svg.scss';

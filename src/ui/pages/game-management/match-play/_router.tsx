@@ -5,6 +5,9 @@ import Error404 from "../../error404";
 import Home from './home';
 
 
+import type { JSX } from "react";
+
+
 export default class MatchPlayRouter extends React.Component<IMatchPlayRouterProps, IMatchPlayRouterState> {
 
     render = (): JSX.Element => {

@@ -6,6 +6,8 @@ import { getLocationName } from '../../../../utils';
 import { makeRange } from '../../../../utils/makeRange';
 import { IAppGlobals } from '../../../app-router';
 
+import type { JSX } from "react";
+
 export default class InPlayCriticalHitTable extends React.Component<IInPlayCriticalHitTableProps, IInPlayCriticalHitTableState> {
 
     toggleCritical = (

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 
 export default class QuadRearArmorDiagramSVG extends React.Component<IQuadRearArmorDiagramSVGProps, IQuadRearArmorDiagramSVGState> {
     bgColor = "rgb(255,255,255)";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type JSX } from "react";
 import { Modal } from 'react-bootstrap';
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
