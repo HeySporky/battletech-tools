@@ -92,12 +92,15 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
             if( eq_count % 2 === 0 )
                 equipmentList.push( <rect key={ eq_count.toString() + "a"}x={wacCol1 - 5 } y={weapAndEqpTop + 93 + eqLineHeight * eq_count} width={1180} height={eqLineHeight + 4} fill={colorVeryLightGray} /> );
 
-            let ammoPerTon = this.props.mechData.equipmentList[ eq_count].ammoPerTon ;
-            let currentAmmo = this.props.mechData.equipmentList[ eq_count].currentAmmo ;
+            let ammoPerTon = this.props.mechData.getAmmoBinCapacity(this.props.mechData.equipmentList[ eq_count]);
+            let currentAmmo = this.props.mechData.getAmmoBinRemaining(this.props.mechData.equipmentList[ eq_count]);
             let isAmmo = this.props.mechData.equipmentList[ eq_count].isAmmo ? true : false ;
             let isEquipment = this.props.mechData.equipmentList[ eq_count].isEquipment ? true : false ;
             let location = this.props.mechData.equipmentList[eq_count].location;
             let uuid = this.props.mechData.equipmentList[ eq_count].uuid;
+            const modularArmorPoints = this.props.mechData.equipmentList[eq_count].isModularArmor
+                ? this.props.mechData.getModularArmorCurrentPoints(this.props.mechData.equipmentList[eq_count])
+                : null;
             let isDamaged = false;
             if( uuid && location )
                 isDamaged = this.props.mechData.isEquipmentDamaged( uuid,  location);
@@ -125,7 +128,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                                     style={{fontWeight: 500}}
                                     fontSize={20}
                                     className="cursor-pointer"
-                                    onClick={(e) => this.viewGATOR(targetGATOR)}
+                                    onClick={() => this.viewGATOR(targetGATOR)}
                                 >
                                     {targetGATOR.finalToHit > 0 ? (
                                         <>
@@ -175,9 +178,9 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 rearDesignation = " [R]"
 
             if( ammoPerTon && isAmmo )
-                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "c"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation} {currentAmmo}/{this.props.mechData.equipmentList[ eq_count].ammoPerTon} </text> );
+                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "c"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation} {currentAmmo}/{ammoPerTon} </text> );
             else
-                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "d"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation}</text> );
+                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "d"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation}{modularArmorPoints !== null ? ` ${modularArmorPoints}/10` : ""}</text> );
 
 
             if( location ) {
@@ -200,10 +203,10 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                     } else {
                         if( typeof(this.props.mechData.equipmentList[eq_count].damage) !== "undefined") {
                             if( typeof(this.props.mechData.equipmentList[eq_count].damage) === "number") {
-                                //@ts-ignore
+                                // @ts-expect-error Legacy compatibility type mismatch
                                 equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damage}</text> );
                             } else {
-                                //@ts-ignore
+                                // @ts-expect-error Legacy compatibility type mismatch
                                 equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damage.short} / {this.props.mechData.equipmentList[eq_count].damage.medium} / {this.props.mechData.equipmentList[eq_count].damage.long}</text> );
                             }
                         }

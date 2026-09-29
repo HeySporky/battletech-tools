@@ -56,6 +56,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
     render = (): JSX.Element => {
 
+        // Bipeds use the Biped anatomy.
+        const hasArms = !this.props.mechData.isQuad();
+
         let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";
         // landscape: boolean = false;
@@ -72,6 +75,13 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         if( this.props.inPlay ) {
             inPlay = this.props.inPlay;
         }
+        const modularArmorLabels = this.props.mechData.getModularArmorPacks()
+            .filter(pack => pack.allocationLocation && pack.allocationLocation !== "un")
+            .map(pack => `${pack.allocationLocation!.toUpperCase()}${pack.rear ? "(R)" : ""} ${this.props.mechData.getModularArmorCurrentPoints(pack)}/10`);
+        const modularArmorLines = Array.from(
+            { length: Math.ceil(modularArmorLabels.length / 4) },
+            (_, index) => modularArmorLabels.slice(index * 4, index * 4 + 4).join("   ")
+        );
 
         let currentPhaseGroupColor = "#00a";
 
@@ -683,22 +693,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         bgColor={bgColor}
         strokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
     >
-    {this.props.mechData.getMechType().tag === "biped" ? (
+    {hasArms ? (
         <>
-            <BipedArmorDiagramSVG
-                xLoc={1263}
-                yLoc={-10}
-                width={700}
-                bgColor={bgColor}
+            <BipedArmorDiagramSVG xLoc={1263} yLoc={-10} width={700} bgColor={bgColor} />
 
-            />
-
-            <BipedRearArmorDiagramSVG
-                xLoc={1413}
-                yLoc={875}
-                width={400}
-                bgColor={bgColor}
-            />
+            <BipedRearArmorDiagramSVG xLoc={1413} yLoc={875} width={400} bgColor={bgColor} />
 
         {/* Main Armor Labels */}
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2} y={this.armorBoxTop + 70} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{this.props.mechData.getArmorAllocation().head }]</text>
@@ -811,6 +810,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             />
         </>
     )}
+    {modularArmorLines.map((line, index) => (
+        <text
+            key={`modular-armor-${index}`}
+            x={this.armorBoxLeft + this.armorBoxWidth / 2}
+            y={this.armorBoxTop + 1145 + index * 20}
+            textAnchor="middle"
+            fontFamily="sans-serif"
+            fill={strokeColor}
+            style={{fontWeight: 700}}
+            fontSize={16}
+        >
+            {index === 0 ? "MODULAR ARMOR: " : ""}{line}
+        </text>
+    ))}
     </RecordSheetGroupBoxSVG>
 
     <RecordSheetGroupBoxSVG
@@ -822,13 +835,9 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         title="Internal Structure"
         strokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
     >
-    {this.props.mechData.getMechType().tag === "biped" ? (
+    {hasArms ? (
         <>
-            <BipedInternalStructureDiagramSVG
-                xLoc={1350}
-                yLoc={1275}
-                width={420}
-            />
+            <BipedInternalStructureDiagramSVG xLoc={1350} yLoc={1275} width={420} />
 
         {/* // Main Structure Labels */}
 		<text x={this.isBoxLeft + this.isBoxWidth / 2} y={this.isBoxTop + 55} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>HEAD [{this.props.mechData.getInternalStructure().head }]</text>
@@ -1087,6 +1096,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 106} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 108} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
+
         {this.props.inPlay && (this.props.currentPhase === 2 ||  this.props.currentPhase === 3) ?
             <TakeDamageButtonSVG
                 x={this.isBoxLeft + this.isBoxWidth / 2 - 50}
@@ -1115,11 +1125,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 540} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>FRONT</text>
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 560} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 580} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().leftArm }]</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 280 } y={this.isBoxTop + 580} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().frontLeftLeg }]</text>
 
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 540} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>FRONT</text>
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 560} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>RIGHT</text>
-            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 580} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().rightArm }]</text>
+            <text x={ this.isBoxLeft + this.isQuadCenterAdjust + this.isBoxWidth / 2 + 280 } y={this.isBoxTop + 580} textAnchor="end" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEG [{ this.props.mechData.getInternalStructure().frontRightLeg }]</text>
 
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 80 } y={this.isBoxTop + 570} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>REAR</text>
             <text x={ this.isBoxLeft + this.isQuadCenterAdjust +  this.isBoxWidth / 2 - 80 } y={this.isBoxTop + 590} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>LEFT</text>
@@ -1412,7 +1422,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             style={{fontWeight: 700}}
             fontSize={30}
         >
-            {this.props.mechData.getMechType().tag === "biped" ? (
+            {hasArms ? (
                 <>LEFT ARM</>
             ) : (
                 <>LEFT FRONT LEG</>
@@ -1459,7 +1469,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             style={{fontWeight: 700}}
             fontSize={30}
         >
-            {this.props.mechData.getMechType().tag === "biped" ? (
+            {hasArms ? (
                 <>RIGHT ARM</>
             ) : (
                 <>RIGHT FRONT LEG</>
@@ -1553,7 +1563,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             style={{fontWeight: 700}}
             fontSize={30}
         >
-            {this.props.mechData.getMechType().tag === "biped" ? (
+            {hasArms ? (
                 <>LEFT LEG</>
             ) : (
                 <>LEFT REAR LEG</>
@@ -1579,7 +1589,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             style={{fontWeight: 700}}
             fontSize={30}
         >
-            {this.props.mechData.getMechType().tag === "biped" ? (
+            {hasArms ? (
                 <>RIGHT LEG</>
             ) : (
                 <>RIGHT REAR LEG</>
@@ -1605,7 +1615,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             inPlay={this.props.inPlay}
         />
 
-    {this.props.mechData.getMechType().tag === "biped" ? (
+    {hasArms ? (
         <>
             <BipedDamageTransferDiagramSVG
                 xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}

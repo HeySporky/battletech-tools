@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
+import { isOmniFixedOnly } from '../../../../data/equipment-registry';
 import { sortEquipment } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
@@ -13,6 +14,10 @@ import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const ArrowCircleRight = FaArrowCircleRight as any;
+const Plus = FaPlus as any;
+const Trash = FaTrash as any;
 
 export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -20,6 +25,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
         this.state = {
             updated: false,
             showAddDialog: false,
+          equipmentCatalog: "all",
         }
 
         this.props.appGlobals.makeDocumentTitle("Step 5 | 'Mech Creator");
@@ -38,12 +44,77 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
           undefined,
           undefined,
           undefined,
+          undefined,
+          undefined,
+          this.props.appGlobals.appSettings.mechRulesFilter === 5,
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
         return true;
       }
       return false;
+    }
+
+    setSize = ( itemUUID: string | undefined, size: number ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setEquipmentSize( itemUUID, size );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    setFixed = ( itemUUID: string | undefined, fixed: boolean ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setEquipmentFixed( itemUUID, fixed );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    stripPods = (): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.stripPodEquipment();
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    switchConfiguration = ( name: string ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.switchOmniConfiguration( name );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    addConfiguration = ( copyCurrent: boolean ): void => {
+      const mech = this.props.appGlobals.currentBattleMech;
+      if( !mech ) return;
+      const name = window.prompt( copyCurrent ? "Name for the copied configuration:" : "Name for the new configuration:", "" );
+      if( !name ) return;
+      if( !mech.addOmniConfiguration( name, copyCurrent ) ) {
+        window.alert( "A configuration named \"" + name.trim() + "\" already exists." );
+        return;
+      }
+      this.props.appGlobals.saveCurrentBattleMech( mech );
+    }
+
+    renameConfiguration = (): void => {
+      const mech = this.props.appGlobals.currentBattleMech;
+      if( !mech ) return;
+      const current = mech.getActiveOmniConfiguration();
+      const name = window.prompt( "Rename configuration \"" + current + "\" to:", current );
+      if( !name || name.trim() === current ) return;
+      if( !mech.renameOmniConfiguration( current, name ) ) {
+        window.alert( "A configuration named \"" + name.trim() + "\" already exists." );
+        return;
+      }
+      this.props.appGlobals.saveCurrentBattleMech( mech );
+    }
+
+    deleteConfiguration = (): void => {
+      const mech = this.props.appGlobals.currentBattleMech;
+      if( !mech ) return;
+      const current = mech.getActiveOmniConfiguration();
+      if( !window.confirm( "Delete configuration \"" + current + "\"? Its pod equipment will be removed." ) ) return;
+      mech.deleteOmniConfiguration( current );
+      this.props.appGlobals.saveCurrentBattleMech( mech );
     }
 
     removeEquipment = ( itemUUID: string | undefined ): boolean => {
@@ -105,6 +176,11 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
+      const currentMech = this.props.appGlobals.currentBattleMech;
+      const techTag = currentMech.getTech().tag;
+      const includeClan = techTag === "clan" || techTag === "mis" || techTag === "mclan";
+      const includeIS = techTag === "is" || techTag === "mis" || techTag === "mclan";
+      const includeCustom = this.props.appGlobals.appSettings.mechRulesFilter === 5;
       return (
         <>
             <StandardModal
@@ -118,7 +194,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                   <div>
                       <AvailableEquipment
                         appGlobals={this.props.appGlobals}
-                        equipment={this.props.appGlobals.currentBattleMech.getAvailableEquipment()}
+                        equipment={currentMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, includeCustom, this.props.appGlobals.appSettings.mechRulesFilter)}
                         addFunction={this.addEquipment}
                         hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
                       />
@@ -148,10 +224,92 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                             title="Open the add dialog"
                             onClick={this.openInstallDialog}
                           >
-                            <FaPlus />
+                            <Plus />
                           </button>
 
                           <h3 className="text-center">Installed Equipment</h3>
+
+                          <label>
+                            Equipment Catalog:
+                            <select
+                              value={this.state.equipmentCatalog}
+                              onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setState({ equipmentCatalog: event.currentTarget.value as IHomeState["equipmentCatalog"] })}
+                            >
+                              <option value="all">All Available</option>
+                              {includeIS ? <option value="is">Inner Sphere</option> : null}
+                              {includeClan ? <option value="clan">Clan</option> : null}
+                              <option value="universal">Universal</option>
+                              {includeCustom ? <option value="custom">Custom</option> : null}
+                            </select>
+                          </label>
+
+                          {this.props.appGlobals.currentBattleMech.isOmnimech ? (
+                            <fieldset className="fieldset">
+                              <legend>OmniMech Base Chassis</legend>
+                              <p className="smaller-text">
+                                Tick <strong>Fixed</strong> for equipment built into the base chassis. Everything
+                                else is pod-mounted. The pod space left over defines the model line that every
+                                configuration (Prime, A, B...) is built into.
+                              </p>
+                              <p>
+                                Pod space: <strong>{this.props.appGlobals.currentBattleMech.getOmniPodSpace().totalSlots}</strong> slots,
+                                &nbsp;<strong>{this.props.appGlobals.currentBattleMech.getOmniPodSpace().podTonnage}</strong> tons
+                              </p>
+                              <button className="btn-sm btn btn-secondary" onClick={this.stripPods}>
+                                Strip Pods
+                              </button>
+
+                              <h4>Configurations</h4>
+                              <label>
+                                Active configuration:&nbsp;
+                                <select
+                                  value={currentMech.getActiveOmniConfiguration()}
+                                  onChange={(event: React.FormEvent<HTMLSelectElement>) => this.switchConfiguration(event.currentTarget.value)}
+                                >
+                                  {currentMech.getOmniConfigurationNames().map( (name) => (
+                                    <option key={name} value={name}>{name}</option>
+                                  ))}
+                                </select>
+                              </label>
+                              &nbsp;
+                              <button className="btn-sm btn btn-primary" onClick={() => this.addConfiguration(false)} title="New configuration with empty pods on this base chassis">
+                                New
+                              </button>
+                              <button className="btn-sm btn btn-primary" onClick={() => this.addConfiguration(true)} title="New configuration starting from the current pods">
+                                Copy
+                              </button>
+                              <button className="btn-sm btn btn-secondary" onClick={this.renameConfiguration}>
+                                Rename
+                              </button>
+                              <button
+                                className="btn-sm btn btn-danger"
+                                onClick={this.deleteConfiguration}
+                                disabled={currentMech.getOmniConfigurationNames().length < 2}
+                              >
+                                Delete
+                              </button>
+                              <table className="table">
+                                <thead>
+                                  <tr>
+                                    <th>Configuration</th>
+                                    <th>Pod Tons</th>
+                                    <th>BV</th>
+                                    <th>Cost</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {currentMech.getOmniConfigurationStats().map( (stats) => (
+                                    <tr key={stats.name}>
+                                      <td>{stats.name === currentMech.getActiveOmniConfiguration() ? <strong>{stats.name}</strong> : stats.name}</td>
+                                      <td>{stats.podTonnage}</td>
+                                      <td>{stats.battleValue}</td>
+                                      <td>{stats.cost.toLocaleString()}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </fieldset>
+                          ) : null}
 
                           {this.props.appGlobals.currentBattleMech.getInstalledEquipment().length > 0 ? (
 
@@ -162,6 +320,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                     {/* <th>Sort</th> */}
                                     <th>Weight</th>
                                     <th>Rear</th>
+                                    {this.props.appGlobals.currentBattleMech.isOmnimech ? <th>Fixed</th> : null}
                                     <th>&nbsp;</th>
                                   </tr>
                                 </thead>
@@ -172,6 +331,23 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                     <tr>
                                       <td>
                                         {item.name}
+                                        {item.sizeLabel ? (
+                                          <label className="smaller-text">
+                                            {item.sizeLabel}:&nbsp;
+                                            <select
+                                              value={item.size ?? 1}
+                                              onChange={( event: React.FormEvent<HTMLSelectElement>) => this.setSize( item.uuid, +event.currentTarget.value)}
+                                              className="width-auto"
+                                            >
+                                              {Array.from({ length: item.sizeMax ?? 1 }, (_value, index) => index + 1).map( (option) => (
+                                                <option key={option} value={option}>{option}</option>
+                                              ))}
+                                            </select>
+                                          </label>
+                                        ) : null}
+                                        {item.spreadSlots ? (
+                                          <div className="smaller-text">{item.space.battlemech} slots, placed one at a time</div>
+                                        ) : null}
                                       </td>
                                       <td>
                                         {item.minAmmoTons && item.isAmmo && item.minAmmoTons < 1 ? (
@@ -194,12 +370,22 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                           onChange={( event: React.FormEvent<HTMLInputElement>) => this.setRear( item.uuid, event.currentTarget.checked)}
                                         />
                                       </td>
+                                      {this.props.appGlobals.currentBattleMech?.isOmnimech ? (
+                                        <td>
+                                          <InputCheckbox
+                                            label=""
+                                            checked={item.omniFixed ? true : false}
+                                            readOnly={isOmniFixedOnly(item)}
+                                            onChange={( event: React.FormEvent<HTMLInputElement>) => this.setFixed( item.uuid, event.currentTarget.checked)}
+                                          />
+                                        </td>
+                                      ) : null}
                                       <td className="text-right">
                                         <button
                                           className="btn-sm btn btn-danger"
                                           onClick={() => this.removeEquipment( item.uuid )}
                                         >
-                                          <FaTrash />
+                                          <Trash />
                                         </button>
 
                                       </td>
@@ -227,16 +413,16 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                               title="Open the add dialog"
                               onClick={this.openInstallDialog}
                             >
-                              <FaPlus />
+                              <Plus />
                             </button>&nbsp;
                             to the top left to install equipment.</p>
                             </>
                           )}
                           <div className="clear-both overflow-hidden">
                             <hr />
-                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-primary pull-right btn-sm">Next Step <FaArrowCircleRight /></Link>
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-primary pull-right btn-sm">Next Step <ArrowCircleRight /></Link>
                             <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step4`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step4`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                           </div>
                           </TextSection>
@@ -270,5 +456,6 @@ interface IHomeProps {
 interface IHomeState {
     updated: boolean;
     showAddDialog: boolean;
+  equipmentCatalog: "all" | "is" | "clan" | "custom" | "universal";
 
 }

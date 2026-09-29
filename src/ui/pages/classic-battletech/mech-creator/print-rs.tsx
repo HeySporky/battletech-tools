@@ -18,7 +18,9 @@ export default class MechCreatorPrintRS extends React.Component<IPrintRSProps, I
       }
       return (
         <>
-          <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} appGlobals={this.props.appGlobals}>
+          <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} appGlobals={this.props.appGlobals}
+            requiredRulesLevel={this.props.appGlobals.currentBattleMech.getRequiredRulesLevel()}
+          >
             <div className="print-page">
               <BattleMechSVG mechData={this.props.appGlobals.currentBattleMech} inPlay={false} />
             </div>

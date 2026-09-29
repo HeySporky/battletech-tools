@@ -10,6 +10,9 @@ import SanitizedHTML from '../components/sanitized-html';
 import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
 import './ssw-sanity-check.scss';
+const CheckCircle = FaCheckCircle as any;
+const SyncIcon = FaSync as any;
+const TimesCircleIcon = FaTimesCircle as any;
 
 
 export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps, ISSWSanityCheckState> {
@@ -224,7 +227,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
         </button>
 
         {this.isFetchingMUL ? (
-            <FaSync className="spin" color="green" />
+            <SyncIcon className="spin" color="green" />
         ) : null}
     </div>
     <div className="col text-right">
@@ -337,7 +340,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                     <td>
                                     {SSWCbills !== tempMechCBills ? (
                                         <div>
-                                            <FaTimesCircle className="color-red" />&nbsp;CBill Costs doesn't match:<br />
+                                            <TimesCircleIcon className="color-red" />&nbsp;CBill Costs doesn't match:<br />
                                             SSW: {addCommas(SSWCbills)} != JBT: {addCommas(tempMechCBills)}
 
                                             {Math.abs(SSWCbills - tempMechCBills ) < 3 ? (
@@ -353,7 +356,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                         </div>
                                         ) : (
                                         <div>
-                                            <FaCheckCircle className="color-green" />&nbsp;CBill Costs match: {addCommas(tempMechCBills)}
+                                            <CheckCircle className="color-green" />&nbsp;CBill Costs match: {addCommas(tempMechCBills)}
                                         </div>
 
                                     )}
@@ -362,7 +365,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                 <td>
                                         {SSWBV2 !== tempMechBV2 ? (
                                     <div>
-                                        <FaTimesCircle className="color-red" />&nbsp;BV2 doesn't match:
+                                        <TimesCircleIcon className="color-red" />&nbsp;BV2 doesn't match:
                                         SSW: {addCommas(SSWBV2)} != JBT: {addCommas(tempMechBV2)}
                                         <button
                                             className="btn btn-primary full-width btn-xs"
@@ -373,7 +376,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                     </div>
                                     ) : (
                                     <div>
-                                        <FaCheckCircle className="color-green" />&nbsp;BV2 matches: {addCommas(tempMechBV2)}
+                                        <CheckCircle className="color-green" />&nbsp;BV2 matches: {addCommas(tempMechBV2)}
                                     </div>
                                     )}
                                     </td>
@@ -386,7 +389,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                         <>
                                             {MULASValue !== tempMechBFValue ? (
                                             <div>
-                                                <FaTimesCircle className="color-red" />&nbsp;PV doesn't match:
+                                                <TimesCircleIcon className="color-red" />&nbsp;PV doesn't match:
                                                 MUL: {addCommas(MULASValue)} != JBT: {addCommas(tempMechBFValue)}
 
                                                 <button
@@ -398,7 +401,7 @@ export default class SSWSanityCheck extends React.Component<ISSWSanityCheckProps
                                             </div>
                                             ) : (
                                                 <div>
-                                                    <FaCheckCircle className="color-green" />&nbsp;PV matches: {addCommas(tempMechBFValue)}
+                                                    <CheckCircle className="color-green" />&nbsp;PV matches: {addCommas(tempMechBFValue)}
                                                 </div>
                                             )}
                                         </>
