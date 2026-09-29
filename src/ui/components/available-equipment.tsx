@@ -1,6 +1,7 @@
 
 import React, { type JSX } from 'react';
 import { IEquipmentItem } from '../../data/data-interfaces';
+import { getEquipmentSubtype, getEquipmentSubtypes } from '../../data/equipment-subtypes';
 import { sortEquipment } from '../../utils';
 import { IAppGlobals } from '../app-router';
 import './available-equipment.scss';
@@ -12,6 +13,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         super(props);
         this.state = {
             updated: false,
+            subtype: "",
             // equipmentFilter: this.props.appGlobals.appSettings.equipmentFilter,
         }
     }
@@ -31,6 +33,8 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
         appSettings.installEquipCategory =newValue;
         this.props.appGlobals.saveAppSettings( appSettings );
+        // Subtypes belong to one category; start the new one unfiltered
+        this.setState({ subtype: "" });
 
     }
 
@@ -42,19 +46,23 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
             item.name.toLowerCase().trim().indexOf(
                 this.props.appGlobals.appSettings.equipmentFilter.toLowerCase().trim()
             ) > -1
-                || (
-                item.alternateName
-                &&
-                item.alternateName.toLowerCase().trim().indexOf(
+                || [
+                    item.alternateName ?? "",
+                    ...(item.altNames ?? []),
+                    ...(item.altTags ?? []),
+                ].some(alias => alias.toLowerCase().trim().indexOf(
                     this.props.appGlobals.appSettings.equipmentFilter.toLowerCase().trim()
-                ) > -1
-            )
+                ) > -1)
 
         ) {
             return true;
         }
 
         return false;
+    }
+
+    _subtypeFilter = ( item: IEquipmentItem ): boolean => {
+        return this.state.subtype === "" || getEquipmentSubtype( item ) === this.state.subtype;
     }
 
     render = (): JSX.Element => {
@@ -105,6 +113,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                 // this.props.appGlobals.appSettings.equipmentFilter
                 if(!catName)
                     return <React.Fragment key={catIndex}></React.Fragment>
+                const isCurrentCategory = currentCategory.trim().toLowerCase() === catName.trim().toLowerCase();
                 return (
                     <tbody key={catIndex}>
                 <tr>
@@ -119,16 +128,37 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                 </tr>
                     {this.props.appGlobals.appSettings.equipmentFilter.trim()
                     ||
-                    currentCategory.trim().toLowerCase() === catName.trim().toLowerCase() ? (
+                    isCurrentCategory ? (
                         <>
-                        {groupedItems[catName].filter(this._equipmentFilter).sort( sortEquipment ).map( (item, itemIndex) => {
+                        {isCurrentCategory && getEquipmentSubtypes(groupedItems[catName]).length > 1 ? (
+                            <tr>
+                                <td colSpan={5}>
+                                    <label>
+                                        Type:
+                                        <select
+                                            value={this.state.subtype}
+                                            onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setState({ subtype: event.currentTarget.value })}
+                                            title="Show one weapon family within this category"
+                                        >
+                                            <option value="">All {catName}</option>
+                                            {getEquipmentSubtypes(groupedItems[catName]).map( (subtype) => {
+                                                return (
+                                                    <option key={subtype} value={subtype}>{subtype}</option>
+                                                )
+                                            })}
+                                        </select>
+                                    </label>
+                                </td>
+                            </tr>
+                        ) : null}
+                        {groupedItems[catName].filter(this._equipmentFilter).filter( (item) => !isCurrentCategory || this._subtypeFilter( item ) ).sort( sortEquipment ).map( (item, itemIndex) => {
                             if( !this.props.hideUnavailable || item.available ) {
                                 return (
                                     <tr
                                         key={itemIndex}
                                         className={!item.available ? "disabled" : ""}
                                     >
-                                        <td>{item.name}</td>
+                                        <td>{item.name}{item.availableAsPrototype ? <span className="small-text"> (Prototype)</span> : null}</td>
                                         <td>{item.category}</td>
                                         <td>{item.criticals}</td>
                                         <td>{item.weight}</td>
@@ -171,5 +201,6 @@ interface IAvailableEquipmentProps {
 
 interface IAvailableEquipmentState {
     updated: boolean;
+    subtype: string;
     // equipmentFilter: string;
 }

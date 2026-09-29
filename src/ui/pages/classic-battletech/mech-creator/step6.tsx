@@ -14,6 +14,8 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import UnallocatedEquipmentList from '../../../components/unallocated-equipment-list';
 import './home.scss';
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const ArrowCircleRight = FaArrowCircleRight as any;
 
 export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -393,6 +395,9 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                           <fieldset className="fieldset">
                             <legend>Instructions</legend>
                             <p>To assign equipment to your critical allocation table, just click on an assignable item then click on an unallocated location.</p>
+                            {this.props.appGlobals.currentBattleMech.getChassisEquipmentViolations().map( (violation) => (
+                              <p key={violation} className="color-red">{violation}</p>
+                            ))}
                           </fieldset>
                           <br />
                           {this.state.selectionMessageType ? (
@@ -451,20 +456,20 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                 <legend>Critical Table</legend>
                                 <div className="row">
                                   <div className="col-4">
-                                    {this.props.appGlobals.currentBattleMech.getType().tag === "quad" ? (
+                                    {this.props.appGlobals.currentBattleMech.isQuad() ? (
                                       <h4 className="text-center">Left Front Leg</h4>
                                     ) : (
                                       <>
                                       <h4 className="text-center">Left Arm</h4>
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("la")}
-                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleLowerArmActuator("la") }
+                                        onChange={() => this.toggleLowerArmActuator("la") }
                                         label="Lower Arm Actuator"
                                       />
 
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasHandActuator("la")}
-                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleHandActuator("la") }
+                                        onChange={() => this.toggleHandActuator("la") }
                                         label="Hand Actuator"
                                       />
 
@@ -473,8 +478,10 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
                                       mech={this.props.appGlobals.currentBattleMech}
-                                      crits={this.props.appGlobals.currentBattleMech.criticals.leftArm}
-                                      sectionAbbr="la"
+                                      crits={this.props.appGlobals.currentBattleMech.isQuad()
+                                        ? this.props.appGlobals.currentBattleMech.criticals.frontLeftLeg
+                                        : this.props.appGlobals.currentBattleMech.criticals.leftArm}
+                                      sectionAbbr={this.props.appGlobals.currentBattleMech.isQuad() ? "fll" : "la"}
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
                                       currentSelectedLocation={this.state.selectedItemLocation}
@@ -493,7 +500,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       currentSelectedItemSize={this.state.selectedItemSize}
                                       currentSelectedItemName={this.state.selectedItemName}
                                     />
-                                    {this.props.appGlobals.currentBattleMech.getType().tag === "quad" ? (
+                                    {this.props.appGlobals.currentBattleMech.isQuad() ? (
                                       <h4 className="text-center">Left Rear Leg</h4>
                                     ) : (
                                       <h4 className="text-center">Left Leg</h4>
@@ -539,28 +546,30 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                     />
                                   </div>
                                   <div className="col-4">
-                                  {this.props.appGlobals.currentBattleMech.getType().tag === "quad" ? (
+                                  {this.props.appGlobals.currentBattleMech.isQuad() ? (
                                       <h4 className="text-center">Right Front Leg</h4>
                                     ) : (
                                       <>
                                       <h4 className="text-center">Right Arm</h4>
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasLowerArmActuator("ra")}
-                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleLowerArmActuator("ra") }
+                                        onChange={() => this.toggleLowerArmActuator("ra") }
                                         label="Lower Arm Actuator"
                                       />
 
                                       <InputCheckbox
                                         checked={this.props.appGlobals.currentBattleMech.hasHandActuator("ra")}
-                                        onChange={(event: React.FormEvent<HTMLInputElement>) => this.toggleHandActuator("ra") }
+                                        onChange={() => this.toggleHandActuator("ra") }
                                         label="Hand Actuator"
                                       />
                                       </>
                                     )}
                                     <CriticalAllocationSection
                                       appGlobals={this.props.appGlobals}
-                                      crits={this.props.appGlobals.currentBattleMech.criticals.rightArm}
-                                      sectionAbbr="ra"
+                                      crits={this.props.appGlobals.currentBattleMech.isQuad()
+                                        ? this.props.appGlobals.currentBattleMech.criticals.frontRightLeg
+                                        : this.props.appGlobals.currentBattleMech.criticals.rightArm}
+                                      sectionAbbr={this.props.appGlobals.currentBattleMech.isQuad() ? "frl" : "ra"}
                                       mech={this.props.appGlobals.currentBattleMech}
                                       selectItemClick={this.selectItemClick}
                                       currentSelectedIndex={this.state.selectedItemIndex}
@@ -580,7 +589,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       currentSelectedItemSize={this.state.selectedItemSize}
                                       currentSelectedItemName={this.state.selectedItemName}
                                     />
-                                    {this.props.appGlobals.currentBattleMech.getType().tag === "quad" ? (
+                                    {this.props.appGlobals.currentBattleMech.isQuad() ? (
                                       <h4 className="text-center">Right Rear Leg</h4>
                                     ) : (
                                       <h4 className="text-center">Right Leg</h4>
@@ -605,9 +614,9 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
 
                         <div className="clear-both overflow-hidden">
                           <hr />
-                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary pull-right btn-sm">Summary <FaArrowCircleRight /></Link>
+                          <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary pull-right btn-sm">Summary <ArrowCircleRight /></Link>
                           <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step5`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step5`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </div>
                       </TextSection>

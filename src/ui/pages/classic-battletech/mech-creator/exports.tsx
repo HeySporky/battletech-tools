@@ -8,7 +8,8 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
-
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const ArrowCircleRight = FaArrowCircleRight as any;
 export default class MechCreatorExports extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
         super(props);
@@ -46,9 +47,9 @@ export default class MechCreatorExports extends React.Component<IHomeProps, IHom
                             <hr />
 
                               <div className="text-left">
-                              {/* <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Summary</Link> */}
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/imports`} className="btn btn-primary pull-right btn-sm">Imports <FaArrowCircleRight /></Link>
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Summary</Link>
+                              {/* <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Summary</Link> */}
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/imports`} className="btn btn-primary pull-right btn-sm">Imports <ArrowCircleRight /></Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/summary`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Summary</Link>
                             </div>
                           </div>
                         </TextSection>

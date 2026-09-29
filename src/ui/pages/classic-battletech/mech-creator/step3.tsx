@@ -9,6 +9,8 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import { makeRange } from "../../../../utils/makeRange";
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const ArrowCircleRight = FaArrowCircleRight as any;
 
 export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -40,10 +42,8 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
-      let weightDropDownMax = this.props.appGlobals.currentBattleMech.getRemainingTonnage() + this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks();
-      if( weightDropDownMax < this.props.appGlobals.currentBattleMech.getAdditionalHeatSinks()) {
-        weightDropDownMax = this.props.appGlobals.currentBattleMech.getArmorWeight()
-      }
+      const weightDropDownMax = this.props.appGlobals.currentBattleMech.getMaxAdditionalHeatSinks();
+      const heatSinkObj = this.props.appGlobals.currentBattleMech.getHeatSinksObj();
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
@@ -71,11 +71,21 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                                 value={this.props.appGlobals.currentBattleMech.getHeatSinksType()}
                                 onChange={this.setHeatSinkType}
                               >
-                                <option value="single">Single</option>
-                                <option value="double">Double</option>
+                                {this.props.appGlobals.currentBattleMech.getAvailableHeatSinks(this.props.appGlobals.appSettings.mechRulesFilter).map( (heatSink) => {
+                                  const selected = heatSink.tag === this.props.appGlobals.currentBattleMech?.getHeatSinksType();
+                                  if( !heatSink.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                    return <React.Fragment key={heatSink.tag}></React.Fragment>;
+                                  }
+                                  return (
+                                    <option key={heatSink.tag} value={heatSink.tag} disabled={!heatSink.available && !selected}>{heatSink.name}{heatSink.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                  );
+                                })}
 
                               </select>
                             </label>
+                            {heatSinkObj.notes ? (
+                              <p className="text-center smaller-text">{heatSinkObj.notes}{heatSinkObj.book ? " (" + heatSinkObj.book + (heatSinkObj.page ? " p." + heatSinkObj.page : "") + ")" : ""}</p>
+                            ) : null}
 
                             <label>
                               Add additional heat sinks:
@@ -105,9 +115,9 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
 
                           <div className="clear-both overflow-hidden">
                             <hr />
-                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step4`} className="btn btn-primary pull-right btn-sm">Next Step <FaArrowCircleRight /></Link>
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step4`} className="btn btn-primary pull-right btn-sm">Next Step <ArrowCircleRight /></Link>
                             <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step2`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step2`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                             </div>
                         </TextSection>

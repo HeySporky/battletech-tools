@@ -15,21 +15,20 @@ import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import Alerts from './classes/alerts';
 import { AppSettings } from "./classes/app_settings";
 import SanitizedHTML from './components/sanitized-html';
-import About from "./pages/about";
-import AlphaStrikeRouter from "./pages/alpha-strike/_router";
-import ClassicBattleTechRouter from "./pages/classic-battletech/_router";
-import GameManagementRouter from "./pages/game-management/_router";
-import DevelopmentStatus from "./pages/development-status";
-import EquipmentEditor from "./pages/equipment-editor";
 import Error404 from "./pages/error404";
-import Home from "./pages/home";
-import SettingsRouter from "./pages/settings/_router";
-import SSWSanityCheck from "./pages/ssw-sanity-check";
-import { IAlphaStrikeMPDeploymentSet, IAlphaStrikeMPDeployment, getDeploymentById, generateScenarioDeployments } from "../data/alpha-strike-mp-deployments";
-import { IAlphaStrikeMPScenario} from "../data/alpha-strike-mp-scenarios";
+import { IAlphaStrikeMPDeployment } from "../data/alpha-strike-mp-deployments";
+import { IAlphaStrikeMPScenario } from "../data/alpha-strike-mp-scenarios";
 import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 // import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";
-
+const About = React.lazy(() => import("./pages/about"));
+const AlphaStrikeRouter = React.lazy(() => import("./pages/alpha-strike/_router"));
+const ClassicBattleTechRouter = React.lazy(() => import("./pages/classic-battletech/_router"));
+const DevelopmentStatus = React.lazy(() => import("./pages/development-status"));
+const EquipmentEditor = React.lazy(() => import("./pages/equipment-editor"));
+const GameManagementRouter = React.lazy(() => import("./pages/game-management/_router"));
+const Home = React.lazy(() => import("./pages/home"));
+const SettingsRouter = React.lazy(() => import("./pages/settings/_router"));
+const SSWSanityCheck = React.lazy(() => import("./pages/ssw-sanity-check"));
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
 
@@ -82,6 +81,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             favoriteCBTGroups: [],
             currentCBTForce: null,
 
+
             saveCurrentASForce: this.saveCurrentASForce,
             saveFavoriteASGroups: this.saveFavoriteASGroups,
             saveASGroupFavorite: this.saveASGroupFavorite,
@@ -105,12 +105,12 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         }
 
-        window.addEventListener('offline', (event) => {
+        window.addEventListener('offline', () => {
             this.setState({
                 updated: true,
             })
         });
-        window.addEventListener('online', (event) => {
+        window.addEventListener('online', () => {
             this.setState({
                 updated: true,
             })
@@ -239,27 +239,33 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         })
 
 
-        setTimeout(
-            () => {
-                // console.log("starting SSW import");
-                for( let sswXML of sswMechs ) {
-                    let basicSSWInfo = getSSWXMLBasicInfo( sswXML );
+        // Import the bundled SSW mechs in ~12 ms slices, yielding to the browser between slices. Importing all of them
+        // in one go blocked the main thread for several seconds on desktop (far longer on phones), freezing the UI.
+        let nextSSWIndex = 0;
+        const importSSWSlice = () => {
+            const sliceEnd = performance.now() + 12;
+            while( nextSSWIndex < sswMechs.length && performance.now() < sliceEnd ) {
+                const sswXML = sswMechs[nextSSWIndex++];
+                const basicSSWInfo = getSSWXMLBasicInfo( sswXML );
 
-                    if( basicSSWInfo && basicSSWInfo.rules_level_ssw < 3 ) {
-                        let bmObj = new BattleMech();
-                        bmObj.importSSWXML( sswXML );
-                        bmObj.basicSSWInfo = basicSSWInfo;
+                if( basicSSWInfo && basicSSWInfo.rules_level_ssw < 3 ) {
+                    const bmObj = new BattleMech();
+                    bmObj.importSSWXML( sswXML );
+                    bmObj.basicSSWInfo = basicSSWInfo;
 
-                        appGlobals.sswMechObjects.push(bmObj);
-                    }
+                    appGlobals.sswMechObjects.push(bmObj);
                 }
-                // console.log("SSW import complete")
+            }
+
+            if( nextSSWIndex < sswMechs.length ) {
+                setTimeout( importSSWSlice, 0 );
+            } else {
                 this.setState({
                     appGlobals: appGlobals,
                 })
-            },
-            500
-        );
+            }
+        };
+        setTimeout( importSSWSlice, 500 );
 
 
 
@@ -527,6 +533,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             </Modal>
             <Router>
 
+            <React.Suspense fallback={<div className="p-3">Loading...</div>}>
             <Routes>
                 <Route path={`${process.env.PUBLIC_URL}/`} element={
                     <Home
@@ -596,6 +603,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 }/>
 
             </Routes>
+            </React.Suspense>
             </Router>
             </>
         );

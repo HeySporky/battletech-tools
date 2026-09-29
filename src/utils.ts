@@ -2,16 +2,13 @@ import { IASMULUnit } from "./classes/alpha-strike-unit";
 import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
 import { CONST_MUL_API_ENABLED } from "./configVars";
 import { IEquipmentItem } from "./data/data-interfaces";
-<<<<<<< HEAD
 import { DEFAULT_MUL_SOURCE_SELECTION, getMULRecordKey, getMULSourcesForSelection, loadMULListItems } from "./data/mul-list-items";
 import { mechClanEquipmentEnergy } from "./data/mech-clan-equipment-weapons-energy";
 import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
 import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
-=======
 import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
->>>>>>> 8f06fd5b (BattleMech: build, BV, cost and criticals on the equipment registry)
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 

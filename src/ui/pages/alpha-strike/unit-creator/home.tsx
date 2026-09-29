@@ -1,5 +1,7 @@
 import React, { type JSX } from 'react';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
+import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
+import { btRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
 import InputField from '../../../components/form_elements/input_field';
@@ -31,6 +33,11 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
             catch {
 
             }
+        }
+        // A hand-built card is not a published MUL card, so it prints as Custom Homebrew
+        // until the user picks the rules level it was built to.
+        if( asUnit.rulesLevel === undefined ) {
+            asUnit.rulesLevel = CUSTOM_HOMEBREW_RULES_LEVEL;
         }
 
 
@@ -145,6 +152,17 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
      ): void => {
         let unit = this.state.editingASUnit;
         unit.name = e.currentTarget.value;
+        this.saveUnit(true);
+        this.setState({
+            editingASUnit: unit,
+        })
+    }
+
+    setRulesLevel = (
+        e: React.FormEvent<HTMLSelectElement>,
+     ): void => {
+        let unit = this.state.editingASUnit;
+        unit.rulesLevel = +e.currentTarget.value;
         this.saveUnit(true);
         this.setState({
             editingASUnit: unit,
@@ -289,6 +307,20 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
                                     value={this.state.editingASUnit.role}
                                     onChange={this.setRole}
                                 />
+                            </div>
+                            <div className="col-md-3">
+                                <label>
+                                    Rules Level:<br />
+                                    <select
+                                        onChange={this.setRulesLevel}
+                                        value={this.state.editingASUnit.rulesLevel}
+                                        title="Printing asks for confirmation above the selected rules level and stamps anything above Standard"
+                                    >
+                                        {btRulesLevelOptions.map( (option) => (
+                                            <option key={option.id} value={option.id}>{option.name}</option>
+                                        ))}
+                                    </select>
+                                </label>
                             </div>
 
                         </div>
