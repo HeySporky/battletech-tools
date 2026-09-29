@@ -42,6 +42,10 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                     </div>
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Step 4: Place Equipment">
+                            <p>
+                                <strong>Item Slots</strong>: <span className={vehicle.getUsedItemSlots() > vehicle.getTotalItemSlots() ? "color-red" : ""}>{vehicle.getUsedItemSlots()} / {vehicle.getTotalItemSlots()}</span>
+                                {" "}(ammunition takes one slot per type)
+                            </p>
                             <table className="table">
                                 <thead>
                                     <tr>

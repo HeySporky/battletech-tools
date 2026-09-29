@@ -95,7 +95,7 @@ describe("Vehicle Internal Structure Table and armor caps", () => {
     it("gives 1 structure point per 10 tons (rounded up) uniformly across all locations, including the turret", () => {
         const vehicle = new Vehicle();
         vehicle.setTonnage(60);
-        expect(vehicle.getStructureAllocation()).toEqual({ front: 6, left: 6, right: 6, rear: 6, rotor: 0, turret: 6 });
+        expect(vehicle.getStructureAllocation()).toMatchObject({ front: 6, left: 6, right: 6, rear: 6, rotor: 0, turret: 6 });
         vehicle.setTonnage(21);
         expect(vehicle.getStructureAllocation().front).toBe(3);
     });
@@ -340,5 +340,112 @@ describe("Vehicle motive types", () => {
         const legacy = JSON.parse(build("tracked", 40).exportJSON());
         delete legacy.armorAllocation.rotor;
         expect(new Vehicle(JSON.stringify(legacy)).getArmorAllocation().rotor).toBe(0);
+    });
+});
+
+// Crew, heat sinks, power amplifiers, turrets, Superheavy locations, jump jets and item slots
+// (TM / TO:AUE as implemented by MegaMek TestTank, Tank and MegaMekLab; book not in hand).
+describe("Vehicle construction details", () => {
+    const build = (motive: string, tonnage: number): Vehicle => {
+        const vehicle = new Vehicle();
+        vehicle.setMotiveType(motive);
+        vehicle.setTonnage(tonnage);
+        return vehicle;
+    };
+    const place = (vehicle: Vehicle, tag: string, location: string) => {
+        vehicle.addEquipmentFromTag(tag);
+        const item = vehicle.getEquipmentList()[vehicle.getEquipmentList().length - 1];
+        vehicle.setEquipmentLocation(item.uuid!, location);
+        return item;
+    };
+
+    it("crews 1 per 15 tons, rounded up", () => {
+        expect(build("tracked", 15).getCrew()).toBe(1);
+        expect(build("tracked", 50).getCrew()).toBe(4);
+        expect(build("tracked", 100).getCrew()).toBe(7);
+    });
+
+    it("needs heat sinks for energy weapon heat, with free heat sinks from fusion engines only", () => {
+        const tank = build("tracked", 50);
+        place(tank, "large-laser", "front");
+        place(tank, "large-laser", "front");
+        place(tank, "autocannon-standard-b", "front");
+        expect(tank.getRequiredHeatSinks()).toBe(16);
+        expect(tank.getFreeHeatSinks()).toBe(10);
+        expect(tank.getWeightedHeatSinks()).toBe(6);
+        tank.setEngineType("ice");
+        expect(tank.getFreeHeatSinks()).toBe(0);
+        expect(tank.getWeightedHeatSinks()).toBe(16);
+    });
+
+    it("adds power amplifiers (10% of energy weapon weight) without a fusion or fission engine", () => {
+        const tank = build("tracked", 50);
+        place(tank, "large-laser", "front");
+        expect(tank.getPowerAmplifierWeight()).toBe(0);
+        tank.setEngineType("ice");
+        expect(tank.getPowerAmplifierWeight()).toBe(0.5);
+        expect(tank.getWeights().some((entry) => entry.name === "Power Amplifiers")).toBe(true);
+    });
+
+    it("offers dual turrets except on VTOL and WiGE vehicles, weighing each turret separately", () => {
+        const tank = build("tracked", 60);
+        tank.setDualTurret(true);
+        expect(tank.getLocations().map((loc) => loc.name)).toEqual(["Front", "Left", "Right", "Rear", "Front Turret", "Rear Turret"]);
+        place(tank, "large-laser", "turret2");
+        expect(tank.getWeights().find((entry) => entry.name === "Front Turret")?.weight).toBe(0.5);
+        expect(tank.getWeights().find((entry) => entry.name === "Rear Turret")?.weight).toBe(0.5);
+        expect(build("wige", 40).canHaveDualTurret()).toBe(false);
+        expect(build("vtol", 20).canHaveDualTurret()).toBe(false);
+        tank.setHasTurret(false);
+        expect(tank.hasDualTurret()).toBe(false);
+    });
+
+    it("gives Superheavy vehicles front and rear side locations instead of Left/Right", () => {
+        const tank = build("tracked", 150);
+        expect(tank.getLocations().map((loc) => loc.tag)).toEqual(["front", "frontLeft", "frontRight", "rearLeft", "rearRight", "rear", "turret"]);
+        expect(tank.getStructureAllocation().frontLeft).toBe(15);
+        const laser = place(tank, "large-laser", "rearRight");
+        tank.setArmorAllocation("rearRight", 20);
+        tank.setTonnage(100);
+        expect(laser.location).toBe("");
+        expect(tank.getArmorAllocation().rearRight).toBe(0);
+        expect(build("vtol", 50).getLocations().some((loc) => loc.tag === "frontLeft")).toBe(false);
+    });
+
+    it("mounts vehicular jump jets on hover, wheeled, tracked and WiGE only, up to Cruise MP (Advanced)", () => {
+        const hover = build("hover", 40);
+        hover.setCruiseMP(6);
+        expect(hover.setJumpMP(8)).toBe(6);
+        expect(hover.getJumpJetWeight()).toBe(3);
+        expect(hover.getRequiredRulesLevel()).toBe(3);
+        expect(build("tracked", 90).getJumpJetWeight()).toBe(0);
+        const heavy = build("tracked", 90);
+        heavy.setCruiseMP(3);
+        heavy.setJumpMP(2);
+        expect(heavy.getJumpJetWeight()).toBe(4);
+        const vtol = build("vtol", 20);
+        vtol.setCruiseMP(8);
+        expect(vtol.setJumpMP(4)).toBe(0);
+    });
+
+    it("counts item slots: equipment, one per ammo type, one for jump jets, and engine slots", () => {
+        const tank = build("tracked", 50);
+        expect(tank.getTotalItemSlots()).toBe(15);
+        place(tank, "autocannon-standard-b", "front");
+        tank.addEquipmentFromTag("ammo-is-ac-5-standard");
+        tank.addEquipmentFromTag("ammo-is-ac-5-standard");
+        expect(tank.getUsedItemSlots()).toBe(2);
+        tank.setEngineType("xl");
+        expect(tank.getUsedItemSlots()).toBe(4);
+    });
+
+    it("keeps dual turrets and jump MP through a save", () => {
+        const tank = build("hover", 40);
+        tank.setDualTurret(true);
+        tank.setCruiseMP(6);
+        tank.setJumpMP(3);
+        const restored = new Vehicle(tank.exportJSON());
+        expect(restored.hasDualTurret()).toBe(true);
+        expect(restored.getJumpMP()).toBe(3);
     });
 });

@@ -55,6 +55,8 @@ export interface IVehicleExport {
     tonnage: number;
     motiveType: string;
     hasTurret: boolean;
+    dualTurret?: boolean;
+    jumpMP?: number;
     tech: string;
     era: string;
     engineType: string;
@@ -82,16 +84,33 @@ export const VTOL_MAX_ROTOR_ARMOR = 2;
 const MAX_STANDARD_ENGINE_RATING = 400;
 const MAX_LARGE_ENGINE_RATING = 500;
 
-const emptyArmorAllocation = (): IVehicleArmorAllocation => ({ front: 0, left: 0, right: 0, rear: 0, turret: 0, rotor: 0 });
+const emptyArmorAllocation = (): IVehicleArmorAllocation => ({
+    front: 0, left: 0, right: 0, rear: 0, turret: 0, rotor: 0,
+    frontLeft: 0, frontRight: 0, rearLeft: 0, rearRight: 0, turret2: 0,
+});
 
 const LOCATION_NAMES: Record<VehicleLocation, string> = {
     front: "Front",
     left: "Left",
     right: "Right",
     rear: "Rear",
+    frontLeft: "Front Left",
+    frontRight: "Front Right",
+    rearLeft: "Rear Left",
+    rearRight: "Rear Right",
     rotor: "Rotor",
     turret: "Turret",
+    turret2: "Front Turret",
 };
+
+// Free heat sinks from the engine: fusion 10, fission 5, fuel cell 1, ICE none (as implemented by MegaMek Engine).
+const FUSION_ENGINE_TAGS = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl", "primitive"];
+
+// Item slots an engine takes in a vehicle (as implemented by MegaMek Tank.getFreeSlots).
+const ENGINE_ITEM_SLOTS: Record<string, number> = { light: 1, xl: 2, clan_xl: 1, xxl: 4, clan_xxl: 2, compact: -1 };
+
+/** Vehicular jump jets (TO:AUE p.161 per MegaMek): Advanced; IS prototype 2650, production 3083. */
+export const VEHICLE_JUMP_JET_INTRODUCED = 3083;
 
 export default class Vehicle {
     private _uuid: string = generateUUID();
@@ -104,6 +123,8 @@ export default class Vehicle {
     private _tonnage: number = 20;
     private _motiveType: IVehicleMotiveType = vehicleMotiveTypes[0];
     private _hasTurret: boolean = true;
+    private _dualTurret: boolean = false;
+    private _jumpMP: number = 0;
 
     private _tech: ITechOptions = btTechOptions[0];
     private _era: IEras = btEraOptions[0];
@@ -170,6 +191,7 @@ export default class Vehicle {
 
     public setTonnage(tonnage: number): number {
         this._tonnage = tonnage;
+        this._pruneLocations();
         this._calc();
         return this._tonnage;
     }
@@ -185,7 +207,7 @@ export default class Vehicle {
      * tournament play.
      */
     public getRequiredRulesLevel(): number {
-        let level = this.isSuperheavy() || this.hasChinTurret() ? 3 : 0;
+        let level = this.isSuperheavy() || this.hasChinTurret() || this._jumpMP > 0 ? 3 : 0;
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
         }
@@ -205,6 +227,9 @@ export default class Vehicle {
             this._removeTurret();
             this._armorAllocation.rotor = 0;
         }
+        if (!this.canHaveDualTurret()) this._removeDualTurret();
+        if (!this._motiveType.allowsJumpJets) this._jumpMP = 0;
+        this._pruneLocations();
         this._calc();
         return this._motiveType;
     }
@@ -219,7 +244,152 @@ export default class Vehicle {
     }
 
     public getTurretName(): string {
-        return this._motiveType.turret === "chin" ? "Chin Turret" : "Turret";
+        if (this._motiveType.turret === "chin") return "Chin Turret";
+        return this._dualTurret ? "Rear Turret" : "Turret";
+    }
+
+    /** Dual turrets: not on VTOLs (chin turret only) or WiGE vehicles (as implemented by MegaMekLab). */
+    public canHaveDualTurret(): boolean {
+        return this._motiveType.turret === "standard" && this._motiveType.tag !== "wige";
+    }
+
+    public hasDualTurret(): boolean {
+        return this._hasTurret && this._dualTurret;
+    }
+
+    public setDualTurret(dualTurret: boolean): boolean {
+        if (dualTurret && this.canHaveDualTurret()) {
+            this._hasTurret = true;
+            this._dualTurret = true;
+        } else {
+            this._removeDualTurret();
+        }
+        this._calc();
+        return this._dualTurret;
+    }
+
+    private _removeDualTurret(): void {
+        this._dualTurret = false;
+        this._armorAllocation.turret2 = 0;
+        for (const item of this._equipmentList) {
+            if (item.location === "turret2") item.location = "";
+        }
+    }
+
+    // Armor and equipment in locations the vehicle no longer has (Superheavy side locations,
+    // a removed rotor or turret) are cleared or returned to the unallocated list.
+    private _pruneLocations(): void {
+        const present = new Set<string>(this.getLocations().map((loc) => loc.tag));
+        for (const key of Object.keys(this._armorAllocation) as (keyof IVehicleArmorAllocation)[]) {
+            if (!present.has(key)) this._armorAllocation[key] = 0;
+        }
+        for (const item of this._equipmentList) {
+            if (item.location && !present.has(item.location)) item.location = "";
+        }
+    }
+
+    /** Crew: 1 per 15 tons, rounded up (as implemented by MegaMek Compute.getFullCrewSize). */
+    public getCrew(): number {
+        return Math.ceil(this._tonnage / 15);
+    }
+
+    public getJumpMP(): number {
+        return this._jumpMP;
+    }
+
+    /** Vehicular jump jets: hover, wheeled, tracked and WiGE only, up to Cruise MP (TO:AUE p.161). */
+    public setJumpMP(jumpMP: number): number {
+        this._jumpMP = this._motiveType.allowsJumpJets ? Math.max(0, Math.min(Math.floor(jumpMP), this._cruiseMP)) : 0;
+        this._calc();
+        return this._jumpMP;
+    }
+
+    /** Each jump jet weighs 0.5 t up to 55 t, 1 t up to 85 t, 2 t above (as for 'Mech jump jets). */
+    public getJumpJetWeight(): number {
+        const each = this._tonnage <= 55 ? 0.5 : this._tonnage <= 85 ? 1 : 2;
+        return this._jumpMP * each;
+    }
+
+    public isFusionEngine(): boolean {
+        return FUSION_ENGINE_TAGS.includes(this._engineType.tag);
+    }
+
+    public getFreeHeatSinks(): number {
+        if (this.isFusionEngine()) return 10;
+        if (this._engineType.tag === "fission") return 5;
+        if (this._engineType.tag === "cell") return 1;
+        return 0;
+    }
+
+    private static _isEnergyWeapon(item: IEquipmentItem): boolean {
+        return item.category === "Energy Weapons" && !item.isAmmo;
+    }
+
+    /**
+     * Heat sinks a vehicle must carry: the heat of its energy weapons that use no ammunition, plus
+     * heat-producing equipment (vehicles are built heat-neutral; as implemented by MegaMek
+     * TestEntity.calcHeatNeutralHSRequirement).
+     */
+    public getRequiredHeatSinks(): number {
+        let heat = 0;
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) continue;
+            const usesAmmo = !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0;
+            if (Vehicle._isEnergyWeapon(item)) {
+                if (!usesAmmo) heat += item.heat || 0;
+            } else if (item.isEquipment) {
+                heat += item.heat || 0;
+            }
+        }
+        return heat;
+    }
+
+    /** Heat sinks that weigh anything: those above the engine's free ones, plus any extra ones added. */
+    public getWeightedHeatSinks(): number {
+        return Math.max(0, this.getRequiredHeatSinks() - this.getFreeHeatSinks()) + this._additionalHeatSinks;
+    }
+
+    public getTotalHeatSinks(): number {
+        return Math.max(this.getRequiredHeatSinks(), this.getFreeHeatSinks()) + this._additionalHeatSinks;
+    }
+
+    /**
+     * Power amplifiers: vehicles without a fusion or fission engine need 10% of their energy weapons'
+     * weight, rounded up to the half ton (vehicle flamers and chemical lasers excepted; as
+     * implemented by MegaMek TestTank).
+     */
+    public getPowerAmplifierWeight(): number {
+        if (this.isFusionEngine() || this._engineType.tag === "fission") return 0;
+        const weight = this._equipmentList
+            .filter((item) => Vehicle._isEnergyWeapon(item) && !/vehicle-flamer|chemical-laser/.test(item.tag))
+            .reduce((sum, item) => sum + (item.weight || 0), 0);
+        return Math.ceil(weight / 10 * 2) / 2;
+    }
+
+    /** Item slots: 5 + tonnage / 5, rounded down (as implemented by MegaMek Tank.getTotalSlots). */
+    public getTotalItemSlots(): number {
+        return 5 + Math.floor(this._tonnage / 5);
+    }
+
+    /**
+     * Item slots used: equipment (ammunition takes one slot per ammo type), one slot for all jump
+     * jets, and engine slots (as implemented by MegaMek Tank.getFreeSlots).
+     */
+    public getUsedItemSlots(): number {
+        const ammoTypes = new Set<string>();
+        let used = 0;
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) {
+                ammoTypes.add(item.tag);
+            } else if (!item.isModularArmor) {
+                used += Math.max(0, item.space?.combatVehicle ?? 1);
+            }
+        }
+        used += ammoTypes.size;
+        if (this._jumpMP > 0) used += 1;
+        used += ENGINE_ITEM_SLOTS[this._engineType.tag] ?? 0;
+        if (this.getEngineRating() > 400) used += 1;
+        return used;
     }
 
     public setHasTurret(hasTurret: boolean): boolean {
@@ -235,6 +405,7 @@ export default class Vehicle {
     // Without a turret its armor goes away and its equipment returns to the unallocated list.
     private _removeTurret(): void {
         this._hasTurret = false;
+        this._removeDualTurret();
         this._armorAllocation.turret = 0;
         for (const item of this._equipmentList) {
             if (item.location === "turret") item.location = "";
@@ -243,8 +414,13 @@ export default class Vehicle {
 
     /** The vehicle's locations in record-sheet order: front, sides, rear, rotor (VTOL), turret. */
     public getLocations(): { tag: VehicleLocation; name: string }[] {
-        const locations: VehicleLocation[] = ["front", "left", "right", "rear"];
+        // Superheavy vehicles (other than VTOLs) have front/rear side locations instead of Left/Right
+        // (as implemented by MegaMek SuperHeavyTank).
+        const locations: VehicleLocation[] = this.isSuperheavy() && !this._motiveType.hasRotor
+            ? ["front", "frontLeft", "frontRight", "rearLeft", "rearRight", "rear"]
+            : ["front", "left", "right", "rear"];
         if (this._motiveType.hasRotor) locations.push("rotor");
+        if (this._hasTurret && this._dualTurret) locations.push("turret2");
         if (this._hasTurret) locations.push("turret");
         return locations.map((tag) => ({ tag, name: tag === "turret" ? this.getTurretName() : LOCATION_NAMES[tag] }));
     }
@@ -283,6 +459,7 @@ export default class Vehicle {
 
     public setCruiseMP(cruiseMP: number): number {
         this._cruiseMP = Math.max(0, cruiseMP);
+        this._jumpMP = Math.min(this._jumpMP, this._cruiseMP);
         this._calc();
         return this._cruiseMP;
     }
@@ -461,14 +638,11 @@ export default class Vehicle {
     // including the rotor and turret (as implemented by MegaMek Tank.autoSetInternal).
     public getStructureAllocation(): IVehicleStructureAllocation {
         const pointsPerLocation = Math.max(1, Math.ceil(this._tonnage / 10));
-        return {
-            front: pointsPerLocation,
-            left: pointsPerLocation,
-            right: pointsPerLocation,
-            rear: pointsPerLocation,
-            rotor: this._motiveType.hasRotor ? pointsPerLocation : 0,
-            turret: this._hasTurret ? pointsPerLocation : 0,
-        };
+        const result: IVehicleStructureAllocation = emptyArmorAllocation();
+        for (const loc of this.getLocations()) {
+            result[loc.tag] = pointsPerLocation;
+        }
+        return result;
     }
 
     // Any single location can use up the vehicle's total armor point budget, minus whatever is
@@ -490,7 +664,7 @@ export default class Vehicle {
     }
 
     public setHeatSinkType(tag: string): IHeatSync {
-        this._heatSinkType = mechHeatSinkTypes.find((h) => h.tag === tag) ?? this._heatSinkType;
+        this._heatSinkType = mechHeatSinkTypes.find((h) => h.tag === tag && h.tag === "single") ?? this._heatSinkType;
         this._calc();
         return this._heatSinkType;
     }
@@ -499,16 +673,16 @@ export default class Vehicle {
         return this._additionalHeatSinks;
     }
 
-    // Unlike 'Mechs, Combat Vehicles get no free heat sinks - every one mounted must be bought and weighed.
+    // Heat sinks beyond the required ones (see getRequiredHeatSinks).
     public setAdditionalHeatSinks(count: number): number {
         this._additionalHeatSinks = Math.max(0, count);
         this._calc();
         return this._additionalHeatSinks;
     }
 
-    // Every Combat Vehicle heat sink weighs 1 ton regardless of type; dissipation (not weight) differs by type.
+    // Vehicles use single heat sinks only (as implemented by MegaMek TestTank); each weighs 1 ton.
     public getHeatSinkWeight(): number {
-        return this._additionalHeatSinks;
+        return this.getWeightedHeatSinks();
     }
 
     public getEquipmentList(): IEquipmentItem[] {
@@ -689,17 +863,26 @@ export default class Vehicle {
         }
         this._weights.push({ name: "Armor", weight: this.getArmorWeight() });
 
-        if (this._additionalHeatSinks > 0) {
-            this._weights.push({ name: `${this._heatSinkType.name} Heat Sinks`, weight: this._additionalHeatSinks });
+        if (this.getWeightedHeatSinks() > 0) {
+            this._weights.push({ name: `${this._heatSinkType.name} Heat Sinks`, weight: this.getWeightedHeatSinks() });
+        }
+        if (this.getPowerAmplifierWeight() > 0) {
+            this._weights.push({ name: "Power Amplifiers", weight: this.getPowerAmplifierWeight() });
+        }
+        if (this._jumpMP > 0) {
+            this._weights.push({ name: "Jump Jets", weight: this.getJumpJetWeight() });
         }
 
+        // Turret mass: 10% of the combined weight of turret-mounted equipment (ammunition excluded),
+        // rounded up to the nearest half-ton, minimum half a ton.
+        const turretWeight = (location: string) => Math.max(0.5, Math.ceil(this._equipmentList
+            .filter((item) => item.location === location && !item.isAmmo)
+            .reduce((sum, item) => sum + item.weight, 0) * 0.1 * 2) / 2);
+        if (this._hasTurret && this._dualTurret) {
+            this._weights.push({ name: "Front Turret", weight: turretWeight("turret2") });
+        }
         if (this._hasTurret) {
-            // Turret basket mass: 10% of the combined weight of turret-mounted equipment,
-            // rounded up to the nearest half-ton, minimum half a ton (TechManual).
-            const turretEquipmentWeight = this._equipmentList
-                .filter((item) => item.location === "turret")
-                .reduce((sum, item) => sum + item.weight, 0);
-            this._weights.push({ name: this.getTurretName(), weight: Math.max(0.5, Math.ceil(turretEquipmentWeight * 0.1 * 2) / 2) });
+            this._weights.push({ name: this.getTurretName(), weight: turretWeight("turret") });
         }
 
         for (const item of this._equipmentList) {
@@ -773,6 +956,8 @@ export default class Vehicle {
             tonnage: this._tonnage,
             motiveType: this._motiveType.tag,
             hasTurret: this._hasTurret,
+            dualTurret: this._dualTurret,
+            jumpMP: this._jumpMP,
             tech: this._tech.tag,
             era: this._era.tag,
             engineType: this._engineType.tag,
@@ -809,6 +994,8 @@ export default class Vehicle {
             this._tonnage = importObject.tonnage || 20;
             this._motiveType = getVehicleMotiveType(importObject.motiveType);
             this._hasTurret = importObject.hasTurret ?? true;
+            this._dualTurret = !!importObject.dualTurret && this._hasTurret;
+            this._jumpMP = importObject.jumpMP || 0;
             this.setTech(importObject.tech);
             this.setEra(importObject.era);
             this.setEngineType(importObject.engineType);

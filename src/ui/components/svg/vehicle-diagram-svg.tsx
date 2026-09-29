@@ -139,14 +139,26 @@ export default class VehicleDiagramSVG extends React.Component<IVehicleDiagramSV
                 {this.renderOutline()}
                 <text x={496} y={14} fontSize={11} fontWeight="bold" textAnchor="end" fill="rgb(120,120,120)">{this.props.motive.name.toUpperCase()}</text>
                 {this.renderLocation("FRONT", 100, 10, 300, 70, s.front, a.front)}
-                {this.renderLocation("LEFT", 10, 90, 80, 220, s.left, a.left)}
+                {has("frontLeft") ? (
+                    <>
+                        {this.renderLocation("FRONT LEFT", 10, 90, 80, 105, s.frontLeft ?? 0, a.frontLeft ?? 0)}
+                        {this.renderLocation("REAR LEFT", 10, 205, 80, 105, s.rearLeft ?? 0, a.rearLeft ?? 0)}
+                    </>
+                ) : this.renderLocation("LEFT", 10, 90, 80, 220, s.left, a.left)}
                 {has("rotor") ? this.renderCircleLocation("ROTOR", 250, 230, 80, s.rotor ?? 0, a.rotor ?? 0, true) : null}
                 {has("turret") && isChinTurret ? this.renderLocation(nameOf("turret"), 150, 86, 200, 56, s.turret, a.turret) : null}
-                {has("turret") && !isChinTurret ? this.renderCircleLocation(nameOf("turret"), 250, 200, 90, s.turret, a.turret) : null}
+                {has("turret") && !isChinTurret && !has("turret2") ? this.renderCircleLocation(nameOf("turret"), 250, 200, 90, s.turret, a.turret) : null}
+                {has("turret2") ? this.renderCircleLocation(nameOf("turret2"), 250, 146, 54, s.turret2 ?? 0, a.turret2 ?? 0) : null}
+                {has("turret2") ? this.renderCircleLocation(nameOf("turret"), 250, 256, 54, s.turret, a.turret) : null}
                 {this.props.motive.tag === "naval-sub" && !has("turret") ? (
                     <rect x={215} y={150} width={70} height={100} rx={30} fill="none" stroke={this.outlineColor} strokeWidth={4} />
                 ) : null}
-                {this.renderLocation("RIGHT", 410, 90, 80, 220, s.right, a.right)}
+                {has("frontRight") ? (
+                    <>
+                        {this.renderLocation("FRONT RIGHT", 410, 90, 80, 105, s.frontRight ?? 0, a.frontRight ?? 0)}
+                        {this.renderLocation("REAR RIGHT", 410, 205, 80, 105, s.rearRight ?? 0, a.rearRight ?? 0)}
+                    </>
+                ) : this.renderLocation("RIGHT", 410, 90, 80, 220, s.right, a.right)}
                 {this.renderLocation("REAR", 100, 320, 300, 70, s.rear, a.rear)}
             </svg>
         );

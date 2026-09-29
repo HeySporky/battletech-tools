@@ -109,6 +109,22 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         }
     }
 
+    updateDualTurret = (e: React.FormEvent<HTMLInputElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setDualTurret(e.currentTarget.checked);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateJumpMP = (e: React.FormEvent<HTMLSelectElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setJumpMP(+e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     updateHeatSinks = (count: number): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
@@ -221,11 +237,18 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                 ) : (
                                     <p className="smaller-text">VTOLs can only mount a chin turret, which needs the Advanced rules level.</p>
                                 )}
+                                {vehicle.hasTurret() && vehicle.canHaveDualTurret() ? (
+                                    <InputCheckbox
+                                        label="Dual Turrets (front and rear)"
+                                        checked={vehicle.hasDualTurret()}
+                                        onChange={this.updateDualTurret}
+                                    />
+                                ) : null}
 
                                 {vehicle.getRequiredRulesLevel() > rulesLevel ? (
                                     <p className="color-red smaller-text">
                                         This design needs the {getRulesLevelOptions().find((option) => option.id === vehicle.getRequiredRulesLevel())?.name} rules
-                                        level{vehicle.isSuperheavy() ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""} and
+                                        level{vehicle.isSuperheavy() ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""}{vehicle.getJumpMP() > 0 ? " (jump jets)" : ""} and
                                         is not legal at the selected level. Printing will ask for confirmation.
                                     </p>
                                 ) : null}
@@ -249,6 +272,17 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     </select>
                                 </label>
 
+                                {motive.allowsJumpJets && (rulesLevel >= 3 || vehicle.getJumpMP() > 0) ? (
+                                    <label>
+                                        Jump MP (vehicular jump jets, Advanced):
+                                        <select value={vehicle.getJumpMP()} onChange={this.updateJumpMP}>
+                                            {Array.from({ length: vehicle.getCruiseMP() + 1 }, (_, mp) => (
+                                                <option key={mp} value={mp}>{mp}</option>
+                                            ))}
+                                        </select>
+                                    </label>
+                                ) : null}
+
                                 <p>
                                     <strong>Engine Rating</strong>: {vehicle.getEngineRating()} ({vehicle.getTonnage()} t x {vehicle.getCruiseMP()} MP
                                     - suspension factor {vehicle.getSuspensionFactor()}) &nbsp;|&nbsp;
@@ -257,8 +291,16 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     {motive.liftEquipment ? <> &nbsp;|&nbsp; <strong>{motive.liftEquipment}</strong>: {vehicle.getLiftEquipmentWeight()} t</> : null}
                                 </p>
 
+                                <p>
+                                    <strong>Heat Sinks</strong>: {vehicle.getRequiredHeatSinks()} required for energy weapons and equipment,
+                                    {" "}{vehicle.getFreeHeatSinks()} free from the engine, {vehicle.getWeightedHeatSinks()} t
+                                    {vehicle.getPowerAmplifierWeight() > 0 ? <> &nbsp;|&nbsp; <strong>Power Amplifiers</strong>: {vehicle.getPowerAmplifierWeight()} t</> : null}
+                                    {" "}&nbsp;|&nbsp; <strong>Crew</strong>: {vehicle.getCrew()}
+                                    {" "}&nbsp;|&nbsp; <strong>Item Slots</strong>: <span className={vehicle.getUsedItemSlots() > vehicle.getTotalItemSlots() ? "color-red" : ""}>{vehicle.getUsedItemSlots()} / {vehicle.getTotalItemSlots()}</span>
+                                </p>
+
                                 <label>
-                                    Heat Sinks:
+                                    Extra Heat Sinks:
                                     <InputNumeric
                                         value={vehicle.getAdditionalHeatSinks()}
                                         min={0}

@@ -562,6 +562,13 @@ export interface IVehicleArmorAllocation {
     turret: number;
     /** VTOL rotor; absent in saves made before VTOL support. */
     rotor?: number;
+    /** Superheavy vehicles replace Left/Right with four side locations. */
+    frontLeft?: number;
+    frontRight?: number;
+    rearLeft?: number;
+    rearRight?: number;
+    /** Front turret of a dual-turret vehicle ("turret" is then the rear turret). */
+    turret2?: number;
 }
 
 export interface IVehicleStructureAllocation {
@@ -571,7 +578,13 @@ export interface IVehicleStructureAllocation {
     rear: number;
     turret: number;
     rotor?: number;
+    frontLeft?: number;
+    frontRight?: number;
+    rearLeft?: number;
+    rearRight?: number;
+    turret2?: number;
 }
 
-export type VehicleLocation = "front" | "left" | "right" | "rear" | "rotor" | "turret";
+export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" | "frontRight" | "rearLeft" | "rearRight"
+    | "rotor" | "turret" | "turret2";
 
