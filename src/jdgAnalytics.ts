@@ -1,9 +1,7 @@
-const propertyID = 1;
-
 export function callAnalytics(
     window: any,
-    appSessionID: string = "",
-    appVersion: string = "",
+    _appSessionID: string = "",
+    _appVersion: string = "",
 ) {
     //Disabling Analytics for now
     return;

@@ -528,7 +528,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 {this.state.showTakeDamage ? (
                     <>
 
-                    <text x="185" y="425" textAnchor="start" fontFamily="sans-serif" fontSize="15">Click below to add damage taken</text>
+                    <text x="185" y="425" textAnchor="middle" fontFamily="sans-serif" fontSize="15">Click below to add damage taken</text>
                 <rect x="80" y="435" width="465" height="60" fill="rgb(0,0,0)" rx="30" ry="30"></rect>
                 <rect className="cursor-pointer" onClick={() => this._takeDamage(1)} x="110" y="440" width="25" height="50" fill="rgb(102,102,102)"></rect>
                 <circle className="cursor-pointer" onClick={() => this._takeDamage(1)} cx="110" cy="465" r="25" fill="rgb(102,102,102)"></circle>
@@ -619,7 +619,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                     let ability = this.props.asUnit.getSpecialAbility(word);
                                     if( ability !== null ) {
                                         return (
-                                            //@ts-ignore
+                                            // @ts-expect-error Legacy compatibility type mismatch
                                             <React.Fragment key={wordIndex}><a onClick={(e) => this.props.showSpecialAbility(e, ability)} title={"Click here to view the description for " + word} href="/">{word}</a>{comma}</React.Fragment>
                                         )
                                     } else {
@@ -656,7 +656,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                                     let ability = this.props.asUnit.getSpecialAbility(word);
                                     if( ability ) {
                                         return (
-                                            //@ts-ignore
+                                            // @ts-expect-error Legacy compatibility type mismatch
                                             <React.Fragment key={wordIndex}><a onClick={(e) => this.props.showSpecialAbility(e, ability)} title={"Click here to view the description for " + word} href="/">{word}</a>{comma}</React.Fragment>
                                         )
                                     } else {
@@ -875,9 +875,9 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
                 {this.props.inPlay && this.props.asUnit.hasRoundStaged() ? (
                     <g transform='translate(435, 584)'>
-                        <rect x="0" y="0" width="130" height="40" rx="5" ry="5" onClick={(e) => this._ApplyRound()} fill={this.roundDotColor} stroke={this.roundStrokeColor} strokeWidth={3}></rect>
+                        <rect x="0" y="0" width="130" height="40" rx="5" ry="5" onClick={() => this._ApplyRound()} fill={this.roundDotColor} stroke={this.roundStrokeColor} strokeWidth={3}></rect>
                         <text x="65" y="30" 
-                            onClick={(e) => this._ApplyRound()}
+                            onClick={() => this._ApplyRound()}
                             className={this.props.inPlay && this.props.asUnit ? "cursor-pointer" : ""}
                             fontFamily="sans-serif" 
                             fontSize="30"

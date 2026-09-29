@@ -5,6 +5,8 @@ import { checkFullRestoreData, getFullBackup, IFullBackup, IRestoreMessage, rest
 import { IAppGlobals } from '../../app-router';
 import InputCheckbox from '../../components/form_elements/input_checkbox';
 import UIPage from '../../components/ui-page';
+const ExclamationCircle = FaExclamationCircle as any;
+const ExclamationTriangle = FaExclamationTriangle as any;
 
 export default class SettingsBackupAndRestore extends React.Component<ISettingsBackupAndRestoreProps, ISettingsBackupAndRestoreState> {
     // [openPicker, data, authResponse] = useDrivePicker();
@@ -122,7 +124,7 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
       }
     }
 
-    handleFileRead = (e: any) => {
+    handleFileRead = (_e: any) => {
       if( this.fileReader ) {
         let content = this.fileReader.result;
 
@@ -218,9 +220,9 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
         return (
           <li key={msgIndex}>
             {msg.severity === "add" ? (
-                <FaExclamationCircle className="color-green" />
+                <ExclamationCircle className="color-green" />
               ) : (
-                <FaExclamationTriangle className="color-red" />
+                <ExclamationTriangle className="color-red" />
               )}&nbsp; {msg.message}
           </li>
         )
