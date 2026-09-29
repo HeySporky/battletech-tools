@@ -1,7 +1,7 @@
 name: CI
 
 # Every PR and every push to master is checked on the three desktop OSes and every supported Node line
-# (package.json "engines": ^22.12 || ^24 || >=26), then in real browsers.
+# (package.json "engines": ^22.22 || ^24 || >=26), then in real browsers.
 # Android/Termux is not a GitHub runner; `npm test` there covers the same unit suite as the `check` job.
 
 on:
