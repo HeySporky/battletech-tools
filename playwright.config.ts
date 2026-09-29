@@ -18,6 +18,10 @@ export default defineConfig({
     forbidOnly: !!process.env.CI,
     retries: process.env.CI ? 1 : 0,
     reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
+    // Cold starts are CPU-heavy (the app imports every bundled SSW mech in the background), and with many parallel
+    // workers a redirect into a lazily loaded route can take several seconds to paint. 15 s instead of the default 5 s
+    // keeps that from reading as a failure; a real crash still fails immediately via the pageerror/console checks.
+    expect: { timeout: 15_000 },
     use: {
         baseURL: `http://localhost:${PORT}/battletech-tools/`,
         trace: "on-first-retry",
