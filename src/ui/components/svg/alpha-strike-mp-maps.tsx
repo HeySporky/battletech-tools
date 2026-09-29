@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type JSX } from "react";
 import { IAlphaStrikeMPDeployment } from "../../../data/alpha-strike-mp-deployments";
 
 export default class AlphaStrikeMPMaps extends React.Component<IAlphaStrikeMPMapsProps, IAlphaStrikeMPMapsState> {

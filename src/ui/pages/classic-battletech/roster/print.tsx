@@ -1,6 +1,6 @@
 import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { type JSX } from 'react';
+import { Link } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
 import './print.scss';

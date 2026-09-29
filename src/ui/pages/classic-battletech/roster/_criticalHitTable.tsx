@@ -5,6 +5,7 @@ import { BattleMech, ICriticalSlot } from '../../../../classes/battlemech';
 import { getLocationName } from '../../../../utils';
 import { makeRange } from '../../../../utils/makeRange';
 import { IAppGlobals } from '../../../app-router';
+import type { JSX } from "react";
 const CheckSquare = FaCheckSquare as any;
 const Dangerous = MdDangerous as any;
 

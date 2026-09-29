@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { FaCheckCircle, FaSync, FaTimesCircle } from "react-icons/fa";
 import { IASMULUnit } from '../../classes/alpha-strike-unit';
 import { getMULASSearchResults } from '../../utils';

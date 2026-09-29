@@ -981,61 +981,23 @@ export class BattleMech {
     }
 
     /**
-     * Calculates the non-linear speed scaling factor applied directly to the Offensive Battle Rating.
-     * Coordinates movement metrics natively with the canonical Speed Factor Table rules (TechManual, p. 315).
+     * Offensive Speed Factor (TechManual p. 316).
+     *
+     * Speed Factor MP = Run MP + round( Jump MP / 2 )
+     * Speed Factor    = ( 1 + ( MP - 5 ) / 10 ) ^ 1.2, rounded to two decimal places
+     *
+     * The Speed Factor Table in the TechManual is this formula evaluated for MP 0-25, so one formula covers every
+     * speed (same implementation as MegaMek's BVCalculator.offensiveSpeedFactor / offensiveSpeedFactorMP).
      */
     private _getSpeedFactorModifier(): number {
-        // Core formula implementation: Mobility = Run MP + (Jump MP / 2) (TM p. 315)
-        const mobilityScore = this.getRunSpeed() + (this.getJumpSpeed() / 2);
+        const speedFactorMP = this.getRunSpeed() + Math.round(this.getJumpSpeed() / 2);
 
-        if (!Number.isFinite(mobilityScore)) {
+        // Units without valid movement data (NaN/Infinity) fall back to the MP 0 factor instead of poisoning BV.
+        if (!Number.isFinite(speedFactorMP)) {
             return 0.44;
         }
 
-        // Static lookup table replicating the explicit values from TechManual p. 315
-        // Index matches the exact mobilityScore value (Index 0 = 0 MP, Index 5 = 5 MP, etc.)
-        const SPEED_FACTOR_TABLE: number[] = [
-            0.44, // 0 MP
-            0.54, // 1 MP
-            0.65, // 2 MP
-            0.77, // 3 MP
-            0.88, // 4 MP
-            1.00, // 5 MP (Standard Baseline Engine threshold)
-            1.12, // 6 MP
-            1.24, // 7 MP
-            1.37, // 8 MP
-            1.50, // 9 MP
-            1.63, // 10 MP
-            1.76, // 11 MP
-            1.89, // 12 MP
-            2.02, // 13 MP
-            2.16, // 14 MP
-            2.30, // 15 MP
-            2.44, // 16 MP
-            2.58, // 17 MP
-            2.72, // 18 MP
-            2.86, // 19 MP
-            3.00, // 20 MP
-            3.15, // 21 MP
-            3.29, // 22 MP
-            3.44, // 23 MP
-            3.59, // 24 MP
-            3.74  // 25 MP
-        ];
-
-        // Interpolate fractional mobility scores, such as Run 0 + Jump 1 / 2.
-        if (mobilityScore >= 0 && mobilityScore < SPEED_FACTOR_TABLE.length) {
-            const lowerIndex = Math.floor(mobilityScore);
-            const upperIndex = Math.ceil(mobilityScore);
-            const interpolation = mobilityScore - lowerIndex;
-            return SPEED_FACTOR_TABLE[lowerIndex] +
-                (SPEED_FACTOR_TABLE[upperIndex] - SPEED_FACTOR_TABLE[lowerIndex]) * interpolation;
-        }
-
-        // Mathematical Equation Fallback Rule for extreme/high-speed units (TM p. 315 footnote)
-        // Formula: (1 + (Mobility - 5) / 10)^1.2 rounded precisely to two decimal places
-        const highSpeedRaw = Math.pow((1 + (mobilityScore - 5) / 10), 1.2);
-        return Number.isFinite(highSpeedRaw) ? parseFloat(highSpeedRaw.toFixed(2)) : 0.44;
+        return Math.round(Math.pow(1 + (speedFactorMP - 5) / 10, 1.2) * 100) / 100;
     }
 
     public isQuad() {
@@ -4190,8 +4152,14 @@ export class BattleMech {
         const parsedRating = typeof ratingNumber === "string" 
             ? Number.parseInt(ratingNumber, 10) 
             : Math.floor(ratingNumber);
+        // A rating of 0 means "no engine": reset() and Walk MP 0 (the "-Select Walking Speed-" option) both land here
+        if (parsedRating === 0) {
+            this._engine = null;
+            this._calc();
+            return 0;
+        }
         // Guard Clause: Exit immediately if the incoming data cannot resolve to a valid integer
-        if (Number.isNaN(parsedRating) || parsedRating <= 0) {
+        if (Number.isNaN(parsedRating) || parsedRating < 0) {
             console.error(`setEngine failed: '${ratingNumber}' is not a valid engine rating integer.`);
             return 0;
         }

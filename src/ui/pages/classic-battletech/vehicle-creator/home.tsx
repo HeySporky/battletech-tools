@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { type JSX } from 'react';
+import { Link } from 'react-router';
 import { FaArrowCircleRight, FaFile, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import Vehicle, { IVehicleExport } from '../../../../classes/vehicle';
 import { IAppGlobals } from '../../../app-router';

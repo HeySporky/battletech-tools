@@ -333,3 +333,65 @@ tool. Items are ordered by dependency, not by product marketing priority.
   hover, wheeled, VTOL, WiGE, submarine, surface naval.
 - [ ] Add a decision record for Small Craft placement and current AeroTech rules
   version before beginning capital aerospace work.
+
+## Runtime and tooling
+
+- [x] Node 26 baseline (`.nvmrc` / `.node-version`); `engines` accepts `^22.22 || ^24 || >=26` (React Router 8 needs 22.22+, Vitest 5 needs 22.12+)
+- [x] Commit `package-lock.json`; `npm ci` everywhere, `npm audit` at 0 vulnerabilities
+- [x] Vite 8, React 19.3, React Router 8 (`react-router`), fast-xml-parser 5, ESLint 10, typescript-eslint 8.71
+- [x] Dual-track TypeScript: `npm run typecheck` uses TS 7 (native) where a binary exists, TS 6.0.3 elsewhere
+      (Android/Termux) and for ESLint
+- [x] Sass: `@import` -> `@use`, `darken`/`lighten` -> `color.adjust` (no Dart Sass 3 deprecations left)
+- [x] CI: ubuntu/windows/macos x Node 22/24/26, plus browser-mode and E2E jobs (`.github/workflows/ci.yml`)
+- [ ] Drop the `typescript-7` alias and make TS 7 the only `typescript` once typescript-eslint supports TS >= 6.1
+      and TS 7 ships the JS API (or an Android binary) - then remove the fallback in `scripts/typecheck.mjs`
+- [ ] Turn `prefer-const` / `no-var` back on after an `eslint --fix` commit (see lint backlog)
+- [ ] Add lint back to `npm run check` and make the CI lint job blocking once the backlog below is empty
+
+## Engine bugs found by the new tests
+
+- [x] BV Speed Factor crashed on odd Jump MP (fractional table index; 72 of 508 SSW mechs, and it truncated the
+      background SSW import at startup). Fixed with the canonical TM p. 316 formula (MegaMek parity).
+      Upstream has a different bug in the same function (wrong formula above 25 MP): branch
+      `fix/speed-factor-above-25-mp`, to be offered to HeySporky as an issue + PR.
+- [x] `setEngine(0)` logged an error and kept the old engine; 0 now clears it.
+- [ ] BV differs from SSW's BV2 figure for many bundled mechs (221 of 508 exact) - reportedly addressed on the MUL
+      branch; re-check `battlemech.test.ts` against SSW BV once that lands.
+
+## Lint cleanup backlog (11 problems: 10 errors, 1 warnings)
+
+Generated from `npm run lint` (ESLint 10 + typescript-eslint 8.71). CI runs lint as a non-blocking job and
+`npm run check` leaves it out until this list is empty; then add lint back to both. Rule breakdown:
+
+| Count | Rule |
+|------:|------|
+| 6 | `no-undef` |
+| 3 | `@typescript-eslint/no-unused-vars` |
+| 1 | `preserve-caught-error` |
+| 1 | `no-useless-assignment` |
+
+`prefer-const` (~790 hits) and `no-var` (~20) are switched off in `eslint.config.mjs` for now; both are
+auto-fixable (`npx eslint . --fix --rule 'prefer-const: error' --rule 'no-var: error'`) and deserve their own
+reviewable commit before being turned back on.
+
+None of these come from the modernization work - they are pre-existing code health items. File by file:
+
+### src/data/mul-list-items.ts
+
+- [ ] L3:6 `warning` **@typescript-eslint/no-unused-vars** - 'MULChunkEntry' is defined but never used.
+
+### tools/live_mul_browser_probe.mjs
+
+- [ ] L38:10 `error` **@typescript-eslint/no-unused-vars** - 'findChunkEntry' is defined but never used.
+- [ ] L65:16 `error` **@typescript-eslint/no-unused-vars** - 'saveChunkIfNeeded' is defined but never used.
+- [ ] L109:24 `error` **no-undef** - 'document' is not defined.
+- [ ] L110:30 `error` **no-undef** - 'document' is not defined.
+- [ ] L121:30 `error` **no-undef** - 'document' is not defined.
+- [ ] L130:33 `error` **no-undef** - 'HTMLAnchorElement' is not defined.
+
+### tools/mul-sync/sync-mul.mjs
+
+- [ ] L216:17 `error` **preserve-caught-error** - There is no `cause` attached to the symptom error being thrown.
+- [ ] L264:9 `error` **no-useless-assignment** - The value assigned to 'files' is not used in subsequent statements.
+- [ ] L376:9 `error` **no-undef** - 'document' is not defined.
+- [ ] L382:27 `error` **no-undef** - 'document' is not defined.

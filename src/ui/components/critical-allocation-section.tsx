@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { BattleMech, ICriticalSlot } from '../../classes/battlemech';
 import { IAppGlobals } from '../app-router';
 import './critical-allocation-section.scss';

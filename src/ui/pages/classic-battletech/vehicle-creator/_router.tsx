@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
 import Error404 from "../../error404";
 import Home from './home';
@@ -9,6 +9,8 @@ import VehicleCreatorEquipmentSelection from './equipment-selection';
 import VehicleCreatorEquipmentPlacement from './equipment-placement';
 import VehicleCreatorSummary from './summary';
 import VehicleCreatorRecordSheet from './record-sheet';
+
+import type { JSX } from "react";
 
 export default class VehicleCreatorRouter extends React.Component<IVehicleCreatorRouterProps, IVehicleCreatorRouterState> {
 
