@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import VehicleDiagramSVG from '../../../components/svg/vehicle-diagram-svg';
+import { formatVehicleASDamage } from '../../../../classes/vehicle';
 
 export default class VehicleCreatorRecordSheet extends React.Component<IRecordSheetProps, IRecordSheetState> {
     constructor(props: IRecordSheetProps) {
@@ -60,12 +61,12 @@ export default class VehicleCreatorRecordSheet extends React.Component<IRecordSh
                     <h3>Alpha Strike</h3>
                     <table className="table">
                         <tbody>
-                            <tr><td>Size</td><td>{as.size}</td></tr>
-                            <tr><td>Movement</td><td>{as.movement}"{as.movementType}</td></tr>
-                            <tr><td>Damage (S/M/L/E)</td><td>{as.damage.short}/{as.damage.medium}/{as.damage.long}/{as.damage.extreme}</td></tr>
-                            <tr><td>Armor</td><td>{as.armor ?? "Pending verified conversion"}</td></tr>
-                            <tr><td>Structure</td><td>{as.structure ?? "Pending verified conversion"}</td></tr>
-                            <tr><td>Point Value</td><td>{as.pointValue ?? "Pending verified conversion"}</td></tr>
+                            <tr><td>Size / TMM</td><td>{as.size} / {as.tmm}</td></tr>
+                            <tr><td>Movement</td><td>{as.movement}"{as.movementType}{as.jumpMovement ? ` / ${as.jumpMovement}"j` : ""}</td></tr>
+                            <tr><td>Damage (S/M/L)</td><td>{formatVehicleASDamage(as.damageValues.short)}/{formatVehicleASDamage(as.damageValues.medium)}/{formatVehicleASDamage(as.damageValues.long)}</td></tr>
+                            <tr><td>Armor / Structure</td><td>{as.armor} / {as.structure}</td></tr>
+                            <tr><td>Special Abilities</td><td>{as.specialAbilities.join(", ")}</td></tr>
+                            <tr><td>Point Value</td><td>{as.pointValue}</td></tr>
                         </tbody>
                     </table>
                 </div>

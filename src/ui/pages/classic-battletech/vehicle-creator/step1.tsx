@@ -125,6 +125,14 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         }
     }
 
+    updateTroopSpace = (tons: number): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setTroopSpace(tons);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     updateHeatSinks = (count: number): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
@@ -298,6 +306,16 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     {" "}&nbsp;|&nbsp; <strong>Crew</strong>: {vehicle.getCrew()}
                                     {" "}&nbsp;|&nbsp; <strong>Item Slots</strong>: <span className={vehicle.getUsedItemSlots() > vehicle.getTotalItemSlots() ? "color-red" : ""}>{vehicle.getUsedItemSlots()} / {vehicle.getTotalItemSlots()}</span>
                                 </p>
+
+                                <label>
+                                    Troop Space (tons of infantry compartment):
+                                    <InputNumeric
+                                        value={vehicle.getTroopSpace()}
+                                        min={0}
+                                        step={0.5}
+                                        setValue={this.updateTroopSpace}
+                                    />
+                                </label>
 
                                 <label>
                                     Extra Heat Sinks:

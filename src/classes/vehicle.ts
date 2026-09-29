@@ -1,5 +1,6 @@
 import { generateUUID } from "../utils/generateUUID";
 import Pilot, { IPilot } from "./pilot";
+import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
@@ -7,7 +8,7 @@ import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions } from "../data/era-options";
 import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
-import { getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel } from "../data/equipment-registry";
+import { getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { getMovementModifier } from "../utils";
 import {
@@ -37,15 +38,32 @@ export interface IVehicleEquipmentExport {
     currentAdditionalArmor?: number;
 }
 
+/** An Alpha Strike damage value: a whole number, or minimal damage (0*). */
+export interface IVehicleASDamageValue {
+    damage: number;
+    minimal: boolean;
+}
+
 export interface IVehicleAlphaStrikeStats {
     size: number;
     movement: number;
     movementType: string;
+    jumpMovement: number;
+    tmm: number;
     damage: { short: number; medium: number; long: number; extreme: number };
-    armor: number | null;
-    structure: number | null;
-    overheat: number | null;
-    pointValue: number | null;
+    /** The same damage with minimal (0*) flags, as printed on the card. */
+    damageValues: { short: IVehicleASDamageValue; medium: IVehicleASDamageValue; long: IVehicleASDamageValue; extreme: IVehicleASDamageValue };
+    armor: number;
+    structure: number;
+    overheat: number;
+    pointValue: number;
+    specialAbilities: string[];
+    calcLog: string;
+}
+
+/** Card text for a damage value: 0* for minimal damage. */
+export function formatVehicleASDamage(value: IVehicleASDamageValue): string {
+    return value.minimal ? "0*" : `${value.damage}`;
 }
 
 export interface IVehicleExport {
@@ -59,6 +77,7 @@ export interface IVehicleExport {
     hasTurret: boolean;
     dualTurret?: boolean;
     jumpMP?: number;
+    troopSpace?: number;
     tech: string;
     era: string;
     engineType: string;
@@ -127,6 +146,7 @@ export default class Vehicle {
     private _hasTurret: boolean = true;
     private _dualTurret: boolean = false;
     private _jumpMP: number = 0;
+    private _troopSpace: number = 0;
 
     private _tech: ITechOptions = btTechOptions[0];
     private _era: IEras = btEraOptions[0];
@@ -316,6 +336,20 @@ export default class Vehicle {
         return this._jumpMP * each;
     }
 
+    public getTroopSpace(): number {
+        return this._troopSpace;
+    }
+
+    /**
+     * Infantry compartment (troop space) in tons, by the half ton: weight only, one item slot for
+     * all compartments, and IT on the Alpha Strike card (as implemented by MegaMek; it adds no cost).
+     */
+    public setTroopSpace(tons: number): number {
+        this._troopSpace = Math.max(0, Math.round(tons * 2) / 2);
+        this._calc();
+        return this._troopSpace;
+    }
+
     public isFusionEngine(): boolean {
         return FUSION_ENGINE_TAGS.includes(this._engineType.tag);
     }
@@ -393,6 +427,7 @@ export default class Vehicle {
         }
         used += ammoTypes.size;
         if (this._jumpMP > 0) used += 1;
+        if (this._troopSpace > 0) used += 1;
         used += ENGINE_ITEM_SLOTS[this._engineType.tag] ?? 0;
         if (this.getEngineRating() > 400) used += 1;
         return used;
@@ -1054,6 +1089,9 @@ export default class Vehicle {
         if (this._jumpMP > 0) {
             this._weights.push({ name: "Jump Jets", weight: this.getJumpJetWeight() });
         }
+        if (this._troopSpace > 0) {
+            this._weights.push({ name: "Troop Space", weight: this._troopSpace });
+        }
 
         // Turret mass: 10% of the combined weight of turret-mounted equipment (ammunition excluded),
         // rounded up to the nearest half-ton, minimum half a ton.
@@ -1077,9 +1115,13 @@ export default class Vehicle {
         this._calcCost();
     }
 
-    // Alpha Strike Size bands for ground Combat Vehicles (Alpha Strike Companion).
+    // Alpha Strike conversion for Combat Vehicles (Alpha Strike Companion conversion rules as
+    // implemented by MegaMek's ASConverter; checked against the MUL cards in vehicle.test.ts).
+    // Weapon damage comes from each catalog record's alphaStrike values.
+
+    // Size: under 40 t 1, under 60 t 2, under 80 t 3, else 4 (matches 1,189 of 1,190 MUL vehicles).
     public getAlphaStrikeSize(): number {
-        if (this._tonnage >= 100) return 4;
+        if (this._tonnage >= 80) return 4;
         if (this._tonnage >= 60) return 3;
         if (this._tonnage >= 40) return 2;
         return 1;
@@ -1093,41 +1135,265 @@ export default class Vehicle {
 
     // AS ground movement conversion: 1 Cruise MP = 2".
     public getAlphaStrikeMovement(): number {
-        return this._cruiseMP * 2;
+        return this.getCruiseMP() * 2;
     }
 
-    // Sums each mounted item's precomputed Alpha Strike damage (rear-mounted weapons are excluded
-    // from the front arc total). Armor/Structure/Overheat/Point Value conversion for Combat Vehicles
-    // is not yet implemented - see TODO.md Phase 2 "Add Alpha Strike conversion for each vehicle category".
-    public getAlphaStrikeDamage(): { short: number; medium: number; long: number; extreme: number } {
-        const totals = { short: 0, medium: 0, long: 0, extreme: 0 };
-        for (const item of this._equipmentList) {
-            if (item.rear || !item.alphaStrike) continue;
-            totals.short += item.alphaStrike.rangeShort || 0;
-            totals.medium += item.alphaStrike.rangeMedium || 0;
-            totals.long += item.alphaStrike.rangeLong || 0;
-            totals.extreme += item.alphaStrike.rangeExtreme || 0;
+    /** AS Target Movement Modifier from movement in inches. */
+    public static alphaStrikeTMM(inches: number): number {
+        if (inches >= 35) return 5;
+        if (inches >= 19) return 4;
+        if (inches >= 13) return 3;
+        if (inches >= 9) return 2;
+        if (inches >= 5) return 1;
+        return 0;
+    }
+
+    private static _roundUpToTenth(value: number): number {
+        return Math.ceil(Math.round(value * 1000) / 100) / 10;
+    }
+
+    /** Rounded up to the tenth; under 0.5 is minimal damage (0*), otherwise rounded up. */
+    private static _asDamage(raw: number): IVehicleASDamageValue {
+        const tenth = Vehicle._roundUpToTenth(raw);
+        if (tenth <= 0) return { damage: 0, minimal: false };
+        if (tenth < 0.5) return { damage: 0, minimal: true };
+        return { damage: Math.ceil(tenth), minimal: false };
+    }
+
+    /**
+     * A special ability's damage vector (as implemented by MegaMek ASDamageVector): a turret's
+     * standard damage rounds up; REAR and FLK round normally; LRM/SRM/AC/IF round normally with no
+     * minimal damage. Values are rounded up to the tenth first; 0 prints as "-".
+     */
+    private static _asVector(values: number[], rounding: "up" | "normal" | "normalNoMinimal"): string {
+        return values.map((raw) => {
+            const tenth = Vehicle._roundUpToTenth(raw);
+            let value: IVehicleASDamageValue;
+            if (rounding === "up") {
+                value = Vehicle._asDamage(raw);
+            } else {
+                const minimal = rounding === "normal" && tenth > 0 && tenth < 0.5;
+                value = { damage: minimal ? 0 : Math.round(tenth), minimal };
+            }
+            return value.minimal ? "0*" : value.damage > 0 ? `${value.damage}` : "-";
+        }).join("/");
+    }
+
+    /**
+     * Damage multiplier for low ammunition: fewer than 10 shots per weapon of a kind x 0.75, none x 0
+     * (as implemented by MegaMek ASDamageConverter.assembleAmmoCounts).
+     */
+    private _asAmmoMultiplier(weapon: IEquipmentItem): number {
+        const usesAmmo = !!weapon.ammoTypes?.length || (weapon.shotsPerTon ?? 0) > 0;
+        if (!usesAmmo) return 1;
+        const sameWeapons = this._equipmentList.filter((item) => !item.isAmmo && item.tag === weapon.tag).length;
+        const shots = this._equipmentList
+            .filter((item) => item.isAmmo && getCompatibleAmmo(weapon, item))
+            .reduce((sum, ammo) => sum + getWeaponShotsPerTon(weapon, ammo) * ammo.weight, 0);
+        if (shots <= 0) return 0;
+        return shots / sameWeapons >= 10 ? 1 : 0.75;
+    }
+
+    private _asWeaponDamage(weapon: IEquipmentItem): number[] {
+        const as = weapon.alphaStrike;
+        if (!as) return [0, 0, 0, 0];
+        const multiplier = this._asAmmoMultiplier(weapon) * (this.hasTargetingComputer() && as.tc ? 1.1 : 1);
+        return [as.rangeShort || 0, as.rangeMedium || 0, as.rangeLong || 0, as.rangeExtreme || 0].map((value) => value * multiplier);
+    }
+
+    private _asSum(weapons: IEquipmentItem[]): number[] {
+        return weapons.reduce((sum, weapon) => {
+            const damage = this._asWeaponDamage(weapon);
+            return sum.map((value, index) => value + damage[index]);
+        }, [0, 0, 0, 0]);
+    }
+
+    // Weapon families that earn their own special ability (LRM, SRM, AC, IF), from the catalog notes.
+    private static _asFamily(weapon: IEquipmentItem, family: "LRM" | "SRM" | "AC" | "IF"): boolean {
+        const notes = weapon.alphaStrike?.notes ?? [];
+        if (family === "IF") return notes.includes("Indirect Fire");
+        if (family === "AC") return notes.some((note) => note.toLowerCase() === "ac");
+        return notes.includes(family);
+    }
+
+    // LRM/SRM/AC specials need at least 1 medium-range damage; IF needs long-range damage.
+    private _asFamilySpecials(weapons: IEquipmentItem[]): string[] {
+        const specials: string[] = [];
+        for (const family of ["IF", "LRM", "SRM", "AC"] as const) {
+            const damage = this._asSum(weapons.filter((weapon) => Vehicle._asFamily(weapon, family)));
+            if (family === "IF") {
+                if (damage[2] > 0) specials.push(`IF${Vehicle._asVector([damage[2]], "normalNoMinimal").replace("-", "0")}`);
+            } else if (Vehicle._roundUpToTenth(damage[1]) >= 1) {
+                specials.push(`${family}${Vehicle._asVector(family === "SRM" ? damage.slice(0, 2) : damage.slice(0, 3), "normalNoMinimal")}`);
+            }
         }
-        return {
-            short: Math.round(totals.short),
-            medium: Math.round(totals.medium),
-            long: Math.round(totals.long),
-            extreme: Math.round(totals.extreme),
-        };
+        return specials;
+    }
+
+    public getAlphaStrikeArmor(): number {
+        const modifiers: Record<string, number> = { hardened: 2, "ferro-lamellor": 1.2, commercial: 0.5 };
+        const points = this.getLocations().reduce((sum, loc) => sum + (this._armorAllocation[loc.tag] ?? 0), 0)
+            * (modifiers[this._armorType.tag] ?? 1);
+        const modularPacks = this._equipmentList.filter((item) => item.isModularArmor).length;
+        return Math.round((points + 10 * modularPacks) / 30);
+    }
+
+    public getAlphaStrikeStructure(): number {
+        const structure = this.getStructureAllocation();
+        const points = this.getLocations().reduce((sum, loc) => sum + (structure[loc.tag] ?? 0), 0);
+        return Math.ceil(points / 10);
+    }
+
+    public getAlphaStrikeDamage(): { short: number; medium: number; long: number; extreme: number } {
+        const values = this.getAlphaStrikeStats().damageValues;
+        return { short: values.short.damage, medium: values.medium.damage, long: values.long.damage, extreme: values.extreme.damage };
     }
 
     public getAlphaStrikeStats(): IVehicleAlphaStrikeStats {
+        let log = "";
+        const weapons = this._equipmentList.filter((item) => !item.isAmmo && item.alphaStrike
+            && ((item.alphaStrike.rangeShort || 0) + (item.alphaStrike.rangeMedium || 0) + (item.alphaStrike.rangeLong || 0) + (item.alphaStrike.rangeExtreme || 0)) > 0);
+        const standardWeapons = weapons.filter((item) => item.location !== "rear");
+        const rearWeapons = weapons.filter((item) => item.location === "rear");
+        const turretWeapons = weapons.filter((item) => item.location === "turret" || item.location === "turret2");
+
+        const standardRaw = this._asSum(standardWeapons);
+        const [short, medium, long, extreme] = standardRaw.map((raw) => Vehicle._asDamage(raw));
+        log += `Standard damage (all but rear weapons): ${standardRaw.map((raw) => raw.toFixed(2)).join("/")} -> ${[short, medium, long].map(formatVehicleASDamage).join("/")}<br />`;
+
+        const specials: string[] = [];
+        specials.push(...this._asFamilySpecials(standardWeapons));
+        if (rearWeapons.length) {
+            specials.push(`REAR${Vehicle._asVector(this._asSum(rearWeapons).slice(0, 3), "normal")}`);
+        }
+        if (turretWeapons.length) {
+            const turretSpecials = this._asFamilySpecials(turretWeapons);
+            specials.push(`TUR(${[Vehicle._asVector(this._asSum(turretWeapons).slice(0, 3), "up"), ...turretSpecials].join(",")})`);
+        }
+        if (this._engineType.tag === "ice") specials.push("EE");
+        if (this._engineType.tag === "cell") specials.push("FC");
+        specials.push("SRCH");
+        if (this._troopSpace > 0) specials.push(`IT${this._troopSpace}`);
+        if (this._motiveType.hasRotor) specials.push("ATMO");
+        const equipmentSpecials = new Set<string>();
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) continue;
+            for (const code of item.alphaStrike?.specialAbility ?? []) {
+                if (!code.includes("#")) equipmentSpecials.add(code);
+            }
+        }
+        specials.push(...equipmentSpecials);
+        specials.sort();
+
+        const size = this.getAlphaStrikeSize();
+        const move = this.getAlphaStrikeMovement();
+        const jumpMove = this._jumpMP * 2;
+        const tmm = Vehicle.alphaStrikeTMM(move);
+        const armor = this.getAlphaStrikeArmor();
+        const structure = this.getAlphaStrikeStructure();
+        log += `Size ${size}, Move ${move}"${this.getAlphaStrikeMovementType()}${jumpMove ? ` / ${jumpMove}"j` : ""}, TMM ${tmm}, Armor ${armor}, Structure ${structure}<br />`;
+
+        // Point Value (ASC, as implemented by MegaMek ASPointValueConverter for ground units).
+        const pvDamage = (value: IVehicleASDamageValue) => (value.minimal ? 0.5 : value.damage);
+        let offensive = pvDamage(short) + 2 * pvDamage(medium) + pvDamage(long);
+        const ifSpecial = specials.find((code) => /^IF/.test(code));
+        if (ifSpecial) offensive += +ifSpecial.slice(2) || 0;
+        log += `Offensive value: S + 2M + L${ifSpecial ? " + IF" : ""} = ${offensive}<br />`;
+
+        const highestMove = Math.max(move, jumpMove);
+        let defensive = 0.125 * highestMove + (jumpMove > 0 ? 0.5 : 0);
+        if (equipmentSpecials.has("AMS")) defensive += 1;
+        const armorMultiplier = ["t", "n", "s"].includes(this._motiveType.alphaStrikeMove) ? 1.8
+            : ["h", "w"].includes(this._motiveType.alphaStrikeMove) ? 1.7 : 1.5;
+        let dir = armor * armorMultiplier + structure;
+        const airborne = ["v", "g"].includes(this._motiveType.alphaStrikeMove);
+        const jumpBonus = jumpMove > 0 && !(short.damage || medium.damage || long.damage || short.minimal || medium.minimal || long.minimal) ? 1 : 0;
+        const defenseModifier = tmm + jumpBonus + (airborne ? 1 : 0);
+        const defenseFactor = 1 + (defenseModifier <= 2 ? 0.1 : 0.25) * defenseModifier;
+        dir = 0.5 * Math.round(dir * defenseFactor * 2);
+        defensive += dir;
+        log += `Defensive value: 0.125 x ${highestMove}" + DIR (${armor} x ${armorMultiplier} + ${structure}) x ${defenseFactor} = ${defensive}<br />`;
+
+        let subtotal = offensive + defensive;
+        const roundToHalf = (value: number) => 0.5 * Math.round(value * 2);
+        // Agile bonus.
+        let agile = 0;
+        if (tmm > 1) {
+            if (pvDamage(medium) > 0) agile = (tmm - 1) * pvDamage(medium);
+            else if (tmm >= 3) agile = (tmm - 2) * pvDamage(short);
+        }
+        // Brawler malus: short-range-only (or short/medium-only when slow) units.
+        let brawler = 0;
+        if (highestMove >= 2 && !equipmentSpecials.has("ECM") && !equipmentSpecials.has("AECM")) {
+            const onlyShort = pvDamage(medium) + pvDamage(long) === 0 && pvDamage(short) > 0;
+            const onlyShortMedium = pvDamage(long) === 0 && pvDamage(short) + pvDamage(medium) > 0;
+            const multiplier = highestMove >= 6 && highestMove <= 10 && onlyShort ? 0.25
+                : highestMove < 6 && onlyShort ? 0.5 : highestMove < 6 && onlyShortMedium ? 0.25 : 0;
+            brawler = roundToHalf(multiplier * subtotal);
+        }
+        subtotal += roundToHalf(agile) - brawler;
+        // Force bonuses.
+        const forceBonus: Record<string, number> = { AECM: 3, BH: 2, C3RS: 2, ECM: 2, RCN: 2, TRN: 2, LPRB: 1, PRB: 1, LECM: 0.5 };
+        for (const code of equipmentSpecials) subtotal += forceBonus[code] ?? 0;
+        const pointValue = Math.max(1, Math.round(subtotal));
+        log += `Agile +${roundToHalf(agile)}, Brawler -${brawler}; Point Value ${pointValue} (provisional)<br />`;
+
         return {
-            size: this.getAlphaStrikeSize(),
-            movement: this.getAlphaStrikeMovement(),
+            size,
+            movement: move,
             movementType: this.getAlphaStrikeMovementType(),
-            damage: this.getAlphaStrikeDamage(),
-            // Pending a verified Combat Vehicle Alpha Strike conversion table (TODO.md Phase 2).
-            armor: null,
-            structure: null,
-            overheat: null,
-            pointValue: null,
+            jumpMovement: jumpMove,
+            tmm,
+            damage: { short: short.damage, medium: medium.damage, long: long.damage, extreme: extreme.damage },
+            damageValues: { short, medium, long, extreme },
+            armor,
+            structure,
+            overheat: 0,
+            pointValue,
+            specialAbilities: specials,
+            calcLog: log,
         };
+    }
+
+    /** The converted Alpha Strike card, built the same way as a Master Unit List record. */
+    public getAlphaStrikeUnit(): AlphaStrikeUnit {
+        const stats = this.getAlphaStrikeStats();
+        const damage = stats.damageValues;
+        const move = `${stats.movement}"${stats.movementType}` + (stats.jumpMovement ? `/${stats.jumpMovement}"j` : "");
+        const record = {
+            Id: 0,
+            Name: `${this._name} ${this._model}`.trim() || "Combat Vehicle",
+            Class: this._name,
+            Variant: this._model,
+            Tonnage: this._tonnage,
+            Cost: this.getCBillCost(),
+            BattleValue: this.getBattleValue(),
+            BFType: "CV",
+            BFSize: stats.size,
+            BFMove: move,
+            BFTMM: stats.tmm,
+            BFArmor: stats.armor,
+            BFStructure: stats.structure,
+            BFThreshold: 0,
+            BFDamageShort: damage.short.damage,
+            BFDamageMedium: damage.medium.damage,
+            BFDamageLong: damage.long.damage,
+            BFDamageExtreme: damage.extreme.damage,
+            BFDamageShortMin: damage.short.minimal,
+            BFDamageMediumMin: damage.medium.minimal,
+            BFDamageLongMin: damage.long.minimal,
+            BFDamageExtremeMin: damage.extreme.minimal,
+            BFOverheat: 0,
+            BFPointValue: stats.pointValue,
+            BFAbilities: stats.specialAbilities.join(","),
+            Role: { Id: 0, Name: "None", Image: null, SortOrder: 0 },
+            Technology: { Id: 0, Name: this._tech.name, Image: null, SortOrder: 0 },
+            Type: { Id: 19, Name: "Combat Vehicle", Image: null, SortOrder: 0 },
+        } as unknown as IASMULUnit;
+        const unit = new AlphaStrikeUnit();
+        unit.importMUL(record);
+        unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        return unit;
     }
 
     public export(): IVehicleExport {
@@ -1142,6 +1408,7 @@ export default class Vehicle {
             hasTurret: this._hasTurret,
             dualTurret: this._dualTurret,
             jumpMP: this._jumpMP,
+            troopSpace: this._troopSpace || undefined,
             tech: this._tech.tag,
             era: this._era.tag,
             engineType: this._engineType.tag,
@@ -1180,6 +1447,7 @@ export default class Vehicle {
             this._hasTurret = importObject.hasTurret ?? true;
             this._dualTurret = !!importObject.dualTurret && this._hasTurret;
             this._jumpMP = importObject.jumpMP || 0;
+            this._troopSpace = importObject.troopSpace || 0;
             this.setTech(importObject.tech);
             this.setEra(importObject.era);
             this.setEngineType(importObject.engineType);

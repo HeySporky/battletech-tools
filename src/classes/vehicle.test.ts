@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import Vehicle from "./vehicle";
+import Vehicle, { formatVehicleASDamage } from "./vehicle";
 import { getVehicleTonnageBounds } from "../data/vehicle-motive-types";
 
 describe("Vehicle tonnage bounds by motive type and rules level", () => {
@@ -450,34 +450,34 @@ describe("Vehicle construction details", () => {
     });
 });
 
-// Battle Value of published vehicles, rebuilt from their record sheets (loadouts from MegaMek unit
-// files), against the official Master Unit List BV. The Heavy Wheeled APC's 3 t of troop space is
-// not modeled, so it leaves 3 t unused.
-describe("Vehicle Battle Value against the Master Unit List", () => {
-    type Spec = { name: string; mul: number; motive: string; tons: number; cruise: number; engine: string; armor: number[]; turret: boolean;
+// Published vehicles rebuilt from their record sheets (loadouts from MegaMek unit files), checked
+// against the official Master Unit List: Battle Value, and the whole Alpha Strike card. The Sea
+// Skimmer's MUL card has no REAR for its rear machine gun (MegaMek's conversion gives REAR 0*/-/-
+// for that loadout too), so REAR is left out of its comparison.
+describe("Vehicles against the Master Unit List", () => {
+    type Spec = { name: string; card: string; mul: number; troopSpace?: number; motive: string; tons: number; cruise: number; engine: string; armor: number[]; turret: boolean;
         eq: [string, string, number?][] };
     const specs: Spec[] = [
-        { name: "Scorpion", mul: 306, motive: "tracked", tons: 25, cruise: 4, engine: "ice", armor: [16, 11, 11, 10, 16], turret: true,
+        { name: "Scorpion", card: '8"t TMM1 SZ1 A2 S2 1/1/1 PV11 EE,SRCH,TUR(1/1/1)', mul: 306, motive: "tracked", tons: 25, cruise: 4, engine: "ice", armor: [16, 11, 11, 10, 16], turret: true,
             eq: [["machine-gun", "turret"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", "", 0.5], ["ammo-is-ac-5-standard", ""]] },
-        { name: "Vedette", mul: 475, motive: "tracked", tons: 50, cruise: 5, engine: "ice", armor: [20, 18, 18, 20, 20], turret: true,
+        { name: "Vedette", card: '10"t TMM2 SZ2 A3 S3 1/1/1 PV16 EE,SRCH,TUR(0*/1/1)', mul: 475, motive: "tracked", tons: 50, cruise: 5, engine: "ice", armor: [20, 18, 18, 20, 20], turret: true,
             eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", ""], ["ammo-is-ac-5-standard", ""]] },
-        { name: "Pegasus", mul: 640, motive: "hover", tons: 35, cruise: 8, engine: "ice", armor: [26, 19, 19, 19, 21], turret: true,
+        { name: "Pegasus", card: '16"h TMM3 SZ1 A3 S2 2/2/0 PV25 EE,SRCH,SRM1/1,TUR(2/2/-,SRM1/1)', mul: 640, motive: "hover", tons: 35, cruise: 8, engine: "ice", armor: [26, 19, 19, 19, 21], turret: true,
             eq: [["medium-laser", "front"], ["srm-6", "turret"], ["srm-6", "turret"], ["ammo-srm-standard", ""]] },
-        { name: "J. Edgar", mul: 544, motive: "hover", tons: 25, cruise: 11, engine: "standard", armor: [30, 19, 19, 12, 24], turret: true,
+        { name: "J. Edgar", card: '22"h TMM4 SZ1 A3 S2 1/1/0 PV23 SRCH,TUR(1/1/-)', mul: 544, motive: "hover", tons: 25, cruise: 11, engine: "standard", armor: [30, 19, 19, 12, 24], turret: true,
             eq: [["medium-laser", "turret"], ["srm-2", "turret"], ["srm-2", "turret"], ["ammo-srm-standard", ""]] },
-        { name: "Condor", mul: 653, motive: "hover", tons: 50, cruise: 8, engine: "ice", armor: [30, 15, 15, 14, 22], turret: true,
+        { name: "Condor", card: '16"h TMM3 SZ2 A3 S3 2/2/1 PV27 EE,SRCH,TUR(2/2/1)', mul: 653, motive: "hover", tons: 50, cruise: 8, engine: "ice", armor: [30, 15, 15, 14, 22], turret: true,
             eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["medium-laser", "turret"], ["medium-laser", "turret"], ["ammo-is-ac-5-standard", ""], ["ammo-machine-gun-standard", "", 0.5]] },
-        { name: "Warrior H-7", mul: 295, motive: "vtol", tons: 21, cruise: 9, engine: "ice", armor: [6, 5, 5, 6, 2], turret: false,
+        { name: "Warrior H-7", card: '18"v TMM3 SZ1 A1 S2 1/1/0* PV15 ATMO,EE,SRCH', mul: 295, motive: "vtol", tons: 21, cruise: 9, engine: "ice", armor: [6, 5, 5, 6, 2], turret: false,
             eq: [["srm-4", "front"], ["autocannon-standard-a", "front"], ["ammo-srm-standard", ""], ["ammo-is-ac-2-standard", ""]] },
-        { name: "Sea Skimmer", mul: 288, motive: "hydrofoil", tons: 25, cruise: 12, engine: "ice", armor: [9, 7, 7, 4, 5], turret: true,
+        { name: "Sea Skimmer", card: '24"n TMM4 SZ1 A1 S2 1/1/0 PV17 EE,SRCH,TUR(1/1/-)', mul: 288, motive: "hydrofoil", tons: 25, cruise: 12, engine: "ice", armor: [9, 7, 7, 4, 5], turret: true,
             eq: [["machine-gun", "right"], ["machine-gun", "left"], ["machine-gun", "rear"], ["srm-4", "turret"], ["ammo-machine-gun-standard", "", 0.5], ["ammo-srm-standard", ""]] },
-        { name: "Heavy Wheeled APC (MG)", mul: 213, motive: "wheeled", tons: 20, cruise: 6, engine: "ice", armor: [20, 13, 13, 10, 0], turret: false,
+        { name: "Heavy Wheeled APC (MG)", troopSpace: 3, card: '12"w TMM2 SZ1 A2 S1 1/0/0 PV8 EE,IT3,REAR0*/-/-,SRCH', mul: 213, motive: "wheeled", tons: 20, cruise: 6, engine: "ice", armor: [20, 13, 13, 10, 0], turret: false,
             eq: [["machine-gun", "front"], ["machine-gun", "front"], ["machine-gun", "right"], ["machine-gun", "left"], ["machine-gun", "rear"], ["machine-gun", "rear"],
                 ["ammo-machine-gun-standard", ""], ["ammo-machine-gun-standard", "", 0.5]] },
     ];
 
-    for (const spec of specs) {
-        it(`${spec.name}: BV ${spec.mul}`, () => {
+    const build = (spec: Spec): Vehicle => {
             const vehicle = new Vehicle();
             vehicle.setMotiveType(spec.motive);
             vehicle.setTonnage(spec.tons);
@@ -493,9 +493,34 @@ describe("Vehicle Battle Value against the Master Unit List", () => {
                 if (weight) item.weight = weight;
                 if (location) vehicle.setEquipmentLocation(item.uuid!, location);
             }
+            if (spec.troopSpace) vehicle.setTroopSpace(spec.troopSpace);
             vehicle.setTonnage(spec.tons);
+            return vehicle;
+    };
+
+    it("builds a printable Alpha Strike unit from the conversion (Scorpion)", () => {
+        const unit = build(specs[0]).getAlphaStrikeUnit();
+        expect(unit.basePoints).toBe(11);
+        expect(unit.type).toBe("CV");
+        expect(unit.move[0]).toMatchObject({ move: 8, type: "t" });
+        expect(unit.armor).toBe(2);
+        expect(unit.abilities).toContain("TUR(1/1/1)");
+    });
+
+    for (const spec of specs) {
+        it(`${spec.name}: BV ${spec.mul}, exact tonnage`, () => {
+            const vehicle = build(spec);
             expect(vehicle.getBattleValue()).toBe(spec.mul);
-            expect(vehicle.getRemainingTonnage()).toBe(spec.name.startsWith("Heavy Wheeled APC") ? 3 : 0);
+            expect(vehicle.getRemainingTonnage()).toBe(0);
+        });
+
+        it(`${spec.name}: Alpha Strike ${spec.card}`, () => {
+            const as = build(spec).getAlphaStrikeStats();
+            const damage = as.damageValues;
+            const specials = as.specialAbilities.filter((code) => spec.name !== "Sea Skimmer" || !code.startsWith("REAR"));
+            expect(`${as.movement}"${as.movementType} TMM${as.tmm} SZ${as.size} A${as.armor} S${as.structure} `
+                + `${formatVehicleASDamage(damage.short)}/${formatVehicleASDamage(damage.medium)}/${formatVehicleASDamage(damage.long)} `
+                + `PV${as.pointValue} ${specials.join(",")}`).toBe(spec.card);
         });
     }
 });

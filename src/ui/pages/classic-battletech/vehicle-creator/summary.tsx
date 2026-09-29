@@ -5,6 +5,7 @@ import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-men
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SanitizedHTML from '../../../components/sanitized-html';
+import { formatVehicleASDamage } from '../../../../classes/vehicle';
 
 export default class VehicleCreatorSummary extends React.Component<ISummaryProps, ISummaryState> {
     constructor(props: ISummaryProps) {
@@ -72,19 +73,22 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                             <h3>Alpha Strike Stats</h3>
                             <table className="table">
                                 <tbody>
-                                    <tr><td>Size</td><td>{as.size}</td></tr>
-                                    <tr><td>Movement</td><td>{as.movement}"{as.movementType}</td></tr>
-                                    <tr><td>Damage (S/M/L/E)</td><td>{as.damage.short}/{as.damage.medium}/{as.damage.long}/{as.damage.extreme}</td></tr>
-                                    <tr><td>Armor</td><td>{as.armor ?? "Pending verified conversion"}</td></tr>
-                                    <tr><td>Structure</td><td>{as.structure ?? "Pending verified conversion"}</td></tr>
-                                    <tr><td>Overheat (OV)</td><td>{as.overheat ?? "Pending verified conversion"}</td></tr>
-                                    <tr><td>Point Value</td><td>{as.pointValue ?? "Pending verified conversion"}</td></tr>
+                                    <tr><td>Size / TMM</td><td>{as.size} / {as.tmm}</td></tr>
+                                    <tr><td>Movement</td><td>{as.movement}"{as.movementType}{as.jumpMovement ? ` / ${as.jumpMovement}"j` : ""}</td></tr>
+                                    <tr><td>Damage (S/M/L)</td><td>{formatVehicleASDamage(as.damageValues.short)}/{formatVehicleASDamage(as.damageValues.medium)}/{formatVehicleASDamage(as.damageValues.long)}</td></tr>
+                                    <tr><td>Armor / Structure</td><td>{as.armor} / {as.structure}</td></tr>
+                                    <tr><td>Overheat (OV)</td><td>{as.overheat}</td></tr>
+                                    <tr><td>Special Abilities</td><td>{as.specialAbilities.join(", ")}</td></tr>
+                                    <tr><td>Point Value</td><td>{as.pointValue}</td></tr>
                                 </tbody>
                             </table>
+                            <SanitizedHTML raw={true} html={as.calcLog} />
                             <p className="smaller-text">
-                                Armor/Structure/Overheat/Point Value conversions are not yet implemented for
-                                Combat Vehicles - see TODO.md Phase 2.
+                                Converted with the Alpha Strike Companion rules as implemented by MegaMek; published
+                                vehicles convert to their Master Unit List cards. Published units should still use their
+                                MUL card.
                             </p>
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/print-as`} className="btn btn-primary btn-sm">Print Alpha Strike Card</Link>
 
                             <h3>Battle Value Calculation</h3>
                             <SanitizedHTML raw={true} html={vehicle.getBattleValueLog()} />
