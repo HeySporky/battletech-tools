@@ -1593,11 +1593,23 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     <div className="flex">
       <div className="text-center">
-      {this.state.setMovementDialog.isQuadVee() ? (
+      {this.state.setMovementDialog.isLAM() || this.state.setMovementDialog.isQuadVee() ? (
         <>
           <div className="small-text">Transformation Mode</div>
-          <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("mech")}>Mech</button>
-          <button className={this.state.setMovementDialog.getTransformationMode() === "vehicle" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("vehicle")}>Vehicle</button>
+          {this.state.setMovementDialog.isLAM() ? (
+            <>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("mech")}>Mech</button>
+              {this.state.setMovementDialog.hasAirMechMode() ? (
+                <button className={this.state.setMovementDialog.getTransformationMode() === "airmech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("airmech")}>AirMech</button>
+              ) : null}
+              <button className={this.state.setMovementDialog.getTransformationMode() === "aerospace" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("aerospace")}>Aerospace</button>
+            </>
+          ) : (
+            <>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("mech")}>Mech</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "vehicle" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("vehicle")}>Vehicle</button>
+            </>
+          )}
           {this.state.setMovementDialog.isQuadVee() ? <div className="small-text">Motive: {this.state.setMovementDialog.getQuadVeeMotive()} Vehicle Cruise MP: {this.state.setMovementDialog.getQuadVeeVehicleCruiseMP()}</div> : null}
         </>
       ) : null}

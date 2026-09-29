@@ -39,6 +39,15 @@ export const mechTypeOptions: IMechType[] = [
 		notes: "Advanced",
 	},
 	{
+		id: 4,
+		tag: "lam",
+		name:  "LAM",
+		rulesLevel: 4,
+		book: "IO",
+		page: 50,
+		notes: "Experimental",
+	},
+	{
 		id: 5,
 		tag: "quadvee",
 		name:  "QuadVee",

@@ -3,7 +3,7 @@ import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
@@ -116,6 +116,7 @@ export interface IOmniConfiguration {
     name: string;
     equipment: IBMEquipmentExport[];
     allocation: ICriticalSlot[];
+    bombLoadout?: Record<string, number>;
 }
 
 export interface IBattleMechExport {
@@ -167,10 +168,13 @@ export interface IBattleMechExport {
     location?: string;
     mechType: string;
     quadVeeMotive?: "tracked" | "wheeled";
+    lamType?: "standard" | "bimodal";
+    /** LAM bombs loaded into Bomb Bays, keyed by bomb ammunition tag. */
+    bombLoadout?: Record<string, number>;
     /** OmniMech configurations sharing this base chassis; `equipment` holds the active one. */
     omniConfigurations?: IOmniConfiguration[];
     activeOmniConfiguration?: string;
-    transformationMode?:"mech" | "vehicle";
+    transformationMode?:"mech" | "airmech" | "aerospace" | "vehicle";
     mirrorArmorAllocations: boolean;
     model: string;
     name: string;
@@ -287,10 +291,14 @@ export class BattleMech {
 
     private _mechType = mechTypeOptions[0];
     private _quadVeeMotive: "tracked" | "wheeled" = "tracked";
+    // Standard LAMs have Mech/AirMech/Fighter modes; Bimodal LAMs have no AirMech mode (IO).
+    private _lamType: "standard" | "bimodal" = "standard";
+    /** LAM bombs loaded into the Bomb Bays, keyed by bomb ammunition tag. */
+    private _bombLoadout: Record<string, number> = {};
     /** Stored OmniMech configurations; the active one is live in _equipmentList. */
     private _omniConfigurations: IOmniConfiguration[] = [];
     private _activeOmniConfiguration = BattleMech.DEFAULT_OMNI_CONFIGURATION;
-    private _transformationMode: "mech" | "vehicle" = "mech";
+    private _transformationMode: "mech" | "airmech" | "aerospace" | "vehicle" = "mech";
     private _tech = btTechOptions[0];
     private _era = btEraOptions[1]; // Default to Succession Wars
     private _model: string = "";
@@ -725,7 +733,14 @@ export class BattleMech {
         // 2A. Gather movement metrics using native speed methods
         const runSpeed = this.getBVRunSpeed();
         const jumpSpeed = this.getBVJumpSpeed();
-        const runModifier = getMovementModifier(runSpeed);
+        // Standard LAMs rate their running TMM on AirMech Flank MP plus the +1 airborne
+        // modifier; bimodal LAMs use the normal 'Mech TMM (IO p.192).
+        const runModifier = this.hasAirMechMode()
+            ? getMovementModifier(this.getAirMechFlankMP()) + 1
+            : getMovementModifier(runSpeed);
+        if (this.hasAirMechMode()) {
+            this._calcLogBV += `LAM: running TMM uses AirMech Flank MP ${this.getAirMechFlankMP()} +1 airborne (IO p.192)<br />`;
+        }
         // Jumping modifier bonus (TM p. 304); UMU movement earns no jump bonus.
         const jumpModifier = Math.max(jumpSpeed > 0 ? getMovementModifier(jumpSpeed) + 1 : 0, getMovementModifier(this.getUMUSpeed()));
         // Determine the optimal Target Movement Modifier (TMM)
@@ -853,6 +868,13 @@ export class BattleMech {
         mechHeatEfficiency += (this.getHeatSinks() * sinkEfficiencyMultiplier) - this.getMaxMovementHeat();
         // Partial wing: +3 heat capacity in a standard atmosphere (TO:AUE p.105).
         mechHeatEfficiency += this.getPartialWingHeatBonus();
+        // LAMs add 9 instead of 6 to heat capacity (IO p.192). The +3 matches AirMech mode's
+        // partial-wing heat bonus (IO p.113), so bimodal LAMs, which have no AirMech mode,
+        // keep the 'Mech value (as MegaMek also reads it; IO does not say).
+        if (this.hasAirMechMode()) {
+            mechHeatEfficiency += 3;
+            this._calcLogBV += `LAM: heat capacity +9 instead of +6; movement heat ${this.getMaxMovementHeat()} from AirMech Flank MP / 3 (IO pp.113, 192)<br />`;
+        }
         // RISC Emergency Coolant System: +4 (IO p.91).
         if (this._equipmentList.some(item => item?.tag === "risc-emergency-coolant-system")) {
             mechHeatEfficiency += 4;
@@ -998,9 +1020,16 @@ export class BattleMech {
         // Execute absolute rounding to whole integer values (TM p. 304)
         const absoluteRoundedBV = Math.round(finalBattleValue);
         this._calcLogBV += `<strong>Final Unit Battle Value:</strong> ${absoluteRoundedBV} (Rounded from ${finalBattleValue.toFixed(2)})<br />`;
+        
+        // LAM bombs add their BV after rounding, like aerospace external stores
+        // (TO:AUE via MegaMek BVCalculator.processExternalStores; provisional).
+        const bombBV = this.getBombBattleValue();
+        if (bombBV > 0) {
+            this._calcLogBV += `<em>PROVISIONAL LAM BV:</em> + Loaded bombs (external stores): ${bombBV} -> ${absoluteRoundedBV + bombBV}<br />`;
+        }
 
         // Commit values into the master class structures
-        this._battleValue = absoluteRoundedBV;
+        this._battleValue = absoluteRoundedBV + bombBV;
 
         // Trigger secondary tracking updates for personnel/skills assignment
         this._setPilotAdjustedBattleValue();
@@ -1055,8 +1084,11 @@ export class BattleMech {
      * speed (same implementation as MegaMek's BVCalculator.offensiveSpeedFactor / offensiveSpeedFactorMP).
      */
     private _getSpeedFactorModifier(): number {
-        // Speed Factor MP (TM p.316): the better of Jump MP and UMU MP (TO:AUE p.107).
-        const speedFactorMP = this.getBVRunSpeed() + Math.round(Math.max(this.getBVJumpSpeed(), this.getUMUSpeed()) / 2);
+        // Speed Factor MP (TM p.316). Standard LAMs use 'Mech Run MP + half AirMech Flank MP, rounded normally (IO p.192);
+        // other 'Mechs use the better of Jump MP and UMU MP (TO:AUE p.107).
+        const speedFactorMP = this.hasAirMechMode()
+            ? this.getBVRunSpeed() + Math.round(this.getAirMechFlankMP() / 2)
+            : this.getBVRunSpeed() + Math.round(Math.max(this.getBVJumpSpeed(), this.getUMUSpeed()) / 2);
 
         // Units without valid movement data (NaN/Infinity) fall back to the MP 0 factor instead of poisoning BV.
         if (!Number.isFinite(speedFactorMP)) {
@@ -1074,6 +1106,12 @@ export class BattleMech {
     }
     public isTripod() {
         if( this._mechType.tag.toLowerCase() === "tripod" )
+            return true;
+        else
+            return false;
+    }
+    public isLAM() {
+        if( this._mechType.tag.toLowerCase() === "lam" )
             return true;
         else
             return false;
@@ -1240,8 +1278,8 @@ export class BattleMech {
             cbillDryTotal += 120 * this.getTonnage();
             actuatorTotal += 120 * this.getTonnage();
 
-            // 2A. Arm Actuator Setups (Biped base plus Tripod extension)
-            if (["biped", "tripod"].includes(this._mechType.tag.toLowerCase())) {
+            // 2A. Arm Actuator Setups (Biped/LAM base plus Tripod extension)
+            if (["biped", "lam", "tripod"].includes(this._mechType.tag.toLowerCase())) {
                 const arms = ["Right", "Left"];
                 
                 arms.forEach(side => {
@@ -1358,9 +1396,9 @@ export class BattleMech {
             }
         }
 
-        // Conversion equipment: QuadVee 50% of internal structure
+        // Conversion equipment: LAM 75% (Bimodal 65%) and QuadVee 50% of internal structure
         // plus equipment cost (IO, as implemented by MegaMek; provisional).
-        const conversionRate = this.isQuadVee() ? 0.5 : 0;
+        const conversionRate = this.isLAM() ? (this.isBimodalLAM() ? 0.65 : 0.75) : this.isQuadVee() ? 0.5 : 0;
         if (conversionRate > 0) {
             const conversionCost = (structureCost + equipmentCost) * conversionRate;
             this._calcLogCBill += "<tr><td><strong>Conversion Equipment</strong><br /><span class=\"smaller-text\">" + conversionRate + " x (Structure [" + addCommas(structureCost) + "] + Equipment [" + addCommas(equipmentCost) + "]) - provisional</span></td><td>" + addCommas(conversionCost) + "</td></tr>\n";
@@ -1372,9 +1410,10 @@ export class BattleMech {
         this._calcLogCBill += "<tr><td colspan=\"2\" class=\"text-right\"><strong>Dry Subtotal: " + addCommas(cbillDryTotal) + "</strong></td></tr>\n";
 
         // (Structural Cost + Weapon/Equipment Costs) x (Omni Conversion Cost) x (1 + [Total Tonnage ÷ 100])
-        // OmniMechs x1.25 (TM, as implemented by MegaMek).
-        const omniCostMultiplier = this._omnimech ? 1.25 : 1;
-        const omniCostLabel = this._omnimech ? " x 1.25 [OmniMech]" : "";
+        // OmniMechs x1.25 (TM, as implemented by MegaMek). The Custom Homebrew Omni-LAM uses x1.75
+        // in its place ("costs 1.75 times a normal mech", Kronos Battle Systems fan rule).
+        const omniCostMultiplier = this.isOmniLAM() ? 1.75 : this._omnimech ? 1.25 : 1;
+        const omniCostLabel = this.isOmniLAM() ? " x 1.75 [Omni-LAM, Custom Homebrew]" : this._omnimech ? " x 1.25 [OmniMech]" : "";
         // IndustrialMechs (Industrial internal structure) use 1 + tonnage / 400 (TM, as implemented
         // by MegaMek; provisional).
         const tonnageDivisor = this.getInternalStructureType() === "industrial" ? 400 : 100;
@@ -2305,7 +2344,7 @@ export class BattleMech {
             html += "Left Torso".padStart(col1Padding, " ") + "" + this._internalStructure.leftTorso.toString().padStart(col2Padding, " ") + "" + this._armorAllocation.leftTorso.toString().padStart(col3Padding, " ") + "\n";
             html += "Left Torso (Rear)".padStart(col1Padding, " ") + "".padStart(col2Padding, " ") + "" + this._armorAllocation.leftTorsoRear.toString().padStart(col3Padding, " ") + "\n";
         }
-        if (typeTag === "biped") {
+        if (typeTag === "biped" || typeTag === "lam") {
             const rightArmIS = this._internalStructure.rightArm ?? 0;
             const leftArmIS = this._internalStructure.leftArm ?? 0;
             const rightArmArmor = this._armorAllocation.rightArm ?? 0;
@@ -2564,7 +2603,7 @@ export class BattleMech {
             html += "<tr><td colspan=\"3\">Cockpit</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
         }
 
-        if( typeTag === "biped" || typeTag === "tripod" ) {
+        if( typeTag === "biped" || typeTag === "lam" || typeTag === "tripod" ) {
             html += "<tr><td colspan=\"4\">Actuators: ";
             let actuator_html = "";
 
@@ -2603,7 +2642,7 @@ export class BattleMech {
             html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Torso</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftTorso + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftTorso + "</td><td>&nbsp;</td></tr>";
             html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Torso (Rear)</td><td class=\"text-center\" colspan=\"1\">&nbsp;</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftTorsoRear + "</td><td>&nbsp;</td></tr>";
         }
-        if( typeTag === "biped" || typeTag === "tripod" ) {
+        if( typeTag === "biped" || typeTag === "lam" || typeTag === "tripod" ) {
 
             if( this._armorAllocation.rightArm === this._armorAllocation.leftArm) {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">R/L Arm</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
@@ -2742,6 +2781,34 @@ export class BattleMech {
         }
         const typeTag = this._mechType.tag.toLowerCase();
 
+        if (typeTag === "lam") {
+            if (!BattleMech.LAM_GYRO_TAGS.includes(this._gyro.tag)) {
+                this._gyro = mechGyroTypes.find(gyro => gyro.tag === "standard") ?? mechGyroTypes[0];
+            }
+            this._jumpSpeed = Math.max(BattleMech.LAM_MIN_JUMP_MP, this._jumpSpeed);
+            // Canon LAMs cannot be OmniMechs; the Custom Homebrew Omni-LAM is Inner Sphere only
+            // and keeps every arm actuator (fan rule restriction 3).
+            if (this._omnimech && !this._hasOmniLAMTechBase()) {
+                this._omnimech = false;
+            }
+            // Every LAM needs upper and lower arm actuators in both arms (IO, as implemented by
+            // MegaMek's TestMek); the Omni-LAM also keeps its hands.
+            this._no_left_arm_lower_actuator = false;
+            this._no_right_arm_lower_actuator = false;
+            if (this._omnimech) {
+                this._no_left_arm_hand_actuator = false;
+                this._no_right_arm_hand_actuator = false;
+            }
+            if (!this._isLAMLegalComponent("armor", this._armorType.tag)) {
+                this._armorType = mechArmorTypes.find(armor => armor.tag === "standard") ?? mechArmorTypes[0];
+            }
+            if (!this._isLAMLegalComponent("structure", this._selectedInternalStructure.tag)) {
+                this._selectedInternalStructure = mechInternalStructureTypes.find(structure => structure.tag === "standard") ?? mechInternalStructureTypes[0];
+            }
+            if (!this._isLAMLegalComponent("engine", this._engineType.tag)) {
+                this._engineType = mechEngineTypes.find(engine => engine.tag === "standard") ?? mechEngineTypes[0];
+            }
+        }
         // OmniMechs build fixed-only equipment (MASC, Partial Wing, signature systems...) into
         // the base chassis (MegaMek omniFixedOnly; provisional).
         if (this._omnimech) {
@@ -2791,12 +2858,18 @@ export class BattleMech {
             });
         }
 
-        // QuadVee conversion equipment is 10% of mass, rounded up to a whole ton
-        // (IO p.134 via MegaMek TestMek, not yet checked in the book).
+        // LAM/QuadVee conversion equipment is 10% of mass, rounded up to a whole ton
+        // (IO p.114 LAM; QuadVee IO p.134 via MegaMek TestMek, not yet checked in the book).
         if (typeTag === "quadvee") {
             this._weights.push({
                 name: "QuadVee Conversion / Motive Package",
                 weight: Math.ceil(this._tonnage * 0.1)
+            });
+        } else if (typeTag === "lam") {
+            // Bimodal LAMs: 15% (IO p.113 via MegaMek).
+            this._weights.push({
+                name: this._lamType === "bimodal" ? "Bimodal LAM Conversion Equipment" : "LAM Conversion Equipment",
+                weight: Math.ceil(this._tonnage * (this._lamType === "bimodal" ? 0.15 : 0.1))
             });
         }
 
@@ -2851,7 +2924,7 @@ export class BattleMech {
         this._totalArmor += this._armorAllocation.rightTorsoRear;
 
         // Sum limbs based on anatomical configuration rules
-        if (typeTag === "biped") {
+        if (typeTag === "biped" || typeTag === "lam") {
             // Standard Bipeds and Aero-Mechs utilize traditional Left/Right Arms and Legs
             this._totalArmor += this._armorAllocation.rightArm ?? 0;
             this._totalArmor += this._armorAllocation.leftArm ?? 0;
@@ -2934,6 +3007,7 @@ export class BattleMech {
         }
 
         this._calcCriticals();
+        this._trimBombLoadout();
         this._calcBattleValue();
         this._calcCBillCost();
 
@@ -2990,8 +3064,8 @@ export class BattleMech {
     this._armorBubbles.rightTorsoRear = syncBubbles(this._armorBubbles.rightTorsoRear, this._armorAllocation.rightTorsoRear);
     const typeTag = this._mechType.tag.toLowerCase();
     // DYNAMIC LIMB BLOCKS: Parse allocations by chassis anatomical layout rules
-    if (typeTag === "biped") {
-        // Standard Bipeds utilize traditional arms and legs
+    if (typeTag === "biped" || typeTag === "lam") {
+        // Standard Bipeds and LAMs utilize traditional arms and legs
         this._armorBubbles.leftArm = syncBubbles(this._armorBubbles.leftArm, this._armorAllocation.leftArm ?? 0);
         this._armorBubbles.rightArm = syncBubbles(this._armorBubbles.rightArm, this._armorAllocation.rightArm ?? 0);
         this._armorBubbles.leftLeg = syncBubbles(this._armorBubbles.leftLeg, this._armorAllocation.leftLeg);
@@ -3111,8 +3185,8 @@ export class BattleMech {
     this._structureBubbles.leftTorso = syncBubbles(this._structureBubbles.leftTorso, this._internalStructure.leftTorso);
     this._structureBubbles.rightTorso = syncBubbles(this._structureBubbles.rightTorso, this._internalStructure.rightTorso);
 
-    // DYNAMIC STRUCTURE LIMBS: I choose you Hedgehog!!!
-    if (typeTag === "biped") {
+    // DYNAMIC STRUCTURE LIMBS: I choose you Hedgehog!!! Help our buddy Wasp LAM out!!!
+    if (typeTag === "biped" || typeTag === "lam") {
         // Standard Bipeds and Aero-Mechs utilize traditional arms and legs framework
         this._structureBubbles.leftArm = syncBubbles(this._structureBubbles.leftArm, this._internalStructure.leftArm ?? 0);
         this._structureBubbles.rightArm = syncBubbles(this._structureBubbles.rightArm, this._internalStructure.rightArm ?? 0);
@@ -3192,7 +3266,7 @@ export class BattleMech {
         const typeTag = this.getType().tag.toLowerCase();
 
         // DYNAMIC CRITICAL SLOTS: Get the stuff the different types need
-        if (typeTag === "biped") {
+        if (typeTag === "biped" || typeTag === "lam") {
             // Standard Bipeds and Land Air Mechs feature 12 slots per arm and 6 slots per leg
             this._criticals.leftArm = Array(12).fill(null);
             this._criticals.rightArm = Array(12).fill(null);
@@ -3238,7 +3312,7 @@ export class BattleMech {
 
         // Add required components....
         // Superheavy Bipeds/Quads (>100 tons) mount a two-pilot Superheavy Cockpit, same as Tripods/QuadVees.
-        const isSuperheavyCockpit = (typeTag === "biped" || typeTag === "quad") && this._tonnage > 100;
+        const isSuperheavyCockpit = (typeTag === "biped" || typeTag === "quad" || typeTag === "lam") && this._tonnage > 100;
         const cockpitTag = typeTag === "quadvee" || typeTag === "tripod" || isSuperheavyCockpit ? "multi-pilot-cockpit" : "cockpit";
         const cockpitName = typeTag === "quadvee" ? "QuadVee Dual Cockpit" : typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
         if( this._smallCockpit) {
@@ -3264,6 +3338,9 @@ export class BattleMech {
             );
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 4);
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 5);
+        }
+        if (typeTag === "lam") {
+            this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "hd", 3);
         }
         if (typeTag === "quad" || typeTag === "quadvee") {
             // ---- QUAD / QUADVEE FRONT LEGS ----
@@ -3308,7 +3385,7 @@ export class BattleMech {
                 }
             }
         } else {
-            // ---- BIPED SELECTION (STANDARD FALLBACK) ----
+            // ---- BIPED / LAM SELECTION (STANDARD FALLBACK) ----
             // Left Arm Actuators
             this._addCriticalItem("shoulder", "Shoulder", 1, "la", 0);
             this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "la", 1);
@@ -3390,6 +3467,13 @@ export class BattleMech {
             this._addCriticalItem("multi-pilot-cockpit", typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit", typeTag === "tripod" && this._tonnage > 100 ? 2 : 1, "ct");
         } else if (isSuperheavyCockpit) {
             this._addCriticalItem("multi-pilot-cockpit", "Superheavy Cockpit", 1, "ct");
+        }
+        if (typeTag === "lam") {
+            this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "lt");
+            this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "rt");
+            this._addCriticalItem("lam-landing-gear", "LAM Landing Gear", 1, "ct");
+            this._addCriticalItem("lam-landing-gear", "LAM Landing Gear", 1, "lt");
+            this._addCriticalItem("lam-landing-gear", "LAM Landing Gear", 1, "rt");
         }
 
         // STANDARD & REAR LEGS: Track Left Leg (ll) and Right Leg (rl) structural presence. Am I standing?
@@ -3829,8 +3913,11 @@ export class BattleMech {
     }
 
     public getMaxMovementHeat() {
-        // Battle Value uses the higher of running and jumping heat (TM p.303).
-        let maxMoveHeat = Math.max(this.getRunHeat(), this.getJumpHeat());
+        // Battle Value uses the higher of running and jumping heat (TM p.303). Standard LAMs
+        // use AirMech flank heat: 1 per 3 AirMech MP, rounded normally (IO pp.113, 192).
+        let maxMoveHeat = this.hasAirMechMode()
+            ? Math.round(this.getAirMechFlankMP() / 3)
+            : Math.max(this.getRunHeat(), this.getJumpHeat());
 
         // Stealth Armor
         if( this.getArmorType() === "stealth-basic" ) {
@@ -4005,7 +4092,7 @@ export class BattleMech {
     const typeTag = this._mechType.tag.toLowerCase();
 
     // DYNAMIC LIMB TRUNCATION: Clip arrays exactly to their structural rules profiles
-    if (typeTag === "biped") {
+    if (typeTag === "biped" || typeTag === "lam") {
         // Standard profiles: 12-slot manipulative arms and 6-slot driving legs
         this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
         this._criticals.rightArm = this._criticals.rightArm.slice(0, 12);
@@ -4270,7 +4357,10 @@ export class BattleMech {
     public setJumpSpeed(
         jumpSpeed: number,
     ) {
-        this._jumpSpeed = Math.max(0, +jumpSpeed);
+        const requestedSpeed = Math.max(0, +jumpSpeed);
+        this._jumpSpeed = this.isLAM()
+            ? Math.max(BattleMech.LAM_MIN_JUMP_MP, requestedSpeed)
+            : requestedSpeed;
         this._calc();
         return this._jumpSpeed;
     }
@@ -4301,6 +4391,9 @@ export class BattleMech {
             armorTag = "stealth-basic";
         }
         if (this.isQuadVee() && armorTag !== "standard") {
+            return this._armorType;
+        }
+        if (this.isLAM() && !this._isLAMLegalComponent("armor", armorTag)) {
             return this._armorType;
         }
         for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
@@ -4419,6 +4512,9 @@ export class BattleMech {
         isTag: string,
     ) {
         if (this.isQuadVee() && isTag !== "standard") {
+            return this._selectedInternalStructure;
+        }
+        if (this.isLAM() && !this._isLAMLegalComponent("structure", isTag)) {
             return this._selectedInternalStructure;
         }
         for( let is of mechInternalStructureTypes) {
@@ -4591,6 +4687,9 @@ export class BattleMech {
     public setEngineType(
         engineTag: string,
     ) {
+        if (this.isLAM() && !this._isLAMLegalComponent("engine", engineTag.toLowerCase())) {
+            return this._engineType;
+        }
         for( let engine of mechEngineTypes) {
             if( engineTag.toLowerCase() === engine.tag) {
                 this._engineType = engine;
@@ -4652,6 +4751,9 @@ export class BattleMech {
     setGyroType(
         gyroType: string,
     ) {
+        if (this.isLAM() && !BattleMech.LAM_GYRO_TAGS.includes(gyroType.toLowerCase())) {
+            gyroType = "standard";
+        }
         for( let gyro of mechGyroTypes) {
             if( gyroType.toLowerCase() === gyro.tag) {
                 this._gyro = gyro;
@@ -4737,10 +4839,13 @@ export class BattleMech {
     }
 
     /**
-     * Whether this chassis may be built as an OmniMech at the given rules level. Tripods never may.
+     * Whether this chassis may be built as an OmniMech at the given rules level. Tripods never
+     * may; canon LAMs may not either (TRO:3085 pp.286-288), but the fan-made Omni-LAM allows it
+     * for Inner Sphere LAMs at the Custom Homebrew rules level.
      */
-    public canBeOmniMech(_rulesLevel: number = 2): boolean {
+    public canBeOmniMech(rulesLevel: number = 2): boolean {
         if (this.isTripod()) return false;
+        if (this.isLAM()) return rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL && this._hasOmniLAMTechBase();
         return true;
     }
 
@@ -4758,6 +4863,38 @@ export class BattleMech {
         this._calc();
     }
 
+    /** Standard LAMs have an AirMech mode; Bimodal LAMs and other chassis do not. */
+    public hasAirMechMode(): boolean {
+        return this.isLAM() && this._lamType !== "bimodal";
+    }
+
+    /** AirMech Cruise MP: 'Mech-mode Jump MP x 3 (IO p.108). */
+    public getAirMechCruiseMP(): number {
+        return this.hasAirMechMode() ? this.getJumpSpeed() * 3 : 0;
+    }
+
+    /** AirMech Flank MP: Cruise MP x 1.5, rounded up (IO p.108). */
+    public getAirMechFlankMP(): number {
+        return Math.ceil(this.getAirMechCruiseMP() * 1.5);
+    }
+
+    /**
+     * Battle Value built on rules we have not yet verified against the book: loaded LAM
+     * bombs (via MegaMek; IO p.192 gives no bomb BV rule) and the Custom Homebrew Omni-LAM.
+     * The LAM movement and heat adjustments themselves follow IO p.192.
+     */
+    public isBattleValueProvisional(): boolean {
+        return this.isOmniLAM() || (this.isLAM() && this.getBombLoadoutSlots() > 0);
+    }
+
+    /**
+     * Alpha Strike values are provisional for every LAM: our conversion has no LAM
+     * movement or LAM special abilities yet.
+     */
+    public isPointValueProvisional(): boolean {
+        return this.isLAM() || this.isBattleValueProvisional();
+    }
+
     /**
      * Lowest rules level at which this design is legal: its chassis type (IO p.50), Ultra-light
      * or Superheavy tonnage (Advanced), prototype or rules-levelled equipment, and Custom
@@ -4769,6 +4906,11 @@ export class BattleMech {
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
         }
+        for (const tag of Object.keys(this._bombLoadout)) {
+            const bomb = this._findBomb(tag);
+            if (bomb) level = Math.max(level, getEquipmentRulesLevel(bomb));
+        }
+        if (this.isOmniLAM()) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
         return level;
     }
 
@@ -4873,6 +5015,7 @@ export class BattleMech {
             name: this._activeOmniConfiguration,
             equipment: podItems.map(item => this._exportEquipmentItem(item, true)),
             allocation,
+            bombLoadout: Object.keys(this._bombLoadout).length ? { ...this._bombLoadout } : undefined,
         };
     }
 
@@ -4892,6 +5035,7 @@ export class BattleMech {
         const podUUIDs = new Set(this._podItems().map(item => item.uuid));
         this._equipmentList = this._equipmentList.filter(item => !podUUIDs.has(item.uuid));
         this._criticalAllocationTable = this._criticalAllocationTable.filter(slot => !podUUIDs.has(slot.uuid));
+        this._bombLoadout = {};
     }
 
     private _loadOmniConfiguration(configuration: IOmniConfiguration | undefined): void {
@@ -4904,6 +5048,7 @@ export class BattleMech {
                 restored.obj = this.getEquipmentByUUID(restored.uuid);
                 this._criticalAllocationTable.push(restored);
             }
+            this._bombLoadout = configuration.bombLoadout ? { ...configuration.bombLoadout } : {};
         }
         this._calc();
     }
@@ -4976,7 +5121,178 @@ export class BattleMech {
         });
     }
 
-    /** Chassis-specific equipment limits (chassis-only items and per-unit caps). */
+    /** A LAM built as an OmniMech under the Custom Homebrew Omni-LAM rule. */
+    public isOmniLAM(): boolean {
+        return this.isLAM() && this._omnimech;
+    }
+
+    private _hasOmniLAMTechBase(): boolean {
+        const techTag = this.getTech().tag;
+        return techTag === "is" || techTag === "mis";
+    }
+
+    /**
+     * Custom Homebrew Omni-LAM construction checks (fan rule, "Construction Rules Update
+     * KBS-3066-07-07-TRO3067 / Chassis Type: Omni-LAM", Kronos Battle Systems; Inner Sphere,
+     * Tech Level 3; https://drive.google.com/file/d/0B5bLPOivte0vdXllN2Y3MUhhNGM/view).
+     * Restriction 3 (arm actuators kept) is enforced by the model; restrictions 1 and 2 are
+     * reported here. Left side = LA/LT/LL, right side = RA/RT/RL; the head and CT are centerline.
+     */
+    public getOmniLAMViolations(): string[] {
+        if (!this.isOmniLAM()) return [];
+        const violations: string[] = [];
+
+        const sideWeight = (locations: string[]) => this._equipmentList
+            .filter(item => item?.location && locations.includes(item.location))
+            .reduce((sum, item) => sum + (item.weight || 0), 0);
+        const leftWeight = sideWeight(["la", "lt", "ll"]);
+        const rightWeight = sideWeight(["ra", "rt", "rl"]);
+        if (leftWeight !== rightWeight) {
+            violations.push(`Balance: left side carries ${leftWeight} tons of equipment and right side carries ${rightWeight} tons; they must match.`);
+        }
+
+        // Pod space = slots not used by chassis systems or fixed (base-chassis) equipment.
+        const podSpace = this.getOmniPodSpace().locations;
+        const sidePods = (locations: string[]) => locations.reduce((sum, location) => sum + (podSpace[location] ?? 0), 0);
+        const leftPods = sidePods(["leftArm", "leftTorso", "leftLeg"]);
+        const rightPods = sidePods(["rightArm", "rightTorso", "rightLeg"]);
+        if (leftPods !== rightPods) {
+            violations.push(`Pod space: the base chassis leaves ${leftPods} pod slots on the left side and ${rightPods} on the right; they must be equal.`);
+        }
+
+        return violations;
+    }
+
+    /*
+     * LAM Bomb Bays, bombs, and fuel (IO pp.110-114). A LAM mounts at most 20 Bomb Bays of
+     * 1 ton and 1 slot each, in the side torsos only. Each bay holds one bomb slot; bays in
+     * the same location combine for multi-slot bombs (IO errata as quoted by a moderator,
+     * bg.battletech.com forums topic 84643; errata document not checked).
+     * Bomb mass is accounted for by the bays, so loaded bombs add no weight (IO p.110), and
+     * LAM cost counts only the bays and fuel tanks (IO p.186).
+     */
+    /** LAMs need at least 3 Jump MP (IO p.114); the usual walking-MP cap still applies. */
+    public static readonly LAM_MIN_JUMP_MP = 3;
+    /** Equipment LAMs may not mount (IO p.114); bridge-layers are matched by tag prefix. */
+    public static readonly LAM_PROHIBITED_TAGS: readonly string[] = [
+        "supercharger", "backhoe", "combine", "dumper", "mechanical-jump-booster",
+        "partial-wing", "clan-partial-wing", "chameleon-lps",
+    ];
+    /** Gyros a LAM may use: Standard, Compact, Heavy-Duty (IO p.114). */
+    public static readonly LAM_GYRO_TAGS: readonly string[] = ["standard", "compact", "heavy-duty"];
+    public static readonly LAM_BOMB_BAY_TAG = "lam-bomb-bay";
+    public static readonly LAM_FUEL_TANK_TAG = "lam-fuel-tank";
+    public static readonly LAM_MAX_BOMB_BAYS = 20;
+    public static readonly LAM_FUEL_POINTS_PER_TON = 80;
+
+    public getBombBayCount(): number {
+        return this._equipmentList.filter(item => item?.tag === BattleMech.LAM_BOMB_BAY_TAG).length;
+    }
+
+    /** Bomb Bays per side torso; bays may only go in the left or right torso (IO p.114). */
+    public getBombBaysByLocation(): Record<string, number> {
+        const bays: Record<string, number> = { lt: 0, rt: 0 };
+        if (!this.isLAM()) return bays;
+        for (const item of this._equipmentList) {
+            if (item?.tag === BattleMech.LAM_BOMB_BAY_TAG && item.location && item.location in bays) {
+                bays[item.location]++;
+            }
+        }
+        return bays;
+    }
+
+    /** LAM fuel points: 80 from the conversion equipment plus 80 per Fuel Tank (via MegaMekLab). */
+    public getLAMFuelPoints(): number {
+        if (!this.isLAM()) return 0;
+        const tanks = this._equipmentList.filter(item => item?.tag === BattleMech.LAM_FUEL_TANK_TAG).length;
+        return BattleMech.LAM_FUEL_POINTS_PER_TON * (1 + tanks);
+    }
+
+    /** Bombs this LAM's tech base, era, and the given rules level allow. */
+    public getAvailableBombs(rulesLevel: number = 2): IEquipmentItem[] {
+        if (!this.isLAM()) return [];
+        return getEquipmentListForChassis(this.getTech().tag)
+            .filter(item => !!item.bombBaySlots
+                && getEquipmentRulesLevel(item) <= rulesLevel
+                && this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced))
+            .sort((a, b) => a.sort.localeCompare(b.sort));
+    }
+
+    private _findBomb(tag: string): IEquipmentItem | undefined {
+        return getEquipmentListForChassis(this.getTech().tag).find(item => !!item.bombBaySlots && item.tag === tag);
+    }
+
+    public getBombLoadout(): Record<string, number> {
+        return { ...this._bombLoadout };
+    }
+
+    public getBombLoadoutSlots(): number {
+        return Object.entries(this._bombLoadout)
+            .reduce((sum, [tag, count]) => sum + (this._findBomb(tag)?.bombBaySlots ?? 0) * count, 0);
+    }
+
+    /** True when every bomb fits in the bays of a single torso location. */
+    public canCarryBombLoadout(loadout: Record<string, number> = this._bombLoadout): boolean {
+        if (!this.isLAM()) return Object.keys(loadout).length === 0;
+        const free = Object.values(this.getBombBaysByLocation());
+        const sizes: number[] = [];
+        for (const [tag, count] of Object.entries(loadout)) {
+            const bomb = this._findBomb(tag);
+            if (!bomb || !bomb.bombBaySlots) return false;
+            for (let bombCount = 0; bombCount < count; bombCount++) sizes.push(bomb.bombBaySlots);
+        }
+        // Largest bombs first, each into the tightest location that still fits it.
+        sizes.sort((a, b) => b - a);
+        for (const size of sizes) {
+            let best = -1;
+            free.forEach((room, index) => {
+                if (room >= size && (best < 0 || room < free[best])) best = index;
+            });
+            if (best < 0) return false;
+            free[best] -= size;
+        }
+        return true;
+    }
+
+    /** Sets how many of one bomb are loaded; returns false (and changes nothing) if they do not fit. */
+    public setBombCount(tag: string, count: number): boolean {
+        const next = { ...this._bombLoadout };
+        if (count > 0) {
+            next[tag] = Math.floor(count);
+        } else {
+            delete next[tag];
+        }
+        if (!this.canCarryBombLoadout(next)) return false;
+        this._bombLoadout = next;
+        this._calc();
+        return true;
+    }
+
+    public clearBombLoadout(): void {
+        this._bombLoadout = {};
+        this._calc();
+    }
+
+    /** Drops bombs that no longer fit (bays removed, chassis changed), keeping the rest in order. */
+    private _trimBombLoadout(): void {
+        if (Object.keys(this._bombLoadout).length === 0) return;
+        const kept: Record<string, number> = {};
+        for (const [tag, count] of Object.entries(this._bombLoadout)) {
+            for (let bombCount = 0; bombCount < count; bombCount++) {
+                const trial = { ...kept, [tag]: (kept[tag] ?? 0) + 1 };
+                if (this.canCarryBombLoadout(trial)) Object.assign(kept, trial);
+            }
+        }
+        this._bombLoadout = kept;
+    }
+
+    /** BV of the loaded bombs, added like aerospace external stores (via MegaMek; provisional). */
+    public getBombBattleValue(): number {
+        return Object.entries(this._bombLoadout)
+            .reduce((sum, [tag, count]) => sum + (this._findBomb(tag)?.battleValue ?? 0) * count, 0);
+    }
+
+    /** Chassis-specific equipment limits (LAM Bomb Bays and other per-unit caps). */
     public getChassisEquipmentViolations(): string[] {
         const violations: string[] = [];
         const counted = new Map<string, { item: IEquipmentItem; count: number }>();
@@ -4996,6 +5312,32 @@ export class BattleMech {
                 violations.push(`${item.name}: ${count} mounted; at most ${item.maxPerUnit} allowed.`);
             }
         });
+        if (this.isLAM()) {
+            if (this.getJumpSpeed() > this.getMaxJumpSpeed()) {
+                violations.push(`LAMs need at least ${BattleMech.LAM_MIN_JUMP_MP} Jump MP, but Jump MP ${this.getJumpSpeed()} exceeds Walk MP ${this.getWalkSpeed()}; raise the engine rating.`);
+            }
+            // No equipment split across locations; spreadable equipment stays in one location
+            // (IO p.114, Extra-Large Weapons and Other Items).
+            const locationsByKey = new Map<string, { name: string; locations: Set<string> }>();
+            for (const area of Object.keys(this._criticals)) {
+                for (const slot of this._criticals[area] ?? []) {
+                    if (!slot?.obj || !slot.uuid) continue;
+                    const obj = slot.obj as IEquipmentItem;
+                    const key = obj.spreadSlots ? `tag:${obj.tag}` : slot.uuid;
+                    const entry = locationsByKey.get(key) ?? { name: obj.name, locations: new Set<string>() };
+                    entry.locations.add(area);
+                    locationsByKey.set(key, entry);
+                }
+            }
+            locationsByKey.forEach(({ name, locations }) => {
+                if (locations.size > 1) violations.push(`${name} must be allocated to a single location on a LAM.`);
+            });
+            const torsoBays = Object.values(this.getBombBaysByLocation()).reduce((sum, bays) => sum + bays, 0);
+            const placedBays = this._equipmentList.filter(item => item?.tag === BattleMech.LAM_BOMB_BAY_TAG && item.location).length;
+            if (placedBays > torsoBays) {
+                violations.push(`${placedBays - torsoBays} Bomb Bay(s) are outside the side torsos; LAM bomb bays go only in the left or right torso (IO p.114).`);
+            }
+        }
         return violations;
     }
 
@@ -5154,7 +5496,7 @@ export class BattleMech {
       const typeTag = this._mechType.tag.toLowerCase();
 
       // Dynamically calculate Limb Armor additions based on anatomical layout rules
-      if (typeTag === "biped") {
+      if (typeTag === "biped" || typeTag === "lam") {
         this._maxArmor += 
           ((this._internalStructure.leftArm || 0) * 2) + 
           ((this._internalStructure.rightArm || 0) * 2) + 
@@ -5250,7 +5592,7 @@ export class BattleMech {
       const typeTag = this._mechType.tag.toLowerCase();
 
       // Dynamically calculate and add limb armor caps based on chassis anatomy layout
-      if (typeTag === "biped") {
+      if (typeTag === "biped" || typeTag === "lam") {
         totalMaxArmor += 
           ((this._internalStructure.leftArm || 0) * 2) + 
           ((this._internalStructure.rightArm || 0) * 2) + 
@@ -5300,13 +5642,17 @@ export class BattleMech {
             return Math.max(0, cruiseMP - (this.hasActiveModularArmor() ? 1 : 0));
         }
 
-        public getTransformationMode(): "mech" | "vehicle" {
+        public getTransformationMode(): "mech" | "airmech" | "aerospace" | "vehicle" {
             return this._transformationMode;
         }
 
-        public setTransformationMode(mode: string): "mech" | "vehicle" {
+        public setTransformationMode(mode: string): "mech" | "airmech" | "aerospace" | "vehicle" {
             const requestedMode = mode.toLowerCase();
-            const allowedModes = this.isQuadVee() ? ["mech", "vehicle"] : ["mech"];
+            const allowedModes = this.isLAM()
+                ? (this.isBimodalLAM() ? ["mech", "aerospace"] : ["mech", "airmech", "aerospace"])
+                : this.isQuadVee()
+                        ? ["mech", "vehicle"]
+                        : ["mech"];
 
             this._transformationMode = (allowedModes.includes(requestedMode) ? requestedMode : "mech") as typeof this._transformationMode;
             return this._transformationMode;
@@ -5316,8 +5662,12 @@ export class BattleMech {
             if (this.isQuadVee()) {
                 return this._transformationMode === "mech";
             }
-            // Bipeds, Quads and Tripods may use their jump jets.
+            // Bipeds, Quads, Tripods and LAMs (in every LAM mode) may use their jump jets.
             return true;
+        }
+
+        public canUsePhysicalAttacksInCurrentMode(): boolean {
+            return !this.isLAM() || this._transformationMode === "mech";
         }
 
         public hasFullTorsoTwist(): boolean {
@@ -5330,6 +5680,10 @@ export class BattleMech {
 
         public ignoresSecondaryTargetModifier(): boolean {
             return this.isTripod();
+        }
+
+        public getAttackerMovementModifier(): number {
+            return this.isLAM() && this._transformationMode === "airmech" ? 3 : 0;
         }
 
         public canUseHullDownRules(): boolean {
@@ -5358,6 +5712,23 @@ export class BattleMech {
             );
         }
 
+        public getLAMType(): "standard" | "bimodal" {
+            return this._lamType;
+        }
+
+        public isBimodalLAM(): boolean {
+            return this.isLAM() && this._lamType === "bimodal";
+        }
+
+        public setLAMType(lamType: string): "standard" | "bimodal" {
+            this._lamType = lamType.toLowerCase() === "bimodal" ? "bimodal" : "standard";
+            if (this.isBimodalLAM() && this._transformationMode === "airmech") {
+                this._transformationMode = "mech";
+            }
+            this._calc();
+            return this._lamType;
+        }
+
         public setQuadVeeMotive(motive: string): "tracked" | "wheeled" {
             this._quadVeeMotive = motive.toLowerCase() === "wheeled" ? "wheeled" : "tracked";
             this._calc();
@@ -5371,11 +5742,14 @@ export class BattleMech {
       for (const mechType of mechTypeOptions) {
         if (mechType.tag.toLowerCase() === formattedTag) {
             this._mechType = mechType;
-            if (formattedTag === "tripod") {
+            if (formattedTag === "tripod" || formattedTag === "lam") {
                 this._omnimech = false;
             }
             if (formattedTag !== "quadvee") {
                 this._quadVeeMotive = "tracked";
+            }
+            if (formattedTag !== "lam") {
+                this._lamType = "standard";
             }
             this._transformationMode = "mech";
             
@@ -5509,6 +5883,8 @@ export class BattleMech {
             lastUpdated: this.lastUpdated,
             mechType: this._mechType.tag,
             quadVeeMotive: this._quadVeeMotive,
+            lamType: this._lamType,
+            bombLoadout: Object.keys(this._bombLoadout).length ? { ...this._bombLoadout } : undefined,
             transformationMode: this._transformationMode,
             mirrorArmorAllocations: this._mirrorArmorAllocations,
             nickname: this._nickname,
@@ -5765,6 +6141,9 @@ export class BattleMech {
             // console.log( "importObject.mechType", importObject.mechType );
             if( importObject.mechType)
                 this.setMechType(importObject.mechType);
+            if (importObject.lamType) {
+                this.setLAMType(importObject.lamType);
+            }
             if (importObject.quadVeeMotive) {
                 this.setQuadVeeMotive(importObject.quadVeeMotive);
             }
@@ -5949,6 +6328,9 @@ export class BattleMech {
                 this._armorBubbles = importObject.armorBubbles;
             }
 
+            // Bombs last: they need the Bomb Bays placed; _calc drops any that no longer fit.
+            this._bombLoadout = importObject.bombLoadout ? { ...importObject.bombLoadout } : {};
+
             // OmniMech configurations: the saved equipment is the active one; others stay stored.
             this._omniConfigurations = this._omnimech && Array.isArray(importObject.omniConfigurations)
                 ? JSON.parse(JSON.stringify(importObject.omniConfigurations))
@@ -6038,7 +6420,7 @@ export class BattleMech {
             this._calc();
             return this._armorAllocation.frontLeftLeg ?? 0;
         }
-        // Baseline Biped arm allocation logic plus Tripod extension
+        // Baseline Biped/LAM arm allocation logic plus Tripod extension
         this._armorAllocation.leftArm = armorValue;
         if (this._mirrorArmorAllocations) {
             this._armorAllocation.rightArm = armorValue;
@@ -6978,6 +7360,9 @@ export class BattleMech {
         if (!hasSpace) {
             return false;
         }
+        if (this.isLAM() && fromItem.obj && !this._isEquipmentAllowedForChassis(fromItem.obj as IEquipmentItem)) {
+            return false;
+        }
         // Equipment Legality Validation Filters (e.g. BattleTech Jump Jet validation mapping rules)
         if (fromItem.tag && fromItem.tag.startsWith("jj-")) {
             // Jump Jets can never mount to the Head location under any circumstances
@@ -6985,7 +7370,7 @@ export class BattleMech {
                 return false;
             }
             // Biped configurations can never fit jump jets into standard weapons arms
-            if ((typeTag === "biped") && (normalizedTag === "ra" || normalizedTag === "la")) {
+            if ((typeTag === "biped" || typeTag === "lam") && (normalizedTag === "ra" || normalizedTag === "la")) {
                 return false;
             }
             // QuadVees follow specialized drive constraints preventing equipment in limbs based on tech modes
@@ -7237,7 +7622,8 @@ export class BattleMech {
                 // No weight at this rating: compact engines cannot be large, primitive tops out at an adjusted 500.
                 const buildableAtRating = !weights || (weights as Record<string, number | undefined>)[engine.tag] !== undefined;
                 engine.availableAsPrototype = availability.asPrototype;
-                engine.available = availability.available && buildableAtRating;
+                engine.available = availability.available && buildableAtRating
+                    && (!this.isLAM() || this._isLAMLegalComponent("engine", engine.tag));
                 returnValue.push(engine);
             }
         }
@@ -7249,12 +7635,20 @@ export class BattleMech {
      * lasers, etc.): -1 BV per slot (TM p.302), unlike explosive ammunition at -15 per slot.
      */
     private static _isExplosiveComponent(item: IEquipmentItem): boolean {
-        return !item.isAmmo && (item.gauss === true || item.explosive === true);
+        return !item.isAmmo && !BattleMech._isLAMInternalStore(item) && (item.gauss === true || item.explosive === true);
+    }
+
+    /**
+     * LAM bomb bays and fuel tanks: each slot counts as explosive ammunition (-15 BV) for the
+     * defensive battle rating (IO p.192; -15 per slot, IO p.196).
+     */
+    private static _isLAMInternalStore(item: IEquipmentItem): boolean {
+        return item.tag === BattleMech.LAM_BOMB_BAY_TAG || item.tag === BattleMech.LAM_FUEL_TANK_TAG;
     }
 
     /** Slots that take the -15 explosive ammunition BV penalty (TM p.302). */
     private static _isExplosiveAmmoSlot(item: IEquipmentItem): boolean {
-        return item.explosive === true && item.isAmmo === true;
+        return (item.explosive === true && item.isAmmo === true) || BattleMech._isLAMInternalStore(item);
     }
 
     /**
@@ -7342,7 +7736,8 @@ export class BattleMech {
         for(let gyro of mechGyroTypes ) {
             const availability = this._datesAvailability(gyro, rulesLevel);
             gyro.availableAsPrototype = availability.asPrototype;
-            gyro.available = availability.available && !(gyro.innerSphereOnly && this.getTech().tag === "clan");
+            gyro.available = availability.available && !(gyro.innerSphereOnly && this.getTech().tag === "clan")
+                && (!this.isLAM() || BattleMech.LAM_GYRO_TAGS.includes(gyro.tag));
 
             returnValue.push( gyro );
         }
@@ -7354,7 +7749,8 @@ export class BattleMech {
         return mechInternalStructureTypes.map(structure => {
             const availability = this._techDatesAvailability(structure, rulesLevel);
             structure.availableAsPrototype = availability.asPrototype;
-            structure.available = availability.available && !(structure.innerSphereOnly && this.getTech().tag === "clan");
+            structure.available = availability.available && !(structure.innerSphereOnly && this.getTech().tag === "clan")
+                && (!this.isLAM() || this._isLAMLegalComponent("structure", structure.tag));
             return structure;
         });
     }
@@ -7382,7 +7778,8 @@ export class BattleMech {
                 : (techTag === "clan" ? armor.armorMultiplier.clan : armor.armorMultiplier.is) > 0);
             const availability = this._techDatesAvailability(armor, rulesLevel);
             armor.availableAsPrototype = availability.asPrototype;
-            armor.available = hasCompatibleMultiplier && availability.available;
+            armor.available = hasCompatibleMultiplier && availability.available
+                && (!this.isLAM() || this._isLAMLegalComponent("armor", armor.tag));
 
             returnValue.push( armor );
         }
@@ -7413,18 +7810,48 @@ export class BattleMech {
             (reintroductionYear > 0 && reintroductionYear <= eraEnd);
     }
 
+    /**
+     * LAM construction limits: no armor or internal structure that occupies critical slots,
+     * no Hardened armor, and only Standard or Compact fusion engines (IO p.114).
+     */
+    private _isLAMLegalComponent(kind: "armor" | "structure" | "engine", tag: string): boolean {
+        if (kind === "engine") {
+            return tag === "standard" || tag === "compact";
+        }
+        const component = kind === "armor"
+            ? mechArmorTypes.find(armor => armor.tag === tag)
+            : mechInternalStructureTypes.find(structure => structure.tag === tag);
+        if (!component) return false;
+        const occupiesSlots = (component.crits?.is ?? 0) > 0 || (component.crits?.clan ?? 0) > 0;
+        return !occupiesSlots && tag !== "hardened";
+    }
+
     private _isEquipmentAllowedForChassis(item: IEquipmentItem): boolean {
-        // Chassis-specific equipment (item.chassisTypes).
+        // Chassis-specific equipment, e.g. LAM Bomb Bays and Fuel Tanks (IO p.114).
         if (item.chassisTypes && item.chassisTypes.length > 0
             && !item.chassisTypes.includes(this._mechType.tag.toLowerCase())) {
             return false;
         }
-        if (!this.isTripod()) {
+        if (!this.isLAM() && !this.isTripod()) {
             return true;
         }
 
         const tag = item.tag.toLowerCase();
         const name = item.name.toLowerCase();
+        if (this.isLAM()) {
+            // IO p.114, Prohibited Technologies and construction notes: no artillery, no weapon
+            // that needs a Piloting skill except physical attack weapons (heavy Gauss), no
+            // supercharger, and none of the listed conversion-blocking equipment. Items split
+            // across locations are reported by getChassisEquipmentViolations().
+            return !(
+                item.category === "Artillery Weapons" ||
+                item.weaponType?.includes("ART") ||
+                tag.includes("gauss-rifle-heavy") ||
+                name.includes("heavy gauss") ||
+                BattleMech.LAM_PROHIBITED_TAGS.includes(tag) ||
+                tag.startsWith("bridge-layer")
+            );
+        }
         // Tripod weapon limits (pre-existing list; source not re-checked).
         return !(
             tag.includes("gauss-rifle-heavy") ||
@@ -7481,7 +7908,7 @@ export class BattleMech {
         const percentage = remaining / chassisMax;
         const internalStructure = this.getInternalStructure();
         const typeTag = this.getType().tag.toLowerCase();
-        const hasArms = typeTag === "biped" || typeTag === "tripod";
+        const hasArms = typeTag === "biped" || typeTag === "lam" || typeTag === "tripod";
         const isQuadStyle = typeTag === "quad" || typeTag === "quadvee";
         const isTripod = typeTag === "tripod";
 
@@ -7566,7 +7993,7 @@ export class BattleMech {
         const internalStructure = this.getInternalStructure();
         // Core structural layout configs
         const typeTag = this.getType().tag.toLowerCase();
-        const hasArms = typeTag === "biped" || typeTag === "tripod";
+        const hasArms = typeTag === "biped" || typeTag === "lam" || typeTag === "tripod";
         const isQuadStyle = typeTag === "quad" || typeTag === "quadvee";
         const isTripod = typeTag === "tripod";
         // Generate a zeroed structure record to populate safely
@@ -7600,7 +8027,7 @@ export class BattleMech {
             maxAllocation.frontLeftLeg = maxLegArmor;
             maxAllocation.frontRightLeg = maxLegArmor;
         } else {
-            // Standard Biped structural layout plus Tripod's additional Center Leg
+            // Standard Biped/LAM structural layout plus Tripod's additional Center Leg
             maxAllocation.leftLeg = (internalStructure.leftLeg || 0) * 2;
             maxAllocation.rightLeg = (internalStructure.rightLeg || 0) * 2;
             if (isTripod) {
@@ -7642,7 +8069,8 @@ export class BattleMech {
         const addEquipment = (item: IEquipmentItem, catalog: "is" | "clan" | "custom" | "universal"): void => {
             // space.battlemech -1 means the item cannot be mounted on a 'Mech at all
             // (ProtoMech-only weapons such as the ProtoMech ACs).
-            if (addedTags.has(item.tag) || item.space.battlemech < 0) {
+            // Bombs are loaded into Bomb Bays (see setBombCount), never mounted in critical slots.
+            if (addedTags.has(item.tag) || item.space.battlemech < 0 || item.bombBaySlots) {
                 return;
             }
             item.catalog = isUniversalEquipment(item) ? "universal" : item.catalog ?? catalog;
