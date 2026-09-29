@@ -171,6 +171,7 @@ export const btMechTonnages: IMechTonnage[] = [
 /*
  * Returns the min/max tonnage a given chassis type can legally be built at for a given rules level.
  *
+ * - QuadVees are capped at 20-100 tons (Tactical Operations); no Ultra-light or Superheavy QuadVees.
  * - Biped and Quad chassis support the full range, but Ultra-light and Superheavy tonnages require Advanced+ rules.
  * - Custom Homebrew (rules level 5) lifts all of the above tonnage restrictions.
  */
@@ -180,6 +181,8 @@ export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: num
     }
 
     switch (mechTypeTag) {
+        case "quadvee":
+            return { min: 20, max: 100 };
         case "biped":
         case "quad":
         default:

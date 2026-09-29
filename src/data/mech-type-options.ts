@@ -11,7 +11,7 @@ import { IMechType } from "./data-interfaces";
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
-// Rules levels follow IO p.50 as implemented by MegaMek (Mek tech
+// Rules levels follow IO p.50 as implemented by MegaMek (Mek/QuadVee/LandAirMek tech
 // advancement); book not yet in hand. Standard (tournament) play excludes Advanced and
 // Experimental chassis, so they never appear on tournament lists or cards by default.
 export const mechTypeOptions: IMechType[] = [
@@ -28,6 +28,15 @@ export const mechTypeOptions: IMechType[] = [
 		name:  "Quad",
 		rulesLevel: 0,
 		book: "TM",
+	},
+	{
+		id: 5,
+		tag: "quadvee",
+		name:  "QuadVee",
+		rulesLevel: 3,
+		book: "IO",
+		page: 50,
+		notes: "Advanced",
 	}
 ];
 

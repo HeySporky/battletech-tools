@@ -980,7 +980,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         setMovementDialog: currentBM,
         setMovementMode: currentBM ? currentBM.currentMovementMode : "",
         setMovementNumber: currentBM ? currentBM.currentToHitMovementModifier : 0,
-        setMovementCanJump: currentBM && currentBM.getJumpSpeed() > 0 ? true : false,
+        setMovementCanJump: currentBM && currentBM.getJumpSpeed() > 0 && currentBM.canUseJumpJetsInCurrentMode() ? true : false,
         setTargetDialog: null,
         takeDamageDialog: null,
       })
@@ -1593,6 +1593,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     <div className="flex">
       <div className="text-center">
+      {this.state.setMovementDialog.isQuadVee() ? (
+        <>
+          <div className="small-text">Transformation Mode</div>
+          <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("mech")}>Mech</button>
+          <button className={this.state.setMovementDialog.getTransformationMode() === "vehicle" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("vehicle")}>Vehicle</button>
+          {this.state.setMovementDialog.isQuadVee() ? <div className="small-text">Motive: {this.state.setMovementDialog.getQuadVeeMotive()} Vehicle Cruise MP: {this.state.setMovementDialog.getQuadVeeVehicleCruiseMP()}</div> : null}
+        </>
+      ) : null}
       <button
         className={this.state.setMovementMode === "" ? "btn btn-primary" : "btn"}
         onClick={(e) => this.setMovementMode(e, "")}
@@ -2143,10 +2151,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
         <InPlayCriticalHitTable
           appGlobals={this.props.appGlobals}
-          location={this.state.criticalHitDialog.isQuad() ? "fll" : "la"}
+          location={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? "fll" : "la"}
           mechData={this.state.criticalHitDialog}
-          critData={this.state.criticalHitDialog.isQuad() ? this.state.criticalHitDialog.getCriticals().frontLeftLeg : this.state.criticalHitDialog.getCriticals().leftArm}
-          numberCritSlots={this.state.criticalHitDialog.isQuad() ? 6 : 12}
+          critData={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? this.state.criticalHitDialog.getCriticals().frontLeftLeg : this.state.criticalHitDialog.getCriticals().leftArm}
+          numberCritSlots={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? 6 : 12}
           onChange={this.updateCriticalHitDialog}
         />
 
@@ -2226,10 +2234,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
       <InPlayCriticalHitTable
           appGlobals={this.props.appGlobals}
-          location={this.state.criticalHitDialog.isQuad() ? "frl" : "ra"}
+          location={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? "frl" : "ra"}
           mechData={this.state.criticalHitDialog}
-          critData={this.state.criticalHitDialog.isQuad() ? this.state.criticalHitDialog.getCriticals().frontRightLeg : this.state.criticalHitDialog.getCriticals().rightArm}
-          numberCritSlots={this.state.criticalHitDialog.isQuad() ? 6 : 12}
+          critData={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? this.state.criticalHitDialog.getCriticals().frontRightLeg : this.state.criticalHitDialog.getCriticals().rightArm}
+          numberCritSlots={this.state.criticalHitDialog.isQuad() || this.state.criticalHitDialog.isQuadVee() ? 6 : 12}
           onChange={this.updateCriticalHitDialog}
         />
 

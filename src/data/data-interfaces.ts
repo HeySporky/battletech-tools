@@ -15,7 +15,7 @@ export interface IArmorUnitTypes {
 }
 
 export type ArmorCriticalLocationsByChassis = Partial<Record<
-    "biped" | "quad",
+    "biped" | "quad" | "quadvee",
     Partial<Record<keyof ICriticalLocations, number>>
 >>;
 
@@ -424,6 +424,7 @@ export interface IInternalStructure {
   	perMechType: {
     	biped: Record<number, IInternalStructurePerTon>;
     	quad: Record<number, IInternalStructurePerTon>;
+        quadvee: Record<number, IInternalStructurePerTon>;
   	};
     /** Multiplier on internal structure points in the defensive BV (Industrial/Composite 0.5, Reinforced 2). */
     bvMultiplier?: number;
