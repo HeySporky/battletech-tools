@@ -166,9 +166,11 @@ export interface IBattleMechExport {
     lastUpdated: Date;
     location?: string;
     mechType: string;
+    quadVeeMotive?: "tracked" | "wheeled";
     /** OmniMech configurations sharing this base chassis; `equipment` holds the active one. */
     omniConfigurations?: IOmniConfiguration[];
     activeOmniConfiguration?: string;
+    transformationMode?:"mech" | "vehicle";
     mirrorArmorAllocations: boolean;
     model: string;
     name: string;
@@ -219,14 +221,14 @@ export class BattleMech {
         rt: "rightTorso",
         la: "leftArm",
         ra: "rightArm",
-        ll: "leftLeg",         // Rear Left Leg on Quads
-        rl: "rightLeg",        // Rear Right Leg on Quads
+        ll: "leftLeg",         // Rear Left Leg on Quads and QuadVees
+        rl: "rightLeg",        // Rear Right Leg on Quads and QuadVees
         rtr: "rightTorsoRear",
         ctr: "centerTorsoRear",
         ltr: "leftTorsoRear",
         cl: "centerLeg",       // Added Tripod layout support
-        fll: "frontLeftLeg",   // Added Quad layout support
-        frl: "frontRightLeg"   // Added Quad layout support
+        fll: "frontLeftLeg",   // Added Quad / QuadVee layout support
+        frl: "frontRightLeg"   // Added Quad / QuadVee layout support
     };
 
     private _targetAToHit: ITargetToHit = {
@@ -284,9 +286,11 @@ export class BattleMech {
     private _uuid: string = generateUUID();
 
     private _mechType = mechTypeOptions[0];
+    private _quadVeeMotive: "tracked" | "wheeled" = "tracked";
     /** Stored OmniMech configurations; the active one is live in _equipmentList. */
     private _omniConfigurations: IOmniConfiguration[] = [];
     private _activeOmniConfiguration = BattleMech.DEFAULT_OMNI_CONFIGURATION;
+    private _transformationMode: "mech" | "vehicle" = "mech";
     private _tech = btTechOptions[0];
     private _era = btEraOptions[1]; // Default to Succession Wars
     private _model: string = "";
@@ -1068,10 +1072,16 @@ export class BattleMech {
         else
             return false;
     }
+    public isQuadVee() {
+        if( this._mechType.tag.toLowerCase() === "quadvee" )
+            return true;
+        else
+            return false;
+    }
 
     /** Four-legged chassis keep their front legs in "fll"/"frl" instead of the arm locations. */
     private _hasFrontLegs(): boolean {
-        return this.isQuad();
+        return this.isQuad() || this.isQuadVee();
     }
 
     /**
@@ -1098,8 +1108,10 @@ export class BattleMech {
 
         this._calcLogCBill += "<tbody>\n";
         // Cockpit. Chassis cockpits (TO:AUE/IO values as implemented by MegaMek; provisional):
-        // Superheavy 300,000.
-        const chassisCockpit = this._tonnage > 100 ? { name: "Superheavy Cockpit", cost: 300000 } : null;
+        // QuadVee 375,000, Superheavy 300,000.
+        const chassisCockpit = this.isQuadVee() ? { name: "QuadVee Cockpit", cost: 375000 }
+            : this._tonnage > 100 ? { name: "Superheavy Cockpit", cost: 300000 }
+            : null;
         if( chassisCockpit ) {
             this._calcLogCBill += "<tr><td><strong>" + chassisCockpit.name + "</strong><br /><span class=\"smaller-text\">provisional</span></td><td>" + addCommas(chassisCockpit.cost) + "</td></tr>\n";
             cbillDryTotal += chassisCockpit.cost;
@@ -1309,14 +1321,25 @@ export class BattleMech {
         cbillDryTotal += armorcostMultiplier * armorTonnage ;
 
         // Equipment
+        let equipmentCost = 0;
         for( let eqC = 0; eqC < this._equipmentList.length; eqC++) {
             if( this._equipmentList[eqC].tag.indexOf( "ammo-" ) === -1) {
                 this._calcLogCBill += "<tr><td><strong>" + this._equipmentList[eqC].name + "</strong></td><td>" + addCommas(this._equipmentList[eqC].cbills) + "</td></tr>\n";
                 cbillDryTotal += this._equipmentList[eqC].cbills;
+                equipmentCost += this._equipmentList[eqC].cbills;
             } else {
                 this._calcLogCBill += "<tr><td><strong>" + this._equipmentList[eqC].name + "</strong></td><td class=\"text-right\">" + addCommas(this._equipmentList[eqC].cbills * this._equipmentList[eqC].weight) + "<div class=\"smaller-text\">(not included in dry cost)</div></td></tr>\n";
                 cbillAmmoTotal += this._equipmentList[eqC].cbills * this._equipmentList[eqC].weight;
             }
+        }
+
+        // Conversion equipment: QuadVee 50% of internal structure
+        // plus equipment cost (IO, as implemented by MegaMek; provisional).
+        const conversionRate = this.isQuadVee() ? 0.5 : 0;
+        if (conversionRate > 0) {
+            const conversionCost = (structureCost + equipmentCost) * conversionRate;
+            this._calcLogCBill += "<tr><td><strong>Conversion Equipment</strong><br /><span class=\"smaller-text\">" + conversionRate + " x (Structure [" + addCommas(structureCost) + "] + Equipment [" + addCommas(equipmentCost) + "]) - provisional</span></td><td>" + addCommas(conversionCost) + "</td></tr>\n";
+            cbillDryTotal += conversionCost;
         }
 
         // NOTE - for some reason SSW and the MUL are 1000 less here than the actual summation even when all the line items are right.
@@ -2277,7 +2300,7 @@ export class BattleMech {
                 html += "Right Leg".padStart(col1Padding, " ") + "" + rightLegIS.toString().padStart(col2Padding, " ") + "" + rightLegArmor.toString().padStart(col3Padding, " ") + "\n";
                 html += "Left Leg".padStart(col1Padding, " ") + "" + leftLegIS.toString().padStart(col2Padding, " ") + "" + leftLegArmor.toString().padStart(col3Padding, " ") + "\n";
             }
-        } else if (typeTag === "quad") {
+        } else if (typeTag === "quad" || typeTag === "quadvee") {
             const frontRightLegIS = this._internalStructure.frontRightLeg ?? 0;
             const frontLeftLegIS = this._internalStructure.frontLeftLeg ?? 0;
             const frontRightLegArmor = this._armorAllocation.frontRightLeg ?? 0;
@@ -2543,7 +2566,7 @@ export class BattleMech {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">Right Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
             }
-        } else if( typeTag === "quad" ) {
+        } else if( typeTag === "quad" || typeTag === "quadvee" ) {
             const frontRightLegIS = this._internalStructure.frontRightLeg ?? 0;
             const frontLeftLegIS = this._internalStructure.frontLeftLeg ?? 0;
             const frontRightLegArmor = this._armorAllocation.frontRightLeg ?? 0;
@@ -2671,6 +2694,10 @@ export class BattleMech {
                 if (item && isOmniFixedOnly(item)) item.omniFixed = true;
             }
         }
+        if (typeTag === "quadvee") {
+            this._armorType = mechArmorTypes.find(armor => armor.tag === "standard") ?? mechArmorTypes[0];
+            this._selectedInternalStructure = mechInternalStructureTypes.find(structure => structure.tag === "standard") ?? mechInternalStructureTypes[0];
+        }
 
         this._maxMoveHeat = 2;
         this._heatDissipation = 0;
@@ -2682,7 +2709,13 @@ export class BattleMech {
             weight: this.getInternalStructureWeight()
         });
 
-        if (this._tonnage > 100) {
+        if (typeTag === "quadvee") {
+            this._cockpitWeight = 4;
+            this._weights.push({
+                name: "QuadVee Dual Cockpit",
+                weight: this.getCockpitWeight()
+            });
+        } else if (this._tonnage > 100) {
             // Superheavy Bipeds/Quads require a two-pilot Superheavy Cockpit, same as any other Superheavy chassis.
             this._cockpitWeight = 4;
             this._weights.push({
@@ -2700,6 +2733,15 @@ export class BattleMech {
             this._weights.push({
                 name: "Cockpit",
                 weight: this.getCockpitWeight()
+            });
+        }
+
+        // QuadVee conversion equipment is 10% of mass, rounded up to a whole ton
+        // (IO p.134 via MegaMek TestMek, not yet checked in the book).
+        if (typeTag === "quadvee") {
+            this._weights.push({
+                name: "QuadVee Conversion / Motive Package",
+                weight: Math.ceil(this._tonnage * 0.1)
             });
         }
 
@@ -2760,7 +2802,7 @@ export class BattleMech {
             this._totalArmor += this._armorAllocation.leftArm ?? 0;
             this._totalArmor += this._armorAllocation.rightLeg;
             this._totalArmor += this._armorAllocation.leftLeg;
-        } else if (typeTag === "quad") {
+        } else if (typeTag === "quad" || typeTag === "quadvee") {
             // Four-legged layouts substitute arms entirely for specialized front legs
             this._totalArmor += this._armorAllocation.frontRightLeg ?? 0;
             this._totalArmor += this._armorAllocation.frontLeftLeg ?? 0;
@@ -2896,7 +2938,7 @@ export class BattleMech {
         this._armorBubbles.centerLeg = [];
         this._armorBubbles.frontLeftLeg = [];
         this._armorBubbles.frontRightLeg = [];
-    } else if (typeTag === "quad") {
+    } else if (typeTag === "quad" || typeTag === "quadvee") {
         // Four-legged layout swaps out arms completely for dedicated Front Legs
         this._armorBubbles.frontLeftLeg = syncBubbles(this._armorBubbles.frontLeftLeg, this._armorAllocation.frontLeftLeg ?? 0);
         this._armorBubbles.frontRightLeg = syncBubbles(this._armorBubbles.frontRightLeg, this._armorAllocation.frontRightLeg ?? 0);
@@ -3010,7 +3052,7 @@ export class BattleMech {
         this._structureBubbles.frontLeftLeg = [];
         this._structureBubbles.frontRightLeg = [];
 
-    } else if (typeTag === "quad") {
+    } else if (typeTag === "quad" || typeTag === "quadvee") {
         // Four-legged layouts substitute the arms framework for an explicit Front Legs framework... they don't walk on their hands.
         this._structureBubbles.frontLeftLeg = syncBubbles(this._structureBubbles.frontLeftLeg, this._internalStructure.frontLeftLeg ?? 0);
         this._structureBubbles.frontRightLeg = syncBubbles(this._structureBubbles.frontRightLeg, this._internalStructure.frontRightLeg ?? 0);
@@ -3078,11 +3120,14 @@ export class BattleMech {
             this._criticals.centerLeg = [];
             this._criticals.frontLeftLeg = [];
             this._criticals.frontRightLeg = [];
-        } else if (typeTag === "quad") {
-            this._criticals.frontLeftLeg = Array(6).fill(null);
-            this._criticals.frontRightLeg = Array(6).fill(null);
-            this._criticals.leftLeg = Array(6).fill(null);  // Rear Left Leg
-            this._criticals.rightLeg = Array(6).fill(null); // Rear Right Leg
+        } else if (typeTag === "quad" || typeTag === "quadvee") {
+            // QuadVees reserve both available critical slots in each leg for
+            // conversion and motive systems; ordinary Quads have six slots.
+            const legSlots = typeTag === "quadvee" ? 2 : 6;
+            this._criticals.frontLeftLeg = Array(legSlots).fill(null);
+            this._criticals.frontRightLeg = Array(legSlots).fill(null);
+            this._criticals.leftLeg = Array(legSlots).fill(null);  // Rear Left Leg
+            this._criticals.rightLeg = Array(legSlots).fill(null); // Rear Right Leg
             // Clear biped slot arrays
             this._criticals.leftArm = [];
             this._criticals.rightArm = [];
@@ -3100,10 +3145,10 @@ export class BattleMech {
         this._unallocatedCriticals = [];
 
         // Add required components....
-        // Superheavy Bipeds/Quads (>100 tons) mount a two-pilot Superheavy Cockpit.
+        // Superheavy Bipeds/Quads (>100 tons) mount a two-pilot Superheavy Cockpit, same as QuadVees.
         const isSuperheavyCockpit = (typeTag === "biped" || typeTag === "quad") && this._tonnage > 100;
-        const cockpitTag = isSuperheavyCockpit ? "multi-pilot-cockpit" : "cockpit";
-        const cockpitName = isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
+        const cockpitTag = typeTag === "quadvee" || isSuperheavyCockpit ? "multi-pilot-cockpit" : "cockpit";
+        const cockpitName = typeTag === "quadvee" ? "QuadVee Dual Cockpit" : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
         if( this._smallCockpit) {
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
@@ -3128,17 +3173,22 @@ export class BattleMech {
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 4);
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 5);
         }
-        if (typeTag === "quad") {
-            // ---- QUAD FRONT LEGS ----
+        if (typeTag === "quad" || typeTag === "quadvee") {
+            // ---- QUAD / QUADVEE FRONT LEGS ----
             // Front Right Leg Actuators (replaces old arm hacks with direct location tracking keys)
-            this._addCriticalItem("hip", "Hip", 1, "frl", 0);
-            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "frl", 1);
-            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "frl", 2);
-            this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "frl", 3);
-            this._addCriticalItem("hip", "Hip", 1, "fll", 0);
-            this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "fll", 1);
-            this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "fll", 2);
-            this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "fll", 3);
+            if (typeTag === "quad") {
+                this._addCriticalItem("hip", "Hip", 1, "frl", 0);
+                this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "frl", 1);
+                this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "frl", 2);
+                this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "frl", 3);
+                this._addCriticalItem("hip", "Hip", 1, "fll", 0);
+                this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "fll", 1);
+                this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "fll", 2);
+                this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "fll", 3);
+            } else {
+                this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "frl");
+                this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "fll");
+            }
         } else {
             // ---- BIPED SELECTION (STANDARD FALLBACK) ----
             // Left Arm Actuators
@@ -3218,24 +3268,30 @@ export class BattleMech {
         if (engineCrits.lt) {
             this._addCriticalItem("engine", engineName, engineCrits.lt, "lt");
         }
-        if (isSuperheavyCockpit) {
+        if (typeTag === "quadvee") {
+            this._addCriticalItem("multi-pilot-cockpit", "QuadVee Dual Cockpit", 1, "ct");
+        } else if (isSuperheavyCockpit) {
             this._addCriticalItem("multi-pilot-cockpit", "Superheavy Cockpit", 1, "ct");
         }
 
         // STANDARD & REAR LEGS: Track Left Leg (ll) and Right Leg (rl) structural presence. Am I standing?
         const leftLegIS = this._internalStructure.leftLeg ?? 0;
         const rightLegIS = this._internalStructure.rightLeg ?? 0;
-        if (leftLegIS > 0) {
+        if (leftLegIS > 0 && typeTag !== "quadvee") {
             this._addCriticalItem("hip", "Hip", 1, "ll", 0);
             this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "ll", 1);
             this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "ll", 2);
             this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "ll", 3);
         }
-        if (rightLegIS > 0) {
+        if (rightLegIS > 0 && typeTag !== "quadvee") {
             this._addCriticalItem("hip", "Hip", 1, "rl", 0);
             this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "rl", 1);
             this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "rl", 2);
             this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "rl", 3);
+        }
+        if (typeTag === "quadvee") {
+            this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "rl");
+            this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "ll");
         }
         // Jump Jets
         let jump_move = this._jumpSpeed;
@@ -3830,7 +3886,7 @@ export class BattleMech {
         (this._criticals as any).centerLeg = [];
         (this._criticals as any).frontLeftLeg = [];
         (this._criticals as any).frontRightLeg = [];
-    } else if (typeTag === "quad") {
+    } else if (typeTag === "quad" || typeTag === "quadvee") {
         // Four-legged frames: 4 driving legs carrying exactly 6 inventory spaces each. No arms.
         (this._criticals as any).frontLeftLeg = ((this._criticals as any).frontLeftLeg ?? []).slice(0, 6);
         (this._criticals as any).frontRightLeg = ((this._criticals as any).frontRightLeg ?? []).slice(0, 6);
@@ -3976,7 +4032,11 @@ export class BattleMech {
     }
 
     public getEffectiveWalkSpeed(): number {
-        const legLocations = this.isQuad()
+        if (this.isQuadVee() && this._transformationMode === "vehicle") {
+            return this.getQuadVeeVehicleCruiseMP();
+        }
+
+        const legLocations = this.isQuad() || this.isQuadVee()
             ? ["ll", "rl", "fll", "frl"]
             : ["ll", "rl"];
         const destroyedLegCount = legLocations.filter(location => this._structureInLocation(location) <= 0).length;
@@ -4100,6 +4160,9 @@ export class BattleMech {
         if (armorTag === "stealth") {
             armorTag = "stealth-basic";
         }
+        if (this.isQuadVee() && armorTag !== "standard") {
+            return this._armorType;
+        }
         for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
             if( mechArmorTypes[aCount].tag === armorTag) {
                 const armor = mechArmorTypes[aCount];
@@ -4207,7 +4270,7 @@ export class BattleMech {
     }
 
     public getInternalStructure(): IResolvedInternalStructure {
-        if (this.isQuad()) {
+        if (this.isQuad() || this.isQuadVee()) {
             this._internalStructure.leftArm = this._internalStructure.frontLeftLeg;
             this._internalStructure.rightArm = this._internalStructure.frontRightLeg;
         }
@@ -4217,6 +4280,9 @@ export class BattleMech {
     public setInternalStructureType(
         isTag: string,
     ) {
+        if (this.isQuadVee() && isTag !== "standard") {
+            return this._selectedInternalStructure;
+        }
         for( let is of mechInternalStructureTypes) {
             if( isTag === is.tag) {
                 this._selectedInternalStructure = is;
@@ -4920,7 +4986,7 @@ export class BattleMech {
       } else {
         this._internalStructure.rightArm = 0;
       }
-      // leftLeg and rightLeg equate to the rear legs on Quads.
+      // leftLeg and rightLeg equate to the rear legs on Quads and QuadVees.
       if ('leftLeg' in structureData) {
         this._internalStructure.leftLeg = structureData.leftLeg ?? 0;
         this._internalStructure.rightLeg = structureData.rightLeg ?? 0;
@@ -4931,7 +4997,7 @@ export class BattleMech {
       } else {
         this._internalStructure.centerLeg = 0;
       }
-      // For quads
+      // For quads and quadvees
       if ('frontLeftLeg' in structureData) {
         this._internalStructure.frontLeftLeg = structureData.frontLeftLeg ?? 0;
         this._internalStructure.frontRightLeg = structureData.frontRightLeg ?? 0;
@@ -4955,7 +5021,7 @@ export class BattleMech {
           ((this._internalStructure.rightArm || 0) * 2) + 
           (this._internalStructure.leftLeg * 2) + 
           (this._internalStructure.rightLeg * 2);
-      } else if (typeTag === "quad") {
+      } else if (typeTag === "quad" || typeTag === "quadvee") {
         this._maxArmor += 
           (this._internalStructure.frontLeftLeg * 2) + 
           (this._internalStructure.frontRightLeg * 2) + 
@@ -4979,7 +5045,7 @@ export class BattleMech {
         this._internalStructure.leftTorso +
         this._internalStructure.rightTorso;
 
-      if (typeTag === "quad") {
+      if (typeTag === "quad" || typeTag === "quadvee") {
         this._totalInternalStructurePoints += 
           this._internalStructure.frontLeftLeg + 
           this._internalStructure.frontRightLeg + 
@@ -5041,7 +5107,7 @@ export class BattleMech {
           ((this._internalStructure.rightArm || 0) * 2) + 
           (this._internalStructure.leftLeg * 2) + 
           (this._internalStructure.rightLeg * 2);
-      } else if (typeTag === "quad") {
+      } else if (typeTag === "quad" || typeTag === "quadvee") {
         totalMaxArmor += 
                     ((this._internalStructure.frontLeftLeg ?? 0) * 2) +
                     ((this._internalStructure.frontRightLeg ?? 0) * 2) +
@@ -5063,8 +5129,79 @@ export class BattleMech {
       return this._mechType;
     }
 
+        public getQuadVeeMotive(): "tracked" | "wheeled" {
+            return this._quadVeeMotive;
+        }
+
+        public getQuadVeeVehicleCruiseMP(): number {
+            if (!this.isQuadVee()) {
+                return 0;
+            }
+            if (this.hasMotiveSystemDamage()) {
+                return 0;
+            }
+            const cruiseMP = this._walkSpeed + (this._quadVeeMotive === "wheeled" ? 1 : 0);
+            return Math.max(0, cruiseMP - (this.hasActiveModularArmor() ? 1 : 0));
+        }
+
+        public getTransformationMode(): "mech" | "vehicle" {
+            return this._transformationMode;
+        }
+
+        public setTransformationMode(mode: string): "mech" | "vehicle" {
+            const requestedMode = mode.toLowerCase();
+            const allowedModes = this.isQuadVee() ? ["mech", "vehicle"] : ["mech"];
+
+            this._transformationMode = (allowedModes.includes(requestedMode) ? requestedMode : "mech") as typeof this._transformationMode;
+            return this._transformationMode;
+        }
+
+        public canUseJumpJetsInCurrentMode(): boolean {
+            if (this.isQuadVee()) {
+                return this._transformationMode === "mech";
+            }
+            // Bipeds and Quads may use their jump jets.
+            return true;
+        }
+
+        public hasFullTorsoTwist(): boolean {
+            return this.isQuadVee();
+        }
+
         public getPilotingSkillModifier(): number {
             return this.hasActiveModularArmor() ? 1 : 0;
+        }
+
+        public canUseHullDownRules(): boolean {
+            return this.isQuadVee() && this._transformationMode === "vehicle";
+        }
+
+        public getOperationalHeightLevels(): number {
+            if (this.isQuadVee() && this._transformationMode === "vehicle") {
+                return 1;
+            }
+            return 2;
+        }
+
+        public canOperateAfterGyroFailure(): boolean {
+            return this.isQuadVee() && this._transformationMode === "vehicle";
+        }
+
+        public hasMotiveSystemDamage(): boolean {
+            if (!this.isQuadVee() || this._transformationMode !== "vehicle") {
+                return false;
+            }
+            return ["fll", "frl", "ll", "rl"].some(location =>
+                (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[location]]?.some((item: ICriticalSlot | null) =>
+                    item?.tag === "quadvee-conversion" && item.damaged
+                )
+            );
+        }
+
+        public setQuadVeeMotive(motive: string): "tracked" | "wheeled" {
+            this._quadVeeMotive = motive.toLowerCase() === "wheeled" ? "wheeled" : "tracked";
+            this._calc();
+            return this._quadVeeMotive;
         }
 
     public setType(typeTag: string) {
@@ -5074,6 +5211,10 @@ export class BattleMech {
       for (const mechType of mechTypeOptions) {
         if (mechType.tag.toLowerCase() === formattedTag) {
             this._mechType = mechType;
+            if (formattedTag !== "quadvee") {
+                this._quadVeeMotive = "tracked";
+            }
+            this._transformationMode = "mech";
             
             // Trigger cascading refresh of internal structure layouts and armor capacities
             this.setTonnage(this._tonnage);
@@ -5081,7 +5222,7 @@ export class BattleMech {
             this.clearCriticalAllocationTable();
             
             // Structural anatomy edge-cases: Clear or lock arm slots for limb-based vehicles
-            if (formattedTag === "quad") {
+            if (formattedTag === "quad" || formattedTag === "quadvee") {
                 this._clearArmCriticalAllocationTable();
             }
             
@@ -5204,6 +5345,8 @@ export class BattleMech {
             jumpSpeed: this._jumpSpeed,
             lastUpdated: this.lastUpdated,
             mechType: this._mechType.tag,
+            quadVeeMotive: this._quadVeeMotive,
+            transformationMode: this._transformationMode,
             mirrorArmorAllocations: this._mirrorArmorAllocations,
             nickname: this._nickname,
             strictEra: this._strictEra,
@@ -5459,6 +5602,12 @@ export class BattleMech {
             // console.log( "importObject.mechType", importObject.mechType );
             if( importObject.mechType)
                 this.setMechType(importObject.mechType);
+            if (importObject.quadVeeMotive) {
+                this.setQuadVeeMotive(importObject.quadVeeMotive);
+            }
+            if (importObject.transformationMode) {
+                this.setTransformationMode(importObject.transformationMode);
+            }
 
             this.setTonnage(importObject.tonnage);
 
@@ -5717,7 +5866,7 @@ export class BattleMech {
     // ---- ANATOMICAL LIMB SETTERS WITH DYNAMIC ROUTING BASED ON CHASSIS CHOICE ----
     public setLeftArmArmor(armorValue: number): number {
         const typeTag = this._mechType.tag.toLowerCase();
-        if (typeTag === "quad") {
+        if (typeTag === "quad" || typeTag === "quadvee") {
             // Route directly to Front Left Leg allocation properties
             this._armorAllocation.frontLeftLeg = armorValue;
             if (this._mirrorArmorAllocations) {
@@ -5736,7 +5885,7 @@ export class BattleMech {
     }
     public setRightArmArmor(armorValue: number): number {
         const typeTag = this._mechType.tag.toLowerCase();
-        if (typeTag === "quad") {
+        if (typeTag === "quad" || typeTag === "quadvee") {
             this._armorAllocation.frontRightLeg = armorValue;
             if (this._mirrorArmorAllocations) {
                 this._armorAllocation.frontLeftLeg = armorValue;
@@ -6043,7 +6192,7 @@ export class BattleMech {
             ];
             return this._returnRandomString(damageSnarks);
         }
-        if( this.gyroHits() > 2 ) {
+        if( this.gyroHits() > 2 && !this.canOperateAfterGyroFailure() ) {
             let damageSnarks: string[] = [
                 "Oh man my mech can't keep it's liqueur!",
                 "'mech drunk, can't stand",
@@ -6620,6 +6769,9 @@ export class BattleMech {
         ) {
             maxLegalSlots = 6;
         }
+        if (typeTag === "quadvee" && ["ll", "rl", "fll", "frl"].includes(normalizedTag)) {
+            maxLegalSlots = 2;
+        }
 
         // Automated Unassigned Index Resolution (Find next open gap space sequence)
         if (toIndex === -1) {
@@ -6662,6 +6814,11 @@ export class BattleMech {
             // Biped configurations can never fit jump jets into standard weapons arms
             if ((typeTag === "biped") && (normalizedTag === "ra" || normalizedTag === "la")) {
                 return false;
+            }
+            // QuadVees follow specialized drive constraints preventing equipment in limbs based on tech modes
+            if (typeTag === "quadvee" && (normalizedTag === "fll" || normalizedTag === "frl" || normalizedTag === "ll" || normalizedTag === "rl")) {
+                // QuadVee chassis validation rules go here. I am thinking return false; but want to ruminate.
+                // Feel free to let me know.
             }
         }
         // Commit Placement Changes & Populate Multi-Slot Component Placeholders
@@ -6825,7 +6982,7 @@ export class BattleMech {
             engineWeight: this.getEngineWeight() ?? 0,
             directFireWeaponWeight,
             hasTSM: this._myomerType.tripleStrength,
-            isQuad: this.isQuad(),
+            isQuad: this.isQuad() || this.isQuadVee(),
         };
     }
 
@@ -6962,7 +7119,7 @@ export class BattleMech {
         for (const arm of ["la", "ra"]) {
             if (aes.some(item => item.variableFormula === "aes-arm" && item.location === arm)) multiplier += 0.1;
         }
-        const quad = this.isQuad();
+        const quad = this.isQuad() || this.isQuadVee();
         const legs = quad ? ["ll", "rl", "fll", "frl"] : ["ll", "rl"];
         if (legs.every(leg => aes.some(item => item.variableFormula === "aes-leg" && item.location === leg))) {
             multiplier += quad ? 0.4 : 0.2;
@@ -7129,7 +7286,7 @@ export class BattleMech {
         const internalStructure = this.getInternalStructure();
         const typeTag = this.getType().tag.toLowerCase();
         const hasArms = typeTag === "biped";
-        const isQuadStyle = typeTag === "quad";
+        const isQuadStyle = typeTag === "quad" || typeTag === "quadvee";
 
         const allocation = this._armorAllocation;
         const structureOf = (location: keyof IArmorAllocation): number =>
@@ -7212,7 +7369,7 @@ export class BattleMech {
         // Core structural layout configs
         const typeTag = this.getType().tag.toLowerCase();
         const hasArms = typeTag === "biped";
-        const isQuadStyle = typeTag === "quad";
+        const isQuadStyle = typeTag === "quad" || typeTag === "quadvee";
         // Generate a zeroed structure record to populate safely
         const maxAllocation: IArmorAllocation = {
             head: 9, // Absolute standard max ceiling rule for Head locations
@@ -8269,7 +8426,7 @@ export class BattleMech {
         rv += this._internalStructure.leftLeg;
         rv += this._internalStructure.rightLeg;
 
-        if (typeTag === "quad") {
+        if (typeTag === "quad" || typeTag === "quadvee") {
             rv += this._internalStructure.frontLeftLeg ?? 0;
             rv += this._internalStructure.frontRightLeg ?? 0;
         } else {
