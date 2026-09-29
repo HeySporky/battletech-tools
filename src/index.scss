@@ -1,4 +1,5 @@
-@import "./common.scss";
+@use "sass:color";
+@use "./common.scss" as *;
 
 @font-face {
   font-family: 'DotMatrix';
@@ -1208,7 +1209,7 @@ body.retro {
     border: solid 1px #fff;
     &:focus {
       color: #fff;
-      background: darken($retroFontColor, 20);
+      background: color.adjust($retroFontColor, $lightness: -20%);
     }
   }
   p {
@@ -1363,8 +1364,8 @@ body.retro {
 
   @keyframes blink {
     50% {
-      border: dotted 2px lighten($retroPrimaryBG, 10);
-      background-color: lighten($headerFooterBackground, 1);
+      border: dotted 2px color.adjust($retroPrimaryBG, $lightness: 10%);
+      background-color: color.adjust($headerFooterBackground, $lightness: 1%);
     }
     // 50% {
     //   border: dotted 2px $retroPrimaryBG;
