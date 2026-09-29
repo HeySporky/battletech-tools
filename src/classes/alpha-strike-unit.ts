@@ -91,6 +91,8 @@ export interface IASMULUnit {
 
 export interface IAlphaStrikeUnitExport {
     mechCreatorUUID: string;
+    /** Rules level id (rules-level-options): from the MUL "Rules" field or the unit's creator. */
+    rulesLevel?: number;
 
 
     customName?: string;
@@ -170,6 +172,9 @@ export class AlphaStrikeUnit {
     public era: string = "";
 
     public tro: string = "";
+
+    /** Rules level id (rules-level-options); undefined when unknown. */
+    public rulesLevel: number | undefined = undefined;
 
     public showDetails: boolean = false;
 
@@ -293,7 +298,7 @@ export class AlphaStrikeUnit {
 
             this.tro = incomingMechData.TRO;
 
-
+            this.rulesLevel = getRulesLevelFromMULRules(incomingMechData.Rules);
 
             this.mulID = incomingMechData.Id;
 
@@ -343,14 +348,7 @@ export class AlphaStrikeUnit {
         
 
             if( incomingMechData.BFAbilities && incomingMechData.BFAbilities.trim() ) {
-                this.abilities = incomingMechData.BFAbilities.split(",");
-                if (!this.abilities){
-                    this.abilities = [];
-                } else {
-                    for( let abi of this.abilities ) {
-                        abi = abi.trim();
-                    }
-                }
+                this.abilities = incomingMechData.BFAbilities.split(",").map(ability => ability.trim());
             }
 
             this.overheat = +incomingMechData.BFOverheat;
@@ -434,6 +432,8 @@ export class AlphaStrikeUnit {
 
             this.tro = incomingMechData.tro;
 
+            this.rulesLevel = typeof incomingMechData.rulesLevel === "number" ? incomingMechData.rulesLevel : undefined;
+
             this.role =  incomingMechData.role;
 
             this.tonnage = incomingMechData.tonnage / 1;
@@ -466,10 +466,7 @@ export class AlphaStrikeUnit {
             this.move = incomingMechData.move;
 
             if( typeof(incomingMechData.abilities) === "string" ) {
-                this.abilities = incomingMechData.abilities.split(",");
-                for( let abi of this.abilities ) {
-                    abi = abi.trim();
-                }
+                this.abilities = incomingMechData.abilities.split(",").map(ability => ability.trim());
             } else {
                 this.abilities = incomingMechData.abilities;
             }
@@ -1226,7 +1223,7 @@ export class AlphaStrikeUnit {
                 let split = abi.split(/\d/);
 
 
-                let canBeCritAbilities = ['FLK', 'HT', 'IF', 'LRM', 'SRM', 'TUR(', 'TOR', 'REAR', 'AC','IATM']
+                let canBeCritAbilities = ['FLK', 'HT', 'IF', 'LRM', 'MSL', 'SRM', 'TUR(', 'TOR', 'REAR', 'AC','IATM']
                 // If there are no numbers, it's not got damage values
                 if (split.length === 1 || !canBeCritAbilities.includes(split[0].trim())) {
                     return abi;
@@ -1246,7 +1243,7 @@ export class AlphaStrikeUnit {
                     let damage = 0;
                     let minimal = false;
                     let dash = false;
-                    if (damageValue == "-") {
+                    if (damageValue === "-") {
                         dash = true;
                     } else {
                         [damage, minimal] = this.calculateDamage(+damageValue, currentWeaponHits, damageValue === "0*");
@@ -1671,54 +1668,54 @@ export class AlphaStrikeUnit {
 
     public applyRound() {
         this.currentHeat = this.roundHeat;
-        this.roundArmor.map( (point, pointIndex) => {
+        this.roundArmor.forEach((point, pointIndex) => {
             if (point) {
                 this.currentArmor[pointIndex] = !this.currentArmor[pointIndex];
                 this.roundArmor[pointIndex] = false;
             }
-        })
-        this.roundStructure.map( (point, pointIndex) => {
+        });
+        this.roundStructure.forEach((point, pointIndex) => {
             if (point) {
                 this.currentStructure[pointIndex] = !this.currentStructure[pointIndex];
                 this.roundStructure[pointIndex] = false;
             }
-        })
-        this.roundEngineHits.map( (point, pointIndex) => {
+        });
+        this.roundEngineHits.forEach((point, pointIndex) => {
             if (point) {
                 this.engineHits[pointIndex] = !this.engineHits[pointIndex];
                 this.roundEngineHits[pointIndex] = false;
             }
-        })
-        this.roundFireControlHits.map( (point, pointIndex) => {
+        });
+        this.roundFireControlHits.forEach((point, pointIndex) => {
             if (point) {
                 this.fireControlHits[pointIndex] = !this.fireControlHits[pointIndex];
                 this.roundFireControlHits[pointIndex] = false;
             }
-        })
-        this.roundMpControlHits.map( (point, pointIndex) => {
+        });
+        this.roundMpControlHits.forEach((point, pointIndex) => {
             if (point) {
                 this.mpControlHits[pointIndex] = !this.mpControlHits[pointIndex];
                 this.roundMpControlHits[pointIndex] = false;
             }
-        })
-        this.roundWeaponHits.map( (point, pointIndex) => {
+        });
+        this.roundWeaponHits.forEach((point, pointIndex) => {
             if (point) {
                 this.weaponHits[pointIndex] = !this.weaponHits[pointIndex];
                 this.roundWeaponHits[pointIndex] = false;
             }
-        })
-        this.roundVehicleMotive910.map( (point, pointIndex) => {
+        });
+        this.roundVehicleMotive910.forEach((point, pointIndex) => {
             if (point) {
                 this.vehicleMotive910[pointIndex] = !this.vehicleMotive910[pointIndex];
                 this.roundVehicleMotive910[pointIndex] = false;
             }
-        })
-        this.roundVehicleMotive11.map( (point, pointIndex) => {
+        });
+        this.roundVehicleMotive11.forEach((point, pointIndex) => {
             if (point) {
                 this.vehicleMotive11[pointIndex] = !this.vehicleMotive11[pointIndex];
                 this.roundVehicleMotive11[pointIndex] = false;
             }
-        })
+        });
         if (this.roundVehicleMotive12) {
             this.vehicleMotive12 = !this.vehicleMotive12;
         }
@@ -1875,6 +1872,7 @@ export class AlphaStrikeUnit {
             tmm:  this.tmm,
             tonnage:  this.tonnage,
             tro:  this.tro,
+            rulesLevel:  this.rulesLevel,
             role:  this.role,
             threshold:  this.threshold,
             pilot:  this._pilot,
@@ -2221,5 +2219,17 @@ export class AlphaStrikeUnit {
 
         this.calcCurrentValues();
         return _calcLogAS;
+    }
+}
+
+/** MUL "Rules" values mapped to rules-level-options ids (Introductory 1 ... Experimental 4). */
+export function getRulesLevelFromMULRules(rules: string | undefined | null): number | undefined {
+    switch ((rules ?? "").trim().toLowerCase()) {
+        case "introductory": return 1;
+        case "standard": return 2;
+        case "advanced": return 3;
+        case "experimental": return 4;
+        case "unofficial": return 5;
+        default: return undefined;
     }
 }
