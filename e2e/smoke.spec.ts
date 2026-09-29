@@ -15,28 +15,13 @@ const ROUTES = [
     "dev-status",
 ];
 
-// Known engine fault (tracked in TODO.md): 500 ms after startup, app-router imports every bundled SSW mech in the
-// background, and the BV speed factor throws on the first mech with an odd Jump MP. Whether a smoke test sees it
-// depends on timing, so the smoke tests report it as an annotation and the dedicated test below pins it down.
-const KNOWN_SPEED_FACTOR_FAULT = /reading 'toFixed'[\s\S]*_calcBattleValue/;
-
 for (const route of ROUTES) {
     test(`/${route} renders without crashing`, async ({ page }) => {
-        // Uncaught exceptions fail the test. console.error output is attached to the report instead: the app logs
-        // some known engine-validation noise on startup (see TODO.md) that does not break rendering.
-        const crashes: string[] = [];
-        page.on("pageerror", (error) => {
-            const detail = error.stack ?? error.message;
-            if (KNOWN_SPEED_FACTOR_FAULT.test(detail)) {
-                test.info().annotations.push({ type: "known fault", description: error.message });
-            } else {
-                crashes.push(detail);
-            }
-        });
+        // Uncaught exceptions and console.error output both fail the test.
+        const errors: string[] = [];
+        page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
         page.on("console", (message) => {
-            if (message.type() === "error") {
-                test.info().annotations.push({ type: "console.error", description: message.text() });
-            }
+            if (message.type() === "error") errors.push(`console.error: ${message.text()}`);
         });
 
         await page.goto(route);
@@ -44,12 +29,13 @@ for (const route of ROUTES) {
         await page.waitForLoadState("networkidle");
 
         await expect(page).not.toHaveTitle(/404/);
-        expect(crashes).toEqual([]);
+        expect(errors).toEqual([]);
     });
 }
 
-// Flips to "unexpectedly passed" once the speed factor fault is fixed - then turn it into a normal `test`.
-test.fail("background SSW import finishes without an uncaught error [known fault, see TODO.md]", async ({ page }) => {
+// 500 ms after startup, app-router imports every bundled SSW mech in the background, after most smoke tests are done.
+// Give it time to run: an exception there silently truncates the SSW mech list (it once did, on odd Jump MP).
+test("background SSW import finishes without an uncaught error", async ({ page }) => {
     const pageError = page.waitForEvent("pageerror", { timeout: 15_000 }).catch(() => null);
     await page.goto("");
     expect((await pageError)?.stack).toBeUndefined();
