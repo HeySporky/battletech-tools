@@ -26,7 +26,13 @@ export function getSSWXMLBasicInfo(
 ): ISSWBasicInfo | null {
 
     const options = {
-        ignoreAttributes : false
+        ignoreAttributes : false,
+        // Security note: fast-xml-parser (>=4.4) rejects external and parameter entities
+        // outright and caps internal-entity expansion at 10 000 chars, so XXE and
+        // billion-laughs are not exploitable here. Do NOT set processEntities: false —
+        // legitimate SSW files use standard XML entities (&quot;, &apos;, &amp;) in
+        // attribute values and disabling entity processing corrupts every mech name
+        // containing a quote.
     };
     const parser = new XMLParser(options);
     let jObj = parser.parse(ssw_xml);
