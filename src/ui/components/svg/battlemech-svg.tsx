@@ -27,6 +27,8 @@ import RecordSheetGATORTable from './record-sheet-gator-table';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 import TakeDamageButtonSVG from './take-damage-button';
 import TargetSelectSVG from './target-select-svg';
+import TripodArmorCircles from './tripod-armor-circles';
+import TripodDiagramSVG, { TRIPOD_CENTER_LEG_BUBBLES } from './tripod-diagram-svg';
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
 
@@ -56,7 +58,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
     render = (): JSX.Element => {
 
-        // Bipeds use the Biped anatomy.
+        // Bipeds use the Biped anatomy; Tripod extends that base with a Center Leg overlay.
         // QuadVee correctly reuses the Quad diagram (same 4-leg, no-arm anatomy).
         const hasArms = !this.props.mechData.isQuad() && !this.props.mechData.isQuadVee();
 
@@ -696,9 +698,17 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     >
     {hasArms ? (
         <>
-            <BipedArmorDiagramSVG xLoc={1263} yLoc={-10} width={700} bgColor={bgColor} />
+            {this.props.mechData.isTripod() ? (
+                <TripodDiagramSVG kind="armor" xLoc={1263} yLoc={-10} width={700} bgColor={bgColor} strokeColor={strokeColor} />
+            ) : (
+                <BipedArmorDiagramSVG xLoc={1263} yLoc={-10} width={700} bgColor={bgColor} />
+            )}
 
-            <BipedRearArmorDiagramSVG xLoc={1413} yLoc={875} width={400} bgColor={bgColor} />
+            {this.props.mechData.isTripod() ? (
+                <TripodDiagramSVG kind="rear" xLoc={1413} yLoc={875} width={400} bgColor={bgColor} strokeColor={strokeColor} />
+            ) : (
+                <BipedRearArmorDiagramSVG xLoc={1413} yLoc={875} width={400} bgColor={bgColor} />
+            )}
 
         {/* Main Armor Labels */}
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2} y={this.armorBoxTop + 70} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{this.props.mechData.getArmorAllocation().head }]</text>
@@ -732,17 +742,32 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190} y={this.armorBoxTop + 1090} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>RIGHT TORSO</text>
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2 + 190} y={this.armorBoxTop + 1110} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>(REAR) [{this.props.mechData.getArmorAllocation().rightTorsoRear }]</text>
-            <BipedArmorCircles
-                armorBoxLeft={this.armorBoxLeft}
-                armorBoxWidth={this.armorBoxWidth}
-                armorBoxTop={this.armorBoxTop}
-                inPlay={this.props.inPlay}
-                mechData={this.props.mechData}
-                onChange={this.props.onChange}
-                openTakeDamageDialog={this.props.openTakeDamageDialog}
-                bgColor={bgColor}
-                currentPhase={this.props.currentPhase}
-            />
+            {this.props.mechData.isTripod() ? (
+                <TripodArmorCircles
+                    armorBoxLeft={this.armorBoxLeft}
+                    armorBoxWidth={this.armorBoxWidth}
+                    armorBoxTop={this.armorBoxTop}
+                    inPlay={this.props.inPlay}
+                    mechData={this.props.mechData}
+                    onChange={this.props.onChange}
+                    openTakeDamageDialog={this.props.openTakeDamageDialog}
+                    bgColor={bgColor}
+                    strokeColor={strokeColor}
+                    currentPhase={this.props.currentPhase}
+                />
+            ) : (
+                <BipedArmorCircles
+                    armorBoxLeft={this.armorBoxLeft}
+                    armorBoxWidth={this.armorBoxWidth}
+                    armorBoxTop={this.armorBoxTop}
+                    inPlay={this.props.inPlay}
+                    mechData={this.props.mechData}
+                    onChange={this.props.onChange}
+                    openTakeDamageDialog={this.props.openTakeDamageDialog}
+                    bgColor={bgColor}
+                    currentPhase={this.props.currentPhase}
+                />
+            )}
         </>
     ) : (
         <>
@@ -838,7 +863,11 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     >
     {hasArms ? (
         <>
-            <BipedInternalStructureDiagramSVG xLoc={1350} yLoc={1275} width={420} />
+            {this.props.mechData.isTripod() ? (
+                <TripodDiagramSVG kind="internal" xLoc={1350} yLoc={1275} width={420} bgColor={bgColor} strokeColor={strokeColor} />
+            ) : (
+                <BipedInternalStructureDiagramSVG xLoc={1350} yLoc={1275} width={420} />
+            )}
 
         {/* // Main Structure Labels */}
 		<text x={this.isBoxLeft + this.isBoxWidth / 2} y={this.isBoxTop + 55} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={15}>HEAD [{this.props.mechData.getInternalStructure().head }]</text>
@@ -1097,6 +1126,27 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         {this.props.mechData.getInternalStructure().rightLeg > 28 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 28)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 106} yLoc={this.isBoxTop + 545} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={28} clickFunction={this.toggleISBubble} /></>) : (<></>)}
         {this.props.mechData.getInternalStructure().rightLeg > 29 ? (<><DamageCircleSVG isFilled={this.props.mechData.structureDamaged("rl", 29)} xLoc={this.isBoxLeft + this.isBoxWidth / 2 + 108} yLoc={this.isBoxTop + 560} radius={10} inPlay={this.props.inPlay} clickLocation="rl" clickIndex={29} clickFunction={this.toggleISBubble} /></>) : (<></>)}
 
+        {this.props.mechData.isTripod() ? (
+            // No dedicated Tripod diagram exists yet (see TODO.md) - Center Leg structure pips
+            // are placed below the main legs so the location remains trackable in play.
+            <>
+                {TRIPOD_CENTER_LEG_BUBBLES.slice(0, this.props.mechData.getInternalStructure().centerLeg ?? 0).map((position, index) => {
+                    return (
+                        <DamageCircleSVG
+                            key={`cl-${index}`}
+                            isFilled={this.props.mechData.structureDamaged("cl", index)}
+                            xLoc={this.isBoxLeft + this.isBoxWidth / 2 + position.x * 0.88}
+                            yLoc={this.isBoxTop + 480 + position.y * 0.88}
+                            radius={10}
+                            inPlay={this.props.inPlay}
+                            clickLocation="cl"
+                            clickIndex={index}
+                            clickFunction={this.toggleISBubble}
+                        />
+                    );
+                })}
+            </>
+        ) : null}
 
         {this.props.inPlay && (this.props.currentPhase === 2 ||  this.props.currentPhase === 3) ?
             <TakeDamageButtonSVG
@@ -1618,12 +1668,22 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
     {hasArms ? (
         <>
-            <BipedDamageTransferDiagramSVG
-                xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
-                yLoc={critBoxTop + 950}
-                width={damageTransferWidth}
-                strokeColor={strokeColor}
-            />
+            {this.props.mechData.isTripod() ? (
+                <TripodDiagramSVG
+                    kind="transfer"
+                    xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
+                    yLoc={critBoxTop + 950}
+                    width={damageTransferWidth}
+                    strokeColor={strokeColor}
+                />
+            ) : (
+                <BipedDamageTransferDiagramSVG
+                    xLoc={critBoxLeft + critBoxWidth / 2 - damageTransferWidth / 2}
+                    yLoc={critBoxTop + 950}
+                    width={damageTransferWidth}
+                    strokeColor={strokeColor}
+                />
+            )}
             <text
                 x={critBoxLeft + critBoxWidth / 2}
                 y={critBoxTop + 1200}

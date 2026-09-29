@@ -2194,6 +2194,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           numberCritSlots={12}
           onChange={this.updateCriticalHitDialog}
         />
+        {this.state.criticalHitDialog.isTripod() ? (
+          <InPlayCriticalHitTable
+            appGlobals={this.props.appGlobals}
+            location="cl"
+            mechData={this.state.criticalHitDialog}
+            critData={this.state.criticalHitDialog.getCriticals().centerLeg}
+            numberCritSlots={6}
+            onChange={this.updateCriticalHitDialog}
+          />
+        ) : null}
 
         <fieldset className="fieldset">
           <div className="row">

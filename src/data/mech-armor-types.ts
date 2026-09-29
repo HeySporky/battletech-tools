@@ -168,7 +168,8 @@ export const mechArmorTypes: IArmorType[] = [
 		critLocs: {
 			biped: { ra: 2, rl: 2, rt: 2, la: 2, ll: 2, lt: 2 },
 			quad: { frl: 2, rl: 2, rt: 2, fll: 2, ll: 2, lt: 2 },
-			quadvee: { frl: 2, rl: 2, rt: 2, fll: 2, ll: 2, lt: 2 }
+			quadvee: { frl: 2, rl: 2, rt: 2, fll: 2, ll: 2, lt: 2 },
+			tripod: { ra: 2, rl: 2, rt: 2, la: 2, ll: 2, lt: 2, cl: 2 }
 		},
 		costMultiplier: 50000,
 		introduced: 3063,

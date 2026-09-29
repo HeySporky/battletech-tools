@@ -25,7 +25,7 @@ describe("canonical BattleMech records", () => {
 
     it("migrates both canonical and legacy JSON into the existing import shape", () => {
         const mech = new BattleMech();
-        mech.setType("quad");
+        mech.setType("tripod");
         mech.setModel("Canonical Test");
         const legacyRecord = mech.export(true);
         const canonicalJSON = JSON.stringify(toCanonicalBattleMechRecord(legacyRecord));
@@ -38,13 +38,13 @@ describe("canonical BattleMech records", () => {
 
     it("lets BattleMech import and export use the canonical envelope", () => {
         const mech = new BattleMech();
-        mech.setType("quad");
+        mech.setType("tripod");
         mech.setModel("Canonical Integration");
 
         const canonicalJSON = JSON.stringify(mech.exportCanonical(true));
         const restored = new BattleMech(canonicalJSON);
 
-        expect(restored.getMechType().tag).toBe("quad");
+        expect(restored.getMechType().tag).toBe("tripod");
         expect(restored.model).toBe("Canonical Integration");
     });
 

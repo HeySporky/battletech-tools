@@ -9,6 +9,7 @@ import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
 import BipedArmorDiagramSVG from '../../../components/svg/biped-armor-diagram';
 import QuadArmorDiagramSVG from '../../../components/svg/quad-armor-diagram-svg';
+import TripodDiagramSVG from '../../../components/svg/tripod-diagram-svg';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
@@ -118,6 +119,10 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
           case "rl": {
             currentMech.setRightLegArmor( newValue);
+            break;
+          }
+          case "cl": {
+            currentMech.setCenterLegArmor( newValue);
             break;
           }
         }
@@ -414,6 +419,21 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     </select>
   </label>
 
+  {this.props.appGlobals.currentBattleMech.isTripod() ? (
+    <label className="armor-select-dropdown cl">
+      <div className="title">CL</div>
+      <select
+        value={this.props.appGlobals.currentBattleMech.getArmorAllocation().centerLeg ?? 0}
+        onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue("cl", +event.currentTarget.value)}
+        title="Change this Tripod's center leg armor value"
+      >
+        {makeRange(0, (this.props.appGlobals.currentBattleMech.getInternalStructure().centerLeg ?? 0) * 2).map((armorValue) => (
+          <option key={armorValue} value={armorValue}>{armorValue}</option>
+        ))}
+      </select>
+    </label>
+  ) : null}
+
   <label className="armor-select-dropdown rl">
     <div className="title">RL</div>
     <select
@@ -429,9 +449,18 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
     </select>
   </label>
 
-    <BipedArmorDiagramSVG
-  strokeColor="rgb(100,100,100)"
+  {this.props.appGlobals.currentBattleMech.isTripod() ? (
+    <TripodDiagramSVG
+      kind="armor"
+      className="tripod-armor-diagram"
+      preserveAspectRatio="none"
+      strokeColor="rgb(100,100,100)"
     />
+  ) : (
+    <BipedArmorDiagramSVG
+      strokeColor="rgb(100,100,100)"
+    />
+  )}
   <div className="armor-breakdown">
     <strong>Maximum Armor</strong>: {this.props.appGlobals.currentBattleMech.getMaxArmor()}<br />
     <strong>Total Armor</strong>: {this.props.appGlobals.currentBattleMech.getTotalArmor()}<br />

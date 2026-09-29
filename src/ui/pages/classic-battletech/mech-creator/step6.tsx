@@ -544,6 +544,22 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                       currentSelectedItemSize={this.state.selectedItemSize}
                                       currentSelectedItemName={this.state.selectedItemName}
                                     />
+                                    {this.props.appGlobals.currentBattleMech.isTripod() ? (
+                                      <>
+                                        <h4 className="text-center">Center Leg</h4>
+                                        <CriticalAllocationSection
+                                          appGlobals={this.props.appGlobals}
+                                          crits={this.props.appGlobals.currentBattleMech.criticals.centerLeg}
+                                          sectionAbbr="cl"
+                                          mech={this.props.appGlobals.currentBattleMech}
+                                          selectItemClick={this.selectItemClick}
+                                          currentSelectedIndex={this.state.selectedItemIndex}
+                                          currentSelectedLocation={this.state.selectedItemLocation}
+                                          currentSelectedItemSize={this.state.selectedItemSize}
+                                          currentSelectedItemName={this.state.selectedItemName}
+                                        />
+                                      </>
+                                    ) : null}
                                   </div>
                                   <div className="col-4">
                                   {this.props.appGlobals.currentBattleMech.isQuad() || this.props.appGlobals.currentBattleMech.isQuadVee() ? (

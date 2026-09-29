@@ -1072,6 +1072,12 @@ export class BattleMech {
         else
             return false;
     }
+    public isTripod() {
+        if( this._mechType.tag.toLowerCase() === "tripod" )
+            return true;
+        else
+            return false;
+    }
     public isQuadVee() {
         if( this._mechType.tag.toLowerCase() === "quadvee" )
             return true;
@@ -1108,8 +1114,10 @@ export class BattleMech {
 
         this._calcLogCBill += "<tbody>\n";
         // Cockpit. Chassis cockpits (TO:AUE/IO values as implemented by MegaMek; provisional):
-        // QuadVee 375,000, Superheavy 300,000.
-        const chassisCockpit = this.isQuadVee() ? { name: "QuadVee Cockpit", cost: 375000 }
+        // Tripod 400,000 (Superheavy Tripod 500,000), QuadVee 375,000, Superheavy 300,000.
+        const chassisCockpit = this.isTripod()
+            ? (this._tonnage > 100 ? { name: "Superheavy Tripod Cockpit", cost: 500000 } : { name: "Tripod Cockpit", cost: 400000 })
+            : this.isQuadVee() ? { name: "QuadVee Cockpit", cost: 375000 }
             : this._tonnage > 100 ? { name: "Superheavy Cockpit", cost: 300000 }
             : null;
         if( chassisCockpit ) {
@@ -1143,13 +1151,15 @@ export class BattleMech {
             cbillDryTotal += myomerCost;
         }
 
-        // Internal Structure. Superheavy structure uses its own per-ton table (provisional, via MegaMek).
+        // Internal Structure. Superheavy structure uses its own per-ton table, and Tripod
+        // structure costs x1.2 (provisional, via MegaMek).
         const superheavyStructureCost: Record<string, number> = { "standard": 4000, "industrial": 3000, "endo-steel": 16000, "composite": 1600, "endo-composite": 6400 };
         const structureCostPerTon = this._tonnage > 100
             ? superheavyStructureCost[this._selectedInternalStructure.tag] ?? this._selectedInternalStructure.cost
             : this._selectedInternalStructure.cost;
-        const structureCost = structureCostPerTon * this.getTonnage();
-        this._calcLogCBill += "<tr><td><strong>Internal Structure: " + this._selectedInternalStructure.name  + "</strong><br />" +  addCommas( structureCostPerTon ) + " x Unit Tonnage [" + this.getTonnage() + "]</td><td>" +  addCommas( structureCost ) + "</td></tr>\n";
+        const structureChassisMultiplier = this.isTripod() ? 1.2 : 1;
+        const structureCost = structureCostPerTon * this.getTonnage() * structureChassisMultiplier;
+        this._calcLogCBill += "<tr><td><strong>Internal Structure: " + this._selectedInternalStructure.name  + "</strong><br />" +  addCommas( structureCostPerTon ) + " x Unit Tonnage [" + this.getTonnage() + "]" + (structureChassisMultiplier !== 1 ? " x 1.2 [Tripod]" : "") + "</td><td>" +  addCommas( structureCost ) + "</td></tr>\n";
         cbillDryTotal += structureCost;
 
         this._calcLogCBill += "<tr><td colspan=\"2\"><strong>Actuators</strong></td></tr>\n";
@@ -1230,8 +1240,8 @@ export class BattleMech {
             cbillDryTotal += 120 * this.getTonnage();
             actuatorTotal += 120 * this.getTonnage();
 
-            // 2A. Arm Actuator Setups (Biped)
-            if (this._mechType.tag.toLowerCase() === "biped") {
+            // 2A. Arm Actuator Setups (Biped base plus Tripod extension)
+            if (["biped", "tripod"].includes(this._mechType.tag.toLowerCase())) {
                 const arms = ["Right", "Left"];
                 
                 arms.forEach(side => {
@@ -1252,6 +1262,21 @@ export class BattleMech {
                     cbillDryTotal += 120 * this.getTonnage();
                     actuatorTotal += 120 * this.getTonnage();
                 });
+            }
+
+            // 2B. Advanced Chassis Exception: Tripod Center Leg Actuators (TM p. 278 structural adjustments)
+            if (this._mechType.tag.toLowerCase() === "tripod") {
+                this._calcLogCBill += "<tr><td>Center Rear Upper Leg Actuator<br /><span class=\"smaller-text\">150 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" + addCommas(150 * this.getTonnage()) + "</td></tr>\n";
+                cbillDryTotal += 150 * this.getTonnage();
+                actuatorTotal += 150 * this.getTonnage();
+
+                this._calcLogCBill += "<tr><td>Center Rear Lower Leg Actuator<br /><span class=\"smaller-text\">80 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" + addCommas(80 * this.getTonnage()) + "</td></tr>\n";
+                cbillDryTotal += 80 * this.getTonnage();
+                actuatorTotal += 80 * this.getTonnage();
+
+                this._calcLogCBill += "<tr><td>Center Rear Foot Actuator<br /><span class=\"smaller-text\">120 x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" + addCommas(120 * this.getTonnage()) + "</td></tr>\n";
+                cbillDryTotal += 120 * this.getTonnage();
+                actuatorTotal += 120 * this.getTonnage();
             }
         }
 
@@ -1530,8 +1555,9 @@ export class BattleMech {
             "industrial": { base: 0.2, superheavy: 0.4 },
         };
         const factor = factors[this._selectedInternalStructure?.tag] ?? factors["standard"];
+        const tripodMultiplier = this.getType().tag === "tripod" ? 1.1 : 1;
         // Structure weight rounds up to the half ton.
-        return Math.ceil(tonnage * (superheavy ? factor.superheavy : factor.base) * 2) / 2;
+        return Math.ceil(tonnage * (superheavy ? factor.superheavy : factor.base) * tripodMultiplier * 2) / 2;
     }
 
     public getJumpJetWeight() {
@@ -2321,6 +2347,32 @@ export class BattleMech {
                 html += "Right Rear Leg".padStart(col1Padding, " ") + "" + rearRightLegIS.toString().padStart(col2Padding, " ") + "" + rearRightLegArmor.toString().padStart(col3Padding, " ") + "\n";
                 html += "Left Rear Leg".padStart(col1Padding, " ") + "" + rearLeftLegIS.toString().padStart(col2Padding, " ") + "" + rearLeftLegArmor.toString().padStart(col3Padding, " ") + "\n";
             }
+        } else if (typeTag === "tripod") {
+            const rightLegIS = this._internalStructure.rightLeg;
+            const leftLegIS = this._internalStructure.leftLeg;
+            const centerLegIS = this._internalStructure.centerLeg ?? 0;
+            const rightLegArmor = this._armorAllocation.rightLeg;
+            const leftLegArmor = this._armorAllocation.leftLeg;
+            const centerLegArmor = this._armorAllocation.centerLeg ?? 0;
+            const rightArmIS = this._internalStructure.rightArm ?? 0;
+            const leftArmIS = this._internalStructure.leftArm ?? 0;
+            const rightArmArmor = this._armorAllocation.rightArm ?? 0;
+            const leftArmArmor = this._armorAllocation.leftArm ?? 0;
+            if (rightArmIS > 0 || leftArmIS > 0 || rightArmArmor > 0 || leftArmArmor > 0) {
+                if (rightArmArmor === leftArmArmor && rightArmIS === leftArmIS) {
+                    html += "R/L Arm".padStart(col1Padding, " ") + "" + rightArmIS.toString().padStart(col2Padding, " ") + "" + rightArmArmor.toString().padStart(col3Padding, " ") + "\n";
+                } else {
+                    html += "Right Arm".padStart(col1Padding, " ") + "" + rightArmIS.toString().padStart(col2Padding, " ") + "" + rightArmArmor.toString().padStart(col3Padding, " ") + "\n";
+                    html += "Left Arm".padStart(col1Padding, " ") + "" + leftArmIS.toString().padStart(col2Padding, " ") + "" + leftArmArmor.toString().padStart(col3Padding, " ") + "\n";
+                }
+            }
+            if (rightLegArmor === leftLegArmor && rightLegIS === leftLegIS) {
+                html += "R/L Leg".padStart(col1Padding, " ") + "" + rightLegIS.toString().padStart(col2Padding, " ") + "" + rightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+            } else {
+                html += "Right Leg".padStart(col1Padding, " ") + "" + rightLegIS.toString().padStart(col2Padding, " ") + "" + rightLegArmor.toString().padStart(col3Padding, " ") + "\n";
+                html += "Left Leg".padStart(col1Padding, " ") + "" + leftLegIS.toString().padStart(col2Padding, " ") + "" + leftLegArmor.toString().padStart(col3Padding, " ") + "\n";
+            }
+            html += "Center Leg".padStart(col1Padding, " ") + "" + centerLegIS.toString().padStart(col2Padding, " ") + "" + centerLegArmor.toString().padStart(col3Padding, " ") + "\n";
         } else {
             // Fallback: Default directly to a Standard Biped template layout structure
             const rightArmIS = this._internalStructure.rightArm ?? 0;
@@ -2512,7 +2564,7 @@ export class BattleMech {
             html += "<tr><td colspan=\"3\">Cockpit</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
         }
 
-        if( typeTag === "biped" ) {
+        if( typeTag === "biped" || typeTag === "tripod" ) {
             html += "<tr><td colspan=\"4\">Actuators: ";
             let actuator_html = "";
 
@@ -2551,7 +2603,7 @@ export class BattleMech {
             html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Torso</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftTorso + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftTorso + "</td><td>&nbsp;</td></tr>";
             html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Torso (Rear)</td><td class=\"text-center\" colspan=\"1\">&nbsp;</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftTorsoRear + "</td><td>&nbsp;</td></tr>";
         }
-        if( typeTag === "biped" ) {
+        if( typeTag === "biped" || typeTag === "tripod" ) {
 
             if( this._armorAllocation.rightArm === this._armorAllocation.leftArm) {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">R/L Arm</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightArm + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightArm + "</td><td>&nbsp;</td></tr>";
@@ -2565,6 +2617,9 @@ export class BattleMech {
             } else {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">Right Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.rightLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.rightLeg + "</td><td>&nbsp;</td></tr>";
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
+            }
+            if( typeTag === "tripod" ) {
+                html += "<tr><td  class=\"text-right\"colspan=\"1\">Center Leg</td><td class=\"text-center\" colspan=\"1\">" + (this._internalStructure.centerLeg ?? 0) + "</td><td class=\"text-center\" colspan=\"1\">" + (this._armorAllocation.centerLeg ?? 0) + "</td><td>&nbsp;</td></tr>";
             }
         } else if( typeTag === "quad" || typeTag === "quadvee" ) {
             const frontRightLegIS = this._internalStructure.frontRightLeg ?? 0;
@@ -2709,10 +2764,10 @@ export class BattleMech {
             weight: this.getInternalStructureWeight()
         });
 
-        if (typeTag === "quadvee") {
-            this._cockpitWeight = 4;
+        if (typeTag === "quadvee" || typeTag === "tripod") {
+            this._cockpitWeight = this._tonnage > 100 && typeTag === "tripod" ? 6 : 4;
             this._weights.push({
-                name: "QuadVee Dual Cockpit",
+                name: typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else if (this._tonnage > 100) {
@@ -2808,6 +2863,13 @@ export class BattleMech {
             this._totalArmor += this._armorAllocation.frontLeftLeg ?? 0;
             this._totalArmor += this._armorAllocation.rightLeg; // Rear Right Leg
             this._totalArmor += this._armorAllocation.leftLeg;  // Rear Left Leg
+        } else if (typeTag === "tripod") {
+            // Tripods feature three distinct structural legs, alongside optional weapon arms
+            this._totalArmor += this._armorAllocation.rightLeg;
+            this._totalArmor += this._armorAllocation.leftLeg;
+            this._totalArmor += this._armorAllocation.centerLeg ?? 0;
+            this._totalArmor += this._armorAllocation.rightArm ?? 0;
+            this._totalArmor += this._armorAllocation.leftArm ?? 0;
         } else {
             // Safe Baseline Fallback: Default to standard Biped layout tracking
             this._totalArmor += this._armorAllocation.rightArm ?? 0;
@@ -2944,10 +3006,20 @@ export class BattleMech {
         this._armorBubbles.frontRightLeg = syncBubbles(this._armorBubbles.frontRightLeg, this._armorAllocation.frontRightLeg ?? 0);
         this._armorBubbles.leftLeg = syncBubbles(this._armorBubbles.leftLeg, this._armorAllocation.leftLeg);   // Rear Left
         this._armorBubbles.rightLeg = syncBubbles(this._armorBubbles.rightLeg, this._armorAllocation.rightLeg); // Rear Right
-        // Zeroing out unutilized biped bubbles
+        // Zeroing out unutilized biped/tripod bubbles
         this._armorBubbles.leftArm = [];
         this._armorBubbles.rightArm = [];
         this._armorBubbles.centerLeg = [];
+    } else if (typeTag === "tripod") {
+        // Tripods have standard legs, a specialized Center Leg, and conditional Arms
+        this._armorBubbles.leftLeg = syncBubbles(this._armorBubbles.leftLeg, this._armorAllocation.leftLeg);
+        this._armorBubbles.rightLeg = syncBubbles(this._armorBubbles.rightLeg, this._armorAllocation.rightLeg);
+        this._armorBubbles.centerLeg = syncBubbles(this._armorBubbles.centerLeg, this._armorAllocation.centerLeg ?? 0);
+        this._armorBubbles.leftArm = syncBubbles(this._armorBubbles.leftArm, this._armorAllocation.leftArm ?? 0);
+        this._armorBubbles.rightArm = syncBubbles(this._armorBubbles.rightArm, this._armorAllocation.rightArm ?? 0);
+        // Zeroing out unutilized quad bubbles
+        this._armorBubbles.frontLeftLeg = [];
+        this._armorBubbles.frontRightLeg = [];
     } else {
         // Safe Default Fallback: Standard Biped array tracking sync. Remember kids always have a bugout plan...
         this._armorBubbles.leftArm = syncBubbles(this._armorBubbles.leftArm, this._armorAllocation.leftArm ?? 0);
@@ -3062,6 +3134,16 @@ export class BattleMech {
         this._structureBubbles.leftArm = [];
         this._structureBubbles.rightArm = [];
         this._structureBubbles.centerLeg = [];
+    } else if (typeTag === "tripod") {
+        // Tripods: tri... three... three legs ah ah ah... optional layout arms
+        this._structureBubbles.leftLeg = syncBubbles(this._structureBubbles.leftLeg, this._internalStructure.leftLeg);
+        this._structureBubbles.rightLeg = syncBubbles(this._structureBubbles.rightLeg, this._internalStructure.rightLeg);
+        this._structureBubbles.centerLeg = syncBubbles(this._structureBubbles.centerLeg, this._internalStructure.centerLeg ?? 0);
+        this._structureBubbles.leftArm = syncBubbles(this._structureBubbles.leftArm, this._internalStructure.leftArm ?? 0);
+        this._structureBubbles.rightArm = syncBubbles(this._structureBubbles.rightArm, this._internalStructure.rightArm ?? 0);
+        // Zeroing out non-applicable quad bubbles
+        this._structureBubbles.frontLeftLeg = [];
+        this._structureBubbles.frontRightLeg = [];
     } else {
         // Safe Default Fallback: Standard Biped structural synchronization... there is safety in bubbles, why else is there bubble wrap?
         this._structureBubbles.leftArm = syncBubbles(this._structureBubbles.leftArm, this._internalStructure.leftArm ?? 0);
@@ -3128,10 +3210,20 @@ export class BattleMech {
             this._criticals.frontRightLeg = Array(legSlots).fill(null);
             this._criticals.leftLeg = Array(legSlots).fill(null);  // Rear Left Leg
             this._criticals.rightLeg = Array(legSlots).fill(null); // Rear Right Leg
-            // Clear biped slot arrays
+            // Clear biped/tripod slot arrays
             this._criticals.leftArm = [];
             this._criticals.rightArm = [];
             this._criticals.centerLeg = [];
+        } else if (typeTag === "tripod") {
+            // Tripods possess 3 legs with 6 slots each, plus 2 standard 12-slot arms
+            this._criticals.leftArm = Array(12).fill(null);
+            this._criticals.rightArm = Array(12).fill(null);
+            this._criticals.leftLeg = Array(6).fill(null);
+            this._criticals.rightLeg = Array(6).fill(null);
+            this._criticals.centerLeg = Array(6).fill(null);
+            // Clear quad layout tracks
+            this._criticals.frontLeftLeg = [];
+            this._criticals.frontRightLeg = [];
         } else {
             // Safe Default Fallback: Standard Biped layout array profiles
             this._criticals.leftArm = Array(12).fill(null);
@@ -3145,10 +3237,10 @@ export class BattleMech {
         this._unallocatedCriticals = [];
 
         // Add required components....
-        // Superheavy Bipeds/Quads (>100 tons) mount a two-pilot Superheavy Cockpit, same as QuadVees.
+        // Superheavy Bipeds/Quads (>100 tons) mount a two-pilot Superheavy Cockpit, same as Tripods/QuadVees.
         const isSuperheavyCockpit = (typeTag === "biped" || typeTag === "quad") && this._tonnage > 100;
-        const cockpitTag = typeTag === "quadvee" || isSuperheavyCockpit ? "multi-pilot-cockpit" : "cockpit";
-        const cockpitName = typeTag === "quadvee" ? "QuadVee Dual Cockpit" : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
+        const cockpitTag = typeTag === "quadvee" || typeTag === "tripod" || isSuperheavyCockpit ? "multi-pilot-cockpit" : "cockpit";
+        const cockpitName = typeTag === "quadvee" ? "QuadVee Dual Cockpit" : typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
         if( this._smallCockpit) {
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
@@ -3188,6 +3280,32 @@ export class BattleMech {
             } else {
                 this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "frl");
                 this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "fll");
+            }
+        } else if (typeTag === "tripod") {
+            // ---- TRIPOD ARMS & CONDITIONAL ACTUATORS ----
+            // Tripods use standard arm actuators, but some configurations can completely drop arms.
+            // Check if the current layout allocates structural space for them before populating.
+            const rightArmIS = this._internalStructure.rightArm ?? 0;
+            const leftArmIS = this._internalStructure.leftArm ?? 0;
+            if (leftArmIS > 0) {
+                this._addCriticalItem("shoulder", "Shoulder", 1, "la", 0);
+                this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "la", 1);
+                if (this.hasLowerArmActuator("la")) {
+                    this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "la", 2);
+                    if (this.hasHandActuator("la")) {
+                        this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "la", 3);
+                    }
+                }
+            }
+            if (rightArmIS > 0) {
+                this._addCriticalItem("shoulder", "Shoulder", 1, "ra", 0);
+                this._addCriticalItem("upper-arm-actuator", "Upper Arm Actuator", 1, "ra", 1);
+                if (this.hasLowerArmActuator("ra")) {
+                    this._addCriticalItem("lower-arm-actuator", "Lower Arm Actuator", 1, "ra", 2);
+                    if (this.hasHandActuator("ra")) {
+                        this._addCriticalItem("hand-actuator", "Hand Actuator", 1, "ra", 3);
+                    }
+                }
             }
         } else {
             // ---- BIPED SELECTION (STANDARD FALLBACK) ----
@@ -3268,8 +3386,8 @@ export class BattleMech {
         if (engineCrits.lt) {
             this._addCriticalItem("engine", engineName, engineCrits.lt, "lt");
         }
-        if (typeTag === "quadvee") {
-            this._addCriticalItem("multi-pilot-cockpit", "QuadVee Dual Cockpit", 1, "ct");
+        if (typeTag === "quadvee" || typeTag === "tripod") {
+            this._addCriticalItem("multi-pilot-cockpit", typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit", typeTag === "tripod" && this._tonnage > 100 ? 2 : 1, "ct");
         } else if (isSuperheavyCockpit) {
             this._addCriticalItem("multi-pilot-cockpit", "Superheavy Cockpit", 1, "ct");
         }
@@ -3292,6 +3410,17 @@ export class BattleMech {
         if (typeTag === "quadvee") {
             this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "rl");
             this._addCriticalItem("quadvee-conversion", "QuadVee Conversion / Motive Gear", 2, "ll");
+        }
+        // 2. Populate specialized Tripod Center Leg actuators
+        if (typeTag === "tripod") {
+            const centerLegIS = this._internalStructure.centerLeg ?? 0;
+            if (centerLegIS > 0) {
+                // Map center leg actuators cleanly onto its unique location tracking token key ('cl')
+                this._addCriticalItem("hip", "Hip", 1, "cl", 0);
+                this._addCriticalItem("upper-leg-actuator", "Upper Leg Actuator", 1, "cl", 1);
+                this._addCriticalItem("lower-leg-actuator", "Lower Leg Actuator", 1, "cl", 2);
+                this._addCriticalItem("foot-actuator", "Foot Actuator", 1, "cl", 3);
+            }
         }
         // Jump Jets
         let jump_move = this._jumpSpeed;
@@ -3896,6 +4025,16 @@ export class BattleMech {
         this._criticals.leftArm = [];
         this._criticals.rightArm = [];
         (this._criticals as any).centerLeg = [];
+    } else if (typeTag === "tripod") {
+        // Tripods: 3 distinct 6-slot legs alongside two standard 12-slot weapon mount arms
+        this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
+        this._criticals.rightArm = this._criticals.rightArm.slice(0, 12);
+        this._criticals.leftLeg = this._criticals.leftLeg.slice(0, 6);
+        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6);
+        (this._criticals as any).centerLeg = ((this._criticals as any).centerLeg ?? []).slice(0, 6);
+        // Flush quad tracks
+        (this._criticals as any).frontLeftLeg = [];
+        (this._criticals as any).frontRightLeg = [];
     } else {
         // Safe Architecture Fallback: Standard Biped profile clipping parameters
         this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
@@ -4040,7 +4179,8 @@ export class BattleMech {
             ? ["ll", "rl", "fll", "frl"]
             : ["ll", "rl"];
         const destroyedLegCount = legLocations.filter(location => this._structureInLocation(location) <= 0).length;
-        const legAdjustedSpeed = Math.floor(this._walkSpeed * Math.max(0, 1 - destroyedLegCount * 0.25));
+        const destroyedLegs = this.isTripod() ? Math.max(0, destroyedLegCount - 1) : destroyedLegCount;
+        const legAdjustedSpeed = Math.floor(this._walkSpeed * Math.max(0, 1 - destroyedLegs * 0.25));
         // Medium and large shields each cost 1 walking MP (TO:AUE p.103).
         const shieldPenalty = this._countShields("medium") + this._countShields("large");
         return Math.max(0, legAdjustedSpeed - (this.hasActiveModularArmor() ? 1 : 0) - shieldPenalty);
@@ -4599,9 +4739,10 @@ export class BattleMech {
     }
 
     /**
-     * Whether this chassis may be built as an OmniMech at the given rules level.
+     * Whether this chassis may be built as an OmniMech at the given rules level. Tripods never may.
      */
     public canBeOmniMech(_rulesLevel: number = 2): boolean {
+        if (this.isTripod()) return false;
         return true;
     }
 
@@ -5030,6 +5171,13 @@ export class BattleMech {
           // Sync legacy tracking hooks to keep structural indices consistent
           this._internalStructure.rightArm = this._internalStructure.rightLeg;
           this._internalStructure.leftArm = this._internalStructure.leftLeg;
+      } else if (typeTag === "tripod") {
+        this._maxArmor += 
+          ((this._internalStructure.leftArm || 0) * 2) + 
+          ((this._internalStructure.rightArm || 0) * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2) + 
+          (this._internalStructure.centerLeg * 2);
       } else {
         // Fallback catch-all for unknown layout types
         this._maxArmor += 
@@ -5058,6 +5206,9 @@ export class BattleMech {
           this._internalStructure.leftLeg + 
           this._internalStructure.rightLeg;
             
+        if (typeTag === "tripod") {
+          this._totalInternalStructurePoints += (this._internalStructure.centerLeg || 0);
+        }
       }
 
       this.setWalkSpeed(this._walkSpeed);
@@ -5113,6 +5264,13 @@ export class BattleMech {
                     ((this._internalStructure.frontRightLeg ?? 0) * 2) +
           (this._internalStructure.leftLeg * 2) + 
           (this._internalStructure.rightLeg * 2);
+      } else if (typeTag === "tripod") {
+        totalMaxArmor += 
+          ((this._internalStructure.leftArm || 0) * 2) + 
+          ((this._internalStructure.rightArm || 0) * 2) + 
+          (this._internalStructure.leftLeg * 2) + 
+          (this._internalStructure.rightLeg * 2) + 
+          ((this._internalStructure.centerLeg ?? 0) * 2);
       } else {
         // Standard catch-all anatomy fallback
         totalMaxArmor += 
@@ -5160,16 +5318,20 @@ export class BattleMech {
             if (this.isQuadVee()) {
                 return this._transformationMode === "mech";
             }
-            // Bipeds and Quads may use their jump jets.
+            // Bipeds, Quads and Tripods may use their jump jets.
             return true;
         }
 
         public hasFullTorsoTwist(): boolean {
-            return this.isQuadVee();
+            return this.isTripod() || this.isQuadVee();
         }
 
         public getPilotingSkillModifier(): number {
-            return this.hasActiveModularArmor() ? 1 : 0;
+            return (this.isTripod() ? -1 : 0) + (this.hasActiveModularArmor() ? 1 : 0);
+        }
+
+        public ignoresSecondaryTargetModifier(): boolean {
+            return this.isTripod();
         }
 
         public canUseHullDownRules(): boolean {
@@ -5211,6 +5373,9 @@ export class BattleMech {
       for (const mechType of mechTypeOptions) {
         if (mechType.tag.toLowerCase() === formattedTag) {
             this._mechType = mechType;
+            if (formattedTag === "tripod") {
+                this._omnimech = false;
+            }
             if (formattedTag !== "quadvee") {
                 this._quadVeeMotive = "tracked";
             }
@@ -5875,7 +6040,7 @@ export class BattleMech {
             this._calc();
             return this._armorAllocation.frontLeftLeg ?? 0;
         }
-        // Baseline Biped arm allocation logic
+        // Baseline Biped arm allocation logic plus Tripod extension
         this._armorAllocation.leftArm = armorValue;
         if (this._mirrorArmorAllocations) {
             this._armorAllocation.rightArm = armorValue;
@@ -5919,6 +6084,12 @@ export class BattleMech {
         return this._armorAllocation.rightLeg;
     }
     // ---- EXPLICIT ADVANCED UNIQUE LIMB SETTERS ----
+    public setCenterLegArmor(armorValue: number): number {
+        this._armorAllocation.centerLeg = armorValue;
+        // Tripod center legs stand alone along the centerline anatomy, no mirroring step applies
+        this._calc();
+        return this._armorAllocation.centerLeg ?? 0;
+    }
     public setFrontLeftLegArmor(armorValue: number): number {
         this._armorAllocation.frontLeftLeg = armorValue;
         if (this._mirrorArmorAllocations) {
@@ -6495,6 +6666,10 @@ export class BattleMech {
         }
         if (normalizedLoc === "ra" || normalizedLoc === "rl" || normalizedLoc === "frl") {
             return rear ? "rtr" : "rt";
+        }
+        // A Tripod's Center Leg ('cl') transfers directly into the Center Torso frame
+        if (normalizedLoc === "cl") {
+            return rear ? "ctr" : "ct";
         }
         // Side Torsos -> Center Torso Transfer mapping rules
         if (normalizedLoc === "lt" || normalizedLoc === "rt" || normalizedLoc === "ltr" || normalizedLoc === "rtr") {
@@ -7120,7 +7295,7 @@ export class BattleMech {
             if (aes.some(item => item.variableFormula === "aes-arm" && item.location === arm)) multiplier += 0.1;
         }
         const quad = this.isQuad() || this.isQuadVee();
-        const legs = quad ? ["ll", "rl", "fll", "frl"] : ["ll", "rl"];
+        const legs = quad ? ["ll", "rl", "fll", "frl"] : this.isTripod() ? ["ll", "rl", "cl"] : ["ll", "rl"];
         if (legs.every(leg => aes.some(item => item.variableFormula === "aes-leg" && item.location === leg))) {
             multiplier += quad ? 0.4 : 0.2;
         }
@@ -7246,7 +7421,30 @@ export class BattleMech {
             && !item.chassisTypes.includes(this._mechType.tag.toLowerCase())) {
             return false;
         }
-        return true;
+        if (!this.isTripod()) {
+            return true;
+        }
+
+        const tag = item.tag.toLowerCase();
+        const name = item.name.toLowerCase();
+        // Tripod weapon limits (pre-existing list; source not re-checked).
+        return !(
+            tag.includes("gauss-rifle-heavy") ||
+            tag.includes("plasma-rifle") ||
+            tag.includes("mml") ||
+            tag.includes("rotary") ||
+            tag.includes("artemis") ||
+            tag.includes("hatchet") ||
+            tag.includes("sword") ||
+            tag.includes("claw") ||
+            tag.includes("mace") ||
+            name.includes("heavy gauss") ||
+            name.includes("plasma rifle") ||
+            name.includes("hatchet") ||
+            name.includes("sword") ||
+            name.includes("claw") ||
+            name.includes("mace")
+        );
     }
 
     public allocateArmorClear() {
@@ -7285,8 +7483,9 @@ export class BattleMech {
         const percentage = remaining / chassisMax;
         const internalStructure = this.getInternalStructure();
         const typeTag = this.getType().tag.toLowerCase();
-        const hasArms = typeTag === "biped";
+        const hasArms = typeTag === "biped" || typeTag === "tripod";
         const isQuadStyle = typeTag === "quad" || typeTag === "quadvee";
+        const isTripod = typeTag === "tripod";
 
         const allocation = this._armorAllocation;
         const structureOf = (location: keyof IArmorAllocation): number =>
@@ -7321,6 +7520,7 @@ export class BattleMech {
             ["leftTorso", "rightTorso"],
             ["leftLeg", "rightLeg"],
         ];
+        if (isTripod) slots.push(["centerLeg"]);
         if (isQuadStyle) slots.push(["frontLeftLeg", "frontRightLeg"]);
         if (hasArms) slots.push(["leftArm", "rightArm"]);
         slots.push(["head"], ["centerTorsoRear"], ["leftTorsoRear", "rightTorsoRear"]);
@@ -7368,8 +7568,9 @@ export class BattleMech {
         const internalStructure = this.getInternalStructure();
         // Core structural layout configs
         const typeTag = this.getType().tag.toLowerCase();
-        const hasArms = typeTag === "biped";
+        const hasArms = typeTag === "biped" || typeTag === "tripod";
         const isQuadStyle = typeTag === "quad" || typeTag === "quadvee";
+        const isTripod = typeTag === "tripod";
         // Generate a zeroed structure record to populate safely
         const maxAllocation: IArmorAllocation = {
             head: 9, // Absolute standard max ceiling rule for Head locations
@@ -7401,9 +7602,12 @@ export class BattleMech {
             maxAllocation.frontLeftLeg = maxLegArmor;
             maxAllocation.frontRightLeg = maxLegArmor;
         } else {
-            // Standard Biped structural layout
+            // Standard Biped structural layout plus Tripod's additional Center Leg
             maxAllocation.leftLeg = (internalStructure.leftLeg || 0) * 2;
             maxAllocation.rightLeg = (internalStructure.rightLeg || 0) * 2;
+            if (isTripod) {
+                maxAllocation.centerLeg = (internalStructure.centerLeg || 0) * 2;
+            }
         }
         this._armorAllocation = maxAllocation;
         const armorMultiplier = this.getArmorObj().armorMultiplier[this.getArmorTechBase()];
@@ -8432,6 +8636,9 @@ export class BattleMech {
         } else {
             rv += this._internalStructure.leftArm ?? 0;
             rv += this._internalStructure.rightArm ?? 0;
+            if (typeTag === "tripod") {
+                rv += this._internalStructure.centerLeg ?? 0;
+            }
         }
 
         return rv;
