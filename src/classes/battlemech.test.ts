@@ -215,9 +215,22 @@ describe("BattleMech armor technology availability", () => {
         }
 
         const stealth = mechArmorTypes.find(armor => armor.tag === "stealth-basic")!;
-        expect(Object.keys(stealth.critLocs ?? {}).sort()).toEqual(["biped", "quad", "quadvee"]);
+        expect(Object.keys(stealth.critLocs ?? {}).sort()).toEqual(["biped", "quad", "quadvee", "tripod"]);
+        expect(stealth.critLocs?.tripod?.cl).toBe(2);
         expect(stealth.critLocs?.quad?.fll).toBe(2);
         expect(stealth.critLocs?.quad?.frl).toBe(2);
+    });
+
+    it("places Stealth armor criticals according to Tripod anatomy", () => {
+        const tripod = new BattleMech();
+        tripod.setEra("ilClan");
+        tripod.setType("tripod");
+        tripod.setArmorType("stealth-basic");
+
+        const criticals = tripod.getCriticals();
+        for (const location of ["leftArm", "rightArm", "leftTorso", "rightTorso", "leftLeg", "rightLeg", "centerLeg"] as const) {
+            expect(criticals[location].some(item => item?.tag === "stealth-basic"), location).toBe(true);
+        }
     });
 
     it("adds specialty armor abilities to Alpha Strike conversion", () => {
@@ -251,7 +264,7 @@ describe("BattleMech armor allocation", () => {
             "rightTorso", "rightTorsoRear", "leftArm", "rightArm", "leftLeg",
             "rightLeg", "centerLeg", "frontLeftLeg", "frontRightLeg",
         ] as const;
-        for (const type of ["biped", "quad"]) {
+        for (const type of ["biped", "quad", "tripod"]) {
             for (const tonnage of [20, 25, 55, 100]) {
                 const mech = new BattleMech();
                 mech.setType(type);
@@ -344,6 +357,19 @@ describe("BattleMech Modular Armor", () => {
     });
 });
 
+describe("BattleMech TRO anatomy", () => {
+    it("renders Tripod legs instead of Quad front and rear legs", () => {
+        const mech = new BattleMech();
+        mech.setType("tripod");
+
+        const troHtml = mech.makeTROHTML();
+
+        expect(troHtml).toContain("Center Leg");
+        expect(troHtml).not.toContain("Front Leg");
+        expect(troHtml).not.toContain("Rear Leg");
+    });
+});
+
 describe("BattleMech Alpha Strike special ammunition", () => {
     it("defaults to standard ammunition and permits one mounted special ammunition type", () => {
         const mech = new BattleMech();
@@ -406,7 +432,7 @@ describe("BattleMech ATM ammunition", () => {
     });
 });
 
-describe("QuadVee chassis rules", () => {
+describe("QuadVee and Tripod chassis rules", () => {
     it("restricts QuadVees to standard armor and internal structure", () => {
         const mech = new BattleMech();
         mech.setType("quadvee");
@@ -495,6 +521,12 @@ describe("QuadVee chassis rules", () => {
     });
 
     it("exposes chassis-specific combat capabilities", () => {
+        const tripod = new BattleMech();
+        tripod.setType("tripod");
+        expect(tripod.hasFullTorsoTwist()).toBe(true);
+        expect(tripod.getPilotingSkillModifier()).toBe(-1);
+        expect(tripod.ignoresSecondaryTargetModifier()).toBe(true);
+
         const quadvee = new BattleMech();
         quadvee.setType("quadvee");
         quadvee.setTransformationMode("vehicle");
@@ -533,6 +565,18 @@ describe("QuadVee chassis rules", () => {
         expect(quadvee.getWalkSpeed()).toBe(5);
     });
 
+    it("applies Tripod cockpit, gyro, Omni, and one-leg stability rules", () => {
+        const tripod = new BattleMech();
+        tripod.setType("tripod");
+        tripod.setWalkSpeed(4);
+        tripod.toggleOmni();
+        expect(tripod.isOmnimech).toBe(false);
+        expect(tripod.getCockpitWeight()).toBe(4);
+        expect(tripod.getCriticals().head.some(item => item?.tag === "multi-pilot-cockpit")).toBe(true);
+        expect(tripod.getCriticals().centerTorso.some(item => item?.tag === "multi-pilot-cockpit")).toBe(true);
+        tripod.takeDamage(100, "ll", false);
+        expect(tripod.getWalkSpeed()).toBe(4);
+    });
 });
 describe("BattleMech ammunition bins", () => {
     it("counts bin shots from the weapon it feeds and survives export", () => {
@@ -697,6 +741,7 @@ describe("BattleMech engine construction", () => {
         expect(structure(50, "endo-composite")).toBe(4); // 3.75 rounds up
         expect(structure(50, "reinforced")).toBe(10);
         expect(structure(50, "industrial")).toBe(10); // twice standard
+        expect(structure(50, "standard", "tripod")).toBe(5.5); // x1.1
     });
 
     it("uses running or jumping heat for BV movement heat, with XXL and Improved jump jet rules", () => {
@@ -1068,7 +1113,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         return mech.getCBillCostNumeric();
     };
 
-    // IO p.50 (via MegaMek): QuadVees are Advanced; Standard is tournament play.
+    // IO p.50 (via MegaMek): Tripods and QuadVees are Advanced; Standard is tournament play.
     it("reports the lowest legal rules level for each chassis", () => {
         const level = (type: string, tonnage = 50) => {
             const mech = new BattleMech();
@@ -1078,6 +1123,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         };
         expect(level("biped")).toBe(0);
         expect(level("quad")).toBe(0);
+        expect(level("tripod")).toBe(3);
         expect(level("quadvee")).toBe(3);
         expect(level("biped", 120)).toBe(3);
     });
@@ -1085,7 +1131,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
     it("hides Advanced and Experimental chassis from Standard play", async () => {
         const { getMechTypeOptionsForRulesLevel } = await import("../data/mech-type-options");
         expect(getMechTypeOptionsForRulesLevel(2).map(option => option.tag)).toEqual(["biped", "quad"]);
-        expect(getMechTypeOptionsForRulesLevel(3).map(option => option.tag)).toEqual(["biped", "quad", "quadvee"]);
+        expect(getMechTypeOptionsForRulesLevel(3).map(option => option.tag)).toEqual(["biped", "quad", "tripod", "quadvee"]);
     });
 
     it("applies the x1.25 OmniMech cost multiplier", () => {
@@ -1104,6 +1150,9 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(quadveeHTML).toContain("QuadVee Cockpit");
         expect(quadveeHTML).toContain("Conversion Equipment");
 
+        const tripodHTML = (() => { const tripod = new BattleMech(); tripod.setType("tripod"); return tripod.getCBillCalcHTML(); })();
+        expect(tripodHTML).toContain("Tripod Cockpit");
+        expect(tripodHTML).toContain("x 1.2 [Tripod]");
     });
 
     // TM / IO via MegaMek MekCostCalculator (provisional).
@@ -1433,7 +1482,7 @@ describe("Regressions found by typechecking master", () => {
     });
 
     it("exports TRO BBCode for every chassis type without throwing", () => {
-        for (const type of ["biped", "quad"]) {
+        for (const type of ["biped", "quad", "tripod"]) {
             const mech = new BattleMech();
             mech.setMechType(type);
             expect(mech.makeTROBBCode(), type).toContain("Internal Structure");
