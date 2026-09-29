@@ -409,7 +409,8 @@ describe("Vehicle construction details", () => {
         tank.setTonnage(100);
         expect(laser.location).toBe("");
         expect(tank.getArmorAllocation().rearRight).toBe(0);
-        expect(build("vtol", 50).getLocations().some((loc) => loc.tag === "frontLeft")).toBe(false);
+        // Super-Heavy VTOLs have the six facings too, plus the rotor (Tactical Operations p. 378).
+        expect(build("vtol", 50).getLocations().some((loc) => loc.tag === "frontLeft")).toBe(true);
     });
 
     it("mounts vehicular jump jets on hover, wheeled, tracked and WiGE only, up to Cruise MP (Advanced)", () => {
