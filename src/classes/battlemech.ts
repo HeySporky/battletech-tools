@@ -6233,32 +6233,36 @@ export class BattleMech {
             console.error(`_allocateCritical failed: Target component area '${mechLocation}' is invalid for the active layout.`);
             return false;
         }
-        // Locate Equipment Object by its Definitive UUID Signature inside the Unallocated holding block
-        for (let uaet_c = 0; uaet_c < this._unallocatedCriticals.length; uaet_c++) {
-            const currentItem = this._unallocatedCriticals[uaet_c];
-            if (currentItem && currentItem.uuid === equipmentUUID) {
-                // Synchronize location coordinate bindings onto parent references safely
-                if (currentItem.obj) {
-                    currentItem.obj.location = normalizedLocation;
-                }
-                // Fallback back to native slots if no custom overrides are set
-                const allocationSize = critSize < 0 ? (currentItem.crits || 1) : critSize;
-                const placementSuccess = this._assignItemToArea(
-                    targetCriticalArray,
-                    currentItem,
-                    allocationSize,
-                    slotNumber,
-                    normalizedLocation
-                );
-                // Cleanly extract item out of holding vector only on a verified placement success
-                if (placementSuccess && removeFromUnallocated) {
-                    this._unallocatedCriticals.splice(uaet_c, 1);
-                }
-                return placementSuccess;
-            }
+        // Locate the item in the unallocated holding block: by UUID first, then (as upstream always did) by tag and
+        // rear-facing flag. Items rebuilt on every _calc() - heat sinks, for example - get a fresh UUID each time, so
+        // the saved allocation table can only match them by tag.
+        let matchIndex = this._unallocatedCriticals.findIndex(item => item && item.uuid === equipmentUUID);
+        if (matchIndex < 0) {
+            matchIndex = this._unallocatedCriticals.findIndex(item => item && item.tag === equipmentTag && item.rear === equipmentRear);
         }
-        console.warn(`_allocateCritical failed: Component with UUID '${equipmentUUID}' could not be located in unallocated criticals inventory.`);
-        return false;
+        const currentItem = matchIndex >= 0 ? this._unallocatedCriticals[matchIndex] : undefined;
+        if (!currentItem) {
+            console.warn(`_allocateCritical failed: '${equipmentTag}' (UUID '${equipmentUUID}') could not be located in unallocated criticals inventory.`);
+            return false;
+        }
+        // Synchronize location coordinate bindings onto parent references safely
+        if (currentItem.obj) {
+            currentItem.obj.location = normalizedLocation;
+        }
+        // Fallback back to native slots if no custom overrides are set
+        const allocationSize = critSize < 0 ? (currentItem.crits || 1) : critSize;
+        const placementSuccess = this._assignItemToArea(
+            targetCriticalArray,
+            currentItem,
+            allocationSize,
+            slotNumber,
+            normalizedLocation
+        );
+        // Cleanly extract item out of holding vector only on a verified placement success
+        if (placementSuccess && removeFromUnallocated) {
+            this._unallocatedCriticals.splice(matchIndex, 1);
+        }
+        return placementSuccess;
     }
 
     private _clearArmCriticalAllocationTable() {
