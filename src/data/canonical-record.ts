@@ -84,5 +84,62 @@ function normalizeBattleMechRecord(
         record.lastUpdated = new Date(record.lastUpdated);
     }
 
+    migrateLegacyQuadFrontLegs(record);
+
     return record;
+}
+
+const LEGACY_QUAD_FRONT_LEGS: Record<string, string> = { la: "fll", ra: "frl" };
+
+/**
+ * Quads saved before front legs had their own locations kept the front legs in the arm
+ * locations: armor in leftArm/rightArm, criticals, equipment and critical hits under "la"/"ra".
+ * Those saves have no frontLeftLeg/frontRightLeg armor entry; move them to "fll"/"frl".
+ */
+function migrateLegacyQuadFrontLegs(record: IBattleMechExport): void {
+    if (typeof record.mechType !== "string" || record.mechType.toLowerCase() !== "quad") {
+        return;
+    }
+    const armor = record.armor_allocation as unknown as Record<string, number | undefined> | undefined;
+    const hasFrontLegArmor = !!armor && ("frontLeftLeg" in armor || "frontRightLeg" in armor);
+    const hasArmSlots = (record.allocation ?? []).some(slot => slot.loc === "la" || slot.loc === "ra");
+    if (hasFrontLegArmor || (!armor && !hasArmSlots)) {
+        return;
+    }
+
+    if (armor) {
+        armor.frontLeftLeg = armor.leftArm ?? 0;
+        armor.frontRightLeg = armor.rightArm ?? 0;
+        armor.leftArm = 0;
+        armor.rightArm = 0;
+    }
+    for (const slot of record.allocation ?? []) {
+        if (slot.loc && LEGACY_QUAD_FRONT_LEGS[slot.loc]) slot.loc = LEGACY_QUAD_FRONT_LEGS[slot.loc];
+    }
+    for (const item of record.equipment ?? []) {
+        if (item.loc && LEGACY_QUAD_FRONT_LEGS[item.loc]) item.loc = LEGACY_QUAD_FRONT_LEGS[item.loc];
+        if (item.allocationLocation && LEGACY_QUAD_FRONT_LEGS[item.allocationLocation]) {
+            item.allocationLocation = LEGACY_QUAD_FRONT_LEGS[item.allocationLocation];
+        }
+    }
+    if (record.criticalDamage) {
+        for (const [legacy, current] of Object.entries(LEGACY_QUAD_FRONT_LEGS)) {
+            if (record.criticalDamage[legacy]) {
+                record.criticalDamage[current] = record.criticalDamage[legacy];
+                delete record.criticalDamage[legacy];
+            }
+        }
+    }
+    for (const bubbles of [record.armorBubbles, record.structureBubbles]) {
+        const byLocation = bubbles as unknown as Record<string, boolean[] | undefined> | null | undefined;
+        if (!byLocation) continue;
+        if (byLocation.leftArm?.length) {
+            byLocation.frontLeftLeg = byLocation.leftArm;
+            byLocation.leftArm = [];
+        }
+        if (byLocation.rightArm?.length) {
+            byLocation.frontRightLeg = byLocation.rightArm;
+            byLocation.rightArm = [];
+        }
+    }
 }
