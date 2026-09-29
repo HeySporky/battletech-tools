@@ -1,6 +1,8 @@
 import { IASMULUnit } from "./classes/alpha-strike-unit";
 import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
+import { CONST_MUL_API_ENABLED } from "./configVars";
 import { IEquipmentItem } from "./data/data-interfaces";
+import { DEFAULT_MUL_SOURCE_SELECTION, getMULRecordKey, getMULSourcesForSelection, loadMULListItems } from "./data/mul-list-items";
 import { mechClanEquipmentEnergy } from "./data/mech-clan-equipment-weapons-energy";
 import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
@@ -22,6 +24,490 @@ export function getClanEquipmentList(): IEquipmentItem[] {
     return mechClanEquipmentEnergy;
 }
 
+// Parsed form of the free-text search box tokens (pv:10-20, s>5, a:CASE, etc.),
+// used to filter units identically whether they came from the live API or a local fallback list.
+interface IMULSearchTokens {
+    nameTerms: string[];
+    abilitySearch: string[];
+    abilityExclude: string[];
+    minPV: number;
+    maxPV: number;
+    minDamage: number[];
+    maxDamage: number[];
+    minArmorStructure: number[];
+    maxArmorStructure: number[];
+    introDate: number[];
+    minMove: number;
+    maxMove: number;
+    minJump: number;
+    minDefense: number;
+    exactDamageProfile: { short: number; medium: number; long: number } | null;
+}
+
+// Maps the "Rules" dropdown value to the set of MUL Rules-level labels it should match.
+const MUL_RULES_LEVEL_MAP: Record<string, string[]> = {
+    "introductory": ["introductory"],
+    "standard": ["standard"],
+    "advanced": ["advanced"],
+    "experimental": ["experimental"],
+    "era specific": ["era specific"],
+    "unknown": ["unknown"],
+    "intro+standard": ["introductory", "standard"],
+    "intro+standard+advanced": ["introductory", "standard", "advanced"],
+    "intro+standard+advanced+experimental": ["introductory", "standard", "advanced", "experimental"],
+};
+
+function parseMULSearchTokens(searchTerm: string): IMULSearchTokens {
+    const tokens: IMULSearchTokens = {
+        nameTerms: [],
+        abilitySearch: [],
+        abilityExclude: [],
+        minPV: 1,
+        maxPV: 999,
+        minDamage: [-1, -1, -1],
+        maxDamage: [999, 999, 999],
+        minArmorStructure: [-1, -1],
+        maxArmorStructure: [999, 999],
+        introDate: [-1, 10000],
+        minMove: -1,
+        maxMove: 999,
+        minJump: -1,
+        minDefense: -1,
+        exactDamageProfile: null,
+    };
+
+    const searchTerms = searchTerm.trim().split(" ").filter((term) => term.length > 0);
+
+    for (const term of searchTerms) {
+        let value: string | undefined;
+        let match: RegExpMatchArray | null;
+
+        if ((match = term.match(/^(\w+):(\d+)-(\d+)$/))) {
+            const [, field, minStr, maxStr] = match;
+            const min = parseInt(minStr);
+            const max = parseInt(maxStr);
+
+            switch (field) {
+                case "pv":
+                case "points":
+                    tokens.minPV = min;
+                    tokens.maxPV = max;
+                    break;
+                case "year":
+                case "intro":
+                    tokens.introDate[0] = min;
+                    tokens.introDate[1] = max;
+                    break;
+                case "armor":
+                case "ar":
+                    tokens.minArmorStructure[0] = min;
+                    tokens.maxArmorStructure[0] = max;
+                    break;
+                case "structure":
+                case "st":
+                    tokens.minArmorStructure[1] = min;
+                    tokens.maxArmorStructure[1] = max;
+                    break;
+                case "mv":
+                case "move":
+                    tokens.minMove = min;
+                    tokens.maxMove = max;
+                    break;
+            }
+            continue;
+        }
+
+        if ((match = term.match(/^(\w+)(>=|<=|!=|>|<|=)(.+)$/))) {
+            const [, field, op, valueStr] = match;
+            const val = parseInt(valueStr);
+
+            switch (field) {
+                case "pv":
+                case "points":
+                    switch (op) {
+                        case ">": tokens.minPV = val + 1; break;
+                        case ">=": tokens.minPV = val; break;
+                        case "<": tokens.maxPV = val - 1; break;
+                        case "<=": tokens.maxPV = val; break;
+                        case "=": tokens.minPV = val; tokens.maxPV = val; break;
+                    }
+                    break;
+                case "short":
+                case "s":
+                    switch (op) {
+                        case ">": tokens.minDamage[0] = val + 1; break;
+                        case ">=": tokens.minDamage[0] = val; break;
+                        case "<": tokens.maxDamage[0] = val - 1; break;
+                        case "<=": tokens.maxDamage[0] = val; break;
+                        case "=": tokens.minDamage[0] = val; tokens.maxDamage[0] = val; break;
+                    }
+                    break;
+                case "medium":
+                case "m":
+                    switch (op) {
+                        case ">": tokens.minDamage[1] = val + 1; break;
+                        case ">=": tokens.minDamage[1] = val; break;
+                        case "<": tokens.maxDamage[1] = val - 1; break;
+                        case "<=": tokens.maxDamage[1] = val; break;
+                        case "=": tokens.minDamage[1] = val; tokens.maxDamage[1] = val; break;
+                    }
+                    break;
+                case "long":
+                case "l":
+                    switch (op) {
+                        case ">": tokens.minDamage[2] = val + 1; break;
+                        case ">=": tokens.minDamage[2] = val; break;
+                        case "<": tokens.maxDamage[2] = val - 1; break;
+                        case "<=": tokens.maxDamage[2] = val; break;
+                        case "=": tokens.minDamage[2] = val; tokens.maxDamage[2] = val; break;
+                    }
+                    break;
+                case "armor":
+                case "ar":
+                    switch (op) {
+                        case ">": tokens.minArmorStructure[0] = val + 1; break;
+                        case ">=": tokens.minArmorStructure[0] = val; break;
+                        case "<": tokens.maxArmorStructure[0] = val - 1; break;
+                        case "<=": tokens.maxArmorStructure[0] = val; break;
+                        case "=": tokens.minArmorStructure[0] = val; tokens.maxArmorStructure[0] = val; break;
+                    }
+                    break;
+                case "structure":
+                case "st":
+                    switch (op) {
+                        case ">": tokens.minArmorStructure[1] = val + 1; break;
+                        case ">=": tokens.minArmorStructure[1] = val; break;
+                        case "<": tokens.maxArmorStructure[1] = val - 1; break;
+                        case "<=": tokens.maxArmorStructure[1] = val; break;
+                        case "=": tokens.minArmorStructure[1] = val; tokens.maxArmorStructure[1] = val; break;
+                    }
+                    break;
+                case "year":
+                case "intro":
+                    switch (op) {
+                        case ">": tokens.introDate[0] = val + 1; break;
+                        case ">=": tokens.introDate[0] = val; break;
+                        case "<": tokens.introDate[1] = val - 1; break;
+                        case "<=": tokens.introDate[1] = val; break;
+                        case "=": tokens.introDate[0] = val; tokens.introDate[1] = val; break;
+                    }
+                    break;
+                case "mv":
+                case "move":
+                    switch (op) {
+                        case ">": tokens.minMove = val + 1; break;
+                        case ">=": tokens.minMove = val; break;
+                        case "<": tokens.maxMove = val - 1; break;
+                        case "<=": tokens.maxMove = val; break;
+                        case "=": tokens.minMove = val; tokens.maxMove = val; break;
+                    }
+                    break;
+                case "jump":
+                case "j":
+                    switch (op) {
+                        case ">": tokens.minJump = val + 1; break;
+                        case ">=": tokens.minJump = val; break;
+                        case "=": tokens.minJump = val; break;
+                    }
+                    break;
+                case "defense":
+                case "def":
+                    switch (op) {
+                        case ">": tokens.minDefense = val + 1; break;
+                        case ">=": tokens.minDefense = val; break;
+                    }
+                    break;
+            }
+            continue;
+        }
+
+        if (term.startsWith("a:")) {
+            value = term.substring(2);
+            if (value.includes(",")) {
+                const abilities = value.split(",").filter((a) => a.length > 1);
+                tokens.abilitySearch.push(...abilities);
+            } else if (value.startsWith("!")) {
+                const ability = value.substring(1);
+                if (ability.length > 1) {
+                    tokens.abilityExclude.push(ability);
+                }
+            } else if (value.length > 1) {
+                tokens.abilitySearch.push(value);
+            }
+            continue;
+        }
+
+        if (term.startsWith("dmg:") || term.startsWith("damage:")) {
+            const dmgStr = term.substring(term.indexOf(":") + 1);
+            const parts = dmgStr.split("/");
+            if (parts.length === 3) {
+                tokens.exactDamageProfile = {
+                    short: parts[0] === "*" ? -1 : parseInt(parts[0]),
+                    medium: parts[1] === "*" ? -1 : parseInt(parts[1]),
+                    long: parts[2] === "*" ? -1 : parseInt(parts[2]),
+                };
+            }
+            continue;
+        }
+
+        switch (true) {
+            case term.startsWith("pv>"):
+                value = term.substring(3);
+                tokens.minPV = parseInt(value) + 1;
+                break;
+            case term.startsWith("pv<"):
+                value = term.substring(3);
+                tokens.maxPV = parseInt(value) - 1;
+                break;
+            case term.startsWith("pv="):
+                value = term.substring(3);
+                tokens.minPV = parseInt(value);
+                tokens.maxPV = parseInt(value);
+                break;
+            case term.startsWith("short>"):
+                value = term.includes("=") ? term.substring(7) : term.substring(6);
+                tokens.minDamage[0] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
+                break;
+            case term.startsWith("medium>"):
+                value = term.includes("=") ? term.substring(8) : term.substring(7);
+                tokens.minDamage[1] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
+                break;
+            case term.startsWith("long>"):
+                value = term.includes("=") ? term.substring(6) : term.substring(5);
+                tokens.minDamage[2] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
+                break;
+            case term.startsWith("armor>"):
+                value = term.includes("=") ? term.substring(7) : term.substring(6);
+                tokens.minArmorStructure[0] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
+                break;
+            case term.startsWith("structure>"):
+                value = term.includes("=") ? term.substring(11) : term.substring(10);
+                tokens.minArmorStructure[1] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
+                break;
+            case term.startsWith("intro>"):
+                value = term.includes("=") ? term.substring(7) : term.substring(6);
+                tokens.introDate[0] = term.includes("=") ? parseInt(value) : parseInt(value) + 1;
+                break;
+            case term.startsWith("intro<"):
+                value = term.includes("=") ? term.substring(7) : term.substring(6);
+                tokens.introDate[1] = term.includes("=") ? parseInt(value) : parseInt(value) - 1;
+                break;
+            default:
+                tokens.nameTerms.push(term);
+                break;
+        }
+    }
+
+    return tokens;
+}
+
+// Applies the dropdown filters (Rules/Technology/Role/Era/Type) the live API used to take as query params.
+// Faction filtering is intentionally excluded: per-faction availability isn't part of the bundled/cached unit data.
+function matchesMULDropdownFilters(
+    unit: IASMULUnit,
+    mechRules: string,
+    techFilter: string,
+    roleFilter: string,
+    eraFilter: number,
+    typeFilter: number,
+): boolean {
+    // MUL 2.0 records carry no Rules level, so the Rules filter only narrows records that have one.
+    if (mechRules && mechRules.trim() && unit.Rules) {
+        const allowedRules = MUL_RULES_LEVEL_MAP[mechRules.toLowerCase()];
+        if (allowedRules && !allowedRules.includes(unit.Rules.toLowerCase())) {
+            return false;
+        }
+    }
+
+    if (techFilter && techFilter.trim()) {
+        if ((unit.Technology?.Name ?? "").toLowerCase() !== techFilter.toLowerCase()) {
+            return false;
+        }
+    }
+
+    if (roleFilter && roleFilter.trim()) {
+        if ((unit.Role?.Name ?? "").toLowerCase() !== roleFilter.trim().toLowerCase()) {
+            return false;
+        }
+    }
+
+    if (eraFilter && eraFilter > 0) {
+        if (unit.EraId !== eraFilter) {
+            return false;
+        }
+    }
+
+    if (typeFilter) {
+        if (unit.Type?.Id !== typeFilter) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+// Applies the free-text search tokens (name words + pv:/s:/a:/etc. operators) to a single unit.
+function matchesMULSearchTokens(unit: IASMULUnit, tokens: IMULSearchTokens): boolean {
+    if (tokens.nameTerms.length > 0) {
+        const haystack = `${unit.Name ?? ""} ${unit.Variant ?? ""} ${unit.Class ?? ""}`.toLowerCase();
+        for (const term of tokens.nameTerms) {
+            if (!haystack.includes(term.toLowerCase())) {
+                return false;
+            }
+        }
+    }
+
+    const pv = +unit.BFPointValue;
+    if (pv < tokens.minPV || pv > tokens.maxPV) {
+        return false;
+    }
+
+    if (unit.BFDamageShort < tokens.minDamage[0] || unit.BFDamageShort > tokens.maxDamage[0]) {
+        return false;
+    }
+    if (unit.BFDamageMedium < tokens.minDamage[1] || unit.BFDamageMedium > tokens.maxDamage[1]) {
+        return false;
+    }
+    if (unit.BFDamageLong < tokens.minDamage[2] || unit.BFDamageLong > tokens.maxDamage[2]) {
+        return false;
+    }
+
+    if (unit.BFArmor < tokens.minArmorStructure[0] || unit.BFArmor > tokens.maxArmorStructure[0]) {
+        return false;
+    }
+    if (unit.BFStructure < tokens.minArmorStructure[1] || unit.BFStructure > tokens.maxArmorStructure[1]) {
+        return false;
+    }
+
+    const introYear = parseInt(unit.DateIntroduced);
+    if (!isNaN(introYear) && (introYear < tokens.introDate[0] || introYear > tokens.introDate[1])) {
+        return false;
+    }
+
+    if (tokens.minMove > -1 || tokens.maxMove < 999) {
+        let moveValue = 0;
+        if (unit.BFMove) {
+            const moveMatch = unit.BFMove.match(/^(\d+)"?/);
+            if (moveMatch) {
+                moveValue = parseInt(moveMatch[1]);
+            }
+        }
+        if (moveValue < tokens.minMove || moveValue > tokens.maxMove) {
+            return false;
+        }
+    }
+
+    if (tokens.minJump > -1) {
+        let jumpValue = 0;
+        if (unit.BFMove && unit.BFMove.includes("j")) {
+            const jumpMatch = unit.BFMove.match(/(\d+)"?j/);
+            if (jumpMatch) {
+                jumpValue = parseInt(jumpMatch[1]);
+            }
+        }
+        if (jumpValue < tokens.minJump) {
+            return false;
+        }
+    }
+
+    if (tokens.minDefense > -1) {
+        const totalDefense = (+unit.BFArmor) + (+unit.BFStructure);
+        if (totalDefense < tokens.minDefense) {
+            return false;
+        }
+    }
+
+    if (tokens.exactDamageProfile) {
+        const profile = tokens.exactDamageProfile;
+        if (profile.short !== -1 && unit.BFDamageShort !== profile.short) {
+            return false;
+        }
+        if (profile.medium !== -1 && unit.BFDamageMedium !== profile.medium) {
+            return false;
+        }
+        if (profile.long !== -1 && unit.BFDamageLong !== profile.long) {
+            return false;
+        }
+    }
+
+    if (tokens.abilitySearch.length > 0) {
+        const unitAbilities = (unit.BFAbilities ?? "").toUpperCase();
+        for (const ability of tokens.abilitySearch) {
+            if (!unitAbilities.includes(ability.toUpperCase())) {
+                return false;
+            }
+        }
+    }
+
+    if (tokens.abilityExclude.length > 0) {
+        const unitAbilities = unit.BFAbilities
+            ? unit.BFAbilities.toUpperCase().split(",").map((a) => a.trim())
+            : [];
+        for (const excludeAbility of tokens.abilityExclude) {
+            if (unitAbilities.some((a) => a.startsWith(excludeAbility.toUpperCase()))) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+async function getCachedMULSearchResults(
+    searchTerm: string,
+    mechRules: string,
+    techFilter: string,
+    roleFilter: string,
+    eraFilter: number,
+    typeFilter: number,
+    appGlobals: IAppGlobals | null,
+): Promise<IASMULUnit[]> {
+    const tokens = parseMULSearchTokens(searchTerm);
+    const matchesAllFilters = (unit: IASMULUnit) =>
+        matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter) &&
+        matchesMULSearchTokens(unit, tokens);
+
+    const selection = appGlobals?.appSettings.alphaStrikeMULSources ?? DEFAULT_MUL_SOURCE_SELECTION;
+    const allowedSources = getMULSourcesForSelection(selection);
+    const bundledMatches = (await loadMULListItems(selection)).filter(matchesAllFilters);
+    const sessionMatches = (appGlobals?.appSettings.alphasStrikeCachedSearchResults ?? [])
+        .filter((unit) => allowedSources.includes(unit.MulSource ?? "mul2"))
+        .filter(matchesAllFilters);
+    const seen = new Set(bundledMatches.map(getMULRecordKey));
+
+    // Bundled deployment data is authoritative. Session-only records supplement it without
+    // replacing newer records shipped by a subsequent deployment.
+    return bundledMatches.concat(sessionMatches.filter((unit) => {
+        const key = getMULRecordKey(unit);
+        if (seen.has(key)) {
+            return false;
+        }
+        seen.add(key);
+        return true;
+    }));
+}
+
+function addMULUnavailableAlert(appGlobals: IAppGlobals | null, factionFilterActive: boolean): void {
+    if (!appGlobals) {
+        return;
+    }
+
+    appGlobals.siteAlerts.addAlert(
+        "warning",
+        "",
+        "The Master Unit List live search is unavailable. Showing matching results from this device's saved data instead."
+            + (factionFilterActive ? " Faction filtering is not available in this offline mode." : ""),
+        "warning",
+        true,
+        null,
+        10,
+        "",
+        "",
+        "",
+        "MULDOWN"
+    );
+}
+
 export async function getMULASSearchResults(
     searchTerm: string,
     mechRules: string,
@@ -38,8 +524,6 @@ export async function getMULASSearchResults(
     let returnUnits: IASMULUnit[] = [];
 
     let rulesNumbersURI: string[] = [];
-
-    // console.log("mechRules", mechRules, searchTerm)
 
     if( mechRules.toLowerCase() === "introductory" ) {
         rulesNumbersURI.push( "&Rules=55" );
@@ -71,7 +555,7 @@ export async function getMULASSearchResults(
     if( mechRules.toLowerCase() === "era specific" ) {
         rulesNumbersURI.push( "&Rules=56" );
     }
-    if( mechRules.toLowerCase() === "unknown" ) {//unknown
+    if( mechRules.toLowerCase() === "unknown" ) {
         rulesNumbersURI.push( "&Rules=78" );
     }
 
@@ -81,9 +565,6 @@ export async function getMULASSearchResults(
     }
 
     let techFilterURI: string[] = [];
-    // we can get passed 'is+clan' here from home.tsx if we're searching for mechs
-    // in a mixed-tech lance (e.g. GDL, WD, KH) - we just skip any filtering
-    // at this point.
     if( techFilter.toLowerCase() === "inner sphere" ) {
         techFilterURI.push( "&Technologies=1" );
     }
@@ -98,7 +579,6 @@ export async function getMULASSearchResults(
     }
 
     let typesFilterURI: string[] = [];
-
     if( typeFilter ) {
         typesFilterURI.push( "&Types=" + typeFilter.toString() );
     }
@@ -109,490 +589,73 @@ export async function getMULASSearchResults(
             factionFilterURI.push( "&Factions=" + faction );
         }
     }
+
+    const tokens = parseMULSearchTokens(searchTerm);
+
     console.log('Searching...');
-    if( offLine === false ) {
-        // let url = "https://btmul.net/Unit/QuickList?MinPV=1&MaxPV=999";
-        // let url = "http://localhost:5001/Unit/QuickList?MinPV=1&MaxPV=999";
-        let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?"
-        let minpv = 1;
-        let maxpv = 999;
+    if( offLine === false && CONST_MUL_API_ENABLED ) {
+        try {
+            let url = "https://masterunitlist.azurewebsites.net/Unit/QuickList?";
 
-        // if( eraFilter && eraFilter > 0 ) {
-        //     url += "&Eras=" + eraFilter.toString();
-        // }
-        if( eraFilter && eraFilter > 0 ) {
-            url += "&AvailableEras=" + eraFilter.toString();
-        }
+            if( eraFilter && eraFilter > 0 ) {
+                url += "&AvailableEras=" + eraFilter.toString();
+            }
 
-        url += rulesNumbersURI.join("");
-        url += typesFilterURI.join();
-        url += techFilterURI.join();
-        url += roleFilterURI.join();
-        url += factionFilterURI.join("");
+            url += rulesNumbersURI.join("");
+            url += typesFilterURI.join();
+            url += techFilterURI.join();
+            url += roleFilterURI.join();
+            url += factionFilterURI.join("");
 
-        var abilitySearch: string[] = [];
-        var abilityExclude: string[] = [];
-        var nameSearch: string[] = [];
-        var minDamage = [-1, -1, -1];
-        var maxDamage = [999, 999, 999];
-        var minArmorStructure = [-1, -1];
-        var maxArmorStructure = [999, 999];
-        var introDate = [-1,10000];
-        var minMove = -1;
-        var maxMove = 999;
-        var minJump = -1;
-        var minDefense = -1;
-        var exactDamageProfile: { short: number; medium: number; long: number } | null = null
-    
+            if( tokens.abilitySearch.length > 0 ) {
+                url += "&HasBFAbility=" + tokens.abilitySearch.join("+");
+            }
 
+            url += "&MinPV=" + tokens.minPV.toString();
+            url += "&MaxPV=" + tokens.maxPV.toString();
 
-        var searchTerms = searchTerm.trim().split(" ");
+            if( tokens.nameTerms.length > 0 && tokens.nameTerms.join("%20").length > 2 ) {
+                url += "&Name=" + tokens.nameTerms.join("%20");
+            }
 
-        for (var i = 0; i < searchTerms.length; i++) {
-            let term = searchTerms[i];
-            let value;
-            let match;
-            
-            // Range syntax: field:min-max
-            if (match = term.match(/^(\w+):(\d+)-(\d+)$/)) {
-                const [, field, minStr, maxStr] = match;
-                const min = parseInt(minStr);
-                const max = parseInt(maxStr);
-                
-                switch(field) {
-                    case 'pv':
-                    case 'points':
-                        minpv = min;
-                        maxpv = max;
-                        break;
-                    case 'year':
-                    case 'intro':
-                        introDate[0] = min;
-                        introDate[1] = max;
-                        break;
-                    case 'armor':
-                    case 'ar':
-                        minArmorStructure[0] = min;
-                        maxArmorStructure[0] = max;
-                        break;
-                    case 'structure':
-                    case 'st':
-                        minArmorStructure[1] = min;
-                        maxArmorStructure[1] = max;
-                        break;
-                    case 'mv':
-                    case 'move':
-                        minMove = min;
-                        maxMove = max;
-                        break;
+            if(
+                tokens.nameTerms.join("%20").length > 2
+                || overrideSearchLimitLength
+                || tokens.abilitySearch.length > 0
+                || tokens.abilityExclude.length > 0
+                || tokens.maxPV - tokens.minPV <= 40
+                || tokens.minMove > -1
+                || tokens.minJump > -1
+                || tokens.minDefense > -1
+                || tokens.exactDamageProfile !== null
+            ) {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`MUL search request failed with HTTP ${response.status}`);
                 }
-                continue;
-            }
-            
-            // Enhanced comparison operators: field>=value, field<=value, field!=value
-            if (match = term.match(/^(\w+)(>=|<=|!=|>|<|=)(.+)$/)) {
-                const [, field, op, valueStr] = match;
-                const val = parseInt(valueStr);
-                
-                switch(field) {
-                    case 'pv':
-                    case 'points':
-                        switch(op) {
-                            case '>': minpv = val + 1; break;
-                            case '>=': minpv = val; break;
-                            case '<': maxpv = val - 1; break;
-                            case '<=': maxpv = val; break;
-                            case '=': minpv = val; maxpv = val; break;
-                            case '!=': 
-                                // Handle != by setting ranges around the value
-                                if (val > minpv && val < maxpv) {
-                                    // This is tricky with MUL API, we'll filter locally
-                                }
-                                break;
-                        }
-                        break;
-                    case 'short':
-                    case 's':
-                        switch(op) {
-                            case '>': minDamage[0] = val + 1; break;
-                            case '>=': minDamage[0] = val; break;
-                            case '<': maxDamage[0] = val - 1; break;
-                            case '<=': maxDamage[0] = val; break;
-                            case '=': minDamage[0] = val; maxDamage[0] = val; break;
-                        }
-                        break;
-                    case 'medium':
-                    case 'm':
-                        switch(op) {
-                            case '>': minDamage[1] = val + 1; break;
-                            case '>=': minDamage[1] = val; break;
-                            case '<': maxDamage[1] = val - 1; break;
-                            case '<=': maxDamage[1] = val; break;
-                            case '=': minDamage[1] = val; maxDamage[1] = val; break;
-                        }
-                        break;
-                    case 'long':
-                    case 'l':
-                        switch(op) {
-                            case '>': minDamage[2] = val + 1; break;
-                            case '>=': minDamage[2] = val; break;
-                            case '<': maxDamage[2] = val - 1; break;
-                            case '<=': maxDamage[2] = val; break;
-                            case '=': minDamage[2] = val; maxDamage[2] = val; break;
-                        }
-                        break;
-                    case 'armor':
-                    case 'ar':
-                        switch(op) {
-                            case '>': minArmorStructure[0] = val + 1; break;
-                            case '>=': minArmorStructure[0] = val; break;
-                            case '<': maxArmorStructure[0] = val - 1; break;
-                            case '<=': maxArmorStructure[0] = val; break;
-                            case '=': minArmorStructure[0] = val; maxArmorStructure[0] = val; break;
-                        }
-                        break;
-                    case 'structure':
-                    case 'st':
-                        switch(op) {
-                            case '>': minArmorStructure[1] = val + 1; break;
-                            case '>=': minArmorStructure[1] = val; break;
-                            case '<': maxArmorStructure[1] = val - 1; break;
-                            case '<=': maxArmorStructure[1] = val; break;
-                            case '=': minArmorStructure[1] = val; maxArmorStructure[1] = val; break;
-                        }
-                        break;
-                    case 'year':
-                    case 'intro':
-                        switch(op) {
-                            case '>': introDate[0] = val + 1; break;
-                            case '>=': introDate[0] = val; break;
-                            case '<': introDate[1] = val - 1; break;
-                            case '<=': introDate[1] = val; break;
-                            case '=': introDate[0] = val; introDate[1] = val; break;
-                        }
-                        break;
-                    case 'mv':
-                    case 'move':
-                        switch(op) {
-                            case '>': minMove = val + 1; break;
-                            case '>=': minMove = val; break;
-                            case '<': maxMove = val - 1; break;
-                            case '<=': maxMove = val; break;
-                            case '=': minMove = val; maxMove = val; break;
-                        }
-                        break;
-                    case 'jump':
-                    case 'j':
-                        switch(op) {
-                            case '>': minJump = val + 1; break;
-                            case '>=': minJump = val; break;
-                            case '=': minJump = val; break;
-                        }
-                        break;
-                    case 'defense':
-                    case 'def':
-                        switch(op) {
-                            case '>': minDefense = val + 1; break;
-                            case '>=': minDefense = val; break;
-                        }
-                        break;
-                }
-                continue;
-            }
-            
-            // Enhanced ability syntax
-            if (term.startsWith("a:")) {
-                value = term.substring(2);
-                if (value.includes(",")) {
-                    // AND logic - must have all abilities
-                    const abilities = value.split(",").filter(a => a.length > 1);
-                    abilitySearch.push(...abilities);
-                } else if (value.startsWith("!")) {
-                    // NOT logic - must not have
-                    const ability = value.substring(1);
-                    if (ability.length > 1) {
-                        abilityExclude.push(ability);
-                    }
-                } else if (value.length > 1) {
-                    // Single ability
-                    abilitySearch.push(value);
-                }
-                continue;
-            }
-            
-            // Damage profile syntax: dmg:3/3/2 or dmg:3/*/*
-            if (term.startsWith("dmg:") || term.startsWith("damage:")) {
-                const dmgStr = term.substring(term.indexOf(":") + 1);
-                const parts = dmgStr.split("/");
-                if (parts.length === 3) {
-                    exactDamageProfile = {
-                        short: parts[0] === "*" ? -1 : parseInt(parts[0]),
-                        medium: parts[1] === "*" ? -1 : parseInt(parts[1]),
-                        long: parts[2] === "*" ? -1 : parseInt(parts[2])
-                    };
-                }
-                continue;
-            }
-            
-            // Legacy syntax support (backward compatibility)
-            switch (true) {
-                case term.startsWith("a:"):
-                    value = term.substring(2);
-                    if (value.length > 1) {
-                        abilitySearch.push(value);
-                    }
-                    break;
-        
-                case term.startsWith("pv>"):
-                    value = term.substring(3);
-                    minpv = parseInt(value) + 1;
-                    break;
-        
-                case term.startsWith("pv<"):
-                    value = term.substring(3);
-                    maxpv = parseInt(value) - 1;
-                    break;
-        
-                case term.startsWith("pv="):
-                    value = term.substring(3);
-                    minpv = parseInt(value);
-                    maxpv = parseInt(value);
-                    break;
-        
-                case term.startsWith("short>"):
-                    if (term.includes("=")) {
-                        value = term.substring(7);
-                        minDamage[0] = parseInt(value);
-                    } else {
-                        value = term.substring(6);
-                        minDamage[0] = parseInt(value) + 1;
-                    }
-                    break;
-        
-                case term.startsWith("medium>"):
-                    if (term.includes("=")) {
-                        value = term.substring(8);
-                        minDamage[1] = parseInt(value);
-                    } else {
-                        value = term.substring(7);
-                        minDamage[1] = parseInt(value) + 1;
-                    }
-                    break;
-        
-                case term.startsWith("long>"):
-                    if (term.includes("=")) {
-                        value = term.substring(6);
-                        minDamage[2] = parseInt(value);
-                    } else {
-                        value = term.substring(5);
-                        minDamage[2] = parseInt(value) + 1;
-                    }
-                    break;
+                const returnData = await response.json();
 
-                case term.startsWith("armor>"):
-                    if (term.includes("=")) {
-                        value = term.substring(7);
-                        minArmorStructure[0] = parseInt(value);
-                    } else {
-                        value = term.substring(6);
-                        minArmorStructure[0] = parseInt(value) + 1;
-                    }
-                    break;
-
-                case term.startsWith("structure>"):
-                    if (term.includes("=")) {
-                        value = term.substring(11);
-                        minArmorStructure[1] = parseInt(value);
-                    } else {
-                        value = term.substring(10);
-                        minArmorStructure[1] = parseInt(value) + 1;
-                    }
-                    break;
-            
-                case term.startsWith("intro>"):
-                    if (term.includes("=")) {
-                        value = term.substring(7);
-                        introDate[0] = parseInt(value);
-                    } else {
-                        value = term.substring(6);
-                        introDate[0] = parseInt(value) + 1;
-                    }
-                    break;
-
-                case term.startsWith("intro<"):
-                    if (term.includes("=")) {
-                        value = term.substring(7);
-                        introDate[1] = parseInt(value);
-                    } else {
-                        value = term.substring(6);
-                        introDate[1] = parseInt(value) - 1;
-                    }
-                    break;
-
-        
-                default:
-                    nameSearch.push(term);
-                    break;
-            }
-        }
-        if( abilitySearch.length > 0 ) {
-            url += "&HasBFAbility=" + abilitySearch.join("+");
-        }
-
-        url += "&MinPV=" + minpv.toString();
-        url += "&MaxPV=" + maxpv.toString();
-
-        if( nameSearch.length > 0) {
-            if(nameSearch.join("%20").length > 2){
-                url += "&Name=" + nameSearch.join("%20");
-            }
-        }
-
-
-
-        if(
-            nameSearch.join("%20").length > 2
-            || overrideSearchLimitLength
-            || abilitySearch.length > 0
-            || abilityExclude.length > 0
-            || maxpv - minpv <= 40
-            || minMove > -1
-            || minJump > -1
-            || minDefense > -1
-            || exactDamageProfile !== null
-        ) {
-            await fetch(url)
-            .then(async res => {
-                let returnData = await res.json();
-
-                if(!returnData) {
+                if( !returnData ) {
                     return [];
                 }
 
-                returnUnits = returnData.Units;
-               
-                if( !returnUnits ) {
-                    return [];
-                }
-                for (i = 0; i < returnUnits.length; i++) {
-                    let unit = returnUnits[i];
-                    let shouldRemove = false;
-                    
-                    // Damage range filters
-                    if( unit.BFDamageShort < minDamage[0] || unit.BFDamageShort > maxDamage[0] ) {
-                        shouldRemove = true;
-                    } else if( unit.BFDamageMedium < minDamage[1] || unit.BFDamageMedium > maxDamage[1] ) {
-                        shouldRemove = true;
-                    } else if( unit.BFDamageLong < minDamage[2] || unit.BFDamageLong > maxDamage[2] ) {
-                        shouldRemove = true;
-                    }
-                    
-                    // Armor/Structure range filters
-                    else if( unit.BFArmor < minArmorStructure[0] || unit.BFArmor > maxArmorStructure[0] ) {
-                        shouldRemove = true;
-                    } else if( unit.BFStructure < minArmorStructure[1] || unit.BFStructure > maxArmorStructure[1] ) {
-                        shouldRemove = true;
-                    }
-                    
-                    // Year range filter
-                    else if( parseInt(unit.DateIntroduced) < introDate[0] || parseInt(unit.DateIntroduced) > introDate[1] ) {
-                        shouldRemove = true;
-                    }
-                    
-                    // Movement filters
-                    else if( minMove > -1 || maxMove < 999 ) {
-                        // Parse movement string (e.g., "10"j", "8"/12"j", "10"")
-                        let moveValue = 0;
-                        if( unit.BFMove ) {
-                            const moveMatch = unit.BFMove.match(/^(\d+)"?/);
-                            if( moveMatch ) {
-                                moveValue = parseInt(moveMatch[1]);
-                            }
-                        }
-                        if( moveValue < minMove || moveValue > maxMove ) {
-                            shouldRemove = true;
-                        }
-                    }
-                    
-                    // Jump filter
-                    else if( minJump > -1 ) {
-                        let hasJump = unit.BFMove && unit.BFMove.includes("j");
-                        let jumpValue = 0;
-                        if( hasJump ) {
-                            // Extract jump value from strings like "10"j" or "8"/12"j"
-                            const jumpMatch = unit.BFMove.match(/(\d+)"?j/);
-                            if( jumpMatch ) {
-                                jumpValue = parseInt(jumpMatch[1]);
-                            }
-                        }
-                        if( jumpValue < minJump ) {
-                            shouldRemove = true;
-                        }
-                    }
-                    
-                    // Defense filter (armor + structure)
-                    else if( minDefense > -1 ) {
-                        const totalDefense = unit.BFArmor + unit.BFStructure;
-                        if( totalDefense < minDefense ) {
-                            shouldRemove = true;
-                        }
-                    }
-                    
-                    // Exact damage profile filter
-                    else if( exactDamageProfile ) {
-                        if( exactDamageProfile.short !== -1 && unit.BFDamageShort !== exactDamageProfile.short ) {
-                            shouldRemove = true;
-                        } else if( exactDamageProfile.medium !== -1 && unit.BFDamageMedium !== exactDamageProfile.medium ) {
-                            shouldRemove = true;
-                        } else if( exactDamageProfile.long !== -1 && unit.BFDamageLong !== exactDamageProfile.long ) {
-                            shouldRemove = true;
-                        }
-                    }
-                    
-                    // Enhanced ability filtering
-                    else if( abilityExclude.length > 0 ) {
-                        const unitAbilities = unit.BFAbilities ? unit.BFAbilities.toUpperCase().split(", ") : [];
-                        
-                        // Exclude abilities
-                        for( let excludeAbility of abilityExclude ) {
-                            if( unitAbilities.includes(excludeAbility.toUpperCase()) ) {
-                                shouldRemove = true;
-                                break;
-                            }
-                        }
-                    }
-                    
-                    // Remove unit if it failed any filter
-                    if( shouldRemove ) {
-                        returnUnits.splice(i, 1);
-                        i--;
-                    }
-                }
-            })
-            .catch(err => {
-                console.error('MUL Fetch Error: ', err);
-                if( appGlobals ) {
-                    appGlobals.siteAlerts.addAlert(
-                        "danger",
-                        "",
-                        "Cannot reach the Master Unit List! You're either offline or the MUL is down :(",
-                        "danger",
-                        true,
-                        null,
-                        10,
-                        "",
-                        "",
-                        "",
-                        "MULDOWN"
-                    )
-                }
-            })
+                returnUnits = (returnData.Units ?? []).filter((unit: IASMULUnit) => matchesMULSearchTokens(unit, tokens));
+            }
+        } catch (err) {
+            console.error('MUL Fetch Error: ', err);
+            addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
+            return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
         }
-
     } else {
-
-        console.warn("Navigator is offline!")
+        if( offLine ) {
+            console.warn("Navigator is offline!");
+        } else {
+            console.warn("MUL API is disabled, using bundled fallback data.");
+        }
+        addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
+        return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
     }
+
     return returnUnits;
 }
 
