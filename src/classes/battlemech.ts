@@ -1,4 +1,5 @@
 import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
+import { getSkillMultiplier } from "../data/skill-multipliers";
 import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
@@ -1040,29 +1041,13 @@ export class BattleMech {
      * References the canonical cross-grid lookup matrix from TechManual, p. 305.
      */
     private _setPilotAdjustedBattleValue(): void {
-        // Establish the explicit TechManual p. 305 lookup table matrix.
-                ///                                GUNNERY: 
-        //                                0     1     2     3     4     5     6     7     8
-        const PILOT_MULTIPLIER_MATRIX = [
-            /* Piloting 0 */           [2.80, 2.56, 2.24, 1.92, 1.60, 1.50, 1.43, 1.36, 1.28],
-            /* Piloting 1 */           [2.63, 2.40, 2.10, 1.80, 1.50, 1.35, 1.33, 1.26, 1.19],
-            /* Piloting 2 */           [2.45, 2.24, 1.96, 1.68, 1.40, 1.26, 1.19, 1.16, 1.10],
-            /* Piloting 3 */           [2.28, 2.08, 1.82, 1.56, 1.30, 1.17, 1.11, 1.04, 1.01],
-            /* Piloting 4 */           [2.01, 1.84, 1.61, 1.38, 1.15, 1.04, 0.98, 0.92, 0.86],
-            /* Piloting 5 (Base) */    [1.82, 1.60, 1.40, 1.20, 1.00, 0.90, 0.85, 0.80, 0.75]
-        ];
         // Fetch raw pilot credentials with safe default constraints
         const gunnery = this._pilot?.gunnery ?? 4;
         const piloting = this._pilot?.piloting ?? 5;
         let skillMultiplier = 1.0;
-        // Securely check array boundary limits before querying the lookup index
-        if (
-            piloting >= 0 && 
-            piloting < PILOT_MULTIPLIER_MATRIX.length && 
-            gunnery >= 0 && 
-            gunnery < PILOT_MULTIPLIER_MATRIX[piloting].length
-        ) {
-            skillMultiplier = PILOT_MULTIPLIER_MATRIX[piloting][gunnery];
+        const matrixMultiplier = getSkillMultiplier(gunnery, piloting);
+        if (matrixMultiplier !== null) {
+            skillMultiplier = matrixMultiplier;
         } else {
             // Fallback warning telemetry if an out-of-bounds custom skill rating is supplied
             this._calcLogBV += `[Pilot Data Alert] Skill rating layout (${gunnery}/${piloting}) falls outside standard matrix boundaries. Defaulting to 1.0x baseline modifier.<br />`;
