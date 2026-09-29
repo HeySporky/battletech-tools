@@ -4,6 +4,7 @@ import { IAppGlobals } from '../../../app-router';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import SanitizedHTML from '../../../components/sanitized-html';
 
 export default class VehicleCreatorSummary extends React.Component<ISummaryProps, ISummaryState> {
     constructor(props: ISummaryProps) {
@@ -33,6 +34,11 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                                 <strong>{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons
                                 {vehicle.hasTurret() ? ` - ${vehicle.getTurretName()}` : " - No Turret"}
                                 {` - Cruise ${vehicle.getCruiseMP()} / Flank ${vehicle.getFlankMP()}${vehicle.getJumpMP() > 0 ? ` / Jump ${vehicle.getJumpMP()}` : ""} - ${vehicle.getEngineType().name} ${vehicle.getEngineRating()} - Crew ${vehicle.getCrew()} - Item Slots ${vehicle.getUsedItemSlots()}/${vehicle.getTotalItemSlots()}`}
+                            </p>
+
+                            <p>
+                                <strong>Battle Value</strong>: {vehicle.getBattleValue()} &nbsp;|&nbsp;
+                                <strong>C-Bill Cost</strong>: {vehicle.getCBillCost().toLocaleString()}
                             </p>
 
                             <h3>Weight Summary</h3>
@@ -79,6 +85,12 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                                 Armor/Structure/Overheat/Point Value conversions are not yet implemented for
                                 Combat Vehicles - see TODO.md Phase 2.
                             </p>
+
+                            <h3>Battle Value Calculation</h3>
+                            <SanitizedHTML raw={true} html={vehicle.getBattleValueLog()} />
+
+                            <h3>C-Bill Cost Calculation</h3>
+                            <SanitizedHTML raw={true} html={vehicle.getCBillCostLog()} />
 
                             <div className="clear-both overflow-hidden">
                                 <hr />

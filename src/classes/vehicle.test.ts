@@ -449,3 +449,53 @@ describe("Vehicle construction details", () => {
         expect(restored.getJumpMP()).toBe(3);
     });
 });
+
+// Battle Value of published vehicles, rebuilt from their record sheets (loadouts from MegaMek unit
+// files), against the official Master Unit List BV. The Heavy Wheeled APC's 3 t of troop space is
+// not modeled, so it leaves 3 t unused.
+describe("Vehicle Battle Value against the Master Unit List", () => {
+    type Spec = { name: string; mul: number; motive: string; tons: number; cruise: number; engine: string; armor: number[]; turret: boolean;
+        eq: [string, string, number?][] };
+    const specs: Spec[] = [
+        { name: "Scorpion", mul: 306, motive: "tracked", tons: 25, cruise: 4, engine: "ice", armor: [16, 11, 11, 10, 16], turret: true,
+            eq: [["machine-gun", "turret"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", "", 0.5], ["ammo-is-ac-5-standard", ""]] },
+        { name: "Vedette", mul: 475, motive: "tracked", tons: 50, cruise: 5, engine: "ice", armor: [20, 18, 18, 20, 20], turret: true,
+            eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["ammo-machine-gun-standard", ""], ["ammo-is-ac-5-standard", ""]] },
+        { name: "Pegasus", mul: 640, motive: "hover", tons: 35, cruise: 8, engine: "ice", armor: [26, 19, 19, 19, 21], turret: true,
+            eq: [["medium-laser", "front"], ["srm-6", "turret"], ["srm-6", "turret"], ["ammo-srm-standard", ""]] },
+        { name: "J. Edgar", mul: 544, motive: "hover", tons: 25, cruise: 11, engine: "standard", armor: [30, 19, 19, 12, 24], turret: true,
+            eq: [["medium-laser", "turret"], ["srm-2", "turret"], ["srm-2", "turret"], ["ammo-srm-standard", ""]] },
+        { name: "Condor", mul: 653, motive: "hover", tons: 50, cruise: 8, engine: "ice", armor: [30, 15, 15, 14, 22], turret: true,
+            eq: [["machine-gun", "front"], ["autocannon-standard-b", "turret"], ["medium-laser", "turret"], ["medium-laser", "turret"], ["ammo-is-ac-5-standard", ""], ["ammo-machine-gun-standard", "", 0.5]] },
+        { name: "Warrior H-7", mul: 295, motive: "vtol", tons: 21, cruise: 9, engine: "ice", armor: [6, 5, 5, 6, 2], turret: false,
+            eq: [["srm-4", "front"], ["autocannon-standard-a", "front"], ["ammo-srm-standard", ""], ["ammo-is-ac-2-standard", ""]] },
+        { name: "Sea Skimmer", mul: 288, motive: "hydrofoil", tons: 25, cruise: 12, engine: "ice", armor: [9, 7, 7, 4, 5], turret: true,
+            eq: [["machine-gun", "right"], ["machine-gun", "left"], ["machine-gun", "rear"], ["srm-4", "turret"], ["ammo-machine-gun-standard", "", 0.5], ["ammo-srm-standard", ""]] },
+        { name: "Heavy Wheeled APC (MG)", mul: 213, motive: "wheeled", tons: 20, cruise: 6, engine: "ice", armor: [20, 13, 13, 10, 0], turret: false,
+            eq: [["machine-gun", "front"], ["machine-gun", "front"], ["machine-gun", "right"], ["machine-gun", "left"], ["machine-gun", "rear"], ["machine-gun", "rear"],
+                ["ammo-machine-gun-standard", ""], ["ammo-machine-gun-standard", "", 0.5]] },
+    ];
+
+    for (const spec of specs) {
+        it(`${spec.name}: BV ${spec.mul}`, () => {
+            const vehicle = new Vehicle();
+            vehicle.setMotiveType(spec.motive);
+            vehicle.setTonnage(spec.tons);
+            vehicle.setEngineType(spec.engine);
+            vehicle.setCruiseMP(spec.cruise);
+            vehicle.setHasTurret(spec.turret);
+            const locations = spec.motive === "vtol" ? ["front", "right", "left", "rear", "rotor"] : ["front", "right", "left", "rear", "turret"];
+            locations.forEach((location, index) => vehicle.setArmorAllocation(location as never, spec.armor[index]));
+            for (const [tag, location, weight] of spec.eq) {
+                vehicle.addEquipmentFromTag(tag);
+                const item = vehicle.getEquipmentList()[vehicle.getEquipmentList().length - 1];
+                expect(item.tag).toBe(tag);
+                if (weight) item.weight = weight;
+                if (location) vehicle.setEquipmentLocation(item.uuid!, location);
+            }
+            vehicle.setTonnage(spec.tons);
+            expect(vehicle.getBattleValue()).toBe(spec.mul);
+            expect(vehicle.getRemainingTonnage()).toBe(spec.name.startsWith("Heavy Wheeled APC") ? 3 : 0);
+        });
+    }
+});

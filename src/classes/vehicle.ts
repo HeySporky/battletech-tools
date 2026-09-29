@@ -7,7 +7,9 @@ import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions } from "../data/era-options";
 import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
-import { getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel } from "../data/equipment-registry";
+import { getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel } from "../data/equipment-registry";
+import { isTargetingComputerWeapon } from "../data/variable-equipment";
+import { getMovementModifier } from "../utils";
 import {
     IArmorType,
     IEngineType,
@@ -144,6 +146,10 @@ export default class Vehicle {
     private _pilot: Pilot = new Pilot();
 
     private _weights: { name: string; weight: number }[] = [];
+    private _battleValue: number = 0;
+    private _calcLogBV: string = "";
+    private _cost: number = 0;
+    private _calcLogCost: string = "";
     private _currentTonnage: number = 0;
     private _remainingTonnage: number = 0;
 
@@ -852,6 +858,182 @@ export default class Vehicle {
         return this._motiveType.liftEquipment ? Math.ceil(this._tonnage * 0.1 * 2) / 2 : 0;
     }
 
+    /** Defensive BV type modifier by motive (as implemented by MegaMek CombatVehicleBVCalculator). */
+    private _bvTypeModifier(): number {
+        switch (this._motiveType.tag) {
+            case "tracked": return 0.9;
+            case "wheeled": return 0.8;
+            case "hover":
+            case "vtol":
+            case "wige": return 0.7;
+            default: return 0.6;
+        }
+    }
+
+    public hasTargetingComputer(): boolean {
+        return this._equipmentList.some((item) => item.variableFormula?.startsWith("targeting-computer"));
+    }
+
+    private _isWeapon(item: IEquipmentItem): boolean {
+        return !item.isAmmo && !item.isEquipment && !item.battleValueDefensive && (item.battleValue || 0) > 0;
+    }
+
+    /**
+     * Battle Value (TM Combat Vehicle BV, as implemented by MegaMek CombatVehicleBVCalculator;
+     * provisional until checked against the book):
+     * Defensive = (armor x 2.5 x armor type + structure x 1.5 x structure type + defensive
+     * equipment) x motive type modifier x (1 + best TMM / 10), where VTOLs and WiGEs are airborne
+     * (+1 TMM) and jumping adds +1.
+     * Offensive = (weapons + ammunition (capped at the weapons it feeds) + tonnage / 2) x Speed
+     * Factor (TM p.316) for Flank MP + half Jump MP. The weaker of the front and rear arcs counts
+     * half; turret and side weapons count in full. Checked against the MUL BV of published
+     * tracked, wheeled, hover, VTOL and hydrofoil designs (vehicle.test.ts).
+     */
+    private _calcBattleValue(): void {
+        let log = "<strong>DEFENSIVE BATTLE RATING</strong><br />";
+        const locations = this.getLocations().map((loc) => loc.tag);
+        const modularArmor = this._equipmentList
+            .filter((item) => item.isModularArmor)
+            .reduce((sum, item) => sum + (item.currentAdditionalArmor ?? item.additionalArmor ?? 0), 0);
+        const armorPoints = locations.reduce((sum, loc) => sum + (this._armorAllocation[loc] ?? 0), 0) + modularArmor;
+        const armorMultiplier = this._armorType.bvMultiplier ?? (this._armorType.tag === "commercial" ? 0.5 : 1);
+        const armorBV = armorPoints * 2.5 * armorMultiplier;
+        log += `Armor: ${armorPoints} points x 2.5 x ${armorMultiplier} (${this._armorType.name}) = ${armorBV.toFixed(2)}<br />`;
+
+        const structure = this.getStructureAllocation();
+        const structurePoints = locations.reduce((sum, loc) => sum + (structure[loc] ?? 0), 0);
+        const structureMultiplier = this._structureType === "reinforced" ? 2 : 1;
+        const structureBV = structurePoints * 1.5 * structureMultiplier;
+        log += `Internal Structure: ${structurePoints} points x 1.5 x ${structureMultiplier} = ${structureBV.toFixed(2)}<br />`;
+
+        let defensiveEquipmentBV = 0;
+        let amsAmmoBV = 0;
+        let amsBV = 0;
+        const weapons = this._equipmentList.filter((item) => !item.isAmmo);
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) {
+                const fed = weapons.find((weapon) => weapon.battleValueDefensive && getCompatibleAmmo(weapon, item));
+                if (fed) amsAmmoBV += getAmmoBattleValuePerTon(fed, item) * item.weight;
+            } else if (item.battleValueDefensive) {
+                defensiveEquipmentBV += item.battleValue || 0;
+                if (item.weaponType?.includes("AMS")) amsBV += item.battleValue || 0;
+                log += `+ Defensive Equipment: ${item.name} = ${item.battleValue || 0}<br />`;
+            }
+        }
+        defensiveEquipmentBV += Math.min(amsAmmoBV, amsBV);
+
+        let defensive = armorBV + structureBV + defensiveEquipmentBV;
+        const typeModifier = this._bvTypeModifier();
+        log += `Subtotal ${defensive.toFixed(2)} x ${typeModifier} (${this._motiveType.name} type modifier)`;
+        defensive *= typeModifier;
+        log += ` = ${defensive.toFixed(2)}<br />`;
+
+        const flank = this.getFlankMP();
+        const airborne = this._motiveType.tag === "vtol" || this._motiveType.tag === "wige";
+        const runTMM = flank > 0 ? getMovementModifier(flank) + (airborne ? 1 : 0) : 0;
+        const jumpTMM = this._jumpMP > 0 ? getMovementModifier(this._jumpMP) + 1 : 0;
+        const defensiveFactor = 1 + Math.max(runTMM, jumpTMM) / 10;
+        defensive *= defensiveFactor;
+        log += `Defensive Factor: 1 + max(Flank TMM ${runTMM}${airborne ? " incl. +1 airborne" : ""}, Jump TMM ${jumpTMM}) / 10 = ${defensiveFactor.toFixed(2)} -> ${defensive.toFixed(2)}<br />`;
+
+        log += "<strong>OFFENSIVE BATTLE RATING</strong><br />";
+        const hasTC = this.hasTargetingComputer();
+        const baseWeaponBV = (item: IEquipmentItem) => (item.battleValue || 0) * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1);
+        const offensiveWeapons = this._equipmentList.filter((item) => this._isWeapon(item));
+        const arcBV = (location: string) => offensiveWeapons.filter((item) => item.location === location).reduce((sum, item) => sum + baseWeaponBV(item), 0);
+        // The weaker of the front and rear arcs counts half; side and turret weapons count in full.
+        // (MegaMek also halves side weapons when the rear arc is stronger, but the MUL does not:
+        // Sea Skimmer Hydrofoil, BV 288.)
+        const rearIsFront = arcBV("front") < arcBV("rear");
+        const isHalved = (item: IEquipmentItem) => item.location === (rearIsFront ? "front" : "rear");
+        let weaponBV = 0;
+        const weaponBVByTag: Record<string, number> = {};
+        for (const item of offensiveWeapons) {
+            const value = baseWeaponBV(item) * (isHalved(item) ? 0.5 : 1);
+            weaponBV += value;
+            weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + value;
+            log += `+ ${item.name} (${item.location || "unallocated"}) = ${value.toFixed(2)}${isHalved(item) ? " (rear arc x 0.5)" : ""}<br />`;
+        }
+
+        const ammoBVByTag: Record<string, number> = {};
+        for (const ammo of this._equipmentList.filter((item) => item.isAmmo)) {
+            const fed = offensiveWeapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
+            if (!fed) continue;
+            ammoBVByTag[fed.tag] = (ammoBVByTag[fed.tag] ?? 0) + getAmmoBattleValuePerTon(fed, ammo) * ammo.weight;
+        }
+        let ammoBV = 0;
+        for (const [tag, value] of Object.entries(ammoBVByTag)) {
+            const capped = Math.min(value, weaponBVByTag[tag] ?? 0);
+            ammoBV += capped;
+            log += `+ Ammunition for ${tag} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}<br />`;
+        }
+
+        const weightBV = this._tonnage / 2;
+        let offensive = weaponBV + ammoBV + weightBV;
+        const speedMP = flank + Math.round(this._jumpMP / 2);
+        const speedFactor = Math.round(Math.pow(1 + (speedMP - 5) / 10, 1.2) * 100) / 100;
+        log += `(Weapons ${weaponBV.toFixed(2)} + Ammo ${ammoBV.toFixed(2)} + Tonnage / 2 ${weightBV}) x Speed Factor ${speedFactor} (MP ${speedMP})`;
+        offensive *= speedFactor;
+        log += ` = ${offensive.toFixed(2)}<br />`;
+
+        this._battleValue = Math.round(defensive + offensive);
+        log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)} = ${this._battleValue} (provisional)<br />`;
+        this._calcLogBV = log;
+    }
+
+    /**
+     * C-Bill cost (TM Combat Vehicle cost, as implemented by MegaMek CombatVehicleCostCalculator;
+     * provisional): engine, armor, structure, control systems, power amplifiers, heat sinks,
+     * turrets, equipment and ammunition, lift/dive equipment, then x (1 + tonnage / motive divisor).
+     * Vehicular jump jets add no cost (MegaMek gives them none; source not checked).
+     */
+    private _calcCost(): void {
+        const rows: [string, number][] = [];
+        const engineRating = Math.ceil(this.getEngineRating() / 5) * 5;
+        rows.push([`${this._engineType.name} (${this._engineType.costMultiplier} x rating ${engineRating} x ${this._tonnage} t / 75)`,
+            (this._engineType.costMultiplier || 0) * engineRating * this._tonnage / 75]);
+        rows.push([`Armor (${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
+        rows.push([`Internal Structure (${this.getStructureWeight()} t)`, this.getStructureWeight() * 10000]);
+        rows.push([`Control Systems (${this.getControlSystemsWeight()} t)`, this.getControlSystemsWeight() * 10000]);
+        if (this.getPowerAmplifierWeight() > 0) rows.push(["Power Amplifiers", this.getPowerAmplifierWeight() * 20000]);
+        if (this.getWeightedHeatSinks() > 0) rows.push([`Heat Sinks (${this.getWeightedHeatSinks()})`, this.getWeightedHeatSinks() * 2000]);
+        const turretWeaponWeight = this._equipmentList
+            .filter((item) => (item.location === "turret" || item.location === "turret2") && !item.isAmmo)
+            .reduce((sum, item) => sum + item.weight, 0) / 10;
+        if (turretWeaponWeight > 0) rows.push(["Turret", Math.ceil(turretWeaponWeight * 2) / 2 * 5000]);
+        const equipmentCost = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * item.weight : item.cbills || 0), 0);
+        rows.push(["Weapons, Equipment and Ammunition", equipmentCost]);
+        if (this._motiveType.liftEquipment) {
+            const liftTons = Math.ceil(this._tonnage / 5) / 2;
+            rows.push([`${this._motiveType.liftEquipment} (${liftTons} t)`, liftTons * (this._motiveType.hasRotor ? 40000 : 20000)]);
+        }
+        const subtotal = rows.reduce((sum, [, value]) => sum + value, 0);
+        const divisors: Record<string, number> = {
+            hover: 50, "naval-sub": 50, hydrofoil: 75, "naval-surface": 200, wheeled: 200, tracked: 100, vtol: 30, wige: 25,
+        };
+        const multiplier = 1 + this._tonnage / (divisors[this._motiveType.tag] ?? 100);
+        this._cost = Math.round(subtotal * multiplier);
+        this._calcLogCost = rows.map(([name, value]) => `${name}: ${Math.round(value).toLocaleString()}`).join("<br />")
+            + `<br />Subtotal ${Math.round(subtotal).toLocaleString()} x ${multiplier.toFixed(3)} (1 + ${this._tonnage} / ${divisors[this._motiveType.tag] ?? 100})`
+            + ` = <strong>${this._cost.toLocaleString()}</strong> (provisional)`;
+    }
+
+    public getBattleValue(): number {
+        return this._battleValue;
+    }
+
+    public getBattleValueLog(): string {
+        return this._calcLogBV;
+    }
+
+    public getCBillCost(): number {
+        return this._cost;
+    }
+
+    public getCBillCostLog(): string {
+        return this._calcLogCost;
+    }
+
     private _calc() {
         this._weights = [];
 
@@ -891,6 +1073,8 @@ export default class Vehicle {
 
         this._currentTonnage = this._weights.reduce((sum, w) => sum + w.weight, 0);
         this._remainingTonnage = this._tonnage - this._currentTonnage;
+        this._calcBattleValue();
+        this._calcCost();
     }
 
     // Alpha Strike Size bands for ground Combat Vehicles (Alpha Strike Companion).

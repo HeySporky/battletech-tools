@@ -26,6 +26,7 @@ export default class VehicleCreatorRecordSheet extends React.Component<IRecordSh
                         Cruise {vehicle.getCruiseMP()} / Flank {vehicle.getFlankMP()}{vehicle.getJumpMP() > 0 ? ` / Jump ${vehicle.getJumpMP()}` : ""} &nbsp;|&nbsp;
                         Crew {vehicle.getCrew()} &nbsp;|&nbsp; Heat Sinks {vehicle.getTotalHeatSinks()} &nbsp;|&nbsp;
                         Armor: {vehicle.getArmorType().name} &nbsp;|&nbsp;
+                        BV {vehicle.getBattleValue()} &nbsp;|&nbsp; {vehicle.getCBillCost().toLocaleString()} C-Bills &nbsp;|&nbsp;
                         {vehicle.hasTurret() ? vehicle.getTurretName() : "No Turret"} &nbsp;|&nbsp;
                         {vehicle.getEngineType().name} {vehicle.getEngineRating()}
                     </p>
