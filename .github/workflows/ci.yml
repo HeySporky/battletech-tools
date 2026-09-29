@@ -37,6 +37,22 @@ jobs:
       - run: npm test
       - run: npm run build
 
+  security:
+    # Blocking: known high/critical advisories in shipped (runtime) dependencies, plus the source guard rails
+    # (src/security-guards.test.ts) and the security ESLint rules, which must pass even while the general lint
+    # backlog keeps the lint job non-blocking.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npx vitest run --project unit src/security-guards.test.ts src/classes/vehicle-import-security.test.tsx
+      - run: npx eslint src --quiet
+
   lint:
     # Non-blocking until the existing lint backlog is cleared; the log still shows every finding.
     runs-on: ubuntu-latest

@@ -47,6 +47,35 @@ export default tseslint.config(
             // TypeScript's own compiler already catches real undefined references and
             // understands ambient globals (JSX, process via vite define, etc.) that no-undef doesn't.
             "no-undef": "off",
+            // Security: the app renders data from files other people send (backups, imports). See also
+            // src/security-guards.test.ts, which enforces the same boundaries in `npm test`.
+            "no-eval": "error",
+            "no-implied-eval": "error",
+            "no-new-func": "error",
+            "no-script-url": "error",
+            "no-restricted-syntax": ["error",
+                {
+                    selector: "JSXAttribute[name.name='dangerouslySetInnerHTML']",
+                    message: "Render markup through SanitizedHTML (src/ui/components/sanitized-html.tsx), never dangerouslySetInnerHTML directly.",
+                },
+                {
+                    selector: "AssignmentExpression[left.property.name=/^(innerHTML|outerHTML)$/]",
+                    message: "Do not assign innerHTML/outerHTML; render with React or SanitizedHTML.",
+                },
+                {
+                    selector: "CallExpression[callee.property.name='insertAdjacentHTML']",
+                    message: "Do not write raw HTML into the DOM.",
+                },
+                {
+                    selector: "CallExpression[callee.object.name='document'][callee.property.name=/^(write|writeln)$/]",
+                    message: "Do not write raw HTML into the DOM.",
+                },
+            ],
         },
+    },
+    {
+        // The one reviewed place that renders markup: it sanitizes unless a reviewed caller passes `raw`.
+        files: ["src/ui/components/sanitized-html.tsx"],
+        rules: { "no-restricted-syntax": "off" },
     },
 );
