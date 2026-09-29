@@ -1,8 +1,7 @@
 import React from 'react';
-import { CrosshairArrow, HotSurface, MagnifyingGlass, MissileSwarm } from 'react-game-icons';
 import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare, FaTable } from "react-icons/fa";
 import { FiRefreshCcw } from 'react-icons/fi';
-import { GiBattleAxe, GiMissileSwarm } from 'react-icons/gi';
+import { GiBattleAxe, GiCrosshairArrow, GiHotSurface, GiMagnifyingGlass, GiMissileSwarm } from 'react-icons/gi';
 import { Link } from 'react-router-dom';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
 import { BattleMechGroup } from '../../../../classes/battlemech-group';
@@ -2464,7 +2463,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           title={this.props.appGlobals.currentCBTForce.getPhaseName(2)}
 
         >
-          <MissileSwarm />
+          <GiMissileSwarm />
         </button>
       </div>
       <div>
@@ -2482,7 +2481,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onClick={(e) => this.setPhase(e, 4)}
           title={this.props.appGlobals.currentCBTForce.getPhaseName(4)}
         >
-          <HotSurface />
+          <GiHotSurface />
         </button>
       </div>
       <div>
@@ -2584,7 +2583,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 className="btn btn-primary btn-sm full-width"
                 onClick={this.openZoomSheet}
               >
-                <MagnifyingGlass /> Zoom
+                <GiMagnifyingGlass /> Zoom
               </button>
               <BattleMechSVG
                 mechData={selectedMech}
@@ -2749,7 +2748,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                 onClick={(e) => this.openSetTargetDialog(unit)}
                                 title={"Open the Target Dialog for " + unit.getName()}
                               >
-                                <CrosshairArrow />
+                                <GiCrosshairArrow />
                               </button>
                             </div>
                           </div>
