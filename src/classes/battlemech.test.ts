@@ -215,7 +215,7 @@ describe("BattleMech armor technology availability", () => {
         }
 
         const stealth = mechArmorTypes.find(armor => armor.tag === "stealth-basic")!;
-        expect(Object.keys(stealth.critLocs ?? {}).sort()).toEqual(["biped", "quad"]);
+        expect(Object.keys(stealth.critLocs ?? {}).sort()).toEqual(["biped", "quad", "quadvee"]);
         expect(stealth.critLocs?.quad?.fll).toBe(2);
         expect(stealth.critLocs?.quad?.frl).toBe(2);
     });
@@ -406,6 +406,134 @@ describe("BattleMech ATM ammunition", () => {
     });
 });
 
+describe("QuadVee chassis rules", () => {
+    it("restricts QuadVees to standard armor and internal structure", () => {
+        const mech = new BattleMech();
+        mech.setType("quadvee");
+        mech.setArmorType("ferro-fibrous");
+        mech.setInternalStructureType("endo-steel");
+        expect(mech.getArmorType()).toBe("standard");
+        expect(mech.getInternalStructureType()).toBe("standard");
+    });
+
+    it("persists the QuadVee tracked or wheeled motive selection", () => {
+        const mech = new BattleMech();
+        mech.setType("quadvee");
+        mech.setQuadVeeMotive("wheeled");
+        mech.setWalkSpeed(5);
+
+        const restored = new BattleMech(mech.exportJSON(true));
+
+        expect(restored.getQuadVeeMotive()).toBe("wheeled");
+        expect(restored.getQuadVeeVehicleCruiseMP()).toBe(6);
+        restored.setQuadVeeMotive("tracked");
+        expect(restored.getQuadVeeVehicleCruiseMP()).toBe(5);
+    });
+
+    it("allows only chassis-appropriate transformation modes", () => {
+        const quadvee = new BattleMech();
+        quadvee.setType("quadvee");
+        quadvee.setTransformationMode("vehicle");
+        expect(quadvee.getTransformationMode()).toBe("vehicle");
+        expect(quadvee.canUseJumpJetsInCurrentMode()).toBe(false);
+        expect(quadvee.getOperationalHeightLevels()).toBe(1);
+
+        const biped = new BattleMech();
+        biped.setTransformationMode("vehicle");
+        expect(biped.getTransformationMode()).toBe("mech");
+        // Regression: play mode offered no Jump option to Bipeds with jump jets.
+        expect(biped.canUseJumpJetsInCurrentMode()).toBe(true);
+    });
+
+    it("reserves both slots in all QuadVee legs for conversion gear", () => {
+        const mech = new BattleMech();
+        mech.setType("quadvee");
+        const criticals = mech.getCriticals();
+
+        expect(criticals.frontLeftLeg).toHaveLength(2);
+        expect(criticals.frontRightLeg).toHaveLength(2);
+        expect(criticals.leftLeg).toHaveLength(2);
+        expect(criticals.rightLeg).toHaveLength(2);
+        expect(criticals.frontLeftLeg.every(item => item?.tag === "quadvee-conversion" || item?.placeholder)).toBe(true);
+        expect(criticals.frontRightLeg.every(item => item?.tag === "quadvee-conversion" || item?.placeholder)).toBe(true);
+        expect(criticals.leftLeg.every(item => item?.tag === "quadvee-conversion" || item?.placeholder)).toBe(true);
+        expect(criticals.rightLeg.every(item => item?.tag === "quadvee-conversion" || item?.placeholder)).toBe(true);
+        expect(criticals.head.some(item => item?.tag === "multi-pilot-cockpit")).toBe(true);
+        expect(criticals.centerTorso.some(item => item?.tag === "multi-pilot-cockpit")).toBe(true);
+    });
+
+    it("accounts for QuadVee conversion weight and dual cockpit weight", () => {
+        const biped = new BattleMech();
+        const quadvee = new BattleMech();
+        quadvee.setType("quadvee");
+
+        expect(quadvee.getCurrentTonnage() - biped.getCurrentTonnage()).toBe(3);
+    });
+
+    // IO p.134 (QuadVee): conversion equipment is 10% of mass, rounded up to a whole ton.
+    it("rounds QuadVee conversion equipment up to a whole ton", () => {
+        const conversionWeight = (mech: BattleMech) =>
+            mech.getWeightBreakdown().find(entry => /Conversion/.test(entry.name))?.weight;
+
+        const quadvee = new BattleMech();
+        quadvee.setType("quadvee");
+        quadvee.setTonnage(55);
+        expect(conversionWeight(quadvee)).toBe(6);
+
+        expect(conversionWeight(new BattleMech())).toBeUndefined();
+    });
+
+    it("allows QuadVees to continue in Vehicle mode after gyro failure", () => {
+        const quadvee = new BattleMech();
+        quadvee.setType("quadvee");
+        quadvee.setTransformationMode("vehicle");
+        expect(quadvee.canOperateAfterGyroFailure()).toBe(true);
+        expect(quadvee.hasMotiveSystemDamage()).toBe(false);
+
+        const biped = new BattleMech();
+        expect(biped.canOperateAfterGyroFailure()).toBe(false);
+    });
+
+    it("exposes chassis-specific combat capabilities", () => {
+        const quadvee = new BattleMech();
+        quadvee.setType("quadvee");
+        quadvee.setTransformationMode("vehicle");
+        expect(quadvee.hasFullTorsoTwist()).toBe(true);
+        expect(quadvee.canUseHullDownRules()).toBe(true);
+    });
+
+    it("connects damaged QuadVee motive gear to Vehicle-mode Cruise MP", () => {
+        const quadvee = new BattleMech();
+        quadvee.setType("quadvee");
+        quadvee.setQuadVeeMotive("wheeled");
+        quadvee.setWalkSpeed(4);
+        quadvee.setTransformationMode("vehicle");
+
+        const frontLeg = quadvee.getCriticals().frontLeftLeg.find(item => item?.tag === "quadvee-conversion");
+        expect(frontLeg).toBeDefined();
+        frontLeg!.damaged = true;
+        expect(quadvee.hasMotiveSystemDamage()).toBe(true);
+        expect(quadvee.getQuadVeeVehicleCruiseMP()).toBe(0);
+        expect(quadvee.getWalkSpeed()).toBe(0);
+    });
+
+    it("reduces effective movement after a leg is destroyed but preserves QuadVee vehicle motive", () => {
+        const biped = new BattleMech();
+        biped.setWalkSpeed(4);
+        expect(biped.getWalkSpeed()).toBe(4);
+        biped.takeDamage(100, "ll", false);
+        expect(biped.getWalkSpeed()).toBe(3);
+
+        const quadvee = new BattleMech();
+        quadvee.setType("quadvee");
+        quadvee.setWalkSpeed(4);
+        quadvee.setQuadVeeMotive("wheeled");
+        quadvee.setTransformationMode("vehicle");
+        quadvee.takeDamage(100, "ll", false);
+        expect(quadvee.getWalkSpeed()).toBe(5);
+    });
+
+});
 describe("BattleMech ammunition bins", () => {
     it("counts bin shots from the weapon it feeds and survives export", () => {
         const mech = new BattleMech();
@@ -940,7 +1068,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         return mech.getCBillCostNumeric();
     };
 
-    // IO p.50 (via MegaMek): Standard is tournament play; Ultra-light and Superheavy tonnages are Advanced.
+    // IO p.50 (via MegaMek): QuadVees are Advanced; Standard is tournament play.
     it("reports the lowest legal rules level for each chassis", () => {
         const level = (type: string, tonnage = 50) => {
             const mech = new BattleMech();
@@ -950,13 +1078,14 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         };
         expect(level("biped")).toBe(0);
         expect(level("quad")).toBe(0);
+        expect(level("quadvee")).toBe(3);
         expect(level("biped", 120)).toBe(3);
     });
 
     it("hides Advanced and Experimental chassis from Standard play", async () => {
         const { getMechTypeOptionsForRulesLevel } = await import("../data/mech-type-options");
         expect(getMechTypeOptionsForRulesLevel(2).map(option => option.tag)).toEqual(["biped", "quad"]);
-        expect(getMechTypeOptionsForRulesLevel(3).map(option => option.tag)).toEqual(["biped", "quad"]);
+        expect(getMechTypeOptionsForRulesLevel(3).map(option => option.tag)).toEqual(["biped", "quad", "quadvee"]);
     });
 
     it("applies the x1.25 OmniMech cost multiplier", () => {
@@ -966,6 +1095,15 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         const html = omni.getCBillCalcHTML();
         expect(html).toContain("1.25 [OmniMech]");
         expect(cost(omni)).toBe(Math.round(cost(standard) * 1.25));
+    });
+
+    it("adds chassis cockpit, structure, and conversion equipment costs", () => {
+        const quadvee = new BattleMech();
+        quadvee.setType("quadvee");
+        const quadveeHTML = quadvee.getCBillCalcHTML();
+        expect(quadveeHTML).toContain("QuadVee Cockpit");
+        expect(quadveeHTML).toContain("Conversion Equipment");
+
     });
 
     // TM / IO via MegaMek MekCostCalculator (provisional).

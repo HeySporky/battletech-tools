@@ -257,7 +257,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                 />
                               </div>
                             </div>
-{!this.props.appGlobals.currentBattleMech.isQuad() ?
+{!this.props.appGlobals.currentBattleMech.isQuad() && !this.props.appGlobals.currentBattleMech.isQuadVee() ?
 (
   <>
   <div className="armor-location-select">

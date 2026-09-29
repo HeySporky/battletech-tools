@@ -57,7 +57,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
     render = (): JSX.Element => {
 
         // Bipeds use the Biped anatomy.
-        const hasArms = !this.props.mechData.isQuad();
+        // QuadVee correctly reuses the Quad diagram (same 4-leg, no-arm anatomy).
+        const hasArms = !this.props.mechData.isQuad() && !this.props.mechData.isQuadVee();
 
         let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";
