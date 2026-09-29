@@ -49,8 +49,8 @@ export default class CritAllocationTableSVG extends React.Component<ICritAllocat
                         critTable.push( <text key={critC.toString() + "b"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={colorMediumGray} style={{fontWeight: 100}} fontSize={fontSize}>({this.props.critData[ critC ].name})</text> );
                     } else {
 
-                        if( this.props.critData[ critC ].obj && this.props.critData[ critC ].obj.ammoPerTon ) {
-                            critTable.push( <text key={critC.toString() + "c"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={fontSize}>{this.props.critData[ critC ].name} {this.props.critData[ critC ].obj.currentAmmo}/{this.props.critData[ critC ].obj.ammoPerTon}</text> );
+                        if( this.props.critData[ critC ].obj && this.props.critData[ critC ].obj.isAmmo && this.props.mechData.getAmmoBinCapacity(this.props.critData[ critC ].obj) > 0 ) {
+                            critTable.push( <text key={critC.toString() + "c"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={fontSize}>{this.props.critData[ critC ].name} {this.props.mechData.getAmmoBinRemaining(this.props.critData[ critC ].obj)}/{this.props.mechData.getAmmoBinCapacity(this.props.critData[ critC ].obj)}</text> );
                         } else {
                             critTable.push( <text key={critC.toString() + "d"} x={this.props.xLoc } y={this.props.yLoc + lineCount * (fontSize + lineBuffer)} textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 500}} fontSize={fontSize}>{this.props.critData[ critC ].name}</text> );
                         }

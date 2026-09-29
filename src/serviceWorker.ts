@@ -136,8 +136,20 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
 
 export function unregister() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.ready.then(registration => {
-      registration.unregister();
+    void navigator.serviceWorker.getRegistrations().then(async registrations => {
+      const appScope = new URL(`${process.env.PUBLIC_URL || ''}/`, window.location.origin).href;
+      const appRegistrations = registrations.filter(registration => registration.scope.startsWith(appScope));
+      const wasControlled = Boolean(navigator.serviceWorker.controller);
+
+      await Promise.all(appRegistrations.map(registration => registration.unregister()));
+
+      const reloadKey = "bttools-service-worker-removed";
+      if (wasControlled && appRegistrations.length > 0 && sessionStorage.getItem(reloadKey) !== "1") {
+        sessionStorage.setItem(reloadKey, "1");
+        window.location.reload();
+      } else if (!wasControlled) {
+        sessionStorage.removeItem(reloadKey);
+      }
     });
   }
 }

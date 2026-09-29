@@ -1,8 +1,10 @@
 import { FaChevronDown, FaChevronUp, FaQuestion } from "react-icons/fa";
 import * as React from 'react';
 import { Link } from 'react-router';
-
 import type { JSX } from "react";
+const ChevronDown = FaChevronDown as any;
+const ChevronUp = FaChevronUp as any;
+const QuestionIcon = FaQuestion as any;
 
 export default class InputField extends React.Component<IInputFieldProps, IInputFieldState> {
     constructor(props: IInputFieldProps) {
@@ -137,7 +139,7 @@ export default class InputField extends React.Component<IInputFieldProps, IInput
                     target="savaged-help"
                     className="pull-left btn-sm btn-primary btn help-button"
                 >
-                    <FaQuestion />
+                    <QuestionIcon />
                 </Link>
                 )
                 :
@@ -152,9 +154,9 @@ export default class InputField extends React.Component<IInputFieldProps, IInput
                             onClick={this.toggleDD}
                         >
                             {this.state.ddOpen ? (
-                                <FaChevronDown />
+                                <ChevronDown />
                             ) : (
-                                <FaChevronUp />
+                                <ChevronUp />
                             )}
                         </button>
                         {this.state.ddOpen ? (

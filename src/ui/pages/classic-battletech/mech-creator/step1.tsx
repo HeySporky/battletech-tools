@@ -2,10 +2,10 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { btEraOptions } from '../../../../data/era-options';
-import { mechInternalStructureTypes } from '../../../../data/mech-internal-structure-types';
-import { btMechTonnages } from '../../../../data/mech-tonnages';
+import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
+import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
@@ -15,6 +15,8 @@ import UIPage from '../../../components/ui-page';
 import './home.scss';
 import InputCheckbox from "../../../components/form_elements/input_checkbox";
 import InputField from "../../../components/form_elements/input_field";
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const ArrowCircleRight = FaArrowCircleRight as any;
 
 export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -55,7 +57,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.toggleOmni();
+        currentMech.toggleOmni(this.props.appGlobals.appSettings.mechRulesFilter);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -65,6 +67,19 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
         let currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setTech( e.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
+        this.setState({ updated: !this.state.updated });
+      }
+    }
+
+    updateRulesLevel = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      const appSettings = this.props.appGlobals.appSettings;
+      appSettings.mechRulesFilter = +e.currentTarget.value;
+      this.props.appGlobals.saveAppSettings(appSettings);
+
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        this.clampTonnageToChassisRules(currentMech, appSettings.mechRulesFilter);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
 
@@ -72,7 +87,22 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setType( e.currentTarget.value);
+        this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    // Keeps the mech's tonnage (and Omni status) within the legal range for its chassis type and rules level.
+    clampTonnageToChassisRules = ( currentMech: NonNullable<IAppGlobals["currentBattleMech"]>, rulesLevel: number): void => {
+      if( currentMech.isOmnimech && !currentMech.canBeOmniMech( rulesLevel ) ) {
+        currentMech.toggleOmni( rulesLevel );
+      }
+      const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel );
+      const tonnage = currentMech.getTonnage();
+      if( tonnage < min ) {
+        currentMech.setTonnage( min );
+      } else if( tonnage > max ) {
+        currentMech.setTonnage( max );
       }
     }
 
@@ -150,18 +180,39 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                           </label>
 
                           <label>
+                            Rules Level:
+                            <select
+                              value={this.props.appGlobals.appSettings.mechRulesFilter}
+                              onChange={this.updateRulesLevel}
+                            >
+                            {getRulesLevelOptions().map((option) => (
+                              <option key={option.id} value={option.id}>{option.name}</option>
+                            ))}
+                            </select>
+                          </label>
+
+                          <label>
                             Mech Type:
                             <select
                               value={this.props.appGlobals.currentBattleMech.getType().tag}
                               onChange={this.updateType}
                             >
-                            {mechTypeOptions.map( (option) => {
+                            {mechTypeOptions
+                              .filter( (option) => option.rulesLevel <= this.props.appGlobals.appSettings.mechRulesFilter || option.tag === this.props.appGlobals.currentBattleMech?.getType().tag )
+                              .map( (option) => {
                               return (
-                                <option key={option.tag} value={option.tag}>{option.name}</option>
+                                <option key={option.tag} value={option.tag}>{option.name}{option.notes ? ` (${option.notes})` : ""}</option>
                               )
                             })}
                             </select>
                           </label>
+                          {this.props.appGlobals.currentBattleMech.getRequiredRulesLevel() > this.props.appGlobals.appSettings.mechRulesFilter ? (
+                            <p className="color-red smaller-text">
+                              This design requires the {getRulesLevelOptions().find( (option) => option.id === this.props.appGlobals.currentBattleMech?.getRequiredRulesLevel() )?.name} rules
+                              level and is not legal at the selected level. Printing will ask for confirmation.
+                            </p>
+                          ) : null}
+
 
                           <InputCheckbox
                             label="Is an Omnimech"
@@ -195,7 +246,10 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               value={this.props.appGlobals.currentBattleMech.getTonnage()}
                               onChange={this.updateTonnage}
                             >
-                            {btMechTonnages.map( (option) => {
+                            {getAvailableTonnagesForMechType(
+                              this.props.appGlobals.currentBattleMech.getType().tag,
+                              this.props.appGlobals.appSettings.mechRulesFilter
+                            ).map( (option) => {
                               return (
                                 <option key={option.tons} value={option.tons}>{option.tons} ({option.type})</option>
                               )
@@ -209,9 +263,13 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               value={this.props.appGlobals.currentBattleMech.getInternalStructureType()}
                               onChange={this.updateStructureType}
                             >
-                            {mechInternalStructureTypes.map( (option) => {
+                            {this.props.appGlobals.currentBattleMech.getAvailableInternalStructures(this.props.appGlobals.appSettings.mechRulesFilter).map( (option) => {
+                              const selected = option.tag === this.props.appGlobals.currentBattleMech?.getInternalStructureType();
+                              if( !option.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                return <React.Fragment key={option.tag}></React.Fragment>;
+                              }
                               return (
-                                <option key={option.tag} value={option.tag}>{option.name}</option>
+                                <option key={option.tag} value={option.tag} disabled={!option.available && !selected}>{option.name}{option.availableAsPrototype ? " (Prototype)" : ""}</option>
                               )
                             })}
                             </select>
@@ -219,9 +277,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
 
                           <div className="clear-both overflow-hidden">
                           <hr />
-                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step2`} className="btn btn-primary pull-right btn-sm">Next Step <FaArrowCircleRight /></Link>
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step2`} className="btn btn-primary pull-right btn-sm">Next Step <ArrowCircleRight /></Link>
                             <div className="inline-block text-left">
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Previous Step</Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                           </div>
                         </TextSection>

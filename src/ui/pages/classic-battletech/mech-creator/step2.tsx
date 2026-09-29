@@ -8,6 +8,8 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+const ArrowCircleLeft = FaArrowCircleLeft as any;
+const ArrowCircleRight = FaArrowCircleRight as any;
 
 export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeState> {
     constructor(props: IHomeProps) {
@@ -27,6 +29,22 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    setJumpJetType = ( event: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setJumpJetType( event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    setMyomerType = ( event: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setMyomerType( event.currentTarget.value );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
     setJumpingMP = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -40,6 +58,15 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
         let currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setEngineType( event.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    setEngineTechBase = (event: React.FormEvent<HTMLSelectElement>): void => {
+      if (this.props.appGlobals.currentBattleMech) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setEngineTechBase(event.currentTarget.value as "is" | "clan");
+        this.props.appGlobals.saveCurrentBattleMech(currentMech);
+        this.setState({ updated: !this.state.updated });
       }
     }
 
@@ -84,6 +111,11 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                               >
                                 <option value={0}>-Select Walking Speed-</option>
                                 {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map( (option) => {
+                                // Engine ratings above 400 (Large engines) are Experimental only.
+                                const overMax = option > (this.props.appGlobals.currentBattleMech?.getMaxWalkSpeed(this.props.appGlobals.appSettings.mechRulesFilter) ?? 20);
+                                if( overMax && option !== this.props.appGlobals.currentBattleMech?.getWalkSpeed() ) {
+                                  return <React.Fragment key={option}></React.Fragment>;
+                                }
                                 return (
                                   <option key={option} value={option}>{option} MP</option>
                                 )
@@ -92,13 +124,54 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                             </label>
 
                           <label>
-                          Jumping Movement Points:
+                          Myomer:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getMyomerType().tag}
+                                onChange={this.setMyomerType}
+                              >
+                                {this.props.appGlobals.currentBattleMech.getAvailableMyomerTypes(this.props.appGlobals.appSettings.mechRulesFilter).map( (myomer) => {
+                                  const selected = myomer.tag === this.props.appGlobals.currentBattleMech?.getMyomerType().tag;
+                                  if( !myomer.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                    return <React.Fragment key={myomer.tag}></React.Fragment>;
+                                  }
+                                  return (
+                                    <option key={myomer.tag} value={myomer.tag} disabled={!myomer.available && !selected}>{myomer.name}{myomer.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                  )
+                                })}
+                              </select>
+                            </label>
+
+                          <label>
+                          Jump Jet Type:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getJumpJetType().tag}
+                                onChange={this.setJumpJetType}
+                              >
+                                {this.props.appGlobals.currentBattleMech.getAvailableJumpJets(this.props.appGlobals.appSettings.mechRulesFilter).map( (jumpJet) => {
+                                  const selected = jumpJet.tag === this.props.appGlobals.currentBattleMech?.getJumpJetType().tag;
+                                  if( !jumpJet.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                    return <React.Fragment key={jumpJet.tag}></React.Fragment>;
+                                  }
+                                  return (
+                                    <option key={jumpJet.tag} value={jumpJet.tag} disabled={!jumpJet.available && !selected}>{jumpJet.name}{jumpJet.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                  )
+                                })}
+                              </select>
+                            </label>
+
+                          <label>
+                          {this.props.appGlobals.currentBattleMech.getJumpJetType().underwater ? "Underwater Movement Points (UMU)" : "Jumping Movement Points"}:
                               <select
                                 value={this.props.appGlobals.currentBattleMech.getJumpSpeed()}
                                 onChange={this.setJumpingMP}
                               >
                                 <option value={0}>-Select Jumping Speed-</option>
                                 {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map( (option) => {
+                                // Jump MP is capped at walking MP (running MP with Improved jump jets).
+                                const overMax = option > (this.props.appGlobals.currentBattleMech?.getMaxJumpSpeed() ?? 20);
+                                if( overMax && option !== this.props.appGlobals.currentBattleMech?.getJumpSpeed() ) {
+                                  return <React.Fragment key={option}></React.Fragment>;
+                                }
                                 return (
                                   <option key={option} value={option}>{option} MP</option>
                                 )
@@ -106,6 +179,18 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                               </select>
                             </label>
                             <h3>Engine Type</h3>
+                            {this.props.appGlobals.currentBattleMech.getTech().tag === "mis" || this.props.appGlobals.currentBattleMech.getTech().tag === "mclan" ? (
+                              <label>
+                                Engine Technology:
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getEngineTechBase()}
+                                  onChange={this.setEngineTechBase}
+                                >
+                                  <option value="is">Inner Sphere</option>
+                                  <option value="clan">Clan</option>
+                                </select>
+                              </label>
+                            ) : null}
                             <label>
                               Select Engine Type:
                               <select
@@ -113,10 +198,10 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setEngineType}
                               >
                                 {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                {this.props.appGlobals.currentBattleMech.getAvailableEngines().map( (engineData, engineIndex) => {
+                                {this.props.appGlobals.currentBattleMech.getAvailableEngines(this.props.appGlobals.appSettings.mechRulesFilter).map( (engineData, engineIndex) => {
                                   if( engineData.available ) {
                                     return (
-                                      <option key={engineIndex} value={engineData.tag}>{engineData.name}</option>
+                                      <option key={engineIndex} value={engineData.tag}>{engineData.name}{engineData.availableAsPrototype ? " (Prototype)" : ""}</option>
                                     )
                                   } else {
                                     if( this.props.appGlobals.currentBattleMech && !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
@@ -138,10 +223,10 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setGyroType}
                               >
                                 {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                {this.props.appGlobals.currentBattleMech.getAvailableGyros().map( (gyroData, gyroIndex) => {
+                                {this.props.appGlobals.currentBattleMech.getAvailableGyros(this.props.appGlobals.appSettings.mechRulesFilter).map( (gyroData, gyroIndex) => {
                                   if( gyroData.available ) {
                                     return (
-                                      <option key={gyroIndex} value={gyroData.tag}>{gyroData.name}</option>
+                                      <option key={gyroIndex} value={gyroData.tag}>{gyroData.name}{gyroData.availableAsPrototype ? " (Prototype)" : ""}</option>
                                     )
                                   } else {
                                     if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
@@ -158,9 +243,9 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
 
                             <div className="clear-both overflow-hidden">
                               <hr />
-                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step3`} className="btn btn-primary pull-right btn-sm">Next Step <FaArrowCircleRight /></Link>
+                              <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step3`} className="btn btn-primary pull-right btn-sm">Next Step <ArrowCircleRight /></Link>
                               <div className="inline-block text-left">
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step1`} className="btn btn-primary btn-sm"><FaArrowCircleLeft /> Previous Step</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step1`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                               </div>
                             </div>
                         </TextSection>
