@@ -1,7 +1,7 @@
 
 import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaCheckCircle, FaEye, FaPlusCircle, FaTimesCircle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { BattleMech } from "../../../../classes/battlemech";
 import { sortByMechName } from '../../../../utils/sortByMechName';
 import { getSSWRulesLevelLabel } from '../../../../utils/sswUtils';

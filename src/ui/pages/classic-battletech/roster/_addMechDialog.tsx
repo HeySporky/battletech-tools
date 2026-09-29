@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { FaCheckCircle, FaEye, FaPlusCircle, FaTimesCircle } from 'react-icons/fa';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { BattleMech } from '../../../../classes/battlemech';
 import { BattleMechGroup } from '../../../../classes/battlemech-group';
 import { getSSWRulesLevelLabel } from '../../../../utils/sswUtils';
