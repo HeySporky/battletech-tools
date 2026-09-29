@@ -18,6 +18,7 @@ import {
     IVehicleArmorAllocation,
     IVehicleMotiveType,
     IVehicleStructureAllocation,
+    VehicleLocation,
 } from "../data/data-interfaces";
 
 // Combat Vehicle construction rules (TechManual). Shares the engine/armor/heat sink/equipment
@@ -74,6 +75,24 @@ const VEHICLE_STRUCTURE_MULTIPLIERS: Record<string, number> = {
     reinforced: 0.2,
 };
 
+/** A VTOL rotor mounts at most 2 armor points (TM, as implemented by MegaMek TestTank). */
+export const VTOL_MAX_ROTOR_ARMOR = 2;
+
+/** Highest engine rating without Large engines (TO:AUE; Experimental rules level here, as for 'Mechs). */
+const MAX_STANDARD_ENGINE_RATING = 400;
+const MAX_LARGE_ENGINE_RATING = 500;
+
+const emptyArmorAllocation = (): IVehicleArmorAllocation => ({ front: 0, left: 0, right: 0, rear: 0, turret: 0, rotor: 0 });
+
+const LOCATION_NAMES: Record<VehicleLocation, string> = {
+    front: "Front",
+    left: "Left",
+    right: "Right",
+    rear: "Rear",
+    rotor: "Rotor",
+    turret: "Turret",
+};
+
 export default class Vehicle {
     private _uuid: string = generateUUID();
     public lastUpdated: Date = new Date();
@@ -93,7 +112,7 @@ export default class Vehicle {
     private _cruiseMP: number = 3;
 
     private _armorType: IArmorType = mechArmorTypes[0];
-    private _armorAllocation: IVehicleArmorAllocation = { front: 0, left: 0, right: 0, rear: 0, turret: 0 };
+    private _armorAllocation: IVehicleArmorAllocation = emptyArmorAllocation();
 
     private _structureType: string = "standard";
 
@@ -155,12 +174,18 @@ export default class Vehicle {
         return this._tonnage;
     }
 
+    /** Superheavy: heavier than the motive type's standard maximum (Advanced rules). */
+    public isSuperheavy(): boolean {
+        return this._tonnage > this._motiveType.standardMaxTonnage;
+    }
+
     /**
-     * Lowest rules level at which this vehicle is legal: Superheavy vehicles (over 100 tons)
-     * are Advanced, plus the rules level of its installed equipment. Standard (2) is tournament play.
+     * Lowest rules level at which this vehicle is legal: Superheavy vehicles and the VTOL chin
+     * turret are Advanced, plus the rules level of its installed equipment. Standard (2) is
+     * tournament play.
      */
     public getRequiredRulesLevel(): number {
-        let level = this._tonnage > 100 ? 3 : 0;
+        let level = this.isSuperheavy() || this.hasChinTurret() ? 3 : 0;
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
         }
@@ -172,10 +197,13 @@ export default class Vehicle {
     }
 
     public setMotiveType(motiveTag: string): IVehicleMotiveType {
+        const previous = this._motiveType;
         this._motiveType = getVehicleMotiveType(motiveTag);
-        // Naval hulls have no exposed turret facing to allocate armor against by default.
-        if (this._motiveType.tag === "naval-surface" || this._motiveType.tag === "naval-sub") {
-            this._hasTurret = false;
+        if (!!previous.hasRotor !== !!this._motiveType.hasRotor) {
+            // VTOLs mount only a chin turret (Advanced) and other vehicles have no rotor, so the
+            // turret and rotor start over when switching to or from a VTOL.
+            this._removeTurret();
+            this._armorAllocation.rotor = 0;
         }
         this._calc();
         return this._motiveType;
@@ -185,10 +213,40 @@ export default class Vehicle {
         return this._hasTurret;
     }
 
+    /** A VTOL's turret is a chin turret (Advanced rules). */
+    public hasChinTurret(): boolean {
+        return this._hasTurret && this._motiveType.turret === "chin";
+    }
+
+    public getTurretName(): string {
+        return this._motiveType.turret === "chin" ? "Chin Turret" : "Turret";
+    }
+
     public setHasTurret(hasTurret: boolean): boolean {
-        this._hasTurret = hasTurret;
+        if (hasTurret) {
+            this._hasTurret = true;
+        } else {
+            this._removeTurret();
+        }
         this._calc();
         return this._hasTurret;
+    }
+
+    // Without a turret its armor goes away and its equipment returns to the unallocated list.
+    private _removeTurret(): void {
+        this._hasTurret = false;
+        this._armorAllocation.turret = 0;
+        for (const item of this._equipmentList) {
+            if (item.location === "turret") item.location = "";
+        }
+    }
+
+    /** The vehicle's locations in record-sheet order: front, sides, rear, rotor (VTOL), turret. */
+    public getLocations(): { tag: VehicleLocation; name: string }[] {
+        const locations: VehicleLocation[] = ["front", "left", "right", "rear"];
+        if (this._motiveType.hasRotor) locations.push("rotor");
+        if (this._hasTurret) locations.push("turret");
+        return locations.map((tag) => ({ tag, name: tag === "turret" ? this.getTurretName() : LOCATION_NAMES[tag] }));
     }
 
     public getTech(): ITechOptions {
@@ -233,9 +291,18 @@ export default class Vehicle {
         return Math.ceil(this.getCruiseMP() * 1.5);
     }
 
-    /** Engine rating = cruise MP x tonnage - suspension factor (TechManual Combat Vehicle construction). */
+    /**
+     * Engine rating = cruise MP x tonnage - suspension factor, at least 10 (TechManual Combat
+     * Vehicle construction; minimum as in MegaMekLab).
+     */
     public getEngineRating(): number {
-        return Math.max(0, Math.ceil(this._tonnage * this._cruiseMP) - this.getSuspensionFactor());
+        return Math.max(10, Math.ceil(this._tonnage * this._cruiseMP) - this.getSuspensionFactor());
+    }
+
+    /** Fastest Cruise MP whose engine rating fits: 400, or 500 with Large engines (Experimental). */
+    public getMaxCruiseMP(rulesLevel: number = 2): number {
+        const maxRating = rulesLevel >= 4 ? MAX_LARGE_ENGINE_RATING : MAX_STANDARD_ENGINE_RATING;
+        return Math.max(0, Math.floor((maxRating + this.getSuspensionFactor()) / this._tonnage));
     }
 
     public getSuspensionFactor(): number {
@@ -261,6 +328,7 @@ export default class Vehicle {
         const techTag = this.getTech().tag;
         const isMixed = techTag === "mis" || techTag === "mclan";
         return mechArmorTypes.filter((armor) => armor.unitTypes.combatVehicle
+            && (this._motiveType.allowsHardenedArmor || armor.tag !== "hardened")
             && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && (isMixed
             ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
             : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0));
@@ -277,7 +345,7 @@ export default class Vehicle {
     }
 
     public setArmorAllocation(location: keyof IVehicleArmorAllocation, points: number): IVehicleArmorAllocation {
-        const maxForLocation = this.getMaxArmorAllocation()[location];
+        const maxForLocation = this.getMaxArmorAllocation()[location] ?? 0;
         this._armorAllocation[location] = Math.min(Math.max(0, points), maxForLocation);
         this._calc();
         return this._armorAllocation;
@@ -292,7 +360,7 @@ export default class Vehicle {
     }
 
     public getArmorWeight(): number {
-        const totalPoints = Object.values(this._armorAllocation).reduce((sum, points) => sum + points, 0);
+        const totalPoints = Object.values(this._armorAllocation).reduce((sum: number, points) => sum + (points ?? 0), 0);
         return Math.ceil((totalPoints / this.getArmorPointsPerTon()) * 2) / 2;
     }
 
@@ -325,16 +393,14 @@ export default class Vehicle {
     }
 
     public allocateArmorClear(): void {
-        this._armorAllocation = { front: 0, left: 0, right: 0, rear: 0, turret: 0 };
+        this._armorAllocation = emptyArmorAllocation();
         this._calc();
     }
 
     private _distributeArmorPoints(targetPoints: number): void {
-        const locations: (keyof IVehicleArmorAllocation)[] = this._hasTurret
-            ? ["front", "left", "right", "rear", "turret"]
-            : ["front", "left", "right", "rear"];
-        const currentTotal = locations.reduce((sum, loc) => sum + this._armorAllocation[loc], 0);
-        const nextAllocation: IVehicleArmorAllocation = { front: 0, left: 0, right: 0, rear: 0, turret: 0 };
+        const locations = this.getLocations().map((loc) => loc.tag);
+        const currentTotal = locations.reduce((sum, loc) => sum + (this._armorAllocation[loc] ?? 0), 0);
+        const nextAllocation: IVehicleArmorAllocation = emptyArmorAllocation();
 
         if (currentTotal <= 0) {
             const base = Math.floor(targetPoints / locations.length);
@@ -346,11 +412,28 @@ export default class Vehicle {
         } else {
             let assigned = 0;
             for (const loc of locations) {
-                const share = Math.floor((targetPoints * this._armorAllocation[loc]) / currentTotal);
+                const share = Math.floor((targetPoints * (this._armorAllocation[loc] ?? 0)) / currentTotal);
                 nextAllocation[loc] = share;
                 assigned += share;
             }
             nextAllocation.front += targetPoints - assigned;
+        }
+
+        // The rotor holds at most 2 points; anything above that goes to the front. A VTOL rotor
+        // gets its 2 points first, taken from the most heavily armored location.
+        if ((nextAllocation.rotor ?? 0) > VTOL_MAX_ROTOR_ARMOR) {
+            nextAllocation.front += (nextAllocation.rotor ?? 0) - VTOL_MAX_ROTOR_ARMOR;
+            nextAllocation.rotor = VTOL_MAX_ROTOR_ARMOR;
+        }
+        if (this._motiveType.hasRotor) {
+            const wanted = Math.min(VTOL_MAX_ROTOR_ARMOR, targetPoints) - (nextAllocation.rotor ?? 0);
+            for (let point = 0; point < wanted; point++) {
+                const donor = locations.filter((loc) => loc !== "rotor")
+                    .reduce((best, loc) => ((nextAllocation[loc] ?? 0) > (nextAllocation[best] ?? 0) ? loc : best), "front" as VehicleLocation);
+                if ((nextAllocation[donor] ?? 0) <= 0) break;
+                nextAllocation[donor] = (nextAllocation[donor] ?? 0) - 1;
+                nextAllocation.rotor = (nextAllocation.rotor ?? 0) + 1;
+            }
         }
 
         this._armorAllocation = nextAllocation;
@@ -366,34 +449,39 @@ export default class Vehicle {
         return this._structureType;
     }
 
+    // Superheavy vehicles (other than naval ones) have twice the structure weight
+    // (as implemented by MegaMek; not yet checked against the book).
     public getStructureWeight(): number {
-        const multiplier = VEHICLE_STRUCTURE_MULTIPLIERS[this._structureType] ?? 0.1;
+        const multiplier = (VEHICLE_STRUCTURE_MULTIPLIERS[this._structureType] ?? 0.1)
+            * (this.isSuperheavy() && !this._motiveType.naval ? 2 : 1);
         return Math.ceil(this._tonnage * multiplier * 2) / 2;
     }
 
-    // Combat Vehicle Internal Structure Table (TechManual): 1 point per 10 tons, rounded normally,
-    // minimum 1, applied uniformly to every location including the turret.
+    // Combat Vehicle Internal Structure: 1 point per 10 tons, rounded up, in every location
+    // including the rotor and turret (as implemented by MegaMek Tank.autoSetInternal).
     public getStructureAllocation(): IVehicleStructureAllocation {
-        const pointsPerLocation = Math.max(1, Math.round(this._tonnage / 10));
+        const pointsPerLocation = Math.max(1, Math.ceil(this._tonnage / 10));
         return {
             front: pointsPerLocation,
             left: pointsPerLocation,
             right: pointsPerLocation,
             rear: pointsPerLocation,
+            rotor: this._motiveType.hasRotor ? pointsPerLocation : 0,
             turret: this._hasTurret ? pointsPerLocation : 0,
         };
     }
 
     // Any single location can use up the vehicle's total armor point budget, minus whatever is
-    // already allocated to the other locations - there is no separate per-location subcap.
+    // already allocated to the other locations; only the VTOL rotor has its own cap (2 points).
     public getMaxArmorAllocation(): IVehicleArmorAllocation {
         const maxPoints = this.getMaxArmorPoints();
-        const locations: (keyof IVehicleArmorAllocation)[] = ["front", "left", "right", "rear", "turret"];
-        const result: IVehicleArmorAllocation = { front: 0, left: 0, right: 0, rear: 0, turret: 0 };
+        const locations = this.getLocations().map((loc) => loc.tag);
+        const result: IVehicleArmorAllocation = emptyArmorAllocation();
         for (const loc of locations) {
-            const othersTotal = locations.reduce((sum, l) => sum + (l === loc ? 0 : this._armorAllocation[l]), 0);
+            const othersTotal = locations.reduce((sum, l) => sum + (l === loc ? 0 : this._armorAllocation[l] ?? 0), 0);
             result[loc] = Math.max(0, maxPoints - othersTotal);
         }
+        result.rotor = Math.min(VTOL_MAX_ROTOR_ARMOR, result.rotor ?? 0);
         return result;
     }
 
@@ -458,6 +546,10 @@ export default class Vehicle {
 
     public setEquipmentLocation(uuid: string, location: string): IEquipmentItem[] {
         const item = this._equipmentList.find((equipment) => equipment.uuid === uuid);
+        // Equipment goes in the body locations or the turret, never the rotor.
+        if (location && (location === "rotor" || !this.getLocations().some((loc) => loc.tag === location))) {
+            return this._equipmentList;
+        }
         if (item) {
             if (item.isModularArmor && location && this._equipmentList.some(equipment =>
                 equipment.uuid !== uuid && equipment.isModularArmor && equipment.location === location
@@ -573,11 +665,28 @@ export default class Vehicle {
         return this._remainingTonnage;
     }
 
+    /** Control systems: 5% of tonnage, rounded up to the half ton (TM, as implemented by MegaMek). */
+    public getControlSystemsWeight(): number {
+        return Math.ceil(this._tonnage * 0.05 * 2) / 2;
+    }
+
+    /**
+     * Lift/dive equipment for hover, VTOL, WiGE, hydrofoil and submarine vehicles: 10% of tonnage,
+     * rounded up to the half ton (TM, as implemented by MegaMek). Other motive types need none.
+     */
+    public getLiftEquipmentWeight(): number {
+        return this._motiveType.liftEquipment ? Math.ceil(this._tonnage * 0.1 * 2) / 2 : 0;
+    }
+
     private _calc() {
         this._weights = [];
 
         this._weights.push({ name: "Internal Structure", weight: this.getStructureWeight() });
         this._weights.push({ name: this._engineType.name, weight: this.getEngineWeight() });
+        this._weights.push({ name: "Control Systems", weight: this.getControlSystemsWeight() });
+        if (this._motiveType.liftEquipment) {
+            this._weights.push({ name: this._motiveType.liftEquipment, weight: this.getLiftEquipmentWeight() });
+        }
         this._weights.push({ name: "Armor", weight: this.getArmorWeight() });
 
         if (this._additionalHeatSinks > 0) {
@@ -590,7 +699,7 @@ export default class Vehicle {
             const turretEquipmentWeight = this._equipmentList
                 .filter((item) => item.location === "turret")
                 .reduce((sum, item) => sum + item.weight, 0);
-            this._weights.push({ name: "Turret", weight: Math.max(0.5, Math.ceil(turretEquipmentWeight * 0.1 * 2) / 2) });
+            this._weights.push({ name: this.getTurretName(), weight: Math.max(0.5, Math.ceil(turretEquipmentWeight * 0.1 * 2) / 2) });
         }
 
         for (const item of this._equipmentList) {
@@ -609,18 +718,10 @@ export default class Vehicle {
         return 1;
     }
 
-    // Movement type suffix used on the AS card (e.g. "8h" for an 8" Hover unit). Tracked/Wheeled
-    // ground vehicles carry no suffix, same as 'Mechs. VTOL/WiGE suffixes are unconfirmed pending
-    // a rules pass - verify against the Alpha Strike Companion before treating them as final.
+    // Movement mode code on the AS card (e.g. 18"h for a Hover unit), as the Master Unit List prints
+    // them: t tracked, w wheeled, h hover, v VTOL, g WiGE, n naval/hydrofoil, s submarine.
     public getAlphaStrikeMovementType(): string {
-        switch (this._motiveType.tag) {
-            case "hover": return "h";
-            case "naval-surface": return "n";
-            case "naval-sub": return "s";
-            case "vtol": return "a"; // TODO: verify VTOL movement suffix
-            case "wige": return "g"; // TODO: verify WiGE movement suffix
-            default: return "";
-        }
+        return this._motiveType.alphaStrikeMove;
     }
 
     // AS ground movement conversion: 1 Cruise MP = 2".
@@ -713,7 +814,7 @@ export default class Vehicle {
             this.setEngineType(importObject.engineType);
             this._cruiseMP = importObject.cruiseMP || 0;
             this.setArmorType(importObject.armorType);
-            this._armorAllocation = importObject.armorAllocation || { front: 0, left: 0, right: 0, rear: 0, turret: 0 };
+            this._armorAllocation = { ...emptyArmorAllocation(), ...(importObject.armorAllocation || {}) };
             this._structureType = importObject.structureType || "standard";
             this.setHeatSinkType(importObject.heatSinkType);
             this._additionalHeatSinks = importObject.additionalHeatSinks || 0;

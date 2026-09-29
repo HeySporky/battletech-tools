@@ -652,15 +652,16 @@ tool. Items are ordered by dependency, not by product marketing priority.
   `saveVehicleSaves` in `app-router.tsx`/`dataSaves.ts` and inclusion in
   `IFullBackup`/`restoreFullBackup`. Tracked vehicles can now be built,
   saved, reloaded, and printed end to end.
-- [ ] Implement remaining vehicle categories (construction math is generic
-  across motive types already; each needs its own record-sheet diagram and
-  category-specific rule verification):
-  - Hover.
-  - Wheeled.
-  - VTOL.
-  - WiGE.
-  - Submarine.
-  - Surface naval.
+- [x] Implement remaining vehicle categories (2026-09-29, branch `vehicle-motive-types`): Wheeled, Hover,
+  VTOL, WiGE, surface naval, hydrofoil and submarine, each with its tonnage limits, suspension factor,
+  lift/dive equipment, record-sheet outline and Alpha Strike movement code; VTOL rotor (2 armor max) and
+  Advanced chin turret; no Hardened armor on VTOL/hover/WiGE; 5% control systems for every vehicle;
+  Superheavy structure x2 (non-naval); engine type, Cruise MP and heat sinks in Step 1. Values follow
+  MegaMek (TestTank/Tank; book not in hand) and were checked against MUL vehicle tonnages and move codes.
+- [ ] Vehicle heat sinks: count energy-weapon heat and the fusion engine's 10 free heat sinks (heat-neutral
+  requirement), and power amplifiers (10% of energy weapon weight) for non-fusion engines.
+- [ ] Superheavy vehicle locations (front-left/right, rear-left/right) and dual turrets (Advanced).
+- [ ] Vehicular jump jets (hover, wheeled, tracked, WiGE only) once they are in the equipment catalog.
 - [ ] Implement category-specific rules: motive systems, turret arcs, motive
   damage, flotation/submergence, VTOL crash behavior, and vehicle crews.
 - [ ] Add Alpha Strike conversion for each vehicle category.

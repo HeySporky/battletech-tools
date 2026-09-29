@@ -8,15 +8,6 @@ import UIPage from '../../../components/ui-page';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
-const VEHICLE_LOCATIONS = [
-    { tag: "", name: "Unallocated" },
-    { tag: "front", name: "Front" },
-    { tag: "left", name: "Left" },
-    { tag: "right", name: "Right" },
-    { tag: "rear", name: "Rear" },
-    { tag: "turret", name: "Turret" },
-];
-
 export default class VehicleCreatorEquipmentPlacement extends React.Component<IEquipmentPlacementProps, IEquipmentPlacementState> {
     constructor(props: IEquipmentPlacementProps) {
         super(props);
@@ -36,9 +27,11 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
         const vehicle = this.props.appGlobals.currentVehicle;
         if (!vehicle) return <></>;
 
-        const locationOptions = vehicle.hasTurret()
-            ? VEHICLE_LOCATIONS
-            : VEHICLE_LOCATIONS.filter((loc) => loc.tag !== "turret");
+        // Equipment mounts in the body locations or the turret; the VTOL rotor takes none.
+        const locationOptions: { tag: string; name: string }[] = [
+            { tag: "", name: "Unallocated" },
+            ...vehicle.getLocations().filter((loc) => loc.tag !== "rotor"),
+        ];
         const placementLocations = locationOptions.filter((loc) => loc.tag !== "");
 
         return (

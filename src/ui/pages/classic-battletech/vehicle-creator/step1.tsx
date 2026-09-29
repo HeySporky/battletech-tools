@@ -6,6 +6,8 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import InputField from "../../../components/form_elements/input_field";
 import InputCheckbox from "../../../components/form_elements/input_checkbox";
+import InputNumeric from "../../../components/form_elements/input_numeric";
+import { mechEngineTypes } from '../../../../data/mech-engine-types';
 import { btTechOptions } from '../../../../data/tech-options';
 import { btEraOptions } from '../../../../data/era-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
@@ -78,6 +80,7 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
             vehicle.setTonnage(+e.currentTarget.value);
+            this.clampTonnage(vehicle, this.props.appGlobals.appSettings.mechRulesFilter);
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -90,12 +93,39 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         }
     }
 
-    // Keeps tonnage within the Standard/Superheavy bounds for the selected motive type and rules level.
+    updateEngineType = (e: React.FormEvent<HTMLSelectElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setEngineType(e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateCruiseMP = (e: React.FormEvent<HTMLSelectElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setCruiseMP(+e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateHeatSinks = (count: number): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setAdditionalHeatSinks(count);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    // Keeps tonnage within the Standard/Superheavy bounds for the selected motive type and rules level,
+    // and Cruise MP within what an engine can deliver at that tonnage.
     clampTonnage = (vehicle: NonNullable<IAppGlobals["currentVehicle"]>, rulesLevel: number): void => {
         const { min, max } = getVehicleTonnageBounds(vehicle.getMotiveType().tag, rulesLevel);
         const tonnage = vehicle.getTonnage();
         if (tonnage < min) vehicle.setTonnage(min);
         else if (tonnage > max) vehicle.setTonnage(max);
+        const maxCruise = vehicle.getMaxCruiseMP(rulesLevel);
+        if (vehicle.getCruiseMP() > maxCruise) vehicle.setCruiseMP(maxCruise);
     }
 
     render = (): JSX.Element => {
@@ -105,9 +135,16 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
         const { min, max } = getVehicleTonnageBounds(vehicle.getMotiveType().tag, rulesLevel);
         const tonnageOptions: number[] = [];
-        for (let tons = min; tons <= max; tons += vehicle.getMotiveType().tag.startsWith("naval") ? 25 : 1) {
+        for (let tons = min; tons <= max; tons++) {
             tonnageOptions.push(tons);
         }
+        const cruiseOptions: number[] = [];
+        for (let mp = 0; mp <= Math.max(vehicle.getMaxCruiseMP(rulesLevel), vehicle.getCruiseMP()); mp++) {
+            cruiseOptions.push(mp);
+        }
+        const motive = vehicle.getMotiveType();
+        // The chin turret is Advanced (3079 prototype, 3080 production; as implemented by MegaMek).
+        const turretAllowed = motive.turret !== "chin" || rulesLevel >= 3 || vehicle.hasTurret();
 
         return (
             <>
@@ -175,11 +212,65 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     </select>
                                 </label>
 
-                                <InputCheckbox
-                                    label="Has a Turret"
-                                    checked={vehicle.hasTurret()}
-                                    onChange={this.updateHasTurret}
-                                />
+                                {turretAllowed ? (
+                                    <InputCheckbox
+                                        label={motive.turret === "chin" ? "Has a Chin Turret (Advanced)" : "Has a Turret"}
+                                        checked={vehicle.hasTurret()}
+                                        onChange={this.updateHasTurret}
+                                    />
+                                ) : (
+                                    <p className="smaller-text">VTOLs can only mount a chin turret, which needs the Advanced rules level.</p>
+                                )}
+
+                                {vehicle.getRequiredRulesLevel() > rulesLevel ? (
+                                    <p className="color-red smaller-text">
+                                        This design needs the {getRulesLevelOptions().find((option) => option.id === vehicle.getRequiredRulesLevel())?.name} rules
+                                        level{vehicle.isSuperheavy() ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""} and
+                                        is not legal at the selected level. Printing will ask for confirmation.
+                                    </p>
+                                ) : null}
+
+                                <h3>Movement and Engine</h3>
+                                <label>
+                                    Engine Type:
+                                    <select value={vehicle.getEngineType().tag} onChange={this.updateEngineType}>
+                                        {mechEngineTypes.map((option) => (
+                                            <option key={option.tag} value={option.tag}>{option.name}</option>
+                                        ))}
+                                    </select>
+                                </label>
+
+                                <label>
+                                    Cruise MP:
+                                    <select value={vehicle.getCruiseMP()} onChange={this.updateCruiseMP}>
+                                        {cruiseOptions.map((mp) => (
+                                            <option key={mp} value={mp}>{mp} (Flank {Math.ceil(mp * 1.5)})</option>
+                                        ))}
+                                    </select>
+                                </label>
+
+                                <p>
+                                    <strong>Engine Rating</strong>: {vehicle.getEngineRating()} ({vehicle.getTonnage()} t x {vehicle.getCruiseMP()} MP
+                                    - suspension factor {vehicle.getSuspensionFactor()}) &nbsp;|&nbsp;
+                                    <strong>Engine Weight</strong>: {vehicle.getEngineWeight()} t &nbsp;|&nbsp;
+                                    <strong>Control Systems</strong>: {vehicle.getControlSystemsWeight()} t
+                                    {motive.liftEquipment ? <> &nbsp;|&nbsp; <strong>{motive.liftEquipment}</strong>: {vehicle.getLiftEquipmentWeight()} t</> : null}
+                                </p>
+
+                                <label>
+                                    Heat Sinks:
+                                    <InputNumeric
+                                        value={vehicle.getAdditionalHeatSinks()}
+                                        min={0}
+                                        step={1}
+                                        setValue={this.updateHeatSinks}
+                                    />
+                                </label>
+
+                                <p>
+                                    <strong>Current Tonnage</strong>: {vehicle.getCurrentTonnage()} &nbsp;|&nbsp;
+                                    <strong>Remaining Tonnage</strong>: <span className={vehicle.getRemainingTonnage() < 0 ? "color-red" : ""}>{vehicle.getRemainingTonnage()}</span>
+                                </p>
 
                                 <div className="clear-both overflow-hidden">
                                     <hr />

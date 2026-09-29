@@ -31,7 +31,8 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                         <TextSection label={`${vehicle.getModel()} ${vehicle.getName()}`.trim() || "Vehicle Summary"}>
                             <p>
                                 <strong>{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons
-                                {vehicle.hasTurret() ? " - Turreted" : " - No Turret"}
+                                {vehicle.hasTurret() ? ` - ${vehicle.getTurretName()}` : " - No Turret"}
+                                {` - Cruise ${vehicle.getCruiseMP()} / Flank ${vehicle.getFlankMP()} - ${vehicle.getEngineType().name} ${vehicle.getEngineRating()}`}
                             </p>
 
                             <h3>Weight Summary</h3>
@@ -56,13 +57,9 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                                     <tr><th>Location</th><th>Structure</th><th>Armor</th><th>Max Armor</th></tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td>Front</td><td>{structure.front}</td><td>{armor.front}</td><td>{maxArmor.front}</td></tr>
-                                    <tr><td>Left</td><td>{structure.left}</td><td>{armor.left}</td><td>{maxArmor.left}</td></tr>
-                                    <tr><td>Right</td><td>{structure.right}</td><td>{armor.right}</td><td>{maxArmor.right}</td></tr>
-                                    <tr><td>Rear</td><td>{structure.rear}</td><td>{armor.rear}</td><td>{maxArmor.rear}</td></tr>
-                                    {vehicle.hasTurret() ? (
-                                        <tr><td>Turret</td><td>{structure.turret}</td><td>{armor.turret}</td><td>{maxArmor.turret}</td></tr>
-                                    ) : null}
+                                    {vehicle.getLocations().map((loc) => (
+                                        <tr key={loc.tag}><td>{loc.name}</td><td>{structure[loc.tag] ?? 0}</td><td>{armor[loc.tag] ?? 0}</td><td>{maxArmor[loc.tag] ?? 0}</td></tr>
+                                    ))}
                                 </tbody>
                             </table>
 
@@ -70,7 +67,7 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                             <table className="table">
                                 <tbody>
                                     <tr><td>Size</td><td>{as.size}</td></tr>
-                                    <tr><td>Movement</td><td>{as.movement}{as.movementType}"</td></tr>
+                                    <tr><td>Movement</td><td>{as.movement}"{as.movementType}</td></tr>
                                     <tr><td>Damage (S/M/L/E)</td><td>{as.damage.short}/{as.damage.medium}/{as.damage.long}/{as.damage.extreme}</td></tr>
                                     <tr><td>Armor</td><td>{as.armor ?? "Pending verified conversion"}</td></tr>
                                     <tr><td>Structure</td><td>{as.structure ?? "Pending verified conversion"}</td></tr>
