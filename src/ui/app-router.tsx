@@ -1,7 +1,6 @@
-import React from "react";
-import packageJson from "../../package.json";
+import React, { type JSX } from "react";
 import { Modal } from 'react-bootstrap';
-import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router";
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
@@ -252,27 +251,33 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         })
 
 
-        setTimeout(
-            () => {
-                // console.log("starting SSW import");
-                for( let sswXML of sswMechs ) {
-                    let basicSSWInfo = getSSWXMLBasicInfo( sswXML );
+        // Import the bundled SSW mechs in ~12 ms slices, yielding to the browser between slices. Importing all of them
+        // in one go blocked the main thread for several seconds on desktop (far longer on phones), freezing the UI.
+        let nextSSWIndex = 0;
+        const importSSWSlice = () => {
+            const sliceEnd = performance.now() + 12;
+            while( nextSSWIndex < sswMechs.length && performance.now() < sliceEnd ) {
+                const sswXML = sswMechs[nextSSWIndex++];
+                const basicSSWInfo = getSSWXMLBasicInfo( sswXML );
 
-                    if( basicSSWInfo && basicSSWInfo.rules_level_ssw < 3 ) {
-                        let bmObj = new BattleMech();
-                        bmObj.importSSWXML( sswXML );
-                        bmObj.basicSSWInfo = basicSSWInfo;
+                if( basicSSWInfo && basicSSWInfo.rules_level_ssw < 3 ) {
+                    const bmObj = new BattleMech();
+                    bmObj.importSSWXML( sswXML );
+                    bmObj.basicSSWInfo = basicSSWInfo;
 
-                        appGlobals.sswMechObjects.push(bmObj);
-                    }
+                    appGlobals.sswMechObjects.push(bmObj);
                 }
-                // console.log("SSW import complete")
+            }
+
+            if( nextSSWIndex < sswMechs.length ) {
+                setTimeout( importSSWSlice, 0 );
+            } else {
                 this.setState({
                     appGlobals: appGlobals,
                 })
-            },
-            500
-        );
+            }
+        };
+        setTimeout( importSSWSlice, 500 );
 
 
 
@@ -462,7 +467,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         callAnalytics(
             window,
             appGlobals.sessionUUID,
-            packageJson.version,
+            __APP_VERSION__,
         );
 
         if( subTitle ) {

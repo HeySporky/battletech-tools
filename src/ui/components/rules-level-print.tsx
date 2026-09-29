@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { getRulesLevelOptions } from '../../data/rules-level-options';
 
 // Standard is tournament play; anything above it is stamped on the printout.

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { IEquipmentItem } from '../../data/data-interfaces';
 import { getEquipmentSubtype, getEquipmentSubtypes } from '../../data/equipment-subtypes';
 import { sortEquipment } from '../../utils';

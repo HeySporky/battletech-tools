@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
 import { btRulesLevelOptions } from '../../../../data/rules-level-options';

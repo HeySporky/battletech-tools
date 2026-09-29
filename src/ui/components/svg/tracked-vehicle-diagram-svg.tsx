@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import DamageCircleSVG from './damage-circle-svg';
 
 // Schematic top-down Tracked Combat Vehicle record sheet diagram (hand-built shapes, not traced

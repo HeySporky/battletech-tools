@@ -14,26 +14,74 @@ This software functions strictly as a data-transformation utility to assist play
 
 ## Development
 
-Want to contribute? Here's how to setup your own development environment:
+Want to contribute? The toolchain is Node + npm only (Vite, TypeScript, Sass are all npm packages), so the
+same steps work on Windows, macOS, Linux and Android.
 
-OS X:
-- Install Homebrew
-- Install Node (`brew install node`)
-- Install React (`brew install react`)
-- We use Python for some commandline tools, but it's not required. (`brew install python3`)
-- Clone the Repo
-- Open Terminal and navigate to the battletech-tools folder
-- Run the following commands
-- `npm i`
-- `npm run start`
-- Browse to `localhost:3000` on your browser.
+**Node:** 26 is the baseline (`.nvmrc` / `.node-version`); 22.22+ and 24 also work. Use a version manager so the
+repo's pin is picked up automatically.
+
+### 1. Install Node and Git
+
+| Platform | Commands |
+|---|---|
+| Windows | `winget install Git.Git Schniz.fnm` then `fnm install` and `fnm use` in the repo (nvm-windows or Volta also work) |
+| macOS | `brew install git fnm` then `fnm install` and `fnm use` (or `nvm install`) |
+| Linux | `curl -fsSL https://fnm.vercel.app/install \| bash` then `fnm install` and `fnm use` (or `nvm install`) |
+| Android | Install [Termux from F-Droid](https://f-droid.org/packages/com.termux/) (not the Play Store build), then `pkg install nodejs git` |
+
+### 2. Get the code and run it
+
+```sh
+git clone https://github.com/HeySporky/battletech-tools.git
+cd battletech-tools
+npm ci            # exact versions from package-lock.json
+npm run dev       # http://localhost:3000/
+```
+
+`npm run start` is an alias for `npm run dev`. To try it on a phone or tablet on the same network, run
+`npm run dev:host` and open the "Network" URL it prints (on Termux this is also how you view it in the
+phone's browser).
+
+### 3. Before you open a pull request
+
+```sh
+npm run check     # typecheck + unit tests + production build (what CI requires)
+npm run lint      # informational until the backlog in TODO.md is cleared
+```
+
+| Script | What it does |
+|---|---|
+| `npm run build` / `npm run preview` | Production build into `build/`, and serve it locally |
+| `npm run typecheck` | TypeScript 7 (native) where available, TypeScript 6 on Android; `npm run typecheck:ts6` forces 6 |
+| `npm test` | Vitest unit tests in Node (works everywhere, including Termux) |
+| `npm run test:watch` / `npm run test:coverage` | Watch mode / coverage report in `coverage/` |
+| `npm run test:browser` | Vitest browser mode in real Chromium, Firefox and WebKit |
+| `npm run test:e2e` | Playwright smoke tests against the production build (desktop, phone and tablet emulation) |
+
+### Testing
+
+- Unit tests live next to the code as `*.test.ts(x)`. Component tests add `// @vitest-environment happy-dom`
+  as their first line.
+- Browser-mode tests are `*.browser.test.ts(x)`; end-to-end tests are in `e2e/`.
+- Browser and E2E tests need Playwright's browsers once: `npx playwright install`
+  (Linux: `npx playwright install --with-deps`). They cannot run on Android, where Playwright has no browsers;
+  `npm test` covers the unit suite there.
+- If the browser download is blocked, use an installed Edge or Chrome for the Chromium-based projects:
+  `PLAYWRIGHT_CHANNEL=msedge npm run test:e2e -- --project=chromium`, or
+  `VITEST_BROWSERS=chromium PLAYWRIGHT_CHANNEL=chrome npm run test:browser`.
+  (PowerShell: `$env:PLAYWRIGHT_CHANNEL="msedge"; npm run test:e2e -- --project=chromium`.)
+
+CI (`.github/workflows/ci.yml`) runs `check` on Windows, macOS and Linux with Node 22, 24 and 26, plus the
+browser and E2E suites, on every pull request.
+
+Python is used by a few optional command-line data tools, not by the app.
 
 Be sure to join our [Discord](https://discord.gg/U539K45v8U) and talk to other developers:
 
 
 ### Technology
 
-PWA Application using Typescript and React
+PWA built with TypeScript, React 19 and Vite; tested with Vitest and Playwright.
 
 
 ### Current Contributors

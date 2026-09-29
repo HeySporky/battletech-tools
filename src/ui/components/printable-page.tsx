@@ -1,7 +1,7 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaPrint } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { CONST_BATTLETECH_URL } from '../../configVars';
 import { IAppGlobals } from '../app-router';
 import BattleTechLogo from './battletech-logo';

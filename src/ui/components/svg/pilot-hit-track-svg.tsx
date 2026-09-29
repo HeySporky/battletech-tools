@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { type JSX } from 'react';
 import { IPilot } from '../../../classes/pilot';
 
 export default class PilotHitTrackSVG extends React.Component<IPilotHitTrackSVGProps, IPilotHitTrackSVGState> {

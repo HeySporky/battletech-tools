@@ -1075,64 +1075,27 @@ export class BattleMech {
     }
 
     /**
-     * Calculates the non-linear speed scaling factor applied directly to the Offensive Battle Rating.
-     * Coordinates movement metrics natively with the canonical Speed Factor Table rules (TechManual, p. 315).
+     * Offensive Speed Factor (TechManual p. 316).
+     *
+     * Speed Factor MP = Run MP + round( Jump MP / 2 )
+     * Speed Factor    = ( 1 + ( MP - 5 ) / 10 ) ^ 1.2, rounded to two decimal places
+     *
+     * The Speed Factor Table in the TechManual is this formula evaluated for MP 0-25, so one formula covers every
+     * speed (same implementation as MegaMek's BVCalculator.offensiveSpeedFactor / offensiveSpeedFactorMP).
      */
     private _getSpeedFactorModifier(): number {
-        // Core formula implementation: Mobility = Run MP + (Jump MP / 2) (TM p. 315)
-        // Standard LAMs: 'Mech Run MP + half AirMech Flank MP, rounded normally (IO p.192).
-        const mobilityScore = this.hasAirMechMode()
+        // Speed Factor MP (TM p.316). Standard LAMs use 'Mech Run MP + half AirMech Flank MP, rounded normally (IO p.192);
+        // other 'Mechs use the better of Jump MP and UMU MP (TO:AUE p.107).
+        const speedFactorMP = this.hasAirMechMode()
             ? this.getBVRunSpeed() + Math.round(this.getAirMechFlankMP() / 2)
-            : this.getBVRunSpeed() + (Math.max(this.getBVJumpSpeed(), this.getUMUSpeed()) / 2);
+            : this.getBVRunSpeed() + Math.round(Math.max(this.getBVJumpSpeed(), this.getUMUSpeed()) / 2);
 
-        if (!Number.isFinite(mobilityScore)) {
+        // Units without valid movement data (NaN/Infinity) fall back to the MP 0 factor instead of poisoning BV.
+        if (!Number.isFinite(speedFactorMP)) {
             return 0.44;
         }
 
-        // Static lookup table replicating the explicit values from TechManual p. 315
-        // Index matches the exact mobilityScore value (Index 0 = 0 MP, Index 5 = 5 MP, etc.)
-        const SPEED_FACTOR_TABLE: number[] = [
-            0.44, // 0 MP
-            0.54, // 1 MP
-            0.65, // 2 MP
-            0.77, // 3 MP
-            0.88, // 4 MP
-            1.00, // 5 MP (Standard Baseline Engine threshold)
-            1.12, // 6 MP
-            1.24, // 7 MP
-            1.37, // 8 MP
-            1.50, // 9 MP
-            1.63, // 10 MP
-            1.76, // 11 MP
-            1.89, // 12 MP
-            2.02, // 13 MP
-            2.16, // 14 MP
-            2.30, // 15 MP
-            2.44, // 16 MP
-            2.58, // 17 MP
-            2.72, // 18 MP
-            2.86, // 19 MP
-            3.00, // 20 MP
-            3.15, // 21 MP
-            3.29, // 22 MP
-            3.44, // 23 MP
-            3.59, // 24 MP
-            3.74  // 25 MP
-        ];
-
-        // Interpolate fractional mobility scores, such as Run 0 + Jump 1 / 2.
-        if (mobilityScore >= 0 && mobilityScore < SPEED_FACTOR_TABLE.length) {
-            const lowerIndex = Math.floor(mobilityScore);
-            const upperIndex = Math.ceil(mobilityScore);
-            const interpolation = mobilityScore - lowerIndex;
-            return SPEED_FACTOR_TABLE[lowerIndex] +
-                (SPEED_FACTOR_TABLE[upperIndex] - SPEED_FACTOR_TABLE[lowerIndex]) * interpolation;
-        }
-
-        // Mathematical Equation Fallback Rule for extreme/high-speed units (TM p. 315 footnote)
-        // Formula: (1 + (Mobility - 5) / 10)^1.2 rounded precisely to two decimal places
-        const highSpeedRaw = Math.pow((1 + (mobilityScore - 5) / 10), 1.2);
-        return Number.isFinite(highSpeedRaw) ? parseFloat(highSpeedRaw.toFixed(2)) : 0.44;
+        return Math.round(Math.pow(1 + (speedFactorMP - 5) / 10, 1.2) * 100) / 100;
     }
 
     public isQuad() {
@@ -2274,6 +2237,7 @@ export class BattleMech {
 
     public makeTROBBCode() {
 
+        const typeTag = this._mechType.tag.toLowerCase();
         let html = "";
         // Header Info
         html += "Type: " + this.getName() + "\n";
@@ -3542,7 +3506,7 @@ export class BattleMech {
         // Armor
         const armorObj = this.getArmorObj();
         const armorTechBase = this.getArmorTechBase();
-        const armorCriticalLocations = armorObj.critLocs?.[typeTag];
+        const armorCriticalLocations = armorObj.critLocs?.[typeTag as keyof NonNullable<typeof armorObj.critLocs>];
         if (armorCriticalLocations) {
             for (const [location, criticalCount] of Object.entries(armorCriticalLocations)) {
                 if (criticalCount && criticalCount > 0) {
@@ -3679,6 +3643,11 @@ export class BattleMech {
         let criticalTally: Record<string, number> = {};
         this._sortCriticalAllocationTableByTagThenUUID();
         for( let item of this._criticalAllocationTable) {
+            // Armor with fixed critical locations (Stealth, ...) was already placed above; saved/imported allocation
+            // entries for it would only fail to find it in the unallocated list.
+            if( armorCriticalLocations && item.tag === armorObj.tag ) {
+                continue;
+            }
             let removeFromUnallocated = false;
             // console.log( "criticalAllocationTable item", this.getName(), item.tag, item.loc, item.crits, item.size, item.uuid );
 
@@ -4291,9 +4260,8 @@ export class BattleMech {
         walkSpeed: number,
     ) {
         this._walkSpeed = walkSpeed
-        if (this._walkSpeed > 0) {
-            this.setEngine(this._tonnage * this._walkSpeed);
-        }
+        // Engine rating = tonnage x Walk MP; Walk 0 clears the engine (setEngine(0) -> null).
+        this.setEngine(this._tonnage * this._walkSpeed);
 
         if( this._jumpSpeed > this._walkSpeed)
             this.setJumpSpeed(this._walkSpeed);
@@ -4487,8 +4455,14 @@ export class BattleMech {
         const parsedRating = typeof ratingNumber === "string" 
             ? Number.parseInt(ratingNumber, 10) 
             : Math.floor(ratingNumber);
+        // A rating of 0 means "no engine": reset() and Walk MP 0 (the "-Select Walking Speed-" option) both land here
+        if (parsedRating === 0) {
+            this._engine = null;
+            this._calc();
+            return 0;
+        }
         // Guard Clause: Exit immediately if the incoming data cannot resolve to a valid integer
-        if (Number.isNaN(parsedRating) || parsedRating <= 0) {
+        if (Number.isNaN(parsedRating) || parsedRating < 0) {
             console.error(`setEngine failed: '${ratingNumber}' is not a valid engine rating integer.`);
             return 0;
         }
@@ -7463,32 +7437,36 @@ export class BattleMech {
             console.error(`_allocateCritical failed: Target component area '${mechLocation}' is invalid for the active layout.`);
             return false;
         }
-        // Locate Equipment Object by its Definitive UUID Signature inside the Unallocated holding block
-        for (let uaet_c = 0; uaet_c < this._unallocatedCriticals.length; uaet_c++) {
-            const currentItem = this._unallocatedCriticals[uaet_c];
-            if (currentItem && currentItem.uuid === equipmentUUID) {
-                // Synchronize location coordinate bindings onto parent references safely
-                if (currentItem.obj) {
-                    currentItem.obj.location = normalizedLocation;
-                }
-                // Fallback back to native slots if no custom overrides are set
-                const allocationSize = critSize < 0 ? (currentItem.crits || 1) : critSize;
-                const placementSuccess = this._assignItemToArea(
-                    targetCriticalArray,
-                    currentItem,
-                    allocationSize,
-                    slotNumber,
-                    normalizedLocation
-                );
-                // Cleanly extract item out of holding vector only on a verified placement success
-                if (placementSuccess && removeFromUnallocated) {
-                    this._unallocatedCriticals.splice(uaet_c, 1);
-                }
-                return placementSuccess;
-            }
+        // Locate the item in the unallocated holding block: by UUID first, then (as upstream always did) by tag and
+        // rear-facing flag. Items rebuilt on every _calc() - heat sinks, for example - get a fresh UUID each time, so
+        // the saved allocation table can only match them by tag.
+        let matchIndex = this._unallocatedCriticals.findIndex(item => item && item.uuid === equipmentUUID);
+        if (matchIndex < 0) {
+            matchIndex = this._unallocatedCriticals.findIndex(item => item && item.tag === equipmentTag && item.rear === equipmentRear);
         }
-        console.warn(`_allocateCritical failed: Component with UUID '${equipmentUUID}' could not be located in unallocated criticals inventory.`);
-        return false;
+        const currentItem = matchIndex >= 0 ? this._unallocatedCriticals[matchIndex] : undefined;
+        if (!currentItem) {
+            console.warn(`_allocateCritical failed: '${equipmentTag}' (UUID '${equipmentUUID}') could not be located in unallocated criticals inventory.`);
+            return false;
+        }
+        // Synchronize location coordinate bindings onto parent references safely
+        if (currentItem.obj) {
+            currentItem.obj.location = normalizedLocation;
+        }
+        // Fallback back to native slots if no custom overrides are set
+        const allocationSize = critSize < 0 ? (currentItem.crits || 1) : critSize;
+        const placementSuccess = this._assignItemToArea(
+            targetCriticalArray,
+            currentItem,
+            allocationSize,
+            slotNumber,
+            normalizedLocation
+        );
+        // Cleanly extract item out of holding vector only on a verified placement success
+        if (placementSuccess && removeFromUnallocated) {
+            this._unallocatedCriticals.splice(matchIndex, 1);
+        }
+        return placementSuccess;
     }
 
     private _clearArmCriticalAllocationTable() {

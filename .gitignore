@@ -16,6 +16,12 @@ dist-ssr/
 coverage/
 *.tsbuildinfo
 
+# Test output (Vitest coverage above; Playwright below)
+/playwright-report/
+/test-results/
+/blob-report/
+/playwright/.cache/
+
 # node_modules/.vite is already covered; this catches caches outside it.
 .vite/
 

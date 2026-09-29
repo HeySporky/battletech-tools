@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { ICriticalSlot } from '../../classes/battlemech';
 import { IAppGlobals } from '../app-router';
 import './critical-assignment-container.scss';

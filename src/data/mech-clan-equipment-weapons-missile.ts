@@ -1158,8 +1158,8 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
     { isAmmo: false, name: "Prototype Streak SRM 6 (Clan)", altNames: ["Prototype Streak SRM 6"], tag: "clan-prototype-streak-srm-6", altTags: [], catalog: "clan", sort: "clan streak srm 6, prototype", category: "Missile Weapons", alternateName: "Clan-Streak-SRM-6", damage: 0, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 3, accuracyModifier: 0, cbills: 120000, introduced: null, extinct: 2826, reintroduced: 0, battleValue: 89, heat: 4, weight: 4.5, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-clan-streak-srm-standard"], shotsPerTon: 15, ammoBattleValue: 15, minAmmoTons: 1, explosive: false, weaponType: ["MS"], techRating: "e", book: "IO", page: null, alphaStrike: { heat: 4, rangeShort: 1.2, rangeMedium: 1.2, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["SRM", "Provisional workbook conversion", "Provisional: copied from the production weapon"] }, heatAero: 4, prototype: 2819, isStreak: true, rangeAero: "s", damageClusters: 6, damagePerCluster: 2 },
 ];
 
-const atmAmmoTypes = ["ammo-atm-standard", "ammo-atm-er", "ammo-atm-he"];
-const iatmAmmoTypes = [...atmAmmoTypes, "ammo-iatm-inferno", "ammo-iatm-mag-pulse"];
+const atmAmmoTypes = ["ammo-clan-atm-standard", "ammo-clan-atm-er", "ammo-clan-atm-he"];
+const iatmAmmoTypes = [...atmAmmoTypes, "ammo-clan-iatm-inferno", "ammo-clan-iatm-mag-pulse"];
 
 for (const equipment of mechClanEquipmentMissile) {
     const atmMatch = equipment.tag.match(/^atm-(3|6|9|12)$/);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type JSX } from 'react';
 import { IAppGlobals } from '../../../app-router';
 import PrintablePage from '../../../components/printable-page';
 import TrackedVehicleDiagramSVG from '../../../components/svg/tracked-vehicle-diagram-svg';

@@ -1,6 +1,6 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { type JSX } from 'react';
+import { Link } from 'react-router';
 import { btEraOptions } from '../../../../data/era-options';
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
