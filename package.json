@@ -19,9 +19,13 @@
   },
   "scripts": {
     "dev": "vite",
-    "preview": "vite preview",
+    "start": "vite",
+    "dev:host": "vite --host",
     "build": "vite build",
+    "preview": "vite preview",
     "lint": "eslint .",
+    "typecheck": "node scripts/typecheck.mjs",
+    "typecheck:ts6": "tsc --noEmit -p tsconfig.json",
     "deploy-dev": "gh-pages -d build",
     "deploy-prod": "gh-pages -d build -r https://github.com/heysporky/battletech-tools.git"
   },
@@ -39,20 +43,23 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^26.6.1",
+    "@types/node": "^26.6.3",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@types/sanitize-html": "^2.16.2",
-    "@typescript-eslint/eslint-plugin": "^8.70.0",
-    "@typescript-eslint/parser": "^8.70.0",
     "@vitejs/plugin-react": "^6.1.1",
-    "eslint": "^10.10.0",
+    "eslint": "^10.11.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
-    "gh-pages": "^6.1.1",
+    "gh-pages": "^6.3.0",
     "globals": "^17.12.0",
-    "sass": "^1.75.0",
-    "typescript": "^6.0.3",
-    "vite": "^8.3.0"
+    "sass": "^1.105.0",
+    "typescript": "~6.0.3",
+    "typescript-7": "npm:typescript@^7.0.2",
+    "typescript-eslint": "^8.71.0",
+    "vite": "^8.3.1"
+  },
+  "allowScripts": {
+    "@parcel/watcher": false
   }
 }
