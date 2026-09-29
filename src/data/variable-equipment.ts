@@ -47,7 +47,7 @@ export interface IVariableEquipmentContext {
     directFireWeaponWeight: number;
     /** Triple-Strength Myomer doubles physical weapon BV (TM p.303). */
     hasTSM?: boolean;
-    /** Four-legged chassis (Quad): leg-mounted gear fills more legs. */
+    /** Four-legged chassis (Quad, QuadVee): leg-mounted gear fills more legs. */
     isQuad?: boolean;
     /** Size chosen for the installed item (Mechanical Jump Booster: jump MP). */
     size?: number;
