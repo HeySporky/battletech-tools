@@ -25,7 +25,6 @@ work
 /cli-tools
 
 .DS_Store
-package-lock.json
 .gitlab-ci.yml
 
 /SSW-Master
