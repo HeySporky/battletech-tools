@@ -3498,6 +3498,11 @@ export class BattleMech {
         let criticalTally: Record<string, number> = {};
         this._sortCriticalAllocationTableByTagThenUUID();
         for( let item of this._criticalAllocationTable) {
+            // Armor with fixed critical locations (Stealth, ...) was already placed above; saved/imported allocation
+            // entries for it would only fail to find it in the unallocated list.
+            if( armorCriticalLocations && item.tag === armorObj.tag ) {
+                continue;
+            }
             let removeFromUnallocated = false;
             // console.log( "criticalAllocationTable item", this.getName(), item.tag, item.loc, item.crits, item.size, item.uuid );
 
