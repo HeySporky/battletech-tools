@@ -7,6 +7,8 @@ import './print.scss';
 import BattleMechSVG from "../../../components/svg/battlemech-svg";
 import { CONST_BATTLETECH_URL } from "../../../../configVars";
 import RulesLevelStamp, { getHighestRulesLevel, printWithRulesLevelGuard } from "../../../components/rules-level-print";
+import VehicleRecordSheet from "../../../components/vehicle-record-sheet";
+import { vehicleName } from "./_vehicleGroupTable";
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const PrintIcon = FaPrint as any;
 
@@ -23,9 +25,13 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
 
     // Units above the selected rules level ask for confirmation before printing.
     print = (): void => {
-      const units = this.props.appGlobals.currentCBTForce?.groups.flatMap( (group) => group.members ) ?? [];
+      const groups = this.props.appGlobals.currentCBTForce?.groups ?? [];
+      const rulesLevels = [
+        ...groups.flatMap( (group) => group.members ).map( (unit) => unit.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.vehicles ).map( (vehicle) => vehicle.getRequiredRulesLevel() ),
+      ];
       printWithRulesLevelGuard(
-        getHighestRulesLevel( units.map( (unit) => unit.getRequiredRulesLevel() ) ),
+        getHighestRulesLevel( rulesLevels ),
         this.props.appGlobals.appSettings.mechRulesFilter,
       );
     }
@@ -151,6 +157,33 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                     </tbody>
                     )
                     })}
+                    {group.vehicles.map( (vehicle) => (
+                    <tbody key={vehicle.getUUID()}>
+                      <tr>
+                        <td>
+                          {vehicleName(vehicle)} ({vehicle.getMotiveType().name})
+                        </td>
+                        <td>
+                          {vehicle.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {vehicle.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {vehicle.getPilot().piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {vehicle.getPilot().gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {vehicle.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {vehicle.getPilotAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
                   </table>
                 </div>
               )
@@ -164,8 +197,8 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
             </div>
           </div>
           {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
-            if( group.members.length === 0) {
-              return (<></>);
+            if( group.getTotalUnits() === 0) {
+              return (<React.Fragment key={groupIndex}></React.Fragment>);
             }
             return (
               <React.Fragment key={groupIndex}>
@@ -186,6 +219,18 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                     </React.Fragment>
                     )
                   })}
+                  {group.vehicles.map( (vehicle) => (
+                      <div className={"page"} key={vehicle.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={vehicle.getRequiredRulesLevel()}
+                        />
+                        <VehicleRecordSheet
+                          vehicle={vehicle}
+                          showCrew={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
 
               </div>
 
