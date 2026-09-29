@@ -29,7 +29,6 @@ import { IAlphaStrikeMPDeployment, IAlphaStrikeMPDeploymentSet } from "../data/a
 import { IAlphaStrikeMPScenario } from "../data/alpha-strike-mp-scenarios";
 import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 // import init, { AlphaStrikeUnit, add_testing, MULUnit } from "btlibs";
-let pjson = require('../../package.json');
 
 
 export default class AppRouter extends React.Component<IAppRouterProps, IAppRouterState> {
@@ -426,7 +425,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         callAnalytics(
             window,
             appGlobals.sessionUUID,
-            pjson.version,
+            __APP_VERSION__,
         );
 
         if( subTitle ) {

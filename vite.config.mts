@@ -1,5 +1,9 @@
 import react from "@vitejs/plugin-react";
+import { readFileSync } from "node:fs";
 import { defineConfig } from "vite";
+
+// Only the version string is inlined - importing package.json directly would bundle the whole file into the client.
+const APP_VERSION: string = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), "utf8")).version;
 
 // Matches the CRA "homepage" field behavior: no path prefix in dev, "/battletech-tools" in production builds.
 const PRODUCTION_BASE = "/battletech-tools/";
@@ -16,6 +20,7 @@ export default defineConfig(({ command, mode }) => {
         define: {
             // Back-compat shim for the ~70 existing `process.env.PUBLIC_URL` call sites carried over from CRA.
             "process.env.PUBLIC_URL": JSON.stringify(isDev ? "" : PRODUCTION_BASE.replace(/\/$/, "")),
+            __APP_VERSION__: JSON.stringify(APP_VERSION),
         },
         build: {
             outDir: "build",

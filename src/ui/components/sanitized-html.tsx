@@ -1,6 +1,5 @@
 import * as React from 'react';
-// import * as sanitizeHtml from 'sanitize-html';
-var sanitizeHtml = require('sanitize-html');
+import sanitizeHtml from 'sanitize-html';
 
 export default class SanitizedHTML extends React.Component<ISanitizedHTMLProps, ISanitizedHTMLState> {
 
