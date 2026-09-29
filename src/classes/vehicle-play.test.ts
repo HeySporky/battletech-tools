@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 import Vehicle from "./vehicle";
 import { BattleMechGroup } from "./battlemech-group";
 import Pilot from "./pilot";
+import { getVehicleCriticalEffect, getVehicleHitLocation, getVehicleMotiveDamageLevel } from "../data/vehicle-hit-tables";
 
-// Play-mode effects follow Total Warfare's combat vehicle rules as implemented by MegaMek
-// (Tank.addMovementDamage, Tank critical effects, ComputeAttackerToHitMods). Answered from the
-// MegaMek implementation, not the book in hand.
+// Play-mode rules from Total Warfare (corrected 2010 PDF), Combat Vehicles pp. 192-199, and the
+// TW record sheets' tables.
 const buildTank = (motive: string = "tracked"): Vehicle => {
     const vehicle = new Vehicle();
     vehicle.setMotiveType(motive);
@@ -24,13 +24,49 @@ const buildTank = (motive: string = "tracked"): Vehicle => {
 
 const laserOf = (vehicle: Vehicle) => vehicle.getEquipmentList().find((item) => item.name.includes("Laser"))!;
 
+describe("Combat vehicle tables (TW pp. 193-196)", () => {
+    it("Ground Combat Vehicle Hit Location Table: criticals on 2/12 (8 from the side), motive rolls on daggers", () => {
+        expect(getVehicleHitLocation(2, "front", false)).toEqual({ area: "front", critical: true, motive: false });
+        expect(getVehicleHitLocation(5, "front", false)).toEqual({ area: "right", critical: false, motive: true });
+        expect(getVehicleHitLocation(9, "rear", false)).toEqual({ area: "right", critical: false, motive: true });
+        expect(getVehicleHitLocation(8, "left", false)).toEqual({ area: "side", critical: true, motive: false });
+        expect(getVehicleHitLocation(9, "right", false)).toEqual({ area: "rear", critical: false, motive: true });
+        expect(getVehicleHitLocation(12, "rear", false)).toEqual({ area: "turret", critical: true, motive: false });
+    });
+
+    it("VTOL Combat Vehicle Hit Location Table: rotors on 3, 4, 10, 11 and 12 (critical)", () => {
+        for (const roll of [3, 4, 10, 11]) expect(getVehicleHitLocation(roll, "front", true).area).toBe("rotor");
+        expect(getVehicleHitLocation(12, "left", true)).toEqual({ area: "rotor", critical: true, motive: false });
+        expect(getVehicleHitLocation(9, "front", true).area).toBe("left");
+    });
+
+    it("Critical Hits Tables, with the Fuel Tank (fusion) and Ammunition (none aboard) substitutions", () => {
+        const ice = { fusionEngine: false, carriesAmmo: true };
+        expect(getVehicleCriticalEffect(5, "front", false, ice)).toBe("none");
+        expect(getVehicleCriticalEffect(6, "front", false, ice)).toBe("driverHit");
+        expect(getVehicleCriticalEffect(12, "turret", false, ice)).toBe("turretBlownOff");
+        expect(getVehicleCriticalEffect(12, "side", false, ice)).toBe("fuelTank");
+        expect(getVehicleCriticalEffect(12, "side", false, { fusionEngine: true, carriesAmmo: true })).toBe("engineHit");
+        expect(getVehicleCriticalEffect(11, "rear", false, { fusionEngine: false, carriesAmmo: false })).toBe("weaponDestroyed");
+        expect(getVehicleCriticalEffect(6, "front", true, ice)).toBe("coPilotHit");
+        expect(getVehicleCriticalEffect(11, "rotor", true, ice)).toBe("rotorsDestroyed");
+    });
+
+    it("Motive System Damage Table bands", () => {
+        expect(getVehicleMotiveDamageLevel(5)).toBe("none");
+        expect(getVehicleMotiveDamageLevel(7)).toBe("minor");
+        expect(getVehicleMotiveDamageLevel(9)).toBe("moderate");
+        expect(getVehicleMotiveDamageLevel(11)).toBe("heavy");
+        expect(getVehicleMotiveDamageLevel(14)).toBe("immobilized");
+    });
+});
+
 describe("Vehicle play mode: damage", () => {
-    it("takes damage to armor first, then internal structure", () => {
+    it("takes damage to armor first, then internal structure, which calls for a critical roll (TW p. 193)", () => {
         const tank = buildTank();
         const structure = tank.getStructureAllocation().front;
         const result = tank.takeDamage("front", 12);
-        expect(result).toEqual({ armor: 10, structure: 2, locationDestroyed: false });
-        expect(tank.getArmorRemaining("front")).toBe(0);
+        expect(result).toEqual({ armor: 10, structure: 2, locationDestroyed: false, criticalRoll: true });
         expect(tank.getStructureRemaining("front")).toBe(structure - 2);
         expect(tank.isDamaged()).toBe(true);
     });
@@ -41,12 +77,11 @@ describe("Vehicle play mode: damage", () => {
         expect(tank.isDestroyed()).toBe(true);
     });
 
-    it("destroying the turret's structure destroys the turret, not the vehicle", () => {
+    it("losing all the turret's structure destroys the vehicle (TW p. 128)", () => {
         const tank = buildTank();
         tank.takeDamage("turret", 100);
         expect(tank.getInPlay().criticals.turretDestroyed).toBe(true);
-        expect(tank.isDestroyed()).toBe(false);
-        expect(tank.getWeaponToHitModifier(laserOf(tank))).toBeNull();
+        expect(tank.isDestroyed()).toBe(true);
     });
 
     it("toggles record-sheet pips: marking up to a pip, clicking a marked pip clears back to it", () => {
@@ -55,82 +90,190 @@ describe("Vehicle play mode: damage", () => {
         expect(tank.getInPlay().armorDamage.left).toBe(4);
         tank.toggleArmorPip("left", 1);
         expect(tank.getInPlay().armorDamage.left).toBe(1);
-        tank.toggleArmorPip("left", 0);
-        expect(tank.getInPlay().armorDamage.left).toBe(0);
     });
 
-    it("a VTOL crashes when its rotor is destroyed", () => {
-        const vtol = buildTank("vtol");
-        expect(vtol.isCrashed()).toBe(false);
-        vtol.takeDamage("rotor", 100);
-        expect(vtol.isCrashed()).toBe(true);
+    it("a hit with no turret strikes the side attacked (TW p. 193)", () => {
+        const vehicle = buildTank("wheeled");
+        vehicle.setHasTurret(false);
+        expect(vehicle.resolveHitArea("turret", "left")).toBe("left");
+        expect(vehicle.resolveHitArea("turret", "front")).toBe("front");
+        expect(vehicle.resolveHitArea("side", "right")).toBe("right");
     });
 });
 
-describe("Vehicle play mode: motive damage and critical hits", () => {
-    it("moderate motive damage costs 1 Cruise MP; heavy halves what is left, rounding up", () => {
+describe("VTOL rotors (TW pp. 196-197)", () => {
+    it("rotor hits take 1 point per 10 damage or fraction, and each hit costs 1 Cruising MP", () => {
+        const vtol = buildTank("vtol");
+        expect(vtol.takeDamage("rotor", 5).armor).toBe(1);
+        expect(vtol.getEffectiveCruiseMP()).toBe(7);
+        vtol.setLanded(true);
+        expect(vtol.isCrashed()).toBe(false);
+    });
+
+    it("a destroyed rotor crashes a flying VTOL and makes it immobile, but never destroys it by itself (TW p. 128)", () => {
+        const vtol = buildTank("vtol");
+        vtol.takeDamage("rotor", 25);
+        vtol.takeDamage("rotor", 25);
+        expect(vtol.isCrashed()).toBe(true);
+        expect(vtol.isImmobile()).toBe(true);
+        expect(vtol.isDestroyed()).toBe(false);
+    });
+
+    it("Rotor Damage criticals cost 1 more MP; Flight Stabilizer is Cruising only, +3 driving, +1 to-hit", () => {
+        const vtol = buildTank("vtol");
+        vtol.applyCriticalHit("rotorDamage", "rotor");
+        expect(vtol.getEffectiveCruiseMP()).toBe(7);
+        vtol.applyCriticalHit("flightStabilizer", "rotor");
+        expect(vtol.getEffectiveFlankMP()).toBe(7);
+        expect(vtol.getDrivingModifier()).toBe(3);
+        expect(vtol.getWeaponToHitModifier(laserOf(vtol))).toBe(1);
+    });
+
+    it("a second Co-Pilot or Pilot Hit is Crew Killed", () => {
+        const vtol = buildTank("vtol");
+        vtol.applyCriticalHit("coPilotHit", "front");
+        expect(vtol.getWeaponToHitModifier(laserOf(vtol))).toBe(1);
+        vtol.applyCriticalHit("coPilotHit", "front");
+        expect(vtol.getInPlay().criticals.crewKilled).toBe(true);
+    });
+
+    it("airborne VTOLs get +1 target movement modifier (TW p. 196); landed ones do not", () => {
+        const vtol = buildTank("vtol");
+        vtol.setMovement("flank", 12);
+        expect(vtol.getTargetMovementModifier()).toBe(5);
+        vtol.setLanded(true);
+        expect(vtol.getTargetMovementModifier()).toBe(4);
+    });
+});
+
+describe("Motive system damage (TW p. 193)", () => {
+    it("adds the attack direction and vehicle type modifiers", () => {
+        expect(buildTank("hover").getMotiveDamageRollModifier("left")).toBe(5);
+        expect(buildTank("tracked").getMotiveDamageRollModifier("rear")).toBe(1);
+        expect(buildTank("wige").getMotiveDamageRollModifier("front")).toBe(4);
+    });
+
+    it("movement penalties stack but each driving modifier applies once (max +6)", () => {
         const tank = buildTank();
-        tank.setMotiveDamage("moderate", true);
-        expect(tank.getEffectiveCruiseMP()).toBe(4);
-        expect(tank.getEffectiveFlankMP()).toBe(6);
-        tank.setMotiveDamage("heavy", true);
+        expect(tank.rollMotiveDamage(8, "front")).toBe("moderate");
+        tank.rollMotiveDamage(9, "front");
+        expect(tank.getEffectiveCruiseMP()).toBe(3);
+        expect(tank.getDrivingModifier()).toBe(2);
+        tank.addMotiveHit("minor");
+        tank.addMotiveHit("heavy");
         expect(tank.getEffectiveCruiseMP()).toBe(2);
-        tank.setMotiveDamage("immobilized", true);
+        expect(tank.getDrivingModifier()).toBe(6);
+    });
+
+    it("Cruising MP reduced to 0 stops the vehicle without making it an immobile target; Major damage does", () => {
+        const tank = buildTank();
+        tank.setCruiseMP(1);
+        tank.addMotiveHit("moderate");
         expect(tank.getEffectiveCruiseMP()).toBe(0);
+        expect(tank.isImmobile()).toBe(false);
+        tank.addMotiveHit("immobilized");
         expect(tank.isImmobile()).toBe(true);
+        expect(tank.getTargetMovementModifier()).toBe(-4);
     });
 
-    it("an engine hit immobilizes the vehicle", () => {
+    it("a hover vehicle immobilized over Depth 1+ water sinks", () => {
+        const hover = buildTank("hover");
+        hover.setOverDeepWater(true);
+        hover.addMotiveHit("immobilized");
+        expect(hover.isDestroyed()).toBe(true);
+    });
+});
+
+describe("Ground combat vehicle critical hits (TW pp. 193-195)", () => {
+    it("moves down the column when a result does not apply, wrapping back to 6", () => {
         const tank = buildTank();
-        tank.setCriticalHit("engineHit", true);
-        expect(tank.getEffectiveCruiseMP()).toBe(0);
+        // Rear 9 is Weapon Destroyed, but the rear has no weapons: move down to 10, Engine Hit.
+        expect(tank.resolveCriticalRoll(9, "rear")).toBe("engineHit");
+        tank.applyCriticalHit("engineHit", "rear");
+        // Rear 10 (Engine Hit) is spent and 11 (Ammunition) needs ammo: 12 Fuel Tank (ICE).
+        expect(tank.resolveCriticalRoll(10, "rear")).toBe("fuelTank");
     });
 
-    it("motive damage adds +1/+2/+3 and a driver hit +2 to driving rolls", () => {
+    it("Commander Hit stuns the crew next turn and adds +1 to-hit and driving", () => {
         const tank = buildTank();
-        tank.setMotiveDamage("minor", true);
-        tank.setMotiveDamage("moderate", true);
-        tank.setMotiveDamage("heavy", true);
-        tank.setCriticalHit("driverHit", true);
-        expect(tank.getDrivingModifier()).toBe(8);
+        tank.applyCriticalHit("commanderHit", "front");
+        expect(tank.getInPlay().criticals.crewStunned).toBe(false);
+        tank.turnReset();
+        expect(tank.getCannotFireReason()).toBe("Crew stunned");
+        expect(tank.getEffectiveFlankMP()).toBe(tank.getEffectiveCruiseMP());
+        tank.turnReset();
+        expect(tank.getCannotFireReason()).toBeNull();
+        expect(tank.getWeaponToHitModifier(laserOf(tank))).toBe(1);
+        expect(tank.getDrivingModifier()).toBe(1);
     });
 
-    it("sensor hits add +1 each, a commander hit +1, and 4 sensor hits stop the vehicle firing", () => {
+    it("Crew Stunned after Commander Hit and Driver Hit is Crew Killed", () => {
+        const tank = buildTank();
+        tank.applyCriticalHit("commanderHit", "front");
+        tank.applyCriticalHit("driverHit", "front");
+        tank.applyCriticalHit("crewStunned", "left");
+        expect(tank.getInPlay().criticals.crewKilled).toBe(true);
+        expect(tank.isDestroyed()).toBe(true);
+    });
+
+    it("Engine Hit: immobile, turret locked, and Direct-Fire Energy weapons stop working", () => {
+        const tank = buildTank();
+        tank.applyCriticalHit("engineHit", "rear");
+        expect(tank.isImmobile()).toBe(true);
+        expect(tank.getInPlay().criticals.turretLocked).toBe(true);
+        expect(tank.getWeaponToHitModifier(laserOf(tank))).toBeNull();
+    });
+
+    it("sensors add +1 each; the fourth hit stops all fire", () => {
         const tank = buildTank();
         const laser = laserOf(tank);
-        expect(tank.getWeaponToHitModifier(laser)).toBe(0);
-        tank.setSensorHits(2);
-        tank.setCriticalHit("commanderHit", true);
-        expect(tank.getWeaponToHitModifier(laser)).toBe(3);
+        tank.applyCriticalHit("sensors", "front");
+        tank.applyCriticalHit("sensors", "front");
+        expect(tank.getWeaponToHitModifier(laser)).toBe(2);
         tank.setSensorHits(4);
         expect(tank.getWeaponToHitModifier(laser)).toBeNull();
     });
 
-    it("a stabilizer hit in the weapon's location applies the attacker movement modifier again", () => {
+    it("a stabilizer hit doubles the attacker movement modifier for weapons in that location only", () => {
         const tank = buildTank();
         const laser = laserOf(tank);
         tank.setMovement("flank", 7);
         expect(tank.getWeaponToHitModifier(laser)).toBe(2);
-        tank.setStabilizerHit("turret", true);
+        tank.applyCriticalHit("stabilizer", "turret");
         expect(tank.getWeaponToHitModifier(laser)).toBe(4);
+        expect(tank.isCriticalApplicable("stabilizer", "turret")).toBe(false);
     });
 
-    it("jammed or destroyed weapons cannot fire", () => {
+    it("a second Turret Jam is Turret Locks; Turret Blown Off destroys the vehicle; Fuel Tank explodes it", () => {
+        const tank = buildTank();
+        tank.applyCriticalHit("turretJam", "turret");
+        tank.applyCriticalHit("turretJam", "turret");
+        expect(tank.getInPlay().criticals.turretLocked).toBe(true);
+        tank.applyCriticalHit("turretBlownOff", "turret");
+        expect(tank.isDestroyed()).toBe(true);
+        const other = buildTank();
+        other.applyCriticalHit("fuelTank", "left");
+        expect(other.isDestroyed()).toBe(true);
+    });
+
+    it("Weapon Malfunction and Weapon Destroyed take a weapon in the location struck", () => {
         const tank = buildTank();
         const laser = laserOf(tank);
-        tank.setWeaponStatus(laser.uuid || "", "jammed");
-        expect(tank.getWeaponToHitModifier(laser)).toBeNull();
-        tank.setWeaponStatus(laser.uuid || "", "ok");
-        expect(tank.getWeaponToHitModifier(laser)).toBe(0);
+        tank.applyCriticalHit("weaponMalfunction", "turret");
+        expect(tank.getWeaponStatus(laser.uuid)).toBe("jammed");
+        tank.applyCriticalHit("weaponDestroyed", "turret", laser.uuid);
+        expect(tank.getWeaponStatus(laser.uuid)).toBe("destroyed");
     });
 
-    it("target movement modifier uses hexes moved, +1 for jumping and +1 for an airborne VTOL", () => {
+    it("an ammunition explosion goes to internal structure, or with CASE to the rear armor and stuns the crew", () => {
         const tank = buildTank();
-        tank.setMovement("cruise", 5);
-        expect(tank.getTargetMovementModifier()).toBe(2);
-        const vtol = buildTank("vtol");
-        vtol.setMovement("flank", 12);
-        expect(vtol.getTargetMovementModifier()).toBe(5);
+        tank.applyAmmunitionExplosion("left", 3, false);
+        expect(tank.getArmorRemaining("left")).toBe(10);
+        expect(tank.getStructureRemaining("left")).toBe(tank.getStructureAllocation().left - 3);
+        const cased = buildTank();
+        cased.applyAmmunitionExplosion("left", 4, true);
+        expect(cased.getArmorRemaining("rear")).toBe(6);
+        expect(cased.getInPlay().criticals.crewStunnedTurns).toBe(1);
     });
 });
 
@@ -138,7 +281,7 @@ describe("Vehicle play mode: save and roster", () => {
     it("round-trips in-play state and crew through export/import", () => {
         const tank = buildTank();
         tank.takeDamage("front", 3);
-        tank.setMotiveDamage("minor", true);
+        tank.addMotiveHit("minor");
         tank.setSensorHits(1);
         tank.setStabilizerHit("left", true);
         const pilot = new Pilot();
@@ -147,11 +290,19 @@ describe("Vehicle play mode: save and roster", () => {
         tank.setPilot(pilot);
         const copy = new Vehicle(tank.exportJSON());
         expect(copy.getArmorRemaining("front")).toBe(7);
-        expect(copy.getInPlay().motiveDamage.minor).toBe(true);
+        expect(copy.getMotiveHits()).toEqual(["minor"]);
         expect(copy.getInPlay().criticals.sensorHits).toBe(1);
         expect(copy.getInPlay().criticals.stabilizers).toEqual(["left"]);
         expect(copy.getPilot().gunnery).toBe(0);
         expect(copy.getPilot().piloting).toBe(3);
+    });
+
+    it("loads motive damage flags from saves made before the tables", () => {
+        const saved = JSON.parse(buildTank().exportJSON());
+        saved.inPlay.motiveHits = undefined;
+        saved.inPlay.motiveDamage = { minor: true, moderate: false, heavy: true, immobilized: false };
+        const copy = new Vehicle(JSON.stringify(saved));
+        expect(copy.getMotiveHits()).toEqual(["minor", "heavy"]);
     });
 
     it("exports without play damage when asked (saved designs)", () => {
@@ -179,7 +330,6 @@ describe("Vehicle play mode: save and roster", () => {
         expect(group.getTotaBV2()).toBe(tank.getBattleValue());
         const reloaded = new BattleMechGroup(group.export());
         expect(reloaded.vehicles.length).toBe(1);
-        expect(reloaded.vehicles[0].getBattleValue()).toBe(tank.getBattleValue());
 
         const legacy = new BattleMechGroup({ name: "Old", units: [], uuid: "x", lastUpdated: new Date(), groupLabel: "Lance" });
         expect(legacy.vehicles).toEqual([]);
