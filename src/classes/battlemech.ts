@@ -4586,6 +4586,9 @@ export class BattleMech {
                 return this._engine;
             }
         }
+        // No engine has this rating. 0 is how reset() and Walk MP 0 say "no engine", and any other
+        // unmatched rating means the old engine no longer fits either, so don't keep it.
+        this._engine = null;
         this._calc();
         return 0;
     }
