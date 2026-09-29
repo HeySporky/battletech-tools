@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Vehicle, { IVehicleCriticalHits, VEHICLE_MAX_SENSOR_HITS, VehicleMotiveHit, VehicleMovementMode } from '../../../../classes/vehicle';
-import { IDamagePerRange, IEquipmentItem, VehicleLocation } from '../../../../data/data-interfaces';
-import { getVehicleHitLocation, VEHICLE_CRITICAL_EFFECT_NAMES, VehicleAttackDirection } from '../../../../data/vehicle-hit-tables';
+import Vehicle, { IVehicleCriticalHits, VEHICLE_MAX_SENSOR_HITS, VehicleFollowUpRoll, VehicleMotiveHit, VehicleMovementMode, VehicleTurretLocation } from '../../../../classes/vehicle';
+import { IDamagePerRange, IEquipmentItem } from '../../../../data/data-interfaces';
+import { VehicleAttackDirection } from '../../../../data/vehicle-hit-tables';
 import TextSection from '../../../components/text-section';
 import VehicleDiagramSVG from '../../../components/svg/vehicle-diagram-svg';
 import { vehicleName } from './_vehicleGroupTable';
@@ -41,7 +41,31 @@ const DIRECTIONS: { value: VehicleAttackDirection; label: string }[] = [
     { value: "rear", label: "Rear" },
 ];
 
-const roll2D6 = (): number => Math.floor(Math.random() * 6) + Math.floor(Math.random() * 6) + 2;
+// Super-Heavy vehicles are attacked from six directions (Tactical Operations, Super-Heavy Vehicle Record Sheet).
+const SUPERHEAVY_DIRECTIONS: { value: VehicleAttackDirection; label: string }[] = [
+    { value: "front", label: "Front" },
+    { value: "frontLeft", label: "Front Left Side" },
+    { value: "frontRight", label: "Front Right Side" },
+    { value: "rearLeft", label: "Rear Left Side" },
+    { value: "rearRight", label: "Rear Right Side" },
+    { value: "rear", label: "Rear" },
+];
+
+const directionsFor = (vehicle: Vehicle) => vehicle.isSuperheavy() ? SUPERHEAVY_DIRECTIONS : DIRECTIONS;
+
+// Turret facings in hexsides clockwise from the front; the forward turret of a dual-turret vehicle cannot
+// face the rear hexside (TO p. 347).
+const TURRET_FACINGS: { value: number; label: string }[] = [
+    { value: 0, label: "Front" },
+    { value: 1, label: "1 hexside right" },
+    { value: 2, label: "2 hexsides right" },
+    { value: 3, label: "Rear" },
+    { value: -2, label: "2 hexsides left" },
+    { value: -1, label: "1 hexside left" },
+];
+
+const roll1D6 = (): number => Math.floor(Math.random() * 6) + 1;
+const roll2D6 = (): number => roll1D6() + roll1D6();
 
 const formatDamage = (damage: number | IDamagePerRange | undefined): string => {
     if (damage === undefined) return "-";
@@ -49,7 +73,7 @@ const formatDamage = (damage: number | IDamagePerRange | undefined): string => {
     return `${damage.short}/${damage.medium}/${damage.long}`;
 };
 
-type PendingRoll = { kind: "critical"; location: VehicleLocation } | { kind: "motive"; direction: VehicleAttackDirection };
+type PendingRoll = VehicleFollowUpRoll;
 
 /**
  * Play-mode record sheet for a combat vehicle. Attacks resolve on the Total Warfare hit location,
@@ -63,6 +87,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         super(props);
         this.state = {
             direction: "front",
+            attackerUnderwater: false,
             damageAmount: 5,
             hitRoll: "",
             pendingRoll: null,
@@ -85,23 +110,19 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         this._changed();
     }
 
-    /** One attack (one Damage Value grouping): hit location, damage, then any motive/critical rolls. */
+    private _direction = (): VehicleAttackDirection => {
+        const directions = directionsFor(this.props.vehicle);
+        return directions.some((d) => d.value === this.state.direction) ? this.state.direction : "front";
+    }
+
+    /** One attack (one Damage Value grouping): the vehicle resolves the hit and queues the rolls it calls for. */
     resolveHit = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         const vehicle = this.props.vehicle;
         const roll = this.state.hitRoll ? +this.state.hitRoll : roll2D6();
-        const hit = getVehicleHitLocation(roll, this.state.direction, !!vehicle.getMotiveType().hasRotor);
-        const location = vehicle.resolveHitArea(hit.area, this.state.direction);
-        const locationName = vehicle.getLocations().find((loc) => loc.tag === location)?.name ?? location;
-        const result = vehicle.takeDamage(location, this.state.damageAmount);
-        const entries = [`Hit location ${roll}: ${locationName} takes ${result.armor} armor / ${result.structure} structure`
-            + (location === "rotor" ? " (rotor: damage / 10, round up; -1 Cruising MP)" : "")];
-        const queue: PendingRoll[] = [];
-        if (hit.motive && !vehicle.getMotiveType().hasRotor) queue.push({ kind: "motive", direction: this.state.direction });
-        if (hit.critical || result.criticalRoll) queue.push({ kind: "critical", location });
-        if (result.locationDestroyed) entries.unshift(`${locationName} internal structure destroyed`);
+        const entries = vehicle.resolveAttack(roll, this._direction(), this.state.damageAmount, { attackerUnderwater: this.state.attackerUnderwater });
         this.setState({ hitRoll: "" });
-        this._log(entries, null, queue);
+        this._log(entries, null, vehicle.takeFollowUpRolls());
     }
 
     resolvePendingRoll = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -109,17 +130,31 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const pending = this.state.pendingRoll;
         if (!pending) return;
         const vehicle = this.props.vehicle;
-        const roll = this.state.pendingRollValue ? +this.state.pendingRollValue : roll2D6();
-        const queue = this.state.pendingQueue ?? [];
-        if (pending.kind === "motive") {
-            const modifier = vehicle.getMotiveDamageRollModifier(pending.direction);
-            const level = vehicle.rollMotiveDamage(roll, pending.direction);
-            this._log([`Motive System Damage ${roll} +${modifier} = ${roll + modifier}: ${level === "none" ? "no effect" : level}`], null, queue);
-        } else {
-            const effect = vehicle.resolveCriticalRoll(roll, pending.location);
-            const description = vehicle.applyCriticalHit(effect, pending.location);
-            this._log([`Critical Hit ${roll} (${vehicle.getCriticalColumn(pending.location)}): ${effect === "none" ? VEHICLE_CRITICAL_EFFECT_NAMES.none : description}`], null, queue);
+        const roll = this.state.pendingRollValue ? +this.state.pendingRollValue : pending.kind === "crashFacing" ? roll1D6() : roll2D6();
+        const text = vehicle.resolveFollowUpRoll(pending, roll);
+        // Rolls this result calls for come before the rest of the queue.
+        this._log([text], null, [...vehicle.takeFollowUpRolls(), ...(this.state.pendingQueue ?? [])]);
+    }
+
+    sideslipCrash = (e: React.FormEvent<HTMLButtonElement>): void => {
+        e.preventDefault();
+        const vehicle = this.props.vehicle;
+        const text = vehicle.startSideslipCrash(this._direction());
+        this._log([text], null, [...vehicle.takeFollowUpRolls(), ...(this.state.pendingQueue ?? [])]);
+    }
+
+    pendingRollLabel = (pending: PendingRoll): string => {
+        const vehicle = this.props.vehicle;
+        const name = (tag: string) => vehicle.getLocations().find((loc) => loc.tag === tag)?.name ?? tag;
+        switch (pending.kind) {
+            case "motive": return `Motive System Damage roll (+${vehicle.getMotiveDamageRollModifier(pending.direction)})`;
+            case "critical": return `Critical Hit roll: ${name(pending.location)}`;
+            case "hullBreach": return `Hull Integrity roll: ${name(pending.location)} (breached on ${pending.target}+)`;
+            case "drivingSkill": return `Driving Skill Roll (${pending.target}+): ${pending.reason === "pilotHit" ? "or drop one elevation" : "land, or crash"}`;
+            case "crashFacing": return `Facing After a Fall (1D6), ${pending.damage} falling damage`;
+            case "crashHit": return `Crash damage ${pending.damage}: hit location from the ${pending.direction}`;
         }
+        return "";
     }
 
     skipPendingRoll = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -135,6 +170,25 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         this._changed();
     }
 
+    renderTurretFacing = (turret: VehicleTurretLocation, name: string): React.ReactNode => {
+        const vehicle = this.props.vehicle;
+        const canRotate = vehicle.canRotateTurret(turret);
+        return (
+            <label key={turret} className="d-block">
+                {name} facing:{" "}
+                <select
+                    aria-label={`${name} facing`}
+                    value={vehicle.getTurretFacing(turret)}
+                    disabled={!canRotate}
+                    onChange={(e) => { vehicle.setTurretFacing(turret, +e.currentTarget.value); this._changed(); }}
+                >
+                    {TURRET_FACINGS.filter((f) => turret !== "turret2" || f.value !== 3).map((f) => <option key={f.value} value={f.value}>{f.label}</option>)}
+                </select>
+                {canRotate ? null : <span className="color-red"> (cannot rotate)</span>}
+            </label>
+        );
+    }
+
     renderWeaponRow = (weapon: IEquipmentItem, gunnery: number): React.ReactNode => {
         const vehicle = this.props.vehicle;
         const modifier = vehicle.getWeaponToHitModifier(weapon);
@@ -145,6 +199,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
             <tr key={weapon.uuid} className={status === "ok" && modifier !== null ? "" : "color-red"}>
                 <td>{weapon.name}{weapon.rear ? " (R)" : ""}</td>
                 <td className="text-center">{weapon.location ? vehicle.getLocations().find((loc) => loc.tag === weapon.location)?.name ?? weapon.location : "-"}</td>
+                <td className="text-center">{vehicle.describeFiringArc(vehicle.getWeaponFiringArc(weapon))}</td>
                 <td className="text-center">{formatDamage(weapon.damage)}</td>
                 <td className="text-center no-wrap">
                     {range ? `${range.min ? range.min + " / " : ""}${range.short}/${range.medium}/${range.long}` : "-"}
@@ -177,6 +232,8 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const pilot = vehicle.getPilot();
         const locations = vehicle.getLocations();
         const isVTOL = !!vehicle.getMotiveType().hasRotor;
+        const isNaval = !!vehicle.getMotiveType().naval;
+        const turrets = locations.filter((loc) => loc.tag === "turret" || loc.tag === "turret2");
         const weapons = vehicle.getEquipmentList().filter((item) => !item.isAmmo && (item.damage !== undefined || item.range));
         const movementModes: { mode: VehicleMovementMode; label: string; mp: number }[] = [
             { mode: "stationary", label: "Stationary", mp: 0 },
@@ -196,13 +253,12 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                         {pilot.name ? <> &ndash; Commander: {pilot.name}</> : null}
                     </p>
                     {vehicle.isDestroyed() ? (
-                        <h3 className="color-red text-center">
-                            DESTROYED{crits.crewKilled ? " (crew killed)" : crits.fuelTankHit ? " (fuel tank exploded)" : crits.turretBlownOff ? " (turret blown off)" : vehicle.isSunk() ? " (sank)" : ""}
-                        </h3>
+                        <h3 className="color-red text-center">DESTROYED ({vehicle.getDestroyedReason()})</h3>
                     ) : null}
                     {vehicle.isCrashed() ? <h3 className="color-red text-center">CRASHED</h3> : null}
                     {!vehicle.isDestroyed() && vehicle.isImmobile() ? <h3 className="color-red text-center">IMMOBILE (-4 to be hit)</h3> : null}
                     {crits.crewStunnedTurns > 0 ? <p className="color-red text-center">Crew stunned for {crits.crewStunnedTurns} more turn(s), starting next turn</p> : null}
+                    {vehicle.mustLand() ? <p className="color-red text-center">Must land at the end of its movement: it can no longer enter five hexes a turn (clear or paved hexes only; TW p. 199)</p> : null}
 
                     <div className="row">
                         <div className="col-md-6">
@@ -224,10 +280,10 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                     Attack from:{" "}
                                     <select
                                         aria-label="Attack direction"
-                                        value={this.state.direction}
+                                        value={this._direction()}
                                         onChange={(e) => this.setState({ direction: e.currentTarget.value as VehicleAttackDirection })}
                                     >
-                                        {DIRECTIONS.map((d) => <option key={d.value} value={d.value}>{d.label}</option>)}
+                                        {directionsFor(vehicle).map((d) => <option key={d.value} value={d.value}>{d.label}</option>)}
                                     </select>
                                 </label>{" "}
                                 <label>
@@ -255,21 +311,30 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                     />
                                 </label>{" "}
                                 <button className="btn btn-primary btn-sm" onClick={this.resolveHit} disabled={!!pending}>Apply Hit</button>
+                                {isNaval ? (
+                                    <label className="d-block">
+                                        <input
+                                            type="checkbox"
+                                            checked={this.state.attackerUnderwater}
+                                            onChange={(e) => this.setState({ attackerUnderwater: e.currentTarget.checked })}
+                                        />{" "}Attacker is underwater (surface vessels are breached on 10+ instead of 12)
+                                    </label>
+                                ) : null}
                                 <p className="smaller-text">
                                     Leave 2D6 blank to roll. Resolve each Damage Value grouping (e.g. each 5-point LRM cluster)
-                                    as its own hit. Motive and critical rolls follow the table results and any internal
-                                    structure damage (TW pp. 192-197).
+                                    as its own hit. Motive, critical and Hull Integrity rolls follow the table results, any
+                                    internal structure damage and naval hull hits (TW pp. 121, 192-198).
+                                    {vehicle.isSuperheavy() ? " Super-Heavy hit locations use the Tactical Operations Super-Heavy Vehicle Hit Location Table." : ""}
+                                    {vehicle.hasDualTurret() ? " A turret hit rolls 1D6 for the turret struck (TO p. 347)." : ""}
                                 </p>
                                 {pending ? (
                                     <div className="alert alert-warning" data-testid="pending-roll">
-                                        <strong>{pending.kind === "motive"
-                                            ? `Motive System Damage roll (+${vehicle.getMotiveDamageRollModifier(pending.direction)})`
-                                            : `Critical Hit roll: ${locations.find((loc) => loc.tag === pending.location)?.name ?? pending.location}`}</strong>{" "}
+                                        <strong>{this.pendingRollLabel(pending)}</strong>{" "}
                                         <input
                                             type="number"
                                             aria-label="Pending roll"
-                                            min={2}
-                                            max={12}
+                                            min={pending.kind === "crashFacing" ? 1 : 2}
+                                            max={pending.kind === "crashFacing" ? 6 : 12}
                                             placeholder="roll"
                                             value={this.state.pendingRollValue}
                                             onChange={(e) => this.setState({ pendingRollValue: e.currentTarget.value })}
@@ -288,7 +353,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
 
                             <table className="table text-center">
                                 <thead>
-                                    <tr><th>Location</th><th>Armor</th><th>Structure</th>{isVTOL ? null : <th>Stabilizer Hit</th>}</tr>
+                                    <tr><th>Location</th><th>Armor</th><th>Structure</th><th>Stabilizer Hit</th>{isNaval ? <th>Breached</th> : null}</tr>
                                 </thead>
                                 <tbody>
                                     {locations.map((loc) => (
@@ -296,7 +361,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                             <td>{loc.name}</td>
                                             <td>{vehicle.getArmorRemaining(loc.tag)} / {vehicle.getArmorAllocation()[loc.tag] ?? 0}</td>
                                             <td>{vehicle.getStructureRemaining(loc.tag)} / {vehicle.getStructureAllocation()[loc.tag] ?? 0}</td>
-                                            {isVTOL && loc.tag === "rotor" ? null : (
+                                            {loc.tag === "rotor" ? <td>-</td> : (
                                                 <td>
                                                     <input
                                                         type="checkbox"
@@ -306,6 +371,16 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                                     />
                                                 </td>
                                             )}
+                                            {isNaval ? (
+                                                <td>
+                                                    <input
+                                                        type="checkbox"
+                                                        aria-label={`${loc.name} hull breached`}
+                                                        checked={vehicle.isBreached(loc.tag)}
+                                                        onChange={(e) => { vehicle.setBreached(loc.tag, e.currentTarget.checked); this._changed(); }}
+                                                    />
+                                                </td>
+                                            ) : null}
                                         </tr>
                                     ))}
                                 </tbody>
@@ -344,14 +419,51 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                         />{" "}Landed (not airborne)
                                     </label>
                                 ) : null}
-                                {vehicle.getMotiveType().tag === "hover" ? (
+                                {isVTOL && vehicle.isAirborne() ? (
+                                    <label className="d-block">
+                                        Elevation:{" "}
+                                        <input
+                                            type="number"
+                                            aria-label="Elevation"
+                                            min={1}
+                                            value={inPlay.elevation}
+                                            onChange={(e) => { vehicle.setElevation(+e.currentTarget.value); this._changed(); }}
+                                            style={{ width: "4em" }}
+                                        />
+                                        <span className="smaller-text"> (a crash does {vehicle.getFallDamage()} falling damage)</span>
+                                    </label>
+                                ) : null}
+                                {vehicle.isAirborneCapable() ? (
+                                    <label className="d-block">
+                                        <input
+                                            type="checkbox"
+                                            checked={inPlay.overLandableTerrain}
+                                            onChange={(e) => { vehicle.setOverLandableTerrain(e.currentTarget.checked); this._changed(); }}
+                                        />{" "}Over a clear, paved, rough or building hex (can land after engine damage)
+                                    </label>
+                                ) : null}
+                                {vehicle.getMotiveType().tag === "hover" || vehicle.isAirborneCapable() ? (
                                     <label className="d-block">
                                         <input
                                             type="checkbox"
                                             checked={inPlay.overDeepWater}
                                             onChange={(e) => { vehicle.setOverDeepWater(e.currentTarget.checked); this._changed(); }}
-                                        />{" "}Over Depth 1+ water (sinks if immobilized)
+                                        />{" "}{vehicle.isAirborneCapable() ? "Over a water hex (a crash destroys it)" : "Over Depth 1+ water (sinks if immobilized)"}
                                     </label>
+                                ) : null}
+                                {vehicle.getMotiveType().tag === "naval-sub" ? (
+                                    <label className="d-block">
+                                        <input
+                                            type="checkbox"
+                                            checked={inPlay.surfaced}
+                                            onChange={(e) => { vehicle.setSurfaced(e.currentTarget.checked); this._changed(); }}
+                                        />{" "}Surfaced (no Hull Integrity rolls)
+                                    </label>
+                                ) : null}
+                                {vehicle.isAirborne() ? (
+                                    <button className="btn btn-secondary btn-xs" onClick={this.sideslipCrash} disabled={!!pending}>
+                                        Crash while sideslipping
+                                    </button>
                                 ) : null}
                                 <p>
                                     <strong>Cruise/Flank</strong>: {vehicle.getEffectiveCruiseMP()}/{vehicle.getEffectiveFlankMP()}
@@ -362,9 +474,28 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                     {" "}&nbsp;|&nbsp; <strong>Target Movement Modifier</strong>: {vehicle.getTargetMovementModifier() >= 0 ? "+" : ""}{vehicle.getTargetMovementModifier()}
                                     <br />
                                     <strong>Driving Skill Modifier</strong>: +{vehicle.getDrivingModifier()}
-                                    {" "}(target {pilot.piloting + vehicle.getDrivingModifier()}+)
+                                    {" "}(target {vehicle.getDrivingSkillTarget()}+)
                                 </p>
+                                {vehicle.isAirborne() ? (
+                                    <p className="smaller-text">
+                                        A sideslip crash does hexes moved x tonnage / 10 to the side chosen as the attack
+                                        direction (TW p. 68).
+                                    </p>
+                                ) : null}
                             </fieldset>
+                            {turrets.length > 0 ? (
+                                <fieldset className="fieldset">
+                                    <legend>Turret</legend>
+                                    {turrets.map((loc) => this.renderTurretFacing(loc.tag as VehicleTurretLocation, loc.name))}
+                                    <p className="smaller-text">
+                                        Turret weapons fire into the forward arc turned to the turret's facing (TW pp. 104, 192);
+                                        side weapons never fire into the front arc. The turret returns forward in the End Phase
+                                        unless jammed or locked (TW p. 99).
+                                        {vehicle.hasChinTurret() ? " A chin turret cannot target units above the VTOL's elevation (TO p. 348)." : ""}
+                                        {vehicle.hasDualTurret() ? " The forward turret cannot fire through the rear hexside (TO p. 347)." : ""}
+                                    </p>
+                                </fieldset>
+                            ) : null}
                             {isVTOL ? (
                                 <fieldset className="fieldset">
                                     <legend>Rotor</legend>
@@ -429,6 +560,12 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                         />{" "}{item.label}
                                     </label>
                                 ))}
+                                {vehicle.carriesAmmo() ? (
+                                    <p className="smaller-text">
+                                        An Ammunition critical explodes all ammunition aboard for {vehicle.getAmmunitionExplosionDamage()} damage
+                                        {vehicle.hasCASE() ? " (CASE: into the rear armor, and the crew is stunned)" : " to the location's internal structure"} (TW p. 194).
+                                    </p>
+                                ) : null}
                                 <label>
                                     Sensor Hits (+1 to-hit each; the {VEHICLE_MAX_SENSOR_HITS}th stops all fire):{" "}
                                     <select
@@ -451,6 +588,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                             <tr>
                                 <th>Weapon</th>
                                 <th className="text-center">Loc</th>
+                                <th className="text-center">Arc</th>
                                 <th className="text-center">Damage</th>
                                 <th className="text-center">Range</th>
                                 <th className="text-center">Short</th>
@@ -461,7 +599,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                         </thead>
                         <tbody>
                             {weapons.length > 0 ? weapons.map((weapon) => this.renderWeaponRow(weapon, pilot.gunnery)) : (
-                                <tr><td colSpan={8} className="text-center">No weapons</td></tr>
+                                <tr><td colSpan={9} className="text-center">No weapons</td></tr>
                             )}
                         </tbody>
                     </table>
@@ -470,7 +608,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                         Stabilizer hits, and a stabilizer hit in the weapon's location (attacker movement doubled). Add
                         the target's movement modifier, terrain and other modifiers at the table. Minimum range
                         penalties are not included. Clearing a malfunction or a turret jam takes a Weapon Attack Phase
-                        with no attacks (TW p. 195).
+                        with no attacks (TW p. 195). Weapons in a breached hull location do not work (TW p. 121).
                     </p>
                 </TextSection>
             </div>
@@ -485,6 +623,7 @@ interface IVehiclePlayPanelProps {
 
 interface IVehiclePlayPanelState {
     direction: VehicleAttackDirection;
+    attackerUnderwater: boolean;
     damageAmount: number;
     hitRoll: string;
     pendingRoll: PendingRoll | null;

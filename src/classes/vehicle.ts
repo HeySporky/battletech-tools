@@ -1,7 +1,9 @@
 import { generateUUID } from "../utils/generateUUID";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import {
-    getVehicleCriticalEffect, getVehicleMotiveDamageLevel, getVehicleMotiveTypeModifier, VEHICLE_CRITICAL_EFFECT_NAMES,
+    getDamageGroupings, getDualTurretHit, getFacingAfterFallDirection, getSuperheavyVehicleHitLocation, getVehicleCriticalEffect,
+    getVehicleHitLocation, getVehicleMotiveDamageLevel, isRearwardAttack,
+    getVehicleMotiveTypeModifier, VEHICLE_CRITICAL_EFFECT_NAMES,
     VEHICLE_MOTIVE_DIRECTION_MODIFIER, VehicleAttackDirection, VehicleCriticalColumn, VehicleCriticalEffect, VehicleHitArea, VehicleMotiveDamageLevel,
 } from "../data/vehicle-hit-tables";
 import Pilot, { IPilot } from "./pilot";
@@ -13,7 +15,7 @@ import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions } from "../data/era-options";
 import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
-import { getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { getMovementModifier } from "../utils";
 import {
@@ -129,8 +131,25 @@ export interface IVehicleInPlay {
     hexesMoved: number;
     /** A VTOL or WiGE on the ground (not airborne). */
     landed: boolean;
-    /** A hover vehicle over Depth 1+ water (it sinks if immobilized; TW p. 193). */
+    /**
+     * Over water: a hover vehicle over Depth 1+ water sinks if immobilized (TW p. 193); a VTOL or WiGE
+     * that crashes into a water hex is destroyed (TW pp. 197, 199).
+     */
     overDeepWater: boolean;
+    /** Turret facing in hexsides clockwise from the front (-2..3); returns forward in the End Phase (TW p. 99). */
+    turretFacing: Partial<Record<VehicleTurretLocation, number>>;
+    /** Naval locations whose hull has been breached; nothing in them works (TW pp. 121, 198). */
+    breachedLocations: VehicleLocation[];
+    /** A submarine on the surface is not underwater and makes no Hull Integrity rolls. */
+    surfaced: boolean;
+    /** A flying VTOL's elevation above the underlying terrain. */
+    elevation: number;
+    /** A VTOL or WiGE over a clear, paved, rough or building hex, where it can land after engine damage (TW pp. 197, 199). */
+    overLandableTerrain: boolean;
+    /** Crashed (rotor destroyed or engine failure in flight, TW pp. 197-199). */
+    crashed: boolean;
+    /** Destroyed by a crash: the VTOL exploded (TW p. 198) or came down in water (TW p. 197). */
+    crashDestroyed: "" | "exploded" | "water";
     /** Legacy flags from saves made before motiveHits. */
     motiveDamage?: IVehicleMotiveDamage;
 }
@@ -155,6 +174,13 @@ const newInPlay = (): IVehicleInPlay => ({
     hexesMoved: 0,
     landed: false,
     overDeepWater: false,
+    turretFacing: {},
+    breachedLocations: [],
+    surfaced: false,
+    elevation: 1,
+    overLandableTerrain: true,
+    crashed: false,
+    crashDestroyed: "",
 });
 
 /** The fourth sensor hit makes it impossible for the vehicle to fire weapons (TW p. 195). */
@@ -163,6 +189,24 @@ export const VEHICLE_MAX_SENSOR_HITS = 4;
 /** Direct-Fire Energy and Pulse weapons stop working after an Engine Hit (TW p. 195). */
 export const isDirectFireEnergyOrPulse = (item: IEquipmentItem): boolean =>
     !!item.weaponType && (item.weaponType.includes("DE") || item.weaponType.includes("P"));
+
+export type VehicleTurretLocation = "turret" | "turret2";
+
+/** A die roll the rules call for after a hit or critical hit, resolved with resolveFollowUpRoll. */
+export type VehicleFollowUpRoll =
+    | { kind: "critical"; location: VehicleLocation }
+    | { kind: "motive"; direction: VehicleAttackDirection }
+    | { kind: "hullBreach"; location: VehicleLocation; target: number }
+    | { kind: "drivingSkill"; reason: "pilotHit" | "engineDamage"; target: number }
+    | { kind: "crashFacing"; damage: number }
+    | { kind: "crashHit"; damage: number; direction: VehicleAttackDirection; fall: boolean };
+
+/** The 'Mech firing arc a weapon fires into; turret weapons fire into the forward arc rotated by the turret (TW p. 104). */
+export interface IVehicleFiringArc {
+    arc: "front" | "left" | "right" | "rear";
+    /** Hexsides the turret is rotated clockwise from the front, or null for a body-mounted weapon. */
+    turretRotation: number | null;
+}
 
 export interface IVehicleDamageResult {
     armor: number;
@@ -255,6 +299,8 @@ export default class Vehicle {
     private _jumpMP: number = 0;
     private _troopSpace: number = 0;
     private _inPlay: IVehicleInPlay = newInPlay();
+    // Rolls the rules call for after a hit, a critical hit or another roll; not saved.
+    private _followUps: VehicleFollowUpRoll[] = [];
 
     private _tech: ITechOptions = btTechOptions[0];
     private _era: IEras = btEraOptions[0];
@@ -382,7 +428,7 @@ export default class Vehicle {
         return this._dualTurret ? "Rear Turret" : "Turret";
     }
 
-    /** Dual turrets: not on VTOLs (chin turret only) or WiGE vehicles (as implemented by MegaMekLab). */
+    /** Dual turrets: ground and naval vehicles, not airborne units such as VTOLs (TO p. 347); no WiGE (as implemented by MegaMekLab). */
     public canHaveDualTurret(): boolean {
         return this._motiveType.turret === "standard" && this._motiveType.tag !== "wige";
     }
@@ -563,9 +609,9 @@ export default class Vehicle {
 
     /** The vehicle's locations in record-sheet order: front, sides, rear, rotor (VTOL), turret. */
     public getLocations(): { tag: VehicleLocation; name: string }[] {
-        // Superheavy vehicles (other than VTOLs) have front/rear side locations instead of Left/Right
-        // (as implemented by MegaMek SuperHeavyTank).
-        const locations: VehicleLocation[] = this.isSuperheavy() && !this._motiveType.hasRotor
+        // Super-Heavy Combat Vehicles, VTOLs included, have six facings (Front, Front-Left, Front-Right,
+        // Rear-Left, Rear-Right, Rear) plus any rotor and turrets (Tactical Operations p. 378).
+        const locations: VehicleLocation[] = this.isSuperheavy()
             ? ["front", "frontLeft", "frontRight", "rearLeft", "rearRight", "rear"]
             : ["front", "left", "right", "rear"];
         if (this._motiveType.hasRotor) locations.push("rotor");
@@ -1505,7 +1551,8 @@ export default class Vehicle {
     }
 
     // ---------------------------------------------------------------------------------------
-    // Play mode: damage, motive damage and critical hits (TW; effects as implemented by MegaMek)
+    // Play mode: damage, motive damage, critical hits, crashes and hull breaches (Total Warfare pp. 68, 99-104,
+    // 121, 192-199; Tactical Operations pp. 347-348, 378)
     // ---------------------------------------------------------------------------------------
 
     public newUUID(): void {
@@ -1518,6 +1565,152 @@ export default class Vehicle {
 
     public resetInPlay(): void {
         this._inPlay = newInPlay();
+        this._followUps = [];
+    }
+
+    /** Returns and clears the rolls the last hits and results call for, in the order they arose. */
+    public takeFollowUpRolls(): VehicleFollowUpRoll[] {
+        const rolls = this._followUps;
+        this._followUps = [];
+        return rolls;
+    }
+
+    private _locationName(location: VehicleLocation): string {
+        return this.getLocations().find((loc) => loc.tag === location)?.name ?? LOCATION_NAMES[location] ?? location;
+    }
+
+    /**
+     * Resolves one attack (one Damage Value grouping): hit location by attack direction and 2D6, damage, then
+     * queues any Motive System Damage, Critical Hit and Hull Integrity rolls (TW pp. 121, 192-198). A dual
+     * turret hit rolls 1D6 for the turret struck (TO p. 347); pass turretRoll to use a physical die.
+     */
+    public resolveAttack(roll: number, direction: VehicleAttackDirection, damage: number,
+        options: { attackerUnderwater?: boolean; turretRoll?: number } = {}, random: () => number = Math.random): string[] {
+        return this._applyHit(roll, direction, damage, { ...options, crash: false }, random);
+    }
+
+    private _applyHit(roll: number, direction: VehicleAttackDirection, damage: number,
+        options: { attackerUnderwater?: boolean; turretRoll?: number; crash: boolean }, random: () => number): string[] {
+        const isVTOL = !!this._motiveType.hasRotor;
+        const hit = this.isSuperheavy() && !isVTOL ? getSuperheavyVehicleHitLocation(roll, direction) : getVehicleHitLocation(roll, direction, isVTOL);
+        const log: string[] = [];
+        let location = this.resolveHitArea(hit.area, direction);
+        if (hit.area === "turret" && this.hasDualTurret()) {
+            const turretRoll = options.turretRoll ?? Math.floor(random() * 6) + 1;
+            location = getDualTurretHit(turretRoll, direction);
+            log.push(`Dual turret roll ${turretRoll}: ${this._locationName(location)}`);
+        }
+        const wasCrashed = this.isCrashed();
+        const result = this.takeDamage(location, damage);
+        const name = this._locationName(location);
+        log.unshift(`Hit location ${roll}: ${name} takes ${result.armor} armor / ${result.structure} structure`
+            + (location === "rotor" ? " (rotor: damage / 10, round up; -1 Cruising MP)" : ""));
+        if (result.locationDestroyed) log.unshift(`${name} internal structure destroyed`);
+        if (options.crash && isVTOL && result.structure > 0) {
+            this._inPlay.crashDestroyed = "exploded";
+            log.unshift("Crash damage reached the internal structure: the VTOL explodes (TW p. 198)");
+            return log;
+        }
+        if (!wasCrashed && this.isCrashed()) log.push("Rotor destroyed in flight: the VTOL crashes (TW p. 197)");
+        if (this.isDestroyed()) return log;
+        if (hit.motive && !isVTOL) this._followUps.push({ kind: "motive", direction });
+        if (hit.critical || result.criticalRoll) this._followUps.push({ kind: "critical", location });
+        if (result.armor + result.structure > 0) {
+            const target = this.getHullBreachTarget(location, !!options.attackerUnderwater);
+            if (target !== null && !this.isBreached(location)) {
+                if ((this._armorAllocation[location] ?? 0) > 0 && this.getArmorRemaining(location) === 0) {
+                    this.setBreached(location, true);
+                    log.push(`${name} armor destroyed: the hull is breached automatically (TW p. 121)`);
+                } else {
+                    this._followUps.push({ kind: "hullBreach", location, target });
+                }
+            }
+        }
+        return log;
+    }
+
+    /** Resolves a follow-up roll (2D6, or 1D6 for crash facing) and describes the result. */
+    public resolveFollowUpRoll(followUp: VehicleFollowUpRoll, roll: number, random: () => number = Math.random): string {
+        switch (followUp.kind) {
+            case "critical": {
+                const effect = this.resolveCriticalRoll(roll, followUp.location);
+                const text = effect === "none" ? VEHICLE_CRITICAL_EFFECT_NAMES.none : this.applyCriticalHit(effect, followUp.location, undefined, random);
+                return `Critical Hit ${roll} (${this.getCriticalColumn(followUp.location)}): ${text}`;
+            }
+            case "motive": {
+                const modifier = this.getMotiveDamageRollModifier(followUp.direction);
+                const level = this.rollMotiveDamage(roll, followUp.direction);
+                return `Motive System Damage ${roll} +${modifier} = ${roll + modifier}: ${level === "none" ? "no effect" : level}`;
+            }
+            case "hullBreach": {
+                const name = this._locationName(followUp.location);
+                if (roll < followUp.target) return `Hull Integrity ${roll} (breach on ${followUp.target}+): the ${name} hull holds`;
+                this.setBreached(followUp.location, true);
+                return `Hull Integrity ${roll} (breach on ${followUp.target}+): the ${name} is breached and floods; nothing in it works`;
+            }
+            case "drivingSkill": {
+                const passed = roll >= followUp.target;
+                if (followUp.reason === "pilotHit") {
+                    if (passed) return `Driving Skill Roll ${roll} (${followUp.target}+): the pilot keeps control`;
+                    this._inPlay.elevation = Math.max(0, this._inPlay.elevation - 1);
+                    return `Driving Skill Roll ${roll} (${followUp.target}+) failed: the VTOL drops to elevation ${this._inPlay.elevation}`
+                        + "; if that puts it into terrain it crashes (TW p. 197)";
+                }
+                if (passed) {
+                    this._inPlay.landed = true;
+                    return `Driving Skill Roll ${roll} (${followUp.target}+): it lands in its hex and cannot move for the rest of the game`;
+                }
+                return `Driving Skill Roll ${roll} (${followUp.target}+) failed: ${this._crashInFlight()}`;
+            }
+            case "crashFacing": {
+                const direction = getFacingAfterFallDirection(roll);
+                for (const damage of getDamageGroupings(followUp.damage)) {
+                    this._followUps.push({ kind: "crashHit", damage, direction, fall: true });
+                }
+                return `Facing After a Fall ${roll}: ${followUp.damage} falling damage hits the ${direction} column in 5-point groupings (TW p. 68)`;
+            }
+            case "crashHit": {
+                const isVTOL = !!this._motiveType.hasRotor;
+                if (followUp.fall && getVehicleHitLocation(roll, followUp.direction, isVTOL).area === "rotor") {
+                    this._followUps.push(followUp);
+                    return `Crash hit ${roll}: rotor, re-roll (TW p. 197)`;
+                }
+                return this._applyHit(roll, followUp.direction, followUp.damage, { crash: true }, random).join("; ");
+            }
+        }
+        return "";
+    }
+
+    // --- Ammunition (TW pp. 125, 194) ---
+
+    /** CASE (or CASE II) vents a vehicle's ammunition explosion through the rear armor (TW p. 194). */
+    public hasCASE(): boolean {
+        return this._equipmentList.some((item) => item.tag === "case" || item.tag === "case-ii" || item.tag === "clan-case-ii");
+    }
+
+    private static _damagePerShot(weapon: IEquipmentItem): number {
+        if (weapon.damageClusters && weapon.damagePerCluster) return weapon.damageClusters * weapon.damagePerCluster;
+        if (typeof weapon.damage === "number") return weapon.damage;
+        return weapon.damage?.short ?? 0;
+    }
+
+    /**
+     * The damage of all explosive ammunition carried: each bin's shots left (a full bin's shots when not
+     * tracked) times the Damage Value of one shot, counting every missile (TW p. 125). A bin with no weapon
+     * aboard to fire it cannot be valued and is left out.
+     */
+    public getAmmunitionExplosionDamage(): number {
+        if (this._inPlay.criticals.ammoExploded) return 0;
+        const weapons = this._equipmentList.filter((item) => !item.isAmmo);
+        let total = 0;
+        for (const ammo of this._equipmentList.filter((item) => item.isAmmo && item.explosive)) {
+            const weapon = (ammo.feedsWeaponTag ? weapons.find((w) => equipmentMatchesIdentifier(w, ammo.feedsWeaponTag || "")) : undefined)
+                ?? weapons.find((w) => getCompatibleAmmo(w, ammo));
+            if (!weapon) continue;
+            const shots = ammo.currentAmmo ?? Math.floor(getWeaponShotsPerTon(weapon, ammo) * (ammo.weight || 0));
+            total += Math.max(0, shots) * Vehicle._damagePerShot(weapon);
+        }
+        return total;
     }
 
     public getArmorRemaining(location: VehicleLocation): number {
@@ -1534,6 +1727,7 @@ export default class Vehicle {
      * the VTOL 1 Cruising MP (TW p. 196).
      */
     public takeDamage(location: VehicleLocation, amount: number): IVehicleDamageResult {
+        const flying = this.isAirborne();
         let damage = Math.max(0, amount);
         if (location === "rotor" && damage > 0) {
             damage = Math.ceil(damage / 10);
@@ -1545,6 +1739,7 @@ export default class Vehicle {
         this._inPlay.structureDamage[location] = (this._inPlay.structureDamage[location] ?? 0) + structureTaken;
         const locationDestroyed = (this.getStructureAllocation()[location] ?? 0) > 0 && this.getStructureRemaining(location) === 0;
         if (locationDestroyed && (location === "turret" || location === "turret2")) this._inPlay.criticals.turretDestroyed = true;
+        if (locationDestroyed && location === "rotor" && flying) this._crashInFlight();
         return { armor: armorTaken, structure: structureTaken, locationDestroyed, criticalRoll: structureTaken > 0 };
     }
 
@@ -1566,6 +1761,8 @@ export default class Vehicle {
         if (this.getStructureRemaining(location) === 0 && (location === "turret" || location === "turret2")) {
             this._inPlay.criticals.turretDestroyed = true;
         }
+        // Internal structure damage calls for a critical hit roll (TW p. 193).
+        if (taken > 0 && !this.isDestroyed()) this._followUps.push({ kind: "critical", location });
     }
 
     // Record sheet pips: clicking pip n marks n+1 points of damage, or clears back to n if already marked.
@@ -1649,13 +1846,20 @@ export default class Vehicle {
      * attacks (a simplification; Superheavy hit locations are not in TW).
      */
     public resolveHitArea(area: VehicleHitArea, direction: VehicleAttackDirection): VehicleLocation {
-        const attackedSide: VehicleLocation = direction;
+        let attackedSide: VehicleLocation = direction;
+        if (this.isSuperheavy() && (direction === "left" || direction === "right")) {
+            attackedSide = direction === "left" ? "frontLeft" : "frontRight";
+        } else if (!this.isSuperheavy() && direction !== "front" && direction !== "rear") {
+            attackedSide = direction.endsWith("Left") || direction === "left" ? "left" : "right";
+        }
         let location: VehicleLocation;
         if (area === "side") location = attackedSide;
         else if (area === "turret") location = this.hasTurret() ? "turret" : attackedSide;
         else location = area;
-        if (this.isSuperheavy() && !this._motiveType.hasRotor && (location === "left" || location === "right")) {
-            const half = direction === "rear" ? "rear" : "front";
+        // Superheavy: a Right/Left Side result strikes the half nearest the attack (the VTOL table has no split
+        // sides, so Super-Heavy VTOLs use the same reading).
+        if (this.isSuperheavy() && (location === "left" || location === "right")) {
+            const half = isRearwardAttack(direction) ? "rear" : "front";
             location = `${half}${location === "left" ? "Left" : "Right"}` as VehicleLocation;
         }
         return location;
@@ -1748,6 +1952,7 @@ export default class Vehicle {
      */
     public applyCriticalHit(effect: VehicleCriticalEffect, location: VehicleLocation, weaponUUID?: string, random: () => number = Math.random): string {
         const c = this._inPlay.criticals;
+        const flying = this.isAirborne();
         const name = VEHICLE_CRITICAL_EFFECT_NAMES[effect];
         const pickWeapon = (candidates: IEquipmentItem[]): IEquipmentItem | undefined =>
             candidates.find((w) => w.uuid === weaponUUID) ?? candidates[Math.floor(random() * candidates.length)];
@@ -1769,7 +1974,9 @@ export default class Vehicle {
             case "pilotHit":
                 if (c.pilotHit) { c.crewKilled = true; return `${name} (second): treated as Crew Killed`; }
                 c.pilotHit = true;
-                return `${name}: +2 to all Driving Skill Rolls; make a Driving Skill Roll or drop one elevation`;
+                if (!flying) return `${name}: +2 to all Driving Skill Rolls`;
+                this._followUps.push({ kind: "drivingSkill", reason: "pilotHit", target: this.getDrivingSkillTarget() });
+                return `${name}: +2 to all Driving Skill Rolls; make a Driving Skill Roll (${this.getDrivingSkillTarget()}+) or drop one elevation`;
             case "crewStunned":
                 this._crewStunnedResult();
                 return c.crewKilled ? `${name} after Commander and Driver Hits: Crew Killed` : `${name}: next turn no faster than Cruising and no other actions`;
@@ -1796,13 +2003,26 @@ export default class Vehicle {
             case "engineHit":
                 c.engineHit = true;
                 c.turretLocked = true;
+                if (flying) {
+                    // In flight: land with a Driving Skill Roll (+4 for a VTOL) over clear, paved, rough or building
+                    // hexes, otherwise crash (TW pp. 197, 199).
+                    if (!this._inPlay.overLandableTerrain) return `${name} in flight over terrain it cannot land in: ${this._crashInFlight()}`;
+                    const target = this.getDrivingSkillTarget(this._motiveType.hasRotor ? 4 : 0);
+                    this._followUps.push({ kind: "drivingSkill", reason: "engineDamage", target });
+                    return `${name} in flight: make a Driving Skill Roll (${target}+) to land, or crash`;
+                }
                 return `${name}: immobile; Direct-Fire Energy and Pulse weapons stop working; turret locked`;
             case "fuelTank":
                 c.fuelTankHit = true;
                 return `${name}: the vehicle explodes and is destroyed`;
-            case "ammunition":
-                c.ammoExploded = true;
-                return `${name}: all ammunition explodes; apply its total damage to this location's internal structure (CASE: rear armor and Crew Stunned)`;
+            case "ammunition": {
+                const damage = this.getAmmunitionExplosionDamage();
+                const cased = this.hasCASE();
+                this.applyAmmunitionExplosion(location, damage, cased);
+                return cased
+                    ? `${name}: all ammunition explodes for ${damage} damage; CASE vents it into the rear armor (excess ignored) and stuns the crew`
+                    : `${name}: all ammunition explodes for ${damage} damage to the ${this._locationName(location)} internal structure`;
+            }
             case "cargoHit":
                 c.cargoHit = true;
                 return `${name}: cargo destroyed; infantry take the attacking weapon's full damage`;
@@ -1825,7 +2045,7 @@ export default class Vehicle {
                 return `${name}: Cruising speed only, +3 to Driving Skill Rolls, +1 to all to-hit rolls`;
             case "rotorsDestroyed":
                 c.rotorsDestroyed = true;
-                return `${name}: the VTOL crashes (1 point per 10 tons, times levels fallen + 1; destroyed in water) and is immobile`;
+                return flying ? `${name}: ${this._crashInFlight()}` : `${name}: the VTOL is immobile`;
         }
         return name;
     }
@@ -1859,6 +2079,144 @@ export default class Vehicle {
         this._inPlay.overDeepWater = over;
     }
 
+    public setOverLandableTerrain(landable: boolean): void {
+        this._inPlay.overLandableTerrain = landable;
+    }
+
+    public setElevation(elevation: number): void {
+        this._inPlay.elevation = Math.max(0, Math.floor(elevation));
+    }
+
+    public setSurfaced(surfaced: boolean): void {
+        this._inPlay.surfaced = surfaced;
+    }
+
+    // --- Turrets and firing arcs (TW pp. 99, 104-105, 192; TO pp. 347-348) ---
+
+    public getTurretFacing(turret: VehicleTurretLocation): number {
+        return this._inPlay.turretFacing[turret] ?? 0;
+    }
+
+    /** A turret can rotate unless it is jammed, locked (an Engine Hit also locks it) or gone. */
+    public canRotateTurret(turret: VehicleTurretLocation): boolean {
+        const c = this._inPlay.criticals;
+        const exists = this.getLocations().some((loc) => loc.tag === turret);
+        return exists && !c.turretJammed && !c.turretLocked && !c.turretBlownOff && this.getStructureRemaining(turret) > 0;
+    }
+
+    /**
+     * Rotates a turret to face a hexside, counted clockwise from the vehicle's front (negative is to the
+     * left). A dual-turret vehicle's forward turret may not fire through the rear hexside (TO p. 347).
+     */
+    public setTurretFacing(turret: VehicleTurretLocation, facing: number): boolean {
+        if (!this.canRotateTurret(turret)) return false;
+        let hexside = ((Math.round(facing) % 6) + 6) % 6;
+        if (hexside > 3) hexside -= 6;
+        if (turret === "turret2" && Math.abs(hexside) === 3) return false;
+        this._inPlay.turretFacing = { ...this._inPlay.turretFacing, [turret]: hexside };
+        return true;
+    }
+
+    /** The firing arc of a weapon: body weapons use the 'Mech arc of their side; turret weapons a rotated forward arc. */
+    public getWeaponFiringArc(weapon: IEquipmentItem): IVehicleFiringArc {
+        switch (weapon.location) {
+            case "turret": case "turret2":
+                return { arc: "front", turretRotation: this.getTurretFacing(weapon.location) };
+            case "rear":
+                return { arc: "rear", turretRotation: null };
+            case "left": case "frontLeft": case "rearLeft":
+                return { arc: "left", turretRotation: null };
+            case "right": case "frontRight": case "rearRight":
+                return { arc: "right", turretRotation: null };
+            default:
+                return { arc: "front", turretRotation: null };
+        }
+    }
+
+    public describeFiringArc(arc: IVehicleFiringArc): string {
+        if (arc.turretRotation === null) {
+            return { front: "Front", left: "Left side", right: "Right side", rear: "Rear" }[arc.arc];
+        }
+        const r = arc.turretRotation;
+        if (r === 0) return "Turret, front";
+        if (Math.abs(r) === 3) return "Turret, rear";
+        return `Turret, ${Math.abs(r)} hexside${Math.abs(r) > 1 ? "s" : ""} ${r > 0 ? "right" : "left"}`;
+    }
+
+    // --- Naval hull integrity (TW pp. 121, 198) ---
+
+    /**
+     * The 2D6 result that breaches a naval vehicle's hull after a damaging hit to this location, or null when
+     * no Hull Integrity roll is made. Submerged submarines follow the standard rule (10+) for every location;
+     * surface vessels roll only for front, side and rear hits: 10+ against attacks from underwater units, 12
+     * against all others.
+     */
+    public getHullBreachTarget(location: VehicleLocation, attackerUnderwater: boolean): number | null {
+        if (!this._motiveType.naval) return null;
+        if (this._motiveType.tag === "naval-sub") return this._inPlay.surfaced ? null : 10;
+        if (location === "turret" || location === "turret2") return null;
+        return attackerUnderwater ? 10 : 12;
+    }
+
+    public isBreached(location: VehicleLocation): boolean {
+        return this._inPlay.breachedLocations.includes(location);
+    }
+
+    public setBreached(location: VehicleLocation, breached: boolean): void {
+        const others = this._inPlay.breachedLocations.filter((loc) => loc !== location);
+        this._inPlay.breachedLocations = breached ? [...others, location] : others;
+    }
+
+    // --- VTOL and WiGE flight (TW pp. 68, 197-199) ---
+
+    /** The target number for a Driving Skill Roll: driving skill plus damage modifiers plus any extra modifier. */
+    public getDrivingSkillTarget(extraModifier: number = 0): number {
+        return this._pilot.piloting + this.getDrivingModifier() + extraModifier;
+    }
+
+    /** VTOL falling damage: 1 point per 10 tons (round up) times the levels fallen plus 1 (TW p. 197). */
+    public getFallDamage(): number {
+        return Math.ceil(this._tonnage / 10) * (this._inPlay.elevation + 1);
+    }
+
+    // A flying VTOL or WiGE crashes. Water destroys it (TW pp. 197, 199); a VTOL takes falling damage,
+    // starting with the Facing After a Fall roll. TW p. 199 gives no crash damage for a WiGE.
+    private _crashInFlight(): string {
+        if (this._inPlay.crashed) return "it has already crashed";
+        this._inPlay.crashed = true;
+        if (this._inPlay.overDeepWater) {
+            this._inPlay.crashDestroyed = "water";
+            return "it crashes into water and is destroyed";
+        }
+        if (!this._motiveType.hasRotor) return "it crashes and cannot move for the rest of the game";
+        const damage = this.getFallDamage();
+        this._followUps.push({ kind: "crashFacing", damage });
+        return `it crashes, taking ${damage} falling damage (roll 1D6 on the Facing After a Fall Table)`;
+    }
+
+    /**
+     * A VTOL or WiGE crashing during a sideslip takes hexes moved x tonnage / 10 (round up) in 5-point
+     * groupings on the side that struck the terrain; if it survives and can land there, it has landed
+     * (TW p. 68). It cannot land in water.
+     */
+    public startSideslipCrash(direction: VehicleAttackDirection): string {
+        const damage = Math.ceil(this._inPlay.hexesMoved * this._tonnage / 10);
+        this._inPlay.landed = true;
+        if (this._inPlay.overDeepWater) {
+            this._inPlay.crashDestroyed = "water";
+            return "Sideslip crash into water: the vehicle is destroyed";
+        }
+        for (const group of getDamageGroupings(damage)) {
+            this._followUps.push({ kind: "crashHit", damage: group, direction, fall: false });
+        }
+        return `Sideslip crash: ${damage} damage (${this._inPlay.hexesMoved} hexes x ${this._tonnage} t / 10) to the ${direction} in 5-point groupings; it may not attack this turn (TW p. 68)`;
+    }
+
+    /** An airborne WiGE that can no longer enter five hexes a turn must land at the end of its movement (TW p. 199). */
+    public mustLand(): boolean {
+        return this._motiveType.tag === "wige" && this.isAirborne() && this.getEffectiveFlankMP() < 5;
+    }
+
     public setWeaponStatus(uuid: string, status: "ok" | "jammed" | "destroyed"): void {
         this._inPlay.jammedWeapons = this._inPlay.jammedWeapons.filter((id) => id !== uuid);
         this._inPlay.destroyedWeapons = this._inPlay.destroyedWeapons.filter((id) => id !== uuid);
@@ -1887,6 +2245,8 @@ export default class Vehicle {
         const c = this._inPlay.criticals;
         c.crewStunned = c.crewStunnedTurns > 0;
         if (c.crewStunned) c.crewStunnedTurns -= 1;
+        // Turrets return to their forward position in the End Phase unless jammed or locked (TW p. 99).
+        if (!c.turretJammed && !c.turretLocked) this._inPlay.turretFacing = {};
     }
 
     // --- Status ---
@@ -1899,9 +2259,21 @@ export default class Vehicle {
     public isDestroyed(): boolean {
         const c = this._inPlay.criticals;
         if (c.crewKilled || c.fuelTankHit || c.turretBlownOff) return true;
-        if (this.isSunk()) return true;
+        if (this.isSunk() || this._inPlay.crashDestroyed) return true;
         return this.getLocations().some((loc) => loc.tag !== "rotor"
             && (this.getStructureAllocation()[loc.tag] ?? 0) > 0 && this.getStructureRemaining(loc.tag) === 0);
+    }
+
+    /** Why the vehicle is destroyed, or null. */
+    public getDestroyedReason(): string | null {
+        const c = this._inPlay.criticals;
+        if (c.crewKilled) return "crew killed";
+        if (c.fuelTankHit) return "fuel tank exploded";
+        if (c.turretBlownOff) return "turret blown off";
+        if (this.isSunk()) return "sank";
+        if (this._inPlay.crashDestroyed === "exploded") return "exploded";
+        if (this._inPlay.crashDestroyed === "water") return "crashed into water";
+        return this.isDestroyed() ? "internal structure destroyed" : null;
     }
 
     /** A hover vehicle immobilized over Depth 1 or deeper water sinks (TW p. 193). */
@@ -1922,6 +2294,7 @@ export default class Vehicle {
      * to 0 (TW p. 199).
      */
     public isCrashed(): boolean {
+        if (this._inPlay.crashed) return true;
         if (this._inPlay.landed) return false;
         if (this._motiveType.hasRotor) {
             const rotorGone = (this.getStructureAllocation().rotor ?? 0) > 0 && this.getStructureRemaining("rotor") === 0;
@@ -1938,7 +2311,7 @@ export default class Vehicle {
      */
     public isImmobile(): boolean {
         const c = this._inPlay.criticals;
-        if (this._inPlay.motiveHits.includes("immobilized") || c.engineHit || c.crewKilled) return true;
+        if (this._inPlay.motiveHits.includes("immobilized") || c.engineHit || c.crewKilled || this._inPlay.crashed) return true;
         return !!this._motiveType.hasRotor && (c.rotorsDestroyed
             || ((this.getStructureAllocation().rotor ?? 0) > 0 && this.getStructureRemaining("rotor") === 0));
     }
@@ -2034,6 +2407,7 @@ export default class Vehicle {
         const inTurret = weapon.location === "turret" || weapon.location === "turret2";
         if (inTurret && (c.turretDestroyed || c.turretBlownOff)) return null;
         if (c.engineHit && isDirectFireEnergyOrPulse(weapon)) return null;
+        if (weapon.location && this.isBreached(weapon.location as VehicleLocation)) return null;
         let modifier = this.getAttackerMovementModifier() + c.sensorHits;
         if (c.commanderHit) modifier += 1;
         if (c.coPilotHit) modifier += 1;
