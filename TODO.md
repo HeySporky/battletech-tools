@@ -674,9 +674,19 @@ tool. Items are ordered by dependency, not by product marketing priority.
   engine, fuel tank, cargo, turret jam/lock/destroyed, sensors, stabilizers), weapon jam/destroy,
   movement modes with attacker/target modifiers, VTOL crash on rotor loss, and roster printing.
   Effects as implemented by MegaMek (Tank; book not in hand).
-- [ ] Vehicle hit location tables and critical hit rolls in play mode (damage location is chosen by the
-  player today; cite TW's Combat Vehicle Hit Location and Critical Hits tables from the book).
-- [ ] Turret arcs, flotation/submergence, and naval/VTOL elevation in play mode.
+- [x] Vehicle hit location, critical hit and motive system damage tables in play mode (2026-09-29), from
+  Total Warfare (corrected 2010 PDF) pp. 192-199 and the TW record sheets, with Errata 2.2: attack
+  resolution by direction and 2D6, criticals on table results and on any internal structure damage, the
+  move-down-the-column rule, stacking motive movement penalties with once-only driving modifiers, rotor
+  hits (damage / 10, -1 Cruising MP each), VTOL crew/rotor/flight stabilizer criticals, crew stun timing,
+  turret destruction (TW p. 128), Engine Hit disabling energy/pulse weapons, hover sinking, the airborne
+  VTOL/WiGE +1 and the immobile -4 target modifiers.
+- [ ] Ammunition explosion damage: total the damage of all ammunition carried (TW p. 194); the player
+  enters the total today.
+- [ ] Turret arcs and firing arcs (TW p. 192), naval Hull Integrity rolls (TW pp. 98, 198), VTOL
+  elevation, crash/falling damage (TW p. 197) and WiGE landing/crash rules (TW p. 199).
+- [ ] Superheavy vehicle hit locations (split sides) from TO:AUE; play mode maps side hits to the front or
+  rear half by attack direction as a stopgap.
 - [ ] Browser tests for every category (only the roster add/play/print flow has an E2E test so far:
   `e2e/vehicle-roster.spec.ts`).
 
