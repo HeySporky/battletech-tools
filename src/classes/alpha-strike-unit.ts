@@ -87,7 +87,30 @@ export interface IASMULUnit {
     BFDamageMediumMin?: boolean;
     BFDamageLongMin?: boolean;
     BFDamageExtremeMin?: boolean;
+
+    // Opaque public_uid from masterunitlist.battletech.com — the only stable join key the live site exposes.
+    MulUnitKey?: string;
+
+    // Per-era faction availability from the live site (FactionIds use the same taxonomy as getMULFactionLabels()).
+    Availability?: { EraId: number; FactionIds: number[] }[];
+
+    // Which bundled list served this record; set by the MUL chunk loader, not stored in the data files.
+    MulSource?: MULSource;
 }
+
+// MUL 2.0 records keep the model in Variant ("Black Knight" + "BL-7-KNT"); MUL 1.0 records
+// already carry the full designation in Name.
+export function getMULDisplayName(unit: Pick<IASMULUnit, "Name" | "Variant" | "MulUnitKey">): string {
+    const name = (unit.Name ?? "").trim();
+    const variant = (unit.Variant ?? "").trim();
+    if (!unit.MulUnitKey || !variant || name.toLowerCase().endsWith(variant.toLowerCase())) {
+        return name;
+    }
+    return `${name} ${variant}`;
+}
+
+// mul2: masterunitlist.battletech.com (current). mul1: legacy numeric-id MUL records the live site no longer lists.
+export type MULSource = "mul2" | "mul1";
 
 export interface IAlphaStrikeUnitExport {
     mechCreatorUUID: string;
@@ -282,9 +305,13 @@ export class AlphaStrikeUnit {
         if( typeof(incomingMechData) !== "undefined" && incomingMechData !== null ) {
 
             this.costCR = +incomingMechData.Cost;
-            this.class = incomingMechData.Class ? incomingMechData.Class : "";
+            // MUL 2.0 records use Class for the unit type ("BattleMech") and Name for the chassis;
+            // MUL 1.0 records use Class for the chassis.
+            this.class = incomingMechData.MulUnitKey
+                ? (incomingMechData.Name ?? "").trim()
+                : (incomingMechData.Class ? incomingMechData.Class : "");
             this.variant = incomingMechData.Variant ? incomingMechData.Variant : "";
-            this.name = incomingMechData.Name;
+            this.name = getMULDisplayName(incomingMechData);
             this.dateIntroduced = incomingMechData.DateIntroduced;
 
             // if( incomingMechData.mechCreatorUUID ) {
@@ -299,7 +326,8 @@ export class AlphaStrikeUnit {
 
             this.tonnage = +incomingMechData.Tonnage;
 
-            this.threshold = +incomingMechData.BFThreshold;
+            // MUL 2.0 records have no BFThreshold; only aerospace units have an armor threshold.
+            this.threshold = Number(incomingMechData.BFThreshold) || 0;
 
             if( incomingMechData.Role && incomingMechData.Role.Name ) {
                 this.role = incomingMechData.Role.Name;

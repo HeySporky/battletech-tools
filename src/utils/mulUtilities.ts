@@ -147,6 +147,9 @@ export function getMULTypeLabel(
     if( id === 21 ) {
         return "Infantry";
     }
+    if( id === 22 ) {
+        return "Battle Armor";
+    }
     if( id === 20 ) {
         return "IndustrialMech";
     }
@@ -161,7 +164,7 @@ export function getMULTypeLabel(
 }
 
 export function getMULTypeIDs(): number[] {
-    return [18, 19, 17, 21, 20, 23, 24 ];
+    return [18, 19, 17, 21, 22, 20, 23, 24 ];
 }
 
 
