@@ -1482,64 +1482,19 @@ export class BattleMech {
         this._pilotAdjustedBattleValue = Math.round( this._pilotAdjustedBattleValue );
     }
 
+    /**
+     * Offensive Speed Factor (TechManual p. 316).
+     *
+     * Speed Factor MP = Run MP + round( Jump MP / 2 )
+     * Speed Factor    = ( 1 + ( MP - 5 ) / 10 ) ^ 1.2, rounded to two decimal places
+     *
+     * The Speed Factor Table in the TechManual is this formula evaluated for MP 0-25, so one formula covers every
+     * speed (same implementation as MegaMek's BVCalculator.offensiveSpeedFactor / offensiveSpeedFactorMP).
+     */
     private _getSpeedFactorModifier(): number {
-        let runSpeedAndHalfJumpSpeed = this.getRunSpeed() + this.getJumpSpeed() / 2;
+        let speedFactorMP = this.getRunSpeed() + Math.round( this.getJumpSpeed() / 2 );
 
-        if( runSpeedAndHalfJumpSpeed > 25) {
-            return +(1 + Math.pow(((this.getRunSpeed() + (this.getJumpSpeed() / 2) - 5) / 10), 1.2)).toFixed(2);
-        } else if( runSpeedAndHalfJumpSpeed > 24) {
-            return 3.74; // 25
-        } else if( runSpeedAndHalfJumpSpeed > 23) {
-            return 3.59; // 24
-        } else if( runSpeedAndHalfJumpSpeed > 22) {
-            return 3.44; // 23
-        } else if( runSpeedAndHalfJumpSpeed > 21) {
-            return 3.29; // 22
-        } else if( runSpeedAndHalfJumpSpeed > 20) {
-            return 3.15; // 21
-        } else if( runSpeedAndHalfJumpSpeed > 19) {
-            return 3.00; // 20
-        } else if( runSpeedAndHalfJumpSpeed > 18) {
-            return 2.86; // 19
-        } else if( runSpeedAndHalfJumpSpeed > 17) {
-            return 2.72; // 18
-        } else if( runSpeedAndHalfJumpSpeed > 16) {
-            return 2.58; // 17
-        } else if( runSpeedAndHalfJumpSpeed > 15) {
-            return 2.44; // 16
-        } else if( runSpeedAndHalfJumpSpeed > 14) {
-            return 2.30; // 15
-        } else if( runSpeedAndHalfJumpSpeed > 13) {
-            return 2.16; // 14
-        } else if( runSpeedAndHalfJumpSpeed > 12) {
-            return 2.02; // 13
-        } else if( runSpeedAndHalfJumpSpeed > 11) {
-            return 1.89; // 12
-        } else if( runSpeedAndHalfJumpSpeed > 10) {
-            return 1.76; // 11
-        } else if( runSpeedAndHalfJumpSpeed > 9) {
-            return 1.63; // 10
-        } else if( runSpeedAndHalfJumpSpeed > 8) {
-            return 1.50; // 9
-        } else if( runSpeedAndHalfJumpSpeed > 7) {
-            return 1.37; // 8
-        } else if( runSpeedAndHalfJumpSpeed > 6) {
-            return 1.24; // 7
-        } else if( runSpeedAndHalfJumpSpeed > 5) {
-            return 1.12; // 6
-        } else if( runSpeedAndHalfJumpSpeed > 4) {
-            return 1.00; // 5
-        } else if( runSpeedAndHalfJumpSpeed > 3) {
-            return 0.88; // 4
-        } else if( runSpeedAndHalfJumpSpeed > 2) {
-            return 0.77; // 3
-        } else if( runSpeedAndHalfJumpSpeed > 1) {
-            return 0.65; // 2
-        } else if( runSpeedAndHalfJumpSpeed > 0) {
-            return 0.54; // 1
-        } else {
-            return 0.44;
-        }
+        return Math.round( Math.pow( 1 + ( speedFactorMP - 5 ) / 10, 1.2 ) * 100 ) / 100;
     }
 
     public isQuad() {
