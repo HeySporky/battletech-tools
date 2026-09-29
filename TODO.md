@@ -86,7 +86,7 @@ Generated from `npm run lint` (ESLint 10 + typescript-eslint 8.71). CI runs lint
 `npm run check` leaves it out until this list is empty; then add lint back to both. Rule breakdown:
 
 | Count | Rule |
-|------:|------|
+| ----: | ---- |
 | 31 | `@typescript-eslint/no-unused-vars` |
 | 31 | `@typescript-eslint/ban-ts-comment` |
 | 8 | `no-useless-escape` |
