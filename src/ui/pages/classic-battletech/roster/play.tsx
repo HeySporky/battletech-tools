@@ -2,7 +2,7 @@ import React, { type JSX } from 'react';
 import { FaArrowCircleDown, FaArrowCircleLeft, FaArrowCircleRight, FaCheckSquare, FaDice, FaGift, FaQuestionCircle, FaShoePrints, FaSquare, FaTable } from "react-icons/fa";
 import { FiRefreshCcw } from 'react-icons/fi';
 import { GiBattleAxe, GiCrosshairArrow, GiHotSurface, GiMagnifyingGlass, GiMissileSwarm } from 'react-icons/gi';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { BattleMech, IGATOR, ITargetToHit } from "../../../../classes/battlemech";
 import { BattleMechGroup } from '../../../../classes/battlemech-group';
 import { CONST_BATTLETECH_URL, CONST_HIGHLIGHT_COLOR } from '../../../../configVars';

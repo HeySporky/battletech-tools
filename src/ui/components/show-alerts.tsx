@@ -1,6 +1,6 @@
 import { FaTimesCircle } from "react-icons/fa";
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { IAppGlobals } from '../app-router';
 import { IAlert } from '../classes/alerts';
 import SanitizedHTML from './sanitized-html';

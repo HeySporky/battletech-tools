@@ -1,6 +1,6 @@
 import { FaChevronDown, FaChevronUp, FaQuestion } from "react-icons/fa";
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 import type { JSX } from "react";
 
