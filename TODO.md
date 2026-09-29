@@ -42,6 +42,16 @@
       Upstream has a different bug in the same function (wrong formula above 25 MP): branch
       `fix/speed-factor-above-25-mp`, to be offered to HeySporky as an issue + PR.
 - [x] `setEngine(0)` logged an error and kept the old engine; 0 now clears it.
+- [x] `_allocateCritical` matched by UUID only, so rebuilt items (heat sinks, ...) were never placed: 8,359 failed
+      allocations / 4,314 unallocated components across the SSW import. Falls back to tag + rear now (upstream's rule).
+- [x] Startup froze the UI for ~6 s (desktop) while importing every SSW mech in one loop; now imported in time slices.
+      The same loop exists upstream - candidate for an upstream issue + PR.
+- [ ] 50 components stay unallocated after SSW import across 12 mechs (42 jump jets; also heat-sink x3, plasma-rifle,
+      heavy-ferro-fibrous, er-small-laser, c3-computer-slave, ecm-suite): ANH-3A Annihilator, AWS-10KM Awesome,
+      CTF-5D Cataphract, CGR-KMZ Charger, CLNT-6S Clint, FS9-B Firestarter, JR7-C2 Jenner, CRK-5003-CJ Katana (Crockett),
+      PNT-14S Panther, WTH-3 / WTH-K Whitworth, "Grinner" Wolfhound IIC. Compare their SSW placements with MegaMek.
+- [ ] Firefly C: the SSW import drops the Clan SRM-2 launcher ("(CL) SRM-2") and maps its ammo to `ammo-srm-2`; a
+      JSON save/load then drops that ammo too (not found in the Clan equipment list).
 - [ ] BV differs from SSW's BV2 figure for many bundled mechs (221 of 508 exact) - reportedly addressed on the MUL
       branch; re-check `battlemech.test.ts` against SSW BV once that lands.
 
