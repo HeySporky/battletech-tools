@@ -31,8 +31,8 @@
     "test:browser": "vitest run --project browser",
     "test:e2e": "playwright test",
     "check": "npm run typecheck && npm test && npm run build",
-    "deploy-dev": "gh-pages -d build",
-    "deploy-prod": "gh-pages -d build -r https://github.com/heysporky/battletech-tools.git"
+    "deploy-dev": "gh-pages -d build --dotfiles",
+    "deploy-prod": "gh-pages -d build --dotfiles -r https://github.com/heysporky/battletech-tools.git"
   },
   "browserslist": {
     "production": [
