@@ -1069,6 +1069,23 @@ export class BattleMech {
             return false;
     }
 
+    /** Four-legged chassis keep their front legs in "fll"/"frl" instead of the arm locations. */
+    private _hasFrontLegs(): boolean {
+        return this.isQuad();
+    }
+
+    /**
+     * Hit location tables, the record sheet circles and saves made before front legs had their
+     * own locations still name a four-legged 'Mech's front legs "la"/"ra".
+     */
+    private _normalizeLocation(location: string): string {
+        if (this._hasFrontLegs()) {
+            if (location === "la") return "fll";
+            if (location === "ra") return "frl";
+        }
+        return location;
+    }
+
     private _calcCBillCost() {
         // TODO Calculations
         this._calcLogCBill = "";
@@ -4226,6 +4243,7 @@ export class BattleMech {
         location: string,
         critSlotIndex: number
     ) {
+        location = this._normalizeLocation(location);
 
         if( typeof( this.criticalDamage ) === "undefined" ) {
             this.criticalDamage = {};
@@ -4257,6 +4275,7 @@ export class BattleMech {
         location: string,
         critSlotIndex: number
     ): boolean  {
+        location = this._normalizeLocation(location);
         if( typeof( this.criticalDamage[location] ) === "undefined" ) {
             this.criticalDamage[location] = [];
         }
@@ -6053,6 +6072,7 @@ export class BattleMech {
     ): IDamageResults[] {
 
         let rv: IDamageResults[] = [];
+        location = this._normalizeLocation(location);
 
         // Check location armor
         // let armorDamage = true;
@@ -7566,10 +7586,7 @@ export class BattleMech {
     }
 
     public toggleISBubble(clickLocation: string, clickIndex: number): void {
-        if (this.isQuad()) {
-            if (clickLocation === "la") clickLocation = "fll";
-            if (clickLocation === "ra") clickLocation = "frl";
-        }
+        clickLocation = this._normalizeLocation(clickLocation);
         const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) return;
 
@@ -7580,10 +7597,7 @@ export class BattleMech {
     }
 
     public structureDamaged(clickLocation: string, clickIndex: number): boolean {
-        if (this.isQuad()) {
-            if (clickLocation === "la") clickLocation = "fll";
-            if (clickLocation === "ra") clickLocation = "frl";
-        }
+        clickLocation = this._normalizeLocation(clickLocation);
         const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) return false;
 
@@ -7595,6 +7609,7 @@ export class BattleMech {
     }   
 
     public armorDamaged(clickLocation: string, clickIndex: number): boolean {
+        clickLocation = this._normalizeLocation(clickLocation);
         const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) {
             return false; // Safe exit for unrecognized shorthand
@@ -7608,6 +7623,7 @@ export class BattleMech {
     }
 
     public toggleArmorBubble(clickLocation: string, clickIndex: number): void {
+        clickLocation = this._normalizeLocation(clickLocation);
         const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
         if (!targetProp) {
             return; // Safe exit for unrecognized shorthand

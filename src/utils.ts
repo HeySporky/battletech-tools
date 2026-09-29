@@ -744,6 +744,13 @@ export function getLocationName(
                 return "Left Rear Leg";
             return "Left Leg";
         }
+
+        case "frl": {
+            return "Right Front Leg";
+        }
+        case "fll": {
+            return "Left Front Leg";
+        }
     }
 
     return "???";
