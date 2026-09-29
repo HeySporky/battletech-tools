@@ -16,10 +16,10 @@ async function parseFile( filePath: string ): Promise<string[]> {
 }
 
 async function compareData() {
-    let ammunitionDataSSW = await parseFile("./SSW-Equipment/ammunition.json");
-    let equipmentDataSSW = await parseFile("./SSW-Equipment/equipment.json");
-    let weaponsDataSSW = await parseFile("./SSW-Equipment/weapons.json");
-    let physicalsDataSSW = await parseFile("./SSW-Equipment/physicals.json");
+    await parseFile("./SSW-Equipment/ammunition.json");
+    await parseFile("./SSW-Equipment/equipment.json");
+    await parseFile("./SSW-Equipment/weapons.json");
+    await parseFile("./SSW-Equipment/physicals.json");
 }
 
 
