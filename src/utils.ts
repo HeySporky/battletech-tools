@@ -1,25 +1,20 @@
 import { IASMULUnit } from "./classes/alpha-strike-unit";
 import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
 import { IEquipmentItem } from "./data/data-interfaces";
-import { mechClanEquipmentEnergy } from "./data/mech-clan-equipment-weapons-energy";
-import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-ballistic";
-import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
-import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
-import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
+import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 
 export function getISEquipmentList(): IEquipmentItem[] {
-    return mechISEquipmentBallistic
-        .concat(
-            mechISEquipmentEnergy,
-            mechISEquipmentMissiles,
-            mechISEquipmentMisc
-        );
+    return getEquipmentListByTech("is");
 }
 
 export function getClanEquipmentList(): IEquipmentItem[] {
-    return mechClanEquipmentEnergy;
+    return getEquipmentListByTech("clan");
+}
+
+export function getAllEquipmentLists(): Record<string, IEquipmentItem[]> {
+    return getEquipmentCatalogs();
 }
 
 export async function getMULASSearchResults(
@@ -612,11 +607,9 @@ export function getMovementModifier( moveScore: number ): number {
 	}
 
 	return 0;
-
 }
 
 export function getAeroRangeLabel( aeroAbbr: string): string {
-
     if( aeroAbbr === "s" )
         return "Short";
     if( aeroAbbr === "m" )
@@ -628,18 +621,15 @@ export function getAeroRangeLabel( aeroAbbr: string): string {
     return "";
 }
 
+// Natural sort: numbers compare by value, so "atm 3" sorts before "atm 12"
+const equipmentSortCollator = new Intl.Collator("en", { numeric: true, sensitivity: "base" });
+
 export function sortEquipment (
     a: IEquipmentItem,
     b: IEquipmentItem,
 ): number {
-    if( a.sort.toLocaleLowerCase().trim() >  b.sort.toLocaleLowerCase().trim() ) {
-        return 1;
-    } else if( a.sort.toLocaleLowerCase().trim() <  b.sort.toLocaleLowerCase().trim() ) {
-        return -1;
-    } else {
-        return 0
-    }
-
+    return equipmentSortCollator.compare( a.sort.trim(), b.sort.trim() )
+        || equipmentSortCollator.compare( a.name.trim(), b.name.trim() );
 }
 
 export function getTargetColor(
@@ -662,64 +652,40 @@ export function getHexDistanceFromModifier(
     mod: number
 ): string {
     if( mod > 5 ) {
-        return "25+"
+        return "25+";
     } else if( mod > 4 ) {
-        return "18-24"
+        return "18-24";
     } else if( mod > 3 ) {
-        return "10-17"
+        return "10-17";
     } else if( mod > 2 ) {
-        return "7-9"
+        return "7-9";
     } else if( mod > 1 ) {
-        return "5-6"
+        return "5-6";
     } else if( mod > 0 ) {
-        return "3-4"
+        return "3-4";
     } else {
-        return "0-2"
+        return "0-2";
     }
-
 }
 
 const clusterHitsTable = [
-    [   // roll of 2, array index 0
-        1,1,1,1,2,2,3,3,3,4,4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9,10,10,12,
-    ],
-    [ // roll of 3, array index 1
-        1,1,2,2,2,2,3,3,3,4,4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9, 10, 10, 12,
-    ],
-    [// roll of 4, array index 2
-        1,1,2,2,3,3,4,4,4,5,5,5,6,6,7,7,8,8,9,9,9, 10, 10, 10, 11, 11, 11, 12, 12, 18,
-    ],
-    [ // roll of 5, array index 3
-        1,2,2,3,3,4,4,5,6,7,8,8,9,9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24,
-    ],
-    [ // roll of 6, array index 4
-        1,2,2,3,4,4,5,5,6,7,8,8,9,9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24,
-    ],
-    [ // roll of 7, array index 5
-        1,2,3,3,4,4,5,5,6,7,8,8,9,9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24,
-    ],
-    [ // roll of 8, array index 6
-        2,2,3,3,4,4,5,5,6,7,8,8,9,9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18, 24,
-    ],
-    [ // roll of 9, array index 7
-        2,2,3,4,5,6,6,7,8,9, 10, 11, 11, 12, 13, 14, 14, 15, 16, 17, 18, 19, 20, 21, 21, 22, 23, 23, 24, 32,
-    ],
-    [ // roll of 10, array index 8
-        2,3,3,4,5,6,6,7,8,9, 10, 11, 11, 12, 13, 14, 14, 15, 16, 17, 18, 19, 20, 21, 21, 22, 23, 23, 24, 32,
-    ],
-    [ // roll of 11, array index 9
-        2,3,4,5,6,7,8,9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40,
-    ],
-    [ // roll of 12, array index 10
-        2,3,4,5,6,7,8,9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 40,
-    ],
-]
+    [1,1,1,1,2,2,3,3,3,4,4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9,10,10,12],
+    [1,1,2,2,2,2,3,3,3,4,4,4,5,5,5,5,6,6,6,7,7,7,8,8,9,9,9,10,10,12],
+    [1,1,2,2,3,3,4,4,4,5,5,5,6,6,7,7,8,8,9,9,9,10,10,10,11,11,11,12,12,18],
+    [1,2,2,3,3,4,4,5,6,7,8,8,9,9,10,10,11,11,12,13,14,15,16,16,17,17,17,18,18,24],
+    [1,2,2,3,4,4,5,5,6,7,8,8,9,9,10,10,11,11,12,13,14,15,16,16,17,17,17,18,18,24],
+    [1,2,3,3,4,4,5,5,6,7,8,8,9,9,10,10,11,11,12,13,14,15,16,16,17,17,17,18,18,24],
+    [2,2,3,3,4,4,5,5,6,7,8,8,9,9,10,10,11,11,12,13,14,15,16,16,17,17,17,18,18,24],
+    [2,2,3,4,5,6,6,7,8,9,10,11,11,12,13,14,14,15,16,17,18,19,20,21,21,22,23,23,24,32],
+    [2,3,3,4,5,6,6,7,8,9,10,11,11,12,13,14,14,15,16,17,18,19,20,21,21,22,23,23,24,32],
+    [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,40],
+    [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,40],
+];
 
 export function getClusterHitsPerRoll(
     roll: number,
     numberCluster: number,
 ): number {
-
     if( clusterHitsTable[ roll - 2 ] && clusterHitsTable[ roll - 2][ numberCluster - 2] ) {
         return clusterHitsTable[ roll - 2][ numberCluster - 2];
     }
@@ -733,54 +699,54 @@ export function getLocationName(
 ): string {
     switch( abbr ) {
         case "hd": {
-            return "Head"
+            return "Head";
         }
 
         case "ct": {
-            return "Center Torso"
+            return "Center Torso";
         }
         case "rt": {
-            return "Right Torso"
+            return "Right Torso";
         }
         case "lt": {
-            return "Left Torso"
+            return "Left Torso";
         }
 
         case "ctr": {
-            return "Center Torso (Rear)"
+            return "Center Torso (Rear)";
         }
         case "rtr": {
-            return "Right Torso (Rear)"
+            return "Right Torso (Rear)";
         }
         case "ltr": {
-            return "Left Torso (Rear)"
+            return "Left Torso (Rear)";
         }
 
         case "ra": {
             if( forQuad )
-                return "Right Front Leg"
+                return "Right Front Leg";
 
-            return "Right Arm"
+            return "Right Arm";
         }
         case "la": {
             if( forQuad )
-                return "Left Front Leg"
-            return "Left Arm"
+                return "Left Front Leg";
+            return "Left Arm";
         }
 
         case "rl": {
             if( forQuad )
-                return "Right Rear Leg"
-            return "Right Leg"
+                return "Right Rear Leg";
+            return "Right Leg";
         }
         case "ll": {
             if( forQuad )
-                return "Left Rear Leg"
-            return "Left Leg"
+                return "Left Rear Leg";
+            return "Left Leg";
         }
     }
 
-    return "???"
+    return "???";
 }
 
 export function getTargetToHitFromWeapon(
@@ -788,13 +754,17 @@ export function getTargetToHitFromWeapon(
     index: number,
     target: ITargetToHit | null = null,
     equipmentList: IEquipmentItem[] | null = null,
-
 ): IGATOR {
     let gator: IGATOR = JSON.parse(JSON.stringify(mech.getGATOR()));
 
     if( equipmentList === null ) {
         equipmentList = mech.equipmentList;
     }
+    const weapon = equipmentList[index];
+    const ammo = weapon?.selectedAmmoBinUUID
+        ? equipmentList.find(item => item.uuid === weapon.selectedAmmoBinUUID)
+        : undefined;
+    const weaponRange = ammo?.ammoProfile?.range ?? weapon?.range;
     gator.finalToHit = -1;
     if(
         equipmentList.length > index
@@ -802,14 +772,10 @@ export function getTargetToHitFromWeapon(
         && typeof( equipmentList[index].target ) !== "undefined"
         && equipmentList[index].target
     ) {
-
-        // TS Typechecker is being an idiot here >:(
-        // At this point, it's NOT undefined... how many times do I have to check?
-        //@ts-ignore
-        let targetLetter: string = equipmentList[index].target;
+        const targetLetter = equipmentList[index].target as string;
 
         if( target === null && mech ) {
-            target = mech.getTarget( targetLetter )
+            target = mech.getTarget( targetLetter );
         }
 
         if( target ) {
@@ -819,10 +785,8 @@ export function getTargetToHitFromWeapon(
             gator.target = "Target " + targetLetter.toUpperCase();
             gator.weaponName = equipmentList[index].name;
 
-            // G
             gator.finalToHit = gator.gunnerySkill;
 
-            // A
             if( mech.currentMovementMode === "w") {
                 gator.finalToHit += 1;
                 gator.attackerMovementModifier = 1;
@@ -832,7 +796,6 @@ export function getTargetToHitFromWeapon(
                 gator.attackerMovementModifier = 2;
                 gator.rangeExplanation = "Ran";
             } else if( mech.currentMovementMode === "j") {
-
                 gator.finalToHit += 3;
                 gator.attackerMovementModifier = 3;
                 gator.rangeExplanation = "Jumped";
@@ -840,11 +803,9 @@ export function getTargetToHitFromWeapon(
                 gator.rangeExplanation = "Stationary";
             }
 
-            // T
             gator.finalToHit += target.movement;
             gator.targetMovementModifier = target.movement;
 
-            // O
             let otherModifiersExplanation: string[] = [];
             gator.finalToHit += target.otherMods;
             gator.otherModifiers = target.otherMods;
@@ -856,9 +817,9 @@ export function getTargetToHitFromWeapon(
                 &&
                 equipmentList[index].accuracyModifier !== 0
             ) {
-                //@ts-ignore
+                // @ts-expect-error Legacy compatibility type mismatch
                 gator.finalToHit += equipmentList[index].accuracyModifier;
-                //@ts-ignore
+                // @ts-expect-error Legacy compatibility type mismatch
                 gator.otherModifiers = equipmentList[index].accuracyModifier;
 
                 otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
@@ -874,25 +835,20 @@ export function getTargetToHitFromWeapon(
                     gator.finalToHit += 1;
                 }
             }
-            gator.otherModifiersExplanation = otherModifiersExplanation.join(", ")
+            gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
 
-            // R
             if(
-                target.range <= equipmentList[index].range.short
+                target.range <= weaponRange.short
             ) {
-
                 gator.rangeExplanation = "Short";
 
-                // Check minimum range
                 if(
-                    equipmentList[index].range.min
+                    weaponRange.min
                     &&
-                    //@ts-ignore
-                    equipmentList[index].range.min > 0
+                    weaponRange.min > 0
                 ) {
                     let minRange: number = 0;
-                    //@ts-ignore
-                    minRange = equipmentList[index].range.min;
+                    minRange = weaponRange.min;
 
                     if( target.range < minRange ) {
                         let rangeModifier = minRange - target.range;
@@ -900,57 +856,53 @@ export function getTargetToHitFromWeapon(
                         gator.rangeModifier = rangeModifier;
                         gator.rangeExplanation = "Minimum Range";
                     }
-
                 }
             } else if(
-                target.range <= equipmentList[index].range.medium
+                target.range <= weaponRange.medium
             ) {
                 gator.finalToHit += 2;
                 gator.rangeModifier = 2;
                 gator.rangeExplanation = "Medium";
-            } else if( target.range <=equipmentList[index].range.long ) {
+            } else if( target.range <= weaponRange.long ) {
                 gator.finalToHit += 4;
                 gator.rangeModifier = 4;
                 gator.rangeExplanation = "Long";
             } else {
-                // Out of range
                 gator.finalToHit = -1;
-                gator.explanation = "The target is out of this weapon's range."
+                gator.explanation = "The target is out of this weapon's range.";
             }
-
         }
-
     }
 
     if( gator.finalToHit > 12 ) {
-        gator.explanation = "Any roll over 12 is an impossible shot."
+        gator.explanation = "Any roll over 12 is an impossible shot.";
     } else if( gator.finalToHit >= 2 ) {
         let percentageToHit = 0;
         if( gator.finalToHit === 2 ) {
-            percentageToHit = 100
+            percentageToHit = 100;
         } else if( gator.finalToHit === 3 ) {
-            percentageToHit = 97.22
+            percentageToHit = 97.22;
         } else if( gator.finalToHit === 4 ) {
-            percentageToHit = 91.66
+            percentageToHit = 91.66;
         } else if( gator.finalToHit === 5 ) {
-            percentageToHit = 83.33
+            percentageToHit = 83.33;
         } else if( gator.finalToHit === 6 ) {
-            percentageToHit = 72.22
+            percentageToHit = 72.22;
         } else if( gator.finalToHit === 7 ) {
-            percentageToHit = 58.33
+            percentageToHit = 58.33;
         } else if( gator.finalToHit === 8 ) {
-            percentageToHit = 31.66
+            percentageToHit = 31.66;
         } else if( gator.finalToHit === 9 ) {
-            percentageToHit = 27.77
+            percentageToHit = 27.77;
         } else if( gator.finalToHit === 10 ) {
-            percentageToHit = 16.66
+            percentageToHit = 16.66;
         } else if( gator.finalToHit === 11 ) {
-            percentageToHit = 8.33
+            percentageToHit = 8.33;
         } else if( gator.finalToHit === 12 ) {
-            percentageToHit = 2.77
+            percentageToHit = 2.77;
         }
 
-        gator.explanation = "This roll has a " + percentageToHit.toString() + "% chance of success"
+        gator.explanation = "This roll has a " + percentageToHit.toString() + "% chance of success";
 
         if( target && target.inRearArc && !equipmentList[index].rear) {
             gator.explanation = "The target is in rear arc, and weapon is not rear-firing";
