@@ -629,14 +629,14 @@ export class BattleMech {
                 if (fedWeapon && this._isDefensiveBVEquipment(fedWeapon)) {
                     const ammoValue = getAmmoBattleValuePerTon(fedWeapon, currentItem) * currentItem.weight;
                     defensiveAmmoBV += ammoValue;
-                    this._calcLogBV += `+ Defensive Ammunition: ${currentItem.name} (${currentItem.location}) for ${fedWeapon.name} = ${ammoValue.toFixed(2)}<br />`;
+                    this._calcLogBV += `+ Defensive Ammunition: ${this._escapeLogText(currentItem.name)} (${this._escapeLogText(currentItem.location)}) for ${this._escapeLogText(fedWeapon.name)} = ${ammoValue.toFixed(2)}<br />`;
                 }
             } else if (this._isDefensiveBVEquipment(currentItem)) {
                 defensiveEquipmentBV += currentItem.battleValue || 0;
                 if (currentItem.weaponType?.includes("AMS")) {
                     defensiveAmmoCap += currentItem.battleValue || 0;
                 }
-                this._calcLogBV += `+ Defensive Equipment: ${currentItem.name} (${currentItem.location || "no location"}) = ${currentItem.battleValue || 0}<br />`;
+                this._calcLogBV += `+ Defensive Equipment: ${this._escapeLogText(currentItem.name)} (${this._escapeLogText(currentItem.location || "no location")}) = ${currentItem.battleValue || 0}<br />`;
             }
         }
         if (defensiveAmmoBV > defensiveAmmoCap) {
@@ -820,7 +820,7 @@ export class BattleMech {
                 // Ammo feeds weapons by family, so group each bin under the weapon it is loaded for.
                 const fedWeapon = this.getAmmoBinWeapon(currentItem);
                 if (!fedWeapon) {
-                    this._calcLogBV += `+ Ignoring Ammunition: ${currentItem.name} (${currentItem.location}), no mounted weapon fires it<br />`;
+                    this._calcLogBV += `+ Ignoring Ammunition: ${this._escapeLogText(currentItem.name)} (${this._escapeLogText(currentItem.location)}), no mounted weapon fires it<br />`;
                     continue;
                 }
                 if (this._isDefensiveBVEquipment(fedWeapon)) {
@@ -834,7 +834,7 @@ export class BattleMech {
                 const assignedAmmoValue = perTonValue * currentItem.weight;
                 ammoBV[fedWeapon.tag] += assignedAmmoValue;
 
-                this._calcLogBV += `+ Adding Ammunition: ${currentItem.name} (${currentItem.location}) for ${fedWeapon.name} = ${assignedAmmoValue.toFixed(2)} (${perTonValue} BV x ${currentItem.weight} tons)<br />`;
+                this._calcLogBV += `+ Adding Ammunition: ${this._escapeLogText(currentItem.name)} (${this._escapeLogText(currentItem.location)}) for ${this._escapeLogText(fedWeapon.name)} = ${assignedAmmoValue.toFixed(2)} (${perTonValue} BV x ${currentItem.weight} tons)<br />`;
             } else if (!this._isDefensiveBVEquipment(currentItem)) {
                 // Accumulate weapon totals to handle duplicate weapons correctly for the Excessive Ammo Cap
                 if (!weaponBV[currentItem.tag]) {
@@ -934,19 +934,21 @@ export class BattleMech {
             const isFlexibleLimb = this.isNotOnTorsoHeadOrLegs(currentItem.location);
             const waiveRearPenalty = isRearDominant || isFlexibleLimb;
 
+            const logName = this._escapeLogText(currentItem.name);
+            const logLoc = this._escapeLogText(currentItem.location || "no location");
             if (currentItem.rear) {
                 if (waiveRearPenalty) {
-                    this._calcLogBV += `+ Adding Rear Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV} (Rear penalty waived), Heat: ${weaponHeat}<br />`;
+                    this._calcLogBV += `+ Adding Rear Weapon ${logName} (${logLoc}) - Base BV: ${baseBV} (Rear penalty waived), Heat: ${weaponHeat}<br />`;
                 } else {
-                    this._calcLogBV += `+ Adding Rear Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV} halved due to Rear Arc: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
+                    this._calcLogBV += `+ Adding Rear Weapon ${logName} (${logLoc}) - Base BV: ${baseBV} halved due to Rear Arc: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
                     finalWeaponMultiplier *= 0.5;
                 }
             } else {
                 if (!waiveRearPenalty && this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons()) {
-                    this._calcLogBV += `+ Adding Front Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV} halved due to Rear Dominance: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
+                    this._calcLogBV += `+ Adding Front Weapon ${logName} (${logLoc}) - Base BV: ${baseBV} halved due to Rear Dominance: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
                     finalWeaponMultiplier *= 0.5;
                 } else {
-                    this._calcLogBV += `+ Adding Front Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV}, Heat: ${weaponHeat}<br />`;
+                    this._calcLogBV += `+ Adding Front Weapon ${logName} (${logLoc}) - Base BV: ${baseBV}, Heat: ${weaponHeat}<br />`;
                 }
             }
 
@@ -1123,6 +1125,36 @@ export class BattleMech {
             if (location === "ra") return "frl";
         }
         return location;
+    }
+
+    // Canonical location shorthands accepted from imports and UI. Rear variants (name + "r")
+    // and split forms (name + "/" + name) are also accepted. Everything else is rejected at
+    // the import boundary so it cannot reach the raw-HTML calc log.
+    private static readonly ALLOWED_LOCATIONS: ReadonlySet<string> = new Set([
+        "n/a", "hd", "ct", "lt", "rt", "la", "ra", "ll", "rl", "cl", "fll", "frl",
+    ]);
+    private _sanitizeLocationInput(location: unknown): string {
+        if (typeof location !== "string") return "n/a";
+        const trimmed = location.trim().toLowerCase();
+        if (!trimmed) return "n/a";
+        const parts = trimmed.split("/").map((p) => p.replace(/r$/, ""));
+        for (const part of parts) {
+            if (!BattleMech.ALLOWED_LOCATIONS.has(part)) return "n/a";
+        }
+        return trimmed;
+    }
+
+    // Escape strings that flow into calc-log HTML rendered via SanitizedHTML raw=true
+    // (dangerouslySetInnerHTML). Used for equipment names and locations before they enter
+    // _calcLogBV / _calcLogAS / _calcLogCBill.
+    private _escapeLogText(value: unknown): string {
+        if (value === null || typeof value === "undefined") return "";
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
     }
 
     private _calcCBillCost() {
@@ -6602,7 +6634,7 @@ export class BattleMech {
             if( equipmentMatchesIdentifier(item, equipmentTag)) {
                 let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify(item));
                 if( typeof(location) !== "undefined" )
-                    equipmentItem.location = location;
+                    equipmentItem.location = this._sanitizeLocationInput(location);
                 equipmentItem.rear = rear;
                 equipmentItem.uuid = uuid;
                 equipmentItem.target = target;
