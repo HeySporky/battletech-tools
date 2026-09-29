@@ -733,13 +733,13 @@ export class BattleMech {
         // 2A. Gather movement metrics using native speed methods
         const runSpeed = this.getBVRunSpeed();
         const jumpSpeed = this.getBVJumpSpeed();
-        // LAMs rate their running TMM on AirMech Flank MP plus the +1 airborne modifier
-        // (IO p.192 via MegaMek; provisional).
+        // Standard LAMs rate their running TMM on AirMech Flank MP plus the +1 airborne
+        // modifier; bimodal LAMs use the normal 'Mech TMM (IO p.192).
         const runModifier = this.hasAirMechMode()
             ? getMovementModifier(this.getAirMechFlankMP()) + 1
             : getMovementModifier(runSpeed);
         if (this.hasAirMechMode()) {
-            this._calcLogBV += `<em>PROVISIONAL LAM BV:</em> running TMM uses AirMech Flank MP ${this.getAirMechFlankMP()} +1 airborne (IO p.192, via MegaMek)<br />`;
+            this._calcLogBV += `LAM: running TMM uses AirMech Flank MP ${this.getAirMechFlankMP()} +1 airborne (IO p.192)<br />`;
         }
         // Jumping modifier bonus (TM p. 304); UMU movement earns no jump bonus.
         const jumpModifier = Math.max(jumpSpeed > 0 ? getMovementModifier(jumpSpeed) + 1 : 0, getMovementModifier(this.getUMUSpeed()));
@@ -868,10 +868,12 @@ export class BattleMech {
         mechHeatEfficiency += (this.getHeatSinks() * sinkEfficiencyMultiplier) - this.getMaxMovementHeat();
         // Partial wing: +3 heat capacity in a standard atmosphere (TO:AUE p.105).
         mechHeatEfficiency += this.getPartialWingHeatBonus();
-        // LAMs: +3 heat efficiency (provisional, via MegaMek's IO implementation).
+        // LAMs add 9 instead of 6 to heat capacity (IO p.192). The +3 matches AirMech mode's
+        // partial-wing heat bonus (IO p.113), so bimodal LAMs, which have no AirMech mode,
+        // keep the 'Mech value (as MegaMek also reads it; IO does not say).
         if (this.hasAirMechMode()) {
             mechHeatEfficiency += 3;
-            this._calcLogBV += `<em>PROVISIONAL LAM BV:</em> +3 heat efficiency; movement heat ${this.getMaxMovementHeat()} from AirMech Flank MP / 3<br />`;
+            this._calcLogBV += `LAM: heat capacity +9 instead of +6; movement heat ${this.getMaxMovementHeat()} from AirMech Flank MP / 3 (IO pp.113, 192)<br />`;
         }
         // RISC Emergency Coolant System: +4 (IO p.91).
         if (this._equipmentList.some(item => item?.tag === "risc-emergency-coolant-system")) {
@@ -1078,7 +1080,7 @@ export class BattleMech {
      */
     private _getSpeedFactorModifier(): number {
         // Core formula implementation: Mobility = Run MP + (Jump MP / 2) (TM p. 315)
-        // LAMs replace Jump MP with AirMech Flank MP / 2, rounded (provisional, via MegaMek).
+        // Standard LAMs: 'Mech Run MP + half AirMech Flank MP, rounded normally (IO p.192).
         const mobilityScore = this.hasAirMechMode()
             ? this.getBVRunSpeed() + Math.round(this.getAirMechFlankMP() / 2)
             : this.getBVRunSpeed() + (Math.max(this.getBVJumpSpeed(), this.getUMUSpeed()) / 2);
@@ -3925,8 +3927,8 @@ export class BattleMech {
     }
 
     public getMaxMovementHeat() {
-        // Battle Value uses the higher of running and jumping heat (TM p.303). LAMs use
-        // AirMech Flank MP / 3, rounded (provisional, via MegaMek's IO implementation).
+        // Battle Value uses the higher of running and jumping heat (TM p.303). Standard LAMs
+        // use AirMech flank heat: 1 per 3 AirMech MP, rounded normally (IO pp.113, 192).
         let maxMoveHeat = this.hasAirMechMode()
             ? Math.round(this.getAirMechFlankMP() / 3)
             : Math.max(this.getRunHeat(), this.getJumpHeat());
@@ -4873,22 +4875,31 @@ export class BattleMech {
         return this.isLAM() && this._lamType !== "bimodal";
     }
 
-    /** AirMech Cruise MP: Jump MP x 3 (IO LAM rules, as implemented by MegaMek). */
+    /** AirMech Cruise MP: 'Mech-mode Jump MP x 3 (IO p.108). */
     public getAirMechCruiseMP(): number {
         return this.hasAirMechMode() ? this.getJumpSpeed() * 3 : 0;
     }
 
-    /** AirMech Flank MP: Cruise MP x 1.5, rounded up. */
+    /** AirMech Flank MP: Cruise MP x 1.5, rounded up (IO p.108). */
     public getAirMechFlankMP(): number {
         return Math.ceil(this.getAirMechCruiseMP() * 1.5);
     }
 
     /**
-     * Battle Value built on rules we have not yet verified against the book: LAM movement
-     * and heat adjustments (IO, via MegaMek) and the Custom Homebrew Omni-LAM.
+     * Battle Value built on rules we have not yet verified against the book: loaded LAM
+     * bombs (via MegaMek; IO p.192 gives no bomb BV rule) and the Custom Homebrew Omni-LAM.
+     * The LAM movement and heat adjustments themselves follow IO p.192.
      */
     public isBattleValueProvisional(): boolean {
-        return this.isLAM();
+        return this.isOmniLAM() || (this.isLAM() && this.getBombLoadoutSlots() > 0);
+    }
+
+    /**
+     * Alpha Strike values are provisional for every LAM: our conversion has no LAM
+     * movement or LAM special abilities yet.
+     */
+    public isPointValueProvisional(): boolean {
+        return this.isLAM() || this.isBattleValueProvisional();
     }
 
     /**

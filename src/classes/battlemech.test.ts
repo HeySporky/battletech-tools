@@ -1329,8 +1329,8 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(getMechTypeOptionsForRulesLevel(4).map(option => option.tag)).toContain("lam");
     });
 
-    // AirMech Cruise MP = Jump MP x 3, Flank = x1.5 rounded up (IO via MegaMek); LAM BV is provisional.
-    it("uses AirMech Flank MP for provisional LAM movement heat", () => {
+    // AirMech Cruise MP = Jump MP x 3, Flank = x1.5 rounded up (IO p.108); flank heat = MP / 3 (IO p.113).
+    it("uses AirMech Flank MP for LAM movement heat", () => {
         const lam = new BattleMech();
         lam.setType("lam");
         lam.setWalkSpeed(5);
@@ -1338,8 +1338,30 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(lam.getAirMechCruiseMP()).toBe(9);
         expect(lam.getAirMechFlankMP()).toBe(14);
         expect(lam.getMaxMovementHeat()).toBe(5);
-        expect(lam.isBattleValueProvisional()).toBe(true);
+        // Only loaded bombs and the Custom Omni-LAM keep LAM BV provisional; LAM PV stays provisional.
+        expect(lam.isBattleValueProvisional()).toBe(false);
+        expect(lam.isPointValueProvisional()).toBe(true);
         expect(new BattleMech().isBattleValueProvisional()).toBe(false);
+        expect(new BattleMech().isPointValueProvisional()).toBe(false);
+    });
+
+    // IO p.192 worked example, Phoenix Hawk LAM: 50 t, Run 8, Jump 5 (AirMech Flank 23), 12 single
+    // heat sinks. TMM +5 +1 airborne = +6; heat efficiency 9 + 12 - 8 = 13; speed factor 8 + 12 = 20 -> 3.00.
+    it("follows the IO p.192 LAM Battle Value example", () => {
+        const lam = new BattleMech();
+        lam.setType("lam");
+        lam.setTonnage(50);
+        lam.setWalkSpeed(5);
+        lam.setJumpSpeed(5);
+        lam.setAdditionalHeatSinks(2);
+        expect(lam.getBVRunSpeed()).toBe(8);
+        expect(lam.getAirMechFlankMP()).toBe(23);
+        expect(lam.getHeatSinks()).toBe(12);
+        expect(lam.getMaxMovementHeat()).toBe(8);
+        const log = lam.getBVCalcHTML();
+        expect(log).toContain("Best Base TMM: 6");
+        expect(log).toContain("Heat Efficiency Capacity Pool:</strong> 13");
+        expect(log).toContain("x 3.0000 [Speed Factor Rating]");
     });
 
     it("applies the x1.25 OmniMech cost multiplier", () => {
@@ -1454,7 +1476,7 @@ describe("LAM arm actuators", () => {
     });
 });
 
-// Bimodal LAMs (IO p.113 via MegaMek): no AirMech mode, 15% conversion weight, 65% conversion cost.
+// Bimodal LAMs: no AirMech mode (IO p.106), 15% conversion weight (IO p.114), x0.65 conversion cost (IO p.186).
 describe("Bimodal LAM", () => {
     const makeBimodal = () => {
         const lam = new BattleMech();

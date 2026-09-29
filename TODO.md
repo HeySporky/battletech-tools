@@ -104,9 +104,21 @@ tool. Items are ordered by dependency, not by product marketing priority.
     BV; check TM's aerospace external-stores BV rule.
   - [ ] Not included: the Alamo nuclear missile (optional nuclear rules) and
     the prototype rocket pod (Experimental).
-  - [ ] IO p.192 also changes LAM BV: add 9 (not 6) to heat sink capacity,
-    subtract AirMech flank movement heat, speed factor = 'Mech Run MP + half
-    AirMech Flank MP, and averaged pilot skills. Check our BV code against it.
+  - [x] IO p.192 LAM BV checked 2026-09-28: TMM on AirMech Flank MP +1
+    airborne (standard LAMs; bimodal use the 'Mech TMM), heat capacity +9
+    instead of +6, AirMech flank heat = MP / 3 rounded (IO p.113), speed factor
+    = Run MP + half AirMech Flank MP. Our code already matched; the test
+    reproduces the book's Phoenix Hawk LAM numbers (TMM +6, heat efficiency 13,
+    speed factor 3.00). LAM BV is no longer flagged provisional, except with
+    bombs loaded or on the Custom Omni-LAM; LAM PV stays provisional.
+    - Bimodal LAMs keep the 'Mech +6 heat: IO doesn't say, and the +3 comes
+      from AirMech mode's partial-wing bonus (IO p.113). MegaMek reads it the
+      same way.
+    - [ ] Averaged pilot skills ('Mech + aerospace, rounded normally; IO p.192,
+      TM p.314 variable skills): we store only one skill pair, so there is
+      nothing to average yet. Needs separate LAM aerospace skills.
+  - [ ] Alpha Strike conversion for LAMs (LAM movement and specials) is not
+    implemented, so LAM PV is marked provisional.
 - [x] Remaining LAM limits (IO p.114, confirmed 2026-09-28), reported in
   Step 6 via `getChassisEquipmentViolations()`:
   - no equipment split across locations (except avionics and landing gear);

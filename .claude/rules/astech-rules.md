@@ -151,7 +151,7 @@ new failures separately from pre-existing ones.
 
 **Baseline as of 2026-09-28 (after LAM bombs/fuel, Jump MP, gyros, and workbook Blocks 13-20; uncommitted)** —
 update this block when it changes:
-- Vitest: 221 passed / 0 failed. `mul-list-items.test.ts` sits near its 5 s
+- Vitest: 222 passed / 0 failed. `mul-list-items.test.ts` sits near its 5 s
   timeout and can flake under load.
 - ESLint on `src`: 0 errors / 1 warning (`npx eslint src`). Repo-wide
   `npm run lint` also picks up `.venv/` and Node scripts missing Node globals.
