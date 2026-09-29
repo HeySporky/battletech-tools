@@ -1,17 +1,7 @@
 import fs from 'fs';
-import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { createSSWDataFile } from "../utils/createSSWDataFile";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 
-
-function convertSSWToJeffBattleTechTools(
-    xml_string: string
-): IBattleMechExport {
-    let bm = new BattleMech();
-    bm.importSSWXML(xml_string);
-
-    return bm.export();
-}
 
 async function importDirectory( dir: string ): Promise<string[]> {
     if( await fs.existsSync(dir) ) {
