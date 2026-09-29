@@ -556,3 +556,26 @@ describe("BattleMech", () => {
         errors.mockRestore();
     });
 });
+
+describe("Regressions found by typechecking master", () => {
+    // 179803d2 merged "// @ts-expect-error ..." and the following statement onto one line, commenting the code out.
+    it("applies a weapon's accuracy modifier to the to-hit number (Clan ER Large Pulse Laser, -1)", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        const weapon = mech.addEquipmentFromTag("er_large_pulse_laser", "clan", "rt", false, undefined, "a", false, [], undefined, undefined)!;
+        const weaponIndex = mech.equipmentList.findIndex(item => item.uuid === weapon.uuid);
+        const target = { name: "Target", active: true, range: 3, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false };
+
+        const gator = getTargetToHitFromWeapon(mech, weaponIndex, target);
+        expect(gator.otherModifiers).toBe(-1);
+        expect(gator.otherModifiersExplanation).toContain("Weapon Accuracy Modifier");
+    });
+
+    it("exports TRO BBCode for every chassis type without throwing", () => {
+        for (const type of ["biped", "quad", "tripod"]) {
+            const mech = new BattleMech();
+            mech.setMechType(type);
+            expect(mech.makeTROBBCode(), type).toContain("Internal Structure");
+        }
+    });
+});

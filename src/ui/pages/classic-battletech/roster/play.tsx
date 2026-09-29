@@ -1150,10 +1150,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       mechData={selectedMech}
       inPlay={true}
       bgColor={selectedMech.isWrecked() ? "#666" : ""}
-      // @ts-expect-error Legacy compatibility type mismatch      openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
-      // @ts-expect-error Legacy compatibility type mismatch      openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
-      // @ts-expect-error Legacy compatibility type mismatch      openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
-      // @ts-expect-error Legacy compatibility type mismatch      openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
+      openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
+      openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
+      openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
+      openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
       onChange={this.onChange}
       viewGATOR={this.viewGATOR}
       currentPhase={this.props.appGlobals.currentCBTForce.phase}
@@ -1598,14 +1598,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           <div className="small-text">Transformation Mode</div>
           {this.state.setMovementDialog.isLAM() ? (
             <>
-              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("mech")}>Mech</button>
-              <button className={this.state.setMovementDialog.getTransformationMode() === "airmech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("airmech")}>AirMech</button>
-              <button className={this.state.setMovementDialog.getTransformationMode() === "aerospace" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("aerospace")}>Aerospace</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("mech")}>Mech</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "airmech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("airmech")}>AirMech</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "aerospace" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("aerospace")}>Aerospace</button>
             </>
           ) : (
             <>
-              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("mech")}>Mech</button>
-              <button className={this.state.setMovementDialog.getTransformationMode() === "vehicle" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog.setTransformationMode("vehicle")}>Vehicle</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "mech" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("mech")}>Mech</button>
+              <button className={this.state.setMovementDialog.getTransformationMode() === "vehicle" ? "btn btn-primary" : "btn"} onClick={() => this.state.setMovementDialog?.setTransformationMode("vehicle")}>Vehicle</button>
             </>
           )}
           {this.state.setMovementDialog.isQuadVee() ? <div className="small-text">Motive: {this.state.setMovementDialog.getQuadVeeMotive()} Vehicle Cruise MP: {this.state.setMovementDialog.getQuadVeeVehicleCruiseMP()}</div> : null}
@@ -2608,10 +2608,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 mechData={selectedMech}
                 inPlay={true}
                 bgColor={selectedMech.isWrecked() ? "#666" : ""}
-                // @ts-expect-error Legacy compatibility type mismatch                openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
-                // @ts-expect-error Legacy compatibility type mismatch                openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
-                // @ts-expect-error Legacy compatibility type mismatch                openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
-                // @ts-expect-error Legacy compatibility type mismatch                openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
+                openSetCriticalDialog={() => this.openSetCriticalDialog(selectedMech)}
+                openSetTargetDialog={() => this.openSetTargetDialog(selectedMech)}
+                openTakeDamageDialog={() => this.openTakeDamageDialog(selectedMech)}
+                openSetMovementDialog={() => this.openSetMovementDialog(selectedMech)}
                 onChange={this.onChange}
                 viewGATOR={this.viewGATOR}
                 currentPhase={this.props.appGlobals.currentCBTForce.phase}

@@ -880,8 +880,10 @@ export function getTargetToHitFromWeapon(
                 &&
                 equipmentList[index].accuracyModifier !== 0
             ) {
-                // @ts-expect-error Legacy compatibility type mismatch                gator.finalToHit += equipmentList[index].accuracyModifier;
-                // @ts-expect-error Legacy compatibility type mismatch                gator.otherModifiers = equipmentList[index].accuracyModifier;
+                // @ts-expect-error Legacy compatibility type mismatch
+                gator.finalToHit += equipmentList[index].accuracyModifier;
+                // @ts-expect-error Legacy compatibility type mismatch
+                gator.otherModifiers = equipmentList[index].accuracyModifier;
 
                 otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
             }
@@ -906,11 +908,9 @@ export function getTargetToHitFromWeapon(
                 if(
                     weaponRange.min
                     &&
-                    // @ts-expect-error Legacy compatibility type mismatch
                     weaponRange.min > 0
                 ) {
                     let minRange: number = 0;
-                    // @ts-expect-error Legacy compatibility type mismatch
                     minRange = weaponRange.min;
 
                     if( target.range < minRange ) {

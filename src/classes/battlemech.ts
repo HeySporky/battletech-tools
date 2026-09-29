@@ -2175,6 +2175,7 @@ export class BattleMech {
 
     public makeTROBBCode() {
 
+        const typeTag = this._mechType.tag.toLowerCase();
         let html = "";
         // Header Info
         html += "Type: " + this.getName() + "\n";
@@ -3392,7 +3393,7 @@ export class BattleMech {
         // Armor
         const armorObj = this.getArmorObj();
         const armorTechBase = this.getArmorTechBase();
-        const armorCriticalLocations = armorObj.critLocs?.[typeTag];
+        const armorCriticalLocations = armorObj.critLocs?.[typeTag as keyof NonNullable<typeof armorObj.critLocs>];
         if (armorCriticalLocations) {
             for (const [location, criticalCount] of Object.entries(armorCriticalLocations)) {
                 if (criticalCount && criticalCount > 0) {
@@ -4019,9 +4020,8 @@ export class BattleMech {
         walkSpeed: number,
     ) {
         this._walkSpeed = walkSpeed
-        if (this._walkSpeed > 0) {
-            this.setEngine(this._tonnage * this._walkSpeed);
-        }
+        // Engine rating = tonnage x Walk MP; Walk 0 clears the engine (setEngine(0) -> null).
+        this.setEngine(this._tonnage * this._walkSpeed);
 
         if( this._jumpSpeed > this._walkSpeed)
             this.setJumpSpeed(this._walkSpeed);
