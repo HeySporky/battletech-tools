@@ -9,6 +9,10 @@
         width: 250px;
         height: 335px;
     }
+
+    svg.tripod-armor-diagram {
+        height: 420px;
+    }
     .armor-select-dropdown {
         position: absolute;
         text-align: center;
@@ -56,6 +60,10 @@
         }
         &.ll {
             left: 27px;
+            top: 242px;
+        }
+        &.cl {
+            left: 91px;
             top: 242px;
         }
 
@@ -144,6 +152,10 @@
             width: 422px;
         }
 
+        svg.tripod-armor-diagram {
+            height: 565px;
+        }
+
         .armor-select-dropdown {
             position: absolute;
             text-align: center;
@@ -185,6 +197,10 @@
             }
             &.ll {
                 left: 75px;
+                top: 465px;
+            }
+            &.cl {
+                left: 178px;
                 top: 465px;
             }
 
