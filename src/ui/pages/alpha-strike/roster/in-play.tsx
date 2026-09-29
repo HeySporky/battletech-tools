@@ -1,7 +1,7 @@
 import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaColumns } from "react-icons/fa";
 import { FiRefreshCcw } from "react-icons/fi";
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IASPilotAbility } from '../../../../data/alpha-strike-pilot-abilities';

@@ -1,5 +1,5 @@
 import React, { type JSX } from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { IAppGlobals } from '../app-router';
 import TextSection from '../components/text-section';
 import UIPage from '../components/ui-page';

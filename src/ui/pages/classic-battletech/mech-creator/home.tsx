@@ -1,6 +1,6 @@
 import React, { type JSX } from 'react';
 import { FaArrowCircleRight, FaFile, FaFileExport, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { BattleMech, IBattleMechExport } from '../../../../classes/battlemech';
 import { IAppGlobals } from '../../../app-router';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
