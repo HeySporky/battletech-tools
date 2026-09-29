@@ -6,20 +6,20 @@ npm-debug.log
 .htaccess
 .eslintcache
 
-old
-old/*
-old*
+/old
+/old/*
+/old*
 
-boneyard
-boneyard/*
+/boneyard
+/boneyard/*
 
-build/*
-build*
-build
+/build/*
+/build*
+/build
 
-work/*
-work*
-work
+/work/*
+/work*
+/work
 
 /cli-tools/*
 /cli-tools
