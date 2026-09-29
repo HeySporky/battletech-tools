@@ -58,7 +58,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 
     render = (): JSX.Element => {
 
-        // Bipeds use the Biped anatomy; Tripod extends that base with a Center Leg overlay.
+        // Biped/LAM use the Biped anatomy; Tripod extends that base with a Center Leg overlay.
         // QuadVee correctly reuses the Quad diagram (same 4-leg, no-arm anatomy).
         const hasArms = !this.props.mechData.isQuad() && !this.props.mechData.isQuadVee();
 
