@@ -15,7 +15,7 @@ export interface IArmorUnitTypes {
 }
 
 export type ArmorCriticalLocationsByChassis = Partial<Record<
-    "biped" | "quad" | "tripod" | "quadvee",
+    "biped" | "quad" | "tripod" | "lam" | "quadvee",
     Partial<Record<keyof ICriticalLocations, number>>
 >>;
 
@@ -273,10 +273,12 @@ export interface IEquipmentItem {
     rulesLevel?: number;
     /** OmniMech base-chassis (fixed) equipment; everything else on an OmniMech is pod-mounted. */
     omniFixed?: boolean;
-    /** 'Mech chassis types (mech-type tags) this item may be mounted on, e.g. ["quad"]; unset = any. */
+    /** 'Mech chassis types (mech-type tags) this item may be mounted on, e.g. ["lam"]; unset = any. */
     chassisTypes?: string[];
-    /** Most copies of this item one unit may mount. */
+    /** Most copies of this item one unit may mount (e.g. LAM Bomb Bays, 20). */
     maxPerUnit?: number;
+    /** Bombs: bomb bay (or fighter bomb) slots one bomb occupies. Bombs are loaded, not mounted. */
+    bombBaySlots?: number;
 }
 
 export interface IEquipmentMetadata {
@@ -426,6 +428,8 @@ export interface IInternalStructure {
     	quad: Record<number, IInternalStructurePerTon>;
         quadvee: Record<number, IInternalStructurePerTon>;
     	tripod: Record<number, IInternalStructurePerTon>;
+		// LAMs follow Biped structure but have unique tonnage limits (max 55 tons) and component rules
+    	lam: Record<number, IInternalStructurePerTon>;
   	};
     /** Multiplier on internal structure points in the defensive BV (Industrial/Composite 0.5, Reinforced 2). */
     bvMultiplier?: number;

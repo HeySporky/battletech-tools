@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { BattleMech } from "./battlemech";
+import { validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { getWeaponAmmoFamilies } from "../data/equipment-registry";
@@ -215,7 +216,7 @@ describe("BattleMech armor technology availability", () => {
         }
 
         const stealth = mechArmorTypes.find(armor => armor.tag === "stealth-basic")!;
-        expect(Object.keys(stealth.critLocs ?? {}).sort()).toEqual(["biped", "quad", "quadvee", "tripod"]);
+        expect(Object.keys(stealth.critLocs ?? {}).sort()).toEqual(["biped", "lam", "quad", "quadvee", "tripod"]);
         expect(stealth.critLocs?.tripod?.cl).toBe(2);
         expect(stealth.critLocs?.quad?.fll).toBe(2);
         expect(stealth.critLocs?.quad?.frl).toBe(2);
@@ -264,7 +265,7 @@ describe("BattleMech armor allocation", () => {
             "rightTorso", "rightTorsoRear", "leftArm", "rightArm", "leftLeg",
             "rightLeg", "centerLeg", "frontLeftLeg", "frontRightLeg",
         ] as const;
-        for (const type of ["biped", "quad", "tripod"]) {
+        for (const type of ["biped", "quad", "tripod", "lam"]) {
             for (const tonnage of [20, 25, 55, 100]) {
                 const mech = new BattleMech();
                 mech.setType(type);
@@ -432,7 +433,36 @@ describe("BattleMech ATM ammunition", () => {
     });
 });
 
-describe("QuadVee and Tripod chassis rules", () => {
+describe("LAM and QuadVee chassis rules", () => {
+    // IO via MegaMek TestMek (provisional): at least 3 Jump MP, walking-MP cap still applies;
+    // Standard, Compact, or Heavy-Duty gyros only.
+    it("requires LAMs to have at least 3 jump MP and a Standard, Compact, or Heavy-Duty gyro", () => {
+        const mech = new BattleMech();
+        mech.setType("lam");
+        mech.setTonnage(50);
+        mech.setWalkSpeed(6);
+        mech.setJumpSpeed(0);
+        expect(mech.getJumpSpeed()).toBe(3);
+        mech.setJumpSpeed(6);
+        expect(mech.getJumpSpeed()).toBe(6);
+        expect(mech.getChassisEquipmentViolations().some(message => /Jump MP/.test(message))).toBe(false);
+        mech.setWalkSpeed(2);
+        mech.setJumpSpeed(0);
+        expect(mech.getChassisEquipmentViolations().some(message => /at least 3 Jump MP/.test(message))).toBe(true);
+
+        // No jump jet type limit for LAMs (user decision 2026-09-28; MegaMek has none).
+        mech.setJumpJetType("improved");
+        expect(mech.getJumpJetType().tag).toBe("improved");
+
+        mech.setGyroType("compact");
+        expect(mech.getGyro().tag).toBe("compact");
+        mech.setGyroType("heavy-duty");
+        expect(mech.getGyro().tag).toBe("heavy-duty");
+        mech.setGyroType("xl");
+        expect(mech.getGyro().tag).toBe("standard");
+        expect(mech.getAvailableGyros(4).find(gyro => gyro.tag === "xl")?.available).toBe(false);
+    });
+
     it("restricts QuadVees to standard armor and internal structure", () => {
         const mech = new BattleMech();
         mech.setType("quadvee");
@@ -457,6 +487,12 @@ describe("QuadVee and Tripod chassis rules", () => {
     });
 
     it("allows only chassis-appropriate transformation modes", () => {
+        const lam = new BattleMech();
+        lam.setType("lam");
+        lam.setTransformationMode("aerospace");
+        expect(lam.getTransformationMode()).toBe("aerospace");
+        expect(lam.canUsePhysicalAttacksInCurrentMode()).toBe(false);
+
         const quadvee = new BattleMech();
         quadvee.setType("quadvee");
         quadvee.setTransformationMode("vehicle");
@@ -469,6 +505,19 @@ describe("QuadVee and Tripod chassis rules", () => {
         expect(biped.getTransformationMode()).toBe("mech");
         // Regression: play mode offered no Jump option to Bipeds with jump jets.
         expect(biped.canUseJumpJetsInCurrentMode()).toBe(true);
+    });
+
+    it("requires LAM avionics and landing gear in the mandated locations", () => {
+        const mech = new BattleMech();
+        mech.setType("lam");
+        const criticals = mech.getCriticals();
+
+        expect(criticals.head[3]?.tag).toBe("lam-avionics");
+        expect(criticals.leftTorso.some(item => item?.tag === "lam-avionics")).toBe(true);
+        expect(criticals.rightTorso.some(item => item?.tag === "lam-avionics")).toBe(true);
+        expect(criticals.centerTorso.some(item => item?.tag === "lam-landing-gear")).toBe(true);
+        expect(criticals.leftTorso.filter(item => item?.tag === "lam-landing-gear")).toHaveLength(1);
+        expect(criticals.rightTorso.filter(item => item?.tag === "lam-landing-gear")).toHaveLength(1);
     });
 
     it("reserves both slots in all QuadVee legs for conversion gear", () => {
@@ -496,10 +545,17 @@ describe("QuadVee and Tripod chassis rules", () => {
         expect(quadvee.getCurrentTonnage() - biped.getCurrentTonnage()).toBe(3);
     });
 
-    // IO p.134 (QuadVee): conversion equipment is 10% of mass, rounded up to a whole ton.
-    it("rounds QuadVee conversion equipment up to a whole ton", () => {
+    // IO p.113 (LAM) / p.134 (QuadVee): conversion equipment is 10% of mass, rounded up to a whole ton.
+    it("rounds LAM and QuadVee conversion equipment up to a whole ton", () => {
         const conversionWeight = (mech: BattleMech) =>
             mech.getWeightBreakdown().find(entry => /Conversion/.test(entry.name))?.weight;
+
+        const lam = new BattleMech();
+        lam.setType("lam");
+        lam.setTonnage(55);
+        expect(conversionWeight(lam)).toBe(6);
+        lam.setTonnage(30);
+        expect(conversionWeight(lam)).toBe(3);
 
         const quadvee = new BattleMech();
         quadvee.setType("quadvee");
@@ -507,6 +563,120 @@ describe("QuadVee and Tripod chassis rules", () => {
         expect(conversionWeight(quadvee)).toBe(6);
 
         expect(conversionWeight(new BattleMech())).toBeUndefined();
+    });
+
+    // TRO:3085 pp.286-288 / IO p.113: no Endo Steel, ferro-fibrous (or other slot-occupying
+    // armor/structure), Hardened armor, advanced engines, or OmniMech construction for LAMs.
+    it("enforces LAM armor, structure, engine, and Omni construction limits", () => {
+        const lam = new BattleMech();
+        lam.setType("lam");
+
+        lam.setArmorType("ferro-fibrous");
+        expect(lam.getArmorType()).toBe("standard");
+        lam.setArmorType("hardened");
+        expect(lam.getArmorType()).toBe("standard");
+        lam.setInternalStructureType("endo-steel");
+        expect(lam.getInternalStructureType()).toBe("standard");
+        lam.setEngineType("xl");
+        expect(lam.getEngineType().tag).toBe("standard");
+        lam.setEngineType("compact");
+        expect(lam.getEngineType().tag).toBe("compact");
+        lam.toggleOmni();
+        expect(lam.isOmnimech).toBe(false);
+
+        expect(lam.getAvailableArmorTypes().find(armor => armor.tag === "ferro-fibrous")?.available).toBe(false);
+        expect(lam.getAvailableInternalStructures().find(structure => structure.tag === "endo-steel")?.available).toBe(false);
+        expect(lam.getAvailableEngines().find(engine => engine.tag === "xl")?.available).toBe(false);
+    });
+
+    it("strips illegal components when an existing design is converted to a LAM", () => {
+        const mech = new BattleMech();
+        mech.setEra("ilClan");
+        mech.setArmorType("ferro-fibrous");
+        mech.setInternalStructureType("endo-steel");
+        mech.setEngineType("xl");
+        mech.toggleOmni();
+        mech.setType("lam");
+
+        expect(mech.getArmorType()).toBe("standard");
+        expect(mech.getInternalStructureType()).toBe("standard");
+        expect(mech.getEngineType().tag).toBe("standard");
+        expect(mech.isOmnimech).toBe(false);
+    });
+
+    // Custom Homebrew Omni-LAM (Kronos Battle Systems fan rule KBS-3066-07-07-TRO3067).
+    describe("Custom Homebrew Omni-LAM", () => {
+        const makeOmniLAM = () => {
+            const lam = new BattleMech();
+            lam.setTech("is");
+            lam.setType("lam");
+            lam.toggleOmni(5);
+            return lam;
+        };
+
+        it("is only available to Inner Sphere LAMs at the Custom Homebrew rules level", () => {
+            const canon = new BattleMech();
+            canon.setType("lam");
+            canon.toggleOmni(4);
+            expect(canon.isOmnimech).toBe(false);
+
+            expect(makeOmniLAM().isOmniLAM()).toBe(true);
+
+            const clan = new BattleMech();
+            clan.setTech("clan");
+            clan.setType("lam");
+            expect(clan.canBeOmniMech(5)).toBe(false);
+            clan.toggleOmni(5);
+            expect(clan.isOmnimech).toBe(false);
+
+            const omniLAM = makeOmniLAM();
+            omniLAM.setTech("clan");
+            expect(omniLAM.isOmnimech).toBe(false);
+        });
+
+        it("keeps every arm actuator (restriction 3)", () => {
+            const lam = makeOmniLAM();
+            lam.toggleHandActuator("la");
+            lam.toggleLowerArmActuator("ra");
+            lam.setTonnage(lam.getTonnage());
+            expect(lam.hasHandActuator("la")).toBe(true);
+            expect(lam.hasLowerArmActuator("ra")).toBe(true);
+            expect(lam.hasHandActuator("ra")).toBe(true);
+        });
+
+        it("costs 1.75 times a normal LAM", () => {
+            const canon = new BattleMech();
+            canon.setTech("is");
+            canon.setType("lam");
+            canon.getCBillCalcHTML();
+            const omni = makeOmniLAM();
+            omni.getCBillCalcHTML();
+            expect(omni.getCBillCostNumeric()).toBe(Math.round(canon.getCBillCostNumeric() * 1.75));
+        });
+
+        it("reports a symmetric empty chassis as balanced with equal pod space", () => {
+            expect(makeOmniLAM().getOmniLAMViolations()).toEqual([]);
+            expect(new BattleMech().getOmniLAMViolations()).toEqual([]);
+        });
+
+        it("requires equal equipment weight on the left and right sides (restriction 1)", () => {
+            const lam = makeOmniLAM();
+            const place = (location: "lt" | "rt", key: "leftTorso" | "rightTorso") => {
+                const laser = lam.addEquipmentFromTag("medium-laser", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+                const fromIndex = lam.unallocatedCriticals.findIndex(item => item?.uuid === laser.uuid);
+                expect(lam.moveCritical("un", fromIndex, location, lam.getCriticals()[key].findIndex(item => !item))).toBe(true);
+            };
+
+            place("lt", "leftTorso");
+            expect(lam.getOmniLAMViolations().some(violation => violation.startsWith("Balance"))).toBe(true);
+            place("rt", "rightTorso");
+            expect(lam.getOmniLAMViolations()).toEqual([]);
+        });
+    });
+
+    it("allows LAMs above 55 tons only at Custom Homebrew rules level", () => {
+        expect(validateChassisCombination("standard", "lam", 60, 2)).toBe(false);
+        expect(validateChassisCombination("standard", "lam", 60, 5)).toBe(true);
     });
 
     it("allows QuadVees to continue in Vehicle mode after gyro failure", () => {
@@ -526,6 +696,11 @@ describe("QuadVee and Tripod chassis rules", () => {
         expect(tripod.hasFullTorsoTwist()).toBe(true);
         expect(tripod.getPilotingSkillModifier()).toBe(-1);
         expect(tripod.ignoresSecondaryTargetModifier()).toBe(true);
+
+        const lam = new BattleMech();
+        lam.setType("lam");
+        lam.setTransformationMode("airmech");
+        expect(lam.getAttackerMovementModifier()).toBe(3);
 
         const quadvee = new BattleMech();
         quadvee.setType("quadvee");
@@ -563,6 +738,22 @@ describe("QuadVee and Tripod chassis rules", () => {
         quadvee.setTransformationMode("vehicle");
         quadvee.takeDamage(100, "ll", false);
         expect(quadvee.getWalkSpeed()).toBe(5);
+    });
+
+    it("marks prohibited LAM equipment unavailable (IO p.114)", () => {
+        const mech = new BattleMech();
+        mech.setType("lam");
+        mech.setEra("ilClan");
+
+        const available = (tag: string) => mech.getAvailableEquipment(true).find(item => item.tag === tag)?.available;
+        // Needs a Piloting skill to fire, conversion-blocking equipment, or artillery.
+        for (const tag of ["gauss-rifle-heavy", "gauss-rifle-heavy-improved", "supercharger", "partial-wing",
+            "mechanical-jump-booster", "backhoe", "combine", "bridge-layer-light", "thumper-artillery"]) {
+            expect([tag, available(tag)]).toEqual([tag, false]);
+        }
+        // Physical attack weapons and ordinary weapons stay legal.
+        expect(available("melee-hatchet")).toBe(true);
+        expect(available("rotary-ac-2")).toBe(true);
     });
 
     it("applies Tripod cockpit, gyro, Omni, and one-leg stability rules", () => {
@@ -1113,7 +1304,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         return mech.getCBillCostNumeric();
     };
 
-    // IO p.50 (via MegaMek): Tripods and QuadVees are Advanced; Standard is tournament play.
+    // IO p.50 (via MegaMek): Tripods and QuadVees are Advanced, LAMs Experimental; Standard is tournament play.
     it("reports the lowest legal rules level for each chassis", () => {
         const level = (type: string, tonnage = 50) => {
             const mech = new BattleMech();
@@ -1125,13 +1316,56 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(level("quad")).toBe(0);
         expect(level("tripod")).toBe(3);
         expect(level("quadvee")).toBe(3);
+        expect(level("lam")).toBe(4);
         expect(level("biped", 120)).toBe(3);
+
+        const omniLAM = new BattleMech();
+        omniLAM.setTech("is");
+        omniLAM.setType("lam");
+        omniLAM.toggleOmni(5);
+        expect(omniLAM.getRequiredRulesLevel()).toBe(5);
     });
 
     it("hides Advanced and Experimental chassis from Standard play", async () => {
         const { getMechTypeOptionsForRulesLevel } = await import("../data/mech-type-options");
         expect(getMechTypeOptionsForRulesLevel(2).map(option => option.tag)).toEqual(["biped", "quad"]);
         expect(getMechTypeOptionsForRulesLevel(3).map(option => option.tag)).toEqual(["biped", "quad", "tripod", "quadvee"]);
+        expect(getMechTypeOptionsForRulesLevel(4).map(option => option.tag)).toContain("lam");
+    });
+
+    // AirMech Cruise MP = Jump MP x 3, Flank = x1.5 rounded up (IO p.108); flank heat = MP / 3 (IO p.113).
+    it("uses AirMech Flank MP for LAM movement heat", () => {
+        const lam = new BattleMech();
+        lam.setType("lam");
+        lam.setWalkSpeed(5);
+        lam.setJumpSpeed(3);
+        expect(lam.getAirMechCruiseMP()).toBe(9);
+        expect(lam.getAirMechFlankMP()).toBe(14);
+        expect(lam.getMaxMovementHeat()).toBe(5);
+        // Only loaded bombs and the Custom Omni-LAM keep LAM BV provisional; LAM PV stays provisional.
+        expect(lam.isBattleValueProvisional()).toBe(false);
+        expect(lam.isPointValueProvisional()).toBe(true);
+        expect(new BattleMech().isBattleValueProvisional()).toBe(false);
+        expect(new BattleMech().isPointValueProvisional()).toBe(false);
+    });
+
+    // IO p.192 worked example, Phoenix Hawk LAM: 50 t, Run 8, Jump 5 (AirMech Flank 23), 12 single
+    // heat sinks. TMM +5 +1 airborne = +6; heat efficiency 9 + 12 - 8 = 13; speed factor 8 + 12 = 20 -> 3.00.
+    it("follows the IO p.192 LAM Battle Value example", () => {
+        const lam = new BattleMech();
+        lam.setType("lam");
+        lam.setTonnage(50);
+        lam.setWalkSpeed(5);
+        lam.setJumpSpeed(5);
+        lam.setAdditionalHeatSinks(2);
+        expect(lam.getBVRunSpeed()).toBe(8);
+        expect(lam.getAirMechFlankMP()).toBe(23);
+        expect(lam.getHeatSinks()).toBe(12);
+        expect(lam.getMaxMovementHeat()).toBe(8);
+        const log = lam.getBVCalcHTML();
+        expect(log).toContain("Best Base TMM: 6");
+        expect(log).toContain("Heat Efficiency Capacity Pool:</strong> 13");
+        expect(log).toContain("x 3.0000 [Speed Factor Rating]");
     });
 
     it("applies the x1.25 OmniMech cost multiplier", () => {
@@ -1153,6 +1387,9 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         const tripodHTML = (() => { const tripod = new BattleMech(); tripod.setType("tripod"); return tripod.getCBillCalcHTML(); })();
         expect(tripodHTML).toContain("Tripod Cockpit");
         expect(tripodHTML).toContain("x 1.2 [Tripod]");
+
+        const lamHTML = (() => { const lam = new BattleMech(); lam.setType("lam"); return lam.getCBillCalcHTML(); })();
+        expect(lamHTML).toContain("0.75 x (Structure");
     });
 
     // TM / IO via MegaMek MekCostCalculator (provisional).
@@ -1226,6 +1463,162 @@ describe("OmniMech base chassis pod space", () => {
         standard.setEquipmentFixed(laser.uuid, true);
         expect(laser.omniFixed).toBeUndefined();
         expect(standard.getOmniPodSpace().totalSlots).toBe(0);
+    });
+});
+
+describe("LAM arm actuators", () => {
+    // IO (via MegaMek TestMek): LAMs require upper and lower arm actuators in both arms; hands are optional.
+    it("keeps lower arm actuators but allows removing hands", () => {
+        const lam = new BattleMech();
+        lam.setType("lam");
+        lam.toggleLowerArmActuator("la");
+        lam.toggleHandActuator("ra");
+        lam.setTonnage(lam.getTonnage());
+        expect(lam.hasLowerArmActuator("la")).toBe(true);
+        expect(lam.hasHandActuator("ra")).toBe(false);
+        expect(lam.hasLowerArmActuator("ra")).toBe(true);
+    });
+});
+
+// Bimodal LAMs: no AirMech mode (IO p.106), 15% conversion weight (IO p.114), x0.65 conversion cost (IO p.186).
+describe("Bimodal LAM", () => {
+    const makeBimodal = () => {
+        const lam = new BattleMech();
+        lam.setType("lam");
+        lam.setTonnage(30);
+        lam.setLAMType("bimodal");
+        return lam;
+    };
+
+    it("has no AirMech mode or AirMech BV terms", () => {
+        const lam = makeBimodal();
+        lam.setJumpSpeed(3);
+        expect(lam.hasAirMechMode()).toBe(false);
+        expect(lam.setTransformationMode("airmech")).toBe("mech");
+        expect(lam.setTransformationMode("aerospace")).toBe("aerospace");
+        expect(lam.getAirMechFlankMP()).toBe(0);
+    });
+
+    it("uses 15% conversion weight and 65% conversion cost", () => {
+        const lam = makeBimodal();
+        expect(lam.getWeightBreakdown().find(entry => /Conversion/.test(entry.name))?.weight).toBe(5);
+        expect(lam.getCBillCalcHTML()).toContain("0.65 x (Structure");
+    });
+
+    it("keeps the LAM type through save and load and resets it for other chassis", () => {
+        const restored = new BattleMech(makeBimodal().exportJSON(true));
+        expect(restored.getLAMType()).toBe("bimodal");
+        restored.setType("biped");
+        expect(restored.getLAMType()).toBe("standard");
+    });
+});
+
+// LAM Bomb Bays, bombs, and Fuel Tanks (IO pp.110-114, 192, 220-221). Bomb stats via MegaMek.
+describe("LAM bombs and fuel", () => {
+    const addTo = (mech: BattleMech, tag: string, location: "lt" | "rt" | "ct" | "la", key: "leftTorso" | "rightTorso" | "centerTorso" | "leftArm") => {
+        const item = mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const fromIndex = mech.unallocatedCriticals.findIndex(slot => slot?.uuid === item.uuid);
+        expect(mech.moveCritical("un", fromIndex, location, mech.getCriticals()[key].findIndex(slot => !slot))).toBe(true);
+        return item;
+    };
+    const makeLAM = () => {
+        const lam = new BattleMech();
+        lam.setType("lam");
+        lam.setTonnage(50);
+        return lam;
+    };
+
+    it("offers Bomb Bays and Fuel Tanks only to LAMs, and never lists bombs as mountable", () => {
+        const lamTags = makeLAM().getAvailableEquipment().filter(item => item.available).map(item => item.tag);
+        expect(lamTags).toEqual(expect.arrayContaining(["lam-bomb-bay", "lam-fuel-tank"]));
+        const biped = new BattleMech().getAvailableEquipment();
+        expect(biped.find(item => item.tag === "lam-bomb-bay")?.available).toBe(false);
+        expect(biped.some(item => item.bombBaySlots)).toBe(false);
+    });
+
+    it("adds 80 fuel points per Fuel Tank to the 80 base points", () => {
+        const lam = makeLAM();
+        expect(lam.getLAMFuelPoints()).toBe(80);
+        addTo(lam, "lam-fuel-tank", "lt", "leftTorso");
+        expect(lam.getLAMFuelPoints()).toBe(160);
+    });
+
+    it("loads bombs only into torso bays, one location per multi-slot bomb", () => {
+        const lam = makeLAM();
+        expect(lam.setBombCount("ammo-bomb-standard", 1)).toBe(false);
+        for (let bay = 0; bay < 3; bay++) addTo(lam, "lam-bomb-bay", "lt", "leftTorso");
+        addTo(lam, "lam-bomb-bay", "rt", "rightTorso");
+        addTo(lam, "lam-bomb-bay", "la", "leftArm");
+        addTo(lam, "lam-bomb-bay", "ct", "centerTorso");
+        expect(lam.getBombBayCount()).toBe(6);
+        // Bays go only in the left or right torso (IO p.114).
+        expect(lam.getBombBaysByLocation()).toEqual({ lt: 3, rt: 1 });
+        expect(lam.getChassisEquipmentViolations().find(message => /outside the side torsos/.test(message))).toMatch(/^2 Bomb Bay/);
+
+        // A two-slot Fuel-Air bomb needs two bays in one location.
+        expect(lam.setBombCount("ammo-bomb-fuel-air-large", 1)).toBe(true);
+        expect(lam.setBombCount("ammo-bomb-standard", 2)).toBe(true);
+        expect(lam.getBombLoadoutSlots()).toBe(4);
+        expect(lam.setBombCount("ammo-bomb-fuel-air-large", 2)).toBe(false);
+        expect(lam.getBombLoadout()).toEqual({ "ammo-bomb-fuel-air-large": 1, "ammo-bomb-standard": 2 });
+    });
+
+    it("adds loaded bomb BV after rounding and keeps the loadout through save and load", () => {
+        const lam = makeLAM();
+        addTo(lam, "lam-bomb-bay", "lt", "leftTorso");
+        addTo(lam, "lam-bomb-bay", "rt", "rightTorso");
+        lam.clearBombLoadout(); // recalculates with both bays placed
+        const unloaded = lam.getBattleValue();
+        expect(lam.setBombCount("ammo-bomb-standard", 2)).toBe(true);
+        expect(lam.getBattleValue()).toBe(unloaded + 24);
+
+        const restored = new BattleMech(lam.exportJSON(true));
+        expect(restored.getBombLoadout()).toEqual({ "ammo-bomb-standard": 2 });
+        expect(restored.getBattleValue()).toBe(unloaded + 24);
+        restored.setType("biped");
+        expect(restored.getBombLoadout()).toEqual({});
+    });
+
+    it("counts each Bomb Bay and Fuel Tank slot as explosive ammunition for BV (IO p.192)", () => {
+        const penalty = (tag: string) => {
+            const lam = makeLAM();
+            addTo(lam, tag, "lt", "leftTorso");
+            lam.clearBombLoadout();
+            return lam.getBVCalcHTML();
+        };
+        for (const tag of ["lam-bomb-bay", "lam-fuel-tank"]) {
+            const log = penalty(tag);
+            expect(log).toContain("Explosive Ammo Crit in leftTorso (Inner Sphere, -15)");
+            expect(log).not.toMatch(/Explosive Component Crit \((Bomb Bay|Fuel Tank)/);
+        }
+    });
+
+    it("blocks artillery on LAMs and does not flag separate items in different locations", () => {
+        const lam = makeLAM();
+        expect(lam.getAvailableEquipment().find(item => item.tag === "thumper-artillery")?.available).toBe(false);
+        expect(new BattleMech().getAvailableEquipment().find(item => item.tag === "thumper-artillery")?.available).toBe(true);
+        addTo(lam, "lam-bomb-bay", "lt", "leftTorso");
+        addTo(lam, "lam-bomb-bay", "rt", "rightTorso");
+        expect(lam.getChassisEquipmentViolations().filter(message => /single location/.test(message))).toEqual([]);
+    });
+
+    it("raises the rules level for Advanced bombs and passes it to the Alpha Strike unit", () => {
+        const lam = makeLAM();
+        addTo(lam, "lam-bomb-bay", "lt", "leftTorso");
+        expect(lam.calcAlphaStrike().rulesLevel).toBe(4); // LAM chassis: Experimental
+        const biped = new BattleMech();
+        expect(biped.calcAlphaStrike().rulesLevel).toBe(biped.getRequiredRulesLevel());
+        expect(biped.getRequiredRulesLevel()).toBeLessThanOrEqual(2);
+        expect(lam.setBombCount("ammo-bomb-inferno", 1)).toBe(true);
+        expect(lam.getRequiredRulesLevel()).toBe(4);
+    });
+
+    it("gates Advanced bombs behind the Advanced rules level", () => {
+        const lam = makeLAM();
+        const standardTags = lam.getAvailableBombs(2).map(item => item.tag);
+        expect(standardTags).toContain("ammo-bomb-standard");
+        expect(standardTags).not.toContain("ammo-bomb-inferno");
+        expect(lam.getAvailableBombs(3).map(item => item.tag)).toContain("ammo-bomb-inferno");
     });
 });
 

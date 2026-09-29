@@ -117,6 +117,13 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       this.props.appGlobals.saveCurrentBattleMech( mech );
     }
 
+    setBombCount = ( tag: string, count: number ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setBombCount( tag, count );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
     removeEquipment = ( itemUUID: string | undefined ): boolean => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.removeEquipment(
@@ -308,6 +315,54 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                   ))}
                                 </tbody>
                               </table>
+                            </fieldset>
+                          ) : null}
+
+                          {currentMech.isLAM() ? (
+                            <fieldset className="fieldset">
+                              <legend>LAM Fuel and Bombs</legend>
+                              <p>
+                                Fuel: <strong>{currentMech.getLAMFuelPoints()}</strong> points
+                                (80 base + 80 per Fuel Tank).
+                                Bomb Bays: <strong>{currentMech.getBombBayCount()}</strong> of 20 maximum,
+                                &nbsp;<strong>{currentMech.getBombLoadoutSlots()}</strong> bomb slots loaded.
+                              </p>
+                              <p className="smaller-text">
+                                Install Bomb Bays in the left or right torso, then load bombs here. A bomb
+                                that needs several slots must fit in the bays of one location. Bombs add no
+                                weight or cost (IO pp.110, 186). Loaded bombs add their BV (provisional,
+                                via MegaMek).
+                              </p>
+                              {currentMech.getBombBayCount() > 0 ? (
+                                <table className="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Bomb</th>
+                                      <th>Slots</th>
+                                      <th>BV</th>
+                                      <th>Loaded</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    {currentMech.getAvailableBombs(this.props.appGlobals.appSettings.mechRulesFilter).map( (bomb) => (
+                                      <tr key={bomb.tag}>
+                                        <td>{bomb.name}</td>
+                                        <td>{bomb.bombBaySlots}</td>
+                                        <td>{bomb.battleValue}</td>
+                                        <td>
+                                          <input
+                                            type="number"
+                                            min={0}
+                                            max={20}
+                                            value={currentMech.getBombLoadout()[bomb.tag] ?? 0}
+                                            onChange={(event: React.FormEvent<HTMLInputElement>) => this.setBombCount(bomb.tag, +event.currentTarget.value)}
+                                          />
+                                        </td>
+                                      </tr>
+                                    ))}
+                                  </tbody>
+                                </table>
+                              ) : null}
                             </fieldset>
                           ) : null}
 
