@@ -106,6 +106,14 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    updateLAMType = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setLAMType(e.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech(currentMech);
+      }
+    }
+
     updateQuadVeeMotive = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         const currentMech = this.props.appGlobals.currentBattleMech;
@@ -221,6 +229,19 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </p>
                           ) : null}
 
+                          {this.props.appGlobals.currentBattleMech.isLAM() ? (
+                            <label>
+                              LAM Type:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getLAMType()}
+                                onChange={this.updateLAMType}
+                              >
+                                <option value="standard">Standard (Mech / AirMech / Fighter)</option>
+                                <option value="bimodal">Bimodal (Mech / Fighter)</option>
+                              </select>
+                            </label>
+                          ) : null}
+
                           {this.props.appGlobals.currentBattleMech.isQuadVee() ? (
                             <label>
                               QuadVee Motive:
@@ -239,6 +260,16 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             checked={this.props.appGlobals.currentBattleMech.isOmnimech}
                             onChange={this.toggleOmni}
                           />
+                          {this.props.appGlobals.currentBattleMech.isLAM() ? (
+                            <p className="smaller-text">
+                              {this.props.appGlobals.currentBattleMech.isOmniLAM()
+                                ? "Omni-LAM (Custom Homebrew, Kronos Battle Systems fan rule): Inner Sphere only, arm actuators are fixed, cost x1.75."
+                                : "Canon LAMs cannot be OmniMechs. The fan-made Omni-LAM is available to Inner Sphere LAMs at the Custom Homebrew rules level."}
+                            </p>
+                          ) : null}
+                          {this.props.appGlobals.currentBattleMech.getOmniLAMViolations().map( (violation) => (
+                            <p key={violation} className="color-red smaller-text">{violation}</p>
+                          ))}
 
                           <label>
                             Mech Era:

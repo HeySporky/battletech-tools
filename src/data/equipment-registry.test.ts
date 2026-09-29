@@ -176,6 +176,11 @@ describe("equipment catalog provenance", () => {
         for (const [catalog, items] of Object.entries(catalogs)) {
             const weapons = catalog === "is" ? pools.is : catalog === "clan" ? pools.clan : [...pools.is, ...pools.clan];
             for (const ammo of items) {
+                // Bombs load into Bomb Bays (LAM) or fighter bomb slots instead of feeding a weapon.
+                if (ammo.bombBaySlots) {
+                    if (!weapons.some(item => item.tag === "lam-bomb-bay")) unfed.push(`${catalog} ${ammo.tag} (no bomb bay)`);
+                    continue;
+                }
                 if (!weapons.some(weapon => !weapon.isAmmo && getCompatibleAmmo(weapon, ammo))) unfed.push(`${catalog} ${ammo.tag}`);
             }
         }
