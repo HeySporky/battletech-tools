@@ -169,7 +169,7 @@ interface IInputNumericProps {
     label?: string;
     onChange?( event: React.FormEvent<HTMLInputElement>): void;
     setValue?( newValue: number ): void;
-    value: number | undefined;
+    value: number | string | undefined;
     description?: string;
     name?: string;
     title?: string;

@@ -11,6 +11,7 @@ import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missil
 import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
+import { resolveMULEraFilter } from "./utils/mulUtilities";
 
 export function getISEquipmentList(): IEquipmentItem[] {
     return getEquipmentListByTech("is");
@@ -520,6 +521,9 @@ export async function getMULASSearchResults(
     overrideSearchLimitLength: boolean = false,
     appGlobals: IAppGlobals | null = null,
 ): Promise<IASMULUnit[]> {
+
+    // A Clan era picked in the filter searches the MUL era it maps to; the MUL has no Clan eras.
+    eraFilter = resolveMULEraFilter(eraFilter);
 
     let returnUnits: IASMULUnit[] = [];
 

@@ -35,13 +35,18 @@ export const mechEngineTypes: IEngineType[] = [
 		name: "XL Fusion",
 		tag: "xl",
 		criticals: {
-			is: { ct: 6, lt: 3, rt: 3 }
+			is: { ct: 6, lt: 3, rt: 3 },
+			// The Clans kept the Star League XL until their own Clan XL (2827) replaced it.
+			clan: { ct: 6, lt: 3, rt: 3 }
 		},
 		costMultiplier: 20000,
 		prototype: 2556,
 		introduced: 2579,
 		extinct: 2865,
 		reintroduced: 3035,
+		// Retirement date set by the project owner (2026-09-30), in line with the Clans' other Star League
+		// copies (~2850); no published extinction date.
+		clanDates: { prototype: 2556, introduced: 2579, extinct: 2850, reintroduced: null },
 		rating: 0
 	},
 	{

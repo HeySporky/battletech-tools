@@ -1,4 +1,4 @@
-import { IEquipmentItem } from "./data-interfaces";
+import { IEquipmentItem, ITechDates } from "./data-interfaces";
 import { mechISEquipmentBallistic } from "./mech-is-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "./mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./mech-is-equipment-weapons-misc";
@@ -181,6 +181,39 @@ export function getEffectiveIntroduction(item: Pick<IEquipmentItem, "prototype" 
         return item.prototype;
     }
     return item.introduced;
+}
+
+/**
+ * A tech progression year typed by a user or read from an import. Blank, zero or anything that is not a
+ * positive year means unknown or none: null, which the availability checks read as "no such date"
+ * (`introduced: null` with a `prototype` year marks a prototype-only item).
+ */
+export function parseTechYear(value: string | number | null | undefined): number | null {
+    if (value === null || value === undefined || (typeof value === "string" && value.trim() === "")) {
+        return null;
+    }
+    const year = Number(value);
+    return Number.isFinite(year) && year > 0 ? Math.round(year) : null;
+}
+
+/** Last year of the Star League era: the Exodus fleet left with what the SLDF fielded then. */
+export const STAR_LEAGUE_END_YEAR = 2780;
+
+/**
+ * Clan designs keep the Star League (Inner Sphere) version of a component until their own Clan version
+ * replaces it (project decision, 2026-09-30). The carried version keeps the Inner Sphere slots and armor
+ * factor. Null when the item has no separate Clan dates or was not in Star League service.
+ */
+export function getStarLeagueCarryOverDates(item: ITechDates & { clanDates?: ITechDates }): ITechDates | null {
+    if (!item.clanDates || !item.introduced || item.introduced > STAR_LEAGUE_END_YEAR
+        || (item.extinct && item.extinct <= STAR_LEAGUE_END_YEAR)) {
+        return null;
+    }
+    const clanProduction = item.clanDates.introduced;
+    if (clanProduction && clanProduction <= item.introduced) {
+        return null;
+    }
+    return { prototype: item.prototype, introduced: item.introduced, extinct: clanProduction ?? null, reintroduced: null };
 }
 
 export function getAmmoRoundsPerTon(ammo: IEquipmentItem): number {

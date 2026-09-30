@@ -136,7 +136,10 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     tag: "standard",
     crits: { clan: 0, is: 0 },
     cost: 400,
-    introduced: 0, // Pre-spaceflight: always available
+    // Standard (BattleMech) structure: prototype ~2430, production 2439 (TH) (IO p.48), the earliest 'Mech
+    // construction date; available in every era from then on.
+    prototype: 2430,
+    introduced: 2439,
     extinct: 0,
     reintroduced: 0,
     perMechType: {
