@@ -14,3 +14,14 @@ describe("AppSettings MUL search cache", () => {
         expect(settings.export()).not.toHaveProperty("alphasStrikeCachedSearchResults");
     });
 });
+describe("AppSettings special ability filter", () => {
+    it("persists the selected abilities and ignores anything that is not a string", () => {
+        const settings = new AppSettings({ alphaStrikeSearchAbilities: ["ECM", "!IF", 3] } as never);
+        expect(settings.alphaStrikeSearchAbilities).toEqual(["ECM", "!IF"]);
+        expect(settings.export().alphaStrikeSearchAbilities).toEqual(["ECM", "!IF"]);
+    });
+
+    it("defaults to no ability filter for older saved settings", () => {
+        expect(new AppSettings({} as never).alphaStrikeSearchAbilities).toEqual([]);
+    });
+});
