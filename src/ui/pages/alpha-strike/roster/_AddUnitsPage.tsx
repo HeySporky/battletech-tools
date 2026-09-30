@@ -4,20 +4,18 @@ import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../clas
 import { BattleMech } from '../../../../classes/battlemech';
 import { isMULSourceSelection, loadMULListItems, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
+import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
 import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 import { generateUUID } from '../../../../utils/generateUUID';
-import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
 import type { JSX } from "react";
 const Bars = FaBars as any;
 const Eye = FaEye as any;
 const Plus = FaPlus as any;
 const Trash = FaTrash as any;
-
-const MAX_ABILITY_SUGGESTIONS = 12;
 
 //TODO: Clearfix Hack for overflowing results
 /*
@@ -29,6 +27,7 @@ const MAX_ABILITY_SUGGESTIONS = 12;
 
 */
 
+const MAX_ABILITY_SUGGESTIONS = 12;
 
 export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrikeAddUnitsViewProps, IAlphaStrikeAddUnitsViewState> {
 
@@ -43,12 +42,12 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
 
         this.state = {
+          abilityCodes: [],
           searchResults: [],
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
-            isSearching: false,
-            abilityCodes: [],
+            isSearching: false
         }
     }
 
@@ -913,10 +912,10 @@ interface IAlphaStrikeAddUnitsViewProps {
 }
 
 interface IAlphaStrikeAddUnitsViewState {
+    abilityCodes: IAbilityCodeCount[];
     searchResults: IASMULUnit[];
     contextMenuSearch: number;
     contextMenuSavedBattleMechs: number;
     searchSort: 'Name' | 'BFPointValue';
     isSearching: boolean;
-    abilityCodes: IAbilityCodeCount[];
 }
