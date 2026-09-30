@@ -21,9 +21,10 @@ Local references (git-ignored, never imported by shipped code):
 
 ## 1. Fix what ships
 
-- [ ] `tools/mul-sync/browser-state.json` is committed with live masterunitlist.battletech.com session
-  cookies (including `cf_clearance`). Remove it from the repository and its history, add it to
-  `.gitignore`, and have the weekly sync create it at run time.
+- [ ] `tools/mul-sync/browser-state.json` (session cookies, including `cf_clearance`) is now untracked and
+  ignored on master, and the weekly sync no longer commits it (ngcfells/battletech-tools#7). Still to do:
+  remove it from the `MUL` branch, which the workflow checks out, and decide whether to purge it from the
+  history.
 - [ ] Report the SSW ammunition bug upstream (issue + PR). The ammunition catalog rename (`Ammo (SRM-6)` ->
   `SRM - Standard Ammo`, upstream #75) broke name matching in the SSW importer: 413 of the 512 bundled
   'Mechs lost their ammunition on import, on upstream's live site too. Fixed here by the SSW name resolver
@@ -346,5 +347,5 @@ played first, then by dependency.
   - `tools/live_mul_browser_probe.mjs`: unused `findChunkEntry` (L38) and `saveChunkIfNeeded` (L65);
     `document` / `HTMLAnchorElement` not defined (L109, L110, L121, L130; browser-context code needs
     browser globals).
-  - `tools/mul-sync/sync-mul.mjs`: no `cause` on a rethrown error (L255, `preserve-caught-error`);
-    `document` not defined (L402, L408).
+  - `tools/mul-sync/sync-mul.mjs`: no `cause` on a rethrown error (L256, `preserve-caught-error`);
+    `document` not defined (L403, L409).
