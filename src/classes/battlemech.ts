@@ -2,7 +2,7 @@ import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
-import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
+import { btEraOptions, findEraByTag, getClosestEraForTech, getEraForYear, getErasForTech } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
@@ -9429,6 +9429,15 @@ export class BattleMech {
                     this.setTech("is");
                 } else if( jObj.mech.techbase["#text"].toLowerCase().indexOf("clan") > -1) {
                     this.setTech("clan");
+                }
+            }
+            // The design year sets the era, so era-dependent rules (such as a Clan design's Star League
+            // equipment) match the design.
+            const sswYear = Number( jObj.mech.year?.["#text"] ?? jObj.mech.year );
+            if( Number.isFinite( sswYear ) && sswYear > 0 ) {
+                const sswEra = getEraForYear( sswYear, this.getTech().tag );
+                if( sswEra ) {
+                    this.setEra( sswEra.tag );
                 }
             }
 

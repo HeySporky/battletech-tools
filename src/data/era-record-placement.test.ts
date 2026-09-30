@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getStarLeagueCarryOverDates, parseTechYear } from "./equipment-registry";
+import { getEraForYear } from "./era-options";
 import { mechClanAmmo } from "./mech-clan-ammo";
 import { mechClanEquipmentArtillery } from "./mech-clan-equipment-weapons-artillery";
 import { mechCustomEquipmentBallistic } from "./mech-custom-equipment-weapons-ballistic";
@@ -103,4 +104,17 @@ describe("tech date helpers", () => {
         expect(getStarLeagueCarryOverDates({ introduced: 3040, extinct: null, reintroduced: null,
             clanDates: { introduced: 3050, extinct: null, reintroduced: null } })).toBeNull();
     });
+});
+
+describe("getEraForYear (SSW import sets the design's era from its year)", () => {
+	it("picks the tech base's era containing the year", () => {
+		expect(getEraForYear(2867, "clan")?.tag).toBe("clan-golden-years");
+		expect(getEraForYear(2867, "is")?.tag).toBe("early-sw");
+		expect(getEraForYear(2750, "clan")?.tag).toBe("star-league");
+		expect(getEraForYear(3055, "clan")?.tag).toBe("clan-inv");
+	});
+	it("uses the next era when the year falls in a gap, and the latest after the last", () => {
+		expect(getEraForYear(2790, "clan")?.tag).toBe("clan-founding-years");
+		expect(getEraForYear(3200, "is")?.tag).toBe("ilClan");
+	});
 });
