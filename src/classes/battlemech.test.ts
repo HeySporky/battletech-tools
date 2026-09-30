@@ -1946,6 +1946,30 @@ describe("BattleMech Clan Star League XL engine", () => {
 
 // Project decision (2026-09-30): Clan designs keep Star League equipment until their own Clan version
 // enters production, and the carried version keeps its Inner Sphere slots and armor factor.
+describe("BattleMech SSW import era", () => {
+    const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+    const withYear = (xml: string, year: number, techbase?: string) => {
+        let out = xml.replace(/(<year[^>]*>)\d+(<\/year>)/, `$1${year}$2`);
+        if (techbase) {
+            out = out.replace(/(<techbase[^>]*>)[^<]*(<\/techbase>)/, `$1${techbase}$2`);
+        }
+        return out;
+    };
+
+    it("sets the era from the design year", () => {
+        const mech = new BattleMech();
+        mech.importSSWXML(withYear(griffin, 3055));
+        expect(mech.getEra().tag).toBe("clan-inv");
+    });
+
+    it("puts a Clan design from 2867 in the Clan Golden Years, not the default Star League era", () => {
+        const mech = new BattleMech();
+        mech.importSSWXML(withYear(griffin, 2867, "Clan"));
+        expect(mech.getTech().tag).toBe("clan");
+        expect(mech.getEra().tag).toBe("clan-golden-years");
+    });
+});
+
 describe("BattleMech Clan Star League carry-over", () => {
     const clanMech = (era: string) => {
         const mech = new BattleMech();

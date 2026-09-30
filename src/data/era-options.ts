@@ -167,6 +167,17 @@ export function getErasForTech(techTag: string): IEras[] {
 	return btEraOptions.filter((era) => era.techBases.includes(techTag));
 }
 
+/**
+ * The era a design built in `year` belongs to for this tech base: the tech base's era containing the year,
+ * else the next one (Clan designs from 2781-2799, before the Founding Years), else the latest.
+ */
+export function getEraForYear(year: number, techTag: string): IEras | undefined {
+	const eras = getErasForTech(techTag);
+	return eras.find((era) => era.yearStart <= year && (era.yearEnd ?? Infinity) >= year)
+		?? eras.find((era) => era.yearStart > year)
+		?? eras[eras.length - 1];
+}
+
 export function isEraAvailableForTech(era: IEras, techTag: string): boolean {
 	return era.techBases.includes(techTag);
 }
