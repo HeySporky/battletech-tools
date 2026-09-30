@@ -1,3 +1,5 @@
+import { IAcesCampaignExport } from "./classes/aces-campaign";
+import { IAcesGameExport } from "./classes/aces-game";
 import AlphaStrikeForce, { IASForceExport } from "./classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "./classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "./classes/battlemech";
@@ -38,6 +40,10 @@ export interface IFullBackup {
 
     vehicleSaves: IVehicleExport[];
     currentVehicle: string | null;
+
+    // BattleTech: Aces; optional so older backups still restore.
+    acesGame?: IAcesGameExport | null;
+    acesCampaigns?: IAcesCampaignExport[];
 }
 
 export async function getFullBackup(
@@ -53,6 +59,8 @@ export async function getFullBackup(
         currentVBattleMech: await getCurrentBattleMech(appSettings),
         vehicleSaves: await getVehicleSaves(appSettings),
         currentVehicle: await getCurrentVehicle(appSettings),
+        acesGame: await getAcesGame(appSettings),
+        acesCampaigns: await getAcesCampaigns(appSettings),
     }
 
     return JSON.stringify( rv );
@@ -281,6 +289,33 @@ export function restoreFullBackup(
         appGlobals.currentASForce = new AlphaStrikeForce(io.currentASForce);
     }
 
+    if( overWriteCurrentASGroup && io.acesGame && typeof io.acesGame === "object" ) {
+        restoreMessages.push({
+            severity: "replace",
+            message: "Replace your current Aces game",
+        })
+        if( performActions ) {
+            saveAcesGame( appGlobals.appSettings, io.acesGame );
+        }
+    }
+
+    if( Array.isArray(io.acesCampaigns) && io.acesCampaigns.length > 0 ) {
+        const incoming = io.acesCampaigns.filter( (item) => item && typeof item === "object" && typeof item.id === "string" );
+        for( const item of incoming ) {
+            restoreMessages.push({
+                severity: "add",
+                message: "Add or replace Aces campaign '" + ( item.name ? String(item.name).slice(0, 60) : "(nameless)" ) + "'",
+            })
+        }
+        if( performActions ) {
+            const appSettings = appGlobals.appSettings;
+            getAcesCampaigns( appSettings ).then( (existing) => {
+                const merged = existing.filter( (campaign) => !incoming.some( (item) => item.id === campaign.id ) );
+                saveAcesCampaigns( appSettings, merged.concat( incoming ) );
+            });
+        }
+    }
+
     if( overWriteCurrentCBTGroup && performActions && io.currentCBTForce) {
         appGlobals.currentCBTForce = new BattleMechForce(io.currentCBTForce);
     }
@@ -420,6 +455,56 @@ export function saveCurrentASForce(
     newValue.lastUpdated = new Date();
 
     saveData(appSettings, "currentASForce", JSON.stringify(newValue) );
+}
+
+export function saveAcesGame(
+    appSettings: AppSettings,
+    newValue: IAcesGameExport | null,
+) {
+    saveData(appSettings, "acesGame", JSON.stringify(newValue) );
+}
+
+export async function getAcesGame(
+    appSettings: AppSettings,
+): Promise<IAcesGameExport | null> {
+    let rawData = await getData(appSettings, "acesGame" );
+    try {
+        if( rawData ) {
+            const rv = JSON.parse( rawData );
+            if( rv && typeof rv === "object" ) {
+                return rv;
+            }
+        }
+    }
+    catch {
+        return null;
+    }
+    return null;
+}
+
+export function saveAcesCampaigns(
+    appSettings: AppSettings,
+    newValue: IAcesCampaignExport[],
+) {
+    saveData(appSettings, "acesCampaigns", JSON.stringify(newValue) );
+}
+
+export async function getAcesCampaigns(
+    appSettings: AppSettings,
+): Promise<IAcesCampaignExport[]> {
+    let rawData = await getData(appSettings, "acesCampaigns" );
+    try {
+        if( rawData ) {
+            const rv = JSON.parse( rawData );
+            if( Array.isArray(rv) ) {
+                return rv.filter( (item) => item && typeof item === "object" );
+            }
+        }
+    }
+    catch {
+        return [];
+    }
+    return [];
 }
 
 export async function getCurrentCBTForce(

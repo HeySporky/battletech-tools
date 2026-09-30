@@ -1,0 +1,79 @@
+.aces-page {
+    .aces-phase-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        align-items: center;
+        margin-bottom: .5rem;
+
+        .aces-phase {
+            padding: .25rem .75rem;
+            border: 1px solid currentColor;
+            border-radius: .25rem;
+            opacity: .5;
+
+            &.current {
+                opacity: 1;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .aces-inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem 1rem;
+        align-items: center;
+        margin-bottom: .5rem;
+
+        label {
+            margin: 0;
+        }
+
+        input[type=text],
+        select {
+            width: auto;
+            display: inline-block;
+        }
+    }
+
+    table select,
+    table input[type=text] {
+        width: auto;
+        display: inline-block;
+    }
+
+    input[type=number].aces-number {
+        width: 5.5rem;
+        display: inline-block;
+    }
+
+    .aces-unit-cards {
+        display: flex;
+        flex-wrap: wrap;
+
+        .unit-card {
+            width: 100%;
+            max-width: 32rem;
+        }
+    }
+
+    .aces-log {
+        max-height: 16rem;
+        overflow-y: auto;
+        font-size: .9rem;
+    }
+
+    .aces-issue-error {
+        color: #b00;
+    }
+
+    .aces-muted {
+        opacity: .7;
+        font-size: .9rem;
+    }
+
+    table td, table th {
+        vertical-align: middle;
+    }
+}
