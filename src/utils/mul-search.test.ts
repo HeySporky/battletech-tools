@@ -10,6 +10,21 @@ describe("Bundled MUL 2.0 search and cards", () => {
         expect(results.some((unit) => unit.Name === "Atlas" && unit.Variant === "AS7-D")).toBe(true);
     }, 30_000);
 
+    it("filters by special ability code, with exclusions", async () => {
+        const results = await getMULASSearchResults("", "", "", "", 0, 0, [], true, false, null, ["ECM", "!IF"]);
+        expect(results.length).toBeGreaterThan(100);
+        for (const unit of results) {
+            const codes = (unit.BFAbilities ?? "").split(",").map((ability) => ability.trim());
+            expect(codes).toContain("ECM");
+            expect(codes.some((ability) => /^IF\s?[\d*]/.test(ability))).toBe(false);
+        }
+    }, 30_000);
+
+    it("does not match an ability code inside a longer code", async () => {
+        const results = await getMULASSearchResults("a:ECM", "", "", "", 0, 0, [], true);
+        expect(results.every((unit) => (unit.BFAbilities ?? "").split(",").some((ability) => ability.trim() === "ECM"))).toBe(true);
+    }, 30_000);
+
     it("builds an Alpha Strike card with the full name, PV and no armor threshold", async () => {
         const atlas = (await loadMULListItems()).find((unit) => unit.Name === "Atlas" && unit.Variant === "AS7-D")!;
         const card = new AlphaStrikeUnit();

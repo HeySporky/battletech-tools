@@ -11,6 +11,7 @@ import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missil
 import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
+import { unitHasAbility } from "./utils/mulAbilities";
 
 export function getISEquipmentList(): IEquipmentItem[] {
     return getEquipmentListByTech("is");
@@ -430,31 +431,19 @@ function matchesMULSearchTokens(unit: IASMULUnit, tokens: IMULSearchTokens): boo
         }
     }
 
-    if (tokens.abilitySearch.length > 0) {
-        const unitAbilities = (unit.BFAbilities ?? "").toUpperCase();
-        for (const ability of tokens.abilitySearch) {
-            if (!unitAbilities.includes(ability.toUpperCase())) {
-                return false;
-            }
-        }
+    // Matched by ability code, so "ECM" does not also match LECM or AECM.
+    if (!tokens.abilitySearch.every((ability) => unitHasAbility(unit.BFAbilities, ability))) {
+        return false;
     }
-
-    if (tokens.abilityExclude.length > 0) {
-        const unitAbilities = unit.BFAbilities
-            ? unit.BFAbilities.toUpperCase().split(",").map((a) => a.trim())
-            : [];
-        for (const excludeAbility of tokens.abilityExclude) {
-            if (unitAbilities.some((a) => a.startsWith(excludeAbility.toUpperCase()))) {
-                return false;
-            }
-        }
+    if (tokens.abilityExclude.some((ability) => unitHasAbility(unit.BFAbilities, ability))) {
+        return false;
     }
 
     return true;
 }
 
 async function getCachedMULSearchResults(
-    searchTerm: string,
+    tokens: IMULSearchTokens,
     mechRules: string,
     techFilter: string,
     roleFilter: string,
@@ -462,7 +451,6 @@ async function getCachedMULSearchResults(
     typeFilter: number,
     appGlobals: IAppGlobals | null,
 ): Promise<IASMULUnit[]> {
-    const tokens = parseMULSearchTokens(searchTerm);
     const matchesAllFilters = (unit: IASMULUnit) =>
         matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter) &&
         matchesMULSearchTokens(unit, tokens);
@@ -519,6 +507,8 @@ export async function getMULASSearchResults(
     offLine: boolean,
     overrideSearchLimitLength: boolean = false,
     appGlobals: IAppGlobals | null = null,
+    // Ability codes the unit must have, or must not have when prefixed with "!" (e.g. ["ECM", "!IF"]).
+    abilityFilters: string[] = [],
 ): Promise<IASMULUnit[]> {
 
     let returnUnits: IASMULUnit[] = [];
@@ -591,6 +581,13 @@ export async function getMULASSearchResults(
     }
 
     const tokens = parseMULSearchTokens(searchTerm);
+    for (const filter of abilityFilters) {
+        if (filter.startsWith("!")) {
+            tokens.abilityExclude.push(filter.substring(1));
+        } else {
+            tokens.abilitySearch.push(filter);
+        }
+    }
 
     console.log('Searching...');
     if( offLine === false && CONST_MUL_API_ENABLED ) {
@@ -644,7 +641,7 @@ export async function getMULASSearchResults(
         } catch (err) {
             console.error('MUL Fetch Error: ', err);
             addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-            return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+            return await getCachedMULSearchResults(tokens, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
         }
     } else {
         if( offLine ) {
@@ -653,7 +650,7 @@ export async function getMULASSearchResults(
             console.warn("MUL API is disabled, using bundled fallback data.");
         }
         addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-        return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+        return await getCachedMULSearchResults(tokens, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
     }
 
     return returnUnits;
