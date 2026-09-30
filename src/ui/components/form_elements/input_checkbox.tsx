@@ -7,6 +7,8 @@ const TimesCircle = FaTimesCircle as any;
 const CheckSquare = FaCheckSquare as any;
 const Square = FaSquare as any;
 
+import type { JSX } from "react";
+
 export default class InputCheckbox extends React.Component<IInputCheckboxProps, IInputCheckboxState> {
 
     onChange = ( _event: React.FormEvent<HTMLInputElement>): void => {

@@ -6,6 +6,8 @@ import type { JSX } from "react";
 const SaveIcon = FaSave as any;
 const TimesCircleIcon = FaTimesCircle as any;
 
+import type { JSX } from "react";
+
 export default class StandardModal extends React.Component<IStandardModalProps, IStandardModalState> {
 
     render = (): JSX.Element => {

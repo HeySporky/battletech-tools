@@ -7,6 +7,9 @@ const RulerIcon = FaRuler as any;
 const HexagonIcon = FiHexagon as any;
 
 
+import type { JSX } from "react";
+
+
 export default class AlphaStrikeToggleRulerHexes extends React.Component<IAlphaStrikeToggleRulerHexesViewProps, IAlphaStrikeToggleRulerHexesViewState> {
 
     toggleAlphaStrikeMeasurementsInHexes = (

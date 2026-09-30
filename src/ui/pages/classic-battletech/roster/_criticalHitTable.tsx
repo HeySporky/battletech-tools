@@ -9,6 +9,8 @@ import type { JSX } from "react";
 const CheckSquare = FaCheckSquare as any;
 const Dangerous = MdDangerous as any;
 
+import type { JSX } from "react";
+
 export default class InPlayCriticalHitTable extends React.Component<IInPlayCriticalHitTableProps, IInPlayCriticalHitTableState> {
 
     toggleCritical = (

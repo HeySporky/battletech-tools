@@ -18,6 +18,8 @@ const Plus = FaPlus as any;
 const Trash = FaTrash as any;
 const OutlineWarning = AiOutlineWarning as any;
 
+import type { JSX } from "react";
+
 export default class CurrentForceList extends React.Component<ICurrentForceListProps, ICurrentForceListState> {
 
     constructor(props: ICurrentForceListProps) {

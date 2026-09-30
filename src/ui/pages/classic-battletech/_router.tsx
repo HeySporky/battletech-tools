@@ -9,6 +9,8 @@ import VehicleCreatorRouter from './vehicle-creator/_router';
 
 import type { JSX } from "react";
 
+import type { JSX } from "react";
+
 export default class ClassicBattleTechRouter extends React.Component<IClassicBattleTechRouterProps, IClassicBattleTechRouterState> {
 
     render = (): JSX.Element => {
