@@ -11,11 +11,15 @@ import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 import { generateUUID } from '../../../../utils/generateUUID';
+import { IPage, paginate } from '../../../../utils/paginate';
 import type { JSX } from "react";
 const Bars = FaBars as any;
 const Eye = FaEye as any;
 const Plus = FaPlus as any;
 const Trash = FaTrash as any;
+
+// Rendering every match froze the page once a search returned the whole bundled MUL (~8.7k units).
+const SEARCH_RESULTS_PAGE_SIZE = 25;
 
 //TODO: Clearfix Hack for overflowing results
 /*
@@ -36,6 +40,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     // before it lands, which made every search look superseded and left "Searching..." up forever.
     private latestSearchId: string = '';
 
+    private searchResultsHeading = React.createRef<HTMLHeadingElement>();
+
     constructor( props: IAlphaStrikeAddUnitsViewProps ) {
         super(props)
 
@@ -45,7 +51,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
-            isSearching: false
+            isSearching: false,
+            searchPage: 0,
         }
     }
 
@@ -260,6 +267,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         searchResults: data,
         contextMenuSearch: -1,
         isSearching: false,
+        searchPage: 0,
       });
 
       let appSettings = this.props.appGlobals.appSettings;
@@ -297,6 +305,32 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     }
 
 
+    goToSearchPage = ( page: number ): void => {
+        this.setState({
+          searchPage: page,
+          contextMenuSearch: -1,
+        });
+        this.searchResultsHeading.current?.scrollIntoView({ block: "nearest" });
+    }
+
+    renderSearchPager = ( resultsPage: IPage<IASMULUnit> ): JSX.Element | null => {
+        if( resultsPage.totalPages < 2 ) {
+          return null;
+        }
+        const isFirst = resultsPage.page === 0;
+        const isLast = resultsPage.page === resultsPage.totalPages - 1;
+
+        return (
+          <nav className="text-center" aria-label="Search results pages">
+            <button className="btn btn-sm btn-secondary" disabled={isFirst} onClick={() => this.goToSearchPage(0)} title="First page">&laquo;</button>
+            <button className="btn btn-sm btn-secondary" disabled={isFirst} onClick={() => this.goToSearchPage(resultsPage.page - 1)} title="Previous page">&lsaquo; Prev</button>
+            &nbsp;Page {resultsPage.page + 1} of {resultsPage.totalPages}&nbsp;
+            <button className="btn btn-sm btn-secondary" disabled={isLast} onClick={() => this.goToSearchPage(resultsPage.page + 1)} title="Next page">Next &rsaquo;</button>
+            <button className="btn btn-sm btn-secondary" disabled={isLast} onClick={() => this.goToSearchPage(resultsPage.totalPages - 1)} title="Last page">&raquo;</button>
+          </nav>
+        );
+    }
+
     handleSort = ({ target: { value } }: any) => {
         this.setState({ searchSort: value }, () => this.updateSearchResults());
     }
@@ -305,6 +339,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       if(!this.props.appGlobals.currentASForce) {
         return <></>
       }
+
+        const resultsPage = paginate( this.state.searchResults, this.state.searchPage, SEARCH_RESULTS_PAGE_SIZE );
 
         return(
             <>
@@ -488,10 +524,15 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                   </fieldset>
 
-                <h3 className="text-center">
+                <h3 className="text-center" ref={this.searchResultsHeading}>
                   Search Results ({this.state.isSearching ? '...' : this.state.searchResults.length})
                   {this.state.isSearching && <span className="ms-2 text-muted">(Searching...)</span>}
                 </h3>
+                {!this.state.isSearching && resultsPage.totalPages > 1 ? (
+                  <div className="small-text text-center">
+                    Showing {resultsPage.firstIndex + 1}&ndash;{resultsPage.lastIndex + 1} of {this.state.searchResults.length}
+                  </div>
+                ) : null}
                 <div className="search-sort-wrapper">
                     Sort:
                     <span>
@@ -517,6 +558,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         <label htmlFor="search-sort-pv">PV</label>
                     </span>
                 </div>
+                  {!this.state.isSearching ? this.renderSearchPager( resultsPage ) : null}
                   <div className="table-wrapper">
                     <table className="table">
                       <thead>
@@ -552,7 +594,9 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </tbody>
                       ) : this.state.searchResults.length > 0 ? (
                         <>
-                          {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
+                          {resultsPage.items.map( (asUnit: IASMULUnit, pageIndex: number) => {
+                            // Index into the full result list, so keys and the open context menu stay unique across pages.
+                            const unitIndex = resultsPage.firstIndex + pageIndex;
 
                             return (
                               <tbody key={unitIndex}>
@@ -692,6 +736,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                     </table>
                   </div>
+                  {!this.state.isSearching ? this.renderSearchPager( resultsPage ) : null}
     </>
 ) : (
     <div className="alert alert-warning">
@@ -829,4 +874,5 @@ interface IAlphaStrikeAddUnitsViewState {
     contextMenuSavedBattleMechs: number;
     searchSort: 'Name' | 'BFPointValue';
     isSearching: boolean;
+    searchPage: number;
 }
