@@ -77,3 +77,31 @@ test("surface naval hits call for a Hull Integrity roll", async ({ page }) => {
     await expect(panel.getByTestId("vehicle-play-log")).toContainText("breached and floods");
     await expect(panel.getByLabel("Front hull breached")).toBeChecked();
 });
+
+// Skids (TW p. 192) and armor-piercing hits (TW p. 140) queue their rolls; sponsons are a creator option (TO p. 348).
+test("skid motive rolls, armor-piercing criticals and sponson turrets", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+
+    await page.goto("classic-battletech/vehicle-creator/step1");
+    await page.getByText(/Sponson Turrets \(Experimental/).click();
+    await page.goto("classic-battletech/vehicle-creator/equipment-placement");
+    await expect(page.getByText(/weapons on the left and right sides go in the sponsons/)).toBeVisible();
+    await page.goto("classic-battletech/vehicle-creator");
+    await page.getByRole("button", { name: /Save as New/ }).click();
+
+    await page.goto("classic-battletech/roster");
+    await page.getByLabel("Saved vehicle to add").first().selectOption({ index: 1 });
+    await page.getByRole("button", { name: "Add Vehicle" }).first().click();
+    await page.getByTitle("Click here to go into 'Play Mode'").click();
+    await page.locator(".mech-selector").getByTitle(/^Select /).last().click();
+    const panel = page.getByTestId("vehicle-play");
+
+    await panel.getByRole("button", { name: /Skidded/ }).click();
+    await expect(panel.getByTestId("pending-roll")).toContainText("after a skid");
+    await panel.getByRole("button", { name: "Skip" }).click();
+
+    await panel.getByLabel("Armor-piercing ammunition").selectOption("10");
+    await expect(panel.getByLabel("Armor-piercing ammunition")).toHaveValue("10");
+    expect(errors).toEqual([]);
+});

@@ -88,6 +88,8 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         this.state = {
             direction: "front",
             attackerUnderwater: false,
+            armorPiercing: 0,
+            jumpRoughTerrain: false,
             damageAmount: 5,
             hitRoll: "",
             pendingRoll: null,
@@ -120,7 +122,8 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         e.preventDefault();
         const vehicle = this.props.vehicle;
         const roll = this.state.hitRoll ? +this.state.hitRoll : roll2D6();
-        const entries = vehicle.resolveAttack(roll, this._direction(), this.state.damageAmount, { attackerUnderwater: this.state.attackerUnderwater });
+        const armorPiercing = this.state.armorPiercing || undefined;
+        const entries = vehicle.resolveAttack(roll, this._direction(), this.state.damageAmount, { attackerUnderwater: this.state.attackerUnderwater, armorPiercing });
         this.setState({ hitRoll: "" });
         this._log(entries, null, vehicle.takeFollowUpRolls());
     }
@@ -136,6 +139,18 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         this._log([text], null, [...vehicle.takeFollowUpRolls(), ...(this.state.pendingQueue ?? [])]);
     }
 
+    skid = (e: React.FormEvent<HTMLButtonElement>): void => {
+        e.preventDefault();
+        const vehicle = this.props.vehicle;
+        this._log([vehicle.startSkidMotiveRoll()], null, [...vehicle.takeFollowUpRolls(), ...(this.state.pendingQueue ?? [])]);
+    }
+
+    jumpLanding = (e: React.FormEvent<HTMLButtonElement>): void => {
+        e.preventDefault();
+        const vehicle = this.props.vehicle;
+        this._log([vehicle.startJumpLandingRoll(this.state.jumpRoughTerrain)], null, [...vehicle.takeFollowUpRolls(), ...(this.state.pendingQueue ?? [])]);
+    }
+
     sideslipCrash = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
         const vehicle = this.props.vehicle;
@@ -147,8 +162,13 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const vehicle = this.props.vehicle;
         const name = (tag: string) => vehicle.getLocations().find((loc) => loc.tag === tag)?.name ?? tag;
         switch (pending.kind) {
-            case "motive": return `Motive System Damage roll (+${vehicle.getMotiveDamageRollModifier(pending.direction)})`;
-            case "critical": return `Critical Hit roll: ${name(pending.location)}`;
+            case "motive": {
+                const modifier = vehicle.getMotiveDamageRollModifier(pending.direction, pending.cause, !!pending.roughTerrain);
+                const why = pending.cause === "skid" ? " after a skid" : pending.cause === "jump" ? " on landing a jump" : "";
+                return `Motive System Damage roll${why} (${modifier >= 0 ? "+" : ""}${modifier})`;
+            }
+            case "critical":
+                return `Critical Hit roll: ${name(pending.location)}${pending.modifier ? ` (armor-piercing ${pending.modifier})` : ""}`;
             case "hullBreach": return `Hull Integrity roll: ${name(pending.location)} (breached on ${pending.target}+)`;
             case "drivingSkill": return `Driving Skill Roll (${pending.target}+): ${pending.reason === "pilotHit" ? "or drop one elevation" : "land, or crash"}`;
             case "crashFacing": return `Facing After a Fall (1D6), ${pending.damage} falling damage`;
@@ -320,6 +340,20 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                         />{" "}Attacker is underwater (surface vessels are breached on 10+ instead of 12)
                                     </label>
                                 ) : null}
+                                <label className="d-block">
+                                    Armor-piercing ammunition:{" "}
+                                    <select
+                                        aria-label="Armor-piercing ammunition"
+                                        value={this.state.armorPiercing}
+                                        onChange={(e) => this.setState({ armorPiercing: +e.currentTarget.value as IVehiclePlayPanelState["armorPiercing"] })}
+                                    >
+                                        <option value={0}>No</option>
+                                        <option value={2}>AC/2 (-4 critical roll)</option>
+                                        <option value={5}>AC/5 (-3 critical roll)</option>
+                                        <option value={10}>AC/10 (-2 critical roll)</option>
+                                        <option value={20}>AC/20 (-1 critical roll)</option>
+                                    </select>
+                                </label>
                                 <p className="smaller-text">
                                     Leave 2D6 blank to roll. Resolve each Damage Value grouping (e.g. each 5-point LRM cluster)
                                     as its own hit. Motive, critical and Hull Integrity rolls follow the table results, any
@@ -465,6 +499,25 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                         Crash while sideslipping
                                     </button>
                                 ) : null}
+                                {vehicle.getMotiveType().tag === "tracked" || vehicle.getMotiveType().tag === "wheeled" ? (
+                                    <button className="btn btn-secondary btn-xs" onClick={this.skid} disabled={!!pending}>
+                                        Skidded (motive roll, TW p. 192)
+                                    </button>
+                                ) : null}
+                                {vehicle.getJumpMP() > 0 ? (
+                                    <span className="d-block">
+                                        <button className="btn btn-secondary btn-xs" onClick={this.jumpLanding} disabled={!!pending}>
+                                            Jump landing (motive roll, TO p. 349)
+                                        </button>{" "}
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                checked={this.state.jumpRoughTerrain}
+                                                onChange={(e) => this.setState({ jumpRoughTerrain: e.currentTarget.checked })}
+                                            />{" "}into rough, woods or jungle (+1)
+                                        </label>
+                                    </span>
+                                ) : null}
                                 <p>
                                     <strong>Cruise/Flank</strong>: {vehicle.getEffectiveCruiseMP()}/{vehicle.getEffectiveFlankMP()}
                                     {vehicle.getJumpMP() > 0 ? <> &nbsp;|&nbsp; <strong>Jump</strong>: {vehicle.getEffectiveJumpMP()}</> : null}
@@ -487,6 +540,15 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                 <fieldset className="fieldset">
                                     <legend>Turret</legend>
                                     {turrets.map((loc) => this.renderTurretFacing(loc.tag as VehicleTurretLocation, loc.name))}
+                                    {vehicle.hasChinTurret() ? (
+                                        <label className="d-block">
+                                            <input
+                                                type="checkbox"
+                                                checked={inPlay.targetAbove}
+                                                onChange={(e) => { vehicle.setTargetAbove(e.currentTarget.checked); this._changed(); }}
+                                            />{" "}Target is higher than this VTOL (the chin turret cannot fire)
+                                        </label>
+                                    ) : null}
                                     <p className="smaller-text">
                                         Turret weapons fire into the forward arc turned to the turret's facing (TW pp. 104, 192);
                                         side weapons never fire into the front arc. The turret returns forward in the End Phase
@@ -624,6 +686,8 @@ interface IVehiclePlayPanelProps {
 interface IVehiclePlayPanelState {
     direction: VehicleAttackDirection;
     attackerUnderwater: boolean;
+    armorPiercing: 0 | 2 | 5 | 10 | 20;
+    jumpRoughTerrain: boolean;
     damageAmount: number;
     hitRoll: string;
     pendingRoll: PendingRoll | null;

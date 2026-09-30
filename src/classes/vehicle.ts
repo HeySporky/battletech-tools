@@ -17,6 +17,7 @@ import { btEraOptions } from "../data/era-options";
 import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
 import { equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
+import { getWeaponExplosionDamage } from "../data/weapon-explosions";
 import { getMovementModifier } from "../utils";
 import {
     IArmorType,
@@ -150,6 +151,8 @@ export interface IVehicleInPlay {
     crashed: boolean;
     /** Destroyed by a crash: the VTOL exploded (TW p. 198) or came down in water (TW p. 197). */
     crashDestroyed: "" | "exploded" | "water";
+    /** The current target stands or flies higher than this VTOL, so its chin turret cannot fire at it (TO p. 348). */
+    targetAbove: boolean;
     /** Legacy flags from saves made before motiveHits. */
     motiveDamage?: IVehicleMotiveDamage;
 }
@@ -181,6 +184,7 @@ const newInPlay = (): IVehicleInPlay => ({
     overLandableTerrain: true,
     crashed: false,
     crashDestroyed: "",
+    targetAbove: false,
 });
 
 /** The fourth sensor hit makes it impossible for the vehicle to fire weapons (TW p. 195). */
@@ -267,6 +271,7 @@ export const normalizeVehicleInPlay = (saved: unknown): IVehicleInPlay => {
         overLandableTerrain: flag(saved.overLandableTerrain, defaults.overLandableTerrain),
         crashed: flag(saved.crashed, defaults.crashed),
         crashDestroyed,
+        targetAbove: flag(saved.targetAbove, defaults.targetAbove),
     };
 };
 
@@ -284,10 +289,19 @@ export const isDirectFireEnergyOrPulse = (item: IEquipmentItem): boolean =>
 
 export type VehicleTurretLocation = "turret" | "turret2";
 
+/** Why a Motive System Damage roll is made: a hit (TW p. 193), a skid (TW p. 192) or a jump landing (TO p. 349). */
+export type VehicleMotiveRollCause = "attack" | "skid" | "jump";
+
+/** Armor-piercing autocannon sizes and their critical hit roll modifiers (TW p. 140). */
+export const ARMOR_PIERCING_CRITICAL_MODIFIER: Record<2 | 5 | 10 | 20, number> = { 2: -4, 5: -3, 10: -2, 20: -1 };
+
+// Vehicular jump jet landing roll: these replace the vehicle type modifiers (TO p. 349).
+const JUMP_LANDING_MODIFIER: Record<string, number> = { tracked: 2, wheeled: 1, hover: -1, wige: -2 };
+
 /** A die roll the rules call for after a hit or critical hit, resolved with resolveFollowUpRoll. */
 export type VehicleFollowUpRoll =
-    | { kind: "critical"; location: VehicleLocation }
-    | { kind: "motive"; direction: VehicleAttackDirection }
+    | { kind: "critical"; location: VehicleLocation; modifier?: number }
+    | { kind: "motive"; direction: VehicleAttackDirection; cause?: VehicleMotiveRollCause; roughTerrain?: boolean }
     | { kind: "hullBreach"; location: VehicleLocation; target: number }
     | { kind: "drivingSkill"; reason: "pilotHit" | "engineDamage"; target: number }
     | { kind: "crashFacing"; damage: number }
@@ -298,6 +312,8 @@ export interface IVehicleFiringArc {
     arc: "front" | "left" | "right" | "rear";
     /** Hexsides the turret is rotated clockwise from the front, or null for a body-mounted weapon. */
     turretRotation: number | null;
+    /** A sponson weapon: 180 degrees on its side, from the hex row directly behind to the row directly ahead (TO p. 348). */
+    sponson?: boolean;
 }
 
 export interface IVehicleDamageResult {
@@ -318,6 +334,7 @@ export interface IVehicleExport {
     motiveType: string;
     hasTurret: boolean;
     dualTurret?: boolean;
+    sponsonTurrets?: boolean;
     jumpMP?: number;
     troopSpace?: number;
     tech: string;
@@ -388,6 +405,7 @@ export default class Vehicle {
     private _motiveType: IVehicleMotiveType = vehicleMotiveTypes[0];
     private _hasTurret: boolean = true;
     private _dualTurret: boolean = false;
+    private _sponsonTurrets: boolean = false;
     private _jumpMP: number = 0;
     private _troopSpace: number = 0;
     private _inPlay: IVehicleInPlay = newInPlay();
@@ -478,8 +496,49 @@ export default class Vehicle {
      * turret are Advanced, plus the rules level of its installed equipment. Standard (2) is
      * tournament play.
      */
+    // --- Sponson turrets (TO pp. 348, 411): always a pair, in place of side-mounted weapons ---
+
+    public hasSponsonTurrets(): boolean {
+        return this._sponsonTurrets;
+    }
+
+    /** Vehicles with vehicular jump jets cannot mount sponsons: the jets' nozzles sit on the sides (TO p. 348). */
+    public canHaveSponsonTurrets(): boolean {
+        return this._jumpMP === 0;
+    }
+
+    public setSponsonTurrets(sponsons: boolean): boolean {
+        this._sponsonTurrets = sponsons && this.canHaveSponsonTurrets();
+        this._calc();
+        return this._sponsonTurrets;
+    }
+
+    private _sideWeaponTons(side: "left" | "right"): number {
+        const locations = side === "left" ? ["left", "frontLeft", "rearLeft"] : ["right", "frontRight", "rearRight"];
+        return this._equipmentList
+            .filter((item) => !item.isAmmo && !!item.location && locations.includes(item.location) && (item.damage !== undefined || !!item.range))
+            .reduce((sum, item) => sum + item.weight, 0);
+    }
+
+    /** Sponson weight: 10% of the weapons in both sponsons, 5% a side, each rounded up to the half ton (TO p. 411). */
+    public getSponsonWeight(): number {
+        if (!this._sponsonTurrets) return 0;
+        const side = (tons: number) => Math.ceil(tons * 0.05 * 2) / 2;
+        return side(this._sideWeaponTons("left")) + side(this._sideWeaponTons("right"));
+    }
+
+    /** Both sponsons must carry the same tonnage of weapons, not necessarily the same weapons (TO p. 411). */
+    public getSponsonIssue(): string | null {
+        if (!this._sponsonTurrets) return null;
+        const left = this._sideWeaponTons("left");
+        const right = this._sideWeaponTons("right");
+        return left === right ? null : `Sponsons must carry the same tonnage of weapons (left ${left} t, right ${right} t)`;
+    }
+
     public getRequiredRulesLevel(): number {
         let level = this.isSuperheavy() || this.hasChinTurret() || this._jumpMP > 0 ? 3 : 0;
+        // Sponson turrets are Experimental (TO p. 348).
+        if (this._sponsonTurrets) level = Math.max(level, 4);
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
         }
@@ -571,7 +630,9 @@ export default class Vehicle {
 
     /** Vehicular jump jets: hover, wheeled, tracked and WiGE only, up to Cruise MP (TO:AUE p.161). */
     public setJumpMP(jumpMP: number): number {
-        this._jumpMP = this._motiveType.allowsJumpJets ? Math.max(0, Math.min(Math.floor(jumpMP), this._cruiseMP)) : 0;
+        // No vehicular jump jets alongside sponson turrets (TO p. 348).
+        const allowed = this._motiveType.allowsJumpJets && !this._sponsonTurrets;
+        this._jumpMP = allowed ? Math.max(0, Math.min(Math.floor(jumpMP), this._cruiseMP)) : 0;
         this._calc();
         return this._jumpMP;
     }
@@ -1269,7 +1330,8 @@ export default class Vehicle {
      * C-Bill cost (TM Combat Vehicle cost, as implemented by MegaMek CombatVehicleCostCalculator;
      * provisional): engine, armor, structure, control systems, power amplifiers, heat sinks,
      * turrets, equipment and ammunition, lift/dive equipment, then x (1 + tonnage / motive divisor).
-     * Vehicular jump jets add no cost (MegaMek gives them none; source not checked).
+     * Vehicular jump jets cost 200 x tonnage x Jump MP squared and a pair of sponson turrets 4,000 per ton of
+     * sponson (TO p. 411).
      */
     private _calcCost(): void {
         const rows: [string, number][] = [];
@@ -1287,6 +1349,8 @@ export default class Vehicle {
         if (turretWeaponWeight > 0) rows.push(["Turret", Math.ceil(turretWeaponWeight * 2) / 2 * 5000]);
         const equipmentCost = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * item.weight : item.cbills || 0), 0);
         rows.push(["Weapons, Equipment and Ammunition", equipmentCost]);
+        if (this._sponsonTurrets) rows.push([`Sponson Turrets (${this.getSponsonWeight()} t)`, this.getSponsonWeight() * 4000]);
+        if (this._jumpMP > 0) rows.push(["Jump Jets", 200 * this._tonnage * this._jumpMP * this._jumpMP]);
         if (this._motiveType.liftEquipment) {
             const liftTons = Math.ceil(this._tonnage / 5) / 2;
             rows.push([`${this._motiveType.liftEquipment} (${liftTons} t)`, liftTons * (this._motiveType.hasRotor ? 40000 : 20000)]);
@@ -1352,6 +1416,9 @@ export default class Vehicle {
         }
         if (this._hasTurret) {
             this._weights.push({ name: this.getTurretName(), weight: turretWeight("turret") });
+        }
+        if (this._sponsonTurrets) {
+            this._weights.push({ name: "Sponson Turrets", weight: this.getSponsonWeight() });
         }
 
         for (const item of this._equipmentList) {
@@ -1680,12 +1747,12 @@ export default class Vehicle {
      * turret hit rolls 1D6 for the turret struck (TO p. 347); pass turretRoll to use a physical die.
      */
     public resolveAttack(roll: number, direction: VehicleAttackDirection, damage: number,
-        options: { attackerUnderwater?: boolean; turretRoll?: number } = {}, random: () => number = Math.random): string[] {
+        options: { attackerUnderwater?: boolean; turretRoll?: number; armorPiercing?: 2 | 5 | 10 | 20 } = {}, random: () => number = Math.random): string[] {
         return this._applyHit(roll, direction, damage, { ...options, crash: false }, random);
     }
 
     private _applyHit(roll: number, direction: VehicleAttackDirection, damage: number,
-        options: { attackerUnderwater?: boolean; turretRoll?: number; crash: boolean }, random: () => number): string[] {
+        options: { attackerUnderwater?: boolean; turretRoll?: number; armorPiercing?: 2 | 5 | 10 | 20; crash: boolean }, random: () => number): string[] {
         const isVTOL = !!this._motiveType.hasRotor;
         const hit = this.isSuperheavy() && !isVTOL ? getSuperheavyVehicleHitLocation(roll, direction) : getVehicleHitLocation(roll, direction, isVTOL);
         const log: string[] = [];
@@ -1709,7 +1776,13 @@ export default class Vehicle {
         if (!wasCrashed && this.isCrashed()) log.push("Rotor destroyed in flight: the VTOL crashes (TW p. 197)");
         if (this.isDestroyed()) return log;
         if (hit.motive && !isVTOL) this._followUps.push({ kind: "motive", direction });
-        if (hit.critical || result.criticalRoll) this._followUps.push({ kind: "critical", location });
+        if (hit.critical || result.criticalRoll) {
+            this._followUps.push({ kind: "critical", location });
+        } else if (options.armorPiercing && result.armor > 0) {
+            // Armor-piercing ammunition: a hit that damages only armor still rolls, with the autocannon's modifier
+            // (TW p. 140); internal structure damage makes the standard roll above instead.
+            this._followUps.push({ kind: "critical", location, modifier: ARMOR_PIERCING_CRITICAL_MODIFIER[options.armorPiercing] });
+        }
         if (result.armor + result.structure > 0) {
             const target = this.getHullBreachTarget(location, !!options.attackerUnderwater);
             if (target !== null && !this.isBreached(location)) {
@@ -1728,14 +1801,18 @@ export default class Vehicle {
     public resolveFollowUpRoll(followUp: VehicleFollowUpRoll, roll: number, random: () => number = Math.random): string {
         switch (followUp.kind) {
             case "critical": {
-                const effect = this.resolveCriticalRoll(roll, followUp.location);
+                const modifier = followUp.modifier ?? 0;
+                const effect = this.resolveCriticalRoll(roll + modifier, followUp.location);
                 const text = effect === "none" ? VEHICLE_CRITICAL_EFFECT_NAMES.none : this.applyCriticalHit(effect, followUp.location, undefined, random);
-                return `Critical Hit ${roll} (${this.getCriticalColumn(followUp.location)}): ${text}`;
+                const shown = modifier ? `${roll} ${modifier} = ${roll + modifier}` : `${roll}`;
+                return `Critical Hit ${shown} (${this.getCriticalColumn(followUp.location)}): ${text}`;
             }
             case "motive": {
-                const modifier = this.getMotiveDamageRollModifier(followUp.direction);
-                const level = this.rollMotiveDamage(roll, followUp.direction);
-                return `Motive System Damage ${roll} +${modifier} = ${roll + modifier}: ${level === "none" ? "no effect" : level}`;
+                const cause = followUp.cause ?? "attack";
+                const modifier = this.getMotiveDamageRollModifier(followUp.direction, cause, !!followUp.roughTerrain);
+                const level = this.rollMotiveDamage(roll, followUp.direction, cause, !!followUp.roughTerrain);
+                const label = cause === "skid" ? " (skid)" : cause === "jump" ? " (jump landing)" : "";
+                return `Motive System Damage${label} ${roll} ${modifier >= 0 ? "+" : ""}${modifier} = ${roll + modifier}: ${level === "none" ? "no effect" : level}`;
             }
             case "hullBreach": {
                 const name = this._locationName(followUp.location);
@@ -1794,15 +1871,25 @@ export default class Vehicle {
      * tracked) times the Damage Value of one shot, counting every missile (TW p. 125). A bin with no weapon
      * aboard to fire it cannot be valued and is left out.
      */
+    private _binWeapon(ammo: IEquipmentItem): IEquipmentItem | undefined {
+        const weapons = this._equipmentList.filter((item) => !item.isAmmo);
+        return (ammo.feedsWeaponTag ? weapons.find((w) => equipmentMatchesIdentifier(w, ammo.feedsWeaponTag || "")) : undefined)
+            ?? weapons.find((w) => getCompatibleAmmo(w, ammo));
+    }
+
+    // Shots in a full bin: the fed weapon's shots per ton times the bin's weight.
+    private _fullBinShots(ammo: IEquipmentItem): number {
+        const weapon = this._binWeapon(ammo);
+        return weapon ? Math.floor(getWeaponShotsPerTon(weapon, ammo) * (ammo.weight || 0)) : 0;
+    }
+
     public getAmmunitionExplosionDamage(): number {
         if (this._inPlay.criticals.ammoExploded) return 0;
-        const weapons = this._equipmentList.filter((item) => !item.isAmmo);
         let total = 0;
         for (const ammo of this._equipmentList.filter((item) => item.isAmmo && item.explosive)) {
-            const weapon = (ammo.feedsWeaponTag ? weapons.find((w) => equipmentMatchesIdentifier(w, ammo.feedsWeaponTag || "")) : undefined)
-                ?? weapons.find((w) => getCompatibleAmmo(w, ammo));
+            const weapon = this._binWeapon(ammo);
             if (!weapon) continue;
-            const shots = ammo.currentAmmo ?? Math.floor(getWeaponShotsPerTon(weapon, ammo) * (ammo.weight || 0));
+            const shots = ammo.currentAmmo ?? this._fullBinShots(ammo);
             total += Math.max(0, shots) * Vehicle._damagePerShot(weapon);
         }
         return total;
@@ -1845,6 +1932,11 @@ export default class Vehicle {
      */
     public applyAmmunitionExplosion(location: VehicleLocation, damage: number, hasCASE: boolean): void {
         this._inPlay.criticals.ammoExploded = true;
+        this._explode(location, damage, hasCASE);
+    }
+
+    // An ammunition-style explosion in a location (ammunition, TW p. 194; explosive weapons, TW p. 195).
+    private _explode(location: VehicleLocation, damage: number, hasCASE: boolean): void {
         if (hasCASE) {
             const taken = Math.min(this.getArmorRemaining("rear"), Math.max(0, damage));
             this._inPlay.armorDamage.rear = (this._inPlay.armorDamage.rear ?? 0) + taken;
@@ -1911,13 +2003,17 @@ export default class Vehicle {
     // --- Motive System Damage (TW p. 193) ---
 
     /** The Motive System Damage Table modifier for an attack from this direction on this vehicle. */
-    public getMotiveDamageRollModifier(direction: VehicleAttackDirection): number {
-        return VEHICLE_MOTIVE_DIRECTION_MODIFIER[direction] + getVehicleMotiveTypeModifier(this._motiveType.tag);
+    public getMotiveDamageRollModifier(direction: VehicleAttackDirection, cause: VehicleMotiveRollCause = "attack", roughTerrain: boolean = false): number {
+        // A jump landing disregards attack direction and uses its own type modifiers, +1 into rough, woods or
+        // jungle (TO p. 349); a skid has no attack direction (TW p. 192).
+        if (cause === "jump") return (JUMP_LANDING_MODIFIER[this._motiveType.tag] ?? 0) + (roughTerrain ? 1 : 0);
+        const typeModifier = getVehicleMotiveTypeModifier(this._motiveType.tag);
+        return cause === "skid" ? typeModifier : VEHICLE_MOTIVE_DIRECTION_MODIFIER[direction] + typeModifier;
     }
 
     /** Rolls on the Motive System Damage Table (2D6 before modifiers) and records the result. */
-    public rollMotiveDamage(roll: number, direction: VehicleAttackDirection): VehicleMotiveDamageLevel {
-        const level = getVehicleMotiveDamageLevel(roll + this.getMotiveDamageRollModifier(direction));
+    public rollMotiveDamage(roll: number, direction: VehicleAttackDirection, cause: VehicleMotiveRollCause = "attack", roughTerrain: boolean = false): VehicleMotiveDamageLevel {
+        const level = getVehicleMotiveDamageLevel(roll + this.getMotiveDamageRollModifier(direction, cause, roughTerrain));
         if (level !== "none") this.addMotiveHit(level);
         return level;
     }
@@ -2086,8 +2182,16 @@ export default class Vehicle {
             case "weaponDestroyed": {
                 const weapon = pickWeapon(this.getWeaponsInLocation(location).filter((w) => this.getWeaponStatus(w.uuid) !== "destroyed"));
                 if (weapon?.uuid) this.setWeaponStatus(weapon.uuid, "destroyed");
-                const explodes = weapon?.explosive ? "; it can explode: treat as an ammunition explosion in this location" : "";
-                return `${name}: ${weapon?.name ?? "no weapon"}${explodes}`;
+                // A destroyed weapon that can explode is an ammunition explosion in its location (TW p. 195).
+                const explosion = weapon ? getWeaponExplosionDamage(weapon) : null;
+                if (weapon && explosion) {
+                    const cased = this.hasCASE();
+                    this._explode(location, explosion.damage, cased);
+                    return `${name}: ${weapon.name} explodes for ${explosion.damage} damage (${explosion.book} p. ${explosion.page})`
+                        + (cased ? "; CASE vents it into the rear armor and stuns the crew" : ` to the ${this._locationName(location)} internal structure`);
+                }
+                const unresolved = weapon?.explosive ? "; it can explode, but its explosion damage is not in the rulebooks in hand" : "";
+                return `${name}: ${weapon?.name ?? "no weapon"}${unresolved}`;
             }
             case "stabilizer":
                 this.setStabilizerHit(location, true);
@@ -2147,6 +2251,28 @@ export default class Vehicle {
 
     public setCriticalHit(critical: Exclude<keyof IVehicleCriticalHits, "sensorHits" | "stabilizers" | "crewStunnedTurns" | "rotorDamage">, hit: boolean): void {
         this._inPlay.criticals[critical] = hit;
+        // An Engine Hit also locks the turret (TW p. 195).
+        if (critical === "engineHit" && hit) this._inPlay.criticals.turretLocked = true;
+    }
+
+    /** Whether the current target is higher than this VTOL, which its chin turret cannot fire at (TO p. 348). */
+    public setTargetAbove(above: boolean): void {
+        this._inPlay.targetAbove = above;
+    }
+
+    /** A ground vehicle (not hover) that skids after a failed Driving Skill Roll rolls for motive damage (TW p. 192). */
+    public startSkidMotiveRoll(): string {
+        if (this._motiveType.tag !== "tracked" && this._motiveType.tag !== "wheeled") {
+            return `A ${this._motiveType.name.toLowerCase()} vehicle makes no motive roll for a skid (ground vehicles other than hover only, TW p. 192)`;
+        }
+        this._followUps.push({ kind: "motive", direction: "front", cause: "skid" });
+        return "Skid: roll on the Motive System Damage Table (TW p. 192)";
+    }
+
+    /** Every vehicular jump ends with a Motive System Damage roll on landing (TO p. 349). */
+    public startJumpLandingRoll(roughTerrain: boolean): string {
+        this._followUps.push({ kind: "motive", direction: "front", cause: "jump", roughTerrain });
+        return `Jump landing: roll on the Motive System Damage Table (${roughTerrain ? "+1 rough, woods or jungle; " : ""}TO p. 349)`;
     }
 
     public setRotorDamage(count: number): void {
@@ -2196,7 +2322,7 @@ export default class Vehicle {
     public canRotateTurret(turret: VehicleTurretLocation): boolean {
         const c = this._inPlay.criticals;
         const exists = this.getLocations().some((loc) => loc.tag === turret);
-        return exists && !c.turretJammed && !c.turretLocked && !c.turretBlownOff && this.getStructureRemaining(turret) > 0;
+        return exists && !c.turretJammed && !c.turretLocked && !c.turretBlownOff && !c.turretDestroyed && this.getStructureRemaining(turret) > 0;
     }
 
     /**
@@ -2220,15 +2346,16 @@ export default class Vehicle {
             case "rear":
                 return { arc: "rear", turretRotation: null };
             case "left": case "frontLeft": case "rearLeft":
-                return { arc: "left", turretRotation: null };
+                return this._sponsonTurrets ? { arc: "left", turretRotation: null, sponson: true } : { arc: "left", turretRotation: null };
             case "right": case "frontRight": case "rearRight":
-                return { arc: "right", turretRotation: null };
+                return this._sponsonTurrets ? { arc: "right", turretRotation: null, sponson: true } : { arc: "right", turretRotation: null };
             default:
                 return { arc: "front", turretRotation: null };
         }
     }
 
     public describeFiringArc(arc: IVehicleFiringArc): string {
+        if (arc.sponson) return `${arc.arc === "left" ? "Left" : "Right"} sponson (180 degrees, row behind to row ahead)`;
         if (arc.turretRotation === null) {
             return { front: "Front", left: "Left side", right: "Right side", rear: "Rear" }[arc.arc];
         }
@@ -2503,6 +2630,7 @@ export default class Vehicle {
         if (inTurret && (c.turretDestroyed || c.turretBlownOff)) return null;
         if (c.engineHit && isDirectFireEnergyOrPulse(weapon)) return null;
         if (weapon.location && this.isBreached(weapon.location as VehicleLocation)) return null;
+        if (inTurret && this.hasChinTurret() && this._inPlay.targetAbove) return null;
         let modifier = this.getAttackerMovementModifier() + c.sensorHits;
         if (c.commanderHit) modifier += 1;
         if (c.coPilotHit) modifier += 1;
@@ -2532,6 +2660,7 @@ export default class Vehicle {
             motiveType: this._motiveType.tag,
             hasTurret: this._hasTurret,
             dualTurret: this._dualTurret,
+            sponsonTurrets: this._sponsonTurrets,
             jumpMP: this._jumpMP,
             troopSpace: this._troopSpace || undefined,
             tech: this._tech.tag,
@@ -2573,6 +2702,7 @@ export default class Vehicle {
             this._motiveType = getVehicleMotiveType(importObject.motiveType);
             this._hasTurret = importObject.hasTurret ?? true;
             this._dualTurret = !!importObject.dualTurret && this._hasTurret;
+            this._sponsonTurrets = importObject.sponsonTurrets === true;
             this._jumpMP = Math.floor(savedNumber(importObject.jumpMP, 0, 0, 100));
             this._troopSpace = savedNumber(importObject.troopSpace, 0, 0, 1000);
             // Saved play state is rebuilt field by field, never spread in: saves can come from other people's
@@ -2597,6 +2727,10 @@ export default class Vehicle {
                 const restoredItem = this._equipmentList.find(item => item.uuid === equipmentItem.uuid);
                 if (restoredItem && typeof equipmentItem.currentAdditionalArmor === "number") {
                     restoredItem.currentAdditionalArmor = equipmentItem.currentAdditionalArmor;
+                }
+                // Shots left in an ammunition bin, clamped to what the bin holds.
+                if (restoredItem?.isAmmo && typeof equipmentItem.currentAmmo === "number" && Number.isFinite(equipmentItem.currentAmmo)) {
+                    restoredItem.currentAmmo = Math.max(0, Math.min(this._fullBinShots(restoredItem), Math.floor(equipmentItem.currentAmmo)));
                 }
             }
         } catch (error) {
