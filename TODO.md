@@ -22,9 +22,8 @@ Local references (git-ignored, never imported by shipped code):
 ## 1. Fix what ships
 
 - [ ] `tools/mul-sync/browser-state.json` (session cookies, including `cf_clearance`) is now untracked and
-  ignored on master, and the weekly sync no longer commits it (ngcfells/battletech-tools#7). Still to do:
-  remove it from the `MUL` branch, which the workflow checks out, and decide whether to purge it from the
-  history.
+  ignored on master, and the weekly sync no longer commits it (ngcfells/battletech-tools#7). The `MUL` branch
+  is retired. Still to decide: whether to purge the old copies from the history.
 - [ ] Report the SSW ammunition bug upstream (issue + PR). The ammunition catalog rename (`Ammo (SRM-6)` ->
   `SRM - Standard Ammo`, upstream #75) broke name matching in the SSW importer: 413 of the 512 bundled
   'Mechs lost their ammunition on import, on upstream's live site too. Fixed here by the SSW name resolver
