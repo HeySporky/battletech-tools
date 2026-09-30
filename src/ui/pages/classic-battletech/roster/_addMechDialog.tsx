@@ -16,8 +16,6 @@ const Eye = FaEye as any;
 const PlusCircle = FaPlusCircle as any;
 const TimesCircle = FaTimesCircle as any;
 
-import type { JSX } from "react";
-
 export default class BattleMechAddMechDialog extends React.Component<IBattleMechAddMechDialogProps, IBattleMechAddMechDialogState> {
 
     constructor(props: IBattleMechAddMechDialogProps) {

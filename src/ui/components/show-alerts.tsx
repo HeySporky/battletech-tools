@@ -8,8 +8,6 @@ import { safeExternalURL } from '../../utils/safeImageURL';
 import type { JSX } from "react";
 const TimesCircleIcon = FaTimesCircle as any;
 
-import type { JSX } from "react";
-
 export default class ShowAlerts extends React.Component<IShowAlertsProps, IShowAlertsState> {
 
     constructor(props: IShowAlertsProps) {
