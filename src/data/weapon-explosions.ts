@@ -23,6 +23,9 @@ const WEAPON_EXPLOSIONS: Record<string, IWeaponExplosion> = {
     "gauss-rifle-heavy-improved": { damage: 30, book: "TO", page: 314 },
     "gauss-rifle-magshot": { damage: 3, book: "TO", page: 314 },
     "silver-bullet-gauss-rifle": { damage: 20, book: "TO", page: 315 },
+    "clan-improved-gauss-rifle": { damage: 20, book: "IO", page: 96 },
+    // Prototype Gauss rifles function as standard Inner Sphere Gauss rifles in all respects (IO p. 72).
+    "prototype-gauss-rifle": { damage: 20, book: "IO", page: 72 },
 };
 
 /** The explosion a weapon makes when destroyed by a critical hit, or null when none is sourced. */

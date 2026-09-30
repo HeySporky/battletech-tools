@@ -18,6 +18,7 @@ import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } 
 import { equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
+import { findByTag, matchesTag } from "../data/tag-match";
 import { getMovementModifier } from "../utils";
 import {
     IArmorType,
@@ -195,6 +196,13 @@ export const VEHICLE_MAX_SENSOR_HITS = 4;
 export const VEHICLE_MAX_ELEVATION = 100;
 export const VEHICLE_MAX_HEXES_MOVED = 100;
 const MAX_PLAY_COUNTER = 100;
+/** Most equipment entries read from a save; far above any real design, low enough that import stays fast. */
+export const MAX_VEHICLE_EQUIPMENT = 500;
+/** Most Motive System Damage results kept from a save (every roll after Major damage changes nothing). */
+export const MAX_MOTIVE_HITS = 20;
+
+/** A string from saved data, or the fallback. */
+const savedString = (value: unknown, fallback: string = ""): string => typeof value === "string" ? value : fallback;
 
 const VEHICLE_LOCATION_TAGS: VehicleLocation[] = ["front", "left", "right", "rear", "frontLeft", "frontRight", "rearLeft", "rearRight", "rotor", "turret", "turret2"];
 const MOTIVE_HIT_LEVELS: VehicleMotiveHit[] = ["minor", "moderate", "heavy", "immobilized"];
@@ -232,9 +240,9 @@ export const normalizeVehicleInPlay = (saved: unknown): IVehicleInPlay => {
     const flag = (value: unknown, fallback: boolean) => typeof value === "boolean" ? value : fallback;
     // Saves from before the Motive System Damage Table stored one flag per level.
     const legacy = isPlainObject(saved.motiveDamage) ? saved.motiveDamage : null;
-    const motiveHits = Array.isArray(saved.motiveHits)
+    const motiveHits = (Array.isArray(saved.motiveHits)
         ? saved.motiveHits.filter((hit): hit is VehicleMotiveHit => MOTIVE_HIT_LEVELS.includes(hit as VehicleMotiveHit))
-        : legacy ? MOTIVE_HIT_LEVELS.filter((level) => legacy[level] === true) : [];
+        : legacy ? MOTIVE_HIT_LEVELS.filter((level) => legacy[level] === true) : []).slice(0, MAX_MOTIVE_HITS);
     const c = isPlainObject(saved.criticals) ? saved.criticals : {};
     const criticals = { ...defaults.criticals };
     for (const key of Object.keys(criticals) as (keyof IVehicleCriticalHits)[]) {
@@ -244,11 +252,15 @@ export const normalizeVehicleInPlay = (saved: unknown): IVehicleInPlay => {
     criticals.sensorHits = Math.floor(savedNumber(c.sensorHits, 0, 0, VEHICLE_MAX_SENSOR_HITS));
     criticals.rotorDamage = Math.floor(savedNumber(c.rotorDamage, 0, 0, MAX_PLAY_COUNTER));
     criticals.stabilizers = savedLocations(c.stabilizers);
+    // An Engine Hit also locks the turret (TW p. 195), whatever an older save recorded.
+    if (criticals.engineHit) criticals.turretLocked = true;
     const turretFacing: Partial<Record<VehicleTurretLocation, number>> = {};
     if (isPlainObject(saved.turretFacing)) {
         for (const turret of ["turret", "turret2"] as VehicleTurretLocation[]) {
             const facing = saved.turretFacing[turret];
-            if (typeof facing === "number" && Number.isInteger(facing) && facing >= -2 && facing <= 3) turretFacing[turret] = facing;
+            // The forward turret of a dual-turret vehicle cannot face the rear hexside (TO p. 347).
+            const maxFacing = turret === "turret2" ? 2 : 3;
+            if (typeof facing === "number" && Number.isInteger(facing) && facing >= -2 && facing <= maxFacing) turretFacing[turret] = facing;
         }
     }
     const crashDestroyed = saved.crashDestroyed === "exploded" || saved.crashDestroyed === "water" ? saved.crashDestroyed : "";
@@ -258,8 +270,8 @@ export const normalizeVehicleInPlay = (saved: unknown): IVehicleInPlay => {
         motiveHits,
         rotorHits: Math.floor(savedNumber(saved.rotorHits, 0, 0, MAX_PLAY_COUNTER)),
         criticals,
-        jammedWeapons: savedStrings(saved.jammedWeapons),
-        destroyedWeapons: savedStrings(saved.destroyedWeapons),
+        jammedWeapons: savedStrings(saved.jammedWeapons).slice(0, MAX_VEHICLE_EQUIPMENT),
+        destroyedWeapons: savedStrings(saved.destroyedWeapons).slice(0, MAX_VEHICLE_EQUIPMENT),
         movementMode: MOVEMENT_MODES.includes(saved.movementMode as VehicleMovementMode) ? saved.movementMode as VehicleMovementMode : "stationary",
         hexesMoved: Math.floor(savedNumber(saved.hexesMoved, 0, 0, VEHICLE_MAX_HEXES_MOVED)),
         landed: flag(saved.landed, defaults.landed),
@@ -273,6 +285,19 @@ export const normalizeVehicleInPlay = (saved: unknown): IVehicleInPlay => {
         crashDestroyed,
         targetAbove: flag(saved.targetAbove, defaults.targetAbove),
     };
+};
+
+/**
+ * Cleans a raw saved design (for example from a restored backup) by loading it into a Vehicle and exporting it
+ * again, and reports what had to change. Use it before storing or rendering saved vehicles.
+ */
+export const normalizeVehicleExport = (raw: unknown): { vehicle: IVehicleExport | null; issues: string[] } => {
+    // An entry that is not a saved vehicle at all is dropped, not turned into a blank default vehicle.
+    if (!isPlainObject(raw)) return { vehicle: null, issues: ["Skipped an entry that is not a saved vehicle"] };
+    // Defined below the class; hoisted at call time.
+    const loaded = new Vehicle(JSON.stringify(raw));
+    const issues = [...loaded.getImportIssues()];
+    return { vehicle: loaded.export(), issues };
 };
 
 /** Escapes text written into the HTML calculation logs, which the summary page renders as markup. */
@@ -390,7 +415,7 @@ const FUSION_ENGINE_TAGS = ["standard", "xl", "clan_xl", "light", "compact", "xx
 // Item slots an engine takes in a vehicle (as implemented by MegaMek Tank.getFreeSlots).
 const ENGINE_ITEM_SLOTS: Record<string, number> = { light: 1, xl: 2, clan_xl: 1, xxl: 4, clan_xxl: 2, compact: -1 };
 
-/** Vehicular jump jets (TO:AUE p.161 per MegaMek): Advanced; IS prototype 2650, production 3083. */
+/** Vehicular jump jets: Advanced (TO:AUE); prototype 2650 (TH), production ~3083 (CHH), extinct 2840 (IO p. 35). */
 export const VEHICLE_JUMP_JET_INTRODUCED = 3083;
 
 export default class Vehicle {
@@ -411,6 +436,7 @@ export default class Vehicle {
     private _inPlay: IVehicleInPlay = newInPlay();
     // Rolls the rules call for after a hit, a critical hit or another roll; not saved.
     private _followUps: VehicleFollowUpRoll[] = [];
+    private _importIssues: string[] = [];
 
     private _tech: ITechOptions = btTechOptions[0];
     private _era: IEras = btEraOptions[0];
@@ -491,11 +517,6 @@ export default class Vehicle {
         return this._tonnage > this._motiveType.standardMaxTonnage;
     }
 
-    /**
-     * Lowest rules level at which this vehicle is legal: Superheavy vehicles and the VTOL chin
-     * turret are Advanced, plus the rules level of its installed equipment. Standard (2) is
-     * tournament play.
-     */
     // --- Sponson turrets (TO pp. 348, 411): always a pair, in place of side-mounted weapons ---
 
     public hasSponsonTurrets(): boolean {
@@ -535,10 +556,17 @@ export default class Vehicle {
         return left === right ? null : `Sponsons must carry the same tonnage of weapons (left ${left} t, right ${right} t)`;
     }
 
+    /**
+     * Lowest rules level at which this vehicle is legal, plus the rules level of its installed
+     * equipment. Standard (2) is tournament play. Superheavy vehicles, dual, sponson and chin
+     * turrets and vehicular jump jets are Advanced: TO:AUE, which moved the turrets and jump jets
+     * from TO 2008's Experimental (TO pp. 347-349) to Advanced. IO pp. 35 and 50 date them as
+     * production technology (turrets ~3079-3080, jump jets ~3083).
+     */
     public getRequiredRulesLevel(): number {
-        let level = this.isSuperheavy() || this.hasChinTurret() || this._jumpMP > 0 ? 3 : 0;
-        // Sponson turrets are Experimental (TO p. 348).
-        if (this._sponsonTurrets) level = Math.max(level, 4);
+        const advanced = this.isSuperheavy() || this.hasChinTurret() || this._dualTurret
+            || this._sponsonTurrets || this._jumpMP > 0;
+        let level = advanced ? 3 : 0;
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
         }
@@ -778,7 +806,7 @@ export default class Vehicle {
     }
 
     public setTech(tag: string): ITechOptions {
-        this._tech = btTechOptions.find((t) => t.tag === tag) ?? this._tech;
+        this._tech = findByTag(btTechOptions, tag) ?? this._tech;
         return this._tech;
     }
 
@@ -787,7 +815,7 @@ export default class Vehicle {
     }
 
     public setEra(tag: string): IEras {
-        this._era = btEraOptions.find((e) => e.tag === tag) ?? this._era;
+        this._era = findByTag(btEraOptions, tag) ?? this._era;
         return this._era;
     }
 
@@ -796,7 +824,7 @@ export default class Vehicle {
     }
 
     public setEngineType(tag: string): IEngineType {
-        this._engineType = mechEngineTypes.find((e) => e.tag === tag) ?? this._engineType;
+        this._engineType = findByTag(mechEngineTypes, tag) ?? this._engineType;
         this._calc();
         return this._engineType;
     }
@@ -860,7 +888,7 @@ export default class Vehicle {
     }
 
     public setArmorType(tag: string): IArmorType {
-        this._armorType = this.getAvailableArmorTypes().find((armor) => armor.tag === tag) ?? this._armorType;
+        this._armorType = findByTag(this.getAvailableArmorTypes(), tag) ?? this._armorType;
         this._calc();
         return this._armorType;
     }
@@ -969,7 +997,7 @@ export default class Vehicle {
     }
 
     public setStructureType(tag: string): string {
-        this._structureType = VEHICLE_STRUCTURE_MULTIPLIERS[tag] !== undefined ? tag : "standard";
+        this._structureType = Object.prototype.hasOwnProperty.call(VEHICLE_STRUCTURE_MULTIPLIERS, tag) ? tag : "standard";
         this._calc();
         return this._structureType;
     }
@@ -1012,7 +1040,7 @@ export default class Vehicle {
     }
 
     public setHeatSinkType(tag: string): IHeatSync {
-        this._heatSinkType = mechHeatSinkTypes.find((h) => h.tag === tag && h.tag === "single") ?? this._heatSinkType;
+        this._heatSinkType = mechHeatSinkTypes.find((h) => matchesTag(h, tag) && h.tag === "single") ?? this._heatSinkType;
         this._calc();
         return this._heatSinkType;
     }
@@ -1048,19 +1076,26 @@ export default class Vehicle {
     }
 
     public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string): IEquipmentItem[] {
-        const catalogItem = getEquipmentListByTech(this._tech.tag, true).find((item) => item.tag === tag);
+        const catalogItem = findByTag(getEquipmentListByTech(this._tech.tag, true), tag);
         if (catalogItem) {
-            // Only this vehicle's own locations (never the rotor); saved data may hold anything.
-            const validLocation = typeof location === "string" && location !== "rotor"
-                && this.getLocations().some((loc) => loc.tag === location) ? location : undefined;
-            const equipment = { ...catalogItem, location: validLocation, rear: rear === true, uuid: typeof uuid === "string" && uuid ? uuid : generateUUID() };
-            if (equipment.isModularArmor) {
-                equipment.currentAdditionalArmor = equipment.additionalArmor ?? 10;
-            }
-            this._equipmentList.push(equipment);
+            this._equipmentList.push(this._newEquipment(catalogItem, location, rear, uuid));
             this._calc();
         }
         return this._equipmentList;
+    }
+
+    // A mounted copy of a catalog item. Only this vehicle's own locations (never the rotor) are kept, and ids
+    // must be unique strings: saved data may hold anything.
+    private _newEquipment(catalogItem: IEquipmentItem, location?: unknown, rear?: unknown, uuid?: unknown): IEquipmentItem {
+        const validLocation = typeof location === "string" && location !== "rotor"
+            && this.getLocations().some((loc) => loc.tag === location) ? location : undefined;
+        const freshId = typeof uuid !== "string" || !uuid || this._equipmentList.some((item) => item.uuid === uuid);
+        // A deep copy: mounted items never share nested data (ranges, Alpha Strike values) with each other.
+        const equipment: IEquipmentItem = { ...JSON.parse(JSON.stringify(catalogItem)), location: validLocation, rear: rear === true, uuid: freshId ? generateUUID() : uuid as string };
+        if (equipment.isModularArmor) {
+            equipment.currentAdditionalArmor = equipment.additionalArmor ?? 10;
+        }
+        return equipment;
     }
 
     public removeEquipment(uuid: string): IEquipmentItem[] {
@@ -1857,7 +1892,7 @@ export default class Vehicle {
 
     /** CASE (or CASE II) vents a vehicle's ammunition explosion through the rear armor (TW p. 194). */
     public hasCASE(): boolean {
-        return this._equipmentList.some((item) => item.tag === "case" || item.tag === "case-ii" || item.tag === "clan-case-ii");
+        return this._equipmentList.some((item) => ["case", "case-ii", "clan-case-ii"].some((tag) => matchesTag(item, tag)));
     }
 
     private static _damagePerShot(weapon: IEquipmentItem): number {
@@ -2690,50 +2725,98 @@ export default class Vehicle {
         return JSON.stringify(this.export());
     }
 
+    /** Problems found in the last import: fields that were invalid and replaced, or entries that were dropped. */
+    public getImportIssues(): string[] {
+        return this._importIssues;
+    }
+
+    /**
+     * Loads a saved vehicle. Saves can come from other people's backup files, so every field is type-checked,
+     * allowlisted or clamped, construction rules the setters enforce are re-applied, and anything dropped is
+     * recorded in getImportIssues(). Never spread or Object.assign the parsed JSON into class state.
+     */
     public importJSON(json: string) {
+        this._importIssues = [];
+        const issue = (text: string) => { if (this._importIssues.length < 50) this._importIssues.push(text); };
         try {
-            const importObject: IVehicleExport = JSON.parse(json);
-            this._uuid = importObject.uuid || generateUUID();
-            this.lastUpdated = importObject.lastUpdated ? new Date(importObject.lastUpdated) : new Date();
-            this._name = importObject.name || "";
-            this._model = importObject.model || "";
-            this._nickname = importObject.nickname || "";
+            const parsed: unknown = JSON.parse(json);
+            if (!isPlainObject(parsed)) {
+                issue("The saved vehicle is not an object");
+                return;
+            }
+            const importObject = parsed as Partial<Record<keyof IVehicleExport, unknown>>;
+            const text = (key: "name" | "model" | "nickname") => {
+                const value = importObject[key];
+                if (value !== undefined && typeof value !== "string") issue(`Ignored a ${key} that is not text`);
+                return savedString(value);
+            };
+            this._uuid = savedString(importObject.uuid) || generateUUID();
+            const updated = typeof importObject.lastUpdated === "string" || typeof importObject.lastUpdated === "number"
+                ? new Date(importObject.lastUpdated) : new Date();
+            this.lastUpdated = Number.isNaN(updated.getTime()) ? new Date() : updated;
+            this._name = text("name");
+            this._model = text("model");
+            this._nickname = text("nickname");
+            if (importObject.tonnage !== undefined && typeof importObject.tonnage !== "number") issue("Ignored a tonnage that is not a number");
             this._tonnage = savedNumber(importObject.tonnage, 20, 1, 1000) || 20;
-            this._motiveType = getVehicleMotiveType(importObject.motiveType);
-            this._hasTurret = importObject.hasTurret ?? true;
-            this._dualTurret = !!importObject.dualTurret && this._hasTurret;
-            this._sponsonTurrets = importObject.sponsonTurrets === true;
-            this._jumpMP = Math.floor(savedNumber(importObject.jumpMP, 0, 0, 100));
+            this._motiveType = getVehicleMotiveType(savedString(importObject.motiveType));
+            this._hasTurret = typeof importObject.hasTurret === "boolean" ? importObject.hasTurret : true;
+            this._dualTurret = importObject.dualTurret === true && this._hasTurret && this.canHaveDualTurret();
             this._troopSpace = savedNumber(importObject.troopSpace, 0, 0, 1000);
-            // Saved play state is rebuilt field by field, never spread in: saves can come from other people's
-            // backups (see normalizeVehicleInPlay). Do not merge untrusted JSON with Object.assign either,
-            // which walks the prototype setter.
             this._inPlay = normalizeVehicleInPlay(importObject.inPlay);
-            this.setTech(importObject.tech);
-            this.setEra(importObject.era);
-            this.setEngineType(importObject.engineType);
+            this.setTech(savedString(importObject.tech));
+            this.setEra(savedString(importObject.era));
+            this.setEngineType(savedString(importObject.engineType));
             this._cruiseMP = Math.floor(savedNumber(importObject.cruiseMP, 0, 0, 100));
-            this.setArmorType(importObject.armorType);
-            this._armorAllocation = { ...emptyArmorAllocation(), ...savedLocationPoints(importObject.armorAllocation) };
-            this._structureType = importObject.structureType || "standard";
-            this.setHeatSinkType(importObject.heatSinkType);
+            // Jump jets: only on motive types that allow them, never more than Cruise MP, never with sponsons.
+            const jumpMP = Math.floor(savedNumber(importObject.jumpMP, 0, 0, 100));
+            this._jumpMP = this._motiveType.allowsJumpJets ? Math.min(jumpMP, this._cruiseMP) : 0;
+            this._sponsonTurrets = importObject.sponsonTurrets === true && this._jumpMP === 0;
+            if (importObject.sponsonTurrets === true && !this._sponsonTurrets) issue("Dropped sponson turrets: the design also has jump jets");
+            this.setArmorType(savedString(importObject.armorType));
+            const armor = savedLocationPoints(importObject.armorAllocation);
+            for (const tag of Object.keys(armor) as VehicleLocation[]) armor[tag] = Math.floor(armor[tag] ?? 0);
+            if (armor.rotor !== undefined) armor.rotor = Math.min(VTOL_MAX_ROTOR_ARMOR, armor.rotor);
+            this._armorAllocation = { ...emptyArmorAllocation(), ...armor };
+            this._structureType = "standard";
+            this.setStructureType(savedString(importObject.structureType, "standard"));
+            this.setHeatSinkType(savedString(importObject.heatSinkType));
             this._additionalHeatSinks = Math.floor(savedNumber(importObject.additionalHeatSinks, 0, 0, 1000));
-            if (importObject.pilot) {
-                this._pilot = new Pilot(importObject.pilot);
-            }
+            this._pilot = new Pilot(isPlainObject(importObject.pilot) ? importObject.pilot as unknown as IPilot : null);
+
+            // Equipment: one catalog lookup, one recalculation at the end, and a hard cap on entries.
             this._equipmentList = [];
-            for (const equipmentItem of importObject.equipment || []) {
-                this.addEquipmentFromTag(equipmentItem.tag, equipmentItem.location, equipmentItem.rear, equipmentItem.uuid);
-                const restoredItem = this._equipmentList.find(item => item.uuid === equipmentItem.uuid);
-                if (restoredItem && typeof equipmentItem.currentAdditionalArmor === "number") {
-                    restoredItem.currentAdditionalArmor = equipmentItem.currentAdditionalArmor;
+            const saved = Array.isArray(importObject.equipment) ? importObject.equipment : [];
+            if (importObject.equipment !== undefined && !Array.isArray(importObject.equipment)) issue("Ignored an equipment list that is not a list");
+            if (saved.length > MAX_VEHICLE_EQUIPMENT) issue(`Kept the first ${MAX_VEHICLE_EQUIPMENT} of ${saved.length} equipment entries`);
+            const catalog = getEquipmentListByTech(this._tech.tag, true);
+            const restored: [IEquipmentItem, Record<string, unknown>][] = [];
+            for (const entry of saved.slice(0, MAX_VEHICLE_EQUIPMENT)) {
+                if (!isPlainObject(entry) || typeof entry.tag !== "string") {
+                    issue("Skipped an equipment entry that could not be read");
+                    continue;
                 }
-                // Shots left in an ammunition bin, clamped to what the bin holds.
-                if (restoredItem?.isAmmo && typeof equipmentItem.currentAmmo === "number" && Number.isFinite(equipmentItem.currentAmmo)) {
-                    restoredItem.currentAmmo = Math.max(0, Math.min(this._fullBinShots(restoredItem), Math.floor(equipmentItem.currentAmmo)));
+                const catalogItem = findByTag(catalog, entry.tag);
+                if (!catalogItem) {
+                    issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
+                    continue;
+                }
+                const item = this._newEquipment(catalogItem, entry.location, entry.rear, entry.uuid);
+                if (item.isModularArmor && typeof entry.currentAdditionalArmor === "number") {
+                    item.currentAdditionalArmor = savedNumber(entry.currentAdditionalArmor, item.currentAdditionalArmor ?? 0, 0, item.additionalArmor ?? 10);
+                }
+                this._equipmentList.push(item);
+                restored.push([item, entry]);
+            }
+            // Shots left in each bin, clamped to what the bin holds, once every weapon is mounted.
+            for (const [item, entry] of restored) {
+                if (item.isAmmo && typeof entry.currentAmmo === "number" && Number.isFinite(entry.currentAmmo)) {
+                    item.currentAmmo = Math.max(0, Math.min(this._fullBinShots(item), Math.floor(entry.currentAmmo)));
                 }
             }
+            this._calc();
         } catch (error) {
+            issue("The saved vehicle could not be read completely");
             console.error("Vehicle importJSON failed:", error);
         }
     }

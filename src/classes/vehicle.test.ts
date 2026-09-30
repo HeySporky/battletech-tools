@@ -391,6 +391,8 @@ describe("Vehicle construction details", () => {
         const tank = build("tracked", 60);
         tank.setDualTurret(true);
         expect(tank.getLocations().map((loc) => loc.name)).toEqual(["Front", "Left", "Right", "Rear", "Front Turret", "Rear Turret"]);
+        // Dual turrets are Advanced (TO:AUE, per the user's ruling of 2026-09-29; TO 2008 p. 347 had them Experimental).
+        expect(tank.getRequiredRulesLevel()).toBe(3);
         place(tank, "large-laser", "turret2");
         expect(tank.getWeights().find((entry) => entry.name === "Front Turret")?.weight).toBe(0.5);
         expect(tank.getWeights().find((entry) => entry.name === "Rear Turret")?.weight).toBe(0.5);

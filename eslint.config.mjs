@@ -47,28 +47,39 @@ export default tseslint.config(
             // TypeScript's own compiler already catches real undefined references and
             // understands ambient globals (JSX, process via vite define, etc.) that no-undef doesn't.
             "no-undef": "off",
-            // Security: the app renders data from files other people send (backups, imports). See also
-            // src/security-guards.test.ts, which enforces the same boundaries in `npm test`.
+        },
+    },
+    {
+        // Security: the app renders data from files other people send (backups, imports). Applies to every source
+        // file type Vite bundles. See also src/security-guards.test.ts, which enforces the same boundaries in `npm test`.
+        files: ["src/**/*.{js,jsx,mjs,cjs,ts,tsx,mts,cts}"],
+        languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
+        linterOptions: { reportUnusedDisableDirectives: "error" },
+        rules: {
             "no-eval": "error",
             "no-implied-eval": "error",
             "no-new-func": "error",
             "no-script-url": "error",
             "no-restricted-syntax": ["error",
                 {
-                    selector: "JSXAttribute[name.name='dangerouslySetInnerHTML']",
+                    selector: "JSXAttribute[name.name='dangerouslySetInnerHTML'], Property[key.name='dangerouslySetInnerHTML'], Property[key.value='dangerouslySetInnerHTML']",
                     message: "Render markup through SanitizedHTML (src/ui/components/sanitized-html.tsx), never dangerouslySetInnerHTML directly.",
                 },
                 {
-                    selector: "AssignmentExpression[left.property.name=/^(innerHTML|outerHTML)$/]",
-                    message: "Do not assign innerHTML/outerHTML; render with React or SanitizedHTML.",
+                    selector: "AssignmentExpression[left.property.name=/^(innerHTML|outerHTML)$/], AssignmentExpression[left.property.value=/^(innerHTML|outerHTML)$/], Property[key.name=/^(innerHTML|outerHTML)$/]",
+                    message: "Do not set innerHTML/outerHTML; render with React or SanitizedHTML.",
                 },
                 {
-                    selector: "CallExpression[callee.property.name='insertAdjacentHTML']",
-                    message: "Do not write raw HTML into the DOM.",
+                    selector: "CallExpression[callee.property.name=/^(insertAdjacentHTML|createContextualFragment|setHTMLUnsafe|parseFromString)$/], CallExpression[callee.property.value=/^(insertAdjacentHTML|createContextualFragment|setHTMLUnsafe|parseFromString)$/]",
+                    message: "Do not turn strings into DOM markup.",
                 },
                 {
-                    selector: "CallExpression[callee.object.name='document'][callee.property.name=/^(write|writeln)$/]",
-                    message: "Do not write raw HTML into the DOM.",
+                    selector: "CallExpression[callee.object.name='document'][callee.property.name=/^(write|writeln)$/], CallExpression[callee.object.property.name='document'][callee.property.name=/^(write|writeln)$/], CallExpression[callee.property.value=/^(write|writeln)$/]",
+                    message: "Do not write raw HTML into the document.",
+                },
+                {
+                    selector: "JSXOpeningElement[name.name='SanitizedHTML'] > JSXSpreadAttribute, CallExpression[callee.property.name='createElement'][arguments.0.name='SanitizedHTML']",
+                    message: "Pass SanitizedHTML props explicitly so reviews (and src/security-guards.test.ts) can see a raw flag.",
                 },
             ],
         },

@@ -84,7 +84,7 @@ test("skid motive rolls, armor-piercing criticals and sponson turrets", async ({
     page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
 
     await page.goto("classic-battletech/vehicle-creator/step1");
-    await page.getByText(/Sponson Turrets \(Experimental/).click();
+    await page.getByText(/Sponson Turrets \(Advanced/).click();
     await page.goto("classic-battletech/vehicle-creator/equipment-placement");
     await expect(page.getByText(/weapons on the left and right sides go in the sponsons/)).toBeVisible();
     await page.goto("classic-battletech/vehicle-creator");

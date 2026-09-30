@@ -255,14 +255,14 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                 )}
                                 {vehicle.hasTurret() && vehicle.canHaveDualTurret() ? (
                                     <InputCheckbox
-                                        label="Dual Turrets (front and rear)"
+                                        label="Dual Turrets (front and rear; Advanced)"
                                         checked={vehicle.hasDualTurret()}
                                         onChange={this.updateDualTurret}
                                     />
                                 ) : null}
                                 {vehicle.canHaveSponsonTurrets() || vehicle.hasSponsonTurrets() ? (
                                     <InputCheckbox
-                                        label="Sponson Turrets (Experimental; side weapons in a pair of 180-degree sponsons, no jump jets)"
+                                        label="Sponson Turrets (Advanced; side weapons in a pair of 180-degree sponsons, no jump jets)"
                                         checked={vehicle.hasSponsonTurrets()}
                                         onChange={this.updateSponsonTurrets}
                                     />
@@ -272,7 +272,7 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                 {vehicle.getRequiredRulesLevel() > rulesLevel ? (
                                     <p className="color-red smaller-text">
                                         This design needs the {getRulesLevelOptions().find((option) => option.id === vehicle.getRequiredRulesLevel())?.name} rules
-                                        level{vehicle.isSuperheavy() ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""}{vehicle.getJumpMP() > 0 ? " (jump jets)" : ""}{vehicle.hasSponsonTurrets() ? " (sponson turrets)" : ""} and
+                                        level{vehicle.isSuperheavy() ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""}{vehicle.getJumpMP() > 0 ? " (jump jets)" : ""}{vehicle.hasDualTurret() ? " (dual turrets)" : ""}{vehicle.hasSponsonTurrets() ? " (sponson turrets)" : ""} and
                                         is not legal at the selected level. Printing will ask for confirmation.
                                     </p>
                                 ) : null}
