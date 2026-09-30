@@ -7,9 +7,9 @@ import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
-import { btEraOptions } from "../data/era-options";
+import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
 import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
-import { getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { getMovementModifier } from "../utils";
 import {
@@ -18,6 +18,7 @@ import {
     IEquipmentItem,
     IEras,
     IHeatSync,
+    ITechDates,
     ITechOptions,
     IVehicleArmorAllocation,
     IVehicleMotiveType,
@@ -531,6 +532,8 @@ export default class Vehicle {
 
     public setTech(tag: string): ITechOptions {
         this._tech = btTechOptions.find((t) => t.tag === tag) ?? this._tech;
+        // Clan-only eras are closed to the Inner Sphere, and Mixed Tech starts at the Clan Invasion.
+        this._era = getClosestEraForTech(this._era, this._tech.tag);
         return this._tech;
     }
 
@@ -539,8 +542,14 @@ export default class Vehicle {
     }
 
     public setEra(tag: string): IEras {
-        this._era = btEraOptions.find((e) => e.tag === tag) ?? this._era;
+        const era = findEraByTag(tag) ?? this._era;
+        this._era = getClosestEraForTech(era, this._tech.tag);
         return this._era;
+    }
+
+    /** The eras this vehicle's tech base can be designed in. */
+    public getAvailableEras(): IEras[] {
+        return getErasForTech(this._tech.tag);
     }
 
     public getEngineType(): IEngineType {
@@ -601,14 +610,40 @@ export default class Vehicle {
         return this._armorType;
     }
 
-    public getAvailableArmorTypes(): IArmorType[] {
+    /**
+     * Armor this vehicle's tech base and motive type can mount. `available` marks what the era and rules
+     * level allow; the setter checks only tech and motive, so saved designs keep their armor.
+     */
+    public getAvailableArmorTypes(rulesLevel: number = 2): IArmorType[] {
         const techTag = this.getTech().tag;
         const isMixed = techTag === "mis" || techTag === "mclan";
-        return mechArmorTypes.filter((armor) => armor.unitTypes.combatVehicle
+        const armorTypes = mechArmorTypes.filter((armor) => armor.unitTypes.combatVehicle
             && (this._motiveType.allowsHardenedArmor || armor.tag !== "hardened")
             && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && (isMixed
             ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
             : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0));
+        for (const armor of armorTypes) {
+            const availability = this._techDatesAvailability(armor, rulesLevel);
+            armor.available = availability.available;
+            armor.availableAsPrototype = availability.asPrototype;
+        }
+        return armorTypes;
+    }
+
+    /** Engines for this vehicle's tech base (either one for Mixed Tech), with era availability marked. */
+    public getAvailableEngineTypes(rulesLevel: number = 2): IEngineType[] {
+        const techTag = this.getTech().tag;
+        const bases: ("is" | "clan")[] = techTag === "is" ? ["is"] : techTag === "clan" ? ["clan"] : ["is", "clan"];
+        const engineTypes = mechEngineTypes.filter((engine) => bases.some((base) => engine.criticals[base]));
+        for (const engine of engineTypes) {
+            const availability = bases.filter((base) => engine.criticals[base])
+                .map((base) => this._datesAvailability(base === "clan" ? engine.clanDates ?? engine : engine, rulesLevel));
+            const inProduction = availability.find((option) => option.available && !option.asPrototype);
+            const chosen = inProduction ?? availability.find((option) => option.available) ?? availability[0];
+            engine.available = chosen.available;
+            engine.availableAsPrototype = chosen.asPrototype;
+        }
+        return engineTypes;
     }
 
     public setArmorType(tag: string): IArmorType {
@@ -629,7 +664,8 @@ export default class Vehicle {
     }
 
     public getArmorPointsPerTon(): number {
-        const preferredBase = this.getTech().tag === "clan" || this.getTech().tag === "mclan" ? "clan" : "is";
+        const starLeagueVersion = this.getTech().tag === "clan" && this._usesStarLeagueVersion(this._armorType);
+        const preferredBase = !starLeagueVersion && (this.getTech().tag === "clan" || this.getTech().tag === "mclan") ? "clan" : "is";
         const armorBase = this._armorType.armorMultiplier[preferredBase] > 0
             ? preferredBase
             : preferredBase === "clan" ? "is" : "clan";
@@ -877,14 +913,53 @@ export default class Vehicle {
         return overlapsEra || (reintroductionYear > 0 && reintroductionYear <= eraEnd);
     }
 
+    /** In production in the selected era, or (at the Experimental rules level) a prototype. */
+    private _datesAvailability(dates: ITechDates, rulesLevel: number): { available: boolean, asPrototype: boolean } {
+        // A prototype year with no production year: IO prototype only (Experimental rules).
+        const prototypeOnly = dates.introduced === null && !!dates.prototype;
+        const inProduction = !prototypeOnly && this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced);
+        const effectiveIntroduction = getEffectiveIntroduction(dates, rulesLevel);
+        const asPrototype = !inProduction && effectiveIntroduction !== dates.introduced
+            && this._itemIsAvailable(effectiveIntroduction, dates.extinct, dates.reintroduced);
+        return { available: inProduction || asPrototype, asPrototype };
+    }
+
+    /** Availability using the Clan window for Clan designs; mixed tech may use either (as BattleMech). */
+    private _techDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean, asPrototype: boolean } {
+        const techTag = this._tech.tag;
+        const innerSphere = this._datesAvailability(item, rulesLevel);
+        const clan = this._clanDatesAvailability(item, rulesLevel);
+        if (techTag === "clan") return clan;
+        if (techTag === "is") return innerSphere;
+        if (innerSphere.available && !innerSphere.asPrototype) return innerSphere;
+        if (clan.available && !clan.asPrototype) return clan;
+        return innerSphere.available ? innerSphere : clan;
+    }
+
+    /** Clan availability, including the Star League version before the Clan version replaces it (as BattleMech). */
+    private _clanDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean, asPrototype: boolean } {
+        const clan = this._datesAvailability(item.clanDates ?? item, rulesLevel);
+        const starLeague = getStarLeagueCarryOverDates(item);
+        if ((clan.available && !clan.asPrototype) || !starLeague) return clan;
+        const carried = this._datesAvailability(starLeague, rulesLevel);
+        return carried.available ? carried : clan;
+    }
+
+    /** Whether this Clan vehicle fields the Star League version of a component (Inner Sphere armor factor). */
+    private _usesStarLeagueVersion(item: ITechDates & { clanDates?: ITechDates }): boolean {
+        const starLeague = getStarLeagueCarryOverDates(item);
+        if (!starLeague || !item.clanDates) return false;
+        const clanInProduction = !!item.clanDates.introduced
+            && this._itemIsAvailable(item.clanDates.introduced, item.clanDates.extinct, item.clanDates.reintroduced);
+        return !clanInProduction
+            && this._itemIsAvailable(starLeague.prototype ?? starLeague.introduced, starLeague.extinct, null);
+    }
+
     private _setAvailability(item: IEquipmentItem, rulesLevel: number): void {
         // Equipment records carry side-specific IS or Clan dates, so extinction always applies.
-        const inProduction = this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced);
-        const effectiveIntroduction = getEffectiveIntroduction(item, rulesLevel);
-        const asPrototype = !inProduction && effectiveIntroduction !== item.introduced
-            && this._itemIsAvailable(effectiveIntroduction, item.extinct, item.reintroduced);
-        item.availableAsPrototype = asPrototype;
-        item.available = (inProduction || asPrototype) && this._isEquipmentAllowedForVehicle(item);
+        const availability = this._datesAvailability(item, rulesLevel);
+        item.availableAsPrototype = availability.asPrototype;
+        item.available = availability.available && this._isEquipmentAllowedForVehicle(item);
     }
 
     public getAvailableEquipment(includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {

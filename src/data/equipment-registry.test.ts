@@ -35,17 +35,20 @@ describe("equipment catalog provenance", () => {
         expect(chemical.map(item => item.heat)).toEqual([6, 2, 1]);
     });
 
-    it("keeps 'Mech Mortars universal with ammunition split by side", () => {
+    // IO p.46 lists IS and Clan 'Mech Mortars on separate rows, so each side has its own launcher.
+    it("splits 'Mech Mortars and their standard ammunition by side (IO p.46)", () => {
+        const catalogs = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment);
+        const is = mechISAmmo.find(item => item.tag === "ammo-is-mech-mortar-standard")!;
+        const clan = mechClanAmmo.find(item => item.tag === "ammo-clan-mech-mortar-standard")!;
         for (const size of [1, 2, 4, 8]) {
-            const mortar = mechUniversalEquipment.find(item => item.tag === `mech-mortar-${size}`)!;
-            expect(mortar, `mech-mortar-${size}`).toBeDefined();
-            const is = mechISAmmo.find(item => item.tag === "ammo-is-mech-mortar-standard")!;
-            const clan = mechClanAmmo.find(item => item.tag === "ammo-clan-mech-mortar-standard")!;
-            expect(getCompatibleAmmo(mortar, is)).toBe(true);
-            expect(getCompatibleAmmo(mortar, clan)).toBe(true);
+            expect(mechUniversalEquipment.find(item => item.tag === `mech-mortar-${size}`)).toBeUndefined();
+            const isMortar = catalogs.find(item => item.tag === `mech-mortar-${size}`)!;
+            const clanMortar = catalogs.find(item => item.tag === `clan-mech-mortar-${size}`)!;
+            expect(isMortar?.catalog, `mech-mortar-${size}`).toBe("is");
+            expect(clanMortar?.catalog, `clan-mech-mortar-${size}`).toBe("clan");
+            expect(getCompatibleAmmo(isMortar, is)).toBe(true);
+            expect(getCompatibleAmmo(clanMortar, clan)).toBe(true);
         }
-        const allTags = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment).map(item => item.tag);
-        expect(allTags.filter(tag => /^clan-mech-mortar-\d$/.test(tag))).toEqual([]);
     });
 
     it("keeps ProtoMech-only launchers off every non-ProtoMech unit", () => {

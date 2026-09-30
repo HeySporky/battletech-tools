@@ -7,13 +7,12 @@ import UIPage from '../../../components/ui-page';
 import InputField from "../../../components/form_elements/input_field";
 import InputCheckbox from "../../../components/form_elements/input_checkbox";
 import InputNumeric from "../../../components/form_elements/input_numeric";
-import { mechEngineTypes } from '../../../../data/mech-engine-types';
 import { btTechOptions } from '../../../../data/tech-options';
-import { btEraOptions } from '../../../../data/era-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { vehicleMotiveTypes } from '../../../../data/vehicle-motive-types';
 import { getVehicleTonnageBounds } from '../../../../data/vehicle-motive-types';
 import { FaArrowCircleRight } from "react-icons/fa";
+import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 const ArrowCircleRight = FaArrowCircleRight as any;
 
 export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IStep1State> {
@@ -230,11 +229,14 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                 <label>
                                     Vehicle Era:
                                     <select value={vehicle.getEra().tag} onChange={this.updateEra}>
-                                        {btEraOptions.map((option) => (
+                                        {vehicle.getAvailableEras().map((option) => (
                                             <option key={option.tag} value={option.tag}>{option.name}</option>
                                         ))}
                                     </select>
                                 </label>
+                                {vehicle.getEra().description ? (
+                                    <p className="smaller-text">{vehicle.getEra().description}</p>
+                                ) : null}
 
                                 {turretAllowed ? (
                                     <InputCheckbox
@@ -265,9 +267,11 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                 <label>
                                     Engine Type:
                                     <select value={vehicle.getEngineType().tag} onChange={this.updateEngineType}>
-                                        {mechEngineTypes.map((option) => (
-                                            <option key={option.tag} value={option.tag}>{option.name}</option>
-                                        ))}
+                                        {vehicle.getAvailableEngineTypes(rulesLevel)
+                                            .filter((option) => isOptionShown(option, option.tag === vehicle.getEngineType().tag))
+                                            .map((option) => (
+                                                <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
+                                            ))}
                                     </select>
                                 </label>
 

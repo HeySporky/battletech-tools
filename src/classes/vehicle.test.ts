@@ -524,3 +524,49 @@ describe("Vehicles against the Master Unit List", () => {
         });
     }
 });
+
+describe("Vehicle era availability", () => {
+    const vehicle = (tech: string, era: string) => {
+        const created = new Vehicle();
+        created.setTech(tech);
+        created.setEra(era);
+        return created;
+    };
+
+    it("offers the Clan eras only to Clan vehicles", () => {
+        expect(vehicle("clan", "clan-golden-years").getEra().tag).toBe("clan-golden-years");
+        expect(vehicle("is", "clan-golden-years").getEra().tag).toBe("early-sw");
+        expect(vehicle("mis", "star-league").getEra().tag).toBe("clan-inv");
+    });
+
+    it("uses the Clan dates for Clan armor (Ferro-Fibrous: IS 2571-2810, Clan 2825)", () => {
+        const ferro = (tech: string, era: string) =>
+            vehicle(tech, era).getAvailableArmorTypes().find((armor) => armor.tag === "ferro-fibrous");
+        expect(ferro("is", "late-sw-lt")?.available).toBe(false);
+        expect(ferro("clan", "clan-golden-years")?.available).toBe(true);
+        // Star League Ferro-Fibrous carries over to Clan designs until Clan production, at the IS armor factor.
+        expect(ferro("clan", "star-league")?.available).toBe(true);
+    });
+
+    it("uses the Clan dates for Clan engines", () => {
+        const engine = (tech: string, era: string, tag: string) =>
+            vehicle(tech, era).getAvailableEngineTypes().find((option) => option.tag === tag);
+        expect(engine("clan", "clan-golden-years", "clan_xl")?.available).toBe(true);
+        expect(engine("clan", "star-league", "clan_xl")?.available).toBe(false);
+        expect(engine("is", "clan-inv", "clan_xl")).toBeUndefined();
+        expect(engine("clan", "clan-inv", "xl")?.available).toBe(false);
+    });
+});
+
+describe("Vehicle Clan Star League carry-over", () => {
+    it("rates Ferro-Fibrous at the IS factor until Clan production (2825)", () => {
+        const pointsPerTon = (era: string) => {
+            const created = new Vehicle();
+            created.setTech("clan");
+            created.setEra(era);
+            created.setArmorType("ferro-fibrous");
+            return created.getArmorPointsPerTon();
+        };
+        expect(pointsPerTon("star-league")).toBeLessThan(pointsPerTon("clan-golden-years"));
+    });
+});

@@ -14,6 +14,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import './step4.scss';
+import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -185,23 +186,11 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                     onChange={this.setArmorType}
                                   >
                                     {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                    {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter).map( (armorData, armorIndex) => {
-
-                                      if( armorData.available ) {
-                                        return (
-                                          <option key={armorIndex} value={armorData.tag}>{armorData.name}{armorData.availableAsPrototype ? " (Prototype)" : ""}</option>
-                                        )
-                                      } else {
-                                        if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
-                                          return (
-                                            <option disabled={true} key={armorIndex} value={armorData.tag}>{armorData.name}</option>
-                                          )
-                                        } else {
-                                          return <React.Fragment key={armorIndex}></React.Fragment>
-                                        }
-                                      }
-
-                                  })}
+                                    {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter)
+                                      .filter( (armorData) => isOptionShown(armorData, armorData.tag === this.props.appGlobals.currentBattleMech?.getArmorType()) )
+                                      .map( (armorData, armorIndex) => (
+                                        <option key={armorIndex} value={armorData.tag}>{availabilityOptionLabel(armorData)}</option>
+                                    ))}
                                   </select>
                                 </label>
                             </div>
