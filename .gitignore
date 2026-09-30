@@ -41,3 +41,8 @@ npm-debug.log
 /test-results
 /blob-report
 /playwright/.cache
+
+# MUL sync run state: browser session cookies (cf_clearance) and the failure screenshot.
+# Never commit these.
+/tools/mul-sync/browser-state.json
+/tools/mul-sync/last-failure.png

@@ -31,6 +31,7 @@
     "test:browser": "vitest run --project browser",
     "test:e2e": "playwright test",
     "check": "npm run typecheck && npm test && npm run build",
+    "mul:sync": "node tools/mul-sync/sync-mul.mjs",
     "deploy-dev": "gh-pages -d build --dotfiles",
     "deploy-prod": "gh-pages -d build --dotfiles -r https://github.com/heysporky/battletech-tools.git"
   },
@@ -65,6 +66,7 @@
     "gh-pages": "^6.3.0",
     "globals": "^17.12.0",
     "happy-dom": "^20.14.5",
+    "playwright": "^1.63.0",
     "sass": "^1.105.0",
     "typescript": "~6.0.3",
     "typescript-7": "npm:typescript@^7.0.2",
