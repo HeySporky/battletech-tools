@@ -21,6 +21,7 @@ import { addCommas } from "../utils/addCommas";
 import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
 import { ISSWBasicInfo } from "../utils/getSSWXMLBasicInfo";
+import { findImportedEquipment, ImportFaction } from "../utils/importedEquipment";
 import {
     ICanonicalBattleMechRecord,
     ICanonicalSourceMetadata,
@@ -6577,35 +6578,46 @@ export class BattleMech {
                     ||
                 (item.alternateName && item.alternateName.toLowerCase().trim() === equipmentName.toLowerCase().trim() )
             ) {
-
-                let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify( item ));
-
-                if( typeof(location) !== "undefined" )
-                    equipmentItem.location = location;
-
-                if( typeof(weight) !== "undefined" )
-                    equipmentItem.weight = weight;
-                equipmentItem.rear = rear;
-                equipmentItem.uuid = uuid;
-                equipmentItem.split_location = split_location;
-
-                if( equipmentItem.criticalsDivisor && equipmentItem.criticalsDivisor > -1 ) {
-                    equipmentItem.criticals = this.getTonnage() / equipmentItem.criticalsDivisor;
-                }
-
-                if(  equipmentItem.weightDivisor && equipmentItem.weightDivisor  > -1) {
-                    equipmentItem.weight = this.getTonnage() / equipmentItem.weightDivisor;
-                }
-
-                this._equipmentList.push(equipmentItem);
-                this._sortInstalledEquipment();
-
-                return equipmentItem;
+                return this._installEquipmentRecord( item, location, rear, uuid, weight, split_location );
             }
         }
 
         return null;
     };
+
+    // Installs a copy of a catalog record.
+    private _installEquipmentRecord(
+        item: IEquipmentItem,
+        location: string,
+        rear: boolean,
+        uuid: string,
+        weight: number | undefined,
+        split_location: ISplitLocation[],
+    ): IEquipmentItem {
+        let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify( item ));
+
+        if( typeof(location) !== "undefined" )
+            equipmentItem.location = location;
+
+        if( typeof(weight) !== "undefined" )
+            equipmentItem.weight = weight;
+        equipmentItem.rear = rear;
+        equipmentItem.uuid = uuid;
+        equipmentItem.split_location = split_location;
+
+        if( equipmentItem.criticalsDivisor && equipmentItem.criticalsDivisor > -1 ) {
+            equipmentItem.criticals = this.getTonnage() / equipmentItem.criticalsDivisor;
+        }
+
+        if(  equipmentItem.weightDivisor && equipmentItem.weightDivisor  > -1) {
+            equipmentItem.weight = this.getTonnage() / equipmentItem.weightDivisor;
+        }
+
+        this._equipmentList.push(equipmentItem);
+        this._sortInstalledEquipment();
+
+        return equipmentItem;
+    }
 
     public addEquipmentFromTag(
         equipmentTag: string,
@@ -9211,20 +9223,25 @@ export class BattleMech {
         item: any
     ) {
 
-        let listTag = "is";
+        // Unprefixed items belong to the design's own tech base; SSW marks the other side's items
+        // with "(IS) " or "(CL) " (older files: "(CLAN) ").
+        const techTag = this.getTech().tag;
+        let listTag: ImportFaction = techTag === "clan" || techTag === "mclan" ? "clan" : "is";
         let itemName = "";
         let location = "";
         let allocationIndex = -1;
         let rear = false;
-        if( item.name &&  item.name["#text"].indexOf( "(IS) " ) > -1) {
-            itemName = item.name["#text"].replace( "(IS) ", "" )
-            listTag = "is";
-        } else if( item.name &&  item.name["#text"].indexOf( "(CLAN) ") > -1 ) {
-                itemName = item.name["#text"].replace( "(CLAN) ", "" )
-                listTag = "clan";
-
+        const techPrefix = item.name ? /\((IS|CL|CLAN)\) /.exec( item.name["#text"] ) : null;
+        if( techPrefix ) {
+            itemName = item.name["#text"].replace( techPrefix[0], "" );
+            listTag = techPrefix[1] === "IS" ? "is" : "clan";
         } else {
             itemName = item.name["#text"];
+        }
+
+        // "(T) " marks a turret mount; 'Mech turrets are not modeled yet, so the item is installed unturreted.
+        if( itemName.startsWith("(T) ") ) {
+            itemName = itemName.slice( 4 );
         }
 
         if( itemName.indexOf("(R) ") > -1 ) {
@@ -9266,15 +9283,16 @@ export class BattleMech {
 
         if( itemName ) {
 
-            let newItem = this.addEquipmentByName(
-                itemName,
-                listTag,
+            // SSW's names are listed on the catalog records (altNames); see findImportedEquipment.
+            const match = findImportedEquipment( itemName, listTag, techTag === "mis" || techTag === "mclan" );
+            let newItem = match ? this._installEquipmentRecord(
+                match.item,
                 location,
                 rear,
                 generateUUID(),
                 undefined,
                 item.splitlocation ? item.splitlocation : [],
-            );
+            ) : null;
 
             if( !newItem ) {
                 //TODO: Commenting out warning - Why is this firing  during alpha strike generation?
@@ -9400,6 +9418,13 @@ export class BattleMech {
                     this.setTech("is");
                 } else if( jObj.mech.techbase["#text"].toLowerCase().indexOf("clan") > -1) {
                     this.setTech("clan");
+                } else if( jObj.mech.techbase["#text"].toLowerCase().indexOf("mixed") > -1) {
+                    // SSW has no chassis field for a Mixed design, but each component carries a techbase
+                    // (0 Inner Sphere, 1 Clan, 2 either). The engine decides, then the internal structure.
+                    const componentTech = ( component: any ): string => String( component?.["@_techbase"] ?? "2" );
+                    const chassisTech = [ componentTech( jObj.mech.engine ), componentTech( jObj.mech.structure ) ]
+                        .find( ( tech ) => tech !== "2" );
+                    this.setTech( chassisTech === "1" ? "mclan" : "mis" );
                 }
             }
 
