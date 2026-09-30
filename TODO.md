@@ -3,13 +3,15 @@
 Open work for growing Jeff's BattleTech Tools from a BattleMech and vehicle creator into a full BattleTech
 construction, import/export and record-management tool. Sections are in priority order: fix what ships
 first, then make imports reliable, then check the data against the books, then add unit domains.
-Completed work is in the git history, not here.
+Items finished in the current pass are checked off; older completed work is in the git history.
 
 Local references (git-ignored, never imported by shipped code):
 
 - `_KNOWLEDGE_DEV/rulebooks/`: the rulebook library, 38 PDFs with text extracts (TW, TM, TO:AR, TO:AUE,
   SO:AA, IO, IO:AE, IO:BF, CO, ASCE, AS, ASC, the Core Rulebook, box sets and errata). `INDEX.md` there lists
   editions, page offsets (printed page = PDF page - offset) and which errata applies to which printing.
+  - [x] The two scanned Aces books (rulebook, Scouring Sands campaign book) OCR'd into `text/*.ocr.txt`
+    (`ocr_rulebooks.py`, Tesseract 5.4); body text reads well, flowcharts and icons don't.
 - `WorkingData_DEV/SSWdata/`: Solaris Skunk Werks designs (3,358 `.ssw`, shallow clone of
   Solaris-Skunk-Werks/SSW-Master).
 - `WorkingData_DEV/mmlData/mekfiles/`: MegaMek unit files (4,312 `.mtf`, 6,723 `.blk`) for every unit type,
@@ -25,10 +27,10 @@ Local references (git-ignored, never imported by shipped code):
 - [ ] `tools/mul-sync/browser-state.json` is committed with live masterunitlist.battletech.com session
   cookies (including `cf_clearance`). Remove it from the repository and its history, add it to
   `.gitignore`, and have the weekly sync create it at run time.
-- [ ] Report the SSW ammunition bug upstream (issue + PR). The ammunition catalog rename (`Ammo (SRM-6)` ->
+- [x] Report the SSW ammunition bug upstream. The ammunition catalog rename (`Ammo (SRM-6)` ->
   `SRM - Standard Ammo`, upstream #75) broke name matching in the SSW importer: 413 of the 512 bundled
-  'Mechs lost their ammunition on import, on upstream's live site too. Fixed here by the SSW name resolver
-  (`src/utils/sswEquipmentNames.ts`).
+  'Mechs lost their ammunition on import, on upstream's live site too. Upstream PR #91 (open), reworked on
+  2026-09-30 to resolve names through the catalog records' `altNames` (`src/utils/importedEquipment.ts`).
 - [ ] BV differs from SSW's BV2 figure: after the import fixes, 350 of 2,610 non-bundled designs match
   exactly and 805 within 2%. Work through the differences by cause (unplaced criticals and unknown
   equipment first, since they skew BV).
@@ -51,9 +53,13 @@ and fluff text, quirks, source/book fields, and per-format IDs (MUL id, SSW sola
 - [ ] Keep provenance on imported records: source file, source format, source book, and conversion warnings.
 - [ ] Import review screen: parsed fields, unmapped fields, warnings, provenance, and the final canonical
   record before saving.
-- [ ] One equipment-name bridge for every format. MegaMek's equipment classes list each item's internal
-  name and lookup names (the names MTF, BLK, HMP and older SSW files use); `name_changes.txt` in the MegaMek
-  data maps renamed units. Generate the mapping as a reviewed data file rather than matching names by hand.
+- [x] One equipment-name lookup for every format: `findImportedEquipment(name, faction, mixedTech)` in
+  `src/utils/importedEquipment.ts`. It checks the faction catalog and the universal catalog by own name/tag,
+  then the universal catalog, faction catalog, other faction (Mixed Tech only) and custom catalogs by
+  `alternateName`/`altNames`/`altTags`. A format's spellings go on the records, never as name rewriting.
+- [ ] Add MegaMek's names to the records' `altNames`: its equipment classes list each item's internal name
+  and lookup names (the names MTF, BLK, HMP and older SSW files use). Review them as data; `name_changes.txt`
+  in the MegaMek data maps renamed units.
 - [ ] Bulk import audits as dev tools (not tests, since the fixtures stay in `_DEV`): run every sample file
   of a format through its importer and report crashes, unknown equipment, unplaced criticals, and BV/cost
   against the value stored in the file.
@@ -61,9 +67,12 @@ and fluff text, quirks, source/book fields, and per-format IDs (MUL id, SSW sola
 ### Solaris Skunk Werks (`.ssw`)
 
 The SSW audit (every design in `WorkingData_DEV/SSWdata` through `importSSWXML`) found the importer handled
-only the bundled 3039/3050 Inner Sphere set. Fixed in this pass: Clan items (the `(CL)` prefix), Clan designs'
-unprefixed items (looked up in the IS list), and ammunition names (resolved through the launcher they
-feed).
+only the bundled 3039/3050 Inner Sphere set. Fixed: Clan items (the `(CL)` prefix), Clan designs' unprefixed
+items, Mixed Tech designs, the `(T)` turret prefix, and every SSW spelling added to the records' `altNames`.
+
+Audit on 2026-09-30, all 3,864 files (bundled and `WorkingData_DEV`): 3,727 designs resolve every item (1,290
+before the `altNames` rework). 43 names remain, all listed below. Of the bundled designs, only Electronic
+Warfare Equipment, Collapsible Command Module and Communications Equipment are left; a test pins that list.
 
 Audit on 2026-09-29, the 2,846 designs outside the bundled set: 1,780 of the 2,610 BattleMechs import with no
 errors (433 before these fixes), 828 still drop some equipment (155 distinct names), 358 leave criticals
@@ -74,14 +83,19 @@ designs, 44 still report errors (421 before).
   ER lasers, ECM, C3i. Compare the SSW placements with our allocation (the earlier list of 12 bundled
   designs: ANH-3A, AWS-10KM, CTF-5D, CGR-KMZ, CLNT-6S, FS9-B, JR7-C2, CRK-5003-CJ, PNT-14S, WTH-3, WTH-K,
   "Grinner" Wolfhound IIC).
-- [ ] Ammunition names the resolver can't place yet, by munition wording: MML (`Ammo (MML-5 (SRM))`,
-  `(LRM)`, `(LRM Artemis IV Capable)`), ATM (`(ER)`, `(HE)`), Narc/iNarc `(Homing)`, Arrow IV `(Homing)` /
-  `(Non-Homing)`, ELRM, Hyper-Assault Gauss, Silver Bullet Gauss, iGauss, ProtoMech AC.
-- [ ] Equipment names with no catalog match: Hyper Assault Gauss 20/30/40 (naming), Variable Speed Pulse
-  Lasers, Re-engineered (R-e) lasers, Coolant Pod, Claws, B-Pod, M-Pod, Laser Anti-Missile System, C3
-  Boosted Computer (Slave), Modular Armor, `ER PPC + PPC Capacitor` combos, MG Arrays (`MG Array (3 Machine
-  Gun)`), Electronic Warfare Equipment, Collapsible Command Module, prototype `CP` weapons, ProtoMech ACs on
-  'Mechs, Arrow IV Missile. Some need catalog records (see section 6), the rest only names.
+- [x] Ammunition names: MML, ATM ER/HE, Narc/iNarc, Arrow IV, ELRM, Hyper-Assault Gauss, Silver Bullet
+  Gauss, iGauss, ProtoMech AC, torpedo and the rest now resolve through `altNames`.
+- [x] Equipment names: HAG, VSP and R-e lasers, Claws, C3 Boosted, MG Arrays, `CP` prototypes, Arrow IV
+  Missile, Clan TM names, (iOS) launchers, Clan Streak LRM.
+- [ ] Canon equipment with no catalog record yet (needs TO:AUE/TM stats before adding): B-Pod, M-Pod,
+  Coolant Pod, Chaff Pod, BattleMech Taser and ammo, TSEMP / TSEMP One-Shot, HarJel II/III, ProtoMech AC/2,
+  AC/4, AC/8 weapons (their ammo exists), Collapsible Command Module, Communications Equipment, Electronic
+  Warfare Equipment, Drone Operating System, Vehicular Grenade Launcher, Cargo (Standard/Liquid), C3 Remote
+  Sensor Launcher and ammo.
+- [ ] Adapter cases: `X (Insulated)` is a laser plus the Laser Insulator (TO:AUE); "Extra Double Heat Sink
+  (Freezers)" placed as equipment; Clan `ER PPC + PPC Capacitor` exists only as a custom record.
+- [ ] SSW data quirks, one design each: an Inner Sphere design with an unprefixed `Streak SRM-6 CP` (Highlander
+  HGN-732 Colleen); `(IS) Enhanced ER PPC` outside Mixed designs (IO p. 95: Clan tech).
 - [ ] The audit harness was a throwaway test; add it as a dev tool (`tools/`) so it can be rerun.
 - [ ] IndustrialMechs and Primitive BattleMechs/IndustrialMechs are skipped entirely (234 designs):
   `importSSWXML` only accepts `mech_type` "BattleMech".
