@@ -20,7 +20,7 @@ import { IEquipmentItem } from "./data-interfaces";
 export const mechClanEquipmentArtillery: IEquipmentItem[] = [
     {
         name: "Arrow IV System (Clan)",
-        altNames: ["Clan Arrow IV"],
+        altNames: ["Clan Arrow IV", "Arrow IV Missile"],
         tag: "clan-arrow-iv-system",
         // Old tag shared with the IS record; kept so existing Clan saves resolve
         altTags: ["arrow-iv-system"],

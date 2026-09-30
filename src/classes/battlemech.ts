@@ -21,7 +21,7 @@ import { addCommas } from "../utils/addCommas";
 import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
 import { ISSWBasicInfo } from "../utils/getSSWXMLBasicInfo";
-import { findEquipmentBySSWName } from "../utils/sswEquipmentNames";
+import { findImportedEquipment, ImportFaction } from "../utils/importedEquipment";
 import {
     ICanonicalBattleMechRecord,
     ICanonicalSourceMetadata,
@@ -31,9 +31,6 @@ import {
 import { XMLParser } from "fast-xml-parser";
 import { AlphaStrikeUnit, IAlphaStrikeDamage, IASMULUnit } from "./alpha-strike-unit";
 import Pilot, { IPilot } from "./pilot";
-
-// Catalog equipment lists by tech base for SSW imports (see _installSSWEquipment).
-const sswEquipmentLists = new Map<string, IEquipmentItem[]>();
 
 interface IWeights {
     name: string;
@@ -9229,7 +9226,7 @@ export class BattleMech {
         // Unprefixed items belong to the design's own tech base; SSW marks the other side's items
         // with "(IS) " or "(CL) " (older files: "(CLAN) ").
         const techTag = this.getTech().tag;
-        let listTag = techTag === "clan" || techTag === "mclan" ? "clan" : "is";
+        let listTag: ImportFaction = techTag === "clan" || techTag === "mclan" ? "clan" : "is";
         let itemName = "";
         let location = "";
         let allocationIndex = -1;
@@ -9240,6 +9237,11 @@ export class BattleMech {
             listTag = techPrefix[1] === "IS" ? "is" : "clan";
         } else {
             itemName = item.name["#text"];
+        }
+
+        // "(T) " marks a turret mount; 'Mech turrets are not modeled yet, so the item is installed unturreted.
+        if( itemName.startsWith("(T) ") ) {
+            itemName = itemName.slice( 4 );
         }
 
         if( itemName.indexOf("(R) ") > -1 ) {
@@ -9281,16 +9283,10 @@ export class BattleMech {
 
         if( itemName ) {
 
-            // SSW's names differ from the catalog's; resolve to the catalog record. Each tech base's list
-            // is read once and shared by every import (installed items are copies).
-            let equipmentList = sswEquipmentLists.get( listTag );
-            if( !equipmentList ) {
-                equipmentList = this.getEquipmentList( listTag );
-                sswEquipmentLists.set( listTag, equipmentList );
-            }
-            const catalogItem = findEquipmentBySSWName( itemName, equipmentList );
-            let newItem = catalogItem ? this._installEquipmentRecord(
-                catalogItem,
+            // SSW's names are listed on the catalog records (altNames); see findImportedEquipment.
+            const match = findImportedEquipment( itemName, listTag, techTag === "mis" || techTag === "mclan" );
+            let newItem = match ? this._installEquipmentRecord(
+                match.item,
                 location,
                 rear,
                 generateUUID(),

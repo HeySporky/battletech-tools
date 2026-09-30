@@ -18,6 +18,7 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
     {
         name: "Arrow IV System",
         tag: "arrow-iv-system",
+        altNames: ["Arrow IV Missile"],
         sort: "artillery, arrow iv",
         category: "Artillery Weapons",
         notes: "Missile-based artillery. Can be fired as indirect-fire area-saturation artillery at a map hex, or (with homing ammo and forward spotters carrying Target Acquisition Gear) as precision-guided indirect fire against a specific unit.",
