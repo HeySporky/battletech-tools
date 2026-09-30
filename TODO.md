@@ -640,7 +640,7 @@ tool. Items are ordered by dependency, not by product marketing priority.
   (`src/ui/pages/classic-battletech/vehicle-creator/` has Step 1 Chassis,
   Step 2 Armor Allocation, Step 3 Equipment Selection, Step 4 Equipment
   Placement, a weights/Alpha Strike summary page, and a printable record
-  sheet (`record-sheet.tsx` + `svg/tracked-vehicle-diagram-svg.tsx`), all
+  sheet (`record-sheet.tsx` + `svg/vehicle-diagram-svg.tsx`), all
   wired into routing and save/load. The diagram is a hand-built schematic
   (no internet access was available to source official record sheet
   artwork) - front/left/right/rear/turret boxes with structure/armor pip
@@ -652,20 +652,43 @@ tool. Items are ordered by dependency, not by product marketing priority.
   `saveVehicleSaves` in `app-router.tsx`/`dataSaves.ts` and inclusion in
   `IFullBackup`/`restoreFullBackup`. Tracked vehicles can now be built,
   saved, reloaded, and printed end to end.
-- [ ] Implement remaining vehicle categories (construction math is generic
-  across motive types already; each needs its own record-sheet diagram and
-  category-specific rule verification):
-  - Hover.
-  - Wheeled.
-  - VTOL.
-  - WiGE.
-  - Submarine.
-  - Surface naval.
-- [ ] Implement category-specific rules: motive systems, turret arcs, motive
-  damage, flotation/submergence, VTOL crash behavior, and vehicle crews.
-- [ ] Add Alpha Strike conversion for each vehicle category.
-- [ ] Add browser tests covering creation, equipment legality, record rendering,
-  and Alpha Strike output for every category.
+- [x] Implement remaining vehicle categories (2026-09-29, branch `vehicle-motive-types`): Wheeled, Hover,
+  VTOL, WiGE, surface naval, hydrofoil and submarine, each with its tonnage limits, suspension factor,
+  lift/dive equipment, record-sheet outline and Alpha Strike movement code; VTOL rotor (2 armor max) and
+  Advanced chin turret; no Hardened armor on VTOL/hover/WiGE; 5% control systems for every vehicle;
+  Superheavy structure x2 (non-naval); engine type, Cruise MP and heat sinks in Step 1. Values follow
+  MegaMek (TestTank/Tank; book not in hand) and were checked against MUL vehicle tonnages and move codes.
+- [x] Vehicle heat sinks: energy-weapon heat and the fusion engine's 10 free heat sinks (heat-neutral
+  requirement), and power amplifiers (10% of energy weapon weight) for non-fusion engines.
+- [x] Superheavy vehicle locations (front-left/right, rear-left/right) and dual turrets (Advanced).
+- [x] Vehicular jump jets (hover, wheeled, tracked, WiGE), Advanced rules level.
+- [x] Crew, item slots and infantry troop space.
+- [x] Battle Value and C-Bill cost; eight published vehicles match their MUL BV exactly
+  (`vehicle.test.ts`).
+- [x] Alpha Strike conversion for every vehicle category, with a printable card; the same eight vehicles
+  match their MUL cards (Sea Skimmer's REAR special aside, a MUL data difference). Conversion rules as
+  implemented by MegaMek.
+- [x] Classic roster play mode for vehicles (2026-09-29): add saved vehicles to a group with crew
+  gunnery/driving (TM p. 305 skill multipliers shared with 'Mechs), clickable armor/structure pips, motive
+  damage (minor/moderate/heavy/immobilized), critical hits (driver, commander, crew stunned/killed,
+  engine, fuel tank, cargo, turret jam/lock/destroyed, sensors, stabilizers), weapon jam/destroy,
+  movement modes with attacker/target modifiers, VTOL crash on rotor loss, and roster printing.
+  Effects as implemented by MegaMek (Tank; book not in hand).
+- [x] Vehicle hit location, critical hit and motive system damage tables in play mode (2026-09-29), from
+  Total Warfare (corrected 2010 PDF) pp. 192-199 and the TW record sheets, with Errata 2.2: attack
+  resolution by direction and 2D6, criticals on table results and on any internal structure damage, the
+  move-down-the-column rule, stacking motive movement penalties with once-only driving modifiers, rotor
+  hits (damage / 10, -1 Cruising MP each), VTOL crew/rotor/flight stabilizer criticals, crew stun timing,
+  turret destruction (TW p. 128), Engine Hit disabling energy/pulse weapons, hover sinking, the airborne
+  VTOL/WiGE +1 and the immobile -4 target modifiers.
+- [ ] Ammunition explosion damage: total the damage of all ammunition carried (TW p. 194); the player
+  enters the total today.
+- [ ] Turret arcs and firing arcs (TW p. 192), naval Hull Integrity rolls (TW pp. 98, 198), VTOL
+  elevation, crash/falling damage (TW p. 197) and WiGE landing/crash rules (TW p. 199).
+- [ ] Superheavy vehicle hit locations (split sides) from TO:AUE; play mode maps side hits to the front or
+  rear half by attack direction as a stopgap.
+- [ ] Browser tests for every category (only the roster add/play/print flow has an E2E test so far:
+  `e2e/vehicle-roster.spec.ts`).
 
 ## Phase 2b: ProtoMechs
 
