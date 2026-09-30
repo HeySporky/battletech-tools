@@ -20,3 +20,24 @@ describe("Alpha Strike unit rules level", () => {
         expect(restored.rulesLevel).toBe(3);
     });
 });
+
+describe("Alpha Strike unit Armor and Structure setters", () => {
+    // Armor and Structure are separate values on an Alpha Strike unit (ASCE p.25); each setter changes only its own.
+    it("setStructure changes structure and leaves armor alone", () => {
+        const unit = new AlphaStrikeUnit();
+        unit.armor = 4;
+        unit.structure = 3;
+        unit.setStructure(7);
+        expect(unit.structure).toBe(7);
+        expect(unit.armor).toBe(4);
+    });
+
+    it("setArmor changes armor and leaves structure alone", () => {
+        const unit = new AlphaStrikeUnit();
+        unit.armor = 4;
+        unit.structure = 3;
+        unit.setArmor(6);
+        expect(unit.armor).toBe(6);
+        expect(unit.structure).toBe(3);
+    });
+});

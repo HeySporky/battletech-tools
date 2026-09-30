@@ -1810,7 +1810,7 @@ export class AlphaStrikeUnit {
         this.armor = nv;
     }
     public setStructure( nv: number ) {
-        this.armor = nv;
+        this.structure = nv;
     }
 
     public export(
