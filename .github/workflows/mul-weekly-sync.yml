@@ -1,0 +1,132 @@
+name: Weekly MUL Sync
+
+on:
+  schedule:
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      max_detail:
+        description: "Max units to detail-scrape this run (900 is about five hours at the observed rate)"
+        required: false
+        default: "900"
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: mul-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    outputs:
+      failure-reason: ${{ steps.mulsync.outputs.failure-reason }}
+    steps:
+      - name: Check out master
+        uses: actions/checkout@v7
+        with:
+          ref: master
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: 26
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Sync from masterunitlist.battletech.com
+        id: mulsync
+        env:
+          MUL_SYNC_MAX_DETAIL: ${{ github.event.inputs.max_detail || '800' }}
+        run: npm run mul:sync
+
+      - name: Preserve sync output
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: mul-sync-${{ github.run_id }}
+          path: |
+            tools/mul-sync/live-units.json
+            tools/mul-sync/legacy-duplicate-candidates.json
+            src/data/mul/mul1/*.json
+            src/data/mul/live/*.json
+            src/data/mul/archive/*.json
+          if-no-files-found: warn
+          retention-days: 7
+
+      - name: Commit and push updates
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
+          git fetch origin master
+          if ! git rebase origin/master; then
+            git rebase --abort
+            echo "::error::master advanced during this run and the generated data conflicted while rebasing."
+            echo "::error::The sync output is preserved in the mul-sync-${{ github.run_id }} workflow artifact."
+            exit 1
+          fi
+          if ! git push origin HEAD:master; then
+            echo "::error::git push failed after rebasing onto the latest origin/master. Inspect the git remote error above."
+            echo "::error::The sync output is preserved in the mul-sync-${{ github.run_id }} workflow artifact."
+            exit 1
+          fi
+
+  alert-on-failure:
+    needs: sync
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or update sync failure alert
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const failureReason = "${{ needs.sync.outputs.failure-reason }}";
+            const isCloudflareBlock = failureReason === "cloudflare-block";
+            const title = isCloudflareBlock ? "Weekly MUL sync blocked by Cloudflare" : "Weekly MUL sync failed";
+            const detail = isCloudflareBlock
+              ? "masterunitlist.battletech.com's Cloudflare bot check blocked the sync this run. No code changes needed unless this keeps happening every week — it will simply retry next scheduled run."
+              : "This looks like a real bug (not a Cloudflare block) — check the job log for the actual error.";
+            const body = [
+              `@${context.repo.owner} the scheduled sync from masterunitlist.battletech.com failed.`,
+              "",
+              detail,
+              "",
+              `Inspect the [workflow run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`,
+            ].join("\n");
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              per_page: 100,
+            });
+            const existing = issues.find((issue) => issue.title === title && !issue.pull_request);
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing.number,
+                body,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title,
+                body,
+                assignees: [context.repo.owner],
+              });
+            }
