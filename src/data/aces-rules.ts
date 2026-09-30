@@ -16,9 +16,10 @@
  * BattleTech: Aces (solo/co-op automated opponent and campaign system for Alpha Strike).
  *
  * Only the rulebook's procedure, tables and campaign math are encoded here, summarized in our own words and
- * cited to the printed page. Aces, Command, Special Order, Edge ability and Named Pilot card text and the
- * Campaign Book sortie stories are NOT shipped: players read those from their own box and enter what the app
- * needs (priority numbers, card ids, Command card target lists).
+ * cited to the printed page. The app doesn't ship the card decks or the Campaign Book sorties: players enter their
+ * own cards and sorties in the card library (aces-cards.ts). One sample of each record type, transcribed from the
+ * worked examples and cited to the page, ships in aces-card-samples.ts. Edge ability and Named Pilot card text and
+ * the sortie stories are not shipped at all.
  *
  * Page numbers are the printed pages of the Aces rulebook (Aces) and the Scouring Sands Campaign Book (Aces SS).
  */
@@ -422,4 +423,53 @@ export const acesScouringSandsAvailability: { name: string, type: "BM" | "CV", p
     { name: "Jade Phoenix Prime", type: "BM", pv: 53 },
     { name: "Cardinal Transport", type: "CV", pv: 28 },
     { name: "Kite Reconnaissance Vehicle", type: "CV", pv: 30 },
+];
+
+/* ---------------------------------------------------------------------------------------------------------------
+ * Scouring Sands sortie index (Aces SS). Titles and printed pages only, for finding the sortie in the book; the
+ * sortie text itself is not shipped. Outcome pages are listed where our copy could read them.
+ * ------------------------------------------------------------------------------------------------------------- */
+
+export interface IAcesSortieIndexEntry {
+    code: string;
+    name: string;
+    page: number;
+    outcomePage: number | null;
+}
+
+export const acesScouringSandsSorties: IAcesSortieIndexEntry[] = [
+    { code: "00", name: "BattleROM Review (guided tutorial)", page: 4, outcomePage: 12 },
+    { code: "01", name: "Meeting the Locals", page: 22, outcomePage: 64 },
+    { code: "02", name: "Putting Down Roots", page: 24, outcomePage: 65 },
+    { code: "03", name: "Coming in Hot", page: 26, outcomePage: 66 },
+    { code: "04", name: "Tunnel Raid", page: 28, outcomePage: null },
+    { code: "05", name: "Not One Step More", page: 30, outcomePage: null },
+    { code: "06", name: "A Falcon in Flight", page: 32, outcomePage: 69 },
+    { code: "07", name: "Supply Lines", page: 34, outcomePage: 70 },
+    { code: "08", name: "Uncovering Plans", page: 36, outcomePage: null },
+    { code: "09", name: "Shatterstrike", page: 38, outcomePage: 72 },
+    { code: "10", name: "Face of the Enemy", page: 40, outcomePage: 73 },
+    { code: "11", name: "Operation: Hammer", page: 42, outcomePage: 74 },
+    { code: "12", name: "No Time to Rest", page: 44, outcomePage: 75 },
+    { code: "13", name: "Counterstrike Recovery", page: 46, outcomePage: 75 },
+    { code: "14", name: "Kill the Signal", page: 48, outcomePage: 76 },
+    { code: "15", name: "Power Rush", page: 50, outcomePage: 77 },
+    { code: "16", name: "Playing Chess", page: 52, outcomePage: null },
+    { code: "17", name: "No Matter the Cost", page: 54, outcomePage: 79 },
+    { code: "18", name: "The Final Charge", page: 56, outcomePage: 80 },
+    { code: "19", name: "Hold the Line", page: 58, outcomePage: 81 },
+    { code: "20", name: "Operation: Clean Sweep", page: 60, outcomePage: 82 },
+    { code: "21", name: "Honorable Combat", page: 62, outcomePage: 82 },
+];
+
+/** Other Scouring Sands sections players look for during setup (Aces SS contents page). */
+export const acesScouringSandsSections: { name: string, page: number }[] = [
+    { name: "Guided tutorial", page: 5 },
+    { name: "Simulator Waypoints", page: 14 },
+    { name: "Terrain, rivers and 3-D bridge", page: 18 },
+    { name: "Additional rules and special abilities", page: 19 },
+    { name: "New Aces deck subtypes", page: 20 },
+    { name: "Beginning the campaign", page: 21 },
+    { name: "Campaign sorties", page: 22 },
+    { name: "Epilogue", page: 83 },
 ];

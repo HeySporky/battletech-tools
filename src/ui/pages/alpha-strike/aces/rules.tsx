@@ -22,6 +22,8 @@ import {
     acesRequiredOptionalRules,
     acesSalvageTargets,
     acesScouringSandsAvailability,
+    acesScouringSandsSections,
+    acesScouringSandsSorties,
     acesVehicleCriticalHitTable,
     acesWaypointScanRanges,
     ACES_FORCED_WITHDRAWAL_PRIORITY_MODIFIER,
@@ -39,6 +41,7 @@ import {
     ACES_WAYPOINT_SCAN_RANGE,
     ACES_WOUNDED_CREW_COST,
     IAcesTableRow,
+    ACES_SS_BOOK,
 } from '../../../../data/aces-rules';
 import AcesToHitCalculator from './_to-hit-calculator';
 import './aces.scss';
@@ -271,6 +274,29 @@ export default class AcesRulesPage extends React.Component<IAcesRulesPageProps, 
                                 <td>{unit.type}</td>
                                 <td>{unit.pv}</td>
                                 <td>{unit.pv * ACES_PURCHASE_SP_PER_PV}</td>
+                            </tr>
+                        ) )}
+                    </tbody>
+                </table>
+            </TextSection>
+
+            <TextSection label="Scouring Sands: Sorties and Tutorial">
+                <p>
+                    Where things are in <em>{ACES_SS_BOOK}</em>. Sortie 00 is the guided tutorial: it plays with stacked
+                    decks and walks each card step by step. Load its sample from the Card Library to follow along.
+                </p>
+                <ul>
+                    {acesScouringSandsSections.map( ( section, index ) => <li key={index}>{section.name}: p.{section.page}</li> )}
+                </ul>
+                <table className="table tighter-padding">
+                    <thead><tr><th>Sortie</th><th>Name</th><th>Page</th><th>Outcome</th></tr></thead>
+                    <tbody>
+                        {acesScouringSandsSorties.map( ( sortie ) => (
+                            <tr key={sortie.code}>
+                                <td>{sortie.code}</td>
+                                <td>{sortie.name}</td>
+                                <td>p.{sortie.page}</td>
+                                <td>{sortie.outcomePage !== null ? "p." + sortie.outcomePage : <span className="aces-muted">not located</span>}</td>
                             </tr>
                         ) )}
                     </tbody>

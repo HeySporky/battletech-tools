@@ -1,5 +1,6 @@
 import { IAcesCampaignExport } from "./classes/aces-campaign";
 import { IAcesGameExport } from "./classes/aces-game";
+import { IAcesCardLibrary, mergeAcesCardLibrary, normalizeAcesCardLibrary } from "./data/aces-cards";
 import AlphaStrikeForce, { IASForceExport } from "./classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "./classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "./classes/battlemech";
@@ -44,6 +45,7 @@ export interface IFullBackup {
     // BattleTech: Aces; optional so older backups still restore.
     acesGame?: IAcesGameExport | null;
     acesCampaigns?: IAcesCampaignExport[];
+    acesCardLibrary?: IAcesCardLibrary | null;
 }
 
 export async function getFullBackup(
@@ -61,6 +63,7 @@ export async function getFullBackup(
         currentVehicle: await getCurrentVehicle(appSettings),
         acesGame: await getAcesGame(appSettings),
         acesCampaigns: await getAcesCampaigns(appSettings),
+        acesCardLibrary: await getAcesCardLibrary(appSettings),
     }
 
     return JSON.stringify( rv );
@@ -316,6 +319,23 @@ export function restoreFullBackup(
         }
     }
 
+    if( io.acesCardLibrary && typeof io.acesCardLibrary === "object" ) {
+        const incomingLibrary = normalizeAcesCardLibrary( io.acesCardLibrary );
+        const count = incomingLibrary.cards.length + incomingLibrary.commandCards.length + incomingLibrary.specialOrders.length + incomingLibrary.scenarios.length;
+        if( count > 0 ) {
+            restoreMessages.push({
+                severity: "add",
+                message: "Add or replace " + count + " Aces card library entr" + ( count === 1 ? "y" : "ies" ),
+            })
+            if( performActions ) {
+                const appSettings = appGlobals.appSettings;
+                getAcesCardLibrary( appSettings ).then( (existing) => {
+                    saveAcesCardLibrary( appSettings, mergeAcesCardLibrary( existing, incomingLibrary ) );
+                });
+            }
+        }
+    }
+
     if( overWriteCurrentCBTGroup && performActions && io.currentCBTForce) {
         appGlobals.currentCBTForce = new BattleMechForce(io.currentCBTForce);
     }
@@ -505,6 +525,29 @@ export async function getAcesCampaigns(
         return [];
     }
     return [];
+}
+
+export function saveAcesCardLibrary(
+    appSettings: AppSettings,
+    newValue: IAcesCardLibrary,
+) {
+    saveData(appSettings, "acesCardLibrary", JSON.stringify(newValue) );
+}
+
+/** The players' own Aces cards, Command cards, Special Orders and sorties. Always returns a library. */
+export async function getAcesCardLibrary(
+    appSettings: AppSettings,
+): Promise<IAcesCardLibrary> {
+    let rawData = await getData(appSettings, "acesCardLibrary" );
+    try {
+        if( rawData ) {
+            return normalizeAcesCardLibrary( JSON.parse( rawData ) );
+        }
+    }
+    catch {
+        return normalizeAcesCardLibrary( null );
+    }
+    return normalizeAcesCardLibrary( null );
 }
 
 export async function getCurrentCBTForce(
