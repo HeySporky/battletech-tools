@@ -24,10 +24,10 @@ jobs:
     outputs:
       failure-reason: ${{ steps.mulsync.outputs.failure-reason }}
     steps:
-      - name: Check out MUL
+      - name: Check out master
         uses: actions/checkout@v7
         with:
-          ref: MUL
+          ref: master
           fetch-depth: 0
 
       - name: Set up Node
@@ -73,15 +73,15 @@ jobs:
             exit 0
           fi
           git commit -m "Weekly MUL sync from masterunitlist.battletech.com"
-          git fetch origin MUL
-          if ! git rebase origin/MUL; then
+          git fetch origin master
+          if ! git rebase origin/master; then
             git rebase --abort
-            echo "::error::MUL advanced during this run and the generated data conflicted while rebasing."
+            echo "::error::master advanced during this run and the generated data conflicted while rebasing."
             echo "::error::The sync output is preserved in the mul-sync-${{ github.run_id }} workflow artifact."
             exit 1
           fi
-          if ! git push origin HEAD:MUL; then
-            echo "::error::git push failed after rebasing onto the latest origin/MUL. Inspect the git remote error above."
+          if ! git push origin HEAD:master; then
+            echo "::error::git push failed after rebasing onto the latest origin/master. Inspect the git remote error above."
             echo "::error::The sync output is preserved in the mul-sync-${{ github.run_id }} workflow artifact."
             exit 1
           fi
