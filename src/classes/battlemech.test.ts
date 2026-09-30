@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
+import { sswTestFixtures } from "../data/ssw/sswTestFixtures";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { BattleMech } from "./battlemech";
 import { validateChassisCombination } from "../data/mech-internal-structure-types";
@@ -1833,6 +1834,45 @@ describe("BattleMech", () => {
         expect(mech.getRunSpeed()).toBe(8);
         expect(mech.getJumpSpeed()).toBe(5);
         expect(mech.getBVCalcHTML()).toContain("x 1.7600 [Speed Factor Rating]");
+    });
+
+    // SSW writes Clan items as "(CL) ...", and a Clan design's unprefixed items (e.g. "@ SRM-6 (Artemis IV Capable)")
+    // are Clan equipment too. Both used to be looked up in the Inner Sphere list and dropped.
+    it("imports every item of a Clan SSW design (Champion C)", () => {
+        const mech = new BattleMech();
+        mech.importSSWXML(sswTestFixtures["Champion C"]);
+
+        expect(mech.sswImportErrors).toEqual([]);
+        expect(mech.getTech().tag).toBe("clan");
+        const names = mech.getInstalledEquipment().map((item) => item.name);
+        expect(names.filter((name) => /ER Medium Laser/.test(name))).toHaveLength(2);
+        expect(names.some((name) => /LB 10-X/.test(name))).toBe(true);
+        expect(mech.getUnallocatedCriticals()).toEqual([]);
+    });
+
+    it("keeps a Clan design's equipment through a JSON save and load (Champion C)", () => {
+        const mech = new BattleMech();
+        mech.importSSWXML(sswTestFixtures["Champion C"]);
+
+        const reloaded = new BattleMech(mech.exportJSON());
+        expect(reloaded.getInstalledEquipment().map((item) => item.tag).sort())
+            .toEqual(mech.getInstalledEquipment().map((item) => item.tag).sort());
+        expect(reloaded.getBattleValue()).toBe(mech.getBattleValue());
+    });
+
+    // SSW "Mixed" designs used to import as Inner Sphere, so a save and load dropped their (CL) items.
+    it("imports an SSW Mixed design as mixed tech and keeps its Clan items through a save and load", () => {
+        const mixed = sswTestFixtures["Champion C"]
+            .replace(/(<techbase[^>]*>)Clan</, "$1Mixed<")
+            .replace("@ SRM-6 (Artemis IV Capable)", "(IS) @ SRM-6 (Artemis IV Capable)");
+        const mech = new BattleMech();
+        mech.importSSWXML(mixed);
+
+        expect(mech.sswImportErrors).toEqual([]);
+        expect(["mis", "mclan"]).toContain(mech.getTech().tag);
+        const reloaded = new BattleMech(mech.exportJSON());
+        expect(reloaded.getBattleValue()).toBe(mech.getBattleValue());
+        expect(reloaded.getInstalledEquipment()).toHaveLength(mech.getInstalledEquipment().length);
     });
 
     // Regression: heat sinks get a fresh UUID on every recalculation; allocation must fall back to tag + rear.
