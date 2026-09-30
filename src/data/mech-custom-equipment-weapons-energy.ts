@@ -167,7 +167,7 @@ export const mechCustomEquipmentEnergy: IEquipmentItem[] = [
     },
     {
         name: "Disruptor (MekTek)", tag: "custom-disruptor", sort: "disruptor", category: "Custom Equipment", notes: "Unverified placeholder associated with MekTek Issue 2.",
-        damage: 10, damageAero: 10, accuracyModifier: 0, cbills: 0, introduced: 0, extinct: null, reintroduced: null, battleValue: 0, heat: 8, heatAero: 8, weight: 6,
+        damage: 10, damageAero: 10, accuracyModifier: 0, cbills: 0, introduced: 2316, prototype: 2306, extinct: null, reintroduced: null, battleValue: 0, heat: 8, heatAero: 8, weight: 6, // Dates of the Standard Large Laser, which shares its heat and ranges (IO p.43).
         range: { min: 0, short: 5, medium: 10, long: 15 }, space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE", "E"], techRating: "x", book: "MekTek", page: 0, rulesLevel: 5,
         alphaStrike: { heat: 8, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
@@ -176,10 +176,12 @@ export const mechCustomEquipmentEnergy: IEquipmentItem[] = [
         // Non-canon: IO does not allow a PPC Capacitor on Clan PPCs (user decision 2026-09-28).
         // Built as the Clan ER PPC plus the capacitor's +1 t / +1 slot / +150,000 C-bills
         // (the IS ER PPC to ER PPC w/ Capacitor difference); Alpha Strike from the workbook (C) row.
+        // Dates follow the Inner Sphere PPC Capacitor it carries (prototype 3060, production 3081, IO p.46);
+        // the Clan ER PPC itself dates from 2826.
         name: "ER PPC w/ Capacitor (Clan)", tag: "clan-er-ppc-capacitor", altNames: ["ER PPC w/ Capacitor (C)"], altTags: [], catalog: "custom",
         sort: "ppc, er, capacitor, clan", category: "Energy Weapons",
         notes: "Custom homebrew, not canon: IO rules out PPC Capacitors on Clan PPCs. Charged shot adds +5 damage and +5 heat as the IS version. BV copied from the Clan ER PPC; the capacitor's BV is not computed.",
-        damage: 15, damageAero: 15, accuracyModifier: 0, cbills: 450000, introduced: null, extinct: null, reintroduced: null, battleValue: 412, heat: 15, heatAero: 15, weight: 7,
+        damage: 15, damageAero: 15, accuracyModifier: 0, cbills: 450000, introduced: 3081, extinct: null, reintroduced: null, prototype: 3060, battleValue: 412, heat: 15, heatAero: 15, weight: 7,
         range: { min: 0, short: 7, medium: 14, long: 23 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "f", book: "Custom", page: 0, rulesLevel: 5,
         alphaStrike: { heat: 15, rangeShort: 1, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: true, notes: ["Custom homebrew", "Provisional workbook conversion"] },

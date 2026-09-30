@@ -9,6 +9,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import { makeRange } from "../../../../utils/makeRange";
+import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -73,11 +74,11 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                               >
                                 {this.props.appGlobals.currentBattleMech.getAvailableHeatSinks(this.props.appGlobals.appSettings.mechRulesFilter).map( (heatSink) => {
                                   const selected = heatSink.tag === this.props.appGlobals.currentBattleMech?.getHeatSinksType();
-                                  if( !heatSink.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                  if( !isOptionShown(heatSink, selected) ) {
                                     return <React.Fragment key={heatSink.tag}></React.Fragment>;
                                   }
                                   return (
-                                    <option key={heatSink.tag} value={heatSink.tag} disabled={!heatSink.available && !selected}>{heatSink.name}{heatSink.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                    <option key={heatSink.tag} value={heatSink.tag}>{availabilityOptionLabel(heatSink)}</option>
                                   );
                                 })}
 

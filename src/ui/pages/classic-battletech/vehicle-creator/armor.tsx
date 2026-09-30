@@ -7,6 +7,7 @@ import InputNumeric from '../../../components/form_elements/input_numeric';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -83,9 +84,11 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                             <label>
                                 Armor Type:
                                 <select value={vehicle.getArmorType().tag} onChange={this.updateArmorType}>
-                                    {vehicle.getAvailableArmorTypes().map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
+                                    {vehicle.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter)
+                                        .filter((option) => isOptionShown(option, option.tag === vehicle.getArmorType().tag))
+                                        .map((option) => (
+                                            <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
+                                        ))}
                                 </select>
                             </label>
 

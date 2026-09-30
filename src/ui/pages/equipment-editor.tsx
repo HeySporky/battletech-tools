@@ -239,9 +239,10 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             accuracyModifiier: 0,
             cbills: 0,
             cbillsOneShot: 0,
-            introduced: 0,
-            extinct: 0,
-            reintroduced: 0,
+            // Unknown until entered (parseTechYear); 0 would read as "available since year 0".
+            introduced: null,
+            extinct: null,
+            reintroduced: null,
             battleValue: 0,
             battleValueOneShot: 0,
             heat: 0,
@@ -720,7 +721,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     </div>
                 </td>
                 <td className="text-center no-wrap ">
-                    {item.introduced ?? "?"}-{item.extinct && item.extinct > 0 ? item.extinct : "current"}<br />
+                    {item.introduced ?? (item.prototype ? `${item.prototype} (prototype)` : "?")}-{item.extinct && item.extinct > 0 ? item.extinct : "current"}<br />
                     {item.reintroduced && item.reintroduced > 0 ? (
                         <div className="small-text">Reintroduced: {item.reintroduced}</div>
                     ): null}

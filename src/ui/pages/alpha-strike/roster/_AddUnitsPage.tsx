@@ -6,7 +6,7 @@ import { BattleMech } from '../../../../classes/battlemech';
 import { isMULSourceSelection, loadMULListItems, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
 import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
-import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
+import { getMULAerospaceRoles, getMULEraAliases, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
@@ -486,6 +486,11 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         {getMULEraIDs().map( (eraID ) => {
                           return <option key={eraID} value={eraID}>{getMULEraLabel( eraID )}</option>
                         })}
+                        <optgroup label="Clan eras">
+                          {getMULEraAliases().map( (alias) => {
+                            return <option key={alias.id} value={alias.id}>{alias.label}</option>
+                          })}
+                        </optgroup>
                         {/* {btEraOptions.map( (era, eraIndex) => {
                           return (
                             <option key={eraIndex} value={era.yearStart}>{era.name}</option>

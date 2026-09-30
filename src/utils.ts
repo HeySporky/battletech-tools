@@ -7,6 +7,7 @@ import { DEFAULT_MUL_SOURCE_SELECTION, getMULRecordKey, getMULSourcesForSelectio
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 import { unitHasAbility } from "./utils/mulAbilities";
+import { resolveMULEraFilter } from "./utils/mulUtilities";
 
 export function getISEquipmentList(): IEquipmentItem[] {
     return getEquipmentListByTech("is");
@@ -505,6 +506,9 @@ export async function getMULASSearchResults(
     // Ability codes the unit must have, or must not have when prefixed with "!" (e.g. ["ECM", "!IF"]).
     abilityFilters: string[] = [],
 ): Promise<IASMULUnit[]> {
+
+    // A Clan era picked in the filter searches the MUL era it maps to; the MUL has no Clan eras.
+    eraFilter = resolveMULEraFilter(eraFilter);
 
     let returnUnits: IASMULUnit[] = [];
 

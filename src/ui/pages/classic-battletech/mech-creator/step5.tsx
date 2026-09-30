@@ -203,7 +203,6 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                         appGlobals={this.props.appGlobals}
                         equipment={currentMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, includeCustom, this.props.appGlobals.appSettings.mechRulesFilter)}
                         addFunction={this.addEquipment}
-                        hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
                       />
                   </div>
               </div>

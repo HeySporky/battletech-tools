@@ -8,6 +8,7 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -131,11 +132,11 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                               >
                                 {this.props.appGlobals.currentBattleMech.getAvailableMyomerTypes(this.props.appGlobals.appSettings.mechRulesFilter).map( (myomer) => {
                                   const selected = myomer.tag === this.props.appGlobals.currentBattleMech?.getMyomerType().tag;
-                                  if( !myomer.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                  if( !isOptionShown(myomer, selected) ) {
                                     return <React.Fragment key={myomer.tag}></React.Fragment>;
                                   }
                                   return (
-                                    <option key={myomer.tag} value={myomer.tag} disabled={!myomer.available && !selected}>{myomer.name}{myomer.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                    <option key={myomer.tag} value={myomer.tag}>{availabilityOptionLabel(myomer)}</option>
                                   )
                                 })}
                               </select>
@@ -149,11 +150,11 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                               >
                                 {this.props.appGlobals.currentBattleMech.getAvailableJumpJets(this.props.appGlobals.appSettings.mechRulesFilter).map( (jumpJet) => {
                                   const selected = jumpJet.tag === this.props.appGlobals.currentBattleMech?.getJumpJetType().tag;
-                                  if( !jumpJet.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                                  if( !isOptionShown(jumpJet, selected) ) {
                                     return <React.Fragment key={jumpJet.tag}></React.Fragment>;
                                   }
                                   return (
-                                    <option key={jumpJet.tag} value={jumpJet.tag} disabled={!jumpJet.available && !selected}>{jumpJet.name}{jumpJet.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                    <option key={jumpJet.tag} value={jumpJet.tag}>{availabilityOptionLabel(jumpJet)}</option>
                                   )
                                 })}
                               </select>
@@ -198,21 +199,11 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setEngineType}
                               >
                                 {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                {this.props.appGlobals.currentBattleMech.getAvailableEngines(this.props.appGlobals.appSettings.mechRulesFilter).map( (engineData, engineIndex) => {
-                                  if( engineData.available ) {
-                                    return (
-                                      <option key={engineIndex} value={engineData.tag}>{engineData.name}{engineData.availableAsPrototype ? " (Prototype)" : ""}</option>
-                                    )
-                                  } else {
-                                    if( this.props.appGlobals.currentBattleMech && !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
-                                      return (
-                                        <option disabled={true} key={engineIndex} value={engineData.tag}>{engineData.name}</option>
-                                      )
-                                    } else {
-                                      return <React.Fragment key={engineIndex}></React.Fragment>
-                                    }
-                                  }
-                              })}
+                                {this.props.appGlobals.currentBattleMech.getAvailableEngines(this.props.appGlobals.appSettings.mechRulesFilter)
+                                  .filter( (engineData) => isOptionShown(engineData, engineData.tag === this.props.appGlobals.currentBattleMech?.getEngineType().tag) )
+                                  .map( (engineData, engineIndex) => (
+                                    <option key={engineIndex} value={engineData.tag}>{availabilityOptionLabel(engineData)}</option>
+                                ))}
                               </select>
                             </label>
                             <h3>Gyro Type</h3>
@@ -223,21 +214,11 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setGyroType}
                               >
                                 {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                {this.props.appGlobals.currentBattleMech.getAvailableGyros(this.props.appGlobals.appSettings.mechRulesFilter).map( (gyroData, gyroIndex) => {
-                                  if( gyroData.available ) {
-                                    return (
-                                      <option key={gyroIndex} value={gyroData.tag}>{gyroData.name}{gyroData.availableAsPrototype ? " (Prototype)" : ""}</option>
-                                    )
-                                  } else {
-                                    if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
-                                      return (
-                                        <option disabled={true} key={gyroIndex} value={gyroData.tag}>{gyroData.name}</option>
-                                      )
-                                    } else {
-                                      return <React.Fragment key={gyroIndex}></React.Fragment>
-                                    }
-                                  }
-                              })}
+                                {this.props.appGlobals.currentBattleMech.getAvailableGyros(this.props.appGlobals.appSettings.mechRulesFilter)
+                                  .filter( (gyroData) => isOptionShown(gyroData, gyroData.tag === this.props.appGlobals.currentBattleMech?.getGyro().tag) )
+                                  .map( (gyroData, gyroIndex) => (
+                                    <option key={gyroIndex} value={gyroData.tag}>{availabilityOptionLabel(gyroData)}</option>
+                                ))}
                               </select>
                             </label>
 
