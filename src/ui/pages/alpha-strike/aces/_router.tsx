@@ -1,37 +1,36 @@
 import * as React from 'react';
 import { Route, Routes } from "react-router";
-import { IAppGlobals } from '../../app-router';
-import Error404 from "../error404";
-import AcesRouter from './aces/_router';
-import AlphaStrikeHome from './home';
-import AlphaStrikeRosterRouter from './roster/_router';
-import AlphaStrikeUnitCreatorRouter from './unit-creator/_router';
+import { IAppGlobals } from '../../../app-router';
+import Error404 from "../../error404";
+import AcesCampaignPage from './campaign';
+import AcesGamePage from './game';
+import AcesHome from './home';
+import AcesRulesPage from './rules';
 
 import type { JSX } from "react";
 
-export default class AlphaStrikeRouter extends React.Component<IAlphaStrikeRouterProps, IAlphaStrikeRouterState> {
+export default class AcesRouter extends React.Component<IAcesRouterProps, IAcesRouterState> {
 
     render = (): JSX.Element => {
         return(
             <Routes>
-
                 <Route path={``} element={
-                    <AlphaStrikeHome
+                    <AcesHome
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-                <Route path={`roster/*`} element={
-                    <AlphaStrikeRosterRouter
+                <Route path={`game`} element={
+                    <AcesGamePage
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-                <Route path={`aces/*`} element={
-                    <AcesRouter
+                <Route path={`campaign`} element={
+                    <AcesCampaignPage
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
-                <Route path={`unit-creator/*`} element={
-                    <AlphaStrikeUnitCreatorRouter
+                <Route path={`rules`} element={
+                    <AcesRulesPage
                         appGlobals={this.props.appGlobals}
                     />
                 }/>
@@ -46,10 +45,10 @@ export default class AlphaStrikeRouter extends React.Component<IAlphaStrikeRoute
     }
 }
 
-interface IAlphaStrikeRouterProps {
+interface IAcesRouterProps {
     appGlobals: IAppGlobals;
 }
 
-interface IAlphaStrikeRouterState {
+interface IAcesRouterState {
 
 }

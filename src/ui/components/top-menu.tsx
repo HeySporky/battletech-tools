@@ -80,6 +80,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "Roster",
                     url: "/alpha-strike/roster",
                     tag: "alpha-strike-roster",
+                },
+                {
+                    label: "Aces",
+                    url: "/alpha-strike/aces",
+                    tag: "alpha-strike-aces",
                 }
             ]
 
@@ -129,6 +134,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "Roster",
                     url: "/alpha-strike/roster",
                     tag: "alpha-strike-roster",
+                },
+                {
+                    label: "Aces",
+                    url: "/alpha-strike/aces",
+                    tag: "alpha-strike-aces",
                 },
                 // {
                 //     label: "Unit Creator",

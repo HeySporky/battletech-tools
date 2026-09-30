@@ -45,10 +45,19 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         })
     }
 
+    /** Saves an in-play change: through onChange when given (e.g. an Aces automated unit), else the current AS force. */
+    private _save = (): void => {
+        if( this.props.onChange ) {
+            this.props.onChange();
+        } else {
+            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+        }
+    }
+
     private _takeDamage = ( damageTaken: number ): void => {
         if( this.props.inPlay && this.props.asUnit ) {
             this.props.asUnit.takeDamage( damageTaken );
-            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            this._save();
         }
         this.setState({
             showTakeDamage: false,
@@ -67,7 +76,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     this.props.asUnit.roundStructure[indexNumber] = !this.props.asUnit.roundStructure[indexNumber];
                 }
             }
-            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            this._save();
         }
     }
 
@@ -75,7 +84,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         if( this.props.inPlay && this.props.asUnit ) {
             if( this.props.asUnit.roundEngineHits.length > indexNumber) {
                 this.props.asUnit.roundEngineHits[indexNumber] = !this.props.asUnit.roundEngineHits[indexNumber];
-                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                this._save();
             }
         }
     }
@@ -83,7 +92,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _setHeat = ( newValue: number ) => {
         if( this.props.inPlay && this.props.asUnit ) {
             this.props.asUnit.setHeat(newValue);
-            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            this._save();
         }
     }
 
@@ -92,7 +101,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.roundWeaponHits.length > indexNumber) {
                 this.props.asUnit.roundWeaponHits[indexNumber] = !this.props.asUnit.roundWeaponHits[indexNumber];
-                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                this._save();
             }
         }
     }
@@ -102,7 +111,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.roundVehicleMotive910.length > indexNumber) {
                 this.props.asUnit.roundVehicleMotive910[indexNumber] = !this.props.asUnit.roundVehicleMotive910[indexNumber];
-                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                this._save();
             }
         }
     }
@@ -112,7 +121,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.roundVehicleMotive11.length > indexNumber) {
                 this.props.asUnit.roundVehicleMotive11[indexNumber] = !this.props.asUnit.roundVehicleMotive11[indexNumber];
-                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                this._save();
             }
         }
     }
@@ -121,7 +130,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         if( this.props.inPlay && this.props.asUnit ) {
 
             this.props.asUnit.roundVehicleMotive12 = !this.props.asUnit.roundVehicleMotive12;
-            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            this._save();
 
         }
     }
@@ -131,7 +140,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.roundFireControlHits.length > indexNumber) {
                 this.props.asUnit.roundFireControlHits[indexNumber] = !this.props.asUnit.roundFireControlHits[indexNumber];
-                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                this._save();
             }
         }
     }
@@ -141,7 +150,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
 
             if( this.props.asUnit.roundMpControlHits.length > indexNumber) {
                 this.props.asUnit.roundMpControlHits[indexNumber] = !this.props.asUnit.roundMpControlHits[indexNumber];
-                this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+                this._save();
             }
         }
     }
@@ -149,7 +158,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
     private _ApplyRound = (): void => {
         if( this.props.inPlay && this.props.asUnit ) {
             this.props.asUnit.applyRound();
-            this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+            this._save();
         }
     }
 
@@ -911,6 +920,8 @@ interface IAlphaStrikeUnitSVGProps {
     forPrint?: boolean;
     showExtreme?: boolean;
     measurementsInHexes: boolean;
+    /** Called instead of saving the current AS force after an in-play change. */
+    onChange?(): void;
     showPilotAbility?( ability: IASPilotAbility ): void;
     showSpecialAbility?(
         e: React.FormEvent<HTMLAnchorElement>,
