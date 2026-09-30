@@ -67,7 +67,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add tools/mul-sync/live-units.json tools/mul-sync/legacy-duplicate-candidates.json src/data/mul
-          git add -f tools/mul-sync/browser-state.json
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0

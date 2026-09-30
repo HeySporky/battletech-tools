@@ -31,9 +31,10 @@
  *      checks Content-Type + an HTML sniff, so a 200-status Cloudflare challenge page (which was
  *      the original bug: "Unexpected token '<' ... is not valid JSON") is now caught and retried
  *      the same way a 403/429 already was, instead of crashing with an opaque SyntaxError.
- *   2. Browser storage state (cookies, including cf_clearance) is now persisted to
- *      browser-state.json and reloaded on the next run, so a run doesn't necessarily start from
- *      zero trust with Cloudflare every single time.
+ *   2. Browser storage state (cookies, including cf_clearance) is saved to browser-state.json and
+ *      reloaded on the next run, so a local run doesn't necessarily start from zero trust with
+ *      Cloudflare every time. The file holds session cookies: it is git-ignored and must never be
+ *      committed (the repository is public). CI runs start without it.
  *   3. All fixed delays (CRAWL_DELAY_MS, INDEX_FETCH_PAUSE_MS, the pre-fetch pause, COOLDOWN_MS)
  *      are now jittered +/-30% — a perfectly uniform cadence is itself a signal some bot-management
  *      heuristics can score on, separate from the delay's length.

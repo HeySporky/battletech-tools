@@ -71,6 +71,11 @@ robots.txt
 # Local development workspaces are never part of the synchronized source.
 *_DEV/
 
+# MUL sync run state: browser session cookies (cf_clearance) and the failure screenshot.
+# Never commit these; the repository is public.
+/tools/mul-sync/browser-state.json
+/tools/mul-sync/last-failure.png
+
 # ---------------------------------------------------------------------------
 # Ollama AI engine rules and helpers (root-anchored; the committed equivalents
 # under tools/ are intentional project tooling and must stay tracked)
