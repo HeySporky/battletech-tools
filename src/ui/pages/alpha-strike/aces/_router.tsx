@@ -5,6 +5,8 @@ import Error404 from "../../error404";
 import AcesCampaignPage from './campaign';
 import AcesGamePage from './game';
 import AcesHome from './home';
+import AcesLibraryPage from './library';
+import AcesPrintPage from './print';
 import AcesRulesPage from './rules';
 
 import type { JSX } from "react";
@@ -26,6 +28,16 @@ export default class AcesRouter extends React.Component<IAcesRouterProps, IAcesR
                 }/>
                 <Route path={`campaign`} element={
                     <AcesCampaignPage
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+                <Route path={`library`} element={
+                    <AcesLibraryPage
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+                <Route path={`print`} element={
+                    <AcesPrintPage
                         appGlobals={this.props.appGlobals}
                     />
                 }/>

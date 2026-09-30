@@ -1,6 +1,6 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
-import { FaBook, FaChessKnight, FaMedal } from "react-icons/fa";
+import { FaBook, FaChessKnight, FaLayerGroup, FaMedal } from "react-icons/fa";
 import { IAppGlobals } from '../../../app-router';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
@@ -8,6 +8,7 @@ import { getAcesCampaigns, getAcesGame } from '../../../../dataSaves';
 import { ACES_BOOK, ACES_SS_BOOK } from '../../../../data/aces-rules';
 import './aces.scss';
 const Book = FaBook as any;
+const Cards = FaLayerGroup as any;
 const ChessKnight = FaChessKnight as any;
 const Medal = FaMedal as any;
 
@@ -49,9 +50,11 @@ export default class AcesHome extends React.Component<IAcesHomeProps, IAcesHomeS
                   cycling and splitting, crippled units, to-hit numbers, and the campaign ledger, Named Pilots and sortie log.
               </p>
               <p>
-                  You still need the Aces box. The app doesn't reproduce the Aces, Command or Special Order cards or the
-                  sortie text; you read those from your own cards and books and enter the priority numbers and card
-                  letters here.
+                  You still need the Aces box and books. Type your own Aces, Command and Special Order cards and
+                  sorties into the Card Library once, and the Game Tracker deals from it, reads each unit's top card
+                  with you and loads sorties with their turn track and objectives. The library ships with one sample
+                  of each kind from the rulebooks' worked examples; without your cards you can still enter the
+                  priority numbers and card letters by hand.
               </p>
 
               <div className="icon-links">
@@ -62,6 +65,10 @@ export default class AcesHome extends React.Component<IAcesHomeProps, IAcesHomeS
                 <Link to={`${process.env.PUBLIC_URL}/alpha-strike/aces/campaign`}>
                   <Medal />
                   Campaigns
+                </Link>
+                <Link to={`${process.env.PUBLIC_URL}/alpha-strike/aces/library`}>
+                  <Cards />
+                  Card Library
                 </Link>
                 <Link to={`${process.env.PUBLIC_URL}/alpha-strike/aces/rules`}>
                   <Book />

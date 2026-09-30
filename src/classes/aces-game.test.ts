@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { acesSampleBattleROMReview, acesSampleSniper475, getAcesSampleLibrary } from "../data/aces-card-samples";
 import { AcesGame } from "./aces-game";
 import AlphaStrikeForce from "./alpha-strike-force";
 import { AlphaStrikeUnit } from "./alpha-strike-unit";
@@ -124,5 +125,124 @@ describe("Aces game tracker", () => {
         // Old or partial saves still load.
         const partial = new AcesGame( { version: 1 } as never );
         expect( partial.phase ).toBe( "initiative" );
+    });
+});
+
+describe("Aces game: card library, sorties, dice and transport", () => {
+    it("deals virtual piles from the card library and stacks the tutorial order (Aces SS p.5)", () => {
+        const game = makeGame( [ makeUnit( "Pouncer", "Sniper", 40 ), makeUnit( "Timber Wolf", "Brawler", 73 ) ] );
+        const library = getAcesSampleLibrary();
+        const warnings = game.loadScenario( acesSampleBattleROMReview, library );
+        const pouncer = byName( game, "Pouncer" );
+        const state = game.getUnitState( pouncer.uuid );
+        expect( state.deckId ).toBe( "sniper" );
+        expect( game.getTopCard( pouncer.uuid, library )!.movePriority ).toBe( 475 );
+        expect( state.movePriority ).toBe( 475 );
+        expect( game.turnLimit ).toBe( 5 );
+        expect( game.commandCard ).toBe( "C" );
+        // Only one card of each deck ships as a sample; the rest must come from the players' own cards.
+        expect( warnings.some( ( line ) => line.indexOf( "535" ) > -1 ) ).toBe( true );
+    });
+
+    it("cycles the top library card under the pile", () => {
+        const game = makeGame( [ makeUnit( "Pouncer", "Sniper", 40 ) ] );
+        const library = getAcesSampleLibrary();
+        library.cards.push( { ...JSON.parse( JSON.stringify( acesSampleSniper475 ) ), id: "my-535", movePriority: 535, combatPriority: 535 } );
+        game.setDeckPoolsFromLibrary( library );
+        const pouncer = byName( game, "Pouncer" );
+        game.stackDeck( pouncer.uuid, [ "475", "535" ], library );
+        game.cycleCard( pouncer.uuid );
+        expect( game.getTopCard( pouncer.uuid, library )!.movePriority ).toBe( 535 );
+    });
+
+    it("ends the sortie after the final turn or when the primary objective is complete (Aces p.32)", () => {
+        const game = makeGame( [ makeUnit( "Pouncer", "Sniper", 40 ) ] );
+        game.loadScenario( acesSampleBattleROMReview );
+        expect( game.isSortieOver().over ).toBe( false );
+        game.objectives[0].complete = true;
+        expect( game.isSortieOver().over ).toBe( true );
+        game.objectives[0].complete = false;
+        game.turn = 6;
+        expect( game.isSortieOver().reason ).toContain( "Final turn" );
+    });
+
+    it("rolls Initiative from the saved seed, so a reload rolls the same", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ) ] );
+        game.rng = { seed: 99, calls: 0 };
+        const copy = new AcesGame( JSON.parse( JSON.stringify( game.export() ) ) );
+        expect( copy.rollInitiative() ).toEqual( game.rollInitiative() );
+        expect( copy.rng ).toEqual( game.rng );
+    });
+
+    it("loads a version 1 save with the new fields defaulted", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ) ] );
+        const data = JSON.parse( JSON.stringify( game.export() ) );
+        data.version = 1;
+        for( const key of [ "ruleset", "rng", "turnLimit", "waypoints", "objectives", "specialOrders", "deckPools" ] ) delete data[key];
+        for( const state of data.unitStates ) {
+            delete state.cardIds;
+            delete state.transportedBy;
+        }
+        const loaded = new AcesGame( data );
+        expect( loaded.ruleset ).toBe( "aces" );
+        expect( loaded.turnLimit ).toBeNull();
+        expect( loaded.unitStates[0].cardIds ).toEqual( [] );
+        expect( loaded.unitStates[0].transportedBy ).toBe( "" );
+    });
+
+    it("mounts infantry by IT/CAR capacity and keeps passengers out of the move order (Aces pp.5-6)", () => {
+        const apc = makeUnit( "APC", "Transport", 20 );
+        apc.type = "CV";
+        apc.abilities = [ "IT2" ];
+        const squad1 = makeUnit( "Squad 1", "Ambusher", 10 );
+        squad1.type = "CI";
+        squad1.abilities = [ "CAR1" ];
+        const squad2 = makeUnit( "Squad 2", "Ambusher", 10 );
+        squad2.type = "CI";
+        squad2.abilities = [ "CAR2" ];
+        const game = makeGame( [ apc, squad1, squad2 ] );
+        const transport = byName( game, "APC" );
+        const first = byName( game, "Squad 1" );
+        const second = byName( game, "Squad 2" );
+        expect( game.mount( first.uuid, transport.uuid, true ).ok ).toBe( false );
+        expect( game.mount( first.uuid, transport.uuid, false ).ok ).toBe( true );
+        expect( game.mount( second.uuid, transport.uuid, false ).ok ).toBe( false );
+        expect( game.getAutomatedUnitsAbleToMove() ).toBe( 2 );
+        game.nextPhase();
+        game.nextPhase();
+        expect( game.getCombatQueue().some( ( unit ) => unit.uuid === first.uuid ) ).toBe( false );
+        expect( game.dismount( first.uuid, false ).ok ).toBe( false );
+        game.nextTurn();
+        expect( game.dismount( first.uuid, true ).ok ).toBe( false );
+        expect( game.dismount( first.uuid, false ).ok ).toBe( true );
+    });
+
+    it("battle armor with MEC rides one Omni unit and survives its destruction (Aces p.5)", () => {
+        const omni = makeUnit( "Omni", "Brawler", 40 );
+        omni.abilities = [ "OMNI" ];
+        const ba = makeUnit( "Elementals", "Ambusher", 15 );
+        ba.type = "BA";
+        ba.abilities = [ "MEC" ];
+        const game = makeGame( [ omni, ba ] );
+        const carrier = byName( game, "Omni" );
+        const rider = byName( game, "Elementals" );
+        expect( game.mount( rider.uuid, carrier.uuid, false ).ok ).toBe( true );
+        const lines = game.handleTransportDestroyed( carrier.uuid );
+        expect( lines[0] ).toContain( "base contact" );
+        expect( rider.isWrecked() ).toBe( false );
+    });
+
+    it("kills infantry carried inside a destroyed transport (Aces p.5)", () => {
+        const apc = makeUnit( "APC", "Transport", 20 );
+        apc.type = "CV";
+        apc.abilities = [ "IT2" ];
+        const squad = makeUnit( "Squad", "Ambusher", 10 );
+        squad.type = "CI";
+        squad.abilities = [ "CAR2" ];
+        const game = makeGame( [ apc, squad ] );
+        const inside = byName( game, "Squad" );
+        game.mount( inside.uuid, byName( game, "APC" ).uuid, false );
+        game.handleTransportDestroyed( byName( game, "APC" ).uuid );
+        expect( inside.isWrecked() ).toBe( true );
     });
 });
