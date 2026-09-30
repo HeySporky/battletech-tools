@@ -27,8 +27,11 @@ Local references (git-ignored, never imported by shipped code):
 - [x] `tools/mul-sync/browser-state.json` (masterunitlist.battletech.com session cookies, including
   `cf_clearance`) is untracked and git-ignored, and the weekly sync no longer commits it; CI runs start
   without saved cookies. Merged 2026-09-30.
-- [ ] Purge the old copies of `browser-state.json` from the history (12 commits on `master`, `CustomMUL`,
-  `layers`, `vehicle-motive-types`) and invalidate the leaked session. Needs a force-push by the owner.
+- [x] Purge the old copies of `browser-state.json` from the history: rewritten and force-pushed on
+  2026-09-30 (`master`, `CustomMUL`, `vehicle-motive-types`; unrelated branches kept their commit IDs). The
+  cookies were anonymous (`_I_`, `cf_clearance`) and can't be revoked; they expire by 2027-09.
+- [ ] Ask GitHub Support to drop the cached views of the old commits and the fork PR #8 ref (a "Remove
+  sensitive data" request listing the old commit IDs).
 - [x] Report the SSW ammunition bug upstream. The ammunition catalog rename (`Ammo (SRM-6)` ->
   `SRM - Standard Ammo`, upstream #75) broke name matching in the SSW importer: 413 of the 512 bundled
   'Mechs lost their ammunition on import, on upstream's live site too. Upstream PR #91 (open), reworked on
