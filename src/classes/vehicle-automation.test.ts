@@ -2,6 +2,8 @@ import { describe, expect, it } from "vitest";
 import Vehicle from "./vehicle";
 import Pilot from "./pilot";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
+import { mechISEquipmentBallistic } from "../data/mech-is-equipment-weapons-ballistic";
+import { mechClanEquipmentBallistic } from "../data/mech-clan-equipment-weapons-ballistic";
 
 // Combat Vehicle rules automated in play mode and construction: Total Warfare (corrected 2010 PDF) and
 // Tactical Operations (2008).
@@ -39,8 +41,20 @@ describe("Explosive weapons (TW pp. 135-136, 195; TO pp. 314-315)", () => {
         expect(damage("gauss-rifle-heavy-improved")).toBe(30);
         expect(damage("gauss-rifle-magshot")).toBe(3);
         expect(damage("silver-bullet-gauss-rifle")).toBe(20);
-        // Not in the books in hand (Interstellar Operations): left unresolved rather than guessed.
-        expect(damage("clan-improved-gauss-rifle")).toBeNull();
+        // Interstellar Operations: improved Gauss 20-point internal explosion (IO p. 96); prototype Gauss
+        // rifles work as standard Gauss rifles in all respects (IO p. 72).
+        expect(damage("clan-improved-gauss-rifle")).toBe(20);
+        expect(damage("prototype-gauss-rifle")).toBe(20);
+        expect(damage("medium-laser")).toBeNull();
+    });
+
+    it("marks every Gauss weapon with a sourced explosion as explosive in the catalog (TW pp. 135-136)", () => {
+        const catalog = [...mechISEquipmentBallistic, ...mechClanEquipmentBallistic];
+        for (const tag of ["hyper-assault-gauss-20", "hyper-assault-gauss-30", "hyper-assault-gauss-40", "ap-gauss-rifle", "prototype-gauss-rifle", "clan-improved-gauss-rifle"]) {
+            const item = catalog.find((entry) => entry.tag === tag);
+            expect(item?.explosive, tag).toBe(true);
+            expect(getWeaponExplosionDamage(item!), tag).not.toBeNull();
+        }
     });
 
     it("Weapon Destroyed on a Gauss rifle explodes it in its location, without losing the ammunition", () => {
@@ -109,13 +123,13 @@ describe("VTOL chin turret (TO p. 348)", () => {
 });
 
 describe("Sponson turrets (TO pp. 348, 411)", () => {
-    it("weigh 10% of the weapons in both sponsons, 5% a side rounded up to the half ton, Experimental", () => {
+    it("weigh 10% of the weapons in both sponsons, 5% a side rounded up to the half ton, Advanced (TO:AUE)", () => {
         const tank = build("tracked", 60);
         mount(tank, "large-laser", "left");
         mount(tank, "large-laser", "right");
         expect(tank.setSponsonTurrets(true)).toBe(true);
         expect(tank.getSponsonWeight()).toBe(1);
-        expect(tank.getRequiredRulesLevel()).toBeGreaterThanOrEqual(4);
+        expect(tank.getRequiredRulesLevel()).toBe(3);
         expect(tank.getSponsonIssue()).toBeNull();
         mount(tank, "medium-laser", "left");
         expect(tank.getSponsonIssue()).toContain("same tonnage");

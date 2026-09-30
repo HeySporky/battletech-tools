@@ -2,6 +2,9 @@ import { generateUUID } from "../utils/generateUUID";
 import { BattleMech, IBattleMechExport } from "./battlemech";
 import Vehicle, { IVehicleExport } from "./vehicle";
 
+/** Most vehicles read from one saved group; far above any real lance or company. */
+export const MAX_GROUP_VEHICLES = 100;
+
 export interface ICBTGroupExport {
 	name: string;
 	units: IBattleMechExport[];
@@ -113,8 +116,13 @@ export class BattleMechGroup {
 			let theUnit = new BattleMech( JSON.stringify(unit) );
 			this.members.push( theUnit );
 		}
-		for( let vehicle of importObj.vehicles || [] ) {
-			this.vehicles.push( new Vehicle( JSON.stringify(vehicle) ) );
+		// Vehicles in a saved group may come from someone else's backup: a list only, capped.
+		const vehicles = Array.isArray(importObj.vehicles) ? importObj.vehicles.slice(0, MAX_GROUP_VEHICLES) : [];
+		for( let vehicle of vehicles ) {
+			// Skip entries that are not saved vehicles rather than adding blank default vehicles.
+			if( vehicle && typeof vehicle === "object" && !Array.isArray(vehicle) ) {
+				this.vehicles.push( new Vehicle( JSON.stringify(vehicle) ) );
+			}
 		}
         if( importObj.uuid ) {
             this.uuid = importObj.uuid;

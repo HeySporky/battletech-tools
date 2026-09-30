@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { matchesTag } from "./tag-match";
 import { mechISEquipmentBallistic } from "./mech-is-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "./mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./mech-is-equipment-weapons-misc";
@@ -154,7 +155,7 @@ export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
 ];
 
 export function isOmniFixedOnly(item: IEquipmentItem): boolean {
-    return OMNI_FIXED_ONLY_TAGS.includes(item.tag);
+    return OMNI_FIXED_ONLY_TAGS.some((tag) => matchesTag(item, tag));
 }
 
 /**
