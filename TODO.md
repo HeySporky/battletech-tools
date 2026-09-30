@@ -336,6 +336,19 @@ played first, then by dependency.
 
 ## 8. Runtime and tooling
 
+- [ ] File-state and cleanup audit: check that every tracked file is used or documented, and remove the rest.
+  - Source: unused modules, exports and dead code in `src/` (a tool such as knip reports unused files,
+    exports and dependencies).
+  - Scripts: everything in `tools/`, `scripts/`, `command-line-scripts/` and `src/bin/` is referenced by
+    `package.json`, a workflow or the docs, or it goes. (`tools/mul-sync/ensure-chromium-windows.mjs`, an
+    unwired Windows-runner workaround, was removed on 2026-09-30.)
+  - Committed outputs: generated reports and staging files (`tools/*-report.json`, `tools/*-staging.jsonl`,
+    `tools/equipment-inventory-*`) are either still read by something or regenerated on demand instead of
+    committed.
+  - Repository root: `LICENSE-MIT` is still tracked although the project is GPLv3. (`cline_custom_modes.json`,
+    `as_lookup_results.jsonl`, the nested `battletech-tools/` copy and `build/` are ignored local files.)
+  - `package.json` dependencies nothing imports.
+
 - [ ] Drop the `typescript-7` alias and make TS 7 the only `typescript` once typescript-eslint supports
   TS >= 6.1 and TS 7 ships the JS API (or an Android binary); then remove the fallback in
   `scripts/typecheck.mjs`.
