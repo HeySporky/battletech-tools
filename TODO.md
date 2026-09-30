@@ -356,7 +356,264 @@ played first, then by dependency.
 - [ ] Keep the literal-object rule: promote approved records directly into their owning catalog files; no
   generated supplemental imports.
 
-## 8. Runtime and tooling
+## 8. Alpha Strike: BattleTech Aces (solo/co-op automated opponent and campaigns)
+
+BattleTech: Aces (Catalyst/Lynnvander, 2025) has three parts. First, an automated opponent for Alpha Strike, driven
+by per-unit Aces decks and a Commander deck. Second, a branching narrative campaign with Named Pilots, Edge and a
+Support Point (SP) economy. Third, extra Alpha Strike rules for vehicles, infantry and emplacements (*Aces* p.2).
+Goal: all of it playable from the Alpha Strike section. Sources: `text/Battletech-Aces-RuleBook.ocr.txt` (cite
+*Aces* p.N, printed page = PDF page - 1) and `text/battletech-aces-scouring-sands-campaign-books.ocr.txt` (cite
+*Aces SS* p.N, offset 0). Both are OCR text, so check every table and number against the PDF page image before
+encoding it. The Golden Rules section (*Aces* p.10) did not OCR at all.
+
+What the app has today: one player force (`currentASForce`; its `turn`/`phase` fields are unused), damage, heat,
+critical-hit and vehicle-motive tracking, SPAs, MUL roles, and the match-play scenario generator. What it lacks: an
+opposing force, initiative, a target-number calculator, any game or campaign state, and any knowledge of where
+units stand on the table.
+
+**Status 2026-09-30: merged to master from `AS-Aces` (3946f1d1) and offered upstream as a PR.** Players enter
+their own cards and sorties in the Card Library (`/alpha-strike/aces/library`); one cited sample of each record
+type ships. The card reader walks each unit's top card; decks deal from the library with a seeded RNG.
+- Model: `src/data/aces-rules.ts` (cited tables), `src/classes/aces-helpers.ts` (to-hit, crippled, front-loaded
+  order, activation order, deck split and suggestion, Initiative), `aces-game.ts` (automated-force tracker) and
+  `aces-campaign.ts` (difficulty, force checks, Named Pilots, ledger, sortie log). 45 tests.
+- Persistence: `dataSaves.ts` keys `acesGame` and `acesCampaigns`, both included in the full backup.
+- UI: `/alpha-strike/aces` (home, game, campaign, rules) and a tile on the AS home.
+- `AlphaStrikeUnitSVG` gained `onChange`, so in-play damage on the automated units saves to the Aces game instead
+  of the roster.
+- Card engine: `src/data/aces-cards.ts` (schema, typed-line parsers, validation, library merge),
+  `aces-card-samples.ts` (cited samples), `src/classes/aces-engine.ts` (behavior, targets, filters, OV, physical,
+  support, tokens, strategy, crits, seeded dice). UI: `library.tsx`, `_card-reader.tsx`, `print.tsx`.
+- Still open: emplacement unit entry, Waypoint scan/escape edges, Edge spends, SS abilities, campaign printables.
+
+### Decisions before any code
+
+- [x] **Card content and IP.** None of the card contents is in the rulebook text: 66 Aces cards, 10 Command, 5
+  Special Order, 12 Edge Ability, 8 Named Pilot and 12 Asset cards (*Aces SS* p.3). The same goes for the sortie
+  story and Waypoint text. Options: (a) ship transcribed card data under the existing data disclaimer, as we do
+  for SPAs; (b) a companion mode that shows only structure and procedure, with the player entering the card ID
+  from their own box (e.g. Brawler 383) and the card text staying local; (c) a mix: ship the mechanics, never the
+  story or Waypoint text. Recommendation: (c). Card mechanics are a local-only data file until approved, and story
+  text is referenced by entry ID ("read 02-E") and never reproduced. This decision also settles whether the
+  feature is offered upstream.
+  *Decided (2026-09-30):* (b) plus one cited sample of each record type. Players type or import their own cards
+  and sorties; more official content can be added later if the maintainers want it.
+- [ ] **Source gaps.** The card data needs the physical cards or an official PDF; neither is local. Aces cites the
+  Alpha Strike Quick-Start Rules (AS:QSR), which aren't local either, so map each AS:QSR reference to its ASCE
+  page. Other Aces boxes beyond Scouring Sands: none local; check battletech.com before scoping them.
+- [x] **Named Pilot SP threshold table.** Read off the pilot card images on the PDF pages (*Aces* pp.27, 29):
+  - Skill 3/2/1/0 at 400/900/1,900/3,400 SP.
+  - Edge tokens 1-10 at 0/60/120/200/300/420/560/720/900/1,100 SP.
+  - Edge abilities 0-5 at 0/60/180/360/600/900 SP.
+
+  The examples on *Aces* pp.35-36 test it. Encoded in `aces-rules.ts`.
+- [x] **Rules variant per game.** Done: `AcesGame.ruleset`, switch on the game setup page. Aces changes several ASCE rules: its own vehicle critical hit table (*Aces* p.4
+  says so), infantry and emplacement critical hits are always a Weapon Hit, the "front-loaded" unequal-numbers
+  rule, and the campaign's -2 Initiative carry-over. Store a ruleset (`asce` / `aces`) on each game so in-play
+  applies the matching table. ASCE stays the default outside Aces games.
+
+### A. Game state and unit queries (`src/classes/`)
+
+- [x] Two-sided game model. `AcesGame` (export v2) holds the automated force (a copy), turn, phase, Initiative
+  winner, tokens, commanders, per-unit Aces state, turn limit, Waypoints, objectives, seeded RNG and the log. It is
+  versioned and included in backups. The player force stays in `currentASForce`. Original plan: It holds the player force and the automated force, plus the
+  turn, phase, Initiative winner, token side, turn track with Waypoints, objectives (Movement/Destroy), and the
+  force commanders. It must be versioned, exported and included in the `dataSaves.ts` backups, and existing
+  `currentASForce` saves must still load.
+- [ ] Per-unit turn state: movement mode used and the TMM it produced (the "movement dice", *Aces* p.15),
+  moved/attacked flags, Move First/Last tokens, Forced Withdrawal and Fleeing flags, escaped, mounted-on-transport,
+  Force Commander, Named Pilot link, Edge tokens left, and destroyed-by-ammo (needed for salvage).
+- [ ] A stable stat-query API for the engine: current and starting MV, TMM (with the battle armor +1, STL and heat
+  effects, *Aces* p.9), armor, armor lost, starting armor, structure, damage per range, OV, PV and Size. The
+  engine reads these, never the UI.
+- [x] Crippled/Forced Withdrawal test (`getAcesCrippledReasons`; Special Order card criteria, *Aces* p.8; ASCE for the canonical wording).
+- [x] Alpha Strike to-hit (target number) calculator (`calculateAcesToHit`, UI `_to-hit-calculator.tsx`). Before this, nothing like it existed, and the engine needs it: targets
+  at TN 13+ are ignored and the OV rows compare against TN (*Aces* pp.18-19). Modifiers: skill, range, attacker
+  and target movement, terrain and cover, IF and spotter, battle armor +1, emplacements, AM, heat and Fire Control
+  hits.
+
+### B. Additional Alpha Strike rules (*Aces* pp.3-6, *Aces SS* pp.18-19)
+
+- [x] Indirect Fire (IF#) in the to-hit calculator, with the p.3 example as a test. The judgment calls stay with
+  the player. Spotter eligibility (didn't Sprint, hasn't attacked, has LOS, within 42"), modifiers,
+  +1 to both attacks when the spotter also fires, one target per spotter, IF0* minimal damage, no OV, and Weapon
+  Hits reduce IF. The worked example on *Aces* p.3 (TN 8) becomes a regression test.
+- [ ] Combat vehicles (p.4). *Partial:* the motive and critical-hit tables roll and mark the unit card under the
+  `aces` ruleset; heat-as-damage and Charge-only are still the player's job. Motive table (+1 for hover and wheeled; check it against the existing motive
+  tracking), the Aces vehicle critical hit table under the `aces` ruleset, heat applied as damage, Charge as the
+  only physical attack, TUR#. Ground vehicle movement costs as a reference table.
+- [ ] Infantry (p.5). *Partial:* the to-hit modifiers and transport (IT/CAR, OMNI+MEC mount, dismount at half MV,
+  carried units destroyed with an IT transport) are done; the OMNI 1D6 5-6 hit split is not. 360-degree arc, no rear, no AMM, battle armor +1 TN, critical hit is always a Weapon Hit, and
+  Anti-'Mech attacks (+1 TN; +3 more for conventional infantry; +3 against a target carrying battle armor; a
+  critical check on any damage). Transport: IT#/CAR#, MEC/OMNI mount (2") and dismount (half MV); the transport
+  can't Sprint the turn it loads. Attacks on transports (*Aces* p.6): carried units die with an IT transport; on
+  an OMNI, battle armor takes the hit on 1D6 5-6, per attack roll.
+- [ ] Emplacements (p.6). *Partial:* the to-hit modifiers, the crippled-at-0 check, and the game-tracker flag
+  (no deck, no FW) are done; there is no unit entry yet. Immobile (-4), -1 when attacking or spotting, critical hits always a Weapon Hit,
+  crippled at 0 damage, no Forced Withdrawal. Needs an emplacement unit entry (probably a custom-MUL-style record;
+  check the MUL first).
+- [x] "Front-loaded" unequal numbers (p.6), `getAcesFrontLoadedMoveOrder`; tested against the Erin/Ben example: a move-order helper that skips units which can't move (immobile, shut
+  down, emplacements, transported infantry). Test it against the 8-vs-5 example.
+- [ ] Scouring Sands abilities (*Aces SS* p.19): ECM (12"), FLK, JMPS#, SRCH, TAG, TUR#, alternate munitions.
+  Compare each with `alpha-strike-special-abilities.ts` (ASCE wording) and add Aces notes where they differ. Probe
+  scan ranges (4" base, LPRB 8", PRB 12", BH 16") apply only to Waypoints (*Aces* p.24).
+
+### C. Automated opponent engine (*Aces* pp.7-21, 38-40)
+
+- [x] Card schema (`src/data/aces-*.ts` if the IP decision allows shipping it; otherwise local-only data).
+  - Aces card: deck, role, subtype (Infantry, Hover, JMPS), set icon, card ID, and separate movement and combat
+    priorities.
+  - Each card has three behavior columns (Aggressive, Balanced, default Cautious), and each column has a condition,
+    target Zones or a keyword, filters (can attack after moving, has moved), a color list, a movement mode and
+    ranked movement filters.
+  - The combat side has Zones, filters and OV rows.
+  - Command card: letter A-E, orders by phase, Red/Yellow/Blue priority lists, support orders, emplacement,
+    artillery and BSP priorities, and strategy rows leading to the next letter.
+  - Special Orders: Forced Withdrawal, Fleeing, Movement Objective (filters 0a-0c), Destroy Objective (default
+    stats), Indirect Attacks.
+  - Encode conditions and filters as a typed predicate vocabulary (the icon and keyword set, *Aces* pp.9, 40)
+    rather than free text, so the engine can evaluate what it can.
+- [x] Assisted-resolution design. The app doesn't know the table (positions, LOS, range, cover, arcs), so each
+  activation is a step-by-step prompt:
+  - The engine settles everything that stat values decide: ideal-color ranking and tie-breaks, OV use, priority
+    order, card cycling, command-card changes.
+  - It asks the player only the geometric questions, e.g. "Is the ideal Blue (Timber Wolf) within 12" and has it
+    moved?" or "Which enemies are within 16"?".
+  - When the filters don't settle a choice, it shows the Golden Rule (*Aces* p.14) and hands the choice to the
+    player. It never guesses.
+- [x] Decks (*Aces* pp.10, 19, 38-39). *Partial:* the default deck by role and subtype, splitting with extras set
+  aside, card cycle counting and reshuffle notices are done. The seeded RNG and merged/custom decks are not.
+  - Default deck from the unit's role: map `ASMULRoles` to the Aces decks. Subtype by movement type: hover or
+    wheeled to the Hover decks, JMPS to Skirmisher (JMPS), infantry to Ambusher (Infantry) (*Aces SS* p.20; *Aces*
+    p.39).
+  - Deck handling: six-card decks; even splitting with extras set aside; reshuffle the combined cards; merged and
+    custom decks.
+  - Card cycle: flip after moving, tuck after combat, reshuffle when the top card shows its combat side.
+  - A seeded RNG stored with the game, so a reloaded game continues the same way.
+- [x] Initiative phase (p.10). *Partial:* the player enters priorities, and tokens override them at 000/1000
+  with the holders restricted as p.8 says. The Command-card orders are not automated. Reveal the movement priorities, apply the Command orders (Move First = 000, Move
+  Last = 1000, with the units that can't hold a token), then roll or enter both Initiative rolls.
+- [x] Movement phase (pp.11-17): activation order. *Partial:* the activation queue (priority, PV ties, FW -500)
+  and the front-loaded move order are shown in the tracker. The per-card behavior, target and movement steps are
+  still read off the cards.
+  - Lowest unmoved priority goes first; ties go to the lowest PV, then the player chooses. Forced Withdrawal adds
+    -500. Interleave this with the unequal-numbers helper so the app tells the player when to move their own
+    units.
+  - Steps: check orders, determine behavior (columns left to right), identify the target (nearest Zone, filters,
+    color tie-breaks), filter the movement (none/one/many locations), standstill rules and the 1" nudge, jump "if
+    needed", facing checklist, flip the card, record mode and TMM.
+  - Also: No Targets in Play, and Movement/Destroy objectives.
+- [x] Combat phase (pp.18-20):
+  - Units attack in combat-priority order. Target selection skips TN 13+ and destroyed units, and falls back to
+    the closest unit.
+  - OV decision: never cause a shutdown; no attack at 0 MV from heat; maximum OV if the unit is destroyed this
+    phase; non-'Mechs ignore OV.
+  - Physical attacks only under the conditions on p.20.
+  - Indirect Attacks special order at priority 000: target from the BSP filters, spotter selection, and the
+    spotter holds fire when that helps.
+  - Then emplacements, artillery (ASCE rules) and Battlefield Support cards, ordered by TN, then damage, and gated
+    by the support orders.
+- [x] End phase (p.21; campaign order p.32): strategy decision rows pick the next Command card; mark Forced
+  Withdrawal.
+- [ ] Extras. *Partial:* the non-campaign difficulty PV helper is on the game setup page. Automated allies inside the player's force (p.38); non-campaign difficulty (80%/120% PV, skill ±1
+  without recalculating PV, p.38); a quick-reference panel of icons and keywords (back cover, p.40).
+- [ ] OPFOR builder in the roster. *Partial:* the automated force is loaded from the current roster or a
+  favorite group, with an overridable deck, the Command deck name and card letter, and the commander unit.
+  Objectives are not done. build the automated force from the MUL like the player force, assign decks (role
+  default, overridable), choose the Commander deck and starting card, designate the commander unit, and define
+  objectives.
+
+### D. Campaign rules (*Aces* pp.23-37)
+
+- [x] Campaign save model (`AcesCampaign`, versioned, included in backups):
+  - Campaign-level: difficulty, Warchest SP, story keywords (including numbered keywords), sortie history, next
+    sortie.
+  - Player force roster: PV at Skill 4, wounded, memorial.
+  - Named Pilots: callsign, type BM/CV/BA, Skill, Edge, number of Edge abilities, total SP, SP in the three
+    allocation columns, MVP count, wounded, abilities learned, campaigns and sorties played.
+- [x] Force creation checks (`validateAcesStartingForce`). The MUL era/faction search is not done. 400 PV, at least 8 units, Skill 4.
+  - Advanced mode uses the MUL search with the campaign's era and faction (Scouring Sands: Mercenary, ilClan era,
+    *Aces SS* p.21).
+  - Only BM/BA/CV/CI types. At most two 'Mechs per chassis, never the same variant; at most two identical units of
+    any other type.
+  - Unspent PV converts to SP at 40 SP per PV.
+- [x] Named Pilots (pp.27-28): 2-6 pilots, 150 SP each to allocate, type-locked; hire a replacement for 150 SP.
+  Thresholds are sourced (see above).
+- [x] Difficulty (p.28): Rookie to Legendary, PV% and SP%. Existing forces add a pilot-SP bracket modifier (p.29);
+  the percentages add. Test with the p.29 example: 250 PV at +20% - 10% gives 275 PV.
+- [ ] Sortie setup checklist (pp.30-31): record the log entry, briefing by entry ID, Reconnaissance SP, play-area
+  and Waypoint setup.
+  - Player force: PV cap after difficulty. OMNI reconfiguration costs Size x5 SP, or the PV difference x40 SP if
+    the new variant costs more. Named Pilots assigned by type, wounded pilots excluded, force commander chosen.
+  - Then the OPFOR and special rules.
+- [ ] Playing a sortie (p.32). *Partial:* the -2 Initiative modifiers and the End Phase order are in the tracker;
+  Waypoints and escape edges are not.
+  - Initiative: the last winner takes -2; a force whose commander is destroyed takes -2.
+  - Escape edges.
+  - Strict End Phase order: sortie rules, damage, heat, objectives, strategy, turn track and Waypoints.
+  - Waypoint reveal and scan (p.24).
+  - Edge spends: +1 pip once per Combat Phase (a raised 12 doesn't cause a critical hit), reroll motive, reroll a
+    critical hit, and Edge abilities (p.24).
+- [x] After-sortie ledger (pp.33-36), in order. Built as the campaign page's sortie form and helpers:
+  - Game-end Waypoints, then outcome keywords.
+  - Casualties:
+    - Salvage roll: 4+ BM, 6+ CV, 8+ BA, 10+ CI.
+    - Automatically truly destroyed: an ammo critical hit without CASE, a crash, or an emplacement.
+    - Crew roll: 2-3 killed, 4-6 wounded, 7+ unscathed. A Crew Killed or Unit Destroyed critical hit kills the
+      crew; Crew Stunned wounds it.
+  - Income: objectives x the difficulty SP%.
+  - Expenses:
+    - Reconnaissance and Waypoints.
+    - Rearming: 20 SP per unit, except ENE units and truly destroyed units.
+    - Personnel: 100 SP per wounded crew or pilot, 150 SP per new pilot.
+    - Repairs: Size x100 destroyed, x60 crippled, x40 structure damage or critical hits, x20 armor only. Non-'Mechs
+      count half their Size, and nothing is rounded.
+  - Earnings and debt.
+  - Pilot shares: the outcome's per-pilot cap; absent pilots get half; KIA get nothing; wounded get a full share.
+    MVP gets +20 SP.
+  - Purchases at PV x40, sales at PV x20.
+  - Next-sortie choice.
+  - Regression tests: the p.36 walkthrough (1,800 - 940 = 860 SP; 280 SP to pilots; 980 SP balance) and the p.34
+    crippled Size 3 tank (1.5 x 60 = 90 SP).
+- [ ] Printables generated by the app: Campaign Log, Player Force Roster, Sortie Log and Named Pilot card, in our
+  own layout, not copies of the official sheets.
+
+### E. Scouring Sands content (*Aces SS*)
+
+- [x] Sortie index (00-BattleROM Review, 00-Training Simulator, 01-21) within the IP decision. Done as a page
+  index on the rules page (`acesScouringSandsSorties`); full sortie records are player-entered. For each sortie:
+  number, name, PV cap, OPFOR (unit, skill, deck, reserve), Command deck and starting card, objectives and SP,
+  turn limit, Waypoint placement, and branch choices. Story, Waypoint and outcome text is referenced by entry ID
+  only.
+- [x] The guided tutorial's stacked deck order (e.g. Brawler 383, 253, 643, 213, 093, 513; *Aces SS* p.5), as a
+  scripted first game.
+- [ ] Unit availability list for Apolakkia (*Aces SS* p.20). *Partial:* encoded and shown on the rules page; check SP = PV x40. Terrain legend CF values and the
+  river and canyon rules (*Aces SS* p.18).
+- [ ] Box OPFOR units (Bane 3, Marauder IIC, Thunderbolt IIC, Summoner H, Rifleman C2, Howler, Locust IIC 4, Fulcrum
+  Heavy Hover Tank): check that our MUL data has them and that PV and specials match the box cards.
+
+### F. UI in the Alpha Strike section
+
+- [x] Routes under `/alpha-strike/aces/`: an overview page, a solo/co-op game (setup, then the turn wizard), and
+  campaigns (list, log, roster, pilots, sortie flow, after-sortie ledger). Add a tile on the Alpha Strike home.
+  Domain logic stays in `src/classes` and `src/data`; pages only render and ask questions.
+- [ ] Reuse the in-play unit cards and damage tracking for both sides. *Partial:* the automated side uses them;
+  the player side uses the roster's in-play view. Show the automated units' priority,
+  behavior, target and tokens next to their cards.
+- [ ] Phone-first and offline, like the rest of the PWA: no network calls, and the RNG and state persist across
+  reloads.
+
+### G. Verification
+
+- [ ] One regression test per rule, named for the rule with its *Aces* page, using the book's worked examples:
+  IF p.3; Determine Behavior and Identify Target pp.11-13; Forced Withdrawal priority 625 - 500 = 125, p.16;
+  Destroy Objective TMM -4, p.17; BSP ordering p.21; plus the campaign examples above.
+- [x] Browser test: set up a small Aces game and play one full turn (initiative, both sides moving, combat, end
+  phase), then save, reload and continue.
+- [x] Backward compatibility: old AS force saves and backups load unchanged; the new game and campaign records
+  round-trip.
+
+## 9. Runtime and tooling
 
 - [ ] File-state and cleanup audit: check that every tracked file is used or documented, and remove the rest.
   - Source: unused modules, exports and dead code in `src/` (a tool such as knip reports unused files,
