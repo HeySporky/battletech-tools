@@ -25,6 +25,9 @@ export class AppSettings {
     alphaStrikeFactionSearchTerm: string = "";
     alphaStrikeFactionSuggestions: Array<number> = [];
     alphaStrikeSearchFactions: Array<number> = [];
+    alphaStrikeAbilitySearchTerm: string = "";
+    // Ability codes the unit must have; a "!" prefix means it must not have it.
+    alphaStrikeSearchAbilities: Array<string> = [];
     alphaStrikeMULSources: MULSourceSelection = DEFAULT_MUL_SOURCE_SELECTION;
     hideMPIntro: boolean = false;
 
@@ -91,6 +94,10 @@ export class AppSettings {
                 this.alphaStrikeSearchFactions = io.alphaStrikeSearchFactions;
             }
 
+            if ( Array.isArray( io.alphaStrikeSearchAbilities ) ) {
+                this.alphaStrikeSearchAbilities = io.alphaStrikeSearchAbilities.filter( (ability) => typeof ability === "string" );
+            }
+
             if ( isMULSourceSelection( io.alphaStrikeMULSources ) ) {
                 this.alphaStrikeMULSources = io.alphaStrikeMULSources;
             }
@@ -127,6 +134,7 @@ export class AppSettings {
             alphaStrikeMeasurementsInHexes: this.alphaStrikeMeasurementsInHexes,
             asValues: this.asValues,
             alphaStrikeSearchFactions: this.alphaStrikeSearchFactions,
+            alphaStrikeSearchAbilities: this.alphaStrikeSearchAbilities,
             alphaStrikeMULSources: this.alphaStrikeMULSources,
             hideMPIntro: this.hideMPIntro,
         
@@ -152,6 +160,7 @@ export interface IAppSettingsExport {
     alphaStrikeInPlayColumns: number;
     alphaStrikeMeasurementsInHexes: boolean;
     alphaStrikeSearchFactions: Array<number>;
+    alphaStrikeSearchAbilities?: Array<string>;
     alphaStrikeMULSources?: MULSourceSelection;
     hideMPIntro: boolean;
    

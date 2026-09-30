@@ -2,7 +2,7 @@ import * as React from 'react';
 import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
 import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
-import { isMULSourceSelection, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
+import { isMULSourceSelection, loadMULListItems, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
 import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
@@ -10,11 +10,14 @@ import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 import { generateUUID } from '../../../../utils/generateUUID';
+import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
 import type { JSX } from "react";
 const Bars = FaBars as any;
 const Eye = FaEye as any;
 const Plus = FaPlus as any;
 const Trash = FaTrash as any;
+
+const MAX_ABILITY_SUGGESTIONS = 12;
 
 //TODO: Clearfix Hack for overflowing results
 /*
@@ -44,15 +47,28 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
-            isSearching: false
+            isSearching: false,
+            abilityCodes: [],
         }
     }
 
       componentDidMount() {
-        if (this.props.appGlobals.appSettings.alphaStrikeSearchTerm.trim().length >= 3) {
+        if (
+          this.props.appGlobals.appSettings.alphaStrikeSearchTerm.trim().length >= 3
+          || this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.length > 0
+        ) {
           void this.updateSearchResults();
         }
+        void this.loadAbilityCodes();
       }
+
+    // Suggestions come from the abilities in the unit lists being searched.
+    loadAbilityCodes = async (): Promise<void> => {
+      const units = await loadMULListItems( this.props.appGlobals.appSettings.alphaStrikeMULSources );
+      this.setState({
+        abilityCodes: countAbilityCodes( units ),
+      });
+    }
 
     componentWillUnmount() {
         // Clean up timeout when component unmounts
@@ -165,6 +181,41 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       this.props.appGlobals.saveAppSettings( appSettings );
 
       this.updateSearchResults();
+      void this.loadAbilityCodes();
+    }
+
+    updateAbilitySearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
+      let appSettings = this.props.appGlobals.appSettings;
+      appSettings.alphaStrikeAbilitySearchTerm = event.currentTarget.value;
+      this.props.appGlobals.saveAppSettings( appSettings );
+    }
+
+    getAbilitySuggestions = (): IAbilityCodeCount[] => {
+      const term = this.props.appGlobals.appSettings.alphaStrikeAbilitySearchTerm.trim().toUpperCase();
+      if( !term ) {
+        return [];
+      }
+      const selectedCodes = this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.map( (filter) => filter.replace(/^!/, "") );
+      return this.state.abilityCodes
+        .filter( (ability) => ability.code.startsWith( term ) && !selectedCodes.includes( ability.code ) )
+        .slice( 0, MAX_ABILITY_SUGGESTIONS );
+    }
+
+    addAbilityFilter = ( code: string, exclude: boolean ): void => {
+      let appSettings = this.props.appGlobals.appSettings;
+      appSettings.alphaStrikeSearchAbilities = appSettings.alphaStrikeSearchAbilities
+        .filter( (filter) => filter.replace(/^!/, "") !== code )
+        .concat( exclude ? "!" + code : code );
+      appSettings.alphaStrikeAbilitySearchTerm = "";
+      this.props.appGlobals.saveAppSettings( appSettings );
+      this.updateSearchResults();
+    }
+
+    removeAbilityFilter = ( filter: string ): void => {
+      let appSettings = this.props.appGlobals.appSettings;
+      appSettings.alphaStrikeSearchAbilities = appSettings.alphaStrikeSearchAbilities.filter( (existing) => existing !== filter );
+      this.props.appGlobals.saveAppSettings( appSettings );
+      this.updateSearchResults();
     }
 
     updateFactionSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
@@ -229,6 +280,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           !navigator.onLine,
           false,
           this.props.appGlobals,
+          this.props.appGlobals.appSettings.alphaStrikeSearchAbilities,
         );
 
         if(this.latestSearchId !== currentSearchId) {
@@ -464,6 +516,49 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                     </div>
                     <div className="row">
                       <div className="col-md-12 text-center">
+                      <InputField
+                         type="search"
+                         onChange={this.updateAbilitySearch}
+                         value={this.props.appGlobals.appSettings.alphaStrikeAbilitySearchTerm}
+                         label="Filter By Special Abilities"
+                         placeholder='Type an ability code, such as ECM, IF or TAG.'
+                        />
+                      </div>
+                      <div className="col-md-6 text-center">
+                      {this.getAbilitySuggestions().length > 0 ? (
+                      <div>
+                      Add to Ability Filter?<br />
+                      {this.getAbilitySuggestions().map( (ability) => {
+                        return (
+                          <div key={ability.code} className="text-left">
+                            <button onClick={() => this.addAbilityFilter(ability.code, false)} className="btn-sm btn btn-primary" title={"Only units with " + ability.code} aria-label={"Has " + ability.code}>Has</button>
+                            <button onClick={() => this.addAbilityFilter(ability.code, true)} className="btn-sm btn btn-secondary" title={"Only units without " + ability.code} aria-label={"Lacks " + ability.code}>Lacks</button>
+                            &nbsp;{ability.code} <span className="small-text">({ability.count} units)</span>
+                          </div>
+                        )
+                      })}
+                      </div>
+                      ) : null}
+                      </div>
+                      <div className="col-md-6 text-center">
+                      {this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.length > 0 ? (
+                    <div>
+                      Current Ability Filter:<br />
+                      {this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.map( (filter) => {
+                        const label = filter.startsWith("!") ? "Lacks " + filter.substring(1) : "Has " + filter;
+                        return (
+                          <div key={filter} className="text-left">
+                            <button onClick={() => this.removeAbilityFilter(filter)} className="btn btn-sm btn-danger" title={"Remove " + label + " from the filter"} aria-label={"Remove " + label + " from the filter"}><Trash /></button>
+                            {label}
+                          </div>
+                        )
+                      })}
+                      </div>
+                    ):null}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 text-center">
                         <label>
                           Unit Lists:<br />
                           <select
@@ -664,7 +759,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </>
                       ) : (
                         <>
-                        {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 ? (
+                        {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 && this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.length === 0 ? (
                           <tbody>
                           <tr>
                             <td className="text-center" colSpan={7}>
@@ -823,4 +918,5 @@ interface IAlphaStrikeAddUnitsViewState {
     contextMenuSavedBattleMechs: number;
     searchSort: 'Name' | 'BFPointValue';
     isSearching: boolean;
+    abilityCodes: IAbilityCodeCount[];
 }
