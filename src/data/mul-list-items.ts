@@ -73,6 +73,32 @@ const LEGACY_ERA_ID_BY_LIVE_ID: Record<number, number> = {
     8: 247, 10: 254, 11: 255, 12: 256, 13: 257,
 };
 
+// MUL 2.0 renumbered its factions from id 37 up (the site's /data/factions.json, read 2026-09-30); the legacy
+// ids in getMULFactionLabels() are MUL 1.0's. Pairs match on the exact faction name. Factions with no single
+// legacy id (a merged list, or new since MUL 1.0) take MUL_LIVE_ONLY_FACTION_OFFSET + their live id.
+export const MUL_LIVE_ONLY_FACTION_OFFSET = 1000;
+
+const LEGACY_FACTION_ID_BY_LIVE_ID: Record<number, number> = {
+    37: 38, 38: 39, 39: 40, 40: 41, 43: 44, 45: 46, 46: 47, 47: 48, 48: 49,
+    53: 59, 54: 60, 55: 67, 56: 72, 57: 74, 58: 75, 59: 76, 60: 77, 61: 78, 62: 80,
+    63: 82, 64: 83, 65: 84, 67: 86, 68: 87, 70: 89, 73: 91, 74: 94, 75: 95,
+    79: 100, 80: 101, 81: 102, 82: 104, 83: 105,
+};
+
+// Rim Worlds Republic (legacy splits it into Home Guard 42 / Terran Corps 88), Star League (First) (legacy
+// Royal 43 / Regular 45 / General 90 / SLDF 111), ilClan Wolf and Jade Falcon Remnant.
+const LIVE_ONLY_FACTION_IDS = [41, 44, 76, 190];
+
+export function getLegacyMULFactionID(liveID: number): number {
+    if (liveID in LEGACY_FACTION_ID_BY_LIVE_ID) {
+        return LEGACY_FACTION_ID_BY_LIVE_ID[liveID];
+    }
+    if (LIVE_ONLY_FACTION_IDS.includes(liveID)) {
+        return MUL_LIVE_ONLY_FACTION_OFFSET + liveID;
+    }
+    return liveID;
+}
+
 type ChunkLoaders = Record<string, () => Promise<unknown>>;
 
 const mulChunkModulesBySource: Record<MULSource, ChunkLoaders> = {
@@ -92,8 +118,19 @@ function isMULListEntry(item: unknown): item is IASMULUnit {
 }
 
 function normalizeLiveEntry(item: IASMULUnit): IASMULUnit {
-    if (!item.MulUnitKey || (typeof item.Role !== "string" && item.Type)) {
+    if (!item.MulUnitKey) {
         return item;
+    }
+
+    // The sync writes legacy era ids but live-site faction ids, so faction ids are always mapped here.
+    if (typeof item.Role !== "string" && item.Type) {
+        return {
+            ...item,
+            Availability: item.Availability?.map(entry => ({
+                ...entry,
+                FactionIds: entry.FactionIds.map(getLegacyMULFactionID),
+            })),
+        };
     }
 
     const roleName = typeof item.Role === "string" ? item.Role : item.Role?.Name ?? "None";
@@ -110,6 +147,7 @@ function normalizeLiveEntry(item: IASMULUnit): IASMULUnit {
         Availability: item.Availability?.map(entry => ({
             ...entry,
             EraId: LEGACY_ERA_ID_BY_LIVE_ID[entry.EraId] ?? entry.EraId,
+            FactionIds: entry.FactionIds.map(getLegacyMULFactionID),
         })),
     };
 }

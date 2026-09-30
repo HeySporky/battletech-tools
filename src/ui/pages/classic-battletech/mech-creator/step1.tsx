@@ -1,7 +1,6 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
-import { btEraOptions } from '../../../../data/era-options';
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
@@ -15,6 +14,7 @@ import UIPage from '../../../components/ui-page';
 import './home.scss';
 import InputCheckbox from "../../../components/form_elements/input_checkbox";
 import InputField from "../../../components/form_elements/input_field";
+import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -26,14 +26,6 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
         }
 
         this.props.appGlobals.makeDocumentTitle("Step 1 | 'Mech Creator");
-    }
-
-    updateHideNonAvailableEquipment = ( e: React.FormEvent<HTMLInputElement>): void => {
-      if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.hideNonAvailableEquipment = e.currentTarget.checked;
-        this.props.appGlobals.saveCurrentBattleMech( currentMech );
-      }
     }
 
     updateMake = ( e: React.FormEvent<HTMLInputElement>): void => {
@@ -277,19 +269,16 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               value={this.props.appGlobals.currentBattleMech.getEra().tag}
                               onChange={this.updateEra}
                             >
-                            {btEraOptions.map( (option) => {
+                            {this.props.appGlobals.currentBattleMech.getAvailableEras().map( (option) => {
                               return (
                                 <option key={option.tag} value={option.tag}>{option.name}</option>
                               )
                             })}
                             </select>
                           </label>
-
-                            <InputCheckbox
-                              checked={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
-                              onChange={this.updateHideNonAvailableEquipment}
-                              label="Hide non-available weapons and equipment (will be gray otherwise)"
-                            />
+                          {this.props.appGlobals.currentBattleMech.getEra().description ? (
+                            <p className="smaller-text">{this.props.appGlobals.currentBattleMech.getEra().description}</p>
+                          ) : null}
 
                           <label>
                             Mech Tonnage:
@@ -316,11 +305,11 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             >
                             {this.props.appGlobals.currentBattleMech.getAvailableInternalStructures(this.props.appGlobals.appSettings.mechRulesFilter).map( (option) => {
                               const selected = option.tag === this.props.appGlobals.currentBattleMech?.getInternalStructureType();
-                              if( !option.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
+                              if( !isOptionShown(option, selected) ) {
                                 return <React.Fragment key={option.tag}></React.Fragment>;
                               }
                               return (
-                                <option key={option.tag} value={option.tag} disabled={!option.available && !selected}>{option.name}{option.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
                               )
                             })}
                             </select>

@@ -95,6 +95,8 @@ export interface IEngineType {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    /** Clan availability window when it differs from the Inner Sphere one above. */
+    clanDates?: ITechDates;
     criticals: {
         [key: string]: ICriticalLocations;
     },
@@ -519,6 +521,11 @@ export interface IEras {
     name: string;
     yearStart: number;
     yearEnd: number | null;
+    /** Tech option tags (see tech-options.ts) that can be designed in this era. */
+    techBases: string[];
+    /** Tags of eras this one replaced; saved designs may still carry them. */
+    altTags?: string[];
+    description?: string;
 }
 
 export interface IRulesLevelOption {

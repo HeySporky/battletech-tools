@@ -170,8 +170,8 @@ describe("BattleMech armor technology availability", () => {
         // Hardened armor: prototype 3047, production 3081.
         expect(available("is", "clan-inv", 2).map(armor => armor.tag)).not.toContain("hardened");
         expect(available("is", "clan-inv", 4).find(armor => armor.tag === "hardened")?.availableAsPrototype).toBe(true);
-        // Clan Ferro-Fibrous enters production in 2825.
-        expect(available("clan", "star-league", 2).map(armor => armor.tag)).not.toContain("ferro-fibrous");
+        // Star League Ferro-Fibrous (2571) carries over to Clan designs until Clan production (2825).
+        expect(available("clan", "star-league", 2).map(armor => armor.tag)).toContain("ferro-fibrous");
         // Prototype-only armor never appears below Experimental.
         expect(available("is", "star-league", 2).map(armor => armor.tag)).not.toContain("ferro-fibrous-prototype");
         expect(available("is", "star-league", 4).map(armor => armor.tag)).toContain("ferro-fibrous-prototype");
@@ -892,8 +892,45 @@ describe("BattleMech equipment availability", () => {
 
     it("applies Clan extinction dates to Star League copies", () => {
         // The Clans fielded the Star League AC/20 until ~2850.
-        expect(find("clan-sl-autocannon-standard-d", 2, "early-sw", "clan").available).toBe(true);
+        expect(find("clan-sl-autocannon-standard-d", 2, "clan-golden-years", "clan").available).toBe(true);
         expect(find("clan-sl-autocannon-standard-d", 2, "clan-inv", "clan").available).toBe(false);
+    });
+});
+
+describe("BattleMech eras by tech base", () => {
+    it("offers the Clan eras only to Clan designs", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        expect(mech.setEra("clan-golden-years")!.tag).toBe("clan-golden-years");
+        mech.setTech("is");
+        // The Golden Years start in 2841, in the Early Succession War for the Inner Sphere.
+        expect(mech.getEra().tag).toBe("early-sw");
+        expect(mech.getAvailableEras().map(era => era.tag)).not.toContain("clan-golden-years");
+    });
+
+    it("loads the Clan era tags of earlier builds", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        expect(mech.setEra("the-founding")!.tag).toBe("clan-founding-years");
+        expect(mech.setEra("political-century")!.tag).toBe("clan-golden-years");
+    });
+
+    it("starts Mixed Tech at the Clan Invasion", () => {
+        for (const tech of ["mis", "mclan"]) {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            expect(mech.getEra().tag).toBe("clan-inv");
+            expect(mech.setEra("star-league")!.tag).toBe("clan-inv");
+        }
+    });
+
+    it("keeps a saved Clan-era design in its era on import", () => {
+        const clanMech = new BattleMech();
+        clanMech.setTech("clan");
+        clanMech.setEra("clan-founding-years");
+        const imported = new BattleMech(clanMech.exportJSON());
+        expect(imported.getTech().tag).toBe("clan");
+        expect(imported.getEra().tag).toBe("clan-founding-years");
     });
 });
 
@@ -1041,9 +1078,11 @@ describe("BattleMech heat sink and gyro availability", () => {
         expect(heatSink("is", "star-league", "double").available).toBe(true);
         expect(heatSink("is", "late-sw-lt", "double").available).toBe(false);
         expect(heatSink("is", "clan-inv", "double").available).toBe(true);
-        // Clan: production 2827.
-        expect(heatSink("clan", "early-sw", "double").available).toBe(true);
-        expect(heatSink("clan", "late-sw-lt", "double").available).toBe(true);
+        // Clan: the Star League double heat sink carries over until Clan production in 2827, inside the
+        // Founding Years (2800-2840, IO:AE p.9).
+        expect(heatSink("clan", "star-league", "double").available).toBe(true);
+        expect(heatSink("clan", "clan-founding-years", "double").available).toBe(true);
+        expect(heatSink("clan", "clan-golden-years", "double").available).toBe(true);
         expect(heatSink("is", "late-sw-lt", "single").available).toBe(true);
     });
 
@@ -1053,7 +1092,7 @@ describe("BattleMech heat sink and gyro availability", () => {
         expect(heatSink("is", "age-of-war", "double-prototype").available).toBe(false);
         expect(heatSink("is", "age-of-war", "double-prototype", 4).availableAsPrototype).toBe(true);
         expect(heatSink("is", "late-sw-rn", "double-freezers", 4).available).toBe(true);
-        expect(heatSink("clan", "late-sw-rn", "double-freezers", 4).available).toBe(false);
+        expect(heatSink("clan", "clan-golden-years", "double-freezers", 4).available).toBe(false);
     });
 
     it("prices and rates heat sinks from the selected type", () => {
@@ -1110,7 +1149,7 @@ describe("BattleMech internal structure availability", () => {
         // Inner Sphere: production 2487, lost 2850, recovered 3035. Clan: production 2827.
         expect(structure("is", "star-league", "endo-steel").available).toBe(true);
         expect(structure("is", "late-sw-lt", "endo-steel").available).toBe(false);
-        expect(structure("clan", "late-sw-lt", "endo-steel").available).toBe(true);
+        expect(structure("clan", "clan-golden-years", "endo-steel").available).toBe(true);
         expect(structure("is", "late-sw-lt", "standard").available).toBe(true);
     });
 
@@ -1880,5 +1919,70 @@ describe("Regressions found by typechecking master", () => {
             mech.setMechType(type);
             expect(mech.makeTROBBCode(), type).toContain("Internal Structure");
         }
+    });
+});
+
+describe("BattleMech Clan Star League XL engine", () => {
+    const xl = (tech: string, era: string) => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra(era);
+        return mech.getAvailableEngines().find(engine => engine.tag === "xl");
+    };
+
+    it("lets Clan designs keep the Star League XL until ~2850 (project decision, 2026-09-30)", () => {
+        expect(xl("clan", "star-league")?.available).toBe(true);
+        expect(xl("clan", "clan-founding-years")?.available).toBe(true);
+        // Golden Years (2841-3049) overlap the retirement year.
+        expect(xl("clan", "clan-golden-years")?.available).toBe(true);
+        expect(xl("clan", "clan-inv")?.available).toBe(false);
+    });
+
+    it("leaves the Inner Sphere XL window unchanged (lost 2865, recovered 3035)", () => {
+        expect(xl("is", "late-sw-lt")?.available).toBe(false);
+        expect(xl("is", "clan-inv")?.available).toBe(true);
+    });
+});
+
+// Project decision (2026-09-30): Clan designs keep Star League equipment until their own Clan version
+// enters production, and the carried version keeps its Inner Sphere slots and armor factor.
+describe("BattleMech Clan Star League carry-over", () => {
+    const clanMech = (era: string) => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        mech.setEra(era);
+        return mech;
+    };
+    const slotsNamed = (mech: BattleMech, tag: string) =>
+        mech.getUnallocatedCriticals().filter(item => item.tag === tag).length;
+
+    it("gives double heat sinks the IS three slots until Clan production (2827), then two", () => {
+        const starLeague = clanMech("star-league");
+        starLeague.setHeatSinksType("double");
+        expect(starLeague.getHeatSinkCriticalRequirements().slotsEach).toBe(3);
+
+        const golden = clanMech("clan-golden-years");
+        golden.setHeatSinksType("double");
+        expect(golden.getHeatSinkCriticalRequirements().slotsEach).toBe(2);
+    });
+
+    it("gives Endo Steel fourteen IS slots until Clan production (2827), then seven", () => {
+        const starLeague = clanMech("star-league");
+        starLeague.setInternalStructureType("endo-steel");
+        expect(slotsNamed(starLeague, "endo-steel")).toBe(14);
+
+        const golden = clanMech("clan-golden-years");
+        golden.setInternalStructureType("endo-steel");
+        expect(slotsNamed(golden, "endo-steel")).toBe(7);
+    });
+
+    it("rates Ferro-Fibrous at the IS factor until Clan production (2825)", () => {
+        const starLeague = clanMech("star-league");
+        starLeague.setArmorType("ferro-fibrous");
+        expect(starLeague.getArmorTechBase()).toBe("is");
+
+        const golden = clanMech("clan-golden-years");
+        golden.setArmorType("ferro-fibrous");
+        expect(golden.getArmorTechBase()).toBe("clan");
     });
 });

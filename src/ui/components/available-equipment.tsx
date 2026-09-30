@@ -71,7 +71,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
         let groupedItems : { [categoryName: string] : IEquipmentItem[]; }= {};
         for( let item of this.props.equipment ) {
-            if( !this.props.hideUnavailable || item.available ) {
+            if( item.available ) {
                 if( !groupedItems[ item.category ] ) {
                     groupedItems[ item.category ] = []
                 }
@@ -152,11 +152,10 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                             </tr>
                         ) : null}
                         {groupedItems[catName].filter(this._equipmentFilter).filter( (item) => !isCurrentCategory || this._subtypeFilter( item ) ).sort( sortEquipment ).map( (item, itemIndex) => {
-                            if( !this.props.hideUnavailable || item.available ) {
+                            if( item.available ) {
                                 return (
                                     <tr
                                         key={itemIndex}
-                                        className={!item.available ? "disabled" : ""}
                                     >
                                         <td>{item.name}{item.availableAsPrototype ? <span className="small-text"> (Prototype)</span> : null}</td>
                                         <td>{item.category}</td>
@@ -196,7 +195,6 @@ interface IAvailableEquipmentProps {
     appGlobals: IAppGlobals;
     equipment: IEquipmentItem[];
     addFunction( item: IEquipmentItem ): boolean;
-    hideUnavailable?: boolean;
 }
 
 interface IAvailableEquipmentState {

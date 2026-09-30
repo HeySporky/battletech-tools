@@ -2,9 +2,9 @@ import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
-import { btEraOptions } from "../data/era-options";
+import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
@@ -301,7 +301,7 @@ export class BattleMech {
     private _activeOmniConfiguration = BattleMech.DEFAULT_OMNI_CONFIGURATION;
     private _transformationMode: "mech" | "airmech" | "aerospace" | "vehicle" = "mech";
     private _tech = btTechOptions[0];
-    private _era = btEraOptions[1]; // Default to Succession Wars
+    private _era = btEraOptions[1]; // Default to the Star League
     private _model: string = "";
     private _name: string = "";
     private _tonnage = 20;
@@ -3017,7 +3017,7 @@ export class BattleMech {
         };
         
         this._heatDissipation = (this._additionalHeatSinks + 10) * this._heatSinkType.dissipation + this.getPartialWingHeatBonus();
-        if( this.getTech().tag === "clan" ) {
+        if( this.getTech().tag === "clan" && !this._usesStarLeagueVersion(this._heatSinkType) ) {
             this._heatSinkCriticals.slotsEach = this._heatSinkType.crits.clan;
         } else {
             this._heatSinkCriticals.slotsEach = this._heatSinkType.crits.is;
@@ -3572,7 +3572,7 @@ export class BattleMech {
         }
 
         // Internal Structure critical Items
-        if( this.getTech().tag === "clan" ) {
+        if( this.getTech().tag === "clan" && !this._usesStarLeagueVersion(this._selectedInternalStructure) ) {
             for( let aCounter = 0; aCounter < this._selectedInternalStructure.crits.clan; aCounter++) {
                 this._unallocatedCriticals.push({
                     uuid: generateUUID(),
@@ -4405,7 +4405,9 @@ export class BattleMech {
 
     public getArmorTechBase(): "is" | "clan" {
         const techTag = this.getTech().tag;
-        if (techTag === "clan") return "clan";
+        if (techTag === "clan") {
+            return this._armorType.armorMultiplier.is > 0 && this._usesStarLeagueVersion(this._armorType) ? "is" : "clan";
+        }
         if (techTag === "is") return "is";
         const preferredBase = techTag === "mclan" ? "clan" : "is";
         if (this._armorType.armorMultiplier[preferredBase] > 0) return preferredBase;
@@ -4625,14 +4627,20 @@ export class BattleMech {
         eraTag: string,
     ) {
 
-        for( let era of btEraOptions ) {
-            if( eraTag === era.tag) {
-                this._era = era;
-                this._calc();
-                return this._era;
-            }
+        const era = findEraByTag(eraTag);
+        if( !era ) {
+            return null;
         }
-        return null;
+        // An era the tech base cannot design in (e.g. a Clan-only era on an Inner Sphere 'Mech)
+        // becomes the nearest one it can.
+        this._era = getClosestEraForTech(era, this._tech.tag);
+        this._calc();
+        return this._era;
+    }
+
+    /** The eras this 'Mech's tech base can be designed in. */
+    public getAvailableEras() {
+        return getErasForTech(this._tech.tag);
     }
 
     public getTech() {
@@ -4646,12 +4654,9 @@ export class BattleMech {
             if( techTag === technology.tag) {
                 this._tech = technology;
                 this._engineTechBase = technology.tag === "clan" || technology.tag === "mclan" ? "clan" : "is";
+                // Clan-only eras are closed to the Inner Sphere, and Mixed Tech starts at the Clan Invasion.
+                this._era = getClosestEraForTech(this._era, technology.tag);
                 this._calc();
-
-                // set era to Clan Invasion (id 3) if the techID is 2 (Clan)
-                // if( techID === 2 && this.getEra().id !== 3) {
-                //     this.setEra(3);
-                // }
 
                 return this._tech;
             }
@@ -6196,11 +6201,12 @@ export class BattleMech {
             }
 
             this._hideNonAvailableEquipment = importObject.hideNonAvailableEquipment;
-            if( importObject.era)
-                this.setEra(importObject.era);
-
+            // Tech first: it decides which eras the saved era can be.
             if( importObject.tech)
                 this.setTech(importObject.tech);
+
+            if( importObject.era)
+                this.setEra(importObject.era);
 
             if (importObject.engineTechBase) {
                 this.setEngineTechBase(importObject.engineTechBase);
@@ -7646,7 +7652,8 @@ export class BattleMech {
         for (let engine of mechEngineTypes) {
             // Enforce strict key verification against the normalized tech base
             if (engine.criticals && lookupTag in engine.criticals) {
-                const availability = this._datesAvailability(engine, rulesLevel);
+                const availability = this._datesAvailability(
+                    lookupTag === "clan" ? engine.clanDates ?? engine : engine, rulesLevel);
                 // No weight at this rating: compact engines cannot be large, primitive tops out at an adjusted 500.
                 const buildableAtRating = !weights || (weights as Record<string, number | undefined>)[engine.tag] !== undefined;
                 engine.availableAsPrototype = availability.asPrototype;
@@ -7750,12 +7757,34 @@ export class BattleMech {
     private _techDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean, asPrototype: boolean } {
         const techTag = this.getTech().tag;
         const innerSphere = this._datesAvailability(item, rulesLevel);
-        const clan = this._datesAvailability(item.clanDates ?? item, rulesLevel);
+        const clan = this._clanDatesAvailability(item, rulesLevel);
         if (techTag === "clan") return clan;
         if (techTag === "is") return innerSphere;
         if (innerSphere.available && !innerSphere.asPrototype) return innerSphere;
         if (clan.available && !clan.asPrototype) return clan;
         return innerSphere.available ? innerSphere : clan;
+    }
+
+    /** Clan availability, including the Star League version before the Clan version replaces it. */
+    private _clanDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean, asPrototype: boolean } {
+        const clan = this._datesAvailability(item.clanDates ?? item, rulesLevel);
+        const starLeague = getStarLeagueCarryOverDates(item);
+        if ((clan.available && !clan.asPrototype) || !starLeague) return clan;
+        const carried = this._datesAvailability(starLeague, rulesLevel);
+        return carried.available ? carried : clan;
+    }
+
+    /**
+     * Whether this Clan design fields the Star League version of a component (Inner Sphere slots and
+     * armor factor) because the Clan version is not yet in production in the selected era.
+     */
+    private _usesStarLeagueVersion(item: ITechDates & { clanDates?: ITechDates }): boolean {
+        const starLeague = getStarLeagueCarryOverDates(item);
+        if (this.getTech().tag !== "clan" || !starLeague || !item.clanDates) return false;
+        const clanInProduction = !!item.clanDates.introduced
+            && this._itemIsAvailable(item.clanDates.introduced, item.clanDates.extinct, item.clanDates.reintroduced);
+        return !clanInProduction
+            && this._itemIsAvailable(starLeague.prototype ?? starLeague.introduced, starLeague.extinct, null);
     }
 
     public getAvailableGyros(rulesLevel: number = 2): IGyro[] {

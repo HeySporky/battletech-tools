@@ -634,6 +634,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         alphaStrike: { specialAbility: ["ARTIV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis IV capable LRT launcher framework"] },
         prototype: 2820
     },
+    // Dates per IO p.62 (Mortar Munitions, All tech base; the extinction is Inner Sphere only).
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -661,6 +662,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2540
     },
+    // Dates per IO p.62 (Mortar Munitions, All tech base; the extinction is Inner Sphere only).
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -671,7 +673,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, mech mortar anti-personnel, clan",
         category: "Ammunition",
         cbills: 24000,
-        introduced: 2544,
+        introduced: 2531,
         extinct: 0,
         reintroduced: 0,
         battleValue: 2,
@@ -686,8 +688,9 @@ export const mechClanAmmo: IEquipmentItem[] = [
         book: "TO",
         page: 136,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2540
+        prototype: 2526
     },
+    // Dates per IO p.62 (Mortar Munitions, All tech base; the extinction is Inner Sphere only).
     {
         isAmmo: true,
         isSpecialAmmo: false,
@@ -698,7 +701,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, mech mortar ap, clan",
         category: "Ammunition",
         cbills: 28000,
-        introduced: 2840,
+        introduced: 2531,
         extinct: 0,
         reintroduced: 0,
         battleValue: 2,
@@ -712,8 +715,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "d",
         book: "TO",
         page: 136,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 2526
     },
+    // Dates per IO p.62 (Mortar Munitions, All tech base; the extinction is Inner Sphere only).
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -741,6 +746,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2533
     },
+    // Dates per IO p.62 (Mortar Munitions, All tech base; the extinction is Inner Sphere only).
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -2851,4 +2857,88 @@ export const mechClanAmmo: IEquipmentItem[] = [
         rulesLevel: 3,
         notes: "Anti-ship missile. Occupies six bomb slots. Loaded into bomb bays (LAM) or bomb slots; one bomb per record. Via MegaMek; provisional."
     },
+    // Artillery cannon shells, Clan: Clan Wolf prototype 3032, never in production (TO:AUE p.97; IO p.37).
+    {
+        isAmmo: true,
+        isSpecialAmmo: false,
+        name: "Long Tom Cannon - Standard Ammo (Clan)",
+        altNames: ["Long Tom Cannon - Standard Ammo (C)", "Clan Long Tom Cannon Ammo", "Clan Ammo Long Tom Cannon", "Clan LTC HE Ammo"],
+        tag: "ammo-clan-long-tom-cannon-standard",
+        altTags: ["ammo-long-tom-cannon-standard", "ammo-clan-ltc", "ammo-clan-ltc-he", "ammo-clan-long-tom-cannon"],
+        sort: "ammo, long tom cannon, standard, clan",
+        category: "Ammunition",
+        cbills: 20000,
+        introduced: null,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 41,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        roundsPerTon: 5,
+        explosive: true,
+        techRating: "d",
+        book: "TO",
+        page: 404,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ARTLTC-1"] },
+        prototype: 3032
+    },
+    // Artillery cannon shells, Clan: Clan Wolf prototype 3032, never in production (TO:AUE p.97; IO p.37).
+    {
+        isAmmo: true,
+        isSpecialAmmo: false,
+        name: "Sniper Cannon - Standard Ammo (Clan)",
+        altNames: ["Sniper Cannon - Standard Ammo (C)", "Clan Sniper Cannon Ammo", "Ammo Clan Sniper Cannon", "SNC HE Ammo (C)"],
+        tag: "ammo-clan-sniper-cannon-standard",
+        altTags: ["ammo-sniper-cannon-standard", "ammo-clan-snc", "ammo-clan-snc-he", "ammo-clan-sniper-cannon"],
+        sort: "ammo, sniper cannon standard, clan",
+        category: "Ammunition",
+        cbills: 15000,
+        introduced: null,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 10,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        roundsPerTon: 10,
+        explosive: true,
+        techRating: "d",
+        book: "TO",
+        page: 404,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ARTSNC-1"] },
+        prototype: 3032
+    },
+    // Artillery cannon shells, Clan: Clan Wolf prototype 3032, never in production (TO:AUE p.97; IO p.37).
+    {
+        isAmmo: true,
+        isSpecialAmmo: false,
+        name: "Thumper Cannon - Standard Ammo (Clan)",
+        altNames: ["Thumper Cannon - Standard Ammo (C)", "Clan Thumper Cannon Ammo", "Ammo Thumper Cannon (Clan)", "THC HE Ammo (Clan)"],
+        tag: "ammo-clan-thumper-cannon-standard",
+        altTags: ["ammo-thumper-cannon-standard", "ammo-clan-thc", "ammo-clan-thc-he", "ammo-clan-thumper-cannon"],
+        sort: "ammo, thumper cannon standard, clan",
+        category: "Ammunition",
+        cbills: 10000,
+        introduced: null,
+        extinct: 0,
+        reintroduced: 0,
+        battleValue: 5,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        roundsPerTon: 20,
+        explosive: true,
+        techRating: "d",
+        book: "TO",
+        page: 404,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ARTTHC-1"] },
+        prototype: 3032
+    }
 ];

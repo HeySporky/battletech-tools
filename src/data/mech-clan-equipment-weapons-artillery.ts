@@ -77,5 +77,175 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
         heatAero: 10,
         rangeAero: "s" // Short-range payload designation for low-altitude striking/bombing rules
     },
-
+    // Artillery cannon, Clan: Clan Wolf prototype 3032, never in full production (IO p.37; TO:AUE p.97).
+    {
+        name: "Long Tom Cannon (Clan)",
+        tag: "clan-long-tom-cannon",
+        altNames: ["Long Tom Artillery Cannon"],
+        altTags: ["long-tom-cannon"],
+        sort: "artillery, cannon, long tom, clan",
+        category: "Artillery Weapons",
+        notes: "Direct-fire artillery cannon; unlike tube artillery it targets a unit directly instead of a map hex.",
+        damage: 20,
+        damageAero: 20,
+        accuracyModifier: 0,
+        cbills: 650000,
+        introduced: null,
+        extinct: 0,
+        reintroduced: 0,
+        prototype: 3032,
+        battleValue: 329,
+        heat: 20,
+        weight: 20,
+        range: {
+            min: 4,
+            short: 6,
+            medium: 13,
+            long: 20,
+            extreme: 30
+        },
+        space: {
+            battlemech: 15,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 15,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        shotsPerTon: 5,
+        ammoBattleValue: 41,
+        minAmmoTons: 1,
+        explosive: false,
+        weaponType: [
+            "ARTC"
+        ],
+        techRating: "b",
+        book: "TO:AUE",
+        page: 97,
+        alphaStrike: {
+            heat: 20,
+            rangeShort: 1.32,
+            rangeMedium: 3,
+            rangeLong: 3,
+            rangeExtreme: 0,
+            tc: false,
+            notes: []
+        },
+        heatAero: 20
+    },
+    // Artillery cannon, Clan: Clan Wolf prototype 3032, never in full production (IO p.37; TO:AUE p.97).
+    {
+        name: "Sniper Cannon (Clan)",
+        tag: "clan-sniper-cannon",
+        altNames: ["Sniper Artillery Cannon"],
+        altTags: ["sniper-cannon"],
+        sort: "artillery, cannon, sniper, clan",
+        category: "Artillery Weapons",
+        notes: "Direct-fire artillery cannon; unlike tube artillery it targets a unit directly instead of a map hex.",
+        damage: 10,
+        damageAero: 10,
+        accuracyModifier: 0,
+        cbills: 475000,
+        introduced: null,
+        extinct: 0,
+        reintroduced: 0,
+        prototype: 3032,
+        battleValue: 77,
+        heat: 10,
+        weight: 15,
+        range: {
+            min: 2,
+            short: 4,
+            medium: 8,
+            long: 12,
+            extreme: 16
+        },
+        space: {
+            battlemech: 10,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 10,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        shotsPerTon: 10,
+        ammoBattleValue: 10,
+        minAmmoTons: 1,
+        explosive: false,
+        weaponType: [
+            "ARTC"
+        ],
+        techRating: "b",
+        book: "TO:AUE",
+        page: 97,
+        alphaStrike: {
+            heat: 10,
+            rangeShort: 0.83,
+            rangeMedium: 1,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: false,
+            notes: []
+        },
+        heatAero: 10
+    },
+    // Artillery cannon, Clan: Clan Wolf prototype 3032, never in full production (IO p.37; TO:AUE p.97).
+    {
+        name: "Thumper Cannon (Clan)",
+        tag: "clan-thumper-cannon",
+        altNames: ["Thumper Artillery Cannon"],
+        altTags: ["thumper-cannon"],
+        sort: "artillery, cannon, thumper, clan",
+        category: "Artillery Weapons",
+        notes: "Direct-fire artillery cannon; unlike tube artillery it targets a unit directly instead of a map hex.",
+        damage: 5,
+        damageAero: 5,
+        accuracyModifier: 0,
+        cbills: 200000,
+        introduced: null,
+        extinct: 0,
+        reintroduced: 0,
+        prototype: 3032,
+        battleValue: 41,
+        heat: 5,
+        weight: 10,
+        range: {
+            min: 3,
+            short: 4,
+            medium: 9,
+            long: 14,
+            extreme: 21
+        },
+        space: {
+            battlemech: 7,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 7,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        shotsPerTon: 20,
+        ammoBattleValue: 5,
+        minAmmoTons: 1,
+        explosive: false,
+        weaponType: [
+            "ARTC"
+        ],
+        techRating: "b",
+        book: "TO:AUE",
+        page: 97,
+        alphaStrike: {
+            heat: 5,
+            rangeShort: 0.375,
+            rangeMedium: 0.5,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: false,
+            notes: []
+        },
+        heatAero: 5
+    }
 ];
