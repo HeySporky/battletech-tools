@@ -345,8 +345,9 @@ played first, then by dependency.
   - Committed outputs: generated reports and staging files (`tools/*-report.json`, `tools/*-staging.jsonl`,
     `tools/equipment-inventory-*`) are either still read by something or regenerated on demand instead of
     committed.
-  - Repository root: `LICENSE-MIT` is still tracked although the project is GPLv3. (`cline_custom_modes.json`,
-    `as_lookup_results.jsonl`, the nested `battletech-tools/` copy and `build/` are ignored local files.)
+  - License files are never cleanup candidates: `LICENSE` (GPLv3) and `LICENSE-MIT` (the original Jeff's
+    BattleTech Tools license, verbatim) stay tracked, and `src/license-files.test.ts` pins their content so any
+    change fails CI until it is deliberately approved. Add any new license or notice file to that test.
   - `package.json` dependencies nothing imports.
 
 - [ ] Drop the `typescript-7` alias and make TS 7 the only `typescript` once typescript-eslint supports

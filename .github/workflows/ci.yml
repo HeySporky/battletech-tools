@@ -50,7 +50,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm audit --omit=dev --audit-level=high
-      - run: npx vitest run --project unit src/security-guards.test.ts src/classes/vehicle-import-security.test.tsx
+      - run: npx vitest run --project unit src/security-guards.test.ts src/classes/vehicle-import-security.test.tsx src/license-files.test.ts
       - run: npx eslint src --quiet
 
   lint:
