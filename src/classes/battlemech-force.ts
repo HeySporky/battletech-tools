@@ -2,6 +2,9 @@ import { generateUUID } from "../utils/generateUUID";
 import { BattleMech } from "./battlemech";
 import { BattleMechGroup, ICBTGroupExport } from "./battlemech-group";
 
+/** Most groups read from one saved force. */
+export const MAX_FORCE_GROUPS = 200;
+
 export interface ICBTForceExport {
     groups: ICBTGroupExport[];
 	uuid: string;
@@ -153,7 +156,9 @@ export class BattleMechForce {
     }
 
     public import(importObj: ICBTForceExport) {
-        for( let group of importObj.groups ) {
+        // Forces come back from saves and other people's backups: read a bounded list of groups.
+        const groups = Array.isArray(importObj.groups) ? importObj.groups.slice(0, MAX_FORCE_GROUPS) : [];
+        for( let group of groups ) {
             this.groups.push( new BattleMechGroup( group) );
         }
         if( importObj.uuid ) {
@@ -204,9 +209,7 @@ export class BattleMechForce {
         let returnValue: number = 0;
 
         for( let group of this.groups ) {
-            for( let unit of group.members ) {
-                returnValue += unit.getPilotAdjustedBattleValue();
-            }
+            returnValue += group.getTotaBV2();
         }
 
         return returnValue;
@@ -232,9 +235,7 @@ export class BattleMechForce {
         let returnValue: number = 0;
 
         for( let group of this.groups ) {
-            for( let unit of group.members ) {
-                returnValue += unit.getTonnage();
-            }
+            returnValue += group.getTotalTons();
         }
 
         return returnValue;

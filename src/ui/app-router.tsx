@@ -1,6 +1,7 @@
 import React, { type JSX } from "react";
 import { Modal } from 'react-bootstrap';
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router";
+import { RouteErrorBoundary } from "./components/error-boundary";
 import AlphaStrikeForce, { IASForceExport } from "../classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "../classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "../classes/battlemech";
@@ -571,6 +572,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             <Router>
 
             <React.Suspense fallback={<div className="p-3">Loading...</div>}>
+            <RouteErrorBoundary>
             <Routes>
                 <Route path={`${process.env.PUBLIC_URL}/`} element={
                     <Home
@@ -646,6 +648,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 }/>
 
             </Routes>
+            </RouteErrorBoundary>
             </React.Suspense>
             </Router>
             </>

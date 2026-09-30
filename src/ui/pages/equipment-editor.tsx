@@ -507,9 +507,11 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     <p className="no-margins">
         <strong>Contribute your changes</strong>: editing here only affects this browser session.
         Download the file above and open a Pull Request yourself, or submit one directly below using
-        your own GitHub personal access token (needs the <code>public_repo</code> scope). The token is
-        used only to call GitHub's API directly from your browser - this app has no backend and never
-        sees or stores it.
+        your own GitHub personal access token (needs the <code>public_repo</code> scope). The token
+        is used only to call GitHub's API directly from your browser - this app has no backend and
+        the token never leaves your machine. If you check <em>Remember token for this browser tab
+        only</em> below, the token is kept in <code>sessionStorage</code> until you close the tab;
+        otherwise it is only held in memory for this session and discarded on reload.
     </p>
     <label>
         GitHub Personal Access Token:<br />

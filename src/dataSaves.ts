@@ -1,9 +1,9 @@
 import AlphaStrikeForce, { IASForceExport } from "./classes/alpha-strike-force";
 import AlphaStrikeGroup, { IASGroupExport } from "./classes/alpha-strike-group";
 import { BattleMech, IBattleMechExport } from "./classes/battlemech";
-import { BattleMechForce, ICBTForceExport } from "./classes/battlemech-force";
-import { BattleMechGroup, ICBTGroupExport } from "./classes/battlemech-group";
-import Vehicle, { IVehicleExport } from "./classes/vehicle";
+import { BattleMechForce, ICBTForceExport, MAX_FORCE_GROUPS } from "./classes/battlemech-force";
+import { BattleMechGroup, ICBTGroupExport, MAX_GROUP_VEHICLES } from "./classes/battlemech-group";
+import Vehicle, { IVehicleExport, normalizeVehicleExport } from "./classes/vehicle";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
 // import {Storage} from 'session-storage-sync';
@@ -61,6 +61,41 @@ export async function getFullBackup(
 export interface IRestoreMessage {
     severity: string;
     message: string;
+}
+
+/** Most saved vehicle designs read from storage or a backup: each is validated on load (a few ms apiece). */
+export const MAX_VEHICLE_SAVES = 500;
+/** Most groups read from one backup's favorites or force. */
+export const MAX_RESTORE_GROUPS = MAX_FORCE_GROUPS;
+
+const warning = (message: string): IRestoreMessage => ({ severity: "warning", message });
+
+/**
+ * What restoring the vehicles in a list of saved groups (favorites, a force) will clean or drop: vehicles over
+ * the per-group limit, and every field a vehicle's import fixes.
+ */
+function groupVehicleWarnings(label: string, groups: unknown): IRestoreMessage[] {
+    const rv: IRestoreMessage[] = [];
+    if( !Array.isArray(groups) ) {
+        return rv;
+    }
+    if( groups.length > MAX_RESTORE_GROUPS ) {
+        rv.push(warning(label + ": only the first " + MAX_RESTORE_GROUPS + " of " + groups.length + " groups are read"));
+    }
+    for( const group of groups.slice(0, MAX_RESTORE_GROUPS) ) {
+        const record = group && typeof group === "object" ? group as { name?: unknown, vehicles?: unknown } : {};
+        const name = label + (typeof record.name === "string" && record.name ? " '" + record.name.slice(0, 60) + "'" : "");
+        const vehicles = Array.isArray(record.vehicles) ? record.vehicles : [];
+        if( vehicles.length > MAX_GROUP_VEHICLES ) {
+            rv.push(warning(name + ": only the first " + MAX_GROUP_VEHICLES + " of " + vehicles.length + " vehicles are kept"));
+        }
+        for( const vehicle of vehicles.slice(0, MAX_GROUP_VEHICLES) ) {
+            for( const issue of normalizeVehicleExport(vehicle).issues ) {
+                rv.push(warning(name + " vehicle: " + issue));
+            }
+        }
+    }
+    return rv;
 }
 
 export function checkFullRestoreData(
@@ -143,8 +178,9 @@ export function restoreFullBackup(
         }
     }
 
-    if( io.favoriteCBTGroups ) {
-        for( let item of io.favoriteCBTGroups ) {
+    if( Array.isArray(io.favoriteCBTGroups) ) {
+        restoreMessages.push(...groupVehicleWarnings("Classic BattleTech Favorite Group", io.favoriteCBTGroups));
+        for( let item of io.favoriteCBTGroups.slice(0, MAX_RESTORE_GROUPS) ) {
             let foundItem: ICBTGroupExport | null = null;
             let itemName = "(nameless)";
             if( item.name ) {
@@ -224,8 +260,20 @@ export function restoreFullBackup(
         }
     }
 
-    if( io.vehicleSaves ) {
-        for( let item of io.vehicleSaves ) {
+    if( Array.isArray(io.vehicleSaves) ) {
+        // Saved vehicles in a backup may come from someone else: clean each one and report what changed.
+        if( io.vehicleSaves.length > MAX_VEHICLE_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_VEHICLE_SAVES + " of " + io.vehicleSaves.length + " saved vehicles are restored"));
+        }
+        for( let rawItem of io.vehicleSaves.slice(0, MAX_VEHICLE_SAVES) ) {
+            const normalized = normalizeVehicleExport( rawItem );
+            const item = normalized.vehicle;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved vehicle '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
             let foundItem: IVehicleExport | null = null;
             let itemName = "(nameless)";
             if( item.name ) {
@@ -263,6 +311,22 @@ export function restoreFullBackup(
                     appGlobals.vehicleSaves.push( item )
                 }
             }
+        }
+    }
+
+    // The current vehicle and force are only restored when their box is ticked: the preview (before any box
+    // is ticked) says what would be cleaned, and the restore itself reports only what it actually restores.
+    const conditional = ( overwrite: boolean, what: string ) => performActions ? ( overwrite ? "" : null ) : "If you overwrite your " + what + ": ";
+    const vehiclePrefix = conditional( overWriteCurrentBattlemech, "current vehicle" );
+    if( io.currentVehicle && vehiclePrefix !== null ) {
+        for( const issue of new Vehicle(io.currentVehicle).getImportIssues() ) {
+            restoreMessages.push(warning(vehiclePrefix + "Current vehicle: " + issue));
+        }
+    }
+    const forcePrefix = conditional( overWriteCurrentCBTGroup, "current Classic force" );
+    if( io.currentCBTForce && forcePrefix !== null ) {
+        for( const msg of groupVehicleWarnings("Classic force group", io.currentCBTForce.groups) ) {
+            restoreMessages.push(warning(forcePrefix + msg.message));
         }
     }
 
@@ -393,9 +457,9 @@ export async function getVehicleSaves(
         if( rawData )
             rv = JSON.parse( rawData );
 
-        if(!rv ) {
-            rv = [];
-        }
+        // Clean stored designs before anything renders them (older saves and restored backups).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_VEHICLE_SAVES ).map( (item) => normalizeVehicleExport( item ).vehicle )
+            .filter( (item): item is IVehicleExport => item !== null ) : [];
     }
     catch {
         rv = [];

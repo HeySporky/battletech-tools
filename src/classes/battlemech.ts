@@ -1,8 +1,10 @@
 import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
+import { getSkillMultiplier } from "../data/skill-multipliers";
 import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
+import { findByTag, matchesTag } from "../data/tag-match";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -518,7 +520,7 @@ export class BattleMech {
 
     public setMechType(typeTag: string) {
         for( let lcounter = 0; lcounter < mechTypeOptions.length; lcounter++) {
-            if( typeTag === mechTypeOptions[lcounter].tag) {
+            if( matchesTag(mechTypeOptions[lcounter], typeTag)) {
                 this._mechType = mechTypeOptions[lcounter];
                 this.setTonnage( this._tonnage );
                 this._calc();
@@ -551,7 +553,7 @@ export class BattleMech {
     ): boolean {
         for( let crit of this._criticalAllocationTable ) {
             if( crit.loc === loc ) {
-                if( crit.tag === "case" ) {
+                if( matchesTag(crit, "case") ) {
                     return true;
                 }
             }
@@ -628,14 +630,14 @@ export class BattleMech {
                 if (fedWeapon && this._isDefensiveBVEquipment(fedWeapon)) {
                     const ammoValue = getAmmoBattleValuePerTon(fedWeapon, currentItem) * currentItem.weight;
                     defensiveAmmoBV += ammoValue;
-                    this._calcLogBV += `+ Defensive Ammunition: ${currentItem.name} (${currentItem.location}) for ${fedWeapon.name} = ${ammoValue.toFixed(2)}<br />`;
+                    this._calcLogBV += `+ Defensive Ammunition: ${this._escapeLogText(currentItem.name)} (${this._escapeLogText(currentItem.location)}) for ${this._escapeLogText(fedWeapon.name)} = ${ammoValue.toFixed(2)}<br />`;
                 }
             } else if (this._isDefensiveBVEquipment(currentItem)) {
                 defensiveEquipmentBV += currentItem.battleValue || 0;
                 if (currentItem.weaponType?.includes("AMS")) {
                     defensiveAmmoCap += currentItem.battleValue || 0;
                 }
-                this._calcLogBV += `+ Defensive Equipment: ${currentItem.name} (${currentItem.location || "no location"}) = ${currentItem.battleValue || 0}<br />`;
+                this._calcLogBV += `+ Defensive Equipment: ${this._escapeLogText(currentItem.name)} (${this._escapeLogText(currentItem.location || "no location")}) = ${currentItem.battleValue || 0}<br />`;
             }
         }
         if (defensiveAmmoBV > defensiveAmmoCap) {
@@ -655,7 +657,7 @@ export class BattleMech {
             const longKey = BattleMech.MECH_LOCATION_MAP[locShorthand];
             const critArray: any[] = (this._criticals as any)[longKey] || [];
             for (let lCrit = 0; lCrit < critArray.length; lCrit++) {
-                if (critArray[lCrit] && critArray[lCrit].tag === "case") {
+                if (matchesTag(critArray[lCrit], "case")) {
                     caseMap[locShorthand] = true;
                     break;
                 }
@@ -773,7 +775,7 @@ export class BattleMech {
         }
         // Signature systems (TO:AUE pp.112, 148, 161): Null Signature and Chameleon each +2 TMM;
         // Void Signature raises the TMM to 3, or to 4 when it is already 3.
-        const hasEquipmentTag = (tag: string) => this._equipmentList.some(item => item?.tag === tag);
+        const hasEquipmentTag = (tag: string) => this._equipmentList.some(item => matchesTag(item, tag));
         if (hasEquipmentTag("null-signature-system") && !(hasBasicStealth || hasPrototypeStealth || hasStandardStealth)) {
             defensiveFactorModifier += 0.2;
             this._calcLogBV += "Null Signature System (+0.20)<br />";
@@ -819,7 +821,7 @@ export class BattleMech {
                 // Ammo feeds weapons by family, so group each bin under the weapon it is loaded for.
                 const fedWeapon = this.getAmmoBinWeapon(currentItem);
                 if (!fedWeapon) {
-                    this._calcLogBV += `+ Ignoring Ammunition: ${currentItem.name} (${currentItem.location}), no mounted weapon fires it<br />`;
+                    this._calcLogBV += `+ Ignoring Ammunition: ${this._escapeLogText(currentItem.name)} (${this._escapeLogText(currentItem.location)}), no mounted weapon fires it<br />`;
                     continue;
                 }
                 if (this._isDefensiveBVEquipment(fedWeapon)) {
@@ -833,7 +835,7 @@ export class BattleMech {
                 const assignedAmmoValue = perTonValue * currentItem.weight;
                 ammoBV[fedWeapon.tag] += assignedAmmoValue;
 
-                this._calcLogBV += `+ Adding Ammunition: ${currentItem.name} (${currentItem.location}) for ${fedWeapon.name} = ${assignedAmmoValue.toFixed(2)} (${perTonValue} BV x ${currentItem.weight} tons)<br />`;
+                this._calcLogBV += `+ Adding Ammunition: ${this._escapeLogText(currentItem.name)} (${this._escapeLogText(currentItem.location)}) for ${this._escapeLogText(fedWeapon.name)} = ${assignedAmmoValue.toFixed(2)} (${perTonValue} BV x ${currentItem.weight} tons)<br />`;
             } else if (!this._isDefensiveBVEquipment(currentItem)) {
                 // Accumulate weapon totals to handle duplicate weapons correctly for the Excessive Ammo Cap
                 if (!weaponBV[currentItem.tag]) {
@@ -876,7 +878,7 @@ export class BattleMech {
             this._calcLogBV += `LAM: heat capacity +9 instead of +6; movement heat ${this.getMaxMovementHeat()} from AirMech Flank MP / 3 (IO pp.113, 192)<br />`;
         }
         // RISC Emergency Coolant System: +4 (IO p.91).
-        if (this._equipmentList.some(item => item?.tag === "risc-emergency-coolant-system")) {
+        if (this._equipmentList.some(item => matchesTag(item, "risc-emergency-coolant-system"))) {
             mechHeatEfficiency += 4;
         }
         
@@ -933,19 +935,21 @@ export class BattleMech {
             const isFlexibleLimb = this.isNotOnTorsoHeadOrLegs(currentItem.location);
             const waiveRearPenalty = isRearDominant || isFlexibleLimb;
 
+            const logName = this._escapeLogText(currentItem.name);
+            const logLoc = this._escapeLogText(currentItem.location || "no location");
             if (currentItem.rear) {
                 if (waiveRearPenalty) {
-                    this._calcLogBV += `+ Adding Rear Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV} (Rear penalty waived), Heat: ${weaponHeat}<br />`;
+                    this._calcLogBV += `+ Adding Rear Weapon ${logName} (${logLoc}) - Base BV: ${baseBV} (Rear penalty waived), Heat: ${weaponHeat}<br />`;
                 } else {
-                    this._calcLogBV += `+ Adding Rear Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV} halved due to Rear Arc: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
+                    this._calcLogBV += `+ Adding Rear Weapon ${logName} (${logLoc}) - Base BV: ${baseBV} halved due to Rear Arc: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
                     finalWeaponMultiplier *= 0.5;
                 }
             } else {
                 if (!waiveRearPenalty && this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons()) {
-                    this._calcLogBV += `+ Adding Front Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV} halved due to Rear Dominance: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
+                    this._calcLogBV += `+ Adding Front Weapon ${logName} (${logLoc}) - Base BV: ${baseBV} halved due to Rear Dominance: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
                     finalWeaponMultiplier *= 0.5;
                 } else {
-                    this._calcLogBV += `+ Adding Front Weapon ${currentItem.name} (${currentItem.location || "no location"}) - Base BV: ${baseBV}, Heat: ${weaponHeat}<br />`;
+                    this._calcLogBV += `+ Adding Front Weapon ${logName} (${logLoc}) - Base BV: ${baseBV}, Heat: ${weaponHeat}<br />`;
                 }
             }
 
@@ -1040,29 +1044,13 @@ export class BattleMech {
      * References the canonical cross-grid lookup matrix from TechManual, p. 305.
      */
     private _setPilotAdjustedBattleValue(): void {
-        // Establish the explicit TechManual p. 305 lookup table matrix.
-                ///                                GUNNERY: 
-        //                                0     1     2     3     4     5     6     7     8
-        const PILOT_MULTIPLIER_MATRIX = [
-            /* Piloting 0 */           [2.80, 2.56, 2.24, 1.92, 1.60, 1.50, 1.43, 1.36, 1.28],
-            /* Piloting 1 */           [2.63, 2.40, 2.10, 1.80, 1.50, 1.35, 1.33, 1.26, 1.19],
-            /* Piloting 2 */           [2.45, 2.24, 1.96, 1.68, 1.40, 1.26, 1.19, 1.16, 1.10],
-            /* Piloting 3 */           [2.28, 2.08, 1.82, 1.56, 1.30, 1.17, 1.11, 1.04, 1.01],
-            /* Piloting 4 */           [2.01, 1.84, 1.61, 1.38, 1.15, 1.04, 0.98, 0.92, 0.86],
-            /* Piloting 5 (Base) */    [1.82, 1.60, 1.40, 1.20, 1.00, 0.90, 0.85, 0.80, 0.75]
-        ];
         // Fetch raw pilot credentials with safe default constraints
         const gunnery = this._pilot?.gunnery ?? 4;
         const piloting = this._pilot?.piloting ?? 5;
         let skillMultiplier = 1.0;
-        // Securely check array boundary limits before querying the lookup index
-        if (
-            piloting >= 0 && 
-            piloting < PILOT_MULTIPLIER_MATRIX.length && 
-            gunnery >= 0 && 
-            gunnery < PILOT_MULTIPLIER_MATRIX[piloting].length
-        ) {
-            skillMultiplier = PILOT_MULTIPLIER_MATRIX[piloting][gunnery];
+        const matrixMultiplier = getSkillMultiplier(gunnery, piloting);
+        if (matrixMultiplier !== null) {
+            skillMultiplier = matrixMultiplier;
         } else {
             // Fallback warning telemetry if an out-of-bounds custom skill rating is supplied
             this._calcLogBV += `[Pilot Data Alert] Skill rating layout (${gunnery}/${piloting}) falls outside standard matrix boundaries. Defaulting to 1.0x baseline modifier.<br />`;
@@ -1138,6 +1126,36 @@ export class BattleMech {
             if (location === "ra") return "frl";
         }
         return location;
+    }
+
+    // Canonical location shorthands accepted from imports and UI. Rear variants (name + "r")
+    // and split forms (name + "/" + name) are also accepted. Everything else is rejected at
+    // the import boundary so it cannot reach the raw-HTML calc log.
+    private static readonly ALLOWED_LOCATIONS: ReadonlySet<string> = new Set([
+        "n/a", "hd", "ct", "lt", "rt", "la", "ra", "ll", "rl", "cl", "fll", "frl",
+    ]);
+    private _sanitizeLocationInput(location: unknown): string {
+        if (typeof location !== "string") return "n/a";
+        const trimmed = location.trim().toLowerCase();
+        if (!trimmed) return "n/a";
+        const parts = trimmed.split("/").map((p) => p.replace(/r$/, ""));
+        for (const part of parts) {
+            if (!BattleMech.ALLOWED_LOCATIONS.has(part)) return "n/a";
+        }
+        return trimmed;
+    }
+
+    // Escape strings that flow into calc-log HTML rendered via SanitizedHTML raw=true
+    // (dangerouslySetInnerHTML). Used for equipment names and locations before they enter
+    // _calcLogBV / _calcLogAS / _calcLogCBill.
+    private _escapeLogText(value: unknown): string {
+        if (value === null || typeof value === "undefined") return "";
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#39;");
     }
 
     private _calcCBillCost() {
@@ -1344,7 +1362,7 @@ export class BattleMech {
         // Gyro
         // Superheavy 'Mechs use the Superheavy Gyro, priced at the Heavy-Duty rate per ton of its
         // doubled weight (IO via MegaMek MekCostCalculator; provisional).
-        const superheavyGyroCostMultiplier = mechGyroTypes.find(gyro => gyro.tag === "heavy-duty")?.costMultiplier ?? 500000;
+        const superheavyGyroCostMultiplier = findByTag(mechGyroTypes, "heavy-duty")?.costMultiplier ?? 500000;
         let gyroName = this._tonnage > 100 ? "Superheavy (" + this.getGyroName() + ")" : this.getGyroName();
         let gyrocostMultiplier = this._tonnage > 100 ? superheavyGyroCostMultiplier : this.getGyro().costMultiplier;
         let gyroTonnage = this.getGyroWeight();
@@ -1798,7 +1816,7 @@ export class BattleMech {
             const equipment = this._equipmentList[weapon_counter];
             const appliesSelectedSpecialAmmo = equipment.isAmmo
                 && equipment.isSpecialAmmo
-                && equipment.tag === this._alphaStrikeSpecialAmmoTag;
+                && matchesTag(equipment, this._alphaStrikeSpecialAmmoTag);
             if (!equipment.isAmmo || appliesSelectedSpecialAmmo) {
                 for (const displayAbilityCode of getAlphaStrikeEquipmentDisplayAbilityCodes(equipment)) {
                 if (!this._alphaStrikeForceStats.abilityCodes.includes(displayAbilityCode)) {
@@ -2562,13 +2580,19 @@ export class BattleMech {
 
     public makeTROHTML() {
 
+        // TRO output flows through SanitizedHTML raw={true} (dangerouslySetInnerHTML), so
+        // every user-supplied string interpolated below must be HTML-escaped. Chassis name /
+        // model / nickname come straight from imported JSON; equipment names from custom
+        // catalogs can also be attacker-controlled.
+        const esc = (v: unknown) => this._escapeLogText(v);
+
         let html = "<table class=\"mech-tro\">";
         const typeTag = this._mechType.tag.toLowerCase();
 
         // Header Info
-        html += "<tr><td colspan=\"4\">Type: " + this.getName() + "</td></tr>";
-        html += "<tr><td colspan=\"4\">Technology Base: " + this.getTech().name + "</td></tr>";
-        html += "<tr><td colspan=\"4\">Era: " + this.getEra().name + "</td></tr>";
+        html += "<tr><td colspan=\"4\">Type: " + esc(this.getName()) + "</td></tr>";
+        html += "<tr><td colspan=\"4\">Technology Base: " + esc(this.getTech().name) + "</td></tr>";
+        html += "<tr><td colspan=\"4\">Era: " + esc(this.getEra().name) + "</td></tr>";
         html += "<tr><td colspan=\"4\">Tonnage: " + this.getTonnage() + "</td></tr>";
         html += "<tr><td colspan=\"4\">Battle Value: " + this.getBattleValue() + "</td></tr>";
         html += "<tr><td colspan=\"4\">Alpha Strike Value: " + this.getAlphaStrikeValue() + "</td></tr>";
@@ -2583,8 +2607,8 @@ export class BattleMech {
 
         // Equipment
         html += "<tr><th class=\"text-left\" colspan=\"3\">Equipment</th><th class=\"text-center\" colspan=\"1\">Mass</th></tr>";
-        html += "<tr><td colspan=\"3\">Internal Structure ( " + this._selectedInternalStructure.name + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
-        html += "<tr><td colspan=\"1\">" + this.getEngineName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"3\">Internal Structure ( " + esc(this._selectedInternalStructure.name) + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"1\">" + esc(this.getEngineName()) + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
 
         html += "<tr><td colspan=\"1\" class=\"text-right\">Walking</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
         html += "<tr><td colspan=\"1\" class=\"text-right\">Running</td><td class=\"text-center\" colspan=\"2\">" + this.getRunSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
@@ -2594,8 +2618,8 @@ export class BattleMech {
         if( this.getUMUSpeed() > 0 )
             html += "<tr><td colspan=\"1\" class=\"text-right\">UMU</td><td class=\"text-center\" colspan=\"2\">" + this.getUMUSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
 
-        html += "<tr><td colspan=\"1\">" + this.getHeatSyncName() + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
-        html += "<tr><td colspan=\"3\">" + this.getGyroName() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"1\">" + esc(this.getHeatSyncName()) + "</td><td class=\"text-center\" colspan=\"2\">" + this.getHeatSinks() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getHeatSinksWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"3\">" + esc(this.getGyroName()) + "</td><td class=\"text-center\" colspan=\"1\">" + this.getGyroWeight() + "</td></tr>";
 
         if( this._smallCockpit) {
             html += "<tr><td colspan=\"3\">Small Cockpit</td><td class=\"text-center\" colspan=\"1\">" + this.getCockpitWeight() + "</td></tr>";
@@ -2625,7 +2649,7 @@ export class BattleMech {
             html += "</td></tr>";
         }
 
-        html += "<tr><th colspan=\"1\">Armor Value ( " + this._armorType.name + " )</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
+        html += "<tr><th colspan=\"1\">Armor Value ( " + esc(this._armorType.name) + " )</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
 
         // Armor Factor Table
         html += "<tr><td colspan=\"1\"></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Internal Structure</em></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Armor Value</em></td><td>&nbsp;</td></tr>";
@@ -2679,7 +2703,7 @@ export class BattleMech {
                 html += "<tr><td  class=\"text-right\"colspan=\"1\">Left Rear Leg</td><td class=\"text-center\" colspan=\"1\">" + this._internalStructure.leftLeg + "</td><td class=\"text-center\" colspan=\"1\">" + this._armorAllocation.leftLeg + "</td><td>&nbsp;</td></tr>";
             }
         } else {
-            html += "<tr><td colspan=\"4\">Unsupported 'Mech type: " + this._mechType.name + "</td></tr>";
+            html += "<tr><td colspan=\"4\">Unsupported 'Mech type: " + esc(this._mechType.name) + "</td></tr>";
         }
         // End Factor Table
         html += "</table>";
@@ -2701,10 +2725,12 @@ export class BattleMech {
             if( currentItem.rear)
                 item_location += " (R)"
 
+            const eqName = esc(currentItem.name);
+            const eqLocAbbr = esc(item_location.toUpperCase());
             if( currentItem.isAmmo && this.getAmmoBinCapacity(currentItem) > 0)
-                html += "<tr><td class=\"text-left\">" + currentItem.name + " " + this.getAmmoBinCapacity(currentItem) + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + eqName + " " + this.getAmmoBinCapacity(currentItem) + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
             else
-                html += "<tr><td class=\"text-left\">" + currentItem.name + "</td><td class=\"text-center\">" + item_location.toUpperCase() + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + eqName + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
         }
 
         // Isolate the base unit weight per Jump Jet once to eliminate code duplication
@@ -2735,9 +2761,10 @@ export class BattleMech {
             // If matching engines were found, append a clean summary table row
             if (jjObjs.length > 0) {
                 const totalLocationWeight = jjObjs.length * singleJJWeight;
-                const jjName = jjObjs[0].name;
+                const jjName = esc(jjObjs[0].name);
+                const locShortEsc = esc(locationShort);
                 // Fixed the loose dangling </strong> tag from the original snippet
-                html += `<tr><td class="text-left">${jjName}</td><td class="text-center"><strong>${locationShort}</strong></td><td class="text-center">${jjObjs.length}</td><td class="text-center">${totalLocationWeight.toFixed(2)}</td></tr>`;
+                html += `<tr><td class="text-left">${jjName}</td><td class="text-center"><strong>${locShortEsc}</strong></td><td class="text-center">${jjObjs.length}</td><td class="text-center">${totalLocationWeight.toFixed(2)}</td></tr>`;
             }
         }
         // Process any Unallocated/Floating Jump Jets lingering in the construction queue
@@ -2750,7 +2777,7 @@ export class BattleMech {
         }
         if (unallocatedJJs.length > 0) {
             const totalUnallocatedWeight = unallocatedJJs.length * singleJJWeight;
-            const jjName = unallocatedJJs[0].name;
+            const jjName = esc(unallocatedJJs[0].name);
             html += `<tr><td class="text-left">${jjName}</td><td class="text-center"><strong>N/A</strong></td><td class="text-center">${unallocatedJJs.length}</td><td class="text-center">${totalUnallocatedWeight.toFixed(2)}</td></tr>`;
         }
 
@@ -2783,7 +2810,7 @@ export class BattleMech {
 
         if (typeTag === "lam") {
             if (!BattleMech.LAM_GYRO_TAGS.includes(this._gyro.tag)) {
-                this._gyro = mechGyroTypes.find(gyro => gyro.tag === "standard") ?? mechGyroTypes[0];
+                this._gyro = findByTag(mechGyroTypes, "standard") ?? mechGyroTypes[0];
             }
             this._jumpSpeed = Math.max(BattleMech.LAM_MIN_JUMP_MP, this._jumpSpeed);
             // Canon LAMs cannot be OmniMechs; the Custom Homebrew Omni-LAM is Inner Sphere only
@@ -2800,13 +2827,13 @@ export class BattleMech {
                 this._no_right_arm_hand_actuator = false;
             }
             if (!this._isLAMLegalComponent("armor", this._armorType.tag)) {
-                this._armorType = mechArmorTypes.find(armor => armor.tag === "standard") ?? mechArmorTypes[0];
+                this._armorType = findByTag(mechArmorTypes, "standard") ?? mechArmorTypes[0];
             }
             if (!this._isLAMLegalComponent("structure", this._selectedInternalStructure.tag)) {
-                this._selectedInternalStructure = mechInternalStructureTypes.find(structure => structure.tag === "standard") ?? mechInternalStructureTypes[0];
+                this._selectedInternalStructure = findByTag(mechInternalStructureTypes, "standard") ?? mechInternalStructureTypes[0];
             }
             if (!this._isLAMLegalComponent("engine", this._engineType.tag)) {
-                this._engineType = mechEngineTypes.find(engine => engine.tag === "standard") ?? mechEngineTypes[0];
+                this._engineType = findByTag(mechEngineTypes, "standard") ?? mechEngineTypes[0];
             }
         }
         // OmniMechs build fixed-only equipment (MASC, Partial Wing, signature systems...) into
@@ -2817,8 +2844,8 @@ export class BattleMech {
             }
         }
         if (typeTag === "quadvee") {
-            this._armorType = mechArmorTypes.find(armor => armor.tag === "standard") ?? mechArmorTypes[0];
-            this._selectedInternalStructure = mechInternalStructureTypes.find(structure => structure.tag === "standard") ?? mechInternalStructureTypes[0];
+            this._armorType = findByTag(mechArmorTypes, "standard") ?? mechArmorTypes[0];
+            this._selectedInternalStructure = findByTag(mechInternalStructureTypes, "standard") ?? mechInternalStructureTypes[0];
         }
 
         this._maxMoveHeat = 2;
@@ -3866,7 +3893,7 @@ export class BattleMech {
     }
 
     public setJumpJetType(tag: string): IJumpJet {
-        const jumpJet = mechJumpJetTypes.find(item => item.tag === tag);
+        const jumpJet = findByTag(mechJumpJetTypes, tag);
         if (jumpJet) {
             this._jumpJetType = jumpJet;
             this._calc();
@@ -3879,7 +3906,7 @@ export class BattleMech {
     }
 
     public setMyomerType(tag: string): IMyomerType {
-        const myomer = mechMyomerTypes.find(item => item.tag === tag);
+        const myomer = findByTag(mechMyomerTypes, tag);
         if (myomer) {
             this._myomerType = myomer;
             this._calc();
@@ -4144,7 +4171,7 @@ export class BattleMech {
     ) {
 
         for( let heatSink of mechHeatSinkTypes ) {
-            if( heatSink.tag === newValue)
+            if( matchesTag(heatSink, newValue))
                 this._heatSinkType = heatSink;
         }
 
@@ -4336,7 +4363,7 @@ export class BattleMech {
 
     /** Shields mounted of one size (TO:AUE p.103). */
     private _countShields(size: "small" | "medium" | "large"): number {
-        return this._equipmentList.filter(item => item?.tag === "shield-" + size).length;
+        return this._equipmentList.filter(item => matchesTag(item, "shield-" + size)).length;
     }
 
     public hasPartialWing(): boolean {
@@ -4397,7 +4424,7 @@ export class BattleMech {
             return this._armorType;
         }
         for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
-            if( mechArmorTypes[aCount].tag === armorTag) {
+            if( matchesTag(mechArmorTypes[aCount], armorTag)) {
                 const armor = mechArmorTypes[aCount];
                 const techTag = this.getTech().tag;
                 const supportsTech = techTag === "mis" || techTag === "mclan"
@@ -4491,8 +4518,10 @@ export class BattleMech {
                 return this._engine;
             }
         }
-
-        console.warn(`setEngine failed: Rating entry '${parsedRating}' could not be located in your options registry. Please submit a ticket on GitHub.`);
+        // No engine has this rating. 0 is how reset() and Walk MP 0 say "no engine", and any other
+        // unmatched rating means the old engine no longer fits either, so don't keep it.
+        this._engine = null;
+        this._calc();
         return 0;
     }
 
@@ -4518,7 +4547,7 @@ export class BattleMech {
             return this._selectedInternalStructure;
         }
         for( let is of mechInternalStructureTypes) {
-            if( isTag === is.tag) {
+            if( matchesTag(is, isTag)) {
                 this._selectedInternalStructure = is;
                 this._calc();
                 return this._selectedInternalStructure;
@@ -4598,7 +4627,7 @@ export class BattleMech {
     ) {
 
         for( let era of btEraOptions ) {
-            if( eraTag === era.tag) {
+            if( matchesTag(era, eraTag)) {
                 this._era = era;
                 this._calc();
                 return this._era;
@@ -4615,7 +4644,7 @@ export class BattleMech {
         techTag: string,
     ) {
         for( let technology of btTechOptions ) {
-            if( techTag === technology.tag) {
+            if( matchesTag(technology, techTag)) {
                 this._tech = technology;
                 this._engineTechBase = technology.tag === "clan" || technology.tag === "mclan" ? "clan" : "is";
                 this._calc();
@@ -4655,7 +4684,7 @@ export class BattleMech {
 
     public setAlphaStrikeSpecialAmmoTag(ammoTag: string): string {
         const selectedAmmo = this.getAlphaStrikeSpecialAmmoOptions()
-            .find(ammo => ammo.tag === ammoTag);
+            .find(ammo => matchesTag(ammo, ammoTag));
         this._alphaStrikeSpecialAmmoTag = selectedAmmo?.tag ?? "";
         return this._alphaStrikeSpecialAmmoTag;
     }
@@ -4691,7 +4720,7 @@ export class BattleMech {
             return this._engineType;
         }
         for( let engine of mechEngineTypes) {
-            if( engineTag.toLowerCase() === engine.tag) {
+            if( matchesTag(engine, engineTag.toLowerCase())) {
                 this._engineType = engine;
                 this._calc();
                 return this._engineType;
@@ -4755,7 +4784,7 @@ export class BattleMech {
             gyroType = "standard";
         }
         for( let gyro of mechGyroTypes) {
-            if( gyroType.toLowerCase() === gyro.tag) {
+            if( matchesTag(gyro, gyroType.toLowerCase())) {
                 this._gyro = gyro;
                 this._calc();
                 return this._gyro;
@@ -5186,7 +5215,7 @@ export class BattleMech {
     public static readonly LAM_FUEL_POINTS_PER_TON = 80;
 
     public getBombBayCount(): number {
-        return this._equipmentList.filter(item => item?.tag === BattleMech.LAM_BOMB_BAY_TAG).length;
+        return this._equipmentList.filter(item => matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG)).length;
     }
 
     /** Bomb Bays per side torso; bays may only go in the left or right torso (IO p.114). */
@@ -5194,7 +5223,7 @@ export class BattleMech {
         const bays: Record<string, number> = { lt: 0, rt: 0 };
         if (!this.isLAM()) return bays;
         for (const item of this._equipmentList) {
-            if (item?.tag === BattleMech.LAM_BOMB_BAY_TAG && item.location && item.location in bays) {
+            if (matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG) && item.location && item.location in bays) {
                 bays[item.location]++;
             }
         }
@@ -5204,7 +5233,7 @@ export class BattleMech {
     /** LAM fuel points: 80 from the conversion equipment plus 80 per Fuel Tank (via MegaMekLab). */
     public getLAMFuelPoints(): number {
         if (!this.isLAM()) return 0;
-        const tanks = this._equipmentList.filter(item => item?.tag === BattleMech.LAM_FUEL_TANK_TAG).length;
+        const tanks = this._equipmentList.filter(item => matchesTag(item, BattleMech.LAM_FUEL_TANK_TAG)).length;
         return BattleMech.LAM_FUEL_POINTS_PER_TON * (1 + tanks);
     }
 
@@ -5219,7 +5248,7 @@ export class BattleMech {
     }
 
     private _findBomb(tag: string): IEquipmentItem | undefined {
-        return getEquipmentListForChassis(this.getTech().tag).find(item => !!item.bombBaySlots && item.tag === tag);
+        return getEquipmentListForChassis(this.getTech().tag).find(item => !!item.bombBaySlots && matchesTag(item, tag));
     }
 
     public getBombLoadout(): Record<string, number> {
@@ -5333,7 +5362,7 @@ export class BattleMech {
                 if (locations.size > 1) violations.push(`${name} must be allocated to a single location on a LAM.`);
             });
             const torsoBays = Object.values(this.getBombBaysByLocation()).reduce((sum, bays) => sum + bays, 0);
-            const placedBays = this._equipmentList.filter(item => item?.tag === BattleMech.LAM_BOMB_BAY_TAG && item.location).length;
+            const placedBays = this._equipmentList.filter(item => matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG) && item.location).length;
             if (placedBays > torsoBays) {
                 violations.push(`${placedBays - torsoBays} Bomb Bay(s) are outside the side torsos; LAM bomb bays go only in the left or right torso (IO p.114).`);
             }
@@ -5565,7 +5594,7 @@ export class BattleMech {
             const totalPoints = this.getChassisMaxArmor();
     
       // Locate the armor data object by its unique tag identifier from our data file
-      const armorData = mechArmorTypes.find(a => a.tag === armorTag);
+      const armorData = findByTag(mechArmorTypes, armorTag);
     
       // Fall back to a standard 16 points/ton if tag is missing or data is malformed
       const pointsPerTon = armorData?.armorMultiplier[techBase] || 16;
@@ -5707,7 +5736,7 @@ export class BattleMech {
             }
             return ["fll", "frl", "ll", "rl"].some(location =>
                 (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[location]]?.some((item: ICriticalSlot | null) =>
-                    item?.tag === "quadvee-conversion" && item.damaged
+                    !!item && matchesTag(item, "quadvee-conversion") && item.damaged
                 )
             );
         }
@@ -5740,7 +5769,7 @@ export class BattleMech {
       const formattedTag = typeTag.toLowerCase();
     
       for (const mechType of mechTypeOptions) {
-        if (mechType.tag.toLowerCase() === formattedTag) {
+        if (mechType.tag.toLowerCase() === formattedTag || matchesTag(mechType, formattedTag)) {
             this._mechType = mechType;
             if (formattedTag === "tripod" || formattedTag === "lam") {
                 this._omnimech = false;
@@ -6615,7 +6644,7 @@ export class BattleMech {
             if( equipmentMatchesIdentifier(item, equipmentTag)) {
                 let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify(item));
                 if( typeof(location) !== "undefined" )
-                    equipmentItem.location = location;
+                    equipmentItem.location = this._sanitizeLocationInput(location);
                 equipmentItem.rear = rear;
                 equipmentItem.uuid = uuid;
                 equipmentItem.target = target;
@@ -7226,7 +7255,7 @@ export class BattleMech {
             return false;
         }
         const fromItem = fromLocationObj[fromIndex];
-        if (fromItem.tag === "modular-armor" && destLoc !== "un") {
+        if (matchesTag(fromItem, "modular-armor") && destLoc !== "un") {
             const duplicatePack = this._equipmentList.some(item =>
                 item.isModularArmor
                 && item.uuid !== fromItem.uuid
@@ -7463,7 +7492,7 @@ export class BattleMech {
         // the saved allocation table can only match them by tag.
         let matchIndex = this._unallocatedCriticals.findIndex(item => item && item.uuid === equipmentUUID);
         if (matchIndex < 0) {
-            matchIndex = this._unallocatedCriticals.findIndex(item => item && item.tag === equipmentTag && item.rear === equipmentRear);
+            matchIndex = this._unallocatedCriticals.findIndex(item => item && matchesTag(item, equipmentTag) && item.rear === equipmentRear);
         }
         const currentItem = matchIndex >= 0 ? this._unallocatedCriticals[matchIndex] : undefined;
         if (!currentItem) {
@@ -7643,7 +7672,7 @@ export class BattleMech {
      * defensive battle rating (IO p.192; -15 per slot, IO p.196).
      */
     private static _isLAMInternalStore(item: IEquipmentItem): boolean {
-        return item.tag === BattleMech.LAM_BOMB_BAY_TAG || item.tag === BattleMech.LAM_FUEL_TANK_TAG;
+        return matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG) || matchesTag(item, BattleMech.LAM_FUEL_TANK_TAG);
     }
 
     /** Slots that take the -15 explosive ammunition BV penalty (TM p.302). */
@@ -7819,8 +7848,8 @@ export class BattleMech {
             return tag === "standard" || tag === "compact";
         }
         const component = kind === "armor"
-            ? mechArmorTypes.find(armor => armor.tag === tag)
-            : mechInternalStructureTypes.find(structure => structure.tag === tag);
+            ? findByTag(mechArmorTypes, tag)
+            : findByTag(mechInternalStructureTypes, tag);
         if (!component) return false;
         const occupiesSlots = (component.crits?.is ?? 0) > 0 || (component.crits?.clan ?? 0) > 0;
         return !occupiesSlots && tag !== "hardened";
@@ -9104,7 +9133,7 @@ export class BattleMech {
     public getAmmoBinWeapon( bin: IEquipmentItem ): IEquipmentItem | null {
         const weapons = this._equipmentList.filter(eq => !eq.isAmmo && !eq.isEquipment);
         if( bin.feedsWeaponTag ) {
-            const bound = weapons.find(eq => eq.tag === bin.feedsWeaponTag);
+            const bound = weapons.find(eq => matchesTag(eq, bin.feedsWeaponTag));
             if( bound ) {
                 return bound;
             }
@@ -9327,7 +9356,11 @@ export class BattleMech {
 
 
         const options = {
-            ignoreAttributes : false
+            ignoreAttributes : false,
+            // Security note: fast-xml-parser rejects external and parameter entities and
+            // caps internal-entity expansion, so XXE / billion-laughs are not exploitable.
+            // Do NOT disable processEntities — SSW files use standard XML entities in
+            // attribute values (see getSSWXMLBasicInfo for the same rationale).
         };
         const parser = new XMLParser(options);
         let jObj = parser.parse(ssw_xml);

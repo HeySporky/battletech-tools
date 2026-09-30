@@ -3,6 +3,7 @@ import { AlphaStrikeUnit } from '../../../classes/alpha-strike-unit';
 import { IASPilotAbility } from '../../../data/alpha-strike-pilot-abilities';
 import { IASSpecialAbility } from '../../../data/alpha-strike-special-abilities';
 import { IAppGlobals } from '../../app-router';
+import { safeImageURL } from '../../../utils/safeImageURL';
 import BattleTechLogo from '../battletech-logo';
 
 export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnitSVGProps, IAlphaStrikeUnitSVGState> {
@@ -282,8 +283,8 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                     <rect x="10" y="10" style={{zIndex: -1}} width="980" height="580" fill="rgb(255,255,255)"></rect>
                 )}
 
-                {this.props.asUnit.imageURL ? (
-                    <image x="440" y="10" href={this.props.asUnit.imageURL} width="550" height="500"></image>
+                {safeImageURL(this.props.asUnit.imageURL) ? (
+                    <image x="440" y="10" href={safeImageURL(this.props.asUnit.imageURL)} width="550" height="500"></image>
                 ) : (
                     <></>
                 )}

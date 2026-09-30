@@ -21,6 +21,8 @@ export type ArmorCriticalLocationsByChassis = Partial<Record<
 
 export interface IArmorType {
 	tag: string;
+	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+	altTags?: string[];
 	name: string;
     unitTypes: IArmorUnitTypes;
     constructionStatus?: "implemented" | "deferred";
@@ -87,6 +89,8 @@ export interface ICriticalLocations {
 
 export interface IEngineType {
 	tag: string;
+	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+	altTags?: string[];
 	name: string;
     alternateName?: string;
 	costMultiplier: number;
@@ -319,6 +323,8 @@ export interface IGyro {
     name: string;
     alternateName?: string;
     tag: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
     weight_multiplier: number;
     criticals: number;
     costMultiplier: number;
@@ -343,6 +349,8 @@ export interface ITechDates {
 export interface IHeatSync {
     name: string;
     tag: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
     dissipation: number;
     crits: {
         [key: string]: number;
@@ -415,6 +423,8 @@ export interface IMechTonnage {
 export interface IInternalStructure {
     name: string;
     tag: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
     crits: {
         clan: number;
 		is: number;
@@ -451,6 +461,8 @@ export interface IInternalStructure {
 export interface IJumpJet {
     name: string;
     tag: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
     weight_multiplier: {
         light: number;
         medium: number;
@@ -475,6 +487,8 @@ export interface IJumpJet {
 export interface IMyomerType {
     name: string;
     tag: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
     /** Critical slots, spread anywhere except the head. */
     criticals: number;
     /** C-bills per 'Mech ton (musculature line of the cost table). */
@@ -499,6 +513,8 @@ export interface IMyomerType {
 export interface IMechType {
     id: number;
     tag: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
     name: string;
     /** Lowest rules level (rules-level-options ids) at which this chassis is legal. */
     rulesLevel: number;
@@ -510,12 +526,16 @@ export interface IMechType {
 export interface ITechOptions {
 	id: number;
 	tag: string;
+	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+	altTags?: string[];
 	name: string;
 }
 
 export interface IEras {
     id: number;
     tag: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
     name: string;
     yearStart: number;
     yearEnd: number | null;
@@ -525,6 +545,8 @@ export interface IRulesLevelOption {
     id: number;
     sswid: number | null;
     tag: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
     name: string;
 }
 
@@ -532,10 +554,28 @@ export interface IRulesLevelOption {
 export interface IVehicleMotiveType {
     id: number;
     tag: string;
+    /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
+    altTags?: string[];
     name: string;
     minTonnage: number;
     standardMaxTonnage: number;
-    superheavyMaxTonnage: number;
+    /** Largest Superheavy tonnage (Advanced rules); null when the motive type has no Superheavy version. */
+    superheavyMaxTonnage: number | null;
+    /** Lift/dive equipment weighing 10% of tonnage (hover, VTOL, WiGE, hydrofoil, submarine). */
+    liftEquipment?: string;
+    /** VTOLs have a Rotor location. */
+    hasRotor?: boolean;
+    /** "standard" turret, or "chin" (VTOL chin turret, Advanced rules). */
+    turret: "standard" | "chin";
+    /** Hardened armor is not allowed on VTOL, hover or WiGE vehicles. */
+    allowsHardenedArmor: boolean;
+    /** Vehicular jump jets fit only hover, wheeled, tracked and WiGE vehicles. */
+    allowsJumpJets: boolean;
+    naval: boolean;
+    /** Alpha Strike movement mode code (e.g. 8"t). */
+    alphaStrikeMove: string;
+    book: string;
+    page: number | null;
 }
 
 export interface IVehicleArmorAllocation {
@@ -544,6 +584,15 @@ export interface IVehicleArmorAllocation {
     right: number;
     rear: number;
     turret: number;
+    /** VTOL rotor; absent in saves made before VTOL support. */
+    rotor?: number;
+    /** Superheavy vehicles replace Left/Right with four side locations. */
+    frontLeft?: number;
+    frontRight?: number;
+    rearLeft?: number;
+    rearRight?: number;
+    /** Front turret of a dual-turret vehicle ("turret" is then the rear turret). */
+    turret2?: number;
 }
 
 export interface IVehicleStructureAllocation {
@@ -552,5 +601,14 @@ export interface IVehicleStructureAllocation {
     right: number;
     rear: number;
     turret: number;
+    rotor?: number;
+    frontLeft?: number;
+    frontRight?: number;
+    rearLeft?: number;
+    rearRight?: number;
+    turret2?: number;
 }
+
+export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" | "frontRight" | "rearLeft" | "rearRight"
+    | "rotor" | "turret" | "turret2";
 
