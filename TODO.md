@@ -7,8 +7,9 @@ Completed work is in the git history, not here.
 
 Local references (git-ignored, never imported by shipped code):
 
-- `_KNOWLEDGE_DEV/rulebooks/`: text extracts of TechManual, Total Warfare, Tactical Operations (original
-  single volume) and Interstellar Operations (2016, with PDF). IO printed page = PDF page - 2.
+- `_KNOWLEDGE_DEV/rulebooks/`: the rulebook library, 38 PDFs with text extracts (TW, TM, TO:AR, TO:AUE,
+  SO:AA, IO, IO:AE, IO:BF, CO, ASCE, AS, ASC, the Core Rulebook, box sets and errata). `INDEX.md` there lists
+  editions, page offsets (printed page = PDF page - offset) and which errata applies to which printing.
 - `WorkingData_DEV/SSWdata/`: Solaris Skunk Werks designs (3,358 `.ssw`, shallow clone of
   Solaris-Skunk-Werks/SSW-Master).
 - `WorkingData_DEV/mmlData/mekfiles/`: MegaMek unit files (4,312 `.mtf`, 6,723 `.blk`) for every unit type,
@@ -131,10 +132,12 @@ designs, 44 still report errors (421 before).
   equipment, engines, gyros, cockpits, structure, armor, heat sinks, jump jets and myomer: weight, slots,
   damage, heat, ranges, BV, cost, tech rating and dates. Records whose book isn't local are listed as
   unchecked, not passed.
-- [ ] Books still needed locally for that check: Tactical Operations: Advanced Units & Equipment and
-  Advanced Rules (our text is the original single-volume TO), Interstellar Operations: Alpha Strike
-  Edition, Strategic Operations, the current aerospace construction rules, Campaign Operations, and the
-  Alpha Strike Commander's Edition. Record which edition each extract is.
+- [ ] Books still missing from the library: BattleMech Manual, A Time of War, Interstellar Operations: Alpha
+  Strike Edition. The Aces rulebook and Aces: Scouring Sands are scans that need OCR before the tool can
+  read them.
+- [ ] Re-check the "(original single-volume TO)" page references in this file (building construction TO
+  pp. 128-131, mobile structures TO p. 259, and the Sarna leads) against TO:AR and TO:AUE, now that both
+  are local.
 - [ ] Items waiting on a source (fold into the tool's report as it lands):
   - Improved SRM 4 BV: MegaMek lists 39 (same as the SRM 4) while the iSRM 2/6 run a third above their SRMs.
   - Whether the Improved PPC and Improved AC/20 explode when critically hit (MegaMek flags them).
