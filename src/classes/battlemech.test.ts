@@ -1836,6 +1836,20 @@ describe("BattleMech", () => {
         expect(mech.getBVCalcHTML()).toContain("x 1.7600 [Speed Factor Rating]");
     });
 
+    // Regression: SSW names ammunition "@ SRM-6" ("Ammo (SRM-6)"); after the ammunition catalog moved to one
+    // record per family ("SRM - Standard Ammo"), exact name matching dropped the ammo of most bundled 'Mechs.
+    it("imports the ammunition of a bundled SSW 'Mech (Atlas AS7-D)", () => {
+        const atlas = sswMechs.find((xml) => /name="Atlas" model="AS7-D"/.test(xml))!;
+        const mech = new BattleMech();
+        mech.importSSWXML(atlas);
+
+        expect(mech.sswImportErrors).toEqual([]);
+        const ammo = mech.getInstalledEquipment().filter((item) => item.isAmmo).map((item) => item.name);
+        expect(ammo.length).toBeGreaterThanOrEqual(3);
+        expect(ammo.some((name) => /^LRM/.test(name))).toBe(true);
+        expect(ammo.some((name) => /^SRM/.test(name))).toBe(true);
+    });
+
     // SSW writes Clan items as "(CL) ...", and a Clan design's unprefixed items (e.g. "@ SRM-6 (Artemis IV Capable)")
     // are Clan equipment too. Both used to be looked up in the Inner Sphere list and dropped.
     it("imports every item of a Clan SSW design (Champion C)", () => {
