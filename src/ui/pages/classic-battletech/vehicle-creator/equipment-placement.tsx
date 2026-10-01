@@ -46,6 +46,12 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                                 <strong>Item Slots</strong>: <span className={vehicle.getUsedItemSlots() > vehicle.getTotalItemSlots() ? "color-red" : ""}>{vehicle.getUsedItemSlots()} / {vehicle.getTotalItemSlots()}</span>
                                 {" "}(ammunition takes one slot per type)
                             </p>
+                            {vehicle.hasSponsonTurrets() ? (
+                                <p className={vehicle.getSponsonIssue() ? "color-red" : ""}>
+                                    <strong>Sponson Turrets</strong>: weapons on the left and right sides go in the sponsons
+                                    ({vehicle.getSponsonWeight()} t). {vehicle.getSponsonIssue() ?? "Both sponsons carry the same tonnage."} (TO pp. 348, 411)
+                                </p>
+                            ) : null}
                             <table className="table">
                                 <thead>
                                     <tr>

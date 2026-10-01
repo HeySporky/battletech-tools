@@ -117,6 +117,14 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         }
     }
 
+    updateSponsonTurrets = (e: React.FormEvent<HTMLInputElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setSponsonTurrets(e.currentTarget.checked);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     updateJumpMP = (e: React.FormEvent<HTMLSelectElement>): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
@@ -247,16 +255,24 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                 )}
                                 {vehicle.hasTurret() && vehicle.canHaveDualTurret() ? (
                                     <InputCheckbox
-                                        label="Dual Turrets (front and rear)"
+                                        label="Dual Turrets (front and rear; Advanced)"
                                         checked={vehicle.hasDualTurret()}
                                         onChange={this.updateDualTurret}
                                     />
                                 ) : null}
+                                {vehicle.canHaveSponsonTurrets() || vehicle.hasSponsonTurrets() ? (
+                                    <InputCheckbox
+                                        label="Sponson Turrets (Advanced; side weapons in a pair of 180-degree sponsons, no jump jets)"
+                                        checked={vehicle.hasSponsonTurrets()}
+                                        onChange={this.updateSponsonTurrets}
+                                    />
+                                ) : null}
+                                {vehicle.getSponsonIssue() ? <p className="color-red smaller-text">{vehicle.getSponsonIssue()} (TO p. 411).</p> : null}
 
                                 {vehicle.getRequiredRulesLevel() > rulesLevel ? (
                                     <p className="color-red smaller-text">
                                         This design needs the {getRulesLevelOptions().find((option) => option.id === vehicle.getRequiredRulesLevel())?.name} rules
-                                        level{vehicle.isSuperheavy() ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""}{vehicle.getJumpMP() > 0 ? " (jump jets)" : ""} and
+                                        level{vehicle.isSuperheavy() ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""}{vehicle.getJumpMP() > 0 ? " (jump jets)" : ""}{vehicle.hasDualTurret() ? " (dual turrets)" : ""}{vehicle.hasSponsonTurrets() ? " (sponson turrets)" : ""} and
                                         is not legal at the selected level. Printing will ask for confirmation.
                                     </p>
                                 ) : null}

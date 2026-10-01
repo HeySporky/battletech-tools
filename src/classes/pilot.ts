@@ -23,18 +23,18 @@ export default class Pilot {
     }
 
     import(importObj: IPilot | null = null  ) {
+        // Crews come back from saves and other people's backups: keep only well-formed values
+        // (text name, whole skills 0-8, a list of ability ids).
+        const skill = (value: unknown, fallback: number) =>
+            typeof value === "number" && Number.isFinite(value) ? Math.min(8, Math.max(0, Math.round(value))) : fallback;
         if( importObj ) {
-            if( importObj.name ) {
+            if( typeof importObj.name === "string" ) {
                 this.name = importObj.name;
             }
-            if( typeof(importObj.piloting) === "number" ) {
-                this.piloting = importObj.piloting;
-            }
-            if( typeof(importObj.gunnery) === "number" ) {
-                this.gunnery = importObj.gunnery;
-            }
-            if( importObj.alphaStrikeAbilities ) {
-                this.alphaStrikeAbilities = importObj.alphaStrikeAbilities;
+            this.piloting = skill(importObj.piloting, this.piloting);
+            this.gunnery = skill(importObj.gunnery, this.gunnery);
+            if( Array.isArray(importObj.alphaStrikeAbilities) ) {
+                this.alphaStrikeAbilities = importObj.alphaStrikeAbilities.filter((id): id is number => typeof id === "number" && Number.isFinite(id));
             }
         }
     }

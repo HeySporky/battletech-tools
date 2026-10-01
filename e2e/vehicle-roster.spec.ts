@@ -24,10 +24,17 @@ test("saved vehicles join a roster group, take damage in play mode, and print", 
     await expect(panel).toBeVisible();
 
     // The default design is unarmored (2 front structure at 20 t), so 1 point damages without destroying it.
+    // A front attack rolling 7 hits the Front; structure damage calls for a critical roll (TW p. 193).
     await panel.getByLabel("Damage amount").fill("1");
-    await panel.getByRole("button", { name: "Apply" }).click();
-    await panel.getByLabel(/Moderate/).check();
-    await expect(panel.getByLabel(/Moderate/)).toBeChecked();
+    await panel.getByLabel("Hit location roll").fill("7");
+    await panel.getByRole("button", { name: "Apply Hit" }).click();
+    await expect(panel.getByTestId("vehicle-play-log")).toContainText("Hit location 7: Front");
+    await expect(panel.getByTestId("pending-roll")).toContainText("Critical Hit roll: Front");
+    await panel.getByLabel("Pending roll").fill("4");
+    await panel.getByRole("button", { name: "Roll", exact: true }).click();
+    await expect(panel.getByTestId("vehicle-play-log")).toContainText("No Critical Hit");
+    await panel.getByRole("button", { name: /\+ Moderate/ }).click();
+    await expect(panel).toContainText("Driving Skill Modifier: +2");
 
     await page.reload();
     await page.goto("classic-battletech/roster");

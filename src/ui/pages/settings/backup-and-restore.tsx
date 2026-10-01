@@ -1,5 +1,5 @@
 
-import { FaExclamationCircle, FaExclamationTriangle } from "react-icons/fa";
+import { FaExclamationCircle, FaExclamationTriangle, FaInfoCircle } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { checkFullRestoreData, getFullBackup, IFullBackup, IRestoreMessage, restoreFullBackup } from '../../../dataSaves';
 import { IAppGlobals } from '../../app-router';
@@ -7,6 +7,7 @@ import InputCheckbox from '../../components/form_elements/input_checkbox';
 import UIPage from '../../components/ui-page';
 const ExclamationCircle = FaExclamationCircle as any;
 const ExclamationTriangle = FaExclamationTriangle as any;
+const InfoCircle = FaInfoCircle as any;
 
 export default class SettingsBackupAndRestore extends React.Component<ISettingsBackupAndRestoreProps, ISettingsBackupAndRestoreState> {
     // [openPicker, data, authResponse] = useDrivePicker();
@@ -55,14 +56,14 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
         "No, thank you",
         () => {
           if( this.state.fullRestoreObject ) {
-            restoreFullBackup(
+            const warnings = restoreFullBackup(
               this.state.fullRestoreObject,
               this.props.appGlobals,
               this.state.overwriteCurrentBattlemech,
               this.state.overwriteCurrentASGroup,
               this.state.overwriteCurrentCBTGroup,
               true,
-            )
+            ).filter( (msg) => msg.severity === "warning" ).length
 
             this.setState({
               fullRestoreObject: null,
@@ -72,9 +73,11 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
             })
 
             this.props.appGlobals.siteAlerts.addAlert(
-              "success",
-              "Restore Successful",
-              "Your settings and data have been successfully restored",
+              warnings ? "warning" : "success",
+              warnings ? "Restore Finished With Warnings" : "Restore Successful",
+              warnings
+                ? `Your data was restored, but ${warnings} problem(s) in the backup were cleaned up or skipped (listed before you confirmed).`
+                : "Your settings and data have been successfully restored",
               "",
               true,
               null,
@@ -221,6 +224,8 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
           <li key={msgIndex}>
             {msg.severity === "add" ? (
                 <ExclamationCircle className="color-green" />
+              ) : msg.severity === "warning" ? (
+                <InfoCircle className="text-warning" title="Cleaned while restoring" />
               ) : (
                 <ExclamationTriangle className="color-red" />
               )}&nbsp; {msg.message}
