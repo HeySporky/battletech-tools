@@ -165,3 +165,32 @@ Dates are from the IO:AE p.36 Universal Technology Advancement Table. Page conve
 | RISC Emergency Coolant System, RISC Heat Sink Override Kit | misc catalogs | queued | IO:AE p.86 | none | prototypes 3136 / 3134, extinct 3140 / 3139; misc batch |
 
 Every legacy `extinct: 0` / `reintroduced: 0` changed to `null`; `book: "IO_AE"` became `"IO:AE"`. A regression test (`Batch 7 heat sink catalog`) pins the dates and sources.
+
+## Batch 8: cockpits
+
+There was no cockpit catalog: Standard and Small were hard-coded in `battlemech.ts`, and the chassis cockpits carried costs marked "provisional". New literal catalog `src/data/mech-cockpit-types.ts` (15 records). The builder now reads cockpit weight and cost from it. Dates are from the IO:AE pp.33–34 Universal Technology Advancement Table.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Superheavy Tripod 'Mech Cockpit | mech-cockpit-types.ts; battlemech.ts | **fixed (rules bug)** | IO:AE p.156 | none | the builder weighed it at 6 tons. IO:AE p.156 and p.159 both say 5 tons, as does the p.217 cost table and MegaMek. ~3130p / 3135; 500,000 (p.217). Flag: the p.217 cost table prints 2940 as its date; the p.33 advancement table is followed |
+| Cockpit (BattleMech) | mech-cockpit-types.ts | added | TM p.211 | none | 3 tons; 200,000 (TM p.277); ~2468p / 2470. TM p.211 prints "circa 2300" for the 'Mech cockpit in general; IO:AE is newer and splits out the BattleMech cockpit |
+| Small Cockpit | mech-cockpit-types.ts | added | TM p.211 | none | 2 tons; 175,000; final BV x0.95 (TM p.304); 3060p / 3067; Clan introduction 3080 |
+| IndustrialMech Cockpit (with / without Advanced Fire Control) | mech-cockpit-types.ts | added (deferred) | TM p.211 | none | 3 tons; 100,000 without, 200,000 with (TM p.277); ~2469p / 2470. Not mounted by the builder yet |
+| Primitive BattleMech Cockpit | mech-cockpit-types.ts | added (deferred, flag) | IO:AE p.117 | none | 5 tons; ~2430p / 2439, extinct 2520. Cost: see conflict below |
+| Primitive IndustrialMech Cockpit | mech-cockpit-types.ts | added (deferred, flag) | IO:AE p.117 | none | 5 tons; ~2300p / 2350, extinct 2520. Cost: see conflict below |
+| Torso-Mounted Cockpit | mech-cockpit-types.ts | added (deferred) | TO:AUE p.113 | none | 4 tons, 2 center torso slots (p.112); 750,000 (p.219); 3053p / ~3080, Clan prototype 3055; BV: center torso armor doubled, final BV x0.95 (p.193) |
+| Cockpit Command Console | mech-cockpit-types.ts | added (deferred) | TO:AUE p.113 | none | add-on, 3 tons, 1 slot; 500,000 (p.219); ~2625p / 2631, Inner Sphere extinct ~2850, recovered ~3030; never lost by the Clans |
+| BattleMech Interface Cockpit (Machina Domini) | mech-cockpit-types.ts | added (deferred, flag) | IO:AE p.110 | none | 4 tons, one extra cockpit slot, gyro optional; 1,500,000 (p.213); prototype only: IS ~3074, Clan ~3083. Flag: the p.213 cost table prints ~3078 for the IS prototype; the p.33 advancement table is followed |
+| Direct Neural Interface Cockpit Modification | mech-cockpit-types.ts | added (deferred) | IO:AE p.62 | none | IS; add-on, no weight or slots; 500,000 (p.213); 3052p / 3055 |
+| QuadVee Cockpit | mech-cockpit-types.ts | added | IO:AE p.128 | none | Clan; 4 tons, 2 head slots; 375,000 (p.215); ~3130p / 3135. Cost no longer "provisional" |
+| Tripod 'Mech Cockpit | mech-cockpit-types.ts | added | IO:AE p.159 | none | IS; 4 tons; 400,000 (p.217); ~2590p / 2602. Cost no longer "provisional" |
+| Superheavy BattleMech Cockpit | mech-cockpit-types.ts | added | IO:AE p.156 | none | IS; 4 tons; 300,000 (p.215); ~3060p / 3076. Cost no longer "provisional" |
+| Superheavy IndustrialMech Cockpit | mech-cockpit-types.ts | added (deferred) | IO:AE p.156 | none | IS; 4 tons; 200,000 (p.215); ~2905p / 2940 |
+
+**For the user: same-book conflict.** IO:AE p.117 says primitive cockpits are "identical in all ways to standard cockpits (including costs)" except for weighing 5 tons, which makes them 200,000 (BattleMech) and 100,000 (IndustrialMech). The IO:AE p.215 cost table prints 100,000 and 50,000. The catalog follows the p.117 text, which MegaMek also does. Proposed: leave as is unless errata says otherwise.
+
+**Not wired yet (catalogued as `constructionStatus: "deferred"`):** Torso-Mounted, Command Console, Interface, DNI, and the IndustrialMech / primitive cockpits need a cockpit selector, slot layouts and their own rules (torso-mounted BV, gyroless Interface 'Mechs, command console initiative). The cockpit dates are not yet enforced by era either: Small Cockpit is offered in every era. Both go on the roadmap.
+
+**Gaps (not 'Mech cockpits, not added):** ProtoMech Cockpit (TM p.211), Inner Sphere ProtoMech Interface (IO:AE p.96), Standard / Small / Primitive Aerospace Cockpits (TM p.211, TO:AUE p.112, IO:AE p.119), Drone and remote-control systems (TO:AUE pp.117–118, IO:AE p.84), Full-Head Ejection System (TO:AUE p.122; misc batch), Enhanced Imaging Interface (misc batch).
+
+A regression test (`Batch 8 cockpit catalog`) pins the 5-ton fix, the catalog weights, costs, dates and sources.
