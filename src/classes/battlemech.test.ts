@@ -4859,3 +4859,49 @@ describe("Batch 30 Superheavy ammunition shares critical slots (IO:AE p.157)", (
         expect(mech.getRemainingTonnage()).toBe(0);
     });
 });
+
+describe("Batch 31 Vehicular Grenade Launcher and Recon Camera (TO:AUE pp.127, 150)", () => {
+    const record = (tag: string) => mechUniversalEquipment.find(item => item.tag === tag);
+
+    it("lists the Vehicular Grenade Launcher with its table values (pp.195, 218, 219)", () => {
+        expect(record("vehicular-grenade-launcher")).toMatchObject({
+            name: "Vehicular Grenade Launcher", cbills: 10000, weight: 0.5, heat: 1, battleValue: 15, isOneShot: true, explosive: false,
+            range: { min: 0, short: 0, medium: 0, long: 1 },
+            space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+            prototype: 1950, introduced: 2100, extinct: null, reintroduced: null, techRating: "c", book: "TO:AUE", page: 127,
+        });
+    });
+
+    it("lists the Recon Camera with its table values (p.223)", () => {
+        expect(record("recon-camera")).toMatchObject({
+            name: "Recon Camera", cbills: 10000, weight: 0.5, heat: 0, battleValue: 0, explosive: false,
+            space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 },
+            prototype: 1950, introduced: 1950, extinct: null, reintroduced: null, techRating: "c", book: "TO:AUE", page: 150,
+        });
+    });
+
+    it("offers both to Inner Sphere and Clan designs at Advanced rules", () => {
+        for (const tech of ["is", "clan"]) {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            mech.setEra("clan-inv");
+            mech.setTonnage(50);
+            const offered = new Map(mech.getAvailableEquipment(false, 3).map(item => [item.tag, !!item.available]));
+            expect([offered.get("vehicular-grenade-launcher"), offered.get("recon-camera")], tech).toEqual([true, true]);
+        }
+    });
+
+    it("counts the launcher as an offensive weapon worth 15, at a quarter of its heat", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("clan-inv");
+        mech.setTonnage(50);
+        mech.setWalkSpeed(4);
+        const before = mech.getBattleValue();
+        mech.addEquipmentFromTag("vehicular-grenade-launcher", "is", "", false, undefined, "", false, [], undefined, undefined);
+        const log = mech.getBVCalcHTML();
+        expect(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(log)?.[1]).toBe("15.00");
+        expect(log).toContain("Total Weapon Heat Breakdown:</strong> 0.25 = 0.25");
+        expect(mech.getBattleValue()).toBeGreaterThan(before);
+    });
+});
