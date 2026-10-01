@@ -344,25 +344,27 @@ played first, then by dependency.
   90 still cite original Tactical Operations or old Total Warfare pages. Known wrong: Arrow IV Inferno-IV
   (3083, should be 3053p / 3055), Arrow IV Smoke extinction (2830, should be 2840). ADA, Inferno-IV and
   Laser-Inhibiting Arrow are Inner Sphere only but sit in the universal ammo catalog.
-- [ ] Split by tech base where the dates differ and a universal record cannot say so: 'Mech Mortars (IS
-  extinct 2819-3043, Clan 2840), Artillery Cannons (Clan prototype 3032), Laser Insulator (IS extinct
-  2820, never lost by the Clans), Modular Armor (no Clan record, Clan prototype 3074). Tags and ammo links
-  change, so old saves need `altTags`.
-- [ ] Decide the two unsourced Clan records: Enhanced ER Large Laser and Enhanced Clan LRM 10 are in
-  neither IO (2016) nor IO:AE. Move to custom or remove.
-- [ ] Same-book conflicts that publication date cannot settle (catalog follows MegaMek; confirm or
-  overrule): IO:AE armor BV modifiers p.185 vs p.190; primitive cockpit cost p.117 vs p.215; Heat-
-  Dissipating Clan year p.81 (3125) vs p.29 (3126); Improved Large Laser / Pulse Laser years p.89 vs p.37;
-  Clan claws (3090 printed as a prototype, no production year); ER PPC never lost in Clan space (the
-  Star League ER PPC is now selectable by Clan designs in every era).
+- [x] Split by tech base (Batch 15): 'Mech Mortars, Artillery Cannons and the Laser Insulator are now
+  separate Inner Sphere and Clan records; Modular Armor has a Clan record. The Clan records keep the old
+  universal tag in `altTags` so saved designs load.
+- [x] Unsourced Clan records (Batch 13): Enhanced ER Large Laser and Enhanced Clan LRM 10 moved to the
+  custom catalogs. Still owed: a source search for everything in the custom catalogs, to cite what can
+  be cited.
+- [ ] Same-book conflicts: the errata were checked (IO v1.21, IO:AE v3.01; Batch 14) and rule on none
+  of them, so the catalog still follows MegaMek and each is flagged in the ledger: IO:AE armor BV
+  modifiers p.185 vs p.190; primitive cockpit cost p.117 vs p.215; Heat-Dissipating Clan year p.81 vs
+  pp.29, 215; Improved Large Laser / Pulse Laser years p.89 vs p.37; Clan claws (3090 as a prototype,
+  no production year); primitive prototype missile shots per ton and SRM range (p.112 text vs p.210
+  table); TO:AUE p.219 large engine dates vs IO:AE p.38.
 - [ ] Missing misc equipment that needs rules support before a record is useful: Coolant Pod (BV via heat
   sink capacity, TO:AUE pp.116, 193), MRM Apollo FCS (combined launcher records), C3 Remote Sensor
   Launcher, Collapsible Command Module, Full-Head Ejection System, HarJel II / III, RISC Heat Sink
   Override Kit, Viral Jammers, Laser Pulse Module, 'Mech Taser, TSEMP, Jump Pack / Drop Pack, Prototype
   Improved Jump Jets (IO:AE p.97). Light Active Probe [IS] and Light TAG [IS]: IO:AE lists them, the TM
   Inner Sphere table has no 'Mech-scale stats.
-- [ ] Superheavy batch: superheavy and tripod internal structures, large engines (ratings above 400), and
-  enforcing that superheavy 'Mechs cannot mount MASC, TSM, AES or Superchargers (IO:AE p.156).
+- [ ] Superheavy batch: superheavy and tripod internal structures, and enforcing that superheavy 'Mechs
+  cannot mount MASC, TSM, AES or Superchargers (IO:AE p.156). Done: large engines (Batch 16), the
+  Superheavy gyro weight and BV (Batch 14).
 - [ ] Domain catalogs not started: aerospace and capital armor (SO:AA p.140), Support Vehicle BAR armor,
   battle armor armor and equipment, ProtoMech heat sinks / jump jets / cockpits, capital and sub-capital
   weapons (new literal catalogs, never 'Mech-legal).
@@ -370,6 +372,23 @@ played first, then by dependency.
   to IO:AE, checking each page.
 - [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
   unresolved.
+- [ ] Newer errata not yet compared (sheets are in `_KNOWLEDGE_DEV/rulebooks/errata-2025/`): TechManual
+  v8.0 entries for the 2023 and 2024 printings (the local PDF is the sixth printing), Total Warfare
+  v11.01, TO:AR v7.0, SO:AAR v5.0. TO:AUE v7.0 and the two IO sheets are done (Batches 14, 17).
+- [ ] Statistics audit still to run for the TO:AUE tables (pp.216-226) and the special munitions; the
+  TechManual tables (Batch 18) and the IO:AE prototype tables (Batch 14) are done. Dead-Fire ammunition
+  BV from IO:AE errata v3.01 (p.190) is not applied yet.
+- [ ] `_calcBattleValue` sorts `_equipmentList` in place. That is why Battle Value is refreshed lazily
+  after a critical slot move (Batch 17) instead of inside the move; sort a copy and recalculate directly.
+- [ ] Vehicles have no era check on engine types, so large engine dates (Batch 16) apply to 'Mechs only.
+- [ ] Physical weapon to-hit modifiers are not in the catalog (Hatchet, Sword, Mace, Claws +1, Lance +1,
+  Flail +0 per TO:AUE errata v7.0). One Supercharger per unit (TO:AUE p.156) is not enforced.
+- [ ] Missing records: one-shot Thunderbolt launchers (TO:AUE p.158), Primitive Prototype Long Tom and
+  torpedo launchers (IO:AE pp.189, 210), Clan PPC Capacitor combinations.
+- [ ] Missile launcher `damageAero` holds 3 for every LRM size (the tables give 3 / 6 / 9 / 12). Check
+  how the aerospace code reads it before changing the catalog.
+- [ ] The Nail/Rivet Gun has no medium or long range bracket (TM p.344); the record stores 0 and the
+  record sheet prints 1/0/0. Print a dash for a missing bracket.
 
 ### Cockpits
 
