@@ -4,7 +4,7 @@ import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getEraForYear, getErasForTech } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { findByTag, matchesTag } from "../data/tag-match";
+import { findAllByName, findByTag, matchesTag } from "../data/tag-match";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -494,6 +494,9 @@ export class BattleMech {
             this.setHeatSinksType( "double" )
         }
         this.setInternalStructureType( "standard" );
+        this.setEngineType( "standard" );
+        this.setJumpJetType( "standard" );
+        this._smallCockpit = false;
         this._criticalAllocationTable = [];
         this._calc();
     }
@@ -9249,6 +9252,49 @@ export class BattleMech {
         }
     }
 
+    /**
+     * The catalog record an SSW component name stands for, matched on the record's name, alternateName or
+     * altNames. SSW gives the Inner Sphere and Clan XL engines one name ("XL Engine") and tells them apart by
+     * the element's techbase attribute (0 Inner Sphere, 1 Clan); a Clan one picks the record without Inner
+     * Sphere criticals. An unknown name goes into the import errors and returns undefined.
+     */
+    private _findSSWComponent<T extends { name: string; alternateName?: string; altNames?: string[] }>(
+        records: readonly T[],
+        component: string,
+        sswName: unknown,
+        sswTechbase?: unknown,
+    ): T | undefined {
+        const matches = findAllByName( records, sswName );
+        if( matches.length === 0 ) {
+            this._sswImportErrors.push( "Cannot find any " + component + " named: '" + sswName + "'" );
+            return undefined;
+        }
+        const isClan = String( sswTechbase ) === "1";
+        const hasInnerSphereCriticals = ( record: T ) => !!( record as { criticals?: { is?: unknown } } ).criticals?.is;
+        return matches.find( ( record ) => hasInnerSphereCriticals( record ) !== isClan ) ?? matches[0];
+    }
+
+    /** Moves one unallocated critical tagged `tag` to each SSW `<location index="N">loc</location>`. */
+    private _placeSSWCriticals( sswLocations: unknown, tag: string ) {
+        if( !sswLocations || typeof sswLocations !== "object" ) {
+            return;
+        }
+        this._calcCriticals();
+        const locations: any[] = Array.isArray( sswLocations ) ? sswLocations : [ sswLocations ];
+        for( const loc of locations ) {
+            const foundIndex = this._unallocatedCriticals.findIndex( ( crit ) => crit && crit.tag === tag );
+            if( foundIndex < 0 ) {
+                break;
+            }
+            this.moveCritical(
+                "un",
+                foundIndex,
+                loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
+                loc["@_index"] ? +loc["@_index"] : -1,
+            );
+        }
+    }
+
     private _installSSWEquipment(
         item: any
     ) {
@@ -9492,6 +9538,39 @@ export class BattleMech {
                 }
             }
 
+            // The cockpit, engine, gyro and internal structure come before the armor and equipment, whose
+            // critical slots depend on them (an XL engine fills side torso slots).
+            if( jObj.mech.cockpit && jObj.mech.cockpit.type ) {
+                const cockpitType = String( jObj.mech.cockpit.type["#text"] ?? jObj.mech.cockpit.type ).trim();
+                if( cockpitType === "Small Cockpit" ) {
+                    this._smallCockpit = true;
+                } else if( cockpitType !== "Standard Cockpit" ) {
+                    this._sswImportErrors.push( "Cannot import the cockpit type: '" + cockpitType + "'" );
+                }
+            }
+
+            if( jObj.mech.engine ) {
+                this.setWalkSpeed( +jObj.mech.engine["@_rating"] / this._tonnage );
+                const engineType = this._findSSWComponent( mechEngineTypes, "engine", jObj.mech.engine["#text"], jObj.mech.engine["@_techbase"] );
+                if( engineType ) {
+                    this.setEngineType( engineType.tag );
+                }
+            }
+
+            if( jObj.mech.gyro ) {
+                const gyroType = this._findSSWComponent( mechGyroTypes, "gyro", jObj.mech.gyro["#text"] );
+                if( gyroType ) {
+                    this.setGyroType( gyroType.tag );
+                }
+            }
+
+            if( jObj.mech.structure && jObj.mech.structure.type ) {
+                const structureType = this._findSSWComponent( mechInternalStructureTypes, "internal structure", jObj.mech.structure.type );
+                if( structureType && this.setInternalStructureType( structureType.tag ) ) {
+                    this._placeSSWCriticals( jObj.mech.structure.location, this.getInternalStructureType() );
+                }
+            }
+
             if( jObj.mech.armor ) {
                 let totalArmor = 0;
                 // It sure would be nice for SSW to have the armor weight in XML file 🙄
@@ -9540,67 +9619,15 @@ export class BattleMech {
                     totalArmor += this._armorAllocation.rightTorsoRear;
                 }
                 if( jObj.mech.armor.type ) {
-                    if( jObj.mech.armor.type === "Standard Armor" ) {
-                        this.setArmorType( "standard" )
-                    } else if( jObj.mech.armor.type === "Ferro Fibrous" ) {
-                        this.setArmorType( "ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Ferro-Fibrous" ) {
-                        this.setArmorType( "ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Light Ferro Fibrous" ) {
-                        this.setArmorType( "light-ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Light Ferro-Fibrous" ) {
-                        this.setArmorType( "light-ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Heavy Ferro Fibrous" ) {
-                        this.setArmorType( "heavy-ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Heavy Ferro-Fibrous" ) {
-                        this.setArmorType( "heavy-ferro-fibrous" )
-                    } else if( jObj.mech.armor.type.indexOf( "Stealth" )  > -1) {
-                        this.setArmorType( "stealth-basic" )
+                    const armorType = this._findSSWComponent( mechArmorTypes, "armor", jObj.mech.armor.type );
+                    if( armorType ) {
+                        this.setArmorType( armorType.tag );
                     }
 
                     this.setArmorCount( totalArmor );
 
-
-                    if( typeof(  jObj.mech.armor.location ) === "object" ) {
-                        this._calcCriticals();
-
-
-                        for( let loc of jObj.mech.armor.location ) {
-                            let foundIndex = -1;
-
-
-                            for( let critItemIndex in this._unallocatedCriticals ) {
-                                if(
-                                    this._unallocatedCriticals[critItemIndex]
-                                    && this._unallocatedCriticals[critItemIndex].tag === this.getArmorType()
-                                ) {
-                                    foundIndex = +critItemIndex;
-                                    break;
-                                }
-                            }
-
-                            this.moveCritical(
-                                "un",
-                                foundIndex,
-                                loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
-                                loc["@_index"] ? +loc["@_index"] : -1,
-
-                            )
-                        }
-
-                    }
-
-
+                    this._placeSSWCriticals( jObj.mech.armor.location, this.getArmorType() );
                 }
-            }
-
-            if( jObj.mech.engine ) {
-                this.setWalkSpeed( +jObj.mech.engine["@_rating"] / this._tonnage );
-                this.setEngineTypeByName( jObj.mech.engine["#text"] );
-            }
-
-            if( jObj.mech.gyro ) {
-                this.setGyroTypeByName( jObj.mech.gyro["#text"] );
             }
 
             if( jObj.mech.baseloadout ) {
@@ -9689,10 +9716,10 @@ export class BattleMech {
 
                 if( jObj.mech.baseloadout.heatsinks ) {
 
-                    if( jObj.mech.baseloadout.heatsinks["type"].toLowerCase().indexOf("single") > -1)
-                        this.setHeatSinksType( "single" )
-                    else
-                        this.setHeatSinksType( "double" )
+                    const heatSinkType = this._findSSWComponent( mechHeatSinkTypes, "heat sink", jObj.mech.baseloadout.heatsinks["type"] );
+                    if( heatSinkType ) {
+                        this.setHeatSinksType( heatSinkType.tag );
+                    }
 
                     this.setAdditionalHeatSinks( (+ jObj.mech.baseloadout.heatsinks["@_number"] ) - 10 );
 
@@ -9759,11 +9786,15 @@ export class BattleMech {
                     this.setJumpSpeed(jumpJetNumber);
                     this._calcCriticals();
 
-                    let jjType = "jj-standard";
-
-                    if( jObj.mech.baseloadout.jumpjets.type && jObj.mech.baseloadout.jumpjets.type.toLowerCase().indexOf("improved") > -1 ) {
-                        jjType = "jj-improved";
+                    if( jObj.mech.baseloadout.jumpjets.type ) {
+                        const jumpJetType = this._findSSWComponent( mechJumpJetTypes, "jump jet", jObj.mech.baseloadout.jumpjets.type );
+                        if( jumpJetType ) {
+                            this.setJumpJetType( jumpJetType.tag );
+                            this._calcCriticals();
+                        }
                     }
+                    const jjType = "jj-" + this.getJumpJetType().tag;
+
                     for( let loc of jObj.mech.baseloadout.jumpjets.location ) {
                         let foundIndex = -1;
 

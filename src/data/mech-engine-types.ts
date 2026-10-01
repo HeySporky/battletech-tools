@@ -34,6 +34,7 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "XL Fusion",
 		tag: "xl",
+		altNames: ["XL Engine"],
 		criticals: {
 			is: { ct: 6, lt: 3, rt: 3 },
 			// The Clans kept the Star League XL until their own Clan XL (2827) replaced it.
@@ -52,6 +53,7 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Clan XL Fusion",
 		tag: "clan_xl",
+		altNames: ["XL Engine"],
 		criticals: {
 			clan: { ct: 6, lt: 2, rt: 2 }
 		},
@@ -65,6 +67,7 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Light Fusion",
 		tag: "light",
+		altNames: ["Light Fusion Engine"],
 		criticals: {
 			is: { ct: 6, lt: 2, rt: 2 }
 		},
@@ -78,6 +81,7 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Compact Fusion",
 		tag: "compact",
+		altNames: ["Compact Fusion Engine"],
 		criticals: {
 			is: { ct: 3 }
 		},
@@ -91,6 +95,7 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "XXL Fusion",
 		tag: "xxl",
+		altNames: ["XXL Engine"],
 		criticals: {
 			is: { ct: 6, lt: 6, rt: 6 }
 		},
@@ -104,6 +109,7 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Clan XXL Fusion",
 		tag: "clan_xxl",
+		altNames: ["XXL Engine"],
 		criticals: {
 			clan: { ct: 6, lt: 4, rt: 4 }
 		},
@@ -118,6 +124,7 @@ export const mechEngineTypes: IEngineType[] = [
 		name: "Internal Combustion Engine",
 		alternateName: "ICE",
 		tag: "ice",
+		altNames: ["I.C.E. Engine"],
 		criticals: {
 			is: { ct: 6 },
 			clan: { ct: 6 }
@@ -132,6 +139,7 @@ export const mechEngineTypes: IEngineType[] = [
 		name: "Fuel Cell Engine",
 		alternateName: "FCE",
 		tag: "cell",
+		altNames: ["Fuel-Cell Engine"],
 		criticals: {
 			is: { ct: 6 },
 			clan: { ct: 6 }

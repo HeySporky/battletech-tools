@@ -19,6 +19,7 @@ export const mechJumpJetTypes: IJumpJet[] = [
 	{
 		name: "Standard Jump Jets",
 		tag: "standard",
+		altNames: ["Standard Jump Jet"],
 		weight_multiplier: {
 			light: 0.5,
 			medium: 1,
@@ -36,6 +37,7 @@ export const mechJumpJetTypes: IJumpJet[] = [
 	{
 		name:  "Improved Jump Jets",
 		tag: "improved",
+		altNames: ["Improved Jump Jet"],
 		weight_multiplier: {
 			light: 1,
 			medium: 2,
@@ -54,6 +56,7 @@ export const mechJumpJetTypes: IJumpJet[] = [
 	{
 		name:  "UMU (Underwater Maneuvering Units)",
 		tag: "umu",
+		altNames: ["Mech UMU"],
 		weight_multiplier: {
 			light: 0.5,
 			medium: 1,

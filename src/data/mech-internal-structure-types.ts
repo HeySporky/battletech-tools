@@ -134,6 +134,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Standard",
     tag: "standard",
+    altNames: ["Standard Structure"],
     crits: { clan: 0, is: 0 },
     cost: 400,
     // Standard (BattleMech) structure: prototype ~2430, production 2439 (TH) (IO p.48), the earliest 'Mech
@@ -188,6 +189,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Reinforced",
     tag: "reinforced",
+    altNames: ["Reinforced Structure"],
     bvMultiplier: 2,
     crits: { clan: 0, is: 0 }, // Doubles structure weight but adds hit resistance
     cost: 6400,
@@ -206,6 +208,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Composite",
     tag: "composite",
+    altNames: ["Composite Structure"],
     crits: { clan: 0, is: 0 }, // Half the weight of standard structure in no slots; Inner Sphere only
     cost: 1600,
     bvMultiplier: 0.5,
@@ -226,6 +229,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Industrial",
     tag: "industrial",
+    altNames: ["Industrial Structure"],
     bvMultiplier: 0.5,
     crits: { clan: 0, is: 0 }, // Heavily restricts armor types and critical limits
     cost: 300,

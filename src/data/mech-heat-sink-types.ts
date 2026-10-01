@@ -22,6 +22,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 	{
 		name:  "Single",
 		tag: "single",
+		altNames: ["Single Heat Sink"],
 		dissipation: 1,
 		crits: {
 			clan: 1,
@@ -39,6 +40,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 	{
 		name: "Double",
 		tag: "double",
+		altNames: ["Double Heat Sink"],
 		dissipation: 2,
 		crits: {
 			clan: 2,
@@ -57,6 +59,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 	{
 		name: "Laser",
 		tag: "laser",
+		altNames: ["Laser Heat Sink"],
 		dissipation: 2,
 		crits: {
 			clan: 2,
@@ -114,6 +117,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 	{
 		name: "Compact",
 		tag: "compact",
+		altNames: ["Compact Heat Sink"],
 		dissipation: 1,
 		crits: {
 			clan: 0,
