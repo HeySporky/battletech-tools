@@ -40,7 +40,7 @@ describe.skipIf(!dir)("SSW corpus audit", () => {
                     const key = `${item.kind}|${item.name.toLowerCase()}`;
                     const entry = names.get(key) ?? { kind: item.kind, name: item.name, count: 0, designs: [] };
                     entry.count++;
-                    if (entry.designs.length < 5) entry.designs.push(`${mech.getName()} ${mech.model}`);
+                    if (entry.designs.length < 5) entry.designs.push(`${mech.name} ${mech.model}`);
                     names.set(key, entry);
                 }
             } catch (error) {
