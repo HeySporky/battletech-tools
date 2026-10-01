@@ -148,7 +148,7 @@ export const mechArmorTypes: IArmorType[] = [
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
-			combatVehicle: true,
+			combatVehicle: false,
 			supportVehicle: false,
 			aerospaceFighter: false,
 			smallCraft: false,
@@ -179,6 +179,40 @@ export const mechArmorTypes: IArmorType[] = [
 		page: 206,
 		book: "TM",
 		prototype: 3051
+	},
+	{
+		name: "Vehicular Stealth Armor",
+		tag: "vehicular-stealth",
+		alphaStrikeAbility: "STL",
+		unitTypes: {
+			battlemech: false,
+			protomech: false,
+			combatVehicle: true,
+			supportVehicle: true,
+			aerospaceFighter: true,
+			smallCraft: false,
+			dropShip: false,
+			battleArmor: false,
+			jumpShip: false,
+			warShip: false
+		},
+		armorMultiplier: {
+			clan: 0,
+			is: 16,
+		},
+		crits: {
+			clan: 0,
+			is: 2,
+		},
+		critLocs: {},
+		costMultiplier: 50000,
+		introduced: 3084,
+		extinct: null,
+		reintroduced: null,
+		page: 94,
+		book: "TO:AUE",
+		prototype: 3067,
+		notes: "Vehicles and fighters only; not BattleMech-legal (TO:AUE p.94). 2 item slots; needs an ECM suite and generates 10 heat (TO:AUE p.92). Cost TO:AUE p.217."
 	},
 	{
 		name: "Hardened Armor",
@@ -609,6 +643,39 @@ export const mechArmorTypes: IArmorType[] = [
 		book: "TM",
 		page: 205,
 		notes: "ProtoMech only. 50 kg per point (TM p.86)."
+	},
+	{
+		name: "Electric Discharge ProtoMech (EDP) Armor",
+		tag: "protomech-edp",
+		unitTypes: {
+			battlemech: false,
+			protomech: true,
+			combatVehicle: false,
+			supportVehicle: false,
+			aerospaceFighter: false,
+			smallCraft: false,
+			dropShip: false,
+			battleArmor: false,
+			jumpShip: false,
+			warShip: false
+		},
+		armorMultiplier: {
+			clan: 1000 / 75,
+			is: 0,
+		},
+		crits: {
+			clan: 0,
+			is: 0,
+		},
+		critLocs: {},
+		costMultiplier: 1250 * (1000 / 75),
+		introduced: null,
+		extinct: 3085,
+		reintroduced: null,
+		prototype: 3071,
+		book: "IO:AE",
+		page: 58,
+		notes: "ProtoMech only; prototype that never reached production (IO:AE p.30). 75 kg per point and one fewer torso item (IO:AE p.59); 1,250 C-bills per point (IO:AE p.178); BV 32 as a weapon, no armor modifier (IO:AE p.190)."
 	},
 	{
 		name: "Ferro-Fibrous Prototype",

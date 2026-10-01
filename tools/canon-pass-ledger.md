@@ -120,12 +120,12 @@ Dates are from the IO:AE pp.29–30 Universal Technology Advancement Table (Patc
 
 **For the user: same-book conflict (publication date cannot settle it).** IO:AE prints two armor BV modifier tables. The Dark Age Armor Modifiers Table (p.185) gives ABA 1.2, Heat-Dissipating 1.05, Impact-Resistant 1, Ballistic-Reinforced 1.2. The Alternate Era Weapons and Equipment Battle Value Table (p.190) gives ABA 1.2, Heat-Dissipating 1.1, Ballistic-Reinforced 1.5. The catalog keeps the p.190 values, which MegaMek also uses. Proposed: leave as is unless errata says otherwise.
 
-**Gaps (not added; none of these are 'Mech-legal):**
+**Gaps (none of these are 'Mech-legal):**
 
 | item | source | domain | queued for |
 |---|---|---|---|
-| Vehicular Stealth | TO:AUE p.94; 3067p / 3084 | combat/support vehicle, fighter | Batch 6b |
-| ProtoMech Electric Discharge (EDP) Armor | IO:AE p.58; ~3071p, extinct 3085, 75 kg/point | ProtoMech | Batch 6b |
+| Vehicular Stealth | TO:AUE p.94; 3067p / 3084 | combat/support vehicle, fighter | added in Batch 6b |
+| ProtoMech Electric Discharge (EDP) Armor | IO:AE p.58; ~3071p, extinct 3085, 75 kg/point | ProtoMech | added in Batch 6b |
 | Primitive Aerospace Fighter Armor | IO:AE p.119; ES / ~2300 | aerospace | aerospace batch |
 | Aerospace Armor, Primitive Armor (small craft / large craft) | TM p.205, IO:AE p.118 | aerospace | aerospace batch |
 | Improved Ferro-Aluminum, Ferro-Carbide, Lamellor Ferro-Carbide | SO:AA p.140 (per IO:AE p.30; page not yet checked) | large craft | capital batch |
@@ -135,3 +135,13 @@ Dates are from the IO:AE pp.29–30 Universal Technology Advancement Table (Patc
 Every armor now carries `book`/`page`, and every legacy `extinct: 0` / `reintroduced: 0` changed to `null`. `book: "IO_AE"` became `"IO:AE"` in this file; other catalogs still mix `IO_AE` / `IO-AE` / `IO:AE` and `TO:AU&E` / `TO:AUE` (normalise in a later cleanup). A regression test (`Batch 6 armor catalog`) pins dates, sources, and the corrected unit types.
 
 **Re-cite check (done 2026-10-01):** Batches 2–5 originally cited IO (2016) page numbers for dates. All 99 gyro, engine, structure, myomer, cockpit and heat sink rows of the Universal Technology Advancement Table are identical in IO and IO:AE apart from the page-reference column, so no data changed. Citations moved to IO:AE: engines p.38 (was IO p.44), structure / gyro / musculature p.42 (was IO p.48), unit-type rows p.44 (was IO p.50), primitive engine rule p.117 (was IO p.123), superheavy gyro and musculature p.156 (was IO p.162). One wrong cite corrected: the Supercharger row is on IO:AE p.29 (IO p.35), not on the structure page. Still owed: the pre-existing LAM / QuadVee comments in `battlemech.ts` that cite IO pp.105–196 have not been re-checked against IO:AE.
+
+## Batch 6b: vehicle and ProtoMech armor
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Stealth (BattleMech) | mech-armor-types.ts | fixed | TM p.206 | none | `combatVehicle` true → false: TM p.206 lists Stealth for BattleMechs only |
+| Vehicular Stealth | mech-armor-types.ts | added | TO:AUE p.94 | none | IS only; 3067p / 3084 (IO:AE p.29); 16 pts/ton, 2 slots (TO:AUE p.92); 50,000/ton (TO:AUE p.217); CV, SV, AF, CF; not BattleMech-legal. Vehicles saved with `stealth-basic` now load as `vehicular-stealth` (`Vehicle.setArmorType`). Flag: the vehicle builder does not yet enforce the ECM requirement or the 10 heat |
+| Electric Discharge ProtoMech (EDP) Armor | mech-armor-types.ts | added | IO:AE p.58 | none | Clan, ProtoMech only; ~3071 prototype, no production, extinct 3085 (IO:AE p.30); 75 kg/point (p.59); 1,250 C-bills per point (p.178), stored per ton; BV 32 as a weapon (p.190) |
+
+A regression test (`Batch 6b vehicle and ProtoMech armor`) pins both new records, and `vehicle.test.ts` covers the legacy-save mapping.
