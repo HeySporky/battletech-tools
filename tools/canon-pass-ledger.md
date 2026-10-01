@@ -356,3 +356,25 @@ Dates are from the IO:AE p.29 Universal Technology Advancement Table.
 | Vehicular Jump Jets | – | gap | TO:AUE p.161 | none | 2650p, extinct 2840, recovered ~3083; vehicle batch |
 
 Every jump jet now carries `book`/`page` (new optional `IJumpJet` fields), and the legacy `0` dates changed to `null`. A regression test (`Batch 11 jump jet catalog`) pins the dates and sources.
+
+## Batch 9c: misc equipment added from the books (part 1)
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| B-Pod | mech-universal-equipment | added | TM p.205 | none | Proposed: Universal. The Inner Sphere (TM p.342) and Clan (p.343) table rows are identical: 1 ton, 1 slot, one-shot. 2,500 C-bills (p.291); BV 2, defensive, treated as a Gauss weapon for explosive penalties (pp.317–318). ~3065p / 3068 for both tech bases (IO:AE p.34) |
+| M-Pod | mech-is-equipment-weapons-misc | added | TO:AUE p.143 | none | IS only; 1 ton, 1 slot; 6,000 C-bills (p.221); BV 5, defensive, explosive (p.195); cluster columns 15 / 10 / 5 at 1 / 2 / 3 hexes, -1 to hit. ~3060p / 3064 (IO:AE p.34). Catalogued as equipment, like the A-Pod; firing it in play mode is not modelled |
+| Chaff Pod | mech-is-equipment-weapons-misc | added | TO:AUE p.111 | none | IS only; Experimental; 1 ton, 1 slot; 2,000 C-bills (p.219); BV 19, defensive, explosive (p.195). 3069p / 3079 (IO:AE p.39) |
+
+All three carry `alphaStrike.notes: ["Unresolved: …"]`: no Alpha Strike conversion was looked up, and none is invented.
+
+**Considered and not added:**
+
+| item | why |
+|---|---|
+| Light Active Probe [IS], Light TAG [IS] | IO:AE pp.34–35 list Inner Sphere rows citing TM pp.204 and 238, but the TM 6th-printing Inner Sphere equipment table (p.342) has no 'Mech-scale line for either: only the Clan table (p.343) and the battle armor tables do. No weight or slot source, so not added. For the user |
+| Coolant Pod | TO:AUE p.116. Its BV works by raising heat sink capacity (p.193), which the BV code does not do; a plain record would compute a wrong BV. Roadmap |
+| MRM Apollo FCS | TO:AUE p.143. The catalog models fire-control systems as combined launcher records (as with Artemis IV), so this means MRM + Apollo records with their own BV; weapons follow-up |
+| C3 Remote Sensor Launcher, Collapsible Command Module, Full-Head Ejection System | TO:AUE pp.111, 113, 122. Stats are in hand (cost table p.219); each needs rules support (ammo, crew, ejection) before it is more than a label. Roadmap |
+| HarJel II / III, RISC Heat Sink Override Kit, Viral Jammers, Laser Pulse Module | IO:AE pp.82–88. Per-location or per-weapon items; need construction support |
+
+A regression test (`Batch 9c pods added from TechManual and TO:AUE`) pins the three records and mounts the B-Pod on both tech bases.
