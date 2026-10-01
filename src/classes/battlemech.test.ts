@@ -10,6 +10,10 @@ import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechCockpitTypes } from "../data/mech-cockpit-types";
+import { mechISEquipmentMissiles } from "../data/mech-is-equipment-weapons-missiles";
+import { mechClanEquipmentMissile } from "../data/mech-clan-equipment-weapons-missile";
+import { mechISEquipmentArtillery } from "../data/mech-is-equipment-weapons-artillery";
+import { mechClanEquipmentArtillery } from "../data/mech-clan-equipment-weapons-artillery";
 import { mechISEquipmentBallistic } from "../data/mech-is-equipment-weapons-ballistic";
 import { mechClanEquipmentBallistic } from "../data/mech-clan-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "../data/mech-is-equipment-weapons-energy";
@@ -2720,6 +2724,315 @@ describe("Batch 10b ballistic weapon catalogs", () => {
 
     it("uses null, not 0, for unknown dates in the clanBallistic records", () => {
         for (const item of mechClanEquipmentBallistic) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
+
+describe("Batch 10c missile and artillery catalogs", () => {
+    it("dates and cites the isMissile records (IO:AE pp.31-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "lrm-5": [2295, 2300, null, null, "TM", 231],
+            "lrm-10": [2295, 2300, null, null, "TM", 231],
+            "lrm-15": [2295, 2300, null, null, "TM", 231],
+            "lrm-20": [2295, 2300, null, null, "TM", 231],
+            "lrm-5-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "lrm-10-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "lrm-15-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "lrm-20-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "srm-2": [2365, 2370, null, null, "TM", 231],
+            "srm-4": [2365, 2370, null, null, "TM", 231],
+            "srm-6": [2365, 2370, null, null, "TM", 231],
+            "srm-2-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "srm-4-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "srm-6-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "streak-srm-2": [2645, 2647, 2845, 3035, "TM", 231],
+            "streak-srm-4": [3055, 3058, null, null, "TM", 231],
+            "streak-srm-6": [3055, 3058, null, null, "TM", 231],
+            "extended-lrm-5": [3054, 3078, null, null, "TO:AUE", 139],
+            "extended-lrm-10": [3054, 3078, null, null, "TO:AUE", 139],
+            "extended-lrm-15": [3054, 3078, null, null, "TO:AUE", 139],
+            "extended-lrm-20": [3054, 3078, null, null, "TO:AUE", 139],
+            "mml-3": [3067, 3068, null, null, "TM", 231],
+            "mml-5": [3067, 3068, null, null, "TM", 231],
+            "mml-7": [3067, 3068, null, null, "TM", 231],
+            "mml-9": [3067, 3068, null, null, "TM", 231],
+            "mml-3-artemis-iv": [3067, 3068, null, null, "TM", 207],
+            "mml-5-artemis-iv": [3067, 3068, null, null, "TM", 207],
+            "mml-7-artemis-iv": [3067, 3068, null, null, "TM", 207],
+            "mml-9-artemis-iv": [3067, 3068, null, null, "TM", 207],
+            "thunderbolt-5": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-10": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-15": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-20": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-5-os": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-10-os": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-15-os": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-20-os": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-5-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "thunderbolt-10-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "thunderbolt-15-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "thunderbolt-20-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "mrm-10": [3052, 3058, null, null, "TM", 231],
+            "mrm-20": [3052, 3058, null, null, "TM", 231],
+            "mrm-30": [3052, 3058, null, null, "TM", 231],
+            "mrm-40": [3052, 3058, null, null, "TM", 231],
+            "mrm-10-os": [3052, 3058, null, null, "TM", 231],
+            "mrm-20-os": [3052, 3058, null, null, "TM", 231],
+            "mrm-30-os": [3052, 3058, null, null, "TM", 231],
+            "mrm-40-os": [3052, 3058, null, null, "TM", 231],
+            "mrm-10-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "mrm-20-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "mrm-30-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "mrm-40-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "rocket-launcher-10": [undefined, 3064, null, null, "TM", 231],
+            "rocket-launcher-15": [undefined, 3064, null, null, "TM", 231],
+            "rocket-launcher-20": [undefined, 3064, null, null, "TM", 231],
+            "enhanced-lrm-5": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-10": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-15": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-20": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-5-artemis-iv": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-10-artemis-iv": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-15-artemis-iv": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-20-artemis-iv": [3058, 3082, null, null, "TO:AUE", 139],
+            "primitive-prototype-lrm-15": [2295, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-lrm-20": [2295, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-srm-2": [2365, null, 2370, null, "IO:AE", 112],
+            "primitive-prototype-srm-4": [2365, null, 2370, null, "IO:AE", 112],
+            "narc": [2580, 2587, 2795, 3035, "TM", 233],
+            "inarc": [3054, 3062, null, null, "TM", 233],
+            "inarc-os": [3054, 3062, null, null, "TM", 233],
+            "narc-os": [2665, 2676, 2795, 3035, "TM", 233],
+            "narc-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-5": [2370, 2380, null, null, "TM", 231],
+            "lrt-10": [2370, 2380, null, null, "TM", 231],
+            "lrt-15": [2370, 2380, null, null, "TM", 231],
+            "lrt-20": [2370, 2380, null, null, "TM", 231],
+            "srt-2": [2370, 2380, null, null, "TM", 231],
+            "srt-4": [2370, 2380, null, null, "TM", 231],
+            "srt-6": [2370, 2380, null, null, "TM", 231],
+            "lrm-5-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrm-10-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrm-15-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrm-20-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrt-5-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrt-10-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrt-15-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrt-20-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srm-2-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srm-4-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srm-6-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srt-2-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srt-4-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srt-6-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "streak-srm-2-os": [2665, 2676, 2800, 3035, "TM", 231],
+            "streak-srm-4-os": [3055, 3058, null, null, "TM", 231],
+            "streak-srm-6-os": [3055, 3058, null, null, "TM", 231],
+            "lrm-5-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrm-10-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrm-15-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrm-20-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-5-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-10-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-15-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-20-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srm-2-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srm-4-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srm-6-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srt-2-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srt-4-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srt-6-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "streak-srm-2-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "streak-srm-4-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "streak-srm-6-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "prototype-narc": [2580, null, 2587, null, "IO:AE", 67],
+            "prototype-rocket-launcher-10": [1950, null, 3064, null, "IO:AE", 67],
+            "prototype-rocket-launcher-15": [1950, null, 3064, null, "IO:AE", 67],
+            "prototype-rocket-launcher-20": [1950, null, 3064, null, "IO:AE", 67],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentMissiles.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isMissile records", () => {
+        for (const item of mechISEquipmentMissiles) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanMissile records (IO:AE pp.31-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "atm-3": [3052, 3053, null, null, "TM", 231],
+            "atm-6": [3052, 3053, null, null, "TM", 231],
+            "atm-9": [3052, 3053, null, null, "TM", 231],
+            "atm-12": [3052, 3053, null, null, "TM", 231],
+            "iatm-3": [3054, 3070, null, null, "IO:AE", 60],
+            "iatm-6": [3054, 3070, null, null, "IO:AE", 60],
+            "iatm-9": [3054, 3070, null, null, "IO:AE", 60],
+            "iatm-12": [3054, 3070, null, null, "IO:AE", 60],
+            "clan-lrm-5": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-10": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-15": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-20": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-5-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-10-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-15-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-20-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-5-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-lrm-10-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-lrm-15-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-lrm-20-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-lrm-5-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrm-10-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrm-15-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrm-20-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srm-2": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-4": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-6": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-2-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-4-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-6-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-2-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-srm-4-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-srm-6-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-srm-2-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srm-4-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srm-6-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-streak-srm-2": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-4": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-6": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-2-os": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-4-os": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-6-os": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-2-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-streak-srm-4-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-streak-srm-6-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "enhanced_clan_lrm_10": [undefined, 2823, 2828, null, "IO", 189],
+            "clan-lrt-5": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-10": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-15": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-20": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-5-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-10-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-15-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-20-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-5-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrt-10-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrt-15-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrt-20-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srt-2": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-4": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-6": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-2-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-4-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-6-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-2-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srt-4-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srt-6-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "streak-lrm-5": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-10": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-15": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-20": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-5-os": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-10-os": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-15-os": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-20-os": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-5-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "streak-lrm-10-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "streak-lrm-15-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "streak-lrm-20-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-sl-lrm-5": [2295, 2300, 2830, null, "TM", 231],
+            "clan-sl-lrm-10": [2295, 2300, 2830, null, "TM", 231],
+            "clan-sl-lrm-15": [2295, 2300, 2830, null, "TM", 231],
+            "clan-sl-lrm-20": [2295, 2300, 2830, null, "TM", 231],
+            "clan-sl-lrm-5-artemis-iv": [2592, 2598, 2830, null, "TM", 207],
+            "clan-sl-lrm-10-artemis-iv": [2592, 2598, 2830, null, "TM", 207],
+            "clan-sl-lrm-15-artemis-iv": [2592, 2598, 2830, null, "TM", 207],
+            "clan-sl-lrm-20-artemis-iv": [2592, 2598, 2830, null, "TM", 207],
+            "clan-sl-lrm-5-os": [2665, 2676, 2830, null, "TM", 231],
+            "clan-sl-lrm-10-os": [2665, 2676, 2830, null, "TM", 231],
+            "clan-sl-lrm-15-os": [2665, 2676, 2830, null, "TM", 231],
+            "clan-sl-lrm-20-os": [2665, 2676, 2830, null, "TM", 231],
+            "clan-sl-srm-2": [2365, 2370, 2836, null, "TM", 231],
+            "clan-sl-srm-4": [2365, 2370, 2836, null, "TM", 231],
+            "clan-sl-srm-6": [2365, 2370, 2836, null, "TM", 231],
+            "clan-sl-srm-2-artemis-iv": [2592, 2598, 2836, null, "TM", 207],
+            "clan-sl-srm-4-artemis-iv": [2592, 2598, 2836, null, "TM", 207],
+            "clan-sl-srm-6-artemis-iv": [2592, 2598, 2836, null, "TM", 207],
+            "clan-sl-streak-srm-2": [2645, 2647, 2845, null, "TM", 231],
+            "clan-narc": [2820, 2828, null, null, "TM", 233],
+            "clan-narc-os": [2820, 2828, null, null, "TM", 233],
+            "clan-narc-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-improved-lrm-5": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "clan-improved-lrm-10": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "clan-improved-lrm-15": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "clan-improved-lrm-20": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "clan-improved-srm-2": [2815, 2817, 2828, 3080, "IO:AE", 90],
+            "clan-improved-srm-4": [2815, 2817, 2828, 3080, "IO:AE", 90],
+            "clan-improved-srm-6": [2815, 2817, 2828, 3080, "IO:AE", 90],
+            "clan-prototype-streak-srm-4": [2819, null, 2826, null, "IO:AE", 91],
+            "clan-prototype-streak-srm-6": [2819, null, 2826, null, "IO:AE", 91],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentMissile.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanMissile records", () => {
+        for (const item of mechClanEquipmentMissile) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the isArtillery records (IO:AE pp.31-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "arrow-iv-system": [2593, 2600, 2830, 3044, "TO:AUE", 96],
+            "prototype-arrow-iv": [2593, null, 2600, null, "IO:AE", 64],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentArtillery.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isArtillery records", () => {
+        for (const item of mechISEquipmentArtillery) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanArtillery records (IO:AE pp.31-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "clan-arrow-iv-system": [undefined, 2844, null, null, "TO:AUE", 96],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentArtillery.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanArtillery records", () => {
+        for (const item of mechClanEquipmentArtillery) {
             expect(item.introduced, item.tag).not.toBe(0);
             expect(item.extinct, item.tag).not.toBe(0);
             expect(item.reintroduced, item.tag).not.toBe(0);
