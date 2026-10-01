@@ -383,10 +383,11 @@ played first, then by dependency.
 - [x] `_calcBattleValue` sorted `_equipmentList` in place; it now sorts a copy (Batch 27). The lazy
   refresh after a critical slot move is no longer needed for that reason and can be made direct.
 - [ ] Vehicles have no era check on engine types, so large engine dates (Batch 16) apply to 'Mechs only.
-- [ ] Physical weapon to-hit modifiers are not in the catalog (Hatchet, Sword, Mace, Claws +1, Lance +1,
-  Flail +0 per TO:AUE errata v7.0). One Supercharger per unit (TO:AUE p.156) is not enforced.
+- [x] Physical weapon to-hit modifiers (Batch 32, TW p.146 and TO:AUE p.216); one Supercharger per unit
+  (Batch 21). Owed: play tracking adds the modifier to a Gunnery roll; physical attacks use Piloting.
 - [ ] Missing records: Primitive Prototype Long Tom and torpedo launchers (IO:AE pp.189, 210), Clan PPC
-  Capacitor combinations, Vehicular Grenade Launcher, Recon Camera (TO:AUE pp.219, 223).
+  Capacitor combinations. Done: Vehicular Grenade Launcher and Recon Camera (Batch 31); the launcher's
+  munitions (TO:AUE p.175) are a load-out choice with no records.
 - [ ] Missile launcher `damageAero` holds 3 for every LRM size (the tables give 3 / 6 / 9 / 12). Check
   how the aerospace code reads it before changing the catalog.
 - [ ] The Nail/Rivet Gun has no medium or long range bracket (TM p.344); the record stores 0 and the
