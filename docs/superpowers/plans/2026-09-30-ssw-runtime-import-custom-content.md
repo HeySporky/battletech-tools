@@ -16,6 +16,13 @@ merges completed drafts into the catalog files' text. A multi-file GitHub flow c
 
 **Spec:** `docs/superpowers/specs/2026-09-30-ssw-runtime-import-custom-content-design.md`
 
+**Scope (decided 2026-09-30):** build phase **A1** now: Tasks 1–8, 12 and 14, run natively with one whole-branch
+review at the end. Phase **A2** (PR submission: Tasks 9, 10, 11, 13) is deferred, listed in `TODO.md`, and kept
+here unchanged for later. While A2 is deferred:
+- Task 12's detail panel lists draft names instead of linking to the drafts page.
+- Task 14 skips the drafts-page step of the e2e test.
+- Task 14 step 8 (upstream notes) waits for A2.
+
 ## Global Constraints
 
 - Work on branch `feature/ssw-runtime-import`. Commit after each task. Never push, never push to `upstream`, never run `npm run deploy-prod`.

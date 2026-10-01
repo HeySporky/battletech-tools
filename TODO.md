@@ -118,7 +118,11 @@ designs, 44 still report errors (421 before).
 - [ ] OmniMech configurations: SSW stores every loadout in one file; import them as our OmniMech
   configurations instead of only the base loadout.
 - [ ] Runtime importer: import any `.ssw` file from the UI (not only the bundled `sswMechs.ts` generated at
-  build time), with the import review screen.
+  build time), with the import review screen. Phase A1 of
+  `docs/superpowers/plans/2026-09-30-ssw-runtime-import-custom-content.md` (in progress).
+- [ ] Custom content PR submission (phase A2 of the same plan, deferred 2026-09-30): catalog merge serializer,
+  multi-file GitHub PR with a never-merged evidence branch, submission orchestrator, drafts editor page
+  (plan Tasks 9, 10, 11, 13). Until then, copy a local draft's record into the custom catalog by hand.
 - [ ] SSW export: write `.ssw` XML (SSW save file version 3) from a BattleMech.
 
 ### MegaMek / MegaMekLab (`.mtf`, `.blk`)
