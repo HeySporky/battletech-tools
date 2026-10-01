@@ -10,6 +10,8 @@ import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechCockpitTypes } from "../data/mech-cockpit-types";
+import { mechISEquipmentEnergy } from "../data/mech-is-equipment-weapons-energy";
+import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
 import { mechClanEquipmentMisc } from "../data/mech-clan-equipment-weapons-misc";
 import { mechUniversalEquipment } from "../data/mech-universal-equipment";
@@ -2465,6 +2467,131 @@ describe("Batch 9b universal equipment catalog", () => {
 
     it("uses null, not 0, for unknown dates in the universal records", () => {
         for (const item of mechUniversalEquipment) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
+
+describe("Batch 10a energy weapon catalogs", () => {
+    it("dates and cites the isEnergy records (IO:AE pp.29-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "blazer": [2812, 3077, null, null, "TO:AUE", 131],
+            "bombast-laser": [3064, 3085, null, null, "TO:AUE", 132],
+            "cws": [2762, null, 2770, null, "IO:AE", 79],
+            "er-flamer": [undefined, 3070, null, null, "TO:AUE", 124],
+            "er-large-laser": [2610, 2620, 2950, 3037, "TM", 226],
+            "er-medium-laser": [3052, 3058, null, null, "TM", 226],
+            "er-ppc": [2740, 2751, 2860, 3037, "TM", 234],
+            "er-small-laser": [3052, 3058, null, null, "TM", 226],
+            "heavy-flamer": [undefined, 3068, null, null, "TO:AUE", 124],
+            "heavy-ppc": [3062, 3067, null, null, "TM", 234],
+            "large-laser": [2306, 2316, null, null, "TM", 226],
+            "large-pulse-laser": [2595, 2609, 2950, 3037, "TM", 226],
+            "large-re-engineered-laser": [3120, 3130, null, null, "IO:AE", 83],
+            "large-vspl": [3070, 3072, null, null, "TO:AUE", 133],
+            "large-x-pulse-laser": [3057, 3078, null, null, "TO:AUE", 133],
+            "is-laser-ams": [3059, 3079, null, null, "TO:AUE", 134],
+            "light-ppc": [3064, 3067, null, null, "TM", 234],
+            "medium-laser": [2290, 2300, null, null, "TM", 226],
+            "medium-pulse-laser": [2595, 2609, 2950, 3037, "TM", 226],
+            "medium-re-engineered-laser": [3120, 3130, null, null, "IO:AE", 83],
+            "medium-vspl": [3070, 3072, null, null, "TO:AUE", 133],
+            "medium-x-pulse-laser": [3057, 3078, null, null, "TO:AUE", 133],
+            "plasma-rifle": [3061, 3068, null, null, "TM", 235],
+            "small-laser": [2290, 2300, null, null, "TM", 226],
+            "small-pulse-laser": [2595, 2609, 2950, 3037, "TM", 226],
+            "small-re-engineered-laser": [3120, 3130, null, null, "IO:AE", 83],
+            "small-vspl": [3070, 3072, null, null, "TO:AUE", 133],
+            "small-x-pulse-laser": [3057, 3078, null, null, "TO:AUE", 133],
+            "snub-nose-ppc": [2779, 2784, 2790, 3067, "TM", 234],
+            "standard-flamer": [undefined, 1950, null, null, "TM", 218],
+            "standard-ppc": [2440, 2460, null, null, "TM", 234],
+            "primitive-prototype-large-laser": [2306, null, 2316, null, "IO:AE", 112],
+            "primitive-prototype-medium-laser": [2290, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-small-laser": [2290, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-ppc": [2439, null, 2460, null, "IO:AE", 112],
+            "light-ppc-capacitor": [3064, 3081, null, null, "TO:AUE", 149],
+            "ppc-capacitor": [3060, 3081, null, null, "TO:AUE", 149],
+            "heavy-ppc-capacitor": [3062, 3081, null, null, "TO:AUE", 149],
+            "er-ppc-capacitor": [3060, 3081, null, null, "TO:AUE", 149],
+            "snub-nose-ppc-capacitor": [3067, 3081, null, null, "TO:AUE", 149],
+            "risc-hyper-laser": [3134, null, 3141, null, "IO:AE", 87],
+            "prototype-er-large-laser": [3030, null, 3037, null, "IO:AE", 97],
+            "prototype-large-pulse-laser": [2595, null, 2609, null, "IO:AE", 67],
+            "prototype-medium-pulse-laser": [2595, null, 2609, null, "IO:AE", 67],
+            "recovered-prototype-medium-pulse-laser": [3031, null, 3037, null, "IO:AE", 97],
+            "prototype-small-pulse-laser": [2595, null, 2609, null, "IO:AE", 67],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentEnergy.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isEnergy records", () => {
+        for (const item of mechISEquipmentEnergy) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanEnergy records (IO:AE pp.29-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "enhanced_er_ppc": [2822, 2823, 2831, 3080, "IO:AE", 90],
+            "enhanced_er_large_laser": [undefined, 2823, 2828, null, "IO", 189],
+            "clan-er-large-laser": [2820, 2825, null, null, "TM", 226],
+            "er_large_pulse_laser": [3057, 3082, null, null, "TO:AUE", 132],
+            "er-medium-laser-clan": [2822, 2824, null, null, "TM", 226],
+            "er_medium_pulse_laser": [3057, 3082, null, null, "TO:AUE", 132],
+            "er-micro-laser": [3059, 3060, null, null, "TM", 226],
+            "er-ppc-clan": [2823, 2826, null, null, "TM", 234],
+            "er-small-laser-clan": [2822, 2825, null, null, "TM", 226],
+            "er_small_pulse_laser": [3057, 3082, null, null, "TO:AUE", 132],
+            "standard-flamer-clan": [undefined, 1950, 2830, null, "TM", 218],
+            "large-heavy-laser": [3057, 3059, null, null, "TM", 226],
+            "medium-heavy-laser": [3057, 3059, null, null, "TM", 226],
+            "small-heavy-laser": [3057, 3059, null, null, "TM", 226],
+            "clan-large-laser": [2306, 2316, 2850, null, "TM", 226],
+            "clan_large-pulse-laser": [2820, 2824, null, null, "TM", 226],
+            "clan-laser-ams": [3048, 3079, null, null, "TO:AUE", 134],
+            "medium-laser-clan": [2290, 2300, 2850, null, "TM", 226],
+            "clan_medium-pulse-laser": [2825, 2827, null, null, "TM", 226],
+            "micro-pulse-laser": [3059, 3060, null, null, "TM", 226],
+            "clan-standard-ppc": [2440, 2460, 2825, null, "TM", 234],
+            "plasma-cannon": [3068, 3069, null, null, "TM", 235],
+            "small-laser-clan": [2290, 2300, 2850, null, "TM", 226],
+            "clan-small-pulse-laser": [2825, 2829, null, null, "TM", 226],
+            "clan-sl-er-ppc": [2740, 2751, null, null, "TM", 234],
+            "clan-heavy-flamer": [3065, 3067, null, null, "TO:AUE", 124],
+            "clan-flamer": [2820, 2827, null, null, "TM", 218],
+            "clan-improved-ppc": [2819, 2820, 2832, 3080, "IO:AE", 90],
+            "clan-improved-large-pulse-laser": [2815, 2818, 2826, 3080, "IO:AE", 89],
+            "clan-improved-large-laser": [2812, 2815, 2830, 3080, "IO:AE", 89],
+            "clan-improved-heavy-large-laser": [3069, 3079, null, null, "TO:AUE", 133],
+            "clan-improved-heavy-medium-laser": [3069, 3079, null, null, "TO:AUE", 133],
+            "clan-improved-heavy-small-laser": [3069, 3079, null, null, "TO:AUE", 133],
+            "clan-er-flamer": [3065, 3067, null, null, "TO:AUE", 124],
+            "clan-large-chemical-laser": [3059, 3083, null, null, "TO:AUE", 132],
+            "clan-medium-chemical-laser": [3059, 3083, null, null, "TO:AUE", 132],
+            "clan-small-chemical-laser": [3059, 3083, null, null, "TO:AUE", 132],
+            "clan-prototype-er-medium-laser": [2819, null, 2824, null, "IO:AE", 91],
+            "clan-prototype-er-small-laser": [2819, null, 2825, null, "IO:AE", 91],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentEnergy.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanEnergy records", () => {
+        for (const item of mechClanEquipmentEnergy) {
             expect(item.introduced, item.tag).not.toBe(0);
             expect(item.extinct, item.tag).not.toBe(0);
             expect(item.reintroduced, item.tag).not.toBe(0);
