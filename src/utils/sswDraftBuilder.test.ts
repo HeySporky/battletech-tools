@@ -89,4 +89,8 @@ describe("SSW draft builder", () => {
         expect(draft.record.tag).toBe("ammo-local-is-widget-cannon-swarm");
         expect(draft.record.isSpecialAmmo).toBe(true);
     });
+
+    it("never drafts a canon item that only lacks a catalog record", () => {
+        expect(buildDrafts([{ item: item({ name: "Coolant Pod", sswType: "equipment" }), slots: 1, design: "A", source: source("a.ssw") }], [], newId)).toEqual([]);
+    });
 });

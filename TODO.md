@@ -115,8 +115,13 @@ designs, 44 still report errors (421 before).
   `SSW_AUDIT_DIR=WorkingData_DEV/SSWdata SSW_AUDIT_OUT=<file> npx vitest run --project unit src/utils/ssw-corpus-audit.test.ts`.
   First run: 3110 BattleMech designs, 2961 with nothing unresolved, 2 parse failures (`model=""` on
   Summoner (Thor) and Puma (Adder)), 38 distinct unresolved names; 246 Primitive/Industrial designs skipped.
-- [ ] Approve the canon-pending SSW names table, then fill `src/data/ssw/ssw-canon-pending-names.ts` (empty
-  until approved, so those names currently become custom drafts).
+- [x] Approve the canon-pending SSW names table, then fill `src/data/ssw/ssw-canon-pending-names.ts`. Approved
+  2026-09-30: 36 names, each with book and page; removing an entry is part of adding its catalog record.
+- [ ] Import clarification step (approved design 2026-09-30): before an SSW import is accepted, ask the importer
+  about each new unknown item (tech base IS/Clan, tons, slots; optional damage/heat/ranges and a source note),
+  each with "I don't know". Best guesses: design's tech base, the slot estimate, the tonnage gap split across
+  unknown-weight items, all marked estimated. Accept stays disabled until every required answer is given.
+  Split the session into analyze and accept-with-answers.
 - [ ] IndustrialMechs and Primitive BattleMechs/IndustrialMechs are skipped entirely (234 designs):
   `importSSWXML` only accepts `mech_type` "BattleMech".
 - [ ] Two OmniMech files fail to parse (`Summoner (Thor)`, `Puma (Adder)` with `model=""`:
