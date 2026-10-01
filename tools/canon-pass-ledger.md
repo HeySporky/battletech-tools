@@ -308,3 +308,36 @@ All 45 Inner Sphere and 41 Clan records compared with the IO:AE pp.29–38 advan
 | Heavy Gauss Rifle | mech-is-equipment-weapons-ballistic | fixed | TM p.219 | none | page 218 → 219 |
 
 A regression test (`Batch 10b ballistic weapon catalogs`) pins dates and sources for all 86 records.
+
+## Batch 10c: missile launchers and artillery, Inner Sphere and Clan catalogs
+
+All 118 Inner Sphere and 110 Clan missile records and the 3 Arrow IV records compared with the IO:AE pp.31–40 advancement table. Every `extinct: 0` / `reintroduced: 0` became `null`. TechManual pages now point at the rules box: MISSILE p.231, NARC/INARC p.233, ARTEMIS IV p.207 (launcher-plus-Artemis records). Rows below are the records where dates or sources changed, plus flags.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| SRT 2 / 4 / 6 | mech-is-equipment-weapons-missiles | fixed | TM p.231 | none | carried the one-shot launcher dates (2665 / 2676). Torpedo launchers are 2370p / 2380 (IO:AE p.40), as the LRTs already were |
+| Extended LRM 5–20 | mech-is-equipment-weapons-missiles | fixed | TO:AUE p.139 | none | `introduced` 3054 was the prototype year; now 3054p / 3078. Were "TO 0" |
+| Enhanced LRM (NLRM) 5–20, with and without Artemis IV | mech-is-equipment-weapons-missiles | fixed | TO:AUE p.139 | none | now 3058p / 3082 (was `introduced` 3058, "TO 0") |
+| Thunderbolt 5–20 | mech-is-equipment-weapons-missiles | fixed | TO:AUE p.159 | none | prototype 3052 added; production 3072. Were "TO 0" |
+| Thunderbolt (OS) / (I-OS) | mech-is-equipment-weapons-missiles | fixed | TO:AUE pp.159, 139 | none | were cited to "BMM 103", a book not in the library. I-OS: 3056p / ~3081 (was 3072) |
+| MML 3–9, with and without Artemis IV | mech-is-equipment-weapons-missiles | fixed | TM pp.231, 207 | none | now ~3067p / 3068 (was `introduced` 3067, "TO 0") |
+| MRM 10–40, Rocket Launchers 10–20 | mech-is-equipment-weapons-missiles | fixed | TM p.231 | none | were "TO 0"; dates matched |
+| SRM (OS), SRT (OS) | mech-is-equipment-weapons-missiles | fixed | TM p.231 | none | one-shot launchers went extinct 2800, recovered 3030 (IO:AE p.40); these had no extinction while the LRM (OS) records did |
+| SRM / SRT / Streak SRM (I-OS) | mech-is-equipment-weapons-missiles | fixed | TO:AUE p.139 | none | `introduced` 3056 was the prototype year; now 3056p / ~3081 |
+| Primitive Prototype LRM 15 / 20, SRM 2 / 4 | mech-is-equipment-weapons-missiles | fixed | IO:AE p.112 | none | were "TO 0", `introduced` 2300, no end. LRMs 2295 until 2300; SRMs 2365 until 2370 |
+| Prototype Rocket Launchers | mech-is-equipment-weapons-missiles | fixed | IO:AE p.67 | none | Early Spaceflight until standard production in 3064; were "IO 73" with no end year |
+| Prototype Narc | mech-is-equipment-weapons-missiles | fixed | IO:AE p.67 | none | was "IO", no page |
+| Prototype Arrow IV | mech-is-equipment-weapons-artillery | fixed | IO:AE p.64 | none | 2593 until production 2600 (was 2613, and a 3044 "reintroduction" IO:AE does not list). Was "IO 70" |
+| Arrow IV [IS] / [Clan] | artillery catalogs | fixed | TO:AUE p.96 | none | were "TO 96"; dates matched |
+| Streak LRM 5–20 | mech-clan-equipment-weapons-missile | fixed | TO:AUE p.139 | none | now 3057p / ~3079 (was `introduced` 3057, "TO 0") |
+| iATM 3–12 | mech-clan-equipment-weapons-missile | fixed | IO:AE p.60 | none | were "IO 65"; ~3054p / 3070 |
+| Clan LRM / SRM / Streak SRM, LRT / SRT | mech-clan-equipment-weapons-missile | fixed | TM p.231 | none | were "TM 280" or "TO 0"; Clan SRT (OS) prototype 2665 → 2820 |
+| Clan SRM / SRT / Streak SRM (I-OS) | mech-clan-equipment-weapons-missile | fixed | TO:AUE p.139 | none | now 3058p / ~3081 (Clan prototype 3058) |
+| LRM (Clan, Star League, OS) | mech-clan-equipment-weapons-missile | fixed | TM p.231 | none | Clan extinction 2830 added, matching the other Star League LRM copies |
+| Improved LRMs / SRMs | mech-clan-equipment-weapons-missile | fixed | IO:AE p.90 | none | were "IO", no page |
+| Clan prototype Streak SRM 4 / 6 | mech-clan-equipment-weapons-missile | fixed (flag) | IO:AE p.91 | none | were "IO", no page. End year 2826 follows the p.91 text; the p.40 advancement table prints ~2822 for Clan Streak production, which the production records use |
+| **Enhanced Clan LRM 10** | mech-clan-equipment-weapons-missile | **unsourced (flag)** | "IO 189" | none | not found in IO (2016) or IO:AE, which list only the Improved LRMs. Record left as it was. For the user. Proposed: move to custom or remove |
+
+**Derived dates.** One-shot, I-OS and Artemis IV records combine two published items. Each takes the later prototype and production year of its parts, and the earlier extinction and later recovery; nothing is printed for the combination itself.
+
+A regression test (`Batch 10c missile and artillery catalogs`) pins dates and sources for all 231 records.

@@ -58,7 +58,7 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
             "M"
         ],
         techRating: "e",
-        book: "TO",
+        book: "TO:AUE",
         page: 96,
         alphaStrike: {
             heat: 0,
@@ -73,5 +73,5 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
         },
         heatAero: 10
     },
-    { isAmmo: false, name: "Prototype Arrow IV", altNames: ["Prototype Arrow IV"], tag: "prototype-arrow-iv", altTags: [], catalog: "is", sort: "artillery, arrow iv, prototype", category: "Artillery Weapons", alternateName: "", damage: 20, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 20, accuracyModifier: 0, cbills: 1800000, introduced: null, extinct: 2613, reintroduced: 3044, battleValue: 240, heat: 10, weight: 16, range: { min: 0, short: 0, medium: 0, long: 0, maxMapSheets: 8 }, space: { battlemech: 16, protomech: -1, combatVehicle: 1, supportVehicle: 16, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-is-arrow-iv-standard"], shotsPerTon: 5, ammoBattleValue: 30, minAmmoTons: 1, explosive: false, weaponType: ["ART", "M"], techRating: "e", book: "IO", page: 70, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 2, rangeExtreme: 2, tc: false, notes: ["artillery", "Provisional: copied from the production weapon"] }, heatAero: 10, prototype: 2593 },
+    { isAmmo: false, name: "Prototype Arrow IV", altNames: ["Prototype Arrow IV"], tag: "prototype-arrow-iv", altTags: [], catalog: "is", sort: "artillery, arrow iv, prototype", category: "Artillery Weapons", alternateName: "", damage: 20, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 20, accuracyModifier: 0, cbills: 1800000, introduced: null, extinct: 2600, reintroduced: null, battleValue: 240, heat: 10, weight: 16, range: { min: 0, short: 0, medium: 0, long: 0, maxMapSheets: 8 }, space: { battlemech: 16, protomech: -1, combatVehicle: 1, supportVehicle: 16, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-is-arrow-iv-standard"], shotsPerTon: 5, ammoBattleValue: 30, minAmmoTons: 1, explosive: false, weaponType: ["ART", "M"], techRating: "e", book: "IO:AE", page: 64, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 2, rangeExtreme: 2, tc: false, notes: ["artillery", "Provisional: copied from the production weapon"] }, heatAero: 10, prototype: 2593 },
 ];
