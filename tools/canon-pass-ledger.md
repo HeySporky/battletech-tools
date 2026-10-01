@@ -417,3 +417,16 @@ Rule applied to all 106 standard rounds (48 Inner Sphere, 45 Clan, 13 universal)
 A regression test (`Batch 12b standard ammunition follows its launcher`) pins all 106 records.
 
 **Still owed (Batch 12c):** the 228 special munitions. Their dates and pages have not been compared with the IO:AE pp.53–56 rows. Seen while listing them: Arrow IV Inferno-IV is dated 3083 against 3053p / 3055 in IO:AE p.53; Arrow IV Smoke has extinction 2830 against 2840; several munitions that IO:AE lists as Inner Sphere only (ADA, Inferno-IV, Laser-Inhibiting Arrow) sit in the universal ammo catalog.
+
+## Batch 13: records without a canon source move to custom
+
+User decision (2026-10-01): "Unsourced Clan... Move to custom if no canon source found... We will do a search on everything in that later to cite as best we can."
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Enhanced ER Large Laser (`enhanced_er_large_laser`) | mech-clan-equipment-weapons-energy → mech-custom-equipment-weapons-energy | moved to custom | none found | none | The record cited "IO p.189". Neither Interstellar Operations (2016) nor IO: Alternate Eras lists it; IO:AE pp.89–90 has an Improved Large Laser and an Enhanced PPC, which are separate records. Tag and statistics unchanged; `catalog: "custom"`, `book: "Custom"`, `page: null`, `rulesLevel: 5` |
+| Enhanced Clan LRM 10 (`enhanced_clan_lrm_10`) | mech-clan-equipment-weapons-missile → mech-custom-equipment-weapons-missile | moved to custom | none found | none | Same citation, same result. IO:AE p.90 has Improved LRMs (5/10/15/20), which are separate records. Tag and statistics unchanged |
+
+Both tags are unchanged, so saved designs that mount them still load. A regression test (`Batch 13 records without a canon source`) pins the move.
+
+**Owed:** a source search for everything in the custom catalogs, to cite what can be cited (user, same message).

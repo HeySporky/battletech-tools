@@ -87,57 +87,6 @@ export const mechClanEquipmentMissile: IEquipmentItem[] = [
     { isAmmo: false, name: "Clan Streak SRM 2", tag: "clan-streak-srm-2", sort: "clan streak srm 2", category: "Missile Weapons", alternateName: "Clan-Streak-SRM-2", damage: 0, notes: "Clan Streak SRM; workbook Alpha Strike values are provisional.", damageAero: 3, accuracyModifier: 0, cbills: 15000, cbillsOneShot: 0, introduced: 2822, extinct: null, reintroduced: null, prototype: 2819, battleValue: 40, heat: 2, weight: 1, range: { min: 0, short: 4, medium: 8, long: 12 }, space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 50, ammoBattleValue: 5, minAmmoTons: 1, explosive: false, weaponType: ["MS"], techRating: "f", book: "TM", page: 231, alphaStrike: { heat: 2, rangeShort: 0.4, rangeMedium: 0.4, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["SRM", "Provisional workbook conversion"] }, damageClusters: 2, damagePerCluster: 2, heatAero: 2, rangeAero: "s", isStreak: true, catalog: "clan" },
     { isAmmo: false, name: "Clan Streak SRM 4", tag: "clan-streak-srm-4", sort: "clan streak srm 4", category: "Missile Weapons", alternateName: "Clan-Streak-SRM-4", damage: 0, notes: "Clan Streak SRM; workbook Alpha Strike values are provisional.", damageAero: 3, accuracyModifier: 0, cbills: 90000, cbillsOneShot: 0, introduced: 2822, extinct: null, reintroduced: null, prototype: 2819, battleValue: 79, heat: 3, weight: 2, range: { min: 0, short: 4, medium: 8, long: 12 }, space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 25, ammoBattleValue: 10, minAmmoTons: 1, explosive: false, weaponType: ["MS"], techRating: "f", book: "TM", page: 231, alphaStrike: { heat: 3, rangeShort: 0.8, rangeMedium: 0.8, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["SRM", "Provisional workbook conversion"] }, damageClusters: 4, damagePerCluster: 2, heatAero: 3, rangeAero: "s", isStreak: true, catalog: "clan" },
     { isAmmo: false, name: "Clan Streak SRM 6", tag: "clan-streak-srm-6", sort: "clan streak srm 6", category: "Missile Weapons", alternateName: "Clan-Streak-SRM-6", damage: 0, notes: "Clan Streak SRM; workbook Alpha Strike values are provisional.", damageAero: 3, accuracyModifier: 0, cbills: 120000, cbillsOneShot: 0, introduced: 2822, extinct: null, reintroduced: null, prototype: 2819, battleValue: 118, heat: 4, weight: 3, range: { min: 0, short: 4, medium: 8, long: 12 }, space: { battlemech: 2, protomech: 1, combatVehicle: 2, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 15, ammoBattleValue: 15, minAmmoTons: 1, explosive: false, weaponType: ["MS"], techRating: "f", book: "TM", page: 231, alphaStrike: { heat: 4, rangeShort: 1.2, rangeMedium: 1.2, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["SRM", "Provisional workbook conversion"] }, damageClusters: 6, damagePerCluster: 2, heatAero: 4, rangeAero: "s", isStreak: true, catalog: "clan" },
-    {
-        name: "Enhanced Clan LRM 10",
-        tag: "enhanced_clan_lrm_10",
-        sort: "missile, enhanced clan lrm 10",
-        category: "Missile Weapons",
-        damage: 12,
-        damageAero: 12,
-        accuracyModifier: 0,
-        cbills: 100000,
-        introduced: 2823,
-        extinct: 2828,
-        reintroduced: null,
-        battleValue: 114,
-        heat: 4,
-        weight: 5,
-        range: {
-            min: 6,
-            short: 7,
-            medium: 14,
-            long: 21
-        },
-        space: {
-            battlemech: 2,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 2,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        shotsPerTon: 12,
-        minAmmoTons: 1,
-        explosive: false,
-        weaponType: [
-            "MS",
-            "I"
-        ],
-        techRating: "f",
-        book: "IO",
-        page: 189,
-        alphaStrike: {
-            heat: 4,
-            rangeShort: 0.94,
-            rangeMedium: 0.94,
-            rangeLong: 0.94,
-            rangeExtreme: 0,
-            tc: false,
-            notes: ["IF1"]
-        },
-        heatAero: 4
-    },
     { isAmmo: false, name: "iATM 3", tag: "iatm-3", sort: "iatm 3", category: "Missile Weapons", alternateName: "iATM-3", damage: 0, notes: "Clan Society iATM; missed attacks generate 0 heat and iATM supports indirect fire.", damageAero: 3, accuracyModifier: 0, cbills: 100000, cbillsOneShot: 0, introduced: 3070, extinct: null, reintroduced: null, prototype: 3054, battleValue: 83, heat: 2, weight: 1.5, range: { min: 4, short: 5, medium: 10, long: 15 }, space: { battlemech: 2, protomech: -1, combatVehicle: 2, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 20, ammoBattleValue: 21, minAmmoTons: 1, explosive: false, weaponType: ["MS", "I"], techRating: "f", book: "IO:AE", page: 60, alphaStrike: { heat: 2, rangeShort: 1, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: false, notes: ["iATM (1/1/1)", "IF 1", "0 heat on miss"] }, damageClusters: 3, damagePerCluster: 1, heatAero: 2, rangeAero: "m", catalog: "clan" },
     { isAmmo: false, name: "iATM 6", tag: "iatm-6", sort: "iatm 6", category: "Missile Weapons", alternateName: "iATM-6", damage: 0, notes: "Clan Society iATM; missed attacks generate 0 heat and iATM supports indirect fire.", damageAero: 3, accuracyModifier: 0, cbills: 250000, cbillsOneShot: 0, introduced: 3070, extinct: null, reintroduced: null, prototype: 3054, battleValue: 165, heat: 4, weight: 3.5, range: { min: 4, short: 5, medium: 10, long: 15 }, space: { battlemech: 3, protomech: -1, combatVehicle: 4, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 10, ammoBattleValue: 39, minAmmoTons: 1, explosive: false, weaponType: ["MS", "I"], techRating: "f", book: "IO:AE", page: 60, alphaStrike: { heat: 4, rangeShort: 3, rangeMedium: 2, rangeLong: 1, rangeExtreme: 0, tc: false, notes: ["iATM (3/2/1)", "IF 1", "0 heat on miss"] }, damageClusters: 6, damagePerCluster: 1, heatAero: 4, rangeAero: "m", catalog: "clan" },
     { isAmmo: false, name: "iATM 9", tag: "iatm-9", sort: "iatm 9", category: "Missile Weapons", alternateName: "iATM-9", damage: 0, notes: "Clan Society iATM; missed attacks generate 0 heat and iATM supports indirect fire.", damageAero: 3, accuracyModifier: 0, cbills: 450000, cbillsOneShot: 0, introduced: 3070, extinct: null, reintroduced: null, prototype: 3054, battleValue: 231, heat: 6, weight: 5, range: { min: 4, short: 5, medium: 10, long: 15 }, space: { battlemech: 4, protomech: -1, combatVehicle: 6, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 7, ammoBattleValue: 54, minAmmoTons: 1, explosive: false, weaponType: ["MS", "I"], techRating: "f", book: "IO:AE", page: 60, alphaStrike: { heat: 6, rangeShort: 4, rangeMedium: 3, rangeLong: 2, rangeExtreme: 0, tc: false, notes: ["iATM (4/3/2)", "IF 2", "0 heat on miss"] }, damageClusters: 9, damagePerCluster: 1, heatAero: 6, rangeAero: "m", catalog: "clan" },
