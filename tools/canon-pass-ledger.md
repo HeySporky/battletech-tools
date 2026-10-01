@@ -783,3 +783,25 @@ Decision 2026-10-01: "Go with book on caseless." TO:AUE p.164 (corrected sixth p
 Custom records are offered only when Custom equipment is switched on; a design saved with one still loads (loading always includes the custom catalogs, Batch 15).
 
 Regression tests: `Batch 23 Rotary AC Caseless rounds` (registry) and `Batch 23 Rotary AC Caseless rounds are Custom` ('Mech). The four rows left the Batch 12c date table.
+
+## Batch 24: superheavy critical space and cockpit slots
+
+IO:AE pp.155–157 and the blank record sheets at the back of the book (third corrected printing). Errata v3.01 has nothing on these pages.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Superheavy engine slots | battlemech.ts | **fixed** | IO:AE p.156 | none | "half of those normally required ... (rounded up)", per location: standard 6 → 3; Inner Sphere XL 6+3+3 → 3+2+2 (the SHP-4X Omega example, p.157); light 3+1+1; compact 3 → 2; XXL 3+3+3. The center torso reads Engine ×3, Gyro ×2 as on the Superheavy 'Mech Record Sheet |
+| Superheavy endo steel 7 slots, endo-composite 4 | battlemech.ts | **fixed** | IO:AE p.155 | none | the builder asked for 14 and 7 |
+| Superheavy armor slots | battlemech.ts | **fixed** | IO:AE p.157 | none | "including those for armor": ferro-fibrous 14 → 7, light 7 → 4, heavy 21 → 11. Armor with fixed locations halves per location |
+| Superheavy weapon and equipment slots | battlemech.ts | **fixed** | IO:AE p.157 | none | half, rounded up, no sharing: AC/10 7 → 4, and two of them take 8. The equipment picker and the record sheet equipment table show the superheavy figure |
+| Superheavy heat sink slots | battlemech.ts | **fixed** | IO:AE p.157 | none | two singles or four compact sinks per slot, named with the count ("Heat Sinks (2)"); an Inner Sphere double takes 2 slots; a Clan double 1 |
+| Superheavy designs saved with full-size slots | battlemech.ts | fixed | — | — | a saved allocation size is capped at what the item now takes, so old saves reload at half size instead of keeping 7-slot autocannons |
+| Tripod cockpit slots | battlemech.ts | **fixed** | IO:AE p.159; Three-Legged 'Mech Record Sheet | none | the builder put a second cockpit slot in the center torso (two on a superheavy tripod). The record sheets show one head slot ("Tripod Cockpit", "Superheavy Tripod Cockpit") and p.159 says "all Tripod cockpits occupy the same number of critical slots" |
+| Superheavy cockpit slots | battlemech.ts | **fixed** | IO:AE p.156; Superheavy 'Mech Record Sheet | none | one head slot, no center torso slot. The Omega example fills the center torso exactly (3 engine, 2 gyro, 4 Gauss, 1 ammo, 1 C3i, 1 CASE II), which leaves no room for one |
+| QuadVee cockpit slots | battlemech.ts | **fixed** | IO:AE p.128; QuadVee Record Sheet | none | head slots 3 and 4 ("Cockpit (Pilot)", "Cockpit (Gunner)"), no center torso slot. A QuadVee saved with equipment in head slot 4 gets that item back in the unallocated list |
+
+The center torso cockpit slot was in upstream too, so this goes in the equipment PR as a correction, with the record sheets as the source.
+
+**Owed:** superheavy ammunition sharing. "Every critical slot of ammo placed in the torsos, arms, or legs ... may carry up to two slots of ammunition" of the same weapon type (p.157). Each ton still takes its own slot here, which is legal but too generous on space the other way: the Omega's center torso needs a shared Gauss slot to fit. It needs two items in one slot, which the slot model does not have yet. Also not done: the two-items-per-location allowance for industrial equipment and the Heavy Gauss arm mount (p.157), and the "Inner Sphere tech base only" rule for superheavy 'Mechs.
+
+Regression tests: `Batch 24 cockpit critical slots`, `Batch 24 Superheavy 'Mech critical space`.

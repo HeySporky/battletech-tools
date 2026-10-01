@@ -1130,6 +1130,14 @@ export class BattleMech {
         return this._tonnage > 100;
     }
 
+    /**
+     * Critical slots an item takes on this chassis. On a superheavy 'Mech everything but the actuators,
+     * sensors, life support and cockpit takes half its usual space, rounded up (IO:AE p.157).
+     */
+    public getCriticalSlots(standardSlots: number): number {
+        return this.isSuperheavy() ? Math.ceil(standardSlots / 2) : standardSlots;
+    }
+
     public isLAM() {
         if( this._mechType.tag.toLowerCase() === "lam" )
             return true;
@@ -2559,9 +2567,9 @@ export class BattleMech {
                 item_location += " (R)"
 
             if( currentItem.isAmmo && this.getAmmoBinCapacity(currentItem) > 0) {
-                html += "" + (currentItem.name + " " + this.getAmmoBinCapacity(currentItem)).padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + currentItem.space.battlemech.toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
+                html += "" + (currentItem.name + " " + this.getAmmoBinCapacity(currentItem)).padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + this.getCriticalSlots(currentItem.space.battlemech).toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
             } else {
-                html += "" + currentItem.name.padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + currentItem.space.battlemech.toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
+                html += "" + currentItem.name.padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + this.getCriticalSlots(currentItem.space.battlemech).toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
             }
 
         }
@@ -2786,9 +2794,9 @@ export class BattleMech {
             const eqName = esc(currentItem.name);
             const eqLocAbbr = esc(item_location.toUpperCase());
             if( currentItem.isAmmo && this.getAmmoBinCapacity(currentItem) > 0)
-                html += "<tr><td class=\"text-left\">" + eqName + " " + this.getAmmoBinCapacity(currentItem) + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + eqName + " " + this.getAmmoBinCapacity(currentItem) + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + this.getCriticalSlots(currentItem.space.battlemech) + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
             else
-                html += "<tr><td class=\"text-left\">" + eqName + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + eqName + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + this.getCriticalSlots(currentItem.space.battlemech) + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
         }
 
         // Isolate the base unit weight per Jump Jet once to eliminate code duplication
@@ -3097,7 +3105,8 @@ export class BattleMech {
         if( findEngine && findEngine.rating) {
             // Sinks the engine cannot hold need slots; Compact sinks pair up, two per slot.
             const external = Math.max(0, this._additionalHeatSinks + 10 - this.getEngineHeatSinkCapacity());
-            this._heatSinkCriticals.number = Math.ceil(external / (this._heatSinkType.perSlot ?? 1));
+            this._heatSinkCriticals.number = Math.ceil(external / this._getHeatSinksPerSlot());
+            this._heatSinkCriticals.slotsEach = this.getCriticalSlots(this._heatSinkCriticals.slotsEach);
         } else {
             this._heatSinkCriticals.number = 0
         }
@@ -3407,10 +3416,14 @@ export class BattleMech {
         this._unallocatedCriticals = [];
 
         // Add required components....
-        // Superheavy Bipeds/Quads (>100 tons) mount a two-pilot Superheavy Cockpit, same as Tripods/QuadVees.
+        // Tripod and superheavy cockpits take the one head slot of a standard cockpit; the QuadVee's pilot
+        // and gunner take two (IO:AE record sheets; "all Tripod cockpits occupy the same number of critical
+        // slots", p.159).
         const isSuperheavyCockpit = (typeTag === "biped" || typeTag === "quad" || typeTag === "lam") && this._tonnage > 100;
         const cockpitTag = typeTag === "quadvee" || typeTag === "tripod" || isSuperheavyCockpit ? "multi-pilot-cockpit" : "cockpit";
-        const cockpitName = typeTag === "quadvee" ? "QuadVee Dual Cockpit" : typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
+        const cockpitName = typeTag === "quadvee" ? "Cockpit (Pilot)"
+            : typeTag === "tripod" ? (this._tonnage > 100 ? "Superheavy Tripod Cockpit" : "Tripod Cockpit")
+            : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
         if( this._smallCockpit) {
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
@@ -3437,6 +3450,9 @@ export class BattleMech {
         }
         if (typeTag === "lam") {
             this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "hd", 3);
+        }
+        if (typeTag === "quadvee") {
+            this._addCriticalItem(cockpitTag, "Cockpit (Gunner)", 1, "hd", 3);
         }
         if (typeTag === "quad" || typeTag === "quadvee") {
             // ---- QUAD / QUADVEE FRONT LEGS ----
@@ -3531,7 +3547,8 @@ export class BattleMech {
         const engineName = largeEngineType?.name ?? this._engineType.name;
         // FIRST ENGINE BLOCK (Slots 1-3): Seats the upper drive mechanism
         // If an engine takes 6 slots, we limit the first sequential chunk to exactly 3 slots. Currently unless I can find something canonical or homebrew somewhere
-        const engineCriticalTorso = (engineCrits.ct ?? 0) + (this.isLargeEngine() && !largeEngineCrits ? 2 : 0);
+        // A superheavy 'Mech's engine takes half its usual slots in each location, rounded up (IO:AE p.156).
+        const engineCriticalTorso = this.getCriticalSlots((engineCrits.ct ?? 0) + (this.isLargeEngine() && !largeEngineCrits ? 2 : 0));
         const initialEngineAllocation = engineCriticalTorso > 3 ? 3 : engineCriticalTorso;
         if (initialEngineAllocation > 0) {
             this._addCriticalItem(
@@ -3561,15 +3578,10 @@ export class BattleMech {
         }
         // TORSO SHIELDING: Distribute side shield critical slots
         if (engineCrits.rt) {
-            this._addCriticalItem("engine", engineName, engineCrits.rt, "rt");
+            this._addCriticalItem("engine", engineName, this.getCriticalSlots(engineCrits.rt), "rt");
         }
         if (engineCrits.lt) {
-            this._addCriticalItem("engine", engineName, engineCrits.lt, "lt");
-        }
-        if (typeTag === "quadvee" || typeTag === "tripod") {
-            this._addCriticalItem("multi-pilot-cockpit", typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit", typeTag === "tripod" && this._tonnage > 100 ? 2 : 1, "ct");
-        } else if (isSuperheavyCockpit) {
-            this._addCriticalItem("multi-pilot-cockpit", "Superheavy Cockpit", 1, "ct");
+            this._addCriticalItem("engine", engineName, this.getCriticalSlots(engineCrits.lt), "lt");
         }
         if (typeTag === "lam") {
             this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "lt");
@@ -3630,11 +3642,11 @@ export class BattleMech {
         if (armorCriticalLocations) {
             for (const [location, criticalCount] of Object.entries(armorCriticalLocations)) {
                 if (criticalCount && criticalCount > 0) {
-                    this._addCriticalItem(armorObj.tag, armorObj.name, criticalCount, location, null, true);
+                    this._addCriticalItem(armorObj.tag, armorObj.name, this.getCriticalSlots(criticalCount), location, null, true);
                 }
             }
         } else {
-            for (let armorCritical = 0; armorCritical < armorObj.crits[armorTechBase]; armorCritical++) {
+            for (let armorCritical = 0; armorCritical < this.getCriticalSlots(armorObj.crits[armorTechBase]); armorCritical++) {
                 this._unallocatedCriticals.push({
                     uuid: generateUUID(),
                     name: armorObj.name,
@@ -3650,7 +3662,7 @@ export class BattleMech {
 
         // Internal Structure critical Items
         if( this.getTech().tag === "clan" ) {
-            for( let aCounter = 0; aCounter < this._selectedInternalStructure.crits.clan; aCounter++) {
+            for( let aCounter = 0; aCounter < this.getCriticalSlots(this._selectedInternalStructure.crits.clan); aCounter++) {
                 this._unallocatedCriticals.push({
                     uuid: generateUUID(),
                     name: this._selectedInternalStructure.name,
@@ -3664,7 +3676,8 @@ export class BattleMech {
             }
 
         } else {
-            for( let aCounter = 0; aCounter < this._selectedInternalStructure.crits.is; aCounter++) {
+            // Superheavy endo steel takes 7 slots and endo-composite 4 (IO:AE p.155).
+            for( let aCounter = 0; aCounter < this.getCriticalSlots(this._selectedInternalStructure.crits.is); aCounter++) {
                 this._unallocatedCriticals.push({
                     uuid: generateUUID(),
                     name: this._selectedInternalStructure.name,
@@ -3706,7 +3719,7 @@ export class BattleMech {
             // Spread equipment (signature systems, sealing, tracks...) places each slot on its own.
             if( this._equipmentList[elc].spreadSlots ) {
                 const baseUUID = this._equipmentList[elc].uuid ?? generateUUID();
-                for( let slotIndex = 0; slotIndex < this._equipmentList[elc].space.battlemech; slotIndex++) {
+                for( let slotIndex = 0; slotIndex < this.getCriticalSlots(this._equipmentList[elc].space.battlemech); slotIndex++) {
                     this._unallocatedCriticals.push({
                         uuid: baseUUID + ":" + slotIndex,
                         name: this._equipmentList[elc].name,
@@ -3726,7 +3739,7 @@ export class BattleMech {
                 tag: this._equipmentList[elc].tag,
                 loc: this._equipmentList[elc].location,
                 rear: isRear,
-                crits: this._equipmentList[elc].space.battlemech,
+                crits: this.getCriticalSlots(this._equipmentList[elc].space.battlemech),
                 obj: this._equipmentList[elc],
                 movable: true,
 
@@ -3744,12 +3757,21 @@ export class BattleMech {
             hs_nickname = "Double Heat Sink";
         else
             hs_nickname ="Heat Sink";
+        // A superheavy slot shared by several heat sinks says how many it holds (IO:AE p.157).
+        const heatSinksPerSlot = this._getHeatSinksPerSlot();
+        let externalHeatSinks = Math.max(0, this._additionalHeatSinks + 10 - this.getEngineHeatSinkCapacity());
         for( let hsc = 0; hsc < hs_requirements.number; hsc++) {
+            const heatSinksInSlot = Math.min(heatSinksPerSlot, externalHeatSinks);
+            externalHeatSinks -= heatSinksInSlot;
+            let hs_slotName = hs_nickname;
+            if( this.isSuperheavy() && heatSinksPerSlot > 1 && heatSinksInSlot > 1 ) {
+                hs_slotName = (hs_nickname === "Heat Sink" ? "Heat Sinks" : hs_nickname) + " (" + heatSinksInSlot + ")";
+            }
 
             this._unallocatedCriticals.push({
                 obj: null,
                 uuid: generateUUID(),
-                name: hs_nickname,
+                name: hs_slotName,
                 rear: false,
                 tag: "heat-sink",
                 crits: hs_requirements.slotsEach,
@@ -4267,6 +4289,16 @@ export class BattleMech {
 
     public getCurrentTonnage() {
         return this._currentTonnage;
+    }
+
+    /**
+     * Heat sinks one critical slot holds. A superheavy slot holds what two standard slots would:
+     * two single or four compact heat sinks; larger sinks cannot share (IO:AE p.157).
+     */
+    private _getHeatSinksPerSlot(): number {
+        const perSlot = this._heatSinkType.perSlot ?? 1;
+        const standardSlots = this.getTech().tag === "clan" ? this._heatSinkType.crits.clan : this._heatSinkType.crits.is;
+        return this.isSuperheavy() && standardSlots === 1 ? perSlot * 2 : perSlot;
     }
 
     public getHeatSinkCriticalRequirements() {
@@ -7626,7 +7658,9 @@ export class BattleMech {
             currentItem.obj.location = normalizedLocation;
         }
         // Fallback back to native slots if no custom overrides are set
-        const allocationSize = critSize < 0 ? (currentItem.crits || 1) : critSize;
+        // A saved size never exceeds what the item takes on this chassis: a superheavy design saved with
+        // full-size slots loads at half size (IO:AE p.157).
+        const allocationSize = critSize < 0 ? (currentItem.crits || 1) : Math.min(critSize, currentItem.crits || critSize);
         const placementSuccess = this._assignItemToArea(
             targetCriticalArray,
             currentItem,
@@ -8242,7 +8276,7 @@ export class BattleMech {
                 return;
             }
             item.catalog = isUniversalEquipment(item) ? "universal" : item.catalog ?? catalog;
-            item.criticals = item.space.battlemech;
+            item.criticals = this.getCriticalSlots(item.space.battlemech);
             // Equipment records carry side-specific IS or Clan dates, so extinction always applies.
             // A prototype year with no production year marks an IO prototype-only item (Experimental).
             const prototypeOnly = item.introduced === null && !!item.prototype;

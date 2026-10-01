@@ -575,7 +575,8 @@ describe("LAM and QuadVee chassis rules", () => {
         expect(criticals.leftLeg.every(item => item?.tag === "quadvee-conversion" || item?.placeholder)).toBe(true);
         expect(criticals.rightLeg.every(item => item?.tag === "quadvee-conversion" || item?.placeholder)).toBe(true);
         expect(criticals.head.some(item => item?.tag === "multi-pilot-cockpit")).toBe(true);
-        expect(criticals.centerTorso.some(item => item?.tag === "multi-pilot-cockpit")).toBe(true);
+        // The cockpit sits in the head only (IO:AE record sheets).
+        expect(criticals.centerTorso.some(item => item?.tag === "multi-pilot-cockpit")).toBe(false);
     });
 
     it("accounts for QuadVee conversion weight and dual cockpit weight", () => {
@@ -805,7 +806,7 @@ describe("LAM and QuadVee chassis rules", () => {
         expect(tripod.isOmnimech).toBe(false);
         expect(tripod.getCockpitWeight()).toBe(4);
         expect(tripod.getCriticals().head.some(item => item?.tag === "multi-pilot-cockpit")).toBe(true);
-        expect(tripod.getCriticals().centerTorso.some(item => item?.tag === "multi-pilot-cockpit")).toBe(true);
+        expect(tripod.getCriticals().centerTorso.some(item => item?.tag === "multi-pilot-cockpit")).toBe(false);
         tripod.takeDamage(100, "ll", false);
         expect(tripod.getWalkSpeed()).toBe(4);
     });
@@ -4236,5 +4237,151 @@ describe("Batch 23 Rotary AC Caseless rounds are Custom", () => {
             const restored = new BattleMech(JSON.stringify(saved));
             expect(restored.equipmentList.map(item => item.tag), tech).toEqual([tag]);
         }
+    });
+});
+
+describe("Batch 24 cockpit critical slots (IO:AE record sheets, pp.128, 156, 159)", () => {
+    const cockpitSlots = (type: string, tonnage: number) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setType(type);
+        mech.setTonnage(tonnage);
+        const criticals = mech.getCriticals();
+        const names = (slots: ({ tag: string, name: string } | null)[]) =>
+            slots.map((item, index) => item && /cockpit/.test(item.tag) ? `${index + 1}. ${item.name}` : "").filter(Boolean);
+        return { head: names(criticals.head), centerTorso: names(criticals.centerTorso) };
+    };
+
+    it("puts a Tripod cockpit in one head slot, whatever its weight", () => {
+        expect(cockpitSlots("tripod", 75)).toEqual({ head: ["3. Tripod Cockpit"], centerTorso: [] });
+        expect(cockpitSlots("tripod", 150)).toEqual({ head: ["3. Superheavy Tripod Cockpit"], centerTorso: [] });
+    });
+
+    it("puts a superheavy cockpit in one head slot", () => {
+        expect(cockpitSlots("biped", 150)).toEqual({ head: ["3. Superheavy Cockpit"], centerTorso: [] });
+        expect(cockpitSlots("quad", 150)).toEqual({ head: ["3. Superheavy Cockpit"], centerTorso: [] });
+    });
+
+    it("puts the QuadVee pilot and gunner in two head slots", () => {
+        expect(cockpitSlots("quadvee", 75)).toEqual({ head: ["3. Cockpit (Pilot)", "4. Cockpit (Gunner)"], centerTorso: [] });
+    });
+});
+
+describe("Batch 24 Superheavy 'Mech critical space (IO:AE pp.155-157)", () => {
+    const build = (tonnage: number) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(tonnage);
+        mech.setWalkSpeed(2);
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string) =>
+        mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
+    const free = (slots: unknown[]) => slots.filter(item => !item).length;
+    const unallocated = (mech: BattleMech, tag: string) => mech.getUnallocatedCriticals().filter(item => item.tag === tag);
+
+    it("halves the engine's slots in every location, rounding up", () => {
+        // slots left free in [center torso, left torso, right torso] of a 150-ton 'Mech (2 gyro slots)
+        const expected: Record<string, number[]> = {
+            "standard": [7, 12, 12],     // 6 -> 3
+            "xl": [7, 10, 10],           // 6 + 3 + 3 -> 3 + 2 + 2 (the SHP-4X Omega, p.157)
+            "light": [7, 11, 11],        // 6 + 2 + 2 -> 3 + 1 + 1
+            "compact": [8, 12, 12],      // 3 -> 2
+            "xxl": [7, 9, 9],            // 6 + 6 + 6 -> 3 + 3 + 3
+        };
+        for (const [engine, slots] of Object.entries(expected)) {
+            const mech = build(150);
+            mech.setEngineType(engine);
+            const criticals = mech.getCriticals();
+            expect([free(criticals.centerTorso), free(criticals.leftTorso), free(criticals.rightTorso)], engine).toEqual(slots);
+        }
+        const heavy = build(100);
+        heavy.setEngineType("xl");
+        const criticals = heavy.getCriticals();
+        expect([free(criticals.centerTorso), free(criticals.leftTorso), free(criticals.rightTorso)]).toEqual([2, 9, 9]);
+    });
+
+    it("lays the center torso out as on the superheavy record sheet: three engine slots, then the gyro", () => {
+        const names = build(150).getCriticals().centerTorso.map(item => !item ? "" : item.placeholder ? "..." : item.tag);
+        expect(names).toEqual(["engine", "...", "...", "gyro", "...", "", "", "", "", "", "", ""]);
+    });
+
+    it("gives endo steel 7 slots and endo-composite 4", () => {
+        const expected: [number, string, number][] = [
+            [150, "endo-steel", 7], [150, "endo-composite", 4], [150, "standard", 0],
+            [100, "endo-steel", 14], [100, "endo-composite", 7],
+        ];
+        for (const [tonnage, structure, slots] of expected) {
+            const mech = build(tonnage);
+            mech.setInternalStructureType(structure);
+            expect(unallocated(mech, structure).length, `${tonnage} tons ${structure}`).toBe(slots);
+        }
+    });
+
+    it("halves armor slots", () => {
+        const expected: [number, string, number][] = [
+            [150, "ferro-fibrous", 7], [150, "light-ferro-fibrous", 4], [150, "heavy-ferro-fibrous", 11],
+            [100, "ferro-fibrous", 14], [100, "light-ferro-fibrous", 7], [100, "heavy-ferro-fibrous", 21],
+        ];
+        for (const [tonnage, armor, slots] of expected) {
+            const mech = build(tonnage);
+            mech.setArmorType(armor);
+            expect(unallocated(mech, armor).length, `${tonnage} tons ${armor}`).toBe(slots);
+        }
+    });
+
+    it("halves the slots of weapons and equipment, rounding up, without sharing", () => {
+        // tag: [standard slots, superheavy slots]
+        const expected: Record<string, [number, number]> = {
+            "autocannon-standard-c": [7, 4], "standard-gauss-rifle": [7, 4], "autocannon-lbx-10": [6, 3], "medium-laser": [1, 1], "standard-ppc": [3, 2], "lrm-20": [5, 3],
+        };
+        for (const [tag, [standardSlots, superheavySlots]] of Object.entries(expected)) {
+            const heavy = build(100);
+            const superheavy = build(150);
+            expect(add(heavy, tag), tag).not.toBeNull();
+            add(superheavy, tag);
+            add(superheavy, tag);
+            expect(unallocated(heavy, tag).map(item => item.crits), `100 tons ${tag}`).toEqual([standardSlots]);
+            // Two of the same weapon take twice the slots: no sharing.
+            expect(unallocated(superheavy, tag).map(item => item.crits), `150 tons ${tag}`).toEqual([superheavySlots, superheavySlots]);
+            expect(superheavy.getAvailableEquipment(false, 4).find(item => item.tag === tag)?.criticals, `offered ${tag}`).toBe(superheavySlots);
+            expect(heavy.getAvailableEquipment(false, 4).find(item => item.tag === tag)?.criticals, `offered ${tag}`).toBe(standardSlots);
+        }
+    });
+
+    it("fits two single heat sinks or four compact heat sinks in a slot; an Inner Sphere double takes two slots", () => {
+        const sinks = (type: string, additional: number) => {
+            const mech = build(150);
+            mech.setHeatSinksType(type);
+            mech.setAdditionalHeatSinks(additional);
+            return {
+                requirements: mech.getHeatSinkCriticalRequirements(),
+                slots: unallocated(mech, "heat-sink").map(item => `${item.name}: ${item.crits}`),
+            };
+        };
+        // The 300-rated engine holds 12 sinks (24 compact).
+        expect(sinks("single", 5)).toEqual({ requirements: { slotsEach: 1, number: 2 }, slots: ["Heat Sinks (2): 1", "Heat Sink: 1"] });
+        expect(sinks("single", 6)).toEqual({ requirements: { slotsEach: 1, number: 2 }, slots: ["Heat Sinks (2): 1", "Heat Sinks (2): 1"] });
+        expect(sinks("double", 4)).toEqual({ requirements: { slotsEach: 2, number: 2 }, slots: ["Double Heat Sink: 2", "Double Heat Sink: 2"] });
+        expect(sinks("compact", 20)).toEqual({ requirements: { slotsEach: 1, number: 2 }, slots: ["Compact Heat Sinks (4): 1", "Compact Heat Sinks (2): 1"] });
+        expect(sinks("single", 2)).toEqual({ requirements: { slotsEach: 1, number: 0 }, slots: [] });
+    });
+
+    it("re-sizes equipment on a superheavy design saved with full-size slots", () => {
+        const mech = build(150);
+        add(mech, "autocannon-standard-c");
+        const index = mech.getUnallocatedCriticals().findIndex(item => item.tag === "autocannon-standard-c");
+        expect(mech.moveCritical("un", index, "rt", 0)).toBe(true);
+        expect(free(mech.getCriticals().rightTorso)).toBe(8);
+
+        const saved = JSON.parse(mech.exportJSON());
+        const entry = saved.allocation.find((item: { tag: string }) => item.tag === "autocannon-standard-c");
+        entry.crits = 7;
+        entry.size = 7;
+        const restored = new BattleMech(JSON.stringify(saved));
+        expect(free(restored.getCriticals().rightTorso)).toBe(8);
+        expect(unallocated(restored, "autocannon-standard-c")).toEqual([]);
     });
 });
