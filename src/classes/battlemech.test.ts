@@ -3591,3 +3591,68 @@ describe("Batch 16 large engines", () => {
         expect([slots("centerTorso"), slots("leftTorso"), slots("rightTorso")]).toEqual([8, 3, 3]);
     });
 });
+
+describe("Batch 17 explosive weapons in Battle Value (TO:AUE pp.194-195)", () => {
+    const mount = (tag: string) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        const item = mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
+        const slot = mech.getCriticals().rightArm.findIndex(critical => !critical);
+        expect(mech.moveCritical("un", from, "ra", slot), tag).toBe(true);
+        return mech;
+    };
+    // Points taken off for the named item: the log prints one line per item per location, "(Inner Sphere, -N)".
+    const penalties = (mech: BattleMech, name: string) =>
+        mech.getBVCalcHTML().split("<br />")
+            .filter(line => line.startsWith(`Explosive Component Crit (${name}) in `))
+            .reduce((total, line) => total + Number(/-(\d+)\)$/.exec(line)?.[1] ?? 0), 0);
+
+    it("gives a PPC with a Capacitor its combined Battle Value and marks it explosive", () => {
+        // tag: BV (TO:AUE p.194, "Treat as Gauss weapon when calculating defensive battle rating")
+        const expected: Record<string, number> = {
+            "ppc-capacitor": 264, "heavy-ppc-capacitor": 370, "light-ppc-capacitor": 132,
+            "snub-nose-ppc-capacitor": 252, "er-ppc-capacitor": 343,
+        };
+        for (const [tag, battleValue] of Object.entries(expected)) {
+            expect(mechISEquipmentEnergy.find(item => item.tag === tag), tag).toMatchObject({ battleValue, explosive: true, book: "TO:AUE", page: 149 });
+        }
+    });
+
+    it("takes one point off the defensive rating for each slot of a PPC with a Capacitor", () => {
+        // PPC (3 slots) + Capacitor (1 slot)
+        expect(penalties(mount("ppc-capacitor"), "PPC w/ Capacitor")).toBe(4);
+        expect(penalties(mount("standard-ppc"), "PPC")).toBe(0);
+    });
+
+    it("takes a single point off for an HVAC, whatever its size (footnote Q)", () => {
+        for (const tag of ["is-hvac-2", "is-hvac-5", "is-hvac-10"]) {
+            expect(mechISEquipmentBallistic.find(item => item.tag === tag), tag).toMatchObject({ explosive: true, explosiveBattleValueSlots: 1 });
+        }
+        expect(penalties(mount("is-hvac-10"), "HVAC/10")).toBe(1);
+        expect(penalties(mount("is-hvac-2"), "HVAC/2")).toBe(1);
+        // A Gauss Rifle still loses one point per slot.
+        expect(penalties(mount("standard-gauss-rifle"), "Gauss Rifle")).toBe(7);
+    });
+});
+
+describe("Batch 17 Battle Value follows critical slot moves", () => {
+    it("recalculates when an explosive item is placed, without waiting for another change", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        const gauss = mech.addEquipmentFromTag("standard-gauss-rifle", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const unplaced = mech.getBattleValue();
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === gauss.uuid);
+        expect(mech.moveCritical("un", from, "ra", mech.getCriticals().rightArm.findIndex(critical => !critical))).toBe(true);
+
+        // The value a reload of the same design gives is the value shown straight after the move.
+        expect(mech.getBattleValue()).toBe(new BattleMech(mech.exportJSON()).getBattleValue());
+        expect(mech.getBattleValue()).toBeLessThan(unplaced);
+    });
+});

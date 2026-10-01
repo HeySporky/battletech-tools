@@ -240,6 +240,11 @@ export interface IEquipmentItem {
     minAmmoTons?: number;
     explosive?: boolean;
     gauss?: boolean;
+    /**
+     * Slots that take the -1 explosive component BV penalty, when not all of them:
+     * an HVAC counts as a Gauss weapon "with one critical slot" (TO:AUE p.195, footnote Q).
+     */
+    explosiveBattleValueSlots?: number;
     weaponType?: string[];
     techRating?: string;
     unique?: boolean;
