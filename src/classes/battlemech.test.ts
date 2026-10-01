@@ -4497,3 +4497,61 @@ describe("Batch 26 explosive ammunition penalty by location (TM p.302, TO:AUE p.
         expect(penalised({ ammo: ["ct"] }).log.some(line => line.startsWith("Penalties cannot take the total below 1"))).toBe(false);
     });
 });
+
+describe("Batch 27 Weapon Battle Rating order (TM p.303)", () => {
+    // 75 tons, Walk 4 (Run 6: 2 heat), ten single heat sinks: Heat Efficiency 6 + 10 - 2 = 14.
+    const build = () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string, rear = false) =>
+        mech.addEquipmentFromTag(tag, "is", "", rear, undefined, "", false, [], undefined, undefined)!;
+    const place = (mech: BattleMech, item: { uuid?: string }, location: string, key: string) => {
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
+        expect(mech.moveCritical("un", from, location, mech.getCriticals()[key].findIndex(critical => !critical))).toBe(true);
+    };
+    const weaponBV = (mech: BattleMech) => Number(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+
+    it("takes the cooler of two weapons with the same Battle Value first", () => {
+        const mech = build();
+        // PPC 176 (10 heat); Large Laser and AC/10 both 123 (8 and 3 heat).
+        for (const tag of ["standard-ppc", "large-laser", "autocannon-standard-c"]) add(mech, tag);
+        // PPC 10, AC/10 13, Large Laser 21: the Large Laser crosses 14 and still counts in full.
+        expect(weaponBV(mech)).toBe(176 + 123 + 123);
+    });
+
+    it("orders weapons by Modified BV, after the Targeting Computer bonus", () => {
+        const mech = build();
+        for (const tag of ["standard-ppc", "large-laser", "lrm-15", "targeting-computer"]) add(mech, tag);
+        // PPC 220 (10 heat), Large Laser 153.75 (18: crosses 14, full), then LRM 15 136 halved.
+        expect(weaponBV(mech)).toBe(176 * 1.25 + 123 * 1.25 + 136 / 2);
+    });
+
+    it("halves forward-firing torso weapons instead when the rear-firing ones are worth more", () => {
+        const mech = build();
+        place(mech, add(mech, "medium-laser"), "ct", "centerTorso");
+        place(mech, add(mech, "large-laser", true), "lt", "leftTorso");
+        place(mech, add(mech, "medium-laser"), "ra", "rightArm");
+        // Rear Large Laser 123 in full, front torso Medium Laser 46 / 2, arm Medium Laser 46 in full.
+        expect(weaponBV(mech)).toBe(123 + 23 + 46);
+
+        const usual = build();
+        place(usual, add(usual, "large-laser"), "ct", "centerTorso");
+        place(usual, add(usual, "medium-laser", true), "lt", "leftTorso");
+        expect(weaponBV(usual)).toBe(123 + 23);
+    });
+
+    it("leaves the installed equipment in its own order (by sort key), not in Battle Value order", () => {
+        const mech = build();
+        for (const tag of ["medium-laser", "standard-ppc", "small-laser", "large-laser"]) add(mech, tag);
+        mech.getBattleValue();
+        mech.getBVCalcHTML();
+        const bySortKey = [...mech.equipmentList].sort((a, b) => a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0);
+        expect(mech.equipmentList.map(item => item.tag)).toEqual(bySortKey.map(item => item.tag));
+        expect(mech.equipmentList.map(item => item.tag)).not.toEqual(["standard-ppc", "large-laser", "medium-laser", "small-laser"]);
+    });
+});
