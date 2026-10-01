@@ -7,6 +7,7 @@ import { validateChassisCombination } from "../data/mech-internal-structure-type
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { getWeaponAmmoFamilies } from "../data/equipment-registry";
+import { mechCustomEquipmentMisc } from "../data/mech-custom-equipment-weapons-misc";
 
 describe("BattleMech engine availability by era", () => {
     it("shows the expected Inner Sphere engines for a Star League mech", () => {
@@ -2121,5 +2122,20 @@ describe("BattleMech Clan Star League carry-over", () => {
         const golden = clanMech("clan-golden-years");
         golden.setArmorType("ferro-fibrous");
         expect(golden.getArmorTechBase()).toBe("clan");
+    });
+});
+
+describe("saved designs with custom equipment", () => {
+    // Regression: a saved design lost its custom (homebrew) equipment on reload, because restoring a save looked
+    // the tag up in the canon lists only. Canon still wins when a tag exists in both.
+    it("keeps custom equipment through a save and reload", () => {
+        const customTag = mechCustomEquipmentMisc[0].tag;
+        const mech = new BattleMech();
+        mech.setTonnage(50);
+        const added = mech.addEquipmentFromTag(customTag, "is", "un", false, null, "", false, [], undefined, undefined, -1, "", true);
+        expect(added?.tag).toBe(customTag);
+
+        const reloaded = new BattleMech(mech.exportJSON(true));
+        expect(reloaded.getInstalledEquipment().map((item) => item.tag)).toContain(customTag);
     });
 });

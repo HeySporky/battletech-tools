@@ -6001,7 +6001,8 @@ export class BattleMech {
 
     /** Re-creates one saved equipment item (import and OmniMech configuration switching). */
     private _restoreEquipmentItem( importItem: IBMEquipmentExport ): IEquipmentItem | null {
-        const restoredEquipment = this.addEquipmentFromTag(
+        // Canon first, so a custom record can never capture a canon save; then the custom catalogs.
+        const restore = ( includeCustom: boolean ) => this.addEquipmentFromTag(
             importItem.tag,
             this.getTech().tag,
             importItem.loc,
@@ -6014,7 +6015,9 @@ export class BattleMech {
             importItem.split_location,
             importItem.currentAmmo,
             importItem.selectedAmmoBinUUID,
+            includeCustom,
         );
+        const restoredEquipment = restore( false ) ?? restore( true );
         if (restoredEquipment && typeof importItem.currentAdditionalArmor === "number") {
             restoredEquipment.currentAdditionalArmor = importItem.currentAdditionalArmor;
         }
