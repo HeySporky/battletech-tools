@@ -3743,3 +3743,290 @@ describe("Batch 19 TO:AUE table audit", () => {
         }
     });
 });
+
+describe("Batch 12c special munitions", () => {
+    it("dates and cites the isAmmo records (IO:AE pp.53-56 and TO:AUE headers, gated by the launcher)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ammo-is-arrow-iv-cluster": [2594, 2600, 2830, 3047, "TO:AUE", 166],
+            "ammo-is-arrow-iv-homing": [2593, 2600, 2830, 3045, "TO:AUE", 166],
+            "ammo-is-arrow-iv-illumination": [2615, 2621, 2800, 3047, "TO:AUE", 167],
+            "ammo-is-arrow-iv-smoke": [2595, 2600, 2840, 3044, "TO:AUE", 168],
+            "ammo-is-enhanced-lrm-artemis-iv": [3058, 3082, null, null, "TM", 207],
+            "ammo-is-inarc-ecm": [3054, 3062, null, null, "TM", 233],
+            "ammo-is-inarc-explosive": [3054, 3062, null, null, "TM", 233],
+            "ammo-is-inarc-haywire": [3054, 3062, null, null, "TM", 233],
+            "ammo-is-inarc-nemesis": [3054, 3062, null, null, "TM", 233],
+            "ammo-is-long-tom-copperhead": [2640, 2645, 2800, 3051, "TO:AUE", 167],
+            "ammo-is-long-tom-thunder": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
+            "ammo-is-lrm-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "ammo-is-lrm-ftl": [3053, null, null, null, "TO:AUE", 180],
+            "ammo-is-lrm-narc": [2520, 2587, 2795, 3035, "TW", 142],
+            "ammo-is-lrm-swarm": [2615, 2621, 2833, 3053, "TO:AUE", 183],
+            "ammo-is-lrt-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "ammo-is-mech-mortar-airburst": [2540, 2544, 2819, 3043, "TO:AUE", 185],
+            "ammo-is-mech-mortar-apersonnel": [2526, 2531, 2819, 3043, "TO:AUE", 186],
+            "ammo-is-mech-mortar-flare": [2533, 2536, 2819, 3043, "TO:AUE", 186],
+            "ammo-is-mech-mortar-smoke": [2526, 2531, 2819, 3043, "TO:AUE", 187],
+            "ammo-is-sniper-copperhead": [2640, 2645, 2800, 3051, "TO:AUE", 167],
+            "ammo-is-sniper-thunder": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
+            "ammo-is-srm-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "ammo-is-srm-magnetic-pulse": [3055, 3057, 3065, null, "TO:AUE", 182],
+            "ammo-is-srm-narc": [2520, 2587, 2795, 3035, "TW", 142],
+            "ammo-is-srm-tandem-charge": [2757, 3062, null, null, "TO:AUE", 184],
+            "ammo-is-srt-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "ammo-is-thumper-copperhead": [2640, 2645, 2800, 3051, "TO:AUE", 167],
+            "ammo-is-thumper-thunder": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
+            "ammo-is-arrow-iv-fae": [2593, 2600, 2830, 3044, "IO:AE", 159],
+            "ammo-is-lrm-arad": [3066, null, null, null, "TO:AUE", 180],
+            "ammo-is-heavy-flamer-coolant": [undefined, 3068, null, null, "TO:AUE", 173],
+            "ammo-is-ac-2-flak": [2290, 2310, null, null, "TO:AUE", 164],
+            "ammo-is-ac-2-tracer": [2290, 2300, null, null, "TO:AUE", 165],
+            "ammo-is-ac-2-armor-piercing": [3055, 3059, null, null, "TM", 208],
+            "ammo-is-ac-2-caseless": [3056, 3079, null, null, "TO:AUE", 164],
+            "ammo-is-ac-2-flechette": [3053, 3055, null, null, "TM", 208],
+            "ammo-is-ac-2-precision": [3058, 3062, null, null, "TM", 208],
+            "ammo-is-lb-2x-cluster": [3055, 3058, null, null, "TM", 208],
+            "ammo-is-ac-5-flak": [2240, 2310, null, null, "TO:AUE", 164],
+            "ammo-is-ac-5-tracer": [2240, 2300, null, null, "TO:AUE", 165],
+            "ammo-is-ac-5-armor-piercing": [3055, 3059, null, null, "TM", 208],
+            "ammo-is-ac-5-caseless": [3056, 3079, null, null, "TO:AUE", 164],
+            "ammo-is-ac-5-flechette": [3053, 3055, null, null, "TM", 208],
+            "ammo-is-ac-5-precision": [3058, 3062, null, null, "TM", 208],
+            "ammo-is-lb-5x-cluster": [3055, 3058, null, null, "TM", 208],
+            "ammo-is-ac-10-flak": [2443, 2460, null, null, "TO:AUE", 164],
+            "ammo-is-ac-10-tracer": [2443, 2460, null, null, "TO:AUE", 165],
+            "ammo-is-ac-10-armor-piercing": [3055, 3059, null, null, "TM", 208],
+            "ammo-is-ac-10-caseless": [3056, 3079, null, null, "TO:AUE", 164],
+            "ammo-is-ac-10-flechette": [3053, 3055, null, null, "TM", 208],
+            "ammo-is-ac-10-precision": [3058, 3062, null, null, "TM", 208],
+            "ammo-is-lb-10x-cluster": [2590, 2595, 2840, 3035, "TM", 208],
+            "ammo-is-ac-20-flak": [2488, 2500, null, null, "TO:AUE", 164],
+            "ammo-is-ac-20-tracer": [2488, 2500, null, null, "TO:AUE", 165],
+            "ammo-is-ac-20-armor-piercing": [3055, 3059, null, null, "TM", 208],
+            "ammo-is-ac-20-caseless": [3056, 3079, null, null, "TO:AUE", 164],
+            "ammo-is-ac-20-flechette": [3053, 3055, null, null, "TM", 208],
+            "ammo-is-ac-20-precision": [3058, 3062, null, null, "TM", 208],
+            "ammo-is-lb-20x-cluster": [3055, 3058, null, null, "TM", 208],
+            "ammo-is-light-ac-2-armor-piercing": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-light-ac-2-caseless": [3062, 3079, null, null, "TO:AUE", 164],
+            "ammo-is-light-ac-2-flak": [3062, 3068, null, null, "TO:AUE", 164],
+            "ammo-is-light-ac-2-flechette": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-light-ac-2-precision": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-light-ac-2-tracer": [3062, 3068, null, null, "TO:AUE", 165],
+            "ammo-is-light-ac-5-armor-piercing": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-light-ac-5-caseless": [3062, 3079, null, null, "TO:AUE", 164],
+            "ammo-is-light-ac-5-flak": [3062, 3068, null, null, "TO:AUE", 164],
+            "ammo-is-light-ac-5-flechette": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-light-ac-5-precision": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-light-ac-5-tracer": [3062, 3068, null, null, "TO:AUE", 165],
+            "ammo-is-arrow-iv-davy-crockett-m": [2593, 2600, 2830, 3044, "IO:AE", 168],
+            "ammo-is-lrm-thunder": [2618, 2620, 2840, 3052, "TO:AUE", 185],
+            "ammo-is-srm-frag": [2375, 2377, 2790, 3054, "TM", 230],
+            "ammo-is-arrow-iv-fascam": [undefined, 2621, 2833, 3051, "TO:AUE", 169],
+            "ammo-is-long-tom-davy-crockett-m": [2480, 2500, null, null, "IO:AE", 168],
+            "ammo-is-lrm-magnetic-pulse": [3055, 3057, 3065, null, "TO:AUE", 182],
+            "ammo-is-lrm-fragmentation": [2375, 2377, 2790, 3054, "TM", 230],
+            "ammo-is-srm-anti-radiation": [3066, null, null, null, "TO:AUE", 180],
+            "ammo-is-enhanced-lrm-magnetic-pulse": [3058, null, 3065, null, "TO:AUE", 182],
+            "ammo-is-enhanced-lrm-anti-radiation": [3066, null, null, null, "TO:AUE", 180],
+            "ammo-is-enhanced-lrm-follow-the-leader": [3058, null, null, null, "TO:AUE", 180],
+            "ammo-is-enhanced-lrm-heat-seeking": [3058, 3082, null, null, "TO:AUE", 181],
+            "ammo-is-enhanced-lrm-semi-guided": [3058, 3082, null, null, "TM", 231],
+            "ammo-is-enhanced-lrm-smoke": [3058, 3082, null, null, "TO:AUE", 183],
+            "ammo-is-enhanced-lrm-swarm": [3058, 3082, null, null, "TO:AUE", 183],
+            "ammo-is-enhanced-lrm-swarm-i": [3058, 3082, null, null, "TO:AUE", 183],
+            "ammo-is-enhanced-lrm-thunder": [3058, 3082, null, null, "TO:AUE", 185],
+            "ammo-is-enhanced-lrm-thunder-active": [3058, 3082, null, null, "TO:AUE", 185],
+            "ammo-is-enhanced-lrm-thunder-augmented": [3058, 3082, null, null, "TO:AUE", 185],
+            "ammo-is-enhanced-lrm-thunder-vibrabomb": [3058, 3082, null, null, "TO:AUE", 185],
+            "ammo-is-enhanced-lrm-thunder-inferno": [3058, 3082, null, null, "TO:AUE", 185],
+            "ammo-is-enhanced-lrm-anti-tsm": [3058, 3082, null, null, "IO:AE", 98],
+            "ammo-is-enhanced-lrm-dead-fire": [3058, null, null, null, "IO:AE", 125],
+            "ammo-is-enhanced-lrm-fragmentation": [3058, 3082, null, null, "TM", 230],
+            "ammo-is-enhanced-lrm-mine-clearance": [3065, 3082, null, null, "TO:AUE", 182],
+            "ammo-is-enhanced-lrm-narc-capable": [3058, 3082, null, null, "TW", 142],
+            "ammo-is-extended-lrm-artemis-iv": [3054, 3078, null, null, "TM", 207],
+            "ammo-is-rotary-ac-2-caseless": [3060, 3079, null, null, "TO:AUE", 164],
+            "ammo-is-rotary-ac-5-caseless": [3060, 3079, null, null, "TO:AUE", 164],
+            "ammo-is-bomb-laser-guided": [undefined, 2100, 2800, 3060, "TW", 247],
+            "ammo-is-bomb-tag": [2600, 2605, 2835, 3035, "TM", 238],
+            "ammo-is-bomb-arrow-iv": [2622, 2623, 2850, 3046, "TO:AUE", 171],
+            "ammo-is-bomb-arrow-iv-homing": [2595, 2600, 2835, 3047, "TO:AUE", 171],
+            "ammo-is-bomb-thunder": [2600, 2623, 2850, 3052, "TO:AUE", 172],
+            "ammo-is-bomb-as-missile": [3071, 3075, null, null, "TO:AUE", 170],
+            "ammo-is-bomb-asew-missile": [3067, 3073, null, null, "TO:AUE", 170],
+            "ammo-is-bomb-laa-missile": [3069, 3072, null, null, "TO:AUE", 171],
+            "ammo-is-bomb-rocket-launcher": [3060, 3064, null, null, "TM", 229],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISAmmo.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isAmmo records", () => {
+        for (const item of mechISAmmo) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanAmmo records (IO:AE pp.53-56 and TO:AUE headers, gated by the launcher)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ammo-clan-arrow-iv-cluster": [undefined, 2844, null, null, "TO:AUE", 166],
+            "ammo-clan-arrow-iv-fascam": [undefined, 2844, null, null, "TO:AUE", 169],
+            "ammo-clan-arrow-iv-homing": [undefined, 2844, null, null, "TO:AUE", 166],
+            "ammo-clan-arrow-iv-illumination": [undefined, 2844, null, null, "TO:AUE", 167],
+            "ammo-clan-atm-er": [3052, 3053, null, null, "TM", 231],
+            "ammo-clan-atm-he": [3052, 3054, null, null, "TM", 231],
+            "ammo-clan-iatm-inferno": [3070, null, null, null, "IO:AE", 61],
+            "ammo-clan-iatm-mag-pulse": [3070, null, 3080, null, "IO:AE", 61],
+            "ammo-clan-long-tom-copperhead": [2640, 2645, null, null, "TO:AUE", 167],
+            "ammo-clan-long-tom-fascam": [undefined, 2621, null, null, "TO:AUE", 169],
+            "ammo-clan-lrm-artemis-iv": [undefined, 2818, null, null, "TM", 207],
+            "ammo-clan-lrm-artemis-v": [3061, 3085, null, null, "TO:AUE", 95],
+            "ammo-clan-lrm-fascam": [2618, 2620, null, null, "TO:AUE", 185],
+            "ammo-clan-lrm-mag-pulse": [3055, 3057, 3065, null, "TO:AUE", 182],
+            "ammo-clan-lrm-narc": [undefined, 2828, null, null, "TW", 142],
+            "ammo-clan-lrm-swarm": [2615, 2621, null, null, "TO:AUE", 183],
+            "ammo-clan-lrt-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "ammo-clan-mech-mortar-airburst": [2835, 2840, null, null, "TO:AUE", 185],
+            "ammo-clan-mech-mortar-apersonnel": [2835, 2840, null, null, "TO:AUE", 186],
+            "ammo-clan-mech-mortar-flare": [2835, 2840, null, null, "TO:AUE", 186],
+            "ammo-clan-mech-mortar-smoke": [2835, 2840, null, null, "TO:AUE", 187],
+            "ammo-clan-lrt-artemis-v": [3061, 3085, null, null, "TO:AUE", 95],
+            "ammo-clan-sniper-copperhead": [2640, 2645, null, null, "TO:AUE", 167],
+            "ammo-clan-srm-artemis-iv": [undefined, 2818, null, null, "TM", 207],
+            "ammo-clan-sniper-fascam": [undefined, 2621, null, null, "TO:AUE", 169],
+            "ammo-clan-srm-artemis-v": [3061, 3085, null, null, "TO:AUE", 95],
+            "ammo-clan-srm-frag": [2375, 2377, null, null, "TM", 230],
+            "ammo-clan-srm-narc": [undefined, 2828, null, null, "TW", 142],
+            "ammo-clan-srt-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "ammo-clan-srt-artemis-v": [3061, 3085, null, null, "TO:AUE", 95],
+            "ammo-clan-thumper-copperhead": [2640, 2645, null, null, "TO:AUE", 167],
+            "ammo-clan-thumper-fascam": [undefined, 2621, null, null, "TO:AUE", 169],
+            "ammo-clan-arrow-iv-fae": [undefined, 2844, null, null, "IO:AE", 159],
+            "ammo-clan-lrm-arad": [3057, null, null, null, "TO:AUE", 180],
+            "ammo-clan-heavy-flamer-coolant": [3065, 3067, null, null, "TO:AUE", 173],
+            "ammo-clan-ac-2-flak": [2290, 2310, 2850, null, "TO:AUE", 164],
+            "ammo-clan-ac-2-tracer": [2290, 2300, 2850, null, "TO:AUE", 165],
+            "ammo-clan-ac-5-flak": [2240, 2310, 2850, null, "TO:AUE", 164],
+            "ammo-clan-ac-5-tracer": [2240, 2300, 2850, null, "TO:AUE", 165],
+            "ammo-clan-ac-10-flak": [2443, 2460, 2850, null, "TO:AUE", 164],
+            "ammo-clan-ac-10-tracer": [2443, 2460, 2850, null, "TO:AUE", 165],
+            "ammo-clan-ac-20-flak": [2488, 2500, 2850, null, "TO:AUE", 164],
+            "ammo-clan-ac-20-tracer": [2488, 2500, 2850, null, "TO:AUE", 165],
+            "ammo-clan-lrm-ftl": [3053, null, null, null, "TO:AUE", 180],
+            "ammo-clan-srm-tandem-charge": [2757, 3062, null, null, "TO:AUE", 184],
+            "ammo-clan-lb-2x-cluster": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-lb-5x-cluster": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-lb-10x-cluster": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-lb-20x-cluster": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-arrow-iv-smoke": [undefined, 2844, null, null, "TO:AUE", 168],
+            "ammo-clan-lrm-fragmentation": [2375, 2377, null, null, "TM", 230],
+            "ammo-clan-srm-anti-radiation": [3057, null, null, null, "TO:AUE", 180],
+            "ammo-clan-rotary-ac-2-caseless": [undefined, 3109, null, null, "TO:AUE", 164],
+            "ammo-clan-rotary-ac-5-caseless": [undefined, 3109, null, null, "TO:AUE", 164],
+            "ammo-clan-bomb-laser-guided": [undefined, 2100, null, null, "TW", 247],
+            "ammo-clan-bomb-tag": [2600, 2605, null, null, "TM", 238],
+            "ammo-clan-bomb-arrow-iv": [2622, 2623, null, null, "TO:AUE", 171],
+            "ammo-clan-bomb-arrow-iv-homing": [2595, 2600, null, null, "TO:AUE", 171],
+            "ammo-clan-bomb-thunder": [2600, 2623, null, null, "TO:AUE", 172],
+            "ammo-clan-bomb-as-missile": [undefined, 3076, null, null, "TO:AUE", 170],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanAmmo.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanAmmo records", () => {
+        for (const item of mechClanAmmo) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the universalAmmo records (IO:AE pp.53-56 and TO:AUE headers, gated by the launcher)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ammo-long-tom-cannon-fae": [3012, 3079, null, null, "IO:AE", 159],
+            "ammo-lrm-deadfire": [3052, null, null, null, "IO:AE", 125],
+            "ammo-lrm-incendiary": [2341, 2342, null, null, "TO:AUE", 182],
+            "ammo-lrm-mine-clearance": [3065, 3069, null, null, "TO:AUE", 182],
+            "ammo-lrm-smoke": [2341, 2342, null, null, "TO:AUE", 183],
+            "ammo-lrm-swarm-i": [3052, 3057, null, null, "TO:AUE", 183],
+            "ammo-narc-explosive": [3054, 3060, null, null, "TM", 233],
+            "ammo-sniper-cannon-fae": [3012, 3079, null, null, "IO:AE", 159],
+            "ammo-srm-deadfire": [3052, null, null, null, "IO:AE", 125],
+            "ammo-srm-heatseeking": [2365, 2370, null, null, "TO:AUE", 181],
+            "ammo-srm-inferno": [2370, 2380, null, null, "TW", 141],
+            "ammo-srm-smoke": [2365, 2370, null, null, "TO:AUE", 183],
+            "ammo-srm-tear-gas": [2370, 2375, null, null, "TO:AUE", 184],
+            "ammo-srt-harpoon": [2395, 2400, null, null, "TO:AUE", 181],
+            "ammo-thumper-cannon-fae": [3012, 3079, null, null, "IO:AE", 159],
+            "ammo-vehicle-flamer-coolant": [undefined, 2100, null, null, "TO:AUE", 173],
+            "ammo-heavy-flamer-inferno": [3065, 3067, null, null, "TO:AUE", 174],
+            "ammo-heavy-flamer-water": [3065, 3067, null, null, "TO:AUE", 175],
+            "ammo-vehicle-flamer-inferno": [2390, 2400, null, null, "TO:AUE", 174],
+            "ammo-vehicle-flamer-water": [undefined, 1950, null, null, "TO:AUE", 175],
+            "ammo-lrm-anti-tsm": [3026, 3027, null, null, "IO:AE", 98],
+            "ammo-srm-anti-tsm": [3026, 3027, null, null, "IO:AE", 98],
+            "ammo-lrm-listen-kill": [3037, null, 3040, null, "IO:AE", 99],
+            "ammo-lrm-semi-guided": [3053, 3057, null, null, "TM", 231],
+            "ammo-srm-acid": [3053, null, null, null, "TO:AUE", 179],
+            "ammo-mech-mortar-guided": [3055, 3064, null, null, "TO:AUE", 186],
+            "ammo-long-tom-cluster": [2445, 2500, null, null, "TO:AUE", 166],
+            "ammo-sniper-cluster": [undefined, 1950, null, null, "TO:AUE", 166],
+            "ammo-thumper-cluster": [undefined, 1950, null, null, "TO:AUE", 166],
+            "ammo-arrow-iv-vibrabomb": [3056, 3065, null, null, "TO:AUE", 169],
+            "ammo-arrow-iv-ada": [3068, 3080, null, null, "TO:AUE", 165],
+            "ammo-arrow-iv-inferno": [3053, 3055, null, null, "TO:AUE", 168],
+            "ammo-arrow-iv-laser-inhibiting": [3053, 3083, null, null, "TO:AUE", 168],
+            "ammo-long-tom-flechette": [2445, 2500, null, null, "TO:AUE", 167],
+            "ammo-long-tom-illumination": [undefined, 2505, null, null, "TO:AUE", 167],
+            "ammo-long-tom-smoke": [2445, 2500, null, null, "TO:AUE", 168],
+            "ammo-sniper-flechette": [undefined, 2100, null, null, "TO:AUE", 167],
+            "ammo-sniper-illumination": [undefined, 2100, null, null, "TO:AUE", 167],
+            "ammo-sniper-smoke": [undefined, 1950, null, null, "TO:AUE", 168],
+            "ammo-thumper-flechette": [undefined, 2100, null, null, "TO:AUE", 167],
+            "ammo-thumper-illumination": [undefined, 2100, null, null, "TO:AUE", 167],
+            "ammo-thumper-smoke": [undefined, 1950, null, null, "TO:AUE", 168],
+            "ammo-lrm-heat-seeking": [2390, 2430, null, null, "TO:AUE", 181],
+            "ammo-lrm-thunder-active": [3054, 3058, null, null, "TO:AUE", 185],
+            "ammo-lrm-thunder-augmented": [3054, 3057, null, null, "TO:AUE", 185],
+            "ammo-lrm-thunder-vibrabomb": [3054, 3056, null, null, "TO:AUE", 185],
+            "ammo-lrm-thunder-inferno": [3054, 3056, null, null, "TO:AUE", 185],
+            "ammo-srm-listen-kill": [3037, null, 3040, null, "IO:AE", 99],
+            "ammo-srm-mine-clearance": [3065, 3069, null, null, "TO:AUE", 182],
+            "ammo-long-tom-fae": [2445, 2500, null, null, "IO:AE", 159],
+            "ammo-sniper-fae": [undefined, 1950, null, null, "IO:AE", 159],
+            "ammo-thumper-fae": [undefined, 1950, null, null, "IO:AE", 159],
+            "ammo-bomb-cluster": [undefined, 1950, null, null, "TW", 246],
+            "ammo-bomb-inferno": [undefined, 1950, null, null, "TO:AUE", 171],
+            "ammo-bomb-torpedo": [undefined, 1950, null, null, "TO:AUE", 172],
+            "ammo-bomb-fuel-air-small": [undefined, 1950, null, null, "IO:AE", 159],
+            "ammo-bomb-fuel-air-large": [undefined, 1950, null, null, "IO:AE", 159],
+            "ammo-bomb-aaa-missile": [3069, 3072, null, null, "TO:AUE", 169],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechUniversalAmmo.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the universalAmmo records", () => {
+        for (const item of mechUniversalAmmo) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});

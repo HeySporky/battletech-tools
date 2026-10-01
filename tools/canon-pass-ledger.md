@@ -657,3 +657,51 @@ An older test used the ProtoMech AC/2 as its example of equipment a 'Mech cannot
 **Not found in the catalog** (TO:AUE construction rows with no record): Vehicular Grenade Launcher, Recon Camera, BattleMech Taser, Coolant Pod, C3 Remote Sensor Launcher, Collapsible Command Module. All but the first two were already listed as missing.
 
 Regression test: `Batch 19 TO:AUE table audit`.
+
+## Batch 12c: special munitions
+
+All 228 special munition records (110 Inner Sphere, 60 Clan, 58 universal) were dated and cited from the IO:AE ammunition rows (pp.53–56). Where IO:AE has no row, the TO:AUE or IO:AE rules header is used: Thunder (FASCAM) artillery and Arrow IV (TO:AUE p.169), Follow-the-Leader (TO:AUE p.180), Davy Crockett-M (IO:AE p.168), Fuel-Air (IO:AE p.159).
+
+Rules applied:
+
+- A munition cannot be older than the launcher that fires it: each record takes the later of the munition's and the launcher's prototype and production years.
+- An extinction that IO:AE marks "*" applies to the Inner Sphere only; Clan records never go extinct. The Star League Arrow IV extinction does not apply to the Clan launcher of 2844.
+- A launcher that appears after the munition was recovered never saw the extinction (Enhanced LRM rounds).
+- Pre-Spaceflight is stored as 1950 and Early Spaceflight as 2100, as elsewhere.
+- Page = the page of the munition's rules box in TO:AUE, which is the page IO:AE gives except for Inferno fuel (174), Water (175), Incendiary LRMs (182), Thunder LRMs (185) and Anti-Personnel mortar rounds (186), where the heading is on the page before.
+
+390 fields changed in 177 records. About 100 records only had their citation moved off the original Tactical Operations ("TO 352", "TO 184"…) or Total Warfare pages; no ammunition record cites the original Tactical Operations any more. Date changes:
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Caseless AC rounds | mech-is-ammo | fixed | TO:AUE p.164 | none | 3056 was the prototype year; production 3079 |
+| Arrow IV Smoke | mech-is-ammo | fixed | TO:AUE p.168 | none | extinct 2830 → 2840 |
+| Arrow IV Inferno-IV | mech-universal-ammo | fixed | TO:AUE p.168 | none | 3083 → 3053p / 3055 |
+| Thunder (FASCAM) Arrow IV and artillery shells | mech-is-ammo | fixed | TO:AUE p.169 | none | extinct 2770 → 2833 (header: "Extinct: 2833 (Inner Sphere)", recovered 3051) |
+| Follow-the-Leader LRMs | mech-is-ammo, mech-clan-ammo | fixed | TO:AUE p.180 | none | 2750 / extinct 2770 / 3046 had no source. Header: "Prototype Design and Production: 3053 (Federated Commonwealth)"; no production. Now a 3053 prototype |
+| Tandem-Charge SRMs | mech-is-ammo, mech-clan-ammo | fixed | TO:AUE p.184 | IO v1.21 (production 3062, FS) | 2757 / extinct 2784 / 3062 → 2757p / 3062 |
+| Anti-Radiation missiles | all three | fixed | TO:AUE p.180 | none | prototype only: Inner Sphere 3066p, Clan 3057p; no production year |
+| Dead-Fire, Listen-Kill, Acid | mech-universal-ammo, mech-is-ammo | fixed | IO:AE pp.125, 99; TO:AUE p.179 | IO:AE v3.01 (Dead-Fire BV: owed) | prototype only (3052p, 3037p extinct 3040, 3053p) |
+| Laser-Guided Bomb | mech-is-ammo | fixed | TW p.247 | none | extinct 2835 → 2800, recovered 3035 → 3060 |
+| Anti-Ship Missile | both | fixed | TO:AUE p.170 | none | 3072 → ~3075 (Clan 3076) |
+| Rocket Launcher Pod | mech-is-ammo | fixed | TM p.229 | none | prototype 3055 → ~3060 |
+| iNarc pods, Explosive Narc pod | mech-is-ammo, mech-universal-ammo | fixed | TM p.233 | none | prototype ~3054 added; page as the launcher |
+| ATM ER / HE | mech-clan-ammo | fixed | TM p.231 | none | prototype ~3052 added; HE production 3053 → 3054 |
+| iATM Improved Inferno / Magnetic Pulse | mech-clan-ammo | fixed | IO:AE p.61 | none | prototype ~3070, no production; Magnetic Pulse extinct 3080 |
+| Artemis IV rounds [Clan] | mech-clan-ammo | fixed | TM p.207 | none | 2598 → 2818 ("Clan Intro: 2818") |
+| Artemis V rounds | mech-clan-ammo | fixed | TO:AUE p.95 | none | 3061 was the prototype year; production 3085 |
+| Arrow IV Cluster, Homing, Illumination, Smoke, FAE [Clan] | mech-clan-ammo | fixed | TO:AUE pp.166–168 | none | 2600 → 2844, as the Clan launcher |
+| 'Mech Mortar special rounds [Clan] | mech-clan-ammo | fixed | TO:AUE pp.185–187 | none | Star League years → ~2835p / 2840, as the Clan launcher |
+| Enhanced LRM and Extended LRM special rounds | mech-is-ammo | fixed | launcher | none | 3058 / 3054 were the launcher's prototype years; production 3082 / 3078 |
+| LRM Incendiary, LRM Smoke, Heat-Seeking, Tear Gas, Harpoon | mech-universal-ammo | fixed | TO:AUE pp.181–184 | none | 2400 → 2341p / 2342; 2370 → 2341p / 2342; 2365p / 2370 → ~2390p / 2430 (LRM); 2350 → ~2370p / 2375; 2440 → ~2395p / 2400 |
+| Coolant, Flechette and Illumination shells | mech-universal-ammo | fixed | TO:AUE pp.167, 173 | none | Early Spaceflight, stored as 2100 (were 1950); Long Tom Illumination 2505 |
+| Davy Crockett-M (Long Tom) | mech-is-ammo | fixed | IO:AE p.168 | none | introduced 2480; no extinction is printed (was 2830 / 3044, the Arrow IV launcher's) |
+| Artillery cannon Fuel-Air shells | mech-universal-ammo | fixed | IO:AE p.159 | none | page 0 → 159; prototype 3032 → 3012, as the cannons |
+
+**Flags:**
+
+- IO:AE prints "Ret: 2840; 3052" for Thunder LRMs (p.55), read as extinct 2840, recovered 3052.
+- IO:AE lists these as Inner Sphere only, but the records sit in the universal ammo catalog, so Clan designs are offered them: Air-Defense Arrow, Inferno-IV, Laser-Inhibiting Arrow, Thunder Vibrabomb-IV, Anti-TSM, Dead-Fire, Listen-Kill, Mine Clearance, Semi-Guided, Swarm-I, the four Thunder variants, Semi-Guided mortar rounds, Explosive Narc pods, Acid SRMs. The Clan catalog also holds Magnetic Pulse, Follow-the-Leader and Tandem-Charge rounds that IO:AE and TO:AUE give to the Inner Sphere. Moving them is Batch 12d; each needs its TO:AUE tech base read first.
+- Rotary AC Caseless rounds exist in both catalogs; IO:AE lists Caseless for "AC, LAC, PAC" only. Left as they are, dated to the later of the two.
+
+Regression test: `Batch 12c special munitions` pins all 228 records.
