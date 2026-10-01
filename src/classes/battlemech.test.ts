@@ -3656,3 +3656,54 @@ describe("Batch 17 Battle Value follows critical slot moves", () => {
         expect(mech.getBattleValue()).toBeLessThan(unplaced);
     });
 });
+
+describe("Batch 18 TechManual table audit", () => {
+    it("matches the TechManual tech ratings (pp.341-343), costs (pp.290-294) and the Nail/Rivet Gun rows (pp.317, 344)", () => {
+        const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
+            [mechISEquipmentBallistic, "autocannon-light-2", { techRating: "d" }],
+            [mechISEquipmentBallistic, "autocannon-light-5", { techRating: "d" }],
+            [mechISEquipmentBallistic, "rotary-ac-2", { techRating: "e" }],
+            [mechISEquipmentBallistic, "rotary-ac-5", { techRating: "e" }],
+            [mechISEquipmentEnergy, "standard-flamer", { techRating: "c" }],
+            [mechISEquipmentEnergy, "er-large-laser", { techRating: "e" }],
+            [mechISEquipmentMissiles, "mrm-10", { techRating: "c" }],
+            [mechISEquipmentMissiles, "mrm-20", { techRating: "c" }],
+            [mechISEquipmentMissiles, "mrm-30", { techRating: "c" }],
+            [mechISEquipmentMissiles, "mrm-40", { techRating: "c" }],
+            [mechISEquipmentMissiles, "rocket-launcher-10", { techRating: "b" }],
+            [mechISEquipmentMissiles, "rocket-launcher-15", { techRating: "b" }],
+            [mechISEquipmentMissiles, "rocket-launcher-20", { techRating: "b" }],
+            [mechISEquipmentMissiles, "streak-srm-2", { techRating: "e" }],
+            [mechISEquipmentMissiles, "streak-srm-4", { techRating: "e" }],
+            [mechISEquipmentMissiles, "streak-srm-6", { techRating: "e" }],
+            [mechClanEquipmentBallistic, "clan-autocannon-lbx-2", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "clan-autocannon-lbx-5", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "clan-autocannon-lbx-10", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "clan-autocannon-lbx-20", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "clan-autocannon-uac-2", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "clan-autocannon-uac-5", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "clan-autocannon-uac-10", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "clan-autocannon-uac-20", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "clan-light-machine-gun", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "ap-gauss-rifle", { cbills: 10000 }],
+            // TM p.317: Nail/Rivet Gun ammunition has no Battle Value.
+            [mechUniversalAmmo, "ammo-nail-rivet-gun-standard", { battleValue: 0, cbills: 300 }],
+            [mechClanEquipmentEnergy, "er-small-laser-clan", { techRating: "f" }],
+            [mechClanEquipmentEnergy, "small-heavy-laser", { techRating: "f" }],
+            [mechClanEquipmentEnergy, "plasma-cannon", { techRating: "f" }],
+            [mechClanEquipmentMissile, "clan-lrm-5", { techRating: "f" }],
+            [mechClanEquipmentMissile, "clan-lrm-10", { techRating: "f" }],
+            [mechClanEquipmentMissile, "clan-lrm-15", { techRating: "f" }],
+            [mechClanEquipmentMissile, "clan-lrm-20", { techRating: "f" }],
+            [mechUniversalEquipment, "nail-gun", { cbills: 7000, battleValue: 1, ammoBattleValue: 0, range: { min: 0, short: 1, medium: 0, long: 0 } }],
+            [mechUniversalEquipment, "mining-drill", { cbills: 100000 }],
+            [mechUniversalEquipment, "remote-sensor-dispenser", { cbills: 30000 }],
+            [mechUniversalEquipment, "wrecking-ball", { cbills: 80000 }],
+        ];
+        for (const [catalog, tag, fields] of expected) {
+            const item = catalog.find(entry => entry.tag === tag);
+            expect(item, tag).toBeDefined();
+            expect(item, tag).toMatchObject(fields);
+        }
+    });
+});

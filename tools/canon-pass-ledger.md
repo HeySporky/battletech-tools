@@ -610,3 +610,31 @@ Both change the Battle Value of existing designs that mount Gauss weapons outsid
 Regression tests: `Batch 17 explosive weapons in Battle Value`, `Batch 17 Battle Value follows critical slot moves`.
 
 **Still owed from the newer errata:** TechManual v8.0 (42 pages, corrections for the 2023 and 2024 printings that the local sixth printing lacks), the TechManual BV tables v4.1, Total Warfare v11.01, and TO:AR v7.0 have not been compared yet.
+
+## Batch 18: TechManual table audit (statistics, not dates)
+
+Batches 9–12 checked dates and pages for the TechManual equipment. This batch compares the game statistics with the TechManual tables in the local corrected sixth printing: Battle Value tables pp.317–318, Weapons and Equipment tables pp.341–344, cost tables pp.290–294.
+
+| check | rows matched | result |
+|---|---|---|
+| Battle Value and ammunition BV (pp.317–318) | 124 | all match, except the Nail/Rivet Gun below |
+| Heat, range, shots per ton, tonnage, 'Mech slots (pp.341–343) | 96 | all match |
+| Tech rating (pp.341–343) | 96 | 32 differ, fixed below |
+| C-bill cost (pp.290–294) | 94 | 4 differ, plus the Nail/Rivet Gun found by hand; fixed below |
+
+Rows the name matcher could not pair (ProtoMech and battle armor weapons, capital missiles, bays, industrial items priced per ton) were not checked; HAG, AP Gauss, MagShot, A-Pod, B-Pod, Flamer and Improved Narc were checked by hand and match.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Nail/Rivet Gun | mech-universal-equipment | fixed | TM pp.246, 293, 317, 344 | TM v8.0: no change to these values | cost 10,000 → 7,000; BV 5 → 1; ammo BV 1 → 0; range 3/6/9 → 1 hex only. The old values were the Vehicle Flamer's. The table prints no medium or long bracket; the record stores 0 for both |
+| Nail/Rivet Gun ammunition | mech-universal-ammo | fixed | TM p.317 | same | BV 1 → 0 |
+| Mining Drill | mech-universal-equipment | fixed | TM p.293 | same | cost 10,000 → 100,000 |
+| Remote Sensor Dispenser | mech-universal-equipment | fixed | TM p.293 | same | cost 51,000 → 30,000 |
+| Wrecking Ball | mech-universal-equipment | fixed | TM p.294 | same | cost 110,000 → 80,000 |
+| AP Gauss Rifle | mech-clan-equipment-weapons-ballistic | fixed (flag) | TM p.290 | same | cost 8,500 → 10,000. MegaMek uses 8,500; the TechManual row is explicit |
+| Tech ratings, 16 Inner Sphere records | IS ballistic, energy, missiles | fixed | TM pp.341–342 | same | Light AC/2 and /5 E → D; Rotary AC/2 and /5 (none) → E; Flamer B → C; ER Large Laser C → E; MRM 10–40 E → C; Rocket Launcher 10–20 E → B; Streak SRM 2–6 C → E |
+| Tech ratings, 16 Clan records | Clan ballistic, energy, missile | fixed | TM p.343 | same | LB-X and Ultra autocannons, LRM 5–20, ER Small Laser, Heavy Small Laser, Plasma Cannon E → F; Light Machine Gun B → F |
+
+Regression test: `Batch 18 TechManual table audit`.
+
+**Still owed:** the same statistics check for the TO:AUE tables (pp.216–226) and for the special munitions (Batch 12c); TechManual errata v8.0 entries for the 2023 and 2024 printings, which the local printing lacks, have only been searched for the items changed here.

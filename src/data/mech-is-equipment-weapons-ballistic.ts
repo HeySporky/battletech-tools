@@ -845,7 +845,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             "DB",
             "S"
         ],
-        techRating: "e",
+        techRating: "d",
         book: "TM",
         page: 208,
         alphaStrike: {
@@ -894,7 +894,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             "DB",
             "S"
         ],
-        techRating: "e",
+        techRating: "d",
         book: "TM",
         page: 208,
         alphaStrike: {
@@ -1229,7 +1229,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         explosive: false,
         gauss: false,
         weaponType: [],
-        techRating: "",
+        techRating: "e",
         unique: false,
         book: "TM",
         page: 208,
@@ -1309,7 +1309,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         explosive: false,
         gauss: false,
         weaponType: [],
-        techRating: "",
+        techRating: "e",
         unique: false,
         book: "TM",
         page: 208,

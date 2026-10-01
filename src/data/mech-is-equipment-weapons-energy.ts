@@ -260,7 +260,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         weaponType: [
             "DE"
         ],
-        techRating: "c",
+        techRating: "e",
         book: "TM",
         page: 226,
         alphaStrike: {
@@ -1606,7 +1606,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             "DE",
             "H"
         ],
-        techRating: "b",
+        techRating: "c",
         book: "TM",
         page: 218,
         alphaStrike: {
