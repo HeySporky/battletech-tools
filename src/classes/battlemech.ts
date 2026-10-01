@@ -1585,11 +1585,14 @@ export class BattleMech {
     }
 
     public getGyroWeight() {
-        // Superheavy Mechs (>100 tons) of any chassis type require a doubled-weight Superheavy Gyro.
-        const superheavyGyroMultiplier = this._tonnage > 100 ? 2 : 1;
         if( this._engine ) {
+            // Superheavy Mechs (>100 tons) of any chassis type must mount the Superheavy Gyro:
+            // engine rating / 50, rounded up to the next full ton (IO p.162).
+            if( this._tonnage > 100 ) {
+                return Math.ceil(this._engine.rating / 50);
+            }
             // Gyro weight: engine rating / 100 rounded up, times the gyro multiplier, rounded up to the half ton.
-            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * superheavyGyroMultiplier * 2) / 2;
+            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * 2) / 2;
         } else {
             return 0;
         }
@@ -3467,10 +3470,11 @@ export class BattleMech {
             );
         }
         // GYRO POSITIONING (Slots 4-6): Injected immediately below the upper engine core as is tradition and as I saw all the way back in 1989.
+        // Superheavy Mechs mount the Superheavy Gyro, which takes only 2 center torso slots (IO p.162).
         this._addCriticalItem(
-            "gyro", 
-            this._gyro.name, 
-            this._gyro.criticals, 
+            "gyro",
+            this._gyro.name,
+            this._tonnage > 100 ? 2 : this._gyro.criticals,
             "ct"
         );
         // SECOND ENGINE BLOCK (Slots 7-9): Handles the trailing split block for 6-slot engines
