@@ -10,7 +10,7 @@ import { IHeatSync } from "./data-interfaces";
 * to challenge any copyright or trademark status, and this data is explicitly 
 * excluded from the software's underlying license (GNU GPLv3).
 *
-* Dates: IO tech progression (single: Early Spaceflight). Double heat sinks:
+* Dates: IO:AE p.36 tech progression (single: Early Spaceflight; circa 2022 per TM p.220). Double heat sinks:
 * Inner Sphere prototype 2559, production 2567, lost 2865, recovered 3040;
 * Clan prototype 2825, production 2827. Laser (Clan, TO:AUE p.129): prototype 3040,
 * production 3051. Double Heat Sink Prototype (IO:AE p.65, 2559-2567) and Freezers
@@ -31,10 +31,10 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		cost: 2000,
 		freeSinks: 10,
 		book: "TM",
-		page: 221,
-		introduced: 1950,
-		extinct: 0,
-		reintroduced: 0
+		page: 220,
+		introduced: 2022,
+		extinct: null,
+		reintroduced: null
 	},
 	{
 		name: "Double",
@@ -52,7 +52,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		introduced: 2567,
 		extinct: 2865,
 		reintroduced: 3040,
-		clanDates: { prototype: 2825, introduced: 2827, extinct: 0, reintroduced: 0 }
+		clanDates: { prototype: 2825, introduced: 2827, extinct: null, reintroduced: null }
 	},
 	{
 		name: "Laser",
@@ -69,9 +69,9 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		page: 129,
 		notes: "Clan laser heat sinks: double heat sinks that do not boil water and reduce the heat of their own vent.",
 		introduced: 3051,
-		extinct: 0,
-		reintroduced: 0,
-		clanDates: { prototype: 3040, introduced: 3051, extinct: 0, reintroduced: 0 }
+		extinct: null,
+		reintroduced: null,
+		clanDates: { prototype: 3040, introduced: 3051, extinct: null, reintroduced: null }
 	},
 	{
 		name: "Double (Prototype)",
@@ -84,13 +84,13 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		cost: 18000,
 		freeSinks: 0,
 		techBase: "is",
-		book: "IO_AE",
+		book: "IO:AE",
 		page: 65,
 		notes: "Star League prototype double heat sinks: Experimental rules only.",
 		prototype: 2559,
 		introduced: null,
 		extinct: 2567,
-		reintroduced: 0
+		reintroduced: null
 	},
 	{
 		name: "Double (Freezers)",
@@ -103,13 +103,13 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		cost: 30000,
 		freeSinks: 0,
 		techBase: "is",
-		book: "IO_AE",
+		book: "IO:AE",
 		page: 96,
 		notes: "Succession Wars 'Freezer' prototype double heat sinks: Experimental rules only.",
 		prototype: 3022,
 		introduced: null,
 		extinct: 3040,
-		reintroduced: 0
+		reintroduced: null
 	},
 	{
 		name: "Compact",
@@ -130,7 +130,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		notes: "Single-strength sinks at 1.5 tons each, two per critical slot; an engine holds twice its normal number.",
 		prototype: 3058,
 		introduced: 3079,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null
 	}
 ];

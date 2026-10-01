@@ -8,6 +8,7 @@ import { mechArmorTypes } from "../data/mech-armor-types";
 import { getWeaponAmmoFamilies } from "../data/equipment-registry";
 import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechEngineTypes } from "../data/mech-engine-types";
+import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
 import { mechClanEquipmentMisc } from "../data/mech-clan-equipment-weapons-misc";
 import { mechUniversalEquipment } from "../data/mech-universal-equipment";
@@ -2175,5 +2176,38 @@ describe("Batch 6b vehicle and ProtoMech armor", () => {
         expect(edp?.armorMultiplier).toEqual({ clan: 1000 / 75, is: 0 });
         expect([edp?.prototype, edp?.introduced, edp?.extinct, edp?.reintroduced]).toEqual([3071, null, 3085, null]);
         expect([edp?.book, edp?.page]).toEqual(["IO:AE", 58]);
+    });
+});
+
+describe("Batch 7 heat sink catalog", () => {
+    const sink = (tag: string) => mechHeatSinkTypes.find(item => item.tag === tag);
+
+    it("dates heat sinks from TM p.220 and the IO:AE p.36 advancement table", () => {
+        // TM p.220: "Introduced: Circa 2022 (Western Alliance, Terra)"; IO:AE lists them as Early Spaceflight.
+        expect(sink("single")?.introduced).toBe(2022);
+        expect([sink("double")?.prototype, sink("double")?.introduced, sink("double")?.extinct, sink("double")?.reintroduced]).toEqual([2559, 2567, 2865, 3040]);
+        expect(sink("double")?.clanDates).toEqual({ prototype: 2825, introduced: 2827, extinct: null, reintroduced: null });
+        expect(sink("laser")?.clanDates).toEqual({ prototype: 3040, introduced: 3051, extinct: null, reintroduced: null });
+        expect([sink("compact")?.prototype, sink("compact")?.introduced]).toEqual([3058, 3079]);
+    });
+
+    it("cites a book and page for every heat sink", () => {
+        const pages: Record<string, [string, number]> = {
+            single: ["TM", 220], double: ["TM", 221], laser: ["TO:AUE", 129], compact: ["TO:AUE", 128],
+            "double-prototype": ["IO:AE", 65], "double-freezers": ["IO:AE", 96],
+        };
+        for (const item of mechHeatSinkTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+    });
+
+    it("uses null, not 0, for heat sinks that never went extinct", () => {
+        for (const item of mechHeatSinkTypes) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
+            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
+        }
     });
 });
