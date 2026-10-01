@@ -1115,7 +1115,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "MEL"
             ]
         },
-        heatAero: 0
+        heatAero: 0,
+        accuracyModifier: -1
     },
     {
         name: "Sword",
@@ -1169,7 +1170,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
                 "MEL"
             ]
         },
-        heatAero: 0
+        heatAero: 0,
+        accuracyModifier: -2
     },
     {
         uuid: "",

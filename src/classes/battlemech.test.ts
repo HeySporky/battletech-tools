@@ -4905,3 +4905,35 @@ describe("Batch 31 Vehicular Grenade Launcher and Recon Camera (TO:AUE pp.127, 1
         expect(mech.getBattleValue()).toBeGreaterThan(before);
     });
 });
+
+describe("Batch 32 physical weapon to-hit modifiers (TW p.146, TO:AUE p.216)", () => {
+    it("stores each physical weapon's to-hit modifier and the Pile Driver's damage of 9", () => {
+        const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
+            [mechISEquipmentBallistic, "melee-hatchet", { accuracyModifier: -1 }],
+            [mechISEquipmentBallistic, "melee-sword", { accuracyModifier: -2 }],
+            [mechISEquipmentMisc, "melee-retractable-blade", { accuracyModifier: -2 }],
+            [mechISEquipmentMisc, "melee-mace", { accuracyModifier: 1 }],
+            [mechISEquipmentMisc, "melee-claw", { accuracyModifier: 1 }],
+            [mechISEquipmentMisc, "melee-lance", { accuracyModifier: 1 }],
+            [mechISEquipmentMisc, "melee-vibroblade-small", { accuracyModifier: -2 }],
+            [mechISEquipmentMisc, "melee-vibroblade-medium", { accuracyModifier: -2 }],
+            [mechISEquipmentMisc, "melee-vibroblade-large", { accuracyModifier: -2 }],
+            [mechISEquipmentMisc, "melee-chain-whip", { accuracyModifier: -2 }],
+            [mechISEquipmentMisc, "shield-small", { accuracyModifier: -2 }],
+            [mechISEquipmentMisc, "shield-medium", { accuracyModifier: -3 }],
+            [mechISEquipmentMisc, "shield-large", { accuracyModifier: -4 }],
+            [mechClanEquipmentMisc, "clan-melee-claw", { accuracyModifier: 1 }],
+            [mechUniversalEquipment, "backhoe", { accuracyModifier: 1 }],
+            [mechUniversalEquipment, "combine", { accuracyModifier: -2 }],
+            [mechUniversalEquipment, "pile-driver", { accuracyModifier: 2, damage: 9 }],
+            [mechUniversalEquipment, "mining-drill", { accuracyModifier: -1 }],
+            [mechUniversalEquipment, "rock-cutter", { accuracyModifier: 1 }],
+            [mechUniversalEquipment, "wrecking-ball", { accuracyModifier: 1 }],
+        ];
+        for (const [catalog, tag, fields] of expected) {
+            const item = catalog.find(entry => entry.tag === tag);
+            expect(item, tag).toBeDefined();
+            expect(item, tag).toMatchObject(fields);
+        }
+    });
+});
