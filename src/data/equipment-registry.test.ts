@@ -542,7 +542,8 @@ describe("equipment catalog provenance", () => {
             expect(clanItem("hyper-assault-gauss-20").alphaStrike.rangeShort).toBe(1.328);
             // TO:AUE HAG 20/30/40 weigh 10/13/16 tons (the workbook listed 20).
             expect(clanItem("hyper-assault-gauss-40").weight).toBe(16);
-            expect(clanItem("protomech-autocannon-8").space.protomech).toBe(2);
+            // TO:AUE p.217 prints 1* for all three ProtoMech ACs (Main Gun mount, p.98).
+            expect(clanItem("protomech-autocannon-8").space.protomech).toBe(1);
             // Clan Rotary AC/2 8 t; Rotary AC/5 10 t, 8 slots.
             expect(clanItem("clan-autocannon-rac-2").weight).toBe(8);
             expect(clanItem("clan-autocannon-rac-5").space.battlemech).toBe(8);

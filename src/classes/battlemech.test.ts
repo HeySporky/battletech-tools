@@ -3746,7 +3746,7 @@ describe("Batch 19 TO:AUE table audit", () => {
             [mechISEquipmentMissiles, "thunderbolt-20-ios", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
             [mechClanEquipmentBallistic, "protomech-autocannon-2", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [mechClanEquipmentBallistic, "protomech-autocannon-4", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentBallistic, "protomech-autocannon-8", { space: { battlemech: 4, protomech: 2, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentBallistic, "protomech-autocannon-8", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [mechClanEquipmentBallistic, "clan-autocannon-rac-2", { techRating: "f" }],
             [mechClanEquipmentBallistic, "clan-autocannon-rac-5", { techRating: "f" }],
             [mechClanEquipmentMissile, "streak-lrm-5", { techRating: "f" }],

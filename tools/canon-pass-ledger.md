@@ -966,3 +966,11 @@ Every physical weapon stored a to-hit modifier of 0 (the Hatchet and Sword store
 Not modeled: the play-tracking to-hit calculation adds this modifier to a Gunnery-based roll. Physical attacks use the Piloting Skill (TW p.144), so the figure shown for a physical weapon in play is still not the canon target number.
 
 Regression tests: `Batch 32 physical weapon to-hit modifiers`.
+
+## Batch 33: ProtoMech AC/8 ProtoMech slots
+
+Decision 2026-10-01: "Set to book on pm acs."
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| ProtoMech AC/8, ProtoMech column | mech-clan-equipment-weapons-ballistic | **fixed** | TO:AUE p.217 | v7.0: none | 2 -> 1. The table prints "1*" for the ProtoMech AC/2, AC/4 and AC/8; the asterisk is the Main Gun rule (p.98). This replaces the Block 12 workbook value of 2, and the two tests that pinned it now pin 1 |
