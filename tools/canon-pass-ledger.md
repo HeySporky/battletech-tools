@@ -974,3 +974,19 @@ Decision 2026-10-01: "Set to book on pm acs."
 | item | catalog | status | book p. | errata | notes |
 |---|---|---|---|---|---|
 | ProtoMech AC/8, ProtoMech column | mech-clan-equipment-weapons-ballistic | **fixed** | TO:AUE p.217 | v7.0: none | 2 -> 1. The table prints "1*" for the ProtoMech AC/2, AC/4 and AC/8; the asterisk is the Main Gun rule (p.98). This replaces the Block 12 workbook value of 2, and the two tests that pinned it now pin 1 |
+
+## Batch 34: remaining missing records; TO:AR and SO:AAR errata
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Primitive Prototype Long Tom | mech-is-equipment-weapons-artillery | **added** | IO:AE p.112 (rules, dates); p.189 (BV) | v3.01: none | prototype 2445 until Long Tom production in 2500. "Weight, cost, and critical space ... identical to their standard versions": 30 tons, 450,000 C-bills, the Long Tom's slots. Three-quarters of the ammunition per ton, rounded up: 4 shots. BV 368, ammunition 35. Jams on a 2. Superheavy 'Mechs only, like the Long Tom |
+| Primitive Prototype LRT 5 / 10 / 15 / 20, SRT 2 / 4 / 6 | mech-is-equipment-weapons-missiles | **added** | IO:AE p.112 | none | prototype 2370 until 2380 (Prototype Dates for Basic Weapons Table, "Torpedo Launchers (LRT/SRT)"). Fed by torpedo ammunition |
+| ER PPC w/ Capacitor (Clan) | mech-custom-… → mech-clan-equipment-weapons-energy | **moved to canon** | IO:AE p.40 ("Clan Intro: 3101"), p.190 ("ER PPC + Capacitor (Clan) 548"), p.197 | none | see below |
+
+**Derived, flagged:** IO:AE prints no table rows for the primitive prototype torpedo launchers. The rules name them only as the missile launchers' "torpedo equivalents", so each record carries its missile launcher's weight, cost, slots, heat, range, shots and Battle Value. That equivalence is how TM treats the standard LRT and SRT, but the BV figures are not printed for the torpedo forms.
+
+**Clan ER PPC with Capacitor: a classification reversed.** On 2026-09-28 this was classed as non-canon ("IO does not allow a PPC Capacitor on Clan PPCs") and kept as a Custom record with the Clan ER PPC's BV. TO:AUE p.149 does say the capacitor fits "any Inner Sphere standard-scale PPC". IO:AE, the newer book, adds the Clan form in three places: the advancement table (p.40, "Clan Intro: 3101"), the Battle Value table (p.190, 548) and the conversion notes (p.197, "a PPC capacitor compatible with Clan-made ER PPCs occurred in the decades following the Jihad"). Under "newest publication wins" and "custom until a source is found" the record is now canon: Clan catalog, same tag, introduced 3101, BV 548 (was 412), 7 tons, 3 slots, 450,000 C-bills, explosive. Only the ER PPC: IO:AE names no other Clan PPC. Say so if you would rather keep it custom.
+
+**Errata.** TO:AR v7.0: the only catalog entries are Flail +0 and Mace +1 (p.211), already stored (Batch 32). ProtoMech ACs may use rapid-fire mode (p.98) — a play rule. SO:AAR v5.0: all large-craft construction and play; nothing in the 'Mech catalogs. That completes the errata comparison for the 'Mech catalogs.
+
+Regression tests: `Batch 34 Primitive Prototype Long Tom and torpedo launchers`, `Batch 34 Clan ER PPC with PPC Capacitor`.

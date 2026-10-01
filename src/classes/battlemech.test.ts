@@ -4937,3 +4937,70 @@ describe("Batch 32 physical weapon to-hit modifiers (TW p.146, TO:AUE p.216)", (
         }
     });
 });
+
+describe("Batch 34 Primitive Prototype Long Tom and torpedo launchers (IO:AE p.112)", () => {
+    it("gives each primitive prototype torpedo launcher its missile launcher's statistics and the torpedo dates", () => {
+        // torpedo tag: [missile tag, torpedo ammunition]
+        const pairs: Record<string, [string, string]> = {
+            "primitive-prototype-lrt-5": ["primitive-prototype-lrm-5", "ammo-lrt-standard"],
+            "primitive-prototype-lrt-10": ["primitive-prototype-lrm-10", "ammo-lrt-standard"],
+            "primitive-prototype-lrt-15": ["primitive-prototype-lrm-15", "ammo-lrt-standard"],
+            "primitive-prototype-lrt-20": ["primitive-prototype-lrm-20", "ammo-lrt-standard"],
+            "primitive-prototype-srt-2": ["primitive-prototype-srm-2", "ammo-srt-standard"],
+            "primitive-prototype-srt-4": ["primitive-prototype-srm-4", "ammo-srt-standard"],
+            "primitive-prototype-srt-6": ["primitive-prototype-srm-6", "ammo-srt-standard"],
+        };
+        for (const [tag, [missileTag, ammo]] of Object.entries(pairs)) {
+            const torpedo = mechISEquipmentMissiles.find(item => item.tag === tag);
+            const missile = mechISEquipmentMissiles.find(item => item.tag === missileTag)!;
+            expect(torpedo, tag).toMatchObject({
+                prototype: 2370, introduced: null, extinct: 2380, reintroduced: null, techRating: "c", book: "IO:AE", page: 112, ammoTypes: [ammo],
+                weight: missile.weight, cbills: missile.cbills, heat: missile.heat, range: missile.range, space: missile.space,
+                shotsPerTon: missile.shotsPerTon, battleValue: missile.battleValue, ammoBattleValue: missile.ammoBattleValue,
+                damageClusters: missile.damageClusters, damagePerCluster: missile.damagePerCluster,
+            });
+            expect(torpedo?.name, tag).toBe(missile.name.replace("LRM", "LRT").replace("SRM", "SRT"));
+        }
+    });
+
+    it("lists the Primitive Prototype Long Tom: the Long Tom with four shots a ton and the BV of p.189", () => {
+        const longTom = mechUniversalEquipment.find(item => item.tag === "long-tom-artillery")!;
+        expect(mechISEquipmentArtillery.find(item => item.tag === "primitive-prototype-long-tom")).toMatchObject({
+            name: "Primitive Prototype Long Tom", prototype: 2445, introduced: null, extinct: 2500, reintroduced: null,
+            battleValue: 368, ammoBattleValue: 35, shotsPerTon: 4, techRating: "c", book: "IO:AE", page: 112,
+            weight: longTom.weight, cbills: longTom.cbills, heat: longTom.heat, range: longTom.range, space: longTom.space,
+            ammoTypes: ["ammo-long-tom-standard"],
+        });
+    });
+
+    it("keeps the Primitive Prototype Long Tom off 'Mechs of 100 tons or less, like the Long Tom", () => {
+        expect(BattleMech.SUPERHEAVY_ONLY_TAGS).toEqual(["long-tom-artillery", "primitive-prototype-long-tom"]);
+    });
+});
+
+describe("Batch 34 Clan ER PPC with PPC Capacitor (IO:AE pp.40, 190, 197)", () => {
+    it("adds a ton, a slot and 150,000 C-bills to the Clan ER PPC, from 3101", () => {
+        const erPPC = mechClanEquipmentEnergy.find(item => item.tag === "er-ppc-clan")!;
+        expect(mechClanEquipmentEnergy.find(item => item.tag === "clan-er-ppc-capacitor")).toMatchObject({
+            name: "ER PPC w/ Capacitor (Clan)", weight: erPPC.weight + 1, cbills: erPPC.cbills + 150000,
+            space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+            heat: erPPC.heat, range: erPPC.range, damage: erPPC.damage, explosive: true,
+            introduced: 3101, extinct: null, reintroduced: null, techRating: "f", book: "TO:AUE", page: 149,
+            // "ER PPC + Capacitor (Clan) 548" (IO:AE p.190)
+            battleValue: 548,
+        });
+        // It was a Custom record while no source was known; the tag is unchanged, so saved designs load.
+        expect(mechCustomEquipmentEnergy.some(item => item.tag === "clan-er-ppc-capacitor")).toBe(false);
+    });
+
+    it("is offered to Clan designs only once the Clans have the capacitor", () => {
+        const offered = (era: string) => {
+            const mech = new BattleMech();
+            mech.setTech("clan");
+            mech.setEra(era);
+            mech.setTonnage(75);
+            return !!mech.getAvailableEquipment(false, 4).find(item => item.tag === "clan-er-ppc-capacitor")?.available;
+        };
+        expect([offered("jihad"), offered("dark-ages")]).toEqual([false, true]);
+    });
+});
