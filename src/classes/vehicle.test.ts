@@ -553,3 +553,30 @@ describe("Vehicle equipment saved before the Batch 15 tech-base splits", () => {
         expect(is.getEquipmentList().map(item => [item.tag, item.weight])).toEqual([["mech-mortar-8", 10]]);
     });
 });
+
+describe("Vehicle large engines (TO:AUE pp.119-120, 219)", () => {
+    const tank = (engine: string, cruise: number): Vehicle => {
+        const vehicle = new Vehicle();
+        vehicle.setMotiveType("tracked");
+        vehicle.setTonnage(50);
+        vehicle.setEngineType(engine);
+        vehicle.setCruiseMP(cruise);
+        return vehicle;
+    };
+
+    it("prices a large engine at twice its base type's multiplier", () => {
+        const large = tank("standard", 10); // rating 500
+        expect(large.getEngineRating()).toBe(500);
+        expect(large.getCBillCostLog()).toContain("Large Fusion (10000 x rating 500 x 50 t / 75)");
+        const standard = tank("standard", 8); // rating 400
+        expect(standard.getCBillCostLog()).toContain("Standard Fusion (5000 x rating 400 x 50 t / 75)");
+    });
+
+    it("stops engine types with no large form at rating 400, even at the Experimental level", () => {
+        expect(tank("standard", 4).getMaxCruiseMP(4)).toBe(10);
+        expect(tank("xl", 4).getMaxCruiseMP(4)).toBe(10);
+        for (const engine of ["cell", "fission", "compact"]) {
+            expect(tank(engine, 4).getMaxCruiseMP(4), engine).toBe(8);
+        }
+    });
+});

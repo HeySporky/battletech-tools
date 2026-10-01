@@ -7,7 +7,8 @@ import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { getWeaponAmmoFamilies } from "../data/equipment-registry";
 import { mechMyomerTypes } from "../data/mech-myomer-types";
-import { mechEngineTypes } from "../data/mech-engine-types";
+import { getLargeEngineType, mechEngineTypes, mechLargeEngineTypes } from "../data/mech-engine-types";
+import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechCockpitTypes } from "../data/mech-cockpit-types";
 import { mechCustomEquipmentEnergy } from "../data/mech-custom-equipment-weapons-energy";
@@ -2015,7 +2016,7 @@ describe("Batch 4 engine catalog", () => {
     it("cites a book and page for every engine", () => {
         const pages: Record<string, [string, number]> = {
             standard: ["TM", 214], xl: ["TM", 214], clan_xl: ["TM", 214], light: ["TM", 214], compact: ["TM", 214],
-            xxl: ["TO:AUE", 120], clan_xxl: ["TO:AUE", 120],
+            xxl: ["TO:AUE", 121], clan_xxl: ["TO:AUE", 121],
             ice: ["TM", 215], cell: ["TM", 215], fission: ["TM", 215],
             primitive: ["IO:AE", 117],
         };
@@ -3410,7 +3411,7 @@ describe("Batch 15 tech-base splits", () => {
         const load = (tech: string, tag: string) => {
             const mech = new BattleMech();
             mech.setTech(tech);
-            mech.setEra("dark-age");
+            mech.setEra("dark-ages");
             mech.setTonnage(100);
             return mech.addEquipmentFromTag(tag, tech, "", false, undefined, "", false, [], undefined, undefined);
         };
@@ -3432,7 +3433,7 @@ describe("Batch 15 tech-base splits", () => {
     it("lets a Clan 'Mech mount only one Modular Armor pack per location, as an Inner Sphere one", () => {
         const mech = new BattleMech();
         mech.setTech("clan");
-        mech.setEra("dark-age");
+        mech.setEra("dark-ages");
         mech.setTonnage(50);
         const first = mech.addEquipmentFromTag("clan-modular-armor", "clan", "", false, undefined, "", false, [], undefined, undefined)!;
         const second = mech.addEquipmentFromTag("clan-modular-armor", "clan", "", false, undefined, "", false, [], undefined, undefined)!;
@@ -3451,7 +3452,7 @@ describe("Batch 15 saved designs keep custom-catalog equipment", () => {
     it("restores Custom Homebrew equipment when a saved design is loaded", () => {
         const mech = new BattleMech();
         mech.setTech("clan");
-        mech.setEra("dark-age");
+        mech.setEra("dark-ages");
         mech.setTonnage(75);
         // Both records moved from the Clan catalogs to custom in Batch 13.
         expect(add(mech, "enhanced_er_large_laser")?.tag).toBe("enhanced_er_large_laser");
@@ -3464,9 +3465,129 @@ describe("Batch 15 saved designs keep custom-catalog equipment", () => {
     it("still keeps custom equipment out of the lists a canon design chooses from", () => {
         const mech = new BattleMech();
         mech.setTech("clan");
-        mech.setEra("dark-age");
+        mech.setEra("dark-ages");
         mech.setTonnage(75);
         expect(mech.addEquipmentFromTag("enhanced_er_large_laser", "clan", "", false, undefined, "", false, [], undefined, undefined)).toBeNull();
         expect(mech.getAvailableEquipment(false, 4).some(item => item.catalog === "custom")).toBe(false);
+    });
+});
+
+describe("Batch 16 large engines", () => {
+    const build = (tonnage: number, walk: number, engine: string, tech = "is", era = "late-rep") => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra(era);
+        mech.setTonnage(tonnage);
+        mech.setWalkSpeed(walk);
+        mech.setEngineType(engine);
+        return mech;
+    };
+    const offered = (mech: BattleMech, tag: string, rulesLevel: number) => {
+        const engine = mech.getAvailableEngines(rulesLevel).find(item => item.tag === tag);
+        return engine ? [!!engine.available, !!engine.availableAsPrototype] : null;
+    };
+
+    it("lists the seven large engine types with their own dates (IO:AE p.38; TO:AUE pp.119-120, 219)", () => {
+        // tag: [base type, prototype, production, extinct, recovered, cost multiplier, criticals]
+        const expected: Record<string, [string, number, number, number | null, number | null, number, object]> = {
+            "large-ice": ["ice", 2630, 3085, null, null, 2500, { is: { ct: 8 }, clan: { ct: 8 } }],
+            "large-standard": ["standard", 2630, 3085, null, null, 10000, { is: { ct: 8 }, clan: { ct: 8 } }],
+            "large-light": ["light", 3064, 3065, null, null, 30000, { is: { ct: 8, lt: 2, rt: 2 } }],
+            "large-xl": ["xl", 2635, 3085, 2822, 3054, 40000, { is: { ct: 8, lt: 3, rt: 3 } }],
+            "large-clan_xl": ["clan_xl", 2850, 3080, null, null, 40000, { clan: { ct: 8, lt: 2, rt: 2 } }],
+            "large-xxl": ["xxl", 3058, 3130, null, null, 200000, { is: { ct: 8, lt: 6, rt: 6 } }],
+            "large-clan_xxl": ["clan_xxl", 3055, 3125, null, null, 200000, { clan: { ct: 8, lt: 4, rt: 4 } }],
+        };
+        expect(mechLargeEngineTypes.map(engine => engine.tag).sort()).toEqual(Object.keys(expected).sort());
+        for (const [tag, [largeOf, prototype, introduced, extinct, reintroduced, costMultiplier, criticals]] of Object.entries(expected)) {
+            const engine = mechLargeEngineTypes.find(item => item.tag === tag);
+            expect(engine, tag).toMatchObject({ largeOf, prototype, introduced, extinct, reintroduced, costMultiplier, criticals, book: "TO:AUE", page: 119 });
+            // A large engine costs twice its base type and adds two center torso slots.
+            const base = mechEngineTypes.find(item => item.tag === largeOf)!;
+            expect(costMultiplier, tag).toBe(base.costMultiplier * 2);
+            expect(getLargeEngineType(largeOf)?.tag).toBe(tag);
+        }
+        // No large Compact, Fuel Cell, Fission (TO:AUE p.120) or Primitive engines.
+        for (const tag of ["compact", "cell", "fission", "primitive"]) {
+            expect(getLargeEngineType(tag), tag).toBeUndefined();
+        }
+    });
+
+    it("cites the XXL engine rules box (TO:AUE p.121)", () => {
+        expect(mechEngineTypes.filter(engine => engine.tag.endsWith("xxl")).map(engine => [engine.book, engine.page]))
+            .toEqual([["TO:AUE", 121], ["TO:AUE", 121]]);
+    });
+
+    it("weighs ratings above 400 from the Large Engine Weight Table and offers no other columns (TO:AUE p.120)", () => {
+        // rating: [ICE, standard, light, XL, XXL]
+        const table: Record<number, number[]> = {
+            405: [113, 56.5, 42.5, 28.5, 19], 420: [145, 72.5, 54.5, 36.5, 24.5], 450: [267, 133.5, 100.5, 67, 44.5],
+            475: [486, 243, 182.5, 121.5, 81], 500: [925, 462.5, 347, 231.5, 154.5],
+        };
+        for (const [rating, [ice, standard, light, xl, xxl]] of Object.entries(table)) {
+            const option = mechEngineOptions.find(item => item.rating === +rating)!;
+            expect(option.weight, rating).toEqual({ standard, xl, clan_xl: xl, light, xxl, clan_xxl: xxl, ice });
+        }
+        for (const option of mechEngineOptions.filter(item => item.rating > 400)) {
+            expect(Object.keys(option.weight).sort(), option.name).toEqual(["clan_xl", "clan_xxl", "ice", "light", "standard", "xl", "xxl"]);
+        }
+    });
+
+    it("gives Primitive engines no weight once the adjusted rating passes 400 (IO:AE p.117: TM Master Engine Table)", () => {
+        // 330 x 1.2 = 396, rounded up to 400: the last primitive engine. 335 x 1.2 = 402.
+        expect(mechEngineOptions.find(item => item.rating === 330)?.weight.primitive).toBe(52.5);
+        expect(mechEngineOptions.filter(item => item.rating >= 335 && item.weight.primitive !== undefined)).toEqual([]);
+    });
+
+    it("offers a large engine by its own dates, not its base type's", () => {
+        // Rating 500 in the Late Republic (3101-3130): all five are in production (Large XXL from 3130).
+        const lateRepublic = build(100, 5, "standard");
+        for (const tag of ["standard", "ice", "light", "xl", "xxl"]) {
+            expect(offered(lateRepublic, tag, 4), tag).toEqual([true, false]);
+        }
+        for (const tag of ["compact", "cell", "fission", "primitive"]) {
+            expect(offered(lateRepublic, tag, 4)?.[0], tag).toBe(false);
+        }
+
+        // Civil War (3062-3067): Large Fusion is still a prototype (production ~3085); Large Light is in production (3065).
+        const civilWar = build(100, 5, "standard", "is", "civil-war");
+        expect(offered(civilWar, "standard", 4)).toEqual([true, true]);
+        expect(offered(civilWar, "standard", 2)).toEqual([false, false]);
+        expect(offered(civilWar, "light", 2)).toEqual([true, false]);
+        expect(offered(civilWar, "xl", 4)).toEqual([true, true]);
+        expect(offered(civilWar, "xxl", 4)).toEqual([true, true]);
+
+        // The same types at rating 400 keep their own, earlier dates.
+        const standardSize = build(100, 4, "standard", "is", "civil-war");
+        expect(offered(standardSize, "standard", 2)).toEqual([true, false]);
+        expect(offered(standardSize, "xl", 2)).toEqual([true, false]);
+    });
+
+    it("loses the Inner Sphere Large XL prototype in 2822 and gets it back in 3054 (IO:AE p.38)", () => {
+        expect(offered(build(100, 5, "xl", "is", "star-league"), "xl", 4)).toEqual([true, true]);
+        expect(offered(build(100, 5, "xl", "is", "late-sw-lt"), "xl", 4)).toEqual([false, false]);
+        expect(offered(build(100, 5, "xl", "is", "clan-inv"), "xl", 4)).toEqual([true, true]);
+        expect(offered(build(100, 5, "xl", "is", "clan-inv"), "xl", 2)).toEqual([false, false]);
+        expect(offered(build(100, 5, "xl", "is", "early-rep"), "xl", 2)).toEqual([true, false]);
+    });
+
+    it("dates the Clan Large XL from ~2850 (prototype) and ~3080 (IO:AE p.38)", () => {
+        expect(offered(build(100, 5, "clan_xl", "clan", "the-founding"), "clan_xl", 4)).toEqual([false, false]);
+        expect(offered(build(100, 5, "clan_xl", "clan", "golden-century"), "clan_xl", 4)).toEqual([true, true]);
+        expect(offered(build(100, 5, "clan_xl", "clan", "jihad"), "clan_xl", 2)).toEqual([true, false]);
+    });
+
+    it("names, prices and sizes a large engine from its record", () => {
+        const mech = build(100, 5, "xl");
+        expect(mech.getLargeEngineType()?.tag).toBe("large-xl");
+        expect(build(100, 4, "xl").getLargeEngineType()).toBeNull();
+        expect(mech.getEngineName()).toBe("Large XL Fusion");
+        expect(build(100, 4, "xl").getEngineName()).toBe("XL Fusion");
+        const html = mech.getCBillCalcHTML();
+        expect(html).toContain("Engine: Large XL Fusion");
+        expect(html).toContain("40,000 [Multiplier] x Engine Rating [500]");
+        const slots = (location: "centerTorso" | "leftTorso" | "rightTorso") =>
+            mech.getCriticals()[location].filter(item => item?.tag === "engine").reduce((total, item) => total + (item?.crits ?? 1), 0);
+        expect([slots("centerTorso"), slots("leftTorso"), slots("rightTorso")]).toEqual([8, 3, 3]);
     });
 });
