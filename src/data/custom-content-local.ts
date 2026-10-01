@@ -10,13 +10,24 @@ import { resetImportedEquipmentIndex } from "../utils/importedEquipment";
 const LOCAL_CUSTOM_CONTENT_STORAGE_KEY = "localCustomContent";
 const DATE_FIELDS = new Set(["introduced", "extinct", "reintroduced", "prototype"]);
 
+const DRAFT_KINDS = new Set<string>(["equipment", "ammunition", ...CUSTOM_COMPONENT_KINDS]);
+
+// Storage is user-editable: one malformed entry must not break startup or every later lookup, so drop it.
+const isWellFormedDraft = (value: unknown): value is ICustomContentDraft => {
+    const draft = value as ICustomContentDraft | null;
+    return !!draft && typeof draft === "object" && typeof draft.id === "string" && DRAFT_KINDS.has(draft.kind)
+        && !!draft.record && typeof draft.record === "object"
+        && typeof draft.record.name === "string" && typeof draft.record.tag === "string"
+        && Array.isArray(draft.sourceFiles);
+};
+
 export function getLocalCustomContentDrafts(): ICustomContentDraft[] {
     try {
         if (typeof localStorage === "undefined") {
             return [];
         }
-        const parsed = JSON.parse(localStorage.getItem(LOCAL_CUSTOM_CONTENT_STORAGE_KEY) ?? "[]");
-        return Array.isArray(parsed) ? parsed : [];
+        const parsed: unknown = JSON.parse(localStorage.getItem(LOCAL_CUSTOM_CONTENT_STORAGE_KEY) ?? "[]");
+        return Array.isArray(parsed) ? parsed.filter(isWellFormedDraft) : [];
     } catch {
         return [];
     }

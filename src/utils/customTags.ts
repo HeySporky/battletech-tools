@@ -33,3 +33,8 @@ export function buildCustomTag(args: { submitter: string; faction: CustomFaction
 export function finalizeTag(provisionalTag: string, submitter: string): string {
     return provisionalTag.replace(/^(ammo-)?local-/, `$1${submitter}-`);
 }
+
+/** The faction a custom tag names ("is" or "clan"), or null for a universal or legacy tag. */
+export function customTagFaction(tag: string): "is" | "clan" | null {
+    return (/^(?:ammo-)?[a-z0-9_]+-(is|clan)-/.exec(tag)?.[1] as "is" | "clan" | undefined) ?? null;
+}

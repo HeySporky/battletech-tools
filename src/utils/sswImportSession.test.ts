@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { registerLocalCustomContent } from "../data/custom-content-local";
 import type { ICustomContentDraft } from "../data/custom-content-types";
@@ -10,6 +10,8 @@ let saved: ICustomContentDraft[] = [];
 const options = () => ({ existingDrafts: [] as ICustomContentDraft[], save: (drafts: ICustomContentDraft[]) => { saved = drafts; registerLocalCustomContent(drafts); return true; } });
 
 describe("SSW import session", () => {
+    beforeEach(() => registerLocalCustomContent([]));
+
     it("a clean file is clean and has our BV and SSW's", async () => {
         const { results } = await runSSWImportSession([{ fileName: "griffin.ssw", xml: griffin }], options());
         expect(results[0]).toMatchObject({ status: "clean", designName: "Griffin GRF-1N" });
@@ -51,5 +53,32 @@ describe("SSW import session", () => {
         expect(drafts[0].sourceXml?.["a.ssw"]).toBe(withWidget);
         expect(JSON.stringify(results[0].mech!.export(true))).toContain(drafts[0].record.tag as string);
         expect(saved).toHaveLength(1);
+        // Review finding: SSW files don't give an item's tons, so the placeholder weighs 0; say so.
+        expect(results[0].warnings.join(" ")).toMatch(/placeholders count as 0 tons/);
+    });
+
+    // Review finding: once a draft is registered, its name resolves, so a later import that uses it showed "Clean",
+    // lost the incomplete-stats warning and never recorded the new design on the draft.
+    it("a later import that uses an existing draft still reports the placeholder", async () => {
+        const first = await runSSWImportSession([{ fileName: "a.ssw", xml: withWidget }], options());
+        const { results, drafts } = await runSSWImportSession([{ fileName: "c.ssw", xml: withWidget.replace('model="GRF-1N"', 'model="GRF-1Z"') }],
+            { ...options(), existingDrafts: first.drafts });
+        expect(drafts).toHaveLength(1);
+        expect(results[0].status).toBe("unresolved");
+        expect(results[0].draftIds).toEqual([first.drafts[0].id]);
+        expect(drafts[0].sourceFiles.map((s) => s.fileName)).toEqual(["a.ssw", "c.ssw"]);
+    });
+
+    // Review finding: an engine or armor draft has unknown (0) stats, so the setter refused it and the design
+    // quietly fell back to Standard on every later import. It is reported instead.
+    it("a component draft the design can't use yet is still reported", async () => {
+        const xml = griffin.replace("<type>Standard Armor</type>", "<type>Widget Armor</type>").replace(">Fusion Engine</engine>", ">Widget Engine</engine>");
+        const first = await runSSWImportSession([{ fileName: "a.ssw", xml }], options());
+        expect(first.drafts.map((d) => d.kind).sort()).toEqual(["armor", "engine"]);
+        const { results, drafts } = await runSSWImportSession([{ fileName: "b.ssw", xml }], { ...options(), existingDrafts: first.drafts });
+        expect(drafts).toHaveLength(2);
+        expect(results[0].status).toBe("unresolved");
+        expect(results[0].unresolved.map((item) => item.kind).sort()).toEqual(["armor", "engine"]);
+        expect(results[0].warnings.join(" ")).not.toMatch(/Widget/);
     });
 });

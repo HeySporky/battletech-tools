@@ -82,4 +82,11 @@ describe("SSW draft builder", () => {
         expect(missing).toEqual(expect.arrayContaining(["weight", "damage", "heat", "battleValue", "cbills", "introduced", "slotsEstimated", "space.protomech"]));
         expect(missing).not.toContain("space.battlemech");
     });
+
+    // Ammo model: only a weapon's standard round has isSpecialAmmo false, and its tag ends in -standard.
+    it("an ammo draft named for a special round is special ammunition", () => {
+        const [draft] = buildDrafts([{ item: item({ kind: "ammunition", name: "Ammo (Widget Cannon Swarm)", sswType: "ammunition" }), slots: 1, design: "A", source: source("a.ssw") }], [], newId);
+        expect(draft.record.tag).toBe("ammo-local-is-widget-cannon-swarm");
+        expect(draft.record.isSpecialAmmo).toBe(true);
+    });
 });

@@ -1,6 +1,7 @@
 import { IEquipmentItem } from "../data/data-interfaces";
 import { EquipmentCatalog, getEquipmentCatalogDefinitions, getLocalCustomEquipment } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
+import { customTagFaction } from "./customTags";
 
 // Resolves an equipment name from an imported design (SSW, MegaMek, or any other tool) to a catalog record.
 // Matching is exact and data-driven: another tool's spelling of an item is listed on the record itself, in
@@ -113,7 +114,9 @@ export function findImportedEquipment(name: string, faction: ImportFaction, mixe
         ["custom", false],
     ];
     for (const [catalog, primaryOnly] of passes) {
-        const item = findCatalogMatches(name, catalog, primaryOnly)[0];
+        // A custom record whose tag names the other faction only matches a mixed-tech design.
+        const item = findCatalogMatches(name, catalog, primaryOnly)
+            .find((match) => catalog !== "custom" || mixedTech || customTagFaction(match.tag) !== otherFaction);
         if (item) {
             return { item, catalog };
         }

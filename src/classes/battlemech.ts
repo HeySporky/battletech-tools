@@ -9302,6 +9302,17 @@ export class BattleMech {
         return undefined;
     }
 
+    /**
+     * A custom component the setter refused (a draft's unknown stats are 0 at runtime, which no setter accepts):
+     * report it, so the design isn't silently built with the fallback type.
+     */
+    private _checkSSWComponentUsed<K extends CustomComponentKind>( kind: K, record: ComponentRecord<K>, currentTag: string ) {
+        if( currentTag !== record.tag && isCustomComponent( kind, record ) ) {
+            this._sswImportErrors.push( "Cannot use the custom " + kind + " '" + record.name + "' until its stats are entered; using '" + currentTag + "' instead" );
+            this._addSSWUnresolvedComponent( kind, record.name );
+        }
+    }
+
     /** An unresolved chassis component; its faction is SSW's techbase (0 Inner Sphere, 1 Clan), else the design's. */
     private _addSSWUnresolvedComponent( kind: CustomComponentKind | "cockpit", name: string, sswTechbase?: unknown ) {
         const techTag = this.getTech().tag;
@@ -9607,6 +9618,7 @@ export class BattleMech {
                 const engineType = this._findSSWComponent( "engine", "engine", jObj.mech.engine["#text"], jObj.mech.engine["@_techbase"] );
                 if( engineType ) {
                     this.setEngineType( engineType.tag );
+                    this._checkSSWComponentUsed( "engine", engineType, this.getEngineType().tag );
                 }
             }
 
@@ -9614,6 +9626,7 @@ export class BattleMech {
                 const gyroType = this._findSSWComponent( "gyro", "gyro", jObj.mech.gyro["#text"] );
                 if( gyroType ) {
                     this.setGyroType( gyroType.tag );
+                    this._checkSSWComponentUsed( "gyro", gyroType, this.getGyro().tag );
                 }
             }
 
@@ -9621,6 +9634,9 @@ export class BattleMech {
                 const structureType = this._findSSWComponent( "structure", "internal structure", jObj.mech.structure.type );
                 if( structureType && this.setInternalStructureType( structureType.tag ) ) {
                     this._placeSSWCriticals( jObj.mech.structure.location, this.getInternalStructureType() );
+                }
+                if( structureType ) {
+                    this._checkSSWComponentUsed( "structure", structureType, this.getInternalStructureType() );
                 }
             }
 
@@ -9675,6 +9691,7 @@ export class BattleMech {
                     const armorType = this._findSSWComponent( "armor", "armor", jObj.mech.armor.type );
                     if( armorType ) {
                         this.setArmorType( armorType.tag );
+                        this._checkSSWComponentUsed( "armor", armorType, this.getArmorType() );
                     }
 
                     this.setArmorCount( totalArmor );
@@ -9772,6 +9789,7 @@ export class BattleMech {
                     const heatSinkType = this._findSSWComponent( "heatSink", "heat sink", jObj.mech.baseloadout.heatsinks["type"] );
                     if( heatSinkType ) {
                         this.setHeatSinksType( heatSinkType.tag );
+                        this._checkSSWComponentUsed( "heatSink", heatSinkType, this.getHeatSinksType() );
                     }
 
                     this.setAdditionalHeatSinks( (+ jObj.mech.baseloadout.heatsinks["@_number"] ) - 10 );
@@ -9843,6 +9861,7 @@ export class BattleMech {
                         const jumpJetType = this._findSSWComponent( "jumpJet", "jump jet", jObj.mech.baseloadout.jumpjets.type );
                         if( jumpJetType ) {
                             this.setJumpJetType( jumpJetType.tag );
+                            this._checkSSWComponentUsed( "jumpJet", jumpJetType, this.getJumpJetType().tag );
                             this._calcCriticals();
                         }
                     }

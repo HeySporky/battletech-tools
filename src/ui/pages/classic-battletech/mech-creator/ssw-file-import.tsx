@@ -20,18 +20,24 @@ const STATUS_LABELS: Record<ISSWImportResult["status"], { label: string; classNa
 export default class MechCreatorSSWFileImport extends React.Component<ISSWFileImportProps, ISSWFileImportState> {
     constructor(props: ISSWFileImportProps) {
         super(props);
-        this.state = { busy: false, results: [], drafts: [], selected: {}, openRow: -1, message: "", storageWarning: false };
+        this.state = { busy: false, results: [], drafts: [], selected: {}, openRow: -1, message: "", error: "", storageWarning: false };
         this.props.appGlobals.makeDocumentTitle("Import .ssw Files | 'Mech Creator");
     }
 
     readFiles = async (fileList: FileList | null): Promise<void> => {
         if (!fileList || fileList.length === 0) return;
-        this.setState({ busy: true, message: "" });
-        const files = await Promise.all([...fileList].map(async (file) => ({ fileName: file.name, xml: await file.text() })));
-        const { results, drafts, saved } = await runSSWImportSession(files);
-        const selected: Record<number, boolean> = {};
-        results.forEach((result, index) => { selected[index] = result.status !== "failed"; });
-        this.setState({ busy: false, results, drafts, selected, openRow: -1, storageWarning: !saved });
+        this.setState({ busy: true, message: "", error: "" });
+        try {
+            const files = await Promise.all([...fileList].map(async (file) => ({ fileName: file.name, xml: await file.text() })));
+            const { results, drafts, saved } = await runSSWImportSession(files);
+            const selected: Record<number, boolean> = {};
+            results.forEach((result, index) => { selected[index] = result.status !== "failed"; });
+            this.setState({ results, drafts, selected, openRow: -1, storageWarning: !saved });
+        } catch (error) {
+            this.setState({ error: `The import stopped: ${String(error)}` });
+        } finally {
+            this.setState({ busy: false });
+        }
     }
 
     onFileInput = (event: React.ChangeEvent<HTMLInputElement>): void => { void this.readFiles(event.currentTarget.files); }
@@ -70,6 +76,7 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
                             </div>
                             {this.state.busy ? <div className="alert alert-info">Importing…</div> : null}
                             {this.state.storageWarning ? <div className="alert alert-warning">This browser would not save the custom content drafts (private mode or storage full). They work until you close this tab.</div> : null}
+                            {this.state.error ? <div className="alert alert-danger">{this.state.error}</div> : null}
                             {this.state.message ? <div className="alert alert-success">{this.state.message}</div> : null}
                             {this.state.results.length > 0 ? (
                                 <table className="table table-sm">
@@ -127,5 +134,6 @@ interface ISSWFileImportState {
     selected: Record<number, boolean>;
     openRow: number;
     message: string;
+    error: string;
     storageWarning: boolean;
 }

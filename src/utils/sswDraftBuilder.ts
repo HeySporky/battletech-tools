@@ -118,7 +118,7 @@ const newDraft = (entry: IDraftSourceEntry, id: string): ICustomContentDraft => 
     if ("altTags" in record) record.altTags = [];
     if ("book" in record || kind === "equipment" || isAmmo) record.book = "Custom";
     if ("page" in record) record.page = null;
-    if (isAmmo) { record.isAmmo = true; record.isSpecialAmmo = false; }
+    if (isAmmo) { record.isAmmo = true; record.isSpecialAmmo = !String(record.tag).endsWith("-standard"); }
     if (entry.item.tons !== null && "weight" in record) record.weight = entry.item.tons;
     if (kind === "equipment" && record.space && typeof record.space === "object") {
         (record.space as Record<string, unknown>).battlemech = entry.slots;

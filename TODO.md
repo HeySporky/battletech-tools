@@ -133,6 +133,12 @@ designs, 44 still report errors (421 before).
 - [ ] Custom chassis components (seven `mech-custom-*-types.ts` catalogs) resolve on import but don't appear in
   the construction steps' selection lists yet.
 - [ ] Custom cockpit catalog: unknown cockpits are reported (`kind: "cockpit"`) but never drafted.
+- [ ] SSW import follow-ups from the 2026-09-30 branch review (lower confidence, not fixed yet):
+  slot estimates ignore `splitLocations`; "incomplete custom stats" is flagged only on the review screen, not
+  in the Mech Creator or the saved record; two files with the same name overwrite each other's evidence XML but
+  keep the first hash; every draft stores whole source files, so big batches can hit the storage quota; ammo
+  drafts don't feed their weapon draft (`getAllAmmo` excludes local drafts); `crypto.subtle`/`randomUUID` need
+  a secure origin (LAN dev over http).
 - [ ] Custom content PR submission (phase A2 of the same plan, deferred 2026-09-30): catalog merge serializer,
   multi-file GitHub PR with a never-merged evidence branch, submission orchestrator, drafts editor page
   (plan Tasks 9, 10, 11, 13). Until then, copy a local draft's record into the custom catalog by hand.

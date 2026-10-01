@@ -43,12 +43,26 @@ const fail = (base: Pick<ISSWImportResult, "fileName" | "xml" | "sha256">, reaso
     unresolved: [], canonPending: [], warnings: [], draftIds: [],
 });
 
+// A registered draft resolves like any record, so the import doesn't report it. Find the drafts a design used
+// (by tag in its export) and report them as the unresolved items they stand in for.
+const draftsInUse = (mech: BattleMech, drafts: ICustomContentDraft[]): ISSWUnresolvedItem[] => {
+    const exported = JSON.stringify(mech.export(true));
+    return drafts
+        .filter((draft) => exported.includes(JSON.stringify(draft.record.tag)))
+        .map((draft) => ({
+            kind: draft.kind, name: String(draft.record.name), sswName: String(draft.record.name),
+            faction: draft.faction === "clan" ? "clan" : "is", sswType: "", location: "", slotIndex: -1,
+            splitLocations: [], tons: null,
+        }));
+};
+
 export async function runSSWImportSession(
     files: ISSWImportFile[],
     options: { existingDrafts?: ICustomContentDraft[]; save?: (drafts: ICustomContentDraft[]) => boolean; newId?: () => string } = {},
 ): Promise<{ results: ISSWImportResult[]; drafts: ICustomContentDraft[]; saved: boolean }> {
     const results: ISSWImportResult[] = [];
     const entries: IDraftSourceEntry[] = [];
+    const existingDrafts = options.existingDrafts ?? getLocalCustomContentDrafts();
 
     for (const file of files) {
         const base = { fileName: file.fileName, xml: file.xml, sha256: await sha256Hex(file.xml) };
@@ -64,7 +78,7 @@ export async function runSSWImportSession(
         try {
             const mech = importOne(file.xml);
             const designName = `${mech.name} ${mech.model}`.trim();
-            const unresolved = [...mech.getSSWUnresolved()];
+            const unresolved = [...mech.getSSWUnresolved(), ...draftsInUse(mech, existingDrafts)];
             for (const item of unresolved) {
                 const slots = estimateSlots(item.slotIndex, mech.getCriticalOccupancy(item.location));
                 entries.push({ item, slots, design: designName, source: { fileName: file.fileName, designs: [designName], sha256: base.sha256 }, xml: file.xml });
@@ -80,7 +94,7 @@ export async function runSSWImportSession(
         }
     }
 
-    const drafts = buildDrafts(entries, options.existingDrafts ?? getLocalCustomContentDrafts(), options.newId);
+    const drafts = buildDrafts(entries, existingDrafts, options.newId);
     const saved = (options.save ?? saveLocalCustomContentDrafts)(drafts);
 
     for (const result of results) {
@@ -90,6 +104,10 @@ export async function runSSWImportSession(
             // Again, now that the drafts are registered, so the design carries its placeholders.
             result.mech = importOne(result.xml);
             result.ourBV = result.mech.getBattleValue();
+            const missingTons = result.mech.getTonnage() - result.mech.getCurrentTonnage();
+            if (missingTons > 0) {
+                result.warnings.push(`The design weighs ${result.mech.getCurrentTonnage()} of ${result.mech.getTonnage()} tons: SSW files don't give each item's weight, so placeholders count as 0 tons until their stats are entered.`);
+            }
         }
         const otherUnresolved = result.unresolved.filter((item) => !isSSWCanonPending(item.kind, item.name) && item.kind !== "cockpit");
         result.status = otherUnresolved.length > 0 ? "unresolved"

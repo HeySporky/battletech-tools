@@ -45,6 +45,22 @@ describe("local custom content", () => {
         expect(getLocalCustomContentDrafts()).toEqual([]);
     });
 
+    // Review finding: one malformed stored draft ([null], or a record without a name) broke app startup and every
+    // later equipment lookup. Malformed entries are dropped on load.
+    it("drops malformed stored drafts", () => {
+        localStorage.setItem("localCustomContent", JSON.stringify([null, { kind: "equipment", record: null }, { ...draft(), kind: "bogus" }, { ...draft(), record: { tag: "x" } }, draft()]));
+        expect(getLocalCustomContentDrafts().map((d) => d.id)).toEqual(["d1"]);
+        registerLocalCustomContent();
+        expect(findImportedEquipment("Widget Array", "is")?.item.tag).toBe("local-is-widget-array");
+    });
+
+    // Review finding: the custom lookup pass ignored faction, so a Clan item bound to the IS draft of that name.
+    it("a Clan item does not bind to an IS draft", () => {
+        saveLocalCustomContentDrafts([draft()]);
+        expect(findImportedEquipment("Widget Array", "clan")).toBeNull();
+        expect(findImportedEquipment("Widget Array", "clan", true)?.item.tag).toBe("local-is-widget-array");
+    });
+
     it("runtime copies use 0 for unknown stats but keep unknown dates null", () => {
         const runtime = toRuntimeRecord<Record<string, any>>({ battleValue: null, introduced: null, range: { short: null } });
         expect(runtime.battleValue).toBe(0);
