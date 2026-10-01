@@ -456,15 +456,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             medium: 3,
             long: 4
         },
-        space: {
-            battlemech: 1,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 1,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
         shotsPerTon: 10,
         ammoBattleValue: 2,
         minAmmoTons: 1,
@@ -832,7 +824,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             medium: 0,
             long: 0
         },
-        space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         shotsPerTon: 0,
         minAmmoTons: 0,
         explosive: false,

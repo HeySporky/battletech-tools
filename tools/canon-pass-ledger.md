@@ -891,3 +891,26 @@ Flags:
 - No records exist for Bulldozer, Dumper, Ladder, Fluid Suction Systems, Sprayers, Bridgelayers, Paramedic Equipment, Field Kitchen, MASH and the other Support Vehicle items on pp.344–345.
 
 Regression tests: `Batch 28 Industrial Equipment Table`, `Batch 28 unit slot columns of the Weapons and Equipment Tables`; the registry test on ProtoMech-mountable ammunition covers the munitions.
+
+## Batch 29: TO:AUE unit slot columns
+
+The same check as Batch 28, against the Heavy Weapons and Equipment Construction Data tables (TO:AUE pp.217–223, corrected sixth printing; errata v7.0 changes none of these columns). The tables carry eleven columns (M P CV SV F SC DS JS WS SS MS); the records hold the first seven.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Combat Vehicle slots of multi-slot launchers | IS and Clan missile catalogs | **fixed** | TO:AUE p.221 | none | Enhanced LRM 15/20, Extended LRM 10/15/20 and Streak LRM 10/15/20 carried 3 to 8; all take 1 |
+| Support Vehicle slots | several | fixed | TO:AUE pp.217–223 | none | Thumper 7 (was 15), Clan Rotary AC/5 8, Improved Heavy Medium / Large Laser 2 / 3, Enhanced LRM 10/15/20 4 / 6 / 9, Laser AMS (IS) 2, Fluid Gun 1, Light / Medium / Heavy Rifle 1 / 2 / 3; Modular Armor 1 |
+| 'Mech-only items offered to vehicles | IS and Clan misc | **fixed** | TO:AUE pp.217–223 | none | CASE II, Null-Signature System and Void-Signature System print NA in both vehicle columns |
+| Aerospace columns | several | fixed | TO:AUE pp.217–221 | none | 'Mech Mortars and Heavy Flamers NA; Bloodhound, Watchdog and Angel ECM 1 / 1 / 0; C3 Boosted Master NA; CASE II fighter 0; Modular Armor fighter 2; Long Tom fighter NA |
+| ProtoMech column | Clan misc | fixed | TO:AUE p.217 | none | Watchdog CEWS and Clan Angel ECM are ProtoMech-mountable |
+| Long Tom on 'Mechs | battlemech.ts | **fixed** | TO:AUE p.217; IO:AE p.157 | none | the table gives the Long Tom no 'Mech space; "a superheavy 'Mech can also mount artillery weapons ordinarily denied to standard-weight 'Mechs". The Long Tom is now offered to superheavy 'Mechs only, and a lighter design carrying one reports it. Sniper, Thumper, Arrow IV and the artillery cannons are unaffected |
+
+**Proposed, not applied (needs your call):** ProtoMech AC/8, ProtoMech column. The table prints "1*" for all three ProtoMech ACs (the asterisk points to the Main Gun rule, p.98). The record holds 2, which is the value approved in the Block 12 workbook and pinned by its test. Left at 2.
+
+Left as they are, with reasons:
+
+- **Streak LRM, ProtoMech column.** The launcher rows print NA and a separate row gives "Streak LRM (ProtoMech, per tube)". There is no per-tube record, so the launcher records keep their ProtoMech flag and stand in for it; the munition stays ProtoMech-usable.
+- **ER Flamer, Heavy Flamer, Angel ECM (Inner Sphere records).** Their rows are shared "IS/Clan" rows with ProtoMech 1. ProtoMechs are Clan units, so only the Clan records carry the flag.
+- Rows with no record: Cruise Missiles, Laser-Reflective / Reactive / Ferro-Lamellor armor rows (armor catalog), Vehicular Grenade Launcher, Recon Camera, Taser, Coolant Pod, Handheld Weapons, the vehicle chassis modifications, the naval, sub-capital and large-craft items. Already on the owed list as missing records or domain catalogs.
+
+Regression tests: `Batch 29 unit slot columns of the TO:AUE construction tables`, `Batch 29 Long Tom artillery on 'Mechs`.
