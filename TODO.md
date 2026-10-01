@@ -361,9 +361,10 @@ played first, then by dependency.
   Override Kit, Viral Jammers, Laser Pulse Module, 'Mech Taser, TSEMP, Jump Pack / Drop Pack, Prototype
   Improved Jump Jets (IO:AE p.97). Light Active Probe [IS] and Light TAG [IS]: IO:AE lists them, the TM
   Inner Sphere table has no 'Mech-scale stats.
-- [ ] Superheavy batch: superheavy and tripod internal structures, and enforcing that superheavy 'Mechs
-  cannot mount MASC, TSM, AES or Superchargers (IO:AE p.156). Done: large engines (Batch 16), the
-  Superheavy gyro weight and BV (Batch 14).
+- [ ] Superheavy critical slots (IO:AE pp.155-157): each superheavy slot holds twice a standard slot, so
+  endo steel takes 7 slots and endo-composite 4 (the builder allocates 14 and 7) and the engine takes half
+  its usual slots, rounded up. Needs the slot model changed. Done: large engines (Batch 16), gyro weight
+  and BV (14), equipment bans (21), structure table and structure types (22).
 - [ ] Domain catalogs not started: aerospace and capital armor (SO:AA p.140), Support Vehicle BAR armor,
   battle armor armor and equipment, ProtoMech heat sinks / jump jets / cockpits, capital and sub-capital
   weapons (new literal catalogs, never 'Mech-legal).
