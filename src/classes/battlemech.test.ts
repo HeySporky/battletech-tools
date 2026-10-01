@@ -5052,3 +5052,36 @@ describe("Batch 35 TSEMP weapons and RISC Viral Jammers (IO:AE pp.84, 88, 190, 2
         expect(mech.getBVCalcHTML()).toContain("Explosive Component Crit (TSEMP Cannon) in rightArm (Inner Sphere, -5)");
     });
 });
+
+describe("Batch 36 BattleMech Taser (TO:AUE pp.157-158)", () => {
+    it("lists the weapon with the table values (pp.195, 222, 223)", () => {
+        expect(mechISEquipmentBallistic.find(item => item.tag === "mech-taser")).toMatchObject({
+            name: "BattleMech Taser", cbills: 200000, weight: 4, heat: 6, damage: 1, accuracyModifier: 1,
+            range: { min: 0, short: 1, medium: 2, long: 4 },
+            space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+            shotsPerTon: 5, battleValue: 40, ammoBattleValue: 5, explosive: true, ammoTypes: ["ammo-is-mech-taser-standard"],
+            prototype: 3065, introduced: 3084, extinct: null, reintroduced: null, techRating: "e", book: "TO:AUE", page: 158,
+        });
+    });
+
+    it("lists its ammunition: five shots a ton, 2,000 C-bills, explosive", () => {
+        expect(mechISAmmo.find(item => item.tag === "ammo-is-mech-taser-standard")).toMatchObject({
+            name: "BattleMech Taser - Standard Ammo (IS)", isSpecialAmmo: false, cbills: 2000, roundsPerTon: 5, battleValue: 5, explosive: true,
+            prototype: 3065, introduced: 3084, extinct: null, reintroduced: null, techRating: "e", book: "TO:AUE", page: 158,
+        });
+    });
+
+    it("feeds the weapon and counts both in Battle Value", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        const add = (tag: string) => mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
+        expect(add("mech-taser")).not.toBeNull();
+        expect(add("ammo-is-mech-taser-standard")).not.toBeNull();
+        const log = mech.getBVCalcHTML();
+        expect(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(log)?.[1]).toBe("40.00");
+        expect(/<strong>Total Capped Ammo BV:<\/strong> ([\d.]+)/.exec(log)?.[1]).toBe("5.00");
+    });
+});
