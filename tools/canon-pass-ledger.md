@@ -430,3 +430,80 @@ User decision (2026-10-01): "Unsourced Clan... Move to custom if no canon source
 Both tags are unchanged, so saved designs that mount them still load. A regression test (`Batch 13 records without a canon source`) pins the move.
 
 **Owed:** a source search for everything in the custom catalogs, to cite what can be cited (user, same message).
+
+## Batch 14: errata search, prototype weapon statistics, Superheavy gyro
+
+### Errata search (user: "Conflicts in IOAE... Look for an errata to see if the clears that")
+
+The current official errata sheets were fetched from the battletech.com files (the live links return HTTP 500; the Internet Archive capture of 27 July 2025 was used) into `_KNOWLEDGE_DEV/rulebooks/errata-2025/` (git-ignored), with text extracts:
+
+| book | errata | date |
+|---|---|---|
+| Interstellar Operations (2016) | v1.21 | 8 June 2021 |
+| IO: Alternate Eras | v3.01 | 17 January 2023 |
+| IO: BattleForce | v3.0 | 17 January 2023 |
+| TechManual | v8.0 | 22 August 2024 |
+| TechManual Battle Value tables | v4.1 | n/a |
+| TechManual infantry tables | v4.1 | n/a |
+| Tactical Operations: Advanced Units & Equipment | v7.0 | 23 September 2023 |
+| Tactical Operations: Advanced Rules | v7.0 | 23 September 2023 |
+| Total Warfare | v11.01 | 17 September 2023 |
+| Strategic Operations: Advanced Aerospace Rules | v5.0 | 15 November 2024 |
+| Campaign Operations | v5.0 | 22 August 2024 |
+| BattleMech Manual | v7.01 | 17 September 2023 |
+
+These are newer than the 2019 sheets the library held. The local IO:AE PDF is the third corrected printing (January 2023), so the v3.01 corrections are already in its text.
+
+**Result for the six same-book conflicts: neither IO v1.21 nor IO:AE v3.01 rules on any of them.** They stay as recorded (catalog follows MegaMek, flagged for the user): armor BV modifiers p.185 vs p.190; primitive cockpit cost p.117 vs p.215; Heat-Dissipating Clan year p.81 vs pp.29 and 215; Improved Large Laser / Large Pulse Laser years p.89 vs p.37; Clan claws 3090; prototype dates table p.112 vs the advancement table.
+
+What the two sheets do change, checked against the code:
+
+| errata entry | status | notes |
+|---|---|---|
+| Superheavy gyro weight: "Engine Rating by 100 (rounding up) … multiplying the result by 2" (IO v1.21, p.162; IO:AE p.156 text) | **fixed (rules bug)** | `battlemech.ts` used rating / 50 rounded up. Differs whenever the rating is not a multiple of 100: rating 350 is 8 tons, not 7. MegaMek agrees with the errata. Flag: the IO:AE p.217 cost table still prints "ER÷50" |
+| Superheavy BV: "treat a Superheavy 'Mech's gyro as a standard Gyro" (IO v1.21, p.193; IO:AE p.187) | **fixed (rules bug)** | a Superheavy with the Heavy Duty Gyro selected was given the 1.0 gyro BV modifier; now 0.5 |
+| Prototype Ultra AC/5: 9 tons, 6 slots (IO v1.21, p.219) | fixed | catalog had 5 slots (below) |
+| Prototype pulse lasers work with a targeting computer (IO v1.21, p.216) | verified | already `tc: true` |
+| Medium Re-Engineered Laser aero heat 6 (IO v1.21, p.220) | verified | |
+| LAMs need both lower arm actuators (IO:AE v3.01, p.108) | verified | already enforced |
+| Dead-Fire ammunition BV (IO:AE v3.01, p.190): LRM-5 9, LRM-10 17, LRM-15 26, LRM-20 35, SRM-2 4, SRM-4 7, SRM-6 10 | owed (Batch 12c) | to check with the other special munitions |
+| Narc beacon recovery 3035 (FW), Apollo common 3097, Tandem-Charge 3062 (IO v1.21, pp.41, 46, 61) | owed (Batch 12c / misc) | the IO:AE table already carries these; listed so they are compared |
+| Prototype Improved Jump Jets entry (IO v1.21, p.103) | gap | already listed as missing equipment |
+
+### Prototype weapon statistics
+
+Earlier batches checked dates and pages for these records. This batch checks tonnage, slots, cost, heat, range, shots per ton, BV and ammunition BV against the IO:AE tables: game data pp.210, 212; construction data pp.211, 213; Battle Value p.189. The rule on p.112 is that primitive prototypes keep "weight, cost, and critical space… identical to their standard versions"; several records did not.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Primitive Prototype AC/2 | mech-is-equipment-weapons-ballistic | fixed | IO:AE pp.112, 189, 210–211 | none | was a copy of the AC/5: 8 t / 4 slots / 100,000 → 6 t / 1 slot / 75,000. Range 0/8/17/25 → 4/8/16/24. BV 40 → 37. Had no ammunition: now fires AC/2 rounds, 34 shots per ton, ammo BV 4. Tech rating E → C |
+| Primitive Prototype AC/5 | same | fixed | same | none | cost 150,000 → 125,000; range 0/6/13/20 → 3/6/12/18; BV 75 → 70; 15 shots, ammo BV 7 |
+| Primitive Prototype AC/10 | same | fixed | same | none | cost 250,000 → 200,000; BV 140 → 123; 8 shots, ammo BV 12 |
+| Primitive Prototype AC/20 | same | fixed | same | none | slots 8 → 10; cost 400,000 → 300,000; range 3/7/10 → 3/6/9; BV 240 → 178; 4 shots, ammo BV 17 |
+| Primitive Prototype Small Laser | mech-is-equipment-weapons-energy | fixed | same | none | cost 10,000 → 11,250; range 2/4/6 → 1/2/3; BV 18 → 9 |
+| Primitive Prototype Medium Laser | same | fixed | same | none | cost 20,000 → 40,000 |
+| Primitive Prototype Large Laser | same | fixed | same | none | range 3/6/9 → 5/10/15 |
+| Primitive Prototype PPC | same | fixed | same | none | cost 140,000 → 200,000; range 0/3/6/9 → 3/6/12/18 (minimum 3); tech rating D |
+| Primitive Prototype LRM 15 / 20 | mech-is-equipment-weapons-missiles | fixed (flag) | same | none | BV 136 / 181 → 132 / 168; ammo BV 17 / 23 → 13 / 16; shots 8 / 6 → 6 / 5 |
+| Primitive Prototype SRM 2 / 4 | same | fixed (flag) | same | none | BV 21 / 39 → 10 / 21; ammo BV 3 / 5 → 1 / 3; shots 50 / 25 → 38 / 19 |
+| Primitive Prototype LRM 5, LRM 10, SRM 6 | same | **added** | same | none | LRM 5: 2 t, 1 slot, 30,000, BV 38, 18 shots, ammo BV 4. LRM 10: 5 t, 2 slots, 100,000, BV 78, 9 shots, ammo BV 8. SRM 6: 3 t, 2 slots, 80,000, BV 41, 11 shots, ammo BV 4. Dates from the p.112 table (2295 / 2365, superseded 2300 / 2370). Alpha Strike values are the standard launcher's, marked provisional |
+| Prototype LB 10-X Autocannon | mech-is-equipment-weapons-ballistic | fixed | IO:AE pp.66, 189, 211 | none | slots 6 → 7 ("occupying 1 additional critical slot", p.66); cost 400,000 → 1,600,000; ammo BV 19 → 15. The recovered prototype of 3030 costs 2,000,000 (p.213): one record covers both, the note says so |
+| Prototype Gauss Rifle | same | fixed | IO:AE pp.66, 211 | none | cost 300,000 → 1,200,000 |
+| Prototype Ultra Autocannon/5 | same | fixed | IO:AE pp.98, 213 | IO v1.21 p.219 | slots 5 → 6; cost 200,000 → 1,000,000 |
+| Improved SRM 2 / 4 / 6 [Clan] | mech-clan-equipment-weapons-missile | fixed (flag) | IO:AE pp.90, 189, 213 | none | cost 10,000 / 60,000 / 80,000 → 15,000 / 90,000 / 120,000; Improved SRM 4 BV 39 → 52 |
+| Prototype Streak SRM 4 / 6 [Clan] | same | fixed | IO:AE pp.91, 189, 213 | none | SRM 4 cost 60,000 → 90,000; ammo BV 10 / 15 → 7 / 11 |
+| Prototype LB 2-X / 5-X, Prototype Ultra AC/2 / AC/20 [Clan] | mech-clan-equipment-weapons-ballistic | fixed | IO:AE p.189 | none | ammo BV 6 / 12 / 8 / 42 → 5 / 10 / 7 / 35 |
+| Enhanced PPC [Clan] | mech-clan-equipment-weapons-energy | fixed (name) | IO:AE p.90 | none | the book calls it Enhanced PPC; the record was named "Enhanced ER PPC" (kept as an alternate name; tag unchanged) |
+| Nova CEWS | mech-clan-equipment-weapons-misc | fixed | IO:AE p.213 | none | cost 1,100,000 → 1,110,000 |
+| ER PPC (Clan, Star League) | mech-clan-equipment-weapons-energy | note added | TM p.234; IO:AE p.40 | none | user decision: stays never-extinct in Clan space; the note records that the original tool listed 2860 because the Clan ER PPC had replaced it |
+
+**Flags (same-book conflicts, catalog follows MegaMek):**
+
+- Primitive prototype missile shots per ton. The p.112 rule is three-quarters of the standard load, rounding up; the p.210 table prints LRM 20: 4, SRM 2: 37, SRM 4: 18, SRM 6: 11, which rounds down. MegaMek uses 5, 38, 19 and 11, and so does the catalog.
+- Primitive prototype SRM range. The p.210 table prints 0/4/8/12 for all three (the Improved SRM brackets from the rows below); the p.112 rule says all other data match the standard launcher. The catalog keeps 3/6/9, as MegaMek does.
+
+**Where the catalog now differs from MegaMek because the book is explicit:** primitive prototype missile BV and ammo BV (MegaMek keeps the standard launcher's values), Improved SRM cost and the Improved SRM 4 BV (MegaMek: 10,000 / 60,000 / 80,000 and 39), Prototype Streak SRM 4 cost (MegaMek 60,000).
+
+**Gaps seen:** Primitive Prototype Long Tom (BV 368, ammo BV 35, p.189) and the primitive prototype torpedo launchers have no records. Aerospace damage values on missile launchers hold 3 for every LRM size in the catalog (the book gives 3 / 6 / 9 / 12); that is a catalog-wide convention to review, not changed here.
+
+Regression tests: `Batch 14 prototype weapon statistics`, `Batch 14 Star League ER PPC in Clan space`, and two Superheavy gyro tests in `BattleMech engine construction`.

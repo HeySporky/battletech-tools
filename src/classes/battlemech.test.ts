@@ -1005,12 +1005,23 @@ describe("BattleMech engine construction", () => {
         expect(mech.getEngineType().tag).toBe("standard");
     });
 
-    it("weighs the Superheavy Gyro at engine rating / 50, rounded up, whatever gyro is selected (IO:AE p.156)", () => {
+    it("weighs the Superheavy Gyro as a Heavy-Duty gyro, whatever gyro is selected (IO:AE p.156, IO errata v1.21)", () => {
+        // Engine rating / 100 rounded up, then doubled: not rating / 50, which differs whenever the
+        // rating is not a multiple of 100.
         expect(build(150, 2, "standard").getGyroWeight()).toBe(6); // rating 300
-        expect(build(175, 2, "standard").getGyroWeight()).toBe(7); // rating 350
+        expect(build(175, 2, "standard").getGyroWeight()).toBe(8); // rating 350
+        expect(build(110, 2, "standard").getGyroWeight()).toBe(6); // rating 220
         const xl = build(150, 2, "standard");
         xl.setGyroTypeByName("Extra-light (XL) Gyro");
         expect(xl.getGyroWeight()).toBe(6);
+    });
+
+    it("counts the Superheavy Gyro as a standard gyro for Battle Value (IO:AE p.187)", () => {
+        const standard = build(150, 2, "standard");
+        const heavyDuty = build(150, 2, "standard");
+        heavyDuty.setGyroTypeByName("Heavy Duty Gyro");
+        expect(heavyDuty.getBattleValue()).toBe(standard.getBattleValue());
+        expect(heavyDuty.getBVCalcHTML()).toContain("Total Gyro BV = 0.5 x Tonnage");
     });
 
     it("gives the Superheavy Gyro two center torso slots (IO:AE p.156)", () => {
@@ -3288,5 +3299,58 @@ describe("Batch 13 records without a canon source", () => {
         // Game statistics are unchanged by the move.
         expect(laser).toMatchObject({ damage: 10, heat: 12, weight: 4, battleValue: 222 });
         expect(lrm).toMatchObject({ damage: 12, heat: 4, weight: 5, battleValue: 114 });
+    });
+});
+
+describe("Batch 14 prototype weapon statistics", () => {
+    it("match the IO:AE construction, game data and Battle Value tables (pp.189, 210-213)", () => {
+        const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
+            [mechISEquipmentBallistic, "primitive-prototype-ac-2", { weight: 6, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 75000, battleValue: 37, range: { min: 4, short: 8, medium: 16, long: 24 }, shotsPerTon: 34, ammoBattleValue: 4, ammoTypes: ["ammo-is-ac-2-standard"], techRating: "c", rangeAero: "l" }],
+            [mechISEquipmentBallistic, "primitive-prototype-ac-5", { weight: 8, space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 125000, battleValue: 70, range: { min: 3, short: 6, medium: 12, long: 18 }, shotsPerTon: 15, ammoBattleValue: 7, ammoTypes: ["ammo-is-ac-5-standard"], techRating: "c", rangeAero: "m" }],
+            [mechISEquipmentBallistic, "primitive-prototype-ac-10", { weight: 12, space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 200000, battleValue: 123, range: { min: 0, short: 5, medium: 10, long: 15 }, shotsPerTon: 8, ammoBattleValue: 12, ammoTypes: ["ammo-is-ac-10-standard"], techRating: "c", rangeAero: "m" }],
+            [mechISEquipmentBallistic, "primitive-prototype-ac-20", { weight: 14, space: { battlemech: 10, protomech: -1, combatVehicle: 1, supportVehicle: 10, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 300000, battleValue: 178, range: { min: 0, short: 3, medium: 6, long: 9 }, shotsPerTon: 4, ammoBattleValue: 17, ammoTypes: ["ammo-is-ac-20-standard"], techRating: "c", rangeAero: "s" }],
+            [mechISEquipmentBallistic, "prototype-autocannon-lbx-10", { weight: 11, space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 1600000, battleValue: 148, ammoBattleValue: 15 }],
+            [mechISEquipmentBallistic, "prototype-gauss-rifle", { weight: 15, space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 1200000, battleValue: 320, ammoBattleValue: 40 }],
+            [mechISEquipmentBallistic, "prototype-autocannon-uac-5", { weight: 9, space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 1000000, battleValue: 112, ammoBattleValue: 14 }],
+            [mechISEquipmentEnergy, "primitive-prototype-small-laser", { weight: 0.5, cbills: 11250, battleValue: 9, heat: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, techRating: "c", rangeAero: "s" }],
+            [mechISEquipmentEnergy, "primitive-prototype-medium-laser", { weight: 1, cbills: 40000, battleValue: 46, heat: 5, range: { min: 0, short: 3, medium: 6, long: 9 }, techRating: "c", rangeAero: "s" }],
+            [mechISEquipmentEnergy, "primitive-prototype-large-laser", { weight: 5, cbills: 100000, battleValue: 123, heat: 12, range: { min: 0, short: 5, medium: 10, long: 15 }, techRating: "c", rangeAero: "m" }],
+            [mechISEquipmentEnergy, "primitive-prototype-ppc", { weight: 7, cbills: 200000, battleValue: 176, heat: 15, range: { min: 3, short: 6, medium: 12, long: 18 }, techRating: "d", rangeAero: "m" }],
+            [mechISEquipmentMissiles, "primitive-prototype-lrm-15", { weight: 7, cbills: 175000, battleValue: 132, shotsPerTon: 6, ammoBattleValue: 13 }],
+            [mechISEquipmentMissiles, "primitive-prototype-lrm-20", { weight: 10, cbills: 250000, battleValue: 168, shotsPerTon: 5, ammoBattleValue: 16 }],
+            [mechISEquipmentMissiles, "primitive-prototype-srm-2", { weight: 1, cbills: 10000, battleValue: 10, shotsPerTon: 38, ammoBattleValue: 1 }],
+            [mechISEquipmentMissiles, "primitive-prototype-srm-4", { weight: 2, cbills: 60000, battleValue: 21, shotsPerTon: 19, ammoBattleValue: 3 }],
+            [mechISEquipmentMissiles, "primitive-prototype-lrm-5", { name: "Primitive Prototype LRM 5", weight: 2, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 30000, battleValue: 38, heat: 2, shotsPerTon: 18, ammoBattleValue: 4, damageClusters: 5, prototype: 2295, introduced: null, extinct: 2300, book: "IO:AE", page: 112 }],
+            [mechISEquipmentMissiles, "primitive-prototype-lrm-10", { name: "Primitive Prototype LRM 10", weight: 5, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 100000, battleValue: 78, heat: 4, shotsPerTon: 9, ammoBattleValue: 8, damageClusters: 10, prototype: 2295, introduced: null, extinct: 2300, book: "IO:AE", page: 112 }],
+            [mechISEquipmentMissiles, "primitive-prototype-srm-6", { name: "Primitive Prototype SRM 6", weight: 3, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, cbills: 80000, battleValue: 41, heat: 4, shotsPerTon: 11, ammoBattleValue: 4, damageClusters: 6, prototype: 2365, introduced: null, extinct: 2370, book: "IO:AE", page: 112 }],
+            [mechClanEquipmentMissile, "clan-improved-srm-2", { cbills: 15000, battleValue: 28, ammoBattleValue: 4 }],
+            [mechClanEquipmentMissile, "clan-improved-srm-4", { cbills: 90000, battleValue: 52, ammoBattleValue: 7 }],
+            [mechClanEquipmentMissile, "clan-improved-srm-6", { cbills: 120000, battleValue: 79, ammoBattleValue: 10 }],
+            [mechClanEquipmentMissile, "clan-prototype-streak-srm-4", { cbills: 90000, battleValue: 59, ammoBattleValue: 7 }],
+            [mechClanEquipmentMissile, "clan-prototype-streak-srm-6", { cbills: 120000, battleValue: 89, ammoBattleValue: 11 }],
+            [mechClanEquipmentBallistic, "clan-prototype-lb-2-x-ac", { battleValue: 42, ammoBattleValue: 5 }],
+            [mechClanEquipmentBallistic, "clan-prototype-lb-5-x-ac", { battleValue: 83, ammoBattleValue: 10 }],
+            [mechClanEquipmentBallistic, "clan-prototype-lb-20-x-ac", { battleValue: 237, ammoBattleValue: 30 }],
+            [mechClanEquipmentBallistic, "clan-prototype-ultra-ac-2", { battleValue: 56, ammoBattleValue: 7 }],
+            [mechClanEquipmentBallistic, "clan-prototype-ultra-ac-10", { battleValue: 210, ammoBattleValue: 26 }],
+            [mechClanEquipmentBallistic, "clan-prototype-ultra-ac-20", { battleValue: 281, ammoBattleValue: 35 }],
+            [mechClanEquipmentEnergy, "enhanced_er_ppc", { name: "Enhanced PPC", altNames: ["Enhanced ER PPC"], weight: 7, cbills: 300000, battleValue: 329 }],
+            [mechClanEquipmentMisc, "clan-nova-cews", { cbills: 1110000 }],
+        ];
+        for (const [catalog, tag, fields] of expected) {
+            const item = catalog.find(entry => entry.tag === tag);
+            expect(item, tag).toBeDefined();
+            expect(item, tag).toMatchObject(fields);
+        }
+    });
+});
+
+describe("Batch 14 Star League ER PPC in Clan space", () => {
+    it("stays available in every era and says why the original tool listed an extinction", () => {
+        const erPPC = mechClanEquipmentEnergy.find(item => item.tag === "clan-sl-er-ppc");
+        expect(erPPC).toMatchObject({ prototype: 2740, introduced: 2751, extinct: null, reintroduced: null });
+        // IO:AE p.40: the ER PPC extinction applies to the Inner Sphere only.
+        expect(erPPC?.notes).toContain("2860");
+        expect(erPPC?.notes).toContain("Clan ER PPC");
     });
 });

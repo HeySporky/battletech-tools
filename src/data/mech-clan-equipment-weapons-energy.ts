@@ -17,7 +17,7 @@ import { IEquipmentItem } from "./data-interfaces";
 export const mechClanEquipmentEnergy: IEquipmentItem[] = [
     {
         isAmmo: false,
-        name: "Enhanced ER PPC",
+        name: "Enhanced PPC",
         tag: "enhanced_er_ppc",
         sort: "clan, ppc, enhanced, er, 3",
         category: "Energy Weapons",
@@ -66,7 +66,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             notes: []
         },
         heatAero: 15,
-        rangeAero: "e"
+        rangeAero: "e",
+        altNames: ["Enhanced ER PPC"]
     },
     {
         isAmmo: false,
@@ -1196,7 +1197,8 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             notes: []
         },
         heatAero: 15,
-        rangeAero: "l"
+        rangeAero: "l",
+        notes: "Never extinct in Clan space: the ER PPC extinction in IO:AE p.40 applies to the Inner Sphere only. The original tool listed it as extinct in 2860 because the better Clan ER PPC had replaced it in service by then."
     },
     {
         isAmmo: false,

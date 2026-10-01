@@ -615,7 +615,8 @@ export class BattleMech {
         // 1D. Gyro Points Modifier (TM p. 302)
         const gyroType = this.getGyro().tag;
         let gyroModifier = 0.5;
-        if (gyroType === "heavy-duty") {
+        // A Superheavy 'Mech's gyro counts as a standard gyro for BV (IO:AE p.187).
+        if (gyroType === "heavy-duty" && this.getTonnage() <= 100) {
             gyroModifier = 1.0;
         }
         let totalGyroPoints = this.getTonnage() * gyroModifier;
@@ -1575,9 +1576,10 @@ export class BattleMech {
     public getGyroWeight() {
         if( this._engine ) {
             // Superheavy Mechs (>100 tons) of any chassis type must mount the Superheavy Gyro:
-            // engine rating / 50, rounded up to the next full ton (IO:AE p.156).
+            // it weighs as a Heavy-Duty gyro, engine rating / 100 rounded up, then doubled
+            // (IO:AE p.156; IO errata v1.21 replaced the older "rating / 50" wording).
             if( this._tonnage > 100 ) {
-                return Math.ceil(this._engine.rating / 50);
+                return Math.ceil(this._engine.rating / 100) * 2;
             }
             // Gyro weight: engine rating / 100 rounded up, times the gyro multiplier, rounded up to the half ton.
             return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * 2) / 2;
