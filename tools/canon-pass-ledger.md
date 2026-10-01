@@ -990,3 +990,28 @@ Decision 2026-10-01: "Set to book on pm acs."
 **Errata.** TO:AR v7.0: the only catalog entries are Flail +0 and Mace +1 (p.211), already stored (Batch 32). ProtoMech ACs may use rapid-fire mode (p.98) — a play rule. SO:AAR v5.0: all large-craft construction and play; nothing in the 'Mech catalogs. That completes the errata comparison for the 'Mech catalogs.
 
 Regression tests: `Batch 34 Primitive Prototype Long Tom and torpedo launchers`, `Batch 34 Clan ER PPC with PPC Capacitor`.
+
+## Batch 35: TSEMP weapons and RISC Viral Jammers
+
+From the list of equipment the books give statistics for but the catalogs lacked. All Inner Sphere.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| TSEMP Cannon | mech-is-equipment-weapons-energy | **added** | IO:AE pp.84–85 (rules); p.214 game data; p.215 construction; p.190 BV; p.43 dates | v3.01: none | 800,000 C-bills, 6 tons, 5 slots, 10 heat, range 5/10/15, BV 488, rating E; ~3100 prototype / 3109 |
+| TSEMP One-Shot | same | **added** | same | none | 500,000, 4 tons, 3 slots, 10 heat, BV 98; ~3090 / 3095 |
+| RISC Repeating TSEMP Cannon | same | **added** | IO:AE p.88; pp.214–215; p.190; p.39 | none | 1,200,000, 8 tons, 7 slots, 10 heat, BV 600; prototype 3133, never in production, gone 3138 |
+| RISC Viral Jammer (Decoy), (Homing Beacon) | mech-is-equipment-weapons-misc | **added** | IO:AE p.88; pp.214–215; p.190; p.39 | none | 990,000, 2.5 tons, 1 slot, 12 heat, reach 17 hexes, BV 284 (defensive), rating F; prototypes 3136 / 3137, gone 3142 |
+| RISC Hyper Laser explosive | mech-is-equipment-weapons-energy | **fixed** | IO:AE p.87 | none | "will explode if it suffers a critical hit": was not marked explosive, so it took no Battle Value penalty |
+
+The TSEMP weapons explode like Gauss weapons on a critical hit (10 points), so they are marked explosive and cost 1 BV a slot where unprotected, as the footnote on p.190 marks them.
+
+Flags:
+
+- **Viral Jammer prototype year.** The advancement table (p.39) prints 3136 for the Decoy and 3137 for the Homing Beacon; the construction table (p.215) prints 3135P for both. The records follow p.39, as the other dates do.
+- **ProtoMech column.** The construction table gives all five items a ProtoMech slot of 1 and the rules list "PM" under Available to, so these Inner Sphere records carry it.
+- Not enforced: one Viral Jammer "of any type" per unit (each type is limited to one; a design could still take one of each); TSEMP Cannons need a fusion or fission engine; the play rules (no firing in consecutive turns, the Effects Table, the jammer's own failure roll).
+- Alpha Strike conversions are marked unresolved.
+
+Still without records from the same list: Coolant Pod, MRM Apollo FCS, C3 Remote Sensor Launcher, Collapsible Command Module, Full-Head Ejection System, HarJel II / III, RISC Heat Sink Override Kit, Laser Pulse Module, 'Mech Taser, Jump Pack / Drop Pack, Prototype Improved Jump Jets. Each needs builder support beyond a record (heat capacity, linked launchers, armor repair, final BV multipliers).
+
+Regression tests: `Batch 35 TSEMP weapons and RISC Viral Jammers`.

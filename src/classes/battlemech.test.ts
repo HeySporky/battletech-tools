@@ -5004,3 +5004,51 @@ describe("Batch 34 Clan ER PPC with PPC Capacitor (IO:AE pp.40, 190, 197)", () =
         expect([offered("jihad"), offered("dark-ages")]).toEqual([false, true]);
     });
 });
+
+describe("Batch 35 TSEMP weapons and RISC Viral Jammers (IO:AE pp.84, 88, 190, 214-215)", () => {
+    it("lists the three TSEMP weapons with the table values", () => {
+        const expected: Record<string, Record<string, unknown>> = {
+            "tsemp-cannon": { name: "TSEMP Cannon", cbills: 800000, weight: 6, battleValue: 488, prototype: 3100, introduced: 3109, extinct: null, techRating: "e", page: 84,
+                space: { battlemech: 5, protomech: 1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } },
+            "tsemp-one-shot": { name: "TSEMP One-Shot", cbills: 500000, weight: 4, battleValue: 98, prototype: 3090, introduced: 3095, extinct: null, techRating: "e", page: 84, isOneShot: true,
+                space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } },
+            "risc-repeating-tsemp": { name: "RISC Repeating TSEMP Cannon", cbills: 1200000, weight: 8, battleValue: 600, prototype: 3133, introduced: null, extinct: 3138, techRating: "e", page: 88,
+                space: { battlemech: 7, protomech: 1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } },
+        };
+        for (const [tag, fields] of Object.entries(expected)) {
+            expect(mechISEquipmentEnergy.find(item => item.tag === tag), tag).toMatchObject({
+                ...fields, heat: 10, range: { min: 0, short: 5, medium: 10, long: 15 }, explosive: true, book: "IO:AE", reintroduced: null,
+            });
+        }
+    });
+
+    it("lists the two RISC Viral Jammers as defensive equipment, one to a unit", () => {
+        const expected: Record<string, [string, number]> = {
+            "risc-viral-jammer-decoy": ["RISC Viral Jammer (Decoy)", 3136],
+            "risc-viral-jammer-homing": ["RISC Viral Jammer (Homing Beacon)", 3137],
+        };
+        for (const [tag, [name, prototype]] of Object.entries(expected)) {
+            expect(mechISEquipmentMisc.find(item => item.tag === tag), tag).toMatchObject({
+                name, prototype, introduced: null, extinct: 3142, reintroduced: null, cbills: 990000, weight: 2.5, heat: 12,
+                battleValue: 284, battleValueDefensive: true, maxPerUnit: 1, techRating: "f", book: "IO:AE", page: 88,
+                space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+            });
+        }
+    });
+
+    it("marks the RISC Hyper Laser explosive (IO:AE p.87)", () => {
+        expect(mechISEquipmentEnergy.find(item => item.tag === "risc-hyper-laser")).toMatchObject({ explosive: true, battleValue: 596 });
+    });
+
+    it("counts a TSEMP Cannon like a Gauss weapon for the defensive rating: one point a slot", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        const item = mech.addEquipmentFromTag("tsemp-cannon", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
+        expect(mech.moveCritical("un", from, "ra", mech.getCriticals().rightArm.findIndex(critical => !critical))).toBe(true);
+        expect(mech.getBVCalcHTML()).toContain("Explosive Component Crit (TSEMP Cannon) in rightArm (Inner Sphere, -5)");
+    });
+});
