@@ -654,20 +654,39 @@ export class BattleMech {
         // 1E. Get Explosive Ammo Modifiers (TM pp. 302-303)
         let explosiveAmmoModifiers = 0;
         this._calcLogBV += "<strong>Get Explosive Ammo Modifiers (TM p302-303)</strong><br />";
-        // Build automated CASE enablement profile array cleanly using static map
+        // CASE and CASE II by location.
         const caseMap: Record<string, boolean> = {};
+        const caseIIMap: Record<string, boolean> = {};
         const validLocations = Object.keys(BattleMech.MECH_LOCATION_MAP);
         validLocations.forEach(locShorthand => {
-            caseMap[locShorthand] = false; 
             const longKey = BattleMech.MECH_LOCATION_MAP[locShorthand];
             const critArray: any[] = (this._criticals as any)[longKey] || [];
-            for (let lCrit = 0; lCrit < critArray.length; lCrit++) {
-                if (matchesTag(critArray[lCrit], "case")) {
-                    caseMap[locShorthand] = true;
-                    break;
-                }
-            }
+            caseMap[locShorthand] = critArray.some(critical => matchesTag(critical, "case"));
+            caseIIMap[locShorthand] = critArray.some(critical => matchesTag(critical, "case-ii") || matchesTag(critical, "clan-case-ii"));
         });
+        // The next location inward on the Damage Transfer Diagram (TW p.123), legs left out: CASE II
+        // covers its own location and the one that transfers into it, "excepting the legs" (TO:AUE p.193).
+        const inward: Record<string, string> = { la: "lt", ra: "rt", lt: "ct", rt: "ct" };
+        const hasCaseII = (loc: string): boolean => caseIIMap[loc] || (inward[loc] !== undefined && caseIIMap[inward[loc]]);
+        // "Inner Sphere XL engine": three or more engine slots in each side torso, so CASE there cannot
+        // save the 'Mech (TM p.302). Light and Clan XL engines take two and count as standard.
+        const engineSideSlots = (this.getLargeEngineType() ?? this._engineType).criticals?.[this.getEngineTechBase()]?.lt ?? 0;
+        const isClanBase = this._tech.tag === "clan" || this._tech.tag === "mclan";
+        // Does an explosive slot in this location cost Battle Value (TM p.302)?
+        //  Clan: center torso, legs and head.
+        //  Inner Sphere XL engine: every location.
+        //  Inner Sphere standard or light engine: center torso, legs and head; a side torso without CASE;
+        //  an arm with CASE neither in it nor in the torso inward.
+        const isPenalisedLocation = (loc: string): boolean => {
+            if (hasCaseII(loc)) return false;
+            const isSideTorso = loc === "lt" || loc === "rt";
+            const isArm = loc === "la" || loc === "ra";
+            if (isClanBase) return !isSideTorso && !isArm;
+            if (engineSideSlots >= 3) return true;
+            if (isSideTorso) return !caseMap[loc];
+            if (isArm) return !caseMap[loc] && !caseMap[inward[loc]];
+            return true;
+        };
         // An explosive component loses 1 BV for each critical slot it fills (TM p.302). Only the first
         // slot of an item carries the item itself; its `crits` is the number of slots in this location.
         // A record can cap the slots counted: an HVAC counts as one slot (TO:AUE p.195).
@@ -683,73 +702,47 @@ export class BattleMech {
             explosiveSlotsCounted.set(key, counted + allowed);
             return allowed;
         };
-        // 1F. Technology-Based Critical Evaluation (Clan vs Inner Sphere Rulesets)
-        if (this._tech.tag === "clan" || this._tech.tag === "mclan") {
-            const clanVulnerableShorthands = ["hd", "ct", "ll", "rl", "cl", "fll", "frl"];
-            clanVulnerableShorthands.forEach(loc => {
-                const longKey = BattleMech.MECH_LOCATION_MAP[loc];
-                const critArray: any[] = (this._criticals as any)[longKey] || [];
-                critArray.forEach((item) => {
-                    if (item && item.obj) {
-                        if (BattleMech._isExplosiveAmmoSlot(item.obj)) {
-                            this._calcLogBV += `Explosive Ammo Crit in ${longKey} (Clan, -15)<br />`;
-                            explosiveAmmoModifiers += 15;
-                        }
-                        const componentSlots = explosiveComponentSlots(item);
-                        if (componentSlots > 0) {
-                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Clan, -${componentSlots})<br />`;
-                            explosiveAmmoModifiers += componentSlots;
-                        }
+        // 1F. Explosive ammunition and components, location by location
+        const techLabel = isClanBase ? "Clan" : "Inner Sphere";
+        ["hd", "ct", "lt", "rt", "la", "ra", "ll", "rl", "cl", "fll", "frl"].forEach(loc => {
+            const longKey = BattleMech.MECH_LOCATION_MAP[loc];
+            const critArray: any[] = (this._criticals as any)[longKey] || [];
+            if (critArray.length === 0) return;
+            const penalised = isPenalisedLocation(loc);
+            // A Clan 'Mech's side torsos and arms were never listed; an Inner Sphere 'Mech's protected locations are.
+            const logProtected = !penalised && (!isClanBase || hasCaseII(loc));
+            const protection = hasCaseII(loc) ? "CASE II" : "CASE";
+            critArray.forEach((item) => {
+                if (!item || !item.obj) return;
+                if (BattleMech._isExplosiveAmmoSlot(item.obj)) {
+                    if (penalised) {
+                        this._calcLogBV += `Explosive Ammo Crit in ${longKey} (${techLabel}, -15)<br />`;
+                        explosiveAmmoModifiers += 15;
+                    } else if (logProtected) {
+                        this._calcLogBV += `Explosive Ammo in ${longKey} protected by ${protection}. Penalty negated (0).<br />`;
                     }
-                });
-            });
-        } else {
-            // Inner Sphere / Mixed IS Base processing loop parameters
-            const isXLEngineActive = this.hasXLEngine();
-            const isShorthands = ["hd", "ct", "lt", "rt", "la", "ra", "ll", "rl", "cl", "fll", "frl"];
-            isShorthands.forEach(loc => {
-                const longKey = BattleMech.MECH_LOCATION_MAP[loc];
-                const critArray: any[] = (this._criticals as any)[longKey] || [];
-                if (critArray.length === 0) return; 
-                let isLocationProtected = false;
-                if (loc === "lt" || loc === "rt") {
-                    isLocationProtected = caseMap[loc] && !isXLEngineActive;
-                } else if (loc === "la" || loc === "fll" || loc === "ll") {
-                    isLocationProtected = caseMap["lt"];
-                } else if (loc === "ra" || loc === "frl" || loc === "rl") {
-                    isLocationProtected = caseMap["rt"];
-                } else if (loc === "cl") {
-                    isLocationProtected = caseMap["ct"];
-                } else {
-                    isLocationProtected = false; 
                 }
-                critArray.forEach((item) => {
-                    if (!item || !item.obj) return;
-                    if (BattleMech._isExplosiveAmmoSlot(item.obj)) {
-                        if (isLocationProtected) {
-                            this._calcLogBV += `Explosive Ammo in ${longKey} protected by CASE. Penalty negated (0).<br />`;
-                        } else {
-                            this._calcLogBV += `Explosive Ammo Crit in ${longKey} (Inner Sphere, -15)<br />`;
-                            explosiveAmmoModifiers += 15;
-                        }
+                const componentSlots = explosiveComponentSlots(item);
+                if (componentSlots > 0) {
+                    if (penalised) {
+                        this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (${techLabel}, -${componentSlots})<br />`;
+                        explosiveAmmoModifiers += componentSlots;
+                    } else if (logProtected) {
+                        this._calcLogBV += `Explosive Component (${item.obj.name}) in ${longKey} protected by ${protection}. Penalty negated (0).<br />`;
                     }
-                    const componentSlots = explosiveComponentSlots(item);
-                    if (componentSlots > 0) {
-                        if (isLocationProtected) {
-                            this._calcLogBV += `Explosive Component (${item.obj.name}) in ${longKey} protected by CASE. Penalty negated (0).<br />`;
-                        } else {
-                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Inner Sphere, -${componentSlots})<br />`;
-                            explosiveAmmoModifiers += componentSlots;
-                        }
-                    }
-                });
+                }
             });
-        }
+        });
         // =====================================================================
         // 1G. COMPILE DEFENSIVE SUBTOTAL (TM p. 303)
         // =====================================================================
         let defensiveSubtotal = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints + defensiveEquipmentBV - explosiveAmmoModifiers;
         this._calcLogBV += `Defensive Subtotal (Armor + IS + Gyro + Defensive Equipment - Ammo Penalties): ${defensiveSubtotal} = ${totalArmorFactor} + ${totalInternalStructurePoints} + ${totalGyroPoints} + ${defensiveEquipmentBV} - ${explosiveAmmoModifiers}<br />`;
+        // "These subtractions cannot drop the running total below 1" (TM p.302).
+        if (explosiveAmmoModifiers > 0 && defensiveSubtotal < 1) {
+            defensiveSubtotal = 1;
+            this._calcLogBV += "Penalties cannot take the total below 1: Defensive Subtotal set to 1<br />";
+        }
         /* *************************************************************************
          * STEP 2: CALCULATE DEFENSIVE FACTOR MODIFIER & STEALTH GEAR - TM p. 304
          * *********************************************************************** */

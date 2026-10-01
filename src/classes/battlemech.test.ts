@@ -4419,3 +4419,81 @@ describe("Batch 25 Superheavy 'Mechs are Inner Sphere technology (IO:AE p.154)",
         expect(build("clan", 100)).toEqual([]);
     });
 });
+
+describe("Batch 26 explosive ammunition penalty by location (TM p.302, TO:AUE p.193)", () => {
+    const keys: Record<string, string> = {
+        hd: "head", ct: "centerTorso", lt: "leftTorso", rt: "rightTorso", la: "leftArm", ra: "rightArm", ll: "leftLeg", rl: "rightLeg",
+        fll: "frontLeftLeg", frl: "frontRightLeg",
+    };
+    // Places one ton of AC/10 ammunition in each `ammo` location and the given CASE items, then
+    // returns the locations the Battle Value log penalises.
+    const penalised = (options: { tech?: string, type?: string, engine?: string, tonnage?: number, ammo: string[], items?: [string, string][] }) => {
+        const tech = options.tech ?? "is";
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra("dark-ages");
+        if (options.type) mech.setType(options.type);
+        mech.setTonnage(options.tonnage ?? 75);
+        mech.setWalkSpeed(3);
+        if (options.engine) mech.setEngineType(options.engine);
+        const place = (tag: string, location: string) => {
+            const item = mech.addEquipmentFromTag(tag, tech, "", false, undefined, "", false, [], undefined, undefined)!;
+            expect(item, tag).not.toBeNull();
+            const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
+            const slot = mech.getCriticals()[keys[location]].findIndex(critical => !critical);
+            expect(mech.moveCritical("un", from, location, slot), `${tag} in ${location}`).toBe(true);
+        };
+        for (const [tag, location] of options.items ?? []) place(tag, location);
+        for (const location of options.ammo) place(tech === "clan" ? "ammo-clan-lb-10x-standard" : "ammo-is-ac-10-standard", location);
+        const log = mech.getBVCalcHTML().split("<br />");
+        return {
+            locations: log.filter(line => /^Explosive Ammo Crit in /.test(line)).map(line => /in (\w+)/.exec(line)![1]).sort(),
+            log,
+            mech,
+        };
+    };
+
+    it("always penalises ammunition in the legs, center torso and head of an Inner Sphere 'Mech", () => {
+        expect(penalised({ ammo: ["ll", "rl", "ct", "hd"], items: [["case", "lt"], ["case", "rt"]] }).locations)
+            .toEqual(["centerTorso", "head", "leftLeg", "rightLeg"]);
+        // A quad's front legs are legs.
+        expect(penalised({ type: "quad", ammo: ["fll", "frl"], items: [["case", "lt"], ["case", "rt"]] }).locations)
+            .toEqual(["frontLeftLeg", "frontRightLeg"]);
+    });
+
+    it("spares side torso ammunition behind CASE, and arm ammunition when the torso inward has CASE", () => {
+        expect(penalised({ ammo: ["lt", "la", "rt", "ra"], items: [["case", "lt"]] }).locations).toEqual(["rightArm", "rightTorso"]);
+        expect(penalised({ ammo: ["lt", "la"] }).locations).toEqual(["leftArm", "leftTorso"]);
+    });
+
+    it("treats a Light engine like a standard one", () => {
+        expect(penalised({ engine: "light", ammo: ["lt", "la", "rt"], items: [["case", "lt"]] }).locations).toEqual(["rightTorso"]);
+    });
+
+    it("penalises every location of a 'Mech with an Inner Sphere XL engine, CASE or not", () => {
+        expect(penalised({ engine: "xl", ammo: ["lt", "la", "ll", "ct"], items: [["case", "lt"]] }).locations)
+            .toEqual(["centerTorso", "leftArm", "leftLeg", "leftTorso"]);
+    });
+
+    it("spares ammunition with CASE II in its location or one location inward, except the legs", () => {
+        // CASE II in a leg or the center torso covers that location...
+        expect(penalised({ ammo: ["ll", "ct", "rl"], items: [["case-ii", "ll"], ["case-ii", "ct"]] }).locations).toEqual(["rightLeg"]);
+        // ...and in a side torso it covers the torso and its arm, but not the leg, even with an XL engine.
+        expect(penalised({ engine: "xl", ammo: ["lt", "la", "ll", "rt"], items: [["case-ii", "lt"]] }).locations).toEqual(["leftLeg", "rightTorso"]);
+    });
+
+    it("penalises a Clan 'Mech only in the legs, center torso and head, and not behind CASE II", () => {
+        expect(penalised({ tech: "clan", ammo: ["lt", "la", "ll", "ct", "hd"] }).locations).toEqual(["centerTorso", "head", "leftLeg"]);
+        expect(penalised({ tech: "clan", ammo: ["ll", "ct"], items: [["clan-case-ii", "ll"]] }).locations).toEqual(["centerTorso"]);
+    });
+
+    it("never lets the penalties take the defensive total below 1", () => {
+        // 20 tons, no armor: structure and gyro are worth 59.5, six tons of ammunition would take off 90.
+        const unarmored = penalised({ tonnage: 20, ammo: ["ct", "ct", "ll", "ll", "rl", "rl"] });
+        expect(unarmored.locations).toHaveLength(6);
+        expect(unarmored.log.some(line => line.startsWith("Penalties cannot take the total below 1"))).toBe(true);
+        expect(unarmored.mech.getBattleValue()).toBeGreaterThan(0);
+        // An ordinary design never reaches the floor.
+        expect(penalised({ ammo: ["ct"] }).log.some(line => line.startsWith("Penalties cannot take the total below 1"))).toBe(false);
+    });
+});

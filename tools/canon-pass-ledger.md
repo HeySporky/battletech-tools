@@ -814,3 +814,20 @@ Regression tests: `Batch 24 cockpit critical slots`, `Batch 24 Superheavy 'Mech 
 | Heavy Gauss Rifle in superheavy arms; two industrial items per location | — | nothing to do | IO:AE p.157 | none | the builder has no torso-only or one-per-location rules to lift. Those TM limits are themselves owed |
 
 Regression tests: `Batch 25 Superheavy 'Mechs are Inner Sphere technology`.
+
+## Batch 26: explosive ammunition penalty by location
+
+Found while reading the TechManual Battle Value errata (v4.1) against the Battle Value code. The rule text is the same in the corrected sixth printing (TM p.302), so this is a code fault, not an erratum.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Leg ammunition, Inner Sphere 'Mech | battlemech.ts | **fixed** | TM p.302 | BV errata v4.1: same text | "15 points per critical space of explosive ammo in the center torso, legs or head, or not protected by CASE in its location". Leg ammunition was treated as protected when the side torso above it had CASE, including a quad's front legs and a tripod's center leg. Legs are now always penalised |
+| Light engine | battlemech.ts | **fixed** | TM p.302 | same | "Inner Sphere 'Mech with Standard or Light engines" keep the CASE exemption. The code asked "does the engine have side torso slots", so a Light engine lost it. Now: three or more side torso slots (Inner Sphere XL, XXL) means every location is penalised; two (Light, Clan XL on a mixed design) counts as standard. The XXL and mixed Clan XL readings follow MegaMek; the book names only XL, Standard and Light |
+| Arm ammunition, Inner Sphere XL engine | battlemech.ts | **fixed** | TM p.302 | same | "in any location ('Mech with Inner Sphere XL engine)": an arm was spared when its torso had CASE |
+| CASE II | battlemech.ts | **fixed** | TO:AUE p.193 | TO:AUE v7.0: none | "No reduction ... for ammunition or Gauss weapons mounted in the same location as CASE II, or one location out per the Damage Transfer Diagram (excepting the legs)". CASE II was not recognised at all. It now covers its own location (any location, any engine, either tech base), a side torso's arm, and the side torsos from the center torso. **Flag:** MegaMek applies the "one location out" part to arms only; the book's wording also covers side torsos from a center torso CASE II, and the book is followed |
+| Floor of 1 | battlemech.ts | **fixed** | TM p.302 | same | "These subtractions cannot drop the running total below 1" was not applied |
+| Clan 'Mech: center torso, legs, head | battlemech.ts | verified | TM p.302 | same | unchanged |
+
+Not changed, noted: prototype CASE (IO:AE) is not counted as CASE for Battle Value; `hasXLEngine()` still answers true for a Light engine and is used by the "wrecked" check in play tracking, where a Light or Clan XL 'Mech should survive losing one side torso; the footnote treating a Clan 'Mech built without CASE as Inner Sphere is not modeled.
+
+Regression tests: `Batch 26 explosive ammunition penalty by location`.
