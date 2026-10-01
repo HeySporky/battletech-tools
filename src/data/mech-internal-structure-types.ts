@@ -40,19 +40,19 @@ const baselineBipedData: Record<number, IRawMechStructure> = {
   100: { head: 3, ct: 31, torso: 21, arm: 17, leg: 21 },
 };
 
-// Defining the Colossal/Superheavy Master Table (105 to 200 tons)
+// Superheavy 'Mech Structure Table, 105 to 200 tons (IO:AE p.155)
 const superheavyBipedData: Record<number, IRawMechStructure> = {
   105: { head: 4, ct: 32, torso: 22, arm: 17, leg: 22 },
   110: { head: 4, ct: 33, torso: 23, arm: 18, leg: 23 },
   115: { head: 4, ct: 35, torso: 24, arm: 19, leg: 24 },
   120: { head: 4, ct: 36, torso: 25, arm: 20, leg: 25 },
   125: { head: 4, ct: 38, torso: 26, arm: 21, leg: 26 },
-  130: { head: 4, ct: 39, torso: 27, arm: 22, leg: 27 },
-  135: { head: 4, ct: 41, torso: 28, arm: 23, leg: 28 },
+  130: { head: 4, ct: 39, torso: 27, arm: 21, leg: 27 },
+  135: { head: 4, ct: 41, torso: 28, arm: 22, leg: 28 },
   140: { head: 4, ct: 42, torso: 29, arm: 23, leg: 29 },
-  145: { head: 4, ct: 44, torso: 30, arm: 24, leg: 30 },
+  145: { head: 4, ct: 44, torso: 31, arm: 24, leg: 31 },
   150: { head: 4, ct: 45, torso: 32, arm: 25, leg: 32 },
-  155: { head: 4, ct: 47, torso: 32, arm: 26, leg: 32 },
+  155: { head: 4, ct: 47, torso: 33, arm: 26, leg: 33 },
   160: { head: 4, ct: 48, torso: 34, arm: 26, leg: 34 },
   165: { head: 4, ct: 50, torso: 35, arm: 27, leg: 35 },
   170: { head: 4, ct: 51, torso: 36, arm: 28, leg: 36 },

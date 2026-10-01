@@ -4145,3 +4145,67 @@ describe("Batch 21 Superheavy 'Mech equipment limits (IO:AE p.156)", () => {
         expect(mech.getChassisEquipmentViolations()).toEqual(["Supercharger: 2 mounted; at most 1 allowed."]);
     });
 });
+
+describe("Batch 22 Superheavy 'Mech structure (IO:AE p.155)", () => {
+    // mass: [standard, endo composite, endo steel, industrial weight, head, center torso, side torso, arm, leg]
+    const table: Record<number, number[]> = {
+        105: [21, 16, 10.5, 42, 4, 32, 22, 17, 22], 110: [22, 16.5, 11, 44, 4, 33, 23, 18, 23],
+        115: [23, 17.5, 11.5, 46, 4, 35, 24, 19, 24], 120: [24, 18, 12, 48, 4, 36, 25, 20, 25],
+        125: [25, 19, 12.5, 50, 4, 38, 26, 21, 26], 130: [26, 19.5, 13, 52, 4, 39, 27, 21, 27],
+        135: [27, 20.5, 13.5, 54, 4, 41, 28, 22, 28], 140: [28, 21, 14, 56, 4, 42, 29, 23, 29],
+        145: [29, 22, 14.5, 58, 4, 44, 31, 24, 31], 150: [30, 22.5, 15, 60, 4, 45, 32, 25, 32],
+        155: [31, 23.5, 15.5, 62, 4, 47, 33, 26, 33], 160: [32, 24, 16, 64, 4, 48, 34, 26, 34],
+        165: [33, 25, 16.5, 66, 4, 50, 35, 27, 35], 170: [34, 25.5, 17, 68, 4, 51, 36, 28, 36],
+        175: [35, 26.5, 17.5, 70, 4, 53, 37, 29, 37], 180: [36, 27, 18, 72, 4, 54, 38, 30, 38],
+        185: [37, 28, 18.5, 74, 4, 56, 39, 31, 39], 190: [38, 28.5, 19, 76, 4, 57, 40, 31, 40],
+        195: [39, 29.5, 19.5, 78, 4, 59, 41, 32, 41], 200: [40, 30, 20, 80, 4, 60, 42, 33, 42],
+    };
+    const build = (tonnage: number, structure: string) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(tonnage);
+        mech.setInternalStructureType(structure);
+        return mech;
+    };
+
+    it("gives every location the structure points of the Superheavy 'Mech Structure Table", () => {
+        for (const [mass, [, , , , head, centerTorso, sideTorso, arm, leg]] of Object.entries(table)) {
+            const structure = build(+mass, "standard").getInternalStructure();
+            expect([structure.head, structure.centerTorso, structure.leftTorso, structure.rightTorso, structure.leftArm, structure.rightArm, structure.leftLeg, structure.rightLeg], mass)
+                .toEqual([head, centerTorso, sideTorso, sideTorso, arm, arm, leg, leg]);
+        }
+    });
+
+    it("weighs standard, endo-composite and endo steel structure at 20, 15 and 10 percent", () => {
+        for (const [mass, [standard, endoComposite, endoSteel]] of Object.entries(table)) {
+            expect(build(+mass, "standard").getInternalStructureWeight(), `${mass} standard`).toBe(standard);
+            expect(build(+mass, "endo-composite").getInternalStructureWeight(), `${mass} endo-composite`).toBe(endoComposite);
+            expect(build(+mass, "endo-steel").getInternalStructureWeight(), `${mass} endo steel`).toBe(endoSteel);
+        }
+    });
+});
+
+describe("Batch 22 Superheavy 'Mech structure types (IO:AE p.155)", () => {
+    const build = (tonnage: number) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(tonnage);
+        return mech;
+    };
+    const available = (mech: BattleMech) => mech.getAvailableInternalStructures(4).filter(item => item.available).map(item => item.tag).sort();
+
+    it("offers only standard, endo steel, endo-composite and industrial structure above 100 tons", () => {
+        expect(available(build(100))).toEqual(["composite", "endo-composite", "endo-steel", "industrial", "reinforced", "standard"]);
+        expect(available(build(150))).toEqual(["endo-composite", "endo-steel", "industrial", "standard"]);
+    });
+
+    it("reverts another structure type to standard when a design becomes superheavy", () => {
+        const mech = build(100);
+        mech.setInternalStructureType("reinforced");
+        expect(mech.getInternalStructureType()).toBe("reinforced");
+        mech.setTonnage(150);
+        expect(mech.getInternalStructureType()).toBe("standard");
+    });
+});
