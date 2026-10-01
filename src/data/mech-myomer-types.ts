@@ -10,7 +10,7 @@ import { IMyomerType } from "./data-interfaces";
 * to challenge any copyright or trademark status, and this data is explicitly 
 * excluded from the software's underlying license (GNU GPLv3).
 *
-* Dates: IO p.48 tech progression; unknown dates are null, not 0. Standard
+* Dates: IO:AE p.42 tech progression; unknown dates are null, not 0. Standard
 * musculature: prototype 2300, production 2350 (cost TM p.277). TSM: Inner Sphere
 * prototype 3028, production 3050. Industrial TSM: prototype 3035, production 3045
 * (12 slots, TM p.70; BV multipliers TM p.304). Prototype TSM (IO:AE p.98): 3028

@@ -1587,7 +1587,7 @@ export class BattleMech {
     public getGyroWeight() {
         if( this._engine ) {
             // Superheavy Mechs (>100 tons) of any chassis type must mount the Superheavy Gyro:
-            // engine rating / 50, rounded up to the next full ton (IO p.162).
+            // engine rating / 50, rounded up to the next full ton (IO:AE p.156).
             if( this._tonnage > 100 ) {
                 return Math.ceil(this._engine.rating / 50);
             }
@@ -3470,7 +3470,7 @@ export class BattleMech {
             );
         }
         // GYRO POSITIONING (Slots 4-6): Injected immediately below the upper engine core as is tradition and as I saw all the way back in 1989.
-        // Superheavy Mechs mount the Superheavy Gyro, which takes only 2 center torso slots (IO p.162).
+        // Superheavy Mechs mount the Superheavy Gyro, which takes only 2 center torso slots (IO:AE p.156).
         this._addCriticalItem(
             "gyro",
             this._gyro.name,
@@ -4929,7 +4929,7 @@ export class BattleMech {
     }
 
     /**
-     * Lowest rules level at which this design is legal: its chassis type (IO p.50), Ultra-light
+     * Lowest rules level at which this design is legal: its chassis type (IO:AE p.44), Ultra-light
      * or Superheavy tonnage (Advanced), prototype or rules-levelled equipment, and Custom
      * Homebrew content (fan rules, custom equipment). Standard (2) is tournament play.
      */

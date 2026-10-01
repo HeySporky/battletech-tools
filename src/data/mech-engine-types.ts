@@ -174,8 +174,8 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Primitive Fusion Engine",
 		tag: "primitive",
-		book: "IO",
-		page: 123,
+		book: "IO:AE",
+		page: 117,
 		criticals: {
 			is: { ct: 6 }
 		},
