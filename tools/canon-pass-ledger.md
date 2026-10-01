@@ -587,7 +587,7 @@ TO:AUE errata v7.0 (23 September 2023) was read in full. The local TO:AUE PDF is
 | Claws to-hit +1 (p.216); Flail +0, Lance +1 (pp.101–102) | not modelled | melee weapons carry no to-hit modifier in the catalog (Hatchet and Sword have none either). Owed with the other physical-weapon data |
 | Supercharger: one per unit (p.156) | not enforced | owed (construction validation) |
 | Armored Motive System weight rounding (p.94) | not modelled | the vehicle builder has no Armored Motive System |
-| Thunderbolt launchers may be OS or I-OS (p.158) | gap | no one-shot Thunderbolt records |
+| Thunderbolt launchers may be OS or I-OS (p.158) | verified | the one-shot records exist (see Batch 19) |
 | Game-play entries (Reflective armor, Vibroblade, Partial Wing, artillery scatter, smoke, field guns, VSP aerospace ranges, Rifle damage) | n/a | no construction data |
 
 | item | catalog | status | book p. | errata | notes |
@@ -638,3 +638,22 @@ Rows the name matcher could not pair (ProtoMech and battle armor weapons, capita
 Regression test: `Batch 18 TechManual table audit`.
 
 **Still owed:** the same statistics check for the TO:AUE tables (pp.216–226) and for the special munitions (Batch 12c); TechManual errata v8.0 entries for the 2023 and 2024 printings, which the local printing lacks, have only been searched for the items changed here.
+
+## Batch 19: TO:AUE table audit (statistics)
+
+The same check as Batch 18, against the TO:AUE tables in the local corrected sixth printing: game data pp.216, 218, 220, 222; construction data pp.217, 219, 221, 223; Battle Value pp.194–197. 125 rows paired by name and matched; 31 more construction rows were paired by hand and matched; the BV rows the matcher missed (Blazer, VSP lasers, Silver Bullet Gauss, ELRM, Arrow IV, artillery cannons, MagShot, Heavy Rifle) were checked by hand and match.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Thunderbolt 5 / 10 / 15 / 20, with their OS and I-OS forms (12 records) | mech-is-equipment-weapons-missiles | fixed | TO:AUE pp.159, 222–223 | v7.0: construction entry replaced ("can also be installed as OS or I-OS launchers"), values unchanged | 'Mech slots 2 / 3 / 5 / 7 → 1 / 2 / 3 / 5; minimum range 0 → 5. Vehicle slots were set to the 'Mech count; now 1 |
+| ProtoMech AC/2 / AC/4 / AC/8 | mech-clan-equipment-weapons-ballistic | fixed | TO:AUE pp.98, 217 | none | marked as ProtoMech-only (`battlemech: -1`). The rules box reads "Available To: BM, IM, PM, CV, SV, AF, CF, SC…"; 'Mech slots 2 / 3 / 4, one vehicle slot. ProtoMech slots unchanged |
+| Watchdog CEWS | mech-clan-equipment-weapons-misc | fixed | TO:AUE p.217 | none | cost 500,000 → 600,000 |
+| Rotary AC/2, AC/5 [Clan]; Streak LRM 5–20 | Clan ballistic, missile | fixed | TO:AUE pp.217, 221 | none | tech rating E → F |
+
+An older test used the ProtoMech AC/2 as its example of equipment a 'Mech cannot mount; it now uses the ProtoMech Myomer Booster and asserts the autocannon is offered.
+
+**Correction to Batch 17:** one-shot and improved one-shot Thunderbolt records do exist (`thunderbolt-N-os`, `thunderbolt-N-ios`); the "gap" noted there was wrong.
+
+**Not found in the catalog** (TO:AUE construction rows with no record): Vehicular Grenade Launcher, Recon Camera, BattleMech Taser, Coolant Pod, C3 Remote Sensor Launcher, Collapsible Command Module. All but the first two were already listed as missing.
+
+Regression test: `Batch 19 TO:AUE table audit`.

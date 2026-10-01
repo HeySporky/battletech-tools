@@ -162,8 +162,10 @@ describe("BattleMech equipment catalogs", () => {
         clan.setTech("clan");
         clan.setEra("ilClan");
         const available = clan.getAvailableEquipment();
-        expect(available.some(item => item.tag === "protomech-autocannon-2")).toBe(false);
+        expect(available.some(item => item.tag === "clan-protomech-myomer-booster")).toBe(false);
         expect(available.every(item => item.space.battlemech >= 0)).toBe(true);
+        // ProtoMech Autocannons are not ProtoMech-only: "Available To: BM, IM, PM, CV, SV..." (TO:AUE p.98).
+        expect(available.some(item => item.tag === "protomech-autocannon-2")).toBe(true);
     });
 
     it("resolves split IS and Clan Arrow IV tags, including old Clan saves", () => {
@@ -3699,6 +3701,40 @@ describe("Batch 18 TechManual table audit", () => {
             [mechUniversalEquipment, "mining-drill", { cbills: 100000 }],
             [mechUniversalEquipment, "remote-sensor-dispenser", { cbills: 30000 }],
             [mechUniversalEquipment, "wrecking-ball", { cbills: 80000 }],
+        ];
+        for (const [catalog, tag, fields] of expected) {
+            const item = catalog.find(entry => entry.tag === tag);
+            expect(item, tag).toBeDefined();
+            expect(item, tag).toMatchObject(fields);
+        }
+    });
+});
+
+describe("Batch 19 TO:AUE table audit", () => {
+    it("matches the TO:AUE game data, construction data and tech ratings (pp.216-223)", () => {
+        const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
+            [mechISEquipmentMissiles, "thunderbolt-5", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-5-os", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-5-ios", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-10", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-10-os", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-10-ios", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-15", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-15-os", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-15-ios", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-20", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-20-os", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechISEquipmentMissiles, "thunderbolt-20-ios", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, range: { min: 5, short: 6, medium: 12, long: 18 } }],
+            [mechClanEquipmentBallistic, "protomech-autocannon-2", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentBallistic, "protomech-autocannon-4", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentBallistic, "protomech-autocannon-8", { space: { battlemech: 4, protomech: 2, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentBallistic, "clan-autocannon-rac-2", { techRating: "f" }],
+            [mechClanEquipmentBallistic, "clan-autocannon-rac-5", { techRating: "f" }],
+            [mechClanEquipmentMissile, "streak-lrm-5", { techRating: "f" }],
+            [mechClanEquipmentMissile, "streak-lrm-10", { techRating: "f" }],
+            [mechClanEquipmentMissile, "streak-lrm-15", { techRating: "f" }],
+            [mechClanEquipmentMissile, "streak-lrm-20", { techRating: "f" }],
+            [mechClanEquipmentMisc, "clan-watchdog-cews", { cbills: 600000 }],
         ];
         for (const [catalog, tag, fields] of expected) {
             const item = catalog.find(entry => entry.tag === tag);
