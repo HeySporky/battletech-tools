@@ -4518,7 +4518,8 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "IO:AE",
         page: 125,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Sacrifices tracking range capability for bonus impact damage"] },
-        prototype: 3052
+        prototype: 3052,
+        battleValueByLauncher: { "lrm-5": 9, "lrm-10": 17, "lrm-15": 26, "lrm-20": 35, "mml-3": 6, "mml-5": 8, "mml-7": 11, "mml-9": 15 }
     },
     {
         isAmmo: true,
@@ -4545,7 +4546,8 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "IO:AE",
         page: 125,
         alphaStrike: { specialAbility: ["SRM#/#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Removes tracking logic for a raw damage bonus boost"] },
-        prototype: 3052
+        prototype: 3052,
+        battleValueByLauncher: { "srm-2": 4, "srm-4": 7, "srm-6": 10, "mml-3": 6, "mml-5": 9, "mml-7": 12, "mml-9": 17 }
     },
     {
         isAmmo: true,

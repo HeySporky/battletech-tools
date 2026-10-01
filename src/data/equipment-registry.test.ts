@@ -577,6 +577,22 @@ describe("ammunition Battle Value", () => {
         expect(getAmmoBattleValuePerTon(weapon("lrm-20-artemis-iv"), lrmAmmo)).toBe(23);
     });
 
+    it("prices Dead-Fire rounds per launcher (IO:AE p.190, errata v3.01)", () => {
+        const deadFireLrm = mechISAmmo.find(item => item.tag === "ammo-is-lrm-deadfire")!;
+        const deadFireSrm = mechISAmmo.find(item => item.tag === "ammo-is-srm-deadfire")!;
+        // launcher: Dead-Fire ammo BV per ton
+        const lrm: Record<string, number> = { "lrm-5": 9, "lrm-10": 17, "lrm-15": 26, "lrm-20": 35, "mml-3": 6, "mml-5": 8, "mml-7": 11, "mml-9": 15 };
+        const srm: Record<string, number> = { "srm-2": 4, "srm-4": 7, "srm-6": 10, "mml-3": 6, "mml-5": 9, "mml-7": 12, "mml-9": 17 };
+        for (const [tag, bv] of Object.entries(lrm)) {
+            expect(getAmmoBattleValuePerTon(weapon(tag), deadFireLrm), `LRM Dead-Fire in ${tag}`).toBe(bv);
+        }
+        for (const [tag, bv] of Object.entries(srm)) {
+            expect(getAmmoBattleValuePerTon(weapon(tag), deadFireSrm), `SRM Dead-Fire in ${tag}`).toBe(bv);
+        }
+        // Standard rounds are untouched.
+        expect(getAmmoBattleValuePerTon(weapon("lrm-5"), lrmAmmo)).toBe(6);
+    });
+
     it("applies special munition BV multipliers", () => {
         expect(heatSeeking.battleValueMultiplier).toBe(1.5);
         expect(getAmmoBattleValuePerTon(weapon("lrm-10"), heatSeeking)).toBe(16.5);

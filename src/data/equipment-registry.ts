@@ -339,6 +339,14 @@ export function getAmmoBattleValuePerTon(weapon: IEquipmentItem | null, ammo: IE
                 return rack * shots / 5 * 6;
         }
     }
+    if (weapon && ammo.battleValueByLauncher) {
+        // Published per launcher (e.g. Dead-Fire, IO:AE p.190).
+        const launcher = /(mml|lrm|srm)-(\d+)/.exec(weapon.tag);
+        const published = launcher ? ammo.battleValueByLauncher[`${launcher[1]}-${launcher[2]}`] : undefined;
+        if (published !== undefined) {
+            return published;
+        }
+    }
     if (weapon && weapon.ammoBattleValue !== undefined) {
         return weapon.ammoBattleValue * (ammo.battleValueMultiplier ?? 1);
     }
