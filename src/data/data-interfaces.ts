@@ -503,6 +503,8 @@ export interface IJumpJet {
     },
     criticals: number;
     costMultiplier: number;
+    book?: string;
+    page?: number;
     /** UMUs: underwater MP instead of jump MP (TO:AUE p.107). */
     underwater?: boolean;
     /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
