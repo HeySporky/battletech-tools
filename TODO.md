@@ -338,6 +338,16 @@ played first, then by dependency.
   p.44). The primitive engine and armor records exist; the construction mode does not.
 - [ ] Then lift the SSW import skip for these designs (section 2, 234 designs).
 
+### Cockpits
+
+- [ ] Cockpit selector (found in the canon pass, Batch 8): `mech-cockpit-types.ts` on
+  `feature/canon-equipment-pass` catalogues 15 'Mech cockpits, but the builder only mounts Standard,
+  Small and the chassis cockpits. Still to wire: Torso-Mounted (2 CT slots, life support in the side
+  torsos, BV x0.95 with doubled CT armor, TO:AUE pp.112-113, 193), Command Console (add-on, 3 tons),
+  Interface / Machina Domini (gyro optional, IO:AE p.110), DNI modification, IndustrialMech and primitive
+  cockpits. Saved designs store only `sm_cockpit`; a cockpit tag needs a schema bump.
+- [ ] Enforce cockpit dates by era (Small Cockpit is offered in every era; IS 3067, Clan 3080).
+
 ### Custom Homebrew
 
 - [ ] Compact 'Mechs under the Custom Homebrew rules level (requested 2026-10-01). Source: the *Best of
