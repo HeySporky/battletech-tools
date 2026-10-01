@@ -28,6 +28,7 @@ export const mechGyroTypes: IGyro[] = [
 	{
 		name: "Extra-light (XL) Gyro",
 		tag: "xl",
+		altNames: ["Extra-Light Gyro"],
 		weight_multiplier: 0.5,
 		criticals: 6,
 		costMultiplier: 750000,
@@ -52,6 +53,7 @@ export const mechGyroTypes: IGyro[] = [
 	{
 		name: "Heavy Duty Gyro",
 		tag: "heavy-duty",
+		altNames: ["Heavy-Duty Gyro"],
 		weight_multiplier: 2,
 		criticals: 4,
 		costMultiplier: 500000,

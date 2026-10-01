@@ -1937,6 +1937,89 @@ describe("BattleMech", () => {
         expect(mech.getUnallocatedCriticals()).toEqual([]);
     });
 
+    // Regression: SSW writes its own names for chassis components ("XL Engine", "Extra-Light Gyro", "Endo-Steel").
+    // The importer compared them with our display names only and never read <structure>, so every such design
+    // imported with a Standard engine, gyro or structure. SSW's techbase attribute (0 Inner Sphere, 1 Clan) picks
+    // the Inner Sphere or Clan XL/XXL engine.
+    it("imports the engine, gyro and internal structure of every bundled SSW 'Mech", () => {
+        const engines: Record<string, string> = {
+            "Fusion Engine": "standard", "XL Engine/0": "xl", "XL Engine/1": "clan_xl", "XXL Engine/0": "xxl",
+            "XXL Engine/1": "clan_xxl", "Light Fusion Engine": "light", "Compact Fusion Engine": "compact",
+            "I.C.E. Engine": "ice", "Fuel-Cell Engine": "cell", "Fission Engine": "fission",
+            "Primitive Fusion Engine": "primitive",
+        };
+        const gyros: Record<string, string> = {
+            "Standard Gyro": "standard", "Extra-Light Gyro": "xl", "Compact Gyro": "compact", "Heavy-Duty Gyro": "heavy-duty",
+        };
+        const structures: Record<string, string> = {
+            "Standard Structure": "standard", "Endo-Steel": "endo-steel", "Endo-Composite": "endo-composite",
+            "Composite Structure": "composite", "Reinforced Structure": "reinforced", "Industrial Structure": "industrial",
+        };
+        const wrong: string[] = [];
+        for (const xml of sswMechs) {
+            const label = /name="([^"]*)" model="([^"]*)"/.exec(xml)!.slice(1).join(" ");
+            const engine = /<engine [^>]*techbase="(\d)"[^>]*>([^<]+)</.exec(xml)!;
+            const gyro = /<gyro[^>]*>([^<]+)</.exec(xml)![1];
+            const structure = /<structure[^>]*>\s*<type>([^<]+)</.exec(xml)![1];
+            const mech = new BattleMech();
+            mech.importSSWXML(xml);
+
+            const expectedEngine = engines[`${engine[2]}/${engine[1]}`] ?? engines[engine[2]];
+            if (mech.getEngineType().tag !== expectedEngine) wrong.push(`${label}: ${engine[2]} -> ${mech.getEngineType().tag}`);
+            if (mech.getGyro().tag !== gyros[gyro]) wrong.push(`${label}: ${gyro} -> ${mech.getGyro().tag}`);
+            if (mech.getInternalStructureType() !== structures[structure]) {
+                wrong.push(`${label}: ${structure} -> ${mech.getInternalStructureType()}`);
+            }
+            const unplacedStructure = mech.getUnallocatedCriticals().filter((slot) => slot?.tag === structures[structure]);
+            if (unplacedStructure.length > 0) wrong.push(`${label}: ${unplacedStructure.length} ${structure} slots unplaced`);
+        }
+        expect(wrong).toEqual([]);
+    }, 120_000);
+
+    // SSW's spellings of canon armor, heat sink and jump jet types (TM, TO:AUE) used to fall back to Standard armor,
+    // Double heat sinks and Standard jump jets without a warning.
+    it.each([
+        ["armor", "<type>Standard Armor</type>", "<type>Laser-Reflective</type>", "laser-reflective"],
+        ["armor", "<type>Standard Armor</type>", "<type>Reactive Armor</type>", "reactive"],
+        ["armor", "<type>Standard Armor</type>", "<type>Hardened Armor</type>", "hardened"],
+        ["armor", "<type>Standard Armor</type>", "<type>Ballistic-Reinforced Armor</type>", "ballistic-reinforced"],
+        ["heat sinks", "<type>Single Heat Sink</type>", "<type>Compact Heat Sink</type>", "compact"],
+        ["jump jets", "<type>Standard Jump Jet</type>", "<type>Mech UMU</type>", "umu"],
+    ])("imports SSW %s named %s -> %s", (component, from, to, expectedTag) => {
+        const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+        const mech = new BattleMech();
+        mech.importSSWXML(griffin.replace(from, to));
+
+        const tag = component === "armor" ? mech.getArmorType()
+            : component === "heat sinks" ? mech.getHeatSinksObj().tag
+                : mech.getJumpJetType().tag;
+        expect(tag).toBe(expectedTag);
+    });
+
+    // A Small Cockpit weighs 2 tons, drops a life support slot and moves the second sensors up, leaving head slots 5-6
+    // (0-based 4-5) free (TM p.52). SSW writes it as <cockpit><type>Small Cockpit</type>; the Commando COM-7B puts
+    // Endo-Steel in those slots.
+    it("imports an SSW Small Cockpit (Commando COM-7B)", () => {
+        const xml = sswMechs.find((candidate) => /model="COM-7B"/.test(candidate))!;
+        const mech = new BattleMech();
+        mech.importSSWXML(xml);
+        expect(mech.getCockpitWeight()).toBe(2);
+    });
+
+    it("clears an SSW Small Cockpit when the next SSW import into the same 'Mech has a standard one", () => {
+        const mech = new BattleMech();
+        mech.importSSWXML(sswMechs.find((candidate) => /model="COM-7B"/.test(candidate))!);
+        mech.importSSWXML(sswMechs.find((candidate) => /name="Griffin" model="GRF-1N"/.test(candidate))!);
+        expect(mech.getCockpitWeight()).toBe(3);
+    });
+
+    it("imports a Clan SSW design's Laser Heat Sinks (Champion C)", () => {
+        const mech = new BattleMech();
+        mech.importSSWXML(sswTestFixtures["Champion C"].replace(/<type>Double Heat Sink<\/type>/, "<type>Laser Heat Sink</type>"));
+
+        expect(mech.getHeatSinksObj().tag).toBe("laser");
+    });
+
     // Regression: setEngine(0) is how reset() and Walk MP 0 clear the engine; it used to log an error and keep the
     // previous engine.
     it("clears the engine when Walk MP is set back to 0", () => {

@@ -23,6 +23,8 @@ export interface IArmorType {
 	tag: string;
 	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
 	altTags?: string[];
+	/** Other spellings of the name, such as Solaris Skunk Werks' ("XL Engine"), matched by name lookups. */
+	altNames?: string[];
 	name: string;
     unitTypes: IArmorUnitTypes;
     constructionStatus?: "implemented" | "deferred";
@@ -91,6 +93,8 @@ export interface IEngineType {
 	tag: string;
 	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
 	altTags?: string[];
+	/** Other spellings of the name, such as Solaris Skunk Werks' ("XL Engine"), matched by name lookups. */
+	altNames?: string[];
 	name: string;
     alternateName?: string;
 	costMultiplier: number;
@@ -327,6 +331,8 @@ export interface IGyro {
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
     altTags?: string[];
+    /** Other spellings of the name, such as Solaris Skunk Werks' ("XL Engine"), matched by name lookups. */
+    altNames?: string[];
     weight_multiplier: number;
     criticals: number;
     costMultiplier: number;
@@ -353,6 +359,8 @@ export interface IHeatSync {
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
     altTags?: string[];
+    /** Other spellings of the name, such as Solaris Skunk Werks' ("XL Engine"), matched by name lookups. */
+    altNames?: string[];
     dissipation: number;
     crits: {
         [key: string]: number;
@@ -427,6 +435,8 @@ export interface IInternalStructure {
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
     altTags?: string[];
+    /** Other spellings of the name, such as Solaris Skunk Werks' ("XL Engine"), matched by name lookups. */
+    altNames?: string[];
     crits: {
         clan: number;
 		is: number;
@@ -465,6 +475,8 @@ export interface IJumpJet {
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
     altTags?: string[];
+    /** Other spellings of the name, such as Solaris Skunk Werks' ("XL Engine"), matched by name lookups. */
+    altNames?: string[];
     weight_multiplier: {
         light: number;
         medium: number;

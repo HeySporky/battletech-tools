@@ -18,6 +18,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Standard",
 		tag: "standard",
+		altNames: ["Standard Armor"],
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -49,6 +50,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Ferro Fibrous",
 		tag: "ferro-fibrous",
+		altNames: ["Ferro-Fibrous"],
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -82,6 +84,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Light Ferro Fibrous",
 		tag: "light-ferro-fibrous",
+		altNames: ["Light Ferro-Fibrous"],
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -113,6 +116,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Heavy Ferro Fibrous",
 		tag: "heavy-ferro-fibrous",
+		altNames: ["Heavy Ferro-Fibrous"],
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -144,6 +148,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Basic Stealth",
 		tag: "stealth-basic",
+		altNames: ["Stealth Armor"],
 		alphaStrikeAbility: "STL",
 		unitTypes: {
 			battlemech: true,
@@ -218,6 +223,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Laser Reflective Armor",
 		tag: "laser-reflective",
+		altNames: ["Laser-Reflective"],
 		alphaStrikeAbility: "RFA",
 		unitTypes: {
 			battlemech: true,
@@ -285,6 +291,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Ferro-Lamellor Armor",
 		tag: "ferro-lamellor",
+		altNames: ["Ferro-Lamellor"],
 		alphaStrikeAbility: "CR",
 		unitTypes: {
 			battlemech: true,
@@ -522,6 +529,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Patchwork Armor Setup",
 		tag: "patchwork",
+		altNames: ["Patchwork Armor"],
 		constructionStatus: "deferred",
 		unitTypes: {
 			battlemech: true,

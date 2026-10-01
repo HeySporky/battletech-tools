@@ -92,6 +92,15 @@ designs, 44 still report errors (421 before).
   Gauss, iGauss, ProtoMech AC, torpedo and the rest now resolve through `altNames`.
 - [x] Equipment names: HAG, VSP and R-e lasers, Claws, C3 Boosted, MG Arrays, `CP` prototypes, Arrow IV
   Missile, Clan TM names, (iOS) launchers, Clan Streak LRM.
+- [x] Chassis components (2026-09-30): the importer matched SSW's engine and gyro names against our display
+  names, fell back to Standard, never read `<structure>` or `<cockpit>`, and mapped armor, heat sinks and jump
+  jets by substring. 254 of the 512 bundled designs imported with a Standard engine, gyro or structure (XL and
+  Light engines, Endo-Steel, XL/Heavy-Duty gyros). SSW spellings are now `altNames` on the component records;
+  SSW's `techbase` attribute picks the Inner Sphere or Clan XL/XXL engine; structure criticals are placed;
+  Small Cockpits import; unknown names go into `sswImportErrors`.
+- [ ] Chassis component names with no record yet (they report an import error): Primitive Structure,
+  Primitive Industrial Structure, Primitive I.C.E./Fuel-Cell engines, Industrial Armor, Ablation Armor,
+  Prototype Improved Jump Jet, Primitive Prototype Jump Jet, No Gyro, and every cockpit but Standard and Small.
 - [ ] Canon equipment with no catalog record yet (needs TO:AUE/TM stats before adding): B-Pod, M-Pod,
   Coolant Pod, Chaff Pod, BattleMech Taser and ammo, TSEMP / TSEMP One-Shot, HarJel II/III, ProtoMech AC/2,
   AC/4, AC/8 weapons (their ammo exists), Collapsible Command Module, Communications Equipment, Electronic
