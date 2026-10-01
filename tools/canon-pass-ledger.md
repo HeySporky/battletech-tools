@@ -831,3 +831,19 @@ Found while reading the TechManual Battle Value errata (v4.1) against the Battle
 Not changed, noted: prototype CASE (IO:AE) is not counted as CASE for Battle Value; `hasXLEngine()` still answers true for a Light engine and is used by the "wrecked" check in play tracking, where a Light or Clan XL 'Mech should survive losing one side torso; the footnote treating a Clan 'Mech built without CASE as Inner Sphere is not modeled.
 
 Regression tests: `Batch 26 explosive ammunition penalty by location`.
+
+## Batch 27: Weapon Battle Rating order
+
+Same source as Batch 26: TM p.303, text unchanged by the Battle Value errata v4.1.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Tie between weapons of equal Modified BV | battlemech.ts | **fixed** | TM p.303, step 4 | same text | "choose the one that generates the least heat when fired". The sort took the hotter weapon first. PPC + Large Laser + AC/10 on ten single sinks: 422, was 360.5 |
+| Order by Modified BV | battlemech.ts | **fixed** | TM p.303, step 4 | same text | the sort used the table BV, before the Targeting Computer multiplier. A Large Laser on a Targeting Computer (153.75) now goes ahead of an LRM 15 (136) |
+| Forward-firing weapons on a rear-dominant design | battlemech.ts | **fixed** | TM p.303, Rear-Firing Weapons | same text | "halve the value of the forward-firing torso-, leg- and head-mounted weapons instead": they were never halved. Arm weapons are unaffected |
+| Equipment list order | battlemech.ts | fixed | — | — | the calculation sorted the installed equipment list itself, so the list changed order whenever Battle Value was worked out (the cause of the Batch 17 import problem). It now sorts a copy; the installed list stays in its sort-key order. Closes the owed item |
+| Heat multipliers (Ultra ×2, Rotary ×6, Streak ×½, one-shot ×¼), stealth +10 movement heat, TSM ×1.5 and Industrial TSM ×1.15, Small Cockpit ×0.95, AMS ammunition cap | battlemech.ts | verified | TM pp.302–304 | same text | read against the code; no change |
+
+**Owed:** IndustrialMechs "unless equipped with Advanced Fire Control ... multiply their Offensive Battle Rating by 0.9" (TM p.304). The builder has no fire control choice (TM p.69), so the multiplier cannot be applied correctly yet.
+
+Regression tests: `Batch 27 Weapon Battle Rating order`.

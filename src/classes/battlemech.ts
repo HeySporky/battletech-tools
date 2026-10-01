@@ -904,9 +904,6 @@ export class BattleMech {
         let totalWeaponHeat = 0;
         const heatLogFragments: string[] = [];
 
-        // Sort weapon assets using prioritized combat sorting logic
-        this._equipmentList.sort((a, b) => sortByAdjustedBVThenHeat(a, b, this));
-
         for (let eqC = 0; eqC < this._equipmentList.length; eqC++) {
             const currentItem = this._equipmentList[eqC];
             if (currentItem.isAmmo || currentItem.tag.startsWith("ammo-") || this._isDefensiveBVEquipment(currentItem)) continue;
@@ -937,16 +934,27 @@ export class BattleMech {
         let runningHeat = 0;
         let inHalfCost = false;
 
-        for (let weaponC = 0; weaponC < this._equipmentList.length; weaponC++) {
-            const currentItem = this._equipmentList[weaponC];
-            if (currentItem.isAmmo || currentItem.tag.startsWith("ammo-") || this._isDefensiveBVEquipment(currentItem)) continue;
+        // Rear-firing torso, leg and head weapons count half; when they are worth more than the
+        // forward-firing weapons in those locations, the forward-firing ones are halved instead (TM p.303).
+        const isRearDominant = this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons();
+        const arcMultiplier = (item: IEquipmentItem): number => {
+            if (this.isNotOnTorsoHeadOrLegs(item.location)) return 1;
+            return !!item.rear === isRearDominant ? 1 : 0.5;
+        };
+        // The heat steps take the weapon with the highest Modified BV first and, between equals, the one
+        // that generates the least heat (TM p.303). A copy is sorted: the installed list keeps its order.
+        const weaponsByModifiedBV = this._equipmentList
+            .filter(item => !(item.isAmmo || item.tag.startsWith("ammo-") || this._isDefensiveBVEquipment(item)))
+            .map(item => ({ item, modifiedBV: this._getWeaponBattleValue(item) * arcMultiplier(item) }))
+            .sort((a, b) => b.modifiedBV - a.modifiedBV || (a.item.bvHeat || 0) - (b.item.bvHeat || 0))
+            .map(entry => entry.item);
 
+        for (const currentItem of weaponsByModifiedBV) {
             const baseBV = this._getWeaponBattleValue(currentItem);
             const weaponHeat = currentItem.bvHeat || 0;
             let finalWeaponMultiplier = 1.0;
 
             // Resolve explicit firing arc boundaries
-            const isRearDominant = this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons();
             const isFlexibleLimb = this.isNotOnTorsoHeadOrLegs(currentItem.location);
             const waiveRearPenalty = isRearDominant || isFlexibleLimb;
 
@@ -960,7 +968,7 @@ export class BattleMech {
                     finalWeaponMultiplier *= 0.5;
                 }
             } else {
-                if (!waiveRearPenalty && this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons()) {
+                if (isRearDominant && !isFlexibleLimb) {
                     this._calcLogBV += `+ Adding Front Weapon ${logName} (${logLoc}) - Base BV: ${baseBV} halved due to Rear Dominance: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
                     finalWeaponMultiplier *= 0.5;
                 } else {
@@ -10143,47 +10151,6 @@ export interface IClusterHit {
 
 
 
-  function sortByAdjustedBVThenHeat(
-      a: IEquipmentItem,
-      b: IEquipmentItem,
-      mech: BattleMech,
-) {
-
-    let aBattleValue = a.battleValue ? a.battleValue : 0;
-    let bBattleValue = b.battleValue ? b.battleValue : 0;
-
-    if( mech && a.rear && mech.getTotalBVFrontWeapons() >= mech.getTotalBVRearWeapons()) {
-        aBattleValue = aBattleValue / 2;
-    } else if( mech && !a.rear && mech.getTotalBVFrontWeapons() < mech.getTotalBVRearWeapons()) {
-        aBattleValue = aBattleValue / 2;
-    }
-
-    if( mech && b.rear && mech.getTotalBVFrontWeapons() >= mech.getTotalBVRearWeapons() ) {
-        bBattleValue = bBattleValue / 2;
-    } else if( mech && !b.rear && mech.getTotalBVFrontWeapons() < mech.getTotalBVRearWeapons()) {
-        bBattleValue = bBattleValue / 2;
-    }
-
-    if(  aBattleValue < bBattleValue )
-        return 1;
-    if(  aBattleValue > bBattleValue )
-        return -1;
-
-
-
-    if( a.heat < b.heat )
-        return 1;
-    if( a.heat > b.heat )
-        return -1;
-
-
-    // if( a.rear < b.rear )
-    //     return -1;
-    // if( a.rear > b.rear )
-    //     return 1;
-
-    return 0;
-}
 function sortByLocationThenName( a: IEquipmentItem, b: IEquipmentItem ) {
     if( a.location && b.location && a.location > b.location )
         return 1;
