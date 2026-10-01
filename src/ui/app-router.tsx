@@ -10,6 +10,7 @@ import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import Vehicle, { IVehicleExport } from "../classes/vehicle";
 import { CONST_SITE_TITLE } from '../configVars';
 import { sswMechs } from "../data/ssw/sswMechs";
+import { registerLocalCustomContent } from "../data/custom-content-local";
 import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentVehicle, getFavoriteASGroups, getFavoriteCBTGroups, getVehicleSaves, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentVehicle, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
@@ -163,6 +164,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appSettings: AppSettings,
         appGlobals: IAppGlobals,
     ) => {
+
+        // This browser's custom content drafts must be registered before saved designs that use them load.
+        registerLocalCustomContent();
 
         let asImport: IASForceExport | null = await getCurrentASForce(appSettings);
 

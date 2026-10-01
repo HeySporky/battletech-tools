@@ -69,11 +69,26 @@ function cloneEquipment(items: IEquipmentItem[]): IEquipmentItem[] {
     return JSON.parse(JSON.stringify(items)) as IEquipmentItem[];
 }
 
+// Custom drafts made in this browser (see custom-content-local.ts). They join the custom tier at runtime and
+// never appear in the catalog definitions, summaries or exports.
+let localCustomEquipment: IEquipmentItem[] = [];
+
+export function setLocalCustomEquipment(items: IEquipmentItem[]): void {
+    localCustomEquipment = items.map((item) => ({ ...item, catalog: "custom" }));
+    standardAmmoBases = null;
+    standardRoundsByFamily = null;
+}
+
+export function getLocalCustomEquipment(): IEquipmentItem[] {
+    return localCustomEquipment;
+}
+
 function getCatalogByTech(techBase: EquipmentCatalog): IEquipmentItem[] {
-    return equipmentCatalogDefinitions
+    const items = equipmentCatalogDefinitions
         .filter((catalog) => catalog.techBase === techBase)
         .flatMap((catalog) => catalog.equipment)
         .filter((item) => techBase === "universal" || !isUniversalEquipment(item));
+    return techBase === "custom" ? [...items, ...localCustomEquipment] : items;
 }
 
 export function getEquipmentCatalogDefinitions(): IEquipmentCatalogDefinition[] {

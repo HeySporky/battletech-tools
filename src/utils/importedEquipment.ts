@@ -1,5 +1,5 @@
 import { IEquipmentItem } from "../data/data-interfaces";
-import { EquipmentCatalog, getEquipmentCatalogDefinitions } from "../data/equipment-registry";
+import { EquipmentCatalog, getEquipmentCatalogDefinitions, getLocalCustomEquipment } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 
 // Resolves an equipment name from an imported design (SSW, MegaMek, or any other tool) to a catalog record.
@@ -73,8 +73,26 @@ function getIndex(catalog: EquipmentCatalog): ICatalogIndex {
                 }
             }
         }
+        // This browser's custom drafts (custom-content-local.ts) answer after the shared custom catalogs.
+        let custom = indexes.get("custom");
+        if (!custom) {
+            custom = { primary: new Map(), any: new Map() };
+            indexes.set("custom", custom);
+        }
+        for (const item of getLocalCustomEquipment()) {
+            add(custom.primary, item.name, item);
+            add(custom.primary, item.tag, item);
+            for (const identifier of getEquipmentIdentifiers(item)) {
+                add(custom.any, identifier, item);
+            }
+        }
     }
     return indexes.get(catalog) ?? { primary: new Map(), any: new Map() };
+}
+
+/** Drops the lookup index so the next lookup sees newly registered local drafts. */
+export function resetImportedEquipmentIndex(): void {
+    indexes = null;
 }
 
 /** Records in `catalog` answering to `name`: by own name or tag only when `primaryOnly`, otherwise by any identifier. */
