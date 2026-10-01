@@ -3064,3 +3064,42 @@ describe("Batch 11 jump jet catalog", () => {
         }
     });
 });
+
+describe("Batch 9c pods added from TechManual and TO:AUE", () => {
+    it("lists the B-Pod as universal equipment (TM pp.205, 291, 317, 342)", () => {
+        const pod = mechUniversalEquipment.find(item => item.tag === "b-pod");
+        expect(pod).toMatchObject({ name: "B-Pod", weight: 1, cbills: 2500, battleValue: 2, battleValueDefensive: true, explosive: true, book: "TM", page: 205 });
+        expect(pod?.space).toMatchObject({ battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1 });
+        // IO:AE p.34: ~3065 prototype (Wolf-in-Exile and Lyran), 3068 production for both tech bases.
+        expect([pod?.prototype, pod?.introduced, pod?.extinct, pod?.reintroduced]).toEqual([3065, 3068, null, null]);
+    });
+
+    it("lists the M-Pod as Inner Sphere equipment (TO:AUE pp.143, 195, 221)", () => {
+        const pod = mechISEquipmentMisc.find(item => item.tag === "m-pod");
+        expect(pod).toMatchObject({ name: "M-Pod", weight: 1, cbills: 6000, battleValue: 5, battleValueDefensive: true, explosive: true, accuracyModifier: -1, book: "TO:AUE", page: 143 });
+        expect(pod?.range).toEqual({ min: 0, short: 1, medium: 2, long: 3 });
+        expect(pod?.space).toMatchObject({ battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1 });
+        // IO:AE p.34: ~3060 prototype, 3064 production.
+        expect([pod?.prototype, pod?.introduced, pod?.extinct, pod?.reintroduced]).toEqual([3060, 3064, null, null]);
+    });
+
+    it("lists the Chaff Pod as Inner Sphere equipment (TO:AUE pp.111, 195, 219)", () => {
+        const pod = mechISEquipmentMisc.find(item => item.tag === "chaff-pod");
+        expect(pod).toMatchObject({ name: "Chaff Pod", weight: 1, cbills: 2000, battleValue: 19, battleValueDefensive: true, explosive: true, book: "TO:AUE", page: 111 });
+        expect(pod?.space).toMatchObject({ battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 });
+        // IO:AE p.39: 3069 prototype, 3079 production.
+        expect([pod?.prototype, pod?.introduced, pod?.extinct, pod?.reintroduced]).toEqual([3069, 3079, null, null]);
+    });
+
+    it("mounts a B-Pod on Inner Sphere and Clan designs and counts it as defensive BV", () => {
+        for (const tech of ["is", "clan"]) {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            mech.setEra("ilClan");
+            const before = mech.getBattleValue();
+            const pod = mech.addEquipmentFromTag("b-pod", "", "", false, null, undefined, undefined, undefined, undefined, undefined);
+            expect(pod?.tag, tech).toBe("b-pod");
+            expect(mech.getBattleValue(), tech).toBeGreaterThan(before);
+        }
+    });
+});
