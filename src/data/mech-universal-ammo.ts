@@ -34,8 +34,8 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         roundsPerTon: 5,
         explosive: true,
         techRating: "c",
-        book: "TM",
-        page: 243,
+        book: "TO:AUE",
+        page: 96,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ART-LT"] },
         prototype: 2445
     },
@@ -90,7 +90,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "c",
         book: "TM",
-        page: 229,
+        page: 231,
         alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2295
     },
@@ -251,7 +251,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "b",
         book: "TM",
-        page: 227,
+        page: 228,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
     },
     {
@@ -302,8 +302,8 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         roundsPerTon: 10,
         explosive: true,
         techRating: "c",
-        book: "TM",
-        page: 243,
+        book: "TO:AUE",
+        page: 96,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ART-S"] }
     },
     {
@@ -356,8 +356,8 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         roundsPerTon: 100,
         explosive: true,
         techRating: "c",
-        book: "TW",
-        page: 141,
+        book: "TM",
+        page: 231,
         alphaStrike: { specialAbility: ["SRM#/#/#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2365
     },
@@ -543,8 +543,8 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         roundsPerTon: 20,
         explosive: true,
         techRating: "b",
-        book: "TM",
-        page: 243,
+        book: "TO:AUE",
+        page: 96,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ART-T"] }
     },
     {
@@ -1337,10 +1337,10 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         roundsPerTon: 5,
         explosive: true,
         techRating: "d",
-        book: "TO",
-        page: 404,
+        book: "TO:AUE",
+        page: 97,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ARTLTC-1"] },
-        prototype: 3032
+        prototype: 3012
     },
     {
         isAmmo: true,
@@ -1364,10 +1364,10 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         roundsPerTon: 10,
         explosive: true,
         techRating: "d",
-        book: "TO",
-        page: 404,
+        book: "TO:AUE",
+        page: 97,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ARTSNC-1"] },
-        prototype: 3032
+        prototype: 3012
     },
     {
         isAmmo: true,
@@ -1391,10 +1391,10 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         roundsPerTon: 20,
         explosive: true,
         techRating: "d",
-        book: "TO",
-        page: 404,
+        book: "TO:AUE",
+        page: 97,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ARTTHC-1"] },
-        prototype: 3032
+        prototype: 3012
     },
     {
         isAmmo: true,
@@ -1720,8 +1720,8 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         roundsPerTon: 20,
         explosive: false,
         techRating: "b",
-        book: "TO",
-        page: 313,
+        book: "TO:AUE",
+        page: 125,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
     },
     // Bombs (user approved 2026-09-28): loaded into LAM Bomb Bays or fighter bomb slots, never

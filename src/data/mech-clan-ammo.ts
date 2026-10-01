@@ -25,7 +25,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, artillery, arrow iv standard, clan",
         category: "Ammunition",
         cbills: 10000,
-        introduced: 2600,
+        introduced: 2844,
         extinct: null,
         reintroduced: null,
         battleValue: 30,
@@ -38,10 +38,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TO:AUE",
-        page: 166,
-        alphaStrike: { specialAbility: ["ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deals standard area-effect artillery splash"] },
-        prototype: 2593
-    },
+        page: 96,
+        alphaStrike: { specialAbility: ["ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deals standard area-effect artillery splash"] }},
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -228,7 +226,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "f",
         book: "TM",
-        page: 229,
+        page: 231,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Standard ATM damage profile"] },
         prototype: 3052,
         ammoProfile: { damagePerMissile: 2, range: { min: 4, short: 5, medium: 10, long: 15 }, alphaStrikeDamage: { short: 2, medium: 2, long: 2, extreme: 0 } }
@@ -308,7 +306,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TM",
-        page: 284,
+        page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2824
     },
@@ -335,7 +333,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TM",
-        page: 284,
+        page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2824
     },
@@ -362,7 +360,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TM",
-        page: 284,
+        page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2824
     },
@@ -389,7 +387,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TM",
-        page: 284,
+        page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2824
     },
@@ -710,9 +708,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 24,
         explosive: true,
         techRating: "d",
-        book: "TO",
+        book: "TO:AUE",
         page: 136,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 2835
     },
     {
         isAmmo: true,
@@ -791,8 +790,9 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: false,
         techRating: "f",
         book: "TM",
-        page: 234,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        page: 235,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3068
     },
     {
         isAmmo: true,
@@ -830,7 +830,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, beacon, narc homing, clan",
         category: "Ammunition",
         cbills: 10000,
-        introduced: 2818,
+        introduced: 2828,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -842,9 +842,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 6,
         explosive: false, // Inactive transmitter payload; completely non-explosive in bins
         techRating: "d",
-        book: "TW",
-        page: 141,
-        alphaStrike: { specialAbility: ["SNARC"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Latches to target to give friendly Narc-guided missiles a +2 Cluster Hit bonus"] }
+        book: "TM",
+        page: 233,
+        alphaStrike: { specialAbility: ["SNARC"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Latches to target to give friendly Narc-guided missiles a +2 Cluster Hit bonus"] },
+        prototype: 2820
     },
     {
         isAmmo: true,
@@ -1240,8 +1241,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 120, // Base torpedo count. Divide by tube configuration (5, 10, 15, 20) to compute salvos
         explosive: true,
         techRating: "c",
-        book: "TW",
-        page: 138,
+        book: "TM",
+        page: 231,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Sub-surface maritime restrictions apply. Incompatible with standard LRM racks."] },
         prototype: 2820
     },
@@ -1267,8 +1268,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 100, // Base torpedo count. Divide by tube configuration (2, 4, 6) to compute salvos
         explosive: true,
         techRating: "c",
-        book: "TW",
-        page: 138,
+        book: "TM",
+        page: 231,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Sub-surface maritime restrictions apply. Incompatible with standard SRM racks."] },
         prototype: 2820
     },
@@ -1282,7 +1283,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, rotary, ac2",
         category: "Ammunition",
         cbills: 5000,
-        introduced: 3073,
+        introduced: 3104,
         extinct: null,
         reintroduced: null,
         battleValue: 20,
@@ -1294,9 +1295,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 45,
         explosive: true,
         techRating: "e",
-        book: "TM",
-        page: 207,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        book: "TO:AUE",
+        page: 98,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3073
     },
     {
         isAmmo: true,
@@ -1308,7 +1310,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, rotary, ac5",
         category: "Ammunition",
         cbills: 13000,
-        introduced: 3073,
+        introduced: 3104,
         extinct: null,
         reintroduced: null,
         battleValue: 43,
@@ -1320,9 +1322,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 20,
         explosive: true,
         techRating: "e",
-        book: "TM",
-        page: 207,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        book: "TO:AUE",
+        page: 98,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3073
     },
     {
         isAmmo: true,
@@ -1481,8 +1484,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 10,
         explosive: true,
         techRating: "c",
-        book: "TO",
-        page: 312,
+        book: "TO:AUE",
+        page: 124,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 3065
     },
@@ -1918,7 +1921,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "f",
         book: "TM",
-        page: 230,
+        page: 231,
         alphaStrike: { specialAbility: ["SRM#/#/#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2645
     },
@@ -1932,7 +1935,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, streak lrm, clan",
         category: "Ammunition",
         cbills: 60000,
-        introduced: 3057,
+        introduced: 3079,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -1946,7 +1949,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "f",
         book: "TO:AUE",
         page: 139,
-        alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3057
     },
     {
         isAmmo: true,
@@ -2210,8 +2214,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 45,
         explosive: true,
         techRating: "d",
-        book: "IO",
-        page: 96,
+        book: "IO:AE",
+        page: 90,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
     },
     {
@@ -2236,8 +2240,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 20,
         explosive: true,
         techRating: "d",
-        book: "IO",
-        page: 96,
+        book: "IO:AE",
+        page: 90,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
     },
     {
@@ -2262,8 +2266,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 10,
         explosive: true,
         techRating: "d",
-        book: "IO",
-        page: 96,
+        book: "IO:AE",
+        page: 90,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
     },
     {
@@ -2288,8 +2292,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 5,
         explosive: true,
         techRating: "d",
-        book: "IO",
-        page: 96,
+        book: "IO:AE",
+        page: 90,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
     },
     {
@@ -2314,8 +2318,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 8,
         explosive: false,
         techRating: "e",
-        book: "IO",
-        page: null,
+        book: "IO:AE",
+        page: 90,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2818
     },
@@ -2341,8 +2345,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 120,
         explosive: true,
         techRating: "f",
-        book: "IO",
-        page: null,
+        book: "IO:AE",
+        page: 90,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2815
     },
@@ -2368,8 +2372,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 100,
         explosive: true,
         techRating: "f",
-        book: "IO",
-        page: null,
+        book: "IO:AE",
+        page: 90,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2815
     },
@@ -2410,7 +2414,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, chemical laser, large",
         category: "Ammunition",
         cbills: 30000,
-        introduced: 3059,
+        introduced: 3085,
         extinct: null,
         reintroduced: null,
         battleValue: 12,
@@ -2424,7 +2428,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "e",
         book: "TO:AUE",
         page: 132,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3059
     },
     {
         isAmmo: true,
@@ -2436,7 +2441,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, chemical laser, medium",
         category: "Ammunition",
         cbills: 30000,
-        introduced: 3059,
+        introduced: 3085,
         extinct: null,
         reintroduced: null,
         battleValue: 5,
@@ -2450,7 +2455,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "e",
         book: "TO:AUE",
         page: 132,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3059
     },
     {
         isAmmo: true,
@@ -2462,7 +2468,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, chemical laser, small",
         category: "Ammunition",
         cbills: 30000,
-        introduced: 3059,
+        introduced: 3085,
         extinct: null,
         reintroduced: null,
         battleValue: 1,
@@ -2476,7 +2482,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "e",
         book: "TO:AUE",
         page: 132,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3059
     },
     {
         isAmmo: true,
@@ -2569,7 +2576,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, protomech ac/2",
         category: "Ammunition",
         cbills: 1200,
-        introduced: 3070,
+        introduced: 3073,
         extinct: null,
         reintroduced: null,
         battleValue: 4,
@@ -2583,7 +2590,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "f",
         book: "TO:AUE",
         page: 98,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3070
     },
     {
         isAmmo: true,
@@ -2595,7 +2603,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, protomech ac/4",
         category: "Ammunition",
         cbills: 4800,
-        introduced: 3070,
+        introduced: 3073,
         extinct: null,
         reintroduced: null,
         battleValue: 6,
@@ -2609,7 +2617,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "f",
         book: "TO:AUE",
         page: 98,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3070
     },
     {
         isAmmo: true,
@@ -2621,7 +2630,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, protomech ac/8",
         category: "Ammunition",
         cbills: 6300,
-        introduced: 3070,
+        introduced: 3073,
         extinct: null,
         reintroduced: null,
         battleValue: 8,
@@ -2635,7 +2644,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "f",
         book: "TO:AUE",
         page: 98,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3070
     },
     {
         isAmmo: true,
@@ -2660,7 +2670,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: false,
         techRating: "f",
         book: "TM",
-        page: 218,
+        page: 219,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 3065
     },

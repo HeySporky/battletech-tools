@@ -392,3 +392,28 @@ Mechanical pass over `mech-is-ammo.ts` (158 records), `mech-clan-ammo.ts` (105) 
 Two new tests in `equipment-registry.test.ts` pin both rules. One older assertion that expected `extinct` 0 on Inner Sphere AC/20 ammo now expects `null`.
 
 **Still owed for ammunition (Batch 12b):** the introduction, extinction and recovery years have not been compared with the IO:AE pp.53–56 ammunition rows, and about 90 records still cite the original Tactical Operations ("TO 141", "TO 184", "TO 352" …) or Total Warfare pages that predate the TO:AUE split. Known mismatches seen while listing them: `long-tom-cannon-fae` and its Sniper / Thumper siblings have `page: 0`; several standard rounds carry the weapon's prototype-era year (Clan Rotary AC ammo 3073, ProtoMech AC ammo 3070, Chemical Laser ammo 3059) now that their weapons have moved to the production year in Batch 10.
+
+## Batch 12b: standard ammunition follows its launcher
+
+Rule applied to all 106 standard rounds (48 Inner Sphere, 45 Clan, 13 universal): a standard round takes the prototype, production, extinction and recovery years and the rules page of the earliest launcher in its catalog that fires it. Where several launchers share a round and any of them never went extinct, the round never went extinct. The IO:AE pp.53–56 ammunition rows override that where they print something different.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Enhanced LRM ammo | mech-is-ammo | fixed | TO:AUE p.139 | none | 3058 was the launcher's prototype year; now 3058p / 3082. Was "TO 0" |
+| Extended LRM ammo | mech-is-ammo | fixed | TO:AUE p.139 | none | now 3054p / 3078 |
+| Improved Heavy Gauss ammo | mech-is-ammo | fixed | TO:AUE p.126 | none | now 3065p / 3081. Was "TO 313" |
+| Silver Bullet Gauss ammo | mech-is-ammo | fixed | TO:AUE p.127 | none | 3081 → 3051p / 3080. Was "TO 314" |
+| Rifle (Cannon) shells | mech-is-ammo | fixed | TO:AUE p.150 | none | extinct ~2900, recovered ~3084 (IO:AE p.53; the rifles themselves: ~2825) |
+| Streak LRM ammo | mech-clan-ammo | fixed | TO:AUE p.139 | none | now 3057p / ~3079 |
+| Clan Rotary AC ammo | mech-clan-ammo | fixed | TO:AUE p.98 | none | now 3073p / 3104 |
+| ProtoMech AC ammo | mech-clan-ammo | fixed | TO:AUE p.98 | none | now ~3070p / 3073 |
+| Chemical Laser ammo | mech-clan-ammo | fixed (flag) | TO:AUE p.132 | none | now 3059p / 3085. Flag: IO:AE p.54 prints 3085 for the ammunition and p.37 prints 3083 for the lasers |
+| Narc beacon ammo [Clan] | mech-clan-ammo | fixed | TM p.233 | none | 2818 → ~2820p / 2828 (IO:AE p.56 "Clan Intro: 2828"). Was "TW 141" |
+| Arrow IV ammo [Clan] | mech-clan-ammo | fixed | TO:AUE p.96 | none | 2600 (with a 2593 prototype) was the Star League launcher; the Clan launcher is 2844, no prototype |
+| Artillery cannon shells | mech-universal-ammo | fixed | TO:AUE p.97 | none | prototype 3032 → 3012, as the cannons. Were "TO 404" |
+| Mortar ammo [IS] / [Clan] | both | verified | TO:AUE p.136 | none | IS ~2526p / 2531, extinct 2819, recovered 3043; Clan ~2835p / 2840. The ammo is already split by tech base; the mortars themselves are still one universal record (Batch 9b flag) |
+| the other standard rounds | all three | fixed (pages) | launcher page | none | about 60 page references moved from Total Warfare, original Tactical Operations or older TechManual pages to the launcher's rules page |
+
+A regression test (`Batch 12b standard ammunition follows its launcher`) pins all 106 records.
+
+**Still owed (Batch 12c):** the 228 special munitions. Their dates and pages have not been compared with the IO:AE pp.53–56 rows. Seen while listing them: Arrow IV Inferno-IV is dated 3083 against 3053p / 3055 in IO:AE p.53; Arrow IV Smoke has extinction 2830 against 2840; several munitions that IO:AE lists as Inner Sphere only (ADA, Inferno-IV, Laser-Inhibiting Arrow) sit in the universal ammo catalog.

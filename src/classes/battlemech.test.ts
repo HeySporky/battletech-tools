@@ -10,6 +10,9 @@ import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechCockpitTypes } from "../data/mech-cockpit-types";
+import { mechISAmmo } from "../data/mech-is-ammo";
+import { mechClanAmmo } from "../data/mech-clan-ammo";
+import { mechUniversalAmmo } from "../data/mech-universal-ammo";
 import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
 import { mechISEquipmentMissiles } from "../data/mech-is-equipment-weapons-missiles";
 import { mechClanEquipmentMissile } from "../data/mech-clan-equipment-weapons-missile";
@@ -3100,6 +3103,171 @@ describe("Batch 9c pods added from TechManual and TO:AUE", () => {
             const pod = mech.addEquipmentFromTag("b-pod", "", "", false, null, undefined, undefined, undefined, undefined, undefined);
             expect(pod?.tag, tech).toBe("b-pod");
             expect(mech.getBattleValue(), tech).toBeGreaterThan(before);
+        }
+    });
+});
+
+describe("Batch 12b standard ammunition follows its launcher", () => {
+    it("dates and cites the isAmmo records (launcher dates; IO:AE pp.53-56)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ammo-is-arrow-iv-standard": [2593, 2600, 2830, 3044, "TO:AUE", 96],
+            "ammo-is-enhanced-lrm-standard": [3058, 3082, null, null, "TO:AUE", 139],
+            "ammo-is-inarc-standard": [3054, 3062, null, null, "TM", 233],
+            "ammo-is-mech-mortar-standard": [2526, 2531, 2819, 3043, "TO:AUE", 136],
+            "ammo-is-mrm-standard": [3052, 3058, null, null, "TM", 231],
+            "ammo-is-narc-standard": [2580, 2587, 2795, 3035, "TM", 233],
+            "ammo-is-plasma-rifle-standard": [3061, 3068, null, null, "TM", 235],
+            "ammo-is-thunderbolt-5-standard": [3052, 3072, null, null, "TO:AUE", 159],
+            "ammo-is-thunderbolt-10-standard": [3052, 3072, null, null, "TO:AUE", 159],
+            "ammo-is-thunderbolt-15-standard": [3052, 3072, null, null, "TO:AUE", 159],
+            "ammo-is-thunderbolt-20-standard": [3052, 3072, null, null, "TO:AUE", 159],
+            "ammo-is-heavy-machine-gun-standard": [3063, 3068, null, null, "TM", 228],
+            "ammo-is-light-machine-gun-standard": [3064, 3068, null, null, "TM", 228],
+            "ammo-is-lrt-standard": [2370, 2380, null, null, "TM", 231],
+            "ammo-is-srt-standard": [2370, 2380, null, null, "TM", 231],
+            "ammo-is-rotary-ac-2-standard": [3060, 3062, null, null, "TM", 208],
+            "ammo-is-rotary-ac-5-standard": [3060, 3062, null, null, "TM", 208],
+            "ammo-is-ultra-ac-2-standard": [3055, 3057, null, null, "TM", 208],
+            "ammo-is-ultra-ac-5-standard": [2635, 2640, 2915, 3035, "TM", 208],
+            "ammo-is-ultra-ac-10-standard": [3055, 3057, null, null, "TM", 208],
+            "ammo-is-ultra-ac-20-standard": [3057, 3060, null, null, "TM", 208],
+            "ammo-is-gauss-rifle-standard": [2587, 2590, 2865, 3040, "TM", 219],
+            "ammo-is-heavy-flamer-standard": [undefined, 3068, null, null, "TO:AUE", 124],
+            "ammo-is-ac-2-standard": [2290, 2300, null, null, "TM", 208],
+            "ammo-is-lb-2x-standard": [3055, 3058, null, null, "TM", 208],
+            "ammo-is-ac-5-standard": [2240, 2250, null, null, "TM", 208],
+            "ammo-is-lb-5x-standard": [3055, 3058, null, null, "TM", 208],
+            "ammo-is-ac-10-standard": [2443, 2460, null, null, "TM", 208],
+            "ammo-is-lb-10x-standard": [2590, 2595, 2840, 3035, "TM", 208],
+            "ammo-is-ac-20-standard": [2488, 2500, null, null, "TM", 208],
+            "ammo-is-lb-20x-standard": [3055, 3058, null, null, "TM", 208],
+            "ammo-is-light-ac-2-standard": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-light-ac-5-standard": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-heavy-gauss-rifle-standard": [3051, 3061, null, null, "TM", 219],
+            "ammo-is-light-gauss-rifle-standard": [3049, 3056, null, null, "TM", 219],
+            "ammo-is-improved-heavy-gauss-rifle-standard": [3065, 3081, null, null, "TO:AUE", 126],
+            "ammo-is-magshot-gauss-rifle-standard": [3059, 3072, null, null, "TO:AUE", 126],
+            "ammo-is-silver-bullet-gauss-rifle-standard": [3051, 3080, null, null, "TO:AUE", 127],
+            "ammo-is-streak-srm-standard": [2645, 2647, 2845, 3035, "TM", 231],
+            "ammo-is-extended-lrm-standard": [3054, 3078, null, null, "TO:AUE", 139],
+            "ammo-is-ams-standard": [2613, 2617, 2835, 3045, "TM", 204],
+            "ammo-is-light-rifle-standard": [undefined, 1950, 2900, 3084, "TO:AUE", 150],
+            "ammo-is-medium-rifle-standard": [undefined, 1950, 2900, 3084, "TO:AUE", 150],
+            "ammo-is-heavy-rifle-standard": [undefined, 1950, 2900, 3084, "TO:AUE", 150],
+            "ammo-is-hvac-2-standard": [3059, 3079, null, null, "TO:AUE", 97],
+            "ammo-is-hvac-5-standard": [3059, 3079, null, null, "TO:AUE", 97],
+            "ammo-is-hvac-10-standard": [3059, 3079, null, null, "TO:AUE", 97],
+            "ammo-is-risc-apds-standard": [3134, 3137, null, null, "IO:AE", 85],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISAmmo.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isAmmo records", () => {
+        for (const item of mechISAmmo) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanAmmo records (launcher dates; IO:AE pp.53-56)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ammo-clan-arrow-iv-standard": [undefined, 2844, null, null, "TO:AUE", 96],
+            "ammo-clan-atm-standard": [3052, 3053, null, null, "TM", 231],
+            "ammo-clan-lb-5x-standard": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-lb-2x-standard": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-lb-10x-standard": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-lb-20x-standard": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-mech-mortar-standard": [2835, 2840, null, null, "TO:AUE", 136],
+            "ammo-clan-plasma-cannon-standard": [3068, 3069, null, null, "TM", 235],
+            "ammo-clan-narc-standard": [2820, 2828, null, null, "TM", 233],
+            "ammo-clan-heavy-machine-gun-standard": [3054, 3059, null, null, "TM", 228],
+            "ammo-clan-light-machine-gun-standard": [3055, 3060, null, null, "TM", 228],
+            "ammo-clan-lrt-standard": [2820, 2824, null, null, "TM", 231],
+            "ammo-clan-srt-standard": [2820, 2824, null, null, "TM", 231],
+            "ammo-clan-rotary-ac-2-standard": [3073, 3104, null, null, "TO:AUE", 98],
+            "ammo-clan-rotary-ac-5-standard": [3073, 3104, null, null, "TO:AUE", 98],
+            "ammo-clan-ultra-ac-2-standard": [2825, 2827, null, null, "TM", 208],
+            "ammo-clan-ultra-ac-5-standard": [2825, 2827, null, null, "TM", 208],
+            "ammo-clan-ultra-ac-10-standard": [2825, 2827, null, null, "TM", 208],
+            "ammo-clan-ultra-ac-20-standard": [2825, 2827, null, null, "TM", 208],
+            "ammo-clan-gauss-rifle-standard": [2822, 2828, null, null, "TM", 219],
+            "ammo-clan-heavy-flamer-standard": [3065, 3067, null, null, "TO:AUE", 124],
+            "ammo-clan-ac-2-standard": [2290, 2300, 2850, null, "TM", 208],
+            "ammo-clan-ac-5-standard": [2240, 2250, 2850, null, "TM", 208],
+            "ammo-clan-ac-10-standard": [2443, 2460, 2850, null, "TM", 208],
+            "ammo-clan-ac-20-standard": [2488, 2500, 2850, null, "TM", 208],
+            "ammo-clan-streak-srm-standard": [2645, 2647, null, null, "TM", 231],
+            "ammo-clan-streak-lrm-standard": [3057, 3079, null, null, "TO:AUE", 139],
+            "ammo-clan-improved-ac-2-standard": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "ammo-clan-improved-ac-5-standard": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "ammo-clan-improved-ac-10-standard": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "ammo-clan-improved-ac-20-standard": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "ammo-clan-improved-gauss-rifle-standard": [2818, 2821, 2837, 3080, "IO:AE", 90],
+            "ammo-clan-improved-lrm-standard": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "ammo-clan-improved-srm-standard": [2815, 2817, 2828, 3080, "IO:AE", 90],
+            "ammo-clan-ams-standard": [2824, 2831, null, null, "TM", 204],
+            "ammo-clan-large-chemical-laser-standard": [3059, 3085, null, null, "TO:AUE", 132],
+            "ammo-clan-medium-chemical-laser-standard": [3059, 3085, null, null, "TO:AUE", 132],
+            "ammo-clan-small-chemical-laser-standard": [3059, 3085, null, null, "TO:AUE", 132],
+            "ammo-clan-hag-20-standard": [3062, 3068, null, null, "TM", 219],
+            "ammo-clan-hag-30-standard": [3062, 3068, null, null, "TM", 219],
+            "ammo-clan-hag-40-standard": [3062, 3068, null, null, "TM", 219],
+            "ammo-clan-protomech-ac-2-standard": [3070, 3073, null, null, "TO:AUE", 98],
+            "ammo-clan-protomech-ac-4-standard": [3070, 3073, null, null, "TO:AUE", 98],
+            "ammo-clan-protomech-ac-8-standard": [3070, 3073, null, null, "TO:AUE", 98],
+            "ammo-clan-ap-gauss-rifle-standard": [3065, 3069, null, null, "TM", 219],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanAmmo.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanAmmo records", () => {
+        for (const item of mechClanAmmo) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the universalAmmo records (launcher dates; IO:AE pp.53-56)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ammo-long-tom-standard": [2445, 2500, null, null, "TO:AUE", 96],
+            "ammo-lrm-standard": [2295, 2300, null, null, "TM", 231],
+            "ammo-machine-gun-standard": [undefined, 1950, null, null, "TM", 228],
+            "ammo-sniper-standard": [undefined, 1950, null, null, "TO:AUE", 96],
+            "ammo-srm-standard": [2365, 2370, null, null, "TM", 231],
+            "ammo-thumper-standard": [undefined, 1950, null, null, "TO:AUE", 96],
+            "ammo-vehicle-flamer-standard": [undefined, 1950, null, null, "TM", 218],
+            "ammo-long-tom-cannon-standard": [3012, 3079, null, null, "TO:AUE", 97],
+            "ammo-sniper-cannon-standard": [3012, 3079, null, null, "TO:AUE", 97],
+            "ammo-thumper-cannon-standard": [3012, 3079, null, null, "TO:AUE", 97],
+            "ammo-nail-rivet-gun-standard": [2309, 2310, null, null, "TM", 246],
+            "ammo-fluid-gun-standard": [undefined, 1950, null, null, "TO:AUE", 125],
+            "ammo-bomb-standard": [undefined, 1950, null, null, "TW", 246],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechUniversalAmmo.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the universalAmmo records", () => {
+        for (const item of mechUniversalAmmo) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
