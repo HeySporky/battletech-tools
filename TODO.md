@@ -362,12 +362,10 @@ played first, then by dependency.
   Override Kit, Viral Jammers, Laser Pulse Module, 'Mech Taser, TSEMP, Jump Pack / Drop Pack, Prototype
   Improved Jump Jets (IO:AE p.97). Light Active Probe [IS] and Light TAG [IS]: IO:AE lists them, the TM
   Inner Sphere table has no 'Mech-scale stats.
-- [ ] Superheavy 'Mechs (IO:AE pp.154-157). Done: large engines (Batch 16), gyro weight and BV (14),
-  equipment bans (21), structure table and types (22), half-size critical space for engines, structure,
-  armor, equipment and heat sinks (24), Inner Sphere tech base only (25), Long Tom on superheavies (29).
-  Owed: ammunition sharing a slot (two tons of the same weapon's ammunition per slot, p.157); the slot
-  model holds one item per slot. Until then each ton takes its own slot, so the SHP-4X Omega example does
-  not fit its center torso.
+- [x] Superheavy 'Mechs (IO:AE pp.154-157): large engines (Batch 16), gyro weight and BV (14), equipment
+  bans (21), structure table and types (22), half-size critical space (24), Inner Sphere tech base only
+  (25), Long Tom on superheavies (29), two tons of ammunition per slot (30). The SHP-4X Omega example
+  builds exactly and is a regression test. Not modeled: the superheavy critical hit rules in play (p.154).
 - [ ] Domain catalogs not started: aerospace and capital armor (SO:AA p.140), Support Vehicle BAR armor,
   battle armor armor and equipment, ProtoMech heat sinks / jump jets / cockpits, capital and sub-capital
   weapons (new literal catalogs, never 'Mech-legal).
@@ -376,8 +374,8 @@ played first, then by dependency.
 - [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
   unresolved.
 - [ ] Newer errata. Done: TechManual v8.0 and its Battle Value sheet v4.1 for 'Mechs (Batches 26-28),
-  TO:AUE v7.0 and the two IO sheets (14, 17). Not yet compared: Total Warfare v11.01, TO:AR v7.0,
-  SO:AAR v5.0, and the TechManual sheets for vehicles, ProtoMechs, infantry and aerospace Battle Value.
+  TO:AUE v7.0 and the two IO sheets (14, 17), Total Warfare v11.01 weapon tables (30). Not yet compared:
+  TO:AR v7.0, SO:AAR v5.0, and the TechManual sheets for vehicles, ProtoMechs, infantry and aerospace BV.
 - [x] Statistics audits: IO:AE prototype tables (Batch 14), TechManual tables (Batch 18), TO:AUE tables
   (Batch 19). Not covered: rows the name matcher could not pair (ProtoMech and battle armor weapons,
   capital weapons, industrial items priced per ton) and the special munition statistics (damage,
