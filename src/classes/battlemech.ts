@@ -5460,6 +5460,10 @@ export class BattleMech {
     /** Chassis-specific equipment limits (LAM Bomb Bays and other per-unit caps). */
     public getChassisEquipmentViolations(): string[] {
         const violations: string[] = [];
+        // The Clans do not build superheavy 'Mechs (IO:AE p.154).
+        if (this.isSuperheavy() && (this._tech.tag === "clan" || this._tech.tag === "mclan")) {
+            violations.push("Superheavy 'Mechs are available only to the Inner Sphere tech base.");
+        }
         const counted = new Map<string, { item: IEquipmentItem; count: number }>();
         for (const item of this._equipmentList) {
             if (!item) continue;

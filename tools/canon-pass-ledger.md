@@ -802,6 +802,15 @@ IO:AE pp.155–157 and the blank record sheets at the back of the book (third co
 
 The center torso cockpit slot was in upstream too, so this goes in the equipment PR as a correction, with the record sheets as the source.
 
-**Owed:** superheavy ammunition sharing. "Every critical slot of ammo placed in the torsos, arms, or legs ... may carry up to two slots of ammunition" of the same weapon type (p.157). Each ton still takes its own slot here, which is legal but too generous on space the other way: the Omega's center torso needs a shared Gauss slot to fit. It needs two items in one slot, which the slot model does not have yet. Also not done: the two-items-per-location allowance for industrial equipment and the Heavy Gauss arm mount (p.157), and the "Inner Sphere tech base only" rule for superheavy 'Mechs.
+**Owed:** superheavy ammunition sharing. "Every critical slot of ammo placed in the torsos, arms, or legs ... may carry up to two slots of ammunition" of the same weapon type (p.157). Each ton still takes its own slot here, which is legal but wastes space: the Omega's center torso needs a shared Gauss slot to fit. It needs two items in one slot, which the slot model does not have yet. Also not done: the two-items-per-location allowance for industrial equipment and the Heavy Gauss arm mount (p.157), and the "Inner Sphere tech base only" rule for superheavy 'Mechs.
 
 Regression tests: `Batch 24 cockpit critical slots`, `Batch 24 Superheavy 'Mech critical space`.
+
+## Batch 25: superheavy tech base
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Superheavy 'Mechs, Inner Sphere tech base only | mech-tonnages.ts, battlemech.ts, step 1 | **fixed** | IO:AE p.154 | none | "available only to the Inner Sphere Tech Base under these rules. The Clans do not produce superheavy 'Mechs". A Clan or Mixed (Clan base) design is offered tonnages up to 100; switching a superheavy design to a Clan base brings it down to 100 tons, as changing the chassis type already does. A design loaded as Clan and superheavy reports the violation. Inner Sphere and Mixed (Inner Sphere base) are unaffected: p.157 expects Clan double heat sinks "if using Mixed-Tech rules". Custom Homebrew lifts the limit |
+| Heavy Gauss Rifle in superheavy arms; two industrial items per location | — | nothing to do | IO:AE p.157 | none | the builder has no torso-only or one-per-location rules to lift. Those TM limits are themselves owed |
+
+Regression tests: `Batch 25 Superheavy 'Mechs are Inner Sphere technology`.
