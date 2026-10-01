@@ -10,6 +10,8 @@ import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechCockpitTypes } from "../data/mech-cockpit-types";
+import { mechCustomEquipmentEnergy } from "../data/mech-custom-equipment-weapons-energy";
+import { mechCustomEquipmentMissile } from "../data/mech-custom-equipment-weapons-missile";
 import { mechISAmmo } from "../data/mech-is-ammo";
 import { mechClanAmmo } from "../data/mech-clan-ammo";
 import { mechUniversalAmmo } from "../data/mech-universal-ammo";
@@ -2555,7 +2557,6 @@ describe("Batch 10a energy weapon catalogs", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
             "enhanced_er_ppc": [2822, 2823, 2831, 3080, "IO:AE", 90],
-            "enhanced_er_large_laser": [undefined, 2823, 2828, null, "IO", 189],
             "clan-er-large-laser": [2820, 2825, null, null, "TM", 226],
             "er_large_pulse_laser": [3057, 3082, null, null, "TO:AUE", 132],
             "er-medium-laser-clan": [2822, 2824, null, null, "TM", 226],
@@ -2922,7 +2923,6 @@ describe("Batch 10c missile and artillery catalogs", () => {
             "clan-streak-srm-2-ios": [3058, 3081, null, null, "TO:AUE", 139],
             "clan-streak-srm-4-ios": [3058, 3081, null, null, "TO:AUE", 139],
             "clan-streak-srm-6-ios": [3058, 3081, null, null, "TO:AUE", 139],
-            "enhanced_clan_lrm_10": [undefined, 2823, 2828, null, "IO", 189],
             "clan-lrt-5": [2820, 2824, null, null, "TM", 231],
             "clan-lrt-10": [2820, 2824, null, null, "TM", 231],
             "clan-lrt-15": [2820, 2824, null, null, "TM", 231],
@@ -3269,5 +3269,24 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
             expect(item.reintroduced, item.tag).not.toBe(0);
             expect(typeof item.page, item.tag).toBe("number");
         }
+    });
+});
+
+describe("Batch 13 records without a canon source", () => {
+    it("keeps Enhanced ER Large Laser and Enhanced Clan LRM 10 out of the canon Clan catalogs", () => {
+        expect(mechClanEquipmentEnergy.some(item => item.tag === "enhanced_er_large_laser")).toBe(false);
+        expect(mechClanEquipmentMissile.some(item => item.tag === "enhanced_clan_lrm_10")).toBe(false);
+    });
+
+    it("lists them as Custom Homebrew, with the old tags, until a source is found", () => {
+        const laser = mechCustomEquipmentEnergy.find(item => item.tag === "enhanced_er_large_laser");
+        const lrm = mechCustomEquipmentMissile.find(item => item.tag === "enhanced_clan_lrm_10");
+        for (const item of [laser, lrm]) {
+            expect(item).toMatchObject({ catalog: "custom", book: "Custom", page: null, rulesLevel: 5 });
+            expect(item?.notes).toContain("No canon source found");
+        }
+        // Game statistics are unchanged by the move.
+        expect(laser).toMatchObject({ damage: 10, heat: 12, weight: 4, battleValue: 222 });
+        expect(lrm).toMatchObject({ damage: 12, heat: 4, weight: 5, battleValue: 114 });
     });
 });
