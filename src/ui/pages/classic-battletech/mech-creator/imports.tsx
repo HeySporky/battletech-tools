@@ -299,6 +299,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
                       <TextSection
                         label="Imports From Skunkwerks"
                       >
+                          <p><Link className="btn btn-primary" to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/ssw-file-import`}>Import your own .ssw files</Link></p>
                           <div className="alert alert-info">
 
                             <p>This is now working perfectly in a limited fashion! Be sure to only semi-trust the units with a <CheckCircle title="This import looks good to add!" className="color-green" /> beside their name</p>
