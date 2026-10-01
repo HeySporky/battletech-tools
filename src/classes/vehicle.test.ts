@@ -391,6 +391,8 @@ describe("Vehicle construction details", () => {
         const tank = build("tracked", 60);
         tank.setDualTurret(true);
         expect(tank.getLocations().map((loc) => loc.name)).toEqual(["Front", "Left", "Right", "Rear", "Front Turret", "Rear Turret"]);
+        // Dual turrets are Advanced (TO:AUE, per the user's ruling of 2026-09-29; TO 2008 p. 347 had them Experimental).
+        expect(tank.getRequiredRulesLevel()).toBe(3);
         place(tank, "large-laser", "turret2");
         expect(tank.getWeights().find((entry) => entry.name === "Front Turret")?.weight).toBe(0.5);
         expect(tank.getWeights().find((entry) => entry.name === "Rear Turret")?.weight).toBe(0.5);
@@ -409,7 +411,8 @@ describe("Vehicle construction details", () => {
         tank.setTonnage(100);
         expect(laser.location).toBe("");
         expect(tank.getArmorAllocation().rearRight).toBe(0);
-        expect(build("vtol", 50).getLocations().some((loc) => loc.tag === "frontLeft")).toBe(false);
+        // Super-Heavy VTOLs have the six facings too, plus the rotor (Tactical Operations p. 378).
+        expect(build("vtol", 50).getLocations().some((loc) => loc.tag === "frontLeft")).toBe(true);
     });
 
     it("mounts vehicular jump jets on hover, wheeled, tracked and WiGE only, up to Cruise MP (Advanced)", () => {

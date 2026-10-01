@@ -20,7 +20,7 @@ export default class VehicleRecordSheet extends React.Component<IVehicleRecordSh
                     Crew {vehicle.getCrew()} &nbsp;|&nbsp; Heat Sinks {vehicle.getTotalHeatSinks()} &nbsp;|&nbsp;
                     Armor: {vehicle.getArmorType().name} &nbsp;|&nbsp;
                     BV {vehicle.getBattleValue()} &nbsp;|&nbsp; {vehicle.getCBillCost().toLocaleString()} C-Bills &nbsp;|&nbsp;
-                    {vehicle.hasTurret() ? vehicle.getTurretName() : "No Turret"} &nbsp;|&nbsp;
+                    {vehicle.hasTurret() ? vehicle.getTurretName() : "No Turret"}{vehicle.hasSponsonTurrets() ? " + Sponson Turrets" : ""} &nbsp;|&nbsp;
                     {vehicle.getEngineType().name} {vehicle.getEngineRating()}
                     {this.props.showCrew ? <> &nbsp;|&nbsp; Gunnery {pilot.gunnery} / Driving {pilot.piloting}{pilot.name ? ` (${pilot.name})` : ""} &nbsp;|&nbsp; Adjusted BV {vehicle.getPilotAdjustedBattleValue()}</> : null}
                 </p>
@@ -42,7 +42,7 @@ export default class VehicleRecordSheet extends React.Component<IVehicleRecordSh
                     <tbody>
                         {vehicle.getLocations().filter((loc) => loc.tag !== "rotor").map((loc) => (
                             <tr key={loc.tag}>
-                                <td>{loc.name}</td>
+                                <td>{loc.name}{vehicle.hasSponsonTurrets() && /left|right/i.test(loc.tag) ? " (sponson)" : ""}</td>
                                 <td>{equipmentByLocation(loc.tag).map((item) => item.name).join(", ") || "-"}</td>
                             </tr>
                         ))}
