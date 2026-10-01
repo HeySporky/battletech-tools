@@ -4555,3 +4555,87 @@ describe("Batch 27 Weapon Battle Rating order (TM p.303)", () => {
         expect(mech.equipmentList.map(item => item.tag)).not.toEqual(["standard-ppc", "large-laser", "medium-laser", "small-laser"]);
     });
 });
+
+describe("Batch 28 Industrial Equipment Table (TM pp.344-345, errata v8.0)", () => {
+    it("gives industrial equipment its vehicle and aerospace slot counts and tech ratings", () => {
+        const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
+            [mechUniversalEquipment, "backhoe", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechUniversalEquipment, "chainsaw", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechUniversalEquipment, "combine", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechUniversalEquipment, "dual-saw", { space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechUniversalEquipment, "pile-driver", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechUniversalEquipment, "lift-hoist", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechUniversalEquipment, "mining-drill", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, techRating: "b" }],
+            [mechUniversalEquipment, "nail-gun", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, techRating: "c" }],
+            [mechUniversalEquipment, "remote-sensor-dispenser", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [mechUniversalEquipment, "rock-cutter", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechUniversalEquipment, "salvage-arm", { space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechUniversalEquipment, "searchlight", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: 0, dropShip: 0 } }],
+            [mechUniversalEquipment, "wrecking-ball", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+        ];
+        for (const [catalog, tag, fields] of expected) {
+            const item = catalog.find(entry => entry.tag === tag);
+            expect(item, tag).toBeDefined();
+            expect(item, tag).toMatchObject(fields);
+        }
+    });
+});
+
+describe("Batch 28 unit slot columns of the Weapons and Equipment Tables (TM pp.341-343)", () => {
+    it("gives weapons and equipment their ProtoMech, vehicle and aerospace slot counts", () => {
+        const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
+            [mechISEquipmentBallistic, "autocannon-light-5", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentBallistic, "machine-gun-heavy", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentBallistic, "is-machine-gun-array", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [mechISEquipmentMissiles, "mrm-10", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mrm-20", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mrm-30", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mrm-40", { space: { battlemech: 7, protomech: -1, combatVehicle: 1, supportVehicle: 7, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "rocket-launcher-15", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "rocket-launcher-20", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mml-3", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mml-5", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mml-7", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mml-9", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mml-3-artemis-iv", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mml-5-artemis-iv", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mml-7-artemis-iv", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMissiles, "mml-9-artemis-iv", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechISEquipmentMisc, "beagle-active-probe", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
+            [mechISEquipmentMisc, "ecm-suite", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
+            [mechISEquipmentMisc, "masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechISEquipmentMisc, "targeting-computer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
+            [mechISEquipmentMisc, "c3-computer-master", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechISEquipmentMisc, "c3-computer-slave", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechISEquipmentMisc, "c3i-computer", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechClanEquipmentBallistic, "clan-autocannon-lbx-5", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentBallistic, "clan-machine-gun-array", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [mechClanEquipmentBallistic, "hyper-assault-gauss-20", { space: { battlemech: 6, protomech: 1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentBallistic, "hyper-assault-gauss-30", { space: { battlemech: 8, protomech: -1, combatVehicle: 1, supportVehicle: 8, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentBallistic, "hyper-assault-gauss-40", { space: { battlemech: 10, protomech: -1, combatVehicle: 1, supportVehicle: 10, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechUniversalEquipment, "vehicle-flamer", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentEnergy, "medium-heavy-laser", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentEnergy, "large-heavy-laser", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentEnergy, "plasma-cannon", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMissile, "atm-3", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMissile, "atm-6", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMissile, "atm-9", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMissile, "atm-12", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMissile, "clan-lrm-10", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMissile, "clan-lrm-15", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMissile, "clan-lrm-20", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMissile, "clan-srm-6", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMissile, "clan-streak-srm-6", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [mechClanEquipmentMisc, "clan-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
+            [mechClanEquipmentMisc, "clan-light-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [mechClanEquipmentMisc, "clan-ecm-system", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
+            [mechClanEquipmentMisc, "clan-masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
+            [mechClanEquipmentMisc, "clan-targeting-computer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
+        ];
+        for (const [catalog, tag, fields] of expected) {
+            const item = catalog.find(entry => entry.tag === tag);
+            expect(item, tag).toBeDefined();
+            expect(item, tag).toMatchObject(fields);
+        }
+    });
+});

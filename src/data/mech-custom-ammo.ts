@@ -475,7 +475,7 @@ export const mechCustomAmmo: IEquipmentItem[] = [
         heatAero: 0,
         weight: 1,
         range: { min: 0, short: 0, medium: 0, long: 0 },
-        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         roundsPerTon: 20,
         explosive: true,
         techRating: "e",

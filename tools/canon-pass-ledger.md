@@ -847,3 +847,47 @@ Same source as Batch 26: TM p.303, text unchanged by the Battle Value errata v4.
 **Owed:** IndustrialMechs "unless equipped with Advanced Fire Control ... multiply their Offensive Battle Rating by 0.9" (TM p.304). The builder has no fire control choice (TM p.69), so the multiplier cannot be applied correctly yet.
 
 Regression tests: `Batch 27 Weapon Battle Rating order`.
+
+## Batch 28: TechManual errata v8.0 and the unit slot columns
+
+**Errata v8.0 (22 August 2024, eighth printing).** The local PDF is the corrected sixth printing, and the printing markers are lost in the text extract, so every entry on the equipment, cost, Battle Value and table pages (pp.204–249, 290–296, 317–318, 341–346) was read and its explicit statements checked against the records.
+
+| errata entry | result |
+|---|---|
+| p.341 LB 5-X range 3/7/14/21; p.343 Clan Ultra AC/5 7 tons; ER Micro Laser 1/2/4 | already correct |
+| p.343 ProtoMech space 1 for Clan LB 10-X, Ultra AC/10, Gauss Rifle, HAG 20, ER Large Laser, Large Pulse Laser, Heavy Large Laser, ER PPC; NA for the Artemis launchers | already correct |
+| p.343 ProtoMech space 1 for Flamer (Vehicle) | **fixed** (was not ProtoMech-mountable); its four munitions follow |
+| p.317 MRM 40 BV 224 / 45 (one-shot) | already correct |
+| p.294 AC/2 ammunition 1,000; p.295 Streak SRM 6 ammunition 54,000; p.292 Light Active Probe 50,000 | already correct |
+| p.341 Large Laser Support Vehicle space 2; p.342 Targeting Computer Support Vehicle space 1 | already correct |
+| p.344 Mining Drill Combat and Support Vehicle space 1 | **fixed** (Support Vehicle 4 → 1), which led to the table comparison below |
+| pp.295, 345 Flare (LRM) and Incendiary (LRM) lines deleted | no Flare LRM record; Incendiary LRM is cited to TO:AUE p.182, where it now lives |
+| pp.290–296 Introduced / Extinct / Reintroduced changes | not applied from this sheet: dates follow IO:AE (2022), as decided |
+| pp.342–343 DropShip space NA for Beagle, Guardian ECM, Clan Active Probe and ECM Suite | **fixed** below |
+| eighth-printing additions (p.123, 126, 132, 134 Support Vehicles; p.239 Transport Bays; pp.250, 253, 348 battle armor; p.316 Motorized) | nothing in the 'Mech catalogs; goes with the domain catalogs |
+| p.343 ATM 6 / 9 / 12 aerospace damage 10 / 14 / 20 | not applied: missile `damageAero` is already owed as a whole |
+
+**Unit slot columns.** The tables give the slots an item takes on each unit type (M, P, CV, SV, F, SC, DS). Only the 'Mech column had been audited (Batch 18). The other six were compared for every row of pp.341–345 that pairs with a record.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Industrial equipment, Support Vehicle slots | mech-universal-equipment | **fixed** | TM pp.344–345 | v8.0: Mining Drill | Backhoe, Chainsaw, Combine, Dual Saw, Heavy-Duty Pile Driver, Lift Hoist, Mining Drill, Rock Cutter and Wrecking Ball carried their 'Mech slot count in the Support Vehicle column; all take 1 |
+| Salvage Arm | mech-universal-equipment | **fixed** | TM p.345 | none | 'Mech only: vehicle columns NA |
+| Mining Drill, Nail/Rivet Gun tech rating | mech-universal-equipment | **fixed** | TM p.344; IO:AE p.36 | none | Mining Drill C → B, Nail/Rivet Gun E → C (both books agree) |
+| Nail/Rivet Gun, Remote Sensor Dispenser, Searchlight aerospace columns | mech-universal-equipment | fixed | TM pp.344–345 | none | Nail Gun NA; Remote Sensor Dispenser 1 / 1 / 0; Searchlight 0 / 0 / 0 |
+| Combat Vehicle slots of multi-slot launchers | IS and Clan missile catalogs | **fixed** | TM pp.342–343 | none | every item takes one Combat Vehicle slot. MRM 10/20/30/40, Rocket Launcher 15/20, MML 3/5/7/9, ATM 3/6/9/12, Clan LRM 10/15, Clan SRM 6 and Clan Streak SRM 6 carried 2 to 8, and the vehicle builder counts slots from this column. Heavy Machine Gun 0 → 1 |
+| Support Vehicle slots | several | fixed | TM pp.341–343 | none | Light AC/5 2, Clan LB 5-X 4, Heavy Medium / Large Laser 2 / 3, HAG 20/30/40 6 / 8 / 10, ATM 6/9/12 3 / 4 / 5, Clan LRM 10/15/20 1 / 2 / 4, Clan SRM 6 1, MML + Artemis IV 3 / 4 / 5 / 6, Improved C3 1 |
+| MASC on vehicles | IS and Clan misc | **fixed** | TM pp.342–343 | none | NA for every unit but the 'Mech; it was offered to vehicles |
+| ProtoMech column | Clan catalogs | fixed | TM p.343 | v8.0 | Active Probe, ECM Suite and Machine Gun Array are ProtoMech-mountable (1); Plasma Cannon is not (NA), and its ammunition follows. Guardian ECM and the C3 Master / Slave had 0, which reads as "mountable, no slots": now NA |
+| Aerospace columns | several | fixed | TM pp.342–343 | v8.0 | Beagle 1 / 1 / NA; Guardian ECM and Clan Active Probe / ECM Suite DropShip NA; Light Active Probe 1 / 1 / 0; Machine Gun Array DropShip 0; Targeting Computer fighter 0; C3 Master / Slave NA |
+
+118 rows now match on all seven columns; the industrial rows match on slots, weight and tech rating.
+
+Flags:
+
+- **Flamer (Vehicle)** is one universal record. The Inner Sphere table prints ProtoMech NA and the Clan table 1; ProtoMechs are Clan units, so the record carries 1.
+- **Clan A-Pod**: p.343 prints NA for both vehicle columns while the Inner Sphere row prints 1 and 1. Left at 1 and 1 pending a second source.
+- Not paired with a record: capital missiles, Screen Launcher (capital catalogs, owed) and the one-shot Clan Narc launchers (not on the table).
+- No records exist for Bulldozer, Dumper, Ladder, Fluid Suction Systems, Sprayers, Bridgelayers, Paramedic Equipment, Field Kitchen, MASH and the other Support Vehicle items on pp.344–345.
+
+Regression tests: `Batch 28 Industrial Equipment Table`, `Batch 28 unit slot columns of the Weapons and Equipment Tables`; the registry test on ProtoMech-mountable ammunition covers the munitions.
