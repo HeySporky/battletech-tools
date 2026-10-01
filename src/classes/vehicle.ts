@@ -888,6 +888,8 @@ export default class Vehicle {
     }
 
     public setArmorType(tag: string): IArmorType {
+        // BattleMech Stealth is BM-only (TM p.206); vehicles saved with it get Vehicular Stealth (TO:AUE p.94).
+        if (tag === "stealth-basic" || tag === "stealth") tag = "vehicular-stealth";
         this._armorType = findByTag(this.getAvailableArmorTypes(), tag) ?? this._armorType;
         this._calc();
         return this._armorType;

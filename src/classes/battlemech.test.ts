@@ -2145,3 +2145,35 @@ describe("Batch 6 armor catalog", () => {
         expect(armor("primitive")?.unitTypes.supportVehicle).toBe(false);
     });
 });
+
+describe("Batch 6b vehicle and ProtoMech armor", () => {
+    const armor = (tag: string) => mechArmorTypes.find(item => item.tag === tag);
+
+    it("keeps BattleMech Stealth armor off vehicles (TM p.206)", () => {
+        expect(armor("stealth-basic")?.unitTypes.battlemech).toBe(true);
+        expect(armor("stealth-basic")?.unitTypes.combatVehicle).toBe(false);
+    });
+
+    it("lists Vehicular Stealth for vehicles and fighters only (TO:AUE p.94)", () => {
+        const stealth = armor("vehicular-stealth");
+        expect(stealth?.unitTypes).toMatchObject({ battlemech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: true });
+        expect(stealth?.armorMultiplier).toEqual({ clan: 0, is: 16 });
+        expect(stealth?.costMultiplier).toBe(50000);
+        expect([stealth?.prototype, stealth?.introduced, stealth?.extinct, stealth?.reintroduced]).toEqual([3067, 3084, null, null]);
+        expect([stealth?.book, stealth?.page]).toEqual(["TO:AUE", 94]);
+
+        const mech = new BattleMech();
+        mech.setEra("ilClan");
+        mech.setArmorType("vehicular-stealth");
+        expect(mech.getArmorType()).toBe("standard");
+    });
+
+    it("lists Electric Discharge ProtoMech armor as a ProtoMech-only prototype (IO:AE pp.58-59)", () => {
+        const edp = armor("protomech-edp");
+        expect(Object.entries(edp?.unitTypes ?? {}).filter(([, legal]) => legal).map(([type]) => type)).toEqual(["protomech"]);
+        // 75 kg per point.
+        expect(edp?.armorMultiplier).toEqual({ clan: 1000 / 75, is: 0 });
+        expect([edp?.prototype, edp?.introduced, edp?.extinct, edp?.reintroduced]).toEqual([3071, null, 3085, null]);
+        expect([edp?.book, edp?.page]).toEqual(["IO:AE", 58]);
+    });
+});
