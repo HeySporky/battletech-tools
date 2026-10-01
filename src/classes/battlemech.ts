@@ -419,6 +419,8 @@ export class BattleMech {
     private _alphaStrikeSpecialAmmoTag = "";
 
     private _calcLogBV = "";
+    /** Set when a critical slot move changes what the Battle Value depends on; cleared by the next calculation. */
+    private _battleValueStale = false;
     private _calcLogAS = "";
     private _calcLogCBill = "";
 
@@ -563,6 +565,7 @@ export class BattleMech {
     }
 
     private _calcBattleValue(): void {
+        this._battleValueStale = false;
         let hasCamo = false;
         let hasBasicStealth = this._armorType.tag === "stealth-basic" && !this.hasActiveModularArmor();
         let hasPrototypeStealth = false;
@@ -665,6 +668,21 @@ export class BattleMech {
                 }
             }
         });
+        // An explosive component loses 1 BV for each critical slot it fills (TM p.302). Only the first
+        // slot of an item carries the item itself; its `crits` is the number of slots in this location.
+        // A record can cap the slots counted: an HVAC counts as one slot (TO:AUE p.195).
+        const explosiveSlotsCounted = new Map<string, number>();
+        const explosiveComponentSlots = (critical: { obj: IEquipmentItem, crits?: number }): number => {
+            const item = critical.obj;
+            if (!BattleMech._isExplosiveComponent(item)) return 0;
+            const slots = Math.max(1, critical.crits ?? 1);
+            if (item.explosiveBattleValueSlots === undefined) return slots;
+            const key = item.uuid ?? item.tag;
+            const counted = explosiveSlotsCounted.get(key) ?? 0;
+            const allowed = Math.max(0, Math.min(slots, item.explosiveBattleValueSlots - counted));
+            explosiveSlotsCounted.set(key, counted + allowed);
+            return allowed;
+        };
         // 1F. Technology-Based Critical Evaluation (Clan vs Inner Sphere Rulesets)
         if (this._tech.tag === "clan" || this._tech.tag === "mclan") {
             const clanVulnerableShorthands = ["hd", "ct", "ll", "rl", "cl", "fll", "frl"];
@@ -677,9 +695,10 @@ export class BattleMech {
                             this._calcLogBV += `Explosive Ammo Crit in ${longKey} (Clan, -15)<br />`;
                             explosiveAmmoModifiers += 15;
                         }
-                        if (BattleMech._isExplosiveComponent(item.obj)) {
-                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Clan, -1)<br />`;
-                            explosiveAmmoModifiers += 1;
+                        const componentSlots = explosiveComponentSlots(item);
+                        if (componentSlots > 0) {
+                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Clan, -${componentSlots})<br />`;
+                            explosiveAmmoModifiers += componentSlots;
                         }
                     }
                 });
@@ -714,12 +733,13 @@ export class BattleMech {
                             explosiveAmmoModifiers += 15;
                         }
                     }
-                    if (BattleMech._isExplosiveComponent(item.obj)) {
+                    const componentSlots = explosiveComponentSlots(item);
+                    if (componentSlots > 0) {
                         if (isLocationProtected) {
                             this._calcLogBV += `Explosive Component (${item.obj.name}) in ${longKey} protected by CASE. Penalty negated (0).<br />`;
                         } else {
-                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Inner Sphere, -1)<br />`;
-                            explosiveAmmoModifiers += 1;
+                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Inner Sphere, -${componentSlots})<br />`;
+                            explosiveAmmoModifiers += componentSlots;
                         }
                     }
                 });
@@ -1447,11 +1467,20 @@ export class BattleMech {
         return this.getJumpSpeed();
     }
 
+    /** Recalculates the Battle Value if critical slots have moved since it was last worked out. */
+    private _refreshBattleValue(): void {
+        if (this._battleValueStale) {
+            this._calcBattleValue();
+        }
+    }
+
     public getBattleValue() {
+        this._refreshBattleValue();
         return this._battleValue;
     }
 
     public getPilotAdjustedBattleValue() {
+        this._refreshBattleValue();
         return this._pilotAdjustedBattleValue;
     }
 
@@ -1655,6 +1684,7 @@ export class BattleMech {
     }
 
     public getBVCalcHTML() {
+        this._refreshBattleValue();
         return "<div class=\"mech-tro\">" + this._calcLogBV + "</div>";
     }
 
@@ -7329,7 +7359,7 @@ export class BattleMech {
             console.warn("moveCritical() failed: Terminal destination location tag could not be resolved in the layout schema registry.", destLoc);
             return false;
         }
-        return this._moveItemToArea(
+        const moved = this._moveItemToArea(
             fromLocationObj,
             fromItem,
             fromIndex,
@@ -7339,6 +7369,13 @@ export class BattleMech {
             fromItem.size || fromItem.crits || 1, // Dynamically evaluate size criteria parameters
             true                                  // Direct moves behave implicitly like a final segment block
         );
+        // Battle Value depends on where explosive items and CASE sit (TM pp.302-303). It is worked out
+        // again when next read, not here: imports place many items in a row, and the calculation
+        // reorders the equipment list.
+        if (moved) {
+            this._battleValueStale = true;
+        }
+        return moved;
     }
 
     private _setEquipmentAllocation(

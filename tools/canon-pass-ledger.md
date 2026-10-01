@@ -572,3 +572,41 @@ BV: TO:AUE p.193 gives large engines the same engine modifier as their base type
 - Vehicles have no era check on engine types at all, so the large engine dates are enforced for 'Mechs only.
 
 Regression tests: `Batch 16 large engines` (8 tests), `Vehicle large engines` (2 tests).
+
+## Batch 17: TO:AUE errata v7.0 and explosive weapons in Battle Value
+
+TO:AUE errata v7.0 (23 September 2023) was read in full. The local TO:AUE PDF is the corrected sixth printing (2022); the seventh-printing entries are the ones it lacks. The errata sheet marks which printing fixed each entry with a symbol the text extract drops, so every construction entry was checked against the local page text and the catalog.
+
+| errata entry (TO:AUE v7.0) | status | notes |
+|---|---|---|
+| Modular Armor: one per *location*, not per slot (p.92) | verified | already enforced (Batch 15 moved the check from the tag to the `isModularArmor` flag) |
+| HVAC footnote Q: "Treat weapon as a Gauss weapon with one critical slot for defensive BV purposes" (p.195) | **fixed** | HVAC/2, /5, /10 were not explosive at all. Now `explosive: true`, `explosiveBattleValueSlots: 1` |
+| PPC + PPC Capacitor: "Treat as Gauss weapon…", "Explodes" (p.194) | **fixed** | below |
+| Chaff Pod, M-Pod: explosive, defensive BV (p.195) | verified | set in Batch 9c |
+| Improved Heavy Lasers: explosive (p.196) | verified | already `explosive: true` |
+| Claws to-hit +1 (p.216); Flail +0, Lance +1 (pp.101–102) | not modelled | melee weapons carry no to-hit modifier in the catalog (Hatchet and Sword have none either). Owed with the other physical-weapon data |
+| Supercharger: one per unit (p.156) | not enforced | owed (construction validation) |
+| Armored Motive System weight rounding (p.94) | not modelled | the vehicle builder has no Armored Motive System |
+| Thunderbolt launchers may be OS or I-OS (p.158) | gap | no one-shot Thunderbolt records |
+| Game-play entries (Reflective armor, Vibroblade, Partial Wing, artillery scatter, smoke, field guns, VSP aerospace ranges, Rifle damage) | n/a | no construction data |
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| PPC w/ Capacitor | mech-is-equipment-weapons-energy | fixed | TO:AUE pp.149, 194 | v7.0 footnotes | BV 176 → 264 |
+| Heavy PPC w/ Capacitor | same | fixed | same | same | BV 317 → 370 |
+| Light PPC w/ Capacitor | same | fixed | same | same | BV 88 → 132 |
+| Snub-Nose PPC w/ Capacitor | same | fixed | same | same | BV 229 → 252 |
+| ER PPC w/ Capacitor | same | fixed | same | same | BV 229 → 343 |
+
+All five carried the plain PPC's Battle Value (the Snub-Nose one carried the ER PPC's) and were not explosive. Weight, slots and cost were already the PPC plus 1 ton, 1 slot and 150,000 (TO:AUE p.221).
+
+**Two rules bugs in `battlemech.ts`, found while testing the above:**
+
+- **Explosive components lost 1 BV per item, not per slot.** TechManual BV rules: "1 point per Gauss weapon critical space". Only the first slot of an item carries the item, and the loop counted slots that carried one. A Gauss Rifle outside CASE now costs 7 points of defensive rating, not 1; the same applies to every Gauss weapon, Improved Heavy Laser and PPC with Capacitor. An HVAC stays at 1 by its footnote.
+- **Battle Value went stale after a critical slot move.** `moveCritical` did not recalculate, so placing ammunition or a Gauss Rifle, or moving it in or out of a CASE location, showed the old value until some other change or a reload. The value is now refreshed when next read. (It is not recalculated inside the move: the BV calculation sorts the equipment list in place, which breaks imports that place many items in a row. That in-place sort is worth removing; noted, not changed.)
+
+Both change the Battle Value of existing designs that mount Gauss weapons outside CASE. The MUL comparison tests, if any design there has one, were unaffected (suite green).
+
+Regression tests: `Batch 17 explosive weapons in Battle Value`, `Batch 17 Battle Value follows critical slot moves`.
+
+**Still owed from the newer errata:** TechManual v8.0 (42 pages, corrections for the 2023 and 2024 printings that the local sixth printing lacks), the TechManual BV tables v4.1, Total Warfare v11.01, and TO:AR v7.0 have not been compared yet.
