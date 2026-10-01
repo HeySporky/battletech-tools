@@ -2043,3 +2043,105 @@ describe("Batch 5 internal structure catalog", () => {
         }
     });
 });
+
+describe("Batch 6 armor catalog", () => {
+    const armor = (tag: string) => mechArmorTypes.find(item => item.tag === tag);
+
+    it("dates armor from the IO:AE pp.29-30 universal advancement table", () => {
+        // tag: [prototype, production, extinct, reintroduced]
+        const dates: Record<string, [number | undefined, number | null, number | null, number | null]> = {
+            "standard": [2460, 2470, null, null],
+            "ferro-fibrous": [2557, 2571, 2810, 3040],
+            "light-ferro-fibrous": [3055, 3067, null, null],
+            "heavy-ferro-fibrous": [3056, 3069, null, null],
+            "stealth-basic": [3051, 3063, null, null],
+            "hardened": [3047, 3081, null, null],
+            "laser-reflective": [3058, 3080, null, null],
+            "reactive": [3063, 3081, null, null],
+            "ferro-lamellor": [3070, 3109, null, null],
+            "ballistic-reinforced": [3120, 3131, null, null],
+            "primitive": [2430, 2439, null, null],
+            "ferro-aluminum": [2557, 2571, 2810, 3040],
+            "commercial": [2290, 2300, null, null],
+            "modular": [3072, 3096, null, null],
+            "mimetic": [3058, 3061, null, null],
+            "stealth-improved": [3055, 3057, null, null],
+            "protomech-standard": [3055, 3060, null, null],
+            "heat-dissipating": [3111, 3123, null, null],
+            "impact-resistant": [3092, 3103, null, null],
+            "anti-penetrative-ablation": [3105, 3114, null, null],
+        };
+        for (const [tag, expected] of Object.entries(dates)) {
+            const item = armor(tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced], tag).toEqual(expected);
+        }
+        // Patchwork is a pre-spaceflight practice with no prototype year; production 3075 (IO:AE p.45).
+        expect(armor("patchwork")?.introduced).toBe(3075);
+        // Recovered prototype ferro-fibrous: 3034 (IO:AE p.97); the Star League prototype ends at production in 2571.
+        expect([armor("ferro-fibrous-prototype")?.prototype, armor("ferro-fibrous-prototype")?.introduced]).toEqual([2557, null]);
+    });
+
+    it("keeps separate Clan dates where IO:AE prints a Clan row or note", () => {
+        expect(armor("ferro-fibrous")?.clanDates).toEqual({ prototype: 2820, introduced: 2825, extinct: null, reintroduced: null });
+        expect(armor("ferro-aluminum")?.clanDates).toEqual({ prototype: 2820, introduced: 2825, extinct: null, reintroduced: null });
+        expect(armor("hardened")?.clanDates).toEqual({ prototype: 3061, introduced: 3081, extinct: null, reintroduced: null });
+        expect(armor("laser-reflective")?.clanDates).toEqual({ prototype: 3061, introduced: 3080, extinct: null, reintroduced: null });
+        expect(armor("reactive")?.clanDates).toEqual({ prototype: 3065, introduced: 3081, extinct: null, reintroduced: null });
+        expect(armor("modular")?.clanDates).toEqual({ prototype: 3074, introduced: 3096, extinct: null, reintroduced: null });
+        // No Clan prototype is published for these two; only a Clan introduction year.
+        expect(armor("heat-dissipating")?.clanDates).toEqual({ introduced: 3126, extinct: null, reintroduced: null });
+        expect(armor("stealth-improved")?.clanDates).toEqual({ introduced: 3058, extinct: null, reintroduced: null });
+    });
+
+    it("cites a book and page for every armor", () => {
+        const pages: Record<string, [string, number]> = {
+            "standard": ["TM", 205], "ferro-fibrous": ["TM", 205], "light-ferro-fibrous": ["TM", 205],
+            "heavy-ferro-fibrous": ["TM", 205], "stealth-basic": ["TM", 206], "ferro-aluminum": ["TM", 205],
+            "commercial": ["TM", 205], "protomech-standard": ["TM", 205],
+            "mimetic": ["TM", 253], "stealth-improved": ["TM", 252],
+            "hardened": ["TO:AUE", 93], "laser-reflective": ["TO:AUE", 93], "reactive": ["TO:AUE", 94],
+            "ferro-lamellor": ["TO:AUE", 92], "modular": ["TO:AUE", 93], "patchwork": ["TO:AUE", 189],
+            "primitive": ["IO:AE", 118], "ferro-fibrous-prototype": ["IO:AE", 66],
+            "anti-penetrative-ablation": ["IO:AE", 80], "ballistic-reinforced": ["IO:AE", 81],
+            "heat-dissipating": ["IO:AE", 81], "impact-resistant": ["IO:AE", 81],
+        };
+        for (const item of mechArmorTypes) {
+            if (!(item.tag in pages)) continue;
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+        for (const item of mechArmorTypes) {
+            expect(item.book, item.tag).toBeTruthy();
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("uses null, not 0, for armor that never went extinct", () => {
+        for (const item of mechArmorTypes) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
+            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+
+    it("matches the published points per ton and cost for IndustrialMech and ProtoMech armor", () => {
+        // TM p.72: Commercial armor multiplies the 16 base points by 1.5; TM p.278: 3,000 C-bills per ton.
+        expect(armor("commercial")?.armorMultiplier).toEqual({ clan: 24, is: 24 });
+        expect(armor("commercial")?.costMultiplier).toBe(3000);
+        // TM p.86: each ProtoMech armor point weighs 50 kg, so 20 points per ton.
+        expect(armor("protomech-standard")?.armorMultiplier.clan).toBe(20);
+    });
+
+    it("restricts heat-dissipating, impact-resistant and primitive armor to the unit types their rules list", () => {
+        // IO:AE pp.81-82: "Available to: BM, IM"; the Advanced Armor Table shows N/A for vehicles and fighters.
+        for (const tag of ["heat-dissipating", "impact-resistant"]) {
+            expect(armor(tag)?.unitTypes.battlemech, tag).toBe(true);
+            expect(armor(tag)?.unitTypes.combatVehicle, tag).toBe(false);
+            expect(armor(tag)?.unitTypes.supportVehicle, tag).toBe(false);
+        }
+        // IO:AE p.115: primitive combat vehicles use support vehicle armor, not Primitive Armor.
+        expect(armor("primitive")?.unitTypes.combatVehicle).toBe(false);
+        expect(armor("primitive")?.unitTypes.supportVehicle).toBe(false);
+    });
+});

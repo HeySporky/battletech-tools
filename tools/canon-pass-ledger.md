@@ -87,3 +87,51 @@ Dates are from IO p.48 (Universal Technology Advancement Table).
 | ProtoMech structure | – | n/a | TM p.225 | none | ProtoMech-only; not a 'Mech structure choice, not added |
 
 Every structure now carries `book`/`page`, and every legacy `extinct: 0` / `reintroduced: 0` changed to `null`. Costs unchanged. A regression test (`Batch 5 internal structure catalog`) pins the dates and sources.
+
+## Batch 6: armor
+
+Dates are from the IO:AE pp.29–30 Universal Technology Advancement Table (Patchwork: p.45). IO:AE (©2016–2022) is newer than IO (2016), so it wins under the newest-publication rule (user, 2026-10-01). The armor rows are identical in both books except for the page references, which IO:AE updates to TO:AUE / IO:AE pages.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Standard | mech-armor-types.ts | verified | TM p.205 | none | ~2460p / 2470; 16 pts/ton (TM p.56); 10,000/ton (TM p.278) |
+| Ferro-Fibrous [IS] | mech-armor-types.ts | verified | TM p.205 | none | 2557p / 2571, extinct 2810, reintroduced 3040; x1.12, 14 slots (TM p.56) |
+| Ferro-Fibrous [Clan] | mech-armor-types.ts | verified | TM p.205 | none | ~2820p / ~2825; x1.2, 7 slots; extinct/reintroduced → null |
+| Light Ferro-Fibrous | mech-armor-types.ts | verified | TM p.205 | none | IS only; ~3055p / 3067; x1.06, 7 slots; 15,000/ton |
+| Heavy Ferro-Fibrous | mech-armor-types.ts | verified | TM p.205 | none | IS only; ~3056p / 3069; x1.24, 21 slots; 25,000/ton |
+| Stealth | mech-armor-types.ts | verified (flag) | TM p.206 | none | IS only; ~3051p / 3063; 12 slots. TM p.206 lists it for BattleMechs only, but the record is still `combatVehicle: true`; fixed in Batch 6b together with Vehicular Stealth |
+| Hardened | mech-armor-types.ts | verified | TO:AUE p.93 | none | 3047p / ~3081; Clan prototype 3061; 8 pts/ton, 0 slots; BM, IM, CV |
+| Laser Reflective [IS / Clan] | mech-armor-types.ts | fixed | TO:AUE p.93 | none | IS 3058p / ~3080; Clan 3061p / ~3080; slots 10 / 5. Support vehicles added to unit types (BM, IM, CV, SV, BA, AF, CF) |
+| Reactive [IS / Clan] | mech-armor-types.ts | fixed | TO:AUE p.94 | none | IS 3063p / ~3081; Clan 3065p / ~3081; slots 14 / 7. Support vehicles and aerospace fighters added to unit types |
+| Ferro-Lamellor | mech-armor-types.ts | fixed | TO:AUE p.92 | none | Clan only; 3070p / 3109; 14 pts/ton, 12 slots. Small craft and DropShips removed (rules list BM, IM, CV, SV, AF, CF) |
+| Modular | mech-armor-types.ts | fixed (flag) | TO:AUE p.93 | none | was `introduced` 3070, unsourced. Now 3072p / ~3096; Clan prototype 3074, production 3096 (shared "All" column). Flag: the record carries `armorMultiplier` 16 / Clan 0, but the table gives 10 points per ton and tech base Both. The record is equipment-mode; the selectable item is `modular-armor` in the misc catalog (misc batch) |
+| Patchwork | mech-armor-types.ts | verified (flag) | TO:AUE p.189 | none | production 3075, common ~3080 (IO:AE p.45); no prototype year (PS). Flag: `costMultiplier` 12,000 is unsourced |
+| Primitive | mech-armor-types.ts | fixed | IO:AE p.118 | none | was `introduced` 2290 (Commercial's prototype year). Now ~2430p / ~2439 ("Primitive 'Mech/Industrial Armor"); x0.67; 5,000/ton (IO:AE p.181). Vehicles removed: primitive combat vehicles use support vehicle armor (IO:AE p.115). Fighters removed: Primitive Aerospace Fighter Armor is a separate row with its own dates (IO:AE p.29, rules p.119) |
+| Commercial | mech-armor-types.ts | fixed (flag) | TM p.205 | none | was 2400, 16 pts/ton, 1,200/ton, IS only. Now ~2290p / ~2300; 16 x 1.5 = 24 pts/ton, BAR 5 (TM p.72); 3,000/ton (TM p.278); BV modifier 0.5 (TM p.315); both tech bases (TM p.206). IndustrialMech only. Flag: the 'Mech builder does not offer it to IndustrialMechs yet |
+| Ferro-Aluminum | mech-armor-types.ts | fixed (flag) | TM p.205 | none | was `introduced` 2650, unsourced. Same row as Ferro-Fibrous: 2557p / 2571, extinct 2810, reintroduced 3040; Clan ~2820p / ~2825. Flag: multipliers are stored as 1.12 / 1.2 without the 16 base, and small craft / DropShips are ticked although TM p.206 lists fighters only (aerospace batch) |
+| ProtoMech Armor | mech-armor-types.ts | fixed | TM p.205 | none | ~3055p / 3060. Points per ton 22 → 20 (50 kg per point, TM p.86) |
+| Mimetic (battle armor) | mech-armor-types.ts | fixed (flag) | TM p.253 | none | ~3058p / 3061; IS only. Flag: slots, cost (65,000) and multiplier are not battle armor values (battle armor batch) |
+| Improved Stealth (battle armor) | mech-armor-types.ts | fixed (flag) | TM p.252 | none | ~3055p / 3057; Clan introduction 3058. Flag: cost 60,000 vs TM p.281 "Stealth, Improved 20,000" (battle armor batch) |
+| Ferro-Fibrous Prototype | mech-armor-types.ts | fixed | IO:AE p.66 | none | 2557p; production is Ferro-Fibrous in 2571; recovered prototype 3034 (IO:AE p.97); 16 slots; 60,000/ton (IO:AE p.179). Was `book: "IO"`, `page: null` |
+| Anti-Penetrative Ablation | mech-armor-types.ts | fixed | IO:AE p.80 | none | IS only; prototype 3100 → 3105; 3114; 12 pts/ton, 6 slots; 15,000/ton (IO:AE p.215); aerospace fighters added (BM, IM, CV, SV, AF, CF) |
+| Ballistic-Reinforced | mech-armor-types.ts | fixed | IO:AE p.81 | none | IS only; 3120p / 3131; 12 pts/ton, 10 slots; 25,000/ton; support vehicles and aerospace fighters added |
+| Heat-Dissipating | mech-armor-types.ts | fixed (flag) | IO:AE p.81 | none | prototype 3115 → 3111; 3123; Clan introduction 3126 with no Clan prototype published (was 3115). Vehicles removed (BM, IM only). Flag: the p.81 text says Clan Hell's Horses 3125; the p.29 table and the p.215 cost table both say 3126. Kept 3126 |
+| Impact-Resistant | mech-armor-types.ts | fixed | IO:AE p.81 | none | IS only; prototype 3090 → ~3092; 3103; 14 pts/ton, 10 slots (rules on p.82); 20,000/ton. Vehicles removed (BM, IM only) |
+
+**For the user: same-book conflict (publication date cannot settle it).** IO:AE prints two armor BV modifier tables. The Dark Age Armor Modifiers Table (p.185) gives ABA 1.2, Heat-Dissipating 1.05, Impact-Resistant 1, Ballistic-Reinforced 1.2. The Alternate Era Weapons and Equipment Battle Value Table (p.190) gives ABA 1.2, Heat-Dissipating 1.1, Ballistic-Reinforced 1.5. The catalog keeps the p.190 values, which MegaMek also uses. Proposed: leave as is unless errata says otherwise.
+
+**Gaps (not added; none of these are 'Mech-legal):**
+
+| item | source | domain | queued for |
+|---|---|---|---|
+| Vehicular Stealth | TO:AUE p.94; 3067p / 3084 | combat/support vehicle, fighter | Batch 6b |
+| ProtoMech Electric Discharge (EDP) Armor | IO:AE p.58; ~3071p, extinct 3085, 75 kg/point | ProtoMech | Batch 6b |
+| Primitive Aerospace Fighter Armor | IO:AE p.119; ES / ~2300 | aerospace | aerospace batch |
+| Aerospace Armor, Primitive Armor (small craft / large craft) | TM p.205, IO:AE p.118 | aerospace | aerospace batch |
+| Improved Ferro-Aluminum, Ferro-Carbide, Lamellor Ferro-Carbide | SO:AA p.140 (per IO:AE p.30; page not yet checked) | large craft | capital batch |
+| Support Vehicle Armor BAR 2–10 | TM p.206 | support vehicle | vehicle batch |
+| Battle armor: Standard (Basic/Advanced), Stealth (Prototype/Basic/Standard), Fire Resistant, Reactive, Laser Reflective | TM pp.252–253, TO:AUE pp.92–94 | battle armor | battle armor batch |
+
+Every armor now carries `book`/`page`, and every legacy `extinct: 0` / `reintroduced: 0` changed to `null`. `book: "IO_AE"` became `"IO:AE"` in this file; other catalogs still mix `IO_AE` / `IO-AE` / `IO:AE` and `TO:AU&E` / `TO:AUE` (normalise in a later cleanup). A regression test (`Batch 6 armor catalog`) pins dates, sources, and the corrected unit types.
+
+**Re-cite check owed:** Batches 2–5 cite IO (2016) page numbers for dates. IO:AE carries the same table; compare the rows, re-cite to IO:AE where they match, and fix where they differ.
