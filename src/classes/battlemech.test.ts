@@ -2139,3 +2139,53 @@ describe("saved designs with custom equipment", () => {
         expect(reloaded.getInstalledEquipment().map((item) => item.tag)).toContain(customTag);
     });
 });
+
+describe("SSW unresolved items", () => {
+    const griffin = () => sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+
+    it("reports an unknown weapon with its faction, type, location and slot", () => {
+        const xml = griffin().replace('<name manufacturer="Fusigon">(IS) PPC</name>', '<name manufacturer="">(IS) Widget Cannon</name>');
+        const mech = new BattleMech();
+        mech.importSSWXML(xml);
+        expect(mech.getSSWUnresolved()).toEqual([expect.objectContaining({
+            kind: "equipment", name: "Widget Cannon", sswName: "(IS) Widget Cannon", faction: "is",
+            sswType: "energy", location: "ra", slotIndex: 4, tons: null,
+        })]);
+    });
+
+    it("reports unknown ammunition as ammunition", () => {
+        const xml = griffin().replace(/\(IS\) @ LRM-10/g, "(IS) @ Widget Cannon");
+        const mech = new BattleMech();
+        mech.importSSWXML(xml);
+        expect(mech.getSSWUnresolved().map((item) => [item.kind, item.name])).toContainEqual(["ammunition", "Ammo (Widget Cannon)"]);
+    });
+
+    it("reports an unknown armor type as an armor component", () => {
+        const xml = griffin().replace("<type>Standard Armor</type>", "<type>Widget Plate</type>");
+        const mech = new BattleMech();
+        mech.importSSWXML(xml);
+        expect(mech.getSSWUnresolved()).toEqual([expect.objectContaining({ kind: "armor", name: "Widget Plate", faction: "is", location: "", slotIndex: -1 })]);
+    });
+
+    it("reports an unknown cockpit", () => {
+        const xml = griffin().replace(">Standard Cockpit</type>", ">Torso-Mounted Cockpit</type>");
+        const mech = new BattleMech();
+        mech.importSSWXML(xml);
+        expect(mech.getSSWUnresolved()).toEqual([expect.objectContaining({ kind: "cockpit", name: "Torso-Mounted Cockpit" })]);
+    });
+
+    it("a clean import has no unresolved items, and occupancy marks the PPC's three slots", () => {
+        const mech = new BattleMech();
+        mech.importSSWXML(griffin());
+        expect(mech.getSSWUnresolved()).toEqual([]);
+        expect(mech.getCriticalOccupancy("ra").slice(0, 7)).toEqual([true, true, true, true, true, true, true]);
+        expect(mech.getCriticalOccupancy("xx")).toEqual([]);
+    });
+
+    it("a second import into the same 'Mech starts with no unresolved items", () => {
+        const mech = new BattleMech();
+        mech.importSSWXML(griffin().replace("<type>Standard Armor</type>", "<type>Widget Plate</type>"));
+        mech.importSSWXML(griffin());
+        expect(mech.getSSWUnresolved()).toEqual([]);
+    });
+});

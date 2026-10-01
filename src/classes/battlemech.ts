@@ -6,7 +6,7 @@ import { btEraOptions, findEraByTag, getClosestEraForTech, getEraForYear, getEra
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { findAllByName, findByTag, matchesTag } from "../data/tag-match";
 import { ComponentRecord, getComponentRecords, getComponentTiers, isCustomComponent } from "../data/custom-component-registry";
-import type { CustomComponentKind } from "../data/custom-content-types";
+import type { CustomComponentKind, ISSWUnresolvedItem } from "../data/custom-content-types";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -272,6 +272,8 @@ export class BattleMech {
     };
 
     private _sswImportErrors: string[] = [];
+    // Items and components an SSW import could not resolve, for the import review screen and custom drafts.
+    private _sswUnresolved: ISSWUnresolvedItem[] = [];
 
     private _introductoryRules: boolean = false;
 
@@ -9296,7 +9298,19 @@ export class BattleMech {
             }
         }
         this._sswImportErrors.push( "Cannot find any " + component + " named: '" + sswName + "'" );
+        this._addSSWUnresolvedComponent( kind, String( sswName ), sswTechbase );
         return undefined;
+    }
+
+    /** An unresolved chassis component; its faction is SSW's techbase (0 Inner Sphere, 1 Clan), else the design's. */
+    private _addSSWUnresolvedComponent( kind: CustomComponentKind | "cockpit", name: string, sswTechbase?: unknown ) {
+        const techTag = this.getTech().tag;
+        const faction = String( sswTechbase ) === "1" ? "clan"
+            : String( sswTechbase ) === "0" ? "is"
+                : techTag === "clan" || techTag === "mclan" ? "clan" : "is";
+        this._sswUnresolved.push( {
+            kind, name, sswName: name, faction, sswType: kind, location: "", slotIndex: -1, splitLocations: [], tons: null,
+        } );
     }
 
     /** Moves one unallocated critical tagged `tag` to each SSW `<location index="N">loc</location>`. */
@@ -9399,6 +9413,18 @@ export class BattleMech {
                 //TODO: Commenting out warning - Why is this firing  during alpha strike generation?
                 //console.warn( "Cannot find any equipment named: '" + itemName + "'" );
                 this._sswImportErrors.push( "Cannot find any equipment named: '" + itemName + "'" )
+                const splits = Array.isArray( item.splitlocation ) ? item.splitlocation : item.splitlocation ? [ item.splitlocation ] : [];
+                this._sswUnresolved.push( {
+                    kind: String( item.type ).toLowerCase().trim() === "ammunition" ? "ammunition" : "equipment",
+                    name: itemName,
+                    sswName: item.name["#text"],
+                    faction: listTag,
+                    sswType: String( item.type ?? "" ).toLowerCase().trim(),
+                    location,
+                    slotIndex: allocationIndex,
+                    splitLocations: splits.map( ( split: any ) => ( { location: String( split["#text"] ?? "" ).toLowerCase().trim(), index: +( split["@_index"] ?? -1 ) } ) ),
+                    tons: item.tons !== undefined && Number.isFinite( +item.tons ) ? +item.tons : null,
+                } );
             } else {
 
 
@@ -9470,6 +9496,7 @@ export class BattleMech {
     ): void {
 
         this._sswImportErrors = [];
+        this._sswUnresolved = [];
 
 
 
@@ -9571,6 +9598,7 @@ export class BattleMech {
                     this._smallCockpit = true;
                 } else if( cockpitType !== "Standard Cockpit" ) {
                     this._sswImportErrors.push( "Cannot import the cockpit type: '" + cockpitType + "'" );
+                    this._addSSWUnresolvedComponent( "cockpit", cockpitType );
                 }
             }
 
@@ -9866,6 +9894,21 @@ export class BattleMech {
 
     public get sswImportErrors(): string[] {
         return this._sswImportErrors;
+    }
+
+    /** What the last SSW import could not resolve to any record (see ISSWUnresolvedItem). */
+    public getSSWUnresolved(): ISSWUnresolvedItem[] {
+        return this._sswUnresolved;
+    }
+
+    /** Which slots of a location (SSW code: "hd", "ct", "lt", ...) hold something; [] for an unknown location. */
+    public getCriticalOccupancy( sswLocation: string ): boolean[] {
+        const keys: Record<string, string> = {
+            hd: "head", ct: "centerTorso", lt: "leftTorso", rt: "rightTorso", la: "leftArm", ra: "rightArm",
+            ll: "leftLeg", rl: "rightLeg", cl: "centerLeg", fll: "frontLeftLeg", frl: "frontRightLeg",
+        };
+        const slots = ( this.getCriticals() as unknown as Record<string, unknown> )[ keys[ sswLocation.toLowerCase().trim() ] ?? "" ];
+        return Array.isArray( slots ) ? slots.map( ( slot ) => !!slot ) : [];
     }
 
 
