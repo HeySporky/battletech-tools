@@ -123,9 +123,16 @@ designs, 44 still report errors (421 before).
   "readTagExp returned undefined").
 - [ ] OmniMech configurations: SSW stores every loadout in one file; import them as our OmniMech
   configurations instead of only the base loadout.
-- [ ] Runtime importer: import any `.ssw` file from the UI (not only the bundled `sswMechs.ts` generated at
+- [x] Runtime importer: import any `.ssw` file from the UI (not only the bundled `sswMechs.ts` generated at
   build time), with the import review screen. Phase A1 of
-  `docs/superpowers/plans/2026-09-30-ssw-runtime-import-custom-content.md` (in progress).
+  `docs/superpowers/plans/2026-09-30-ssw-runtime-import-custom-content.md`, done 2026-09-30: Mech Creator >
+  Imports > "Import your own .ssw files". Unknown items become placeholder drafts saved in this browser
+  (`custom-content-local.ts`), and saved designs keep them through a reload.
+- [ ] Drafts have no editor page yet (phase A2), so their stats can't be entered in the UI. Until then a
+  draft's placeholder has unknown (0 at runtime) weight, damage, heat and BV.
+- [ ] Custom chassis components (seven `mech-custom-*-types.ts` catalogs) resolve on import but don't appear in
+  the construction steps' selection lists yet.
+- [ ] Custom cockpit catalog: unknown cockpits are reported (`kind: "cockpit"`) but never drafted.
 - [ ] Custom content PR submission (phase A2 of the same plan, deferred 2026-09-30): catalog merge serializer,
   multi-file GitHub PR with a never-merged evidence branch, submission orchestrator, drafts editor page
   (plan Tasks 9, 10, 11, 13). Until then, copy a local draft's record into the custom catalog by hand.
