@@ -340,9 +340,10 @@ played first, then by dependency.
 
 ### Canon equipment pass: still owed (branch `feature/canon-equipment-pass`, ledger `tools/canon-pass-ledger.md`)
 
-- [x] Special munitions (Batches 12c, 12d, 20): all 228 records dated and cited from IO:AE pp.53-56;
-  21 Inner Sphere munitions moved out of the universal ammo catalog; Dead-Fire BV per launcher.
-  Open: Rotary AC Caseless rounds exist though IO:AE lists Caseless for AC, LAC and PAC only.
+- [x] Special munitions (Batches 12c, 12d, 20, 23): all records dated and cited from IO:AE pp.53-56;
+  21 Inner Sphere munitions moved out of the universal ammo catalog; Dead-Fire BV per launcher; the four
+  Rotary AC Caseless rounds moved to the custom catalog (TO:AUE p.164). Open: no ProtoMech AC specialty
+  rounds exist, though IO:AE p.53 lists them for the PAC.
 - [x] Split by tech base (Batch 15): 'Mech Mortars, Artillery Cannons and the Laser Insulator are now
   separate Inner Sphere and Clan records; Modular Armor has a Clan record. The Clan records keep the old
   universal tag in `altTags` so saved designs load.
@@ -361,10 +362,12 @@ played first, then by dependency.
   Override Kit, Viral Jammers, Laser Pulse Module, 'Mech Taser, TSEMP, Jump Pack / Drop Pack, Prototype
   Improved Jump Jets (IO:AE p.97). Light Active Probe [IS] and Light TAG [IS]: IO:AE lists them, the TM
   Inner Sphere table has no 'Mech-scale stats.
-- [ ] Superheavy critical slots (IO:AE pp.155-157): each superheavy slot holds twice a standard slot, so
-  endo steel takes 7 slots and endo-composite 4 (the builder allocates 14 and 7) and the engine takes half
-  its usual slots, rounded up. Needs the slot model changed. Done: large engines (Batch 16), gyro weight
-  and BV (14), equipment bans (21), structure table and structure types (22).
+- [ ] Superheavy 'Mechs (IO:AE pp.154-157). Done: large engines (Batch 16), gyro weight and BV (14),
+  equipment bans (21), structure table and types (22), half-size critical space for engines, structure,
+  armor, equipment and heat sinks (24), Inner Sphere tech base only (25), Long Tom on superheavies (29).
+  Owed: ammunition sharing a slot (two tons of the same weapon's ammunition per slot, p.157); the slot
+  model holds one item per slot. Until then each ton takes its own slot, so the SHP-4X Omega example does
+  not fit its center torso.
 - [ ] Domain catalogs not started: aerospace and capital armor (SO:AA p.140), Support Vehicle BAR armor,
   battle armor armor and equipment, ProtoMech heat sinks / jump jets / cockpits, capital and sub-capital
   weapons (new literal catalogs, never 'Mech-legal).
@@ -372,15 +375,15 @@ played first, then by dependency.
   to IO:AE, checking each page.
 - [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
   unresolved.
-- [ ] Newer errata not yet compared (sheets are in `_KNOWLEDGE_DEV/rulebooks/errata-2025/`): TechManual
-  v8.0 entries for the 2023 and 2024 printings (the local PDF is the sixth printing), Total Warfare
-  v11.01, TO:AR v7.0, SO:AAR v5.0. TO:AUE v7.0 and the two IO sheets are done (Batches 14, 17).
+- [ ] Newer errata. Done: TechManual v8.0 and its Battle Value sheet v4.1 for 'Mechs (Batches 26-28),
+  TO:AUE v7.0 and the two IO sheets (14, 17). Not yet compared: Total Warfare v11.01, TO:AR v7.0,
+  SO:AAR v5.0, and the TechManual sheets for vehicles, ProtoMechs, infantry and aerospace Battle Value.
 - [x] Statistics audits: IO:AE prototype tables (Batch 14), TechManual tables (Batch 18), TO:AUE tables
   (Batch 19). Not covered: rows the name matcher could not pair (ProtoMech and battle armor weapons,
   capital weapons, industrial items priced per ton) and the special munition statistics (damage,
   rounds per ton, cost).
-- [ ] `_calcBattleValue` sorts `_equipmentList` in place. That is why Battle Value is refreshed lazily
-  after a critical slot move (Batch 17) instead of inside the move; sort a copy and recalculate directly.
+- [x] `_calcBattleValue` sorted `_equipmentList` in place; it now sorts a copy (Batch 27). The lazy
+  refresh after a critical slot move is no longer needed for that reason and can be made direct.
 - [ ] Vehicles have no era check on engine types, so large engine dates (Batch 16) apply to 'Mechs only.
 - [ ] Physical weapon to-hit modifiers are not in the catalog (Hatchet, Sword, Mace, Claws +1, Lance +1,
   Flail +0 per TO:AUE errata v7.0). One Supercharger per unit (TO:AUE p.156) is not enforced.
@@ -390,6 +393,17 @@ played first, then by dependency.
   how the aerospace code reads it before changing the catalog.
 - [ ] The Nail/Rivet Gun has no medium or long range bracket (TM p.344); the record stores 0 and the
   record sheet prints 1/0/0. Print a dash for a missing bracket.
+- [ ] Cockpit slots (Batch 24): Tripod, superheavy and QuadVee cockpits now sit in the head only, per the
+  IO:AE record sheets. The center torso slot was in upstream too: call it out in the equipment PR.
+- [ ] Battle Value (Batches 26, 27): explosive penalty by location, CASE II, floor of 1, weapon order by
+  Modified BV. Owed: IndustrialMech Offensive Battle Rating x0.9 without Advanced Fire Control (TM p.304)
+  needs a fire control choice (TM p.69); prototype CASE is not counted as CASE; `hasXLEngine()` answers
+  true for Light and Clan XL engines and drives the "wrecked" check in play tracking.
+- [ ] Unit slot columns (Batches 28, 29): ProtoMech, vehicle and aerospace slots now follow the TM and
+  TO:AUE tables. Needs your call: ProtoMech AC/8 ProtoMech slots (table 1*, approved workbook value 2).
+  Flag: Clan A-Pod prints NA for vehicles on TM p.343 against 1 on the Inner Sphere row. No records exist
+  for the Support Vehicle items of TM pp.344-345 (Bulldozer, Dumper, Ladder, Sprayers, Bridgelayers, ...).
+- [ ] TM equipment limits not modeled: torso-only weapons (Heavy Gauss), one industrial item per location.
 
 ### Cockpits
 
