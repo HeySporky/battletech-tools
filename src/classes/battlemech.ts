@@ -1,10 +1,11 @@
 import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { battlemechLocations } from "../data/battlemech-locations";
-import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
+import { IArmorType, ICockpitType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { findByTag, matchesTag } from "../data/tag-match";
+import { getCockpitType } from "../data/mech-cockpit-types";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -1169,23 +1170,10 @@ export class BattleMech {
         this._calcLogCBill += "<table class=\"cbill-cost\">\n";
 
         this._calcLogCBill += "<tbody>\n";
-        // Cockpit. Chassis cockpits (TO:AUE/IO values as implemented by MegaMek; provisional):
-        // Tripod 400,000 (Superheavy Tripod 500,000), QuadVee 375,000, Superheavy 300,000.
-        const chassisCockpit = this.isTripod()
-            ? (this._tonnage > 100 ? { name: "Superheavy Tripod Cockpit", cost: 500000 } : { name: "Tripod Cockpit", cost: 400000 })
-            : this.isQuadVee() ? { name: "QuadVee Cockpit", cost: 375000 }
-            : this._tonnage > 100 ? { name: "Superheavy Cockpit", cost: 300000 }
-            : null;
-        if( chassisCockpit ) {
-            this._calcLogCBill += "<tr><td><strong>" + chassisCockpit.name + "</strong><br /><span class=\"smaller-text\">provisional</span></td><td>" + addCommas(chassisCockpit.cost) + "</td></tr>\n";
-            cbillDryTotal += chassisCockpit.cost;
-        } else if( this._smallCockpit ) {
-            this._calcLogCBill += "<tr><td><strong>Small Cockpit</strong></td><td>175,000</td></tr>\n";
-            cbillDryTotal += 175000;
-        } else {
-            this._calcLogCBill += "<tr><td><strong>Standard Cockpit</strong></td><td>200,000</td></tr>\n";
-            cbillDryTotal += 200000;
-        }
+        // Cockpit: the chassis decides (Tripod, QuadVee, superheavy: IO:AE pp.215, 217); otherwise Standard or Small (TM p.277).
+        const cockpit = this.getCockpitType();
+        this._calcLogCBill += "<tr><td><strong>" + (cockpit.tag === "standard" ? "Standard Cockpit" : cockpit.name) + "</strong></td><td>" + addCommas(cockpit.cost) + "</td></tr>\n";
+        cbillDryTotal += cockpit.cost;
 
         // Life Support
         this._calcLogCBill += "<tr><td><strong>Life Support</strong></td><td>50,000</td></tr>\n";
@@ -1597,6 +1585,18 @@ export class BattleMech {
             return 0;
         }
     }
+    /**
+     * The cockpit this chassis mounts. Tripods, QuadVees and superheavy 'Mechs have a mandatory
+     * cockpit (IO:AE pp.128, 156, 159); everything else chooses between Standard and Small.
+     */
+    public getCockpitType(): ICockpitType {
+        const superheavy = this._tonnage > 100;
+        if (this.isTripod()) return getCockpitType(superheavy ? "superheavy-tripod" : "tripod");
+        if (this.isQuadVee()) return getCockpitType("quadvee");
+        if (superheavy) return getCockpitType("superheavy");
+        return getCockpitType(this._smallCockpit ? "small" : "standard");
+    }
+
     public getCockpitWeight() {
         return this._cockpitWeight;
     }
@@ -2862,26 +2862,26 @@ export class BattleMech {
         });
 
         if (typeTag === "quadvee" || typeTag === "tripod") {
-            this._cockpitWeight = this._tonnage > 100 && typeTag === "tripod" ? 6 : 4;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else if (this._tonnage > 100) {
             // Superheavy Bipeds/Quads require a two-pilot Superheavy Cockpit, same as any other Superheavy chassis.
-            this._cockpitWeight = 4;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: "Superheavy Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else if( this._smallCockpit) {
-            this._cockpitWeight = 2;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: "Small Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else {
-            this._cockpitWeight = 3;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: "Cockpit",
                 weight: this.getCockpitWeight()

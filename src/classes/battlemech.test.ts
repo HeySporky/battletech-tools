@@ -9,6 +9,7 @@ import { getWeaponAmmoFamilies } from "../data/equipment-registry";
 import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
+import { mechCockpitTypes } from "../data/mech-cockpit-types";
 import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
 import { mechClanEquipmentMisc } from "../data/mech-clan-equipment-weapons-misc";
 import { mechUniversalEquipment } from "../data/mech-universal-equipment";
@@ -1407,7 +1408,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(quadveeHTML).toContain("Conversion Equipment");
 
         const tripodHTML = (() => { const tripod = new BattleMech(); tripod.setType("tripod"); return tripod.getCBillCalcHTML(); })();
-        expect(tripodHTML).toContain("Tripod Cockpit");
+        expect(tripodHTML).toContain("Tripod 'Mech Cockpit");
         expect(tripodHTML).toContain("x 1.2 [Tripod]");
 
         const lamHTML = (() => { const lam = new BattleMech(); lam.setType("lam"); return lam.getCBillCalcHTML(); })();
@@ -2209,5 +2210,97 @@ describe("Batch 7 heat sink catalog", () => {
             expect(item.clanDates?.extinct, item.tag).not.toBe(0);
             expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
         }
+    });
+});
+
+describe("Batch 8 cockpit catalog", () => {
+    const cockpit = (tag: string) => mechCockpitTypes.find(item => item.tag === tag);
+    const chassis = (type: string, tonnage: number) => {
+        const mech = new BattleMech();
+        mech.setEra("ilClan");
+        mech.setType(type);
+        mech.setTonnage(tonnage);
+        return mech;
+    };
+
+    it("weighs the superheavy tripod cockpit at 5 tons (IO:AE pp.156, 159)", () => {
+        expect(chassis("tripod", 150).getCockpitWeight()).toBe(5);
+        expect(chassis("tripod", 100).getCockpitWeight()).toBe(4);
+        expect(chassis("biped", 150).getCockpitWeight()).toBe(4);
+    });
+
+    it("prices chassis cockpits from the catalog without a provisional label (IO:AE pp.215, 217)", () => {
+        const html = chassis("tripod", 150).getCBillCalcHTML();
+        expect(html).toContain("<strong>Superheavy Tripod 'Mech Cockpit</strong></td><td>500,000</td>");
+        expect(chassis("biped", 150).getCBillCalcHTML()).toContain("<strong>Superheavy BattleMech Cockpit</strong></td><td>300,000</td>");
+        expect(chassis("quadvee", 60).getCBillCalcHTML()).toContain("<strong>QuadVee Cockpit</strong></td><td>375,000</td>");
+        expect(chassis("tripod", 60).getCBillCalcHTML()).toContain("<strong>Tripod 'Mech Cockpit</strong></td><td>400,000</td>");
+    });
+
+    it("lists every 'Mech cockpit with its published weight and cost", () => {
+        // tag: [tons, C-bills]
+        const stats: Record<string, [number, number]> = {
+            "standard": [3, 200000], "small": [2, 175000],                                  // TM pp.211, 277
+            "industrial": [3, 100000], "industrial-advanced-fire-control": [3, 200000],     // TM pp.211, 277
+            "primitive": [5, 200000], "primitive-industrial": [5, 100000],                  // IO:AE p.117
+            "torso-mounted": [4, 750000], "command-console": [3, 500000],                   // TO:AUE pp.112-113, 219
+            "interface": [4, 1500000],                                                      // IO:AE pp.110, 213
+            "direct-neural-interface": [0, 500000],                                         // IO:AE pp.62, 213
+            "quadvee": [4, 375000], "tripod": [4, 400000],                                  // IO:AE pp.128, 159, 215, 217
+            "superheavy": [4, 300000], "superheavy-industrial": [4, 200000],                // IO:AE pp.156, 215
+            "superheavy-tripod": [5, 500000],                                               // IO:AE pp.156, 217
+        };
+        expect(mechCockpitTypes.map(item => item.tag).sort()).toEqual(Object.keys(stats).sort());
+        for (const item of mechCockpitTypes) {
+            expect([item.weight, item.cost], item.tag).toEqual(stats[item.tag]);
+        }
+    });
+
+    it("dates cockpits from the IO:AE p.33-34 universal advancement table", () => {
+        // tag: [prototype, production, extinct, reintroduced]
+        const dates: Record<string, [number | undefined, number | null, number | null, number | null]> = {
+            "standard": [2468, 2470, null, null],
+            "small": [3060, 3067, null, null],
+            "industrial": [2469, 2470, null, null],
+            "industrial-advanced-fire-control": [2469, 2470, null, null],
+            "primitive": [2430, 2439, 2520, null],
+            "primitive-industrial": [2300, 2350, 2520, null],
+            "torso-mounted": [3053, 3080, null, null],
+            "command-console": [2625, 2631, 2850, 3030],
+            "interface": [3074, null, null, null],
+            "direct-neural-interface": [3052, 3055, null, null],
+            "quadvee": [3130, 3135, null, null],
+            "tripod": [2590, 2602, null, null],
+            "superheavy": [3060, 3076, null, null],
+            "superheavy-industrial": [2905, 2940, null, null],
+            "superheavy-tripod": [3130, 3135, null, null],
+        };
+        for (const item of mechCockpitTypes) {
+            expect([item.prototype, item.introduced, item.extinct, item.reintroduced], item.tag).toEqual(dates[item.tag]);
+        }
+        expect(cockpit("small")?.clanDates).toEqual({ introduced: 3080, extinct: null, reintroduced: null });
+        expect(cockpit("torso-mounted")?.clanDates).toEqual({ prototype: 3055, introduced: 3080, extinct: null, reintroduced: null });
+        // The Clans never lost the Command Console; only the Inner Sphere did (IO:AE p.33).
+        expect(cockpit("command-console")?.clanDates).toEqual({ introduced: 2631, extinct: null, reintroduced: null });
+        expect(cockpit("interface")?.clanDates).toEqual({ prototype: 3083, introduced: null, extinct: null, reintroduced: null });
+    });
+
+    it("cites a book and page for every cockpit and marks what the builder supports", () => {
+        const pages: Record<string, [string, number]> = {
+            "standard": ["TM", 211], "small": ["TM", 211], "industrial": ["TM", 211], "industrial-advanced-fire-control": ["TM", 211],
+            "primitive": ["IO:AE", 117], "primitive-industrial": ["IO:AE", 117],
+            "torso-mounted": ["TO:AUE", 113], "command-console": ["TO:AUE", 113],
+            "interface": ["IO:AE", 110], "direct-neural-interface": ["IO:AE", 62],
+            "quadvee": ["IO:AE", 128], "tripod": ["IO:AE", 159],
+            "superheavy": ["IO:AE", 156], "superheavy-industrial": ["IO:AE", 156], "superheavy-tripod": ["IO:AE", 156],
+        };
+        for (const item of mechCockpitTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+        expect(mechCockpitTypes.filter(item => item.constructionStatus === "implemented").map(item => item.tag).sort())
+            .toEqual(["quadvee", "small", "standard", "superheavy", "superheavy-tripod", "tripod"]);
+        // Small (TM p.304) and Torso-Mounted (TO:AUE p.193) cockpits multiply the final BV by 0.95.
+        expect(cockpit("small")?.bvMultiplier).toBe(0.95);
+        expect(cockpit("torso-mounted")?.bvMultiplier).toBe(0.95);
     });
 });
