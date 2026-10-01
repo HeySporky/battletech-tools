@@ -731,3 +731,12 @@ Kept where they were: Follow-the-Leader (TO:AUE p.180 "Both"), Anti-Radiation (C
 - The Alpha Strike special ammunition choice was stored by tag and compared exactly; it is now resolved through aliases, so a saved choice of Swarm-I survives the new tag.
 
 Regression tests: two in `equipment-registry.test.ts` (catalog membership per tech base, the folded Clan copies), `Batch 12d saved designs keep equipment from the other tech base`, `Vehicle saved with equipment from the other tech base`, and the Alpha Strike special ammunition tests.
+
+## Batch 20: Dead-Fire ammunition Battle Value
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| LRM Dead-Fire rounds | mech-is-ammo | fixed | IO:AE p.190 | IO:AE v3.01 (p.190, in the third printing) | BV per ton by launcher: LRM 5 / 10 / 15 / 20 = 9 / 17 / 26 / 35; MML 3 / 5 / 7 / 9 = 6 / 8 / 11 / 15. The record had no value of its own, so a Dead-Fire ton was priced as standard ammunition (6 / 11 / 17 / 23) |
+| SRM Dead-Fire rounds | mech-is-ammo | fixed | same | same | SRM 2 / 4 / 6 = 4 / 7 / 10; MML 3 / 5 / 7 / 9 = 6 / 9 / 12 / 17 |
+
+The values are not a single multiplier of the standard round, so the ammunition record carries them per launcher (`battleValueByLauncher`), read before the multiplier in `getAmmoBattleValuePerTon`. Regression test in `equipment-registry.test.ts`.

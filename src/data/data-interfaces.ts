@@ -229,6 +229,11 @@ export interface IEquipmentItem {
     ammoBattleValue?: number;
     /** Special munitions: multiplier on the launcher's ammo BV (TO:AUE munition BV). */
     battleValueMultiplier?: number;
+    /**
+     * Special munitions whose BV per ton is published per launcher, not as a multiplier: keyed by the
+     * launcher family and rack size ("lrm-5", "srm-6", "mml-9").
+     */
+    battleValueByLauncher?: Record<string, number>;
     /** Minefield munitions: BV per ton comes from the launcher's rack size and shots (TO:AUE pp.185, 197-198). */
     minefieldBattleValue?: "thunder" | "thunder-augmented" | "thunder-inferno" | "thunder-vibrabomb" | "thunder-active" | "fascam";
     /** Weapon arrays (MG Array): tags of the weapons it links in its own location; its BV derives from them. */
