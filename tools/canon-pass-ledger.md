@@ -1015,3 +1015,18 @@ Flags:
 Still without records from the same list: Coolant Pod, MRM Apollo FCS, C3 Remote Sensor Launcher, Collapsible Command Module, Full-Head Ejection System, HarJel II / III, RISC Heat Sink Override Kit, Laser Pulse Module, 'Mech Taser, Jump Pack / Drop Pack, Prototype Improved Jump Jets. Each needs builder support beyond a record (heat capacity, linked launchers, armor repair, final BV multipliers).
 
 Regression tests: `Batch 35 TSEMP weapons and RISC Viral Jammers`.
+
+## Batch 36: BattleMech Taser
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| BattleMech Taser | mech-is-equipment-weapons-ballistic | **added** | TO:AUE pp.157-158 (rules); p.222 game data; p.223 construction; p.195 BV; IO:AE p.43 dates | TO:AUE v7.0: none | 200,000 C-bills, 4 tons, 3 slots ('Mech and Support Vehicle; 1 Combat Vehicle; no aerospace), 6 heat, 1 damage, range 1/2/4, +1 to hit, 5 shots a ton, BV 40, rating E. Explodes like a Gauss weapon (6 points). 3065 prototype / 3084 |
+| BattleMech Taser ammunition | mech-is-ammo | **added** | TO:AUE p.158; p.223; p.195; IO:AE p.56 | none | 2,000 C-bills a ton, 5 shots, BV 5, explosive (6 points a shot) |
+
+Flags:
+
+- **Dates.** TO:AUE prints "3067 (Federated Suns [BattleMech Taser])" for the prototype and "N/A" for introduction, and 3067P in the table; IO:AE p.43 gives 3065 prototype and 3084 production. IO:AE is followed, as for every other date.
+- Not enforced: the fusion engine requirement. The effects table and the 100-ton limit are play rules.
+- Alpha Strike conversion marked unresolved.
+
+Regression tests: `Batch 36 BattleMech Taser`.
