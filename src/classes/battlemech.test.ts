@@ -2447,17 +2447,10 @@ describe("Batch 9b universal equipment catalog", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
             "nail-gun": [2309, 2310, null, null, "TM", 246],
-            "mech-mortar-1": [2526, 2531, null, null, "TO:AUE", 136],
-            "mech-mortar-2": [2526, 2531, null, null, "TO:AUE", 136],
-            "mech-mortar-4": [2526, 2531, null, null, "TO:AUE", 136],
-            "mech-mortar-8": [2526, 2531, null, null, "TO:AUE", 136],
             "thumper-artillery": [undefined, 1950, null, null, "TO:AUE", 96],
             "long-tom-artillery": [2445, 2500, null, null, "TO:AUE", 96],
             "sniper-artillery": [undefined, 1950, null, null, "TO:AUE", 96],
             "vehicle-flamer": [undefined, 1950, null, null, "TM", 218],
-            "long-tom-cannon": [3012, 3079, null, null, "TO:AUE", 97],
-            "sniper-cannon": [3012, 3079, null, null, "TO:AUE", 97],
-            "thumper-cannon": [3012, 3079, null, null, "TO:AUE", 97],
             "fluid-gun": [undefined, 1950, null, null, "TO:AUE", 125],
             "supercharger": [undefined, 3078, null, null, "TO:AUE", 157],
             "backhoe": [undefined, 1950, null, null, "TM", 241],
@@ -2478,7 +2471,6 @@ describe("Batch 9b universal equipment catalog", () => {
             "environmental-sealing": [2300, 2350, null, null, "TM", 216],
             "remote-sensor-dispenser": [2586, 2590, null, null, "TM", 236],
             "searchlight": [undefined, 1950, null, null, "TM", 237],
-            "laser-insulator": [2575, null, 2820, null, "TO:AUE", 134],
             "lam-bomb-bay": [2680, 2684, null, null, "IO", 114],
             "lam-fuel-tank": [undefined, 2100, null, null, "IO", 221],
         };
@@ -3352,5 +3344,129 @@ describe("Batch 14 Star League ER PPC in Clan space", () => {
         // IO:AE p.40: the ER PPC extinction applies to the Inner Sphere only.
         expect(erPPC?.notes).toContain("2860");
         expect(erPPC?.notes).toContain("Clan ER PPC");
+    });
+});
+
+describe("Batch 15 tech-base splits", () => {
+    const universalTags = mechUniversalEquipment.map(item => item.tag);
+
+    it("splits 'Mech Mortars: Clan launchers are lighter and were never lost (TO:AUE pp.136, 221; IO:AE p.40)", () => {
+        // size: [tons, slots] (TO:AUE p.221); BV and ammo BV per ton (TO:AUE p.194)
+        const sizes: [number, [number, number], [number, number], number, number][] = [
+            [1, [2, 1], [1, 1], 10, 1],
+            [2, [5, 2], [2.5, 1], 14, 2],
+            [4, [7, 3], [3.5, 2], 26, 3],
+            [8, [10, 5], [5, 3], 50, 6],
+        ];
+        for (const [size, [isTons, isSlots], [clanTons, clanSlots], bv, ammoBV] of sizes) {
+            const is = mechISEquipmentMissiles.find(item => item.tag === `mech-mortar-${size}`);
+            const clan = mechClanEquipmentMissile.find(item => item.tag === `clan-mech-mortar-${size}`);
+            expect(is, `mech-mortar-${size}`).toMatchObject({
+                catalog: "is", weight: isTons, battleValue: bv, ammoBattleValue: ammoBV, techRating: "b",
+                prototype: 2526, introduced: 2531, extinct: 2819, reintroduced: 3043, book: "TO:AUE", page: 136,
+            });
+            expect(is?.space.battlemech).toBe(isSlots);
+            expect(clan, `clan-mech-mortar-${size}`).toMatchObject({
+                catalog: "clan", weight: clanTons, battleValue: bv, ammoBattleValue: ammoBV, techRating: "b",
+                prototype: 2835, introduced: 2840, extinct: null, reintroduced: null, book: "TO:AUE", page: 136,
+            });
+            expect(clan?.space.battlemech).toBe(clanSlots);
+            // Everything the two launchers share stays identical.
+            expect([clan?.heat, clan?.range, clan?.shotsPerTon, clan?.cbills]).toEqual([is?.heat, is?.range, is?.shotsPerTon, is?.cbills]);
+            expect(universalTags).not.toContain(`mech-mortar-${size}`);
+        }
+    });
+
+    it("splits Artillery Cannons: the Clan prototype is 3032, twenty years after the Lyran one (IO:AE p.31)", () => {
+        for (const cannon of ["long-tom-cannon", "sniper-cannon", "thumper-cannon"]) {
+            const is = mechISEquipmentArtillery.find(item => item.tag === cannon);
+            const clan = mechClanEquipmentArtillery.find(item => item.tag === `clan-${cannon}`);
+            expect(is, cannon).toMatchObject({ catalog: "is", prototype: 3012, introduced: 3079, extinct: null, book: "TO:AUE", page: 97 });
+            expect(clan, `clan-${cannon}`).toMatchObject({ catalog: "clan", prototype: 3032, introduced: 3079, extinct: null, book: "TO:AUE", page: 97 });
+            expect([clan?.weight, clan?.space, clan?.battleValue, clan?.ammoBattleValue, clan?.cbills, clan?.heat, clan?.damage, clan?.range, clan?.shotsPerTon])
+                .toEqual([is?.weight, is?.space, is?.battleValue, is?.ammoBattleValue, is?.cbills, is?.heat, is?.damage, is?.range, is?.shotsPerTon]);
+            expect(universalTags).not.toContain(cannon);
+        }
+    });
+
+    it("splits the Laser Insulator: lost in the Inner Sphere in 2820, never in Clan space (IO:AE p.38)", () => {
+        const is = mechISEquipmentMisc.find(item => item.tag === "laser-insulator");
+        const clan = mechClanEquipmentMisc.find(item => item.tag === "clan-laser-insulator");
+        expect(is).toMatchObject({ catalog: "is", prototype: 2575, introduced: null, extinct: 2820, reintroduced: null, book: "TO:AUE", page: 134 });
+        expect(clan).toMatchObject({ catalog: "clan", prototype: 2575, introduced: null, extinct: null, reintroduced: null, book: "TO:AUE", page: 134 });
+        expect([clan?.weight, clan?.space, clan?.cbills, clan?.battleValue]).toEqual([is?.weight, is?.space, is?.cbills, is?.battleValue]);
+        expect(universalTags).not.toContain("laser-insulator");
+    });
+
+    it("gives the Clans their own Modular Armor record: prototype 3074 (IO:AE p.29)", () => {
+        const is = mechISEquipmentMisc.find(item => item.tag === "modular-armor");
+        const clan = mechClanEquipmentMisc.find(item => item.tag === "clan-modular-armor");
+        expect(is).toMatchObject({ prototype: 3072, introduced: 3096, isModularArmor: true });
+        expect(clan).toMatchObject({ catalog: "clan", prototype: 3074, introduced: 3096, extinct: null, book: "TO:AUE", page: 93, isModularArmor: true });
+        expect([clan?.weight, clan?.space, clan?.cbills, clan?.additionalArmor]).toEqual([is?.weight, is?.space, is?.cbills, is?.additionalArmor]);
+    });
+
+    it("loads designs saved with the old universal tags: each side gets its own record", () => {
+        const load = (tech: string, tag: string) => {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            mech.setEra("dark-age");
+            mech.setTonnage(100);
+            return mech.addEquipmentFromTag(tag, tech, "", false, undefined, "", false, [], undefined, undefined);
+        };
+        // [old universal tag, Clan record it now loads on a Clan design]
+        const oldTags: [string, string][] = [
+            ["mech-mortar-1", "clan-mech-mortar-1"], ["mech-mortar-2", "clan-mech-mortar-2"],
+            ["mech-mortar-4", "clan-mech-mortar-4"], ["mech-mortar-8", "clan-mech-mortar-8"],
+            ["long-tom-cannon", "clan-long-tom-cannon"], ["sniper-cannon", "clan-sniper-cannon"],
+            ["thumper-cannon", "clan-thumper-cannon"], ["laser-insulator", "clan-laser-insulator"],
+        ];
+        for (const [oldTag, clanTag] of oldTags) {
+            expect(load("is", oldTag)?.tag, `is ${oldTag}`).toBe(oldTag);
+            expect(load("clan", oldTag)?.tag, `clan ${oldTag}`).toBe(clanTag);
+        }
+        expect(load("clan", "mech-mortar-8")?.weight).toBe(5);
+        expect(load("is", "mech-mortar-8")?.weight).toBe(10);
+    });
+
+    it("lets a Clan 'Mech mount only one Modular Armor pack per location, as an Inner Sphere one", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        mech.setEra("dark-age");
+        mech.setTonnage(50);
+        const first = mech.addEquipmentFromTag("clan-modular-armor", "clan", "", false, undefined, "", false, [], undefined, undefined)!;
+        const second = mech.addEquipmentFromTag("clan-modular-armor", "clan", "", false, undefined, "", false, [], undefined, undefined)!;
+        const unallocatedIndex = (uuid: string) => mech.unallocatedCriticals.findIndex(item => item?.uuid === uuid);
+        const openSlot = () => mech.getCriticals().leftTorso.findIndex(item => !item);
+        expect(first.isModularArmor).toBe(true);
+        expect(mech.moveCritical("un", unallocatedIndex(first.uuid!), "lt", openSlot())).toBe(true);
+        expect(mech.moveCritical("un", unallocatedIndex(second.uuid!), "lt", openSlot())).toBe(false);
+    });
+});
+
+describe("Batch 15 saved designs keep custom-catalog equipment", () => {
+    const add = (mech: BattleMech, tag: string) =>
+        mech.addEquipmentFromTag(tag, mech.getTech().tag, "", false, undefined, "", false, [], undefined, undefined, undefined, undefined, true);
+
+    it("restores Custom Homebrew equipment when a saved design is loaded", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        mech.setEra("dark-age");
+        mech.setTonnage(75);
+        // Both records moved from the Clan catalogs to custom in Batch 13.
+        expect(add(mech, "enhanced_er_large_laser")?.tag).toBe("enhanced_er_large_laser");
+        expect(add(mech, "enhanced_clan_lrm_10")?.tag).toBe("enhanced_clan_lrm_10");
+
+        const restored = new BattleMech(mech.exportJSON());
+        expect(restored.equipmentList.map(item => item.tag).sort()).toEqual(["enhanced_clan_lrm_10", "enhanced_er_large_laser"]);
+    });
+
+    it("still keeps custom equipment out of the lists a canon design chooses from", () => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        mech.setEra("dark-age");
+        mech.setTonnage(75);
+        expect(mech.addEquipmentFromTag("enhanced_er_large_laser", "clan", "", false, undefined, "", false, [], undefined, undefined)).toBeNull();
+        expect(mech.getAvailableEquipment(false, 4).some(item => item.catalog === "custom")).toBe(false);
     });
 });

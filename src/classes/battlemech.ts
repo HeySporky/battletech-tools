@@ -6011,6 +6011,9 @@ export class BattleMech {
             importItem.split_location,
             importItem.currentAmmo,
             importItem.selectedAmmoBinUUID,
+            // A saved design keeps whatever it mounted, Custom Homebrew included; the rules-level
+            // filter limits what can be added, not what can be loaded.
+            true,
         );
         if (restoredEquipment && typeof importItem.currentAdditionalArmor === "number") {
             restoredEquipment.currentAdditionalArmor = importItem.currentAdditionalArmor;
@@ -7261,7 +7264,8 @@ export class BattleMech {
             return false;
         }
         const fromItem = fromLocationObj[fromIndex];
-        if (matchesTag(fromItem, "modular-armor") && destLoc !== "un") {
+        const movingModularArmor = this._equipmentList.some(item => item.isModularArmor && item.uuid === fromItem.uuid);
+        if (movingModularArmor && destLoc !== "un") {
             const duplicatePack = this._equipmentList.some(item =>
                 item.isModularArmor
                 && item.uuid !== fromItem.uuid

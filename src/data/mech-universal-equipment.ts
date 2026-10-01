@@ -22,13 +22,6 @@ function hasUniversalMetrics(item: IEquipmentItem, counterpart: IEquipmentItem):
 
 export const mechUniversalEquipment: IEquipmentItem[] = [
     { isAmmo: false, name: "Nail Gun", altNames: ["Rivet Gun", "Nail Gun/Rivet Gun (C)"], tag: "nail-gun", ammoTypes: ["ammo-nail-rivet-gun-standard"], altTags: ["rivet-gun", "nail-rivet-gun-clan"], sort: "nail gun/rivet gun", category: "Ballistic Weapons", damage: 0, notes: "Universal industrial weapon; workbook conversion provisional.", damageAero: 0, accuracyModifier: 0, cbills: 10000, introduced: 2310, extinct: null, reintroduced: null, prototype: 2309, battleValue: 5, heat: 0, heatAero: 0, weight: 0.5, ammoBattleValue: 1, range: { min: 0, short: 3, medium: 6, long: 9 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 300, minAmmoTons: 1, explosive: false, weaponType: ["DB"], techRating: "e", book: "TM", page: 246, alphaStrike: { heat: 0, rangeShort: 0.05, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional workbook conversion"] }, rangeAero: "", },
-    // 'Mech Mortars: IS and Clan share the base technology (user decision 2026-09-28), so one
-    // universal launcher; the split IS/Clan ammunition keeps each side's IO availability
-    // window (IS rounds extinct 2819, reintroduced 3043).
-    { isAmmo: false, name: "’Mech Mortar-1", altNames: ["'Mech Mortar 1 (Clan)", "'Mech Mortar 1"], tag: "mech-mortar-1", altTags: ["clan-mech-mortar-1"], sort: "mech mortar 1", category: "Missile Weapons", alternateName: "Mech Mortar-1", damage: 0, notes: "Universal specialty artillery; ammunition is split by side. Workbook conversion provisional.", damageAero: 3, accuracyModifier: 0, cbills: 7000, cbillsOneShot: 0, introduced: 2531, extinct: null, reintroduced: null, prototype: 2526, battleValue: 10, heat: 1, weight: 2, range: { min: 6, short: 7, medium: 14, long: 21 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 24, ammoBattleValue: 1.2, minAmmoTons: 1, explosive: false, weaponType: ["MS", "I"], techRating: "e", book: "TO:AUE", page: 136, alphaStrike: { heat: 1, rangeShort: 0.085, rangeMedium: 0.17, rangeLong: 0.17, rangeExtreme: 0, tc: false, notes: ["Indirect Fire", "Provisional workbook conversion"] }, damageClusters: 1, damagePerCluster: 1, heatAero: 1, rangeAero: "m" },
-    { isAmmo: false, name: "’Mech Mortar-2", altNames: ["'Mech Mortar 2 (Clan)", "'Mech Mortar 2"], tag: "mech-mortar-2", altTags: ["clan-mech-mortar-2"], sort: "mech mortar 2", category: "Missile Weapons", alternateName: "Mech Mortar-2", damage: 0, notes: "Universal specialty artillery; ammunition is split by side. Workbook conversion provisional.", damageAero: 3, accuracyModifier: 0, cbills: 15000, cbillsOneShot: 0, introduced: 2531, extinct: null, reintroduced: null, prototype: 2526, battleValue: 14, heat: 2, weight: 5, range: { min: 6, short: 7, medium: 14, long: 21 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 12, ammoBattleValue: 2.4, minAmmoTons: 1, explosive: false, weaponType: ["MS", "I"], techRating: "e", book: "TO:AUE", page: 136, alphaStrike: { heat: 2, rangeShort: 0.085, rangeMedium: 0.17, rangeLong: 0.17, rangeExtreme: 0, tc: false, notes: ["Indirect Fire", "Provisional workbook conversion"] }, damageClusters: 2, damagePerCluster: 1, heatAero: 2, rangeAero: "m" },
-    { isAmmo: false, name: "’Mech Mortar-4", altNames: ["'Mech Mortar 4 (Clan)", "'Mech Mortar 4"], tag: "mech-mortar-4", altTags: ["clan-mech-mortar-4"], sort: "mech mortar 4", category: "Missile Weapons", alternateName: "Mech Mortar-4", damage: 0, notes: "Universal specialty artillery; ammunition is split by side. Workbook conversion provisional.", damageAero: 3, accuracyModifier: 0, cbills: 32000, cbillsOneShot: 0, introduced: 2531, extinct: null, reintroduced: null, prototype: 2526, battleValue: 26, heat: 5, weight: 7, range: { min: 6, short: 7, medium: 14, long: 21 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 6, ammoBattleValue: 3.6, minAmmoTons: 1, explosive: false, weaponType: ["MS", "I"], techRating: "e", book: "TO:AUE", page: 136, alphaStrike: { heat: 5, rangeShort: 0.255, rangeMedium: 0.51, rangeLong: 0.51, rangeExtreme: 0, tc: false, notes: ["Indirect Fire", "Provisional workbook conversion"] }, damageClusters: 4, damagePerCluster: 1, heatAero: 5, rangeAero: "m" },
-    { isAmmo: false, name: "’Mech Mortar-8", altNames: ["'Mech Mortar 8 (Clan)", "'Mech Mortar 8"], tag: "mech-mortar-8", altTags: ["clan-mech-mortar-8"], sort: "mech mortar 8", category: "Missile Weapons", alternateName: "Mech Mortar-8", damage: 0, notes: "Universal specialty artillery; ammunition is split by side. Workbook conversion provisional.", damageAero: 3, accuracyModifier: 0, cbills: 70000, cbillsOneShot: 0, introduced: 2531, extinct: null, reintroduced: null, prototype: 2526, battleValue: 50, heat: 10, weight: 10, range: { min: 6, short: 7, medium: 14, long: 21 }, space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 4, ammoBattleValue: 7.2, minAmmoTons: 1, explosive: false, weaponType: ["MS", "I"], techRating: "e", book: "TO:AUE", page: 136, alphaStrike: { heat: 10, rangeShort: 0.425, rangeMedium: 0.85, rangeLong: 0.85, rangeExtreme: 0, tc: false, notes: ["Indirect Fire", "Provisional workbook conversion"] }, damageClusters: 8, damagePerCluster: 1, heatAero: 10, rangeAero: "m" },
     { isAmmo: false, name: "Thumper Artillery Piece", altNames: ["Thumper"], tag: "thumper-artillery", altTags: [], sort: "artillery, thumper", category: "Artillery Weapons", weaponType: ["ART"], notes: "Indirect-fire tube artillery. Targets a physical map hex rather than a specific unit; damage resolves via area-burst radius templates across map sheets.", damage: 15, damageAero: 2, accuracyModifier: 0, cbills: 187500, introduced: 1950, /* Originally engineered as archaic field artillery during the Early Age of War */ extinct: null, reintroduced: null, battleValue: 43, heat: 5, weight: 15, range: { min: 0, short: 0, medium: 0, long: 0, extreme: 0, maxMapSheets: 21 }, space: { battlemech: 15, protomech: -1, combatVehicle: 1, supportVehicle: 15, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 20, ammoBattleValue: 5, minAmmoTons: 1, explosive: false, techRating: "b", book: "TO:AUE", page: 96, alphaStrike: { specialAbility: ["ARTTH"], damageAoE: 1, heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Bypasses brackets via the ARTTH trait to place a 1-point AoE strike anywhere on the board."] }, heatAero: 5, rangeAero: "s" /* Short-range tactical mapping for atmosphere/low-altitude strike rules */ },
     {
         name: "Long Tom",
@@ -193,174 +186,6 @@ export const mechUniversalEquipment: IEquipmentItem[] = [
         heatAero: 3,
         rangeAero: "s"
     },
-    {
-        name: "Long Tom Cannon",
-        tag: "long-tom-cannon",
-        altNames: ["Long Tom Artillery Cannon"],
-        altTags: [],
-        sort: "artillery, cannon, long tom",
-        category: "Artillery Weapons",
-        notes: "Direct-fire artillery cannon; unlike tube artillery it targets a unit directly instead of a map hex.",
-        damage: 20,
-        damageAero: 20,
-        accuracyModifier: 0,
-        cbills: 650000,
-        introduced: 3079,
-        extinct: null,
-        reintroduced: null,
-        prototype: 3012,
-        battleValue: 329,
-        heat: 20,
-        weight: 20,
-        range: {
-            min: 4,
-            short: 6,
-            medium: 13,
-            long: 20,
-            extreme: 30
-        },
-        space: {
-            battlemech: 15,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 15,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        shotsPerTon: 5,
-        ammoBattleValue: 41,
-        minAmmoTons: 1,
-        explosive: false,
-        weaponType: [
-            "ARTC"
-        ],
-        techRating: "b",
-        book: "TO:AUE",
-        page: 97,
-        alphaStrike: {
-            heat: 20,
-            rangeShort: 1.32,
-            rangeMedium: 3,
-            rangeLong: 3,
-            rangeExtreme: 0,
-            tc: false,
-            notes: []
-        },
-        heatAero: 20
-    },
-    {
-        name: "Sniper Cannon",
-        tag: "sniper-cannon",
-        altNames: ["Sniper Artillery Cannon"],
-        altTags: [],
-        sort: "artillery, cannon, sniper",
-        category: "Artillery Weapons",
-        notes: "Direct-fire artillery cannon; unlike tube artillery it targets a unit directly instead of a map hex.",
-        damage: 10,
-        damageAero: 10,
-        accuracyModifier: 0,
-        cbills: 475000,
-        introduced: 3079,
-        extinct: null,
-        reintroduced: null,
-        prototype: 3012,
-        battleValue: 77,
-        heat: 10,
-        weight: 15,
-        range: {
-            min: 2,
-            short: 4,
-            medium: 8,
-            long: 12,
-            extreme: 16
-        },
-        space: {
-            battlemech: 10,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 10,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        shotsPerTon: 10,
-        ammoBattleValue: 10,
-        minAmmoTons: 1,
-        explosive: false,
-        weaponType: [
-            "ARTC"
-        ],
-        techRating: "b",
-        book: "TO:AUE",
-        page: 97,
-        alphaStrike: {
-            heat: 10,
-            rangeShort: 0.83,
-            rangeMedium: 1,
-            rangeLong: 0,
-            rangeExtreme: 0,
-            tc: false,
-            notes: []
-        },
-        heatAero: 10
-    },
-    {
-        name: "Thumper Cannon",
-        tag: "thumper-cannon",
-        altNames: ["Thumper Artillery Cannon"],
-        altTags: [],
-        sort: "artillery, cannon, thumper",
-        category: "Artillery Weapons",
-        notes: "Direct-fire artillery cannon; unlike tube artillery it targets a unit directly instead of a map hex.",
-        damage: 5,
-        damageAero: 5,
-        accuracyModifier: 0,
-        cbills: 200000,
-        introduced: 3079,
-        extinct: null,
-        reintroduced: null,
-        prototype: 3012,
-        battleValue: 41,
-        heat: 5,
-        weight: 10,
-        range: {
-            min: 3,
-            short: 4,
-            medium: 9,
-            long: 14,
-            extreme: 21
-        },
-        space: {
-            battlemech: 7,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 7,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        shotsPerTon: 20,
-        ammoBattleValue: 5,
-        minAmmoTons: 1,
-        explosive: false,
-        weaponType: [
-            "ARTC"
-        ],
-        techRating: "b",
-        book: "TO:AUE",
-        page: 97,
-        alphaStrike: {
-            heat: 5,
-            rangeShort: 0.375,
-            rangeMedium: 0.5,
-            rangeLong: 0,
-            rangeExtreme: 0,
-            tc: false,
-            notes: []
-        },
-        heatAero: 5
-    },
     { isAmmo: false, name: "Fluid Gun", altNames: ["Clan Fluid Gun"], tag: "fluid-gun", altTags: [], sort: "equipment, fluid gun", category: "Ballistic Weapons", alternateName: "Fluid Gun", damage: 0, notes: "Sprays water, coolant or other fluids; deals no standard damage.", damageAero: 0, accuracyModifier: 0, cbills: 35000, introduced: 1950, extinct: null, reintroduced: null, battleValue: 6, heat: 0, weight: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-fluid-gun-standard"], shotsPerTon: 20, ammoBattleValue: 1, minAmmoTons: 1, explosive: false, weaponType: [], techRating: "b", book: "TO:AUE", page: 125, alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }, heatAero: 0 },
     { isEquipment: true, isAmmo: false, name: "Supercharger", altNames: [], tag: "supercharger", altTags: [], sort: "equipment, supercharger", category: "Miscellaneous Equipment", alternateName: "", damage: 0, notes: "Mounted next to the engine; boosts run MP like MASC. TO:AUE p.157 lists an early-spaceflight prototype (year unpublished); production 3078 per IO tech progression.", damageAero: 0, accuracyModifier: 0, cbills: 0, introduced: 3078, extinct: null, reintroduced: null, battleValue: 0, heat: 0, heatAero: 0, weight: 0, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: [], techRating: "c", book: "TO:AUE", page: 157, alphaStrike: { specialAbility: ["MASC"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }, variableSize: true, variableFormula: "supercharger" },
     { isEquipment: true, isAmmo: false, name: "Backhoe", altNames: [], tag: "backhoe", altTags: [], sort: "industrial, backhoe", category: "Melee", alternateName: "", damage: 6, notes: "Industrial equipment; damage per TM industrial melee rules.", damageAero: 0, accuracyModifier: 0, cbills: 50000, introduced: 1950, extinct: null, reintroduced: null, battleValue: 8, heat: 0, heatAero: 0, weight: 5, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: [], techRating: "b", book: "TM", page: 241, alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }, isMelee: true },
@@ -382,7 +207,6 @@ export const mechUniversalEquipment: IEquipmentItem[] = [
     { isEquipment: true, isAmmo: false, name: "Remote Sensor Dispenser", altNames: [], tag: "remote-sensor-dispenser", altTags: [], sort: "equipment, remote sensor dispenser", category: "Miscellaneous Equipment", alternateName: "", damage: 0, notes: "", damageAero: 0, accuracyModifier: 0, cbills: 51000, introduced: 2590, extinct: null, reintroduced: null, prototype: 2586, battleValue: 0, heat: 0, heatAero: 0, weight: 0.5, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: [], techRating: "c", book: "TM", page: 236, alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] } },
     { isEquipment: true, isAmmo: false, name: "Searchlight (Mounted)", altNames: ["Mounted Searchlight"], tag: "searchlight", altTags: [], sort: "equipment, searchlight", category: "Miscellaneous Equipment", alternateName: "", damage: 0, notes: "One mounted searchlight is free; extra ones use these values.", damageAero: 0, accuracyModifier: 0, cbills: 2000, introduced: 1950, extinct: null, reintroduced: null, battleValue: 0, heat: 0, heatAero: 0, weight: 0.5, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: [], techRating: "a", book: "TM", page: 237, alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] } },
     { isEquipment: true, isAmmo: false, name: "B-Pod", altNames: ["Anti-Battle Armor Pod", "Anti-BattleArmor Pods (B-Pods)"], tag: "b-pod", altTags: [], sort: "equipment, pod, b-pod", category: "Miscellaneous Equipment", alternateName: "", damage: 0, notes: "One-shot anti-battle armor pod; may be mounted in any 'Mech location (TM p.205). Identical for both tech bases (TM pp.342-343).", damageAero: 0, accuracyModifier: 0, cbills: 2500, introduced: 3068, extinct: null, reintroduced: null, prototype: 3065, battleValue: 2, battleValueDefensive: true, heat: 0, heatAero: 0, weight: 1, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: true, weaponType: [], techRating: "e", book: "TM", page: 205, alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unresolved: Alpha Strike conversion not yet looked up"] } },
-    { isEquipment: true, isAmmo: false, name: "Laser Insulator", altNames: [], tag: "laser-insulator", altTags: [], sort: "equipment, laser insulator", category: "Miscellaneous Equipment", alternateName: "", damage: 0, notes: "Experimental: mounted with a laser, reduces its heat.", damageAero: 0, accuracyModifier: 0, cbills: 3000, introduced: null, extinct: 2820, reintroduced: null, prototype: 2575, battleValue: 0, heat: 0, heatAero: 0, weight: 0.5, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: [], techRating: "e", book: "TO:AUE", page: 134, alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] } },
     // LAM-only equipment (user approved 2026-09-28), checked against Interstellar Operations
     // (2016): construction p.114, cost p.186, BV pp.192 and 196, equipment tables pp.220-221. Each Bomb Bay
     // holds one bomb slot of ordnance; the bombs themselves are loaded per scenario (see
