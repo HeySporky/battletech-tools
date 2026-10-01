@@ -50,7 +50,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, artillery, arrow iv cluster, clan",
         category: "Ammunition",
         cbills: 15000,
-        introduced: 2600,
+        introduced: 2844,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -62,11 +62,9 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 5,
         explosive: true,
         techRating: "e",
-        book: "TO",
+        book: "TO:AUE",
         page: 166,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys high-density submunitions across target hex"] },
-        prototype: 2594
-    },
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys high-density submunitions across target hex"] }},
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -90,9 +88,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TO:AUE",
-        page: 166,
+        page: 169,
         alphaStrike: { specialAbility: ["ARTAIS-1", "ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a dense, instantly-armed 20-point conventional scatterable landmine field layout over the target area code impact."] },
-        prototype: 2621,
         minefieldBattleValue: "fascam"
     },
     {
@@ -105,7 +102,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, arrow iv, homing, clan",
         category: "Ammunition",
         cbills: 15000,
-        introduced: 2600,
+        introduced: 2844,
         extinct: null,
         reintroduced: null,
         battleValue: 44,
@@ -119,9 +116,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "e",
         book: "TO:AUE",
         page: 166,
-        alphaStrike: { specialAbility: ["ARTAIS-1", "ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires an active TAG laser designation. Automatically impacts the painted target for concentrated pinpoint damage rather than full area-of-effect spread."] },
-        prototype: 2593
-    },
+        alphaStrike: { specialAbility: ["ARTAIS-1", "ARTAC-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires an active TAG laser designation. Automatically impacts the painted target for concentrated pinpoint damage rather than full area-of-effect spread."] }},
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -132,7 +127,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, artillery, arrow iv illumination, clan",
         category: "Ammunition",
         cbills: 5000,
-        introduced: 2621,
+        introduced: 2844,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -144,11 +139,9 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 5,
         explosive: false,
         techRating: "c",
-        book: "TO",
+        book: "TO:AUE",
         page: 167,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Negates nighttime/low-visibility hit penalties in affected zones"] },
-        prototype: 2615
-    },
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Negates nighttime/low-visibility hit penalties in affected zones"] }},
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -172,9 +165,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "f",
         book: "TM",
-        page: 229,
+        page: 231,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Extended Range profile"] },
-        ammoProfile: { damagePerMissile: 1, range: { min: 0, short: 9, medium: 18, long: 27 }, alphaStrikeDamage: { short: 1, medium: 1, long: 1, extreme: 1 } }
+        ammoProfile: { damagePerMissile: 1, range: { min: 0, short: 9, medium: 18, long: 27 }, alphaStrikeDamage: { short: 1, medium: 1, long: 1, extreme: 1 } },
+        prototype: 3052
     },
     {
         isAmmo: true,
@@ -186,7 +180,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, atm, high explosive, clan",
         category: "Ammunition",
         cbills: 60000,
-        introduced: 3053,
+        introduced: 3054,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -199,9 +193,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "f",
         book: "TM",
-        page: 229,
+        page: 231,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["High Explosive close-range profile"] },
-        ammoProfile: { damagePerMissile: 3, range: { min: 0, short: 3, medium: 6, long: 9 }, alphaStrikeDamage: { short: 3, medium: 3, long: 0, extreme: 0 } }
+        ammoProfile: { damagePerMissile: 3, range: { min: 0, short: 3, medium: 6, long: 9 }, alphaStrikeDamage: { short: 3, medium: 3, long: 0, extreme: 0 } },
+        prototype: 3052
     },
     {
         isAmmo: true,
@@ -241,7 +236,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, iatm, inferno, clan",
         category: "Ammunition",
         cbills: 95000,
-        introduced: 3070,
+        introduced: null,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -253,9 +248,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 60,
         explosive: true,
         techRating: "f",
-        book: "TO",
-        page: 141,
-        alphaStrike: { specialAbility: ["iATM#/#/#/#", "HT2#"], heat: 0, rangeShort: 2, rangeMedium: 2, rangeLong: 2, rangeExtreme: 0, tc: false, notes: ["Utilizes standard ATM range brackets. Inflicts high thermal spikes."] }
+        book: "IO:AE",
+        page: 61,
+        alphaStrike: { specialAbility: ["iATM#/#/#/#", "HT2#"], heat: 0, rangeShort: 2, rangeMedium: 2, rangeLong: 2, rangeExtreme: 0, tc: false, notes: ["Utilizes standard ATM range brackets. Inflicts high thermal spikes."] },
+        prototype: 3070
     },
     {
         isAmmo: true,
@@ -267,8 +263,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, iatm, magnetic-pulse, clan",
         category: "Ammunition",
         cbills: 120000,
-        introduced: 3070,
-        extinct: null,
+        introduced: null,
+        extinct: 3080,
         reintroduced: null,
         battleValue: 0,
         heat: 0,
@@ -279,9 +275,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 60,
         explosive: true,
         techRating: "f",
-        book: "TO",
-        page: 141,
-        alphaStrike: { specialAbility: ["iATM#/#/#/#"], heat: 0, rangeShort: 3, rangeMedium: 3, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Utilizes High Explosive range brackets. Disrupts target heat tracking systems."] }
+        book: "IO:AE",
+        page: 61,
+        alphaStrike: { specialAbility: ["iATM#/#/#/#"], heat: 0, rangeShort: 3, rangeMedium: 3, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Utilizes High Explosive range brackets. Disrupts target heat tracking systems."] },
+        prototype: 3070
     },
     {
         isAmmo: true,
@@ -414,7 +411,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TO:AUE",
-        page: 165,
+        page: 167,
         alphaStrike: { specialAbility: ["ARTLT-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires active TAG target to lock on and home into a single ground unit."] },
         prototype: 2640
     },
@@ -428,7 +425,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, long tom, fascam, clan, thunder",
         category: "Ammunition",
         cbills: 15000,
-        introduced: 2844,
+        introduced: 2621,
         extinct: null,
         reintroduced: null,
         battleValue: 46,
@@ -442,9 +439,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "e",
         book: "TO:AUE",
         page: 169,
-        alphaStrike: { specialAbility: ["ARTLT-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a standard 25-point density minefield onto the target hex layout upon impact."] },
-        prototype: 2621
-    },
+        alphaStrike: { specialAbility: ["ARTLT-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a standard 25-point density minefield onto the target hex layout upon impact."] }},
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -455,7 +450,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, lrm, artemis iv, clan",
         category: "Ammunition",
         cbills: 60000,
-        introduced: 2598,
+        introduced: 2818,
         extinct: null,
         reintroduced: null,
         battleValue: 0, // Assigned per launcher or calculating total BV variant adjustments
@@ -467,11 +462,9 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 120, // Standard overall block tracking, individual sizes vary in data tracking setups
         explosive: true,
         techRating: "e",
-        book: "TW",
-        page: 141,
-        alphaStrike: { specialAbility: ["ARTIV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis IV capable launcher"] },
-        prototype: 2592
-    },
+        book: "TM",
+        page: 207,
+        alphaStrike: { specialAbility: ["ARTIV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis IV capable launcher"] }},
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -482,7 +475,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, lrm, artemis v, clan",
         category: "Ammunition",
         cbills: 60000, // Matches special Artemis target ammunition profiles
-        introduced: 3061,
+        introduced: 3085,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -494,9 +487,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 120,
         explosive: true,
         techRating: "f", // Advanced Clan Tech base
-        book: "TO",
+        book: "TO:AUE",
         page: 95,
-        alphaStrike: { specialAbility: ["ARTV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis V capable launcher"] }
+        alphaStrike: { specialAbility: ["ARTV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis V capable launcher"] },
+        prototype: 3061
     },
     {
         isAmmo: true,
@@ -520,7 +514,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 120,
         explosive: true,
         techRating: "e",
-        book: "TO",
+        book: "TO:AUE",
         page: 185,
         alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#", "MEL#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2618,
@@ -536,8 +530,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, lrm, magnetic-pulse, clan, mag, emp",
         category: "Ammunition",
         cbills: 150000,
-        introduced: 3056,
-        extinct: null,
+        introduced: 3057,
+        extinct: 3065,
         reintroduced: null,
         battleValue: 0,
         heat: 0,
@@ -548,9 +542,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 120,
         explosive: true,
         techRating: "f",
-        book: "TO",
-        page: 141,
-        alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#", "HT1#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        book: "TO:AUE",
+        page: 182,
+        alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#", "HT1#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3055
     },
     {
         isAmmo: true,
@@ -575,7 +570,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "d",
         book: "TW",
-        page: 141,
+        page: 142,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Gains cluster modifiers when fired at Narc beacon targets"] }
     },
     {
@@ -600,8 +595,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 120,
         explosive: true,
         techRating: "d",
-        book: "TW",
-        page: 141,
+        book: "TO:AUE",
+        page: 183,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Salvo splashes onto any target in the same/adjacent hexes on a miss"] },
         prototype: 2615
     },
@@ -642,7 +637,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, mech mortar airburst, clan",
         category: "Ammunition",
         cbills: 48000,
-        introduced: 2544,
+        introduced: 2840,
         extinct: null,
         reintroduced: null,
         battleValue: 2,
@@ -654,10 +649,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 24,
         explosive: true,
         techRating: "d",
-        book: "TO",
-        page: 136,
+        book: "TO:AUE",
+        page: 185,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2540
+        prototype: 2835
     },
     {
         isAmmo: true,
@@ -669,7 +664,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, mech mortar anti-personnel, clan",
         category: "Ammunition",
         cbills: 24000,
-        introduced: 2544,
+        introduced: 2840,
         extinct: null,
         reintroduced: null,
         battleValue: 2,
@@ -681,10 +676,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 24,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 136,
+        book: "TO:AUE",
+        page: 186,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2540
+        prototype: 2835
     },
     {
         isAmmo: true,
@@ -723,7 +718,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, mech mortar flare, clan",
         category: "Ammunition",
         cbills: 14000,
-        introduced: 2536,
+        introduced: 2840,
         extinct: null,
         reintroduced: null,
         battleValue: 2,
@@ -735,10 +730,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 24,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 136,
+        book: "TO:AUE",
+        page: 186,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2533
+        prototype: 2835
     },
     {
         isAmmo: true,
@@ -750,7 +745,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, mech mortar smoke, clan",
         category: "Ammunition",
         cbills: 14000,
-        introduced: 2531,
+        introduced: 2840,
         extinct: null,
         reintroduced: null,
         battleValue: 2,
@@ -762,10 +757,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 24,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 136,
+        book: "TO:AUE",
+        page: 187,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["SMOKE"] },
-        prototype: 2526
+        prototype: 2835
     },
     {
         isAmmo: true,
@@ -804,7 +799,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, torpedo, lrt, artemis v",
         category: "Ammunition",
         cbills: 60000, // Clan advanced infrastructure multiplier
-        introduced: 3061,
+        introduced: 3085,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -816,9 +811,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 120,
         explosive: true,
         techRating: "f",
-        book: "TO",
+        book: "TO:AUE",
         page: 95,
-        alphaStrike: { specialAbility: ["ARTV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Advanced Clan Artemis V LRT launcher installation"] }
+        alphaStrike: { specialAbility: ["ARTV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Advanced Clan Artemis V LRT launcher installation"] },
+        prototype: 3061
     },
     {
         isAmmo: true,
@@ -870,7 +866,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TO:AUE",
-        page: 165,
+        page: 167,
         alphaStrike: { specialAbility: ["ARTSN-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires active TAG target to lock on and home into a single ground unit."] },
         prototype: 2640
     },
@@ -884,7 +880,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, srm, artemis iv, clan",
         category: "Ammunition",
         cbills: 54000,
-        introduced: 2598,
+        introduced: 2818,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -896,8 +892,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 100,
         explosive: true,
         techRating: "e",
-        book: "TW",
-        page: 141,
+        book: "TM",
+        page: 207,
         alphaStrike: { specialAbility: ["ARTIV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis IV capable SRM launcher"] }
     },
     {
@@ -910,7 +906,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, sniper, fascam, clan",
         category: "Ammunition",
         cbills: 9000,
-        introduced: 2844,
+        introduced: 2621,
         extinct: null,
         reintroduced: null,
         battleValue: 23,
@@ -924,9 +920,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "e",
         book: "TO:AUE",
         page: 169,
-        alphaStrike: { specialAbility: ["ARTSN-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a standard 15-point density minefield onto the target hex layout upon impact."] },
-        prototype: 2621
-    },
+        alphaStrike: { specialAbility: ["ARTSN-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a standard 15-point density minefield onto the target hex layout upon impact."] }},
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -937,7 +931,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, srm, artemis v, clan",
         category: "Ammunition",
         cbills: 54000,
-        introduced: 3061,
+        introduced: 3085,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -949,9 +943,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 100,
         explosive: true,
         techRating: "f",
-        book: "TO",
+        book: "TO:AUE",
         page: 95,
-        alphaStrike: { specialAbility: ["ARTV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis V capable SRM launcher"] }
+        alphaStrike: { specialAbility: ["ARTV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis V capable SRM launcher"] },
+        prototype: 3061
     },
     {
         isAmmo: true,
@@ -975,8 +970,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 100,
         explosive: true,
         techRating: "c",
-        book: "TO",
-        page: 184,
+        book: "TM",
+        page: 230,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deals burst damage to conventional infantry, minimal damage to armor"] },
         prototype: 2375
     },
@@ -1003,7 +998,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "d",
         book: "TW",
-        page: 141,
+        page: 142,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Gains logic bonuses when attacking a Narc-tagged target"] }
     },
     {
@@ -1043,7 +1038,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, torpedo, srt, artemis v, clan",
         category: "Ammunition",
         cbills: 54000,
-        introduced: 3061,
+        introduced: 3085,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -1055,9 +1050,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 100,
         explosive: true,
         techRating: "f",
-        book: "TO",
+        book: "TO:AUE",
         page: 95,
-        alphaStrike: { specialAbility: ["ARTV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Advanced Clan Artemis V SRT launcher installation"] }
+        alphaStrike: { specialAbility: ["ARTV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Advanced Clan Artemis V SRT launcher installation"] },
+        prototype: 3061
     },
     {
         isAmmo: true,
@@ -1082,7 +1078,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TO:AUE",
-        page: 165,
+        page: 167,
         alphaStrike: { specialAbility: ["ARTTH-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires active TAG target to lock on and home into a single ground unit."] },
         prototype: 2640
     },
@@ -1096,7 +1092,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, thumper, fascam, artillery, clan",
         category: "Ammunition",
         cbills: 6750,
-        introduced: 2844,
+        introduced: 2621,
         extinct: null,
         reintroduced: null,
         battleValue: 12,
@@ -1110,9 +1106,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "e",
         book: "TO:AUE",
         page: 169,
-        alphaStrike: { specialAbility: ["ARTTH-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a standard 5-point density minefield onto the target hex layout upon impact."] },
-        prototype: 2621
-    },
+        alphaStrike: { specialAbility: ["ARTTH-1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys a standard 5-point density minefield onto the target hex layout upon impact."] }},
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -1123,7 +1117,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, artillery, arrow iv fuel air",
         category: "Ammunition",
         cbills: 30000,
-        introduced: 2600, // Age of War primitive staging roots
+        introduced: 2844, // Age of War primitive staging roots
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -1135,7 +1129,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 5,
         explosive: true,
         techRating: "c",
-        book: "IO",
+        book: "IO:AE",
         page: 159,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Exerts pressure shockwaves; deals double damage limits against buildings and standard infantry units"] }
     },
@@ -1203,7 +1197,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, lrm, anti-radiation",
         category: "Ammunition",
         cbills: 90000,
-        introduced: 3057,
+        introduced: null,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -1215,9 +1209,10 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 120,
         explosive: true,
         techRating: "e",
-        book: "TO",
-        page: 181,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Homes in directly on active hostile electronics networks like ECM or BAP"] }
+        book: "TO:AUE",
+        page: 180,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Homes in directly on active hostile electronics networks like ECM or BAP"] },
+        prototype: 3057
     },
     {
         isAmmo: true,
@@ -1511,8 +1506,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 10,
         explosive: true,
         techRating: "c",
-        book: "TO",
-        page: 361,
+        book: "TO:AUE",
+        page: 173,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 3065
     },
@@ -1565,8 +1560,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 45,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 352,
+        book: "TO:AUE",
+        page: 164,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2290
     },
@@ -1592,8 +1587,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 45,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 353,
+        book: "TO:AUE",
+        page: 165,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2290,
         battleValueMultiplier: 1.25
@@ -1647,8 +1642,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 20,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 352,
+        book: "TO:AUE",
+        page: 164,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2240
     },
@@ -1674,8 +1669,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 20,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 353,
+        book: "TO:AUE",
+        page: 165,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2240,
         battleValueMultiplier: 1.25
@@ -1729,8 +1724,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 10,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 352,
+        book: "TO:AUE",
+        page: 164,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2443
     },
@@ -1756,8 +1751,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 10,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 353,
+        book: "TO:AUE",
+        page: 165,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2443,
         battleValueMultiplier: 1.25
@@ -1811,8 +1806,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 5,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 352,
+        book: "TO:AUE",
+        page: 164,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2488
     },
@@ -1838,8 +1833,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 5,
         explosive: true,
         techRating: "b",
-        book: "TO",
-        page: 353,
+        book: "TO:AUE",
+        page: 165,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2488,
         battleValueMultiplier: 1.25
@@ -1854,7 +1849,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, lrm, follow-the-leader, is",
         category: "Ammunition",
         cbills: 60000,
-        introduced: 2750,
+        introduced: null,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -1866,10 +1861,11 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 60,
         explosive: true,
         techRating: "e",
-        book: "TO",
-        page: 181,
+        book: "TO:AUE",
+        page: 180,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Locks whole damage cluster into a single hit location"] },
-        battleValueMultiplier: 1.5
+        battleValueMultiplier: 1.5,
+        prototype: 3053
     },
     {
         isAmmo: true,
@@ -1881,7 +1877,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, srm, tandem charge, is",
         category: "Ammunition",
         cbills: 135000, // Highly expensive 5x standard cost profile
-        introduced: 2757,
+        introduced: 3062,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -1893,10 +1889,11 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 50,
         explosive: true,
         techRating: "e",
-        book: "TO",
+        book: "TO:AUE",
         page: 184,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Triggers Through-Armor Critical (TAC) checks on standard armor hits"] },
-        battleValueMultiplier: 2
+        battleValueMultiplier: 2,
+        prototype: 2757
     },
     {
         isAmmo: true,
@@ -1975,7 +1972,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TM",
-        page: 207,
+        page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2824
     },
@@ -2002,7 +1999,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TM",
-        page: 207,
+        page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2824
     },
@@ -2029,7 +2026,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TM",
-        page: 207,
+        page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2824
     },
@@ -2056,7 +2053,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         explosive: true,
         techRating: "e",
         book: "TM",
-        page: 207,
+        page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 2824
     },
@@ -2070,7 +2067,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, artillery, arrow iv smoke, clan",
         category: "Ammunition",
         cbills: 5000,
-        introduced: 2600,
+        introduced: 2844,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -2082,11 +2079,9 @@ export const mechClanAmmo: IEquipmentItem[] = [
         roundsPerTon: 5,
         explosive: false,
         techRating: "b",
-        book: "TO",
-        page: 166,
-        alphaStrike: { specialAbility: ["SMK"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys wide structural multi-hex smoke screen covers"] },
-        prototype: 2595
-    },
+        book: "TO:AUE",
+        page: 168,
+        alphaStrike: { specialAbility: ["SMK"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deploys wide structural multi-hex smoke screen covers"] }},
     {
         isAmmo: true,
         isSpecialAmmo: true,
@@ -2124,7 +2119,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, srm, anti-radiation",
         category: "Ammunition",
         cbills: 81000,
-        introduced: 3057,
+        introduced: null,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -2138,7 +2133,8 @@ export const mechClanAmmo: IEquipmentItem[] = [
         techRating: "c",
         book: "TO:AUE",
         page: 180,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3057
     },
     {
         isAmmo: true,
@@ -2841,7 +2837,7 @@ export const mechClanAmmo: IEquipmentItem[] = [
         sort: "ammo, bomb, as missile, clan",
         category: "Ammunition",
         cbills: 15000,
-        introduced: 3072,
+        introduced: 3076,
         extinct: null,
         reintroduced: null,
         battleValue: 114,
