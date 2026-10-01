@@ -43,6 +43,12 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
       })
     }
 
+    setAlphaStrikeForcePackVisibility = ( event: React.FormEvent<HTMLInputElement>): void => {
+      let appSettingsHome = this.props.appGlobals.appSettings;
+      appSettingsHome.alphaStrikeForcePackVisibility = event.currentTarget.checked;
+      this.props.appGlobals.saveAppSettings( appSettingsHome );
+    }
+
     render = (): JSX.Element => {
 
       return (
@@ -74,6 +80,12 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
                   label='Alpha Strike Roster: Display Measurements in Hexes'
                   checked={this.props.appGlobals.appSettings.alphaStrikeMeasurementsInHexes}
                   onChange={this.setAlphaStrikeMeasurementsInHexes}
+                />
+
+                <InputCheckbox
+                  label='Alpha Strike Roster: Show Force Packs'
+                  checked={this.props.appGlobals.appSettings.alphaStrikeForcePackVisibility}
+                  onChange={this.setAlphaStrikeForcePackVisibility}
                 />
 
                 </fieldset>

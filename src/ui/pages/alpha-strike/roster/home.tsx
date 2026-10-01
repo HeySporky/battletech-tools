@@ -453,6 +453,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 </TextSection>
 ): null}
 
+{ this.props.appGlobals.appSettings.alphaStrikeForcePackVisibility ? ( 
 <TextSection
 label="Quickly add a ForcePack"
 >
@@ -478,7 +479,7 @@ label="Quickly add a ForcePack"
     We're sorry, adding a Force Pack needs access to the Master Unit List for unit stats and requires an Internet connection, please connect to the Internet.
   </div>
 )}
-</TextSection>
+</TextSection>) : null }
 
 <TextSection
 label='Import to your AS Favorites'
