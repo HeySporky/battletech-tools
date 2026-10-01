@@ -740,3 +740,19 @@ Regression tests: two in `equipment-registry.test.ts` (catalog membership per te
 | SRM Dead-Fire rounds | mech-is-ammo | fixed | same | same | SRM 2 / 4 / 6 = 4 / 7 / 10; MML 3 / 5 / 7 / 9 = 6 / 9 / 12 / 17 |
 
 The values are not a single multiplier of the standard round, so the ammunition record carries them per launcher (`battleValueByLauncher`), read before the multiplier in `getAmmoBattleValuePerTon`. Regression test in `equipment-registry.test.ts`.
+
+## Batch 21: Superheavy 'Mech equipment limits
+
+IO:AE p.156: superheavy musculature "is incompatible with all forms of MASC, Triple-Strength Myomers, and the Actuator Enhancement System"; superheavy 'Mechs "cannot make use of Superchargers", "may not" use Modular Armor, and "may not mount jump jets, improved jump jets, jump boosters, or partial wings", nor underwater maneuvering units. The builder enforced none of this.
+
+| rule | status | notes |
+|---|---|---|
+| No MASC, Supercharger, AES (arm or leg), Modular Armor, Mechanical Jump Boosters, Partial Wing | **fixed** | not offered above 100 tons (`SUPERHEAVY_PROHIBITED_TAGS`); a design that already mounts one reports it in `getChassisEquipmentViolations()` |
+| No Triple-Strength Myomer (standard, Industrial, prototype) | **fixed** | not offered; a design made superheavy reverts to standard musculature |
+| No jump jets, improved jump jets or UMUs | **fixed** | no jump jet type is offered, maximum Jump MP is 0, and Jump MP is cleared when a design becomes superheavy |
+| One Supercharger per unit (TO:AUE p.156, errata v7.0) | **fixed** | `maxPerUnit: 1` on the Supercharger record, for every unit |
+| No armored components (IO:AE p.156) | not modelled | the builder has no armored components |
+
+Still owed for superheavy 'Mechs: the superheavy and tripod internal structure records (IO:AE p.217).
+
+Regression test: `Batch 21 Superheavy 'Mech equipment limits` (6 tests).
