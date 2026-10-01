@@ -49,3 +49,22 @@ All gyro dates (prototype/production, tech base) checked against the IO Tech Pro
 | Superheavy musculature | – | gap | IO p.162 | none | not a separate myomer type; superheavy 'Mechs cannot use MASC, TSM, AES or Superchargers (IO p.162). Not enforced in battlemech.ts yet: validation gap, queued for the superheavy batch |
 
 The ProtoMech booster's `battleValue: 0` and `cbills: 0` are placeholders: the BV is unresolved and the cost is a formula. Both are flagged for the ProtoMech batch.
+
+## Batch 4: engines
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Standard Fusion | mech-engine-types.ts | verified (flag) | TM p.214 | none | IO p.44 gives prototype/production "ES", common ~2300; kept `introduced` 2300 (IO common date), since ES has no year |
+| Extralight (XL) Fusion [IS] | mech-engine-types.ts | verified | TM p.214 | none | 2556p / 2579, extinct 2865, reintroduced 3035 per IO p.44 |
+| Extralight (XL) Fusion [Clan] | mech-engine-types.ts | verified | TM p.214 | none | ~2824p / 2827 per IO p.44 |
+| Light Fusion | mech-engine-types.ts | verified | TM p.214 | none | IS only; ~3055p / 3062 per IO p.44 |
+| Compact Fusion | mech-engine-types.ts | fixed | TM p.214 | none | IS only; dates now ~3065p / 3068 per IO p.44 |
+| XXL Fusion [IS] | mech-engine-types.ts | fixed | TO:AUE p.120 | none | production ~3110 per IO p.44 |
+| XXL Fusion [Clan] | mech-engine-types.ts | fixed | TO:AUE p.120 | none | ~2954p / ~3084 per IO p.44 |
+| ICE | mech-engine-types.ts | verified (flag) | TM p.215 | none | IO p.44 gives "ES" (early spaceflight); kept `introduced` 1950, no year published |
+| Fuel Cell | mech-engine-types.ts | verified | TM p.215 | none | ~2300p / 2470 per IO p.44 |
+| Fission | mech-engine-types.ts | verified | TM p.215 | none | 2470p / 2882 per IO p.44 |
+| Primitive Fusion | mech-engine-types.ts | fixed | IO p.123 | none | 2439p / 2443, extinct 2520 per IO p.50 (primitive 'Mech); the unsourced 3070 reintroduction was removed |
+| Large engines (LSF, LICE, LLF, LXL, LXXL) | – | gap | IO p.44 (cites original TO pp.307–309; TO:AUE page not yet checked) | none | ratings above 400; not in the catalog; 'Mech legality unverified, queued for the superheavy batch |
+
+All engines now carry `book`/`page` (new optional `IEngineType` fields). Every legacy `extinct: 0` / `reintroduced: 0` changed to `null`. A regression test (`Batch 4 engine catalog`) pins the dates and sources.
