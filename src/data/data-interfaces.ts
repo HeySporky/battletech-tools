@@ -66,9 +66,10 @@ export interface IEngineOption {
         xxl: number;
         clan_xxl: number;
         ice: number;
-		cell: number;
-		fission: number;
-        /** Absent where the primitive-adjusted rating exceeds 500. */
+        /** Absent above rating 400: there are no large fuel cell or fission engines (TO:AUE p.120). */
+		cell?: number;
+		fission?: number;
+        /** Absent where the primitive-adjusted rating exceeds 400: primitive engines cannot be large engines. */
         primitive?: number;
 	}
 }
@@ -110,6 +111,8 @@ export interface IEngineType {
     book?: string;
     /** Printed page in `book`. */
     page?: number;
+    /** Large engine records only: tag of the engine type this is the over-400 form of. */
+    largeOf?: string;
 }
 
 export interface IDamagePerRange {

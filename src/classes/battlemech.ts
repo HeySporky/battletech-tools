@@ -9,7 +9,7 @@ import { getCockpitType } from "../data/mech-cockpit-types";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
-import { mechEngineTypes } from "../data/mech-engine-types";
+import { getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
@@ -1337,9 +1337,13 @@ export class BattleMech {
         // ENGINE C-BILL COST CALCULATION (TechManual p. 278)
         // =====================================================================
         const engineType = this.getEngineType();
-        const engineName = engineType.name;
+        const largeEngineType = this.getLargeEngineType();
+        const engineName = largeEngineType?.name ?? engineType.name;
         const engineRating = this.getEngineRating();
-        const engineCostMultiplier = (engineType.costMultiplier || 0) * (this.isLargeEngine() ? 2 : 1);
+        // Large engines carry their own multiplier, twice the base type's (TO:AUE p.219).
+        const engineCostMultiplier = largeEngineType
+            ? largeEngineType.costMultiplier
+            : (engineType.costMultiplier || 0) * (this.isLargeEngine() ? 2 : 1);
         // Execute canonical cost calculation and round to the nearest whole C-Bill
         const engineCost = Math.round((engineCostMultiplier * engineRating * this.getTonnage()) / 75);
         this._calcLogCBill += "<tr><td><strong>Engine: " + engineName + "</strong><br />" +
@@ -1525,9 +1529,17 @@ export class BattleMech {
 
     }
 
-    /** Engines rated above 400 are large engines (TO:AUE): double cost and two more center torso slots. */
+    /** Engines rated above 400 are large engines (TO:AUE p.119): double cost and two more center torso slots. */
     public isLargeEngine(): boolean {
         return this.getEngineRating() > 400;
+    }
+
+    /**
+     * The large engine record for the current engine type, with its own dates, cost and slots.
+     * Null at ratings up to 400, and for types that have no large form (Compact, Fuel Cell, Fission, Primitive).
+     */
+    public getLargeEngineType(): IEngineType | null {
+        return this.isLargeEngine() ? getLargeEngineType(this._engineType.tag) ?? null : null;
     }
 
     /** Engine column of the ASC p.98 'Mech structure table. */
@@ -3457,11 +3469,17 @@ export class BattleMech {
                 engineCrits = { ct: 6, rt: 0, lt: 0 }; 
             }
         }
-        const engineName = this._engineType.name;
+        // Large engines (rating over 400) take their slots from their own record: two more center
+        // torso slots than the base type, placed after the gyro (TO:AUE p.120).
+        const largeEngineType = this.getLargeEngineType();
+        const largeEngineCrits = largeEngineType?.criticals[currentTechTag];
+        if (largeEngineCrits) {
+            engineCrits = largeEngineCrits;
+        }
+        const engineName = largeEngineType?.name ?? this._engineType.name;
         // FIRST ENGINE BLOCK (Slots 1-3): Seats the upper drive mechanism
         // If an engine takes 6 slots, we limit the first sequential chunk to exactly 3 slots. Currently unless I can find something canonical or homebrew somewhere
-        // Large engines (rating over 400, TO:AUE) add two center torso slots after the gyro.
-        const engineCriticalTorso = (engineCrits.ct ?? 0) + (this.isLargeEngine() ? 2 : 0);
+        const engineCriticalTorso = (engineCrits.ct ?? 0) + (this.isLargeEngine() && !largeEngineCrits ? 2 : 0);
         const initialEngineAllocation = engineCriticalTorso > 3 ? 3 : engineCriticalTorso;
         if (initialEngineAllocation > 0) {
             this._addCriticalItem(
@@ -4826,8 +4844,9 @@ export class BattleMech {
         return this.getEngineTechBase();
     }
 
+    /** The engine's name; above rating 400, the large engine's (e.g. "Large XL Fusion"). */
     getEngineName(): string {
-        return this._engineType.name;
+        return this.getLargeEngineType()?.name ?? this._engineType.name;
     }
 
     getHeatSyncName() {
@@ -7654,11 +7673,18 @@ export class BattleMech {
         let returnValue: IEngineType[] = [];
         const lookupTag = this.getEngineTechBase();
         const weights = this._engine?.weight;
+        const large = this.isLargeEngine();
         for (let engine of mechEngineTypes) {
             // Enforce strict key verification against the normalized tech base
             if (engine.criticals && lookupTag in engine.criticals) {
-                const availability = this._datesAvailability(engine, rulesLevel);
-                // No weight at this rating: compact engines cannot be large, primitive tops out at an adjusted 500.
+                // Above rating 400 the large engine's own dates apply (IO:AE p.38); a type with
+                // no large form is not offered.
+                const largeEngine = large ? getLargeEngineType(engine.tag) : undefined;
+                const availability = !large
+                    ? this._datesAvailability(engine, rulesLevel)
+                    : largeEngine ? this._datesAvailability(largeEngine, rulesLevel) : { available: false, asPrototype: false };
+                // No weight at this rating: no large Compact, Fuel Cell or Fission engines, and Primitive
+                // engines stop at an adjusted 400.
                 const buildableAtRating = !weights || (weights as Record<string, number | undefined>)[engine.tag] !== undefined;
                 engine.availableAsPrototype = availability.asPrototype;
                 engine.available = availability.available && buildableAtRating
@@ -7750,7 +7776,13 @@ export class BattleMech {
     private _datesAvailability(dates: ITechDates, rulesLevel: number): { available: boolean, asPrototype: boolean } {
         // A prototype year with no production year: IO prototype only (Experimental rules).
         const prototypeOnly = dates.introduced === null && !!dates.prototype;
-        const inProduction = !prototypeOnly && this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced);
+        // Lost before it reached production (extinct earlier than the production year, e.g. the
+        // Inner Sphere Large XL engine): the extinction and recovery bound the prototype phase,
+        // and production simply starts at `introduced`.
+        const lostAsPrototype = dates.introduced !== null && dates.extinct !== null && dates.extinct < dates.introduced;
+        const inProduction = !prototypeOnly && (lostAsPrototype
+            ? this._itemIsAvailable(dates.introduced, null, null)
+            : this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced));
         const effectiveIntroduction = getEffectiveIntroduction(dates, rulesLevel);
         const asPrototype = !inProduction && effectiveIntroduction !== dates.introduced
             && this._itemIsAvailable(effectiveIntroduction, dates.extinct, dates.reintroduced);

@@ -526,7 +526,7 @@ User decision (2026-10-01): "Tech base splits, anytime you need to split or cons
 
 **Saved designs.** Each Clan record keeps the old universal tag in `altTags`, so a Clan design saved before the split loads the Clan record; an exact tag still beats an alias, so Inner Sphere and mixed-tech designs keep the Inner Sphere record. A saved Clan design with a 'Mech Mortar gets lighter on reload, which is the correction. Tests cover BattleMechs and vehicles.
 
-**Two loading bugs found and fixed while testing that:**
+**Three bugs found and fixed while testing that:**
 
 - `battlemech.ts` `_restoreEquipmentItem` never looked in the custom catalog, so a saved design lost any Custom Homebrew equipment when reloaded (this would have included the two records moved to custom in Batch 13). Loading now includes the custom catalog; the lists a design *chooses* from are unchanged.
 - `vehicle.ts` `addEquipmentFromTag` matched exact tags only and ignored `altTags`; it now falls back to an alias.
@@ -535,3 +535,40 @@ User decision (2026-10-01): "Tech base splits, anytime you need to split or cons
 **Not split (checked):** the artillery cannon shells and standard mortar rounds are already per-side or universal as IO:AE lists them. ADA, Inferno-IV and Laser-Inhibiting Arrow rounds (Inner Sphere only, in the universal ammo catalog) are left for Batch 12c with the other special munitions.
 
 Regression tests: `Batch 15 tech-base splits`, `Batch 15 saved designs keep custom-catalog equipment`, `Vehicle equipment saved before the Batch 15 tech-base splits`, and the rewritten mortar test in `equipment-registry.test.ts`.
+
+## Batch 16: large engines
+
+User (2026-10-01): "Large engines should be in the engine file, there are two... one for ratings one for types."
+
+Before this batch a large engine was only "any type at a rating above 400": the code doubled the cost and added two center torso slots, and the base type's dates applied. The large engines are now records of their own in `mech-engine-types.ts` (`mechLargeEngineTypes`), and the ratings file (`mech-engine-options.ts`) holds only the columns that exist above 400.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Large Fusion (LSF) | mech-engine-types (`large-standard`) | **added** | TO:AUE p.119; IO:AE p.38 | TO:AUE v7.0: not yet compared | 2630p / ~3085. 8 center torso slots; cost multiplier 10,000 (TO:AUE p.219) |
+| Large ICE (LIC) | `large-ice` | **added** | same | same | 2630p / ~3085. 8 CT; 2,500 |
+| Large Light (LLF) | `large-light` | **added** | same | same | Inner Sphere. ~3064p / 3065. 8 CT + 2 per side; 30,000 |
+| Large XL (LXL) [IS] | `large-xl` | **added** | same | same | ~2635p, lost 2822, prototyped again 3054, production ~3085. 8 CT + 3 per side; 40,000 |
+| Large XL (LXL) [Clan] | `large-clan_xl` | **added** | same | same | ~2850p / ~3080. 8 CT + 2 per side; 40,000 |
+| Large XXL (LXXL) [IS] | `large-xxl` | **added** | same | same | 3058p / 3130. 8 CT + 6 per side; 200,000 |
+| Large XXL (LXXL) [Clan] | `large-clan_xxl` | **added** | same | same | 3055p / 3125. 8 CT + 4 per side; 200,000 |
+| Ratings 405–500, ICE / standard / Light / XL / XXL weights | mech-engine-options | verified | TO:AUE p.120 | same | all 20 rows match the Large Engine Weight Table |
+| Ratings 405–500, Fuel Cell and Fission weights | mech-engine-options | **removed** | TO:AUE p.120 | same | "but not as fuel cell, fission or compact fusion": the file carried computed weights for both |
+| Primitive weights where the adjusted rating passes 400 (nominal 335–415) | mech-engine-options | **removed** | IO:AE p.117 | none | the adjusted rating is taken "from the Master Engine Table (see p. 49, TM)", which ends at 400; MegaMek also refuses large primitive engines |
+| XXL Fusion [IS] and [Clan] | mech-engine-types | fixed (page) | TO:AUE p.121 | same | cited p.120 (the construction table); the rules box is on p.121 |
+
+Behaviour that follows from the records:
+
+- A 'Mech engine above rating 400 is offered by the large engine's dates, not the base type's. A Large Fusion engine is a prototype (Experimental level) until ~3085; before this batch any era with a Standard Fusion engine allowed it at the Experimental level.
+- Cost, slots and the engine's name ("Large XL Fusion") come from the record. The results are the same as the old doubling and "+2" for every type that has a large form.
+- Compact, Fuel Cell, Fission and Primitive engines are not offered above 400 ('Mechs), and vehicles with those engines stop at rating 400 even at the Experimental level.
+- Vehicle cost: a large engine was priced at the base multiplier. It now uses the large record (twice the base).
+- `_datesAvailability`: a record whose extinction is earlier than its production year (the Inner Sphere Large XL) is read as "prototype lost, then recovered"; production starts at `introduced`. No equipment record has that shape, so nothing else changes.
+
+BV: TO:AUE p.193 gives large engines the same engine modifier as their base type (Large Light 0.75, Large XL IS 0.5, Clan 0.75, Large XXL IS 0.25, Clan 0.5), which is what the code does. Verified.
+
+**Flags:**
+
+- TO:AUE p.219 (cost table) prints different dates for the large engines (for example Large XL Inner Sphere "3045P / 2635X", Large XXL Clan "2970P"). IO:AE (2022) is the newer publication and is followed.
+- Vehicles have no era check on engine types at all, so the large engine dates are enforced for 'Mechs only.
+
+Regression tests: `Batch 16 large engines` (8 tests), `Vehicle large engines` (2 tests).
