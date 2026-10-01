@@ -349,6 +349,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         heatAero: 15,
         rangeAero: "e"
     },
+    { isAmmo: false, name: "ER PPC w/ Capacitor (Clan)", altNames: ["ER PPC w/ Capacitor (C)", "ER PPC + Capacitor (Clan)"], tag: "clan-er-ppc-capacitor", sort: "ppc, er, clan, capacitor", category: "Energy Weapons", damage: 15, notes: "Clan ER PPC with a PPC Capacitor (+1 ton, +1 slot, +150,000 C-bills); the Clans field the capacitor from 3101 (IO:AE p.40). A charged shot adds 5 damage and 5 heat; the charged capacitor explodes like a Gauss rifle if it or its PPC takes a critical hit (TO:AUE p.149). Battle Value 548 (IO:AE p.190).", damageAero: 15, accuracyModifier: 0, cbills: 450000, introduced: 3101, extinct: null, reintroduced: null, battleValue: 548, heat: 15, heatAero: 15, weight: 7, range: { min: 0, short: 7, medium: 14, long: 23 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: true, weaponType: ["DE"], techRating: "f", book: "TO:AUE", page: 149, rangeAero: "e", alphaStrike: { heat: 15, rangeShort: 1, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: true, notes: ["No special effects in BattleForce (IO:AE p.197)", "Provisional workbook conversion"] } },
     {
         isAmmo: false,
         name: "ER Small Laser (Clan)",

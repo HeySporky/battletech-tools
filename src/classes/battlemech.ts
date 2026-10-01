@@ -5379,7 +5379,7 @@ export class BattleMech {
      * Artillery "ordinarily denied to standard-weight 'Mechs" that a superheavy 'Mech can mount
      * (IO:AE p.157): the Long Tom, which the TO:AUE construction table (p.217) gives no 'Mech space.
      */
-    public static readonly SUPERHEAVY_ONLY_TAGS: readonly string[] = ["long-tom-artillery"];
+    public static readonly SUPERHEAVY_ONLY_TAGS: readonly string[] = ["long-tom-artillery", "primitive-prototype-long-tom"];
     /**
      * Internal structure a superheavy 'Mech may use (IO:AE p.155): standard, endo steel and
      * endo-composite for BattleMechs, industrial for IndustrialMechs; "no other internal structure
