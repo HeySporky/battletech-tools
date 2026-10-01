@@ -339,7 +339,7 @@ Unit tests next to the source:
 - `sswImportSession.test.ts`: fixtures with an injected unknown weapon, an unknown ammunition, an unknown
   armor type, a malformed file and an unsupported `mech_type`; merging of a name shared by two designs;
   placeholder slot and weight derivation (slot estimate up to the next occupied slot, split location, `<tons>`), the canon-pending guard.
-- `custom-component-registry.test.ts`: canon wins over custom; custom only at Custom Homebrew; drafts
+- `custom-component-registry.test.ts`: canon wins over custom; a custom component makes `getRequiredRulesLevel()` report Custom Homebrew; drafts
   resolve; provisional tag resolves through `altTags` after finalization.
 - `githubContribution.test.ts`: mocked `fetch`; call order for the multi-file flow; nothing written on a
   tag clash; refs deleted when the PR call fails; existing single-file flow unchanged.
