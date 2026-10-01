@@ -4720,3 +4720,142 @@ describe("Batch 29 Long Tom artillery on 'Mechs (TO:AUE p.217, IO:AE p.157)", ()
         expect(mech.getChassisEquipmentViolations()).toEqual(["Long Tom can only be mounted on a superheavy 'Mech."]);
     });
 });
+
+describe("Batch 30 Superheavy ammunition shares critical slots (IO:AE p.157)", () => {
+    const keys: Record<string, string> = {
+        hd: "head", ct: "centerTorso", lt: "leftTorso", rt: "rightTorso", la: "leftArm", ra: "rightArm", ll: "leftLeg", rl: "rightLeg",
+    };
+    const build = (tonnage: number) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(tonnage);
+        mech.setWalkSpeed(2);
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string) =>
+        mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
+    const free = (mech: BattleMech, location: string) => mech.getCriticals()[keys[location]].filter(item => !item).length;
+    const firstFree = (mech: BattleMech, location: string) => mech.getCriticals()[keys[location]].findIndex(item => !item);
+    // Moves an unallocated item to a slot; returns whether the move was accepted.
+    const move = (mech: BattleMech, item: { uuid?: string }, location: string, slot: number) =>
+        mech.moveCritical("un", mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid), location, slot);
+    const gauss = "ammo-is-gauss-rifle-standard";
+
+    it("lets a second ton of the same weapon's ammunition share a slot in the torsos, arms and legs", () => {
+        for (const location of ["ct", "lt", "ra", "ll"]) {
+            const mech = build(150);
+            const [first, second, third] = [add(mech, gauss), add(mech, gauss), add(mech, gauss)];
+            const slot = firstFree(mech, location);
+            const before = free(mech, location);
+            expect(move(mech, first, location, slot), location).toBe(true);
+            expect(move(mech, second, location, slot), location).toBe(true);
+            expect(free(mech, location), location).toBe(before - 1);
+            expect(mech.getCriticals()[keys[location]][slot].name).toBe("Gauss Rifle - Standard Ammo (IS) (x2)");
+            expect(mech.equipmentList.filter(item => item.location === location)).toHaveLength(2);
+            // A slot holds two tons at most.
+            expect(move(mech, third, location, slot), location).toBe(false);
+            expect(mech.unallocatedCriticals.filter(critical => critical?.tag === gauss)).toHaveLength(1);
+        }
+    });
+
+    it("combines different rounds for the same weapon, but not ammunition for different weapons", () => {
+        const mech = build(150);
+        const slot = firstFree(mech, "lt");
+        expect(move(mech, add(mech, "ammo-is-lb-10x-standard"), "lt", slot)).toBe(true);
+        expect(move(mech, add(mech, gauss), "lt", slot)).toBe(false);
+        expect(move(mech, add(mech, "ammo-is-lb-10x-cluster"), "lt", slot)).toBe(true);
+        expect(mech.getCriticals().leftTorso[slot].name).toBe("LB 10-X AC - Slug Ammo (IS) + LB 10-X AC - Cluster Ammo (IS)");
+    });
+
+    it("does not share in the head, with other equipment, or on a 'Mech of 100 tons or less", () => {
+        const superheavy = build(150);
+        const headSlot = firstFree(superheavy, "hd");
+        expect(move(superheavy, add(superheavy, gauss), "hd", headSlot)).toBe(true);
+        expect(move(superheavy, add(superheavy, gauss), "hd", headSlot)).toBe(false);
+        const laserSlot = firstFree(superheavy, "rt");
+        expect(move(superheavy, add(superheavy, "medium-laser"), "rt", laserSlot)).toBe(true);
+        expect(move(superheavy, add(superheavy, gauss), "rt", laserSlot)).toBe(false);
+
+        const heavy = build(100);
+        const slot = firstFree(heavy, "lt");
+        expect(move(heavy, add(heavy, gauss), "lt", slot)).toBe(true);
+        expect(move(heavy, add(heavy, gauss), "lt", slot)).toBe(false);
+    });
+
+    it("keeps the shared slot through a save and reload, and when the first ton is moved away", () => {
+        const mech = build(150);
+        const slot = firstFree(mech, "lt");
+        move(mech, add(mech, gauss), "lt", slot);
+        move(mech, add(mech, gauss), "lt", slot);
+
+        const restored = new BattleMech(mech.exportJSON());
+        expect(restored.getCriticals().leftTorso[slot].name).toBe("Gauss Rifle - Standard Ammo (IS) (x2)");
+        expect(free(restored, "lt")).toBe(free(mech, "lt"));
+        expect(restored.unallocatedCriticals.filter(critical => critical?.tag === gauss)).toEqual([]);
+
+        expect(restored.moveCritical("lt", slot, "rt", firstFree(restored, "rt"))).toBe(true);
+        expect(restored.getCriticals().leftTorso[slot].name).toBe("Gauss Rifle - Standard Ammo (IS)");
+        expect(restored.equipmentList.map(item => item.location).sort()).toEqual(["lt", "rt"]);
+        expect(restored.unallocatedCriticals.filter(critical => critical?.tag === gauss)).toEqual([]);
+    });
+
+    it("counts a shared slot as one critical space of explosive ammunition for Battle Value", () => {
+        const mech = build(150);
+        const slot = firstFree(mech, "ct");
+        // Gauss ammunition does not explode; autocannon ammunition does.
+        move(mech, add(mech, "ammo-is-lb-10x-standard"), "ct", slot);
+        move(mech, add(mech, "ammo-is-lb-10x-standard"), "ct", slot);
+        expect(mech.getBVCalcHTML().split("<br />").filter(line => /^Explosive Ammo Crit in /.test(line))).toHaveLength(1);
+    });
+
+    it("fits the SHP-4X Omega as the book allocates it", () => {
+        const mech = build(150);
+        mech.setEngineType("xl");
+        mech.setInternalStructureType("endo-steel");
+        mech.setArmorWeight(27);
+        const put = (tag: string, location: string) => {
+            const item = add(mech, tag);
+            const key = keys[location];
+            let slot = mech.getCriticals()[key].findIndex(critical => !critical);
+            if (item.isAmmo) {
+                // Ammunition goes into a slot already holding one ton of the same round, if there is one.
+                const open = mech.getCriticals()[key].findIndex(critical => critical?.tag === tag && !/\(x2\)$/.test(critical.name));
+                if (open >= 0) slot = open;
+            }
+            expect(move(mech, item, location, slot), `${tag} in ${location}`).toBe(true);
+        };
+        const putStructure = (location: string) => {
+            const from = mech.unallocatedCriticals.findIndex(critical => critical?.tag === "endo-steel");
+            expect(mech.moveCritical("un", from, location, firstFree(mech, location)), `endo steel in ${location}`).toBe(true);
+        };
+        for (const arm of ["la", "ra"]) {
+            put("autocannon-lbx-10", arm);
+            put("ammo-is-lb-10x-standard", arm);
+            put("ammo-is-lb-10x-standard", arm);
+            put("case-ii", arm);
+        }
+        for (const torso of ["lt", "rt"]) {
+            put("standard-gauss-rifle", torso);
+            for (let ton = 0; ton < 4; ton++) put(gauss, torso);
+            put("case-ii", torso);
+            putStructure(torso);
+        }
+        for (const leg of ["ll", "rl"]) {
+            putStructure(leg);
+            putStructure(leg);
+        }
+        put("standard-gauss-rifle", "ct");
+        put(gauss, "ct");
+        put(gauss, "ct");
+        put("c3i-computer", "ct");
+        put("case-ii", "ct");
+        putStructure("hd");
+
+        expect(mech.unallocatedCriticals.filter(critical => critical).map(critical => critical.name)).toEqual([]);
+        // Slots left: arms 12 - 4 actuators - 3 LB 10-X - 1 ammunition - 1 CASE II; side torsos 12 - 2 engine
+        // - 4 Gauss - 2 ammunition - 1 CASE II - 1 endo steel; the center torso, head and legs are full.
+        expect(["la", "ra", "lt", "rt", "ct", "hd", "ll", "rl"].map(location => free(mech, location))).toEqual([3, 3, 2, 2, 0, 0, 0, 0]);
+        expect(mech.getRemainingTonnage()).toBe(0);
+    });
+});
