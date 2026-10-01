@@ -110,7 +110,13 @@ designs, 44 still report errors (421 before).
   (Freezers)" placed as equipment; Clan `ER PPC + PPC Capacitor` exists only as a custom record.
 - [ ] SSW data quirks, one design each: an Inner Sphere design with an unprefixed `Streak SRM-6 CP` (Highlander
   HGN-732 Colleen); `(IS) Enhanced ER PPC` outside Mixed designs (IO p. 95: Clan tech).
-- [ ] The audit harness was a throwaway test; add it as a dev tool (`tools/`) so it can be rerun.
+- [x] The audit harness was a throwaway test; add it as a dev tool so it can be rerun. Done 2026-09-30:
+  `src/utils/ssw-corpus-audit.test.ts`, skipped unless `SSW_AUDIT_DIR` is set. Run:
+  `SSW_AUDIT_DIR=WorkingData_DEV/SSWdata SSW_AUDIT_OUT=<file> npx vitest run --project unit src/utils/ssw-corpus-audit.test.ts`.
+  First run: 3110 BattleMech designs, 2961 with nothing unresolved, 2 parse failures (`model=""` on
+  Summoner (Thor) and Puma (Adder)), 38 distinct unresolved names; 246 Primitive/Industrial designs skipped.
+- [ ] Approve the canon-pending SSW names table, then fill `src/data/ssw/ssw-canon-pending-names.ts` (empty
+  until approved, so those names currently become custom drafts).
 - [ ] IndustrialMechs and Primitive BattleMechs/IndustrialMechs are skipped entirely (234 designs):
   `importSSWXML` only accepts `mech_type` "BattleMech".
 - [ ] Two OmniMech files fail to parse (`Summoner (Thor)`, `Puma (Adder)` with `model=""`:
