@@ -340,10 +340,9 @@ played first, then by dependency.
 
 ### Canon equipment pass: still owed (branch `feature/canon-equipment-pass`, ledger `tools/canon-pass-ledger.md`)
 
-- [ ] Special munitions (Batch 12c): 228 ammo records not yet compared with the IO:AE pp.53-56 rows; about
-  90 still cite original Tactical Operations or old Total Warfare pages. Known wrong: Arrow IV Inferno-IV
-  (3083, should be 3053p / 3055), Arrow IV Smoke extinction (2830, should be 2840). ADA, Inferno-IV and
-  Laser-Inhibiting Arrow are Inner Sphere only but sit in the universal ammo catalog.
+- [x] Special munitions (Batches 12c, 12d, 20): all 228 records dated and cited from IO:AE pp.53-56;
+  21 Inner Sphere munitions moved out of the universal ammo catalog; Dead-Fire BV per launcher.
+  Open: Rotary AC Caseless rounds exist though IO:AE lists Caseless for AC, LAC and PAC only.
 - [x] Split by tech base (Batch 15): 'Mech Mortars, Artillery Cannons and the Laser Insulator are now
   separate Inner Sphere and Clan records; Modular Armor has a Clan record. The Clan records keep the old
   universal tag in `altTags` so saved designs load.
@@ -375,16 +374,17 @@ played first, then by dependency.
 - [ ] Newer errata not yet compared (sheets are in `_KNOWLEDGE_DEV/rulebooks/errata-2025/`): TechManual
   v8.0 entries for the 2023 and 2024 printings (the local PDF is the sixth printing), Total Warfare
   v11.01, TO:AR v7.0, SO:AAR v5.0. TO:AUE v7.0 and the two IO sheets are done (Batches 14, 17).
-- [ ] Statistics audit still to run for the TO:AUE tables (pp.216-226) and the special munitions; the
-  TechManual tables (Batch 18) and the IO:AE prototype tables (Batch 14) are done. Dead-Fire ammunition
-  BV from IO:AE errata v3.01 (p.190) is not applied yet.
+- [x] Statistics audits: IO:AE prototype tables (Batch 14), TechManual tables (Batch 18), TO:AUE tables
+  (Batch 19). Not covered: rows the name matcher could not pair (ProtoMech and battle armor weapons,
+  capital weapons, industrial items priced per ton) and the special munition statistics (damage,
+  rounds per ton, cost).
 - [ ] `_calcBattleValue` sorts `_equipmentList` in place. That is why Battle Value is refreshed lazily
   after a critical slot move (Batch 17) instead of inside the move; sort a copy and recalculate directly.
 - [ ] Vehicles have no era check on engine types, so large engine dates (Batch 16) apply to 'Mechs only.
 - [ ] Physical weapon to-hit modifiers are not in the catalog (Hatchet, Sword, Mace, Claws +1, Lance +1,
   Flail +0 per TO:AUE errata v7.0). One Supercharger per unit (TO:AUE p.156) is not enforced.
-- [ ] Missing records: one-shot Thunderbolt launchers (TO:AUE p.158), Primitive Prototype Long Tom and
-  torpedo launchers (IO:AE pp.189, 210), Clan PPC Capacitor combinations.
+- [ ] Missing records: Primitive Prototype Long Tom and torpedo launchers (IO:AE pp.189, 210), Clan PPC
+  Capacitor combinations, Vehicular Grenade Launcher, Recon Camera (TO:AUE pp.219, 223).
 - [ ] Missile launcher `damageAero` holds 3 for every LRM size (the tables give 3 / 6 / 9 / 12). Check
   how the aerospace code reads it before changing the catalog.
 - [ ] The Nail/Rivet Gun has no medium or long range bracket (TM p.344); the record stores 0 and the
