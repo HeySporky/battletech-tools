@@ -2304,3 +2304,115 @@ describe("Batch 8 cockpit catalog", () => {
         expect(cockpit("torso-mounted")?.bvMultiplier).toBe(0.95);
     });
 });
+
+describe("Batch 9a misc equipment catalogs", () => {
+    it("dates and cites the is records (IO:AE pp.29-39)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ew-equipment": [3020, 3025, 3046, null, "TO:AUE", 123],
+            "c3-computer-slave": [3039, 3050, null, null, "TM", 209],
+            "c3-computer-master": [3039, 3050, null, null, "TM", 209],
+            "ecm-suite": [2595, 2597, 2845, 3045, "TM", 213],
+            "case": [2452, 2476, 2840, 3036, "TM", 210],
+            "modular-armor": [3072, 3096, null, null, "TO:AUE", 93],
+            "is-tag": [2593, 2600, 2835, 3044, "TM", 238],
+            "prototype-tag": [2593, null, 2600, null, "IO:AE", 67],
+            "c3-boosted-master": [3071, 3100, null, null, "TO:AUE", 110],
+            "beagle-active-probe": [2560, 2576, 2835, 3045, "TM", 204],
+            "beagle-active-probe-prototype": [2560, null, 2576, null, "IO:AE", 65],
+            "bloodhound-active-probe": [3058, 3082, null, null, "TO:AUE", 90],
+            "guardian-ecm-prototype": [2595, null, 2597, null, "IO:AE", 66],
+            "angel-ecm": [3057, 3080, null, null, "TO:AUE", 91],
+            "c3i-computer": [3052, 3062, 3085, null, "TM", 209],
+            "c3-boosted-slave": [3071, 3100, null, null, "TO:AUE", 110],
+            "c3-emergency-master": [3071, 3099, null, null, "TO:AUE", 110],
+            "case-prototype": [2452, null, 2476, null, "IO:AE", 65],
+            "case-ii": [3064, 3082, null, null, "TO:AUE", 111],
+            "a-pod": [undefined, 3055, null, null, "TM", 205],
+            "mass": [3048, 3083, null, null, "TO:AUE", 137],
+            "harjel": [3067, 3115, null, null, "TO:AUE", 100],
+            "null-signature-system": [2615, 2630, 2790, 3110, "TO:AUE", 148],
+            "void-signature-system": [3070, 3085, null, null, "TO:AUE", 161],
+            "chameleon-lps": [2630, null, 2790, 3099, "TO:AUE", 112],
+            "masc": [2730, 2740, 2795, 3035, "TM", 232],
+            "targeting-computer": [3052, 3062, null, null, "TM", 238],
+            "melee-chain-whip": [3071, 3084, null, null, "TO:AUE", 101],
+            "melee-flail": [3057, 3079, null, null, "TO:AUE", 101],
+            "shield-small": [3067, 3079, null, null, "TO:AUE", 103],
+            "shield-medium": [3067, 3079, null, null, "TO:AUE", 103],
+            "shield-large": [3067, 3079, null, null, "TO:AUE", 103],
+            "spikes": [3051, 3082, null, null, "TO:AUE", 103],
+            "melee-vibroblade-small": [3065, 3091, null, null, "TO:AUE", 104],
+            "melee-vibroblade-medium": [3065, 3091, null, null, "TO:AUE", 104],
+            "melee-vibroblade-large": [3066, 3091, null, null, "TO:AUE", 104],
+            "melee-mace": [3061, 3079, null, null, "TO:AUE", 102],
+            "melee-lance": [3064, 3083, null, null, "TO:AUE", 102],
+            "melee-claw": [3050, 3060, null, null, "TO:AUE", 101],
+            "melee-retractable-blade": [2400, 2420, null, null, "TM", 237],
+            "partial-wing": [3074, 3085, null, null, "TO:AUE", 105],
+            "mechanical-jump-booster": [3060, 3083, null, null, "TO:AUE", 105],
+            "aes-arm": [3070, 3109, null, null, "TO:AUE", 91],
+            "aes-leg": [3070, 3109, null, null, "TO:AUE", 91],
+            "blue-shield": [3053, null, null, null, "TO:AUE", 108],
+            "radical-heat-sink-system": [3115, 3122, null, null, "IO:AE", 83],
+            "risc-emergency-coolant-system": [3136, null, 3140, null, "IO:AE", 86],
+            "remote-sensor-dispenser-prototype": [2586, null, 2590, null, "IO:AE", 67],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentMisc.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the is records", () => {
+        for (const item of mechISEquipmentMisc) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clan records (IO:AE pp.29-39)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "clan-active-probe": [2830, 2832, null, null, "TM", 204],
+            "clan-ecm-system": [2830, 2832, null, null, "TM", 213],
+            "clan-tag": [2828, 2830, null, null, "TM", 238],
+            "clan-light-tag": [3051, 3054, null, null, "TM", 238],
+            "clan-light-active-probe": [2890, 2900, null, null, "TM", 204],
+            "clan-angel-ecm": [3058, 3080, null, null, "TO:AUE", 91],
+            "clan-watchdog-cews": [3059, 3080, null, null, "TO:AUE", 90],
+            "clan-case-ii": [3062, 3082, null, null, "TO:AUE", 111],
+            "clan-a-pod": [2845, 2850, null, null, "TM", 205],
+            "clan-mass": [3062, 3083, null, null, "TO:AUE", 137],
+            "clan-harjel": [3059, 3115, null, null, "TO:AUE", 100],
+            "clan-masc": [2820, 2827, null, null, "TM", 232],
+            "clan-targeting-computer": [2850, 2860, null, null, "TM", 238],
+            "clan-melee-claw": [undefined, 3090, null, null, "TO:AUE", 101],
+            "clan-partial-wing": [3067, 3085, null, null, "TO:AUE", 105],
+            "clan-aes-arm": [3070, 3108, null, null, "TO:AUE", 91],
+            "clan-aes-leg": [3070, 3108, null, null, "TO:AUE", 91],
+            "clan-talons": [3072, 3087, null, null, "TO:AUE", 103],
+            "clan-nova-cews": [3065, null, 3085, null, "IO:AE", 60],
+            "clan-protomech-myomer-booster": [3066, 3068, null, null, "TM", 232],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentMisc.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clan records", () => {
+        for (const item of mechClanEquipmentMisc) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("prices Modular Armor at 10,000 C-bills per ton (TO:AUE p.217)", () => {
+        expect(mechISEquipmentMisc.find(item => item.tag === "modular-armor")?.cbills).toBe(10000);
+    });
+});

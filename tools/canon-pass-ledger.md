@@ -194,3 +194,40 @@ There was no cockpit catalog: Standard and Small were hard-coded in `battlemech.
 **Gaps (not 'Mech cockpits, not added):** ProtoMech Cockpit (TM p.211), Inner Sphere ProtoMech Interface (IO:AE p.96), Standard / Small / Primitive Aerospace Cockpits (TM p.211, TO:AUE p.112, IO:AE p.119), Drone and remote-control systems (TO:AUE pp.117–118, IO:AE p.84), Full-Head Ejection System (TO:AUE p.122; misc batch), Enhanced Imaging Interface (misc batch).
 
 A regression test (`Batch 8 cockpit catalog`) pins the 5-ton fix, the catalog weights, costs, dates and sources.
+
+## Batch 9a: misc equipment, Inner Sphere and Clan catalogs
+
+All 48 Inner Sphere and 20 Clan records were compared with the IO:AE pp.29–39 Universal Technology Advancement Table. `page` is the page of the item's rules box. Every `extinct: 0` / `reintroduced: 0` became `null`. Rows below are the records where something other than that changed, plus flags; the other records matched.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Modular Armor | mech-is-equipment-weapons-misc | fixed | TO:AUE p.93 | none | cost 15,000 → 10,000 per ton (TO:AUE p.217, as MegaMek). Dates 3070 → 3072p / ~3096. Was "TO 281". Flag: tech base is Both (Clan prototype 3074) but there is no Clan record |
+| Improved C3 Computer | mech-is-equipment-weapons-misc | fixed | TM p.209 | none | `introduced` 3052 was the prototype year; now ~3052p / 3062, extinct 3085. Was "TW 133" |
+| Targeting Computer [IS] | mech-is-equipment-weapons-misc | fixed | TM p.238 | none | production 3061 → 3062 |
+| CASE [IS] | mech-is-equipment-weapons-misc | fixed | TM p.210 | none | prototype 2452 added |
+| CASE II [IS] / [Clan] | both | fixed | TO:AUE p.111 | none | `introduced` held the prototype year. IS 3064p / ~3082; Clan 3062p / ~3082 |
+| C3 Boosted System (Master, Slave) | mech-is-equipment-weapons-misc | fixed | TO:AUE p.110 | none | prototype 3073 → 3071 |
+| C3 Emergency Master | mech-is-equipment-weapons-misc | fixed | TO:AUE p.110 | none | was "TO 298" |
+| Electronic Warfare (EW) Equipment | mech-is-equipment-weapons-misc | fixed | TO:AUE p.123 | none | was "TO", no page; ~3020p / 3025, extinct 3046 |
+| Flail | mech-is-equipment-weapons-misc | fixed | TO:AUE p.101 | none | `introduced` held the prototype year; now 3057p / 3079 |
+| Mace | mech-is-equipment-weapons-misc | fixed | TO:AUE p.102 | none | now 3061p / 3079 |
+| Claws [IS] | mech-is-equipment-weapons-misc | fixed | TO:AUE p.101 | none | now ~3050p / 3060 |
+| Claws [Clan] | mech-clan-equipment-weapons-misc | verified (flag) | TO:AUE p.101 | none | IO:AE p.32 prints 3090 as the Clan *prototype* and no Clan production year. The record keeps 3090 as the Clan introduction, as MegaMek does. For the user |
+| Vibroblade (Large) | mech-is-equipment-weapons-misc | fixed | TO:AUE p.104 | none | prototype 3065 → 3066 |
+| 'Mech Mechanical Jump Boosters | mech-is-equipment-weapons-misc | fixed | TO:AUE p.105 | none | now ~3060p / 3083 |
+| Partial Wing [IS] | mech-is-equipment-weapons-misc | fixed | TO:AUE p.105 | none | IS prototype 3067 → 3074 (3067 is the Clan prototype) |
+| Watchdog CEWS | mech-clan-equipment-weapons-misc | fixed | TO:AUE p.90 | none | now 3059p / 3080 |
+| MASS [IS] / [Clan] | both | fixed | TO:AUE p.137 | none | was "TO 325"; IS 3048p / ~3083, Clan prototype 3062 |
+| Blue Shield PFD | mech-is-equipment-weapons-misc | fixed | TO:AUE p.108 | none | was "TO 296"; 3053 prototype only |
+| Radical Heat Sink System | mech-is-equipment-weapons-misc | fixed | IO:AE p.83 | none | prototype 3095 → ~3115 (was cited to FM:3145 p.247; IO:AE is newer); production 3122 |
+| RISC Emergency Coolant System | mech-is-equipment-weapons-misc | fixed | IO:AE p.86 | none | extinct 3140 added; 3136 prototype only |
+| Nova CEWS | mech-clan-equipment-weapons-misc | fixed | IO:AE p.60 | none | was cited to The Wars of Reaving p.203; IO:AE is newer; ~3065 prototype, extinct 3085 |
+| Prototype TAG, Beagle, Guardian ECM, CASE-P, Remote Sensor Dispenser | mech-is-equipment-weapons-misc | fixed | IO:AE pp.65–67 | none | were "IO", no page |
+| A-Pod [IS] / [Clan] | both | fixed | TM p.205 | none | page 204 → 205 (rules box); IS introduction 3055, Clan ~2845p / ~2850 |
+| Retractable Blade | mech-is-equipment-weapons-misc | fixed | TM p.237 | none | page 236 → 237 (rules box) |
+| HarJel [IS] | mech-is-equipment-weapons-misc | verified | TO:AUE p.100 | none | IS prototype 3067 is from the TO:AUE p.100 entry; IO:AE prints only the IS introduction, 3115 |
+| AES [IS] | mech-is-equipment-weapons-misc | verified | TO:AUE p.91 | none | prototype 3070 (mercenary), IS production 3109, Clan 3108 |
+
+**Missing from the misc catalogs (found in IO:AE pp.29–39; queued for Batch 9c):** Light Active Probe [IS] (TM p.204), Light TAG [IS] (TM p.238), B-Pods (TM p.205), M-Pod (TO:AUE p.143), Coolant Pod (TO:AUE p.116), C3 Remote Sensor Launcher (TO:AUE p.111), Chaff Pod (TO:AUE p.111), Collapsible Command Module (TO:AUE p.113), Full-Head Ejection System (TO:AUE p.122), MRM Apollo FCS (TO:AUE p.143), RISC Heat Sink Override Kit, RISC Viral Jammers and Laser Pulse Module (IO:AE pp.86–88), HarJel II / III (IO:AE p.82), 'Mech Taser, TSEMP, and the industrial and support equipment not yet in the universal catalog. Clan CASE has no record (the builder treats it as built in). Items that need construction support first (Armored Components, 'Mech turrets, booby traps) are noted for the roadmap, not added as plain records.
+
+A regression test (`Batch 9a misc equipment catalogs`) pins dates and sources for all 68 records.
