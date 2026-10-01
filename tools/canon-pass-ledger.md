@@ -949,3 +949,20 @@ Flags:
 Still missing from the same list: Primitive Prototype Long Tom and torpedo launchers (IO:AE pp.189, 210), Clan PPC Capacitor combinations.
 
 Regression tests: `Batch 31 Vehicular Grenade Launcher and Recon Camera`.
+
+## Batch 32: physical weapon to-hit modifiers
+
+Every physical weapon stored a to-hit modifier of 0 (the Hatchet and Sword stored none).
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Hatchet −1, Sword −2, Retractable Blade −2 | IS ballistic / misc | **fixed** | TW p.146, Physical Weapon Attacks Table | TW v11.01: daggers on two damage values only | |
+| Backhoe +1, Combine −2, Heavy-Duty Pile Driver +2, Mining Drill −1, Rock Cutter +1, Wrecking Ball +1 | mech-universal-equipment | **fixed** | TW p.146 | same | Chainsaw, Dual Saw and Spot Welder are +0 and were already right |
+| Heavy-Duty Pile Driver damage | mech-universal-equipment | **fixed** | TW p.146; TM p.344 | none | 10 → 9 (both tables print 9; 10 is its tonnage) |
+| Mace +1, Lance +1, Chain Whip −2, Vibroblades −2 | IS misc | **fixed** | TO:AUE p.216 | v7.0: Lance +1 and Flail +0 confirmed | Flail +0 already right |
+| Claws +1 | IS and Clan misc | **fixed** | TO:AUE p.216 | v7.0: "Claws: Change the To-Hit Modifier from 0 to +1" | |
+| Shields −2 / −3 / −4 | IS misc | **fixed** | TO:AUE pp.103, 216 | none | the Shield Bash modifier (Small / Medium / Large) |
+
+Not modeled: the play-tracking to-hit calculation adds this modifier to a Gunnery-based roll. Physical attacks use the Piloting Skill (TW p.144), so the figure shown for a physical weapon in play is still not the canon target number.
+
+Regression tests: `Batch 32 physical weapon to-hit modifiers`.
