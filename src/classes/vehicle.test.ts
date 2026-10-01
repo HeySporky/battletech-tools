@@ -580,3 +580,19 @@ describe("Vehicle large engines (TO:AUE pp.119-120, 219)", () => {
         }
     });
 });
+
+describe("Vehicle saved with equipment from the other tech base (Batch 12d)", () => {
+    it("loads it, though a Clan vehicle is no longer offered it", () => {
+        const clan = new Vehicle();
+        clan.setTech("clan");
+        clan.setEra("ilClan");
+        clan.addEquipmentFromTag("ammo-lrm-semi-guided");
+        expect(clan.getEquipmentList()).toEqual([]);
+
+        const saved = JSON.parse(clan.exportJSON());
+        saved.equipment = [{ tag: "ammo-lrm-semi-guided", location: "body", uuid: "saved-semi-guided" }];
+        const restored = new Vehicle(JSON.stringify(saved));
+        expect(restored.getTech().tag).toBe("clan");
+        expect(restored.getEquipmentList().map(item => item.tag)).toEqual(["ammo-is-lrm-semi-guided"]);
+    });
+});

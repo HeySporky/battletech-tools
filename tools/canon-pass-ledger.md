@@ -670,7 +670,7 @@ Rules applied:
 - Pre-Spaceflight is stored as 1950 and Early Spaceflight as 2100, as elsewhere.
 - Page = the page of the munition's rules box in TO:AUE, which is the page IO:AE gives except for Inferno fuel (174), Water (175), Incendiary LRMs (182), Thunder LRMs (185) and Anti-Personnel mortar rounds (186), where the heading is on the page before.
 
-390 fields changed in 177 records. About 100 records only had their citation moved off the original Tactical Operations ("TO 352", "TO 184"…) or Total Warfare pages; no ammunition record cites the original Tactical Operations any more. Date changes:
+390 fields changed in 175 records. About 100 records only had their citation moved off the original Tactical Operations ("TO 352", "TO 184"…) or Total Warfare pages; no ammunition record cites the original Tactical Operations any more. Date changes:
 
 | item | catalog | status | book p. | errata | notes |
 |---|---|---|---|---|---|
@@ -705,3 +705,29 @@ Rules applied:
 - Rotary AC Caseless rounds exist in both catalogs; IO:AE lists Caseless for "AC, LAC, PAC" only. Left as they are, dated to the later of the two.
 
 Regression test: `Batch 12c special munitions` pins all 228 records.
+
+## Batch 12d: munition tech bases
+
+IO:AE pp.53–56 gives a tech base for every munition, and the TO:AUE rules boxes agree. Twenty-one Inner Sphere munitions sat in the universal ammo catalog, so pure Clan designs were offered them; two more had Clan copies. Done under the standing permission to split or consolidate where canon requires.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Arrow IV: Air-Defense Arrow, Inferno-IV, Laser-Inhibiting, Thunder Vibrabomb-IV | mech-universal-ammo → mech-is-ammo | moved | TO:AUE pp.165, 168, 169; IO:AE p.53 | none | "Tech Base: Inner Sphere" |
+| LRM / SRM Anti-TSM, Dead-Fire, Listen-Kill | same | moved | IO:AE pp.98, 125, 99, 55–56 | none | Inner Sphere |
+| LRM / SRM Mine Clearance; LRM Semi-Guided, Swarm-I | same | moved | TO:AUE pp.182, 183; TM p.231; IO:AE pp.55–56 | none | Inner Sphere (Swarm is "Both", Swarm-I Inner Sphere) |
+| LRM Thunder-Active, -Augmented, -Inferno, -Vibrabomb | same | moved | TO:AUE p.185; IO:AE p.55 | none | Inner Sphere (plain Thunder is "Both" and stays split by side) |
+| Semi-Guided mortar rounds, Explosive Narc pods, Acid SRMs | same | moved | TO:AUE pp.186, 179; IO:AE pp.55–56 | none | Inner Sphere |
+| LRM Magnetic Pulse [Clan copy] | mech-clan-ammo → folded into `ammo-is-lrm-magnetic-pulse` | consolidated | TO:AUE p.182; IO:AE p.56 | none | "Tech Base: Inner Sphere". The Inner Sphere record keeps the Clan tags as aliases |
+| SRM Tandem-Charge [Clan copy] | mech-clan-ammo → folded into `ammo-is-srm-tandem-charge` | consolidated | TO:AUE p.184; IO:AE p.55 | none | same |
+
+Kept where they were: Follow-the-Leader (TO:AUE p.180 "Both"), Anti-Radiation (Clan prototype 3057), the iATM's own Improved Magnetic Pulse round (Clan).
+
+**Tags.** Inner Sphere ammunition tags start with `ammo-is-` (registry test), so each moved record takes the prefix (`ammo-lrm-swarm-i` → `ammo-is-lrm-swarm-i`) and keeps its old tag in `altTags`. Sixteen of them were marked ProtoMech-mountable because Clan ProtoMech launchers fed them from the universal catalog; that is now off.
+
+**Saved designs.**
+
+- Inner Sphere and mixed-tech designs resolve the old tags through the alias.
+- A pure Clan design saved with one of these rounds still loads it: loading now falls back to the other tech base's catalog ('Mechs and vehicles), on the same principle as Batch 15 (the filters limit what can be added, not what can be loaded). The design is no longer *offered* the round.
+- The Alpha Strike special ammunition choice was stored by tag and compared exactly; it is now resolved through aliases, so a saved choice of Swarm-I survives the new tag.
+
+Regression tests: two in `equipment-registry.test.ts` (catalog membership per tech base, the folded Clan copies), `Batch 12d saved designs keep equipment from the other tech base`, `Vehicle saved with equipment from the other tech base`, and the Alpha Strike special ammunition tests.
