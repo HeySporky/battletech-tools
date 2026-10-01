@@ -989,7 +989,7 @@ describe("BattleMech engine construction", () => {
         expect(mech.getEngineType().tag).toBe("standard");
     });
 
-    it("weighs the Superheavy Gyro at engine rating / 50, rounded up, whatever gyro is selected (IO p.162)", () => {
+    it("weighs the Superheavy Gyro at engine rating / 50, rounded up, whatever gyro is selected (IO:AE p.156)", () => {
         expect(build(150, 2, "standard").getGyroWeight()).toBe(6); // rating 300
         expect(build(175, 2, "standard").getGyroWeight()).toBe(7); // rating 350
         const xl = build(150, 2, "standard");
@@ -997,7 +997,7 @@ describe("BattleMech engine construction", () => {
         expect(xl.getGyroWeight()).toBe(6);
     });
 
-    it("gives the Superheavy Gyro two center torso slots (IO p.162)", () => {
+    it("gives the Superheavy Gyro two center torso slots (IO:AE p.156)", () => {
         const gyroSlots = (mech: BattleMech) =>
             mech.getCriticals().centerTorso.filter(item => item?.tag === "gyro")
                 .reduce((total, item) => total + (item?.crits ?? 1), 0);
@@ -1325,7 +1325,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         return mech.getCBillCostNumeric();
     };
 
-    // IO p.50 (via MegaMek): Tripods and QuadVees are Advanced, LAMs Experimental; Standard is tournament play.
+    // IO:AE p.44 (via MegaMek): Tripods and QuadVees are Advanced, LAMs Experimental; Standard is tournament play.
     it("reports the lowest legal rules level for each chassis", () => {
         const level = (type: string, tonnage = 50) => {
             const mech = new BattleMech();
@@ -1909,7 +1909,7 @@ describe("Batch 3 myomer catalog", () => {
     const isMisc = (tag: string) => mechISEquipmentMisc.find(item => item.tag === tag);
     const clanMisc = (tag: string) => mechClanEquipmentMisc.find(item => item.tag === tag);
 
-    it("dates standard myomer per IO p.48 and cites TM p.277", () => {
+    it("dates standard myomer per IO:AE p.42 and cites TM p.277", () => {
         const standard = myomer("standard");
         expect(standard?.page).toBe(277);
         expect(standard?.prototype).toBe(2300);
@@ -1935,14 +1935,14 @@ describe("Batch 3 myomer catalog", () => {
         expect(scm?.extinct).toBe(3140);
     });
 
-    it("dates AES production Clan 3108 and IS 3109 (IO p.48)", () => {
+    it("dates AES production Clan 3108 and IS 3109 (IO:AE p.42)", () => {
         expect(clanMisc("clan-aes-arm")?.introduced).toBe(3108);
         expect(clanMisc("clan-aes-leg")?.introduced).toBe(3108);
         expect(isMisc("aes-arm")?.introduced).toBe(3109);
         expect(isMisc("aes-leg")?.introduced).toBe(3109);
     });
 
-    it("dates supercharger production 3078 (IO p.48)", () => {
+    it("dates supercharger production 3078 (IO:AE p.29)", () => {
         const supercharger = mechUniversalEquipment.find(item => item.tag === "supercharger");
         expect(supercharger?.introduced).toBe(3078);
         expect(supercharger?.extinct).not.toBe(0);
@@ -1966,7 +1966,7 @@ describe("Batch 3 myomer catalog", () => {
 describe("Batch 4 engine catalog", () => {
     const engine = (tag: string) => mechEngineTypes.find(item => item.tag === tag);
 
-    it("dates compact and XXL engines from the IO p.44 engine table", () => {
+    it("dates compact and XXL engines from the IO:AE p.38 engine table", () => {
         expect(engine("compact")?.prototype).toBe(3065);
         expect(engine("compact")?.introduced).toBe(3068);
         expect(engine("xxl")?.prototype).toBe(3055);
@@ -1975,14 +1975,14 @@ describe("Batch 4 engine catalog", () => {
         expect(engine("clan_xxl")?.introduced).toBe(3084);
     });
 
-    it("dates the primitive engine from the IO p.50 primitive 'Mech entry", () => {
+    it("dates the primitive engine from the IO:AE p.44 primitive 'Mech entry", () => {
         const primitive = engine("primitive");
         expect(primitive?.prototype).toBe(2439);
         expect(primitive?.introduced).toBe(2443);
         expect(primitive?.extinct).toBe(2520);
         expect(primitive?.reintroduced).toBeNull();
-        expect(primitive?.book).toBe("IO");
-        expect(primitive?.page).toBe(123);
+        expect(primitive?.book).toBe("IO:AE");
+        expect(primitive?.page).toBe(117);
     });
 
     it("cites a book and page for every engine", () => {
@@ -1990,7 +1990,7 @@ describe("Batch 4 engine catalog", () => {
             standard: ["TM", 214], xl: ["TM", 214], clan_xl: ["TM", 214], light: ["TM", 214], compact: ["TM", 214],
             xxl: ["TO:AUE", 120], clan_xxl: ["TO:AUE", 120],
             ice: ["TM", 215], cell: ["TM", 215], fission: ["TM", 215],
-            primitive: ["IO", 123],
+            primitive: ["IO:AE", 117],
         };
         for (const item of mechEngineTypes) {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
@@ -2008,7 +2008,7 @@ describe("Batch 4 engine catalog", () => {
 describe("Batch 5 internal structure catalog", () => {
     const structure = (tag: string) => mechInternalStructureTypes.find(item => item.tag === tag);
 
-    it("dates structures from the IO p.48 universal advancement table", () => {
+    it("dates structures from the IO:AE p.42 universal advancement table", () => {
         expect(structure("standard")?.prototype).toBe(2430);
         expect(structure("standard")?.introduced).toBe(2439);
         expect(structure("composite")?.prototype).toBe(3061);
