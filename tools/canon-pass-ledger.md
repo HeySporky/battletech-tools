@@ -231,3 +231,23 @@ All 48 Inner Sphere and 20 Clan records were compared with the IO:AE pp.29–39 
 **Missing from the misc catalogs (found in IO:AE pp.29–39; queued for Batch 9c):** Light Active Probe [IS] (TM p.204), Light TAG [IS] (TM p.238), B-Pods (TM p.205), M-Pod (TO:AUE p.143), Coolant Pod (TO:AUE p.116), C3 Remote Sensor Launcher (TO:AUE p.111), Chaff Pod (TO:AUE p.111), Collapsible Command Module (TO:AUE p.113), Full-Head Ejection System (TO:AUE p.122), MRM Apollo FCS (TO:AUE p.143), RISC Heat Sink Override Kit, RISC Viral Jammers and Laser Pulse Module (IO:AE pp.86–88), HarJel II / III (IO:AE p.82), 'Mech Taser, TSEMP, and the industrial and support equipment not yet in the universal catalog. Clan CASE has no record (the builder treats it as built in). Items that need construction support first (Armored Components, 'Mech turrets, booby traps) are noted for the roadmap, not added as plain records.
 
 A regression test (`Batch 9a misc equipment catalogs`) pins dates and sources for all 68 records.
+
+## Batch 9b: misc equipment, universal catalog
+
+All 35 records compared with the IO:AE pp.29–42 advancement table. Every `extinct: 0` / `reintroduced: 0` became `null`. `introduced: 1950` is kept as the catalog's stand-in for IO "PS" / "ES" (pre- and early spaceflight, always available): IO prints no year for those items.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Artillery Cannons (Thumper, Sniper, Long Tom) | mech-universal-equipment | fixed (flag) | TO:AUE p.97 | none | prototype 3032 → 3012; 3032 is the Clan prototype (IO:AE p.31; TO:AUE p.217 "3012P / 3032P"). Production 3079. Proposed: Both (dates differ); one universal record cannot carry the Clan prototype year |
+| 'Mech Mortars 1 / 2 / 4 / 8 | mech-universal-equipment | fixed (flag) | TO:AUE p.136 | none | were "TO 0". ~2526p / 2531. IO:AE p.40 has separate rows: IS extinct 2819, recovered 3043; Clan ~2835p / 2840. Proposed: Both (dates differ) → split into IS and Clan records in the weapons batch (tags and ammo links change) |
+| Laser Insulator | mech-universal-equipment | fixed (flag) | TO:AUE p.134 | none | was "TO 322", reintroduced 3073 (unsourced). TO:AUE p.134: introduced 2575, extinct 2820, "Reintroduced: N/A"; IO:AE p.38: prototype 2575, Ext 2820 for the Inner Sphere only. The Clans never lost it; a universal record cannot say that. Proposed: Both (dates differ) |
+| Nail/Rivet Gun | mech-universal-equipment | fixed | TM p.246 | none | was "TO 0"; ~2309p / ~2310 |
+| Thumper, Sniper, Long Tom artillery | mech-universal-equipment | fixed | TO:AUE p.96 | none | were "TO 96"; Thumper and Sniper pre-spaceflight, Long Tom 2445p / 2500 |
+| Fluid Gun | mech-universal-equipment | fixed | TO:AUE p.125 | none | was "TO 313"; pre-spaceflight |
+| Chainsaw | mech-universal-equipment | fixed | TM p.242 | none | page 241 → 242 (rules box) |
+| Vehicle Flamer | mech-universal-equipment | verified (flag) | TM p.218 | none | IO:AE p.35 points to "124, TO:AUE", but that page covers the ER and Heavy Flamers; the Vehicle Flamer rules are in the TM p.218 Flamer entry |
+| Backhoe, Bridgelayers, Combine, Dual Saw, Pile Driver, Lift Hoist, Mining Drill, Rock Cutter, Wrecking Ball, Searchlight | mech-universal-equipment | verified | TM pp.237–249 | none | pre-spaceflight |
+| Salvage Arm, Spot Welder, Tracks, Environmental Sealing, Remote Sensor Dispenser, Supercharger | mech-universal-equipment | verified | TM / TO:AUE | none | dates match |
+| LAM Bomb Bay, LAM Fuel Tank | mech-universal-equipment | verified (re-cite owed) | IO p.114 / p.221 | none | still cited to IO (2016); IO:AE has the same material on pp.108, 214–215; part of the LAM re-cite |
+
+A regression test (`Batch 9b universal equipment catalog`) pins dates and sources for all 35 records.

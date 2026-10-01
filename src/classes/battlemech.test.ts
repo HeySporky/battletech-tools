@@ -2416,3 +2416,59 @@ describe("Batch 9a misc equipment catalogs", () => {
         expect(mechISEquipmentMisc.find(item => item.tag === "modular-armor")?.cbills).toBe(10000);
     });
 });
+
+describe("Batch 9b universal equipment catalog", () => {
+    it("dates and cites the universal records (IO:AE pp.29-42)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "nail-gun": [2309, 2310, null, null, "TM", 246],
+            "mech-mortar-1": [2526, 2531, null, null, "TO:AUE", 136],
+            "mech-mortar-2": [2526, 2531, null, null, "TO:AUE", 136],
+            "mech-mortar-4": [2526, 2531, null, null, "TO:AUE", 136],
+            "mech-mortar-8": [2526, 2531, null, null, "TO:AUE", 136],
+            "thumper-artillery": [undefined, 1950, null, null, "TO:AUE", 96],
+            "long-tom-artillery": [2445, 2500, null, null, "TO:AUE", 96],
+            "sniper-artillery": [undefined, 1950, null, null, "TO:AUE", 96],
+            "vehicle-flamer": [undefined, 1950, null, null, "TM", 218],
+            "long-tom-cannon": [3012, 3079, null, null, "TO:AUE", 97],
+            "sniper-cannon": [3012, 3079, null, null, "TO:AUE", 97],
+            "thumper-cannon": [3012, 3079, null, null, "TO:AUE", 97],
+            "fluid-gun": [undefined, 1950, null, null, "TO:AUE", 125],
+            "supercharger": [undefined, 3078, null, null, "TO:AUE", 157],
+            "backhoe": [undefined, 1950, null, null, "TM", 241],
+            "bridge-layer-light": [undefined, 1950, null, null, "TM", 242],
+            "bridge-layer-medium": [undefined, 1950, null, null, "TM", 242],
+            "bridge-layer-heavy": [undefined, 1950, null, null, "TM", 242],
+            "chainsaw": [undefined, 1950, null, null, "TM", 242],
+            "combine": [undefined, 1950, null, null, "TM", 243],
+            "dual-saw": [undefined, 1950, null, null, "TM", 243],
+            "pile-driver": [undefined, 1950, null, null, "TM", 244],
+            "lift-hoist": [undefined, 1950, null, null, "TM", 245],
+            "mining-drill": [undefined, 1950, null, null, "TM", 246],
+            "rock-cutter": [undefined, 1950, null, null, "TM", 247],
+            "salvage-arm": [2400, 2415, null, null, "TM", 248],
+            "spot-welder": [2312, 2320, null, null, "TM", 248],
+            "wrecking-ball": [undefined, 1950, null, null, "TM", 249],
+            "tracks": [2430, 2440, null, null, "TM", 249],
+            "environmental-sealing": [2300, 2350, null, null, "TM", 216],
+            "remote-sensor-dispenser": [2586, 2590, null, null, "TM", 236],
+            "searchlight": [undefined, 1950, null, null, "TM", 237],
+            "laser-insulator": [2575, null, 2820, null, "TO:AUE", 134],
+            "lam-bomb-bay": [2680, 2684, null, null, "IO", 114],
+            "lam-fuel-tank": [undefined, 2100, null, null, "IO", 221],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechUniversalEquipment.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the universal records", () => {
+        for (const item of mechUniversalEquipment) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
