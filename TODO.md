@@ -359,9 +359,10 @@ played first, then by dependency.
 - [ ] Missing misc equipment that needs rules support before a record is useful: Coolant Pod (BV via heat
   sink capacity, TO:AUE pp.116, 193), MRM Apollo FCS (combined launcher records), C3 Remote Sensor
   Launcher, Collapsible Command Module, Full-Head Ejection System, HarJel II / III, RISC Heat Sink
-  Override Kit, Viral Jammers, Laser Pulse Module, 'Mech Taser, TSEMP, Jump Pack / Drop Pack, Prototype
-  Improved Jump Jets (IO:AE p.97). Light Active Probe [IS] and Light TAG [IS]: IO:AE lists them, the TM
-  Inner Sphere table has no 'Mech-scale stats.
+  Override Kit, Laser Pulse Module, Jump Pack / Drop Pack, Prototype Improved Jump Jets (IO:AE p.97).
+  Light Active Probe [IS] and Light TAG [IS]: IO:AE lists them, the TM Inner Sphere table has no
+  'Mech-scale stats. Not enforced on the new records: fusion-only TSEMP and Taser, one Viral Jammer of
+  either type per unit.
 - [x] Superheavy 'Mechs (IO:AE pp.154-157): large engines (Batch 16), gyro weight and BV (14), equipment
   bans (21), structure table and types (22), half-size critical space (24), Inner Sphere tech base only
   (25), Long Tom on superheavies (29), two tons of ammunition per slot (30). The SHP-4X Omega example
@@ -373,9 +374,9 @@ played first, then by dependency.
   to IO:AE, checking each page.
 - [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
   unresolved.
-- [ ] Newer errata. Done: TechManual v8.0 and its Battle Value sheet v4.1 for 'Mechs (Batches 26-28),
-  TO:AUE v7.0 and the two IO sheets (14, 17), Total Warfare v11.01 weapon tables (30). Not yet compared:
-  TO:AR v7.0, SO:AAR v5.0, and the TechManual sheets for vehicles, ProtoMechs, infantry and aerospace BV.
+- [x] Newer errata, 'Mech catalogs: TechManual v8.0 and BV sheet v4.1 (Batches 26-28), TO:AUE v7.0 and the
+  two IO sheets (14, 17), Total Warfare v11.01 (30), TO:AR v7.0 and SO:AAR v5.0 (34). The TechManual sheets
+  for vehicle, ProtoMech, infantry and aerospace BV go with the domain catalogs.
 - [x] Statistics audits: IO:AE prototype tables (Batch 14), TechManual tables (Batch 18), TO:AUE tables
   (Batch 19). Not covered: rows the name matcher could not pair (ProtoMech and battle armor weapons,
   capital weapons, industrial items priced per ton) and the special munition statistics (damage,
@@ -385,9 +386,10 @@ played first, then by dependency.
 - [ ] Vehicles have no era check on engine types, so large engine dates (Batch 16) apply to 'Mechs only.
 - [x] Physical weapon to-hit modifiers (Batch 32, TW p.146 and TO:AUE p.216); one Supercharger per unit
   (Batch 21). Owed: play tracking adds the modifier to a Gunnery roll; physical attacks use Piloting.
-- [ ] Missing records: Primitive Prototype Long Tom and torpedo launchers (IO:AE pp.189, 210), Clan PPC
-  Capacitor combinations. Done: Vehicular Grenade Launcher and Recon Camera (Batch 31); the launcher's
-  munitions (TO:AUE p.175) are a load-out choice with no records.
+- [x] Missing records (Batches 31, 34-36): Vehicular Grenade Launcher, Recon Camera, Primitive Prototype
+  Long Tom and torpedo launchers, TSEMP Cannon / One-Shot / RISC Repeating, RISC Viral Jammers, BattleMech
+  Taser and ammunition. The Clan ER PPC with Capacitor moved from custom to canon (IO:AE pp.40, 190, 197),
+  reversing the 2026-09-28 classification: confirm.
 - [ ] Missile launcher `damageAero` holds 3 for every LRM size (the tables give 3 / 6 / 9 / 12). Check
   how the aerospace code reads it before changing the catalog.
 - [ ] The Nail/Rivet Gun has no medium or long range bracket (TM p.344); the record stores 0 and the
@@ -398,10 +400,9 @@ played first, then by dependency.
   Modified BV. Owed: IndustrialMech Offensive Battle Rating x0.9 without Advanced Fire Control (TM p.304)
   needs a fire control choice (TM p.69); prototype CASE is not counted as CASE; `hasXLEngine()` answers
   true for Light and Clan XL engines and drives the "wrecked" check in play tracking.
-- [ ] Unit slot columns (Batches 28, 29): ProtoMech, vehicle and aerospace slots now follow the TM and
-  TO:AUE tables. Needs your call: ProtoMech AC/8 ProtoMech slots (table 1*, approved workbook value 2).
-  Flag: Clan A-Pod prints NA for vehicles on TM p.343 against 1 on the Inner Sphere row. No records exist
-  for the Support Vehicle items of TM pp.344-345 (Bulldozer, Dumper, Ladder, Sprayers, Bridgelayers, ...).
+- [x] Unit slot columns (Batches 28, 29, 33): ProtoMech, vehicle and aerospace slots follow the TM and
+  TO:AUE tables; ProtoMech AC/8 set to the book's 1. Flag: Clan A-Pod prints NA for vehicles on TM p.343
+  against 1 on the Inner Sphere row. No records exist for the Support Vehicle items of TM pp.344-345.
 - [ ] TM equipment limits not modeled: torso-only weapons (Heavy Gauss), one industrial item per location.
 
 ### Cockpits
