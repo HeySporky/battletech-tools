@@ -251,3 +251,33 @@ All 35 records compared with the IO:AE pp.29–42 advancement table. Every `exti
 | LAM Bomb Bay, LAM Fuel Tank | mech-universal-equipment | verified (re-cite owed) | IO p.114 / p.221 | none | still cited to IO (2016); IO:AE has the same material on pp.108, 214–215; part of the LAM re-cite |
 
 A regression test (`Batch 9b universal equipment catalog`) pins dates and sources for all 35 records.
+
+## Batch 10a: energy weapons, Inner Sphere and Clan catalogs
+
+All 46 Inner Sphere and 39 Clan records compared with the IO:AE pp.29–40 advancement table. Every `extinct: 0` / `reintroduced: 0` became `null`. TechManual pages now point at the rules box: LASER p.226, PPC p.234, PLASMA p.235, FLAMER p.218. Rows below are the records where dates or sources changed, plus flags.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| X-Pulse Lasers (S/M/L) | mech-is-equipment-weapons-energy | fixed | TO:AUE p.133 | none | `introduced` 3057 was the prototype year; now 3057p / 3078. Was "TO 321" |
+| Binary Laser (Blazer) Cannon | mech-is-equipment-weapons-energy | fixed | TO:AUE p.131 | none | `introduced` 2812 was the prototype year; now 2812p / 3077. Was "TO 319" |
+| Laser AMS [IS] / [Clan] | both | fixed | TO:AUE p.134 | none | were cited to TM p.202 with the prototype year as production. IS 3059p / ~3079; Clan 3048p / ~3079 |
+| ER Pulse Lasers (S/M/L) | mech-clan-equipment-weapons-energy | fixed | TO:AUE p.132 | none | now 3057p / 3082 (was `introduced` 3057) |
+| Chemical Lasers (S/M/L) | mech-clan-equipment-weapons-energy | fixed | TO:AUE p.132 | none | now 3059p / 3083 (was `introduced` 3059) |
+| Improved Heavy Lasers (S/M/L) | mech-clan-equipment-weapons-energy | fixed | TO:AUE p.133 | none | now 3069p / 3079 (was `introduced` 3069) |
+| Heavy Lasers (S/M/L) | mech-clan-equipment-weapons-energy | fixed | TM p.226 | none | production 3058 → 3059 |
+| Heavy Flamer [Clan] | mech-clan-equipment-weapons-energy | fixed | TO:AUE p.124 | none | 3068 was the Inner Sphere introduction; Clan is ~3065p / 3067 |
+| ER Flamer [Clan] | mech-clan-equipment-weapons-energy | fixed | TO:AUE p.124 | none | prototype ~3065 added; production 3067 |
+| ER Flamer, Heavy Flamer [IS] | mech-is-equipment-weapons-energy | fixed | TO:AUE p.124 | none | were "TO 312"; IS introductions 3070 and 3068 |
+| Snub-Nose PPC | mech-is-equipment-weapons-energy | fixed | TM p.234 | none | prototype 2695 → ~2779 |
+| Enhanced PPC | mech-clan-equipment-weapons-energy | fixed | IO:AE p.90 | none | ~2822p / 2823, extinct 2828 → 2831, reintroduced 3080 added. Was "IO 189" |
+| PPC + Capacitor combinations (5) | mech-is-equipment-weapons-energy | fixed (derived) | TO:AUE p.149 | none | PPC Capacitor is 3060p / 3081 (IO:AE p.40). The combined records held 3060 / 3067 as production; now production 3081 and prototype = the later of the capacitor's and the PPC's prototype year (Snub-Nose: its 3067 recovery). Derived, not printed |
+| Centurion Weapon System | mech-is-equipment-weapons-energy | fixed | IO:AE p.79 | none | ~2762 prototype only, extinct 2770 (was `introduced` 2762, "IO 85") |
+| RISC Hyper Laser | mech-is-equipment-weapons-energy | fixed | IO:AE p.87 | none | 3134 prototype only, extinct 3141 (was `introduced` 3134, page 0) |
+| Re-Engineered Lasers (S/M/L) | mech-is-equipment-weapons-energy | fixed | IO:AE p.83 | none | Large was cited to FM:3145 p.243; IO:AE is newer |
+| Primitive Prototype Small / Medium / Large Laser, PPC | mech-is-equipment-weapons-energy | fixed (flag) | IO:AE p.112 | none | were "TO 0", 2300–2470. Prototype Dates for Basic Weapons Table: lasers 2290, large laser 2306, PPC 2439; each ends when the standard weapon enters production. Flag: that table prints large laser production 2310 and PPC prototype 2439, the p.37/p.40 advancement table 2316 and ~2440. The prototype record ends in 2316 so there is no gap |
+| Prototype ER Large Laser, pulse laser prototypes, recovered Medium Pulse Laser, Clan prototype ER lasers | both | fixed | IO:AE pp.67, 91, 97 | none | were "IO", no page |
+| Improved PPC, Improved Large Laser, Improved Large Pulse Laser | mech-clan-equipment-weapons-energy | verified (flag) | IO:AE pp.89–90 | none | dates follow the p.37/p.40 advancement table. Flag: the p.89 text prints "Introduced: 2818 (Improved Large Laser), 2820 (Improved Large Pulse Laser)" against ~2815 and 2818 in the table |
+| ER PPC (Clan, Star League) | mech-clan-equipment-weapons-energy | fixed (flag) | TM p.234 | none | extinct 2860 → null. IO:AE p.40 marks the ER PPC extinction with "*": Inner Sphere only, never lost in Clan space. For the user: this leaves the Star League ER PPC selectable by Clan designs in every era |
+| **Enhanced ER Large Laser** | mech-clan-equipment-weapons-energy | **unsourced (flag)** | "IO 189" | none | not found in IO (2016) or IO:AE: both list only the Improved Large Laser, Improved Large Pulse Laser, Improved PPC and Enhanced PPC. Record left as it was. For the user. Proposed: move to custom or remove |
+
+A regression test (`Batch 10a energy weapon catalogs`) pins dates and sources for all 85 records.
