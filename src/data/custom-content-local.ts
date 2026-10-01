@@ -1,5 +1,6 @@
 import type { IEquipmentItem } from "./data-interfaces";
 import type { ICustomContentDraft } from "./custom-content-types";
+import { CUSTOM_COMPONENT_KINDS, setLocalCustomComponents } from "./custom-component-registry";
 import { setLocalCustomEquipment } from "./equipment-registry";
 import { resetImportedEquipmentIndex } from "../utils/importedEquipment";
 
@@ -50,5 +51,10 @@ export function registerLocalCustomContent(drafts: ICustomContentDraft[] = getLo
     setLocalCustomEquipment(drafts
         .filter((draft) => draft.kind === "equipment" || draft.kind === "ammunition")
         .map((draft) => toRuntimeRecord<IEquipmentItem>(draft.record)));
+    for (const kind of CUSTOM_COMPONENT_KINDS) {
+        setLocalCustomComponents(kind, drafts
+            .filter((draft) => draft.kind === kind)
+            .map((draft) => toRuntimeRecord(draft.record)));
+    }
     resetImportedEquipmentIndex();
 }

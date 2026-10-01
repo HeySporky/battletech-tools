@@ -503,6 +503,8 @@ export interface IMyomerType {
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
     altTags?: string[];
+    /** Other spellings of the name, such as Solaris Skunk Werks' ("XL Engine"), matched by name lookups. */
+    altNames?: string[];
     /** Critical slots, spread anywhere except the head. */
     criticals: number;
     /** C-bills per 'Mech ton (musculature line of the cost table). */

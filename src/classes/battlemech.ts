@@ -5,6 +5,8 @@ import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentI
 import { btEraOptions, findEraByTag, getClosestEraForTech, getEraForYear, getErasForTech } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { findAllByName, findByTag, matchesTag } from "../data/tag-match";
+import { ComponentRecord, getComponentRecords, getComponentTiers, isCustomComponent } from "../data/custom-component-registry";
+import type { CustomComponentKind } from "../data/custom-content-types";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -3897,7 +3899,7 @@ export class BattleMech {
     }
 
     public setJumpJetType(tag: string): IJumpJet {
-        const jumpJet = findByTag(mechJumpJetTypes, tag);
+        const jumpJet = findByTag(getComponentRecords("jumpJet"), tag);
         if (jumpJet) {
             this._jumpJetType = jumpJet;
             this._calc();
@@ -3910,7 +3912,7 @@ export class BattleMech {
     }
 
     public setMyomerType(tag: string): IMyomerType {
-        const myomer = findByTag(mechMyomerTypes, tag);
+        const myomer = findByTag(getComponentRecords("myomer"), tag);
         if (myomer) {
             this._myomerType = myomer;
             this._calc();
@@ -4174,9 +4176,13 @@ export class BattleMech {
         newValue: string,
     ) {
 
-        for( let heatSink of mechHeatSinkTypes ) {
-            if( matchesTag(heatSink, newValue))
-                this._heatSinkType = heatSink;
+        // Canon first, then custom, then this browser's drafts: the first tier with a match wins.
+        for( const tier of getComponentTiers("heatSink") ) {
+            const matches = tier.filter( ( heatSink ) => matchesTag( heatSink, newValue ) );
+            if( matches.length > 0 ) {
+                this._heatSinkType = matches[ matches.length - 1 ];
+                break;
+            }
         }
 
         for( let localCount = this._criticalAllocationTable.length; localCount >= 0; localCount--) {
@@ -4429,18 +4435,23 @@ export class BattleMech {
         if (this.isLAM() && !this._isLAMLegalComponent("armor", armorTag)) {
             return this._armorType;
         }
-        for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
-            if( matchesTag(mechArmorTypes[aCount], armorTag)) {
-                const armor = mechArmorTypes[aCount];
-                const techTag = this.getTech().tag;
-                const supportsTech = techTag === "mis" || techTag === "mclan"
-                    ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
-                    : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0;
-                if (armor.unitTypes.battlemech && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && supportsTech) {
-                    this._armorType = armor;
-                    this._calc();
+        // Canon first, then custom, then this browser's drafts: the first tier with an accepted match wins.
+        for( const tier of getComponentTiers("armor") ) {
+            let accepted = false;
+            for( const armor of tier ) {
+                if( matchesTag(armor, armorTag)) {
+                    const techTag = this.getTech().tag;
+                    const supportsTech = techTag === "mis" || techTag === "mclan"
+                        ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
+                        : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0;
+                    if (armor.unitTypes.battlemech && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && supportsTech) {
+                        this._armorType = armor;
+                        this._calc();
+                        accepted = true;
+                    }
                 }
             }
+            if( accepted ) break;
         }
         return this._armorType;
     }
@@ -4552,7 +4563,7 @@ export class BattleMech {
         if (this.isLAM() && !this._isLAMLegalComponent("structure", isTag)) {
             return this._selectedInternalStructure;
         }
-        for( let is of mechInternalStructureTypes) {
+        for( let is of getComponentRecords("structure")) {
             if( matchesTag(is, isTag)) {
                 this._selectedInternalStructure = is;
                 this._calc();
@@ -4728,7 +4739,7 @@ export class BattleMech {
         if (this.isLAM() && !this._isLAMLegalComponent("engine", engineTag.toLowerCase())) {
             return this._engineType;
         }
-        for( let engine of mechEngineTypes) {
+        for( let engine of getComponentRecords("engine")) {
             if( matchesTag(engine, engineTag.toLowerCase())) {
                 this._engineType = engine;
                 this._calc();
@@ -4792,7 +4803,7 @@ export class BattleMech {
         if (this.isLAM() && !BattleMech.LAM_GYRO_TAGS.includes(gyroType.toLowerCase())) {
             gyroType = "standard";
         }
-        for( let gyro of mechGyroTypes) {
+        for( let gyro of getComponentRecords("gyro")) {
             if( matchesTag(gyro, gyroType.toLowerCase())) {
                 this._gyro = gyro;
                 this._calc();
@@ -4949,6 +4960,14 @@ export class BattleMech {
             if (bomb) level = Math.max(level, getEquipmentRulesLevel(bomb));
         }
         if (this.isOmniLAM()) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
+        // A custom or draft chassis component (custom-component-registry.ts) is homebrew.
+        const components: [CustomComponentKind, { tag: string } | null | undefined][] = [
+            ["armor", this._armorType], ["structure", this._selectedInternalStructure], ["engine", this._engineType],
+            ["gyro", this._gyro], ["heatSink", this._heatSinkType], ["jumpJet", this._jumpJetType], ["myomer", this._myomerType],
+        ];
+        if (components.some(([kind, record]) => isCustomComponent(kind, record as never))) {
+            level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
+        }
         return level;
     }
 
@@ -9261,20 +9280,23 @@ export class BattleMech {
      * the element's techbase attribute (0 Inner Sphere, 1 Clan); a Clan one picks the record without Inner
      * Sphere criticals. An unknown name goes into the import errors and returns undefined.
      */
-    private _findSSWComponent<T extends { name: string; alternateName?: string; altNames?: string[] }>(
-        records: readonly T[],
+    private _findSSWComponent<K extends CustomComponentKind>(
+        kind: K,
         component: string,
         sswName: unknown,
         sswTechbase?: unknown,
-    ): T | undefined {
-        const matches = findAllByName( records, sswName );
-        if( matches.length === 0 ) {
-            this._sswImportErrors.push( "Cannot find any " + component + " named: '" + sswName + "'" );
-            return undefined;
-        }
+    ): ComponentRecord<K> | undefined {
         const isClan = String( sswTechbase ) === "1";
-        const hasInnerSphereCriticals = ( record: T ) => !!( record as { criticals?: { is?: unknown } } ).criticals?.is;
-        return matches.find( ( record ) => hasInnerSphereCriticals( record ) !== isClan ) ?? matches[0];
+        const hasInnerSphereCriticals = ( record: ComponentRecord<K> ) => !!( record as { criticals?: { is?: unknown } } ).criticals?.is;
+        // Canon wins; custom and draft records answer only names canon doesn't.
+        for( const tier of getComponentTiers( kind ) ) {
+            const matches = findAllByName( tier as ComponentRecord<K>[], sswName );
+            if( matches.length > 0 ) {
+                return matches.find( ( record ) => hasInnerSphereCriticals( record ) !== isClan ) ?? matches[0];
+            }
+        }
+        this._sswImportErrors.push( "Cannot find any " + component + " named: '" + sswName + "'" );
+        return undefined;
     }
 
     /** Moves one unallocated critical tagged `tag` to each SSW `<location index="N">loc</location>`. */
@@ -9554,21 +9576,21 @@ export class BattleMech {
 
             if( jObj.mech.engine ) {
                 this.setWalkSpeed( +jObj.mech.engine["@_rating"] / this._tonnage );
-                const engineType = this._findSSWComponent( mechEngineTypes, "engine", jObj.mech.engine["#text"], jObj.mech.engine["@_techbase"] );
+                const engineType = this._findSSWComponent( "engine", "engine", jObj.mech.engine["#text"], jObj.mech.engine["@_techbase"] );
                 if( engineType ) {
                     this.setEngineType( engineType.tag );
                 }
             }
 
             if( jObj.mech.gyro ) {
-                const gyroType = this._findSSWComponent( mechGyroTypes, "gyro", jObj.mech.gyro["#text"] );
+                const gyroType = this._findSSWComponent( "gyro", "gyro", jObj.mech.gyro["#text"] );
                 if( gyroType ) {
                     this.setGyroType( gyroType.tag );
                 }
             }
 
             if( jObj.mech.structure && jObj.mech.structure.type ) {
-                const structureType = this._findSSWComponent( mechInternalStructureTypes, "internal structure", jObj.mech.structure.type );
+                const structureType = this._findSSWComponent( "structure", "internal structure", jObj.mech.structure.type );
                 if( structureType && this.setInternalStructureType( structureType.tag ) ) {
                     this._placeSSWCriticals( jObj.mech.structure.location, this.getInternalStructureType() );
                 }
@@ -9622,7 +9644,7 @@ export class BattleMech {
                     totalArmor += this._armorAllocation.rightTorsoRear;
                 }
                 if( jObj.mech.armor.type ) {
-                    const armorType = this._findSSWComponent( mechArmorTypes, "armor", jObj.mech.armor.type );
+                    const armorType = this._findSSWComponent( "armor", "armor", jObj.mech.armor.type );
                     if( armorType ) {
                         this.setArmorType( armorType.tag );
                     }
@@ -9719,7 +9741,7 @@ export class BattleMech {
 
                 if( jObj.mech.baseloadout.heatsinks ) {
 
-                    const heatSinkType = this._findSSWComponent( mechHeatSinkTypes, "heat sink", jObj.mech.baseloadout.heatsinks["type"] );
+                    const heatSinkType = this._findSSWComponent( "heatSink", "heat sink", jObj.mech.baseloadout.heatsinks["type"] );
                     if( heatSinkType ) {
                         this.setHeatSinksType( heatSinkType.tag );
                     }
@@ -9790,7 +9812,7 @@ export class BattleMech {
                     this._calcCriticals();
 
                     if( jObj.mech.baseloadout.jumpjets.type ) {
-                        const jumpJetType = this._findSSWComponent( mechJumpJetTypes, "jump jet", jObj.mech.baseloadout.jumpjets.type );
+                        const jumpJetType = this._findSSWComponent( "jumpJet", "jump jet", jObj.mech.baseloadout.jumpjets.type );
                         if( jumpJetType ) {
                             this.setJumpJetType( jumpJetType.tag );
                             this._calcCriticals();
