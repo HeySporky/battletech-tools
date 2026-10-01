@@ -2894,9 +2894,13 @@ export class BattleMech {
                 this._engineType = findByTag(mechEngineTypes, "standard") ?? mechEngineTypes[0];
             }
         }
-        // Superheavy 'Mechs cannot jump and cannot use Triple-Strength Myomer (IO:AE p.156).
+        // Superheavy 'Mechs cannot jump, cannot use Triple-Strength Myomer (IO:AE p.156) and have
+        // four structure types to choose from (p.155).
         if (this.isSuperheavy()) {
             this._jumpSpeed = 0;
+            if (!BattleMech.SUPERHEAVY_STRUCTURE_TAGS.includes(this._selectedInternalStructure.tag)) {
+                this._selectedInternalStructure = mechInternalStructureTypes.find(structure => structure.tag === "standard") ?? mechInternalStructureTypes[0];
+            }
             if (BattleMech._isTripleStrengthMyomer(this._myomerType)) {
                 this._myomerType = mechMyomerTypes.find(myomer => myomer.tag === "standard") ?? mechMyomerTypes[0];
             }
@@ -5301,6 +5305,12 @@ export class BattleMech {
         "masc", "clan-masc", "supercharger", "aes-arm", "aes-leg", "clan-aes-arm", "clan-aes-leg",
         "modular-armor", "clan-modular-armor", "mechanical-jump-booster", "partial-wing", "clan-partial-wing",
     ];
+    /**
+     * Internal structure a superheavy 'Mech may use (IO:AE p.155): standard, endo steel and
+     * endo-composite for BattleMechs, industrial for IndustrialMechs; "no other internal structure
+     * types are available".
+     */
+    public static readonly SUPERHEAVY_STRUCTURE_TAGS: readonly string[] = ["standard", "endo-steel", "endo-composite", "industrial"];
     /** Gyros a LAM may use: Standard, Compact, Heavy-Duty (IO p.114). */
     public static readonly LAM_GYRO_TAGS: readonly string[] = ["standard", "compact", "heavy-duty"];
     public static readonly LAM_BOMB_BAY_TAG = "lam-bomb-bay";
@@ -7904,7 +7914,8 @@ export class BattleMech {
             const availability = this._techDatesAvailability(structure, rulesLevel);
             structure.availableAsPrototype = availability.asPrototype;
             structure.available = availability.available && !(structure.innerSphereOnly && this.getTech().tag === "clan")
-                && (!this.isLAM() || this._isLAMLegalComponent("structure", structure.tag));
+                && (!this.isLAM() || this._isLAMLegalComponent("structure", structure.tag))
+                && (!this.isSuperheavy() || BattleMech.SUPERHEAVY_STRUCTURE_TAGS.includes(structure.tag));
             return structure;
         });
     }

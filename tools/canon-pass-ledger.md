@@ -756,3 +756,16 @@ IO:AE p.156: superheavy musculature "is incompatible with all forms of MASC, Tri
 Still owed for superheavy 'Mechs: the superheavy and tripod internal structure records (IO:AE p.217).
 
 Regression test: `Batch 21 Superheavy 'Mech equipment limits` (6 tests).
+
+## Batch 22: Superheavy 'Mech structure
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Superheavy 'Mech Structure Table, 105–200 tons | mech-internal-structure-types | fixed | IO:AE p.155 | IO v1.21, IO:AE v3.01: none for this table | four rows were wrong: 130 tons arm 22 → 21; 135 tons arm 23 → 22; 145 tons side torso and leg 30 → 31; 155 tons side torso and leg 32 → 33. The other sixteen rows match |
+| Superheavy structure weight (standard 20%, endo-composite 15%, endo steel 10%) | battlemech.ts | verified | IO:AE p.155 | none | all twenty masses match the table |
+| Structure types above 100 tons | battlemech.ts | **fixed** | IO:AE p.155 | none | "no other internal structure types are available": Reinforced and Composite were offered. Now standard, endo steel, endo-composite and industrial only; a design made superheavy reverts to standard |
+| Tripod structure weight +10% | battlemech.ts | verified | IO:AE pp.155, 159 | none | 150-ton tripod: 33 tons |
+
+**Owed, not started:** the superheavy critical slot rules (IO:AE pp.155–157). Each superheavy slot holds twice what a standard slot does, so endo steel takes 7 slots and endo-composite 4 (the builder allocates 14 and 7), and the engine takes half its usual slots, rounded up. The gyro (2 slots) and cockpit are already handled. This needs the slot model changed, so it is recorded here and on the roadmap rather than patched.
+
+Regression tests: `Batch 22 Superheavy 'Mech structure`, `Batch 22 Superheavy 'Mech structure types`.
