@@ -68,3 +68,22 @@ The ProtoMech booster's `battleValue: 0` and `cbills: 0` are placeholders: the B
 | Large engines (LSF, LICE, LLF, LXL, LXXL) | – | gap | IO p.44 (cites original TO pp.307–309; TO:AUE page not yet checked) | none | ratings above 400; not in the catalog; 'Mech legality unverified, queued for the superheavy batch |
 
 All engines now carry `book`/`page` (new optional `IEngineType` fields). Every legacy `extinct: 0` / `reintroduced: 0` changed to `null`. A regression test (`Batch 4 engine catalog`) pins the dates and sources.
+
+## Batch 5: internal structure
+
+Dates are from IO p.48 (Universal Technology Advancement Table).
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Standard | mech-internal-structure-types.ts | fixed | TM p.225 | none | 2430p / 2439 per IO p.48 (was `introduced: 0`, "always available") |
+| Endo-Steel [IS] | mech-internal-structure-types.ts | verified | TM p.224 | none | 2480p / 2487, extinct 2850, reintroduced 3035 |
+| Endo-Steel [Clan] | mech-internal-structure-types.ts | verified | TM p.224 | none | 2825p / 2827; extinct/reintroduced → null |
+| Composite | mech-internal-structure-types.ts | fixed | TO:AUE p.154 | none | IS only; 3061p / 3082 (was `introduced` 3061, the prototype year) |
+| Endo-Composite | mech-internal-structure-types.ts | fixed | TO:AUE p.154 | none | IS 3067p / 3085. Clan prototype 3073; Clan production 3085 **inferred** from the "All" production column, no separate Clan year printed |
+| Reinforced | mech-internal-structure-types.ts | fixed | TO:AUE p.155 | none | IS 3057p / 3084; Clan prototype 3065, production 3084 (shared "All" column) |
+| Industrial | mech-internal-structure-types.ts | verified | TM p.224 | none | 2300p / 2350 |
+| Superheavy structures (SH Standard, SH Endo-Steel, SH Endo-Composite, SH Industrial) | – | gap | IO p.48 | none | not in catalog; queued for the superheavy batch |
+| Tripod structure | – | gap | IO p.48 | none | 2590p / 2602; tripods currently reuse the standard structure tables; queued for the superheavy batch |
+| ProtoMech structure | – | n/a | TM p.225 | none | ProtoMech-only; not a 'Mech structure choice, not added |
+
+Every structure now carries `book`/`page`, and every legacy `extinct: 0` / `reintroduced: 0` changed to `null`. Costs unchanged. A regression test (`Batch 5 internal structure catalog`) pins the dates and sources.

@@ -2,7 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { BattleMech } from "./battlemech";
-import { validateChassisCombination } from "../data/mech-internal-structure-types";
+import { mechInternalStructureTypes, validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { getWeaponAmmoFamilies } from "../data/equipment-registry";
@@ -2001,6 +2001,45 @@ describe("Batch 4 engine catalog", () => {
         for (const item of mechEngineTypes) {
             expect(item.extinct, item.tag).not.toBe(0);
             expect(item.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+});
+
+describe("Batch 5 internal structure catalog", () => {
+    const structure = (tag: string) => mechInternalStructureTypes.find(item => item.tag === tag);
+
+    it("dates structures from the IO p.48 universal advancement table", () => {
+        expect(structure("standard")?.prototype).toBe(2430);
+        expect(structure("standard")?.introduced).toBe(2439);
+        expect(structure("composite")?.prototype).toBe(3061);
+        expect(structure("composite")?.introduced).toBe(3082);
+        expect(structure("endo-composite")?.prototype).toBe(3067);
+        expect(structure("endo-composite")?.introduced).toBe(3085);
+        expect(structure("endo-composite")?.clanDates?.prototype).toBe(3073);
+        expect(structure("reinforced")?.prototype).toBe(3057);
+        expect(structure("reinforced")?.introduced).toBe(3084);
+        expect(structure("reinforced")?.clanDates?.prototype).toBe(3065);
+        expect(structure("industrial")?.prototype).toBe(2300);
+        expect(structure("industrial")?.introduced).toBe(2350);
+    });
+
+    it("cites a book and page for every structure", () => {
+        const pages: Record<string, [string, number]> = {
+            standard: ["TM", 225], "endo-steel": ["TM", 224], industrial: ["TM", 224],
+            composite: ["TO:AUE", 154], "endo-composite": ["TO:AUE", 154], reinforced: ["TO:AUE", 155],
+        };
+        for (const item of mechInternalStructureTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+    });
+
+    it("uses null, not 0, for structures that never went extinct", () => {
+        for (const item of mechInternalStructureTypes) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
+            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
         }
     });
 });
