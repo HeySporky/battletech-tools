@@ -769,3 +769,17 @@ Regression test: `Batch 21 Superheavy 'Mech equipment limits` (6 tests).
 **Owed, not started:** the superheavy critical slot rules (IO:AE pp.155–157). Each superheavy slot holds twice what a standard slot does, so endo steel takes 7 slots and endo-composite 4 (the builder allocates 14 and 7), and the engine takes half its usual slots, rounded up. The gyro (2 slots) and cockpit are already handled. This needs the slot model changed, so it is recorded here and on the roadmap rather than patched.
 
 Regression tests: `Batch 22 Superheavy 'Mech structure`, `Batch 22 Superheavy 'Mech structure types`.
+
+## Batch 23: Rotary AC Caseless rounds
+
+Decision 2026-10-01: "Go with book on caseless." TO:AUE p.164 (corrected sixth printing) opens the autocannon munitions section with "Unless otherwise noted, all of the specialty munitions described here may only be employed by standard and light autocannons", and the Caseless box gives "Tech Base (Ratings): Inner Sphere". IO:AE p.53 lists Caseless for AC, LAC and PAC. Nothing lets a Rotary AC fire it, and the Clan copies had no tech base to stand on. Errata v7.0 does not change the section.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Rotary AC/2 and AC/5 Caseless Ammo (IS) | mech-is-ammo → mech-custom-ammo | moved to custom | none (TO:AUE p.164 excludes it) | none | Tags unchanged; `book: "Custom"`, `techRating: "x"`, prototype date dropped; cost, BV and rounds per ton untouched pending the custom catalog source search |
+| Rotary AC/2 and AC/5 Caseless Ammo (C) | mech-clan-ammo → mech-custom-ammo | moved to custom | none | none | same |
+| ProtoMech AC specialty rounds (Armor-Piercing, Caseless, Flak, Flechette, Tracer) | none | gap | IO:AE p.53 ("AC, LAC, PAC") | none | No records exist; only `ammo-clan-protomech-ac-N-standard`. TO:AUE p.164 says "standard and light autocannons" while IO:AE names the PAC, so the newer book adds it. Not added in this batch: statistics per PAC size need the TO:AUE cost and BV rules worked through |
+
+Custom records are offered only when Custom equipment is switched on; a design saved with one still loads (loading always includes the custom catalogs, Batch 15).
+
+Regression tests: `Batch 23 Rotary AC Caseless rounds` (registry) and `Batch 23 Rotary AC Caseless rounds are Custom` ('Mech). The four rows left the Batch 12c date table.

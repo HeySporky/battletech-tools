@@ -3864,8 +3864,6 @@ describe("Batch 12c special munitions", () => {
             "ammo-is-enhanced-lrm-mine-clearance": [3065, 3082, null, null, "TO:AUE", 182],
             "ammo-is-enhanced-lrm-narc-capable": [3058, 3082, null, null, "TW", 142],
             "ammo-is-extended-lrm-artemis-iv": [3054, 3078, null, null, "TM", 207],
-            "ammo-is-rotary-ac-2-caseless": [3060, 3079, null, null, "TO:AUE", 164],
-            "ammo-is-rotary-ac-5-caseless": [3060, 3079, null, null, "TO:AUE", 164],
             "ammo-is-bomb-laser-guided": [undefined, 2100, 2800, 3060, "TW", 247],
             "ammo-is-bomb-tag": [2600, 2605, 2835, 3035, "TM", 238],
             "ammo-is-bomb-arrow-iv": [2622, 2623, 2850, 3046, "TO:AUE", 171],
@@ -3966,8 +3964,6 @@ describe("Batch 12c special munitions", () => {
             "ammo-clan-arrow-iv-smoke": [undefined, 2844, null, null, "TO:AUE", 168],
             "ammo-clan-lrm-fragmentation": [2375, 2377, null, null, "TM", 230],
             "ammo-clan-srm-anti-radiation": [3057, null, null, null, "TO:AUE", 180],
-            "ammo-clan-rotary-ac-2-caseless": [undefined, 3109, null, null, "TO:AUE", 164],
-            "ammo-clan-rotary-ac-5-caseless": [undefined, 3109, null, null, "TO:AUE", 164],
             "ammo-clan-bomb-laser-guided": [undefined, 2100, null, null, "TW", 247],
             "ammo-clan-bomb-tag": [2600, 2605, null, null, "TM", 238],
             "ammo-clan-bomb-arrow-iv": [2622, 2623, null, null, "TO:AUE", 171],
@@ -4207,5 +4203,38 @@ describe("Batch 22 Superheavy 'Mech structure types (IO:AE p.155)", () => {
         expect(mech.getInternalStructureType()).toBe("reinforced");
         mech.setTonnage(150);
         expect(mech.getInternalStructureType()).toBe("standard");
+    });
+});
+
+describe("Batch 23 Rotary AC Caseless rounds are Custom", () => {
+    const build = (tech: string) => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        return mech;
+    };
+
+    it("offers them only when Custom equipment is included", () => {
+        for (const tech of ["is", "clan"]) {
+            const caseless = (includeCustom: boolean) =>
+                build(tech).getAvailableEquipment(includeCustom, 5).filter(item => /rotary-ac-\d-caseless/.test(item.tag)).map(item => item.tag).sort();
+            expect(caseless(false), tech).toEqual([]);
+            expect(caseless(true), tech).toEqual([
+                "ammo-clan-rotary-ac-2-caseless", "ammo-clan-rotary-ac-5-caseless", "ammo-is-rotary-ac-2-caseless", "ammo-is-rotary-ac-5-caseless",
+            ]);
+        }
+    });
+
+    it("still loads a design saved with them", () => {
+        for (const [tech, tag] of [["is", "ammo-is-rotary-ac-5-caseless"], ["clan", "ammo-clan-rotary-ac-5-caseless"]]) {
+            const donor = build(tech);
+            donor.addEquipmentFromTag(tech === "is" ? "ammo-is-rotary-ac-5-standard" : "ammo-clan-rotary-ac-5-standard", tech, "", false, undefined, "", false, [], undefined, undefined);
+            const saved = JSON.parse(donor.exportJSON());
+            saved.equipment[0].tag = tag;
+
+            const restored = new BattleMech(JSON.stringify(saved));
+            expect(restored.equipmentList.map(item => item.tag), tech).toEqual([tag]);
+        }
     });
 });
