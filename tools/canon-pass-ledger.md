@@ -507,3 +507,31 @@ Earlier batches checked dates and pages for these records. This batch checks ton
 **Gaps seen:** Primitive Prototype Long Tom (BV 368, ammo BV 35, p.189) and the primitive prototype torpedo launchers have no records. Aerospace damage values on missile launchers hold 3 for every LRM size in the catalog (the book gives 3 / 6 / 9 / 12); that is a catalog-wide convention to review, not changed here.
 
 Regression tests: `Batch 14 prototype weapon statistics`, `Batch 14 Star League ER PPC in Clan space`, and two Superheavy gyro tests in `BattleMech engine construction`.
+
+## Batch 15: tech-base splits
+
+User decision (2026-10-01): "Tech base splits, anytime you need to split or consolidate due to canon, do so." Classifications below are recorded as done under that standing permission.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| 'Mech Mortar 1 / 2 / 4 / 8 [IS] (`mech-mortar-N`) | mech-universal-equipment → mech-is-equipment-weapons-missiles | split | TO:AUE pp.136, 194, 221; IO:AE p.40 | TO:AUE v7.0: not yet compared | 2 / 5 / 7 / 10 tons, 1 / 2 / 3 / 5 slots. ~2526p / 2531, extinct 2819, recovered 3043. Ammo BV 1.2 / 2.4 / 3.6 / 7.2 → 1 / 2 / 3 / 6 (TO:AUE p.194). Tech rating E → B |
+| 'Mech Mortar 1 / 2 / 4 / 8 [Clan] (`clan-mech-mortar-N`) | → mech-clan-equipment-weapons-missile | split (**stats were wrong for Clan designs**) | same | same | 1 / 2.5 / 3.5 / 5 tons, 1 / 1 / 2 / 3 slots (TO:AUE p.221): half the Inner Sphere weight. ~2835p / 2840, never extinct. The universal record gave Clan designs the Inner Sphere weight and slots |
+| Long Tom / Sniper / Thumper Cannon [IS] | mech-universal-equipment → mech-is-equipment-weapons-artillery | split | TO:AUE p.97; IO:AE p.31 | same | 3012p / 3079, unchanged |
+| Long Tom / Sniper / Thumper Cannon [Clan] (`clan-…-cannon`) | → mech-clan-equipment-weapons-artillery | split | same | same | Clan prototype 3032, production 3079; statistics identical. The universal record let Clan designs take the 3012 Lyran prototype |
+| Laser Insulator [IS] | mech-universal-equipment → mech-is-equipment-weapons-misc | split | TO:AUE p.134; IO:AE p.38 | same | prototype 2575, no production; extinct 2820 |
+| Laser Insulator [Clan] (`clan-laser-insulator`) | → mech-clan-equipment-weapons-misc | split | same | same | never extinct: IO:AE marks the 2820 extinction "*" (Inner Sphere only, p.57 key) |
+| Modular Armor [Clan] (`clan-modular-armor`) | mech-clan-equipment-weapons-misc | **added** | TO:AUE p.93; IO:AE p.29 | same | Clan prototype 3074, production ~3096; statistics as the Inner Sphere record, which is unchanged |
+
+**This reverses the 2026-09-28 decision to keep one universal 'Mech Mortar.** That decision rested on the two sides sharing the technology; TO:AUE p.221 prints different weights and slots for each, so one record cannot be right for both, and the universal rule (identical name, weight, slots, damage, ranges and dates) does not hold.
+
+**Saved designs.** Each Clan record keeps the old universal tag in `altTags`, so a Clan design saved before the split loads the Clan record; an exact tag still beats an alias, so Inner Sphere and mixed-tech designs keep the Inner Sphere record. A saved Clan design with a 'Mech Mortar gets lighter on reload, which is the correction. Tests cover BattleMechs and vehicles.
+
+**Two loading bugs found and fixed while testing that:**
+
+- `battlemech.ts` `_restoreEquipmentItem` never looked in the custom catalog, so a saved design lost any Custom Homebrew equipment when reloaded (this would have included the two records moved to custom in Batch 13). Loading now includes the custom catalog; the lists a design *chooses* from are unchanged.
+- `vehicle.ts` `addEquipmentFromTag` matched exact tags only and ignored `altTags`; it now falls back to an alias.
+- `battlemech.ts` `moveCritical` enforced "one Modular Armor pack per location" by the literal tag `modular-armor`; it now uses the `isModularArmor` flag, so the Clan record obeys the same rule.
+
+**Not split (checked):** the artillery cannon shells and standard mortar rounds are already per-side or universal as IO:AE lists them. ADA, Inferno-IV and Laser-Inhibiting Arrow rounds (Inner Sphere only, in the universal ammo catalog) are left for Batch 12c with the other special munitions.
+
+Regression tests: `Batch 15 tech-base splits`, `Batch 15 saved designs keep custom-catalog equipment`, `Vehicle equipment saved before the Batch 15 tech-base splits`, and the rewritten mortar test in `equipment-registry.test.ts`.

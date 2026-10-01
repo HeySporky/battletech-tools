@@ -35,17 +35,23 @@ describe("equipment catalog provenance", () => {
         expect(chemical.map(item => item.heat)).toEqual([6, 2, 1]);
     });
 
-    it("keeps 'Mech Mortars universal with ammunition split by side", () => {
+    it("splits 'Mech Mortars by tech base, each side loading its own ammunition (TO:AUE p.221)", () => {
+        const allItems = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment);
+        const is = mechISAmmo.find(item => item.tag === "ammo-is-mech-mortar-standard")!;
+        const clan = mechClanAmmo.find(item => item.tag === "ammo-clan-mech-mortar-standard")!;
         for (const size of [1, 2, 4, 8]) {
-            const mortar = mechUniversalEquipment.find(item => item.tag === `mech-mortar-${size}`)!;
-            expect(mortar, `mech-mortar-${size}`).toBeDefined();
-            const is = mechISAmmo.find(item => item.tag === "ammo-is-mech-mortar-standard")!;
-            const clan = mechClanAmmo.find(item => item.tag === "ammo-clan-mech-mortar-standard")!;
-            expect(getCompatibleAmmo(mortar, is)).toBe(true);
-            expect(getCompatibleAmmo(mortar, clan)).toBe(true);
+            const isMortar = allItems.find(item => item.tag === `mech-mortar-${size}`)!;
+            const clanMortar = allItems.find(item => item.tag === `clan-mech-mortar-${size}`)!;
+            expect(isMortar, `mech-mortar-${size}`).toBeDefined();
+            expect(clanMortar, `clan-mech-mortar-${size}`).toBeDefined();
+            expect(getCompatibleAmmo(isMortar, is)).toBe(true);
+            expect(getCompatibleAmmo(clanMortar, clan)).toBe(true);
+            expect(mechUniversalEquipment.some(item => item.tag === isMortar.tag || item.tag === clanMortar.tag)).toBe(false);
         }
-        const allTags = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment).map(item => item.tag);
-        expect(allTags.filter(tag => /^clan-mech-mortar-\d$/.test(tag))).toEqual([]);
+        // The Clan tag is a record of its own. It keeps the old universal tag as an alias, so Clan designs
+        // saved before the split still load; an exact tag always beats an alias.
+        const tags = allItems.map(item => item.tag).filter(tag => /^(clan-)?mech-mortar-\d$/.test(tag));
+        expect(tags.sort()).toEqual([1, 2, 4, 8].flatMap(size => [`clan-mech-mortar-${size}`, `mech-mortar-${size}`]).sort());
     });
 
     it("keeps ProtoMech-only launchers off every non-ProtoMech unit", () => {

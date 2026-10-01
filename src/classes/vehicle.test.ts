@@ -535,3 +535,21 @@ describe("Vehicles against the Master Unit List", () => {
         });
     }
 });
+
+describe("Vehicle equipment saved before the Batch 15 tech-base splits", () => {
+    it("loads the old universal tags on a Clan vehicle as the Clan records", () => {
+        const clan = new Vehicle();
+        clan.setTech("clan");
+        clan.setEra("ilClan");
+        for (const tag of ["mech-mortar-8", "long-tom-cannon", "laser-insulator"]) {
+            clan.addEquipmentFromTag(tag);
+        }
+        expect(clan.getEquipmentList().map(item => item.tag)).toEqual(["clan-mech-mortar-8", "clan-long-tom-cannon", "clan-laser-insulator"]);
+
+        const is = new Vehicle();
+        is.setTech("is");
+        is.setEra("ilClan");
+        is.addEquipmentFromTag("mech-mortar-8");
+        expect(is.getEquipmentList().map(item => [item.tag, item.weight])).toEqual([["mech-mortar-8", 10]]);
+    });
+});
