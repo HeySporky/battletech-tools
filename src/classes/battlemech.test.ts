@@ -28,6 +28,7 @@ import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-ene
 import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
 import { mechClanEquipmentMisc } from "../data/mech-clan-equipment-weapons-misc";
 import { mechUniversalEquipment } from "../data/mech-universal-equipment";
+import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from "../data/mech-tonnages";
 
 describe("BattleMech engine availability by era", () => {
     it("shows the expected Inner Sphere engines for a Star League mech", () => {
@@ -4383,5 +4384,38 @@ describe("Batch 24 Superheavy 'Mech critical space (IO:AE pp.155-157)", () => {
         const restored = new BattleMech(JSON.stringify(saved));
         expect(free(restored.getCriticals().rightTorso)).toBe(8);
         expect(unallocated(restored, "autocannon-standard-c")).toEqual([]);
+    });
+});
+
+describe("Batch 25 Superheavy 'Mechs are Inner Sphere technology (IO:AE p.154)", () => {
+    it("offers superheavy tonnages to the Inner Sphere tech base only", () => {
+        // tech base: maximum tonnage at Advanced rules
+        const expected: Record<string, number> = { is: 200, mis: 200, clan: 100, mclan: 100 };
+        for (const [tech, max] of Object.entries(expected)) {
+            for (const type of ["biped", "quad", "tripod"]) {
+                expect(getTonnageBoundsForMechType(type, 3, tech).max, `${tech} ${type}`).toBe(max);
+                expect(Math.max(...getAvailableTonnagesForMechType(type, 3, tech).map(option => option.tons)), `${tech} ${type}`).toBe(max);
+            }
+        }
+        // Unchanged: no tech base given, lower rules levels, and Custom Homebrew.
+        expect(getTonnageBoundsForMechType("biped", 3)).toEqual({ min: 10, max: 200 });
+        expect(getTonnageBoundsForMechType("biped", 2, "clan")).toEqual({ min: 20, max: 100 });
+        expect(getTonnageBoundsForMechType("biped", 5, "clan")).toEqual({ min: 10, max: 200 });
+    });
+
+    it("reports a superheavy design with a Clan tech base", () => {
+        const message = "Superheavy 'Mechs are available only to the Inner Sphere tech base.";
+        const build = (tech: string, tonnage: number) => {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            mech.setEra("dark-ages");
+            mech.setTonnage(tonnage);
+            return mech.getChassisEquipmentViolations();
+        };
+        expect(build("clan", 150)).toEqual([message]);
+        expect(build("mclan", 150)).toEqual([message]);
+        expect(build("is", 150)).toEqual([]);
+        expect(build("mis", 150)).toEqual([]);
+        expect(build("clan", 100)).toEqual([]);
     });
 });

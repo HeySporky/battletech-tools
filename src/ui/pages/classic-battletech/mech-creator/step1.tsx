@@ -66,6 +66,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setTech( e.currentTarget.value);
+        // A Clan tech base has no superheavy tonnages (IO:AE p.154).
+        this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
         this.setState({ updated: !this.state.updated });
       }
@@ -97,7 +99,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( currentMech.isOmnimech && !currentMech.canBeOmniMech( rulesLevel ) ) {
         currentMech.toggleOmni( rulesLevel );
       }
-      const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel );
+      const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel, currentMech.getTech().tag );
       const tonnage = currentMech.getTonnage();
       if( tonnage < min ) {
         currentMech.setTonnage( min );
@@ -299,7 +301,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             >
                             {getAvailableTonnagesForMechType(
                               this.props.appGlobals.currentBattleMech.getType().tag,
-                              this.props.appGlobals.appSettings.mechRulesFilter
+                              this.props.appGlobals.appSettings.mechRulesFilter,
+                              this.props.appGlobals.currentBattleMech.getTech().tag
                             ).map( (option) => {
                               return (
                                 <option key={option.tons} value={option.tons}>{option.tons} ({option.type})</option>
