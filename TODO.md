@@ -272,6 +272,11 @@ played first, then by dependency.
 - [ ] Support vehicle construction (TechManual; large support vehicles and airships in TO), reusing the
   Combat Vehicle model: structural and armor tech ratings, chassis modifications, fixed-wing and airship
   types. MegaMek `battlefieldsupport` samples.
+- [ ] Support vehicle construction rules for each motive type (requested 2026-10-01): wheeled, tracked,
+  hover, VTOL, WiGE, naval, airship, fixed-wing and rail each need their own weight limits, chassis and
+  engine multipliers and legal equipment (TM support vehicle construction; large vehicles in TO:AUE).
+  Check every motive type against the book rather than reusing the Combat Vehicle numbers. Related:
+  Support Vehicle Armor BAR 2-10 is missing from the armor catalog (canon pass ledger, Batch 6).
 
 ## 6. BattleMech construction and play gaps
 
@@ -321,6 +326,25 @@ played first, then by dependency.
   cost and rules-level validation. Don't expose the placeholder aggregate profile until then.
 - [ ] Clans' pre-2825 use of Star League Ferro-Fibrous isn't modeled.
 - [ ] Colossal 'Mechs: construction and rules (source needed).
+
+### IndustrialMechs and Primitive 'Mechs
+
+- [ ] Make IndustrialMechs buildable (requested 2026-10-01): a chassis choice that gates Industrial /
+  Commercial / Heavy Industrial armor (TM p.72, p.206), Industrial structure, IndustrialMech cockpits and
+  fire control, engine choices, and the IndustrialMech cost and BV rules. Today only the Industrial
+  structure exists; Commercial armor is in the catalog but is not offered to any 'Mech.
+- [ ] Make Primitive BattleMechs and Primitive IndustrialMechs buildable (requested 2026-10-01): engine
+  rating x1.2, Primitive armor (x0.67), primitive cockpit, and the era window 2439-2520 (IO:AE pp.115-118,
+  p.44). The primitive engine and armor records exist; the construction mode does not.
+- [ ] Then lift the SSW import skip for these designs (section 2, 234 designs).
+
+### Custom Homebrew
+
+- [ ] Compact 'Mechs under the Custom Homebrew rules level (requested 2026-10-01). Source: the *Best of
+  Future Wars* fanzine. The fanzine is not in `_KNOWLEDGE_DEV/` yet, so the rules still have to be found
+  and read before any design work; nothing is to be reconstructed from memory. Lead: 12 HeavyMetal Pro
+  files in `WorkingData_DEV/HMPdata/hmpFiles/FutureWars`. Goes in `mech-custom-*` only, gated by
+  `tag: "custom"`, never in canon lists or canon BV/PV math.
 
 ### Calculations and play
 
