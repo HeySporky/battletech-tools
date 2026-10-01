@@ -5339,6 +5339,11 @@ export class BattleMech {
         "modular-armor", "clan-modular-armor", "mechanical-jump-booster", "partial-wing", "clan-partial-wing",
     ];
     /**
+     * Artillery "ordinarily denied to standard-weight 'Mechs" that a superheavy 'Mech can mount
+     * (IO:AE p.157): the Long Tom, which the TO:AUE construction table (p.217) gives no 'Mech space.
+     */
+    public static readonly SUPERHEAVY_ONLY_TAGS: readonly string[] = ["long-tom-artillery"];
+    /**
      * Internal structure a superheavy 'Mech may use (IO:AE p.155): standard, endo steel and
      * endo-composite for BattleMechs, industrial for IndustrialMechs; "no other internal structure
      * types are available".
@@ -5473,6 +5478,9 @@ export class BattleMech {
             }
             if (this.isSuperheavy() && BattleMech.SUPERHEAVY_PROHIBITED_TAGS.includes(item.tag.toLowerCase())) {
                 violations.push(`${item.name} cannot be mounted on a superheavy 'Mech.`);
+            }
+            if (!this.isSuperheavy() && BattleMech.SUPERHEAVY_ONLY_TAGS.includes(item.tag.toLowerCase())) {
+                violations.push(`${item.name} can only be mounted on a superheavy 'Mech.`);
             }
             if (item.maxPerUnit) {
                 const entry = counted.get(item.tag) ?? { item, count: 0 };
@@ -8037,6 +8045,9 @@ export class BattleMech {
             return false;
         }
         if (this.isSuperheavy() && BattleMech.SUPERHEAVY_PROHIBITED_TAGS.includes(item.tag.toLowerCase())) {
+            return false;
+        }
+        if (!this.isSuperheavy() && BattleMech.SUPERHEAVY_ONLY_TAGS.includes(item.tag.toLowerCase())) {
             return false;
         }
         if (!this.isLAM() && !this.isTripod()) {
