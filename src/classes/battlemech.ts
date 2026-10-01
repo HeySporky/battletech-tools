@@ -1120,6 +1120,16 @@ export class BattleMech {
         else
             return false;
     }
+    /** Triple-Strength Myomer in any form: standard, Industrial or prototype. */
+    private static _isTripleStrengthMyomer(myomer: IMyomerType): boolean {
+        return myomer.tripleStrength || /(^|-)tsm$/.test(myomer.tag);
+    }
+
+    /** Over 100 tons: a superheavy 'Mech (IO:AE pp.154-156). */
+    public isSuperheavy(): boolean {
+        return this._tonnage > 100;
+    }
+
     public isLAM() {
         if( this._mechType.tag.toLowerCase() === "lam" )
             return true;
@@ -2884,6 +2894,13 @@ export class BattleMech {
                 this._engineType = findByTag(mechEngineTypes, "standard") ?? mechEngineTypes[0];
             }
         }
+        // Superheavy 'Mechs cannot jump and cannot use Triple-Strength Myomer (IO:AE p.156).
+        if (this.isSuperheavy()) {
+            this._jumpSpeed = 0;
+            if (BattleMech._isTripleStrengthMyomer(this._myomerType)) {
+                this._myomerType = mechMyomerTypes.find(myomer => myomer.tag === "standard") ?? mechMyomerTypes[0];
+            }
+        }
         // OmniMechs build fixed-only equipment (MASC, Partial Wing, signature systems...) into
         // the base chassis (MegaMek omniFixedOnly; provisional).
         if (this._omnimech) {
@@ -3940,6 +3957,7 @@ export class BattleMech {
 
     /** Highest jump MP the jump jet type allows: walking MP, or running MP for Improved jump jets. */
     public getMaxJumpSpeed(): number {
+        if (this.isSuperheavy()) return 0;
         return this._jumpJetType.tag === "improved" ? this.getRunSpeed() : this.getWalkSpeed();
     }
 
@@ -3980,7 +3998,9 @@ export class BattleMech {
         return mechMyomerTypes.map(myomer => {
             const availability = this._techDatesAvailability(myomer, rulesLevel);
             myomer.availableAsPrototype = availability.asPrototype;
-            myomer.available = availability.available && !(myomer.techBase && pureTech && myomer.techBase !== pureTech);
+            // Superheavy musculature is incompatible with Triple-Strength Myomer (IO:AE p.156).
+            myomer.available = availability.available && !(myomer.techBase && pureTech && myomer.techBase !== pureTech)
+                && !(this.isSuperheavy() && BattleMech._isTripleStrengthMyomer(myomer));
             return myomer;
         });
     }
@@ -3989,7 +4009,8 @@ export class BattleMech {
         return mechJumpJetTypes.map(jumpJet => {
             const availability = this._techDatesAvailability(jumpJet, rulesLevel);
             jumpJet.availableAsPrototype = availability.asPrototype;
-            jumpJet.available = availability.available;
+            // Superheavy 'Mechs mount no jump jets, improved jump jets or UMUs (IO:AE p.156).
+            jumpJet.available = availability.available && !this.isSuperheavy();
             return jumpJet;
         });
     }
@@ -5271,6 +5292,15 @@ export class BattleMech {
         "supercharger", "backhoe", "combine", "dumper", "mechanical-jump-booster",
         "partial-wing", "clan-partial-wing", "chameleon-lps",
     ];
+    /**
+     * Equipment a superheavy 'Mech may not mount (IO:AE p.156): its musculature is incompatible with
+     * MASC and the Actuator Enhancement System, it cannot use Superchargers or Modular Armor, and it
+     * has no jumping or underwater movement, so no jump boosters or partial wings.
+     */
+    public static readonly SUPERHEAVY_PROHIBITED_TAGS: readonly string[] = [
+        "masc", "clan-masc", "supercharger", "aes-arm", "aes-leg", "clan-aes-arm", "clan-aes-leg",
+        "modular-armor", "clan-modular-armor", "mechanical-jump-booster", "partial-wing", "clan-partial-wing",
+    ];
     /** Gyros a LAM may use: Standard, Compact, Heavy-Duty (IO p.114). */
     public static readonly LAM_GYRO_TAGS: readonly string[] = ["standard", "compact", "heavy-duty"];
     public static readonly LAM_BOMB_BAY_TAG = "lam-bomb-bay";
@@ -5393,6 +5423,9 @@ export class BattleMech {
             if (!item) continue;
             if (item.chassisTypes?.length && !item.chassisTypes.includes(this._mechType.tag.toLowerCase())) {
                 violations.push(`${item.name} can only be mounted on: ${item.chassisTypes.join(", ").toUpperCase()}.`);
+            }
+            if (this.isSuperheavy() && BattleMech.SUPERHEAVY_PROHIBITED_TAGS.includes(item.tag.toLowerCase())) {
+                violations.push(`${item.name} cannot be mounted on a superheavy 'Mech.`);
             }
             if (item.maxPerUnit) {
                 const entry = counted.get(item.tag) ?? { item, count: 0 };
@@ -7951,6 +7984,9 @@ export class BattleMech {
         // Chassis-specific equipment, e.g. LAM Bomb Bays and Fuel Tanks (IO p.114).
         if (item.chassisTypes && item.chassisTypes.length > 0
             && !item.chassisTypes.includes(this._mechType.tag.toLowerCase())) {
+            return false;
+        }
+        if (this.isSuperheavy() && BattleMech.SUPERHEAVY_PROHIBITED_TAGS.includes(item.tag.toLowerCase())) {
             return false;
         }
         if (!this.isLAM() && !this.isTripod()) {

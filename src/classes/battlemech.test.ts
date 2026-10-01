@@ -4069,3 +4069,79 @@ describe("Batch 12d saved designs keep equipment from the other tech base", () =
         expect(restored.equipmentList.map(item => item.tag)).toEqual(["ammo-is-lrm-semi-guided"]);
     });
 });
+
+describe("Batch 21 Superheavy 'Mech equipment limits (IO:AE p.156)", () => {
+    const build = (tonnage: number) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("late-rep");
+        mech.setTonnage(tonnage);
+        mech.setWalkSpeed(2);
+        return mech;
+    };
+    const offered = (mech: BattleMech) => new Map(mech.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
+    const add = (mech: BattleMech, tag: string) =>
+        mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
+
+    it("offers no MASC, Supercharger, AES, Modular Armor, jump boosters or partial wings", () => {
+        const heavy = offered(build(100));
+        const superheavy = offered(build(150));
+        for (const tag of ["masc", "supercharger", "aes-arm", "aes-leg", "modular-armor", "mechanical-jump-booster", "partial-wing"]) {
+            expect(heavy.get(tag), `100 tons: ${tag}`).toBe(true);
+            expect(superheavy.get(tag), `150 tons: ${tag}`).toBe(false);
+        }
+        // Weapons are unaffected.
+        expect(superheavy.get("medium-laser")).toBe(true);
+    });
+
+    it("offers no Triple-Strength Myomer of any kind", () => {
+        const myomer = (mech: BattleMech) => new Map(mech.getAvailableMyomerTypes(4).map(item => [item.tag, !!item.available]));
+        expect(myomer(build(100)).get("tsm")).toBe(true);
+        const superheavy = myomer(build(150));
+        expect([superheavy.get("standard"), superheavy.get("tsm"), superheavy.get("industrial-tsm"), superheavy.get("prototype-tsm")])
+            .toEqual([true, false, false, false]);
+    });
+
+    it("cannot jump: no jump jets, improved jump jets or UMUs", () => {
+        const heavy = build(100);
+        heavy.setJumpSpeed(2);
+        expect(heavy.getJumpSpeed()).toBe(2);
+
+        const superheavy = build(150);
+        expect(superheavy.getAvailableJumpJets(4).some(jumpJet => jumpJet.available)).toBe(false);
+        expect(superheavy.getMaxJumpSpeed()).toBe(0);
+        superheavy.setJumpSpeed(2);
+        expect(superheavy.getJumpSpeed()).toBe(0);
+    });
+
+    it("drops jump MP and Triple-Strength Myomer when a design is made superheavy", () => {
+        const mech = build(100);
+        mech.setJumpSpeed(2);
+        mech.setMyomerType("tsm");
+        expect(mech.hasTripleStrengthMyomer()).toBe(true);
+        mech.setTonnage(150);
+        expect(mech.getJumpSpeed()).toBe(0);
+        expect(mech.hasTripleStrengthMyomer()).toBe(false);
+    });
+
+    it("reports prohibited equipment a superheavy design still mounts", () => {
+        const mech = build(100);
+        add(mech, "masc");
+        add(mech, "supercharger");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        mech.setTonnage(150);
+        expect(mech.getChassisEquipmentViolations()).toEqual([
+            "MASC cannot be mounted on a superheavy 'Mech.",
+            "Supercharger cannot be mounted on a superheavy 'Mech.",
+        ]);
+    });
+
+    it("allows one Supercharger per unit (TO:AUE p.156, errata v7.0)", () => {
+        const mech = build(75);
+        expect(offered(mech).get("supercharger")).toBe(true);
+        add(mech, "supercharger");
+        expect(offered(mech).get("supercharger")).toBe(false);
+        add(mech, "supercharger");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["Supercharger: 2 mounted; at most 1 allowed."]);
+    });
+});
