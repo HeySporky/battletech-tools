@@ -30,3 +30,22 @@ Pages are printed pages.
 | No Gyro (gyroless) | – | gap | IO p.116 (construction), BV note in IO BV section | – | only with the Machina Domini interface cockpit; gyro slots become empty; implement in the cockpit batch |
 
 All gyro dates (prototype/production, tech base) checked against the IO Tech Progression table, IO p.48. Unknown `extinct`/`reintroduced` changed from legacy `0` to `null` (`_itemIsAvailable` treats both as "none").
+
+## Batch 3: myomer
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Standard musculature | mech-myomer-types.ts | fixed | TM p.277 (cost) | none | dates 2300p / 2350 per IO p.48 (was 0); extinct/reintroduced → null |
+| Triple-Strength Myomer | mech-myomer-types.ts | verified | TM p.304 (BV ×1.5) | none | 3028p / 3050; extinct/reintroduced → null |
+| Industrial TSM | mech-myomer-types.ts | verified | TM p.70 (12 slots), TM p.304 (BV ×1.15) | none | 3035p / 3045; extinct/reintroduced → null |
+| Prototype TSM | mech-myomer-types.ts | verified | IO:AE p.98 | none | reintroduced → null |
+| Super-Cooled Myomer | mech-myomer-types.ts | fixed (added) | IO:AE p.88; slots p.215, cost p.179, BV p.185 | none | RISC experimental, IS; 3132p, extinct 3140, no production year |
+| MASC (IS) | mech-is-equipment-weapons-misc | fixed | TM p.232 (was 225) | none | – |
+| MASC (Clan) | mech-clan-equipment-weapons-misc | fixed | TM p.232 (was 225) | none | extinct/reintroduced → null |
+| Actuator Enhancement System (IS arm/leg) | mech-is-equipment-weapons-misc | fixed | – | none | IS production 3109 per IO p.48 (was 3108); extinct/reintroduced → null |
+| Actuator Enhancement System (Clan arm/leg) | mech-clan-equipment-weapons-misc | fixed | – | none | Clan production 3108 per IO p.48 (was 3109); extinct/reintroduced → null |
+| ProtoMech Myomer Booster | mech-clan-equipment-weapons-misc | fixed (added) | TM p.232; weight/slots TM p.85; cost TM p.279; rules TW p.137 | none | ProtoMech only (`space.battlemech` -1); 3066p / 3068; BV unresolved (0 placeholder, flagged) |
+| Supercharger | mech-universal-equipment | fixed | TO:AUE p.157 | none | production 3078 per IO (was 1950); TO:AUE lists an early-spaceflight prototype, year unpublished, so prototype left as is |
+| Superheavy musculature | – | gap | IO p.162 | none | not a separate myomer type; superheavy 'Mechs cannot use MASC, TSM, AES or Superchargers (IO p.162). Not enforced in battlemech.ts yet: validation gap, queued for the superheavy batch |
+
+The ProtoMech booster's `battleValue: 0` and `cbills: 0` are placeholders: the BV is unresolved and the cost is a formula. Both are flagged for the ProtoMech batch.

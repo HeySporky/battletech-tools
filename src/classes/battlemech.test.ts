@@ -6,6 +6,10 @@ import { validateChassisCombination } from "../data/mech-internal-structure-type
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { getWeaponAmmoFamilies } from "../data/equipment-registry";
+import { mechMyomerTypes } from "../data/mech-myomer-types";
+import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
+import { mechClanEquipmentMisc } from "../data/mech-clan-equipment-weapons-misc";
+import { mechUniversalEquipment } from "../data/mech-universal-equipment";
 
 describe("BattleMech engine availability by era", () => {
     it("shows the expected Inner Sphere engines for a Star League mech", () => {
@@ -1896,5 +1900,64 @@ describe("Regressions found by typechecking master", () => {
             mech.setMechType(type);
             expect(mech.makeTROBBCode(), type).toContain("Internal Structure");
         }
+    });
+});
+
+describe("Batch 3 myomer catalog", () => {
+    const myomer = (tag: string) => mechMyomerTypes.find(item => item.tag === tag);
+    const isMisc = (tag: string) => mechISEquipmentMisc.find(item => item.tag === tag);
+    const clanMisc = (tag: string) => mechClanEquipmentMisc.find(item => item.tag === tag);
+
+    it("dates standard myomer per IO p.48 and cites TM p.277", () => {
+        const standard = myomer("standard");
+        expect(standard?.page).toBe(277);
+        expect(standard?.prototype).toBe(2300);
+        expect(standard?.introduced).toBe(2350);
+    });
+
+    it("uses null, not 0, for unknown myomer dates", () => {
+        for (const item of mechMyomerTypes) {
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.introduced, item.tag).not.toBe(0);
+        }
+    });
+
+    it("lists Super-Cooled Myomer as an experimental IS prototype (IO:AE p.88)", () => {
+        const scm = myomer("risc-super-cooled-myomer");
+        expect(scm?.book).toBe("IO_AE");
+        expect(scm?.page).toBe(88);
+        expect(scm?.techBase).toBe("is");
+        expect(scm?.criticals).toBe(6);
+        expect(scm?.prototype).toBe(3132);
+        expect(scm?.introduced).toBeNull();
+        expect(scm?.extinct).toBe(3140);
+    });
+
+    it("dates AES production Clan 3108 and IS 3109 (IO p.48)", () => {
+        expect(clanMisc("clan-aes-arm")?.introduced).toBe(3108);
+        expect(clanMisc("clan-aes-leg")?.introduced).toBe(3108);
+        expect(isMisc("aes-arm")?.introduced).toBe(3109);
+        expect(isMisc("aes-leg")?.introduced).toBe(3109);
+    });
+
+    it("dates supercharger production 3078 (IO p.48)", () => {
+        const supercharger = mechUniversalEquipment.find(item => item.tag === "supercharger");
+        expect(supercharger?.introduced).toBe(3078);
+        expect(supercharger?.extinct).not.toBe(0);
+    });
+
+    it("cites MASC to TM p.232", () => {
+        expect(isMisc("masc")?.page).toBe(232);
+        expect(clanMisc("clan-masc")?.page).toBe(232);
+    });
+
+    it("adds the Clan ProtoMech Myomer Booster as ProtoMech-only (TM p.232)", () => {
+        const booster = clanMisc("clan-protomech-myomer-booster");
+        expect(booster?.space.protomech).toBe(1);
+        expect(booster?.space.battlemech).toBe(-1);
+        expect(booster?.book).toBe("TM");
+        expect(booster?.page).toBe(232);
+        expect(booster?.introduced).toBe(3068);
     });
 });
