@@ -914,3 +914,19 @@ Left as they are, with reasons:
 - Rows with no record: Cruise Missiles, Laser-Reflective / Reactive / Ferro-Lamellor armor rows (armor catalog), Vehicular Grenade Launcher, Recon Camera, Taser, Coolant Pod, Handheld Weapons, the vehicle chassis modifications, the naval, sub-capital and large-craft items. Already on the owed list as missing records or domain catalogs.
 
 Regression tests: `Batch 29 unit slot columns of the TO:AUE construction tables`, `Batch 29 Long Tom artillery on 'Mechs`.
+
+## Batch 30: superheavy ammunition sharing; Total Warfare errata
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Two tons of ammunition in one superheavy slot | battlemech.ts | **fixed** | IO:AE p.157 | v3.01: none | "every critical slot of ammo placed in the torsos, arms, or legs ... may carry up to two slots of ammunition. ... Only ammunition of the same weapon type may be combined ... the different types (by ton) can be combined". Dropping a second ton on a slot that holds one ton for the same weapon now shares the slot; the slot is named for both ("... (x2)", or both round names). Not in the head, not with other equipment, not on a 'Mech of 100 tons or less, and never three. Saved designs keep the pairing; moving the first ton away leaves the second in place |
+| Battle Value of a shared slot | battlemech.ts | verified (reading) | TM p.302 | none | "15 points per critical space of explosive ammo": a shared slot is one critical space and costs 15. The superheavy rules do not say otherwise |
+| SHP-4X Omega (worked example) | — | verified | IO:AE pp.155–157 | none | built as the book allocates it: 150 tons exactly, nothing left unallocated, center torso full (3 engine, 2 gyro, 4 Gauss, 1 shared ammunition slot, Improved C3, CASE II). This is now a regression test for the whole superheavy slot model |
+
+"Same weapon type" is read as the catalog's ammunition family (standard and special rounds of one weapon; LRM rounds of every launcher size are one family here, as the ammunition records are).
+
+**Total Warfare errata v11.01** (17 September 2023), weapon tables pp.303–305 and the equipment rules: ATM 12 ammunition 5 per ton — already correct. The other table entries change aerospace attack values (Clan LB 2-X 2, ATM 6 10, Clan SRM 2 2/4) and type codes (B-Pod "X", "PB" for point-blank); the aerospace values wait on the `damageAero` item already owed, and the type codes are not stored. The remaining entries are game-play rules, outside the catalogs. TO:AR v7.0 and SO:AAR v5.0 are still to be read.
+
+This closes the superheavy slot rules of IO:AE pp.154–157. Still owed there: nothing in construction; in play, the superheavy critical hit rules (p.154) are not modeled.
+
+Regression tests: `Batch 30 Superheavy ammunition shares critical slots`.

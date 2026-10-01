@@ -6,7 +6,7 @@ import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { findByTag, matchesTag } from "../data/tag-match";
 import { getCockpitType } from "../data/mech-cockpit-types";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
@@ -48,6 +48,8 @@ export interface ICriticalSlot {
     obj: any;
     movable?: boolean;
     placeholder?: boolean;
+    /** A second ton of ammunition sharing this slot on a superheavy 'Mech (IO:AE p.157). */
+    shared?: ICriticalSlot;
 
     size?: number;
 
@@ -4113,6 +4115,34 @@ export class BattleMech {
     return false;
 }
 
+    /**
+     * On a superheavy 'Mech a slot of ammunition in the torsos, arms or legs may hold two tons, as long
+     * as both feed the same weapon type; the rounds themselves may differ (IO:AE p.157).
+     */
+    private _canShareAmmunitionSlot(
+        occupant: ICriticalSlot | null | undefined,
+        incoming: ICriticalSlot,
+        location: string,
+    ): boolean {
+        if (!this.isSuperheavy() || location === "hd" || location === "un") return false;
+        if (!occupant || occupant.placeholder || occupant.shared || occupant.uuid === incoming.uuid) return false;
+        const held = occupant.obj as IEquipmentItem | null;
+        const added = incoming.obj as IEquipmentItem | null;
+        if (!held?.isAmmo || !added?.isAmmo) return false;
+        return getAmmoFamily(held) === getAmmoFamily(added);
+    }
+
+    /** Puts a second ton of ammunition into an occupied slot and names the slot for both. */
+    private _shareAmmunitionSlot(occupant: ICriticalSlot, incoming: ICriticalSlot): void {
+        const companion: ICriticalSlot = JSON.parse(JSON.stringify(incoming));
+        delete companion.shared;
+        companion.size = 1;
+        occupant.shared = companion;
+        const heldName = occupant.obj?.name ?? occupant.name;
+        const addedName = companion.obj?.name ?? companion.name;
+        occupant.name = heldName === addedName ? `${heldName} (x2)` : `${heldName} + ${addedName}`;
+    }
+
     private _isNextXCritsAvailable(
         areaArray: ICriticalSlot[],
         criticalCount: number,
@@ -4154,6 +4184,13 @@ export class BattleMech {
         };
 
         newItem.size = criticalCount;
+        // A saved design's second ton of ammunition goes back into the slot it shared (slot 0 included,
+        // which otherwise means "anywhere").
+        if( typeof(slotNumber) === "number" && this._canShareAmmunitionSlot(areaArray[slotNumber], newItem, location) ) {
+            this._shareAmmunitionSlot(areaArray[slotNumber], newItem);
+            this._setEquipmentAllocation(newItem.uuid, slotNumber, location);
+            return true;
+        }
         // console.log( "newItem", newItem );
         if( typeof(slotNumber) === "undefined" || slotNumber === null || slotNumber === 0) {
             // place anywhere available
@@ -7355,6 +7392,13 @@ export class BattleMech {
                         }
                         // Push the item straight into the flat tracking array matrix
                         this._criticalAllocationTable.push(currentItem);
+                        // The second ton of a shared ammunition slot is saved at the same location and slot.
+                        if (currentItem.shared) {
+                            currentItem.shared.loc = shortLoc;
+                            currentItem.shared.slot = critItemCounter;
+                            currentItem.shared.size = 1;
+                            this._criticalAllocationTable.push(currentItem.shared);
+                        }
                     }
                 }
             }
@@ -7493,6 +7537,13 @@ export class BattleMech {
         }
     }
 
+    /** The second ton of a shared ammunition slot, as the slot's only occupant. */
+    private _promoteSharedAmmunition(companion: ICriticalSlot): ICriticalSlot {
+        companion.name = companion.obj?.name ?? companion.name;
+        companion.size = 1;
+        return companion;
+    }
+
     private _moveItemToArea(
         fromLocation: any[], // Broaden to pass strict tuple/sparse assignment matching rules
         fromItem: ICriticalSlot,
@@ -7544,6 +7595,18 @@ export class BattleMech {
         while (toLocation.length < toIndex + targetSize && toLocation.length < maxLegalSlots) {
             toLocation.push(null);
         }
+        // A slot holding one ton of ammunition takes a second on a superheavy 'Mech (IO:AE p.157).
+        if (targetSize === 1 && removeFrom && this._canShareAmmunitionSlot(toLocation[toIndex], fromItem, normalizedTag)) {
+            const companion = fromItem.shared;
+            delete fromItem.shared;
+            fromItem.name = fromItem.obj?.name ?? fromItem.name;
+            this._shareAmmunitionSlot(toLocation[toIndex], fromItem);
+            fromLocation[fromIndex] = companion ? this._promoteSharedAmmunition(companion) : null;
+            this._removeUUIDFromUnallocated(fromItem.uuid);
+            this._setEquipmentAllocation(fromItem.uuid, toIndex, normalizedTag);
+            this._updateCriticalAllocationTable();
+            return true;
+        }
         // Collision Validation Check
         let hasSpace = true;
         for (let testC = 0; testC < targetSize; testC++) {
@@ -7582,6 +7645,12 @@ export class BattleMech {
         }
         fromItem.loc = normalizedTag;
         fromItem.slot = toIndex;
+        // The second ton of a shared ammunition slot stays where it is.
+        const sharedCompanion = fromItem.shared;
+        if (sharedCompanion) {
+            delete fromItem.shared;
+            fromItem.name = fromItem.obj?.name ?? fromItem.name;
+        }
         // Deep clone object layout parameter state reference safely
         toLocation[toIndex] = JSON.parse(JSON.stringify(fromItem));
         toLocation[toIndex].size = targetSize;
@@ -7600,7 +7669,7 @@ export class BattleMech {
         }
         // Clean up on Aisle Three
         if (removeFrom) {
-            fromLocation[fromIndex] = null;
+            fromLocation[fromIndex] = sharedCompanion ? this._promoteSharedAmmunition(sharedCompanion) : null;
             let nextCounter = 1;
             while (fromIndex + nextCounter < fromLocation.length) {
                 const trailingItem = fromLocation[fromIndex + nextCounter];
