@@ -387,7 +387,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         weaponType: [
             "DE"
         ],
-        techRating: "e",
+        techRating: "f",
         book: "TM",
         page: 226,
         alphaStrike: {
@@ -625,7 +625,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         weaponType: [
             "DE"
         ],
-        techRating: "e",
+        techRating: "f",
         book: "TM",
         page: 226,
         alphaStrike: {
@@ -1019,7 +1019,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
         weaponType: [
             "P"
         ],
-        techRating: "e",
+        techRating: "f",
         book: "TM",
         page: 235,
         alphaStrike: {

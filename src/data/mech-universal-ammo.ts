@@ -1684,7 +1684,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         introduced: 2310,
         extinct: null,
         reintroduced: null,
-        battleValue: 1,
+        battleValue: 0,
         heat: 0,
         heatAero: 0,
         weight: 1,
