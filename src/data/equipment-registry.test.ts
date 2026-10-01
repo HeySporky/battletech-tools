@@ -333,6 +333,13 @@ describe("equipment catalog provenance", () => {
         }
     });
 
+    it("groups miscellaneous gear under one UI category label", () => {
+        // The equipment browser groups by category; "Misc Equipment" and
+        // "Miscellaneous Equipment" showed as two headings for the same gear.
+        const labels = new Set(getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment.map(item => item.category)));
+        expect([...labels].filter(label => /^misc/i.test(label))).toEqual(["Miscellaneous Equipment"]);
+    });
+
     it("keeps tags unique within each registered source catalog", () => {
         for (const definition of getEquipmentCatalogDefinitions()) {
             const tags = definition.equipment.map(item => item.tag);
