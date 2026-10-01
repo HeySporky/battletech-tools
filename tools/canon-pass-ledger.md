@@ -930,3 +930,22 @@ Regression tests: `Batch 29 unit slot columns of the TO:AUE construction tables`
 This closes the superheavy slot rules of IO:AE pp.154–157. Still owed there: nothing in construction; in play, the superheavy critical hit rules (p.154) are not modeled.
 
 Regression tests: `Batch 30 Superheavy ammunition shares critical slots`.
+
+## Batch 31: Vehicular Grenade Launcher and Recon Camera
+
+Two of the records listed as missing. Both are identical for the Inner Sphere and the Clans, so they go in the universal catalog.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Vehicular Grenade Launcher | mech-universal-equipment | **added** | TO:AUE p.127 (rules); p.218 game data; p.219 construction; p.195 BV; IO:AE p.40 dates | TO:AUE v7.0: none | 10,000 C-bills, 0.5 tons, 1 slot on every unit type, 1 heat, range —/—/—/1, BV 15, tech rating C (D-E-F). One-shot (heat counts a quarter for BV), no explosion on a critical hit. Dates PS prototype / ES production (IO:AE p.40; TO:AUE says only "Pre-spaceflight") |
+| Recon Camera | mech-universal-equipment | **added** | TO:AUE p.150 (rules); p.223 construction; IO:AE p.34 dates | none | 10,000 C-bills, 0.5 tons, 1 slot ('Mech, ProtoMech, vehicles, fighter, Small Craft; DropShip NA), no heat, no BV entry. Dates PS / PS |
+
+Flags:
+
+- **Recon Camera tech rating.** TO:AUE prints C/B-B-B in both the rules box (p.150) and the table (p.223); IO:AE p.34 prints "All/B". The record carries C, from the item's own rules, as the other tech ratings do.
+- **Vehicular Grenade Launcher munitions** (TO:AUE p.175: fragmentation by default, chaff, incendiary, smoke) are a load-out choice inside the launcher and have no records. The record stores no damage figure: fragmentation only harms conventional infantry and low-BAR Support Vehicles.
+- Alpha Strike conversions for both are marked unresolved.
+
+Still missing from the same list: Primitive Prototype Long Tom and torpedo launchers (IO:AE pp.189, 210), Clan PPC Capacitor combinations.
+
+Regression tests: `Batch 31 Vehicular Grenade Launcher and Recon Camera`.
