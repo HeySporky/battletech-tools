@@ -106,6 +106,10 @@ export interface IEngineType {
     available?: boolean;
     /** Set when the engine is offered only as an Experimental prototype. */
     availableAsPrototype?: boolean;
+    /** Rulebook abbreviation for the construction rule (TM, TO:AUE, IO). */
+    book?: string;
+    /** Printed page in `book`. */
+    page?: number;
 }
 
 export interface IDamagePerRange {

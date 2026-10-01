@@ -7,6 +7,7 @@ import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { getWeaponAmmoFamilies } from "../data/equipment-registry";
 import { mechMyomerTypes } from "../data/mech-myomer-types";
+import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
 import { mechClanEquipmentMisc } from "../data/mech-clan-equipment-weapons-misc";
 import { mechUniversalEquipment } from "../data/mech-universal-equipment";
@@ -1959,5 +1960,47 @@ describe("Batch 3 myomer catalog", () => {
         expect(booster?.book).toBe("TM");
         expect(booster?.page).toBe(232);
         expect(booster?.introduced).toBe(3068);
+    });
+});
+
+describe("Batch 4 engine catalog", () => {
+    const engine = (tag: string) => mechEngineTypes.find(item => item.tag === tag);
+
+    it("dates compact and XXL engines from the IO p.44 engine table", () => {
+        expect(engine("compact")?.prototype).toBe(3065);
+        expect(engine("compact")?.introduced).toBe(3068);
+        expect(engine("xxl")?.prototype).toBe(3055);
+        expect(engine("xxl")?.introduced).toBe(3110);
+        expect(engine("clan_xxl")?.prototype).toBe(2954);
+        expect(engine("clan_xxl")?.introduced).toBe(3084);
+    });
+
+    it("dates the primitive engine from the IO p.50 primitive 'Mech entry", () => {
+        const primitive = engine("primitive");
+        expect(primitive?.prototype).toBe(2439);
+        expect(primitive?.introduced).toBe(2443);
+        expect(primitive?.extinct).toBe(2520);
+        expect(primitive?.reintroduced).toBeNull();
+        expect(primitive?.book).toBe("IO");
+        expect(primitive?.page).toBe(123);
+    });
+
+    it("cites a book and page for every engine", () => {
+        const pages: Record<string, [string, number]> = {
+            standard: ["TM", 214], xl: ["TM", 214], clan_xl: ["TM", 214], light: ["TM", 214], compact: ["TM", 214],
+            xxl: ["TO:AUE", 120], clan_xxl: ["TO:AUE", 120],
+            ice: ["TM", 215], cell: ["TM", 215], fission: ["TM", 215],
+            primitive: ["IO", 123],
+        };
+        for (const item of mechEngineTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+    });
+
+    it("uses null, not 0, for engines that never went extinct", () => {
+        for (const item of mechEngineTypes) {
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+        }
     });
 });
