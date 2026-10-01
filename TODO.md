@@ -338,6 +338,39 @@ played first, then by dependency.
   p.44). The primitive engine and armor records exist; the construction mode does not.
 - [ ] Then lift the SSW import skip for these designs (section 2, 234 designs).
 
+### Canon equipment pass: still owed (branch `feature/canon-equipment-pass`, ledger `tools/canon-pass-ledger.md`)
+
+- [ ] Special munitions (Batch 12c): 228 ammo records not yet compared with the IO:AE pp.53-56 rows; about
+  90 still cite original Tactical Operations or old Total Warfare pages. Known wrong: Arrow IV Inferno-IV
+  (3083, should be 3053p / 3055), Arrow IV Smoke extinction (2830, should be 2840). ADA, Inferno-IV and
+  Laser-Inhibiting Arrow are Inner Sphere only but sit in the universal ammo catalog.
+- [ ] Split by tech base where the dates differ and a universal record cannot say so: 'Mech Mortars (IS
+  extinct 2819-3043, Clan 2840), Artillery Cannons (Clan prototype 3032), Laser Insulator (IS extinct
+  2820, never lost by the Clans), Modular Armor (no Clan record, Clan prototype 3074). Tags and ammo links
+  change, so old saves need `altTags`.
+- [ ] Decide the two unsourced Clan records: Enhanced ER Large Laser and Enhanced Clan LRM 10 are in
+  neither IO (2016) nor IO:AE. Move to custom or remove.
+- [ ] Same-book conflicts that publication date cannot settle (catalog follows MegaMek; confirm or
+  overrule): IO:AE armor BV modifiers p.185 vs p.190; primitive cockpit cost p.117 vs p.215; Heat-
+  Dissipating Clan year p.81 (3125) vs p.29 (3126); Improved Large Laser / Pulse Laser years p.89 vs p.37;
+  Clan claws (3090 printed as a prototype, no production year); ER PPC never lost in Clan space (the
+  Star League ER PPC is now selectable by Clan designs in every era).
+- [ ] Missing misc equipment that needs rules support before a record is useful: Coolant Pod (BV via heat
+  sink capacity, TO:AUE pp.116, 193), MRM Apollo FCS (combined launcher records), C3 Remote Sensor
+  Launcher, Collapsible Command Module, Full-Head Ejection System, HarJel II / III, RISC Heat Sink
+  Override Kit, Viral Jammers, Laser Pulse Module, 'Mech Taser, TSEMP, Jump Pack / Drop Pack, Prototype
+  Improved Jump Jets (IO:AE p.97). Light Active Probe [IS] and Light TAG [IS]: IO:AE lists them, the TM
+  Inner Sphere table has no 'Mech-scale stats.
+- [ ] Superheavy batch: superheavy and tripod internal structures, large engines (ratings above 400), and
+  enforcing that superheavy 'Mechs cannot mount MASC, TSM, AES or Superchargers (IO:AE p.156).
+- [ ] Domain catalogs not started: aerospace and capital armor (SO:AA p.140), Support Vehicle BAR armor,
+  battle armor armor and equipment, ProtoMech heat sinks / jump jets / cockpits, capital and sub-capital
+  weapons (new literal catalogs, never 'Mech-legal).
+- [ ] Re-cite the LAM and QuadVee comments in `battlemech.ts` that still give IO (2016) pages (pp.105-196)
+  to IO:AE, checking each page.
+- [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
+  unresolved.
+
 ### Cockpits
 
 - [ ] Cockpit selector (found in the canon pass, Batch 8): `mech-cockpit-types.ts` on
