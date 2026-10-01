@@ -606,3 +606,31 @@ describe("ammunition Battle Value", () => {
         expect(missing).toEqual([]);
     });
 });
+
+describe("Batch 23 Rotary AC Caseless rounds", () => {
+    const tags = ["ammo-is-rotary-ac-2-caseless", "ammo-is-rotary-ac-5-caseless", "ammo-clan-rotary-ac-2-caseless", "ammo-clan-rotary-ac-5-caseless"];
+
+    it("are not canon: specialty rounds feed standard and light autocannons only (TO:AUE p.164)", () => {
+        const canon = [...mechISAmmo, ...mechClanAmmo, ...mechUniversalAmmo];
+        expect(canon.filter(item => tags.some(tag => equipmentMatchesIdentifier(item, tag))).map(item => item.tag)).toEqual([]);
+        for (const tech of ["is", "clan"]) {
+            expect(getEquipmentListByTech(tech).filter(item => /rotary-ac-\d-caseless/.test(item.tag)).map(item => item.tag), tech).toEqual([]);
+        }
+        // Caseless rounds for the standard and light autocannons stay.
+        expect(mechISAmmo.filter(item => /-caseless$/.test(item.tag)).map(item => item.tag)).toEqual([
+            "ammo-is-ac-2-caseless", "ammo-is-ac-5-caseless", "ammo-is-ac-10-caseless", "ammo-is-ac-20-caseless",
+            "ammo-is-light-ac-2-caseless", "ammo-is-light-ac-5-caseless",
+        ]);
+    });
+
+    it("stay available as Custom records under their old tags, statistics unchanged", () => {
+        const custom = tags.map(tag => mechCustomAmmo.find(item => item.tag === tag));
+        for (const item of custom) {
+            expect(item).toMatchObject({ isSpecialAmmo: true, book: "Custom", page: 0, techRating: "x" });
+            expect(item?.alphaStrike?.notes?.join(" ")).toContain("No canon source");
+        }
+        expect(custom.map(item => [item?.cbills, item?.battleValue, item?.roundsPerTon])).toEqual([
+            [4500, 15, 90], [18000, 31, 40], [7500, 20, 90], [19500, 43, 40],
+        ]);
+    });
+});
