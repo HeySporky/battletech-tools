@@ -520,7 +520,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 10,
             long: 15
         },
-        space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
@@ -565,7 +565,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 6,
             long: 9
         },
-        space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         shotsPerTon: 0,
         minAmmoTons: 1,
         explosive: false,
@@ -1011,7 +1011,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 12,
             long: 18
         },
-        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         shotsPerTon: 10,
         ammoBattleValue: 21,
         minAmmoTons: 1,
