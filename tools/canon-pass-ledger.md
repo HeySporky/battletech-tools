@@ -378,3 +378,17 @@ All three carry `alphaStrike.notes: ["Unresolved: …"]`: no Alpha Strike conver
 | HarJel II / III, RISC Heat Sink Override Kit, Viral Jammers, Laser Pulse Module | IO:AE pp.82–88. Per-location or per-weapon items; need construction support |
 
 A regression test (`Batch 9c pods added from TechManual and TO:AUE`) pins the three records and mounts the B-Pod on both tech bases.
+
+## Batch 12a: ammunition catalogs, placeholder dates and book abbreviations
+
+Mechanical pass over `mech-is-ammo.ts` (158 records), `mech-clan-ammo.ts` (105) and `mech-universal-ammo.ts` (71). No introduction year, extinction year or page number was changed.
+
+| change | scope | notes |
+|---|---|---|
+| `extinct: 0` / `reintroduced: 0` → `null` | 549 fields in the three ammo catalogs | 0 meant "never"; the canon catalogs now hold no `0` date anywhere |
+| `book: "TO:AU&E"` → `"TO:AUE"` | 31 ammo records | one spelling per book |
+| `book: "IO_AE"` / `"IO-AE"` → `"IO:AE"` | 9 ammo records, 2 myomer records | one spelling per book |
+
+Two new tests in `equipment-registry.test.ts` pin both rules. One older assertion that expected `extinct` 0 on Inner Sphere AC/20 ammo now expects `null`.
+
+**Still owed for ammunition (Batch 12b):** the introduction, extinction and recovery years have not been compared with the IO:AE pp.53–56 ammunition rows, and about 90 records still cite the original Tactical Operations ("TO 141", "TO 184", "TO 352" …) or Total Warfare pages that predate the TO:AUE split. Known mismatches seen while listing them: `long-tom-cannon-fae` and its Sniper / Thumper siblings have `page: 0`; several standard rounds carry the weapon's prototype-era year (Clan Rotary AC ammo 3073, ProtoMech AC ammo 3070, Chemical Laser ammo 3059) now that their weapons have moved to the production year in Batch 10.
