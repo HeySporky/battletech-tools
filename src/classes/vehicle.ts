@@ -1081,8 +1081,19 @@ export default class Vehicle {
         return this._equipmentList;
     }
 
-    public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string): IEquipmentItem[] {
-        const catalogItem = findByTag(getEquipmentListByTech(this._tech.tag, true), tag);
+    /** The mixed-tech catalog (both tech bases) for an Inner Sphere or Clan vehicle; empty for mixed tech, which already sees both. */
+    private _otherTechBaseEquipment(): IEquipmentItem[] {
+        const techTag = this._tech.tag;
+        return techTag === "clan" || techTag === "is" ? getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true) : [];
+    }
+
+    /**
+     * `anyTechBase` is for loading a saved vehicle: it keeps whatever it mounted, including equipment
+     * that has since moved to the other tech base's catalog.
+     */
+    public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string, anyTechBase: boolean = false): IEquipmentItem[] {
+        const catalogItem = findByTag(getEquipmentListByTech(this._tech.tag, true), tag)
+            ?? (anyTechBase ? findByTag(this._otherTechBaseEquipment(), tag) : undefined);
         if (catalogItem) {
             this._equipmentList.push(this._newEquipment(catalogItem, location, rear, uuid));
             this._calc();
@@ -2804,7 +2815,8 @@ export default class Vehicle {
                     issue("Skipped an equipment entry that could not be read");
                     continue;
                 }
-                const catalogItem = findByTag(catalog, entry.tag);
+                // A saved vehicle keeps what it mounted, including equipment since moved to the other tech base's catalog.
+                const catalogItem = findByTag(catalog, entry.tag) ?? findByTag(this._otherTechBaseEquipment(), entry.tag);
                 if (!catalogItem) {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;

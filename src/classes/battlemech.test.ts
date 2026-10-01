@@ -400,14 +400,31 @@ describe("BattleMech Alpha Strike special ammunition", () => {
         const mech = new BattleMech();
         mech.addEquipmentFromTag("ammo-lrm-swarm-i", "is", "lt", false, undefined, "", false, [], undefined, undefined);
 
-        expect(mech.getAlphaStrikeSpecialAmmoOptions().map(ammo => ammo.tag)).toEqual(["ammo-lrm-swarm-i"]);
+        // Swarm-I is an Inner Sphere munition (Batch 12d): the record answers to the tag it was saved under.
+        expect(mech.getAlphaStrikeSpecialAmmoOptions().map(ammo => ammo.tag)).toEqual(["ammo-is-lrm-swarm-i"]);
         expect(mech.getAlphaStrikeForceStats().abilities).not.toContain("AOE#");
 
-        mech.setAlphaStrikeSpecialAmmoTag("ammo-lrm-swarm-i");
+        expect(mech.setAlphaStrikeSpecialAmmoTag("ammo-lrm-swarm-i")).toBe("ammo-is-lrm-swarm-i");
         expect(mech.getAlphaStrikeForceStats().abilities).toContain("AOE#");
 
         const restored = new BattleMech(mech.exportJSON(true));
-        expect(restored.getAlphaStrikeSpecialAmmoTag()).toBe("ammo-lrm-swarm-i");
+        expect(restored.getAlphaStrikeSpecialAmmoTag()).toBe("ammo-is-lrm-swarm-i");
+    });
+
+    it("keeps the special ammunition choice of a design saved before the tag changed", () => {
+        const mech = new BattleMech();
+        mech.addEquipmentFromTag("ammo-is-lrm-swarm-i", "is", "lt", false, undefined, "", false, [], undefined, undefined);
+        mech.setAlphaStrikeSpecialAmmoTag("ammo-is-lrm-swarm-i");
+        const saved = JSON.parse(mech.exportJSON(true));
+        saved.as_special_ammo_tag = "ammo-lrm-swarm-i";
+        for (const item of saved.equipment) {
+            if (item.tag === "ammo-is-lrm-swarm-i") item.tag = "ammo-lrm-swarm-i";
+        }
+
+        const restored = new BattleMech(JSON.stringify(saved));
+        expect(restored.equipmentList.map(item => item.tag)).toEqual(["ammo-is-lrm-swarm-i"]);
+        expect(restored.getAlphaStrikeSpecialAmmoTag()).toBe("ammo-is-lrm-swarm-i");
+        expect(restored.getAlphaStrikeForceStats().abilities).toContain("AOE#");
     });
 });
 
@@ -3858,6 +3875,28 @@ describe("Batch 12c special munitions", () => {
             "ammo-is-bomb-asew-missile": [3067, 3073, null, null, "TO:AUE", 170],
             "ammo-is-bomb-laa-missile": [3069, 3072, null, null, "TO:AUE", 171],
             "ammo-is-bomb-rocket-launcher": [3060, 3064, null, null, "TM", 229],
+            // moved from the universal catalog in Batch 12d (Inner Sphere only)
+            "ammo-is-arrow-iv-ada": [3068, 3080, null, null, "TO:AUE", 165],
+            "ammo-is-arrow-iv-inferno": [3053, 3055, null, null, "TO:AUE", 168],
+            "ammo-is-arrow-iv-laser-inhibiting": [3053, 3083, null, null, "TO:AUE", 168],
+            "ammo-is-arrow-iv-vibrabomb": [3056, 3065, null, null, "TO:AUE", 169],
+            "ammo-is-lrm-anti-tsm": [3026, 3027, null, null, "IO:AE", 98],
+            "ammo-is-srm-anti-tsm": [3026, 3027, null, null, "IO:AE", 98],
+            "ammo-is-lrm-deadfire": [3052, null, null, null, "IO:AE", 125],
+            "ammo-is-srm-deadfire": [3052, null, null, null, "IO:AE", 125],
+            "ammo-is-lrm-listen-kill": [3037, null, 3040, null, "IO:AE", 99],
+            "ammo-is-srm-listen-kill": [3037, null, 3040, null, "IO:AE", 99],
+            "ammo-is-lrm-mine-clearance": [3065, 3069, null, null, "TO:AUE", 182],
+            "ammo-is-srm-mine-clearance": [3065, 3069, null, null, "TO:AUE", 182],
+            "ammo-is-lrm-semi-guided": [3053, 3057, null, null, "TM", 231],
+            "ammo-is-lrm-swarm-i": [3052, 3057, null, null, "TO:AUE", 183],
+            "ammo-is-lrm-thunder-active": [3054, 3058, null, null, "TO:AUE", 185],
+            "ammo-is-lrm-thunder-augmented": [3054, 3057, null, null, "TO:AUE", 185],
+            "ammo-is-lrm-thunder-inferno": [3054, 3056, null, null, "TO:AUE", 185],
+            "ammo-is-lrm-thunder-vibrabomb": [3054, 3056, null, null, "TO:AUE", 185],
+            "ammo-is-mech-mortar-guided": [3055, 3064, null, null, "TO:AUE", 186],
+            "ammo-is-narc-explosive": [3054, 3060, null, null, "TM", 233],
+            "ammo-is-srm-acid": [3053, null, null, null, "TO:AUE", 179],
         };
         for (const [tag, want] of Object.entries(expected)) {
             const item = mechISAmmo.find(record => record.tag === tag);
@@ -3890,7 +3929,6 @@ describe("Batch 12c special munitions", () => {
             "ammo-clan-lrm-artemis-iv": [undefined, 2818, null, null, "TM", 207],
             "ammo-clan-lrm-artemis-v": [3061, 3085, null, null, "TO:AUE", 95],
             "ammo-clan-lrm-fascam": [2618, 2620, null, null, "TO:AUE", 185],
-            "ammo-clan-lrm-mag-pulse": [3055, 3057, 3065, null, "TO:AUE", 182],
             "ammo-clan-lrm-narc": [undefined, 2828, null, null, "TW", 142],
             "ammo-clan-lrm-swarm": [2615, 2621, null, null, "TO:AUE", 183],
             "ammo-clan-lrt-artemis-iv": [2820, 2824, null, null, "TM", 207],
@@ -3921,7 +3959,6 @@ describe("Batch 12c special munitions", () => {
             "ammo-clan-ac-20-flak": [2488, 2500, 2850, null, "TO:AUE", 164],
             "ammo-clan-ac-20-tracer": [2488, 2500, 2850, null, "TO:AUE", 165],
             "ammo-clan-lrm-ftl": [3053, null, null, null, "TO:AUE", 180],
-            "ammo-clan-srm-tandem-charge": [2757, 3062, null, null, "TO:AUE", 184],
             "ammo-clan-lb-2x-cluster": [2824, 2826, null, null, "TM", 208],
             "ammo-clan-lb-5x-cluster": [2824, 2826, null, null, "TM", 208],
             "ammo-clan-lb-10x-cluster": [2824, 2826, null, null, "TM", 208],
@@ -3957,14 +3994,9 @@ describe("Batch 12c special munitions", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
             "ammo-long-tom-cannon-fae": [3012, 3079, null, null, "IO:AE", 159],
-            "ammo-lrm-deadfire": [3052, null, null, null, "IO:AE", 125],
             "ammo-lrm-incendiary": [2341, 2342, null, null, "TO:AUE", 182],
-            "ammo-lrm-mine-clearance": [3065, 3069, null, null, "TO:AUE", 182],
             "ammo-lrm-smoke": [2341, 2342, null, null, "TO:AUE", 183],
-            "ammo-lrm-swarm-i": [3052, 3057, null, null, "TO:AUE", 183],
-            "ammo-narc-explosive": [3054, 3060, null, null, "TM", 233],
             "ammo-sniper-cannon-fae": [3012, 3079, null, null, "IO:AE", 159],
-            "ammo-srm-deadfire": [3052, null, null, null, "IO:AE", 125],
             "ammo-srm-heatseeking": [2365, 2370, null, null, "TO:AUE", 181],
             "ammo-srm-inferno": [2370, 2380, null, null, "TW", 141],
             "ammo-srm-smoke": [2365, 2370, null, null, "TO:AUE", 183],
@@ -3976,19 +4008,9 @@ describe("Batch 12c special munitions", () => {
             "ammo-heavy-flamer-water": [3065, 3067, null, null, "TO:AUE", 175],
             "ammo-vehicle-flamer-inferno": [2390, 2400, null, null, "TO:AUE", 174],
             "ammo-vehicle-flamer-water": [undefined, 1950, null, null, "TO:AUE", 175],
-            "ammo-lrm-anti-tsm": [3026, 3027, null, null, "IO:AE", 98],
-            "ammo-srm-anti-tsm": [3026, 3027, null, null, "IO:AE", 98],
-            "ammo-lrm-listen-kill": [3037, null, 3040, null, "IO:AE", 99],
-            "ammo-lrm-semi-guided": [3053, 3057, null, null, "TM", 231],
-            "ammo-srm-acid": [3053, null, null, null, "TO:AUE", 179],
-            "ammo-mech-mortar-guided": [3055, 3064, null, null, "TO:AUE", 186],
             "ammo-long-tom-cluster": [2445, 2500, null, null, "TO:AUE", 166],
             "ammo-sniper-cluster": [undefined, 1950, null, null, "TO:AUE", 166],
             "ammo-thumper-cluster": [undefined, 1950, null, null, "TO:AUE", 166],
-            "ammo-arrow-iv-vibrabomb": [3056, 3065, null, null, "TO:AUE", 169],
-            "ammo-arrow-iv-ada": [3068, 3080, null, null, "TO:AUE", 165],
-            "ammo-arrow-iv-inferno": [3053, 3055, null, null, "TO:AUE", 168],
-            "ammo-arrow-iv-laser-inhibiting": [3053, 3083, null, null, "TO:AUE", 168],
             "ammo-long-tom-flechette": [2445, 2500, null, null, "TO:AUE", 167],
             "ammo-long-tom-illumination": [undefined, 2505, null, null, "TO:AUE", 167],
             "ammo-long-tom-smoke": [2445, 2500, null, null, "TO:AUE", 168],
@@ -3999,12 +4021,6 @@ describe("Batch 12c special munitions", () => {
             "ammo-thumper-illumination": [undefined, 2100, null, null, "TO:AUE", 167],
             "ammo-thumper-smoke": [undefined, 1950, null, null, "TO:AUE", 168],
             "ammo-lrm-heat-seeking": [2390, 2430, null, null, "TO:AUE", 181],
-            "ammo-lrm-thunder-active": [3054, 3058, null, null, "TO:AUE", 185],
-            "ammo-lrm-thunder-augmented": [3054, 3057, null, null, "TO:AUE", 185],
-            "ammo-lrm-thunder-vibrabomb": [3054, 3056, null, null, "TO:AUE", 185],
-            "ammo-lrm-thunder-inferno": [3054, 3056, null, null, "TO:AUE", 185],
-            "ammo-srm-listen-kill": [3037, null, 3040, null, "IO:AE", 99],
-            "ammo-srm-mine-clearance": [3065, 3069, null, null, "TO:AUE", 182],
             "ammo-long-tom-fae": [2445, 2500, null, null, "IO:AE", 159],
             "ammo-sniper-fae": [undefined, 1950, null, null, "IO:AE", 159],
             "ammo-thumper-fae": [undefined, 1950, null, null, "IO:AE", 159],
@@ -4028,5 +4044,28 @@ describe("Batch 12c special munitions", () => {
             expect(item.reintroduced, item.tag).not.toBe(0);
             expect(typeof item.page, item.tag).toBe("number");
         }
+    });
+});
+
+describe("Batch 12d saved designs keep equipment from the other tech base", () => {
+    it("loads an Inner Sphere munition on a Clan design saved before the munition left the universal catalog", () => {
+        const clan = new BattleMech();
+        clan.setTech("clan");
+        clan.setEra("dark-ages");
+        clan.setTonnage(50);
+        // A Clan design is no longer offered the round...
+        expect(clan.addEquipmentFromTag("ammo-lrm-semi-guided", "clan", "", false, undefined, "", false, [], undefined, undefined)).toBeNull();
+        // ...but one saved with it still loads, under the record's current tag.
+        const donor = new BattleMech();
+        donor.setTech("is");
+        donor.setTonnage(50);
+        donor.addEquipmentFromTag("ammo-is-lrm-semi-guided", "is", "", false, undefined, "", false, [], undefined, undefined);
+        const saved = JSON.parse(donor.exportJSON());
+        saved.tech = "clan";
+        saved.equipment[0].tag = "ammo-lrm-semi-guided";
+
+        const restored = new BattleMech(JSON.stringify(saved));
+        expect(restored.getTech().tag).toBe("clan");
+        expect(restored.equipmentList.map(item => item.tag)).toEqual(["ammo-is-lrm-semi-guided"]);
     });
 });

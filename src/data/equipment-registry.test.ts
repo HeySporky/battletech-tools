@@ -54,6 +54,54 @@ describe("equipment catalog provenance", () => {
         expect(tags.sort()).toEqual([1, 2, 4, 8].flatMap(size => [`clan-mech-mortar-${size}`, `mech-mortar-${size}`]).sort());
     });
 
+    it("offers Inner Sphere munitions to Inner Sphere and mixed-tech designs only (IO:AE pp.53-56)", () => {
+        // Moved from the universal catalog: each keeps the tag it was saved under as an alias.
+        const innerSphereOnly = [
+            "ammo-is-arrow-iv-ada",
+            "ammo-is-arrow-iv-inferno",
+            "ammo-is-arrow-iv-laser-inhibiting",
+            "ammo-is-arrow-iv-vibrabomb",
+            "ammo-is-lrm-anti-tsm",
+            "ammo-is-srm-anti-tsm",
+            "ammo-is-lrm-deadfire",
+            "ammo-is-srm-deadfire",
+            "ammo-is-lrm-listen-kill",
+            "ammo-is-srm-listen-kill",
+            "ammo-is-lrm-mine-clearance",
+            "ammo-is-srm-mine-clearance",
+            "ammo-is-lrm-semi-guided",
+            "ammo-is-lrm-swarm-i",
+            "ammo-is-lrm-thunder-active",
+            "ammo-is-lrm-thunder-augmented",
+            "ammo-is-lrm-thunder-inferno",
+            "ammo-is-lrm-thunder-vibrabomb",
+            "ammo-is-mech-mortar-guided",
+            "ammo-is-narc-explosive",
+            "ammo-is-srm-acid",
+        ];
+        const tagsOf = (tech: string) => new Set(getEquipmentListByTech(tech).map(item => item.tag));
+        const [is, clan, mixedClan] = [tagsOf("is"), tagsOf("clan"), tagsOf("mclan")];
+        for (const tag of innerSphereOnly) {
+            const item = mechISAmmo.find(record => record.tag === tag);
+            expect(item, tag).toBeDefined();
+            expect(equipmentMatchesIdentifier(item!, tag.replace("ammo-is-", "ammo-")), tag).toBe(true);
+            expect(mechUniversalAmmo.some(record => equipmentMatchesIdentifier(record, tag.replace("ammo-is-", "ammo-"))), tag).toBe(false);
+            expect([is.has(tag), clan.has(tag), mixedClan.has(tag)], tag).toEqual([true, false, true]);
+        }
+    });
+
+    it("folds the Clan copies of Magnetic Pulse and Tandem-Charge rounds into the Inner Sphere records", () => {
+        // TO:AUE pp.182, 184: "Tech Base: Inner Sphere". The Inner Sphere record answers to the old Clan tag.
+        expect(mechClanAmmo.some(item => /^ammo-clan-(lrm-mag-pulse|srm-tandem-charge)$/.test(item.tag))).toBe(false);
+        const magPulse = mechISAmmo.find(item => item.tag === "ammo-is-lrm-magnetic-pulse")!;
+        const tandem = mechISAmmo.find(item => item.tag === "ammo-is-srm-tandem-charge")!;
+        expect(equipmentMatchesIdentifier(magPulse, "ammo-clan-lrm-mag-pulse")).toBe(true);
+        expect(equipmentMatchesIdentifier(magPulse, "ammo-lrm-mag-pulse")).toBe(true);
+        expect(equipmentMatchesIdentifier(tandem, "ammo-clan-srm-tandem-charge")).toBe(true);
+        // The iATM's own Improved Magnetic Pulse round is Clan technology and stays.
+        expect(mechClanAmmo.some(item => item.tag === "ammo-clan-iatm-mag-pulse")).toBe(true);
+    });
+
     it("keeps ProtoMech-only launchers off every non-ProtoMech unit", () => {
         const protoOnly = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment)
             .filter(item => /fusillade|protomech streak lrm|streak lrm \(protomech/i.test(item.name));
@@ -96,7 +144,7 @@ describe("equipment catalog provenance", () => {
         const lrm10 = isItems.find(item => item.tag === "lrm-10")!;
         const srm6 = isItems.find(item => item.tag === "srm-6")!;
         const standardLrmAmmo = mechUniversalAmmo.find(item => item.tag === "ammo-lrm-standard")!;
-        const swarmILrmAmmo = mechUniversalAmmo.find(item => item.tag === "ammo-lrm-swarm-i")!;
+        const swarmILrmAmmo = mechISAmmo.find(item => item.tag === "ammo-is-lrm-swarm-i")!;
         const standardSrmAmmo = mechUniversalAmmo.find(item => item.tag === "ammo-srm-standard")!;
 
         expect(getAmmoFamily(swarmILrmAmmo)).toBe("ammo-lrm-standard");
@@ -510,7 +558,8 @@ describe("ammunition Battle Value", () => {
     const heatSeeking = mechUniversalAmmo.find(item => item.tag === "ammo-lrm-heat-seeking")!;
 
     it("prices minefield munitions from rack size and shots (TO:AUE pp.185, 197-198)", () => {
-        const universal = (tag: string) => mechUniversalAmmo.find(item => item.tag === tag)!;
+        // The Thunder variants are Inner Sphere munitions (Batch 12d); the old tag is an alias.
+        const universal = (tag: string) => mechISAmmo.find(item => equipmentMatchesIdentifier(item, tag))!;
         const augmented = universal("ammo-lrm-thunder-augmented"); // 60 missiles per ton
         expect(getWeaponShotsPerTon(weapon("lrm-20"), lrmAmmo)).toBe(6);
         expect(getWeaponShotsPerTon(weapon("lrm-20"), augmented)).toBe(3);

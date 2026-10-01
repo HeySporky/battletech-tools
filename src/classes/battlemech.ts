@@ -1856,6 +1856,7 @@ export class BattleMech {
         let longTotalDamageRear = 0;
         let extremeTotalDamageRear = 0;
 
+        const selectedSpecialAmmoTag = this.getAlphaStrikeSpecialAmmoTag();
         for (let weapon_counter = 0; weapon_counter < this._equipmentList.length; weapon_counter++) {
             if (this._equipmentList[weapon_counter].explosive) {
                 has_explosive = true;
@@ -1863,7 +1864,7 @@ export class BattleMech {
             const equipment = this._equipmentList[weapon_counter];
             const appliesSelectedSpecialAmmo = equipment.isAmmo
                 && equipment.isSpecialAmmo
-                && matchesTag(equipment, this._alphaStrikeSpecialAmmoTag);
+                && equipment.tag === selectedSpecialAmmoTag;
             if (!equipment.isAmmo || appliesSelectedSpecialAmmo) {
                 for (const displayAbilityCode of getAlphaStrikeEquipmentDisplayAbilityCodes(equipment)) {
                 if (!this._alphaStrikeForceStats.abilityCodes.includes(displayAbilityCode)) {
@@ -4722,8 +4723,15 @@ export class BattleMech {
         return this.calcAlphaStrike();
     }
 
+    /**
+     * Tag of the selected special ammunition. A design saved before a munition was re-tagged stores
+     * the old tag, which the record keeps as an alias: the mounted round's current tag is returned.
+     */
     public getAlphaStrikeSpecialAmmoTag(): string {
-        return this._alphaStrikeSpecialAmmoTag;
+        const stored = this._alphaStrikeSpecialAmmoTag;
+        if (!stored) return stored;
+        const mounted = this.getAlphaStrikeSpecialAmmoOptions().find(ammo => equipmentMatchesIdentifier(ammo, stored));
+        return mounted?.tag ?? stored;
     }
 
     public getAlphaStrikeSpecialAmmoOptions(): IEquipmentItem[] {
@@ -4737,8 +4745,9 @@ export class BattleMech {
     }
 
     public setAlphaStrikeSpecialAmmoTag(ammoTag: string): string {
-        const selectedAmmo = this.getAlphaStrikeSpecialAmmoOptions()
-            .find(ammo => matchesTag(ammo, ammoTag));
+        const options = this.getAlphaStrikeSpecialAmmoOptions();
+        const selectedAmmo = options.find(ammo => ammo.tag === ammoTag)
+            ?? options.find(ammo => equipmentMatchesIdentifier(ammo, ammoTag));
         this._alphaStrikeSpecialAmmoTag = selectedAmmo?.tag ?? "";
         return this._alphaStrikeSpecialAmmoTag;
     }
@@ -5940,7 +5949,7 @@ export class BattleMech {
             tonnage: this.getTonnage(),
             as_role: this._alphaStrikeForceStats.role,
             as_value: this.getAlphaStrikeValue(),
-            as_special_ammo_tag: this._alphaStrikeSpecialAmmoTag,
+            as_special_ammo_tag: this.getAlphaStrikeSpecialAmmoTag(),
             battle_value: this.getBattleValue(),
             c_bills: this.getCBillCost(),
 
@@ -6047,9 +6056,12 @@ export class BattleMech {
 
     /** Re-creates one saved equipment item (import and OmniMech configuration switching). */
     private _restoreEquipmentItem( importItem: IBMEquipmentExport ): IEquipmentItem | null {
-        const restoredEquipment = this.addEquipmentFromTag(
+        // A saved design keeps whatever it mounted: Custom Homebrew, and equipment that has since
+        // moved to the other tech base's catalog. The tech and rules-level filters limit what can be
+        // added, not what can be loaded. The design's own tech base is tried first.
+        const restoreFrom = (equipmentListTag: string) => this.addEquipmentFromTag(
             importItem.tag,
-            this.getTech().tag,
+            equipmentListTag,
             importItem.loc,
             importItem.rear ? true : false,
             importItem.uuid,
@@ -6060,10 +6072,11 @@ export class BattleMech {
             importItem.split_location,
             importItem.currentAmmo,
             importItem.selectedAmmoBinUUID,
-            // A saved design keeps whatever it mounted, Custom Homebrew included; the rules-level
-            // filter limits what can be added, not what can be loaded.
             true,
         );
+        const techTag = this.getTech().tag;
+        const restoredEquipment = restoreFrom(techTag)
+            ?? (techTag === "clan" ? restoreFrom("mclan") : techTag === "is" ? restoreFrom("mis") : null);
         if (restoredEquipment && typeof importItem.currentAdditionalArmor === "number") {
             restoredEquipment.currentAdditionalArmor = importItem.currentAdditionalArmor;
         }
