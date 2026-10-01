@@ -145,3 +145,23 @@ Every armor now carries `book`/`page`, and every legacy `extinct: 0` / `reintrod
 | Electric Discharge ProtoMech (EDP) Armor | mech-armor-types.ts | added | IO:AE p.58 | none | Clan, ProtoMech only; ~3071 prototype, no production, extinct 3085 (IO:AE p.30); 75 kg/point (p.59); 1,250 C-bills per point (p.178), stored per ton; BV 32 as a weapon (p.190) |
 
 A regression test (`Batch 6b vehicle and ProtoMech armor`) pins both new records, and `vehicle.test.ts` covers the legacy-save mapping.
+
+## Batch 7: heat sinks
+
+Dates are from the IO:AE p.36 Universal Technology Advancement Table. Page convention used in this pass: `page` is the page of the item's rules box (Rules Level / Available To / Tech Base); IO:AE's reference column points to the entry heading, which can be one page earlier.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Single | mech-heat-sink-types.ts | fixed | TM p.220 | none | was `introduced` 1950, unsourced, page 221. TM p.220: "Introduced: Circa 2022 (Western Alliance, Terra)"; IO:AE p.36 lists Early Spaceflight, always available. Now 2022, p.220 |
+| Double [IS] | mech-heat-sink-types.ts | verified | TM p.221 | none | 2559p / 2567, extinct 2865, reintroduced 3040 |
+| Double [Clan] | mech-heat-sink-types.ts | verified | TM p.221 | none | ~2825p / ~2827; extinct/reintroduced → null |
+| Laser | mech-heat-sink-types.ts | verified | TO:AUE p.129 | none | Clan only; ~3040p / 3051; BattleMechs only; heading on p.128, rules box on p.129 |
+| Compact | mech-heat-sink-types.ts | verified | TO:AUE p.128 | none | IS only; 3058p / 3079; BattleMechs only |
+| Double (Prototype) | mech-heat-sink-types.ts | verified | IO:AE p.65 | none | 2559 prototype until production 2567; 18,000 C-bills (IO:AE p.211) |
+| Double (Freezers) | mech-heat-sink-types.ts | verified | IO:AE p.96 | none | 3022 prototype until recovery 3040; 30,000 C-bills (IO:AE p.213) |
+| ProtoMech Heat Sinks | – | gap | TM p.221 | none | Clan, ProtoMech only; ~3055p / 3060; not added: the heat sink list has no unit-type gate, so it would be offered to Clan 'Mechs. ProtoMech batch |
+| Radical Heat Sink System | mech-is-equipment-weapons-misc.ts | queued | IO:AE p.83 | none | ~3115p / 3122; misc batch |
+| Coolant Pod | – | queued | TO:AUE p.115 | none | 3049p / ~3079, Clan introduction 3079; misc batch |
+| RISC Emergency Coolant System, RISC Heat Sink Override Kit | misc catalogs | queued | IO:AE p.86 | none | prototypes 3136 / 3134, extinct 3140 / 3139; misc batch |
+
+Every legacy `extinct: 0` / `reintroduced: 0` changed to `null`; `book: "IO_AE"` became `"IO:AE"`. A regression test (`Batch 7 heat sink catalog`) pins the dates and sources.
