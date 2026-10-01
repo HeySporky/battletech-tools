@@ -1937,7 +1937,7 @@ describe("Batch 3 myomer catalog", () => {
 
     it("lists Super-Cooled Myomer as an experimental IS prototype (IO:AE p.88)", () => {
         const scm = myomer("risc-super-cooled-myomer");
-        expect(scm?.book).toBe("IO_AE");
+        expect(scm?.book).toBe("IO:AE");
         expect(scm?.page).toBe(88);
         expect(scm?.techBase).toBe("is");
         expect(scm?.criticals).toBe(6);
