@@ -341,3 +341,18 @@ All 118 Inner Sphere and 110 Clan missile records and the 3 Arrow IV records com
 **Derived dates.** One-shot, I-OS and Artemis IV records combine two published items. Each takes the later prototype and production year of its parts, and the earlier extinction and later recovery; nothing is printed for the combination itself.
 
 A regression test (`Batch 10c missile and artillery catalogs`) pins dates and sources for all 231 records.
+
+## Batch 11: jump jets
+
+Dates are from the IO:AE p.29 Universal Technology Advancement Table.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Standard Jump Jets | mech-jump-jet-types.ts | verified | TM p.225 | none | 2464p / 2471 |
+| Improved Jump Jets | mech-jump-jet-types.ts | fixed (flag) | TM p.225 | none | was IS 3067p / 3068 and Clan 3060p / 3068. IO:AE p.29: Clan Wolf-in-Exile ~3060 prototype, 3069 production; Inner Sphere introduction 3070, no Inner Sphere prototype in the table. Flag: IO:AE p.97 has a separate "Prototype Improved Jump Jets (IJJ-P)" item (Federated Suns, 3022) with its own rules; it is not catalogued |
+| UMU | mech-jump-jet-types.ts | fixed | TO:AUE p.107 | none | Inner Sphere production 3066. Clan: 3061 was stored as production; it is the Goliath Scorpion prototype, and the Clan introduction is 3072 |
+| ProtoMech Jump Jets, Extended Jump Jets (XJJ), ProtoMech UMUs | – | gap | TM p.225, IO:AE p.59, IO:AE p.95 | none | ProtoMech only; ProtoMech batch |
+| Jump Pack / 'Mech Drop Pack | – | gap | TO:AUE p.105 | none | ~2430p / 2457; not in any catalog; misc batch |
+| Vehicular Jump Jets | – | gap | TO:AUE p.161 | none | 2650p, extinct 2840, recovered ~3083; vehicle batch |
+
+Every jump jet now carries `book`/`page` (new optional `IJumpJet` fields), and the legacy `0` dates changed to `null`. A regression test (`Batch 11 jump jet catalog`) pins the dates and sources.

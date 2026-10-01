@@ -10,6 +10,7 @@ import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechCockpitTypes } from "../data/mech-cockpit-types";
+import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
 import { mechISEquipmentMissiles } from "../data/mech-is-equipment-weapons-missiles";
 import { mechClanEquipmentMissile } from "../data/mech-clan-equipment-weapons-missile";
 import { mechISEquipmentArtillery } from "../data/mech-is-equipment-weapons-artillery";
@@ -3037,6 +3038,29 @@ describe("Batch 10c missile and artillery catalogs", () => {
             expect(item.extinct, item.tag).not.toBe(0);
             expect(item.reintroduced, item.tag).not.toBe(0);
             expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
+
+describe("Batch 11 jump jet catalog", () => {
+    const jumpJet = (tag: string) => mechJumpJetTypes.find(item => item.tag === tag);
+
+    it("dates jump jets from the IO:AE p.29 universal advancement table", () => {
+        expect([jumpJet("standard")?.prototype, jumpJet("standard")?.introduced]).toEqual([2464, 2471]);
+        // Improved Jump Jets: Clan Wolf-in-Exile ~3060 prototype, 3069 production; Inner Sphere introduction 3070.
+        expect([jumpJet("improved")?.prototype, jumpJet("improved")?.introduced]).toEqual([undefined, 3070]);
+        expect(jumpJet("improved")?.clanDates).toEqual({ prototype: 3060, introduced: 3069, extinct: null, reintroduced: null });
+        // UMUs: Goliath Scorpion ~3061 prototype, Lyran production 3066, Clan introduction 3072.
+        expect([jumpJet("umu")?.prototype, jumpJet("umu")?.introduced]).toEqual([undefined, 3066]);
+        expect(jumpJet("umu")?.clanDates).toEqual({ prototype: 3061, introduced: 3072, extinct: null, reintroduced: null });
+    });
+
+    it("cites a book and page for every jump jet and uses null for unknown dates", () => {
+        const pages: Record<string, [string, number]> = { standard: ["TM", 225], improved: ["TM", 225], umu: ["TO:AUE", 107] };
+        for (const item of mechJumpJetTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+            expect(item.extinct, item.tag).toBeNull();
+            expect(item.reintroduced, item.tag).toBeNull();
         }
     });
 });
