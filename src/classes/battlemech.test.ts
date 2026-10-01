@@ -10,6 +10,8 @@ import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechCockpitTypes } from "../data/mech-cockpit-types";
+import { mechISEquipmentBallistic } from "../data/mech-is-equipment-weapons-ballistic";
+import { mechClanEquipmentBallistic } from "../data/mech-clan-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "../data/mech-is-equipment-weapons-energy";
 import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
@@ -2592,6 +2594,132 @@ describe("Batch 10a energy weapon catalogs", () => {
 
     it("uses null, not 0, for unknown dates in the clanEnergy records", () => {
         for (const item of mechClanEquipmentEnergy) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
+
+describe("Batch 10b ballistic weapon catalogs", () => {
+    it("dates and cites the isBallistic records (IO:AE pp.29-38)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "autocannon-standard-a": [2290, 2300, null, null, "TM", 208],
+            "autocannon-standard-b": [2240, 2250, null, null, "TM", 208],
+            "autocannon-standard-c": [2443, 2460, null, null, "TM", 208],
+            "autocannon-standard-d": [2488, 2500, null, null, "TM", 208],
+            "gauss-rifle-light": [3049, 3056, null, null, "TM", 219],
+            "standard-gauss-rifle": [2587, 2590, 2865, 3040, "TM", 219],
+            "gauss-rifle-heavy": [3051, 3061, null, null, "TM", 219],
+            "gauss-rifle-heavy-improved": [3065, 3081, null, null, "TO:AUE", 126],
+            "silver-bullet-gauss-rifle": [3051, 3080, null, null, "TO:AUE", 127],
+            "gauss-rifle-magshot": [3059, 3072, null, null, "TO:AUE", 126],
+            "autocannon-lbx-2": [3055, 3058, null, null, "TM", 208],
+            "autocannon-lbx-5": [3055, 3058, null, null, "TM", 208],
+            "autocannon-lbx-10": [2590, 2595, 2840, 3035, "TM", 208],
+            "autocannon-lbx-20": [3055, 3058, null, null, "TM", 208],
+            "autocannon-light-2": [3062, 3068, null, null, "TM", 208],
+            "autocannon-light-5": [3062, 3068, null, null, "TM", 208],
+            "machine-gun": [undefined, 1950, null, null, "TM", 228],
+            "machine-gun-heavy": [3063, 3068, null, null, "TM", 228],
+            "machine-gun-light": [3064, 3068, null, null, "TM", 228],
+            "melee-hatchet": [3015, 3022, null, null, "TM", 220],
+            "melee-sword": [3050, 3058, null, null, "TM", 237],
+            "rotary-ac-2": [3060, 3062, null, null, "TM", 208],
+            "rotary-ac-5": [3060, 3062, null, null, "TM", 208],
+            "autocannon-ultra-a": [3055, 3057, null, null, "TM", 208],
+            "autocannon-ultra-b": [2635, 2640, 2915, 3035, "TM", 208],
+            "autocannon-ultra-c": [3055, 3057, null, null, "TM", 208],
+            "autocannon-ultra-d": [3057, 3060, null, null, "TM", 208],
+            "primitive-prototype-ac-2": [2290, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-ac-5": [2240, null, 2250, null, "IO:AE", 112],
+            "primitive-prototype-ac-10": [2443, null, 2460, null, "IO:AE", 112],
+            "primitive-prototype-ac-20": [2490, null, 2500, null, "IO:AE", 112],
+            "prototype-autocannon-lbx-10": [2590, null, 2595, 3030, "IO:AE", 66],
+            "prototype-gauss-rifle": [2587, null, 2590, 3038, "IO:AE", 66],
+            "prototype-autocannon-uac-5": [3029, null, 3035, null, "IO:AE", 98],
+            "light-rifle": [undefined, 1950, 2825, 3084, "TO:AUE", 150],
+            "medium-rifle": [undefined, 1950, 2825, 3084, "TO:AUE", 150],
+            "heavy-rifle": [undefined, 1950, 2825, 3084, "TO:AUE", 150],
+            "is-ams": [2613, 2617, 2835, 3045, "TM", 204],
+            "is-machine-gun-array": [3066, 3068, null, null, "TM", 228],
+            "is-light-machine-gun-array": [3066, 3068, null, null, "TM", 228],
+            "is-heavy-machine-gun-array": [3066, 3068, null, null, "TM", 228],
+            "is-hvac-2": [3059, 3079, null, null, "TO:AUE", 97],
+            "is-hvac-5": [3059, 3079, null, null, "TO:AUE", 97],
+            "is-hvac-10": [3059, 3079, null, null, "TO:AUE", 97],
+            "is-risc-apds": [3134, 3137, null, null, "IO:AE", 85],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentBallistic.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isBallistic records", () => {
+        for (const item of mechISEquipmentBallistic) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanBallistic records (IO:AE pp.29-38)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "clan-autocannon-lbx-5": [2824, 2826, null, null, "TM", 208],
+            "clan-autocannon-lbx-2": [2824, 2826, null, null, "TM", 208],
+            "clan-autocannon-lbx-10": [2824, 2826, null, null, "TM", 208],
+            "clan-autocannon-lbx-20": [2824, 2826, null, null, "TM", 208],
+            "clan-autocannon-rac-2": [3073, 3104, null, null, "TO:AUE", 98],
+            "clan-autocannon-rac-5": [3073, 3104, null, null, "TO:AUE", 98],
+            "clan-autocannon-uac-2": [2825, 2827, null, null, "TM", 208],
+            "clan-autocannon-uac-5": [2825, 2827, null, null, "TM", 208],
+            "clan-autocannon-uac-10": [2825, 2827, null, null, "TM", 208],
+            "clan-autocannon-uac-20": [2825, 2827, null, null, "TM", 208],
+            "hyper-assault-gauss-20": [3062, 3068, null, null, "TM", 219],
+            "hyper-assault-gauss-30": [3062, 3068, null, null, "TM", 219],
+            "hyper-assault-gauss-40": [3062, 3068, null, null, "TM", 219],
+            "protomech-autocannon-2": [3070, 3073, null, null, "TO:AUE", 98],
+            "protomech-autocannon-4": [3070, 3073, null, null, "TO:AUE", 98],
+            "protomech-autocannon-8": [3070, 3073, null, null, "TO:AUE", 98],
+            "ap-gauss-rifle": [3065, 3069, null, null, "TM", 219],
+            "clan-sl-autocannon-standard-a": [2290, 2300, 2850, null, "TM", 208],
+            "clan-sl-autocannon-standard-b": [2240, 2250, 2850, null, "TM", 208],
+            "clan-sl-autocannon-standard-c": [2443, 2460, 2850, null, "TM", 208],
+            "clan-sl-autocannon-standard-d": [2488, 2500, 2850, null, "TM", 208],
+            "clan-sl-machine-gun": [undefined, 1950, 2826, null, "TM", 228],
+            "clan-machine-gun": [2821, 2825, null, null, "TM", 228],
+            "clan-light-machine-gun": [3055, 3060, null, null, "TM", 228],
+            "clan-heavy-machine-gun": [3054, 3059, null, null, "TM", 228],
+            "clan-gauss-rifle": [2822, 2828, null, null, "TM", 219],
+            "clan-improved-ac-2": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "clan-improved-ac-5": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "clan-improved-ac-10": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "clan-improved-ac-20": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "clan-improved-gauss-rifle": [2818, 2821, 2837, 3080, "IO:AE", 90],
+            "clan-ams": [2824, 2831, null, null, "TM", 204],
+            "clan-machine-gun-array": [undefined, 3069, null, null, "TM", 228],
+            "clan-light-machine-gun-array": [undefined, 3069, null, null, "TM", 228],
+            "clan-heavy-machine-gun-array": [undefined, 3069, null, null, "TM", 228],
+            "clan-prototype-lb-2-x-ac": [2820, null, 2826, null, "IO:AE", 91],
+            "clan-prototype-lb-5-x-ac": [2820, null, 2825, null, "IO:AE", 91],
+            "clan-prototype-lb-20-x-ac": [2820, null, 2826, null, "IO:AE", 91],
+            "clan-prototype-ultra-ac-2": [2820, null, 2827, null, "IO:AE", 92],
+            "clan-prototype-ultra-ac-10": [2820, null, 2825, null, "IO:AE", 92],
+            "clan-prototype-ultra-ac-20": [2820, null, 2825, null, "IO:AE", 92],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentBallistic.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanBallistic records", () => {
+        for (const item of mechClanEquipmentBallistic) {
             expect(item.introduced, item.tag).not.toBe(0);
             expect(item.extinct, item.tag).not.toBe(0);
             expect(item.reintroduced, item.tag).not.toBe(0);

@@ -281,3 +281,30 @@ All 46 Inner Sphere and 39 Clan records compared with the IO:AE pp.29–40 advan
 | **Enhanced ER Large Laser** | mech-clan-equipment-weapons-energy | **unsourced (flag)** | "IO 189" | none | not found in IO (2016) or IO:AE: both list only the Improved Large Laser, Improved Large Pulse Laser, Improved PPC and Enhanced PPC. Record left as it was. For the user. Proposed: move to custom or remove |
 
 A regression test (`Batch 10a energy weapon catalogs`) pins dates and sources for all 85 records.
+
+## Batch 10b: ballistic weapons, Inner Sphere and Clan catalogs
+
+All 45 Inner Sphere and 41 Clan records compared with the IO:AE pp.29–38 advancement table. Every `extinct: 0` / `reintroduced: 0` became `null`. TechManual pages now point at the rules box: AUTOCANNON p.208 (standard, LB-X, Ultra, Rotary, Light), GAUSS RIFLE p.219, MACHINE GUN p.228, ANTI-MISSILE SYSTEM p.204. Rows below are the records where dates or sources changed, plus flags.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Clan Rotary AC/2, /5 | mech-clan-equipment-weapons-ballistic | fixed | TO:AUE p.98 | none | `introduced` 3073 was the prototype year; now 3073p / 3104. Was "TO 0" |
+| Hyper-Assault Gauss 20 / 30 / 40 | mech-clan-equipment-weapons-ballistic | fixed | TM p.219 | none | now ~3062p / 3068 (was `introduced` 3062, "TO 0") |
+| ProtoMech AC/2, /4, /8 | mech-clan-equipment-weapons-ballistic | fixed | TO:AUE p.98 | none | now ~3070p / 3073 (was `introduced` 3070, "TO 0") |
+| Improved Heavy Gauss Rifle | mech-is-equipment-weapons-ballistic | fixed | TO:AUE p.126 | none | now 3065p / 3081 (was `introduced` 3065, "TO 313") |
+| Silver Bullet Gauss Rifle | mech-is-equipment-weapons-ballistic | fixed | TO:AUE p.127 | none | now 3051p / 3080 (was `introduced` 3051, "TO 314") |
+| MagShot Gauss Rifle | mech-is-equipment-weapons-ballistic | fixed | TO:AUE p.126 | none | was "TO 314"; ~3059p / 3072 |
+| Light / Medium / Heavy Rifle (Cannon) | mech-is-equipment-weapons-ballistic | fixed | TO:AUE p.150 | none | were "TO 0" with no extinction. Pre-spaceflight; extinct ~2825, recovered ~3084 for all factions (IO:AE p.32) |
+| HVAC/2, /5, /10 | mech-is-equipment-weapons-ballistic | fixed | TO:AUE p.97 | none | were "TO 285"; 3059p / 3079 |
+| Clan LB-X ACs | mech-clan-equipment-weapons-ballistic | fixed | TM p.208 | none | page 287 → 208 |
+| Clan Ultra ACs, AP Gauss Rifle | mech-clan-equipment-weapons-ballistic | fixed | TM pp.208, 219 | none | were "TO 0" |
+| Primitive Prototype AC/2, /5, /10, /20 | mech-is-equipment-weapons-ballistic | fixed (flag) | IO:AE p.112 | none | were "TO 0", 2300–2460 for all four. Prototype Dates for Basic Weapons Table: 2290, 2240, 2443, 2490; each ends at standard production (2300, 2250, 2460, 2500). Flag: the p.32 advancement table prints 2488 for the AC/20 prototype |
+| Prototype LB 10-X AC | mech-is-equipment-weapons-ballistic | fixed | IO:AE p.66 | none | 2590 prototype until production 2595; recovered prototype 3030 (IO:AE p.98; was 3035, the recovery production year). Was "TO 0" |
+| Prototype Gauss Rifle | mech-is-equipment-weapons-ballistic | fixed | IO:AE p.66 | none | 2587 prototype until 2590; recovered prototype 3038 (IO:AE p.97). Was "TO 0" |
+| Prototype Ultra AC/5 | mech-is-equipment-weapons-ballistic | fixed | IO:AE p.98 | none | recovered prototype 3029 until production 3035. Was "TO 0" |
+| Improved Autocannons, Improved Gauss Rifle | mech-clan-equipment-weapons-ballistic | fixed | IO:AE p.90 | none | were "IO 96" / no page |
+| Clan prototype LB-X and Ultra ACs | mech-clan-equipment-weapons-ballistic | fixed (flag) | IO:AE pp.91–92 | none | were "IO", no page. End years follow the pp.91–92 text (LB 5-X 2825, LB 2-X / 20-X 2826; Ultra 10 / 20 2825, Ultra 2 2827). Flag: the p.32 advancement table gives one production year per family (LB-X ~2826, Ultra ~2827), which the production records use |
+| RISC Advanced Point Defense System | mech-is-equipment-weapons-ballistic | fixed | IO:AE p.85 | none | was "IO 91"; 3134p / 3137 |
+| Heavy Gauss Rifle | mech-is-equipment-weapons-ballistic | fixed | TM p.219 | none | page 218 → 219 |
+
+A regression test (`Batch 10b ballistic weapon catalogs`) pins dates and sources for all 86 records.
