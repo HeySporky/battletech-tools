@@ -335,6 +335,8 @@ export interface IGyro {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    book?: string;
+    page?: number | null;
     available?: boolean;
     availableAsPrototype?: boolean;
 }

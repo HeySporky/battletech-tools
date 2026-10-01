@@ -984,6 +984,22 @@ describe("BattleMech engine construction", () => {
         expect(mech.getEngineType().tag).toBe("standard");
     });
 
+    it("weighs the Superheavy Gyro at engine rating / 50, rounded up, whatever gyro is selected (IO p.162)", () => {
+        expect(build(150, 2, "standard").getGyroWeight()).toBe(6); // rating 300
+        expect(build(175, 2, "standard").getGyroWeight()).toBe(7); // rating 350
+        const xl = build(150, 2, "standard");
+        xl.setGyroTypeByName("Extra-light (XL) Gyro");
+        expect(xl.getGyroWeight()).toBe(6);
+    });
+
+    it("gives the Superheavy Gyro two center torso slots (IO p.162)", () => {
+        const gyroSlots = (mech: BattleMech) =>
+            mech.getCriticals().centerTorso.filter(item => item?.tag === "gyro")
+                .reduce((total, item) => total + (item?.crits ?? 1), 0);
+        expect(gyroSlots(build(150, 2, "standard"))).toBe(2);
+        expect(gyroSlots(build(100, 2, "standard"))).toBe(4);
+    });
+
     it("applies structure type BV modifiers and keeps Composite Inner Sphere only (TO:AUE p.154)", () => {
         const log = (tag: string) => {
             const mech = build(50, 4, "standard", "is", "ilClan");
