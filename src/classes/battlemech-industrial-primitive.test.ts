@@ -259,6 +259,9 @@ describe("Extended Fuel Tanks (TM pp.68, 244)", () => {
         const log = mech.getBVCalcHTML();
         expect(log.match(/Explosive Ammo Crit in leftTorso \(Inner Sphere, -15\)/g)).toHaveLength(2);
         expect(log).not.toContain("Explosive Component Crit (Extended Fuel Tank)");
+    });
+});
+
 describe("Fire control to-hit modifiers in play (TM p.69; IO:AE p.114)", () => {
     const target = { name: "Target", active: true, range: 1, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false };
     const shot = (mech: BattleMech, weaponTag = "medium-laser", targetOtherMods = 0) => {

@@ -1436,6 +1436,7 @@ Flags:
 - **Not covered:** Combat Vehicles, Support Vehicles and fighters; Alpha Strike conversion of the per-location types (the Alpha Strike armor value already ignores armor type modifiers); OmniMech pod rules; importing patchwork designs from SSW or MTF files.
 
 Regression tests: `battlemech-patchwork-armor.test.ts`; `e2e/mech-patchwork-armor.spec.ts`.
+
 ## Batch 60: Environmental Sealing and Extended Fuel Tanks for IndustrialMechs
 
 Owed from Batch 56. Environmental Sealing had a record; it was offered to BattleMechs and rounded its weight to the half ton. Extended Fuel Tanks had no record.
@@ -1459,6 +1460,7 @@ Flags:
 - **Play rules** (the 40-point explosion per ton; Environmental Sealing letting an IndustrialMech submerge or work in vacuum) are not modeled.
 
 Regression tests: `Environmental Sealing`, `Extended Fuel Tanks` in `battlemech-industrial-primitive.test.ts`; `variable-equipment.test.ts`.
+
 ## Batch 61: RetroTech
 
 Owed from Batch 57. A Primitive 'Mech that carries modern equipment is a RetroTech unit; the builder now says so.
@@ -1477,6 +1479,7 @@ Flags:
 - The record sheet does not print the construction name; the readouts do.
 
 Regression tests: `RetroTech` in `battlemech-industrial-primitive.test.ts`; `e2e/mech-primitive.spec.ts`.
+
 ## Batch 62: IndustrialMech fire control in play
 
 Owed from Batches 56 and 57. The play mode's to-hit numbers (the GATOR in the roster and on the record sheet) now carry the IndustrialMech fire control modifier.

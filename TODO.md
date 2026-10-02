@@ -385,10 +385,17 @@ Ultralight and Superheavy (tonnage); OmniMech and Primitive (checkboxes); Indust
   pp.116-118). Checked against the book's Mackie.
 - [x] Dark Age armors on IndustrialMechs (Batch 58; upstream #105): mixed tech base at the Experimental
   rules level (IO:AE p.82).
-- [ ] IndustrialMechs still owed: Environmental Sealing, fuel and extended fuel tanks, the to-hit and
-  critical hit rules in play. The builder still offers ICE and fuel cell engines to BattleMechs.
-- [ ] Primitive 'Mechs still owed: a RetroTech label and the pre-2501 equipment limit for a true Primitive
-  (IO:AE p.116); the play rules of p.114.
+- [x] Environmental Sealing (IndustrialMechs only, full-ton rounding) and Extended Fuel Tanks (Batch 60;
+  upstream #107). Fire control to-hit in play: IndustrialMech +1 without Advanced Fire Control, Primitive
+  IndustrialMech cockpit +2 / +1 (Batch 62; upstream #109).
+- [ ] IndustrialMechs still owed: Extended Fuel Tanks on Combat Vehicles (vehicle builder cannot size
+  variable equipment); critical hit roll modifiers (the 'Mech play mode does not roll for critical hits).
+  The builder still offers ICE and fuel cell engines to BattleMechs.
+- [x] RetroTech label (Batch 61; upstream #108): a Primitive 'Mech with anything introduced after 2500, or
+  non-standard jump jets, is RetroTech; readouts print "Construction: ...". No hard pre-2501 limit: RetroTech
+  may carry any era's equipment (IO:AE p.116).
+- [ ] Primitive 'Mechs still owed: critical hit roll modifiers (+2 / +4, IO:AE p.114) once the 'Mech play
+  mode rolls for critical hits.
 - [x] Primitive record sheet, TRO and Alpha Strike card checked by eye (2026-10-02) with the book's Mackie
   (IO:AE pp.117-118): tonnage, engine 360 / 33 t, gyro, cockpit, 17 sinks (3 outside the engine), 214 armor
   points by location, structure, Primitive Prototype PPC at 15 heat, Experimental rules level (prototype
@@ -416,6 +423,9 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
 | #104 | `canon-pass/unit-domain-catalogs` (ledger `tools/canon-pass-ledger-unit-catalogs.md`) | ready, independent |
 | #105 | `canon-pass/7-industrial-primitive-mechs` | draft, on #103 |
 | #106 | `patchwork-armor` | draft, on #105 |
+| #107 | `industrialmech-sealing-fuel` | draft, on #105 |
+| #108 | `primitive-retrotech` | draft, on #105 |
+| #109 | `industrialmech-to-hit` | draft, on #105 |
 
 - [ ] As each part merges upstream, rebase the next branch on upstream master and mark it ready.
 - [ ] #91 and #94 (Clan eras) touch the same catalogs; whichever set merges second needs a rebase. The
