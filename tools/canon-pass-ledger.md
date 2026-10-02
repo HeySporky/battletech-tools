@@ -1255,3 +1255,35 @@ Flags:
 - The HarJel II / III armor list no longer names a "heavy-industrial" tag: that armor is Standard.
 
 Regression tests: `Batch 50 IndustrialMech armor`.
+
+## Batch 54: industrial equipment for vehicles; vehicles no longer offered 'Mech-only equipment
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Vehicle equipment filter | vehicle.ts | **fixed** | TM pp.341-345; TO:AUE pp.217-223 | n/a | The vehicle builder never looked at the combat vehicle slot column, so it offered equipment the tables mark "NA" for vehicles (MASC, Null-Signature System, HarJel II, Collapsible Command Module, Full-Head Ejection System, Coolant Pod and so on). Equipment with no combat vehicle slot value is no longer offered |
+| Bulldozer | mech-universal-equipment | **added** | TM p.242; table p.344; cost p.292 | TM v8.0: none | 2 tons, 50,000 C-bills, combat and support vehicles |
+| Field Kitchen | same | **added** | TM p.217; p.344; cost p.293 | none | 3 tons, 25,000 C-bills, vehicles |
+| Fluid Suction System (Standard), (Light, 'Mech), (Light, Vehicular) | same | **added** (3) | TM pp.247-248; pp.344; cost p.293 | v8.0: Ref 247 -> 248 for the light systems | 1 ton / 0.5 ton / 15 kg; 25,000 / 1,000 / 1,000 C-bills |
+| Arresting Hoist | same | **added** | TM p.245; p.345; cost p.293 | none | 3 tons, 90,000 C-bills, support vehicles. It was only a second name on the Lift Hoist record; that alias is removed |
+| Look-Down Radar | same | **added** | TM p.227; p.345; cost p.293 | none | 5 tons, 400,000 C-bills |
+| Manipulator | same | **added** | TM p.245; p.345; cost p.293 | none | 10 kg, 7,500 C-bills, vehicles |
+| MASH (Core Unit), (Added Theater) | same | **added** (2) | TM p.228; p.345; cost p.293 | none | 3.5 tons / 1 ton; 35,000 / 10,000 C-bills |
+| Paramedic Equipment | same | **added** | TM p.233; p.345; cost p.293 | none | 0.25 ton, 7,500 C-bills, 'Mechs and vehicles |
+| Refueling Drogue | same | **added** | TM p.247; p.345; cost p.293 | none | 1 ton, 25,000 C-bills |
+| Sprayer ('Mech), (Vehicular) | same | **added** (2) | TM p.248; p.345; cost p.293 | none | 0.5 ton / 15 kg; 1,000 C-bills each. The 'Mech sprayer is ~2305 / ~2315 (IO:AE p.35) |
+| Cargo Container | same | **added** | TM p.239; p.345; cost p.293 | none | 10 tons, 1 slot on 'Mechs and vehicles, no cost |
+| External Stores Hardpoint | same | **added** | TM p.216; p.344; cost p.292 | none | 0.2 ton, 5,000 C-bills, support vehicles |
+| Quarters (Steerage), (Crew / 2nd Class), (Officer / 1st Class); Seating (Standard), (Pillion) | same | **added** (5) | TM p.236; p.345; cost p.293 | none | 5 / 7 / 10 tons; 75 kg / 25 kg |
+| Escape Pod (Aerospace), (Maritime); Lifeboat (Aerospace), (Atmospheric), (Maritime) | same | **added** (5) | TM pp.216, 227; pp.344-345; cost pp.292-293 | none | 7 tons each except the 1-ton atmospheric and maritime lifeboats |
+
+All 26 are Universal records (the same for both tech bases), with Battle Value 0, the slot columns of the TM table, and IO:AE dates (pp.34-36, 39, 43): Pre-Spaceflight 1950, Early Spaceflight 2100.
+
+Flags:
+
+- **Still owed from this table (variable size or priced by formula):** Communications Equipment (per ton), Dumper, Extended Fuel Tanks, Ladder, Pintle Mount, Power Amplifiers, transport bays other than the container (cargo by the ton, infantry compartments and bays, unit cubicles), Bay Doors, Concealed Weapon, Support Vehicle fire control, Combat Crew seating (no cost row), the handheld Searchlight.
+- **Look-Down Radar** and **Field Kitchen** and **External Stores Hardpoint** have no row in the IO:AE advancement table; they carry TechManual's three-era availability in their notes. IO:AE's "Satellite Imager [Look-Down Radar]" (TO:AUE p.150) is a different item.
+- **Refueling Drogue availability:** IO:AE A-A-A-A against TechManual's B-B-B; IO:AE used.
+- **Support vehicle, fighter, small craft and DropShip columns** are recorded but nothing reads them yet.
+- The 'Mech builder already left out equipment with no 'Mech slot value; only the vehicle builder was missing the check.
+
+Regression tests: `Batch 54 industrial equipment for vehicles and the combat vehicle slot column` (vehicle.test.ts), `Batch 54 industrial equipment on 'Mechs` (battlemech.test.ts).
