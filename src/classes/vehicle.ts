@@ -10,7 +10,7 @@ import Pilot, { IPilot } from "./pilot";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { mechEngineOptions } from "../data/mech-engine-options";
-import { getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
+import { engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions } from "../data/era-options";
@@ -410,7 +410,6 @@ const LOCATION_NAMES: Record<VehicleLocation, string> = {
 };
 
 // Free heat sinks from the engine: fusion 10, fission 5, fuel cell 1, ICE none (as implemented by MegaMek Engine).
-const FUSION_ENGINE_TAGS = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl", "primitive"];
 
 // Item slots an engine takes in a vehicle (as implemented by MegaMek Tank.getFreeSlots).
 const ENGINE_ITEM_SLOTS: Record<string, number> = { light: 1, xl: 2, clan_xl: 1, xxl: 4, clan_xxl: 2, compact: -1 };
@@ -1158,6 +1157,8 @@ export default class Vehicle {
     private _isEquipmentAllowedForVehicle(item: IEquipmentItem): boolean {
         if (item.requiresHandActuator) return false;
         if (item.metadata?.domains && !item.metadata.domains.includes("vehicle")) return false;
+        // TSEMP cannons need a fusion or fission engine, the BattleMech Taser a fusion engine (IO:AE p.85, TO:AUE p.158).
+        if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) return false;
 
         const tag = item.tag.toLowerCase();
         const name = item.name.toLowerCase();
@@ -1187,7 +1188,11 @@ export default class Vehicle {
         const asPrototype = !inProduction && effectiveIntroduction !== item.introduced
             && this._itemIsAvailable(effectiveIntroduction, item.extinct, item.reintroduced);
         item.availableAsPrototype = asPrototype;
-        item.available = (inProduction || asPrototype) && this._isEquipmentAllowedForVehicle(item);
+        // One unit carries at most `maxPerUnit` of an item, or of its group (one RISC Viral Jammer of any type).
+        const limitKey = item.maxPerUnitGroup ?? item.tag;
+        const underUnitLimit = !item.maxPerUnit
+            || this._equipmentList.filter(installed => (installed?.maxPerUnitGroup ?? installed?.tag) === limitKey).length < item.maxPerUnit;
+        item.available = (inProduction || asPrototype) && this._isEquipmentAllowedForVehicle(item) && underUnitLimit;
     }
 
     public getAvailableEquipment(includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {

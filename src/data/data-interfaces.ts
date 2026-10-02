@@ -298,6 +298,10 @@ export interface IEquipmentItem {
     chassisTypes?: string[];
     /** Most copies of this item one unit may mount (e.g. LAM Bomb Bays, 20). */
     maxPerUnit?: number;
+    /** Items sharing a group count together against `maxPerUnit` (the two RISC Viral Jammers: one of any type). */
+    maxPerUnitGroup?: string;
+    /** Engine the unit must have: fusion, or fusion or fission. Unset = any engine. */
+    requiresEngine?: "fusion" | "fusion-or-fission";
     /** Bombs: bomb bay (or fighter bomb) slots one bomb occupies. Bombs are loaded, not mounted. */
     bombBaySlots?: number;
 }
