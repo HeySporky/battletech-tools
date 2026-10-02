@@ -44,7 +44,8 @@ export const mechArmorTypes: IArmorType[] = [
 		reintroduced: null,
 		page: 205,
 		book: "TM",
-		prototype: 2460
+		prototype: 2460,
+		notes: "On an IndustrialMech this is Heavy Industrial armor: \"Functionally identical to standard battlefield armor\" and priced the same (TM pp.205, 278)."
 	},
 	{
 		name: "Ferro Fibrous",
@@ -443,10 +444,46 @@ export const mechArmorTypes: IArmorType[] = [
 		clanDates: { prototype: 2820, introduced: 2825, extinct: null, reintroduced: null }
 	},
 	{
+		name: "Industrial Armor",
+		tag: "industrial",
+		industrialMechOnly: true,
+		unitTypes: {
+			battlemech: true,
+			protomech: false,
+			combatVehicle: false,
+			supportVehicle: false,
+			aerospaceFighter: false,
+			smallCraft: false,
+			dropShip: false,
+			battleArmor: false,
+			jumpShip: false,
+			warShip: false
+		},
+		armorMultiplier: {
+			clan: 16 * 0.67,
+			is: 16 * 0.67,
+		},
+		crits: {
+			clan: 0,
+			is: 0,
+		},
+		critLocs: {},
+		costMultiplier: 5000,
+		introduced: 2439,
+		extinct: null,
+		reintroduced: null,
+		bvMultiplier: 1,
+		prototype: 2430,
+		book: "TM",
+		page: 205,
+		notes: "IndustrialMech only, either tech base. BAR 10; 16 x 0.67 points per ton, rounded down (TM p.72). 5,000 C-bills per ton, rating C (TM p.278)."
+	},
+	{
 		name: "Commercial Armor",
 		tag: "commercial",
+		industrialMechOnly: true,
 		unitTypes: {
-			battlemech: false,
+			battlemech: true,
 			protomech: false,
 			combatVehicle: false,
 			supportVehicle: false,

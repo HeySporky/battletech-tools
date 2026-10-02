@@ -1237,3 +1237,21 @@ Flags:
 - The Command Console option for superheavy bipeds and quads is still not selectable.
 
 Regression tests: `Batch 48 superheavy IndustrialMechs and superheavy engines`.
+
+## Batch 50: IndustrialMech armor
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Industrial Armor | mech-armor-types | **added** | TM p.205 ("Introduced: 2439 (Terran Hegemony)"), p.72 (table), p.278 (cost), p.315 (BV modifier 1.0) | TM v8.0: none | Either tech base, IndustrialMechs only. 16 x 0.67 points per ton, rounded down (the p.72 examples give 53, 37 and 10 points for 5, 3.5 and 1 ton), BAR 10, no critical slots, 5,000 C-bills per ton, rating C (B-C-B). Prototype ~2430 from IO:AE p.29 |
+| Commercial Armor | same | **enabled** | TM pp.72, 205, 278, 315 | none | Was in the catalog but could not be selected. Now offered to IndustrialMechs: 16 x 1.5 points per ton, BAR 5, 3,000 C-bills per ton, armor BV x0.5 |
+| Heavy Industrial Armor | same | **no separate record** | TM p.205 | none | "Functionally identical to standard battlefield armor - and thus equally expensive"; the cost table has one row, "Standard/Heavy Industrial". The Standard record carries the note and is what an IndustrialMech selects |
+| Armor an IndustrialMech may carry | battlemech.ts | **enforced** | TM p.72; IO:AE p.82 | none | "IndustrialMechs may not carry Ferro-Fibrous or Stealth armor"; the Dark Age armors only "under Experimental Mixed-Tech rules". A 'Mech on industrial structure is offered Commercial, Industrial and Standard only; a BattleMech is not offered the industrial grades; a design left with the wrong armor after a structure change is reported |
+
+Flags:
+
+- **BAR.** Commercial armor's BAR 5 (and the critical-hit consequences in play) is noted on the record, not modelled.
+- **Primitive IndustrialMech armor** (IO:AE p.118) is not offered to IndustrialMechs here; Primitive 'Mech construction is still owed.
+- **Dark Age armors on IndustrialMechs** under Experimental Mixed-Tech rules: not offered. Say if they should be at the Experimental rules level with a mixed tech base.
+- The HarJel II / III armor list no longer names a "heavy-industrial" tag: that armor is Standard.
+
+Regression tests: `Batch 50 IndustrialMech armor`.

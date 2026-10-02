@@ -1763,8 +1763,8 @@ export class BattleMech {
         return /^(clan-)?c3i/.test(item.tag.toLowerCase());
     }
 
-    /** Armor a HarJel II or III repair system works with (IO:AE pp.82-83). */
-    private static readonly REPAIR_SYSTEM_ARMOR_TAGS = ["standard", "heavy-industrial", "light-ferro-fibrous", "ferro-fibrous", "heavy-ferro-fibrous"];
+    /** Armor a HarJel II or III repair system works with (IO:AE pp.82-83); heavy industrial armor is Standard armor. */
+    private static readonly REPAIR_SYSTEM_ARMOR_TAGS = ["standard", "light-ferro-fibrous", "ferro-fibrous", "heavy-ferro-fibrous"];
 
     private static _needsAdvancedFireControl(item: IEquipmentItem): boolean {
         const tag = item.tag.toLowerCase();
@@ -4710,7 +4710,8 @@ export class BattleMech {
                 const supportsTech = techTag === "mis" || techTag === "mclan"
                     ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
                     : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0;
-                if (armor.unitTypes.battlemech && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && supportsTech) {
+                if (armor.unitTypes.battlemech && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && supportsTech
+                    && this._isArmorLegalForChassis(armor)) {
                     this._armorType = armor;
                     this._calc();
                 }
@@ -5641,6 +5642,11 @@ export class BattleMech {
             violations.push(this.isIndustrialMech()
                 ? "Superheavy IndustrialMechs may use only standard fusion engines."
                 : "Superheavy 'Mechs may use only fusion engines.");
+        }
+        if (!this._isArmorLegalForChassis(this._armorType)) {
+            violations.push(this.isIndustrialMech()
+                ? "IndustrialMechs may mount only Commercial, Industrial or Standard (Heavy Industrial) armor."
+                : `${this._armorType.name} can only be mounted on an IndustrialMech.`);
         }
         const counted = new Map<string, { item: IEquipmentItem; count: number; names: string[] }>();
         const repairSystems = new Set<string>();
@@ -8261,6 +8267,15 @@ export class BattleMech {
         });
     }
 
+    /**
+     * IndustrialMech armor: Commercial, Industrial and Heavy Industrial (which is Standard armor) are for
+     * IndustrialMechs, which "may not carry Ferro-Fibrous or Stealth armor" (TM p.72); the Dark Age armors
+     * are open to them only under Experimental Mixed-Tech rules (IO:AE p.82).
+     */
+    private _isArmorLegalForChassis(armor: IArmorType): boolean {
+        return this.isIndustrialMech() ? armor.industrialMechOnly === true || armor.tag === "standard" : !armor.industrialMechOnly;
+    }
+
     public getAvailableArmorTypes(rulesLevel: number = 2): IArmorType[] {
         let returnValue: IArmorType[] = [];
         const techTag = this.getTech().tag;
@@ -8274,6 +8289,7 @@ export class BattleMech {
             const availability = this._techDatesAvailability(armor, rulesLevel);
             armor.availableAsPrototype = availability.asPrototype;
             armor.available = hasCompatibleMultiplier && availability.available
+                && this._isArmorLegalForChassis(armor)
                 && (!this.isLAM() || this._isLAMLegalComponent("armor", armor.tag));
 
             returnValue.push( armor );
