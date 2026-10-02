@@ -1179,3 +1179,24 @@ Flags:
 - Aerospace: "The aerospace Attack Value of an MRM modified by an MRM Fire Control System is equal to a result of 6 on the appropriate column of the Cluster Hits Table". `damageAero` is left as on the plain launcher: it belongs to the owed missile `damageAero` review.
 
 Regression tests: `Batch 45 MRM Apollo Fire Control System`.
+
+## Batch 46: C3 Remote Sensor Launcher
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| C3 Remote Sensor Launcher | mech-is-equipment-weapons-missiles | **added** | TO:AUE p.110 (rules), p.195 (BV 30), pp.216-217 (tables) | TO:AUE v7.0: none | Inner Sphere, 4 tons, 3 'Mech slots (combat vehicle 1, support vehicle 3, small craft 1), 400,000 C-bills, heat 0, range 3 / 6 / 9, 4 shots a ton. Rating E |
+| C3 Remote Sensors (ammunition) | mech-is-ammo | **added** | same | none | 100,000 C-bills a ton, BV 6 a ton, 4 pods a ton |
+| Dates | both | **set** | IO:AE p.32 (advancement table) | none | Prototype 3072 (Draconis Combine), production 3093. TO:AUE's own table has only "3072P"; IO:AE is newer. Availability X-X-F-E |
+| C3i exclusion | battlemech.ts | **enforced** | TO:AUE p.110 | none | "The C3 Remote Sensor system is incompatible with C3i-based systems": neither is offered once the other is mounted, and a design holding both is reported |
+| Advanced Fire Control | battlemech.ts | **exempted** | TM p.69 | none | TM bars "C3 or C3i units (including Master and Slave units)" from an IndustrialMech without Advanced Fire Control. The launcher is listed as available to IndustrialMechs and is not a C3 unit itself; MegaMek does not restrict it either |
+
+Flags:
+
+- **Aerospace fighters, same-book conflict.** The rules box says "Available To: BM, IM, CV, SV, SC, MS"; the cost table gives a fighter slot count of 1. MegaMek makes it a 'Mech and vehicle weapon only. The fighter column is set to not available; small craft keep the 1 both places agree on.
+- **Explosive ammunition.** "Critical hits to a C3 Remote Sensor Launcher's 'ammo' will cause 2 points of damage per unfired pod": recorded as explosive, so a bin takes the -15 defensive penalty per slot unless protected. MegaMek treats the pods as non-explosive. The book is followed.
+- The vehicle builder offers the launcher but does not check the C3i exclusion.
+- Alpha Strike: `C3RS` recorded as the special ability code.
+
+Also in this commit: the 500-'Mech SSW import test's time limit goes from 120 to 300 seconds. On this machine it now takes about 2 minutes on this branch and 107 seconds on upstream's own source, so it was failing on the clock, not on content.
+
+Regression tests: `Batch 46 C3 Remote Sensor Launcher`.

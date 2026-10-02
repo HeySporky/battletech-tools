@@ -4878,4 +4878,31 @@ export const mechISAmmo: IEquipmentItem[] = [
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         prototype: 3065
     },
+    {
+        isAmmo: true,
+        isSpecialAmmo: false,
+        name: "C3 Remote Sensors (IS)",
+        altNames: ["C3 Remote Sensor Ammo", "Ammo (C3 Remote Sensor Launcher)", "C3RS Pods"],
+        tag: "ammo-is-c3-remote-sensor-standard",
+        altTags: ["ammo-c3-remote-sensor-launcher"],
+        sort: "ammo, beacon, c3 remote sensor, is",
+        category: "Ammunition",
+        cbills: 100000,
+        introduced: 3093,
+        extinct: null,
+        reintroduced: null,
+        battleValue: 6,
+        heat: 0,
+        heatAero: 0,
+        weight: 1,
+        range: { min: 0, short: 0, medium: 0, long: 0 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: 1, dropShip: -1 },
+        roundsPerTon: 4,
+        explosive: true, // "will cause 2 points of damage per unfired pod" (TO:AUE p.110)
+        techRating: "e",
+        book: "TO:AUE",
+        page: 110,
+        alphaStrike: { specialAbility: ["C3RS"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        prototype: 3072
+    },
 ];

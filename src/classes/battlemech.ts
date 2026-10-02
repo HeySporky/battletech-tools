@@ -1753,11 +1753,19 @@ export class BattleMech {
      * Equipment an IndustrialMech cannot use without Advanced Fire Control (TM p.69): Artemis IV,
      * the Beagle Active Probe or its Clan equivalent, C3 and C3i units, and targeting computers.
      */
+    /** "The C3 Remote Sensor system is incompatible with C3i-based systems" (TO:AUE p.110). */
+    private static readonly C3_REMOTE_SENSOR_TAG = "c3-remote-sensor-launcher";
+    private static _isC3iSystem(item: IEquipmentItem): boolean {
+        return /^(clan-)?c3i/.test(item.tag.toLowerCase());
+    }
+
     /** Armor a HarJel II or III repair system works with (IO:AE pp.82-83). */
     private static readonly REPAIR_SYSTEM_ARMOR_TAGS = ["standard", "heavy-industrial", "light-ferro-fibrous", "ferro-fibrous", "heavy-ferro-fibrous"];
 
     private static _needsAdvancedFireControl(item: IEquipmentItem): boolean {
         const tag = item.tag.toLowerCase();
+        // The C3 Remote Sensor Launcher is a launcher, not a C3 unit.
+        if (tag === BattleMech.C3_REMOTE_SENSOR_TAG) return false;
         return /-artemis-iv$/.test(tag) || /^c3/.test(tag)
             || ["beagle-active-probe", "clan-active-probe", "targeting-computer", "clan-targeting-computer"].includes(tag);
     }
@@ -5673,8 +5681,11 @@ export class BattleMech {
                 violations.push(`${names.join(" / ")}: ${count} mounted; at most ${item.maxPerUnit} allowed.`);
             }
         });
-        // "the MRM FCS must be incorporated on all of an individual unit's standard MRM Launchers" (TO:AUE p.142).
         const mounted = this._equipmentList.filter(item => !!item);
+        if (mounted.some(item => item.tag === BattleMech.C3_REMOTE_SENSOR_TAG) && mounted.some(item => BattleMech._isC3iSystem(item))) {
+            violations.push("C3 Remote Sensor Launcher is incompatible with C3i-based systems.");
+        }
+        // "the MRM FCS must be incorporated on all of an individual unit's standard MRM Launchers" (TO:AUE p.142).
         if (mounted.some(item => /^mrm-\d+-apollo$/.test(item.tag))) {
             const plain = Array.from(new Set(mounted.filter(item => /^mrm-\d+$/.test(item.tag)).map(item => item.name)));
             if (plain.length > 0) {
@@ -8298,6 +8309,13 @@ export class BattleMech {
             return false;
         }
         if (!this.hasAdvancedFireControl() && BattleMech._needsAdvancedFireControl(item)) {
+            return false;
+        }
+        // The C3 Remote Sensor Launcher and C3i exclude each other (TO:AUE p.110).
+        if (item.tag === BattleMech.C3_REMOTE_SENSOR_TAG && this._equipmentList.some(other => other && BattleMech._isC3iSystem(other))) {
+            return false;
+        }
+        if (BattleMech._isC3iSystem(item) && this._equipmentList.some(other => other?.tag === BattleMech.C3_REMOTE_SENSOR_TAG)) {
             return false;
         }
         // HarJel II / III: BattleMechs with compatible armor, and never the two kinds together (IO:AE pp.82-83).
