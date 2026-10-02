@@ -5859,3 +5859,78 @@ describe("Batch 48 superheavy IndustrialMechs and superheavy engines (IO:AE pp.1
         expect(mech.getChassisEquipmentViolations()).toEqual(["Superheavy IndustrialMechs may use only standard fusion engines."]);
     });
 });
+
+describe("Batch 50 IndustrialMech armor (TM pp.72, 205, 278, 315)", () => {
+    const build = (structure?: string, tech = "is") => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        if (structure) mech.setInternalStructureType(structure);
+        return mech;
+    };
+    const armors = (mech: BattleMech) => mech.getAvailableArmorTypes(4).filter(armor => armor.available).map(armor => armor.tag);
+
+    it("lists the three IndustrialMech armor grades", () => {
+        expect(mechArmorTypes.find(armor => armor.tag === "industrial")).toMatchObject({
+            name: "Industrial Armor", industrialMechOnly: true, costMultiplier: 5000, bvMultiplier: 1,
+            prototype: 2430, introduced: 2439, extinct: null, reintroduced: null, book: "TM", page: 205,
+        });
+        const industrial = mechArmorTypes.find(armor => armor.tag === "industrial")!;
+        expect(industrial.armorMultiplier.is).toBeCloseTo(10.72, 6);
+        expect(industrial.armorMultiplier.clan).toBeCloseTo(10.72, 6);
+        expect(industrial.unitTypes.battlemech).toBe(true);
+        expect(mechArmorTypes.find(armor => armor.tag === "commercial")).toMatchObject({
+            industrialMechOnly: true, costMultiplier: 3000, bvMultiplier: 0.5, introduced: 2300, armorMultiplier: { is: 24, clan: 24 },
+        });
+        expect(mechArmorTypes.find(armor => armor.tag === "commercial")!.unitTypes.battlemech).toBe(true);
+        // Heavy Industrial armor is Standard armor under another name (TM p.205).
+        expect(mechArmorTypes.find(armor => armor.tag === "standard")?.notes).toContain("Heavy Industrial");
+        expect(mechArmorTypes.some(armor => armor.tag === "heavy-industrial")).toBe(false);
+    });
+
+    it("offers an IndustrialMech Commercial, Industrial and Standard (Heavy Industrial) armor only", () => {
+        expect(armors(build("industrial")).sort()).toEqual(["commercial", "industrial", "standard"]);
+        expect(armors(build("industrial", "clan")).sort()).toEqual(["commercial", "industrial", "standard"]);
+        const battlemech = armors(build());
+        expect(battlemech).toEqual(expect.arrayContaining(["standard", "ferro-fibrous", "light-ferro-fibrous"]));
+        expect(battlemech).not.toContain("industrial");
+        expect(battlemech).not.toContain("commercial");
+    });
+
+    it("refuses a BattleMech the industrial grades and an IndustrialMech ferro-fibrous", () => {
+        const battlemech = build();
+        expect(battlemech.setArmorType("industrial").tag).toBe("standard");
+        expect(battlemech.setArmorType("commercial").tag).toBe("standard");
+        const industrial = build("industrial");
+        expect(industrial.setArmorType("ferro-fibrous").tag).toBe("standard");
+        expect(industrial.setArmorType("industrial").tag).toBe("industrial");
+        expect(industrial.setArmorType("commercial").tag).toBe("commercial");
+    });
+
+    it("gives Industrial armor 16 x 0.67 points a ton, rounded down", () => {
+        const points = (tons: number) => {
+            const mech = build("industrial");
+            mech.setArmorType("industrial");
+            mech.setArmorWeight(tons);
+            return mech.getTotalArmor() + mech.getUnallocatedArmor();
+        };
+        // The TechManual's own examples (p.72).
+        expect(points(5)).toBe(53);
+        expect(points(3.5)).toBe(37);
+        expect(points(1)).toBe(10);
+    });
+
+    it("reports armor a design can no longer carry after its structure changes", () => {
+        const mech = build("industrial");
+        mech.setArmorType("commercial");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        mech.setInternalStructureType("standard");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["Commercial Armor can only be mounted on an IndustrialMech."]);
+        const other = build();
+        other.setArmorType("ferro-fibrous");
+        other.setInternalStructureType("industrial");
+        expect(other.getChassisEquipmentViolations()).toEqual(["IndustrialMechs may mount only Commercial, Industrial or Standard (Heavy Industrial) armor."]);
+    });
+});

@@ -41,6 +41,8 @@ export interface IArmorType {
     reintroduced: number | null;
     /** Multiplier on the armor factor in the defensive BV (TM p.302, TO:AUE; e.g. Hardened 2, Reactive 1.5). */
     bvMultiplier?: number;
+    /** An IndustrialMech armor grade (Commercial, Industrial): not for BattleMechs (TM p.72). */
+    industrialMechOnly?: boolean;
     /** IO prototype year; with `introduced: null` the armor exists only as a prototype. */
     prototype?: number;
     /** Clan availability window when it differs from the Inner Sphere dates above. */
