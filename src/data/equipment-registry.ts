@@ -155,6 +155,22 @@ export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
     "clan-harjel-ii", "clan-harjel-iii",
 ];
 
+let artemisIVLaunchers: Set<string> | null = null;
+
+/**
+ * Is this a launcher Artemis IV applies to, i.e. one that also exists with Artemis IV fitted?
+ * "every single standard LRM, SRM and MML launcher on the unit must have Artemis IV" once one does (TM p.207).
+ */
+export function isArtemisIVCapableLauncher(tag: string): boolean {
+    if (!artemisIVLaunchers) {
+        const suffix = "-artemis-iv";
+        artemisIVLaunchers = new Set(equipmentCatalogDefinitions.flatMap(definition => definition.equipment)
+            .filter(item => item.tag.endsWith(suffix))
+            .map(item => item.tag.slice(0, -suffix.length)));
+    }
+    return artemisIVLaunchers.has(tag);
+}
+
 export function isOmniFixedOnly(item: IEquipmentItem): boolean {
     return OMNI_FIXED_ONLY_TAGS.some((tag) => matchesTag(item, tag));
 }

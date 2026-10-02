@@ -1287,3 +1287,32 @@ Flags:
 - The 'Mech builder already left out equipment with no 'Mech slot value; only the vehicle builder was missing the check.
 
 Regression tests: `Batch 54 industrial equipment for vehicles and the combat vehicle slot column` (vehicle.test.ts), `Batch 54 industrial equipment on 'Mechs` (battlemech.test.ts).
+
+## Batch 55: placement limits and the Artemis IV rule
+
+The builder had almost no location rules. Records can now say where they go (`allowedLocations`, or `armTool` for the chassis-dependent industrial tools) and how many fit in a location (`onePerLocationGroup`). A placement that breaks a rule is refused, and a design already holding one is reported.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| CASE (Inner Sphere) | mech-is-equipment-weapons-misc | **enforced** | TM p.210 | TM v8.0: none | "For Inner Sphere BattleMechs and IndustrialMechs, CASE must be allocated to Torso locations only" |
+| Heavy Gauss Rifle | mech-is-equipment-weapons-ballistic | **enforced** | TM p.219 | none | "may only be mounted in Torso locations"; "only ... by units powered by fusion or fission engines" (`requiresEngine`, so the vehicle builder applies it too) |
+| Improved Heavy Gauss Rifle | same | **enforced** | TO:AUE p.124 | TO:AUE v7.0: none | "only ... in the torso location of 'Mech units"; "A fusion or fission engine is required" |
+| Hatchet, Sword | same | **enforced** | TM pp.220, 237 | none | "in the arm locations only. Each arm may install a maximum of 1" |
+| Retractable Blade | mech-is-equipment-weapons-misc | **enforced** | TM p.237 | none | "may only be mounted in a 'Mech's arms" |
+| Backhoe, Chainsaw, Combine, Dual Saw, Heavy-Duty Pile Driver, Mining Drill, Rock Cutter | mech-universal-equipment | **enforced** | TM pp.241-247 | none | Humanoid 'Mechs "in the arms only ... limited to one ... per arm"; quads "in the Side Torso locations only ... one ... per location"; none may share a location with another of these tools |
+| Wrecking Ball, Salvage Arm | same | **enforced** | TM pp.248-249 | none | Arms only, one per arm, sharing with no other tool. "Quad BattleMechs and IndustrialMechs may not mount wrecking balls"; the Salvage Arm rule covers humanoid 'Mechs only. Neither is offered to a quad |
+| Spot Welder | same | **enforced** | TM p.248 | none | Arms (humanoid) or side torsos (quad), one per location; not part of the shared-location ban |
+| Lift Hoist | same | **enforced** | TM p.245 | none | "up to 2 lift hoists per unit (limited to Arm and Torso locations only)" |
+| Bridgelayers | same | **enforced** | TM p.242 | none | "'Mech units may mount bridgelayers in torso locations only"; one per location |
+| Artemis IV on every applicable launcher | battlemech.ts | **enforced** | TM p.207 | none | "If Artemis IV is added to an applicable launcher, every applicable launcher on the unit must have Artemis IV". A launcher is applicable when the catalog holds an Artemis IV form of it; Streak, MRM and ATM launchers are untouched. Reported, not prevented |
+
+Flags:
+
+- **Actuators.** The tools need the hand actuator (pile driver: lower arm and hand) removed, and hatchets and swords need a full set of arm actuators. The builder does not check either.
+- **Heavy Gauss split.** The rule lets its slots be "divided (but only among two adjacent Torso locations, side-to-center)". The split itself is not restricted to adjacent torsos.
+- **Vehicle placement rules** in the same paragraphs (front / back / turret, bulldozer limits, Heavy Gauss never in the sides or turret) are not enforced by the vehicle builder.
+- **Imports** are not blocked: bundled canon units load as before, but a unit that breaks one of these rules now shows it in the builder's violations.
+- **Other Artemis versions** (Artemis V, prototype Artemis) are not covered by the all-launchers check.
+- The violation message for one-per-location groups now names the kind of item (it said "HarJel repair system" for every group).
+
+Regression tests: `Batch 55 placement limits`.

@@ -5963,3 +5963,110 @@ describe("Batch 54 industrial equipment on 'Mechs (TM pp.344-345)", () => {
         expect(mech.getUnallocatedCritCount()).toBe(slots + 1);
     });
 });
+
+describe("Batch 55 placement limits (TM pp.207, 210, 219, 220, 237, 241-249; TO:AUE p.124)", () => {
+    const build = (type?: string, engine?: string) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        if (type) mech.setType(type);
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        if (engine) mech.setEngineType(engine);
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string) => mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
+    const place = (mech: BattleMech, item: { uuid?: string }, loc: string, key: string) =>
+        mech.moveCritical("un", mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid), loc, (mech.getCriticals() as any)[key].findIndex((critical: unknown) => !critical));
+    const offered = (mech: BattleMech, tag: string) => !!mech.getAvailableEquipment(false, 4).find(item => item.tag === tag)?.available;
+
+    it("keeps Inner Sphere CASE in the torso", () => {
+        const mech = build();
+        const first = add(mech, "case");
+        expect(place(mech, first, "la", "leftArm")).toBe(false);
+        expect(place(mech, first, "ll", "leftLeg")).toBe(false);
+        expect(place(mech, first, "lt", "leftTorso")).toBe(true);
+    });
+
+    it("keeps Heavy Gauss rifles in the torso and on fusion or fission engines", () => {
+        for (const tag of ["gauss-rifle-heavy", "gauss-rifle-heavy-improved"]) {
+            expect(mechISEquipmentBallistic.find(item => item.tag === tag), tag).toMatchObject({ allowedLocations: ["ct", "lt", "rt"], requiresEngine: "fusion-or-fission" });
+            expect(offered(build(), tag), tag).toBe(true);
+            expect(offered(build(undefined, "fission"), tag), tag).toBe(true);
+            expect(offered(build(undefined, "ice"), tag), tag).toBe(false);
+        }
+    });
+
+    it("mounts hatchets, swords and retractable blades in the arms, one hatchet or sword to an arm", () => {
+        const mech = build();
+        const first = add(mech, "melee-hatchet");
+        const second = add(mech, "melee-hatchet");
+        expect(place(mech, first, "lt", "leftTorso")).toBe(false);
+        expect(place(mech, first, "la", "leftArm")).toBe(true);
+        expect(place(mech, second, "la", "leftArm")).toBe(false);
+        expect(place(mech, second, "ra", "rightArm")).toBe(true);
+        const sword = add(build(), "melee-sword");
+        expect(mechISEquipmentBallistic.find(item => item.tag === "melee-sword")).toMatchObject({ allowedLocations: ["la", "ra"], onePerLocationGroup: "sword" });
+        expect(sword).toBeTruthy();
+        const other = build();
+        const blade = add(other, "melee-retractable-blade");
+        expect(place(other, blade, "rt", "rightTorso")).toBe(false);
+        expect(place(other, blade, "ra", "rightArm")).toBe(true);
+    });
+
+    it("mounts industrial tools in the arms of a biped, one tool to an arm", () => {
+        const mech = build();
+        const backhoe = add(mech, "backhoe");
+        const chainsaw = add(mech, "chainsaw");
+        expect(place(mech, backhoe, "lt", "leftTorso")).toBe(false);
+        expect(place(mech, backhoe, "la", "leftArm")).toBe(true);
+        expect(place(mech, chainsaw, "la", "leftArm")).toBe(false);
+        expect(place(mech, chainsaw, "ra", "rightArm")).toBe(true);
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+    });
+
+    it("mounts them in the side torsos of a quad, where wrecking balls and salvage arms cannot go", () => {
+        const quad = build("quad");
+        const drill = add(quad, "mining-drill");
+        const cutter = add(quad, "rock-cutter");
+        expect(place(quad, drill, "ct", "centerTorso")).toBe(false);
+        expect(place(quad, drill, "lt", "leftTorso")).toBe(true);
+        expect(place(quad, cutter, "lt", "leftTorso")).toBe(false);
+        expect(place(quad, cutter, "rt", "rightTorso")).toBe(true);
+        expect(offered(quad, "wrecking-ball")).toBe(false);
+        expect(offered(quad, "salvage-arm")).toBe(false);
+        expect(offered(build(), "wrecking-ball")).toBe(true);
+        expect(offered(build(), "salvage-arm")).toBe(true);
+    });
+
+    it("allows two lift hoists, in the arms and torsos", () => {
+        const mech = build();
+        const first = add(mech, "lift-hoist");
+        add(mech, "lift-hoist");
+        expect(offered(mech, "lift-hoist")).toBe(false);
+        expect(place(mech, first, "ll", "leftLeg")).toBe(false);
+        expect(place(mech, first, "rt", "rightTorso")).toBe(true);
+    });
+
+    it("mounts bridgelayers in the torso only", () => {
+        const mech = build();
+        const bridge = add(mech, "bridge-layer-light");
+        expect(place(mech, bridge, "la", "leftArm")).toBe(false);
+        expect(place(mech, bridge, "lt", "leftTorso")).toBe(true);
+    });
+
+    it("needs Artemis IV on every applicable launcher once one has it", () => {
+        const mech = build();
+        add(mech, "lrm-10-artemis-iv");
+        add(mech, "streak-srm-2");
+        add(mech, "mrm-10");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        add(mech, "srm-4");
+        add(mech, "lrm-5");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["Artemis IV must be fitted to every applicable launcher on the unit (LRM 5, SRM 4 have none)."]);
+        const plain = build();
+        add(plain, "srm-4");
+        add(plain, "lrm-5");
+        expect(plain.getChassisEquipmentViolations()).toEqual([]);
+    });
+});
