@@ -397,6 +397,10 @@ export interface ICockpitType {
     reintroduced: number | null;
     /** Clan availability window when it differs from the Inner Sphere dates above. */
     clanDates?: ITechDates;
+    /** Set by the builder: may this design mount it in its era and rules level? */
+    available?: boolean;
+    /** Set when it is offered only as an Experimental prototype. */
+    availableAsPrototype?: boolean;
 }
 
 export interface IHeatSync {

@@ -1088,3 +1088,18 @@ Flags:
 - With an XXL engine the heat is doubled again, as for other jump jets (TO:AUE); the book does not address the pairing, which cannot occur in the item's years anyway.
 
 Regression tests: `Batch 40 Prototype Improved Jump Jets`; the Batch 11 citation test now lists the new type.
+
+## Batch 41: cockpit selector and IndustrialMech fire control
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Cockpit selector | battlemech.ts, step 2 | **added** | TM pp.52, 69, 211 | TM v8.0: none | `getAvailableCockpits()` / `setCockpitType()` and a Cockpit select under the gyro. Standard or Small for a BattleMech; the one mandatory cockpit for Tripods, QuadVees and superheavy 'Mechs; the two IndustrialMech cockpits for a 'Mech on industrial structure. The Small Cockpit could be set only by an import before |
+| IndustrialMech Cockpit; with Advanced Fire Control | mech-cockpit-types | **implemented** (was deferred) | TM pp.69, 211; cost p.277 | none | 3 tons either way; 100,000 C-bills, or 200,000 with Advanced Fire Control ("doubles the cockpit's C-bill cost, but takes up no tonnage or critical space") |
+| Offensive Battle Rating x0.9 | battlemech.ts | **added** | TM p.304 | BV errata v4.1: same text | "IndustrialMechs, unless equipped with Advanced Fire Control (see p. 69), multiply their Offensive Battle Rating by 0.9". Closes the item owed since Batch 27 |
+| Equipment needing Advanced Fire Control | battlemech.ts | **enforced** | TM p.69 | none | without it "an IndustrialMech may not use ... Artemis IV, Beagle Active Probe (or its Clan equivalent), C3 or C3i units (including Master and Slave units) or Targeting Computers": not offered, and reported if already mounted |
+
+**Default.** A design on industrial structure gets the Advanced Fire Control cockpit unless the plain one is chosen. That is how IndustrialMechs were priced and rated before the choice existed (the standard cockpit's 200,000 C-bills and no x0.9), so saved designs do not change. The book's own default is the plain cockpit: say if new designs should start there. Saved as the feature flag `no_afc`.
+
+Not covered: the Ejection Seat (0.5 ton, 1 head slot), the +1 to-hit in play, Small / Torso-Mounted / Command Console cockpits beyond what was there, and the cockpit of a superheavy IndustrialMech (still the superheavy BattleMech cockpit). The UI select was type-checked but not exercised in a browser.
+
+Regression tests: `Batch 41 cockpit selection and IndustrialMech fire control`.
