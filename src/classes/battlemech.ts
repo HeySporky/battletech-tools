@@ -380,6 +380,9 @@ export class BattleMech {
     private _no_left_arm_lower_actuator: boolean = false;
 
     private _smallCockpit: boolean = false;
+    // IndustrialMechs: the Advanced Fire Control cockpit enhancement (TM p.69). On by default, which is
+    // how IndustrialMechs were priced and rated before the choice existed.
+    private _advancedFireControl: boolean = true;
     private _cockpitWeight: number = 3;
     private _totalInternalStructurePoints = 0;
     private _maxMoveHeat: number = 2;
@@ -1027,12 +1030,20 @@ export class BattleMech {
 
         // 3H. Apply Speed Factor Scaling Multiplier (TM p. 304)
         const speedFactorModifier = this._getSpeedFactorModifier();
-        const finalOffensiveBattleRating = baseOffensiveRating * speedFactorModifier;
+        let finalOffensiveBattleRating = baseOffensiveRating * speedFactorModifier;
+        // "IndustrialMechs, unless equipped with Advanced Fire Control (see p. 69), multiply their
+        // Offensive Battle Rating by 0.9" (TM p.304).
+        if (!this.hasAdvancedFireControl()) {
+            finalOffensiveBattleRating *= 0.9;
+        }
 
         this._calcLogBV += `<strong>Final Offensive Battle Rating:</strong> ${finalOffensiveBattleRating.toFixed(2)} ` +
             `(${totalWeaponBV.toFixed(2)} [Weapon BV] + ${totalAmmoBV.toFixed(2)} [Ammo BV] + ${modifiedMechTonnage} [Mech Tonnage]) ` +
             `x ${speedFactorModifier.toFixed(4)} [Speed Factor Rating]<br />`;
 
+        if (!this.hasAdvancedFireControl()) {
+            this._calcLogBV += `IndustrialMech without Advanced Fire Control: Offensive Battle Rating x 0.9 -> ${finalOffensiveBattleRating.toFixed(2)}<br />`;
+        }
         this._offensiveBattleRating = finalOffensiveBattleRating;
 
         /* *************************************************************************
@@ -1048,7 +1059,7 @@ export class BattleMech {
         this._calcLogBV += `Unmodified Combined BV = Defensive Rating + Offensive Rating: ${finalBattleValue.toFixed(2)} = ${currentDBR.toFixed(2)} + ${currentOBR.toFixed(2)}<br />`;
 
         // Apply cockpit sizing penalty rules (TM p. 304)
-        if (this._smallCockpit) {
+        if (this.getCockpitType().tag === "small") {
             finalBattleValue *= 0.95;
             this._calcLogBV += `Small Cockpit Penalty Applied: Total multiplied by 0.95 -> Intermediate BV: ${finalBattleValue.toFixed(2)}<br />`;
         }
@@ -1675,7 +1686,59 @@ export class BattleMech {
         if (this.isTripod()) return getCockpitType(superheavy ? "superheavy-tripod" : "tripod");
         if (this.isQuadVee()) return getCockpitType("quadvee");
         if (superheavy) return getCockpitType("superheavy");
+        if (this.isIndustrialMech()) return getCockpitType(this._advancedFireControl ? "industrial-advanced-fire-control" : "industrial");
         return getCockpitType(this._smallCockpit ? "small" : "standard");
+    }
+
+    /** An IndustrialMech: a 'Mech built on industrial internal structure (TM p.66). */
+    public isIndustrialMech(): boolean {
+        return this._selectedInternalStructure.tag === "industrial";
+    }
+
+    /** Does the cockpit have fire control fit for combat? Always, except an IndustrialMech without the enhancement. */
+    public hasAdvancedFireControl(): boolean {
+        return this.getCockpitType().tag !== "industrial";
+    }
+
+    /**
+     * Cockpits this chassis may mount. Tripods, QuadVees and superheavy 'Mechs have one mandatory
+     * cockpit; an IndustrialMech chooses whether to add Advanced Fire Control (TM p.69); any other
+     * 'Mech chooses between the Standard and Small cockpits (TM p.52).
+     */
+    public getAvailableCockpits(rulesLevel: number = 2): ICockpitType[] {
+        const current = this.getCockpitType();
+        const mandatory = ["tripod", "superheavy-tripod", "quadvee", "superheavy"].includes(current.tag);
+        const tags = mandatory ? [current.tag]
+            : this.isIndustrialMech() ? ["industrial", "industrial-advanced-fire-control"]
+            : ["standard", "small"];
+        return tags.map(tag => {
+            const cockpit = getCockpitType(tag);
+            const availability = this._techDatesAvailability(cockpit, rulesLevel);
+            cockpit.availableAsPrototype = availability.asPrototype;
+            // The cockpit a chassis must mount is never withheld.
+            cockpit.available = mandatory || availability.available;
+            return cockpit;
+        });
+    }
+
+    /** Choose one of the cockpits offered by getAvailableCockpits(); anything else is ignored. */
+    public setCockpitType(tag: string): ICockpitType {
+        if (this.getAvailableCockpits().some(cockpit => cockpit.tag === tag)) {
+            if (tag === "standard" || tag === "small") this._smallCockpit = tag === "small";
+            if (tag === "industrial" || tag === "industrial-advanced-fire-control") this._advancedFireControl = tag !== "industrial";
+            this._calc();
+        }
+        return this.getCockpitType();
+    }
+
+    /**
+     * Equipment an IndustrialMech cannot use without Advanced Fire Control (TM p.69): Artemis IV,
+     * the Beagle Active Probe or its Clan equivalent, C3 and C3i units, and targeting computers.
+     */
+    private static _needsAdvancedFireControl(item: IEquipmentItem): boolean {
+        const tag = item.tag.toLowerCase();
+        return /-artemis-iv$/.test(tag) || /^c3/.test(tag)
+            || ["beagle-active-probe", "clan-active-probe", "targeting-computer", "clan-targeting-computer"].includes(tag);
     }
 
     public getCockpitWeight() {
@@ -2966,6 +3029,12 @@ export class BattleMech {
             this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: "Superheavy Cockpit",
+                weight: this.getCockpitWeight()
+            });
+        } else if (this.isIndustrialMech()) {
+            this._cockpitWeight = this.getCockpitType().weight;
+            this._weights.push({
+                name: this.getCockpitType().name,
                 weight: this.getCockpitWeight()
             });
         } else if( this._smallCockpit) {
@@ -5547,6 +5616,9 @@ export class BattleMech {
             if (!this.isSuperheavy() && BattleMech.SUPERHEAVY_ONLY_TAGS.includes(item.tag.toLowerCase())) {
                 violations.push(`${item.name} can only be mounted on a superheavy 'Mech.`);
             }
+            if (!this.hasAdvancedFireControl() && BattleMech._needsAdvancedFireControl(item)) {
+                violations.push(`${item.name} needs Advanced Fire Control on an IndustrialMech.`);
+            }
             if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) {
                 violations.push(`${item.name} needs a ${item.requiresEngine === "fusion" ? "fusion" : "fusion or fission"} engine.`);
             }
@@ -6183,6 +6255,9 @@ export class BattleMech {
             exportObject.features.push( "no_raha" );
         if( this._smallCockpit)
             exportObject.features.push( "sm_cockpit" );
+        // IndustrialMech cockpit without the Advanced Fire Control enhancement (TM p.69).
+        if( !this._advancedFireControl)
+            exportObject.features.push( "no_afc" );
 
 
             return exportObject;
@@ -6516,6 +6591,10 @@ export class BattleMech {
                 // Small Cockpit
                 if( importObject.features.indexOf( "sm_cockpit" ) > -1)
                     this._smallCockpit = true;
+
+                // IndustrialMech cockpit without Advanced Fire Control
+                if( importObject.features.indexOf( "no_afc" ) > -1)
+                    this._advancedFireControl = false;
 
                 // Other features
             }
@@ -8155,6 +8234,9 @@ export class BattleMech {
         }
         // TSEMP cannons need a fusion or fission engine, the BattleMech Taser a fusion engine (IO:AE p.85, TO:AUE p.158).
         if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) {
+            return false;
+        }
+        if (!this.hasAdvancedFireControl() && BattleMech._needsAdvancedFireControl(item)) {
             return false;
         }
         if (!this.isLAM() && !this.isTripod()) {

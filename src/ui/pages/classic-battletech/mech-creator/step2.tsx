@@ -78,6 +78,14 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    setCockpitType = ( event: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setCockpitType( event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech) {
         return <></>
@@ -235,6 +243,30 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                       )
                                     } else {
                                       return <React.Fragment key={gyroIndex}></React.Fragment>
+                                    }
+                                  }
+                              })}
+                              </select>
+                            </label>
+                            <h3>Cockpit</h3>
+                            <label>
+                              Select Cockpit:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getCockpitType().tag}
+                                onChange={this.setCockpitType}
+                              >
+                                {this.props.appGlobals.currentBattleMech.getAvailableCockpits(this.props.appGlobals.appSettings.mechRulesFilter).map( (cockpitData, cockpitIndex) => {
+                                  if( cockpitData.available ) {
+                                    return (
+                                      <option key={cockpitIndex} value={cockpitData.tag}>{cockpitData.name}{cockpitData.availableAsPrototype ? " (Prototype)" : ""}</option>
+                                    )
+                                  } else {
+                                    if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
+                                      return (
+                                        <option disabled={true} key={cockpitIndex} value={cockpitData.tag}>{cockpitData.name}</option>
+                                      )
+                                    } else {
+                                      return <React.Fragment key={cockpitIndex}></React.Fragment>
                                     }
                                   }
                               })}

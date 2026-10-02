@@ -2346,7 +2346,7 @@ describe("Batch 8 cockpit catalog", () => {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
         }
         expect(mechCockpitTypes.filter(item => item.constructionStatus === "implemented").map(item => item.tag).sort())
-            .toEqual(["quadvee", "small", "standard", "superheavy", "superheavy-tripod", "tripod"]);
+            .toEqual(["industrial", "industrial-advanced-fire-control", "quadvee", "small", "standard", "superheavy", "superheavy-tripod", "tripod"]);
         // Small (TM p.304) and Torso-Mounted (TO:AUE p.193) cockpits multiply the final BV by 0.95.
         expect(cockpit("small")?.bvMultiplier).toBe(0.95);
         expect(cockpit("torso-mounted")?.bvMultiplier).toBe(0.95);
@@ -5290,5 +5290,96 @@ describe("Batch 40 Prototype Improved Jump Jets (IO:AE p.97)", () => {
         // One ton and one slot a jet at 55 tons, like a standard jump jet.
         mech.setJumpSpeed(8);
         expect(mech.getUnallocatedCriticals().filter(item => item.tag === "jj-prototype-improved").map(item => item.crits)).toEqual([1, 1, 1, 1, 1, 1, 1, 1]);
+    });
+});
+
+describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 211, 277, 304)", () => {
+    const build = (options: { tech?: string, era?: string, type?: string, tonnage?: number, structure?: string } = {}) => {
+        const mech = new BattleMech();
+        mech.setTech(options.tech ?? "is");
+        mech.setEra(options.era ?? "dark-ages");
+        if (options.type) mech.setType(options.type);
+        mech.setTonnage(options.tonnage ?? 50);
+        mech.setWalkSpeed(4);
+        if (options.structure) mech.setInternalStructureType(options.structure);
+        return mech;
+    };
+    const choices = (mech: BattleMech) => mech.getAvailableCockpits(4).map(cockpit => `${cockpit.tag}${cockpit.available ? "" : " (no)"}`);
+    const add = (mech: BattleMech, tag: string) => mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
+
+    it("offers the cockpits the chassis may mount", () => {
+        expect(choices(build())).toEqual(["standard", "small"]);
+        // The Small Cockpit is a 3060 prototype, in production from 3067 (Inner Sphere).
+        expect(choices(build({ era: "late-sw-rn" }))).toEqual(["standard", "small (no)"]);
+        expect(choices(build({ structure: "industrial" }))).toEqual(["industrial", "industrial-advanced-fire-control"]);
+        expect(choices(build({ type: "tripod" }))).toEqual(["tripod"]);
+        expect(choices(build({ type: "quadvee", tech: "clan" }))).toEqual(["quadvee"]);
+        expect(choices(build({ tonnage: 150 }))).toEqual(["superheavy"]);
+    });
+
+    it("switches between the Standard and Small cockpits", () => {
+        const mech = build();
+        expect(mech.getCockpitType().tag).toBe("standard");
+        const standard = Number(/Rounded from ([\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+        expect(mech.setCockpitType("small").tag).toBe("small");
+        expect(mech.getCockpitWeight()).toBe(2);
+        expect(mech.getBattleValue()).toBe(Math.round(standard * 0.95));
+        expect(mech.setCockpitType("standard").tag).toBe("standard");
+        expect(mech.getCockpitWeight()).toBe(3);
+        // A cockpit the chassis cannot mount is refused.
+        expect(mech.setCockpitType("tripod").tag).toBe("standard");
+        expect(mech.setCockpitType("industrial").tag).toBe("standard");
+    });
+
+    it("gives an IndustrialMech its own cockpit, with Advanced Fire Control as the 200,000 C-bill option", () => {
+        const mech = build({ structure: "industrial" });
+        // Designs made before the choice existed were priced and rated as if they had it.
+        expect(mech.getCockpitType()).toMatchObject({ tag: "industrial-advanced-fire-control", cost: 200000, weight: 3 });
+        const withFireControl = mech.getCBillCostNumeric();
+        expect(mech.setCockpitType("industrial")).toMatchObject({ tag: "industrial", cost: 100000, weight: 3 });
+        expect(mech.getCBillCostNumeric()).toBe(withFireControl - 100000 * (1 + 50 / 400));
+        expect(mech.setCockpitType("small").tag).toBe("industrial");
+        // Back to a BattleMech structure: back to a BattleMech cockpit.
+        mech.setInternalStructureType("standard");
+        expect(mech.getCockpitType().tag).toBe("standard");
+    });
+
+    it("multiplies the Offensive Battle Rating by 0.9 without Advanced Fire Control", () => {
+        const offensive = (mech: BattleMech) => Number(/<strong>Final Offensive Battle Rating:<\/strong> ([\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+        const mech = build({ structure: "industrial" });
+        add(mech, "medium-laser");
+        const withFireControl = offensive(mech);
+        mech.setCockpitType("industrial");
+        expect(offensive(mech)).toBeCloseTo(withFireControl * 0.9, 1);
+        expect(mech.getBVCalcHTML()).toContain("IndustrialMech without Advanced Fire Control: Offensive Battle Rating x 0.9");
+    });
+
+    it("keeps Artemis IV, active probes, C3 and targeting computers off an IndustrialMech without Advanced Fire Control", () => {
+        const tags = ["lrm-10-artemis-iv", "beagle-active-probe", "c3-computer-slave", "c3-computer-master", "targeting-computer"];
+        const offered = (mech: BattleMech) => {
+            const available = new Map(mech.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
+            return [...tags, "lrm-10"].map(tag => available.get(tag));
+        };
+        const mech = build({ structure: "industrial" });
+        expect(offered(mech)).toEqual([true, true, true, true, true, true]);
+        add(mech, "beagle-active-probe");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        mech.setCockpitType("industrial");
+        expect(offered(mech)).toEqual([false, false, false, false, false, true]);
+        expect(mech.getChassisEquipmentViolations()).toEqual(["Beagle Active Probe needs Advanced Fire Control on an IndustrialMech."]);
+        // A BattleMech is never restricted.
+        expect(offered(build())).toEqual([true, true, true, true, true, true]);
+    });
+
+    it("keeps the cockpit choice through a save and reload", () => {
+        const industrial = build({ structure: "industrial" });
+        industrial.setCockpitType("industrial");
+        expect(new BattleMech(industrial.exportJSON()).getCockpitType().tag).toBe("industrial");
+        const small = build();
+        small.setCockpitType("small");
+        expect(new BattleMech(small.exportJSON()).getCockpitType().tag).toBe("small");
+        // A save from before the choice existed keeps Advanced Fire Control.
+        const old = build({ structure: "industrial" });
+        expect(new BattleMech(old.exportJSON()).getCockpitType().tag).toBe("industrial-advanced-fire-control");
     });
 });
