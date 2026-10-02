@@ -5,7 +5,7 @@ import { BattleMech } from "./battlemech";
 import { mechInternalStructureTypes, validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { getWeaponAmmoFamilies } from "../data/equipment-registry";
+import { getWeaponAmmoFamilies, isOmniFixedOnly } from "../data/equipment-registry";
 import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { getLargeEngineType, mechEngineTypes, mechLargeEngineTypes } from "../data/mech-engine-types";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -5385,5 +5385,110 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
         // A save that does not name the enhancement loads with the plain cockpit.
         const plain = build({ structure: "industrial" });
         expect(new BattleMech(plain.exportJSON()).getCockpitType().tag).toBe("industrial");
+    });
+});
+
+describe("Batch 43 HarJel II and III repair systems (IO:AE pp.82-83, 185, 215)", () => {
+    const space = { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 };
+    const build = (options: { armor?: string, structure?: string } = {}) => {
+        const mech = new BattleMech();
+        mech.setTech("clan");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        if (options.structure) mech.setInternalStructureType(options.structure);
+        if (options.armor) mech.setArmorType(options.armor);
+        mech.setArmorWeight(10);
+        mech.allocateArmorSane();
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string) => mech.addEquipmentFromTag(tag, "clan", "", false, undefined, "", false, [], undefined, undefined)!;
+    const place = (mech: BattleMech, item: { uuid?: string }, loc: string, key: string) =>
+        mech.moveCritical("un", mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid), loc, (mech.getCriticals() as any)[key].findIndex((critical: unknown) => !critical));
+    const offered = (mech: BattleMech, tag: string) => !!mech.getAvailableEquipment(false, 4).find(item => item.tag === tag)?.available;
+    const subtotal = (mech: BattleMech) => Number(/Defensive Subtotal[^:]*: (-?[\d.]+) =/.exec(mech.getBVCalcHTML())?.[1]);
+
+    it("lists both Clan records with the table values and IO:AE dates", () => {
+        expect(mechClanEquipmentMisc.find(item => item.tag === "clan-harjel-ii")).toMatchObject({
+            name: "HarJel II Self-Repair System", cbills: 240000, weight: 2, space, battleValue: 0, armorRepairBVMultiplier: 1.1,
+            prototype: 3120, introduced: 3136, extinct: null, reintroduced: null, techRating: "f", book: "IO:AE", page: 82,
+        });
+        expect(mechClanEquipmentMisc.find(item => item.tag === "clan-harjel-iii")).toMatchObject({
+            name: "HarJel III Self-Repair System", cbills: 360000, weight: 3, space: { ...space, battlemech: 2 }, battleValue: 0, armorRepairBVMultiplier: 1.2,
+            prototype: 3137, introduced: 3139, extinct: null, reintroduced: null, techRating: "f", book: "IO:AE", page: 82,
+        });
+    });
+
+    it("is offered only to BattleMechs with standard or ferro-fibrous armor", () => {
+        expect(offered(build(), "clan-harjel-ii")).toBe(true);
+        expect(offered(build(), "clan-harjel-iii")).toBe(true);
+        expect(offered(build({ armor: "ferro-fibrous" }), "clan-harjel-ii")).toBe(true);
+        expect(offered(build({ armor: "ferro-lamellor" }), "clan-harjel-ii")).toBe(false);
+        expect(offered(build({ structure: "industrial" }), "clan-harjel-ii")).toBe(false);
+        // An Inner Sphere design is never offered it.
+        const sphere = build();
+        sphere.setTech("is");
+        expect(offered(sphere, "clan-harjel-ii")).toBe(false);
+    });
+
+    it("reports a system left on a design whose armor no longer suits it", () => {
+        const mech = build();
+        add(mech, "clan-harjel-ii");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        mech.setArmorType("ferro-lamellor");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["HarJel II Self-Repair System does not work with Ferro-Lamellor armor."]);
+    });
+
+    it("does not combine HarJel II with HarJel III", () => {
+        const mech = build();
+        add(mech, "clan-harjel-ii");
+        expect(offered(mech, "clan-harjel-ii")).toBe(true);
+        expect(offered(mech, "clan-harjel-iii")).toBe(false);
+        add(mech, "clan-harjel-iii");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["HarJel II and HarJel III repair systems cannot be combined on one unit."]);
+    });
+
+    it("allows one repair system in a location", () => {
+        const mech = build();
+        const first = add(mech, "clan-harjel-ii");
+        const second = add(mech, "clan-harjel-ii");
+        expect(place(mech, first, "lt", "leftTorso")).toBe(true);
+        expect(place(mech, second, "lt", "leftTorso")).toBe(false);
+        expect(place(mech, second, "rt", "rightTorso")).toBe(true);
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+    });
+
+    it("multiplies the armor Battle Value of the protected location and takes 1 point per slot", () => {
+        const mech = build();
+        const armor = mech.getArmorAllocation();
+        const plain = subtotal(mech);
+        const harjel = add(mech, "clan-harjel-ii");
+        // Not yet placed: no location is protected, but the slot still costs a point.
+        expect(subtotal(mech)).toBeCloseTo(plain - 1, 5);
+        expect(place(mech, harjel, "lt", "leftTorso")).toBe(true);
+        const protectedArmor = armor.leftTorso + armor.leftTorsoRear;
+        expect(protectedArmor).toBeGreaterThan(0);
+        expect(subtotal(mech)).toBeCloseTo(plain + 2.5 * protectedArmor * 0.1 - 1, 5);
+        expect(mech.getBVCalcHTML()).toContain("HarJel II Self-Repair System in leftTorso: armor x 1.1");
+
+        const three = build();
+        const harjelIII = add(three, "clan-harjel-iii");
+        expect(place(three, harjelIII, "ra", "rightArm")).toBe(true);
+        expect(subtotal(three)).toBeCloseTo(plain + 2.5 * armor.rightArm * 0.2 - 2, 5);
+    });
+
+    it("stacks with the armor type multiplier", () => {
+        // No compatible armor has a multiplier today; the book's own example is 1.1 x 1.2 = 1.32.
+        const mech = build();
+        const armor = mech.getArmorAllocation();
+        const plain = subtotal(mech);
+        const harjel = add(mech, "clan-harjel-ii");
+        place(mech, harjel, "ct", "centerTorso");
+        expect(subtotal(mech)).toBeCloseTo(plain + 2.5 * (armor.centerTorso + armor.centerTorsoRear) * 0.1 - 1, 5);
+    });
+
+    it("is always fixed equipment on an OmniMech", () => {
+        expect(isOmniFixedOnly(mechClanEquipmentMisc.find(item => item.tag === "clan-harjel-ii")!)).toBe(true);
+        expect(isOmniFixedOnly(mechClanEquipmentMisc.find(item => item.tag === "clan-harjel-iii")!)).toBe(true);
     });
 });

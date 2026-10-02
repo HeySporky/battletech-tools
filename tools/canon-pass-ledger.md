@@ -1116,3 +1116,24 @@ User decisions of 2026-10-01.
 A saved design on industrial structure that does not carry the `afc` flag loads with the plain cockpit, so its cost drops by 100,000 C-bills (before the tonnage multiplier) and its Offensive Battle Rating takes the x0.9. IndustrialMech construction was not otherwise offered before this pass.
 
 Regression tests: `Batch 41 cockpit selection and IndustrialMech fire control` (rewritten for the new default).
+
+## Batch 43: HarJel II and HarJel III repair systems
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| HarJel II Self-Repair System | mech-clan-equipment-weapons-misc | **added** | IO:AE pp.82-83; table p.215; BV p.185 | v3.01: none | Clan, F/X-X-X-F, 2 tons, 1 'Mech slot, 240,000 C-bills, 'Mechs only. Prototype ~3120, production 3136 (Clan Sea Fox). Armor BV multiplier 1.1 for the protected location |
+| HarJel III Self-Repair System | same | **added** | same | none | 3 tons, 2 slots, 360,000 C-bills. Prototype ~3137, production 3139. Armor BV multiplier 1.2 |
+| Construction limits | battlemech.ts | **enforced** | IO:AE pp.82-83 | none | "only compatible with units that employ standard, heavy industrial, light ferro-fibrous, standard ferro-fibrous, and heavy ferro-fibrous armor"; "can only be mounted on BattleMechs" (not offered on industrial structure); "each protected location may only mount one HarJel repair system" (a second is refused on placement); "Units may not combine different HarJel repair systems". Not offered when a rule is broken, and reported if the design changes afterwards |
+| OmniMech fixed-only | equipment-registry | **added** | IO:AE p.83 | none | "must always treat them as fixed items, as this equipment may not be pod-mounted" |
+| Battle Value | battlemech.ts | **added** | IO:AE p.185 (text and Dark Age Armor Modifiers Table) | none | The multiplier applies "only for body sections where a HarJel system is located" and "will stack with any armor type multipliers that affect the same section"; front and rear armor of a torso both count. "every critical slot of HarJel repair system a unit mounts will add -1 to the unit's Defensive BV" |
+
+Flags:
+
+- **The -1 per slot.** The book applies it to every slot, without reference to CASE. MegaMek lists HarJel II / III with its explosive equipment, where CASE can remove the penalty. The book is explicit, so every slot counts here.
+- **Head.** IO:AE gives no location limit for HarJel II / III, and MegaMek has none (its cockpit-location rule covers only the original BattleMech HarJel of TO:AUE p.100). None is applied. The original HarJel's "except for the location containing the cockpit" rule is still not enforced by the builder.
+- **Rules level.** The rules box says Advanced; the weapons table on p.214 says Experimental. Not set on the record (the builder derives the level from the dates).
+- **Heavy industrial armor** is named as compatible but is not an armor type in the builder yet.
+- An unplaced system protects no location: it takes its -1 per slot and gives no multiplier until it is placed.
+- Alpha Strike: `BHJ2` / `BHJ3` (IO:AE pp.195, 207) are recorded as the special ability codes.
+
+Regression tests: `Batch 43 HarJel II and III repair systems`.
