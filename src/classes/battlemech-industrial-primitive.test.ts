@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
 import { getCockpitType } from "../data/mech-cockpit-types";
 import { sswMechs } from "../data/ssw/sswMechs";
+import { getTargetToHitFromWeapon } from "../utils";
 
 const build = (options: { tech?: string, era?: string, type?: string, tonnage?: number, walk?: number, structure?: string, engine?: string } = {}) => {
     const mech = new BattleMech();
@@ -184,6 +185,51 @@ describe("Power amplifiers on ICE and fuel cell 'Mechs (TM p.72)", () => {
         mech.setEngineType("standard");
         expect(mech.getPowerAmplifierWeight()).toBe(0);
         expect(weightOf(mech, "Power Amplifiers")).toBeUndefined();
+    });
+});
+
+describe("Fire control to-hit modifiers in play (TM p.69; IO:AE p.114)", () => {
+    const target = { name: "Target", active: true, range: 1, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false };
+    const shot = (mech: BattleMech, weaponTag = "medium-laser", targetOtherMods = 0) => {
+        const weapon = mech.addEquipmentFromTag(weaponTag, mech.getTech().tag, "rt", false, undefined, "a", false, [], undefined, undefined)!;
+        const index = mech.equipmentList.findIndex(item => item.uuid === weapon.uuid);
+        return getTargetToHitFromWeapon(mech, index, { ...target, otherMods: targetOtherMods });
+    };
+    const base = () => shot(build()).finalToHit;
+
+    it("adds +1 for an IndustrialMech without Advanced Fire Control, and nothing with it (TM p.69)", () => {
+        const mech = build({ structure: "industrial" });
+        const gator = shot(mech);
+        expect(gator.finalToHit).toBe(base() + 1);
+        expect(gator.otherModifiers).toBe(1);
+        expect(gator.otherModifiersExplanation).toContain("IndustrialMech fire control (+1)");
+        mech.setCockpitType("industrial-advanced-fire-control");
+        expect(shot(mech).finalToHit).toBe(base());
+    });
+
+    it("adds +2 for a Primitive IndustrialMech cockpit, +1 with Advanced Fire Control (IO:AE p.114)", () => {
+        const mech = build({ era: "age-of-war", structure: "industrial" });
+        mech.setPrimitive(true);
+        const gator = shot(mech);
+        expect(gator.finalToHit).toBe(base() + 2);
+        expect(gator.otherModifiersExplanation).toContain("Primitive IndustrialMech cockpit (+2)");
+        mech.setCockpitType("primitive-industrial-advanced-fire-control");
+        expect(shot(mech).finalToHit).toBe(base() + 1);
+    });
+
+    it("adds nothing for a BattleMech, Primitive or not", () => {
+        // "The Primitive BattleMech cockpit functions as a standard BattleMech cockpit, and applies no modifiers in combat."
+        const mech = build({ era: "age-of-war" });
+        mech.setPrimitive(true);
+        expect(shot(mech).finalToHit).toBe(base());
+        expect(shot(build()).otherModifiers).toBe(0);
+    });
+
+    it("keeps the target's other modifiers when the weapon has an accuracy modifier", () => {
+        // A medium pulse laser (-2) at a target with +1 other modifiers: -1 in all.
+        const gator = shot(build(), "medium-pulse-laser", 1);
+        expect(gator.otherModifiers).toBe(-1);
+        expect(gator.finalToHit).toBe(base() - 1);
     });
 });
 
