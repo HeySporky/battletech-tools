@@ -9389,7 +9389,7 @@ export class BattleMech {
 
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
-                        this.setAdditionalHeatSinks(+splitLine[0] - 10 )
+                        this.setAdditionalHeatSinks(Math.max(0, +splitLine[0] - this.getFreeHeatSinks()))
                         this.setHeatSinksType( "double" )
                     }
                 }
@@ -9403,7 +9403,7 @@ export class BattleMech {
 
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
-                        this.setAdditionalHeatSinks(+splitLine[0] - 10 )
+                        this.setAdditionalHeatSinks(Math.max(0, +splitLine[0] - this.getFreeHeatSinks()))
                         this.setHeatSinksType( "single" )
                     }
 
@@ -9418,7 +9418,7 @@ export class BattleMech {
 
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
-                        this.setAdditionalHeatSinks(+splitLine[0] - 10 )
+                        this.setAdditionalHeatSinks(Math.max(0, +splitLine[0] - this.getFreeHeatSinks()))
                         this.setHeatSinksType( "single" )
                     }
 
@@ -10575,7 +10575,8 @@ export class BattleMech {
                         this._checkSSWComponentUsed( "heatSink", heatSinkType, this.getHeatSinksType() );
                     }
 
-                    this.setAdditionalHeatSinks( (+ jObj.mech.baseloadout.heatsinks["@_number"] ) - 10 );
+                    // The file gives the total; the engine brings some of them free (TM p.71).
+                    this.setAdditionalHeatSinks( Math.max( 0, (+ jObj.mech.baseloadout.heatsinks["@_number"] ) - this.getFreeHeatSinks() ) );
 
                     if( typeof(  jObj.mech.baseloadout.heatsinks.location ) === "object" ) {
                         this._calcCriticals();
