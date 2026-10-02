@@ -612,3 +612,182 @@ export interface IVehicleStructureAllocation {
 export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" | "frontRight" | "rearLeft" | "rearRight"
     | "rotor" | "turret" | "turret2";
 
+/**
+ * A capital-scale or sub-capital weapon for large craft (capital-weapons.ts, sub-capital-weapons.ts).
+ * Kept apart from IEquipmentItem: these are never mounted on a 'Mech or offered by the equipment registry.
+ */
+export interface ICapitalWeapon {
+    name: string;
+    altNames: string[];
+    tag: string;
+    sort: string;
+    category: "Naval Autocannon" | "Naval Gauss" | "Naval Laser" | "Naval PPC" | "Capital Missile" | "Screen Launcher" | "Mass Driver"
+        | "Sub-Capital Cannon" | "Sub-Capital Laser" | "Sub-Capital Missile";
+    scale: "capital" | "sub-capital";
+    techBase: "is" | "clan" | "both";
+    notes: string;
+    /** Aerospace heat per shot; null when the launcher takes it from the missile it fires (AR-10). */
+    heat: number | null;
+    /** Damage in capital-scale points (x10 for standard scale); null when there is no fixed value. */
+    damage: number | null;
+    /** Capital-scale range bracket. */
+    range: "short" | "medium" | "long" | "extreme" | null;
+    /** The weapon's own to-hit modifier (Mass Drivers +2). */
+    toHitModifier: number;
+    /** Tons. */
+    weight: number;
+    cbills: number;
+    battleValue: number;
+    /** The Battle Value counts toward the Defensive Battle Rating (Screen Launcher). */
+    battleValueDefensive?: boolean;
+    /** Ammunition, with the unit each printed value applies to; null for energy weapons. */
+    ammo: {
+        tonsPerShot: number | null;
+        cbills: number | null;
+        cbillsPer: "shot" | "ton" | null;
+        battleValue: number | null;
+        battleValuePer: "shot" | "ton" | null;
+    } | null;
+    /** Weapon slots by unit type: -1 = not available, null = not given by the cited table. */
+    space: {
+        supportVehicle: number | null;
+        smallCraft: number | null;
+        dropShip: number | null;
+        jumpShip: number | null;
+        warShip: number | null;
+        spaceStation: number | null;
+        mobileStructure: number | null;
+    };
+    techRating: string;
+    /** Availability by era, e.g. "E-X-E-E". */
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the dates above. */
+    clanDates?: ITechDates;
+    /** 2 = Standard, 3 = Advanced, 4 = Experimental. */
+    rulesLevel: number;
+    book: string;
+    page: number;
+}
+
+/** Support Vehicle armor of one Barrier Armor Rating (support-vehicle-armor.ts). */
+export interface ISupportVehicleArmor {
+    name: string;
+    tag: string;
+    /** Barrier Armor Rating, 2 to 10. */
+    bar: number;
+    /** Kilograms per armor point by the armor's Tech Rating; null where that rating cannot make it. */
+    kgPerPoint: Record<"a" | "b" | "c" | "d" | "e" | "f", number | null>;
+    /** Tech Ratings at which the Armored chassis modification is required. */
+    armoredChassisRatings: string[];
+    /** Tech Ratings at which the armor takes Ferro-Fibrous slot space (BAR 10 at E and F). */
+    ferroFibrousSlotRatings: string[];
+    /** C-bills per armor point. */
+    costPerPoint: number;
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    book: string;
+    page: number;
+    notes: string;
+}
+
+/** Armor for fighters, small craft, DropShips and larger craft (aerospace-armor-types.ts). */
+export interface IAerospaceArmorType {
+    name: string;
+    tag: string;
+    techBase: "is" | "clan" | "both";
+    /** "capital": points are capital-scale (JumpShips, WarShips, space stations), each worth 10 standard points. */
+    scale: "standard" | "capital";
+    /**
+     * Points per ton by unit and, where it matters, tonnage band; null for a tech base that cannot use the armor.
+     * "advanced-aerospace" covers JumpShips, WarShips and space stations.
+     */
+    pointsPerTon: {
+        unit: "conventional-fighter" | "aerospace-fighter" | "small-craft" | "spheroid-dropship" | "aerodyne-dropship" | "advanced-aerospace";
+        minTons: number | null;
+        maxTons: number | null;
+        clan: number | null;
+        is: number | null;
+    }[];
+    /** Weapon slots a fighter gives up for the armor, and where; null for armor fighters cannot mount. */
+    fighterSlots: { is: number | null; clan: number | null; placement: string } | null;
+    /** C-bills per ton of armor. */
+    costMultiplier: number;
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    book: string;
+    page: number;
+    notes: string;
+}
+
+/** A ProtoMech cockpit, heat sink, jump jet system or internal structure (protomech-components.ts). */
+export interface IProtoMechComponent {
+    name: string;
+    tag: string;
+    kind: "cockpit" | "heat-sink" | "jump-jet" | "structure";
+    techBase: "is" | "clan" | "both";
+    /** Fixed weight in kilograms; null when it depends on the ProtoMech (see the two fields below). */
+    weightKg: number | null;
+    /** Jump jets: kilograms per Jumping MP by ProtoMech tonnage band. */
+    weightKgPerMP?: { minTons: number; maxTons: number; kg: number }[];
+    /** Structure: share of the ProtoMech's weight. */
+    weightFraction?: number;
+    /** Jump MP may reach Running MP instead of Walking MP. */
+    jumpAsRun?: boolean;
+    /** ProtoMech tonnage range the component is for. */
+    minTons: number;
+    maxTons: number;
+    /**
+     * C-bills: a fixed price, a price for each one mounted, `value` x the ProtoMech's tonnage, or
+     * `value` x Jumping MP squared x the ProtoMech's tonnage.
+     */
+    cost: { basis: "fixed" | "each" | "per-unit-ton" | "jump-squared-per-unit-ton"; value: number };
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    book: string;
+    page: number;
+    notes: string;
+}
+
+/** Battle armor armor (battle-armor-armor-types.ts). */
+export interface IBattleArmorArmorType {
+    name: string;
+    tag: string;
+    techBase: "is" | "clan" | "both";
+    /** Kilograms per armor point by tech base; null where that tech base cannot use the armor. */
+    kgPerPoint: { clan: number | null; is: number | null };
+    /** Weapon slots the armor takes; they may be spread over the suit's locations. */
+    slots: number;
+    /** The table's Special Abilities entry. */
+    special: string;
+    /** Added to the Defensive Factor in the Battle Value (TM p.316). */
+    defensiveFactorBonus: number;
+    /** C-bills per armor point. */
+    costPerPoint: number;
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the dates above. */
+    clanDates?: ITechDates;
+    book: string;
+    page: number;
+    notes: string;
+}
