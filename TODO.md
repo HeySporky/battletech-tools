@@ -377,6 +377,30 @@ played first, then by dependency.
 
 ### Canon equipment pass: still owed (branch `feature/canon-equipment-pass`, ledger `tools/canon-pass-ledger.md`)
 
+Status 2026-10-02: rebased on upstream master (after #85), split into seven branches and opened upstream
+in HeySporky/battletech-tools. All of it is merged into local `master` together with the SSW runtime import.
+
+| PR | branch | state |
+|---|---|---|
+| #98 | `canon-pass/1-components` | ready |
+| #99 | `canon-pass/2-equipment-weapons-ammo` | draft, on #98 |
+| #100 | `canon-pass/3-audits-splits-bv` | draft, on #99 |
+| #101 | `canon-pass/4-superheavy-bv-slots` | draft, on #100 |
+| #102 | `canon-pass/5-new-equipment` | draft, on #101 |
+| #103 | `canon-pass/6-industrialmechs-builder-rules` | draft, on #102 |
+| #104 | `canon-pass/unit-domain-catalogs` (ledger `tools/canon-pass-ledger-unit-catalogs.md`) | ready, independent |
+
+- [ ] As each part merges upstream, rebase the next branch on upstream master and mark it ready.
+- [ ] #91 and #94 (Clan eras) touch the same catalogs; whichever set merges second needs a rebase. The
+  merge into local master shows where they differ: the canon pass values were kept (Clan 'Mech Mortar
+  dates and weights, Clan artillery cannon production 3079 with one universal shell record, Inner Sphere
+  Laser Insulator never reintroduced, Inner Sphere mortar munitions following the launcher).
+- [ ] SSW importer PR: not opened. Rebase `feature/ssw-runtime-import` on upstream master, rerun the corpus
+  audit against the full catalog and shrink `ssw-canon-pending-names.ts` first.
+- [ ] After both PR sets merge, restore the Ferro-Aluminum note dropped from `mech-armor-types.ts` in the split.
+- [ ] `ammo-is-*` records moved out of the universal catalog list the old tag twice and their own tag in
+  `altTags` (harmless; tidy up).
+
 - [x] Special munitions (Batches 12c, 12d, 20, 23): all records dated and cited from IO:AE pp.53-56;
   21 Inner Sphere munitions moved out of the universal ammo catalog; Dead-Fire BV per launcher; the four
   Rotary AC Caseless rounds moved to the custom catalog (TO:AUE p.164). Open: no ProtoMech AC specialty
@@ -419,14 +443,14 @@ played first, then by dependency.
   Artemis IV all-launchers rule. Not checked: actuator removal for industrial tools and hatchets, vehicle
   placement rules, Artemis V / prototype Artemis.
 - [x] The vehicle builder no longer offers equipment with no combat vehicle slot value (Batch 54).
-- [ ] For the user to rule on (ledger flags): Tech Rating of capital missiles (TechManual D / E against
-  IO:AE E / F; IO:AE used); capital ammunition cost and BV units (per shot or per ton); Dark Age armors on
-  IndustrialMechs under Experimental Mixed-Tech rules (not offered); C3 Remote Sensor pods recorded as
-  explosive (MegaMek: not); HarJel II / III -1 per slot not removed by CASE (MegaMek: removed).
+- [x] Rulings of 2026-10-01 (in both ledgers): capital missile Tech Rating and capital ammunition units
+  approved as recorded; always go with the book, so C3 Remote Sensor pods stay explosive and HarJel II / III
+  keep the -1 per slot that CASE does not remove.
+- [ ] Later work: Dark Age armors on IndustrialMechs under the Experimental rules level (4). Not offered now.
 - [ ] Still owed before the PRs: missile `damageAero` convention, Nail Gun range dash, source search for
   the custom catalogs, Alpha Strike conversions marked unresolved, play-rule items, the import
-  "ask the importer" step, review of `tools/spec-c-sources-staging.jsonl`; then prepare (not open) the
-  upstream equipment PR and the SSW audit PR.
+  "ask the importer" step, review of `tools/spec-c-sources-staging.jsonl`. The equipment PRs are open
+  (#98-#104); these items go in follow-up PRs.
 - [ ] Re-cite the LAM and QuadVee comments in `battlemech.ts` that still give IO (2016) pages (pp.105-196)
   to IO:AE, checking each page.
 - [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
@@ -446,7 +470,7 @@ played first, then by dependency.
 - [x] Missing records (Batches 31, 34-36): Vehicular Grenade Launcher, Recon Camera, Primitive Prototype
   Long Tom and torpedo launchers, TSEMP Cannon / One-Shot / RISC Repeating, RISC Viral Jammers, BattleMech
   Taser and ammunition. The Clan ER PPC with Capacitor moved from custom to canon (IO:AE pp.40, 190, 197),
-  reversing the 2026-09-28 classification: confirm.
+  reversing the 2026-09-28 classification; confirmed by the user.
 - [ ] Missile launcher `damageAero` holds 3 for every LRM size (the tables give 3 / 6 / 9 / 12). Check
   how the aerospace code reads it before changing the catalog.
 - [ ] The Nail/Rivet Gun has no medium or long range bracket (TM p.344); the record stores 0 and the
