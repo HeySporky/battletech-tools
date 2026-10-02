@@ -300,6 +300,13 @@ export interface IEquipmentItem {
     maxPerUnit?: number;
     /** Items sharing a group count together against `maxPerUnit` (the two RISC Viral Jammers: one of any type). */
     maxPerUnitGroup?: string;
+    /**
+     * HarJel repair systems: multiplier on the armor Battle Value of the location the item sits in,
+     * stacking with the armor type's own (IO:AE p.185). Each slot also takes 1 off the Defensive BV.
+     */
+    armorRepairBVMultiplier?: number;
+    /** Only one item of this group may be mounted in a location (HarJel repair systems, IO:AE p.83). */
+    onePerLocationGroup?: string;
     /** Multiplier on the unit's final Battle Value, applied once however many are mounted (RISC Heat Sink Override Kit, IO:AE p.190). */
     battleValueFinalMultiplier?: number;
     /** Coolant Pod: raises the heat sink capacity used for Battle Value (TO:AUE p.193). */

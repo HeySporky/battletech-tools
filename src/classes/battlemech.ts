@@ -589,6 +589,22 @@ export class BattleMech {
         const armorBVMultiplier = this._armorType.bvMultiplier ?? (this._armorType.tag === "commercial" ? 0.5 : 1);
         totalArmorFactor *= armorBVMultiplier;
         this._calcLogBV += `Total Armor Factor = ${armorBVMultiplier} x Modifier for ${this._armorType.name}: ${totalArmorFactor}<br />`;
+        // HarJel repair systems: an armor multiplier "only for body sections where a HarJel system is located",
+        // stacking with the armor type's own; "every critical slot ... will add -1 to the unit's Defensive BV" (IO:AE p.185).
+        let repairSystemSlots = 0;
+        const repairedLocations = new Set<string>();
+        for (const item of this._equipmentList) {
+            if (!item?.armorRepairBVMultiplier) continue;
+            repairSystemSlots += this.getCriticalSlots(item.space.battlemech);
+            const longKey = item.location ? BattleMech.MECH_LOCATION_MAP[item.location] : undefined;
+            if (!longKey || repairedLocations.has(longKey)) continue;
+            repairedLocations.add(longKey);
+            const allocation = this._armorAllocation as unknown as Record<string, number>;
+            const locationArmor = (allocation[longKey] ?? 0) + (allocation[`${longKey}Rear`] ?? 0);
+            const bonus = 2.5 * locationArmor * armorBVMultiplier * (item.armorRepairBVMultiplier - 1);
+            totalArmorFactor += bonus;
+            this._calcLogBV += `${this._escapeLogText(item.name)} in ${longKey}: armor x ${item.armorRepairBVMultiplier} on ${locationArmor} points = +${bonus.toFixed(2)} -> Total Armor Factor: ${totalArmorFactor.toFixed(2)}<br />`;
+        }
         // 1B. Internal Structure Points Valuation (TM p. 302)
         let totalInternalStructurePoints = 1.5 * this._totalInternalStructurePoints;
         this._calcLogBV += `Total Internal Structure Points = IS Points x 1.5: ${totalInternalStructurePoints} = 1.5 x ${this._totalInternalStructurePoints}<br />`;
@@ -740,7 +756,10 @@ export class BattleMech {
         // =====================================================================
         // 1G. COMPILE DEFENSIVE SUBTOTAL (TM p. 303)
         // =====================================================================
-        let defensiveSubtotal = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints + defensiveEquipmentBV - explosiveAmmoModifiers;
+        let defensiveSubtotal = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints + defensiveEquipmentBV - explosiveAmmoModifiers - repairSystemSlots;
+        if (repairSystemSlots > 0) {
+            this._calcLogBV += `HarJel repair system slots: -${repairSystemSlots} (included in the Defensive Subtotal below)<br />`;
+        }
         this._calcLogBV += `Defensive Subtotal (Armor + IS + Gyro + Defensive Equipment - Ammo Penalties): ${defensiveSubtotal} = ${totalArmorFactor} + ${totalInternalStructurePoints} + ${totalGyroPoints} + ${defensiveEquipmentBV} - ${explosiveAmmoModifiers}<br />`;
         // "These subtractions cannot drop the running total below 1" (TM p.302).
         if (explosiveAmmoModifiers > 0 && defensiveSubtotal < 1) {
@@ -1734,6 +1753,9 @@ export class BattleMech {
      * Equipment an IndustrialMech cannot use without Advanced Fire Control (TM p.69): Artemis IV,
      * the Beagle Active Probe or its Clan equivalent, C3 and C3i units, and targeting computers.
      */
+    /** Armor a HarJel II or III repair system works with (IO:AE pp.82-83). */
+    private static readonly REPAIR_SYSTEM_ARMOR_TAGS = ["standard", "heavy-industrial", "light-ferro-fibrous", "ferro-fibrous", "heavy-ferro-fibrous"];
+
     private static _needsAdvancedFireControl(item: IEquipmentItem): boolean {
         const tag = item.tag.toLowerCase();
         return /-artemis-iv$/.test(tag) || /^c3/.test(tag)
@@ -5604,6 +5626,8 @@ export class BattleMech {
             violations.push("Superheavy 'Mechs are available only to the Inner Sphere tech base.");
         }
         const counted = new Map<string, { item: IEquipmentItem; count: number; names: string[] }>();
+        const repairSystems = new Set<string>();
+        const perLocation = new Map<string, number>();
         for (const item of this._equipmentList) {
             if (!item) continue;
             if (item.chassisTypes?.length && !item.chassisTypes.includes(this._mechType.tag.toLowerCase())) {
@@ -5621,6 +5645,20 @@ export class BattleMech {
             if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) {
                 violations.push(`${item.name} needs a ${item.requiresEngine === "fusion" ? "fusion" : "fusion or fission"} engine.`);
             }
+            if (item.armorRepairBVMultiplier) {
+                // HarJel II / III: BattleMechs only, and only some armor types (IO:AE pp.82-83).
+                if (this.isIndustrialMech()) {
+                    violations.push(`${item.name} can only be mounted on a BattleMech.`);
+                }
+                if (!BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this._armorType.tag)) {
+                    violations.push(`${item.name} does not work with ${this._armorType.name.replace(/ Armor$/, "")} armor.`);
+                }
+                repairSystems.add(item.tag);
+            }
+            if (item.onePerLocationGroup && item.location && BattleMech.MECH_LOCATION_MAP[item.location]) {
+                const key = `${item.onePerLocationGroup}@${item.location}`;
+                perLocation.set(key, (perLocation.get(key) ?? 0) + 1);
+            }
             if (item.maxPerUnit) {
                 // Items in a group count together: one RISC Viral Jammer of any type (IO:AE p.88).
                 const key = item.maxPerUnitGroup ?? item.tag;
@@ -5634,6 +5672,13 @@ export class BattleMech {
             if (count > (item.maxPerUnit ?? count)) {
                 violations.push(`${names.join(" / ")}: ${count} mounted; at most ${item.maxPerUnit} allowed.`);
             }
+        });
+        // "Units may not combine different HarJel repair systems" (IO:AE p.83).
+        if (repairSystems.size > 1) {
+            violations.push("HarJel II and HarJel III repair systems cannot be combined on one unit.");
+        }
+        perLocation.forEach((count, key) => {
+            if (count > 1) violations.push(`Only one HarJel repair system may be mounted in a location (${key.split("@")[1].toUpperCase()}).`);
         });
         if (this.isLAM()) {
             if (this.getJumpSpeed() > this.getMaxJumpSpeed()) {
@@ -7581,6 +7626,15 @@ export class BattleMech {
                 return false;
             }
         }
+        // One HarJel repair system to a location (IO:AE p.83).
+        const movingItem = this._equipmentList.find(item => item?.uuid === fromItem.uuid);
+        if (movingItem?.onePerLocationGroup && destLoc !== "un" && this._equipmentList.some(item =>
+            item?.onePerLocationGroup === movingItem.onePerLocationGroup
+            && item.uuid !== movingItem.uuid
+            && item.allocationLocation === destLoc
+        )) {
+            return false;
+        }
         // PATHWAY A: ADVANCED ITEM SPLIT ALLOCATION PROCESSING (e.g., Critical Item splits across multiple parts)
         if (split_location && split_location.length > 0) {
             let overallSuccess = true;
@@ -8236,6 +8290,14 @@ export class BattleMech {
             return false;
         }
         if (!this.hasAdvancedFireControl() && BattleMech._needsAdvancedFireControl(item)) {
+            return false;
+        }
+        // HarJel II / III: BattleMechs with compatible armor, and never the two kinds together (IO:AE pp.82-83).
+        if (item.armorRepairBVMultiplier && (
+            this.isIndustrialMech()
+            || !BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this._armorType.tag)
+            || this._equipmentList.some(other => other?.armorRepairBVMultiplier && other.tag !== item.tag)
+        )) {
             return false;
         }
         if (!this.isLAM() && !this.isTripod()) {

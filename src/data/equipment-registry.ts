@@ -141,7 +141,7 @@ export const CUSTOM_HOMEBREW_RULES_LEVEL = 5;
 /**
  * 'Mech equipment an OmniMech must build into its base chassis: it can never be pod-mounted.
  * Via MegaMek's `omniFixedOnly` flags (TM/TO:AUE/IO:AE pages cited there; provisional).
- * HarJel I stays pod-mountable; HarJel II/III are fixed but not in our catalogs yet.
+ * HarJel I stays pod-mountable; HarJel II and III "may not be pod-mounted" (IO:AE p.83).
  */
 export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
     "masc", "clan-masc",
@@ -152,6 +152,7 @@ export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
     "risc-emergency-coolant-system",
     "tracks",
     "environmental-sealing",
+    "clan-harjel-ii", "clan-harjel-iii",
 ];
 
 export function isOmniFixedOnly(item: IEquipmentItem): boolean {
