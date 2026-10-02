@@ -113,3 +113,12 @@ Flags:
 - The rest of battle armor construction (chassis, motive systems, manipulators, weapons, the TM p.346-347 tables) is still owed and needs its own catalogs.
 
 Regression tests: `src/data/battle-armor-armor-types.test.ts` (6).
+
+## Rulings, 2026-10-01
+
+| flag | ruling | effect |
+|---|---|---|
+| Capital missile Tech Rating: TechManual D (Screen Launcher E) or IO:AE E / F | Approved as recorded | IO:AE ratings stay (newest publication) |
+| Capital ammunition units: cost per shot, Battle Value per ton for the guns | Approved as recorded | no change |
+
+Still open: Stealth (Basic) battle armor armor tech base; the large-craft slot columns for capital missiles (`null` until Strategic Operations is read for them).
