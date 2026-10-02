@@ -1328,3 +1328,80 @@ Regression tests: `Batch 55 placement limits`.
 | Dark Age armors on IndustrialMechs (Experimental Mixed-Tech rules only, IO:AE p.82) | deferred to later work | still not offered on IndustrialMechs |
 
 Still open: the Laser Pulse Module to-hit modifier (−2 in the IO:AE text and MegaMek, −1 in its table; −2 recorded); the superheavy IndustrialMech with Advanced Fire Control modelled as the superheavy BattleMech cockpit (MegaMek's model; the book prints no separate cockpit); the C3 Remote Sensor Launcher fighter slot column; the duplicate Ferro-Aluminum record in `mech-armor-types.ts`.
+
+## Batch 56: IndustrialMech construction limits
+
+A 'Mech on industrial structure was already an IndustrialMech for its cockpit, fire control and armor (Batches 41, 42, 50). It was still offered every engine, gyro, heat sink and jump jet, and came with ten heat sinks whatever its engine. The builder now offers an IndustrialMech only what the book allows, and reports a design that holds anything else.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Engines | battlemech.ts | **enforced** | TM p.68 | TM v8.0: none | "IndustrialMechs may only use standard fusion engine types ... as well as all the listed non-fusion types (ICE, Fuel Cell and Fission)" |
+| Gyro | battlemech.ts | **enforced** | TM p.69 | none | "IndustrialMechs may only use standard gyros" |
+| Jump jets | battlemech.ts | **enforced** | TM p.69 | none | "fusion- or fission-powered IndustrialMechs may be equipped with jump jets"; "IndustrialMechs may use only standard jump jets". An ICE or fuel cell 'Mech has no Jumping MP and is offered no jump jets |
+| Heat sink type | battlemech.ts | **enforced** | TM p.71 | none | "IndustrialMechs may use only single (standard) heat sinks" |
+| Weight-free heat sinks | battlemech.ts | **fixed** | TM p.71 | none | IndustrialMech Bonus Heat Sinks Table: ICE 0, Fuel Cell 1, Fission 5, Fusion 10. Every 'Mech had 10. The count, the dissipation, the critical-free sinks and the cost (sinks beyond the free ones) follow the engine type |
+| MASC, Triple-Strength Myomer | battlemech.ts | **enforced** | TM p.70 | none | IndustrialMechs "are further incompatible with the MASC and Triple-Strength Myomer (TSM) technologies" |
+| Industrial TSM | battlemech.ts | **enforced** | TM p.70 | none | "IndustrialMechs with an Inner Sphere technology base may also use Industrial TSM. Clan-made IndustrialMechs do not have access". No longer offered to BattleMechs |
+| Power amplifiers | battlemech.ts | **added** | TM p.72 (rule); pp.278–279 (cost) | none | "IndustrialMechs powered by ICE or Fuel Cell engines may carry heavy energy weapons ... they must also mount power amplifiers ... 10 percent of the weight of the energy weapons carried (rounded up to the nearest half-ton), but take up no critical space". 20,000 C-bills per ton. Added as a weight and a cost line, not as an equipment record |
+
+Checked against the book's three examples (TM pp.68–71): the CattleMaster (25 tons, 100-rated ICE: 6-ton engine, 1-ton gyro, 10 tons left after the cockpit, one added sink inside the engine, 0.5 tons of power amplifiers for two small lasers), the Buster (50 tons, 150-rated ICE at 11 tons, 24 tons left) and the Uni (70 tons, 210-rated fuel cell at 11 tons, one free sink, 39 tons left).
+
+Flags:
+
+- **Not modeled:** Environmental Sealing (TM p.70), fuel and extra fuel tanks (TM p.68), the IndustrialMech critical hit and to-hit rules in play.
+- **Superchargers on IndustrialMechs** are not blocked; TM names MASC and TSM only.
+- **Fission engines** need a higher rules level than the default, which offers an IndustrialMech standard fusion, ICE and fuel cell.
+- **BattleMechs with non-fusion engines:** the free heat sink count and the jump jet rule apply to any 'Mech by engine type. The builder still offers ICE and fuel cell engines to BattleMechs, which the TechManual does not.
+
+Regression tests: `IndustrialMech construction limits`, `Weight-free heat sinks by engine type`, `Power amplifiers on ICE and fuel cell 'Mechs` in `battlemech-industrial-primitive.test.ts`.
+
+## Batch 57: Primitive BattleMechs and Primitive IndustrialMechs
+
+New: a "Primitive 'Mech" switch in step 1 of the Mech Creator (saved as the `primitive` feature flag). The records for the Primitive cockpits, armor and engine existed since Batches 4, 6 and 8; the construction rules did not.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Engine rating | battlemech.ts | **added** | IO:AE p.117 | IO:AE v3.01: none | "after calculating the unit's Engine Rating as normal, the result must be multiplied by 1.2 and rounded up to the nearest available Engine Rating from the Master Engine Table". The weight, the gyro, the critical-free heat sinks and the cost all use the adjusted rating |
+| Engine types | battlemech.ts | **enforced** | IO:AE p.117 | none | "can use ICE, fuel cell, fission, or standard fusion engine types" |
+| Highest Walking MP | battlemech.ts | **enforced** | IO:AE p.117; TM p.49 | none | the adjusted rating may not pass 400, the end of the Master Engine Table (as Batch 16 decided for the Primitive Fusion record) |
+| Gyro | battlemech.ts | **enforced** | IO:AE pp.116–117 | none | "Primitive 'Mechs can only use Primitive gyros", which are standard gyros weighed on the adjusted rating |
+| Internal structure | battlemech.ts | **enforced** | IO:AE pp.116–117 | none | standard at 10 percent, or industrial at 20 percent; no other type |
+| Primitive BattleMech Cockpit | mech-cockpit-types | **wired** | IO:AE p.117 | none | 5 tons; mandatory on a Primitive BattleMech; "automatically feature advanced fire control" |
+| Primitive IndustrialMech Cockpit | mech-cockpit-types | **wired** | IO:AE p.117 | none | 5 tons; no fire control |
+| Primitive IndustrialMech Cockpit (Advanced Fire Control) | mech-cockpit-types | **added (derived)** | IO:AE p.117; TM p.69 | none | "They may be upgraded with such equipment as noted in TechManual": Advanced Fire Control "doubles the cockpit's C-bill cost, but takes up no tonnage". 5 tons, 200,000 C-bills. No table row prints this combination |
+| Armor | battlemech.ts | **enforced** | IO:AE p.118 | none | "Primitive BattleMechs can only mount Primitive BattleMech armor"; "Primitive IndustrialMechs may only mount Commercial armor". The armor follows the structure and cannot be changed |
+| Heat sinks | battlemech.ts | **enforced** | IO:AE p.117 | none | "Primitive 'Mechs may only install standard (single) heat sinks"; free sinks by engine type as TM p.71 |
+| Jump jets | battlemech.ts | **enforced** | IO:AE p.117 | none | "Only fusion- or fission-powered Primitive 'Mechs ... may mount jump jets". The 2464 prototype and 2471 production dates were already on the jump jet record |
+| Musculature, MASC, Supercharger | battlemech.ts | **enforced** | IO:AE p.117 | none | "incompatible with physical enhancements such as MASC, triple-strength myomers, and similar ... (such as an engine supercharger)" |
+| Musculature cost | battlemech.ts | **added** | IO:AE pp.181, 215 | none | 1,000 x tonnage |
+| Chassis | battlemech.ts | **enforced** | IO:AE p.117 | none | Inner Sphere tech base; "cannot be constructed as OmniMechs, nor ... LAMs, QuadVees, or Tripods"; bipeds and quads of 10 to 100 tons |
+| Rules level | battlemech.ts | **added** | IO:AE p.116 | none | "Rules Level: Advanced" |
+
+Checked against the book's Mackie (IO:AE pp.117–118): 100 tons, Walking 3, rating 360, 33-ton engine, 4-ton gyro, 5-ton cockpit, 10 free heat sinks of which 14 fit the engine once 7 are added, and 214 armor points from 20 tons.
+
+Flags:
+
+- **RetroTech** (IO:AE p.116) is the same switch: a Primitive 'Mech carrying equipment introduced after 2500 is a RetroTech unit. The builder does not label it or hold a true Primitive to pre-2501 equipment; the era filter is what limits the equipment offered. A mixed tech base with an Inner Sphere base is accepted, for RetroTech units with Clan weapons.
+- **Dates of the mandatory components.** The Primitive cockpits and engine are extinct in 2520, and RetroTech units reuse them from the Jihad. The records have no reintroduction date, so the builder never withholds a Primitive 'Mech's own cockpit or armor by era.
+- **Engine name.** A fusion engine in a Primitive 'Mech prints as "Primitive Fusion Engine". The older `primitive` engine type (the modern rating, with the Primitive weight) stays for mixed-technology designs and is not offered in Primitive mode.
+- **Same-book conflict, still open (Batch 8):** the Primitive cockpit costs follow the p.117 text (200,000 and 100,000), not the p.215 table (100,000 and 50,000).
+- **Play rules not modeled:** the Primitive IndustrialMech cockpit's +2 to-hit (+1 with Advanced Fire Control) and the critical hit roll modifiers (IO:AE p.114). Battle Value is "as per the normal rules"; the skill modifiers of p.187 are a force-level matter.
+- **Importing** Primitive designs from SSW or MTF files is not part of this batch.
+
+Regression tests: `Primitive BattleMechs`, `Primitive IndustrialMechs` in `battlemech-industrial-primitive.test.ts`; `e2e/mech-primitive.spec.ts`.
+
+## Batch 58: Dark Age armors on IndustrialMechs
+
+The user asked for these once IndustrialMechs and Primitive 'Mechs were buildable (2026-10-02), lifting the deferral in the rulings above.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Anti-Penetrative Ablation, Ballistic-Reinforced, Heat-Dissipating, Impact-Resistant on IndustrialMechs | battlemech.ts | **enforced** | IO:AE p.82 (Advanced Armor Table, note) | IO:AE v3.01: none | "IndustrialMechs may only mount these armor types under Experimental Mixed-Tech rules". Offered to an IndustrialMech with a mixed tech base at the Experimental rules level; such a design reports Experimental as its required level. Refused on an Inner Sphere or Clan IndustrialMech |
+
+Flags:
+
+- **Reading of "Experimental Mixed-Tech rules".** Taken as both conditions: a mixed tech base (TO:AUE p.189) and the Experimental rules level. Three of the four armors are Inner Sphere technology, so a plain Inner Sphere IndustrialMech still cannot mount them.
+- Ferro-Fibrous and Stealth armor stay barred from IndustrialMechs at every rules level (TM p.72).
+- Primitive IndustrialMechs keep Commercial armor only (IO:AE p.118).
+
+Regression tests: `Dark Age armors on IndustrialMechs` in `battlemech-industrial-primitive.test.ts`.

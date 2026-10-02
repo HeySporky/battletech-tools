@@ -1248,7 +1248,8 @@ describe("BattleMech myomer and MP boosters", () => {
     it("offers TSM to the Inner Sphere from 3050 and the prototype only at Experimental (TM p.240, IO:AE p.98)", () => {
         const myomers = (tech: string, era: string, rulesLevel = 2) =>
             build(tech, era).getAvailableMyomerTypes(rulesLevel).filter(m => m.available).map(m => m.tag);
-        expect(myomers("is", "jihad")).toEqual(["standard", "tsm", "industrial-tsm"]);
+        // Industrial TSM is for IndustrialMechs (TM p.70).
+        expect(myomers("is", "jihad")).toEqual(["standard", "tsm"]);
         expect(myomers("clan", "jihad")).toEqual(["standard"]);
         expect(myomers("is", "late-sw-rn", 4)).toContain("prototype-tsm");
     });
@@ -2291,6 +2292,7 @@ describe("Batch 8 cockpit catalog", () => {
             "standard": [3, 200000], "small": [2, 175000],                                  // TM pp.211, 277
             "industrial": [3, 100000], "industrial-advanced-fire-control": [3, 200000],     // TM pp.211, 277
             "primitive": [5, 200000], "primitive-industrial": [5, 100000],                  // IO:AE p.117
+            "primitive-industrial-advanced-fire-control": [5, 200000],                      // IO:AE p.117 with TM p.69 (derived)
             "torso-mounted": [4, 750000], "command-console": [3, 500000],                   // TO:AUE pp.112-113, 219
             "interface": [4, 1500000],                                                      // IO:AE pp.110, 213
             "direct-neural-interface": [0, 500000],                                         // IO:AE pp.62, 213
@@ -2321,6 +2323,7 @@ describe("Batch 8 cockpit catalog", () => {
             "tripod": [2590, 2602, null, null],
             "superheavy": [3060, 3076, null, null],
             "superheavy-industrial": [2905, 2940, null, null],
+            "primitive-industrial-advanced-fire-control": [2469, 2470, 2520, null],
             "superheavy-tripod": [3130, 3135, null, null],
         };
         for (const item of mechCockpitTypes) {
@@ -2336,7 +2339,7 @@ describe("Batch 8 cockpit catalog", () => {
     it("cites a book and page for every cockpit and marks what the builder supports", () => {
         const pages: Record<string, [string, number]> = {
             "standard": ["TM", 211], "small": ["TM", 211], "industrial": ["TM", 211], "industrial-advanced-fire-control": ["TM", 211],
-            "primitive": ["IO:AE", 117], "primitive-industrial": ["IO:AE", 117],
+            "primitive": ["IO:AE", 117], "primitive-industrial": ["IO:AE", 117], "primitive-industrial-advanced-fire-control": ["IO:AE", 117],
             "torso-mounted": ["TO:AUE", 113], "command-console": ["TO:AUE", 113],
             "interface": ["IO:AE", 110], "direct-neural-interface": ["IO:AE", 62],
             "quadvee": ["IO:AE", 128], "tripod": ["IO:AE", 159],
@@ -2346,7 +2349,7 @@ describe("Batch 8 cockpit catalog", () => {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
         }
         expect(mechCockpitTypes.filter(item => item.constructionStatus === "implemented").map(item => item.tag).sort())
-            .toEqual(["industrial", "industrial-advanced-fire-control", "quadvee", "small", "standard", "superheavy", "superheavy-industrial", "superheavy-tripod", "tripod"]);
+            .toEqual(["industrial", "industrial-advanced-fire-control", "primitive", "primitive-industrial", "primitive-industrial-advanced-fire-control", "quadvee", "small", "standard", "superheavy", "superheavy-industrial", "superheavy-tripod", "tripod"]);
         // Small (TM p.304) and Torso-Mounted (TO:AUE p.193) cockpits multiply the final BV by 0.95.
         expect(cockpit("small")?.bvMultiplier).toBe(0.95);
         expect(cockpit("torso-mounted")?.bvMultiplier).toBe(0.95);
@@ -5853,7 +5856,8 @@ describe("Batch 48 superheavy IndustrialMechs and superheavy engines (IO:AE pp.1
         mech.setTonnage(100);
         mech.setEngineType("xl");
         mech.setInternalStructureType("industrial");
-        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        // TM p.68: standard fusion and the non-fusion types only.
+        expect(mech.getChassisEquipmentViolations()).toEqual(["IndustrialMechs may use only standard fusion, ICE, fuel cell or fission engines."]);
         mech.setTonnage(150);
         expect(mech.getEngineType().tag).toBe("xl");
         expect(mech.getChassisEquipmentViolations()).toEqual(["Superheavy IndustrialMechs may use only standard fusion engines."]);
