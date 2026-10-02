@@ -17,6 +17,7 @@ import { mechISAmmo } from "../data/mech-is-ammo";
 import { mechClanAmmo } from "../data/mech-clan-ammo";
 import { mechUniversalAmmo } from "../data/mech-universal-ammo";
 import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
+import { btEraOptions } from "../data/era-options";
 import { mechISEquipmentMissiles } from "../data/mech-is-equipment-weapons-missiles";
 import { mechClanEquipmentMissile } from "../data/mech-clan-equipment-weapons-missile";
 import { mechISEquipmentArtillery } from "../data/mech-is-equipment-weapons-artillery";
@@ -3084,10 +3085,11 @@ describe("Batch 11 jump jet catalog", () => {
     });
 
     it("cites a book and page for every jump jet and uses null for unknown dates", () => {
-        const pages: Record<string, [string, number]> = { standard: ["TM", 225], improved: ["TM", 225], umu: ["TO:AUE", 107] };
+        const pages: Record<string, [string, number]> = { standard: ["TM", 225], improved: ["TM", 225], umu: ["TO:AUE", 107], "prototype-improved": ["IO:AE", 97] };
         for (const item of mechJumpJetTypes) {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
-            expect(item.extinct, item.tag).toBeNull();
+            // The recovered prototype ends when the improved jump jet enters production (Batch 40).
+            expect(item.extinct, item.tag).toBe(item.tag === "prototype-improved" ? 3069 : null);
             expect(item.reintroduced, item.tag).toBeNull();
         }
     });
@@ -5241,5 +5243,52 @@ describe("Batch 39 RISC Heat Sink Override Kit (IO:AE pp.86, 190, 215)", () => {
         addKit(two);
         addKit(two);
         expect(two.getBattleValue()).toBe(one.getBattleValue());
+    });
+});
+
+describe("Batch 40 Prototype Improved Jump Jets (IO:AE p.97)", () => {
+    const build = (tech = "is", era = "succession-wars") => {
+        const mech = new BattleMech();
+        mech.setTech(tech);
+        mech.setEra(era);
+        mech.setTonnage(55);
+        mech.setWalkSpeed(5);
+        return mech;
+    };
+    const offered = (mech: BattleMech, rulesLevel: number) =>
+        !!mech.getAvailableJumpJets(rulesLevel).find(jumpJet => jumpJet.tag === "prototype-improved")?.available;
+
+    it("lists the type: standard jump jet weight and slots, prototype from 3022 until 3069", () => {
+        const standard = mechJumpJetTypes.find(item => item.tag === "standard")!;
+        expect(mechJumpJetTypes.find(item => item.tag === "prototype-improved")).toMatchObject({
+            name: "Prototype Improved Jump Jets", weight_multiplier: standard.weight_multiplier, criticals: standard.criticals,
+            costMultiplier: standard.costMultiplier, prototype: 3022, introduced: null, extinct: 3069, reintroduced: null,
+            innerSphereOnly: true, book: "IO:AE", page: 97,
+        });
+    });
+
+    it("is offered to Inner Sphere designs at Experimental rules in the late Succession Wars only", () => {
+        const eras = btEraOptions.filter(era => offered(build("is", era.tag), 4));
+        for (const era of eras) {
+            expect((era.yearStart ?? 0) <= 3069 && (era.yearEnd ?? 9999) >= 3022, era.tag).toBe(true);
+        }
+        expect(eras.length).toBeGreaterThan(0);
+        expect(btEraOptions.some(era => offered(build("is", era.tag), 2))).toBe(false);
+        expect(btEraOptions.some(era => offered(build("clan", era.tag), 4))).toBe(false);
+    });
+
+    it("jumps as far as it runs, at 2 heat a hex and at least 6", () => {
+        const era = btEraOptions.find(option => offered(build("is", option.tag), 4))!.tag;
+        const mech = build("is", era);
+        mech.setJumpJetType("prototype-improved");
+        expect(mech.getMaxJumpSpeed()).toBe(mech.getRunSpeed());     // 8
+        mech.setJumpSpeed(8);
+        expect(mech.getJumpSpeed()).toBe(8);
+        expect(mech.getJumpHeat()).toBe(16);
+        mech.setJumpSpeed(2);
+        expect(mech.getJumpHeat()).toBe(6);
+        // One ton and one slot a jet at 55 tons, like a standard jump jet.
+        mech.setJumpSpeed(8);
+        expect(mech.getUnallocatedCriticals().filter(item => item.tag === "jj-prototype-improved").map(item => item.crits)).toEqual([1, 1, 1, 1, 1, 1, 1, 1]);
     });
 });

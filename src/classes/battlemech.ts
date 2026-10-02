@@ -3989,6 +3989,11 @@ export class BattleMech {
         // Movement granted by a partial wing generates no heat.
         const jumpMP = this.getJumpSpeed() - (this.getJumpSpeed() > 0 ? this.getPartialWingJumpBonus() : 0);
         if (jumpMP <= 0) return 0;
+        // Prototype improved jump jets: 2 heat a hex, at least 6 (IO:AE p.97).
+        if (this._jumpJetType.heatPerHex) {
+            const prototypeHeat = Math.max(this._jumpJetType.minimumHeat ?? 3, jumpMP * this._jumpJetType.heatPerHex);
+            return this.isXXLEngine() ? prototypeHeat * 2 : prototypeHeat;
+        }
         const heatMP = this._jumpJetType.tag === "improved" ? Math.ceil(jumpMP / 2) : jumpMP;
         return this.isXXLEngine() ? Math.max(6, heatMP * 2) : Math.max(3, heatMP);
     }
@@ -4009,7 +4014,7 @@ export class BattleMech {
     /** Highest jump MP the jump jet type allows: walking MP, or running MP for Improved jump jets. */
     public getMaxJumpSpeed(): number {
         if (this.isSuperheavy()) return 0;
-        return this._jumpJetType.tag === "improved" ? this.getRunSpeed() : this.getWalkSpeed();
+        return this._jumpJetType.tag === "improved" || this._jumpJetType.jumpAsRun ? this.getRunSpeed() : this.getWalkSpeed();
     }
 
     public getJumpJetType(): IJumpJet {
@@ -4061,7 +4066,8 @@ export class BattleMech {
             const availability = this._techDatesAvailability(jumpJet, rulesLevel);
             jumpJet.availableAsPrototype = availability.asPrototype;
             // Superheavy 'Mechs mount no jump jets, improved jump jets or UMUs (IO:AE p.156).
-            jumpJet.available = availability.available && !this.isSuperheavy();
+            jumpJet.available = availability.available && !this.isSuperheavy()
+                && !(jumpJet.innerSphereOnly && this.getTech().tag === "clan");
             return jumpJet;
         });
     }
