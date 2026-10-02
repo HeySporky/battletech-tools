@@ -67,3 +67,25 @@ Flags:
 - Support Vehicle armor is "Always Available" for BAR 2 to 6 (IO:AE footnote); the Primitive vehicle BAR rows of IO:AE p.39 (TM p.121 dates) are not carried separately.
 
 Regression tests: `src/data/aerospace-armor-types.test.ts` (6), `src/data/support-vehicle-armor.test.ts` (5).
+
+## Batch 52: ProtoMech component catalog
+
+New catalog `src/data/protomech-components.ts` (9 records, `IProtoMechComponent`), for a ProtoMech builder that does not exist yet. Weights are in kilograms, as ProtoMech construction is.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| ProtoMech Cockpit | protomech-components | **added** | TM p.85; cost p.279; dates IO:AE p.33 | TM v8.0: none | 500 kg, 500,000 C-bills, no Weapons Inventory slot. Clan/F, X-X-E-D, ~3055 / 3060 |
+| Ultraheavy ProtoMech Cockpit | same | **added** | IO:AE p.95; table p.215 | v3.01: none | "ProtoMechs over 9 tons must assign 750 kilograms to their cockpit systems"; 800,000 C-bills; 3083 |
+| ProtoMech Heat Sink | same | **added** | TM p.86; cost p.279; dates IO:AE p.36 | none | 250 kg, 2,000 C-bills each, single only, none free with the engine |
+| ProtoMech Jump Jets | same | **added** | TM p.84 (weight table); cost p.279; IO:AE p.95 (Ultraheavy); dates p.29 | none | 50 kg per Jumping MP at 2-5 tons, 100 kg at 6-9, 150 kg for Ultraheavy; cost 200 x jets squared x tonnage |
+| Extended Jump Jet (XJJ) System | same | **added** | IO:AE p.59; cost pp.178, 213 | none | Twice the jump jet weight (100 / 200 / 300 kg); Jump MP up to Running MP; cost tonnage x 500 x Jump MP squared; ~3071 / 3075 |
+| ProtoMech, Ultraheavy, Quadruped and Glider Structure | same | **added** (4) | TM p.82; IO:AE p.95, table p.215; dates p.42 | none | All 10 percent of the ProtoMech's weight; 400 / 400 / 500 / 600 C-bills per ton; Ultraheavy and Quad 3083, Glider 3084 |
+
+Helper: `getProtoMechJumpJetWeightKg(tag, tons, jumpMP)` (the TM p.84 example, 5 Jumping MP on a 6-ton ProtoMech = 500 kg, is a test).
+
+Flags:
+
+- **Availability codes.** The IO:AE cost table (p.215) gives the expanded ProtoMech components three eras ("X-X-D"); the advancement table has no rows for them. Recorded as printed. The XJJ is F/X-X-F on the cost table and XXFD on the advancement table: the advancement table is used.
+- **Not in this catalog:** the engine (standard fusion, 25 kg per rating point below 40), musculature and actuator costs, the ProtoMech UMU (TO:AUE p.107, IO:AE p.95: variable weight, cost by footnote, not yet read), the Inner Sphere ProtoMech Interface (IO:AE p.96), the structure-point and location-limit tables, and the Magnetic Clamp System. The Myomer Booster, Partial Wing, Melee Weapon and Quad Melee System are equipment records already.
+
+Regression tests: `src/data/protomech-components.test.ts` (5).
