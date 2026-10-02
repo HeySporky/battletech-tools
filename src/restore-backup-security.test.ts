@@ -28,7 +28,8 @@ describe("Restoring a backup", () => {
         expect(Date.now() - started).toBeLessThan(20000);
         expect(messages.filter((msg) => msg.severity === "add")).toHaveLength(MAX_VEHICLE_SAVES);
         expect(messages.some((msg) => msg.severity === "warning" && msg.message.includes(String(MAX_VEHICLE_SAVES)))).toBe(true);
-    });
+    // The 20-second bound above is the test; the runner's 5-second default sits below it (about 4 s on a slow machine).
+    }, 30_000);
 
     it("reports cleaned vehicles in favorite groups and vehicles over the per-group limit (P4)", () => {
         const bad = { ...vehicleSave("bad"), equipment: [null] };
