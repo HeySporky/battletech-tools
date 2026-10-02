@@ -1316,3 +1316,15 @@ Flags:
 - The violation message for one-per-location groups now names the kind of item (it said "HarJel repair system" for every group).
 
 Regression tests: `Batch 55 placement limits`.
+
+## Rulings, 2026-10-01
+
+| flag | ruling | effect |
+|---|---|---|
+| C3 Remote Sensor Launcher pods: explosive (TO:AUE) or not (MegaMek) | "Always go with book" | pods stay explosive; no change |
+| HarJel II / III: −1 Battle Value per slot always (IO:AE) or removable by CASE (MegaMek) | book | no change |
+| Clan ER PPC with PPC Capacitor: canon or custom | canon (IO:AE pp.40, 190, 197) | no change since Batch 34 |
+| IndustrialMech cockpit default | book default: plain cockpit, Advanced Fire Control optional | done in Batch 42 |
+| Dark Age armors on IndustrialMechs (Experimental Mixed-Tech rules only, IO:AE p.82) | deferred to later work | still not offered on IndustrialMechs |
+
+Still open: the Laser Pulse Module to-hit modifier (−2 in the IO:AE text and MegaMek, −1 in its table; −2 recorded); the superheavy IndustrialMech with Advanced Fire Control modelled as the superheavy BattleMech cockpit (MegaMek's model; the book prints no separate cockpit); the C3 Remote Sensor Launcher fighter slot column; the duplicate Ferro-Aluminum record in `mech-armor-types.ts`.
