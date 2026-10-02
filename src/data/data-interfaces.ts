@@ -612,3 +612,63 @@ export interface IVehicleStructureAllocation {
 export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" | "frontRight" | "rearLeft" | "rearRight"
     | "rotor" | "turret" | "turret2";
 
+/**
+ * A capital-scale or sub-capital weapon for large craft (capital-weapons.ts, sub-capital-weapons.ts).
+ * Kept apart from IEquipmentItem: these are never mounted on a 'Mech or offered by the equipment registry.
+ */
+export interface ICapitalWeapon {
+    name: string;
+    altNames: string[];
+    tag: string;
+    sort: string;
+    category: "Naval Autocannon" | "Naval Gauss" | "Naval Laser" | "Naval PPC" | "Capital Missile" | "Screen Launcher" | "Mass Driver"
+        | "Sub-Capital Cannon" | "Sub-Capital Laser" | "Sub-Capital Missile";
+    scale: "capital" | "sub-capital";
+    techBase: "is" | "clan" | "both";
+    notes: string;
+    /** Aerospace heat per shot; null when the launcher takes it from the missile it fires (AR-10). */
+    heat: number | null;
+    /** Damage in capital-scale points (x10 for standard scale); null when there is no fixed value. */
+    damage: number | null;
+    /** Capital-scale range bracket. */
+    range: "short" | "medium" | "long" | "extreme" | null;
+    /** The weapon's own to-hit modifier (Mass Drivers +2). */
+    toHitModifier: number;
+    /** Tons. */
+    weight: number;
+    cbills: number;
+    battleValue: number;
+    /** The Battle Value counts toward the Defensive Battle Rating (Screen Launcher). */
+    battleValueDefensive?: boolean;
+    /** Ammunition, with the unit each printed value applies to; null for energy weapons. */
+    ammo: {
+        tonsPerShot: number | null;
+        cbills: number | null;
+        cbillsPer: "shot" | "ton" | null;
+        battleValue: number | null;
+        battleValuePer: "shot" | "ton" | null;
+    } | null;
+    /** Weapon slots by unit type: -1 = not available, null = not given by the cited table. */
+    space: {
+        supportVehicle: number | null;
+        smallCraft: number | null;
+        dropShip: number | null;
+        jumpShip: number | null;
+        warShip: number | null;
+        spaceStation: number | null;
+        mobileStructure: number | null;
+    };
+    techRating: string;
+    /** Availability by era, e.g. "E-X-E-E". */
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the dates above. */
+    clanDates?: ITechDates;
+    /** 2 = Standard, 3 = Advanced, 4 = Experimental. */
+    rulesLevel: number;
+    book: string;
+    page: number;
+}
