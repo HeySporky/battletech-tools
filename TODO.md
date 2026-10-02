@@ -388,7 +388,15 @@ Ultralight and Superheavy (tonnage); OmniMech and Primitive (checkboxes); Indust
 - [ ] IndustrialMechs still owed: Environmental Sealing, fuel and extended fuel tanks, the to-hit and
   critical hit rules in play. The builder still offers ICE and fuel cell engines to BattleMechs.
 - [ ] Primitive 'Mechs still owed: a RetroTech label and the pre-2501 equipment limit for a true Primitive
-  (IO:AE p.116); the play rules of p.114; record sheet, TRO and Alpha Strike card not checked by eye.
+  (IO:AE p.116); the play rules of p.114.
+- [x] Primitive record sheet, TRO and Alpha Strike card checked by eye (2026-10-02) with the book's Mackie
+  (IO:AE pp.117-118): tonnage, engine 360 / 33 t, gyro, cockpit, 17 sinks (3 outside the engine), 214 armor
+  points by location, structure, Primitive Prototype PPC at 15 heat, Experimental rules level (prototype
+  equipment is Experimental, IO:AE p.112). The Alpha Strike card shows the specials problem below.
+- [ ] Alpha Strike specials on builder cards (already on upstream master, every unit): a weapon with no
+  `alphaStrike.specialAbility` falls back to its TechManual weapon type codes (`getAlphaStrikeEquipmentAbilityCodes`
+  in `equipment-registry.ts`), so cards print "DB", "DE", "S"; and `alphaStrike.notes` are pushed into the
+  specials, so "PROVISIONAL WORKBOOK CONVERSION" prints too (`calcAlphaStrike`). Fix on its own branch.
 - [ ] Then lift the SSW import skip for these designs (section 2, 234 designs): `importSSWXML` only accepts
   `mech_type` "BattleMech".
 
