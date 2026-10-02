@@ -763,3 +763,31 @@ export interface IProtoMechComponent {
     page: number;
     notes: string;
 }
+
+/** Battle armor armor (battle-armor-armor-types.ts). */
+export interface IBattleArmorArmorType {
+    name: string;
+    tag: string;
+    techBase: "is" | "clan" | "both";
+    /** Kilograms per armor point by tech base; null where that tech base cannot use the armor. */
+    kgPerPoint: { clan: number | null; is: number | null };
+    /** Weapon slots the armor takes; they may be spread over the suit's locations. */
+    slots: number;
+    /** The table's Special Abilities entry. */
+    special: string;
+    /** Added to the Defensive Factor in the Battle Value (TM p.316). */
+    defensiveFactorBonus: number;
+    /** C-bills per armor point. */
+    costPerPoint: number;
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the dates above. */
+    clanDates?: ITechDates;
+    book: string;
+    page: number;
+    notes: string;
+}
