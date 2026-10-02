@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
 import { getCockpitType } from "../data/mech-cockpit-types";
+import { sswMechs } from "../data/ssw/sswMechs";
 
 const build = (options: { tech?: string, era?: string, type?: string, tonnage?: number, walk?: number, structure?: string, engine?: string } = {}) => {
     const mech = new BattleMech();
@@ -134,6 +135,20 @@ describe("Weight-free heat sinks by engine type (TM p.71)", () => {
         mech.setAdditionalHeatSinks(2);
         // 2,000 C-bills each, times the IndustrialMech cost multiplier (1 + tonnage / 400).
         expect(mech.getCBillCostNumeric() - none).toBe(Math.round(2 * 2000 * (1 + 25 / 400)));
+    });
+});
+
+describe("Importing a design with a non-fusion engine", () => {
+    it("keeps the heat sink total of an SSW file", () => {
+        // The Griffin GRF-1N file lists 12 heat sinks. With a fission engine 5 are free and 7 are added.
+        const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
+        const fusion = new BattleMech();
+        fusion.importSSWXML(griffin);
+        expect([fusion.getEngineType().tag, fusion.getHeatSinks(), fusion.getAdditionalHeatSinks()]).toEqual(["standard", 12, 2]);
+
+        const fission = new BattleMech();
+        fission.importSSWXML(griffin.replace(">Fusion Engine</engine>", ">Fission Engine</engine>"));
+        expect([fission.getEngineType().tag, fission.getHeatSinks(), fission.getAdditionalHeatSinks()]).toEqual(["fission", 12, 7]);
     });
 });
 
