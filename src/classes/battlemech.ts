@@ -8504,6 +8504,17 @@ export class BattleMech {
     }
 
     /**
+     * To-hit modifier on weapon attacks from the cockpit's fire control. An IndustrialMech without Advanced Fire
+     * Control: +1 (TM p.69). A Primitive IndustrialMech cockpit: +2, or +1 with Advanced Fire Control; the Primitive
+     * BattleMech cockpit "applies no modifiers in combat" (IO:AE p.114). RetroTech IndustrialMechs keep it (IO:AE p.116).
+     */
+    public getFireControlToHitModifier(): number {
+        if (!this.isIndustrialMech()) return 0;
+        if (this._primitive) return this.hasAdvancedFireControl() ? 1 : 2;
+        return this.hasAdvancedFireControl() ? 0 : 1;
+    }
+
+    /**
      * Primitive 'Mechs "can only be built using Inner Sphere technology", "cannot be constructed as OmniMechs,
      * nor may they be designed as LAMs, QuadVees, or Tripods", and weigh 10 to 100 tons (IO:AE p.117).
      * A mixed-tech design with an Inner Sphere base is the RetroTech case of p.115.

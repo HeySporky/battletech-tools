@@ -898,9 +898,16 @@ export function getTargetToHitFromWeapon(
                 // @ts-expect-error Legacy compatibility type mismatch
                 gator.finalToHit += equipmentList[index].accuracyModifier;
                 // @ts-expect-error Legacy compatibility type mismatch
-                gator.otherModifiers = equipmentList[index].accuracyModifier;
+                gator.otherModifiers += equipmentList[index].accuracyModifier;
 
                 otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
+            }
+            // IndustrialMech fire control (TM p.69; IO:AE p.114).
+            const fireControlModifier = mech.getFireControlToHitModifier();
+            if( fireControlModifier > 0 ) {
+                gator.finalToHit += fireControlModifier;
+                gator.otherModifiers += fireControlModifier;
+                otherModifiersExplanation.push( (mech.isPrimitive() ? "Primitive IndustrialMech cockpit" : "IndustrialMech fire control") + " (+" + fireControlModifier + ")" );
             }
             if( !target.primary) {
                 if( target.inRearArc ) {

@@ -1406,3 +1406,21 @@ Flags:
 - Primitive IndustrialMechs keep Commercial armor only (IO:AE p.118).
 
 Regression tests: `Dark Age armors on IndustrialMechs` in `battlemech-industrial-primitive.test.ts`.
+
+## Batch 62: IndustrialMech fire control in play
+
+Owed from Batches 56 and 57. The play mode's to-hit numbers (the GATOR in the roster and on the record sheet) now carry the IndustrialMech fire control modifier.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| IndustrialMech without Advanced Fire Control | battlemech.ts; utils.ts | **added** | TM p.69 | TM v8.0: none | With Advanced Fire Control "the IndustrialMech loses its +1 to-hit modifier to all attacks": +1 without it, 0 with it |
+| Primitive IndustrialMech cockpit | battlemech.ts; utils.ts | **added** | IO:AE p.114 | IO:AE v3.01: none | "Primitive IndustrialMech cockpits, however, apply a +2 to-hit modifier to all weapon attacks ... (reduced to +1 if the cockpit is modified with advanced fire control)". RetroTech IndustrialMechs keep it: "with the exception of Primitive IndustrialMech cockpits, RetroTech cockpits ... will not suffer the targeting modifiers" (IO:AE p.116) |
+| Primitive BattleMech cockpit | — | unchanged | IO:AE p.114 | none | "functions as a standard BattleMech cockpit, and applies no modifiers in combat" |
+| Other modifiers column | utils.ts | **fixed** | — | — | A weapon's accuracy modifier replaced the target's other modifiers in the "O" value shown, though the total included both. Now they add up |
+
+Flags:
+
+- **Critical hit roll modifiers** for Primitive and RetroTech 'Mechs (+2 BattleMech, +4 IndustrialMech; IO:AE p.114) are not modeled: the 'Mech play mode does not roll for critical hits.
+- The modifier applies to weapon attacks; physical attacks are not part of the GATOR.
+
+Regression tests: `Fire control to-hit modifiers in play` in `battlemech-industrial-primitive.test.ts`.
