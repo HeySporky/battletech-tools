@@ -43,6 +43,8 @@ export interface IArmorType {
     reintroduced: number | null;
     /** Multiplier on the armor factor in the defensive BV (TM p.302, TO:AUE; e.g. Hardened 2, Reactive 1.5). */
     bvMultiplier?: number;
+    /** An IndustrialMech armor grade (Commercial, Industrial): not for BattleMechs (TM p.72). */
+    industrialMechOnly?: boolean;
     /** IO prototype year; with `introduced: null` the armor exists only as a prototype. */
     prototype?: number;
     /** Clan availability window when it differs from the Inner Sphere dates above. */
@@ -68,9 +70,10 @@ export interface IEngineOption {
         xxl: number;
         clan_xxl: number;
         ice: number;
-		cell: number;
-		fission: number;
-        /** Absent where the primitive-adjusted rating exceeds 500. */
+        /** Absent above rating 400: there are no large fuel cell or fission engines (TO:AUE p.120). */
+		cell?: number;
+		fission?: number;
+        /** Absent where the primitive-adjusted rating exceeds 400: primitive engines cannot be large engines. */
         primitive?: number;
 	}
 }
@@ -112,6 +115,12 @@ export interface IEngineType {
     available?: boolean;
     /** Set when the engine is offered only as an Experimental prototype. */
     availableAsPrototype?: boolean;
+    /** Rulebook abbreviation for the construction rule (TM, TO:AUE, IO). */
+    book?: string;
+    /** Printed page in `book`. */
+    page?: number;
+    /** Large engine records only: tag of the engine type this is the over-400 form of. */
+    largeOf?: string;
 }
 
 export interface IDamagePerRange {
@@ -228,6 +237,11 @@ export interface IEquipmentItem {
     ammoBattleValue?: number;
     /** Special munitions: multiplier on the launcher's ammo BV (TO:AUE munition BV). */
     battleValueMultiplier?: number;
+    /**
+     * Special munitions whose BV per ton is published per launcher, not as a multiplier: keyed by the
+     * launcher family and rack size ("lrm-5", "srm-6", "mml-9").
+     */
+    battleValueByLauncher?: Record<string, number>;
     /** Minefield munitions: BV per ton comes from the launcher's rack size and shots (TO:AUE pp.185, 197-198). */
     minefieldBattleValue?: "thunder" | "thunder-augmented" | "thunder-inferno" | "thunder-vibrabomb" | "thunder-active" | "fascam";
     /** Weapon arrays (MG Array): tags of the weapons it links in its own location; its BV derives from them. */
@@ -239,6 +253,11 @@ export interface IEquipmentItem {
     minAmmoTons?: number;
     explosive?: boolean;
     gauss?: boolean;
+    /**
+     * Slots that take the -1 explosive component BV penalty, when not all of them:
+     * an HVAC counts as a Gauss weapon "with one critical slot" (TO:AUE p.195, footnote Q).
+     */
+    explosiveBattleValueSlots?: number;
     weaponType?: string[];
     techRating?: string;
     unique?: boolean;
@@ -287,6 +306,27 @@ export interface IEquipmentItem {
     chassisTypes?: string[];
     /** Most copies of this item one unit may mount (e.g. LAM Bomb Bays, 20). */
     maxPerUnit?: number;
+    /** Items sharing a group count together against `maxPerUnit` (the two RISC Viral Jammers: one of any type). */
+    maxPerUnitGroup?: string;
+    /**
+     * HarJel repair systems: multiplier on the armor Battle Value of the location the item sits in,
+     * stacking with the armor type's own (IO:AE p.185). Each slot also takes 1 off the Defensive BV.
+     */
+    armorRepairBVMultiplier?: number;
+    /** IndustrialMechs only (the IndustrialMech Ejection Seat, TM p.213). */
+    industrialMechOnly?: boolean;
+    /** 'Mech locations (short keys, e.g. "hd") the item must be placed in; unset = anywhere. */
+    allowedLocations?: string[];
+    /** An industrial tool: arms only on a humanoid 'Mech, side torsos only on a four-legged one (TM pp.241-249). */
+    armTool?: boolean;
+    /** Only one item of this group may be mounted in a location (HarJel repair systems, IO:AE p.83). */
+    onePerLocationGroup?: string;
+    /** Multiplier on the unit's final Battle Value, applied once however many are mounted (RISC Heat Sink Override Kit, IO:AE p.190). */
+    battleValueFinalMultiplier?: number;
+    /** Coolant Pod: raises the heat sink capacity used for Battle Value (TO:AUE p.193). */
+    coolantPod?: boolean;
+    /** Engine the unit must have: fusion, or fusion or fission. Unset = any engine. */
+    requiresEngine?: "fusion" | "fusion-or-fission";
     /** Bombs: bomb bay (or fighter bomb) slots one bomb occupies. Bombs are loaded, not mounted. */
     bombBaySlots?: number;
 }
@@ -343,6 +383,8 @@ export interface IGyro {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    book?: string;
+    page?: number | null;
     available?: boolean;
     availableAsPrototype?: boolean;
 }
@@ -352,6 +394,36 @@ export interface ITechDates {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+}
+
+export interface ICockpitType {
+    name: string;
+    tag: string;
+    /** Tons. For an add-on (Command Console) this is the weight added to the base cockpit. */
+    weight: number;
+    cost: number;
+    /** Multiplier on the final BV (Small: TM p.304; Torso-Mounted: TO:AUE p.193). */
+    bvMultiplier?: number;
+    /** Only this technology base builds it. */
+    techBase?: "is" | "clan";
+    /** Mounted alongside another cockpit instead of replacing it. */
+    addOn?: boolean;
+    /** "implemented": the 'Mech builder mounts it; "deferred": catalogued for reference only. */
+    constructionStatus: "implemented" | "deferred";
+    book: string;
+    page: number;
+    notes?: string;
+    /** IO prototype year, when it precedes `introduced`. */
+    prototype?: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the Inner Sphere dates above. */
+    clanDates?: ITechDates;
+    /** Set by the builder: may this design mount it in its era and rules level? */
+    available?: boolean;
+    /** Set when it is offered only as an Experimental prototype. */
+    availableAsPrototype?: boolean;
 }
 
 export interface IHeatSync {
@@ -485,8 +557,17 @@ export interface IJumpJet {
     },
     criticals: number;
     costMultiplier: number;
+    book?: string;
+    page?: number;
     /** UMUs: underwater MP instead of jump MP (TO:AUE p.107). */
     underwater?: boolean;
+    /** Jump MP may reach Running MP instead of Walking MP (improved and prototype improved jump jets). */
+    jumpAsRun?: boolean;
+    /** Heat per hex jumped and the least heat a jump costs, when not the standard 1 and 3. */
+    heatPerHex?: number;
+    minimumHeat?: number;
+    /** Not available to a Clan tech base. */
+    innerSphereOnly?: boolean;
     /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
     prototype?: number;
     introduced: number | null;
@@ -631,3 +712,182 @@ export interface IVehicleStructureAllocation {
 export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" | "frontRight" | "rearLeft" | "rearRight"
     | "rotor" | "turret" | "turret2";
 
+/**
+ * A capital-scale or sub-capital weapon for large craft (capital-weapons.ts, sub-capital-weapons.ts).
+ * Kept apart from IEquipmentItem: these are never mounted on a 'Mech or offered by the equipment registry.
+ */
+export interface ICapitalWeapon {
+    name: string;
+    altNames: string[];
+    tag: string;
+    sort: string;
+    category: "Naval Autocannon" | "Naval Gauss" | "Naval Laser" | "Naval PPC" | "Capital Missile" | "Screen Launcher" | "Mass Driver"
+        | "Sub-Capital Cannon" | "Sub-Capital Laser" | "Sub-Capital Missile";
+    scale: "capital" | "sub-capital";
+    techBase: "is" | "clan" | "both";
+    notes: string;
+    /** Aerospace heat per shot; null when the launcher takes it from the missile it fires (AR-10). */
+    heat: number | null;
+    /** Damage in capital-scale points (x10 for standard scale); null when there is no fixed value. */
+    damage: number | null;
+    /** Capital-scale range bracket. */
+    range: "short" | "medium" | "long" | "extreme" | null;
+    /** The weapon's own to-hit modifier (Mass Drivers +2). */
+    toHitModifier: number;
+    /** Tons. */
+    weight: number;
+    cbills: number;
+    battleValue: number;
+    /** The Battle Value counts toward the Defensive Battle Rating (Screen Launcher). */
+    battleValueDefensive?: boolean;
+    /** Ammunition, with the unit each printed value applies to; null for energy weapons. */
+    ammo: {
+        tonsPerShot: number | null;
+        cbills: number | null;
+        cbillsPer: "shot" | "ton" | null;
+        battleValue: number | null;
+        battleValuePer: "shot" | "ton" | null;
+    } | null;
+    /** Weapon slots by unit type: -1 = not available, null = not given by the cited table. */
+    space: {
+        supportVehicle: number | null;
+        smallCraft: number | null;
+        dropShip: number | null;
+        jumpShip: number | null;
+        warShip: number | null;
+        spaceStation: number | null;
+        mobileStructure: number | null;
+    };
+    techRating: string;
+    /** Availability by era, e.g. "E-X-E-E". */
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the dates above. */
+    clanDates?: ITechDates;
+    /** 2 = Standard, 3 = Advanced, 4 = Experimental. */
+    rulesLevel: number;
+    book: string;
+    page: number;
+}
+
+/** Support Vehicle armor of one Barrier Armor Rating (support-vehicle-armor.ts). */
+export interface ISupportVehicleArmor {
+    name: string;
+    tag: string;
+    /** Barrier Armor Rating, 2 to 10. */
+    bar: number;
+    /** Kilograms per armor point by the armor's Tech Rating; null where that rating cannot make it. */
+    kgPerPoint: Record<"a" | "b" | "c" | "d" | "e" | "f", number | null>;
+    /** Tech Ratings at which the Armored chassis modification is required. */
+    armoredChassisRatings: string[];
+    /** Tech Ratings at which the armor takes Ferro-Fibrous slot space (BAR 10 at E and F). */
+    ferroFibrousSlotRatings: string[];
+    /** C-bills per armor point. */
+    costPerPoint: number;
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    book: string;
+    page: number;
+    notes: string;
+}
+
+/** Armor for fighters, small craft, DropShips and larger craft (aerospace-armor-types.ts). */
+export interface IAerospaceArmorType {
+    name: string;
+    tag: string;
+    techBase: "is" | "clan" | "both";
+    /** "capital": points are capital-scale (JumpShips, WarShips, space stations), each worth 10 standard points. */
+    scale: "standard" | "capital";
+    /**
+     * Points per ton by unit and, where it matters, tonnage band; null for a tech base that cannot use the armor.
+     * "advanced-aerospace" covers JumpShips, WarShips and space stations.
+     */
+    pointsPerTon: {
+        unit: "conventional-fighter" | "aerospace-fighter" | "small-craft" | "spheroid-dropship" | "aerodyne-dropship" | "advanced-aerospace";
+        minTons: number | null;
+        maxTons: number | null;
+        clan: number | null;
+        is: number | null;
+    }[];
+    /** Weapon slots a fighter gives up for the armor, and where; null for armor fighters cannot mount. */
+    fighterSlots: { is: number | null; clan: number | null; placement: string } | null;
+    /** C-bills per ton of armor. */
+    costMultiplier: number;
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    book: string;
+    page: number;
+    notes: string;
+}
+
+/** A ProtoMech cockpit, heat sink, jump jet system or internal structure (protomech-components.ts). */
+export interface IProtoMechComponent {
+    name: string;
+    tag: string;
+    kind: "cockpit" | "heat-sink" | "jump-jet" | "structure";
+    techBase: "is" | "clan" | "both";
+    /** Fixed weight in kilograms; null when it depends on the ProtoMech (see the two fields below). */
+    weightKg: number | null;
+    /** Jump jets: kilograms per Jumping MP by ProtoMech tonnage band. */
+    weightKgPerMP?: { minTons: number; maxTons: number; kg: number }[];
+    /** Structure: share of the ProtoMech's weight. */
+    weightFraction?: number;
+    /** Jump MP may reach Running MP instead of Walking MP. */
+    jumpAsRun?: boolean;
+    /** ProtoMech tonnage range the component is for. */
+    minTons: number;
+    maxTons: number;
+    /**
+     * C-bills: a fixed price, a price for each one mounted, `value` x the ProtoMech's tonnage, or
+     * `value` x Jumping MP squared x the ProtoMech's tonnage.
+     */
+    cost: { basis: "fixed" | "each" | "per-unit-ton" | "jump-squared-per-unit-ton"; value: number };
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    book: string;
+    page: number;
+    notes: string;
+}
+
+/** Battle armor armor (battle-armor-armor-types.ts). */
+export interface IBattleArmorArmorType {
+    name: string;
+    tag: string;
+    techBase: "is" | "clan" | "both";
+    /** Kilograms per armor point by tech base; null where that tech base cannot use the armor. */
+    kgPerPoint: { clan: number | null; is: number | null };
+    /** Weapon slots the armor takes; they may be spread over the suit's locations. */
+    slots: number;
+    /** The table's Special Abilities entry. */
+    special: string;
+    /** Added to the Defensive Factor in the Battle Value (TM p.316). */
+    defensiveFactorBonus: number;
+    /** C-bills per armor point. */
+    costPerPoint: number;
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the dates above. */
+    clanDates?: ITechDates;
+    book: string;
+    page: number;
+    notes: string;
+}

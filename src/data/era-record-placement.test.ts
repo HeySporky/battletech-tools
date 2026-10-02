@@ -28,31 +28,37 @@ describe("records whose IS and Clan dates differ are not universal", () => {
         }
     });
 
-    it("splits the Laser Insulator: the IS lost it in 2820, the Clans never did (IO p.44, p.63)", () => {
+    // TO:AUE p.134 gives "Reintroduced: N/A"; the 3073 the record once carried had no source.
+    it("splits the Laser Insulator: the IS lost it in 2820, the Clans never did (TO:AUE p.134; IO:AE p.38)", () => {
         expect(hasTag(mechUniversalEquipment, "laser-insulator")).toBe(false);
         expect(mechISEquipmentMisc.find((item) => item.tag === "laser-insulator"))
-            .toMatchObject({ extinct: 2820, reintroduced: 3073 });
+            .toMatchObject({ extinct: 2820, reintroduced: null });
         const clan = mechClanEquipmentMisc.find((item) => item.tag === "clan-laser-insulator")!;
         expect(clan.altTags).toContain("laser-insulator");
         expect(clan.extinct).toBeNull();
     });
 });
 
-describe("artillery cannons split by side (IO p.37, p.59; TO:AUE p.97)", () => {
-    it("keeps the IS cannons and shells in production from 3079/3072, and the Clan ones prototype-only (3032)", () => {
+describe("artillery cannons split by side (TO:AUE pp.97, 217; IO:AE p.31)", () => {
+    // The table gives "3012P / 3032P" and one production year, 3079, for both sides.
+    it("gives the IS cannons a 3012 prototype and the Clan ones 3032, both in production from 3079", () => {
         for (const gun of ["long-tom", "sniper", "thumper"]) {
             expect(hasTag(mechUniversalEquipment, `${gun}-cannon`)).toBe(false);
             expect(mechISEquipmentArtillery.find((item) => item.tag === `${gun}-cannon`))
                 .toMatchObject({ prototype: 3012, introduced: 3079 });
             const clan = mechClanEquipmentArtillery.find((item) => item.tag === `clan-${gun}-cannon`)!;
-            expect(clan).toMatchObject({ prototype: 3032, introduced: null });
+            expect(clan).toMatchObject({ prototype: 3032, introduced: 3079 });
             expect(clan.altTags).toContain(`${gun}-cannon`);
+        }
+    });
 
-            expect(hasTag(mechUniversalAmmo, `ammo-${gun}-cannon-standard`)).toBe(false);
-            expect(mechISAmmo.find((item) => item.tag === `ammo-is-${gun}-cannon-standard`))
-                .toMatchObject({ prototype: 3012, introduced: 3072 });
-            expect(mechClanAmmo.find((item) => item.tag === `ammo-clan-${gun}-cannon-standard`))
-                .toMatchObject({ prototype: 3032, introduced: null });
+    it("keeps one universal shell record per cannon, answering to the old per-side tags", () => {
+        for (const gun of ["long-tom", "sniper", "thumper"]) {
+            const shells = mechUniversalAmmo.find((item) => item.tag === `ammo-${gun}-cannon-standard`)!;
+            expect(shells).toMatchObject({ prototype: 3012, introduced: 3079 });
+            expect(shells.altTags).toEqual(expect.arrayContaining([`ammo-is-${gun}-cannon-standard`, `ammo-clan-${gun}-cannon-standard`]));
+            expect(hasTag(mechISAmmo, `ammo-is-${gun}-cannon-standard`)).toBe(false);
+            expect(hasTag(mechClanAmmo, `ammo-clan-${gun}-cannon-standard`)).toBe(false);
         }
     });
 });

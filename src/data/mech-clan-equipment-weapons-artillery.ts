@@ -32,8 +32,8 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
         accuracyModifier: 0,
         cbills: 450000,
         introduced: 2844,
-        extinct: 0,
-        reintroduced: 0,
+        extinct: null,
+        reintroduced: null,
         battleValue: 240,
         heat: 10,
         weight: 12,
@@ -61,7 +61,7 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
         explosive: false,
         weaponType: ["ART","M"],
         techRating: "f",
-        book: "TO",
+        book: "TO:AUE",
         page: 96,
         alphaStrike: {
             specialAbility: ["ARTA4", "A4H"],
@@ -77,22 +77,21 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
         heatAero: 10,
         rangeAero: "s" // Short-range payload designation for low-altitude striking/bombing rules
     },
-    // Artillery cannon, Clan: Clan Wolf prototype 3032, never in full production (IO p.37; TO:AUE p.97).
     {
         name: "Long Tom Cannon (Clan)",
         tag: "clan-long-tom-cannon",
-        altNames: ["Long Tom Artillery Cannon"],
+        altNames: ["Long Tom Artillery Cannon (Clan)", "Long Tom Artillery Cannon"],
         altTags: ["long-tom-cannon"],
-        sort: "artillery, cannon, long tom, clan",
+        sort: "artillery, cannon, long tom",
         category: "Artillery Weapons",
         notes: "Direct-fire artillery cannon; unlike tube artillery it targets a unit directly instead of a map hex.",
         damage: 20,
         damageAero: 20,
         accuracyModifier: 0,
         cbills: 650000,
-        introduced: null,
-        extinct: 0,
-        reintroduced: 0,
+        introduced: 3079,
+        extinct: null,
+        reintroduced: null,
         prototype: 3032,
         battleValue: 329,
         heat: 20,
@@ -132,24 +131,25 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
             tc: false,
             notes: []
         },
-        heatAero: 20
+        heatAero: 20,
+        catalog: "clan",
+        ammoTypes: ["ammo-long-tom-cannon-standard"]
     },
-    // Artillery cannon, Clan: Clan Wolf prototype 3032, never in full production (IO p.37; TO:AUE p.97).
     {
         name: "Sniper Cannon (Clan)",
         tag: "clan-sniper-cannon",
-        altNames: ["Sniper Artillery Cannon"],
+        altNames: ["Sniper Artillery Cannon (Clan)", "Sniper Artillery Cannon"],
         altTags: ["sniper-cannon"],
-        sort: "artillery, cannon, sniper, clan",
+        sort: "artillery, cannon, sniper",
         category: "Artillery Weapons",
         notes: "Direct-fire artillery cannon; unlike tube artillery it targets a unit directly instead of a map hex.",
         damage: 10,
         damageAero: 10,
         accuracyModifier: 0,
         cbills: 475000,
-        introduced: null,
-        extinct: 0,
-        reintroduced: 0,
+        introduced: 3079,
+        extinct: null,
+        reintroduced: null,
         prototype: 3032,
         battleValue: 77,
         heat: 10,
@@ -189,24 +189,25 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
             tc: false,
             notes: []
         },
-        heatAero: 10
+        heatAero: 10,
+        catalog: "clan",
+        ammoTypes: ["ammo-sniper-cannon-standard"]
     },
-    // Artillery cannon, Clan: Clan Wolf prototype 3032, never in full production (IO p.37; TO:AUE p.97).
     {
         name: "Thumper Cannon (Clan)",
         tag: "clan-thumper-cannon",
-        altNames: ["Thumper Artillery Cannon"],
+        altNames: ["Thumper Artillery Cannon (Clan)", "Thumper Artillery Cannon"],
         altTags: ["thumper-cannon"],
-        sort: "artillery, cannon, thumper, clan",
+        sort: "artillery, cannon, thumper",
         category: "Artillery Weapons",
         notes: "Direct-fire artillery cannon; unlike tube artillery it targets a unit directly instead of a map hex.",
         damage: 5,
         damageAero: 5,
         accuracyModifier: 0,
         cbills: 200000,
-        introduced: null,
-        extinct: 0,
-        reintroduced: 0,
+        introduced: 3079,
+        extinct: null,
+        reintroduced: null,
         prototype: 3032,
         battleValue: 41,
         heat: 5,
@@ -246,6 +247,8 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
             tc: false,
             notes: []
         },
-        heatAero: 5
-    }
+        heatAero: 5,
+        catalog: "clan",
+        ammoTypes: ["ammo-thumper-cannon-standard"]
+    },
 ];

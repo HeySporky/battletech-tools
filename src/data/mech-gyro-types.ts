@@ -22,8 +22,10 @@ export const mechGyroTypes: IGyro[] = [
 		costMultiplier: 300000,
 		prototype: 2300,
 		introduced: 2350,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null,
+		book: "TM",
+		page: 219
 	},
 	{
 		name: "Extra-light (XL) Gyro",
@@ -35,8 +37,10 @@ export const mechGyroTypes: IGyro[] = [
 		innerSphereOnly: true,
 		prototype: 3055,
 		introduced: 3067,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null,
+		book: "TM",
+		page: 220
 	},
 	{
 		name: "Compact Gyro",
@@ -47,8 +51,10 @@ export const mechGyroTypes: IGyro[] = [
 		innerSphereOnly: true,
 		prototype: 3055,
 		introduced: 3068,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null,
+		book: "TM",
+		page: 219
 	},
 	{
 		name: "Heavy Duty Gyro",
@@ -60,7 +66,9 @@ export const mechGyroTypes: IGyro[] = [
 		innerSphereOnly: true,
 		prototype: 3055,
 		introduced: 3067,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null,
+		book: "TM",
+		page: 219
 	}
 ];

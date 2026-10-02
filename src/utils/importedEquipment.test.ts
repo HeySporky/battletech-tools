@@ -82,7 +82,6 @@ describe("SSW import", () => {
             }
         }
         expect([...unresolved].sort()).toEqual([
-            "Cannot find any equipment named: 'Collapsible Command Module (CCM)'",
             "Cannot find any equipment named: 'Communications Equipment'",
             "Cannot find any equipment named: 'Electronic Warfare Equipment'",
         ]);

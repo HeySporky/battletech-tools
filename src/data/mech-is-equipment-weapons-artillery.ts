@@ -59,7 +59,7 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
             "M"
         ],
         techRating: "e",
-        book: "TO",
+        book: "TO:AUE",
         page: 96,
         alphaStrike: {
             heat: 0,
@@ -74,8 +74,8 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
         },
         heatAero: 10
     },
-    { isAmmo: false, name: "Prototype Arrow IV", altNames: ["Prototype Arrow IV"], tag: "prototype-arrow-iv", altTags: [], catalog: "is", sort: "artillery, arrow iv, prototype", category: "Artillery Weapons", alternateName: "", damage: 20, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 20, accuracyModifier: 0, cbills: 1800000, introduced: null, extinct: 2613, reintroduced: 3044, battleValue: 240, heat: 10, weight: 16, range: { min: 0, short: 0, medium: 0, long: 0, maxMapSheets: 8 }, space: { battlemech: 16, protomech: -1, combatVehicle: 1, supportVehicle: 16, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-is-arrow-iv-standard"], shotsPerTon: 5, ammoBattleValue: 30, minAmmoTons: 1, explosive: false, weaponType: ["ART", "M"], techRating: "e", book: "IO", page: 70, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 2, rangeExtreme: 2, tc: false, notes: ["artillery", "Provisional: copied from the production weapon"] }, heatAero: 10, prototype: 2593 },
-    // Artillery cannon, Inner Sphere: prototype 3012, production 3079 (LC) (IO p.37; TO:AUE p.97).
+    { isAmmo: false, name: "Prototype Arrow IV", altNames: ["Prototype Arrow IV"], tag: "prototype-arrow-iv", altTags: [], catalog: "is", sort: "artillery, arrow iv, prototype", category: "Artillery Weapons", alternateName: "", damage: 20, notes: "IO prototype: Experimental rules only; prototype reliability rules apply.", damageAero: 20, accuracyModifier: 0, cbills: 1800000, introduced: null, extinct: 2600, reintroduced: null, battleValue: 240, heat: 10, weight: 16, range: { min: 0, short: 0, medium: 0, long: 0, maxMapSheets: 8 }, space: { battlemech: 16, protomech: -1, combatVehicle: 1, supportVehicle: 16, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-is-arrow-iv-standard"], shotsPerTon: 5, ammoBattleValue: 30, minAmmoTons: 1, explosive: false, weaponType: ["ART", "M"], techRating: "e", book: "IO:AE", page: 64, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 2, rangeExtreme: 2, tc: false, notes: ["artillery", "Provisional: copied from the production weapon"] }, heatAero: 10, prototype: 2593 },
+    { isAmmo: false, name: "Primitive Prototype Long Tom", altNames: ["Primitive Prototype Long Tom Artillery"], tag: "primitive-prototype-long-tom", altTags: [], catalog: "is", sort: "artillery, long tom, primitive prototype", category: "Artillery Weapons", alternateName: "", damage: 25, notes: "Primitive prototype: jams on a to-hit roll of 2 and cannot be cleared in battle; carries three-quarters of the Long Tom's ammunition per ton (4 shots). Weight, cost and space are the Long Tom's (IO:AE p.112). Like the Long Tom, it has no 'Mech space except on a superheavy 'Mech.", damageAero: 25, accuracyModifier: 0, cbills: 450000, introduced: null, extinct: 2500, reintroduced: null, battleValue: 368, heat: 20, weight: 30, range: { min: 0, short: 0, medium: 0, long: 0, extreme: 0, maxMapSheets: 30 }, space: { battlemech: 30, protomech: -1, combatVehicle: 1, supportVehicle: 15, aerospaceFighter: -1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-long-tom-standard"], shotsPerTon: 4, ammoBattleValue: 35, minAmmoTons: 1, explosive: false, weaponType: ["ART"], techRating: "c", book: "IO:AE", page: 112, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 3, rangeExtreme: 3, tc: false, notes: ["artillery", "Provisional: copied from the production weapon"] }, heatAero: 20, prototype: 2445 },
     {
         name: "Long Tom Cannon",
         tag: "long-tom-cannon",
@@ -89,8 +89,8 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
         accuracyModifier: 0,
         cbills: 650000,
         introduced: 3079,
-        extinct: 0,
-        reintroduced: 0,
+        extinct: null,
+        reintroduced: null,
         prototype: 3012,
         battleValue: 329,
         heat: 20,
@@ -130,9 +130,9 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
             tc: false,
             notes: []
         },
-        heatAero: 20
+        heatAero: 20,
+        catalog: "is"
     },
-    // Artillery cannon, Inner Sphere: prototype 3012, production 3079 (LC) (IO p.37; TO:AUE p.97).
     {
         name: "Sniper Cannon",
         tag: "sniper-cannon",
@@ -146,8 +146,8 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
         accuracyModifier: 0,
         cbills: 475000,
         introduced: 3079,
-        extinct: 0,
-        reintroduced: 0,
+        extinct: null,
+        reintroduced: null,
         prototype: 3012,
         battleValue: 77,
         heat: 10,
@@ -187,9 +187,9 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
             tc: false,
             notes: []
         },
-        heatAero: 10
+        heatAero: 10,
+        catalog: "is"
     },
-    // Artillery cannon, Inner Sphere: prototype 3012, production 3079 (LC) (IO p.37; TO:AUE p.97).
     {
         name: "Thumper Cannon",
         tag: "thumper-cannon",
@@ -203,8 +203,8 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
         accuracyModifier: 0,
         cbills: 200000,
         introduced: 3079,
-        extinct: 0,
-        reintroduced: 0,
+        extinct: null,
+        reintroduced: null,
         prototype: 3012,
         battleValue: 41,
         heat: 5,
@@ -244,6 +244,7 @@ export const mechISEquipmentArtillery: IEquipmentItem[] = [
             tc: false,
             notes: []
         },
-        heatAero: 5
-    }
+        heatAero: 5,
+        catalog: "is"
+    },
 ];
