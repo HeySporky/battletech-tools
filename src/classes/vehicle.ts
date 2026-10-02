@@ -1157,6 +1157,8 @@ export default class Vehicle {
     private _isEquipmentAllowedForVehicle(item: IEquipmentItem): boolean {
         if (item.requiresHandActuator) return false;
         if (item.metadata?.domains && !item.metadata.domains.includes("vehicle")) return false;
+        // No combat vehicle slot value in the equipment tables: not vehicle equipment (TM pp.341-345, TO:AUE pp.217-223).
+        if ((item.space?.combatVehicle ?? 0) < 0) return false;
         // TSEMP cannons need a fusion or fission engine, the BattleMech Taser a fusion engine (IO:AE p.85, TO:AUE p.158).
         if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) return false;
 

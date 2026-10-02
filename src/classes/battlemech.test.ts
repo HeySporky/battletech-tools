@@ -5934,3 +5934,32 @@ describe("Batch 50 IndustrialMech armor (TM pp.72, 205, 278, 315)", () => {
         expect(other.getChassisEquipmentViolations()).toEqual(["IndustrialMechs may mount only Commercial, Industrial or Standard (Heavy Industrial) armor."]);
     });
 });
+
+describe("Batch 54 industrial equipment on 'Mechs (TM pp.344-345)", () => {
+    it("offers a 'Mech only the items with a 'Mech slot value", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(50);
+        const available = new Map(mech.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
+        for (const tag of ["fluid-suction-system", "fluid-suction-system-light-mech", "paramedic-equipment", "sprayer-mech", "cargo-container"]) {
+            expect(available.get(tag), tag).toBe(true);
+        }
+        for (const tag of ["bulldozer", "field-kitchen", "manipulator", "mash-core", "refueling-drogue", "sprayer-vehicular", "fluid-suction-system-light-vehicular", "arresting-hoist", "quarters-crew", "lifeboat-maritime"]) {
+            expect(available.has(tag), tag).toBe(false);
+        }
+    });
+
+    it("mounts a 10-ton Cargo Container in one slot", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(50);
+        mech.setWalkSpeed(4);
+        const tons = mech.getRemainingTonnage();
+        const slots = mech.getUnallocatedCritCount();
+        mech.addEquipmentFromTag("cargo-container", "is", "", false, undefined, "", false, [], undefined, undefined);
+        expect(mech.getRemainingTonnage()).toBe(tons - 10);
+        expect(mech.getUnallocatedCritCount()).toBe(slots + 1);
+    });
+});

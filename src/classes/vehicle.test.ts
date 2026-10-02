@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { mechUniversalEquipment } from "../data/mech-universal-equipment";
 import Vehicle, { formatVehicleASDamage } from "./vehicle";
 import { getVehicleTonnageBounds } from "../data/vehicle-motive-types";
 
@@ -630,5 +631,75 @@ describe("Vehicle engine requirements and the one-jammer limit (IO:AE pp.85, 88;
         expect(jammers.map(tag => offered(vehicle).get(tag))).toEqual([true, true]);
         vehicle.addEquipmentFromTag("risc-viral-jammer-decoy");
         expect(jammers.map(tag => offered(vehicle).get(tag))).toEqual([false, false]);
+    });
+});
+
+describe("Batch 54 industrial equipment for vehicles and the combat vehicle slot column (TM pp.292-293, 344-345)", () => {
+    const build = (tech = "is") => {
+        const vehicle = new Vehicle();
+        vehicle.setTech(tech);
+        vehicle.setEra("dark-ages");
+        vehicle.setTonnage(50);
+        return vehicle;
+    };
+    const offered = (vehicle: Vehicle) => new Map(vehicle.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
+    // tag, name, tons, C-bills, slots [M, CV, SV, F, SC, DS], rating, prototype, introduced, page
+    const items: [string, string, number, number, number[], string, number | null, number, number][] = [
+        ["bulldozer", "Bulldozer", 2, 50000, [-1, 1, 1, -1, -1, -1], "b", null, 1950, 242],
+        ["field-kitchen", "Field Kitchen", 3, 25000, [-1, 1, 1, -1, -1, -1], "a", null, 1950, 217],
+        ["fluid-suction-system", "Fluid Suction System (Standard)", 1, 25000, [1, 1, 1, 1, 1, -1], "c", null, 1950, 247],
+        ["fluid-suction-system-light-mech", "Fluid Suction System (Light, 'Mech)", 0.5, 1000, [1, -1, -1, -1, -1, -1], "b", null, 1950, 248],
+        ["fluid-suction-system-light-vehicular", "Fluid Suction System (Light, Vehicular)", 0.015, 1000, [-1, 1, 1, 1, 1, -1], "b", null, 1950, 248],
+        ["arresting-hoist", "Arresting Hoist", 3, 90000, [-1, -1, 1, -1, -1, -1], "c", null, 1950, 245],
+        ["look-down-radar", "Look-Down Radar", 5, 400000, [-1, -1, 1, 0, 0, 0], "b", null, 1950, 227],
+        ["manipulator", "Manipulator", 0.01, 7500, [-1, 1, 1, -1, -1, -1], "c", null, 2100, 245],
+        ["mash-core", "MASH (Core Unit)", 3.5, 35000, [-1, 1, 1, -1, 1, 1], "b", null, 1950, 228],
+        ["mash-theater", "MASH (Added Theater)", 1, 10000, [-1, 0, 0, -1, 0, 0], "b", null, 1950, 228],
+        ["paramedic-equipment", "Paramedic Equipment", 0.25, 7500, [1, 1, 1, -1, -1, -1], "c", null, 1950, 233],
+        ["refueling-drogue", "Refueling Drogue", 1, 25000, [-1, 1, 1, 1, 1, -1], "c", null, 1950, 247],
+        ["sprayer-mech", "Sprayer ('Mech)", 0.5, 1000, [1, -1, -1, -1, -1, -1], "b", 2305, 2315, 248],
+        ["sprayer-vehicular", "Sprayer (Vehicular)", 0.015, 1000, [-1, 1, 1, 1, 1, -1], "b", null, 1950, 248],
+        ["cargo-container", "Cargo Container", 10, 0, [1, 1, 1, 0, 0, 0], "a", null, 1950, 239],
+        ["external-stores-hardpoint", "External Stores Hardpoint", 0.2, 5000, [-1, -1, 1, -1, -1, -1], "b", null, 1950, 216],
+        ["quarters-steerage", "Quarters (Steerage)", 5, 5000, [-1, -1, 1, -1, 0, 0], "a", null, 1950, 236],
+        ["quarters-crew", "Quarters (Crew / 2nd Class)", 7, 15000, [-1, -1, 1, -1, 0, 0], "a", null, 1950, 236],
+        ["quarters-officer", "Quarters (Officer / 1st Class)", 10, 30000, [-1, -1, 1, -1, 0, 0], "b", null, 1950, 236],
+        ["seating-standard", "Seating (Standard)", 0.075, 100, [-1, -1, 0, -1, -1, -1], "a", null, 1950, 236],
+        ["seating-pillion", "Seating (Pillion)", 0.025, 10, [-1, -1, 0, -1, -1, -1], "a", null, 1950, 236],
+        ["escape-pod-aerospace", "Escape Pod (Aerospace)", 7, 5000, [-1, -1, 0, -1, 0, 0], "d", null, 2100, 216],
+        ["escape-pod-maritime", "Escape Pod (Maritime)", 7, 5000, [-1, -1, 0, -1, -1, -1], "c", null, 2100, 216],
+        ["lifeboat-aerospace", "Lifeboat (Aerospace)", 7, 5000, [-1, -1, -1, -1, 0, 0], "c", null, 2100, 227],
+        ["lifeboat-atmospheric", "Lifeboat (Atmospheric)", 1, 6000, [-1, -1, 0, -1, -1, -1], "a", null, 2100, 227],
+        ["lifeboat-maritime", "Lifeboat (Maritime)", 1, 5000, [-1, 0, 0, -1, -1, -1], "a", null, 1950, 227],
+    ];
+
+    it("lists the industrial items with the table values", () => {
+        for (const [tag, name, weight, cbills, [battlemech, combatVehicle, supportVehicle, aerospaceFighter, smallCraft, dropShip], techRating, prototype, introduced, page] of items) {
+            const item = mechUniversalEquipment.find(entry => entry.tag === tag);
+            expect(item, tag).toMatchObject({
+                name, weight, cbills, techRating, introduced, extinct: null, reintroduced: null, book: "TM", page, battleValue: 0,
+                space: { battlemech, protomech: -1, combatVehicle, supportVehicle, aerospaceFighter, smallCraft, dropShip },
+            });
+            expect(item?.prototype ?? null, tag).toBe(prototype);
+        }
+        // The Arresting Hoist is its own item now, no longer a second name for the Lift Hoist.
+        expect(mechUniversalEquipment.find(entry => entry.tag === "lift-hoist")?.altNames).not.toContain("Arresting Hoist");
+    });
+
+    it("offers a combat vehicle only what has a combat vehicle slot value", () => {
+        const available = offered(build());
+        for (const [tag, , , , [, combatVehicle]] of items) {
+            expect(available.get(tag), tag).toBe(combatVehicle >= 0);
+        }
+        expect(available.get("medium-laser")).toBe(true);
+        expect(available.get("lift-hoist")).toBe(true);
+        // 'Mech-only equipment was being offered to vehicles.
+        for (const tag of ["masc", "collapsible-command-module", "full-head-ejection-system", "risc-heat-sink-override-kit", "coolant-pod", "industrialmech-ejection-seat", "null-signature-system"]) {
+            expect(available.get(tag), tag).toBe(false);
+        }
+        const clan = offered(build("clan"));
+        expect(clan.get("clan-harjel-ii")).toBe(false);
+        expect(clan.get("clan-masc")).toBe(false);
+        expect(clan.get("bulldozer")).toBe(true);
     });
 });
