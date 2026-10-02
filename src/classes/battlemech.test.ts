@@ -5146,3 +5146,58 @@ describe("Batch 37 engine requirements and the one-jammer limit (IO:AE pp.85, 88
         ]);
     });
 });
+
+describe("Batch 38 Coolant Pod (TO:AUE pp.116, 193)", () => {
+    const space = { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: 1, smallCraft: -1, dropShip: -1 };
+
+    it("lists an Inner Sphere and a Clan record with the table values and IO:AE dates", () => {
+        expect(mechISEquipmentMisc.find(item => item.tag === "coolant-pod")).toMatchObject({
+            name: "Coolant Pod", cbills: 50000, weight: 1, space, battleValue: 0, explosive: true,
+            prototype: 3049, introduced: 3079, extinct: null, reintroduced: null, techRating: "d", book: "TO:AUE", page: 116,
+        });
+        const clan = mechClanEquipmentMisc.find(item => item.tag === "clan-coolant-pod");
+        expect(clan).toMatchObject({
+            name: "Coolant Pod (Clan)", cbills: 50000, weight: 1, space, battleValue: 0, explosive: true,
+            introduced: 3079, extinct: null, reintroduced: null, techRating: "d", book: "TO:AUE", page: 116,
+        });
+        expect(clan?.prototype).toBeUndefined();
+    });
+
+    // Heat Efficiency from the Battle Value log.
+    const efficiency = (pods: number, additionalHeatSinks = 0) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        mech.setAdditionalHeatSinks(additionalHeatSinks);
+        for (let pod = 0; pod < pods; pod++) {
+            mech.addEquipmentFromTag("coolant-pod", "is", "", false, undefined, "", false, [], undefined, undefined);
+        }
+        return Number(/<strong>Heat Efficiency Capacity Pool:<\/strong> (-?[\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+    };
+
+    it("adds heat sinks x pods / 5, rounded up, to the heat sink capacity for Battle Value", () => {
+        const base = efficiency(0);             // 6 + 10 - 2 = 14
+        expect(base).toBe(14);
+        expect(efficiency(1)).toBe(base + 2);    // 10 x 1/5
+        expect(efficiency(2)).toBe(base + 4);
+        expect(efficiency(3, 1)).toBe(base + 1 + 7);   // 11 sinks: 11 x 3/5 = 6.6 -> 7
+    });
+
+    it("caps the bonus at twice the number of heat sinks", () => {
+        expect(efficiency(12)).toBe(14 + 20);    // 10 x 12/5 = 24, capped at 20
+    });
+
+    it("takes one point off the defensive rating for each unprotected pod slot", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        const pod = mech.addEquipmentFromTag("coolant-pod", "is", "", false, undefined, "", false, [], undefined, undefined)!;
+        const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === pod.uuid);
+        expect(mech.moveCritical("un", from, "ct", mech.getCriticals().centerTorso.findIndex(critical => !critical))).toBe(true);
+        expect(mech.getBVCalcHTML()).toContain("Explosive Component Crit (Coolant Pod) in centerTorso (Inner Sphere, -1)");
+    });
+});

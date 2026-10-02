@@ -1048,3 +1048,17 @@ How: two optional record fields, `requiresEngine` ("fusion" or "fusion-or-fissio
 Not covered: the One-Shot on a non-fusion vehicle "will require heat sinks and power amplifiers as per the normal rules"; power amplifiers are not modeled for any energy weapon.
 
 Regression tests: `Batch 37 engine requirements and the one-jammer limit` ('Mech), `Vehicle engine requirements and the one-jammer limit`.
+
+## Batch 38: Coolant Pod
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Coolant Pod [IS] | mech-is-equipment-weapons-misc | **added** | TO:AUE p.116 (rules); p.219 construction; p.193 BV; IO:AE p.36 dates | v7.0: none | 50,000 C-bills, 1 ton, 1 slot; 'Mechs and aerospace fighters only ("Available To: BM, IM, AF"); rating D; prototype 3049, production ~3079. Explodes for 10 points when hit unused |
+| Coolant Pod [Clan] | mech-clan-equipment-weapons-misc | **added** | same | none | same statistics; "Clan Intro: 3079", no prototype. Two records because the dates differ by side |
+| Coolant Pod in Battle Value | battlemech.ts | **added** | TO:AUE p.193 | none | heat sink capacity + (heat sinks x pods / 5, rounded up), at most twice the number of heat sinks; 1 point off the defensive rating per pod slot (through the explosive-component rule, so CASE and CASE II apply as for Gauss weapons) |
+
+Flag: TO:AUE's table prints 3049P / 3056P; IO:AE p.36 gives 3049 prototype, ~3079 production and a Clan introduction of 3079. IO:AE is followed.
+
+Not modeled: triggering a pod in play (one a turn, once per battle).
+
+Regression tests: `Batch 38 Coolant Pod`.
