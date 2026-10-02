@@ -40,19 +40,19 @@ const baselineBipedData: Record<number, IRawMechStructure> = {
   100: { head: 3, ct: 31, torso: 21, arm: 17, leg: 21 },
 };
 
-// Defining the Colossal/Superheavy Master Table (105 to 200 tons)
+// Superheavy 'Mech Structure Table, 105 to 200 tons (IO:AE p.155)
 const superheavyBipedData: Record<number, IRawMechStructure> = {
   105: { head: 4, ct: 32, torso: 22, arm: 17, leg: 22 },
   110: { head: 4, ct: 33, torso: 23, arm: 18, leg: 23 },
   115: { head: 4, ct: 35, torso: 24, arm: 19, leg: 24 },
   120: { head: 4, ct: 36, torso: 25, arm: 20, leg: 25 },
   125: { head: 4, ct: 38, torso: 26, arm: 21, leg: 26 },
-  130: { head: 4, ct: 39, torso: 27, arm: 22, leg: 27 },
-  135: { head: 4, ct: 41, torso: 28, arm: 23, leg: 28 },
+  130: { head: 4, ct: 39, torso: 27, arm: 21, leg: 27 },
+  135: { head: 4, ct: 41, torso: 28, arm: 22, leg: 28 },
   140: { head: 4, ct: 42, torso: 29, arm: 23, leg: 29 },
-  145: { head: 4, ct: 44, torso: 30, arm: 24, leg: 30 },
+  145: { head: 4, ct: 44, torso: 31, arm: 24, leg: 31 },
   150: { head: 4, ct: 45, torso: 32, arm: 25, leg: 32 },
-  155: { head: 4, ct: 47, torso: 32, arm: 26, leg: 32 },
+  155: { head: 4, ct: 47, torso: 33, arm: 26, leg: 33 },
   160: { head: 4, ct: 48, torso: 34, arm: 26, leg: 34 },
   165: { head: 4, ct: 50, torso: 35, arm: 27, leg: 35 },
   170: { head: 4, ct: 51, torso: 36, arm: 28, leg: 36 },
@@ -134,11 +134,14 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Standard",
     tag: "standard",
+    book: "TM",
+    page: 225,
+    prototype: 2430,
+    introduced: 2439,
+    extinct: null,
+    reintroduced: null,
     crits: { clan: 0, is: 0 },
     cost: 400,
-    introduced: 0, // Pre-spaceflight: always available
-    extinct: 0,
-    reintroduced: 0,
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
@@ -150,13 +153,15 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Endo-Steel",
     tag: "endo-steel",
-    crits: { clan: 7, is: 14 }, // Halves structure weight
-    cost: 1600,
+    book: "TM",
+    page: 224,
     prototype: 2480,
     introduced: 2487,
     extinct: 2850,
     reintroduced: 3035,
-    clanDates: { prototype: 2825, introduced: 2827, extinct: 0, reintroduced: 0 },
+    clanDates: { prototype: 2825, introduced: 2827, extinct: null, reintroduced: null },
+    crits: { clan: 7, is: 14 }, // Halves structure weight
+    cost: 1600,
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
@@ -168,12 +173,15 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Endo-Composite",
     tag: "endo-composite",
+    book: "TO:AUE",
+    page: 154,
+    prototype: 3067,
+    introduced: 3085,
+    extinct: null,
+    reintroduced: null,
+    clanDates: { prototype: 3073, introduced: 3085, extinct: null, reintroduced: null },
     crits: { clan: 4, is: 7 }, // Reduces structure weight by 25%
     cost: 3200,
-    introduced: 3067,
-    extinct: 0,
-    reintroduced: 0,
-    clanDates: { introduced: 3073, extinct: 0, reintroduced: 0 },
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
@@ -185,13 +193,16 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Reinforced",
     tag: "reinforced",
+    book: "TO:AUE",
+    page: 155,
+    prototype: 3057,
+    introduced: 3084,
+    extinct: null,
+    reintroduced: null,
+    clanDates: { prototype: 3065, introduced: 3084, extinct: null, reintroduced: null },
     bvMultiplier: 2,
     crits: { clan: 0, is: 0 }, // Doubles structure weight but adds hit resistance
     cost: 6400,
-    introduced: 3057,
-    extinct: 0,
-    reintroduced: 0,
-    clanDates: { introduced: 3065, extinct: 0, reintroduced: 0 },
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
@@ -203,14 +214,15 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Composite",
     tag: "composite",
+    book: "TO:AUE",
+    page: 154,
+    prototype: 3061,
+    introduced: 3082,
+    extinct: null,
+    reintroduced: null,
     crits: { clan: 0, is: 0 }, // Half the weight of standard structure in no slots; Inner Sphere only
     cost: 1600,
     bvMultiplier: 0.5,
-    book: "TO:AUE",
-    page: 154,
-    introduced: 3061,
-    extinct: 0,
-    reintroduced: 0,
     innerSphereOnly: true,
     perMechType: {
       biped: generateStructuresForType('biped'),
@@ -223,13 +235,15 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Industrial",
     tag: "industrial",
+    book: "TM",
+    page: 224,
+    prototype: 2300,
+    introduced: 2350,
+    extinct: null,
+    reintroduced: null,
     bvMultiplier: 0.5,
     crits: { clan: 0, is: 0 }, // Heavily restricts armor types and critical limits
     cost: 300,
-    prototype: 2300,
-    introduced: 2350,
-    extinct: 0,
-    reintroduced: 0,
     perMechType: {
       biped: generateStructuresForType('biped'),
       quad: generateStructuresForType('quad'),
