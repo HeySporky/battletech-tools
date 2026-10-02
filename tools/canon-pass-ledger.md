@@ -1074,3 +1074,17 @@ Regression tests: `Batch 38 Coolant Pod`.
 The book sets no limit on the number of kits, so none is enforced; extra kits change nothing.
 
 Regression tests: `Batch 39 RISC Heat Sink Override Kit`.
+
+## Batch 40: Prototype Improved Jump Jets
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Prototype Improved Jump Jets | mech-jump-jet-types | **added** | IO:AE p.97 | v3.01: none | "identical construction rules as standard jump jets", so 0.5 / 1 / 2 tons and 1 slot a jet, but "a maximum Jump MP equal to the 'Mech's maximum Running MP". Heat "2 heat points per hex jumped, with a minimum cost of 6". Introduced 3022 (Federated Suns), standard production 3069: a prototype-only type for those years, Inner Sphere only, Experimental |
+
+Flags:
+
+- **Cost.** IO:AE prints no cost and no table row for this item. The record uses the standard jump jet rate (200 x tons x Jump MP squared), as MegaMek does.
+- **Explosion.** A critical hit on a jet is "identical to a 10-point internal ammunition explosion". No Battle Value penalty is applied: neither IO:AE nor TM gives one for it.
+- With an XXL engine the heat is doubled again, as for other jump jets (TO:AUE); the book does not address the pairing, which cannot occur in the item's years anyway.
+
+Regression tests: `Batch 40 Prototype Improved Jump Jets`; the Batch 11 citation test now lists the new type.

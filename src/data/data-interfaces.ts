@@ -528,6 +528,13 @@ export interface IJumpJet {
     page?: number;
     /** UMUs: underwater MP instead of jump MP (TO:AUE p.107). */
     underwater?: boolean;
+    /** Jump MP may reach Running MP instead of Walking MP (improved and prototype improved jump jets). */
+    jumpAsRun?: boolean;
+    /** Heat per hex jumped and the least heat a jump costs, when not the standard 1 and 3. */
+    heatPerHex?: number;
+    minimumHeat?: number;
+    /** Not available to a Clan tech base. */
+    innerSphereOnly?: boolean;
     /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
     prototype?: number;
     introduced: number | null;
