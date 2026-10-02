@@ -9,7 +9,7 @@ import { getCockpitType } from "../data/mech-cockpit-types";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
-import { getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
+import { engineMeetsRequirement, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
@@ -5507,7 +5507,7 @@ export class BattleMech {
         if (this.isSuperheavy() && (this._tech.tag === "clan" || this._tech.tag === "mclan")) {
             violations.push("Superheavy 'Mechs are available only to the Inner Sphere tech base.");
         }
-        const counted = new Map<string, { item: IEquipmentItem; count: number }>();
+        const counted = new Map<string, { item: IEquipmentItem; count: number; names: string[] }>();
         for (const item of this._equipmentList) {
             if (!item) continue;
             if (item.chassisTypes?.length && !item.chassisTypes.includes(this._mechType.tag.toLowerCase())) {
@@ -5519,15 +5519,21 @@ export class BattleMech {
             if (!this.isSuperheavy() && BattleMech.SUPERHEAVY_ONLY_TAGS.includes(item.tag.toLowerCase())) {
                 violations.push(`${item.name} can only be mounted on a superheavy 'Mech.`);
             }
+            if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) {
+                violations.push(`${item.name} needs a ${item.requiresEngine === "fusion" ? "fusion" : "fusion or fission"} engine.`);
+            }
             if (item.maxPerUnit) {
-                const entry = counted.get(item.tag) ?? { item, count: 0 };
+                // Items in a group count together: one RISC Viral Jammer of any type (IO:AE p.88).
+                const key = item.maxPerUnitGroup ?? item.tag;
+                const entry = counted.get(key) ?? { item, count: 0, names: [] };
                 entry.count++;
-                counted.set(item.tag, entry);
+                if (!entry.names.includes(item.name)) entry.names.push(item.name);
+                counted.set(key, entry);
             }
         }
-        counted.forEach(({ item, count }) => {
+        counted.forEach(({ item, count, names }) => {
             if (count > (item.maxPerUnit ?? count)) {
-                violations.push(`${item.name}: ${count} mounted; at most ${item.maxPerUnit} allowed.`);
+                violations.push(`${names.join(" / ")}: ${count} mounted; at most ${item.maxPerUnit} allowed.`);
             }
         });
         if (this.isLAM()) {
@@ -8119,6 +8125,10 @@ export class BattleMech {
         if (!this.isSuperheavy() && BattleMech.SUPERHEAVY_ONLY_TAGS.includes(item.tag.toLowerCase())) {
             return false;
         }
+        // TSEMP cannons need a fusion or fission engine, the BattleMech Taser a fusion engine (IO:AE p.85, TO:AUE p.158).
+        if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) {
+            return false;
+        }
         if (!this.isLAM() && !this.isTripod()) {
             return true;
         }
@@ -8370,8 +8380,9 @@ export class BattleMech {
             const asPrototype = !inProduction && effectiveIntroduction !== item.introduced
                 && this._itemIsAvailable(effectiveIntroduction, item.extinct, item.reintroduced);
             item.availableAsPrototype = asPrototype;
+            const limitKey = item.maxPerUnitGroup ?? item.tag;
             const underUnitLimit = !item.maxPerUnit
-                || this._equipmentList.filter(installed => installed?.tag === item.tag).length < item.maxPerUnit;
+                || this._equipmentList.filter(installed => (installed?.maxPerUnitGroup ?? installed?.tag) === limitKey).length < item.maxPerUnit;
             item.available = (inProduction || asPrototype) && this._isEquipmentAllowedForChassis(item) && underUnitLimit;
             addedTags.add(item.tag);
             returnItems.push(item);

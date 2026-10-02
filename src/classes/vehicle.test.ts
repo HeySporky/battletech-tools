@@ -596,3 +596,39 @@ describe("Vehicle saved with equipment from the other tech base (Batch 12d)", ()
         expect(restored.getEquipmentList().map(item => item.tag)).toEqual(["ammo-is-lrm-semi-guided"]);
     });
 });
+
+describe("Vehicle engine requirements and the one-jammer limit (IO:AE pp.85, 88; TO:AUE p.158)", () => {
+    const build = (engine: string) => {
+        const vehicle = new Vehicle();
+        vehicle.setTech("is");
+        vehicle.setEra("dark-ages");
+        vehicle.setTonnage(50);
+        vehicle.setEngineType(engine);
+        expect(vehicle.getEngineType().tag).toBe(engine);
+        return vehicle;
+    };
+    const offered = (vehicle: Vehicle) => new Map(vehicle.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
+
+    it("offers TSEMP cannons with fusion or fission engines, the Taser with fusion only, the One-Shot with any", () => {
+        const tags = ["tsemp-cannon", "risc-repeating-tsemp", "mech-taser", "tsemp-one-shot", "medium-laser"];
+        const expected: Record<string, boolean[]> = {
+            "standard": [true, true, true, true, true],
+            "xl": [true, true, true, true, true],
+            "fission": [true, true, false, true, true],
+            "ice": [false, false, false, true, true],
+            "cell": [false, false, false, true, true],
+        };
+        for (const [engine, values] of Object.entries(expected)) {
+            const available = offered(build(engine));
+            expect(tags.map(tag => available.get(tag)), engine).toEqual(values);
+        }
+    });
+
+    it("allows one RISC Viral Jammer of either type, not one of each", () => {
+        const vehicle = build("standard");
+        const jammers = ["risc-viral-jammer-decoy", "risc-viral-jammer-homing"];
+        expect(jammers.map(tag => offered(vehicle).get(tag))).toEqual([true, true]);
+        vehicle.addEquipmentFromTag("risc-viral-jammer-decoy");
+        expect(jammers.map(tag => offered(vehicle).get(tag))).toEqual([false, false]);
+    });
+});

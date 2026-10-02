@@ -326,6 +326,16 @@ export const mechLargeEngineTypes: IEngineType[] = [
 ];
 
 /** The large engine record for an engine type, or undefined when that type cannot be large. */
+/** Fusion engine types (large engines are sized forms of these). ICE, fuel cell and fission are not. */
+export const FUSION_ENGINE_TAGS: readonly string[] = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl", "primitive"];
+
+/** Does an engine of this type power an item with the given `requiresEngine` (IO:AE p.85, TO:AUE p.158)? */
+export function engineMeetsRequirement(requirement: "fusion" | "fusion-or-fission" | undefined, engineTag: string): boolean {
+    if (!requirement) return true;
+    if (FUSION_ENGINE_TAGS.includes(engineTag)) return true;
+    return requirement === "fusion-or-fission" && engineTag === "fission";
+}
+
 export function getLargeEngineType(baseTag: string): IEngineType | undefined {
 	return mechLargeEngineTypes.find(engine => engine.largeOf === baseTag);
 }

@@ -5085,3 +5085,64 @@ describe("Batch 36 BattleMech Taser (TO:AUE pp.157-158)", () => {
         expect(/<strong>Total Capped Ammo BV:<\/strong> ([\d.]+)/.exec(log)?.[1]).toBe("5.00");
     });
 });
+
+describe("Batch 37 engine requirements and the one-jammer limit (IO:AE pp.85, 88; TO:AUE p.158)", () => {
+    const build = (engine: string) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(50);
+        mech.setWalkSpeed(3);
+        mech.setEngineType(engine);
+        expect(mech.getEngineType().tag).toBe(engine);
+        return mech;
+    };
+    const offered = (mech: BattleMech) => new Map(mech.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
+    const add = (mech: BattleMech, tag: string) => mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
+    const tags = ["tsemp-cannon", "risc-repeating-tsemp", "mech-taser", "tsemp-one-shot", "medium-laser"];
+
+    it("offers TSEMP cannons with fusion or fission engines, the Taser with fusion only, the One-Shot with any", () => {
+        // engine: [TSEMP Cannon, RISC Repeating TSEMP, BattleMech Taser, TSEMP One-Shot, Medium Laser]
+        const expected: Record<string, boolean[]> = {
+            "standard": [true, true, true, true, true],
+            "xl": [true, true, true, true, true],
+            "light": [true, true, true, true, true],
+            "compact": [true, true, true, true, true],
+            "fission": [true, true, false, true, true],
+            "ice": [false, false, false, true, true],
+            "cell": [false, false, false, true, true],
+        };
+        for (const [engine, values] of Object.entries(expected)) {
+            const available = offered(build(engine));
+            expect(tags.map(tag => available.get(tag)), engine).toEqual(values);
+        }
+    });
+
+    it("reports a design whose engine no longer powers the weapon", () => {
+        const mech = build("standard");
+        add(mech, "tsemp-cannon");
+        add(mech, "mech-taser");
+        add(mech, "tsemp-one-shot");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        mech.setEngineType("fission");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["BattleMech Taser needs a fusion engine."]);
+        mech.setEngineType("ice");
+        expect(mech.getChassisEquipmentViolations()).toEqual([
+            "BattleMech Taser needs a fusion engine.",
+            "TSEMP Cannon needs a fusion or fission engine.",
+        ]);
+    });
+
+    it("allows one RISC Viral Jammer of either type, not one of each", () => {
+        const mech = build("standard");
+        const jammers = ["risc-viral-jammer-decoy", "risc-viral-jammer-homing"];
+        expect(jammers.map(tag => offered(mech).get(tag))).toEqual([true, true]);
+        add(mech, "risc-viral-jammer-decoy");
+        expect(jammers.map(tag => offered(mech).get(tag))).toEqual([false, false]);
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        add(mech, "risc-viral-jammer-homing");
+        expect(mech.getChassisEquipmentViolations()).toEqual([
+            "RISC Viral Jammer (Decoy) / RISC Viral Jammer (Homing Beacon): 2 mounted; at most 1 allowed.",
+        ]);
+    });
+});

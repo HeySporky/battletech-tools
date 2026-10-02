@@ -1030,3 +1030,21 @@ Flags:
 - Alpha Strike conversion marked unresolved.
 
 Regression tests: `Batch 36 BattleMech Taser`.
+
+## Batch 37: engine requirements and the one-jammer limit
+
+Decision 2026-10-01: enforce the engine rulings for the TSEMP cannon and the Taser, and one Viral Jammer rather than one of each. The rules were re-read first.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| TSEMP Cannon | 'Mech and vehicle builders | **enforced** | IO:AE p.85 | v3.01: none | "can only be mounted and used by units powered by fusion or fission engine types". Not offered with an ICE or fuel cell engine; a design that changes engine afterwards reports it |
+| RISC Repeating TSEMP Cannon | same | **enforced** | IO:AE p.88 | none | "only units powered by fusion or fission engine types may carry or use a repeating TSEMP" |
+| TSEMP One-Shot | same | verified | IO:AE p.85 | none | "may be mounted on units powered by non-fusion engines": no engine limit |
+| BattleMech Taser | same | **enforced** | TO:AUE p.158 | v7.0: none | "only units powered by a fusion engine can use BattleMech Tasers": fusion only, so a fission engine does not qualify. The book words this as use, not mounting; it is enforced at construction as decided |
+| RISC Viral Jammers | same | **enforced** | IO:AE p.88 | none | "only one jammer of any type may be mounted on a single unit": mounting either type now closes off both; a design carrying one of each reports it |
+
+How: two optional record fields, `requiresEngine` ("fusion" or "fusion-or-fission") and `maxPerUnitGroup` (records in a group count together against `maxPerUnit`), checked by both builders. Fusion engines are standard, XL, Light, Compact, XXL and Primitive in either tech base, with their large forms.
+
+Not covered: the One-Shot on a non-fusion vehicle "will require heat sinks and power amplifiers as per the normal rules"; power amplifiers are not modeled for any energy weapon.
+
+Regression tests: `Batch 37 engine requirements and the one-jammer limit` ('Mech), `Vehicle engine requirements and the one-jammer limit`.
