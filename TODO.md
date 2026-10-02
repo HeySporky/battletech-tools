@@ -356,13 +356,15 @@ played first, then by dependency.
   pp.29, 215; Improved Large Laser / Pulse Laser years p.89 vs p.37; Clan claws (3090 as a prototype,
   no production year); primitive prototype missile shots per ton and SRM range (p.112 text vs p.210
   table); TO:AUE p.219 large engine dates vs IO:AE p.38.
-- [ ] Missing misc equipment that needs rules support before a record is useful: Coolant Pod (BV via heat
-  sink capacity, TO:AUE pp.116, 193), MRM Apollo FCS (combined launcher records), C3 Remote Sensor
-  Launcher, Collapsible Command Module, Full-Head Ejection System, HarJel II / III, RISC Heat Sink
-  Override Kit, Laser Pulse Module, Jump Pack / Drop Pack, Prototype Improved Jump Jets (IO:AE p.97).
-  Light Active Probe [IS] and Light TAG [IS]: IO:AE lists them, the TM Inner Sphere table has no
-  'Mech-scale stats. Not enforced on the new records: fusion-only TSEMP and Taser, one Viral Jammer of
-  either type per unit.
+- [ ] Missing misc equipment that needs rules support. Done (Batches 37-41): Coolant Pod with its BV rule,
+  RISC Heat Sink Override Kit (final BV x1.01), Prototype Improved Jump Jets, fusion / fission engine
+  requirements for TSEMP and Taser, one Viral Jammer of any type, the cockpit selector with IndustrialMech
+  Advanced Fire Control (BV x0.9, equipment limits). Still owed: MRM Apollo FCS, C3 Remote Sensor Launcher,
+  Collapsible Command Module, Full-Head Ejection System, HarJel II / III, RISC Laser Pulse Module, Jump
+  Pack / Drop Pack, IndustrialMech Ejection Seat, superheavy IndustrialMech cockpit. Light Active Probe
+  [IS] and Light TAG [IS] have no 'Mech-scale stats in the TM Inner Sphere table.
+  Confirm: IndustrialMechs default to the Advanced Fire Control cockpit (old behaviour); the book default
+  is the plain cockpit. The cockpit select in step 2 has not been exercised in a browser.
 - [x] Superheavy 'Mechs (IO:AE pp.154-157): large engines (Batch 16), gyro weight and BV (14), equipment
   bans (21), structure table and types (22), half-size critical space (24), Inner Sphere tech base only
   (25), Long Tom on superheavies (29), two tons of ammunition per slot (30). The SHP-4X Omega example
