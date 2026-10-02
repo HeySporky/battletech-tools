@@ -67,10 +67,18 @@ describe("Vehicle construction basics", () => {
     it("offers only armor marked for combat vehicles", () => {
         const vehicle = new Vehicle();
         expect(vehicle.getAvailableArmorTypes().every(armor => armor.unitTypes.combatVehicle)).toBe(true);
-        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "stealth-basic")).toBe(true);
+        // TM p.206: BattleMech Stealth armor is BM-only; vehicles mount Vehicular Stealth (TO:AUE p.94).
+        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "stealth-basic")).toBe(false);
+        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "vehicular-stealth")).toBe(true);
         expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "modular")).toBe(false);
         vehicle.setArmorType("stealth-improved");
         expect(vehicle.getArmorType().tag).toBe("standard");
+    });
+
+    it("loads vehicles saved with BattleMech Stealth armor as Vehicular Stealth (TO:AUE p.94)", () => {
+        const saved = JSON.parse(new Vehicle().exportJSON());
+        saved.armorType = "stealth-basic";
+        expect(new Vehicle(JSON.stringify(saved)).getArmorType().tag).toBe("vehicular-stealth");
     });
 
     it("mounts one Modular Armor pack per location and applies its cruise penalty", () => {
@@ -526,4 +534,65 @@ describe("Vehicles against the Master Unit List", () => {
                 + `PV${as.pointValue} ${specials.join(",")}`).toBe(spec.card);
         });
     }
+});
+
+describe("Vehicle equipment saved before the Batch 15 tech-base splits", () => {
+    it("loads the old universal tags on a Clan vehicle as the Clan records", () => {
+        const clan = new Vehicle();
+        clan.setTech("clan");
+        clan.setEra("ilClan");
+        for (const tag of ["mech-mortar-8", "long-tom-cannon", "laser-insulator"]) {
+            clan.addEquipmentFromTag(tag);
+        }
+        expect(clan.getEquipmentList().map(item => item.tag)).toEqual(["clan-mech-mortar-8", "clan-long-tom-cannon", "clan-laser-insulator"]);
+
+        const is = new Vehicle();
+        is.setTech("is");
+        is.setEra("ilClan");
+        is.addEquipmentFromTag("mech-mortar-8");
+        expect(is.getEquipmentList().map(item => [item.tag, item.weight])).toEqual([["mech-mortar-8", 10]]);
+    });
+});
+
+describe("Vehicle large engines (TO:AUE pp.119-120, 219)", () => {
+    const tank = (engine: string, cruise: number): Vehicle => {
+        const vehicle = new Vehicle();
+        vehicle.setMotiveType("tracked");
+        vehicle.setTonnage(50);
+        vehicle.setEngineType(engine);
+        vehicle.setCruiseMP(cruise);
+        return vehicle;
+    };
+
+    it("prices a large engine at twice its base type's multiplier", () => {
+        const large = tank("standard", 10); // rating 500
+        expect(large.getEngineRating()).toBe(500);
+        expect(large.getCBillCostLog()).toContain("Large Fusion (10000 x rating 500 x 50 t / 75)");
+        const standard = tank("standard", 8); // rating 400
+        expect(standard.getCBillCostLog()).toContain("Standard Fusion (5000 x rating 400 x 50 t / 75)");
+    });
+
+    it("stops engine types with no large form at rating 400, even at the Experimental level", () => {
+        expect(tank("standard", 4).getMaxCruiseMP(4)).toBe(10);
+        expect(tank("xl", 4).getMaxCruiseMP(4)).toBe(10);
+        for (const engine of ["cell", "fission", "compact"]) {
+            expect(tank(engine, 4).getMaxCruiseMP(4), engine).toBe(8);
+        }
+    });
+});
+
+describe("Vehicle saved with equipment from the other tech base (Batch 12d)", () => {
+    it("loads it, though a Clan vehicle is no longer offered it", () => {
+        const clan = new Vehicle();
+        clan.setTech("clan");
+        clan.setEra("ilClan");
+        clan.addEquipmentFromTag("ammo-lrm-semi-guided");
+        expect(clan.getEquipmentList()).toEqual([]);
+
+        const saved = JSON.parse(clan.exportJSON());
+        saved.equipment = [{ tag: "ammo-lrm-semi-guided", location: "body", uuid: "saved-semi-guided" }];
+        const restored = new Vehicle(JSON.stringify(saved));
+        expect(restored.getTech().tag).toBe("clan");
+        expect(restored.getEquipmentList().map(item => item.tag)).toEqual(["ammo-is-lrm-semi-guided"]);
+    });
 });

@@ -1,14 +1,15 @@
 import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { battlemechLocations } from "../data/battlemech-locations";
-import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
+import { IArmorType, ICockpitType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { findByTag, matchesTag } from "../data/tag-match";
+import { getCockpitType } from "../data/mech-cockpit-types";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
-import { mechEngineTypes } from "../data/mech-engine-types";
+import { getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
@@ -418,6 +419,8 @@ export class BattleMech {
     private _alphaStrikeSpecialAmmoTag = "";
 
     private _calcLogBV = "";
+    /** Set when a critical slot move changes what the Battle Value depends on; cleared by the next calculation. */
+    private _battleValueStale = false;
     private _calcLogAS = "";
     private _calcLogCBill = "";
 
@@ -562,6 +565,7 @@ export class BattleMech {
     }
 
     private _calcBattleValue(): void {
+        this._battleValueStale = false;
         let hasCamo = false;
         let hasBasicStealth = this._armorType.tag === "stealth-basic" && !this.hasActiveModularArmor();
         let hasPrototypeStealth = false;
@@ -614,7 +618,8 @@ export class BattleMech {
         // 1D. Gyro Points Modifier (TM p. 302)
         const gyroType = this.getGyro().tag;
         let gyroModifier = 0.5;
-        if (gyroType === "heavy-duty") {
+        // A Superheavy 'Mech's gyro counts as a standard gyro for BV (IO:AE p.187).
+        if (gyroType === "heavy-duty" && this.getTonnage() <= 100) {
             gyroModifier = 1.0;
         }
         let totalGyroPoints = this.getTonnage() * gyroModifier;
@@ -663,6 +668,21 @@ export class BattleMech {
                 }
             }
         });
+        // An explosive component loses 1 BV for each critical slot it fills (TM p.302). Only the first
+        // slot of an item carries the item itself; its `crits` is the number of slots in this location.
+        // A record can cap the slots counted: an HVAC counts as one slot (TO:AUE p.195).
+        const explosiveSlotsCounted = new Map<string, number>();
+        const explosiveComponentSlots = (critical: { obj: IEquipmentItem, crits?: number }): number => {
+            const item = critical.obj;
+            if (!BattleMech._isExplosiveComponent(item)) return 0;
+            const slots = Math.max(1, critical.crits ?? 1);
+            if (item.explosiveBattleValueSlots === undefined) return slots;
+            const key = item.uuid ?? item.tag;
+            const counted = explosiveSlotsCounted.get(key) ?? 0;
+            const allowed = Math.max(0, Math.min(slots, item.explosiveBattleValueSlots - counted));
+            explosiveSlotsCounted.set(key, counted + allowed);
+            return allowed;
+        };
         // 1F. Technology-Based Critical Evaluation (Clan vs Inner Sphere Rulesets)
         if (this._tech.tag === "clan" || this._tech.tag === "mclan") {
             const clanVulnerableShorthands = ["hd", "ct", "ll", "rl", "cl", "fll", "frl"];
@@ -675,9 +695,10 @@ export class BattleMech {
                             this._calcLogBV += `Explosive Ammo Crit in ${longKey} (Clan, -15)<br />`;
                             explosiveAmmoModifiers += 15;
                         }
-                        if (BattleMech._isExplosiveComponent(item.obj)) {
-                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Clan, -1)<br />`;
-                            explosiveAmmoModifiers += 1;
+                        const componentSlots = explosiveComponentSlots(item);
+                        if (componentSlots > 0) {
+                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Clan, -${componentSlots})<br />`;
+                            explosiveAmmoModifiers += componentSlots;
                         }
                     }
                 });
@@ -712,12 +733,13 @@ export class BattleMech {
                             explosiveAmmoModifiers += 15;
                         }
                     }
-                    if (BattleMech._isExplosiveComponent(item.obj)) {
+                    const componentSlots = explosiveComponentSlots(item);
+                    if (componentSlots > 0) {
                         if (isLocationProtected) {
                             this._calcLogBV += `Explosive Component (${item.obj.name}) in ${longKey} protected by CASE. Penalty negated (0).<br />`;
                         } else {
-                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Inner Sphere, -1)<br />`;
-                            explosiveAmmoModifiers += 1;
+                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Inner Sphere, -${componentSlots})<br />`;
+                            explosiveAmmoModifiers += componentSlots;
                         }
                     }
                 });
@@ -1169,23 +1191,10 @@ export class BattleMech {
         this._calcLogCBill += "<table class=\"cbill-cost\">\n";
 
         this._calcLogCBill += "<tbody>\n";
-        // Cockpit. Chassis cockpits (TO:AUE/IO values as implemented by MegaMek; provisional):
-        // Tripod 400,000 (Superheavy Tripod 500,000), QuadVee 375,000, Superheavy 300,000.
-        const chassisCockpit = this.isTripod()
-            ? (this._tonnage > 100 ? { name: "Superheavy Tripod Cockpit", cost: 500000 } : { name: "Tripod Cockpit", cost: 400000 })
-            : this.isQuadVee() ? { name: "QuadVee Cockpit", cost: 375000 }
-            : this._tonnage > 100 ? { name: "Superheavy Cockpit", cost: 300000 }
-            : null;
-        if( chassisCockpit ) {
-            this._calcLogCBill += "<tr><td><strong>" + chassisCockpit.name + "</strong><br /><span class=\"smaller-text\">provisional</span></td><td>" + addCommas(chassisCockpit.cost) + "</td></tr>\n";
-            cbillDryTotal += chassisCockpit.cost;
-        } else if( this._smallCockpit ) {
-            this._calcLogCBill += "<tr><td><strong>Small Cockpit</strong></td><td>175,000</td></tr>\n";
-            cbillDryTotal += 175000;
-        } else {
-            this._calcLogCBill += "<tr><td><strong>Standard Cockpit</strong></td><td>200,000</td></tr>\n";
-            cbillDryTotal += 200000;
-        }
+        // Cockpit: the chassis decides (Tripod, QuadVee, superheavy: IO:AE pp.215, 217); otherwise Standard or Small (TM p.277).
+        const cockpit = this.getCockpitType();
+        this._calcLogCBill += "<tr><td><strong>" + (cockpit.tag === "standard" ? "Standard Cockpit" : cockpit.name) + "</strong></td><td>" + addCommas(cockpit.cost) + "</td></tr>\n";
+        cbillDryTotal += cockpit.cost;
 
         // Life Support
         this._calcLogCBill += "<tr><td><strong>Life Support</strong></td><td>50,000</td></tr>\n";
@@ -1348,9 +1357,13 @@ export class BattleMech {
         // ENGINE C-BILL COST CALCULATION (TechManual p. 278)
         // =====================================================================
         const engineType = this.getEngineType();
-        const engineName = engineType.name;
+        const largeEngineType = this.getLargeEngineType();
+        const engineName = largeEngineType?.name ?? engineType.name;
         const engineRating = this.getEngineRating();
-        const engineCostMultiplier = (engineType.costMultiplier || 0) * (this.isLargeEngine() ? 2 : 1);
+        // Large engines carry their own multiplier, twice the base type's (TO:AUE p.219).
+        const engineCostMultiplier = largeEngineType
+            ? largeEngineType.costMultiplier
+            : (engineType.costMultiplier || 0) * (this.isLargeEngine() ? 2 : 1);
         // Execute canonical cost calculation and round to the nearest whole C-Bill
         const engineCost = Math.round((engineCostMultiplier * engineRating * this.getTonnage()) / 75);
         this._calcLogCBill += "<tr><td><strong>Engine: " + engineName + "</strong><br />" +
@@ -1454,11 +1467,20 @@ export class BattleMech {
         return this.getJumpSpeed();
     }
 
+    /** Recalculates the Battle Value if critical slots have moved since it was last worked out. */
+    private _refreshBattleValue(): void {
+        if (this._battleValueStale) {
+            this._calcBattleValue();
+        }
+    }
+
     public getBattleValue() {
+        this._refreshBattleValue();
         return this._battleValue;
     }
 
     public getPilotAdjustedBattleValue() {
+        this._refreshBattleValue();
         return this._pilotAdjustedBattleValue;
     }
 
@@ -1536,9 +1558,17 @@ export class BattleMech {
 
     }
 
-    /** Engines rated above 400 are large engines (TO:AUE): double cost and two more center torso slots. */
+    /** Engines rated above 400 are large engines (TO:AUE p.119): double cost and two more center torso slots. */
     public isLargeEngine(): boolean {
         return this.getEngineRating() > 400;
+    }
+
+    /**
+     * The large engine record for the current engine type, with its own dates, cost and slots.
+     * Null at ratings up to 400, and for types that have no large form (Compact, Fuel Cell, Fission, Primitive).
+     */
+    public getLargeEngineType(): IEngineType | null {
+        return this.isLargeEngine() ? getLargeEngineType(this._engineType.tag) ?? null : null;
     }
 
     /** Engine column of the ASC p.98 'Mech structure table. */
@@ -1585,15 +1615,31 @@ export class BattleMech {
     }
 
     public getGyroWeight() {
-        // Superheavy Mechs (>100 tons) of any chassis type require a doubled-weight Superheavy Gyro.
-        const superheavyGyroMultiplier = this._tonnage > 100 ? 2 : 1;
         if( this._engine ) {
+            // Superheavy Mechs (>100 tons) of any chassis type must mount the Superheavy Gyro:
+            // it weighs as a Heavy-Duty gyro, engine rating / 100 rounded up, then doubled
+            // (IO:AE p.156; IO errata v1.21 replaced the older "rating / 50" wording).
+            if( this._tonnage > 100 ) {
+                return Math.ceil(this._engine.rating / 100) * 2;
+            }
             // Gyro weight: engine rating / 100 rounded up, times the gyro multiplier, rounded up to the half ton.
-            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * superheavyGyroMultiplier * 2) / 2;
+            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * 2) / 2;
         } else {
             return 0;
         }
     }
+    /**
+     * The cockpit this chassis mounts. Tripods, QuadVees and superheavy 'Mechs have a mandatory
+     * cockpit (IO:AE pp.128, 156, 159); everything else chooses between Standard and Small.
+     */
+    public getCockpitType(): ICockpitType {
+        const superheavy = this._tonnage > 100;
+        if (this.isTripod()) return getCockpitType(superheavy ? "superheavy-tripod" : "tripod");
+        if (this.isQuadVee()) return getCockpitType("quadvee");
+        if (superheavy) return getCockpitType("superheavy");
+        return getCockpitType(this._smallCockpit ? "small" : "standard");
+    }
+
     public getCockpitWeight() {
         return this._cockpitWeight;
     }
@@ -1638,6 +1684,7 @@ export class BattleMech {
     }
 
     public getBVCalcHTML() {
+        this._refreshBattleValue();
         return "<div class=\"mech-tro\">" + this._calcLogBV + "</div>";
     }
 
@@ -1809,6 +1856,7 @@ export class BattleMech {
         let longTotalDamageRear = 0;
         let extremeTotalDamageRear = 0;
 
+        const selectedSpecialAmmoTag = this.getAlphaStrikeSpecialAmmoTag();
         for (let weapon_counter = 0; weapon_counter < this._equipmentList.length; weapon_counter++) {
             if (this._equipmentList[weapon_counter].explosive) {
                 has_explosive = true;
@@ -1816,7 +1864,7 @@ export class BattleMech {
             const equipment = this._equipmentList[weapon_counter];
             const appliesSelectedSpecialAmmo = equipment.isAmmo
                 && equipment.isSpecialAmmo
-                && matchesTag(equipment, this._alphaStrikeSpecialAmmoTag);
+                && equipment.tag === selectedSpecialAmmoTag;
             if (!equipment.isAmmo || appliesSelectedSpecialAmmo) {
                 for (const displayAbilityCode of getAlphaStrikeEquipmentDisplayAbilityCodes(equipment)) {
                 if (!this._alphaStrikeForceStats.abilityCodes.includes(displayAbilityCode)) {
@@ -2859,26 +2907,26 @@ export class BattleMech {
         });
 
         if (typeTag === "quadvee" || typeTag === "tripod") {
-            this._cockpitWeight = this._tonnage > 100 && typeTag === "tripod" ? 6 : 4;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else if (this._tonnage > 100) {
             // Superheavy Bipeds/Quads require a two-pilot Superheavy Cockpit, same as any other Superheavy chassis.
-            this._cockpitWeight = 4;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: "Superheavy Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else if( this._smallCockpit) {
-            this._cockpitWeight = 2;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: "Small Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else {
-            this._cockpitWeight = 3;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: "Cockpit",
                 weight: this.getCockpitWeight()
@@ -3452,11 +3500,17 @@ export class BattleMech {
                 engineCrits = { ct: 6, rt: 0, lt: 0 }; 
             }
         }
-        const engineName = this._engineType.name;
+        // Large engines (rating over 400) take their slots from their own record: two more center
+        // torso slots than the base type, placed after the gyro (TO:AUE p.120).
+        const largeEngineType = this.getLargeEngineType();
+        const largeEngineCrits = largeEngineType?.criticals[currentTechTag];
+        if (largeEngineCrits) {
+            engineCrits = largeEngineCrits;
+        }
+        const engineName = largeEngineType?.name ?? this._engineType.name;
         // FIRST ENGINE BLOCK (Slots 1-3): Seats the upper drive mechanism
         // If an engine takes 6 slots, we limit the first sequential chunk to exactly 3 slots. Currently unless I can find something canonical or homebrew somewhere
-        // Large engines (rating over 400, TO:AUE) add two center torso slots after the gyro.
-        const engineCriticalTorso = (engineCrits.ct ?? 0) + (this.isLargeEngine() ? 2 : 0);
+        const engineCriticalTorso = (engineCrits.ct ?? 0) + (this.isLargeEngine() && !largeEngineCrits ? 2 : 0);
         const initialEngineAllocation = engineCriticalTorso > 3 ? 3 : engineCriticalTorso;
         if (initialEngineAllocation > 0) {
             this._addCriticalItem(
@@ -3467,10 +3521,11 @@ export class BattleMech {
             );
         }
         // GYRO POSITIONING (Slots 4-6): Injected immediately below the upper engine core as is tradition and as I saw all the way back in 1989.
+        // Superheavy Mechs mount the Superheavy Gyro, which takes only 2 center torso slots (IO:AE p.156).
         this._addCriticalItem(
-            "gyro", 
-            this._gyro.name, 
-            this._gyro.criticals, 
+            "gyro",
+            this._gyro.name,
+            this._tonnage > 100 ? 2 : this._gyro.criticals,
             "ct"
         );
         // SECOND ENGINE BLOCK (Slots 7-9): Handles the trailing split block for 6-slot engines
@@ -4668,8 +4723,15 @@ export class BattleMech {
         return this.calcAlphaStrike();
     }
 
+    /**
+     * Tag of the selected special ammunition. A design saved before a munition was re-tagged stores
+     * the old tag, which the record keeps as an alias: the mounted round's current tag is returned.
+     */
     public getAlphaStrikeSpecialAmmoTag(): string {
-        return this._alphaStrikeSpecialAmmoTag;
+        const stored = this._alphaStrikeSpecialAmmoTag;
+        if (!stored) return stored;
+        const mounted = this.getAlphaStrikeSpecialAmmoOptions().find(ammo => equipmentMatchesIdentifier(ammo, stored));
+        return mounted?.tag ?? stored;
     }
 
     public getAlphaStrikeSpecialAmmoOptions(): IEquipmentItem[] {
@@ -4683,8 +4745,9 @@ export class BattleMech {
     }
 
     public setAlphaStrikeSpecialAmmoTag(ammoTag: string): string {
-        const selectedAmmo = this.getAlphaStrikeSpecialAmmoOptions()
-            .find(ammo => matchesTag(ammo, ammoTag));
+        const options = this.getAlphaStrikeSpecialAmmoOptions();
+        const selectedAmmo = options.find(ammo => ammo.tag === ammoTag)
+            ?? options.find(ammo => equipmentMatchesIdentifier(ammo, ammoTag));
         this._alphaStrikeSpecialAmmoTag = selectedAmmo?.tag ?? "";
         return this._alphaStrikeSpecialAmmoTag;
     }
@@ -4820,8 +4883,9 @@ export class BattleMech {
         return this.getEngineTechBase();
     }
 
+    /** The engine's name; above rating 400, the large engine's (e.g. "Large XL Fusion"). */
     getEngineName(): string {
-        return this._engineType.name;
+        return this.getLargeEngineType()?.name ?? this._engineType.name;
     }
 
     getHeatSyncName() {
@@ -4925,7 +4989,7 @@ export class BattleMech {
     }
 
     /**
-     * Lowest rules level at which this design is legal: its chassis type (IO p.50), Ultra-light
+     * Lowest rules level at which this design is legal: its chassis type (IO:AE p.44), Ultra-light
      * or Superheavy tonnage (Advanced), prototype or rules-levelled equipment, and Custom
      * Homebrew content (fan rules, custom equipment). Standard (2) is tournament play.
      */
@@ -5885,7 +5949,7 @@ export class BattleMech {
             tonnage: this.getTonnage(),
             as_role: this._alphaStrikeForceStats.role,
             as_value: this.getAlphaStrikeValue(),
-            as_special_ammo_tag: this._alphaStrikeSpecialAmmoTag,
+            as_special_ammo_tag: this.getAlphaStrikeSpecialAmmoTag(),
             battle_value: this.getBattleValue(),
             c_bills: this.getCBillCost(),
 
@@ -5992,9 +6056,12 @@ export class BattleMech {
 
     /** Re-creates one saved equipment item (import and OmniMech configuration switching). */
     private _restoreEquipmentItem( importItem: IBMEquipmentExport ): IEquipmentItem | null {
-        const restoredEquipment = this.addEquipmentFromTag(
+        // A saved design keeps whatever it mounted: Custom Homebrew, and equipment that has since
+        // moved to the other tech base's catalog. The tech and rules-level filters limit what can be
+        // added, not what can be loaded. The design's own tech base is tried first.
+        const restoreFrom = (equipmentListTag: string) => this.addEquipmentFromTag(
             importItem.tag,
-            this.getTech().tag,
+            equipmentListTag,
             importItem.loc,
             importItem.rear ? true : false,
             importItem.uuid,
@@ -6005,7 +6072,11 @@ export class BattleMech {
             importItem.split_location,
             importItem.currentAmmo,
             importItem.selectedAmmoBinUUID,
+            true,
         );
+        const techTag = this.getTech().tag;
+        const restoredEquipment = restoreFrom(techTag)
+            ?? (techTag === "clan" ? restoreFrom("mclan") : techTag === "is" ? restoreFrom("mis") : null);
         if (restoredEquipment && typeof importItem.currentAdditionalArmor === "number") {
             restoredEquipment.currentAdditionalArmor = importItem.currentAdditionalArmor;
         }
@@ -7255,7 +7326,8 @@ export class BattleMech {
             return false;
         }
         const fromItem = fromLocationObj[fromIndex];
-        if (matchesTag(fromItem, "modular-armor") && destLoc !== "un") {
+        const movingModularArmor = this._equipmentList.some(item => item.isModularArmor && item.uuid === fromItem.uuid);
+        if (movingModularArmor && destLoc !== "un") {
             const duplicatePack = this._equipmentList.some(item =>
                 item.isModularArmor
                 && item.uuid !== fromItem.uuid
@@ -7300,7 +7372,7 @@ export class BattleMech {
             console.warn("moveCritical() failed: Terminal destination location tag could not be resolved in the layout schema registry.", destLoc);
             return false;
         }
-        return this._moveItemToArea(
+        const moved = this._moveItemToArea(
             fromLocationObj,
             fromItem,
             fromIndex,
@@ -7310,6 +7382,13 @@ export class BattleMech {
             fromItem.size || fromItem.crits || 1, // Dynamically evaluate size criteria parameters
             true                                  // Direct moves behave implicitly like a final segment block
         );
+        // Battle Value depends on where explosive items and CASE sit (TM pp.302-303). It is worked out
+        // again when next read, not here: imports place many items in a row, and the calculation
+        // reorders the equipment list.
+        if (moved) {
+            this._battleValueStale = true;
+        }
+        return moved;
     }
 
     private _setEquipmentAllocation(
@@ -7644,11 +7723,18 @@ export class BattleMech {
         let returnValue: IEngineType[] = [];
         const lookupTag = this.getEngineTechBase();
         const weights = this._engine?.weight;
+        const large = this.isLargeEngine();
         for (let engine of mechEngineTypes) {
             // Enforce strict key verification against the normalized tech base
             if (engine.criticals && lookupTag in engine.criticals) {
-                const availability = this._datesAvailability(engine, rulesLevel);
-                // No weight at this rating: compact engines cannot be large, primitive tops out at an adjusted 500.
+                // Above rating 400 the large engine's own dates apply (IO:AE p.38); a type with
+                // no large form is not offered.
+                const largeEngine = large ? getLargeEngineType(engine.tag) : undefined;
+                const availability = !large
+                    ? this._datesAvailability(engine, rulesLevel)
+                    : largeEngine ? this._datesAvailability(largeEngine, rulesLevel) : { available: false, asPrototype: false };
+                // No weight at this rating: no large Compact, Fuel Cell or Fission engines, and Primitive
+                // engines stop at an adjusted 400.
                 const buildableAtRating = !weights || (weights as Record<string, number | undefined>)[engine.tag] !== undefined;
                 engine.availableAsPrototype = availability.asPrototype;
                 engine.available = availability.available && buildableAtRating
@@ -7740,7 +7826,13 @@ export class BattleMech {
     private _datesAvailability(dates: ITechDates, rulesLevel: number): { available: boolean, asPrototype: boolean } {
         // A prototype year with no production year: IO prototype only (Experimental rules).
         const prototypeOnly = dates.introduced === null && !!dates.prototype;
-        const inProduction = !prototypeOnly && this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced);
+        // Lost before it reached production (extinct earlier than the production year, e.g. the
+        // Inner Sphere Large XL engine): the extinction and recovery bound the prototype phase,
+        // and production simply starts at `introduced`.
+        const lostAsPrototype = dates.introduced !== null && dates.extinct !== null && dates.extinct < dates.introduced;
+        const inProduction = !prototypeOnly && (lostAsPrototype
+            ? this._itemIsAvailable(dates.introduced, null, null)
+            : this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced));
         const effectiveIntroduction = getEffectiveIntroduction(dates, rulesLevel);
         const asPrototype = !inProduction && effectiveIntroduction !== dates.introduced
             && this._itemIsAvailable(effectiveIntroduction, dates.extinct, dates.reintroduced);

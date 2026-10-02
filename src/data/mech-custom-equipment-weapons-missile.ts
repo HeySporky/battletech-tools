@@ -562,5 +562,59 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         page: 0,
         rulesLevel: 5,
         alphaStrike: { heat: 6, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["OS"] }
+    },
+    {
+        name: "Enhanced Clan LRM 10",
+        tag: "enhanced_clan_lrm_10",
+        catalog: "custom",
+        notes: "No canon source found: the original tool cited IO p.189, but neither Interstellar Operations (2016) nor IO: Alternate Eras lists a Clan \"Enhanced LRM 10\". Kept as Custom Homebrew with its old tag and statistics until a source is found.",
+        sort: "missile, enhanced clan lrm 10",
+        category: "Missile Weapons",
+        damage: 12,
+        damageAero: 12,
+        accuracyModifier: 0,
+        cbills: 100000,
+        introduced: 2823,
+        extinct: 2828,
+        reintroduced: null,
+        battleValue: 114,
+        heat: 4,
+        weight: 5,
+        range: {
+            min: 6,
+            short: 7,
+            medium: 14,
+            long: 21
+        },
+        space: {
+            battlemech: 2,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 2,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        shotsPerTon: 12,
+        minAmmoTons: 1,
+        explosive: false,
+        weaponType: [
+            "MS",
+            "I"
+        ],
+        techRating: "f",
+        book: "Custom",
+        page: null,
+        rulesLevel: 5,
+        alphaStrike: {
+            heat: 4,
+            rangeShort: 0.94,
+            rangeMedium: 0.94,
+            rangeLong: 0.94,
+            rangeExtreme: 0,
+            tc: false,
+            notes: ["IF1"]
+        },
+        heatAero: 4
     }
 ];
