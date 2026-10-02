@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
 import { getCockpitType } from "../data/mech-cockpit-types";
 import { sswMechs } from "../data/ssw/sswMechs";
+import { mechUniversalEquipment } from "../data/mech-universal-equipment";
 
 const build = (options: { tech?: string, era?: string, type?: string, tonnage?: number, walk?: number, structure?: string, engine?: string } = {}) => {
     const mech = new BattleMech();
@@ -184,6 +185,79 @@ describe("Power amplifiers on ICE and fuel cell 'Mechs (TM p.72)", () => {
         mech.setEngineType("standard");
         expect(mech.getPowerAmplifierWeight()).toBe(0);
         expect(weightOf(mech, "Power Amplifiers")).toBeUndefined();
+    });
+});
+
+describe("Environmental Sealing (TM pp.70, 216)", () => {
+    it("is for IndustrialMechs only: BattleMechs are sealed by construction", () => {
+        expect(offered(build().getAvailableEquipment(false, 4))).not.toContain("environmental-sealing");
+        expect(offered(build({ structure: "industrial" }).getAvailableEquipment(false, 4))).toContain("environmental-sealing");
+        const battleMech = build();
+        add(battleMech, "environmental-sealing");
+        expect(battleMech.getChassisEquipmentViolations()).toEqual(["Environmental Sealing can only be mounted on an IndustrialMech."]);
+    });
+
+    it("weighs 10 percent of the tonnage rounded up to the full ton, with a slot in every location", () => {
+        // The book's Uni: 70 tons, 7 tons of sealing, 225 x 70 C-bills (TM pp.70, 278).
+        const uni = build({ structure: "industrial", tonnage: 70, engine: "cell" });
+        const sealing = add(uni, "environmental-sealing")!;
+        expect([sealing.weight, sealing.space.battlemech, sealing.cbills]).toEqual([7, 8, 15750]);
+        // 5.5 tons rounds up to 6: "Round this figure up to the nearest full ton" (TM p.70).
+        expect(add(build({ structure: "industrial", tonnage: 55 }), "environmental-sealing")!.weight).toBe(6);
+    });
+});
+
+describe("Extended Fuel Tanks (TM pp.68, 244)", () => {
+    const place = (mech: BattleMech, item: { uuid?: string }, loc: string, key: string) =>
+        mech.moveCritical("un", mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid), loc, (mech.getCriticals() as any)[key].findIndex((critical: unknown) => !critical));
+
+    it("lists the record with the book's dates, cost and limits", () => {
+        expect(mechUniversalEquipment.find(item => item.tag === "extended-fuel-tank")).toMatchObject({
+            name: "Extended Fuel Tank", industrialMechOnly: true, requiresEngine: "ice-or-fuel-cell", allowedLocations: ["ct", "lt", "rt"],
+            explosive: true, explosiveAsAmmo: true, prototype: 2100, introduced: 2300, extinct: null, reintroduced: null,
+            techRating: "c", book: "TM", page: 244, variableFormula: "extended-fuel-tank",
+        });
+    });
+
+    it("weighs 10 percent of the engine, rounded up to the half ton, with a slot per ton", () => {
+        // 50 tons at Walking 3: the Buster's 150-rated ICE, 11 tons (TM p.68).
+        const mech = build({ structure: "industrial", engine: "ice" });
+        expect(mech.getEngineWeight()).toBe(11);
+        const tank = add(mech, "extended-fuel-tank")!;
+        // 1.1 tons rounds up to 1.5; two slots; 500 C-bills per ton (TM p.292).
+        expect([tank.weight, tank.space.battlemech, tank.cbills]).toEqual([1.5, 2, 750]);
+        const before = mech.getRemainingTonnage();
+        add(mech, "extended-fuel-tank");
+        expect(mech.getRemainingTonnage()).toBe(before - 1.5);
+    });
+
+    it("is for IndustrialMechs with an ICE or fuel cell engine", () => {
+        expect(offered(build({ structure: "industrial", engine: "ice" }).getAvailableEquipment(false, 4))).toContain("extended-fuel-tank");
+        expect(offered(build({ structure: "industrial", engine: "cell" }).getAvailableEquipment(false, 4))).toContain("extended-fuel-tank");
+        expect(offered(build({ structure: "industrial" }).getAvailableEquipment(false, 4))).not.toContain("extended-fuel-tank");
+        expect(offered(build({ engine: "ice" }).getAvailableEquipment(false, 4))).not.toContain("extended-fuel-tank");
+        const mech = build({ structure: "industrial", engine: "ice" });
+        add(mech, "extended-fuel-tank");
+        mech.setEngineType("standard");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["Extended Fuel Tank needs an ICE or fuel cell engine."]);
+    });
+
+    it("goes in a torso", () => {
+        const mech = build({ structure: "industrial", engine: "ice" });
+        const tank = add(mech, "extended-fuel-tank")!;
+        expect(place(mech, tank, "la", "leftArm")).toBe(false);
+        expect(place(mech, tank, "lt", "leftTorso")).toBe(true);
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+    });
+
+    it("counts each slot as explosive ammunition for Battle Value", () => {
+        // "Treated as an ammo bin in combat" (TM p.244): -15 a slot where ammunition would cost it (TM p.302).
+        const mech = build({ structure: "industrial", engine: "ice" });
+        const tank = add(mech, "extended-fuel-tank")!;
+        expect(place(mech, tank, "lt", "leftTorso")).toBe(true);
+        const log = mech.getBVCalcHTML();
+        expect(log.match(/Explosive Ammo Crit in leftTorso \(Inner Sphere, -15\)/g)).toHaveLength(2);
+        expect(log).not.toContain("Explosive Component Crit (Extended Fuel Tank)");
     });
 });
 

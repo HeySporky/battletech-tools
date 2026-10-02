@@ -1,4 +1,4 @@
-import { IEngineType } from "./data-interfaces";
+import { EngineRequirement, IEngineType } from "./data-interfaces";
 
 /*
  * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -330,10 +330,21 @@ export const mechLargeEngineTypes: IEngineType[] = [
 export const FUSION_ENGINE_TAGS: readonly string[] = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl", "primitive"];
 
 /** Does an engine of this type power an item with the given `requiresEngine` (IO:AE p.85, TO:AUE p.158)? */
-export function engineMeetsRequirement(requirement: "fusion" | "fusion-or-fission" | undefined, engineTag: string): boolean {
+export function engineMeetsRequirement(requirement: EngineRequirement | undefined, engineTag: string): boolean {
     if (!requirement) return true;
+    // Extended Fuel Tanks: ICE or fuel cell engines only (TM p.244).
+    if (requirement === "ice-or-fuel-cell") return engineTag === "ice" || engineTag === "cell";
     if (FUSION_ENGINE_TAGS.includes(engineTag)) return true;
     return requirement === "fusion-or-fission" && engineTag === "fission";
+}
+
+/** "a fusion engine", "an ICE or fuel cell engine": for messages about `requiresEngine`. */
+export function describeEngineRequirement(requirement: EngineRequirement): string {
+    switch (requirement) {
+        case "fusion": return "a fusion engine";
+        case "fusion-or-fission": return "a fusion or fission engine";
+        case "ice-or-fuel-cell": return "an ICE or fuel cell engine";
+    }
 }
 
 export function getLargeEngineType(baseTag: string): IEngineType | undefined {
