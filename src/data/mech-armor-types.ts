@@ -19,6 +19,7 @@ export const mechArmorTypes: IArmorType[] = [
 		name: "Standard",
 		tag: "standard",
 		altNames: ["Standard Armor"],
+		patchwork: { slots: { is: 0, clan: 0 }, tonsPerPoint: { is: 0.0625, clan: 0.0625 } },
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -52,6 +53,7 @@ export const mechArmorTypes: IArmorType[] = [
 		name: "Ferro Fibrous",
 		tag: "ferro-fibrous",
 		altNames: ["Ferro-Fibrous"],
+		patchwork: { slots: { is: 2, clan: 1 }, tonsPerPoint: { is: 0.0558, clan: 0.0521 } },
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -86,6 +88,7 @@ export const mechArmorTypes: IArmorType[] = [
 		name: "Light Ferro Fibrous",
 		tag: "light-ferro-fibrous",
 		altNames: ["Light Ferro-Fibrous"],
+		patchwork: { slots: { is: 1 }, tonsPerPoint: { is: 0.0590 } },
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -118,6 +121,7 @@ export const mechArmorTypes: IArmorType[] = [
 		name: "Heavy Ferro Fibrous",
 		tag: "heavy-ferro-fibrous",
 		altNames: ["Heavy Ferro-Fibrous"],
+		patchwork: { slots: { is: 3 }, tonsPerPoint: { is: 0.0504 } },
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -150,6 +154,7 @@ export const mechArmorTypes: IArmorType[] = [
 		name: "Basic Stealth",
 		tag: "stealth-basic",
 		altNames: ["Stealth Armor"],
+		patchwork: { slots: { is: 2 }, tonsPerPoint: { is: 0.0625 } },
 		alphaStrikeAbility: "STL",
 		unitTypes: {
 			battlemech: true,
@@ -223,6 +228,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Hardened Armor",
 		tag: "hardened",
+		patchwork: { slots: { is: 0, clan: 0 }, tonsPerPoint: { is: 0.1250, clan: 0.1250 } },
 		alphaStrikeAbility: "CR",
 		unitTypes: {
 			battlemech: true,
@@ -259,6 +265,7 @@ export const mechArmorTypes: IArmorType[] = [
 		name: "Laser Reflective Armor",
 		tag: "laser-reflective",
 		altNames: ["Laser-Reflective"],
+		patchwork: { slots: { is: 2, clan: 1 }, tonsPerPoint: { is: 0.0625, clan: 0.0625 } },
 		alphaStrikeAbility: "RFA",
 		unitTypes: {
 			battlemech: true,
@@ -294,6 +301,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Reactive Armor",
 		tag: "reactive",
+		patchwork: { slots: { is: 2, clan: 1 }, tonsPerPoint: { is: 0.0625, clan: 0.0625 } },
 		alphaStrikeAbility: "RCA",
 		unitTypes: {
 			battlemech: true,
@@ -327,6 +335,7 @@ export const mechArmorTypes: IArmorType[] = [
 		name: "Ferro-Lamellor Armor",
 		tag: "ferro-lamellor",
 		altNames: ["Ferro-Lamellor"],
+		patchwork: { slots: { clan: 2 }, tonsPerPoint: { clan: 0.0714 } },
 		alphaStrikeAbility: "CR",
 		unitTypes: {
 			battlemech: true,
@@ -361,6 +370,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Ballistic-Reinforced Armor",
 		tag: "ballistic-reinforced",
+		patchwork: { slots: { is: 2 }, tonsPerPoint: { is: 0.0833 } },
 		alphaStrikeAbility: "BRA",
 		unitTypes: {
 			battlemech: true,
@@ -453,6 +463,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Industrial Armor",
 		tag: "industrial",
+		patchwork: { slots: { is: 0, clan: 0 }, tonsPerPoint: { is: 0.0933, clan: 0.0933 } },
 		industrialMechOnly: true,
 		unitTypes: {
 			battlemech: true,
@@ -488,6 +499,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Commercial Armor",
 		tag: "commercial",
+		patchwork: { slots: { is: 0, clan: 0 }, tonsPerPoint: { is: 0.0417, clan: 0.0417 } },
 		industrialMechOnly: true,
 		unitTypes: {
 			battlemech: true,
@@ -624,10 +636,10 @@ export const mechArmorTypes: IArmorType[] = [
 		clanDates: { introduced: 3058, extinct: null, reintroduced: null }
 	},
 	{
-		name: "Patchwork Armor Setup",
+		name: "Patchwork Armor",
 		tag: "patchwork",
-		altNames: ["Patchwork Armor"],
-		constructionStatus: "deferred",
+		altNames: ["Patchwork Armor Setup"],
+		constructionStatus: "implemented",
 		unitTypes: {
 			battlemech: true,
 			protomech: false,
@@ -654,7 +666,8 @@ export const mechArmorTypes: IArmorType[] = [
 		extinct: null,
 		reintroduced: null,
 		book: "TO:AUE",
-		page: 189
+		page: 189,
+		notes: "An armor type per hit location (torso front and rear share one). Each location weighs its points x the type's tons per point, rounded up to the half ton, and takes the type's per-location slots (TO:AUE pp.188-189; IO:AE p.82). The multipliers and cost on this record are not used: weight, Battle Value and cost come from each location's own armor type."
 	},
 	{
 		name: "ProtoMech Standard Armor",
@@ -740,6 +753,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Heat-Dissipating Armor",
 		tag: "heat-dissipating",
+		patchwork: { slots: { is: 1, clan: 1 }, tonsPerPoint: { is: 0.1000, clan: 0.1000 } },
 		unitTypes: { battlemech: true, protomech: false, combatVehicle: false, supportVehicle: false, aerospaceFighter: false, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
 		crits: { clan: 6, is: 6 },
 		armorMultiplier: { clan: 16 * 0.625, is: 16 * 0.625 },
@@ -756,6 +770,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Impact-Resistant Armor",
 		tag: "impact-resistant",
+		patchwork: { slots: { is: 2 }, tonsPerPoint: { is: 0.0714 } },
 		unitTypes: { battlemech: true, protomech: false, combatVehicle: false, supportVehicle: false, aerospaceFighter: false, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
 		crits: { clan: 0, is: 10 },
 		armorMultiplier: { clan: 0, is: 16 * 0.875 },
@@ -770,6 +785,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Anti-Penetrative Ablation Armor",
 		tag: "anti-penetrative-ablation",
+		patchwork: { slots: { is: 1 }, tonsPerPoint: { is: 0.0833 } },
 		unitTypes: { battlemech: true, protomech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: true, smallCraft: false, dropShip: false, battleArmor: false, jumpShip: false, warShip: false },
 		crits: { clan: 0, is: 6 },
 		armorMultiplier: { clan: 0, is: 16 * 0.75 },
