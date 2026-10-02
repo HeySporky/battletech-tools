@@ -67,10 +67,18 @@ describe("Vehicle construction basics", () => {
     it("offers only armor marked for combat vehicles", () => {
         const vehicle = new Vehicle();
         expect(vehicle.getAvailableArmorTypes().every(armor => armor.unitTypes.combatVehicle)).toBe(true);
-        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "stealth-basic")).toBe(true);
+        // TM p.206: BattleMech Stealth armor is BM-only; vehicles mount Vehicular Stealth (TO:AUE p.94).
+        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "stealth-basic")).toBe(false);
+        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "vehicular-stealth")).toBe(true);
         expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "modular")).toBe(false);
         vehicle.setArmorType("stealth-improved");
         expect(vehicle.getArmorType().tag).toBe("standard");
+    });
+
+    it("loads vehicles saved with BattleMech Stealth armor as Vehicular Stealth (TO:AUE p.94)", () => {
+        const saved = JSON.parse(new Vehicle().exportJSON());
+        saved.armorType = "stealth-basic";
+        expect(new Vehicle(JSON.stringify(saved)).getArmorType().tag).toBe("vehicular-stealth");
     });
 
     it("mounts one Modular Armor pack per location and applies its cruise penalty", () => {

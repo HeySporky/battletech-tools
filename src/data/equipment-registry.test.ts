@@ -223,6 +223,22 @@ describe("equipment catalog provenance", () => {
         }
     });
 
+    it("uses null, not 0, for ammunition that never went extinct", () => {
+        for (const item of [...mechISAmmo, ...mechClanAmmo, ...mechUniversalAmmo]) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+
+    it("spells each rulebook abbreviation one way in the canon catalogs", () => {
+        const books = new Set(getEquipmentListByTech("is").concat(getEquipmentListByTech("clan"), mechISAmmo, mechClanAmmo, mechUniversalAmmo)
+            .filter(item => item.catalog !== "custom").map(item => item.book));
+        for (const variant of ["IO_AE", "IO-AE", "TO:AU&E"]) {
+            expect(books.has(variant), variant).toBe(false);
+        }
+    });
+
     it("links ATM and iATM launchers to their supported ammunition profiles", () => {
         const clanItems = getEquipmentListByTech("clan");
         const atm6 = clanItems.find(item => item.tag === "atm-6")!;
@@ -309,7 +325,7 @@ describe("equipment catalog provenance", () => {
         expect([ac20.introduced, ac20.extinct]).toEqual([2500, 2850]);
         expect([lrm10.introduced, lrm10.extinct]).toEqual([2300, 2830]);
         expect([clanAc20Ammo.introduced, clanAc20Ammo.extinct]).toEqual([2500, 2850]);
-        expect([isAc20Ammo.introduced, isAc20Ammo.extinct]).toEqual([2500, 0]);
+        expect([isAc20Ammo.introduced, isAc20Ammo.extinct]).toEqual([2500, null]);
         expect(getCompatibleAmmo(ac20, clanAc20Ammo)).toBe(true);
         expect(getWeaponShotsPerTon(lrm10, mechUniversalAmmo.find(item => item.tag === "ammo-lrm-standard")!)).toBe(12);
         // The Inner Sphere list never sees the Clan copy, and vice versa.
@@ -331,6 +347,13 @@ describe("equipment catalog provenance", () => {
                 expect(item.alphaStrike.heat, `${definition.id} ${item.tag} Alpha Strike heat`).toEqual(expect.any(Number));
             }
         }
+    });
+
+    it("groups miscellaneous gear under one UI category label", () => {
+        // The equipment browser groups by category; "Misc Equipment" and
+        // "Miscellaneous Equipment" showed as two headings for the same gear.
+        const labels = new Set(getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment.map(item => item.category)));
+        expect([...labels].filter(label => /^misc/i.test(label))).toEqual(["Miscellaneous Equipment"]);
     });
 
     it("keeps tags unique within each registered source catalog", () => {

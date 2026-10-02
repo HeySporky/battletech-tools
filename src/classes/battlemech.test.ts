@@ -2,10 +2,31 @@ import { describe, expect, it, vi } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { BattleMech } from "./battlemech";
-import { validateChassisCombination } from "../data/mech-internal-structure-types";
+import { mechInternalStructureTypes, validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { getWeaponAmmoFamilies } from "../data/equipment-registry";
+import { mechMyomerTypes } from "../data/mech-myomer-types";
+import { mechEngineTypes } from "../data/mech-engine-types";
+import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
+import { mechCockpitTypes } from "../data/mech-cockpit-types";
+import { mechCustomEquipmentEnergy } from "../data/mech-custom-equipment-weapons-energy";
+import { mechCustomEquipmentMissile } from "../data/mech-custom-equipment-weapons-missile";
+import { mechISAmmo } from "../data/mech-is-ammo";
+import { mechClanAmmo } from "../data/mech-clan-ammo";
+import { mechUniversalAmmo } from "../data/mech-universal-ammo";
+import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
+import { mechISEquipmentMissiles } from "../data/mech-is-equipment-weapons-missiles";
+import { mechClanEquipmentMissile } from "../data/mech-clan-equipment-weapons-missile";
+import { mechISEquipmentArtillery } from "../data/mech-is-equipment-weapons-artillery";
+import { mechClanEquipmentArtillery } from "../data/mech-clan-equipment-weapons-artillery";
+import { mechISEquipmentBallistic } from "../data/mech-is-equipment-weapons-ballistic";
+import { mechClanEquipmentBallistic } from "../data/mech-clan-equipment-weapons-ballistic";
+import { mechISEquipmentEnergy } from "../data/mech-is-equipment-weapons-energy";
+import { mechClanEquipmentEnergy } from "../data/mech-clan-equipment-weapons-energy";
+import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
+import { mechClanEquipmentMisc } from "../data/mech-clan-equipment-weapons-misc";
+import { mechUniversalEquipment } from "../data/mech-universal-equipment";
 
 describe("BattleMech engine availability by era", () => {
     it("shows the expected Inner Sphere engines for a Star League mech", () => {
@@ -984,6 +1005,22 @@ describe("BattleMech engine construction", () => {
         expect(mech.getEngineType().tag).toBe("standard");
     });
 
+    it("weighs the Superheavy Gyro at engine rating / 50, rounded up, whatever gyro is selected (IO:AE p.156)", () => {
+        expect(build(150, 2, "standard").getGyroWeight()).toBe(6); // rating 300
+        expect(build(175, 2, "standard").getGyroWeight()).toBe(7); // rating 350
+        const xl = build(150, 2, "standard");
+        xl.setGyroTypeByName("Extra-light (XL) Gyro");
+        expect(xl.getGyroWeight()).toBe(6);
+    });
+
+    it("gives the Superheavy Gyro two center torso slots (IO:AE p.156)", () => {
+        const gyroSlots = (mech: BattleMech) =>
+            mech.getCriticals().centerTorso.filter(item => item?.tag === "gyro")
+                .reduce((total, item) => total + (item?.crits ?? 1), 0);
+        expect(gyroSlots(build(150, 2, "standard"))).toBe(2);
+        expect(gyroSlots(build(100, 2, "standard"))).toBe(4);
+    });
+
     it("applies structure type BV modifiers and keeps Composite Inner Sphere only (TO:AUE p.154)", () => {
         const log = (tag: string) => {
             const mech = build(50, 4, "standard", "is", "ilClan");
@@ -1304,7 +1341,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         return mech.getCBillCostNumeric();
     };
 
-    // IO p.50 (via MegaMek): Tripods and QuadVees are Advanced, LAMs Experimental; Standard is tournament play.
+    // IO:AE p.44 (via MegaMek): Tripods and QuadVees are Advanced, LAMs Experimental; Standard is tournament play.
     it("reports the lowest legal rules level for each chassis", () => {
         const level = (type: string, tonnage = 50) => {
             const mech = new BattleMech();
@@ -1385,7 +1422,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(quadveeHTML).toContain("Conversion Equipment");
 
         const tripodHTML = (() => { const tripod = new BattleMech(); tripod.setType("tripod"); return tripod.getCBillCalcHTML(); })();
-        expect(tripodHTML).toContain("Tripod Cockpit");
+        expect(tripodHTML).toContain("Tripod 'Mech Cockpit");
         expect(tripodHTML).toContain("x 1.2 [Tripod]");
 
         const lamHTML = (() => { const lam = new BattleMech(); lam.setType("lam"); return lam.getCBillCalcHTML(); })();
@@ -1880,5 +1917,1376 @@ describe("Regressions found by typechecking master", () => {
             mech.setMechType(type);
             expect(mech.makeTROBBCode(), type).toContain("Internal Structure");
         }
+    });
+});
+
+describe("Batch 3 myomer catalog", () => {
+    const myomer = (tag: string) => mechMyomerTypes.find(item => item.tag === tag);
+    const isMisc = (tag: string) => mechISEquipmentMisc.find(item => item.tag === tag);
+    const clanMisc = (tag: string) => mechClanEquipmentMisc.find(item => item.tag === tag);
+
+    it("dates standard myomer per IO:AE p.42 and cites TM p.277", () => {
+        const standard = myomer("standard");
+        expect(standard?.page).toBe(277);
+        expect(standard?.prototype).toBe(2300);
+        expect(standard?.introduced).toBe(2350);
+    });
+
+    it("uses null, not 0, for unknown myomer dates", () => {
+        for (const item of mechMyomerTypes) {
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.introduced, item.tag).not.toBe(0);
+        }
+    });
+
+    it("lists Super-Cooled Myomer as an experimental IS prototype (IO:AE p.88)", () => {
+        const scm = myomer("risc-super-cooled-myomer");
+        expect(scm?.book).toBe("IO:AE");
+        expect(scm?.page).toBe(88);
+        expect(scm?.techBase).toBe("is");
+        expect(scm?.criticals).toBe(6);
+        expect(scm?.prototype).toBe(3132);
+        expect(scm?.introduced).toBeNull();
+        expect(scm?.extinct).toBe(3140);
+    });
+
+    it("dates AES production Clan 3108 and IS 3109 (IO:AE p.42)", () => {
+        expect(clanMisc("clan-aes-arm")?.introduced).toBe(3108);
+        expect(clanMisc("clan-aes-leg")?.introduced).toBe(3108);
+        expect(isMisc("aes-arm")?.introduced).toBe(3109);
+        expect(isMisc("aes-leg")?.introduced).toBe(3109);
+    });
+
+    it("dates supercharger production 3078 (IO:AE p.29)", () => {
+        const supercharger = mechUniversalEquipment.find(item => item.tag === "supercharger");
+        expect(supercharger?.introduced).toBe(3078);
+        expect(supercharger?.extinct).not.toBe(0);
+    });
+
+    it("cites MASC to TM p.232", () => {
+        expect(isMisc("masc")?.page).toBe(232);
+        expect(clanMisc("clan-masc")?.page).toBe(232);
+    });
+
+    it("adds the Clan ProtoMech Myomer Booster as ProtoMech-only (TM p.232)", () => {
+        const booster = clanMisc("clan-protomech-myomer-booster");
+        expect(booster?.space.protomech).toBe(1);
+        expect(booster?.space.battlemech).toBe(-1);
+        expect(booster?.book).toBe("TM");
+        expect(booster?.page).toBe(232);
+        expect(booster?.introduced).toBe(3068);
+    });
+});
+
+describe("Batch 4 engine catalog", () => {
+    const engine = (tag: string) => mechEngineTypes.find(item => item.tag === tag);
+
+    it("dates compact and XXL engines from the IO:AE p.38 engine table", () => {
+        expect(engine("compact")?.prototype).toBe(3065);
+        expect(engine("compact")?.introduced).toBe(3068);
+        expect(engine("xxl")?.prototype).toBe(3055);
+        expect(engine("xxl")?.introduced).toBe(3110);
+        expect(engine("clan_xxl")?.prototype).toBe(2954);
+        expect(engine("clan_xxl")?.introduced).toBe(3084);
+    });
+
+    it("dates the primitive engine from the IO:AE p.44 primitive 'Mech entry", () => {
+        const primitive = engine("primitive");
+        expect(primitive?.prototype).toBe(2439);
+        expect(primitive?.introduced).toBe(2443);
+        expect(primitive?.extinct).toBe(2520);
+        expect(primitive?.reintroduced).toBeNull();
+        expect(primitive?.book).toBe("IO:AE");
+        expect(primitive?.page).toBe(117);
+    });
+
+    it("cites a book and page for every engine", () => {
+        const pages: Record<string, [string, number]> = {
+            standard: ["TM", 214], xl: ["TM", 214], clan_xl: ["TM", 214], light: ["TM", 214], compact: ["TM", 214],
+            xxl: ["TO:AUE", 120], clan_xxl: ["TO:AUE", 120],
+            ice: ["TM", 215], cell: ["TM", 215], fission: ["TM", 215],
+            primitive: ["IO:AE", 117],
+        };
+        for (const item of mechEngineTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+    });
+
+    it("uses null, not 0, for engines that never went extinct", () => {
+        for (const item of mechEngineTypes) {
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+});
+
+describe("Batch 5 internal structure catalog", () => {
+    const structure = (tag: string) => mechInternalStructureTypes.find(item => item.tag === tag);
+
+    it("dates structures from the IO:AE p.42 universal advancement table", () => {
+        expect(structure("standard")?.prototype).toBe(2430);
+        expect(structure("standard")?.introduced).toBe(2439);
+        expect(structure("composite")?.prototype).toBe(3061);
+        expect(structure("composite")?.introduced).toBe(3082);
+        expect(structure("endo-composite")?.prototype).toBe(3067);
+        expect(structure("endo-composite")?.introduced).toBe(3085);
+        expect(structure("endo-composite")?.clanDates?.prototype).toBe(3073);
+        expect(structure("reinforced")?.prototype).toBe(3057);
+        expect(structure("reinforced")?.introduced).toBe(3084);
+        expect(structure("reinforced")?.clanDates?.prototype).toBe(3065);
+        expect(structure("industrial")?.prototype).toBe(2300);
+        expect(structure("industrial")?.introduced).toBe(2350);
+    });
+
+    it("cites a book and page for every structure", () => {
+        const pages: Record<string, [string, number]> = {
+            standard: ["TM", 225], "endo-steel": ["TM", 224], industrial: ["TM", 224],
+            composite: ["TO:AUE", 154], "endo-composite": ["TO:AUE", 154], reinforced: ["TO:AUE", 155],
+        };
+        for (const item of mechInternalStructureTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+    });
+
+    it("uses null, not 0, for structures that never went extinct", () => {
+        for (const item of mechInternalStructureTypes) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
+            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+});
+
+describe("Batch 6 armor catalog", () => {
+    const armor = (tag: string) => mechArmorTypes.find(item => item.tag === tag);
+
+    it("dates armor from the IO:AE pp.29-30 universal advancement table", () => {
+        // tag: [prototype, production, extinct, reintroduced]
+        const dates: Record<string, [number | undefined, number | null, number | null, number | null]> = {
+            "standard": [2460, 2470, null, null],
+            "ferro-fibrous": [2557, 2571, 2810, 3040],
+            "light-ferro-fibrous": [3055, 3067, null, null],
+            "heavy-ferro-fibrous": [3056, 3069, null, null],
+            "stealth-basic": [3051, 3063, null, null],
+            "hardened": [3047, 3081, null, null],
+            "laser-reflective": [3058, 3080, null, null],
+            "reactive": [3063, 3081, null, null],
+            "ferro-lamellor": [3070, 3109, null, null],
+            "ballistic-reinforced": [3120, 3131, null, null],
+            "primitive": [2430, 2439, null, null],
+            "ferro-aluminum": [2557, 2571, 2810, 3040],
+            "commercial": [2290, 2300, null, null],
+            "modular": [3072, 3096, null, null],
+            "mimetic": [3058, 3061, null, null],
+            "stealth-improved": [3055, 3057, null, null],
+            "protomech-standard": [3055, 3060, null, null],
+            "heat-dissipating": [3111, 3123, null, null],
+            "impact-resistant": [3092, 3103, null, null],
+            "anti-penetrative-ablation": [3105, 3114, null, null],
+        };
+        for (const [tag, expected] of Object.entries(dates)) {
+            const item = armor(tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced], tag).toEqual(expected);
+        }
+        // Patchwork is a pre-spaceflight practice with no prototype year; production 3075 (IO:AE p.45).
+        expect(armor("patchwork")?.introduced).toBe(3075);
+        // Recovered prototype ferro-fibrous: 3034 (IO:AE p.97); the Star League prototype ends at production in 2571.
+        expect([armor("ferro-fibrous-prototype")?.prototype, armor("ferro-fibrous-prototype")?.introduced]).toEqual([2557, null]);
+    });
+
+    it("keeps separate Clan dates where IO:AE prints a Clan row or note", () => {
+        expect(armor("ferro-fibrous")?.clanDates).toEqual({ prototype: 2820, introduced: 2825, extinct: null, reintroduced: null });
+        expect(armor("ferro-aluminum")?.clanDates).toEqual({ prototype: 2820, introduced: 2825, extinct: null, reintroduced: null });
+        expect(armor("hardened")?.clanDates).toEqual({ prototype: 3061, introduced: 3081, extinct: null, reintroduced: null });
+        expect(armor("laser-reflective")?.clanDates).toEqual({ prototype: 3061, introduced: 3080, extinct: null, reintroduced: null });
+        expect(armor("reactive")?.clanDates).toEqual({ prototype: 3065, introduced: 3081, extinct: null, reintroduced: null });
+        expect(armor("modular")?.clanDates).toEqual({ prototype: 3074, introduced: 3096, extinct: null, reintroduced: null });
+        // No Clan prototype is published for these two; only a Clan introduction year.
+        expect(armor("heat-dissipating")?.clanDates).toEqual({ introduced: 3126, extinct: null, reintroduced: null });
+        expect(armor("stealth-improved")?.clanDates).toEqual({ introduced: 3058, extinct: null, reintroduced: null });
+    });
+
+    it("cites a book and page for every armor", () => {
+        const pages: Record<string, [string, number]> = {
+            "standard": ["TM", 205], "ferro-fibrous": ["TM", 205], "light-ferro-fibrous": ["TM", 205],
+            "heavy-ferro-fibrous": ["TM", 205], "stealth-basic": ["TM", 206], "ferro-aluminum": ["TM", 205],
+            "commercial": ["TM", 205], "protomech-standard": ["TM", 205],
+            "mimetic": ["TM", 253], "stealth-improved": ["TM", 252],
+            "hardened": ["TO:AUE", 93], "laser-reflective": ["TO:AUE", 93], "reactive": ["TO:AUE", 94],
+            "ferro-lamellor": ["TO:AUE", 92], "modular": ["TO:AUE", 93], "patchwork": ["TO:AUE", 189],
+            "primitive": ["IO:AE", 118], "ferro-fibrous-prototype": ["IO:AE", 66],
+            "anti-penetrative-ablation": ["IO:AE", 80], "ballistic-reinforced": ["IO:AE", 81],
+            "heat-dissipating": ["IO:AE", 81], "impact-resistant": ["IO:AE", 81],
+        };
+        for (const item of mechArmorTypes) {
+            if (!(item.tag in pages)) continue;
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+        for (const item of mechArmorTypes) {
+            expect(item.book, item.tag).toBeTruthy();
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("uses null, not 0, for armor that never went extinct", () => {
+        for (const item of mechArmorTypes) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
+            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+
+    it("matches the published points per ton and cost for IndustrialMech and ProtoMech armor", () => {
+        // TM p.72: Commercial armor multiplies the 16 base points by 1.5; TM p.278: 3,000 C-bills per ton.
+        expect(armor("commercial")?.armorMultiplier).toEqual({ clan: 24, is: 24 });
+        expect(armor("commercial")?.costMultiplier).toBe(3000);
+        // TM p.86: each ProtoMech armor point weighs 50 kg, so 20 points per ton.
+        expect(armor("protomech-standard")?.armorMultiplier.clan).toBe(20);
+    });
+
+    it("restricts heat-dissipating, impact-resistant and primitive armor to the unit types their rules list", () => {
+        // IO:AE pp.81-82: "Available to: BM, IM"; the Advanced Armor Table shows N/A for vehicles and fighters.
+        for (const tag of ["heat-dissipating", "impact-resistant"]) {
+            expect(armor(tag)?.unitTypes.battlemech, tag).toBe(true);
+            expect(armor(tag)?.unitTypes.combatVehicle, tag).toBe(false);
+            expect(armor(tag)?.unitTypes.supportVehicle, tag).toBe(false);
+        }
+        // IO:AE p.115: primitive combat vehicles use support vehicle armor, not Primitive Armor.
+        expect(armor("primitive")?.unitTypes.combatVehicle).toBe(false);
+        expect(armor("primitive")?.unitTypes.supportVehicle).toBe(false);
+    });
+});
+
+describe("Batch 6b vehicle and ProtoMech armor", () => {
+    const armor = (tag: string) => mechArmorTypes.find(item => item.tag === tag);
+
+    it("keeps BattleMech Stealth armor off vehicles (TM p.206)", () => {
+        expect(armor("stealth-basic")?.unitTypes.battlemech).toBe(true);
+        expect(armor("stealth-basic")?.unitTypes.combatVehicle).toBe(false);
+    });
+
+    it("lists Vehicular Stealth for vehicles and fighters only (TO:AUE p.94)", () => {
+        const stealth = armor("vehicular-stealth");
+        expect(stealth?.unitTypes).toMatchObject({ battlemech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: true });
+        expect(stealth?.armorMultiplier).toEqual({ clan: 0, is: 16 });
+        expect(stealth?.costMultiplier).toBe(50000);
+        expect([stealth?.prototype, stealth?.introduced, stealth?.extinct, stealth?.reintroduced]).toEqual([3067, 3084, null, null]);
+        expect([stealth?.book, stealth?.page]).toEqual(["TO:AUE", 94]);
+
+        const mech = new BattleMech();
+        mech.setEra("ilClan");
+        mech.setArmorType("vehicular-stealth");
+        expect(mech.getArmorType()).toBe("standard");
+    });
+
+    it("lists Electric Discharge ProtoMech armor as a ProtoMech-only prototype (IO:AE pp.58-59)", () => {
+        const edp = armor("protomech-edp");
+        expect(Object.entries(edp?.unitTypes ?? {}).filter(([, legal]) => legal).map(([type]) => type)).toEqual(["protomech"]);
+        // 75 kg per point.
+        expect(edp?.armorMultiplier).toEqual({ clan: 1000 / 75, is: 0 });
+        expect([edp?.prototype, edp?.introduced, edp?.extinct, edp?.reintroduced]).toEqual([3071, null, 3085, null]);
+        expect([edp?.book, edp?.page]).toEqual(["IO:AE", 58]);
+    });
+});
+
+describe("Batch 7 heat sink catalog", () => {
+    const sink = (tag: string) => mechHeatSinkTypes.find(item => item.tag === tag);
+
+    it("dates heat sinks from TM p.220 and the IO:AE p.36 advancement table", () => {
+        // TM p.220: "Introduced: Circa 2022 (Western Alliance, Terra)"; IO:AE lists them as Early Spaceflight.
+        expect(sink("single")?.introduced).toBe(2022);
+        expect([sink("double")?.prototype, sink("double")?.introduced, sink("double")?.extinct, sink("double")?.reintroduced]).toEqual([2559, 2567, 2865, 3040]);
+        expect(sink("double")?.clanDates).toEqual({ prototype: 2825, introduced: 2827, extinct: null, reintroduced: null });
+        expect(sink("laser")?.clanDates).toEqual({ prototype: 3040, introduced: 3051, extinct: null, reintroduced: null });
+        expect([sink("compact")?.prototype, sink("compact")?.introduced]).toEqual([3058, 3079]);
+    });
+
+    it("cites a book and page for every heat sink", () => {
+        const pages: Record<string, [string, number]> = {
+            single: ["TM", 220], double: ["TM", 221], laser: ["TO:AUE", 129], compact: ["TO:AUE", 128],
+            "double-prototype": ["IO:AE", 65], "double-freezers": ["IO:AE", 96],
+        };
+        for (const item of mechHeatSinkTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+    });
+
+    it("uses null, not 0, for heat sinks that never went extinct", () => {
+        for (const item of mechHeatSinkTypes) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
+            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+});
+
+describe("Batch 8 cockpit catalog", () => {
+    const cockpit = (tag: string) => mechCockpitTypes.find(item => item.tag === tag);
+    const chassis = (type: string, tonnage: number) => {
+        const mech = new BattleMech();
+        mech.setEra("ilClan");
+        mech.setType(type);
+        mech.setTonnage(tonnage);
+        return mech;
+    };
+
+    it("weighs the superheavy tripod cockpit at 5 tons (IO:AE pp.156, 159)", () => {
+        expect(chassis("tripod", 150).getCockpitWeight()).toBe(5);
+        expect(chassis("tripod", 100).getCockpitWeight()).toBe(4);
+        expect(chassis("biped", 150).getCockpitWeight()).toBe(4);
+    });
+
+    it("prices chassis cockpits from the catalog without a provisional label (IO:AE pp.215, 217)", () => {
+        const html = chassis("tripod", 150).getCBillCalcHTML();
+        expect(html).toContain("<strong>Superheavy Tripod 'Mech Cockpit</strong></td><td>500,000</td>");
+        expect(chassis("biped", 150).getCBillCalcHTML()).toContain("<strong>Superheavy BattleMech Cockpit</strong></td><td>300,000</td>");
+        expect(chassis("quadvee", 60).getCBillCalcHTML()).toContain("<strong>QuadVee Cockpit</strong></td><td>375,000</td>");
+        expect(chassis("tripod", 60).getCBillCalcHTML()).toContain("<strong>Tripod 'Mech Cockpit</strong></td><td>400,000</td>");
+    });
+
+    it("lists every 'Mech cockpit with its published weight and cost", () => {
+        // tag: [tons, C-bills]
+        const stats: Record<string, [number, number]> = {
+            "standard": [3, 200000], "small": [2, 175000],                                  // TM pp.211, 277
+            "industrial": [3, 100000], "industrial-advanced-fire-control": [3, 200000],     // TM pp.211, 277
+            "primitive": [5, 200000], "primitive-industrial": [5, 100000],                  // IO:AE p.117
+            "torso-mounted": [4, 750000], "command-console": [3, 500000],                   // TO:AUE pp.112-113, 219
+            "interface": [4, 1500000],                                                      // IO:AE pp.110, 213
+            "direct-neural-interface": [0, 500000],                                         // IO:AE pp.62, 213
+            "quadvee": [4, 375000], "tripod": [4, 400000],                                  // IO:AE pp.128, 159, 215, 217
+            "superheavy": [4, 300000], "superheavy-industrial": [4, 200000],                // IO:AE pp.156, 215
+            "superheavy-tripod": [5, 500000],                                               // IO:AE pp.156, 217
+        };
+        expect(mechCockpitTypes.map(item => item.tag).sort()).toEqual(Object.keys(stats).sort());
+        for (const item of mechCockpitTypes) {
+            expect([item.weight, item.cost], item.tag).toEqual(stats[item.tag]);
+        }
+    });
+
+    it("dates cockpits from the IO:AE p.33-34 universal advancement table", () => {
+        // tag: [prototype, production, extinct, reintroduced]
+        const dates: Record<string, [number | undefined, number | null, number | null, number | null]> = {
+            "standard": [2468, 2470, null, null],
+            "small": [3060, 3067, null, null],
+            "industrial": [2469, 2470, null, null],
+            "industrial-advanced-fire-control": [2469, 2470, null, null],
+            "primitive": [2430, 2439, 2520, null],
+            "primitive-industrial": [2300, 2350, 2520, null],
+            "torso-mounted": [3053, 3080, null, null],
+            "command-console": [2625, 2631, 2850, 3030],
+            "interface": [3074, null, null, null],
+            "direct-neural-interface": [3052, 3055, null, null],
+            "quadvee": [3130, 3135, null, null],
+            "tripod": [2590, 2602, null, null],
+            "superheavy": [3060, 3076, null, null],
+            "superheavy-industrial": [2905, 2940, null, null],
+            "superheavy-tripod": [3130, 3135, null, null],
+        };
+        for (const item of mechCockpitTypes) {
+            expect([item.prototype, item.introduced, item.extinct, item.reintroduced], item.tag).toEqual(dates[item.tag]);
+        }
+        expect(cockpit("small")?.clanDates).toEqual({ introduced: 3080, extinct: null, reintroduced: null });
+        expect(cockpit("torso-mounted")?.clanDates).toEqual({ prototype: 3055, introduced: 3080, extinct: null, reintroduced: null });
+        // The Clans never lost the Command Console; only the Inner Sphere did (IO:AE p.33).
+        expect(cockpit("command-console")?.clanDates).toEqual({ introduced: 2631, extinct: null, reintroduced: null });
+        expect(cockpit("interface")?.clanDates).toEqual({ prototype: 3083, introduced: null, extinct: null, reintroduced: null });
+    });
+
+    it("cites a book and page for every cockpit and marks what the builder supports", () => {
+        const pages: Record<string, [string, number]> = {
+            "standard": ["TM", 211], "small": ["TM", 211], "industrial": ["TM", 211], "industrial-advanced-fire-control": ["TM", 211],
+            "primitive": ["IO:AE", 117], "primitive-industrial": ["IO:AE", 117],
+            "torso-mounted": ["TO:AUE", 113], "command-console": ["TO:AUE", 113],
+            "interface": ["IO:AE", 110], "direct-neural-interface": ["IO:AE", 62],
+            "quadvee": ["IO:AE", 128], "tripod": ["IO:AE", 159],
+            "superheavy": ["IO:AE", 156], "superheavy-industrial": ["IO:AE", 156], "superheavy-tripod": ["IO:AE", 156],
+        };
+        for (const item of mechCockpitTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+        expect(mechCockpitTypes.filter(item => item.constructionStatus === "implemented").map(item => item.tag).sort())
+            .toEqual(["quadvee", "small", "standard", "superheavy", "superheavy-tripod", "tripod"]);
+        // Small (TM p.304) and Torso-Mounted (TO:AUE p.193) cockpits multiply the final BV by 0.95.
+        expect(cockpit("small")?.bvMultiplier).toBe(0.95);
+        expect(cockpit("torso-mounted")?.bvMultiplier).toBe(0.95);
+    });
+});
+
+describe("Batch 9a misc equipment catalogs", () => {
+    it("dates and cites the is records (IO:AE pp.29-39)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ew-equipment": [3020, 3025, 3046, null, "TO:AUE", 123],
+            "c3-computer-slave": [3039, 3050, null, null, "TM", 209],
+            "c3-computer-master": [3039, 3050, null, null, "TM", 209],
+            "ecm-suite": [2595, 2597, 2845, 3045, "TM", 213],
+            "case": [2452, 2476, 2840, 3036, "TM", 210],
+            "modular-armor": [3072, 3096, null, null, "TO:AUE", 93],
+            "is-tag": [2593, 2600, 2835, 3044, "TM", 238],
+            "prototype-tag": [2593, null, 2600, null, "IO:AE", 67],
+            "c3-boosted-master": [3071, 3100, null, null, "TO:AUE", 110],
+            "beagle-active-probe": [2560, 2576, 2835, 3045, "TM", 204],
+            "beagle-active-probe-prototype": [2560, null, 2576, null, "IO:AE", 65],
+            "bloodhound-active-probe": [3058, 3082, null, null, "TO:AUE", 90],
+            "guardian-ecm-prototype": [2595, null, 2597, null, "IO:AE", 66],
+            "angel-ecm": [3057, 3080, null, null, "TO:AUE", 91],
+            "c3i-computer": [3052, 3062, 3085, null, "TM", 209],
+            "c3-boosted-slave": [3071, 3100, null, null, "TO:AUE", 110],
+            "c3-emergency-master": [3071, 3099, null, null, "TO:AUE", 110],
+            "case-prototype": [2452, null, 2476, null, "IO:AE", 65],
+            "case-ii": [3064, 3082, null, null, "TO:AUE", 111],
+            "a-pod": [undefined, 3055, null, null, "TM", 205],
+            "mass": [3048, 3083, null, null, "TO:AUE", 137],
+            "harjel": [3067, 3115, null, null, "TO:AUE", 100],
+            "null-signature-system": [2615, 2630, 2790, 3110, "TO:AUE", 148],
+            "void-signature-system": [3070, 3085, null, null, "TO:AUE", 161],
+            "chameleon-lps": [2630, null, 2790, 3099, "TO:AUE", 112],
+            "masc": [2730, 2740, 2795, 3035, "TM", 232],
+            "targeting-computer": [3052, 3062, null, null, "TM", 238],
+            "melee-chain-whip": [3071, 3084, null, null, "TO:AUE", 101],
+            "melee-flail": [3057, 3079, null, null, "TO:AUE", 101],
+            "shield-small": [3067, 3079, null, null, "TO:AUE", 103],
+            "shield-medium": [3067, 3079, null, null, "TO:AUE", 103],
+            "shield-large": [3067, 3079, null, null, "TO:AUE", 103],
+            "spikes": [3051, 3082, null, null, "TO:AUE", 103],
+            "melee-vibroblade-small": [3065, 3091, null, null, "TO:AUE", 104],
+            "melee-vibroblade-medium": [3065, 3091, null, null, "TO:AUE", 104],
+            "melee-vibroblade-large": [3066, 3091, null, null, "TO:AUE", 104],
+            "melee-mace": [3061, 3079, null, null, "TO:AUE", 102],
+            "melee-lance": [3064, 3083, null, null, "TO:AUE", 102],
+            "melee-claw": [3050, 3060, null, null, "TO:AUE", 101],
+            "melee-retractable-blade": [2400, 2420, null, null, "TM", 237],
+            "partial-wing": [3074, 3085, null, null, "TO:AUE", 105],
+            "mechanical-jump-booster": [3060, 3083, null, null, "TO:AUE", 105],
+            "aes-arm": [3070, 3109, null, null, "TO:AUE", 91],
+            "aes-leg": [3070, 3109, null, null, "TO:AUE", 91],
+            "blue-shield": [3053, null, null, null, "TO:AUE", 108],
+            "radical-heat-sink-system": [3115, 3122, null, null, "IO:AE", 83],
+            "risc-emergency-coolant-system": [3136, null, 3140, null, "IO:AE", 86],
+            "remote-sensor-dispenser-prototype": [2586, null, 2590, null, "IO:AE", 67],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentMisc.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the is records", () => {
+        for (const item of mechISEquipmentMisc) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clan records (IO:AE pp.29-39)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "clan-active-probe": [2830, 2832, null, null, "TM", 204],
+            "clan-ecm-system": [2830, 2832, null, null, "TM", 213],
+            "clan-tag": [2828, 2830, null, null, "TM", 238],
+            "clan-light-tag": [3051, 3054, null, null, "TM", 238],
+            "clan-light-active-probe": [2890, 2900, null, null, "TM", 204],
+            "clan-angel-ecm": [3058, 3080, null, null, "TO:AUE", 91],
+            "clan-watchdog-cews": [3059, 3080, null, null, "TO:AUE", 90],
+            "clan-case-ii": [3062, 3082, null, null, "TO:AUE", 111],
+            "clan-a-pod": [2845, 2850, null, null, "TM", 205],
+            "clan-mass": [3062, 3083, null, null, "TO:AUE", 137],
+            "clan-harjel": [3059, 3115, null, null, "TO:AUE", 100],
+            "clan-masc": [2820, 2827, null, null, "TM", 232],
+            "clan-targeting-computer": [2850, 2860, null, null, "TM", 238],
+            "clan-melee-claw": [undefined, 3090, null, null, "TO:AUE", 101],
+            "clan-partial-wing": [3067, 3085, null, null, "TO:AUE", 105],
+            "clan-aes-arm": [3070, 3108, null, null, "TO:AUE", 91],
+            "clan-aes-leg": [3070, 3108, null, null, "TO:AUE", 91],
+            "clan-talons": [3072, 3087, null, null, "TO:AUE", 103],
+            "clan-nova-cews": [3065, null, 3085, null, "IO:AE", 60],
+            "clan-protomech-myomer-booster": [3066, 3068, null, null, "TM", 232],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentMisc.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clan records", () => {
+        for (const item of mechClanEquipmentMisc) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("prices Modular Armor at 10,000 C-bills per ton (TO:AUE p.217)", () => {
+        expect(mechISEquipmentMisc.find(item => item.tag === "modular-armor")?.cbills).toBe(10000);
+    });
+});
+
+describe("Batch 9b universal equipment catalog", () => {
+    it("dates and cites the universal records (IO:AE pp.29-42)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "nail-gun": [2309, 2310, null, null, "TM", 246],
+            "mech-mortar-1": [2526, 2531, null, null, "TO:AUE", 136],
+            "mech-mortar-2": [2526, 2531, null, null, "TO:AUE", 136],
+            "mech-mortar-4": [2526, 2531, null, null, "TO:AUE", 136],
+            "mech-mortar-8": [2526, 2531, null, null, "TO:AUE", 136],
+            "thumper-artillery": [undefined, 1950, null, null, "TO:AUE", 96],
+            "long-tom-artillery": [2445, 2500, null, null, "TO:AUE", 96],
+            "sniper-artillery": [undefined, 1950, null, null, "TO:AUE", 96],
+            "vehicle-flamer": [undefined, 1950, null, null, "TM", 218],
+            "long-tom-cannon": [3012, 3079, null, null, "TO:AUE", 97],
+            "sniper-cannon": [3012, 3079, null, null, "TO:AUE", 97],
+            "thumper-cannon": [3012, 3079, null, null, "TO:AUE", 97],
+            "fluid-gun": [undefined, 1950, null, null, "TO:AUE", 125],
+            "supercharger": [undefined, 3078, null, null, "TO:AUE", 157],
+            "backhoe": [undefined, 1950, null, null, "TM", 241],
+            "bridge-layer-light": [undefined, 1950, null, null, "TM", 242],
+            "bridge-layer-medium": [undefined, 1950, null, null, "TM", 242],
+            "bridge-layer-heavy": [undefined, 1950, null, null, "TM", 242],
+            "chainsaw": [undefined, 1950, null, null, "TM", 242],
+            "combine": [undefined, 1950, null, null, "TM", 243],
+            "dual-saw": [undefined, 1950, null, null, "TM", 243],
+            "pile-driver": [undefined, 1950, null, null, "TM", 244],
+            "lift-hoist": [undefined, 1950, null, null, "TM", 245],
+            "mining-drill": [undefined, 1950, null, null, "TM", 246],
+            "rock-cutter": [undefined, 1950, null, null, "TM", 247],
+            "salvage-arm": [2400, 2415, null, null, "TM", 248],
+            "spot-welder": [2312, 2320, null, null, "TM", 248],
+            "wrecking-ball": [undefined, 1950, null, null, "TM", 249],
+            "tracks": [2430, 2440, null, null, "TM", 249],
+            "environmental-sealing": [2300, 2350, null, null, "TM", 216],
+            "remote-sensor-dispenser": [2586, 2590, null, null, "TM", 236],
+            "searchlight": [undefined, 1950, null, null, "TM", 237],
+            "laser-insulator": [2575, null, 2820, null, "TO:AUE", 134],
+            "lam-bomb-bay": [2680, 2684, null, null, "IO", 114],
+            "lam-fuel-tank": [undefined, 2100, null, null, "IO", 221],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechUniversalEquipment.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the universal records", () => {
+        for (const item of mechUniversalEquipment) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
+
+describe("Batch 10a energy weapon catalogs", () => {
+    it("dates and cites the isEnergy records (IO:AE pp.29-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "blazer": [2812, 3077, null, null, "TO:AUE", 131],
+            "bombast-laser": [3064, 3085, null, null, "TO:AUE", 132],
+            "cws": [2762, null, 2770, null, "IO:AE", 79],
+            "er-flamer": [undefined, 3070, null, null, "TO:AUE", 124],
+            "er-large-laser": [2610, 2620, 2950, 3037, "TM", 226],
+            "er-medium-laser": [3052, 3058, null, null, "TM", 226],
+            "er-ppc": [2740, 2751, 2860, 3037, "TM", 234],
+            "er-small-laser": [3052, 3058, null, null, "TM", 226],
+            "heavy-flamer": [undefined, 3068, null, null, "TO:AUE", 124],
+            "heavy-ppc": [3062, 3067, null, null, "TM", 234],
+            "large-laser": [2306, 2316, null, null, "TM", 226],
+            "large-pulse-laser": [2595, 2609, 2950, 3037, "TM", 226],
+            "large-re-engineered-laser": [3120, 3130, null, null, "IO:AE", 83],
+            "large-vspl": [3070, 3072, null, null, "TO:AUE", 133],
+            "large-x-pulse-laser": [3057, 3078, null, null, "TO:AUE", 133],
+            "is-laser-ams": [3059, 3079, null, null, "TO:AUE", 134],
+            "light-ppc": [3064, 3067, null, null, "TM", 234],
+            "medium-laser": [2290, 2300, null, null, "TM", 226],
+            "medium-pulse-laser": [2595, 2609, 2950, 3037, "TM", 226],
+            "medium-re-engineered-laser": [3120, 3130, null, null, "IO:AE", 83],
+            "medium-vspl": [3070, 3072, null, null, "TO:AUE", 133],
+            "medium-x-pulse-laser": [3057, 3078, null, null, "TO:AUE", 133],
+            "plasma-rifle": [3061, 3068, null, null, "TM", 235],
+            "small-laser": [2290, 2300, null, null, "TM", 226],
+            "small-pulse-laser": [2595, 2609, 2950, 3037, "TM", 226],
+            "small-re-engineered-laser": [3120, 3130, null, null, "IO:AE", 83],
+            "small-vspl": [3070, 3072, null, null, "TO:AUE", 133],
+            "small-x-pulse-laser": [3057, 3078, null, null, "TO:AUE", 133],
+            "snub-nose-ppc": [2779, 2784, 2790, 3067, "TM", 234],
+            "standard-flamer": [undefined, 1950, null, null, "TM", 218],
+            "standard-ppc": [2440, 2460, null, null, "TM", 234],
+            "primitive-prototype-large-laser": [2306, null, 2316, null, "IO:AE", 112],
+            "primitive-prototype-medium-laser": [2290, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-small-laser": [2290, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-ppc": [2439, null, 2460, null, "IO:AE", 112],
+            "light-ppc-capacitor": [3064, 3081, null, null, "TO:AUE", 149],
+            "ppc-capacitor": [3060, 3081, null, null, "TO:AUE", 149],
+            "heavy-ppc-capacitor": [3062, 3081, null, null, "TO:AUE", 149],
+            "er-ppc-capacitor": [3060, 3081, null, null, "TO:AUE", 149],
+            "snub-nose-ppc-capacitor": [3067, 3081, null, null, "TO:AUE", 149],
+            "risc-hyper-laser": [3134, null, 3141, null, "IO:AE", 87],
+            "prototype-er-large-laser": [3030, null, 3037, null, "IO:AE", 97],
+            "prototype-large-pulse-laser": [2595, null, 2609, null, "IO:AE", 67],
+            "prototype-medium-pulse-laser": [2595, null, 2609, null, "IO:AE", 67],
+            "recovered-prototype-medium-pulse-laser": [3031, null, 3037, null, "IO:AE", 97],
+            "prototype-small-pulse-laser": [2595, null, 2609, null, "IO:AE", 67],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentEnergy.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isEnergy records", () => {
+        for (const item of mechISEquipmentEnergy) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanEnergy records (IO:AE pp.29-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "enhanced_er_ppc": [2822, 2823, 2831, 3080, "IO:AE", 90],
+            "clan-er-large-laser": [2820, 2825, null, null, "TM", 226],
+            "er_large_pulse_laser": [3057, 3082, null, null, "TO:AUE", 132],
+            "er-medium-laser-clan": [2822, 2824, null, null, "TM", 226],
+            "er_medium_pulse_laser": [3057, 3082, null, null, "TO:AUE", 132],
+            "er-micro-laser": [3059, 3060, null, null, "TM", 226],
+            "er-ppc-clan": [2823, 2826, null, null, "TM", 234],
+            "er-small-laser-clan": [2822, 2825, null, null, "TM", 226],
+            "er_small_pulse_laser": [3057, 3082, null, null, "TO:AUE", 132],
+            "standard-flamer-clan": [undefined, 1950, 2830, null, "TM", 218],
+            "large-heavy-laser": [3057, 3059, null, null, "TM", 226],
+            "medium-heavy-laser": [3057, 3059, null, null, "TM", 226],
+            "small-heavy-laser": [3057, 3059, null, null, "TM", 226],
+            "clan-large-laser": [2306, 2316, 2850, null, "TM", 226],
+            "clan_large-pulse-laser": [2820, 2824, null, null, "TM", 226],
+            "clan-laser-ams": [3048, 3079, null, null, "TO:AUE", 134],
+            "medium-laser-clan": [2290, 2300, 2850, null, "TM", 226],
+            "clan_medium-pulse-laser": [2825, 2827, null, null, "TM", 226],
+            "micro-pulse-laser": [3059, 3060, null, null, "TM", 226],
+            "clan-standard-ppc": [2440, 2460, 2825, null, "TM", 234],
+            "plasma-cannon": [3068, 3069, null, null, "TM", 235],
+            "small-laser-clan": [2290, 2300, 2850, null, "TM", 226],
+            "clan-small-pulse-laser": [2825, 2829, null, null, "TM", 226],
+            "clan-sl-er-ppc": [2740, 2751, null, null, "TM", 234],
+            "clan-heavy-flamer": [3065, 3067, null, null, "TO:AUE", 124],
+            "clan-flamer": [2820, 2827, null, null, "TM", 218],
+            "clan-improved-ppc": [2819, 2820, 2832, 3080, "IO:AE", 90],
+            "clan-improved-large-pulse-laser": [2815, 2818, 2826, 3080, "IO:AE", 89],
+            "clan-improved-large-laser": [2812, 2815, 2830, 3080, "IO:AE", 89],
+            "clan-improved-heavy-large-laser": [3069, 3079, null, null, "TO:AUE", 133],
+            "clan-improved-heavy-medium-laser": [3069, 3079, null, null, "TO:AUE", 133],
+            "clan-improved-heavy-small-laser": [3069, 3079, null, null, "TO:AUE", 133],
+            "clan-er-flamer": [3065, 3067, null, null, "TO:AUE", 124],
+            "clan-large-chemical-laser": [3059, 3083, null, null, "TO:AUE", 132],
+            "clan-medium-chemical-laser": [3059, 3083, null, null, "TO:AUE", 132],
+            "clan-small-chemical-laser": [3059, 3083, null, null, "TO:AUE", 132],
+            "clan-prototype-er-medium-laser": [2819, null, 2824, null, "IO:AE", 91],
+            "clan-prototype-er-small-laser": [2819, null, 2825, null, "IO:AE", 91],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentEnergy.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanEnergy records", () => {
+        for (const item of mechClanEquipmentEnergy) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
+
+describe("Batch 10b ballistic weapon catalogs", () => {
+    it("dates and cites the isBallistic records (IO:AE pp.29-38)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "autocannon-standard-a": [2290, 2300, null, null, "TM", 208],
+            "autocannon-standard-b": [2240, 2250, null, null, "TM", 208],
+            "autocannon-standard-c": [2443, 2460, null, null, "TM", 208],
+            "autocannon-standard-d": [2488, 2500, null, null, "TM", 208],
+            "gauss-rifle-light": [3049, 3056, null, null, "TM", 219],
+            "standard-gauss-rifle": [2587, 2590, 2865, 3040, "TM", 219],
+            "gauss-rifle-heavy": [3051, 3061, null, null, "TM", 219],
+            "gauss-rifle-heavy-improved": [3065, 3081, null, null, "TO:AUE", 126],
+            "silver-bullet-gauss-rifle": [3051, 3080, null, null, "TO:AUE", 127],
+            "gauss-rifle-magshot": [3059, 3072, null, null, "TO:AUE", 126],
+            "autocannon-lbx-2": [3055, 3058, null, null, "TM", 208],
+            "autocannon-lbx-5": [3055, 3058, null, null, "TM", 208],
+            "autocannon-lbx-10": [2590, 2595, 2840, 3035, "TM", 208],
+            "autocannon-lbx-20": [3055, 3058, null, null, "TM", 208],
+            "autocannon-light-2": [3062, 3068, null, null, "TM", 208],
+            "autocannon-light-5": [3062, 3068, null, null, "TM", 208],
+            "machine-gun": [undefined, 1950, null, null, "TM", 228],
+            "machine-gun-heavy": [3063, 3068, null, null, "TM", 228],
+            "machine-gun-light": [3064, 3068, null, null, "TM", 228],
+            "melee-hatchet": [3015, 3022, null, null, "TM", 220],
+            "melee-sword": [3050, 3058, null, null, "TM", 237],
+            "rotary-ac-2": [3060, 3062, null, null, "TM", 208],
+            "rotary-ac-5": [3060, 3062, null, null, "TM", 208],
+            "autocannon-ultra-a": [3055, 3057, null, null, "TM", 208],
+            "autocannon-ultra-b": [2635, 2640, 2915, 3035, "TM", 208],
+            "autocannon-ultra-c": [3055, 3057, null, null, "TM", 208],
+            "autocannon-ultra-d": [3057, 3060, null, null, "TM", 208],
+            "primitive-prototype-ac-2": [2290, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-ac-5": [2240, null, 2250, null, "IO:AE", 112],
+            "primitive-prototype-ac-10": [2443, null, 2460, null, "IO:AE", 112],
+            "primitive-prototype-ac-20": [2490, null, 2500, null, "IO:AE", 112],
+            "prototype-autocannon-lbx-10": [2590, null, 2595, 3030, "IO:AE", 66],
+            "prototype-gauss-rifle": [2587, null, 2590, 3038, "IO:AE", 66],
+            "prototype-autocannon-uac-5": [3029, null, 3035, null, "IO:AE", 98],
+            "light-rifle": [undefined, 1950, 2825, 3084, "TO:AUE", 150],
+            "medium-rifle": [undefined, 1950, 2825, 3084, "TO:AUE", 150],
+            "heavy-rifle": [undefined, 1950, 2825, 3084, "TO:AUE", 150],
+            "is-ams": [2613, 2617, 2835, 3045, "TM", 204],
+            "is-machine-gun-array": [3066, 3068, null, null, "TM", 228],
+            "is-light-machine-gun-array": [3066, 3068, null, null, "TM", 228],
+            "is-heavy-machine-gun-array": [3066, 3068, null, null, "TM", 228],
+            "is-hvac-2": [3059, 3079, null, null, "TO:AUE", 97],
+            "is-hvac-5": [3059, 3079, null, null, "TO:AUE", 97],
+            "is-hvac-10": [3059, 3079, null, null, "TO:AUE", 97],
+            "is-risc-apds": [3134, 3137, null, null, "IO:AE", 85],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentBallistic.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isBallistic records", () => {
+        for (const item of mechISEquipmentBallistic) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanBallistic records (IO:AE pp.29-38)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "clan-autocannon-lbx-5": [2824, 2826, null, null, "TM", 208],
+            "clan-autocannon-lbx-2": [2824, 2826, null, null, "TM", 208],
+            "clan-autocannon-lbx-10": [2824, 2826, null, null, "TM", 208],
+            "clan-autocannon-lbx-20": [2824, 2826, null, null, "TM", 208],
+            "clan-autocannon-rac-2": [3073, 3104, null, null, "TO:AUE", 98],
+            "clan-autocannon-rac-5": [3073, 3104, null, null, "TO:AUE", 98],
+            "clan-autocannon-uac-2": [2825, 2827, null, null, "TM", 208],
+            "clan-autocannon-uac-5": [2825, 2827, null, null, "TM", 208],
+            "clan-autocannon-uac-10": [2825, 2827, null, null, "TM", 208],
+            "clan-autocannon-uac-20": [2825, 2827, null, null, "TM", 208],
+            "hyper-assault-gauss-20": [3062, 3068, null, null, "TM", 219],
+            "hyper-assault-gauss-30": [3062, 3068, null, null, "TM", 219],
+            "hyper-assault-gauss-40": [3062, 3068, null, null, "TM", 219],
+            "protomech-autocannon-2": [3070, 3073, null, null, "TO:AUE", 98],
+            "protomech-autocannon-4": [3070, 3073, null, null, "TO:AUE", 98],
+            "protomech-autocannon-8": [3070, 3073, null, null, "TO:AUE", 98],
+            "ap-gauss-rifle": [3065, 3069, null, null, "TM", 219],
+            "clan-sl-autocannon-standard-a": [2290, 2300, 2850, null, "TM", 208],
+            "clan-sl-autocannon-standard-b": [2240, 2250, 2850, null, "TM", 208],
+            "clan-sl-autocannon-standard-c": [2443, 2460, 2850, null, "TM", 208],
+            "clan-sl-autocannon-standard-d": [2488, 2500, 2850, null, "TM", 208],
+            "clan-sl-machine-gun": [undefined, 1950, 2826, null, "TM", 228],
+            "clan-machine-gun": [2821, 2825, null, null, "TM", 228],
+            "clan-light-machine-gun": [3055, 3060, null, null, "TM", 228],
+            "clan-heavy-machine-gun": [3054, 3059, null, null, "TM", 228],
+            "clan-gauss-rifle": [2822, 2828, null, null, "TM", 219],
+            "clan-improved-ac-2": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "clan-improved-ac-5": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "clan-improved-ac-10": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "clan-improved-ac-20": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "clan-improved-gauss-rifle": [2818, 2821, 2837, 3080, "IO:AE", 90],
+            "clan-ams": [2824, 2831, null, null, "TM", 204],
+            "clan-machine-gun-array": [undefined, 3069, null, null, "TM", 228],
+            "clan-light-machine-gun-array": [undefined, 3069, null, null, "TM", 228],
+            "clan-heavy-machine-gun-array": [undefined, 3069, null, null, "TM", 228],
+            "clan-prototype-lb-2-x-ac": [2820, null, 2826, null, "IO:AE", 91],
+            "clan-prototype-lb-5-x-ac": [2820, null, 2825, null, "IO:AE", 91],
+            "clan-prototype-lb-20-x-ac": [2820, null, 2826, null, "IO:AE", 91],
+            "clan-prototype-ultra-ac-2": [2820, null, 2827, null, "IO:AE", 92],
+            "clan-prototype-ultra-ac-10": [2820, null, 2825, null, "IO:AE", 92],
+            "clan-prototype-ultra-ac-20": [2820, null, 2825, null, "IO:AE", 92],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentBallistic.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanBallistic records", () => {
+        for (const item of mechClanEquipmentBallistic) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
+
+describe("Batch 10c missile and artillery catalogs", () => {
+    it("dates and cites the isMissile records (IO:AE pp.31-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "lrm-5": [2295, 2300, null, null, "TM", 231],
+            "lrm-10": [2295, 2300, null, null, "TM", 231],
+            "lrm-15": [2295, 2300, null, null, "TM", 231],
+            "lrm-20": [2295, 2300, null, null, "TM", 231],
+            "lrm-5-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "lrm-10-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "lrm-15-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "lrm-20-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "srm-2": [2365, 2370, null, null, "TM", 231],
+            "srm-4": [2365, 2370, null, null, "TM", 231],
+            "srm-6": [2365, 2370, null, null, "TM", 231],
+            "srm-2-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "srm-4-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "srm-6-artemis-iv": [2592, 2598, 2855, 3035, "TM", 207],
+            "streak-srm-2": [2645, 2647, 2845, 3035, "TM", 231],
+            "streak-srm-4": [3055, 3058, null, null, "TM", 231],
+            "streak-srm-6": [3055, 3058, null, null, "TM", 231],
+            "extended-lrm-5": [3054, 3078, null, null, "TO:AUE", 139],
+            "extended-lrm-10": [3054, 3078, null, null, "TO:AUE", 139],
+            "extended-lrm-15": [3054, 3078, null, null, "TO:AUE", 139],
+            "extended-lrm-20": [3054, 3078, null, null, "TO:AUE", 139],
+            "mml-3": [3067, 3068, null, null, "TM", 231],
+            "mml-5": [3067, 3068, null, null, "TM", 231],
+            "mml-7": [3067, 3068, null, null, "TM", 231],
+            "mml-9": [3067, 3068, null, null, "TM", 231],
+            "mml-3-artemis-iv": [3067, 3068, null, null, "TM", 207],
+            "mml-5-artemis-iv": [3067, 3068, null, null, "TM", 207],
+            "mml-7-artemis-iv": [3067, 3068, null, null, "TM", 207],
+            "mml-9-artemis-iv": [3067, 3068, null, null, "TM", 207],
+            "thunderbolt-5": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-10": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-15": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-20": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-5-os": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-10-os": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-15-os": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-20-os": [3052, 3072, null, null, "TO:AUE", 159],
+            "thunderbolt-5-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "thunderbolt-10-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "thunderbolt-15-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "thunderbolt-20-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "mrm-10": [3052, 3058, null, null, "TM", 231],
+            "mrm-20": [3052, 3058, null, null, "TM", 231],
+            "mrm-30": [3052, 3058, null, null, "TM", 231],
+            "mrm-40": [3052, 3058, null, null, "TM", 231],
+            "mrm-10-os": [3052, 3058, null, null, "TM", 231],
+            "mrm-20-os": [3052, 3058, null, null, "TM", 231],
+            "mrm-30-os": [3052, 3058, null, null, "TM", 231],
+            "mrm-40-os": [3052, 3058, null, null, "TM", 231],
+            "mrm-10-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "mrm-20-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "mrm-30-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "mrm-40-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "rocket-launcher-10": [undefined, 3064, null, null, "TM", 231],
+            "rocket-launcher-15": [undefined, 3064, null, null, "TM", 231],
+            "rocket-launcher-20": [undefined, 3064, null, null, "TM", 231],
+            "enhanced-lrm-5": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-10": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-15": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-20": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-5-artemis-iv": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-10-artemis-iv": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-15-artemis-iv": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrm-20-artemis-iv": [3058, 3082, null, null, "TO:AUE", 139],
+            "primitive-prototype-lrm-15": [2295, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-lrm-20": [2295, null, 2300, null, "IO:AE", 112],
+            "primitive-prototype-srm-2": [2365, null, 2370, null, "IO:AE", 112],
+            "primitive-prototype-srm-4": [2365, null, 2370, null, "IO:AE", 112],
+            "narc": [2580, 2587, 2795, 3035, "TM", 233],
+            "inarc": [3054, 3062, null, null, "TM", 233],
+            "inarc-os": [3054, 3062, null, null, "TM", 233],
+            "narc-os": [2665, 2676, 2795, 3035, "TM", 233],
+            "narc-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-5": [2370, 2380, null, null, "TM", 231],
+            "lrt-10": [2370, 2380, null, null, "TM", 231],
+            "lrt-15": [2370, 2380, null, null, "TM", 231],
+            "lrt-20": [2370, 2380, null, null, "TM", 231],
+            "srt-2": [2370, 2380, null, null, "TM", 231],
+            "srt-4": [2370, 2380, null, null, "TM", 231],
+            "srt-6": [2370, 2380, null, null, "TM", 231],
+            "lrm-5-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrm-10-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrm-15-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrm-20-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrt-5-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrt-10-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrt-15-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "lrt-20-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srm-2-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srm-4-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srm-6-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srt-2-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srt-4-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "srt-6-os": [2665, 2676, 2800, 3030, "TM", 231],
+            "streak-srm-2-os": [2665, 2676, 2800, 3035, "TM", 231],
+            "streak-srm-4-os": [3055, 3058, null, null, "TM", 231],
+            "streak-srm-6-os": [3055, 3058, null, null, "TM", 231],
+            "lrm-5-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrm-10-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrm-15-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrm-20-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-5-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-10-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-15-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "lrt-20-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srm-2-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srm-4-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srm-6-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srt-2-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srt-4-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "srt-6-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "streak-srm-2-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "streak-srm-4-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "streak-srm-6-ios": [3056, 3081, null, null, "TO:AUE", 139],
+            "prototype-narc": [2580, null, 2587, null, "IO:AE", 67],
+            "prototype-rocket-launcher-10": [1950, null, 3064, null, "IO:AE", 67],
+            "prototype-rocket-launcher-15": [1950, null, 3064, null, "IO:AE", 67],
+            "prototype-rocket-launcher-20": [1950, null, 3064, null, "IO:AE", 67],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentMissiles.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isMissile records", () => {
+        for (const item of mechISEquipmentMissiles) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanMissile records (IO:AE pp.31-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "atm-3": [3052, 3053, null, null, "TM", 231],
+            "atm-6": [3052, 3053, null, null, "TM", 231],
+            "atm-9": [3052, 3053, null, null, "TM", 231],
+            "atm-12": [3052, 3053, null, null, "TM", 231],
+            "iatm-3": [3054, 3070, null, null, "IO:AE", 60],
+            "iatm-6": [3054, 3070, null, null, "IO:AE", 60],
+            "iatm-9": [3054, 3070, null, null, "IO:AE", 60],
+            "iatm-12": [3054, 3070, null, null, "IO:AE", 60],
+            "clan-lrm-5": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-10": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-15": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-20": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-5-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-10-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-15-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-20-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrm-5-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-lrm-10-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-lrm-15-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-lrm-20-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-lrm-5-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrm-10-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrm-15-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrm-20-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srm-2": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-4": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-6": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-2-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-4-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-6-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srm-2-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-srm-4-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-srm-6-artemis-iv": [2820, 2824, null, null, "TM", 207],
+            "clan-srm-2-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srm-4-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srm-6-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-streak-srm-2": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-4": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-6": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-2-os": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-4-os": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-6-os": [2819, 2822, null, null, "TM", 231],
+            "clan-streak-srm-2-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-streak-srm-4-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-streak-srm-6-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrt-5": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-10": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-15": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-20": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-5-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-10-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-15-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-20-os": [2820, 2824, null, null, "TM", 231],
+            "clan-lrt-5-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrt-10-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrt-15-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-lrt-20-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srt-2": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-4": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-6": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-2-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-4-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-6-os": [2820, 2824, null, null, "TM", 231],
+            "clan-srt-2-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srt-4-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-srt-6-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "streak-lrm-5": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-10": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-15": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-20": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-5-os": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-10-os": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-15-os": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-20-os": [3057, 3079, null, null, "TO:AUE", 139],
+            "streak-lrm-5-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "streak-lrm-10-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "streak-lrm-15-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "streak-lrm-20-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-sl-lrm-5": [2295, 2300, 2830, null, "TM", 231],
+            "clan-sl-lrm-10": [2295, 2300, 2830, null, "TM", 231],
+            "clan-sl-lrm-15": [2295, 2300, 2830, null, "TM", 231],
+            "clan-sl-lrm-20": [2295, 2300, 2830, null, "TM", 231],
+            "clan-sl-lrm-5-artemis-iv": [2592, 2598, 2830, null, "TM", 207],
+            "clan-sl-lrm-10-artemis-iv": [2592, 2598, 2830, null, "TM", 207],
+            "clan-sl-lrm-15-artemis-iv": [2592, 2598, 2830, null, "TM", 207],
+            "clan-sl-lrm-20-artemis-iv": [2592, 2598, 2830, null, "TM", 207],
+            "clan-sl-lrm-5-os": [2665, 2676, 2830, null, "TM", 231],
+            "clan-sl-lrm-10-os": [2665, 2676, 2830, null, "TM", 231],
+            "clan-sl-lrm-15-os": [2665, 2676, 2830, null, "TM", 231],
+            "clan-sl-lrm-20-os": [2665, 2676, 2830, null, "TM", 231],
+            "clan-sl-srm-2": [2365, 2370, 2836, null, "TM", 231],
+            "clan-sl-srm-4": [2365, 2370, 2836, null, "TM", 231],
+            "clan-sl-srm-6": [2365, 2370, 2836, null, "TM", 231],
+            "clan-sl-srm-2-artemis-iv": [2592, 2598, 2836, null, "TM", 207],
+            "clan-sl-srm-4-artemis-iv": [2592, 2598, 2836, null, "TM", 207],
+            "clan-sl-srm-6-artemis-iv": [2592, 2598, 2836, null, "TM", 207],
+            "clan-sl-streak-srm-2": [2645, 2647, 2845, null, "TM", 231],
+            "clan-narc": [2820, 2828, null, null, "TM", 233],
+            "clan-narc-os": [2820, 2828, null, null, "TM", 233],
+            "clan-narc-ios": [3058, 3081, null, null, "TO:AUE", 139],
+            "clan-improved-lrm-5": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "clan-improved-lrm-10": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "clan-improved-lrm-15": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "clan-improved-lrm-20": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "clan-improved-srm-2": [2815, 2817, 2828, 3080, "IO:AE", 90],
+            "clan-improved-srm-4": [2815, 2817, 2828, 3080, "IO:AE", 90],
+            "clan-improved-srm-6": [2815, 2817, 2828, 3080, "IO:AE", 90],
+            "clan-prototype-streak-srm-4": [2819, null, 2826, null, "IO:AE", 91],
+            "clan-prototype-streak-srm-6": [2819, null, 2826, null, "IO:AE", 91],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentMissile.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanMissile records", () => {
+        for (const item of mechClanEquipmentMissile) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the isArtillery records (IO:AE pp.31-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "arrow-iv-system": [2593, 2600, 2830, 3044, "TO:AUE", 96],
+            "prototype-arrow-iv": [2593, null, 2600, null, "IO:AE", 64],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISEquipmentArtillery.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isArtillery records", () => {
+        for (const item of mechISEquipmentArtillery) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanArtillery records (IO:AE pp.31-40)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "clan-arrow-iv-system": [undefined, 2844, null, null, "TO:AUE", 96],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanEquipmentArtillery.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanArtillery records", () => {
+        for (const item of mechClanEquipmentArtillery) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
+
+describe("Batch 11 jump jet catalog", () => {
+    const jumpJet = (tag: string) => mechJumpJetTypes.find(item => item.tag === tag);
+
+    it("dates jump jets from the IO:AE p.29 universal advancement table", () => {
+        expect([jumpJet("standard")?.prototype, jumpJet("standard")?.introduced]).toEqual([2464, 2471]);
+        // Improved Jump Jets: Clan Wolf-in-Exile ~3060 prototype, 3069 production; Inner Sphere introduction 3070.
+        expect([jumpJet("improved")?.prototype, jumpJet("improved")?.introduced]).toEqual([undefined, 3070]);
+        expect(jumpJet("improved")?.clanDates).toEqual({ prototype: 3060, introduced: 3069, extinct: null, reintroduced: null });
+        // UMUs: Goliath Scorpion ~3061 prototype, Lyran production 3066, Clan introduction 3072.
+        expect([jumpJet("umu")?.prototype, jumpJet("umu")?.introduced]).toEqual([undefined, 3066]);
+        expect(jumpJet("umu")?.clanDates).toEqual({ prototype: 3061, introduced: 3072, extinct: null, reintroduced: null });
+    });
+
+    it("cites a book and page for every jump jet and uses null for unknown dates", () => {
+        const pages: Record<string, [string, number]> = { standard: ["TM", 225], improved: ["TM", 225], umu: ["TO:AUE", 107] };
+        for (const item of mechJumpJetTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+            expect(item.extinct, item.tag).toBeNull();
+            expect(item.reintroduced, item.tag).toBeNull();
+        }
+    });
+});
+
+describe("Batch 9c pods added from TechManual and TO:AUE", () => {
+    it("lists the B-Pod as universal equipment (TM pp.205, 291, 317, 342)", () => {
+        const pod = mechUniversalEquipment.find(item => item.tag === "b-pod");
+        expect(pod).toMatchObject({ name: "B-Pod", weight: 1, cbills: 2500, battleValue: 2, battleValueDefensive: true, explosive: true, book: "TM", page: 205 });
+        expect(pod?.space).toMatchObject({ battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1 });
+        // IO:AE p.34: ~3065 prototype (Wolf-in-Exile and Lyran), 3068 production for both tech bases.
+        expect([pod?.prototype, pod?.introduced, pod?.extinct, pod?.reintroduced]).toEqual([3065, 3068, null, null]);
+    });
+
+    it("lists the M-Pod as Inner Sphere equipment (TO:AUE pp.143, 195, 221)", () => {
+        const pod = mechISEquipmentMisc.find(item => item.tag === "m-pod");
+        expect(pod).toMatchObject({ name: "M-Pod", weight: 1, cbills: 6000, battleValue: 5, battleValueDefensive: true, explosive: true, accuracyModifier: -1, book: "TO:AUE", page: 143 });
+        expect(pod?.range).toEqual({ min: 0, short: 1, medium: 2, long: 3 });
+        expect(pod?.space).toMatchObject({ battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1 });
+        // IO:AE p.34: ~3060 prototype, 3064 production.
+        expect([pod?.prototype, pod?.introduced, pod?.extinct, pod?.reintroduced]).toEqual([3060, 3064, null, null]);
+    });
+
+    it("lists the Chaff Pod as Inner Sphere equipment (TO:AUE pp.111, 195, 219)", () => {
+        const pod = mechISEquipmentMisc.find(item => item.tag === "chaff-pod");
+        expect(pod).toMatchObject({ name: "Chaff Pod", weight: 1, cbills: 2000, battleValue: 19, battleValueDefensive: true, explosive: true, book: "TO:AUE", page: 111 });
+        expect(pod?.space).toMatchObject({ battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 });
+        // IO:AE p.39: 3069 prototype, 3079 production.
+        expect([pod?.prototype, pod?.introduced, pod?.extinct, pod?.reintroduced]).toEqual([3069, 3079, null, null]);
+    });
+
+    it("mounts a B-Pod on Inner Sphere and Clan designs and counts it as defensive BV", () => {
+        for (const tech of ["is", "clan"]) {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            mech.setEra("ilClan");
+            const before = mech.getBattleValue();
+            const pod = mech.addEquipmentFromTag("b-pod", "", "", false, null, undefined, undefined, undefined, undefined, undefined);
+            expect(pod?.tag, tech).toBe("b-pod");
+            expect(mech.getBattleValue(), tech).toBeGreaterThan(before);
+        }
+    });
+});
+
+describe("Batch 12b standard ammunition follows its launcher", () => {
+    it("dates and cites the isAmmo records (launcher dates; IO:AE pp.53-56)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ammo-is-arrow-iv-standard": [2593, 2600, 2830, 3044, "TO:AUE", 96],
+            "ammo-is-enhanced-lrm-standard": [3058, 3082, null, null, "TO:AUE", 139],
+            "ammo-is-inarc-standard": [3054, 3062, null, null, "TM", 233],
+            "ammo-is-mech-mortar-standard": [2526, 2531, 2819, 3043, "TO:AUE", 136],
+            "ammo-is-mrm-standard": [3052, 3058, null, null, "TM", 231],
+            "ammo-is-narc-standard": [2580, 2587, 2795, 3035, "TM", 233],
+            "ammo-is-plasma-rifle-standard": [3061, 3068, null, null, "TM", 235],
+            "ammo-is-thunderbolt-5-standard": [3052, 3072, null, null, "TO:AUE", 159],
+            "ammo-is-thunderbolt-10-standard": [3052, 3072, null, null, "TO:AUE", 159],
+            "ammo-is-thunderbolt-15-standard": [3052, 3072, null, null, "TO:AUE", 159],
+            "ammo-is-thunderbolt-20-standard": [3052, 3072, null, null, "TO:AUE", 159],
+            "ammo-is-heavy-machine-gun-standard": [3063, 3068, null, null, "TM", 228],
+            "ammo-is-light-machine-gun-standard": [3064, 3068, null, null, "TM", 228],
+            "ammo-is-lrt-standard": [2370, 2380, null, null, "TM", 231],
+            "ammo-is-srt-standard": [2370, 2380, null, null, "TM", 231],
+            "ammo-is-rotary-ac-2-standard": [3060, 3062, null, null, "TM", 208],
+            "ammo-is-rotary-ac-5-standard": [3060, 3062, null, null, "TM", 208],
+            "ammo-is-ultra-ac-2-standard": [3055, 3057, null, null, "TM", 208],
+            "ammo-is-ultra-ac-5-standard": [2635, 2640, 2915, 3035, "TM", 208],
+            "ammo-is-ultra-ac-10-standard": [3055, 3057, null, null, "TM", 208],
+            "ammo-is-ultra-ac-20-standard": [3057, 3060, null, null, "TM", 208],
+            "ammo-is-gauss-rifle-standard": [2587, 2590, 2865, 3040, "TM", 219],
+            "ammo-is-heavy-flamer-standard": [undefined, 3068, null, null, "TO:AUE", 124],
+            "ammo-is-ac-2-standard": [2290, 2300, null, null, "TM", 208],
+            "ammo-is-lb-2x-standard": [3055, 3058, null, null, "TM", 208],
+            "ammo-is-ac-5-standard": [2240, 2250, null, null, "TM", 208],
+            "ammo-is-lb-5x-standard": [3055, 3058, null, null, "TM", 208],
+            "ammo-is-ac-10-standard": [2443, 2460, null, null, "TM", 208],
+            "ammo-is-lb-10x-standard": [2590, 2595, 2840, 3035, "TM", 208],
+            "ammo-is-ac-20-standard": [2488, 2500, null, null, "TM", 208],
+            "ammo-is-lb-20x-standard": [3055, 3058, null, null, "TM", 208],
+            "ammo-is-light-ac-2-standard": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-light-ac-5-standard": [3062, 3068, null, null, "TM", 208],
+            "ammo-is-heavy-gauss-rifle-standard": [3051, 3061, null, null, "TM", 219],
+            "ammo-is-light-gauss-rifle-standard": [3049, 3056, null, null, "TM", 219],
+            "ammo-is-improved-heavy-gauss-rifle-standard": [3065, 3081, null, null, "TO:AUE", 126],
+            "ammo-is-magshot-gauss-rifle-standard": [3059, 3072, null, null, "TO:AUE", 126],
+            "ammo-is-silver-bullet-gauss-rifle-standard": [3051, 3080, null, null, "TO:AUE", 127],
+            "ammo-is-streak-srm-standard": [2645, 2647, 2845, 3035, "TM", 231],
+            "ammo-is-extended-lrm-standard": [3054, 3078, null, null, "TO:AUE", 139],
+            "ammo-is-ams-standard": [2613, 2617, 2835, 3045, "TM", 204],
+            "ammo-is-light-rifle-standard": [undefined, 1950, 2900, 3084, "TO:AUE", 150],
+            "ammo-is-medium-rifle-standard": [undefined, 1950, 2900, 3084, "TO:AUE", 150],
+            "ammo-is-heavy-rifle-standard": [undefined, 1950, 2900, 3084, "TO:AUE", 150],
+            "ammo-is-hvac-2-standard": [3059, 3079, null, null, "TO:AUE", 97],
+            "ammo-is-hvac-5-standard": [3059, 3079, null, null, "TO:AUE", 97],
+            "ammo-is-hvac-10-standard": [3059, 3079, null, null, "TO:AUE", 97],
+            "ammo-is-risc-apds-standard": [3134, 3137, null, null, "IO:AE", 85],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechISAmmo.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the isAmmo records", () => {
+        for (const item of mechISAmmo) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the clanAmmo records (launcher dates; IO:AE pp.53-56)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ammo-clan-arrow-iv-standard": [undefined, 2844, null, null, "TO:AUE", 96],
+            "ammo-clan-atm-standard": [3052, 3053, null, null, "TM", 231],
+            "ammo-clan-lb-5x-standard": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-lb-2x-standard": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-lb-10x-standard": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-lb-20x-standard": [2824, 2826, null, null, "TM", 208],
+            "ammo-clan-mech-mortar-standard": [2835, 2840, null, null, "TO:AUE", 136],
+            "ammo-clan-plasma-cannon-standard": [3068, 3069, null, null, "TM", 235],
+            "ammo-clan-narc-standard": [2820, 2828, null, null, "TM", 233],
+            "ammo-clan-heavy-machine-gun-standard": [3054, 3059, null, null, "TM", 228],
+            "ammo-clan-light-machine-gun-standard": [3055, 3060, null, null, "TM", 228],
+            "ammo-clan-lrt-standard": [2820, 2824, null, null, "TM", 231],
+            "ammo-clan-srt-standard": [2820, 2824, null, null, "TM", 231],
+            "ammo-clan-rotary-ac-2-standard": [3073, 3104, null, null, "TO:AUE", 98],
+            "ammo-clan-rotary-ac-5-standard": [3073, 3104, null, null, "TO:AUE", 98],
+            "ammo-clan-ultra-ac-2-standard": [2825, 2827, null, null, "TM", 208],
+            "ammo-clan-ultra-ac-5-standard": [2825, 2827, null, null, "TM", 208],
+            "ammo-clan-ultra-ac-10-standard": [2825, 2827, null, null, "TM", 208],
+            "ammo-clan-ultra-ac-20-standard": [2825, 2827, null, null, "TM", 208],
+            "ammo-clan-gauss-rifle-standard": [2822, 2828, null, null, "TM", 219],
+            "ammo-clan-heavy-flamer-standard": [3065, 3067, null, null, "TO:AUE", 124],
+            "ammo-clan-ac-2-standard": [2290, 2300, 2850, null, "TM", 208],
+            "ammo-clan-ac-5-standard": [2240, 2250, 2850, null, "TM", 208],
+            "ammo-clan-ac-10-standard": [2443, 2460, 2850, null, "TM", 208],
+            "ammo-clan-ac-20-standard": [2488, 2500, 2850, null, "TM", 208],
+            "ammo-clan-streak-srm-standard": [2645, 2647, null, null, "TM", 231],
+            "ammo-clan-streak-lrm-standard": [3057, 3079, null, null, "TO:AUE", 139],
+            "ammo-clan-improved-ac-2-standard": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "ammo-clan-improved-ac-5-standard": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "ammo-clan-improved-ac-10-standard": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "ammo-clan-improved-ac-20-standard": [undefined, 2815, 2833, 3080, "IO:AE", 90],
+            "ammo-clan-improved-gauss-rifle-standard": [2818, 2821, 2837, 3080, "IO:AE", 90],
+            "ammo-clan-improved-lrm-standard": [2815, 2818, 2831, 3080, "IO:AE", 90],
+            "ammo-clan-improved-srm-standard": [2815, 2817, 2828, 3080, "IO:AE", 90],
+            "ammo-clan-ams-standard": [2824, 2831, null, null, "TM", 204],
+            "ammo-clan-large-chemical-laser-standard": [3059, 3085, null, null, "TO:AUE", 132],
+            "ammo-clan-medium-chemical-laser-standard": [3059, 3085, null, null, "TO:AUE", 132],
+            "ammo-clan-small-chemical-laser-standard": [3059, 3085, null, null, "TO:AUE", 132],
+            "ammo-clan-hag-20-standard": [3062, 3068, null, null, "TM", 219],
+            "ammo-clan-hag-30-standard": [3062, 3068, null, null, "TM", 219],
+            "ammo-clan-hag-40-standard": [3062, 3068, null, null, "TM", 219],
+            "ammo-clan-protomech-ac-2-standard": [3070, 3073, null, null, "TO:AUE", 98],
+            "ammo-clan-protomech-ac-4-standard": [3070, 3073, null, null, "TO:AUE", 98],
+            "ammo-clan-protomech-ac-8-standard": [3070, 3073, null, null, "TO:AUE", 98],
+            "ammo-clan-ap-gauss-rifle-standard": [3065, 3069, null, null, "TM", 219],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechClanAmmo.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the clanAmmo records", () => {
+        for (const item of mechClanAmmo) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("dates and cites the universalAmmo records (launcher dates; IO:AE pp.53-56)", () => {
+        // tag: [prototype, production, extinct, reintroduced, book, page]
+        const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
+            "ammo-long-tom-standard": [2445, 2500, null, null, "TO:AUE", 96],
+            "ammo-lrm-standard": [2295, 2300, null, null, "TM", 231],
+            "ammo-machine-gun-standard": [undefined, 1950, null, null, "TM", 228],
+            "ammo-sniper-standard": [undefined, 1950, null, null, "TO:AUE", 96],
+            "ammo-srm-standard": [2365, 2370, null, null, "TM", 231],
+            "ammo-thumper-standard": [undefined, 1950, null, null, "TO:AUE", 96],
+            "ammo-vehicle-flamer-standard": [undefined, 1950, null, null, "TM", 218],
+            "ammo-long-tom-cannon-standard": [3012, 3079, null, null, "TO:AUE", 97],
+            "ammo-sniper-cannon-standard": [3012, 3079, null, null, "TO:AUE", 97],
+            "ammo-thumper-cannon-standard": [3012, 3079, null, null, "TO:AUE", 97],
+            "ammo-nail-rivet-gun-standard": [2309, 2310, null, null, "TM", 246],
+            "ammo-fluid-gun-standard": [undefined, 1950, null, null, "TO:AUE", 125],
+            "ammo-bomb-standard": [undefined, 1950, null, null, "TW", 246],
+        };
+        for (const [tag, want] of Object.entries(expected)) {
+            const item = mechUniversalAmmo.find(record => record.tag === tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
+        }
+    });
+
+    it("uses null, not 0, for unknown dates in the universalAmmo records", () => {
+        for (const item of mechUniversalAmmo) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+});
+
+describe("Batch 13 records without a canon source", () => {
+    it("keeps Enhanced ER Large Laser and Enhanced Clan LRM 10 out of the canon Clan catalogs", () => {
+        expect(mechClanEquipmentEnergy.some(item => item.tag === "enhanced_er_large_laser")).toBe(false);
+        expect(mechClanEquipmentMissile.some(item => item.tag === "enhanced_clan_lrm_10")).toBe(false);
+    });
+
+    it("lists them as Custom Homebrew, with the old tags, until a source is found", () => {
+        const laser = mechCustomEquipmentEnergy.find(item => item.tag === "enhanced_er_large_laser");
+        const lrm = mechCustomEquipmentMissile.find(item => item.tag === "enhanced_clan_lrm_10");
+        for (const item of [laser, lrm]) {
+            expect(item).toMatchObject({ catalog: "custom", book: "Custom", page: null, rulesLevel: 5 });
+            expect(item?.notes).toContain("No canon source found");
+        }
+        // Game statistics are unchanged by the move.
+        expect(laser).toMatchObject({ damage: 10, heat: 12, weight: 4, battleValue: 222 });
+        expect(lrm).toMatchObject({ damage: 12, heat: 4, weight: 5, battleValue: 114 });
     });
 });
