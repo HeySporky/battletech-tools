@@ -1103,3 +1103,16 @@ Regression tests: `Batch 40 Prototype Improved Jump Jets`; the Batch 11 citation
 Not covered: the Ejection Seat (0.5 ton, 1 head slot), the +1 to-hit in play, Small / Torso-Mounted / Command Console cockpits beyond what was there, and the cockpit of a superheavy IndustrialMech (still the superheavy BattleMech cockpit). The UI select was type-checked but not exercised in a browser.
 
 Regression tests: `Batch 41 cockpit selection and IndustrialMech fire control`.
+
+## Batch 42: IndustrialMech cockpit default; Clan ER PPC with Capacitor confirmed
+
+User decisions of 2026-10-01.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| IndustrialMech cockpit default | battlemech.ts | **changed** | TM p.69 | TM v8.0: none | A design on industrial structure now starts with the plain IndustrialMech Cockpit (100,000 C-bills, Offensive Battle Rating x0.9, no Artemis IV / active probe / C3 / targeting computer). Advanced Fire Control is the option, as in the book. This replaces the default recorded under Batch 41. Saved as the feature flag `afc`; the short-lived `no_afc` flag is gone (nothing was released with it) |
+| ER PPC w/ Capacitor (Clan) | mech-clan-equipment-weapons-energy | **confirmed canon** | IO:AE pp.40, 190, 197 | none | The Batch 34 reversal of the 2026-09-28 classification is approved: the record stays in the Clan catalog |
+
+A saved design on industrial structure that does not carry the `afc` flag loads with the plain cockpit, so its cost drops by 100,000 C-bills (before the tonnage multiplier) and its Offensive Battle Rating takes the x0.9. IndustrialMech construction was not otherwise offered before this pass.
+
+Regression tests: `Batch 41 cockpit selection and IndustrialMech fire control` (rewritten for the new default).

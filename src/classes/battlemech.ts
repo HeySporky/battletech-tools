@@ -380,9 +380,8 @@ export class BattleMech {
     private _no_left_arm_lower_actuator: boolean = false;
 
     private _smallCockpit: boolean = false;
-    // IndustrialMechs: the Advanced Fire Control cockpit enhancement (TM p.69). On by default, which is
-    // how IndustrialMechs were priced and rated before the choice existed.
-    private _advancedFireControl: boolean = true;
+    // IndustrialMechs: the Advanced Fire Control cockpit enhancement (TM p.69). An option, off by default.
+    private _advancedFireControl: boolean = false;
     private _cockpitWeight: number = 3;
     private _totalInternalStructurePoints = 0;
     private _maxMoveHeat: number = 2;
@@ -6255,9 +6254,9 @@ export class BattleMech {
             exportObject.features.push( "no_raha" );
         if( this._smallCockpit)
             exportObject.features.push( "sm_cockpit" );
-        // IndustrialMech cockpit without the Advanced Fire Control enhancement (TM p.69).
-        if( !this._advancedFireControl)
-            exportObject.features.push( "no_afc" );
+        // IndustrialMech cockpit with the Advanced Fire Control enhancement (TM p.69).
+        if( this._advancedFireControl)
+            exportObject.features.push( "afc" );
 
 
             return exportObject;
@@ -6592,9 +6591,9 @@ export class BattleMech {
                 if( importObject.features.indexOf( "sm_cockpit" ) > -1)
                     this._smallCockpit = true;
 
-                // IndustrialMech cockpit without Advanced Fire Control
-                if( importObject.features.indexOf( "no_afc" ) > -1)
-                    this._advancedFireControl = false;
+                // IndustrialMech cockpit with Advanced Fire Control
+                if( importObject.features.indexOf( "afc" ) > -1)
+                    this._advancedFireControl = true;
 
                 // Other features
             }

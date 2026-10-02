@@ -5333,11 +5333,12 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
 
     it("gives an IndustrialMech its own cockpit, with Advanced Fire Control as the 200,000 C-bill option", () => {
         const mech = build({ structure: "industrial" });
-        // Designs made before the choice existed were priced and rated as if they had it.
-        expect(mech.getCockpitType()).toMatchObject({ tag: "industrial-advanced-fire-control", cost: 200000, weight: 3 });
-        const withFireControl = mech.getCBillCostNumeric();
-        expect(mech.setCockpitType("industrial")).toMatchObject({ tag: "industrial", cost: 100000, weight: 3 });
-        expect(mech.getCBillCostNumeric()).toBe(withFireControl - 100000 * (1 + 50 / 400));
+        // The book default: an IndustrialMech cockpit has no Advanced Fire Control unless it is added (TM p.69).
+        expect(mech.getCockpitType()).toMatchObject({ tag: "industrial", cost: 100000, weight: 3 });
+        const plain = mech.getCBillCostNumeric();
+        expect(mech.setCockpitType("industrial-advanced-fire-control")).toMatchObject({ tag: "industrial-advanced-fire-control", cost: 200000, weight: 3 });
+        expect(mech.getCBillCostNumeric()).toBe(plain + 100000 * (1 + 50 / 400));
+        expect(mech.setCockpitType("industrial").tag).toBe("industrial");
         expect(mech.setCockpitType("small").tag).toBe("industrial");
         // Back to a BattleMech structure: back to a BattleMech cockpit.
         mech.setInternalStructureType("standard");
@@ -5348,10 +5349,11 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
         const offensive = (mech: BattleMech) => Number(/<strong>Final Offensive Battle Rating:<\/strong> ([\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
         const mech = build({ structure: "industrial" });
         add(mech, "medium-laser");
-        const withFireControl = offensive(mech);
-        mech.setCockpitType("industrial");
-        expect(offensive(mech)).toBeCloseTo(withFireControl * 0.9, 1);
+        const plain = offensive(mech);
         expect(mech.getBVCalcHTML()).toContain("IndustrialMech without Advanced Fire Control: Offensive Battle Rating x 0.9");
+        mech.setCockpitType("industrial-advanced-fire-control");
+        expect(plain).toBeCloseTo(offensive(mech) * 0.9, 1);
+        expect(mech.getBVCalcHTML()).not.toContain("without Advanced Fire Control");
     });
 
     it("keeps Artemis IV, active probes, C3 and targeting computers off an IndustrialMech without Advanced Fire Control", () => {
@@ -5361,6 +5363,8 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
             return [...tags, "lrm-10"].map(tag => available.get(tag));
         };
         const mech = build({ structure: "industrial" });
+        expect(offered(mech)).toEqual([false, false, false, false, false, true]);
+        mech.setCockpitType("industrial-advanced-fire-control");
         expect(offered(mech)).toEqual([true, true, true, true, true, true]);
         add(mech, "beagle-active-probe");
         expect(mech.getChassisEquipmentViolations()).toEqual([]);
@@ -5373,13 +5377,13 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
 
     it("keeps the cockpit choice through a save and reload", () => {
         const industrial = build({ structure: "industrial" });
-        industrial.setCockpitType("industrial");
-        expect(new BattleMech(industrial.exportJSON()).getCockpitType().tag).toBe("industrial");
+        industrial.setCockpitType("industrial-advanced-fire-control");
+        expect(new BattleMech(industrial.exportJSON()).getCockpitType().tag).toBe("industrial-advanced-fire-control");
         const small = build();
         small.setCockpitType("small");
         expect(new BattleMech(small.exportJSON()).getCockpitType().tag).toBe("small");
-        // A save from before the choice existed keeps Advanced Fire Control.
-        const old = build({ structure: "industrial" });
-        expect(new BattleMech(old.exportJSON()).getCockpitType().tag).toBe("industrial-advanced-fire-control");
+        // A save that does not name the enhancement loads with the plain cockpit.
+        const plain = build({ structure: "industrial" });
+        expect(new BattleMech(plain.exportJSON()).getCockpitType().tag).toBe("industrial");
     });
 });
