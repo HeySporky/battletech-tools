@@ -9,7 +9,7 @@ import { getCockpitType } from "../data/mech-cockpit-types";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
-import { engineMeetsRequirement, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
+import { engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
@@ -1703,7 +1703,8 @@ export class BattleMech {
         const superheavy = this._tonnage > 100;
         if (this.isTripod()) return getCockpitType(superheavy ? "superheavy-tripod" : "tripod");
         if (this.isQuadVee()) return getCockpitType("quadvee");
-        if (superheavy) return getCockpitType("superheavy");
+        // A superheavy IndustrialMech takes the superheavy BattleMech cockpit when it has Advanced Fire Control.
+        if (superheavy) return getCockpitType(this.isIndustrialMech() && !this._advancedFireControl ? "superheavy-industrial" : "superheavy");
         if (this.isIndustrialMech()) return getCockpitType(this._advancedFireControl ? "industrial-advanced-fire-control" : "industrial");
         return getCockpitType(this._smallCockpit ? "small" : "standard");
     }
@@ -1715,7 +1716,7 @@ export class BattleMech {
 
     /** Does the cockpit have fire control fit for combat? Always, except an IndustrialMech without the enhancement. */
     public hasAdvancedFireControl(): boolean {
-        return this.getCockpitType().tag !== "industrial";
+        return !["industrial", "superheavy-industrial"].includes(this.getCockpitType().tag);
     }
 
     /**
@@ -1725,8 +1726,10 @@ export class BattleMech {
      */
     public getAvailableCockpits(rulesLevel: number = 2): ICockpitType[] {
         const current = this.getCockpitType();
-        const mandatory = ["tripod", "superheavy-tripod", "quadvee", "superheavy"].includes(current.tag);
+        const superheavyIndustrial = this.isSuperheavy() && this.isIndustrialMech() && !this.isTripod();
+        const mandatory = !superheavyIndustrial && ["tripod", "superheavy-tripod", "quadvee", "superheavy"].includes(current.tag);
         const tags = mandatory ? [current.tag]
+            : superheavyIndustrial ? ["superheavy-industrial", "superheavy"]
             : this.isIndustrialMech() ? ["industrial", "industrial-advanced-fire-control"]
             : ["standard", "small"];
         return tags.map(tag => {
@@ -1744,6 +1747,7 @@ export class BattleMech {
         if (this.getAvailableCockpits().some(cockpit => cockpit.tag === tag)) {
             if (tag === "standard" || tag === "small") this._smallCockpit = tag === "small";
             if (tag === "industrial" || tag === "industrial-advanced-fire-control") this._advancedFireControl = tag !== "industrial";
+            if (this.isIndustrialMech() && (tag === "superheavy" || tag === "superheavy-industrial")) this._advancedFireControl = tag === "superheavy";
             this._calc();
         }
         return this.getCockpitType();
@@ -3057,7 +3061,7 @@ export class BattleMech {
             // Superheavy Bipeds/Quads require a two-pilot Superheavy Cockpit, same as any other Superheavy chassis.
             this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
-                name: "Superheavy Cockpit",
+                name: this.getCockpitType().tag === "superheavy-industrial" ? this.getCockpitType().name : "Superheavy Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else if (this.isIndustrialMech()) {
@@ -5633,6 +5637,11 @@ export class BattleMech {
         if (this.isSuperheavy() && (this._tech.tag === "clan" || this._tech.tag === "mclan")) {
             violations.push("Superheavy 'Mechs are available only to the Inner Sphere tech base.");
         }
+        if (!this._isSuperheavyLegalEngine(this._engineType.tag)) {
+            violations.push(this.isIndustrialMech()
+                ? "Superheavy IndustrialMechs may use only standard fusion engines."
+                : "Superheavy 'Mechs may use only fusion engines.");
+        }
         const counted = new Map<string, { item: IEquipmentItem; count: number; names: string[] }>();
         const repairSystems = new Set<string>();
         const perLocation = new Map<string, number>();
@@ -5652,6 +5661,12 @@ export class BattleMech {
             }
             if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) {
                 violations.push(`${item.name} needs a ${item.requiresEngine === "fusion" ? "fusion" : "fusion or fission"} engine.`);
+            }
+            if (item.industrialMechOnly && !this.isIndustrialMech()) {
+                violations.push(`${item.name} can only be mounted on an IndustrialMech.`);
+            }
+            if (item.allowedLocations && item.location && BattleMech.MECH_LOCATION_MAP[item.location] && !item.allowedLocations.includes(item.location)) {
+                violations.push(`${item.name} must be placed in: ${item.allowedLocations.join(", ").toUpperCase()}.`);
             }
             if (item.armorRepairBVMultiplier) {
                 // HarJel II / III: BattleMechs only, and only some armor types (IO:AE pp.82-83).
@@ -7647,6 +7662,10 @@ export class BattleMech {
         }
         // One HarJel repair system to a location (IO:AE p.83).
         const movingItem = this._equipmentList.find(item => item?.uuid === fromItem.uuid);
+        // Equipment tied to a location, e.g. the IndustrialMech Ejection Seat in the head (TM p.214).
+        if (movingItem?.allowedLocations && destLoc !== "un" && !movingItem.allowedLocations.includes(destLoc)) {
+            return false;
+        }
         if (movingItem?.onePerLocationGroup && destLoc !== "un" && this._equipmentList.some(item =>
             item?.onePerLocationGroup === movingItem.onePerLocationGroup
             && item.uuid !== movingItem.uuid
@@ -8063,6 +8082,15 @@ export class BattleMech {
         }
     }
 
+    /**
+     * Superheavy 'Mechs take fusion engines only, and superheavy IndustrialMechs "may only use standard
+     * and large fusion engine types" (IO:AE p.156). Large engines are the same type above rating 400.
+     */
+    private _isSuperheavyLegalEngine(engineTag: string): boolean {
+        if (!this.isSuperheavy()) return true;
+        return this.isIndustrialMech() ? engineTag === "standard" : FUSION_ENGINE_TAGS.includes(engineTag);
+    }
+
     public getAvailableEngines(rulesLevel: number = 2): IEngineType[] {
         let returnValue: IEngineType[] = [];
         const lookupTag = this.getEngineTechBase();
@@ -8082,6 +8110,7 @@ export class BattleMech {
                 const buildableAtRating = !weights || (weights as Record<string, number | undefined>)[engine.tag] !== undefined;
                 engine.availableAsPrototype = availability.asPrototype;
                 engine.available = availability.available && buildableAtRating
+                    && this._isSuperheavyLegalEngine(engine.tag)
                     && (!this.isLAM() || this._isLAMLegalComponent("engine", engine.tag));
                 returnValue.push(engine);
             }
@@ -8309,6 +8338,9 @@ export class BattleMech {
             return false;
         }
         if (!this.hasAdvancedFireControl() && BattleMech._needsAdvancedFireControl(item)) {
+            return false;
+        }
+        if (item.industrialMechOnly && !this.isIndustrialMech()) {
             return false;
         }
         // The C3 Remote Sensor Launcher and C3i exclude each other (TO:AUE p.110).

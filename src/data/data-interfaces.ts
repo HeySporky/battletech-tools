@@ -305,6 +305,10 @@ export interface IEquipmentItem {
      * stacking with the armor type's own (IO:AE p.185). Each slot also takes 1 off the Defensive BV.
      */
     armorRepairBVMultiplier?: number;
+    /** IndustrialMechs only (the IndustrialMech Ejection Seat, TM p.213). */
+    industrialMechOnly?: boolean;
+    /** 'Mech locations (short keys, e.g. "hd") the item must be placed in; unset = anywhere. */
+    allowedLocations?: string[];
     /** Only one item of this group may be mounted in a location (HarJel repair systems, IO:AE p.83). */
     onePerLocationGroup?: string;
     /** Multiplier on the unit's final Battle Value, applied once however many are mounted (RISC Heat Sink Override Kit, IO:AE p.190). */

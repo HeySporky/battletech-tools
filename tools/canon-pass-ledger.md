@@ -1200,3 +1200,40 @@ Flags:
 Also in this commit: the 500-'Mech SSW import test's time limit goes from 120 to 300 seconds. On this machine it now takes about 2 minutes on this branch and 107 seconds on upstream's own source, so it was failing on the clock, not on content.
 
 Regression tests: `Batch 46 C3 Remote Sensor Launcher`.
+
+## Batch 47: Collapsible Command Module, Full-Head Ejection System, IndustrialMech Ejection Seat
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Collapsible Command Module (CCM) | mech-universal-equipment | **added** | TO:AUE pp.113-114 (rules), p.112 (construction), pp.218-219 (tables) | TO:AUE v7.0: none | Both tech bases, same record: 16 tons, 12 'Mech slots, 500,000 C-bills, 'Mechs only, rating D. Dates IO:AE p.39: prototype ~2700, production 2710 (Terran Hegemony). No Battle Value row is printed: 0 |
+| Full-Head Ejection System | mech-is-equipment-weapons-misc | **added** | TO:AUE p.122; tables pp.218-219 | none | 0 tons, 0 slots ("takes up no tonnage and occupies no critical slots"), 1,725,000 C-bills, rating D. "a maximum of 1". Dates IO:AE p.34: prototype 3020, production 3023 (Lyran Commonwealth), common 3100 |
+| Full-Head Ejection System (Clan) | mech-clan-equipment-weapons-misc | **added** | same | none | Same item; "Clan Intro: 3052 (CWF)" (IO:AE p.34). A separate record because the dates differ |
+| Ejection Seat (IndustrialMech) | mech-universal-equipment | **added** | TM p.69, pp.213-214 (rules), p.292 (cost), p.344 (table) | TM v8.0: availability (D-E-F) -> (D-E-E) | 0.5 ton, 1 slot, 25,000 C-bills, rating B. "The IndustrialMech ejection seat critical slot must be assigned to the unit's head"; "Only IndustrialMechs ..." may install it. Dates IO:AE p.34: prototype ~2430, production 2445 (Terran Hegemony), common 2490 |
+| IndustrialMech-only and head-only placement | battlemech.ts | **enforced** | TM pp.213-214 | none | New record fields `industrialMechOnly` and `allowedLocations`: not offered to a BattleMech, refused outside the head, and reported if the design changes afterwards |
+
+Flags:
+
+- **Full-Head Ejection System and cockpits.** "incompatible with torso-mounted cockpits and Cockpit Command Modules", and only for "head-mounted cockpits". The builder cannot select a Torso-Mounted Cockpit or a Command Console yet, so there is nothing to check; the rule is on the record's notes and must be enforced when those cockpits become selectable.
+- **Number of ejection seats.** TM gives no maximum for the IndustrialMech seat. None is set.
+- **Jump Pack / 'Mech Drop Pack (TO:AUE pp.104-105): not a construction item.** "BattleMech Jump Packs are not installed components on a 'Mech, but are strapped to the 'Mech's back torso as unprotected cargo"; the weight "is treated as externally carried cargo". No builder record is added: it would wrongly take chassis tonnage. Table values for whoever builds a cargo or loadout feature: 20,000 C-bills x pack tons, 0.5 to 20 tons in half-ton steps, D/C-D-C, prototype ~2430, production 2457 (IO:AE p.29).
+- The CCM's play rules (set-up time, CF 60, 7 tons of communications equipment) are notes only.
+
+Regression tests: `Batch 47 Collapsible Command Module, Full-Head Ejection System, IndustrialMech Ejection Seat`.
+
+## Batch 48: superheavy IndustrialMechs and superheavy engines
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Superheavy IndustrialMech Cockpit | mech-cockpit-types | **implemented** (was deferred) | IO:AE p.156; cost p.215; dates p.33 | v3.01: none | 4 tons, 200,000 C-bills, prototype ~2905, production 2940 (Free Worlds League). A superheavy 'Mech on industrial structure now gets this cockpit, not the superheavy BattleMech one |
+| Advanced Fire Control on a superheavy IndustrialMech | battlemech.ts | **added** | TM pp.69, 304 | none | The Cockpit select offers the Superheavy IndustrialMech Cockpit or the Superheavy BattleMech Cockpit (300,000 C-bills). The first has no Advanced Fire Control: Offensive Battle Rating x0.9 and no Artemis IV, active probe, C3 or targeting computer |
+| Industrial superheavy structure | battlemech.ts | **confirmed** | IO:AE p.155 | none | "takes up 40 percent of the superheavy IndustrialMech's total weight": already computed (60 tons at 150); now pinned by a test |
+| Superheavy engines | battlemech.ts | **enforced** | IO:AE p.156 | none | "Non-fusion engine types lack the power to keep a superheavy 'Mech mobile, and so such engines may not be selected"; "Superheavy IndustrialMechs may only use standard and large fusion engine types". ICE, fuel cell and fission engines are no longer offered above 100 tons, a superheavy IndustrialMech is offered the standard fusion engine only, and a design that breaks the rule is reported |
+
+Flags:
+
+- **Advanced Fire Control, book silent.** IO:AE says nothing about fire control for the superheavy IndustrialMech cockpit. MegaMek treats that cockpit as having none, and a superheavy IndustrialMech with the superheavy BattleMech cockpit as having it. Followed. The cost difference is therefore 100,000 C-bills, not TM's doubling.
+- **Primitive fusion engines** count as fusion engines here; the book does not single them out.
+- **Superheavy tripod IndustrialMechs** keep the Superheavy Tripod cockpit: IO:AE prints no industrial tripod cockpit.
+- The Command Console option for superheavy bipeds and quads is still not selectable.
+
+Regression tests: `Batch 48 superheavy IndustrialMechs and superheavy engines`.
