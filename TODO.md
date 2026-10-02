@@ -359,8 +359,14 @@ played first, then by dependency.
   OTP: Hanseatic Crusade p.30.
 - [ ] Placement rules not enforced yet: spread items (one per location, side torsos, legs), hand-actuator
   requirements, Claw replacing the hand.
-- [ ] Patchwork armor: per-location armor with each location's own tech base, points per ton, criticals,
-  cost and rules-level validation. Don't expose the placeholder aggregate profile until then.
+- [x] Patchwork armor for 'Mechs (Batch 59; upstream #106): an armor type per location, weight rounded up
+  to the half ton per location, per-location slots, BV and cost; the book's Griffin example (TO:AUE
+  pp.188-189, 194; IO:AE p.82).
+- [ ] Patchwork armor still owed: Combat Vehicles, Support Vehicles and fighters; SSW/MTF import; armor
+  types on the record sheet (none printed today).
+- [ ] Fractional Accounting (TO:AUE p.188): the switch is in step 1 but locked
+  (`BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE = false`). Building it means engine multipliers, armor by the
+  point, ammunition by the shot, all rounded up to the kilogram; then turn the switch on.
 - [ ] Clans' pre-2825 use of Star League Ferro-Fibrous isn't modeled.
 - [x] Colossal 'Mechs: IO:AE p.80 names the superheavy tripods "Colossals"; they build as a Tripod above 100
   tons (Batches 21-30).
@@ -401,6 +407,7 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
 | #103 | `canon-pass/6-industrialmechs-builder-rules` | draft, on #102 |
 | #104 | `canon-pass/unit-domain-catalogs` (ledger `tools/canon-pass-ledger-unit-catalogs.md`) | ready, independent |
 | #105 | `canon-pass/7-industrial-primitive-mechs` | draft, on #103 |
+| #106 | `patchwork-armor` | draft, on #105 |
 
 - [ ] As each part merges upstream, rebase the next branch on upstream master and mark it ready.
 - [ ] #91 and #94 (Clan eras) touch the same catalogs; whichever set merges second needs a rebase. The
