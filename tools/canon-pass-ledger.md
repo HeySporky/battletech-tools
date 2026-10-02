@@ -1137,3 +1137,45 @@ Flags:
 - Alpha Strike: `BHJ2` / `BHJ3` (IO:AE pp.195, 207) are recorded as the special ability codes.
 
 Regression tests: `Batch 43 HarJel II and III repair systems`.
+
+## Batch 44: RISC Laser Pulse Module
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Small / Medium / Large Laser w/ RISC Laser Pulse Module | mech-is-equipment-weapons-energy | **added** (3) | IO:AE p.87; BV p.190; table p.215 | v3.01: none | The laser and its module as one record, the way a PPC and its capacitor are carried. Module: 1 ton, 1 slot "in the same location as the laser it modifies", 200,000 C-bills "in addition to the cost of whatever laser weapon it modifies". Prototype 3137 (Republic of the Sphere), no production, extinct 3140. Rating F/X-X-X-F |
+| ER Small / ER Medium / ER Large Laser w/ RISC Laser Pulse Module | same | **added** (3) | same | none | "standard or ER lasers of any size, as long as they are constructed using an Inner Sphere technology base" |
+
+Values on the records:
+
+- **Weight, slots, cost:** the laser's plus 1 ton, 1 'Mech slot (1 more for a support vehicle, none for other units, per the table's `1* / +0* / +1*`), 200,000 C-bills. A targeting computer therefore counts the module's weight with the weapon, as p.87 requires.
+- **Heat and to-hit:** the pulse mode's: the laser's heat + 2 and -2 to hit. The notes give the plain mode. MegaMek also adds the 2 heat when it rates the weapon.
+- **Battle Value:** the laser's x1.15 ("Multiplier applies only to the modified weapon"), kept unrounded. The module "Treat[s] ... as a Gauss weapon critical space for Defensive Battle Value purposes": `explosive` with `explosiveBattleValueSlots: 1`, so one slot takes the -1.
+
+Flags:
+
+- **To-hit, same-book conflict.** The rules text (p.87) says "an additional -2 to-hit modifier"; the weapons table (p.214) prints "-1*". No errata. MegaMek uses -2, so -2 is recorded.
+- **One module per laser, no stacking** is met by construction: there is no separate module record to attach twice.
+- **Clan lasers** get no record: the module needs an Inner Sphere laser. A mixed-tech design is offered the Inner Sphere records only.
+- **Alpha Strike:** "these effects are factored into the heat and damage values provided by the modified weapon" (IO:AE p.197). The plain laser's conversion values are carried with the +2 heat and marked unresolved.
+- Seen in passing: the ER Small Laser record has Alpha Strike heat 3 against a TW heat of 2. Left for the Alpha Strike conversion review.
+
+Regression tests: `Batch 44 RISC Laser Pulse Module`.
+
+## Batch 45: MRM Apollo Fire Control System; MRM to-hit modifier
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| MRM 10 / 20 / 30 / 40 + Apollo FCS | mech-is-equipment-weapons-missiles | **added** (4) | TO:AUE p.143 (rules), p.142 (construction), p.195 (BV note L), p.221 (table) | TO:AUE v7.0: none | Launcher and fire control as one record, like the Artemis IV launchers. Apollo: +1 ton, +1 'Mech slot (+1 support vehicle slot, +0 elsewhere), 125,000 C-bills, D/X-X-E. Battle Value: "Increase by 15 percent the BV of any MRM launcher equipped with an Apollo FCS" (64.4 / 128.8 / 193.2 / 257.6, unrounded). Feeds from standard MRM ammunition |
+| Apollo dates | same | **set** | IO:AE p.35 (advancement table) | IO v1.21 adds the Common date 3097 | Prototype ~3065 (Draconis Combine), production 3071, common 3097 |
+| MRM 10 / 20 / 30 / 40 and their OS / I-OS forms | same | **fixed** (12) | TW p.303 (weapons table) | TW v11.01: none | `accuracyModifier` 0 -> +1: the table prints "+1" for every MRM. The Apollo records carry 0: it "negate[s] the +1 to-hit modifier that applies to all standard MRM launchers" |
+| Apollo on every launcher | battlemech.ts | **enforced** | TO:AUE p.142 | none | "the MRM FCS must be incorporated on all of an individual unit's standard MRM Launchers": a design mixing Apollo and plain MRM launchers is reported. One-shot launchers are not counted as standard launchers |
+
+Flags:
+
+- **Artemis IV** has the same all-launchers rule (TM p.207) and the builder does not enforce it yet. Owed.
+- **One-shot MRMs with Apollo:** no records. The rule speaks of "an MRM system"; a one-shot Apollo launcher would need its own BV and cost row, which no table prints.
+- The -1 on the Cluster Hits Table and the ECM immunity are play rules, noted on the records.
+- **Alpha Strike:** the plain launcher's values are carried and marked unresolved.
+- Aerospace: "The aerospace Attack Value of an MRM modified by an MRM Fire Control System is equal to a result of 6 on the appropriate column of the Cluster Hits Table". `damageAero` is left as on the plain launcher: it belongs to the owed missile `damageAero` review.
+
+Regression tests: `Batch 45 MRM Apollo Fire Control System`.
