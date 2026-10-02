@@ -42,3 +42,28 @@ Flags:
 - N-PPC page: TO:AUE's own table says 146; IO:AE's reference column says 145.
 
 Regression tests: `src/data/capital-weapons.test.ts` (6 tests).
+
+## Batch 51: aerospace, large-craft and Support Vehicle armor catalogs
+
+Two new catalogs for units that have no builder yet. Neither is read by the 'Mech or vehicle builders.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Standard Armor (Aerospace) | aerospace-armor-types | **added** | TM p.205; points per ton p.192; cost p.283 | TM v8.0: none | Fighters 16 points per ton; small craft and DropShips by tech base and, for DropShips, hull shape and tonnage band (Clan 20 down to 7, Inner Sphere 16 down to 6). IO:AE p.30: All/D, C-C-C-B, ~2460 / 2470 |
+| Light Ferro-Aluminum, Ferro-Aluminum, Ferro-Aluminum (Clan), Heavy Ferro-Aluminum | same | **added** (4) | TM pp.191-192, 205, 283 | none | 16.96 / 17.92 / 19.2 / 19.84 points per ton on fighters, with the DropShip bands; fighter weapon slots 1 (aft), 2 (1 each wing), 2, 4 (1 each arc); 15,000 / 20,000 / 20,000 / 25,000 C-bills per ton. Dates as the matching Ferro-Fibrous armor (IO:AE p.29) |
+| Primitive Aerospace Fighter Armor | same | **added** | IO:AE p.119; cost pp.181, 215; dates p.29 | v3.01: none | "identical to that used by Primitive BattleMechs": 16 x 0.67 points per ton, BAR 10; 5,000 C-bills per ton; IS/C, B-C-B-B, Early Spaceflight prototype, production ~2300 |
+| Standard Armor (Capital), Improved Ferro-Aluminum, Ferro-Carbide, Lamellor Ferro-Carbide | same | **added** (4) | SO p.140 (points per ton), p.146 (cost) | SO:AAR v5.0: none found | Capital-scale points per ton for JumpShips, WarShips and space stations, in three tonnage bands, Inner Sphere / Clan. 10,000 / 50,000 / 75,000 / 100,000 C-bills per ton. Dates IO:AE p.30 |
+| Support Vehicle Armor BAR 2 to BAR 10 | support-vehicle-armor | **added** (9) | TM p.206; weight table p.134; cost p.280 | none | Kilograms per point by Tech Rating A-F, where the Armored chassis modification is required, BAR 10's Ferro-Fibrous slot space at E and F, C-bills per point (50 to 625). Dates and availability IO:AE p.29 |
+
+Helpers: `getAerospaceArmorPointsPerTon(tag, unit, techBase, tons)` and `getSupportVehicleArmorWeight(bar, techRating, points)` (the TM p.134 example, 92 points of BAR 6 at rating D = 3,496 kg = 3.5 tons, is a test).
+
+Flags:
+
+- **Table order.** The TM table is headed "(Clan/Inner Sphere)": the first figure of each pair is the Clan one (small craft standard armor 20 / 16). The SO table is headed "[Inner Sphere/Clan]".
+- **Strategic Operations printing.** The page numbers are those of the Strategic Operations text on file (and IO:AE cites "140, SO"). The newer *Strategic Operations: Advanced Aerospace Rules* printing is not on file as text, so its page numbers are not given.
+- **Capital armor dates.** The SO cost table prints 2350 / 2370 / 2615; IO:AE (newer) gives production 2520 / 2570 / 2615 with prototypes ~2500 / ~2550 / ~2600, extinct 2950, recovered 3052 / 3055 / 3055. IO:AE is used. IO:AE has no row for capital standard armor: SO's 2300 and three-era availability (B-B-B) are kept for it.
+- **Duplicate record.** `mech-armor-types.ts` still holds a "Ferro-Aluminum Armor" record flagged for fighters, small craft and DropShips with no points-per-ton table. It is left in place (a test pins it) with a note pointing here; one of the two should go when an aerospace builder is written.
+- Ferro-Lamellor, Reactive, Reflective and the Dark Age armors on aerospace units (TO:AUE, IO:AE) are not in this catalog yet; neither is Primitive small craft / large craft armor (IO:AE p.118 onward).
+- Support Vehicle armor is "Always Available" for BAR 2 to 6 (IO:AE footnote); the Primitive vehicle BAR rows of IO:AE p.39 (TM p.121 dates) are not carried separately.
+
+Regression tests: `src/data/aerospace-armor-types.test.ts` (6), `src/data/support-vehicle-armor.test.ts` (5).
