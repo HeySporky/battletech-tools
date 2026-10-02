@@ -413,6 +413,57 @@ describe("Primitive BattleMechs (IO:AE pp.116-118)", () => {
     });
 });
 
+describe("RetroTech (IO:AE p.116)", () => {
+    const primitive = (options: Parameters<typeof build>[0] = {}) => {
+        const mech = build({ era: "jihad", tonnage: 50, walk: 4, ...options });
+        mech.setPrimitive(true);
+        return mech;
+    };
+
+    it("stays Primitive with weapons and equipment of 2500 or earlier", () => {
+        const mech = primitive();
+        add(mech, "medium-laser");
+        add(mech, "autocannon-standard-b");
+        expect(mech.isRetroTech()).toBe(false);
+    });
+
+    it("becomes RetroTech with anything introduced after 2500", () => {
+        // "RetroTech rules apply any time a unit built with the Primitive Tech Base is designed to employ any
+        // non-Primitive weapons or equipment."
+        const mech = primitive();
+        add(mech, "beagle-active-probe");
+        expect(mech.isRetroTech()).toBe(true);
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+    });
+
+    it("becomes RetroTech with jump jets other than the standard kind", () => {
+        // Primitive 'Mechs use prototype or standard jump jets; RetroTech 'Mechs "any type of jump jets".
+        const mech = primitive();
+        mech.setJumpSpeed(4);
+        expect(mech.isRetroTech()).toBe(false);
+        mech.setJumpJetType("improved");
+        expect(mech.getJumpJetType().tag).toBe("improved");
+        expect(mech.isRetroTech()).toBe(true);
+    });
+
+    it("never applies without the Primitive rules", () => {
+        const mech = build({ era: "jihad", tonnage: 50, walk: 4 });
+        add(mech, "beagle-active-probe");
+        expect(mech.isRetroTech()).toBe(false);
+    });
+
+    it("names the construction rules in the readouts", () => {
+        const mech = primitive();
+        for (const readout of [mech.makeTROHTML(), mech.makeTROBBCode()]) expect(readout).toContain("Primitive BattleMech");
+        add(mech, "beagle-active-probe");
+        for (const readout of [mech.makeTROHTML(), mech.makeTROBBCode()]) expect(readout).toContain("RetroTech BattleMech");
+        const workMech = primitive({ structure: "industrial" });
+        add(workMech, "beagle-active-probe");
+        expect(workMech.makeTROBBCode()).toContain("RetroTech IndustrialMech");
+        expect(build().makeTROBBCode()).not.toMatch(/Primitive BattleMech|RetroTech/);
+    });
+});
+
 describe("Primitive IndustrialMechs (IO:AE pp.117-118)", () => {
     const workMech = () => {
         const mech = build({ era: "age-of-war", tonnage: 50, walk: 3, structure: "industrial" });

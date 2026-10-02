@@ -296,7 +296,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                                   the engine rating is Walking MP x tonnage x 1.2, with a 5-ton Primitive cockpit,
                                   {this.props.appGlobals.currentBattleMech.isIndustrialMech() ? " Commercial" : " Primitive"} armor, a standard gyro and single heat sinks.
                                   Choose Industrial structure below for a Primitive IndustrialMech.
-                                  With equipment introduced after 2500 it is a RetroTech unit.
+                                  {this.props.appGlobals.currentBattleMech.isRetroTech()
+                                    ? " It carries equipment introduced after 2500 or modern jump jets, so it is a RetroTech unit (IO:AE p.116)."
+                                    : " With equipment introduced after 2500 or modern jump jets it becomes a RetroTech unit (IO:AE p.116)."}
                                 </p>
                               ) : null}
                             </>
