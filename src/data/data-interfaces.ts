@@ -300,6 +300,8 @@ export interface IEquipmentItem {
     maxPerUnit?: number;
     /** Items sharing a group count together against `maxPerUnit` (the two RISC Viral Jammers: one of any type). */
     maxPerUnitGroup?: string;
+    /** Coolant Pod: raises the heat sink capacity used for Battle Value (TO:AUE p.193). */
+    coolantPod?: boolean;
     /** Engine the unit must have: fusion, or fusion or fission. Unset = any engine. */
     requiresEngine?: "fusion" | "fusion-or-fission";
     /** Bombs: bomb bay (or fighter bomb) slots one bomb occupies. Bombs are loaded, not mounted. */

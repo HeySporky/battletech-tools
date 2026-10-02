@@ -898,6 +898,13 @@ export class BattleMech {
         if (this._equipmentList.some(item => matchesTag(item, "risc-emergency-coolant-system"))) {
             mechHeatEfficiency += 4;
         }
+        // Coolant Pods: heat sinks x pods / 5, rounded up, at most twice the number of heat sinks (TO:AUE p.193).
+        const coolantPods = this._equipmentList.filter(item => item?.coolantPod).length;
+        if (coolantPods > 0) {
+            const coolantPodCapacity = Math.min(Math.ceil(this.getHeatSinks() * coolantPods / 5), this.getHeatSinks() * 2);
+            mechHeatEfficiency += coolantPodCapacity;
+            this._calcLogBV += `Coolant Pods: ${coolantPods} x ${this.getHeatSinks()} heat sinks / 5 = +${coolantPodCapacity} heat sink capacity (TO:AUE p.193)<br />`;
+        }
         
         this._calcLogBV += `<strong>Heat Efficiency Capacity Pool:</strong> ${mechHeatEfficiency} (6 + Engine Sinks: ${this.getHeatSinks() * sinkEfficiencyMultiplier} - Movement Heat: ${this.getMaxMovementHeat()})<br />`;
         this._calcLogBV += "<strong>Total Weapon Heat Breakdown:</strong> ";
