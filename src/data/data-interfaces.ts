@@ -311,6 +311,8 @@ export interface IEquipmentItem {
     industrialMechOnly?: boolean;
     /** 'Mech locations (short keys, e.g. "hd") the item must be placed in; unset = anywhere. */
     allowedLocations?: string[];
+    /** An industrial tool: arms only on a humanoid 'Mech, side torsos only on a four-legged one (TM pp.241-249). */
+    armTool?: boolean;
     /** Only one item of this group may be mounted in a location (HarJel repair systems, IO:AE p.83). */
     onePerLocationGroup?: string;
     /** Multiplier on the unit's final Battle Value, applied once however many are mounted (RISC Heat Sink Override Kit, IO:AE p.190). */

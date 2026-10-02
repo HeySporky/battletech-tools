@@ -6,7 +6,7 @@ import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { findByTag, matchesTag } from "../data/tag-match";
 import { getCockpitType } from "../data/mech-cockpit-types";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
@@ -1757,6 +1757,27 @@ export class BattleMech {
      * Equipment an IndustrialMech cannot use without Advanced Fire Control (TM p.69): Artemis IV,
      * the Beagle Active Probe or its Clan equivalent, C3 and C3i units, and targeting computers.
      */
+    /** What the "one to a location" groups are called in a violation message. */
+    private static readonly LOCATION_GROUP_NAMES: Record<string, string> = {
+        "harjel-repair": "HarJel repair system",
+        "industrial-tool": "industrial tool",
+        "spot-welder": "spot welder",
+        "bridgelayer": "bridgelayer",
+        "hatchet": "hatchet",
+        "sword": "sword",
+    };
+
+    /**
+     * 'Mech locations an item must be placed in, or null for anywhere. Industrial tools go in the arms of a
+     * humanoid 'Mech and the side torsos of a four-legged one (TM pp.241-249).
+     */
+    private _getAllowedLocations(item: IEquipmentItem): string[] | null {
+        if (item.armTool) return this._hasFrontLegs() ? ["lt", "rt"] : ["la", "ra"];
+        if (!item.allowedLocations) return null;
+        // A four-legged 'Mech has no arm locations.
+        return this._hasFrontLegs() ? item.allowedLocations.filter(location => location !== "la" && location !== "ra") : item.allowedLocations;
+    }
+
     /** "The C3 Remote Sensor system is incompatible with C3i-based systems" (TO:AUE p.110). */
     private static readonly C3_REMOTE_SENSOR_TAG = "c3-remote-sensor-launcher";
     private static _isC3iSystem(item: IEquipmentItem): boolean {
@@ -5671,8 +5692,11 @@ export class BattleMech {
             if (item.industrialMechOnly && !this.isIndustrialMech()) {
                 violations.push(`${item.name} can only be mounted on an IndustrialMech.`);
             }
-            if (item.allowedLocations && item.location && BattleMech.MECH_LOCATION_MAP[item.location] && !item.allowedLocations.includes(item.location)) {
-                violations.push(`${item.name} must be placed in: ${item.allowedLocations.join(", ").toUpperCase()}.`);
+            const allowedLocations = this._getAllowedLocations(item);
+            if (allowedLocations && item.location && BattleMech.MECH_LOCATION_MAP[item.location] && !allowedLocations.includes(item.location)) {
+                violations.push(allowedLocations.length > 0
+                    ? `${item.name} must be placed in: ${allowedLocations.join(", ").toUpperCase()}.`
+                    : `${item.name} cannot be mounted on this chassis.`);
             }
             if (item.armorRepairBVMultiplier) {
                 // HarJel II / III: BattleMechs only, and only some armor types (IO:AE pp.82-83).
@@ -5718,8 +5742,16 @@ export class BattleMech {
             violations.push("HarJel II and HarJel III repair systems cannot be combined on one unit.");
         }
         perLocation.forEach((count, key) => {
-            if (count > 1) violations.push(`Only one HarJel repair system may be mounted in a location (${key.split("@")[1].toUpperCase()}).`);
+            const [group, location] = key.split("@");
+            if (count > 1) violations.push(`Only one ${BattleMech.LOCATION_GROUP_NAMES[group] ?? group} may be mounted in a location (${location.toUpperCase()}).`);
         });
+        // "If Artemis IV is added to an applicable launcher, every applicable launcher on the unit must have Artemis IV" (TM p.207).
+        if (mounted.some(item => item.tag.endsWith("-artemis-iv"))) {
+            const plain = Array.from(new Set(mounted.filter(item => isArtemisIVCapableLauncher(item.tag)).map(item => item.name)));
+            if (plain.length > 0) {
+                violations.push(`Artemis IV must be fitted to every applicable launcher on the unit (${plain.join(", ")} ${plain.length > 1 ? "have" : "has"} none).`);
+            }
+        }
         if (this.isLAM()) {
             if (this.getJumpSpeed() > this.getMaxJumpSpeed()) {
                 violations.push(`LAMs need at least ${BattleMech.LAM_MIN_JUMP_MP} Jump MP, but Jump MP ${this.getJumpSpeed()} exceeds Walk MP ${this.getWalkSpeed()}; raise the engine rating.`);
@@ -7669,7 +7701,8 @@ export class BattleMech {
         // One HarJel repair system to a location (IO:AE p.83).
         const movingItem = this._equipmentList.find(item => item?.uuid === fromItem.uuid);
         // Equipment tied to a location, e.g. the IndustrialMech Ejection Seat in the head (TM p.214).
-        if (movingItem?.allowedLocations && destLoc !== "un" && !movingItem.allowedLocations.includes(destLoc)) {
+        const allowedLocations = movingItem ? this._getAllowedLocations(movingItem) : null;
+        if (allowedLocations && destLoc !== "un" && !allowedLocations.includes(destLoc)) {
             return false;
         }
         if (movingItem?.onePerLocationGroup && destLoc !== "un" && this._equipmentList.some(item =>
@@ -8357,6 +8390,10 @@ export class BattleMech {
             return false;
         }
         if (item.industrialMechOnly && !this.isIndustrialMech()) {
+            return false;
+        }
+        // Nowhere to put it on this chassis: wrecking balls and salvage arms on a quad (TM pp.248-249).
+        if (this._getAllowedLocations(item)?.length === 0) {
             return false;
         }
         // The C3 Remote Sensor Launcher and C3i exclude each other (TO:AUE p.110).

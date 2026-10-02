@@ -351,6 +351,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Heavy Gauss Rifle",
         tag: "gauss-rifle-heavy",
+        allowedLocations: ["ct", "lt", "rt"],
+        requiresEngine: "fusion-or-fission",
         sort: "gauss rifle, c",
         category: "Ballistic Weapons",
         damage: {
@@ -411,6 +413,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Improved Heavy Gauss Rifle",
         tag: "gauss-rifle-heavy-improved",
+        allowedLocations: ["ct", "lt", "rt"],
+        requiresEngine: "fusion-or-fission",
         sort: "gauss rifle, d",
         category: "Ballistic Weapons",
         damage: 22,
@@ -1067,6 +1071,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Hatchet",
         tag: "melee-hatchet",
+        allowedLocations: ["la", "ra"],
+        onePerLocationGroup: "hatchet",
         techRating: "b",
         prototype: 3015,
         variableFormula: "hatchet",
@@ -1121,6 +1127,8 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Sword",
         tag: "melee-sword",
+        allowedLocations: ["la", "ra"],
+        onePerLocationGroup: "sword",
         techRating: "b",
         prototype: 3050,
         variableFormula: "sword",
