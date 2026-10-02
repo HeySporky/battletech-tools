@@ -382,6 +382,8 @@ export class BattleMech {
     private _smallCockpit: boolean = false;
     // IndustrialMechs: the Advanced Fire Control cockpit enhancement (TM p.69). An option, off by default.
     private _advancedFireControl: boolean = false;
+    // Built under the Primitive 'Mech rules (IO:AE pp.116-118). With later equipment it is a RetroTech unit.
+    private _primitive: boolean = false;
     private _cockpitWeight: number = 3;
     private _totalInternalStructurePoints = 0;
     private _maxMoveHeat: number = 2;
@@ -482,6 +484,7 @@ export class BattleMech {
 
     public reset() {
         this.lastUpdated = new Date();
+        this._primitive = false;
         this.setTonnage(20);
         this.setWalkSpeed(0);
         this.setWalkSpeed(0);
@@ -1275,9 +1278,13 @@ export class BattleMech {
 
         // Myomer
         {
-            const myomerName = this._myomerType.tag === "standard" ? "Standard Musculature" : this._myomerType.name;
+            const primitiveMusculature = this._primitive && this._myomerType.tag === "standard";
+            const myomerName = primitiveMusculature ? "Primitive Musculature"
+                : this._myomerType.tag === "standard" ? "Standard Musculature" : this._myomerType.name;
+            // Primitive 'Mech musculature costs 1,000 x tonnage (IO:AE pp.181, 215).
             // Superheavy standard musculature costs 12,000/ton (provisional, via MegaMek).
-            const myomerCostPerTon = this._myomerType.tag === "standard" && this._tonnage > 100 ? 12000 : this._myomerType.costPerTon;
+            const myomerCostPerTon = primitiveMusculature ? 1000
+                : this._myomerType.tag === "standard" && this._tonnage > 100 ? 12000 : this._myomerType.costPerTon;
             const myomerCost = myomerCostPerTon * this.getTonnage();
             this._calcLogCBill += "<tr><td><strong>" + myomerName + "</strong><br /><span class=\"smaller-text\">" + addCommas(myomerCostPerTon) + " x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( myomerCost ) + "</td></tr>\n";
             cbillDryTotal += myomerCost;
@@ -1467,11 +1474,18 @@ export class BattleMech {
         // console.log( numberOfHeatSinks );
         // console.log( heatSinkType );
 
-        // Single-type sinks: the first 10 are free; double-type sinks are all paid for.
-        const freeSinks = this.getHeatSinksObj().freeSinks ?? (heatSinkType === "single" ? 10 : 0);
+        // Single-type sinks: the ones that come with the engine are free; double-type sinks are all paid for.
+        const freeSinks = Math.min(this.getFreeHeatSinks(), this.getHeatSinksObj().freeSinks ?? (heatSinkType === "single" ? 10 : 0));
         const paidSinks = Math.max(0, numberOfHeatSinks - freeSinks);
         this._calcLogCBill += "<tr><td><strong>Heat Sinks: " + heatSinksName  + "</strong><br /><span class=\"smaller-text\">" + addCommas(heatSinksCost) + " x (Number of Heat Sinks" + (freeSinks ? " over " + freeSinks : "") + " [" + paidSinks + "])</span></td><td>" +  addCommas( heatSinksCost * paidSinks ) + "</td></tr>\n";
         cbillDryTotal +=  heatSinksCost * paidSinks;
+
+        // Power amplifiers: 20,000 C-bills per ton (TM pp.278-279).
+        const powerAmplifierWeight = this.getPowerAmplifierWeight();
+        if (powerAmplifierWeight > 0) {
+            this._calcLogCBill += "<tr><td><strong>Power Amplifiers</strong><br /><span class=\"smaller-text\">20,000 x Amplifier Tonnage [" + powerAmplifierWeight + "]</span></td><td>" + addCommas( 20000 * powerAmplifierWeight ) + "</td></tr>\n";
+            cbillDryTotal += 20000 * powerAmplifierWeight;
+        }
 
         // Armor
         let armorName = this.getArmorObj().name;
@@ -1660,8 +1674,33 @@ export class BattleMech {
         }
     }
 
+    /**
+     * Heat sinks that come with the engine at no cost in weight: 10 with a fusion engine, 5 with
+     * fission, 1 with a fuel cell and none with an ICE (IndustrialMech Bonus Heat Sinks Table, TM p.71).
+     */
+    public getFreeHeatSinks(): number {
+        switch (this._engineType.tag) {
+            case "ice": return 0;
+            case "cell": return 1;
+            case "fission": return 5;
+            default: return 10;
+        }
+    }
+
     public getHeatSinks() {
-        return 10 + this._additionalHeatSinks;
+        return this.getFreeHeatSinks() + this._additionalHeatSinks;
+    }
+
+    /**
+     * Power amplifiers: an ICE or fuel cell 'Mech carrying energy weapons mounts amplifiers weighing 10 percent
+     * of those weapons, rounded up to the half ton; they take no critical slots (TM p.72).
+     */
+    public getPowerAmplifierWeight(): number {
+        if (this._hasFusionOrFissionEngine()) return 0;
+        const weight = this._equipmentList
+            .filter(item => item && !item.isAmmo && item.category === "Energy Weapons" && !/vehicle-flamer|chemical-laser/.test(item.tag))
+            .reduce((sum, item) => sum + (item.weight || 0), 0);
+        return weight > 0 ? Math.ceil(weight / 10 * 2 - 1e-9) / 2 : 0;
     }
 
     public getHeatSinksWeight() {
@@ -1703,6 +1742,11 @@ export class BattleMech {
         const superheavy = this._tonnage > 100;
         if (this.isTripod()) return getCockpitType(superheavy ? "superheavy-tripod" : "tripod");
         if (this.isQuadVee()) return getCockpitType("quadvee");
+        // A Primitive 'Mech mounts the 5-ton Primitive cockpit of its kind (IO:AE p.117).
+        if (this._primitive) {
+            return getCockpitType(!this.isIndustrialMech() ? "primitive"
+                : this._advancedFireControl ? "primitive-industrial-advanced-fire-control" : "primitive-industrial");
+        }
         // A superheavy IndustrialMech takes the superheavy BattleMech cockpit when it has Advanced Fire Control.
         if (superheavy) return getCockpitType(this.isIndustrialMech() && !this._advancedFireControl ? "superheavy-industrial" : "superheavy");
         if (this.isIndustrialMech()) return getCockpitType(this._advancedFireControl ? "industrial-advanced-fire-control" : "industrial");
@@ -1716,7 +1760,7 @@ export class BattleMech {
 
     /** Does the cockpit have fire control fit for combat? Always, except an IndustrialMech without the enhancement. */
     public hasAdvancedFireControl(): boolean {
-        return !["industrial", "superheavy-industrial"].includes(this.getCockpitType().tag);
+        return !["industrial", "superheavy-industrial", "primitive-industrial"].includes(this.getCockpitType().tag);
     }
 
     /**
@@ -1727,8 +1771,11 @@ export class BattleMech {
     public getAvailableCockpits(rulesLevel: number = 2): ICockpitType[] {
         const current = this.getCockpitType();
         const superheavyIndustrial = this.isSuperheavy() && this.isIndustrialMech() && !this.isTripod();
-        const mandatory = !superheavyIndustrial && ["tripod", "superheavy-tripod", "quadvee", "superheavy"].includes(current.tag);
-        const tags = mandatory ? [current.tag]
+        // A Primitive 'Mech's cockpit is part of what makes it Primitive, so its dates never withhold it.
+        const mandatory = this._primitive
+            || (!superheavyIndustrial && ["tripod", "superheavy-tripod", "quadvee", "superheavy"].includes(current.tag));
+        const tags = this._primitive && this.isIndustrialMech() ? ["primitive-industrial", "primitive-industrial-advanced-fire-control"]
+            : mandatory ? [current.tag]
             : superheavyIndustrial ? ["superheavy-industrial", "superheavy"]
             : this.isIndustrialMech() ? ["industrial", "industrial-advanced-fire-control"]
             : ["standard", "small"];
@@ -1747,6 +1794,7 @@ export class BattleMech {
         if (this.getAvailableCockpits().some(cockpit => cockpit.tag === tag)) {
             if (tag === "standard" || tag === "small") this._smallCockpit = tag === "small";
             if (tag === "industrial" || tag === "industrial-advanced-fire-control") this._advancedFireControl = tag !== "industrial";
+            if (tag === "primitive-industrial" || tag === "primitive-industrial-advanced-fire-control") this._advancedFireControl = tag !== "primitive-industrial";
             if (this.isIndustrialMech() && (tag === "superheavy" || tag === "superheavy-industrial")) this._advancedFireControl = tag === "superheavy";
             this._calc();
         }
@@ -2174,7 +2222,7 @@ export class BattleMech {
 
         let heatDissipation = 0;
 
-        heatDissipation += (10 + this._additionalHeatSinks) * this._heatSinkType.dissipation;
+        heatDissipation += this.getHeatSinks() * this._heatSinkType.dissipation;
 
         let max_short_overheat_value =  move_heat + total_weapon_heat_short ;
         let max_medium_overheat_value =  move_heat + total_weapon_heat_medium ;
@@ -3050,6 +3098,14 @@ export class BattleMech {
                 this._myomerType = mechMyomerTypes.find(myomer => myomer.tag === "standard") ?? mechMyomerTypes[0];
             }
         }
+        // Jump jets need a fusion or fission engine (TM p.69).
+        if (!this._hasFusionOrFissionEngine()) {
+            this._jumpSpeed = 0;
+        }
+        // A Primitive 'Mech has one armor type, set by its structure (IO:AE p.118).
+        if (this._primitive && this._armorType.tag !== this._getPrimitiveArmorTag()) {
+            this._armorType = findByTag(mechArmorTypes, this._getPrimitiveArmorTag()) ?? this._armorType;
+        }
         // OmniMechs build fixed-only equipment (MASC, Partial Wing, signature systems...) into
         // the base chassis (MegaMek omniFixedOnly; provisional).
         if (this._omnimech) {
@@ -3085,7 +3141,7 @@ export class BattleMech {
                 name: this.getCockpitType().tag === "superheavy-industrial" ? this.getCockpitType().name : "Superheavy Cockpit",
                 weight: this.getCockpitWeight()
             });
-        } else if (this.isIndustrialMech()) {
+        } else if (this.isIndustrialMech() || this._primitive) {
             this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: this.getCockpitType().name,
@@ -3207,6 +3263,11 @@ export class BattleMech {
                 name: "Additional Heat Sinks",
                 weight: this.getHeatSinksWeight()
             });
+        if( this.getPowerAmplifierWeight() > 0)
+            this._weights.push({
+                name: "Power Amplifiers",
+                weight: this.getPowerAmplifierWeight()
+            });
 
         this._calcVariableEquipment();
         for( let countEQ = 0; countEQ < this._equipmentList.length; countEQ++) {
@@ -3237,7 +3298,7 @@ export class BattleMech {
             number: 0,
         };
         
-        this._heatDissipation = (this._additionalHeatSinks + 10) * this._heatSinkType.dissipation + this.getPartialWingHeatBonus();
+        this._heatDissipation = this.getHeatSinks() * this._heatSinkType.dissipation + this.getPartialWingHeatBonus();
         if( this.getTech().tag === "clan" ) {
             this._heatSinkCriticals.slotsEach = this._heatSinkType.crits.clan;
         } else {
@@ -3247,7 +3308,7 @@ export class BattleMech {
         let findEngine = this.getEngine();
         if( findEngine && findEngine.rating) {
             // Sinks the engine cannot hold need slots; Compact sinks pair up, two per slot.
-            const external = Math.max(0, this._additionalHeatSinks + 10 - this.getEngineHeatSinkCapacity());
+            const external = Math.max(0, this.getHeatSinks() - this.getEngineHeatSinkCapacity());
             this._heatSinkCriticals.number = Math.ceil(external / this._getHeatSinksPerSlot());
             this._heatSinkCriticals.slotsEach = this.getCriticalSlots(this._heatSinkCriticals.slotsEach);
         } else {
@@ -3907,7 +3968,7 @@ export class BattleMech {
             hs_nickname ="Heat Sink";
         // A superheavy slot shared by several heat sinks says how many it holds (IO:AE p.157).
         const heatSinksPerSlot = this._getHeatSinksPerSlot();
-        let externalHeatSinks = Math.max(0, this._additionalHeatSinks + 10 - this.getEngineHeatSinkCapacity());
+        let externalHeatSinks = Math.max(0, this.getHeatSinks() - this.getEngineHeatSinkCapacity());
         for( let hsc = 0; hsc < hs_requirements.number; hsc++) {
             const heatSinksInSlot = Math.min(heatSinksPerSlot, externalHeatSinks);
             externalHeatSinks -= heatSinksInSlot;
@@ -4131,12 +4192,22 @@ export class BattleMech {
      */
     public getMaxWalkSpeed(rulesLevel: number = 2): number {
         const maxRating = rulesLevel >= EXPERIMENTAL_RULES_LEVEL ? 500 : 400;
-        return Math.floor(maxRating / Math.max(1, this.getTonnage()));
+        const walk = Math.floor(maxRating / Math.max(1, this.getTonnage()));
+        if (!this._primitive) return walk;
+        // A Primitive engine's adjusted rating comes from the Master Engine Table, which ends at 400 (IO:AE p.117).
+        let primitiveWalk = walk;
+        while (primitiveWalk > 0 && this._engineRatingForWalk(primitiveWalk) > 400) primitiveWalk--;
+        return primitiveWalk;
+    }
+
+    /** Jump jets need a fusion or fission engine (TM p.69; IO:AE p.117); so does running energy weapons without power amplifiers (TM p.72). */
+    private _hasFusionOrFissionEngine(): boolean {
+        return this._engineType.tag !== "ice" && this._engineType.tag !== "cell";
     }
 
     /** Highest jump MP the jump jet type allows: walking MP, or running MP for Improved jump jets. */
     public getMaxJumpSpeed(): number {
-        if (this.isSuperheavy()) return 0;
+        if (this.isSuperheavy() || !this._hasFusionOrFissionEngine()) return 0;
         return this._jumpJetType.tag === "improved" || this._jumpJetType.jumpAsRun ? this.getRunSpeed() : this.getWalkSpeed();
     }
 
@@ -4179,7 +4250,8 @@ export class BattleMech {
             myomer.availableAsPrototype = availability.asPrototype;
             // Superheavy musculature is incompatible with Triple-Strength Myomer (IO:AE p.156).
             myomer.available = availability.available && !(myomer.techBase && pureTech && myomer.techBase !== pureTech)
-                && !(this.isSuperheavy() && BattleMech._isTripleStrengthMyomer(myomer));
+                && !(this.isSuperheavy() && BattleMech._isTripleStrengthMyomer(myomer))
+                && this._isChassisLegalMyomer(myomer);
             return myomer;
         });
     }
@@ -4190,7 +4262,9 @@ export class BattleMech {
             jumpJet.availableAsPrototype = availability.asPrototype;
             // Superheavy 'Mechs mount no jump jets, improved jump jets or UMUs (IO:AE p.156).
             jumpJet.available = availability.available && !this.isSuperheavy()
-                && !(jumpJet.innerSphereOnly && this.getTech().tag === "clan");
+                && !(jumpJet.innerSphereOnly && this.getTech().tag === "clan")
+                // IndustrialMechs "may use only standard jump jets" (TM p.69).
+                && this._hasFusionOrFissionEngine() && (!this.isIndustrialMech() || jumpJet.tag === "standard");
             return jumpJet;
         });
     }
@@ -4606,12 +4680,21 @@ export class BattleMech {
     ) {
         this._walkSpeed = walkSpeed
         // Engine rating = tonnage x Walk MP; Walk 0 clears the engine (setEngine(0) -> null).
-        this.setEngine(this._tonnage * this._walkSpeed);
+        this.setEngine(this._engineRatingForWalk(this._walkSpeed));
 
         if( this._jumpSpeed > this._walkSpeed)
             this.setJumpSpeed(this._walkSpeed);
 
         return this._walkSpeed;
+    }
+
+    /**
+     * The engine rating a Walking MP needs: tonnage x Walking MP. For a Primitive 'Mech that result
+     * "must be multiplied by 1.2 and rounded up to the nearest available Engine Rating" (IO:AE p.117).
+     */
+    private _engineRatingForWalk(walkSpeed: number): number {
+        const rating = this._tonnage * walkSpeed;
+        return this._primitive ? Math.ceil(rating * 1.2 / 5 - 1e-9) * 5 : rating;
     }
 
     public getRunSpeed() {
@@ -5132,6 +5215,12 @@ export class BattleMech {
 
     /** The engine's name; above rating 400, the large engine's (e.g. "Large XL Fusion"). */
     getEngineName(): string {
+        if (this._primitive) {
+            // Any engine in a Primitive 'Mech "is considered a Primitive engine" (IO:AE p.117).
+            return this._engineType.tag === "standard"
+                ? findByTag(mechEngineTypes, "primitive")?.name ?? "Primitive Fusion Engine"
+                : this._engineType.name.startsWith("Primitive") ? this._engineType.name : "Primitive " + this._engineType.name;
+        }
         return this.getLargeEngineType()?.name ?? this._engineType.name;
     }
 
@@ -5185,6 +5274,8 @@ export class BattleMech {
      */
     public canBeOmniMech(rulesLevel: number = 2): boolean {
         if (this.isTripod()) return false;
+        // "Primitive 'Mechs cannot be constructed as OmniMechs" (IO:AE p.117).
+        if (this._primitive) return false;
         if (this.isLAM()) return rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL && this._hasOmniLAMTechBase();
         return true;
     }
@@ -5251,6 +5342,10 @@ export class BattleMech {
             if (bomb) level = Math.max(level, getEquipmentRulesLevel(bomb));
         }
         if (this.isOmniLAM()) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
+        // Primitive 'Mech construction is Advanced (IO:AE p.116).
+        if (this._primitive) level = Math.max(level, 3);
+        // IndustrialMechs mount the Dark Age armors "only under Experimental Mixed-Tech rules" (IO:AE p.82).
+        if (this.isIndustrialMech() && BattleMech.DARK_AGE_ARMOR_TAGS.includes(this._armorType.tag)) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         return level;
     }
 
@@ -5669,6 +5764,44 @@ export class BattleMech {
                 ? "IndustrialMechs may mount only Commercial, Industrial or Standard (Heavy Industrial) armor."
                 : `${this._armorType.name} can only be mounted on an IndustrialMech.`);
         }
+        const chassisName = this._primitive ? "Primitive 'Mechs" : "IndustrialMechs";
+        if (this._primitive) {
+            const typeTag = this._mechType.tag.toLowerCase();
+            if (this._tech.tag === "clan" || this._tech.tag === "mclan") {
+                violations.push("Primitive 'Mechs can be built only with an Inner Sphere tech base.");
+            }
+            if (typeTag !== "biped" && typeTag !== "quad") {
+                violations.push("Primitive 'Mechs may only be built as bipeds or four-legged units.");
+            }
+            if (this._tonnage > 100) {
+                violations.push("Primitive 'Mechs may weigh between 10 and 100 tons.");
+            }
+            if (!BattleMech.PRIMITIVE_STRUCTURE_TAGS.includes(this._selectedInternalStructure.tag)) {
+                violations.push("Primitive 'Mechs may use only standard or industrial internal structure.");
+            }
+        }
+        if (this._hasBasicChassis()) {
+            // A superheavy IndustrialMech's engine is reported above.
+            if (!this._isChassisLegalEngine(this._engineType.tag) && this._isSuperheavyLegalEngine(this._engineType.tag)) {
+                violations.push(this._primitive
+                    ? "Primitive 'Mechs may use only ICE, fuel cell, fission or standard fusion engines."
+                    : "IndustrialMechs may use only standard fusion, ICE, fuel cell or fission engines.");
+            }
+            if (this._gyro.tag !== "standard") {
+                violations.push(`${chassisName} may use only standard gyros.`);
+            }
+            if (this._heatSinkType.tag !== "single") {
+                violations.push(`${chassisName} may use only single heat sinks.`);
+            }
+            if (!this._primitive && this._jumpSpeed > 0 && this._jumpJetType.tag !== "standard") {
+                violations.push("IndustrialMechs may use only standard jump jets.");
+            }
+        }
+        if (!this._isChassisLegalMyomer(this._myomerType)) {
+            violations.push(this._primitive ? `${this._myomerType.name} cannot be mounted on a Primitive 'Mech.`
+                : this.isIndustrialMech() ? `${this._myomerType.name} cannot be mounted on an IndustrialMech.`
+                : `${this._myomerType.name} can only be mounted on an IndustrialMech.`);
+        }
         const counted = new Map<string, { item: IEquipmentItem; count: number; names: string[] }>();
         const repairSystems = new Set<string>();
         const perLocation = new Map<string, number>();
@@ -5691,6 +5824,13 @@ export class BattleMech {
             }
             if (item.industrialMechOnly && !this.isIndustrialMech()) {
                 violations.push(`${item.name} can only be mounted on an IndustrialMech.`);
+            }
+            // MASC on an IndustrialMech (TM p.70); MASC, Superchargers and the like on a Primitive 'Mech (IO:AE p.117).
+            const isMASC = item.variableFormula === "masc-is" || item.variableFormula === "masc-clan";
+            if (this._primitive && (isMASC || item.variableFormula === "supercharger")) {
+                violations.push(`${item.name} cannot be mounted on a Primitive 'Mech.`);
+            } else if (this.isIndustrialMech() && isMASC) {
+                violations.push(`${item.name} cannot be mounted on an IndustrialMech.`);
             }
             const allowedLocations = this._getAllowedLocations(item);
             if (allowedLocations && item.location && BattleMech.MECH_LOCATION_MAP[item.location] && !allowedLocations.includes(item.location)) {
@@ -6374,6 +6514,9 @@ export class BattleMech {
         // IndustrialMech cockpit with the Advanced Fire Control enhancement (TM p.69).
         if( this._advancedFireControl)
             exportObject.features.push( "afc" );
+        // Built under the Primitive 'Mech rules (IO:AE pp.116-118).
+        if( this._primitive)
+            exportObject.features.push( "primitive" );
 
 
             return exportObject;
@@ -6591,6 +6734,8 @@ export class BattleMech {
             // console.log( "importObject.mechType", importObject.mechType );
             if( importObject.mechType)
                 this.setMechType(importObject.mechType);
+            // Before the tonnage and Walking MP: a Primitive 'Mech's engine rating depends on it.
+            this._primitive = Array.isArray(importObject.features) && importObject.features.indexOf( "primitive" ) > -1;
             if (importObject.lamType) {
                 this.setLAMType(importObject.lamType);
             }
@@ -8150,6 +8295,7 @@ export class BattleMech {
                 engine.availableAsPrototype = availability.asPrototype;
                 engine.available = availability.available && buildableAtRating
                     && this._isSuperheavyLegalEngine(engine.tag)
+                    && this._isChassisLegalEngine(engine.tag)
                     && (!this.isLAM() || this._isLAMLegalComponent("engine", engine.tag));
                 returnValue.push(engine);
             }
@@ -8270,7 +8416,9 @@ export class BattleMech {
             const availability = this._datesAvailability(gyro, rulesLevel);
             gyro.availableAsPrototype = availability.asPrototype;
             gyro.available = availability.available && !(gyro.innerSphereOnly && this.getTech().tag === "clan")
-                && (!this.isLAM() || BattleMech.LAM_GYRO_TAGS.includes(gyro.tag));
+                && (!this.isLAM() || BattleMech.LAM_GYRO_TAGS.includes(gyro.tag))
+                // IndustrialMechs and Primitive 'Mechs take the standard gyro only (TM p.69; IO:AE p.116).
+                && (!this._hasBasicChassis() || gyro.tag === "standard");
 
             returnValue.push( gyro );
         }
@@ -8284,7 +8432,9 @@ export class BattleMech {
             structure.availableAsPrototype = availability.asPrototype;
             structure.available = availability.available && !(structure.innerSphereOnly && this.getTech().tag === "clan")
                 && (!this.isLAM() || this._isLAMLegalComponent("structure", structure.tag))
-                && (!this.isSuperheavy() || BattleMech.SUPERHEAVY_STRUCTURE_TAGS.includes(structure.tag));
+                && (!this.isSuperheavy() || BattleMech.SUPERHEAVY_STRUCTURE_TAGS.includes(structure.tag))
+                // "standard internal structure (or standard IndustrialMech structure, for IndustrialMechs)" (IO:AE p.116).
+                && (!this._primitive || BattleMech.PRIMITIVE_STRUCTURE_TAGS.includes(structure.tag));
             return structure;
         });
     }
@@ -8295,7 +8445,9 @@ export class BattleMech {
             const techTag = this.getTech().tag;
             const pureTech = techTag === "is" || techTag === "clan" ? techTag : null;
             heatSink.availableAsPrototype = availability.asPrototype;
-            heatSink.available = availability.available && !(heatSink.techBase && pureTech && heatSink.techBase !== pureTech);
+            heatSink.available = availability.available && !(heatSink.techBase && pureTech && heatSink.techBase !== pureTech)
+                // IndustrialMechs and Primitive 'Mechs use single heat sinks only (TM p.71; IO:AE p.117).
+                && (!this._hasBasicChassis() || heatSink.tag === "single");
             return heatSink;
         });
     }
@@ -8306,7 +8458,81 @@ export class BattleMech {
      * are open to them only under Experimental Mixed-Tech rules (IO:AE p.82).
      */
     private _isArmorLegalForChassis(armor: IArmorType): boolean {
-        return this.isIndustrialMech() ? armor.industrialMechOnly === true || armor.tag === "standard" : !armor.industrialMechOnly;
+        if (this._primitive) return armor.tag === this._getPrimitiveArmorTag();
+        if (!this.isIndustrialMech()) return !armor.industrialMechOnly;
+        return armor.industrialMechOnly === true || armor.tag === "standard"
+            || (BattleMech.DARK_AGE_ARMOR_TAGS.includes(armor.tag) && this._isMixedTechBase());
+    }
+
+    /** The Dark Age armors of IO:AE pp.80-82 (Advanced Armor Table). */
+    public static readonly DARK_AGE_ARMOR_TAGS: readonly string[] = ["anti-penetrative-ablation", "ballistic-reinforced", "heat-dissipating", "impact-resistant"];
+    /** Engines an IndustrialMech or a Primitive 'Mech may mount (TM p.68; IO:AE p.117). */
+    public static readonly BASIC_ENGINE_TAGS: readonly string[] = ["standard", "ice", "cell", "fission"];
+    public static readonly PRIMITIVE_STRUCTURE_TAGS: readonly string[] = ["standard", "industrial"];
+
+    private _isMixedTechBase(): boolean {
+        return this._tech.tag === "mis" || this._tech.tag === "mclan";
+    }
+
+    /** An IndustrialMech or a Primitive 'Mech: standard gyro and single heat sinks only. */
+    private _hasBasicChassis(): boolean {
+        return this._primitive || this.isIndustrialMech();
+    }
+
+    /** "Primitive BattleMechs can only mount Primitive BattleMech armor"; Primitive IndustrialMechs "only ... Commercial armor" (IO:AE p.118). */
+    private _getPrimitiveArmorTag(): string {
+        return this.isIndustrialMech() ? "commercial" : "primitive";
+    }
+
+    /** A superheavy IndustrialMech has its own, narrower engine rule (see _isSuperheavyLegalEngine). */
+    private _isChassisLegalEngine(engineTag: string): boolean {
+        return !this._hasBasicChassis() || BattleMech.BASIC_ENGINE_TAGS.includes(engineTag);
+    }
+
+    /**
+     * IndustrialMechs are "incompatible with the MASC and Triple-Strength Myomer (TSM) technologies" and may use
+     * Industrial TSM instead (TM p.70); Primitive 'Mechs take no physical enhancement at all (IO:AE p.117).
+     */
+    private _isChassisLegalMyomer(myomer: IMyomerType): boolean {
+        if (this._primitive) return myomer.tag === "standard";
+        if (this.isIndustrialMech()) return myomer.tag === "standard" || myomer.tag === "industrial-tsm";
+        return myomer.tag !== "industrial-tsm";
+    }
+
+    public isPrimitive(): boolean {
+        return this._primitive;
+    }
+
+    /**
+     * Primitive 'Mechs "can only be built using Inner Sphere technology", "cannot be constructed as OmniMechs,
+     * nor may they be designed as LAMs, QuadVees, or Tripods", and weigh 10 to 100 tons (IO:AE p.117).
+     * A mixed-tech design with an Inner Sphere base is the RetroTech case of p.115.
+     */
+    public canBePrimitive(): boolean {
+        const typeTag = this._mechType.tag.toLowerCase();
+        return (typeTag === "biped" || typeTag === "quad") && !this._omnimech && this._tonnage <= 100
+            && (this._tech.tag === "is" || this._tech.tag === "mis");
+    }
+
+    /** Switch the Primitive 'Mech rules on or off. Switching on replaces the components a Primitive 'Mech cannot use. */
+    public setPrimitive(primitive: boolean): boolean {
+        if (primitive && !this.canBePrimitive()) return this._primitive;
+        this._primitive = primitive;
+        if (primitive) {
+            const standard = <T extends { tag: string }>(records: T[], current: T, keep: (record: T) => boolean): T =>
+                keep(current) ? current : findByTag(records, "standard") ?? records[0];
+            this._selectedInternalStructure = standard(mechInternalStructureTypes, this._selectedInternalStructure, structure => BattleMech.PRIMITIVE_STRUCTURE_TAGS.includes(structure.tag));
+            this._engineType = standard(mechEngineTypes, this._engineType, engine => BattleMech.BASIC_ENGINE_TAGS.includes(engine.tag));
+            this._gyro = standard(mechGyroTypes, this._gyro, gyro => gyro.tag === "standard");
+            this._myomerType = standard(mechMyomerTypes, this._myomerType, myomer => myomer.tag === "standard");
+            this._heatSinkType = findByTag(mechHeatSinkTypes, "single") ?? this._heatSinkType;
+            this._smallCockpit = false;
+            // The structure setter sizes the internal structure for the tonnage.
+            this.setInternalStructureType(this._selectedInternalStructure.tag);
+        }
+        // The engine rating follows the rules in force; a Walking MP the adjusted rating cannot reach comes down.
+        this.setWalkSpeed(Math.min(this._walkSpeed, this.getMaxWalkSpeed(EXPERIMENTAL_RULES_LEVEL)));
+        return this._primitive;
     }
 
     public getAvailableArmorTypes(rulesLevel: number = 2): IArmorType[] {
@@ -8321,9 +8547,14 @@ export class BattleMech {
                 : (techTag === "clan" ? armor.armorMultiplier.clan : armor.armorMultiplier.is) > 0);
             const availability = this._techDatesAvailability(armor, rulesLevel);
             armor.availableAsPrototype = availability.asPrototype;
-            armor.available = hasCompatibleMultiplier && availability.available
+            // A Primitive 'Mech's one armor type is never withheld. On an IndustrialMech the Dark Age armors
+            // need the Experimental rules level as well as a mixed tech base (IO:AE p.82).
+            const mandatory = this._primitive && armor.tag === this._getPrimitiveArmorTag();
+            const experimentalOnly = this.isIndustrialMech() && BattleMech.DARK_AGE_ARMOR_TAGS.includes(armor.tag);
+            armor.available = mandatory || (hasCompatibleMultiplier && availability.available
                 && this._isArmorLegalForChassis(armor)
-                && (!this.isLAM() || this._isLAMLegalComponent("armor", armor.tag));
+                && (!experimentalOnly || rulesLevel >= EXPERIMENTAL_RULES_LEVEL)
+                && (!this.isLAM() || this._isLAMLegalComponent("armor", armor.tag)));
 
             returnValue.push( armor );
         }

@@ -63,7 +63,13 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                         label="Step 3: Add additional heat sinks"
                       >
 
-                          <p className="text-center">Your BattleMech includes 10 heat sinks.</p>
+                          <p className="text-center">
+                            {this.props.appGlobals.currentBattleMech.getFreeHeatSinks() === 0
+                              ? "This engine type comes with no heat sinks."
+                              : this.props.appGlobals.currentBattleMech.getFreeHeatSinks() === 1
+                                ? "This engine type comes with 1 heat sink."
+                                : "Your BattleMech includes " + this.props.appGlobals.currentBattleMech.getFreeHeatSinks() + " heat sinks."}
+                          </p>
 
                           <label>
                               Heat Sink Technology :
