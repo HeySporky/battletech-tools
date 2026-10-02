@@ -10,9 +10,12 @@ import { IMyomerType } from "./data-interfaces";
 * to challenge any copyright or trademark status, and this data is explicitly 
 * excluded from the software's underlying license (GNU GPLv3).
 *
-* Dates: IO tech progression. TSM: Inner Sphere prototype 3028, production 3050.
-* Industrial TSM: prototype 3035, production 3045. Prototype TSM (IO:AE p.98):
-* 3028 until production TSM replaces it in 3050.
+* Dates: IO:AE p.42 tech progression; unknown dates are null, not 0. Standard
+* musculature: prototype 2300, production 2350 (cost TM p.277). TSM: Inner Sphere
+* prototype 3028, production 3050. Industrial TSM: prototype 3035, production 3045
+* (12 slots, TM p.70; BV multipliers TM p.304). Prototype TSM (IO:AE p.98): 3028
+* until production TSM replaces it in 3050. Super-Cooled Myomer (IO:AE p.88): RISC
+* experimental, prototype 3132, extinct 3140.
 */
 
 export const mechMyomerTypes: IMyomerType[] = [
@@ -24,10 +27,11 @@ export const mechMyomerTypes: IMyomerType[] = [
 		bvWeightMultiplier: 1,
 		tripleStrength: false,
 		book: "TM",
-		page: null,
-		introduced: 1950,
-		extinct: 0,
-		reintroduced: 0
+		page: 277,
+		prototype: 2300,
+		introduced: 2350,
+		extinct: null,
+		reintroduced: null
 	},
 	{
 		name: "Triple-Strength Myomer",
@@ -42,8 +46,8 @@ export const mechMyomerTypes: IMyomerType[] = [
 		notes: "+1 walk MP and double physical attack damage at 9+ heat.",
 		prototype: 3028,
 		introduced: 3050,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null
 	},
 	{
 		name: "Industrial Triple-Strength Myomer",
@@ -58,8 +62,8 @@ export const mechMyomerTypes: IMyomerType[] = [
 		notes: "IndustrialMech myomer; no MP bonus.",
 		prototype: 3035,
 		introduced: 3045,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null
 	},
 	{
 		name: "Prototype Triple-Strength Myomer",
@@ -75,6 +79,22 @@ export const mechMyomerTypes: IMyomerType[] = [
 		prototype: 3028,
 		introduced: null,
 		extinct: 3050,
-		reintroduced: 0
+		reintroduced: null
+	},
+	{
+		name: "Super-Cooled Myomer",
+		tag: "risc-super-cooled-myomer",
+		criticals: 6,
+		costPerTon: 10000,
+		bvWeightMultiplier: 1,
+		tripleStrength: false,
+		techBase: "is",
+		book: "IO_AE",
+		page: 88,
+		notes: "RISC experimental; 6 slots (IO:AE p.215), cost IO:AE p.179, BV IO:AE p.185.",
+		prototype: 3132,
+		introduced: null,
+		extinct: 3140,
+		reintroduced: null
 	}
 ];

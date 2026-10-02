@@ -2,10 +2,17 @@ import { describe, expect, it, vi } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { BattleMech } from "./battlemech";
-import { validateChassisCombination } from "../data/mech-internal-structure-types";
+import { mechInternalStructureTypes, validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { getWeaponAmmoFamilies } from "../data/equipment-registry";
+import { mechMyomerTypes } from "../data/mech-myomer-types";
+import { mechEngineTypes } from "../data/mech-engine-types";
+import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
+import { mechCockpitTypes } from "../data/mech-cockpit-types";
+import { mechISEquipmentMisc } from "../data/mech-is-equipment-weapons-misc";
+import { mechClanEquipmentMisc } from "../data/mech-clan-equipment-weapons-misc";
+import { mechUniversalEquipment } from "../data/mech-universal-equipment";
 
 describe("BattleMech engine availability by era", () => {
     it("shows the expected Inner Sphere engines for a Star League mech", () => {
@@ -984,6 +991,22 @@ describe("BattleMech engine construction", () => {
         expect(mech.getEngineType().tag).toBe("standard");
     });
 
+    it("weighs the Superheavy Gyro at engine rating / 50, rounded up, whatever gyro is selected (IO:AE p.156)", () => {
+        expect(build(150, 2, "standard").getGyroWeight()).toBe(6); // rating 300
+        expect(build(175, 2, "standard").getGyroWeight()).toBe(7); // rating 350
+        const xl = build(150, 2, "standard");
+        xl.setGyroTypeByName("Extra-light (XL) Gyro");
+        expect(xl.getGyroWeight()).toBe(6);
+    });
+
+    it("gives the Superheavy Gyro two center torso slots (IO:AE p.156)", () => {
+        const gyroSlots = (mech: BattleMech) =>
+            mech.getCriticals().centerTorso.filter(item => item?.tag === "gyro")
+                .reduce((total, item) => total + (item?.crits ?? 1), 0);
+        expect(gyroSlots(build(150, 2, "standard"))).toBe(2);
+        expect(gyroSlots(build(100, 2, "standard"))).toBe(4);
+    });
+
     it("applies structure type BV modifiers and keeps Composite Inner Sphere only (TO:AUE p.154)", () => {
         const log = (tag: string) => {
             const mech = build(50, 4, "standard", "is", "ilClan");
@@ -1304,7 +1327,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         return mech.getCBillCostNumeric();
     };
 
-    // IO p.50 (via MegaMek): Tripods and QuadVees are Advanced, LAMs Experimental; Standard is tournament play.
+    // IO:AE p.44 (via MegaMek): Tripods and QuadVees are Advanced, LAMs Experimental; Standard is tournament play.
     it("reports the lowest legal rules level for each chassis", () => {
         const level = (type: string, tonnage = 50) => {
             const mech = new BattleMech();
@@ -1385,7 +1408,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(quadveeHTML).toContain("Conversion Equipment");
 
         const tripodHTML = (() => { const tripod = new BattleMech(); tripod.setType("tripod"); return tripod.getCBillCalcHTML(); })();
-        expect(tripodHTML).toContain("Tripod Cockpit");
+        expect(tripodHTML).toContain("Tripod 'Mech Cockpit");
         expect(tripodHTML).toContain("x 1.2 [Tripod]");
 
         const lamHTML = (() => { const lam = new BattleMech(); lam.setType("lam"); return lam.getCBillCalcHTML(); })();
@@ -1880,5 +1903,404 @@ describe("Regressions found by typechecking master", () => {
             mech.setMechType(type);
             expect(mech.makeTROBBCode(), type).toContain("Internal Structure");
         }
+    });
+});
+
+describe("Batch 3 myomer catalog", () => {
+    const myomer = (tag: string) => mechMyomerTypes.find(item => item.tag === tag);
+    const isMisc = (tag: string) => mechISEquipmentMisc.find(item => item.tag === tag);
+    const clanMisc = (tag: string) => mechClanEquipmentMisc.find(item => item.tag === tag);
+
+    it("dates standard myomer per IO:AE p.42 and cites TM p.277", () => {
+        const standard = myomer("standard");
+        expect(standard?.page).toBe(277);
+        expect(standard?.prototype).toBe(2300);
+        expect(standard?.introduced).toBe(2350);
+    });
+
+    it("uses null, not 0, for unknown myomer dates", () => {
+        for (const item of mechMyomerTypes) {
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.introduced, item.tag).not.toBe(0);
+        }
+    });
+
+    it("lists Super-Cooled Myomer as an experimental IS prototype (IO:AE p.88)", () => {
+        const scm = myomer("risc-super-cooled-myomer");
+        expect(scm?.book).toBe("IO_AE");
+        expect(scm?.page).toBe(88);
+        expect(scm?.techBase).toBe("is");
+        expect(scm?.criticals).toBe(6);
+        expect(scm?.prototype).toBe(3132);
+        expect(scm?.introduced).toBeNull();
+        expect(scm?.extinct).toBe(3140);
+    });
+
+    it("dates AES production Clan 3108 and IS 3109 (IO:AE p.42)", () => {
+        expect(clanMisc("clan-aes-arm")?.introduced).toBe(3108);
+        expect(clanMisc("clan-aes-leg")?.introduced).toBe(3108);
+        expect(isMisc("aes-arm")?.introduced).toBe(3109);
+        expect(isMisc("aes-leg")?.introduced).toBe(3109);
+    });
+
+    it("dates supercharger production 3078 (IO:AE p.29)", () => {
+        const supercharger = mechUniversalEquipment.find(item => item.tag === "supercharger");
+        expect(supercharger?.introduced).toBe(3078);
+        expect(supercharger?.extinct).not.toBe(0);
+    });
+
+    it("cites MASC to TM p.232", () => {
+        expect(isMisc("masc")?.page).toBe(232);
+        expect(clanMisc("clan-masc")?.page).toBe(232);
+    });
+
+    it("adds the Clan ProtoMech Myomer Booster as ProtoMech-only (TM p.232)", () => {
+        const booster = clanMisc("clan-protomech-myomer-booster");
+        expect(booster?.space.protomech).toBe(1);
+        expect(booster?.space.battlemech).toBe(-1);
+        expect(booster?.book).toBe("TM");
+        expect(booster?.page).toBe(232);
+        expect(booster?.introduced).toBe(3068);
+    });
+});
+
+describe("Batch 4 engine catalog", () => {
+    const engine = (tag: string) => mechEngineTypes.find(item => item.tag === tag);
+
+    it("dates compact and XXL engines from the IO:AE p.38 engine table", () => {
+        expect(engine("compact")?.prototype).toBe(3065);
+        expect(engine("compact")?.introduced).toBe(3068);
+        expect(engine("xxl")?.prototype).toBe(3055);
+        expect(engine("xxl")?.introduced).toBe(3110);
+        expect(engine("clan_xxl")?.prototype).toBe(2954);
+        expect(engine("clan_xxl")?.introduced).toBe(3084);
+    });
+
+    it("dates the primitive engine from the IO:AE p.44 primitive 'Mech entry", () => {
+        const primitive = engine("primitive");
+        expect(primitive?.prototype).toBe(2439);
+        expect(primitive?.introduced).toBe(2443);
+        expect(primitive?.extinct).toBe(2520);
+        expect(primitive?.reintroduced).toBeNull();
+        expect(primitive?.book).toBe("IO:AE");
+        expect(primitive?.page).toBe(117);
+    });
+
+    it("cites a book and page for every engine", () => {
+        const pages: Record<string, [string, number]> = {
+            standard: ["TM", 214], xl: ["TM", 214], clan_xl: ["TM", 214], light: ["TM", 214], compact: ["TM", 214],
+            xxl: ["TO:AUE", 120], clan_xxl: ["TO:AUE", 120],
+            ice: ["TM", 215], cell: ["TM", 215], fission: ["TM", 215],
+            primitive: ["IO:AE", 117],
+        };
+        for (const item of mechEngineTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+    });
+
+    it("uses null, not 0, for engines that never went extinct", () => {
+        for (const item of mechEngineTypes) {
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+});
+
+describe("Batch 5 internal structure catalog", () => {
+    const structure = (tag: string) => mechInternalStructureTypes.find(item => item.tag === tag);
+
+    it("dates structures from the IO:AE p.42 universal advancement table", () => {
+        expect(structure("standard")?.prototype).toBe(2430);
+        expect(structure("standard")?.introduced).toBe(2439);
+        expect(structure("composite")?.prototype).toBe(3061);
+        expect(structure("composite")?.introduced).toBe(3082);
+        expect(structure("endo-composite")?.prototype).toBe(3067);
+        expect(structure("endo-composite")?.introduced).toBe(3085);
+        expect(structure("endo-composite")?.clanDates?.prototype).toBe(3073);
+        expect(structure("reinforced")?.prototype).toBe(3057);
+        expect(structure("reinforced")?.introduced).toBe(3084);
+        expect(structure("reinforced")?.clanDates?.prototype).toBe(3065);
+        expect(structure("industrial")?.prototype).toBe(2300);
+        expect(structure("industrial")?.introduced).toBe(2350);
+    });
+
+    it("cites a book and page for every structure", () => {
+        const pages: Record<string, [string, number]> = {
+            standard: ["TM", 225], "endo-steel": ["TM", 224], industrial: ["TM", 224],
+            composite: ["TO:AUE", 154], "endo-composite": ["TO:AUE", 154], reinforced: ["TO:AUE", 155],
+        };
+        for (const item of mechInternalStructureTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+    });
+
+    it("uses null, not 0, for structures that never went extinct", () => {
+        for (const item of mechInternalStructureTypes) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
+            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+});
+
+describe("Batch 6 armor catalog", () => {
+    const armor = (tag: string) => mechArmorTypes.find(item => item.tag === tag);
+
+    it("dates armor from the IO:AE pp.29-30 universal advancement table", () => {
+        // tag: [prototype, production, extinct, reintroduced]
+        const dates: Record<string, [number | undefined, number | null, number | null, number | null]> = {
+            "standard": [2460, 2470, null, null],
+            "ferro-fibrous": [2557, 2571, 2810, 3040],
+            "light-ferro-fibrous": [3055, 3067, null, null],
+            "heavy-ferro-fibrous": [3056, 3069, null, null],
+            "stealth-basic": [3051, 3063, null, null],
+            "hardened": [3047, 3081, null, null],
+            "laser-reflective": [3058, 3080, null, null],
+            "reactive": [3063, 3081, null, null],
+            "ferro-lamellor": [3070, 3109, null, null],
+            "ballistic-reinforced": [3120, 3131, null, null],
+            "primitive": [2430, 2439, null, null],
+            "ferro-aluminum": [2557, 2571, 2810, 3040],
+            "commercial": [2290, 2300, null, null],
+            "modular": [3072, 3096, null, null],
+            "mimetic": [3058, 3061, null, null],
+            "stealth-improved": [3055, 3057, null, null],
+            "protomech-standard": [3055, 3060, null, null],
+            "heat-dissipating": [3111, 3123, null, null],
+            "impact-resistant": [3092, 3103, null, null],
+            "anti-penetrative-ablation": [3105, 3114, null, null],
+        };
+        for (const [tag, expected] of Object.entries(dates)) {
+            const item = armor(tag);
+            expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced], tag).toEqual(expected);
+        }
+        // Patchwork is a pre-spaceflight practice with no prototype year; production 3075 (IO:AE p.45).
+        expect(armor("patchwork")?.introduced).toBe(3075);
+        // Recovered prototype ferro-fibrous: 3034 (IO:AE p.97); the Star League prototype ends at production in 2571.
+        expect([armor("ferro-fibrous-prototype")?.prototype, armor("ferro-fibrous-prototype")?.introduced]).toEqual([2557, null]);
+    });
+
+    it("keeps separate Clan dates where IO:AE prints a Clan row or note", () => {
+        expect(armor("ferro-fibrous")?.clanDates).toEqual({ prototype: 2820, introduced: 2825, extinct: null, reintroduced: null });
+        expect(armor("ferro-aluminum")?.clanDates).toEqual({ prototype: 2820, introduced: 2825, extinct: null, reintroduced: null });
+        expect(armor("hardened")?.clanDates).toEqual({ prototype: 3061, introduced: 3081, extinct: null, reintroduced: null });
+        expect(armor("laser-reflective")?.clanDates).toEqual({ prototype: 3061, introduced: 3080, extinct: null, reintroduced: null });
+        expect(armor("reactive")?.clanDates).toEqual({ prototype: 3065, introduced: 3081, extinct: null, reintroduced: null });
+        expect(armor("modular")?.clanDates).toEqual({ prototype: 3074, introduced: 3096, extinct: null, reintroduced: null });
+        // No Clan prototype is published for these two; only a Clan introduction year.
+        expect(armor("heat-dissipating")?.clanDates).toEqual({ introduced: 3126, extinct: null, reintroduced: null });
+        expect(armor("stealth-improved")?.clanDates).toEqual({ introduced: 3058, extinct: null, reintroduced: null });
+    });
+
+    it("cites a book and page for every armor", () => {
+        const pages: Record<string, [string, number]> = {
+            "standard": ["TM", 205], "ferro-fibrous": ["TM", 205], "light-ferro-fibrous": ["TM", 205],
+            "heavy-ferro-fibrous": ["TM", 205], "stealth-basic": ["TM", 206], "ferro-aluminum": ["TM", 205],
+            "commercial": ["TM", 205], "protomech-standard": ["TM", 205],
+            "mimetic": ["TM", 253], "stealth-improved": ["TM", 252],
+            "hardened": ["TO:AUE", 93], "laser-reflective": ["TO:AUE", 93], "reactive": ["TO:AUE", 94],
+            "ferro-lamellor": ["TO:AUE", 92], "modular": ["TO:AUE", 93], "patchwork": ["TO:AUE", 189],
+            "primitive": ["IO:AE", 118], "ferro-fibrous-prototype": ["IO:AE", 66],
+            "anti-penetrative-ablation": ["IO:AE", 80], "ballistic-reinforced": ["IO:AE", 81],
+            "heat-dissipating": ["IO:AE", 81], "impact-resistant": ["IO:AE", 81],
+        };
+        for (const item of mechArmorTypes) {
+            if (!(item.tag in pages)) continue;
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+        for (const item of mechArmorTypes) {
+            expect(item.book, item.tag).toBeTruthy();
+            expect(typeof item.page, item.tag).toBe("number");
+        }
+    });
+
+    it("uses null, not 0, for armor that never went extinct", () => {
+        for (const item of mechArmorTypes) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
+            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+
+    it("matches the published points per ton and cost for IndustrialMech and ProtoMech armor", () => {
+        // TM p.72: Commercial armor multiplies the 16 base points by 1.5; TM p.278: 3,000 C-bills per ton.
+        expect(armor("commercial")?.armorMultiplier).toEqual({ clan: 24, is: 24 });
+        expect(armor("commercial")?.costMultiplier).toBe(3000);
+        // TM p.86: each ProtoMech armor point weighs 50 kg, so 20 points per ton.
+        expect(armor("protomech-standard")?.armorMultiplier.clan).toBe(20);
+    });
+
+    it("restricts heat-dissipating, impact-resistant and primitive armor to the unit types their rules list", () => {
+        // IO:AE pp.81-82: "Available to: BM, IM"; the Advanced Armor Table shows N/A for vehicles and fighters.
+        for (const tag of ["heat-dissipating", "impact-resistant"]) {
+            expect(armor(tag)?.unitTypes.battlemech, tag).toBe(true);
+            expect(armor(tag)?.unitTypes.combatVehicle, tag).toBe(false);
+            expect(armor(tag)?.unitTypes.supportVehicle, tag).toBe(false);
+        }
+        // IO:AE p.115: primitive combat vehicles use support vehicle armor, not Primitive Armor.
+        expect(armor("primitive")?.unitTypes.combatVehicle).toBe(false);
+        expect(armor("primitive")?.unitTypes.supportVehicle).toBe(false);
+    });
+});
+
+describe("Batch 6b vehicle and ProtoMech armor", () => {
+    const armor = (tag: string) => mechArmorTypes.find(item => item.tag === tag);
+
+    it("keeps BattleMech Stealth armor off vehicles (TM p.206)", () => {
+        expect(armor("stealth-basic")?.unitTypes.battlemech).toBe(true);
+        expect(armor("stealth-basic")?.unitTypes.combatVehicle).toBe(false);
+    });
+
+    it("lists Vehicular Stealth for vehicles and fighters only (TO:AUE p.94)", () => {
+        const stealth = armor("vehicular-stealth");
+        expect(stealth?.unitTypes).toMatchObject({ battlemech: false, combatVehicle: true, supportVehicle: true, aerospaceFighter: true });
+        expect(stealth?.armorMultiplier).toEqual({ clan: 0, is: 16 });
+        expect(stealth?.costMultiplier).toBe(50000);
+        expect([stealth?.prototype, stealth?.introduced, stealth?.extinct, stealth?.reintroduced]).toEqual([3067, 3084, null, null]);
+        expect([stealth?.book, stealth?.page]).toEqual(["TO:AUE", 94]);
+
+        const mech = new BattleMech();
+        mech.setEra("ilClan");
+        mech.setArmorType("vehicular-stealth");
+        expect(mech.getArmorType()).toBe("standard");
+    });
+
+    it("lists Electric Discharge ProtoMech armor as a ProtoMech-only prototype (IO:AE pp.58-59)", () => {
+        const edp = armor("protomech-edp");
+        expect(Object.entries(edp?.unitTypes ?? {}).filter(([, legal]) => legal).map(([type]) => type)).toEqual(["protomech"]);
+        // 75 kg per point.
+        expect(edp?.armorMultiplier).toEqual({ clan: 1000 / 75, is: 0 });
+        expect([edp?.prototype, edp?.introduced, edp?.extinct, edp?.reintroduced]).toEqual([3071, null, 3085, null]);
+        expect([edp?.book, edp?.page]).toEqual(["IO:AE", 58]);
+    });
+});
+
+describe("Batch 7 heat sink catalog", () => {
+    const sink = (tag: string) => mechHeatSinkTypes.find(item => item.tag === tag);
+
+    it("dates heat sinks from TM p.220 and the IO:AE p.36 advancement table", () => {
+        // TM p.220: "Introduced: Circa 2022 (Western Alliance, Terra)"; IO:AE lists them as Early Spaceflight.
+        expect(sink("single")?.introduced).toBe(2022);
+        expect([sink("double")?.prototype, sink("double")?.introduced, sink("double")?.extinct, sink("double")?.reintroduced]).toEqual([2559, 2567, 2865, 3040]);
+        expect(sink("double")?.clanDates).toEqual({ prototype: 2825, introduced: 2827, extinct: null, reintroduced: null });
+        expect(sink("laser")?.clanDates).toEqual({ prototype: 3040, introduced: 3051, extinct: null, reintroduced: null });
+        expect([sink("compact")?.prototype, sink("compact")?.introduced]).toEqual([3058, 3079]);
+    });
+
+    it("cites a book and page for every heat sink", () => {
+        const pages: Record<string, [string, number]> = {
+            single: ["TM", 220], double: ["TM", 221], laser: ["TO:AUE", 129], compact: ["TO:AUE", 128],
+            "double-prototype": ["IO:AE", 65], "double-freezers": ["IO:AE", 96],
+        };
+        for (const item of mechHeatSinkTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+    });
+
+    it("uses null, not 0, for heat sinks that never went extinct", () => {
+        for (const item of mechHeatSinkTypes) {
+            expect(item.introduced, item.tag).not.toBe(0);
+            expect(item.extinct, item.tag).not.toBe(0);
+            expect(item.reintroduced, item.tag).not.toBe(0);
+            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
+            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
+        }
+    });
+});
+
+describe("Batch 8 cockpit catalog", () => {
+    const cockpit = (tag: string) => mechCockpitTypes.find(item => item.tag === tag);
+    const chassis = (type: string, tonnage: number) => {
+        const mech = new BattleMech();
+        mech.setEra("ilClan");
+        mech.setType(type);
+        mech.setTonnage(tonnage);
+        return mech;
+    };
+
+    it("weighs the superheavy tripod cockpit at 5 tons (IO:AE pp.156, 159)", () => {
+        expect(chassis("tripod", 150).getCockpitWeight()).toBe(5);
+        expect(chassis("tripod", 100).getCockpitWeight()).toBe(4);
+        expect(chassis("biped", 150).getCockpitWeight()).toBe(4);
+    });
+
+    it("prices chassis cockpits from the catalog without a provisional label (IO:AE pp.215, 217)", () => {
+        const html = chassis("tripod", 150).getCBillCalcHTML();
+        expect(html).toContain("<strong>Superheavy Tripod 'Mech Cockpit</strong></td><td>500,000</td>");
+        expect(chassis("biped", 150).getCBillCalcHTML()).toContain("<strong>Superheavy BattleMech Cockpit</strong></td><td>300,000</td>");
+        expect(chassis("quadvee", 60).getCBillCalcHTML()).toContain("<strong>QuadVee Cockpit</strong></td><td>375,000</td>");
+        expect(chassis("tripod", 60).getCBillCalcHTML()).toContain("<strong>Tripod 'Mech Cockpit</strong></td><td>400,000</td>");
+    });
+
+    it("lists every 'Mech cockpit with its published weight and cost", () => {
+        // tag: [tons, C-bills]
+        const stats: Record<string, [number, number]> = {
+            "standard": [3, 200000], "small": [2, 175000],                                  // TM pp.211, 277
+            "industrial": [3, 100000], "industrial-advanced-fire-control": [3, 200000],     // TM pp.211, 277
+            "primitive": [5, 200000], "primitive-industrial": [5, 100000],                  // IO:AE p.117
+            "torso-mounted": [4, 750000], "command-console": [3, 500000],                   // TO:AUE pp.112-113, 219
+            "interface": [4, 1500000],                                                      // IO:AE pp.110, 213
+            "direct-neural-interface": [0, 500000],                                         // IO:AE pp.62, 213
+            "quadvee": [4, 375000], "tripod": [4, 400000],                                  // IO:AE pp.128, 159, 215, 217
+            "superheavy": [4, 300000], "superheavy-industrial": [4, 200000],                // IO:AE pp.156, 215
+            "superheavy-tripod": [5, 500000],                                               // IO:AE pp.156, 217
+        };
+        expect(mechCockpitTypes.map(item => item.tag).sort()).toEqual(Object.keys(stats).sort());
+        for (const item of mechCockpitTypes) {
+            expect([item.weight, item.cost], item.tag).toEqual(stats[item.tag]);
+        }
+    });
+
+    it("dates cockpits from the IO:AE p.33-34 universal advancement table", () => {
+        // tag: [prototype, production, extinct, reintroduced]
+        const dates: Record<string, [number | undefined, number | null, number | null, number | null]> = {
+            "standard": [2468, 2470, null, null],
+            "small": [3060, 3067, null, null],
+            "industrial": [2469, 2470, null, null],
+            "industrial-advanced-fire-control": [2469, 2470, null, null],
+            "primitive": [2430, 2439, 2520, null],
+            "primitive-industrial": [2300, 2350, 2520, null],
+            "torso-mounted": [3053, 3080, null, null],
+            "command-console": [2625, 2631, 2850, 3030],
+            "interface": [3074, null, null, null],
+            "direct-neural-interface": [3052, 3055, null, null],
+            "quadvee": [3130, 3135, null, null],
+            "tripod": [2590, 2602, null, null],
+            "superheavy": [3060, 3076, null, null],
+            "superheavy-industrial": [2905, 2940, null, null],
+            "superheavy-tripod": [3130, 3135, null, null],
+        };
+        for (const item of mechCockpitTypes) {
+            expect([item.prototype, item.introduced, item.extinct, item.reintroduced], item.tag).toEqual(dates[item.tag]);
+        }
+        expect(cockpit("small")?.clanDates).toEqual({ introduced: 3080, extinct: null, reintroduced: null });
+        expect(cockpit("torso-mounted")?.clanDates).toEqual({ prototype: 3055, introduced: 3080, extinct: null, reintroduced: null });
+        // The Clans never lost the Command Console; only the Inner Sphere did (IO:AE p.33).
+        expect(cockpit("command-console")?.clanDates).toEqual({ introduced: 2631, extinct: null, reintroduced: null });
+        expect(cockpit("interface")?.clanDates).toEqual({ prototype: 3083, introduced: null, extinct: null, reintroduced: null });
+    });
+
+    it("cites a book and page for every cockpit and marks what the builder supports", () => {
+        const pages: Record<string, [string, number]> = {
+            "standard": ["TM", 211], "small": ["TM", 211], "industrial": ["TM", 211], "industrial-advanced-fire-control": ["TM", 211],
+            "primitive": ["IO:AE", 117], "primitive-industrial": ["IO:AE", 117],
+            "torso-mounted": ["TO:AUE", 113], "command-console": ["TO:AUE", 113],
+            "interface": ["IO:AE", 110], "direct-neural-interface": ["IO:AE", 62],
+            "quadvee": ["IO:AE", 128], "tripod": ["IO:AE", 159],
+            "superheavy": ["IO:AE", 156], "superheavy-industrial": ["IO:AE", 156], "superheavy-tripod": ["IO:AE", 156],
+        };
+        for (const item of mechCockpitTypes) {
+            expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
+        }
+        expect(mechCockpitTypes.filter(item => item.constructionStatus === "implemented").map(item => item.tag).sort())
+            .toEqual(["quadvee", "small", "standard", "superheavy", "superheavy-tripod", "tripod"]);
+        // Small (TM p.304) and Torso-Mounted (TO:AUE p.193) cockpits multiply the final BV by 0.95.
+        expect(cockpit("small")?.bvMultiplier).toBe(0.95);
+        expect(cockpit("torso-mounted")?.bvMultiplier).toBe(0.95);
     });
 });

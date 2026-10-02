@@ -106,6 +106,10 @@ export interface IEngineType {
     available?: boolean;
     /** Set when the engine is offered only as an Experimental prototype. */
     availableAsPrototype?: boolean;
+    /** Rulebook abbreviation for the construction rule (TM, TO:AUE, IO). */
+    book?: string;
+    /** Printed page in `book`. */
+    page?: number;
 }
 
 export interface IDamagePerRange {
@@ -335,6 +339,8 @@ export interface IGyro {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    book?: string;
+    page?: number | null;
     available?: boolean;
     availableAsPrototype?: boolean;
 }
@@ -344,6 +350,32 @@ export interface ITechDates {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+}
+
+export interface ICockpitType {
+    name: string;
+    tag: string;
+    /** Tons. For an add-on (Command Console) this is the weight added to the base cockpit. */
+    weight: number;
+    cost: number;
+    /** Multiplier on the final BV (Small: TM p.304; Torso-Mounted: TO:AUE p.193). */
+    bvMultiplier?: number;
+    /** Only this technology base builds it. */
+    techBase?: "is" | "clan";
+    /** Mounted alongside another cockpit instead of replacing it. */
+    addOn?: boolean;
+    /** "implemented": the 'Mech builder mounts it; "deferred": catalogued for reference only. */
+    constructionStatus: "implemented" | "deferred";
+    book: string;
+    page: number;
+    notes?: string;
+    /** IO prototype year, when it precedes `introduced`. */
+    prototype?: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the Inner Sphere dates above. */
+    clanDates?: ITechDates;
 }
 
 export interface IHeatSync {
