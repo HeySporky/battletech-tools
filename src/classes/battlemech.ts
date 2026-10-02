@@ -9,7 +9,7 @@ import { getCockpitType } from "../data/mech-cockpit-types";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
-import { engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
+import { describeEngineRequirement, engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
@@ -738,9 +738,13 @@ export class BattleMech {
             critArray.forEach((item) => {
                 if (!item || !item.obj) return;
                 if (BattleMech._isExplosiveAmmoSlot(item.obj)) {
+                    // An Extended Fuel Tank fills several slots, each an ammunition bin (TM p.244).
+                    const ammoSlots = item.obj.explosiveAsAmmo ? Math.max(1, item.crits ?? 1) : 1;
                     if (penalised) {
-                        this._calcLogBV += `Explosive Ammo Crit in ${longKey} (${techLabel}, -15)<br />`;
-                        explosiveAmmoModifiers += 15;
+                        for (let slot = 0; slot < ammoSlots; slot++) {
+                            this._calcLogBV += `Explosive Ammo Crit in ${longKey} (${techLabel}, -15)<br />`;
+                            explosiveAmmoModifiers += 15;
+                        }
                     } else if (logProtected) {
                         this._calcLogBV += `Explosive Ammo in ${longKey} protected by ${protection}. Penalty negated (0).<br />`;
                     }
@@ -5820,7 +5824,7 @@ export class BattleMech {
                 violations.push(`${item.name} needs Advanced Fire Control on an IndustrialMech.`);
             }
             if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) {
-                violations.push(`${item.name} needs a ${item.requiresEngine === "fusion" ? "fusion" : "fusion or fission"} engine.`);
+                violations.push(`${item.name} needs ${describeEngineRequirement(item.requiresEngine!)}.`);
             }
             if (item.industrialMechOnly && !this.isIndustrialMech()) {
                 violations.push(`${item.name} can only be mounted on an IndustrialMech.`);
@@ -8308,7 +8312,7 @@ export class BattleMech {
      * lasers, etc.): -1 BV per slot (TM p.302), unlike explosive ammunition at -15 per slot.
      */
     private static _isExplosiveComponent(item: IEquipmentItem): boolean {
-        return !item.isAmmo && !BattleMech._isLAMInternalStore(item) && (item.gauss === true || item.explosive === true);
+        return !item.isAmmo && !item.explosiveAsAmmo && !BattleMech._isLAMInternalStore(item) && (item.gauss === true || item.explosive === true);
     }
 
     /**
@@ -8321,7 +8325,7 @@ export class BattleMech {
 
     /** Slots that take the -15 explosive ammunition BV penalty (TM p.302). */
     private static _isExplosiveAmmoSlot(item: IEquipmentItem): boolean {
-        return (item.explosive === true && item.isAmmo === true) || BattleMech._isLAMInternalStore(item);
+        return (item.explosive === true && (item.isAmmo === true || item.explosiveAsAmmo === true)) || BattleMech._isLAMInternalStore(item);
     }
 
     /**

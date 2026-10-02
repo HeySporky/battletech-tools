@@ -158,6 +158,9 @@ export interface IAmmoProfile {
     };
 }
 
+/** An engine an item needs (`IEquipmentItem.requiresEngine`). */
+export type EngineRequirement = "fusion" | "fusion-or-fission" | "ice-or-fuel-cell";
+
 export interface IEquipmentItem {
     catalog?: "is" | "clan" | "custom" | "universal";
     metadata?: IEquipmentMetadata;
@@ -246,6 +249,8 @@ export interface IEquipmentItem {
     ammoPerTon?: number;
     minAmmoTons?: number;
     explosive?: boolean;
+    /** Treated as an ammunition bin: each slot counts as explosive ammunition for Battle Value (Extended Fuel Tanks, TM p.244). */
+    explosiveAsAmmo?: boolean;
     gauss?: boolean;
     /**
      * Slots that take the -1 explosive component BV penalty, when not all of them:
@@ -319,8 +324,8 @@ export interface IEquipmentItem {
     battleValueFinalMultiplier?: number;
     /** Coolant Pod: raises the heat sink capacity used for Battle Value (TO:AUE p.193). */
     coolantPod?: boolean;
-    /** Engine the unit must have: fusion, or fusion or fission. Unset = any engine. */
-    requiresEngine?: "fusion" | "fusion-or-fission";
+    /** Engine the unit must have: fusion; fusion or fission; or ICE or fuel cell. Unset = any engine. */
+    requiresEngine?: EngineRequirement;
     /** Bombs: bomb bay (or fighter bomb) slots one bomb occupies. Bombs are loaded, not mounted. */
     bombBaySlots?: number;
 }

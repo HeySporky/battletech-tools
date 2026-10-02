@@ -1406,3 +1406,27 @@ Flags:
 - Primitive IndustrialMechs keep Commercial armor only (IO:AE p.118).
 
 Regression tests: `Dark Age armors on IndustrialMechs` in `battlemech-industrial-primitive.test.ts`.
+
+## Batch 60: Environmental Sealing and Extended Fuel Tanks for IndustrialMechs
+
+Owed from Batch 56. Environmental Sealing had a record; it was offered to BattleMechs and rounded its weight to the half ton. Extended Fuel Tanks had no record.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Environmental Sealing: units | mech-universal-equipment | **fixed** | TM p.216 | TM v8.0: none | "BattleMechs ... may not install environmental sealing (as they receive it automatically)". Now `industrialMechOnly`: not offered to a BattleMech, and a violation if one carries it |
+| Environmental Sealing: weight | variable-equipment.ts | **fixed** | TM pp.70, 216 | none | TM p.70 table: "Percentage of the IndustrialMech's total weight (in tons). Round this figure up to the nearest full ton"; p.216: "rounded up as appropriate to the unit's core construction rules". Was rounded to the half ton (a 55-ton IndustrialMech got 5.5 tons; now 6). Slots (8, one per location) and cost (225 x tonnage, TM p.278) unchanged. The book's Uni (70 tons, 7 tons) is a test |
+| Extended Fuel Tank | mech-universal-equipment; variable-equipment.ts | **added** | TM pp.68, 244 | none | "Only IndustrialMechs and Combat Vehicles with ICEs or Fuel Cell engines may install extended fuel tanks". "Weighs 10 percent of the unit's engine weight (rounded up to the nearest half ton). There is no special limit to the number of tanks". 'Mech slots "equal to the tank's tonnage (rounded up); these critical spaces can only be located in the Torso locations" |
+| Extended Fuel Tank: cost | mech-universal-equipment | **added** | TM p.292 | none | "Extended Fuel Tanks (per ton)* 500" |
+| Extended Fuel Tank: dates | mech-universal-equipment | **added** | IO:AE (advancement table, "Extended Fuel Tanks All/C CDDC ES ~2300 (TA) 2300 244, TM") | IO:AE v3.01: none | Prototype Early Spaceflight, stored as 2100 as for the other ES records; production 2300; Tech Rating C |
+| Extended Fuel Tank: Battle Value | battlemech.ts | **added (reading)** | TM pp.244, 302 | none | "Each filled or partially filled extended fuel tank is treated as an ammo bin in combat, and will explode for 40 points per ton". TM p.302 takes 15 points "per critical space of explosive ammo". Each tank slot counts as explosive ammunition (new record field `explosiveAsAmmo`), not as an explosive component |
+| ICE or fuel cell engine requirement | mech-engine-types.ts; battlemech.ts | **added** | TM p.244 | none | `requiresEngine: "ice-or-fuel-cell"`. Not offered with any other engine; a tank left on a design whose engine changes reports "needs an ICE or fuel cell engine" |
+
+Flags:
+
+- **Combat Vehicles** may also carry Extended Fuel Tanks (one slot in the Body, TM p.244). The vehicle builder cannot size variable equipment yet, so the record has no Combat Vehicle slot value and is not offered to vehicles.
+- **Battle Value of the tanks is a reading.** The BV rules (TM p.302) name explosive ammunition; the tank rule (TM p.244) says the tank "is treated as an ammo bin in combat". MegaMek was not checked.
+- **Range and fuel use** (600 km per tank for an ICE, 450 km for a fuel cell; TM p.68) are not shown: fuel is not tracked in Total Warfare play.
+- **A tank larger than one torso's free slots** cannot be split across torsos.
+- **Play rules** (the 40-point explosion per ton; Environmental Sealing letting an IndustrialMech submerge or work in vacuum) are not modeled.
+
+Regression tests: `Environmental Sealing`, `Extended Fuel Tanks` in `battlemech-industrial-primitive.test.ts`; `variable-equipment.test.ts`.
