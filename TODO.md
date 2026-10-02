@@ -356,22 +356,40 @@ played first, then by dependency.
   pp.29, 215; Improved Large Laser / Pulse Laser years p.89 vs p.37; Clan claws (3090 as a prototype,
   no production year); primitive prototype missile shots per ton and SRM range (p.112 text vs p.210
   table); TO:AUE p.219 large engine dates vs IO:AE p.38.
-- [ ] Missing misc equipment that needs rules support. Done (Batches 37-41): Coolant Pod with its BV rule,
-  RISC Heat Sink Override Kit (final BV x1.01), Prototype Improved Jump Jets, fusion / fission engine
-  requirements for TSEMP and Taser, one Viral Jammer of any type, the cockpit selector with IndustrialMech
-  Advanced Fire Control (BV x0.9, equipment limits). Still owed: MRM Apollo FCS, C3 Remote Sensor Launcher,
-  Collapsible Command Module, Full-Head Ejection System, HarJel II / III, RISC Laser Pulse Module, Jump
-  Pack / Drop Pack, IndustrialMech Ejection Seat, superheavy IndustrialMech cockpit. Light Active Probe
+- [x] Misc equipment that needed rules support (Batches 37-48): Coolant Pod, RISC Heat Sink Override Kit,
+  Prototype Improved Jump Jets, engine requirements for TSEMP and Taser, one Viral Jammer, the cockpit
+  selector with IndustrialMech Advanced Fire Control (plain cockpit is the default, as in the book),
+  HarJel II / III with their armor BV rule, RISC Laser Pulse Module (six laser records), MRM Apollo FCS
+  (and MRM to-hit +1), C3 Remote Sensor Launcher, Collapsible Command Module, Full-Head Ejection System,
+  IndustrialMech Ejection Seat, Superheavy IndustrialMech Cockpit and superheavy engine limits.
+  Not builder items: the Jump Pack / Drop Pack is external cargo (TO:AUE pp.104-105). Light Active Probe
   [IS] and Light TAG [IS] have no 'Mech-scale stats in the TM Inner Sphere table.
-  Confirm: IndustrialMechs default to the Advanced Fire Control cockpit (old behaviour); the book default
-  is the plain cockpit. The cockpit select in step 2 has not been exercised in a browser.
+  Open: the cockpit select in step 2 has not been exercised in a browser; Torso-Mounted Cockpit and
+  Command Console are not selectable (the Full-Head Ejection System must exclude them when they are).
 - [x] Superheavy 'Mechs (IO:AE pp.154-157): large engines (Batch 16), gyro weight and BV (14), equipment
   bans (21), structure table and types (22), half-size critical space (24), Inner Sphere tech base only
   (25), Long Tom on superheavies (29), two tons of ammunition per slot (30). The SHP-4X Omega example
   builds exactly and is a regression test. Not modeled: the superheavy critical hit rules in play (p.154).
-- [ ] Domain catalogs not started: aerospace and capital armor (SO:AA p.140), Support Vehicle BAR armor,
-  battle armor armor and equipment, ProtoMech heat sinks / jump jets / cockpits, capital and sub-capital
-  weapons (new literal catalogs, never 'Mech-legal).
+- [ ] Domain catalogs. Done (Batches 49-54): `capital-weapons.ts` and `sub-capital-weapons.ts` (never
+  'Mech-legal), `aerospace-armor-types.ts` (fighter, DropShip and capital armor), `support-vehicle-armor.ts`
+  (BAR 2-10), `protomech-components.ts`, `battle-armor-armor-types.ts`, IndustrialMech armor (Industrial,
+  Commercial), and 26 industrial items of TM pp.344-345. Still owed: battle armor chassis, motive systems,
+  manipulators and weapons; ProtoMech UMU, engine and structure-point tables; capital missile large-craft
+  slot columns (Strategic Operations), Naval C3 and other large-craft systems; the variable-size industrial
+  items (Communications Equipment, Dumper, Extended Fuel Tanks, Ladder, Pintle Mount, Power Amplifiers,
+  transport bays); Primitive small and large craft armor.
+- [x] Placement limits (Batch 55): torso-only, arm-only and one-per-location rules of TM pp.210-249 and the
+  Artemis IV all-launchers rule. Not checked: actuator removal for industrial tools and hatchets, vehicle
+  placement rules, Artemis V / prototype Artemis.
+- [x] The vehicle builder no longer offers equipment with no combat vehicle slot value (Batch 54).
+- [ ] For the user to rule on (ledger flags): Tech Rating of capital missiles (TechManual D / E against
+  IO:AE E / F; IO:AE used); capital ammunition cost and BV units (per shot or per ton); Dark Age armors on
+  IndustrialMechs under Experimental Mixed-Tech rules (not offered); C3 Remote Sensor pods recorded as
+  explosive (MegaMek: not); HarJel II / III -1 per slot not removed by CASE (MegaMek: removed).
+- [ ] Still owed before the PRs: missile `damageAero` convention, Nail Gun range dash, source search for
+  the custom catalogs, Alpha Strike conversions marked unresolved, play-rule items, the import
+  "ask the importer" step, review of `tools/spec-c-sources-staging.jsonl`; then prepare (not open) the
+  upstream equipment PR and the SSW audit PR.
 - [ ] Re-cite the LAM and QuadVee comments in `battlemech.ts` that still give IO (2016) pages (pp.105-196)
   to IO:AE, checking each page.
 - [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
