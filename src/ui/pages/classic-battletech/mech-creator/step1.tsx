@@ -62,10 +62,22 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    togglePrimitive = ( e: React.FormEvent<HTMLInputElement>): void => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setPrimitive( !currentMech.isPrimitive() );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
     updateTech = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setTech( e.currentTarget.value);
+        // A Clan tech base has no superheavy tonnages (IO:AE p.154).
+        this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
         this.setState({ updated: !this.state.updated });
       }
@@ -97,7 +109,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( currentMech.isOmnimech && !currentMech.canBeOmniMech( rulesLevel ) ) {
         currentMech.toggleOmni( rulesLevel );
       }
-      const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel );
+      const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel, currentMech.getTech().tag );
       const tonnage = currentMech.getTonnage();
       if( tonnage < min ) {
         currentMech.setTonnage( min );
@@ -271,6 +283,25 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             <p key={violation} className="color-red smaller-text">{violation}</p>
                           ))}
 
+                          {this.props.appGlobals.currentBattleMech.isPrimitive() || this.props.appGlobals.currentBattleMech.canBePrimitive() ? (
+                            <>
+                              <InputCheckbox
+                                label="Is a Primitive 'Mech"
+                                checked={this.props.appGlobals.currentBattleMech.isPrimitive()}
+                                onChange={this.togglePrimitive}
+                              />
+                              {this.props.appGlobals.currentBattleMech.isPrimitive() ? (
+                                <p className="smaller-text">
+                                  Primitive {this.props.appGlobals.currentBattleMech.isIndustrialMech() ? "IndustrialMech" : "BattleMech"} (IO:AE pp.116-118):
+                                  the engine rating is Walking MP x tonnage x 1.2, with a 5-ton Primitive cockpit,
+                                  {this.props.appGlobals.currentBattleMech.isIndustrialMech() ? " Commercial" : " Primitive"} armor, a standard gyro and single heat sinks.
+                                  Choose Industrial structure below for a Primitive IndustrialMech.
+                                  With equipment introduced after 2500 it is a RetroTech unit.
+                                </p>
+                              ) : null}
+                            </>
+                          ) : null}
+
                           <label>
                             Mech Era:
                             <select
@@ -299,7 +330,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             >
                             {getAvailableTonnagesForMechType(
                               this.props.appGlobals.currentBattleMech.getType().tag,
-                              this.props.appGlobals.appSettings.mechRulesFilter
+                              this.props.appGlobals.appSettings.mechRulesFilter,
+                              this.props.appGlobals.currentBattleMech.getTech().tag
                             ).map( (option) => {
                               return (
                                 <option key={option.tons} value={option.tons}>{option.tons} ({option.type})</option>
