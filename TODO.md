@@ -309,6 +309,11 @@ played first, then by dependency.
 - [ ] Support vehicle construction (TechManual; large support vehicles and airships in TO), reusing the
   Combat Vehicle model: structural and armor tech ratings, chassis modifications, fixed-wing and airship
   types. MegaMek `battlefieldsupport` samples.
+- [ ] Support vehicle construction rules for each motive type (requested 2026-10-01): wheeled, tracked,
+  hover, VTOL, WiGE, naval, airship, fixed-wing and rail each need their own weight limits, chassis and
+  engine multipliers and legal equipment (TM support vehicle construction; large vehicles in TO:AUE).
+  Check every motive type against the book rather than reusing the Combat Vehicle numbers. Related:
+  Support Vehicle Armor BAR 2-10 is missing from the armor catalog (canon pass ledger, Batch 6).
 
 ## 6. BattleMech construction and play gaps
 
@@ -358,6 +363,122 @@ played first, then by dependency.
   cost and rules-level validation. Don't expose the placeholder aggregate profile until then.
 - [ ] Clans' pre-2825 use of Star League Ferro-Fibrous isn't modeled.
 - [ ] Colossal 'Mechs: construction and rules (source needed).
+
+### IndustrialMechs and Primitive 'Mechs
+
+- [ ] Make IndustrialMechs buildable (requested 2026-10-01): a chassis choice that gates Industrial /
+  Commercial / Heavy Industrial armor (TM p.72, p.206), Industrial structure, IndustrialMech cockpits and
+  fire control, engine choices, and the IndustrialMech cost and BV rules. Today only the Industrial
+  structure exists; Commercial armor is in the catalog but is not offered to any 'Mech.
+- [ ] Make Primitive BattleMechs and Primitive IndustrialMechs buildable (requested 2026-10-01): engine
+  rating x1.2, Primitive armor (x0.67), primitive cockpit, and the era window 2439-2520 (IO:AE pp.115-118,
+  p.44). The primitive engine and armor records exist; the construction mode does not.
+- [ ] Then lift the SSW import skip for these designs (section 2, 234 designs).
+
+### Canon equipment pass: still owed (branch `feature/canon-equipment-pass`, ledger `tools/canon-pass-ledger.md`)
+
+- [x] Special munitions (Batches 12c, 12d, 20, 23): all records dated and cited from IO:AE pp.53-56;
+  21 Inner Sphere munitions moved out of the universal ammo catalog; Dead-Fire BV per launcher; the four
+  Rotary AC Caseless rounds moved to the custom catalog (TO:AUE p.164). Open: no ProtoMech AC specialty
+  rounds exist, though IO:AE p.53 lists them for the PAC.
+- [x] Split by tech base (Batch 15): 'Mech Mortars, Artillery Cannons and the Laser Insulator are now
+  separate Inner Sphere and Clan records; Modular Armor has a Clan record. The Clan records keep the old
+  universal tag in `altTags` so saved designs load.
+- [x] Unsourced Clan records (Batch 13): Enhanced ER Large Laser and Enhanced Clan LRM 10 moved to the
+  custom catalogs. Still owed: a source search for everything in the custom catalogs, to cite what can
+  be cited.
+- [ ] Same-book conflicts: the errata were checked (IO v1.21, IO:AE v3.01; Batch 14) and rule on none
+  of them, so the catalog still follows MegaMek and each is flagged in the ledger: IO:AE armor BV
+  modifiers p.185 vs p.190; primitive cockpit cost p.117 vs p.215; Heat-Dissipating Clan year p.81 vs
+  pp.29, 215; Improved Large Laser / Pulse Laser years p.89 vs p.37; Clan claws (3090 as a prototype,
+  no production year); primitive prototype missile shots per ton and SRM range (p.112 text vs p.210
+  table); TO:AUE p.219 large engine dates vs IO:AE p.38.
+- [x] Misc equipment that needed rules support (Batches 37-48): Coolant Pod, RISC Heat Sink Override Kit,
+  Prototype Improved Jump Jets, engine requirements for TSEMP and Taser, one Viral Jammer, the cockpit
+  selector with IndustrialMech Advanced Fire Control (plain cockpit is the default, as in the book),
+  HarJel II / III with their armor BV rule, RISC Laser Pulse Module (six laser records), MRM Apollo FCS
+  (and MRM to-hit +1), C3 Remote Sensor Launcher, Collapsible Command Module, Full-Head Ejection System,
+  IndustrialMech Ejection Seat, Superheavy IndustrialMech Cockpit and superheavy engine limits.
+  Not builder items: the Jump Pack / Drop Pack is external cargo (TO:AUE pp.104-105). Light Active Probe
+  [IS] and Light TAG [IS] have no 'Mech-scale stats in the TM Inner Sphere table.
+  Open: the cockpit select in step 2 has not been exercised in a browser; Torso-Mounted Cockpit and
+  Command Console are not selectable (the Full-Head Ejection System must exclude them when they are).
+- [x] Superheavy 'Mechs (IO:AE pp.154-157): large engines (Batch 16), gyro weight and BV (14), equipment
+  bans (21), structure table and types (22), half-size critical space (24), Inner Sphere tech base only
+  (25), Long Tom on superheavies (29), two tons of ammunition per slot (30). The SHP-4X Omega example
+  builds exactly and is a regression test. Not modeled: the superheavy critical hit rules in play (p.154).
+- [ ] Domain catalogs. Done (Batches 49-54): `capital-weapons.ts` and `sub-capital-weapons.ts` (never
+  'Mech-legal), `aerospace-armor-types.ts` (fighter, DropShip and capital armor), `support-vehicle-armor.ts`
+  (BAR 2-10), `protomech-components.ts`, `battle-armor-armor-types.ts`, IndustrialMech armor (Industrial,
+  Commercial), and 26 industrial items of TM pp.344-345. Still owed: battle armor chassis, motive systems,
+  manipulators and weapons; ProtoMech UMU, engine and structure-point tables; capital missile large-craft
+  slot columns (Strategic Operations), Naval C3 and other large-craft systems; the variable-size industrial
+  items (Communications Equipment, Dumper, Extended Fuel Tanks, Ladder, Pintle Mount, Power Amplifiers,
+  transport bays); Primitive small and large craft armor.
+- [x] Placement limits (Batch 55): torso-only, arm-only and one-per-location rules of TM pp.210-249 and the
+  Artemis IV all-launchers rule. Not checked: actuator removal for industrial tools and hatchets, vehicle
+  placement rules, Artemis V / prototype Artemis.
+- [x] The vehicle builder no longer offers equipment with no combat vehicle slot value (Batch 54).
+- [ ] For the user to rule on (ledger flags): Tech Rating of capital missiles (TechManual D / E against
+  IO:AE E / F; IO:AE used); capital ammunition cost and BV units (per shot or per ton); Dark Age armors on
+  IndustrialMechs under Experimental Mixed-Tech rules (not offered); C3 Remote Sensor pods recorded as
+  explosive (MegaMek: not); HarJel II / III -1 per slot not removed by CASE (MegaMek: removed).
+- [ ] Still owed before the PRs: missile `damageAero` convention, Nail Gun range dash, source search for
+  the custom catalogs, Alpha Strike conversions marked unresolved, play-rule items, the import
+  "ask the importer" step, review of `tools/spec-c-sources-staging.jsonl`; then prepare (not open) the
+  upstream equipment PR and the SSW audit PR.
+- [ ] Re-cite the LAM and QuadVee comments in `battlemech.ts` that still give IO (2016) pages (pp.105-196)
+  to IO:AE, checking each page.
+- [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
+  unresolved.
+- [x] Newer errata, 'Mech catalogs: TechManual v8.0 and BV sheet v4.1 (Batches 26-28), TO:AUE v7.0 and the
+  two IO sheets (14, 17), Total Warfare v11.01 (30), TO:AR v7.0 and SO:AAR v5.0 (34). The TechManual sheets
+  for vehicle, ProtoMech, infantry and aerospace BV go with the domain catalogs.
+- [x] Statistics audits: IO:AE prototype tables (Batch 14), TechManual tables (Batch 18), TO:AUE tables
+  (Batch 19). Not covered: rows the name matcher could not pair (ProtoMech and battle armor weapons,
+  capital weapons, industrial items priced per ton) and the special munition statistics (damage,
+  rounds per ton, cost).
+- [x] `_calcBattleValue` sorted `_equipmentList` in place; it now sorts a copy (Batch 27). The lazy
+  refresh after a critical slot move is no longer needed for that reason and can be made direct.
+- [ ] Vehicles have no era check on engine types, so large engine dates (Batch 16) apply to 'Mechs only.
+- [x] Physical weapon to-hit modifiers (Batch 32, TW p.146 and TO:AUE p.216); one Supercharger per unit
+  (Batch 21). Owed: play tracking adds the modifier to a Gunnery roll; physical attacks use Piloting.
+- [x] Missing records (Batches 31, 34-36): Vehicular Grenade Launcher, Recon Camera, Primitive Prototype
+  Long Tom and torpedo launchers, TSEMP Cannon / One-Shot / RISC Repeating, RISC Viral Jammers, BattleMech
+  Taser and ammunition. The Clan ER PPC with Capacitor moved from custom to canon (IO:AE pp.40, 190, 197),
+  reversing the 2026-09-28 classification: confirm.
+- [ ] Missile launcher `damageAero` holds 3 for every LRM size (the tables give 3 / 6 / 9 / 12). Check
+  how the aerospace code reads it before changing the catalog.
+- [ ] The Nail/Rivet Gun has no medium or long range bracket (TM p.344); the record stores 0 and the
+  record sheet prints 1/0/0. Print a dash for a missing bracket.
+- [ ] Cockpit slots (Batch 24): Tripod, superheavy and QuadVee cockpits now sit in the head only, per the
+  IO:AE record sheets. The center torso slot was in upstream too: call it out in the equipment PR.
+- [ ] Battle Value (Batches 26, 27): explosive penalty by location, CASE II, floor of 1, weapon order by
+  Modified BV. Owed: IndustrialMech Offensive Battle Rating x0.9 without Advanced Fire Control (TM p.304)
+  needs a fire control choice (TM p.69); prototype CASE is not counted as CASE; `hasXLEngine()` answers
+  true for Light and Clan XL engines and drives the "wrecked" check in play tracking.
+- [x] Unit slot columns (Batches 28, 29, 33): ProtoMech, vehicle and aerospace slots follow the TM and
+  TO:AUE tables; ProtoMech AC/8 set to the book's 1. Flag: Clan A-Pod prints NA for vehicles on TM p.343
+  against 1 on the Inner Sphere row. No records exist for the Support Vehicle items of TM pp.344-345.
+- [ ] TM equipment limits not modeled: torso-only weapons (Heavy Gauss), one industrial item per location.
+
+### Cockpits
+
+- [ ] Cockpit selector (found in the canon pass, Batch 8): `mech-cockpit-types.ts` on
+  `feature/canon-equipment-pass` catalogues 15 'Mech cockpits, but the builder only mounts Standard,
+  Small and the chassis cockpits. Still to wire: Torso-Mounted (2 CT slots, life support in the side
+  torsos, BV x0.95 with doubled CT armor, TO:AUE pp.112-113, 193), Command Console (add-on, 3 tons),
+  Interface / Machina Domini (gyro optional, IO:AE p.110), DNI modification, IndustrialMech and primitive
+  cockpits. Saved designs store only `sm_cockpit`; a cockpit tag needs a schema bump.
+- [ ] Enforce cockpit dates by era (Small Cockpit is offered in every era; IS 3067, Clan 3080).
+
+### Custom Homebrew
+
+- [ ] Compact 'Mechs under the Custom Homebrew rules level (requested 2026-10-01). Source: the *Best of
+  Future Wars* fanzine. The fanzine is not in `_KNOWLEDGE_DEV/` yet, so the rules still have to be found
+  and read before any design work; nothing is to be reconstructed from memory. Lead: 12 HeavyMetal Pro
+  files in `WorkingData_DEV/HMPdata/hmpFiles/FutureWars`. Goes in `mech-custom-*` only, gated by
+  `tag: "custom"`, never in canon lists or canon BV/PV math.
 
 ### Calculations and play
 
