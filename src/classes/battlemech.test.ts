@@ -5201,3 +5201,45 @@ describe("Batch 38 Coolant Pod (TO:AUE pp.116, 193)", () => {
         expect(mech.getBVCalcHTML()).toContain("Explosive Component Crit (Coolant Pod) in centerTorso (Inner Sphere, -1)");
     });
 });
+
+describe("Batch 39 RISC Heat Sink Override Kit (IO:AE pp.86, 190, 215)", () => {
+    const build = () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        mech.addEquipmentFromTag("standard-ppc", "is", "", false, undefined, "", false, [], undefined, undefined);
+        return mech;
+    };
+    const addKit = (mech: BattleMech) => mech.addEquipmentFromTag("risc-heat-sink-override-kit", "is", "", false, undefined, "", false, [], undefined, undefined);
+
+    it("lists the kit: 500 C-bills, no weight, no slots, 'Mechs only", () => {
+        expect(mechISEquipmentMisc.find(item => item.tag === "risc-heat-sink-override-kit")).toMatchObject({
+            name: "RISC Heat Sink Override Kit", cbills: 500, weight: 0, battleValue: 0, battleValueFinalMultiplier: 1.01,
+            space: { battlemech: 0, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+            prototype: 3134, introduced: null, extinct: 3139, reintroduced: null, techRating: "d", book: "IO:AE", page: 86,
+        });
+    });
+
+    it("takes no critical slot and no tonnage", () => {
+        const mech = build();
+        const before = { tons: mech.getRemainingTonnage(), slots: mech.getUnallocatedCritCount() };
+        expect(addKit(mech)).not.toBeNull();
+        expect({ tons: mech.getRemainingTonnage(), slots: mech.getUnallocatedCritCount() }).toEqual(before);
+        expect(mech.equipmentList.some(item => item.tag === "risc-heat-sink-override-kit")).toBe(true);
+    });
+
+    it("multiplies the final Battle Value by 1.01, once", () => {
+        const plain = build();
+        const unrounded = Number(/Rounded from ([\d.]+)/.exec(plain.getBVCalcHTML())?.[1]);
+        const one = build();
+        addKit(one);
+        expect(one.getBattleValue()).toBe(Math.round(unrounded * 1.01));
+        expect(one.getBattleValue()).toBeGreaterThan(plain.getBattleValue());
+        const two = build();
+        addKit(two);
+        addKit(two);
+        expect(two.getBattleValue()).toBe(one.getBattleValue());
+    });
+});

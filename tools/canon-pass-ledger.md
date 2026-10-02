@@ -1062,3 +1062,15 @@ Flag: TO:AUE's table prints 3049P / 3056P; IO:AE p.36 gives 3049 prototype, ~307
 Not modeled: triggering a pod in play (one a turn, once per battle).
 
 Regression tests: `Batch 38 Coolant Pod`.
+
+## Batch 39: RISC Heat Sink Override Kit
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| RISC Heat Sink Override Kit | mech-is-equipment-weapons-misc | **added** | IO:AE p.86 (rules); p.215 construction; p.190 BV; p.39 dates | v3.01: none | 500 C-bills; "can only be installed on a 'Mech, and occupies no weight or critical slots"; rating D; prototype 3134, gone 3139 |
+| Final Battle Value x1.01 | battlemech.ts | **added** | IO:AE p.190 | none | "Multiply unit's final BV by 1.01", applied after the Small Cockpit multiplier and before rounding, once however many kits are listed |
+| Equipment with no critical slots | battlemech.ts | added | IO:AE p.86 | none | the first record with 0 'Mech slots: it is carried in the equipment list ("must be noted among the unit's weapon list") and never enters the critical slot allocation |
+
+The book sets no limit on the number of kits, so none is enforced; extra kits change nothing.
+
+Regression tests: `Batch 39 RISC Heat Sink Override Kit`.

@@ -1053,6 +1053,16 @@ export class BattleMech {
             this._calcLogBV += `Small Cockpit Penalty Applied: Total multiplied by 0.95 -> Intermediate BV: ${finalBattleValue.toFixed(2)}<br />`;
         }
 
+        // Equipment that multiplies the final BV, once per kind (RISC Heat Sink Override Kit x1.01, IO:AE p.190).
+        const finalMultipliers = new Map<string, IEquipmentItem>();
+        for (const item of this._equipmentList) {
+            if (item?.battleValueFinalMultiplier) finalMultipliers.set(item.tag, item);
+        }
+        finalMultipliers.forEach(item => {
+            finalBattleValue *= item.battleValueFinalMultiplier!;
+            this._calcLogBV += `${this._escapeLogText(item.name)}: Total multiplied by ${item.battleValueFinalMultiplier} -> Intermediate BV: ${finalBattleValue.toFixed(2)}<br />`;
+        });
+
         // Execute absolute rounding to whole integer values (TM p. 304)
         const absoluteRoundedBV = Math.round(finalBattleValue);
         this._calcLogBV += `<strong>Final Unit Battle Value:</strong> ${absoluteRoundedBV} (Rounded from ${finalBattleValue.toFixed(2)})<br />`;
@@ -3740,6 +3750,11 @@ export class BattleMech {
                         movable: true,
                     });
                 }
+                continue;
+            }
+
+            // Equipment that takes no critical slot is carried but never placed (RISC Heat Sink Override Kit).
+            if( this._equipmentList[elc].space.battlemech === 0 ) {
                 continue;
             }
 
