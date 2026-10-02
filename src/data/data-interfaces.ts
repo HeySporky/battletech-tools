@@ -730,3 +730,36 @@ export interface IAerospaceArmorType {
     page: number;
     notes: string;
 }
+
+/** A ProtoMech cockpit, heat sink, jump jet system or internal structure (protomech-components.ts). */
+export interface IProtoMechComponent {
+    name: string;
+    tag: string;
+    kind: "cockpit" | "heat-sink" | "jump-jet" | "structure";
+    techBase: "is" | "clan" | "both";
+    /** Fixed weight in kilograms; null when it depends on the ProtoMech (see the two fields below). */
+    weightKg: number | null;
+    /** Jump jets: kilograms per Jumping MP by ProtoMech tonnage band. */
+    weightKgPerMP?: { minTons: number; maxTons: number; kg: number }[];
+    /** Structure: share of the ProtoMech's weight. */
+    weightFraction?: number;
+    /** Jump MP may reach Running MP instead of Walking MP. */
+    jumpAsRun?: boolean;
+    /** ProtoMech tonnage range the component is for. */
+    minTons: number;
+    maxTons: number;
+    /**
+     * C-bills: a fixed price, a price for each one mounted, `value` x the ProtoMech's tonnage, or
+     * `value` x Jumping MP squared x the ProtoMech's tonnage.
+     */
+    cost: { basis: "fixed" | "each" | "per-unit-ton" | "jump-squared-per-unit-ton"; value: number };
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    book: string;
+    page: number;
+    notes: string;
+}
