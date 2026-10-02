@@ -1,5 +1,12 @@
 import { IAlphaStrikeDamage } from "../classes/alpha-strike-unit";
 
+/** Notes the conversion turns into damage codes below ("LRM" into "LRM 1/1/1", "Indirect Fire" into "IF 1"). */
+const ALPHA_STRIKE_CONVERSION_KEYWORDS: readonly string[] = ["heat", "lrm", "flak", "ac", "srm", "missile", "msl", "rear", "indirect fire", "if"];
+
+export function isAlphaStrikeConversionKeyword(note: string): boolean {
+    return ALPHA_STRIKE_CONVERSION_KEYWORDS.includes(note.trim().toLowerCase());
+}
+
 export interface IAlphaStrikeExport {
     mechCreatorUUID: string;
     name: string;

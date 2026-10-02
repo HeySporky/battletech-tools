@@ -19,7 +19,8 @@ import { IVariableEquipmentContext, isTargetingComputerWeapon, sizeVariableEquip
 import { btTechOptions } from "../data/tech-options";
 import { getHexDistanceFromModifier, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
-import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
+import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
+import { isAlphaStrikeAbilityCode } from "../data/alpha-strike-special-abilities";
 import { generateUUID } from "../utils/generateUUID";
 import { ISSWBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import {
@@ -1877,8 +1878,12 @@ export class BattleMech {
 
                 if ( this._equipmentList[weapon_counter].alphaStrike.notes && this._equipmentList[weapon_counter].alphaStrike.notes.length && this._equipmentList[weapon_counter].alphaStrike.notes.length > 0) {
                     for (let nC = 0; nC < this._equipmentList[weapon_counter].alphaStrike.notes.length; nC++) {
-                        if (this._alphaStrikeForceStats.abilityCodes.indexOf(this._equipmentList[weapon_counter].alphaStrike.notes[nC]) === -1) {
-                            this._alphaStrikeForceStats.abilityCodes.push(this._equipmentList[weapon_counter].alphaStrike.notes[nC]);
+                        // Notes carry both ability codes and remarks ("Provisional workbook conversion"); only the
+                        // codes, and the keywords calculateAlphaStrikeValue turns into damage codes, go on the card.
+                        const note = this._equipmentList[weapon_counter].alphaStrike.notes[nC];
+                        if (this._alphaStrikeForceStats.abilityCodes.indexOf(note) === -1
+                            && (isAlphaStrikeAbilityCode(note) || isAlphaStrikeConversionKeyword(note))) {
+                            this._alphaStrikeForceStats.abilityCodes.push(note);
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "mel" ) {
