@@ -5492,3 +5492,138 @@ describe("Batch 43 HarJel II and III repair systems (IO:AE pp.82-83, 185, 215)",
         expect(isOmniFixedOnly(mechClanEquipmentMisc.find(item => item.tag === "clan-harjel-iii")!)).toBe(true);
     });
 });
+
+describe("Batch 44 RISC Laser Pulse Module (IO:AE pp.87, 190, 215)", () => {
+    // base laser tag, name, cost, BV, heat, tons, 'Mech slots
+    const lasers: [string, string, number, number, number, number, number][] = [
+        ["small-laser", "Small Laser", 11250, 9, 1, 0.5, 1],
+        ["medium-laser", "Medium Laser", 40000, 46, 3, 1, 1],
+        ["large-laser", "Large Laser", 100000, 123, 8, 5, 2],
+        ["er-small-laser", "ER Small Laser", 11250, 17, 2, 0.5, 1],
+        ["er-medium-laser", "ER Medium Laser", 80000, 62, 5, 1, 1],
+        ["er-large-laser", "ER Large Laser", 200000, 163, 12, 5, 2],
+    ];
+
+    it("lists each Inner Sphere standard and ER laser with the module attached", () => {
+        for (const [tag, name, cost, battleValue, heat, weight, slots] of lasers) {
+            const base = mechISEquipmentEnergy.find(item => item.tag === tag)!;
+            expect(base, tag).toMatchObject({ cbills: cost, battleValue, heat, weight });
+            expect(base.space.battlemech, tag).toBe(slots);
+            const modified = mechISEquipmentEnergy.find(item => item.tag === `${tag}-risc-pulse-module`);
+            expect(modified, tag).toMatchObject({
+                name: `${name} w/ RISC Laser Pulse Module`,
+                // +200,000 C-bills, +1 ton, +1 slot; +2 heat and -2 to hit in pulse mode; damage and range unchanged
+                cbills: cost + 200000, weight: weight + 1, heat: heat + 2, accuracyModifier: -2,
+                damage: base.damage, range: base.range,
+                space: { ...base.space, battlemech: slots + 1, supportVehicle: base.space.supportVehicle + 1 },
+                // The module's own slot is the explosive one.
+                explosive: true, explosiveBattleValueSlots: 1,
+                prototype: 3137, introduced: null, extinct: 3140, reintroduced: null, techRating: "f", book: "IO:AE", page: 87,
+            });
+            // x1.15 on the modified weapon only.
+            expect(modified!.battleValue, tag).toBeCloseTo(battleValue * 1.15, 6);
+        }
+    });
+
+    it("is offered to Inner Sphere designs at Experimental rules in the Dark Age only", () => {
+        const offered = (tech: string, era: string, rulesLevel: number) => {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            mech.setEra(era);
+            mech.setTonnage(50);
+            return !!mech.getAvailableEquipment(false, rulesLevel).find(item => item.tag === "medium-laser-risc-pulse-module")?.available;
+        };
+        expect(offered("is", "dark-ages", 4)).toBe(true);
+        expect(offered("is", "dark-ages", 2)).toBe(false);
+        expect(offered("is", "late-rep", 4)).toBe(false);
+        expect(offered("is", "ilClan", 4)).toBe(false);
+        expect(offered("clan", "dark-ages", 4)).toBe(false);
+    });
+
+    it("counts the weapon at x1.15 and one explosive slot in the Battle Value", () => {
+        const build = (tag: string) => {
+            const mech = new BattleMech();
+            mech.setTech("is");
+            mech.setEra("dark-ages");
+            mech.setTonnage(50);
+            mech.setWalkSpeed(4);
+            const laser = mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
+            const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === laser.uuid);
+            expect(mech.moveCritical("un", from, "la", mech.getCriticals().leftArm.findIndex(critical => !critical))).toBe(true);
+            return mech;
+        };
+        const weaponBV = (mech: BattleMech) => Number(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(mech.getBVCalcHTML())?.[1]);
+        const plain = build("large-laser");
+        const modified = build("large-laser-risc-pulse-module");
+        expect(weaponBV(modified)).toBeCloseTo(weaponBV(plain) * 1.15, 2);
+        // Three slots in the arm, one of them the module.
+        expect(modified.getCriticals().leftArm.find(critical => critical?.obj?.tag === "large-laser-risc-pulse-module")?.crits).toBe(3);
+        expect(modified.getBVCalcHTML()).toContain("Explosive Component Crit (Large Laser w/ RISC Laser Pulse Module) in leftArm (Inner Sphere, -1)");
+        expect(plain.getBVCalcHTML()).not.toContain("Explosive Component Crit");
+    });
+});
+
+describe("Batch 45 MRM Apollo Fire Control System (TO:AUE pp.143, 195, 221)", () => {
+    const sizes = [10, 20, 30, 40];
+
+    it("gives every standard MRM launcher its +1 to-hit modifier (TW p.303)", () => {
+        const launchers = mechISEquipmentMissiles.filter(item => /^mrm-\d+(-i?os)?$/.test(item.tag));
+        expect(launchers.length).toBe(12);
+        for (const launcher of launchers) {
+            expect(launcher.accuracyModifier, launcher.tag).toBe(1);
+        }
+    });
+
+    it("lists each MRM launcher with the Apollo attached", () => {
+        for (const size of sizes) {
+            const base = mechISEquipmentMissiles.find(item => item.tag === `mrm-${size}`)!;
+            const apollo = mechISEquipmentMissiles.find(item => item.tag === `mrm-${size}-apollo`);
+            expect(apollo, `mrm-${size}`).toMatchObject({
+                name: `MRM ${size} + Apollo FCS`,
+                // +1 ton, +1 slot, +125,000 C-bills; the +1 to-hit modifier is negated
+                cbills: base.cbills + 125000, weight: base.weight + 1, accuracyModifier: 0, heat: base.heat, range: base.range,
+                space: { ...base.space, battlemech: base.space.battlemech + 1, supportVehicle: base.space.supportVehicle + 1 },
+                shotsPerTon: base.shotsPerTon, ammoBattleValue: base.ammoBattleValue, ammoTypes: ["ammo-is-mrm-standard"],
+                prototype: 3065, introduced: 3071, extinct: null, reintroduced: null, techRating: "d", book: "TO:AUE", page: 143,
+            });
+            // "Increase by 15 percent the BV of any MRM launcher equipped with an Apollo FCS."
+            expect(apollo!.battleValue, `mrm-${size}`).toBeCloseTo((base.battleValue ?? 0) * 1.15, 6);
+        }
+    });
+
+    it("feeds from ordinary MRM ammunition", () => {
+        const apollo = mechISEquipmentMissiles.find(item => item.tag === "mrm-20-apollo")!;
+        expect(getWeaponAmmoFamilies(apollo)).toEqual(getWeaponAmmoFamilies(mechISEquipmentMissiles.find(item => item.tag === "mrm-20")!));
+    });
+
+    it("must be fitted to every standard MRM launcher on the unit", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(75);
+        const add = (tag: string) => mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
+        add("mrm-10-apollo");
+        add("mrm-30-apollo");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        // One-shot launchers are not "standard MRM launchers".
+        add("mrm-10-os");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        add("mrm-20");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["The MRM Apollo FCS must be fitted to every standard MRM launcher on the unit (MRM 20 has none)."]);
+    });
+
+    it("is offered from the Jihad on, and at Experimental rules as a prototype before 3071", () => {
+        const offered = (tech: string, era: string, rulesLevel: number) => {
+            const mech = new BattleMech();
+            mech.setTech(tech);
+            mech.setEra(era);
+            mech.setTonnage(50);
+            return !!mech.getAvailableEquipment(false, rulesLevel).find(item => item.tag === "mrm-10-apollo")?.available;
+        };
+        expect(offered("is", "dark-ages", 3)).toBe(true);
+        expect(offered("is", "jihad", 3)).toBe(true);
+        expect(offered("is", "civil-war", 4)).toBe(true);
+        expect(offered("is", "clan-inv", 4)).toBe(false);
+        expect(offered("clan", "dark-ages", 4)).toBe(false);
+    });
+});

@@ -5673,6 +5673,14 @@ export class BattleMech {
                 violations.push(`${names.join(" / ")}: ${count} mounted; at most ${item.maxPerUnit} allowed.`);
             }
         });
+        // "the MRM FCS must be incorporated on all of an individual unit's standard MRM Launchers" (TO:AUE p.142).
+        const mounted = this._equipmentList.filter(item => !!item);
+        if (mounted.some(item => /^mrm-\d+-apollo$/.test(item.tag))) {
+            const plain = Array.from(new Set(mounted.filter(item => /^mrm-\d+$/.test(item.tag)).map(item => item.name)));
+            if (plain.length > 0) {
+                violations.push(`The MRM Apollo FCS must be fitted to every standard MRM launcher on the unit (${plain.join(", ")} ${plain.length > 1 ? "have" : "has"} none).`);
+            }
+        }
         // "Units may not combine different HarJel repair systems" (IO:AE p.83).
         if (repairSystems.size > 1) {
             violations.push("HarJel II and HarJel III repair systems cannot be combined on one unit.");
