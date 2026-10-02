@@ -300,6 +300,8 @@ export interface IEquipmentItem {
     maxPerUnit?: number;
     /** Items sharing a group count together against `maxPerUnit` (the two RISC Viral Jammers: one of any type). */
     maxPerUnitGroup?: string;
+    /** Multiplier on the unit's final Battle Value, applied once however many are mounted (RISC Heat Sink Override Kit, IO:AE p.190). */
+    battleValueFinalMultiplier?: number;
     /** Coolant Pod: raises the heat sink capacity used for Battle Value (TO:AUE p.193). */
     coolantPod?: boolean;
     /** Engine the unit must have: fusion, or fusion or fission. Unset = any engine. */
