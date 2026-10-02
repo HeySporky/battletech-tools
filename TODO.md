@@ -362,18 +362,29 @@ played first, then by dependency.
 - [ ] Patchwork armor: per-location armor with each location's own tech base, points per ton, criticals,
   cost and rules-level validation. Don't expose the placeholder aggregate profile until then.
 - [ ] Clans' pre-2825 use of Star League Ferro-Fibrous isn't modeled.
-- [ ] Colossal 'Mechs: construction and rules (source needed).
+- [x] Colossal 'Mechs: IO:AE p.80 names the superheavy tripods "Colossals"; they build as a Tripod above 100
+  tons (Batches 21-30).
 
 ### IndustrialMechs and Primitive 'Mechs
 
-- [ ] Make IndustrialMechs buildable (requested 2026-10-01): a chassis choice that gates Industrial /
-  Commercial / Heavy Industrial armor (TM p.72, p.206), Industrial structure, IndustrialMech cockpits and
-  fire control, engine choices, and the IndustrialMech cost and BV rules. Today only the Industrial
-  structure exists; Commercial armor is in the catalog but is not offered to any 'Mech.
-- [ ] Make Primitive BattleMechs and Primitive IndustrialMechs buildable (requested 2026-10-01): engine
-  rating x1.2, Primitive armor (x0.67), primitive cockpit, and the era window 2439-2520 (IO:AE pp.115-118,
-  p.44). The primitive engine and armor records exist; the construction mode does not.
-- [ ] Then lift the SSW import skip for these designs (section 2, 234 designs).
+Chassis types the Mech Creator builds (checked 2026-10-02): Biped, Quad, Tripod, LAM, QuadVee (Mech Type);
+Ultralight and Superheavy (tonnage); OmniMech and Primitive (checkboxes); IndustrialMech (Industrial structure).
+
+- [x] IndustrialMechs (Batches 41, 42, 50, 56; upstream #103 and #105): cockpit and Advanced Fire Control,
+  armor, engines (standard fusion, ICE, fuel cell, fission), standard gyro, single heat sinks, standard jump
+  jets on fusion or fission only, no MASC or TSM, Industrial TSM, weight-free heat sinks by engine type,
+  power amplifiers (TM pp.68-72). Checked against the book's CattleMaster, Buster and Uni.
+- [x] Primitive BattleMechs and IndustrialMechs (Batch 57; upstream #105): the "Is a Primitive 'Mech"
+  checkbox in step 1; engine rating x1.2, Primitive cockpit, Primitive or Commercial armor (IO:AE
+  pp.116-118). Checked against the book's Mackie.
+- [x] Dark Age armors on IndustrialMechs (Batch 58; upstream #105): mixed tech base at the Experimental
+  rules level (IO:AE p.82).
+- [ ] IndustrialMechs still owed: Environmental Sealing, fuel and extended fuel tanks, the to-hit and
+  critical hit rules in play. The builder still offers ICE and fuel cell engines to BattleMechs.
+- [ ] Primitive 'Mechs still owed: a RetroTech label and the pre-2501 equipment limit for a true Primitive
+  (IO:AE p.116); the play rules of p.114; record sheet, TRO and Alpha Strike card not checked by eye.
+- [ ] Then lift the SSW import skip for these designs (section 2, 234 designs): `importSSWXML` only accepts
+  `mech_type` "BattleMech".
 
 ### Canon equipment pass: still owed (branch `feature/canon-equipment-pass`, ledger `tools/canon-pass-ledger.md`)
 
@@ -389,6 +400,7 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
 | #102 | `canon-pass/5-new-equipment` | draft, on #101 |
 | #103 | `canon-pass/6-industrialmechs-builder-rules` | draft, on #102 |
 | #104 | `canon-pass/unit-domain-catalogs` (ledger `tools/canon-pass-ledger-unit-catalogs.md`) | ready, independent |
+| #105 | `canon-pass/7-industrial-primitive-mechs` | draft, on #103 |
 
 - [ ] As each part merges upstream, rebase the next branch on upstream master and mark it ready.
 - [ ] #91 and #94 (Clan eras) touch the same catalogs; whichever set merges second needs a rebase. The
@@ -446,7 +458,7 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
 - [x] Rulings of 2026-10-01 (in both ledgers): capital missile Tech Rating and capital ammunition units
   approved as recorded; always go with the book, so C3 Remote Sensor pods stay explosive and HarJel II / III
   keep the -1 per slot that CASE does not remove.
-- [ ] Later work: Dark Age armors on IndustrialMechs under the Experimental rules level (4). Not offered now.
+- [x] Dark Age armors on IndustrialMechs under the Experimental rules level (4): done in Batch 58 (#105).
 - [ ] Still owed before the PRs: missile `damageAero` convention, Nail Gun range dash, source search for
   the custom catalogs, Alpha Strike conversions marked unresolved, play-rule items, the import
   "ask the importer" step, review of `tools/spec-c-sources-staging.jsonl`. The equipment PRs are open
