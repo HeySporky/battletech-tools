@@ -89,3 +89,27 @@ Flags:
 - **Not in this catalog:** the engine (standard fusion, 25 kg per rating point below 40), musculature and actuator costs, the ProtoMech UMU (TO:AUE p.107, IO:AE p.95: variable weight, cost by footnote, not yet read), the Inner Sphere ProtoMech Interface (IO:AE p.96), the structure-point and location-limit tables, and the Magnetic Clamp System. The Myomer Booster, Partial Wing, Melee Weapon and Quad Melee System are equipment records already.
 
 Regression tests: `src/data/protomech-components.test.ts` (5).
+
+## Batch 53: battle armor armor catalog
+
+New catalog `src/data/battle-armor-armor-types.ts` (11 records, `IBattleArmorArmorType`) plus the maximum armor by weight class. No builder reads it yet.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Standard (Basic), Standard (Advanced), Standard (Prototype) | battle-armor-armor-types | **added** (3) | TM p.169 (table), pp.252-253 (rules), p.281 (cost) | TM v8.0: none | Clan 25 kg / Inner Sphere 50 kg per point, 0 slots; Advanced 40 kg, 5 slots (Inner Sphere); Prototype 100 kg, 4 slots (Inner Sphere). 10,000 / 12,500 / 10,000 C-bills per point |
+| Stealth (Basic), (Standard), (Improved), (Prototype) | same | **added** (4) | same; BV modifier p.316 | none | 30 / 55 kg and 3 slots; 35 / 60 kg and 4; 35 / 60 kg and 5; 100 kg and 4 (Inner Sphere). Defensive Factor +0.2, +0.2, +0.3, +0.2. 12,000 / 15,000 / 20,000 / 50,000 C-bills per point |
+| Fire Resistant | same | **added** | TM pp.169, 253, 281 | none | Clan, 30 kg, 5 slots, 10,000 C-bills per point |
+| Mimetic | same | **added** | TM pp.169, 253, 281, 316 | none | Inner Sphere, 50 kg, 7 slots, 15,000 C-bills per point, Defensive Factor +0.3 |
+| Laser Reflective (Reflec/Glazed), Reactive (Blazer) | same | **added** (2) | TO:AUE pp.93-94 (rules and weights), p.225 (cost) | TO:AUE v7.0: none | 55 / 30 kg and 60 / 35 kg per point (Inner Sphere / Clan), 7 slots, 37,000 C-bills per point; BV "factored as fire-resistant armor" (TO:AUE p.192) |
+| Maximum armor by weight class | same | **added** | TM p.169 | none | PA(L) 2, Light 6, Medium 10, Heavy 14, Assault 18 |
+
+Dates and availability: IO:AE p.30.
+
+Flags:
+
+- **Stealth (Basic) tech base.** TM p.253 gives Basic stealth armor to both tech bases (and prints a Clan weight); IO:AE's advancement row is labelled Inner Sphere. Recorded as both.
+- **Standard (Prototype).** No advancement row; IO:AE notes "IS Prototype: 3050" on the Standard row. Recorded as an Inner Sphere prototype from 3050 with the TM cost table's three-era availability.
+- **Battle Value** of the armor points themselves (2.5 per point, and the Fire Resistant / Reflective / Reactive rate of TM p.310) is not modelled: only the Defensive Factor bonus is stored.
+- The rest of battle armor construction (chassis, motive systems, manipulators, weapons, the TM p.346-347 tables) is still owed and needs its own catalogs.
+
+Regression tests: `src/data/battle-armor-armor-types.test.ts` (6).
