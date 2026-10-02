@@ -175,11 +175,16 @@ export const btMechTonnages: IMechTonnage[] = [
  * - QuadVees are capped at 20-100 tons (Tactical Operations); no Ultra-light or Superheavy QuadVees.
  * - Tripods cannot be built as Ultra-light (10-15 tons); Superheavy Tripods (105-200 tons) require Advanced+ rules.
  * - Biped and Quad chassis support the full range, but Ultra-light and Superheavy tonnages require Advanced+ rules.
+ * - Superheavy 'Mechs are available only to the Inner Sphere tech base (IO:AE p.154); a Clan tech base stops at 100 tons.
  * - Custom Homebrew (rules level 5) lifts all of the above tonnage restrictions.
  */
-export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: number = 2): { min: number; max: number } {
+export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: number = 2, techTag?: string): { min: number; max: number } {
     if (rulesLevel === 5) {
         return { min: 10, max: 200 };
+    }
+    if (techTag === "clan" || techTag === "mclan") {
+        const bounds = getTonnageBoundsForMechType(mechTypeTag, rulesLevel);
+        return { min: bounds.min, max: Math.min(bounds.max, 100) };
     }
 
     switch (mechTypeTag) {
@@ -197,7 +202,7 @@ export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: num
 }
 
 // Returns the list of tonnages a chassis type/rules level combination can legally select from.
-export function getAvailableTonnagesForMechType(mechTypeTag: string, rulesLevel: number = 2): IMechTonnage[] {
-    const { min, max } = getTonnageBoundsForMechType(mechTypeTag, rulesLevel);
+export function getAvailableTonnagesForMechType(mechTypeTag: string, rulesLevel: number = 2, techTag?: string): IMechTonnage[] {
+    const { min, max } = getTonnageBoundsForMechType(mechTypeTag, rulesLevel, techTag);
     return btMechTonnages.filter((option) => option.tons >= min && option.tons <= max);
 }

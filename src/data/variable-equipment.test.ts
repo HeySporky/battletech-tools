@@ -32,13 +32,17 @@ describe("variable equipment sizing", () => {
         expect(sizeVariableEquipment("targeting-computer-clan", ctx)).toMatchObject({ weight: 5, slots: 5 });
     });
 
-    it("sizes wings, boosters, tracks, sealing, AES and talons (TM pp.216, 249; TO:AUE pp.91, 103, 105)", () => {
+    it("sizes wings, boosters, tracks, sealing, fuel tanks, AES and talons (TM pp.70, 216, 244, 249; TO:AUE pp.91, 103, 105)", () => {
         expect(sizeVariableEquipment("partial-wing-is", ctx)).toMatchObject({ weight: 5.5, slots: 8 });
         expect(sizeVariableEquipment("partial-wing-clan", ctx)).toMatchObject({ weight: 4, slots: 6 });
         expect(sizeVariableEquipment("jump-booster", { ...ctx, size: 2 })).toMatchObject({ weight: 7.5, slots: 4, cbills: 150000 });
         expect(sizeVariableEquipment("jump-booster", { ...ctx, size: 2, isQuad: true })?.slots).toBe(8);
         expect(sizeVariableEquipment("tracks", ctx)).toMatchObject({ weight: 7.5, slots: 2, cbills: 150000 });
-        expect(sizeVariableEquipment("environmental-sealing", ctx)).toMatchObject({ weight: 7.5, slots: 8, cbills: 16875 });
+        // 7.5 tons rounds up to 8: "Round this figure up to the nearest full ton" (TM p.70).
+        expect(sizeVariableEquipment("environmental-sealing", ctx)).toMatchObject({ weight: 8, slots: 8, cbills: 16875 });
+        // 10 percent of the engine weight, rounded up to the half ton; a slot per ton, rounded up (TM p.244).
+        expect(sizeVariableEquipment("extended-fuel-tank", { ...ctx, engineWeight: 11 })).toMatchObject({ weight: 1.5, slots: 2, cbills: 750, battleValue: 0 });
+        expect(sizeVariableEquipment("extended-fuel-tank", { ...ctx, engineWeight: 20 })).toMatchObject({ weight: 2, slots: 2, cbills: 1000 });
         expect(sizeVariableEquipment("aes-arm", ctx)).toMatchObject({ weight: 2.5, slots: 3, cbills: 37500 });
         expect(sizeVariableEquipment("aes-leg", { ...ctx, isQuad: true })).toMatchObject({ weight: 1.5, cbills: 52500 });
         expect(sizeVariableEquipment("talons", ctx)).toMatchObject({ weight: 5, slots: 4, battleValue: 8 });

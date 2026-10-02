@@ -32,6 +32,7 @@ export type VariableEquipmentFormula =
     | "jump-booster"
     | "tracks"
     | "environmental-sealing"
+    | "extended-fuel-tank"
     | "aes-arm"
     | "aes-leg"
     | "talons";
@@ -162,9 +163,15 @@ export function sizeVariableEquipment(
         // TM p.249: 10% of tonnage (half ton), one slot per leg; cost 500 x rating x tonnage / 75.
         case "tracks":
             return { weight: roundUpHalfTon(t * 0.1), slots: ctx.isQuad ? 4 : 2, cbills: Math.ceil(500 * ctx.engineRating * t / 75), battleValue: 0 };
-        // TM p.216 (IndustrialMechs): 10% of tonnage (half ton), one slot in each of 8 locations; 225 per ton.
+        // TM pp.70, 216 (IndustrialMechs): 10% of tonnage, "rounded up to the nearest full ton"; one slot in each
+        // of 8 locations; 225 x tonnage C-bills (TM p.278).
         case "environmental-sealing":
-            return { weight: roundUpHalfTon(t / 10), slots: 8, cbills: 225 * t, battleValue: 0 };
+            return { weight: Math.ceil(t / 10 - 1e-9), slots: 8, cbills: 225 * t, battleValue: 0 };
+        // TM p.244: 10% of the engine weight (half ton); 'Mech slots equal to the tonnage, rounded up; 500 per ton (TM p.292).
+        case "extended-fuel-tank": {
+            const weight = roundUpHalfTon(ctx.engineWeight / 10);
+            return { weight, slots: Math.ceil(weight), cbills: 500 * weight, battleValue: 0 };
+        }
         // TO:AUE p.91: one per limb; tonnage / 35 (biped) or / 50 (quad), half ton; slots by weight class.
         case "aes-arm":
         case "aes-leg": {

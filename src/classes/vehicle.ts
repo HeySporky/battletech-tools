@@ -10,7 +10,7 @@ import Pilot, { IPilot } from "./pilot";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { mechEngineOptions } from "../data/mech-engine-options";
-import { mechEngineTypes } from "../data/mech-engine-types";
+import { engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions } from "../data/era-options";
@@ -410,7 +410,6 @@ const LOCATION_NAMES: Record<VehicleLocation, string> = {
 };
 
 // Free heat sinks from the engine: fusion 10, fission 5, fuel cell 1, ICE none (as implemented by MegaMek Engine).
-const FUSION_ENGINE_TAGS = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl", "primitive"];
 
 // Item slots an engine takes in a vehicle (as implemented by MegaMek Tank.getFreeSlots).
 const ENGINE_ITEM_SLOTS: Record<string, number> = { light: 1, xl: 2, clan_xl: 1, xxl: 4, clan_xxl: 2, compact: -1 };
@@ -852,9 +851,13 @@ export default class Vehicle {
         return Math.max(10, Math.ceil(this._tonnage * this._cruiseMP) - this.getSuspensionFactor());
     }
 
-    /** Fastest Cruise MP whose engine rating fits: 400, or 500 with Large engines (Experimental). */
+    /**
+     * Fastest Cruise MP whose engine rating fits: 400, or 500 with Large engines (Experimental).
+     * Compact, Fuel Cell and Fission engines have no large form (TO:AUE p.120) and stay at 400.
+     */
     public getMaxCruiseMP(rulesLevel: number = 2): number {
-        const maxRating = rulesLevel >= 4 ? MAX_LARGE_ENGINE_RATING : MAX_STANDARD_ENGINE_RATING;
+        const largeAllowed = rulesLevel >= 4 && !!getLargeEngineType(this._engineType.tag);
+        const maxRating = largeAllowed ? MAX_LARGE_ENGINE_RATING : MAX_STANDARD_ENGINE_RATING;
         return Math.max(0, Math.floor((maxRating + this.getSuspensionFactor()) / this._tonnage));
     }
 
@@ -888,6 +891,8 @@ export default class Vehicle {
     }
 
     public setArmorType(tag: string): IArmorType {
+        // BattleMech Stealth is BM-only (TM p.206); vehicles saved with it get Vehicular Stealth (TO:AUE p.94).
+        if (tag === "stealth-basic" || tag === "stealth") tag = "vehicular-stealth";
         this._armorType = findByTag(this.getAvailableArmorTypes(), tag) ?? this._armorType;
         this._calc();
         return this._armorType;
@@ -1075,8 +1080,19 @@ export default class Vehicle {
         return this._equipmentList;
     }
 
-    public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string): IEquipmentItem[] {
-        const catalogItem = findByTag(getEquipmentListByTech(this._tech.tag, true), tag);
+    /** The mixed-tech catalog (both tech bases) for an Inner Sphere or Clan vehicle; empty for mixed tech, which already sees both. */
+    private _otherTechBaseEquipment(): IEquipmentItem[] {
+        const techTag = this._tech.tag;
+        return techTag === "clan" || techTag === "is" ? getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true) : [];
+    }
+
+    /**
+     * `anyTechBase` is for loading a saved vehicle: it keeps whatever it mounted, including equipment
+     * that has since moved to the other tech base's catalog.
+     */
+    public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string, anyTechBase: boolean = false): IEquipmentItem[] {
+        const catalogItem = findByTag(getEquipmentListByTech(this._tech.tag, true), tag)
+            ?? (anyTechBase ? findByTag(this._otherTechBaseEquipment(), tag) : undefined);
         if (catalogItem) {
             this._equipmentList.push(this._newEquipment(catalogItem, location, rear, uuid));
             this._calc();
@@ -1141,6 +1157,10 @@ export default class Vehicle {
     private _isEquipmentAllowedForVehicle(item: IEquipmentItem): boolean {
         if (item.requiresHandActuator) return false;
         if (item.metadata?.domains && !item.metadata.domains.includes("vehicle")) return false;
+        // No combat vehicle slot value in the equipment tables: not vehicle equipment (TM pp.341-345, TO:AUE pp.217-223).
+        if ((item.space?.combatVehicle ?? 0) < 0) return false;
+        // TSEMP cannons need a fusion or fission engine, the BattleMech Taser a fusion engine (IO:AE p.85, TO:AUE p.158).
+        if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) return false;
 
         const tag = item.tag.toLowerCase();
         const name = item.name.toLowerCase();
@@ -1170,7 +1190,11 @@ export default class Vehicle {
         const asPrototype = !inProduction && effectiveIntroduction !== item.introduced
             && this._itemIsAvailable(effectiveIntroduction, item.extinct, item.reintroduced);
         item.availableAsPrototype = asPrototype;
-        item.available = (inProduction || asPrototype) && this._isEquipmentAllowedForVehicle(item);
+        // One unit carries at most `maxPerUnit` of an item, or of its group (one RISC Viral Jammer of any type).
+        const limitKey = item.maxPerUnitGroup ?? item.tag;
+        const underUnitLimit = !item.maxPerUnit
+            || this._equipmentList.filter(installed => (installed?.maxPerUnitGroup ?? installed?.tag) === limitKey).length < item.maxPerUnit;
+        item.available = (inProduction || asPrototype) && this._isEquipmentAllowedForVehicle(item) && underUnitLimit;
     }
 
     public getAvailableEquipment(includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {
@@ -1371,8 +1395,10 @@ export default class Vehicle {
     private _calcCost(): void {
         const rows: [string, number][] = [];
         const engineRating = Math.ceil(this.getEngineRating() / 5) * 5;
-        rows.push([`${this._engineType.name} (${this._engineType.costMultiplier} x rating ${engineRating} x ${this._tonnage} t / 75)`,
-            (this._engineType.costMultiplier || 0) * engineRating * this._tonnage / 75]);
+        // Above rating 400 the large engine record gives the name and cost (twice the base type, TO:AUE p.219).
+        const engineForCost = (engineRating > MAX_STANDARD_ENGINE_RATING ? getLargeEngineType(this._engineType.tag) : undefined) ?? this._engineType;
+        rows.push([`${engineForCost.name} (${engineForCost.costMultiplier} x rating ${engineRating} x ${this._tonnage} t / 75)`,
+            (engineForCost.costMultiplier || 0) * engineRating * this._tonnage / 75]);
         rows.push([`Armor (${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
         rows.push([`Internal Structure (${this.getStructureWeight()} t)`, this.getStructureWeight() * 10000]);
         rows.push([`Control Systems (${this.getControlSystemsWeight()} t)`, this.getControlSystemsWeight() * 10000]);
@@ -2796,7 +2822,8 @@ export default class Vehicle {
                     issue("Skipped an equipment entry that could not be read");
                     continue;
                 }
-                const catalogItem = findByTag(catalog, entry.tag);
+                // A saved vehicle keeps what it mounted, including equipment since moved to the other tech base's catalog.
+                const catalogItem = findByTag(catalog, entry.tag) ?? findByTag(this._otherTechBaseEquipment(), entry.tag);
                 if (!catalogItem) {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;

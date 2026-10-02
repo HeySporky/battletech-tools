@@ -41,6 +41,8 @@ export interface IArmorType {
     reintroduced: number | null;
     /** Multiplier on the armor factor in the defensive BV (TM p.302, TO:AUE; e.g. Hardened 2, Reactive 1.5). */
     bvMultiplier?: number;
+    /** An IndustrialMech armor grade (Commercial, Industrial): not for BattleMechs (TM p.72). */
+    industrialMechOnly?: boolean;
     /** IO prototype year; with `introduced: null` the armor exists only as a prototype. */
     prototype?: number;
     /** Clan availability window when it differs from the Inner Sphere dates above. */
@@ -66,9 +68,10 @@ export interface IEngineOption {
         xxl: number;
         clan_xxl: number;
         ice: number;
-		cell: number;
-		fission: number;
-        /** Absent where the primitive-adjusted rating exceeds 500. */
+        /** Absent above rating 400: there are no large fuel cell or fission engines (TO:AUE p.120). */
+		cell?: number;
+		fission?: number;
+        /** Absent where the primitive-adjusted rating exceeds 400: primitive engines cannot be large engines. */
         primitive?: number;
 	}
 }
@@ -106,6 +109,12 @@ export interface IEngineType {
     available?: boolean;
     /** Set when the engine is offered only as an Experimental prototype. */
     availableAsPrototype?: boolean;
+    /** Rulebook abbreviation for the construction rule (TM, TO:AUE, IO). */
+    book?: string;
+    /** Printed page in `book`. */
+    page?: number;
+    /** Large engine records only: tag of the engine type this is the over-400 form of. */
+    largeOf?: string;
 }
 
 export interface IDamagePerRange {
@@ -148,6 +157,9 @@ export interface IAmmoProfile {
         extreme: number;
     };
 }
+
+/** An engine an item needs (`IEquipmentItem.requiresEngine`). */
+export type EngineRequirement = "fusion" | "fusion-or-fission" | "ice-or-fuel-cell";
 
 export interface IEquipmentItem {
     catalog?: "is" | "clan" | "custom" | "universal";
@@ -222,6 +234,11 @@ export interface IEquipmentItem {
     ammoBattleValue?: number;
     /** Special munitions: multiplier on the launcher's ammo BV (TO:AUE munition BV). */
     battleValueMultiplier?: number;
+    /**
+     * Special munitions whose BV per ton is published per launcher, not as a multiplier: keyed by the
+     * launcher family and rack size ("lrm-5", "srm-6", "mml-9").
+     */
+    battleValueByLauncher?: Record<string, number>;
     /** Minefield munitions: BV per ton comes from the launcher's rack size and shots (TO:AUE pp.185, 197-198). */
     minefieldBattleValue?: "thunder" | "thunder-augmented" | "thunder-inferno" | "thunder-vibrabomb" | "thunder-active" | "fascam";
     /** Weapon arrays (MG Array): tags of the weapons it links in its own location; its BV derives from them. */
@@ -232,7 +249,14 @@ export interface IEquipmentItem {
     ammoPerTon?: number;
     minAmmoTons?: number;
     explosive?: boolean;
+    /** Treated as an ammunition bin: each slot counts as explosive ammunition for Battle Value (Extended Fuel Tanks, TM p.244). */
+    explosiveAsAmmo?: boolean;
     gauss?: boolean;
+    /**
+     * Slots that take the -1 explosive component BV penalty, when not all of them:
+     * an HVAC counts as a Gauss weapon "with one critical slot" (TO:AUE p.195, footnote Q).
+     */
+    explosiveBattleValueSlots?: number;
     weaponType?: string[];
     techRating?: string;
     unique?: boolean;
@@ -281,6 +305,27 @@ export interface IEquipmentItem {
     chassisTypes?: string[];
     /** Most copies of this item one unit may mount (e.g. LAM Bomb Bays, 20). */
     maxPerUnit?: number;
+    /** Items sharing a group count together against `maxPerUnit` (the two RISC Viral Jammers: one of any type). */
+    maxPerUnitGroup?: string;
+    /**
+     * HarJel repair systems: multiplier on the armor Battle Value of the location the item sits in,
+     * stacking with the armor type's own (IO:AE p.185). Each slot also takes 1 off the Defensive BV.
+     */
+    armorRepairBVMultiplier?: number;
+    /** IndustrialMechs only (the IndustrialMech Ejection Seat, TM p.213). */
+    industrialMechOnly?: boolean;
+    /** 'Mech locations (short keys, e.g. "hd") the item must be placed in; unset = anywhere. */
+    allowedLocations?: string[];
+    /** An industrial tool: arms only on a humanoid 'Mech, side torsos only on a four-legged one (TM pp.241-249). */
+    armTool?: boolean;
+    /** Only one item of this group may be mounted in a location (HarJel repair systems, IO:AE p.83). */
+    onePerLocationGroup?: string;
+    /** Multiplier on the unit's final Battle Value, applied once however many are mounted (RISC Heat Sink Override Kit, IO:AE p.190). */
+    battleValueFinalMultiplier?: number;
+    /** Coolant Pod: raises the heat sink capacity used for Battle Value (TO:AUE p.193). */
+    coolantPod?: boolean;
+    /** Engine the unit must have: fusion; fusion or fission; or ICE or fuel cell. Unset = any engine. */
+    requiresEngine?: EngineRequirement;
     /** Bombs: bomb bay (or fighter bomb) slots one bomb occupies. Bombs are loaded, not mounted. */
     bombBaySlots?: number;
 }
@@ -335,6 +380,8 @@ export interface IGyro {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    book?: string;
+    page?: number | null;
     available?: boolean;
     availableAsPrototype?: boolean;
 }
@@ -344,6 +391,36 @@ export interface ITechDates {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+}
+
+export interface ICockpitType {
+    name: string;
+    tag: string;
+    /** Tons. For an add-on (Command Console) this is the weight added to the base cockpit. */
+    weight: number;
+    cost: number;
+    /** Multiplier on the final BV (Small: TM p.304; Torso-Mounted: TO:AUE p.193). */
+    bvMultiplier?: number;
+    /** Only this technology base builds it. */
+    techBase?: "is" | "clan";
+    /** Mounted alongside another cockpit instead of replacing it. */
+    addOn?: boolean;
+    /** "implemented": the 'Mech builder mounts it; "deferred": catalogued for reference only. */
+    constructionStatus: "implemented" | "deferred";
+    book: string;
+    page: number;
+    notes?: string;
+    /** IO prototype year, when it precedes `introduced`. */
+    prototype?: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the Inner Sphere dates above. */
+    clanDates?: ITechDates;
+    /** Set by the builder: may this design mount it in its era and rules level? */
+    available?: boolean;
+    /** Set when it is offered only as an Experimental prototype. */
+    availableAsPrototype?: boolean;
 }
 
 export interface IHeatSync {
@@ -471,8 +548,17 @@ export interface IJumpJet {
     },
     criticals: number;
     costMultiplier: number;
+    book?: string;
+    page?: number;
     /** UMUs: underwater MP instead of jump MP (TO:AUE p.107). */
     underwater?: boolean;
+    /** Jump MP may reach Running MP instead of Walking MP (improved and prototype improved jump jets). */
+    jumpAsRun?: boolean;
+    /** Heat per hex jumped and the least heat a jump costs, when not the standard 1 and 3. */
+    heatPerHex?: number;
+    minimumHeat?: number;
+    /** Not available to a Clan tech base. */
+    innerSphereOnly?: boolean;
     /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
     prototype?: number;
     introduced: number | null;
