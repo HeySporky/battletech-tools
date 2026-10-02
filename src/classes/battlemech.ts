@@ -2528,6 +2528,7 @@ export class BattleMech {
         // Header Info
         html += "Type: " + this.getName() + "\n";
         html += "Technology Base: " + this.getTech().name + "\n";
+        if (this.getConstructionName()) html += "Construction: " + this.getConstructionName() + "\n";
         html += "Era: " + this.getEra().name + "\n";
         html += "Tonnage: " + this.getTonnage() + "\n";
         html += "Battle Value: " + this.getBattleValue() + "\n";
@@ -2843,6 +2844,7 @@ export class BattleMech {
         // Header Info
         html += "<tr><td colspan=\"4\">Type: " + esc(this.getName()) + "</td></tr>";
         html += "<tr><td colspan=\"4\">Technology Base: " + esc(this.getTech().name) + "</td></tr>";
+        if (this.getConstructionName()) html += "<tr><td colspan=\"4\">Construction: " + esc(this.getConstructionName()!) + "</td></tr>";
         html += "<tr><td colspan=\"4\">Era: " + esc(this.getEra().name) + "</td></tr>";
         html += "<tr><td colspan=\"4\">Tonnage: " + this.getTonnage() + "</td></tr>";
         html += "<tr><td colspan=\"4\">Battle Value: " + this.getBattleValue() + "</td></tr>";
@@ -8501,6 +8503,32 @@ export class BattleMech {
 
     public isPrimitive(): boolean {
         return this._primitive;
+    }
+
+    /** Primitive technology is what was introduced by 2500 (IO:AE p.116). */
+    private static readonly PRIMITIVE_TECHNOLOGY_YEAR = 2500;
+
+    /**
+     * RetroTech: "RetroTech rules apply any time a unit built with the Primitive Tech Base is designed to employ any
+     * non-Primitive weapons or equipment" (IO:AE p.116). Here that is anything first introduced after 2500, or jump
+     * jets other than the standard kind (Primitive 'Mechs use prototype or standard jump jets; RetroTech 'Mechs any).
+     */
+    public isRetroTech(): boolean {
+        if (!this._primitive) return false;
+        if (this._jumpSpeed > 0 && this._jumpJetType.tag !== "standard") return true;
+        return this._equipmentList.some(item => item && BattleMech._isPostPrimitiveTechnology(item));
+    }
+
+    /** First introduced, as a prototype or in production, after 2500. */
+    private static _isPostPrimitiveTechnology(item: IEquipmentItem): boolean {
+        const years = [item.prototype, item.introduced].filter((year): year is number => typeof year === "number" && year > 0);
+        return years.length > 0 && Math.min(...years) > BattleMech.PRIMITIVE_TECHNOLOGY_YEAR;
+    }
+
+    /** "Primitive BattleMech", "RetroTech IndustrialMech" and so on; null for a 'Mech built to the modern rules. */
+    public getConstructionName(): string | null {
+        if (!this._primitive) return null;
+        return (this.isRetroTech() ? "RetroTech " : "Primitive ") + (this.isIndustrialMech() ? "IndustrialMech" : "BattleMech");
     }
 
     /**

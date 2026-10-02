@@ -1406,3 +1406,22 @@ Flags:
 - Primitive IndustrialMechs keep Commercial armor only (IO:AE p.118).
 
 Regression tests: `Dark Age armors on IndustrialMechs` in `battlemech-industrial-primitive.test.ts`.
+
+## Batch 61: RetroTech
+
+Owed from Batch 57. A Primitive 'Mech that carries modern equipment is a RetroTech unit; the builder now says so.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| RetroTech | battlemech.ts | **added** | IO:AE p.116 | IO:AE v3.01: none | "RetroTech rules apply any time a unit built with the Primitive Tech Base is designed to employ any non-Primitive weapons or equipment". Non-Primitive: first introduced (as a prototype or in production) after 2500, from "all such weapons and equipment may only be installed if they have an introduction date of 2500 or earlier". `isRetroTech()` |
+| Jump jets | battlemech.ts | **added** | IO:AE pp.116–117 | none | Primitive 'Mechs "can only make use of prototype jump jets ... or standard jump jets"; RetroTech 'Mechs "can make use of any type of jump jets, including modern versions such as the standard and improved variety". Any jump jet other than the standard kind makes the design RetroTech |
+| Label | battlemech.ts; step 1 | **added** | IO:AE p.116 | none | The readouts print "Construction: Primitive BattleMech" (or IndustrialMech), or "RetroTech BattleMech" (or IndustrialMech). Step 1 says which it is |
+
+Flags:
+
+- **No hard limit for a "true" Primitive.** Modern equipment does not break the rules; it makes the design RetroTech, which "may add weapons, ammunition and other equipment from any era". So nothing is refused; the era filter still decides what is offered.
+- **What stays the same under RetroTech:** Primitive cockpit, engine, gyro, structure and armor, and single heat sinks. The "Mixed Tech" paragraph (a modern cockpit, engine, gyro or structure makes it a mixed-tech unit, not RetroTech) is already enforced, because Primitive mode refuses those components.
+- **Play rules not modeled:** RetroTech cockpits, except the Primitive IndustrialMech cockpit, do not take the Primitive targeting modifiers (IO:AE p.116). The builder models neither.
+- The record sheet does not print the construction name; the readouts do.
+
+Regression tests: `RetroTech` in `battlemech-industrial-primitive.test.ts`; `e2e/mech-primitive.spec.ts`.

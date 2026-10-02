@@ -13,6 +13,8 @@ test("a Primitive BattleMech takes the Mackie's engine, cockpit and limits", asy
     await page.getByLabel("Mech Tonnage").selectOption("100");
     await page.getByText("Is a Primitive 'Mech").click();
     await expect(page.getByText(/Primitive BattleMech \(IO:AE pp\.116-118\)/)).toBeVisible();
+    // Nothing modern on it yet, so it is not RetroTech (IO:AE p.116).
+    await expect(page.getByText(/it becomes a RetroTech unit/)).toBeVisible();
     // A Primitive 'Mech cannot be an OmniMech, and takes standard or industrial structure only.
     await expect(page.getByLabel("Internal Structure Type").locator("option:not([disabled])")).toHaveText(["Standard", "Industrial"]);
 
