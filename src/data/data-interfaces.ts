@@ -51,6 +51,15 @@ export interface IArmorType {
     page?: number | null;
     notes?: string;
     critLocs?: ArmorCriticalLocationsByChassis;
+    /**
+     * Patchwork Armor: the critical slots this armor takes in each 'Mech location that carries it, and its
+     * weight in tons per point, by tech base (TO:AUE pp.188-189; IO:AE p.82). Without it the armor cannot
+     * be a patchwork location's type.
+     */
+    patchwork?: {
+        slots: { is?: number, clan?: number };
+        tonsPerPoint: { is?: number, clan?: number };
+    };
     available?: boolean;
     availableAsPrototype?: boolean;
 }

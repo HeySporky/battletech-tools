@@ -1406,3 +1406,33 @@ Flags:
 - Primitive IndustrialMechs keep Commercial armor only (IO:AE p.118).
 
 Regression tests: `Dark Age armors on IndustrialMechs` in `battlemech-industrial-primitive.test.ts`.
+
+## Batch 59: Patchwork Armor
+
+The `patchwork` record existed as a deferred placeholder. Patchwork Armor is now buildable for 'Mechs: an armor type per hit location instead of one for the whole unit.
+
+| item | catalog | status | book p. | errata | notes |
+|---|---|---|---|---|---|
+| Patchwork Armor | mech-armor-types; battlemech.ts | **wired** | TO:AUE p.189 | TO:AUE v7.0: not yet compared | "units may vary their armor types by location". One type per location: "a unit may not mount multiple armor types in the same location (including locations with a front and rear facing, such as 'Mech torsos)". "A unit may also not mount armor types illegal for that unit type to mount". "All normal armor maximum rules still apply". Renamed from "Patchwork Armor Setup" |
+| Location weight | battlemech.ts | **added** | TO:AUE p.189 | TO:AUE v7.0: not yet compared | "multiplying its weight (in tons per point) by the number of points assigned to the location, rounding the final result up to the nearest half-ton". User ruling 2026-10-02: round per location, as written |
+| Tons per point | mech-armor-types | **added** | TO:AUE p.188 (Fractional Armor Table); IO:AE p.82 (Patchwork Armor Addendum) | TO:AUE v7.0: not yet compared | Standard/Heavy Industrial, Stealth, Laser-Reflective and Reactive 0.0625; Light FF 0.0590; FF 0.0558 (IS) / 0.0521 (Clan); Heavy FF 0.0504; Industrial 0.0933; Commercial 0.0417; Ferro-Lamellor 0.0714; Hardened 0.1250; Anti-Penetrative Ablation 0.0833; Ballistic-Reinforced 0.0833; Heat-Dissipating 0.1000; Impact-Resistant 0.0714. The printed four-place figures are used, not 1 / points per ton |
+| Slots per location | mech-armor-types; battlemech.ts | **added** | TO:AUE p.189 (Patchwork Armor Table); IO:AE p.82 | TO:AUE v7.0: not yet compared | 'Mech column: Standard, Industrial, Commercial, Hardened 0; Light FF, Clan FF, Clan Laser-Reflective, Clan Reactive, ABA, Heat-Dissipating 1; IS FF, Stealth, Ferro-Lamellor, IS Laser-Reflective, IS Reactive, Ballistic-Reinforced, Impact-Resistant 2; Heavy FF 3; Modular "N/A". The slots go in their own location, around what is already placed there; "if slot space is unavailable ... the desired armor type may not be mounted there", reported as a violation |
+| Stealth as patchwork | battlemech.ts | **enforced** | TO:AUE p.189 | TO:AUE v7.0: not yet compared | "No stealth mods when installed as patchwork": plain plating, no movement heat, no Alpha Strike STL, no stealth Battle Value |
+| Battle Value | battlemech.ts | **added** | TO:AUE p.194; IO:AE p.185 | TO:AUE v7.0: not yet compared | "Calculate the modified Defensive Battle Rating on a location-by-location basis, and then sum the total before multiplying by 2.5". IO:AE: a Dark Age armor's multiplier "only applies to the armor points in the section of the unit that uses the appropriate special armor type". HarJel II / III multiply with their own location's armor modifier |
+| HarJel II / III | battlemech.ts | **enforced** | IO:AE pp.82–83 | TO:AUE v7.0: not yet compared | Judged by the armor type in the system's own location |
+| Rules level | battlemech.ts | **added** | TO:AUE p.189 | TO:AUE v7.0: not yet compared | "Under this advanced construction option": Advanced. An IndustrialMech with a Dark Age armor in any location still needs Experimental (Batch 58) |
+| Dates | mech-armor-types | unchanged | IO:AE (advancement table, "Patchwork Armor All/Var EDEE PS 3075 (—) ~3080") | IO:AE v3.01: none | Production 3075, as before; no prototype year stored |
+| Cost | battlemech.ts | **derived** | TM p.278 (armor cost per ton) | TM v8.0: none | No book rule for patchwork cost. Each location's tons x its type's cost per ton. The 12,000 C-bills on the `patchwork` record is not used |
+| Fractional Accounting switch | battlemech.ts; step 1 | **added, locked** | TO:AUE p.188 | TO:AUE v7.0: not yet compared | User ruling 2026-10-02: build the switch, but leave the fractional case off until Fractional Accounting is built. The rounding helper has both cases ("up to the nearest kilogram (0.001 tons)" for fractional); `FRACTIONAL_ACCOUNTING_AVAILABLE` is false, `setWeightAccounting("fractional")` is refused, and step 1 shows the switch read-only |
+
+Checked against the book's Griffin (TO:AUE p.189): a 55-ton 'Mech's right arm (structure 9) takes 2 slots of Inner Sphere ferro-fibrous; 18 points weigh 1.5 tons (0.0558 x 18 = 1.0044), 17 points weigh 1 ton (0.9486).
+
+Flags:
+
+- **The printed tons-per-point figures cost a half ton at some point counts.** Clan ferro-fibrous at 0.0521 makes 48 points weigh 2.5008, so 3 tons, where 48 / 19.2 is exactly 2.5. Commercial at 0.0417 does the same at 24 points. The book's table is followed; MegaMek's figures were not checked.
+- **Rules level.** The patchwork text says "advanced construction option"; the chapter's opening paragraph (TO:AUE p.188) says these options "reflect experimental-level unit design". Advanced is used.
+- **Hardened Armor's -1 Running MP** (and its exemption when no leg carries Hardened Armor) is not modeled by the builder for any design.
+- **Best Guess** allocation does nothing under Patchwork Armor: there is no purchased tonnage to spread. Allocate Max and the location selects work.
+- **Not covered:** Combat Vehicles, Support Vehicles and fighters; Alpha Strike conversion of the per-location types (the Alpha Strike armor value already ignores armor type modifiers); OmniMech pod rules; importing patchwork designs from SSW or MTF files.
+
+Regression tests: `battlemech-patchwork-armor.test.ts`; `e2e/mech-patchwork-armor.spec.ts`.

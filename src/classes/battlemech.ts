@@ -152,6 +152,8 @@ export interface IBattleMechExport {
     allocation: ICriticalSlot[],
     armor_allocation: IArmorAllocation,
     armor_type: string;
+    /** Patchwork Armor: armor type tag by location key; present only when armor_type is "patchwork". */
+    patchworkArmor?: Record<string, string>;
     armor_weight: number;
     as_role: string;
     as_value: number;   // for easy listing
@@ -315,6 +317,12 @@ export class BattleMech {
     private _mirrorArmorAllocations: boolean = true;
 
     private _armorType = mechArmorTypes[0];
+    /** Patchwork Armor: the armor type tag of each hit location, by long location key (TO:AUE p.189). */
+    private _patchworkArmor: Record<string, string> = {};
+    /** Patchwork locations whose armor found no free critical slots; rebuilt with the critical table. */
+    private _patchworkSlotShortfalls: string[] = [];
+    /** Weight rounding. "fractional" is Fractional Accounting (TO:AUE p.188), which is not built yet. */
+    private _weightAccounting: "standard" | "fractional" = "standard";
 
     private _maxArmor: number = 0;
 
@@ -587,11 +595,27 @@ export class BattleMech {
         this._calcLogBV += "<strong>STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TM p302</strong><br />";
         // 1A. Total Armor Factor Valuation (TM p. 302)
         let totalArmorFactor = 2.5 * this.getTotalArmor();
-        this._calcLogBV += `Total Armor Factor = Armor Factor x 2.5: ${totalArmorFactor} = 2.5 x ${this.getTotalArmor()}<br />`;
         // Armor type BV modifier (Commercial 0.5, Hardened 2, Reactive/Reflective/Ballistic-Reinforced 1.5, ...).
-        const armorBVMultiplier = this._armorType.bvMultiplier ?? (this._armorType.tag === "commercial" ? 0.5 : 1);
-        totalArmorFactor *= armorBVMultiplier;
-        this._calcLogBV += `Total Armor Factor = ${armorBVMultiplier} x Modifier for ${this._armorType.name}: ${totalArmorFactor}<br />`;
+        const armorBVMultiplier = BattleMech._armorBVMultiplier(this._armorType);
+        const isPatchwork = this.isPatchworkArmor();
+        if (isPatchwork) {
+            // Patchwork: "Calculate the modified Defensive Battle Rating on a location-by-location basis, and
+            // then sum the total before multiplying by 2.5" (TO:AUE p.194).
+            let modifiedArmorPoints = 0;
+            for (const location of this.getPatchworkLocations()) {
+                const locationArmor = this.getPatchworkArmorType(location.key);
+                const points = this._getPatchworkLocationPoints(location.key);
+                const multiplier = BattleMech._armorBVMultiplier(locationArmor);
+                modifiedArmorPoints += points * multiplier;
+                this._calcLogBV += `${location.label}: ${points} x ${multiplier} (${this._escapeLogText(locationArmor.name)}) = ${points * multiplier}<br />`;
+            }
+            totalArmorFactor = 2.5 * modifiedArmorPoints;
+            this._calcLogBV += `Total Armor Factor = Armor Factor x 2.5: ${totalArmorFactor} = 2.5 x ${modifiedArmorPoints}<br />`;
+        } else {
+            this._calcLogBV += `Total Armor Factor = Armor Factor x 2.5: ${totalArmorFactor} = 2.5 x ${this.getTotalArmor()}<br />`;
+            totalArmorFactor *= armorBVMultiplier;
+            this._calcLogBV += `Total Armor Factor = ${armorBVMultiplier} x Modifier for ${this._armorType.name}: ${totalArmorFactor}<br />`;
+        }
         // HarJel repair systems: an armor multiplier "only for body sections where a HarJel system is located",
         // stacking with the armor type's own; "every critical slot ... will add -1 to the unit's Defensive BV" (IO:AE p.185).
         let repairSystemSlots = 0;
@@ -604,7 +628,8 @@ export class BattleMech {
             repairedLocations.add(longKey);
             const allocation = this._armorAllocation as unknown as Record<string, number>;
             const locationArmor = (allocation[longKey] ?? 0) + (allocation[`${longKey}Rear`] ?? 0);
-            const bonus = 2.5 * locationArmor * armorBVMultiplier * (item.armorRepairBVMultiplier - 1);
+            const locationBVMultiplier = isPatchwork ? BattleMech._armorBVMultiplier(this.getPatchworkArmorType(longKey)) : armorBVMultiplier;
+            const bonus = 2.5 * locationArmor * locationBVMultiplier * (item.armorRepairBVMultiplier - 1);
             totalArmorFactor += bonus;
             this._calcLogBV += `${this._escapeLogText(item.name)} in ${longKey}: armor x ${item.armorRepairBVMultiplier} on ${locationArmor} points = +${bonus.toFixed(2)} -> Total Armor Factor: ${totalArmorFactor.toFixed(2)}<br />`;
         }
@@ -1492,8 +1517,18 @@ export class BattleMech {
         let armorcostMultiplier = this.getArmorObj().costMultiplier;
         let armorTonnage = this.getArmorWeight();
 
-        this._calcLogCBill += "<tr><td><strong>Armor: " + armorName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( armorcostMultiplier ) + " x Armor Tonnage [" + armorTonnage + "]</span></td><td>" +  addCommas( armorcostMultiplier * armorTonnage  ) + "</td></tr>\n";
-        cbillDryTotal += armorcostMultiplier * armorTonnage ;
+        if (this.isPatchworkArmor()) {
+            // Patchwork: each location's armor at its own type's cost per ton.
+            for (const location of this.getPatchworkLocations()) {
+                const locationWeight = this.getPatchworkLocationWeight(location.key);
+                if (locationWeight <= 0) continue;
+                const locationArmor = this.getPatchworkArmorType(location.key);
+                this._calcLogCBill += "<tr><td><strong>Armor: " + locationArmor.name + " (" + location.label + ")</strong><br /><span class=\"smaller-text\">" + addCommas( locationArmor.costMultiplier ) + " x Armor Tonnage [" + locationWeight + "]</span></td><td>" + addCommas( locationArmor.costMultiplier * locationWeight ) + "</td></tr>\n";
+            }
+        } else {
+            this._calcLogCBill += "<tr><td><strong>Armor: " + armorName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( armorcostMultiplier ) + " x Armor Tonnage [" + armorTonnage + "]</span></td><td>" +  addCommas( armorcostMultiplier * armorTonnage  ) + "</td></tr>\n";
+        }
+        cbillDryTotal += this.getArmorCost();
 
         // Equipment
         let equipmentCost = 0;
@@ -2593,6 +2628,9 @@ export class BattleMech {
         }
 
         html += "" + ( "Armor Value ( " + this._armorType.name + " )" ).padEnd(col1Padding, " " ) + "" + this.getTotalArmor().toString().padEnd(col2Padding, " " ) + "" + this.getArmorWeight() + "\n";
+        for (const line of this._getPatchworkReadoutLines()) {
+            html += "  " + line + "\n";
+        }
 
         col1Padding = 20;
         col2Padding = 10;
@@ -2901,6 +2939,9 @@ export class BattleMech {
         }
 
         html += "<tr><th colspan=\"1\">Armor Value ( " + esc(this._armorType.name) + " )</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
+        for (const line of this._getPatchworkReadoutLines()) {
+            html += "<tr><td colspan=\"4\">&nbsp;&nbsp;" + esc(line) + "</td></tr>";
+        }
 
         // Armor Factor Table
         html += "<tr><td colspan=\"1\"></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Internal Structure</em></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Armor Value</em></td><td>&nbsp;</td></tr>";
@@ -3200,6 +3241,10 @@ export class BattleMech {
             });
         }
         this._totalArmor = 0;
+        // Patchwork: the weight follows the points in each location (TO:AUE p.189).
+        if (this.isPatchworkArmor()) {
+            this._armorWeight = this._getPatchworkArmorWeight();
+        }
         if( this.getArmorTechBase() === "clan" ) {
             this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.clan);
         } else {
@@ -3255,6 +3300,9 @@ export class BattleMech {
         }
 
         // Compute remaining armor tonnage capacities accurately
+        if (this.isPatchworkArmor()) {
+            this._maxArmor = this._totalArmor;
+        }
         this._unallocatedArmor = this._maxArmor - this._totalArmor;
 
         this._maxWeaponHeat = 0;
@@ -3843,7 +3891,14 @@ export class BattleMech {
         const armorObj = this.getArmorObj();
         const armorTechBase = this.getArmorTechBase();
         const armorCriticalLocations = armorObj.critLocs?.[typeTag as keyof NonNullable<typeof armorObj.critLocs>];
-        if (armorCriticalLocations) {
+        // Patchwork armor slots belong to their locations. They are placed after the saved allocations below,
+        // in the slots those leave free, so the restore loop skips them.
+        const patchworkArmorTags = new Set<string>();
+        if (this.isPatchworkArmor()) {
+            for (const location of this.getPatchworkLocations()) {
+                if (this.getPatchworkLocationSlots(location.key) > 0) patchworkArmorTags.add(this.getPatchworkArmorType(location.key).tag);
+            }
+        } else if (armorCriticalLocations) {
             for (const [location, criticalCount] of Object.entries(armorCriticalLocations)) {
                 if (criticalCount && criticalCount > 0) {
                     this._addCriticalItem(armorObj.tag, armorObj.name, this.getCriticalSlots(criticalCount), location, null, true);
@@ -3999,6 +4054,10 @@ export class BattleMech {
             if( armorCriticalLocations && item.tag === armorObj.tag ) {
                 continue;
             }
+            // The same goes for a patchwork location's armor slots, which are placed after this loop.
+            if( patchworkArmorTags.has(item.tag) ) {
+                continue;
+            }
             let removeFromUnallocated = false;
             // console.log( "criticalAllocationTable item", this.getName(), item.tag, item.loc, item.crits, item.size, item.uuid );
 
@@ -4025,6 +4084,23 @@ export class BattleMech {
             )
         }
 
+        // Patchwork: each location takes the slots of its own armor type, and they stay there. "If slot space
+        // is unavailable ... the desired armor type may not be mounted there" (TO:AUE p.189).
+        this._patchworkSlotShortfalls = [];
+        if (this.isPatchworkArmor()) {
+            for (const location of this.getPatchworkLocations()) {
+                const slots = this.getPatchworkLocationSlots(location.key);
+                if (slots <= 0) continue;
+                const locationArmor = this.getPatchworkArmorType(location.key);
+                let placed = 0;
+                while (placed < slots && this._addCriticalItem(locationArmor.tag, locationArmor.name, 1, location.abbr, null, false)) {
+                    placed++;
+                }
+                if (placed < slots) {
+                    this._patchworkSlotShortfalls.push(`Patchwork Armor: ${locationArmor.name} needs ${slots} free critical slot${slots === 1 ? "" : "s"} in the ${location.label}.`);
+                }
+            }
+        }
 
     }
 
@@ -4816,6 +4892,9 @@ export class BattleMech {
                     : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0;
                 if (armor.unitTypes.battlemech && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && supportsTech
                     && this._isArmorLegalForChassis(armor)) {
+                    if (armor.tag === BattleMech.PATCHWORK_ARMOR_TAG && !this.isPatchworkArmor()) {
+                        this._patchworkArmor = {};
+                    }
                     this._armorType = armor;
                     this._calc();
                 }
@@ -5345,7 +5424,12 @@ export class BattleMech {
         // Primitive 'Mech construction is Advanced (IO:AE p.116).
         if (this._primitive) level = Math.max(level, 3);
         // IndustrialMechs mount the Dark Age armors "only under Experimental Mixed-Tech rules" (IO:AE p.82).
-        if (this.isIndustrialMech() && BattleMech.DARK_AGE_ARMOR_TAGS.includes(this._armorType.tag)) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        const armorTags = this.isPatchworkArmor()
+            ? this.getPatchworkLocations().map(location => this.getPatchworkArmorType(location.key).tag)
+            : [this._armorType.tag];
+        if (this.isIndustrialMech() && armorTags.some(tag => BattleMech.DARK_AGE_ARMOR_TAGS.includes(tag))) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
+        if (this.isPatchworkArmor()) level = Math.max(level, 3);
         return level;
     }
 
@@ -5764,6 +5848,16 @@ export class BattleMech {
                 ? "IndustrialMechs may mount only Commercial, Industrial or Standard (Heavy Industrial) armor."
                 : `${this._armorType.name} can only be mounted on an IndustrialMech.`);
         }
+        if (this.isPatchworkArmor()) {
+            // "A unit may also not mount armor types illegal for that unit type to mount" (TO:AUE p.189).
+            for (const location of this.getPatchworkLocations()) {
+                const locationArmor = this.getPatchworkArmorType(location.key);
+                if (!this._isPatchworkLocationType(locationArmor)) {
+                    violations.push(`Patchwork Armor: ${locationArmor.name} cannot be mounted on this unit (${location.label}).`);
+                }
+            }
+            violations.push(...this._patchworkSlotShortfalls);
+        }
         const chassisName = this._primitive ? "Primitive 'Mechs" : "IndustrialMechs";
         if (this._primitive) {
             const typeTag = this._mechType.tag.toLowerCase();
@@ -5843,8 +5937,13 @@ export class BattleMech {
                 if (this.isIndustrialMech()) {
                     violations.push(`${item.name} can only be mounted on a BattleMech.`);
                 }
-                if (!BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this._armorType.tag)) {
-                    violations.push(`${item.name} does not work with ${this._armorType.name.replace(/ Armor$/, "")} armor.`);
+                // Under Patchwork Armor the armor that counts is the one in the system's own location.
+                const repairLocation = item.location ? BattleMech.MECH_LOCATION_MAP[item.location] : undefined;
+                const repairedArmor = this.isPatchworkArmor()
+                    ? (repairLocation ? this.getPatchworkArmorType(repairLocation) : null)
+                    : this._armorType;
+                if (repairedArmor && !BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(repairedArmor.tag)) {
+                    violations.push(`${item.name} does not work with ${repairedArmor.name.replace(/ Armor$/, "")} armor.`);
                 }
                 repairSystems.add(item.tag);
             }
@@ -6446,6 +6545,9 @@ export class BattleMech {
             allocation: thinnedAllocations,
             armor_allocation: this._armorAllocation,
             armor_type: this.getArmorType(),
+            patchworkArmor: this.isPatchworkArmor()
+                ? Object.fromEntries(this.getPatchworkLocations().map(location => [location.key, this.getPatchworkArmorType(location.key).tag]))
+                : undefined,
             armor_weight: this._armorWeight,
             engineType: this.getEngineType().tag,
             engineTechBase: this.getEngineTechBase(),
@@ -6827,6 +6929,13 @@ export class BattleMech {
 
             if( importObject.armor_allocation)
                 this._armorAllocation = importObject.armor_allocation;
+
+            // Set after the structure and tech base, which decide what a location may carry.
+            if (importObject.patchworkArmor && this.isPatchworkArmor()) {
+                for (const [locationKey, armorTag] of Object.entries(importObject.patchworkArmor)) {
+                    if (typeof armorTag === "string") this.setPatchworkArmorType(locationKey, armorTag);
+                }
+            }
 
             if( importObject.uuid)
                 this._uuid = importObject.uuid;
@@ -8460,8 +8569,168 @@ export class BattleMech {
     private _isArmorLegalForChassis(armor: IArmorType): boolean {
         if (this._primitive) return armor.tag === this._getPrimitiveArmorTag();
         if (!this.isIndustrialMech()) return !armor.industrialMechOnly;
-        return armor.industrialMechOnly === true || armor.tag === "standard"
+        // Patchwork is a way of mounting armor, open to every 'Mech; its locations are held to the same rule.
+        return armor.industrialMechOnly === true || armor.tag === "standard" || armor.tag === BattleMech.PATCHWORK_ARMOR_TAG
             || (BattleMech.DARK_AGE_ARMOR_TAGS.includes(armor.tag) && this._isMixedTechBase());
+    }
+
+    public static readonly PATCHWORK_ARMOR_TAG = "patchwork";
+    /**
+     * Fractional Accounting (TO:AUE p.188) is not built yet. Until it is, the weight accounting switch
+     * stays on "standard" and setWeightAccounting("fractional") is refused.
+     */
+    public static readonly FRACTIONAL_ACCOUNTING_AVAILABLE: boolean = false;
+
+    private static readonly PATCHWORK_LOCATIONS: Record<string, { key: string, abbr: string, label: string }> = {
+        head: { key: "head", abbr: "hd", label: "Head" },
+        centerTorso: { key: "centerTorso", abbr: "ct", label: "Center Torso" },
+        leftTorso: { key: "leftTorso", abbr: "lt", label: "Left Torso" },
+        rightTorso: { key: "rightTorso", abbr: "rt", label: "Right Torso" },
+        leftArm: { key: "leftArm", abbr: "la", label: "Left Arm" },
+        rightArm: { key: "rightArm", abbr: "ra", label: "Right Arm" },
+        leftLeg: { key: "leftLeg", abbr: "ll", label: "Left Leg" },
+        rightLeg: { key: "rightLeg", abbr: "rl", label: "Right Leg" },
+        centerLeg: { key: "centerLeg", abbr: "cl", label: "Center Leg" },
+        frontLeftLeg: { key: "frontLeftLeg", abbr: "fll", label: "Front Left Leg" },
+        frontRightLeg: { key: "frontRightLeg", abbr: "frl", label: "Front Right Leg" },
+    };
+
+    /** Commercial armor counts half in the defensive BV; the other modifiers are on the records. */
+    private static _armorBVMultiplier(armor: IArmorType): number {
+        return armor.bvMultiplier ?? (armor.tag === "commercial" ? 0.5 : 1);
+    }
+
+    /**
+     * The weight of one patchwork location's armor: "rounding the final result up to the nearest half-ton"
+     * (TO:AUE p.189). Under Fractional Accounting such rounding is dropped and figures are rounded "up to
+     * the nearest kilogram (0.001 tons)" (TO:AUE p.188).
+     */
+    public static roundPatchworkArmorWeight(weight: number, accounting: "standard" | "fractional" = "standard"): number {
+        if (!(weight > 0)) return 0;
+        return accounting === "fractional"
+            ? Math.ceil(weight * 1000 - 1e-9) / 1000
+            : Math.ceil(weight * 2 - 1e-9) / 2;
+    }
+
+    public getWeightAccounting(): "standard" | "fractional" {
+        return this._weightAccounting;
+    }
+
+    /** The switch for Fractional Accounting. Only "standard" can be chosen until that option is built. */
+    public setWeightAccounting(accounting: "standard" | "fractional"): "standard" | "fractional" {
+        if (accounting === "fractional" && !BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE) {
+            return this._weightAccounting;
+        }
+        this._weightAccounting = accounting;
+        this._calc();
+        return this._weightAccounting;
+    }
+
+    /** Patchwork Armor: an armor type for each hit location (TO:AUE p.189). */
+    public isPatchworkArmor(): boolean {
+        return this._armorType.tag === BattleMech.PATCHWORK_ARMOR_TAG;
+    }
+
+    /** The hit locations that take an armor type under Patchwork Armor; a torso's front and rear share one. */
+    public getPatchworkLocations(): { key: string, abbr: string, label: string }[] {
+        const typeTag = this._mechType.tag.toLowerCase();
+        const locations = BattleMech.PATCHWORK_LOCATIONS;
+        const core = [locations.head, locations.centerTorso, locations.leftTorso, locations.rightTorso];
+        if (typeTag === "quad" || typeTag === "quadvee") {
+            return [...core, locations.frontLeftLeg, locations.frontRightLeg,
+                { ...locations.leftLeg, label: "Rear Left Leg" }, { ...locations.rightLeg, label: "Rear Right Leg" }];
+        }
+        const limbs = [locations.leftArm, locations.rightArm, locations.leftLeg, locations.rightLeg];
+        return typeTag === "tripod" ? [...core, ...limbs, locations.centerLeg] : [...core, ...limbs];
+    }
+
+    /** The tech base whose table row a patchwork location uses, or null when the armor has none for this unit. */
+    private _getPatchworkTechBase(armor: IArmorType): "is" | "clan" | null {
+        const slots = armor.patchwork?.slots;
+        if (!slots) return null;
+        const techTag = this.getTech().tag;
+        const preferred = techTag === "clan" || techTag === "mclan" ? "clan" : "is";
+        if (slots[preferred] !== undefined) return preferred;
+        const other = preferred === "clan" ? "is" : "clan";
+        return (techTag === "mis" || techTag === "mclan") && slots[other] !== undefined ? other : null;
+    }
+
+    /** Whether this unit may carry the armor in a patchwork location, dates aside. */
+    private _isPatchworkLocationType(armor: IArmorType): boolean {
+        return armor.tag !== BattleMech.PATCHWORK_ARMOR_TAG
+            && armor.unitTypes.battlemech
+            && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment"
+            && this._getPatchworkTechBase(armor) !== null
+            && this._isArmorLegalForChassis(armor)
+            && (!this.isLAM() || this._isLAMLegalComponent("armor", armor.tag));
+    }
+
+    /** The armor types this unit may put in a patchwork location: those it could mount as its only armor. */
+    public getAvailablePatchworkArmorTypes(rulesLevel: number = 2): IArmorType[] {
+        return this.getAvailableArmorTypes(rulesLevel).filter(armor => armor.available && this._isPatchworkLocationType(armor));
+    }
+
+    public getPatchworkArmorType(locationKey: string): IArmorType {
+        return findByTag(mechArmorTypes, this._patchworkArmor[locationKey] ?? "standard") ?? mechArmorTypes[0];
+    }
+
+    public setPatchworkArmorType(locationKey: string, armorTag: string): IArmorType {
+        const armor = findByTag(mechArmorTypes, armorTag);
+        if (this.isPatchworkArmor() && armor && this._isPatchworkLocationType(armor)
+            && this.getPatchworkLocations().some(location => location.key === locationKey)) {
+            this._patchworkArmor[locationKey] = armor.tag;
+            this._calc();
+        }
+        return this.getPatchworkArmorType(locationKey);
+    }
+
+    /** Armor points in a patchwork location, a torso's rear included. */
+    private _getPatchworkLocationPoints(locationKey: string): number {
+        const allocation = this._armorAllocation as unknown as Record<string, number>;
+        return (allocation[locationKey] ?? 0) + (allocation[`${locationKey}Rear`] ?? 0);
+    }
+
+    /** Critical slots the location's armor takes there (Patchwork Armor Table, TO:AUE p.189; IO:AE p.82). */
+    public getPatchworkLocationSlots(locationKey: string): number {
+        if (!this.isPatchworkArmor()) return 0;
+        const armor = this.getPatchworkArmorType(locationKey);
+        const techBase = this._getPatchworkTechBase(armor);
+        return techBase ? this.getCriticalSlots(armor.patchwork?.slots[techBase] ?? 0) : 0;
+    }
+
+    /** Tons of armor in the location: points x the type's tons per point, rounded per location. */
+    public getPatchworkLocationWeight(locationKey: string): number {
+        if (!this.isPatchworkArmor()) return 0;
+        const armor = this.getPatchworkArmorType(locationKey);
+        const techBase = this._getPatchworkTechBase(armor);
+        const tonsPerPoint = techBase ? armor.patchwork?.tonsPerPoint[techBase] ?? 0 : 0;
+        return BattleMech.roundPatchworkArmorWeight(this._getPatchworkLocationPoints(locationKey) * tonsPerPoint, this._weightAccounting);
+    }
+
+    private _getPatchworkArmorWeight(): number {
+        return this.getPatchworkLocations().reduce((total, location) => total + this.getPatchworkLocationWeight(location.key), 0);
+    }
+
+    /** Armor cost: tons x the type's cost per ton; under Patchwork Armor, location by location. */
+    public getArmorCost(): number {
+        if (!this.isPatchworkArmor()) return this._armorType.costMultiplier * this._armorWeight;
+        return this.getPatchworkLocations().reduce((total, location) =>
+            total + this.getPatchworkLocationWeight(location.key) * this.getPatchworkArmorType(location.key).costMultiplier, 0);
+    }
+
+    /** One readout line per patchwork location: "Right Arm: Ferro Fibrous, 1.5 tons". */
+    private _getPatchworkReadoutLines(): string[] {
+        if (!this.isPatchworkArmor()) return [];
+        return this.getPatchworkLocations().map(location => {
+            const weight = this.getPatchworkLocationWeight(location.key);
+            return `${location.label}: ${this.getPatchworkArmorType(location.key).name}, ${weight} ton${weight === 1 ? "" : "s"}`;
+        });
+    }
+
+    /** HarJel II / III work with some armor types only; under Patchwork Armor one such location is enough to mount one. */
+    private _hasRepairSystemArmor(): boolean {
+        if (!this.isPatchworkArmor()) return BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this._armorType.tag);
+        return this.getPatchworkLocations().some(location => BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this.getPatchworkArmorType(location.key).tag));
     }
 
     /** The Dark Age armors of IO:AE pp.80-82 (Advanced Armor Table). */
@@ -8554,6 +8823,8 @@ export class BattleMech {
             armor.available = mandatory || (hasCompatibleMultiplier && availability.available
                 && this._isArmorLegalForChassis(armor)
                 && (!experimentalOnly || rulesLevel >= EXPERIMENTAL_RULES_LEVEL)
+                // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
+                && (armor.tag !== BattleMech.PATCHWORK_ARMOR_TAG || rulesLevel >= 3)
                 && (!this.isLAM() || this._isLAMLegalComponent("armor", armor.tag)));
 
             returnValue.push( armor );
@@ -8637,7 +8908,7 @@ export class BattleMech {
         // HarJel II / III: BattleMechs with compatible armor, and never the two kinds together (IO:AE pp.82-83).
         if (item.armorRepairBVMultiplier && (
             this.isIndustrialMech()
-            || !BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this._armorType.tag)
+            || !this._hasRepairSystemArmor()
             || this._equipmentList.some(other => other?.armorRepairBVMultiplier && other.tag !== item.tag)
         )) {
             return false;
@@ -8708,6 +8979,8 @@ export class BattleMech {
     // right pairs together, so no location ever exceeds its cap and the
     // Step 4 dropdowns always contain the allocated value.
     public allocateArmorSane(): void {
+        // Patchwork Armor has no purchased tonnage to spread: the weight follows the points.
+        if (this.isPatchworkArmor()) return;
         this.allocateArmorClear();
         const chassisMax = this.getChassisMaxArmor();
         let remaining = Math.floor(Math.min(this._maxArmor, chassisMax));

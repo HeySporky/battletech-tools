@@ -1,6 +1,7 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
+import { BattleMech } from '../../../../classes/battlemech';
 import { btEraOptions } from '../../../../data/era-options';
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
@@ -68,6 +69,14 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setPrimitive( !currentMech.isPrimitive() );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    toggleFractionalAccounting = (): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setWeightAccounting( currentMech.getWeightAccounting() === "fractional" ? "standard" : "fractional" );
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -300,6 +309,18 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                                 </p>
                               ) : null}
                             </>
+                          ) : null}
+
+                          <InputCheckbox
+                            label="Fractional Accounting"
+                            checked={this.props.appGlobals.currentBattleMech.getWeightAccounting() === "fractional"}
+                            readOnly={!BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE}
+                            onChange={this.toggleFractionalAccounting}
+                          />
+                          {!BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE ? (
+                            <p className="smaller-text">
+                              Fractional Accounting (TO:AUE p.188) is not built yet. Weights round to the half ton as normal.
+                            </p>
                           ) : null}
 
                           <label>

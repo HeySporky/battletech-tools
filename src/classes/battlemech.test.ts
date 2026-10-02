@@ -5895,8 +5895,9 @@ describe("Batch 50 IndustrialMech armor (TM pp.72, 205, 278, 315)", () => {
     });
 
     it("offers an IndustrialMech Commercial, Industrial and Standard (Heavy Industrial) armor only", () => {
-        expect(armors(build("industrial")).sort()).toEqual(["commercial", "industrial", "standard"]);
-        expect(armors(build("industrial", "clan")).sort()).toEqual(["commercial", "industrial", "standard"]);
+        // Patchwork Armor mixes these by location (TO:AUE p.189).
+        expect(armors(build("industrial")).sort()).toEqual(["commercial", "industrial", "patchwork", "standard"]);
+        expect(armors(build("industrial", "clan")).sort()).toEqual(["commercial", "industrial", "patchwork", "standard"]);
         const battlemech = armors(build());
         expect(battlemech).toEqual(expect.arrayContaining(["standard", "ferro-fibrous", "light-ferro-fibrous"]));
         expect(battlemech).not.toContain("industrial");

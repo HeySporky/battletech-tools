@@ -280,3 +280,25 @@
     }
 
 }
+
+// Patchwork Armor: one armor type select per location.
+.patchwork-armor {
+    table {
+        width: 100%;
+    }
+    th,
+    td {
+        padding: 0.25rem;
+        vertical-align: middle;
+    }
+    select {
+        width: 100%;
+        min-width: 8rem;
+    }
+    @media (max-width: 575px) {
+        th,
+        td {
+            font-size: 0.85rem;
+        }
+    }
+}
