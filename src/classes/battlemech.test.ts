@@ -1892,7 +1892,7 @@ describe("BattleMech", () => {
         // Regression: allocation used to match by UUID only, so ~8,300 SSW-import allocations failed (heat sinks etc.).
         expect(failedAllocations).toEqual([]);
         warn.mockRestore();
-    }, 120_000); // ~500 full imports; generous for slower phones running Termux
+    }, 300_000); // ~500 full imports; generous for slower phones running Termux (about 2 minutes on a laptop)
 
     // Regression: odd Jump MP used to produce a fractional Speed Factor table index and crash the import.
     // TechManual p. 316: MP = Run + round(Jump / 2) = 8 + round(2.5) = 11 -> Speed Factor 1.76.
@@ -5625,5 +5625,82 @@ describe("Batch 45 MRM Apollo Fire Control System (TO:AUE pp.143, 195, 221)", ()
         expect(offered("is", "civil-war", 4)).toBe(true);
         expect(offered("is", "clan-inv", 4)).toBe(false);
         expect(offered("clan", "dark-ages", 4)).toBe(false);
+    });
+});
+
+describe("Batch 46 C3 Remote Sensor Launcher (TO:AUE pp.110, 195, 217)", () => {
+    const build = (structure?: string) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(55);
+        mech.setWalkSpeed(5);
+        if (structure) mech.setInternalStructureType(structure);
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string) => mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
+    const offered = (mech: BattleMech, tag: string, rulesLevel = 4) => !!mech.getAvailableEquipment(false, rulesLevel).find(item => item.tag === tag)?.available;
+
+    it("lists the launcher and its sensor pods", () => {
+        const launcher = mechISEquipmentMissiles.find(item => item.tag === "c3-remote-sensor-launcher");
+        expect(launcher).toMatchObject({
+            name: "C3 Remote Sensor Launcher", cbills: 400000, weight: 4, battleValue: 30, heat: 0, damage: 0,
+            range: { min: 0, short: 3, medium: 6, long: 9 },
+            space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: -1, smallCraft: 1, dropShip: -1 },
+            shotsPerTon: 4, ammoBattleValue: 6, ammoTypes: ["ammo-is-c3-remote-sensor-standard"],
+            prototype: 3072, introduced: 3093, extinct: null, reintroduced: null, techRating: "e", book: "TO:AUE", page: 110,
+        });
+        expect(mechISAmmo.find(item => item.tag === "ammo-is-c3-remote-sensor-standard")).toMatchObject({
+            name: "C3 Remote Sensors (IS)", isAmmo: true, cbills: 100000, battleValue: 6, weight: 1, roundsPerTon: 4, explosive: true,
+            prototype: 3072, introduced: 3093, techRating: "e", book: "TO:AUE", page: 110,
+        });
+        expect(getWeaponAmmoFamilies(launcher!)).toEqual(["ammo-c3-remote-sensor-standard"]);
+    });
+
+    it("is offered to Inner Sphere designs, as a prototype from 3072", () => {
+        expect(offered(build(), "c3-remote-sensor-launcher")).toBe(true);
+        const jihad = build();
+        jihad.setEra("jihad");
+        expect(offered(jihad, "c3-remote-sensor-launcher", 4)).toBe(true);
+        expect(offered(jihad, "c3-remote-sensor-launcher", 2)).toBe(false);
+        const civilWar = build();
+        civilWar.setEra("civil-war");
+        expect(offered(civilWar, "c3-remote-sensor-launcher", 4)).toBe(false);
+        const clan = build();
+        clan.setTech("clan");
+        expect(offered(clan, "c3-remote-sensor-launcher", 4)).toBe(false);
+    });
+
+    it("needs no Advanced Fire Control on an IndustrialMech", () => {
+        const industrial = build("industrial");
+        expect(industrial.hasAdvancedFireControl()).toBe(false);
+        expect(offered(industrial, "c3-remote-sensor-launcher")).toBe(true);
+        expect(offered(industrial, "c3-computer-slave")).toBe(false);
+    });
+
+    it("cannot share a unit with a C3i computer", () => {
+        // The C3i computer is extinct after 3085; the launcher is a prototype from 3072.
+        const mech = build();
+        mech.setEra("jihad");
+        expect(offered(mech, "c3i-computer")).toBe(true);
+        add(mech, "c3-remote-sensor-launcher");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        expect(offered(mech, "c3i-computer")).toBe(false);
+        add(mech, "c3i-computer");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["C3 Remote Sensor Launcher is incompatible with C3i-based systems."]);
+        const other = build();
+        other.setEra("jihad");
+        expect(offered(other, "c3-remote-sensor-launcher")).toBe(true);
+        add(other, "c3i-computer");
+        expect(offered(other, "c3-remote-sensor-launcher")).toBe(false);
+    });
+
+    it("counts the launcher at 30 and each ton of sensors at 6 in the Battle Value", () => {
+        const mech = build();
+        add(mech, "c3-remote-sensor-launcher");
+        const weaponBV = (unit: BattleMech) => Number(/<strong>Total Weapon BV:<\/strong> ([\d.]+)/.exec(unit.getBVCalcHTML())?.[1]);
+        expect(weaponBV(mech)).toBe(30);
+        add(mech, "ammo-is-c3-remote-sensor-standard");
+        expect(mech.getBVCalcHTML()).toContain("for C3 Remote Sensor Launcher = 6.00");
     });
 });
