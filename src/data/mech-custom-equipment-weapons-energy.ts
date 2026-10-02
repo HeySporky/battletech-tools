@@ -184,5 +184,60 @@ export const mechCustomEquipmentEnergy: IEquipmentItem[] = [
         shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "f", book: "Custom", page: 0, rulesLevel: 5,
         alphaStrike: { heat: 15, rangeShort: 1, rangeMedium: 1, rangeLong: 1, rangeExtreme: 0, tc: true, notes: ["Custom homebrew", "Provisional workbook conversion"] },
         rangeAero: "e"
+    },
+    {
+        isAmmo: false,
+        name: "Enhanced ER Large Laser",
+        tag: "enhanced_er_large_laser",
+        catalog: "custom",
+        notes: "No canon source found: the original tool cited IO p.189, but neither Interstellar Operations (2016) nor IO: Alternate Eras lists a Clan \"Enhanced ER Large Laser\". Kept as Custom Homebrew with its old tag and statistics until a source is found.",
+        sort: "laser, enhanced er large",
+        category: "Energy Weapons",
+        damage: 10,
+        damageAero: 10,
+        accuracyModifier: 0,
+        cbills: 200000,
+        introduced: 2823,
+        extinct: 2828,
+        reintroduced: null,
+        battleValue: 222,
+        heat: 12,
+        weight: 4,
+        range: {
+            min: 0,
+            short: 6,
+            medium: 12,
+            long: 20
+        },
+        space: {
+            battlemech: 2,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 2,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        shotsPerTon: 0,
+        minAmmoTons: 0,
+        explosive: false,
+        weaponType: [
+            "DE"
+        ],
+        techRating: "f",
+        book: "Custom",
+        page: null,
+        rulesLevel: 5,
+        alphaStrike: {
+            heat: 12,
+            rangeShort: 1.0,
+            rangeMedium: 1.0,
+            rangeLong: 1.0,
+            rangeExtreme: 0,
+            tc: true,
+            notes: []
+        },
+        heatAero: 12,
+        rangeAero: "l"
     }
 ];

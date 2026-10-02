@@ -66,9 +66,10 @@ export interface IEngineOption {
         xxl: number;
         clan_xxl: number;
         ice: number;
-		cell: number;
-		fission: number;
-        /** Absent where the primitive-adjusted rating exceeds 500. */
+        /** Absent above rating 400: there are no large fuel cell or fission engines (TO:AUE p.120). */
+		cell?: number;
+		fission?: number;
+        /** Absent where the primitive-adjusted rating exceeds 400: primitive engines cannot be large engines. */
         primitive?: number;
 	}
 }
@@ -106,6 +107,12 @@ export interface IEngineType {
     available?: boolean;
     /** Set when the engine is offered only as an Experimental prototype. */
     availableAsPrototype?: boolean;
+    /** Rulebook abbreviation for the construction rule (TM, TO:AUE, IO). */
+    book?: string;
+    /** Printed page in `book`. */
+    page?: number;
+    /** Large engine records only: tag of the engine type this is the over-400 form of. */
+    largeOf?: string;
 }
 
 export interface IDamagePerRange {
@@ -222,6 +229,11 @@ export interface IEquipmentItem {
     ammoBattleValue?: number;
     /** Special munitions: multiplier on the launcher's ammo BV (TO:AUE munition BV). */
     battleValueMultiplier?: number;
+    /**
+     * Special munitions whose BV per ton is published per launcher, not as a multiplier: keyed by the
+     * launcher family and rack size ("lrm-5", "srm-6", "mml-9").
+     */
+    battleValueByLauncher?: Record<string, number>;
     /** Minefield munitions: BV per ton comes from the launcher's rack size and shots (TO:AUE pp.185, 197-198). */
     minefieldBattleValue?: "thunder" | "thunder-augmented" | "thunder-inferno" | "thunder-vibrabomb" | "thunder-active" | "fascam";
     /** Weapon arrays (MG Array): tags of the weapons it links in its own location; its BV derives from them. */
@@ -233,6 +245,11 @@ export interface IEquipmentItem {
     minAmmoTons?: number;
     explosive?: boolean;
     gauss?: boolean;
+    /**
+     * Slots that take the -1 explosive component BV penalty, when not all of them:
+     * an HVAC counts as a Gauss weapon "with one critical slot" (TO:AUE p.195, footnote Q).
+     */
+    explosiveBattleValueSlots?: number;
     weaponType?: string[];
     techRating?: string;
     unique?: boolean;
@@ -335,6 +352,8 @@ export interface IGyro {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    book?: string;
+    page?: number | null;
     available?: boolean;
     availableAsPrototype?: boolean;
 }
@@ -344,6 +363,32 @@ export interface ITechDates {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+}
+
+export interface ICockpitType {
+    name: string;
+    tag: string;
+    /** Tons. For an add-on (Command Console) this is the weight added to the base cockpit. */
+    weight: number;
+    cost: number;
+    /** Multiplier on the final BV (Small: TM p.304; Torso-Mounted: TO:AUE p.193). */
+    bvMultiplier?: number;
+    /** Only this technology base builds it. */
+    techBase?: "is" | "clan";
+    /** Mounted alongside another cockpit instead of replacing it. */
+    addOn?: boolean;
+    /** "implemented": the 'Mech builder mounts it; "deferred": catalogued for reference only. */
+    constructionStatus: "implemented" | "deferred";
+    book: string;
+    page: number;
+    notes?: string;
+    /** IO prototype year, when it precedes `introduced`. */
+    prototype?: number;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    /** Clan availability window when it differs from the Inner Sphere dates above. */
+    clanDates?: ITechDates;
 }
 
 export interface IHeatSync {
@@ -471,6 +516,8 @@ export interface IJumpJet {
     },
     criticals: number;
     costMultiplier: number;
+    book?: string;
+    page?: number;
     /** UMUs: underwater MP instead of jump MP (TO:AUE p.107). */
     underwater?: boolean;
     /** IO prototype year, when it precedes `introduced`; offered at the Experimental rules level. */
