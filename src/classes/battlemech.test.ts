@@ -2346,7 +2346,7 @@ describe("Batch 8 cockpit catalog", () => {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
         }
         expect(mechCockpitTypes.filter(item => item.constructionStatus === "implemented").map(item => item.tag).sort())
-            .toEqual(["industrial", "industrial-advanced-fire-control", "quadvee", "small", "standard", "superheavy", "superheavy-tripod", "tripod"]);
+            .toEqual(["industrial", "industrial-advanced-fire-control", "quadvee", "small", "standard", "superheavy", "superheavy-industrial", "superheavy-tripod", "tripod"]);
         // Small (TM p.304) and Torso-Mounted (TO:AUE p.193) cockpits multiply the final BV by 0.95.
         expect(cockpit("small")?.bvMultiplier).toBe(0.95);
         expect(cockpit("torso-mounted")?.bvMultiplier).toBe(0.95);
@@ -5702,5 +5702,160 @@ describe("Batch 46 C3 Remote Sensor Launcher (TO:AUE pp.110, 195, 217)", () => {
         expect(weaponBV(mech)).toBe(30);
         add(mech, "ammo-is-c3-remote-sensor-standard");
         expect(mech.getBVCalcHTML()).toContain("for C3 Remote Sensor Launcher = 6.00");
+    });
+});
+
+describe("Batch 47 Collapsible Command Module, Full-Head Ejection System, IndustrialMech Ejection Seat", () => {
+    const mechOnly = { protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 };
+    const build = (options: { tech?: string, era?: string, structure?: string } = {}) => {
+        const mech = new BattleMech();
+        mech.setTech(options.tech ?? "is");
+        mech.setEra(options.era ?? "dark-ages");
+        mech.setTonnage(75);
+        mech.setWalkSpeed(4);
+        if (options.structure) mech.setInternalStructureType(options.structure);
+        return mech;
+    };
+    const add = (mech: BattleMech, tag: string) => mech.addEquipmentFromTag(tag, mech.getTech().tag, "", false, undefined, "", false, [], undefined, undefined)!;
+    const place = (mech: BattleMech, item: { uuid?: string }, loc: string, key: string) =>
+        mech.moveCritical("un", mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid), loc, (mech.getCriticals() as any)[key].findIndex((critical: unknown) => !critical));
+    const offered = (mech: BattleMech, tag: string, rulesLevel = 4) => !!mech.getAvailableEquipment(false, rulesLevel).find(item => item.tag === tag)?.available;
+
+    it("lists the Collapsible Command Module (TO:AUE pp.113, 219)", () => {
+        expect(mechUniversalEquipment.find(item => item.tag === "collapsible-command-module")).toMatchObject({
+            name: "Collapsible Command Module (CCM)", cbills: 500000, weight: 16, battleValue: 0, space: { battlemech: 12, ...mechOnly },
+            prototype: 2700, introduced: 2710, extinct: null, reintroduced: null, techRating: "d", book: "TO:AUE", page: 113,
+        });
+    });
+
+    it("fits the 16-ton, 12-slot module into a side torso", () => {
+        const mech = build();
+        const tons = mech.getRemainingTonnage();
+        const module = add(mech, "collapsible-command-module");
+        expect(mech.getRemainingTonnage()).toBe(tons - 16);
+        expect(place(mech, module, "lt", "leftTorso")).toBe(true);
+        expect(mech.getCriticals().leftTorso.find(critical => critical?.obj?.tag === "collapsible-command-module")?.crits).toBe(12);
+    });
+
+    it("lists the Full-Head Ejection System for both tech bases with their own dates (TO:AUE pp.122, 219)", () => {
+        const common = {
+            cbills: 1725000, weight: 0, battleValue: 0, space: { battlemech: 0, ...mechOnly }, maxPerUnit: 1, maxPerUnitGroup: "full-head-ejection-system",
+            extinct: null, reintroduced: null, techRating: "d", book: "TO:AUE", page: 122,
+        };
+        expect(mechISEquipmentMisc.find(item => item.tag === "full-head-ejection-system")).toMatchObject({ name: "Full-Head Ejection System", prototype: 3020, introduced: 3023, ...common });
+        const clan = mechClanEquipmentMisc.find(item => item.tag === "clan-full-head-ejection-system");
+        expect(clan).toMatchObject({ name: "Full-Head Ejection System (Clan)", introduced: 3052, ...common });
+        expect(clan?.prototype).toBeUndefined();
+    });
+
+    it("offers the Full-Head Ejection System from 3023 (Inner Sphere) and 3052 (Clan)", () => {
+        expect(offered(build({ era: "late-sw-rn" }), "full-head-ejection-system", 3)).toBe(true);
+        expect(offered(build({ era: "late-sw-lt" }), "full-head-ejection-system", 4)).toBe(false);
+        expect(offered(build({ tech: "clan", era: "clan-inv" }), "clan-full-head-ejection-system", 3)).toBe(true);
+        expect(offered(build({ tech: "clan", era: "political-century" }), "clan-full-head-ejection-system", 4)).toBe(false);
+    });
+
+    it("mounts one Full-Head Ejection System at no tonnage or critical space", () => {
+        const mech = build();
+        const before = { tons: mech.getRemainingTonnage(), slots: mech.getUnallocatedCritCount(), cost: mech.getCBillCostNumeric() };
+        add(mech, "full-head-ejection-system");
+        expect({ tons: mech.getRemainingTonnage(), slots: mech.getUnallocatedCritCount() }).toEqual({ tons: before.tons, slots: before.slots });
+        expect(mech.getCBillCostNumeric()).toBeGreaterThan(before.cost);
+        expect(offered(mech, "full-head-ejection-system")).toBe(false);
+        add(mech, "full-head-ejection-system");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["Full-Head Ejection System: 2 mounted; at most 1 allowed."]);
+    });
+
+    it("lists the IndustrialMech Ejection Seat (TM pp.69, 213, 292, 344)", () => {
+        expect(mechUniversalEquipment.find(item => item.tag === "industrialmech-ejection-seat")).toMatchObject({
+            name: "Ejection Seat (IndustrialMech)", cbills: 25000, weight: 0.5, battleValue: 0, space: { battlemech: 1, ...mechOnly },
+            industrialMechOnly: true, allowedLocations: ["hd"],
+            prototype: 2430, introduced: 2445, extinct: null, reintroduced: null, techRating: "b", book: "TM", page: 213,
+        });
+    });
+
+    it("offers the Ejection Seat to IndustrialMechs only, and seats it in the head", () => {
+        expect(offered(build(), "industrialmech-ejection-seat")).toBe(false);
+        const mech = build({ structure: "industrial" });
+        expect(offered(mech, "industrialmech-ejection-seat")).toBe(true);
+        const seat = add(mech, "industrialmech-ejection-seat");
+        expect(place(mech, seat, "lt", "leftTorso")).toBe(false);
+        expect(place(mech, seat, "hd", "head")).toBe(true);
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        // On a BattleMech structure the seat is part of the cockpit already.
+        mech.setInternalStructureType("standard");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["Ejection Seat (IndustrialMech) can only be mounted on an IndustrialMech."]);
+    });
+});
+
+describe("Batch 48 superheavy IndustrialMechs and superheavy engines (IO:AE pp.155-156, 215)", () => {
+    const build = (structure?: string) => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setEra("dark-ages");
+        mech.setTonnage(150);
+        mech.setWalkSpeed(2);
+        if (structure) mech.setInternalStructureType(structure);
+        return mech;
+    };
+    const engines = (mech: BattleMech) => mech.getAvailableEngines(4).filter(engine => engine.available).map(engine => engine.tag);
+
+    it("gives a superheavy IndustrialMech the Superheavy IndustrialMech Cockpit", () => {
+        const mech = build("industrial");
+        expect(mech.getCockpitType()).toMatchObject({ tag: "superheavy-industrial", weight: 4, cost: 200000 });
+        expect(mech.hasAdvancedFireControl()).toBe(false);
+        expect(mech.getAvailableCockpits(4).map(cockpit => cockpit.tag)).toEqual(["superheavy-industrial", "superheavy"]);
+        // A superheavy BattleMech still has its one mandatory cockpit.
+        expect(build().getAvailableCockpits(4).map(cockpit => cockpit.tag)).toEqual(["superheavy"]);
+        expect(build().getCockpitType().tag).toBe("superheavy");
+        expect(mechCockpitTypes.find(cockpit => cockpit.tag === "superheavy-industrial")?.constructionStatus).toBe("implemented");
+    });
+
+    it("lets it take the superheavy BattleMech cockpit for Advanced Fire Control", () => {
+        const offensive = (unit: BattleMech) => Number(/<strong>Final Offensive Battle Rating:<\/strong> ([\d.]+)/.exec(unit.getBVCalcHTML())?.[1]);
+        const mech = build("industrial");
+        mech.addEquipmentFromTag("medium-laser", "is", "", false, undefined, "", false, [], undefined, undefined);
+        const plain = offensive(mech);
+        const plainCost = mech.getCBillCostNumeric();
+        expect(mech.getBVCalcHTML()).toContain("IndustrialMech without Advanced Fire Control: Offensive Battle Rating x 0.9");
+        expect(mech.setCockpitType("superheavy")).toMatchObject({ tag: "superheavy", weight: 4, cost: 300000 });
+        expect(mech.hasAdvancedFireControl()).toBe(true);
+        expect(plain).toBeCloseTo(offensive(mech) * 0.9, 1);
+        expect(mech.getCBillCostNumeric()).toBeGreaterThan(plainCost);
+        expect(new BattleMech(mech.exportJSON()).getCockpitType().tag).toBe("superheavy");
+        expect(mech.setCockpitType("superheavy-industrial").tag).toBe("superheavy-industrial");
+        expect(new BattleMech(mech.exportJSON()).getCockpitType().tag).toBe("superheavy-industrial");
+    });
+
+    it("weighs industrial superheavy structure at 40 percent of the 'Mech", () => {
+        expect(build("industrial").getInternalStructureWeight()).toBe(60);
+        expect(build().getInternalStructureWeight()).toBe(30);
+    });
+
+    it("offers a superheavy BattleMech fusion engines only", () => {
+        const offered = engines(build());
+        expect(offered).toEqual(expect.arrayContaining(["standard", "xl", "light", "compact", "xxl"]));
+        expect(offered).not.toEqual(expect.arrayContaining(["ice"]));
+        expect(offered).not.toEqual(expect.arrayContaining(["cell"]));
+        expect(offered).not.toEqual(expect.arrayContaining(["fission"]));
+        // A 100-ton 'Mech keeps them all.
+        const assault = build();
+        assault.setTonnage(100);
+        expect(engines(assault)).toEqual(expect.arrayContaining(["standard", "ice", "cell", "fission"]));
+    });
+
+    it("offers a superheavy IndustrialMech the standard fusion engine only", () => {
+        expect(engines(build("industrial"))).toEqual(["standard"]);
+    });
+
+    it("reports an engine a superheavy 'Mech cannot use", () => {
+        const mech = build();
+        mech.setTonnage(100);
+        mech.setEngineType("xl");
+        mech.setInternalStructureType("industrial");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        mech.setTonnage(150);
+        expect(mech.getEngineType().tag).toBe("xl");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["Superheavy IndustrialMechs may use only standard fusion engines."]);
     });
 });

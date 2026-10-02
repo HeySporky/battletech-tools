@@ -216,7 +216,7 @@ export const mechCockpitTypes: ICockpitType[] = [
 		weight: 4,
 		cost: 200000,
 		techBase: "is",
-		constructionStatus: "deferred",
+		constructionStatus: "implemented",
 		book: "IO:AE",
 		page: 156,
 		notes: "Superheavy IndustrialMechs only. Cost IO:AE p.215.",
