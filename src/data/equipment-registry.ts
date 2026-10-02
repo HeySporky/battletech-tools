@@ -141,7 +141,7 @@ export const CUSTOM_HOMEBREW_RULES_LEVEL = 5;
 /**
  * 'Mech equipment an OmniMech must build into its base chassis: it can never be pod-mounted.
  * Via MegaMek's `omniFixedOnly` flags (TM/TO:AUE/IO:AE pages cited there; provisional).
- * HarJel I stays pod-mountable; HarJel II/III are fixed but not in our catalogs yet.
+ * HarJel I stays pod-mountable; HarJel II and III "may not be pod-mounted" (IO:AE p.83).
  */
 export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
     "masc", "clan-masc",
@@ -152,7 +152,24 @@ export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
     "risc-emergency-coolant-system",
     "tracks",
     "environmental-sealing",
+    "clan-harjel-ii", "clan-harjel-iii",
 ];
+
+let artemisIVLaunchers: Set<string> | null = null;
+
+/**
+ * Is this a launcher Artemis IV applies to, i.e. one that also exists with Artemis IV fitted?
+ * "every single standard LRM, SRM and MML launcher on the unit must have Artemis IV" once one does (TM p.207).
+ */
+export function isArtemisIVCapableLauncher(tag: string): boolean {
+    if (!artemisIVLaunchers) {
+        const suffix = "-artemis-iv";
+        artemisIVLaunchers = new Set(equipmentCatalogDefinitions.flatMap(definition => definition.equipment)
+            .filter(item => item.tag.endsWith(suffix))
+            .map(item => item.tag.slice(0, -suffix.length)));
+    }
+    return artemisIVLaunchers.has(tag);
+}
 
 export function isOmniFixedOnly(item: IEquipmentItem): boolean {
     return OMNI_FIXED_ONLY_TAGS.some((tag) => matchesTag(item, tag));
@@ -337,6 +354,14 @@ export function getAmmoBattleValuePerTon(weapon: IEquipmentItem | null, ammo: IE
                 return rack * shots;
             case "thunder-active":
                 return rack * shots / 5 * 6;
+        }
+    }
+    if (weapon && ammo.battleValueByLauncher) {
+        // Published per launcher (e.g. Dead-Fire, IO:AE p.190).
+        const launcher = /(mml|lrm|srm)-(\d+)/.exec(weapon.tag);
+        const published = launcher ? ammo.battleValueByLauncher[`${launcher[1]}-${launcher[2]}`] : undefined;
+        if (published !== undefined) {
+            return published;
         }
     }
     if (weapon && weapon.ammoBattleValue !== undefined) {
