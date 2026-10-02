@@ -672,3 +672,61 @@ export interface ICapitalWeapon {
     book: string;
     page: number;
 }
+
+/** Support Vehicle armor of one Barrier Armor Rating (support-vehicle-armor.ts). */
+export interface ISupportVehicleArmor {
+    name: string;
+    tag: string;
+    /** Barrier Armor Rating, 2 to 10. */
+    bar: number;
+    /** Kilograms per armor point by the armor's Tech Rating; null where that rating cannot make it. */
+    kgPerPoint: Record<"a" | "b" | "c" | "d" | "e" | "f", number | null>;
+    /** Tech Ratings at which the Armored chassis modification is required. */
+    armoredChassisRatings: string[];
+    /** Tech Ratings at which the armor takes Ferro-Fibrous slot space (BAR 10 at E and F). */
+    ferroFibrousSlotRatings: string[];
+    /** C-bills per armor point. */
+    costPerPoint: number;
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    book: string;
+    page: number;
+    notes: string;
+}
+
+/** Armor for fighters, small craft, DropShips and larger craft (aerospace-armor-types.ts). */
+export interface IAerospaceArmorType {
+    name: string;
+    tag: string;
+    techBase: "is" | "clan" | "both";
+    /** "capital": points are capital-scale (JumpShips, WarShips, space stations), each worth 10 standard points. */
+    scale: "standard" | "capital";
+    /**
+     * Points per ton by unit and, where it matters, tonnage band; null for a tech base that cannot use the armor.
+     * "advanced-aerospace" covers JumpShips, WarShips and space stations.
+     */
+    pointsPerTon: {
+        unit: "conventional-fighter" | "aerospace-fighter" | "small-craft" | "spheroid-dropship" | "aerodyne-dropship" | "advanced-aerospace";
+        minTons: number | null;
+        maxTons: number | null;
+        clan: number | null;
+        is: number | null;
+    }[];
+    /** Weapon slots a fighter gives up for the armor, and where; null for armor fighters cannot mount. */
+    fighterSlots: { is: number | null; clan: number | null; placement: string } | null;
+    /** C-bills per ton of armor. */
+    costMultiplier: number;
+    techRating: string;
+    availability: string;
+    prototype: number | null;
+    introduced: number | null;
+    extinct: number | null;
+    reintroduced: number | null;
+    book: string;
+    page: number;
+    notes: string;
+}
