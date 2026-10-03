@@ -30,7 +30,7 @@ Local references (git-ignored, never imported by shipped code):
 - [x] Purge the old copies of `browser-state.json` from the history: rewritten and force-pushed on
   2026-09-30 (`master`, `CustomMUL`, `vehicle-motive-types`; unrelated branches kept their commit IDs). The
   cookies were anonymous (`_I_`, `cf_clearance`) and can't be revoked; they expire by 2027-09.
-- [ ] Ask GitHub Support to drop the cached views of the old commits and the fork PR #8 ref (a "Remove
+- [skipping ] Ask GitHub Support to drop the cached views of the old commits and the fork PR #8 ref (a "Remove
   sensitive data" request listing the old commit IDs).
 - [x] Report the SSW ammunition bug upstream. The ammunition catalog rename (`Ammo (SRM-6)` ->
   `SRM - Standard Ammo`, upstream #75) broke name matching in the SSW importer: 413 of the 512 bundled
@@ -54,7 +54,7 @@ and fluff text, quirks, source/book fields, and per-format IDs (MUL id, SSW sola
 ### Shared
 
 - [ ] Make the canonical JSON format versioned, documented, and stable enough to be the app's long-term
-  interchange format.
+  interchange format. Decide as group whether we should use a dedicated extension or stick with json.
 - [ ] Keep provenance on imported records: source file, source format, source book, and conversion warnings.
 - [ ] Import review screen: parsed fields, unmapped fields, warnings, provenance, and the final canonical
   record before saving.
@@ -400,10 +400,12 @@ Ultralight and Superheavy (tonnage); OmniMech and Primitive (checkboxes); Indust
   (IO:AE pp.117-118): tonnage, engine 360 / 33 t, gyro, cockpit, 17 sinks (3 outside the engine), 214 armor
   points by location, structure, Primitive Prototype PPC at 15 heat, Experimental rules level (prototype
   equipment is Experimental, IO:AE p.112). The Alpha Strike card shows the specials problem below.
-- [ ] Alpha Strike specials on builder cards (already on upstream master, every unit): a weapon with no
-  `alphaStrike.specialAbility` falls back to its TechManual weapon type codes (`getAlphaStrikeEquipmentAbilityCodes`
-  in `equipment-registry.ts`), so cards print "DB", "DE", "S"; and `alphaStrike.notes` are pushed into the
-  specials, so "PROVISIONAL WORKBOOK CONVERSION" prints too (`calcAlphaStrike`). Fix on its own branch.
+- [x] Alpha Strike specials on builder cards (bug on upstream master, every unit): weapon type codes ("DB",
+  "DE", "S") and catalog notes ("PROVISIONAL WORKBOOK CONVERSION") printed as specials. Fixed on
+  `fix/alpha-strike-specials` (from upstream master, `isAlphaStrikeAbilityCode`), merged into master.
+- [ ] Alpha Strike specials, still owed: open the upstream PR for `fix/alpha-strike-specials` (branch is
+  local only; full e2e not run on the branch itself). Bare "TOR" notes are now dropped from cards instead of
+  printed without damage: the conversion has no torpedo damage code yet (TOR#).
 - [ ] Then lift the SSW import skip for these designs (section 2, 234 designs): `importSSWXML` only accepts
   `mech_type` "BattleMech".
 
@@ -428,6 +430,13 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
 | #109 | `industrialmech-to-hit` | draft, on #105 |
 
 - [ ] As each part merges upstream, rebase the next branch on upstream master and mark it ready.
+- [ ] #106-#109 are siblings on #105: after one merges, merge master into the others (the ledger file
+  conflicts; when resolving, check that a shared closing `});` in the test files survives).
+- [x] 2026-10-03: also merged into master: #92 (`feature/weekly-mul-sync`, master's newer sync script and
+  `.gitignore` kept), #93 (`security/pin-license-files`), #94's last commit (`feature/clan-eras`: the SSW era
+  from the design year was already in master; duplicate removed), #97 (already in). Not merged on purpose:
+  `layers` (strips LAM, Tripod and QuadVee support) and `backup/canon-pass-*` (pre-rebase copies of work
+  already in master).
 - [ ] #91 and #94 (Clan eras) touch the same catalogs; whichever set merges second needs a rebase. The
   merge into local master shows where they differ: the canon pass values were kept (Clan 'Mech Mortar
   dates and weights, Clan artillery cannon production 3079 with one universal shell record, Inner Sphere
@@ -536,12 +545,23 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
 ### Custom Homebrew
 
 - [ ] Compact 'Mechs under the Custom Homebrew rules level (requested 2026-10-01). Source: the *Best of
-  Future Wars* fanzine. The fanzine is not in `_KNOWLEDGE_DEV/` yet, so the rules still have to be found
+  Future Wars* fanzine. The fanzine is in `_KNOWLEDGE_DEV/custom/`
   and read before any design work; nothing is to be reconstructed from memory. Lead: 12 HeavyMetal Pro
   files in `WorkingData_DEV/HMPdata/hmpFiles/FutureWars`. Goes in `mech-custom-*` only, gated by
   `tag: "custom"`, never in canon lists or canon BV/PV math.
+- [ ] Micro Mechs under the Custom Homebrew rules level. Source: Micro Mechs in `_KNOWLEDGE_DEV/custom/`
+- [ ] Hexa and 
 
 ### Calculations and play
+
+- [ ] Hardened Armor's -1 Running MP (TO:AUE p.93) is not modeled for any design (also its patchwork
+  exemption when no leg carries Hardened Armor, TO:AUE p.189).
+- [ ] Record sheet prints no armor type and no construction name (Primitive / RetroTech); the readouts do.
+- [ ] Record sheet weapons table: a long ammo name runs into the location column ("AC/5 - Standard Ammo
+  (IS) 20/20" overlaps "RT").
+- [ ] Moving an item out of the unallocated list by index can leave an empty entry behind (seen in a
+  scripted build; check `moveCritical`).
+- [ ] Weight breakdown labels the engine "<type> - 0" (engine type has no rating); only tests read it.
 
 - [ ] Cost, record sheet and Alpha Strike conversion should consume `roundsPerTon`/`shotsPerTon`,
   `prototype` and composite records.
