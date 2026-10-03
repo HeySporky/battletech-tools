@@ -543,6 +543,8 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
 - [ ] Micro Mechs under the Custom Homebrew rules level. Source: Micro Mechs in `_KNOWLEDGE_DEV/custom/`
 - [ ] Hexa and Octapeds. under the Custom homebrew rules level. Source: https://www.reddit.com/r/battletech/comments/fb5ufe/eight_and_sixlegged_mech_thoughts/
 - [ ] Permenant Air Mechs (PAMs): Source: https://www.battletech.com/forums/index.php/topic,44833.0.html  **Note: there is a lot of other good stuff to pull out of that thread as well... we want it all.
+- [ ] https://lostech.miraheze.org/  Lots of good custom stuff here... The detargeting computer as an example.
+- [ ] https://battletechfanon.fandom.com/wiki/Category:Weapons  More stuff to add.
 
 ### Calculations and play
 
