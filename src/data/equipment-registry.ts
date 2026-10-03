@@ -1,5 +1,6 @@
 import { IEquipmentItem, ITechDates } from "./data-interfaces";
 import { matchesTag } from "./tag-match";
+import { isAlphaStrikeAbilityCode } from "./alpha-strike-special-abilities";
 import { mechISEquipmentBallistic } from "./mech-is-equipment-weapons-ballistic";
 import { mechISEquipmentEnergy } from "./mech-is-equipment-weapons-energy";
 import { mechISEquipmentMisc } from "./mech-is-equipment-weapons-misc";
@@ -117,10 +118,14 @@ export function equipmentMatchesIdentifier(item: IEquipmentItem, identifier: str
     return identifiers.some(value => value.trim().toLowerCase() === normalizedIdentifier);
 }
 
+/**
+ * An item's Alpha Strike special abilities: its own list, or else those of its TechManual weapon type codes that
+ * are also Alpha Strike codes ("AMS", "ECM"). The others ("DE", "DB", "M", ...) are not special abilities.
+ */
 export function getAlphaStrikeEquipmentAbilityCodes(item: IEquipmentItem): string[] {
     return item.alphaStrike.specialAbility && item.alphaStrike.specialAbility.length > 0
         ? item.alphaStrike.specialAbility
-        : item.weaponType ?? [];
+        : (item.weaponType ?? []).filter(isAlphaStrikeAbilityCode);
 }
 
 export function getAlphaStrikeEquipmentDisplayAbilityCodes(item: IEquipmentItem): string[] {

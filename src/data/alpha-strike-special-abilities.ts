@@ -1487,3 +1487,27 @@ export interface IASSpecialAbility {
     source: IAbilitySource;
     rawTag?: string; // this is for display of the tag on the popup
 }
+
+let abilityCodePatterns: RegExp[] | null = null;
+
+/** A catalog tag as a pattern: "#" is a number ("IF#" matches "IF1" and "IF 1"), "%" a letter code ("ART%-#"). */
+function getAbilityCodePattern(tag: string): RegExp | null {
+    const firstNumber = tag.indexOf("#");
+    const prefix = (firstNumber >= 0 ? tag.slice(0, firstNumber) : tag).trim();
+    if (!prefix) return null;
+    const escaped = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/%/g, "[A-Z]+");
+    const numbers = firstNumber >= 0 ? "\\s*[\\d*-]+(?:/[\\d*-]+)*" : "";
+    return new RegExp("^" + escaped + numbers + "$", "i");
+}
+
+/**
+ * Whether a code is an Alpha Strike special ability listed in CONST_AS_SPECIAL_ABILITIES, with its numbers if it
+ * takes any. TechManual weapon type codes ("DE", "DB") and descriptive notes are not.
+ */
+export function isAlphaStrikeAbilityCode(code: string): boolean {
+    abilityCodePatterns ??= CONST_AS_SPECIAL_ABILITIES
+        .map(ability => getAbilityCodePattern(ability.tag))
+        .filter((pattern): pattern is RegExp => pattern !== null);
+    const trimmed = code.trim();
+    return trimmed !== "" && abilityCodePatterns.some(pattern => pattern.test(trimmed));
+}

@@ -268,6 +268,23 @@ describe("BattleMech armor technology availability", () => {
         mech.setArmorType("reactive");
         expect(mech.getAlphaStrikeForceStats().abilities).toContain("RCA");
     });
+
+    it("keeps TechManual weapon type codes and catalog notes off the Alpha Strike card", () => {
+        // A large laser's weapon type is "DE" (direct-fire energy, TM): not an Alpha Strike special ability.
+        const mech = new BattleMech();
+        for (const tag of ["large-laser", "medium-laser", "lrm-10", "is-ams"]) {
+            mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
+        }
+        const abilities = mech.getAlphaStrikeForceStats().abilities;
+        for (const code of ["DE", "DB", "M", "MS", "S", "P", "I", "C"]) {
+            expect(abilities, code).not.toContain(code);
+        }
+        expect(abilities.some(code => /provisional|unresolved|copied/i.test(code))).toBe(false);
+        // Real codes stay: AMS, and the LRM and IF the conversion builds from the launcher's notes.
+        expect(abilities).toContain("AMS");
+        expect(abilities.some(code => code.startsWith("LRM"))).toBe(true);
+        expect(abilities.some(code => /^IF\s?\d/.test(code))).toBe(true);
+    });
 });
 
 describe("BattleMech armor allocation", () => {
