@@ -178,6 +178,8 @@ export type EngineRequirement = "fusion" | "fusion-or-fission" | "ice-or-fuel-ce
 
 export interface IEquipmentItem {
     catalog?: "is" | "clan" | "custom" | "universal";
+    /** First rules edition that includes this item (a tag from rules-editions.ts); the default edition when absent. */
+    introducedInEdition?: string;
     metadata?: IEquipmentMetadata;
     split_location?: ISplitLocation[];
     isRotary?: boolean;
@@ -408,6 +410,8 @@ export interface ITechDates {
     introduced: number | null;
     extinct: number | null;
     reintroduced: number | null;
+    /** First rules edition that includes this record (a tag from rules-editions.ts); the default edition when absent. */
+    introducedInEdition?: string;
 }
 
 export interface ICockpitType {
