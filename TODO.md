@@ -625,8 +625,6 @@ socket (CPU profile), which points at a network filter driver, not the app: Fire
 Open:
 - [ ] Upstream draft PRs waiting on review: #110 (`fix/storage-quota-handling`) and #112
   (`perf/lazy-ssw-corpus`, which now carries the AppRouter cleanup too; #111 was closed into it).
-- [ ] `feature/rules-levels-expanded` (commit 53da11d5, not merged): rules levels 5 Apocryphal, 6 Custom Homebrew,
-  7 Munchkin, with constants replacing every hard-coded 5. Review, then merge.
 - [ ] Read the sources added to `_KNOWLEDGE_DEV/rulebooks/` on 2026-10-06 for rules and options the tool lacks:
   the BattleMech Manual (7th printing), Ghosts of Obeedah, The Wars of Reaving and Supplemental, the 31 XTROs
   (experimental equipment), and the quick-start rulebooks. Log each gap under the section it belongs to.
@@ -637,10 +635,10 @@ Open:
   - [ ] Identify the files whose names say "title unconfirmed" or "title truncated" (about 60, mostly fan and
     foreign-language magazines, plus a few FASA/FanPro scans) and rename them.
   - [ ] Install Tesseract German and Spanish data before OCRing `languages/de/` or `languages/es/` scans.
-- [ ] `feature/rules-editions` (commit 6a01d7e0, not merged): `introducedInEdition` reserved on catalog records and
-  `src/data/rules-editions.ts`. Add each earlier edition (Battledroids, 2nd, 3rd, Compendium, Master Rules, FanPro
-  Total Warfare) from `rulebooks-legacy/` once its text is extracted and its year and contents are cited.
-- [ ] `refactor/catalog-by-category` (includes the two branches above): step 1 done, every equipment record states
+- [ ] Rules editions: add each earlier edition to `src/data/rules-editions.ts` (Battledroids, 2nd, 3rd, Compendium,
+  Master Rules, FanPro Total Warfare) from `rulebooks-legacy/`, with year and contents cited; their scans are OCR
+  as of 2026-10-07, so check tables against the page image.
+- [ ] `refactor/catalog-by-category`: step 1 done, every equipment record states
   `techBase` (commit c959dbc8). Review the 62 custom records, whose tech base was set from tag and name. Next:
   move records into `<category>-canon.ts` / `-apocryphal.ts` / `-custom.ts` / `-munchkin.ts`, one category per
   commit, registry and tests following; then the component catalogs (engines, structure, armor, cockpits).

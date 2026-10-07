@@ -15,6 +15,10 @@ in the roadmap, so it is listed first here.
 
 ### JBTIICRework review (2026-10-06)
 
+- [x] Rules levels 5 Apocryphal, 6 Custom Homebrew, 7 Munchkin, with constants replacing every hard-coded 5
+  (`feature/rules-levels-expanded`, merged 2026-10-07).
+- [x] `introducedInEdition` reserved on catalog records, with `src/data/rules-editions.ts`
+  (`feature/rules-editions`, merged 2026-10-07).
 - [x] 1.1 A failed `localStorage` write is reported with an "Unable to Save" alert (`fix/storage-quota-handling`,
   branched from `upstream/master`).
 - [x] 1.3 / 1.4 AppRouter removes its online/offline listeners and import timer on unmount
