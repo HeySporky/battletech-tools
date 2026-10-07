@@ -859,9 +859,7 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
 - [ ] Turn `prefer-const` (~790 hits) and `no-var` (~20) back on after their own `eslint --fix` commit
   (`npx eslint . --fix --rule 'prefer-const: error' --rule 'no-var: error'`).
 - [ ] Add lint back to `npm run check` and make the CI lint job blocking once the backlog below is empty.
-- [ ] Lint backlog (`npm run lint`, 9 errors, all in fork tooling):
-  - `tools/live_mul_browser_probe.mjs`: unused `findChunkEntry` (L38) and `saveChunkIfNeeded` (L65);
-    `document` / `HTMLAnchorElement` not defined (L109, L110, L121, L130; browser-context code needs
-    browser globals).
-  - `tools/mul-sync/sync-mul.mjs`: no `cause` on a rethrown error (L256, `preserve-caught-error`);
-    `document` not defined (L403, L409).
+- [x] Lint backlog cleared (2026-10-06): `npm run lint` reports 0 errors. The two unused helpers in
+  `tools/live_mul_browser_probe.mjs` were removed, the rethrow in `tools/mul-sync/sync-mul.mjs` carries its
+  `cause`, and those two Playwright scripts get browser globals in `eslint.config.mjs`. The phantom
+  `tools/append_chunker.js` / `tools/range_chunker.js` entries are gone from `tsconfig.json`.

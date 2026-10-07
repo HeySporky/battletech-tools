@@ -22,6 +22,11 @@ export default tseslint.config(
         languageOptions: { globals: { ...globals.node } },
     },
     {
+        // These two drive a real browser with Playwright; the callbacks they pass to page.evaluate() run in the page.
+        files: ["tools/live_mul_browser_probe.mjs", "tools/mul-sync/sync-mul.mjs"],
+        languageOptions: { globals: { ...globals.node, ...globals.browser } },
+    },
+    {
         files: ["**/*.{ts,tsx}"],
         languageOptions: {
             ecmaVersion: 2022,

@@ -254,7 +254,8 @@ async function fetchJson(page, relativeUrl, { retries = 2, retryDelayMs = 3000 }
                 return JSON.parse(result.text);
             } catch (err) {
                 throw new Error(
-                    `Failed to parse JSON from ${url}: ${err.message}. Body started with: ${result.text.slice(0, 200)}`
+                    `Failed to parse JSON from ${url}: ${err.message}. Body started with: ${result.text.slice(0, 200)}`,
+                    { cause: err }
                 );
             }
         }
