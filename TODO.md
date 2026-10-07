@@ -700,14 +700,16 @@ Open:
       Alpha Strike roster's unit picker; weapon introduction, extinction and reintroduction years from the cost
       table (TM pp.298-301) with an era on the platoon; infantry armor (TO:AUE pp.129-130, 191: 47 rows, damage
       divisor, encumbrance, vacuum, stealth, cost), Advanced rules.
-      Open: (a) the MUL's Foot Platoon (LRM) card shows Armor 1 where 28 troopers convert to 2; not explained.
-      (b) MUL Battle Values for infantry do not follow TM p.309 (Motorized Platoon, Rifle, Energy: 86 on the MUL,
-      108 by the book's method, which reproduces the book's own 168 example). (c) With infantry armor, the
-      divisor is applied before the mechanized and Clear terrain doublings; the book gives no order. (d) A
-      platoon in encumbering armor keeps the Anti-'Mech Skill its kits give it for the skill multiplier, though
-      it cannot make the attacks; the book does not say. (e) An oversized formation converts to Alpha Strike as
-      its first sub-platoon. (f) The Stetta auto-pistol's date row is misprinted (TM p.301); 3010 is taken as
-      its Inner Sphere introduction.
+      Rulings (user, 2026-10-07): damage modifiers apply in the order the books list them (Clear terrain TW
+      p.216, mechanized TW p.217, armor divisor TO:AUE p.129); a platoon whose armor keeps it from Anti-'Mech
+      attacks gets no weight, cost or skill from its kits until the armor comes off, and reads the 5 column;
+      armor cost before the multipliers stands; Battle Value stays the book's (TM p.309) and is looked up by
+      rules edition (`getBattleValue(edition)`), so each edition's own method can be added as it is entered;
+      the MUL is the source of truth for published cards, and the converter is for unpublished designs.
+      Discrepancies noted: the MUL's Foot Platoon (LRM) card shows Armor 1 where 28 troopers convert to 2; MUL
+      Battle Values for infantry do not follow TM p.309 (Motorized Platoon, Rifle, Energy: 86 on the MUL, 108
+      by the book). Also: an oversized formation converts to Alpha Strike as its first sub-platoon; the Stetta
+      auto-pistol's date row is misprinted (TM p.301) and 3010 is taken as its Inner Sphere introduction.
       Not built yet: field guns and field artillery, beast-mounted infantry, specialized infantry (combat
       engineers, marines, paratroops and the rest) and disposable weapons, all Tactical Operations; battle armor,
       which is a unit type of its own.

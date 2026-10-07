@@ -2,6 +2,7 @@ import { generateUUID } from "../utils/generateUUID";
 import { IInfantryWeapon, INFANTRY_MAX_PRIMARY_DAMAGE, INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons, isInfantryWeaponAvailable } from "../data/infantry-weapons";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
 import { IEras } from "../data/data-interfaces";
+import { DEFAULT_RULES_EDITION } from "../data/rules-editions";
 import { IInfantryArmor, INFANTRY_ARMOR_RULES_LEVEL, INFANTRY_STEALTH_SYSTEMS, findInfantryArmor, infantryArmor } from "../data/infantry-armor";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
@@ -574,7 +575,14 @@ export default class InfantryPlatoon {
     // Anti-'Mech capability, weight (TM p.155)
 
     /** Mechanized platoons are barred from Anti-'Mech attacks and take no kits. */
-    public hasAntiMechKit(): boolean { return this._antiMechKit && !this.isMechanized(); }
+    /**
+     * True while the kits count. A platoon that cannot make Anti-'Mech attacks, for its motive type or its
+     * encumbering armor, has neither the benefits nor the drawbacks of the kits it chose (their weight, cost and
+     * skill) until it can again (user ruling, 2026-10-07).
+     */
+    public hasAntiMechKit(): boolean { return this._antiMechKit && this.canMakeAntiMechAttacks(); }
+    /** The designer's choice, whether or not the platoon can use it now. */
+    public isAntiMechKitChosen(): boolean { return this._antiMechKit && !this.isMechanized(); }
     public setAntiMechKit(equipped: boolean): boolean {
         if (equipped && this.isMechanized()) return false;
         this._antiMechKit = !!equipped;
@@ -646,9 +654,20 @@ export default class InfantryPlatoon {
         return { value, log };
     }
 
-    public getBattleValue(): number { return this._calcBattleValue().value; }
+    /**
+     * Battle Value methods by rules edition tag. Only the TechManual's is entered so far; an edition's own method
+     * is added here as that edition's rules are entered, and no caller changes.
+     */
+    private _battleValueMethods: Record<string, () => { value: number; log: string[] }> = {
+        [DEFAULT_RULES_EDITION]: () => this._calcBattleValue(),
+    };
+    /** The edition whose method works out the Battle Value: the one asked for, or the default where it has none entered. */
+    public getBattleValueEdition(edition: string = DEFAULT_RULES_EDITION): string {
+        return Object.prototype.hasOwnProperty.call(this._battleValueMethods, edition) ? edition : DEFAULT_RULES_EDITION;
+    }
+    public getBattleValue(edition?: string): number { return this._battleValueMethods[this.getBattleValueEdition(edition)]().value; }
     /** The calculation, one plain-text line per step. */
-    public getBattleValueLog(): string[] { return this._calcBattleValue().log; }
+    public getBattleValueLog(edition?: string): string[] { return this._battleValueMethods[this.getBattleValueEdition(edition)]().log; }
 
     /**
      * The rules edition's skill multiplier (TechManual p.315 by default). Under the TechManual, mechanized platoons
@@ -656,9 +675,10 @@ export default class InfantryPlatoon {
      * An edition with no table gives 1.
      */
     public getSkillMultiplier(edition?: string): number {
-        return getSkillMultiplier(this._gunnery, this.getAntiMechSkill(), this.isMechanized() ? "mechanized-infantry" : "infantry", edition) ?? 1;
+        // A platoon that cannot make Anti-'Mech attacks adjusts Gunnery only, as mechanized infantry do.
+        return getSkillMultiplier(this._gunnery, this.getAntiMechSkill(), this.canMakeAntiMechAttacks() ? "infantry" : "mechanized-infantry", edition) ?? 1;
     }
-    public getSkillAdjustedBattleValue(edition?: string): number { return roundNormally(this.getBattleValue() * this.getSkillMultiplier(edition)); }
+    public getSkillAdjustedBattleValue(edition?: string): number { return roundNormally(this.getBattleValue(edition) * this.getSkillMultiplier(edition)); }
 
     // Cost (TM pp.276, 282)
 
@@ -891,7 +911,8 @@ export default class InfantryPlatoon {
                 notes.push(`${stealth.name}: Camo to-hit modifier ${stealth.camoToHit} by MP moved (0/1/2/3/4+), IR to-hit modifier ${stealth.irToHit} at Short/Medium/Long for non-infantry attackers, ECM effect: ${stealth.ecm} (TO:AUE p.130).`);
             }
         }
-        if (!this.isMechanized() && !this.hasAntiMechKit()) notes.push("Without Anti-'Mech kits the platoon's Anti-'Mech Skill is fixed at 8 (TM p.155).");
+        if (this.isAntiMechKitChosen() && !this.hasAntiMechKit()) notes.push("The Anti-'Mech kits add no weight, cost or skill while the platoon's armor keeps it from Anti-'Mech attacks.");
+        else if (this.canMakeAntiMechAttacks() && !this.hasAntiMechKit()) notes.push("Without Anti-'Mech kits the platoon's Anti-'Mech Skill is fixed at 8 (TM p.155).");
         if (this.isMechanized()) notes.push("Mechanized infantry cannot make Anti-'Mech Leg or Swarm attacks (TM p.144).");
         if (!this.usesFormationSizes()) notes.push(`Custom arrangement: ${this._formation.name} ${this._motive.name.toLowerCase()} platoons are ${this._formation.sizes[this._motive.tag].join(" troopers in each of ")} squads (TM p.147).`);
         return notes;
@@ -943,7 +964,9 @@ export default class InfantryPlatoon {
      * Applies one successful attack to a record sheet line and says what it did. A non-infantry weapon eliminates
      * troopers by the Non-Infantry Weapon Damage Against Infantry Table, fractions rounded up and doubled against
      * mechanized infantry; a burst-fire, infantry or heat-effect attack applies its damage point for point. Either
-     * is doubled against a platoon in Clear terrain (TW pp.216-217).
+     * is doubled against a platoon in Clear terrain (TW pp.216-217). Modifiers apply in the order the books give
+     * them (user ruling, 2026-10-07): Clear terrain (TW p.216), mechanized infantry (TW p.217), then infantry
+     * armor's damage divisor (TO:AUE p.129).
      */
     public resolveAttack(line: number, kind: InfantryAttackKind, damage: number, clearTerrain: boolean = false): string[] {
         const lines = this.getSubPlatoons();
@@ -962,27 +985,31 @@ export default class InfantryPlatoon {
             else troopers = Math.ceil(value / 10);
             if (value <= 0) troopers = 0;
             log.push(`${attack.name}, Damage Value ${value}: ${attack.formula} = ${troopers} ${troopers === 1 ? "trooper" : "troopers"} hit`);
-            if (this._armor && this.getDamageDivisor() !== 1 && troopers > 0) {
-                troopers = Math.ceil(troopers / this.getDamageDivisor() - 1e-9);
-                log.push(`${this._armor.name}, damage divisor ${this.getDamageDivisor()}: ${troopers}`);
+            if (clearTerrain && troopers > 0) {
+                troopers *= 2;
+                log.push(`Clear terrain: doubled to ${troopers}`);
             }
             if (this.isMechanized() && troopers > 0) {
                 troopers *= 2;
                 log.push(`Mechanized infantry: doubled to ${troopers}`);
             }
+            if (this._armor && this.getDamageDivisor() !== 1 && troopers > 0) {
+                troopers = Math.ceil(troopers / this.getDamageDivisor() - 1e-9);
+                log.push(`${this._armor.name}, damage divisor ${this.getDamageDivisor()}: ${troopers}`);
+            }
             points = troopers * perTrooper;
         } else {
             points = value;
             log.push(`${attack.name}: ${value} damage`);
+            if (clearTerrain && points > 0) {
+                points *= 2;
+                log.push(`Clear terrain: doubled to ${points}`);
+            }
+            if (this.isMechanized() && value > 0) log.push("Mechanized infantry: each trooper takes 2 points to eliminate");
             if (this._armor && this.getDamageDivisor() !== 1 && points > 0) {
                 points = Math.ceil(points / this.getDamageDivisor() - 1e-9);
                 log.push(`${this._armor.name}, damage divisor ${this.getDamageDivisor()}: ${points}`);
             }
-            if (this.isMechanized() && value > 0) log.push("Mechanized infantry: each trooper takes 2 points to eliminate");
-        }
-        if (clearTerrain && points > 0) {
-            points *= 2;
-            log.push("Clear terrain: damage doubled");
         }
         const before = this.getLineTroopers(line);
         this.setLineDamage(line, this.getLineDamage(line) + points);

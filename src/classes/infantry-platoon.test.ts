@@ -318,7 +318,7 @@ describe("Infantry platoons in play (Total Warfare pp.215-217)", () => {
         platoon.resolveAttack(0, "infantry", 4, true);
         expect(platoon.getLineTroopers(0)).toBe(13);
         const log = platoon.resolveAttack(0, "direct", 10, true);
-        expect(log.join(" | ")).toContain("Clear terrain: damage doubled");
+        expect(log.join(" | ")).toContain("Clear terrain: doubled to 2");
         expect(platoon.getLineTroopers(0)).toBe(11);
         platoon.resolveAttack(0, "area-effect", 20);
         expect(platoon.isDestroyed()).toBe(true);
@@ -559,5 +559,59 @@ describe("Infantry armor (Tactical Operations: Advanced Units & Equipment pp.129
         expect(platoon.getArmor()).toBeNull();
         expect(platoon.export().armor).toBeUndefined();
         expect(new InfantryPlatoon(JSON.stringify({ ...platoon.export(), armor: "inf-armor-comstar" })).getImportIssues().join(" ")).toContain("cannot be worn");
+    });
+});
+
+describe("Rulings on infantry (user, 2026-10-07)", () => {
+    it("applies damage modifiers in the order the books give them: Clear terrain, mechanized, then armor", () => {
+        // LB 20-X against a platoon in Lyran field kits (divisor 2) in Clear terrain: 3 troopers, doubled to 6, halved to 3.
+        const platoon = darrell();
+        platoon.setArmor("inf-armor-lyran-alliance-3060-plus");
+        const log = platoon.resolveAttack(0, "cluster-ballistic", 20, true).join(" | ");
+        expect(platoon.getLineTroopers(0)).toBe(25);
+        expect(log.indexOf("Clear terrain")).toBeLessThan(log.indexOf("damage divisor"));
+        // Dividing first would round 1.5 up to 2 and double it to 4.
+        // A machine gun rolling 5 in Clear terrain: 10, halved to 5 (dividing first: 3, doubled to 6).
+        platoon.resolveAttack(0, "burst", 5, true);
+        expect(platoon.getLineTroopers(0)).toBe(20);
+    });
+
+    it("gives a platoon that cannot make Anti-'Mech attacks neither the benefits nor the drawbacks of its kits", () => {
+        const platoon = darrell();
+        const bareWeight = platoon.getWeight();
+        const bareCost = platoon.getCBillCost()!;
+        platoon.setAntiMechKit(true);
+        platoon.setAntiMechSkill(3);
+        expect(platoon.getWeight()).toBe(6);
+        expect(platoon.getSkillMultiplier()).toBe(1.2);
+
+        // Encumbering armor: the kits stay chosen but count for nothing.
+        platoon.setArmor("inf-armor-ablative-standard");
+        expect(platoon.isAntiMechKitChosen()).toBe(true);
+        expect(platoon.hasAntiMechKit()).toBe(false);
+        expect(platoon.getWeight()).toBe(bareWeight);
+        expect(platoon.getCBillCost()).toBe(Math.floor(bareCost + 28 * 1000 * 1.6 + 1e-6));
+        // Gunnery only, from the 5 column, as for mechanized infantry.
+        expect(platoon.getSkillMultiplier()).toBe(1);
+        platoon.setGunnery(3);
+        expect(platoon.getSkillMultiplier()).toBe(1.2);
+        expect(platoon.getNotes().join(" | ")).toContain("add no weight, cost or skill");
+
+        // Removing the armor brings the kits back.
+        platoon.setArmor("");
+        expect(platoon.hasAntiMechKit()).toBe(true);
+        expect(platoon.getWeight()).toBe(6);
+        expect(new InfantryPlatoon(platoon.exportJSON()).getAntiMechSkill()).toBe(3);
+    });
+
+    it("works out Battle Value by rules edition, falling back to the default where an edition has no method entered", () => {
+        const platoon = darrell();
+        expect(platoon.getBattleValueEdition()).toBe("total-warfare");
+        expect(platoon.getBattleValueEdition("master-rules")).toBe("total-warfare");
+        expect(platoon.getBattleValueEdition("constructor")).toBe("total-warfare");
+        expect(platoon.getBattleValue("master-rules")).toBe(platoon.getBattleValue());
+        // The skill multiplier is the edition's own: Master Rules reads the 5 column for all infantry.
+        platoon.setGunnery(3);
+        expect(platoon.getSkillAdjustedBattleValue("master-rules")).toBe(Math.round(platoon.getBattleValue() * 1.2));
     });
 });

@@ -176,7 +176,7 @@ export default class InfantryCreatorPlatoon extends React.Component<IPlatoonProp
                             <h3>Anti-'Mech Capability and Skills</h3>
                             {!motive.mechanized ? (
                                 <label>
-                                    <input type="checkbox" checked={platoon.hasAntiMechKit()} onChange={(e) => { const value = e.currentTarget.checked; this.update((p) => p.setAntiMechKit(value)); }} />
+                                    <input type="checkbox" checked={platoon.isAntiMechKitChosen()} onChange={(e) => { const value = e.currentTarget.checked; this.update((p) => p.setAntiMechKit(value)); }} />
                                     &nbsp;Anti-'Mech Infantry kits and training (15 kg a trooper, cost x 5; TM pp. 155, 282)
                                 </label>
                             ) : null}
