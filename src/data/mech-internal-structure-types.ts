@@ -19,17 +19,17 @@ const baselineBipedData: Record<number, IRawMechStructure> = {
   15: { head: 3, ct: 5, torso: 4, arm: 2, leg: 3 },
   // Lights
   20: { head: 3, ct: 6, torso: 5, arm: 3, leg: 4 },
-  25: { head: 3, ct: 8, torso: 6, arm: 4, leg: 5 },
+  25: { head: 3, ct: 8, torso: 6, arm: 4, leg: 6 },
   30: { head: 3, ct: 10, torso: 7, arm: 5, leg: 7 },
   35: { head: 3, ct: 11, torso: 8, arm: 6, leg: 8 },
   // Mediums
   40: { head: 3, ct: 12, torso: 10, arm: 6, leg: 10 },
   45: { head: 3, ct: 14, torso: 11, arm: 7, leg: 11 },
   50: { head: 3, ct: 16, torso: 12, arm: 8, leg: 12 },
-  55: { head: 3, ct: 17, torso: 13, arm: 9, leg: 13 },
+  55: { head: 3, ct: 18, torso: 13, arm: 9, leg: 13 },
   // Heavies
-  60: { head: 3, ct: 19, torso: 14, arm: 10, leg: 14 },
-  65: { head: 3, ct: 20, torso: 15, arm: 10, leg: 15 },
+  60: { head: 3, ct: 20, torso: 14, arm: 10, leg: 14 },
+  65: { head: 3, ct: 21, torso: 15, arm: 10, leg: 15 },
   70: { head: 3, ct: 22, torso: 15, arm: 11, leg: 15 },
   75: { head: 3, ct: 23, torso: 16, arm: 12, leg: 16 },
   // Assaults
