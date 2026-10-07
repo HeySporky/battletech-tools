@@ -83,3 +83,35 @@ test("an oversized foot platoon splits into sub-platoons and trades mobility for
 
     expect(errors).toEqual([]);
 });
+
+// Infantry armor is an Advanced rule (Tactical Operations: Advanced Units & Equipment pp. 129-130) and platoons are
+// raised in an era.
+test("infantry armor is offered at the Advanced rules level and the era limits the weapons", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+
+    await page.goto("classic-battletech/infantry-creator");
+    await page.getByRole("button", { name: /Start Over/ }).click();
+    await page.goto("classic-battletech/infantry-creator/platoon");
+    await page.getByLabel("Rules Level:").selectOption("2");
+    await expect(page.getByLabel("Infantry Armor:")).toHaveCount(0);
+    await page.getByLabel("Rules Level:").selectOption("3");
+    await page.getByLabel("Infantry Armor:").selectOption("inf-armor-ballistic-plate-standard");
+    await page.getByLabel("Motive Type:").selectOption("motorized");
+
+    await page.getByLabel("Era:").selectOption("early-sw");
+    await page.getByRole("link", { name: /Next: Weapons/ }).click();
+    // Encumbering armor takes 1 MP off the motorized platoon's 3.
+    await expect(page.getByTestId("infantry-attack")).toContainText("Movement: 2 (Ground)");
+    // The Stetta auto-pistol dates from 3010 and is not made in the early Succession Wars.
+    await expect(page.getByLabel("Primary Weapon:").locator("option[value='inf-auto-pistol-stetta']")).toHaveCount(0);
+    await expect(page.getByLabel("Primary Weapon:").locator("option[value='inf-auto-rifle']")).toHaveCount(1);
+
+    await page.getByRole("link", { name: /Next: Summary/ }).click();
+    await expect(page.getByText("Infantry Armor: Ballistic Plate, Standard (damage divisor 2)")).toBeVisible();
+    await expect(page.getByText(/Encumbering armor: -1 MP/)).toBeVisible();
+    await page.getByRole("link", { name: "View Record Sheet" }).click();
+    await expect(page.getByText(/Damage Divisor 2E/)).toBeVisible();
+
+    expect(errors).toEqual([]);
+});

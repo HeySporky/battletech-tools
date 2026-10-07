@@ -35,6 +35,7 @@ export default class InfantryRecordSheet extends React.Component<IInfantryRecord
                     <strong>Secondary Weapon</strong>: {secondary && platoon.getSecondaryPerSquad() > 0 ? `${secondary.name}, ${platoon.getSecondaryPerSquad()} per squad` : "None"} &nbsp;|&nbsp;
                     <strong>Gunnery</strong> {platoon.getGunnery()} / <strong>Anti-'Mech</strong> {platoon.getAntiMechSkill()} &nbsp;|&nbsp;
                     <strong>Prohibited Terrain</strong>: {platoon.getMotive().prohibitedTerrain}
+                    {platoon.getArmor() ? <> &nbsp;|&nbsp; <strong>Armor</strong>: {platoon.getArmor()?.name}, Damage Divisor {platoon.getDamageDivisor()}{platoon.getArmor()?.encumbering ? "E" : ""}</> : null}
                 </p>
                 {features.length > 0 ? (
                     <p><strong>Special</strong>: {features.map((code) => INFANTRY_SPECIAL_FEATURES[code]).join("; ")}</p>

@@ -66,6 +66,7 @@ export default class InfantryCreatorSummary extends React.Component<ISummaryProp
                             <p>
                                 <strong>Gunnery</strong>: {platoon.getGunnery()} &nbsp;|&nbsp;
                                 <strong>Anti-'Mech</strong>: {platoon.canMakeAntiMechAttacks() ? platoon.getAntiMechSkill() : "no Anti-'Mech attacks"} &nbsp;|&nbsp;
+                                <strong>Infantry Armor</strong>: {platoon.getArmor() ? `${platoon.getArmor()?.name} (damage divisor ${platoon.getDamageDivisor()})` : "None"} &nbsp;|&nbsp;
                                 <strong>Skill-Adjusted Battle Value</strong>: {platoon.getSkillAdjustedBattleValue()} (x {platoon.getSkillMultiplier().toFixed(2)})
                             </p>
                             {features.length > 0 ? (
@@ -83,7 +84,10 @@ export default class InfantryCreatorSummary extends React.Component<ISummaryProp
                             <ul data-testid="infantry-bv-log">
                                 {platoon.getBattleValueLog().map((line, index) => <li key={index}>{line}</li>)}
                             </ul>
-                            <p className="smaller-text">TechManual p. 309, for Gunnery 4 and Anti-'Mech 5; the skill multiplier is from the table on p. 315.</p>
+                            <p className="smaller-text">
+                                TechManual p. 309, for Gunnery 4 and Anti-'Mech 5; the skill multiplier is from the table on p. 315. Infantry
+                                armor follows Tactical Operations: Advanced Units &amp; Equipment p. 191.
+                            </p>
 
                             <h3>Cost Calculation</h3>
                             <ul data-testid="infantry-cost-log">
@@ -91,7 +95,8 @@ export default class InfantryCreatorSummary extends React.Component<ISummaryProp
                             </ul>
                             <p className="smaller-text">
                                 TechManual pp. 276 and 282. The book prices a platoon from one weapon; where a secondary weapon is carried,
-                                each trooper is priced by the weapon they fire, as MegaMek does.
+                                each trooper is priced by the weapon they fire, and infantry armor is added for each trooper before the
+                                multipliers, as MegaMek does.
                             </p>
 
                             <h3>Alpha Strike Stats</h3>

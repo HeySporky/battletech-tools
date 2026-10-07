@@ -683,9 +683,7 @@ Open:
       from pp.298-301), range modifiers, damage by troopers remaining, special features, Anti-'Mech kits,
       transport weight, Battle Value (TM p.309, the 168 example), cost (TM p.276, the 3,167,838 example), saves,
       backup and a record sheet. The book's tables match the revised infantry tables v4.1 (June 2021).
-      Open, for a ruling: (1) the app's skill multiplier matrix for 'Mechs, vehicles and fighters is not the
-      table in the TechManual's sixth printing (p.315: Gunnery 0 / Piloting 0 is 2.42 there, 2.80 in the app);
-      infantry use the printed table, the other units are unchanged. (2) TM p.151 works a platoon with 2 support
+      Open, for a ruling: (1) settled 2026-10-07, see "Skill multipliers by rules edition" below. (2) TM p.151 works a platoon with 2 support
       machine guns per squad to -2 in its own hex (heavy burst -1, crew +1) but p.153 writes -1 for the same
       platoon, leaving the burst out; the creator follows p.151 and the Classifications Table. (3) The p.152
       text gives the crew modifier to weapons with a crew "of more than 2"; the Crew Table (p.149) and both
@@ -694,8 +692,35 @@ Open:
       (vibro-mace, four thrown weapons, both Pequod harpoons): their cost is left unknown. (6) With a secondary
       weapon the book does not say how to price the platoon; each trooper is priced by their own weapon, as
       MegaMek does.
-      Not built yet: infantry in the roster and play mode, the Alpha Strike conversion, introduction dates and
-      era filtering for infantry weapons, armor kits and field guns (Tactical Operations), battle armor.
+    - [x] Infantry finished out (2026-10-07): platoons join roster groups and play mode, tracked by sub-platoon,
+      with attacks resolved by Total Warfare pp.215-217 (the Non-Infantry Weapon Damage Against Infantry Table,
+      burst-fire and infantry damage point for point, Clear terrain and mechanized doubling) and printed with
+      losses blacked out; Alpha Strike conversion (ASC pp.92-103, Point Value as MegaMek works it out; matches
+      the MUL's Motorized, Mechanized Hover, Taurian Foot and Clan Mechanized Hover cards), printable and in the
+      Alpha Strike roster's unit picker; weapon introduction, extinction and reintroduction years from the cost
+      table (TM pp.298-301) with an era on the platoon; infantry armor (TO:AUE pp.129-130, 191: 47 rows, damage
+      divisor, encumbrance, vacuum, stealth, cost), Advanced rules.
+      Open: (a) the MUL's Foot Platoon (LRM) card shows Armor 1 where 28 troopers convert to 2; not explained.
+      (b) MUL Battle Values for infantry do not follow TM p.309 (Motorized Platoon, Rifle, Energy: 86 on the MUL,
+      108 by the book's method, which reproduces the book's own 168 example). (c) With infantry armor, the
+      divisor is applied before the mechanized and Clear terrain doublings; the book gives no order. (d) A
+      platoon in encumbering armor keeps the Anti-'Mech Skill its kits give it for the skill multiplier, though
+      it cannot make the attacks; the book does not say. (e) An oversized formation converts to Alpha Strike as
+      its first sub-platoon. (f) The Stetta auto-pistol's date row is misprinted (TM p.301); 3010 is taken as
+      its Inner Sphere introduction.
+      Not built yet: field guns and field artillery, beast-mounted infantry, specialized infantry (combat
+      engineers, marines, paratroops and the rest) and disposable weapons, all Tactical Operations; battle armor,
+      which is a unit type of its own.
+  - [x] Skill multipliers by rules edition (2026-10-07): `skill-multipliers.ts` is keyed by edition and says
+    which unit types read the 5 column. Master Rules p.144 and Master Rules, Revised p.158 share one table
+    (skills 0-7; infantry and, in the Revised Edition, ProtoMechs use the 5 column); Total Warfare uses the
+    TechManual's p.315 table as printed from 2020 on and repeated in the 2024 Battle Value pages (Gunnery 0 /
+    Piloting 0 = 2.42), which the Core Rulebook p.222 also prints; editions before Master Rules have no Battle
+    Value system. The app had carried the 2017 "BV 2.1" revision (2.80) cut off at Piloting 5, so skill-adjusted
+    Battle Values of 'Mechs, vehicles and fighters change (Gunnery 3 / Piloting 4: 1.38 before, 1.32 now). The
+    2007 first printing's table (3.68) is noted in the file, not selectable. Nothing chooses an edition yet:
+    every unit takes an optional edition and defaults to Total Warfare until the edition selector is built.
+    Not checked: BattleTech Compendium: The Rules of Warfare (1994), which is not in the library.
     - [ ] Gun emplacement / building.
   - [ ] Next: Compendium (1990). Then Third Edition (1992), Fourth Edition (1996), Master Rules (1998), Master
     Rules Revised (2001), in that order.

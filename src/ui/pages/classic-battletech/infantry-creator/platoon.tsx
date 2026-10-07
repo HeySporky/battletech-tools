@@ -2,6 +2,8 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleRight } from "react-icons/fa";
 import InfantryPlatoon, { INFANTRY_MAX_SQUADS, INFANTRY_MOTIVE_TYPES } from '../../../../classes/infantry-platoon';
+import { INFANTRY_ARMOR_GROUPS, INFANTRY_ARMOR_RULES_LEVEL } from '../../../../data/infantry-armor';
+import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import InfantryCreatorSideMenu from '../../../components/infantry-creator-side-menu';
 import InputField from "../../../components/form_elements/input_field";
@@ -26,9 +28,19 @@ export default class InfantryCreatorPlatoon extends React.Component<IPlatoonProp
         }
     }
 
+    updateRulesLevel = (e: React.FormEvent<HTMLSelectElement>): void => {
+        const appSettings = this.props.appGlobals.appSettings;
+        appSettings.mechRulesFilter = +e.currentTarget.value;
+        this.props.appGlobals.saveAppSettings(appSettings);
+    }
+
     render = (): JSX.Element => {
         const platoon = this.props.appGlobals.currentInfantry;
         if (!platoon) return <></>;
+        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const armor = platoon.getArmor();
+        const armorOffered = rulesLevel >= INFANTRY_ARMOR_RULES_LEVEL || armor !== null;
+        const availableArmor = platoon.getAvailableArmor();
         const motive = platoon.getMotive();
         const subPlatoons = platoon.getSubPlatoons();
         const formationSize = platoon.getFormation().sizes[motive.tag];
@@ -67,6 +79,15 @@ export default class InfantryCreatorPlatoon extends React.Component<IPlatoonProp
                                 <select value={platoon.getTechBase()} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setTechBase(value === "clan" ? "clan" : "is")); }}>
                                     <option value="is">Inner Sphere</option>
                                     <option value="clan">Clan</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Rules Level:
+                                <select value={rulesLevel} onChange={this.updateRulesLevel}>
+                                    {getRulesLevelOptions().map((option) => (
+                                        <option key={option.id} value={option.id}>{option.name}</option>
+                                    ))}
                                 </select>
                             </label>
 
@@ -124,6 +145,32 @@ export default class InfantryCreatorPlatoon extends React.Component<IPlatoonProp
                                     A formation of more than {motive.maxPlatoonSize} troopers is divided as evenly as possible into sub-platoons, each
                                     moving, attacking and taking damage on its own record sheet line (TM p. 146).
                                 </p>
+                            ) : null}
+
+                            {armorOffered ? (
+                                <>
+                                    <h3>Infantry Armor</h3>
+                                    <label>
+                                        Infantry Armor:
+                                        <select value={armor ? armor.tag : ""} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setArmor(value)); }}>
+                                            <option value="">None (standard rules)</option>
+                                            {INFANTRY_ARMOR_GROUPS.map((group) => (
+                                                <optgroup key={group.tag} label={group.name}>
+                                                    {availableArmor.filter((item) => item.group === group.tag).map((item) => (
+                                                        <option key={item.tag} value={item.tag}>
+                                                            {item.name} - divisor {item.damageDivisor}{item.encumbering ? "E" : ""}, {item.cost.toLocaleString("en-US")} C-bills
+                                                        </option>
+                                                    ))}
+                                                </optgroup>
+                                            ))}
+                                        </select>
+                                    </label>
+                                    <p className="smaller-text">
+                                        Advanced rules (Tactical Operations: Advanced Units &amp; Equipment pp. 129-130). The whole platoon wears one
+                                        type. Damage to the platoon is divided by the armor's divisor; "E" armor is encumbering: -1 MP and no
+                                        Anti-'Mech attacks.
+                                    </p>
+                                </>
                             ) : null}
 
                             <h3>Anti-'Mech Capability and Skills</h3>

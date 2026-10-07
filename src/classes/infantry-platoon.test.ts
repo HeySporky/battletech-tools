@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import InfantryPlatoon, { formatInfantryASDamage, INFANTRY_FORMATIONS, INFANTRY_MOTIVE_TYPES, INFANTRY_RANGE_MODIFIERS, normalizeInfantryPlatoonExport } from "./infantry-platoon";
 import { INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
 import { BattleMechGroup } from "./battlemech-group";
+import { findInfantryArmor, infantryArmor } from "../data/infantry-armor";
 
 // The four platoons TechManual builds as its running examples (pp.146-155).
 
@@ -478,5 +479,85 @@ describe("Infantry weapons by era (TechManual pp.298-301)", () => {
         expect(old.getEra().tag).toBe(old.getAvailableEras().slice(-1)[0].tag);
         expect(old.getImportIssues()).toEqual([]);
         expect(new InfantryPlatoon(JSON.stringify({ ...saved, era: "<b>" })).getImportIssues().join(" ")).toContain("Unknown era");
+    });
+});
+
+describe("Infantry armor (Tactical Operations: Advanced Units & Equipment pp.129-130, 191)", () => {
+    it("holds the Conventional Infantry Armor Table, with a record for each Sneak Suit combination", () => {
+        // 47 rows; the three Sneak Suit rows become seven combinations of Camo, IR and ECM.
+        expect(infantryArmor.length).toBe(51);
+        expect(new Set(infantryArmor.map((armor) => armor.tag)).size).toBe(51);
+        expect(findInfantryArmor("inf-armor-lyran-alliance-3060-plus")).toMatchObject({ damageDivisor: 2, encumbering: false, techBase: "is", introduced: 3060, cost: 730 });
+        expect(findInfantryArmor("inf-armor-ballistic-plate-standard")).toMatchObject({ damageDivisor: 2, encumbering: true, cost: 1600 });
+        expect(findInfantryArmor("inf-armor-clothing-light-e-g-summer-wear-none")?.damageDivisor).toBe(0.5);
+        expect(findInfantryArmor("inf-armor-environment-suit-marine")).toMatchObject({ damageDivisor: 2, vacuum: true, encumbering: false });
+        expect(findInfantryArmor("inf-armor-sneak-suit-camo-ir")).toMatchObject({ stealth: ["camo", "ir"], cost: 21000 });
+    });
+
+    it("divides damage by the armor's divisor, rounding up: the Lyran field kit example (TO:AUE p.129)", () => {
+        const platoon = darrell();
+        expect(platoon.getRequiredRulesLevel()).toBe(2);
+        expect(platoon.setArmor("inf-armor-lyran-alliance-3060-plus")).toBe(true);
+        expect(platoon.getRequiredRulesLevel()).toBe(3);
+        // LB 20-X: ((20 / 10) + 1) / 2 = 1.5, a 2-point hit.
+        platoon.resolveAttack(0, "cluster-ballistic", 20);
+        expect(platoon.getLineTroopers(0)).toBe(26);
+        // A machine gun rolling 17: 17 / 2 = 8.5, 9 points.
+        platoon.resolveAttack(0, "burst", 17);
+        expect(platoon.getLineTroopers(0)).toBe(17);
+        // Light clothing has a divisor of 0.5: damage is doubled.
+        platoon.resetInPlay();
+        platoon.setArmor("inf-armor-clothing-light-e-g-summer-wear-none");
+        platoon.resolveAttack(0, "infantry", 3);
+        expect(platoon.getLineTroopers(0)).toBe(22);
+    });
+
+    it("slows a platoon in encumbering armor and bars it from Anti-'Mech attacks (TO:AUE p.130)", () => {
+        const platoon = darrell();
+        platoon.setAntiMechKit(true);
+        const plain = platoon.getBattleValue();
+        expect(platoon.setArmor("inf-armor-ballistic-plate-standard")).toBe(true);
+        expect(platoon.getMP()).toBe(2);
+        expect(platoon.canMakeAntiMechAttacks()).toBe(false);
+        expect(platoon.getAlphaStrikeStats().specialAbilities).not.toContain("AM");
+        // Defensive: 28 x 2 x 1.5 x 1.0 = 84; offensive: 28 x 1.43 x 0.65, not added again.
+        expect(platoon.getBattleValue()).toBe(Math.round(84 + 28 * 1.43 * 0.65));
+        expect(platoon.getBattleValue()).not.toBe(plain);
+        // A foot platoon is not slowed below 1 MP.
+        const foot = new InfantryPlatoon();
+        foot.setArmor("inf-armor-snowsuit");
+        expect(foot.getMP()).toBe(1);
+        // Alpha Strike armor: 28 x 2 / 15 = 3.73, rounded to 4.
+        expect(platoon.getAlphaStrikeStats().armor).toBe(4);
+    });
+
+    it("adds stealth armor to the Defensive Factor and each trooper's armor to the cost", () => {
+        const platoon = darrell();
+        const cost = platoon.getCBillCost()!;
+        const value = platoon.getBattleValue();
+        expect(platoon.setArmor("inf-armor-sneak-suit-camo-ir-ecm")).toBe(true);
+        // Camo +0.2, IR +0.2, ECM +0.1 on top of 1.1 for 3 MP: 28 x 1.5 x 1.6 = 67.2 against 46.2.
+        expect(platoon.getStealthDefensiveFactor()).toBeCloseTo(0.5);
+        expect(platoon.getBattleValue()).toBe(Math.round(value - 46.2 + 67.2));
+        // 28 suits at 28,000, before the motorized multiplier of 1.6.
+        expect(platoon.getCBillCost()).toBe(Math.floor(cost + 28 * 28000 * 1.6 + 1e-6));
+        expect(platoon.getNotes().join(" | ")).toContain("Sneak, Camo: Camo to-hit modifier +3/+2/+1/0/0");
+    });
+
+    it("offers armor by technology base and era, and saves it", () => {
+        const platoon = new InfantryPlatoon();
+        const offered = (): string[] => platoon.getAvailableArmor().map((armor) => armor.tag);
+        expect(offered()).not.toContain("inf-armor-clan-all");
+        expect(platoon.setArmor("inf-armor-clan-all")).toBe(false);
+        platoon.setEra("late-sw-lt");
+        expect(offered()).toContain("inf-armor-federated-suns");
+        expect(offered()).not.toContain("inf-armor-lyran-alliance-3060-plus");
+        expect(platoon.setArmor("inf-armor-lyran-alliance-3060-plus")).toBe(true);
+        expect(platoon.getIssues().join(" | ")).toContain("Lyran Alliance (3060+) is not available in the");
+        expect(new InfantryPlatoon(platoon.exportJSON()).getArmor()?.tag).toBe("inf-armor-lyran-alliance-3060-plus");
+        platoon.setTechBase("clan");
+        expect(platoon.getArmor()).toBeNull();
+        expect(platoon.export().armor).toBeUndefined();
+        expect(new InfantryPlatoon(JSON.stringify({ ...platoon.export(), armor: "inf-armor-comstar" })).getImportIssues().join(" ")).toContain("cannot be worn");
     });
 });
