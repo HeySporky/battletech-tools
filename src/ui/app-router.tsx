@@ -8,9 +8,10 @@ import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { BattleMechForce, ICBTForceExport } from "../classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import Vehicle, { IVehicleExport } from "../classes/vehicle";
+import AerospaceFighter, { IAerospaceFighterExport } from "../classes/aerospace-fighter";
 import { CONST_SITE_TITLE } from '../configVars';
 import { registerLocalCustomContent } from "../data/custom-content-local";
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentVehicle, getFavoriteASGroups, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentVehicle, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentFighter, getCurrentVehicle, getFavoriteASGroups, getFighterSaves, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentFighter, saveCurrentVehicle, saveFavoriteASGroups, saveFighterSaves, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
@@ -88,6 +89,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
             vehicleSaves: [],
             saveVehicleSaves: this.saveVehicleSaves,
+
+            currentFighter: null,
+            saveCurrentFighter: this.saveCurrentFighter,
+            fighterSaves: [],
+            saveFighterSaves: this.saveFighterSaves,
 
             saveCurrentASForce: this.saveCurrentASForce,
             saveFavoriteASGroups: this.saveFavoriteASGroups,
@@ -213,6 +219,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         let vehicleSaves: IVehicleExport[] = await getVehicleSaves(appSettings);
 
+        const currentFighter = new AerospaceFighter( (await getCurrentFighter(appSettings)) || "" );
+        const fighterSaves: IAerospaceFighterExport[] = await getFighterSaves(appSettings);
+
         let battleMechSaves: IBattleMechExport[] = await getBattleMechSaves(appSettings);
         let asImportFavorites: IASGroupExport[] = await getFavoriteASGroups(appSettings);
 
@@ -278,6 +287,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.currentCBTForce = currentCBTForce;
         appGlobals.currentVehicle = currentVehicle;
         appGlobals.vehicleSaves = vehicleSaves;
+        appGlobals.currentFighter = currentFighter;
+        appGlobals.fighterSaves = fighterSaves;
 
 
         // console.log("initial appGlobals loaded")
@@ -387,6 +398,29 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         mech.lastUpdated = new Date();
 
         saveCurrentBattleMech( appGlobals.appSettings, mech.exportJSON() );
+    }
+
+    saveFighterSaves = ( newValue: IAerospaceFighterExport[] ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.fighterSaves = newValue;
+
+        saveFighterSaves( appGlobals.appSettings, appGlobals.fighterSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveCurrentFighter = ( fighter: AerospaceFighter ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentFighter = fighter;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        fighter.lastUpdated = new Date();
+
+        saveCurrentFighter( appGlobals.appSettings, fighter.exportJSON() );
     }
 
     saveCurrentVehicle = ( vehicle: Vehicle ): void => {
@@ -759,6 +793,10 @@ export interface IAppGlobals {
     saveCurrentVehicle( vehicle: Vehicle | null ): void;
     vehicleSaves: IVehicleExport[];
     saveVehicleSaves( newValue: IVehicleExport[] ): void;
+    currentFighter: AerospaceFighter | null;
+    saveCurrentFighter( fighter: AerospaceFighter ): void;
+    fighterSaves: IAerospaceFighterExport[];
+    saveFighterSaves( newValue: IAerospaceFighterExport[] ): void;
     saveAppSettings( appSettings: AppSettings ): void;
 
     battleMechSaves: IBattleMechExport[];

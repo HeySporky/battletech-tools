@@ -656,6 +656,13 @@ Open:
     buildings named on the edition. Kept as printed and flagged: LRM 15-pack at 2 critical locations, vehicle
     flamer at 5 tons, Thumper outranging the Sniper. Engine, gyro and cockpit boxes could not be read off the
     record sheet thumbnail (BTM p.7), so those stay inherited.
+  - [ ] Builders for the Manual's units that had none ('Mechs, LAMs and every vehicle type already build):
+    - [x] Aerospace Fighter (2026-10-07): `aerospace-fighter.ts` and the Fighter Creator (chassis, armor, equipment,
+      summary, saves, backup). TechManual rules; reproduces the Sabutai example (TM pp.184-197). Not built: BV,
+      cost, OmniFighter pods, external stores loads, record sheet, Alpha Strike conversion, roster and play mode.
+    - [ ] Conventional Fighter (5-50 tons, ICE or fusion, controls 10%, armor tonnage x 1, 160 fuel points a ton).
+    - [ ] Conventional infantry platoon.
+    - [ ] Gun emplacement / building.
   - [ ] Next: Compendium (1990). Then Third Edition (1992), Fourth Edition (1996), Master Rules (1998), Master
     Rules Revised (2001), in that order.
   - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).

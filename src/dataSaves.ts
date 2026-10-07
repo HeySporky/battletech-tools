@@ -7,6 +7,7 @@ import { BattleMech, IBattleMechExport } from "./classes/battlemech";
 import { BattleMechForce, ICBTForceExport, MAX_FORCE_GROUPS } from "./classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport, MAX_GROUP_VEHICLES } from "./classes/battlemech-group";
 import Vehicle, { IVehicleExport, normalizeVehicleExport } from "./classes/vehicle";
+import AerospaceFighter, { IAerospaceFighterExport, normalizeAerospaceFighterExport } from "./classes/aerospace-fighter";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
 // import {Storage} from 'session-storage-sync';
@@ -62,6 +63,10 @@ export interface IFullBackup {
     vehicleSaves: IVehicleExport[];
     currentVehicle: string | null;
 
+    // Aerospace fighters; optional so older backups still restore.
+    fighterSaves?: IAerospaceFighterExport[];
+    currentFighter?: string | null;
+
     // BattleTech: Aces; optional so older backups still restore.
     acesGame?: IAcesGameExport | null;
     acesCampaigns?: IAcesCampaignExport[];
@@ -81,6 +86,8 @@ export async function getFullBackup(
         currentVBattleMech: await getCurrentBattleMech(appSettings),
         vehicleSaves: await getVehicleSaves(appSettings),
         currentVehicle: await getCurrentVehicle(appSettings),
+        fighterSaves: await getFighterSaves(appSettings),
+        currentFighter: await getCurrentFighter(appSettings),
         acesGame: await getAcesGame(appSettings),
         acesCampaigns: await getAcesCampaigns(appSettings),
         acesCardLibrary: await getAcesCardLibrary(appSettings),
@@ -96,6 +103,8 @@ export interface IRestoreMessage {
 
 /** Most saved vehicle designs read from storage or a backup: each is validated on load (a few ms apiece). */
 export const MAX_VEHICLE_SAVES = 500;
+/** Most saved aerospace fighter designs read from storage or a backup. */
+export const MAX_FIGHTER_SAVES = 500;
 /** Most groups read from one backup's favorites or force. */
 export const MAX_RESTORE_GROUPS = MAX_FORCE_GROUPS;
 
@@ -361,7 +370,52 @@ export function restoreFullBackup(
         }
     }
 
+    if( Array.isArray(io.fighterSaves) ) {
+        // Saved fighters in a backup may come from someone else: clean each one and report what changed.
+        if( io.fighterSaves.length > MAX_FIGHTER_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_FIGHTER_SAVES + " of " + io.fighterSaves.length + " saved fighters are restored"));
+        }
+        for( const rawItem of io.fighterSaves.slice(0, MAX_FIGHTER_SAVES) ) {
+            const normalized = normalizeAerospaceFighterExport( rawItem );
+            const item = normalized.fighter;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved fighter '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.fighterSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Fighter '" + (appGlobals.fighterSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.fighterSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Fighters: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.fighterSaves.push( item )
+                }
+            }
+        }
+    }
+
+    if( overWriteCurrentBattlemech && typeof io.currentFighter === "string" && io.currentFighter ) {
+        for( const issue of new AerospaceFighter(io.currentFighter).getImportIssues() ) {
+            restoreMessages.push(warning("Current fighter: " + issue));
+        }
+    }
+
     if( overWriteCurrentBattlemech && performActions ) {
+        if( typeof io.currentFighter === "string" && io.currentFighter ) {
+            appGlobals.currentFighter = new AerospaceFighter(io.currentFighter);
+        }
         if( io.currentVBattleMech ) {
             let bmObj = new BattleMech();
             bmObj.importJSON(io.currentVBattleMech);
@@ -433,6 +487,9 @@ export function restoreFullBackup(
         appGlobals.saveVehicleSaves( appGlobals.vehicleSaves );
         if( appGlobals.currentVehicle )
             appGlobals.saveCurrentVehicle( appGlobals.currentVehicle );
+        appGlobals.saveFighterSaves( appGlobals.fighterSaves );
+        if( appGlobals.currentFighter )
+            appGlobals.saveCurrentFighter( appGlobals.currentFighter );
         // let appSettingsObj = new AppSettings(io.appSettings);
         // appGlobals.saveAppSettings( appSettingsObj );
     }
@@ -692,6 +749,53 @@ export async function getCurrentBattleMech(
         "currentBattleMech"
     );
 
+}
+
+export function saveFighterSaves(
+    appSettings: AppSettings,
+    newValue: IAerospaceFighterExport[]
+) {
+    for( const item of newValue ) {
+        item.lastUpdated = new Date();
+    }
+    saveData(appSettings, "fighterSaves", JSON.stringify(newValue) );
+}
+
+export async function getFighterSaves(
+    appSettings: AppSettings,
+): Promise<IAerospaceFighterExport[]> {
+    let rv: IAerospaceFighterExport[] = [];
+
+    const rawData = await getData(appSettings, "fighterSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored designs before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_FIGHTER_SAVES ).map( (item) => normalizeAerospaceFighterExport( item ).fighter )
+            .filter( (item): item is IAerospaceFighterExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentFighter(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentFighter", newValue );
+}
+
+export async function getCurrentFighter(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentFighter"
+    );
 }
 
 export function saveCurrentVehicle(
