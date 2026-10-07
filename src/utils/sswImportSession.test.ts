@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { registerLocalCustomContent } from "../data/custom-content-local";
 import type { ICustomContentDraft } from "../data/custom-content-types";
-import { runSSWImportSession } from "./sswImportSession";
+import { MAX_SSW_IMPORT_FILE_BYTES, MAX_SSW_IMPORT_FILES, runSSWImportSession, sswImportLimitError } from "./sswImportSession";
 
 const griffin = sswMechs.find((xml) => /name="Griffin" model="GRF-1N"/.test(xml))!;
 const withWidget = griffin.replace(/\(IS\) PPC</, "(IS) Widget Cannon<");
@@ -80,5 +80,25 @@ describe("SSW import session", () => {
         expect(results[0].status).toBe("unresolved");
         expect(results[0].unresolved.map((item) => item.kind).sort()).toEqual(["armor", "engine"]);
         expect(results[0].warnings.join(" ")).not.toMatch(/Widget/);
+    });
+});
+
+// A whole batch is read into memory and kept in the review screen, so a mis-drop (a folder of archives, a video)
+// has to be refused before any file is read.
+describe("SSW import limits", () => {
+    const file = (name: string, size: number) => ({ name, size });
+
+    it("accepts a batch within both limits", () => {
+        const batch = Array.from({ length: MAX_SSW_IMPORT_FILES }, (_, index) => file(`m${index}.ssw`, MAX_SSW_IMPORT_FILE_BYTES));
+        expect(sswImportLimitError(batch)).toBeNull();
+    });
+
+    it("refuses more files than the limit and says how many were dropped", () => {
+        const batch = Array.from({ length: MAX_SSW_IMPORT_FILES + 1 }, (_, index) => file(`m${index}.ssw`, 10));
+        expect(sswImportLimitError(batch)).toContain(String(MAX_SSW_IMPORT_FILES + 1));
+    });
+
+    it("refuses a file over the size limit and names it", () => {
+        expect(sswImportLimitError([file("ok.ssw", 10), file("huge.ssw", MAX_SSW_IMPORT_FILE_BYTES + 1)])).toContain("huge.ssw");
     });
 });

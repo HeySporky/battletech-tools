@@ -1,7 +1,7 @@
 import React, { type JSX } from 'react';
 import type { ICustomContentDraft } from '../../../../data/custom-content-types';
 import { missingFields } from '../../../../utils/sswDraftBuilder';
-import { ISSWImportResult, runSSWImportSession } from '../../../../utils/sswImportSession';
+import { ISSWImportResult, runSSWImportSession, sswImportLimitError } from '../../../../utils/sswImportSession';
 import { IAppGlobals } from '../../../app-router';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import TextSection from '../../../components/text-section';
@@ -26,6 +26,11 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
 
     readFiles = async (fileList: FileList | null): Promise<void> => {
         if (!fileList || fileList.length === 0) return;
+        const limitError = sswImportLimitError([...fileList]);
+        if (limitError) {
+            this.setState({ message: "", error: limitError });
+            return;
+        }
         this.setState({ busy: true, message: "", error: "" });
         try {
             const files = await Promise.all([...fileList].map(async (file) => ({ fileName: file.name, xml: await file.text() })));
