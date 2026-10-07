@@ -114,6 +114,57 @@ describe("Fighter damage and critical hits (TW pp.238-240)", () => {
         expect(fighter.isDestroyed()).toBe(true);
     });
 
+    it("holds a weapon critical hit until a player chooses the weapon (TW p.240)", () => {
+        const fighter = slayer();
+        // Two working weapons in the nose; a 1D6 of 4-6 hands the choice to the attacker.
+        fighter.resolveAttack(2, "nose", 20, { criticalRolls: [8] }, () => 0.99);
+        const pending = fighter.getPendingWeaponCritical();
+        expect(pending).toMatchObject({ arc: "nose", chooser: "attacking" });
+        expect(pending!.weapons).toHaveLength(2);
+        const aftLaser = fighter.getEquipmentList().find((item) => item.location === "aft")!;
+        expect(fighter.resolvePendingWeaponCritical(aftLaser.uuid!)).toBe(false);
+        expect(fighter.resolvePendingWeaponCritical(pending!.weapons[1].uuid!)).toBe(true);
+        expect(fighter.isWeaponDestroyed(pending!.weapons[1].uuid!)).toBe(true);
+        expect(fighter.getPendingWeaponCritical()).toBeNull();
+
+        const copy = slayer();
+        copy.resolveAttack(2, "nose", 20, { criticalRolls: [8] }, () => 0);
+        expect(new AerospaceFighter(copy.exportJSON()).getPendingWeaponCritical()).toMatchObject({ arc: "nose", chooser: "controlling" });
+        copy.skipPendingWeaponCritical();
+        expect(copy.getPendingWeaponCritical()).toBeNull();
+    });
+
+    it("tracks heat from weapons fire and engine hits through the Heat Phase (TW pp.161, 240)", () => {
+        const fighter = slayer();
+        for (let count = 0; count < 3; count++) expect(fighter.addEquipmentFromTag("standard-ppc", "nose")).not.toBeNull();
+        const weapons = fighter.getEquipmentList().filter((item) => !item.isAmmo);
+        for (const item of weapons) fighter.setWeaponFired(item.uuid!, true);
+        // 3 + 8 + 3 + 3 x 10 = 44 heat against 10 single heat sinks.
+        expect(fighter.getHeatGeneratedThisTurn()).toBe(44);
+        let log = fighter.applyHeatPhase();
+        expect(fighter.getInPlay().heat).toBe(34);
+        expect(log.join(" | ")).toContain("Random movement: Avoid Roll for heat 25+");
+        expect(log.join(" | ")).toContain("Ammunition explosion: Avoid Roll for heat 28+");
+        expect(log.join(" | ")).toContain("Pilot damage: Avoid Roll for heat 27+");
+        // Nothing fired next turn: the sinks work 10 off; an engine hit adds 2 a turn.
+        expect(fighter.getInPlay().firedWeapons).toEqual([]);
+        fighter.setCriticalHits("engine", 1);
+        fighter.applyHeatPhase();
+        expect(fighter.getInPlay().heat).toBe(26);
+        // A destroyed weapon cannot be marked as fired, and a lost heat sink dissipates nothing.
+        fighter.setWeaponDestroyed(weapons[0].uuid!, true);
+        fighter.setWeaponFired(weapons[0].uuid!, true);
+        expect(fighter.isWeaponFired(weapons[0].uuid!)).toBe(false);
+        fighter.setHeatSinksLost(4);
+        log = fighter.applyHeatPhase();
+        expect(fighter.getInPlay().heat).toBe(22);
+
+        const conventional = new AerospaceFighter();
+        conventional.setFighterType("conventional");
+        expect(conventional.tracksHeat()).toBe(false);
+        expect(conventional.applyHeatPhase()).toEqual(["Conventional fighters do not track heat"]);
+    });
+
     it("keeps pilot and damage through a save, joins a roster group, and survives a hostile save", () => {
         const fighter = slayer();
         fighter.getPilot().gunnery = 3;

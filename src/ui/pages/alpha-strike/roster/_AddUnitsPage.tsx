@@ -3,6 +3,7 @@ import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router';
 import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
+import AerospaceFighter from '../../../../classes/aerospace-fighter';
 import { isMULSourceSelection, loadMULListItems, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
 import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
@@ -952,6 +953,70 @@ title="View this unit's Alpha Strike Card"
             )
         }) }
             </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.fighterSaves && this.props.appGlobals.fighterSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Fighters"
+    >
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.fighterSaves.map( (save, unitIndex) => {
+                // Converted from the saved design; a published fighter should use its Master Unit List card.
+                const asUnit = new AerospaceFighter( JSON.stringify(save) ).getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this fighter to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this fighter to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this fighter's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.overheat && asUnit.overheat > 0 ? <>&nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}</> : null}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                )
+            })}
+        </table>
     </TextSection>
 ) : null}
     </div>

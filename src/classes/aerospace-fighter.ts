@@ -109,12 +109,34 @@ export interface IFighterInPlay {
     storesDropped: boolean;
     /** uuids of weapons knocked out by Weapon critical hits. */
     destroyedWeapons: string[];
+    /** Heat carried on the Heat Scale (aerospace fighters only). */
+    heat: number;
+    /** uuids of weapons marked as fired this turn. */
+    firedWeapons: string[];
+    /** Weapon critical hits waiting for a player to choose the weapon. */
+    pendingWeaponCriticals: IFighterPendingWeaponCritical[];
 }
+
+export interface IFighterPendingWeaponCritical {
+    arc: FighterArc;
+    /** Who chooses: the 1D6 came up 1-3 (controlling player) or 4-6 (attacking player) (TW p.240). */
+    chooser: "controlling" | "attacking";
+}
+
+/**
+ * Heat levels at which an aerospace fighter must make an Avoid Roll (TW p.161). The Avoid numbers are on the
+ * record sheet's Heat Scale; weapon attack modifiers and shutdown follow the same scale as for 'Mechs.
+ */
+export const FIGHTER_HEAT_TRIGGERS: { name: string; levels: number[] }[] = [
+    { name: "Random movement", levels: [5, 10, 15, 20, 25] },
+    { name: "Ammunition explosion", levels: [19, 23, 28] },
+    { name: "Pilot damage", levels: [21, 27] },
+];
 
 const newFighterInPlay = (): IFighterInPlay => ({
     armorDamage: { nose: 0, leftWing: 0, rightWing: 0, aft: 0 },
     structureDamage: 0, avionics: 0, engine: 0, fcs: 0, sensors: 0, gear: false, heatSinks: 0, pilotHits: 0, bombsLost: 0,
-    fuelExploded: false, storesDropped: false, destroyedWeapons: [],
+    fuelExploded: false, storesDropped: false, destroyedWeapons: [], heat: 0, firedWeapons: [], pendingWeaponCriticals: [],
 });
 
 /** Critical hits that are counted in boxes, and how many boxes each has. */
@@ -868,6 +890,19 @@ export default class AerospaceFighter {
         return heat;
     }
 
+    /**
+     * A weapon's Battle Value before arc and heat adjustments. "Increase by 20 percent the BV of any missile
+     * launcher equipped with Artemis IV" (TM p.303): the catalog holds a launcher with Artemis IV as its own
+     * record, so the plain launcher's value is looked up and raised.
+     */
+    private _weaponBaseBV(item: IEquipmentItem): number {
+        if (item.tag.endsWith("-artemis-iv")) {
+            const plain = findByTag(this._catalog(), item.tag.slice(0, -"-artemis-iv".length));
+            if (plain && (plain.battleValue || 0) > 0) return (plain.battleValue || 0) * 1.2;
+        }
+        return item.battleValue || 0;
+    }
+
     /** The Speed Factor for a Maximum Thrust (Speed Factor Table and formula, TM p.316). */
     public static speedFactor(maxThrust: number): number {
         return Math.round(Math.pow(1 + (maxThrust - 5) / 10, 1.2) * 100) / 100;
@@ -880,8 +915,8 @@ export default class AerospaceFighter {
      * for a conventional fighter. Offensive = (weapons + ammunition, capped at its weapons, + other equipment)
      * x the Speed Factor for Maximum Thrust. The weaker of the nose and aft weapon groups counts half. An
      * aerospace fighter that makes more heat than 6 + its heat sinks halves every weapon after the one that
-     * crosses that line, taking the highest values first. Artemis IV is not linked to its launchers yet, so its
-     * 20 percent is left out. External stores are not part of a fighter's own Battle Value.
+     * crosses that line, taking the highest values first. A launcher fitted with Artemis IV counts 20 percent
+     * more than the plain launcher. External stores are not part of a fighter's own Battle Value.
      */
     private _calcBattleValue(): void {
         let log = "<strong>DEFENSIVE BATTLE RATING</strong><br />";
@@ -926,7 +961,7 @@ export default class AerospaceFighter {
         const offensiveWeapons = this._equipmentList.filter((item) => this._isWeapon(item));
         const arcBV = (arc: FighterArc) => offensiveWeapons.filter((item) => item.location === arc).reduce((sum, item) => sum + (item.battleValue || 0), 0);
         const halvedArc: FighterArc = arcBV("nose") < arcBV("aft") ? "nose" : "aft";
-        const modifiedBV = (item: IEquipmentItem) => (item.battleValue || 0)
+        const modifiedBV = (item: IEquipmentItem) => this._weaponBaseBV(item)
             * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1) * (item.location === halvedArc ? 0.5 : 1);
 
         let rating = 0;
@@ -1081,6 +1116,27 @@ export default class AerospaceFighter {
         return item.heatAero ?? item.heat ?? 0;
     }
 
+    /**
+     * Point Defense weapons, as marked in the Alpha Strike Companion's weapon conversion tables (pp.104-109):
+     * machine guns, small-class lasers (not the small pulse laser) and flamers. An anti-missile system counts
+     * as 0.3 at Short range (ASC p.128).
+     */
+    private static _asPointDefense(item: IEquipmentItem): number {
+        if (item.isAmmo) return 0;
+        if (item.weaponType?.includes("AMS")) return 0.3;
+        const name = item.name.toLowerCase();
+        const listed = (/machine gun/.test(name) && !/array/.test(name))
+            || /\b(er |heavy )?small (laser|x-pulse laser|chemical laser|re-engineered laser)\b/.test(name)
+            || /\b(er )?micro (laser|pulse laser)\b/.test(name)
+            || /^flamer\b|^vehicle flamer\b|^flamer \(vehicle\)/.test(name);
+        return listed && !/small pulse/.test(name) ? item.alphaStrike?.rangeShort || 0 : 0;
+    }
+
+    /** Flak weapons in the same tables: LB-X autocannons, Hyper-Assault Gauss rifles and the Silver Bullet Gauss. */
+    private static _asIsFlak(item: IEquipmentItem): boolean {
+        return !item.isAmmo && /\blb[ -]?\d+-?x\b|hyper-assault|\bhag\b|silver bullet/.test(item.name.toLowerCase());
+    }
+
     public getAlphaStrikeStats(): IFighterAlphaStrikeStats {
         let log = "";
         const weapons = this._equipmentList.filter((item) => !item.isAmmo && item.alphaStrike
@@ -1132,6 +1188,17 @@ export default class AerospaceFighter {
             });
             specials.push(`REAR${vector.join("/")}`);
         }
+        // FLK: the Flak weapons' damage, rounded normally (ASC p.121). PNT: the Point Defense weapons' Short
+        // damage, rounded up (ASC p.128).
+        const flak = this._asSum(front.filter((item) => AerospaceFighter._asIsFlak(item))).slice(0, 3);
+        if (flak.some((value) => value > 0)) {
+            specials.push(`FLK${flak.map((raw) => {
+                const tenth = AerospaceFighter._roundUpToTenth(raw);
+                return tenth > 0 && tenth < 0.5 ? "0*" : Math.round(tenth) > 0 ? `${Math.round(tenth)}` : "-";
+            }).join("/")}`);
+        }
+        const pointDefense = Math.ceil(AerospaceFighter._roundUpToTenth(this._equipmentList.reduce((sum, item) => sum + AerospaceFighter._asPointDefense(item), 0)) - 1e-9);
+        if (pointDefense > 0) specials.push(`PNT${pointDefense}`);
         const usesAmmo = weapons.some((item) => !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0);
         if (weapons.length > 0 && !usesAmmo) specials.push("ENE");
         const equipmentSpecials = new Set<string>();
@@ -1157,10 +1224,11 @@ export default class AerospaceFighter {
         log += `Offensive value: S + 2M + L + Overheat + BOMB ${size} = ${offensive}<br />`;
         let defensive = 4 + 0.25 * move + (move >= 10 ? 1 : move >= 7 ? 0.5 : 0);
         if (equipmentSpecials.has("AMS")) defensive += 1;
+        defensive += pointDefense;
         const armorMultiplier = Math.min(1.3 + 0.1 * threshold, 1.9);
         const dir = 0.5 * Math.round((armor * armorMultiplier + structure) * 1.2 * 2);
         defensive += dir;
-        log += `Defensive value: 4 + ${move} / 4${move >= 10 ? " + 1" : move >= 7 ? " + 0.5" : ""} + (Armor ${armor} x ${armorMultiplier.toFixed(1)} + Structure ${structure}) x 1.2 = ${defensive}<br />`;
+        log += `Defensive value: 4 + ${move} / 4${move >= 10 ? " + 1" : move >= 7 ? " + 0.5" : ""}${pointDefense ? ` + PNT ${pointDefense}` : ""} + (Armor ${armor} x ${armorMultiplier.toFixed(1)} + Structure ${structure}) x 1.2 = ${defensive}<br />`;
         let subtotal = offensive + defensive;
         const forceBonus: Record<string, number> = { AECM: 3, BH: 2, C3RS: 2, ECM: 2, RCN: 2, TRN: 2, LPRB: 1, PRB: 1, LECM: 0.5 };
         for (const code of equipmentSpecials) subtotal += forceBonus[code] ?? 0;
@@ -1232,7 +1300,74 @@ export default class AerospaceFighter {
 
     public getInPlay(): IFighterInPlay { return this._inPlay; }
     public resetInPlay(): void { this._inPlay = newFighterInPlay(); }
-    public turnReset(): void { /* a fighter carries nothing over from turn to turn here */ }
+    /** A new turn: nothing is marked as fired yet. Heat stays until the Heat Phase works it off. */
+    public turnReset(): void { this._inPlay.firedWeapons = []; }
+
+    // Heat in play (TW p.161): an aerospace fighter builds heat from weapons fire and engine hits only.
+
+    /** Conventional fighters work on a zero-heat principle and have no Heat Scale (TM p.193). */
+    public tracksHeat(): boolean { return !this.isConventional(); }
+
+    public isWeaponFired(uuid: string): boolean { return this._inPlay.firedWeapons.includes(uuid); }
+
+    public setWeaponFired(uuid: string, fired: boolean): void {
+        this._inPlay.firedWeapons = this._inPlay.firedWeapons.filter((entry) => entry !== uuid);
+        const item = this._equipmentList.find((entry) => entry.uuid === uuid);
+        if (fired && item && !item.isAmmo && !this.isWeaponDestroyed(uuid)) this._inPlay.firedWeapons.push(uuid);
+    }
+
+    /** Heat this turn will add: the weapons marked as fired, and 2 for each engine hit (TW p.240). */
+    public getHeatGeneratedThisTurn(): number {
+        const weapons = this._equipmentList.filter((item) => this.isWeaponFired(item.uuid ?? ""))
+            .reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0);
+        return weapons + this._inPlay.engine * 2;
+    }
+
+    public setHeat(heat: number): void {
+        this._inPlay.heat = Math.min(200, Math.max(0, Number.isFinite(heat) ? Math.floor(heat) : 0));
+    }
+
+    /**
+     * The Heat Phase: add this turn's heat, take off what the working heat sinks dissipate, and list the Avoid
+     * Rolls the new heat level calls for (TW p.161). The weapons are cleared for the next turn.
+     */
+    public applyHeatPhase(): string[] {
+        if (!this.tracksHeat()) return ["Conventional fighters do not track heat"];
+        const generated = this.getHeatGeneratedThisTurn();
+        const dissipated = this.getCurrentHeatDissipation();
+        const before = this._inPlay.heat;
+        this.setHeat(before + generated - dissipated);
+        this._inPlay.firedWeapons = [];
+        const heat = this._inPlay.heat;
+        const log = [`Heat Phase: ${before} + ${generated} generated - ${dissipated} dissipated = ${heat}`];
+        for (const trigger of FIGHTER_HEAT_TRIGGERS) {
+            const reached = trigger.levels.filter((level) => heat >= level);
+            if (reached.length) log.push(`${trigger.name}: Avoid Roll for heat ${reached[reached.length - 1]}+ (number on the record sheet's Heat Scale)`);
+        }
+        return log;
+    }
+
+    // Weapon critical hits that need a player's choice (TW p.240).
+
+    public getPendingWeaponCritical(): (IFighterPendingWeaponCritical & { weapons: IEquipmentItem[] }) | null {
+        const pending = this._inPlay.pendingWeaponCriticals[0];
+        return pending ? { ...pending, weapons: this._workingWeapons(pending.arc) } : null;
+    }
+
+    private _workingWeapons(arc: FighterArc): IEquipmentItem[] {
+        return this._equipmentList.filter((item) => item.location === arc && !item.isAmmo && this.getItemSlots(item) > 0 && !this.isWeaponDestroyed(item.uuid ?? ""));
+    }
+
+    /** Destroys the chosen weapon for the waiting critical hit. False when it is not a working weapon in that arc. */
+    public resolvePendingWeaponCritical(uuid: string): boolean {
+        const pending = this.getPendingWeaponCritical();
+        if (!pending || !pending.weapons.some((item) => item.uuid === uuid)) return false;
+        this.setWeaponDestroyed(uuid, true);
+        this._inPlay.pendingWeaponCriticals.shift();
+        return true;
+    }
+
+    public skipPendingWeaponCritical(): void { this._inPlay.pendingWeaponCriticals.shift(); }
 
     public getCurrentArmor(): number {
         return FIGHTER_ARCS.reduce((sum, arc) => sum + Math.max(0, this._armorAllocation[arc.tag] - this._inPlay.armorDamage[arc.tag]), 0);
@@ -1278,7 +1413,10 @@ export default class AerospaceFighter {
 
     public setWeaponDestroyed(uuid: string, destroyed: boolean): void {
         this._inPlay.destroyedWeapons = this._inPlay.destroyedWeapons.filter((entry) => entry !== uuid);
-        if (destroyed && this._equipmentList.some((item) => item.uuid === uuid)) this._inPlay.destroyedWeapons.push(uuid);
+        if (destroyed && this._equipmentList.some((item) => item.uuid === uuid)) {
+            this._inPlay.destroyedWeapons.push(uuid);
+            this._inPlay.firedWeapons = this._inPlay.firedWeapons.filter((entry) => entry !== uuid);
+        }
     }
 
     /** Three engine hits destroy the engine and shut the fighter down (TW p.240). */
@@ -1293,7 +1431,7 @@ export default class AerospaceFighter {
         const play = this._inPlay;
         return this.getCurrentArmor() < this.getTotalArmorPoints() || play.structureDamage > 0 || play.avionics > 0 || play.engine > 0
             || play.fcs > 0 || play.sensors > 0 || play.gear || play.heatSinks > 0 || play.pilotHits > 0 || play.fuelExploded
-            || play.destroyedWeapons.length > 0;
+            || play.destroyedWeapons.length > 0 || play.heat > 0;
     }
 
     /** Safe Thrust now: less the external stores still carried and 2 per engine hit (TW pp.240, 247). */
@@ -1370,13 +1508,16 @@ export default class AerospaceFighter {
                 return "Bomb hit: one bomb is useless (the controlling player chooses which)";
             }
             default: {
-                const working = this._equipmentList.filter((item) => item.location === arc && !item.isAmmo && this.getItemSlots(item) > 0 && !this.isWeaponDestroyed(item.uuid ?? ""));
-                if (working.length === 0) return `Weapon hit in the ${arcName}: no working weapon there, no effect`;
+                // Weapons already waiting on an earlier choice in this arc are spoken for.
+                const working = this._workingWeapons(arc);
+                const waiting = play.pendingWeaponCriticals.filter((pending) => pending.arc === arc).length;
+                if (working.length - waiting <= 0) return `Weapon hit in the ${arcName}: no working weapon there, no effect`;
                 if (working.length === 1) {
                     this.setWeaponDestroyed(working[0].uuid ?? "", true);
                     return `Weapon hit in the ${arcName}: ${working[0].name} is destroyed`;
                 }
                 const chooser = d6();
+                play.pendingWeaponCriticals.push({ arc, chooser: chooser <= 3 ? "controlling" : "attacking" });
                 return `Weapon hit in the ${arcName}, roll ${chooser}: the ${chooser <= 3 ? "controlling" : "attacking"} player chooses a weapon there to mark destroyed`;
             }
         }
@@ -1425,7 +1566,10 @@ export default class AerospaceFighter {
         return {
             ...(noInPlayVariables ? {} : {
                 pilot: this._pilot.export(),
-                inPlay: { ...this._inPlay, armorDamage: { ...this._inPlay.armorDamage }, destroyedWeapons: [...this._inPlay.destroyedWeapons] },
+                inPlay: {
+                    ...this._inPlay, armorDamage: { ...this._inPlay.armorDamage }, destroyedWeapons: [...this._inPlay.destroyedWeapons],
+                    firedWeapons: [...this._inPlay.firedWeapons], pendingWeaponCriticals: this._inPlay.pendingWeaponCriticals.map((entry) => ({ ...entry })),
+                },
             }),
             uuid: this._uuid,
             lastUpdated: this.lastUpdated,
@@ -1477,6 +1621,15 @@ export default class AerospaceFighter {
         this._inPlay.storesDropped = inPlay.storesDropped === true;
         const destroyed = Array.isArray(inPlay.destroyedWeapons) ? inPlay.destroyedWeapons.slice(0, MAX_FIGHTER_EQUIPMENT) : [];
         for (const uuid of destroyed) if (typeof uuid === "string") this.setWeaponDestroyed(uuid, true);
+        if (this.tracksHeat()) this.setHeat(savedNumber(inPlay.heat, 0, 0, 200));
+        const fired = Array.isArray(inPlay.firedWeapons) ? inPlay.firedWeapons.slice(0, MAX_FIGHTER_EQUIPMENT) : [];
+        for (const uuid of fired) if (typeof uuid === "string") this.setWeaponFired(uuid, true);
+        const pending = Array.isArray(inPlay.pendingWeaponCriticals) ? inPlay.pendingWeaponCriticals.slice(0, 20) : [];
+        for (const entry of pending) {
+            if (!isPlainObject(entry)) continue;
+            const arc = FIGHTER_ARCS.find((candidate) => candidate.tag === entry.arc);
+            if (arc) this._inPlay.pendingWeaponCriticals.push({ arc: arc.tag, chooser: entry.chooser === "attacking" ? "attacking" : "controlling" });
+        }
     }
 
     /** Problems found in the last import: fields that were invalid and replaced, or entries that were dropped. */

@@ -670,9 +670,13 @@ Open:
       conversion and card (Thunderbird matches its MUL card), roster, play mode with hit locations, Damage
       Thresholds and critical hits (TW pp.237-240), roster print. VSTOL on an aerospace fighter is an optional
       rule from the Advanced level: TM p.190 allows it in the rule text and denies it in the Sabutai example.
-      Open: Artemis IV is not linked to launchers (its 20% BV is left out); heat is not tracked turn by turn in
-      play; Alpha Strike weapon-family specials and PNT counts are not converted; fighters are not in the Alpha
-      Strike roster's unit picker.
+      Later the same day: Artemis IV launchers count 20% more in the Battle Value (TM p.303); play mode tracks
+      heat through the Heat Phase (TW p.161) and holds weapon critical hits for the choosing player; Alpha Strike
+      PNT and FLK specials (ASC pp.121, 128; the SPR-H5 Sparrowhawk matches its MUL card); saved fighters are in
+      the Alpha Strike roster's unit picker. LRM/SRM/AC/IF specials are not given to fighters, as on MUL cards.
+      Open: heat Avoid numbers are read off the record sheet (the Heat Scale itself is not in the tool); the
+      catalog's "+ Artemis IV" launcher records carry a Battle Value that is not the plain launcher x 1.2
+      (LRM 20: 189 against 217.2), which the 'Mech and vehicle calculations still use.
     - [ ] Conventional infantry platoon.
     - [ ] Gun emplacement / building.
   - [ ] Next: Compendium (1990). Then Third Edition (1992), Fourth Edition (1996), Master Rules (1998), Master

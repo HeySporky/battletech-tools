@@ -63,6 +63,21 @@ describe("Fighter Battle Value (TechManual pp.302-304)", () => {
         // conventional fighter.
         expect(buster.getBattleValue()).toBe(338);
     });
+
+    it("counts a launcher with Artemis IV at 20 percent over the plain launcher (TM p.303)", () => {
+        const plain = new AerospaceFighter();
+        plain.setTonnage(50);
+        plain.setSafeThrust(5);
+        plain.addEquipmentFromTag("lrm-20", "nose");
+        const artemis = new AerospaceFighter();
+        artemis.setTonnage(50);
+        artemis.setSafeThrust(5);
+        expect(artemis.addEquipmentFromTag("lrm-20-artemis-iv", "nose")).not.toBeNull();
+        // LRM 20: 181, x 1.2 = 217.2, both x the Speed Factor of 1.37 for Max Thrust 8.
+        expect(plain.getBattleValueLog()).toContain("= 181.00");
+        expect(artemis.getBattleValueLog()).toContain("= 217.20");
+        expect(artemis.getBattleValue() - plain.getBattleValue()).toBe(Math.round(36.2 * 1.37));
+    });
 });
 
 describe("Fighter cost (TechManual pp.283-285)", () => {

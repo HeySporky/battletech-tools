@@ -37,7 +37,12 @@ test("a fighter joins the roster, takes damage in play and prints", async ({ pag
     await panel.getByRole("button", { name: "Apply Hit" }).click();
     await expect(panel.getByTestId("fighter-play-log")).toContainText("Hit location 7: Nose / Control takes 5 armor");
 
+    // Heat: nothing fired, one engine hit adds 2 a turn, ten heat sinks take it off again.
+    await panel.getByLabel("Current heat").fill("14");
     await panel.getByLabel("Engine hits").selectOption("1");
+    await panel.getByRole("button", { name: "End Turn: Apply Heat" }).click();
+    await expect(panel.getByTestId("fighter-play-log")).toContainText("Heat Phase: 14 + 2 generated - 10 dissipated = 6");
+    await expect(panel.getByTestId("fighter-heat")).toContainText("Random movement (5+)");
     await expect(panel).toContainText("+2 heat a turn from engine hits");
 
     await page.goto("classic-battletech/roster");
@@ -46,6 +51,25 @@ test("a fighter joins the roster, takes damage in play and prints", async ({ pag
     await page.goto("classic-battletech/roster/print");
     await expect(page.getByRole("heading", { name: "Wingman" })).toBeVisible();
     await expect(page.getByText(/Gunnery 3 \/ Piloting 5/)).toBeVisible();
+
+    expect(errors).toEqual([]);
+});
+
+// Saved fighters are offered in the Alpha Strike roster's unit picker with their converted card.
+test("a saved fighter can be added to an Alpha Strike force", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+
+    await page.goto("classic-battletech/fighter-creator/chassis");
+    await page.getByLabel("Fighter Name").fill("Cardholder");
+    await page.goto("classic-battletech/fighter-creator");
+    await page.getByRole("button", { name: /Save as New/ }).click();
+
+    await page.goto("alpha-strike-roster");
+    await page.getByRole("button", { name: /Add Units/ }).first().click();
+    await expect(page.getByText("Your Created Fighters")).toBeVisible();
+    await page.getByTitle("Add this fighter to your current group").first().click();
+    await expect(page.getByText("Cardholder").first()).toBeVisible();
 
     expect(errors).toEqual([]);
 });

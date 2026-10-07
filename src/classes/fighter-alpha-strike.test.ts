@@ -55,4 +55,19 @@ describe("Fighter Alpha Strike conversion, against Master Unit List cards", () =
         expect(result.specials).not.toContain("SPC");
         expect(buster.getAlphaStrikeUnit().type).toBe("CF");
     });
+
+    it("gives Point Defense and Flak specials (ASC pp.121, 128): the SPR-H5 Sparrowhawk is 2/1/0, PNT1, PV 27", () => {
+        // 30 tons, Safe Thrust 10, 112 points of armor, two medium lasers and two small lasers.
+        const fighter = build((f) => { f.setTonnage(30); f.setSafeThrust(10); f.setFuelTons(5); },
+            [35, 28, 28, 21], [["medium-laser", "leftWing"], ["medium-laser", "rightWing"], ["small-laser", "nose"], ["small-laser", "nose"]]);
+        const result = card(fighter);
+        expect(result).toMatchObject({ size: 1, move: 10, armor: 4, structure: 5, threshold: 2, damage: "2/1/0", overheat: 0, pointValue: 27 });
+        expect(result.specials).toEqual(expect.arrayContaining(["BOMB1", "ENE", "FUEL20", "PNT1", "SPC", "VSTOL"]));
+
+        // An LB 10-X (0.63 at every range) earns FLK 1/1/1; a small pulse laser is not a Point Defense weapon.
+        const flak = build((f) => { f.setTonnage(50); f.setSafeThrust(5); }, [20, 10, 10, 10], [["autocannon-lbx-10", "nose"], ["small-pulse-laser", "nose"]], ["ammo-is-lb-10x-standard"]);
+        const specials = card(flak).specials;
+        expect(specials).toContain("FLK1/1/1");
+        expect(specials.some((code) => code.startsWith("PNT"))).toBe(false);
+    });
 });

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import AerospaceFighter, { FIGHTER_ARCS, FIGHTER_CRITICAL_TRACKS, FighterArc } from '../../../../classes/aerospace-fighter';
+import AerospaceFighter, { FIGHTER_ARCS, FIGHTER_CRITICAL_TRACKS, FIGHTER_HEAT_TRIGGERS, FighterArc } from '../../../../classes/aerospace-fighter';
 import { FIGHTER_ATTACK_DIRECTIONS, FighterAttackDirection } from '../../../../data/fighter-hit-tables';
 import FighterDiagramSVG from '../../../components/svg/fighter-diagram-svg';
 import { fighterName } from './_fighterGroupTable';
@@ -35,6 +35,12 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
         this._changed();
     }
 
+    applyHeat = (): void => {
+        const lines = this.props.fighter.applyHeatPhase();
+        this.setState({ log: [...lines, ...this.state.log].slice(0, 40) });
+        this._changed();
+    }
+
     // Clicking a pip marks damage up to it; clicking the last damaged pip clears it.
     toggleArmor = (arc: FighterArc, index: number): void => {
         const fighter = this.props.fighter;
@@ -56,6 +62,8 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
         const toHit = fighter.getDamageToHitModifier();
         const weapons = fighter.getEquipmentList().filter((item) => !item.isAmmo && fighter.getItemSlots(item) > 0);
         const storesCarried = fighter.getExternalStoresHardpointsUsed() > 0;
+        const pending = fighter.getPendingWeaponCritical();
+        const heatTriggers = FIGHTER_HEAT_TRIGGERS.filter((trigger) => trigger.levels.some((level) => play.heat >= level));
 
         return (
             <div className="fighter-play" data-testid="fighter-play">
@@ -100,6 +108,20 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
                         checks (8+ on 2D6) are rolled for you (TW pp. 238-239).
                     </p>
                 </fieldset>
+
+                {pending ? (
+                    <fieldset className="fieldset" data-testid="fighter-pending-weapon">
+                        <legend>Weapon Critical Hit: {FIGHTER_ARCS.find((arc) => arc.tag === pending.arc)?.name}</legend>
+                        <p>The <strong>{pending.chooser}</strong> player chooses the weapon that stops working (TW p. 240).</p>
+                        {pending.weapons.map((item) => (
+                            <button key={item.uuid} className="btn btn-danger btn-sm" style={{ marginRight: "0.5em" }}
+                                onClick={() => { fighter.resolvePendingWeaponCritical(item.uuid ?? ""); this._changed(); }}>
+                                Destroy {item.name}
+                            </button>
+                        ))}
+                        <button className="btn btn-secondary btn-sm" onClick={() => { fighter.skipPendingWeaponCritical(); this._changed(); }}>Skip</button>
+                    </fieldset>
+                ) : null}
 
                 {this.state.log.length ? (
                     <ul className="small-text" data-testid="fighter-play-log">
@@ -150,10 +172,34 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
                     ) : null}
                 </p>
 
+                {fighter.tracksHeat() ? (
+                    <fieldset className="fieldset" data-testid="fighter-heat">
+                        <legend>Heat</legend>
+                        <p className={play.heat >= 5 ? "color-red" : ""}>
+                            <strong>Heat Scale</strong>: {play.heat} &nbsp;|&nbsp;
+                            <strong>This turn</strong>: +{fighter.getHeatGeneratedThisTurn()} generated, -{fighter.getCurrentHeatDissipation()} dissipated
+                        </p>
+                        {heatTriggers.length ? (
+                            <p className="small-text">
+                                Avoid Rolls at this heat: {heatTriggers.map((trigger) => `${trigger.name} (${trigger.levels.filter((level) => play.heat >= level).pop()}+)`).join(", ")}.
+                                The Avoid numbers are on the record sheet's Heat Scale; weapon attack modifiers and shutdown follow the
+                                same scale as for 'Mechs, and the engine restarts at 13 or less (TW p. 161).
+                            </p>
+                        ) : null}
+                        <label>
+                            Set heat:
+                            <input type="number" aria-label="Current heat" min={0} max={200} value={play.heat}
+                                onChange={(e) => { fighter.setHeat(+e.currentTarget.value || 0); this._changed(); }} />
+                        </label>
+                        <button className="btn btn-primary btn-sm" onClick={this.applyHeat}>End Turn: Apply Heat</button>
+                        <p className="small-text">Tick the weapons fired this turn below. Each engine hit adds 2 heat a turn (TW p. 240).</p>
+                    </fieldset>
+                ) : <p className="small-text">Conventional fighters have no Heat Scale (TM p. 193).</p>}
+
                 <h4>Weapons</h4>
                 <table className="table">
                     <thead>
-                        <tr><th>Weapon</th><th>Arc</th><th className="text-center">Heat</th><th className="text-center">Destroyed</th></tr>
+                        <tr><th>Weapon</th><th>Arc</th><th className="text-center">Heat</th>{fighter.tracksHeat() ? <th className="text-center">Fired</th> : null}<th className="text-center">Destroyed</th></tr>
                     </thead>
                     <tbody>
                         {weapons.map((item) => (
@@ -161,6 +207,17 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
                                 <td>{item.name}</td>
                                 <td>{FIGHTER_ARCS.find((arc) => arc.tag === item.location)?.name ?? "-"}</td>
                                 <td className="text-center">{item.heatAero ?? item.heat ?? 0}</td>
+                                {fighter.tracksHeat() ? (
+                                    <td className="text-center">
+                                        <input
+                                            type="checkbox"
+                                            aria-label={item.name + " fired"}
+                                            disabled={fighter.isWeaponDestroyed(item.uuid ?? "")}
+                                            checked={fighter.isWeaponFired(item.uuid ?? "")}
+                                            onChange={(e) => { fighter.setWeaponFired(item.uuid ?? "", e.currentTarget.checked); this._changed(); }}
+                                        />
+                                    </td>
+                                ) : null}
                                 <td className="text-center">
                                     <input
                                         type="checkbox"
@@ -171,7 +228,7 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
                                 </td>
                             </tr>
                         ))}
-                        {weapons.length === 0 ? <tr><td colSpan={4}>No weapons mounted.</td></tr> : null}
+                        {weapons.length === 0 ? <tr><td colSpan={5}>No weapons mounted.</td></tr> : null}
                     </tbody>
                 </table>
             </div>
