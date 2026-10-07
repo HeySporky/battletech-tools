@@ -13,9 +13,16 @@
  * Editions of the BattleTech rules, oldest first. A record's `introducedInEdition` names the first edition whose
  * rules include it, so a player can later choose to build and play with one edition's rules only.
  *
- * Reserved for that feature (roadmap: "select a rules version"); nothing filters on it yet. Only the edition
- * the catalogs are written against is listed. Add an older edition here, in order, once its rulebook is in the
- * local library and its year and contents can be cited; never from memory.
+ * Reserved for that feature (roadmap: "select a rules version"); nothing filters on it yet, and no record is
+ * tagged with an earlier edition until its entry has been checked against that edition's rulebook.
+ *
+ * The list is the line of core rulebooks, each of which replaced the one before it. The Core Rulebook's
+ * designer's notes (CRB p.247) give that line and its years for 1987 to 2001 and date the Second Edition box
+ * set to 1985; the other years are the copyright dates on the books' own credits pages. The Third Edition (1992)
+ * and Fourth Edition (1996) box sets are not listed: they are the introductory game sold beside the reference
+ * rulebook of the day (Master Rules, introduction: "The introductory game in the BattleTech line is the
+ * BattleTech, Fourth Edition boxed set"), not steps in the line. Add or change an entry only from a cited book,
+ * never from memory.
  */
 export interface IRulesEdition {
     /** Stable id stored on records and in saves. */
@@ -29,12 +36,70 @@ export interface IRulesEdition {
 
 export const btRulesEditions: IRulesEdition[] = [
     {
+        // Battledroids, the game's first edition: credits page, "Copyright 1984 FASA Corporation".
+        tag: "battledroids",
+        name: "Battledroids",
+        year: 1984,
+        book: "BD",
+    },
+    {
+        // BattleTech, Second Edition box set: "that 1985 box set" (CRB p.247).
+        tag: "battletech-2nd-edition",
+        name: "BattleTech, Second Edition",
+        year: 1985,
+        book: "BT2",
+    },
+    {
+        // The BattleTech Manual: The Rules of Warfare: credits page, "Copyright 1987"; CRB p.247.
+        tag: "battletech-manual",
+        name: "The BattleTech Manual",
+        year: 1987,
+        book: "BTM",
+    },
+    {
+        // The BattleTech Compendium (FASA 1640): credits page, "Copyright 1990 FASA Corporation"; CRB p.247.
+        tag: "battletech-compendium",
+        name: "The BattleTech Compendium",
+        year: 1990,
+        book: "BTC",
+    },
+    {
+        // BattleTech Compendium: The Rules of Warfare: CRB p.247.
+        tag: "compendium-rules-of-warfare",
+        name: "BattleTech Compendium: The Rules of Warfare",
+        year: 1994,
+        book: "BTC:RoW",
+    },
+    {
+        // BattleTech Master Rules (FASA 1707): back cover, "Copyright 1998 FASA Corporation"; CRB p.247.
+        tag: "master-rules",
+        name: "BattleTech Master Rules",
+        year: 1998,
+        book: "BMR",
+    },
+    {
+        // Classic BattleTech Master Rules, Revised Edition (FanPro 35000): credits page, "2001-2005 WizKids";
+        // CRB p.247.
+        tag: "master-rules-revised",
+        name: "BattleTech Master Rules, Revised Edition",
+        year: 2001,
+        book: "BMR(R)",
+    },
+    {
         // Total Warfare, ©2006 (first printing), with TechManual, Tactical Operations, Strategic Operations and
         // Interstellar Operations: the rules line every catalog record cites.
         tag: "total-warfare",
         name: "Total Warfare",
         year: 2006,
         book: "TW",
+    },
+    {
+        // BattleTech Core Rulebook: credits page, "First Printing", "2026 The Topps Company". Its changes to the
+        // Total Warfare rules are not modelled yet; a record first published in it is tagged with this edition.
+        tag: "core-rulebook",
+        name: "BattleTech Core Rulebook",
+        year: 2026,
+        book: "CRB",
     },
 ];
 
