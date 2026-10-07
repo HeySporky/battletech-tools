@@ -35,7 +35,25 @@ export const mechEngineTypes: IEngineType[] = [
 		introduced: 2300,
 		extinct: null,
 		reintroduced: null,
-		rating: 0
+		rating: 0,
+		introducedInEdition: "battledroids",
+		editionStats: {
+			battledroids: {
+				book: "BD", page: 23, name: "Engine", criticals: 6,
+				// Engine Table, BD p.23, as printed.
+				engineWeights: {
+					10: 0.5, 15: 0.5, 20: 0.5, 25: 0.5, 30: 1, 35: 1, 40: 1, 45: 1, 50: 1.5, 55: 1.5,
+					60: 1.5, 65: 2, 70: 2, 75: 2, 80: 2.5, 85: 2.5, 90: 3, 95: 3, 100: 3, 105: 3.5,
+					110: 3.5, 115: 4, 120: 4, 125: 4, 130: 4.5, 135: 4.5, 140: 5, 145: 5, 150: 5.5, 155: 5.5,
+					160: 6, 165: 6, 170: 6.5, 175: 7, 180: 7, 185: 7.5, 190: 7.5, 195: 8, 200: 8.5, 205: 8.5,
+					210: 9, 215: 9.5, 220: 10, 225: 10, 230: 10.5, 235: 11, 240: 11.5, 245: 12, 250: 12.5, 255: 13,
+					260: 13.5, 265: 14, 270: 14.5, 275: 15.5, 280: 16, 285: 16.5, 290: 17.5, 295: 18, 300: 19, 305: 19.5,
+					310: 20.5, 315: 21.5, 320: 22.5, 325: 23.5, 330: 24.5, 335: 25.5, 340: 27, 345: 28.5, 350: 29.5, 355: 31.5,
+					360: 33, 365: 34.5, 370: 36.5, 375: 38.5, 380: 41, 385: 43.5, 390: 46, 395: 49, 400: 52.5,
+				},
+				notes: "Engine rating = tonnage x walking movement points; the Engine Table runs from 10 to 400 (BD p.23). The 170 is printed at 6.5 tons, half a ton over the later tables. The engine includes 10 heat sinks (BD p.24). Six Engine boxes in the center torso (record sheet, BD p.13).",
+			},
+		},
 	},
 	{
 		name: "XL Fusion",

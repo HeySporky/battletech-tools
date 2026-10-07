@@ -19,7 +19,49 @@ export type ArmorCriticalLocationsByChassis = Partial<Record<
     Partial<Record<keyof ICriticalLocations, number>>
 >>;
 
-export interface IArmorType {
+/**
+ * One record's rules in one earlier rules edition, as that edition's rulebook prints them. Only the fields the
+ * edition states are set; `book` and `page` cite where.
+ */
+export interface IEditionStats {
+    /** The edition's rulebook, by its abbreviation in rules-editions.ts. */
+    book: string;
+    page: number;
+    /** The name as that edition prints it. */
+    name?: string;
+    heat?: number;
+    /** Damage of one hit; missile launchers use `damagePerMissile`. */
+    damage?: number;
+    damagePerMissile?: number;
+    range?: { min: number; short: number; medium: number; long: number };
+    /** Tons. */
+    weight?: number;
+    criticals?: number;
+    shotsPerTon?: number;
+    /** Armor: points per ton. */
+    pointsPerTon?: number;
+    /** Engine: tons by rating. */
+    engineWeights?: { [rating: number]: number };
+    /** Internal structure: boxes per location by tonnage. */
+    structure?: { [tons: number]: IRawMechStructure };
+    /** Rules the fields above cannot hold, each with its page. */
+    notes?: string;
+}
+
+/**
+ * A record's history through the rules editions before the one the catalogs cite. One key per edition that
+ * includes the record (tags from rules-editions.ts): the stats that edition prints, or `null` when they are the
+ * same as in the previous edition that lists the record. A record's first edition is never `null`.
+ */
+export type IEditionStatsTable = { [editionTag: string]: IEditionStats | null };
+
+export interface IEditionHistory {
+    /** First rules edition that includes this record (a tag from rules-editions.ts); the default edition when absent. */
+    introducedInEdition?: string;
+    editionStats?: IEditionStatsTable;
+}
+
+export interface IArmorType extends IEditionHistory {
 	tag: string;
 	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
 	altTags?: string[];
@@ -101,7 +143,7 @@ export interface ICriticalLocations {
     frl?: number,
 }
 
-export interface IEngineType {
+export interface IEngineType extends IEditionHistory {
 	tag: string;
 	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
 	altTags?: string[];
@@ -180,6 +222,8 @@ export interface IEquipmentItem {
     catalog?: "is" | "clan" | "custom" | "universal";
     /** First rules edition that includes this item (a tag from rules-editions.ts); the default edition when absent. */
     introducedInEdition?: string;
+    /** Stats in each earlier rules edition that includes this record; see IEditionStatsTable. */
+    editionStats?: IEditionStatsTable;
     metadata?: IEquipmentMetadata;
     split_location?: ISplitLocation[];
     isRotary?: boolean;
@@ -381,7 +425,7 @@ export interface ICriticalSpace {
     dropShip: number;
 }
 
-export interface IGyro {
+export interface IGyro extends IEditionHistory {
     name: string;
     alternateName?: string;
     tag: string;
@@ -412,9 +456,11 @@ export interface ITechDates {
     reintroduced: number | null;
     /** First rules edition that includes this record (a tag from rules-editions.ts); the default edition when absent. */
     introducedInEdition?: string;
+    /** Stats in each earlier rules edition that includes this record; see IEditionStatsTable. */
+    editionStats?: IEditionStatsTable;
 }
 
-export interface ICockpitType {
+export interface ICockpitType extends IEditionHistory {
     name: string;
     tag: string;
     /** Tons. For an add-on (Command Console) this is the weight added to the base cockpit. */
@@ -444,7 +490,7 @@ export interface ICockpitType {
     availableAsPrototype?: boolean;
 }
 
-export interface IHeatSync {
+export interface IHeatSync extends IEditionHistory {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -515,12 +561,12 @@ export interface IRawMechStructure {
     leg: number;
 }
 
-export interface IMechTonnage {
+export interface IMechTonnage extends IEditionHistory {
     tons: number;
     type: string;
 }
 
-export interface IInternalStructure {
+export interface IInternalStructure extends IEditionHistory {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -560,7 +606,7 @@ export interface IInternalStructure {
     availableAsPrototype?: boolean;
 }
 
-export interface IJumpJet {
+export interface IJumpJet extends IEditionHistory {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -625,7 +671,7 @@ export interface IMyomerType {
     availableAsPrototype?: boolean;
 }
 
-export interface IMechType {
+export interface IMechType extends IEditionHistory {
     id: number;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */

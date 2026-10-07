@@ -1768,7 +1768,14 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2240
+        prototype: 2240,
+        introducedInEdition: "battledroids",
+        editionStats: {
+            battledroids: {
+                book: "BD", page: 20, name: "AutoCannon Rounds", weight: 1, criticals: 1, shotsPerTon: 20,
+                notes: "At least 1 ton for each ballistic weapon (BD p.25). One critical box per ton (BD pp.16-17). An exploding rack has a Damage Value of 5 (BD p.13).",
+            },
+        },
     },
     {
         isAmmo: true,

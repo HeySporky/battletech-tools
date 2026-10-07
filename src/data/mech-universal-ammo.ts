@@ -92,7 +92,14 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 231,
         alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2295
+        prototype: 2295,
+        introducedInEdition: "battledroids",
+        editionStats: {
+            battledroids: {
+                book: "BD", page: 20, weight: 1, criticals: 1,
+                notes: "Shots per ton by launcher: 24 (5 rack), 12 (10 rack), 8 (15 rack), 6 (20 rack). At least 1 ton for each launcher (BD p.25). One critical box per ton (BD pp.16-17). An exploding pack does 1 point per missile left (BD p.13).",
+            },
+        },
     },
     {
         isAmmo: true,
@@ -172,7 +179,14 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         techRating: "b",
         book: "TM",
         page: 228,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "battledroids",
+        editionStats: {
+            battledroids: {
+                book: "BD", page: 20, name: "M.G. Rounds", weight: 1, criticals: 1, shotsPerTon: 200,
+                notes: "At least 1 ton for each ballistic weapon (BD p.25); the worked example there gives 1 ton as 100 shots, against 200 in the Weapons Table. One critical box per ton (BD pp.16-17). An exploding rack has a Damage Value of 2 (BD p.13).",
+            },
+        },
     },
     {
         isAmmo: true,
@@ -253,7 +267,14 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 231,
         alphaStrike: { specialAbility: ["SRM#/#/#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2365
+        prototype: 2365,
+        introducedInEdition: "battledroids",
+        editionStats: {
+            battledroids: {
+                book: "BD", page: 20, weight: 1, criticals: 1,
+                notes: "Shots per ton by launcher: 50 (2 rack), 25 (4 rack), 15 (6 rack). At least 1 ton for each launcher (BD p.25). One critical box per ton (BD pp.16-17). An exploding pack does 2 points per missile left (BD p.13).",
+            },
+        },
     },
     {
         isAmmo: true,

@@ -21,6 +21,9 @@ export const mechTypeOptions: IMechType[] = [
 		name: "Biped",
 		rulesLevel: 0,
 		book: "TM",
+		introducedInEdition: "battledroids",
+		// The only layout: head, three torsos, two arms and two legs (Internal Structure Table, BD p.24).
+		editionStats: { battledroids: { book: "BD", page: 24 } },
 	},
 	{
 		id: 2,

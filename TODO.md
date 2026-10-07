@@ -635,18 +635,22 @@ Open:
   - [ ] Identify the files whose names say "title unconfirmed" or "title truncated" (about 60, mostly fan and
     foreign-language magazines, plus a few FASA/FanPro scans) and rename them.
   - [ ] Install Tesseract German and Spanish data before OCRing `languages/de/` or `languages/es/` scans.
-- [ ] Rules editions (`src/data/rules-editions.ts`): the edition list is in (branch `feature/rules-editions-list`,
-  2026-10-07): Battledroids 1984, Second Edition 1985, BattleTech Manual 1987, Compendium 1990, Compendium: Rules
-  of Warfare 1994, Master Rules 1998, Master Rules Revised 2001, Total Warfare 2006, Core Rulebook 2026 (years
-  from CRB p.247 and the books' credits pages). Still to do:
-  - [ ] Tag records with `introducedInEdition`, one edition at a time, oldest first, from that edition's weapons
-    and equipment table. The tables are scans: read the page image, not the OCR text. Done: Battledroids (14
-    weapons, p.20) and Second Edition (same fourteen, back-cover table, nothing new). Next: the BattleTech Manual. Ammunition, heat sinks, jump jets, armor
-    and structure are not tagged yet.
-  - [ ] Stats that differ by edition need a home before a selector can use them. First case: Battledroids
-    missile launcher heat (LRM 1/2/4/6, SRM 0/1/2; recorded in `rules-editions.test.ts`).
+- [ ] Rules editions (`src/data/rules-editions.ts`, branch `feature/rules-editions-list`). Eleven editions are
+  listed, Battledroids 1984 to the Core Rulebook 2026, the Third and Fourth Edition box sets included. Each record
+  an earlier edition includes carries `editionStats`: one key per edition, the stats as printed, or `null` when
+  unchanged from the previous edition that lists it. Work one edition at a time, whole, from page images (never
+  OCR text), then stop for review.
+  - [x] Battledroids (2026-10-07): 14 weapons, 4 ammunition types, engine, gyro, cockpit, heat sink, jump jets,
+    armor, internal structure, biped, tonnages 10-100; ten 'Mechs and five other units named on the edition.
+  - [ ] Second Edition (1985). Its back-cover Weapons Table has the same 14 weapons with today's missile heat;
+    the construction rules are still to read.
+  - [ ] BattleTech Manual (1987), Compendium (1990), Third Edition (1992), Fourth Edition (1996), Master Rules
+    (1998), Master Rules Revised (2001), in that order.
   - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).
+  - [ ] The selector itself: filter by `isInRulesEdition`, read stats through `getEditionStats`, and decide how
+    edition-only rules apply (Battledroids: jump jets 0.5 tons at any weight, every heat sink takes a critical
+    box, 5-ton chassis).
 - [ ] `refactor/catalog-by-category`: step 1 done, every equipment record states
   `techBase` (commit c959dbc8). Review the 62 custom records, whose tech base was set from tag and name. Next:
   move records into `<category>-canon.ts` / `-apocryphal.ts` / `-custom.ts` / `-munchkin.ts`, one category per
