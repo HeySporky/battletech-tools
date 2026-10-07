@@ -20,7 +20,7 @@
  * 4. Regenerates src/data/mul/live/*.json chunk files from the accumulated store.
  *
  * MUL 1.0 leftovers (src/data/mul/mul1/mul1-leftovers.json) are legacy numeric-id records the live
- * site does not list. A leftover is only moved to src/data/mul/archive/ when exactly one fully
+ * site does not list. A leftover is only moved to tools/mul-sync/archive/ when exactly one fully
  * detailed live unit has the same full name, the same unit-type family, and the same tonnage.
  * Anything looser (name-only matches) is just logged to
  * tools/mul-sync/legacy-duplicate-candidates.json for a human to review — name-only matching once
@@ -57,7 +57,7 @@ const repoRoot = path.resolve(__dirname, "..", "..");
 const mulDataDir = path.join(repoRoot, "src", "data", "mul");
 const liveMulDir = path.join(mulDataDir, "live");
 const mul1LeftoversPath = path.join(mulDataDir, "mul1", "mul1-leftovers.json");
-const legacyArchivePath = path.join(mulDataDir, "archive", "replaced-legacy-records.json");
+const legacyArchivePath = path.join(__dirname, "archive", "replaced-legacy-records.json");
 const storePath = path.join(__dirname, "live-units.json");
 const dupeReportPath = path.join(__dirname, "legacy-duplicate-candidates.json");
 const storageStatePath = path.join(__dirname, "browser-state.json");
