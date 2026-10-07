@@ -148,10 +148,24 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                                     : "Engine rating = tonnage x (Safe Thrust - 2), from the Master Engine Table (TM pp. 49, 185). "}
                                 Structural Integrity is the higher of Safe Thrust and a tenth of the tonnage (TM p. 187).
                             </p>
-                            {conventional ? (
+                            {fighter.isVSTOLOffered(rulesLevel) || fighter.hasVSTOL() ? (
                                 <label>
                                     <input type="checkbox" checked={fighter.hasVSTOL()} onChange={(e) => { const value = e.currentTarget.checked; this.update((f) => f.setVSTOL(value)); }} />
                                     &nbsp;VSTOL equipment ({fighter.getVSTOLWeight() || "5% of tonnage"}{fighter.hasVSTOL() ? " tons" : ""}, TM p. 190)
+                                </label>
+                            ) : null}
+                            {!conventional && (fighter.isVSTOLOffered(rulesLevel) || fighter.hasVSTOL()) ? (
+                                <p className="smaller-text">
+                                    Optional rule, offered from the Advanced rules level. An aerospace fighter already lands and lifts
+                                    off vertically; the equipment removes the +2 penalty for a vertical landing in atmosphere. TechManual
+                                    p. 190 allows it in the rule text, but its Sabutai example on the same page says an aerospace
+                                    fighter may not mount it. Agree with your group before using it.
+                                </p>
+                            ) : null}
+                            {!conventional ? (
+                                <label>
+                                    <input type="checkbox" checked={fighter.isOmni()} onChange={(e) => { const value = e.currentTarget.checked; this.update((f) => f.setOmni(value)); }} />
+                                    &nbsp;OmniFighter (weapons and equipment may be pod-mounted; cost x 1.25, TM p. 285)
                                 </label>
                             ) : null}
 

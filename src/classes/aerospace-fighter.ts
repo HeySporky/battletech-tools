@@ -5,7 +5,9 @@ import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getEffectiveIntroduction, getEquipmentListByTech, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
+import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { findByTag } from "../data/tag-match";
 import { IAerospaceArmorType, IEngineType, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
 
@@ -54,6 +56,45 @@ export const FIGHTER_ARMOR_POINTS_PER_TON_OF_FIGHTER = 8;
 /** A conventional fighter's maximum armor: tonnage x 1 points (same table). */
 export const CONVENTIONAL_FIGHTER_ARMOR_POINTS_PER_TON_OF_FIGHTER = 1;
 export const MAX_FIGHTER_EQUIPMENT = 200;
+/**
+ * VSTOL equipment on an aerospace fighter is an optional rule, offered from the Advanced rules level. TechManual
+ * p.190 says aerospace fighters "may mount this equipment to eliminate the +2 penalty for attempting a vertical
+ * landing in atmosphere"; the Sabutai example on the same page says an aerospace fighter "may not mount the VSTOL
+ * enhancement". The rule text is followed, as an option.
+ */
+export const AEROSPACE_VSTOL_RULES_LEVEL = 3;
+/** Unit Type Modifiers Table (TM p.316). */
+export const FIGHTER_BV_TYPE_MODIFIER: Record<FighterType, number> = { aerospace: 1.2, conventional: 1.1 };
+
+/** An Alpha Strike damage value: a whole number, or minimal damage (0*). */
+export interface IFighterASDamageValue {
+    damage: number;
+    minimal: boolean;
+}
+
+export interface IFighterAlphaStrikeStats {
+    type: "AF" | "CF";
+    size: number;
+    /** Thrust: the Safe Thrust, with the "a" movement code. */
+    movement: number;
+    damageValues: { short: IFighterASDamageValue; medium: IFighterASDamageValue; long: IFighterASDamageValue; extreme: IFighterASDamageValue };
+    armor: number;
+    structure: number;
+    threshold: number;
+    overheat: number;
+    pointValue: number;
+    specialAbilities: string[];
+    calcLog: string;
+}
+
+/** Card text for a damage value: 0* for minimal damage. */
+export const formatFighterASDamage = (value: IFighterASDamageValue): string => (value.minimal ? "0*" : `${value.damage}`);
+
+/** One kind of bomb or pod on the external hardpoints, and how many are carried. */
+export interface IFighterExternalStore {
+    tag: string;
+    count: number;
+}
 
 /** Fusion engines an aerospace fighter may use, by tech base (Aerospace Unit Engine Table, TM p.186). */
 const ENGINE_TAGS: Record<"is" | "clan", string[]> = {
@@ -67,6 +108,8 @@ export interface IFighterEquipmentExport {
     tag: string;
     location?: string;
     uuid?: string;
+    /** On an OmniFighter: true for a pod-mounted item, absent for one fixed to the base chassis. */
+    pod?: boolean;
 }
 
 export interface IAerospaceFighterExport {
@@ -78,6 +121,10 @@ export interface IAerospaceFighterExport {
     fighterType?: FighterType;
     /** VSTOL equipment, conventional fighters only (TM p.190). */
     vstol?: boolean;
+    /** An OmniFighter: equipment may be pod-mounted (aerospace fighters only). */
+    omni?: boolean;
+    /** Bombs and pods on the external hardpoints. */
+    externalStores?: IFighterExternalStore[];
     tonnage: number;
     tech: string;
     era: string;
@@ -100,6 +147,13 @@ const emptyArmor = (): IFighterArmorAllocation => ({ nose: 0, leftWing: 0, right
 /** The aerospace armor catalog writes an absent prototype year as null; ITechDates leaves it out. */
 const armorDates = (armor: IAerospaceArmorType): ITechDates => ({ ...armor, prototype: armor.prototype ?? undefined });
 const roundUpHalf = (tons: number): number => Math.ceil(tons * 2 - 1e-9) / 2;
+/** Escapes text written into the HTML calculation logs, which the summary page renders as markup. */
+const escapeLogText = (value: unknown): string => String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 
 /** A saved fighter cleaned by a full import, with what the import changed; null when it is not an object. */
 export const normalizeAerospaceFighterExport = (raw: unknown): { fighter: IAerospaceFighterExport | null; issues: string[] } => {
@@ -122,6 +176,13 @@ export default class AerospaceFighter {
     private _model: string = "";
     private _fighterType: FighterType = "aerospace";
     private _vstol: boolean = false;
+    private _omni: boolean = false;
+    private _podUUIDs: Set<string> = new Set();
+    private _externalStores: IFighterExternalStore[] = [];
+    private _battleValue: number = 0;
+    private _calcLogBV: string = "";
+    private _cost: number = 0;
+    private _calcLogCost: string = "";
     private _tonnage: number = 50;
     private _tech: ITechOptions = btTechOptions[0];
     private _era: IEras = btEraOptions[0];
@@ -167,8 +228,8 @@ export default class AerospaceFighter {
     /** Switching type pulls tonnage, engine, thrust, armor and heat sinks back inside the new type's rules. */
     public setFighterType(type: string): FighterType {
         this._fighterType = type === "conventional" ? "conventional" : type === "aerospace" ? "aerospace" : this._fighterType;
-        if (!this.isConventional()) this._vstol = false;
-        else this._heatSinkType = mechHeatSinkTypes.find((sink) => sink.tag === "single") ?? this._heatSinkType;
+        if (this.isConventional()) this._omni = false;
+        if (this.isConventional()) this._heatSinkType = mechHeatSinkTypes.find((sink) => sink.tag === "single") ?? this._heatSinkType;
         if (!this.getPermittedEngineTags().includes(this._engineType.tag)) this._engineType = mechEngineTypes[0];
         if (this.getArmorPointsPerTon() === null) this._armorType = aerospaceArmorTypes[0];
         this.setTonnage(this._tonnage);
@@ -177,12 +238,50 @@ export default class AerospaceFighter {
 
     public hasVSTOL(): boolean { return this._vstol; }
 
-    /** Only a conventional fighter is offered VSTOL equipment (TM p.190). */
+    /**
+     * VSTOL equipment (TM p.190). A conventional fighter may always take it. On an aerospace fighter it is an
+     * optional rule (see AEROSPACE_VSTOL_RULES_LEVEL): getIssues reports it below that rules level.
+     */
     public setVSTOL(vstol: boolean): boolean {
-        this._vstol = this.isConventional() && vstol === true;
+        this._vstol = vstol === true;
         this._calc();
         return this._vstol;
     }
+
+    /** Whether VSTOL equipment is offered to this fighter at the rules level. */
+    public isVSTOLOffered(rulesLevel: number = 2): boolean {
+        return this.isConventional() || rulesLevel >= AEROSPACE_VSTOL_RULES_LEVEL;
+    }
+
+    // OmniFighters --------------------------------------------------------------------------------------------
+
+    public isOmni(): boolean { return this._omni; }
+
+    /** Only aerospace fighters can be built as Omnis (TM pp.184, 285). A standard fighter has no pods. */
+    public setOmni(omni: boolean): boolean {
+        this._omni = !this.isConventional() && omni === true;
+        if (!this._omni) this._podUUIDs.clear();
+        this._calc();
+        return this._omni;
+    }
+
+    public isPodMounted(uuid: string): boolean { return this._omni && this._podUUIDs.has(uuid); }
+
+    public setPodMounted(uuid: string, pod: boolean): boolean {
+        if (this._omni && pod && this._equipmentList.some((item) => item.uuid === uuid)) this._podUUIDs.add(uuid);
+        else this._podUUIDs.delete(uuid);
+        this._calc();
+        return this.isPodMounted(uuid);
+    }
+
+    /** Weight of the base chassis: everything but the pod-mounted equipment. */
+    public getBaseChassisTonnage(): number {
+        const pods = this._equipmentList.filter((item) => this.isPodMounted(item.uuid ?? "")).reduce((sum, item) => sum + (item.weight || 0), 0);
+        return Math.round((this._currentTonnage - pods) * 1000) / 1000;
+    }
+
+    /** Tonnage the base chassis leaves for pods. */
+    public getPodSpace(): number { return Math.round((this._tonnage - this.getBaseChassisTonnage()) * 1000) / 1000; }
 
     /** VSTOL equipment weighs 5 percent of the fighter, rounded up to the half ton (TM p.190). */
     public getVSTOLWeight(): number { return this._vstol ? roundUpHalf(this._tonnage * 0.05) : 0; }
@@ -371,6 +470,16 @@ export default class AerospaceFighter {
     /** Tonnage x 8 points, tonnage x 1 for a conventional fighter (TM p.191). */
     public getMaxArmorPoints(): number { return this._tonnage * this.getMaxArmorPointsPerTonOfFighter(); }
 
+    /**
+     * Damage Threshold of each facing: a tenth of its full armor, rounded up. A single hit that does more than
+     * this may cause a critical hit (TW p.239).
+     */
+    public getDamageThresholds(): IFighterArmorAllocation {
+        const thresholds = emptyArmor();
+        for (const arc of FIGHTER_ARCS) thresholds[arc.tag] = Math.ceil(this._armorAllocation[arc.tag] / 10);
+        return thresholds;
+    }
+
     /** Armor is bought in half tons: the allocated points divided by the points per ton, rounded up (TM p.191). */
     public getArmorWeight(): number {
         const perTon = this.getArmorPointsPerTon() ?? 16;
@@ -450,6 +559,55 @@ export default class AerospaceFighter {
 
     /** External stores hardpoints: tonnage divided by 5, rounded down (TM p.196). */
     public getExternalStoresHardpoints(): number { return Math.floor(this._tonnage / 5); }
+
+    /**
+     * Bombs and pods the hardpoints can carry: catalog records that give a bomb size, one hardpoint per size
+     * point (TW pp.245-247; the larger ordnance is from Tactical Operations and follows its rules level).
+     */
+    public getAvailableExternalStores(rulesLevel: number = 2): IEquipmentItem[] {
+        const seen = new Set<string>();
+        const stores: IEquipmentItem[] = [];
+        for (const item of getEquipmentListByTech(this._tech.tag, false)) {
+            if (!item.isAmmo || !(item.bombBaySlots && item.bombBaySlots > 0) || seen.has(item.tag)) continue;
+            if (!isEquipmentWithinRulesLevel(item, rulesLevel)) continue;
+            seen.add(item.tag);
+            stores.push({ ...item, available: this._datesAvailability(item, rulesLevel).available });
+        }
+        return stores.sort((a, b) => (a.name > b.name ? 1 : a.name < b.name ? -1 : 0));
+    }
+
+    private _storeRecord(tag: string): IEquipmentItem | undefined {
+        const item = findByTag(this._catalog(), tag);
+        return item && item.isAmmo && item.bombBaySlots && item.bombBaySlots > 0 ? item : undefined;
+    }
+
+    public getExternalStores(): (IFighterExternalStore & { name: string; hardpoints: number })[] {
+        return this._externalStores.map((store) => {
+            const record = this._storeRecord(store.tag);
+            return { ...store, name: record?.name ?? store.tag, hardpoints: (record?.bombBaySlots ?? 1) * store.count };
+        });
+    }
+
+    /** Sets how many of one store are carried; 0 removes it. The count is not cut to fit: getIssues reports an overload. */
+    public setExternalStore(tag: string, count: number): IFighterExternalStore[] {
+        const record = this._storeRecord(tag);
+        const value = Number.isFinite(count) ? Math.min(100, Math.max(0, Math.floor(count))) : 0;
+        this._externalStores = this._externalStores.filter((store) => store.tag !== (record?.tag ?? tag));
+        if (record && value > 0 && this._externalStores.length < 50) this._externalStores.push({ tag: record.tag, count: value });
+        return this._externalStores;
+    }
+
+    public clearExternalStores(): void { this._externalStores = []; }
+
+    public getExternalStoresHardpointsUsed(): number {
+        return this.getExternalStores().reduce((sum, store) => sum + store.hardpoints, 0);
+    }
+
+    /** "1 for every 5 bombs, rounded up" comes off Safe Thrust while the stores are carried (TW p.247). */
+    public getExternalStoresThrustLoss(): number { return Math.ceil(this.getExternalStoresHardpointsUsed() / 5); }
+
+    public getLoadedSafeThrust(): number { return Math.max(0, this._safeThrust - this.getExternalStoresThrustLoss()); }
+    public getLoadedMaxThrust(): number { return Math.ceil(this.getLoadedSafeThrust() * 1.5); }
 
     /** Weapon slots an item takes in an arc. Ammunition and core components take none (TM p.196). */
     public getItemSlots(item: IEquipmentItem): number {
@@ -533,6 +691,7 @@ export default class AerospaceFighter {
     }
 
     public removeEquipment(uuid: string): IEquipmentItem[] {
+        this._podUUIDs.delete(uuid);
         this._equipmentList = this._equipmentList.filter((item) => item.uuid !== uuid);
         this._calc();
         return this._equipmentList;
@@ -581,6 +740,20 @@ export default class AerospaceFighter {
             if (!this.isEquipmentAllowed(item)) issues.push(`${item.name} cannot be mounted on a fighter.`);
         }
         if (this._fuelTons <= 0) issues.push("The fighter carries no fuel.");
+        if (this._vstol && !this.isVSTOLOffered(rulesLevel)) {
+            issues.push("VSTOL equipment on an aerospace fighter is an optional rule, offered from the Advanced rules level: TM p.190 allows it in the rule text and denies it in the Sabutai example.");
+        }
+        if (this._omni && this.isConventional()) issues.push("A conventional fighter cannot be built as an Omni.");
+        const hardpoints = this.getExternalStoresHardpointsUsed();
+        if (hardpoints > this.getExternalStoresHardpoints()) {
+            issues.push(`External stores need ${hardpoints} hardpoints; the fighter has ${this.getExternalStoresHardpoints()} (TM p.196).`);
+        } else if (hardpoints > 0 && this.getLoadedSafeThrust() < 1) {
+            issues.push("The external stores leave the fighter with no Safe Thrust (TW p.247).");
+        }
+        for (const store of this.getExternalStores()) {
+            const record = this._storeRecord(store.tag);
+            if (record && !isEquipmentWithinRulesLevel(record, rulesLevel)) issues.push(`${record.name} is above the selected rules level.`);
+        }
         return issues;
     }
 
@@ -625,6 +798,380 @@ export default class AerospaceFighter {
             ...this._equipmentList.map((item) => ({ name: item.name, weight: item.weight || 0 })),
         ];
         this._currentTonnage = Math.round(this._weights.reduce((sum, entry) => sum + entry.weight, 0) * 1000) / 1000;
+        this._calcBattleValue();
+        this._calcCost();
+    }
+
+    // Battle Value and cost -----------------------------------------------------------------------------------
+
+    public getBattleValue(): number { return this._battleValue; }
+    public getBattleValueLog(): string { return this._calcLogBV; }
+    public getCBillCost(): number { return this._cost; }
+    public getCBillCostLog(): string { return this._calcLogCost; }
+
+    public hasTargetingComputer(): boolean {
+        return this._equipmentList.some((item) => item.variableFormula?.startsWith("targeting-computer"));
+    }
+
+    private _isWeapon(item: IEquipmentItem): boolean {
+        return !item.isAmmo && !item.isEquipment && !item.battleValueDefensive && (item.battleValue || 0) > 0;
+    }
+
+    /** Heat a weapon counts for in the Battle Value: Ultra x 2, rotary x 6, Streak x 0.5, one-shot x 0.25 (TM p.303). */
+    private static _bvHeat(item: IEquipmentItem): number {
+        const heat = item.heatAero ?? item.heat ?? 0;
+        const text = `${item.tag} ${item.name}`.toLowerCase();
+        if (item.isOneShot) return heat * 0.25;
+        if (/rotary|\brac\b/.test(text)) return heat * 6;
+        if (/ultra/.test(text)) return heat * 2;
+        if (/streak/.test(text)) return heat * 0.5;
+        return heat;
+    }
+
+    /** The Speed Factor for a Maximum Thrust (Speed Factor Table and formula, TM p.316). */
+    public static speedFactor(maxThrust: number): number {
+        return Math.round(Math.pow(1 + (maxThrust - 5) / 10, 1.2) * 100) / 100;
+    }
+
+    /**
+     * Battle Value (Calculating Aerospace BV, TM pp.302-304; the worked TRB-D36 Thunderbird on p.313).
+     * Defensive = (armor x 2.5 + Structural Integrity x 2 + defensive equipment - 15 per type of explosive
+     * ammunition and 1 per Gauss weapon on an Inner Sphere fighter without CASE, never below 1) x 1.2, or 1.1
+     * for a conventional fighter. Offensive = (weapons + ammunition, capped at its weapons, + other equipment)
+     * x the Speed Factor for Maximum Thrust. The weaker of the nose and aft weapon groups counts half. An
+     * aerospace fighter that makes more heat than 6 + its heat sinks halves every weapon after the one that
+     * crosses that line, taking the highest values first. Artemis IV is not linked to its launchers yet, so its
+     * 20 percent is left out. External stores are not part of a fighter's own Battle Value.
+     */
+    private _calcBattleValue(): void {
+        let log = "<strong>DEFENSIVE BATTLE RATING</strong><br />";
+        const armorPoints = this.getTotalArmorPoints();
+        const structuralIntegrity = this.getStructuralIntegrity();
+        let defensive = armorPoints * 2.5 + structuralIntegrity * 2;
+        log += `Armor: ${armorPoints} x 2.5 = ${armorPoints * 2.5}<br />Structural Integrity: ${structuralIntegrity} x 2 = ${structuralIntegrity * 2}<br />`;
+
+        const weapons = this._equipmentList.filter((item) => !item.isAmmo);
+        let amsAmmoBV = 0;
+        let amsBV = 0;
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) {
+                const fed = weapons.find((weapon) => weapon.battleValueDefensive && getCompatibleAmmo(weapon, item));
+                if (fed) amsAmmoBV += getAmmoBattleValuePerTon(fed, item) * (item.weight || 0);
+            } else if (item.battleValueDefensive) {
+                defensive += item.battleValue || 0;
+                if (item.weaponType?.includes("AMS")) amsBV += item.battleValue || 0;
+                log += `+ Defensive Equipment: ${escapeLogText(item.name)} = ${item.battleValue || 0}<br />`;
+            }
+        }
+        defensive += Math.min(amsAmmoBV, amsBV);
+
+        // Clan fighters are taken to have CASE; an Inner Sphere one needs to mount it (TM p.302).
+        const hasCASE = this.getChassisTechBase() === "clan" || this._equipmentList.some((item) => /(^|-)case(-|$)/.test(item.tag));
+        if (!hasCASE) {
+            const explosiveTypes = new Set(this._equipmentList.filter((item) => item.isAmmo && item.explosive).map((item) => item.tag)).size;
+            const gaussWeapons = weapons.filter((item) => /gauss|(^|-)hag(-|$)/.test(item.tag)).length;
+            const penalty = explosiveTypes * 15 + gaussWeapons;
+            if (penalty > 0) {
+                defensive = Math.max(1, defensive - penalty);
+                log += `- Explosive ammunition (${explosiveTypes} type${explosiveTypes === 1 ? "" : "s"} x 15) and Gauss weapons (${gaussWeapons} x 1), no CASE = -${penalty}<br />`;
+            }
+        }
+        const typeModifier = FIGHTER_BV_TYPE_MODIFIER[this._fighterType];
+        log += `Subtotal ${defensive.toFixed(2)} x ${typeModifier} (${this.getFighterTypeName()})`;
+        defensive *= typeModifier;
+        log += ` = ${defensive.toFixed(2)}<br />`;
+
+        log += "<strong>OFFENSIVE BATTLE RATING</strong><br />";
+        const hasTC = this.hasTargetingComputer();
+        const offensiveWeapons = this._equipmentList.filter((item) => this._isWeapon(item));
+        const arcBV = (arc: FighterArc) => offensiveWeapons.filter((item) => item.location === arc).reduce((sum, item) => sum + (item.battleValue || 0), 0);
+        const halvedArc: FighterArc = arcBV("nose") < arcBV("aft") ? "nose" : "aft";
+        const modifiedBV = (item: IEquipmentItem) => (item.battleValue || 0)
+            * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1) * (item.location === halvedArc ? 0.5 : 1);
+
+        let rating = 0;
+        // Ammunition, capped at the unmodified value of the weapons of the model it feeds.
+        const weaponBVByTag: Record<string, number> = {};
+        for (const item of offensiveWeapons) weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + (item.battleValue || 0);
+        const ammoBVByTag: Record<string, number> = {};
+        for (const ammo of this._equipmentList.filter((item) => item.isAmmo)) {
+            const fed = offensiveWeapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
+            if (fed) ammoBVByTag[fed.tag] = (ammoBVByTag[fed.tag] ?? 0) + getAmmoBattleValuePerTon(fed, ammo) * (ammo.weight || 0);
+        }
+        for (const [tag, value] of Object.entries(ammoBVByTag)) {
+            const capped = Math.min(value, weaponBVByTag[tag] ?? 0);
+            rating += capped;
+            log += `+ Ammunition for ${escapeLogText(tag)} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}<br />`;
+        }
+        // Equipment that is neither a weapon nor defensive.
+        for (const item of weapons) {
+            if (!this._isWeapon(item) && !item.battleValueDefensive && (item.battleValue || 0) > 0) {
+                rating += item.battleValue || 0;
+                log += `+ ${escapeLogText(item.name)} = ${item.battleValue}<br />`;
+            }
+        }
+
+        const efficiency = 6 + this.getHeatDissipation();
+        const totalHeat = offensiveWeapons.reduce((sum, item) => sum + AerospaceFighter._bvHeat(item), 0);
+        const tracksHeat = !this.isConventional() && totalHeat > efficiency;
+        if (!this.isConventional()) log += `Heat Efficiency 6 + ${this.getHeatDissipation()} = ${efficiency}; Total Weapon Heat ${totalHeat}<br />`;
+        const ordered = [...offensiveWeapons].sort((a, b) => {
+            const heatless = (AerospaceFighter._bvHeat(a) > 0 ? 1 : 0) - (AerospaceFighter._bvHeat(b) > 0 ? 1 : 0);
+            if (heatless !== 0) return heatless;
+            return modifiedBV(b) - modifiedBV(a) || AerospaceFighter._bvHeat(a) - AerospaceFighter._bvHeat(b);
+        });
+        let runningHeat = 0;
+        let overheated = false;
+        for (const item of ordered) {
+            const heat = AerospaceFighter._bvHeat(item);
+            const halved = tracksHeat && overheated && heat > 0;
+            const value = modifiedBV(item) * (halved ? 0.5 : 1);
+            rating += value;
+            if (tracksHeat && heat > 0 && !overheated) {
+                runningHeat += heat;
+                if (runningHeat >= efficiency) overheated = true;
+            }
+            log += `+ ${escapeLogText(item.name)} (${escapeLogText(FIGHTER_LOCATIONS.find((loc) => loc.tag === item.location)?.name ?? "no arc")}) = ${value.toFixed(2)}`
+                + `${item.location === halvedArc ? " (weaker of nose and aft x 0.5)" : ""}${halved ? " (over Heat Efficiency x 0.5)" : ""}<br />`;
+        }
+        const speedFactor = AerospaceFighter.speedFactor(this.getMaxThrust());
+        const offensive = rating * speedFactor;
+        log += `Weapon Battle Rating ${rating.toFixed(2)} x Speed Factor ${speedFactor} (Max Thrust ${this.getMaxThrust()}) = ${offensive.toFixed(2)}<br />`;
+
+        this._battleValue = Math.round(defensive + offensive);
+        log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)} = ${this._battleValue}<br />`;
+        this._calcLogBV = log;
+    }
+
+    /**
+     * C-bill cost (Aerospace Unit Structural Costs table and the final cost formula, TM pp.283-285; the worked
+     * 'Mechbuster on p.277). Structure, engine, fuel, armor, heat sinks, amplifiers, weapons and ammunition,
+     * then x 1.25 for an OmniFighter and x (1 + tonnage / 200). External stores are not part of the price.
+     */
+    private _calcCost(): void {
+        const rows: [string, number][] = [];
+        if (this.isConventional()) {
+            rows.push([`Avionics (4,000 x ${this.getControlsWeight()} t)`, 4000 * this.getControlsWeight()]);
+        } else {
+            rows.push(["Cockpit", 200000], ["Life Support", 50000], [`Sensors (2,000 x ${this._tonnage} t)`, 2000 * this._tonnage]);
+        }
+        if (this._vstol) rows.push([`VSTOL (5,000 x ${this.getVSTOLWeight()} t)`, 5000 * this.getVSTOLWeight()]);
+        const structureRate = this.isConventional() ? 4000 : 50000;
+        rows.push([`Structural Integrity (${structureRate.toLocaleString("en-US")} x ${this.getStructuralIntegrity()})`, structureRate * this.getStructuralIntegrity()]);
+        rows.push(["Attitude Thruster", 25000], [`Landing Gear (10 x ${this._tonnage} t)`, 10 * this._tonnage]);
+        const rating = this.getEngineRating();
+        rows.push([`${this._engineType.name} Engine (${(this._engineType.costMultiplier || 0).toLocaleString("en-US")} x rating ${rating} x ${this._tonnage} t / 75)`,
+            (this._engineType.costMultiplier || 0) * rating * this._tonnage / 75]);
+        rows.push([`Fuel Tanks (200 x ${this._fuelTons} t)`, 200 * this._fuelTons]);
+        rows.push([`Armor (${this._armorType.name}, ${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
+        if (this.getTotalHeatSinks() > 0) rows.push([`Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name})`, this.getTotalHeatSinks() * (this._heatSinkType.cost || 2000)]);
+        if (this.getPowerAmplifierWeight() > 0) rows.push([`Power Amplifiers (20,000 x ${this.getPowerAmplifierWeight()} t)`, 20000 * this.getPowerAmplifierWeight()]);
+        const equipment = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * (item.weight || 0) : item.cbills || 0), 0);
+        rows.push(["Weapons, Equipment and Ammunition", equipment]);
+        const subtotal = rows.reduce((sum, [, value]) => sum + value, 0);
+        const omni = this._omni ? 1.25 : 1;
+        const multiplier = 1 + this._tonnage / 200;
+        this._cost = Math.round(subtotal * omni * multiplier);
+        const money = (value: number) => Math.round(value).toLocaleString("en-US");
+        this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${money(value)}`).join("<br />")
+            + `<br />Subtotal ${money(subtotal)}${this._omni ? " x 1.25 (OmniFighter)" : ""} x ${multiplier} (1 + ${this._tonnage} / 200)`
+            + ` = <strong>${money(this._cost)}</strong>`;
+    }
+
+    /** The lowest rules level that allows everything on the design. */
+    public getRequiredRulesLevel(): number {
+        let level = this._vstol && !this.isConventional() ? AEROSPACE_VSTOL_RULES_LEVEL : 0;
+        for (const item of this._equipmentList) level = Math.max(level, getEquipmentRulesLevel(item));
+        for (const store of this._externalStores) {
+            const record = this._storeRecord(store.tag);
+            if (record) level = Math.max(level, getEquipmentRulesLevel(record));
+        }
+        return level;
+    }
+
+    // Alpha Strike --------------------------------------------------------------------------------------------
+    // Conversion from the Alpha Strike Companion (pp.92-100, 115-116, 121), with the Point Value as MegaMek's
+    // aerospace converter works it out; checked against Master Unit List cards in fighter-alpha-strike.test.ts.
+    // Weapon damage comes from each catalog record's alphaStrike values.
+
+    /** Fighters under 50 tons are Size 1, 50 to 74 tons Size 2, 75 tons and over Size 3 (ASC p.92). */
+    public getAlphaStrikeSize(): number { return this._tonnage >= 75 ? 3 : this._tonnage >= 50 ? 2 : 1; }
+
+    private static _roundUpToTenth(value: number): number {
+        return Math.ceil(Math.round(value * 1000) / 100) / 10;
+    }
+
+    /** Rounded up to the tenth; under 0.5 is minimal damage (0*), otherwise rounded up. */
+    private static _asDamage(raw: number): IFighterASDamageValue {
+        const tenth = AerospaceFighter._roundUpToTenth(raw);
+        if (tenth <= 0) return { damage: 0, minimal: false };
+        if (tenth < 0.5) return { damage: 0, minimal: true };
+        return { damage: Math.ceil(tenth), minimal: false };
+    }
+
+    /** Fewer than 10 shots for each weapon of a kind x 0.75; no ammunition at all x 0. */
+    private _asAmmoMultiplier(weapon: IEquipmentItem): number {
+        const usesAmmo = !!weapon.ammoTypes?.length || (weapon.shotsPerTon ?? 0) > 0;
+        if (!usesAmmo || weapon.isOneShot) return 1;
+        const sameWeapons = this._equipmentList.filter((item) => !item.isAmmo && item.tag === weapon.tag).length;
+        const shots = this._equipmentList
+            .filter((item) => item.isAmmo && getCompatibleAmmo(weapon, item))
+            .reduce((sum, ammo) => sum + getWeaponShotsPerTon(weapon, ammo) * (ammo.weight || 0), 0);
+        if (shots <= 0) return 0;
+        return shots / sameWeapons >= 10 ? 1 : 0.75;
+    }
+
+    private _asWeaponDamage(weapon: IEquipmentItem): number[] {
+        const as = weapon.alphaStrike;
+        if (!as) return [0, 0, 0, 0];
+        const multiplier = this._asAmmoMultiplier(weapon) * (this.hasTargetingComputer() && as.tc ? 1.1 : 1);
+        return [as.rangeShort || 0, as.rangeMedium || 0, as.rangeLong || 0, as.rangeExtreme || 0].map((value) => value * multiplier);
+    }
+
+    private _asSum(weapons: IEquipmentItem[]): number[] {
+        return weapons.reduce((sum, weapon) => {
+            const damage = this._asWeaponDamage(weapon);
+            return sum.map((value, index) => value + damage[index]);
+        }, [0, 0, 0, 0]);
+    }
+
+    /** Heat a weapon adds to the maximum heat output: none for one-shot and rocket launchers (ASC p.115). */
+    private static _asHeat(item: IEquipmentItem): number {
+        if (item.isOneShot || /rocket-launcher/.test(item.tag)) return 0;
+        return item.heatAero ?? item.heat ?? 0;
+    }
+
+    public getAlphaStrikeStats(): IFighterAlphaStrikeStats {
+        let log = "";
+        const weapons = this._equipmentList.filter((item) => !item.isAmmo && item.alphaStrike
+            && ((item.alphaStrike.rangeShort || 0) + (item.alphaStrike.rangeMedium || 0) + (item.alphaStrike.rangeLong || 0) + (item.alphaStrike.rangeExtreme || 0)) > 0);
+        // Nose and wing weapons make the standard attack; aft weapons earn REAR (ASC p.100).
+        const front = weapons.filter((item) => item.location !== "aft");
+        const rear = weapons.filter((item) => item.location === "aft");
+        const base = this._asSum(front);
+        const adjusted = [...base];
+        let overheat = 0;
+        log += `Base damage (nose and wings): ${base.map((raw) => raw.toFixed(2)).join("/")}<br />`;
+
+        // Heat: a unit overheats when its heat output passes its dissipation by 4 or more; damage is then
+        // base x dissipation / (heat - 4). Long and Extreme use the heat of the long-range weapons only (ASC
+        // pp.115-116). Conventional fighters do not track heat.
+        if (!this.isConventional()) {
+            const dissipation = this.getHeatDissipation();
+            const heat = front.reduce((sum, item) => sum + AerospaceFighter._asHeat(item), 0);
+            const longHeat = front.filter((item) => (item.alphaStrike?.rangeLong || 0) > 0 || !(item.alphaStrike?.rangeShort || 0))
+                .reduce((sum, item) => sum + AerospaceFighter._asHeat(item), 0);
+            if (heat - dissipation >= 4) {
+                adjusted[0] = base[0] * dissipation / (heat - 4);
+                adjusted[1] = base[1] * dissipation / (heat - 4);
+            }
+            if (longHeat - dissipation >= 4) {
+                adjusted[2] = base[2] * dissipation / (longHeat - 4);
+                adjusted[3] = base[3] * dissipation / (longHeat - 4);
+            }
+            const column = base[1] > 0 ? 1 : 0;
+            overheat = Math.min(4, Math.max(0, AerospaceFighter._asDamage(base[column]).damage - AerospaceFighter._asDamage(adjusted[column]).damage));
+            log += `Heat ${heat} (long range ${longHeat}) against ${dissipation} dissipated: ${adjusted.map((raw) => raw.toFixed(2)).join("/")}, Overheat ${overheat}<br />`;
+        }
+        const [short, medium, long, extreme] = adjusted.map((raw) => AerospaceFighter._asDamage(raw));
+
+        const size = this.getAlphaStrikeSize();
+        const specials: string[] = [`BOMB${size}`];
+        if (this.isConventional()) {
+            specials.push("ATMO");
+            if (this._engineType.tag === "ice") specials.push("EE");
+        } else {
+            specials.push("SPC", `FUEL${Math.round(this.getFuelPoints() / 20)}`);
+        }
+        // The Master Unit List prints VSTOL on every fighter card, with or without the equipment.
+        specials.push("VSTOL");
+        if (rear.length) {
+            const vector = this._asSum(rear).slice(0, 3).map((raw) => {
+                const tenth = AerospaceFighter._roundUpToTenth(raw);
+                return tenth > 0 && tenth < 0.5 ? "0*" : Math.round(tenth) > 0 ? `${Math.round(tenth)}` : "-";
+            });
+            specials.push(`REAR${vector.join("/")}`);
+        }
+        const usesAmmo = weapons.some((item) => !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0);
+        if (weapons.length > 0 && !usesAmmo) specials.push("ENE");
+        const equipmentSpecials = new Set<string>();
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) continue;
+            for (const code of item.alphaStrike?.specialAbility ?? []) {
+                if (!code.includes("#")) equipmentSpecials.add(code);
+            }
+        }
+        specials.push(...[...equipmentSpecials].filter((code) => !specials.includes(code)));
+        specials.sort();
+
+        const armor = Math.round(this.getTotalArmorPoints() / 30);
+        const structure = Math.ceil(this.getStructuralIntegrity() / 2);
+        const threshold = Math.ceil(armor / 3);
+        const move = this._safeThrust;
+        log += `Size ${size}, Thrust ${move}a, Armor ${armor} (${this.getTotalArmorPoints()} / 30), Structure ${structure} (SI ${this.getStructuralIntegrity()} / 2), Threshold ${threshold}<br />`;
+
+        const pvDamage = (value: IFighterASDamageValue) => (value.minimal ? 0.5 : value.damage);
+        let offensive = pvDamage(short) + 2 * pvDamage(medium) + pvDamage(long);
+        if (overheat >= 1) offensive += (1 + 0.5 * (overheat - 1)) / (pvDamage(medium) + pvDamage(long) === 0 ? 2 : 1);
+        offensive += size;
+        log += `Offensive value: S + 2M + L + Overheat + BOMB ${size} = ${offensive}<br />`;
+        let defensive = 4 + 0.25 * move + (move >= 10 ? 1 : move >= 7 ? 0.5 : 0);
+        if (equipmentSpecials.has("AMS")) defensive += 1;
+        const armorMultiplier = Math.min(1.3 + 0.1 * threshold, 1.9);
+        const dir = 0.5 * Math.round((armor * armorMultiplier + structure) * 1.2 * 2);
+        defensive += dir;
+        log += `Defensive value: 4 + ${move} / 4${move >= 10 ? " + 1" : move >= 7 ? " + 0.5" : ""} + (Armor ${armor} x ${armorMultiplier.toFixed(1)} + Structure ${structure}) x 1.2 = ${defensive}<br />`;
+        let subtotal = offensive + defensive;
+        const forceBonus: Record<string, number> = { AECM: 3, BH: 2, C3RS: 2, ECM: 2, RCN: 2, TRN: 2, LPRB: 1, PRB: 1, LECM: 0.5 };
+        for (const code of equipmentSpecials) subtotal += forceBonus[code] ?? 0;
+        const pointValue = Math.max(1, Math.round(subtotal));
+        log += `Point Value ${pointValue} (provisional)<br />`;
+
+        return {
+            type: this.isConventional() ? "CF" : "AF",
+            size, movement: move, damageValues: { short, medium, long, extreme },
+            armor, structure, threshold, overheat, pointValue, specialAbilities: specials, calcLog: log,
+        };
+    }
+
+    /** The converted Alpha Strike card, built the same way as a Master Unit List record. */
+    public getAlphaStrikeUnit(): AlphaStrikeUnit {
+        const stats = this.getAlphaStrikeStats();
+        const damage = stats.damageValues;
+        const record = {
+            Id: 0,
+            Name: `${this._name} ${this._model}`.trim() || this.getFighterTypeName(),
+            Class: this._name,
+            Variant: this._model,
+            Tonnage: this._tonnage,
+            Cost: this.getCBillCost(),
+            BattleValue: this.getBattleValue(),
+            BFType: stats.type,
+            BFSize: stats.size,
+            BFMove: `${stats.movement}a`,
+            BFTMM: 0,
+            BFArmor: stats.armor,
+            BFStructure: stats.structure,
+            BFThreshold: stats.threshold,
+            BFDamageShort: damage.short.damage,
+            BFDamageMedium: damage.medium.damage,
+            BFDamageLong: damage.long.damage,
+            BFDamageExtreme: damage.extreme.damage,
+            BFDamageShortMin: damage.short.minimal,
+            BFDamageMediumMin: damage.medium.minimal,
+            BFDamageLongMin: damage.long.minimal,
+            BFDamageExtremeMin: damage.extreme.minimal,
+            BFOverheat: stats.overheat,
+            BFPointValue: stats.pointValue,
+            BFAbilities: stats.specialAbilities.join(","),
+            Role: { Id: 0, Name: "None", Image: null, SortOrder: 0 },
+            Technology: { Id: 0, Name: this._tech.name, Image: null, SortOrder: 0 },
+            Type: { Id: 17, Name: "Fighter Craft", Image: null, SortOrder: 0 },
+        } as unknown as IASMULUnit;
+        const unit = new AlphaStrikeUnit();
+        unit.importMUL(record);
+        unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        return unit;
     }
 
     // Saving --------------------------------------------------------------------------------------------------
@@ -637,6 +1184,8 @@ export default class AerospaceFighter {
             model: this._model,
             fighterType: this._fighterType,
             vstol: this._vstol,
+            omni: this._omni,
+            externalStores: this._externalStores.map((store) => ({ ...store })),
             tonnage: this._tonnage,
             tech: this._tech.tag,
             era: this._era.tag,
@@ -647,7 +1196,9 @@ export default class AerospaceFighter {
             armorAllocation: { ...this._armorAllocation },
             heatSinkType: this._heatSinkType.tag,
             additionalHeatSinks: this._additionalHeatSinks,
-            equipment: this._equipmentList.map((item) => ({ tag: item.tag, location: item.location, uuid: item.uuid })),
+            equipment: this._equipmentList.map((item) => ({
+                tag: item.tag, location: item.location, uuid: item.uuid, ...(this.isPodMounted(item.uuid ?? "") ? { pod: true } : {}),
+            })),
         };
     }
 
@@ -705,6 +1256,8 @@ export default class AerospaceFighter {
             this.setAdditionalHeatSinks(savedNumber(saved.additionalHeatSinks, 0, 0, 200));
             this.setVSTOL(saved.vstol === true);
 
+            this._omni = saved.omni === true && !this.isConventional();
+            this._podUUIDs = new Set();
             this._equipmentList = [];
             if (saved.equipment !== undefined && !Array.isArray(saved.equipment)) issue("Ignored an equipment list that is not a list");
             const entries = Array.isArray(saved.equipment) ? saved.equipment : [];
@@ -720,7 +1273,21 @@ export default class AerospaceFighter {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;
                 }
-                this._equipmentList.push(this._newEquipment(catalogItem, entry.location, entry.uuid));
+                const item = this._newEquipment(catalogItem, entry.location, entry.uuid);
+                this._equipmentList.push(item);
+                if (this._omni && entry.pod === true && item.uuid) this._podUUIDs.add(item.uuid);
+            }
+
+            this._externalStores = [];
+            if (saved.externalStores !== undefined && !Array.isArray(saved.externalStores)) issue("Ignored an external stores list that is not a list");
+            for (const entry of (Array.isArray(saved.externalStores) ? saved.externalStores : []).slice(0, 50)) {
+                if (!isPlainObject(entry) || typeof entry.tag !== "string" || typeof entry.count !== "number") {
+                    issue("Skipped an external store that could not be read");
+                    continue;
+                }
+                const before = this._externalStores.length;
+                this.setExternalStore(entry.tag, entry.count);
+                if (this._externalStores.length === before && entry.count > 0) issue(`Skipped unknown external store "${entry.tag.slice(0, 60)}"`);
             }
             this._calc();
         } catch (error) {

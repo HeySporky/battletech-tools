@@ -7,6 +7,8 @@ import FighterCreatorChassis from './chassis';
 import FighterCreatorArmor from './armor';
 import FighterCreatorEquipment from './equipment';
 import FighterCreatorSummary from './summary';
+import FighterCreatorRecordSheet from './record-sheet';
+import FighterCreatorPrintAS from './print-as';
 
 import type { JSX } from "react";
 
@@ -33,6 +35,14 @@ export default class FighterCreatorRouter extends React.Component<IFighterCreato
 
                 <Route path={`summary`} element={
                     <FighterCreatorSummary appGlobals={this.props.appGlobals} />
+                }/>
+
+                <Route path={`record-sheet`} element={
+                    <FighterCreatorRecordSheet appGlobals={this.props.appGlobals} />
+                }/>
+
+                <Route path={`print-as`} element={
+                    <FighterCreatorPrintAS appGlobals={this.props.appGlobals} />
                 }/>
 
                 <Route path="*" element={

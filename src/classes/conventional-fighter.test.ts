@@ -96,16 +96,13 @@ describe("Conventional fighter construction (TechManual)", () => {
         expect(fighter.getIssues().join(" | ")).not.toContain("heat sinks");
     });
 
-    it("adds VSTOL equipment at 5 percent of tonnage, to conventional fighters only (TM p.190)", () => {
+    it("adds VSTOL equipment at 5 percent of tonnage (TM p.190)", () => {
         const fighter = mechbusterChassis();
         expect(fighter.setVSTOL(true)).toBe(true);
         expect(fighter.getVSTOLWeight()).toBe(2.5);
         expect(fighter.getRemainingTonnage()).toBe(15.5);
         fighter.setTonnage(15);
         expect(fighter.getVSTOLWeight()).toBe(1);
-        fighter.setFighterType("aerospace");
-        expect(fighter.hasVSTOL()).toBe(false);
-        expect(fighter.setVSTOL(true)).toBe(false);
     });
 
     it("saves its type, and reads a save without one as an aerospace fighter", () => {

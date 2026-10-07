@@ -96,8 +96,8 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
                                 equipment catalogs with the 'Mech and Vehicle Creators.
                             </p>
                             <p className="smaller-text">
-                                Not built yet: Battle Value, cost, OmniFighter pods, external stores loads, a printable
-                                record sheet and Alpha Strike conversion.
+                                The summary gives the Battle Value, cost, a record sheet and the converted Alpha Strike card.
+                                OmniFighter pods and external stores are set on the equipment step.
                             </p>
                             <div className="clear-both overflow-hidden">
                                 <hr />

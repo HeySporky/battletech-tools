@@ -6,7 +6,9 @@ import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
+import { availabilityOptionLabel } from '../../../components/availability-options';
 import FighterCreatorSideMenu from '../../../components/fighter-creator-side-menu';
+import InputNumeric from "../../../components/form_elements/input_numeric";
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
@@ -40,6 +42,9 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
         if (!fighter) return <></>;
         const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
         const remaining = fighter.getRemainingTonnage();
+        const stores = fighter.getExternalStores();
+        const storesUsed = fighter.getExternalStoresHardpointsUsed();
+        const storeOptions = fighter.getAvailableExternalStores(rulesLevel).filter((option) => !stores.some((store) => store.tag === option.tag));
 
         return (
             <UIPage current="classic-battletech-fighter-creator" appGlobals={this.props.appGlobals}>
@@ -89,7 +94,7 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                 </p>
                                 <table className="table">
                                     <thead>
-                                        <tr><th>Name</th><th>Tons</th><th>Location</th><th></th></tr>
+                                        <tr><th>Name</th><th>Tons</th><th>Location</th>{fighter.isOmni() ? <th>Pod</th> : null}<th></th></tr>
                                     </thead>
                                     <tbody>
                                         {fighter.getEquipmentList().map((item) => (
@@ -111,6 +116,16 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                                         </select>
                                                     )}
                                                 </td>
+                                                {fighter.isOmni() ? (
+                                                    <td>
+                                                        <input
+                                                            type="checkbox"
+                                                            aria-label={"Pod-mount " + item.name}
+                                                            checked={fighter.isPodMounted(item.uuid ?? "")}
+                                                            onChange={(e) => { const value = e.currentTarget.checked; this.update((f) => f.setPodMounted(item.uuid ?? "", value)); }}
+                                                        />
+                                                    </td>
+                                                ) : null}
                                                 <td>
                                                     <button className="btn btn-danger btn-sm" title={"Remove " + item.name} onClick={() => this.update((f) => f.removeEquipment(item.uuid ?? ""))}>
                                                         <Trash />
@@ -118,9 +133,45 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                                 </td>
                                             </tr>
                                         ))}
-                                        {fighter.getEquipmentList().length === 0 ? <tr><td colSpan={4}>Nothing installed yet.</td></tr> : null}
+                                        {fighter.getEquipmentList().length === 0 ? <tr><td colSpan={5}>Nothing installed yet.</td></tr> : null}
                                     </tbody>
                                 </table>
+                                {fighter.isOmni() ? (
+                                    <p>
+                                        <strong>Base Chassis</strong>: {fighter.getBaseChassisTonnage()} tons &nbsp;|&nbsp;
+                                        <strong>Pod Space</strong>: {fighter.getPodSpace()} tons. Unticked items are fixed to the base chassis.
+                                    </p>
+                                ) : null}
+                            </TextSection>
+                            <TextSection label="External Stores">
+                                <p className="smaller-text">
+                                    One bomb or pod per hardpoint, one hardpoint per 5 tons of fighter (TM p. 196). Every 5 bombs,
+                                    rounded up, take 1 off Safe Thrust until dropped (TW p. 247). Stores add no construction weight.
+                                </p>
+                                <p className={storesUsed > fighter.getExternalStoresHardpoints() ? "color-red" : ""}>
+                                    <strong>Hardpoints</strong>: {storesUsed}/{fighter.getExternalStoresHardpoints()} &nbsp;|&nbsp;
+                                    <strong>Loaded Thrust</strong>: {fighter.getLoadedSafeThrust()}/{fighter.getLoadedMaxThrust()}
+                                </p>
+                                {stores.map((store) => (
+                                    <InputNumeric
+                                        key={store.tag}
+                                        label={`${store.name} (${store.hardpoints} hardpoint${store.hardpoints === 1 ? "" : "s"})`}
+                                        value={store.count}
+                                        min={0}
+                                        max={100}
+                                        step={1}
+                                        setValue={(count) => this.update((f) => f.setExternalStore(store.tag, count))}
+                                    />
+                                ))}
+                                <label>
+                                    Add a store:
+                                    <select value="" onChange={(e) => { const value = e.currentTarget.value; if (value) this.update((f) => f.setExternalStore(value, 1)); }}>
+                                        <option value="">- choose a bomb or pod -</option>
+                                        {storeOptions.map((option) => (
+                                            <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}{(option.bombBaySlots ?? 1) > 1 ? ` (${option.bombBaySlots} hardpoints)` : ""}</option>
+                                        ))}
+                                    </select>
+                                </label>
                             </TextSection>
                         </div>
                     </div>

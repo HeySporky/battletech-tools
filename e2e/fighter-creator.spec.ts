@@ -81,3 +81,50 @@ test("a conventional fighter can be built and saved", async ({ page }) => {
 
     expect(errors).toEqual([]);
 });
+
+// OmniFighter pods, external stores, the optional aerospace VSTOL rule, Battle Value, cost, record sheet and
+// Alpha Strike card (TM pp. 190, 196, 283-285, 302-304; TW p. 247).
+test("a fighter shows its pods, stores, values, record sheet and Alpha Strike card", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+    page.on("console", (message) => {
+        if (message.type() === "error") errors.push(`console.error: ${message.text()}`);
+    });
+
+    await page.goto("classic-battletech/fighter-creator");
+    await page.getByRole("link", { name: /Start Building/ }).click();
+    await page.getByLabel("Fighter Name").fill("Podded");
+    await page.getByLabel("Tonnage:").selectOption("85");
+    await page.getByLabel("Safe Thrust").selectOption("5");
+
+    // VSTOL on an aerospace fighter is only offered from the Advanced rules level.
+    await page.getByLabel("Rules Level").selectOption("2");
+    await expect(page.getByLabel(/VSTOL equipment/)).toHaveCount(0);
+    await page.getByLabel("Rules Level").selectOption("3");
+    await page.getByLabel(/VSTOL equipment/).check();
+    await expect(page.getByText(/its Sabutai example on the same page says/)).toBeVisible();
+    await page.getByLabel(/VSTOL equipment/).uncheck();
+    await page.getByLabel(/OmniFighter/).check();
+
+    await page.goto("classic-battletech/fighter-creator/equipment");
+    await page.getByLabel("Add a store").selectOption("ammo-bomb-cluster");
+    await page.getByLabel(/Bomb - Cluster/).selectOption("10");
+    await expect(page.getByText(/Hardpoints.*10\/17/)).toBeVisible();
+    await expect(page.getByText(/Loaded Thrust.*3\/5/)).toBeVisible();
+    await expect(page.getByText(/Pod Space/)).toBeVisible();
+
+    await page.goto("classic-battletech/fighter-creator/summary");
+    await expect(page.getByText(/Omni Aerospace Fighter/)).toBeVisible();
+    await expect(page.getByText("DEFENSIVE BATTLE RATING")).toBeVisible();
+    await expect(page.getByText(/x 1.25 \(OmniFighter\)/)).toBeVisible();
+    await expect(page.getByRole("cell", { name: /BOMB3/ })).toBeVisible();
+
+    await page.getByRole("link", { name: "View Record Sheet" }).click();
+    await expect(page.getByRole("heading", { name: "Critical Damage" })).toBeVisible();
+    await expect(page.getByText(/10 x Bomb - Cluster/)).toBeVisible();
+
+    await page.goto("classic-battletech/fighter-creator/print-as");
+    await expect(page.locator("svg").first()).toBeVisible();
+
+    expect(errors).toEqual([]);
+});

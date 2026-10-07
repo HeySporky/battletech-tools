@@ -1,9 +1,10 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft } from "react-icons/fa";
-import { FIGHTER_ARCS, FIGHTER_LOCATIONS } from '../../../../classes/aerospace-fighter';
+import { FIGHTER_ARCS, FIGHTER_LOCATIONS, formatFighterASDamage } from '../../../../classes/aerospace-fighter';
 import { IAppGlobals } from '../../../app-router';
 import FighterCreatorSideMenu from '../../../components/fighter-creator-side-menu';
+import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
@@ -19,6 +20,7 @@ export default class FighterCreatorSummary extends React.Component<ISummaryProps
         if (!fighter) return <></>;
         const issues = fighter.getIssues(this.props.appGlobals.appSettings.mechRulesFilter);
         const armor = fighter.getArmorAllocation();
+        const as = fighter.getAlphaStrikeStats();
         const title = `${fighter.getModel()} ${fighter.getName()}`.trim() || "Unnamed Fighter";
 
         return (
@@ -41,17 +43,21 @@ export default class FighterCreatorSummary extends React.Component<ISummaryProps
                             )}
 
                             <p>
-                                <strong>Type</strong>: {fighter.getFighterTypeName()}{fighter.hasVSTOL() ? " (VSTOL)" : ""} &nbsp;|&nbsp;
+                                <strong>Type</strong>: {fighter.isOmni() ? "Omni " : ""}{fighter.getFighterTypeName()}{fighter.hasVSTOL() ? " (VSTOL)" : ""} &nbsp;|&nbsp;
                                 <strong>Tech</strong>: {fighter.getTech().name} &nbsp;|&nbsp;
                                 <strong>Era</strong>: {fighter.getEra().name} &nbsp;|&nbsp;
-                                <strong>Tonnage</strong>: {fighter.getTonnage()}
+                                <strong>Tonnage</strong>: {fighter.getTonnage()} &nbsp;|&nbsp;
+                                <strong>Battle Value</strong>: {fighter.getBattleValue()} &nbsp;|&nbsp;
+                                <strong>Cost</strong>: {fighter.getCBillCost().toLocaleString("en-US")} C-bills
                             </p>
                             <p>
                                 <strong>Thrust</strong>: {fighter.getSafeThrust()} safe / {fighter.getMaxThrust()} max &nbsp;|&nbsp;
                                 <strong>Structural Integrity</strong>: {fighter.getStructuralIntegrity()} &nbsp;|&nbsp;
                                 <strong>Fuel</strong>: {fighter.getFuelPoints()} points &nbsp;|&nbsp;
                                 <strong>Heat Sinks</strong>: {fighter.getTotalHeatSinks()} {fighter.getHeatSinkType().name} ({fighter.getHeatDissipation()} dissipated, {fighter.getWeaponHeat()} weapon heat) &nbsp;|&nbsp;
-                                <strong>External Stores</strong>: {fighter.getExternalStoresHardpoints()} hardpoints
+                                <strong>External Stores</strong>: {fighter.getExternalStoresHardpointsUsed()} of {fighter.getExternalStoresHardpoints()} hardpoints
+                                {fighter.getExternalStoresHardpointsUsed() > 0 ? <> (thrust {fighter.getLoadedSafeThrust()}/{fighter.getLoadedMaxThrust()} while loaded: {fighter.getExternalStores().map((store) => `${store.count} x ${store.name}`).join(", ")})</> : null}
+                                {fighter.isOmni() ? <> &nbsp;|&nbsp; <strong>Pod Space</strong>: {fighter.getPodSpace()} tons</> : null}
                             </p>
 
                             <h3>Armor ({fighter.getArmorType().name})</h3>
@@ -89,7 +95,7 @@ export default class FighterCreatorSummary extends React.Component<ISummaryProps
                                         return (
                                             <tr key={location.tag}>
                                                 <td>{location.name}</td>
-                                                <td>{items.length > 0 ? items.map((item) => item.name).join(", ") : "-"}</td>
+                                                <td>{items.length > 0 ? items.map((item) => item.name + (fighter.isPodMounted(item.uuid ?? "") ? " (pod)" : "")).join(", ") : "-"}</td>
                                                 <td className="text-right">
                                                     {location.tag === "fuselage" ? "-" : `${fighter.getArcSlotsUsed(location.tag)}/${fighter.getArcSlots(location.tag)}`}
                                                 </td>
@@ -99,8 +105,34 @@ export default class FighterCreatorSummary extends React.Component<ISummaryProps
                                 </tbody>
                             </table>
 
+                            <h3>Alpha Strike Stats</h3>
+                            <table className="table">
+                                <tbody>
+                                    <tr><td>Type / Size</td><td>{as.type} / {as.size}</td></tr>
+                                    <tr><td>Thrust</td><td>{as.movement}a</td></tr>
+                                    <tr><td>Damage (S/M/L)</td><td>{formatFighterASDamage(as.damageValues.short)}/{formatFighterASDamage(as.damageValues.medium)}/{formatFighterASDamage(as.damageValues.long)}</td></tr>
+                                    <tr><td>Overheat (OV)</td><td>{as.overheat}</td></tr>
+                                    <tr><td>Armor / Structure / Threshold</td><td>{as.armor} / {as.structure} / {as.threshold}</td></tr>
+                                    <tr><td>Special Abilities</td><td>{as.specialAbilities.join(", ")}</td></tr>
+                                    <tr><td>Point Value</td><td>{as.pointValue}</td></tr>
+                                </tbody>
+                            </table>
+                            <SanitizedHTML raw={true} html={as.calcLog} />
+                            <p className="smaller-text">
+                                Converted with the Alpha Strike Companion rules, with the Point Value worked out as MegaMek does;
+                                checked against Master Unit List cards. Published fighters should still use their MUL card.
+                            </p>
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/print-as`} className="btn btn-primary btn-sm">Print Alpha Strike Card</Link>
+
+                            <h3>Battle Value Calculation</h3>
+                            <SanitizedHTML raw={true} html={fighter.getBattleValueLog()} />
+
+                            <h3>Cost Calculation</h3>
+                            <SanitizedHTML raw={true} html={fighter.getCBillCostLog()} />
+
                             <div className="clear-both overflow-hidden">
                                 <hr />
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/fighter-creator/equipment`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>
