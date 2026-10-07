@@ -7,9 +7,12 @@ Finished items are moved to `TODO-Completed.md`, which also lists the commit his
 
 Local references (git-ignored, never imported by shipped code):
 
-- `_KNOWLEDGE_DEV/rulebooks/`: the rulebook library, 38 PDFs with text extracts (TW, TM, TO:AR, TO:AUE,
-  SO:AA, IO, IO:AE, IO:BF, CO, ASCE, AS, ASC, the Core Rulebook, box sets and errata). `INDEX.md` there lists
-  editions, page offsets (printed page = PDF page - offset) and which errata applies to which printing.
+- `_KNOWLEDGE_DEV/rulebooks/`: the rulebook library, 222 PDFs with text extracts, plus `Custom/` (fan material)
+  and `errata-2025/`. Rulebooks: TW, TM, TO:AR, TO:AUE, SO:AA, IO, IO:AE, IO:BF, CO, BMM, ASCE, AS, ASC, the Core
+  Rulebook, box sets, quick-start rules and errata. Since 2026-10-06 also the Technical Readouts (2750 to 3150 and
+  the era volumes), 31 Experimental TROs, Recognition Guides (ilClan 1-33, Classics 1-2), The Wars of Reaving and
+  its Supplemental, Ghosts of Obeedah, adventures and scenario packs. `INDEX.md` there lists every file, edition,
+  page offset (printed page = PDF page - offset) and which errata applies to which printing.
 - `WorkingData_DEV/SSWdata/`: Solaris Skunk Werks designs (3,358 `.ssw`, shallow clone of
   Solaris-Skunk-Werks/SSW-Master).
 - `WorkingData_DEV/mmlData/mekfiles/`: MegaMek unit files (4,312 `.mtf`, 6,723 `.blk`) for every unit type,
@@ -619,7 +622,14 @@ socket (CPU profile), which points at a network filter driver, not the app: Fire
 Open:
 - [ ] Upstream draft PRs waiting on review: #110 (`fix/storage-quota-handling`) and #112
   (`perf/lazy-ssw-corpus`, which now carries the AppRouter cleanup too; #111 was closed into it).
-- [ ] 1.6 `security/sanitizer-hardening`: design first. JBTIICRework's DOMPurify swap drops the strict tag
+- [ ] `feature/rules-levels-expanded` (commit 53da11d5, not merged): rules levels 5 Apocryphal, 6 Custom Homebrew,
+  7 Munchkin, with constants replacing every hard-coded 5. Review, then merge.
+- [ ] Read the sources added to `_KNOWLEDGE_DEV/rulebooks/` on 2026-10-06 for rules and options the tool lacks:
+  the BattleMech Manual (7th printing), Ghosts of Obeedah, The Wars of Reaving and Supplemental, the 31 XTROs
+  (experimental equipment), and the quick-start rulebooks. Log each gap under the section it belongs to.
+- [ ] Check the OCR of the 13 scanned Technical Readouts before citing any stat block from them.
+- [ ] 1.6 `security/sanitizer-hardening`: decided 2026-10-06: keep the strict whitelist on the normal path and run
+  DOMPurify only on the reviewed `raw` sites. JBTIICRework's DOMPurify swap drops the strict tag
   whitelist on the non-raw path and breaks `security-guards.test.ts`.
 - [ ] Catalog rework: one catalog per category (Energy, Ballistic, Missile, Melee incl. Shields, Electronics,
   Engines, Structure, Myomer, Armor, Cockpits, ...) holding IS, Clan and universal entries, split by rules level:
