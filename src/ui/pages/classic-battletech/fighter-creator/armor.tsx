@@ -63,7 +63,7 @@ export default class FighterCreatorArmor extends React.Component<IArmorProps> {
                             </label>
                             <p>
                                 <strong>Points per Ton</strong>: {fighter.getArmorPointsPerTon() ?? "n/a"} &nbsp;|&nbsp;
-                                <strong>Maximum</strong>: {fighter.getMaxArmorPoints()} points (tonnage x 8, TM p. 191)
+                                <strong>Maximum</strong>: {fighter.getMaxArmorPoints()} points (tonnage x {fighter.getMaxArmorPointsPerTonOfFighter()}, TM p. 191)
                                 {slots && slots.placement ? <> &nbsp;|&nbsp; <strong>Weapon slots given up</strong>: {slots.placement}</> : null}
                             </p>
 

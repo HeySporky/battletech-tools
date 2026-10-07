@@ -1,7 +1,7 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleRight } from "react-icons/fa";
-import AerospaceFighter, { FIGHTER_COCKPIT_TONS, FIGHTER_FREE_HEAT_SINKS, FIGHTER_MAX_TONNAGE, FIGHTER_MIN_TONNAGE } from '../../../../classes/aerospace-fighter';
+import AerospaceFighter, { FIGHTER_MIN_TONNAGE, FIGHTER_TYPES } from '../../../../classes/aerospace-fighter';
 import { btTechOptions } from '../../../../data/tech-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
@@ -45,6 +45,7 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
         if (!fighter) return <></>;
         const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
         const remaining = fighter.getRemainingTonnage();
+        const conventional = fighter.isConventional();
 
         return (
             <UIPage current="classic-battletech-fighter-creator" appGlobals={this.props.appGlobals}>
@@ -64,6 +65,20 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                                 value={fighter.getName()}
                                 onChange={(e) => { const value = e.currentTarget.value; this.update((f) => f.setName(value)); }}
                             />
+
+                            <label>
+                                Fighter Type:
+                                <select value={fighter.getFighterType()} onChange={(e) => { const value = e.currentTarget.value; this.update((f) => f.setFighterType(value)); }}>
+                                    {FIGHTER_TYPES.map((option) => (
+                                        <option key={option.tag} value={option.tag}>{option.name}</option>
+                                    ))}
+                                </select>
+                            </label>
+                            <p className="smaller-text">
+                                {conventional
+                                    ? "A conventional fighter flies in atmosphere only: 5 to 50 tons, a turbine or standard fusion engine, single heat sinks and armor of one point per ton of fighter (TM pp. 184-193)."
+                                    : "An aerospace fighter flies in atmosphere and space: 5 to 100 tons, a fusion engine and armor of up to eight points per ton of fighter (TM pp. 184-193)."}
+                            </p>
 
                             <label>
                                 Technology Base:
@@ -96,7 +111,7 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                             <label>
                                 Tonnage:
                                 <select value={fighter.getTonnage()} onChange={(e) => { const value = +e.currentTarget.value; this.update((f) => f.setTonnage(value)); }}>
-                                    {range(FIGHTER_MIN_TONNAGE, FIGHTER_MAX_TONNAGE, 5).map((tons) => (
+                                    {range(FIGHTER_MIN_TONNAGE, fighter.getMaxTonnage(), 5).map((tons) => (
                                         <option key={tons} value={tons}>{tons}</option>
                                     ))}
                                 </select>
@@ -124,13 +139,21 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                             </label>
                             <p>
                                 <strong>Engine Rating</strong>: {fighter.getEngineRating()} ({fighter.getEngineWeight()} tons) &nbsp;|&nbsp;
-                                <strong>Cockpit and Controls</strong>: {FIGHTER_COCKPIT_TONS} tons &nbsp;|&nbsp;
+                                <strong>Cockpit and Controls</strong>: {fighter.getControlsWeight()} tons &nbsp;|&nbsp;
                                 <strong>Structural Integrity</strong>: {fighter.getStructuralIntegrity()} (no weight)
                             </p>
                             <p className="smaller-text">
-                                Engine rating = tonnage x (Safe Thrust - 2), from the Master Engine Table (TM pp. 49, 186). Structural Integrity
-                                is the higher of Safe Thrust and a tenth of the tonnage (TM p. 187).
+                                {conventional
+                                    ? "Engine rating = tonnage x Safe Thrust, from the Master Engine Table; a fusion engine weighs 1.5 times the table weight. Controls weigh a tenth of the tonnage (TM pp. 49, 185, 189). "
+                                    : "Engine rating = tonnage x (Safe Thrust - 2), from the Master Engine Table (TM pp. 49, 185). "}
+                                Structural Integrity is the higher of Safe Thrust and a tenth of the tonnage (TM p. 187).
                             </p>
+                            {conventional ? (
+                                <label>
+                                    <input type="checkbox" checked={fighter.hasVSTOL()} onChange={(e) => { const value = e.currentTarget.checked; this.update((f) => f.setVSTOL(value)); }} />
+                                    &nbsp;VSTOL equipment ({fighter.getVSTOLWeight() || "5% of tonnage"}{fighter.hasVSTOL() ? " tons" : ""}, TM p. 190)
+                                </label>
+                            ) : null}
 
                             <h3>Fuel</h3>
                             <InputNumeric
@@ -141,7 +164,7 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                                 step={0.5}
                                 setValue={(tons) => this.update((f) => f.setFuelTons(tons))}
                             />
-                            <p><strong>Fuel Points</strong>: {fighter.getFuelPoints()} (80 per ton, TM p. 188)</p>
+                            <p><strong>Fuel Points</strong>: {fighter.getFuelPoints()} ({fighter.getFuelPointsPerTon()} per ton, TM p. 186)</p>
 
                             <h3>Heat Sinks</h3>
                             <label>
@@ -155,7 +178,7 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                                 </select>
                             </label>
                             <InputNumeric
-                                label={`Additional Heat Sinks (1 ton each; ${FIGHTER_FREE_HEAT_SINKS} come free with the engine)`}
+                                label={`Additional Heat Sinks (1 ton each; ${fighter.getFreeHeatSinks()} come free with the engine)`}
                                 value={fighter.getAdditionalHeatSinks()}
                                 min={0}
                                 max={100}
@@ -165,8 +188,14 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                             <p>
                                 <strong>Heat Sinks</strong>: {fighter.getTotalHeatSinks()} &nbsp;|&nbsp;
                                 <strong>Dissipation</strong>: {fighter.getHeatDissipation()} &nbsp;|&nbsp;
-                                <strong>Weapon Heat</strong>: {fighter.getWeaponHeat()}
+                                <strong>{conventional ? "Energy Weapon Heat" : "Weapon Heat"}</strong>: {fighter.getWeaponHeat()}
                             </p>
+                            {conventional ? (
+                                <p className="smaller-text">
+                                    A conventional fighter must carry a heat sink for every point of heat its energy weapons make;
+                                    other weapons make none (TM p. 193).
+                                </p>
+                            ) : null}
 
                             <p className={remaining < 0 ? "color-red" : ""}><strong>Remaining Tonnage</strong>: {remaining}</p>
 

@@ -660,7 +660,10 @@ Open:
     - [x] Aerospace Fighter (2026-10-07): `aerospace-fighter.ts` and the Fighter Creator (chassis, armor, equipment,
       summary, saves, backup). TechManual rules; reproduces the Sabutai example (TM pp.184-197). Not built: BV,
       cost, OmniFighter pods, external stores loads, record sheet, Alpha Strike conversion, roster and play mode.
-    - [ ] Conventional Fighter (5-50 tons, ICE or fusion, controls 10%, armor tonnage x 1, 160 fuel points a ton).
+    - [x] Conventional Fighter (2026-10-07): a fighter type in the same class and Fighter Creator. 5-50 tons, turbine
+      or standard fusion (x1.5 weight), controls 10%, armor tonnage x 1, 160 fuel points a ton, single heat sinks
+      for energy weapons, power amplifiers, VSTOL. Reproduces the 'Mechbuster example (TM pp.184-196). Same gaps as
+      the aerospace fighter.
     - [ ] Conventional infantry platoon.
     - [ ] Gun emplacement / building.
   - [ ] Next: Compendium (1990). Then Third Edition (1992), Fourth Edition (1996), Master Rules (1998), Master

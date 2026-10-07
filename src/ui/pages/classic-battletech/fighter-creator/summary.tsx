@@ -41,7 +41,7 @@ export default class FighterCreatorSummary extends React.Component<ISummaryProps
                             )}
 
                             <p>
-                                <strong>Type</strong>: Aerospace Fighter &nbsp;|&nbsp;
+                                <strong>Type</strong>: {fighter.getFighterTypeName()}{fighter.hasVSTOL() ? " (VSTOL)" : ""} &nbsp;|&nbsp;
                                 <strong>Tech</strong>: {fighter.getTech().name} &nbsp;|&nbsp;
                                 <strong>Era</strong>: {fighter.getEra().name} &nbsp;|&nbsp;
                                 <strong>Tonnage</strong>: {fighter.getTonnage()}

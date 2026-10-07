@@ -90,10 +90,10 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Fighter Creator">
                             <p>
-                                Build an Aerospace Fighter under the TechManual construction rules (pp. 180-197): 5 to 100
-                                tons, a fusion engine sized by Safe Thrust, fuel, armor on four facings and up to five
-                                weapons in each firing arc. It shares the engine, heat sink and equipment catalogs with the
-                                'Mech and Vehicle Creators.
+                                Build an Aerospace Fighter (5 to 100 tons) or a Conventional Fighter (5 to 50 tons) under the
+                                TechManual construction rules (pp. 180-197): an engine sized by Safe Thrust, fuel, armor on
+                                four facings and up to five weapons in each firing arc. It shares the engine, heat sink and
+                                equipment catalogs with the 'Mech and Vehicle Creators.
                             </p>
                             <p className="smaller-text">
                                 Not built yet: Battle Value, cost, OmniFighter pods, external stores loads, a printable
@@ -122,6 +122,7 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                        <th>Type</th>
                                         <th>Thrust</th>
                                         <th>Tons</th>
                                         <th></th>
@@ -131,6 +132,7 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
                                     {saves.length > 0 ? saves.map((save: IAerospaceFighterExport, saveIndex: number) => (
                                         <tr key={saveIndex}>
                                             <td title={"UUID: " + save.uuid}>{`${save.model} ${save.name}`.trim() || "(nameless)"}</td>
+                                            <td>{save.fighterType === "conventional" ? "Conventional" : "Aerospace"}</td>
                                             <td>{save.safeThrust}/{Math.ceil(save.safeThrust * 1.5)}</td>
                                             <td className="min-width">{save.tonnage}</td>
                                             <td className="text-right">
@@ -148,7 +150,7 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
                                             </td>
                                         </tr>
                                     )) : (
-                                        <tr><td colSpan={4}>You have no saved fighters yet.</td></tr>
+                                        <tr><td colSpan={5}>You have no saved fighters yet.</td></tr>
                                     )}
                                 </tbody>
                             </table>
