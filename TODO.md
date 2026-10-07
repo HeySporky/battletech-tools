@@ -863,3 +863,46 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
   `tools/live_mul_browser_probe.mjs` were removed, the rethrow in `tools/mul-sync/sync-mul.mjs` carries its
   `cause`, and those two Playwright scripts get browser globals in `eslint.config.mjs`. The phantom
   `tools/append_chunker.js` / `tools/range_chunker.js` entries are gone from `tsconfig.json`.
+
+## 10. JBTIICRework review (2026-10-06)
+
+`C:epo\JBTIICRework` is a Gemini AI Studio export of master at `0a1f061e`. It is reference only: port by hand,
+never copy its `package.json`, lockfiles, Vite config, `.gitignore`, `tsconfig.json` or `index.html`. Its
+`errors.md` was checked item by item.
+
+Done, merged into master:
+- [x] 1.1 A failed `localStorage` write is reported with an "Unable to Save" alert (`fix/storage-quota-handling`,
+  branched from `upstream/master`).
+- [x] 1.3 / 1.4 AppRouter removes its online/offline listeners and import timer on unmount
+  (`fix/app-router-cleanup`, from `upstream/master`).
+- [x] 3.1 The bundled SSW 'Mechs load as their own chunk; entry bundle 2,483 kB to 333 kB
+  (`perf/lazy-ssw-corpus`, stacked on the cleanup branch).
+- [x] `.ssw` file import refuses more than 200 files or a file over 5 MB (`fix/ssw-import-limits`, fork only:
+  the importer is not upstream yet).
+- [x] 2.4 / 2.5 Lint backlog and phantom `tsconfig.json` entries (`chore/tooling-lint-backlog`).
+
+Open:
+- [ ] Open upstream PRs for `fix/storage-quota-handling`, `fix/app-router-cleanup` and `perf/lazy-ssw-corpus`.
+- [ ] 3.3 Merge `chore/move-mul-legacy-archive` (archive moved to `tools/mul-sync/archive/`). Upstream PR #92
+  still uses the old path; decide whether that PR takes the move too.
+- [ ] 1.6 `security/sanitizer-hardening`: design first. JBTIICRework's DOMPurify swap drops the strict tag
+  whitelist on the non-raw path and breaks `security-guards.test.ts`.
+- [ ] Catalog rework: one catalog per category (Energy, Ballistic, Missile, Melee incl. Shields, Electronics,
+  Engines, Structure, Myomer, Armor, Cockpits, ...) holding IS, Clan and universal entries, split by rules level:
+  0-4 canon, 5 Apocryphal, 6 Custom Homebrew (balanced), 7 Munchkin (cheese). Custom moves from 5 to 6.
+- [ ] Manufacturers: an entry-level array on every catalog record, shown on the tabletop record sheet when the
+  user turns the option on. Brand data needs a source per entry.
+- [ ] 3.2 The background import still parses all 512 bundled 'Mechs on every launch; precompile them to
+  lightweight descriptors or parse on demand.
+- [ ] 1.5 Remove the CRA `serviceWorker.ts` boilerplate or replace it with `vite-plugin-pwa`.
+- [ ] 3.4 Measure before batching the 44 MUL chunk loads; 3.5 replace hot-path `JSON.parse(JSON.stringify())`
+  clones; 3.6 split `src/utils.ts`; 3.7 `appGlobals` re-renders; 3.8 trim the Bootstrap CSS; 3.9 replace
+  `process.env.PUBLIC_URL`.
+
+Not doing:
+- 1.2 Firebase data loss: not reachable. The storage selector in Settings is commented out and
+  `storageLocation` is never read from saved settings.
+- 2.1, 2.3, 2.6: caused by, or specific to, the AI Studio export.
+- 3.10 Removing `jdgAnalytics.ts`: Jeff's attribution stays.
+- JBTIICRework's `src/classes/battlemech/` and `src/classes/vehicle/` folders: copies nothing calls, with types
+  that have already drifted (6 type errors). Do the extraction in section 4 instead.
