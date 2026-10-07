@@ -7,12 +7,15 @@ Finished items are moved to `TODO-Completed.md`, which also lists the commit his
 
 Local references (git-ignored, never imported by shipped code):
 
-- `_KNOWLEDGE_DEV/rulebooks/`: the rulebook library, 222 PDFs with text extracts, plus `Custom/` (fan material)
-  and `errata-2025/`. Rulebooks: TW, TM, TO:AR, TO:AUE, SO:AA, IO, IO:AE, IO:BF, CO, BMM, ASCE, AS, ASC, the Core
-  Rulebook, box sets, quick-start rules and errata. Since 2026-10-06 also the Technical Readouts (2750 to 3150 and
-  the era volumes), 31 Experimental TROs, Recognition Guides (ilClan 1-33, Classics 1-2), The Wars of Reaving and
-  its Supplemental, Ghosts of Obeedah, adventures and scenario packs. `INDEX.md` there lists every file, edition,
-  page offset (printed page = PDF page - offset) and which errata applies to which printing.
+- `_KNOWLEDGE_DEV/rulebooks/`: the reference library, about 870 files sorted into folders on 2026-10-06:
+  `rulebooks/` (current Catalyst line, BMM, Core Rulebook, box sets), `rulebooks-legacy/` (Battledroids, BattleTech
+  2nd/3rd Edition, Compendium, Master Rules, Maximum Tech, CityTech, AeroTech, BattleSpace and the FanPro printings),
+  `alpha-strike/`, `errata/` and `errata-2025/`, `rpg/`, `technical-readouts/` (TROs, XTROs, Recognition Guides),
+  `record-sheets/`, `sourcebooks/`, `maps-and-art/`, `apocryphal/` (BattleTechnology and licensed game material),
+  `magazines/mechforce/`, `fan-made/`, `languages/de/` and `languages/es/`, `fiction/`, `Custom/`. Text extracts are
+  flat in `text/`. `INDEX.md` there has the editions, page offsets (printed page = PDF page - offset), errata
+  applicability and a generated catalog of every file; `_reorg-2026-10-06.json` records each rename and the 97
+  duplicates removed.
 - `WorkingData_DEV/SSWdata/`: Solaris Skunk Werks designs (3,358 `.ssw`, shallow clone of
   Solaris-Skunk-Werks/SSW-Master).
 - `WorkingData_DEV/mmlData/mekfiles/`: MegaMek unit files (4,312 `.mtf`, 6,723 `.blk`) for every unit type,
@@ -627,7 +630,20 @@ Open:
 - [ ] Read the sources added to `_KNOWLEDGE_DEV/rulebooks/` on 2026-10-06 for rules and options the tool lacks:
   the BattleMech Manual (7th printing), Ghosts of Obeedah, The Wars of Reaving and Supplemental, the 31 XTROs
   (experimental equipment), and the quick-start rulebooks. Log each gap under the section it belongs to.
-- [ ] Check the OCR of the 13 scanned Technical Readouts before citing any stat block from them.
+- [ ] Reference library, after the 2026-10-06 sort:
+  - [ ] About 205 files (42,000 pages) are scans with no text layer. OCR of the 21 scanned `rulebooks-legacy/` books
+    was started 2026-10-06; next the 20 scanned Technical Readouts, then `rpg/` and `sourcebooks/` as needed.
+    Check OCR against the page image before citing a stat block.
+  - [ ] Identify the files whose names say "title unconfirmed" or "title truncated" (about 60, mostly fan and
+    foreign-language magazines, plus a few FASA/FanPro scans) and rename them.
+  - [ ] Install Tesseract German and Spanish data before OCRing `languages/de/` or `languages/es/` scans.
+- [ ] `feature/rules-editions` (commit 6a01d7e0, not merged): `introducedInEdition` reserved on catalog records and
+  `src/data/rules-editions.ts`. Add each earlier edition (Battledroids, 2nd, 3rd, Compendium, Master Rules, FanPro
+  Total Warfare) from `rulebooks-legacy/` once its text is extracted and its year and contents are cited.
+- [ ] `refactor/catalog-by-category` (includes the two branches above): step 1 done, every equipment record states
+  `techBase` (commit c959dbc8). Review the 62 custom records, whose tech base was set from tag and name. Next:
+  move records into `<category>-canon.ts` / `-apocryphal.ts` / `-custom.ts` / `-munchkin.ts`, one category per
+  commit, registry and tests following; then the component catalogs (engines, structure, armor, cockpits).
 - [ ] 1.6 `security/sanitizer-hardening`: decided 2026-10-06: keep the strict whitelist on the normal path and run
   DOMPurify only on the reviewed `raw` sites. JBTIICRework's DOMPurify swap drops the strict tag
   whitelist on the non-raw path and breaks `security-guards.test.ts`.
