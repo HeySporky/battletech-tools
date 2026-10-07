@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import InfantryPlatoon, { INFANTRY_FORMATIONS, INFANTRY_MOTIVE_TYPES, INFANTRY_RANGE_MODIFIERS, normalizeInfantryPlatoonExport } from "./infantry-platoon";
+import InfantryPlatoon, { formatInfantryASDamage, INFANTRY_FORMATIONS, INFANTRY_MOTIVE_TYPES, INFANTRY_RANGE_MODIFIERS, normalizeInfantryPlatoonExport } from "./infantry-platoon";
 import { INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
 import { BattleMechGroup } from "./battlemech-group";
 
@@ -366,5 +366,64 @@ describe("Infantry platoons in play (Total Warfare pp.215-217)", () => {
         hostile.setSquads(3);
         expect(hostile.isDamaged()).toBe(false);
         expect(hostile.resolveAttack(9, "direct", 10)).toEqual([]);
+    });
+});
+
+describe("Infantry Alpha Strike conversion, against Master Unit List cards", () => {
+    const card = (platoon: InfantryPlatoon) => {
+        const stats = platoon.getAlphaStrikeStats();
+        const damage = stats.damageValues;
+        return {
+            move: `${stats.movement}"${stats.movementCode}`, armor: stats.armor, structure: stats.structure,
+            damage: [damage.short, damage.medium, damage.long].map(formatInfantryASDamage).join("/"),
+            specials: stats.specialAbilities.join(","), pointValue: stats.pointValue,
+        };
+    };
+
+    it("converts the Motorized Platoon (Rifle, Energy): 6\"m, Armor 2, 1/1/0, AM, CAR6, PV 10", () => {
+        const platoon = darrell();
+        platoon.setAntiMechKit(true);
+        // Troop Factor 17 (ASC p.103): 5 damage at 17 troopers, 0.5, rounded up to 1; 6 hexes reaches Medium.
+        expect(card(platoon)).toEqual({ move: "6\"m", armor: 2, structure: 1, damage: "1/1/0", specials: "AM,CAR6", pointValue: 10 });
+        const unit = platoon.getAlphaStrikeUnit();
+        expect(unit.type).toBe("CI");
+        expect(unit.basePoints).toBe(10);
+    });
+
+    it("converts the Mechanized Hover Platoon (Rifle, Energy): 10\"h, Armor 1, minimal damage, CAR20, PV 8", () => {
+        const platoon = new InfantryPlatoon();
+        platoon.setMotive("mech-hover");
+        expect(platoon.setPrimaryWeapon("inf-laser-rifle")).toBe(true);
+        // A mechanized platoon's damage divisor is halved: 20 / 30 rounds to 1. 3 damage at Troop Factor 12 is 0*.
+        expect(card(platoon)).toEqual({ move: "10\"h", armor: 1, structure: 1, damage: "0*/0*/0", specials: "CAR20", pointValue: 8 });
+    });
+
+    it("converts the Taurian Foot Platoon (Rifle, Energy): 2\"f, Armor 2, 1/1/0, PV 9", () => {
+        const platoon = new InfantryPlatoon();
+        platoon.setFormation("taurian-concordat");
+        platoon.setAntiMechKit(true);
+        expect(platoon.setPrimaryWeapon("inf-laser-rifle")).toBe(true);
+        expect(card(platoon)).toEqual({ move: "2\"f", armor: 2, structure: 1, damage: "1/1/0", specials: "AM,CAR3", pointValue: 9 });
+    });
+
+    it("gives a flame-based platoon HT and holds a short-range mechanized platoon back as a brawler", () => {
+        // Jump platoon with 2 man-portable flamers a squad: 4"j, Short range only, HT1.
+        const flamers = new InfantryPlatoon();
+        flamers.setMotive("jump");
+        expect(flamers.setSecondaryWeapon("inf-flamer-man-portable")).toBe(true);
+        flamers.setSecondaryPerSquad(2);
+        const jump = card(flamers);
+        expect(jump.move).toBe("4\"j");
+        expect(jump.damage).toBe("1/0/0");
+        expect(jump.specials).toContain("HT1/-/-");
+
+        // Clan Mechanized Hover Point with rifles and 2 machine guns a squad: 8"h, Armor 1, 1/0/0, PV 5 (MUL).
+        const point = new InfantryPlatoon();
+        point.setTechBase("clan");
+        point.setMotive("mech-hover");
+        expect(point.setSecondaryWeapon("inf-machine-gun-portable")).toBe(true);
+        point.setSecondaryPerSquad(2);
+        expect(card(point)).toEqual({ move: "8\"h", armor: 1, structure: 1, damage: "1/0/0", specials: "CAR20", pointValue: 5 });
+        expect(point.getAlphaStrikeStats().calcLog.join(" | ")).toContain("Brawler: - 1.5");
     });
 });

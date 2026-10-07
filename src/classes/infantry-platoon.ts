@@ -1,6 +1,7 @@
 import { generateUUID } from "../utils/generateUUID";
 import { IInfantryWeapon, INFANTRY_MAX_PRIMARY_DAMAGE, INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
 import { getSkillMultiplier } from "../data/skill-multipliers";
+import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 
 // Conventional infantry platoon construction (TechManual pp.144-155), Battle Value (TM p.309) and cost (TM pp.276, 282).
 
@@ -102,6 +103,42 @@ export const INFANTRY_SPECIAL_FEATURES: Record<string, string> = {
     F: "Flame-based: may apply its damage as heat instead",
     N: "Non-penetrating: affects other conventional infantry only",
 };
+
+export interface IInfantryASDamageValue {
+    damage: number;
+    /** Minimal damage, printed 0* (Alpha Strike Companion p.103). */
+    minimal: boolean;
+}
+
+export interface IInfantryAlphaStrikeStats {
+    type: "CI";
+    size: number;
+    /** Inches. */
+    movement: number;
+    movementCode: string;
+    armor: number;
+    structure: number;
+    damageValues: { short: IInfantryASDamageValue; medium: IInfantryASDamageValue; long: IInfantryASDamageValue };
+    specialAbilities: string[];
+    pointValue: number;
+    /** The conversion, one plain-text line per step. */
+    calcLog: string[];
+}
+
+export const formatInfantryASDamage = (value: IInfantryASDamageValue): string => (value.minimal ? "0*" : `${value.damage}`);
+
+// Infantry Troop Factor Table (Alpha Strike Companion p.103): the number of troopers whose damage is converted,
+// by the unit's full size. Index 0 is unused; the table starts at 2 troopers, so a lone trooper counts as 1.
+const INFANTRY_TROOP_FACTORS: number[] = [
+    0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18,
+];
+
+// Alpha Strike movement codes for conventional infantry (ASC p.93).
+const INFANTRY_AS_MOVEMENT_CODES: Record<InfantryMotive, string> = {
+    "foot": "f", "motorized": "m", "jump": "j", "mech-hover": "h", "mech-tracked": "t", "mech-wheeled": "w",
+};
+
+const roundToHalf = (value: number): number => Math.round(value * 2 + 1e-9) / 2;
 
 /** How an attack against the platoon is counted (Total Warfare pp.215-217). */
 export type InfantryAttackKind = "direct" | "physical" | "cluster-ballistic" | "pulse" | "cluster-missile" | "area-effect" | "burst" | "infantry" | "heat";
@@ -584,6 +621,140 @@ export default class InfantryPlatoon {
 
     public getCBillCost(): number | null { return this._calcCost().value; }
     public getCBillCostLog(): string[] { return this._calcCost().log; }
+
+    // Alpha Strike conversion (Alpha Strike Companion pp.92-103, 138-140)
+
+    /**
+     * The converted Alpha Strike stats of one platoon; an oversized formation converts its first sub-platoon, as
+     * each is a unit of its own. The conversion follows the Alpha Strike Companion; the Point Value is worked out
+     * as MegaMek does, which the Master Unit List's infantry cards match.
+     */
+    public getAlphaStrikeStats(): IInfantryAlphaStrikeStats {
+        const log: string[] = [];
+        const troopers = this.getSubPlatoons()[0];
+
+        const movement = this.getMP() * 2;
+        const movementCode = INFANTRY_AS_MOVEMENT_CODES[this._motive.tag];
+        log.push(`Move: ${this.getMP()} MP x 2 = ${movement}"${movementCode}`);
+
+        // 15 over the damage divisor; a mechanized platoon's divisor is halved (ASC p.99).
+        const divisor = this.isMechanized() ? 0.5 : 1;
+        const armor = Math.round(troopers * divisor / 15 + 1e-9);
+        log.push(`Armor: ${troopers} troopers / (15 / damage divisor ${divisor}) = ${(troopers * divisor / 15).toFixed(2)}, rounded to ${armor}`);
+        const structure = 1;
+
+        const troopFactor = INFANTRY_TROOP_FACTORS[Math.min(troopers, 30)] ?? 0;
+        const platoonDamage = this.getDamageForTroopers(troopFactor);
+        const converted = platoonDamage / 10;
+        const value: IInfantryASDamageValue = converted > 0 && converted < 0.5 ? { damage: 0, minimal: true } : { damage: Math.ceil(converted - 1e-9), minimal: false };
+        const none: IInfantryASDamageValue = { damage: 0, minimal: false };
+        const maxRange = this.getMaxRange();
+        const reachesMedium = maxRange > 3;
+        const reachesLong = maxRange > 15;
+        log.push(`Damage: Troop Factor ${troopFactor} for ${troopers} troopers; ${platoonDamage} damage at ${troopFactor} troopers / 10 = ${converted.toFixed(1)}: ${formatInfantryASDamage(value)}`);
+        log.push(`Range: ${maxRange} ${maxRange === 1 ? "hex" : "hexes"}: ${reachesLong ? "Short, Medium and Long" : reachesMedium ? "Short and Medium" : "Short only"}`);
+        const damageValues = { short: value, medium: reachesMedium ? value : none, long: reachesLong ? value : none };
+
+        const specialAbilities: string[] = [];
+        if (this.canMakeAntiMechAttacks()) specialAbilities.push("AM");
+        specialAbilities.push(`CAR${this.getWeight(troopers)}`);
+        // A platoon that can deliver heat has HT equal to its Short damage, 2 at most (ASC p.121).
+        let heat = 0;
+        if (this.getSpecialFeatures().includes("F") && value.damage >= 1) {
+            heat = Math.min(2, value.damage);
+            specialAbilities.push(`HT${heat}/${reachesMedium ? heat : "-"}/${reachesLong ? heat : "-"}`);
+        }
+
+        // Point Value.
+        const points = (item: IInfantryASDamageValue): number => item.minimal ? 0.5 : item.damage;
+        const short = points(damageValues.short);
+        const medium = points(damageValues.medium);
+        const long = points(damageValues.long);
+        let offensive = short + medium * 2 + long;
+        log.push(`Offensive Value: ${short} + 2 x ${medium} + ${long} = ${offensive}`);
+        if (heat > 0) {
+            const heatValue = heat + (reachesMedium ? 0.5 : 0);
+            offensive += heatValue;
+            log.push(`HT: + ${heatValue} = ${offensive}`);
+        }
+        const jumps = this._motive.tag === "jump" && movement > 0;
+        let targetMovement = 0;
+        if (movement >= 35) targetMovement = 5;
+        else if (movement >= 19) targetMovement = 4;
+        else if (movement >= 13) targetMovement = 3;
+        else if (movement >= 9) targetMovement = 2;
+        else if (movement >= 5) targetMovement = 1;
+        let defensive = movement / 8 + (jumps ? 0.5 : 0);
+        const defenseModifier = targetMovement + (jumps ? 1 : 0);
+        const defenseFactor = 1 + (defenseModifier <= 2 ? 0.1 : 0.25) * defenseModifier;
+        const interaction = roundToHalf((armor * 2 + structure * 2) * defenseFactor);
+        log.push(`Defensive Value: ${movement} / 8${jumps ? " + 0.5 (jump)" : ""} = ${defensive}; (Armor ${armor} x 2 + Structure ${structure} x 2) x ${defenseFactor.toFixed(2)} = ${interaction}`);
+        defensive += interaction;
+        let subTotal = offensive + defensive;
+        // Agile bonus and brawler penalty; a unit an infantry transport can carry (CAR 8 or less) is no brawler.
+        let agile = 0;
+        if (targetMovement > 1) {
+            if (medium > 0) agile = (targetMovement - 1) * medium;
+            else if (targetMovement >= 3) agile = (targetMovement - 2) * short;
+        }
+        agile = roundToHalf(agile);
+        let brawler = 0;
+        if (movement >= 2 && this.getWeight(troopers) > 8) {
+            const shortOnly = medium + long === 0 && short > 0;
+            const shortAndMedium = long === 0 && short + medium > 0;
+            if (movement >= 6 && movement <= 10 && shortOnly) brawler = 0.25;
+            else if (movement < 6 && shortOnly) brawler = 0.5;
+            else if (movement < 6 && shortAndMedium) brawler = 0.25;
+        }
+        const penalty = roundToHalf(subTotal * brawler);
+        if (agile > 0) log.push(`Agile: + ${agile}`);
+        if (penalty > 0) log.push(`Brawler: - ${penalty}`);
+        subTotal += agile - penalty;
+        const pointValue = Math.max(1, Math.round(subTotal + 1e-9));
+        log.push(`Point Value: ${offensive} + ${defensive}${agile > 0 ? ` + ${agile}` : ""}${penalty > 0 ? ` - ${penalty}` : ""} = ${subTotal}, rounded to ${pointValue}`);
+
+        return { type: "CI", size: 1, movement, movementCode, armor, structure, damageValues, specialAbilities, pointValue, calcLog: log };
+    }
+
+    /** The converted Alpha Strike card, built the same way as a Master Unit List record. */
+    public getAlphaStrikeUnit(): AlphaStrikeUnit {
+        const stats = this.getAlphaStrikeStats();
+        const damage = stats.damageValues;
+        const record = {
+            Id: 0,
+            Name: this.getDisplayName(),
+            Class: this.getDisplayName(),
+            Variant: "",
+            Tonnage: this.getWeight(this.getSubPlatoons()[0]),
+            Cost: this.getCBillCost() ?? 0,
+            BattleValue: this.getBattleValue(),
+            BFType: stats.type,
+            BFSize: stats.size,
+            BFMove: `${stats.movement}"${stats.movementCode}`,
+            BFTMM: 0,
+            BFArmor: stats.armor,
+            BFStructure: stats.structure,
+            BFThreshold: 0,
+            BFDamageShort: damage.short.damage,
+            BFDamageMedium: damage.medium.damage,
+            BFDamageLong: damage.long.damage,
+            BFDamageExtreme: 0,
+            BFDamageShortMin: damage.short.minimal,
+            BFDamageMediumMin: damage.medium.minimal,
+            BFDamageLongMin: damage.long.minimal,
+            BFDamageExtremeMin: false,
+            BFOverheat: 0,
+            BFPointValue: stats.pointValue,
+            BFAbilities: stats.specialAbilities.join(","),
+            Role: { Id: 0, Name: "None", Image: null, SortOrder: 0 },
+            Technology: { Id: 0, Name: this.getTechName(), Image: null, SortOrder: 0 },
+            Type: { Id: 21, Name: "Infantry", Image: null, SortOrder: 0 },
+        } as unknown as IASMULUnit;
+        const unit = new AlphaStrikeUnit();
+        unit.importMUL(record);
+        unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        return unit;
+    }
 
     // Legality
 

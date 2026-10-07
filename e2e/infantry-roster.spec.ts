@@ -55,3 +55,38 @@ test("an infantry platoon joins the roster, takes damage in play and prints", as
 
     expect(errors).toEqual([]);
 });
+
+// A saved platoon shows its converted Alpha Strike card and is offered in the Alpha Strike roster's unit picker.
+test("a saved infantry platoon converts to Alpha Strike and joins an Alpha Strike force", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+
+    await page.goto("classic-battletech/infantry-creator");
+    await page.getByRole("button", { name: /Start Over/ }).click();
+    await page.goto("classic-battletech/infantry-creator/platoon");
+    await page.getByLabel("Platoon Name").fill("Cardbearers");
+    await page.getByLabel("Motive Type:").selectOption("motorized");
+    await page.getByLabel(/Anti-'Mech Infantry kits/).check();
+    await page.goto("classic-battletech/infantry-creator/weapons");
+    await page.getByLabel("Primary Weapon:").selectOption("inf-laser-rifle");
+
+    // The Master Unit List's Motorized Platoon (Rifle, Energy): 6"m, 1/1/0, Armor 2, AM, CAR6, 10 points.
+    await page.goto("classic-battletech/infantry-creator/summary");
+    const stats = page.getByTestId("infantry-as");
+    await expect(stats).toContainText("6\"m");
+    await expect(stats).toContainText("1/1/0");
+    await expect(stats).toContainText("AM, CAR6");
+    await expect(stats.getByRole("row", { name: /Point Value/ })).toContainText("10");
+    await page.getByRole("link", { name: "Print Alpha Strike Card" }).click();
+    await expect(page.locator("svg").first()).toBeVisible();
+
+    await page.goto("classic-battletech/infantry-creator");
+    await page.getByRole("button", { name: /Save as New/ }).click();
+    await page.goto("alpha-strike-roster");
+    await page.getByRole("button", { name: /Add Units/ }).first().click();
+    await expect(page.getByText("Your Created Infantry")).toBeVisible();
+    await page.getByTitle("Add this platoon to your current group").first().click();
+    await expect(page.getByText("Cardbearers").first()).toBeVisible();
+
+    expect(errors).toEqual([]);
+});

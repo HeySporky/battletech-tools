@@ -7,6 +7,7 @@ import InfantryCreatorPlatoon from './platoon';
 import InfantryCreatorWeapons from './weapons';
 import InfantryCreatorSummary from './summary';
 import InfantryCreatorRecordSheet from './record-sheet';
+import InfantryCreatorPrintAS from './print-as';
 
 import type { JSX } from "react";
 
@@ -33,6 +34,10 @@ export default class InfantryCreatorRouter extends React.Component<IInfantryCrea
 
                 <Route path={`record-sheet`} element={
                     <InfantryCreatorRecordSheet appGlobals={this.props.appGlobals} />
+                }/>
+
+                <Route path={`print-as`} element={
+                    <InfantryCreatorPrintAS appGlobals={this.props.appGlobals} />
                 }/>
 
                 <Route path="*" element={

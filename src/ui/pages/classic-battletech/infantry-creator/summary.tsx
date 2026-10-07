@@ -1,7 +1,7 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft } from "react-icons/fa";
-import { INFANTRY_SPECIAL_FEATURES } from '../../../../classes/infantry-platoon';
+import { INFANTRY_SPECIAL_FEATURES, formatInfantryASDamage } from '../../../../classes/infantry-platoon';
 import { IAppGlobals } from '../../../app-router';
 import InfantryCreatorSideMenu from '../../../components/infantry-creator-side-menu';
 import TextSection from '../../../components/text-section';
@@ -23,6 +23,7 @@ export default class InfantryCreatorSummary extends React.Component<ISummaryProp
         const features = platoon.getSpecialFeatures();
         const cost = platoon.getCBillCost();
         const lines = platoon.getSubPlatoons();
+        const as = platoon.getAlphaStrikeStats();
 
         return (
             <UIPage current="classic-battletech-infantry-creator" appGlobals={this.props.appGlobals}>
@@ -92,6 +93,27 @@ export default class InfantryCreatorSummary extends React.Component<ISummaryProp
                                 TechManual pp. 276 and 282. The book prices a platoon from one weapon; where a secondary weapon is carried,
                                 each trooper is priced by the weapon they fire, as MegaMek does.
                             </p>
+
+                            <h3>Alpha Strike Stats</h3>
+                            <table className="table" data-testid="infantry-as">
+                                <tbody>
+                                    <tr><td>Type / Size</td><td>{as.type} / {as.size}</td></tr>
+                                    <tr><td>Move</td><td>{as.movement}"{as.movementCode}</td></tr>
+                                    <tr><td>Damage (S/M/L)</td><td>{formatInfantryASDamage(as.damageValues.short)}/{formatInfantryASDamage(as.damageValues.medium)}/{formatInfantryASDamage(as.damageValues.long)}</td></tr>
+                                    <tr><td>Armor / Structure</td><td>{as.armor} / {as.structure}</td></tr>
+                                    <tr><td>Special Abilities</td><td>{as.specialAbilities.join(", ")}</td></tr>
+                                    <tr><td>Point Value</td><td>{as.pointValue}</td></tr>
+                                </tbody>
+                            </table>
+                            <ul className="smaller-text">
+                                {as.calcLog.map((line, index) => <li key={index}>{line}</li>)}
+                            </ul>
+                            <p className="smaller-text">
+                                Converted with the Alpha Strike Companion rules (pp. 92-103), with the Point Value worked out as MegaMek
+                                does; checked against Master Unit List cards. {lines.length > 1 ? "Each sub-platoon is a unit of its own; the card is for the first. " : ""}
+                                Published platoons should still use their MUL card.
+                            </p>
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/infantry-creator/print-as`} className="btn btn-primary btn-sm">Print Alpha Strike Card</Link>
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
