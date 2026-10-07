@@ -10,7 +10,7 @@ import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import Vehicle, { IVehicleExport } from "../classes/vehicle";
 import { CONST_SITE_TITLE } from '../configVars';
 import { sswMechs } from "../data/ssw/sswMechs";
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentVehicle, getFavoriteASGroups, getFavoriteCBTGroups, getVehicleSaves, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentVehicle, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentVehicle, getFavoriteASGroups, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentVehicle, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
@@ -120,6 +120,23 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             this.setState({
                 updated: true,
             })
+        });
+
+        // A save that cannot be written (browser storage full or disabled) is reported once, until dismissed.
+        onStorageSaveError( () => {
+            appGlobals.siteAlerts.addAlert(
+                "danger",
+                "Unable to Save",
+                "Your browser's storage is full or unavailable, so the latest changes were not saved. Download a backup from Settings, then delete saved units or forces you no longer need.",
+                "",
+                true,
+                null,
+                0,
+                "",
+                "",
+                "",
+                "storage-save-failed",
+            );
         });
 
         this.setData( appSettings, appGlobals );
