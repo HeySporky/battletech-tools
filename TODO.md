@@ -880,11 +880,17 @@ Done, merged into master:
 - [x] `.ssw` file import refuses more than 200 files or a file over 5 MB (`fix/ssw-import-limits`, fork only:
   the importer is not upstream yet).
 - [x] 2.4 / 2.5 Lint backlog and phantom `tsconfig.json` entries (`chore/tooling-lint-backlog`).
+- [x] 3.3 The 18 MB replaced-legacy archive moved to `tools/mul-sync/archive/`
+  (`chore/move-mul-legacy-archive`); the same path change is on upstream PR #92.
+
+Local e2e note: with Playwright's bundled Chromium and more than about 4 workers, every test times out on the
+maintainer's Windows machine. The `vite preview` process blocks for 19-38 s inside the native close of a TCP
+socket (CPU profile), which points at a network filter driver, not the app: Firefox and
+`PLAYWRIGHT_CHANNEL=msedge` pass at 13 workers and GitHub CI passes. Run `--workers=4` or the Edge channel locally.
 
 Open:
-- [ ] Open upstream PRs for `fix/storage-quota-handling`, `fix/app-router-cleanup` and `perf/lazy-ssw-corpus`.
-- [ ] 3.3 Merge `chore/move-mul-legacy-archive` (archive moved to `tools/mul-sync/archive/`). Upstream PR #92
-  still uses the old path; decide whether that PR takes the move too.
+- [ ] Upstream draft PRs waiting on review: #110 (`fix/storage-quota-handling`), #111
+  (`fix/app-router-cleanup`), #112 (`perf/lazy-ssw-corpus`, stacked on #111).
 - [ ] 1.6 `security/sanitizer-hardening`: design first. JBTIICRework's DOMPurify swap drops the strict tag
   whitelist on the non-raw path and breaks `security-guards.test.ts`.
 - [ ] Catalog rework: one catalog per category (Energy, Ballistic, Missile, Melee incl. Shields, Electronics,
