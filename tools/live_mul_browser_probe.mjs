@@ -35,13 +35,6 @@ async function loadJsonArray(filePath) {
   return payload;
 }
 
-function findChunkEntry(items, targetId) {
-  return items.find((item) => {
-    if (!item || typeof item !== 'object') return false;
-    return parseNumericId(item.Id) === targetId;
-  });
-}
-
 function upsertChunkEntry(items, liveRecord) {
   const targetId = parseNumericId(liveRecord?.Id);
   if (targetId === null) {
@@ -60,17 +53,6 @@ function upsertChunkEntry(items, liveRecord) {
     items.push(merged);
   }
   return items;
-}
-
-async function saveChunkIfNeeded(items, apply) {
-  if (!apply) {
-    console.log('Dry-run only: no file changes were written.');
-    return;
-  }
-
-  await fs.copyFile(chunkPath, backupPath).catch(() => undefined);
-  await fs.writeFile(chunkPath, `${JSON.stringify(items, null, 2)}\n`, 'utf8');
-  console.log(`Updated ${chunkPath} with ${items.length} entries. Backup saved to ${backupPath}`);
 }
 
 async function searchPageForId(page, targetId) {
