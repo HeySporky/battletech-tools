@@ -71,6 +71,19 @@ export default class InfantryCreatorPlatoon extends React.Component<IPlatoonProp
                             </label>
 
                             <label>
+                                Era:
+                                <select value={platoon.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setEra(value)); }}>
+                                    {platoon.getAvailableEras().map((option) => (
+                                        <option key={option.tag} value={option.tag}>{option.name}</option>
+                                    ))}
+                                </select>
+                            </label>
+                            <p className="smaller-text">
+                                The weapons step offers what was in production in this era (TM pp. 298-301).
+                                {platoon.getEra().description ? ` ${platoon.getEra().description}` : ""}
+                            </p>
+
+                            <label>
                                 Affiliation:
                                 <select value={platoon.getFormation().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setFormation(value)); }}>
                                     {platoon.getAvailableFormations().map((option) => (

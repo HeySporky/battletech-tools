@@ -1,5 +1,7 @@
 import { generateUUID } from "../utils/generateUUID";
-import { IInfantryWeapon, INFANTRY_MAX_PRIMARY_DAMAGE, INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
+import { IInfantryWeapon, INFANTRY_MAX_PRIMARY_DAMAGE, INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons, isInfantryWeaponAvailable } from "../data/infantry-weapons";
+import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
+import { IEras } from "../data/data-interfaces";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 
@@ -172,6 +174,8 @@ export interface IInfantryPlatoonExport {
     name: string;
     techBase: InfantryTechBase;
     formation: string;
+    /** Era tag; absent in platoons saved before eras were tracked, which load into the latest era. */
+    era?: string;
     motive: InfantryMotive;
     squadSize: number;
     squads: number;
@@ -193,6 +197,12 @@ const isPlainObject = (value: unknown): value is Record<string, unknown> =>
 const roundNormally = (value: number): number => Math.floor(value + 0.5 + 1e-9);
 const roundUpHalf = (tons: number): number => Math.ceil(tons * 2 - 1e-9) / 2;
 const format = (value: number, digits: number = 2): string => value.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+
+/** The newest era a technology base can design in: every weapon that is not extinct is on offer there. */
+const latestEra = (techBase: InfantryTechBase): IEras => {
+    const eras = getErasForTech(techBase);
+    return eras[eras.length - 1] ?? btEraOptions[btEraOptions.length - 1];
+};
 
 const DEFAULT_PRIMARY = "inf-auto-rifle";
 export const MAX_INFANTRY_NAME_LENGTH = 120;
@@ -217,6 +227,7 @@ export default class InfantryPlatoon {
     private _name: string = "";
     private _techBase: InfantryTechBase = "is";
     private _formation: IInfantryFormation = INFANTRY_FORMATIONS[0];
+    private _era: IEras = latestEra("is");
     private _motive: IInfantryMotiveType = INFANTRY_MOTIVE_TYPES[0];
     private _squadSize: number = 7;
     private _squads: number = 4;
@@ -258,10 +269,25 @@ export default class InfantryPlatoon {
     public getFormation(): IInfantryFormation { return this._formation; }
     public getAvailableFormations(): IInfantryFormation[] { return INFANTRY_FORMATIONS.filter((formation) => formation.techBase === this._techBase); }
 
+    public getEra(): IEras { return this._era; }
+    public getAvailableEras(): IEras[] { return getErasForTech(this._techBase); }
+    /** Sets the era the platoon is raised in; weapons it carries that the era does not have are reported, not removed. */
+    public setEra(tag: string): boolean {
+        const era = findEraByTag(tag);
+        if (!era || !this.getAvailableEras().some((item) => item.tag === era.tag)) return false;
+        this._era = era;
+        return true;
+    }
+    /** Is the weapon in production for this technology base during the platoon's era (TM pp.298-301)? */
+    public isWeaponInEra(weapon: IInfantryWeapon): boolean {
+        return isInfantryWeaponAvailable(weapon, this._techBase, this._era.yearStart, this._era.yearEnd);
+    }
+
     /** Changes the technology base, moving to that base's first formation and dropping weapons it cannot use. */
     public setTechBase(techBase: InfantryTechBase): void {
         if (techBase !== "is" && techBase !== "clan") return;
         this._techBase = techBase;
+        if (!this.getAvailableEras().some((item) => item.tag === this._era.tag)) this._era = latestEra(techBase);
         if (this._formation.techBase !== techBase) this._formation = this.getAvailableFormations()[0];
         this.applyFormation();
         this._clampWeapons();
@@ -359,8 +385,13 @@ export default class InfantryPlatoon {
         return this.getMaxSecondaryPerSquad(weapon) > 0;
     }
 
-    public getAvailablePrimaryWeapons(): IInfantryWeapon[] { return infantryWeapons.filter((weapon) => this.canBePrimary(weapon)); }
-    public getAvailableSecondaryWeapons(): IInfantryWeapon[] { return infantryWeapons.filter((weapon) => this.canBeSecondary(weapon)); }
+    /** Weapons on offer: those the platoon may carry that its era has, and the one it carries already. */
+    public getAvailablePrimaryWeapons(): IInfantryWeapon[] {
+        return infantryWeapons.filter((weapon) => this.canBePrimary(weapon) && (this.isWeaponInEra(weapon) || weapon.tag === this._primary.tag));
+    }
+    public getAvailableSecondaryWeapons(): IInfantryWeapon[] {
+        return infantryWeapons.filter((weapon) => this.canBeSecondary(weapon) && (this.isWeaponInEra(weapon) || weapon.tag === this._secondary?.tag));
+    }
 
     /** 2 per squad, or the squad's troopers divided by the weapon's crew, whichever is lower (TM p.151). */
     public getMaxSecondaryPerSquad(weapon: IInfantryWeapon | null = this._secondary): number {
@@ -774,6 +805,7 @@ export default class InfantryPlatoon {
         for (const weapon of this._fieldedWeapons()) {
             const bar = this._weaponBar(weapon);
             if (bar) issues.push(bar);
+            else if (!this.isWeaponInEra(weapon)) issues.push(`${weapon.name} is not available to ${this.getTechName()} infantry in the ${this._era.name} era (TM pp.298-301)`);
         }
         if (this._primary.type === "support") issues.push("The primary weapon must be a Melee or Standard weapon (TM p.150)");
         if (this._secondary && this._primary.type === "melee" && this._secondary.type === "support") {
@@ -902,6 +934,7 @@ export default class InfantryPlatoon {
             name: this._name,
             techBase: this._techBase,
             formation: this._formation.tag,
+            era: this._era.tag,
             motive: this._motive.tag,
             squadSize: this._squadSize,
             squads: this._squads,
@@ -941,6 +974,8 @@ export default class InfantryPlatoon {
         const formation = INFANTRY_FORMATIONS.find((item) => item.tag === raw.formation && item.techBase === this._techBase);
         if (!formation && raw.formation !== undefined) this._importIssues.push(`Unknown formation '${savedString(raw.formation).slice(0, 60)}': using ${this.getAvailableFormations()[0].name}`);
         this._formation = formation ?? this.getAvailableFormations()[0];
+        this._era = latestEra(this._techBase);
+        if (raw.era !== undefined && !this.setEra(savedString(raw.era))) this._importIssues.push(`Unknown era '${savedString(raw.era).slice(0, 60)}': using ${this._era.name}`);
         const motive = INFANTRY_MOTIVE_TYPES.find((item) => item.tag === raw.motive);
         if (!motive && raw.motive !== undefined) this._importIssues.push(`Unknown motive type '${savedString(raw.motive).slice(0, 60)}': using Foot`);
         this._motive = motive ?? INFANTRY_MOTIVE_TYPES[0];

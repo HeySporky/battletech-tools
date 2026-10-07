@@ -427,3 +427,56 @@ describe("Infantry Alpha Strike conversion, against Master Unit List cards", () 
         expect(point.getAlphaStrikeStats().calcLog.join(" | ")).toContain("Brawler: - 1.5");
     });
 });
+
+describe("Infantry weapons by era (TechManual pp.298-301)", () => {
+    it("offers a weapon from its introduction, and not while it is extinct", () => {
+        const platoon = new InfantryPlatoon();
+        // New platoons start in the latest era, where everything not extinct is on offer.
+        expect(platoon.getEra().tag).toBe(platoon.getAvailableEras().slice(-1)[0].tag);
+        const tags = (): string[] => platoon.getAvailableSecondaryWeapons().map((weapon) => weapon.tag);
+        expect(tags()).toContain("inf-aa-weapon-mk-1-light-aa");
+
+        // The Mk. 1 Light AA weapon: introduced 2500, extinct 2790, reintroduced 3056.
+        expect(platoon.setEra("age-of-war")).toBe(true);
+        expect(tags()).toContain("inf-aa-weapon-mk-1-light-aa");
+        expect(platoon.setEra("late-sw-lt")).toBe(true);
+        expect(tags()).not.toContain("inf-aa-weapon-mk-1-light-aa");
+        expect(platoon.setEra("clan-inv")).toBe(true);
+        expect(tags()).toContain("inf-aa-weapon-mk-1-light-aa");
+
+        // The Stetta auto-pistol dates from 3010; pre-spaceflight weapons are always there.
+        const primaries = (): string[] => platoon.getAvailablePrimaryWeapons().map((weapon) => weapon.tag);
+        platoon.setEra("early-sw");
+        expect(primaries()).not.toContain("inf-auto-pistol-stetta");
+        expect(primaries()).toContain("inf-auto-rifle");
+        // A weapon with no row in the cost table has no date and is not ruled out.
+        expect(primaries()).toContain("inf-harpoon-gun-pequod-mk-i");
+    });
+
+    it("reports a carried weapon the era does not have, keeps it selectable, and saves the era", () => {
+        const platoon = new InfantryPlatoon();
+        expect(platoon.setPrimaryWeapon("inf-auto-pistol-stetta")).toBe(true);
+        platoon.setEra("star-league");
+        expect(platoon.getIssues().join(" | ")).toContain("Auto-Pistol (Stetta) is not available to Inner Sphere infantry in the Star League");
+        expect(platoon.getAvailablePrimaryWeapons().map((weapon) => weapon.tag)).toContain("inf-auto-pistol-stetta");
+        expect(new InfantryPlatoon(platoon.exportJSON()).getEra().tag).toBe("star-league");
+
+        // Clan platoons use Clan eras and Clan dates; a weapon both bases use goes by its Inner Sphere date.
+        platoon.setTechBase("clan");
+        expect(platoon.getAvailableEras().some((era) => era.tag === "age-of-war")).toBe(false);
+        expect(platoon.setEra("age-of-war")).toBe(false);
+        expect(platoon.setEra("clan-golden-years")).toBe(true);
+        const clanTags = platoon.getAvailablePrimaryWeapons().map((weapon) => weapon.tag);
+        expect(clanTags).toContain("inf-laser-rifle");
+        // The Gauss submachine gun is a Clan weapon of 3055.
+        expect(clanTags).not.toContain("inf-gauss-submachine-gun");
+
+        // A save from before eras were tracked loads into the latest era; an unknown era is reported.
+        const saved = { ...new InfantryPlatoon().export() } as Record<string, unknown>;
+        delete saved.era;
+        const old = new InfantryPlatoon(JSON.stringify(saved));
+        expect(old.getEra().tag).toBe(old.getAvailableEras().slice(-1)[0].tag);
+        expect(old.getImportIssues()).toEqual([]);
+        expect(new InfantryPlatoon(JSON.stringify({ ...saved, era: "<b>" })).getImportIssues().join(" ")).toContain("Unknown era");
+    });
+});
