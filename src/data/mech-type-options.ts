@@ -23,7 +23,7 @@ export const mechTypeOptions: IMechType[] = [
 		book: "TM",
 		introducedInEdition: "battledroids",
 		// The only layout: head, three torsos, two arms and two legs (Internal Structure Table, BD p.24).
-		editionStats: { battledroids: { book: "BD", page: 24 }, "battletech-2nd-edition": null },
+		editionStats: { battledroids: { book: "BD", page: 24 }, "battletech-2nd-edition": null, "battletech-manual": null },
 	},
 	{
 		id: 2,
@@ -44,6 +44,10 @@ export const mechTypeOptions: IMechType[] = [
 	{
 		id: 4,
 		tag: "lam",
+		introducedInEdition: "battletech-manual",
+		editionStats: {
+			"battletech-manual": { book: "BTM", page: 74, name: "Land-Air 'Mech", notes: "Built as a 'Mech with 10 percent of its tonnage given to conversion equipment (BTM p.78). 'Mech, Air'Mech and Fighter modes; the standard configurations are variations of the Wasp, Stinger and Phoenix Hawk (BTM p.74). Conversion costs (weapons cost + structure cost) x .75 (BTM p.84)." },
+		},
 		name:  "LAM",
 		rulesLevel: 4,
 		book: "IO",

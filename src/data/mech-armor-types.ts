@@ -54,6 +54,7 @@ export const mechArmorTypes: IArmorType[] = [
 				notes: "An Armor Value of 16 weighs 1 ton; added in .5- or 1-ton units (BD p.24). A location holds at most twice its internal structure boxes, and the head up to 9; the torsos split front and rear (BD p.25).",
 			},
 			"battletech-2nd-edition": null,
+			"battletech-manual": null,
 		},
 		notes: "On an IndustrialMech this is Heavy Industrial armor: \"Functionally identical to standard battlefield armor\" and priced the same (TM pp.205, 278)."
 	},

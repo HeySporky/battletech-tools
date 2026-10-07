@@ -36,6 +36,7 @@ export const mechCockpitTypes: ICockpitType[] = [
 				notes: "3 tons at every tonnage; holds the control station, life support and sensors (BD p.24). Head boxes: Life Support, Sensors, Cockpit, one open, Sensors, Life Support (record sheet, BD p.13).",
 			},
 			"battletech-2nd-edition": null,
+			"battletech-manual": null,
 		},
 	},
 	{

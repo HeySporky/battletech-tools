@@ -649,8 +649,15 @@ Open:
   - [x] Second Edition (2026-10-07): the same 45 records. Changed: missile launcher heat (today's values), the
     170 engine (6.0 tons), jump jets (0.5/1/2 tons by tonnage, one box each), structure table from 10 tons.
     Fourteen 'Mechs and the Chameleon trainer named on the edition; no vehicle or infantry rules.
-  - [ ] Next: BattleTech Manual (1987). Then Compendium (1990), Third Edition (1992), Fourth Edition (1996), Master Rules
-    (1998), Master Rules Revised (2001), in that order.
+  - [x] BattleTech Manual (2026-10-07): the 45 earlier records plus 23 new: AC/2, AC/10, AC/20 and their
+    ammunition, Long Tom, Sniper and Thumper with standard and smoke rounds, vehicle flamer and fuel, Inferno SRMs,
+    searchlight, fighter bombs, the LAM layout, the ICE (vehicles only). Changed: prices added (BTM p.86), integral
+    engine heat sinks, structure table printed correctly. No 'Mech listings; vehicles, infantry, fighters and
+    buildings named on the edition. Kept as printed and flagged: LRM 15-pack at 2 critical locations, vehicle
+    flamer at 5 tons, Thumper outranging the Sniper. Engine, gyro and cockpit boxes could not be read off the
+    record sheet thumbnail (BTM p.7), so those stay inherited.
+  - [ ] Next: Compendium (1990). Then Third Edition (1992), Fourth Edition (1996), Master Rules (1998), Master
+    Rules Revised (2001), in that order.
   - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).
   - [ ] The selector itself: filter by `isInRulesEdition`, read stats through `getEditionStats`, and decide how

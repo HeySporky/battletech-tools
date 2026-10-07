@@ -33,11 +33,17 @@ export interface IEditionStats {
     /** Damage of one hit; missile launchers use `damagePerMissile`. */
     damage?: number;
     damagePerMissile?: number;
+    /** Artillery: damage to each hex adjacent to the target hex. */
+    damageAdjacent?: number;
     range?: { min: number; short: number; medium: number; long: number };
+    /** Artillery: maximum range in mapsheets. */
+    rangeMapsheets?: number;
     /** Tons. */
     weight?: number;
     criticals?: number;
     shotsPerTon?: number;
+    /** Price in C-bills; for ammunition, the price of a ton. */
+    cbills?: number;
     /** Jump jets: tons per jump movement point for 'Mechs up to each tonnage. */
     weightByTonnage?: { upTo: number; tons: number }[];
     /** Armor: points per ton. */

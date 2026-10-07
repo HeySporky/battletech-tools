@@ -97,6 +97,25 @@ export const btRulesEditions: IRulesEdition[] = [
         name: "The BattleTech Manual",
         year: 1987,
         book: "BTM",
+        complete: true,
+        // A rulebook only: it prints no 'Mech record listings and names designs in passing (BTM pp.41, 74).
+        mechs: [],
+        // Units with their own construction rules (BTM pp.80-84) or tables (BTM pp.36, 50).
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Conventional naval vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon",
+            "AeroSpace Fighter", "Conventional Fighter", "DropShip", "Land-Air 'Mech",
+            "Gun emplacement or building",
+        ],
+        notModelled: [
+            "Component prices: the 'Mech Cost Chart gives formulas for the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets and armor (BTM p.84); only the fixed prices are entered.",
+            "Mines: command-detonated, conventional and Vibrabombs are placed by scenario, not mounted (BTM p.45).",
+            "Cargo space: tonnage a 'Mech or vehicle sets aside, with no item of its own (BTM p.40).",
+            "Vehicle parts: lift, rotor and diving equipment, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items (BTM pp.81-82).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon damage rows (BTM p.36).",
+            "Clubs: a severed arm or leg, an uprooted tree or a girder from a rubbled building, picked up on the map (BTM p.27).",
+        ],
     },
     {
         // The BattleTech Compendium (FASA 1640): credits page, "Copyright 1990 FASA Corporation"; CRB p.247.

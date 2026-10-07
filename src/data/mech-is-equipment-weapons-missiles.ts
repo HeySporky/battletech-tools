@@ -57,6 +57,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Long Range Missiles, 5 Rack", heat: 1, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 2, criticals: 1, shotsPerTon: 24 },
             "battletech-2nd-edition": { book: "BT2", page: 42, name: "Long Range Missiles, 5 Rack", heat: 2, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 2, criticals: 1, shotsPerTon: 24 },
+            "battletech-manual": { book: "BTM", page: 87, name: "Long-Range Missiles, 5-pack", heat: 2, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 2, criticals: 1, shotsPerTon: 24, cbills: 30000 },
         },
         book: "TM",
         page: 231,
@@ -182,6 +183,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Long Range Missiles, 10 Rack", heat: 2, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 5, criticals: 2, shotsPerTon: 12 },
             "battletech-2nd-edition": { book: "BT2", page: 42, name: "Long Range Missiles, 10 Rack", heat: 4, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 5, criticals: 2, shotsPerTon: 12 },
+            "battletech-manual": { book: "BTM", page: 87, name: "Long-Range Missiles, 10-pack", heat: 4, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 5, criticals: 2, shotsPerTon: 12, cbills: 100000 },
         },
         book: "TM",
         page: 231,
@@ -307,6 +309,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Long Range Missiles, 15 Rack", heat: 4, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 7, criticals: 3, shotsPerTon: 8 },
             "battletech-2nd-edition": { book: "BT2", page: 42, name: "Long Range Missiles, 15 Rack", heat: 5, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 7, criticals: 3, shotsPerTon: 8 },
+            "battletech-manual": { book: "BTM", page: 87, name: "Long-Range Missiles, 15-pack", heat: 5, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 7, criticals: 2, shotsPerTon: 8, cbills: 175000, notes: "The Weapons Table prints 2 critical locations; Battledroids and the Second Edition print 3. Entered as printed: nothing else in the book settles it." },
         },
         book: "TM",
         page: 231,
@@ -432,6 +435,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Long Range Missiles, 20 Rack", heat: 6, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 10, criticals: 5, shotsPerTon: 6 },
             "battletech-2nd-edition": null,
+            "battletech-manual": { book: "BTM", page: 87, name: "Long-Range Missiles, 20-pack", heat: 6, damagePerMissile: 1, range: { min: 6, short: 7, medium: 14, long: 21 }, weight: 10, criticals: 5, shotsPerTon: 6, cbills: 250000 },
         },
         book: "TM",
         page: 231,
@@ -557,6 +561,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Short Range Missiles, 2 Rack", heat: 0, damagePerMissile: 2, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 1, criticals: 1, shotsPerTon: 50 },
             "battletech-2nd-edition": { book: "BT2", page: 42, name: "Short Range Missiles, 2 Rack", heat: 2, damagePerMissile: 2, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 1, criticals: 1, shotsPerTon: 50 },
+            "battletech-manual": { book: "BTM", page: 87, name: "Short-Range Missiles, 2-pack", heat: 2, damagePerMissile: 2, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 1, criticals: 1, shotsPerTon: 50, cbills: 10000, notes: "The Weapons Price List also prices an SRM-2 (w/Infernos) at 13,500 (BTM p.86)." },
         },
         book: "TM",
         page: 231,
@@ -680,6 +685,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Short Range Missiles, 4 Rack", heat: 1, damagePerMissile: 2, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 2, criticals: 1, shotsPerTon: 25 },
             "battletech-2nd-edition": { book: "BT2", page: 42, name: "Short Range Missiles, 4 Rack", heat: 3, damagePerMissile: 2, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 2, criticals: 1, shotsPerTon: 25 },
+            "battletech-manual": { book: "BTM", page: 87, name: "Short-Range Missiles, 4-pack", heat: 3, damagePerMissile: 2, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 2, criticals: 1, shotsPerTon: 25, cbills: 60000 },
         },
         book: "TM",
         page: 231,
@@ -803,6 +809,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Short Range Missiles, 6 Rack", heat: 2, damagePerMissile: 2, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 3, criticals: 2, shotsPerTon: 15 },
             "battletech-2nd-edition": { book: "BT2", page: 42, name: "Short Range Missiles, 6 Rack", heat: 4, damagePerMissile: 2, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 3, criticals: 2, shotsPerTon: 15 },
+            "battletech-manual": { book: "BTM", page: 87, name: "Short-Range Missiles, 6-pack", heat: 4, damagePerMissile: 2, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 3, criticals: 2, shotsPerTon: 15, cbills: 80000 },
         },
         book: "TM",
         page: 231,

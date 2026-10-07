@@ -1523,7 +1523,11 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2290
+        prototype: 2290,
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 45, cbills: 1000, notes: "At least one ton for each ballistic weapon (BTM p.79). Reloads cost 1,000 a ton (BTM p.86)." },
+        },
     },
     {
         isAmmo: true,
@@ -1776,6 +1780,7 @@ export const mechISAmmo: IEquipmentItem[] = [
                 notes: "At least 1 ton for each ballistic weapon (BD p.25). One critical box per ton (BD pp.16-17). An exploding rack has a Damage Value of 5 (BD p.13).",
             },
             "battletech-2nd-edition": null,
+            "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 20, cbills: 4500, notes: "At least one ton for each ballistic weapon (BTM p.79). Reloads cost 4,500 a ton (BTM p.86)." },
         },
     },
     {
@@ -2021,7 +2026,11 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2443
+        prototype: 2443,
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 10, cbills: 6000, notes: "At least one ton for each ballistic weapon (BTM p.79). Reloads cost 6,000 a ton (BTM p.86)." },
+        },
     },
     {
         isAmmo: true,
@@ -2266,7 +2275,11 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2488
+        prototype: 2488,
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 5, cbills: 10000, notes: "At least one ton for each ballistic weapon (BTM p.79). Reloads cost 10,000 a ton (BTM p.86)." },
+        },
     },
     {
         isAmmo: true,

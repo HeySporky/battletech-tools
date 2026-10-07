@@ -68,6 +68,7 @@ export const mechEngineTypes: IEngineType[] = [
 				},
 				notes: "Engine rating = tonnage x walking movement points; the Engine Table runs from 10 to 400, and the 170 is now 6.0 tons (BT2 p.37). The engine includes 10 heat sinks (BT2 p.39). Six Engine boxes in the center torso (record sheet).",
 			},
+			"battletech-manual": null,
 		},
 	},
 	{
@@ -175,6 +176,10 @@ export const mechEngineTypes: IEngineType[] = [
 		name: "Internal Combustion Engine",
 		alternateName: "ICE",
 		tag: "ice",
+		introducedInEdition: "battletech-manual",
+		editionStats: {
+			"battletech-manual": { book: "BTM", page: 81, name: "Internal Combustion Engine", notes: "Offered for vehicles and installations, and as the turbine of conventional aircraft: twice the weight of an identically rated fusion engine from the Engine Table, with no built-in heat sinks, and power amplifiers at one ton per ten tons of energy weapons (BTM pp.81-82, 84). BattleMech construction does not mention it (BTM pp.78-80)." },
+		},
 		altNames: ["I.C.E. Engine"],
 		book: "TM",
 		page: 215,

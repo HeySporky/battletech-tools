@@ -330,3 +330,163 @@ describe("Rules editions: Second Edition, complete", () => {
         expect([stats.criticals, jets.criticals]).toEqual([1, 1]);
     });
 });
+
+// The BattleTech Manual: The Rules of Warfare (FASA, 1987), read from the page images. It is a rulebook with no
+// 'Mech listings: it adds three autocannons, artillery, the vehicle flamer, Infernos, LAMs and prices.
+describe("Rules editions: The BattleTech Manual, complete", () => {
+    const TAG = "battletech-manual";
+    const added = [
+        // Weapons Table, BTM p.87
+        "equipment autocannon-standard-a", "equipment autocannon-standard-c", "equipment autocannon-standard-d",
+        "equipment long-tom-artillery", "equipment sniper-artillery", "equipment thumper-artillery",
+        "equipment ammo-is-ac-2-standard", "equipment ammo-is-ac-10-standard", "equipment ammo-is-ac-20-standard",
+        "equipment ammo-long-tom-standard", "equipment ammo-sniper-standard", "equipment ammo-thumper-standard",
+        // Special Weapons, Smoke Rounds and Night Combat, BTM pp.41, 45-46
+        "equipment vehicle-flamer", "equipment ammo-vehicle-flamer-standard", "equipment ammo-srm-inferno",
+        "equipment ammo-long-tom-smoke", "equipment ammo-sniper-smoke", "equipment ammo-thumper-smoke",
+        "equipment searchlight",
+        // Dive Bombing, BTM pp.68-69
+        "equipment ammo-bomb-standard", "equipment ammo-bomb-inferno",
+        // Land-Air 'Mechs, BTM pp.74, 78; vehicle engines, BTM p.81
+        "mech type lam", "engine ice",
+    ];
+
+    it("includes everything the Second Edition does, and these additions", () => {
+        expect(inEdition(TAG)).toEqual([...inEdition("battletech-2nd-edition"), ...added].sort());
+        for (const label of added) {
+            expect(labelled.find(entry => entry.label === label)!.record.introducedInEdition, label).toBe(TAG);
+        }
+        const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
+        expect(edition.complete).toBe(true);
+        expect(edition.mechs).toEqual([]);
+        expect(edition.otherUnits).toHaveLength(15);
+    });
+
+    // Weapons Table, BTM p.87, and Weapons Price List, BTM p.86, as printed:
+    // [tag, heat, damage (per missile for launchers), minimum, short, medium, long, tons, critical locations,
+    //  shots per ton (0 = none printed), price in C-bills].
+    const table: [string, number, number, number, number, number, number, number, number, number, number][] = [
+        ["small-laser", 1, 3, 0, 1, 2, 3, 0.5, 1, 0, 11250],
+        ["medium-laser", 3, 5, 0, 3, 6, 9, 1, 1, 0, 40000],
+        ["large-laser", 8, 8, 0, 5, 10, 15, 5, 2, 0, 100000],
+        ["standard-ppc", 10, 10, 3, 6, 12, 18, 7, 3, 0, 200000],
+        ["standard-flamer", 3, 2, 0, 1, 2, 3, 1, 1, 0, 7500],
+        ["autocannon-standard-a", 1, 2, 4, 8, 16, 24, 6, 1, 45, 75000],
+        ["autocannon-standard-b", 1, 5, 3, 6, 12, 18, 8, 4, 20, 125000],
+        ["autocannon-standard-c", 3, 10, 0, 5, 10, 15, 12, 7, 10, 200000],
+        ["autocannon-standard-d", 7, 20, 0, 3, 6, 9, 14, 10, 5, 300000],
+        ["machine-gun", 0, 2, 0, 1, 2, 3, 0.5, 1, 200, 5000],
+        ["lrm-5", 2, 1, 6, 7, 14, 21, 2, 1, 24, 30000],
+        ["lrm-10", 4, 1, 6, 7, 14, 21, 5, 2, 12, 100000],
+        ["lrm-15", 5, 1, 6, 7, 14, 21, 7, 2, 8, 175000],
+        ["lrm-20", 6, 1, 6, 7, 14, 21, 10, 5, 6, 250000],
+        ["srm-2", 2, 2, 0, 3, 6, 9, 1, 1, 50, 10000],
+        ["srm-4", 3, 2, 0, 3, 6, 9, 2, 1, 25, 60000],
+        ["srm-6", 4, 2, 0, 3, 6, 9, 3, 2, 15, 80000],
+    ];
+
+    it.each(table)("%s carries the printed Weapons Table row and price", (tag, heat, damage, min, short, medium, long, tons, spaces, shots, price) => {
+        const stats = equipment.find(record => record.tag === tag)!.editionStats![TAG]!;
+        expect([stats.book, stats.page]).toEqual(["BTM", 87]);
+        expect([stats.heat, stats.range, stats.weight, stats.criticals, stats.shotsPerTon ?? 0, stats.cbills])
+            .toEqual([heat, { min, short, medium, long }, tons, spaces, shots, price]);
+        expect(stats.damage ?? stats.damagePerMissile).toBe(damage);
+    });
+
+    // What the Manual changed in the weapons the Second Edition already had: nothing but the 15-pack's critical
+    // locations, printed as 2 against 3 before and since. Not an obvious misprint, so it stays as printed.
+    it("reprints the Second Edition's weapon rows, but for the LRM 15-pack's critical locations", () => {
+        const different = table.map(([tag]) => equipment.find(record => record.tag === tag)!)
+            .filter(item => "battletech-2nd-edition" in item.editionStats!)
+            .filter(item => {
+                const now = item.editionStats![TAG]!;
+                const before = getEditionStats(item, "battletech-2nd-edition")!;
+                return JSON.stringify([now.heat, now.damage, now.damagePerMissile, now.range, now.weight, now.criticals, now.shotsPerTon])
+                    !== JSON.stringify([before.heat, before.damage, before.damagePerMissile, before.range, before.weight, before.criticals, before.shotsPerTon]);
+            }).map(item => item.tag);
+        expect(different).toEqual(["lrm-15"]);
+        const pack = equipment.find(record => record.tag === "lrm-15")!;
+        expect([pack.editionStats![TAG]!.criticals, getEditionStats(pack, "battletech-2nd-edition")!.criticals, pack.space.battlemech]).toEqual([2, 3, 3]);
+        expect(pack.editionStats![TAG]!.notes).toContain("Entered as printed");
+        expect(pack.editionStats![TAG]!.errata).toBeUndefined();
+    });
+
+    // The new autocannons match the records the catalogs carry today (TM p.208) in every printed column.
+    it.each(["autocannon-standard-a", "autocannon-standard-c", "autocannon-standard-d"])("%s is printed as it stands today", tag => {
+        const item = equipment.find(record => record.tag === tag)!;
+        const stats = item.editionStats![TAG]!;
+        expect([stats.heat, stats.damage, stats.weight, stats.criticals, stats.shotsPerTon])
+            .toEqual([item.heat, item.damage, item.weight, item.space.battlemech, item.shotsPerTon]);
+        expect(stats.range).toEqual({ min: item.range.min, short: item.range.short, medium: item.range.medium, long: item.range.long });
+    });
+
+    // Weapons Table, BTM p.87, and Artillery Piece Table, BTM p.42:
+    // [tag, heat, target hex damage, adjacent hex damage, mapsheets, tons, critical locations, shots, price].
+    it.each([
+        ["long-tom-artillery", 20, 20, 10, 20, 30, 30, 5, 450000],
+        ["sniper-artillery", 10, 10, 5, 12, 20, 20, 10, 300000],
+        ["thumper-artillery", 6, 5, 2, 14, 15, 15, 20, 187500],
+    ])("%s carries the printed artillery row", (tag, heat, damage, adjacent, sheets, tons, spaces, shots, price) => {
+        const stats = equipment.find(record => record.tag === tag)!.editionStats![TAG]!;
+        expect([stats.heat, stats.damage, stats.damageAdjacent, stats.rangeMapsheets, stats.weight, stats.criticals, stats.shotsPerTon, stats.cbills])
+            .toEqual([heat, damage, adjacent, sheets, tons, spaces, shots, price]);
+    });
+
+    // Reloads column, BTM p.86; shots per ton, BTM p.87.
+    it.each([
+        ["ammo-is-ac-2-standard", 45, 1000], ["ammo-is-ac-5-standard", 20, 4500], ["ammo-is-ac-10-standard", 10, 6000],
+        ["ammo-is-ac-20-standard", 5, 10000], ["ammo-machine-gun-standard", 200, 1000],
+        ["ammo-long-tom-standard", 5, 10000], ["ammo-sniper-standard", 10, 6000], ["ammo-thumper-standard", 20, 4500],
+    ])("%s has %i shots and costs %i a ton", (tag, shots, price) => {
+        const stats = equipment.find(record => record.tag === tag)!.editionStats![TAG]!;
+        expect([stats.shotsPerTon, stats.cbills, stats.weight]).toEqual([shots, price, 1]);
+    });
+
+    it("prices missile reloads by the ton and Infernos apart", () => {
+        const price = (tag: string) => equipment.find(record => record.tag === tag)!.editionStats![TAG]!.cbills;
+        expect([price("ammo-lrm-standard"), price("ammo-srm-standard"), price("ammo-srm-inferno")]).toEqual([30000, 27000, 13500]);
+    });
+
+    // BTM p.79: the worked example now agrees with the Weapons Table, so the Battledroids erratum ends here.
+    it("drops the machine gun ammunition erratum", () => {
+        const ammo = equipment.find(record => record.tag === "ammo-machine-gun-standard")!;
+        expect(getEditionStats(ammo, "battletech-2nd-edition")!.errata).toBeDefined();
+        expect(getEditionStats(ammo, TAG)!.errata).toBeUndefined();
+        expect(getEditionStats(ammo, TAG)!.notes).toContain("half-ton lots");
+    });
+
+    // Internal Structure Table, BTM p.79: the 60- and 65-ton leg boxes are printed as 14 and 15 at last, so the
+    // table equals the corrected Second Edition one and carries no erratum of its own.
+    it("prints the Internal Structure Table the earlier editions meant", () => {
+        const standard = mechInternalStructureTypes.find(structure => structure.tag === "standard")!;
+        const stats = standard.editionStats![TAG]!;
+        expect(stats.structure).toEqual(getEditionStats(standard, "battletech-2nd-edition")!.structure);
+        expect([stats.structure![60].leg, stats.structure![65].leg]).toEqual([14, 15]);
+        expect(stats.errata).toBeUndefined();
+    });
+
+    // BTM pp.79-80: engine rating / 25, rounded down, heat sinks are integral; the rest take a location each.
+    it("makes part of the engine's heat sinks integral", () => {
+        const stats = mechHeatSinkTypes.find(sink => sink.tag === "single")!.editionStats![TAG]!;
+        expect([stats.weight, stats.criticals, stats.cbills]).toEqual([1, 1, 2000]);
+        expect(stats.notes).toContain("Engine rating divided by 25, rounded down");
+    });
+
+    // Engine Table p.88, cockpit and gyro p.78, jump jet table and armor p.79: as the Second Edition has them.
+    it("leaves the engine, cockpit, gyro, jump jets, armor, layout and tonnages unchanged", () => {
+        const unchanged = labelled.filter(entry => entry.record.editionStats && TAG in entry.record.editionStats && entry.record.editionStats[TAG] === null)
+            .map(entry => entry.label).sort();
+        expect(unchanged).toEqual([
+            "engine standard", "gyro standard", "cockpit standard", "jump jet standard", "armor standard", "mech type biped",
+            ...[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100].map(tons => `tonnage ${tons}`),
+        ].sort());
+    });
+
+    // BTM p.45 prints the conventional Vehicle Flamer at 5 tons. Odd, but nothing in the book contradicts it.
+    it("keeps the Vehicle Flamer's printed 5 tons, flagged", () => {
+        const stats = equipment.find(record => record.tag === "vehicle-flamer")!.editionStats![TAG]!;
+        expect([stats.heat, stats.damage, stats.range, stats.weight, stats.shotsPerTon])
+            .toEqual([3, 2, { min: 0, short: 1, medium: 2, long: 3 }, 5, 20]);
+        expect(stats.notes).toContain("entered as printed");
+    });
+});

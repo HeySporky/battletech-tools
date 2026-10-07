@@ -16,6 +16,10 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         name: "Autocannon/2",
         alternateName: "ac/2",
         tag: "autocannon-standard-a",
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/2", heat: 1, damage: 2, range: { min: 4, short: 8, medium: 16, long: 24 }, weight: 6, criticals: 1, shotsPerTon: 45, cbills: 75000 },
+        },
         sort: "Autocannon/a",
         category: "Ballistic Weapons",
         damage: 2,
@@ -114,6 +118,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Auto Cannon", heat: 1, damage: 5, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 8, criticals: 4, shotsPerTon: 20 },
             "battletech-2nd-edition": null,
+            "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/5", heat: 1, damage: 5, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 8, criticals: 4, shotsPerTon: 20, cbills: 125000 },
         },
         book: "TM",
         page: 208,
@@ -135,6 +140,10 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         name: "Autocannon/10",
         alternateName: "ac/10",
         tag: "autocannon-standard-c",
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/10", heat: 3, damage: 10, range: { min: 0, short: 5, medium: 10, long: 15 }, weight: 12, criticals: 7, shotsPerTon: 10, cbills: 200000 },
+        },
         sort: "Autocannon/c",
         category: "Ballistic Weapons",
         damage: 10,
@@ -192,6 +201,10 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         name: "Autocannon/20",
         alternateName: "ac/20",
         tag: "autocannon-standard-d",
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/20", heat: 7, damage: 20, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 14, criticals: 10, shotsPerTon: 5, cbills: 300000 },
+        },
         sort: "Autocannon/d",
         category: "Ballistic Weapons",
         damage: 20,
@@ -963,6 +976,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Machine Gun", heat: 0, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1, shotsPerTon: 200 },
             "battletech-2nd-edition": null,
+            "battletech-manual": { book: "BTM", page: 87, name: "Machine Gun", heat: 0, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1, shotsPerTon: 200, cbills: 5000 },
         },
         book: "TM",
         page: 228,

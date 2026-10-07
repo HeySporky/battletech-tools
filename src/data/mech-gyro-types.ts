@@ -33,6 +33,7 @@ export const mechGyroTypes: IGyro[] = [
 				notes: "Weighs the engine rating divided by 100, rounded up, in tons (BD p.24). Four Gyro boxes in the center torso (record sheet, BD p.13).",
 			},
 			"battletech-2nd-edition": null,
+			"battletech-manual": null,
 		},
 	},
 	{
