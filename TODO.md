@@ -659,11 +659,20 @@ Open:
   - [ ] Builders for the Manual's units that had none ('Mechs, LAMs and every vehicle type already build):
     - [x] Aerospace Fighter (2026-10-07): `aerospace-fighter.ts` and the Fighter Creator (chassis, armor, equipment,
       summary, saves, backup). TechManual rules; reproduces the Sabutai example (TM pp.184-197). Not built: BV,
-      cost, OmniFighter pods, external stores loads, record sheet, Alpha Strike conversion, roster and play mode.
+      cost, OmniFighter pods, external stores loads, record sheet, Alpha Strike conversion, roster and play mode
+      (all done later the same day, see below).
     - [x] Conventional Fighter (2026-10-07): a fighter type in the same class and Fighter Creator. 5-50 tons, turbine
       or standard fusion (x1.5 weight), controls 10%, armor tonnage x 1, 160 fuel points a ton, single heat sinks
       for energy weapons, power amplifiers, VSTOL. Reproduces the 'Mechbuster example (TM pp.184-196). Same gaps as
       the aerospace fighter.
+    - [x] Fighters finished out (2026-10-07): Battle Value (TM pp.302-304, Thunderbird example 1,932), cost (TM
+      pp.283-285, 'Mechbuster example), OmniFighter pods, external stores (TW p.247), record sheet, Alpha Strike
+      conversion and card (Thunderbird matches its MUL card), roster, play mode with hit locations, Damage
+      Thresholds and critical hits (TW pp.237-240), roster print. VSTOL on an aerospace fighter is an optional
+      rule from the Advanced level: TM p.190 allows it in the rule text and denies it in the Sabutai example.
+      Open: Artemis IV is not linked to launchers (its 20% BV is left out); heat is not tracked turn by turn in
+      play; Alpha Strike weapon-family specials and PNT counts are not converted; fighters are not in the Alpha
+      Strike roster's unit picker.
     - [ ] Conventional infantry platoon.
     - [ ] Gun emplacement / building.
   - [ ] Next: Compendium (1990). Then Third Edition (1992), Fourth Edition (1996), Master Rules (1998), Master

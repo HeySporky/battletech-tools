@@ -28,6 +28,9 @@ import InPlayCriticalHitTable from './_criticalHitTable';
 import Vehicle from '../../../../classes/vehicle';
 import { vehicleName } from './_vehicleGroupTable';
 import VehiclePlayPanel from './_vehiclePlay';
+import AerospaceFighter from '../../../../classes/aerospace-fighter';
+import { fighterName } from './_fighterGroupTable';
+import FighterPlayPanel from './_fighterPlay';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -428,6 +431,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           for( let vehicle of group.vehicles ) {
             vehicle.turnReset();
           }
+          for( let fighter of group.fighters ) {
+            fighter.turnReset();
+          }
         }
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -730,7 +736,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -763,6 +769,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let vehicle of group.vehicles ) {
             vehicle.resetInPlay();
+          }
+          for( let fighter of group.fighters ) {
+            fighter.resetInPlay();
           }
           if( this.props.appGlobals.currentCBTForce )
             this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
@@ -1179,6 +1188,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         for( let vehicle of group.vehicles ) {
           if( vehicle.getUUID() === this.state.selectedVehicleUUID ) {
             selectedVehicle = vehicle;
+          }
+        }
+      }
+      // A fighter is selected the same way as a vehicle, by its UUID.
+      let selectedFighter: AerospaceFighter | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let fighter of group.fighters ) {
+          if( fighter.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedFighter = fighter;
           }
         }
       }
@@ -2654,7 +2672,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 </TextSection>
 
 <div className="selected-mech">
-          {selectedVehicle ? (
+          {selectedFighter ? (
+            <FighterPlayPanel
+              key={selectedFighter.getUUID()}
+              fighter={selectedFighter}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedVehicle ? (
             <VehiclePlayPanel
               vehicle={selectedVehicle}
               onChange={this.onVehicleChange}
@@ -2835,6 +2859,44 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         </li>
                     )
                   })}
+                  {group.fighters.map( (fighter) => (
+                    <li key={fighter.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, fighter.getUUID())}
+                        className={selectedFighter && selectedFighter.getUUID() === fighter.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + fighterName(fighter)}
+                      >
+                        {fighterName(fighter)}
+                        <div className="stats">
+{fighter.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="blue"
+                              background="#aaa"
+                              currentPercentage={fighter.getArmorPercentage()}
+                              currentNumber={fighter.getCurrentArmor()}
+                              height={8}
+                              title="Current Armor Status"
+                            />
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={fighter.getStructurePercentage()}
+                              currentNumber={fighter.getCurrentStructure()}
+                              height={8}
+                              title="Current Structural Integrity"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
                   {group.vehicles.map( (vehicle) => (
                     <li key={vehicle.getUUID()}>
                       <button

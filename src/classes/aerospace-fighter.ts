@@ -7,6 +7,9 @@ import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
+import Pilot, { IPilot } from "./pilot";
+import { getSkillMultiplier } from "../data/skill-multipliers";
+import { FIGHTER_CRITICAL_NAMES, FighterAttackDirection, FighterCritical, getFighterHitLocation } from "../data/fighter-hit-tables";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { findByTag } from "../data/tag-match";
 import { IAerospaceArmorType, IEngineType, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
@@ -90,6 +93,39 @@ export interface IFighterAlphaStrikeStats {
 /** Card text for a damage value: 0* for minimal damage. */
 export const formatFighterASDamage = (value: IFighterASDamageValue): string => (value.minimal ? "0*" : `${value.damage}`);
 
+/** Damage and critical hits taken in play (TW pp.237-240). */
+export interface IFighterInPlay {
+    armorDamage: IFighterArmorAllocation;
+    structureDamage: number;
+    avionics: number;
+    engine: number;
+    fcs: number;
+    sensors: number;
+    gear: boolean;
+    heatSinks: number;
+    pilotHits: number;
+    bombsLost: number;
+    fuelExploded: boolean;
+    storesDropped: boolean;
+    /** uuids of weapons knocked out by Weapon critical hits. */
+    destroyedWeapons: string[];
+}
+
+const newFighterInPlay = (): IFighterInPlay => ({
+    armorDamage: { nose: 0, leftWing: 0, rightWing: 0, aft: 0 },
+    structureDamage: 0, avionics: 0, engine: 0, fcs: 0, sensors: 0, gear: false, heatSinks: 0, pilotHits: 0, bombsLost: 0,
+    fuelExploded: false, storesDropped: false, destroyedWeapons: [],
+});
+
+/** Critical hits that are counted in boxes, and how many boxes each has. */
+export const FIGHTER_CRITICAL_TRACKS: { tag: "avionics" | "engine" | "fcs" | "sensors" | "pilotHits"; name: string; boxes: number }[] = [
+    { tag: "avionics", name: "Avionics", boxes: 3 },
+    { tag: "engine", name: "Engine", boxes: 3 },
+    { tag: "fcs", name: "FCS", boxes: 3 },
+    { tag: "sensors", name: "Sensors", boxes: 3 },
+    { tag: "pilotHits", name: "Pilot", boxes: 6 },
+];
+
 /** One kind of bomb or pod on the external hardpoints, and how many are carried. */
 export interface IFighterExternalStore {
     tag: string;
@@ -136,6 +172,8 @@ export interface IAerospaceFighterExport {
     heatSinkType: string;
     additionalHeatSinks: number;
     equipment: IFighterEquipmentExport[];
+    pilot?: IPilot;
+    inPlay?: IFighterInPlay;
 }
 
 const savedString = (value: unknown, fallback: string = ""): string => typeof value === "string" ? value : fallback;
@@ -179,6 +217,8 @@ export default class AerospaceFighter {
     private _omni: boolean = false;
     private _podUUIDs: Set<string> = new Set();
     private _externalStores: IFighterExternalStore[] = [];
+    private _pilot: Pilot = new Pilot();
+    private _inPlay: IFighterInPlay = newFighterInPlay();
     private _battleValue: number = 0;
     private _calcLogBV: string = "";
     private _cost: number = 0;
@@ -1174,10 +1214,219 @@ export default class AerospaceFighter {
         return unit;
     }
 
+    // Roster and play ------------------------------------------------------------------------------------------
+    // Damage, Damage Thresholds and critical hits (Total Warfare pp.237-240).
+
+    public getPilot(): Pilot { return this._pilot; }
+
+    public setPilot(pilot: Pilot): Pilot {
+        this._pilot = pilot;
+        return this._pilot;
+    }
+
+    /** Battle Value adjusted for gunnery and piloting skill (TM p.315 skill multipliers, as for 'Mechs). */
+    public getPilotAdjustedBattleValue(): number {
+        const multiplier = getSkillMultiplier(this._pilot?.gunnery ?? 4, this._pilot?.piloting ?? 5) ?? 1;
+        return Math.round(this._battleValue * multiplier);
+    }
+
+    public getInPlay(): IFighterInPlay { return this._inPlay; }
+    public resetInPlay(): void { this._inPlay = newFighterInPlay(); }
+    public turnReset(): void { /* a fighter carries nothing over from turn to turn here */ }
+
+    public getCurrentArmor(): number {
+        return FIGHTER_ARCS.reduce((sum, arc) => sum + Math.max(0, this._armorAllocation[arc.tag] - this._inPlay.armorDamage[arc.tag]), 0);
+    }
+
+    public getArmorPercentage(): number {
+        const total = this.getTotalArmorPoints();
+        return total > 0 ? Math.round(this.getCurrentArmor() / total * 100) : 0;
+    }
+
+    public getCurrentStructure(): number { return Math.max(0, this.getStructuralIntegrity() - this._inPlay.structureDamage); }
+
+    public getStructurePercentage(): number {
+        return Math.round(this.getCurrentStructure() / Math.max(1, this.getStructuralIntegrity()) * 100);
+    }
+
+    /** Marks armor damage on a facing directly (a pip clicked on the diagram). */
+    public setArmorDamage(arc: FighterArc, points: number): void {
+        const value = Number.isFinite(points) ? Math.floor(points) : 0;
+        this._inPlay.armorDamage[arc] = Math.min(this._armorAllocation[arc], Math.max(0, value));
+    }
+
+    public setStructureDamage(points: number): void {
+        const value = Number.isFinite(points) ? Math.floor(points) : 0;
+        this._inPlay.structureDamage = Math.min(this.getStructuralIntegrity(), Math.max(0, value));
+    }
+
+    /** Sets the boxes crossed off on a critical track. */
+    public setCriticalHits(track: "avionics" | "engine" | "fcs" | "sensors" | "pilotHits", hits: number): void {
+        const boxes = FIGHTER_CRITICAL_TRACKS.find((entry) => entry.tag === track)?.boxes ?? 3;
+        this._inPlay[track] = Math.min(boxes, Math.max(0, Number.isFinite(hits) ? Math.floor(hits) : 0));
+    }
+
+    public setGearDamaged(damaged: boolean): void { this._inPlay.gear = damaged === true; }
+
+    public setHeatSinksLost(count: number): void {
+        this._inPlay.heatSinks = Math.min(this.getTotalHeatSinks(), Math.max(0, Number.isFinite(count) ? Math.floor(count) : 0));
+    }
+
+    public setStoresDropped(dropped: boolean): void { this._inPlay.storesDropped = dropped === true; }
+
+    public isWeaponDestroyed(uuid: string): boolean { return this._inPlay.destroyedWeapons.includes(uuid); }
+
+    public setWeaponDestroyed(uuid: string, destroyed: boolean): void {
+        this._inPlay.destroyedWeapons = this._inPlay.destroyedWeapons.filter((entry) => entry !== uuid);
+        if (destroyed && this._equipmentList.some((item) => item.uuid === uuid)) this._inPlay.destroyedWeapons.push(uuid);
+    }
+
+    /** Three engine hits destroy the engine and shut the fighter down (TW p.240). */
+    public isEngineDestroyed(): boolean { return this._inPlay.engine >= 3; }
+
+    /** Out of the fight: no Structural Integrity left, a fuel explosion or a sixth pilot hit. */
+    public isDestroyed(): boolean {
+        return this.getCurrentStructure() <= 0 || this._inPlay.fuelExploded || this._inPlay.pilotHits >= 6;
+    }
+
+    public isDamaged(): boolean {
+        const play = this._inPlay;
+        return this.getCurrentArmor() < this.getTotalArmorPoints() || play.structureDamage > 0 || play.avionics > 0 || play.engine > 0
+            || play.fcs > 0 || play.sensors > 0 || play.gear || play.heatSinks > 0 || play.pilotHits > 0 || play.fuelExploded
+            || play.destroyedWeapons.length > 0;
+    }
+
+    /** Safe Thrust now: less the external stores still carried and 2 per engine hit (TW pp.240, 247). */
+    public getCurrentSafeThrust(): number {
+        if (this.isEngineDestroyed()) return 0;
+        const stores = this._inPlay.storesDropped ? 0 : Math.ceil(Math.max(0, this.getExternalStoresHardpointsUsed() - this._inPlay.bombsLost) / 5);
+        return Math.max(0, this._safeThrust - stores - this._inPlay.engine * 2);
+    }
+
+    public getCurrentMaxThrust(): number { return Math.ceil(this.getCurrentSafeThrust() * 1.5); }
+
+    /** Heat sinking left after Heat Sink critical hits: each costs one sink (TW p.240). */
+    public getCurrentHeatDissipation(): number {
+        return Math.max(0, this.getTotalHeatSinks() - this._inPlay.heatSinks) * (this._heatSinkType.dissipation ?? 1);
+    }
+
+    /**
+     * To-hit modifier from damage: +2 per FCS hit, +1 per sensor hit (+5 once the sensors are destroyed) and +1
+     * per pilot hit (TW pp.237, 240). Null when a third FCS hit stops all weapon attacks.
+     */
+    public getDamageToHitModifier(): number | null {
+        const play = this._inPlay;
+        if (play.fcs >= 3) return null;
+        return play.fcs * 2 + (play.sensors >= 3 ? 5 : play.sensors) + play.pilotHits;
+    }
+
+    /** Control Roll modifier from avionics damage: +1, +2, then +5 when destroyed (TW p.239). */
+    public getControlRollModifier(): number {
+        return this._inPlay.avionics >= 3 ? 5 : this._inPlay.avionics;
+    }
+
+    private _applyCritical(critical: FighterCritical, arc: FighterArc, random: () => number, fuelRoll?: number): string {
+        const play = this._inPlay;
+        const d6 = () => Math.floor(random() * 6) + 1;
+        const arcName = FIGHTER_ARCS.find((entry) => entry.tag === arc)?.name ?? arc;
+        switch (critical) {
+            case "avionics":
+                play.avionics = Math.min(3, play.avionics + 1);
+                return `Avionics hit ${play.avionics}: Control Rolls at +${this.getControlRollModifier()}; make a Control Roll now`;
+            case "control":
+                return "Control hit: make a Control Roll, or go out of control";
+            case "crew":
+                play.pilotHits = Math.min(6, play.pilotHits + 1);
+                return play.pilotHits >= 6 ? "Pilot hit 6: the pilot is killed" : `Pilot hit ${play.pilotHits}: make a Consciousness Roll`;
+            case "engine":
+                play.engine = Math.min(3, play.engine + 1);
+                return play.engine >= 3 ? "Engine hit 3: the engine is destroyed and the fighter shuts down"
+                    : `Engine hit ${play.engine}: Safe Thrust -2 (now ${this.getCurrentSafeThrust()}/${this.getCurrentMaxThrust()}) and +2 heat each turn`;
+            case "fcs":
+                play.fcs = Math.min(3, play.fcs + 1);
+                return play.fcs >= 3 ? "FCS hit 3: the fire control system is destroyed; no weapon attacks" : `FCS hit ${play.fcs}: +2 to hit for each`;
+            case "sensors":
+                play.sensors = Math.min(3, play.sensors + 1);
+                return play.sensors >= 3 ? "Sensor hit 3: the sensors are destroyed; +5 to hit" : `Sensor hit ${play.sensors}: +1 to hit for each`;
+            case "gear":
+                play.gear = true;
+                return "Landing gear damaged: +5 to Control Rolls when landing";
+            case "heatSink":
+                if (play.heatSinks >= this.getTotalHeatSinks()) return "Heat sink hit: no heat sinks left to lose";
+                play.heatSinks += 1;
+                return `Heat sink destroyed: ${this.getCurrentHeatDissipation()} heat dissipated now`;
+            case "fuel": {
+                const roll = fuelRoll ?? d6() + d6();
+                if (roll >= 10) {
+                    play.fuelExploded = true;
+                    return `Fuel tank hit, roll ${roll}: the fuel explodes and the fighter is destroyed`;
+                }
+                return `Fuel tank hit, roll ${roll}: no explosion (10+ explodes)`;
+            }
+            case "bomb": {
+                const carried = play.storesDropped ? 0 : this.getExternalStoresHardpointsUsed() - play.bombsLost;
+                if (carried <= 0) return "Bomb hit: no bombs carried, no effect";
+                play.bombsLost += 1;
+                return "Bomb hit: one bomb is useless (the controlling player chooses which)";
+            }
+            default: {
+                const working = this._equipmentList.filter((item) => item.location === arc && !item.isAmmo && this.getItemSlots(item) > 0 && !this.isWeaponDestroyed(item.uuid ?? ""));
+                if (working.length === 0) return `Weapon hit in the ${arcName}: no working weapon there, no effect`;
+                if (working.length === 1) {
+                    this.setWeaponDestroyed(working[0].uuid ?? "", true);
+                    return `Weapon hit in the ${arcName}: ${working[0].name} is destroyed`;
+                }
+                const chooser = d6();
+                return `Weapon hit in the ${arcName}, roll ${chooser}: the ${chooser <= 3 ? "controlling" : "attacking"} player chooses a weapon there to mark destroyed`;
+            }
+        }
+    }
+
+    /**
+     * Resolves one hit (one Attack Value grouping): hit location by attack direction and 2D6, armor damage, half
+     * of any excess (rounded down) against Structural Integrity, then a critical hit check (8+ on 2D6) for each
+     * of: damage over the facing's Damage Threshold, any Structural Integrity damage, and a natural 12 on the
+     * to-hit roll (TW pp.237-239). Pass criticalRolls, wingRoll and fuelRoll to use physical dice.
+     */
+    public resolveAttack(roll: number, direction: FighterAttackDirection, damage: number,
+        options: { natural12?: boolean; wingRoll?: number; criticalRolls?: number[]; fuelRoll?: number } = {}, random: () => number = Math.random): string[] {
+        const d6 = () => Math.floor(random() * 6) + 1;
+        const log: string[] = [];
+        const points = Math.max(0, Math.floor(Number.isFinite(damage) ? damage : 0));
+        const hit = getFighterHitLocation(roll, direction, options.wingRoll ?? d6());
+        const arcName = FIGHTER_ARCS.find((entry) => entry.tag === hit.arc)?.name ?? hit.arc;
+        const remaining = Math.max(0, this._armorAllocation[hit.arc] - this._inPlay.armorDamage[hit.arc]);
+        const armorDamage = Math.min(remaining, points);
+        this._inPlay.armorDamage[hit.arc] += armorDamage;
+        const structureDamage = Math.min(this.getCurrentStructure(), Math.floor((points - armorDamage) / 2));
+        this._inPlay.structureDamage += structureDamage;
+        log.push(`Hit location ${roll}: ${arcName} / ${FIGHTER_CRITICAL_NAMES[hit.critical]} takes ${armorDamage} armor`
+            + (points > armorDamage ? ` and ${structureDamage} Structural Integrity (half of the ${points - armorDamage} left over, rounded down)` : ""));
+        if (this.getCurrentStructure() <= 0) {
+            log.push("Structural Integrity is gone: the fighter is destroyed");
+            return log;
+        }
+        const reasons: string[] = [];
+        const threshold = this.getDamageThresholds()[hit.arc];
+        if (points > threshold) reasons.push(`damage ${points} over the Damage Threshold of ${threshold}`);
+        if (structureDamage >= 1) reasons.push("Structural Integrity damage");
+        if (options.natural12) reasons.push("a natural 12 to hit");
+        reasons.forEach((reason, index) => {
+            const check = options.criticalRolls?.[index] ?? d6() + d6();
+            if (check >= 8) log.push(`Critical check for ${reason}: ${check}. ${this._applyCritical(hit.critical, hit.arc, random, options.fuelRoll)}`);
+            else log.push(`Critical check for ${reason}: ${check}, no critical hit (8+ needed)`);
+        });
+        return log;
+    }
+
     // Saving --------------------------------------------------------------------------------------------------
 
-    public export(): IAerospaceFighterExport {
+    public export(noInPlayVariables: boolean = false): IAerospaceFighterExport {
         return {
+            ...(noInPlayVariables ? {} : {
+                pilot: this._pilot.export(),
+                inPlay: { ...this._inPlay, armorDamage: { ...this._inPlay.armorDamage }, destroyedWeapons: [...this._inPlay.destroyedWeapons] },
+            }),
             uuid: this._uuid,
             lastUpdated: this.lastUpdated,
             name: this._name,
@@ -1204,6 +1453,30 @@ export default class AerospaceFighter {
 
     public exportJSON(): string {
         return JSON.stringify(this.export());
+    }
+
+    /** The pilot and in-play damage of a saved fighter, field by field through the setters. */
+    private _importPlay(pilot: unknown, inPlay: unknown): void {
+        this._pilot = new Pilot();
+        if (isPlainObject(pilot)) {
+            this._pilot.name = savedString(pilot.name).slice(0, 200);
+            this._pilot.piloting = Math.floor(savedNumber(pilot.piloting, 5, 0, 8));
+            this._pilot.gunnery = Math.floor(savedNumber(pilot.gunnery, 4, 0, 8));
+            this._pilot.wounds = Math.floor(savedNumber(pilot.wounds, 0, 0, 6));
+        }
+        this._inPlay = newFighterInPlay();
+        if (!isPlainObject(inPlay)) return;
+        const armor = isPlainObject(inPlay.armorDamage) ? inPlay.armorDamage : {};
+        for (const arc of FIGHTER_ARCS) this.setArmorDamage(arc.tag, savedNumber(armor[arc.tag], 0, 0, 10000));
+        this.setStructureDamage(savedNumber(inPlay.structureDamage, 0, 0, 1000));
+        for (const track of FIGHTER_CRITICAL_TRACKS) this.setCriticalHits(track.tag, savedNumber(inPlay[track.tag], 0, 0, 6));
+        this.setGearDamaged(inPlay.gear === true);
+        this.setHeatSinksLost(savedNumber(inPlay.heatSinks, 0, 0, 1000));
+        this._inPlay.bombsLost = Math.floor(savedNumber(inPlay.bombsLost, 0, 0, 100));
+        this._inPlay.fuelExploded = inPlay.fuelExploded === true;
+        this._inPlay.storesDropped = inPlay.storesDropped === true;
+        const destroyed = Array.isArray(inPlay.destroyedWeapons) ? inPlay.destroyedWeapons.slice(0, MAX_FIGHTER_EQUIPMENT) : [];
+        for (const uuid of destroyed) if (typeof uuid === "string") this.setWeaponDestroyed(uuid, true);
     }
 
     /** Problems found in the last import: fields that were invalid and replaced, or entries that were dropped. */
@@ -1289,6 +1562,7 @@ export default class AerospaceFighter {
                 this.setExternalStore(entry.tag, entry.count);
                 if (this._externalStores.length === before && entry.count > 0) issue(`Skipped unknown external store "${entry.tag.slice(0, 60)}"`);
             }
+            this._importPlay(saved.pilot, saved.inPlay);
             this._calc();
         } catch (error) {
             issue("The saved fighter could not be read completely");

@@ -9,6 +9,8 @@ import { CONST_BATTLETECH_URL } from "../../../../configVars";
 import RulesLevelStamp, { getHighestRulesLevel, printWithRulesLevelGuard } from "../../../components/rules-level-print";
 import VehicleRecordSheet from "../../../components/vehicle-record-sheet";
 import { vehicleName } from "./_vehicleGroupTable";
+import FighterRecordSheet from "../../../components/fighter-record-sheet";
+import { fighterName } from "./_fighterGroupTable";
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const PrintIcon = FaPrint as any;
 
@@ -29,6 +31,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
       const rulesLevels = [
         ...groups.flatMap( (group) => group.members ).map( (unit) => unit.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.vehicles ).map( (vehicle) => vehicle.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.fighters ).map( (fighter) => fighter.getRequiredRulesLevel() ),
       ];
       printWithRulesLevelGuard(
         getHighestRulesLevel( rulesLevels ),
@@ -184,6 +187,33 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       </tr>
                     </tbody>
                     ))}
+                    {group.fighters.map( (fighter) => (
+                    <tbody key={fighter.getUUID()}>
+                      <tr>
+                        <td>
+                          {fighterName(fighter)} ({fighter.getFighterTypeName()})
+                        </td>
+                        <td>
+                          {fighter.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {fighter.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {fighter.getPilot().piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {fighter.getPilot().gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {fighter.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {fighter.getPilotAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
                   </table>
                 </div>
               )
@@ -228,6 +258,18 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         <VehicleRecordSheet
                           vehicle={vehicle}
                           showCrew={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.fighters.map( (fighter) => (
+                      <div className={"page"} key={fighter.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={fighter.getRequiredRulesLevel()}
+                        />
+                        <FighterRecordSheet
+                          fighter={fighter}
+                          showPilot={true}
                           showDamage={true}
                         />
                       </div>

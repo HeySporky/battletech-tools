@@ -97,7 +97,8 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
                             </p>
                             <p className="smaller-text">
                                 The summary gives the Battle Value, cost, a record sheet and the converted Alpha Strike card.
-                                OmniFighter pods and external stores are set on the equipment step.
+                                OmniFighter pods and external stores are set on the equipment step. Saved fighters can
+                                join a roster group and be played there.
                             </p>
                             <div className="clear-both overflow-hidden">
                                 <hr />

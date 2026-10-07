@@ -1,15 +1,19 @@
 import React, { type JSX } from 'react';
-import AerospaceFighter, { FIGHTER_LOCATIONS, formatFighterASDamage } from '../../classes/aerospace-fighter';
+import AerospaceFighter, { FIGHTER_CRITICAL_TRACKS, FIGHTER_LOCATIONS, formatFighterASDamage } from '../../classes/aerospace-fighter';
 import FighterDiagramSVG from './svg/fighter-diagram-svg';
 
 // A fighter record sheet: summary line, armor diagram with damage thresholds, weapons by arc, external stores,
-// the critical damage tracks and the converted Alpha Strike stats.
+// the critical damage tracks and the converted Alpha Strike stats. With showDamage, damage marked in play is
+// filled in.
 export default class FighterRecordSheet extends React.Component<IFighterRecordSheetProps> {
-    renderBoxes = (label: string, count: number): JSX.Element => (
+    renderBoxes = (label: string, count: number, filled: number = 0): JSX.Element => (
         <span style={{ display: "inline-block", marginRight: "1.5em", whiteSpace: "nowrap" }}>
             <strong>{label}</strong>&nbsp;
             {Array.from({ length: count }, (_, index) => (
-                <span key={index} style={{ display: "inline-block", width: "0.9em", height: "0.9em", border: "1px solid #000", marginRight: "0.2em", verticalAlign: "middle" }} />
+                <span key={index} style={{
+                    display: "inline-block", width: "0.9em", height: "0.9em", border: "1px solid #000", marginRight: "0.2em", verticalAlign: "middle",
+                    background: index < filled ? "#000" : "transparent",
+                }} />
             ))}
         </span>
     );
@@ -18,6 +22,8 @@ export default class FighterRecordSheet extends React.Component<IFighterRecordSh
         const fighter = this.props.fighter;
         const as = fighter.getAlphaStrikeStats();
         const stores = fighter.getExternalStores();
+        const play = this.props.showDamage ? fighter.getInPlay() : null;
+        const pilot = fighter.getPilot();
 
         return (
             <div className="print-page">
@@ -32,12 +38,15 @@ export default class FighterRecordSheet extends React.Component<IFighterRecordSh
                     {fighter.getEngineType().name} {fighter.getEngineRating()} &nbsp;|&nbsp;
                     Armor: {fighter.getArmorType().name}{fighter.hasVSTOL() ? <> &nbsp;|&nbsp; VSTOL</> : null} &nbsp;|&nbsp;
                     BV {fighter.getBattleValue()} &nbsp;|&nbsp; {fighter.getCBillCost().toLocaleString("en-US")} C-Bills
+                    {this.props.showPilot ? <> &nbsp;|&nbsp; Gunnery {pilot.gunnery} / Piloting {pilot.piloting}{pilot.name ? ` (${pilot.name})` : ""} &nbsp;|&nbsp; Adjusted BV {fighter.getPilotAdjustedBattleValue()}</> : null}
                 </p>
 
                 <FighterDiagramSVG
                     armor={fighter.getArmorAllocation()}
                     structuralIntegrity={fighter.getStructuralIntegrity()}
                     thresholds={fighter.getDamageThresholds()}
+                    armorDamage={play?.armorDamage}
+                    structureDamage={play?.structureDamage}
                     width={600}
                 />
 
@@ -51,7 +60,7 @@ export default class FighterRecordSheet extends React.Component<IFighterRecordSh
                             return (
                                 <tr key={location.tag}>
                                     <td>{location.name}</td>
-                                    <td>{items.map((item) => item.name + (fighter.isPodMounted(item.uuid ?? "") ? " (pod)" : "")).join(", ") || "-"}</td>
+                                    <td>{items.map((item) => item.name + (fighter.isPodMounted(item.uuid ?? "") ? " (pod)" : "") + (play && fighter.isWeaponDestroyed(item.uuid ?? "") ? " (destroyed)" : "")).join(", ") || "-"}</td>
                                     <td className="text-right">{items.filter((item) => !item.isAmmo).reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0) || "-"}</td>
                                 </tr>
                             );
@@ -69,13 +78,11 @@ export default class FighterRecordSheet extends React.Component<IFighterRecordSh
 
                 <h3>Critical Damage</h3>
                 <p>
-                    {this.renderBoxes("Avionics", 3)}
-                    {this.renderBoxes("Engine", 3)}
-                    {this.renderBoxes("FCS", 3)}
-                    {this.renderBoxes("Sensors", 3)}
-                    {this.renderBoxes("Gear", 1)}
-                    {this.renderBoxes("Life Support", 1)}
-                    {this.renderBoxes("Pilot", 6)}
+                    {FIGHTER_CRITICAL_TRACKS.map((track) => (
+                        <React.Fragment key={track.tag}>{this.renderBoxes(track.name, track.boxes, play?.[track.tag] ?? 0)}</React.Fragment>
+                    ))}
+                    {this.renderBoxes("Gear", 1, play?.gear ? 1 : 0)}
+                    {play && play.heatSinks > 0 ? <span><strong>Heat sinks lost</strong>: {play.heatSinks}</span> : null}
                 </p>
 
                 <h3>Alpha Strike</h3>
@@ -97,4 +104,6 @@ export default class FighterRecordSheet extends React.Component<IFighterRecordSh
 
 interface IFighterRecordSheetProps {
     fighter: AerospaceFighter;
+    showPilot?: boolean;
+    showDamage?: boolean;
 }

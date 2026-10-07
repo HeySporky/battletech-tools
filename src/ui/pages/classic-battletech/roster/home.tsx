@@ -12,6 +12,7 @@ import UIPage from '../../../components/ui-page';
 import './home.scss';
 import BattleMechTableGroup from './_tableGroup';
 import { vehicleName } from './_vehicleGroupTable';
+import { fighterName } from './_fighterGroupTable';
 const Dice = FaDice as any;
 const Print = FaPrint as any;
 const Heart = FaHeart as any;
@@ -400,6 +401,21 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
               <td className="min-width no-wrap text-center">{vehicle.getPilot().piloting}</td>
               <td className="min-width no-wrap text-center">{vehicle.getPilot().gunnery}</td>
               <td className="min-width no-wrap text-center">{vehicle.getPilotAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
+      {favGroup.fighters.map( (fighter) => (
+          <tbody key={fighter.getUUID()}>
+          <tr>
+              <td>
+                  {fighterName(fighter)}
+                  <div className='small-text'>{fighter.getFighterTypeName()}</div>
+              </td>
+              <td className="min-width no-wrap text-center">{fighter.getTonnage()}</td>
+              <td className="min-width no-wrap text-center small-text">{fighter.getTech().name}</td>
+              <td className="min-width no-wrap text-center">{fighter.getPilot().piloting}</td>
+              <td className="min-width no-wrap text-center">{fighter.getPilot().gunnery}</td>
+              <td className="min-width no-wrap text-center">{fighter.getPilotAdjustedBattleValue()}</td>
           </tr>
           </tbody>
       ))}
