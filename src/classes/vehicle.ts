@@ -2779,11 +2779,14 @@ export default class Vehicle {
         return modifier;
     }
 
-    /** Battle Value adjusted for gunnery and driving skill (TM p. 305 skill multipliers, as for 'Mechs). */
-    public getPilotAdjustedBattleValue(): number {
+    /**
+     * Battle Value adjusted for gunnery and driving skill, by the rules edition's BV Skill Multiplier Table
+     * (TechManual p. 315 by default). An edition with no table leaves the Battle Value as it is.
+     */
+    public getPilotAdjustedBattleValue(edition?: string): number {
         const gunnery = this._pilot?.gunnery ?? 4;
         const piloting = this._pilot?.piloting ?? 5;
-        const multiplier = getSkillMultiplier(gunnery, piloting) ?? 1;
+        const multiplier = getSkillMultiplier(gunnery, piloting, "vehicle", edition) ?? 1;
         return Math.round(this._battleValue * multiplier);
     }
 

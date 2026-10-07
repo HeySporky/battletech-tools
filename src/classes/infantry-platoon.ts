@@ -1,6 +1,6 @@
 import { generateUUID } from "../utils/generateUUID";
 import { IInfantryWeapon, INFANTRY_MAX_PRIMARY_DAMAGE, INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
-import { getTechManualSkillMultiplier } from "../data/skill-multipliers";
+import { getSkillMultiplier } from "../data/skill-multipliers";
 
 // Conventional infantry platoon construction (TechManual pp.144-155), Battle Value (TM p.309) and cost (TM pp.276, 282).
 
@@ -505,12 +505,15 @@ export default class InfantryPlatoon {
     /** The calculation, one plain-text line per step. */
     public getBattleValueLog(): string[] { return this._calcBattleValue().log; }
 
-    /** Mechanized platoons adjust Gunnery only and use the table's 5 column (TM p.314). */
-    public getSkillMultiplier(): number {
-        const column = this.isMechanized() ? 5 : this.getAntiMechSkill();
-        return getTechManualSkillMultiplier(this._gunnery, column) ?? 1;
+    /**
+     * The rules edition's skill multiplier (TechManual p.315 by default). Under the TechManual, mechanized platoons
+     * adjust Gunnery only and use the table's 5 column (TM p.314); under the Master Rules every infantry unit does.
+     * An edition with no table gives 1.
+     */
+    public getSkillMultiplier(edition?: string): number {
+        return getSkillMultiplier(this._gunnery, this.getAntiMechSkill(), this.isMechanized() ? "mechanized-infantry" : "infantry", edition) ?? 1;
     }
-    public getSkillAdjustedBattleValue(): number { return roundNormally(this.getBattleValue() * this.getSkillMultiplier()); }
+    public getSkillAdjustedBattleValue(edition?: string): number { return roundNormally(this.getBattleValue() * this.getSkillMultiplier(edition)); }
 
     // Cost (TM pp.276, 282)
 

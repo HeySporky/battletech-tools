@@ -1153,14 +1153,14 @@ export class BattleMech {
 
     /**
      * Applies pilot experience skill tracking multipliers to determine final deployment BV.
-     * References the canonical cross-grid lookup matrix from TechManual, p. 305.
+     * Uses the default rules edition's BV Skill Multiplier Table (TechManual p. 315).
      */
     private _setPilotAdjustedBattleValue(): void {
         // Fetch raw pilot credentials with safe default constraints
         const gunnery = this._pilot?.gunnery ?? 4;
         const piloting = this._pilot?.piloting ?? 5;
         let skillMultiplier = 1.0;
-        const matrixMultiplier = getSkillMultiplier(gunnery, piloting);
+        const matrixMultiplier = getSkillMultiplier(gunnery, piloting, "mech");
         if (matrixMultiplier !== null) {
             skillMultiplier = matrixMultiplier;
         } else {

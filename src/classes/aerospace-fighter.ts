@@ -1293,8 +1293,8 @@ export default class AerospaceFighter {
     }
 
     /** Battle Value adjusted for gunnery and piloting skill (TM p.315 skill multipliers, as for 'Mechs). */
-    public getPilotAdjustedBattleValue(): number {
-        const multiplier = getSkillMultiplier(this._pilot?.gunnery ?? 4, this._pilot?.piloting ?? 5) ?? 1;
+    public getPilotAdjustedBattleValue(edition?: string): number {
+        const multiplier = getSkillMultiplier(this._pilot?.gunnery ?? 4, this._pilot?.piloting ?? 5, "fighter", edition) ?? 1;
         return Math.round(this._battleValue * multiplier);
     }
 
