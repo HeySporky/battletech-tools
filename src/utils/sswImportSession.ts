@@ -27,6 +27,23 @@ export interface ISSWImportResult {
     draftIds: string[];
 }
 
+/** Most files one import takes. The bundled SSW corpus is 512 designs; a user batch is usually a handful. */
+export const MAX_SSW_IMPORT_FILES = 200;
+/** Largest single file read. A .ssw file is a few tens of kilobytes. */
+export const MAX_SSW_IMPORT_FILE_BYTES = 5 * 1024 * 1024;
+
+/** Why a batch cannot be imported, checked on names and sizes before any file is read; null when it can. */
+export function sswImportLimitError(files: { name: string; size: number }[]): string | null {
+    if (files.length > MAX_SSW_IMPORT_FILES) {
+        return `${files.length} files were selected. Import at most ${MAX_SSW_IMPORT_FILES} at a time.`;
+    }
+    const oversized = files.find((file) => file.size > MAX_SSW_IMPORT_FILE_BYTES);
+    if (oversized) {
+        return `"${oversized.name}" is larger than ${MAX_SSW_IMPORT_FILE_BYTES / (1024 * 1024)} MB, which is too big to be an .ssw file.`;
+    }
+    return null;
+}
+
 export async function sha256Hex(text: string): Promise<string> {
     const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
     return [...new Uint8Array(digest)].map((byte) => byte.toString(16).padStart(2, "0")).join("");
