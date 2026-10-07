@@ -263,14 +263,15 @@ played first, then by dependency.
 
 ### Buildings, Gun Emplacements and Mobile Structures
 
-- [ ] Advanced building construction (Tactical Operations pp. 128-131, original edition; map to the current
-  Tactical Operations: Advanced Rules pages): Step 1 superstructure (tech base, classification, structure
-  type, size and height, Construction Factor), Step 2 armor, Step 3 weapons, heat sinks, equipment and
-  control systems (capacity depends on classification and CF), Step 4 record sheet (Structure Record
-  Sheet). Advanced Building Classifications, armored buildings and expanded CF rules for play.
+- [x] Advanced building construction (TO:AR pp.126-131; the original Tactical Operations pp. 128-131): the
+  Building Creator, 2026-10-07. Steps 1 to 4 for every classification but Castles Brian. See "Gun emplacement /
+  building" under Rules editions for what it covers and what is still owed.
+- [ ] Buildings in play: Advanced Building Classifications, armored buildings, scaled damage and the expanded
+  CF rules (TO:AR pp.112-125); buildings in the roster.
 - [ ] Mobile Structures (Designing Mobile Structures, TO p. 259): type, Construction Factor, internal weight
   capacity, power and motive systems. Static buildings share its armor, heat sink and weapon rules.
-- [ ] Gun emplacements. 106 `advancedbuildings` and the `ge` folder in the MegaMek samples.
+- [ ] Gun emplacements: construction is in the Building Creator (2026-10-07). Still owed: the BLK import of
+  the 106 `advancedbuildings` and the `ge` folder in the MegaMek samples.
 
 ### Support Vehicles
 
@@ -723,7 +724,32 @@ Open:
     2007 first printing's table (3.68) is noted in the file, not selectable. Nothing chooses an edition yet:
     every unit takes an optional edition and defaults to Total Warfare until the edition selector is built.
     Not checked: BattleTech Compendium: The Rules of Warfare (1994), which is not in the library.
-    - [ ] Gun emplacement / building.
+    - [x] Gun emplacement / building (2026-10-07): Building Creator under Tactical Operations: Advanced Rules
+      pp.126-131. Classifications and types from the table on p.113 (gun emplacement, fortress, standard, hangar,
+      wall, fence, bridge, tent), Construction Factor, size in hexes and levels, internal weight capacity (CF x
+      levels; hangars tripled to 600 tons for every 4 levels), armor in full tons (16 points a ton Inner Sphere,
+      20 Clan, to CF x 1), Heavy weapons placed hex by hex against the per-hex limit (gun emplacement CF / 3,
+      fortress CF / 10 a level), rooftop turrets, heat sinks, power amplifiers, the Power Generators Table
+      (p.132), unspecified equipment, minimum gunners and officers (p.130), cost (p.208), saves, backup and a
+      record sheet with Armor Factor and CF circles for each hex. Reproduces the book's Kenyon, Tara and Ryana
+      examples (pp.128-131).
+      Open, for a ruling: (1) the cost table (p.208) prices no turrets, power amplifiers or heat sinks for
+      buildings; the creator charges their TechManual prices (pp.279-280). (2) TO:AR p.129 calls a weapon Heavy
+      from 0.25 tons, TO:AUE p.82 from half a ton for Mobile Structures; the building page is followed. (3) With
+      a fusion or fission generator the creator asks for no heat sinks and no amplifiers, its reading of TO:AUE
+      p.83 ("Mobile Structures without a Fission or Fusion power system must incorporate enough heat sinks").
+      (4) Flamers and chemical lasers are left out of the power amplifier weight, as on vehicles; the building
+      text says only "energy weapons". (5) A fortress's CF / 10 limit is not rounded; the book gives no rounding.
+      Not built yet: Light and Medium (infantry) weapons and pintle mounts, automated weapons, structural
+      modifications (environmental sealing, heavy-metal superstructure, ceilings, open space, subsurface,
+      tunnels), large doors and elevators, fuel storage tanks, crew for non-weapon equipment, the PCMT-fed
+      generator, a generator shared between buildings, basements, Castles Brian, Mobile Structures; the roster,
+      play mode (damage scaling, the gun emplacement as a stationary vehicle) and Alpha Strike. The rules give
+      buildings no Battle Value.
+      The Manual's own method (BTM pp.39-40, 83-84, 86: CF 1-150, 1-4 levels, 1-3 hexes, structure of levels x
+      hexes x CF / 10 tons, walls of CF / 3 tons, turret armor at 16 points a ton, a power plant rated by energy
+      weapon tonnage, the Gun Emplacement Damage Table and the Installation Cost Chart) was read from the page
+      images and is not built: it waits for the edition selector, like every other edition's construction rules.
   - [ ] Next: Compendium (1990). Then Third Edition (1992), Fourth Edition (1996), Master Rules (1998), Master
     Rules Revised (2001), in that order.
   - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).

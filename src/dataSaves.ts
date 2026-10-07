@@ -9,6 +9,7 @@ import { BattleMechGroup, ICBTGroupExport, MAX_GROUP_VEHICLES } from "./classes/
 import Vehicle, { IVehicleExport, normalizeVehicleExport } from "./classes/vehicle";
 import AerospaceFighter, { IAerospaceFighterExport, normalizeAerospaceFighterExport } from "./classes/aerospace-fighter";
 import InfantryPlatoon, { IInfantryPlatoonExport, normalizeInfantryPlatoonExport } from "./classes/infantry-platoon";
+import Building, { IBuildingExport, normalizeBuildingExport } from "./classes/building";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
 // import {Storage} from 'session-storage-sync';
@@ -72,6 +73,10 @@ export interface IFullBackup {
     infantrySaves?: IInfantryPlatoonExport[];
     currentInfantry?: string | null;
 
+    // Gun emplacements and buildings; optional so older backups still restore.
+    buildingSaves?: IBuildingExport[];
+    currentBuilding?: string | null;
+
     // BattleTech: Aces; optional so older backups still restore.
     acesGame?: IAcesGameExport | null;
     acesCampaigns?: IAcesCampaignExport[];
@@ -95,6 +100,8 @@ export async function getFullBackup(
         currentFighter: await getCurrentFighter(appSettings),
         infantrySaves: await getInfantrySaves(appSettings),
         currentInfantry: await getCurrentInfantry(appSettings),
+        buildingSaves: await getBuildingSaves(appSettings),
+        currentBuilding: await getCurrentBuilding(appSettings),
         acesGame: await getAcesGame(appSettings),
         acesCampaigns: await getAcesCampaigns(appSettings),
         acesCardLibrary: await getAcesCardLibrary(appSettings),
@@ -114,6 +121,8 @@ export const MAX_VEHICLE_SAVES = 500;
 export const MAX_FIGHTER_SAVES = 500;
 /** Most saved infantry platoons read from storage or a backup. */
 export const MAX_INFANTRY_SAVES = 500;
+/** Most saved buildings read from storage or a backup. */
+export const MAX_BUILDING_SAVES = 500;
 /** Most groups read from one backup's favorites or force. */
 export const MAX_RESTORE_GROUPS = MAX_FORCE_GROUPS;
 
@@ -457,6 +466,48 @@ export function restoreFullBackup(
         }
     }
 
+    if( Array.isArray(io.buildingSaves) ) {
+        // Saved buildings in a backup may come from someone else: clean each one and report what changed.
+        if( io.buildingSaves.length > MAX_BUILDING_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_BUILDING_SAVES + " of " + io.buildingSaves.length + " saved buildings are restored"));
+        }
+        for( const rawItem of io.buildingSaves.slice(0, MAX_BUILDING_SAVES) ) {
+            const normalized = normalizeBuildingExport( rawItem );
+            const item = normalized.building;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved building '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.buildingSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Building '" + (appGlobals.buildingSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.buildingSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Buildings: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.buildingSaves.push( item )
+                }
+            }
+        }
+    }
+
+    if( overWriteCurrentBattlemech && typeof io.currentBuilding === "string" && io.currentBuilding ) {
+        for( const issue of new Building(io.currentBuilding).getImportIssues() ) {
+            restoreMessages.push(warning("Current building: " + issue));
+        }
+    }
+
     if( overWriteCurrentBattlemech && typeof io.currentFighter === "string" && io.currentFighter ) {
         for( const issue of new AerospaceFighter(io.currentFighter).getImportIssues() ) {
             restoreMessages.push(warning("Current fighter: " + issue));
@@ -469,6 +520,9 @@ export function restoreFullBackup(
         }
         if( typeof io.currentInfantry === "string" && io.currentInfantry ) {
             appGlobals.currentInfantry = new InfantryPlatoon(io.currentInfantry);
+        }
+        if( typeof io.currentBuilding === "string" && io.currentBuilding ) {
+            appGlobals.currentBuilding = new Building(io.currentBuilding);
         }
         if( io.currentVBattleMech ) {
             let bmObj = new BattleMech();
@@ -547,6 +601,9 @@ export function restoreFullBackup(
         appGlobals.saveInfantrySaves( appGlobals.infantrySaves );
         if( appGlobals.currentInfantry )
             appGlobals.saveCurrentInfantry( appGlobals.currentInfantry );
+        appGlobals.saveBuildingSaves( appGlobals.buildingSaves );
+        if( appGlobals.currentBuilding )
+            appGlobals.saveCurrentBuilding( appGlobals.currentBuilding );
         // let appSettingsObj = new AppSettings(io.appSettings);
         // appGlobals.saveAppSettings( appSettingsObj );
     }
@@ -806,6 +863,50 @@ export async function getCurrentBattleMech(
         "currentBattleMech"
     );
 
+}
+
+export function saveBuildingSaves(
+    appSettings: AppSettings,
+    newValue: IBuildingExport[]
+) {
+    saveData(appSettings, "buildingSaves", JSON.stringify(newValue) );
+}
+
+export async function getBuildingSaves(
+    appSettings: AppSettings,
+): Promise<IBuildingExport[]> {
+    let rv: IBuildingExport[] = [];
+
+    const rawData = await getData(appSettings, "buildingSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored buildings before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_BUILDING_SAVES ).map( (item) => normalizeBuildingExport( item ).building )
+            .filter( (item): item is IBuildingExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentBuilding(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentBuilding", newValue );
+}
+
+export async function getCurrentBuilding(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentBuilding"
+    );
 }
 
 export function saveInfantrySaves(

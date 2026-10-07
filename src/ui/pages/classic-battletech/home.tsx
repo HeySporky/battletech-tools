@@ -3,13 +3,14 @@ import { Link } from 'react-router';
 import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
-import { GiJetFighter, GiMissileMech, GiRank3, GiTank } from "react-icons/gi";
+import { GiBunker, GiJetFighter, GiMissileMech, GiRank3, GiTank } from "react-icons/gi";
 import { MdTableView } from 'react-icons/md';
 const MissileMechIcon = GiMissileMech as any;
 const TableViewIcon = MdTableView as any;
 const VehicleIcon = GiTank as any;
 const FighterIcon = GiJetFighter as any;
 const InfantryIcon = GiRank3 as any;
+const BuildingIcon = GiBunker as any;
 
 
 export default class ClassicBattleTechHome extends React.Component<IClassicBattleTechHomeProps, IClassicBattleTechHomeState> {
@@ -48,6 +49,11 @@ export default class ClassicBattleTechHome extends React.Component<IClassicBattl
                   <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/infantry-creator`}>
                     <InfantryIcon />
                     Infantry Creator
+                  </Link>
+
+                  <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator`}>
+                    <BuildingIcon />
+                    Building Creator
                   </Link>
 
                   <Link  to={`${process.env.PUBLIC_URL}/classic-battletech/roster`}>

@@ -68,6 +68,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     tag: "classic-battletech-infantry-creator",
                 },
                 {
+                    label: "Building Creator",
+                    url: "/classic-battletech/building-creator",
+                    tag: "classic-battletech-building-creator",
+                },
+                {
                     label: "Roster",
                     url: "/classic-battletech/roster",
                     tag: "classic-battletech-roster",
@@ -130,6 +135,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "Infantry Creator",
                     url: "/classic-battletech/infantry-creator",
                     tag: "classic-battletech-infantry-creator",
+                },
+                {
+                    label: "Building Creator",
+                    url: "/classic-battletech/building-creator",
+                    tag: "classic-battletech-building-creator",
                 },
                 {
                     label: "Roster",
