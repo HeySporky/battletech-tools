@@ -21,6 +21,9 @@ file: ignored by git, never commit it.
 - Upstream contributions: a fresh branch from `upstream/master`, one focused
   change per PR, no dependency on our fork-only architecture unless that
   architecture is part of the PR. Prepare, don't open, unless told to.
+- **No nested (stacked) PRs.** Every PR stands on its own against `upstream/master` and never depends on
+  another open PR being merged first. If two changes are related, put them in **one** PR; the upstream owner
+  prefers that to a chain (user, 2026-10-06). Split only when the changes are independent.
 - Never commit local-only material: `*_DEV/`, `.venv/`, `build/`, the nested
   `/battletech-tools/` copy, `.clinerules`, `cline_custom_modes.json`,
   `as_lookup_results.jsonl`, `*.bak`, or anything else in `.gitignore`.
@@ -105,6 +108,9 @@ unresolved and say so. Don't fill it with a "plausible" number.
 
 ## 4. Canon vs. custom homebrew
 
+- Rules levels (user, 2026-10-06; constants in `rules-level-options.ts`): 0-4 are canon as the books grade them,
+  **5 Apocryphal** (licensed, not canon), **6 Custom Homebrew** (fan-made, balanced), **7 Munchkin** (fan-made,
+  "cheese"). Each level includes those below; a non-canon item is only offered at its own level or above.
 - Custom content goes only in `mech-custom-*` catalogs, gated by the
   **Custom Homebrew** rules level (`rules-level-options.ts`, `tag: "custom"`).
   It never leaks into canon lists, validation, or BV/PV math for canon units.
@@ -151,7 +157,12 @@ Run what's relevant: `npm test`, `npm run lint`, `npx tsc --noEmit -p tsconfig.j
 Compare with the baseline below. Never claim "all green" when it isn't; report
 new failures separately from pre-existing ones.
 
-**Baseline as of 2026-09-30** — update this block when it changes:
+**Baseline as of 2026-10-06** — update this block when it changes:
+- `origin/master` (f159341d, JBTIICRework fixes merged): Vitest unit project 998 passed / 1 skipped / 0 failed
+  (browser projects not rerun); tsc 0 errors; ESLint on the whole repo 0 errors; Playwright Chromium 30 passed
+  with `--workers=2` (see memory `e2e-chromium-worker-stall` for why not the default worker count).
+
+Older entries:
 - `origin/master` (de97163c, clan eras merged): Vitest 471 passed / 0 failed across unit, chromium, firefox
   and webkit; tsc 0 errors; ESLint on `src` 0 errors.
 - `feature/clan-eras` (f0f7aa8d, upstream PR #94): Vitest 336 passed / 0 failed; tsc 0 errors; ESLint 0

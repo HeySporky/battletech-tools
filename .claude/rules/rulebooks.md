@@ -1,6 +1,6 @@
 # Rulebook library: where the books are and how to cite them
 
-The BattleTech rulebooks are local, in `_KNOWLEDGE_DEV/rulebooks/` (git-ignored). `INDEX.md` there is the full
+The BattleTech rulebooks are local, in `_KNOWLEDGE_DEV/rulebooks/` (git-ignored), sorted into category folders. `INDEX.md` there is the full
 catalog: every PDF, edition, errata sheet, and what each errata applies to. Read it before a source lookup. Never
 reference these files from shipped code.
 
@@ -26,11 +26,36 @@ Search the extracts before downloading anything or asking Ollama/Sarna:
 | CO | Campaign Operations | `text/BattleTech-Campaign-Operations.txt` | 2 |
 | ASCE | Alpha Strike: Commander's Edition (2024) | `text/Alpha-Strike-Commander-s-Edition.txt` | 1 |
 | AS / ASC | Alpha Strike (2013) / Alpha Strike Companion (2014) | `text/Alpha-Strike.txt`, `text/Alpha-Strike-Companion.txt` | 2 |
+| BMM | BattleMech Manual, corrected 7th printing (2023) | `text/BattleMech-Manual.txt` | 2 |
 | CRB | BattleTech Core Rulebook (2026) | `text/Battletech-Core-Rulebook.txt` | 1 |
 | Gothic | BattleTech Gothic (2025) | `text/BattleTech-Rulebook-Gothic.txt` | 1 |
 | Merc box / AGoAC | Mercenaries (2023) / A Game of Armored Combat (2018) box rulebooks | `text/BattleTech-Mercenaries-Rulebook.txt`, `text/CAT3500D-A-Game-of-Armored-Combat-Rulebook.txt` | 2 |
 | Aces / Aces SS | BattleTech: Aces rulebook / Scouring Sands campaign book (OCR text) | `text/Battletech-Aces-RuleBook.ocr.txt`, `text/battletech-aces-scouring-sands-campaign-books.ocr.txt` | 1 / 0 |
 | AS cards | DropShips & Small Craft, WarShips & JumpShips card PDFs | `text/E-CAT35AS001-*.txt`, `text/E-CAT35AS002-*.txt` | – |
+
+## Folders (reorganised 2026-10-06)
+
+The library holds about 870 files, sorted into folders. Text extracts stay flat in `text/<file name as slug>.txt`
+whatever folder the PDF is in, so the table above is unchanged. `INDEX.md` ends with a generated catalog of every
+file by folder; `_reorg-2026-10-06.json` maps old names to new paths and lists the 97 duplicates removed.
+
+| Folder | What | Standing |
+|---|---|---|
+| `rulebooks/` | Current Catalyst line, older printings of it, BMM, Core Rulebook, box sets, quick-start rules | Canon (newest printing wins) |
+| `alpha-strike/`, `errata/`, `errata-2025/` | Alpha Strike books and cards; errata sheets | Canon |
+| `rulebooks-legacy/` | Battledroids, BattleTech 2nd/3rd Edition, Rules of Warfare, Compendium, Master Rules, Maximum Tech, Tactical Handbook, CityTech, AeroTech 1/2, BattleSpace, BattleForce 2, BattleTroops, ClanTroops, FanPro Total Warfare / TechManual | Canon for its own edition only; superseded for current rules |
+| `rpg/` | MechWarrior 1st-3rd Edition, A Time of War and companions | Canon for the RPG |
+| `technical-readouts/` | TROs 2750-3150 and era volumes, 31 XTROs, Recognition Guides | Canon unit data; the old scans are OCR |
+| `record-sheets/`, `sourcebooks/`, `maps-and-art/` | Record sheet books; house books, field manuals, handbooks, era reports, historicals, scenario packs; maps | Canon where Catalyst/FanPro/FASA published it |
+| `apocryphal/` | BattleTechnology magazine, House Arano (HBS game), MechWarrior 2 manual, WizKids clix cards | **Apocryphal: rules level 5** |
+| `magazines/mechforce/` | MechForce UK Comnet, MechForce NA Mech magazine | Not canon; treat as Apocryphal at best, ask first |
+| `fan-made/`, `fan-made/magazines/`, `Custom/` | Fan rules, fan TROs, fanzines, personal designs | **Custom-only: rules level 6 or 7, with approval** |
+| `languages/de/`, `languages/es/` | German and Spanish newsletters, Punto Nadir, Perditecnia | Not canon; cite the English book where one exists |
+| `fiction/` | Novels and comics | Not a rules source |
+
+Cite a Technical Readout as *TRO:3050* (or the volume name), an Experimental TRO as *XTRO:Liao*, a Recognition Guide
+as *RG:ilClan v12*. For anything from `rulebooks-legacy/`, name the edition: "*BattleTech Compendium* (FASA 1640) p.N".
+A name that says "title unconfirmed" or "title truncated" must be opened and identified before it is cited.
 
 Older printings, as text only in `legacy-extracts/`:
 - TW corrected 3rd printing (offset 6);
@@ -44,7 +69,7 @@ Errata (offset 0, "Page N of M"):
 - TM BV 2.1 rev. 2017 and TM infantry tables rev. 2017;
 - TO v3.02 and the TO landing modifiers table;
 - SO v3.01 and the revised SO customization (refit) rules;
-- ASCE v7.0, AS v2.4 (first and second printing), ASC v1.2 and ASC converting heat v1.1;
+- ASCE v7.02 (2025, newest) and v7.0, AS v2.4 (first and second printing), ASC v1.2 and ASC converting heat v1.1;
 - BattleMech Manual v2.1 and its corrected p. 42 flowchart;
 - A Time of War v2.02.
 
@@ -53,7 +78,8 @@ The file for each is listed in `INDEX.md`.
 ## Which edition wins
 
 1. Cite the newest printing in the library: TW 11th, TM 6th, TO:AR / TO:AUE (not the original TO), SO:AA for
-   aerospace construction, ASCE (not AS/ASC) for Alpha Strike.
+   aerospace construction, ASCE (not AS/ASC) for Alpha Strike, BMM 7th. A file name is not proof of a printing
+   (`BattleMech Manual(old).pdf` is the 6th printing, not the oldest): read the credits page.
 2. Errata sheets name the printings they correct. A sheet written against an older printing (TW v5.1, TM v3.1,
    TO v3.02, SO v3.01) only applies to a current book if the current text still has the error. Check before
    applying it.
@@ -65,15 +91,20 @@ The file for each is listed in `INDEX.md`.
 
 - The Aces rulebook and Aces: Scouring Sands are scans; their `.ocr.txt` text is OCR. Body text is reliable,
   flowcharts and icons are not. Verify a quote against the PDF page before citing it.
-- Not in the library: BattleMech Manual, A Time of War, Interstellar Operations: Alpha Strike Edition, and the
-  original TO PDF (text only).
+- About 200 files are scans with no text layer (most FASA-era books, the old Technical Readouts, BattleTechnology).
+  OCR is run on request, not for the whole library; `INDEX.md` shows which have it. OCR is fine for prose and
+  unreliable for stat blocks: check numbers against the page image.
+- Offsets for the 2026-10-06 additions were measured automatically. `INDEX.md` marks the weak ones with `?`.
+- Not in the library: Interstellar Operations: Alpha Strike Edition.
 
 ## Keeping it current
 
 When PDFs are added:
-1. Run `python _KNOWLEDGE_DEV/rulebooks/extract_rulebooks.py _KNOWLEDGE_DEV/rulebooks`. It skips files
-   already extracted.
-2. Run `page_offsets.py` on `text/`.
+0. Move each new file into the matching folder and give it its real title (publisher and product number in
+   parentheses). Remove it if a better copy of the same book is already there.
+1. Run `python _KNOWLEDGE_DEV/rulebooks/extract_rulebooks.py _KNOWLEDGE_DEV/rulebooks`. It walks the folders and
+   skips files already extracted.
+2. Run `page_offsets.py` on `text/`, then `build_index.py` to refresh the catalog in `INDEX.md`.
    Scanned PDFs (no text layer) need OCR instead:
    `python _KNOWLEDGE_DEV/rulebooks/ocr_rulebooks.py _KNOWLEDGE_DEV/rulebooks "<file>.pdf"` (PyMuPDF and
    Tesseract, `C:\Program Files\Tesseract-OCR`).
