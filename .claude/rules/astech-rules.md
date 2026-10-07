@@ -52,6 +52,10 @@ Canon is the authoritative source of truth (ASOT), per the user (2026-09-27):
 7. The PDF index at temp.2000webdesign.com is mixed provenance; verify the
    publisher and document before using any field from it.
 
+**Obvious misprints (user errata ruling, 2026-10-07).** When a book plainly contradicts itself (a table against its
+own worked example, two rows swapped), enter the corrected value and record what the book prints and the evidence
+beside it (`errata` on an edition entry, `notes` elsewhere). If it is not obvious, enter it as printed and flag it.
+
 Never invent a stat, date, citation, filename, page number, or URL. A search
 snippet is a lead, not evidence. If you can't source a value, leave it
 unresolved and say so. Don't fill it with a "plausible" number.

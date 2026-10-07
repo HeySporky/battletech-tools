@@ -46,6 +46,11 @@ export interface IEditionStats {
     engineWeights?: { [rating: number]: number };
     /** Internal structure: boxes per location by tonnage. */
     structure?: { [tons: number]: IRawMechStructure };
+    /**
+     * An obvious misprint corrected in the fields above (user ruling, 2026-10-07): what the book prints, what was
+     * entered instead, and the evidence. Anything less than obvious stays as printed and goes in `notes`.
+     */
+    errata?: string;
     /** Rules the fields above cannot hold, each with its page. */
     notes?: string;
 }

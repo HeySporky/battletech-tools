@@ -126,6 +126,16 @@ describe("Rules editions", () => {
         expect(problems).toEqual([]);
     });
 
+    it("says what the book prints wherever a misprint was corrected", () => {
+        const corrected = labelled.flatMap(({ label, record }) => Object.entries(record.editionStats ?? {})
+            .filter(([, stats]) => stats?.errata).map(([tag]) => `${label} ${tag}`)).sort();
+        expect(corrected).toEqual([
+            "equipment ammo-machine-gun-standard battledroids",
+            "structure standard battledroids",
+            "structure standard battletech-2nd-edition",
+        ]);
+    });
+
     it("lists what a complete edition includes beyond the catalogs", () => {
         const battledroids = getRulesEditions().find(edition => edition.tag === "battledroids")!;
         expect(battledroids.complete).toBe(true);
@@ -223,16 +233,18 @@ describe("Rules editions: Battledroids, complete", () => {
     });
 
     // Internal Structure Table, BD p.24.
-    it("prints the Internal Structure Table, misprint included", () => {
+    // User ruling, 2026-10-07: an obvious misprint is corrected in the data and the printed value kept in
+    // `errata`. Battledroids prints 15 leg boxes at 60 tons and 14 at 65; its own worked example gives 60 tons 14.
+    it("holds the Internal Structure Table with the 60- and 65-ton leg misprint corrected", () => {
         const stats = getEditionStats(mechInternalStructureTypes.find(structure => structure.tag === "standard")!, "battledroids")!;
         expect(Object.keys(stats.structure!).map(Number)).toEqual(Array.from({ length: 20 }, (_, index) => 5 + index * 5));
         expect(stats.structure![5]).toEqual({ head: 3, ct: 3, torso: 2, arm: 1, leg: 1 });
         expect(stats.structure![25]).toEqual({ head: 3, ct: 8, torso: 6, arm: 4, leg: 6 });
         expect(stats.structure![55]).toEqual({ head: 3, ct: 18, torso: 13, arm: 9, leg: 13 });
-        // The table swaps the leg boxes of the 60- and 65-ton rows; the Merlin example gives 60 tons 14.
-        expect(stats.structure![60]).toEqual({ head: 3, ct: 20, torso: 14, arm: 10, leg: 15 });
-        expect(stats.structure![65]).toEqual({ head: 3, ct: 21, torso: 15, arm: 10, leg: 14 });
+        expect(stats.structure![60]).toEqual({ head: 3, ct: 20, torso: 14, arm: 10, leg: 14 });
+        expect(stats.structure![65]).toEqual({ head: 3, ct: 21, torso: 15, arm: 10, leg: 15 });
         expect(stats.structure![100]).toEqual({ head: 3, ct: 31, torso: 21, arm: 17, leg: 21 });
+        expect(stats.errata).toContain("prints 15 leg boxes at 60 tons and 14 at 65");
     });
 
     // BD p.24: cockpit 3 tons; gyro = rating / 100 rounded up; jump jets .5 tons per jump MP; extra heat sinks
@@ -297,11 +309,12 @@ describe("Rules editions: Second Edition, complete", () => {
         expect(ratings.filter(rating => mechEngineOptions.find(option => option.rating === rating)?.weight.standard !== stats.engineWeights![rating])).toEqual([]);
     });
 
-    // Internal Structure Table, BT2 p.38: 10 to 100 tons; the 60/65-ton leg misprint is still there.
-    it("prints the Internal Structure Table from 10 tons, misprint included", () => {
+    // Internal Structure Table, BT2 p.38: 10 to 100 tons; the 60/65-ton leg misprint is reprinted and corrected.
+    it("holds the Internal Structure Table from 10 tons, with the same misprint corrected", () => {
         const stats = getEditionStats(mechInternalStructureTypes.find(structure => structure.tag === "standard")!, "battletech-2nd-edition")!;
         expect(Object.keys(stats.structure!).map(Number)).toEqual(Array.from({ length: 19 }, (_, index) => 10 + index * 5));
-        expect([stats.structure![60].leg, stats.structure![65].leg]).toEqual([15, 14]);
+        expect([stats.structure![60].leg, stats.structure![65].leg]).toEqual([14, 15]);
+        expect(stats.errata).toContain("still prints 15 leg boxes at 60 tons and 14 at 65");
         const first = getEditionStats(mechInternalStructureTypes.find(structure => structure.tag === "standard")!, "battledroids")!;
         for (const tons of Object.keys(stats.structure!).map(Number)) {
             expect(stats.structure![tons], `${tons} tons`).toEqual(first.structure![tons]);

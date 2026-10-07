@@ -185,7 +185,8 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         editionStats: {
             battledroids: {
                 book: "BD", page: 20, name: "M.G. Rounds", weight: 1, criticals: 1, shotsPerTon: 200,
-                notes: "At least 1 ton for each ballistic weapon (BD p.25); the worked example there gives 1 ton as 100 shots, against 200 in the Weapons Table. One critical box per ton (BD pp.16-17). An exploding rack has a Damage Value of 2 (BD p.13).",
+                notes: "At least 1 ton for each ballistic weapon (BD p.25). One critical box per ton (BD pp.16-17). An exploding rack has a Damage Value of 2 (BD p.13).",
+                errata: "The worked example on BD p.25 gives 1 ton of machine gun ammunition as 100 shots. Entered as 200: the Weapons Table (BD pp.20, 27) and every record listing (BD pp.16-17) print 200.",
             },
             "battletech-2nd-edition": null,
         },

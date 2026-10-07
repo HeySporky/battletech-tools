@@ -21,6 +21,10 @@ import { IEditionStats, IEditionStatsTable } from "./data-interfaces";
  * cite (Total Warfare). An edition is entered whole, from its rulebook's page images, before the next is begun;
  * `complete` says which are done. Never tag from memory or from OCR text.
  *
+ * Stats are entered as printed, with one exception (user ruling, 2026-10-07): an obvious misprint is corrected,
+ * and the entry's `errata` says what the book prints and why it was changed. Anything less than obvious stays
+ * as printed with a note, such as the 6.5-ton 170 engine in Battledroids.
+ *
  * The core rulebooks replaced one another: the Core Rulebook's designer's notes (CRB p.247) give that line and
  * its years for 1987 to 2001 and date the Second Edition box set to 1985. The other years are the copyright
  * dates on the books' own credits pages. The Third Edition (1992) and Fourth Edition (1996) box sets were the

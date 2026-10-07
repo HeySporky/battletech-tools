@@ -139,7 +139,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
     editionStats: {
       battledroids: {
         book: "BD", page: 24, name: "Internal Structure",
-        // Internal Structure Table, BD p.24, as printed.
+        // Internal Structure Table, BD p.24, with the leg boxes of the 60- and 65-ton rows corrected (see errata).
         structure: {
           5: { head: 3, ct: 3, torso: 2, arm: 1, leg: 1 },
           10: { head: 3, ct: 4, torso: 3, arm: 1, leg: 2 },
@@ -152,8 +152,8 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
           45: { head: 3, ct: 14, torso: 11, arm: 7, leg: 11 },
           50: { head: 3, ct: 16, torso: 12, arm: 8, leg: 12 },
           55: { head: 3, ct: 18, torso: 13, arm: 9, leg: 13 },
-          60: { head: 3, ct: 20, torso: 14, arm: 10, leg: 15 },
-          65: { head: 3, ct: 21, torso: 15, arm: 10, leg: 14 },
+          60: { head: 3, ct: 20, torso: 14, arm: 10, leg: 14 },
+          65: { head: 3, ct: 21, torso: 15, arm: 10, leg: 15 },
           70: { head: 3, ct: 22, torso: 15, arm: 11, leg: 15 },
           75: { head: 3, ct: 23, torso: 16, arm: 12, leg: 16 },
           80: { head: 3, ct: 25, torso: 17, arm: 13, leg: 17 },
@@ -162,11 +162,12 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
           95: { head: 3, ct: 30, torso: 20, arm: 16, leg: 20 },
           100: { head: 3, ct: 31, torso: 21, arm: 17, leg: 21 },
         },
-        notes: "Weighs 10% of the battledroid's tonnage; every head has 3 boxes (BD p.24). The table prints 15 leg boxes at 60 tons and 14 at 65, but the worked example on the same page gives a 60-ton battledroid 14.",
+        notes: "Weighs 10% of the battledroid's tonnage; every head has 3 boxes (BD p.24).",
+        errata: "The table prints 15 leg boxes at 60 tons and 14 at 65. Entered as 14 and 15: the worked example on the same page gives the 60-ton Merlin 14, and every later table agrees.",
       },
       "battletech-2nd-edition": {
         book: "BT2", page: 38, name: "Internal Structure",
-        // Internal Structure Table, BT2 p.38, as printed: the 5-ton row is gone.
+        // Internal Structure Table, BT2 p.38: the 5-ton row is gone. Leg boxes at 60 and 65 tons corrected (see errata).
         structure: {
           10: { head: 3, ct: 4, torso: 3, arm: 1, leg: 2 },
           15: { head: 3, ct: 5, torso: 4, arm: 2, leg: 3 },
@@ -178,8 +179,8 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
           45: { head: 3, ct: 14, torso: 11, arm: 7, leg: 11 },
           50: { head: 3, ct: 16, torso: 12, arm: 8, leg: 12 },
           55: { head: 3, ct: 18, torso: 13, arm: 9, leg: 13 },
-          60: { head: 3, ct: 20, torso: 14, arm: 10, leg: 15 },
-          65: { head: 3, ct: 21, torso: 15, arm: 10, leg: 14 },
+          60: { head: 3, ct: 20, torso: 14, arm: 10, leg: 14 },
+          65: { head: 3, ct: 21, torso: 15, arm: 10, leg: 15 },
           70: { head: 3, ct: 22, torso: 15, arm: 11, leg: 15 },
           75: { head: 3, ct: 23, torso: 16, arm: 12, leg: 16 },
           80: { head: 3, ct: 25, torso: 17, arm: 13, leg: 17 },
@@ -188,7 +189,8 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
           95: { head: 3, ct: 30, torso: 20, arm: 16, leg: 20 },
           100: { head: 3, ct: 31, torso: 21, arm: 17, leg: 21 },
         },
-        notes: "Weighs 10 percent of the 'Mech's tonnage; every head has 3 boxes (BT2 p.38). The table still prints 15 leg boxes at 60 tons and 14 at 65, against 14 for the 60-ton worked example.",
+        notes: "Weighs 10 percent of the 'Mech's tonnage; every head has 3 boxes (BT2 p.38).",
+        errata: "The table still prints 15 leg boxes at 60 tons and 14 at 65. Entered as 14 and 15: the worked example on the same page gives the 60-ton Merlin 14, and every later table agrees.",
       },
     },
     book: "TM",
