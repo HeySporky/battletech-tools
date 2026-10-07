@@ -53,3 +53,53 @@ describe("Rules editions", () => {
         expect(unknown).toEqual([]);
     });
 });
+
+// Battledroids p.20, Weapons Table: the fourteen weapons of the first edition, as printed. Each row is
+// [tag, heat, minimum, short, medium, long, tons, critical spaces, shots per ton (0 = no ammo)]; damage is checked
+// for the weapons that print a number (missiles do damage per missile).
+//
+// The seven missile launchers printed lower heat in Battledroids than they have had since (LRM 1/2/4/6 against
+// 2/4/5/6, SRM 0/1/2 against 2/3/4). `heatSince` holds today's value for those. The tag says the weapon first
+// appeared in that edition, not that its numbers are unchanged; an edition selector needs these differences.
+describe("Rules editions: Battledroids weapons (Battledroids p.20, Weapons Table)", () => {
+    const table: [string, number, number, number, number, number, number, number, number][] = [
+        ["small-laser", 1, 0, 1, 2, 3, 0.5, 1, 0],
+        ["medium-laser", 3, 0, 3, 6, 9, 1, 1, 0],
+        ["large-laser", 8, 0, 5, 10, 15, 5, 2, 0],
+        ["standard-ppc", 10, 3, 6, 12, 18, 7, 3, 0],
+        ["lrm-5", 1, 6, 7, 14, 21, 2, 1, 24],
+        ["lrm-10", 2, 6, 7, 14, 21, 5, 2, 12],
+        ["lrm-15", 4, 6, 7, 14, 21, 7, 3, 8],
+        ["lrm-20", 6, 6, 7, 14, 21, 10, 5, 6],
+        ["srm-2", 0, 0, 3, 6, 9, 1, 1, 50],
+        ["srm-4", 1, 0, 3, 6, 9, 2, 1, 25],
+        ["srm-6", 2, 0, 3, 6, 9, 3, 2, 15],
+        ["autocannon-standard-b", 1, 3, 6, 12, 18, 8, 4, 20],
+        ["machine-gun", 0, 0, 1, 2, 3, 0.5, 1, 200],
+        ["standard-flamer", 3, 0, 1, 2, 3, 1, 1, 0],
+    ];
+    const heatSince: Record<string, number> = {
+        "lrm-5": 2, "lrm-10": 4, "lrm-15": 5, "srm-2": 2, "srm-4": 3, "srm-6": 4,
+    };
+    const damage: Record<string, number> = {
+        "small-laser": 3, "medium-laser": 5, "large-laser": 8, "standard-ppc": 10,
+        "autocannon-standard-b": 5, "machine-gun": 2, "standard-flamer": 2,
+    };
+    const records = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment);
+
+    it("tags exactly the fourteen weapons in the table", () => {
+        const tagged = records.filter(item => item.introducedInEdition === "battledroids").map(item => item.tag).sort();
+        expect(tagged).toEqual(table.map(row => row[0]).sort());
+    });
+
+    it.each(table)("%s matches the Battledroids table, heat changes aside", (tag, heat, min, short, medium, long, tons, spaces, shots) => {
+        const item = records.find(record => record.tag === tag && record.introducedInEdition === "battledroids")!;
+        expect(item).toBeDefined();
+        expect([item.range.min, item.range.short, item.range.medium, item.range.long, item.weight,
+            item.space.battlemech, item.shotsPerTon ?? 0]).toEqual([min, short, medium, long, tons, spaces, shots]);
+        expect(item.heat).toBe(heatSince[tag] ?? heat);
+        if (tag in damage) {
+            expect(item.damage).toBe(damage[tag]);
+        }
+    });
+});

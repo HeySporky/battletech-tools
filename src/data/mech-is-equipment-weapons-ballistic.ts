@@ -110,6 +110,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             "S"
         ],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 208,
         alphaStrike: {
@@ -954,6 +955,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             "AI"
         ],
         techRating: "b",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 228,
         alphaStrike: {

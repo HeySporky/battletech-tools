@@ -573,6 +573,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             "DE"
         ],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 226,
         alphaStrike: {
@@ -939,6 +940,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             "DE"
         ],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 226,
         alphaStrike: {
@@ -1272,6 +1274,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             "DE"
         ],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 226,
         alphaStrike: {
@@ -1606,6 +1609,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             "H"
         ],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 218,
         alphaStrike: {
@@ -1662,6 +1666,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
             "DE"
         ],
         techRating: "d",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 234,
         alphaStrike: {

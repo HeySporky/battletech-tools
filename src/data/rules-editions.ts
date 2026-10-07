@@ -43,7 +43,7 @@ export const btRulesEditions: IRulesEdition[] = [
         book: "BD",
     },
     {
-        // BattleTech, Second Edition box set: "that 1985 box set" (CRB p.247).
+        // BattleTech, Second Edition box set: "that 1985 box set" (CRB p.247); its rulebook prints "Copyright 1985".
         tag: "battletech-2nd-edition",
         name: "BattleTech, Second Edition",
         year: 1985,

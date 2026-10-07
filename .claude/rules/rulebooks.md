@@ -123,7 +123,9 @@ When PDFs are added:
    skips files already extracted.
 2. Run `page_offsets.py` on `text/`, then `build_index.py` to refresh the catalog in `INDEX.md`.
    Scanned PDFs (no text layer) need OCR instead:
-   `python _KNOWLEDGE_DEV/rulebooks/ocr_rulebooks.py _KNOWLEDGE_DEV/rulebooks "<file>.pdf"` (PyMuPDF and
-   Tesseract, `C:\Program Files\Tesseract-OCR`).
+   `python _KNOWLEDGE_DEV/rulebooks/ocr_ollama.py _KNOWLEDGE_DEV/rulebooks "<folder>/<file>.pdf"`. It uses the
+   local Ollama vision model `glm-ocr` (about 7 s a page), reads only pages with no text layer, resumes if
+   interrupted and falls back to Tesseract on a page the model fails on. `ocr_rulebooks.py` is Tesseract alone
+   (`C:\Program Files\Tesseract-OCR`). Then rebuild the search index.
 3. Dedupe by edition, not file name.
 4. Update `INDEX.md` and this table.

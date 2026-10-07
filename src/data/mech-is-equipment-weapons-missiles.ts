@@ -53,6 +53,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         explosive: false,
         weaponType: [],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 231,
         alphaStrike: {
@@ -173,6 +174,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         explosive: false,
         weaponType: [],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 231,
         alphaStrike: {
@@ -293,6 +295,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         explosive: false,
         weaponType: [],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 231,
         alphaStrike: {
@@ -413,6 +416,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         explosive: false,
         weaponType: [],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 231,
         alphaStrike: {
@@ -533,6 +537,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         explosive: false,
         weaponType: [],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 231,
         alphaStrike: {
@@ -651,6 +656,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         explosive: false,
         weaponType: [],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 231,
         alphaStrike: {
@@ -769,6 +775,7 @@ export const mechISEquipmentMissiles: IEquipmentItem[] = [
         explosive: false,
         weaponType: [],
         techRating: "c",
+        introducedInEdition: "battledroids",
         book: "TM",
         page: 231,
         alphaStrike: {
