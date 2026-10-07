@@ -13,6 +13,7 @@ import './home.scss';
 import BattleMechTableGroup from './_tableGroup';
 import { vehicleName } from './_vehicleGroupTable';
 import { fighterName } from './_fighterGroupTable';
+import { buildingSummary } from './_buildingGroupTable';
 const Dice = FaDice as any;
 const Print = FaPrint as any;
 const Heart = FaHeart as any;
@@ -431,6 +432,21 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
               <td className="min-width no-wrap text-center">{platoon.canMakeAntiMechAttacks() ? platoon.getAntiMechSkill() : "-"}</td>
               <td className="min-width no-wrap text-center">{platoon.getGunnery()}</td>
               <td className="min-width no-wrap text-center">{platoon.getSkillAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
+      {favGroup.buildings.map( (building) => (
+          <tbody key={building.getUUID()}>
+          <tr>
+              <td>
+                  {building.getDisplayName()}
+                  <div className='small-text'>{buildingSummary(building)}</div>
+              </td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center small-text">{building.getTech().name}</td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center">{building.getMinimumGunners() > 0 ? building.getGunnery() : "-"}</td>
+              <td className="min-width no-wrap text-center">-</td>
           </tr>
           </tbody>
       ))}

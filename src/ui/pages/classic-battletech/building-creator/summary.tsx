@@ -84,7 +84,7 @@ export default class BuildingCreatorSummary extends React.Component<ISummaryProp
                             </ul>
                             <p className="smaller-text">
                                 Tactical Operations: Advanced Rules p. 208. Its table prices no turrets, power amplifiers or heat sinks for
-                                buildings: those take their TechManual prices (pp. 279-280). The rules give buildings no Battle Value.
+                                buildings: those take their TechManual prices (pp. 279-280). No Battle Value method for buildings was found in the rulebooks.
                             </p>
 
                             <div className="clear-both overflow-hidden">

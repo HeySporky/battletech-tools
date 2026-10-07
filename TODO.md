@@ -266,8 +266,31 @@ played first, then by dependency.
 - [x] Advanced building construction (TO:AR pp.126-131; the original Tactical Operations pp. 128-131): the
   Building Creator, 2026-10-07. Steps 1 to 4 for every classification but Castles Brian. See "Gun emplacement /
   building" under Rules editions for what it covers and what is still owed.
-- [ ] Buildings in play: Advanced Building Classifications, armored buildings, scaled damage and the expanded
-  CF rules (TO:AR pp.112-125); buildings in the roster.
+- [x] Buildings in play (2026-10-07): saved buildings join a Classic BattleTech roster group, with a Gunnery
+  skill for their gunners, a play panel and a record sheet that marks the damage. Each hex tracks its Armor
+  Factor and Construction Factor. An attack is scaled by the classification (TO:AR p.124, a checkbox, on by
+  default), marks armor off first and then the CF (p.128), skips the armor when made from inside (p.119), and
+  calls for a roll on the Advanced Building Critical Hits Table when it reaches the CF and is above the hex's
+  Damage Threshold, the CF at the start of the turn / 10 rounded up (p.118). The table is resolved from the
+  players' dice or the app's: weapon malfunction and destruction (a Gauss rifle explodes), gunners stunned and
+  killed, turret jam and lock (a second jam locks), ammunition explosion into the CF (a tenth with CASE) and
+  other equipment. Ammunition is counted by the shot. The panel shows what a hex absorbs for a unit inside and
+  the damage to a unit entering it (pp.117, 124-125), and halves a hex's CF when a neighbor collapses (p.121).
+  Open, for a ruling: (1) the Damage Threshold is compared with the damage after scaling; the book says "the
+  damage inflicted". (2) Damage past the last of the armor carries on to the CF in the same attack (p.128 says
+  the armor "must be destroyed before the structure itself can sustain damage"). (3) An ammunition or Gauss
+  explosion is applied to the CF as rolled, with no scaling: the book says "directly". (4) A critical hit roll
+  an aimed shot lifts above 12 is read as 12; the table stops there. (5) No Battle Value rule for buildings
+  was found in the rulebooks searched, so a building adds nothing to a group's points or tonnage. MegaMek
+  values a gun emplacement with the usual method at no movement and half the defensive factor
+  (`GunEmplacementBVCalculator`); following it is a separate step if wanted.
+- [ ] Buildings in play, still owed: the Expanded Construction Factor rules (a CF for each level, top-down
+  collapse, total collapse), collapse splash damage and the domino effect (TO:AR pp.119-124), which need the
+  building's shape on the map; the Advanced Building Movement Table's feature modifiers (p.117); attacks on
+  equipment from inside (p.119); weapon fire by the building with to-hit numbers; Castles Brian capital scaling.
+- [ ] Buildings in Alpha Strike: ASCE pp.137-139 has no conversion from a constructed building. An armed
+  building's damage is chosen by the players, up to its Alpha Strike CF for each emplacement, with armor up
+  to the CF. Nothing is built.
 - [ ] Mobile Structures (Designing Mobile Structures, TO p. 259): type, Construction Factor, internal weight
   capacity, power and motive systems. Static buildings share its armor, heat sink and weapon rules.
 - [ ] Gun emplacements: construction is in the Building Creator (2026-10-07). Still owed: the BLK import of
@@ -743,9 +766,9 @@ Open:
       Not built yet: Light and Medium (infantry) weapons and pintle mounts, automated weapons, structural
       modifications (environmental sealing, heavy-metal superstructure, ceilings, open space, subsurface,
       tunnels), large doors and elevators, fuel storage tanks, crew for non-weapon equipment, the PCMT-fed
-      generator, a generator shared between buildings, basements, Castles Brian, Mobile Structures; the roster,
-      play mode (damage scaling, the gun emplacement as a stationary vehicle) and Alpha Strike. The rules give
-      buildings no Battle Value.
+      generator, a generator shared between buildings, basements, Castles Brian, Mobile Structures. The roster
+      and play mode were added the same day: see "Buildings in play" under Buildings, Gun Emplacements and
+      Mobile Structures, which also covers Battle Value and Alpha Strike.
       The Manual's own method (BTM pp.39-40, 83-84, 86: CF 1-150, 1-4 levels, 1-3 hexes, structure of levels x
       hexes x CF / 10 tons, walls of CF / 3 tons, turret armor at 16 points a ton, a power plant rated by energy
       weapon tonnage, the Gun Emplacement Damage Table and the Installation Cost Chart) was read from the page

@@ -94,8 +94,8 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                                 </select>
                             </label>
                             <p className="smaller-text">
-                                {classification.description} Damage to the building is multiplied by {classification.damageToBuilding}, damage
-                                passed to units inside by {classification.damageToUnits} (TO:AR p. 113).
+                                {classification.description} Damage to the building, and to units inside it, is multiplied by {classification.damageToBuilding};
+                                damage the building does to a unit, as when one crashes through its walls, by {classification.damageToUnits} (TO:AR pp. 113, 124).
                             </p>
 
                             {classification.types.length > 1 ? (

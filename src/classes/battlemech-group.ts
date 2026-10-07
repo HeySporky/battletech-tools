@@ -3,11 +3,13 @@ import { BattleMech, IBattleMechExport } from "./battlemech";
 import Vehicle, { IVehicleExport } from "./vehicle";
 import AerospaceFighter, { IAerospaceFighterExport } from "./aerospace-fighter";
 import InfantryPlatoon, { IInfantryPlatoonExport } from "./infantry-platoon";
+import Building, { IBuildingExport } from "./building";
 
 /** Most vehicles read from one saved group; far above any real lance or company. */
 export const MAX_GROUP_VEHICLES = 100;
 export const MAX_GROUP_FIGHTERS = 100;
 export const MAX_GROUP_INFANTRY = 100;
+export const MAX_GROUP_BUILDINGS = 100;
 
 export interface ICBTGroupExport {
 	name: string;
@@ -15,6 +17,7 @@ export interface ICBTGroupExport {
 	vehicles?: IVehicleExport[];
 	fighters?: IAerospaceFighterExport[];
 	infantry?: IInfantryPlatoonExport[];
+	buildings?: IBuildingExport[];
 	uuid: string;
 	lastUpdated: Date;
 	location?: string;
@@ -32,6 +35,8 @@ export class BattleMechGroup {
     public vehicles: Vehicle[] = [];
     public fighters: AerospaceFighter[] = [];
     public infantry: InfantryPlatoon[] = [];
+    // Gun emplacements and other buildings. No Battle Value method for them was found in the rulebooks, and they are not counted in tonnage.
+    public buildings: Building[] = [];
 
 	public customName : string= "";
 
@@ -49,7 +54,7 @@ export class BattleMechGroup {
 			}
 		}
 		return this.vehicles.some( (vehicle) => vehicle.isDamaged() ) || this.fighters.some( (fighter) => fighter.isDamaged() )
-			|| this.infantry.some( (platoon) => platoon.isDamaged() );
+			|| this.infantry.some( (platoon) => platoon.isDamaged() ) || this.buildings.some( (building) => building.isDamaged() );
 	}
 	public getName(
 		indexNumber: number,
@@ -78,6 +83,9 @@ export class BattleMechGroup {
 		}
 		for( let platoon of this.infantry ) {
 			platoon.newUUID();
+		}
+		for( let building of this.buildings ) {
+			building.newUUID();
 		}
 		this.lastUpdated = new Date();
 	}
@@ -127,6 +135,7 @@ export class BattleMechGroup {
         const techNames = [
             ...[...this.members, ...this.vehicles, ...this.fighters].map( (unit) => unit.getTech().name ),
             ...this.infantry.map( (platoon) => platoon.getTechName() ),
+            ...this.buildings.map( (building) => building.getTech().name ),
         ];
         for( let tech of techNames ) {
             if( rv !== tech && rv !== "" ) {
@@ -169,6 +178,13 @@ export class BattleMechGroup {
 				this.infantry.push( new InfantryPlatoon( JSON.stringify(platoon) ) );
 			}
 		}
+		// Buildings likewise.
+		const buildings = Array.isArray(importObj.buildings) ? importObj.buildings.slice(0, MAX_GROUP_BUILDINGS) : [];
+		for( let building of buildings ) {
+			if( building && typeof building === "object" && !Array.isArray(building) ) {
+				this.buildings.push( new Building( JSON.stringify(building) ) );
+			}
+		}
         if( importObj.uuid ) {
             this.uuid = importObj.uuid;
         }
@@ -195,6 +211,7 @@ export class BattleMechGroup {
 			vehicles: this.vehicles.map( (vehicle) => vehicle.export(noInPlayVariabless) ),
 			fighters: this.fighters.map( (fighter) => fighter.export(noInPlayVariabless) ),
 			infantry: this.infantry.map( (platoon) => platoon.export(noInPlayVariabless) ),
+			buildings: this.buildings.map( (building) => building.export(noInPlayVariabless) ),
 		}
 
 		for( let unit of this.members ) {
@@ -208,7 +225,7 @@ export class BattleMechGroup {
     }
 
 	public getTotalUnits(): number {
-        return this.members.length + this.vehicles.length + this.fighters.length + this.infantry.length;
+        return this.members.length + this.vehicles.length + this.fighters.length + this.infantry.length + this.buildings.length;
     }
 
 }

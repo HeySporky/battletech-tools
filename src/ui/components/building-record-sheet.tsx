@@ -1,8 +1,9 @@
 import React, { type JSX } from 'react';
 import Building from '../../classes/building';
 
-const boxes = (count: number): JSX.Element[] => Array.from({ length: count }, (_unused, index) => (
-    <span key={index} style={{ display: "inline-block", width: "0.75em", height: "0.75em", border: "1px solid #000", borderRadius: "50%", margin: "0 0.12em 0.12em 0" }} />
+// The last `lost` circles are filled in.
+const boxes = (count: number, lost: number = 0): JSX.Element[] => Array.from({ length: count }, (_unused, index) => (
+    <span key={index} style={{ display: "inline-block", width: "0.75em", height: "0.75em", border: "1px solid #000", borderRadius: "50%", margin: "0 0.12em 0.12em 0", background: index >= count - lost ? "#000" : undefined }} />
 ));
 
 // A Structure Record Sheet for a static building (TO:AR pp.112, 131): the Structure Data block, the Weapons and
@@ -16,10 +17,24 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
         const cell: React.CSSProperties = { border: "1px solid #000", padding: "0.15em 0.4em", verticalAlign: "top" };
         const equipment = building.getEquipment();
         const generator = building.getGenerator();
+        const showDamage = !!this.props.showDamage;
+        const armorLost = (hex: number): number => showDamage ? building.getArmorPoints() - building.getHexArmor(hex) : 0;
+        const cfLost = (hex: number): number => showDamage ? building.getCF() - building.getHexCF(hex) : 0;
+        // What play has done to a hex beyond its circles.
+        const condition = (hex: number): string => {
+            const state = building.getHexState(hex);
+            return [
+                ...(building.isHexDestroyed(hex) ? [building.isGunEmplacement() ? "Destroyed" : "Collapsed"] : []),
+                ...(state.gunnersKilled ? ["Gunners killed"] : []),
+                ...(state.gunnersStunned > 0 ? [`Gunners stunned (${state.gunnersStunned})`] : []),
+                ...(state.turretLocked ? ["Turret locked"] : state.turretJammed ? ["Turret jammed"] : []),
+                ...(state.ammoExploded ? ["Ammunition lost"] : []),
+            ].join(", ");
+        };
 
         return (
             <div className="print-page">
-                <h2>{building.getName() || `${type.tag === "none" ? "" : type.name + " "}${classification.name}`}</h2>
+                <h2>{building.getDisplayName()}</h2>
                 <p data-testid="building-sheet-data">
                     <strong>Structure Type</strong>: {classification.name}{type.tag === "none" ? "" : `, ${type.name}`} &nbsp;|&nbsp;
                     <strong>Tech Base</strong>: {building.getTech().name} &nbsp;|&nbsp;
@@ -32,8 +47,9 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                 <p>
                     <strong>Power</strong>: {generator ? `${generator.name} generator, ${building.getGeneratorWeight()} tons` : "Local grid"} &nbsp;|&nbsp;
                     <strong>Heat Sinks</strong>: {building.getHeatSinks()}{building.getHeatSinks() > 0 ? ` ${building.getHeatSinkType().name}` : ""} &nbsp;|&nbsp;
-                    <strong>Damage Scaling</strong>: x{classification.damageToBuilding} to the building, x{classification.damageToUnits} to units inside &nbsp;|&nbsp;
+                    <strong>Damage Scaling</strong>: x{classification.damageToBuilding} to the building, x{classification.damageToUnits} to units the building damages &nbsp;|&nbsp;
                     <strong>Minimum Crew</strong>: {building.getMinimumGunners()} gunners, {building.getMinimumOfficers()} officers &nbsp;|&nbsp;
+                    {showDamage && building.getMinimumGunners() > 0 ? <><strong>Gunnery</strong>: {building.getGunnery()} &nbsp;|&nbsp;</> : null}
                     <strong>Cost</strong>: {building.getCBillCost().toLocaleString("en-US")} C-bills
                 </p>
                 <p>
@@ -53,7 +69,11 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                         {equipment.map((mount) => (
                             <tr key={mount.item.uuid}>
                                 <td style={cell}>{mount.hex}</td>
-                                <td style={cell}>{mount.item.name}{mount.turret ? " (T)" : ""}{mount.item.isAmmo && mount.item.roundsPerTon ? ` (${mount.item.roundsPerTon} rounds)` : ""}</td>
+                                <td style={cell}>
+                                    {mount.item.name}{mount.turret ? " (T)" : ""}{mount.item.isAmmo && mount.item.roundsPerTon ? ` (${mount.item.roundsPerTon} rounds)` : ""}
+                                    {showDamage && mount.item.isAmmo && building.getAmmoCapacity(mount.item.uuid || "") > 0 ? `, ${building.getAmmoShots(mount.item.uuid || "")} of ${building.getAmmoCapacity(mount.item.uuid || "")} shots left` : ""}
+                                    {showDamage && !mount.item.isAmmo && building.getMountStatus(mount.item.uuid || "") ? <strong> - {building.getMountStatus(mount.item.uuid || "")}</strong> : null}
+                                </td>
                                 <td style={cell}>{mount.item.isAmmo ? "" : mount.item.heat}</td>
                                 <td style={cell}>{mount.item.isAmmo || typeof mount.item.damage === "object" ? "" : mount.item.damage}</td>
                                 <td style={cell}>{mount.item.isAmmo ? "" : mount.item.range?.min ?? ""}</td>
@@ -75,10 +95,17 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                     </thead>
                     <tbody>
                         {hexes.map((hex) => (
-                            <tr key={hex}>
+                            <tr key={hex} data-testid="building-sheet-hex">
                                 <td style={{ ...cell, textAlign: "center" }}>{hex}</td>
-                                <td style={cell}>{building.getArmorPoints() > 0 ? boxes(building.getArmorPoints()) : "None"}</td>
-                                <td style={cell}>{boxes(building.getCF())}</td>
+                                <td style={cell}>
+                                    {building.getArmorPoints() > 0 ? boxes(building.getArmorPoints(), armorLost(hex)) : "None"}
+                                    {armorLost(hex) > 0 ? <div>{building.getHexArmor(hex)} left</div> : null}
+                                </td>
+                                <td style={cell}>
+                                    {boxes(building.getCF(), cfLost(hex))}
+                                    {cfLost(hex) > 0 ? <div>{building.getHexCF(hex)} left</div> : null}
+                                    {showDamage && condition(hex) ? <div><strong>{condition(hex)}</strong></div> : null}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
@@ -90,4 +117,6 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
 
 interface IBuildingRecordSheetProps {
     building: Building;
+    /** Fill in the armor and Construction Factor lost in play, and list critical hits. */
+    showDamage?: boolean;
 }

@@ -33,6 +33,8 @@ import { fighterName } from './_fighterGroupTable';
 import FighterPlayPanel from './_fighterPlay';
 import InfantryPlatoon from '../../../../classes/infantry-platoon';
 import InfantryPlayPanel from './_infantryPlay';
+import Building from '../../../../classes/building';
+import BuildingPlayPanel from './_buildingPlay';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -436,6 +438,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           for( let fighter of group.fighters ) {
             fighter.turnReset();
           }
+          for( let building of group.buildings ) {
+            building.startTurn();
+          }
         }
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -738,7 +743,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon | Building ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -777,6 +782,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let platoon of group.infantry ) {
             platoon.resetInPlay();
+          }
+          for( let building of group.buildings ) {
+            building.resetInPlay();
           }
           if( this.props.appGlobals.currentCBTForce )
             this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
@@ -1211,6 +1219,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         for( let platoon of group.infantry ) {
           if( platoon.getUUID() === this.state.selectedVehicleUUID ) {
             selectedInfantry = platoon;
+          }
+        }
+      }
+      // And a building.
+      let selectedBuilding: Building | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let building of group.buildings ) {
+          if( building.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedBuilding = building;
           }
         }
       }
@@ -2686,7 +2703,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 </TextSection>
 
 <div className="selected-mech">
-          {selectedInfantry ? (
+          {selectedBuilding ? (
+            <BuildingPlayPanel
+              key={selectedBuilding.getUUID()}
+              building={selectedBuilding}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedInfantry ? (
             <InfantryPlayPanel
               key={selectedInfantry.getUUID()}
               platoon={selectedInfantry}
@@ -2901,6 +2924,36 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                               currentNumber={platoon.getCurrentTroopers()}
                               height={8}
                               title="Troopers Remaining"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.buildings.map( (building) => (
+                    <li key={building.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, building.getUUID())}
+                        className={selectedBuilding && selectedBuilding.getUUID() === building.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + building.getDisplayName()}
+                      >
+                        {building.getDisplayName()}
+                        <div className="stats">
+{building.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={building.getStrengthPercentage()}
+                              currentNumber={building.getCurrentPoints()}
+                              height={8}
+                              title="Armor and Construction Factor Remaining"
                             />
                           </div>
 )}
