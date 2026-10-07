@@ -111,17 +111,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         }
 
-        window.addEventListener('offline', () => {
-            this.setState({
-                updated: true,
-            })
-        });
-        window.addEventListener('online', () => {
-            this.setState({
-                updated: true,
-            })
-        });
-
         this.setData( appSettings, appGlobals );
 /*
         init().then(
@@ -156,6 +145,31 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         );
 */
+    }
+
+    private _unmounted = false;
+    private _sswImportTimer: ReturnType<typeof setTimeout> | null = null;
+
+    private _onConnectionChange = (): void => {
+        this.setState({
+            updated: true,
+        })
+    }
+
+    componentDidMount(): void {
+        this._unmounted = false;
+        window.addEventListener('offline', this._onConnectionChange);
+        window.addEventListener('online', this._onConnectionChange);
+    }
+
+    componentWillUnmount(): void {
+        this._unmounted = true;
+        window.removeEventListener('offline', this._onConnectionChange);
+        window.removeEventListener('online', this._onConnectionChange);
+        if( this._sswImportTimer !== null ) {
+            clearTimeout( this._sswImportTimer );
+            this._sswImportTimer = null;
+        }
     }
 
     setData = async (
@@ -247,6 +261,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         // console.log("initial appGlobals loaded")
 
+        if( this._unmounted )
+            return;
+
         this.setState({
             appGlobals: appGlobals,
         })
@@ -256,6 +273,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         // in one go blocked the main thread for several seconds on desktop (far longer on phones), freezing the UI.
         let nextSSWIndex = 0;
         const importSSWSlice = () => {
+            this._sswImportTimer = null;
             const sliceEnd = performance.now() + 12;
             while( nextSSWIndex < sswMechs.length && performance.now() < sliceEnd ) {
                 const sswXML = sswMechs[nextSSWIndex++];
@@ -271,14 +289,14 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
 
             if( nextSSWIndex < sswMechs.length ) {
-                setTimeout( importSSWSlice, 0 );
+                this._sswImportTimer = setTimeout( importSSWSlice, 0 );
             } else {
                 this.setState({
                     appGlobals: appGlobals,
                 })
             }
         };
-        setTimeout( importSSWSlice, 500 );
+        this._sswImportTimer = setTimeout( importSSWSlice, 500 );
 
 
 
