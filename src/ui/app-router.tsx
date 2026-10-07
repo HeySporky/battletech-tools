@@ -9,7 +9,6 @@ import { BattleMechForce, ICBTForceExport } from "../classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import Vehicle, { IVehicleExport } from "../classes/vehicle";
 import { CONST_SITE_TITLE } from '../configVars';
-import { sswMechs } from "../data/ssw/sswMechs";
 import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentVehicle, getFavoriteASGroups, getFavoriteCBTGroups, getVehicleSaves, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentVehicle, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
@@ -271,6 +270,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         // Import the bundled SSW mechs in ~12 ms slices, yielding to the browser between slices. Importing all of them
         // in one go blocked the main thread for several seconds on desktop (far longer on phones), freezing the UI.
+        // The 2 MB of XML is fetched as its own chunk after startup, so it is not part of the entry bundle.
+        let sswMechs: string[] = [];
         let nextSSWIndex = 0;
         const importSSWSlice = () => {
             this._sswImportTimer = null;
@@ -296,7 +297,17 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 })
             }
         };
-        this._sswImportTimer = setTimeout( importSSWSlice, 500 );
+        this._sswImportTimer = setTimeout( () => {
+            this._sswImportTimer = null;
+            import("../data/ssw/sswMechs").then( (sswModule) => {
+                if( this._unmounted )
+                    return;
+                sswMechs = sswModule.sswMechs;
+                importSSWSlice();
+            }).catch( (error) => {
+                console.error("Unable to load the bundled SSW 'Mechs", error);
+            });
+        }, 500 );
 
 
 
