@@ -103,6 +103,32 @@ export const INFANTRY_SPECIAL_FEATURES: Record<string, string> = {
     N: "Non-penetrating: affects other conventional infantry only",
 };
 
+/** How an attack against the platoon is counted (Total Warfare pp.215-217). */
+export type InfantryAttackKind = "direct" | "physical" | "cluster-ballistic" | "pulse" | "cluster-missile" | "area-effect" | "burst" | "infantry" | "heat";
+
+// Non-Infantry Weapon Damage Against Infantry Table (TW p.216). "formula" kinds take the weapon's Damage Value;
+// the others take damage that is already worked out (dice for a burst-fire weapon, a platoon's own damage, or
+// the figure a heat-effect weapon's entry gives).
+export const INFANTRY_ATTACK_KINDS: { tag: InfantryAttackKind; name: string; formula: string; nonInfantryWeapon: boolean }[] = [
+    { tag: "direct", name: "Direct Fire (Ballistic or Energy)", formula: "Damage Value / 10", nonInfantryWeapon: true },
+    { tag: "physical", name: "BattleMech Physical Attack", formula: "Damage Value / 10", nonInfantryWeapon: true },
+    { tag: "cluster-ballistic", name: "Cluster (Ballistic)", formula: "Damage Value / 10 + 1", nonInfantryWeapon: true },
+    { tag: "pulse", name: "Pulse", formula: "Damage Value / 10 + 2", nonInfantryWeapon: true },
+    { tag: "cluster-missile", name: "Cluster (Missile)", formula: "Damage Value / 5", nonInfantryWeapon: true },
+    { tag: "area-effect", name: "Area-Effect (AE)", formula: "Damage Value / 0.5", nonInfantryWeapon: true },
+    { tag: "burst", name: "Burst-Fire Weapon", formula: "the dice rolled on the Burst-Fire Weapon table", nonInfantryWeapon: false },
+    { tag: "infantry", name: "Conventional Infantry", formula: "the attacking platoon's damage", nonInfantryWeapon: false },
+    { tag: "heat", name: "Heat-Effect Weapon", formula: "the damage its entry gives against infantry", nonInfantryWeapon: false },
+];
+
+/** Most damage one attack may be entered with. */
+export const INFANTRY_MAX_ATTACK_DAMAGE = 1000;
+
+export interface IInfantryInPlay {
+    /** Damage points marked on each record sheet line; a mechanized trooper takes 2 to eliminate. */
+    damage: number[];
+}
+
 export interface IInfantryPlatoonExport {
     uuid: string;
     lastUpdated: string;
@@ -118,6 +144,7 @@ export interface IInfantryPlatoonExport {
     antiMechKit: boolean;
     gunnery: number;
     antiMech: number;
+    inPlay?: IInfantryInPlay;
 }
 
 const savedString = (value: unknown, fallback: string = ""): string => typeof value === "string" ? value : fallback;
@@ -143,7 +170,7 @@ export const normalizeInfantryPlatoonExport = (raw: unknown): { platoon: IInfant
         return { platoon: null, issues: ["Skipped a saved platoon that could not be read"] };
     }
     const loaded = new InfantryPlatoon(json);
-    return { platoon: loaded.export(), issues: [...loaded.getImportIssues()] };
+    return { platoon: loaded.export(true), issues: [...loaded.getImportIssues()] };
 };
 
 export default class InfantryPlatoon {
@@ -162,6 +189,7 @@ export default class InfantryPlatoon {
     private _antiMechKit: boolean = false;
     private _gunnery: number = 4;
     private _antiMech: number = 5;
+    private _inPlay: IInfantryInPlay = { damage: [] };
     private _importIssues: string[] = [];
 
     constructor(importJSON: string = "") {
@@ -187,6 +215,7 @@ export default class InfantryPlatoon {
 
     public getTechBase(): InfantryTechBase { return this._techBase; }
     public isClan(): boolean { return this._techBase === "clan"; }
+    public getTechName(): string { return this.isClan() ? "Clan" : "Inner Sphere"; }
     public getMotive(): IInfantryMotiveType { return this._motive; }
     public isMechanized(): boolean { return this._motive.mechanized; }
     public getFormation(): IInfantryFormation { return this._formation; }
@@ -223,6 +252,7 @@ export default class InfantryPlatoon {
         const [squadSize, squads] = this._formation.sizes[this._motive.tag];
         this._squadSize = squadSize;
         this._squads = squads;
+        this.resetInPlay();
         this._clampSecondaryCount();
     }
 
@@ -237,8 +267,12 @@ export default class InfantryPlatoon {
     public setSquadSize(size: number): void {
         this._squadSize = savedNumber(size, this._squadSize, 1, this._motive.maxSquadSize);
         this._clampSecondaryCount();
+        this.resetInPlay();
     }
-    public setSquads(count: number): void { this._squads = savedNumber(count, this._squads, 1, INFANTRY_MAX_SQUADS); }
+    public setSquads(count: number): void {
+        this._squads = savedNumber(count, this._squads, 1, INFANTRY_MAX_SQUADS);
+        this.resetInPlay();
+    }
     public getTroopers(): number { return this._squadSize * this._squads; }
 
     /**
@@ -599,10 +633,99 @@ export default class InfantryPlatoon {
         return notes;
     }
 
+    // Play (Total Warfare pp.215-217)
+
+    public getInPlay(): IInfantryInPlay { return this._inPlay; }
+    public resetInPlay(): void { this._inPlay = { damage: [] }; }
+
+    /**
+     * Damage points that eliminate one trooper. Against infantry and burst-fire attacks each mechanized trooper
+     * takes twice the damage (TW p.217), so mechanized platoons are tracked in half-troopers.
+     */
+    public getDamagePointsPerTrooper(): number { return this.isMechanized() ? 2 : 1; }
+
+    public getLineDamage(line: number): number {
+        const troopers = this.getSubPlatoons()[line] ?? 0;
+        return Math.min(Math.max(0, this._inPlay.damage[line] ?? 0), troopers * this.getDamagePointsPerTrooper());
+    }
+    public setLineDamage(line: number, points: number): void {
+        const lines = this.getSubPlatoons();
+        if (line < 0 || line >= lines.length) return;
+        const damage = lines.map((_troopers, index) => this.getLineDamage(index));
+        damage[line] = savedNumber(points, damage[line], 0, lines[line] * this.getDamagePointsPerTrooper());
+        this._inPlay.damage = damage;
+    }
+    /** Troopers still active on a record sheet line. */
+    public getLineTroopers(line: number): number {
+        const troopers = this.getSubPlatoons()[line] ?? 0;
+        return troopers - Math.floor(this.getLineDamage(line) / this.getDamagePointsPerTrooper());
+    }
+    public setLineTroopers(line: number, troopers: number): void {
+        const full = this.getSubPlatoons()[line] ?? 0;
+        this.setLineDamage(line, (full - savedNumber(troopers, full, 0, full)) * this.getDamagePointsPerTrooper());
+    }
+    /** Damage the line does on a successful attack with the troopers it has left. */
+    public getLineAttackDamage(line: number): number { return this.getDamageForTroopers(this.getLineTroopers(line)); }
+    public getCurrentTroopers(): number { return this.getSubPlatoons().reduce((sum, _troopers, line) => sum + this.getLineTroopers(line), 0); }
+    public isLineDestroyed(line: number): boolean { return this.getLineTroopers(line) <= 0; }
+    public isDestroyed(): boolean { return this.getCurrentTroopers() <= 0; }
+    public isDamaged(): boolean { return this.getSubPlatoons().some((_troopers, line) => this.getLineDamage(line) > 0); }
+    public getStrengthPercentage(): number {
+        const troopers = this.getTroopers();
+        return troopers > 0 ? Math.round(this.getCurrentTroopers() / troopers * 100) : 0;
+    }
+
+    /**
+     * Applies one successful attack to a record sheet line and says what it did. A non-infantry weapon eliminates
+     * troopers by the Non-Infantry Weapon Damage Against Infantry Table, fractions rounded up and doubled against
+     * mechanized infantry; a burst-fire, infantry or heat-effect attack applies its damage point for point. Either
+     * is doubled against a platoon in Clear terrain (TW pp.216-217).
+     */
+    public resolveAttack(line: number, kind: InfantryAttackKind, damage: number, clearTerrain: boolean = false): string[] {
+        const lines = this.getSubPlatoons();
+        const attack = INFANTRY_ATTACK_KINDS.find((item) => item.tag === kind);
+        if (!attack || line < 0 || line >= lines.length) return [];
+        const value = savedNumber(damage, 0, 0, INFANTRY_MAX_ATTACK_DAMAGE);
+        const perTrooper = this.getDamagePointsPerTrooper();
+        const log: string[] = [];
+        let points: number;
+        if (attack.nonInfantryWeapon) {
+            let troopers: number;
+            if (kind === "cluster-ballistic") troopers = Math.ceil(value / 10) + 1;
+            else if (kind === "pulse") troopers = Math.ceil(value / 10) + 2;
+            else if (kind === "cluster-missile") troopers = Math.ceil(value / 5);
+            else if (kind === "area-effect") troopers = value * 2;
+            else troopers = Math.ceil(value / 10);
+            if (value <= 0) troopers = 0;
+            log.push(`${attack.name}, Damage Value ${value}: ${attack.formula} = ${troopers} ${troopers === 1 ? "trooper" : "troopers"} hit`);
+            if (this.isMechanized() && troopers > 0) {
+                troopers *= 2;
+                log.push(`Mechanized infantry: doubled to ${troopers}`);
+            }
+            points = troopers * perTrooper;
+        } else {
+            points = value;
+            log.push(`${attack.name}: ${value} damage`);
+            if (this.isMechanized() && value > 0) log.push("Mechanized infantry: each trooper takes 2 points to eliminate");
+        }
+        if (clearTerrain && points > 0) {
+            points *= 2;
+            log.push("Clear terrain: damage doubled");
+        }
+        const before = this.getLineTroopers(line);
+        this.setLineDamage(line, this.getLineDamage(line) + points);
+        const after = this.getLineTroopers(line);
+        log.push(`${before - after} ${before - after === 1 ? "trooper" : "troopers"} eliminated: ${after} of ${lines[line]} remain`);
+        if (after <= 0) log.push(lines.length > 1 ? `Sub-platoon ${line + 1} is destroyed` : "The platoon is destroyed");
+        return log;
+    }
+
     // Saving
 
-    public export(): IInfantryPlatoonExport {
+    public export(noInPlayVariables: boolean = false): IInfantryPlatoonExport {
+        const inPlay = noInPlayVariables || !this.isDamaged() ? undefined : { damage: this.getSubPlatoons().map((_troopers, line) => this.getLineDamage(line)) };
         return {
+            ...(inPlay ? { inPlay } : {}),
             uuid: this._uuid,
             lastUpdated: this.lastUpdated.toISOString(),
             name: this._name,
@@ -681,6 +804,12 @@ export default class InfantryPlatoon {
         this._antiMechKit = raw.antiMechKit === true && !this.isMechanized();
         this._gunnery = savedNumber(raw.gunnery, 4, 0, 8);
         this._antiMech = savedNumber(raw.antiMech, 5, 0, 8);
+
+        this._inPlay = { damage: [] };
+        if (isPlainObject(raw.inPlay) && Array.isArray(raw.inPlay.damage)) {
+            const saved = raw.inPlay.damage;
+            this.getSubPlatoons().forEach((_troopers, line) => this.setLineDamage(line, savedNumber(saved[line], 0, 0, INFANTRY_MAX_ATTACK_DAMAGE)));
+        }
         return true;
     }
 }

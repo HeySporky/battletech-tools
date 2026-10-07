@@ -10,6 +10,7 @@ import RulesLevelStamp, { getHighestRulesLevel, printWithRulesLevelGuard } from 
 import VehicleRecordSheet from "../../../components/vehicle-record-sheet";
 import { vehicleName } from "./_vehicleGroupTable";
 import FighterRecordSheet from "../../../components/fighter-record-sheet";
+import InfantryRecordSheet from "../../../components/infantry-record-sheet";
 import { fighterName } from "./_fighterGroupTable";
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const PrintIcon = FaPrint as any;
@@ -32,6 +33,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         ...groups.flatMap( (group) => group.members ).map( (unit) => unit.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.vehicles ).map( (vehicle) => vehicle.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.fighters ).map( (fighter) => fighter.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.infantry ).map( (platoon) => platoon.getRequiredRulesLevel() ),
       ];
       printWithRulesLevelGuard(
         getHighestRulesLevel( rulesLevels ),
@@ -214,6 +216,33 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       </tr>
                     </tbody>
                     ))}
+                    {group.infantry.map( (platoon) => (
+                    <tbody key={platoon.getUUID()}>
+                      <tr>
+                        <td>
+                          {platoon.getDisplayName()} ({platoon.getMotive().name} infantry, {platoon.getTroopers()} troopers)
+                        </td>
+                        <td>
+                          {platoon.getWeight()}
+                        </td>
+                        <td className="small-text">
+                          {platoon.getTechName()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {platoon.canMakeAntiMechAttacks() ? platoon.getAntiMechSkill() : "-"}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {platoon.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {platoon.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {platoon.getSkillAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
                   </table>
                 </div>
               )
@@ -270,6 +299,17 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         <FighterRecordSheet
                           fighter={fighter}
                           showPilot={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.infantry.map( (platoon) => (
+                      <div className={"page"} key={platoon.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={platoon.getRequiredRulesLevel()}
+                        />
+                        <InfantryRecordSheet
+                          platoon={platoon}
                           showDamage={true}
                         />
                       </div>

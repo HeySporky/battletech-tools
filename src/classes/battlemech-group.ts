@@ -2,16 +2,19 @@ import { generateUUID } from "../utils/generateUUID";
 import { BattleMech, IBattleMechExport } from "./battlemech";
 import Vehicle, { IVehicleExport } from "./vehicle";
 import AerospaceFighter, { IAerospaceFighterExport } from "./aerospace-fighter";
+import InfantryPlatoon, { IInfantryPlatoonExport } from "./infantry-platoon";
 
 /** Most vehicles read from one saved group; far above any real lance or company. */
 export const MAX_GROUP_VEHICLES = 100;
 export const MAX_GROUP_FIGHTERS = 100;
+export const MAX_GROUP_INFANTRY = 100;
 
 export interface ICBTGroupExport {
 	name: string;
 	units: IBattleMechExport[];
 	vehicles?: IVehicleExport[];
 	fighters?: IAerospaceFighterExport[];
+	infantry?: IInfantryPlatoonExport[];
 	uuid: string;
 	lastUpdated: Date;
 	location?: string;
@@ -28,6 +31,7 @@ export class BattleMechGroup {
     public members: BattleMech[] = [];
     public vehicles: Vehicle[] = [];
     public fighters: AerospaceFighter[] = [];
+    public infantry: InfantryPlatoon[] = [];
 
 	public customName : string= "";
 
@@ -44,7 +48,8 @@ export class BattleMechGroup {
 				return true;
 			}
 		}
-		return this.vehicles.some( (vehicle) => vehicle.isDamaged() ) || this.fighters.some( (fighter) => fighter.isDamaged() );
+		return this.vehicles.some( (vehicle) => vehicle.isDamaged() ) || this.fighters.some( (fighter) => fighter.isDamaged() )
+			|| this.infantry.some( (platoon) => platoon.isDamaged() );
 	}
 	public getName(
 		indexNumber: number,
@@ -71,6 +76,9 @@ export class BattleMechGroup {
 		for( let fighter of this.fighters ) {
 			fighter.newUUID();
 		}
+		for( let platoon of this.infantry ) {
+			platoon.newUUID();
+		}
 		this.lastUpdated = new Date();
 	}
 
@@ -85,6 +93,9 @@ export class BattleMechGroup {
         }
         for( let fighter of this.fighters ) {
             rv += fighter.getPilotAdjustedBattleValue();
+        }
+        for( let platoon of this.infantry ) {
+            rv += platoon.getSkillAdjustedBattleValue();
         }
 
         return rv;
@@ -102,6 +113,10 @@ export class BattleMechGroup {
         for( let fighter of this.fighters ) {
             rv += fighter.getTonnage();
         }
+        // Infantry count by their transport weight (TM p. 155).
+        for( let platoon of this.infantry ) {
+            rv += platoon.getWeight();
+        }
 
         return rv;
     }
@@ -109,8 +124,11 @@ export class BattleMechGroup {
 	getTech(): string {
         let rv = "";
 
-        for( let group of [...this.members, ...this.vehicles, ...this.fighters] ) {
-            let tech = group.getTech().name;
+        const techNames = [
+            ...[...this.members, ...this.vehicles, ...this.fighters].map( (unit) => unit.getTech().name ),
+            ...this.infantry.map( (platoon) => platoon.getTechName() ),
+        ];
+        for( let tech of techNames ) {
             if( rv !== tech && rv !== "" ) {
                 rv = "Mixed"
             }  else {
@@ -144,6 +162,13 @@ export class BattleMechGroup {
 				this.fighters.push( new AerospaceFighter( JSON.stringify(fighter) ) );
 			}
 		}
+		// Infantry platoons likewise.
+		const infantry = Array.isArray(importObj.infantry) ? importObj.infantry.slice(0, MAX_GROUP_INFANTRY) : [];
+		for( let platoon of infantry ) {
+			if( platoon && typeof platoon === "object" && !Array.isArray(platoon) ) {
+				this.infantry.push( new InfantryPlatoon( JSON.stringify(platoon) ) );
+			}
+		}
         if( importObj.uuid ) {
             this.uuid = importObj.uuid;
         }
@@ -169,6 +194,7 @@ export class BattleMechGroup {
 			groupLabel: this.groupLabel,
 			vehicles: this.vehicles.map( (vehicle) => vehicle.export(noInPlayVariabless) ),
 			fighters: this.fighters.map( (fighter) => fighter.export(noInPlayVariabless) ),
+			infantry: this.infantry.map( (platoon) => platoon.export(noInPlayVariabless) ),
 		}
 
 		for( let unit of this.members ) {
@@ -182,7 +208,7 @@ export class BattleMechGroup {
     }
 
 	public getTotalUnits(): number {
-        return this.members.length + this.vehicles.length + this.fighters.length;
+        return this.members.length + this.vehicles.length + this.fighters.length + this.infantry.length;
     }
 
 }

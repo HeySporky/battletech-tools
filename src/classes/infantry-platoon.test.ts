@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import InfantryPlatoon, { INFANTRY_FORMATIONS, INFANTRY_MOTIVE_TYPES, INFANTRY_RANGE_MODIFIERS, normalizeInfantryPlatoonExport } from "./infantry-platoon";
 import { INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
+import { BattleMechGroup } from "./battlemech-group";
 
 // The four platoons TechManual builds as its running examples (pp.146-155).
 
@@ -279,5 +280,91 @@ describe("Saved infantry platoons", () => {
         expect(normalizeInfantryPlatoonExport([]).platoon).toBeNull();
         expect(new InfantryPlatoon("not json").getImportIssues().length).toBe(1);
         expect(normalizeInfantryPlatoonExport({}).platoon?.primaryWeapon).toBe("inf-auto-rifle");
+    });
+});
+
+describe("Infantry platoons in play (Total Warfare pp.215-217)", () => {
+    it("eliminates troopers by the Non-Infantry Weapon Damage Against Infantry Table, fractions rounded up", () => {
+        const platoon = darrell();
+        // A PPC (direct fire, 10) hits 1 trooper; an AC/20 hits 2.
+        platoon.resolveAttack(0, "direct", 10);
+        expect(platoon.getLineTroopers(0)).toBe(27);
+        platoon.resolveAttack(0, "direct", 20);
+        expect(platoon.getLineTroopers(0)).toBe(25);
+        // A medium laser (5) still hits 1; a kick for 11 hits 2.
+        platoon.resolveAttack(0, "direct", 5);
+        platoon.resolveAttack(0, "physical", 11);
+        expect(platoon.getLineTroopers(0)).toBe(22);
+        // LB 10-X cluster: 10 / 10 + 1 = 2. Medium pulse laser: 6 / 10 + 2 = 3. LRM 20: 20 / 5 = 4.
+        platoon.resolveAttack(0, "cluster-ballistic", 10);
+        platoon.resolveAttack(0, "pulse", 6);
+        platoon.resolveAttack(0, "cluster-missile", 20);
+        expect(platoon.getLineTroopers(0)).toBe(13);
+        // Area effect: 5 / 0.5 = 10.
+        const log = platoon.resolveAttack(0, "area-effect", 5);
+        expect(platoon.getLineTroopers(0)).toBe(3);
+        expect(log.join(" | ")).toContain("10 troopers eliminated: 3 of 28 remain");
+        // The platoon's own damage falls with its strength: 3 x 0.286 = 0.86.
+        expect(platoon.getLineAttackDamage(0)).toBe(1);
+        expect(platoon.isDamaged()).toBe(true);
+        expect(platoon.resolveAttack(0, "direct", 0).join(" ")).toContain("0 troopers eliminated");
+    });
+
+    it("applies burst-fire and infantry damage point for point, and doubles damage in Clear terrain", () => {
+        const platoon = darrell();
+        platoon.resolveAttack(0, "burst", 7);
+        expect(platoon.getLineTroopers(0)).toBe(21);
+        platoon.resolveAttack(0, "infantry", 4, true);
+        expect(platoon.getLineTroopers(0)).toBe(13);
+        const log = platoon.resolveAttack(0, "direct", 10, true);
+        expect(log.join(" | ")).toContain("Clear terrain: damage doubled");
+        expect(platoon.getLineTroopers(0)).toBe(11);
+        platoon.resolveAttack(0, "area-effect", 20);
+        expect(platoon.isDestroyed()).toBe(true);
+        expect(platoon.getLineAttackDamage(0)).toBe(0);
+    });
+
+    it("doubles non-infantry weapon losses against mechanized infantry, whose troopers take 2 points from other attacks (TW p.217)", () => {
+        const platoon = jason();
+        platoon.resolveAttack(0, "direct", 10);
+        expect(platoon.getLineTroopers(0)).toBe(18);
+        // 3 points of machine gun fire eliminate 1 trooper and leave another half gone.
+        platoon.resolveAttack(0, "burst", 3);
+        expect(platoon.getLineTroopers(0)).toBe(17);
+        platoon.resolveAttack(0, "infantry", 1);
+        expect(platoon.getLineTroopers(0)).toBe(16);
+    });
+
+    it("tracks each sub-platoon on its own line and saves the damage with a roster, not with a design", () => {
+        const platoon = eberhard();
+        platoon.resolveAttack(2, "cluster-missile", 20);
+        expect([0, 1, 2, 3].map((line) => platoon.getLineTroopers(line))).toEqual([25, 25, 21, 25]);
+        expect(platoon.getCurrentTroopers()).toBe(96);
+        expect(platoon.getStrengthPercentage()).toBe(96);
+        platoon.setLineTroopers(0, 0);
+        expect(platoon.isLineDestroyed(0)).toBe(true);
+        expect(platoon.isDestroyed()).toBe(false);
+
+        const copy = new InfantryPlatoon(platoon.exportJSON());
+        expect(copy.getCurrentTroopers()).toBe(71);
+        expect(platoon.export(true).inPlay).toBeUndefined();
+        expect(normalizeInfantryPlatoonExport(platoon.export()).platoon?.inPlay).toBeUndefined();
+
+        const group = new BattleMechGroup();
+        group.infantry.push(copy);
+        expect(group.isUnderStrength()).toBe(true);
+        expect(group.getTotaBV2()).toBe(copy.getSkillAdjustedBattleValue());
+        expect(group.getTotalUnits()).toBe(1);
+        expect(group.getTech()).toBe("Inner Sphere");
+        const reloaded = new BattleMechGroup(JSON.parse(JSON.stringify(group.export())));
+        expect(reloaded.infantry[0].getCurrentTroopers()).toBe(71);
+        expect(new BattleMechGroup(JSON.parse(JSON.stringify(group.export(true)))).infantry[0].isDamaged()).toBe(false);
+
+        // A hostile save cannot mark more damage than the line holds, and resizing the platoon clears the lines.
+        const hostile = new InfantryPlatoon(JSON.stringify({ ...platoon.export(), inPlay: { damage: [1e9, "x", -5, null, 7, 7] } }));
+        expect([0, 1, 2, 3].map((line) => hostile.getLineTroopers(line))).toEqual([0, 25, 25, 25]);
+        hostile.setSquads(3);
+        expect(hostile.isDamaged()).toBe(false);
+        expect(hostile.resolveAttack(9, "direct", 10)).toEqual([]);
     });
 });

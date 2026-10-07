@@ -14,6 +14,9 @@ export default class InfantryRecordSheet extends React.Component<IInfantryRecord
         const features = platoon.getSpecialFeatures();
         const cost = platoon.getCBillCost();
         const cell: React.CSSProperties = { border: "1px solid #000", textAlign: "center", padding: "0.15em 0.3em", minWidth: "1.9em" };
+        // With showDamage, troopers eliminated in play are blacked out.
+        const trooperCell = (line: number, number: number): React.CSSProperties =>
+            this.props.showDamage && number > platoon.getLineTroopers(line) ? { ...cell, background: "#000", color: "#fff" } : cell;
 
         return (
             <div className="print-page">
@@ -41,13 +44,14 @@ export default class InfantryRecordSheet extends React.Component<IInfantryRecord
                     <div key={lineIndex} style={{ marginBottom: "1em" }} data-testid="infantry-sheet-line">
                         <h4>
                             {lines.length > 1 ? `Sub-Platoon ${lineIndex + 1}` : platoon.isClan() ? "Point" : "Platoon"}: {troopers} troopers, {platoon.getWeight(troopers)} tons
+                            {this.props.showDamage && platoon.getLineTroopers(lineIndex) < troopers ? ` (${platoon.getLineTroopers(lineIndex)} active)` : ""}
                         </h4>
                         <table style={{ borderCollapse: "collapse" }}>
                             <tbody>
                                 <tr>
                                     <th style={{ ...cell, textAlign: "left" }}>Trooper</th>
                                     {Array.from({ length: troopers }, (_unused, index) => troopers - index).map((number) => (
-                                        <td key={number} style={cell}>{number}</td>
+                                        <td key={number} style={trooperCell(lineIndex, number)}>{number}</td>
                                     ))}
                                 </tr>
                                 <tr>
@@ -84,4 +88,5 @@ export default class InfantryRecordSheet extends React.Component<IInfantryRecord
 
 interface IInfantryRecordSheetProps {
     platoon: InfantryPlatoon;
+    showDamage?: boolean;
 }

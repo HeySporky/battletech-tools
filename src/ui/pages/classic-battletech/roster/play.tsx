@@ -31,6 +31,8 @@ import VehiclePlayPanel from './_vehiclePlay';
 import AerospaceFighter from '../../../../classes/aerospace-fighter';
 import { fighterName } from './_fighterGroupTable';
 import FighterPlayPanel from './_fighterPlay';
+import InfantryPlatoon from '../../../../classes/infantry-platoon';
+import InfantryPlayPanel from './_infantryPlay';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -736,7 +738,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -772,6 +774,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let fighter of group.fighters ) {
             fighter.resetInPlay();
+          }
+          for( let platoon of group.infantry ) {
+            platoon.resetInPlay();
           }
           if( this.props.appGlobals.currentCBTForce )
             this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
@@ -1197,6 +1202,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         for( let fighter of group.fighters ) {
           if( fighter.getUUID() === this.state.selectedVehicleUUID ) {
             selectedFighter = fighter;
+          }
+        }
+      }
+      // So is an infantry platoon.
+      let selectedInfantry: InfantryPlatoon | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let platoon of group.infantry ) {
+          if( platoon.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedInfantry = platoon;
           }
         }
       }
@@ -2672,7 +2686,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 </TextSection>
 
 <div className="selected-mech">
-          {selectedFighter ? (
+          {selectedInfantry ? (
+            <InfantryPlayPanel
+              key={selectedInfantry.getUUID()}
+              platoon={selectedInfantry}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedFighter ? (
             <FighterPlayPanel
               key={selectedFighter.getUUID()}
               fighter={selectedFighter}
@@ -2859,6 +2879,36 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         </li>
                     )
                   })}
+                  {group.infantry.map( (platoon) => (
+                    <li key={platoon.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, platoon.getUUID())}
+                        className={selectedInfantry && selectedInfantry.getUUID() === platoon.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + platoon.getDisplayName()}
+                      >
+                        {platoon.getDisplayName()}
+                        <div className="stats">
+{platoon.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={platoon.getStrengthPercentage()}
+                              currentNumber={platoon.getCurrentTroopers()}
+                              height={8}
+                              title="Troopers Remaining"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
                   {group.fighters.map( (fighter) => (
                     <li key={fighter.getUUID()}>
                       <button

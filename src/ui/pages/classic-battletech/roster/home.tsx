@@ -419,6 +419,21 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
           </tr>
           </tbody>
       ))}
+      {favGroup.infantry.map( (platoon) => (
+          <tbody key={platoon.getUUID()}>
+          <tr>
+              <td>
+                  {platoon.getDisplayName()}
+                  <div className='small-text'>{platoon.getMotive().name} conventional infantry, {platoon.getTroopers()} troopers</div>
+              </td>
+              <td className="min-width no-wrap text-center">{platoon.getWeight()}</td>
+              <td className="min-width no-wrap text-center small-text">{platoon.getTechName()}</td>
+              <td className="min-width no-wrap text-center">{platoon.canMakeAntiMechAttacks() ? platoon.getAntiMechSkill() : "-"}</td>
+              <td className="min-width no-wrap text-center">{platoon.getGunnery()}</td>
+              <td className="min-width no-wrap text-center">{platoon.getSkillAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
 
 <tfoot>
 <tr>
