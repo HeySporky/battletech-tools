@@ -4,7 +4,24 @@ The BattleTech rulebooks are local, in `_KNOWLEDGE_DEV/rulebooks/` (git-ignored)
 catalog: every PDF, edition, errata sheet, and what each errata applies to. Read it before a source lookup. Never
 reference these files from shipped code.
 
-## Look things up in the local text first
+## Search the library first
+
+`library_search.py` is a full-text index (SQLite FTS5, one row per page) over every extract: 871 books, 55,000 pages.
+Use it before grepping or guessing which book a rule is in:
+
+    python _KNOWLEDGE_DEV/rulebooks/library_search.py "partial wing" --canon          # current rulebooks and errata
+    python _KNOWLEDGE_DEV/rulebooks/library_search.py "double heat sinks" --books      # which books mention it
+    python _KNOWLEDGE_DEV/rulebooks/library_search.py "NEAR(hatchet damage, 8)" --book TM
+    python _KNOWLEDGE_DEV/rulebooks/library_search.py "stealth" --folder rulebooks-legacy --limit 20
+
+- Hits read `TM p.266 (pdf 268) [rulebooks]`: the printed page (with `?` when the offset is unverified), the PDF
+  page and the folder. `[OCR]` hits come from scans: confirm numbers on the page image.
+- A hit is a lead. Open the page (`--page <extract name> <pdf page>`, or the PDF) and read the rule before citing.
+- The folder tells you the standing (see Folders below): a hit in `fan-made/` or `apocryphal/` is never canon.
+- After adding, renaming or removing files: `sync_library.py --apply`, `extract_rulebooks.py`, `page_offsets.py`,
+  `build_index.py`, then `library_search.py build`.
+
+## Reading the extracts directly
 
 Search the extracts before downloading anything or asking Ollama/Sarna:
 
