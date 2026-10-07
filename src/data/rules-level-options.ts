@@ -11,6 +11,18 @@ import { IRulesLevelOption } from "./data-interfaces";
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
+/** Rules level at which experimental prototypes may be used (Experimental and every level above it). */
+export const EXPERIMENTAL_RULES_LEVEL = 4;
+
+/** Apocryphal: licensed material that is not canon (video games and other media). The lowest non-canon level. */
+export const APOCRYPHAL_RULES_LEVEL = 5;
+
+/** Custom Homebrew: fan-made rules and equipment meant to be balanced. Fan-made rules are enabled from here up. */
+export const CUSTOM_HOMEBREW_RULES_LEVEL = 6;
+
+/** Munchkin: fan-made content with no claim to balance. Includes every level below it. */
+export const MUNCHKIN_RULES_LEVEL = 7;
+
 export const btRulesLevelOptions: IRulesLevelOption[] = [
     {
         id: 0,
@@ -42,11 +54,24 @@ export const btRulesLevelOptions: IRulesLevelOption[] = [
         tag: "exp",
         name: "Experimental",
     },
+    // 0-4 are the rulebooks' own grades. The levels above are not canon; each includes everything below it.
     {
         id: 5,
         sswid: null,
+        tag: "apocryphal",
+        name: "Apocryphal",
+    },
+    {
+        id: 6,
+        sswid: null,
         tag: "custom",
         name: "Custom Homebrew",
+    },
+    {
+        id: 7,
+        sswid: null,
+        tag: "munchkin",
+        name: "Munchkin",
     }
 ];
 

@@ -47,7 +47,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 5, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     },
     {
@@ -81,7 +81,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 5, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["OS"] }
     },
     {
@@ -116,7 +116,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 6, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     },
     {
@@ -150,7 +150,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 6, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["OS"] }
     },
     {
@@ -185,7 +185,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 5, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["TOR"] }
     },
     {
@@ -219,7 +219,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 5, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["OS"] }
     },
     {
@@ -254,7 +254,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 6, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["TOR"] }
     },
     {
@@ -288,7 +288,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 6, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["OS"] }
     },
     {
@@ -322,7 +322,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 5, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     },
     {
@@ -356,7 +356,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 5, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["OS"] }
     },
     {
@@ -390,7 +390,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 6, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     },
     {
@@ -424,7 +424,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 6, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["OS"] }
     },
     {
@@ -458,7 +458,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 5, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["TOR"] }
     },
     {
@@ -492,7 +492,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 5, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["OS"] }
     },
     {
@@ -526,7 +526,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 6, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["TOR"] }
     },
     {
@@ -560,7 +560,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "https://drive.google.com/drive/folders/0B5bLPOivte0vdjZ0YVQySDZ2SGc?resourcekey=0-oabxb-hZhk9iZVmeTa9zPQ",
         page: 0,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: { heat: 6, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["OS"] }
     },
     {
@@ -605,7 +605,7 @@ export const mechCustomEquipmentMissile: IEquipmentItem[] = [
         techRating: "f",
         book: "Custom",
         page: null,
-        rulesLevel: 5,
+        rulesLevel: 6,
         alphaStrike: {
             heat: 4,
             rangeShort: 0.94,

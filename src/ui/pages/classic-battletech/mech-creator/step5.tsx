@@ -2,7 +2,7 @@ import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
-import { isOmniFixedOnly } from '../../../../data/equipment-registry';
+import { CUSTOM_HOMEBREW_RULES_LEVEL, isOmniFixedOnly } from '../../../../data/equipment-registry';
 import { sortEquipment } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
@@ -46,7 +46,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
           undefined,
           undefined,
           undefined,
-          this.props.appGlobals.appSettings.mechRulesFilter === 5,
+          this.props.appGlobals.appSettings.mechRulesFilter >= CUSTOM_HOMEBREW_RULES_LEVEL,
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
@@ -187,7 +187,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       const techTag = currentMech.getTech().tag;
       const includeClan = techTag === "clan" || techTag === "mis" || techTag === "mclan";
       const includeIS = techTag === "is" || techTag === "mis" || techTag === "mclan";
-      const includeCustom = this.props.appGlobals.appSettings.mechRulesFilter === 5;
+      const includeCustom = this.props.appGlobals.appSettings.mechRulesFilter >= CUSTOM_HOMEBREW_RULES_LEVEL;
       return (
         <>
             <StandardModal

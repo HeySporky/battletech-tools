@@ -1,5 +1,6 @@
 import { CONST_AS_PILOT_ABILITIES, IASPilotAbility } from "../data/alpha-strike-pilot-abilities";
 import { CONST_AS_SPECIAL_ABILITIES, IASSpecialAbility } from "../data/alpha-strike-special-abilities";
+import { APOCRYPHAL_RULES_LEVEL } from "../data/rules-level-options";
 import { IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
 import { generateUUID } from "../utils/generateUUID";
 import Pilot, { IPilot } from "./pilot";
@@ -2272,7 +2273,7 @@ export function getRulesLevelFromMULRules(rules: string | undefined | null): num
         case "standard": return 2;
         case "advanced": return 3;
         case "experimental": return 4;
-        case "unofficial": return 5;
+        case "unofficial": return APOCRYPHAL_RULES_LEVEL;
         default: return undefined;
     }
 }

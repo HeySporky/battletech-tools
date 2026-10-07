@@ -15,7 +15,7 @@ import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
 import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
-import { equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, isEquipmentWithinRulesLevel, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
 import { findByTag, matchesTag } from "../data/tag-match";
@@ -1295,7 +1295,9 @@ export default class Vehicle {
             }
         }
         returnItems.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
-        return returnItems;
+        // Apocryphal, Custom Homebrew and Munchkin items are only offered at their own level or above.
+        const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
+        return returnItems.filter((item) => isEquipmentWithinRulesLevel(item, offeredLevel));
     }
 
     public getAvailableEquipmentByCatalog(catalog: "all" | "is" | "clan" | "custom", includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {

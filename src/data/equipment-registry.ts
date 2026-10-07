@@ -20,6 +20,7 @@ import { mechISAmmo } from "./mech-is-ammo";
 import { mechClanAmmo } from "./mech-clan-ammo";
 import { mechUniversalAmmo } from "./mech-universal-ammo";
 import { isUniversalEquipment, mechUniversalEquipment } from "./mech-universal-equipment";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, MUNCHKIN_RULES_LEVEL } from "./rules-level-options";
 
 export type EquipmentCatalog = "is" | "clan" | "custom" | "universal";
 
@@ -152,11 +153,7 @@ export function calculateShotsPerTon(totalRoundsPerTon: number, launcherSize: nu
     return Math.ceil(totalRoundsPerTon / launcherSize);
 }
 
-/** Rules level at which experimental prototypes may be used (Experimental and Custom Homebrew). */
-export const EXPERIMENTAL_RULES_LEVEL = 4;
-
-/** Custom Homebrew rules level: the only level at which fan-made rules are enabled. */
-export const CUSTOM_HOMEBREW_RULES_LEVEL = 5;
+export { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, MUNCHKIN_RULES_LEVEL };
 
 /**
  * 'Mech equipment an OmniMech must build into its base chassis: it can never be pod-mounted.
@@ -196,8 +193,8 @@ export function isOmniFixedOnly(item: IEquipmentItem): boolean {
 }
 
 /**
- * Lowest rules level an installed item needs: Custom Homebrew for custom content,
- * Experimental for prototype-only items, otherwise its own rules level (0 when unknown).
+ * Lowest rules level an installed item needs: at least Custom Homebrew for custom content (Munchkin when the
+ * record says so), Experimental for prototype-only items, otherwise its own rules level (0 when unknown).
  */
 export function getEquipmentRulesLevel(item: IEquipmentItem): number {
     let level = typeof item.rulesLevel === "number" ? item.rulesLevel : 0;
@@ -208,6 +205,16 @@ export function getEquipmentRulesLevel(item: IEquipmentItem): number {
         level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
     }
     return level;
+}
+
+/**
+ * May an item be offered at this rules level? Only the non-canon levels hide anything: an Apocryphal, Custom
+ * Homebrew or Munchkin item needs its own level or higher. Canon items are listed at every level and the
+ * builders warn when a design goes above the selected one.
+ */
+export function isEquipmentWithinRulesLevel(item: IEquipmentItem, rulesLevel: number): boolean {
+    const level = getEquipmentRulesLevel(item);
+    return level < APOCRYPHAL_RULES_LEVEL || level <= rulesLevel;
 }
 
 /**
