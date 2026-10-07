@@ -93,3 +93,50 @@ test("a fortress tracks its load hex by hex and a standard building takes no wea
 
     expect(errors).toEqual([]);
 });
+
+// Structural modifications and fittings change the capacity, the crew and the cost (TO:AR pp. 131-139, 208).
+test("a sealed fortress takes modifications, a door, an elevator and an automated weapon", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+
+    await page.goto("classic-battletech/building-creator");
+    await page.getByRole("button", { name: /Start Over/ }).click();
+    await page.goto("classic-battletech/building-creator/structure");
+    await page.getByLabel("Building Name").fill("Gate Bunker");
+    await page.getByLabel("Rules Level:").selectOption({ label: "Advanced" });
+    await page.getByLabel("Building Classification:").selectOption("fortress");
+    await page.getByLabel("Building Type:").selectOption("heavy");
+    await page.getByLabel(/Construction Factor/).selectOption("90");
+    await page.getByLabel("Height in Levels:").selectOption("4");
+    await expect(page.getByTestId("building-capacity")).toContainText("Internal Weight Capacity: 360 tons a hex");
+
+    const modifications = page.getByTestId("building-modifications");
+    await modifications.getByLabel(/Environmental Sealing/).check();
+    await modifications.getByLabel(/Heavy Metal Superstructure/).check();
+    await modifications.getByLabel("Ceilings:").selectOption("low");
+    await modifications.getByRole("button", { name: "Add Large Door" }).click();
+    await modifications.getByLabel("Door 1 height in levels:").selectOption("2");
+    // 1.5 x 1.25 x 1.1, and a quarter of the capacity gone to the superstructure.
+    await expect(modifications).toContainText("Structure Cost Multiplier: x2.0625");
+    await expect(page.getByTestId("building-capacity")).toContainText("Internal Weight Capacity: 270 tons a hex");
+
+    await page.getByRole("link", { name: /Next: Weapons, Power and Equipment/ }).click();
+    await page.getByPlaceholder("Filter Equipment").fill("Medium Laser");
+    await page.getByRole("row", { name: /^Medium Laser Energy Weapons/ }).getByRole("button", { name: "Add" }).click();
+    await page.getByLabel("Automate Medium Laser").check();
+    await page.getByRole("button", { name: "Add Industrial Elevator" }).click();
+    await page.getByLabel("Elevator 1 levels reached above the ground level:").selectOption("3");
+    await expect(page.getByTestId("building-elevators")).toContainText("Industrial Elevators: 1, 3 tons");
+
+    await page.getByRole("link", { name: /Next: Summary/ }).click();
+    await expect(page.getByTestId("building-cost-log")).toContainText("x 2.0625 for structural modifications");
+    await expect(page.getByTestId("building-cost-log")).toContainText("Large Doors (10,000 x 2 levels): 20,000");
+    await expect(page.getByTestId("building-cost-log")).toContainText("Weapon Automation (1,000 x 1 t): 1,000");
+    await expect(page.getByText("0 gunners, 0 other crew, 0 officers")).toBeVisible();
+
+    await page.getByRole("link", { name: "View Record Sheet" }).click();
+    await expect(page.getByTestId("building-sheet-modifications")).toContainText("Environmental sealing (breach roll -2)");
+    await expect(page.getByTestId("building-sheet-modifications")).toContainText("Low ceilings");
+
+    expect(errors).toEqual([]);
+});

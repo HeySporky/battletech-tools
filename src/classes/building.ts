@@ -33,6 +33,8 @@ export interface IBuildingMount {
     hex: number;
     /** True for an item in the hex's rooftop turret. */
     turret: boolean;
+    /** True for a weapon on an automated control system: no gunners, a fixed Gunnery of 5 (TO:AR p.131). */
+    automated: boolean;
 }
 
 export interface IBuildingEquipmentExport {
@@ -40,7 +42,29 @@ export interface IBuildingEquipmentExport {
     uuid?: string;
     hex?: number;
     turret?: boolean;
+    automated?: boolean;
 }
+
+export type BuildingCeilings = "standard" | "high" | "low";
+export type BuildingSubsurface = "none" | "underground" | "underwater";
+/** An industrial elevator: the hex it fills, the tons it lifts and the levels it reaches above the ground level. */
+export interface IBuildingElevator {
+    hex: number;
+    capacity: number;
+    levels: number;
+}
+
+/** Automated weapons fire with a fixed Gunnery skill of 5 (TO:AR p.131). */
+export const BUILDING_AUTOMATED_GUNNERY = 5;
+export const MAX_BUILDING_DOORS = 60;
+export const MAX_BUILDING_ELEVATORS = 20;
+/** A ton of structure given to liquid storage holds 0.91 tons (TO:AR p.134). */
+export const BUILDING_LIQUID_STORAGE_FACTOR = 0.91;
+/** Final cost multipliers for structural modifications (TO:AR p.208). */
+export const BUILDING_COST_MULTIPLIERS = { sealed: 1.5, heavyMetal: 1.25, ceilings: 1.1, subsurface: 5, tunnel: 1.875 };
+/** Sealed Building Breach Table: a 2D6 roll of 10+ breaches, with these modifiers by building type (TO:AR p.135). */
+export const BUILDING_BREACH_TARGET = 10;
+export const BUILDING_BREACH_MODIFIERS: Record<string, number> = { light: 2, medium: 0, heavy: -2, hardened: -4 };
 
 /** One hex's condition in play. */
 export interface IBuildingHexInPlay {
@@ -66,12 +90,16 @@ export interface IBuildingInPlay {
     malfunctions: string[];
     /** Shots fired from each ammunition bin, by uuid. */
     ammoUsed: Record<string, number>;
+    /** A sealed or underwater building that has been breached: what is inside is lost (TO:AR pp.134, 138). */
+    breached?: boolean;
 }
 
 export interface IBuildingDamageResult {
     lines: string[];
     /** True when the attack calls for a roll on the Advanced Building Critical Hits Table. */
     criticalRoll: boolean;
+    /** True when the attack calls for a roll on the Sealed Building Breach Table. */
+    breachRoll: boolean;
 }
 
 /** The Advanced Building Critical Hits Table (TO:AR p.119). */
@@ -116,6 +144,21 @@ export interface IBuildingExport {
     /** Capacity left over is counted as unspecified equipment (TO:AR p.129). */
     unspecifiedEquipment: boolean;
     equipment: IBuildingEquipmentExport[];
+    // Structural modifications and fittings (TO:AR pp.131-139); absent in older saves.
+    sealed?: boolean;
+    heavyMetal?: boolean;
+    ceilings?: string;
+    subsurface?: string;
+    /** Levels below the ground or the water's surface. */
+    depth?: number;
+    tunnel?: boolean;
+    /** Large doors, each by its height in levels. */
+    doors?: number[];
+    elevators?: IBuildingElevator[];
+    /** Tons of capacity given to liquid fuel or chemical storage, across the building. */
+    liquidStorage?: number;
+    /** Hexes (times levels) of other buildings the generator also powers. */
+    poweredHexes?: number;
 }
 
 export interface IBuildingHexLoad {
@@ -126,6 +169,8 @@ export interface IBuildingHexLoad {
     powerAmplifiers: number;
     heatSinks: number;
     generator: number;
+    /** Industrial elevators and the hex's share of liquid storage. */
+    fittings: number;
     total: number;
     remaining: number;
     heavyWeapons: number;
@@ -137,6 +182,7 @@ const savedNumber = (value: unknown, fallback: number, min: number, max: number)
 const isPlainObject = (value: unknown): value is Record<string, unknown> =>
     typeof value === "object" && value !== null && !Array.isArray(value);
 const round3 = (value: number): number => Math.round(value * 1000) / 1000;
+const round5 = (value: number): number => Math.round(value * 100000) / 100000;
 const roundUpHalf = (tons: number): number => Math.ceil(tons * 2 - 1e-9) / 2;
 const roundUpTenth = (tons: number): number => Math.ceil(tons * 10 - 1e-9) / 10;
 const money = (value: number): string => Math.round(value).toLocaleString("en-US");
@@ -177,6 +223,16 @@ export default class Building {
     private _generator: IBuildingGenerator | null = null;
     private _unspecifiedEquipment: boolean = false;
     private _equipment: IBuildingMount[] = [];
+    private _sealed: boolean = false;
+    private _heavyMetal: boolean = false;
+    private _ceilings: BuildingCeilings = "standard";
+    private _subsurface: BuildingSubsurface = "none";
+    private _depth: number = 1;
+    private _tunnel: boolean = false;
+    private _doors: number[] = [];
+    private _elevators: IBuildingElevator[] = [];
+    private _liquidStorage: number = 0;
+    private _poweredHexes: number = 0;
     private _gunnery: number = 4;
     private _inPlay: IBuildingInPlay = newInPlay();
     private _importIssues: string[] = [];
@@ -242,21 +298,50 @@ export default class Building {
         this._armorTons = Math.min(this._armorTons, this.getMaxArmorTons());
         if (!this._classification.powered) this._generator = null;
         for (const mount of this._equipment) mount.hex = Math.min(this._hexes, mount.hex);
+        this._clampFittings();
+    }
+
+    // Drops modifications the classification, type or size no longer allows.
+    private _clampFittings(): void {
+        if (!this.canBeSubsurface()) this._subsurface = "none";
+        if (!this.canBeTunnel()) this._tunnel = false;
+        if (!this.canSeal()) this._sealed = false;
+        else if (this._subsurface === "underwater") this._sealed = true;
+        if (!this.canHaveHeavyMetalSuperstructure()) this._heavyMetal = false;
+        if (!this.canSetCeilings()) this._ceilings = "standard";
+        if (!this.canMountDoors()) this._doors = [];
+        this._doors = this._doors.map((height) => Math.min(this._levels, Math.max(1, height)));
+        this._elevators = this.canMountElevators()
+            ? this._elevators.map((elevator) => ({
+                hex: Math.min(this._hexes, Math.max(1, elevator.hex)),
+                capacity: Math.min(this._cf, Math.max(1, elevator.capacity)),
+                levels: Math.min(this._levels, Math.max(1, elevator.levels)),
+            })) : [];
+        if (this._classification.capacity === "none" || this._tunnel) this._liquidStorage = 0;
+        if (!this._generator) this._poweredHexes = 0;
+        this._hexes = Math.min(this.getMaxHexes(), this._hexes);
+        this._levels = Math.min(this.getMaxLevels(), this._levels);
+        this._armorTons = Math.min(this._armorTons, this.getMaxArmorTons());
     }
 
     public getCF(): number { return this._cf; }
     public setCF(cf: number): number {
         this._cf = Math.min(this._type.maxCF, Math.max(this._type.minCF, Math.floor(Number.isFinite(cf) ? cf : this._cf)));
-        this._armorTons = Math.min(this._armorTons, this.getMaxArmorTons());
+        this._clampFittings();
         return this._cf;
     }
 
     /** Hexes covered, or hexsides for a wall or fence. */
     public getHexes(): number { return this._hexes; }
-    public getMaxHexes(): number { return this._type.maxHexes ?? BUILDING_MAX_UNLIMITED_HEXES; }
+    /** An underground building may be half the size of one on the surface, rounded up (TO:AR p.138). */
+    public getMaxHexes(): number {
+        const max = this._type.maxHexes ?? BUILDING_MAX_UNLIMITED_HEXES;
+        return this._subsurface === "underground" && this._type.maxHexes !== null ? Math.ceil(max / 2) : max;
+    }
     public setHexes(hexes: number): number {
         this._hexes = Math.min(this.getMaxHexes(), Math.max(1, Math.floor(Number.isFinite(hexes) ? hexes : this._hexes)));
         for (const mount of this._equipment) mount.hex = Math.min(this._hexes, mount.hex);
+        this._clampFittings();
         return this._hexes;
     }
     public getHexLabel(plural: boolean = false): string {
@@ -265,9 +350,13 @@ export default class Building {
 
     public getLevels(): number { return this._levels; }
     /** A bridge has no height of its own: it is one level for these rules. */
-    public getMaxLevels(): number { return this._type.maxLevels ?? 1; }
+    public getMaxLevels(): number {
+        const max = this._type.maxLevels ?? 1;
+        return this._subsurface === "underground" ? Math.ceil(max / 2) : max;
+    }
     public setLevels(levels: number): number {
         this._levels = Math.min(this.getMaxLevels(), Math.max(1, Math.floor(Number.isFinite(levels) ? levels : this._levels)));
+        this._clampFittings();
         return this._levels;
     }
 
@@ -278,8 +367,122 @@ export default class Building {
     public getCapacityPerHex(): number {
         if (this._classification.capacity === "none") return 0;
         const base = this._cf * this._levels;
-        if (this._classification.capacity === "hangar") return Math.min(base * 3, HANGAR_CAPACITY_PER_FOUR_LEVELS * Math.ceil(this._levels / 4));
-        return base;
+        const capacity = this._classification.capacity === "hangar" ? Math.min(base * 3, HANGAR_CAPACITY_PER_FOUR_LEVELS * Math.ceil(this._levels / 4)) : base;
+        // A heavy metal superstructure takes a quarter of it, rounded down (TO:AR p.135).
+        return this._heavyMetal ? Math.floor(capacity * 0.75) : capacity;
+    }
+
+    // Structural modifications (TO:AR pp.134-139) ----------------------------------------------------------------
+
+    /** Hangars, standard buildings, fortresses and gun emplacements may be environmentally sealed (TO:AR p.135). */
+    public canSeal(): boolean { return ["hangar", "standard", "fortress", "gun-emplacement"].includes(this._classification.tag); }
+    public isSealed(): boolean { return this._sealed; }
+    /** An underwater building is always sealed (TO:AR p.138). */
+    public setSealed(sealed: boolean): boolean {
+        this._sealed = this.canSeal() && (sealed || this._subsurface === "underwater");
+        return this._sealed;
+    }
+
+    /** Heavy and Hardened buildings other than tents and fences (TO:AR p.135). */
+    public canHaveHeavyMetalSuperstructure(): boolean {
+        return !["tent", "fence"].includes(this._classification.tag) && ["heavy", "hardened"].includes(this._type.tag);
+    }
+    public hasHeavyMetalSuperstructure(): boolean { return this._heavyMetal; }
+    public setHeavyMetalSuperstructure(heavyMetal: boolean): boolean {
+        this._heavyMetal = heavyMetal && this.canHaveHeavyMetalSuperstructure();
+        return this._heavyMetal;
+    }
+
+    /** Standard buildings and fortresses may have high or low ceilings (TO:AR p.135). */
+    public canSetCeilings(): boolean { return ["standard", "fortress"].includes(this._classification.tag); }
+    public getCeilings(): BuildingCeilings { return this._ceilings; }
+    public setCeilings(ceilings: string): BuildingCeilings {
+        this._ceilings = this.canSetCeilings() && (ceilings === "high" || ceilings === "low") ? ceilings : "standard";
+        return this._ceilings;
+    }
+
+    /** Standard buildings, hangars (and tunnels) and fortresses may be built below ground or water (TO:AR p.138). */
+    public canBeSubsurface(): boolean { return ["standard", "hangar", "fortress"].includes(this._classification.tag); }
+    public getSubsurface(): BuildingSubsurface { return this._subsurface; }
+    public setSubsurface(subsurface: string): BuildingSubsurface {
+        this._subsurface = this.canBeSubsurface() && (subsurface === "underground" || subsurface === "underwater") ? subsurface : "none";
+        this._clampFittings();
+        return this._subsurface;
+    }
+    /** Levels between the building's top and the surface of the ground or water. */
+    public getDepth(): number { return this._depth; }
+    public setDepth(depth: number): number {
+        this._depth = Math.floor(savedNumber(depth, this._depth, 1, 1000));
+        return this._depth;
+    }
+
+    /** A tunnel is a hangar that carries no equipment and ends in doors (TO:AR p.139). */
+    public canBeTunnel(): boolean { return this._classification.tag === "hangar"; }
+    public isTunnel(): boolean { return this._tunnel; }
+    public setTunnel(tunnel: boolean): boolean {
+        this._tunnel = tunnel && this.canBeTunnel();
+        this._clampFittings();
+        return this._tunnel;
+    }
+
+    /** Large doors go in hangars, fortresses, standard buildings, walls and fences, and weigh nothing (TO:AR p.136). */
+    public canMountDoors(): boolean { return ["hangar", "fortress", "standard", "wall", "fence"].includes(this._classification.tag); }
+    public getDoors(): number[] { return this._doors; }
+    public addDoor(height: number = 1): number[] {
+        if (this.canMountDoors() && this._doors.length < MAX_BUILDING_DOORS) this._doors.push(Math.floor(savedNumber(height, 1, 1, this._levels)));
+        return this._doors;
+    }
+    public setDoorHeight(index: number, height: number): void {
+        if (index >= 0 && index < this._doors.length) this._doors[index] = Math.floor(savedNumber(height, this._doors[index], 1, this._levels));
+    }
+    public removeDoor(index: number): void { this._doors.splice(index, 1); }
+
+    /** Industrial elevators need a level above the ground to reach (TO:AR pp.135-136). */
+    public canMountElevators(): boolean { return this._classification.capacity !== "none" && !this._tunnel; }
+    public getElevators(): IBuildingElevator[] { return this._elevators; }
+    public addElevator(hex: number = 1, capacity: number = 20, levels: number = 1): IBuildingElevator[] {
+        if (this.canMountElevators() && this._elevators.length < MAX_BUILDING_ELEVATORS) {
+            this._elevators.push({ hex: 1, capacity: 1, levels: 1 });
+            this.setElevator(this._elevators.length - 1, hex, capacity, levels);
+        }
+        return this._elevators;
+    }
+    /** An elevator lifts no more than the Construction Factor and reaches no higher than the roof. */
+    public setElevator(index: number, hex: number, capacity: number, levels: number): void {
+        const elevator = this._elevators[index];
+        if (!elevator) return;
+        elevator.hex = Math.floor(savedNumber(hex, elevator.hex, 1, this._hexes));
+        elevator.capacity = Math.floor(savedNumber(capacity, elevator.capacity, 1, this._cf));
+        elevator.levels = Math.floor(savedNumber(levels, elevator.levels, 1, this._levels));
+    }
+    public removeElevator(index: number): void { this._elevators.splice(index, 1); }
+    /** A ton for every 20 tons lifted, rounded up, times the levels reached above the ground level (TO:AR p.136). */
+    public static getElevatorWeight(elevator: IBuildingElevator): number { return Math.ceil(elevator.capacity / 20) * elevator.levels; }
+    public getElevatorWeight(hex?: number): number {
+        return this._elevators.filter((elevator) => hex === undefined || elevator.hex === hex).reduce((sum, elevator) => sum + Building.getElevatorWeight(elevator), 0);
+    }
+
+    /** Tons of capacity given to liquid fuel or chemical storage, spread evenly over the hexes (TO:AR p.134). */
+    public getLiquidStorage(): number { return this._liquidStorage; }
+    public setLiquidStorage(tons: number): number {
+        this._liquidStorage = this._classification.capacity === "none" || this._tunnel ? 0 : Math.floor(savedNumber(tons, 0, 0, Math.max(0, this.getTotalCapacity())));
+        return this._liquidStorage;
+    }
+    /** What the tanks hold: 0.91 tons for each ton given to them. */
+    public getLiquidCapacity(): number { return round3(this._liquidStorage * BUILDING_LIQUID_STORAGE_FACTOR); }
+
+    /** Hexes, times levels, of other buildings this building's generator also powers (TO:AR p.132). */
+    public getPoweredHexes(): number { return this._poweredHexes; }
+    public setPoweredHexes(hexes: number): number {
+        this._poweredHexes = this._generator ? Math.floor(savedNumber(hexes, 0, 0, 100000)) : 0;
+        return this._poweredHexes;
+    }
+
+    /** The structure cost multiplier: every modification's figure multiplied together (TO:AR p.208). */
+    public getStructureCostMultiplier(): number {
+        return round5((this._sealed ? BUILDING_COST_MULTIPLIERS.sealed : 1) * (this._heavyMetal ? BUILDING_COST_MULTIPLIERS.heavyMetal : 1)
+            * (this._ceilings !== "standard" ? BUILDING_COST_MULTIPLIERS.ceilings : 1) * (this._subsurface !== "none" ? BUILDING_COST_MULTIPLIERS.subsurface : 1)
+            * (this._tunnel ? BUILDING_COST_MULTIPLIERS.tunnel : 1));
     }
     public getTotalCapacity(): number { return this.getCapacityPerHex() * this._hexes; }
 
@@ -330,7 +533,7 @@ export default class Building {
      * other equipment where DropShips or Support Vehicles may carry it (TO:AR pp.129, 131; TO:AUE p.82).
      */
     public isEquipmentAllowed(item: IEquipmentItem): boolean {
-        if (this._classification.capacity === "none") return false;
+        if (this._classification.capacity === "none" || this._tunnel) return false;
         if (item.category === "Melee" || item.requiresHandActuator) return false;
         if (Building._isWeapon(item)) {
             return this.canMountHeavyWeapons() && Building.isHeavyWeapon(item)
@@ -368,7 +571,7 @@ export default class Building {
         return techTag === "is" || techTag === "clan" ? [...own, ...getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true)] : own;
     }
 
-    private _newMount(catalogItem: IEquipmentItem, hex: unknown, turret: unknown, uuid?: unknown): IBuildingMount {
+    private _newMount(catalogItem: IEquipmentItem, hex: unknown, turret: unknown, uuid?: unknown, automated?: unknown): IBuildingMount {
         const freshId = typeof uuid !== "string" || !uuid || this._equipment.some((mount) => mount.item.uuid === uuid);
         // A deep copy: mounted items never share nested data with each other or the catalog.
         const item: IEquipmentItem = { ...JSON.parse(JSON.stringify(catalogItem)), uuid: freshId ? generateUUID() : uuid as string };
@@ -376,6 +579,7 @@ export default class Building {
             item,
             hex: Math.floor(savedNumber(hex, 1, 1, this._hexes)),
             turret: turret === true && !item.isAmmo,
+            automated: automated === true && Building.canAutomate(item),
         };
     }
 
@@ -403,6 +607,22 @@ export default class Building {
     public setEquipmentTurret(uuid: string, turret: boolean): void {
         const mount = this._equipment.find((entry) => entry.item.uuid === uuid);
         if (mount) mount.turret = turret && !mount.item.isAmmo;
+    }
+
+    /**
+     * Automated control systems take Heavy weapons other than artillery, and nothing fired without a Gunnery
+     * Skill Roll, such as anti-missile systems and A- or B-Pods (TO:AR p.131).
+     */
+    public static canAutomate(item: IEquipmentItem): boolean {
+        return Building.isHeavyWeapon(item) && !/artillery/i.test(`${item.category} ${item.name}`) && !/anti-missile|a-pod|b-pod/.test(item.tag);
+    }
+    public setEquipmentAutomated(uuid: string, automated: boolean): void {
+        const mount = this._equipment.find((entry) => entry.item.uuid === uuid);
+        if (mount) mount.automated = automated && Building.canAutomate(mount.item);
+    }
+    /** Tons of automated weapons; ammunition, heat sinks, amplifiers and turrets are not counted (TO:AR p.208). */
+    public getAutomatedWeaponTons(): number {
+        return round3(this._equipment.filter((mount) => mount.automated).reduce((sum, mount) => sum + (mount.item.weight || 0), 0));
     }
 
     /** Tons of Heavy weapons in a hex, the figure the classification limits. */
@@ -449,6 +669,7 @@ export default class Building {
     /** An empty tag puts the building back on the local power grid. */
     public setGenerator(tag: string): IBuildingGenerator | null {
         this._generator = this.canMountGenerator() ? findBuildingGenerator(tag) ?? null : null;
+        if (!this._generator) this._poweredHexes = 0;
         return this._generator;
     }
 
@@ -474,7 +695,7 @@ export default class Building {
      */
     public getGeneratorWeight(): number {
         if (!this._generator) return 0;
-        const base = this._hexes * this._levels + this._equipment
+        const base = this._hexes * this._levels + this._poweredHexes + this._equipment
             .filter((mount) => Building._isEnergyWeapon(mount.item) && Building.isHeavyWeapon(mount.item))
             .reduce((sum, mount) => sum + (mount.item.weight || 0), 0) * 0.1;
         return Math.ceil(base * this._generator.weightMultiplier - 1e-9);
@@ -493,14 +714,16 @@ export default class Building {
         const capacity = this.getCapacityPerHex();
         const heatSinks = round3(this._heatSinks / this._hexes);
         const generator = round3(this.getGeneratorWeight() / this._hexes);
+        const liquid = this._liquidStorage / this._hexes;
         const loads: IBuildingHexLoad[] = [];
         for (let hex = 1; hex <= this._hexes; hex++) {
             const equipment = round3(this._equipment.filter((mount) => mount.hex === hex).reduce((sum, mount) => sum + (mount.item.weight || 0), 0));
             const turret = this.getTurretWeight(hex);
             const powerAmplifiers = this.getPowerAmplifierWeight(hex);
-            const total = round3(this._armorTons + equipment + turret + powerAmplifiers + heatSinks + generator);
+            const fittings = round3(this.getElevatorWeight(hex) + liquid);
+            const total = round3(this._armorTons + equipment + turret + powerAmplifiers + heatSinks + generator + fittings);
             loads.push({
-                hex, armor: this._armorTons, equipment, turret, powerAmplifiers, heatSinks, generator, total,
+                hex, armor: this._armorTons, equipment, turret, powerAmplifiers, heatSinks, generator, fittings, total,
                 remaining: round3(capacity - total), heavyWeapons: this.getHeavyWeaponTons(hex),
             });
         }
@@ -520,22 +743,41 @@ export default class Building {
             ...(this._heatSinks > 0 ? [{ name: `Heat Sinks (${this._heatSinks} ${this._heatSinkType.name})`, weight: this._heatSinks }] : []),
             ...(sum("powerAmplifiers") > 0 ? [{ name: "Power Amplifiers", weight: sum("powerAmplifiers") }] : []),
             ...(sum("turret") > 0 ? [{ name: "Turrets", weight: sum("turret") }] : []),
+            ...this._elevators.map((elevator) => ({
+                name: `Industrial Elevator (${elevator.capacity} tons, ${elevator.levels} ${elevator.levels === 1 ? "level" : "levels"}${this._hexes > 1 ? `, hex ${elevator.hex}` : ""})`,
+                weight: Building.getElevatorWeight(elevator),
+            })),
+            ...(this._liquidStorage > 0 ? [{ name: `Liquid Storage (holds ${this.getLiquidCapacity()} tons)`, weight: this._liquidStorage }] : []),
             ...this._equipment.map((mount) => ({
-                name: `${mount.item.name}${mount.turret ? " (T)" : ""}${this._hexes > 1 ? `, hex ${mount.hex}` : ""}`, weight: mount.item.weight || 0,
+                name: `${mount.item.name}${mount.turret ? " (T)" : ""}${mount.automated ? " (automated)" : ""}${this._hexes > 1 ? `, hex ${mount.hex}` : ""}`, weight: mount.item.weight || 0,
             })),
         ];
     }
 
     /**
      * Minimum gunners and officers: a Heavy weapon needs its tonnage / 5 gunners, rounded up, and a military
-     * building one officer for up to 9 crew or one for every 10 (TO:AR p.130). Crew for other equipment, such
-     * as communications gear, is not counted here.
+     * building one officer for up to 9 crew or one for every 10 (TO:AR p.130). Automated weapons need no
+     * gunners (TO:AR p.131).
      */
     public getMinimumGunners(): number {
-        return this._equipment.filter((mount) => Building.isHeavyWeapon(mount.item)).reduce((sum, mount) => sum + Math.ceil((mount.item.weight || 0) / 5 - 1e-9), 0);
+        return this._equipment.filter((mount) => Building.isHeavyWeapon(mount.item) && !mount.automated).reduce((sum, mount) => sum + Math.ceil((mount.item.weight || 0) / 5 - 1e-9), 0);
+    }
+    /**
+     * Crew for other equipment on the Advanced Building Minimum Crew Table (TO:AR p.130): one for each ton of
+     * communications equipment, 3 for a field kitchen and 5 for each MASH theater. The table's flight deck,
+     * landing deck, helipad, mobile field base and modular linkage are not in the equipment lists yet.
+     */
+    public getMinimumNonGunners(): number {
+        let crew = 0;
+        for (const mount of this._equipment) {
+            if (/communications-equipment/.test(mount.item.tag)) crew += Math.ceil((mount.item.weight || 0) - 1e-9);
+            else if (mount.item.tag === "field-kitchen") crew += 3;
+            else if (mount.item.tag === "mash-core" || mount.item.tag === "mash-theater") crew += 5;
+        }
+        return crew;
     }
     public getMinimumOfficers(): number {
-        const crew = this.getMinimumGunners();
+        const crew = this.getMinimumGunners() + this.getMinimumNonGunners();
         if (crew === 0 || !this.canMountHeavyWeapons()) return 0;
         return crew <= 9 ? 1 : Math.ceil(crew / 10);
     }
@@ -592,6 +834,14 @@ export default class Building {
         if (this._heatSinkType.tag !== "single" && this._heatSinks > 0 && !this._datesAvailability(this._heatSinkType, rulesLevel).available) {
             issues.push(`${this._heatSinkType.name} heat sinks are not available in the selected era.`);
         }
+        if (this._subsurface === "underground" && this.hasTurret()) issues.push("An underground building mounts no rooftop equipment or turrets (TO:AR p.138).");
+        if (this._subsurface === "underwater" && this._depth > this._cf) issues.push(`An underwater building may be no deeper than its Construction Factor: depth ${this._depth}, CF ${this._cf} (TO:AR p.138).`);
+        for (const elevator of this._elevators) {
+            if (elevator.levels >= this._levels && this._equipment.some((mount) => mount.hex === elevator.hex && mount.turret)) {
+                issues.push(`The industrial elevator in ${this._hexes > 1 ? `hex ${elevator.hex}` : "the building"} reaches the roof, which leaves no room there for a turret (TO:AR p.136).`);
+            }
+        }
+        if (this._tunnel && this._doors.length < 2) issues.push("A tunnel needs a large door at each connection, two at least (TO:AR p.139).");
         return issues;
     }
 
@@ -604,6 +854,17 @@ export default class Building {
         if (this._generator?.notes) notes.push(`${this._generator.name} generator: ${this._generator.notes}.`);
         if (this._generator?.dailyFuel) notes.push(`The generator burns ${round3(this._generator.dailyFuel * this._hexes * this._levels / 5)} tons of fuel a day (${this._generator.dailyFuel} for every five hexes and levels), stored outside the building (TO:AR p.132).`);
         if (this._classification.lightWeapons) notes.push("Light and Medium (infantry) weapons, 6 a hex for each level, are not built here yet (TO:AR p.129).");
+        if (this._equipment.some((mount) => mount.automated)) notes.push(`Automated weapons fire first in the Weapon Attack Phase at the closest enemy in range, with a Gunnery skill of ${BUILDING_AUTOMATED_GUNNERY}, +1 through hostile ECM (TO:AR p.131).`);
+        if (this._sealed) notes.push(`Environmental sealing: a hit that does more than 10 points to the Construction Factor breaches the building on a 2D6 roll of ${BUILDING_BREACH_TARGET}+, modified by ${this.getBreachModifier() >= 0 ? "+" : ""}${this.getBreachModifier()} (TO:AR pp.134-135).`);
+        if (this._heavyMetal) notes.push("Heavy metal superstructure: lines of sight through or beside the building are treated as inside an electromagnetic interference field, and a unit that fails its roll entering takes double damage (TO:AR p.135).");
+        if (this._ceilings === "high") notes.push("High ceilings: non-infantry units do half damage to a hex they enter and take half from a failed roll, rounded down (TO:AR p.135).");
+        if (this._ceilings === "low") notes.push("Low ceilings: non-infantry units do double damage to a hex they enter and take double from a failed roll, rounded up (TO:AR p.135).");
+        if (this._subsurface === "underground") notes.push("Underground: damaged only from inside, except at tunnel openings; any 10 points of damage in a phase calls for a breach roll, and a breach collapses the hex (TO:AR p.138).");
+        if (this._subsurface === "underwater") notes.push("Underwater: any 10 points of damage in a phase calls for a breach roll, and a breach floods the building (TO:AR p.138).");
+        if (this._tunnel) notes.push("A tunnel moves units as an empty hangar does and carries no equipment (TO:AR p.139).");
+        if (this._doors.length > 0) notes.push("Large doors open or close in the End Phase. Vehicles and ProtoMechs pass an open door without damage; 'Mechs need one 2 levels high (TO:AR p.136).");
+        if (this._elevators.length > 0) notes.push("Industrial elevators move 1 level a turn; each level costs the unit aboard 1 Walking or Cruising MP (TO:AR p.136).");
+        if (this._liquidStorage > 0) notes.push(`Liquid storage: if a hex is brought to CF 0 by weapons or fire, the contents explode on a 2D6 roll of 6+, out to ${Math.max(1, Math.ceil(this.getLiquidCapacity() / 1000))} ${Math.ceil(this.getLiquidCapacity() / 1000) > 1 ? "hexes" : "hex"} when full (TO:AR pp.132-133).`);
         return notes;
     }
 
@@ -613,9 +874,10 @@ export default class Building {
         const rows: [string, number][] = [];
         const levels = this._classification.singleLevelCost ? 1 : this._levels;
         const rate = this._classification.costPerCF;
+        const multiplier = this.getStructureCostMultiplier();
         rows.push([
-            `Structure (${money(rate)} x CF ${this._cf} x ${this._hexes} ${this.getHexLabel(this._hexes !== 1)}${this._classification.singleLevelCost ? "" : ` x ${levels} ${levels === 1 ? "level" : "levels"}`})`,
-            rate * this._cf * this._hexes * levels,
+            `Structure (${money(rate)} x CF ${this._cf} x ${this._hexes} ${this.getHexLabel(this._hexes !== 1)}${this._classification.singleLevelCost ? "" : ` x ${levels} ${levels === 1 ? "level" : "levels"}`}${multiplier !== 1 ? ` x ${multiplier} for structural modifications` : ""})`,
+            rate * this._cf * this._hexes * levels * multiplier,
         ]);
         if (this._generator) rows.push([`${this._generator.name} Generator (${money(this._generator.costPerTon)} x ${this.getGeneratorWeight()} t)`, this._generator.costPerTon * this.getGeneratorWeight()]);
         const armorTons = this._armorTons * this._hexes;
@@ -628,6 +890,11 @@ export default class Building {
         if (turrets > 0) rows.push([`Turrets (5,000 x ${turrets} t)`, 5000 * turrets]);
         const equipment = this._equipment.reduce((sum, mount) => sum + (mount.item.isAmmo ? (mount.item.cbills || 0) * (mount.item.weight || 0) : mount.item.cbills || 0), 0);
         if (this._equipment.length > 0) rows.push(["Weapons, Equipment and Ammunition", equipment]);
+        const doorLevels = this._doors.reduce((sum, height) => sum + height, 0);
+        if (doorLevels > 0) rows.push([`Large Doors (10,000 x ${doorLevels} ${doorLevels === 1 ? "level" : "levels"})`, 10000 * doorLevels]);
+        if (this.getElevatorWeight() > 0) rows.push([`Industrial Elevators (15,000 x ${this.getElevatorWeight()} t)`, 15000 * this.getElevatorWeight()]);
+        if (this._liquidStorage > 0) rows.push([`Fuel Storage (100 x ${this._liquidStorage} t)`, 100 * this._liquidStorage]);
+        if (this.getAutomatedWeaponTons() > 0) rows.push([`Weapon Automation (1,000 x ${this.getAutomatedWeaponTons()} t)`, 1000 * this.getAutomatedWeaponTons()]);
         if (this._unspecifiedEquipment) {
             rows.push([
                 `Unspecified Equipment (${money(BUILDING_UNSPECIFIED_EQUIPMENT_COST_PER_CF)} x CF ${this._cf} x ${this._hexes} ${this.getHexLabel(this._hexes !== 1)})`,
@@ -695,7 +962,7 @@ export default class Building {
         return true;
     }
     public isDamaged(): boolean {
-        return this._inPlay.destroyed.length > 0 || this._inPlay.malfunctions.length > 0 || Object.values(this._inPlay.ammoUsed).some((used) => used > 0)
+        return this.isBreached() || this._inPlay.destroyed.length > 0 || this._inPlay.malfunctions.length > 0 || Object.values(this._inPlay.ammoUsed).some((used) => used > 0)
             || this._inPlay.hexes.slice(0, this._hexes).some((state) => state.armorDamage > 0 || state.cfDamage > 0 || state.gunnersKilled
                 || state.gunnersStunned > 0 || state.turretJammed || state.turretLocked || state.ammoExploded);
     }
@@ -726,7 +993,69 @@ export default class Building {
      * p.117), times the classification's scaling for damage to units, rounded down (TO:AR p.124).
      */
     public getUnitEntryDamage(hex: number): number {
-        return Math.floor(Math.ceil(this.getHexCF(hex) / 10) * this._classification.damageToUnits);
+        let damage = Math.ceil(this.getHexCF(hex) / 10);
+        // Ceilings double (rounded up) or halve (rounded down) it; a heavy metal superstructure doubles it (TO:AR pp.117, 135).
+        if (this._ceilings === "low") damage *= 2;
+        if (this._ceilings === "high") damage = Math.floor(damage / 2);
+        if (this._heavyMetal) damage *= 2;
+        return Math.floor(damage * this._classification.damageToUnits);
+    }
+
+    // The Advanced Building Movement Table's rows for what a hex holds inside; rooftop and turret items do not count (TO:AR p.117).
+    private _hexFeature(hex: number): { mp: number; piloting: number; toHit: number } {
+        const inside = this._equipment.filter((mount) => mount.hex === hex && !mount.turret);
+        let row = { mp: 0, piloting: 0, toHit: 0 };
+        if (this._generator || inside.some((mount) => Building._isWeapon(mount.item))) row = { mp: 2, piloting: 2, toHit: 2 };
+        else if (inside.length > 0 || this._heatSinks > 0 || this.getElevatorWeight(hex) > 0) row = { mp: 1, piloting: 1, toHit: 2 };
+        else if (this._unspecifiedEquipment) row = { mp: 0, piloting: 0, toHit: 1 };
+        if (this._liquidStorage > 0) row = { mp: row.mp + 1, piloting: row.piloting + 2, toHit: row.toHit };
+        if (this._ceilings === "high") row.piloting -= 1;
+        if (this._ceilings === "low") row = { ...row, mp: row.mp + 1, piloting: row.piloting + 1 };
+        if (this._heavyMetal) row = { ...row, mp: row.mp + 1, piloting: row.piloting + 2 };
+        return row;
+    }
+    /**
+     * MP a non-infantry unit pays to enter a hex beyond the hex's own cost, and its Piloting/Driving Skill Roll
+     * modifier: the classification and type (TO:AR p.113) plus the Advanced Building Movement Table (p.117).
+     * Null where units cannot enter. A hangar's own reductions depend on the unit's height and are not counted.
+     */
+    public getHexMPCost(hex: number): number | null {
+        return this._type.mpCost === null ? null : this._type.mpCost + this._hexFeature(hex).mp;
+    }
+    public getHexPilotingModifier(hex: number): number | null {
+        return this._type.pilotingModifier === null ? null : this._type.pilotingModifier + this._hexFeature(hex).piloting;
+    }
+    /** To-hit modifier a hex's equipment adds to weapon attacks through it (TO:AR p.117). */
+    public getHexToHitModifier(hex: number): number { return this._hexFeature(hex).toHit; }
+
+    /** The generator is spread over every hex: losing one puts it out, and Heavy weapons and electronics with it (TO:AR p.132). */
+    public hasPower(): boolean {
+        if (!this._generator) return true;
+        for (let hex = 1; hex <= this._hexes; hex++) if (this.isHexDestroyed(hex)) return false;
+        return true;
+    }
+
+    /** Sealed Building Breach Table modifier: the building type, plus half the depth, rounded up (TO:AR p.135). */
+    public getBreachModifier(): number {
+        return (BUILDING_BREACH_MODIFIERS[this._type.tag] ?? 0) + (this._subsurface !== "none" ? Math.ceil(this._depth / 2) : 0);
+    }
+    public isBreached(): boolean { return this._inPlay.breached === true; }
+    public setBreached(breached: boolean): void { this._inPlay.breached = breached || undefined; }
+    /**
+     * A roll on the Sealed Building Breach Table (TO:AR pp.134-135, 138). A breach loses everything unprotected
+     * inside; underground it collapses the hex instead, and under water it floods the building.
+     */
+    public resolveBreachRoll(hex: number, roll: number): string[] {
+        const modifier = this.getBreachModifier();
+        const total = Math.floor(savedNumber(roll, 2, 2, 12)) + modifier;
+        const head = `Breach roll ${Math.floor(savedNumber(roll, 2, 2, 12))} ${modifier >= 0 ? "+" : "-"} ${Math.abs(modifier)} = ${total}`;
+        if (total < BUILDING_BREACH_TARGET) return [`${head}: no breach (${BUILDING_BREACH_TARGET}+ needed)`];
+        if (this._subsurface === "underground") {
+            this.setHexCF(hex, 0);
+            return [`${head}: breached. ${this._collapseLine(this._hexes > 1 ? `Hex ${hex}` : this.getDisplayName())}; equipment and unprotected personnel in it are lost`];
+        }
+        this._inPlay.breached = true;
+        return [`${head}: breached. ${this._subsurface === "underwater" ? "The building floods" : "The building loses its seal"}; all unprotected personnel and equipment inside are destroyed`];
     }
 
     /**
@@ -739,12 +1068,12 @@ export default class Building {
     public applyDamage(hex: number, damage: number, scaled: boolean = true, fromInside: boolean = false): IBuildingDamageResult {
         const lines: string[] = [];
         const where = this._hexes > 1 ? `Hex ${hex}` : this.getDisplayName();
-        if (hex < 1 || hex > this._hexes || this.isHexDestroyed(hex)) return { lines: [`${where} is already destroyed`], criticalRoll: false };
+        if (hex < 1 || hex > this._hexes || this.isHexDestroyed(hex)) return { lines: [`${where} is already destroyed`], criticalRoll: false, breachRoll: false };
         const rated = Math.max(0, Math.floor(savedNumber(damage, 0, 0, 100000)));
         const multiplier = scaled ? this._classification.damageToBuilding : 1;
         const applied = Math.floor(rated * multiplier);
         if (multiplier !== 1) lines.push(`${rated} damage x${multiplier} for a ${this._classification.name.toLowerCase()} = ${applied} (TO:AR p.124)`);
-        if (applied <= 0) return { lines: [...lines, `${where}: no damage`], criticalRoll: false };
+        if (applied <= 0) return { lines: [...lines, `${where}: no damage`], criticalRoll: false, breachRoll: false };
 
         const state = this._hexState(hex);
         if (state.turnStartCF === null) state.turnStartCF = this.getHexCF(hex);
@@ -757,11 +1086,15 @@ export default class Building {
         if (cfTaken > 0) lines.push(`${where}: ${cfTaken} to the Construction Factor, ${this.getHexCF(hex)} left`);
         if (this.isHexDestroyed(hex)) {
             lines.push(this._collapseLine(where));
-            return { lines, criticalRoll: false };
+            if (!this.hasPower()) lines.push("The generator is out: no Heavy weapons, communications or other electronics (TO:AR p.132)");
+            return { lines, criticalRoll: false, breachRoll: false };
         }
         const criticalRoll = cfTaken > 0 && applied > threshold;
         if (criticalRoll) lines.push(`${applied} damage is above the Damage Threshold of ${threshold}: roll on the Advanced Building Critical Hits Table (TO:AR p.118)`);
-        return { lines, criticalRoll };
+        // A sealed building checks when a hit does more than 10 points to the CF; a subsurface one at 10 points of damage.
+        const breachRoll = !this.isBreached() && ((this._sealed && cfTaken > 10) || (this._subsurface !== "none" && cfTaken >= 10));
+        if (breachRoll) lines.push(`Roll on the Sealed Building Breach Table: 2D6 ${this.getBreachModifier() >= 0 ? "+" : "-"} ${Math.abs(this.getBreachModifier())}, breached on ${BUILDING_BREACH_TARGET}+ (TO:AR p.135)`);
+        return { lines, criticalRoll, breachRoll };
     }
 
     private _collapseLine(where: string): string {
@@ -798,11 +1131,13 @@ export default class Building {
         if (!mount) return "";
         const state = this._peekHex(mount.hex);
         if (this.isHexDestroyed(mount.hex)) return "Hex destroyed";
+        if (this.isBreached()) return "Lost to the breach";
         if (this.isMountDestroyed(uuid)) return mount.item.isAmmo ? "Destroyed" : Building._isWeapon(mount.item) ? "Destroyed" : "Inoperative";
         if (mount.item.isAmmo) return state.ammoExploded ? "Destroyed" : "";
+        if (!this.hasPower() && (Building.isHeavyWeapon(mount.item) || !Building._isWeapon(mount.item))) return "No power";
         if (!Building._isWeapon(mount.item)) return "";
-        if (state.gunnersKilled) return "Gunners killed";
-        if (state.gunnersStunned > 0) return "Gunners stunned";
+        if (state.gunnersKilled && !mount.automated) return "Gunners killed";
+        if (state.gunnersStunned > 0 && !mount.automated) return "Gunners stunned";
         if (this.hasMalfunction(uuid)) return "Malfunction";
         if (mount.turret && state.turretLocked) return "Turret locked in its facing";
         if (mount.turret && state.turretJammed) return "Turret jammed in its facing";
@@ -996,6 +1331,7 @@ export default class Building {
             destroyed: this._inPlay.destroyed.filter((uuid) => uuids.has(uuid)),
             malfunctions: this._inPlay.malfunctions.filter((uuid) => uuids.has(uuid)),
             ammoUsed,
+            ...(this.isBreached() ? { breached: true } : {}),
         };
     }
 
@@ -1003,6 +1339,7 @@ export default class Building {
     private _importInPlay(raw: unknown): void {
         this._inPlay = newInPlay();
         if (!isPlainObject(raw)) return;
+        if (raw.breached === true) this._inPlay.breached = true;
         const uuids = new Set(this._equipment.map((mount) => mount.item.uuid || ""));
         const hexes = Array.isArray(raw.hexes) ? raw.hexes.slice(0, this._hexes) : [];
         hexes.forEach((entry, index) => {
@@ -1054,7 +1391,19 @@ export default class Building {
             heatSinks: this._heatSinks,
             generator: this._generator?.tag ?? "",
             unspecifiedEquipment: this._unspecifiedEquipment,
-            equipment: this._equipment.map((mount) => ({ tag: mount.item.tag, uuid: mount.item.uuid, hex: mount.hex, ...(mount.turret ? { turret: true } : {}) })),
+            equipment: this._equipment.map((mount) => ({
+                tag: mount.item.tag, uuid: mount.item.uuid, hex: mount.hex, ...(mount.turret ? { turret: true } : {}), ...(mount.automated ? { automated: true } : {}),
+            })),
+            sealed: this._sealed,
+            heavyMetal: this._heavyMetal,
+            ceilings: this._ceilings,
+            subsurface: this._subsurface,
+            depth: this._depth,
+            tunnel: this._tunnel,
+            doors: [...this._doors],
+            elevators: this._elevators.map((elevator) => ({ ...elevator })),
+            liquidStorage: this._liquidStorage,
+            poweredHexes: this._poweredHexes,
         };
     }
 
@@ -1097,6 +1446,19 @@ export default class Building {
             for (const key of ["cf", "hexes", "levels", "armorTons", "heatSinks"] as const) {
                 if (saved[key] !== undefined && typeof saved[key] !== "number") issue(`Ignored a ${key} value that is not a number`);
             }
+            // Modifications that change the size limits and capacity come first.
+            this._subsurface = "none";
+            this._tunnel = false;
+            this._sealed = false;
+            this._heavyMetal = false;
+            this._ceilings = "standard";
+            this._doors = [];
+            this._elevators = [];
+            this._liquidStorage = 0;
+            this._poweredHexes = 0;
+            this._subsurface = this.canBeSubsurface() && (saved.subsurface === "underground" || saved.subsurface === "underwater") ? saved.subsurface : "none";
+            this._depth = Math.floor(savedNumber(saved.depth, 1, 1, 1000));
+            this._tunnel = saved.tunnel === true && this.canBeTunnel();
             const cf = savedNumber(saved.cf, this._type.maxCF, 0, 100000);
             this._cf = this._type.maxCF;
             this.setCF(cf);
@@ -1105,6 +1467,9 @@ export default class Building {
             this.setHexes(savedNumber(saved.hexes, 1, 1, 100000));
             this._levels = 1;
             this.setLevels(savedNumber(saved.levels, 1, 1, 100000));
+            this.setSealed(saved.sealed === true);
+            this.setHeavyMetalSuperstructure(saved.heavyMetal === true);
+            this.setCeilings(savedString(saved.ceilings));
             this._armorTons = 0;
             this.setArmorTons(savedNumber(saved.armorTons, 0, 0, 100000));
             this._heatSinkType = mechHeatSinkTypes[0];
@@ -1130,8 +1495,19 @@ export default class Building {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;
                 }
-                this._equipment.push(this._newMount(catalogItem, entry.hex, entry.turret, entry.uuid));
+                this._equipment.push(this._newMount(catalogItem, entry.hex, entry.turret, entry.uuid, entry.automated));
             }
+            for (const key of ["doors", "elevators"] as const) {
+                if (saved[key] !== undefined && !Array.isArray(saved[key])) issue(`Ignored a ${key} list that is not a list`);
+            }
+            for (const height of Array.isArray(saved.doors) ? saved.doors.slice(0, MAX_BUILDING_DOORS) : []) {
+                if (typeof height === "number") this.addDoor(height);
+            }
+            for (const entry of Array.isArray(saved.elevators) ? saved.elevators.slice(0, MAX_BUILDING_ELEVATORS) : []) {
+                if (isPlainObject(entry)) this.addElevator(savedNumber(entry.hex, 1, 1, 100000), savedNumber(entry.capacity, 1, 1, 100000), savedNumber(entry.levels, 1, 1, 100000));
+            }
+            this.setLiquidStorage(savedNumber(saved.liquidStorage, 0, 0, 1e9));
+            this.setPoweredHexes(savedNumber(saved.poweredHexes, 0, 0, 1e9));
             if (saved.gunnery !== undefined && typeof saved.gunnery !== "number") issue("Ignored a gunnery skill that is not a number");
             this._gunnery = Math.floor(savedNumber(saved.gunnery, 4, 0, 8));
             this._importInPlay(saved.inPlay);

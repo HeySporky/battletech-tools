@@ -96,6 +96,13 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                             </>
                                         ) : null}
 
+                                        {generator ? (
+                                            <label>
+                                                Hexes of other buildings the generator powers (each times its levels):
+                                                <input type="number" min={0} max={100000} value={building.getPoweredHexes()} onChange={(e) => { const value = +e.currentTarget.value || 0; this.update((b) => b.setPoweredHexes(value)); }} />
+                                            </label>
+                                        ) : null}
+
                                         <label>
                                             Heat Sink Type:
                                             <select value={building.getHeatSinkType().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((b) => b.setHeatSinkType(value)); }}>
@@ -122,6 +129,49 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                             &nbsp;Count the leftover capacity as unspecified equipment (5,000 C-bills x CF for each hex; no effect in play, TO:AR p. 129)
                                         </label>
 
+                                        <label>
+                                            Tons of capacity for liquid fuel or chemical storage:
+                                            <input type="number" min={0} max={building.getTotalCapacity()} value={building.getLiquidStorage()} onChange={(e) => { const value = +e.currentTarget.value || 0; this.update((b) => b.setLiquidStorage(value)); }} />
+                                        </label>
+                                        <p className="smaller-text">
+                                            {building.getLiquidStorage() > 0 ? `Holds ${building.getLiquidCapacity()} tons, spread evenly over the hexes. ` : ""}
+                                            Each ton holds 0.91 tons, at 100 C-bills a ton (TO:AR pp. 134, 208).
+                                        </p>
+
+                                        {building.canMountElevators() ? (
+                                            <div data-testid="building-elevators">
+                                                <p><strong>Industrial Elevators</strong>: {building.getElevators().length}{building.getElevatorWeight() > 0 ? `, ${building.getElevatorWeight()} tons` : ""}</p>
+                                                {building.getElevators().map((elevator, index) => (
+                                                    <p key={index}>
+                                                        {building.getHexes() > 1 ? (
+                                                            <label>
+                                                                Elevator {index + 1} hex:
+                                                                <select value={elevator.hex} onChange={(e) => { const value = +e.currentTarget.value; this.update((b) => b.setElevator(index, value, elevator.capacity, elevator.levels)); }}>
+                                                                    {range(1, building.getHexes()).map((hex) => <option key={hex} value={hex}>{hex}</option>)}
+                                                                </select>
+                                                            </label>
+                                                        ) : null}
+                                                        <label>
+                                                            Elevator {index + 1} capacity in tons (up to {building.getCF()}):
+                                                            <input type="number" min={1} max={building.getCF()} value={elevator.capacity} onChange={(e) => { const value = +e.currentTarget.value || 1; this.update((b) => b.setElevator(index, elevator.hex, value, elevator.levels)); }} />
+                                                        </label>
+                                                        <label>
+                                                            Elevator {index + 1} levels reached above the ground level:
+                                                            <select value={elevator.levels} onChange={(e) => { const value = +e.currentTarget.value; this.update((b) => b.setElevator(index, elevator.hex, elevator.capacity, value)); }}>
+                                                                {range(1, building.getLevels()).map((value) => <option key={value} value={value}>{value}{value === building.getLevels() ? " (the roof)" : ""}</option>)}
+                                                            </select>
+                                                        </label>
+                                                        <button className="btn btn-danger btn-sm" onClick={() => this.update((b) => b.removeElevator(index))}>Remove Elevator {index + 1}</button>
+                                                    </p>
+                                                ))}
+                                                <button className="btn btn-primary btn-sm" onClick={() => this.update((b) => b.addElevator(1, Math.min(20, b.getCF()), 1))}>Add Industrial Elevator</button>
+                                                <p className="smaller-text">
+                                                    A ton for every 20 tons lifted, rounded up, times the levels reached; it lifts no more than the Construction
+                                                    Factor and fills its hex on the levels it serves (TO:AR pp. 135-136).
+                                                </p>
+                                            </div>
+                                        ) : null}
+
                                         <AvailableEquipment
                                             appGlobals={this.props.appGlobals}
                                             equipment={available}
@@ -145,11 +195,12 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                             <TextSection label="Installed Equipment">
                                 <p className="smaller-text">
                                     A turret (one a hex, on the roof) gives its weapons a 360-degree arc and weighs 10 percent of what it holds,
-                                    rounded up to the half ton; ammunition stays out of it (TO:AUE p. 83).
+                                    rounded up to the half ton; ammunition stays out of it (TO:AUE p. 83). An automated weapon needs no gunners and
+                                    fires with a Gunnery skill of 5, at 1,000 C-bills a ton (TO:AR pp. 131, 208).
                                 </p>
                                 <table className="table" data-testid="building-equipment">
                                     <thead>
-                                        <tr><th>Name</th><th>Tons</th>{building.getHexes() > 1 ? <th>Hex</th> : null}<th>Turret</th><th></th></tr>
+                                        <tr><th>Name</th><th>Tons</th>{building.getHexes() > 1 ? <th>Hex</th> : null}<th>Turret</th><th>Automated</th><th></th></tr>
                                     </thead>
                                     <tbody>
                                         {building.getEquipment().map((mount) => (
@@ -178,13 +229,23 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                     )}
                                                 </td>
                                                 <td>
+                                                    {Building.canAutomate(mount.item) ? (
+                                                        <input
+                                                            type="checkbox"
+                                                            aria-label={"Automate " + mount.item.name}
+                                                            checked={mount.automated}
+                                                            onChange={(e) => { const value = e.currentTarget.checked; this.update((b) => b.setEquipmentAutomated(mount.item.uuid ?? "", value)); }}
+                                                        />
+                                                    ) : null}
+                                                </td>
+                                                <td>
                                                     <button className="btn btn-danger btn-sm" title={"Remove " + mount.item.name} onClick={() => this.update((b) => b.removeEquipment(mount.item.uuid ?? ""))}>
                                                         <Trash />
                                                     </button>
                                                 </td>
                                             </tr>
                                         ))}
-                                        {building.getEquipment().length === 0 ? <tr><td colSpan={5}>Nothing installed yet.</td></tr> : null}
+                                        {building.getEquipment().length === 0 ? <tr><td colSpan={6}>Nothing installed yet.</td></tr> : null}
                                     </tbody>
                                 </table>
                             </TextSection>
@@ -192,7 +253,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                 <TextSection label="Load by Hex">
                                     <table className="table" data-testid="building-loads">
                                         <thead>
-                                            <tr><th>Hex</th><th>Heavy Weapons</th><th>Turret</th><th>Amplifiers</th><th>Carried</th><th>Remaining</th></tr>
+                                            <tr><th>Hex</th><th>Heavy Weapons</th><th>Turret</th><th>Amplifiers</th><th>Elevators and Tanks</th><th>Carried</th><th>Remaining</th></tr>
                                         </thead>
                                         <tbody>
                                             {loads.map((load) => (
@@ -201,13 +262,14 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                     <td>{building.canMountHeavyWeapons() ? `${load.heavyWeapons} / ${building.getHeavyWeaponLimitPerHex()}` : "-"}</td>
                                                     <td>{load.turret}</td>
                                                     <td>{load.powerAmplifiers}</td>
+                                                    <td>{load.fittings}</td>
                                                     <td>{load.total}</td>
                                                     <td>{load.remaining}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </table>
-                                    <p className="smaller-text">Carried counts armor, equipment, the turret, power amplifiers and the hex's share of heat sinks and generator.</p>
+                                    <p className="smaller-text">Carried counts armor, equipment, the turret, power amplifiers, elevators and the hex's share of heat sinks, generator and liquid storage.</p>
                                 </TextSection>
                             ) : null}
                         </div>

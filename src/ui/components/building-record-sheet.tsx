@@ -18,6 +18,18 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
         const equipment = building.getEquipment();
         const generator = building.getGenerator();
         const showDamage = !!this.props.showDamage;
+        const doors = building.getDoors();
+        const modifications = [
+            ...(building.getSubsurface() !== "none" ? [`${building.getSubsurface() === "underwater" ? "Underwater" : "Underground"}, depth ${building.getDepth()}`] : []),
+            ...(building.isTunnel() ? ["Tunnel"] : []),
+            ...(building.isSealed() ? [`Environmental sealing (breach roll ${building.getBreachModifier() >= 0 ? "+" : ""}${building.getBreachModifier()})`] : []),
+            ...(building.hasHeavyMetalSuperstructure() ? ["Heavy metal superstructure"] : []),
+            ...(building.getCeilings() !== "standard" ? [`${building.getCeilings() === "high" ? "High" : "Low"} ceilings`] : []),
+            ...(doors.length > 0 ? [`${doors.length} large ${doors.length === 1 ? "door" : "doors"} (${doors.map((height) => `${height} ${height === 1 ? "level" : "levels"}`).join(", ")})`] : []),
+            ...building.getElevators().map((elevator) => `Industrial elevator in hex ${elevator.hex}: ${elevator.capacity} tons, ${elevator.levels} ${elevator.levels === 1 ? "level" : "levels"}`),
+            ...(building.getLiquidStorage() > 0 ? [`Liquid storage for ${building.getLiquidCapacity()} tons`] : []),
+            ...(building.getMinimumNonGunners() > 0 ? [`${building.getMinimumNonGunners()} other crew`] : []),
+        ];
         const armorLost = (hex: number): number => showDamage ? building.getArmorPoints() - building.getHexArmor(hex) : 0;
         const cfLost = (hex: number): number => showDamage ? building.getCF() - building.getHexCF(hex) : 0;
         // What play has done to a hex beyond its circles.
@@ -55,7 +67,10 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                 <p>
                     <strong>Entering a hex</strong>: {type.mpCost === null ? "Units cannot enter" : `+${type.mpCost} MP`}
                     {type.pilotingModifier === null ? "" : `, Piloting/Driving Skill Roll +${type.pilotingModifier}`}
+                    {type.mpCost === null ? "" : " (before the hex's equipment and the modifications below, TO:AR p.117)"}
                 </p>
+                {modifications.length > 0 ? <p data-testid="building-sheet-modifications"><strong>Modifications and Fittings</strong>: {modifications.join("; ")}</p> : null}
+                {showDamage && building.isBreached() ? <p><strong>BREACHED: unprotected personnel and equipment inside are lost.</strong></p> : null}
 
                 <h3>Weapons and Equipment Inventory</h3>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
@@ -70,7 +85,7 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                             <tr key={mount.item.uuid}>
                                 <td style={cell}>{mount.hex}</td>
                                 <td style={cell}>
-                                    {mount.item.name}{mount.turret ? " (T)" : ""}{mount.item.isAmmo && mount.item.roundsPerTon ? ` (${mount.item.roundsPerTon} rounds)` : ""}
+                                    {mount.item.name}{mount.turret ? " (T)" : ""}{mount.automated ? " (A)" : ""}{mount.item.isAmmo && mount.item.roundsPerTon ? ` (${mount.item.roundsPerTon} rounds)` : ""}
                                     {showDamage && mount.item.isAmmo && building.getAmmoCapacity(mount.item.uuid || "") > 0 ? `, ${building.getAmmoShots(mount.item.uuid || "")} of ${building.getAmmoCapacity(mount.item.uuid || "")} shots left` : ""}
                                     {showDamage && !mount.item.isAmmo && building.getMountStatus(mount.item.uuid || "") ? <strong> - {building.getMountStatus(mount.item.uuid || "")}</strong> : null}
                                 </td>
@@ -86,7 +101,7 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                         {equipment.length === 0 ? <tr><td style={cell} colSpan={9}>No weapons or equipment.</td></tr> : null}
                     </tbody>
                 </table>
-                <p className="smaller-text">(T) marks an item in the hex's rooftop turret; anything else has a fixed arc chosen when the building is placed.</p>
+                <p className="smaller-text">(T) marks an item in the hex's rooftop turret; anything else has a fixed arc chosen when the building is placed. (A) marks an automated weapon, Gunnery 5.</p>
 
                 <h3>Armor and Construction Factor</h3>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>

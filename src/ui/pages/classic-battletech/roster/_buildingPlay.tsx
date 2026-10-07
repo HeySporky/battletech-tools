@@ -1,8 +1,9 @@
 import * as React from 'react';
-import Building, { BUILDING_CRITICAL_HITS } from '../../../../classes/building';
+import Building, { BUILDING_AUTOMATED_GUNNERY, BUILDING_CRITICAL_HITS } from '../../../../classes/building';
 import { buildingSummary } from './_buildingGroupTable';
 
 const roll1D6 = (): number => Math.floor(Math.random() * 6) + 1;
+const formatModifier = (modifier: number): string => modifier >= 0 ? `+${modifier}` : `${modifier}`;
 
 /**
  * Play panel for a gun emplacement or other building in the roster: resolve attacks against a hex with scaled
@@ -19,6 +20,8 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
             scaled: true,
             fromInside: false,
             criticalHex: 0,
+            breachHex: 0,
+            breachRoll: "",
             roll: "",
             die: "",
             aimedShot: false,
@@ -39,6 +42,15 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
         const result = this.props.building.applyDamage(hex, this.state.damage, this.state.scaled, this.state.fromInside);
         this._log(result.lines);
         if( result.criticalRoll ) this.setState({ criticalHex: hex });
+        if( result.breachRoll ) this.setState({ breachHex: hex });
+        this._changed();
+    }
+
+    resolveBreach = (): void => {
+        const hex = this.state.breachHex || Math.min(this.state.hex, this.props.building.getHexes());
+        const roll = +this.state.breachRoll >= 2 ? +this.state.breachRoll : roll1D6() + roll1D6();
+        this._log(this.props.building.resolveBreachRoll(hex, roll));
+        this.setState({ breachHex: 0, breachRoll: "" });
         this._changed();
     }
 
@@ -65,6 +77,8 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
             <div className="building-play" data-testid="building-play">
                 <h3>{building.getDisplayName()} <small>({buildingSummary(building)})</small></h3>
                 {building.isDestroyed() ? <h3 className="color-red text-center">DESTROYED</h3> : null}
+                {building.isBreached() ? <h3 className="color-red text-center">BREACHED</h3> : null}
+                {!building.hasPower() ? <p className="color-red"><strong>The generator is out: no Heavy weapons, communications or other electronics (TO:AR p.132).</strong></p> : null}
                 <p>
                     {building.getMinimumGunners() > 0 ? <><strong>Gunnery</strong>: {building.getGunnery()} &nbsp;|&nbsp;</> : null}
                     <strong>Damage Scaling</strong>: x{classification.damageToBuilding} to the building, x{classification.damageToUnits} to units the building damages &nbsp;|&nbsp;
@@ -90,7 +104,9 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                                 <strong>Construction Factor</strong>: {building.getHexCF(hex)} of {building.getCF()} &nbsp;|&nbsp;
                                 <strong>Damage Threshold</strong>: {building.getDamageThreshold(hex)}
                                 {type.mpCost !== null ? <> &nbsp;|&nbsp; <strong>Absorbs</strong>: {building.getDamageAbsorbed(hex)} from each attack on a unit inside
-                                    &nbsp;|&nbsp; <strong>Damage to a unit entering</strong>: {building.getUnitEntryDamage(hex)}</> : null}
+                                    &nbsp;|&nbsp; <strong>Damage to a unit entering</strong>: {building.getUnitEntryDamage(hex)}
+                                    &nbsp;|&nbsp; <strong>To enter</strong>: +{building.getHexMPCost(hex)} MP, Piloting/Driving Skill Roll {formatModifier(building.getHexPilotingModifier(hex) ?? 0)}
+                                    {building.getHexToHitModifier(hex) > 0 ? <> &nbsp;|&nbsp; <strong>Attacks through the hex</strong>: +{building.getHexToHitModifier(hex)} to-hit</> : null}</> : null}
                             </p>
                             <p>
                                 {building.getArmorPoints() > 0 ? (
@@ -149,7 +165,7 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                                             const isWeapon = !mount.item.isAmmo && /Weapons$/.test(mount.item.category);
                                             return (
                                                 <tr key={uuid} className={status ? "color-red" : ""}>
-                                                    <td>{mount.item.name}{mount.turret ? " (T)" : ""}</td>
+                                                    <td>{mount.item.name}{mount.turret ? " (T)" : ""}{mount.automated ? ` (automated, Gunnery ${BUILDING_AUTOMATED_GUNNERY})` : ""}</td>
                                                     {mount.item.isAmmo ? (
                                                         <td colSpan={6}>
                                                             <label>
@@ -242,6 +258,26 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                     <button className="btn btn-primary btn-sm" onClick={this.resolveCritical}>Resolve Critical Hit</button>
                 </fieldset>
 
+                {building.isSealed() || building.getSubsurface() !== "none" ? (
+                    <fieldset className="fieldset" data-testid="building-play-breach">
+                        <legend>Sealed Building Breach Table</legend>
+                        {this.state.breachHex > 0 ? <p className="color-red"><strong>A breach roll is due{hexes.length > 1 ? ` for ${hexLabel.toLowerCase()} ${this.state.breachHex}` : ""}.</strong></p> : null}
+                        <p className="small-text">
+                            2D6 {formatModifier(building.getBreachModifier())}: breached on 10 or more. A sealed building rolls when one hit does more than 10 points to the
+                            Construction Factor; a building underground or under water when it takes 10 (TO:AR pp.134-135, 138).
+                        </p>
+                        <label>
+                            2D6 breach roll:
+                            <input type="number" min={2} max={12} placeholder="rolled for you" value={this.state.breachRoll} onChange={(e) => this.setState({ breachRoll: e.currentTarget.value })} />
+                        </label>
+                        <label>
+                            <input type="checkbox" checked={building.isBreached()} onChange={(e) => { building.setBreached(e.currentTarget.checked); this._changed(); }} />
+                            &nbsp;Breached
+                        </label>
+                        <button className="btn btn-primary btn-sm" onClick={this.resolveBreach}>Resolve Breach Roll</button>
+                    </fieldset>
+                ) : null}
+
                 {this.state.log.length ? (
                     <ul className="small-text" data-testid="building-play-log">
                         {this.state.log.map((entry, index) => <li key={index}>{entry}</li>)}
@@ -264,6 +300,9 @@ interface IBuildingPlayPanelState {
     fromInside: boolean;
     /** The hex a critical hit roll is due against, or 0. */
     criticalHex: number;
+    /** The hex a breach roll is due for, or 0. */
+    breachHex: number;
+    breachRoll: string;
     roll: string;
     die: string;
     aimedShot: boolean;

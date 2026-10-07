@@ -543,3 +543,255 @@ describe("Buildings in play", () => {
         expect(new BattleMechGroup({ ...old, buildings: [7, null, { name: "Bunker" }] as never }).buildings.length).toBe(1);
     });
 });
+
+describe("Structural modifications and fittings (TO:AR pp.131-139, 208)", () => {
+    const fortress = (type: string, cf: number, hexes: number, levels: number): Building => {
+        const building = new Building();
+        building.setClassification("fortress");
+        building.setType(type);
+        building.setCF(cf);
+        building.setHexes(hexes);
+        building.setLevels(levels);
+        return building;
+    };
+
+    it("offers each modification only to the classes and types the rules name", () => {
+        const emplacement = kenyon();
+        expect([emplacement.canSeal(), emplacement.canSetCeilings(), emplacement.canBeSubsurface(), emplacement.canMountDoors(), emplacement.canBeTunnel()])
+            .toEqual([true, false, false, false, false]);
+        expect(emplacement.canHaveHeavyMetalSuperstructure()).toBe(true);
+        emplacement.setType("medium");
+        expect(emplacement.canHaveHeavyMetalSuperstructure()).toBe(false);
+        const wall = new Building();
+        wall.setClassification("wall");
+        expect([wall.canSeal(), wall.canMountDoors(), wall.canBeSubsurface()]).toEqual([false, true, false]);
+        const hangar = new Building();
+        hangar.setClassification("hangar");
+        expect([hangar.canBeTunnel(), hangar.canSetCeilings(), hangar.canBeSubsurface()]).toEqual([true, false, true]);
+        // A modification is dropped when the building changes to something that cannot have it.
+        hangar.setTunnel(true);
+        hangar.setSubsurface("underground");
+        hangar.setClassification("wall");
+        expect([hangar.isTunnel(), hangar.getSubsurface()]).toEqual([false, "none"]);
+    });
+
+    it("takes a quarter of the capacity for a heavy metal superstructure, rounded down (TO:AR p.135)", () => {
+        const building = fortress("heavy", 90, 6, 2);
+        expect(building.getCapacityPerHex()).toBe(180);
+        building.setHeavyMetalSuperstructure(true);
+        expect(building.getCapacityPerHex()).toBe(135);
+        building.setCF(41);
+        expect(building.getCapacityPerHex()).toBe(61);
+    });
+
+    it("halves an underground building's size limits, rounded up (TO:AR p.138)", () => {
+        // A Hardened fortress: 20 hexes and 30 levels on the surface, 10 and 15 underground.
+        const building = fortress("hardened", 150, 20, 30);
+        building.setSubsurface("underground");
+        expect([building.getMaxHexes(), building.getMaxLevels(), building.getHexes(), building.getLevels()]).toEqual([10, 15, 10, 15]);
+        building.addEquipmentFromTag("medium-laser", 1, true);
+        expect(building.getIssues().join(" ")).toContain("no rooftop equipment or turrets");
+        // Underwater: sealed, and no deeper than the Construction Factor.
+        const light = new Building();
+        light.setClassification("hangar");
+        light.setType("light");
+        light.setCF(8);
+        light.setSubsurface("underwater");
+        expect(light.isSealed()).toBe(true);
+        expect(light.setSealed(false)).toBe(true);
+        light.setDepth(9);
+        expect(light.getIssues().join(" ")).toContain("no deeper than its Construction Factor");
+        light.setDepth(8);
+        expect(light.getIssues()).toEqual([]);
+    });
+
+    it("weighs an industrial elevator by its capacity and reach (TO:AR p.136)", () => {
+        const building = fortress("heavy", 90, 2, 4);
+        building.addElevator(2, 75, 3);
+        // 75 tons / 20 = 4 tons, times 3 levels above the ground.
+        expect(building.getElevatorWeight()).toBe(12);
+        expect(building.getHexLoads().map((load) => load.total)).toEqual([0, 12]);
+        // No more than the Construction Factor, no higher than the roof.
+        building.setElevator(0, 2, 500, 9);
+        expect(building.getElevators()[0]).toEqual({ hex: 2, capacity: 90, levels: 4 });
+        building.addEquipmentFromTag("medium-laser", 2, true);
+        expect(building.getIssues().join(" ")).toContain("reaches the roof");
+        building.setCF(41);
+        expect(building.getElevators()[0].capacity).toBe(41);
+    });
+
+    it("stores 0.91 tons of liquid for each ton of capacity (TO:AR p.134)", () => {
+        const hangar = new Building();
+        hangar.setClassification("hangar");
+        hangar.setType("hardened");
+        hangar.setCF(75);
+        hangar.setHexes(4);
+        // CF 75 x 4 levels x 3 is past the hangar limit of 600 tons a hex for every 4 levels.
+        hangar.setLevels(4);
+        // Paul's tank farm: 2,110 tons of capacity hold a month's 1,920 tons of fuel.
+        hangar.setLiquidStorage(2110);
+        expect(hangar.getLiquidCapacity()).toBeCloseTo(1920.1, 1);
+        expect(hangar.getHexLoads()[0].fittings).toBe(527.5);
+        expect(hangar.getRemainingCapacity()).toBe(2400 - 2110);
+    });
+
+    it("lets automated weapons do without gunners, and counts crew for other equipment (TO:AR pp.130-131)", () => {
+        const building = kenyon();
+        const laser = building.addEquipmentFromTag("clan-er-large-laser", 1, true);
+        const second = building.addEquipmentFromTag("clan-er-large-laser", 1, true);
+        expect(building.getMinimumGunners()).toBe(2);
+        building.setEquipmentAutomated(laser?.item.uuid || "", true);
+        expect(building.getMinimumGunners()).toBe(1);
+        expect(building.getAutomatedWeaponTons()).toBe(4);
+        // Stunned or dead gunners do not stop an automated weapon.
+        building.setGunnersKilled(1, true);
+        expect(building.getMountStatus(laser?.item.uuid || "")).toBe("");
+        expect(building.getMountStatus(second?.item.uuid || "")).toBe("Gunners killed");
+        // Artillery cannot be automated.
+        const fort = new Building();
+        fort.setClassification("fortress");
+        fort.setType("hardened");
+        fort.setLevels(5);
+        const thumper = fort.addEquipmentFromTag("thumper-artillery");
+        expect(thumper).not.toBeNull();
+        fort.setEquipmentAutomated(thumper?.item.uuid || "", true);
+        expect(thumper?.automated).toBe(false);
+        // Ryana's food court: three field kitchens need 9 staff (TO:AR p.130).
+        const mall = new Building();
+        mall.setClassification("standard");
+        mall.setType("medium");
+        mall.setLevels(3);
+        for (let kitchen = 0; kitchen < 3; kitchen++) expect(mall.addEquipmentFromTag("field-kitchen")).not.toBeNull();
+        expect(mall.getMinimumNonGunners()).toBe(9);
+        expect(mall.getMinimumOfficers()).toBe(0);
+    });
+
+    it("adds other buildings' hexes to the generator (TO:AR p.131)", () => {
+        // Tara's complex: 30 hex-levels in the central building and 48 in the two beside it, 78 tons of fusion generator.
+        const building = tara();
+        building.setGenerator("fusion");
+        building.setPoweredHexes(48);
+        expect(building.getGeneratorWeight()).toBe(78);
+        expect(building.getHexLoads()[0].generator).toBe(13);
+        building.setGenerator("");
+        expect(building.getPoweredHexes()).toBe(0);
+    });
+
+    it("prices the modifications and fittings (TO:AR p.208)", () => {
+        const building = fortress("heavy", 50, 2, 2);
+        const plain = 20000 * 50 * 2 * 2;
+        expect(building.getCBillCost()).toBe(plain * 1.5);
+        building.setSealed(true);
+        building.setHeavyMetalSuperstructure(true);
+        building.setCeilings("low");
+        building.setSubsurface("underground");
+        expect(building.getStructureCostMultiplier()).toBeCloseTo(1.5 * 1.25 * 1.1 * 5, 4);
+        building.addDoor(2);
+        building.addDoor(1);
+        building.addElevator(1, 40, 1);
+        building.setLiquidStorage(10);
+        const laser = building.addEquipmentFromTag("medium-laser");
+        building.setEquipmentAutomated(laser?.item.uuid || "", true);
+        const log = building.getCBillCostLog().join("\n");
+        expect(log).toContain("Large Doors (10,000 x 3 levels): 30,000");
+        expect(log).toContain("Industrial Elevators (15,000 x 2 t): 30,000");
+        expect(log).toContain("Fuel Storage (100 x 10 t): 1,000");
+        expect(log).toContain("Weapon Automation (1,000 x 1 t): 1,000");
+        // The laser draws grid power: 0.1 tons of power amplifiers at 20,000 a ton.
+        const expected = (plain * building.getStructureCostMultiplier() + 30000 + 30000 + 1000 + 1000 + (laser?.item.cbills || 0) + 2000) * 1.5;
+        expect(building.getCBillCost()).toBe(Math.round(expected));
+        const hangar = new Building();
+        hangar.setClassification("hangar");
+        hangar.setTunnel(true);
+        expect(hangar.getStructureCostMultiplier()).toBe(1.875);
+        expect(hangar.addEquipmentFromTag("field-kitchen")).toBeNull();
+        expect(hangar.getIssues().join(" ")).toContain("A tunnel needs a large door at each connection");
+    });
+
+    it("adds the Advanced Building Movement Table to a hex's cost and roll (TO:AR p.117)", () => {
+        // Jason's War Dog: a Medium standard building, CF 40, low ceilings, heavy metal superstructure, unspecified equipment.
+        const building = new Building();
+        building.setClassification("standard");
+        building.setType("medium");
+        building.setCF(40);
+        building.setHexes(3);
+        building.setCeilings("low");
+        building.setUnspecifiedEquipment(true);
+        // The book's example gives a Medium building the superstructure; construction allows it from Heavy up (p.135).
+        (building as unknown as { _heavyMetal: boolean })._heavyMetal = true;
+        // +2 for the building, +1 low ceilings, +0 unspecified equipment, +1 superstructure: 5 MP with the hex's own 1.
+        expect(building.getHexMPCost(1)).toBe(4);
+        expect(building.getHexPilotingModifier(1)).toBe(4);
+        expect(building.getHexToHitModifier(1)).toBe(1);
+        // CF 40 / 10 x 2 for low ceilings x 2 for the superstructure = 16.
+        expect(building.getUnitEntryDamage(1)).toBe(16);
+        expect(kenyon().getHexMPCost(1)).toBeNull();
+    });
+
+    it("rolls for a breach when a sealed building's Construction Factor takes more than 10 points (TO:AR pp.134-135)", () => {
+        const building = fortress("heavy", 50, 1, 1);
+        building.setSealed(true);
+        const laser = building.addEquipmentFromTag("medium-laser");
+        expect(building.getBreachModifier()).toBe(-2);
+        // 20 points halved to 10: not more than 10.
+        expect(building.applyDamage(1, 20).breachRoll).toBe(false);
+        expect(building.applyDamage(1, 22).breachRoll).toBe(true);
+        expect(building.resolveBreachRoll(1, 11)[0]).toContain("no breach");
+        expect(building.resolveBreachRoll(1, 12)[0]).toContain("breached");
+        expect(building.getMountStatus(laser?.item.uuid || "")).toBe("Lost to the breach");
+        expect(new Building(building.exportJSON()).isBreached()).toBe(true);
+        // Underground: 10 points is enough, depth adds half its levels, and a breach collapses the hex.
+        const bunker = fortress("medium", 40, 2, 2);
+        bunker.setSubsurface("underground");
+        bunker.setDepth(5);
+        expect(bunker.getBreachModifier()).toBe(3);
+        expect(bunker.applyDamage(1, 20).breachRoll).toBe(true);
+        bunker.resolveBreachRoll(1, 7);
+        expect([bunker.isHexDestroyed(1), bunker.isHexDestroyed(2), bunker.isBreached()]).toEqual([true, false, false]);
+    });
+
+    it("loses its generator with any hex (TO:AR p.132)", () => {
+        const building = fortress("medium", 40, 2, 1);
+        building.setGenerator("fusion");
+        const laser = building.addEquipmentFromTag("medium-laser", 1);
+        expect(building.hasPower()).toBe(true);
+        expect(building.applyDamage(2, 80).lines.join(" ")).toContain("The generator is out");
+        expect(building.getMountStatus(laser?.item.uuid || "")).toBe("No power");
+    });
+
+    it("round-trips the modifications and cleans hostile ones", () => {
+        const building = fortress("heavy", 90, 3, 4);
+        building.setSealed(true);
+        building.setHeavyMetalSuperstructure(true);
+        building.setCeilings("high");
+        building.setSubsurface("underwater");
+        building.setDepth(12);
+        building.addDoor(3);
+        building.addElevator(2, 60, 2);
+        building.setLiquidStorage(25);
+        building.setGenerator("fusion");
+        building.setPoweredHexes(7);
+        const laser = building.addEquipmentFromTag("medium-laser", 3);
+        building.setEquipmentAutomated(laser?.item.uuid || "", true);
+        const copy = new Building(building.exportJSON());
+        expect(copy.export()).toEqual({ ...building.export(), lastUpdated: copy.lastUpdated });
+        expect(copy.getImportIssues()).toEqual([]);
+        expect(copy.getCBillCost()).toBe(building.getCBillCost());
+
+        const hostile = new Building(JSON.stringify({
+            ...building.export(), classification: "gun-emplacement", type: "light", cf: 10, sealed: "yes", heavyMetal: 1, ceilings: "vaulted", subsurface: "orbital",
+            depth: -3, tunnel: "true", doors: [1e9, "tall", {}], elevators: [{ hex: 1e9, capacity: -5, levels: "all" }, 7], liquidStorage: 1e12, poweredHexes: -1,
+        }));
+        expect([hostile.isSealed(), hostile.hasHeavyMetalSuperstructure(), hostile.getCeilings(), hostile.getSubsurface(), hostile.isTunnel()])
+            .toEqual([false, false, "standard", "none", false]);
+        expect(hostile.getDepth()).toBe(1);
+        expect(hostile.getDoors()).toEqual([]);
+        expect(hostile.getElevators()).toEqual([{ hex: 1, capacity: 1, levels: 1 }]);
+        expect(hostile.getLiquidStorage()).toBeLessThanOrEqual(hostile.getTotalCapacity());
+        // A save from before these options existed still loads plain.
+        const old = building.export();
+        for (const key of ["sealed", "heavyMetal", "ceilings", "subsurface", "depth", "tunnel", "doors", "elevators", "liquidStorage", "poweredHexes"] as const) delete old[key];
+        const plain = new Building(JSON.stringify(old));
+        expect([plain.isSealed(), plain.getDoors().length, plain.getElevators().length, plain.getStructureCostMultiplier()]).toEqual([false, 0, 0, 1]);
+    });
+});

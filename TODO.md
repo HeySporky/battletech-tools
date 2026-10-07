@@ -276,18 +276,42 @@ played first, then by dependency.
   killed, turret jam and lock (a second jam locks), ammunition explosion into the CF (a tenth with CASE) and
   other equipment. Ammunition is counted by the shot. The panel shows what a hex absorbs for a unit inside and
   the damage to a unit entering it (pp.117, 124-125), and halves a hex's CF when a neighbor collapses (p.121).
-  Open, for a ruling: (1) the Damage Threshold is compared with the damage after scaling; the book says "the
-  damage inflicted". (2) Damage past the last of the armor carries on to the CF in the same attack (p.128 says
-  the armor "must be destroyed before the structure itself can sustain damage"). (3) An ammunition or Gauss
-  explosion is applied to the CF as rolled, with no scaling: the book says "directly". (4) A critical hit roll
-  an aimed shot lifts above 12 is read as 12; the table stops there. (5) No Battle Value rule for buildings
-  was found in the rulebooks searched, so a building adds nothing to a group's points or tonnage. MegaMek
-  values a gun emplacement with the usual method at no movement and half the defensive factor
-  (`GunEmplacementBVCalculator`); following it is a separate step if wanted.
-- [ ] Buildings in play, still owed: the Expanded Construction Factor rules (a CF for each level, top-down
-  collapse, total collapse), collapse splash damage and the domino effect (TO:AR pp.119-124), which need the
-  building's shape on the map; the Advanced Building Movement Table's feature modifiers (p.117); attacks on
-  equipment from inside (p.119); weapon fire by the building with to-hit numbers; Castles Brian capital scaling.
+  Rulings (user, 2026-10-07): (1) Battle Value stays empty for buildings for now; MegaMek's gun emplacement
+  method (`GunEmplacementBVCalculator`) is not followed yet. (2) The Damage Threshold is compared with the
+  damage after scaling. (3) The CF works as internal structure does on a 'Mech: damage past the last of the
+  armor carries on to it. (4) An ammunition or Gauss explosion goes to the CF unscaled; CASE cuts it to a
+  tenth, which the book already gives buildings (TO:AR p.118), so no custom rule was needed. (5) A critical
+  hit roll is never read above 12.
+- [x] Building modifications and fittings (2026-10-07, TO:AR pp.131-139, costs p.208): environmental sealing
+  with the Sealed Building Breach Table in play; heavy metal superstructure (a quarter of the capacity);
+  high and low ceilings; underground and underwater buildings (half size underground, sealed and no deeper
+  than the CF under water, breach rolls); tunnels; large doors; industrial elevators; liquid fuel and
+  chemical storage (0.91 tons a ton); automated weapons (no gunners, Gunnery 5); crew for field kitchens,
+  MASH theaters and communications equipment (p.130); other buildings' hexes on the generator; the structure
+  cost multipliers and fitting prices. In play: the Advanced Building Movement Table added to each hex's MP
+  cost, Piloting modifier and to-hit modifier (p.117), ceilings and superstructure in the damage to a unit
+  entering, and the generator going out with any hex.
+  Open, for a ruling: (1) a subsurface building rolls for a breach when one hit does 10 points to the CF; the
+  book says 10 points "in any phase", which the app does not add up. (2) Underground, a breach collapses the
+  hex; in a sealed surface or underwater building it marks every item inside lost ("all unprotected personnel
+  and equipment"). (3) The generator is spread over every hex, so losing any hex puts it out. (4) Every hex
+  counts as a Generator hex on the movement table for the same reason. (5) The book's own example (p.117)
+  gives a Medium building a heavy metal superstructure, which its construction rule (p.135) allows only from
+  Heavy up; construction follows p.135.
+- [ ] Buildings, still owed:
+  - Light and Medium (infantry) weapons and pintle mounts (TO:AR p.129, TO:AUE p.83). They need each weapon's
+    weight, ammunition weight and shots from the Conventional Infantry Weapons Table (TM pp.349-352), which
+    `infantry-weapons.ts` does not carry yet: a data pass first.
+  - Castles Brian: capital-scale CF and armor, capital weapons, open-space construction (TO:AR pp.115-116,
+    124, 137). The Scaled Damage text divides by 20 and its worked example by 10 (pp.124-125): needs a ruling.
+  - The Expanded Construction Factor rules (a CF for each level, top-down collapse, total collapse), collapse
+    splash damage and the domino effect (TO:AR pp.119-124); splash and adjacency need the building's shape on
+    the map.
+  - Attacks on equipment from inside (p.119); weapon fire by the building with to-hit numbers; hangar movement
+    reductions, which depend on the moving unit's height (p.117); fuel type, leaks and explosions for liquid
+    storage in play (pp.132-134); elevator position and door state in play; semi-subsurface buildings and
+    basements as one design (p.138); the PCMT-fed generator; flight decks, helipads, mobile field bases and
+    modular linkage on the crew table, which are not in the equipment lists.
 - [ ] Buildings in Alpha Strike: ASCE pp.137-139 has no conversion from a constructed building. An armed
   building's damage is chosen by the players, up to its Alpha Strike CF for each emplacement, with armor up
   to the CF. Nothing is built.
@@ -763,12 +787,9 @@ Open:
       p.83 ("Mobile Structures without a Fission or Fusion power system must incorporate enough heat sinks").
       (4) Flamers and chemical lasers are left out of the power amplifier weight, as on vehicles; the building
       text says only "energy weapons". (5) A fortress's CF / 10 limit is not rounded; the book gives no rounding.
-      Not built yet: Light and Medium (infantry) weapons and pintle mounts, automated weapons, structural
-      modifications (environmental sealing, heavy-metal superstructure, ceilings, open space, subsurface,
-      tunnels), large doors and elevators, fuel storage tanks, crew for non-weapon equipment, the PCMT-fed
-      generator, a generator shared between buildings, basements, Castles Brian, Mobile Structures. The roster
-      and play mode were added the same day: see "Buildings in play" under Buildings, Gun Emplacements and
-      Mobile Structures, which also covers Battle Value and Alpha Strike.
+      The roster, play mode, structural modifications and fittings were added the same day: see "Buildings in
+      play", "Building modifications and fittings" and "Buildings, still owed" under Buildings, Gun Emplacements
+      and Mobile Structures.
       The Manual's own method (BTM pp.39-40, 83-84, 86: CF 1-150, 1-4 levels, 1-3 hexes, structure of levels x
       hexes x CF / 10 tons, walls of CF / 3 tons, turret armor at 16 points a ton, a power plant rated by energy
       weapon tonnage, the Gun Emplacement Damage Table and the Installation Cost Chart) was read from the page

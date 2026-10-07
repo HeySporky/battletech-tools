@@ -55,11 +55,12 @@ export default class BuildingCreatorSummary extends React.Component<ISummaryProp
                                 <strong>Capacity</strong>: {building.getTotalWeight()} of {building.getTotalCapacity()} tons used, {building.getRemainingCapacity()} remaining &nbsp;|&nbsp;
                                 <strong>Power</strong>: {generator ? `${generator.name} generator (${building.getGeneratorWeight()} tons)` : "Local grid"} &nbsp;|&nbsp;
                                 <strong>Energy Weapon Heat</strong>: {building.getEnergyWeaponHeat()} of {building.getHeatDissipation()} sunk &nbsp;|&nbsp;
-                                <strong>Minimum Crew</strong>: {building.getMinimumGunners()} gunners, {building.getMinimumOfficers()} officers
+                                <strong>Minimum Crew</strong>: {building.getMinimumGunners()} gunners, {building.getMinimumNonGunners()} other crew, {building.getMinimumOfficers()} officers
                             </p>
                             <p className="smaller-text">
-                                Gunners are each Heavy weapon's tonnage / 5, rounded up; officers one for up to 9 crew or one for every 10
-                                (TO:AR p. 130). Crew for other equipment is not counted.
+                                Gunners are each crewed Heavy weapon's tonnage / 5, rounded up; other crew is 1 for each ton of communications
+                                equipment, 3 for a field kitchen and 5 for a MASH theater; officers one for up to 9 crew or one for every 10, in
+                                military buildings only (TO:AR p. 130).
                             </p>
                             {notes.length > 0 ? (
                                 <ul>

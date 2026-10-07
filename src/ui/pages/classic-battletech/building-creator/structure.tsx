@@ -149,6 +149,87 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                             </p>
                         </TextSection>
 
+                        <TextSection label="Structural Modifications">
+                            <div data-testid="building-modifications">
+                                {building.canBeSubsurface() ? (
+                                    <>
+                                        <label>
+                                            Location:
+                                            <select value={building.getSubsurface()} onChange={(e) => { const value = e.currentTarget.value; this.update((b) => b.setSubsurface(value)); }}>
+                                                <option value="none">On the surface</option>
+                                                <option value="underground">Underground</option>
+                                                <option value="underwater">Underwater</option>
+                                            </select>
+                                        </label>
+                                        {building.getSubsurface() !== "none" ? (
+                                            <label>
+                                                Depth in levels below the surface:
+                                                <input type="number" min={1} max={1000} value={building.getDepth()} onChange={(e) => { const value = +e.currentTarget.value || 1; this.update((b) => b.setDepth(value)); }} />
+                                            </label>
+                                        ) : null}
+                                        <p className="smaller-text">
+                                            An underground building may be half the usual size and mounts nothing on its roof; an underwater one is sealed
+                                            and no deeper than its Construction Factor. Either multiplies the structure cost by 5 (TO:AR pp. 138, 208).
+                                        </p>
+                                    </>
+                                ) : null}
+                                {building.canBeTunnel() ? (
+                                    <label>
+                                        <input type="checkbox" checked={building.isTunnel()} onChange={(e) => { const value = e.currentTarget.checked; this.update((b) => b.setTunnel(value)); }} />
+                                        &nbsp;Tunnel: a hangar that links buildings, with no equipment and a large door at each end (cost x1.875, TO:AR p. 139)
+                                    </label>
+                                ) : null}
+                                {building.canSeal() ? (
+                                    <label>
+                                        <input type="checkbox" checked={building.isSealed()} disabled={building.getSubsurface() === "underwater"} onChange={(e) => { const value = e.currentTarget.checked; this.update((b) => b.setSealed(value)); }} />
+                                        &nbsp;Environmental Sealing: for vacuum, toxic air or water; no weight (cost x1.5, TO:AR pp. 134-135)
+                                    </label>
+                                ) : null}
+                                {building.canHaveHeavyMetalSuperstructure() ? (
+                                    <label>
+                                        <input type="checkbox" checked={building.hasHeavyMetalSuperstructure()} onChange={(e) => { const value = e.currentTarget.checked; this.update((b) => b.setHeavyMetalSuperstructure(value)); }} />
+                                        &nbsp;Heavy Metal Superstructure: interferes with sensors; takes a quarter of the weight capacity (cost x1.25, TO:AR p. 135)
+                                    </label>
+                                ) : null}
+                                {building.canSetCeilings() ? (
+                                    <label>
+                                        Ceilings:
+                                        <select value={building.getCeilings()} onChange={(e) => { const value = e.currentTarget.value; this.update((b) => b.setCeilings(value)); }}>
+                                            <option value="standard">Standard</option>
+                                            <option value="high">High (cost x1.1)</option>
+                                            <option value="low">Low (cost x1.1)</option>
+                                        </select>
+                                    </label>
+                                ) : null}
+                                {building.canMountDoors() ? (
+                                    <>
+                                        <p><strong>Large Doors</strong>: {building.getDoors().length}</p>
+                                        {building.getDoors().map((height, index) => (
+                                            <p key={index}>
+                                                <label>
+                                                    Door {index + 1} height in levels:
+                                                    <select value={height} onChange={(e) => { const value = +e.currentTarget.value; this.update((b) => b.setDoorHeight(index, value)); }}>
+                                                        {range(1, building.getLevels()).map((value) => <option key={value} value={value}>{value}</option>)}
+                                                    </select>
+                                                </label>
+                                                <button className="btn btn-danger btn-sm" onClick={() => this.update((b) => b.removeDoor(index))}>Remove Door {index + 1}</button>
+                                            </p>
+                                        ))}
+                                        <button className="btn btn-primary btn-sm" onClick={() => this.update((b) => b.addDoor(1))}>Add Large Door</button>
+                                        <p className="smaller-text">
+                                            One a hexside, on an outer hexside, at no weight and 10,000 C-bills a level of height. 'Mechs need a door 2
+                                            levels high (TO:AR pp. 136, 208).
+                                        </p>
+                                    </>
+                                ) : null}
+                                {!building.canBeSubsurface() && !building.canSeal() && !building.canHaveHeavyMetalSuperstructure() && !building.canSetCeilings() && !building.canMountDoors() ? (
+                                    <p>A {classification.name.toLowerCase()} of this type takes no structural modifications.</p>
+                                ) : (
+                                    <p><strong>Structure Cost Multiplier</strong>: x{building.getStructureCostMultiplier()}</p>
+                                )}
+                            </div>
+                        </TextSection>
+
                         <TextSection label="Step 2: Add Armor">
                             {building.canMountArmor() ? (
                                 <>
