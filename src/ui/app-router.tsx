@@ -9,7 +9,6 @@ import { BattleMechForce, ICBTForceExport } from "../classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import Vehicle, { IVehicleExport } from "../classes/vehicle";
 import { CONST_SITE_TITLE } from '../configVars';
-import { sswMechs } from "../data/ssw/sswMechs";
 import { registerLocalCustomContent } from "../data/custom-content-local";
 import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentVehicle, getFavoriteASGroups, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentVehicle, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
@@ -113,17 +112,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             appGlobals: appGlobals,
         }
 
-        window.addEventListener('offline', () => {
-            this.setState({
-                updated: true,
-            })
-        });
-        window.addEventListener('online', () => {
-            this.setState({
-                updated: true,
-            })
-        });
-
         // A save that cannot be written (browser storage full or disabled) is reported once, until dismissed.
         onStorageSaveError( () => {
             appGlobals.siteAlerts.addAlert(
@@ -175,6 +163,31 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
         );
 */
+    }
+
+    private _unmounted = false;
+    private _sswImportTimer: ReturnType<typeof setTimeout> | null = null;
+
+    private _onConnectionChange = (): void => {
+        this.setState({
+            updated: true,
+        })
+    }
+
+    componentDidMount(): void {
+        this._unmounted = false;
+        window.addEventListener('offline', this._onConnectionChange);
+        window.addEventListener('online', this._onConnectionChange);
+    }
+
+    componentWillUnmount(): void {
+        this._unmounted = true;
+        window.removeEventListener('offline', this._onConnectionChange);
+        window.removeEventListener('online', this._onConnectionChange);
+        if( this._sswImportTimer !== null ) {
+            clearTimeout( this._sswImportTimer );
+            this._sswImportTimer = null;
+        }
     }
 
     setData = async (
@@ -269,6 +282,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         // console.log("initial appGlobals loaded")
 
+        if( this._unmounted )
+            return;
+
         this.setState({
             appGlobals: appGlobals,
         })
@@ -276,8 +292,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         // Import the bundled SSW mechs in ~12 ms slices, yielding to the browser between slices. Importing all of them
         // in one go blocked the main thread for several seconds on desktop (far longer on phones), freezing the UI.
+        // The 2 MB of XML is fetched as its own chunk after startup, so it is not part of the entry bundle.
+        let sswMechs: string[] = [];
         let nextSSWIndex = 0;
         const importSSWSlice = () => {
+            this._sswImportTimer = null;
             const sliceEnd = performance.now() + 12;
             while( nextSSWIndex < sswMechs.length && performance.now() < sliceEnd ) {
                 const sswXML = sswMechs[nextSSWIndex++];
@@ -293,14 +312,24 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             }
 
             if( nextSSWIndex < sswMechs.length ) {
-                setTimeout( importSSWSlice, 0 );
+                this._sswImportTimer = setTimeout( importSSWSlice, 0 );
             } else {
                 this.setState({
                     appGlobals: appGlobals,
                 })
             }
         };
-        setTimeout( importSSWSlice, 500 );
+        this._sswImportTimer = setTimeout( () => {
+            this._sswImportTimer = null;
+            import("../data/ssw/sswMechs").then( (sswModule) => {
+                if( this._unmounted )
+                    return;
+                sswMechs = sswModule.sswMechs;
+                importSSWSlice();
+            }).catch( (error) => {
+                console.error("Unable to load the bundled SSW 'Mechs", error);
+            });
+        }, 500 );
 
 
 
