@@ -1775,6 +1775,7 @@ export const mechISAmmo: IEquipmentItem[] = [
                 book: "BD", page: 20, name: "AutoCannon Rounds", weight: 1, criticals: 1, shotsPerTon: 20,
                 notes: "At least 1 ton for each ballistic weapon (BD p.25). One critical box per ton (BD pp.16-17). An exploding rack has a Damage Value of 5 (BD p.13).",
             },
+            "battletech-2nd-edition": null,
         },
     },
     {

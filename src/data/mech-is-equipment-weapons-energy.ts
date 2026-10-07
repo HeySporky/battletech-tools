@@ -576,6 +576,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introducedInEdition: "battledroids",
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Large Laser", heat: 8, damage: 8, range: { min: 0, short: 5, medium: 10, long: 15 }, weight: 5, criticals: 2 },
+            "battletech-2nd-edition": null,
         },
         book: "TM",
         page: 226,
@@ -946,6 +947,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introducedInEdition: "battledroids",
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Medium Laser", heat: 3, damage: 5, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 1, criticals: 1 },
+            "battletech-2nd-edition": null,
         },
         book: "TM",
         page: 226,
@@ -1283,6 +1285,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introducedInEdition: "battledroids",
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Small Laser", heat: 1, damage: 3, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1 },
+            "battletech-2nd-edition": null,
         },
         book: "TM",
         page: 226,
@@ -1621,6 +1624,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introducedInEdition: "battledroids",
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Flamer", heat: 3, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 1, criticals: 1 },
+            "battletech-2nd-edition": null,
         },
         book: "TM",
         page: 218,
@@ -1681,6 +1685,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         introducedInEdition: "battledroids",
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Particle Projection Canon", heat: 10, damage: 10, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 7, criticals: 3 },
+            "battletech-2nd-edition": null,
         },
         book: "TM",
         page: 234,

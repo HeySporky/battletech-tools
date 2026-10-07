@@ -251,3 +251,69 @@ describe("Rules editions: Battledroids, complete", () => {
         expect(jets.weight_multiplier.heavy).toBe(2);
     });
 });
+
+// BattleTech, Second Edition (FASA, 1985), read from the page images of its rulebook. It builds with the same
+// records as Battledroids; what it changes is listed below. Tanks, jeeps and infantry have no rules in it.
+describe("Rules editions: Second Edition, complete", () => {
+    const changed = (tag: string) => labelled.filter(entry => entry.record.editionStats?.[tag]).map(entry => entry.label).sort();
+
+    it("includes exactly the records Battledroids does", () => {
+        expect(inEdition("battletech-2nd-edition")).toEqual(inEdition("battledroids"));
+        const edition = getRulesEditions().find(entry => entry.tag === "battletech-2nd-edition")!;
+        expect(edition.complete).toBe(true);
+        expect(edition.mechs).toHaveLength(15);
+    });
+
+    it("reprints nine of them with changes and leaves the rest as they were", () => {
+        expect(changed("battletech-2nd-edition")).toEqual([
+            "engine standard", "equipment lrm-10", "equipment lrm-15", "equipment lrm-5",
+            "equipment srm-2", "equipment srm-4", "equipment srm-6", "jump jet standard", "structure standard",
+        ]);
+    });
+
+    // Weapons Table, BT2 back cover: the missile launchers take the heat they have had since.
+    it.each([["lrm-5", 2], ["lrm-10", 4], ["lrm-15", 5], ["lrm-20", 6], ["srm-2", 2], ["srm-4", 3], ["srm-6", 4]])(
+        "%s has heat %i, as it does today", (tag, heat) => {
+            const item = equipment.find(record => record.tag === tag)!;
+            const stats = getEditionStats(item, "battletech-2nd-edition")!;
+            expect(stats.heat).toBe(heat);
+            expect(item.heat).toBe(heat);
+            const first = getEditionStats(item, "battledroids")!;
+            expect([stats.range, stats.weight, stats.criticals, stats.shotsPerTon, stats.damagePerMissile])
+                .toEqual([first.range, first.weight, first.criticals, first.shotsPerTon, first.damagePerMissile]);
+        });
+
+    it("keeps the Battledroids rows of the other weapons", () => {
+        const medium = equipment.find(record => record.tag === "medium-laser")!;
+        expect(medium.editionStats!["battletech-2nd-edition"]).toBeNull();
+        expect(getEditionStats(medium, "battletech-2nd-edition")).toBe(getEditionStats(medium, "battledroids"));
+    });
+
+    // Engine Table, BT2 p.37: the 170 is 6.0 tons, so the whole table now matches TechManual p.49.
+    it("prints the engine weights the standard fusion engine still has", () => {
+        const stats = getEditionStats(mechEngineTypes.find(engine => engine.tag === "standard")!, "battletech-2nd-edition")!;
+        const ratings = Object.keys(stats.engineWeights!).map(Number);
+        expect(ratings).toEqual(Array.from({ length: 79 }, (_, index) => 10 + index * 5));
+        expect(ratings.filter(rating => mechEngineOptions.find(option => option.rating === rating)?.weight.standard !== stats.engineWeights![rating])).toEqual([]);
+    });
+
+    // Internal Structure Table, BT2 p.38: 10 to 100 tons; the 60/65-ton leg misprint is still there.
+    it("prints the Internal Structure Table from 10 tons, misprint included", () => {
+        const stats = getEditionStats(mechInternalStructureTypes.find(structure => structure.tag === "standard")!, "battletech-2nd-edition")!;
+        expect(Object.keys(stats.structure!).map(Number)).toEqual(Array.from({ length: 19 }, (_, index) => 10 + index * 5));
+        expect([stats.structure![60].leg, stats.structure![65].leg]).toEqual([15, 14]);
+        const first = getEditionStats(mechInternalStructureTypes.find(structure => structure.tag === "standard")!, "battledroids")!;
+        for (const tons of Object.keys(stats.structure!).map(Number)) {
+            expect(stats.structure![tons], `${tons} tons`).toEqual(first.structure![tons]);
+        }
+    });
+
+    // Jump jet table, BT2 p.39: the weights the standard jump jet has today (TM p.225), one box per jet.
+    it("weighs jump jets by the 'Mech's tonnage, as today", () => {
+        const jets = mechJumpJetTypes.find(jumpJet => jumpJet.tag === "standard")!;
+        const stats = getEditionStats(jets, "battletech-2nd-edition")!;
+        expect(stats.weightByTonnage).toEqual([{ upTo: 55, tons: 0.5 }, { upTo: 85, tons: 1 }, { upTo: 100, tons: 2 }]);
+        expect([jets.weight_multiplier.light, jets.weight_multiplier.medium, jets.weight_multiplier.heavy]).toEqual([0.5, 1, 2]);
+        expect([stats.criticals, jets.criticals]).toEqual([1, 1]);
+    });
+});

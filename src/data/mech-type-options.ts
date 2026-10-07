@@ -23,7 +23,7 @@ export const mechTypeOptions: IMechType[] = [
 		book: "TM",
 		introducedInEdition: "battledroids",
 		// The only layout: head, three torsos, two arms and two legs (Internal Structure Table, BD p.24).
-		editionStats: { battledroids: { book: "BD", page: 24 } },
+		editionStats: { battledroids: { book: "BD", page: 24 }, "battletech-2nd-edition": null },
 	},
 	{
 		id: 2,

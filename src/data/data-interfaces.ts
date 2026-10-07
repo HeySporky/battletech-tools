@@ -38,6 +38,8 @@ export interface IEditionStats {
     weight?: number;
     criticals?: number;
     shotsPerTon?: number;
+    /** Jump jets: tons per jump movement point for 'Mechs up to each tonnage. */
+    weightByTonnage?: { upTo: number; tons: number }[];
     /** Armor: points per ton. */
     pointsPerTon?: number;
     /** Engine: tons by rating. */

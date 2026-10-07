@@ -113,6 +113,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         introducedInEdition: "battledroids",
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Auto Cannon", heat: 1, damage: 5, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 8, criticals: 4, shotsPerTon: 20 },
+            "battletech-2nd-edition": null,
         },
         book: "TM",
         page: 208,
@@ -961,6 +962,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         introducedInEdition: "battledroids",
         editionStats: {
             battledroids: { book: "BD", page: 20, name: "Machine Gun", heat: 0, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1, shotsPerTon: 200 },
+            "battletech-2nd-edition": null,
         },
         book: "TM",
         page: 228,

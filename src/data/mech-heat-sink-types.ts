@@ -42,6 +42,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 				book: "BD", page: 24, name: "Heat Sink", weight: 1, criticals: 1,
 				notes: "Ten come with the engine; each extra one weighs 1 ton (BD p.24). Every heat sink takes one box on the Critical Hit Chart, the engine's ten included (BD p.25; record sheet, BD p.13). Each working sink removes 1 heat point a turn (Heat Point Table, BD p.27).",
 			},
+			"battletech-2nd-edition": null,
 		},
 	},
 	{

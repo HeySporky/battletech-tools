@@ -74,6 +74,18 @@ export const btRulesEditions: IRulesEdition[] = [
         name: "BattleTech, Second Edition",
         year: 1985,
         book: "BT2",
+        complete: true,
+        // BT2 pp.36-41, the fourteen record listings, and the training 'Mech of p.1.
+        mechs: [
+            "LCT-1V Locust", "STG-3R Stinger", "WSP-1A Wasp", "PXH-1 Phoenix Hawk", "GRF-1N Griffin",
+            "SHD-2H Shadow Hawk", "WVR-6R Wolverine", "RFL-3N Rifleman", "CRD-3R Crusader", "TDR-5S Thunderbolt",
+            "ARC-2R Archer", "WHM-6R Warhammer", "MAD-3R Marauder", "BLR-1G BattleMaster", "CHM-3 Chameleon",
+        ],
+        // Tanks, jeeps and infantry are mentioned in the background text only (BT2 p.5); they have no rules.
+        otherUnits: [],
+        notModelled: [
+            "A severed arm or leg picked up as a club: an optional rule, not an item (BT2 p.36).",
+        ],
     },
     {
         // The BattleTech Manual: The Rules of Warfare: credits page, "Copyright 1987"; CRB p.247.
