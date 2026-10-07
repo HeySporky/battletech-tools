@@ -58,9 +58,11 @@ describe("Rules editions", () => {
 // [tag, heat, minimum, short, medium, long, tons, critical spaces, shots per ton (0 = no ammo)]; damage is checked
 // for the weapons that print a number (missiles do damage per missile).
 //
-// The seven missile launchers printed lower heat in Battledroids than they have had since (LRM 1/2/4/6 against
-// 2/4/5/6, SRM 0/1/2 against 2/3/4). `heatSince` holds today's value for those. The tag says the weapon first
-// appeared in that edition, not that its numbers are unchanged; an edition selector needs these differences.
+// Six missile launchers printed lower heat in Battledroids than they have had since (LRM 5/10/15 at 1/2/4
+// against 2/4/5, SRM 2/4/6 at 0/1/2 against 2/3/4). `heatSince` holds the later value, which is what the
+// Weapons Table on the back cover of the Second Edition rulebook (1985) already prints. That table lists the
+// same fourteen weapons and nothing new, so no record is tagged with the Second Edition. The tag says a weapon
+// first appeared in an edition, not that its numbers are unchanged; an edition selector needs these differences.
 describe("Rules editions: Battledroids weapons (Battledroids p.20, Weapons Table)", () => {
     const table: [string, number, number, number, number, number, number, number, number][] = [
         ["small-laser", 1, 0, 1, 2, 3, 0.5, 1, 0],

@@ -641,7 +641,7 @@ Open:
   from CRB p.247 and the books' credits pages). Still to do:
   - [ ] Tag records with `introducedInEdition`, one edition at a time, oldest first, from that edition's weapons
     and equipment table. The tables are scans: read the page image, not the OCR text. Done: Battledroids (14
-    weapons, p.20). Next: Second Edition, then the BattleTech Manual. Ammunition, heat sinks, jump jets, armor
+    weapons, p.20) and Second Edition (same fourteen, back-cover table, nothing new). Next: the BattleTech Manual. Ammunition, heat sinks, jump jets, armor
     and structure are not tagged yet.
   - [ ] Stats that differ by edition need a home before a selector can use them. First case: Battledroids
     missile launcher heat (LRM 1/2/4/6, SRM 0/1/2; recorded in `rules-editions.test.ts`).
