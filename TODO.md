@@ -677,7 +677,25 @@ Open:
       Open: heat Avoid numbers are read off the record sheet (the Heat Scale itself is not in the tool); the
       catalog's "+ Artemis IV" launcher records carry a Battle Value that is not the plain launcher x 1.2
       (LRM 20: 189 against 217.2), which the 'Mech and vehicle calculations still use.
-    - [ ] Conventional infantry platoon.
+    - [x] Conventional infantry platoon (2026-10-07): Infantry Creator under TechManual pp.144-155. Motive
+      types, the Formations Table by affiliation, oversized platoons split into sub-platoons, primary and
+      secondary weapons (all 212 rows of the weapons table, pp.349-352, with Battle Values from p.319 and prices
+      from pp.298-301), range modifiers, damage by troopers remaining, special features, Anti-'Mech kits,
+      transport weight, Battle Value (TM p.309, the 168 example), cost (TM p.276, the 3,167,838 example), saves,
+      backup and a record sheet. The book's tables match the revised infantry tables v4.1 (June 2021).
+      Open, for a ruling: (1) the app's skill multiplier matrix for 'Mechs, vehicles and fighters is not the
+      table in the TechManual's sixth printing (p.315: Gunnery 0 / Piloting 0 is 2.42 there, 2.80 in the app);
+      infantry use the printed table, the other units are unchanged. (2) TM p.151 works a platoon with 2 support
+      machine guns per squad to -2 in its own hex (heavy burst -1, crew +1) but p.153 writes -1 for the same
+      platoon, leaving the burst out; the creator follows p.151 and the Classifications Table. (3) The p.152
+      text gives the crew modifier to weapons with a crew "of more than 2"; the Crew Table (p.149) and both
+      examples give it at 2, which the creator follows. (4) Glenn's LRM example (p.152) uses 0.19 damage, the
+      table's inferno row; the standard missile is 0.48. (5) Seven weapons have no row in the cost table
+      (vibro-mace, four thrown weapons, both Pequod harpoons): their cost is left unknown. (6) With a secondary
+      weapon the book does not say how to price the platoon; each trooper is priced by their own weapon, as
+      MegaMek does.
+      Not built yet: infantry in the roster and play mode, the Alpha Strike conversion, introduction dates and
+      era filtering for infantry weapons, armor kits and field guns (Tactical Operations), battle armor.
     - [ ] Gun emplacement / building.
   - [ ] Next: Compendium (1990). Then Third Edition (1992), Fourth Edition (1996), Master Rules (1998), Master
     Rules Revised (2001), in that order.

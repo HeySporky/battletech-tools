@@ -8,6 +8,7 @@ import { BattleMechForce, ICBTForceExport, MAX_FORCE_GROUPS } from "./classes/ba
 import { BattleMechGroup, ICBTGroupExport, MAX_GROUP_VEHICLES } from "./classes/battlemech-group";
 import Vehicle, { IVehicleExport, normalizeVehicleExport } from "./classes/vehicle";
 import AerospaceFighter, { IAerospaceFighterExport, normalizeAerospaceFighterExport } from "./classes/aerospace-fighter";
+import InfantryPlatoon, { IInfantryPlatoonExport, normalizeInfantryPlatoonExport } from "./classes/infantry-platoon";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
 // import {Storage} from 'session-storage-sync';
@@ -67,6 +68,10 @@ export interface IFullBackup {
     fighterSaves?: IAerospaceFighterExport[];
     currentFighter?: string | null;
 
+    // Conventional infantry platoons; optional so older backups still restore.
+    infantrySaves?: IInfantryPlatoonExport[];
+    currentInfantry?: string | null;
+
     // BattleTech: Aces; optional so older backups still restore.
     acesGame?: IAcesGameExport | null;
     acesCampaigns?: IAcesCampaignExport[];
@@ -88,6 +93,8 @@ export async function getFullBackup(
         currentVehicle: await getCurrentVehicle(appSettings),
         fighterSaves: await getFighterSaves(appSettings),
         currentFighter: await getCurrentFighter(appSettings),
+        infantrySaves: await getInfantrySaves(appSettings),
+        currentInfantry: await getCurrentInfantry(appSettings),
         acesGame: await getAcesGame(appSettings),
         acesCampaigns: await getAcesCampaigns(appSettings),
         acesCardLibrary: await getAcesCardLibrary(appSettings),
@@ -105,6 +112,8 @@ export interface IRestoreMessage {
 export const MAX_VEHICLE_SAVES = 500;
 /** Most saved aerospace fighter designs read from storage or a backup. */
 export const MAX_FIGHTER_SAVES = 500;
+/** Most saved infantry platoons read from storage or a backup. */
+export const MAX_INFANTRY_SAVES = 500;
 /** Most groups read from one backup's favorites or force. */
 export const MAX_RESTORE_GROUPS = MAX_FORCE_GROUPS;
 
@@ -406,6 +415,48 @@ export function restoreFullBackup(
         }
     }
 
+    if( Array.isArray(io.infantrySaves) ) {
+        // Saved platoons in a backup may come from someone else: clean each one and report what changed.
+        if( io.infantrySaves.length > MAX_INFANTRY_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_INFANTRY_SAVES + " of " + io.infantrySaves.length + " saved infantry platoons are restored"));
+        }
+        for( const rawItem of io.infantrySaves.slice(0, MAX_INFANTRY_SAVES) ) {
+            const normalized = normalizeInfantryPlatoonExport( rawItem );
+            const item = normalized.platoon;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved infantry platoon '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.infantrySaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Infantry Platoon '" + (appGlobals.infantrySaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.infantrySaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Infantry Platoons: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.infantrySaves.push( item )
+                }
+            }
+        }
+    }
+
+    if( overWriteCurrentBattlemech && typeof io.currentInfantry === "string" && io.currentInfantry ) {
+        for( const issue of new InfantryPlatoon(io.currentInfantry).getImportIssues() ) {
+            restoreMessages.push(warning("Current infantry platoon: " + issue));
+        }
+    }
+
     if( overWriteCurrentBattlemech && typeof io.currentFighter === "string" && io.currentFighter ) {
         for( const issue of new AerospaceFighter(io.currentFighter).getImportIssues() ) {
             restoreMessages.push(warning("Current fighter: " + issue));
@@ -415,6 +466,9 @@ export function restoreFullBackup(
     if( overWriteCurrentBattlemech && performActions ) {
         if( typeof io.currentFighter === "string" && io.currentFighter ) {
             appGlobals.currentFighter = new AerospaceFighter(io.currentFighter);
+        }
+        if( typeof io.currentInfantry === "string" && io.currentInfantry ) {
+            appGlobals.currentInfantry = new InfantryPlatoon(io.currentInfantry);
         }
         if( io.currentVBattleMech ) {
             let bmObj = new BattleMech();
@@ -490,6 +544,9 @@ export function restoreFullBackup(
         appGlobals.saveFighterSaves( appGlobals.fighterSaves );
         if( appGlobals.currentFighter )
             appGlobals.saveCurrentFighter( appGlobals.currentFighter );
+        appGlobals.saveInfantrySaves( appGlobals.infantrySaves );
+        if( appGlobals.currentInfantry )
+            appGlobals.saveCurrentInfantry( appGlobals.currentInfantry );
         // let appSettingsObj = new AppSettings(io.appSettings);
         // appGlobals.saveAppSettings( appSettingsObj );
     }
@@ -749,6 +806,50 @@ export async function getCurrentBattleMech(
         "currentBattleMech"
     );
 
+}
+
+export function saveInfantrySaves(
+    appSettings: AppSettings,
+    newValue: IInfantryPlatoonExport[]
+) {
+    saveData(appSettings, "infantrySaves", JSON.stringify(newValue) );
+}
+
+export async function getInfantrySaves(
+    appSettings: AppSettings,
+): Promise<IInfantryPlatoonExport[]> {
+    let rv: IInfantryPlatoonExport[] = [];
+
+    const rawData = await getData(appSettings, "infantrySaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored platoons before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_INFANTRY_SAVES ).map( (item) => normalizeInfantryPlatoonExport( item ).platoon )
+            .filter( (item): item is IInfantryPlatoonExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentInfantry(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentInfantry", newValue );
+}
+
+export async function getCurrentInfantry(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentInfantry"
+    );
 }
 
 export function saveFighterSaves(
