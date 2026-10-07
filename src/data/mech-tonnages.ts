@@ -1,4 +1,5 @@
 import { IMechTonnage } from "./data-interfaces";
+import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
 /*
 * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
 * All lore, stats, and intellectual property belong strictly to Catalyst Game Labs, 
@@ -176,10 +177,10 @@ export const btMechTonnages: IMechTonnage[] = [
  * - Tripods cannot be built as Ultra-light (10-15 tons); Superheavy Tripods (105-200 tons) require Advanced+ rules.
  * - Biped and Quad chassis support the full range, but Ultra-light and Superheavy tonnages require Advanced+ rules.
  * - Superheavy 'Mechs are available only to the Inner Sphere tech base (IO:AE p.154); a Clan tech base stops at 100 tons.
- * - Custom Homebrew (rules level 5) lifts all of the above tonnage restrictions.
+ * - Custom Homebrew and Munchkin (rules levels 6 and 7) lift all of the above tonnage restrictions.
  */
 export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: number = 2, techTag?: string): { min: number; max: number } {
-    if (rulesLevel === 5) {
+    if (rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL) {
         return { min: 10, max: 200 };
     }
     if (techTag === "clan" || techTag === "mclan") {

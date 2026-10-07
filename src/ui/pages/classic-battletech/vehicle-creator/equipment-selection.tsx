@@ -2,6 +2,7 @@ import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
+import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
@@ -52,7 +53,7 @@ export default class VehicleCreatorEquipmentSelection extends React.Component<IE
                                 <p><strong>Remaining Tonnage</strong>: {vehicle.getRemainingTonnage()}</p>
                                 <AvailableEquipment
                                     appGlobals={this.props.appGlobals}
-                                    equipment={vehicle.getAvailableEquipmentByCatalog("all", this.props.appGlobals.appSettings.mechRulesFilter === 5, this.props.appGlobals.appSettings.mechRulesFilter)}
+                                    equipment={vehicle.getAvailableEquipmentByCatalog("all", this.props.appGlobals.appSettings.mechRulesFilter >= CUSTOM_HOMEBREW_RULES_LEVEL, this.props.appGlobals.appSettings.mechRulesFilter)}
                                     addFunction={this.addEquipment}
                                 />
 

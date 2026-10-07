@@ -6,7 +6,7 @@ import { BattleMech } from "./battlemech";
 import { mechInternalStructureTypes, validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { getWeaponAmmoFamilies, isOmniFixedOnly } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, getWeaponAmmoFamilies, isOmniFixedOnly } from "../data/equipment-registry";
 import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { getLargeEngineType, mechEngineTypes, mechLargeEngineTypes } from "../data/mech-engine-types";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -673,7 +673,7 @@ describe("LAM and QuadVee chassis rules", () => {
             const lam = new BattleMech();
             lam.setTech("is");
             lam.setType("lam");
-            lam.toggleOmni(5);
+            lam.toggleOmni(CUSTOM_HOMEBREW_RULES_LEVEL);
             return lam;
         };
 
@@ -688,8 +688,8 @@ describe("LAM and QuadVee chassis rules", () => {
             const clan = new BattleMech();
             clan.setTech("clan");
             clan.setType("lam");
-            expect(clan.canBeOmniMech(5)).toBe(false);
-            clan.toggleOmni(5);
+            expect(clan.canBeOmniMech(CUSTOM_HOMEBREW_RULES_LEVEL)).toBe(false);
+            clan.toggleOmni(CUSTOM_HOMEBREW_RULES_LEVEL);
             expect(clan.isOmnimech).toBe(false);
 
             const omniLAM = makeOmniLAM();
@@ -739,7 +739,7 @@ describe("LAM and QuadVee chassis rules", () => {
 
     it("allows LAMs above 55 tons only at Custom Homebrew rules level", () => {
         expect(validateChassisCombination("standard", "lam", 60, 2)).toBe(false);
-        expect(validateChassisCombination("standard", "lam", 60, 5)).toBe(true);
+        expect(validateChassisCombination("standard", "lam", 60, CUSTOM_HOMEBREW_RULES_LEVEL)).toBe(true);
     });
 
     it("allows QuadVees to continue in Vehicle mode after gyro failure", () => {
@@ -1452,8 +1452,8 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         const omniLAM = new BattleMech();
         omniLAM.setTech("is");
         omniLAM.setType("lam");
-        omniLAM.toggleOmni(5);
-        expect(omniLAM.getRequiredRulesLevel()).toBe(5);
+        omniLAM.toggleOmni(CUSTOM_HOMEBREW_RULES_LEVEL);
+        expect(omniLAM.getRequiredRulesLevel()).toBe(CUSTOM_HOMEBREW_RULES_LEVEL);
     });
 
     it("hides Advanced and Experimental chassis from Standard play", async () => {
@@ -3660,7 +3660,7 @@ describe("Batch 13 records without a canon source", () => {
         const laser = mechCustomEquipmentEnergy.find(item => item.tag === "enhanced_er_large_laser");
         const lrm = mechCustomEquipmentMissile.find(item => item.tag === "enhanced_clan_lrm_10");
         for (const item of [laser, lrm]) {
-            expect(item).toMatchObject({ catalog: "custom", book: "Custom", page: null, rulesLevel: 5 });
+            expect(item).toMatchObject({ catalog: "custom", book: "Custom", page: null, rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL });
             expect(item?.notes).toContain("No canon source found");
         }
         // Game statistics are unchanged by the move.
@@ -4573,7 +4573,7 @@ describe("Batch 23 Rotary AC Caseless rounds are Custom", () => {
     it("offers them only when Custom equipment is included", () => {
         for (const tech of ["is", "clan"]) {
             const caseless = (includeCustom: boolean) =>
-                build(tech).getAvailableEquipment(includeCustom, 5).filter(item => /rotary-ac-\d-caseless/.test(item.tag)).map(item => item.tag).sort();
+                build(tech).getAvailableEquipment(includeCustom, CUSTOM_HOMEBREW_RULES_LEVEL).filter(item => /rotary-ac-\d-caseless/.test(item.tag)).map(item => item.tag).sort();
             expect(caseless(false), tech).toEqual([]);
             expect(caseless(true), tech).toEqual([
                 "ammo-clan-rotary-ac-2-caseless", "ammo-clan-rotary-ac-5-caseless", "ammo-is-rotary-ac-2-caseless", "ammo-is-rotary-ac-5-caseless",
@@ -4753,7 +4753,7 @@ describe("Batch 25 Superheavy 'Mechs are Inner Sphere technology (IO:AE p.154)",
         // Unchanged: no tech base given, lower rules levels, and Custom Homebrew.
         expect(getTonnageBoundsForMechType("biped", 3)).toEqual({ min: 10, max: 200 });
         expect(getTonnageBoundsForMechType("biped", 2, "clan")).toEqual({ min: 20, max: 100 });
-        expect(getTonnageBoundsForMechType("biped", 5, "clan")).toEqual({ min: 10, max: 200 });
+        expect(getTonnageBoundsForMechType("biped", CUSTOM_HOMEBREW_RULES_LEVEL, "clan")).toEqual({ min: 10, max: 200 });
     });
 
     it("reports a superheavy design with a Clan tech base", () => {

@@ -8,7 +8,7 @@ import { findAllByName, findByTag, matchesTag } from "../data/tag-match";
 import { ComponentRecord, getComponentRecords, getComponentTiers, isCustomComponent } from "../data/custom-component-registry";
 import type { CustomComponentKind, ISSWUnresolvedItem } from "../data/custom-content-types";
 import { getCockpitType } from "../data/mech-cockpit-types";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { describeEngineRequirement, engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
@@ -9266,11 +9266,16 @@ export class BattleMech {
         const techTag = this.getTech().tag;
 
         const addedTags = new Set<string>();
+        const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
         const addEquipment = (item: IEquipmentItem, catalog: "is" | "clan" | "custom" | "universal"): void => {
             // space.battlemech -1 means the item cannot be mounted on a 'Mech at all
             // (ProtoMech-only weapons such as the ProtoMech ACs).
             // Bombs are loaded into Bomb Bays (see setBombCount), never mounted in critical slots.
             if (addedTags.has(item.tag) || item.space.battlemech < 0 || item.bombBaySlots) {
+                return;
+            }
+            // Apocryphal, Custom Homebrew and Munchkin items are only offered at their own level or above.
+            if (!isEquipmentWithinRulesLevel(item, offeredLevel)) {
                 return;
             }
             item.catalog = isUniversalEquipment(item) ? "universal" : item.catalog ?? catalog;
