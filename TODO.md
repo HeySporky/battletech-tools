@@ -3,15 +3,13 @@
 Open work for growing Jeff's BattleTech Tools from a BattleMech and vehicle creator into a full BattleTech
 construction, import/export and record-management tool. Sections are in priority order: fix what ships
 first, then make imports reliable, then check the data against the books, then add unit domains.
-Items finished in the current pass are checked off; older completed work is in the git history.
+Finished items are moved to `TODO-Completed.md`, which also lists the commit history.
 
 Local references (git-ignored, never imported by shipped code):
 
 - `_KNOWLEDGE_DEV/rulebooks/`: the rulebook library, 38 PDFs with text extracts (TW, TM, TO:AR, TO:AUE,
   SO:AA, IO, IO:AE, IO:BF, CO, ASCE, AS, ASC, the Core Rulebook, box sets and errata). `INDEX.md` there lists
   editions, page offsets (printed page = PDF page - offset) and which errata applies to which printing.
-  - [x] The two scanned Aces books (rulebook, Scouring Sands campaign book) OCR'd into `text/*.ocr.txt`
-    (`ocr_rulebooks.py`, Tesseract 5.4); body text reads well, flowcharts and icons don't.
 - `WorkingData_DEV/SSWdata/`: Solaris Skunk Werks designs (3,358 `.ssw`, shallow clone of
   Solaris-Skunk-Werks/SSW-Master).
 - `WorkingData_DEV/mmlData/mekfiles/`: MegaMek unit files (4,312 `.mtf`, 6,723 `.blk`) for every unit type,
@@ -24,18 +22,8 @@ Local references (git-ignored, never imported by shipped code):
 
 ## 1. Fix what ships
 
-- [x] `tools/mul-sync/browser-state.json` (masterunitlist.battletech.com session cookies, including
-  `cf_clearance`) is untracked and git-ignored, and the weekly sync no longer commits it; CI runs start
-  without saved cookies. Merged 2026-09-30.
-- [x] Purge the old copies of `browser-state.json` from the history: rewritten and force-pushed on
-  2026-09-30 (`master`, `CustomMUL`, `vehicle-motive-types`; unrelated branches kept their commit IDs). The
-  cookies were anonymous (`_I_`, `cf_clearance`) and can't be revoked; they expire by 2027-09.
 - [skipping ] Ask GitHub Support to drop the cached views of the old commits and the fork PR #8 ref (a "Remove
   sensitive data" request listing the old commit IDs).
-- [x] Report the SSW ammunition bug upstream. The ammunition catalog rename (`Ammo (SRM-6)` ->
-  `SRM - Standard Ammo`, upstream #75) broke name matching in the SSW importer: 413 of the 512 bundled
-  'Mechs lost their ammunition on import, on upstream's live site too. Upstream PR #91 (open), reworked on
-  2026-09-30 to resolve names through the catalog records' `altNames` (`src/utils/importedEquipment.ts`).
 - [ ] BV differs from SSW's BV2 figure: after the import fixes, 350 of 2,610 non-bundled designs match
   exactly and 805 within 2%. Work through the differences by cause (unplaced criticals and unknown
   equipment first, since they skew BV).
@@ -58,10 +46,6 @@ and fluff text, quirks, source/book fields, and per-format IDs (MUL id, SSW sola
 - [ ] Keep provenance on imported records: source file, source format, source book, and conversion warnings.
 - [ ] Import review screen: parsed fields, unmapped fields, warnings, provenance, and the final canonical
   record before saving.
-- [x] One equipment-name lookup for every format: `findImportedEquipment(name, faction, mixedTech)` in
-  `src/utils/importedEquipment.ts`. It checks the faction catalog and the universal catalog by own name/tag,
-  then the universal catalog, faction catalog, other faction (Mixed Tech only) and custom catalogs by
-  `alternateName`/`altNames`/`altTags`. A format's spellings go on the records, never as name rewriting.
 - [ ] Add MegaMek's names to the records' `altNames`: its equipment classes list each item's internal name
   and lookup names (the names MTF, BLK, HMP and older SSW files use). Review them as data; `name_changes.txt`
   in the MegaMek data maps renamed units.
@@ -88,16 +72,6 @@ designs, 44 still report errors (421 before).
   ER lasers, ECM, C3i. Compare the SSW placements with our allocation (the earlier list of 12 bundled
   designs: ANH-3A, AWS-10KM, CTF-5D, CGR-KMZ, CLNT-6S, FS9-B, JR7-C2, CRK-5003-CJ, PNT-14S, WTH-3, WTH-K,
   "Grinner" Wolfhound IIC).
-- [x] Ammunition names: MML, ATM ER/HE, Narc/iNarc, Arrow IV, ELRM, Hyper-Assault Gauss, Silver Bullet
-  Gauss, iGauss, ProtoMech AC, torpedo and the rest now resolve through `altNames`.
-- [x] Equipment names: HAG, VSP and R-e lasers, Claws, C3 Boosted, MG Arrays, `CP` prototypes, Arrow IV
-  Missile, Clan TM names, (iOS) launchers, Clan Streak LRM.
-- [x] Chassis components (2026-09-30): the importer matched SSW's engine and gyro names against our display
-  names, fell back to Standard, never read `<structure>` or `<cockpit>`, and mapped armor, heat sinks and jump
-  jets by substring. 254 of the 512 bundled designs imported with a Standard engine, gyro or structure (XL and
-  Light engines, Endo-Steel, XL/Heavy-Duty gyros). SSW spellings are now `altNames` on the component records;
-  SSW's `techbase` attribute picks the Inner Sphere or Clan XL/XXL engine; structure criticals are placed;
-  Small Cockpits import; unknown names go into `sswImportErrors`.
 - [ ] Chassis component names with no record yet (they report an import error): Primitive Structure,
   Primitive Industrial Structure, Primitive I.C.E./Fuel-Cell engines, Industrial Armor, Ablation Armor,
   Prototype Improved Jump Jet, Primitive Prototype Jump Jet, No Gyro, and every cockpit but Standard and Small.
@@ -110,13 +84,6 @@ designs, 44 still report errors (421 before).
   (Freezers)" placed as equipment; Clan `ER PPC + PPC Capacitor` exists only as a custom record.
 - [ ] SSW data quirks, one design each: an Inner Sphere design with an unprefixed `Streak SRM-6 CP` (Highlander
   HGN-732 Colleen); `(IS) Enhanced ER PPC` outside Mixed designs (IO p. 95: Clan tech).
-- [x] The audit harness was a throwaway test; add it as a dev tool so it can be rerun. Done 2026-09-30:
-  `src/utils/ssw-corpus-audit.test.ts`, skipped unless `SSW_AUDIT_DIR` is set. Run:
-  `SSW_AUDIT_DIR=WorkingData_DEV/SSWdata SSW_AUDIT_OUT=<file> npx vitest run --project unit src/utils/ssw-corpus-audit.test.ts`.
-  First run: 3110 BattleMech designs, 2961 with nothing unresolved, 2 parse failures (`model=""` on
-  Summoner (Thor) and Puma (Adder)), 38 distinct unresolved names; 246 Primitive/Industrial designs skipped.
-- [x] Approve the canon-pending SSW names table, then fill `src/data/ssw/ssw-canon-pending-names.ts`. Approved
-  2026-09-30: 36 names, each with book and page; removing an entry is part of adding its catalog record.
 - [ ] Import clarification step (approved design 2026-09-30): before an SSW import is accepted, ask the importer
   about each new unknown item (tech base IS/Clan, tons, slots; optional damage/heat/ranges and a source note),
   each with "I don't know". Best guesses: design's tech base, the slot estimate, the tonnage gap split across
@@ -128,11 +95,6 @@ designs, 44 still report errors (421 before).
   "readTagExp returned undefined").
 - [ ] OmniMech configurations: SSW stores every loadout in one file; import them as our OmniMech
   configurations instead of only the base loadout.
-- [x] Runtime importer: import any `.ssw` file from the UI (not only the bundled `sswMechs.ts` generated at
-  build time), with the import review screen. Phase A1 of
-  `docs/superpowers/plans/2026-09-30-ssw-runtime-import-custom-content.md`, done 2026-09-30: Mech Creator >
-  Imports > "Import your own .ssw files". Unknown items become placeholder drafts saved in this browser
-  (`custom-content-local.ts`), and saved designs keep them through a reload.
 - [ ] Drafts have no editor page yet (phase A2), so their stats can't be entered in the UI. Until then a
   draft's placeholder has unknown (0 at runtime) weight, damage, heat and BV.
 - [ ] Custom chassis components (seven `mech-custom-*-types.ts` catalogs) resolve on import but don't appear in
@@ -359,47 +321,23 @@ played first, then by dependency.
   OTP: Hanseatic Crusade p.30.
 - [ ] Placement rules not enforced yet: spread items (one per location, side torsos, legs), hand-actuator
   requirements, Claw replacing the hand.
-- [x] Patchwork armor for 'Mechs (Batch 59; upstream #106): an armor type per location, weight rounded up
-  to the half ton per location, per-location slots, BV and cost; the book's Griffin example (TO:AUE
-  pp.188-189, 194; IO:AE p.82).
 - [ ] Patchwork armor still owed: Combat Vehicles, Support Vehicles and fighters; SSW/MTF import; armor
   types on the record sheet (none printed today).
 - [ ] Fractional Accounting (TO:AUE p.188): the switch is in step 1 but locked
   (`BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE = false`). Building it means engine multipliers, armor by the
   point, ammunition by the shot, all rounded up to the kilogram; then turn the switch on.
 - [ ] Clans' pre-2825 use of Star League Ferro-Fibrous isn't modeled.
-- [x] Colossal 'Mechs: IO:AE p.80 names the superheavy tripods "Colossals"; they build as a Tripod above 100
-  tons (Batches 21-30).
 
 ### IndustrialMechs and Primitive 'Mechs
 
 Chassis types the Mech Creator builds (checked 2026-10-02): Biped, Quad, Tripod, LAM, QuadVee (Mech Type);
 Ultralight and Superheavy (tonnage); OmniMech and Primitive (checkboxes); IndustrialMech (Industrial structure).
 
-- [x] IndustrialMechs (Batches 41, 42, 50, 56; upstream #103 and #105): cockpit and Advanced Fire Control,
-  armor, engines (standard fusion, ICE, fuel cell, fission), standard gyro, single heat sinks, standard jump
-  jets on fusion or fission only, no MASC or TSM, Industrial TSM, weight-free heat sinks by engine type,
-  power amplifiers (TM pp.68-72). Checked against the book's CattleMaster, Buster and Uni.
-- [x] Primitive BattleMechs and IndustrialMechs (Batch 57; upstream #105): the "Is a Primitive 'Mech"
-  checkbox in step 1; engine rating x1.2, Primitive cockpit, Primitive or Commercial armor (IO:AE
-  pp.116-118). Checked against the book's Mackie.
-- [x] Dark Age armors on IndustrialMechs (Batch 58; upstream #105): mixed tech base at the Experimental
-  rules level (IO:AE p.82).
-- [x] Environmental Sealing (IndustrialMechs only, full-ton rounding) and Extended Fuel Tanks (Batch 60;
-  upstream #107). Fire control to-hit in play: IndustrialMech +1 without Advanced Fire Control, Primitive
-  IndustrialMech cockpit +2 / +1 (Batch 62; upstream #109).
 - [ ] IndustrialMechs still owed: Extended Fuel Tanks on Combat Vehicles (vehicle builder cannot size
   variable equipment); critical hit roll modifiers (the 'Mech play mode does not roll for critical hits).
   The builder still offers ICE and fuel cell engines to BattleMechs.
-- [x] RetroTech label (Batch 61; upstream #108): a Primitive 'Mech with anything introduced after 2500, or
-  non-standard jump jets, is RetroTech; readouts print "Construction: ...". No hard pre-2501 limit: RetroTech
-  may carry any era's equipment (IO:AE p.116).
 - [ ] Primitive 'Mechs still owed: critical hit roll modifiers (+2 / +4, IO:AE p.114) once the 'Mech play
   mode rolls for critical hits.
-- [x] Primitive record sheet, TRO and Alpha Strike card checked by eye (2026-10-02) with the book's Mackie
-  (IO:AE pp.117-118): tonnage, engine 360 / 33 t, gyro, cockpit, 17 sinks (3 outside the engine), 214 armor
-  points by location, structure, Primitive Prototype PPC at 15 heat, Experimental rules level (prototype
-  equipment is Experimental, IO:AE p.112). The Alpha Strike card shows the specials problem below.
 - [ ] Alpha Strike specials on builder cards (already on upstream master, every unit): a weapon with no
   `alphaStrike.specialAbility` falls back to its TechManual weapon type codes (`getAlphaStrikeEquipmentAbilityCodes`
   in `equipment-registry.ts`), so cards print "DB", "DE", "S"; and `alphaStrike.notes` are pushed into the
@@ -438,36 +376,12 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
 - [ ] `ammo-is-*` records moved out of the universal catalog list the old tag twice and their own tag in
   `altTags` (harmless; tidy up).
 
-- [x] Special munitions (Batches 12c, 12d, 20, 23): all records dated and cited from IO:AE pp.53-56;
-  21 Inner Sphere munitions moved out of the universal ammo catalog; Dead-Fire BV per launcher; the four
-  Rotary AC Caseless rounds moved to the custom catalog (TO:AUE p.164). Open: no ProtoMech AC specialty
-  rounds exist, though IO:AE p.53 lists them for the PAC.
-- [x] Split by tech base (Batch 15): 'Mech Mortars, Artillery Cannons and the Laser Insulator are now
-  separate Inner Sphere and Clan records; Modular Armor has a Clan record. The Clan records keep the old
-  universal tag in `altTags` so saved designs load.
-- [x] Unsourced Clan records (Batch 13): Enhanced ER Large Laser and Enhanced Clan LRM 10 moved to the
-  custom catalogs. Still owed: a source search for everything in the custom catalogs, to cite what can
-  be cited.
 - [ ] Same-book conflicts: the errata were checked (IO v1.21, IO:AE v3.01; Batch 14) and rule on none
   of them, so the catalog still follows MegaMek and each is flagged in the ledger: IO:AE armor BV
   modifiers p.185 vs p.190; primitive cockpit cost p.117 vs p.215; Heat-Dissipating Clan year p.81 vs
   pp.29, 215; Improved Large Laser / Pulse Laser years p.89 vs p.37; Clan claws (3090 as a prototype,
   no production year); primitive prototype missile shots per ton and SRM range (p.112 text vs p.210
   table); TO:AUE p.219 large engine dates vs IO:AE p.38.
-- [x] Misc equipment that needed rules support (Batches 37-48): Coolant Pod, RISC Heat Sink Override Kit,
-  Prototype Improved Jump Jets, engine requirements for TSEMP and Taser, one Viral Jammer, the cockpit
-  selector with IndustrialMech Advanced Fire Control (plain cockpit is the default, as in the book),
-  HarJel II / III with their armor BV rule, RISC Laser Pulse Module (six laser records), MRM Apollo FCS
-  (and MRM to-hit +1), C3 Remote Sensor Launcher, Collapsible Command Module, Full-Head Ejection System,
-  IndustrialMech Ejection Seat, Superheavy IndustrialMech Cockpit and superheavy engine limits.
-  Not builder items: the Jump Pack / Drop Pack is external cargo (TO:AUE pp.104-105). Light Active Probe
-  [IS] and Light TAG [IS] have no 'Mech-scale stats in the TM Inner Sphere table.
-  Open: the cockpit select in step 2 has not been exercised in a browser; Torso-Mounted Cockpit and
-  Command Console are not selectable (the Full-Head Ejection System must exclude them when they are).
-- [x] Superheavy 'Mechs (IO:AE pp.154-157): large engines (Batch 16), gyro weight and BV (14), equipment
-  bans (21), structure table and types (22), half-size critical space (24), Inner Sphere tech base only
-  (25), Long Tom on superheavies (29), two tons of ammunition per slot (30). The SHP-4X Omega example
-  builds exactly and is a regression test. Not modeled: the superheavy critical hit rules in play (p.154).
 - [ ] Domain catalogs. Done (Batches 49-54): `capital-weapons.ts` and `sub-capital-weapons.ts` (never
   'Mech-legal), `aerospace-armor-types.ts` (fighter, DropShip and capital armor), `support-vehicle-armor.ts`
   (BAR 2-10), `protomech-components.ts`, `battle-armor-armor-types.ts`, IndustrialMech armor (Industrial,
@@ -476,14 +390,6 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
   slot columns (Strategic Operations), Naval C3 and other large-craft systems; the variable-size industrial
   items (Communications Equipment, Dumper, Extended Fuel Tanks, Ladder, Pintle Mount, Power Amplifiers,
   transport bays); Primitive small and large craft armor.
-- [x] Placement limits (Batch 55): torso-only, arm-only and one-per-location rules of TM pp.210-249 and the
-  Artemis IV all-launchers rule. Not checked: actuator removal for industrial tools and hatchets, vehicle
-  placement rules, Artemis V / prototype Artemis.
-- [x] The vehicle builder no longer offers equipment with no combat vehicle slot value (Batch 54).
-- [x] Rulings of 2026-10-01 (in both ledgers): capital missile Tech Rating and capital ammunition units
-  approved as recorded; always go with the book, so C3 Remote Sensor pods stay explosive and HarJel II / III
-  keep the -1 per slot that CASE does not remove.
-- [x] Dark Age armors on IndustrialMechs under the Experimental rules level (4): done in Batch 58 (#105).
 - [ ] Still owed before the PRs: missile `damageAero` convention, Nail Gun range dash, source search for
   the custom catalogs, Alpha Strike conversions marked unresolved, play-rule items, the import
   "ask the importer" step, review of `tools/spec-c-sources-staging.jsonl`. The equipment PRs are open
@@ -492,22 +398,7 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
   to IO:AE, checking each page.
 - [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
   unresolved.
-- [x] Newer errata, 'Mech catalogs: TechManual v8.0 and BV sheet v4.1 (Batches 26-28), TO:AUE v7.0 and the
-  two IO sheets (14, 17), Total Warfare v11.01 (30), TO:AR v7.0 and SO:AAR v5.0 (34). The TechManual sheets
-  for vehicle, ProtoMech, infantry and aerospace BV go with the domain catalogs.
-- [x] Statistics audits: IO:AE prototype tables (Batch 14), TechManual tables (Batch 18), TO:AUE tables
-  (Batch 19). Not covered: rows the name matcher could not pair (ProtoMech and battle armor weapons,
-  capital weapons, industrial items priced per ton) and the special munition statistics (damage,
-  rounds per ton, cost).
-- [x] `_calcBattleValue` sorted `_equipmentList` in place; it now sorts a copy (Batch 27). The lazy
-  refresh after a critical slot move is no longer needed for that reason and can be made direct.
 - [ ] Vehicles have no era check on engine types, so large engine dates (Batch 16) apply to 'Mechs only.
-- [x] Physical weapon to-hit modifiers (Batch 32, TW p.146 and TO:AUE p.216); one Supercharger per unit
-  (Batch 21). Owed: play tracking adds the modifier to a Gunnery roll; physical attacks use Piloting.
-- [x] Missing records (Batches 31, 34-36): Vehicular Grenade Launcher, Recon Camera, Primitive Prototype
-  Long Tom and torpedo launchers, TSEMP Cannon / One-Shot / RISC Repeating, RISC Viral Jammers, BattleMech
-  Taser and ammunition. The Clan ER PPC with Capacitor moved from custom to canon (IO:AE pp.40, 190, 197),
-  reversing the 2026-09-28 classification; confirmed by the user.
 - [ ] Missile launcher `damageAero` holds 3 for every LRM size (the tables give 3 / 6 / 9 / 12). Check
   how the aerospace code reads it before changing the catalog.
 - [ ] The Nail/Rivet Gun has no medium or long range bracket (TM p.344); the record stores 0 and the
@@ -518,9 +409,6 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
   Modified BV. Owed: IndustrialMech Offensive Battle Rating x0.9 without Advanced Fire Control (TM p.304)
   needs a fire control choice (TM p.69); prototype CASE is not counted as CASE; `hasXLEngine()` answers
   true for Light and Clan XL engines and drives the "wrecked" check in play tracking.
-- [x] Unit slot columns (Batches 28, 29, 33): ProtoMech, vehicle and aerospace slots follow the TM and
-  TO:AUE tables; ProtoMech AC/8 set to the book's 1. Flag: Clan A-Pod prints NA for vehicles on TM p.343
-  against 1 on the Inner Sphere row. No records exist for the Support Vehicle items of TM pp.344-345.
 - [ ] TM equipment limits not modeled: torso-only weapons (Heavy Gauss), one industrial item per location.
 
 ### Cockpits
@@ -612,56 +500,21 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
 
 ### Decisions before any code
 
-- [x] **Card content and IP.** None of the card contents is in the rulebook text: 66 Aces cards, 10 Command, 5
-  Special Order, 12 Edge Ability, 8 Named Pilot and 12 Asset cards (*Aces SS* p.3). The same goes for the sortie
-  story and Waypoint text. Options: (a) ship transcribed card data under the existing data disclaimer, as we do
-  for SPAs; (b) a companion mode that shows only structure and procedure, with the player entering the card ID
-  from their own box (e.g. Brawler 383) and the card text staying local; (c) a mix: ship the mechanics, never the
-  story or Waypoint text. Recommendation: (c). Card mechanics are a local-only data file until approved, and story
-  text is referenced by entry ID ("read 02-E") and never reproduced. This decision also settles whether the
-  feature is offered upstream.
-  *Decided (2026-09-30):* (b) plus one cited sample of each record type. Players type or import their own cards
-  and sorties; more official content can be added later if the maintainers want it.
 - [ ] **Source gaps.** The card data needs the physical cards or an official PDF; neither is local. Aces cites the
   Alpha Strike Quick-Start Rules (AS:QSR), which aren't local either, so map each AS:QSR reference to its ASCE
   page. Other Aces boxes beyond Scouring Sands: none local; check battletech.com before scoping them.
-- [x] **Named Pilot SP threshold table.** Read off the pilot card images on the PDF pages (*Aces* pp.27, 29):
-  - Skill 3/2/1/0 at 400/900/1,900/3,400 SP.
-  - Edge tokens 1-10 at 0/60/120/200/300/420/560/720/900/1,100 SP.
-  - Edge abilities 0-5 at 0/60/180/360/600/900 SP.
-
-  The examples on *Aces* pp.35-36 test it. Encoded in `aces-rules.ts`.
-- [x] **Rules variant per game.** Done: `AcesGame.ruleset`, switch on the game setup page. Aces changes several ASCE rules: its own vehicle critical hit table (*Aces* p.4
-  says so), infantry and emplacement critical hits are always a Weapon Hit, the "front-loaded" unequal-numbers
-  rule, and the campaign's -2 Initiative carry-over. Store a ruleset (`asce` / `aces`) on each game so in-play
-  applies the matching table. ASCE stays the default outside Aces games.
 
 ### A. Game state and unit queries (`src/classes/`)
 
-- [x] Two-sided game model. `AcesGame` (export v2) holds the automated force (a copy), turn, phase, Initiative
-  winner, tokens, commanders, per-unit Aces state, turn limit, Waypoints, objectives, seeded RNG and the log. It is
-  versioned and included in backups. The player force stays in `currentASForce`. Original plan: It holds the player force and the automated force, plus the
-  turn, phase, Initiative winner, token side, turn track with Waypoints, objectives (Movement/Destroy), and the
-  force commanders. It must be versioned, exported and included in the `dataSaves.ts` backups, and existing
-  `currentASForce` saves must still load.
 - [ ] Per-unit turn state: movement mode used and the TMM it produced (the "movement dice", *Aces* p.15),
   moved/attacked flags, Move First/Last tokens, Forced Withdrawal and Fleeing flags, escaped, mounted-on-transport,
   Force Commander, Named Pilot link, Edge tokens left, and destroyed-by-ammo (needed for salvage).
 - [ ] A stable stat-query API for the engine: current and starting MV, TMM (with the battle armor +1, STL and heat
   effects, *Aces* p.9), armor, armor lost, starting armor, structure, damage per range, OV, PV and Size. The
   engine reads these, never the UI.
-- [x] Crippled/Forced Withdrawal test (`getAcesCrippledReasons`; Special Order card criteria, *Aces* p.8; ASCE for the canonical wording).
-- [x] Alpha Strike to-hit (target number) calculator (`calculateAcesToHit`, UI `_to-hit-calculator.tsx`). Before this, nothing like it existed, and the engine needs it: targets
-  at TN 13+ are ignored and the OV rows compare against TN (*Aces* pp.18-19). Modifiers: skill, range, attacker
-  and target movement, terrain and cover, IF and spotter, battle armor +1, emplacements, AM, heat and Fire Control
-  hits.
 
 ### B. Additional Alpha Strike rules (*Aces* pp.3-6, *Aces SS* pp.18-19)
 
-- [x] Indirect Fire (IF#) in the to-hit calculator, with the p.3 example as a test. The judgment calls stay with
-  the player. Spotter eligibility (didn't Sprint, hasn't attacked, has LOS, within 42"), modifiers,
-  +1 to both attacks when the spotter also fires, one target per spotter, IF0* minimal damage, no OV, and Weapon
-  Hits reduce IF. The worked example on *Aces* p.3 (TN 8) becomes a regression test.
 - [ ] Combat vehicles (p.4). *Partial:* the motive and critical-hit tables roll and mark the unit card under the
   `aces` ruleset; heat-as-damage and Charge-only are still the player's job. Motive table (+1 for hover and wheeled; check it against the existing motive
   tracking), the Aces vehicle critical hit table under the `aces` ruleset, heat applied as damage, Charge as the
@@ -676,69 +529,12 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
   (no deck, no FW) are done; there is no unit entry yet. Immobile (-4), -1 when attacking or spotting, critical hits always a Weapon Hit,
   crippled at 0 damage, no Forced Withdrawal. Needs an emplacement unit entry (probably a custom-MUL-style record;
   check the MUL first).
-- [x] "Front-loaded" unequal numbers (p.6), `getAcesFrontLoadedMoveOrder`; tested against the Erin/Ben example: a move-order helper that skips units which can't move (immobile, shut
-  down, emplacements, transported infantry). Test it against the 8-vs-5 example.
 - [ ] Scouring Sands abilities (*Aces SS* p.19): ECM (12"), FLK, JMPS#, SRCH, TAG, TUR#, alternate munitions.
   Compare each with `alpha-strike-special-abilities.ts` (ASCE wording) and add Aces notes where they differ. Probe
   scan ranges (4" base, LPRB 8", PRB 12", BH 16") apply only to Waypoints (*Aces* p.24).
 
 ### C. Automated opponent engine (*Aces* pp.7-21, 38-40)
 
-- [x] Card schema (`src/data/aces-*.ts` if the IP decision allows shipping it; otherwise local-only data).
-  - Aces card: deck, role, subtype (Infantry, Hover, JMPS), set icon, card ID, and separate movement and combat
-    priorities.
-  - Each card has three behavior columns (Aggressive, Balanced, default Cautious), and each column has a condition,
-    target Zones or a keyword, filters (can attack after moving, has moved), a color list, a movement mode and
-    ranked movement filters.
-  - The combat side has Zones, filters and OV rows.
-  - Command card: letter A-E, orders by phase, Red/Yellow/Blue priority lists, support orders, emplacement,
-    artillery and BSP priorities, and strategy rows leading to the next letter.
-  - Special Orders: Forced Withdrawal, Fleeing, Movement Objective (filters 0a-0c), Destroy Objective (default
-    stats), Indirect Attacks.
-  - Encode conditions and filters as a typed predicate vocabulary (the icon and keyword set, *Aces* pp.9, 40)
-    rather than free text, so the engine can evaluate what it can.
-- [x] Assisted-resolution design. The app doesn't know the table (positions, LOS, range, cover, arcs), so each
-  activation is a step-by-step prompt:
-  - The engine settles everything that stat values decide: ideal-color ranking and tie-breaks, OV use, priority
-    order, card cycling, command-card changes.
-  - It asks the player only the geometric questions, e.g. "Is the ideal Blue (Timber Wolf) within 12" and has it
-    moved?" or "Which enemies are within 16"?".
-  - When the filters don't settle a choice, it shows the Golden Rule (*Aces* p.14) and hands the choice to the
-    player. It never guesses.
-- [x] Decks (*Aces* pp.10, 19, 38-39). *Partial:* the default deck by role and subtype, splitting with extras set
-  aside, card cycle counting and reshuffle notices are done. The seeded RNG and merged/custom decks are not.
-  - Default deck from the unit's role: map `ASMULRoles` to the Aces decks. Subtype by movement type: hover or
-    wheeled to the Hover decks, JMPS to Skirmisher (JMPS), infantry to Ambusher (Infantry) (*Aces SS* p.20; *Aces*
-    p.39).
-  - Deck handling: six-card decks; even splitting with extras set aside; reshuffle the combined cards; merged and
-    custom decks.
-  - Card cycle: flip after moving, tuck after combat, reshuffle when the top card shows its combat side.
-  - A seeded RNG stored with the game, so a reloaded game continues the same way.
-- [x] Initiative phase (p.10). *Partial:* the player enters priorities, and tokens override them at 000/1000
-  with the holders restricted as p.8 says. The Command-card orders are not automated. Reveal the movement priorities, apply the Command orders (Move First = 000, Move
-  Last = 1000, with the units that can't hold a token), then roll or enter both Initiative rolls.
-- [x] Movement phase (pp.11-17): activation order. *Partial:* the activation queue (priority, PV ties, FW -500)
-  and the front-loaded move order are shown in the tracker. The per-card behavior, target and movement steps are
-  still read off the cards.
-  - Lowest unmoved priority goes first; ties go to the lowest PV, then the player chooses. Forced Withdrawal adds
-    -500. Interleave this with the unequal-numbers helper so the app tells the player when to move their own
-    units.
-  - Steps: check orders, determine behavior (columns left to right), identify the target (nearest Zone, filters,
-    color tie-breaks), filter the movement (none/one/many locations), standstill rules and the 1" nudge, jump "if
-    needed", facing checklist, flip the card, record mode and TMM.
-  - Also: No Targets in Play, and Movement/Destroy objectives.
-- [x] Combat phase (pp.18-20):
-  - Units attack in combat-priority order. Target selection skips TN 13+ and destroyed units, and falls back to
-    the closest unit.
-  - OV decision: never cause a shutdown; no attack at 0 MV from heat; maximum OV if the unit is destroyed this
-    phase; non-'Mechs ignore OV.
-  - Physical attacks only under the conditions on p.20.
-  - Indirect Attacks special order at priority 000: target from the BSP filters, spotter selection, and the
-    spotter holds fire when that helps.
-  - Then emplacements, artillery (ASCE rules) and Battlefield Support cards, ordered by TN, then damage, and gated
-    by the support orders.
-- [x] End phase (p.21; campaign order p.32): strategy decision rows pick the next Command card; mark Forced
-  Withdrawal.
 - [ ] Extras. *Partial:* the non-campaign difficulty PV helper is on the game setup page. Automated allies inside the player's force (p.38); non-campaign difficulty (80%/120% PV, skill ±1
   without recalculating PV, p.38); a quick-reference panel of icons and keywords (back cover, p.40).
 - [ ] OPFOR builder in the roster. *Partial:* the automated force is loaded from the current roster or a
@@ -749,22 +545,6 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
 
 ### D. Campaign rules (*Aces* pp.23-37)
 
-- [x] Campaign save model (`AcesCampaign`, versioned, included in backups):
-  - Campaign-level: difficulty, Warchest SP, story keywords (including numbered keywords), sortie history, next
-    sortie.
-  - Player force roster: PV at Skill 4, wounded, memorial.
-  - Named Pilots: callsign, type BM/CV/BA, Skill, Edge, number of Edge abilities, total SP, SP in the three
-    allocation columns, MVP count, wounded, abilities learned, campaigns and sorties played.
-- [x] Force creation checks (`validateAcesStartingForce`). The MUL era/faction search is not done. 400 PV, at least 8 units, Skill 4.
-  - Advanced mode uses the MUL search with the campaign's era and faction (Scouring Sands: Mercenary, ilClan era,
-    *Aces SS* p.21).
-  - Only BM/BA/CV/CI types. At most two 'Mechs per chassis, never the same variant; at most two identical units of
-    any other type.
-  - Unspent PV converts to SP at 40 SP per PV.
-- [x] Named Pilots (pp.27-28): 2-6 pilots, 150 SP each to allocate, type-locked; hire a replacement for 150 SP.
-  Thresholds are sourced (see above).
-- [x] Difficulty (p.28): Rookie to Legendary, PV% and SP%. Existing forces add a pilot-SP bracket modifier (p.29);
-  the percentages add. Test with the p.29 example: 250 PV at +20% - 10% gives 275 PV.
 - [ ] Sortie setup checklist (pp.30-31): record the log entry, briefing by entry ID, Reconnaissance SP, play-area
   and Waypoint setup.
   - Player force: PV cap after difficulty. OMNI reconfiguration costs Size x5 SP, or the PV difference x40 SP if
@@ -778,39 +558,11 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
   - Waypoint reveal and scan (p.24).
   - Edge spends: +1 pip once per Combat Phase (a raised 12 doesn't cause a critical hit), reroll motive, reroll a
     critical hit, and Edge abilities (p.24).
-- [x] After-sortie ledger (pp.33-36), in order. Built as the campaign page's sortie form and helpers:
-  - Game-end Waypoints, then outcome keywords.
-  - Casualties:
-    - Salvage roll: 4+ BM, 6+ CV, 8+ BA, 10+ CI.
-    - Automatically truly destroyed: an ammo critical hit without CASE, a crash, or an emplacement.
-    - Crew roll: 2-3 killed, 4-6 wounded, 7+ unscathed. A Crew Killed or Unit Destroyed critical hit kills the
-      crew; Crew Stunned wounds it.
-  - Income: objectives x the difficulty SP%.
-  - Expenses:
-    - Reconnaissance and Waypoints.
-    - Rearming: 20 SP per unit, except ENE units and truly destroyed units.
-    - Personnel: 100 SP per wounded crew or pilot, 150 SP per new pilot.
-    - Repairs: Size x100 destroyed, x60 crippled, x40 structure damage or critical hits, x20 armor only. Non-'Mechs
-      count half their Size, and nothing is rounded.
-  - Earnings and debt.
-  - Pilot shares: the outcome's per-pilot cap; absent pilots get half; KIA get nothing; wounded get a full share.
-    MVP gets +20 SP.
-  - Purchases at PV x40, sales at PV x20.
-  - Next-sortie choice.
-  - Regression tests: the p.36 walkthrough (1,800 - 940 = 860 SP; 280 SP to pilots; 980 SP balance) and the p.34
-    crippled Size 3 tank (1.5 x 60 = 90 SP).
 - [ ] Printables generated by the app: Campaign Log, Player Force Roster, Sortie Log and Named Pilot card, in our
   own layout, not copies of the official sheets.
 
 ### E. Scouring Sands content (*Aces SS*)
 
-- [x] Sortie index (00-BattleROM Review, 00-Training Simulator, 01-21) within the IP decision. Done as a page
-  index on the rules page (`acesScouringSandsSorties`); full sortie records are player-entered. For each sortie:
-  number, name, PV cap, OPFOR (unit, skill, deck, reserve), Command deck and starting card, objectives and SP,
-  turn limit, Waypoint placement, and branch choices. Story, Waypoint and outcome text is referenced by entry ID
-  only.
-- [x] The guided tutorial's stacked deck order (e.g. Brawler 383, 253, 643, 213, 093, 513; *Aces SS* p.5), as a
-  scripted first game.
 - [ ] Unit availability list for Apolakkia (*Aces SS* p.20). *Partial:* encoded and shown on the rules page; check SP = PV x40. Terrain legend CF values and the
   river and canyon rules (*Aces SS* p.18).
 - [ ] Box OPFOR units (Bane 3, Marauder IIC, Thunderbolt IIC, Summoner H, Rifleman C2, Howler, Locust IIC 4, Fulcrum
@@ -818,9 +570,6 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
 
 ### F. UI in the Alpha Strike section
 
-- [x] Routes under `/alpha-strike/aces/`: an overview page, a solo/co-op game (setup, then the turn wizard), and
-  campaigns (list, log, roster, pilots, sortie flow, after-sortie ledger). Add a tile on the Alpha Strike home.
-  Domain logic stays in `src/classes` and `src/data`; pages only render and ask questions.
 - [ ] Reuse the in-play unit cards and damage tracking for both sides. *Partial:* the automated side uses them;
   the player side uses the roster's in-play view. Show the automated units' priority,
   behavior, target and tokens next to their cards.
@@ -832,10 +581,6 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
 - [ ] One regression test per rule, named for the rule with its *Aces* page, using the book's worked examples:
   IF p.3; Determine Behavior and Identify Target pp.11-13; Forced Withdrawal priority 625 - 500 = 125, p.16;
   Destroy Objective TMM -4, p.17; BSP ordering p.21; plus the campaign examples above.
-- [x] Browser test: set up a small Aces game and play one full turn (initiative, both sides moving, combat, end
-  phase), then save, reload and continue.
-- [x] Backward compatibility: old AS force saves and backups load unchanged; the new game and campaign records
-  round-trip.
 
 ## 9. Runtime and tooling
 
@@ -859,29 +604,12 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
 - [ ] Turn `prefer-const` (~790 hits) and `no-var` (~20) back on after their own `eslint --fix` commit
   (`npx eslint . --fix --rule 'prefer-const: error' --rule 'no-var: error'`).
 - [ ] Add lint back to `npm run check` and make the CI lint job blocking once the backlog below is empty.
-- [x] Lint backlog cleared (2026-10-06): `npm run lint` reports 0 errors. The two unused helpers in
-  `tools/live_mul_browser_probe.mjs` were removed, the rethrow in `tools/mul-sync/sync-mul.mjs` carries its
-  `cause`, and those two Playwright scripts get browser globals in `eslint.config.mjs`. The phantom
-  `tools/append_chunker.js` / `tools/range_chunker.js` entries are gone from `tsconfig.json`.
 
 ## 10. JBTIICRework review (2026-10-06)
 
-`C:epo\JBTIICRework` is a Gemini AI Studio export of master at `0a1f061e`. It is reference only: port by hand,
+`C:\repo\JBTIICRework` is a Gemini AI Studio export of master at `0a1f061e`. It is reference only: port by hand,
 never copy its `package.json`, lockfiles, Vite config, `.gitignore`, `tsconfig.json` or `index.html`. Its
 `errors.md` was checked item by item.
-
-Done, merged into master:
-- [x] 1.1 A failed `localStorage` write is reported with an "Unable to Save" alert (`fix/storage-quota-handling`,
-  branched from `upstream/master`).
-- [x] 1.3 / 1.4 AppRouter removes its online/offline listeners and import timer on unmount
-  (`fix/app-router-cleanup`, from `upstream/master`).
-- [x] 3.1 The bundled SSW 'Mechs load as their own chunk; entry bundle 2,483 kB to 333 kB
-  (`perf/lazy-ssw-corpus`, stacked on the cleanup branch).
-- [x] `.ssw` file import refuses more than 200 files or a file over 5 MB (`fix/ssw-import-limits`, fork only:
-  the importer is not upstream yet).
-- [x] 2.4 / 2.5 Lint backlog and phantom `tsconfig.json` entries (`chore/tooling-lint-backlog`).
-- [x] 3.3 The 18 MB replaced-legacy archive moved to `tools/mul-sync/archive/`
-  (`chore/move-mul-legacy-archive`); the same path change is on upstream PR #92.
 
 Local e2e note: with Playwright's bundled Chromium and more than about 4 workers, every test times out on the
 maintainer's Windows machine. The `vite preview` process blocks for 19-38 s inside the native close of a TCP
@@ -889,8 +617,8 @@ socket (CPU profile), which points at a network filter driver, not the app: Fire
 `PLAYWRIGHT_CHANNEL=msedge` pass at 13 workers and GitHub CI passes. Run `--workers=4` or the Edge channel locally.
 
 Open:
-- [ ] Upstream draft PRs waiting on review: #110 (`fix/storage-quota-handling`), #111
-  (`fix/app-router-cleanup`), #112 (`perf/lazy-ssw-corpus`, stacked on #111).
+- [ ] Upstream draft PRs waiting on review: #110 (`fix/storage-quota-handling`) and #112
+  (`perf/lazy-ssw-corpus`, which now carries the AppRouter cleanup too; #111 was closed into it).
 - [ ] 1.6 `security/sanitizer-hardening`: design first. JBTIICRework's DOMPurify swap drops the strict tag
   whitelist on the non-raw path and breaks `security-guards.test.ts`.
 - [ ] Catalog rework: one catalog per category (Energy, Ballistic, Missile, Melee incl. Shields, Electronics,
