@@ -28,6 +28,26 @@ export function getSaveDataModeName( id: ESaveDataMode ): string {
     return "n/a";
 }
 
+export type StorageSaveErrorHandler = (keyName: string, error: unknown) => void;
+
+let storageSaveErrorHandler: StorageSaveErrorHandler | null = null;
+
+/** Registers the one listener that is told when a save cannot be written (pass null to remove it). */
+export function onStorageSaveError( handler: StorageSaveErrorHandler | null ): void {
+    storageSaveErrorHandler = handler;
+}
+
+// localStorage.setItem throws when the origin's quota (about 5 MB) is used up, or when storage is disabled.
+function writeLocalStorage( keyName: string, data: string ): void {
+    try {
+        localStorage.setItem(keyName, data);
+    } catch( error ) {
+        console.error("Unable to save " + keyName + " to localStorage", error);
+        if( storageSaveErrorHandler )
+            storageSaveErrorHandler( keyName, error );
+    }
+}
+
 export interface IFullBackup {
     battleMechSaves: IBattleMechExport[];
     // appSettings: IAppSettingsExport;
@@ -427,7 +447,7 @@ async function saveData(
 ): Promise<void> {
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
-            localStorage.setItem(keyName, data);
+            writeLocalStorage(keyName, data);
             break;
         }
         case ESaveDataMode.firebase: {
@@ -779,7 +799,7 @@ export async function getFavoriteCBTGroups(
 export function saveAppSettings(
     newValue: IAppSettingsExport,
 ) {
-    localStorage.setItem("appSettings", JSON.stringify(newValue) );
+    writeLocalStorage("appSettings", JSON.stringify(newValue) );
 }
 
 export function getAppSettings(): IAppSettingsExport {
