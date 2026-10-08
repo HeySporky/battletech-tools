@@ -119,9 +119,10 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setWalkingMP}
                               >
                                 <option value={0}>-Select Walking Speed-</option>
-                                {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map( (option) => {
-                                // Engine ratings above 400 (Large engines) are Experimental only.
-                                const overMax = option > (this.props.appGlobals.currentBattleMech?.getMaxWalkSpeed(this.props.appGlobals.appSettings.mechRulesFilter) ?? 20);
+                                {Array.from({ length: Math.max(20, this.props.appGlobals.currentBattleMech?.getMaxWalkSpeed(this.props.appGlobals.appSettings.mechRulesFilter) ?? 20) }, (_, index) => index + 1).map( (option) => {
+                                // Engine ratings above 400 (Large engines) are Experimental only; the Engine Table starts at 10.
+                                const overMax = option > (this.props.appGlobals.currentBattleMech?.getMaxWalkSpeed(this.props.appGlobals.appSettings.mechRulesFilter) ?? 20)
+                                  || option < (this.props.appGlobals.currentBattleMech?.getMinWalkSpeed() ?? 1);
                                 if( overMax && option !== this.props.appGlobals.currentBattleMech?.getWalkSpeed() ) {
                                   return <React.Fragment key={option}></React.Fragment>;
                                 }

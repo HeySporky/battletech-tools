@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from "../data/mech-tonnages";
 import { mechTypeOptions } from "../data/mech-type-options";
-import { DEFAULT_RULES_EDITION, getRulesEdition, getSelectableRulesEditions, isEarlierRulesEdition } from "../data/rules-editions";
+import { DEFAULT_RULES_EDITION, editionHasBattleValue, editionHasPrices, getRulesEdition, getSelectableRulesEditions, isEarlierRulesEdition } from "../data/rules-editions";
 import { BattleMech } from "./battlemech";
 
 const build = (edition?: string, tonnage: number = 50, walk: number = 4): BattleMech => {
@@ -70,12 +70,15 @@ describe("Rules edition selector", () => {
         expect(available(compendium.getAvailableMyomerTypes()).sort()).toEqual(["standard", "tsm"]);
     });
 
-    // Tonnage tables: 10 to 100 tons until the Master Rules, which start at 20 (BMR p.110). No rules level applies.
+    // Tonnage tables: 5 to 100 tons in Battledroids (BD p.23), 10 to 100 until the Master Rules, which start at 20
+    // (BMR p.110). No rules level applies.
     it("takes the tonnage range from the edition's table", () => {
         const tons = (edition: string) => getAvailableTonnagesForMechType("biped", 2, "is", edition).map(option => option.tons);
-        expect([tons("battledroids")[0], tons("battledroids").at(-1)]).toEqual([10, 100]);
+        expect([tons("battledroids")[0], tons("battledroids").at(-1)]).toEqual([5, 100]);
+        expect([tons("battletech-2nd-edition")[0], tons("battletech-2nd-edition").at(-1)]).toEqual([10, 100]);
         expect([tons("master-rules")[0], tons("master-rules").at(-1)]).toEqual([20, 100]);
-        expect(getTonnageBoundsForMechType("biped", 2, "is", "battledroids")).toEqual({ min: 10, max: 100 });
+        expect(getTonnageBoundsForMechType("biped", 2, "is", "battledroids")).toEqual({ min: 5, max: 100 });
+        expect(getAvailableTonnagesForMechType("biped", 7, "is").map(option => option.tons)).not.toContain(5);
         expect(getTonnageBoundsForMechType("biped", 2, "is")).toEqual({ min: 20, max: 100 });
         expect(tons("total-warfare")).toEqual(getAvailableTonnagesForMechType("biped", 2, "is").map(option => option.tons));
     });
@@ -144,6 +147,67 @@ describe("Rules edition selector", () => {
         expect(light.getRulesEditionIssues()).toEqual([]);
         light.setRulesEdition("master-rules");
         expect(light.getRulesEditionIssues()).toEqual(["Tonnage: 10 tons"]);
+    });
+
+    // BD pp.23-24: 5 tons is the lightest battledroid. Internal structure 0.5 tons, a 10-rated engine 0.5,
+    // the cockpit 3 and the gyroscope 1 use up all 5 tons.
+    it("builds Battledroids' 5-ton chassis", () => {
+        const mech = build("battledroids", 5, 2);
+        expect(mech.getRulesEditionIssues()).toEqual([]);
+        expect(mech.getInternalStructure()).toMatchObject({ head: 3, centerTorso: 3, leftTorso: 2, rightTorso: 2, leftArm: 1, rightArm: 1, leftLeg: 1, rightLeg: 1 });
+        expect([mech.getEngine()?.rating, mech.getEngineWeight(), mech.getInternalStructureWeight(), mech.getCockpitWeight(), mech.getGyroWeight()])
+            .toEqual([10, 0.5, 0.5, 3, 1]);
+        expect(mech.getRemainingTonnage()).toBe(0);
+        // Engine Table, BD p.23: ratings 10 to 400, so 2 to 80 Walking MP at 5 tons.
+        expect([mech.getMinWalkSpeed(), mech.getMaxWalkSpeed(4), build(undefined, 20, 4).getMinWalkSpeed()]).toEqual([2, 80, 1]);
+        const slow = build("battledroids", 20, 1);
+        slow.setTonnage(5);
+        expect([slow.getWalkSpeed(), slow.getEngine()?.rating]).toEqual([2, 10]);
+        // Head 9, every other location twice its boxes (BD p.25).
+        expect(mech.getMaxArmor()).toBe(9 + 2 * (3 + 2 + 2 + 1 + 1 + 1 + 1));
+
+        const restored = new BattleMech(mech.exportJSON());
+        expect([restored.getTonnage(), restored.getRulesEdition(), restored.getInternalStructure().centerTorso]).toEqual([5, "battledroids", 3]);
+        // Under an edition without the chassis the design still opens, and the tonnage is reported.
+        restored.setRulesEdition("total-warfare");
+        expect(restored.getInternalStructure().centerTorso).toBe(3);
+        restored.setRulesEdition("master-rules");
+        expect(restored.getRulesEditionIssues()).toContain("Tonnage: 5 tons");
+    });
+
+    // Internal Structure Table, BD p.24: the boxes come from the edition's own table.
+    it("takes internal structure boxes from the edition's table", () => {
+        const boxes = (tons: number) => {
+            const structure = build("battledroids", tons, 2).getInternalStructure();
+            return [structure.centerTorso, structure.leftTorso, structure.leftArm, structure.leftLeg];
+        };
+        expect([boxes(25), boxes(55), boxes(60), boxes(65)]).toEqual([[8, 6, 4, 6], [18, 13, 9, 13], [20, 14, 10, 14], [21, 15, 10, 15]]);
+    });
+
+    // BD p.25 puts weapons and heat sinks on the Critical Hit Chart; the Second Edition adds the jets (BT2 p.39).
+    it("keeps Battledroids jump jets off the Critical Hit Chart", () => {
+        const jets = (edition?: string) => {
+            const mech = build(edition, 50, 4);
+            mech.setJumpSpeed(4);
+            return mech.getUnallocatedCriticals().filter(item => item.tag.startsWith("jj-")).length
+                + mech.exportJSON().split('"jj-standard"').length - 1;
+        };
+        expect(jets("battledroids")).toBe(0);
+        expect(jets("battletech-2nd-edition")).toBeGreaterThan(0);
+        expect(jets()).toBeGreaterThan(0);
+    });
+
+    it("asks for no rules level under an earlier edition", () => {
+        expect(build(undefined, 10, 4).getRequiredRulesLevel()).toBe(3);
+        expect(build("battledroids", 10, 4).getRequiredRulesLevel()).toBe(0);
+    });
+
+    // No edition before the Master Rules has Battle Value; Battledroids, the Second, Third and Fourth Editions print no prices.
+    it("knows which editions have Battle Value and prices", () => {
+        const tags = ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-compendium", "battletech-3rd-edition",
+            "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "core-rulebook"];
+        expect(tags.map(editionHasBattleValue)).toEqual([false, false, false, false, false, false, false, true, true, true, true]);
+        expect(tags.map(editionHasPrices)).toEqual([false, false, true, true, false, true, false, true, true, true, true]);
     });
 
     it("saves the edition with the design and loads old saves as Total Warfare", () => {

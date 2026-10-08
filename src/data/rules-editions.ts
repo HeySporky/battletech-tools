@@ -9,7 +9,7 @@
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
-import { IEditionStats, IEditionStatsTable, IEquipmentItem } from "./data-interfaces";
+import { IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure } from "./data-interfaces";
 
 /**
  * Editions of the BattleTech rules, oldest first, so a player can choose to build with one edition's rules only.
@@ -44,6 +44,10 @@ export interface IRulesEdition {
     book: string;
     /** True once every item the edition's rulebook includes has its `editionStats` entry. */
     complete?: boolean;
+    /** The edition has no Battle Value system: the first one is in the Master Rules. */
+    noBattleValue?: boolean;
+    /** The edition's rulebook prints no prices, for equipment or for a finished unit. */
+    noPrices?: boolean;
     /** The 'Mechs the rulebook prints, as it names them. */
     mechs?: string[];
     /** Other units the rulebook gives rules for; they are fixed designs, not built from the catalogs. */
@@ -60,6 +64,8 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1984,
         book: "BD",
         complete: true,
+        noBattleValue: true,
+        noPrices: true,
         // BD pp.16-17, the ten record listings.
         mechs: [
             "STG-3R Stinger", "WSP-1A Wasp", "PXH-1K Phoenix Hawk", "GRF-1N Griffin", "SHD-2H Shadow Hawk",
@@ -68,7 +74,6 @@ export const btRulesEditions: IRulesEdition[] = [
         // BD pp.22-23, Expert Battledroids optional rules.
         otherUnits: ["SCR-8N Scorpion tank", "HNT-3R Hunter tank", "VDE-3T Vedette tank", "Jeep", "Infantry squad"],
         notModelled: [
-            "5-ton battledroids: tonnage runs from 5 to 100 in steps of 5 (BD p.23); the tool starts at 10.",
             "Tanks, jeeps and infantry are fixed designs with their own armor and movement (BD pp.22-23).",
             "A severed arm or leg picked up as a club: an optional rule, not an item (BD p.21).",
         ],
@@ -80,6 +85,8 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1985,
         book: "BT2",
         complete: true,
+        noBattleValue: true,
+        noPrices: true,
         // BT2 pp.36-41, the fourteen record listings, and the training 'Mech of p.1.
         mechs: [
             "LCT-1V Locust", "STG-3R Stinger", "WSP-1A Wasp", "PXH-1 Phoenix Hawk", "GRF-1N Griffin",
@@ -99,6 +106,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1987,
         book: "BTM",
         complete: true,
+        noBattleValue: true,
         // A rulebook only: it prints no 'Mech record listings and names designs in passing (BTM pp.41, 74).
         mechs: [],
         // Units with their own construction rules (BTM pp.80-84) or tables (BTM pp.36, 50).
@@ -125,6 +133,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1990,
         book: "BTC",
         complete: true,
+        noBattleValue: true,
         // A rulebook only: it prints no 'Mech record listings and names designs in passing (BTC pp.56, 61, 104).
         mechs: [],
         // Units with their own construction rules (BTC pp.105, 122-127), tables (BTC pp.45-46) or record sheets.
@@ -155,6 +164,8 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1992,
         book: "BT3",
         complete: true,
+        noBattleValue: true,
+        noPrices: true,
         // The four training scenarios name the fourteen 'Mechs of the box by chassis (BT3 pp.36-39); the model
         // codes are from the pregenerated record sheets (BT3 p.5: "the fourteen 'Mechs included in the basic
         // game"). The sheets in the library's scan are footed "Copyright 1996", so they are a later printing
@@ -179,6 +190,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1994,
         book: "BTC:RoW",
         complete: true,
+        noBattleValue: true,
         // The Technical Readout sections (BTC:RoW pp.125-132), with a record sheet for each at the back of the
         // book. The Clan designs are headed by their Clan names, with the Inner Sphere designation beside them.
         mechs: [
@@ -218,6 +230,8 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1996,
         book: "BT4",
         complete: true,
+        noBattleValue: true,
+        noPrices: true,
         // The box holds playing pieces for "twenty-four different BattleMech designs" (BT4 p.5). Their record
         // sheets and the Introduction to BattleTech book that describes them are not in the library, so only
         // the twenty the rulebook's scenarios name are listed (BT4 pp.36-39); the Assassin is named without
@@ -379,6 +393,34 @@ export function getEditionStats(record: IEditionRecord, editionTag: string): IEd
         const stats = table[btRulesEditions[index].tag];
         if (stats) {
             return stats;
+        }
+    }
+    return undefined;
+}
+
+/** Does the edition have a Battle Value system? The first is in the Master Rules. */
+export function editionHasBattleValue(editionTag: string | undefined): boolean {
+    return !getRulesEdition(editionTag).noBattleValue;
+}
+
+/** Does the edition's rulebook print prices? */
+export function editionHasPrices(editionTag: string | undefined): boolean {
+    return !getRulesEdition(editionTag).noPrices;
+}
+
+/**
+ * Internal structure boxes an earlier edition's own table gives a 'Mech of `tons` (read from the standard
+ * structure record). With `anyEdition`, the first edition whose table has the row: Battledroids alone has 5 tons.
+ */
+export function getEditionStructure(record: IEditionRecord, editionTag: string, tons: number, anyEdition: boolean = false): IRawMechStructure | undefined {
+    const own = isEarlierRulesEdition(editionTag) ? getEditionStats(record, editionTag)?.structure?.[tons] : undefined;
+    if (own || !anyEdition) {
+        return own;
+    }
+    for (const edition of btRulesEditions) {
+        const row = record.editionStats?.[edition.tag]?.structure?.[tons];
+        if (row) {
+            return row;
         }
     }
     return undefined;

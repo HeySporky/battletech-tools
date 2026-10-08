@@ -9,8 +9,8 @@ import { ComponentRecord, getComponentRecords, getComponentTiers, isCustomCompon
 import type { CustomComponentKind, ISSWUnresolvedItem } from "../data/custom-content-types";
 import { getCockpitType } from "../data/mech-cockpit-types";
 import { btMechTonnages } from "../data/mech-tonnages";
-import { DEFAULT_RULES_EDITION, editionEngineHoldsHeatSinks, getEditionJumpJetWeight, getEditionStats, getEquipmentForEdition, getRulesEdition, isEarlierRulesEdition, isInRulesEdition } from "../data/rules-editions";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { DEFAULT_RULES_EDITION, editionEngineHoldsHeatSinks, getEditionJumpJetWeight, getEditionStats, getEditionStructure, getEquipmentForEdition, getRulesEdition, isEarlierRulesEdition, isInRulesEdition } from "../data/rules-editions";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { describeEngineRequirement, engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
@@ -3885,7 +3885,9 @@ export class BattleMech {
             }
         }
         // Jump Jets
-        let jump_move = this._jumpSpeed;
+        // Battledroids keeps jump jets off the Critical Hit Chart (BD p.25).
+        const jumpJetCriticals = getEditionStats(this._jumpJetType, this._rulesEdition)?.criticals ?? this._jumpJetType.criticals;
+        let jump_move = jumpJetCriticals > 0 ? this._jumpSpeed : 0;
         for( let jmc = 0; jmc < jump_move; jmc++) {
             this._unallocatedCriticals.push({
                 uuid: generateUUID(),
@@ -3894,7 +3896,7 @@ export class BattleMech {
                 tag: "jj-" + this._jumpJetType.tag,
                 rear: false,
                 movable: true,
-                crits: this._jumpJetType.criticals,
+                crits: jumpJetCriticals,
             });
         }
 
@@ -4277,8 +4279,14 @@ export class BattleMech {
      * Highest walking MP an engine can give this 'Mech: rating (walk MP x tonnage) is capped at 400,
      * or 500 with Large engines, which are Experimental technology (TO:AUE).
      */
+    /** Lowest Walking MP an engine exists for. The Engine Table starts at a rating of 10, so a 5-ton battledroid needs 2 (BD p.23). */
+    public getMinWalkSpeed(): number {
+        return Math.max(1, Math.ceil(10 / Math.max(1, this.getTonnage())));
+    }
+
     public getMaxWalkSpeed(rulesLevel: number = 2): number {
-        const maxRating = rulesLevel >= EXPERIMENTAL_RULES_LEVEL ? 500 : 400;
+        // The Engine Tables before Total Warfare end at 400, whatever the rules level.
+        const maxRating = rulesLevel >= EXPERIMENTAL_RULES_LEVEL && !this.usesEarlierRulesEdition() ? 500 : 400;
         const walk = Math.floor(maxRating / Math.max(1, this.getTonnage()));
         if (!this._primitive) return walk;
         // A Primitive engine's adjusted rating comes from the Master Engine Table, which ends at 400 (IO:AE p.117).
@@ -5148,7 +5156,8 @@ export class BattleMech {
             }
         };
         this._equipmentList.forEach(restat);
-        this._calc();
+        // The structure boxes are the edition's as well; setTonnage recalculates everything after them.
+        this.setTonnage(this._tonnage);
         return this._rulesEdition;
     }
 
@@ -5541,6 +5550,8 @@ export class BattleMech {
         if (this.isIndustrialMech() && armorTags.some(tag => BattleMech.DARK_AGE_ARMOR_TAGS.includes(tag))) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
         if (this.isPatchworkArmor()) level = Math.max(level, 3);
+        // An edition before Total Warfare has no rules levels: only content from outside the canon keeps its level.
+        if (this.usesEarlierRulesEdition() && level < APOCRYPHAL_RULES_LEVEL) return 0;
         return level;
     }
 
@@ -6240,7 +6251,17 @@ export class BattleMech {
       // Get the current active mech configuration type tag key
       const mechTypeKey = this.getMechType().tag as keyof typeof this._selectedInternalStructure.perMechType;
       // Fetch the normalized structural data block for this specific tonnage
-      const structureData = this._selectedInternalStructure.perMechType[mechTypeKey][this.getTonnage()];
+      // An earlier edition's own Internal Structure Table comes first (Battledroids' runs down to 5 tons, BD p.24).
+      const listedStructure = this._selectedInternalStructure.perMechType[mechTypeKey][this.getTonnage()];
+      const editionBoxes = getEditionStructure(mechInternalStructureTypes[0], this._rulesEdition, this.getTonnage(), !listedStructure);
+      const structureData: IInternalStructurePerTon = editionBoxes ? {
+        tonnage: this.getTonnage(), head: editionBoxes.head, centerTorso: editionBoxes.ct, leftTorso: editionBoxes.torso, rightTorso: editionBoxes.torso,
+        leftLeg: editionBoxes.leg, rightLeg: editionBoxes.leg,
+        ...(mechTypeKey === "quad" || mechTypeKey === "quadvee"
+          ? { frontLeftLeg: editionBoxes.leg, frontRightLeg: editionBoxes.leg }
+          : { leftArm: editionBoxes.arm, rightArm: editionBoxes.arm }),
+        ...(mechTypeKey === "tripod" ? { centerLeg: editionBoxes.leg } : {}),
+      } : listedStructure;
       // Assigning core internal structure properties
       this._internalStructure.head = structureData.head;
       this._internalStructure.centerTorso = structureData.centerTorso;
@@ -6341,7 +6362,7 @@ export class BattleMech {
         }
       }
 
-      this.setWalkSpeed(this._walkSpeed);
+      this.setWalkSpeed(this._walkSpeed > 0 ? Math.max(this._walkSpeed, this.getMinWalkSpeed()) : this._walkSpeed);
       this._calc();
 
       return this._tonnage;

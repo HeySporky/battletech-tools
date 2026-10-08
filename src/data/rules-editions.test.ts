@@ -169,8 +169,8 @@ describe("Rules editions: Battledroids, complete", () => {
             // Construction, BD pp.23-25
             "engine standard", "gyro standard", "cockpit standard", "heat sink single", "jump jet standard",
             "armor standard", "structure standard", "mech type biped",
-            // "Battledroids weigh between 5 and 100 tons (in increments of 5 tons)", BD p.23; the tool has no 5.
-            ...[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100].map(tons => `tonnage ${tons}`),
+            // "Battledroids weigh between 5 and 100 tons (in increments of 5 tons)", BD p.23.
+            ...[5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100].map(tons => `tonnage ${tons}`),
         ].sort());
     });
 
@@ -278,8 +278,9 @@ describe("Rules editions: Battledroids, complete", () => {
 describe("Rules editions: Second Edition, complete", () => {
     const changed = (tag: string) => labelled.filter(entry => entry.record.editionStats?.[tag]).map(entry => entry.label).sort();
 
-    it("includes exactly the records Battledroids does", () => {
-        expect(inEdition("battletech-2nd-edition")).toEqual(inEdition("battledroids"));
+    // The Internal Structure Table starts at 10 tons (BT2 p.38): Battledroids' 5-ton row is gone.
+    it("includes exactly the records Battledroids does, less the 5-ton chassis", () => {
+        expect(inEdition("battletech-2nd-edition")).toEqual(inEdition("battledroids").filter(label => label !== "tonnage 5"));
         const edition = getRulesEditions().find(entry => entry.tag === "battletech-2nd-edition")!;
         expect(edition.complete).toBe(true);
         expect(edition.mechs).toHaveLength(15);

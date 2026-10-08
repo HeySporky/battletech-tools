@@ -992,16 +992,22 @@ Open:
     every heat sink on the critical chart in Battledroids and the Second Edition (BD p.25); the edition's own
     Engine Table (Battledroids' 6.5-ton 170). Changing edition restats mounted equipment and removes nothing;
     Step 1 lists what the new edition does not include.
-  - [ ] Rules edition selector, still to do: (1) Battle Value and total cost follow the current rules under
-    every edition (no edition before the Master Rules has Battle Value; the Master Rules' own system and each
-    edition's cost rules are not built); (2) printing asks for the rules-level confirmation as before, so a
-    10-ton Battledroids design is asked about the Advanced level; (3) Battledroids' 5-ton chassis is in its
-    structure table but not in the tonnage list; (4) Battledroids does not put jump jets on the Critical Hit
-    Chart (BD p.25) and the creator still gives each one a slot; (5) the Internal Combustion Engine is offered
-    to BattleMechs under the editions that list it, though the BattleTech Manual gives it to vehicles only
-    (BTM pp.78-84); (6) play mode, record sheets and the other creators (vehicles, fighters, infantry,
-    buildings) do not read the edition; (7) the missile damage per missile and shots per ton an edition
-    prints are not applied (none differs from the catalog today).
+  - [x] Battledroids construction in full (2026-10-08). The 5-ton chassis (BD p.23: 0.5 tons of structure,
+    a 10-rated engine, so Walking MP starts at 2; Step 2 now lists Walking MP up to the engine table's limit).
+    Internal structure boxes come from the edition's own table, for every earlier edition (BD p.24).
+    Jump jets take no critical box in Battledroids (BD p.25). Printing asks for no rules level under an
+    earlier edition. Editions are flagged `noBattleValue` (all seven before the Master Rules) and `noPrices`
+    (Battledroids, Second, Third and Fourth Editions): Step 1 and the summary say so, the BV2 figure is shown
+    for comparison, and the record sheet prints "Not in this edition" for the cost.
+  - [ ] Rules edition selector, still to do: (1) the Master Rules' own Battle Value system and each edition's
+    cost rules are not built, so the editions that have them still show the current rules' figures; (2) the
+    Internal Combustion Engine is offered to BattleMechs under the editions that list it, though the
+    BattleTech Manual gives it to vehicles only (BTM pp.78-84); (3) play mode and the other creators
+    (vehicles, fighters, infantry, buildings) do not read the edition; (4) the missile damage per missile and
+    shots per ton an edition prints are not applied (none differs from the catalog today); (5) the equipment
+    table in Step 5 still shows Battle Value and cost columns under an edition that has neither; (6) "at
+    least 1 ton of ammunition for each launcher or ballistic weapon" (BD p.25) is not checked; (7)
+    Battledroids' tanks, jeep and infantry squad are fixed designs with no builder (BD pp.22-23).
   - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
     1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).

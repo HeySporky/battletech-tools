@@ -6,7 +6,7 @@ import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '..
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
-import { getRulesEdition, getSelectableRulesEditions } from '../../../../data/rules-editions';
+import { editionHasBattleValue, editionHasPrices, getRulesEdition, getSelectableRulesEditions } from '../../../../data/rules-editions';
 import { IAppGlobals } from '../../../app-router';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
@@ -246,8 +246,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                           {this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition() ? (
                             <p className="smaller-text">
                               Built from the {getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).name} rulebook: only what it includes is offered,
-                              with the weights, heat, ranges, damage, critical slots and prices it prints. Battle Value and total cost
-                              still follow the current rules.
+                              with the weights, heat, ranges, damage{editionHasPrices(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? ", critical slots and prices" : " and critical slots"} it prints.
+                              {editionHasBattleValue(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? " Battle Value" : " This rulebook has no Battle Value: the one shown is the current rules' (BV2), for comparison. It"}
+                              {editionHasPrices(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? (editionHasBattleValue(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? " and total cost still follow the current rules." : " prints prices, but the total cost still follows the current rules.") : " prints no prices either, so the design has no cost."}
                             </p>
                           ) : null}
                           {this.props.appGlobals.currentBattleMech.getRulesEditionIssues().length > 0 ? (

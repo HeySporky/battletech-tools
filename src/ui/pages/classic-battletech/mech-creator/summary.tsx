@@ -11,6 +11,7 @@ import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import TextSection from '../../../components/text-section';
 import InputField from '../../../components/form_elements/input_field';
+import { editionHasBattleValue, editionHasPrices, getRulesEdition } from '../../../../data/rules-editions';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -212,6 +213,9 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                           <div className="row">
                             <div className="col-lg-4">
                               <h4 className="text-center">Battle Value</h4>
+                              {editionHasBattleValue(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? null : (
+                                <p className="smaller-text text-center">{getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).name} has no Battle Value. This is the current rules' (BV2), for comparison.</p>
+                              )}
                               <div className="mech-tro some-padding">
                                 <SanitizedHTML html={this.props.appGlobals.currentBattleMech.calcLogBV} raw={true} />
                               </div>
@@ -224,6 +228,9 @@ export default class MechCreatorSummary extends React.Component<IHomeProps, IHom
                             </div>
                             <div className="col-lg-4">
                               <h4 className="text-center">CBill Cost</h4>
+                              {editionHasPrices(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? null : (
+                                <p className="smaller-text text-center">{getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).name} prints no prices. This is the current rules' cost, for comparison.</p>
+                              )}
                               <div className="mech-tro some-padding">
                                 <SanitizedHTML html={this.props.appGlobals.currentBattleMech.calcLogCBill} raw={true} />
                               </div>

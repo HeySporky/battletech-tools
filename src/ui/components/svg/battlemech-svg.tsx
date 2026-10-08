@@ -2,6 +2,7 @@
 import React, { type JSX } from 'react';
 import { BattleMech, IGATOR } from '../../../classes/battlemech';
 import { CONST_HIGHLIGHT_COLOR } from '../../../configVars';
+import { editionHasPrices } from '../../../data/rules-editions';
 import { breakLines } from '../../../utils/breakLines';
 import BattleTechLogo from '../battletech-logo';
 import BattleMechHeatEffectsBoxSVG from './battlemech-heat-effects-box-svg';
@@ -405,7 +406,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     style={{fontWeight: 500}}
                     fontSize={25  }
                 >
-                    {this.props.mechData.getCBillCost()}
+                    {editionHasPrices(this.props.mechData.getRulesEdition()) ? this.props.mechData.getCBillCost() : "Not in this edition"}
                 </text>
 	            {/* // BV */}
                 <text

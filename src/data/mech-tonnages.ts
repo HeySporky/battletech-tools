@@ -13,6 +13,13 @@ import { DEFAULT_RULES_EDITION, isEarlierRulesEdition, isInRulesEdition } from "
 */
 export const btMechTonnages: IMechTonnage[] = [
     {
+        // "Battledroids weigh between 5 and 100 tons" (BD p.23); the Second Edition's table starts at 10.
+        tons: 5,
+        type: "Ultralight",
+        introducedInEdition: "battledroids",
+        editionStats: { battledroids: { book: "BD", page: 23 } },
+    },
+    {
         tons: 10,
         type: "Ultralight",
         introducedInEdition: "battledroids",
@@ -223,7 +230,9 @@ export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: num
     if (isEarlierRulesEdition(editionTag)) {
         const tons = btMechTonnages.filter((option) => isInRulesEdition(option, editionTag)).map((option) => option.tons);
         const chassis = getTonnageBoundsForMechType(mechTypeTag, 3, techTag);
-        return { min: Math.max(chassis.min, Math.min(...tons)), max: Math.min(chassis.max, Math.max(...tons)) };
+        // A chassis that can be built Ultralight goes as low as the edition's table does (Battledroids: 5 tons).
+        const chassisMin = chassis.min <= 10 ? 0 : chassis.min;
+        return { min: Math.max(chassisMin, Math.min(...tons)), max: Math.min(chassis.max, Math.max(...tons)) };
     }
     if (rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL) {
         return { min: 10, max: 200 };

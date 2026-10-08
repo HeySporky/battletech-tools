@@ -37,8 +37,8 @@ export const mechJumpJetTypes: IJumpJet[] = [
 		introducedInEdition: "battledroids",
 		editionStats: {
 			battledroids: {
-				book: "BD", page: 24, name: "Jump Jets", weight: 0.5,
-				notes: "0.5 tons for every jump movement point at every tonnage; mounted in the feet or back (BD p.24). The construction rules put weapons and heat sinks on the Critical Hit Chart and do not mention jump jets (BD p.25).",
+				book: "BD", page: 24, name: "Jump Jets", weight: 0.5, criticals: 0,
+				notes: "0.5 tons for every jump movement point at every tonnage; mounted in the feet or back (BD p.24). No critical boxes: the construction rules put weapons and heat sinks on the Critical Hit Chart and do not mention jump jets (BD p.25), and the record listings show none (BD pp.16-17).",
 			},
 			"battletech-2nd-edition": {
 				book: "BT2", page: 39, name: "Jump Jets", criticals: 1,

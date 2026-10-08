@@ -15,8 +15,9 @@ test("a design built under Battledroids takes that rulebook's tonnages and parts
 
     await edition.selectOption("battledroids");
     await expect(page.getByText(/Built from the Battledroids rulebook/)).toBeVisible();
-    // Battledroids' tables start at 10 tons (BD p.23) and know one chassis and one structure.
-    await expect(page.getByLabel("Mech Tonnage").locator("option").first()).toHaveText("10 (Ultralight)");
+    // Battledroids' tables start at 5 tons (BD p.23) and know one chassis and one structure.
+    await expect(page.getByLabel("Mech Tonnage").locator("option").first()).toHaveText("5 (Ultralight)");
+    await expect(page.getByText(/has no Battle Value/)).toBeVisible();
     await expect(page.getByLabel("Mech Type").locator("option")).toHaveText(["Biped"]);
     await expect(page.getByLabel("Internal Structure Type").locator("option:not([disabled])")).toHaveText(["Standard"]);
 
