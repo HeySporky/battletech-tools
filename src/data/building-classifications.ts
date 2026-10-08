@@ -2,11 +2,11 @@
  * Advanced building classifications and types (Tactical Operations: Advanced Rules pp.112-115), the Power
  * Generators Table (TO:AR p.132) and the structure costs (TO:AR p.208). Literal records, as printed.
  *
- * Castles Brian are left out: they use capital-scale Construction Factors and their own complex rules
- * (TO:AR p.139), which the creator does not build.
+ * A Castles Brian building uses capital-scale Construction Factors and armor (TO:AR pp.113, 115-116, 127-128).
+ * A Castles Brian complex (TO:AR p.139) is many buildings of every classification, each built on its own.
  */
 
-export type BuildingClassificationTag = "tent" | "hangar" | "standard" | "fence" | "wall" | "bridge" | "gun-emplacement" | "fortress";
+export type BuildingClassificationTag = "tent" | "hangar" | "standard" | "fence" | "wall" | "bridge" | "gun-emplacement" | "fortress" | "castles-brian";
 export type BuildingTypeTag = "none" | "light" | "medium" | "heavy" | "hardened" | "rail";
 
 export interface IBuildingType {
@@ -26,16 +26,24 @@ export interface IBuildingType {
 
 /** How much equipment a hex carries: CF x levels, a hangar's tripled and capped figure, or nothing (TO:AR p.127). */
 export type BuildingCapacityRule = "cf-levels" | "hangar" | "none";
-/** Heavy weapon tonnage a hex may mount: none, CF / 3 rounded down, or CF / 10 for each level (TO:AR p.129). */
-export type BuildingHeavyWeaponRule = "none" | "cf-third" | "cf-tenth-per-level";
+/**
+ * Heavy weapon tonnage a hex may mount: none, CF / 3 rounded down, CF / 10 for each level, or the undivided CF
+ * for each level (TO:AR p.129).
+ */
+export type BuildingHeavyWeaponRule = "none" | "cf-third" | "cf-tenth-per-level" | "cf-per-level";
 
 export interface IBuildingClassification {
     tag: BuildingClassificationTag;
     name: string;
     description: string;
     types: IBuildingType[];
-    /** True where armor may be installed, to a maximum of CF x 1 points a hex (TO:AR pp.113, 128). */
+    /** True where armor may be installed, to a maximum of CF x 1 points a hex, CF x 2 at capital scale (TO:AR pp.113, 128). */
     armor: boolean;
+    /**
+     * Capital scale (Castles Brian): a point of Construction Factor or armor is 10 standard points and carries
+     * 10 tons, and the Damage Scaling column reads "Capital" (TO:AR pp.113, 124, 127-128).
+     */
+    capitalScale?: boolean;
     capacity: BuildingCapacityRule;
     heavyWeapons: BuildingHeavyWeaponRule;
     /** True where Light and Medium (infantry) weapons may be mounted, 6 a hex for each level (TO:AR p.129). */
@@ -94,6 +102,28 @@ export const BUILDING_CLASSIFICATIONS: IBuildingClassification[] = [
         damageToBuilding: 0.5,
         damageToUnits: 2,
         costPerCF: 20000,
+        perHexside: false,
+        singleLevelCost: false,
+        page: 115,
+    },
+    {
+        tag: "castles-brian",
+        name: "Castles Brian",
+        description: "The pinnacle of military fortification, on capital-scale Construction Factors. It is environmentally sealed by default, and area-effect weapons do not double their damage against it.",
+        types: [
+            { tag: "heavy", name: "Heavy", minCF: 35, maxCF: 90, maxHexes: 35, maxLevels: 10, mpCost: 4, pilotingModifier: 4 },
+            { tag: "hardened", name: "Hardened", minCF: 91, maxCF: 150, maxHexes: 70, maxLevels: 15, mpCost: 5, pilotingModifier: 5 },
+        ],
+        armor: true,
+        capitalScale: true,
+        capacity: "cf-levels",
+        heavyWeapons: "cf-per-level",
+        lightWeapons: false,
+        powered: true,
+        // "Capital/Capital": damage to the building is divided by 10, damage it does is multiplied by 10 (TO:AR pp.124-125).
+        damageToBuilding: 0.1,
+        damageToUnits: 10,
+        costPerCF: 1000000,
         perHexside: false,
         singleLevelCost: false,
         page: 115,
@@ -231,6 +261,11 @@ export const BUILDING_MAX_UNLIMITED_HEXES = 100;
 
 /** A hangar hex holds at most 600 tons of equipment for every 4 levels of height, or fraction (TO:AR p.127). */
 export const HANGAR_CAPACITY_PER_FOUR_LEVELS = 600;
+
+/** Standard-scale points, and tons carried, in one point of a capital-scale Construction Factor (TO:AR p.127). */
+export const BUILDING_CAPITAL_SCALE = 10;
+/** A building of open-space construction holds no more than 600 tons (TO:AR p.137). */
+export const OPEN_SPACE_MAX_CAPACITY = 600;
 
 /** Armor points a ton, per hex, by the building's technology base (TO:AR p.128). */
 export const BUILDING_ARMOR_POINTS_PER_TON = { is: 16, clan: 20 };

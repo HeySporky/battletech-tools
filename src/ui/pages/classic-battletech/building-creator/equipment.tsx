@@ -78,7 +78,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                 (TO:AR p. 129).
                                             </p>
                                         ) : (
-                                            <p className="smaller-text">Only gun emplacements and fortresses mount Heavy weapons (TO:AR p. 129); this building takes other equipment.</p>
+                                            <p className="smaller-text">Only gun emplacements, fortresses and Castles Brian mount Heavy weapons (TO:AR p. 129); this building takes other equipment.</p>
                                         )}
 
                                         {building.canMountGenerator() ? (
@@ -158,8 +158,8 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                             </label>
                                                         ) : null}
                                                         <label>
-                                                            Elevator {index + 1} capacity in tons (up to {building.getCF()}):
-                                                            <input type="number" min={1} max={building.getCF()} value={elevator.capacity} onChange={(e) => { const value = +e.currentTarget.value || 1; this.update((b) => b.setElevator(index, elevator.hex, value, elevator.levels)); }} />
+                                                            Elevator {index + 1} capacity in tons (up to {building.getStandardCF()}):
+                                                            <input type="number" min={1} max={building.getStandardCF()} value={elevator.capacity} onChange={(e) => { const value = +e.currentTarget.value || 1; this.update((b) => b.setElevator(index, elevator.hex, value, elevator.levels)); }} />
                                                         </label>
                                                         <label>
                                                             Elevator {index + 1} levels reached above the ground level:
@@ -170,7 +170,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                         <button className="btn btn-danger btn-sm" onClick={() => this.update((b) => b.removeElevator(index))}>Remove Elevator {index + 1}</button>
                                                     </p>
                                                 ))}
-                                                <button className="btn btn-primary btn-sm" onClick={() => this.update((b) => b.addElevator(1, Math.min(20, b.getCF()), 1))}>Add Industrial Elevator</button>
+                                                <button className="btn btn-primary btn-sm" onClick={() => this.update((b) => b.addElevator(1, Math.min(20, b.getStandardCF()), 1))}>Add Industrial Elevator</button>
                                                 <p className="smaller-text">
                                                     A ton for every 20 tons lifted, rounded up, times the levels reached; it lifts no more than the Construction
                                                     Factor and fills its hex on the levels it serves (TO:AR pp. 135-136).

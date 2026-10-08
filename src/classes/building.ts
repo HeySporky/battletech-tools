@@ -1,7 +1,7 @@
 import { generateUUID } from "../utils/generateUUID";
 import {
     BUILDING_ARMOR_COST_PER_TON, BUILDING_ARMOR_POINTS_PER_TON, BUILDING_CLASSIFICATIONS, BUILDING_GENERATORS, BUILDING_MAX_UNLIMITED_HEXES,
-    BUILDING_UNSPECIFIED_EQUIPMENT_COST_PER_CF, findBuildingClassification, findBuildingGenerator, HANGAR_CAPACITY_PER_FOUR_LEVELS,
+    BUILDING_UNSPECIFIED_EQUIPMENT_COST_PER_CF, findBuildingClassification, findBuildingGenerator, HANGAR_CAPACITY_PER_FOUR_LEVELS, BUILDING_CAPITAL_SCALE, OPEN_SPACE_MAX_CAPACITY,
     IBuildingClassification, IBuildingGenerator, IBuildingType,
 } from "../data/building-classifications";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
@@ -86,7 +86,7 @@ export const MAX_BUILDING_ELEVATORS = 20;
 /** A ton of structure given to liquid storage holds 0.91 tons (TO:AR p.134). */
 export const BUILDING_LIQUID_STORAGE_FACTOR = 0.91;
 /** Final cost multipliers for structural modifications (TO:AR p.208). */
-export const BUILDING_COST_MULTIPLIERS = { sealed: 1.5, heavyMetal: 1.25, ceilings: 1.1, subsurface: 5, tunnel: 1.875 };
+export const BUILDING_COST_MULTIPLIERS = { sealed: 1.5, heavyMetal: 1.25, ceilings: 1.1, subsurface: 5, tunnel: 1.875, openSpace: 2.5 };
 /** Sealed Building Breach Table: a 2D6 roll of 10+ breaches, with these modifiers by building type (TO:AR p.135). */
 export const BUILDING_BREACH_TARGET = 10;
 export const BUILDING_BREACH_MODIFIERS: Record<string, number> = { light: 2, medium: 0, heavy: -2, hardened: -4 };
@@ -171,6 +171,7 @@ export interface IBuildingExport {
     equipment: IBuildingEquipmentExport[];
     // Structural modifications and fittings (TO:AR pp.131-139); absent in older saves.
     sealed?: boolean;
+    openSpace?: boolean;
     heavyMetal?: boolean;
     ceilings?: string;
     subsurface?: string;
@@ -255,6 +256,7 @@ export default class Building {
     private _equipment: IBuildingMount[] = [];
     private _lightWeapons: IBuildingLightMount[] = [];
     private _sealed: boolean = false;
+    private _openSpace: boolean = false;
     private _heavyMetal: boolean = false;
     private _ceilings: BuildingCeilings = "standard";
     private _subsurface: BuildingSubsurface = "none";
@@ -338,8 +340,10 @@ export default class Building {
         for (const mount of this._lightWeapons) mount.hex = Math.min(this._hexes, Math.max(1, mount.hex));
         if (!this.canBeSubsurface()) this._subsurface = "none";
         if (!this.canBeTunnel()) this._tunnel = false;
-        if (!this.canSeal()) this._sealed = false;
+        if (this.isSealedByDefault()) this._sealed = true;
+        else if (!this.canSeal()) this._sealed = false;
         else if (this._subsurface === "underwater") this._sealed = true;
+        if (!this.canHaveOpenSpace()) this._openSpace = false;
         if (!this.canHaveHeavyMetalSuperstructure()) this._heavyMetal = false;
         if (!this.canSetCeilings()) this._ceilings = "standard";
         if (!this.canMountDoors()) this._doors = [];
@@ -347,7 +351,7 @@ export default class Building {
         this._elevators = this.canMountElevators()
             ? this._elevators.map((elevator) => ({
                 hex: Math.min(this._hexes, Math.max(1, elevator.hex)),
-                capacity: Math.min(this._cf, Math.max(1, elevator.capacity)),
+                capacity: Math.min(this.getStandardCF(), Math.max(1, elevator.capacity)),
                 levels: Math.min(this._levels, Math.max(1, elevator.levels)),
             })) : [];
         if (this._classification.capacity === "none" || this._tunnel) this._liquidStorage = 0;
@@ -358,6 +362,17 @@ export default class Building {
     }
 
     public getCF(): number { return this._cf; }
+    /** A Castles Brian building: its Construction Factor and armor are capital-scale points (TO:AR pp.113, 127). */
+    public isCapitalScale(): boolean { return this._classification.capitalScale === true; }
+    /** Standard-scale points, and tons, in one point of this building's Construction Factor. */
+    public getCFScale(): number { return this.isCapitalScale() ? BUILDING_CAPITAL_SCALE : 1; }
+    /** The Construction Factor in standard-scale points: what it supports in tons (TO:AR p.127). */
+    public getStandardCF(): number { return this._cf * this.getCFScale(); }
+    /** The Damage Scaling column in plain words (TO:AR pp.113, 124). */
+    public getDamageScalingText(): string {
+        if (this.isCapitalScale()) return "Capital: damage to the building is divided by 10, damage the building does is multiplied by 10";
+        return `x${this._classification.damageToBuilding} to the building, x${this._classification.damageToUnits} to units the building damages`;
+    }
     public setCF(cf: number): number {
         this._cf = Math.min(this._type.maxCF, Math.max(this._type.minCF, Math.floor(Number.isFinite(cf) ? cf : this._cf)));
         this._clampFittings();
@@ -366,10 +381,10 @@ export default class Building {
 
     /** Hexes covered, or hexsides for a wall or fence. */
     public getHexes(): number { return this._hexes; }
-    /** An underground building may be half the size of one on the surface, rounded up (TO:AR p.138). */
+    /** An underground building, other than a Castles Brian, may be half the size of one on the surface, rounded up (TO:AR p.138). */
     public getMaxHexes(): number {
         const max = this._type.maxHexes ?? BUILDING_MAX_UNLIMITED_HEXES;
-        return this._subsurface === "underground" && this._type.maxHexes !== null ? Math.ceil(max / 2) : max;
+        return this._subsurface === "underground" && this._type.maxHexes !== null && !this.isCapitalScale() ? Math.ceil(max / 2) : max;
     }
     public setHexes(hexes: number): number {
         this._hexes = Math.min(this.getMaxHexes(), Math.max(1, Math.floor(Number.isFinite(hexes) ? hexes : this._hexes)));
@@ -385,7 +400,7 @@ export default class Building {
     /** A bridge has no height of its own: it is one level for these rules. */
     public getMaxLevels(): number {
         const max = this._type.maxLevels ?? 1;
-        return this._subsurface === "underground" ? Math.ceil(max / 2) : max;
+        return this._subsurface === "underground" && !this.isCapitalScale() ? Math.ceil(max / 2) : max;
     }
     public setLevels(levels: number): number {
         this._levels = Math.min(this.getMaxLevels(), Math.max(1, Math.floor(Number.isFinite(levels) ? levels : this._levels)));
@@ -396,11 +411,14 @@ export default class Building {
     /**
      * Internal weight capacity of one hex: the Construction Factor times the levels. A hangar triples that, to
      * no more than 600 tons for every 4 levels or fraction; tents, fences and bridges carry nothing (TO:AR p.127).
+     * A point of capital-scale Construction Factor carries 10 tons (TO:AR p.127); open-space construction holds
+     * no more than 600 tons whatever the Construction Factor (TO:AR p.137).
      */
     public getCapacityPerHex(): number {
         if (this._classification.capacity === "none") return 0;
-        const base = this._cf * this._levels;
-        const capacity = this._classification.capacity === "hangar" ? Math.min(base * 3, HANGAR_CAPACITY_PER_FOUR_LEVELS * Math.ceil(this._levels / 4)) : base;
+        const base = this.getStandardCF() * this._levels;
+        let capacity = this._classification.capacity === "hangar" ? Math.min(base * 3, HANGAR_CAPACITY_PER_FOUR_LEVELS * Math.ceil(this._levels / 4)) : base;
+        if (this._openSpace) capacity = Math.min(capacity, OPEN_SPACE_MAX_CAPACITY);
         // A heavy metal superstructure takes a quarter of it, rounded down (TO:AR p.135).
         return this._heavyMetal ? Math.floor(capacity * 0.75) : capacity;
     }
@@ -409,11 +427,25 @@ export default class Building {
 
     /** Hangars, standard buildings, fortresses and gun emplacements may be environmentally sealed (TO:AR p.135). */
     public canSeal(): boolean { return ["hangar", "standard", "fortress", "gun-emplacement"].includes(this._classification.tag); }
+    /** Castles Brian are sealed automatically, at no added cost (TO:AR pp.116, 135). */
+    public isSealedByDefault(): boolean { return this.isCapitalScale(); }
     public isSealed(): boolean { return this._sealed; }
     /** An underwater building is always sealed (TO:AR p.138). */
     public setSealed(sealed: boolean): boolean {
-        this._sealed = this.canSeal() && (sealed || this._subsurface === "underwater");
+        this._sealed = this.isSealedByDefault() || (this.canSeal() && (sealed || this._subsurface === "underwater"));
         return this._sealed;
+    }
+
+    /**
+     * Open-space construction, for Castles Brian only: a man-made cave over other buildings, holding 600 tons
+     * at most, all on the ground level, with nothing on the roof (TO:AR p.137).
+     */
+    public canHaveOpenSpace(): boolean { return this.isCapitalScale(); }
+    public isOpenSpace(): boolean { return this._openSpace; }
+    public setOpenSpace(openSpace: boolean): boolean {
+        this._openSpace = openSpace && this.canHaveOpenSpace();
+        this._clampFittings();
+        return this._openSpace;
     }
 
     /** Heavy and Hardened buildings other than tents and fences (TO:AR p.135). */
@@ -426,16 +458,16 @@ export default class Building {
         return this._heavyMetal;
     }
 
-    /** Standard buildings and fortresses may have high or low ceilings (TO:AR p.135). */
-    public canSetCeilings(): boolean { return ["standard", "fortress"].includes(this._classification.tag); }
+    /** Standard buildings, fortresses and Castles Brian may have high or low ceilings (TO:AR p.135). */
+    public canSetCeilings(): boolean { return ["standard", "fortress", "castles-brian"].includes(this._classification.tag); }
     public getCeilings(): BuildingCeilings { return this._ceilings; }
     public setCeilings(ceilings: string): BuildingCeilings {
         this._ceilings = this.canSetCeilings() && (ceilings === "high" || ceilings === "low") ? ceilings : "standard";
         return this._ceilings;
     }
 
-    /** Standard buildings, hangars (and tunnels) and fortresses may be built below ground or water (TO:AR p.138). */
-    public canBeSubsurface(): boolean { return ["standard", "hangar", "fortress"].includes(this._classification.tag); }
+    /** Standard buildings, hangars (and tunnels), fortresses and Castles Brian may be built below ground or water (TO:AR p.138). */
+    public canBeSubsurface(): boolean { return ["standard", "hangar", "fortress", "castles-brian"].includes(this._classification.tag); }
     public getSubsurface(): BuildingSubsurface { return this._subsurface; }
     public setSubsurface(subsurface: string): BuildingSubsurface {
         this._subsurface = this.canBeSubsurface() && (subsurface === "underground" || subsurface === "underwater") ? subsurface : "none";
@@ -458,8 +490,8 @@ export default class Building {
         return this._tunnel;
     }
 
-    /** Large doors go in hangars, fortresses, standard buildings, walls and fences, and weigh nothing (TO:AR p.136). */
-    public canMountDoors(): boolean { return ["hangar", "fortress", "standard", "wall", "fence"].includes(this._classification.tag); }
+    /** Large doors go in hangars, fortresses, Castles Brian, standard buildings, walls and fences, and weigh nothing (TO:AR p.136). */
+    public canMountDoors(): boolean { return ["hangar", "fortress", "castles-brian", "standard", "wall", "fence"].includes(this._classification.tag); }
     public getDoors(): number[] { return this._doors; }
     public addDoor(height: number = 1): number[] {
         if (this.canMountDoors() && this._doors.length < MAX_BUILDING_DOORS) this._doors.push(Math.floor(savedNumber(height, 1, 1, this._levels)));
@@ -485,7 +517,7 @@ export default class Building {
         const elevator = this._elevators[index];
         if (!elevator) return;
         elevator.hex = Math.floor(savedNumber(hex, elevator.hex, 1, this._hexes));
-        elevator.capacity = Math.floor(savedNumber(capacity, elevator.capacity, 1, this._cf));
+        elevator.capacity = Math.floor(savedNumber(capacity, elevator.capacity, 1, this.getStandardCF()));
         elevator.levels = Math.floor(savedNumber(levels, elevator.levels, 1, this._levels));
     }
     public removeElevator(index: number): void { this._elevators.splice(index, 1); }
@@ -513,28 +545,32 @@ export default class Building {
 
     /** The structure cost multiplier: every modification's figure multiplied together (TO:AR p.208). */
     public getStructureCostMultiplier(): number {
-        return round5((this._sealed ? BUILDING_COST_MULTIPLIERS.sealed : 1) * (this._heavyMetal ? BUILDING_COST_MULTIPLIERS.heavyMetal : 1)
+        return round5((this._sealed && !this.isSealedByDefault() ? BUILDING_COST_MULTIPLIERS.sealed : 1) * (this._heavyMetal ? BUILDING_COST_MULTIPLIERS.heavyMetal : 1)
+            * (this._openSpace ? BUILDING_COST_MULTIPLIERS.openSpace : 1)
             * (this._ceilings !== "standard" ? BUILDING_COST_MULTIPLIERS.ceilings : 1) * (this._subsurface !== "none" ? BUILDING_COST_MULTIPLIERS.subsurface : 1)
             * (this._tunnel ? BUILDING_COST_MULTIPLIERS.tunnel : 1));
     }
-    public getTotalCapacity(): number { return this.getCapacityPerHex() * this._hexes; }
+    public getTotalCapacity(): number {
+        const total = this.getCapacityPerHex() * this._hexes;
+        return this._openSpace ? Math.min(total, OPEN_SPACE_MAX_CAPACITY) : total;
+    }
 
     // Step 2: armor (TO:AR p.128) ------------------------------------------------------------------------------
 
     public canMountArmor(): boolean { return this._classification.armor; }
     public getArmorPointsPerTon(): number { return BUILDING_ARMOR_POINTS_PER_TON[this.getTechBase()]; }
-    /** Armor points a hex may carry: the Construction Factor x 1 (TO:AR p.113). */
-    public getMaxArmorPoints(): number { return this.canMountArmor() ? this._cf : 0; }
+    /** Armor points a hex may carry: the Construction Factor x 1, or x 2 for a Castles Brian, in the building's own scale (TO:AR p.113). */
+    public getMaxArmorPoints(): number { return this.canMountArmor() ? this._cf * (this.isCapitalScale() ? 2 : 1) : 0; }
     /** Armor comes in full tons; the last ton may be only partly used. */
-    public getMaxArmorTons(): number { return Math.ceil(this.getMaxArmorPoints() / this.getArmorPointsPerTon()); }
+    public getMaxArmorTons(): number { return Math.ceil(this.getMaxArmorPoints() * this.getCFScale() / this.getArmorPointsPerTon()); }
     /** Tons of armor on each hex. */
     public getArmorTons(): number { return this._armorTons; }
     public setArmorTons(tons: number): number {
         this._armorTons = Math.min(this.getMaxArmorTons(), Math.max(0, Math.floor(Number.isFinite(tons) ? tons : 0)));
         return this._armorTons;
     }
-    /** The Armor Factor of each hex. */
-    public getArmorPoints(): number { return Math.min(this.getMaxArmorPoints(), this._armorTons * this.getArmorPointsPerTon()); }
+    /** The Armor Factor of each hex. Capital-scale armor is the standard points / 10, rounded down (TO:AR p.128). */
+    public getArmorPoints(): number { return Math.min(this.getMaxArmorPoints(), Math.floor(this._armorTons * this.getArmorPointsPerTon() / this.getCFScale())); }
 
     // Step 3: weapons, heat sinks, equipment and power (TO:AR pp.129-132) ---------------------------------------
 
@@ -553,9 +589,11 @@ export default class Building {
 
     /**
      * Heavy weapon tonnage one hex may mount, not counting ammunition, turrets, heat sinks or power amplifiers:
-     * a gun emplacement's CF / 3, rounded down; a fortress's CF / 10 for each level (TO:AR p.129, TO:AUE p.82).
+     * a gun emplacement's CF / 3, rounded down; a fortress's CF / 10 for each level; a Castles Brian's
+     * Construction Factor, undivided, for each level (TO:AR p.129, TO:AUE p.82).
      */
     public getHeavyWeaponLimitPerHex(): number {
+        if (this._classification.heavyWeapons === "cf-per-level") return this._cf * this._levels;
         if (this._classification.heavyWeapons === "cf-third") return Math.floor(this._cf / 3);
         if (this._classification.heavyWeapons === "cf-tenth-per-level") return round3(this._cf / 10 * this._levels);
         return 0;
@@ -1047,6 +1085,11 @@ export default class Building {
             issues.push(`${this._heatSinkType.name} heat sinks are not available in the selected era.`);
         }
         if (this._subsurface === "underground" && this.hasTurret()) issues.push("An underground building mounts no rooftop equipment or turrets (TO:AR p.138).");
+        if (this._openSpace) {
+            if (this.hasTurret()) issues.push("Open-space construction mounts no rooftop equipment or turrets (TO:AR p.137).");
+            const carried = round3(this.getHexLoads().reduce((sum, load) => sum + load.total, 0));
+            if (carried > OPEN_SPACE_MAX_CAPACITY) issues.push(`The building carries ${carried} tons; open-space construction holds ${OPEN_SPACE_MAX_CAPACITY} whatever the Construction Factor (TO:AR p.137).`);
+        }
         if (this._subsurface === "underwater" && this._depth > this._cf) issues.push(`An underwater building may be no deeper than its Construction Factor: depth ${this._depth}, CF ${this._cf} (TO:AR p.138).`);
         for (const elevator of this._elevators) {
             if (elevator.levels >= this._levels && this._equipment.some((mount) => mount.hex === elevator.hex && mount.turret)) {
@@ -1062,6 +1105,13 @@ export default class Building {
         const notes: string[] = [];
         if (this.isGunEmplacement()) notes.push("Units other than infantry cannot enter a gun emplacement. It stacks and is attacked as a stationary vehicle, and tracks damage as a building (TO:AR p.115).");
         if (this._classification.capacity === "none") notes.push(`A ${this._classification.name.toLowerCase()} has no internal weight capacity: it mounts no equipment (TO:AR p.127).`);
+        if (this.isCapitalScale()) {
+            notes.push("A Castles Brian uses capital-scale Construction Factors and armor: each point is 10 standard points, supports 10 tons and carries 10 tons of equipment for each level (TO:AR pp.115, 127-128).");
+            notes.push("Damage to it: total one unit's attacks in the phase, divide by 10 and round to the nearest point. The rule on TO:AR p.124 says 20; its worked example on p.125 divides by 10, and the example is followed.");
+            notes.push("Units inside take nothing unless a single hit, divided by 10, is above the hex's Construction Factor / 10, rounded up: then every unit inside takes one 10-point hit in 5-point groupings, as an area-effect weapon against infantry (TO:AR p.124).");
+            notes.push("Damage the building does, as to a unit crashing through its walls or under its collapse, is multiplied by 10. Area-effect weapons do not double their damage against it, and hostile infantry may not pass through it (TO:AR pp.113, 124).");
+        }
+        if (this._openSpace) notes.push("Open-space construction: all equipment is on the ground level and the inside is a paved hex to units, with no terrain modifiers against non-infantry targets; infantry inside count as in light woods. Bringing a hex to CF 0 collapses the roof on everything below (TO:AR p.137).");
         if (!this._generator && this.canMountGenerator() && this._equipment.length > 0) notes.push("With no generator the building draws its power from the local grid, and loses it if the grid fails (TO:AR p.129).");
         if (this._generator?.notes) notes.push(`${this._generator.name} generator: ${this._generator.notes}.`);
         if (this._generator?.dailyFuel) notes.push(`The generator burns ${round3(this._generator.dailyFuel * this._hexes * this._levels / 5)} tons of fuel a day (${this._generator.dailyFuel} for every five hexes and levels), stored outside the building (TO:AR p.132).`);
@@ -1069,12 +1119,12 @@ export default class Building {
         if (this._lightWeapons.some((mount) => mount.weapon.powerCells)) notes.push("Energy-cell weapons are wired into the building's power and fire freely while it lasts; their cells are the backup when the power is out.");
         if (this._lightWeapons.some((mount) => mount.weapon.cost === null)) notes.push("A Light or Medium weapon with no row in the TechManual's cost table adds nothing to the price.");
         if (this._equipment.some((mount) => mount.automated)) notes.push(`Automated weapons fire first in the Weapon Attack Phase at the closest enemy in range, with a Gunnery skill of ${BUILDING_AUTOMATED_GUNNERY}, +1 through hostile ECM (TO:AR p.131).`);
-        if (this._sealed) notes.push(`Environmental sealing: a hit that does more than 10 points to the Construction Factor breaches the building on a 2D6 roll of ${BUILDING_BREACH_TARGET}+, modified by ${this.getBreachModifier() >= 0 ? "+" : ""}${this.getBreachModifier()} (TO:AR pp.134-135).`);
+        if (this._sealed) notes.push(`Environmental sealing: a hit that does more than ${this.isCapitalScale() ? "1 capital-scale point (10 standard points)" : "10 points"} to the Construction Factor breaches ${this.isCapitalScale() ? "that hex alone" : "the building"} on a 2D6 roll of ${BUILDING_BREACH_TARGET}+, modified by ${this.getBreachModifier() >= 0 ? "+" : ""}${this.getBreachModifier()} (TO:AR pp.134-135).`);
         if (this._heavyMetal) notes.push("Heavy metal superstructure: lines of sight through or beside the building are treated as inside an electromagnetic interference field, and a unit that fails its roll entering takes double damage (TO:AR p.135).");
         if (this._ceilings === "high") notes.push("High ceilings: non-infantry units do half damage to a hex they enter and take half from a failed roll, rounded down (TO:AR p.135).");
         if (this._ceilings === "low") notes.push("Low ceilings: non-infantry units do double damage to a hex they enter and take double from a failed roll, rounded up (TO:AR p.135).");
-        if (this._subsurface === "underground") notes.push("Underground: damaged only from inside, except at tunnel openings; any 10 points of damage in a phase calls for a breach roll, and a breach collapses the hex (TO:AR p.138).");
-        if (this._subsurface === "underwater") notes.push("Underwater: any 10 points of damage in a phase calls for a breach roll, and a breach floods the building (TO:AR p.138).");
+        if (this._subsurface === "underground") notes.push(`Underground: damaged only from inside, except at tunnel openings; ${this.isCapitalScale() ? "" : "any 10 points of damage in a phase calls for a breach roll, and "}a breach collapses the hex (TO:AR p.138).`);
+        if (this._subsurface === "underwater") notes.push(this.isCapitalScale() ? "Underwater: a breach floods the hex it happens in (TO:AR pp.134, 138)." : "Underwater: any 10 points of damage in a phase calls for a breach roll, and a breach floods the building (TO:AR p.138).");
         if (this._tunnel) notes.push("A tunnel moves units as an empty hangar does and carries no equipment (TO:AR p.139).");
         if (this._doors.length > 0) notes.push("Large doors open or close in the End Phase. Vehicles and ProtoMechs pass an open door without damage; 'Mechs need one 2 levels high (TO:AR p.136).");
         if (this._elevators.length > 0) notes.push("Industrial elevators move 1 level a turn; each level costs the unit aboard 1 Walking or Cruising MP (TO:AR p.136).");
@@ -1130,10 +1180,11 @@ export default class Building {
     /**
      * (Structure + generator + armor + weapons and equipment) x (1 + CF / 100), TO:AR p.208. The table prices no
      * turrets, power amplifiers or heat sinks of its own: those take their TechManual prices (TM pp.279-280).
+     * A capital-scale CF is multiplied by 10 for the final multiplier (the table's footnote).
      */
     public getCBillCost(): number {
         const subtotal = this._costRows().reduce((sum, [, value]) => sum + value, 0);
-        return Math.round(subtotal * (1 + this._cf / 100));
+        return Math.round(subtotal * (1 + this.getStandardCF() / 100));
     }
 
     /** The calculation, one plain-text line per step. */
@@ -1142,7 +1193,7 @@ export default class Building {
         const subtotal = rows.reduce((sum, [, value]) => sum + value, 0);
         return [
             ...rows.map(([name, value]) => `${name}: ${money(value)}`),
-            `Subtotal ${money(subtotal)} x ${round3(1 + this._cf / 100)} (1 + CF ${this._cf} / 100) = ${money(this.getCBillCost())}`,
+            `Subtotal ${money(subtotal)} x ${round3(1 + this.getStandardCF() / 100)} (1 + CF ${this.getStandardCF()} / 100${this.isCapitalScale() ? `, the capital-scale CF ${this._cf} x 10` : ""}) = ${money(this.getCBillCost())}`,
         ];
     }
 
@@ -1212,6 +1263,13 @@ export default class Building {
     public getDamageAbsorbed(hex: number): number { return Math.ceil(this.getHexCF(hex) / 10); }
 
     /**
+     * Capital scale: the standard-scale damage a single hit must exceed to reach the units inside a hex, the
+     * current Construction Factor / 10, rounded up, as capital points. Such a hit does 10 points to every unit
+     * inside, in 5-point groupings (TO:AR p.124).
+     */
+    public getCapitalPassThroughDamage(hex: number): number { return Math.ceil(this.getHexCF(hex) / 10) * BUILDING_CAPITAL_SCALE; }
+
+    /**
      * Damage to a unit that fails its roll entering the hex: the Construction Factor / 10, rounded up (TO:AR
      * p.117), times the classification's scaling for damage to units, rounded down (TO:AR p.124).
      */
@@ -1273,6 +1331,10 @@ export default class Building {
         const total = Math.floor(savedNumber(roll, 2, 2, 12)) + modifier;
         const head = `Breach roll ${Math.floor(savedNumber(roll, 2, 2, 12))} ${modifier >= 0 ? "+" : "-"} ${Math.abs(modifier)} = ${total}`;
         if (total < BUILDING_BREACH_TARGET) return [`${head}: no breach (${BUILDING_BREACH_TARGET}+ needed)`];
+        if (this.isCapitalScale() && this._subsurface !== "underground") {
+            // A Castles Brian breaches only in the hex where the damage occurred (TO:AR p.134).
+            return [`${head}: breached. Only ${this._hexes > 1 ? `hex ${hex}` : "this hex"} ${this._subsurface === "underwater" ? "floods" : "loses its seal"}; unprotected personnel and equipment in it are destroyed`];
+        }
         if (this._subsurface === "underground") {
             this.setHexCF(hex, 0);
             return [`${head}: breached. ${this._collapseLine(this._hexes > 1 ? `Hex ${hex}` : this.getDisplayName())}; equipment and unprotected personnel in it are lost`];
@@ -1283,7 +1345,10 @@ export default class Building {
 
     /**
      * Applies one attack, or one Damage Value grouping, to a hex. Scaled damage multiplies it by the
-     * classification's figure and rounds down (TO:AR p.124). Armor goes first and the rest reaches the
+     * classification's figure and rounds down (TO:AR p.124). At capital scale the damage is the total of one
+     * unit's attacks in the phase, divided by 10 and rounded to the nearest point: the rule's text says 20 and
+     * its worked example divides by 10 (TO:AR pp.124-125); the example is followed (user ruling, 2026-10-07).
+     * Armor goes first and the rest reaches the
      * Construction Factor (TO:AR p.128); an attack from inside the building skips the armor (TO:AR p.119).
      * A critical hit roll is due when the Construction Factor was damaged and the damage is above the hex's
      * Damage Threshold (TO:AR p.118).
@@ -1294,8 +1359,10 @@ export default class Building {
         if (hex < 1 || hex > this._hexes || this.isHexDestroyed(hex)) return { lines: [`${where} is already destroyed`], criticalRoll: false, breachRoll: false };
         const rated = Math.max(0, Math.floor(savedNumber(damage, 0, 0, 100000)));
         const multiplier = scaled ? this._classification.damageToBuilding : 1;
-        const applied = Math.floor(rated * multiplier);
-        if (multiplier !== 1) lines.push(`${rated} damage x${multiplier} for a ${this._classification.name.toLowerCase()} = ${applied} (TO:AR p.124)`);
+        const capital = scaled && this.isCapitalScale();
+        const applied = capital ? Math.floor(rated / BUILDING_CAPITAL_SCALE + 0.5) : Math.floor(rated * multiplier);
+        if (capital) lines.push(`${rated} damage / ${BUILDING_CAPITAL_SCALE} for capital scale = ${applied} (TO:AR pp.124-125)`);
+        else if (multiplier !== 1) lines.push(`${rated} damage x${multiplier} for a ${this._classification.name.toLowerCase()} = ${applied} (TO:AR p.124)`);
         if (applied <= 0) return { lines: [...lines, `${where}: no damage`], criticalRoll: false, breachRoll: false };
 
         const state = this._hexState(hex);
@@ -1312,10 +1379,13 @@ export default class Building {
             if (!this.hasPower()) lines.push("The generator is out: no Heavy weapons, communications or other electronics (TO:AR p.132)");
             return { lines, criticalRoll: false, breachRoll: false };
         }
-        const criticalRoll = cfTaken > 0 && applied > threshold;
+        // Capital-scale damage is a total: only a single hit above the threshold counts, which the total cannot show.
+        if (capital) lines.push(`If any single hit was more than ${threshold * BUILDING_CAPITAL_SCALE} points (Damage Threshold ${threshold}), every unit inside takes one 10-point hit, and a critical hit roll is due if it reached the Construction Factor (TO:AR pp.118, 124)`);
+        const criticalRoll = !capital && cfTaken > 0 && applied > threshold;
         if (criticalRoll) lines.push(`${applied} damage is above the Damage Threshold of ${threshold}: roll on the Advanced Building Critical Hits Table (TO:AR p.118)`);
         // A sealed building checks when a hit does more than 10 points to the CF; a subsurface one at 10 points of damage.
-        const breachRoll = !this.isBreached() && ((this._sealed && cfTaken > 10) || (this._subsurface !== "none" && cfTaken >= 10));
+        // Castles Brian are left out of the subsurface check, and count their capital points as 10 each (TO:AR pp.127, 138).
+        const breachRoll = !this.isBreached() && ((this._sealed && cfTaken * this.getCFScale() > 10) || (!this.isCapitalScale() && this._subsurface !== "none" && cfTaken >= 10));
         if (breachRoll) lines.push(`Roll on the Sealed Building Breach Table: 2D6 ${this.getBreachModifier() >= 0 ? "+" : "-"} ${Math.abs(this.getBreachModifier())}, breached on ${BUILDING_BREACH_TARGET}+ (TO:AR p.135)`);
         return { lines, criticalRoll, breachRoll };
     }
@@ -1626,6 +1696,7 @@ export default class Building {
                 tag: mount.item.tag, uuid: mount.item.uuid, hex: mount.hex, ...(mount.turret ? { turret: true } : {}), ...(mount.automated ? { automated: true } : {}),
             })),
             sealed: this._sealed,
+            ...(this._openSpace ? { openSpace: true } : {}),
             heavyMetal: this._heavyMetal,
             ceilings: this._ceilings,
             subsurface: this._subsurface,
@@ -1687,6 +1758,7 @@ export default class Building {
             this._subsurface = "none";
             this._tunnel = false;
             this._sealed = false;
+            this._openSpace = false;
             this._heavyMetal = false;
             this._ceilings = "standard";
             this._doors = [];
@@ -1696,6 +1768,7 @@ export default class Building {
             this._subsurface = this.canBeSubsurface() && (saved.subsurface === "underground" || saved.subsurface === "underwater") ? saved.subsurface : "none";
             this._depth = Math.floor(savedNumber(saved.depth, 1, 1, 1000));
             this._tunnel = saved.tunnel === true && this.canBeTunnel();
+            this._openSpace = saved.openSpace === true && this.canHaveOpenSpace();
             const cf = savedNumber(saved.cf, this._type.maxCF, 0, 100000);
             this._cf = this._type.maxCF;
             this.setCF(cf);

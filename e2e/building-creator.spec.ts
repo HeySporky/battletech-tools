@@ -87,9 +87,9 @@ test("a fortress tracks its load hex by hex and a standard building takes only L
 
     await page.goto("classic-battletech/building-creator/structure");
     await page.getByLabel("Building Classification:").selectOption("standard");
-    await expect(page.getByText("Only walls, gun emplacements and fortresses may install armor")).toBeVisible();
+    await expect(page.getByText("Only walls, gun emplacements, fortresses and Castles Brian may install armor")).toBeVisible();
     await page.goto("classic-battletech/building-creator/equipment");
-    await expect(page.getByText("Only gun emplacements and fortresses mount Heavy weapons")).toBeVisible();
+    await expect(page.getByText("Only gun emplacements, fortresses and Castles Brian mount Heavy weapons")).toBeVisible();
 
     // A standard building does mount Light and Medium (infantry) weapons (TO:AR p. 129).
     await page.getByLabel("Light or Medium weapon to add").selectOption("inf-machine-gun-support");
@@ -156,6 +156,40 @@ test("a sealed fortress takes modifications, a door, an elevator and an automate
     await page.getByRole("link", { name: "View Record Sheet" }).click();
     await expect(page.getByTestId("building-sheet-modifications")).toContainText("Environmental sealing (breach roll -2)");
     await expect(page.getByTestId("building-sheet-modifications")).toContainText("Low ceilings");
+
+    expect(errors).toEqual([]);
+});
+
+// The sample complex's Command Tower: a Heavy Castles Brian, CF 50 at capital scale, 4 levels (TO:AR p. 140).
+test("a Castles Brian is built on capital-scale Construction Factors", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+
+    await page.goto("classic-battletech/building-creator");
+    await page.getByRole("button", { name: /Start Over/ }).click();
+    await page.goto("classic-battletech/building-creator/structure");
+    await page.getByLabel("Building Name").fill("Command Tower");
+    await page.getByLabel("Rules Level:").selectOption({ label: "Advanced" });
+    await page.getByLabel("Building Classification:").selectOption("castles-brian");
+    await page.getByLabel("Building Type:").selectOption("heavy");
+    await page.getByLabel(/Construction Factor/).selectOption("50");
+    await page.getByLabel("Height in Levels:").selectOption("4");
+    // 50 capital-scale points carry 10 tons each, for each of 4 levels.
+    await expect(page.getByTestId("building-capacity")).toContainText("Internal Weight Capacity: 2000 tons a hex");
+    await page.getByLabel(/Tons of Armor/).selectOption("32");
+    await expect(page.getByTestId("building-armor")).toContainText("Armor Factor: 51 of 100 capital-scale points");
+
+    const modifications = page.getByTestId("building-modifications");
+    await expect(modifications).toContainText("Environmental Sealing: built in");
+    await expect(modifications).toContainText("Structure Cost Multiplier: x1");
+    await modifications.getByLabel(/Open-Space Construction/).check();
+    await expect(modifications).toContainText("Structure Cost Multiplier: x2.5");
+    await expect(page.getByTestId("building-capacity")).toContainText("Internal Weight Capacity: 600 tons a hex");
+    await modifications.getByLabel(/Open-Space Construction/).uncheck();
+
+    await page.goto("classic-battletech/building-creator/summary");
+    await expect(page.getByTestId("building-summary")).toContainText("CF: 50 (capital scale)");
+    await expect(page.getByTestId("building-cost-log")).toContainText("capital-scale CF 50 x 10");
 
     expect(errors).toEqual([]);
 });

@@ -94,8 +94,9 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                                 </select>
                             </label>
                             <p className="smaller-text">
-                                {classification.description} Damage to the building, and to units inside it, is multiplied by {classification.damageToBuilding};
-                                damage the building does to a unit, as when one crashes through its walls, by {classification.damageToUnits} (TO:AR pp. 113, 124).
+                                {classification.description} {building.isCapitalScale()
+                                    ? "Damage to the building is totalled for each attacker, divided by 10 and rounded to the nearest point; damage the building does to a unit, as when one crashes through its walls, is multiplied by 10 (TO:AR pp. 113, 124-125)."
+                                    : `Damage to the building, and to units inside it, is multiplied by ${classification.damageToBuilding}; damage the building does to a unit, as when one crashes through its walls, by ${classification.damageToUnits} (TO:AR pp. 113, 124).`}
                             </p>
 
                             {classification.types.length > 1 ? (
@@ -114,7 +115,7 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                             </p>
 
                             <InputNumeric
-                                label={`Construction Factor (${type.minCF} to ${type.maxCF})`}
+                                label={`Construction Factor (${type.minCF} to ${type.maxCF}${building.isCapitalScale() ? ", capital scale" : ""})`}
                                 value={building.getCF()}
                                 min={type.minCF}
                                 max={type.maxCF}
@@ -145,7 +146,8 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                             </p>
                             <p className="smaller-text">
                                 A hex carries its Construction Factor times its levels in equipment, armor included. Hangars triple that, to
-                                600 tons for every 4 levels; tents, fences and bridges carry nothing (TO:AR p. 127).
+                                600 tons for every 4 levels; tents, fences and bridges carry nothing; a point of a Castles Brian's capital-scale
+                                Construction Factor carries 10 tons (TO:AR p. 127).
                             </p>
                         </TextSection>
 
@@ -168,8 +170,9 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                                             </label>
                                         ) : null}
                                         <p className="smaller-text">
-                                            An underground building may be half the usual size and mounts nothing on its roof; an underwater one is sealed
-                                            and no deeper than its Construction Factor. Either multiplies the structure cost by 5 (TO:AR pp. 138, 208).
+                                            An underground building may be half the usual size (a Castles Brian its full size) and mounts nothing on its
+                                            roof; an underwater one is sealed and no deeper than its Construction Factor. Either multiplies the structure
+                                            cost by 5 (TO:AR pp. 138, 208).
                                         </p>
                                     </>
                                 ) : null}
@@ -183,6 +186,13 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                                     <label>
                                         <input type="checkbox" checked={building.isSealed()} disabled={building.getSubsurface() === "underwater"} onChange={(e) => { const value = e.currentTarget.checked; this.update((b) => b.setSealed(value)); }} />
                                         &nbsp;Environmental Sealing: for vacuum, toxic air or water; no weight (cost x1.5, TO:AR pp. 134-135)
+                                    </label>
+                                ) : null}
+                                {building.isSealedByDefault() ? <p>Environmental Sealing: built in, at no added cost (TO:AR pp. 116, 135).</p> : null}
+                                {building.canHaveOpenSpace() ? (
+                                    <label>
+                                        <input type="checkbox" checked={building.isOpenSpace()} onChange={(e) => { const value = e.currentTarget.checked; this.update((b) => b.setOpenSpace(value)); }} />
+                                        &nbsp;Open-Space Construction: a man-made cave over other buildings; holds 600 tons at most, all on the ground level, with nothing on the roof (cost x2.5, TO:AR p. 137)
                                     </label>
                                 ) : null}
                                 {building.canHaveHeavyMetalSuperstructure() ? (
@@ -242,17 +252,18 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                                         setValue={(value) => this.update((b) => b.setArmorTons(value))}
                                     />
                                     <p data-testid="building-armor">
-                                        <strong>Armor Factor</strong>: {building.getArmorPoints()} of {building.getMaxArmorPoints()} points a {building.getHexLabel()} &nbsp;|&nbsp;
+                                        <strong>Armor Factor</strong>: {building.getArmorPoints()} of {building.getMaxArmorPoints()} {building.isCapitalScale() ? "capital-scale " : ""}points a {building.getHexLabel()} &nbsp;|&nbsp;
                                         <strong>Armor Weight</strong>: {building.getArmorTons() * building.getHexes()} tons
                                     </p>
                                     <p className="smaller-text">
                                         Armor comes in full tons, the same on every {building.getHexLabel()}: {building.getArmorPointsPerTon()} points a ton
-                                        for {building.getTechBase() === "clan" ? "Clan" : "Inner Sphere"} buildings, up to the Construction Factor. It must
-                                        be destroyed before the building itself takes damage (TO:AR p. 128).
+                                        for {building.getTechBase() === "clan" ? "Clan" : "Inner Sphere"} buildings, up to {building.isCapitalScale()
+                                            ? "twice the Construction Factor; a Castles Brian divides the points by 10, rounded down, for its capital-scale armor"
+                                            : "the Construction Factor"}. It must be destroyed before the building itself takes damage (TO:AR pp. 113, 128).
                                     </p>
                                 </>
                             ) : (
-                                <p>Only walls, gun emplacements and fortresses may install armor (TO:AR p. 128).</p>
+                                <p>Only walls, gun emplacements, fortresses and Castles Brian may install armor (TO:AR p. 128).</p>
                             )}
 
                             <div className="clear-both overflow-hidden">

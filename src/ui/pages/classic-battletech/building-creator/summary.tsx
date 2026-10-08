@@ -46,7 +46,7 @@ export default class BuildingCreatorSummary extends React.Component<ISummaryProp
                             <p data-testid="building-summary">
                                 <strong>Type</strong>: {type.tag === "none" ? "" : `${type.name} `}{classification.name} &nbsp;|&nbsp;
                                 <strong>Tech</strong>: {building.getTech().name} &nbsp;|&nbsp;
-                                <strong>CF</strong>: {building.getCF()} &nbsp;|&nbsp;
+                                <strong>CF</strong>: {building.getCF()}{building.isCapitalScale() ? " (capital scale)" : ""} &nbsp;|&nbsp;
                                 <strong>Armor Factor</strong>: {building.getArmorPoints()} &nbsp;|&nbsp;
                                 <strong>Size</strong>: {building.getHexes()} {building.getHexLabel(building.getHexes() !== 1)}, {building.getLevels()} {building.getLevels() === 1 ? "level" : "levels"} &nbsp;|&nbsp;
                                 <strong>Cost</strong>: {building.getCBillCost().toLocaleString("en-US")} C-bills

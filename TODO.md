@@ -325,11 +325,30 @@ played first, then by dependency.
   weapon's ammunition price. (7) The Mandrake hold-out Gauss pistol and the hold-out needler pistol have a
   clip in the statistics table and the single-use footnote in the cost table; entered with the clip and no
   ammunition price. (8) The two-shot SRM launcher's inferno row prints "30.0 k"; read as 30 kg.
+- [x] Castles Brian buildings (2026-10-07). The classification, with its Heavy and Hardened rows (TO:AR
+  p.113): capital-scale CF carrying 10 tons a point for each level (p.127); armor to CF x 2, the standard points
+  divided by 10 and rounded down (pp.113, 128); Heavy weapon tonnage on the undivided CF for each level (p.129);
+  sealed by default at no cost, full size underground, ceilings and large doors (pp.116, 135-136, 138);
+  open-space construction, 600 tons at most and nothing on the roof, cost x2.5 (pp.137, 208); 1,000,000
+  C-bills a point of CF with the CF x 10 in the final multiplier (p.208). In play: a unit's total damage
+  divided by 10 and rounded to the nearest point (user ruling: the p.125 example over the p.124 text's 20), the
+  single-hit threshold for 10 points to units inside, damage the building does x10, and a breach that takes
+  only the hex hit (pp.124-125, 134). Readings to confirm: (1) the armor maximum "CF x 2" is taken in
+  capital-scale points; (2) "do not divide their CF" for weapons is taken on the capital-scale figure (CF x
+  levels tons, not CF x 10 x levels); (3) built-in sealing does not apply the x1.5 cost multiplier; (4) the
+  600-ton open-space limit is taken for the whole building, not each hex; (5) an elevator lifts up to CF x 10
+  tons; (6) the underwater depth limit and the Unspecified Equipment price use the CF as printed; (7) a
+  sealed Castles Brian rolls for a breach when a hit does more than 10 standard points, which is 2 or more
+  capital-scale points; (8) the book's Command Tower has "50 capital points, or 32 tons" of armor, and 32
+  tons work out to 51 (512 / 10).
 - [ ] Buildings, still owed:
   - Light and Medium weapons in play: the critical hit table's weapon results pick only Heavy weapons, and
     burst, flame and anti-aircraft effects are shown as letters, not applied.
-  - Castles Brian: capital-scale CF and armor, capital weapons, open-space construction (TO:AR pp.115-116,
-    124, 137). The Scaled Damage text divides by 20 and its worked example by 10 (pp.124-125): needs a ruling.
+  - Capital and sub-capital weapons on fortresses and Castles Brian: one non-missile capital weapon a hex,
+    10 percent more weight for fire control, fusion or fission power for anything but missiles, no turrets in
+    the hex, an upward firing arc, 7 gunners each (TO:AR pp.129-130, TO:AUE pp.82-83).
+  - Castles Brian open-space collapse effects by location, and the fire modifiers for Castles Brian hexes
+    (TO:AR pp.42, 137).
   - The Expanded Construction Factor rules (a CF for each level, top-down collapse, total collapse), collapse
     splash damage and the domino effect (TO:AR pp.119-124); splash and adjacency need the building's shape on
     the map.

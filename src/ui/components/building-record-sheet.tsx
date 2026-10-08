@@ -23,6 +23,7 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
             ...(building.getSubsurface() !== "none" ? [`${building.getSubsurface() === "underwater" ? "Underwater" : "Underground"}, depth ${building.getDepth()}`] : []),
             ...(building.isTunnel() ? ["Tunnel"] : []),
             ...(building.isSealed() ? [`Environmental sealing (breach roll ${building.getBreachModifier() >= 0 ? "+" : ""}${building.getBreachModifier()})`] : []),
+            ...(building.isOpenSpace() ? ["Open-space construction"] : []),
             ...(building.hasHeavyMetalSuperstructure() ? ["Heavy metal superstructure"] : []),
             ...(building.getCeilings() !== "standard" ? [`${building.getCeilings() === "high" ? "High" : "Low"} ceilings`] : []),
             ...(doors.length > 0 ? [`${doors.length} large ${doors.length === 1 ? "door" : "doors"} (${doors.map((height) => `${height} ${height === 1 ? "level" : "levels"}`).join(", ")})`] : []),
@@ -52,14 +53,14 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                     <strong>Tech Base</strong>: {building.getTech().name} &nbsp;|&nbsp;
                     <strong>Motive Type</strong>: Static &nbsp;|&nbsp;
                     <strong>MP</strong>: NA &nbsp;|&nbsp;
-                    <strong>CF</strong>: {building.getCF()} &nbsp;|&nbsp;
+                    <strong>CF</strong>: {building.getCF()}{building.isCapitalScale() ? " (capital scale)" : ""} &nbsp;|&nbsp;
                     <strong>Armor Factor</strong>: {building.getArmorPoints()} &nbsp;|&nbsp;
                     <strong>Size</strong>: {building.getHexes()} {building.getHexLabel(building.getHexes() !== 1)}, {building.getLevels()} {building.getLevels() === 1 ? "level" : "levels"}
                 </p>
                 <p>
                     <strong>Power</strong>: {generator ? `${generator.name} generator, ${building.getGeneratorWeight()} tons` : "Local grid"} &nbsp;|&nbsp;
                     <strong>Heat Sinks</strong>: {building.getHeatSinks()}{building.getHeatSinks() > 0 ? ` ${building.getHeatSinkType().name}` : ""} &nbsp;|&nbsp;
-                    <strong>Damage Scaling</strong>: x{classification.damageToBuilding} to the building, x{classification.damageToUnits} to units the building damages &nbsp;|&nbsp;
+                    <strong>Damage Scaling</strong>: {building.getDamageScalingText()} &nbsp;|&nbsp;
                     <strong>Minimum Crew</strong>: {building.getMinimumGunners()} gunners, {building.getMinimumOfficers()} officers &nbsp;|&nbsp;
                     {showDamage && building.getMinimumGunners() > 0 ? <><strong>Gunnery</strong>: {building.getGunnery()} &nbsp;|&nbsp;</> : null}
                     <strong>Cost</strong>: {building.getCBillCost().toLocaleString("en-US")} C-bills

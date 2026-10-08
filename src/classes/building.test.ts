@@ -32,7 +32,7 @@ const tara = (): Building => {
 describe("Building Classification and Type Table (TO:AR p.113)", () => {
     it("gives every classification its types, with Construction Factor ranges that do not overlap", () => {
         expect(BUILDING_CLASSIFICATIONS.map((classification) => classification.tag).sort()).toEqual(
-            ["bridge", "fence", "fortress", "gun-emplacement", "hangar", "standard", "tent", "wall"]);
+            ["bridge", "castles-brian", "fence", "fortress", "gun-emplacement", "hangar", "standard", "tent", "wall"]);
         for (const classification of BUILDING_CLASSIFICATIONS) {
             expect(classification.types.length).toBeGreaterThan(0);
             for (let index = 1; index < classification.types.length; index++) {
@@ -50,6 +50,11 @@ describe("Building Classification and Type Table (TO:AR p.113)", () => {
         // Kenyon's gun emplacement: Heavy is CF 41 to 90, fixed at 1 hex and 1 level.
         expect(findBuildingClassification("gun-emplacement")?.types[2]).toMatchObject({ minCF: 41, maxCF: 90, maxHexes: 1, maxLevels: 1 });
         expect(findBuildingClassification("fortress")?.types.map((type) => type.tag)).toEqual(["medium", "heavy", "hardened"]);
+        // Castles Brian: Heavy CF 35 to 90, 35 hexes and 10 levels; Hardened CF 91 to 150, 70 hexes and 15 levels.
+        const castle = findBuildingClassification("castles-brian");
+        expect(castle?.types[0]).toMatchObject({ tag: "heavy", minCF: 35, maxCF: 90, maxHexes: 35, maxLevels: 10, mpCost: 4, pilotingModifier: 4 });
+        expect(castle?.types[1]).toMatchObject({ tag: "hardened", minCF: 91, maxCF: 150, maxHexes: 70, maxLevels: 15, mpCost: 5, pilotingModifier: 5 });
+        expect(castle?.costPerCF).toBe(1000000);
     });
 
     it("lists the Power Generators Table's multipliers (TO:AR p.132)", () => {
@@ -1021,5 +1026,168 @@ describe("Light and Medium weapons on buildings (TO:AR pp.129-130; TM pp.136-137
         expect(building.isDamaged()).toBe(true);
         building.resetInPlay();
         expect(building.getLightWeaponStatus(rifle.uuid)).toBe("");
+    });
+});
+
+describe("Castles Brian (TO:AR pp.113, 115-116, 124-125, 127-129, 137-140)", () => {
+    // The sample complex's Command Tower: a Heavy Castles Brian, 1 hex, 4 levels, CF 50, 32 tons of armor (TO:AR p.140).
+    const tower = (): Building => {
+        const building = new Building();
+        building.setClassification("castles-brian");
+        building.setType("heavy");
+        building.setCF(50);
+        building.setLevels(4);
+        building.setArmorTons(32);
+        return building;
+    };
+    // The sample complex's man-made cave: Hardened, 2 levels, CF 150, open-space construction, no armor (TO:AR p.141).
+    const cave = (): Building => {
+        const building = new Building();
+        building.setClassification("castles-brian");
+        building.setType("hardened");
+        building.setCF(150);
+        building.setLevels(2);
+        building.setOpenSpace(true);
+        return building;
+    };
+
+    it("carries 10 tons for each point of its capital-scale Construction Factor, per level (TO:AR p.127)", () => {
+        const building = tower();
+        expect(building.isCapitalScale()).toBe(true);
+        expect(building.getStandardCF()).toBe(500);
+        expect(building.getCapacityPerHex()).toBe(50 * 10 * 4);
+    });
+
+    it("divides its armor points by 10, rounded down, to a maximum of twice the Construction Factor (TO:AR pp.113, 128)", () => {
+        const building = tower();
+        // 32 tons x 16 points = 512 standard points: the book's "50 capital points, or 32 tons" (TO:AR p.140).
+        expect(building.getArmorPoints()).toBe(51);
+        expect(building.getMaxArmorPoints()).toBe(100);
+        expect(building.getMaxArmorTons()).toBe(Math.ceil(1000 / 16));
+        building.setArmorTons(500);
+        expect(building.getArmorTons()).toBe(63);
+        expect(building.getArmorPoints()).toBe(100);
+        building.setTech("clan");
+        expect(building.getArmorTons()).toBe(50);
+        expect(building.getArmorPoints()).toBe(100);
+    });
+
+    it("does not divide its Construction Factor for Heavy weapon tonnage, and mounts no Light or Medium weapons (TO:AR p.129)", () => {
+        const building = tower();
+        expect(building.canMountHeavyWeapons()).toBe(true);
+        expect(building.getHeavyWeaponLimitPerHex()).toBe(50 * 4);
+        expect(building.canMountLightWeapons()).toBe(false);
+    });
+
+    it("is sealed by default at no cost, and keeps its full size underground (TO:AR pp.116, 135, 138)", () => {
+        const building = tower();
+        expect(building.isSealed()).toBe(true);
+        expect(building.canSeal()).toBe(false);
+        expect(building.setSealed(false)).toBe(true);
+        expect(building.getStructureCostMultiplier()).toBe(1);
+        building.setType("hardened");
+        building.setSubsurface("underground");
+        expect(building.getMaxHexes()).toBe(70);
+        expect(building.getMaxLevels()).toBe(15);
+        expect(building.getStructureCostMultiplier()).toBe(5);
+        const fortress = new Building();
+        fortress.setClassification("fortress");
+        fortress.setType("hardened");
+        fortress.setSubsurface("underground");
+        expect(fortress.getMaxHexes()).toBe(10);
+    });
+
+    it("takes high or low ceilings and large doors (TO:AR pp.135-136)", () => {
+        const building = tower();
+        expect(building.setCeilings("high")).toBe("high");
+        expect(building.addDoor(2)).toEqual([2]);
+        // An elevator lifts what the Construction Factor supports: 10 tons a capital-scale point.
+        building.addElevator(1, 400, 2);
+        expect(building.getElevators()[0].capacity).toBe(400);
+    });
+
+    it("limits open-space construction to 600 tons with nothing on the roof (TO:AR p.137)", () => {
+        const building = cave();
+        expect(building.isOpenSpace()).toBe(true);
+        expect(building.getCapacityPerHex()).toBe(600);
+        building.setHexes(10);
+        expect(building.getTotalCapacity()).toBe(600);
+        expect(building.getStructureCostMultiplier()).toBe(2.5);
+        expect(building.getIssues()).toEqual([]);
+        expect(building.addEquipmentFromTag("medium-laser", 1, true)).not.toBeNull();
+        expect(building.getIssues().join(" ")).toContain("Open-space construction mounts no rooftop equipment or turrets");
+        // Only Castles Brian may use it.
+        const fortress = new Building();
+        fortress.setClassification("fortress");
+        expect(fortress.canHaveOpenSpace()).toBe(false);
+        expect(fortress.setOpenSpace(true)).toBe(false);
+        building.setClassification("fortress");
+        expect(building.isOpenSpace()).toBe(false);
+    });
+
+    it("costs 1,000,000 C-bills a point of CF, with the CF x 10 in the final multiplier (TO:AR p.208)", () => {
+        const building = cave();
+        // 1,000,000 x CF 150 x 1 hex x 2 levels x 2.5 for open space, x (1 + 1,500 / 100).
+        expect(building.getCBillCost()).toBe(1000000 * 150 * 2 * 2.5 * 16);
+        expect(building.getCBillCostLog().at(-1)).toContain("capital-scale CF 150 x 10");
+    });
+
+    // Peter's Titan II against a CF 38 Castles Brian (TO:AR p.125).
+    const target = (): Building => {
+        const building = new Building();
+        building.setClassification("castles-brian");
+        building.setType("heavy");
+        building.setCF(38);
+        return building;
+    };
+
+    it("divides a unit's total damage by 10, as the worked example does (TO:AR p.125)", () => {
+        const building = target();
+        // 15 + 20 + 10 + 12 = 57 points: 5.7, rounded to 6, takes the CF from 38 to 32.
+        const result = building.applyDamage(1, 57);
+        expect(building.getHexCF(1)).toBe(32);
+        expect(result.lines[0]).toContain("57 damage / 10 for capital scale = 6");
+        // The total cannot show a single hit above the threshold, so no critical hit roll is called.
+        expect(result.criticalRoll).toBe(false);
+        // .5 rounds up; less rounds to nothing.
+        expect(building.applyDamage(1, 4).lines.at(-1)).toContain("no damage");
+        building.applyDamage(1, 5);
+        expect(building.getHexCF(1)).toBe(31);
+        // Unscaled damage is already in capital-scale points.
+        building.applyDamage(1, 3, false);
+        expect(building.getHexCF(1)).toBe(28);
+    });
+
+    it("passes damage to units inside only from a single hit above the Damage Threshold (TO:AR pp.124-125)", () => {
+        const building = target();
+        // CF 38 / 10 = 3.8, rounded up to 4 capital points: a single hit must do more than 40 points.
+        expect(building.getDamageThreshold(1)).toBe(4);
+        expect(building.getCapitalPassThroughDamage(1)).toBe(40);
+        // A unit failing its roll to enter: CF / 10, rounded up, x 10.
+        expect(building.getUnitEntryDamage(1)).toBe(40);
+    });
+
+    it("breaches only the hex that was hit (TO:AR p.134)", () => {
+        const building = target();
+        building.setHexes(2);
+        // 1 capital point is 10 standard points, not more than 10: no roll. 2 points call for one.
+        expect(building.applyDamage(1, 10).breachRoll).toBe(false);
+        expect(building.applyDamage(1, 20).breachRoll).toBe(true);
+        const lines = building.resolveBreachRoll(1, 12);
+        expect(lines[0]).toContain("Only hex 1");
+        expect(building.isBreached()).toBe(false);
+        expect(building.applyDamage(2, 20).breachRoll).toBe(true);
+    });
+
+    it("round-trips through its export and refuses open space on another classification", () => {
+        const building = cave();
+        building.setHexes(3);
+        const copy = new Building(building.exportJSON());
+        expect(copy.getImportIssues()).toEqual([]);
+        expect(copy.export()).toEqual({ ...building.export(), lastUpdated: copy.lastUpdated });
+        expect(copy.isOpenSpace()).toBe(true);
+        expect(copy.isSealed()).toBe(true);
+        const forged = new Building(JSON.stringify({ ...building.export(), classification: "fortress", openSpace: true }));
+        expect(forged.isOpenSpace()).toBe(false);
     });
 });

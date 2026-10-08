@@ -81,7 +81,7 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                 {!building.hasPower() ? <p className="color-red"><strong>The generator is out: no Heavy weapons, communications or other electronics (TO:AR p.132).</strong></p> : null}
                 <p>
                     {building.getMinimumGunners() > 0 ? <><strong>Gunnery</strong>: {building.getGunnery()} &nbsp;|&nbsp;</> : null}
-                    <strong>Damage Scaling</strong>: x{classification.damageToBuilding} to the building, x{classification.damageToUnits} to units the building damages &nbsp;|&nbsp;
+                    <strong>Damage Scaling</strong>: {building.getDamageScalingText()} &nbsp;|&nbsp;
                     <strong>Entering a {building.getHexLabel()}</strong>: {type.mpCost === null ? "units cannot enter" : `+${type.mpCost} MP`}
                     {type.pilotingModifier === null ? "" : `, Piloting/Driving Skill Roll +${type.pilotingModifier}`}
                 </p>
@@ -104,7 +104,9 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                                 {building.getArmorPoints() > 0 ? <><strong>Armor</strong>: {building.getHexArmor(hex)} of {building.getArmorPoints()} &nbsp;|&nbsp; </> : null}
                                 <strong>Construction Factor</strong>: {building.getHexCF(hex)} of {building.getCF()} &nbsp;|&nbsp;
                                 <strong>Damage Threshold</strong>: {building.getDamageThreshold(hex)}
-                                {type.mpCost !== null ? <> &nbsp;|&nbsp; <strong>Absorbs</strong>: {building.getDamageAbsorbed(hex)} from each attack on a unit inside
+                                {type.mpCost !== null ? <> &nbsp;|&nbsp; {building.isCapitalScale()
+                                    ? <><strong>Units inside</strong>: one 10-point hit each from a single hit of more than {building.getCapitalPassThroughDamage(hex)} points, nothing otherwise</>
+                                    : <><strong>Absorbs</strong>: {building.getDamageAbsorbed(hex)} from each attack on a unit inside</>}
                                     &nbsp;|&nbsp; <strong>Damage to a unit entering</strong>: {building.getUnitEntryDamage(hex)}
                                     &nbsp;|&nbsp; <strong>To enter</strong>: +{building.getHexMPCost(hex)} MP, Piloting/Driving Skill Roll {formatModifier(building.getHexPilotingModifier(hex) ?? 0)}
                                     {building.getHexToHitModifier(hex) > 0 ? <> &nbsp;|&nbsp; <strong>Attacks through the hex</strong>: +{building.getHexToHitModifier(hex)} to-hit</> : null}</> : null}
@@ -267,14 +269,16 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                     </label>
                     <label>
                         <input type="checkbox" checked={this.state.scaled} onChange={(e) => this.setState({ scaled: e.currentTarget.checked })} />
-                        &nbsp;Scaled Damage (x{classification.damageToBuilding}, TO:AR p.124)
+                        &nbsp;Scaled Damage ({building.isCapitalScale() ? "divided by 10, TO:AR pp.124-125" : `x${classification.damageToBuilding}, TO:AR p.124`})
                     </label>
                     <label>
                         <input type="checkbox" checked={this.state.fromInside} onChange={(e) => this.setState({ fromInside: e.currentTarget.checked })} />
                         &nbsp;Attack from inside the building (ignores armor)
                     </label>
                     <p className="small-text">
-                        Enter one weapon's damage, or one Damage Value grouping, at a time. Armor is marked off first; a hit above the Damage Threshold that reaches
+                        {building.isCapitalScale()
+                            ? "Enter the total of one unit's attacks in the phase: it is divided by 10 and rounded to the nearest capital-scale point. Without scaling, the damage is already in capital-scale points."
+                            : "Enter one weapon's damage, or one Damage Value grouping, at a time."} Armor is marked off first; a hit above the Damage Threshold that reaches
                         the Construction Factor calls for a critical hit roll (TO:AR pp.118-119, 128).
                     </p>
                     <button className="btn btn-primary btn-sm" onClick={this.resolve} disabled={building.isHexDestroyed(selectedHex)}>Apply Attack</button>
@@ -304,8 +308,9 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                         <legend>Sealed Building Breach Table</legend>
                         {this.state.breachHex > 0 ? <p className="color-red"><strong>A breach roll is due{hexes.length > 1 ? ` for ${hexLabel.toLowerCase()} ${this.state.breachHex}` : ""}.</strong></p> : null}
                         <p className="small-text">
-                            2D6 {formatModifier(building.getBreachModifier())}: breached on 10 or more. A sealed building rolls when one hit does more than 10 points to the
-                            Construction Factor; a building underground or under water when it takes 10 (TO:AR pp.134-135, 138).
+                            2D6 {formatModifier(building.getBreachModifier())}: breached on 10 or more. {building.isCapitalScale()
+                                ? "A Castles Brian rolls when one hit does more than 1 capital-scale point (10 standard points) to the Construction Factor, and only that hex is breached"
+                                : "A sealed building rolls when one hit does more than 10 points to the Construction Factor; a building underground or under water when it takes 10"} (TO:AR pp.134-135, 138).
                         </p>
                         <label>
                             2D6 breach roll:
