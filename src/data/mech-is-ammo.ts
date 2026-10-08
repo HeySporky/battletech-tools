@@ -37,7 +37,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 96,
         alphaStrike: { specialAbility: ["ART-AIV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deals standard area-effect artillery splash"] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 5, cbills: 10000, notes: "The standard area-saturation missile: 20 points to the target hex and 10 to the adjacent hexes (BTC p.117)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 5, cbills: 10000, notes: "The standard area-saturation missile: 20 points to the target hex and 10 to the adjacent hexes (BTC p.117)." }, "master-rules": { book: "BMR", page: 116, weight: 1, shotsPerTon: 5, cbills: 10000, notes: "The standard area-saturation missile: 20 points to the impact hex and 10 to the adjacent hexes (BMR p.71)." } },
         prototype: 2593
     },
     {
@@ -92,7 +92,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 166,
         alphaStrike: { specialAbility: ["AIVH"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires successful friendly TAG lock target painted"] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 117, weight: 1, shotsPerTon: 5, cbills: 15000, notes: "Homing missile: needs a TAG-equipped spotter; hits on 4+ once designated, for 20 points to the target and 5 to other units in the hex; a miss does 5 points to every unit in the hex (BTC pp.117-118). The weapons table gives one ammunition figure for the system (BTC p.116)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 117, weight: 1, shotsPerTon: 5, cbills: 15000, notes: "Homing missile: needs a TAG-equipped spotter; hits on 4+ once designated, for 20 points to the target and 5 to other units in the hex; a miss does 5 points to every unit in the hex (BTC pp.117-118). The weapons table gives one ammunition figure for the system (BTC p.116)." }, "master-rules": { book: "BMR", page: 71, weight: 1, shotsPerTon: 5, cbills: 15000, notes: "Homing missile: a friendly TAG-equipped unit must designate the target in the turn the missile arrives, or it misses and explodes harmlessly (BMR p.71)." } },
         prototype: 2593
     },
     {
@@ -416,7 +416,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 207,
         alphaStrike: { specialAbility: ["ARTIV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis IV capable launcher"] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 118, weight: 1, cbills: 60000, notes: "Artemis missiles: identical to standard missiles in all game areas except for double cost (BTC p.118). The price list prints \"2 x normal\" (BTC p.129)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 118, weight: 1, cbills: 60000, notes: "Artemis missiles: identical to standard missiles in all game areas except for double cost (BTC p.118). The price list prints \"2 x normal\" (BTC p.129)." }, "master-rules": { book: "BMR", page: 123, weight: 1, cbills: 60000, notes: "Artemis missiles are identical to standard missiles for all game purposes except that they cost twice as much (BMR p.123): \"2 x normal\" on the price list (BMR p.138)." } },
         prototype: 2592
     },
     {
@@ -472,6 +472,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TW",
         page: 142,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Gains cluster modifiers when fired at Narc beacon targets"] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 133, name: "Narc-Capable Missiles", weight: 1, cbills: 60000, notes: "Missiles able to home on a Narc beacon cost twice as much as standard missiles (BMR p.133): \"2 x normal\" on the price list (BMR p.138)." } },
         prototype: 2520
     },
     {
@@ -499,7 +500,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 183,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Salvo splashes onto any target in the same/adjacent hexes on a miss"] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 121, name: "Swarm LRM", weight: 1, cbills: 60000, notes: "Swarm LRMs: missiles that miss the original target attack the nearest unit, friend or foe, in the same or an adjacent hex, with a new to-hit number, and so on until all have hit or no targets are left (BTC p.121). The price list prints \"2 x normal\" (BTC p.129)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 121, name: "Swarm LRM", weight: 1, cbills: 60000, notes: "Swarm LRMs: missiles that miss the original target attack the nearest unit, friend or foe, in the same or an adjacent hex, with a new to-hit number, and so on until all have hit or no targets are left (BTC p.121). The price list prints \"2 x normal\" (BTC p.129)." }, "master-rules": { book: "BMR", page: 131, name: "Swarm LRM", weight: 1, cbills: 60000, notes: "Missiles that miss the target attack another unit, friendly or enemy, in the same hex or any adjacent hex, with a new to-hit number and no need for line of sight; this repeats until every missile has hit or no targets remain, and a unit is targeted once by a salvo (BMR pp.131-132). 2 x normal on the price list (BMR p.138). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR p.130)." } },
         prototype: 2615
     },
     {
@@ -693,6 +694,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 231,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unguided dumb-fire munitions. Salvos map dynamically based on launcher size."] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, cbills: 5000, notes: "Shots per ton by launcher: 24 (MRM 10), 12 (MRM 20), 8 (MRM 30), 6 (MRM 40)." } },
         prototype: 3052
     },
     {
@@ -720,7 +722,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 233,
         alphaStrike: { specialAbility: ["SNARC"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Latches to target to give friendly Narc-guided missiles a +2 Cluster Hit bonus"] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 6, cbills: 6000, notes: "Pods; an exploding pod does 2 points (BTC p.120). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 6, cbills: 6000, notes: "Pods; an exploding pod does 2 points (BTC p.120). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." }, "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 6, cbills: 6000, notes: "Exploding Narc ammunition does 2 points of damage a pod (BMR p.133)." } },
         prototype: 2580
     },
     {
@@ -828,7 +830,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 207,
         alphaStrike: { specialAbility: ["ARTIV"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Requires Artemis IV capable SRM launcher"] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 118, weight: 1, cbills: 54000, notes: "Artemis missiles: identical to standard missiles in all game areas except for double cost (BTC p.118). The price list prints \"2 x normal\" (BTC p.129)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 118, weight: 1, cbills: 54000, notes: "Artemis missiles: identical to standard missiles in all game areas except for double cost (BTC p.118). The price list prints \"2 x normal\" (BTC p.129)." }, "master-rules": { book: "BMR", page: 123, weight: 1, cbills: 54000, notes: "Artemis missiles are identical to standard missiles for all game purposes except that they cost twice as much (BMR p.123): \"2 x normal\" on the price list (BMR p.138)." } },
         prototype: 2592
     },
     {
@@ -883,6 +885,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TW",
         page: 142,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Gains logic bonuses when attacking a Narc-tagged target"] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 133, name: "Narc-Capable Missiles", weight: 1, cbills: 54000, notes: "Missiles able to home on a Narc beacon cost twice as much as standard missiles (BMR p.133): \"2 x normal\" on the price list (BMR p.138)." } },
         prototype: 2520
     },
     {
@@ -1234,6 +1237,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 231,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Sub-surface maritime restrictions apply. Incompatible with standard LRM racks."] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 130, weight: 1, notes: "Shots per ton by launcher: 24 (LRM 5), 12 (LRM 10), 8 (LRM 15), 6 (LRM 20). Torpedo ammunition: the stats of its land-based counterpart; no price is printed for it (BMR pp.130, 138)." } },
         prototype: 2370
     },
     {
@@ -1261,6 +1265,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 231,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Sub-surface maritime restrictions apply. Incompatible with standard SRM racks."] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 130, weight: 1, notes: "Shots per ton by launcher: 50 (SRM 2), 25 (SRM 4), 15 (SRM 6). Torpedo ammunition: the stats of its land-based counterpart; no price is printed for it (BMR pp.130, 138)." } },
         prototype: 2370
     },
     {
@@ -1342,6 +1347,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 45, cbills: 1000 } },
         prototype: 3055
     },
     {
@@ -1369,7 +1375,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 20, cbills: 9000, notes: "Double-rate fire uses two shots (BTC p.122). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 20, cbills: 9000, notes: "Double-rate fire uses two shots (BTC p.122). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." }, "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 20, cbills: 9000 } },
         prototype: 2635
     },
     {
@@ -1397,6 +1403,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 10, cbills: 12000 } },
         prototype: 3055
     },
     {
@@ -1424,6 +1431,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 5, cbills: 20000 } },
         prototype: 3057
     },
     {
@@ -1451,7 +1459,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 219,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 8, cbills: 20000, notes: "A slug of nickel-ferrous metal: a critical hit destroys the bin without an explosion (BTC p.119). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 8, cbills: 20000, notes: "A slug of nickel-ferrous metal: a critical hit destroys the bin without an explosion (BTC p.119). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." }, "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 8, cbills: 20000, notes: "Does not explode: a critical hit destroys the feed and leaves the rest of the slot useless (BMR p.128)." } },
         prototype: 2587
     },
     {
@@ -1538,6 +1546,7 @@ export const mechISAmmo: IEquipmentItem[] = [
             "battletech-compendium": null,
             "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 45, notes: "At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
             "battletech-4th-edition": { book: "BT4", page: 45, weight: 1, shotsPerTon: 45, notes: "At least one ton for each class of missile launcher or ballistic weapon, none for one-shot weapons (BT4 p.43); each ton takes 1 critical slot, in any location (BT4 p.44). No price is printed." },
+            "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 45, cbills: 1000, notes: "At least 1 ton for each class of launcher or ballistic weapon; none for one-shot weapons (BMR p.114)." },
         },
     },
     {
@@ -1729,6 +1738,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 45, cbills: 2000 } },
         prototype: 3055
     },
     {
@@ -1756,6 +1766,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 45, cbills: 3300, notes: "Cluster munitions, for LB-X autocannon only (BMR p.124)." } },
         prototype: 3055
     },
     {
@@ -1795,6 +1806,7 @@ export const mechISAmmo: IEquipmentItem[] = [
             "battletech-compendium": null,
             "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 20, notes: "At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
             "battletech-4th-edition": { book: "BT4", page: 45, weight: 1, shotsPerTon: 20, notes: "At least one ton for each class of missile launcher or ballistic weapon, none for one-shot weapons (BT4 p.43); each ton takes 1 critical slot, in any location (BT4 p.44). No price is printed." },
+            "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 20, cbills: 4500, notes: "At least 1 ton for each class of launcher or ballistic weapon; none for one-shot weapons (BMR p.114)." },
         },
     },
     {
@@ -1986,6 +1998,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 20, cbills: 9000 } },
         prototype: 3055
     },
     {
@@ -2013,6 +2026,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 20, cbills: 15000, notes: "Cluster munitions, for LB-X autocannon only (BMR p.124)." } },
         prototype: 3055
     },
     {
@@ -2047,6 +2061,7 @@ export const mechISAmmo: IEquipmentItem[] = [
             "battletech-compendium": null,
             "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 10, notes: "At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
             "battletech-4th-edition": { book: "BT4", page: 45, weight: 1, shotsPerTon: 10, notes: "At least one ton for each class of missile launcher or ballistic weapon, none for one-shot weapons (BT4 p.43); each ton takes 1 critical slot, in any location (BT4 p.44). No price is printed." },
+            "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 10, cbills: 6000, notes: "At least 1 ton for each class of launcher or ballistic weapon; none for one-shot weapons (BMR p.114)." },
         },
     },
     {
@@ -2238,7 +2253,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 10, cbills: 12000, notes: "Standard LB-X rounds, bought by the full ton and named before play (BTC p.120). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 10, cbills: 12000, notes: "Standard LB-X rounds, bought by the full ton and named before play (BTC p.120). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." }, "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 10, cbills: 12000 } },
         prototype: 2590
     },
     {
@@ -2266,7 +2281,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 10, cbills: 20000, notes: "Cluster rounds, for LB-X autocannon only, bought by the full ton and named before play: -1 to hit, hits rolled on the Missile Hits table, 1 point each (BTC p.120). The weapons table gives one ammunition figure for the weapon. At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 10, cbills: 20000, notes: "Cluster rounds, for LB-X autocannon only, bought by the full ton and named before play: -1 to hit, hits rolled on the Missile Hits table, 1 point each (BTC p.120). The weapons table gives one ammunition figure for the weapon. At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." }, "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 10, cbills: 20000, notes: "Cluster munitions, for LB-X autocannon only (BMR p.124)." } },
         prototype: 2590
     },
     {
@@ -2301,6 +2316,7 @@ export const mechISAmmo: IEquipmentItem[] = [
             "battletech-compendium": null,
             "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 5, notes: "At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
             "battletech-4th-edition": { book: "BT4", page: 45, weight: 1, shotsPerTon: 5, notes: "At least one ton for each class of missile launcher or ballistic weapon, none for one-shot weapons (BT4 p.43); each ton takes 1 critical slot, in any location (BT4 p.44). No price is printed." },
+            "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 5, cbills: 10000, notes: "At least 1 ton for each class of launcher or ballistic weapon; none for one-shot weapons (BMR p.114)." },
         },
     },
     {
@@ -2492,6 +2508,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 5, cbills: 20000 } },
         prototype: 3055
     },
     {
@@ -2519,6 +2536,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 208,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 5, cbills: 34000, notes: "Cluster munitions, for LB-X autocannon only (BMR p.124)." } },
         prototype: 3055
     },
     {
@@ -2982,6 +3000,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 219,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 16, cbills: 20000, notes: "Does not explode: a critical hit destroys the feed and leaves the rest of the slot useless (BMR p.128)." } },
         prototype: 3049
     },
     {
@@ -3090,7 +3109,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 185,
         alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#", "MEL#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 121, name: "Thunder LRM", weight: 1, cbills: 60000, notes: "Thunder LRMs: attack a hex and lay a conventional minefield equal in strength to the missiles in the attack, 20 points at most in a hex; bought by the full ton. No help from Artemis or Narc (BTC p.121). The price list prints \"2 x normal\" (BTC p.129)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 121, name: "Thunder LRM", weight: 1, cbills: 60000, notes: "Thunder LRMs: attack a hex and lay a conventional minefield equal in strength to the missiles in the attack, 20 points at most in a hex; bought by the full ton. No help from Artemis or Narc (BTC p.121). The price list prints \"2 x normal\" (BTC p.129)." }, "master-rules": { book: "BMR", page: 132, name: "Thunder LRM", weight: 1, cbills: 60000, notes: "Attacks a hex and scatters like artillery on a miss: the hex becomes a conventional minefield whose Damage Value is the launcher's size, 15 from an LRM-15 and 5 from an LRM-5. Fields in one hex add up to a Damage Value of 20 at most. No command-detonated or vibrabomb fields (BMR p.132). 2 x normal on the price list (BMR p.138). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR p.130)." } },
         prototype: 2618,
         minefieldBattleValue: "thunder"
     },
@@ -3119,6 +3138,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 230,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Deals burst damage to conventional infantry, minimal damage to armor"] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 130, name: "Fragmentation SRM", weight: 1, cbills: 54000, notes: "Double damage against all infantry except battle-armored troops, before modifiers; no damage to any other target. For standard SRM and LRM launchers (BMR p.130). 2 x normal on the price list (BMR p.138). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR p.130)." } },
         prototype: 2375
     },
     {
@@ -3146,7 +3166,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 231,
         alphaStrike: { specialAbility: ["SRM#/#/#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, cbills: 54000, notes: "50 shots a ton for the Streak SRM-2, the only Inner Sphere Streak launcher (BTC p.116). 54,000 C-bills a ton, twice the standard SRM reload (BTC p.129)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, cbills: 54000, notes: "50 shots a ton for the Streak SRM-2, the only Inner Sphere Streak launcher (BTC p.116). 54,000 C-bills a ton, twice the standard SRM reload (BTC p.129)." }, "master-rules": { book: "BMR", page: 115, weight: 1, cbills: 54000, notes: "Shots per ton by launcher: 50 (Streak SRM 2), 25 (Streak SRM 4), 15 (Streak SRM 6)." } },
         prototype: 2645
     },
     {
@@ -3282,6 +3302,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 230,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 130, name: "Fragmentation LRM", weight: 1, cbills: 60000, notes: "Double damage against all infantry except battle-armored troops, before modifiers; no damage to any other target. For standard SRM and LRM launchers (BMR p.130). 2 x normal on the price list (BMR p.138). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR p.130)." } },
         prototype: 2375
     },
     {
@@ -3857,7 +3878,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 204,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 12, cbills: 2000, notes: "Explodes as machine gun ammunition (BTC p.117). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." } },
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, weight: 1, shotsPerTon: 12, cbills: 2000, notes: "Explodes as machine gun ammunition (BTC p.117). At least one ton for each ballistic weapon or missile launcher; each ton takes one critical slot (BTC pp.112-113)." }, "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 12, cbills: 2000, notes: "Explodes as machine gun ammunition (BMR p.123)." } },
         prototype: 2613
     },
     {
@@ -4678,6 +4699,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 231,
         alphaStrike: { specialAbility: ["LRM#/#/#/#/#", "IF#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 131, name: "Semiguided LRM", weight: 1, cbills: 90000, notes: "Inner Sphere only. Homes on a target designated by TAG: target movement modifiers do not apply, nor the indirect-fire and spotter-movement penalties of an indirect attack (BMR p.131). 3 x normal on the price list (BMR p.138). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR p.130)." } },
         prototype: 3053
     },
     {
@@ -4705,6 +4727,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 183,
         alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#", "AOE#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 132, name: "Swarm-I LRM", weight: 1, cbills: 90000, notes: "Swarm rules with an IFF detector: +2 to hit any friendly unit, unless its sensors are critically damaged; inside an enemy ECM suite's range it works as conventional Swarm (BMR p.132). 3 x normal on the price list (BMR p.138). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR p.130)." } },
         prototype: 3052,
         battleValueMultiplier: 1.2
     },
@@ -4872,6 +4895,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 233,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Does not track; acts as a close-range direct-fire missile dealing flat armor damage"] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 133, name: "Explosive Pods", weight: 1, cbills: 1500, notes: "Narc Explosive Pods: 4 points of damage at the hit location instead of attaching a beacon; in an ammunition explosion each pod does 4 points (BMR p.133). Listed under the Narc Missile Beacon on the price list, which serves both technology bases (BMR p.138); the catalogs have an Inner Sphere record only." } },
         prototype: 3054
     },
     {

@@ -221,6 +221,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
       "battletech-compendium": null,
       "battletech-3rd-edition": null,
       "battletech-4th-edition": null,
+      "master-rules": { book: "BMR", page: 110, name: "Internal Structure", structure: { 20: { head: 3, ct: 6, torso: 5, arm: 3, leg: 4 }, 25: { head: 3, ct: 8, torso: 6, arm: 4, leg: 6 }, 30: { head: 3, ct: 10, torso: 7, arm: 5, leg: 7 }, 35: { head: 3, ct: 11, torso: 8, arm: 6, leg: 8 }, 40: { head: 3, ct: 12, torso: 10, arm: 6, leg: 10 }, 45: { head: 3, ct: 14, torso: 11, arm: 7, leg: 11 }, 50: { head: 3, ct: 16, torso: 12, arm: 8, leg: 12 }, 55: { head: 3, ct: 18, torso: 13, arm: 9, leg: 13 }, 60: { head: 3, ct: 20, torso: 14, arm: 10, leg: 14 }, 65: { head: 3, ct: 21, torso: 15, arm: 10, leg: 15 }, 70: { head: 3, ct: 22, torso: 15, arm: 11, leg: 15 }, 75: { head: 3, ct: 23, torso: 16, arm: 12, leg: 16 }, 80: { head: 3, ct: 25, torso: 17, arm: 13, leg: 17 }, 85: { head: 3, ct: 27, torso: 18, arm: 14, leg: 18 }, 90: { head: 3, ct: 29, torso: 19, arm: 15, leg: 19 }, 95: { head: 3, ct: 30, torso: 20, arm: 16, leg: 20 }, 100: { head: 3, ct: 31, torso: 21, arm: 17, leg: 21 } }, notes: "Weighs 10 percent of the BattleMech's tonnage; the Internal Structure Table now runs from 20 to 100 tons and adds an endo steel weight column and each tonnage's maximum armor factor. The boxes are unchanged for those tonnages; the head has 3. Skeleton cost: tonnage x 400 C-bills (BMR p.136)." },
     },
     book: "TM",
     page: 225,
@@ -241,7 +242,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Endo-Steel",
     tag: "endo-steel",
-    introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Endo Steel Internal Structure", notes: "Half the usual internal structure weight, rounding up. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled (BTC pp.112, 119). Skeleton cost: tonnage x 1,600 C-bills (BTC p.128)." } },
+    introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Endo Steel Internal Structure", notes: "Half the usual internal structure weight, rounding up. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled (BTC pp.112, 119). Skeleton cost: tonnage x 1,600 C-bills (BTC p.128)." }, "master-rules": { book: "BMR", page: 127, name: "Endo Steel Internal Structure", notes: "Half the standard internal structure weight, rounded up to the nearest half ton. Takes 14 critical slots in Inner Sphere BattleMechs and 7 in Clan 'Mechs, placed anywhere; critical hits on them are rerolled. Vehicles may not use it (BMR pp.110, 127). Skeleton cost: tonnage x 1,600 C-bills (BMR p.136)." } },
     book: "TM",
     page: 224,
     prototype: 2480,

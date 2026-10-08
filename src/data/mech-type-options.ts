@@ -23,12 +23,12 @@ export const mechTypeOptions: IMechType[] = [
 		book: "TM",
 		introducedInEdition: "battledroids",
 		// The only layout: head, three torsos, two arms and two legs (Internal Structure Table, BD p.24).
-		editionStats: { battledroids: { book: "BD", page: 24 }, "battletech-2nd-edition": null, "battletech-manual": null, "battletech-compendium": null, "battletech-3rd-edition": null, "battletech-4th-edition": null },
+		editionStats: { battledroids: { book: "BD", page: 24 }, "battletech-2nd-edition": null, "battletech-manual": null, "battletech-compendium": null, "battletech-3rd-edition": null, "battletech-4th-edition": null, "master-rules": null },
 	},
 	{
 		id: 2,
 		tag: "quad",
-		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 56, name: "Four-Legged BattleMech", notes: "Optional rules for the Goliath and Scorpion; without them a four-legged BattleMech plays as a biped. The arms become a second pair of legs, with 12 fewer critical slots. Lateral shift for 1 extra MP; -2 on Piloting Skill rolls to avoid falls while all four legs remain; no punching, pushing or club attacks (BTC p.56). The construction rules do not mention it (BTC pp.111-113)." } },
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 56, name: "Four-Legged BattleMech", notes: "Optional rules for the Goliath and Scorpion; without them a four-legged BattleMech plays as a biped. The arms become a second pair of legs, with 12 fewer critical slots. Lateral shift for 1 extra MP; -2 on Piloting Skill rolls to avoid falls while all four legs remain; no punching, pushing or club attacks (BTC p.56). The construction rules do not mention it (BTC pp.111-113)." }, "master-rules": { book: "BMR", page: 75, name: "Four-Legged BattleMech", notes: "Optional rules; without them a four-legged 'Mech uses the bipedal rules. Construction is now covered: the arms are replaced by a second set of legs with the internal structure of legs, which can carry leg armor, and each has the 2 open critical slots of a leg (BMR pp.75, 109). Lateral shifts and improved Piloting Skill target numbers (BMR p.75)." } },
 		name:  "Quad",
 		rulesLevel: 0,
 		book: "TM",

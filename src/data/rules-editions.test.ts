@@ -972,3 +972,133 @@ describe("Rules editions: Fourth Edition, complete", () => {
         expect([sink.page, sink.heat, sink.weight, sink.criticals]).toEqual([45, -1, 1, 1]);
     });
 });
+
+describe("Rules editions: Master Rules, complete", () => {
+    const TAG = "master-rules";
+    const find = (tag: string) => equipment.find(item => item.tag === tag)!;
+    const row = (tag: string) => {
+        const stats = find(tag).editionStats![TAG]!;
+        return [stats.heat, stats.damage ?? stats.damagePerMissile, stats.range && [stats.range.min, stats.range.short, stats.range.medium, stats.range.long],
+            stats.weight, stats.criticals, stats.shotsPerTon, stats.cbills];
+    };
+
+    // BMR p.5: the book supersedes the BattleTech Manual, the Compendium, The Rules of Warfare and the Fourth
+    // Edition. It has no aerospace units, so the Compendium's bombs, Ferro-Aluminum armor and Land-Air BattleMechs
+    // go, and BattleMechs now start at 20 tons (BMR p.109).
+    it("includes the Compendium's and Fourth Edition's records less the aerospace ones, and ninety-five new ones", () => {
+        const dropped = ["armor ferro-aluminum", "equipment ammo-bomb-inferno", "equipment ammo-bomb-standard", "mech type lam", "tonnage 10", "tonnage 15"];
+        const earlier = [...new Set([...inEdition("battletech-compendium"), ...inEdition("battletech-4th-edition")])];
+        const added = labelled.filter(entry => entry.record.introducedInEdition === TAG).map(entry => entry.label);
+        expect(earlier.filter(label => !inEdition(TAG).includes(label)).sort()).toEqual(dropped);
+        expect(inEdition(TAG)).toEqual([...earlier.filter(label => !dropped.includes(label)), ...added].sort());
+        expect(added).toHaveLength(95);
+        expect(added).toEqual(expect.arrayContaining(["equipment mrm-40", "equipment gauss-rifle-light", "equipment melee-sword",
+            "equipment large-heavy-laser", "equipment er-micro-laser", "equipment clan-light-tag", "equipment lrt-5", "equipment ammo-is-lrm-semi-guided"]));
+        const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
+        expect(edition.complete).toBe(true);
+        expect(edition.mechs).toEqual([]);
+        expect(edition.otherUnits).toHaveLength(15);
+    });
+
+    // BMR p.115, Inner Sphere Weapons and Equipment Table; prices p.138.
+    it.each([
+        ["er-medium-laser", [5, 5, [0, 4, 8, 12], 1, 1, undefined, 80000]],
+        ["gauss-rifle-light", [1, 8, [3, 8, 17, 25], 12, 5, 16, 275000]],
+        ["autocannon-lbx-20", [6, 20, [0, 4, 8, 12], 14, 11, 5, 600000]],
+        ["autocannon-ultra-c", [4, 10, [0, 6, 12, 18], 13, 7, 10, 320000]],
+        ["mrm-30", [10, 1, [0, 3, 8, 15], 10, 5, 8, 225000]],
+        ["streak-srm-6", [4, undefined, [0, 3, 6, 9], 4.5, 2, 15, 120000]],
+        ["medium-laser", [3, 5, [0, 3, 6, 9], 1, 1, undefined, 40000]],
+    ] as [string, unknown[]][])("prints the Inner Sphere %s row", (tag, expected) => {
+        expect(row(tag)).toEqual(expected);
+        expect(find(tag).editionStats![TAG]!.page).toBe(115);
+    });
+
+    // BMR pp.116-117, Clan Weapons and Equipment Table; prices p.138.
+    it.each([
+        ["er-micro-laser", 116, [1, 2, [0, 1, 2, 4], 0.25, 1, undefined, 10000]],
+        ["large-heavy-laser", 116, [18, 16, [0, 5, 10, 15], 4, 3, undefined, 250000]],
+        ["micro-pulse-laser", 116, [1, 3, [0, 1, 2, 3], 0.5, 1, undefined, 12500]],
+        ["clan-light-machine-gun", 117, [0, 1, [0, 2, 4, 6], 0.25, 1, 200, 5000]],
+        ["clan-autocannon-uac-20", 117, [7, 20, [0, 4, 8, 12], 12, 8, 5, 480000]],
+        ["clan-light-tag", 117, [0, undefined, [0, 3, 6, 9], 0.5, 1, undefined, 40000]],
+    ] as [string, number, unknown[]][])("prints the Clan %s row", (tag, page, expected) => {
+        expect(row(tag)).toEqual(expected);
+        expect(find(tag).editionStats![TAG]!.page).toBe(page);
+    });
+
+    // BMR p.117 prints a dash under Long for the Heavy Machine Gun.
+    it("records that the Heavy Machine Gun has no long range", () => {
+        const stats = find("clan-heavy-machine-gun").editionStats![TAG]!;
+        expect([stats.damage, stats.range, stats.shotsPerTon]).toEqual([3, { min: 0, short: 1, medium: 2, long: 0 }, 100]);
+        expect(stats.notes).toContain("dash under Long");
+    });
+
+    // BMR p.138: one price list for both technology bases; munitions are multiples of the normal price.
+    it("prices munitions as multiples of the standard ton", () => {
+        const price = (tag: string) => find(tag).editionStats![TAG]!.cbills;
+        expect([price("ammo-lrm-standard"), price("ammo-srm-standard")]).toEqual([30000, 27000]);
+        expect([price("ammo-is-lrm-fragmentation"), price("ammo-lrm-incendiary"), price("ammo-is-lrm-semi-guided"), price("ammo-is-lrm-swarm-i")])
+            .toEqual([60000, 45000, 90000, 90000]);
+        expect([price("ammo-is-srm-frag"), price("ammo-srm-inferno"), price("ammo-is-narc-explosive")]).toEqual([54000, 13500, 1500]);
+        expect([price("ammo-is-ac-5-standard"), price("ammo-clan-light-machine-gun-standard")]).toEqual([4500, 500]);
+    });
+
+    // BMR p.129: any missile launcher can be single-shot, half a ton heavier and half the price (p.138).
+    it.each(["lrm-20", "srm-6", "mrm-40", "narc", "streak-srm-4", "clan-lrm-15", "clan-narc", "clan-streak-srm-6"])(
+        "%s (OS) weighs half a ton more and costs half", tag => {
+            const launcher = find(tag).editionStats![TAG]!;
+            const single = find(tag + "-os").editionStats![TAG]!;
+            expect([single.weight, single.cbills]).toEqual([launcher.weight! + 0.5, launcher.cbills! / 2]);
+            expect([single.page, single.criticals]).toEqual([129, undefined]);
+        });
+
+    // BMR p.130: torpedoes take their land-based counterparts' stats; neither table nor price list has a row.
+    it("gives torpedo launchers the matching missile launcher's figures and no price", () => {
+        for (const [torpedo, missile] of [["lrt-15", "lrm-15"], ["srt-4", "srm-4"], ["clan-lrt-20", "clan-lrm-20"], ["clan-srt-2", "clan-srm-2"]]) {
+            expect(row(torpedo).slice(0, 6), torpedo).toEqual(row(missile).slice(0, 6));
+            expect(find(torpedo).editionStats![TAG]!.cbills, torpedo).toBeUndefined();
+        }
+    });
+
+    // The Artemis IV FCS row: 1 ton, 1 critical slot (BMR pp.116, 117), 100,000 C-bills (p.138).
+    it("adds the Artemis IV row to each launcher", () => {
+        for (const tag of ["lrm-10", "srm-2", "clan-lrm-5", "clan-srm-6"]) {
+            const launcher = find(tag).editionStats![TAG]!;
+            const artemis = find(tag + "-artemis-iv").editionStats![TAG]!;
+            expect([artemis.weight, artemis.criticals, artemis.cbills], tag).toEqual([launcher.weight! + 1, launcher.criticals! + 1, launcher.cbills! + 100000]);
+        }
+    });
+
+    // BMR p.71, Artillery Table; pp.116-117.
+    it("prints the artillery rows", () => {
+        const gun = (tag: string) => {
+            const stats = find(tag).editionStats![TAG]!;
+            return [stats.heat, stats.damage, stats.damageAdjacent, stats.rangeMapsheets, stats.weight, stats.criticals, stats.shotsPerTon];
+        };
+        expect(gun("arrow-iv-system")).toEqual([10, 20, 10, 5, 15, 15, 5]);
+        expect(gun("clan-arrow-iv-system")).toEqual([10, 20, 10, 6, 12, 12, 5]);
+        expect(gun("thumper-artillery")).toEqual([6, 5, 2, 14, 15, 15, 20]);
+    });
+
+    // BMR pp.109-113 against p.127: the two statements of the ferro-fibrous rounding are kept side by side.
+    it("keeps the components, with the changes noted", () => {
+        const unchanged = labelled.filter(entry => entry.record.editionStats && TAG in entry.record.editionStats && entry.record.editionStats[TAG] === null)
+            .map(entry => entry.label).sort();
+        expect(unchanged).toEqual([
+            "armor standard", "cockpit standard", "engine standard", "gyro standard", "jump jet standard", "mech type biped",
+            ...[20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100].map(tons => "tonnage " + tons),
+        ].sort());
+        const structure = mechInternalStructureTypes.find(type => type.tag === "standard")!.editionStats![TAG]!;
+        expect(Object.keys(structure.structure!)).toHaveLength(17);
+        expect([structure.structure![20], structure.structure![100]])
+            .toEqual([{ head: 3, ct: 6, torso: 5, arm: 3, leg: 4 }, { head: 3, ct: 31, torso: 21, arm: 17, leg: 21 }]);
+        const ferro = mechArmorTypes.find(type => type.tag === "ferro-fibrous")!.editionStats![TAG]!;
+        expect(ferro.notes).toContain("up on .5");
+        expect(ferro.notes).toContain("round .5 down");
+        const sinks = ["single", "double"].map(tag => mechHeatSinkTypes.find(type => type.tag === tag)!.editionStats![TAG]!);
+        expect(sinks.map(sink => [sink.heat, sink.weight, sink.criticals, sink.cbills])).toEqual([[-1, 1, 1, 2000], [-2, 1, 3, undefined]]);
+        expect(mechMyomerTypes.find(type => type.tag === "tsm")!.editionStats![TAG]!.criticals).toBe(6);
+        expect(mechTypeOptions.find(type => type.tag === "quad")!.editionStats![TAG]!.page).toBe(75);
+    });
+});

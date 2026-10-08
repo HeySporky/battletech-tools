@@ -58,13 +58,14 @@ export const mechArmorTypes: IArmorType[] = [
 			"battletech-compendium": null,
 			"battletech-3rd-edition": null,
 			"battletech-4th-edition": null,
+			"master-rules": null,
 		},
 		notes: "On an IndustrialMech this is Heavy Industrial armor: \"Functionally identical to standard battlefield armor\" and priced the same (TM pp.205, 278)."
 	},
 	{
 		name: "Ferro Fibrous",
 		tag: "ferro-fibrous",
-		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Value and multiply by 1.12 (Inner Sphere) or 1.2 (Clan), rounding to the nearest whole number, .5 down. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled. The location maximums do not change (BTC pp.113, 119). 20,000 C-bills a ton of armor (BTC p.128)." } },
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Value and multiply by 1.12 (Inner Sphere) or 1.2 (Clan), rounding to the nearest whole number, .5 down. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled. The location maximums do not change (BTC pp.113, 119). 20,000 C-bills a ton of armor (BTC p.128)." }, "master-rules": { book: "BMR", page: 127, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Points and multiply by 1.12 (Inner Sphere) or 1.2 (Clan). The book gives the rounding two ways: \"rounded normally (up on .5)\" in Construction (BMR pp.113, 119) and \"round .5 down\" in Equipment (BMR p.127). Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are rerolled. On a vehicle it uses up 2 items (Inner Sphere) or 1 (Clan) (BMR p.127). 20,000 C-bills a ton of armor (BMR p.136)." } },
 		altNames: ["Ferro-Fibrous"],
 		patchwork: { slots: { is: 2, clan: 1 }, tonsPerPoint: { is: 0.0558, clan: 0.0521 } },
 		unitTypes: {

@@ -72,12 +72,13 @@ export const mechEngineTypes: IEngineType[] = [
 			"battletech-compendium": null,
 			"battletech-3rd-edition": null,
 			"battletech-4th-edition": null,
+			"master-rules": null,
 		},
 	},
 	{
 		name: "XL Fusion",
 		tag: "xl",
-		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Inner Sphere XL Engine", notes: "Any fusion engine may be built as an XL: half the normal engine weight, rounded up to the half ton, with extra engine critical slots in the side torsos, 3 in the left torso and 3 in the right. Three engine critical hits destroy the BattleMech whichever torso they are in. BattleMechs, vehicles and AeroSpace fighters may use it; there is no XL ICE (BTC pp.122-123). Price: (20,000 x rating x tonnage) / 75 (BTC p.128)." } },
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Inner Sphere XL Engine", notes: "Any fusion engine may be built as an XL: half the normal engine weight, rounded up to the half ton, with extra engine critical slots in the side torsos, 3 in the left torso and 3 in the right. Three engine critical hits destroy the BattleMech whichever torso they are in. BattleMechs, vehicles and AeroSpace fighters may use it; there is no XL ICE (BTC pp.122-123). Price: (20,000 x rating x tonnage) / 75 (BTC p.128)." }, "master-rules": { book: "BMR", page: 134, name: "Inner Sphere XL Engine", notes: "The Fusion Engine Table now prints an XL Tonnage column beside the standard one, for ratings 10 to 400: half the standard weight, rounded up to the half ton (BMR p.111). Extra engine critical slots in each side torso, 3 for the Inner Sphere engine; any 3 engine critical hits destroy the BattleMech, wherever the slots are. On a vehicle it uses up 2 items; there is no XL internal combustion engine (BMR pp.119, 134-135). Price: (20,000 x rating x tonnage) / 75 (BMR p.136)." } },
 		altNames: ["XL Engine"],
 		book: "TM",
 		page: 214,
@@ -99,7 +100,7 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Clan XL Fusion",
 		tag: "clan_xl",
-		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Clan XL Engine", notes: "Any fusion engine may be built as an XL: half the normal engine weight, rounded up to the half ton, with extra engine critical slots in the side torsos, 2 in the left torso and 2 in the right. Three engine critical hits destroy the BattleMech whichever torso they are in. BattleMechs, vehicles and AeroSpace fighters may use it; there is no XL ICE (BTC pp.122-123). Price: (20,000 x rating x tonnage) / 75 (BTC p.128)." } },
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Clan XL Engine", notes: "Any fusion engine may be built as an XL: half the normal engine weight, rounded up to the half ton, with extra engine critical slots in the side torsos, 2 in the left torso and 2 in the right. Three engine critical hits destroy the BattleMech whichever torso they are in. BattleMechs, vehicles and AeroSpace fighters may use it; there is no XL ICE (BTC pp.122-123). Price: (20,000 x rating x tonnage) / 75 (BTC p.128)." }, "master-rules": { book: "BMR", page: 134, name: "Clan XL Engine", notes: "The Fusion Engine Table now prints an XL Tonnage column beside the standard one, for ratings 10 to 400: half the standard weight, rounded up to the half ton (BMR p.111). Extra engine critical slots in each side torso, 2 for the Clan engine; any 3 engine critical hits destroy the BattleMech, wherever the slots are. On a vehicle it uses up 1 item; there is no XL internal combustion engine (BMR pp.119, 134-135). Price: (20,000 x rating x tonnage) / 75 (BMR p.136)." } },
 		altNames: ["XL Engine"],
 		book: "TM",
 		page: 214,
@@ -185,6 +186,7 @@ export const mechEngineTypes: IEngineType[] = [
 		editionStats: {
 			"battletech-manual": { book: "BTM", page: 81, name: "Internal Combustion Engine", notes: "Offered for vehicles and installations, and as the turbine of conventional aircraft: twice the weight of an identically rated fusion engine from the Engine Table, with no built-in heat sinks, and power amplifiers at one ton per ten tons of energy weapons (BTM pp.81-82, 84). BattleMech construction does not mention it (BTM pp.78-80)." },
 			"battletech-compendium": null,
+			"master-rules": { book: "BMR", page: 119, name: "Internal Combustion Engine", notes: "A vehicle engine: twice the weight of an identically rated fusion engine, cheaper and more readily available, never built as an XL. A fusion-powered vehicle instead adds shielding and transmission equipment, 1.5 times the engine weight rounded up to the half ton (BMR p.119). Price: (1,250 x rating x tons) / 75 (BMR p.137). BattleMech construction does not mention it (BMR pp.109-114)." },
 		},
 		altNames: ["I.C.E. Engine"],
 		book: "TM",

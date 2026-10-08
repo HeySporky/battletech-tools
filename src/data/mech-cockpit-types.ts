@@ -40,6 +40,7 @@ export const mechCockpitTypes: ICockpitType[] = [
 			"battletech-compendium": null,
 			"battletech-3rd-edition": null,
 			"battletech-4th-edition": null,
+			"master-rules": null,
 		},
 	},
 	{

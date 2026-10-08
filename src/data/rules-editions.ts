@@ -207,6 +207,35 @@ export const btRulesEditions: IRulesEdition[] = [
         name: "BattleTech Master Rules",
         year: 1998,
         book: "BMR",
+        complete: true,
+        // A rulebook only: it prints no 'Mech record listings. The construction example builds a 45-ton Wyvern
+        // (BMR pp.109-114), and designs are named in passing.
+        mechs: [],
+        // Units with their own construction rules (BMR pp.118-120), rules sections (BMR pp.51, 56-67) or prices
+        // (BMR p.137). There are no aerospace units or Land-Air BattleMechs in this book.
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Displacement hull vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon",
+            "Clan battle armor Point (Standard, Gnome, Salamander)",
+            "Inner Sphere battle armor squad (Standard, Infiltrator, Sloth, Gray Death Light Scout, Longinus, Achileus, Kage, Kanazuchi)",
+            "OmniMech", "OmniVehicle",
+            "Building",
+        ],
+        notModelled: [
+            "Component prices: the BattleMech Costs Table prices the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets, heat sinks and armor by formula, with x.25 for an OmniMech and a final multiplier of 1 + tonnage / 100 (BMR p.136); only the fixed prices are entered.",
+            "Clan CASE: no weight and no critical slots, in every Clan location that holds explosive ammunition or equipment (BMR pp.117, 126); the catalogs have no record for it.",
+            "OmniMech and OmniVehicle pods: a design fixes its structure, engine and armor and leaves tonnage and space for pods (BMR pp.114, 120).",
+            "Flare LRMs: fired at a hex to light it and everything within 3 hexes, for the launcher's size divided by 5 turns (BMR p.130); the catalogs have no record for them.",
+            "Narc Explosive Pods for the Clan launcher: the price list serves both technology bases (BMR pp.133, 138); the catalogs have an Inner Sphere record only.",
+            "Mines: conventional, command-detonated and vibrabomb fields are placed before play; Thunder LRMs and the Clan Arrow IV FASCAM round lay conventional fields (BMR pp.80-81, 132).",
+            "Vehicle parts: control components, lift, rotor and diving equipment, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items; a vehicle carries 5 items plus 1 for every 5 full tons (BMR pp.118-119).",
+            "Cargo space: tonnage a vehicle sets aside; BattleMechs cannot allocate it (BMR pp.125-126).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon damage rows and platoon prices (BMR p.137).",
+            "Battle armor: eleven fixed designs with their own armor, movement and weapons, priced by the Point or squad (BMR pp.60-66, 137).",
+            "Clubs: a severed arm or leg, an uprooted tree good for one successful attack, or a girder from a rubbled building, picked up on the map and swung with two hands (BMR p.40).",
+            "Single-shot launchers with special munitions: the launcher's base cost is multiplied by the munition's multiple (BMR p.129); only the plain single-shot launchers are entered.",
+        ],
     },
     {
         // Classic BattleTech Master Rules, Revised Edition (FanPro 35000): credits page, "2001-2005 WizKids";

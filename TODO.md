@@ -925,7 +925,23 @@ Open:
     on p.47, the section is printed on p.46 and is cited so; (3) single-shot launchers have no table row, so no
     critical slots are entered; (4) the Flamer (Vehicle) sits under Ballistic Weapons on the 'Mech table and is
     entered on the existing vehicle flamer record.
-  - [ ] Next: Master Rules (1998), then Master Rules Revised (2001).
+  - [x] BattleTech Master Rules (FASA 1707, 1998), complete: read from the page images (Construction
+    pp.109-120, Weapons and Equipment Tables pp.115-117, Equipment pp.122-135, Costs pp.136-138, Artillery
+    pp.68-71, special cases pp.75-81). 286 entries: 263 records in the edition, 95 of them new to it. New against
+    the Compendium: Inner Sphere ER medium and small lasers, Light Gauss, LB 2-X/5-X/20-X, Ultra AC/2, /10 and
+    /20, MRMs, Streak SRM 4 and 6, the sword and A-Pods; Clan heavy lasers, ER micro and micro pulse lasers,
+    heavy and light machine guns, Light TAG and the Light Active Probe; torpedo launchers; single-shot MRM,
+    Narc, Streak and torpedo launchers; fragmentation, incendiary, semi-guided, Swarm-I and Narc-capable
+    missiles and Narc explosive pods. Gone with the aerospace rules: bombs, Ferro-Aluminum armor, Land-Air
+    BattleMechs; BattleMechs now start at 20 tons. Prices are back (one list for both technology bases, p.138).
+    Readings to confirm: (1) ferro-fibrous rounding is printed two ways ("up on .5" pp.113, 119; ".5 down"
+    p.127); both are recorded, neither chosen; (2) the Clan Heavy Machine Gun prints a dash under Long range,
+    entered as a long range of 0 with a note; (3) torpedo launchers and ammunition have no table or price rows,
+    so they carry the matching LRM/SRM figures and no price (p.130); (4) single-shot launchers again have no
+    critical slots printed; Streak single-shot launchers are entered under "any type of missile weapon" (p.129);
+    (5) no records exist for Flare LRMs, Clan CASE or Clan Narc explosive pods, so those are noted on the
+    edition; (6) the internal structure entry repeats the table for 20 to 100 tons so the edition has its own.
+  - [ ] Next: Master Rules Revised (2001).
   - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
     1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).
   - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).
