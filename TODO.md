@@ -291,7 +291,10 @@ played first, then by dependency.
   cost multipliers and fitting prices. In play: the Advanced Building Movement Table added to each hex's MP
   cost, Piloting modifier and to-hit modifier (p.117), ceilings and superstructure in the damage to a unit
   entering, and the generator going out with any hex.
-  Open, for a ruling: (1) a subsurface building rolls for a breach when one hit does 10 points to the CF; the
+  Rulings (user, 2026-10-07): all four of the items that follow stand as built; adding damage up over a
+  phase is left to the table, and a generator that keeps running at part strength after losing a hex would
+  be a custom rule, for later. As first raised: (1) a subsurface building rolls for a breach when one hit
+  does 10 points to the CF; the
   book says 10 points "in any phase", which the app does not add up. (2) Underground, a breach collapses the
   hex; in a sealed surface or underwater building it marks every item inside lost ("all unprotected personnel
   and equipment"). (3) The generator is spread over every hex, so losing any hex puts it out. (4) Every hex
@@ -780,7 +783,11 @@ Open:
       (p.132), unspecified equipment, minimum gunners and officers (p.130), cost (p.208), saves, backup and a
       record sheet with Armor Factor and CF circles for each hex. Reproduces the book's Kenyon, Tara and Ryana
       examples (pp.128-131).
-      Open, for a ruling: (1) the cost table (p.208) prices no turrets, power amplifiers or heat sinks for
+      Rulings (user, 2026-10-07) on the five items that follow: (1) use the last prices published, the
+      TechManual's; (2) and (5) stand as built; (3) a building handles heat as a vehicle does, so its heat sinks
+      cover every energy weapon whatever the generator, with none free (TO:AUE p.83); (4) no amplifier for a
+      weapon that fires ammunition or for any flamer. As first raised: (1) the cost table (p.208) prices no
+      turrets, power amplifiers or heat sinks for
       buildings; the creator charges their TechManual prices (pp.279-280). (2) TO:AR p.129 calls a weapon Heavy
       from 0.25 tons, TO:AUE p.82 from half a ton for Mobile Structures; the building page is followed. (3) With
       a fusion or fission generator the creator asks for no heat sinks and no amplifiers, its reading of TO:AUE

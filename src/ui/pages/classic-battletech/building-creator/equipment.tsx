@@ -91,7 +91,8 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                     {generator ? `${building.getGeneratorWeight()} tons, spread evenly over the hexes. ` : ""}
                                                     A generator weighs one ton for each hex and level plus 10 percent of the Heavy energy weapons, times its
                                                     multiplier (TO:AR p. 132). On the grid, or on anything but fusion or fission, energy weapons need power
-                                                    amplifiers and heat sinks for all their heat.
+                                                    amplifiers, except flamers and those that fire ammunition. Whatever the power, the heat sinks must cover
+                                                    all the energy weapons' heat, as on a vehicle.
                                                 </p>
                                             </>
                                         ) : null}

@@ -183,8 +183,8 @@ const isPlainObject = (value: unknown): value is Record<string, unknown> =>
     typeof value === "object" && value !== null && !Array.isArray(value);
 const round3 = (value: number): number => Math.round(value * 1000) / 1000;
 const round5 = (value: number): number => Math.round(value * 100000) / 100000;
-const roundUpHalf = (tons: number): number => Math.ceil(tons * 2 - 1e-9) / 2;
-const roundUpTenth = (tons: number): number => Math.ceil(tons * 10 - 1e-9) / 10;
+const roundUpHalf = (tons: number): number => Math.ceil(tons * 2 - 1e-9) / 2 || 0;
+const roundUpTenth = (tons: number): number => Math.ceil(tons * 10 - 1e-9) / 10 || 0;
 const money = (value: number): string => Math.round(value).toLocaleString("en-US");
 /** A new building starts in the newest era its tech base has, so nothing is hidden for being too recent. */
 const latestEra = (techTag: string): IEras => {
@@ -661,8 +661,12 @@ export default class Building {
     public getEnergyWeaponHeat(): number {
         return this._equipment.filter((mount) => Building._isEnergyWeapon(mount.item)).reduce((sum, mount) => sum + (mount.item.heat || 0), 0);
     }
-    /** Without a fission or fusion generator the heat sinks must cover all the energy weapons (TO:AUE p.83). */
-    public needsHeatSinksForEnergyWeapons(): boolean { return !this._generator?.fusionOrFission; }
+    /**
+     * A building handles heat as a vehicle does: its heat sinks must cover every energy weapon fired together,
+     * whatever powers it (user ruling, 2026-10-07). Unlike a vehicle's engine, no generator brings
+     * free heat sinks (TO:AUE p.83).
+     */
+    public needsHeatSinksForEnergyWeapons(): boolean { return true; }
 
     public getGenerator(): IBuildingGenerator | null { return this._generator; }
     public canMountGenerator(): boolean { return this._classification.powered; }
@@ -673,10 +677,16 @@ export default class Building {
         return this._generator;
     }
 
-    /** Energy weapons that draw on amplifiers; flamers and chemical lasers are left out, as on vehicles. */
+    /**
+     * Energy weapons that draw on amplifiers. A weapon that fires ammunition, such as a chemical laser, and any
+     * flamer, which burns fuel or vents plasma, needs none (user ruling, 2026-10-07).
+     */
+    private static _needsAmplifier(item: IEquipmentItem): boolean {
+        return Building._isEnergyWeapon(item) && !/flamer/.test(item.tag) && !(item.ammoTypes?.length) && !((item.shotsPerTon ?? 0) > 0);
+    }
     private _amplifiedWeaponTons(hex?: number): number {
         return this._equipment
-            .filter((mount) => (hex === undefined || mount.hex === hex) && Building._isEnergyWeapon(mount.item) && !/vehicle-flamer|chemical-laser/.test(mount.item.tag))
+            .filter((mount) => (hex === undefined || mount.hex === hex) && Building._needsAmplifier(mount.item))
             .reduce((sum, mount) => sum + (mount.item.weight || 0), 0);
     }
 
@@ -823,7 +833,7 @@ export default class Building {
             }
         }
         if (this.needsHeatSinksForEnergyWeapons() && this.getEnergyWeaponHeat() > this.getHeatDissipation()) {
-            issues.push(`Without a fusion or fission generator the heat sinks must cover every energy weapon: ${this.getEnergyWeaponHeat()} heat, ${this.getHeatDissipation()} sunk (TO:AUE p.83).`);
+            issues.push(`The heat sinks must cover every energy weapon fired together, as on a vehicle: ${this.getEnergyWeaponHeat()} heat, ${this.getHeatDissipation()} sunk (TO:AUE p.83).`);
         }
         if (this._generator?.noRooftopEquipment && this.hasTurret()) issues.push(`A ${this._generator.name.toLowerCase()} generator leaves no room on the roof for turrets (TO:AR p.132).`);
         for (const mount of this._equipment) {

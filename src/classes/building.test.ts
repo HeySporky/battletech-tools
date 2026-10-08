@@ -183,15 +183,34 @@ describe("Building construction (TO:AR pp.126-131)", () => {
         expect(building.getMinimumOfficers()).toBe(1);
     });
 
-    it("needs no power amplifiers or covering heat sinks on a fusion generator (TO:AR p.129, TO:AUE p.83)", () => {
+    it("needs no power amplifiers on a fusion generator, but still sinks its heat as a vehicle does (TO:AR p.129; user ruling)", () => {
         const building = kenyon();
         building.addEquipmentFromTag("clan-er-large-laser");
         building.addEquipmentFromTag("clan-er-large-laser");
         building.setGenerator("fusion");
         expect(building.getPowerAmplifierWeight(1)).toBe(0);
+        // The generator brings no free heat sinks (TO:AUE p.83): all 24 points must be covered.
+        expect(building.getIssues().join(" ")).toContain("24 heat, 0 sunk");
+        building.setHeatSinks(24);
         expect(building.getIssues()).toEqual([]);
         // 1 hex x 1 level, plus 10 percent of 8 tons of energy weapons: 1.8, rounded up.
         expect(building.getGeneratorWeight()).toBe(2);
+    });
+
+    it("asks for no power amplifier for a flamer or a weapon that fires ammunition (user ruling)", () => {
+        const building = new Building();
+        building.setType("heavy");
+        building.setCF(90);
+        // A flamer vents plasma, and a plasma rifle fires ammunition: neither draws on an amplifier.
+        expect(building.addEquipmentFromTag("standard-flamer")).not.toBeNull();
+        expect(building.addEquipmentFromTag("er-flamer")).not.toBeNull();
+        expect(building.addEquipmentFromTag("plasma-rifle")).not.toBeNull();
+        expect(building.getPowerAmplifierWeight(1)).toBe(0);
+        building.addEquipmentFromTag("medium-laser");
+        expect(building.getPowerAmplifierWeight(1)).toBe(0.1);
+        const clan = kenyon();
+        expect(clan.addEquipmentFromTag("clan-large-chemical-laser")).not.toBeNull();
+        expect(clan.getPowerAmplifierWeight(1)).toBe(0);
     });
 
     it("limits Heavy weapons by hex and flags an overloaded hex (p.129)", () => {
