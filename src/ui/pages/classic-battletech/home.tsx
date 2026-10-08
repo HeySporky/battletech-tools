@@ -10,6 +10,7 @@ const TableViewIcon = MdTableView as any;
 const VehicleIcon = GiTank as any;
 const FighterIcon = GiJetFighter as any;
 const InfantryIcon = GiRank3 as any;
+const BattleArmorIcon = GiRank3 as any;
 const BuildingIcon = GiBunker as any;
 
 
@@ -49,6 +50,11 @@ export default class ClassicBattleTechHome extends React.Component<IClassicBattl
                   <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/infantry-creator`}>
                     <InfantryIcon />
                     Infantry Creator
+                  </Link>
+
+                  <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator`}>
+                    <BattleArmorIcon />
+                    Battle Armor Creator
                   </Link>
 
                   <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator`}>

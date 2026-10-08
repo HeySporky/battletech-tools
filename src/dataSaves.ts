@@ -9,6 +9,7 @@ import { BattleMechGroup, ICBTGroupExport, MAX_GROUP_VEHICLES } from "./classes/
 import Vehicle, { IVehicleExport, normalizeVehicleExport } from "./classes/vehicle";
 import AerospaceFighter, { IAerospaceFighterExport, normalizeAerospaceFighterExport } from "./classes/aerospace-fighter";
 import InfantryPlatoon, { IInfantryPlatoonExport, normalizeInfantryPlatoonExport } from "./classes/infantry-platoon";
+import BattleArmor, { IBattleArmorExport, normalizeBattleArmorExport } from "./classes/battle-armor";
 import Building, { IBuildingExport, normalizeBuildingExport } from "./classes/building";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
@@ -73,6 +74,10 @@ export interface IFullBackup {
     infantrySaves?: IInfantryPlatoonExport[];
     currentInfantry?: string | null;
 
+    // Battle armor designs; optional so older backups still restore.
+    battleArmorSaves?: IBattleArmorExport[];
+    currentBattleArmor?: string | null;
+
     // Gun emplacements and buildings; optional so older backups still restore.
     buildingSaves?: IBuildingExport[];
     currentBuilding?: string | null;
@@ -100,6 +105,8 @@ export async function getFullBackup(
         currentFighter: await getCurrentFighter(appSettings),
         infantrySaves: await getInfantrySaves(appSettings),
         currentInfantry: await getCurrentInfantry(appSettings),
+        battleArmorSaves: await getBattleArmorSaves(appSettings),
+        currentBattleArmor: await getCurrentBattleArmor(appSettings),
         buildingSaves: await getBuildingSaves(appSettings),
         currentBuilding: await getCurrentBuilding(appSettings),
         acesGame: await getAcesGame(appSettings),
@@ -121,6 +128,8 @@ export const MAX_VEHICLE_SAVES = 500;
 export const MAX_FIGHTER_SAVES = 500;
 /** Most saved infantry platoons read from storage or a backup. */
 export const MAX_INFANTRY_SAVES = 500;
+/** Most saved battle armor designs read from storage or a backup. */
+export const MAX_BATTLE_ARMOR_SAVES = 500;
 /** Most saved buildings read from storage or a backup. */
 export const MAX_BUILDING_SAVES = 500;
 /** Most groups read from one backup's favorites or force. */
@@ -466,6 +475,48 @@ export function restoreFullBackup(
         }
     }
 
+    if( Array.isArray(io.battleArmorSaves) ) {
+        // Saved battle armor designs in a backup may come from someone else: clean each one and report what changed.
+        if( io.battleArmorSaves.length > MAX_BATTLE_ARMOR_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_BATTLE_ARMOR_SAVES + " of " + io.battleArmorSaves.length + " saved battle armor designs are restored"));
+        }
+        for( const rawItem of io.battleArmorSaves.slice(0, MAX_BATTLE_ARMOR_SAVES) ) {
+            const normalized = normalizeBattleArmorExport( rawItem );
+            const item = normalized.suit;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved battle armor design '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.battleArmorSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Battle Armor '" + (appGlobals.battleArmorSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.battleArmorSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Battle Armor: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.battleArmorSaves.push( item )
+                }
+            }
+        }
+    }
+
+    if( overWriteCurrentBattlemech && typeof io.currentBattleArmor === "string" && io.currentBattleArmor ) {
+        for( const issue of new BattleArmor(io.currentBattleArmor).getImportIssues() ) {
+            restoreMessages.push(warning("Current battle armor design: " + issue));
+        }
+    }
+
     if( Array.isArray(io.buildingSaves) ) {
         // Saved buildings in a backup may come from someone else: clean each one and report what changed.
         if( io.buildingSaves.length > MAX_BUILDING_SAVES ) {
@@ -520,6 +571,9 @@ export function restoreFullBackup(
         }
         if( typeof io.currentInfantry === "string" && io.currentInfantry ) {
             appGlobals.currentInfantry = new InfantryPlatoon(io.currentInfantry);
+        }
+        if( typeof io.currentBattleArmor === "string" && io.currentBattleArmor ) {
+            appGlobals.currentBattleArmor = new BattleArmor(io.currentBattleArmor);
         }
         if( typeof io.currentBuilding === "string" && io.currentBuilding ) {
             appGlobals.currentBuilding = new Building(io.currentBuilding);
@@ -601,6 +655,9 @@ export function restoreFullBackup(
         appGlobals.saveInfantrySaves( appGlobals.infantrySaves );
         if( appGlobals.currentInfantry )
             appGlobals.saveCurrentInfantry( appGlobals.currentInfantry );
+        appGlobals.saveBattleArmorSaves( appGlobals.battleArmorSaves );
+        if( appGlobals.currentBattleArmor )
+            appGlobals.saveCurrentBattleArmor( appGlobals.currentBattleArmor );
         appGlobals.saveBuildingSaves( appGlobals.buildingSaves );
         if( appGlobals.currentBuilding )
             appGlobals.saveCurrentBuilding( appGlobals.currentBuilding );
@@ -950,6 +1007,50 @@ export async function getCurrentInfantry(
     return await getData(
         appSettings,
         "currentInfantry"
+    );
+}
+
+export function saveBattleArmorSaves(
+    appSettings: AppSettings,
+    newValue: IBattleArmorExport[]
+) {
+    saveData(appSettings, "battleArmorSaves", JSON.stringify(newValue) );
+}
+
+export async function getBattleArmorSaves(
+    appSettings: AppSettings,
+): Promise<IBattleArmorExport[]> {
+    let rv: IBattleArmorExport[] = [];
+
+    const rawData = await getData(appSettings, "battleArmorSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored battle armor designs before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_BATTLE_ARMOR_SAVES ).map( (item) => normalizeBattleArmorExport( item ).suit )
+            .filter( (item): item is IBattleArmorExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentBattleArmor(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentBattleArmor", newValue );
+}
+
+export async function getCurrentBattleArmor(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentBattleArmor"
     );
 }
 

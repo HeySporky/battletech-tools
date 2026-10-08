@@ -10,10 +10,11 @@ import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import Vehicle, { IVehicleExport } from "../classes/vehicle";
 import AerospaceFighter, { IAerospaceFighterExport } from "../classes/aerospace-fighter";
 import InfantryPlatoon, { IInfantryPlatoonExport } from "../classes/infantry-platoon";
+import BattleArmor, { IBattleArmorExport } from "../classes/battle-armor";
 import Building, { IBuildingExport } from "../classes/building";
 import { CONST_SITE_TITLE } from '../configVars';
 import { registerLocalCustomContent } from "../data/custom-content-local";
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentFighter, getBuildingSaves, getCurrentBuilding, getCurrentInfantry, getCurrentVehicle, getFavoriteASGroups, getFighterSaves, getInfantrySaves, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentFighter, saveBuildingSaves, saveCurrentBuilding, saveCurrentInfantry, saveCurrentVehicle, saveFavoriteASGroups, saveFighterSaves, saveInfantrySaves, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentFighter, getBuildingSaves, getCurrentBuilding, getCurrentInfantry, getCurrentBattleArmor, getBattleArmorSaves, saveBattleArmorSaves, saveCurrentBattleArmor, getCurrentVehicle, getFavoriteASGroups, getFighterSaves, getInfantrySaves, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentFighter, saveBuildingSaves, saveCurrentBuilding, saveCurrentInfantry, saveCurrentVehicle, saveFavoriteASGroups, saveFighterSaves, saveInfantrySaves, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
@@ -101,6 +102,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             saveCurrentInfantry: this.saveCurrentInfantry,
             infantrySaves: [],
             saveInfantrySaves: this.saveInfantrySaves,
+
+            currentBattleArmor: null,
+            saveCurrentBattleArmor: this.saveCurrentBattleArmor,
+            battleArmorSaves: [],
+            saveBattleArmorSaves: this.saveBattleArmorSaves,
 
             currentBuilding: null,
             saveCurrentBuilding: this.saveCurrentBuilding,
@@ -237,6 +243,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         const currentInfantry = new InfantryPlatoon( (await getCurrentInfantry(appSettings)) || "" );
         const infantrySaves: IInfantryPlatoonExport[] = await getInfantrySaves(appSettings);
 
+        const currentBattleArmor = new BattleArmor( (await getCurrentBattleArmor(appSettings)) || "" );
+        const battleArmorSaves: IBattleArmorExport[] = await getBattleArmorSaves(appSettings);
+
         const currentBuilding = new Building( (await getCurrentBuilding(appSettings)) || "" );
         const buildingSaves: IBuildingExport[] = await getBuildingSaves(appSettings);
 
@@ -309,6 +318,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.fighterSaves = fighterSaves;
         appGlobals.currentInfantry = currentInfantry;
         appGlobals.infantrySaves = infantrySaves;
+        appGlobals.currentBattleArmor = currentBattleArmor;
+        appGlobals.battleArmorSaves = battleArmorSaves;
         appGlobals.currentBuilding = currentBuilding;
         appGlobals.buildingSaves = buildingSaves;
 
@@ -477,6 +488,29 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         platoon.lastUpdated = new Date();
 
         saveCurrentInfantry( appGlobals.appSettings, platoon.exportJSON() );
+    }
+
+    saveBattleArmorSaves = ( newValue: IBattleArmorExport[] ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.battleArmorSaves = newValue;
+
+        saveBattleArmorSaves( appGlobals.appSettings, appGlobals.battleArmorSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveCurrentBattleArmor = ( suit: BattleArmor ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentBattleArmor = suit;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        suit.lastUpdated = new Date();
+
+        saveCurrentBattleArmor( appGlobals.appSettings, suit.exportJSON() );
     }
 
     saveCurrentFighter = ( fighter: AerospaceFighter ): void => {
@@ -869,6 +903,10 @@ export interface IAppGlobals {
     saveCurrentInfantry( platoon: InfantryPlatoon ): void;
     infantrySaves: IInfantryPlatoonExport[];
     saveInfantrySaves( newValue: IInfantryPlatoonExport[] ): void;
+    currentBattleArmor: BattleArmor | null;
+    saveCurrentBattleArmor( suit: BattleArmor ): void;
+    battleArmorSaves: IBattleArmorExport[];
+    saveBattleArmorSaves( newValue: IBattleArmorExport[] ): void;
     currentBuilding: Building | null;
     saveCurrentBuilding( building: Building ): void;
     buildingSaves: IBuildingExport[];

@@ -204,14 +204,32 @@ played first, then by dependency.
 
 ### Battle Armor
 
-- [ ] Suit construction (TechManual): chassis (weight class, PA(L) to Assault, body type), motive systems
-  (ground, jump, VTOL, UMU), manipulators, armor bought in points per trooper and kilograms (with stealth
-  and mimetic effects), weapons and equipment mounted by location with slot limits, modular weapon
-  mounts, anti-'Mech and anti-personnel mounts.
-- [ ] Squad/Point setup: trooper count (IS squads of 4-6, Clan Points of 5), per-trooper damage tracking,
-  and configurations where troopers differ.
-- [ ] Battle Armor record sheet, BV, cost, Alpha Strike conversion; roster/play with swarm and leg attacks
-  and mechanized (OmniMech/vehicle) transport. 1,189 BLK samples.
+- [x] Suit construction (2026-10-08): Battle Armor Creator under TechManual pp.160-173 (`battle-armor.ts`,
+  `battle-armor-construction.ts`, `battle-armor-equipment.ts`). Technology base, weight class (PA(L) to Assault),
+  humanoid or quad, Clan exoskeletons on an Inner Sphere chassis weight; Ground MP, jump jets, VTOL and UMU
+  systems, jump booster and partial wing; manipulators with modular equipment adaptors and cargo lifter capacity;
+  armor by the point with its weapon slots; both Battle Armor Equipment Tables (TM pp.346-348) mounted by
+  location against the slot and weapon limits; missile shots at a slot for every 4, one-shot and detachable
+  launchers; standard modular mounts, anti-personnel mounts carrying Standard infantry weapons, a quad's standard
+  or configurable turret, the squad support weapon; the Capabilities Table (Swarm, Leg, Mechanized). Reproduces
+  the book's Tunnel Rat, Sylph, Purifier and Fenrir.
+- [x] Squad setup, Battle Value, cost, record sheet (2026-10-08): 1-6 troopers with the Formations Table for
+  reference; Battle Value (TM pp.310-311, 316: Purifier Level I 466, Grenadier squad 326); cost (TM pp.276,
+  281, 296-298: Purifier structure 425,000); saves, backup, a record sheet with a row of armor circles for each
+  trooper.
+  Readings to confirm: (1) TM p.165 allows UMUs on a Clan exoskeleton with an Inner Sphere chassis weight and
+  p.270 forbids them; the construction step is followed and the summary says so. (2) Armor slots are taken from
+  whatever slots are free on the suit, not placed by location. (3) The Battle Value adds every direct-fire
+  weapon again for a suit that can Swarm, as p.310 prints, though only arm-mounted weapons fire in a Swarm
+  attack. (4) The bomb rack is counted with direct-fire weapons, as it is not in p.310's list of missile
+  weapons. (5) Every missile launcher is priced by the tube (TM p.297), a one-shot launcher at half. (6) HarJel
+  has no row in the battle armor price list and is left unpriced. (7) The book prices a suit; the squad is
+  priced as suits x troopers, with the squad support weapon bought once. (8) An armored glove with a basic
+  manipulator meets none of the Capabilities Table's lines, so that pair makes no Anti-'Mech attacks.
+- [ ] Battle armor still owed: Alpha Strike conversion; roster groups and play mode (per-trooper damage, swarm
+  and leg attacks, mechanized transport on OmniMechs and vehicles); alternate loadouts for modular mounts and
+  adaptors; introduction dates and an era filter (TM pp.296-298); Tactical Operations equipment; BLK import
+  (1,189 samples).
 
 ### Conventional Infantry
 
