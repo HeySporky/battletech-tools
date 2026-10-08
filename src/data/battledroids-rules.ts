@@ -78,6 +78,49 @@ export const battledroidsRulesTables: IBattledroidsRulesTable[] = [
         ],
     },
     {
+        title: "Heat Scale",
+        page: "BD pp.12-13, 28",
+        rows: [
+            ["5 / 10 / 15 / 20 / 25", "-1 / -2 / -3 / -4 / -5 MP. Not added together: the highest one reached applies"],
+            ["8 / 13 / 17 / 24", "+1 / +2 / +3 / +4 to hit, likewise"],
+            ["14 / 18 / 22 / 26", "Shutdown, avoided on two dice of 4 / 6 / 8 / 10 or more"],
+            ["30", "Shutdown"],
+            ["19 / 23 / 28", "Ammunition explosion, avoided on 4 / 6 / 8 or more"],
+            ["Avoid rolls", "Made every turn the heat stays at or above the level"],
+            ["Shut down", "The droid cannot move or fire and builds no heat of its own; its heat sinks still work"],
+            ["Restarting", "Each turn the DroidWarrior rolls two dice and restarts on a roll equal to or less than the Avoid number (as printed); below 15 the reactor restarts by itself"],
+            ["Limits", "The heat never falls below 0 or rises above 30"],
+        ],
+    },
+    {
+        title: "Ammunition Explosions",
+        page: "BD pp.13, 19",
+        rows: [
+            ["What explodes", "The most destructive ammunition rack of a non-energy weapon"],
+            ["Machine gun / auto cannon rack", "Damage Value 2 / 5"],
+            ["Short-range / long-range missile pack", "2 / 1 for each missile left"],
+            ["Where the damage goes", "The location holding it, straight to the internal structure, with a critical hit roll"],
+            ["DroidWarrior", "2 points of damage"],
+        ],
+    },
+    {
+        title: "Line Of Sight And Firing Arcs",
+        page: "BD pp.4-5, 8-9",
+        rows: [
+            ["Checking", "A straightedge from the centre of the attacker's hex to the centre of the target's"],
+            ["Woods, Advanced and Expert games", "Do not block the line of sight; they modify the To-Hit Number"],
+            ["Woods, Basic game", "Heavy woods between block it; so do 3 hexes of light woods. Woods in either droid's own hex do not"],
+            ["Higher ground between", "A hex higher than the attacker's or the target's blocks the line of sight"],
+            ["Shooting uphill", "Blocked if the hex next to the attacker is as high as the target's hex"],
+            ["Shooting downhill", "Blocked if the target is directly behind a hex as high as the attacker's (dead ground)"],
+            ["Partial cover, Advanced and Expert", "Both droids on one level and the target directly behind a hex 1 level higher: +3, not blocked. A hex 2 levels higher blocks"],
+            ["Firing arc", "Out from the front three hexsides"],
+            ["Torso twist, Advanced and Expert", "One hexside left or right, the feet staying put: the firing arc turns with the torso"],
+            ["Range", "Count the target's hex, not the attacker's, along the shortest path"],
+            ["Legs", "One leg destroyed: walking only. Both: no movement"],
+        ],
+    },
+    {
         title: "Critical Hits",
         page: "BD pp.18-19",
         rows: [
@@ -167,7 +210,7 @@ export const battledroidsRulesTables: IBattledroidsRulesTable[] = [
         rows: [
             ["Hit Location Table", "As shown by the hit location chart"],
             ["Missile Hit Table", "As shown by the cluster chart"],
-            ["Heat Scale", "As on the record sheet"],
+            ["Heat Scale", "As on the record sheet, and in the Heat Scale table above"],
             ["DroidWarrior Damage", "Consciousness 3, 5, 7, 10, 11; dead on the sixth point. 1 point for a head hit or a failed roll after a fall, 2 for an ammunition explosion"],
         ],
     },

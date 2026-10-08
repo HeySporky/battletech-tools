@@ -104,6 +104,9 @@ describe("Advanced and Expert Battledroids helpers", () => {
 
     it("cites a page for every reference table", () => {
         expect(battledroidsRulesTables.length).toBeGreaterThan(10);
+        // What play mode leaves to the players has its rules here.
+        expect(battledroidsRulesTables.map(table => table.title)).toEqual(expect.arrayContaining(
+            ["Heat Scale", "Ammunition Explosions", "Line Of Sight And Firing Arcs", "Critical Hits", "Optional: Clearing Woods And Fires"]));
         for (const table of battledroidsRulesTables) {
             expect(table.page, table.title).toMatch(/^BD pp?\.\d/);
             expect(table.rows.length, table.title).toBeGreaterThan(0);

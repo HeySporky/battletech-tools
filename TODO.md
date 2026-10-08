@@ -1011,7 +1011,10 @@ Open:
     modifier for a second target. The play screen carries the Advanced and Expert tables as a reference panel
     (`battledroids-rules.ts`). Fixed for every edition: the minimum range modifier was one short ([minimum] -
     [range] + 1, TW p.118), and a target's Other Mods can now be negative.
-  - [ ] Battledroids, readings to confirm with the user: (1) a jeep "can withstand 5 points of damage" and "any
+  - [x] Battledroids readings (1) to (6) below: confirmed by the user 2026-10-08. What play mode leaves to the
+    players stays with them, with the rules in the reference panel (Heat Scale, Ammunition Explosions, Line
+    Of Sight And Firing Arcs, Critical Hits).
+  - [x] Battledroids, readings: (1) a jeep "can withstand 5 points of damage" and "any
     hit that does more than 5 damage points kills" it (BD p.22): entered as destroyed by the sixth point,
     however the points arrive; (2) "every tank has ... 5 points of turret armor", though the Scorpion and the
     Hunter have no turret: all three track turret armor, as printed; (3) no modifier for a second target,
@@ -1023,12 +1026,12 @@ Open:
     Scale's effects at its heat, physical attack damage, Piloting Skill Rolls and falls (BD pp.11-15). The
     reference panel gained the optional woods and fire rules (BD p.21). For every edition: the Heat Scale's
     fire modifier is now in the to-hit numbers (+1 at 8, +2 at 13, +3 at 17, +4 at 24).
-  - [ ] Battledroids, more readings to confirm with the user: (4) the Basic Game Statistics table and the
+  - [x] Battledroids, more readings: (4) the Basic Game Statistics table and the
     worked example on the same page disagree (Crusader Armor 10 against 13, Warhammer medium Damage 16
     against 15, BD p.6): the table is entered; (5) the Armor Penetration Table starts at Armor Value 5, and a
     Stinger or Wasp hit from behind has 4 or 3: the 5 column is used and the panel says so; (6) falling damage
     rounds a tonnage that is not a multiple of 10 up, as a punch does (BD p.15 is silent).
-  - [ ] Battledroids, left to the players: the effects of a critical hit once marked (MP, to-hit and heat
+  - [x] Battledroids, left to the players by the user's choice (2026-10-08): the effects of a critical hit once marked (MP, to-hit and heat
     changes from destroyed actuators, sensors, engine and heat sinks), ammunition explosions, the Heat Scale's
     MP loss, shutdown and avoid rolls (shown by the helper, not applied), and line of sight.
   - [ ] Rules edition selector, still to do: (1) the Master Rules' own Battle Value system and each edition's
