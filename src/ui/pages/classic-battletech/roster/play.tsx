@@ -36,6 +36,7 @@ import InfantryPlayPanel from './_infantryPlay';
 import BattledroidsUnit from '../../../../classes/battledroids-unit';
 import BattledroidsPlayPanel from './_battledroidsPlay';
 import BattledroidsRulesReference from '../../../components/battledroids-rules-reference';
+import BattledroidsDroidHelper from '../../../components/battledroids-droid-helper';
 import Building from '../../../../classes/building';
 import BuildingPlayPanel from './_buildingPlay';
 const ArrowCircleDown = FaArrowCircleDown as any;
@@ -2753,7 +2754,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             />
           ) : selectedMech ? (
             <>
-              {selectedMech.getRulesEdition() === "battledroids" ? <BattledroidsRulesReference /> : null}
+              {selectedMech.getRulesEdition() === "battledroids" ? (
+                <>
+                  <BattledroidsDroidHelper key={selectedMech.uuid} mechData={selectedMech} />
+                  <BattledroidsRulesReference />
+                </>
+              ) : null}
               <button
                 className="btn btn-primary btn-sm full-width"
                 onClick={this.openZoomSheet}

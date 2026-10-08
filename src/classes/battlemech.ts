@@ -5132,6 +5132,57 @@ export class BattleMech {
         return this._rulesEdition;
     }
 
+    /** What the Heat Scale adds to the To-Hit Number at the current heat: +1 at 8, +2 at 13, +3 at 17, +4 at 24 (TW pp.158-160; BD p.13). */
+    public getHeatToHitModifier(): number {
+        const heat = this.currentHeat;
+        return heat >= 24 ? 4 : heat >= 17 ? 3 : heat >= 13 ? 2 : heat >= 8 ? 1 : 0;
+    }
+
+    /**
+     * Roll for a critical hit in a location by the rules of the design's edition, for an edition whose play rules
+     * are entered (Battledroids, BD p.18: 7 or more on two dice is one critical hit; one die picks the line in the
+     * head or a leg, a die for the group and a die for the line elsewhere; an empty line is rolled again). The
+     * line hit is marked. `dice` supplies the players' rolls: the chance roll, then the dice for the line in order.
+     */
+    public rollEditionCriticalHit(location: string, dice: { chance?: number; lines?: number[] } = {}): string[] {
+        const rules = this.getEditionPlayRules();
+        if (!rules) {
+            return [];
+        }
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const chance = dice.chance ?? die() + die();
+        if (chance < rules.criticalHitRoll) {
+            return [`Critical hit roll ${chance}: no critical hit (${rules.criticalHitRoll} or more is needed).`];
+        }
+        const normalized = this._normalizeLocation(location);
+        const slots: (ICriticalSlot | null | undefined)[] = (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[normalized]] ?? [];
+        const lines = [...(dice.lines ?? [])];
+        const next = () => lines.shift() ?? die();
+        const twelve = !["hd", "ll", "rl", "cl", "fll", "frl"].includes(normalized);
+        const log = [`Critical hit roll ${chance}: a critical hit.`];
+        for (let attempt = 0; attempt < 100; attempt++) {
+            const first = next();
+            const index = twelve ? (first <= 3 ? 0 : 6) + next() - 1 : first - 1;
+            const label = twelve ? `${first <= 3 ? 1 : 2}${index % 6 + 1}` : `${index + 1}`;
+            if (!slots[index]) {
+                log.push(`Line ${label} is empty: rolled again.`);
+                continue;
+            }
+            let named = index;
+            while (named > 0 && slots[named]?.placeholder) named--;
+            const name = slots[named]?.name ?? "that line";
+            if (this.isCriticalDamaged(normalized, index)) {
+                log.push(`Line ${label}, ${name}: already hit.`);
+            } else {
+                this.toggleCritical(normalized, index);
+                log.push(`Line ${label}: ${name} is hit.`);
+            }
+            return log;
+        }
+        log.push("This location has nothing to hit.");
+        return log;
+    }
+
     /** The play rules of the design's edition where they differ from Total Warfare's; undefined when they do not. */
     public getEditionPlayRules() {
         return getEditionPlayRules(this._rulesEdition);

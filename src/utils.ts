@@ -905,6 +905,13 @@ export function getTargetToHitFromWeapon(
                 gator.otherModifiers += fireControlModifier;
                 otherModifiersExplanation.push( (mech.isPrimitive() ? "Primitive IndustrialMech cockpit" : "IndustrialMech fire control") + " (+" + fireControlModifier + ")" );
             }
+            // The Heat Scale's fire modifier (TW pp.158-160; BD p.13).
+            const heatModifier = mech.getHeatToHitModifier();
+            if( heatModifier > 0 ) {
+                gator.finalToHit += heatModifier;
+                gator.otherModifiers += heatModifier;
+                otherModifiersExplanation.push( "Heat (+" + heatModifier + ")" );
+            }
             // Battledroids has no modifier for a second target (BD pp.8-11, 15).
             if( !target.primary && mech.getEditionPlayRules()?.secondaryTargetModifiers !== false ) {
                 if( target.inRearArc ) {

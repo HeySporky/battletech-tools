@@ -147,6 +147,21 @@ export const battledroidsRulesTables: IBattledroidsRulesTable[] = [
         ],
     },
     {
+        title: "Optional: Clearing Woods And Fires",
+        page: "BD p.21",
+        rows: [
+            ["Clearing a woods hex", "Attack the hex, modified by range only: heavy woods become light, light woods become rough. Not with small lasers, machine guns, auto cannons or 2-pack short-range missiles"],
+            ["Accident while clearing", "Roll two dice: less than 6 and the woods are set alight"],
+            ["After a missed shot", "With a weapon that can start fires or clear woods, roll two dice: 2 or 3 sets the target's hex on fire, 11 or 12 clears its woods"],
+            ["Starting a fire: flamer", "Attack the woods hex, modified by range: a hit sets it on fire"],
+            ["Starting a fire: energy weapon", "-4 and range; on a hit, 7 or more on two dice sets the hex on fire"],
+            ["Starting a fire: missiles", "-4 and range; on a hit, 9 or more sets the hex on fire. Not with 2-pack short-range missiles"],
+            ["Machine guns and auto cannons", "Cannot set fires"],
+            ["Wind", "Number the hexsides 1 to 6 clockwise and roll one die at the start of the game"],
+            ["Spreading, each End Phase", "The hex downwind of a fire: 7 or more. The hex on either side of that one: 9 or more. Into woods and clear hexes, never rough or water"],
+        ],
+    },
+    {
         title: "Same As The Screen's Own Tables",
         page: "BD pp.10-11, 13, 19",
         rows: [
@@ -157,3 +172,66 @@ export const battledroidsRulesTables: IBattledroidsRulesTable[] = [
         ],
     },
 ];
+
+/** Damage of a battledroid's physical attacks by its tonnage (BD pp.11-12, 20-21); fractions round up. */
+export function getBattledroidsPhysicalDamage(tons: number): { punch: number; kick: number; chargePerHex: number; club: number } {
+    return { punch: Math.ceil(tons / 10), kick: Math.ceil(tons / 5), chargePerHex: Math.ceil(tons / 10), club: Math.ceil(tons / 5) };
+}
+
+/**
+ * Falling damage (BD p.15): 1 point for every 10 tons, times the levels fallen plus 1; halved in a water hex,
+ * rounding up. A fall uphill counts as no levels. The page rounds nothing for the tonnage; fractions go up here,
+ * as they do for a punch.
+ */
+export function getBattledroidsFallingDamage(tons: number, levelsFallen: number, intoWater: boolean = false): number {
+    const damage = Math.ceil(tons / 10) * (Math.max(0, Math.floor(levelsFallen)) + 1);
+    return intoWater ? Math.ceil(damage / 2) : damage;
+}
+
+/** Facing After A Fall, BD p.15, by one die: the new facing and the Hit Location Table column for the damage. */
+export const battledroidsFacingAfterFall: { facing: string; column: string }[] = [
+    { facing: "Same direction (on its face)", column: "Front/Back" },
+    { facing: "1 hexside right (on its side)", column: "Right Side" },
+    { facing: "2 hexsides right (on its side)", column: "Right Side" },
+    { facing: "Opposite direction (on its back)", column: "Front/Back" },
+    { facing: "2 hexsides left (on its side)", column: "Left Side" },
+    { facing: "1 hexside left (on its side)", column: "Left Side" },
+];
+
+/** Falling Or Standing Table, BD p.15: what is added to the Piloting Skill, and how many times each can count. */
+export const battledroidsPilotingModifiers: { tag: string; label: string; modifier: number; max: number }[] = [
+    { tag: "charged", label: "Charged, or charging", modifier: 2, max: 1 },
+    { tag: "damage", label: "Took 20 damage", modifier: 1, max: 1 },
+    { tag: "shutdown", label: "Reactor shut down", modifier: 3, max: 1 },
+    { tag: "leg-actuator", label: "Leg actuators destroyed", modifier: 1, max: 6 },
+    { tag: "hip", label: "Hip critical hits", modifier: 2, max: 2 },
+    { tag: "gyro", label: "Gyro hit", modifier: 3, max: 1 },
+    { tag: "water", label: "Entering or leaving a water hex", modifier: -1, max: 1 },
+    { tag: "levels", label: "Levels fallen", modifier: 1, max: 10 },
+];
+
+/** The Piloting Skill Roll's number: the skill plus the table's modifiers, each counted up to its limit. */
+export function getBattledroidsPilotingTarget(piloting: number, counts: Record<string, number>): number {
+    return battledroidsPilotingModifiers.reduce(
+        (total, entry) => total + entry.modifier * Math.min(entry.max, Math.max(0, Math.floor(counts[entry.tag] ?? 0))), piloting);
+}
+
+export interface IBattledroidsHeatEffects {
+    /** Movement points lost, and what is added to the To-Hit Number. */
+    move: number;
+    fire: number;
+    /** Two-dice roll that avoids a shutdown or an ammunition explosion; 13 when a shutdown cannot be avoided; 0 for none. */
+    shutdownAvoid: number;
+    ammoExplosionAvoid: number;
+}
+
+/** The Heat Scale's effects at a heat level (BD pp.12-13 and the record sheet). The highest of each kind applies. */
+export function getBattledroidsHeatEffects(heat: number): IBattledroidsHeatEffects {
+    const highest = (steps: [number, number][]) => steps.reduce((value, [level, effect]) => (heat >= level ? effect : value), 0);
+    return {
+        move: highest([[5, 1], [10, 2], [15, 3], [20, 4], [25, 5]]),
+        fire: highest([[8, 1], [13, 2], [17, 3], [24, 4]]),
+        shutdownAvoid: highest([[14, 4], [18, 6], [22, 8], [26, 10], [30, 13]]),
+        ammoExplosionAvoid: highest([[19, 4], [23, 6], [28, 8]]),
+    };
+}

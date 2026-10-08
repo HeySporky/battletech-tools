@@ -275,6 +275,18 @@ describe("Rules edition selector", () => {
             }
         });
 
+        // Heat Scale: +1 to hit at 8, +2 at 13, +3 at 17, +4 at 24 (TW pp.158-160; the same on the Battledroids record sheet).
+        it("adds the fire modifier of the Heat Scale, in every edition", () => {
+            for (const edition of [undefined, "battledroids"]) {
+                const mech = build(edition, 60, 4);
+                const weapon = mech.addEquipmentFromTag("medium-laser", mech.getTech().tag, "rt", false, undefined, "a", false, [], undefined, undefined)!;
+                const index = mech.equipmentList.findIndex(item => item.uuid === weapon.uuid);
+                const toHit = (heat: number) => { mech.currentHeat = heat; return getTargetToHitFromWeapon(mech, index, { ...target, range: 2 }).finalToHit; };
+                const cool = toHit(0);
+                expect([7, 8, 12, 13, 17, 23, 24, 30].map(heat => toHit(heat) - cool), String(edition)).toEqual([0, 1, 1, 2, 3, 3, 4, 4]);
+            }
+        });
+
         // The weapon attack rules of Battledroids (BD pp.8-11, 15) have no modifier for a second target.
         it("has no modifier for a second target in Battledroids", () => {
             const extra = (edition: string | undefined, inRearArc: boolean) =>
@@ -282,6 +294,26 @@ describe("Rules edition selector", () => {
             expect([extra("battledroids", false), extra("battledroids", true)]).toEqual([0, 0]);
             expect([extra(undefined, false), extra(undefined, true)]).toEqual([1, 2]);
         });
+    });
+
+    // BD p.18: 7 or more on two dice is a critical hit; one die picks the line in the head or a leg, two dice
+    // elsewhere (the first for the group, the second for the line); an empty line is rolled again.
+    it("rolls a critical hit by the rules of Battledroids", () => {
+        const mech = build("battledroids", 60, 4);
+        expect(mech.rollEditionCriticalHit("hd", { chance: 6 })).toEqual(["Critical hit roll 6: no critical hit (7 or more is needed)."]);
+        // Head line 3 is the cockpit.
+        expect(mech.rollEditionCriticalHit("hd", { chance: 7, lines: [3] })).toEqual(["Critical hit roll 7: a critical hit.", "Line 3: Cockpit is hit."]);
+        expect(mech.isCriticalDamaged("hd", 2)).toBe(true);
+        expect(mech.rollEditionCriticalHit("hd", { chance: 9, lines: [3] }).at(-1)).toBe("Line 3, Cockpit: already hit.");
+        // Center torso: group 2 (a 4), line 1 is the seventh box, the fourth gyro box.
+        const torso = mech.rollEditionCriticalHit("ct", { chance: 12, lines: [4, 1] });
+        expect(torso.at(-1)).toBe("Line 21: Standard Gyro is hit.");
+        expect(mech.isCriticalDamaged("ct", 6)).toBe(true);
+        // A leg's lines 5 and 6 are empty: rolled again.
+        const leg = mech.rollEditionCriticalHit("ll", { chance: 8, lines: [6, 1] });
+        expect(leg).toEqual(["Critical hit roll 8: a critical hit.", "Line 6 is empty: rolled again.", "Line 1: Hip is hit."]);
+        // Total Warfare's own critical hit rules are not rolled here.
+        expect(build().rollEditionCriticalHit("hd", { chance: 12 })).toEqual([]);
     });
 
     it("saves the edition with the design and loads old saves as Total Warfare", () => {

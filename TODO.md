@@ -1016,10 +1016,21 @@ Open:
     however the points arrive; (2) "every tank has ... 5 points of turret armor", though the Scorpion and the
     Hunter have no turret: all three track turret armor, as printed; (3) no modifier for a second target,
     because the weapon attack rules name none.
-  - [ ] Battledroids, not built: the Basic game (one Damage Value and Armor Value for each droid and the Armor
-    Penetration Table, BD pp.5-6); the optional terrain rules (clearing woods, fires, BD p.21) and the severed
-    limb as a club; play mode still leaves critical hit results, Piloting Skill Rolls and the Heat Scale's
-    Fire modifier to the players, as it does under Total Warfare.
+  - [x] Battledroids, the rest of play (2026-10-08). The Basic game (BD pp.3-6): the ten droids' statistics,
+    the Range, Armor Penetration and Damage Effects tables, and a panel that works a shot out and rolls it
+    (`battledroids-basic-game.ts`). For a 'Mech built under Battledroids: a critical hit roll in the critical
+    hit dialog (7 or more, the line picked by the dice and marked, BD p.18), and a helper with the Heat
+    Scale's effects at its heat, physical attack damage, Piloting Skill Rolls and falls (BD pp.11-15). The
+    reference panel gained the optional woods and fire rules (BD p.21). For every edition: the Heat Scale's
+    fire modifier is now in the to-hit numbers (+1 at 8, +2 at 13, +3 at 17, +4 at 24).
+  - [ ] Battledroids, more readings to confirm with the user: (4) the Basic Game Statistics table and the
+    worked example on the same page disagree (Crusader Armor 10 against 13, Warhammer medium Damage 16
+    against 15, BD p.6): the table is entered; (5) the Armor Penetration Table starts at Armor Value 5, and a
+    Stinger or Wasp hit from behind has 4 or 3: the 5 column is used and the panel says so; (6) falling damage
+    rounds a tonnage that is not a multiple of 10 up, as a punch does (BD p.15 is silent).
+  - [ ] Battledroids, left to the players: the effects of a critical hit once marked (MP, to-hit and heat
+    changes from destroyed actuators, sensors, engine and heat sinks), ammunition explosions, the Heat Scale's
+    MP loss, shutdown and avoid rolls (shown by the helper, not applied), and line of sight.
   - [ ] Rules edition selector, still to do: (1) the Master Rules' own Battle Value system and each edition's
     cost rules are not built, so the editions that have them still show the current rules' figures; (2) the
     Internal Combustion Engine is offered to BattleMechs under the editions that list it, though the

@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { battledroidsRulesTables } from '../../data/battledroids-rules';
+import BattledroidsBasicGame from './battledroids-basic-game';
 
 /** The tables of Advanced and Expert Battledroids a game needs at hand, folded away until opened. */
 export default class BattledroidsRulesReference extends React.Component<IBattledroidsRulesReferenceProps> {
     render = (): React.ReactNode => (
+        <>
         <details className="battledroids-rules-reference" data-testid="battledroids-rules-reference" open={this.props.open}>
             <summary><strong>Battledroids (1984) rules for this unit</strong> <span className="small-text">(click to open)</span></summary>
             {battledroidsRulesTables.map((table) => (
@@ -23,6 +25,8 @@ export default class BattledroidsRulesReference extends React.Component<IBattled
                 </table>
             ))}
         </details>
+        <BattledroidsBasicGame />
+        </>
     )
 }
 
