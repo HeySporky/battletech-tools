@@ -966,9 +966,9 @@ Open:
     (pp.104-106), prices (pp.123-124), Equipment (pp.112-122), Construction (pp.99-109), Artillery (pp.77-80)
     and Aerospace Support (pp.70-75). Every weapon row and price matches the 1990 Compendium's. Ferro-Aluminum
     armor and Land-Air BattleMechs are gone with the AeroTech rules (p.7); BattleMechs still run from 10 to
-    100 tons (p.100). Torpedo launchers (p.121), Narc-equipped missiles (p.119) and single-shot Streak and
-    Narc launchers (p.120) first appear here, so 28 records now start in this edition instead of the Master
-    Rules; the cluster, mine, Arrow IV and TAG ordnance of aerospace support fighters (p.73) starts here too.
+    100 tons (p.100). Torpedo launchers (p.121) and Narc-equipped missiles (p.119) first appear here, so 22
+    records now start in this edition instead of the Master Rules (six more, the single-shot Streak and Narc
+    launchers, start in the 1990 Compendium); the cluster, mine, Arrow IV and TAG ordnance of aerospace support fighters (p.73) starts here too.
     Eight Technical Readout BattleMechs (pp.125-132) are listed on the edition.
     User rulings (2026-10-08): (1) Narc-equipped ammunition costs twice the standard ton, as p.119 says; (2)
     torpedoes take the matching launcher's figures: the only difference is air against water; (3) the Clan
@@ -980,8 +980,9 @@ Open:
     record a kind: high-explosive, cluster, inferno, mines, Arrow IV, homing Arrow IV and TAG pod each carry
     the edition; (7) the homing Arrow IV round uses the system's 5 shots a ton; (8) the printing is noted on
     the edition.
-    Still open: the same single-shot passage is in the 1990 Compendium (BTC p.121), where only the LRM and
-    SRM single-shot launchers are entered.
+    The same single-shot passage is in the 1990 Compendium (BTC p.121), so the six single-shot Streak and Narc
+    launchers are entered there as well and start in that edition (user ruling, 2026-10-08); a single-shot
+    Narc launcher carries 1 pod.
   - [ ] Next: the rules edition selector.
   - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
     1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).

@@ -144,7 +144,7 @@ export const btRulesEditions: IRulesEdition[] = [
             "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon to-hit and damage rows and platoon prices (BTC pp.45, 130).",
             "BattleArmor: a fixed design, five Elementals to a Point, each suit with 11 points of armor, SRMs and a small laser, flamer or machine gun; 3,500,000 C-bills a Point (BTC pp.8, 45-46, 130).",
             "Clubs: a severed arm or leg, an uprooted tree or a girder from a rubbled building, picked up on the map (BTC p.31).",
-            "Single-shot Streak, Narc and Artemis launchers: allowed at double the launcher's base price, with no rows of their own (BTC p.121); only the LRM and SRM single-shot launchers are entered.",
+            "Single-shot launchers fitted for special munitions or an Artemis IV FCS: allowed at double the launcher's base price, with no rows of their own (BTC p.121). The LRM, SRM, Streak and Narc single-shot launchers are entered; the Streak and Narc ones carry no price, because the book does not say which base price is doubled.",
         ],
     },
     {

@@ -516,7 +516,8 @@ describe("Rules editions: The BattleTech Compendium, complete", () => {
         "equipment lrm-15-artemis-iv", "equipment lrm-20-artemis-iv", "equipment srm-2-artemis-iv",
         "equipment srm-4-artemis-iv", "equipment srm-6-artemis-iv", "equipment lrm-5-os", "equipment lrm-10-os",
         "equipment lrm-15-os", "equipment lrm-20-os", "equipment srm-2-os", "equipment srm-4-os",
-        "equipment srm-6-os",
+        "equipment srm-6-os", "equipment streak-srm-2-os", "equipment narc-os",
+        "equipment clan-streak-srm-2-os", "equipment clan-streak-srm-4-os", "equipment clan-streak-srm-6-os", "equipment clan-narc-os",
         "equipment arrow-iv-system",
         "equipment is-tag", "equipment beagle-active-probe", "equipment case", "equipment c3-computer-master",
         "equipment c3-computer-slave", "equipment ecm-suite", "equipment masc",
@@ -569,7 +570,7 @@ describe("Rules editions: The BattleTech Compendium, complete", () => {
 
     it("includes everything the Manual does, and these additions", () => {
         expect(inEdition(TAG)).toEqual([...inEdition("battletech-manual"), ...added].sort());
-        expect(added).toHaveLength(129);
+        expect(added).toHaveLength(135);
         for (const label of added) {
             expect(labelled.find(entry => entry.label === label)!.record.introducedInEdition, label).toBe(TAG);
         }
@@ -899,9 +900,9 @@ describe("Rules editions: The Rules of Warfare, complete", () => {
     const row = (tag: string) => figures(find(tag).editionStats![TAG]!);
 
     // BTC:RoW p.7: a ground game, so the 1990 Compendium's AeroTech rules are gone and Land-Air BattleMechs move
-    // to the Tactical Handbook. New: torpedoes (BTC:RoW p.121), Narc-equipped missiles (BTC:RoW p.119), single-shot
-    // Streak and Narc launchers (BTC:RoW p.120) and the ordnance of aerospace support fighters (BTC:RoW p.73).
-    it("includes the Compendium's records less Ferro-Aluminum armor and LAMs, and thirty-seven new ones", () => {
+    // to the Tactical Handbook. New: torpedoes (BTC:RoW p.121), Narc-equipped missiles (BTC:RoW p.119) and the
+    // ordnance of aerospace support fighters (BTC:RoW p.73).
+    it("includes the Compendium's records less Ferro-Aluminum armor and LAMs, and thirty-one new ones", () => {
         const added = labelled.filter(entry => entry.record.introducedInEdition === TAG).map(entry => entry.label);
         const dropped = ["armor ferro-aluminum", "mech type lam"];
         expect(inEdition(BEFORE).filter(label => !inEdition(TAG).includes(label)).sort()).toEqual(dropped);
@@ -909,11 +910,10 @@ describe("Rules editions: The Rules of Warfare, complete", () => {
         expect(added.sort()).toEqual([
             ...["is", "clan"].flatMap(base => ["lrm-narc", "srm-narc", "lrt-standard", "srt-standard"].map(kind => `equipment ammo-${base}-${kind}`)),
             ...["", "clan-"].flatMap(base => ["lrt-5", "lrt-10", "lrt-15", "lrt-20", "srt-2", "srt-4", "srt-6"].map(kind => `equipment ${base}${kind}`)),
-            ...["streak-srm-2-os", "narc-os", "clan-streak-srm-2-os", "clan-streak-srm-4-os", "clan-streak-srm-6-os", "clan-narc-os"].map(tag => "equipment " + tag),
             ...["is", "clan"].flatMap(base => ["thunder", "arrow-iv", "arrow-iv-homing", "tag"].map(kind => `equipment ammo-${base}-bomb-${kind}`)),
             "equipment ammo-bomb-cluster",
         ].sort());
-        expect(added).toHaveLength(37);
+        expect(added).toHaveLength(31);
         const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
         expect(edition.complete).toBe(true);
         expect(edition.mechs).toEqual(["RVN-3L Raven", "BSW-X1 Bushwacker", "AXM-2N Axman", "MAL-1R Mauler",
@@ -1004,7 +1004,11 @@ describe("Rules editions: The Rules of Warfare, complete", () => {
                 .toEqual([120, launcher.weight! + 0.5, launcher.heat, launcher.range, undefined]);
             expect(single.notes).toContain("double the base cost of the launcher");
             expect(single.notes).toContain("Half normal");
+            // BTC p.121 has the same passage: the 1990 Compendium lists them too, also without a price.
+            const first = find(tag + "-os").editionStats![BEFORE]!;
+            expect([first.page, first.weight, first.cbills, find(tag + "-os").introducedInEdition], tag).toEqual([121, single.weight, undefined, BEFORE]);
         }
+        expect(find("narc-os").editionStats![TAG]!.notes).toContain("carries 1 pod");
     });
 
     // BTC:RoW pp.104-106 and p.80, Artillery Table: damage to the target hex and the adjacent hexes, range in mapsheets.
