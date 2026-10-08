@@ -69,7 +69,7 @@ export interface IBattleArmorEquipment {
     rulesLevel?: number;
     /** Added to the Defensive Battle Rating in place of 1 (Angel ECM, TO:AUE p.192). */
     defensiveValue?: number;
-    /** Ground MP added: to PA(L), Light and Medium suits, and to Heavy and Assault suits (TO:AUE p.99). */
+    /** Ground MP added: to PA(L), Light and Medium suits, and to Heavy and Assault suits (TO:AUE pp.98-99). */
     groundBonus?: { light: number; heavy: number };
     /** A mechanical jump booster: weighs and costs by the suit's jump jets and gives 1 Jumping MP of its own. */
     mechanicalJumpBooster?: boolean;
@@ -83,7 +83,7 @@ export interface IBattleArmorEquipment {
     dates?: IBattleArmorDates;
     /** Alpha Strike damage of one item at Short, Medium and Long range (ASC pp.105-113). */
     alphaStrike?: IBattleArmorAlphaStrikeDamage;
-    /** Alpha Strike special ability the item gives the unit (ASC pp.116-136). */
+    /** Alpha Strike special ability the item gives the unit (ASC pp.117-133). */
     alphaStrikeSpecial?: string;
 }
 
@@ -307,7 +307,7 @@ const equipmentRows: IBattleArmorEquipment[] = [
     { ...weapon("clan", "Lasers", "ER Medium Pulse Laser", "7", "-/5/9/14", 800, 4, 0.45, 11, 117, 150000, 132, "-1 to-hit modifier."), ...EXPERIMENTAL },
     item("clan", "Myomer Booster", "NA", 250, 3, 0, 99, { ...EXPERIMENTAL, noMount: true, max: 1, spreadSlots: true, groundBonus: { light: 2, heavy: 1 }, costPerMP: 75000,
         barsArmor: ["ba-stealth-basic", "ba-stealth-standard", "ba-stealth-improved", "ba-stealth-prototype", "ba-mimetic"],
-        notes: "+2 Ground MP on PA(L), Light and Medium suits, +1 on Heavy and Assault suits; Leg and Swarm attacks do 2 more damage for each active trooper (TO:AUE p.99)." }),
+        notes: "+2 Ground MP on PA(L), Light and Medium suits, +1 on Heavy and Assault suits; Leg and Swarm attacks do 2 more damage for each active trooper (TO:AUE pp.98-99)." }),
     item("clan", "HarJel", "NA", 0, 0, null, 256, { noMount: true, max: 1, notes: "The price list has no row for HarJel on battle armor." }),
     item("clan", "Heat Sensor", "-/11/23/34", 20, 1, 15000, 256),
     item("clan", "Improved Sensors", "-/-/-/3", 45, 1, 35000, 257, { defensive: true, max: 1 }),
@@ -422,7 +422,7 @@ const sm = (value: number): IBattleArmorAlphaStrikeDamage => strike(value, value
 const INDIRECT = { indirect: true };
 
 // Alpha Strike Weapon Conversion Tables: Additional Inner Sphere and Clan Battle Armor Weapons (ASC pp.112-113),
-// and the Standard Weapons tables (ASC pp.105-109) for the weapons a suit shares with larger units.
+// and the Standard Weapons tables (ASC pp.105-111) for the weapons a suit shares with larger units.
 const ALPHA_STRIKE_ROWS: [RegExp, (tag: string) => IBattleArmorAlphaStrikeDamage | undefined][] = [
     [/^is-firedrake-support-needler$/, () => strike(0.1)],
     [/^is-(king-)?david-light-gauss-rifle$/, () => sm(0.1)],
@@ -469,7 +469,7 @@ const ALPHA_STRIKE_ROWS: [RegExp, (tag: string) => IBattleArmorAlphaStrikeDamage
     [/-machine-gun$/, () => strike(0.2)],
 ];
 
-/** Special abilities an item gives its unit (ASC pp.116-136). */
+/** Special abilities an item gives its unit (ASC pp.117-133). */
 const ALPHA_STRIKE_SPECIALS: [RegExp, string][] = [
     [/-active-probe$/, "LPRB"],
     [/-angel-ecm$/, "AECM"],

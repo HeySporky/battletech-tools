@@ -11,6 +11,7 @@ import VehicleRecordSheet from "../../../components/vehicle-record-sheet";
 import { vehicleName } from "./_vehicleGroupTable";
 import FighterRecordSheet from "../../../components/fighter-record-sheet";
 import InfantryRecordSheet from "../../../components/infantry-record-sheet";
+import BattleArmorRecordSheet from "../../../components/battle-armor-record-sheet";
 import BattledroidsUnitRecordSheet from "../../../components/battledroids-unit-record-sheet";
 import BuildingRecordSheet from "../../../components/building-record-sheet";
 import { buildingSummary } from "./_buildingGroupTable";
@@ -37,6 +38,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         ...groups.flatMap( (group) => group.vehicles ).map( (vehicle) => vehicle.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.fighters ).map( (fighter) => fighter.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.infantry ).map( (platoon) => platoon.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.battleArmor ).map( (squad) => squad.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.buildings ).map( (building) => building.getRequiredRulesLevel() ),
       ];
       printWithRulesLevelGuard(
@@ -247,6 +249,33 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       </tr>
                     </tbody>
                     ))}
+                    {group.battleArmor.map( (squad) => (
+                    <tbody key={squad.getUUID()}>
+                      <tr>
+                        <td>
+                          {squad.getDisplayName()} ({squad.getWeightClass().name} battle armor, {squad.getSquadSize()} troopers)
+                        </td>
+                        <td>
+                          {squad.getSquadSize()}
+                        </td>
+                        <td className="small-text">
+                          {squad.isClan() ? "Clan" : "Inner Sphere"}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {squad.getCapabilities().swarm || squad.getCapabilities().leg ? squad.getAntiMechSkill() : "-"}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {squad.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {squad.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {squad.getSkillAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
                     {group.battledroidsUnits.map( (unit) => (
                     <tbody key={unit.getUUID()}>
                       <tr>
@@ -350,6 +379,17 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         />
                         <InfantryRecordSheet
                           platoon={platoon}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.battleArmor.map( (squad) => (
+                      <div className={"page"} key={squad.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={squad.getRequiredRulesLevel()}
+                        />
+                        <BattleArmorRecordSheet
+                          suit={squad}
                           showDamage={true}
                         />
                       </div>

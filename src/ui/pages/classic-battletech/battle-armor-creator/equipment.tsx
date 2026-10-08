@@ -1,7 +1,7 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
-import BattleArmor, { BATTLE_ARMOR_LOCATION_NAMES, BattleArmorLocation, IBattleArmorMountedItem } from '../../../../classes/battle-armor';
+import BattleArmor, { BATTLE_ARMOR_LOCATION_NAMES, BATTLE_ARMOR_WEAPON_PACK, BattleArmorLocation, IBattleArmorMountedItem } from '../../../../classes/battle-armor';
 import { BATTLE_ARMOR_TURRET } from '../../../../data/battle-armor-construction';
 import { IBattleArmorEquipment, findBattleArmorEquipment } from '../../../../data/battle-armor-equipment';
 import { IAppGlobals } from '../../../app-router';
@@ -43,6 +43,7 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
     private _itemRow = (suit: BattleArmor, entry: IBattleArmorMountedItem, index: number): JSX.Element | null => {
         const equipment = findBattleArmorEquipment(entry.tag);
         if (!equipment) return null;
+        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
         const missile = equipment.kind === "missile";
         const mountable = !equipment.noMount && !suit.isQuad();
         return (
@@ -85,6 +86,12 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                             &nbsp;Modular weapon mount (+10 kg, +1 slot)
                         </label>
                     ) : null}
+                    {suit.canUseWeaponPack(entry) && rulesLevel >= BATTLE_ARMOR_WEAPON_PACK.rulesLevel ? (
+                        <label>
+                            <input type="checkbox" data-testid="ba-item-dwp" checked={!!entry.dwp} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.updateItem(index, { dwp: value })); }} />
+                            &nbsp;Detachable weapon pack (75% of its weight, 1 slot; TO:AUE pp.98-99)
+                        </label>
+                    ) : null}
                     {mountable && equipment.kind !== "equipment" ? (
                         <label>
                             <input type="checkbox" data-testid="ba-item-ssw" checked={!!entry.squadSupport} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.updateItem(index, { squadSupport: value })); }} />
@@ -113,7 +120,8 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
         const locations = suit.getLocations();
         const location = locations.includes(this.state.location) ? this.state.location : "body";
         const turret = suit.getTurret();
-        const available = suit.getAvailableEquipment();
+        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const available = suit.getAvailableEquipment(rulesLevel);
         const groups = Array.from(new Set(available.map((equipment) => equipment.group)));
         const apWeapons = suit.getAntiPersonnelWeapons();
 
@@ -203,13 +211,16 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                                             <tr><th colSpan={8}>{group}</th></tr>
                                             {available.filter((equipment) => equipment.group === group).map((equipment) => (
                                                 <tr key={equipment.tag}>
-                                                    <td>{equipment.name} <span className="smaller-text">(TM p.{equipment.page})</span></td>
+                                                    <td>
+                                                        {equipment.name} <span className="smaller-text">({equipment.book ?? "TM"} p.{equipment.page}{equipment.rulesLevel === 4 ? ", Experimental" : equipment.rulesLevel === 3 ? ", Advanced" : ""})</span>
+                                                        {!suit.isEquipmentInEra(equipment) ? <div className="smaller-text color-red">Not in the {suit.getEra().name} era</div> : null}
+                                                    </td>
                                                     <td>{equipment.damage}</td>
                                                     <td>{equipment.range}</td>
                                                     <td>{this._weightText(equipment)}</td>
                                                     <td>{equipment.oneShot === "always" ? "OS" : equipment.ammoKg ? `${equipment.ammoKg} kg${equipment.kind === "missile" ? " a shot" : ` (${equipment.magazine})`}` : ""}</td>
                                                     <td>{this._slotText(equipment)}</td>
-                                                    <td>{equipment.defensive ? "+1 def." : equipment.bv}</td>
+                                                    <td>{equipment.defensive ? `+${equipment.defensiveValue ?? 1} def.` : equipment.bv}</td>
                                                     <td className="text-right">
                                                         <button className="btn btn-sm btn-primary" type="button" data-testid={`ba-add-${equipment.tag}`} title={`Add ${equipment.name} to the ${BATTLE_ARMOR_LOCATION_NAMES[location]}`} onClick={() => this.update((s) => s.addItem(equipment.tag, location))}>
                                                             <Plus />
@@ -224,12 +235,14 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                             <p className="smaller-text">
                                 TechManual pp. 346-348. Figures in brackets are the one-shot launcher. A launcher's weight is the launcher unloaded: each
                                 shot adds its weight, and every 4 shots take a weapon slot (TM p. 171). Other weapons carry one magazine in their weight.
+                                Items from Tactical Operations: Advanced Units &amp; Equipment (pp. 224-225) are listed from the Advanced or Experimental rules
+                                level. The table shows what the {suit.getEra().name} era has (IO:AE pp. 46-47); the era and rules level are chosen in Step 1.
                             </p>
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/summary`} className="btn btn-primary pull-right btn-sm">
-                                    Summary <ArrowCircleRight />
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/loadouts`} className="btn btn-primary pull-right btn-sm">
+                                    Next Step <ArrowCircleRight />
                                 </Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/battle-armor-creator/chassis`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>

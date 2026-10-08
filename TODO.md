@@ -121,7 +121,8 @@ designs, 44 still report errors (421 before).
 
 - [ ] MTF parser (BattleMechs, IndustrialMechs, LAMs, QuadVees, Tripods) into the canonical model, using the
   equipment-name bridge. Reference: MegaMek `MtfFile`. 4,312 samples.
-- [ ] BLK parser shared by every other domain, one mapping per unit type as each domain lands: vehicles and
+- [ ] BLK parser shared by every other domain (the block reader `blk-file.ts` and the battle armor mapping landed
+  2026-10-08), one mapping per unit type as each domain lands: vehicles and
   support vehicles, battle armor, infantry, ProtoMechs, fighters, small craft, DropShips, JumpShips,
   WarShips, space stations, gun emplacements and buildings. Reference: MegaMek `BLKFile` and the
   `BLK*File` loaders. 6,723 samples.
@@ -226,10 +227,47 @@ played first, then by dependency.
   has no row in the battle armor price list and is left unpriced. (7) The book prices a suit; the squad is
   priced as suits x troopers, with the squad support weapon bought once. (8) An armored glove with a basic
   manipulator meets none of the Capabilities Table's lines, so that pair makes no Anti-'Mech attacks.
-- [ ] Battle armor still owed: Alpha Strike conversion; roster groups and play mode (per-trooper damage, swarm
-  and leg attacks, mechanized transport on OmniMechs and vehicles); alternate loadouts for modular mounts and
-  adaptors; introduction dates and an era filter (TM pp.296-298); Tactical Operations equipment; BLK import
-  (1,189 samples).
+- [x] Tactical Operations equipment (2026-10-08): the battle armor items of TO:AUE pp.224-225 at their Advanced
+  or Experimental level, with Battle Values from pp.192-197: heavy flamer, Angel ECM, mine dispenser,
+  DropChutes, small and medium VSP lasers, ER pulse lasers, LB-X autocannon, taser, tube artillery, C3 and
+  C3i, mechanical jump booster, myomer booster, detachable weapon packs.
+- [x] Introduction dates and an era (2026-10-08): chassis, manipulators, motive systems, mounts and every
+  item of equipment dated from the Universal Technology Advancement Table (IO:AE pp.45-47); the suit is built
+  in an era, which filters what is offered and reports what the era did not have. A prototype date counts.
+- [x] Alternate loadouts (2026-10-08): named loadouts refit standard modular weapon mounts, configurable turret
+  mounts and modular equipment adaptors; each is checked like the base design and has its own weight, Battle
+  Value, cost, record sheet and Alpha Strike card.
+- [x] Roster groups and play mode (2026-10-08): saved suits join a Classic BattleTech roster group as squads in
+  a chosen loadout; play mode tracks damage by trooper, resolves attacks on the squad (TW p.219, with the
+  armor types' damage rules), gives Leg and Swarm attack numbers (TW pp.220-221), jettisons detachable packs,
+  and seats a squad on one of the force's 'Mechs or vehicles as mechanized battle armor with hits on the
+  carrier rolled for the troopers there (TW pp.226-227). Roster print marks the damage.
+- [x] Alpha Strike conversion (2026-10-08): ASC pp.92-141, offered in the Alpha Strike roster's unit picker and
+  as a printable card. Checked against the 951 Master Unit List battle armor cards the importer could build:
+  Move 926, Armor 950, damage 837, special abilities 879, Point Value 788 the same.
+- [x] MegaMek `.blk` import (2026-10-08): `blk-file.ts` reads the block layout for any unit type;
+  `battle-armor-blk.ts` maps battle armor. Of the 1,188 sample files, 1,010 import with nothing left off and
+  1,139 come out legal.
+  Readings to confirm: (9) The Battle Value adds the weapon in an anti-personnel mount, as TM p.310 says; the
+  Master Unit List's values leave it out, so every imported suit with a rifle in its mount is 1 to 2% over
+  the published figure. Of the 729 compared suits without such a weapon, 603 match the published Battle Value
+  exactly; the other 126 are a few points off and were not run down. (10) Alpha Strike: battle armor in
+  reactive or reflective armor gets the special ability without ASC p.97's 0.75 armor multiplier, as all but
+  one published card does. (11) The Point Value follows the published cards, not ASC p.139 to the letter: no
+  rounding of the Offensive Value, Defense Factor steps of 0.1 and 0.25, mimetic and camo systems as a
+  movement modifier of 3 and 2. (12) ASC p.102 adds 1 or 2 damage for vibro-claws and its tables give battle
+  armor mortars Short range only; the published cards add nothing for claws and rate mortars at Medium range.
+  The book is followed, so those suits differ from their cards. (13) BOMB has no value in ASC's factor
+  tables and adds nothing to the Point Value. (14) One-shot launchers take more slots than standard ones, as
+  TM pp.346-348 print in brackets (the bracket includes the missile's slot); the published Undine comes out
+  one body slot over. (15) A squad support weapon's Alpha Strike damage is added once, not times the Troop
+  Factor. (16) With several troopers on a hit location of a carrier, each is rolled for in turn and damage left
+  over from one passes to the next roll. (17) The Clan Battle Armor Equipment Table (TM p.348) lists no
+  mortars, though IO:AE p.47 gives mortars a Clan introduction date; none are offered to Clan suits.
+- [ ] Battle armor still owed: mixed-technology suits (the importer reads them on their chassis' technology
+  base and leaves the other base's equipment off); equipment carried by one trooper of a squad only; the Battle
+  Value of a mine dispenser (a 10-point minefield, TO:AUE p.195); the carrier's side of mechanized transport
+  (blocking the occupied locations' weapons on the 'Mech or vehicle sheet); `.blk` export.
 
 ### Conventional Infantry
 

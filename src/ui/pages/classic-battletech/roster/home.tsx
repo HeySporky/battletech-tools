@@ -435,6 +435,21 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
           </tr>
           </tbody>
       ))}
+      {(favGroup.battleArmor ?? []).map( (squad) => (
+          <tbody key={squad.getUUID()}>
+          <tr>
+              <td>
+                  {squad.getDisplayName()}
+                  <div className='small-text'>{squad.getWeightClass().name} battle armor, {squad.getSquadSize()} troopers</div>
+              </td>
+              <td className="min-width no-wrap text-center">{squad.getSquadSize()}</td>
+              <td className="min-width no-wrap text-center small-text">{squad.isClan() ? "Clan" : "Inner Sphere"}</td>
+              <td className="min-width no-wrap text-center">{squad.getCapabilities().swarm || squad.getCapabilities().leg ? squad.getAntiMechSkill() : "-"}</td>
+              <td className="min-width no-wrap text-center">{squad.getGunnery()}</td>
+              <td className="min-width no-wrap text-center">{squad.getSkillAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
       {(favGroup.battledroidsUnits ?? []).map( (unit) => (
           <tbody key={unit.getUUID()}>
           <tr>

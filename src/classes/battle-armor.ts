@@ -84,9 +84,20 @@ export interface IBattleArmorMountedItem {
     squadSupport?: boolean;
     /** Kilograms set aside, for mission equipment. */
     kg?: number;
-    /** Carried in a detachable weapon pack (TO:AUE p.99). */
+    /** Carried in a detachable weapon pack (TO:AUE pp.98-99). */
     dwp?: boolean;
 }
+
+export type BattleArmorCarrierKind = "mech" | "vehicle";
+/** Battle Armor Transport Position Table (TW p.227): where each numbered trooper rides. */
+export const BATTLE_ARMOR_TRANSPORT_POSITIONS: Record<BattleArmorCarrierKind, string>[] = [
+    { mech: "Right Torso", vehicle: "Right Side" },
+    { mech: "Left Torso", vehicle: "Right Side" },
+    { mech: "Right Torso (rear)", vehicle: "Left Side" },
+    { mech: "Left Torso (rear)", vehicle: "Left Side" },
+    { mech: "Center Torso (rear)", vehicle: "Rear" },
+    { mech: "Center Torso", vehicle: "Rear" },
+];
 
 export interface IBattleArmorLoadoutWeapon {
     tag: string;
@@ -109,6 +120,8 @@ export interface IBattleArmorInPlay {
     missilesJettisoned?: boolean;
     /** Detachable weapon packs have been jettisoned. */
     packsJettisoned?: boolean;
+    /** The roster unit the squad rides as mechanized battle armor. */
+    riding?: { uuid: string; kind: BattleArmorCarrierKind };
 }
 
 export interface IBattleArmorASDamageValue {
@@ -218,7 +231,9 @@ export const normalizeBattleArmorExport = (raw: unknown): { suit: IBattleArmorEx
         return { suit: null, issues: ["Skipped a saved battle armor design that could not be read"] };
     }
     const loaded = new BattleArmor(json);
-    return { suit: loaded.export(), issues: [...loaded.getImportIssues()] };
+    // A saved design is the base suit, undamaged; a roster squad keeps its loadout and damage in its group.
+    loaded.setActiveLoadout(-1);
+    return { suit: loaded.export(true), issues: [...loaded.getImportIssues()] };
 };
 
 export default class BattleArmor {
@@ -551,8 +566,8 @@ export default class BattleArmor {
     public getArmorKgPerPoint(armor: IBattleArmorArmorType = this._armor): number | null { return armor.kgPerPoint[this._techBase]; }
 
     public getAvailableArmor(rulesLevel: number = BATTLE_ARMOR_ADVANCED_RULES_LEVEL): IBattleArmorArmorType[] {
-        return battleArmorArmorTypes.filter((armor) => this.getArmorKgPerPoint(armor) !== null
-            && (armor.book === "TM" || rulesLevel >= BATTLE_ARMOR_ADVANCED_RULES_LEVEL || armor.tag === this._armor.tag));
+        return battleArmorArmorTypes.filter((armor) => this.getArmorKgPerPoint(armor) !== null && (armor.tag === this._armor.tag
+            || ((armor.book === "TM" || rulesLevel >= BATTLE_ARMOR_ADVANCED_RULES_LEVEL) && this.isArmorInEra(armor))));
     }
 
     public setArmor(tag: string): boolean {
@@ -566,7 +581,7 @@ export default class BattleArmor {
     public getArmorWeight(): number { return this._armorPoints * (this.getArmorKgPerPoint() ?? 0); }
     /** Slots the armor takes, wherever on the suit they are found (TM p.168). */
     public getArmorSlots(): number { return this._armorPoints > 0 ? this._armor.slots : 0; }
-    /** Slots that may be found anywhere on the suit: the armor's, and a myomer booster's (TO:AUE p.99). */
+    /** Slots that may be found anywhere on the suit: the armor's, and a myomer booster's (TO:AUE pp.98-99). */
     public getSpreadSlots(): number {
         return this.getArmorSlots() + this._items.reduce((sum, entry) => {
             const equipment = findBattleArmorEquipment(entry.tag);
@@ -615,7 +630,7 @@ export default class BattleArmor {
     public getItemSlots(entry: IBattleArmorMountedItem): number {
         const equipment = findBattleArmorEquipment(entry.tag);
         if (!equipment || equipment.spreadSlots) return 0;
-        // The weapon in a detachable weapon pack is carried outside the suit; the pack takes one slot (TO:AUE p.99).
+        // The weapon in a detachable weapon pack is carried outside the suit; the pack takes one slot (TO:AUE pp.98-99).
         if (entry.dwp) return BATTLE_ARMOR_WEAPON_PACK.slots;
         const oneShot = this.isOneShot(entry) && equipment.oneShot !== "always" && equipment.oneShot ? equipment.oneShot : null;
         const reloads = equipment.kind === "missile" && !this.isOneShot(entry) ? Math.ceil(this.getItemShots(entry) / BATTLE_ARMOR_SHOTS_PER_SLOT) : 0;
@@ -638,7 +653,7 @@ export default class BattleArmor {
         let weight = this._itemLoadedWeight(entry);
         // Every suit carries a share of the squad support weapon, rounded up to the kilogram (TM p.270).
         if (entry.squadSupport) weight = Math.ceil(weight * BATTLE_ARMOR_SQUAD_SUPPORT_SHARE[this._techBase] - 1e-9);
-        // Three quarters of the weapon and its ammunition, rounded up to the nearest 5 kg (TO:AUE p.99).
+        // Three quarters of the weapon and its ammunition, rounded up to the nearest 5 kg (TO:AUE pp.98-99).
         if (entry.dwp) weight = Math.ceil(weight * BATTLE_ARMOR_WEAPON_PACK.share / BATTLE_ARMOR_WEAPON_PACK.roundTo - 1e-9) * BATTLE_ARMOR_WEAPON_PACK.roundTo;
         return weight + (entry.detachable ? BATTLE_ARMOR_DETACHABLE.kg : 0) + (entry.modular ? BATTLE_ARMOR_MODULAR_MOUNT.kg : 0);
     }
@@ -680,6 +695,15 @@ export default class BattleArmor {
         return true;
     }
 
+    /** Any weapon but a missile launcher may ride in a detachable weapon pack (TO:AUE pp.98-99). */
+    private _packable(equipment: IBattleArmorEquipment): boolean {
+        return (equipment.kind === "weapon" && !equipment.noMount) || equipment.tag.endsWith("-tube-artillery");
+    }
+    public canUseWeaponPack(entry: IBattleArmorMountedItem): boolean {
+        const equipment = findBattleArmorEquipment(entry.tag);
+        return !!equipment && this._packable(equipment) && entry.location !== "turret";
+    }
+
     public removeItem(index: number): void {
         if (index < 0 || index >= this._baseItems.length) return;
         this._baseItems.splice(index, 1);
@@ -707,9 +731,8 @@ export default class BattleArmor {
         next.modular = !equipment.noMount && !this.isQuad() && !!next.modular ? true : undefined;
         next.squadSupport = !equipment.noMount && !this.isQuad() && equipment.kind !== "equipment" && !!next.squadSupport ? true : undefined;
         next.kg = equipment.variableWeight ? Math.min(2000, Math.max(0, Math.round(next.kg ?? 0) || 0)) : undefined;
-        // A detachable weapon pack carries one weapon that is not a missile launcher, and not in a modular mount (TO:AUE p.99).
-        const packable = (equipment.kind === "weapon" && !equipment.noMount) || equipment.tag.endsWith("-tube-artillery");
-        next.dwp = packable && next.location !== "turret" && !next.modular && !next.squadSupport && !!next.dwp ? true : undefined;
+        // A detachable weapon pack carries one weapon that is not a missile launcher, and not in a modular mount (TO:AUE pp.98-99).
+        next.dwp = this._packable(equipment) && next.location !== "turret" && !next.modular && !next.squadSupport && !!next.dwp ? true : undefined;
         // One squad support weapon to a suit (TM p.270).
         if (next.squadSupport) this._baseItems.forEach((other, otherIndex) => { if (otherIndex !== index) delete other.squadSupport; });
         this._baseItems[index] = next;
@@ -847,11 +870,11 @@ export default class BattleArmor {
         // Tactical Operations equipment (TO:AUE pp.98-99).
         const myomer = this._items.map((entry) => findBattleArmorEquipment(entry.tag)).find((equipment) => equipment?.groundBonus);
         if (myomer && mechanical) issues.push("A mechanical jump booster and a myomer booster may not be combined (TO:AUE p.98).");
-        if (myomer?.barsArmor?.includes(this._armor.tag) && this._armorPoints > 0) issues.push(`A suit with a myomer booster may not mount Stealth or Mimetic armor (TO:AUE p.99).`);
+        if (myomer?.barsArmor?.includes(this._armor.tag) && this._armorPoints > 0) issues.push(`A suit with a myomer booster may not mount Stealth or Mimetic armor (TO:AUE pp.98-99).`);
         if (this._items.some((entry) => entry.dwp)) {
             const heavy = weightClass.tag === "heavy" || weightClass.tag === "assault";
-            if (weightClass.tag !== "medium" && !heavy) issues.push("Only Medium, Heavy and Assault battle armor may carry a detachable weapon pack (TO:AUE p.99).");
-            else if (this.getTotalGroundMP() - (heavy ? 2 : 3) < 0) issues.push(`A detachable weapon pack costs this suit ${heavy ? 2 : 3} Ground MP, which may not take it below 0 (TO:AUE p.99).`);
+            if (weightClass.tag !== "medium" && !heavy) issues.push("Only Medium, Heavy and Assault battle armor may carry a detachable weapon pack (TO:AUE pp.98-99).");
+            else if (this.getTotalGroundMP() - (heavy ? 2 : 3) < 0) issues.push(`A detachable weapon pack costs this suit ${heavy ? 2 : 3} Ground MP, which may not take it below 0 (TO:AUE pp.98-99).`);
         }
         if (this._hasItem("Magnetic Clamps")) {
             if (this.isQuad() || weightClass.tag === "assault") issues.push("Magnetic clamps are for humanoid suits of Heavy class or lighter (TM p.167).");
@@ -909,7 +932,7 @@ export default class BattleArmor {
         if (this._items.some((entry) => entry.squadSupport)) notes.push("Every suit carries a share of the squad support weapon; one trooper fires it (TM p.270).");
         if (this._items.some((entry) => entry.dwp)) {
             const heavy = this._weightClass.tag === "heavy" || this._weightClass.tag === "assault";
-            notes.push(`While it carries a detachable weapon pack the suit loses ${heavy ? 2 : 3} Ground MP (a suit brought to 0 moves 1) and may not jump; the packs are dropped in an End Phase, and the squad regains its movement when all are gone (TO:AUE p.99).`);
+            notes.push(`While it carries a detachable weapon pack the suit loses ${heavy ? 2 : 3} Ground MP (a suit brought to 0 moves 1) and may not jump; the packs are dropped in an End Phase, and the squad regains its movement when all are gone (TO:AUE pp.98-99).`);
         }
         for (const entry of this._items) {
             const equipment = findBattleArmorEquipment(entry.tag);
@@ -1221,7 +1244,7 @@ export default class BattleArmor {
     public carriesMissilePacks(): boolean { return this.hasDetachableMissiles() && !this._inPlay.missilesJettisoned; }
     public carriesWeaponPacks(): boolean { return this.hasWeaponPacks() && !this._inPlay.packsJettisoned; }
 
-    /** Movement as the squad stands: weapon packs slow it and stop it jumping (TO:AUE p.99), as missile packs stop an Inner Sphere suit jumping (TM p.257). */
+    /** Movement as the squad stands: weapon packs slow it and stop it jumping (TO:AUE pp.98-99), as missile packs stop an Inner Sphere suit jumping (TM p.257). */
     public getPlayMovement(): { ground: number; jump: number; text: string; notes: string[] } {
         const notes: string[] = [];
         let ground = this.getTotalGroundMP();
@@ -1230,7 +1253,7 @@ export default class BattleArmor {
             const heavy = this._weightClass.tag === "heavy" || this._weightClass.tag === "assault";
             ground = Math.max(1, ground - (heavy ? 2 : 3));
             jump = 0;
-            notes.push(`Carrying detachable weapon packs: -${heavy ? 2 : 3} Ground MP and no jumping (TO:AUE p.99).`);
+            notes.push(`Carrying detachable weapon packs: -${heavy ? 2 : 3} Ground MP and no jumping (TO:AUE pp.98-99).`);
         }
         if (!this.isClan() && this.carriesMissilePacks() && jump > 0) {
             jump = 0;
@@ -1266,12 +1289,63 @@ export default class BattleArmor {
     private _vibroClaws(): number {
         return this.isQuad() ? 0 : (["la", "ra"] as BattleArmorArm[]).filter((arm) => this.getManipulator(arm).tag.includes("vibro")).length;
     }
-    /** Damage added to a Leg or Swarm attack by a myomer booster: 2 for each active trooper (TO:AUE p.99). */
+    /** Damage added to a Leg or Swarm attack by a myomer booster: 2 for each active trooper (TO:AUE pp.98-99). */
     public getAntiMechBonusDamage(): number {
         return this._items.some((entry) => findBattleArmorEquipment(entry.tag)?.groundBonus) ? 2 * this.getActiveTroopers() : 0;
     }
     /** Leg attack damage: 4 points, 1 more for each vibro-claw (TW p.220), and a myomer booster's bonus. */
     public getLegAttackDamage(): number { return 4 + this._vibroClaws() + this.getAntiMechBonusDamage(); }
+
+    // Mechanized battle armor (Total Warfare pp.226-227)
+
+    public getRiding(): { uuid: string; kind: BattleArmorCarrierKind } | null { return this._inPlay.riding ?? null; }
+    /** Mounts the squad on a roster unit; an empty id dismounts it. Only a suit that can ride may mount (TM p.167). */
+    public setRiding(uuid: string, kind: BattleArmorCarrierKind = "mech"): boolean {
+        if (!uuid) {
+            delete this._inPlay.riding;
+            return true;
+        }
+        if (!this.getCapabilities().mechanized) return false;
+        this._inPlay.riding = { uuid, kind };
+        return true;
+    }
+    /** Does the squad need magnetic clamps to ride a unit that is not an Omni? (TW p.227) */
+    public hasMagneticClamps(): boolean { return this._hasItem("Magnetic Clamps"); }
+    public getTransportPosition(trooper: number, kind: BattleArmorCarrierKind): string { return BATTLE_ARMOR_TRANSPORT_POSITIONS[trooper]?.[kind] ?? ""; }
+    /** The carrier's locations with an active trooper on them. */
+    public getOccupiedPositions(kind: BattleArmorCarrierKind): string[] {
+        const positions: string[] = [];
+        for (let trooper = 0; trooper < this._squadSize; trooper++) {
+            const position = this.getTransportPosition(trooper, kind);
+            if (this.isTrooperActive(trooper) && position && !positions.includes(position)) positions.push(position);
+        }
+        return positions;
+    }
+    /**
+     * A hit on the carrier in a location a trooper rides: on 1D6 of 5-6 the trooper takes the damage before the
+     * carrier does, and what is left once the trooper is destroyed goes on to the location. With more than one
+     * trooper in the location, each is rolled for in turn (TW p.227). Returns what the carrier takes.
+     */
+    public resolveCarrierHit(position: string, damage: number, roll: () => number = rollD6): { log: string[]; remaining: number } {
+        const log: string[] = [];
+        let remaining = savedNumber(damage, 0, 0, 999);
+        const kind = this._inPlay.riding?.kind ?? "mech";
+        for (let trooper = 0; trooper < this._squadSize && remaining > 0; trooper++) {
+            if (!this.isTrooperActive(trooper) || this.getTransportPosition(trooper, kind) !== position) continue;
+            const result = Math.round(roll());
+            if (result < 5) {
+                log.push(`Trooper ${trooper + 1} (${position}): rolled ${result}, takes no damage`);
+                continue;
+            }
+            const before = this.getTrooperDamage(trooper);
+            this.setTrooperDamage(trooper, before + remaining);
+            const taken = this.getTrooperDamage(trooper) - before;
+            remaining -= taken;
+            log.push(`Trooper ${trooper + 1} (${position}): rolled ${result}, takes ${taken}${this.isTrooperActive(trooper) ? "" : " and is destroyed"}`);
+        }
+        log.push(`The carrier takes ${remaining} in the ${position}`);
+        return { log, remaining };
+    }
 
     // Alpha Strike conversion (Alpha Strike Companion pp.92-141)
 
@@ -1303,11 +1377,11 @@ export default class BattleArmor {
         }
         log.push(`Move: ${mp} MP x 2 = ${move}`);
 
-        // Armor: every trooper's armor, without the trooper, over 30 (ASC p.95); Structure is 2 (ASC p.97).
+        // Armor: every trooper's armor, without the trooper, over 30 (ASC p.95); Structure is 2 (ASC p.99).
         const armorFactor = this._armorPoints * troopers;
         const special = this._armorPoints > 0 ? this._armor.tag : "";
         // The Master Unit List's cards give battle armor in reactive or reflective armor the special ability
-        // without the 0.75 armor multiplier ASC p.98 applies to larger units; they are followed here.
+        // without the 0.75 armor multiplier ASC p.97 applies to larger units; they are followed here.
         if (special === "ba-laser-reflective" || special === "ba-reactive") add(special === "ba-reactive" ? "RCA" : "RFA");
         const armor = Math.round(armorFactor / 30 + 1e-9);
         const structure = 2;
@@ -1316,7 +1390,7 @@ export default class BattleArmor {
         if (special === "ba-mimetic") add("MAS");
         if (special === "ba-fire-resistant") add("FR");
 
-        // Damage: one suit's weapons, times the Troop Factor + 0.5 (ASC p.103).
+        // Damage: one suit's weapons, times the Troop Factor + 0.5 (ASC pp.102-103).
         const factor = (TROOP_FACTORS[Math.min(troopers, 6)] ?? 0) + 0.5;
         const suit = { short: 0, medium: 0, long: 0 };
         const squad = { short: 0, medium: 0, long: 0 };
@@ -1343,7 +1417,7 @@ export default class BattleArmor {
             into.long += values.long * multiplier;
             const share = entry.squadSupport ? 1 : factor;
             if (values.heat) values.heat.forEach((points, range) => { heat[range] += points * share; });
-            // Indirect fire is rated by the Long range value of the weapons that have it (ASC p.126).
+            // Indirect fire is rated by the Long range value of the weapons that have it (ASC p.125).
             if (values.indirect) indirect += values.long * multiplier * share;
             if (values.flak) [values.short, values.medium, values.long].forEach((points, range) => { flak[range] += points * multiplier * share; });
         }
@@ -1362,7 +1436,7 @@ export default class BattleArmor {
         log.push(`Damage of one suit: ${suit.short.toFixed(3)} / ${suit.medium.toFixed(3)} / ${suit.long.toFixed(3)}${antiPersonnel > 0 ? ` (with ${antiPersonnel.toFixed(2)} for anti-personnel weapons)` : ""}`);
         log.push(`x ${factor} (Troop Factor for ${troopers} + 0.5)${squad.short + squad.medium + squad.long > 0 ? `, + the squad support weapon once (${squad.short.toFixed(2)} / ${squad.medium.toFixed(2)} / ${squad.long.toFixed(2)})` : ""}${vibro > 0 ? `, + ${vibro} at Short range for vibro-claws` : ""} = ${total.short.toFixed(2)} / ${total.medium.toFixed(2)} / ${total.long.toFixed(2)}: ${formatBattleArmorASDamage(damageValues.short)}/${formatBattleArmorASDamage(damageValues.medium)}/${formatBattleArmorASDamage(damageValues.long)}`);
 
-        // Special abilities (ASC pp.116-136).
+        // Special abilities (ASC pp.117-133).
         const capabilities = this.getCapabilities();
         if (capabilities.swarm || capabilities.leg) add("AM");
         add(`CAR${troopers}`);
@@ -1372,13 +1446,13 @@ export default class BattleArmor {
         const heatRatings = heat.map((points) => (points >= 11 ? 2 : points >= 5 ? 1 : 0));
         const heatValue = Math.max(...heatRatings);
         if (heatValue > 0) add(`HT${heatRatings.map((rating) => rating || "-").join("/")}`);
-        // Special ability values round normally; under a half is minimal damage (ASC pp.125-126).
+        // Special ability values round normally; under a half is minimal damage (ASC pp.124-125).
         const rated = (damage: number): IBattleArmorASDamageValue =>
             damage <= 1e-9 ? { damage: 0, minimal: false } : damage < 0.5 ? { damage: 0, minimal: true } : { damage: Math.round(damage + 1e-9), minimal: false };
         const indirectValue = rated(indirect);
         if (indirect > 1e-9) add(`IF${formatBattleArmorASDamage(indirectValue)}`);
         if (flak.some((points) => points >= 0.5)) add(`FLK${flak.map((points) => (points >= 0.5 ? Math.round(points + 1e-9) : "-")).join("/")}`);
-        // Mine dispensers and remote sensor dispensers are counted on one suit; tasers over the whole unit (ASC pp.127, 130, 133).
+        // Mine dispensers and remote sensor dispensers are counted on one suit; tasers over the whole unit (ASC pp.127, 130, 132).
         const mines = counted.get("MDS") ?? 0;
         if (mines > 0) add(`MDS${mines}`);
         const tasers = (counted.get("BTAS") ?? 0) * troopers;
@@ -1387,7 +1461,7 @@ export default class BattleArmor {
         if (sensors > 0) add(`RSD${sensors}`);
         const bombs = Math.round((counted.get("BOMB") ?? 0) * troopers / 5 + 1e-9);
         if (bombs > 0) add(`BOMB${bombs}`);
-        // Recon: an active probe, a remote sensor dispenser or improved sensors (ASC p.129).
+        // Recon: an active probe, a remote sensor dispenser or improved sensors (ASC p.130).
         if (specials.includes("LPRB") || sensors > 0 || this._hasItem("Improved Sensors")) add("RCN");
         const artillery = specials.includes("ART-BA");
         if (artillery) specials[specials.indexOf("ART-BA")] = "ARTBA-1";
@@ -1521,10 +1595,11 @@ export default class BattleArmor {
 
     public export(noInPlayVariables: boolean = false): IBattleArmorExport {
         const turret = this.getTurret();
-        const inPlay: IBattleArmorInPlay | undefined = noInPlayVariables || !(this.isDamaged() || this._inPlay.missilesJettisoned || this._inPlay.packsJettisoned) ? undefined : {
+        const inPlay: IBattleArmorInPlay | undefined = noInPlayVariables || !(this.isDamaged() || this._inPlay.missilesJettisoned || this._inPlay.packsJettisoned || this._inPlay.riding) ? undefined : {
             damage: Array.from({ length: this._squadSize }, (_unused, trooper) => this.getTrooperDamage(trooper)),
             ...(this._inPlay.missilesJettisoned ? { missilesJettisoned: true } : {}),
             ...(this._inPlay.packsJettisoned ? { packsJettisoned: true } : {}),
+            ...(this._inPlay.riding ? { riding: { ...this._inPlay.riding } } : {}),
         };
         return {
             ...(inPlay ? { inPlay } : {}),
@@ -1675,6 +1750,8 @@ export default class BattleArmor {
             for (let trooper = 0; trooper < this._squadSize; trooper++) this.setTrooperDamage(trooper, savedNumber(damage[trooper], 0, 0, 99));
             if (raw.inPlay.missilesJettisoned === true) this._inPlay.missilesJettisoned = true;
             if (raw.inPlay.packsJettisoned === true) this._inPlay.packsJettisoned = true;
+            const riding = raw.inPlay.riding;
+            if (isPlainObject(riding) && /^[0-9a-zA-Z-]{8,64}$/.test(savedString(riding.uuid))) this.setRiding(savedString(riding.uuid), riding.kind === "vehicle" ? "vehicle" : "mech");
         }
         return true;
     }

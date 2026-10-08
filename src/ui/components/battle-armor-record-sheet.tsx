@@ -88,8 +88,12 @@ export default class BattleArmorRecordSheet extends React.Component<IBattleArmor
                             <tr key={trooper}>
                                 <th style={cell}>{trooper + 1}</th>
                                 <td style={cell}>
-                                    <span style={circle(true)} title="The trooper" />
-                                    {Array.from({ length: suit.getArmorPoints() }, (_point, point) => <span key={point} style={circle(false)} />)}
+                                    {/* With showDamage, the armor marked off in play is blacked out, and the trooper last. */}
+                                    <span style={this.props.showDamage && !suit.isTrooperActive(trooper) ? { ...circle(true), background: "#000" } : circle(true)} title="The trooper" />
+                                    {Array.from({ length: suit.getArmorPoints() }, (_point, point) => (
+                                        <span key={point} style={this.props.showDamage && point < suit.getTrooperDamage(trooper) ? { ...circle(false), background: "#000" } : circle(false)} />
+                                    ))}
+                                    {this.props.showDamage && !suit.isTrooperActive(trooper) ? " destroyed" : ""}
                                 </td>
                             </tr>
                         ))}
@@ -107,4 +111,5 @@ export default class BattleArmorRecordSheet extends React.Component<IBattleArmor
 
 interface IBattleArmorRecordSheetProps {
     suit: BattleArmor;
+    showDamage?: boolean;
 }

@@ -64,7 +64,7 @@ describe("Battle armor equipment from Tactical Operations (TO:AUE pp.91-161, 224
         expect(suit.getAvailableEquipment(2).some((entry) => entry.tag === "is-angel-ecm")).toBe(true);
     });
 
-    it("carries a weapon in a detachable weapon pack at three quarters of its weight and one slot (TO:AUE p.99)", () => {
+    it("carries a weapon in a detachable weapon pack at three quarters of its weight and one slot (TO:AUE pp.98-99)", () => {
         const suit = new BattleArmor();
         suit.setWeightClass("heavy");
         suit.setGroundMP(2);
@@ -87,7 +87,7 @@ describe("Battle armor equipment from Tactical Operations (TO:AUE pp.91-161, 224
         expect(suit.getPlayMovement().ground).toBe(2);
     });
 
-    it("keeps detachable weapon packs to Medium and heavier suits and off missile launchers (TO:AUE p.99)", () => {
+    it("keeps detachable weapon packs to Medium and heavier suits and off missile launchers (TO:AUE pp.98-99)", () => {
         const light = new BattleArmor();
         light.setWeightClass("light");
         light.addItem("is-small-laser", "ra");
@@ -106,7 +106,7 @@ describe("Battle armor equipment from Tactical Operations (TO:AUE pp.91-161, 224
         expect(medium.getPlayMovement().ground).toBe(1);
     });
 
-    it("adds Ground MP for a myomer booster and bars stealth armor with it (TO:AUE p.99)", () => {
+    it("adds Ground MP for a myomer booster and bars stealth armor with it (TO:AUE pp.98-99)", () => {
         const suit = new BattleArmor();
         suit.setTechBase("clan");
         suit.setWeightClass("medium");
@@ -338,6 +338,41 @@ describe("Battle armor in play (Total Warfare pp.219-221)", () => {
     });
 });
 
+describe("Mechanized battle armor (Total Warfare pp.226-227)", () => {
+    it("seats each trooper by the Battle Armor Transport Position Table", () => {
+        const suit = elemental();
+        expect(suit.setRiding("11111111-aaaa", "mech")).toBe(true);
+        expect([0, 1, 2, 3, 4].map((trooper) => suit.getTransportPosition(trooper, "mech"))).toEqual(["Right Torso", "Left Torso", "Right Torso (rear)", "Left Torso (rear)", "Center Torso (rear)"]);
+        expect(suit.getOccupiedPositions("vehicle")).toEqual(["Right Side", "Left Side", "Rear"]);
+        // The carrier is kept with the squad's play state, and cleared when play is reset.
+        expect(new BattleArmor(suit.exportJSON()).getRiding()).toEqual({ uuid: "11111111-aaaa", kind: "mech" });
+        suit.resetInPlay();
+        expect(suit.getRiding()).toBeNull();
+        // A suit that cannot ride does not mount.
+        const assault = new BattleArmor();
+        assault.setWeightClass("assault");
+        expect(assault.setRiding("11111111-aaaa", "mech")).toBe(false);
+    });
+
+    it("rolls 1D6 for a trooper where the carrier is hit: 5-6 and the trooper takes the damage first", () => {
+        const suit = elemental();
+        suit.setRiding("11111111-aaaa", "vehicle");
+        // Troopers 1 and 2 ride the Right Side: the first rolls 3 and is missed, the second rolls 5.
+        const rolls = [3, 5];
+        const hit = suit.resolveCarrierHit("Right Side", 14, () => rolls.shift() ?? 1);
+        expect(suit.getTrooperDamage(0)).toBe(0);
+        expect(suit.isTrooperActive(1)).toBe(false);
+        // Eleven points destroy the trooper; three go on to the carrier.
+        expect(hit.remaining).toBe(3);
+        expect(hit.log).toEqual([
+            "Trooper 1 (Right Side): rolled 3, takes no damage",
+            "Trooper 2 (Right Side): rolled 5, takes 11 and is destroyed",
+            "The carrier takes 3 in the Right Side",
+        ]);
+        expect(suit.getOccupiedPositions("vehicle")).toEqual(["Right Side", "Left Side", "Rear"]);
+    });
+});
+
 describe("Battle armor Alpha Strike conversion (ASC pp.92-141)", () => {
     it("converts an Elemental Point to the card the Master Unit List publishes", () => {
         const stats = elemental().getAlphaStrikeStats();
@@ -361,7 +396,7 @@ describe("Battle armor Alpha Strike conversion (ASC pp.92-141)", () => {
         }
     });
 
-    it("rates heat by the Heat-Generating Weaponry Table and indirect fire by Long range damage (ASC pp.125-126)", () => {
+    it("rates heat by the Heat-Generating Weaponry Table and indirect fire by Long range damage (ASC pp.124-125)", () => {
         const suit = elemental();
         suit.removeItem(0);
         suit.addItem("clan-flamer-ba", "ra");
@@ -382,7 +417,7 @@ describe("Battle armor Alpha Strike conversion (ASC pp.92-141)", () => {
         expect(stats.damageValues.long).toEqual({ damage: 1, minimal: false });
     });
 
-    it("gives equipment its special abilities and adds vibro-claws after the Troop Factor (ASC pp.103, 116-136)", () => {
+    it("gives equipment its special abilities and adds vibro-claws after the Troop Factor (ASC pp.102, 117-133)", () => {
         const suit = new BattleArmor();
         suit.setWeightClass("light");
         suit.setArmor("ba-stealth-basic");

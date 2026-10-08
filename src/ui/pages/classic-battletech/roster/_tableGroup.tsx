@@ -12,6 +12,7 @@ import BattleMechAddMechDialog from './_addMechDialog';
 import VehicleGroupTable from './_vehicleGroupTable';
 import FighterGroupTable from './_fighterGroupTable';
 import InfantryGroupTable from './_infantryGroupTable';
+import BattleArmorGroupTable from './_battleArmorGroupTable';
 import BattledroidsGroupTable from './_battledroidsGroupTable';
 import BuildingGroupTable from './_buildingGroupTable';
 import type { JSX } from "react";
@@ -532,6 +533,12 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     showEdit={this.props.showEdit}
 />
 <InfantryGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<BattleArmorGroupTable
     appGlobals={this.props.appGlobals}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}

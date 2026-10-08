@@ -70,6 +70,14 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                                 </select>
                             </label>
                             <label>
+                                Era:
+                                <select data-testid="ba-era" value={suit.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setEra(value)); }}>
+                                    {suit.getAvailableEras().map((option) => (
+                                        <option key={option.tag} value={option.tag}>{option.name}</option>
+                                    ))}
+                                </select>
+                            </label>
+                            <label>
                                 Rules Level:
                                 <select value={rulesLevel} onChange={this.updateRulesLevel}>
                                     {getRulesLevelOptions().map((option) => (

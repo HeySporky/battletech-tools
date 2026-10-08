@@ -33,6 +33,8 @@ import { fighterName } from './_fighterGroupTable';
 import FighterPlayPanel from './_fighterPlay';
 import InfantryPlatoon from '../../../../classes/infantry-platoon';
 import InfantryPlayPanel from './_infantryPlay';
+import BattleArmor from '../../../../classes/battle-armor';
+import BattleArmorPlayPanel from './_battleArmorPlay';
 import BattledroidsUnit from '../../../../classes/battledroids-unit';
 import BattledroidsPlayPanel from './_battledroidsPlay';
 import BattledroidsRulesReference from '../../../components/battledroids-rules-reference';
@@ -747,7 +749,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon | Building | BattledroidsUnit ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon | BattleArmor | Building | BattledroidsUnit ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -786,6 +788,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let platoon of group.infantry ) {
             platoon.resetInPlay();
+          }
+          for( let squad of group.battleArmor ) {
+            squad.resetInPlay();
           }
           for( let building of group.buildings ) {
             building.resetInPlay();
@@ -1228,6 +1233,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         for( let platoon of group.infantry ) {
           if( platoon.getUUID() === this.state.selectedVehicleUUID ) {
             selectedInfantry = platoon;
+          }
+        }
+      }
+      // And a battle armor squad.
+      let selectedBattleArmor: BattleArmor | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let squad of group.battleArmor ) {
+          if( squad.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedBattleArmor = squad;
           }
         }
       }
@@ -2741,6 +2755,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               platoon={selectedInfantry}
               onChange={this.onVehicleChange}
             />
+          ) : selectedBattleArmor ? (
+            <BattleArmorPlayPanel
+              key={selectedBattleArmor.getUUID()}
+              squad={selectedBattleArmor}
+              carriers={[
+                ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.members ).map( (unit) => ({ uuid: unit.uuid, name: unit.getName(), kind: "mech" as const, omni: unit.isOmnimech }) ),
+                ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.vehicles ).map( (vehicle) => ({ uuid: vehicle.getUUID(), name: vehicleName(vehicle), kind: "vehicle" as const, omni: null }) ),
+              ]}
+              onChange={this.onVehicleChange}
+            />
           ) : selectedFighter ? (
             <FighterPlayPanel
               key={selectedFighter.getUUID()}
@@ -2959,6 +2983,36 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             />
                           </div>
 )}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.battleArmor.map( (squad) => (
+                    <li key={squad.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, squad.getUUID())}
+                        className={selectedBattleArmor && selectedBattleArmor.getUUID() === squad.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + squad.getDisplayName()}
+                      >
+                        {squad.getDisplayName()}
+                        <div className="stats">
+                          {squad.isDestroyed() ? (
+                            <h3 className="color-red text-center">
+                              DESTROYED
+                            </h3>
+                          ) : (
+                            <div className="bars">
+                              <StatBar
+                                color="white"
+                                background="#aaa"
+                                currentPercentage={squad.getStrengthPercentage()}
+                                currentNumber={squad.getActiveTroopers()}
+                                height={8}
+                                title="Troopers Active"
+                              />
+                            </div>
+                          )}
                         </div>
                       </button>
                       <hr />

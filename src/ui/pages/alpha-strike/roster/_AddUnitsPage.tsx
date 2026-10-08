@@ -5,6 +5,7 @@ import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../clas
 import { BattleMech } from '../../../../classes/battlemech';
 import AerospaceFighter from '../../../../classes/aerospace-fighter';
 import InfantryPlatoon from '../../../../classes/infantry-platoon';
+import BattleArmor from '../../../../classes/battle-armor';
 import { isMULSourceSelection, loadMULListItems, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
 import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
@@ -1080,6 +1081,75 @@ title="View this unit's Alpha Strike Card"
                         </tr>
                     </tbody>
                 )
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.battleArmorSaves && this.props.appGlobals.battleArmorSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Battle Armor"
+    >
+        <table className="table" data-testid="as-battle-armor-saves">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.battleArmorSaves.flatMap( (save, unitIndex) => {
+                // Converted from the saved suit, the base design and each loadout; a published suit should use its Master Unit List card.
+                const suit = new BattleArmor( JSON.stringify(save) );
+                const suits = [suit, ...suit.getLoadouts().map( (_loadout, loadoutIndex) => suit.getLoadoutSuit(loadoutIndex) )];
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return suits.map( (item, itemIndex) => {
+                    const asUnit = item.getAlphaStrikeUnit();
+                    return (
+                    <tbody key={`${unitIndex}-${itemIndex}`}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this squad to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this squad to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this squad's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {item.getAlphaStrikeStats().move}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                    );
+                });
             })}
         </table>
     </TextSection>

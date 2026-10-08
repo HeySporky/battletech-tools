@@ -7,6 +7,8 @@ import BattleArmorCreatorChassis from './chassis';
 import BattleArmorCreatorEquipment from './equipment';
 import BattleArmorCreatorSummary from './summary';
 import BattleArmorCreatorRecordSheet from './record-sheet';
+import BattleArmorCreatorLoadouts from './loadouts';
+import BattleArmorCreatorPrintAS from './print-as';
 
 import type { JSX } from "react";
 
@@ -25,6 +27,14 @@ export default class BattleArmorCreatorRouter extends React.Component<IBattleArm
 
                 <Route path={`equipment`} element={
                     <BattleArmorCreatorEquipment appGlobals={this.props.appGlobals} />
+                }/>
+
+                <Route path={`loadouts`} element={
+                    <BattleArmorCreatorLoadouts appGlobals={this.props.appGlobals} />
+                }/>
+
+                <Route path={`print-as`} element={
+                    <BattleArmorCreatorPrintAS appGlobals={this.props.appGlobals} />
                 }/>
 
                 <Route path={`summary`} element={
