@@ -22,6 +22,7 @@ export const mechClanEquipmentArtillery: IEquipmentItem[] = [
         name: "Arrow IV System (Clan)",
         altNames: ["Clan Arrow IV", "Arrow IV Missile"],
         tag: "clan-arrow-iv-system",
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 115, name: "Arrow IV System", heat: 10, damage: 20, damageAdjacent: 10, rangeMapsheets: 6, weight: 12, criticals: 12, shotsPerTon: 5, cbills: 450000, notes: "Missile artillery: range in mapsheets, 20 points to the target hex and 10 to the adjacent hexes with a standard missile. A homing missile needs a TAG-equipped spotter and hits on 4+ once the target is designated: 20 points to the target, 5 to anything else in the hex. The launcher's critical slots may be split between adjacent locations (BTC p.113). (BTC pp.117-118). The Clan launcher can also fire a FASCAM round that lays a 30-point minefield in the target hex (BTC p.117)." } },
         // Old tag shared with the IS record; kept so existing Clan saves resolve
         altTags: ["arrow-iv-system"],
         sort: "artillery, arrow iv, clan",

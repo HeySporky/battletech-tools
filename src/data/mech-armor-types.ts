@@ -55,12 +55,14 @@ export const mechArmorTypes: IArmorType[] = [
 			},
 			"battletech-2nd-edition": null,
 			"battletech-manual": null,
+			"battletech-compendium": null,
 		},
 		notes: "On an IndustrialMech this is Heavy Industrial armor: \"Functionally identical to standard battlefield armor\" and priced the same (TM pp.205, 278)."
 	},
 	{
 		name: "Ferro Fibrous",
 		tag: "ferro-fibrous",
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Value and multiply by 1.12 (Inner Sphere) or 1.2 (Clan), rounding to the nearest whole number, .5 down. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled. The location maximums do not change (BTC pp.113, 119). 20,000 C-bills a ton of armor (BTC p.128)." } },
 		altNames: ["Ferro-Fibrous"],
 		patchwork: { slots: { is: 2, clan: 1 }, tonsPerPoint: { is: 0.0558, clan: 0.0521 } },
 		unitTypes: {
@@ -438,6 +440,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Ferro-Aluminum Armor",
 		tag: "ferro-aluminum",
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Ferro-Aluminum Armor", notes: "Ferro-Fibrous armor for AeroSpace fighters and vehicles, with the same multipliers (1.12 Inner Sphere, 1.2 Clan). A fighter mounting it carries 2 fewer weapons on each of its right and left sides (BTC pp.119, 127). 20,000 C-bills a ton of armor (BTC p.131)." } },
 		unitTypes: {
 			battlemech: false,
 			protomech: false,

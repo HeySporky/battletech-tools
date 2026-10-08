@@ -69,11 +69,13 @@ export const mechEngineTypes: IEngineType[] = [
 				notes: "Engine rating = tonnage x walking movement points; the Engine Table runs from 10 to 400, and the 170 is now 6.0 tons (BT2 p.37). The engine includes 10 heat sinks (BT2 p.39). Six Engine boxes in the center torso (record sheet).",
 			},
 			"battletech-manual": null,
+			"battletech-compendium": null,
 		},
 	},
 	{
 		name: "XL Fusion",
 		tag: "xl",
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Inner Sphere XL Engine", notes: "Any fusion engine may be built as an XL: half the normal engine weight, rounded up to the half ton, with extra engine critical slots in the side torsos, 3 in the left torso and 3 in the right. Three engine critical hits destroy the BattleMech whichever torso they are in. BattleMechs, vehicles and AeroSpace fighters may use it; there is no XL ICE (BTC pp.122-123). Price: (20,000 x rating x tonnage) / 75 (BTC p.128)." } },
 		altNames: ["XL Engine"],
 		book: "TM",
 		page: 214,
@@ -95,6 +97,7 @@ export const mechEngineTypes: IEngineType[] = [
 	{
 		name: "Clan XL Fusion",
 		tag: "clan_xl",
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Clan XL Engine", notes: "Any fusion engine may be built as an XL: half the normal engine weight, rounded up to the half ton, with extra engine critical slots in the side torsos, 2 in the left torso and 2 in the right. Three engine critical hits destroy the BattleMech whichever torso they are in. BattleMechs, vehicles and AeroSpace fighters may use it; there is no XL ICE (BTC pp.122-123). Price: (20,000 x rating x tonnage) / 75 (BTC p.128)." } },
 		altNames: ["XL Engine"],
 		book: "TM",
 		page: 214,
@@ -179,6 +182,7 @@ export const mechEngineTypes: IEngineType[] = [
 		introducedInEdition: "battletech-manual",
 		editionStats: {
 			"battletech-manual": { book: "BTM", page: 81, name: "Internal Combustion Engine", notes: "Offered for vehicles and installations, and as the turbine of conventional aircraft: twice the weight of an identically rated fusion engine from the Engine Table, with no built-in heat sinks, and power amplifiers at one ton per ten tons of energy weapons (BTM pp.81-82, 84). BattleMech construction does not mention it (BTM pp.78-80)." },
+			"battletech-compendium": null,
 		},
 		altNames: ["I.C.E. Engine"],
 		book: "TM",

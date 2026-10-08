@@ -34,6 +34,7 @@ export const mechGyroTypes: IGyro[] = [
 			},
 			"battletech-2nd-edition": null,
 			"battletech-manual": null,
+			"battletech-compendium": null,
 		},
 	},
 	{

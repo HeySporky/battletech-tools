@@ -47,11 +47,13 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 				book: "BTM", page: 79, name: "Heat Sink", weight: 1, criticals: 1, cbills: 2000,
 				notes: "Ten come with the engine; each extra one weighs one ton (BTM p.79). New: only some of the engine's ten are placed on the Equipment Tables. Engine rating divided by 25, rounded down, are integral to the engine and are lost only with it; the rest, and every extra sink, take one critical location each (BTM pp.79-80). Only allocated sinks can take a critical hit (BTM p.24). 2,000 C-bills for each sink over 10 (BTM p.84).",
 			},
+			"battletech-compendium": null,
 		},
 	},
 	{
 		name: "Double",
 		tag: "double",
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Double Heat Sink", weight: 1, notes: "Sheds 2 heat points a turn for the weight of a standard sink. 3 critical slots (Inner Sphere), which keeps it out of a BattleMech's legs, or 2 (Clan). No mixing with standard sinks: the 10 that come with the engine are double as well. Not for vehicles; AeroSpace fighters may use them (BTC pp.112, 119). 6,000 C-bills each, the engine's 10 included (BTC p.128)." } },
 		altNames: ["Double Heat Sink"],
 		dissipation: 2,
 		crits: {

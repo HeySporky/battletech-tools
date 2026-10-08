@@ -46,6 +46,7 @@ export const mechJumpJetTypes: IJumpJet[] = [
 				notes: "Tons for every jump movement point, by the 'Mech's tonnage: 0.5 to 55 tons, 1.0 from 60 to 85, 2.0 from 90 to 100. Each jet's exhaust port takes space on the Equipment Chart of a leg or torso (BT2 p.39); the record listings give one box per jump movement point (BT2 pp.36-41).",
 			},
 			"battletech-manual": null,
+			"battletech-compendium": null,
 		},
 	},
 

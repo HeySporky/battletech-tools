@@ -218,6 +218,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
         },
         notes: "Weighs 10 percent of the 'Mech's tonnage (BTM pp.78-79). The table has no head column; the head is entered as 3, as in the earlier editions. The table now prints 14 leg boxes at 60 tons and 15 at 65, the values the earlier editions' worked example implied. Skeleton cost: tonnage x 400 C-bills (BTM p.84).",
       },
+      "battletech-compendium": null,
     },
     book: "TM",
     page: 225,
@@ -238,6 +239,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
   {
     name: "Endo-Steel",
     tag: "endo-steel",
+    introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Endo Steel Internal Structure", notes: "Half the usual internal structure weight, rounding up. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled (BTC pp.112, 119). Skeleton cost: tonnage x 1,600 C-bills (BTC p.128)." } },
     book: "TM",
     page: 224,
     prototype: 2480,

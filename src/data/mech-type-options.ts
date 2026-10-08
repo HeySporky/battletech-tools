@@ -23,11 +23,12 @@ export const mechTypeOptions: IMechType[] = [
 		book: "TM",
 		introducedInEdition: "battledroids",
 		// The only layout: head, three torsos, two arms and two legs (Internal Structure Table, BD p.24).
-		editionStats: { battledroids: { book: "BD", page: 24 }, "battletech-2nd-edition": null, "battletech-manual": null },
+		editionStats: { battledroids: { book: "BD", page: 24 }, "battletech-2nd-edition": null, "battletech-manual": null, "battletech-compendium": null },
 	},
 	{
 		id: 2,
 		tag: "quad",
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 56, name: "Four-Legged BattleMech", notes: "Optional rules for the Goliath and Scorpion; without them a four-legged BattleMech plays as a biped. The arms become a second pair of legs, with 12 fewer critical slots. Lateral shift for 1 extra MP; -2 on Piloting Skill rolls to avoid falls while all four legs remain; no punching, pushing or club attacks (BTC p.56). The construction rules do not mention it (BTC pp.111-113)." } },
 		name:  "Quad",
 		rulesLevel: 0,
 		book: "TM",
@@ -47,6 +48,7 @@ export const mechTypeOptions: IMechType[] = [
 		introducedInEdition: "battletech-manual",
 		editionStats: {
 			"battletech-manual": { book: "BTM", page: 74, name: "Land-Air 'Mech", notes: "Built as a 'Mech with 10 percent of its tonnage given to conversion equipment (BTM p.78). 'Mech, Air'Mech and Fighter modes; the standard configurations are variations of the Wasp, Stinger and Phoenix Hawk (BTM p.74). Conversion costs (weapons cost + structure cost) x .75 (BTM p.84)." },
+			"battletech-compendium": { book: "BTC", page: 104, name: "Land-Air BattleMech", notes: "Built as a BattleMech with 10 percent of its tonnage, rounded up to the half ton, given to conversion equipment. New: never heavier than 55 tons, never an OmniMech, and it may not carry bombs (BTC p.105). BattleMech, AirMech and Fighter modes; the standard configurations are variations of the Wasp, Stinger and Phoenix Hawk (BTC p.104). Conversion costs (weapons and equipment cost + structure cost) x .75 (BTC p.128)." },
 		},
 		name:  "LAM",
 		rulesLevel: 4,

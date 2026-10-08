@@ -36,6 +36,7 @@ export const mechMyomerTypes: IMyomerType[] = [
 	{
 		name: "Triple-Strength Myomer",
 		tag: "tsm",
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Triple Strength Myomer", criticals: 6, notes: "Works only when the BattleMech ends a turn at heat 9 or higher: for the next turn it ignores the -1 MP heat effect at 5, walks 1 MP faster, doubles punch, kick and club damage and doubles its lifting ability. 6 critical slots anywhere; hits on them are re-rolled. Incompatible with MASC (BTC p.122). Musculature cost: tonnage x 16,000 C-bills (BTC p.128)." } },
 		criticals: 6,
 		costPerTon: 16000,
 		bvWeightMultiplier: 1.5,

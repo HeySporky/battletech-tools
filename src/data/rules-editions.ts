@@ -123,6 +123,29 @@ export const btRulesEditions: IRulesEdition[] = [
         name: "The BattleTech Compendium",
         year: 1990,
         book: "BTC",
+        complete: true,
+        // A rulebook only: it prints no 'Mech record listings and names designs in passing (BTC pp.56, 61, 104).
+        mechs: [],
+        // Units with their own construction rules (BTC pp.105, 122-127), tables (BTC pp.45-46) or record sheets.
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Displacement hull vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon", "BattleArmor point",
+            "AeroSpace Fighter", "Conventional Fighter", "DropShip", "JumpShip", "Land-Air BattleMech",
+            "OmniMech", "OmniFighter",
+            "Installation (building or gun emplacement)",
+        ],
+        notModelled: [
+            "Component prices: the BattleMech Costs and Formulas chart prices the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets, heat sinks and armor by formula, with x.75 for a LAM and x.25 for an OmniMech (BTC p.128); only the fixed prices are entered.",
+            "Clan CASE: no weight, no critical slot, built into every Clan ammunition-fed weapon pod (BTC pp.118-119, 122); the catalogs have no record for it.",
+            "OmniMech pods: a design sets aside tonnage and critical slots for pods filled before each battle; engines, Endo Steel, MASC and armor never go in pods (BTC pp.112, 122-123).",
+            "Mines: conventional, command-detonated and Vibrabomb fields are placed by scenario; Thunder LRMs and the Clan Arrow IV FASCAM round lay conventional fields (BTC pp.60-61, 117, 121).",
+            "Vehicle parts: lift, rotor and diving equipment, controls, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items (BTC pp.123-125).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon to-hit and damage rows and platoon prices (BTC pp.45, 130).",
+            "BattleArmor: a fixed design, five Elementals to a Point, each suit with 11 points of armor, SRMs and a small laser, flamer or machine gun; 3,500,000 C-bills a Point (BTC pp.8, 45-46, 130).",
+            "Clubs: a severed arm or leg, an uprooted tree or a girder from a rubbled building, picked up on the map (BTC p.31).",
+            "Single-shot Streak, Narc and Artemis launchers: allowed at double the launcher's base price, with no rows of their own (BTC p.121); only the LRM and SRM single-shot launchers are entered.",
+        ],
     },
     {
         // BattleTech, Third Edition box set: rulebook credits page, "Copyright 1992 FASA Corporation".

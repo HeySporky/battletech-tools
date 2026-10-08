@@ -19,6 +19,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         introducedInEdition: "battletech-manual",
         editionStats: {
             "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/2", heat: 1, damage: 2, range: { min: 4, short: 8, medium: 16, long: 24 }, weight: 6, criticals: 1, shotsPerTon: 45, cbills: 75000 },
+            "battletech-compendium": { book: "BTC", page: 116, name: "Autocannon/2", heat: 1, damage: 2, range: { min: 4, short: 8, medium: 16, long: 24 }, weight: 6, criticals: 1, shotsPerTon: 45, cbills: 75000 },
         },
         sort: "Autocannon/a",
         category: "Ballistic Weapons",
@@ -119,6 +120,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             battledroids: { book: "BD", page: 20, name: "Auto Cannon", heat: 1, damage: 5, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 8, criticals: 4, shotsPerTon: 20 },
             "battletech-2nd-edition": null,
             "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/5", heat: 1, damage: 5, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 8, criticals: 4, shotsPerTon: 20, cbills: 125000 },
+            "battletech-compendium": { book: "BTC", page: 116, name: "Autocannon/5", heat: 1, damage: 5, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 8, criticals: 4, shotsPerTon: 20, cbills: 125000 },
         },
         book: "TM",
         page: 208,
@@ -143,6 +145,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         introducedInEdition: "battletech-manual",
         editionStats: {
             "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/10", heat: 3, damage: 10, range: { min: 0, short: 5, medium: 10, long: 15 }, weight: 12, criticals: 7, shotsPerTon: 10, cbills: 200000 },
+            "battletech-compendium": { book: "BTC", page: 116, name: "Autocannon/10", heat: 3, damage: 10, range: { min: 0, short: 5, medium: 10, long: 15 }, weight: 12, criticals: 7, shotsPerTon: 10, cbills: 200000 },
         },
         sort: "Autocannon/c",
         category: "Ballistic Weapons",
@@ -204,6 +207,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         introducedInEdition: "battletech-manual",
         editionStats: {
             "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/20", heat: 7, damage: 20, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 14, criticals: 10, shotsPerTon: 5, cbills: 300000 },
+            "battletech-compendium": { book: "BTC", page: 116, name: "Autocannon/20", heat: 7, damage: 20, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 14, criticals: 10, shotsPerTon: 5, cbills: 300000, notes: "Its critical slots may be split between adjacent locations (BTC p.113)." },
         },
         sort: "Autocannon/d",
         category: "Ballistic Weapons",
@@ -315,6 +319,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Gauss Rifle",
         tag: "standard-gauss-rifle",
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, name: "Gauss Rifle", heat: 1, damage: 15, range: { min: 2, short: 7, medium: 15, long: 22 }, weight: 15, criticals: 7, shotsPerTon: 8, cbills: 300000, notes: "A critical hit on the rifle is treated as a 20-point ammunition explosion in its location; its ammunition does not explode (BTC p.119)." } },
         sort: "gauss rifle, b",
         category: "Ballistic Weapons",
         damage: 15,
@@ -714,6 +719,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "LB 10-X AC",
         tag: "autocannon-lbx-10",
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, name: "LB 10-X AC", heat: 2, damage: 10, range: { min: 0, short: 6, medium: 12, long: 18 }, weight: 11, criticals: 6, shotsPerTon: 10, cbills: 400000, notes: "Fires standard or cluster rounds, chosen by the ton before play. Cluster: -1 to hit at every range, rolled on the Missile Hits table's 10 column, each submunition doing 1 point at its own location (BTC p.120)." } },
         sort: "LB c-X AC",
         category: "Ballistic Weapons",
         damagePerCluster: 1,
@@ -977,6 +983,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             battledroids: { book: "BD", page: 20, name: "Machine Gun", heat: 0, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1, shotsPerTon: 200 },
             "battletech-2nd-edition": null,
             "battletech-manual": { book: "BTM", page: 87, name: "Machine Gun", heat: 0, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1, shotsPerTon: 200, cbills: 5000 },
+            "battletech-compendium": null,
         },
         book: "TM",
         page: 228,
@@ -1096,6 +1103,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Hatchet",
         tag: "melee-hatchet",
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 31, name: "Hatchet", notes: "Weighs 1 ton for every 15 tons of the BattleMech, or fraction of 15, and takes one critical slot a ton, in an arm with a working hand actuator. Attacks as a club with one arm: 1 point of damage for every 5 tons of the BattleMech (BTC p.31). 5,000 C-bills a ton (BTC p.129). Not on the Weapons and Equipment tables." } },
         allowedLocations: ["la", "ra"],
         onePerLocationGroup: "hatchet",
         techRating: "b",
@@ -1429,6 +1437,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Ultra AC/5",
         tag: "autocannon-ultra-b",
+        introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, name: "Ultra AC/5", heat: 1, damage: 5, range: { min: 2, short: 6, medium: 13, long: 20 }, weight: 9, criticals: 5, shotsPerTon: 20, cbills: 200000, notes: "May fire at double rate: twice the heat, two shots, and the 2 column of the Missile Hits table for how many hit. A to-hit roll of 2 at double rate leaves the weapon useless until repaired (BTC p.122)." } },
         ammoTypes: ["ammo-is-ultra-ac-5-standard"],
         altNames: [],
         altTags: ["autocannon-uac-5"],
@@ -1616,7 +1625,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     { isAmmo: false, name: "Light Rifle", altNames: [], tag: "light-rifle", ammoTypes: ["ammo-is-light-rifle-standard"], altTags: [], sort: "light rifle", category: "Ballistic Weapons", damage: 3, notes: "Universal experimental rifle; workbook conversion provisional.", damageAero: 3, accuracyModifier: 0, cbills: 37750, introduced: 1950, extinct: 2825, reintroduced: 3084, battleValue: 21, heat: 1, heatAero: 1, weight: 3, ammoBattleValue: 3, range: { min: 0, short: 4, medium: 8, long: 12 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 18, minAmmoTons: 1, explosive: false, weaponType: ["DB"], techRating: "e", book: "TO:AUE", page: 150, alphaStrike: { heat: 1, rangeShort: 0.3, rangeMedium: 0.3, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Provisional workbook conversion"] }, rangeAero: "", },
     { isAmmo: false, name: "Medium Rifle", altNames: [], tag: "medium-rifle", ammoTypes: ["ammo-is-medium-rifle-standard"], altTags: [], sort: "medium rifle", category: "Ballistic Weapons", damage: 6, notes: "Universal experimental rifle; workbook conversion provisional.", damageAero: 6, accuracyModifier: 0, cbills: 75750, introduced: 1950, extinct: 2825, reintroduced: 3084, battleValue: 51, heat: 2, heatAero: 2, weight: 5, ammoBattleValue: 6, range: { min: 1, short: 5, medium: 10, long: 15 }, space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 9, minAmmoTons: 1, explosive: false, weaponType: ["DB"], techRating: "e", book: "TO:AUE", page: 150, alphaStrike: { heat: 2, rangeShort: 0.552, rangeMedium: 0.6, rangeLong: 0, rangeExtreme: 0, tc: true, notes: ["Provisional workbook conversion"] }, rangeAero: "", },
     { isAmmo: false, name: "Heavy Rifle", altNames: [], tag: "heavy-rifle", ammoTypes: ["ammo-is-heavy-rifle-standard"], altTags: [], sort: "heavy rifle", category: "Ballistic Weapons", damage: 9, notes: "Universal experimental rifle; workbook conversion provisional.", damageAero: 9, accuracyModifier: 0, cbills: 90000, introduced: 1950, extinct: 2825, reintroduced: 3084, battleValue: 91, heat: 4, heatAero: 4, weight: 8, ammoBattleValue: 11, range: { min: 2, short: 6, medium: 12, long: 18 }, space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 6, minAmmoTons: 1, explosive: false, weaponType: ["DB"], techRating: "e", book: "TO:AUE", page: 150, alphaStrike: { heat: 4, rangeShort: 0.747, rangeMedium: 0.9, rangeLong: 0.9, rangeExtreme: 0, tc: true, notes: ["Provisional workbook conversion"] }, rangeAero: "", },
-    { isAmmo: false, name: "Anti-Missile System", altNames: ["AMS", "IS AMS"], tag: "is-ams", altTags: ["ams", "anti-missile-system"], catalog: "is", sort: "equipment, ams, is", category: "Ballistic Weapons", alternateName: "AMS", damage: 0, notes: "Anti-Missile System: reduces incoming missile hits; its BV and ammo BV count toward the defensive rating.", damageAero: 0, accuracyModifier: 0, cbills: 100000, introduced: 2617, extinct: 2835, reintroduced: 3045, prototype: 2613, battleValue: 32, heat: 1, weight: 0.5, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-is-ams-standard"], shotsPerTon: 12, ammoBattleValue: 11, minAmmoTons: 1, explosive: false, weaponType: ["AMS"], techRating: "e", book: "TM", page: 204, alphaStrike: { specialAbility: ["AMS"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }, heatAero: 1, battleValueDefensive: true },
+    { isAmmo: false, name: "Anti-Missile System", altNames: ["AMS", "IS AMS"], tag: "is-ams", introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, name: "Anti-Missile System", heat: 1, weight: 0.5, criticals: 1, shotsPerTon: 12, cbills: 100000, notes: "Engages one missile flight a turn before its to-hit roll: 1D6 missiles shot down, and another 1D6 x 2 shots of ammunition spent. No effect on Thunder or Swarm LRMs. Its ammunition explodes as machine gun ammunition (BTC p.117)." } }, altTags: ["ams", "anti-missile-system"], catalog: "is", sort: "equipment, ams, is", category: "Ballistic Weapons", alternateName: "AMS", damage: 0, notes: "Anti-Missile System: reduces incoming missile hits; its BV and ammo BV count toward the defensive rating.", damageAero: 0, accuracyModifier: 0, cbills: 100000, introduced: 2617, extinct: 2835, reintroduced: 3045, prototype: 2613, battleValue: 32, heat: 1, weight: 0.5, range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, ammoTypes: ["ammo-is-ams-standard"], shotsPerTon: 12, ammoBattleValue: 11, minAmmoTons: 1, explosive: false, weaponType: ["AMS"], techRating: "e", book: "TM", page: 204, alphaStrike: { specialAbility: ["AMS"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }, heatAero: 1, battleValueDefensive: true },
     { isAmmo: false, name: "Machine Gun Array", altNames: ["IS MG Array", "MGA", "MG Array (2 Machine Gun)", "MG Array (3 Machine Gun)", "MG Array (4 Machine Gun)"], tag: "is-machine-gun-array", altTags: [], catalog: "is", sort: "machine gun, array", category: "Ballistic Weapons", alternateName: "MGA", damage: 2, notes: "Machine gun array: links two to four machine guns of its type in the same location and fires them as one cluster weapon.", damageAero: 2, accuracyModifier: 0, cbills: 1250, introduced: 3068, extinct: null, reintroduced: null, prototype: 3066, battleValue: 0, heat: 0, weight: 0.5, range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DB", "AI"], techRating: "e", book: "TM", page: 228, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional: array damage is carried by its linked machine guns"] }, heatAero: 0, linkedWeaponTags: ["machine-gun"] },
     { isAmmo: false, name: "Light Machine Gun Array", altNames: ["IS Light MG Array", "Light MGA", "MG Array (2 Light Machine Gun)", "MG Array (3 Light Machine Gun)", "MG Array (4 Light Machine Gun)"], tag: "is-light-machine-gun-array", altTags: [], catalog: "is", sort: "machine gun, light, array", category: "Ballistic Weapons", alternateName: "Light MGA", damage: 1, notes: "Machine gun array: links two to four machine guns of its type in the same location and fires them as one cluster weapon.", damageAero: 2, accuracyModifier: 0, cbills: 1250, introduced: 3068, extinct: null, reintroduced: null, prototype: 3066, battleValue: 0, heat: 0, weight: 0.5, range: { min: 0, short: 2, medium: 4, long: 6 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DB", "AI"], techRating: "e", book: "TM", page: 228, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional: array damage is carried by its linked machine guns"] }, heatAero: 0, linkedWeaponTags: ["machine-gun-light"] },
     { isAmmo: false, name: "Heavy Machine Gun Array", altNames: ["IS Heavy MG Array", "Heavy MGA", "MG Array (2 Heavy Machine Gun)", "MG Array (3 Heavy Machine Gun)", "MG Array (4 Heavy Machine Gun)"], tag: "is-heavy-machine-gun-array", altTags: [], catalog: "is", sort: "machine gun, heavy, array", category: "Ballistic Weapons", alternateName: "Heavy MGA", damage: 3, notes: "Machine gun array: links two to four machine guns of its type in the same location and fires them as one cluster weapon.", damageAero: 3, accuracyModifier: 0, cbills: 1250, introduced: 3068, extinct: null, reintroduced: null, prototype: 3066, battleValue: 0, heat: 0, weight: 0.5, range: { min: 0, short: 1, medium: 2, long: 2 }, space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 }, shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DB", "AI"], techRating: "e", book: "TM", page: 228, alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Provisional: array damage is carried by its linked machine guns"] }, heatAero: 0, linkedWeaponTags: ["machine-gun-heavy"] },

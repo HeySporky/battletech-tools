@@ -870,8 +870,38 @@ Open:
       hexes x CF / 10 tons, walls of CF / 3 tons, turret armor at 16 points a ton, a power plant rated by energy
       weapon tonnage, the Gun Emplacement Damage Table and the Installation Cost Chart) was read from the page
       images and is not built: it waits for the edition selector, like every other edition's construction rules.
-  - [ ] Next: Compendium (1990). Then Third Edition (1992), Fourth Edition (1996), Master Rules (1998), Master
-    Rules Revised (2001), in that order.
+  - [x] BattleTech Compendium (2026-10-07): the Manual's 68 records plus 129 new, read from the page images
+    (weapons tables BTC pp.115-116, Advanced Equipment pp.117-122, price list p.129). New: the Clan weapons and
+    equipment table (ER and pulse lasers, ER PPC, Gauss rifle, LB-X and Ultra autocannon, Clan LRMs and SRMs,
+    Streak SRMs, Narc, Arrow IV, TAG, anti-missile system, active probe, A-Pod, ECM, MASC, targeting computer)
+    and the Inner Sphere's 2750 technology (ER large laser, ER PPC, pulse lasers, Gauss rifle, LB 10-X, Ultra
+    AC/5, Streak SRM-2, Narc, Arrow IV, TAG, anti-missile system, Beagle, CASE, C3 master and slave, Guardian,
+    MASC, hatchet); their ammunition with prices, LB-X cluster, Arrow IV homing, Swarm and Thunder LRMs, Artemis
+    missiles; Endo Steel, Ferro-Fibrous and Ferro-Aluminum armor, XL engines, double heat sinks, Triple Strength
+    Myomer; the four-legged layout (optional rules, p.56). Changed from the Manual: LRM-15 back to 3 critical
+    slots, Vehicle Flamer 0.5 tons with a critical slot, LAMs capped at 55 tons, searchlights on vehicles, smoke
+    rounds in the price list. Unchanged: engine and structure tables, cockpit, gyro, standard heat sinks, jump
+    jets, standard armor, the lasers, PPC, flamer, machine gun and the Manual's ammunition prices. No 'Mech
+    listings; vehicles, infantry, BattleArmor points, fighters, DropShips, JumpShips, OmniMechs, OmniFighters
+    and installations named on the edition.
+    Corrected as obvious misprints (errata recorded): the Inner Sphere table prints the Beagle Active Probe and
+    Artemis IV FCS rows one column to the right; entered as 1.5 tons / 2 slots (range 4) and 1 ton / 1 slot.
+    Readings to confirm: (1) the catalogs have no Artemis IV record of its own, so the system's row is added to
+    each "launcher + Artemis IV" record (launcher + 1 ton, + 1 slot, + 100,000); (2) single-shot launchers are
+    entered for LRMs and SRMs only (standard launcher + 0.5 tons, half price), with no critical slots because
+    none are printed; single-shot Streak, Narc and Artemis launchers are allowed by the text but not entered;
+    (3) "2 x normal" ammunition is entered as 60,000 (LRM) and 54,000 (SRM) a ton; (4) the Smoke Round price
+    row reads "= Conventional" and no figure is entered; (5) the Clan Active Probe and Clan ECM Suite have no
+    price row of their own (only "Beagle" and "Guardian" are priced) and are left unpriced; (6) Clan CASE has
+    no catalog record and is listed under the edition's `notModelled`; (7) the Clan Arrow IV FASCAM round is
+    entered with no shots or price, since none are printed; (8) the Thumper still outranges the Sniper (14
+    mapsheets to 12) on three tables, kept as printed; (9) "AC/20 type weapons" may split their critical slots
+    between adjacent locations (p.113), read as covering the Clan LB 20-X and Ultra AC/20. Engine, gyro and cockpit boxes on the record sheet were
+    not re-read and stay inherited. The Compendium's own construction rules for vehicles, installations and
+    fighters (pp.123-127) and its cost formulas (pp.128-131) were read and are not built: they wait for the
+    edition selector.
+  - [ ] Next: Third Edition (1992). Then Fourth Edition (1996), Master Rules (1998), Master Rules Revised
+    (2001), in that order.
   - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).
   - [ ] The selector itself: filter by `isInRulesEdition`, read stats through `getEditionStats`, and decide how

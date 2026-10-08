@@ -656,7 +656,7 @@ export interface IJumpJet extends IEditionHistory {
     availableAsPrototype?: boolean;
 }
 
-export interface IMyomerType {
+export interface IMyomerType extends IEditionHistory {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
