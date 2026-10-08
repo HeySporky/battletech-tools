@@ -793,7 +793,7 @@ export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" 
  * A capital-scale or sub-capital weapon for large craft (capital-weapons.ts, sub-capital-weapons.ts).
  * Kept apart from IEquipmentItem: these are never mounted on a 'Mech or offered by the equipment registry.
  */
-export interface ICapitalWeapon {
+export interface ICapitalWeapon extends IEditionHistory {
     name: string;
     altNames: string[];
     tag: string;
@@ -844,6 +844,11 @@ export interface ICapitalWeapon {
     reintroduced: number | null;
     /** Clan availability window when it differs from the dates above. */
     clanDates?: ITechDates;
+    /**
+     * What another book of the same rules edition prints where it differs from this record, which follows the
+     * newest publication. Earlier rules editions go in editionStats instead.
+     */
+    sourceVariants?: { book: string; page: number; introduced?: number; techRating?: string; techBase?: "is" | "clan" | "both" }[];
     /** 2 = Standard, 3 = Advanced, 4 = Experimental. */
     rulesLevel: number;
     book: string;

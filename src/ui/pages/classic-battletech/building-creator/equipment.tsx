@@ -56,6 +56,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
         const lightLimit = building.getLightWeaponLimitPerHex();
         const capitalAvailable = carriesEquipment ? building.getAvailableCapitalWeapons(rulesLevel) : [];
         const capitalTag = capitalAvailable.some((weapon) => weapon.tag === this.state.capitalTag) ? this.state.capitalTag : capitalAvailable[0]?.tag ?? "";
+        const showBunkers = building.getHexes() > 1 && (rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL || building.usesAmmoBunkers());
         const capitalCategories = capitalAvailable.map((weapon) => weapon.category).filter((category, index, list) => list.indexOf(category) === index);
 
         return (
@@ -376,7 +377,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                     </label>
                                     <table className="table" data-testid="building-capital-weapons">
                                         <thead>
-                                            <tr><th>Name</th><th>Tons</th><th>Fire Control</th><th>Heat</th><th>Damage</th><th>Range</th>{building.getHexes() > 1 ? <th>Hex</th> : null}{building.getHexes() > 1 ? <th>Shared With Hexes</th> : null}<th>Shots</th><th>Ammo Tons</th><th></th></tr>
+                                            <tr><th>Name</th><th>Tons</th><th>Fire Control</th><th>Heat</th><th>Damage</th><th>Range</th>{building.getHexes() > 1 ? <th>Hex</th> : null}{building.getHexes() > 1 ? <th>Shared With Hexes</th> : null}<th>Shots</th><th>Ammo Tons</th>{showBunkers ? <th>Ammo Bunker</th> : null}<th></th></tr>
                                         </thead>
                                         <tbody>
                                             {building.getCapitalWeapons().map((mount) => (
@@ -435,6 +436,20 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                         ))}
                                                     </td>
                                                     <td>{Building.getCapitalAmmoWeight(mount) || "-"}</td>
+                                                    {showBunkers ? (
+                                                        <td>
+                                                            {Building.getCapitalAmmoTags(mount.weapon).length === 0 ? "-" : (
+                                                                <select
+                                                                    aria-label={"Ammunition bunker hex for " + mount.weapon.name}
+                                                                    value={mount.ammoHex ?? 0}
+                                                                    onChange={(e) => { const value = +e.currentTarget.value; this.update((b) => b.setCapitalWeaponAmmoHex(mount.uuid, value)); }}
+                                                                >
+                                                                    <option value={0}>With the weapon</option>
+                                                                    {loads.filter((load) => load.hex !== mount.hex).map((load) => <option key={load.hex} value={load.hex}>Hex {load.hex}</option>)}
+                                                                </select>
+                                                            )}
+                                                        </td>
+                                                    ) : null}
                                                     <td>
                                                         <button className="btn btn-danger btn-sm" title={"Remove " + mount.weapon.name} onClick={() => this.update((b) => { b.removeCapitalWeapon(mount.uuid); })}>
                                                             <Trash />
@@ -442,9 +457,10 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                     </td>
                                                 </tr>
                                             ))}
-                                            {building.getCapitalWeapons().length === 0 ? <tr><td colSpan={11}>None mounted.</td></tr> : null}
+                                            {building.getCapitalWeapons().length === 0 ? <tr><td colSpan={12}>None mounted.</td></tr> : null}
                                         </tbody>
                                     </table>
+                                    {showBunkers ? <p className="smaller-text">Custom rule: capital weapons in the hexes next to an ammunition bunker share it. Pick the bunker's hex for each weapon; its ammunition is carried there, and weapons that fire the same ammunition draw on one supply.</p> : null}
                                     <p className="smaller-text">An AR-10 takes its heat, damage and range from the missile it fires: standard Killer Whales, White Sharks and Barracudas (TM p. 342).</p>
                                 </TextSection>
                             ) : null}

@@ -86,6 +86,11 @@ export interface IBuildingCapitalMount {
     sharedHexes: number[];
     /** Shots carried, by the tag of the weapon whose ammunition they are (an AR-10 carries three kinds). */
     shots: Record<string, number>;
+    /**
+     * Custom rule (user, 2026-10-07): the hex of an ammunition bunker next to the weapon that holds its
+     * ammunition, shared with the other capital weapons around it. Null keeps it in the weapon's own hex.
+     */
+    ammoHex: number | null;
 }
 
 export interface IBuildingCapitalWeaponExport {
@@ -94,6 +99,7 @@ export interface IBuildingCapitalWeaponExport {
     hex?: number;
     sharedHexes?: number[];
     shots?: Record<string, number>;
+    ammoHex?: number;
 }
 
 export interface IBuildingEquipmentExport {
@@ -381,6 +387,7 @@ export default class Building {
         for (const mount of this._capitalWeapons) {
             mount.hex = Math.min(this._hexes, Math.max(1, mount.hex));
             mount.sharedHexes = mount.sharedHexes.filter((hex) => hex <= this._hexes && hex !== mount.hex);
+            if (mount.ammoHex !== null && (mount.ammoHex > this._hexes || mount.ammoHex === mount.hex)) mount.ammoHex = null;
         }
         if (!this.canBeSubsurface()) this._subsurface = "none";
         if (!this.canBeTunnel()) this._tunnel = false;
@@ -807,7 +814,7 @@ export default class Building {
 
     public getCapitalWeapons(): IBuildingCapitalMount[] { return this._capitalWeapons; }
 
-    private _newCapitalMount(weapon: ICapitalWeapon, hex: unknown, sharedHexes: unknown, shots: unknown, uuid?: unknown): IBuildingCapitalMount {
+    private _newCapitalMount(weapon: ICapitalWeapon, hex: unknown, sharedHexes: unknown, shots: unknown, uuid?: unknown, ammoHex?: unknown): IBuildingCapitalMount {
         const taken = (id: string) => this._capitalWeapons.some((mount) => mount.uuid === id) || this._lightWeapons.some((mount) => mount.uuid === id)
             || this._equipment.some((mount) => mount.item.uuid === id);
         const mount: IBuildingCapitalMount = {
@@ -816,8 +823,10 @@ export default class Building {
             hex: Math.floor(savedNumber(hex, 1, 1, this._hexes)),
             sharedHexes: [],
             shots: {},
+            ammoHex: null,
         };
         mount.sharedHexes = this._cleanSharedHexes(mount.hex, sharedHexes);
+        mount.ammoHex = this._cleanAmmoHex(mount, ammoHex);
         for (const tag of Building.getCapitalAmmoTags(weapon)) {
             mount.shots[tag] = Math.floor(savedNumber(isPlainObject(shots) ? shots[tag] : undefined, 0, 0, MAX_BUILDING_CAPITAL_SHOTS));
         }
@@ -830,6 +839,11 @@ export default class Building {
             if (hexes.length < MAX_BUILDING_CAPITAL_SHARED_HEXES) hexes.push(value);
         }
         return hexes.sort((a, b) => a - b);
+    }
+
+    private _cleanAmmoHex(mount: IBuildingCapitalMount, raw: unknown): number | null {
+        if (typeof raw !== "number" || !Number.isInteger(raw) || raw < 1 || raw > this._hexes || raw === mount.hex) return null;
+        return Building.getCapitalAmmoTags(mount.weapon).length > 0 ? raw : null;
     }
 
     /** A new weapon that fires ammunition comes with 10 shots, the least a DropShip's launcher carries (TM p.210). */
@@ -852,6 +866,24 @@ export default class Building {
         if (!mount) return;
         mount.hex = Math.floor(savedNumber(hex, mount.hex, 1, this._hexes));
         mount.sharedHexes = mount.sharedHexes.filter((shared) => shared !== mount.hex);
+        if (mount.ammoHex === mount.hex) mount.ammoHex = null;
+    }
+    /**
+     * Custom rule (user, 2026-10-07): capital weapons in the hexes next to an ammunition bunker may share it.
+     * The weapon's ammunition is stored in the bunker's hex; 0 or the weapon's own hex puts it back.
+     */
+    public setCapitalWeaponAmmoHex(uuid: string, hex: number): void {
+        const mount = this._capitalMount(uuid);
+        if (mount) mount.ammoHex = this._cleanAmmoHex(mount, hex);
+    }
+    public usesAmmoBunkers(): boolean { return this._capitalWeapons.some((mount) => mount.ammoHex !== null); }
+    /** Shots pooled in a hex's ammunition bunker, by the weapon whose ammunition they are. */
+    public getAmmoBunkerShots(hex: number): Record<string, number> {
+        const pool: Record<string, number> = {};
+        for (const mount of this._capitalWeapons.filter((entry) => entry.ammoHex === hex)) {
+            for (const tag of Object.keys(mount.shots)) if (mount.shots[tag] > 0) pool[tag] = (pool[tag] ?? 0) + mount.shots[tag];
+        }
+        return pool;
     }
     /**
      * A weapon too heavy for its hex divides its tonnage evenly between that hex and hexes next to it
@@ -893,8 +925,9 @@ export default class Building {
         let tons = 0;
         for (const mount of this._capitalWeapons) {
             const share = (mount.weapon.weight + Building.getCapitalFireControlWeight(mount.weapon)) / (1 + mount.sharedHexes.length);
-            if (mount.hex === hex) tons += share + Building.getCapitalAmmoWeight(mount);
+            if (mount.hex === hex) tons += share;
             else if (mount.sharedHexes.includes(hex)) tons += share;
+            if ((mount.ammoHex ?? mount.hex) === hex) tons += Building.getCapitalAmmoWeight(mount);
         }
         return round3(tons);
     }
@@ -1186,7 +1219,7 @@ export default class Building {
             })),
             ...(pintles > 0 ? [{ name: "Pintle Mounts", weight: pintles }] : []),
             ...this._capitalWeapons.map((mount) => ({
-                name: `${mount.weapon.name}${Building.getCapitalShots(mount) > 0 ? `, ${Building.getCapitalShots(mount)} ${Building.getCapitalShots(mount) === 1 ? "shot" : "shots"}` : ""}${this._hexes > 1 ? `, hex ${mount.hex}${mount.sharedHexes.length > 0 ? ` with ${mount.sharedHexes.join(", ")}` : ""}` : ""}`,
+                name: `${mount.weapon.name}${Building.getCapitalShots(mount) > 0 ? `, ${Building.getCapitalShots(mount)} ${Building.getCapitalShots(mount) === 1 ? "shot" : "shots"}${mount.ammoHex !== null ? ` in the hex ${mount.ammoHex} bunker` : ""}` : ""}${this._hexes > 1 ? `, hex ${mount.hex}${mount.sharedHexes.length > 0 ? ` with ${mount.sharedHexes.join(", ")}` : ""}` : ""}`,
                 weight: Building.getCapitalMountWeight(mount),
             })),
             ...(this.getCapitalFireControlWeight() > 0 ? [{ name: "Capital Fire Control", weight: this.getCapitalFireControlWeight() }] : []),
@@ -1249,6 +1282,7 @@ export default class Building {
         for (const mount of this._equipment) level = Math.max(level, getEquipmentRulesLevel(mount.item));
         if (this._lightWeapons.some((mount) => mount.weapon.type === "melee")) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
         for (const mount of this._capitalWeapons) level = Math.max(level, mount.weapon.rulesLevel);
+        if (this.usesAmmoBunkers()) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
         return level;
     }
 
@@ -1294,6 +1328,9 @@ export default class Building {
             if (!this.isCapitalWeaponAllowed(mount.weapon)) issues.push(`${mount.weapon.name} cannot be mounted on a ${this._classification.name.toLowerCase()}.`);
             else if (!this.getCapitalWeaponAvailability(mount.weapon, rulesLevel).available) issues.push(`${mount.weapon.name} is not available to this technology base in the selected era.`);
             else if (mount.weapon.rulesLevel > Math.max(rulesLevel, BUILDING_RULES_LEVEL)) issues.push(`${mount.weapon.name} is above the selected rules level.`);
+        }
+        if (this.usesAmmoBunkers() && rulesLevel < CUSTOM_HOMEBREW_RULES_LEVEL) {
+            issues.push("Capital weapon ammunition in a shared bunker in another hex is a custom rule: the books keep it with the weapon.");
         }
         if (this._generator?.noRooftopEquipment && this.hasTurret()) issues.push(`A ${this._generator.name.toLowerCase()} generator leaves no room on the roof for turrets (TO:AR p.132).`);
         for (const mount of this._equipment) {
@@ -1346,6 +1383,7 @@ export default class Building {
                 notes.push("A capital missile or screen launcher carries at least 10 shots on a DropShip (TM pp.210, 237); the building rules name no minimum.");
             }
         }
+        if (this.usesAmmoBunkers()) notes.push("Custom rule: capital weapons in the hexes next to an ammunition bunker share it. Weapons that fire the same ammunition draw on one supply there; the bunker's hex must touch each weapon's, which is checked on the map in play.");
         if (this._equipment.some((mount) => mount.automated)) notes.push(`Automated weapons fire first in the Weapon Attack Phase at the closest enemy in range, with a Gunnery skill of ${BUILDING_AUTOMATED_GUNNERY}, +1 through hostile ECM (TO:AR p.131).`);
         if (this._sealed) notes.push(`Environmental sealing: a hit that does more than ${this.isCapitalScale() ? "1 capital-scale point (10 standard points)" : "10 points"} to the Construction Factor breaches ${this.isCapitalScale() ? "that hex alone" : "the building"} on a 2D6 roll of ${BUILDING_BREACH_TARGET}+, modified by ${this.getBreachModifier() >= 0 ? "+" : ""}${this.getBreachModifier()} (TO:AR pp.134-135).`);
         if (this._heavyMetal) notes.push("Heavy metal superstructure: lines of sight through or beside the building are treated as inside an electromagnetic interference field, and a unit that fails its roll entering takes double damage (TO:AR p.135).");
@@ -1949,6 +1987,7 @@ export default class Building {
                     tag: mount.weapon.tag, uuid: mount.uuid, hex: mount.hex,
                     ...(mount.sharedHexes.length > 0 ? { sharedHexes: [...mount.sharedHexes] } : {}),
                     ...(Object.keys(mount.shots).length > 0 ? { shots: { ...mount.shots } } : {}),
+                    ...(mount.ammoHex !== null ? { ammoHex: mount.ammoHex } : {}),
                 })),
             } : {}),
         };
@@ -2084,7 +2123,7 @@ export default class Building {
                     issue(`Dropped ${weapon.name}: a ${this._classification.name.toLowerCase()} cannot mount it`);
                     continue;
                 }
-                this._capitalWeapons.push(this._newCapitalMount(weapon, entry.hex, entry.sharedHexes, entry.shots, entry.uuid));
+                this._capitalWeapons.push(this._newCapitalMount(weapon, entry.hex, entry.sharedHexes, entry.shots, entry.uuid, entry.ammoHex));
             }
             for (const key of ["doors", "elevators"] as const) {
                 if (saved[key] !== undefined && !Array.isArray(saved[key])) issue(`Ignored a ${key} list that is not a list`);

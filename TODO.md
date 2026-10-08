@@ -345,7 +345,9 @@ played first, then by dependency.
   not a missile launcher in a hex and any number of launchers; 10 percent more weight for fire control and a
   fusion or fission generator for anything but a launcher; a weapon's weight shared evenly with named neighbor
   hexes; no turret or pintle in a hex that holds one or a share; an upward arc only; 7 gunners each, never
-  automated (TO:AR pp.129-131; TO:AUE p.83). Mass Drivers are not offered (TO:AUE p.135). Readings to confirm:
+  automated (TO:AR pp.129-131; TO:AUE p.83). Mass Drivers are not offered (TO:AUE p.135). Custom rule (user,
+  2026-10-07): capital weapons in the hexes next to an ammunition bunker share it, at the Custom Homebrew
+  level. Readings, all confirmed by the user 2026-10-07; adjacency (8) is enforced on the map in play:
   (1) capital weapons do not count against the hex's Heavy weapon tonnage, only its weight capacity; (2) the
   fusion or fission rule and the 10 percent cover sub-capital cannons and lasers as well; (3) the Screen
   Launcher counts as a missile launcher; (4) capital lasers and PPCs need heat sinks, as other energy weapons
@@ -360,7 +362,13 @@ played first, then by dependency.
   IO:AE family dates in six places (NAC/20 2197, NAC/40 2202, Heavy N-Gauss 2449, NL55 2307, Light and Medium
   N-PPC 2358); TechManual p.342 rates the capital missiles D and the Screen Launcher E where IO:AE has E and
   F; TO:AUE p.223 lists sub-capital cannons and lasers as Inner Sphere only where IO:AE gives the Clans them
-  from 3091. The catalogs follow IO:AE in all three.
+  from 3091 (user ruling 2026-10-07: IO:AE). These books are one rules edition, so the newest is followed and
+  the others' values are kept on each record in `sourceVariants`.
+- [ ] Capital weapons by rules edition (user, 2026-10-07: where editions disagree, each edition's values are
+  listed so the selected edition shows its own). `ICapitalWeapon` takes `introducedInEdition` and
+  `editionStats`; BattleSpace (1993), AeroTech 2 (2000) and its Revised Edition (2004) are not entered yet.
+- [ ] Custom rule to propose: a price for capital fire control (the books give none; the user wants everything
+  priced under custom rules). Needs a figure the user approves.
 - [ ] Buildings, still owed:
   - Light and Medium weapons in play: the critical hit table's weapon results pick only Heavy weapons, and
     burst, flame and anti-aircraft effects are shown as letters, not applied.

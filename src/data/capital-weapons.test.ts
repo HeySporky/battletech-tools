@@ -136,4 +136,22 @@ describe("capital and sub-capital weapon catalogs", () => {
             expect(item.space, item.tag).toMatchObject({ dropShip: -1, jumpShip: -1, mobileStructure: -1, warShip: 1, spaceStation: 1 });
         }
     });
+
+    it("keeps what the other books of the edition print beside the IO:AE values it follows", () => {
+        // TO:AUE p.221 dates a weapon at a time; IO:AE p.33 dates the family.
+        expect(find("nac-20")).toMatchObject({ introduced: 2195, sourceVariants: [{ book: "TO:AUE", page: 221, introduced: 2197 }] });
+        expect(find("light-n-ppc")).toMatchObject({ introduced: 2356, sourceVariants: [{ book: "TO:AUE", page: 221, introduced: 2358 }] });
+        expect(all.filter(item => item.sourceVariants?.some(variant => variant.introduced !== undefined)).map(item => item.tag))
+            .toEqual(["nac-20", "nac-40", "heavy-n-gauss", "nl55", "light-n-ppc", "medium-n-ppc"]);
+        // TM p.342 against IO:AE p.33.
+        expect(find("killer-whale")).toMatchObject({ techRating: "e", sourceVariants: [{ book: "TM", page: 342, techRating: "d" }] });
+        expect(find("screen-launcher")).toMatchObject({ techRating: "f", sourceVariants: [{ book: "TM", page: 342, techRating: "e" }] });
+        // Clan sub-capital cannons and lasers from 3091 (IO:AE p.33; user ruling); TO:AUE p.223 has them Inner Sphere only.
+        for (const item of all.filter(entry => ["Sub-Capital Cannon", "Sub-Capital Laser"].includes(entry.category))) {
+            expect(item, item.tag).toMatchObject({ techBase: "both", clanDates: { introduced: 3091 }, sourceVariants: [{ book: "TO:AUE", page: 223, techBase: "is" }] });
+        }
+        for (const item of all) {
+            for (const variant of item.sourceVariants ?? []) expect(variant.page, item.tag).toBeGreaterThan(0);
+        }
+    });
 });

@@ -129,6 +129,7 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                                     {Object.keys(mount.shots).filter((tag) => mount.shots[tag] > 0).map((tag) => (
                                         ` (${mount.shots[tag]} ${Object.keys(mount.shots).length > 1 ? `${findBuildingCapitalWeapon(tag)?.name} ` : ""}${mount.shots[tag] === 1 ? "shot" : "shots"})`
                                     )).join("")}
+                                    {mount.ammoHex !== null ? `, ammunition in the hex ${mount.ammoHex} bunker` : ""}
                                 </td>
                                 <td style={cell}>{mount.weapon.heat ?? "*"}</td>
                                 <td style={cell}>{mount.weapon.damage !== null ? `${mount.weapon.damage}-C` : mount.weapon.tag === "ar-10-launcher" ? "*" : ""}</td>

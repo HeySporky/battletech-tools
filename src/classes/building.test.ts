@@ -1392,3 +1392,64 @@ describe("capital and sub-capital weapons on buildings (TO:AR pp.129-130; TO:AUE
         expect(emplacement.getCapitalWeapons()).toEqual([]);
     });
 });
+
+describe("custom rule: capital weapons share an ammunition bunker in a hex next to them (user, 2026-10-07)", () => {
+    const battery = (): Building => {
+        const building = tara();
+        building.addCapitalWeapon("killer-whale", 1);
+        building.addCapitalWeapon("killer-whale", 3);
+        building.addCapitalWeapon("white-shark", 3);
+        return building;
+    };
+
+    it("keeps ammunition with the weapon unless a bunker is named, and needs the Custom Homebrew level", () => {
+        const building = battery();
+        expect(building.usesAmmoBunkers()).toBe(false);
+        expect(building.getHexLoads().map((load) => load.capitalWeapons)).toEqual([650, 0, 1170, 0, 0, 0]);
+        expect(building.getRequiredRulesLevel()).toBe(BUILDING_RULES_LEVEL);
+        for (const mount of building.getCapitalWeapons()) building.setCapitalWeaponAmmoHex(mount.uuid, 2);
+        expect(building.getCapitalWeapons().map((mount) => mount.ammoHex)).toEqual([2, 2, 2]);
+        // The launchers stay where they are; 20 Killer Whales and 10 White Sharks go to the bunker.
+        expect(building.getHexLoads().map((load) => load.capitalWeapons)).toEqual([150, 1400, 270, 0, 0, 0]);
+        expect(building.getAmmoBunkerShots(2)).toEqual({ "killer-whale": 20, "white-shark": 10 });
+        expect(building.getAmmoBunkerShots(1)).toEqual({});
+        expect(building.getRequiredRulesLevel()).toBe(6);
+        expect(building.getIssues(3).join(" ")).toContain("shared bunker in another hex is a custom rule");
+        expect(building.getIssues(6).join(" ")).not.toContain("custom rule");
+        expect(building.getNotes().join(" ")).toContain("Custom rule: capital weapons in the hexes next to an ammunition bunker share it");
+    });
+
+    it("has no bunker for a weapon without ammunition, in the weapon's own hex or off the building", () => {
+        const building = battery();
+        const [whale] = building.getCapitalWeapons();
+        building.setCapitalWeaponAmmoHex(whale.uuid, 1);
+        expect(whale.ammoHex).toBeNull();
+        building.setCapitalWeaponAmmoHex(whale.uuid, 99);
+        expect(whale.ammoHex).toBeNull();
+        building.setCapitalWeaponAmmoHex(whale.uuid, 6);
+        expect(whale.ammoHex).toBe(6);
+        building.setCapitalWeaponHex(whale.uuid, 6);
+        expect(whale.ammoHex).toBeNull();
+        building.setCapitalWeaponAmmoHex(whale.uuid, 5);
+        building.setHexes(4);
+        expect(whale.ammoHex).toBeNull();
+        const laser = building.addCapitalWeapon("scl-1", 1)!;
+        building.setCapitalWeaponAmmoHex(laser.uuid, 2);
+        expect(laser.ammoHex).toBeNull();
+    });
+
+    it("saves the bunker and reads a bad one as none", () => {
+        const building = battery();
+        building.setCapitalWeaponAmmoHex(building.getCapitalWeapons()[0].uuid, 2);
+        const copy = new Building();
+        copy.importJSON(building.exportJSON());
+        expect(copy.getCapitalWeapons().map((mount) => mount.ammoHex)).toEqual([2, null, null]);
+        const saved = JSON.parse(building.exportJSON());
+        saved.capitalWeapons[0].ammoHex = "2";
+        saved.capitalWeapons[1].ammoHex = 3;
+        saved.capitalWeapons[2].ammoHex = 2.5;
+        const damaged = new Building();
+        damaged.importJSON(JSON.stringify(saved));
+        expect(damaged.getCapitalWeapons().map((mount) => mount.ammoHex)).toEqual([null, null, null]);
+    });
+});
