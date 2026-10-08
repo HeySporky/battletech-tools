@@ -59,13 +59,14 @@ export const mechArmorTypes: IArmorType[] = [
 			"battletech-3rd-edition": null,
 			"battletech-4th-edition": null,
 			"master-rules": null,
+			"master-rules-revised": null,
 		},
 		notes: "On an IndustrialMech this is Heavy Industrial armor: \"Functionally identical to standard battlefield armor\" and priced the same (TM pp.205, 278)."
 	},
 	{
 		name: "Ferro Fibrous",
 		tag: "ferro-fibrous",
-		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Value and multiply by 1.12 (Inner Sphere) or 1.2 (Clan), rounding to the nearest whole number, .5 down. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled. The location maximums do not change (BTC pp.113, 119). 20,000 C-bills a ton of armor (BTC p.128)." }, "master-rules": { book: "BMR", page: 127, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Points and multiply by 1.12 (Inner Sphere) or 1.2 (Clan). The book gives the rounding two ways: \"rounded normally (up on .5)\" in Construction (BMR pp.113, 119) and \"round .5 down\" in Equipment (BMR p.127). Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are rerolled. On a vehicle it uses up 2 items (Inner Sphere) or 1 (Clan) (BMR p.127). 20,000 C-bills a ton of armor (BMR p.136)." } },
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Value and multiply by 1.12 (Inner Sphere) or 1.2 (Clan), rounding to the nearest whole number, .5 down. Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are re-rolled. The location maximums do not change (BTC pp.113, 119). 20,000 C-bills a ton of armor (BTC p.128)." }, "master-rules": { book: "BMR", page: 127, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Points and multiply by 1.12 (Inner Sphere) or 1.2 (Clan). The book gives the rounding two ways: \"rounded normally (up on .5)\" in Construction (BMR pp.113, 119) and \"round .5 down\" in Equipment (BMR p.127). Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are rerolled. On a vehicle it uses up 2 items (Inner Sphere) or 1 (Clan) (BMR p.127). 20,000 C-bills a ton of armor (BMR p.136)." }, "master-rules-revised": { book: "BMR(R)", page: 137, name: "Ferro-Fibrous Armor", notes: "Standard weight, more points: work out the normal Armor Points and multiply by 1.12 (Inner Sphere) or 1.2 (Clan). The book still gives the rounding two ways: \"rounded normally (up on .5)\" in Construction (BMR(R) pp.119, 128) and \"round .5 down\" in Equipment (BMR(R) p.137). Takes 14 critical slots (Inner Sphere) or 7 (Clan), placed anywhere; hits on them are rerolled. On a vehicle it uses up 2 items (Inner Sphere) or 1 (Clan) (BMR(R) p.137). 20,000 C-bills a ton of armor (BMR(R) p.149)." } },
 		altNames: ["Ferro-Fibrous"],
 		patchwork: { slots: { is: 2, clan: 1 }, tonsPerPoint: { is: 0.0558, clan: 0.0521 } },
 		unitTypes: {
@@ -167,6 +168,7 @@ export const mechArmorTypes: IArmorType[] = [
 	{
 		name: "Basic Stealth",
 		tag: "stealth-basic",
+		introducedInEdition: "master-rules-revised", editionStats: { "master-rules-revised": { book: "BMR(R)", page: 147, name: "Stealth Armor System", notes: "Inner Sphere BattleMechs only; vehicles cannot mount it. The standard 16 Armor Points a ton (BMR(R) p.119). Takes 12 critical slots, 2 in each arm, leg and side torso, and the 'Mech must mount a Guardian ECM Suite, without which the system cannot work. Turned on or off in an End Phase. While it is on: the 'Mech itself suffers the effects of being inside an enemy ECM suite's radius; attacks on it take +3 at medium range in place of the standard medium-range modifier and +6 at long range; active probes cannot find it when hidden; it cannot be attacked as a secondary target; and it generates 10 Heat Points a turn (BMR(R) p.147). 50,000 C-bills a ton of armor (BMR(R) p.149)." } },
 		altNames: ["Stealth Armor"],
 		patchwork: { slots: { is: 2 }, tonsPerPoint: { is: 0.0625 } },
 		alphaStrikeAbility: "STL",

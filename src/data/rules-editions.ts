@@ -244,6 +244,40 @@ export const btRulesEditions: IRulesEdition[] = [
         name: "BattleTech Master Rules, Revised Edition",
         year: 2001,
         book: "BMR(R)",
+        complete: true,
+        // A rulebook only, as the Master Rules was: no 'Mech record listings. The construction example is again the
+        // 45-ton Wyvern (BMR(R) pp.115-120), and the Battle Value example a Goshawk (BMR(R) p.159).
+        mechs: [],
+        // Units with their own construction rules (BMR(R) pp.124-129), rules sections (BMR(R) pp.49-71) or prices
+        // (BMR(R) p.150). ProtoMechs are new; the battle armor names are those of the Infantry Costs Table.
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Displacement hull vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon",
+            "Clan battle armor Point (Standard, Gnome, Salamander, Sylph, Undine)",
+            "Inner Sphere battle armor squad (Standard, Achileus, Cavalier, Fa Shih, Fenrir, Gray Death Light Scout, Gray Death Standard, Infiltrator, Infiltrator Mk. II, Kage, Kanazuchi, Longinus, Raiden, Purifier, Sloth)",
+            "ProtoMech",
+            "OmniMech", "OmniVehicle",
+            "Building", "Gun emplacement",
+        ],
+        notModelled: [
+            "Component prices: the BattleMech Costs Table prices the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets, heat sinks and armor by formula, with x.25 for an OmniMech and a final multiplier of 1 + tonnage / 100 (BMR(R) p.149); only the fixed prices are entered.",
+            "Battle Values: the Battle Value System gives formulas for BattleMechs, vehicles, ProtoMechs and infantry and a Battle Value for every weapon and item (BMR(R) pp.152-159); the edition entries hold no Battle Values.",
+            "ProtoMechs: 2 to 9 tons, built from their own tables and priced by their own cost table (BMR(R) pp.54-55, 124-126, 150); they are fixed designs here, not built from the catalogs.",
+            "Clan CASE: no weight and no critical slots, in every Clan location that holds explosive ammunition or equipment (BMR(R) pp.123, 136); the catalogs have no record for it.",
+            "OmniMech and OmniVehicle pods: a design fixes its structure, engine and armor and leaves tonnage and space for pods (BMR(R) pp.120, 129).",
+            "Flare LRMs: fired at a hex to light it and everything within 3 hexes, for the launcher's size divided by 5 turns (BMR(R) p.141); the catalogs have no record for them.",
+            "Incendiary autocannon ammunition: 2 more points against unarmored infantry, fires on 5+, a +1 night modifier, and an explosion if the autocannon takes a critical hit in a turn it fired the rounds; 2 x normal (BMR(R) pp.133, 151). The catalogs have no record for it.",
+            "Narc Explosive Pods for the Clan launcher: the one Narc munition Clan units may use (BMR(R) pp.146, 151); the catalogs have an Inner Sphere record only.",
+            "Rocket launcher reloads: the price list's Ammo Cost for a rocket launcher is its reload after a mission (BMR(R) pp.140, 151); it is noted on the launchers, which carry no ammunition.",
+            "Mines: conventional, command-detonated and vibrabomb fields are placed before play; Thunder LRMs and their variants and the Arrow IV FASCAM and Vibrabomb-IV rounds lay fields in play (BMR(R) pp.77, 86, 144-145).",
+            "Vehicle parts: control components, lift, rotor and diving equipment, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items; a vehicle carries 5 items plus 1 for every 5 full tons (BMR(R) pp.126-128).",
+            "Cargo space: tonnage a vehicle sets aside; BattleMechs cannot allocate it (BMR(R) p.135).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon damage rows and platoon prices (BMR(R) p.150).",
+            "Battle armor: fixed designs with their own armor, movement and weapons, priced by the Point or squad (BMR(R) pp.62-71, 150).",
+            "Clubs: picked up on the map and swung with two hands (BMR(R) p.40).",
+            "Single-shot launchers with special munitions: the launcher's base cost is multiplied by the munition's multiple (BMR(R) p.140); only the plain single-shot launchers are entered.",
+        ],
     },
     {
         // Total Warfare, ©2006 (first printing), with TechManual, Tactical Operations, Strategic Operations and

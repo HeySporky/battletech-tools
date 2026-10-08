@@ -1102,3 +1102,142 @@ describe("Rules editions: Master Rules, complete", () => {
         expect(mechTypeOptions.find(type => type.tag === "quad")!.editionStats![TAG]!.page).toBe(75);
     });
 });
+
+describe("Rules editions: Master Rules, Revised Edition, complete", () => {
+    const TAG = "master-rules-revised";
+    const BEFORE = "master-rules";
+    const find = (tag: string) => equipment.find(item => item.tag === tag)!;
+    const figures = (stats: IEditionStats) => [stats.heat, stats.damage ?? stats.damagePerMissile,
+        stats.range && [stats.range.min, stats.range.short, stats.range.medium, stats.range.long],
+        stats.weight, stats.criticals, stats.shotsPerTon, stats.cbills];
+    const row = (tag: string) => figures(find(tag).editionStats![TAG]!);
+
+    // The Revised Edition reprints the Master Rules and adds to it: nothing is dropped.
+    it("includes every Master Rules record and forty-five new ones", () => {
+        const added = labelled.filter(entry => entry.record.introducedInEdition === TAG).map(entry => entry.label);
+        expect(inEdition(TAG)).toEqual([...inEdition(BEFORE), ...added].sort());
+        expect(added).toHaveLength(45);
+        expect(added).toEqual(expect.arrayContaining(["equipment gauss-rifle-heavy", "equipment rotary-ac-2", "equipment inarc",
+            "equipment rocket-launcher-20", "equipment c3i-computer", "equipment targeting-computer", "equipment atm-12",
+            "equipment ammo-is-ac-20-precision", "equipment ammo-is-lrm-thunder-active", "equipment ammo-is-arrow-iv-inferno",
+            "engine light", "armor stealth-basic"]));
+        const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
+        expect(edition.complete).toBe(true);
+        expect(edition.mechs).toEqual([]);
+        expect(edition.otherUnits).toHaveLength(17);
+        expect(edition.otherUnits).toContain("ProtoMech");
+    });
+
+    // BMR(R) pp.121-123 and p.151 against BMR pp.115-117 and p.138: the old rows are reprinted figure for figure.
+    // The one change is the Clan Arrow IV FASCAM round, which now has a price (1.5 x normal, BMR(R) p.151).
+    it("reprints the Master Rules rows unchanged", () => {
+        const changed = labelled.filter(({ record }) => {
+            const [old, current] = [record.editionStats?.[BEFORE], record.editionStats?.[TAG]];
+            return old && current && JSON.stringify(figures(old)) !== JSON.stringify(figures(current));
+        }).map(entry => entry.label);
+        expect(changed).toEqual(["equipment ammo-clan-arrow-iv-fascam"]);
+        const cited = labelled.filter(({ record }) => record.editionStats?.[TAG]).map(({ record }) => record.editionStats![TAG]!);
+        expect(cited.every(stats => stats.book === "BMR(R)")).toBe(true);
+        expect(cited.filter(stats => /BMR p/.test(stats.notes ?? ""))).toEqual([]);
+    });
+
+    // BMR(R) pp.121-122, Inner Sphere Weapons and Equipment Table; prices p.151.
+    it.each([
+        ["gauss-rifle-heavy", 121, [2, 25, [4, 6, 13, 20], 18, 11, 4, 500000]],
+        ["rotary-ac-2", 121, [1, 2, [0, 6, 12, 18], 8, 3, 45, 175000]],
+        ["rotary-ac-5", 121, [1, 5, [0, 5, 10, 15], 10, 6, 20, 275000]],
+        ["inarc", 121, [0, undefined, [0, 4, 9, 15], 5, 3, 4, 250000]],
+        ["rocket-launcher-10", 121, [3, 1, [0, 5, 11, 18], 0.5, 1, undefined, 15000]],
+        ["rocket-launcher-20", 121, [5, 1, [0, 3, 7, 12], 1.5, 3, undefined, 45000]],
+        ["medium-laser", 121, [3, 5, [0, 3, 6, 9], 1, 1, undefined, 40000]],
+        ["streak-srm-6", 122, [4, undefined, [0, 3, 6, 9], 4.5, 2, 15, 120000]],
+        ["c3i-computer", 122, [0, undefined, undefined, 2.5, 2, undefined, 750000]],
+    ] as [string, number, unknown[]][])("prints the Inner Sphere %s row", (tag, page, expected) => {
+        expect(row(tag)).toEqual(expected);
+        expect(find(tag).editionStats![TAG]!.page).toBe(page);
+    });
+
+    // BMR(R) p.121 prints "25/20/10*" for the Heavy Gauss Rifle and p.138 says only that damage falls with range.
+    it("records the Heavy Gauss Rifle's printed damage", () => {
+        const stats = find("gauss-rifle-heavy").editionStats![TAG]!;
+        expect(stats.notes).toContain("25/20/10*");
+        expect(find("ammo-is-heavy-gauss-rifle-standard").editionStats![TAG]).toMatchObject({ shotsPerTon: 4, cbills: 20000 });
+    });
+
+    // BMR(R) pp.122-123, Clan Weapons and Equipment Table: energy weapons on p.122, the rest on p.123.
+    it.each([
+        ["er-micro-laser", 122, [1, 2, [0, 1, 2, 4], 0.25, 1, undefined, 10000]],
+        ["clan-autocannon-lbx-2", 123, [1, 2, [4, 10, 20, 30], 5, 3, 45, 150000]],
+        ["atm-3", 123, [2, 2, [4, 5, 10, 15], 1.5, 2, 20, 50000]],
+        ["atm-9", 123, [6, 2, [4, 5, 10, 15], 5, 4, 7, 225000]],
+        ["atm-12", 123, [8, 2, [4, 5, 10, 15], 7, 5, 5, 350000]],
+        ["clan-light-tag", 123, [0, undefined, [0, 3, 6, 9], 0.5, 1, undefined, 40000]],
+    ] as [string, number, unknown[]][])("prints the Clan %s row", (tag, page, expected) => {
+        expect(row(tag)).toEqual(expected);
+        expect(find(tag).editionStats![TAG]!.page).toBe(page);
+    });
+
+    // BMR(R) p.123: the ATM ER and HE rows; p.151 prices ATM ammunition once, at 75,000 C-bills a ton.
+    it("gives the ATM loads their own damage and ranges", () => {
+        const load = (tag: string) => {
+            const stats = find(tag).editionStats![TAG]!;
+            return [stats.damagePerMissile, stats.range, stats.cbills];
+        };
+        expect(load("ammo-clan-atm-er")).toEqual([1, { min: 4, short: 9, medium: 18, long: 27 }, undefined]);
+        expect(load("ammo-clan-atm-he")).toEqual([3, { min: 0, short: 3, medium: 6, long: 9 }, undefined]);
+        expect(find("ammo-clan-atm-standard").editionStats![TAG]!.cbills).toBe(75000);
+    });
+
+    // BMR(R) p.151: munitions are multiples of the normal price; pp.133-134 and 144-145 halve some loads.
+    it("prices the new munitions as multiples of the standard ton", () => {
+        const stats = (tag: string) => find(tag).editionStats![TAG]!;
+        const load = (tag: string) => [stats(tag).shotsPerTon, stats(tag).cbills];
+        expect(["ammo-is-ac-2-armor-piercing", "ammo-is-ac-10-armor-piercing", "ammo-is-ac-20-armor-piercing"].map(load))
+            .toEqual([[22, 4000], [5, 24000], [2, 40000]]);
+        expect(["ammo-is-ac-5-flechette", "ammo-is-ac-20-flechette"].map(load)).toEqual([[20, 6750], [5, 15000]]);
+        expect(["ammo-is-ac-5-precision", "ammo-is-ac-20-precision"].map(load)).toEqual([[10, 27000], [2, 60000]]);
+        expect(["ammo-is-rotary-ac-2-standard", "ammo-is-rotary-ac-5-standard"].map(load)).toEqual([[45, 3000], [20, 12000]]);
+        expect(["augmented", "inferno", "vibrabomb", "active"].map(kind => stats("ammo-is-lrm-thunder-" + kind).cbills))
+            .toEqual([120000, 30000, 75000, 90000]);
+        expect(["ammo-is-arrow-iv-fascam", "ammo-clan-arrow-iv-fascam", "ammo-is-arrow-iv-inferno", "ammo-is-arrow-iv-vibrabomb"].map(load))
+            .toEqual([[5, 15000], [5, 15000], [5, 10000], [5, 20000]]);
+        expect(["standard", "ecm", "explosive", "haywire", "nemesis"].map(kind => load("ammo-is-inarc-" + kind)))
+            .toEqual([[4, 7500], [4, 15000], [4, 1500], [4, 20000], [4, 10000]]);
+    });
+
+    // BMR(R) p.148: the targeting computer is now Inner Sphere equipment too, at 1 ton per 4 tons of weapons.
+    it("adds the Inner Sphere targeting computer", () => {
+        expect(find("targeting-computer").editionStats![TAG]!.notes).toContain("every 4 tons");
+        expect(find("clan-targeting-computer").editionStats![TAG]!.notes).toContain("every 5 tons");
+        expect(find("targeting-computer").introducedInEdition).toBe(TAG);
+    });
+
+    // BMR(R) p.140: single-shot launchers; p.141: torpedoes.
+    it("moves the single-shot launchers and torpedoes to their new pages", () => {
+        for (const tag of ["lrm-20", "srm-6", "mrm-40", "narc", "clan-lrm-15", "clan-streak-srm-6"]) {
+            const [launcher, single] = [find(tag).editionStats![TAG]!, find(tag + "-os").editionStats![TAG]!];
+            expect([single.page, single.weight, single.cbills], tag).toEqual([140, launcher.weight! + 0.5, launcher.cbills! / 2]);
+        }
+        expect(["lrt-15", "clan-srt-2"].map(tag => find(tag).editionStats![TAG]!.page)).toEqual([141, 141]);
+    });
+
+    // BMR(R) pp.117-118 and 139 (light engines), p.147 (stealth armor), p.82 (four-legged BattleMechs).
+    it("adds the light engine and stealth armor to the components", () => {
+        const unchanged = labelled.filter(entry => entry.record.editionStats && TAG in entry.record.editionStats && entry.record.editionStats[TAG] === null)
+            .map(entry => entry.label).sort();
+        expect(unchanged).toEqual([
+            "armor standard", "cockpit standard", "engine standard", "gyro standard", "jump jet standard", "mech type biped",
+            ...[20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100].map(tons => "tonnage " + tons),
+        ].sort());
+        const light = mechEngineTypes.find(type => type.tag === "light")!;
+        expect([light.introducedInEdition, light.editionStats![TAG]!.page]).toEqual([TAG, 139]);
+        expect(light.editionStats![TAG]!.notes).toContain("Three-quarters of the standard engine weight");
+        const stealth = mechArmorTypes.find(type => type.tag === "stealth-basic")!;
+        expect([stealth.introducedInEdition, stealth.editionStats![TAG]!.page]).toEqual([TAG, 147]);
+        expect(stealth.editionStats![TAG]!.notes).toContain("12 critical slots");
+        const ferro = mechArmorTypes.find(type => type.tag === "ferro-fibrous")!.editionStats![TAG]!;
+        expect(ferro.notes).toContain("up on .5");
+        expect(ferro.notes).toContain("round .5 down");
+        expect(mechTypeOptions.find(type => type.tag === "quad")!.editionStats![TAG]!.page).toBe(82);
+    });
+});

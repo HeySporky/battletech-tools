@@ -38,6 +38,7 @@ export const mechGyroTypes: IGyro[] = [
 			"battletech-3rd-edition": null,
 			"battletech-4th-edition": null,
 			"master-rules": null,
+			"master-rules-revised": null,
 		},
 	},
 	{

@@ -941,7 +941,27 @@ Open:
     critical slots printed; Streak single-shot launchers are entered under "any type of missile weapon" (p.129);
     (5) no records exist for Flare LRMs, Clan CASE or Clan Narc explosive pods, so those are noted on the
     edition; (6) the internal structure entry repeats the table for 20 to 100 tons so the edition has its own.
-  - [ ] Next: Master Rules Revised (2001).
+  - [x] BattleTech Master Rules, Revised Edition (FanPro 35000, 2001), complete. The PDF is born digital: the
+    Weapons and Equipment Tables (pp.121-123) and the cost tables (pp.149-151) were read from the page images,
+    the prose (Construction pp.115-129, Equipment pp.130-148, Artillery pp.73-77) from its typeset text. 331
+    entries: 308 records in the edition, 45 of them new to it; every Master Rules record is kept and every old
+    table row and price is reprinted unchanged (test-enforced). New: Heavy Gauss Rifle, Rotary AC/2 and /5,
+    Improved Narc Launcher and its five pods, Rocket Launchers 10/15/20, Improved C3 Computer, the Inner Sphere
+    targeting computer, ATM 3/6/9/12 with ER and HE loads, armor-piercing, flechette and precision autocannon
+    ammunition, Thunder-Augmented/-Inferno/-Vibrabomb/-Active LRMs, Arrow IV Inferno-IV and Vibrabomb-IV rounds
+    and Inner Sphere FASCAM, light engines and stealth armor. ProtoMechs and a Battle Value System are new to
+    the book and are noted on the edition, not modelled.
+    Readings to confirm: (1) the Heavy Gauss Rifle prints "25/20/10*" and the text says only that damage drops
+    with range; entered as 25 with the short/medium/long reading in the note; (2) single-shot launchers are now
+    a closed list (SRMs, MRMs, LRMs, Narc, torpedoes; p.140): Streak single-shot launchers are kept, as SRMs,
+    with a note; (3) Inner Sphere Arrow IV FASCAM is entered on the strength of p.76 ("Inner Sphere units may
+    use any of the munitions"), though pp.132 and 144 still call FASCAM a Clan round; (4) ATM ER and HE loads
+    have no price of their own (one ATM ammunition price, p.151), so they carry none; (5) rocket launchers
+    carry no ammunition, and the price list's Ammo Cost is noted as the reload price; (6) no records exist for
+    incendiary autocannon ammunition, Flare LRMs, Clan CASE or Clan Narc explosive pods; (7) ferro-fibrous
+    rounding is still printed two ways (pp.119, 128 against p.137); (8) battle armor names on the edition are
+    the Infantry Costs Table's fifteen, three more than the rules sections describe.
+  - [ ] Next: the rules edition selector (Rules of Warfare, 1994, is not in the library).
   - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
     1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).
   - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).
