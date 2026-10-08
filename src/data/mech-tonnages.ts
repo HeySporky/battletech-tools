@@ -1,5 +1,6 @@
 import { IMechTonnage } from "./data-interfaces";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
+import { DEFAULT_RULES_EDITION, isEarlierRulesEdition, isInRulesEdition } from "./rules-editions";
 /*
 * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
 * All lore, stats, and intellectual property belong strictly to Catalyst Game Labs, 
@@ -217,7 +218,13 @@ export const btMechTonnages: IMechTonnage[] = [
  * - Superheavy 'Mechs are available only to the Inner Sphere tech base (IO:AE p.154); a Clan tech base stops at 100 tons.
  * - Custom Homebrew and Munchkin (rules levels 6 and 7) lift all of the above tonnage restrictions.
  */
-export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: number = 2, techTag?: string): { min: number; max: number } {
+export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: number = 2, techTag?: string, editionTag: string = DEFAULT_RULES_EDITION): { min: number; max: number } {
+    // An earlier rules edition has no rules levels: its own tonnage table sets the range.
+    if (isEarlierRulesEdition(editionTag)) {
+        const tons = btMechTonnages.filter((option) => isInRulesEdition(option, editionTag)).map((option) => option.tons);
+        const chassis = getTonnageBoundsForMechType(mechTypeTag, 3, techTag);
+        return { min: Math.max(chassis.min, Math.min(...tons)), max: Math.min(chassis.max, Math.max(...tons)) };
+    }
     if (rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL) {
         return { min: 10, max: 200 };
     }
@@ -241,7 +248,8 @@ export function getTonnageBoundsForMechType(mechTypeTag: string, rulesLevel: num
 }
 
 // Returns the list of tonnages a chassis type/rules level combination can legally select from.
-export function getAvailableTonnagesForMechType(mechTypeTag: string, rulesLevel: number = 2, techTag?: string): IMechTonnage[] {
-    const { min, max } = getTonnageBoundsForMechType(mechTypeTag, rulesLevel, techTag);
-    return btMechTonnages.filter((option) => option.tons >= min && option.tons <= max);
+export function getAvailableTonnagesForMechType(mechTypeTag: string, rulesLevel: number = 2, techTag?: string, editionTag: string = DEFAULT_RULES_EDITION): IMechTonnage[] {
+    const { min, max } = getTonnageBoundsForMechType(mechTypeTag, rulesLevel, techTag, editionTag);
+    return btMechTonnages.filter((option) => option.tons >= min && option.tons <= max
+        && (!isEarlierRulesEdition(editionTag) || isInRulesEdition(option, editionTag)));
 }

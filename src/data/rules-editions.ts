@@ -9,11 +9,12 @@
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
-import { IEditionStats, IEditionStatsTable } from "./data-interfaces";
+import { IEditionStats, IEditionStatsTable, IEquipmentItem } from "./data-interfaces";
 
 /**
- * Editions of the BattleTech rules, oldest first, so a player can later choose to build and play with one
- * edition's rules only. Reserved for that feature (roadmap: "select a rules version"); nothing filters on it yet.
+ * Editions of the BattleTech rules, oldest first, so a player can choose to build with one edition's rules only.
+ * The Mech Creator's Rules Edition control is the first user: BattleMech.setRulesEdition() filters its lists and
+ * reads its stats through the helpers at the end of this file.
  *
  * Each record an earlier edition includes carries an `editionStats` table with one key per such edition: the
  * stats that edition prints, or `null` when they match the previous edition that lists the record. The record's
@@ -381,4 +382,58 @@ export function getEditionStats(record: IEditionRecord, editionTag: string): IEd
         }
     }
     return undefined;
+}
+
+/** True for an edition before the one the catalogs are written against: its lists and stats come from `editionStats`. */
+export function isEarlierRulesEdition(editionTag: string): boolean {
+    const selected = editionOrder(editionTag);
+    return selected >= 0 && selected < editionOrder(DEFAULT_RULES_EDITION);
+}
+
+/**
+ * Editions a design can be built under: the default edition, those after it, and each earlier edition that has
+ * been entered whole (`complete`).
+ */
+export function getSelectableRulesEditions(): IRulesEdition[] {
+    return btRulesEditions.filter(edition => edition.complete || !isEarlierRulesEdition(edition.tag));
+}
+
+/** The edition with this tag, or the default edition when the tag is unknown (a save from a newer version). */
+export function getRulesEdition(editionTag: string | undefined): IRulesEdition {
+    return btRulesEditions.find(edition => edition.tag === editionTag)
+        ?? btRulesEditions.find(edition => edition.tag === DEFAULT_RULES_EDITION)!;
+}
+
+/**
+ * An equipment record as `editionTag` prints it: a copy with the edition's weight, heat, damage, ranges, critical
+ * slots, price and citation in place of the catalog's. The record itself for the default edition and later ones,
+ * and for a record the edition does not include.
+ */
+export function getEquipmentForEdition(item: IEquipmentItem, editionTag: string): IEquipmentItem {
+    const stats = isEarlierRulesEdition(editionTag) ? getEditionStats(item, editionTag) : undefined;
+    if (!stats) {
+        return item;
+    }
+    const copy = JSON.parse(JSON.stringify(item)) as IEquipmentItem;
+    copy.book = stats.book;
+    copy.page = stats.page;
+    if (stats.weight !== undefined) copy.weight = stats.weight;
+    if (stats.heat !== undefined) copy.heat = stats.heat;
+    if (stats.cbills !== undefined) copy.cbills = stats.cbills;
+    if (stats.damage !== undefined && typeof copy.damage === "number") copy.damage = stats.damage;
+    if (stats.range) copy.range = { ...copy.range, ...stats.range };
+    if (stats.criticals !== undefined) copy.space = { ...copy.space, battlemech: stats.criticals };
+    return copy;
+}
+
+/** Tons of jump jet for each jump movement point at this tonnage, where `editionTag` prints its own figure. */
+export function getEditionJumpJetWeight(jumpJet: IEditionRecord, editionTag: string, tonnage: number): number | undefined {
+    const stats = isEarlierRulesEdition(editionTag) ? getEditionStats(jumpJet, editionTag) : undefined;
+    return stats?.weightByTonnage?.find(band => tonnage <= band.upTo)?.tons ?? stats?.weight;
+}
+
+/** Does the engine hold some heat sinks without critical slots under `editionTag`? The first two editions say no. */
+export function editionEngineHoldsHeatSinks(heatSink: IEditionRecord, editionTag: string): boolean {
+    const stats = isEarlierRulesEdition(editionTag) ? getEditionStats(heatSink, editionTag) : undefined;
+    return stats?.engineHeatSinks ?? true;
 }

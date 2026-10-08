@@ -6,6 +6,7 @@ import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '..
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
+import { getRulesEdition, getSelectableRulesEditions } from '../../../../data/rules-editions';
 import { IAppGlobals } from '../../../app-router';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
@@ -96,6 +97,17 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    // Builds the design under another rules edition; its tonnage moves into that edition's range.
+    updateRulesEdition = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setRulesEdition( e.currentTarget.value );
+        this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+        this.setState({ updated: !this.state.updated });
+      }
+    }
+
     updateType = ( e: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -110,7 +122,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( currentMech.isOmnimech && !currentMech.canBeOmniMech( rulesLevel ) ) {
         currentMech.toggleOmni( rulesLevel );
       }
-      const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel, currentMech.getTech().tag );
+      const { min, max } = getTonnageBoundsForMechType( currentMech.getType().tag, rulesLevel, currentMech.getTech().tag, currentMech.getRulesEdition() );
       const tonnage = currentMech.getTonnage();
       if( tonnage < min ) {
         currentMech.setTonnage( min );
@@ -221,13 +233,45 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                           </label>
 
                           <label>
+                            Rules Edition:
+                            <select
+                              value={this.props.appGlobals.currentBattleMech.getRulesEdition()}
+                              onChange={this.updateRulesEdition}
+                            >
+                            {getSelectableRulesEditions().map((edition) => (
+                              <option key={edition.tag} value={edition.tag}>{edition.name} ({edition.year})</option>
+                            ))}
+                            </select>
+                          </label>
+                          {this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition() ? (
+                            <p className="smaller-text">
+                              Built from the {getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).name} rulebook: only what it includes is offered,
+                              with the weights, heat, ranges, damage, critical slots and prices it prints. Battle Value and total cost
+                              still follow the current rules.
+                            </p>
+                          ) : null}
+                          {this.props.appGlobals.currentBattleMech.getRulesEditionIssues().length > 0 ? (
+                            <div className="color-red smaller-text">
+                              Not in this rules edition:
+                              <ul>
+                                {this.props.appGlobals.currentBattleMech.getRulesEditionIssues().map((issue) => (
+                                  <li key={issue}>{issue}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : null}
+
+                          <label>
                             Mech Type:
                             <select
                               value={this.props.appGlobals.currentBattleMech.getType().tag}
                               onChange={this.updateType}
                             >
                             {mechTypeOptions
-                              .filter( (option) => option.rulesLevel <= this.props.appGlobals.appSettings.mechRulesFilter || option.tag === this.props.appGlobals.currentBattleMech?.getType().tag )
+                              .filter( (option) => (this.props.appGlobals.currentBattleMech?.usesEarlierRulesEdition()
+                                  ? this.props.appGlobals.currentBattleMech.isInRulesEdition(option)
+                                  : option.rulesLevel <= this.props.appGlobals.appSettings.mechRulesFilter)
+                                || option.tag === this.props.appGlobals.currentBattleMech?.getType().tag )
                               .map( (option) => {
                               return (
                                 <option key={option.tag} value={option.tag}>{option.name}{option.notes ? ` (${option.notes})` : ""}</option>
@@ -235,7 +279,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             })}
                             </select>
                           </label>
-                          {this.props.appGlobals.currentBattleMech.getRequiredRulesLevel() > this.props.appGlobals.appSettings.mechRulesFilter ? (
+                          {!this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition() && this.props.appGlobals.currentBattleMech.getRequiredRulesLevel() > this.props.appGlobals.appSettings.mechRulesFilter ? (
                             <p className="color-red smaller-text">
                               This design requires the {getRulesLevelOptions().find( (option) => option.id === this.props.appGlobals.currentBattleMech?.getRequiredRulesLevel() )?.name} rules
                               level and is not legal at the selected level. Printing will ask for confirmation.
@@ -343,7 +387,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             {getAvailableTonnagesForMechType(
                               this.props.appGlobals.currentBattleMech.getType().tag,
                               this.props.appGlobals.appSettings.mechRulesFilter,
-                              this.props.appGlobals.currentBattleMech.getTech().tag
+                              this.props.appGlobals.currentBattleMech.getTech().tag,
+                              this.props.appGlobals.currentBattleMech.getRulesEdition()
                             ).map( (option) => {
                               return (
                                 <option key={option.tons} value={option.tons}>{option.tons} ({option.type})</option>

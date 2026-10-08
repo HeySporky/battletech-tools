@@ -39,12 +39,12 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		introducedInEdition: "battledroids",
 		editionStats: {
 			battledroids: {
-				book: "BD", page: 24, name: "Heat Sink", weight: 1, criticals: 1,
+				book: "BD", page: 24, name: "Heat Sink", weight: 1, criticals: 1, engineHeatSinks: false,
 				notes: "Ten come with the engine; each extra one weighs 1 ton (BD p.24). Every heat sink takes one box on the Critical Hit Chart, the engine's ten included (BD p.25; record sheet, BD p.13). Each working sink removes 1 heat point a turn (Heat Point Table, BD p.27).",
 			},
 			"battletech-2nd-edition": null,
 			"battletech-manual": {
-				book: "BTM", page: 79, name: "Heat Sink", weight: 1, criticals: 1, cbills: 2000,
+				book: "BTM", page: 79, name: "Heat Sink", weight: 1, criticals: 1, cbills: 2000, engineHeatSinks: true,
 				notes: "Ten come with the engine; each extra one weighs one ton (BTM p.79). New: only some of the engine's ten are placed on the Equipment Tables. Engine rating divided by 25, rounded down, are integral to the engine and are lost only with it; the rest, and every extra sink, take one critical location each (BTM pp.79-80). Only allocated sinks can take a critical hit (BTM p.24). 2,000 C-bills for each sink over 10 (BTM p.84).",
 			},
 			"battletech-compendium": null,

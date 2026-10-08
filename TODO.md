@@ -983,13 +983,28 @@ Open:
     The same single-shot passage is in the 1990 Compendium (BTC p.121), so the six single-shot Streak and Narc
     launchers are entered there as well and start in that edition (user ruling, 2026-10-08); a single-shot
     Narc launcher carries 1 pod.
-  - [ ] Next: the rules edition selector.
+  - [x] The rules edition selector, BattleMechs (2026-10-08): Step 1 of the Mech Creator has a Rules Edition
+    control listing the nine earlier editions, Total Warfare (the default) and the Core Rulebook. The edition is
+    saved with the design (`rulesEdition`, absent for Total Warfare, so old saves load unchanged). Under an
+    earlier edition the creator offers only that rulebook's chassis types, tonnages, components and equipment,
+    with the weight, heat, damage, ranges, critical slots and price it prints; rules levels do not apply, eras
+    still do. Edition-only rules applied: Battledroids jump jets at 0.5 tons a point at any weight (BD p.24);
+    every heat sink on the critical chart in Battledroids and the Second Edition (BD p.25); the edition's own
+    Engine Table (Battledroids' 6.5-ton 170). Changing edition restats mounted equipment and removes nothing;
+    Step 1 lists what the new edition does not include.
+  - [ ] Rules edition selector, still to do: (1) Battle Value and total cost follow the current rules under
+    every edition (no edition before the Master Rules has Battle Value; the Master Rules' own system and each
+    edition's cost rules are not built); (2) printing asks for the rules-level confirmation as before, so a
+    10-ton Battledroids design is asked about the Advanced level; (3) Battledroids' 5-ton chassis is in its
+    structure table but not in the tonnage list; (4) Battledroids does not put jump jets on the Critical Hit
+    Chart (BD p.25) and the creator still gives each one a slot; (5) the Internal Combustion Engine is offered
+    to BattleMechs under the editions that list it, though the BattleTech Manual gives it to vehicles only
+    (BTM pp.78-84); (6) play mode, record sheets and the other creators (vehicles, fighters, infantry,
+    buildings) do not read the edition; (7) the missile damage per missile and shots per ton an edition
+    prints are not applied (none differs from the catalog today).
   - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
     1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).
-  - [ ] The selector itself: filter by `isInRulesEdition`, read stats through `getEditionStats`, and decide how
-    edition-only rules apply (Battledroids: jump jets 0.5 tons at any weight, every heat sink takes a critical
-    box, 5-ton chassis).
 - [ ] `refactor/catalog-by-category`: step 1 done, every equipment record states
   `techBase` (commit c959dbc8). Review the 62 custom records, whose tech base was set from tag and name. Next:
   move records into `<category>-canon.ts` / `-apocryphal.ts` / `-custom.ts` / `-munchkin.ts`, one category per

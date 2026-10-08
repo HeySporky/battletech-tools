@@ -46,6 +46,11 @@ export interface IEditionStats {
     cbills?: number;
     /** Jump jets: tons per jump movement point for 'Mechs up to each tonnage. */
     weightByTonnage?: { upTo: number; tons: number }[];
+    /**
+     * Heat sinks: false when every sink takes a critical slot, the engine's ten included; true when the engine
+     * holds its rating divided by 25 without slots. Unset means true.
+     */
+    engineHeatSinks?: boolean;
     /** Armor: points per ton. */
     pointsPerTon?: number;
     /** Engine: tons by rating. */
