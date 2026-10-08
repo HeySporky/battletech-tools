@@ -308,7 +308,9 @@ played first, then by dependency.
   weapons Medium (TM p.136); one free clip and extra whole clips; no heat sinks or amplifiers (TM pp.136-137);
   one gunner each (TO:AR p.130); fixed, pintle or turret mounts (TO:AUE p.83); damage rounded to the nearest
   point and ranges from the Base Range (TM p.136); prices; creator, record sheet and play panel with shots.
-  Open, for a ruling: (1) TO:AR names pintles on buildings only in passing, so the Mobile Structure rule is
+  Rulings (user, 2026-10-07): (1) the Mobile Structure pintle rule stands for buildings, cost included;
+  (2) weights stay to the kilogram, as weight matters to a building only as a load on its structure.
+  Items (3) to (6) are still open. As first raised: (1) TO:AR names pintles on buildings only in passing, so the Mobile Structure rule is
   used: 5 percent of the weapons, to the kilogram, 1,000 C-bills a ton (TO:AUE p.83, TM p.280). (2) Weights
   are kept to the kilogram; on Medium and Large Support Vehicles small items are totalled and rounded up to
   the half ton (TM p.137), and TO:AR says nothing for buildings. (3) The table's melee weapons are not
