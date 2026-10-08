@@ -1191,3 +1191,204 @@ describe("Castles Brian (TO:AR pp.113, 115-116, 124-125, 127-129, 137-140)", () 
         expect(forged.isOpenSpace()).toBe(false);
     });
 });
+
+describe("capital and sub-capital weapons on buildings (TO:AR pp.129-130; TO:AUE p.83)", () => {
+    it("offers them to fortresses and Castles Brian only, and never a Mass Driver (TO:AR p.129; TO:AUE p.135)", () => {
+        expect(kenyon().canMountCapitalWeapons()).toBe(false);
+        expect(kenyon().addCapitalWeapon("nl35")).toBeNull();
+        expect(kenyon().getAvailableCapitalWeapons(4)).toEqual([]);
+        const building = tara();
+        expect(building.canMountCapitalWeapons()).toBe(true);
+        const offered = building.getAvailableCapitalWeapons(4).map((weapon) => weapon.tag);
+        expect(offered).toEqual(expect.arrayContaining(["nac-10", "heavy-n-gauss", "nl55", "heavy-n-ppc", "killer-whale", "ar-10-launcher", "kraken-t", "screen-launcher", "scl-1", "manta-ray"]));
+        expect(offered.some((tag) => /mass-driver/.test(tag))).toBe(false);
+        expect(building.addCapitalWeapon("light-mass-driver")).toBeNull();
+        expect(building.addCapitalWeapon("no-such-weapon")).toBeNull();
+        const castle = new Building();
+        castle.setClassification("castles-brian");
+        expect(castle.canMountCapitalWeapons()).toBe(true);
+    });
+
+    it("follows the technology base and the era", () => {
+        const clan = tara();
+        clan.setTech("clan");
+        const clanTags = clan.getAvailableCapitalWeapons().map((weapon) => weapon.tag);
+        // The tele-operated missiles and the Screen Launcher are Inner Sphere only (TM pp.210, 237).
+        expect(clanTags).toContain("killer-whale");
+        expect(clanTags).not.toContain("killer-whale-t");
+        expect(clanTags).not.toContain("screen-launcher");
+        // Extinct about 2950 and back in 3051 (IO:AE p.33).
+        const late = tara();
+        late.setEra("late-sw-rn");
+        expect(late.getAvailableCapitalWeapons().map((weapon) => weapon.tag)).not.toContain("nac-10");
+        late.setEra("star-league");
+        expect(late.getAvailableCapitalWeapons().map((weapon) => weapon.tag)).toContain("nac-10");
+        expect(late.getAvailableCapitalWeapons().map((weapon) => weapon.tag)).not.toContain("scl-1");
+    });
+
+    it("adds 10 percent for fire control to all but missile launchers, and needs fusion or fission power (TO:AUE p.83)", () => {
+        const building = tara();
+        const laser = building.addCapitalWeapon("nl35");
+        expect(laser).not.toBeNull();
+        expect(Building.getCapitalFireControlWeight(laser!.weapon)).toBe(70);
+        expect(building.getCapitalFireControlWeight()).toBe(70);
+        expect(building.getIssues().join(" ")).toContain("Without a fusion or fission generator");
+        building.setGenerator("fuel-cell");
+        expect(building.getIssues().join(" ")).toContain("Without a fusion or fission generator");
+        building.setGenerator("fusion");
+        expect(building.getIssues().join(" ")).not.toContain("Without a fusion or fission generator");
+        // Capital energy weapons are not Heavy weapons: the generator weighs its 30 hexes and levels alone (TO:AR p.132).
+        expect(building.getGeneratorWeight()).toBe(30);
+        expect(building.getHexLoads()[0].heavyWeapons).toBe(0);
+        expect(building.getHexLoads()[0].powerAmplifiers).toBe(0);
+
+        const missiles = tara();
+        const whale = missiles.addCapitalWeapon("killer-whale");
+        expect(Building.getCapitalFireControlWeight(whale!.weapon)).toBe(0);
+        expect(missiles.getIssues().join(" ")).not.toContain("fusion or fission");
+        expect(missiles.addCapitalWeapon("piranha")).not.toBeNull();
+        expect(missiles.addCapitalWeapon("screen-launcher")).not.toBeNull();
+        expect(missiles.getIssues().join(" ")).not.toContain("fusion or fission");
+    });
+
+    it("divides a weapon too heavy for its hex evenly with the hexes next to it (TO:AUE p.83)", () => {
+        const building = tara();
+        building.setGenerator("fusion");
+        const laser = building.addCapitalWeapon("nl35")!;
+        // 700 tons and 70 of fire control, in a hex with 741 tons free less its 5-ton share of the generator.
+        expect(building.getHexLoads()[0].capitalWeapons).toBe(770);
+        expect(building.getIssues().join(" ")).toContain("Hex 1 carries 784 tons");
+        building.setCapitalWeaponSharedHexes(laser.uuid, [2, 2, 1, 99, 2.5]);
+        expect(laser.sharedHexes).toEqual([2]);
+        expect(building.getHexLoads()[0].capitalWeapons).toBe(385);
+        expect(building.getHexLoads()[1].capitalWeapons).toBe(385);
+        expect(building.getHexLoads()[2].capitalWeapons).toBe(0);
+        expect(building.getIssues().join(" ")).not.toContain("carries");
+        // Moving the weapon into a hex it was sharing with drops that hex from the list.
+        building.setCapitalWeaponHex(laser.uuid, 2);
+        expect(laser.sharedHexes).toEqual([]);
+        // Fewer hexes: the shares that no longer exist go.
+        building.setCapitalWeaponSharedHexes(laser.uuid, [5, 6]);
+        building.setHexes(4);
+        expect(laser.sharedHexes).toEqual([]);
+    });
+
+    it("takes one capital weapon that is not a missile launcher in a hex, and no turret beside any (TO:AUE p.83)", () => {
+        const building = new Building();
+        building.setClassification("castles-brian");
+        building.setType("hardened");
+        building.setCF(150);
+        building.setHexes(3);
+        building.setLevels(5);
+        building.setGenerator("fusion");
+        const first = building.addCapitalWeapon("nl35")!;
+        building.addCapitalWeapon("nl45");
+        expect(building.getIssues().join(" ")).toContain("Hex 1 mounts 2 capital weapons that are not missile launchers; a hex takes one");
+        building.setCapitalWeaponHex(first.uuid, 2);
+        expect(building.getIssues().join(" ")).not.toContain("a hex takes one");
+        // Any number of launchers beside the gun.
+        building.addCapitalWeapon("killer-whale", 2);
+        building.addCapitalWeapon("white-shark", 2);
+        expect(building.getIssues().join(" ")).not.toContain("a hex takes one");
+        building.setCapitalWeaponSharedHexes(first.uuid, [3]);
+        expect(building.addEquipmentFromTag("lrm-20", 3, true)).not.toBeNull();
+        expect(building.getIssues().join(" ")).toContain("Hex 3 holds a capital weapon, which leaves no room there for a turret or pintle mount");
+    });
+
+    it("carries ammunition by the shot and prices it as its book does", () => {
+        const building = tara();
+        const whale = building.addCapitalWeapon("killer-whale", 2)!;
+        // A new launcher comes with 10 shots: 50 tons a missile (TM p.342).
+        expect(whale.shots).toEqual({ "killer-whale": 10 });
+        expect(Building.getCapitalAmmoWeight(whale)).toBe(500);
+        expect(Building.getCapitalMountWeight(whale)).toBe(650);
+        expect(building.getHexLoads()[1].capitalWeapons).toBe(650);
+        const before = building.getCBillCostLog().find((line) => line.startsWith("Capital Weapons and Ammunition"));
+        // 150,000 for the launcher and 20,000 a missile (TM pp.294, 296).
+        expect(before).toBe("Capital Weapons and Ammunition: 350,000");
+        building.setCapitalWeaponShots(whale.uuid, "killer-whale", 4);
+        building.setCapitalWeaponShots(whale.uuid, "white-shark", 9);
+        expect(whale.shots).toEqual({ "killer-whale": 4 });
+        expect(building.getNotes().join(" ")).toContain("at least 10 shots on a DropShip");
+
+        const guns = tara();
+        const cannon = guns.addCapitalWeapon("nac-10")!;
+        // 5 shots a ton (TO:AUE p.220); 30,000 C-bills a ton of ammunition (TO:AUE pp.221, 223).
+        expect(Building.getCapitalAmmoWeight(cannon)).toBe(2);
+        expect(guns.getCBillCostLog().find((line) => line.startsWith("Capital Weapons"))).toBe("Capital Weapons and Ammunition: 2,060,000");
+
+        const launcher = tara();
+        const ar10 = launcher.addCapitalWeapon("ar-10-launcher")!;
+        expect(Object.keys(ar10.shots)).toEqual(["killer-whale", "white-shark", "barracuda"]);
+        launcher.setCapitalWeaponShots(ar10.uuid, "killer-whale", 2);
+        launcher.setCapitalWeaponShots(ar10.uuid, "white-shark", 3);
+        launcher.setCapitalWeaponShots(ar10.uuid, "barracuda", 5);
+        launcher.setCapitalWeaponShots(ar10.uuid, "kraken-t", 5);
+        expect(Building.getCapitalShots(ar10)).toBe(10);
+        expect(Building.getCapitalAmmoWeight(ar10)).toBe(2 * 50 + 3 * 40 + 5 * 30);
+        expect(launcher.getCBillCostLog().find((line) => line.startsWith("Capital Weapons"))).toBe("Capital Weapons and Ammunition: 372,000");
+    });
+
+    it("needs 7 gunners a weapon and heat sinks for its lasers and PPCs (TO:AR p.130; TO:AUE p.83)", () => {
+        const building = tara();
+        building.setGenerator("fusion");
+        const laser = building.addCapitalWeapon("nl35")!;
+        building.setCapitalWeaponSharedHexes(laser.uuid, [2]);
+        building.addCapitalWeapon("barracuda", 3);
+        expect(building.getMinimumGunners()).toBe(14);
+        expect(building.getMinimumOfficers()).toBe(2);
+        expect(building.getEnergyWeaponHeat()).toBe(52);
+        expect(building.getIssues().join(" ")).toContain("52 heat, 0 sunk");
+        building.setHeatSinks(52);
+        expect(building.getIssues()).toEqual([]);
+        expect(building.getRequiredRulesLevel()).toBe(BUILDING_RULES_LEVEL);
+        expect(building.getWeights().map((row) => row.name)).toEqual(expect.arrayContaining(["NL35, hex 1 with 2", "Barracuda, 10 shots, hex 3", "Capital Fire Control"]));
+    });
+
+    it("drops them when the classification changes", () => {
+        const building = tara();
+        building.addCapitalWeapon("killer-whale");
+        building.setClassification("standard");
+        expect(building.getCapitalWeapons()).toEqual([]);
+    });
+
+    it("saves and reloads them, and reads a damaged save field by field", () => {
+        const building = tara();
+        const whale = building.addCapitalWeapon("killer-whale", 2)!;
+        building.setCapitalWeaponSharedHexes(whale.uuid, [3, 1]);
+        building.addCapitalWeapon("scl-1", 4);
+        const copy = new Building();
+        copy.importJSON(building.exportJSON());
+        expect(copy.getImportIssues()).toEqual([]);
+        expect(copy.getCapitalWeapons().map((mount) => [mount.weapon.tag, mount.hex, mount.sharedHexes, mount.shots])).toEqual([
+            ["killer-whale", 2, [1, 3], { "killer-whale": 10 }], ["scl-1", 4, [], {}],
+        ]);
+        expect(copy.getCapitalWeapons()[0].uuid).toBe(whale.uuid);
+        expect(copy.getTotalWeight()).toBe(building.getTotalWeight());
+
+        // An older save has no list at all.
+        const plain = tara().export();
+        expect(plain.capitalWeapons).toBeUndefined();
+
+        const saved = JSON.parse(building.exportJSON());
+        saved.capitalWeapons = [
+            { tag: "killer-whale", hex: 99, sharedHexes: "2", shots: { "killer-whale": -4, "kraken-t": 50, __proto__: 1 }, uuid: 7 },
+            { tag: "nac-10", hex: "x", sharedHexes: [2, "3", null, 2, 1], shots: { "nac-10": 1e9 } },
+            { tag: "light-mass-driver" }, { tag: "nope" }, "junk", { hex: 1 },
+        ];
+        const damaged = new Building();
+        damaged.importJSON(JSON.stringify(saved));
+        expect(damaged.getCapitalWeapons().map((mount) => [mount.weapon.tag, mount.hex, mount.sharedHexes, mount.shots])).toEqual([
+            ["killer-whale", 6, [], { "killer-whale": 0 }], ["nac-10", 1, [2], { "nac-10": 9999 }],
+        ]);
+        expect(damaged.getImportIssues().join(" | ")).toContain("Dropped Light Mass Driver");
+        expect(damaged.getImportIssues().join(" | ")).toContain("Skipped unknown capital weapon \"nope\"");
+        expect(damaged.getImportIssues().filter((line) => line.includes("could not be read")).length).toBe(2);
+
+        saved.classification = "gun-emplacement";
+        saved.capitalWeapons = [{ tag: "killer-whale" }];
+        const emplacement = new Building();
+        emplacement.importJSON(JSON.stringify(saved));
+        expect(emplacement.getCapitalWeapons()).toEqual([]);
+    });
+});

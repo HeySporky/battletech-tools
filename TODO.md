@@ -341,12 +341,31 @@ played first, then by dependency.
   sealed Castles Brian rolls for a breach when a hit does more than 10 standard points, which is 2 or more
   capital-scale points; (8) the book's Command Tower has "50 capital points, or 32 tons" of armor, and 32
   tons work out to 51 (512 / 10).
+- [x] Capital and sub-capital weapons on fortresses and Castles Brian (2026-10-07). One capital weapon that is
+  not a missile launcher in a hex and any number of launchers; 10 percent more weight for fire control and a
+  fusion or fission generator for anything but a launcher; a weapon's weight shared evenly with named neighbor
+  hexes; no turret or pintle in a hex that holds one or a share; an upward arc only; 7 gunners each, never
+  automated (TO:AR pp.129-131; TO:AUE p.83). Mass Drivers are not offered (TO:AUE p.135). Readings to confirm:
+  (1) capital weapons do not count against the hex's Heavy weapon tonnage, only its weight capacity; (2) the
+  fusion or fission rule and the 10 percent cover sub-capital cannons and lasers as well; (3) the Screen
+  Launcher counts as a missile launcher; (4) capital lasers and PPCs need heat sinks, as other energy weapons
+  do, and add nothing to the generator's weight, which counts Heavy energy weapons; (5) fire control has no
+  price; (6) the 10-shot minimum for launchers is a DropShip rule, shown as a note and not enforced; (7)
+  ammunition sits in the weapon's own hex; (8) adjacency of shared hexes is not checked: the building has no
+  map.
+- [x] Capital and sub-capital catalogs checked line by line against TO:AUE pp.196, 220-223, TM pp.210, 237,
+  294-296, 318, 342 and IO:AE p.33 (2026-10-07). Corrected: TO:AUE ammunition is priced by the ton, not the
+  shot (table note, p.223); the AR-10 fires standard missiles only (TM p.342). Rules levels are as printed
+  and now tested for every record. Open: TO:AUE p.221 prints a year for each weapon that differs from the
+  IO:AE family dates in six places (NAC/20 2197, NAC/40 2202, Heavy N-Gauss 2449, NL55 2307, Light and Medium
+  N-PPC 2358); TechManual p.342 rates the capital missiles D and the Screen Launcher E where IO:AE has E and
+  F; TO:AUE p.223 lists sub-capital cannons and lasers as Inner Sphere only where IO:AE gives the Clans them
+  from 3091. The catalogs follow IO:AE in all three.
 - [ ] Buildings, still owed:
   - Light and Medium weapons in play: the critical hit table's weapon results pick only Heavy weapons, and
     burst, flame and anti-aircraft effects are shown as letters, not applied.
-  - Capital and sub-capital weapons on fortresses and Castles Brian: one non-missile capital weapon a hex,
-    10 percent more weight for fire control, fusion or fission power for anything but missiles, no turrets in
-    the hex, an upward firing arc, 7 gunners each (TO:AR pp.129-130, TO:AUE pp.82-83).
+  - Capital weapons in play: ammunition used, critical hits on them, and fire at aerospace units; the record
+    sheet lists them and nothing more.
   - Castles Brian open-space collapse effects by location, and the fire modifiers for Castles Brian hexes
     (TO:AR pp.42, 137).
   - The Expanded Construction Factor rules (a CF for each level, top-down collapse, total collapse), collapse

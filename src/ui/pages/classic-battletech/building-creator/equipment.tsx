@@ -1,7 +1,7 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaTrash } from "react-icons/fa";
-import Building from '../../../../classes/building';
+import Building, { findBuildingCapitalWeapon } from '../../../../classes/building';
 import { BUILDING_GENERATORS } from '../../../../data/building-classifications';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
@@ -18,10 +18,10 @@ const Trash = FaTrash as any;
 
 const range = (from: number, to: number): number[] => Array.from({ length: Math.max(0, to - from + 1) }, (_unused, index) => from + index);
 
-export default class BuildingCreatorEquipment extends React.Component<IEquipmentProps, { lightTag: string }> {
+export default class BuildingCreatorEquipment extends React.Component<IEquipmentProps, { lightTag: string; capitalTag: string }> {
     constructor(props: IEquipmentProps) {
         super(props);
-        this.state = { lightTag: "" };
+        this.state = { lightTag: "", capitalTag: "" };
         this.props.appGlobals.makeDocumentTitle("Step 3 | Building Creator");
     }
 
@@ -54,6 +54,9 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
         const lightAvailable = carriesEquipment ? building.getAvailableLightWeapons(rulesLevel) : [];
         const lightTag = lightAvailable.some((weapon) => weapon.tag === this.state.lightTag) ? this.state.lightTag : lightAvailable[0]?.tag ?? "";
         const lightLimit = building.getLightWeaponLimitPerHex();
+        const capitalAvailable = carriesEquipment ? building.getAvailableCapitalWeapons(rulesLevel) : [];
+        const capitalTag = capitalAvailable.some((weapon) => weapon.tag === this.state.capitalTag) ? this.state.capitalTag : capitalAvailable[0]?.tag ?? "";
+        const capitalCategories = capitalAvailable.map((weapon) => weapon.category).filter((category, index, list) => list.indexOf(category) === index);
 
         return (
             <UIPage current="classic-battletech-building-creator" appGlobals={this.props.appGlobals}>
@@ -343,11 +346,113 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                     </table>
                                 </TextSection>
                             ) : null}
+                            {carriesEquipment && building.canMountCapitalWeapons() ? (
+                                <TextSection label="Capital and Sub-Capital Weapons">
+                                    <p className="smaller-text">
+                                        Only fortresses and Castles Brian carry them (TO:AR p. 129). A hex takes one capital weapon that is not a
+                                        missile launcher, and as many launchers as it has tonnage for. Anything but a launcher needs a fusion or
+                                        fission generator and weighs 10 percent more for fire control. A weapon too heavy for its hex divides its
+                                        weight evenly with hexes next to it; no hex that holds one, or a share of one, takes a turret. They fire
+                                        upward only, with no arc on a ground map (TO:AUE p. 83). Each needs 7 gunners (TO:AR p. 130). Mass Drivers,
+                                        for WarShips and space stations alone, are not offered.
+                                    </p>
+                                    <label>
+                                        Add:&nbsp;
+                                        <select aria-label="Capital weapon to add" value={capitalTag} onChange={(e) => this.setState({ capitalTag: e.currentTarget.value })}>
+                                            {capitalCategories.map((category) => (
+                                                <optgroup key={category} label={category}>
+                                                    {capitalAvailable.filter((weapon) => weapon.category === category).map((weapon) => (
+                                                        <option key={weapon.tag} value={weapon.tag}>
+                                                            {weapon.name} ({weapon.weight} t{weapon.damage !== null ? `, damage ${weapon.damage}-C` : ""})
+                                                        </option>
+                                                    ))}
+                                                </optgroup>
+                                            ))}
+                                        </select>
+                                        &nbsp;
+                                        <button className="btn btn-primary btn-sm" disabled={!capitalTag} data-testid="building-capital-add" onClick={() => this.update((b) => { b.addCapitalWeapon(capitalTag); })}>
+                                            Add
+                                        </button>
+                                    </label>
+                                    <table className="table" data-testid="building-capital-weapons">
+                                        <thead>
+                                            <tr><th>Name</th><th>Tons</th><th>Fire Control</th><th>Heat</th><th>Damage</th><th>Range</th>{building.getHexes() > 1 ? <th>Hex</th> : null}{building.getHexes() > 1 ? <th>Shared With Hexes</th> : null}<th>Shots</th><th>Ammo Tons</th><th></th></tr>
+                                        </thead>
+                                        <tbody>
+                                            {building.getCapitalWeapons().map((mount) => (
+                                                <tr key={mount.uuid}>
+                                                    <td>{mount.weapon.name}</td>
+                                                    <td>{mount.weapon.weight}</td>
+                                                    <td>{Building.getCapitalFireControlWeight(mount.weapon) || "-"}</td>
+                                                    <td>{mount.weapon.heat ?? "*"}</td>
+                                                    <td>{mount.weapon.damage !== null ? `${mount.weapon.damage}-C` : mount.weapon.tag === "ar-10-launcher" ? "*" : "-"}</td>
+                                                    <td style={{ textTransform: "capitalize" }}>{mount.weapon.range ?? "*"}</td>
+                                                    {building.getHexes() > 1 ? (
+                                                        <td>
+                                                            <select
+                                                                aria-label={"Hex for " + mount.weapon.name}
+                                                                value={mount.hex}
+                                                                onChange={(e) => { const value = +e.currentTarget.value; this.update((b) => b.setCapitalWeaponHex(mount.uuid, value)); }}
+                                                            >
+                                                                {loads.map((load) => <option key={load.hex} value={load.hex}>{load.hex}</option>)}
+                                                            </select>
+                                                        </td>
+                                                    ) : null}
+                                                    {building.getHexes() > 1 ? (
+                                                        <td>
+                                                            {loads.filter((load) => load.hex !== mount.hex).map((load) => (
+                                                                <label key={load.hex} style={{ marginRight: "0.5em", whiteSpace: "nowrap" }}>
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        aria-label={`Share ${mount.weapon.name} with hex ${load.hex}`}
+                                                                        checked={mount.sharedHexes.includes(load.hex)}
+                                                                        disabled={!mount.sharedHexes.includes(load.hex) && mount.sharedHexes.length >= 6}
+                                                                        onChange={(e) => {
+                                                                            const hexes = e.currentTarget.checked ? [...mount.sharedHexes, load.hex] : mount.sharedHexes.filter((hex) => hex !== load.hex);
+                                                                            this.update((b) => b.setCapitalWeaponSharedHexes(mount.uuid, hexes));
+                                                                        }}
+                                                                    />
+                                                                    &nbsp;{load.hex}
+                                                                </label>
+                                                            ))}
+                                                        </td>
+                                                    ) : null}
+                                                    <td>
+                                                        {Building.getCapitalAmmoTags(mount.weapon).length === 0 ? "-" : Building.getCapitalAmmoTags(mount.weapon).map((ammoTag) => (
+                                                            <label key={ammoTag} style={{ display: "block", whiteSpace: "nowrap" }}>
+                                                                {Building.getCapitalAmmoTags(mount.weapon).length > 1 ? `${findBuildingCapitalWeapon(ammoTag)?.name}: ` : ""}
+                                                                <input
+                                                                    type="number"
+                                                                    aria-label={`${Building.getCapitalAmmoTags(mount.weapon).length > 1 ? findBuildingCapitalWeapon(ammoTag)?.name + " shots" : "Shots"} for ${mount.weapon.name}`}
+                                                                    min={0}
+                                                                    max={9999}
+                                                                    step={1}
+                                                                    style={{ width: "6em" }}
+                                                                    value={mount.shots[ammoTag] ?? 0}
+                                                                    onChange={(e) => { const value = +e.currentTarget.value; this.update((b) => b.setCapitalWeaponShots(mount.uuid, ammoTag, value)); }}
+                                                                />
+                                                            </label>
+                                                        ))}
+                                                    </td>
+                                                    <td>{Building.getCapitalAmmoWeight(mount) || "-"}</td>
+                                                    <td>
+                                                        <button className="btn btn-danger btn-sm" title={"Remove " + mount.weapon.name} onClick={() => this.update((b) => { b.removeCapitalWeapon(mount.uuid); })}>
+                                                            <Trash />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                            {building.getCapitalWeapons().length === 0 ? <tr><td colSpan={11}>None mounted.</td></tr> : null}
+                                        </tbody>
+                                    </table>
+                                    <p className="smaller-text">An AR-10 takes its heat, damage and range from the missile it fires: standard Killer Whales, White Sharks and Barracudas (TM p. 342).</p>
+                                </TextSection>
+                            ) : null}
                             {carriesEquipment ? (
                                 <TextSection label="Load by Hex">
                                     <table className="table" data-testid="building-loads">
                                         <thead>
-                                            <tr><th>Hex</th><th>Heavy Weapons</th><th>Light and Medium</th><th>Turret</th><th>Amplifiers</th><th>Elevators and Tanks</th><th>Carried</th><th>Remaining</th></tr>
+                                            <tr><th>Hex</th><th>Heavy Weapons</th><th>Light and Medium</th><th>Capital Weapons</th><th>Turret</th><th>Amplifiers</th><th>Elevators and Tanks</th><th>Carried</th><th>Remaining</th></tr>
                                         </thead>
                                         <tbody>
                                             {loads.map((load) => (
@@ -355,6 +460,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                     <td>{load.hex}</td>
                                                     <td>{building.canMountHeavyWeapons() ? `${load.heavyWeapons} / ${building.getHeavyWeaponLimitPerHex()}` : "-"}</td>
                                                     <td>{building.canMountLightWeapons() ? `${building.getLightWeaponCount(load.hex)} / ${lightLimit} (${load.lightWeapons} t)` : "-"}</td>
+                                                    <td>{building.canMountCapitalWeapons() ? load.capitalWeapons : "-"}</td>
                                                     <td>{load.turret}</td>
                                                     <td>{load.powerAmplifiers}</td>
                                                     <td>{load.fittings}</td>
@@ -364,7 +470,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                             ))}
                                         </tbody>
                                     </table>
-                                    <p className="smaller-text">Carried counts armor, equipment, Light and Medium weapons with their clips and pintles, the turret, power amplifiers, elevators and the hex's share of heat sinks, generator and liquid storage.</p>
+                                    <p className="smaller-text">Carried counts armor, equipment, Light and Medium weapons with their clips and pintles, capital weapons with their fire control and ammunition, the turret, power amplifiers, elevators and the hex's share of heat sinks, generator and liquid storage.</p>
                                 </TextSection>
                             ) : null}
                         </div>

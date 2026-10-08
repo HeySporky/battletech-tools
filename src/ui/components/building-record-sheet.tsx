@@ -1,5 +1,5 @@
 import React, { type JSX } from 'react';
-import Building from '../../classes/building';
+import Building, { findBuildingCapitalWeapon } from '../../classes/building';
 
 // The last `lost` circles are filled in.
 const boxes = (count: number, lost: number = 0): JSX.Element[] => Array.from({ length: count }, (_unused, index) => (
@@ -121,10 +121,25 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                                 </tr>
                             );
                         })}
-                        {equipment.length === 0 && building.getLightWeapons().length === 0 ? <tr><td style={cell} colSpan={9}>No weapons or equipment.</td></tr> : null}
+                        {building.getCapitalWeapons().map((mount) => (
+                            <tr key={mount.uuid} data-testid="building-sheet-capital-weapon">
+                                <td style={cell}>{mount.hex}{mount.sharedHexes.length > 0 ? ` (+${mount.sharedHexes.join(", ")})` : ""}</td>
+                                <td style={cell}>
+                                    {mount.weapon.name}
+                                    {Object.keys(mount.shots).filter((tag) => mount.shots[tag] > 0).map((tag) => (
+                                        ` (${mount.shots[tag]} ${Object.keys(mount.shots).length > 1 ? `${findBuildingCapitalWeapon(tag)?.name} ` : ""}${mount.shots[tag] === 1 ? "shot" : "shots"})`
+                                    )).join("")}
+                                </td>
+                                <td style={cell}>{mount.weapon.heat ?? "*"}</td>
+                                <td style={cell}>{mount.weapon.damage !== null ? `${mount.weapon.damage}-C` : mount.weapon.tag === "ar-10-launcher" ? "*" : ""}</td>
+                                <td style={{ ...cell, textTransform: "capitalize" }} colSpan={4}>{mount.weapon.range ? `${mount.weapon.range}-C, upward only` : "As the missile fired, upward only"}</td>
+                                <td style={cell}>{Building.getCapitalMountWeight(mount)}</td>
+                            </tr>
+                        ))}
+                        {equipment.length === 0 && building.getLightWeapons().length === 0 && building.getCapitalWeapons().length === 0 ? <tr><td style={cell} colSpan={9}>No weapons or equipment.</td></tr> : null}
                     </tbody>
                 </table>
-                <p className="smaller-text">(T) marks an item in the hex's rooftop turret; anything else has a fixed arc chosen when the building is placed. (A) marks an automated weapon, Gunnery 5.{building.getLightWeapons().length > 0 ? " (P) marks a Light or Medium weapon on a pintle. After a Light or Medium weapon's damage: A anti-aircraft, B heavy burst, F flame-based, N non-penetrating." : ""}</p>
+                <p className="smaller-text">(T) marks an item in the hex's rooftop turret; anything else has a fixed arc chosen when the building is placed. (A) marks an automated weapon, Gunnery 5.{building.getCapitalWeapons().length > 0 ? " -C marks capital-scale damage and range brackets: those weapons fire upward only and have no arc on a ground map (TO:AUE p. 83)." : ""}{building.getLightWeapons().length > 0 ? " (P) marks a Light or Medium weapon on a pintle. After a Light or Medium weapon's damage: A anti-aircraft, B heavy burst, F flame-based, N non-penetrating." : ""}</p>
 
                 <h3>Armor and Construction Factor</h3>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>

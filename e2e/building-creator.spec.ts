@@ -193,3 +193,48 @@ test("a Castles Brian is built on capital-scale Construction Factors", async ({ 
 
     expect(errors).toEqual([]);
 });
+
+// Capital weapons on a fortress: fire control, fusion power, a weight shared between hexes (TO:AUE p. 83).
+test("a fortress mounts capital weapons", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+
+    await page.goto("classic-battletech/building-creator");
+    await page.getByRole("button", { name: /Start Over/ }).click();
+    await page.goto("classic-battletech/building-creator/structure");
+    await page.getByLabel("Building Name").fill("Sky Battery");
+    await page.getByLabel("Rules Level:").selectOption({ label: "Advanced" });
+    await page.getByLabel("Building Classification:").selectOption("fortress");
+    await page.getByLabel("Building Type:").selectOption("hardened");
+    await page.getByLabel(/Construction Factor/).selectOption("150");
+    await page.getByLabel("Size in hexes:").selectOption("3");
+    await page.getByLabel("Height in Levels:").selectOption("5");
+
+    await page.goto("classic-battletech/building-creator/equipment");
+    const add = page.getByLabel("Capital weapon to add");
+    await expect(add.locator("option", { hasText: "Mass Driver" })).toHaveCount(0);
+    await add.selectOption("nl35");
+    await page.getByTestId("building-capital-add").click();
+    const capital = page.getByTestId("building-capital-weapons");
+    await expect(capital.getByRole("row").nth(1)).toContainText("NL35");
+    await expect(capital.getByRole("row").nth(1)).toContainText("3.5-C");
+    await expect(page.getByTestId("building-loads").getByRole("row").nth(1)).toContainText("770");
+    await page.getByLabel("Share NL35 with hex 2").check();
+    await expect(page.getByTestId("building-loads").getByRole("row").nth(1)).toContainText("385");
+    await expect(page.getByTestId("building-loads").getByRole("row").nth(2)).toContainText("385");
+
+    await add.selectOption("killer-whale");
+    await page.getByTestId("building-capital-add").click();
+    await page.getByLabel("Shots for Killer Whale").fill("4");
+    await expect(capital.getByRole("row").nth(2)).toContainText("200");
+
+    await page.goto("classic-battletech/building-creator/summary");
+    await expect(page.locator("body")).toContainText("Without a fusion or fission generator a building mounts no capital weapons but missile launchers");
+    await expect(page.getByTestId("building-cost-log")).toContainText("Capital Weapons and Ammunition: 730,000");
+
+    await page.goto("classic-battletech/building-creator/record-sheet");
+    await expect(page.getByTestId("building-sheet-capital-weapon").first()).toContainText("NL35");
+    await expect(page.getByTestId("building-sheet-capital-weapon").nth(1)).toContainText("Killer Whale (4 shots)");
+
+    expect(errors).toEqual([]);
+});

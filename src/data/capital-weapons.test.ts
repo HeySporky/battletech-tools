@@ -109,4 +109,31 @@ describe("capital and sub-capital weapon catalogs", () => {
         });
         expect(find("heavy-scc")).toMatchObject({ heat: 42, damage: 7, range: "medium", weight: 700, cbills: 1300000, battleValue: 991, ammo: { tonsPerShot: 2, cbills: 25000, battleValue: 124 }, space: { supportVehicle: 60 } });
     });
+
+    it("grades every record at the rules level its book prints", () => {
+        // TM pp.210, 237: Standard. TO:AUE pp.220, 222: "Adv" for the naval and sub-capital weapons, "Exp" for Mass Drivers.
+        for (const item of all) {
+            const expected = item.book === "TM" ? 2 : item.category === "Mass Driver" ? 4 : 3;
+            expect(item.rulesLevel, item.tag).toBe(expected);
+        }
+        expect(all.filter(item => item.book === "TM").map(item => item.category).filter((category, index, list) => list.indexOf(category) === index))
+            .toEqual(["Capital Missile", "Screen Launcher"]);
+    });
+
+    it("prices TO:AUE ammunition by the ton and TechManual missiles by the missile (TO:AUE p.223; TM p.296)", () => {
+        for (const item of all) {
+            if (!item.ammo) continue;
+            expect(item.ammo.cbillsPer, item.tag).toBe(item.book === "TO:AUE" ? "ton" : "shot");
+        }
+    });
+
+    it("lets the AR-10 fire the standard missiles only (TM p.342)", () => {
+        expect(find("ar-10-launcher")?.notes).toContain("never the tele-operated ones");
+    });
+
+    it("keeps Mass Drivers off everything but WarShips and space stations (TO:AUE p.135)", () => {
+        for (const item of all.filter(entry => entry.category === "Mass Driver")) {
+            expect(item.space, item.tag).toMatchObject({ dropShip: -1, jumpShip: -1, mobileStructure: -1, warShip: 1, spaceStation: 1 });
+        }
+    });
 });

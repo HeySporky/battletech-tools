@@ -11,7 +11,9 @@ import { CUSTOM_HOMEBREW_RULES_LEVEL, equipmentMatchesIdentifier, getCompatibleA
 import { findByTag, matchesTag } from "../data/tag-match";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
 import { IInfantryWeapon, INFANTRY_POWER_CELL_COST, findInfantryWeapon, getInfantryClipCost, infantryWeapons, isInfantryWeaponAvailable } from "../data/infantry-weapons";
-import { IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
+import { capitalWeapons } from "../data/capital-weapons";
+import { subCapitalWeapons } from "../data/sub-capital-weapons";
+import { ICapitalWeapon, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
 
 /**
  * A gun emplacement or other advanced building, built under Tactical Operations: Advanced Rules pp.126-131,
@@ -60,6 +62,38 @@ export interface IBuildingLightWeaponExport {
     hex?: number;
     mount?: string;
     clips?: number;
+}
+
+export const MAX_BUILDING_CAPITAL_WEAPONS = 100;
+export const MAX_BUILDING_CAPITAL_SHOTS = 9999;
+/** Gunners for each capital weapon (TO:AR p.130). */
+export const BUILDING_CAPITAL_WEAPON_GUNNERS = 7;
+/** Fire control and stabilizers: 10 percent more weight for a capital weapon that is not a missile launcher (TO:AUE p.83). */
+export const BUILDING_CAPITAL_FIRE_CONTROL = 0.1;
+/** Hexes next to the weapon's own that may share its weight (TO:AUE p.83). */
+export const MAX_BUILDING_CAPITAL_SHARED_HEXES = 6;
+/** The missiles an AR-10 fires: the standard ones only (TM p.342). */
+const AR10_MISSILE_TAGS = ["killer-whale", "white-shark", "barracuda"];
+const BUILDING_CAPITAL_CATALOG: ICapitalWeapon[] = [...capitalWeapons, ...subCapitalWeapons];
+export const findBuildingCapitalWeapon = (tag: string): ICapitalWeapon | undefined => BUILDING_CAPITAL_CATALOG.find((weapon) => weapon.tag === tag);
+
+/** A capital or sub-capital weapon, with its ammunition (TO:AR p.129; TO:AUE p.83). */
+export interface IBuildingCapitalMount {
+    uuid: string;
+    weapon: ICapitalWeapon;
+    hex: number;
+    /** Hexes next to the weapon's own that share its weight evenly with it. */
+    sharedHexes: number[];
+    /** Shots carried, by the tag of the weapon whose ammunition they are (an AR-10 carries three kinds). */
+    shots: Record<string, number>;
+}
+
+export interface IBuildingCapitalWeaponExport {
+    tag: string;
+    uuid?: string;
+    hex?: number;
+    sharedHexes?: number[];
+    shots?: Record<string, number>;
 }
 
 export interface IBuildingEquipmentExport {
@@ -187,6 +221,8 @@ export interface IBuildingExport {
     poweredHexes?: number;
     /** Light and Medium (infantry) weapons; absent in older saves. */
     lightWeapons?: IBuildingLightWeaponExport[];
+    /** Capital and sub-capital weapons; absent in older saves. */
+    capitalWeapons?: IBuildingCapitalWeaponExport[];
 }
 
 export interface IBuildingHexLoad {
@@ -195,6 +231,8 @@ export interface IBuildingHexLoad {
     equipment: number;
     /** Light and Medium weapons with their extra clips, and the hex's pintle mounts. */
     lightWeapons: number;
+    /** The hex's share of capital weapons and their fire control, and the ammunition stored in it. */
+    capitalWeapons: number;
     turret: number;
     powerAmplifiers: number;
     heatSinks: number;
@@ -255,6 +293,7 @@ export default class Building {
     private _unspecifiedEquipment: boolean = false;
     private _equipment: IBuildingMount[] = [];
     private _lightWeapons: IBuildingLightMount[] = [];
+    private _capitalWeapons: IBuildingCapitalMount[] = [];
     private _sealed: boolean = false;
     private _openSpace: boolean = false;
     private _heavyMetal: boolean = false;
@@ -338,6 +377,11 @@ export default class Building {
     private _clampFittings(): void {
         if (!this.canMountLightWeapons()) this._lightWeapons = [];
         for (const mount of this._lightWeapons) mount.hex = Math.min(this._hexes, Math.max(1, mount.hex));
+        if (!this.canMountCapitalWeapons()) this._capitalWeapons = [];
+        for (const mount of this._capitalWeapons) {
+            mount.hex = Math.min(this._hexes, Math.max(1, mount.hex));
+            mount.sharedHexes = mount.sharedHexes.filter((hex) => hex <= this._hexes && hex !== mount.hex);
+        }
         if (!this.canBeSubsurface()) this._subsurface = "none";
         if (!this.canBeTunnel()) this._tunnel = false;
         if (this.isSealedByDefault()) this._sealed = true;
@@ -714,6 +758,158 @@ export default class Building {
     }
     public hasTurret(): boolean { return this._equipment.some((mount) => mount.turret) || this._lightWeapons.some((mount) => mount.mount === "turret"); }
 
+    // Capital and sub-capital weapons (TO:AR pp.129-130; TO:AUE p.83) ----------------------------------------------
+
+    /** Only fortresses and Castles Brian carry capital weapons (TO:AR p.129). */
+    public canMountCapitalWeapons(): boolean { return ["fortress", "castles-brian"].includes(this._classification.tag); }
+
+    /** Capital missile, sub-capital missile and screen launchers: the weapons that need no fusion or fission power. */
+    public static isCapitalMissileLauncher(weapon: ICapitalWeapon): boolean {
+        return ["Capital Missile", "Sub-Capital Missile", "Screen Launcher"].includes(weapon.category);
+    }
+    public static isCapitalEnergyWeapon(weapon: ICapitalWeapon): boolean {
+        return ["Naval Laser", "Naval PPC", "Sub-Capital Laser"].includes(weapon.category);
+    }
+    /** The weapons whose ammunition this one fires: its own, or the three standard missiles for an AR-10. */
+    public static getCapitalAmmoTags(weapon: ICapitalWeapon): string[] {
+        return weapon.tag === "ar-10-launcher" ? [...AR10_MISSILE_TAGS] : weapon.ammo ? [weapon.tag] : [];
+    }
+
+    /**
+     * What a Mobile Structure may mount, or a tournament-legal DropShip (TO:AUE pp.82-83). Mass Drivers, for
+     * WarShips and space stations alone, are left out (TO:AUE p.135).
+     */
+    public isCapitalWeaponAllowed(weapon: ICapitalWeapon): boolean {
+        return this.canMountCapitalWeapons() && ((weapon.space.mobileStructure ?? 0) > 0 || (weapon.space.dropShip ?? -1) > 0);
+    }
+
+    /** In production for the building's technology base in the selected era, or a prototype where the rules level allows. */
+    public getCapitalWeaponAvailability(weapon: ICapitalWeapon, rulesLevel: number = BUILDING_RULES_LEVEL): { available: boolean; asPrototype: boolean } {
+        const mixed = this._tech.tag === "mis" || this._tech.tag === "mclan";
+        const own: ITechDates = { ...(weapon.prototype ? { prototype: weapon.prototype } : {}), introduced: weapon.introduced, extinct: weapon.extinct, reintroduced: weapon.reintroduced };
+        const candidates: ITechDates[] = [];
+        if (weapon.techBase !== "clan" && (mixed || this.getTechBase() === "is")) candidates.push(own);
+        if (weapon.techBase !== "is" && (mixed || this.getTechBase() === "clan")) candidates.push(weapon.clanDates ?? own);
+        let asPrototype = false;
+        for (const dates of candidates) {
+            const availability = this._datesAvailability(dates, rulesLevel);
+            if (availability.available && !availability.asPrototype) return { available: true, asPrototype: false };
+            asPrototype = asPrototype || availability.asPrototype;
+        }
+        return { available: asPrototype, asPrototype };
+    }
+
+    /** Capital and sub-capital weapons the classification, technology base, era and rules level offer. */
+    public getAvailableCapitalWeapons(rulesLevel: number = BUILDING_RULES_LEVEL): ICapitalWeapon[] {
+        return BUILDING_CAPITAL_CATALOG.filter((weapon) => this.isCapitalWeaponAllowed(weapon)
+            && weapon.rulesLevel <= Math.max(rulesLevel, BUILDING_RULES_LEVEL) && this.getCapitalWeaponAvailability(weapon, rulesLevel).available);
+    }
+
+    public getCapitalWeapons(): IBuildingCapitalMount[] { return this._capitalWeapons; }
+
+    private _newCapitalMount(weapon: ICapitalWeapon, hex: unknown, sharedHexes: unknown, shots: unknown, uuid?: unknown): IBuildingCapitalMount {
+        const taken = (id: string) => this._capitalWeapons.some((mount) => mount.uuid === id) || this._lightWeapons.some((mount) => mount.uuid === id)
+            || this._equipment.some((mount) => mount.item.uuid === id);
+        const mount: IBuildingCapitalMount = {
+            uuid: typeof uuid === "string" && uuid && !taken(uuid) ? uuid : generateUUID(),
+            weapon,
+            hex: Math.floor(savedNumber(hex, 1, 1, this._hexes)),
+            sharedHexes: [],
+            shots: {},
+        };
+        mount.sharedHexes = this._cleanSharedHexes(mount.hex, sharedHexes);
+        for (const tag of Building.getCapitalAmmoTags(weapon)) {
+            mount.shots[tag] = Math.floor(savedNumber(isPlainObject(shots) ? shots[tag] : undefined, 0, 0, MAX_BUILDING_CAPITAL_SHOTS));
+        }
+        return mount;
+    }
+    private _cleanSharedHexes(home: number, raw: unknown): number[] {
+        const hexes: number[] = [];
+        for (const value of Array.isArray(raw) ? raw : []) {
+            if (typeof value !== "number" || !Number.isInteger(value) || value < 1 || value > this._hexes || value === home || hexes.includes(value)) continue;
+            if (hexes.length < MAX_BUILDING_CAPITAL_SHARED_HEXES) hexes.push(value);
+        }
+        return hexes.sort((a, b) => a - b);
+    }
+
+    /** A new weapon that fires ammunition comes with 10 shots, the least a DropShip's launcher carries (TM p.210). */
+    public addCapitalWeapon(tag: string, hex: number = 1): IBuildingCapitalMount | null {
+        const weapon = findBuildingCapitalWeapon(tag);
+        if (!weapon || !this.isCapitalWeaponAllowed(weapon) || this._capitalWeapons.length >= MAX_BUILDING_CAPITAL_WEAPONS) return null;
+        const first = Building.getCapitalAmmoTags(weapon)[0];
+        const mount = this._newCapitalMount(weapon, hex, [], first ? { [first]: 10 } : {});
+        this._capitalWeapons.push(mount);
+        return mount;
+    }
+    public removeCapitalWeapon(uuid: string): IBuildingCapitalMount[] {
+        this._capitalWeapons = this._capitalWeapons.filter((mount) => mount.uuid !== uuid);
+        return this._capitalWeapons;
+    }
+    private _capitalMount(uuid: string): IBuildingCapitalMount | undefined { return this._capitalWeapons.find((mount) => mount.uuid === uuid); }
+
+    public setCapitalWeaponHex(uuid: string, hex: number): void {
+        const mount = this._capitalMount(uuid);
+        if (!mount) return;
+        mount.hex = Math.floor(savedNumber(hex, mount.hex, 1, this._hexes));
+        mount.sharedHexes = mount.sharedHexes.filter((shared) => shared !== mount.hex);
+    }
+    /**
+     * A weapon too heavy for its hex divides its tonnage evenly between that hex and hexes next to it
+     * (TO:AUE p.83). The building has no map here: the designer names the neighbors.
+     */
+    public setCapitalWeaponSharedHexes(uuid: string, hexes: number[]): void {
+        const mount = this._capitalMount(uuid);
+        if (mount) mount.sharedHexes = this._cleanSharedHexes(mount.hex, hexes);
+    }
+    public setCapitalWeaponShots(uuid: string, ammoTag: string, shots: number): void {
+        const mount = this._capitalMount(uuid);
+        if (mount && Building.getCapitalAmmoTags(mount.weapon).includes(ammoTag)) {
+            mount.shots[ammoTag] = Math.floor(savedNumber(shots, mount.shots[ammoTag] ?? 0, 0, MAX_BUILDING_CAPITAL_SHOTS));
+        }
+    }
+
+    /** Fire control and stabilizers for a capital weapon that is not a missile launcher (TO:AUE p.83). */
+    public static getCapitalFireControlWeight(weapon: ICapitalWeapon): number {
+        return Building.isCapitalMissileLauncher(weapon) ? 0 : round3(weapon.weight * BUILDING_CAPITAL_FIRE_CONTROL);
+    }
+    public static getCapitalAmmoWeight(mount: IBuildingCapitalMount): number {
+        return round3(Object.keys(mount.shots).reduce((sum, tag) => sum + mount.shots[tag] * (findBuildingCapitalWeapon(tag)?.ammo?.tonsPerShot ?? 0), 0));
+    }
+    public static getCapitalShots(mount: IBuildingCapitalMount): number {
+        return Object.keys(mount.shots).reduce((sum, tag) => sum + mount.shots[tag], 0);
+    }
+    /** The weapon with its ammunition; fire control is counted apart. */
+    public static getCapitalMountWeight(mount: IBuildingCapitalMount): number {
+        return round3(mount.weapon.weight + Building.getCapitalAmmoWeight(mount));
+    }
+    public getCapitalFireControlWeight(): number {
+        return round3(this._capitalWeapons.reduce((sum, mount) => sum + Building.getCapitalFireControlWeight(mount.weapon), 0));
+    }
+    /**
+     * What one hex carries of the capital weapons: an even share of each weapon and its fire control that sits in
+     * or spreads into the hex, and the ammunition of the weapons whose own hex it is.
+     */
+    public getCapitalWeaponWeight(hex: number): number {
+        let tons = 0;
+        for (const mount of this._capitalWeapons) {
+            const share = (mount.weapon.weight + Building.getCapitalFireControlWeight(mount.weapon)) / (1 + mount.sharedHexes.length);
+            if (mount.hex === hex) tons += share + Building.getCapitalAmmoWeight(mount);
+            else if (mount.sharedHexes.includes(hex)) tons += share;
+        }
+        return round3(tons);
+    }
+    /** Hexes that hold a capital weapon or a share of one: none of them takes a turret or pintle (TO:AUE p.83). */
+    public isCapitalWeaponHex(hex: number): boolean {
+        return this._capitalWeapons.some((mount) => mount.hex === hex || mount.sharedHexes.includes(hex));
+    }
+    private _capitalAmmoCost(mount: IBuildingCapitalMount): number {
+        return Object.keys(mount.shots).reduce((sum, tag) => {
+            const ammo = findBuildingCapitalWeapon(tag)?.ammo;
+            if (!ammo || ammo.cbills === null) return sum;
+            return sum + ammo.cbills * mount.shots[tag] * (ammo.cbillsPer === "ton" ? ammo.tonsPerShot ?? 0 : 1);
+        }, 0);
+    }
+
     // Light and Medium weapons (TO:AR p.129; TM pp.136-137, 349-352) -----------------------------------------------
 
     /** Only hangars, standard buildings and walls mount Light and Medium weapons (TO:AR p.129). */
@@ -876,9 +1072,10 @@ export default class Building {
         return this._heatSinks;
     }
     public getHeatDissipation(): number { return this._heatSinks * (this._heatSinkType.dissipation ?? 1); }
-    /** Heat of every energy weapon fired together. */
+    /** Heat of every energy weapon fired together, capital and sub-capital lasers and PPCs among them. */
     public getEnergyWeaponHeat(): number {
-        return this._equipment.filter((mount) => Building._isEnergyWeapon(mount.item)).reduce((sum, mount) => sum + (mount.item.heat || 0), 0);
+        return this._equipment.filter((mount) => Building._isEnergyWeapon(mount.item)).reduce((sum, mount) => sum + (mount.item.heat || 0), 0)
+            + this._capitalWeapons.filter((mount) => Building.isCapitalEnergyWeapon(mount.weapon)).reduce((sum, mount) => sum + (mount.weapon.heat ?? 0), 0);
     }
     /**
      * A building handles heat as a vehicle does: its heat sinks must cover every energy weapon fired together,
@@ -951,9 +1148,10 @@ export default class Building {
             const powerAmplifiers = this.getPowerAmplifierWeight(hex);
             const fittings = round3(this.getElevatorWeight(hex) + liquid);
             const lightWeapons = this.getLightWeaponWeight(hex);
-            const total = round3(this._armorTons + equipment + lightWeapons + turret + powerAmplifiers + heatSinks + generator + fittings);
+            const capital = this.getCapitalWeaponWeight(hex);
+            const total = round3(this._armorTons + equipment + lightWeapons + capital + turret + powerAmplifiers + heatSinks + generator + fittings);
             loads.push({
-                hex, armor: this._armorTons, equipment, lightWeapons, turret, powerAmplifiers, heatSinks, generator, fittings, total,
+                hex, armor: this._armorTons, equipment, lightWeapons, capitalWeapons: capital, turret, powerAmplifiers, heatSinks, generator, fittings, total,
                 remaining: round3(capacity - total), heavyWeapons: this.getHeavyWeaponTons(hex),
             });
         }
@@ -987,6 +1185,11 @@ export default class Building {
                 weight: Building.getLightMountWeight(mount),
             })),
             ...(pintles > 0 ? [{ name: "Pintle Mounts", weight: pintles }] : []),
+            ...this._capitalWeapons.map((mount) => ({
+                name: `${mount.weapon.name}${Building.getCapitalShots(mount) > 0 ? `, ${Building.getCapitalShots(mount)} ${Building.getCapitalShots(mount) === 1 ? "shot" : "shots"}` : ""}${this._hexes > 1 ? `, hex ${mount.hex}${mount.sharedHexes.length > 0 ? ` with ${mount.sharedHexes.join(", ")}` : ""}` : ""}`,
+                weight: Building.getCapitalMountWeight(mount),
+            })),
+            ...(this.getCapitalFireControlWeight() > 0 ? [{ name: "Capital Fire Control", weight: this.getCapitalFireControlWeight() }] : []),
         ];
     }
 
@@ -995,10 +1198,10 @@ export default class Building {
      * building one officer for up to 9 crew or one for every 10 (TO:AR p.130). Automated weapons need no
      * gunners (TO:AR p.131). A Light or Medium weapon needs the crew the infantry table gives it (user ruling,
      * 2026-10-07; the table on TO:AR p.130 prints one each, and TM p.137 uses the weapon's Crew value). Only
-     * Heavy weapons can be automated (TO:AR p.131).
+     * Heavy weapons can be automated (TO:AR p.131). A capital weapon needs 7 (TO:AR p.130).
      */
     public getMinimumGunners(): number {
-        return this._lightWeapons.reduce((sum, mount) => sum + mount.weapon.crew, 0) + this._equipment.filter((mount) => Building.isHeavyWeapon(mount.item) && !mount.automated).reduce((sum, mount) => sum + Math.ceil((mount.item.weight || 0) / 5 - 1e-9), 0);
+        return this._capitalWeapons.length * BUILDING_CAPITAL_WEAPON_GUNNERS + this._lightWeapons.reduce((sum, mount) => sum + mount.weapon.crew, 0) + this._equipment.filter((mount) => Building.isHeavyWeapon(mount.item) && !mount.automated).reduce((sum, mount) => sum + Math.ceil((mount.item.weight || 0) / 5 - 1e-9), 0);
     }
     /**
      * Crew for other equipment on the Advanced Building Minimum Crew Table (TO:AR p.130): one for each ton of
@@ -1045,6 +1248,7 @@ export default class Building {
         let level = BUILDING_RULES_LEVEL;
         for (const mount of this._equipment) level = Math.max(level, getEquipmentRulesLevel(mount.item));
         if (this._lightWeapons.some((mount) => mount.weapon.type === "melee")) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
+        for (const mount of this._capitalWeapons) level = Math.max(level, mount.weapon.rulesLevel);
         return level;
     }
 
@@ -1074,6 +1278,22 @@ export default class Building {
         for (const mount of this._lightWeapons) {
             if (!this.isLightWeaponAvailable(mount.weapon)) issues.push(`${mount.weapon.name} is not available to this technology base in the selected era.`);
             else if (mount.weapon.type === "melee" && rulesLevel < CUSTOM_HOMEBREW_RULES_LEVEL) issues.push(`${mount.weapon.name} is a melee weapon: a building mounts one only under custom rules (TM p.136 names Standard and Support weapons).`);
+        }
+        if (this._capitalWeapons.some((mount) => !Building.isCapitalMissileLauncher(mount.weapon)) && !this._generator?.fusionOrFission) {
+            issues.push("Without a fusion or fission generator a building mounts no capital weapons but missile launchers (TO:AUE p.83).");
+        }
+        for (let hex = 1; hex <= this._hexes; hex++) {
+            const where = this._hexes > 1 ? `Hex ${hex}` : "The building";
+            const guns = this._capitalWeapons.filter((mount) => mount.hex === hex && !Building.isCapitalMissileLauncher(mount.weapon)).length;
+            if (guns > 1) issues.push(`${where} mounts ${guns} capital weapons that are not missile launchers; a hex takes one (TO:AUE p.83).`);
+            if (this.isCapitalWeaponHex(hex) && (this._equipment.some((mount) => mount.hex === hex && mount.turret) || this._lightWeapons.some((mount) => mount.hex === hex && mount.mount !== "fixed"))) {
+                issues.push(`${where} holds a capital weapon, which leaves no room there for a turret or pintle mount (TO:AUE p.83).`);
+            }
+        }
+        for (const mount of this._capitalWeapons) {
+            if (!this.isCapitalWeaponAllowed(mount.weapon)) issues.push(`${mount.weapon.name} cannot be mounted on a ${this._classification.name.toLowerCase()}.`);
+            else if (!this.getCapitalWeaponAvailability(mount.weapon, rulesLevel).available) issues.push(`${mount.weapon.name} is not available to this technology base in the selected era.`);
+            else if (mount.weapon.rulesLevel > Math.max(rulesLevel, BUILDING_RULES_LEVEL)) issues.push(`${mount.weapon.name} is above the selected rules level.`);
         }
         if (this._generator?.noRooftopEquipment && this.hasTurret()) issues.push(`A ${this._generator.name.toLowerCase()} generator leaves no room on the roof for turrets (TO:AR p.132).`);
         for (const mount of this._equipment) {
@@ -1118,6 +1338,14 @@ export default class Building {
         if (this._lightWeapons.length > 0) notes.push("Light and Medium weapons need no heat sinks or power amplifiers and come with one free clip. Each does its table damage rounded to the nearest point, at its Base Range for short, twice that for medium and three times for long (TM pp.136-137).");
         if (this._lightWeapons.some((mount) => mount.weapon.powerCells)) notes.push("Energy-cell weapons are wired into the building's power and fire freely while it lasts; their cells are the backup when the power is out.");
         if (this._lightWeapons.some((mount) => mount.weapon.cost === null)) notes.push("A Light or Medium weapon with no row in the TechManual's cost table adds nothing to the price.");
+        if (this._capitalWeapons.length > 0) {
+            notes.push(`Capital and sub-capital weapons fire upward only: they have no firing arc on a ground map and go in no turret or pintle. Each needs ${BUILDING_CAPITAL_WEAPON_GUNNERS} gunners and none can be automated (TO:AUE p.83; TO:AR pp.130-131).`);
+            notes.push("Capital weapons are not Heavy weapons: they count against the hex's weight capacity, not its Heavy weapon tonnage, and add nothing to the generator's weight (TO:AR pp.129, 132).");
+            if (this.getCapitalFireControlWeight() > 0) notes.push("A capital weapon that is not a missile launcher weighs 10 percent more for fire control and stabilizers; the cost tables give that no price (TO:AUE p.83).");
+            if (this._capitalWeapons.some((mount) => Building.isCapitalMissileLauncher(mount.weapon) && Building.getCapitalShots(mount) < 10)) {
+                notes.push("A capital missile or screen launcher carries at least 10 shots on a DropShip (TM pp.210, 237); the building rules name no minimum.");
+            }
+        }
         if (this._equipment.some((mount) => mount.automated)) notes.push(`Automated weapons fire first in the Weapon Attack Phase at the closest enemy in range, with a Gunnery skill of ${BUILDING_AUTOMATED_GUNNERY}, +1 through hostile ECM (TO:AR p.131).`);
         if (this._sealed) notes.push(`Environmental sealing: a hit that does more than ${this.isCapitalScale() ? "1 capital-scale point (10 standard points)" : "10 points"} to the Construction Factor breaches ${this.isCapitalScale() ? "that hex alone" : "the building"} on a 2D6 roll of ${BUILDING_BREACH_TARGET}+, modified by ${this.getBreachModifier() >= 0 ? "+" : ""}${this.getBreachModifier()} (TO:AR pp.134-135).`);
         if (this._heavyMetal) notes.push("Heavy metal superstructure: lines of sight through or beside the building are treated as inside an electromagnetic interference field, and a unit that fails its roll entering takes double damage (TO:AR p.135).");
@@ -1160,6 +1388,10 @@ export default class Building {
             const light = this._lightWeapons.reduce((sum, mount) => sum + (mount.weapon.cost ?? 0)
                 + mount.clips * (getInfantryClipCost(mount.weapon) ?? 0) + (mount.clips > 0 && mount.weapon.powerCells ? INFANTRY_POWER_CELL_COST : 0), 0);
             rows.push(["Light and Medium Weapons and Clips", light]);
+        }
+        if (this._capitalWeapons.length > 0) {
+            // The weapon, and its ammunition by the ton (TO:AUE p.223) or by the missile (TM p.296).
+            rows.push(["Capital Weapons and Ammunition", this._capitalWeapons.reduce((sum, mount) => sum + mount.weapon.cbills + this._capitalAmmoCost(mount), 0)]);
         }
         const pintles = round3(loads.reduce((sum, load) => sum + this.getPintleWeight(load.hex), 0));
         if (pintles > 0) rows.push([`Pintle Mounts (1,000 x ${pintles} t)`, 1000 * pintles]);
@@ -1712,6 +1944,13 @@ export default class Building {
                     ...(mount.mount !== "fixed" ? { mount: mount.mount } : {}), ...(mount.clips > 0 ? { clips: mount.clips } : {}),
                 })),
             } : {}),
+            ...(this._capitalWeapons.length > 0 ? {
+                capitalWeapons: this._capitalWeapons.map((mount) => ({
+                    tag: mount.weapon.tag, uuid: mount.uuid, hex: mount.hex,
+                    ...(mount.sharedHexes.length > 0 ? { sharedHexes: [...mount.sharedHexes] } : {}),
+                    ...(Object.keys(mount.shots).length > 0 ? { shots: { ...mount.shots } } : {}),
+                })),
+            } : {}),
         };
     }
 
@@ -1826,6 +2065,26 @@ export default class Building {
                     continue;
                 }
                 this._lightWeapons.push(this._newLightMount(weapon, entry.hex, entry.mount, entry.clips, entry.uuid));
+            }
+            this._capitalWeapons = [];
+            if (saved.capitalWeapons !== undefined && !Array.isArray(saved.capitalWeapons)) issue("Ignored a capital weapon list that is not a list");
+            const capitalEntries = Array.isArray(saved.capitalWeapons) ? saved.capitalWeapons : [];
+            if (capitalEntries.length > MAX_BUILDING_CAPITAL_WEAPONS) issue(`Kept the first ${MAX_BUILDING_CAPITAL_WEAPONS} of ${capitalEntries.length} capital weapons`);
+            for (const entry of capitalEntries.slice(0, MAX_BUILDING_CAPITAL_WEAPONS)) {
+                if (!isPlainObject(entry) || typeof entry.tag !== "string") {
+                    issue("Skipped a capital weapon that could not be read");
+                    continue;
+                }
+                const weapon = findBuildingCapitalWeapon(entry.tag);
+                if (!weapon) {
+                    issue(`Skipped unknown capital weapon "${entry.tag.slice(0, 60)}"`);
+                    continue;
+                }
+                if (!this.isCapitalWeaponAllowed(weapon)) {
+                    issue(`Dropped ${weapon.name}: a ${this._classification.name.toLowerCase()} cannot mount it`);
+                    continue;
+                }
+                this._capitalWeapons.push(this._newCapitalMount(weapon, entry.hex, entry.sharedHexes, entry.shots, entry.uuid));
             }
             for (const key of ["doors", "elevators"] as const) {
                 if (saved[key] !== undefined && !Array.isArray(saved[key])) issue(`Ignored a ${key} list that is not a list`);
