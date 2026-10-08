@@ -913,7 +913,21 @@ Open:
     chassis (pp.36-39), and the model codes (LCT-1V, PXH-1 and so on) are taken from those sheets; (2) the
     sheets print a Cost for each 'Mech, not entered, as the rulebook has no prices; (3) records the edition
     does not print (prices) are left out of its entries, not inherited from the Compendium.
-  - [ ] Next: Fourth Edition (1996). Then Master Rules (1998), Master Rules Revised (2001), in that order.
+  - [x] BattleTech, Fourth Edition (FASA, 1996), complete: read from the page images of the box set's rulebook
+    (Construction pp.40-44, Weapons and Equipment Table p.45, Equipment p.46, scenarios pp.35-39). The Third
+    Edition's seventeen weapons, row for row, with three additions: the hatchet (tonnage / 5 damage, tonnage /
+    15 tons and slots), the Flamer (Vehicle) (0.5 tons, 1 slot, 20 shots) and single-shot LRM and SRM launchers
+    (launcher + 0.5 tons). Engine and structure tables, cockpit, gyro, jump jets, armor, layout and tonnages
+    unchanged; no prices; BattleMechs only.
+    Readings to confirm: (1) the box has 24 'Mech designs (p.5) but its record sheet book and Introduction to
+    BattleTech book are not in the library; the 20 the rulebook's scenarios name are listed, the Assassin
+    without a model code, and the missing four are noted on the edition; (2) the contents page puts Equipment
+    on p.47, the section is printed on p.46 and is cited so; (3) single-shot launchers have no table row, so no
+    critical slots are entered; (4) the Flamer (Vehicle) sits under Ballistic Weapons on the 'Mech table and is
+    entered on the existing vehicle flamer record.
+  - [ ] Next: Master Rules (1998), then Master Rules Revised (2001).
+  - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
+    1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).
   - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).
   - [ ] The selector itself: filter by `isInRulesEdition`, read stats through `getEditionStats`, and decide how

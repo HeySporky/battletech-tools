@@ -183,6 +183,23 @@ export const btRulesEditions: IRulesEdition[] = [
         name: "BattleTech, Fourth Edition",
         year: 1996,
         book: "BT4",
+        complete: true,
+        // The box holds playing pieces for "twenty-four different BattleMech designs" (BT4 p.5). Their record
+        // sheets and the Introduction to BattleTech book that describes them are not in the library, so only
+        // the twenty the rulebook's scenarios name are listed (BT4 pp.36-39); the Assassin is named without
+        // a model code (BT4 p.36).
+        mechs: [
+            "COM-2D Commando", "SDR-5V Spider", "JR7-D Jenner", "PNT-9R Panther", "Assassin", "CDA-2A Cicada",
+            "CLNT-2-3T Clint", "HER-2S Hermes II", "ENF-4R Enforcer", "HBK-4G Hunchback", "TBT-5N Trebuchet",
+            "DV-6M Dervish", "DRG-1N Dragon", "QKD-4G Quickdraw", "CPLT-C1 Catapult", "JM6-S JagerMech",
+            "GHR-5H Grasshopper", "AWS-8Q Awesome", "ZEU-6S Zeus", "AS7-D Atlas",
+        ],
+        // BattleMechs only: infantry and conventional vehicles are left to CityTech, Second Edition (BT4 p.4).
+        otherUnits: [],
+        notModelled: [
+            "Four of the box's twenty-four BattleMech designs: the rulebook names twenty, and the record sheet book is not in the library (BT4 p.5).",
+            "Clubs: picked up on the map and swung with two hands; the hatchet attacks by the same rules with one (BT4 pp.28, 46).",
+        ],
     },
     {
         // BattleTech Master Rules (FASA 1707): back cover, "Copyright 1998 FASA Corporation"; CRB p.247.

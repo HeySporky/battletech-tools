@@ -220,6 +220,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
       },
       "battletech-compendium": null,
       "battletech-3rd-edition": null,
+      "battletech-4th-edition": null,
     },
     book: "TM",
     page: 225,

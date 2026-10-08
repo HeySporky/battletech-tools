@@ -57,6 +57,7 @@ export const mechArmorTypes: IArmorType[] = [
 			"battletech-manual": null,
 			"battletech-compendium": null,
 			"battletech-3rd-edition": null,
+			"battletech-4th-edition": null,
 		},
 		notes: "On an IndustrialMech this is Heavy Industrial armor: \"Functionally identical to standard battlefield armor\" and priced the same (TM pp.205, 278)."
 	},

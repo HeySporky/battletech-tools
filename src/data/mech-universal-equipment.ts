@@ -137,6 +137,7 @@ export const mechUniversalEquipment: IEquipmentItem[] = [
         editionStats: {
             "battletech-manual": { book: "BTM", page: 45, name: "Vehicle Flamer (conventional)", heat: 3, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 5, shotsPerTon: 20, notes: "Vehicle-mounted, resembling a conventional flamethrower (BTM p.45). The table prints 5 tons, five times the fusion Flamer; entered as printed, since nothing else in the book gives its weight. No critical locations are printed." },
             "battletech-compendium": { book: "BTC", page: 116, name: "Flamer (Vehicle)", heat: 3, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1, shotsPerTon: 20, notes: "Half a ton and one critical slot on both the Inner Sphere and the Clan table (BTC pp.115-116); the Manual printed 5 tons. No price is printed (BTC p.129)." },
+            "battletech-4th-edition": { book: "BT4", page: 45, name: "Flamer (Vehicle)", heat: 3, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1, shotsPerTon: 20, notes: "Listed among the Ballistic Weapons. The Equipment section describes one Flamer and does not mention the vehicle version (BT4 p.46)." },
         },
         altNames: ["Vehicle Flamer (Clan)"],
         altTags: ["vehicle-flamer-clan"],

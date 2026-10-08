@@ -887,3 +887,88 @@ describe("Rules editions: Third Edition, complete", () => {
         expect(sink.notes).toContain("divided by 25");
     });
 });
+
+// BattleTech, Fourth Edition (FASA, 1996), read from the page images of the box set's rulebook: Construction
+// pp.40-44, the Weapons and Equipment Table p.45 and the Equipment section p.46. The Third Edition's weapons
+// with the hatchet, the vehicle flamer and single-shot missile launchers; still no prices.
+describe("Rules editions: Fourth Edition, complete", () => {
+    const TAG = "battletech-4th-edition";
+    const PREVIOUS = "battletech-3rd-edition";
+    const find = (tag: string) => equipment.find(item => item.tag === tag)!;
+    const numbers = (stats: IEditionStats) => JSON.stringify([stats.heat, stats.damage, stats.damagePerMissile, stats.range,
+        stats.weight, stats.criticals, stats.shotsPerTon]);
+
+    it("includes the Third Edition's records, the hatchet, the vehicle flamer and single-shot launchers", () => {
+        expect(inEdition(TAG)).toEqual([
+            ...inEdition(PREVIOUS),
+            "equipment melee-hatchet", "equipment vehicle-flamer", "equipment ammo-vehicle-flamer-standard",
+            "equipment lrm-5-os", "equipment lrm-10-os", "equipment lrm-15-os", "equipment lrm-20-os",
+            "equipment srm-2-os", "equipment srm-4-os", "equipment srm-6-os",
+        ].sort());
+        const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
+        expect(edition.complete).toBe(true);
+        // BT4 p.5 counts twenty-four designs; the rulebook names twenty of them (pp.36-39).
+        expect(edition.mechs).toHaveLength(20);
+        expect(edition.notModelled!.some(note => note.includes("twenty-four"))).toBe(true);
+        expect(edition.otherUnits).toEqual([]);
+    });
+
+    // BT4 p.45 reprints the Third Edition's seventeen rows figure for figure.
+    it("reprints the Third Edition's weapon rows", () => {
+        const weapons = equipment.filter(item => item.editionStats?.[PREVIOUS]?.range);
+        expect(weapons).toHaveLength(17);
+        for (const weapon of weapons) {
+            const stats = weapon.editionStats![TAG]!;
+            expect([stats.book, stats.page], weapon.tag).toEqual(["BT4", 45]);
+            expect(numbers(stats), weapon.tag).toBe(numbers(weapon.editionStats![PREVIOUS]!));
+        }
+        expect(find("lrm-15").editionStats![TAG]!.name).toBe("LRM 15");
+    });
+
+    // BT4 p.45: Flamer (Vehicle), heat 3, damage 2, ranges 1 / 2 / 3, .5 tons, 1 critical, 20 shots.
+    it("lists the vehicle flamer on the 'Mech table", () => {
+        const stats = find("vehicle-flamer").editionStats![TAG]!;
+        expect([stats.heat, stats.damage, stats.range, stats.weight, stats.criticals, stats.shotsPerTon])
+            .toEqual([3, 2, { min: 0, short: 1, medium: 2, long: 3 }, 0.5, 1, 20]);
+        expect(find("ammo-vehicle-flamer-standard").editionStats![TAG]!.shotsPerTon).toBe(20);
+    });
+
+    // BT4 pp.45-46: tonnage / 5 damage, tonnage / 15 tons and critical slots.
+    it("prints the hatchet as a table row", () => {
+        const stats = find("melee-hatchet").editionStats![TAG]!;
+        expect([stats.page, stats.heat, stats.weight, stats.criticals]).toEqual([45, 0, undefined, undefined]);
+        expect(stats.notes).toContain("tonnage divided by 5");
+        expect(stats.notes).toContain("tonnage divided by 15");
+    });
+
+    // BT4 p.46: a single-shot launcher weighs half a ton more than the standard one and is otherwise the same.
+    it.each([["lrm-5", 2.5], ["lrm-10", 5.5], ["lrm-15", 7.5], ["lrm-20", 10.5], ["srm-2", 1.5], ["srm-4", 2.5], ["srm-6", 3.5]] as [string, number][])(
+        "%s (OS) weighs half a ton more than the launcher", (tag, tons) => {
+            const launcher = find(tag).editionStats![TAG]!;
+            const single = find(`${tag}-os`).editionStats![TAG]!;
+            expect(single.weight).toBe(tons);
+            expect(single.weight).toBe(launcher.weight! + 0.5);
+            expect([single.heat, single.damagePerMissile, single.range]).toEqual([launcher.heat, launcher.damagePerMissile, launcher.range]);
+            expect([single.page, single.criticals, single.shotsPerTon]).toEqual([46, undefined, undefined]);
+        });
+
+    it("prints no prices", () => {
+        expect(labelled.filter(entry => entry.record.editionStats?.[TAG]?.cbills !== undefined).map(entry => entry.label)).toEqual([]);
+    });
+
+    // Engine table p.41, structure table p.40, jump jets p.43, cockpit and gyro p.40, armor pp.43-44.
+    it("leaves the engine, structure, controls, jump jets, armor, layout and tonnages unchanged", () => {
+        const unchanged = labelled.filter(entry => entry.record.editionStats && TAG in entry.record.editionStats && entry.record.editionStats[TAG] === null)
+            .map(entry => entry.label).sort();
+        expect(unchanged).toEqual([
+            "armor standard", "cockpit standard", "engine standard", "gyro standard", "jump jet standard", "mech type biped",
+            "structure standard",
+            ...[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100].map(tons => `tonnage ${tons}`),
+        ].sort());
+        expect(getEditionStats(mechEngineTypes.find(type => type.tag === "standard")!, TAG)!.engineWeights![400]).toBe(52.5);
+        expect(getEditionStats(mechInternalStructureTypes.find(type => type.tag === "standard")!, TAG)!.structure![100])
+            .toEqual({ head: 3, ct: 31, torso: 21, arm: 17, leg: 21 });
+        const sink = mechHeatSinkTypes.find(type => type.tag === "single")!.editionStats![TAG]!;
+        expect([sink.page, sink.heat, sink.weight, sink.criticals]).toEqual([45, -1, 1, 1]);
+    });
+});

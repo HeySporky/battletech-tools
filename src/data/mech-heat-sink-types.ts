@@ -49,6 +49,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 			},
 			"battletech-compendium": null,
 			"battletech-3rd-edition": { book: "BT3", page: 43, name: "Heat Sink", weight: 1, criticals: 1, notes: "Ten come with every BattleMech and do not count against its tonnage; each extra one weighs 1 ton. Engine rating divided by 25, rounded down, need no critical hit slots: they are part of the engine and are destroyed only with it (BT3 p.43). No price is printed." },
+			"battletech-4th-edition": { book: "BT4", page: 45, name: "Heat Sink", heat: -1, weight: 1, criticals: 1, notes: "Listed under Other Equipment with a heat of -1: a standard heat sink dissipates 1 point of heat a turn (BT4 p.46). Every BattleMech comes with 10 integral heat sinks that take up no tonnage; each extra one weighs 1 ton. Engine rating divided by 25, rounded down, need no critical slots: they are part of the engine, cannot take critical hits and are destroyed only with it (BT4 p.43). No price is printed." },
 		},
 	},
 	{
