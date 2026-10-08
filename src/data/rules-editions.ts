@@ -34,6 +34,18 @@ import { IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure } 
  * rulebook before it in this list. That is why an edition's contents come from the `editionStats` keys and
  * never from its place in the list.
  */
+/** The game rules play mode applies, where an earlier edition's differ from Total Warfare's. */
+export interface IEditionPlayRules {
+    /** Heat points for moving: walking, running, and each hex jumped with its least. */
+    moveHeat: { walk: number; run: number; jumpPerHex: number; jumpMinimum: number };
+    /** Highest target movement modifier on the edition's table, before the +1 for jumping. */
+    maxTargetMovementModifier: number;
+    /** False when the edition has no modifier for firing at a second target. */
+    secondaryTargetModifiers: boolean;
+    /** Two-dice roll that makes a hit on the internal structure a critical hit. */
+    criticalHitRoll: number;
+}
+
 export interface IRulesEdition {
     /** Stable id stored on records and in saves. */
     tag: string;
@@ -50,6 +62,8 @@ export interface IRulesEdition {
      * BMR(R) p.120). One-shot weapons need none.
      */
     ammoTonsFor?: "launcher" | "class";
+    /** Where the edition's game rules differ from Total Warfare's in what play mode works out; absent while not reviewed. */
+    playRules?: IEditionPlayRules;
     /** The edition has no Battle Value system: the first one is in the Master Rules. */
     noBattleValue?: boolean;
     /** The edition's rulebook prints no prices, for equipment or for a finished unit. */
@@ -70,6 +84,14 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1984,
         book: "BD",
         complete: true,
+        // Heat Point Table, BD p.12; Movement Modifiers Table, BD p.5; Determining Critical Hits, BD p.18. The
+        // weapon attack rules (BD pp.8-11, 15) have no modifier for a second target.
+        playRules: {
+            moveHeat: { walk: 0, run: 1, jumpPerHex: 1, jumpMinimum: 0 },
+            maxTargetMovementModifier: 3,
+            secondaryTargetModifiers: false,
+            criticalHitRoll: 7,
+        },
         ammoTonsFor: "launcher",
         noBattleValue: true,
         noPrices: true,
@@ -81,7 +103,6 @@ export const btRulesEditions: IRulesEdition[] = [
         // BD pp.22-23, Expert Battledroids optional rules.
         otherUnits: ["SCR-8N Scorpion tank", "HNT-3R Hunter tank", "VDE-3T Vedette tank", "Jeep", "Infantry squad"],
         notModelled: [
-            "Tanks, jeeps and infantry are fixed designs with their own armor and movement (BD pp.22-23).",
             "A severed arm or leg picked up as a club: an optional rule, not an item (BD p.21).",
         ],
     },
@@ -411,6 +432,11 @@ export function getEditionStats(record: IEditionRecord, editionTag: string): IEd
         }
     }
     return undefined;
+}
+
+/** The edition's own play rules, or undefined where play mode follows Total Warfare. */
+export function getEditionPlayRules(editionTag: string | undefined): IEditionPlayRules | undefined {
+    return getRulesEdition(editionTag).playRules;
 }
 
 /** Does the edition have a Battle Value system? The first is in the Master Rules. */

@@ -435,6 +435,21 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
           </tr>
           </tbody>
       ))}
+      {(favGroup.battledroidsUnits ?? []).map( (unit) => (
+          <tbody key={unit.getUUID()}>
+          <tr>
+              <td>
+                  {unit.getDisplayName()}
+                  <div className='small-text'>{unit.getKind().name}, Battledroids p.{unit.getDesign().page}</div>
+              </td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center small-text">Battledroids</td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center">{unit.getGunnery()}</td>
+              <td className="min-width no-wrap text-center">-</td>
+          </tr>
+          </tbody>
+      ))}
       {favGroup.buildings.map( (building) => (
           <tbody key={building.getUUID()}>
           <tr>

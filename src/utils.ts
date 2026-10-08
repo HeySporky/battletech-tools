@@ -905,7 +905,8 @@ export function getTargetToHitFromWeapon(
                 gator.otherModifiers += fireControlModifier;
                 otherModifiersExplanation.push( (mech.isPrimitive() ? "Primitive IndustrialMech cockpit" : "IndustrialMech fire control") + " (+" + fireControlModifier + ")" );
             }
-            if( !target.primary) {
+            // Battledroids has no modifier for a second target (BD pp.8-11, 15).
+            if( !target.primary && mech.getEditionPlayRules()?.secondaryTargetModifiers !== false ) {
                 if( target.inRearArc ) {
                     otherModifiersExplanation.push( "Secondary Target In Rear Arc (+2)");
                     gator.otherModifiers += 2;
@@ -931,8 +932,9 @@ export function getTargetToHitFromWeapon(
                     let minRange: number = 0;
                     minRange = weaponRange.min;
 
-                    if( target.range < minRange ) {
-                        let rangeModifier = minRange - target.range;
+                    // +1 at the minimum range and +1 for each hex closer: [minimum] - [target range] + 1 (TW p.118; BD p.9).
+                    if( target.range <= minRange ) {
+                        let rangeModifier = minRange - target.range + 1;
                         gator.finalToHit += rangeModifier;
                         gator.rangeModifier = rangeModifier;
                         gator.rangeExplanation = "Minimum Range";

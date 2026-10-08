@@ -4,12 +4,14 @@ import Vehicle, { IVehicleExport } from "./vehicle";
 import AerospaceFighter, { IAerospaceFighterExport } from "./aerospace-fighter";
 import InfantryPlatoon, { IInfantryPlatoonExport } from "./infantry-platoon";
 import Building, { IBuildingExport } from "./building";
+import BattledroidsUnit, { IBattledroidsUnitExport, findBattledroidsUnitDesign } from "./battledroids-unit";
 
 /** Most vehicles read from one saved group; far above any real lance or company. */
 export const MAX_GROUP_VEHICLES = 100;
 export const MAX_GROUP_FIGHTERS = 100;
 export const MAX_GROUP_INFANTRY = 100;
 export const MAX_GROUP_BUILDINGS = 100;
+export const MAX_GROUP_BATTLEDROIDS_UNITS = 100;
 
 export interface ICBTGroupExport {
 	name: string;
@@ -18,6 +20,7 @@ export interface ICBTGroupExport {
 	fighters?: IAerospaceFighterExport[];
 	infantry?: IInfantryPlatoonExport[];
 	buildings?: IBuildingExport[];
+	battledroidsUnits?: IBattledroidsUnitExport[];
 	uuid: string;
 	lastUpdated: Date;
 	location?: string;
@@ -37,6 +40,8 @@ export class BattleMechGroup {
     public infantry: InfantryPlatoon[] = [];
     // Gun emplacements and other buildings. No Battle Value method for them was found in the rulebooks, and they are not counted in tonnage.
     public buildings: Building[] = [];
+    // The tanks, jeeps and infantry squads of Expert Battledroids (BD pp.22-23): fixed designs with no tonnage or Battle Value.
+    public battledroidsUnits: BattledroidsUnit[] = [];
 
 	public customName : string= "";
 
@@ -54,7 +59,8 @@ export class BattleMechGroup {
 			}
 		}
 		return this.vehicles.some( (vehicle) => vehicle.isDamaged() ) || this.fighters.some( (fighter) => fighter.isDamaged() )
-			|| this.infantry.some( (platoon) => platoon.isDamaged() ) || this.buildings.some( (building) => building.isDamaged() );
+			|| this.infantry.some( (platoon) => platoon.isDamaged() ) || this.buildings.some( (building) => building.isDamaged() )
+			|| this.battledroidsUnits.some( (unit) => unit.isDamaged() );
 	}
 	public getName(
 		indexNumber: number,
@@ -86,6 +92,9 @@ export class BattleMechGroup {
 		}
 		for( let building of this.buildings ) {
 			building.newUUID();
+		}
+		for( let unit of this.battledroidsUnits ) {
+			unit.newUUID();
 		}
 		this.lastUpdated = new Date();
 	}
@@ -185,6 +194,13 @@ export class BattleMechGroup {
 				this.buildings.push( new Building( JSON.stringify(building) ) );
 			}
 		}
+		// Battledroids units likewise; an entry that names no known design is skipped.
+		const battledroidsUnits = Array.isArray(importObj.battledroidsUnits) ? importObj.battledroidsUnits.slice(0, MAX_GROUP_BATTLEDROIDS_UNITS) : [];
+		for( let unit of battledroidsUnits ) {
+			if( unit && typeof unit === "object" && !Array.isArray(unit) && findBattledroidsUnitDesign(unit.design) ) {
+				this.battledroidsUnits.push( new BattledroidsUnit( JSON.stringify(unit) ) );
+			}
+		}
         if( importObj.uuid ) {
             this.uuid = importObj.uuid;
         }
@@ -212,6 +228,8 @@ export class BattleMechGroup {
 			fighters: this.fighters.map( (fighter) => fighter.export(noInPlayVariabless) ),
 			infantry: this.infantry.map( (platoon) => platoon.export(noInPlayVariabless) ),
 			buildings: this.buildings.map( (building) => building.export(noInPlayVariabless) ),
+			// Left out when there are none, so groups saved without them stay as they were.
+			...(this.battledroidsUnits.length > 0 ? { battledroidsUnits: this.battledroidsUnits.map( (unit) => unit.export(noInPlayVariabless) ) } : {}),
 		}
 
 		for( let unit of this.members ) {
@@ -225,7 +243,7 @@ export class BattleMechGroup {
     }
 
 	public getTotalUnits(): number {
-        return this.members.length + this.vehicles.length + this.fighters.length + this.infantry.length + this.buildings.length;
+        return this.members.length + this.vehicles.length + this.fighters.length + this.infantry.length + this.buildings.length + this.battledroidsUnits.length;
     }
 
 }

@@ -11,6 +11,7 @@ import VehicleRecordSheet from "../../../components/vehicle-record-sheet";
 import { vehicleName } from "./_vehicleGroupTable";
 import FighterRecordSheet from "../../../components/fighter-record-sheet";
 import InfantryRecordSheet from "../../../components/infantry-record-sheet";
+import BattledroidsUnitRecordSheet from "../../../components/battledroids-unit-record-sheet";
 import BuildingRecordSheet from "../../../components/building-record-sheet";
 import { buildingSummary } from "./_buildingGroupTable";
 import { fighterName } from "./_fighterGroupTable";
@@ -246,6 +247,23 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       </tr>
                     </tbody>
                     ))}
+                    {group.battledroidsUnits.map( (unit) => (
+                    <tbody key={unit.getUUID()}>
+                      <tr>
+                        <td>
+                          {unit.getDisplayName()} ({unit.getKind().name}, Battledroids p.{unit.getDesign().page})
+                        </td>
+                        <td>-</td>
+                        <td className="small-text">Battledroids</td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-center">
+                          {unit.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-right">-</td>
+                      </tr>
+                    </tbody>
+                    ))}
                     {group.buildings.map( (building) => (
                     <tbody key={building.getUUID()}>
                       <tr>
@@ -332,6 +350,14 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         />
                         <InfantryRecordSheet
                           platoon={platoon}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.battledroidsUnits.map( (unit) => (
+                      <div className={"page"} key={unit.getUUID()}>
+                        <BattledroidsUnitRecordSheet
+                          unit={unit}
                           showDamage={true}
                         />
                       </div>

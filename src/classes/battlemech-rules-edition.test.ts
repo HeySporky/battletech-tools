@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from "../data/mech-tonnages";
 import { mechTypeOptions } from "../data/mech-type-options";
 import { DEFAULT_RULES_EDITION, editionHasBattleValue, editionHasPrices, getRulesEdition, getSelectableRulesEditions, isEarlierRulesEdition } from "../data/rules-editions";
+import { getTargetToHitFromWeapon } from "../utils";
 import { BattleMech } from "./battlemech";
 
 const build = (edition?: string, tonnage: number = 50, walk: number = 4): BattleMech => {
@@ -233,6 +234,54 @@ describe("Rules edition selector", () => {
             "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "core-rulebook"];
         expect(tags.map(editionHasBattleValue)).toEqual([false, false, false, false, false, false, false, true, true, true, true]);
         expect(tags.map(editionHasPrices)).toEqual([false, false, true, true, false, true, false, true, true, true, true]);
+    });
+
+    // Heat Point Table, BD p.12: walking 0, running +1 a turn, jumping +1 a hex. Total Warfare: 1, 2, and 1 a hex with a least of 3.
+    it("heats a moving battledroid by the Heat Point Table of Battledroids", () => {
+        const heat = (edition: string | undefined, mode: string, jumped: number = 0) => {
+            const mech = build(edition, 50, 5);
+            mech.setJumpSpeed(5);
+            mech.currentMovementMode = mode;
+            mech.currentTargetJumpingMP = jumped;
+            return mech.getActiveMoveHeat();
+        };
+        expect([heat("battledroids", "n"), heat("battledroids", "w"), heat("battledroids", "r"), heat("battledroids", "j", 2), heat("battledroids", "j", 5)])
+            .toEqual([0, 0, 1, 2, 5]);
+        expect([heat(undefined, "n"), heat(undefined, "w"), heat(undefined, "r"), heat(undefined, "j", 2), heat(undefined, "j", 5)])
+            .toEqual([0, 1, 2, 3, 5]);
+        // The most a design can build up by moving, as the creator's status bar shows it.
+        const walker = build("battledroids", 50, 4);
+        expect([walker.getMoveHeat(), build(undefined, 50, 4).getMoveHeat()]).toEqual([1, 2]);
+        walker.setJumpSpeed(4);
+        expect(walker.getMoveHeat()).toBe(4);
+    });
+
+    describe("to-hit numbers in play", () => {
+        const target = { name: "Target", active: true, range: 5, movement: 0, otherMods: 0, jumped: false, primary: true, inRearArc: false };
+        const shot = (edition: string | undefined, weaponTag: string, changes: Partial<typeof target>) => {
+            const mech = build(edition, 60, 4);
+            const weapon = mech.addEquipmentFromTag(weaponTag, mech.getTech().tag, "rt", false, undefined, "a", false, [], undefined, undefined)!;
+            const index = mech.equipmentList.findIndex(item => item.uuid === weapon.uuid);
+            return getTargetToHitFromWeapon(mech, index, { ...target, ...changes });
+        };
+
+        // "[Minimum] - [Target Range] + 1" (TW p.118); a PPC's minimum range of 3 gives +1 at 3 hexes, +2 at 2, +3 at 1 (BD p.9).
+        it("adds 1 at the minimum range and 1 more for each hex closer, in every edition", () => {
+            for (const edition of [undefined, "battledroids"]) {
+                const base = shot(edition, "standard-ppc", { range: 4 }).finalToHit;
+                expect([3, 2, 1].map(range => shot(edition, "standard-ppc", { range }).finalToHit - base), String(edition)).toEqual([1, 2, 3]);
+                expect(shot(edition, "standard-ppc", { range: 3 }).rangeExplanation).toBe("Minimum Range");
+                expect(shot(edition, "medium-laser", { range: 1 }).rangeModifier).toBe(0);
+            }
+        });
+
+        // The weapon attack rules of Battledroids (BD pp.8-11, 15) have no modifier for a second target.
+        it("has no modifier for a second target in Battledroids", () => {
+            const extra = (edition: string | undefined, inRearArc: boolean) =>
+                shot(edition, "medium-laser", { range: 2, primary: false, inRearArc }).otherModifiers - shot(edition, "medium-laser", { range: 2, inRearArc }).otherModifiers;
+            expect([extra("battledroids", false), extra("battledroids", true)]).toEqual([0, 0]);
+            expect([extra(undefined, false), extra(undefined, true)]).toEqual([1, 2]);
+        });
     });
 
     it("saves the edition with the design and loads old saves as Total Warfare", () => {

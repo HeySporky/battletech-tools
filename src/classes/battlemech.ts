@@ -9,7 +9,7 @@ import { ComponentRecord, getComponentRecords, getComponentTiers, isCustomCompon
 import type { CustomComponentKind, ISSWUnresolvedItem } from "../data/custom-content-types";
 import { getCockpitType } from "../data/mech-cockpit-types";
 import { btMechTonnages } from "../data/mech-tonnages";
-import { DEFAULT_RULES_EDITION, editionEngineHoldsHeatSinks, getEditionJumpJetWeight, getEditionStats, getEditionStructure, getEquipmentForEdition, getRulesEdition, isEarlierRulesEdition, isInRulesEdition } from "../data/rules-editions";
+import { DEFAULT_RULES_EDITION, editionEngineHoldsHeatSinks, getEditionJumpJetWeight, getEditionPlayRules, getEditionStats, getEditionStructure, getEquipmentForEdition, getRulesEdition, isEarlierRulesEdition, isInRulesEdition } from "../data/rules-editions";
 import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getWeaponAmmoFamilies, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -3170,7 +3170,9 @@ export class BattleMech {
             this._selectedInternalStructure = findByTag(mechInternalStructureTypes, "standard") ?? mechInternalStructureTypes[0];
         }
 
-        this._maxMoveHeat = 2;
+        // Running heat; an earlier edition's own Heat Point Table where it has one (Battledroids: 1, BD p.12).
+        const editionMoveHeat = getEditionPlayRules(this._rulesEdition)?.moveHeat;
+        this._maxMoveHeat = editionMoveHeat ? editionMoveHeat.run : 2;
         this._heatDissipation = 0;
 
         this._weights = [];
@@ -3245,7 +3247,9 @@ export class BattleMech {
         }
 
         if( this._jumpSpeed > 0) {
-            this._maxMoveHeat = this._jumpSpeed;
+            this._maxMoveHeat = editionMoveHeat
+                ? Math.max(editionMoveHeat.run, editionMoveHeat.jumpMinimum, this._jumpSpeed * editionMoveHeat.jumpPerHex)
+                : this._jumpSpeed;
             this._weights.push({
                 name: this._jumpJetType.name,
                 weight: this.getJumpJetWeight()
@@ -4724,6 +4728,14 @@ export class BattleMech {
     }
 
     public getActiveMoveHeat(): number {
+        // An earlier edition's own Heat Point Table (Battledroids: walking 0, running 1, jumping 1 a hex, BD p.12).
+        const editionMoveHeat = getEditionPlayRules(this._rulesEdition)?.moveHeat;
+        if( editionMoveHeat ) {
+            if( this.currentMovementMode === "w" ) return editionMoveHeat.walk;
+            if( this.currentMovementMode === "r" ) return editionMoveHeat.run;
+            if( this.currentMovementMode === "j" ) return Math.max(editionMoveHeat.jumpMinimum, this.currentTargetJumpingMP * editionMoveHeat.jumpPerHex);
+            return 0;
+        }
         // TODO check if heat sinks are broken
         if( this.currentMovementMode === "w" ) {
             return 1;
@@ -5118,6 +5130,11 @@ export class BattleMech {
 
     public getRulesEdition(): string {
         return this._rulesEdition;
+    }
+
+    /** The play rules of the design's edition where they differ from Total Warfare's; undefined when they do not. */
+    public getEditionPlayRules() {
+        return getEditionPlayRules(this._rulesEdition);
     }
 
     /** True when the design is built under an edition before Total Warfare, whose lists and stats come from that edition's rulebook. */

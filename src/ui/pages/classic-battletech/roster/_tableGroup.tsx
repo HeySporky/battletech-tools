@@ -12,6 +12,7 @@ import BattleMechAddMechDialog from './_addMechDialog';
 import VehicleGroupTable from './_vehicleGroupTable';
 import FighterGroupTable from './_fighterGroupTable';
 import InfantryGroupTable from './_infantryGroupTable';
+import BattledroidsGroupTable from './_battledroidsGroupTable';
 import BuildingGroupTable from './_buildingGroupTable';
 import type { JSX } from "react";
 const Edit = FaEdit as any;
@@ -537,6 +538,12 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     showEdit={this.props.showEdit}
 />
 <BuildingGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<BattledroidsGroupTable
     appGlobals={this.props.appGlobals}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}

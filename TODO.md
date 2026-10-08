@@ -1002,13 +1002,31 @@ Open:
     edition asks for is checked (`ammoTonsFor`: a ton for each launcher or ballistic weapon, BD p.25; a ton
     for each class from the Third Edition on, read as each group of weapons sharing ammunition) and shown in
     Steps 1 and 5.
+  - [x] Battledroids in play (2026-10-08). The tanks, jeeps and infantry squads of Expert Battledroids (BD
+    pp.22-23) are seven fixed designs (`battledroids-units.ts`, `BattledroidsUnit`): added to a roster group
+    from a list, with a play panel (movement points, shots, hits located on the Tank Hit Locations table by
+    the players' dice or the app's), a record sheet and a place in the printed roster. A 'Mech built under
+    Battledroids plays by its rules where play mode works something out (`playRules` on the edition): heat for
+    moving (walk 0, run 1, 1 a hex jumped, BD p.12), the Movement Modifiers Table ending at +3 (BD p.5), no
+    modifier for a second target. The play screen carries the Advanced and Expert tables as a reference panel
+    (`battledroids-rules.ts`). Fixed for every edition: the minimum range modifier was one short ([minimum] -
+    [range] + 1, TW p.118), and a target's Other Mods can now be negative.
+  - [ ] Battledroids, readings to confirm with the user: (1) a jeep "can withstand 5 points of damage" and "any
+    hit that does more than 5 damage points kills" it (BD p.22): entered as destroyed by the sixth point,
+    however the points arrive; (2) "every tank has ... 5 points of turret armor", though the Scorpion and the
+    Hunter have no turret: all three track turret armor, as printed; (3) no modifier for a second target,
+    because the weapon attack rules name none.
+  - [ ] Battledroids, not built: the Basic game (one Damage Value and Armor Value for each droid and the Armor
+    Penetration Table, BD pp.5-6); the optional terrain rules (clearing woods, fires, BD p.21) and the severed
+    limb as a club; play mode still leaves critical hit results, Piloting Skill Rolls and the Heat Scale's
+    Fire modifier to the players, as it does under Total Warfare.
   - [ ] Rules edition selector, still to do: (1) the Master Rules' own Battle Value system and each edition's
     cost rules are not built, so the editions that have them still show the current rules' figures; (2) the
     Internal Combustion Engine is offered to BattleMechs under the editions that list it, though the
-    BattleTech Manual gives it to vehicles only (BTM pp.78-84); (3) play mode and the other creators
-    (vehicles, fighters, infantry, buildings) do not read the edition; (4) the missile damage per missile and
-    shots per ton an edition prints are not applied (none differs from the catalog today); (5)
-    Battledroids' tanks, jeep and infantry squad are fixed designs with no builder (BD pp.22-23).
+    BattleTech Manual gives it to vehicles only (BTM pp.78-84); (3) play mode follows an edition's own rules
+    for Battledroids only, and the other creators (vehicles, fighters, infantry, buildings) do not read the
+    edition; (4) the missile damage per missile and
+    shots per ton an edition prints are not applied (none differs from the catalog today).
   - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
     1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).

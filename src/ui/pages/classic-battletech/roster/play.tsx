@@ -33,6 +33,9 @@ import { fighterName } from './_fighterGroupTable';
 import FighterPlayPanel from './_fighterPlay';
 import InfantryPlatoon from '../../../../classes/infantry-platoon';
 import InfantryPlayPanel from './_infantryPlay';
+import BattledroidsUnit from '../../../../classes/battledroids-unit';
+import BattledroidsPlayPanel from './_battledroidsPlay';
+import BattledroidsRulesReference from '../../../components/battledroids-rules-reference';
 import Building from '../../../../classes/building';
 import BuildingPlayPanel from './_buildingPlay';
 const ArrowCircleDown = FaArrowCircleDown as any;
@@ -743,7 +746,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon | Building ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon | Building | BattledroidsUnit ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -785,6 +788,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let building of group.buildings ) {
             building.resetInPlay();
+          }
+          for( let unit of group.battledroidsUnits ) {
+            unit.resetInPlay();
           }
           if( this.props.appGlobals.currentCBTForce )
             this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
@@ -1143,6 +1149,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       let setMovementNumber = 0;
+      // The Movement Modifiers Table of an earlier edition may stop sooner (Battledroids: +3 for 7-9 hexes, BD p.5).
+      const maxMovementNumber = this.state.setMovementDialog?.getEditionPlayRules()?.maxTargetMovementModifier ?? 6;
       if( +e.currentTarget.value >= 25 ) {
         setMovementNumber = 6
       } else if( +e.currentTarget.value >= 18 ) {
@@ -1159,7 +1167,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
       this.setState({
         setMovementJumpingMP: +e.currentTarget.value,
-        setMovementNumber: setMovementNumber,
+        setMovementNumber: Math.min(setMovementNumber, maxMovementNumber),
       })
     }
 
@@ -1219,6 +1227,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         for( let platoon of group.infantry ) {
           if( platoon.getUUID() === this.state.selectedVehicleUUID ) {
             selectedInfantry = platoon;
+          }
+        }
+      }
+      // And a Battledroids tank, jeep or infantry squad.
+      let selectedBattledroidsUnit: BattledroidsUnit | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let unit of group.battledroidsUnits ) {
+          if( unit.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedBattledroidsUnit = unit;
           }
         }
       }
@@ -1832,6 +1849,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               <td>+3</td>
             </tr>
             </tbody>
+            {(this.state.setMovementDialog.getEditionPlayRules()?.maxTargetMovementModifier ?? 6) >= 4 ? (<>
             <tbody className={this.state.setMovementNumber === 4 ? "highlighted" : ""}>
             <tr className="cursor-pointer" onClick={(e) => this.setMovementNumber(e, 4)}>
               <td>10-17</td>
@@ -1850,6 +1868,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               <td>+6</td>
             </tr>
           </tbody>
+            </>) : null}
           {this.state.setMovementMode === "j" ? (
             <tfoot>
               <tr>
@@ -1940,7 +1959,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onChange={(e) => this.updateTargetOtherMods(e, "a")}
           step={1}
           inline={true}
-          min={0}
+          min={-10}
           max={50}
         />
         <InputNumeric
@@ -2008,7 +2027,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onChange={(e) => this.updateTargetOtherMods(e, "b")}
           step={1}
           inline={true}
-          min={0}
+          min={-10}
           max={50}
         />
         <InputNumeric
@@ -2076,7 +2095,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onChange={(e) => this.updateTargetOtherMods(e, "c")}
           step={1}
           inline={true}
-          min={0}
+          min={-10}
           max={50}
         />
         <InputNumeric
@@ -2703,7 +2722,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 </TextSection>
 
 <div className="selected-mech">
-          {selectedBuilding ? (
+          {selectedBattledroidsUnit ? (
+            <BattledroidsPlayPanel
+              key={selectedBattledroidsUnit.getUUID()}
+              unit={selectedBattledroidsUnit}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedBuilding ? (
             <BuildingPlayPanel
               key={selectedBuilding.getUUID()}
               building={selectedBuilding}
@@ -2728,6 +2753,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             />
           ) : selectedMech ? (
             <>
+              {selectedMech.getRulesEdition() === "battledroids" ? <BattledroidsRulesReference /> : null}
               <button
                 className="btn btn-primary btn-sm full-width"
                 onClick={this.openZoomSheet}
@@ -2924,6 +2950,36 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                               currentNumber={platoon.getCurrentTroopers()}
                               height={8}
                               title="Troopers Remaining"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.battledroidsUnits.map( (unit) => (
+                    <li key={unit.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, unit.getUUID())}
+                        className={selectedBattledroidsUnit && selectedBattledroidsUnit.getUUID() === unit.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + unit.getDisplayName()}
+                      >
+                        {unit.getDisplayName()}
+                        <div className="stats">
+{unit.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={unit.getStrengthPercentage()}
+                              currentNumber={unit.getStrengthPercentage()}
+                              height={8}
+                              title="Strength Remaining"
                             />
                           </div>
 )}
