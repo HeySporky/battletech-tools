@@ -962,23 +962,26 @@ Open:
     rounding is still printed two ways (pp.119, 128 against p.137); (8) battle armor names on the edition are
     the Infantry Costs Table's fifteen, three more than the rules sections describe.
   - [x] BattleTech Compendium: The Rules of Warfare (FASA, 1994), complete: read from the page images of the
-    third printing (September 1995), a scan with no text layer. 217 entries: the Weapons and Equipment Tables
+    third printing (September 1995), a scan with no text layer. 232 entries: the Weapons and Equipment Tables
     (pp.104-106), prices (pp.123-124), Equipment (pp.112-122), Construction (pp.99-109), Artillery (pp.77-80)
     and Aerospace Support (pp.70-75). Every weapon row and price matches the 1990 Compendium's. Ferro-Aluminum
     armor and Land-Air BattleMechs are gone with the AeroTech rules (p.7); BattleMechs still run from 10 to
-    100 tons (p.100). Torpedo launchers (p.121) and Narc-equipped missiles (p.119) first appear here, so 22
-    records now start in this edition instead of the Master Rules. Eight Technical Readout BattleMechs
-    (pp.125-132) are listed on the edition.
-    Readings to confirm: (1) Narc-equipped LRM and SRM ammunition is entered at twice the standard ton on the
-    text of p.119, though the price list has no row for it; (2) torpedo launchers and ammunition are entered
-    with the matching launcher's figures and no price (p.121 says only that the stats are the same); (3) the
-    Clan Active Probe and ECM Suite carry no price: the list names only the Beagle Active Probe and Guardian
-    ECM Suite; (4) the Vehicle Flamer and its ammunition carry no price: the list has one Flamer row; (5)
-    single-shot Streak, Narc and Artemis launchers (p.120, double the base cost) are noted, not entered, as
-    for the 1990 Compendium; (6) the bombs of Aerospace Support (p.73) are kept on the two bomb records, and
-    cluster and mine-type bombs have no record; (7) the homing Arrow IV round is entered with the system's 5
-    shots a ton, which the book does not print for it; (8) the scan is a third printing, so any correction
-    made after the 1994 first printing cannot be told apart.
+    100 tons (p.100). Torpedo launchers (p.121), Narc-equipped missiles (p.119) and single-shot Streak and
+    Narc launchers (p.120) first appear here, so 28 records now start in this edition instead of the Master
+    Rules; the cluster, mine, Arrow IV and TAG ordnance of aerospace support fighters (p.73) starts here too.
+    Eight Technical Readout BattleMechs (pp.125-132) are listed on the edition.
+    User rulings (2026-10-08): (1) Narc-equipped ammunition costs twice the standard ton, as p.119 says; (2)
+    torpedoes take the matching launcher's figures: the only difference is air against water; (3) the Clan
+    Active Probe and ECM Suite take the Inner Sphere price (200,000): no errata for this book is in the
+    library, and the list prices every shared item once for both technology bases, so the markup is nil; (4)
+    the Vehicle Flamer (7,500) and its ammunition (1,000) take MegaMek's prices, which the Master Rules later
+    print; (5) the single-shot Streak and Narc launchers are entered, with the discrepancy between "double the
+    base cost of the launcher" (p.120) and "Half normal" (p.124) noted and no price; (6) bombs stay one
+    record a kind: high-explosive, cluster, inferno, mines, Arrow IV, homing Arrow IV and TAG pod each carry
+    the edition; (7) the homing Arrow IV round uses the system's 5 shots a ton; (8) the printing is noted on
+    the edition.
+    Still open: the same single-shot passage is in the 1990 Compendium (BTC p.121), where only the LRM and
+    SRM single-shot launchers are entered.
   - [ ] Next: the rules edition selector.
   - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
     1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).

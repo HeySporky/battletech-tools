@@ -579,7 +579,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         editionStats: {
             "battletech-manual": { book: "BTM", page: 45, weight: 1, shotsPerTon: 20, notes: "20 shots a ton for the conventional Vehicle Flamer (BTM p.45). No price is printed." },
             "battletech-compendium": null,
-            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, weight: 1, shotsPerTon: 20, notes: "20 in the Ammo column of the Flamer (Vehicle) row on both tables (BTC:RoW pp.104, 105). No price is printed." },
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, weight: 1, shotsPerTon: 20, cbills: 1000, notes: "20 in the Ammo column of the Flamer (Vehicle) row on both tables (BTC:RoW pp.104, 105). No price is printed (BTC:RoW p.124). The 1,000 entered is MegaMek's (user ruling, 2026-10-08: MegaMek's price where the book prints none); BMR p.138 later prints the same figure." },
             "battletech-4th-edition": { book: "BT4", page: 45, weight: 1, shotsPerTon: 20, notes: "20 in the Ammo column of the Flamer (Vehicle) row (BT4 p.45). No price is printed." },
             "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 20, cbills: 1000 },
             "master-rules-revised": { book: "BMR(R)", page: 121, weight: 1, shotsPerTon: 20, cbills: 1000 },
@@ -1310,7 +1310,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         editionStats: {
             "battletech-manual": { book: "BTM", page: 68, notes: "Dive Bombing: fighter bombs are rated 10, 20, 40, 60, 80 or 100 points; a hit does the rating to everything in the hex and half to the adjacent hexes, and each bomb costs thrust (Thrust Loss Table) while carried (BTM pp.68-69). No weight or price is printed." },
             "battletech-compendium": null,
-            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 73, name: "High Explosive (HE) Bomb", notes: "Aerospace Support, a simplified version of the BattleSpace AeroBattle rules: a fighter carries 1 bomb for each 5 tons of its mass, and every 5 bombs or part thereof add 1 to its Piloting Skill Rolls. A High Explosive bomb does 10 points of damage to any units in the hex of impact; a Cluster bomb does 5 points to each unit in that hex and the 6 surrounding hexes; a Mines bomb lays a 20-point minefield in each of those 7 hexes. An Arrow IV missile takes the space of 5 bombs and an external TAG pod that of 1 (BTC:RoW p.73). No weight or price is printed." },
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 73, name: "High Explosive (HE) Bomb", notes: "Aerospace Support, a simplified version of the BattleSpace AeroBattle rules: a fighter carries 1 bomb for each 5 tons of its mass, and every 5 bombs or part thereof add 1 to its Piloting Skill Rolls. Each High Explosive bomb does 10 points of damage to any units in the hex of impact (BTC:RoW p.73). No weight or price is printed." },
         },
     },
     {
@@ -1338,6 +1338,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TW",
         page: 246,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "compendium-rules-of-warfare", editionStats: { "compendium-rules-of-warfare": { book: "BTC:RoW", page: 73, name: "Cluster Bomb", notes: "Each cluster bomb does 5 points of damage to each unit in the hex of impact and each unit in the surrounding 6 hexes (BTC:RoW p.73). No weight or price is printed." } },
         damage: 5,
         bombBaySlots: 1,
         rulesLevel: 2,
