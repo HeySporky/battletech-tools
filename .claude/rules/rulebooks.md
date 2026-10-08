@@ -66,8 +66,9 @@ file by folder; `_reorg-2026-10-06.json` maps old names to new paths and lists t
 | `record-sheets/`, `sourcebooks/`, `maps-and-art/` | Record sheet books; house books, field manuals, handbooks, era reports, historicals, scenario packs; maps | Canon where Catalyst/FanPro/FASA published it |
 | `apocryphal/` | BattleTechnology magazine, House Arano (HBS game), MechWarrior 2 manual, WizKids clix cards | **Apocryphal: rules level 5** |
 | `magazines/mechforce/` | MechForce UK Comnet, MechForce NA Mech magazine | Not canon; treat as Apocryphal at best, ask first |
+| `magazines/australian-realms/` | Australian Realms, issues 1-30 and three specials (1988-1996), scans with no text layer | General gaming magazine: only some issues carry BattleTech material. Not canon; ask first |
 | `fan-made/`, `fan-made/magazines/`, `Custom/` | Fan rules, fan TROs, fanzines, personal designs | **Custom-only: rules level 6 or 7, with approval** |
-| `languages/de/`, `languages/es/` | German and Spanish newsletters, Punto Nadir, Perditecnia | Not canon; cite the English book where one exists |
+| `languages/de/`, `languages/es/`, `languages/fr/` | German, Spanish and French material: newsletters, Punto Nadir, Perditecnia, Troll, Lider (Spanish general RPG magazine, issues 1-62, scans) | Not canon; cite the English book where one exists |
 | `fiction/` | Novels and comics | Not a rules source |
 
 Cite a Technical Readout as *TRO:3050* (or the volume name), an Experimental TRO as *XTRO:Liao*, a Recognition Guide
