@@ -859,13 +859,19 @@ describe("Light and Medium weapons on buildings (TO:AR pp.129-130; TM pp.136-137
         }
     });
 
-    it("counts Standard weapons as Light and Support weapons as Medium, and offers no melee weapons (TM p.136)", () => {
+    it("counts Standard weapons as Light and Support weapons as Medium, and keeps melee weapons to custom rules (TM p.136; user ruling)", () => {
         expect(Building.getLightWeaponClass(findInfantryWeapon("inf-auto-rifle")!)).toBe("Light");
         expect(Building.getLightWeaponClass(findInfantryWeapon("inf-machine-gun-support")!)).toBe("Medium");
-        expect(Building.getLightWeaponClass(findInfantryWeapon("inf-blade-sword")!)).toBeNull();
+        expect(Building.getLightWeaponClass(findInfantryWeapon("inf-blade-sword")!)).toBe("Melee");
         const building = hall();
-        expect(building.addLightWeapon("inf-blade-sword")).toBeNull();
         expect(building.getAvailableLightWeapons().every((weapon) => weapon.type !== "melee")).toBe(true);
+        expect(building.getAvailableLightWeapons(6).some((weapon) => weapon.type === "melee")).toBe(true);
+        const trap = new Building();
+        trap.setClassification("standard");
+        expect(trap.addLightWeapon("inf-blade-sword")).not.toBeNull();
+        expect(trap.getIssues(3).join(" ")).toContain("only under custom rules");
+        expect(trap.getIssues(6)).toEqual([]);
+        expect(trap.getRequiredRulesLevel()).toBe(6);
         // A Clan-only weapon is not offered to an Inner Sphere building.
         expect(building.getAvailableLightWeapons().some((weapon) => weapon.techBase === "clan")).toBe(false);
     });
@@ -913,12 +919,12 @@ describe("Light and Medium weapons on buildings (TO:AR pp.129-130; TM pp.136-137
         expect(building.hasTurret()).toBe(true);
     });
 
-    it("needs one gunner for each weapon, and no heat sinks or amplifiers (TO:AR p.130; TM pp.136-137)", () => {
+    it("needs each weapon's own crew, and no heat sinks or amplifiers (user ruling; TM pp.136-137)", () => {
         const building = hall();
-        // The Support PPC has a crew of 5 on the infantry table; a building gives it one gunner.
+        // The Support PPC has a crew of 5 on the infantry table, the laser rifle 1.
         building.addLightWeapon("inf-particle-cannon-support");
         building.addLightWeapon("inf-laser-rifle");
-        expect(building.getMinimumGunners()).toBe(2);
+        expect(building.getMinimumGunners()).toBe(6);
         expect(building.getMinimumOfficers()).toBe(1);
         expect(building.getEnergyWeaponHeat()).toBe(0);
         expect(building.getPowerAmplifierWeight(1)).toBe(0);
@@ -946,6 +952,15 @@ describe("Light and Medium weapons on buildings (TO:AR pp.129-130; TM pp.136-137
         const before = building.getCBillCost();
         building.setLightWeaponClips(laser.uuid, 3);
         expect(building.getCBillCost() - before).toBe(Math.round(200 * 1.4));
+        // Inferno clips cost half, as SRM inferno ammunition does against standard (user ruling): 80 against 40.
+        const standard = building.addLightWeapon("inf-grenade-launcher")!;
+        const start = building.getCBillCost();
+        building.setLightWeaponClips(standard.uuid, 10);
+        const inferno = building.addLightWeapon("inf-grenade-launcher-inferno")!;
+        const middle = building.getCBillCost();
+        building.setLightWeaponClips(inferno.uuid, 10);
+        expect(building.getCBillCost() - middle).toBe(Math.round(400 * 1.4));
+        expect(middle - start).toBe(Math.round((800 + 465) * 1.4));
     });
 
     it("saves and reloads its weapons, and reads a damaged save field by field", () => {
@@ -965,7 +980,7 @@ describe("Light and Medium weapons on buildings (TO:AR pp.129-130; TM pp.136-137
         const saved = building.export() as unknown as Record<string, unknown>;
         saved.lightWeapons = [
             { tag: "inf-auto-rifle", hex: 99, mount: "catapult", clips: -4 },
-            { tag: "inf-blade-sword" }, { tag: "no-such-weapon" }, "nonsense", { tag: 7 },
+            { tag: "__proto__" }, { tag: "no-such-weapon" }, "nonsense", { tag: 7 },
         ];
         const damaged = new Building();
         damaged.importJSON(JSON.stringify(saved));
@@ -993,6 +1008,11 @@ describe("Light and Medium weapons on buildings (TO:AR pp.129-130; TM pp.136-137
         building.setLightWeaponShots(rifle.uuid, 0);
         expect(building.getLightWeaponStatus(rifle.uuid)).toBe("Out of ammunition");
         building.setLightWeaponShots(rifle.uuid, 30);
+        // An energy-cell weapon runs off the building's power: its cells count only once the power is out.
+        const laser = building.addLightWeapon("inf-laser-rifle")!;
+        building.setLightWeaponShots(laser.uuid, 0);
+        expect(building.hasPower()).toBe(true);
+        expect(building.getLightWeaponStatus(laser.uuid)).toBe("");
         building.setGunnersKilled(1, true);
         expect(building.getLightWeaponStatus(rifle.uuid)).toBe("Gunners killed");
         building.setGunnersKilled(1, false);

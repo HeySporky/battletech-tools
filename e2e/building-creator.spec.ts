@@ -105,7 +105,7 @@ test("a fortress tracks its load hex by hex and a standard building takes only L
     await expect(page.getByTestId("building-loads").getByRole("row").nth(1)).toContainText("(0.057 t)");
 
     await page.goto("classic-battletech/building-creator/summary");
-    await expect(page.getByText("1 gunners, 0 other crew, 1 officers")).toBeVisible();
+    await expect(page.getByText("2 gunners, 0 other crew, 1 officers")).toBeVisible();
     await expect(page.getByTestId("building-cost-log")).toContainText("Light and Medium Weapons and Clips");
     await page.getByRole("link", { name: "View Record Sheet" }).click();
     await expect(page.getByTestId("building-sheet-light-weapon")).toContainText("Machine Gun (Support) (P) (300 shots)");

@@ -10,7 +10,7 @@ import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from
 import { CUSTOM_HOMEBREW_RULES_LEVEL, equipmentMatchesIdentifier, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
 import { findByTag, matchesTag } from "../data/tag-match";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
-import { IInfantryWeapon, INFANTRY_POWER_CELL_COST, findInfantryWeapon, infantryWeapons, isInfantryWeaponAvailable } from "../data/infantry-weapons";
+import { IInfantryWeapon, INFANTRY_POWER_CELL_COST, findInfantryWeapon, getInfantryClipCost, infantryWeapons, isInfantryWeaponAvailable } from "../data/infantry-weapons";
 import { IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
 
 /**
@@ -683,10 +683,11 @@ export default class Building {
 
     /**
      * Light weapons are the table's Standard weapons and Medium weapons its Support weapons (TM p.136). The
-     * table's melee weapons are neither, and are not offered.
+     * table's melee weapons are neither: a building mounts them, as traps and the like, only at the Custom
+     * Homebrew rules level (user ruling, 2026-10-07).
      */
-    public static getLightWeaponClass(weapon: IInfantryWeapon): "Light" | "Medium" | null {
-        return weapon.type === "standard" ? "Light" : weapon.type === "support" ? "Medium" : null;
+    public static getLightWeaponClass(weapon: IInfantryWeapon): "Light" | "Medium" | "Melee" {
+        return weapon.type === "standard" ? "Light" : weapon.type === "support" ? "Medium" : "Melee";
     }
 
     public isLightWeaponAvailable(weapon: IInfantryWeapon): boolean {
@@ -694,10 +695,10 @@ export default class Building {
         return isInfantryWeaponAvailable(weapon, this.getTechBase(), this._era.yearStart, this._era.yearEnd);
     }
 
-    /** Light and Medium weapons the building's technology base and era offer. */
-    public getAvailableLightWeapons(): IInfantryWeapon[] {
+    /** Light and Medium weapons the building's technology base and era offer; melee weapons with custom rules. */
+    public getAvailableLightWeapons(rulesLevel: number = BUILDING_RULES_LEVEL): IInfantryWeapon[] {
         if (!this.canMountLightWeapons()) return [];
-        return infantryWeapons.filter((weapon) => Building.getLightWeaponClass(weapon) !== null && this.isLightWeaponAvailable(weapon));
+        return infantryWeapons.filter((weapon) => (weapon.type !== "melee" || rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL) && this.isLightWeaponAvailable(weapon));
     }
 
     public getLightWeapons(): IBuildingLightMount[] { return this._lightWeapons; }
@@ -719,7 +720,7 @@ export default class Building {
 
     public addLightWeapon(tag: string, hex: number = 1, mountType: BuildingLightMountType = "fixed"): IBuildingLightMount | null {
         const weapon = findInfantryWeapon(tag);
-        if (!weapon || !this.canMountLightWeapons() || Building.getLightWeaponClass(weapon) === null || this._lightWeapons.length >= MAX_BUILDING_LIGHT_WEAPONS) return null;
+        if (!weapon || !this.canMountLightWeapons() || this._lightWeapons.length >= MAX_BUILDING_LIGHT_WEAPONS) return null;
         const mount = this._newLightMount(weapon, hex, mountType, 0);
         this._lightWeapons.push(mount);
         return mount;
@@ -797,7 +798,11 @@ export default class Building {
         else delete this._inPlay.ammoUsed[uuid];
     }
 
-    /** Why a Light or Medium weapon cannot fire, or "" when it can. They draw no power (TM p.137). */
+    /**
+     * Why a Light or Medium weapon cannot fire, or "" when it can. None needs the building's power (TM p.137),
+     * but an energy-cell weapon is wired into it and falls back on its cells only when the power is out (user
+     * ruling, 2026-10-07): its shots matter only then.
+     */
     public getLightWeaponStatus(uuid: string): string {
         const mount = this._lightMount(uuid);
         if (!mount) return "";
@@ -807,7 +812,7 @@ export default class Building {
         if (this.isMountDestroyed(uuid)) return "Destroyed";
         if (state.gunnersKilled) return "Gunners killed";
         if (state.gunnersStunned > 0) return "Gunners stunned";
-        if (this.getLightWeaponShots(uuid) === 0) return "Out of ammunition";
+        if (this.getLightWeaponShots(uuid) === 0 && !(mount.weapon.powerCells && this.hasPower())) return "Out of ammunition";
         if (mount.mount === "turret" && state.turretLocked) return "Turret locked in its facing";
         if (mount.mount === "turret" && state.turretJammed) return "Turret jammed in its facing";
         return "";
@@ -950,11 +955,12 @@ export default class Building {
     /**
      * Minimum gunners and officers: a Heavy weapon needs its tonnage / 5 gunners, rounded up, and a military
      * building one officer for up to 9 crew or one for every 10 (TO:AR p.130). Automated weapons need no
-     * gunners (TO:AR p.131). Each Light or Medium weapon needs one gunner, whatever crew the infantry table
-     * gives it (TO:AR p.130).
+     * gunners (TO:AR p.131). A Light or Medium weapon needs the crew the infantry table gives it (user ruling,
+     * 2026-10-07; the table on TO:AR p.130 prints one each, and TM p.137 uses the weapon's Crew value). Only
+     * Heavy weapons can be automated (TO:AR p.131).
      */
     public getMinimumGunners(): number {
-        return this._lightWeapons.length + this._equipment.filter((mount) => Building.isHeavyWeapon(mount.item) && !mount.automated).reduce((sum, mount) => sum + Math.ceil((mount.item.weight || 0) / 5 - 1e-9), 0);
+        return this._lightWeapons.reduce((sum, mount) => sum + mount.weapon.crew, 0) + this._equipment.filter((mount) => Building.isHeavyWeapon(mount.item) && !mount.automated).reduce((sum, mount) => sum + Math.ceil((mount.item.weight || 0) / 5 - 1e-9), 0);
     }
     /**
      * Crew for other equipment on the Advanced Building Minimum Crew Table (TO:AR p.130): one for each ton of
@@ -1000,6 +1006,7 @@ export default class Building {
     public getRequiredRulesLevel(): number {
         let level = BUILDING_RULES_LEVEL;
         for (const mount of this._equipment) level = Math.max(level, getEquipmentRulesLevel(mount.item));
+        if (this._lightWeapons.some((mount) => mount.weapon.type === "melee")) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
         return level;
     }
 
@@ -1028,6 +1035,7 @@ export default class Building {
         }
         for (const mount of this._lightWeapons) {
             if (!this.isLightWeaponAvailable(mount.weapon)) issues.push(`${mount.weapon.name} is not available to this technology base in the selected era.`);
+            else if (mount.weapon.type === "melee" && rulesLevel < CUSTOM_HOMEBREW_RULES_LEVEL) issues.push(`${mount.weapon.name} is a melee weapon: a building mounts one only under custom rules (TM p.136 names Standard and Support weapons).`);
         }
         if (this._generator?.noRooftopEquipment && this.hasTurret()) issues.push(`A ${this._generator.name.toLowerCase()} generator leaves no room on the roof for turrets (TO:AR p.132).`);
         for (const mount of this._equipment) {
@@ -1058,6 +1066,7 @@ export default class Building {
         if (this._generator?.notes) notes.push(`${this._generator.name} generator: ${this._generator.notes}.`);
         if (this._generator?.dailyFuel) notes.push(`The generator burns ${round3(this._generator.dailyFuel * this._hexes * this._levels / 5)} tons of fuel a day (${this._generator.dailyFuel} for every five hexes and levels), stored outside the building (TO:AR p.132).`);
         if (this._lightWeapons.length > 0) notes.push("Light and Medium weapons need no heat sinks or power amplifiers and come with one free clip. Each does its table damage rounded to the nearest point, at its Base Range for short, twice that for medium and three times for long (TM pp.136-137).");
+        if (this._lightWeapons.some((mount) => mount.weapon.powerCells)) notes.push("Energy-cell weapons are wired into the building's power and fire freely while it lasts; their cells are the backup when the power is out.");
         if (this._lightWeapons.some((mount) => mount.weapon.cost === null)) notes.push("A Light or Medium weapon with no row in the TechManual's cost table adds nothing to the price.");
         if (this._equipment.some((mount) => mount.automated)) notes.push(`Automated weapons fire first in the Weapon Attack Phase at the closest enemy in range, with a Gunnery skill of ${BUILDING_AUTOMATED_GUNNERY}, +1 through hostile ECM (TO:AR p.131).`);
         if (this._sealed) notes.push(`Environmental sealing: a hit that does more than 10 points to the Construction Factor breaches the building on a 2D6 roll of ${BUILDING_BREACH_TARGET}+, modified by ${this.getBreachModifier() >= 0 ? "+" : ""}${this.getBreachModifier()} (TO:AR pp.134-135).`);
@@ -1096,10 +1105,10 @@ export default class Building {
         const equipment = this._equipment.reduce((sum, mount) => sum + (mount.item.isAmmo ? (mount.item.cbills || 0) * (mount.item.weight || 0) : mount.item.cbills || 0), 0);
         if (this._equipment.length > 0) rows.push(["Weapons, Equipment and Ammunition", equipment]);
         if (this._lightWeapons.length > 0) {
-            // TM pp.298-301: the weapon, and for each extra clip its ammunition price; one supply of power cells
-            // covers an energy-cell weapon that carries extra clips.
+            // TM pp.298-301: the weapon, and for each extra clip its ammunition price (inferno clips at the SRM
+            // ratio); one supply of power cells covers an energy-cell weapon that carries extra clips.
             const light = this._lightWeapons.reduce((sum, mount) => sum + (mount.weapon.cost ?? 0)
-                + mount.clips * (mount.weapon.ammoCost ?? 0) + (mount.clips > 0 && mount.weapon.powerCells ? INFANTRY_POWER_CELL_COST : 0), 0);
+                + mount.clips * (getInfantryClipCost(mount.weapon) ?? 0) + (mount.clips > 0 && mount.weapon.powerCells ? INFANTRY_POWER_CELL_COST : 0), 0);
             rows.push(["Light and Medium Weapons and Clips", light]);
         }
         const pintles = round3(loads.reduce((sum, load) => sum + this.getPintleWeight(load.hex), 0));
@@ -1735,7 +1744,7 @@ export default class Building {
                     continue;
                 }
                 const weapon = findInfantryWeapon(entry.tag);
-                if (!weapon || Building.getLightWeaponClass(weapon) === null) {
+                if (!weapon) {
                     issue(`Skipped unknown Light or Medium weapon "${entry.tag.slice(0, 60)}"`);
                     continue;
                 }

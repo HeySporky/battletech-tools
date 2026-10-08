@@ -84,7 +84,7 @@ export interface IInfantryWeapon {
     /**
      * The cost table's second figure, the weapon's ammunition, in C-bills (TM pp.298-301). Null where the table
      * gives no number: "NA", a single-use weapon, power cells, or a weapon with no row. Inferno rounds have no
-     * row of their own and take the weapon's figure.
+     * row of their own: the record repeats the weapon's figure, and getInfantryClipCost prices the clip.
      */
     ammoCost: number | null;
     /** The cost table's energy-cell footnote: 200 C-bills covers a supply of power cells for combat (TM p.301). */
@@ -93,6 +93,16 @@ export interface IInfantryWeapon {
 
 /** What a supply of power cells for one energy-cell weapon costs (TM p.301, footnote). */
 export const INFANTRY_POWER_CELL_COST = 200;
+
+/**
+ * Inferno rounds against standard ones. The cost table has no inferno rows, so the price is inferred from SRM
+ * ammunition, where a ton of inferno rounds is 13,500 C-bills against 27,000 (user ruling, 2026-10-07).
+ */
+export const INFANTRY_INFERNO_AMMO_COST_FACTOR = 0.5;
+
+/** What one clip costs, or null where the table gives no number. */
+export const getInfantryClipCost = (weapon: IInfantryWeapon): number | null =>
+    weapon.ammoCost === null ? null : weapon.ammoCost * (weapon.inferno ? INFANTRY_INFERNO_AMMO_COST_FACTOR : 1);
 
 export type InfantryWeaponDate = number | "PS" | "ES" | null;
 

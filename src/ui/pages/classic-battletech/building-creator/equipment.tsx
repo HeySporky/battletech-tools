@@ -51,7 +51,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
         const generator = building.getGenerator();
         const carriesEquipment = building.getCapacityPerHex() > 0;
         const available = carriesEquipment ? building.getAvailableEquipment(rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL, rulesLevel) : [];
-        const lightAvailable = carriesEquipment ? building.getAvailableLightWeapons() : [];
+        const lightAvailable = carriesEquipment ? building.getAvailableLightWeapons(rulesLevel) : [];
         const lightTag = lightAvailable.some((weapon) => weapon.tag === this.state.lightTag) ? this.state.lightTag : lightAvailable[0]?.tag ?? "";
         const lightLimit = building.getLightWeaponLimitPerHex();
 
@@ -259,8 +259,9 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                 <TextSection label="Light and Medium Weapons">
                                     <p className="smaller-text">
                                         Weapons from the Conventional Infantry Weapons Table: its Standard weapons are Light and its Support weapons
-                                        Medium. A hex mounts up to {lightLimit}, 6 for each level (TO:AR p. 129). Each needs one gunner, no heat sinks
-                                        and no power amplifiers, comes with one free clip and may carry more (TO:AR p. 130; TM pp. 136-137). A pintle
+                                        Medium. A hex mounts up to {lightLimit}, 6 for each level (TO:AR p. 129). Each needs the crew the table gives it,
+                                        no heat sinks and no power amplifiers, comes with one free clip and may carry more (TM pp. 136-137). Melee
+                                        weapons are offered only at the Custom Homebrew rules level. A pintle
                                         weighs 5 percent of its weapon, to the kilogram; a weapon may go in the hex's turret instead (TO:AUE p. 83).
                                     </p>
                                     <div className="form-inline">
@@ -284,7 +285,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                     </div>
                                     <table className="table" data-testid="building-light-weapons">
                                         <thead>
-                                            <tr><th>Name</th><th>Class</th><th>Kg</th>{building.getHexes() > 1 ? <th>Hex</th> : null}<th>Mount</th><th>Extra Clips</th><th>Shots</th><th></th></tr>
+                                            <tr><th>Name</th><th>Class</th><th>Kg</th>{building.getHexes() > 1 ? <th>Hex</th> : null}<th>Mount</th><th>Extra Clips</th><th>Shots</th><th>Crew</th><th></th></tr>
                                         </thead>
                                         <tbody>
                                             {building.getLightWeapons().map((mount) => (
@@ -329,6 +330,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                         ) : "-"}
                                                     </td>
                                                     <td>{Building.getLightMountShots(mount) ?? "-"}</td>
+                                                    <td>{mount.weapon.crew}</td>
                                                     <td>
                                                         <button className="btn btn-danger btn-sm" title={"Remove " + mount.weapon.name} onClick={() => this.update((b) => { b.removeLightWeapon(mount.uuid); })}>
                                                             <Trash />
@@ -336,7 +338,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                                     </td>
                                                 </tr>
                                             ))}
-                                            {building.getLightWeapons().length === 0 ? <tr><td colSpan={8}>None mounted.</td></tr> : null}
+                                            {building.getLightWeapons().length === 0 ? <tr><td colSpan={9}>None mounted.</td></tr> : null}
                                         </tbody>
                                     </table>
                                 </TextSection>

@@ -310,7 +310,11 @@ played first, then by dependency.
   point and ranges from the Base Range (TM p.136); prices; creator, record sheet and play panel with shots.
   Rulings (user, 2026-10-07): (1) the Mobile Structure pintle rule stands for buildings, cost included;
   (2) weights stay to the kilogram, as weight matters to a building only as a load on its structure.
-  Items (3) to (6) are still open. As first raised: (1) TO:AR names pintles on buildings only in passing, so the Mobile Structure rule is
+  (3) Melee weapons are offered only at the Custom Homebrew level, as traps and the like. (4) A weapon needs
+  the crew the infantry table gives it; only Heavy weapons can be automated (TO:AR p.131), so no Light or
+  Medium weapon goes uncrewed. (5) The 200 C-bill power cell price stands; an energy-cell weapon is wired
+  into the building's power and uses its cells only when the power is out. (6) Inferno clips cost half, as
+  SRM inferno ammunition does against standard (13,500 against 27,000 C-bills a ton). As first raised: (1) TO:AR names pintles on buildings only in passing, so the Mobile Structure rule is
   used: 5 percent of the weapons, to the kilogram, 1,000 C-bills a ton (TO:AUE p.83, TM p.280). (2) Weights
   are kept to the kilogram; on Medium and Large Support Vehicles small items are totalled and rounded up to
   the half ton (TM p.137), and TO:AR says nothing for buildings. (3) The table's melee weapons are not
