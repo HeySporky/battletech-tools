@@ -796,3 +796,94 @@ describe("Rules editions: The BattleTech Compendium, complete", () => {
         expect(stats.notes).toContain("within 4 hexes");
     });
 });
+
+// BattleTech, Third Edition (FASA 1604, 1992), read from the page images of the box set's rulebook: BattleMech
+// Design pp.41-43, the Fusion Engine Table and Inner Sphere Weapons Table p.44, and the fourteen pregenerated
+// record sheets. An introductory game: it holds the 3025 weapons only and prints no prices.
+describe("Rules editions: Third Edition, complete", () => {
+    const TAG = "battletech-3rd-edition";
+    const find = (tag: string) => equipment.find(item => item.tag === tag)!;
+
+    // Of everything the Manual and Compendium added, only the Autocannon/2, /10 and /20 are in this box.
+    it("includes the Second Edition's records and the three autocannon the Manual added", () => {
+        expect(inEdition(TAG)).toEqual([
+            ...inEdition("battletech-2nd-edition"),
+            "equipment autocannon-standard-a", "equipment autocannon-standard-c", "equipment autocannon-standard-d",
+            "equipment ammo-is-ac-2-standard", "equipment ammo-is-ac-10-standard", "equipment ammo-is-ac-20-standard",
+        ].sort());
+        const edition = getRulesEditions().find(entry => entry.tag === TAG)!;
+        expect(edition.complete).toBe(true);
+        expect(edition.mechs).toHaveLength(14);
+        expect(edition.otherUnits).toEqual([]);
+    });
+
+    // BT3 p.44, Inner Sphere Weapons Table: heat, damage, minimum, short, medium, long, tonnage, critical, ammo.
+    const table: [string, number, number, number, number, number, number, number, number, number | undefined][] = [
+        ["standard-flamer", 3, 2, 0, 1, 2, 3, 1, 1, undefined],
+        ["large-laser", 8, 8, 0, 5, 10, 15, 5, 2, undefined],
+        ["medium-laser", 3, 5, 0, 3, 6, 9, 1, 1, undefined],
+        ["small-laser", 1, 3, 0, 1, 2, 3, 0.5, 1, undefined],
+        ["standard-ppc", 10, 10, 3, 6, 12, 18, 7, 3, undefined],
+        ["autocannon-standard-a", 1, 2, 4, 8, 16, 24, 6, 1, 45],
+        ["autocannon-standard-b", 1, 5, 3, 6, 12, 18, 8, 4, 20],
+        ["autocannon-standard-c", 3, 10, 0, 5, 10, 15, 12, 7, 10],
+        ["autocannon-standard-d", 7, 20, 0, 3, 6, 9, 14, 10, 5],
+        ["machine-gun", 0, 2, 0, 1, 2, 3, 0.5, 1, 200],
+        ["lrm-5", 2, 1, 6, 7, 14, 21, 2, 1, 24],
+        ["lrm-10", 4, 1, 6, 7, 14, 21, 5, 2, 12],
+        ["lrm-15", 5, 1, 6, 7, 14, 21, 7, 3, 8],
+        ["lrm-20", 6, 1, 6, 7, 14, 21, 10, 5, 6],
+        ["srm-2", 2, 2, 0, 3, 6, 9, 1, 1, 50],
+        ["srm-4", 3, 2, 0, 3, 6, 9, 2, 1, 25],
+        ["srm-6", 4, 2, 0, 3, 6, 9, 3, 2, 15],
+    ];
+    it.each(table)("%s carries the printed Weapons Table row", (tag, heat, damage, min, short, medium, long, tons, slots, shots) => {
+        const stats = find(tag).editionStats![TAG]!;
+        expect([stats.book, stats.page]).toEqual(["BT3", 44]);
+        expect(stats.heat).toBe(heat);
+        expect(stats.damage ?? stats.damagePerMissile).toBe(damage);
+        expect(stats.range).toEqual({ min, short, medium, long });
+        expect([stats.weight, stats.criticals, stats.shotsPerTon]).toEqual([tons, slots, shots]);
+    });
+
+    it("prints the Compendium's rows for those weapons, without their prices", () => {
+        const numbers = (stats: IEditionStats) => JSON.stringify([stats.heat, stats.damage, stats.damagePerMissile, stats.range,
+            stats.weight, stats.criticals, stats.shotsPerTon]);
+        for (const [tag] of table) {
+            expect(numbers(find(tag).editionStats![TAG]!), tag).toBe(numbers(getEditionStats(find(tag), "battletech-compendium")!));
+        }
+        const priced = labelled.filter(entry => entry.record.editionStats?.[TAG]?.cbills !== undefined).map(entry => entry.label);
+        expect(priced).toEqual([]);
+        expect(getEditionStats(find("medium-laser"), "battletech-compendium")!.cbills).toBe(40000);
+    });
+
+    // BT3 p.43: half-ton lots for machine guns only; shots per ton from the table's Ammo column.
+    it("counts ammunition by the ton", () => {
+        expect(["ammo-is-ac-2-standard", "ammo-is-ac-5-standard", "ammo-is-ac-10-standard", "ammo-is-ac-20-standard", "ammo-machine-gun-standard"]
+            .map(tag => find(tag).editionStats![TAG]!.shotsPerTon)).toEqual([45, 20, 10, 5, 200]);
+        expect(find("ammo-lrm-standard").editionStats![TAG]!.notes).toContain("24 (LRM-5), 12 (LRM-10), 8 (LRM-15), 6 (LRM-20)");
+        expect(find("ammo-srm-standard").editionStats![TAG]!.notes).toContain("50 (SRM-2), 25 (SRM-4), 15 (SRM-6)");
+        expect(find("ammo-machine-gun-standard").editionStats![TAG]!.notes).toContain("half-ton lots");
+    });
+
+    // Engine table p.44, structure table p.42, jump jets p.43, cockpit and gyro p.42, armor p.43: as the
+    // Compendium has them. The heat sink has its own entry because the price is gone.
+    it("leaves the engine, structure, controls, jump jets, armor, layout and tonnages unchanged", () => {
+        const unchanged = labelled.filter(entry => entry.record.editionStats && TAG in entry.record.editionStats && entry.record.editionStats[TAG] === null)
+            .map(entry => entry.label).sort();
+        expect(unchanged).toEqual([
+            "armor standard", "cockpit standard", "engine standard", "gyro standard", "jump jet standard", "mech type biped",
+            "structure standard",
+            ...[10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100].map(tons => `tonnage ${tons}`),
+        ].sort());
+        expect(getEditionStats(mechEngineTypes.find(type => type.tag === "standard")!, TAG)!.engineWeights![400]).toBe(52.5);
+        expect(getEditionStats(mechInternalStructureTypes.find(type => type.tag === "standard")!, TAG)!.structure![100])
+            .toEqual({ head: 3, ct: 31, torso: 21, arm: 17, leg: 21 });
+        expect(getEditionStats(mechJumpJetTypes.find(type => type.tag === "standard")!, TAG)!.weightByTonnage)
+            .toEqual([{ upTo: 55, tons: 0.5 }, { upTo: 85, tons: 1 }, { upTo: 100, tons: 2 }]);
+        expect(getEditionStats(mechArmorTypes.find(type => type.tag === "standard")!, TAG)!.pointsPerTon).toBe(16);
+        const sink = mechHeatSinkTypes.find(type => type.tag === "single")!.editionStats![TAG]!;
+        expect([sink.weight, sink.criticals, sink.cbills]).toEqual([1, 1, undefined]);
+        expect(sink.notes).toContain("divided by 25");
+    });
+});

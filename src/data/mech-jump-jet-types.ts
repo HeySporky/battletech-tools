@@ -47,6 +47,7 @@ export const mechJumpJetTypes: IJumpJet[] = [
 			},
 			"battletech-manual": null,
 			"battletech-compendium": null,
+			"battletech-3rd-edition": null,
 		},
 	},
 

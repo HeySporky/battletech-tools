@@ -48,6 +48,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 				notes: "Ten come with the engine; each extra one weighs one ton (BTM p.79). New: only some of the engine's ten are placed on the Equipment Tables. Engine rating divided by 25, rounded down, are integral to the engine and are lost only with it; the rest, and every extra sink, take one critical location each (BTM pp.79-80). Only allocated sinks can take a critical hit (BTM p.24). 2,000 C-bills for each sink over 10 (BTM p.84).",
 			},
 			"battletech-compendium": null,
+			"battletech-3rd-edition": { book: "BT3", page: 43, name: "Heat Sink", weight: 1, criticals: 1, notes: "Ten come with every BattleMech and do not count against its tonnage; each extra one weighs 1 ton. Engine rating divided by 25, rounded down, need no critical hit slots: they are part of the engine and are destroyed only with it (BT3 p.43). No price is printed." },
 		},
 	},
 	{

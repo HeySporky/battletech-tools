@@ -107,6 +107,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
             "battletech-2nd-edition": null,
             "battletech-manual": { book: "BTM", page: 87, weight: 1, cbills: 30000, notes: "Shots per ton by launcher: 24 (5-pack), 12 (10-pack), 8 (15-pack), 6 (20-pack). At least one ton for each launcher (BTM p.79). Exploding ammunition does 1 point for every missile left (BTM p.24). Reloads cost 30,000 a ton (BTM p.86)." },
             "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, notes: "Shots per ton by launcher: 24 (LRM-5), 12 (LRM-10), 8 (LRM-15), 6 (LRM-20). At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
         },
     },
     {
@@ -198,6 +199,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
             "battletech-2nd-edition": null,
             "battletech-manual": { book: "BTM", page: 87, name: "MG ammo", weight: 1, shotsPerTon: 200, cbills: 1000, notes: "May be bought in half-ton lots, alone among ammunition (BTM p.79). The worked example now gives one ton as 200 shots (BTM p.79), and a full ton explodes for 400 points (BTM p.24). Reloads cost 1,000 a ton (BTM p.86)." },
             "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 200, notes: "At least one-half ton for machine guns; it can be acquired in half-ton lots, and a critical slot can accommodate a full ton (BT3 p.43). No price is printed." },
         },
     },
     {
@@ -294,6 +296,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
             "battletech-2nd-edition": null,
             "battletech-manual": { book: "BTM", page: 87, weight: 1, cbills: 27000, notes: "Shots per ton by launcher: 50 (2-pack), 25 (4-pack), 15 (6-pack). At least one ton for each launcher (BTM p.79). Exploding ammunition does 2 points for every missile left: 200 for a full ton of SRM 2 (BTM p.24). Reloads cost 27,000 a ton (BTM p.86)." },
             "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, notes: "Shots per ton by launcher: 50 (SRM-2), 25 (SRM-4), 15 (SRM-6). At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
         },
     },
     {

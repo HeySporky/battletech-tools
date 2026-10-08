@@ -20,6 +20,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         editionStats: {
             "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/2", heat: 1, damage: 2, range: { min: 4, short: 8, medium: 16, long: 24 }, weight: 6, criticals: 1, shotsPerTon: 45, cbills: 75000 },
             "battletech-compendium": { book: "BTC", page: 116, name: "Autocannon/2", heat: 1, damage: 2, range: { min: 4, short: 8, medium: 16, long: 24 }, weight: 6, criticals: 1, shotsPerTon: 45, cbills: 75000 },
+            "battletech-3rd-edition": { book: "BT3", page: 44, name: "Autocannon/2", heat: 1, damage: 2, range: { min: 4, short: 8, medium: 16, long: 24 }, weight: 6, criticals: 1, shotsPerTon: 45 },
         },
         sort: "Autocannon/a",
         category: "Ballistic Weapons",
@@ -121,6 +122,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             "battletech-2nd-edition": null,
             "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/5", heat: 1, damage: 5, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 8, criticals: 4, shotsPerTon: 20, cbills: 125000 },
             "battletech-compendium": { book: "BTC", page: 116, name: "Autocannon/5", heat: 1, damage: 5, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 8, criticals: 4, shotsPerTon: 20, cbills: 125000 },
+            "battletech-3rd-edition": { book: "BT3", page: 44, name: "Autocannon/5", heat: 1, damage: 5, range: { min: 3, short: 6, medium: 12, long: 18 }, weight: 8, criticals: 4, shotsPerTon: 20 },
         },
         book: "TM",
         page: 208,
@@ -146,6 +148,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         editionStats: {
             "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/10", heat: 3, damage: 10, range: { min: 0, short: 5, medium: 10, long: 15 }, weight: 12, criticals: 7, shotsPerTon: 10, cbills: 200000 },
             "battletech-compendium": { book: "BTC", page: 116, name: "Autocannon/10", heat: 3, damage: 10, range: { min: 0, short: 5, medium: 10, long: 15 }, weight: 12, criticals: 7, shotsPerTon: 10, cbills: 200000 },
+            "battletech-3rd-edition": { book: "BT3", page: 44, name: "Autocannon/10", heat: 3, damage: 10, range: { min: 0, short: 5, medium: 10, long: 15 }, weight: 12, criticals: 7, shotsPerTon: 10 },
         },
         sort: "Autocannon/c",
         category: "Ballistic Weapons",
@@ -208,6 +211,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         editionStats: {
             "battletech-manual": { book: "BTM", page: 87, name: "Auto Cannon/20", heat: 7, damage: 20, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 14, criticals: 10, shotsPerTon: 5, cbills: 300000 },
             "battletech-compendium": { book: "BTC", page: 116, name: "Autocannon/20", heat: 7, damage: 20, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 14, criticals: 10, shotsPerTon: 5, cbills: 300000, notes: "Its critical slots may be split between adjacent locations (BTC p.113)." },
+            "battletech-3rd-edition": { book: "BT3", page: 44, name: "Autocannon/20", heat: 7, damage: 20, range: { min: 0, short: 3, medium: 6, long: 9 }, weight: 14, criticals: 10, shotsPerTon: 5, notes: "Its critical hit slots can be split between adjacent locations; every other weapon keeps its slots in one location (BT3 p.43)." },
         },
         sort: "Autocannon/d",
         category: "Ballistic Weapons",
@@ -984,6 +988,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
             "battletech-2nd-edition": null,
             "battletech-manual": { book: "BTM", page: 87, name: "Machine Gun", heat: 0, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1, shotsPerTon: 200, cbills: 5000 },
             "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, name: "Machine Gun", heat: 0, damage: 2, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 0.5, criticals: 1, shotsPerTon: 200 },
         },
         book: "TM",
         page: 228,

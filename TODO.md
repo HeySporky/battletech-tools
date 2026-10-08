@@ -900,8 +900,20 @@ Open:
     not re-read and stay inherited. The Compendium's own construction rules for vehicles, installations and
     fighters (pp.123-127) and its cost formulas (pp.128-131) were read and are not built: they wait for the
     edition selector.
-  - [ ] Next: Third Edition (1992). Then Fourth Edition (1996), Master Rules (1998), Master Rules Revised
-    (2001), in that order.
+  - [x] BattleTech, Third Edition (FASA 1604, 1992), complete: read from the page images of the box set's
+    rulebook (BattleMech Design pp.41-43, Fusion Engine Table and Inner Sphere Weapons Table p.44, the reference
+    card, the training scenarios pp.36-39) and its record sheets. An introductory game with the 3025 weapons
+    only: flamer, three lasers, PPC, Autocannon/2 to /20, machine gun, LRM-5 to -20, SRM-2 to -6, their
+    ammunition, single heat sinks; engine and structure tables, cockpit, gyro, jump jets, armor, the two-legged
+    layout and tonnages 10-100 unchanged. Every weapon row matches the Compendium's; the rulebook prints no
+    prices, so each weapon, ammunition and the heat sink has its own entry without one. Fourteen 'Mechs;
+    no other units; clubs listed as not modelled.
+    Readings to confirm: (1) the fourteen filled record sheets in the library's scan are footed "Copyright
+    1996", a later printing than the 1992 rulebook and blank sheet; the rulebook names the same fourteen by
+    chassis (pp.36-39), and the model codes (LCT-1V, PXH-1 and so on) are taken from those sheets; (2) the
+    sheets print a Cost for each 'Mech, not entered, as the rulebook has no prices; (3) records the edition
+    does not print (prices) are left out of its entries, not inherited from the Compendium.
+  - [ ] Next: Fourth Edition (1996). Then Master Rules (1998), Master Rules Revised (2001), in that order.
   - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).
   - [ ] The selector itself: filter by `isInRulesEdition`, read stats through `getEditionStats`, and decide how

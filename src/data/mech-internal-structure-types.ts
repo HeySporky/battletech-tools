@@ -219,6 +219,7 @@ export const mechInternalStructureTypes: IInternalStructure[] = [
         notes: "Weighs 10 percent of the 'Mech's tonnage (BTM pp.78-79). The table has no head column; the head is entered as 3, as in the earlier editions. The table now prints 14 leg boxes at 60 tons and 15 at 65, the values the earlier editions' worked example implied. Skeleton cost: tonnage x 400 C-bills (BTM p.84).",
       },
       "battletech-compendium": null,
+      "battletech-3rd-edition": null,
     },
     book: "TM",
     page: 225,

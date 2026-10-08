@@ -1536,6 +1536,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         editionStats: {
             "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 45, cbills: 1000, notes: "At least one ton for each ballistic weapon (BTM p.79). Reloads cost 1,000 a ton (BTM p.86)." },
             "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 45, notes: "At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
         },
     },
     {
@@ -1791,6 +1792,7 @@ export const mechISAmmo: IEquipmentItem[] = [
             "battletech-2nd-edition": null,
             "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 20, cbills: 4500, notes: "At least one ton for each ballistic weapon (BTM p.79). Reloads cost 4,500 a ton (BTM p.86)." },
             "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 20, notes: "At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
         },
     },
     {
@@ -2041,6 +2043,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         editionStats: {
             "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 10, cbills: 6000, notes: "At least one ton for each ballistic weapon (BTM p.79). Reloads cost 6,000 a ton (BTM p.86)." },
             "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 10, notes: "At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
         },
     },
     {
@@ -2293,6 +2296,7 @@ export const mechISAmmo: IEquipmentItem[] = [
         editionStats: {
             "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 5, cbills: 10000, notes: "At least one ton for each ballistic weapon (BTM p.79). Reloads cost 10,000 a ton (BTM p.86)." },
             "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 5, notes: "At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
         },
     },
     {

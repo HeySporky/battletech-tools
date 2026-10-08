@@ -153,6 +153,21 @@ export const btRulesEditions: IRulesEdition[] = [
         name: "BattleTech, Third Edition",
         year: 1992,
         book: "BT3",
+        complete: true,
+        // The four training scenarios name the fourteen 'Mechs of the box by chassis (BT3 pp.36-39); the model
+        // codes are from the pregenerated record sheets (BT3 p.5: "the fourteen 'Mechs included in the basic
+        // game"). The sheets in the library's scan are footed "Copyright 1996", so they are a later printing
+        // of that booklet; the blank sheet beside them is footed 1992.
+        mechs: [
+            "LCT-1V Locust", "STG-3R Stinger", "WSP-1A Wasp", "PXH-1 Phoenix Hawk", "GRF-1N Griffin",
+            "SHD-2H Shadow Hawk", "WVR-6R Wolverine", "RFL-3N Rifleman", "CRD-3R Crusader", "TDR-5S Thunderbolt",
+            "ARC-2R Archer", "WHM-6R Warhammer", "MAD-3R Marauder", "BLR-1G BattleMaster",
+        ],
+        // BattleMechs only: other combat units appear in the background text alone.
+        otherUnits: [],
+        notModelled: [
+            "Clubs: a severed arm or leg, or an uprooted tree good for one successful attack, picked up on the map and swung with two hands (BT3 pp.30-31).",
+        ],
     },
     {
         // BattleTech Compendium: The Rules of Warfare: CRB p.247.
