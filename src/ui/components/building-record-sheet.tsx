@@ -98,10 +98,32 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                                 <td style={cell}>{mount.item.weight}</td>
                             </tr>
                         ))}
-                        {equipment.length === 0 ? <tr><td style={cell} colSpan={9}>No weapons or equipment.</td></tr> : null}
+                        {building.getLightWeapons().map((mount) => {
+                            const ranges = Building.getLightWeaponRanges(mount.weapon);
+                            const shots = Building.getLightMountShots(mount);
+                            const status = showDamage ? building.getLightWeaponStatus(mount.uuid) : "";
+                            return (
+                                <tr key={mount.uuid} data-testid="building-sheet-light-weapon">
+                                    <td style={cell}>{mount.hex}</td>
+                                    <td style={cell}>
+                                        {mount.weapon.name}{mount.mount === "turret" ? " (T)" : mount.mount === "pintle" ? " (P)" : ""}
+                                        {shots !== null ? (showDamage ? `, ${building.getLightWeaponShots(mount.uuid)} of ${shots} shots left` : ` (${shots} shots)`) : ""}
+                                        {status ? <strong> - {status}</strong> : null}
+                                    </td>
+                                    <td style={cell}></td>
+                                    <td style={cell}>{Building.getLightWeaponDamage(mount.weapon)}{mount.weapon.special ? ` (${mount.weapon.special})` : ""}</td>
+                                    <td style={cell}></td>
+                                    <td style={cell}>{ranges.short}</td>
+                                    <td style={cell}>{ranges.medium}</td>
+                                    <td style={cell}>{ranges.long}</td>
+                                    <td style={cell}>{Building.getLightMountWeight(mount)}</td>
+                                </tr>
+                            );
+                        })}
+                        {equipment.length === 0 && building.getLightWeapons().length === 0 ? <tr><td style={cell} colSpan={9}>No weapons or equipment.</td></tr> : null}
                     </tbody>
                 </table>
-                <p className="smaller-text">(T) marks an item in the hex's rooftop turret; anything else has a fixed arc chosen when the building is placed. (A) marks an automated weapon, Gunnery 5.</p>
+                <p className="smaller-text">(T) marks an item in the hex's rooftop turret; anything else has a fixed arc chosen when the building is placed. (A) marks an automated weapon, Gunnery 5.{building.getLightWeapons().length > 0 ? " (P) marks a Light or Medium weapon on a pintle. After a Light or Medium weapon's damage: A anti-aircraft, B heavy burst, F flame-based, N non-penetrating." : ""}</p>
 
                 <h3>Armor and Construction Factor</h3>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>

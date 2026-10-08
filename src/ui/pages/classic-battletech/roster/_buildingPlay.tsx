@@ -92,7 +92,8 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                 {hexes.map((hex) => {
                     const state = building.getHexState(hex);
                     const hexMounts = mounts.filter((mount) => mount.hex === hex);
-                    const hasWeapons = hexMounts.some((mount) => !mount.item.isAmmo && /Weapons$/.test(mount.item.category));
+                    const hasWeapons = hexMounts.some((mount) => !mount.item.isAmmo && /Weapons$/.test(mount.item.category))
+                        || building.getLightWeapons().some((mount) => mount.hex === hex);
                     const hasTurret = hexMounts.some((mount) => mount.turret);
                     const name = `${hexLabel} ${hex}`;
                     return (
@@ -199,6 +200,46 @@ export default class BuildingPlayPanel extends React.Component<IBuildingPlayPane
                                                                 {building.isMountDestroyed(uuid) ? "Repair" : isWeapon ? "Destroyed" : "Inoperative"}
                                                             </button>
                                                         ) : null}
+                                                    </td>
+                                                </tr>
+                                            );
+                                        })}
+                                    </tbody>
+                                </table>
+                            ) : null}
+                            {building.getLightWeapons().some((mount) => mount.hex === hex) ? (
+                                <table className="table" data-testid="building-play-light-weapons">
+                                    <thead>
+                                        <tr><th>Light or Medium Weapon</th><th>Damage</th><th>Short</th><th>Medium</th><th>Long</th><th>Shots Left</th><th>Status</th><th></th></tr>
+                                    </thead>
+                                    <tbody>
+                                        {building.getLightWeapons().filter((mount) => mount.hex === hex).map((mount) => {
+                                            const status = building.getLightWeaponStatus(mount.uuid);
+                                            const ranges = Building.getLightWeaponRanges(mount.weapon);
+                                            const total = Building.getLightMountShots(mount);
+                                            const destroyed = building.isMountDestroyed(mount.uuid);
+                                            return (
+                                                <tr key={mount.uuid} className={status ? "color-red" : ""}>
+                                                    <td>{mount.weapon.name}{mount.mount === "turret" ? " (T)" : mount.mount === "pintle" ? " (P)" : ""}</td>
+                                                    <td>{Building.getLightWeaponDamage(mount.weapon)}{mount.weapon.special ? ` (${mount.weapon.special})` : ""}</td>
+                                                    <td>{ranges.short}</td>
+                                                    <td>{ranges.medium}</td>
+                                                    <td>{ranges.long}</td>
+                                                    <td>
+                                                        {total === null ? "-" : (
+                                                            <>
+                                                                <input type="number" aria-label={`${mount.weapon.name} shots left`} min={0} max={total} value={building.getLightWeaponShots(mount.uuid) ?? 0}
+                                                                    disabled={destroyed} onChange={(e) => { building.setLightWeaponShots(mount.uuid, +e.currentTarget.value || 0); this._changed(); }} />
+                                                                &nbsp;of {total}
+                                                            </>
+                                                        )}
+                                                    </td>
+                                                    <td>{status || "Working"}</td>
+                                                    <td className="no-wrap">
+                                                        <button className="btn btn-secondary btn-sm" aria-label={`${mount.weapon.name}: ${destroyed ? "repair" : "destroy"}`}
+                                                            onClick={() => { building.setLightWeaponDestroyed(mount.uuid, !destroyed); this._changed(); }}>
+                                                            {destroyed ? "Repair" : "Destroyed"}
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             );

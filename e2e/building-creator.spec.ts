@@ -61,7 +61,7 @@ test("a Clan gun emplacement can be built, armed, checked, saved and printed", a
 
 // A fortress covers several hexes: each hex has its own capacity and Heavy weapon limit, and a standard building
 // mounts no Heavy weapons at all.
-test("a fortress tracks its load hex by hex and a standard building takes no weapons", async ({ page }) => {
+test("a fortress tracks its load hex by hex and a standard building takes only Light and Medium weapons", async ({ page }) => {
     const errors: string[] = [];
     page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
 
@@ -90,6 +90,25 @@ test("a fortress tracks its load hex by hex and a standard building takes no wea
     await expect(page.getByText("Only walls, gun emplacements and fortresses may install armor")).toBeVisible();
     await page.goto("classic-battletech/building-creator/equipment");
     await expect(page.getByText("Only gun emplacements and fortresses mount Heavy weapons")).toBeVisible();
+
+    // A standard building does mount Light and Medium (infantry) weapons (TO:AR p. 129).
+    await page.getByLabel("Light or Medium weapon to add").selectOption("inf-machine-gun-support");
+    await page.getByTestId("building-light-add").click();
+    const light = page.getByTestId("building-light-weapons");
+    await expect(light.getByRole("row")).toHaveCount(2);
+    await expect(light.getByRole("row").nth(1)).toContainText("Machine Gun (Support)");
+    await expect(light.getByRole("row").nth(1)).toContainText("Medium");
+    await page.getByLabel("Mount for Machine Gun (Support)").selectOption("pintle");
+    await page.getByLabel("Extra clips for Machine Gun (Support)").fill("2");
+    // 44 kg, two 5 kg clips and a 3 kg pintle; three clips of 100 shots.
+    await expect(light.getByRole("row").nth(1)).toContainText("300");
+    await expect(page.getByTestId("building-loads").getByRole("row").nth(1)).toContainText("(0.057 t)");
+
+    await page.goto("classic-battletech/building-creator/summary");
+    await expect(page.getByText("1 gunners, 0 other crew, 1 officers")).toBeVisible();
+    await expect(page.getByTestId("building-cost-log")).toContainText("Light and Medium Weapons and Clips");
+    await page.getByRole("link", { name: "View Record Sheet" }).click();
+    await expect(page.getByTestId("building-sheet-light-weapon")).toContainText("Machine Gun (Support) (P) (300 shots)");
 
     expect(errors).toEqual([]);
 });

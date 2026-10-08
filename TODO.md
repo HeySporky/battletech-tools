@@ -301,10 +301,27 @@ played first, then by dependency.
   counts as a Generator hex on the movement table for the same reason. (5) The book's own example (p.117)
   gives a Medium building a heavy metal superstructure, which its construction rule (p.135) allows only from
   Heavy up; construction follows p.135.
+- [x] Light and Medium (infantry) weapons on buildings (2026-10-07). Data pass: every record in
+  `infantry-weapons.ts` now carries the weapon's weight, clip weight, shots and bursts (TM pp.349-352) and its
+  ammunition price and energy-cell mark (TM pp.298-301); all 212 rows matched. Buildings: hangars, standard
+  buildings and walls mount them, 6 a hex for each level (TO:AR p.129); Standard weapons are Light, Support
+  weapons Medium (TM p.136); one free clip and extra whole clips; no heat sinks or amplifiers (TM pp.136-137);
+  one gunner each (TO:AR p.130); fixed, pintle or turret mounts (TO:AUE p.83); damage rounded to the nearest
+  point and ranges from the Base Range (TM p.136); prices; creator, record sheet and play panel with shots.
+  Open, for a ruling: (1) TO:AR names pintles on buildings only in passing, so the Mobile Structure rule is
+  used: 5 percent of the weapons, to the kilogram, 1,000 C-bills a ton (TO:AUE p.83, TM p.280). (2) Weights
+  are kept to the kilogram; on Medium and Large Support Vehicles small items are totalled and rounded up to
+  the half ton (TM p.137), and TO:AR says nothing for buildings. (3) The table's melee weapons are not
+  offered: TM p.136 names only Standard and Support weapons. (4) A building gives each weapon one gunner
+  (TO:AR p.130) where a Support Vehicle uses the table's Crew value (TM p.137): the Support PPC has a crew
+  of 5. (5) An energy-cell weapon with extra clips pays 200 C-bills once for its power cells (TM p.301
+  footnote); the free clip costs nothing. (6) Inferno rounds have no row in the cost table and take the
+  weapon's ammunition price. (7) The Mandrake hold-out Gauss pistol and the hold-out needler pistol have a
+  clip in the statistics table and the single-use footnote in the cost table; entered with the clip and no
+  ammunition price. (8) The two-shot SRM launcher's inferno row prints "30.0 k"; read as 30 kg.
 - [ ] Buildings, still owed:
-  - Light and Medium (infantry) weapons and pintle mounts (TO:AR p.129, TO:AUE p.83). They need each weapon's
-    weight, ammunition weight and shots from the Conventional Infantry Weapons Table (TM pp.349-352), which
-    `infantry-weapons.ts` does not carry yet: a data pass first.
+  - Light and Medium weapons in play: the critical hit table's weapon results pick only Heavy weapons, and
+    burst, flame and anti-aircraft effects are shown as letters, not applied.
   - Castles Brian: capital-scale CF and armor, capital weapons, open-space construction (TO:AR pp.115-116,
     124, 137). The Scaled Damage text divides by 20 and its worked example by 10 (pp.124-125): needs a ruling.
   - The Expanded Construction Factor rules (a CF for each level, top-down collapse, total collapse), collapse

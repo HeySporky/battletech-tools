@@ -5,6 +5,7 @@ import Building from '../../../../classes/building';
 import { BUILDING_GENERATORS } from '../../../../data/building-classifications';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
+import { INFANTRY_WEAPON_CATEGORIES } from '../../../../data/infantry-weapons';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
 import BuildingCreatorSideMenu from '../../../components/building-creator-side-menu';
@@ -17,9 +18,10 @@ const Trash = FaTrash as any;
 
 const range = (from: number, to: number): number[] => Array.from({ length: Math.max(0, to - from + 1) }, (_unused, index) => from + index);
 
-export default class BuildingCreatorEquipment extends React.Component<IEquipmentProps> {
+export default class BuildingCreatorEquipment extends React.Component<IEquipmentProps, { lightTag: string }> {
     constructor(props: IEquipmentProps) {
         super(props);
+        this.state = { lightTag: "" };
         this.props.appGlobals.makeDocumentTitle("Step 3 | Building Creator");
     }
 
@@ -49,6 +51,9 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
         const generator = building.getGenerator();
         const carriesEquipment = building.getCapacityPerHex() > 0;
         const available = carriesEquipment ? building.getAvailableEquipment(rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL, rulesLevel) : [];
+        const lightAvailable = carriesEquipment ? building.getAvailableLightWeapons() : [];
+        const lightTag = lightAvailable.some((weapon) => weapon.tag === this.state.lightTag) ? this.state.lightTag : lightAvailable[0]?.tag ?? "";
+        const lightLimit = building.getLightWeaponLimitPerHex();
 
         return (
             <UIPage current="classic-battletech-building-creator" appGlobals={this.props.appGlobals}>
@@ -250,17 +255,104 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                     </tbody>
                                 </table>
                             </TextSection>
+                            {carriesEquipment && building.canMountLightWeapons() ? (
+                                <TextSection label="Light and Medium Weapons">
+                                    <p className="smaller-text">
+                                        Weapons from the Conventional Infantry Weapons Table: its Standard weapons are Light and its Support weapons
+                                        Medium. A hex mounts up to {lightLimit}, 6 for each level (TO:AR p. 129). Each needs one gunner, no heat sinks
+                                        and no power amplifiers, comes with one free clip and may carry more (TO:AR p. 130; TM pp. 136-137). A pintle
+                                        weighs 5 percent of its weapon, to the kilogram; a weapon may go in the hex's turret instead (TO:AUE p. 83).
+                                    </p>
+                                    <div className="form-inline">
+                                        <select aria-label="Light or Medium weapon to add" value={lightTag} onChange={(e) => this.setState({ lightTag: e.currentTarget.value })}>
+                                            {INFANTRY_WEAPON_CATEGORIES.map((category) => {
+                                                const weapons = lightAvailable.filter((weapon) => weapon.category === category.tag);
+                                                return weapons.length === 0 ? null : (
+                                                    <optgroup key={category.tag} label={category.name}>
+                                                        {weapons.map((weapon) => (
+                                                            <option key={weapon.tag} value={weapon.tag}>
+                                                                {weapon.name} ({Building.getLightWeaponClass(weapon)}, {weapon.weight} kg, damage {Building.getLightWeaponDamage(weapon)})
+                                                            </option>
+                                                        ))}
+                                                    </optgroup>
+                                                );
+                                            })}
+                                        </select>{" "}
+                                        <button className="btn btn-primary btn-sm" disabled={!lightTag} data-testid="building-light-add" onClick={() => this.update((b) => { b.addLightWeapon(lightTag); })}>
+                                            Add
+                                        </button>
+                                    </div>
+                                    <table className="table" data-testid="building-light-weapons">
+                                        <thead>
+                                            <tr><th>Name</th><th>Class</th><th>Kg</th>{building.getHexes() > 1 ? <th>Hex</th> : null}<th>Mount</th><th>Extra Clips</th><th>Shots</th><th></th></tr>
+                                        </thead>
+                                        <tbody>
+                                            {building.getLightWeapons().map((mount) => (
+                                                <tr key={mount.uuid}>
+                                                    <td>{mount.weapon.name}</td>
+                                                    <td>{Building.getLightWeaponClass(mount.weapon)}</td>
+                                                    <td>{Math.round(Building.getLightMountWeight(mount) * 100000) / 100}</td>
+                                                    {building.getHexes() > 1 ? (
+                                                        <td>
+                                                            <select
+                                                                aria-label={"Hex for " + mount.weapon.name}
+                                                                value={mount.hex}
+                                                                onChange={(e) => { const value = +e.currentTarget.value; this.update((b) => b.setLightWeaponHex(mount.uuid, value)); }}
+                                                            >
+                                                                {range(1, building.getHexes()).map((hex) => <option key={hex} value={hex}>{hex}</option>)}
+                                                            </select>
+                                                        </td>
+                                                    ) : null}
+                                                    <td>
+                                                        <select
+                                                            aria-label={"Mount for " + mount.weapon.name}
+                                                            value={mount.mount}
+                                                            onChange={(e) => { const value = e.currentTarget.value; this.update((b) => b.setLightWeaponMount(mount.uuid, value)); }}
+                                                        >
+                                                            <option value="fixed">Fixed</option>
+                                                            <option value="pintle">Pintle</option>
+                                                            <option value="turret">Turret</option>
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        {Building.canCarryClips(mount.weapon) ? (
+                                                            <input
+                                                                type="number"
+                                                                aria-label={"Extra clips for " + mount.weapon.name}
+                                                                min={0}
+                                                                max={999}
+                                                                step={1}
+                                                                style={{ width: "5em" }}
+                                                                value={mount.clips}
+                                                                onChange={(e) => { const value = +e.currentTarget.value; this.update((b) => b.setLightWeaponClips(mount.uuid, value)); }}
+                                                            />
+                                                        ) : "-"}
+                                                    </td>
+                                                    <td>{Building.getLightMountShots(mount) ?? "-"}</td>
+                                                    <td>
+                                                        <button className="btn btn-danger btn-sm" title={"Remove " + mount.weapon.name} onClick={() => this.update((b) => { b.removeLightWeapon(mount.uuid); })}>
+                                                            <Trash />
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                            {building.getLightWeapons().length === 0 ? <tr><td colSpan={8}>None mounted.</td></tr> : null}
+                                        </tbody>
+                                    </table>
+                                </TextSection>
+                            ) : null}
                             {carriesEquipment ? (
                                 <TextSection label="Load by Hex">
                                     <table className="table" data-testid="building-loads">
                                         <thead>
-                                            <tr><th>Hex</th><th>Heavy Weapons</th><th>Turret</th><th>Amplifiers</th><th>Elevators and Tanks</th><th>Carried</th><th>Remaining</th></tr>
+                                            <tr><th>Hex</th><th>Heavy Weapons</th><th>Light and Medium</th><th>Turret</th><th>Amplifiers</th><th>Elevators and Tanks</th><th>Carried</th><th>Remaining</th></tr>
                                         </thead>
                                         <tbody>
                                             {loads.map((load) => (
-                                                <tr key={load.hex} className={load.remaining < 0 || load.heavyWeapons > building.getHeavyWeaponLimitPerHex() ? "color-red" : ""}>
+                                                <tr key={load.hex} className={load.remaining < 0 || load.heavyWeapons > building.getHeavyWeaponLimitPerHex() || building.getLightWeaponCount(load.hex) > lightLimit ? "color-red" : ""}>
                                                     <td>{load.hex}</td>
                                                     <td>{building.canMountHeavyWeapons() ? `${load.heavyWeapons} / ${building.getHeavyWeaponLimitPerHex()}` : "-"}</td>
+                                                    <td>{building.canMountLightWeapons() ? `${building.getLightWeaponCount(load.hex)} / ${lightLimit} (${load.lightWeapons} t)` : "-"}</td>
                                                     <td>{load.turret}</td>
                                                     <td>{load.powerAmplifiers}</td>
                                                     <td>{load.fittings}</td>
@@ -270,7 +362,7 @@ export default class BuildingCreatorEquipment extends React.Component<IEquipment
                                             ))}
                                         </tbody>
                                     </table>
-                                    <p className="smaller-text">Carried counts armor, equipment, the turret, power amplifiers, elevators and the hex's share of heat sinks, generator and liquid storage.</p>
+                                    <p className="smaller-text">Carried counts armor, equipment, Light and Medium weapons with their clips and pintles, the turret, power amplifiers, elevators and the hex's share of heat sinks, generator and liquid storage.</p>
                                 </TextSection>
                             ) : null}
                         </div>

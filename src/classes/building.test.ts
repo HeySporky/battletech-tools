@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import Building, { BUILDING_RULES_LEVEL, normalizeBuildingExport } from "./building";
 import { BattleMechGroup } from "./battlemech-group";
 import { BUILDING_CLASSIFICATIONS, BUILDING_GENERATORS, findBuildingClassification } from "../data/building-classifications";
+import { findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
 
 // The three buildings Tactical Operations: Advanced Rules designs as its running examples (pp.127-131).
 
@@ -812,5 +813,193 @@ describe("Structural modifications and fittings (TO:AR pp.131-139, 208)", () => 
         for (const key of ["sealed", "heavyMetal", "ceilings", "subsurface", "depth", "tunnel", "doors", "elevators", "liquidStorage", "poweredHexes"] as const) delete old[key];
         const plain = new Building(JSON.stringify(old));
         expect([plain.isSealed(), plain.getDoors().length, plain.getElevators().length, plain.getStructureCostMultiplier()]).toEqual([false, 0, 0, 1]);
+    });
+});
+
+describe("Conventional Infantry Weapons Table weights and clips (TM pp.349-352, 298-301)", () => {
+    it("carries each weapon's weight, clip weight, shots and bursts as the table prints them", () => {
+        // Auto-Rifle: 4.0 kg / 0.48 kg (30/2); cost 80 / 2.
+        expect(findInfantryWeapon("inf-auto-rifle")).toMatchObject({ weight: 4, ammoWeight: 0.48, shots: 30, bursts: 2, disposable: false, ammoCost: 2, powerCells: false });
+        // Machine Gun (Support): 44.0 kg / 5 kg (100/5).
+        expect(findInfantryWeapon("inf-machine-gun-support")).toMatchObject({ weight: 44, ammoWeight: 5, shots: 100, bursts: 5 });
+        // Particle Cannon (Support): 1,800.0 kg / 25 kg (150), on energy cells.
+        expect(findInfantryWeapon("inf-particle-cannon-support")).toMatchObject({ weight: 1800, ammoWeight: 25, shots: 150, bursts: null, ammoCost: null, powerCells: true });
+        // Rocket Launcher (LAW): 4.0 kg / NA (1-D), a single-use weapon.
+        expect(findInfantryWeapon("inf-rocket-launcher-law")).toMatchObject({ weight: 4, ammoWeight: null, shots: 1, disposable: true, ammoCost: null });
+        // Blade (Sword): 3.0 kg / NA (NA).
+        expect(findInfantryWeapon("inf-blade-sword")).toMatchObject({ weight: 3, ammoWeight: null, shots: null, disposable: false });
+    });
+
+    it("gives every record a weight, and a clip to every weapon that is priced for ammunition", () => {
+        for (const weapon of infantryWeapons) {
+            expect(weapon.weight, weapon.tag).toBeGreaterThanOrEqual(0);
+            if (weapon.ammoCost !== null) expect(weapon.ammoWeight, weapon.tag).not.toBeNull();
+            if (weapon.disposable) expect(weapon.shots, weapon.tag).toBe(1);
+            if (weapon.inferno) expect(weapon.weight, weapon.tag).toBe(findInfantryWeapon(weapon.tag.replace(/-inferno$/, ""))?.weight);
+        }
+    });
+});
+
+describe("Light and Medium weapons on buildings (TO:AR pp.129-130; TM pp.136-137; TO:AUE p.83)", () => {
+    const hall = (): Building => {
+        const building = new Building();
+        building.setClassification("standard");
+        building.setType("medium");
+        building.setCF(40);
+        return building;
+    };
+
+    it("lets only hangars, standard buildings and walls mount them (TO:AR p.129)", () => {
+        for (const classification of BUILDING_CLASSIFICATIONS) {
+            const building = new Building();
+            building.setClassification(classification.tag);
+            const allowed = ["hangar", "standard", "wall"].includes(classification.tag);
+            expect(building.canMountLightWeapons(), classification.tag).toBe(allowed);
+            expect(building.addLightWeapon("inf-auto-rifle") !== null, classification.tag).toBe(allowed);
+        }
+    });
+
+    it("counts Standard weapons as Light and Support weapons as Medium, and offers no melee weapons (TM p.136)", () => {
+        expect(Building.getLightWeaponClass(findInfantryWeapon("inf-auto-rifle")!)).toBe("Light");
+        expect(Building.getLightWeaponClass(findInfantryWeapon("inf-machine-gun-support")!)).toBe("Medium");
+        expect(Building.getLightWeaponClass(findInfantryWeapon("inf-blade-sword")!)).toBeNull();
+        const building = hall();
+        expect(building.addLightWeapon("inf-blade-sword")).toBeNull();
+        expect(building.getAvailableLightWeapons().every((weapon) => weapon.type !== "melee")).toBe(true);
+        // A Clan-only weapon is not offered to an Inner Sphere building.
+        expect(building.getAvailableLightWeapons().some((weapon) => weapon.techBase === "clan")).toBe(false);
+    });
+
+    it("allows 6 a hex for each level (TO:AR p.129)", () => {
+        const building = hall();
+        building.setLevels(2);
+        expect(building.getLightWeaponLimitPerHex()).toBe(12);
+        for (let count = 0; count < 12; count++) building.addLightWeapon("inf-auto-rifle");
+        expect(building.getIssues()).toEqual([]);
+        building.addLightWeapon("inf-auto-rifle");
+        expect(building.getIssues().join(" ")).toContain("13 Light and Medium weapons; the limit is 12");
+    });
+
+    it("weighs the weapon and its extra clips, with the first clip free (TM p.136)", () => {
+        const building = hall();
+        const rifle = building.addLightWeapon("inf-auto-rifle")!;
+        expect(building.getLightWeaponWeight(1)).toBe(0.004);
+        expect(Building.getLightMountShots(rifle)).toBe(30);
+        building.setLightWeaponClips(rifle.uuid, 5);
+        // 4 kg + 5 x 0.48 kg = 6.4 kg.
+        expect(building.getLightWeaponWeight(1)).toBe(0.006);
+        expect(Building.getLightMountWeight(rifle)).toBe(0.0064);
+        expect(Building.getLightMountShots(rifle)).toBe(180);
+        expect(building.getHexLoads()[0].lightWeapons).toBe(0.006);
+        // A single-use weapon carries no clips.
+        const law = building.addLightWeapon("inf-rocket-launcher-law")!;
+        building.setLightWeaponClips(law.uuid, 3);
+        expect(law.clips).toBe(0);
+        expect(Building.getLightMountShots(law)).toBe(1);
+    });
+
+    it("weighs a pintle at 5 percent of its weapons, to the kilogram, and adds turret weapons to the turret (TO:AUE p.83)", () => {
+        const building = hall();
+        const gun = building.addLightWeapon("inf-machine-gun-support", 1, "pintle")!;
+        building.setLightWeaponClips(gun.uuid, 4);
+        // 44 kg x 0.05 = 2.2 kg, up to 3 kg; the clips are not counted.
+        expect(building.getPintleWeight(1)).toBe(0.003);
+        // 44 kg + 4 x 5 kg + 3 kg.
+        expect(building.getLightWeaponWeight(1)).toBe(0.067);
+        building.setLightWeaponMount(gun.uuid, "turret");
+        expect(building.getPintleWeight(1)).toBe(0);
+        // 10 percent of 0.044 tons, up to the half ton.
+        expect(building.getTurretWeight(1)).toBe(0.5);
+        expect(building.hasTurret()).toBe(true);
+    });
+
+    it("needs one gunner for each weapon, and no heat sinks or amplifiers (TO:AR p.130; TM pp.136-137)", () => {
+        const building = hall();
+        // The Support PPC has a crew of 5 on the infantry table; a building gives it one gunner.
+        building.addLightWeapon("inf-particle-cannon-support");
+        building.addLightWeapon("inf-laser-rifle");
+        expect(building.getMinimumGunners()).toBe(2);
+        expect(building.getMinimumOfficers()).toBe(1);
+        expect(building.getEnergyWeaponHeat()).toBe(0);
+        expect(building.getPowerAmplifierWeight(1)).toBe(0);
+        expect(building.getIssues()).toEqual([]);
+    });
+
+    it("rounds damage to the nearest point and sets ranges from the Base Range (TM p.136)", () => {
+        // The book's own examples: a 0.53 weapon does 1 point, a 0.35 weapon none.
+        expect(Building.getLightWeaponDamage({ ...findInfantryWeapon("inf-auto-rifle")!, damage: 0.53 })).toBe(1);
+        expect(Building.getLightWeaponDamage({ ...findInfantryWeapon("inf-auto-rifle")!, damage: 0.35 })).toBe(0);
+        expect(Building.getLightWeaponDamage({ ...findInfantryWeapon("inf-auto-rifle")!, damage: 0.5 })).toBe(1);
+        expect(Building.getLightWeaponRanges({ ...findInfantryWeapon("inf-auto-rifle")!, baseRange: 2 })).toEqual({ short: 2, medium: 4, long: 6 });
+        expect(Building.getLightWeaponRanges({ ...findInfantryWeapon("inf-auto-rifle")!, baseRange: 0 })).toEqual({ short: 0, medium: 1, long: 2 });
+    });
+
+    it("prices the weapon, extra clips and pintles (TM pp.280, 298-301)", () => {
+        const building = hall();
+        const base = building.getCBillCost();
+        const rifle = building.addLightWeapon("inf-auto-rifle", 1, "pintle")!;
+        building.setLightWeaponClips(rifle.uuid, 10);
+        // 80 for the rifle, 10 x 2 for clips, and a 1 kg pintle at 1,000 a ton; all times 1.4 for CF 40.
+        expect(building.getCBillCost() - base).toBe(Math.round((80 + 20 + 1) * 1.4));
+        // An energy-cell weapon with extra clips adds one 200 C-bill supply of power cells.
+        const laser = building.addLightWeapon("inf-laser-rifle")!;
+        const before = building.getCBillCost();
+        building.setLightWeaponClips(laser.uuid, 3);
+        expect(building.getCBillCost() - before).toBe(Math.round(200 * 1.4));
+    });
+
+    it("saves and reloads its weapons, and reads a damaged save field by field", () => {
+        const building = hall();
+        building.setHexes(2);
+        const gun = building.addLightWeapon("inf-machine-gun-support", 2, "pintle")!;
+        building.setLightWeaponClips(gun.uuid, 2);
+        building.setLightWeaponShots(gun.uuid, 250);
+        const copy = new Building();
+        copy.importJSON(building.exportJSON());
+        expect(copy.getImportIssues()).toEqual([]);
+        expect(copy.getLightWeapons()).toHaveLength(1);
+        expect(copy.getLightWeapons()[0]).toMatchObject({ uuid: gun.uuid, hex: 2, mount: "pintle", clips: 2 });
+        expect(copy.getLightWeaponShots(gun.uuid)).toBe(250);
+        expect(copy.getTotalWeight()).toBe(building.getTotalWeight());
+
+        const saved = building.export() as unknown as Record<string, unknown>;
+        saved.lightWeapons = [
+            { tag: "inf-auto-rifle", hex: 99, mount: "catapult", clips: -4 },
+            { tag: "inf-blade-sword" }, { tag: "no-such-weapon" }, "nonsense", { tag: 7 },
+        ];
+        const damaged = new Building();
+        damaged.importJSON(JSON.stringify(saved));
+        expect(damaged.getLightWeapons()).toHaveLength(1);
+        expect(damaged.getLightWeapons()[0]).toMatchObject({ hex: 2, mount: "fixed", clips: 0 });
+        expect(damaged.getImportIssues().length).toBe(4);
+
+        // A save from before Light and Medium weapons loads with none.
+        const old = building.export() as unknown as Record<string, unknown>;
+        delete old.lightWeapons;
+        const loaded = new Building();
+        loaded.importJSON(JSON.stringify(old));
+        expect(loaded.getLightWeapons()).toEqual([]);
+        expect(loaded.getImportIssues()).toEqual([]);
+
+        // A classification that mounts none drops them.
+        building.setClassification("fortress");
+        expect(building.getLightWeapons()).toEqual([]);
+    });
+
+    it("tracks shots and status in play", () => {
+        const building = hall();
+        const rifle = building.addLightWeapon("inf-auto-rifle")!;
+        expect(building.getLightWeaponStatus(rifle.uuid)).toBe("");
+        building.setLightWeaponShots(rifle.uuid, 0);
+        expect(building.getLightWeaponStatus(rifle.uuid)).toBe("Out of ammunition");
+        building.setLightWeaponShots(rifle.uuid, 30);
+        building.setGunnersKilled(1, true);
+        expect(building.getLightWeaponStatus(rifle.uuid)).toBe("Gunners killed");
+        building.setGunnersKilled(1, false);
+        building.setLightWeaponDestroyed(rifle.uuid, true);
+        expect(building.getLightWeaponStatus(rifle.uuid)).toBe("Destroyed");
+        expect(building.isDamaged()).toBe(true);
+        building.resetInPlay();
+        expect(building.getLightWeaponStatus(rifle.uuid)).toBe("");
     });
 });
