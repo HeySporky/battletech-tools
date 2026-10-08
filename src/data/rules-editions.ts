@@ -44,6 +44,12 @@ export interface IRulesEdition {
     book: string;
     /** True once every item the edition's rulebook includes has its `editionStats` entry. */
     complete?: boolean;
+    /**
+     * The least ammunition a design must carry: a ton for each launcher or ballistic weapon ("launcher": BD p.25,
+     * BTM p.79), or a ton for each class of them ("class": BT3 p.43, BTC:RoW p.101, BT4 p.43, BMR p.114,
+     * BMR(R) p.120). One-shot weapons need none.
+     */
+    ammoTonsFor?: "launcher" | "class";
     /** The edition has no Battle Value system: the first one is in the Master Rules. */
     noBattleValue?: boolean;
     /** The edition's rulebook prints no prices, for equipment or for a finished unit. */
@@ -64,6 +70,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1984,
         book: "BD",
         complete: true,
+        ammoTonsFor: "launcher",
         noBattleValue: true,
         noPrices: true,
         // BD pp.16-17, the ten record listings.
@@ -85,6 +92,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1985,
         book: "BT2",
         complete: true,
+        ammoTonsFor: "launcher",
         noBattleValue: true,
         noPrices: true,
         // BT2 pp.36-41, the fourteen record listings, and the training 'Mech of p.1.
@@ -106,6 +114,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1987,
         book: "BTM",
         complete: true,
+        ammoTonsFor: "launcher",
         noBattleValue: true,
         // A rulebook only: it prints no 'Mech record listings and names designs in passing (BTM pp.41, 74).
         mechs: [],
@@ -133,6 +142,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1990,
         book: "BTC",
         complete: true,
+        ammoTonsFor: "launcher",
         noBattleValue: true,
         // A rulebook only: it prints no 'Mech record listings and names designs in passing (BTC pp.56, 61, 104).
         mechs: [],
@@ -164,6 +174,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1992,
         book: "BT3",
         complete: true,
+        ammoTonsFor: "class",
         noBattleValue: true,
         noPrices: true,
         // The four training scenarios name the fourteen 'Mechs of the box by chassis (BT3 pp.36-39); the model
@@ -190,6 +201,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1994,
         book: "BTC:RoW",
         complete: true,
+        ammoTonsFor: "class",
         noBattleValue: true,
         // The Technical Readout sections (BTC:RoW pp.125-132), with a record sheet for each at the back of the
         // book. The Clan designs are headed by their Clan names, with the Inner Sphere designation beside them.
@@ -230,6 +242,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1996,
         book: "BT4",
         complete: true,
+        ammoTonsFor: "class",
         noBattleValue: true,
         noPrices: true,
         // The box holds playing pieces for "twenty-four different BattleMech designs" (BT4 p.5). Their record
@@ -256,6 +269,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 1998,
         book: "BMR",
         complete: true,
+        ammoTonsFor: "class",
         // A rulebook only: it prints no 'Mech record listings. The construction example builds a 45-ton Wyvern
         // (BMR pp.109-114), and designs are named in passing.
         mechs: [],
@@ -293,6 +307,7 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 2001,
         book: "BMR(R)",
         complete: true,
+        ammoTonsFor: "class",
         // A rulebook only, as the Master Rules was: no 'Mech record listings. The construction example is again the
         // 45-ton Wyvern (BMR(R) pp.115-120), and the Battle Value example a Goshawk (BMR(R) p.159).
         mechs: [],

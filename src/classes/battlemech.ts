@@ -10,7 +10,7 @@ import type { CustomComponentKind, ISSWUnresolvedItem } from "../data/custom-con
 import { getCockpitType } from "../data/mech-cockpit-types";
 import { btMechTonnages } from "../data/mech-tonnages";
 import { DEFAULT_RULES_EDITION, editionEngineHoldsHeatSinks, getEditionJumpJetWeight, getEditionStats, getEditionStructure, getEquipmentForEdition, getRulesEdition, isEarlierRulesEdition, isInRulesEdition } from "../data/rules-editions";
-import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getWeaponAmmoFamilies, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { describeEngineRequirement, engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
@@ -5159,6 +5159,45 @@ export class BattleMech {
         // The structure boxes are the edition's as well; setTonnage recalculates everything after them.
         this.setTonnage(this._tonnage);
         return this._rulesEdition;
+    }
+
+    /**
+     * Construction rules of the design's edition that it breaks, one line each: today the least ammunition its
+     * weapons must carry (a ton for each launcher or ballistic weapon in Battledroids, BD p.25). Weapons that
+     * share ammunition are counted together. Always empty for Total Warfare and later editions.
+     */
+    public getRulesEditionRuleIssues(): string[] {
+        const rule = this.usesEarlierRulesEdition() ? getRulesEdition(this._rulesEdition).ammoTonsFor : undefined;
+        if (!rule) {
+            return [];
+        }
+        const familiesByTag = new Map<string, string[]>();
+        const groups = new Map<string, { names: Set<string>; weapons: number; families: string[] }>();
+        for (const item of this._equipmentList) {
+            if (!item || item.isAmmo) {
+                continue;
+            }
+            if (!familiesByTag.has(item.tag)) {
+                familiesByTag.set(item.tag, getWeaponAmmoFamilies(item).sort());
+            }
+            const families = familiesByTag.get(item.tag)!;
+            if (families.length === 0) {
+                continue;
+            }
+            const group = groups.get(families.join("|")) ?? { names: new Set<string>(), weapons: 0, families };
+            group.names.add(item.name);
+            group.weapons++;
+            groups.set(families.join("|"), group);
+        }
+        const issues: string[] = [];
+        for (const group of groups.values()) {
+            const carried = this._equipmentList.reduce((tons, item) => tons + (item?.isAmmo && group.families.includes(getAmmoFamily(item)) ? item.weight : 0), 0);
+            const needed = rule === "launcher" ? group.weapons : 1;
+            if (carried < needed) {
+                issues.push(`Ammunition for ${Array.from(group.names).join(", ")}: at least ${needed} ${needed === 1 ? "ton" : "tons"}${rule === "launcher" ? " (1 for each weapon)" : ""}, ${carried} carried`);
+            }
+        }
+        return issues;
     }
 
     /**

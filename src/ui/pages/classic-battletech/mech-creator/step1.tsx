@@ -261,6 +261,16 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               </ul>
                             </div>
                           ) : null}
+                          {this.props.appGlobals.currentBattleMech.getRulesEditionRuleIssues().length > 0 ? (
+                            <div className="color-red smaller-text">
+                              Against this rules edition:
+                              <ul>
+                                {this.props.appGlobals.currentBattleMech.getRulesEditionRuleIssues().map((issue) => (
+                                  <li key={issue}>{issue}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : null}
 
                           <label>
                             Mech Type:

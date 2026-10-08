@@ -197,6 +197,31 @@ describe("Rules edition selector", () => {
         expect(jets()).toBeGreaterThan(0);
     });
 
+    // BD p.25: "At least 1 ton must be used for each missile launcher's or ballistic weapon's ammunition."
+    // The Third Edition asks a ton for each class of them (BT3 p.43).
+    it("asks for the edition's least ammunition", () => {
+        const mech = build("battledroids", 60, 4);
+        add(mech, "medium-laser");
+        expect(mech.getRulesEditionRuleIssues()).toEqual([]);
+        add(mech, "lrm-5");
+        add(mech, "lrm-20");
+        add(mech, "machine-gun");
+        expect(mech.getRulesEditionRuleIssues()).toEqual([
+            "Ammunition for LRM 5, LRM 20: at least 2 tons (1 for each weapon), 0 carried",
+            "Ammunition for Machine Gun: at least 1 ton (1 for each weapon), 0 carried",
+        ]);
+        add(mech, "ammo-lrm-standard");
+        add(mech, "ammo-machine-gun-standard");
+        expect(mech.getRulesEditionRuleIssues()).toEqual(["Ammunition for LRM 5, LRM 20: at least 2 tons (1 for each weapon), 1 carried"]);
+        mech.setRulesEdition("battletech-3rd-edition");
+        expect(mech.getRulesEditionRuleIssues()).toEqual([]);
+        mech.setRulesEdition("total-warfare");
+        expect(mech.getRulesEditionRuleIssues()).toEqual([]);
+        mech.setRulesEdition("battledroids");
+        add(mech, "ammo-lrm-standard");
+        expect(mech.getRulesEditionRuleIssues()).toEqual([]);
+    });
+
     it("asks for no rules level under an earlier edition", () => {
         expect(build(undefined, 10, 4).getRequiredRulesLevel()).toBe(3);
         expect(build("battledroids", 10, 4).getRequiredRulesLevel()).toBe(0);

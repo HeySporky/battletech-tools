@@ -998,15 +998,16 @@ Open:
     Jump jets take no critical box in Battledroids (BD p.25). Printing asks for no rules level under an
     earlier edition. Editions are flagged `noBattleValue` (all seven before the Master Rules) and `noPrices`
     (Battledroids, Second, Third and Fourth Editions): Step 1 and the summary say so, the BV2 figure is shown
-    for comparison, and the record sheet prints "Not in this edition" for the cost.
+    for comparison, and the record sheet prints "Not in this edition" for the cost. The least ammunition an
+    edition asks for is checked (`ammoTonsFor`: a ton for each launcher or ballistic weapon, BD p.25; a ton
+    for each class from the Third Edition on, read as each group of weapons sharing ammunition) and shown in
+    Steps 1 and 5.
   - [ ] Rules edition selector, still to do: (1) the Master Rules' own Battle Value system and each edition's
     cost rules are not built, so the editions that have them still show the current rules' figures; (2) the
     Internal Combustion Engine is offered to BattleMechs under the editions that list it, though the
     BattleTech Manual gives it to vehicles only (BTM pp.78-84); (3) play mode and the other creators
     (vehicles, fighters, infantry, buildings) do not read the edition; (4) the missile damage per missile and
-    shots per ton an edition prints are not applied (none differs from the catalog today); (5) the equipment
-    table in Step 5 still shows Battle Value and cost columns under an edition that has neither; (6) "at
-    least 1 ton of ammunition for each launcher or ballistic weapon" (BD p.25) is not checked; (7)
+    shots per ton an edition prints are not applied (none differs from the catalog today); (5)
     Battledroids' tanks, jeep and infantry squad are fixed designs with no builder (BD pp.22-23).
   - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
     1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).
