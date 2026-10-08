@@ -170,11 +170,45 @@ export const btRulesEditions: IRulesEdition[] = [
         ],
     },
     {
-        // BattleTech Compendium: The Rules of Warfare: CRB p.247.
+        // BattleTech Compendium: The Rules of Warfare: credits page, "Copyright 1994 FASA Corporation"; CRB p.247.
+        // The library's copy is the third printing (September 1995); what it may correct over the first
+        // printing is not known.
         tag: "compendium-rules-of-warfare",
         name: "BattleTech Compendium: The Rules of Warfare",
         year: 1994,
         book: "BTC:RoW",
+        complete: true,
+        // The Technical Readout sections (BTC:RoW pp.125-132), with a record sheet for each at the back of the
+        // book. The Clan designs are headed by their Clan names, with the Inner Sphere designation beside them.
+        mechs: [
+            "RVN-3L Raven", "BSW-X1 Bushwacker", "AXM-2N Axman", "MAL-1R Mauler",
+            "Hunchback IIC", "Mad Dog (Vulture)", "Summoner (Thor)", "Timber Wolf (Mad Cat)",
+        ],
+        // Units with their own construction rules (BTC:RoW pp.106-109), tables (BTC:RoW pp.66, 69) or rules
+        // sections (BTC:RoW pp.56, 70, 88). It is a ground game: the AeroTech rules and Land-Air BattleMechs of
+        // the 1990 Compendium are gone (BTC:RoW p.7), and fighters appear only as off-map support.
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Displacement hull vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon",
+            "Battle armor Point", "Inner Sphere battle suit unit",
+            "OmniMech",
+            "Aerospace support fighter (light, medium, heavy)",
+            "Building", "Gun emplacement",
+        ],
+        notModelled: [
+            "Component prices: the BattleMech Cost Table prices the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets, heat sinks and armor by formula, with x.25 for an OmniMech and a final multiplier of 1 + tonnage / 100 (BTC:RoW p.123); only the fixed prices are entered.",
+            "Clan CASE: no weight and no critical slots, in every Clan weapon pod that holds an ammunition-fed weapon (BTC:RoW pp.104, 115); the catalogs have no record for it.",
+            "OmniMech pods: a design sets aside tonnage and critical slots for pods filled before each battle; engines, endo steel, MASC and armor never go in pods, and lower arm and hand actuators are pods that cannot share an arm with a PPC, autocannon or Gauss rifle (BTC:RoW pp.106-107).",
+            "Mines: Thunder LRMs, the Clan Arrow IV FASCAM round and the mine-type bomb lay conventional fields (BTC:RoW pp.73, 93, 113, 121).",
+            "Cluster and mine-type bombs for aerospace support fighters (BTC:RoW p.73); the catalogs have records for the high-explosive and inferno bombs only.",
+            "Vehicle parts: control components, lift, rotor and diving equipment, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items; a vehicle carries 5 items plus 1 for every 5 full tons (BTC:RoW pp.107-109).",
+            "Cargo space: tonnage a vehicle sets aside; BattleMechs cannot allocate it (BTC:RoW p.115).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon damage rows and platoon prices (BTC:RoW pp.66, 123).",
+            "Battle armor: a fixed design, five Elementals to a Point, each suit with 10 points of armor and an SRM-2 with a small laser, flamer or machine gun; Inner Sphere battle suits have 9 points and no SRMs (BTC:RoW pp.66, 69). 3,500,000 C-bills a Clan Point, 3,000,000 an Inner Sphere unit (BTC:RoW p.123).",
+            "Clubs: a severed arm or leg, an uprooted tree good for one successful attack, or a girder from a rubbled building, picked up on the map and swung with two hands (BTC:RoW p.46).",
+            "Single-shot launchers fitted for special munitions or a targeting device (Streak, Narc or Artemis): allowed at double the launcher's base cost, with no rows of their own (BTC:RoW p.120); only the LRM and SRM single-shot launchers are entered.",
+        ],
     },
     {
         // BattleTech, Fourth Edition box set: rulebook credits page, "4th Edition Revision", "Copyright 1996

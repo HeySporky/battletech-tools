@@ -842,7 +842,7 @@ Open:
     Battle Values of 'Mechs, vehicles and fighters change (Gunnery 3 / Piloting 4: 1.38 before, 1.32 now). The
     2007 first printing's table (3.68) is noted in the file, not selectable. Nothing chooses an edition yet:
     every unit takes an optional edition and defaults to Total Warfare until the edition selector is built.
-    Not checked: BattleTech Compendium: The Rules of Warfare (1994), which is not in the library.
+    Not checked: BattleTech Compendium: The Rules of Warfare (1994), added to the library since.
     - [x] Gun emplacement / building (2026-10-07): Building Creator under Tactical Operations: Advanced Rules
       pp.126-131. Classifications and types from the table on p.113 (gun emplacement, fortress, standard, hangar,
       wall, fence, bridge, tent), Construction Factor, size in hexes and levels, internal weight capacity (CF x
@@ -961,10 +961,27 @@ Open:
     incendiary autocannon ammunition, Flare LRMs, Clan CASE or Clan Narc explosive pods; (7) ferro-fibrous
     rounding is still printed two ways (pp.119, 128 against p.137); (8) battle armor names on the edition are
     the Infantry Costs Table's fifteen, three more than the rules sections describe.
-  - [ ] Next: the rules edition selector (Rules of Warfare, 1994, is not in the library).
+  - [x] BattleTech Compendium: The Rules of Warfare (FASA, 1994), complete: read from the page images of the
+    third printing (September 1995), a scan with no text layer. 217 entries: the Weapons and Equipment Tables
+    (pp.104-106), prices (pp.123-124), Equipment (pp.112-122), Construction (pp.99-109), Artillery (pp.77-80)
+    and Aerospace Support (pp.70-75). Every weapon row and price matches the 1990 Compendium's. Ferro-Aluminum
+    armor and Land-Air BattleMechs are gone with the AeroTech rules (p.7); BattleMechs still run from 10 to
+    100 tons (p.100). Torpedo launchers (p.121) and Narc-equipped missiles (p.119) first appear here, so 22
+    records now start in this edition instead of the Master Rules. Eight Technical Readout BattleMechs
+    (pp.125-132) are listed on the edition.
+    Readings to confirm: (1) Narc-equipped LRM and SRM ammunition is entered at twice the standard ton on the
+    text of p.119, though the price list has no row for it; (2) torpedo launchers and ammunition are entered
+    with the matching launcher's figures and no price (p.121 says only that the stats are the same); (3) the
+    Clan Active Probe and ECM Suite carry no price: the list names only the Beagle Active Probe and Guardian
+    ECM Suite; (4) the Vehicle Flamer and its ammunition carry no price: the list has one Flamer row; (5)
+    single-shot Streak, Narc and Artemis launchers (p.120, double the base cost) are noted, not entered, as
+    for the 1990 Compendium; (6) the bombs of Aerospace Support (p.73) are kept on the two bomb records, and
+    cluster and mine-type bombs have no record; (7) the homing Arrow IV round is entered with the system's 5
+    shots a ton, which the book does not print for it; (8) the scan is a third printing, so any correction
+    made after the 1994 first printing cannot be told apart.
+  - [ ] Next: the rules edition selector.
   - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
     1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).
-  - [ ] Not in the library: BattleTech Compendium: The Rules of Warfare (1994).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).
   - [ ] The selector itself: filter by `isInRulesEdition`, read stats through `getEditionStats`, and decide how
     edition-only rules apply (Battledroids: jump jets 0.5 tons at any weight, every heat sink takes a critical

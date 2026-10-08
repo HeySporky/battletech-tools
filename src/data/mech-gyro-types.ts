@@ -36,6 +36,7 @@ export const mechGyroTypes: IGyro[] = [
 			"battletech-manual": null,
 			"battletech-compendium": null,
 			"battletech-3rd-edition": null,
+			"compendium-rules-of-warfare": null,
 			"battletech-4th-edition": null,
 			"master-rules": null,
 			"master-rules-revised": null,
