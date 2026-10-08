@@ -63,7 +63,78 @@ export interface IBattleArmorEquipment {
     /** Adds this to the suit's Jumping MP. */
     jumpBonus?: number;
     notes?: string;
+    /** Book the item's rules are in; the TechManual when absent. */
+    book?: "TM" | "TO:AUE";
+    /** Rules level: 2 Standard (the default), 3 Advanced, 4 Experimental. */
+    rulesLevel?: number;
+    /** Added to the Defensive Battle Rating in place of 1 (Angel ECM, TO:AUE p.192). */
+    defensiveValue?: number;
+    /** Ground MP added: to PA(L), Light and Medium suits, and to Heavy and Assault suits (TO:AUE p.99). */
+    groundBonus?: { light: number; heavy: number };
+    /** A mechanical jump booster: weighs and costs by the suit's jump jets and gives 1 Jumping MP of its own. */
+    mechanicalJumpBooster?: boolean;
+    /** Its slots may be spread over the suit like armor slots. */
+    spreadSlots?: boolean;
+    /** Priced by the MP it provides. */
+    costPerMP?: number;
+    /** Armor types it may not be combined with. */
+    barsArmor?: string[];
+    /** When the item entered service (IO:AE pp.46-47). */
+    dates?: IBattleArmorDates;
+    /** Alpha Strike damage of one item at Short, Medium and Long range (ASC pp.105-113). */
+    alphaStrike?: IBattleArmorAlphaStrikeDamage;
+    /** Alpha Strike special ability the item gives the unit (ASC pp.116-136). */
+    alphaStrikeSpecial?: string;
 }
+
+export type BattleArmorYear = number | "PS" | "ES";
+
+/** Production date, with the prototype, extinction and recovery dates where the table gives them. */
+export interface IBattleArmorDates {
+    prototype?: number;
+    /** Pre-spaceflight, early spaceflight or a year; null where the table has no row. */
+    introduced: BattleArmorYear | null;
+    extinct?: number;
+    reintroduced?: number;
+}
+
+export interface IBattleArmorAlphaStrikeDamage {
+    short: number;
+    medium: number;
+    long: number;
+    /** Heat Values at Short, Medium and Long range (Heat-Generating Weaponry Table, ASC p.125). */
+    heat?: [number, number, number];
+    indirect?: boolean;
+    flak?: boolean;
+}
+
+/**
+ * Is something with these dates in service, or in prototype, at some point between the two years? Unknown dates
+ * bar nothing. An item whose production date falls after its extinction date is back in service from then on.
+ */
+export const isBattleArmorDateAvailable = (dates: IBattleArmorDates | undefined, yearStart: number, yearEnd: number | null): boolean => {
+    if (!dates) return true;
+    if (dates.introduced === null && dates.prototype === undefined) return true;
+    const end = yearEnd ?? Number.POSITIVE_INFINITY;
+    const production = typeof dates.introduced === "number" ? dates.introduced : dates.introduced === null ? Number.POSITIVE_INFINITY : Number.NEGATIVE_INFINITY;
+    const first = Math.min(production, dates.prototype ?? Number.POSITIVE_INFINITY);
+    if (first > end) return false;
+    if (dates.extinct !== undefined && dates.extinct <= yearStart) {
+        const back = dates.reintroduced ?? (production > dates.extinct && Number.isFinite(production) ? production : undefined);
+        if (back === undefined || back > end) return false;
+    }
+    return true;
+};
+
+export const formatBattleArmorDates = (dates: IBattleArmorDates | undefined): string => {
+    if (!dates || (dates.introduced === null && dates.prototype === undefined)) return "no date listed";
+    const parts: string[] = [];
+    if (dates.introduced !== null) parts.push(dates.introduced === "PS" ? "pre-spaceflight" : dates.introduced === "ES" ? "early spaceflight" : `${dates.introduced}`);
+    if (dates.prototype !== undefined) parts.push(`prototype ${dates.prototype}`);
+    if (dates.extinct !== undefined) parts.push(`extinct ${dates.extinct}`);
+    if (dates.reintroduced !== undefined) parts.push(`recovered ${dates.reintroduced}`);
+    return parts.join(", ");
+};
 
 const slug = (name: string): string => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
@@ -90,6 +161,10 @@ const SRM = "-/3/6/9";
 const MRM = "-/3/8/15";
 const ASRM = "-/4/8/12";
 
+const ADVANCED: Partial<IBattleArmorEquipment> = { book: "TO:AUE", rulesLevel: 3 };
+const EXPERIMENTAL: Partial<IBattleArmorEquipment> = { book: "TO:AUE", rulesLevel: 4 };
+const DROPCHUTE: Partial<IBattleArmorEquipment> = { noMount: true, max: 1 };
+
 /** Items both tables carry with the same figures apart from those passed in. */
 const sharedEquipment = (techBase: BattleArmorTechBase): IBattleArmorEquipment[] => [
     item(techBase, "Cutting Torch", "PHYS", 5, 1, 1000, 254),
@@ -104,10 +179,20 @@ const sharedEquipment = (techBase: BattleArmorTechBase): IBattleArmorEquipment[]
     item(techBase, "Searchlight", "-/-/-/9", 5, 1, 500, 269),
     item(techBase, "Shotgun Microphone", "-/-/-/3", 5, 1, 750, 269),
     item(techBase, "Space Operations Adaptation", "NA", 100, 1, 50000, 269, { noMount: true, max: 1 }),
+    // Tactical Operations: Advanced Units & Equipment (pp.224-225; Battle Values pp.192-197)
+    { ...weapon(techBase, "Flamers", "Heavy Flamer", "4", "-/2/3/4", 350, 2, 1, 10, 15, 11250, 124), ...ADVANCED },
+    item(techBase, "Angel ECM", "-/-/-/2", techBase === "is" ? 250 : 150, 3, 750000, 91, { ...EXPERIMENTAL, defensive: true, defensiveValue: 2 }),
+    item(techBase, "Mine Dispenser", "NA", 50, 2, 20000, 137, { ...ADVANCED, magazine: 2, notes: "2 shots. Its Battle Value is that of a 10-point minefield of the mines carried (TO:AUE p.195) and is not counted here." }),
+    item(techBase, "DropChute (Standard)", "NA", 200, 0, 1000, 161, { ...ADVANCED, ...DROPCHUTE }),
+    item(techBase, "DropChute (Camouflage)", "NA", 200, 0, 3000, 161, { ...ADVANCED, ...DROPCHUTE }),
+    item(techBase, "DropChute (Stealth)", "NA", 225, 0, 5000, 161, { ...ADVANCED, ...DROPCHUTE }),
+    item(techBase, "DropChute (Standard, Reusable)", "NA", 250, 1, 2000, 161, { ...ADVANCED, ...DROPCHUTE, bodyOnly: true }),
+    item(techBase, "DropChute (Camouflage, Reusable)", "NA", 250, 1, 6000, 161, { ...ADVANCED, ...DROPCHUTE, bodyOnly: true }),
+    item(techBase, "DropChute (Stealth, Reusable)", "NA", 275, 1, 10000, 161, { ...ADVANCED, ...DROPCHUTE, bodyOnly: true }),
     { ...weapon(techBase, "Special Weapons", "Light TAG", "NA", "-/3/6/9", 35, 1, 0.08, 60, 0, 40000, 270), notes: "Battle Value only when friendly units carry homing or semi-guided munitions (TM p.315)." },
 ];
 
-export const battleArmorEquipment: IBattleArmorEquipment[] = [
+const equipmentRows: IBattleArmorEquipment[] = [
     // Inner Sphere Battle Armor Equipment Table (TM pp.346-347)
     weapon("is", "Gauss Weapons", "David Light Gauss Rifle", "1", "-/3/5/8", 100, 1, 0.75, 20, 7, 22500, 255),
     weapon("is", "Gauss Weapons", "King David Light Gauss Rifle", "1", "-/3/6/9", 275, 2, 0.75, 20, 7, 30000, 255),
@@ -164,6 +249,15 @@ export const battleArmorEquipment: IBattleArmorEquipment[] = [
     item("is", "Improved Sensors", "-/-/-/2", 65, 1, 35000, 257, { defensive: true, max: 1 }),
     item("is", "Magnetic Clamps", "NA", 30, 2, 2500, 259, { noMount: true, max: 1, bv: 1 }),
     item("is", "Partial Wing", "NA", 200, 1, 50000, 266, { bodyOnly: true, max: 1, jumpBonus: 1 }),
+    { ...weapon("is", "Lasers", "Small Variable Speed Pulse Laser", "5/4/3", "-/2/4/6", 500, 2, 0.33, 15, 22, 60000, 133, "To-hit modifier -3/-2/-1 and damage 5/4/3 at Short/Medium/Long range."), ...ADVANCED },
+    { ...weapon("is", "Lasers", "Medium Variable Speed Pulse Laser", "9/7/5", "-/2/5/9", 900, 4, 0.38, 13, 56, 200000, 133, "To-hit modifier -3/-2/-1 and damage 9/7/5 at Short/Medium/Long range."), ...ADVANCED },
+    { ...weapon("is", "Special Weapons", "Taser", "1", "-/1/2/3", 300, 3, 0, 1, 15, 10000, 158, "+1 to-hit modifier; one shot."), ...ADVANCED, ammoKg: undefined },
+    { ...weapon("is", "Special Weapons", "Tube Artillery", "3/1 (R1)", "2 boards", 500, 4, 15, 2, 27, 200000, 96), ...EXPERIMENTAL, kind: "missile", magazine: undefined, ammoBVPerTon: 4, bodyOnly: true, noMount: true,
+        notes: "Shots are bought like missiles, 15 kg each. Damage is multiplied by the troopers firing (TO:AUE p.96)." },
+    item("is", "Mechanical Jump Booster", "NA", 0, 0, 0, 98, { ...EXPERIMENTAL, noMount: true, bodyOnly: true, max: 1, mechanicalJumpBooster: true,
+        notes: "Weighs twice, and costs the same as, one Jumping MP of the suit's weight class; 1 Jumping MP of its own and +1 Ground MP." }),
+    item("is", "C3 System", "NA", 250, 1, 62500, 109, { ...EXPERIMENTAL, max: 1, noMount: true }),
+    item("is", "Improved C3 System", "NA", 350, 1, 125000, 109, { ...EXPERIMENTAL, max: 1, noMount: true }),
     ...sharedEquipment("is"),
 
     // Clan Battle Armor Equipment Table (TM p.348)
@@ -208,11 +302,200 @@ export const battleArmorEquipment: IBattleArmorEquipment[] = [
     { ...weapon("clan", "Special Weapons", "Bomb Rack", "2", "-/-/-/-", 100, 2, 0, 1, 11, 30000, 253), oneShot: "always", ammoKg: undefined, magazine: undefined, notes: "A one-shot weapon for battle armor with VTOL movement; counted with direct-fire weapons in the Battle Value (TM p.310)." },
     item("clan", "Active Probe", "-/-/-/5", 150, 2, 50000, 252, { defensive: true }),
     item("clan", "ECM Suite", "-/-/-/0", 75, 1, 50000, 254, { defensive: true }),
+    { ...weapon("clan", "Autocannons", "LB-X Autocannon", "4", "-/2/5/8", 400, 2, 4, 10, 20, 70000, 98, "-1 to-hit modifier; cluster and flak."), ...ADVANCED },
+    { ...weapon("clan", "Lasers", "ER Small Pulse Laser", "5", "-/2/4/6", 550, 2, 0.41, 12, 36, 30000, 132, "-1 to-hit modifier."), ...EXPERIMENTAL },
+    { ...weapon("clan", "Lasers", "ER Medium Pulse Laser", "7", "-/5/9/14", 800, 4, 0.45, 11, 117, 150000, 132, "-1 to-hit modifier."), ...EXPERIMENTAL },
+    item("clan", "Myomer Booster", "NA", 250, 3, 0, 99, { ...EXPERIMENTAL, noMount: true, max: 1, spreadSlots: true, groundBonus: { light: 2, heavy: 1 }, costPerMP: 75000,
+        barsArmor: ["ba-stealth-basic", "ba-stealth-standard", "ba-stealth-improved", "ba-stealth-prototype", "ba-mimetic"],
+        notes: "+2 Ground MP on PA(L), Light and Medium suits, +1 on Heavy and Assault suits; Leg and Swarm attacks do 2 more damage for each active trooper (TO:AUE p.99)." }),
     item("clan", "HarJel", "NA", 0, 0, null, 256, { noMount: true, max: 1, notes: "The price list has no row for HarJel on battle armor." }),
     item("clan", "Heat Sensor", "-/11/23/34", 20, 1, 15000, 256),
     item("clan", "Improved Sensors", "-/-/-/3", 45, 1, 35000, 257, { defensive: true, max: 1 }),
     ...sharedEquipment("clan"),
 ];
+
+const on = (introduced: BattleArmorYear | null, prototype?: number, extinct?: number, reintroduced?: number): IBattleArmorDates => ({
+    introduced,
+    ...(prototype !== undefined ? { prototype } : {}),
+    ...(extinct !== undefined ? { extinct } : {}),
+    ...(reintroduced !== undefined ? { reintroduced } : {}),
+});
+
+// Universal Technology Advancement Table, "Battle Armor Tech" and "Battle Armor Weapons" (IO:AE pp.46-47): the
+// Production date, and the "IS Intro" or "Clan Intro" date for the technology base that came to the item later.
+// Circa dates are entered as the year. The first row a tag matches is used.
+const DATE_ROWS: [RegExp, IBattleArmorDates][] = [
+    [/^clan-active-probe$/, on(2900, 2898)],
+    [/^is-active-probe$/, on(3050)],
+    [/-angel-ecm$/, on(3080, 3058)],
+    [/^clan-bomb-rack$/, on(3060, 3055)],
+    [/^is-camo-system$/, on(2800, 2790)],
+    [/-cutting-torch$/, on("ES")],
+    [/^is-ecm-suite$/, on(2720, 2718, 2766, 3057)],
+    [/^clan-ecm-suite$/, on(2720, 2718)],
+    [/-extended-life-support$/, on(2715, 2712)],
+    [/^is-fuel-tank$/, on(2744, 2740, 2781, 3051)],
+    [/^clan-fuel-tank$/, on(2744, 2740)],
+    [/^clan-harjel$/, on(2840, 2838)],
+    [/^clan-heat-sensor$/, on(2880, 2879)],
+    [/^is-heat-sensor$/, on(3050)],
+    [/^clan-improved-sensors$/, on(2890, 2887)],
+    [/^is-improved-sensors$/, on(3051)],
+    [/-laser-microphone$/, on("ES")],
+    [/-(parafoil|power-pack|searchlight|shotgun-microphone)$/, on("PS")],
+    [/-remote-sensor-dispenser$/, on(3050, 2700)],
+    [/^clan-space-operations-adaptation$/, on(2895, 2890)],
+    [/^is-space-operations-adaptation$/, on(3011)],
+    [/^is-jump-booster$/, on(3051, 3050)],
+    [/^clan-jump-booster$/, on(3062)],
+    [/^is-magnetic-clamps$/, on(3062, 3057)],
+    [/^is-mechanical-jump-booster$/, on(3084, 3070)],
+    [/^clan-myomer-booster$/, on(3085, 3072)],
+    [/^is-partial-wing$/, on(3053, 3051)],
+    [/^clan-dropchute-stealth/, on(2880, 2878)],
+    [/^clan-dropchute-(standard|camouflage)-reusable$/, on(2876, 2874)],
+    [/^clan-dropchute-/, on(2875, 2874)],
+    [/^is-dropchute-stealth/, on(3054)],
+    [/^is-dropchute-(standard|camouflage)-reusable$/, on(3053)],
+    [/^is-dropchute-/, on(3051)],
+    [/^is-c3-system$/, on(3095, 3073)],
+    [/^is-improved-c3-system$/, on(3095, 3063, 3085)],
+    [/^clan-flamer-ba$/, on(2868, 2865)],
+    [/^is-flamer-ba$/, on(3050)],
+    [/-heavy-flamer$/, on(3073, 3070)],
+    [/^clan-ap-gauss-rifle$/, on(3069, 3066)],
+    [/^is-grand-mauler-gauss-rifle$/, on(3059, 3055)],
+    [/^is-tsunami-gauss-rifle$/, on(3056, 3054)],
+    [/^is-magshot-gauss-rifle$/, on(3059, 3057)],
+    [/^is-(king-)?david-light-gauss-rifle$/, on(3063, 3058)],
+    [/^is-micro-grenade-launcher$/, on("ES")],
+    [/^clan-heavy-grenade-launcher$/, on(2900, 2880)],
+    [/^is-heavy-grenade-launcher$/, on(3050)],
+    [/^is-(small|medium)-laser$/, on(3050, 3050)],
+    [/^is-er-(small|medium)-laser$/, on(3058, 3055)],
+    [/^is-(small|medium)-pulse-laser$/, on(3060, 3057)],
+    [/^is-(small|medium)-variable-speed-pulse-laser$/, on(3072, 3070)],
+    [/^clan-small-laser$/, on(2868, 2865)],
+    [/^clan-heavy-(small|medium)-laser$/, on(3059, 3057)],
+    [/^clan-er-(small|medium)-laser$/, on(2875, 2872)],
+    [/^clan-er-micro-laser$/, on(3060, 3055)],
+    [/^clan-(small|medium)-pulse-laser$/, on(2872, 2870)],
+    [/^clan-micro-pulse-laser$/, on(3060, 3055)],
+    [/^clan-er-(small|medium)-pulse-laser$/, on(3082, 3057)],
+    [/^clan-lb-x-autocannon$/, on(3085, 3075)],
+    [/^clan-light-machine-gun$/, on(3060, 3055)],
+    [/^is-light-machine-gun$/, on(3068)],
+    [/^clan-machine-gun$/, on(2868)],
+    [/^is-machine-gun$/, on(3050)],
+    [/^clan-heavy-machine-gun$/, on(3059, 3055)],
+    [/^is-heavy-machine-gun$/, on(3068)],
+    [/^clan-bearhunter-superheavy-ac$/, on(3062, 3060)],
+    [/^is-lrm-/, on(3057, 3055)],
+    [/^is-srm-/, on(3050, 3050)],
+    [/^is-mrm-/, on(3060, 3058)],
+    [/^is-rocket-launcher-/, on(3050, 3050)],
+    [/^clan-lrm-/, on(3060, 3058)],
+    [/^clan-srm-/, on(2868, 2865)],
+    [/^clan-advanced-srm-/, on(3056, 3052)],
+    [/^is-(light|heavy)-mortar$/, on(3057, 3054)],
+    [/^clan-compact-narc$/, on(2875, 2870)],
+    [/^is-compact-narc$/, on(3060)],
+    [/^is-firedrake-support-needler$/, on(3060, 3058)],
+    [/^is-support-ppc$/, on(3053, 3051)],
+    [/^clan-support-ppc$/, on(2950)],
+    [/^is-plasma-rifle-man-portable$/, on(3065, 3063)],
+    [/^is-pop-up-mine$/, on(3050)],
+    [/^is-(light|medium|heavy)-recoilless-rifle$/, on(3054, 3052)],
+    [/^clan-(light|medium|heavy)-recoilless-rifle$/, on(3062)],
+    [/^is-light-tag$/, on(3053, 3051)],
+    [/^clan-light-tag$/, on(3054)],
+    [/^is-tube-artillery$/, on(3075, 3070)],
+    [/^is-taser$/, on(3067, 3060)],
+    [/-mine-dispenser$/, on(3062, 3057)],
+];
+
+const strike = (short: number, medium: number = 0, long: number = 0, extra: Partial<IBattleArmorAlphaStrikeDamage> = {}): IBattleArmorAlphaStrikeDamage =>
+    ({ short, medium, long, ...extra });
+const bySize = (tag: string, values: IBattleArmorAlphaStrikeDamage[]): IBattleArmorAlphaStrikeDamage | undefined =>
+    values[Number(tag.slice(tag.lastIndexOf("-") + 1)) - 1];
+const sm = (value: number): IBattleArmorAlphaStrikeDamage => strike(value, value);
+const INDIRECT = { indirect: true };
+
+// Alpha Strike Weapon Conversion Tables: Additional Inner Sphere and Clan Battle Armor Weapons (ASC pp.112-113),
+// and the Standard Weapons tables (ASC pp.105-109) for the weapons a suit shares with larger units.
+const ALPHA_STRIKE_ROWS: [RegExp, (tag: string) => IBattleArmorAlphaStrikeDamage | undefined][] = [
+    [/^is-firedrake-support-needler$/, () => strike(0.1)],
+    [/^is-(king-)?david-light-gauss-rifle$/, () => sm(0.1)],
+    [/^is-(grand-mauler|tsunami)-gauss-rifle$/, () => sm(0.1)],
+    [/^is-magshot-gauss-rifle$/, () => sm(0.2)],
+    [/-(micro|heavy)-grenade-launcher$/, () => strike(0.1)],
+    [/^is-light-mortar$/, () => strike(0.276, 0, 0, INDIRECT)],
+    [/^is-heavy-mortar$/, () => strike(0.249, 0, 0, INDIRECT)],
+    [/-light-recoilless-rifle$/, () => sm(0.2)],
+    [/-(medium|heavy)-recoilless-rifle$/, () => sm(0.3)],
+    [/-flamer-ba$/, () => strike(0.2, 0, 0, { heat: [2, 0, 0] })],
+    [/-heavy-flamer$/, () => strike(0.4, 0.4, 0, { heat: [4, 0, 0] })],
+    [/^is-plasma-rifle-man-portable$/, () => strike(0.2, 0.2, 0, { heat: [3, 3, 0] })],
+    [/-support-ppc$/, () => sm(0.2)],
+    [/^is-medium-variable-speed-pulse-laser$/, () => strike(1.035, 0.525)],
+    [/^is-small-variable-speed-pulse-laser$/, () => strike(0.575, 0.315)],
+    [/^is-lrm-/, (tag) => bySize(tag, [strike(0.05, 0.1, 0.1, INDIRECT), strike(0.05, 0.1, 0.1, INDIRECT), strike(0.1, 0.2, 0.2, INDIRECT), strike(0.15, 0.3, 0.3, INDIRECT), strike(0.15, 0.3, 0.3, INDIRECT)])],
+    [/^is-mrm-/, (tag) => bySize(tag, [sm(0.095), sm(0.095), sm(0.19), sm(0.285), sm(0.285)])],
+    [/^is-rocket-launcher-/, (tag) => bySize(tag, [sm(0.01), sm(0.01), sm(0.19), sm(0.29), sm(0.29)])],
+    [/-srm-\d$/, (tag) => tag.includes("advanced")
+        ? bySize(tag, [sm(0.2), sm(0.4), sm(0.4), sm(0.6), sm(0.6), sm(0.8)])
+        : bySize(tag, [sm(0.2), sm(0.2), sm(0.4), sm(0.6), sm(0.6), sm(0.8)])],
+    [/^clan-lrm-/, (tag) => bySize(tag, [strike(0.1, 0.1, 0.1, INDIRECT), strike(0.1, 0.1, 0.1, INDIRECT), strike(0.2, 0.2, 0.2, INDIRECT), strike(0.3, 0.3, 0.3, INDIRECT), strike(0.3, 0.3, 0.3, INDIRECT)])],
+    [/^clan-lb-x-autocannon$/, () => strike(0.315, 0.315, 0, { flak: true })],
+    [/^clan-bearhunter-superheavy-ac$/, () => strike(0.3)],
+    [/^clan-er-medium-pulse-laser$/, () => sm(0.735)],
+    [/^clan-er-small-pulse-laser$/, () => sm(0.525)],
+    // Standard Weapons tables.
+    [/^is-er-small-laser$/, () => sm(0.3)],
+    [/^is-er-medium-laser$/, () => sm(0.5)],
+    [/-small-laser$/, (tag) => tag === "clan-heavy-small-laser" ? strike(0.57) : tag === "clan-er-small-laser" ? sm(0.5) : strike(0.3)],
+    [/^is-medium-laser$/, () => sm(0.5)],
+    [/^is-small-pulse-laser$/, () => strike(0.33)],
+    [/^is-medium-pulse-laser$/, () => sm(0.66)],
+    [/^clan-er-medium-laser$/, () => sm(0.7)],
+    [/^clan-er-micro-laser$/, () => strike(0.2)],
+    [/^clan-heavy-medium-laser$/, () => sm(0.95)],
+    [/^clan-medium-pulse-laser$/, () => sm(0.77)],
+    [/^clan-small-pulse-laser$/, () => sm(0.33)],
+    [/^clan-micro-pulse-laser$/, () => strike(0.33)],
+    [/^clan-ap-gauss-rifle$/, () => sm(0.3)],
+    [/-light-machine-gun$/, () => sm(0.1)],
+    [/-heavy-machine-gun$/, () => strike(0.3)],
+    [/-machine-gun$/, () => strike(0.2)],
+];
+
+/** Special abilities an item gives its unit (ASC pp.116-136). */
+const ALPHA_STRIKE_SPECIALS: [RegExp, string][] = [
+    [/-active-probe$/, "LPRB"],
+    [/-angel-ecm$/, "AECM"],
+    [/-ecm-suite$/, "LECM"],
+    [/-light-tag$/, "LTAG"],
+    [/-compact-narc$/, "CNARC"],
+    [/-camo-system$/, "LMAS"],
+    [/-mine-dispenser$/, "MDS"],
+    [/-parafoil$/, "PAR"],
+    [/-space-operations-adaptation$/, "SOA"],
+    [/-taser$/, "BTAS"],
+    [/-bomb-rack$/, "BOMB"],
+    [/-magnetic-clamps$/, "XMEC"],
+    [/-tube-artillery$/, "ART-BA"],
+    [/-remote-sensor-dispenser$/, "RSD"],
+    [/-searchlight$/, "SRCH"],
+    [/^is-c3-system$/, "C3S,MHQ1"],
+    [/^is-improved-c3-system$/, "C3I,MHQ2"],
+];
+
+export const battleArmorEquipment: IBattleArmorEquipment[] = equipmentRows.map((entry) => {
+    const dates = DATE_ROWS.find(([pattern]) => pattern.test(entry.tag))?.[1];
+    const alphaStrike = ALPHA_STRIKE_ROWS.find(([pattern]) => pattern.test(entry.tag))?.[1](entry.tag);
+    const alphaStrikeSpecial = ALPHA_STRIKE_SPECIALS.find(([pattern]) => pattern.test(entry.tag))?.[1];
+    return { ...entry, ...(dates ? { dates } : {}), ...(alphaStrike ? { alphaStrike } : {}), ...(alphaStrikeSpecial ? { alphaStrikeSpecial } : {}) };
+});
 
 export const findBattleArmorEquipment = (tag: string): IBattleArmorEquipment | null =>
     battleArmorEquipment.find((entry) => entry.tag === tag) ?? null;

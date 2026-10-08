@@ -8,12 +8,20 @@ import {
     battleArmorWeightClasses, findBattleArmorManipulator, findBattleArmorWeightClass, getBattleArmorSpeedFactor,
     getBattleArmorTargetMovementModifier,
 } from "../data/battle-armor-construction";
-import { IBattleArmorEquipment, findBattleArmorEquipment, getBattleArmorEquipmentFor } from "../data/battle-armor-equipment";
-import { IBattleArmorArmorType } from "../data/data-interfaces";
+import { battleArmorChassisDates, battleArmorFeatureDates, battleArmorManipulatorDates } from "../data/battle-armor-dates";
+import {
+    IBattleArmorDates, IBattleArmorEquipment, findBattleArmorEquipment, formatBattleArmorDates, getBattleArmorEquipmentFor,
+    isBattleArmorDateAvailable,
+} from "../data/battle-armor-equipment";
+import { IBattleArmorArmorType, IEras } from "../data/data-interfaces";
+import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
 import { IInfantryWeapon, findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
 import { getSkillMultiplier } from "../data/skill-multipliers";
+import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 
-// Battle armor construction (TechManual pp.160-173), Battle Value (TM pp.310-311, 316) and cost (TM pp.276, 281, 296-298).
+// Battle armor construction (TechManual pp.160-173), Battle Value (TM pp.310-311, 316) and cost (TM pp.276, 281, 296-298);
+// the battle armor equipment of Tactical Operations: Advanced Units & Equipment (pp.91-161, 192-197, 224-225);
+// introduction dates (IO:AE pp.45-47); play (Total Warfare pp.219-227); Alpha Strike conversion (ASC pp.92-141).
 
 export type BattleArmorLocation = "la" | "ra" | "body" | "turret";
 export type BattleArmorArm = "la" | "ra";
@@ -30,6 +38,34 @@ export const BATTLE_ARMOR_ADVANCED_RULES_LEVEL = 3;
 export const BATTLE_ARMOR_RULES_LEVEL = 2;
 export const MAX_BATTLE_ARMOR_NAME_LENGTH = 120;
 export const MAX_BATTLE_ARMOR_ITEMS = 40;
+export const MAX_BATTLE_ARMOR_LOADOUTS = 12;
+/** A detachable weapon pack (TO:AUE pp.99, 225): the weapon counts three quarters of its weight and takes one slot. */
+export const BATTLE_ARMOR_WEAPON_PACK = { share: 0.75, roundTo: 5, slots: 1, cost: 18000, rulesLevel: 3 };
+
+export type BattleArmorAttackKind = "standard" | "energy" | "explosive" | "heat";
+export const BATTLE_ARMOR_ATTACK_KINDS: { tag: BattleArmorAttackKind; name: string }[] = [
+    { tag: "standard", name: "Ballistic, physical or other" },
+    { tag: "energy", name: "Energy weapon" },
+    { tag: "explosive", name: "Missile, mortar or artillery" },
+    { tag: "heat", name: "Heat-causing weapon (flamer, plasma, inferno)" },
+];
+
+/** Leg Attacks Table and Swarm Attacks Table, battle armor column (TW p.221): modifier by troopers active. */
+export const BATTLE_ARMOR_LEG_ATTACK_MODIFIERS: (number | null)[] = [null, 7, 5, 2, 0, 0, 0];
+export const BATTLE_ARMOR_SWARM_ATTACK_MODIFIERS: (number | null)[] = [null, 5, 5, 5, 2, 2, 2];
+/**
+ * Swarm Attack Modifiers Table (TW p.221): added when the target carries friendly mechanized battle armor.
+ * Indexed by attacking battle armor troopers active, then by defending troopers active.
+ */
+export const BATTLE_ARMOR_SWARM_DEFENDER_MODIFIERS: number[][] = [
+    [],
+    [0, 2, 3, 4, 5, 6, 7],
+    [0, 1, 2, 3, 4, 5, 6],
+    [0, 0, 1, 2, 3, 4, 5],
+    [0, 0, 0, 1, 2, 3, 4],
+    [0, 0, 0, 0, 1, 2, 3],
+    [0, 0, 0, 0, 0, 1, 2],
+];
 /** Most a cargo lifter is asked to lift here, in half tons; the book sets no ceiling but the suit's weight. */
 export const BATTLE_ARMOR_MAX_CARGO_HALF_TONS = 20;
 
@@ -48,7 +84,55 @@ export interface IBattleArmorMountedItem {
     squadSupport?: boolean;
     /** Kilograms set aside, for mission equipment. */
     kg?: number;
+    /** Carried in a detachable weapon pack (TO:AUE p.99). */
+    dwp?: boolean;
 }
+
+export interface IBattleArmorLoadoutWeapon {
+    tag: string;
+    shots?: number;
+    oneShot?: boolean;
+}
+
+/** An alternate configuration: what each modular mount and adaptor carries in place of the base design's choice. */
+export interface IBattleArmorLoadout {
+    name: string;
+    /** By the index of the mounted item it replaces. */
+    weapons: Record<string, IBattleArmorLoadoutWeapon>;
+    manipulators: Partial<Record<BattleArmorArm, string>>;
+}
+
+export interface IBattleArmorInPlay {
+    /** Damage taken by each trooper, armor and the trooper together. */
+    damage: number[];
+    /** Detachable missile packs have been jettisoned. */
+    missilesJettisoned?: boolean;
+    /** Detachable weapon packs have been jettisoned. */
+    packsJettisoned?: boolean;
+}
+
+export interface IBattleArmorASDamageValue {
+    damage: number;
+    /** Minimal damage, printed 0* (Alpha Strike Companion p.103). */
+    minimal: boolean;
+}
+
+export interface IBattleArmorAlphaStrikeStats {
+    type: "BA";
+    size: number;
+    /** Printed Move, such as 6"j or 2"f/6"s. */
+    move: string;
+    /** Inches of the fastest mode. */
+    movement: number;
+    armor: number;
+    structure: number;
+    damageValues: { short: IBattleArmorASDamageValue; medium: IBattleArmorASDamageValue; long: IBattleArmorASDamageValue };
+    specialAbilities: string[];
+    pointValue: number;
+    calcLog: string[];
+}
+
+export const formatBattleArmorASDamage = (value: IBattleArmorASDamageValue): string => (value.minimal ? "0*" : `${value.damage}`);
 
 export interface IBattleArmorAPMount {
     location: BattleArmorLocation;
@@ -89,6 +173,12 @@ export interface IBattleArmorExport {
     squadSize: number;
     gunnery: number;
     antiMech: number;
+    /** Era tag; absent in suits saved before eras were tracked, which load into the latest era. */
+    era?: string;
+    loadouts?: IBattleArmorLoadout[];
+    /** The loadout a roster unit is fielded in; absent for the base design. */
+    activeLoadout?: number;
+    inPlay?: IBattleArmorInPlay;
 }
 
 export interface IBattleArmorCapabilities {
@@ -106,6 +196,17 @@ const roundNormally = (value: number): number => Math.floor(value + 0.5);
 const round2 = (value: number): number => Math.round(value * 100) / 100;
 const defaultArm = (): IBattleArmorArmExport => ({ manipulator: "none", adaptor: false, cargoHalfTons: 1 });
 const LOCATIONS: BattleArmorLocation[] = ["la", "ra", "body", "turret"];
+const roundToHalf = (value: number): number => Math.round(value * 2 + 1e-9) / 2;
+const rollD6 = (): number => 1 + Math.floor(Math.random() * 6);
+
+/** The newest era a technology base can design in. */
+const latestEra = (techBase: BattleArmorTechBase): IEras => {
+    const eras = getErasForTech(techBase);
+    return eras[eras.length - 1] ?? btEraOptions[btEraOptions.length - 1];
+};
+
+// Infantry Troop Factor Table (ASC p.103), by troopers; battle armor adds 0.5.
+const TROOP_FACTORS: number[] = [0, 1, 1, 2, 3, 3, 4];
 
 /** A saved suit cleaned by a full import, with what the import changed; null when it is not an object. */
 export const normalizeBattleArmorExport = (raw: unknown): { suit: IBattleArmorExport | null; issues: string[] } => {
@@ -135,8 +236,12 @@ export default class BattleArmor {
     private _arms: Record<BattleArmorArm, IBattleArmorArmExport> = { la: defaultArm(), ra: defaultArm() };
     private _armor: IBattleArmorArmorType = battleArmorArmorTypes[0];
     private _armorPoints: number = 0;
-    private _items: IBattleArmorMountedItem[] = [];
+    private _baseItems: IBattleArmorMountedItem[] = [];
     private _apMounts: IBattleArmorAPMount[] = [];
+    private _era: IEras = latestEra("is");
+    private _loadouts: IBattleArmorLoadout[] = [];
+    private _activeLoadout: number = -1;
+    private _inPlay: IBattleArmorInPlay = { damage: [] };
     private _turret: IBattleArmorTurret | null = null;
     private _squadSize: number = 4;
     private _gunnery: number = 4;
@@ -153,10 +258,99 @@ export default class BattleArmor {
     public newUUID(): void { this._uuid = generateUUID(); }
     public getName(): string { return this._name; }
     public setName(name: string): void { this._name = String(name ?? "").slice(0, MAX_BATTLE_ARMOR_NAME_LENGTH); }
-    public getDisplayName(): string { return this._name.trim() || `${this._weightClass.name} Battle Armor`; }
+    public getBaseName(): string { return this._name.trim() || `${this._weightClass.name} Battle Armor`; }
+    public getDisplayName(): string {
+        const loadout = this._loadouts[this._activeLoadout];
+        return loadout ? `${this.getBaseName()} [${loadout.name}]` : this.getBaseName();
+    }
     public getImportIssues(): string[] { return this._importIssues; }
-    /** Standard rules, or Advanced with armor from Tactical Operations. */
-    public getRequiredRulesLevel(): number { return this._armorPoints > 0 && this._armor.book !== "TM" ? BATTLE_ARMOR_ADVANCED_RULES_LEVEL : BATTLE_ARMOR_RULES_LEVEL; }
+    /** Standard rules; Advanced or Experimental with armor and equipment from Tactical Operations. */
+    public getRequiredRulesLevel(): number {
+        let level = this._armorPoints > 0 && this._armor.book !== "TM" ? BATTLE_ARMOR_ADVANCED_RULES_LEVEL : BATTLE_ARMOR_RULES_LEVEL;
+        for (const entry of this._items) {
+            level = Math.max(level, findBattleArmorEquipment(entry.tag)?.rulesLevel ?? BATTLE_ARMOR_RULES_LEVEL, entry.dwp ? BATTLE_ARMOR_WEAPON_PACK.rulesLevel : 0);
+        }
+        return level;
+    }
+
+    /** The mounted items, with the active loadout's weapons in the mounts it changes. */
+    private get _items(): IBattleArmorMountedItem[] {
+        const loadout = this._loadouts[this._activeLoadout];
+        if (!loadout) return this._baseItems;
+        return this._baseItems.map((entry, index) => {
+            const swap = loadout.weapons[String(index)];
+            const equipment = swap ? findBattleArmorEquipment(swap.tag) : null;
+            if (!swap || !equipment || !this.isSwappable(entry) || !this._fitsMount(equipment)) return entry;
+            const missile = equipment.kind === "missile";
+            return {
+                tag: equipment.tag,
+                location: entry.location,
+                ...(entry.modular ? { modular: true } : {}),
+                ...(missile && equipment.oneShot !== "always" ? { shots: Math.min(40, Math.max(1, Math.round(swap.shots ?? 1) || 1)) } : {}),
+                ...(missile && typeof equipment.oneShot === "object" && swap.oneShot ? { oneShot: true } : {}),
+            };
+        });
+    }
+
+    // Era (IO:AE pp.45-47)
+
+    public getEra(): IEras { return this._era; }
+    public getAvailableEras(): IEras[] { return getErasForTech(this._techBase); }
+    /** Sets the era the suit is built in; what it carries that the era does not have is reported, not removed. */
+    public setEra(tag: string): boolean {
+        const era = findEraByTag(tag);
+        if (!era || !this.getAvailableEras().some((item) => item.tag === era.tag)) return false;
+        this._era = era;
+        return true;
+    }
+    private _inEra(dates: IBattleArmorDates | undefined): boolean { return isBattleArmorDateAvailable(dates, this._era.yearStart, this._era.yearEnd); }
+    public isEquipmentInEra(equipment: IBattleArmorEquipment): boolean { return this._inEra(equipment.dates); }
+    private _armorDates(armor: IBattleArmorArmorType): IBattleArmorDates {
+        const dates = this.isClan() && armor.clanDates ? armor.clanDates : armor;
+        return {
+            introduced: dates.introduced,
+            ...(typeof dates.prototype === "number" ? { prototype: dates.prototype } : {}),
+            ...(typeof dates.extinct === "number" ? { extinct: dates.extinct } : {}),
+            ...(typeof dates.reintroduced === "number" ? { reintroduced: dates.reintroduced } : {}),
+        };
+    }
+    public isArmorInEra(armor: IBattleArmorArmorType): boolean { return this._inEra(this._armorDates(armor)); }
+    public isManipulatorInEra(tag: string): boolean { return this._inEra(battleArmorManipulatorDates[tag]?.[this._techBase]); }
+    public isWeightClassInEra(tag: BattleArmorWeightClass): boolean { return this._inEra(battleArmorChassisDates[tag][this._techBase]); }
+
+    /** What the suit carries that was not in service in its era. */
+    public getEraIssues(): string[] {
+        const issues: string[] = [];
+        const who = this.isClan() ? "Clan" : "Inner Sphere";
+        const check = (name: string, dates: IBattleArmorDates | undefined): void => {
+            if (!this._inEra(dates)) issues.push(`${name} is not available to ${who} battle armor in the ${this._era.name} era: ${formatBattleArmorDates(dates)} (IO:AE pp.45-47).`);
+        };
+        check(`${this._weightClass.name} battle armor`, battleArmorChassisDates[this._weightClass.tag][this._techBase]);
+        if (this._motive === "jump") check("Jump jets", battleArmorFeatureDates.jump[this._techBase]);
+        if (this._motive === "umu") check("UMUs", battleArmorFeatureDates.umu[this._techBase]);
+        if (this._motive === "vtol") check("VTOL equipment", battleArmorFeatureDates.vtol[this._techBase]);
+        if (!this.isQuad()) {
+            const seen = new Set<string>();
+            for (const arm of ["la", "ra"] as BattleArmorArm[]) {
+                const manipulator = this.getManipulator(arm);
+                if (manipulator.tag !== "none" && !seen.has(manipulator.tag)) check(manipulator.name, battleArmorManipulatorDates[manipulator.tag]?.[this._techBase]);
+                seen.add(manipulator.tag);
+            }
+            if (this._arms.la.adaptor || this._arms.ra.adaptor) check("The modular equipment adaptor", battleArmorFeatureDates.adaptor[this._techBase]);
+        }
+        if (this._armorPoints > 0) check(`${this._armor.name} armor`, this._armorDates(this._armor));
+        const seenItems = new Set<string>();
+        for (const entry of this._items) {
+            const equipment = findBattleArmorEquipment(entry.tag);
+            if (equipment && !seenItems.has(equipment.tag)) check(equipment.name, equipment.dates);
+            seenItems.add(entry.tag);
+        }
+        if (this._apMounts.length > 0) check("The anti-personnel weapon mount", battleArmorFeatureDates.apMount[this._techBase]);
+        if (this._items.some((entry) => entry.squadSupport)) check("The squad support weapon mount", battleArmorFeatureDates.squadSupport[this._techBase]);
+        if (this._items.some((entry) => entry.detachable)) check("The detachable missile pack", battleArmorFeatureDates.detachableMissilePack[this._techBase]);
+        if (this._items.some((entry) => entry.dwp)) check("The detachable weapon pack", battleArmorFeatureDates.detachableWeaponPack[this._techBase]);
+        return issues;
+    }
 
     // Step 1: the chassis (TM pp.162-163)
 
@@ -173,11 +367,15 @@ export default class BattleArmor {
         if (techBase === this._techBase) return;
         this._techBase = techBase;
         // The same item is a different record in the other table; keep what has a counterpart there.
-        this._items = this._items.flatMap((entry) => {
+        this._baseItems = this._baseItems.flatMap((entry) => {
             const counterpart = findBattleArmorEquipment(entry.tag.replace(/^(is|clan)-/, `${techBase}-`));
             return counterpart ? [{ ...entry, tag: counterpart.tag }] : [];
         });
+        // The mounts a loadout names are no longer the same mounts.
+        this._loadouts = [];
+        this._activeLoadout = -1;
         this._squadSize = techBase === "clan" ? 5 : 4;
+        if (!this.getAvailableEras().some((item) => item.tag === this._era.tag)) this._era = latestEra(techBase);
         this._clamp();
     }
 
@@ -204,7 +402,18 @@ export default class BattleArmor {
 
     public getFreeGroundMP(): number { return this._weightClass.freeGroundMP[this._bodyType] ?? 1; }
     public getMaxGroundMP(): number { return this._weightClass.maxGroundMP[this._bodyType] ?? 1; }
+    /** Ground MP bought with the chassis, before any booster. */
     public getGroundMP(): number { return this._groundMP; }
+    /** Ground MP added by a myomer booster or a mechanical jump booster, which may pass the class maximum (TO:AUE pp.98-99). */
+    public getGroundMPBonus(): number {
+        const small = this._weightClass.tag === "pa-l" || this._weightClass.tag === "light" || this._weightClass.tag === "medium";
+        return this._items.reduce((sum, entry) => {
+            const equipment = findBattleArmorEquipment(entry.tag);
+            if (!equipment) return sum;
+            return sum + (equipment.groundBonus ? (small ? equipment.groundBonus.light : equipment.groundBonus.heavy) : 0) + (equipment.mechanicalJumpBooster ? 1 : 0);
+        }, 0);
+    }
+    public getTotalGroundMP(): number { return this._groundMP + this.getGroundMPBonus(); }
     public setGroundMP(mp: number): void { this._groundMP = Math.min(this.getMaxGroundMP(), Math.max(this.getFreeGroundMP(), Math.round(mp) || 0)); }
 
     public getMotive(): BattleArmorMotive { return this._motive; }
@@ -238,13 +447,19 @@ export default class BattleArmor {
 
     /** Jumping MP with a jump booster or partial wing, which may exceed the table's maximum (TM p.165). */
     public getJumpMP(): number {
-        if (this._motive !== "jump") return 0;
-        return this._motiveMP + this._items.reduce((sum, entry) => sum + (findBattleArmorEquipment(entry.tag)?.jumpBonus ?? 0), 0);
+        const equipment = this._items.map((entry) => findBattleArmorEquipment(entry.tag));
+        const jets = this._motive === "jump" ? this._motiveMP + equipment.reduce((sum, item) => sum + (item?.jumpBonus ?? 0), 0) : 0;
+        // A mechanical jump booster gives 1 Jumping MP of its own, which a partial wing adds to and a jump
+        // booster does not; it is not added to the jump jets' MP (TO:AUE p.98).
+        const mechanical = equipment.some((item) => item?.mechanicalJumpBooster)
+            ? 1 + equipment.reduce((sum, item) => sum + (item?.name === "Partial Wing" ? item.jumpBonus ?? 0 : 0), 0)
+            : 0;
+        return Math.max(jets, mechanical);
     }
 
     public getMovementText(): string {
-        const parts = [`Ground ${this._groundMP}`];
-        if (this._motive === "jump") parts.push(`Jump ${this.getJumpMP()}`);
+        const parts = [`Ground ${this.getTotalGroundMP()}`];
+        if (this.getJumpMP() > 0) parts.push(`Jump ${this.getJumpMP()}`);
         if (this._motive === "vtol") parts.push(`VTOL ${this._motiveMP}`);
         if (this._motive === "umu") parts.push(`UMU ${this._motiveMP}`);
         return parts.join(" / ");
@@ -253,7 +468,12 @@ export default class BattleArmor {
     // Step 3: manipulators (TM pp.166-167)
 
     public getArm(arm: BattleArmorArm): IBattleArmorArmExport { return this._arms[arm]; }
-    public getManipulator(arm: BattleArmorArm): IBattleArmorManipulator { return findBattleArmorManipulator(this.isQuad() ? "none" : this._arms[arm].manipulator); }
+    public getManipulator(arm: BattleArmorArm): IBattleArmorManipulator {
+        if (this.isQuad()) return findBattleArmorManipulator("none");
+        // A modular equipment adaptor carries the active loadout's manipulator.
+        const swap = this._arms[arm].adaptor ? this._loadouts[this._activeLoadout]?.manipulators[arm] : undefined;
+        return findBattleArmorManipulator(swap ?? this._arms[arm].manipulator);
+    }
 
     public setManipulator(arm: BattleArmorArm, tag: string): void {
         if (this.isQuad()) return;
@@ -346,13 +566,25 @@ export default class BattleArmor {
     public getArmorWeight(): number { return this._armorPoints * (this.getArmorKgPerPoint() ?? 0); }
     /** Slots the armor takes, wherever on the suit they are found (TM p.168). */
     public getArmorSlots(): number { return this._armorPoints > 0 ? this._armor.slots : 0; }
+    /** Slots that may be found anywhere on the suit: the armor's, and a myomer booster's (TO:AUE p.99). */
+    public getSpreadSlots(): number {
+        return this.getArmorSlots() + this._items.reduce((sum, entry) => {
+            const equipment = findBattleArmorEquipment(entry.tag);
+            return sum + (equipment?.spreadSlots ? equipment.slots : 0);
+        }, 0);
+    }
 
     // Step 5: weapons, ammunition and other equipment (TM pp.170-171)
 
     public getItems(): IBattleArmorMountedItem[] { return this._items; }
     public getAPMounts(): IBattleArmorAPMount[] { return this._apMounts; }
     public getTurret(): IBattleArmorTurret | null { return this.isQuad() ? this._turret : null; }
-    public getAvailableEquipment(): IBattleArmorEquipment[] { return getBattleArmorEquipmentFor(this._techBase); }
+    /** Equipment on offer at a rules level: what the era has, and whatever is mounted already. */
+    public getAvailableEquipment(rulesLevel: number = 7): IBattleArmorEquipment[] {
+        const mounted = new Set(this._items.map((entry) => entry.tag));
+        return getBattleArmorEquipmentFor(this._techBase).filter((equipment) =>
+            mounted.has(equipment.tag) || ((equipment.rulesLevel ?? BATTLE_ARMOR_RULES_LEVEL) <= rulesLevel && this.isEquipmentInEra(equipment)));
+    }
 
     public getLocations(): BattleArmorLocation[] {
         if (this.isQuad()) return this.getTurret() ? ["body", "turret"] : ["body"];
@@ -382,7 +614,9 @@ export default class BattleArmor {
 
     public getItemSlots(entry: IBattleArmorMountedItem): number {
         const equipment = findBattleArmorEquipment(entry.tag);
-        if (!equipment) return 0;
+        if (!equipment || equipment.spreadSlots) return 0;
+        // The weapon in a detachable weapon pack is carried outside the suit; the pack takes one slot (TO:AUE p.99).
+        if (entry.dwp) return BATTLE_ARMOR_WEAPON_PACK.slots;
         const oneShot = this.isOneShot(entry) && equipment.oneShot !== "always" && equipment.oneShot ? equipment.oneShot : null;
         const reloads = equipment.kind === "missile" && !this.isOneShot(entry) ? Math.ceil(this.getItemShots(entry) / BATTLE_ARMOR_SHOTS_PER_SLOT) : 0;
         return (oneShot ? oneShot.slots : equipment.slots) + reloads + (entry.modular ? BATTLE_ARMOR_MODULAR_MOUNT.slots : 0);
@@ -393,6 +627,8 @@ export default class BattleArmor {
         const equipment = findBattleArmorEquipment(entry.tag);
         if (!equipment) return 0;
         if (equipment.variableWeight) return Math.max(0, entry.kg ?? 0);
+        // Twice the weight of one Jumping MP for the suit's weight class (TO:AUE p.225).
+        if (equipment.mechanicalJumpBooster) return 2 * this._weightClass.jump.kgPerMP;
         const oneShot = this.isOneShot(entry) && equipment.oneShot !== "always" && equipment.oneShot ? equipment.oneShot : null;
         const ammunition = equipment.kind === "missile" && !this.isOneShot(entry) ? this.getItemShots(entry) * (equipment.ammoKg ?? 0) : 0;
         return (oneShot ? oneShot.kg : equipment.kg) + ammunition;
@@ -402,6 +638,8 @@ export default class BattleArmor {
         let weight = this._itemLoadedWeight(entry);
         // Every suit carries a share of the squad support weapon, rounded up to the kilogram (TM p.270).
         if (entry.squadSupport) weight = Math.ceil(weight * BATTLE_ARMOR_SQUAD_SUPPORT_SHARE[this._techBase] - 1e-9);
+        // Three quarters of the weapon and its ammunition, rounded up to the nearest 5 kg (TO:AUE p.99).
+        if (entry.dwp) weight = Math.ceil(weight * BATTLE_ARMOR_WEAPON_PACK.share / BATTLE_ARMOR_WEAPON_PACK.roundTo - 1e-9) * BATTLE_ARMOR_WEAPON_PACK.roundTo;
         return weight + (entry.detachable ? BATTLE_ARMOR_DETACHABLE.kg : 0) + (entry.modular ? BATTLE_ARMOR_MODULAR_MOUNT.kg : 0);
     }
 
@@ -429,7 +667,7 @@ export default class BattleArmor {
 
     /** Slots left on the suit once the armor's are found; a turret's capacity is for what it mounts, not armor. */
     public getFreeSlotsAfterArmor(): number {
-        return this.getLocations().filter((location) => location !== "turret").reduce((sum, location) => sum + Math.max(0, this.getFreeSlots(location)), 0) - this.getArmorSlots();
+        return this.getLocations().filter((location) => location !== "turret").reduce((sum, location) => sum + Math.max(0, this.getFreeSlots(location)), 0) - this.getSpreadSlots();
     }
 
     public addItem(tag: string, location: BattleArmorLocation): boolean {
@@ -438,14 +676,26 @@ export default class BattleArmor {
         if (!this.getLocations().includes(location)) return false;
         const entry: IBattleArmorMountedItem = { tag, location: equipment.bodyOnly ? "body" : location };
         if (equipment.kind === "missile" && equipment.oneShot !== "always") entry.shots = 1;
-        this._items.push(entry);
+        this._baseItems.push(entry);
         return true;
     }
 
-    public removeItem(index: number): void { this._items.splice(index, 1); }
+    public removeItem(index: number): void {
+        if (index < 0 || index >= this._baseItems.length) return;
+        this._baseItems.splice(index, 1);
+        // Loadouts name their mounts by position.
+        for (const loadout of this._loadouts) {
+            const weapons: Record<string, IBattleArmorLoadoutWeapon> = {};
+            for (const [key, swap] of Object.entries(loadout.weapons)) {
+                const at = Number(key);
+                if (at !== index) weapons[String(at > index ? at - 1 : at)] = swap;
+            }
+            loadout.weapons = weapons;
+        }
+    }
 
     public updateItem(index: number, change: Partial<IBattleArmorMountedItem>): void {
-        const entry = this._items[index];
+        const entry = this._baseItems[index];
         const equipment = entry ? findBattleArmorEquipment(entry.tag) : null;
         if (!entry || !equipment) return;
         const next = { ...entry, ...change, tag: entry.tag };
@@ -457,9 +707,12 @@ export default class BattleArmor {
         next.modular = !equipment.noMount && !this.isQuad() && !!next.modular ? true : undefined;
         next.squadSupport = !equipment.noMount && !this.isQuad() && equipment.kind !== "equipment" && !!next.squadSupport ? true : undefined;
         next.kg = equipment.variableWeight ? Math.min(2000, Math.max(0, Math.round(next.kg ?? 0) || 0)) : undefined;
+        // A detachable weapon pack carries one weapon that is not a missile launcher, and not in a modular mount (TO:AUE p.99).
+        const packable = (equipment.kind === "weapon" && !equipment.noMount) || equipment.tag.endsWith("-tube-artillery");
+        next.dwp = packable && next.location !== "turret" && !next.modular && !next.squadSupport && !!next.dwp ? true : undefined;
         // One squad support weapon to a suit (TM p.270).
-        if (next.squadSupport) this._items.forEach((other, otherIndex) => { if (otherIndex !== index) delete other.squadSupport; });
-        this._items[index] = next;
+        if (next.squadSupport) this._baseItems.forEach((other, otherIndex) => { if (otherIndex !== index) delete other.squadSupport; });
+        this._baseItems[index] = next;
     }
 
     /** Standard-type conventional infantry weapons an anti-personnel mount may carry (TM p.170). */
@@ -530,6 +783,7 @@ export default class BattleArmor {
         if (equipment.kind === "missile" && !this.isOneShot(entry)) parts.push(`${this.getItemShots(entry)} shots`);
         if (entry.detachable) parts.push("detachable");
         if (entry.modular) parts.push("modular mount");
+        if (entry.dwp) parts.push("detachable weapon pack");
         if (entry.squadSupport) parts.push("squad support weapon");
         return `${equipment.name}${parts.length ? ` (${parts.join(", ")})` : ""}, ${BATTLE_ARMOR_LOCATION_NAMES[entry.location]}`;
     }
@@ -554,8 +808,9 @@ export default class BattleArmor {
         for (const location of this.getLocations()) {
             if (this.getFreeSlots(location) < 0) issues.push(`${BATTLE_ARMOR_LOCATION_NAMES[location]}: ${this.getUsedSlots(location)} slots used of ${this.getSlots(location)} (TM p.163).`);
         }
-        if (this.getFreeSlotsAfterArmor() < 0 && this.getArmorSlots() > 0) {
-            issues.push(`${this._armor.name} armor needs ${this.getArmorSlots()} weapon slots; the suit has ${this.getFreeSlotsAfterArmor() + this.getArmorSlots()} free (TM p.169).`);
+        if (this.getFreeSlotsAfterArmor() < 0 && this.getSpreadSlots() > 0) {
+            const what = this.getSpreadSlots() > this.getArmorSlots() ? (this.getArmorSlots() > 0 ? `${this._armor.name} armor and the myomer booster need` : "The myomer booster needs") : `${this._armor.name} armor needs`;
+            issues.push(`${what} ${this.getSpreadSlots()} weapon slots; the suit has ${this.getFreeSlotsAfterArmor() + this.getSpreadSlots()} free (TM p.169).`);
         }
         if (this.getArmorKgPerPoint() === null) issues.push(`${this._armor.name} armor is not made for ${this.isClan() ? "Clan" : "Inner Sphere"} battle armor (TM p.169).`);
 
@@ -585,8 +840,19 @@ export default class BattleArmor {
         }
 
         const boosters = this._items.filter((entry) => (findBattleArmorEquipment(entry.tag)?.jumpBonus ?? 0) > 0);
-        if (boosters.length > 0 && this._motive !== "jump") issues.push("A jump booster or partial wing needs jump jets (TM p.165).");
+        const mechanical = this._items.some((entry) => findBattleArmorEquipment(entry.tag)?.mechanicalJumpBooster);
+        const wingOnMechanical = mechanical && boosters.every((entry) => findBattleArmorEquipment(entry.tag)?.name === "Partial Wing");
+        if (boosters.length > 0 && this._motive !== "jump" && !wingOnMechanical) issues.push("A jump booster or partial wing needs jump jets (TM p.165).");
         if (boosters.length > 1) issues.push("A jump booster and a partial wing may not be combined (TM p.165).");
+        // Tactical Operations equipment (TO:AUE pp.98-99).
+        const myomer = this._items.map((entry) => findBattleArmorEquipment(entry.tag)).find((equipment) => equipment?.groundBonus);
+        if (myomer && mechanical) issues.push("A mechanical jump booster and a myomer booster may not be combined (TO:AUE p.98).");
+        if (myomer?.barsArmor?.includes(this._armor.tag) && this._armorPoints > 0) issues.push(`A suit with a myomer booster may not mount Stealth or Mimetic armor (TO:AUE p.99).`);
+        if (this._items.some((entry) => entry.dwp)) {
+            const heavy = weightClass.tag === "heavy" || weightClass.tag === "assault";
+            if (weightClass.tag !== "medium" && !heavy) issues.push("Only Medium, Heavy and Assault battle armor may carry a detachable weapon pack (TO:AUE p.99).");
+            else if (this.getTotalGroundMP() - (heavy ? 2 : 3) < 0) issues.push(`A detachable weapon pack costs this suit ${heavy ? 2 : 3} Ground MP, which may not take it below 0 (TO:AUE p.99).`);
+        }
         if (this._hasItem("Magnetic Clamps")) {
             if (this.isQuad() || weightClass.tag === "assault") issues.push("Magnetic clamps are for humanoid suits of Heavy class or lighter (TM p.167).");
             if (this._motive === "umu") issues.push("Magnetic clamps may not be used on a suit with UMUs (TM p.167).");
@@ -616,6 +882,16 @@ export default class BattleArmor {
             const right = this.getManipulator("ra");
             if ((left.mustPair || right.mustPair) && left.tag !== right.tag) issues.push(`${left.mustPair ? left.name : right.name} must be mounted in pairs (TM p.166).`);
         }
+        issues.push(...this.getEraIssues());
+        // Every alternate loadout must be a legal suit too.
+        if (this._activeLoadout < 0) {
+            this._loadouts.forEach((loadout, index) => {
+                const base = new Set(issues);
+                for (const issue of this.getLoadoutSuit(index).getIssues()) {
+                    if (!base.has(issue)) issues.push(`Loadout "${loadout.name}": ${issue}`);
+                }
+            });
+        }
         return issues;
     }
 
@@ -631,6 +907,14 @@ export default class BattleArmor {
         }
         if (this._apMounts.length > 0) notes.push("The weight of anti-personnel weapons and their ammunition is not counted against the suit (TM p.271).");
         if (this._items.some((entry) => entry.squadSupport)) notes.push("Every suit carries a share of the squad support weapon; one trooper fires it (TM p.270).");
+        if (this._items.some((entry) => entry.dwp)) {
+            const heavy = this._weightClass.tag === "heavy" || this._weightClass.tag === "assault";
+            notes.push(`While it carries a detachable weapon pack the suit loses ${heavy ? 2 : 3} Ground MP (a suit brought to 0 moves 1) and may not jump; the packs are dropped in an End Phase, and the squad regains its movement when all are gone (TO:AUE p.99).`);
+        }
+        for (const entry of this._items) {
+            const equipment = findBattleArmorEquipment(entry.tag);
+            if (equipment?.book === "TO:AUE" && equipment.notes && !notes.includes(`${equipment.name}: ${equipment.notes}`)) notes.push(`${equipment.name}: ${equipment.notes}`);
+        }
         if (this.canUseExoskeletonChassis() && this.usesExoskeletonChassis() && this._motive === "umu") {
             notes.push("TM p.165 allows UMUs on a Clan exoskeleton with an Inner Sphere chassis weight; TM p.270 says such an exoskeleton may not use them. The construction step is followed.");
         }
@@ -639,15 +923,16 @@ export default class BattleArmor {
 
     // Battle Value (TM pp.310-311)
 
+    /** The suit's standard movement, boosters counted and detachable weapon packs not (TO:AUE p.192). */
     private _bestMovement(): { mp: number; modifier: number } {
-        const ground = { mp: this._groundMP, modifier: getBattleArmorTargetMovementModifier(this._groundMP) };
-        if (this._motive === "none" || this._motive === "umu") {
-            const mp = Math.max(this._groundMP, this.getMotiveMP());
-            return { mp, modifier: getBattleArmorTargetMovementModifier(mp) };
-        }
+        const groundMP = this.getTotalGroundMP();
+        const modes = [{ mp: groundMP, modifier: getBattleArmorTargetMovementModifier(groundMP) }];
+        if (this._motive === "umu") modes.push({ mp: this._motiveMP, modifier: getBattleArmorTargetMovementModifier(this._motiveMP) });
         // Jumping and VTOL movement add 1 to the target movement modifier.
-        const other = this._motive === "jump" ? this.getJumpMP() : this._motiveMP;
-        return { mp: Math.max(ground.mp, other), modifier: Math.max(ground.modifier, getBattleArmorTargetMovementModifier(other) + 1) };
+        const jump = this.getJumpMP();
+        if (jump > 0) modes.push({ mp: jump, modifier: getBattleArmorTargetMovementModifier(jump) + 1 });
+        if (this._motive === "vtol") modes.push({ mp: this._motiveMP, modifier: getBattleArmorTargetMovementModifier(this._motiveMP) + 1 });
+        return { mp: Math.max(...modes.map((mode) => mode.mp)), modifier: Math.max(...modes.map((mode) => mode.modifier)) };
     }
 
     private _itemBattleValue(entry: IBattleArmorMountedItem): number {
@@ -664,7 +949,10 @@ export default class BattleArmor {
         const armorBV = ["ba-fire-resistant", "ba-laser-reflective", "ba-reactive"].includes(this._armor.tag) ? 3.5 : 2.5;
         let defensive = this._armorPoints * armorBV + 1;
         log.push(`Armor: (${this._armorPoints} points x ${armorBV}) + 1 = ${round2(defensive)}`);
-        const defensiveItems = this._items.filter((entry) => findBattleArmorEquipment(entry.tag)?.defensive).length;
+        const defensiveItems = this._items.reduce((sum, entry) => {
+            const equipment = findBattleArmorEquipment(entry.tag);
+            return sum + (equipment?.defensive ? equipment.defensiveValue ?? 1 : 0);
+        }, 0);
         if (defensiveItems > 0) {
             defensive += defensiveItems;
             log.push(`Improved sensors, active probes and ECM: +${defensiveItems}`);
@@ -758,6 +1046,11 @@ export default class BattleArmor {
             let cost = equipment.cost * (equipment.tubes ?? 1);
             if (this.isOneShot(entry) && equipment.oneShot !== "always") cost *= 0.5;
             if (entry.detachable) cost += BATTLE_ARMOR_DETACHABLE.cost;
+            // Tactical Operations (TO:AUE p.225): a mechanical jump booster costs what a Jumping MP does, a myomer
+            // booster 75,000 for each MP it provides, a detachable weapon pack 18,000 on top of its weapon.
+            if (equipment.mechanicalJumpBooster) cost = this._weightClass.jump.costPerMP;
+            if (equipment.costPerMP && equipment.groundBonus) cost = equipment.costPerMP * (weightClass.tag === "heavy" || weightClass.tag === "assault" ? equipment.groundBonus.heavy : equipment.groundBonus.light);
+            if (entry.dwp) cost += BATTLE_ARMOR_WEAPON_PACK.cost;
             if (entry.squadSupport) {
                 // One weapon for the squad; every suit has the mount.
                 squadOnly += cost;
@@ -778,6 +1071,432 @@ export default class BattleArmor {
     public getCBillCost(): number { return this._calcCost().squad; }
     public getCBillCostLog(): string[] { return this._calcCost().log; }
 
+    // Alternate loadouts: what the modular mounts and adaptors carry on another mission (TM pp.167, 171, 262)
+
+    public getLoadouts(): IBattleArmorLoadout[] { return this._loadouts; }
+    public getActiveLoadout(): number { return this._loadouts[this._activeLoadout] ? this._activeLoadout : -1; }
+    public setActiveLoadout(index: number): void { this._activeLoadout = this._loadouts[index] ? index : -1; }
+
+    /** A weapon in a standard modular weapon mount or a configurable turret mount can be changed between missions. */
+    public isSwappable(entry: IBattleArmorMountedItem): boolean {
+        return !!entry.modular || (entry.location === "turret" && !!this.getTurret()?.configurable);
+    }
+    private _fitsMount(equipment: IBattleArmorEquipment): boolean { return equipment.techBase === this._techBase && !equipment.noMount; }
+
+    /** The base design's mounts a loadout may refit, by their position in the item list. */
+    public getSwappableItems(): { index: number; entry: IBattleArmorMountedItem }[] {
+        return this._baseItems.map((entry, index) => ({ index, entry })).filter((item) => this.isSwappable(item.entry));
+    }
+    public getAdaptorArms(): BattleArmorArm[] {
+        return this.isQuad() ? [] : (["la", "ra"] as BattleArmorArm[]).filter((arm) => this._arms[arm].adaptor);
+    }
+    public canHaveLoadouts(): boolean { return this.getSwappableItems().length > 0 || this.getAdaptorArms().length > 0; }
+    public getMountOptions(rulesLevel: number = 7): IBattleArmorEquipment[] {
+        return this.getAvailableEquipment(rulesLevel).filter((equipment) => this._fitsMount(equipment));
+    }
+
+    public addLoadout(name: string): boolean {
+        if (this._loadouts.length >= MAX_BATTLE_ARMOR_LOADOUTS) return false;
+        this._loadouts.push({ name: String(name ?? "").trim().slice(0, 40) || `Loadout ${this._loadouts.length + 1}`, weapons: {}, manipulators: {} });
+        return true;
+    }
+    public removeLoadout(index: number): void {
+        if (!this._loadouts[index]) return;
+        this._loadouts.splice(index, 1);
+        if (this._activeLoadout === index) this._activeLoadout = -1;
+        else if (this._activeLoadout > index) this._activeLoadout -= 1;
+    }
+    public setLoadoutName(index: number, name: string): void {
+        if (this._loadouts[index]) this._loadouts[index].name = String(name ?? "").slice(0, 40);
+    }
+    /** Puts a weapon in one of the base design's mounts for this loadout; an empty tag goes back to the base weapon. */
+    public setLoadoutWeapon(index: number, itemIndex: number, tag: string, shots?: number, oneShot?: boolean): boolean {
+        const loadout = this._loadouts[index];
+        const entry = this._baseItems[itemIndex];
+        if (!loadout || !entry || !this.isSwappable(entry)) return false;
+        if (!tag) {
+            delete loadout.weapons[String(itemIndex)];
+            return true;
+        }
+        const equipment = findBattleArmorEquipment(tag);
+        if (!equipment || !this._fitsMount(equipment)) return false;
+        const missile = equipment.kind === "missile";
+        loadout.weapons[String(itemIndex)] = {
+            tag: equipment.tag,
+            ...(missile && equipment.oneShot !== "always" ? { shots: Math.min(40, Math.max(1, Math.round(shots ?? 1) || 1)) } : {}),
+            ...(missile && typeof equipment.oneShot === "object" && oneShot ? { oneShot: true } : {}),
+        };
+        return true;
+    }
+    /** Fits a manipulator to an arm's modular equipment adaptor for this loadout; an empty tag goes back to the base one. */
+    public setLoadoutManipulator(index: number, arm: BattleArmorArm, tag: string): boolean {
+        const loadout = this._loadouts[index];
+        if (!loadout || this.isQuad() || !this._arms[arm].adaptor) return false;
+        if (!tag) {
+            delete loadout.manipulators[arm];
+            return true;
+        }
+        loadout.manipulators[arm] = findBattleArmorManipulator(tag).tag;
+        return true;
+    }
+    /** The suit as it is fielded in one of its loadouts: a copy, so weight, Battle Value and cost can be read off it. */
+    public getLoadoutSuit(index: number): BattleArmor {
+        const suit = new BattleArmor(this.exportJSON());
+        suit.setActiveLoadout(index);
+        return suit;
+    }
+
+    // Play (Total Warfare pp.219-227)
+
+    public getInPlay(): IBattleArmorInPlay { return this._inPlay; }
+    public resetInPlay(): void { this._inPlay = { damage: [] }; }
+    /** Damage a trooper takes before being destroyed: the Armor Value and 1 for the soldier inside (TW p.219). */
+    public getTrooperCapacity(): number { return this._armorPoints + 1; }
+    public getTrooperDamage(trooper: number): number {
+        if (trooper < 0 || trooper >= this._squadSize) return 0;
+        return Math.min(this.getTrooperCapacity(), Math.max(0, this._inPlay.damage[trooper] ?? 0));
+    }
+    public setTrooperDamage(trooper: number, points: number): void {
+        if (trooper < 0 || trooper >= this._squadSize) return;
+        const damage = Array.from({ length: this._squadSize }, (_unused, index) => this.getTrooperDamage(index));
+        damage[trooper] = savedNumber(points, damage[trooper], 0, this.getTrooperCapacity());
+        this._inPlay.damage = damage;
+    }
+    public isTrooperActive(trooper: number): boolean { return trooper >= 0 && trooper < this._squadSize && this.getTrooperDamage(trooper) < this.getTrooperCapacity(); }
+    public getActiveTroopers(): number { return Array.from({ length: this._squadSize }, (_unused, trooper) => trooper).filter((trooper) => this.isTrooperActive(trooper)).length; }
+    public isDestroyed(): boolean { return this.getActiveTroopers() <= 0; }
+    public isDamaged(): boolean { return Array.from({ length: this._squadSize }, (_unused, trooper) => this.getTrooperDamage(trooper)).some((damage) => damage > 0); }
+    public getStrengthPercentage(): number { return Math.round(this.getActiveTroopers() / this._squadSize * 100); }
+
+    /**
+     * Applies a successful attack and says what it did. Each Damage Value grouping strikes a trooper found with
+     * 1D6, rolled again for a trooper the squad does not have or has lost; damage beyond what destroys that
+     * trooper is wasted. An area-effect weapon applies its damage to every trooper (TW p.219). Laser-reflective
+     * armor halves energy damage and reactive armor halves missile, mortar and artillery damage, rounded down;
+     * fire-resistant armor ignores heat-causing weapons (TM p.169, TO:AUE pp.93-94).
+     */
+    public resolveAttack(kind: BattleArmorAttackKind, groupings: number[], areaEffect: boolean = false, roll: () => number = rollD6): string[] {
+        const log: string[] = [];
+        const armored = this._armorPoints > 0;
+        const adjust = (damage: number): number => {
+            const value = savedNumber(damage, 0, 0, 999);
+            if (armored && kind === "heat" && this._armor.tag === "ba-fire-resistant") return 0;
+            if (armored && kind === "energy" && this._armor.tag === "ba-laser-reflective") return Math.floor(value / 2);
+            if (armored && kind === "explosive" && this._armor.tag === "ba-reactive") return Math.floor(value / 2);
+            return value;
+        };
+        const apply = (trooper: number, damage: number): void => {
+            const before = this.getTrooperDamage(trooper);
+            this.setTrooperDamage(trooper, before + damage);
+            const taken = this.getTrooperDamage(trooper) - before;
+            const wasted = damage - taken;
+            log.push(`Trooper ${trooper + 1} takes ${taken}${wasted > 0 ? ` (${wasted} wasted)` : ""}${this.isTrooperActive(trooper) ? `: ${this.getTrooperCapacity() - this.getTrooperDamage(trooper)} left` : ": destroyed"}`);
+        };
+        for (const grouping of groupings.slice(0, 40)) {
+            if (this.isDestroyed()) break;
+            const damage = adjust(grouping);
+            if (damage !== savedNumber(grouping, 0, 0, 999)) log.push(`${this._armor.name} armor: ${grouping} becomes ${damage}`);
+            if (damage <= 0) continue;
+            if (areaEffect) {
+                for (let trooper = 0; trooper < this._squadSize; trooper++) if (this.isTrooperActive(trooper)) apply(trooper, damage);
+                continue;
+            }
+            let trooper = -1;
+            for (let attempt = 0; attempt < 200 && trooper < 0; attempt++) {
+                const result = Math.round(roll()) - 1;
+                if (this.isTrooperActive(result)) trooper = result;
+            }
+            // A roller that never finds an active trooper still has to hit one.
+            if (trooper < 0) trooper = Array.from({ length: this._squadSize }, (_unused, index) => index).find((index) => this.isTrooperActive(index)) ?? 0;
+            apply(trooper, damage);
+        }
+        if (this.isDestroyed()) log.push("The squad is destroyed");
+        return log;
+    }
+
+    public hasDetachableMissiles(): boolean { return this._items.some((entry) => entry.detachable); }
+    public hasWeaponPacks(): boolean { return this._items.some((entry) => entry.dwp); }
+    public setMissilesJettisoned(value: boolean): void { if (value) this._inPlay.missilesJettisoned = true; else delete this._inPlay.missilesJettisoned; }
+    public setPacksJettisoned(value: boolean): void { if (value) this._inPlay.packsJettisoned = true; else delete this._inPlay.packsJettisoned; }
+    public carriesMissilePacks(): boolean { return this.hasDetachableMissiles() && !this._inPlay.missilesJettisoned; }
+    public carriesWeaponPacks(): boolean { return this.hasWeaponPacks() && !this._inPlay.packsJettisoned; }
+
+    /** Movement as the squad stands: weapon packs slow it and stop it jumping (TO:AUE p.99), as missile packs stop an Inner Sphere suit jumping (TM p.257). */
+    public getPlayMovement(): { ground: number; jump: number; text: string; notes: string[] } {
+        const notes: string[] = [];
+        let ground = this.getTotalGroundMP();
+        let jump = this.getJumpMP();
+        if (this.carriesWeaponPacks()) {
+            const heavy = this._weightClass.tag === "heavy" || this._weightClass.tag === "assault";
+            ground = Math.max(1, ground - (heavy ? 2 : 3));
+            jump = 0;
+            notes.push(`Carrying detachable weapon packs: -${heavy ? 2 : 3} Ground MP and no jumping (TO:AUE p.99).`);
+        }
+        if (!this.isClan() && this.carriesMissilePacks() && jump > 0) {
+            jump = 0;
+            notes.push("An Inner Sphere suit may not jump until its detachable missile packs are jettisoned (TM p.257).");
+        }
+        const parts = [`Ground ${ground}`];
+        if (jump > 0) parts.push(`Jump ${jump}`);
+        if (this._motive === "vtol") parts.push(`VTOL ${this._motiveMP}`);
+        if (this._motive === "umu") parts.push(`UMU ${this._motiveMP}`);
+        return { ground, jump, text: parts.join(" / "), notes };
+    }
+
+    /** Why the squad may not make Anti-'Mech attacks right now; empty when it may. */
+    public getAntiMechBar(): string {
+        const capabilities = this.getCapabilities();
+        if (!capabilities.swarm && !capabilities.leg) return "This suit makes no Anti-'Mech attacks (TM p.167).";
+        const bodyLauncher = this._items.some((entry) => entry.location === "body" && !!findBattleArmorEquipment(entry.tag)?.tubes);
+        if (!this.isClan() && bodyLauncher && !this._inPlay.missilesJettisoned) return "Inner Sphere battle armor with body-mounted missile launchers makes no Anti-'Mech attacks until it jettisons them (TW p.220).";
+        return "";
+    }
+    /** Leg Attacks Table modifier for the troopers active; null when no attack is possible (TW p.221). */
+    public getLegAttackModifier(): number | null {
+        return this.getCapabilities().leg && !this.getAntiMechBar() ? BATTLE_ARMOR_LEG_ATTACK_MODIFIERS[this.getActiveTroopers()] ?? null : null;
+    }
+    /** Swarm Attacks Table modifier for the troopers active, with -1 for magnetic claws (TW pp.220-221). */
+    public getSwarmAttackModifier(): number | null {
+        if (!this.getCapabilities().swarm || this.getAntiMechBar()) return null;
+        const base = BATTLE_ARMOR_SWARM_ATTACK_MODIFIERS[this.getActiveTroopers()] ?? null;
+        if (base === null) return null;
+        const magnets = !this.isQuad() && (["la", "ra"] as BattleArmorArm[]).some((arm) => this.getManipulator(arm).tag.includes("magnets"));
+        return base + (magnets ? -1 : 0);
+    }
+    private _vibroClaws(): number {
+        return this.isQuad() ? 0 : (["la", "ra"] as BattleArmorArm[]).filter((arm) => this.getManipulator(arm).tag.includes("vibro")).length;
+    }
+    /** Damage added to a Leg or Swarm attack by a myomer booster: 2 for each active trooper (TO:AUE p.99). */
+    public getAntiMechBonusDamage(): number {
+        return this._items.some((entry) => findBattleArmorEquipment(entry.tag)?.groundBonus) ? 2 * this.getActiveTroopers() : 0;
+    }
+    /** Leg attack damage: 4 points, 1 more for each vibro-claw (TW p.220), and a myomer booster's bonus. */
+    public getLegAttackDamage(): number { return 4 + this._vibroClaws() + this.getAntiMechBonusDamage(); }
+
+    // Alpha Strike conversion (Alpha Strike Companion pp.92-141)
+
+    /**
+     * The converted Alpha Strike stats of the squad. The conversion follows the Alpha Strike Companion; the Point
+     * Value is worked out the way the Master Unit List's battle armor cards are: no rounding of the Offensive
+     * Value, Defense Factor steps of 0.1 (to a modifier of 2) and 0.25, +1 each for battle armor, jumping or VTOL
+     * movement and stealth armor, and a mimetic or camo system counted as a movement modifier of 3 or 2.
+     */
+    public getAlphaStrikeStats(): IBattleArmorAlphaStrikeStats {
+        const log: string[] = [];
+        const troopers = this._squadSize;
+        const specials: string[] = [];
+        const add = (code: string): void => { if (!specials.includes(code)) specials.push(code); };
+
+        // Move: the faster of ground and jumping movement at 2 inches a MP; detachable packs are ignored (ASC p.94).
+        const ground = this.getTotalGroundMP();
+        const jump = this.getJumpMP();
+        let mp = ground;
+        let code = "f";
+        if (jump > 0 && jump >= ground) { mp = jump; code = "j"; }
+        if (this._motive === "vtol" && this._motiveMP > mp) { mp = this._motiveMP; code = "v"; }
+        let move = `${mp * 2}"${code}`;
+        let movement = mp * 2;
+        if (this._motive === "umu") {
+            move += `/${this._motiveMP * 2}"s`;
+            movement = Math.max(movement, this._motiveMP * 2);
+            add("UMU");
+        }
+        log.push(`Move: ${mp} MP x 2 = ${move}`);
+
+        // Armor: every trooper's armor, without the trooper, over 30 (ASC p.95); Structure is 2 (ASC p.97).
+        const armorFactor = this._armorPoints * troopers;
+        const special = this._armorPoints > 0 ? this._armor.tag : "";
+        // The Master Unit List's cards give battle armor in reactive or reflective armor the special ability
+        // without the 0.75 armor multiplier ASC p.98 applies to larger units; they are followed here.
+        if (special === "ba-laser-reflective" || special === "ba-reactive") add(special === "ba-reactive" ? "RCA" : "RFA");
+        const armor = Math.round(armorFactor / 30 + 1e-9);
+        const structure = 2;
+        log.push(`Armor: ${troopers} troopers x ${this._armorPoints} points = ${armorFactor}; / 30 = ${(armorFactor / 30).toFixed(2)}, rounded to ${armor}. Structure: ${structure}`);
+        if (special.startsWith("ba-stealth")) add("STL");
+        if (special === "ba-mimetic") add("MAS");
+        if (special === "ba-fire-resistant") add("FR");
+
+        // Damage: one suit's weapons, times the Troop Factor + 0.5 (ASC p.103).
+        const factor = (TROOP_FACTORS[Math.min(troopers, 6)] ?? 0) + 0.5;
+        const suit = { short: 0, medium: 0, long: 0 };
+        const squad = { short: 0, medium: 0, long: 0 };
+        const heat = [0, 0, 0];
+        let indirect = 0;
+        const flak = [0, 0, 0];
+        const counted = new Map<string, number>();
+        for (const entry of this._items) {
+            const equipment = findBattleArmorEquipment(entry.tag);
+            if (!equipment) continue;
+            for (const ability of (equipment.alphaStrikeSpecial ?? "").split(",").filter((item) => item)) {
+                if (["MDS", "BTAS", "BOMB", "RSD"].includes(ability)) counted.set(ability, (counted.get(ability) ?? 0) + 1);
+                else add(ability);
+            }
+            const values = equipment.alphaStrike;
+            if (!values) continue;
+            // One-shot launchers convert at a tenth; other missile launchers with under 10 shots at three quarters (ASC p.101).
+            let multiplier = 1;
+            if (this.isOneShot(entry) && equipment.oneShot !== "always") multiplier = 0.1;
+            else if (equipment.kind === "missile" && equipment.oneShot !== "always" && this.getItemShots(entry) < 10) multiplier = 0.75;
+            const into = entry.squadSupport ? squad : suit;
+            into.short += values.short * multiplier;
+            into.medium += values.medium * multiplier;
+            into.long += values.long * multiplier;
+            const share = entry.squadSupport ? 1 : factor;
+            if (values.heat) values.heat.forEach((points, range) => { heat[range] += points * share; });
+            // Indirect fire is rated by the Long range value of the weapons that have it (ASC p.126).
+            if (values.indirect) indirect += values.long * multiplier * share;
+            if (values.flak) [values.short, values.medium, values.long].forEach((points, range) => { flak[range] += points * multiplier * share; });
+        }
+        const glove = !this.isQuad() && (["la", "ra"] as BattleArmorArm[]).some((arm) => this.getManipulator(arm).kind === "glove");
+        const antiPersonnel = (this._apMounts.length + (glove ? 1 : 0)) * 0.05;
+        suit.short += antiPersonnel;
+        const vibro = this._vibroClaws();
+        const total = {
+            short: suit.short * factor + squad.short + vibro,
+            medium: suit.medium * factor + squad.medium,
+            long: suit.long * factor + squad.long,
+        };
+        const value = (damage: number): IBattleArmorASDamageValue =>
+            damage <= 1e-9 ? { damage: 0, minimal: false } : damage < 0.5 ? { damage: 0, minimal: true } : { damage: Math.ceil(damage - 1e-9), minimal: false };
+        const damageValues = { short: value(total.short), medium: value(total.medium), long: value(total.long) };
+        log.push(`Damage of one suit: ${suit.short.toFixed(3)} / ${suit.medium.toFixed(3)} / ${suit.long.toFixed(3)}${antiPersonnel > 0 ? ` (with ${antiPersonnel.toFixed(2)} for anti-personnel weapons)` : ""}`);
+        log.push(`x ${factor} (Troop Factor for ${troopers} + 0.5)${squad.short + squad.medium + squad.long > 0 ? `, + the squad support weapon once (${squad.short.toFixed(2)} / ${squad.medium.toFixed(2)} / ${squad.long.toFixed(2)})` : ""}${vibro > 0 ? `, + ${vibro} at Short range for vibro-claws` : ""} = ${total.short.toFixed(2)} / ${total.medium.toFixed(2)} / ${total.long.toFixed(2)}: ${formatBattleArmorASDamage(damageValues.short)}/${formatBattleArmorASDamage(damageValues.medium)}/${formatBattleArmorASDamage(damageValues.long)}`);
+
+        // Special abilities (ASC pp.116-136).
+        const capabilities = this.getCapabilities();
+        if (capabilities.swarm || capabilities.leg) add("AM");
+        add(`CAR${troopers}`);
+        if (specials.includes("XMEC")) { /* magnetic clamps: XMEC in place of MEC */ } else if (capabilities.mechanized) add("MEC");
+        if (!this.isQuad() && (["la", "ra"] as BattleArmorArm[]).some((arm) => this.getManipulator(arm).tag === "basic-mine-clearance")) add("MSW");
+        // Heat Values of 5 to 10 at a range bracket rate 1, 11 or more rate 2 (ASC p.125).
+        const heatRatings = heat.map((points) => (points >= 11 ? 2 : points >= 5 ? 1 : 0));
+        const heatValue = Math.max(...heatRatings);
+        if (heatValue > 0) add(`HT${heatRatings.map((rating) => rating || "-").join("/")}`);
+        // Special ability values round normally; under a half is minimal damage (ASC pp.125-126).
+        const rated = (damage: number): IBattleArmorASDamageValue =>
+            damage <= 1e-9 ? { damage: 0, minimal: false } : damage < 0.5 ? { damage: 0, minimal: true } : { damage: Math.round(damage + 1e-9), minimal: false };
+        const indirectValue = rated(indirect);
+        if (indirect > 1e-9) add(`IF${formatBattleArmorASDamage(indirectValue)}`);
+        if (flak.some((points) => points >= 0.5)) add(`FLK${flak.map((points) => (points >= 0.5 ? Math.round(points + 1e-9) : "-")).join("/")}`);
+        // Mine dispensers and remote sensor dispensers are counted on one suit; tasers over the whole unit (ASC pp.127, 130, 133).
+        const mines = counted.get("MDS") ?? 0;
+        if (mines > 0) add(`MDS${mines}`);
+        const tasers = (counted.get("BTAS") ?? 0) * troopers;
+        if (tasers > 0) add(`BTAS${tasers}`);
+        const sensors = counted.get("RSD") ?? 0;
+        if (sensors > 0) add(`RSD${sensors}`);
+        const bombs = Math.round((counted.get("BOMB") ?? 0) * troopers / 5 + 1e-9);
+        if (bombs > 0) add(`BOMB${bombs}`);
+        // Recon: an active probe, a remote sensor dispenser or improved sensors (ASC p.129).
+        if (specials.includes("LPRB") || sensors > 0 || this._hasItem("Improved Sensors")) add("RCN");
+        const artillery = specials.includes("ART-BA");
+        if (artillery) specials[specials.indexOf("ART-BA")] = "ARTBA-1";
+        specials.sort();
+
+        // Point Value (ASC pp.139-141).
+        const points = (item: IBattleArmorASDamageValue): number => item.minimal ? 0.5 : item.damage;
+        const short = points(damageValues.short);
+        const medium = points(damageValues.medium);
+        const long = points(damageValues.long);
+        let offensive = short + medium * 2 + long;
+        const offensiveParts: string[] = [`${short} + 2 x ${medium} + ${long}`];
+        const addOffensive = (label: string, amount: number): void => { if (amount > 0) { offensive += amount; offensiveParts.push(`${amount} (${label})`); } };
+        addOffensive("HT", heatValue > 0 ? heatValue + (heatRatings[1] > 0 ? 0.5 : 0) : 0);
+        addOffensive("IF", indirect > 1e-9 ? points(indirectValue) : 0);
+        addOffensive("CNARC", specials.includes("CNARC") ? 0.5 : 0);
+        addOffensive("LTAG", specials.includes("LTAG") ? 0.25 : 0);
+        addOffensive("MDS", mines);
+        addOffensive("BTAS", tasers * 0.25);
+        addOffensive("ARTBA, 2 damage x 4", artillery ? 8 : 0);
+        const blanket = specials.some((code) => code === "C3S" || code === "C3I") ? 1.1 : 1;
+        offensive = Math.round(offensive * blanket * 1000) / 1000;
+        log.push(`Offensive Value: ${offensiveParts.join(" + ")}${blanket > 1 ? `, x ${blanket} (C3)` : ""} = ${offensive}`);
+
+        const jumps = code === "j";
+        let targetMovement = 0;
+        if (movement >= 35) targetMovement = 5;
+        else if (movement >= 19) targetMovement = 4;
+        else if (movement >= 13) targetMovement = 3;
+        else if (movement >= 9) targetMovement = 2;
+        else if (movement >= 5) targetMovement = 1;
+        const stealth = specials.includes("STL");
+        // A mimetic system counts as a movement modifier of 3, a camo system as 2, when the suit's own is lower.
+        const concealed = specials.includes("MAS") ? 3 : specials.includes("LMAS") ? 2 : 0;
+        const defenseModifier = Math.max(targetMovement + (jumps || code === "v" ? 1 : 0), concealed) + 1 + (stealth ? 1 : 0);
+        const defenseFactor = 1 + (defenseModifier <= 2 ? 0.1 : 0.25) * defenseModifier;
+        const interaction = roundToHalf((armor * 2 + structure * 2) * defenseFactor);
+        let defensive = movement / 8 + (jumps ? 0.5 : 0);
+        const defensiveParts: string[] = [`${movement} / 8${jumps ? " + 0.5 (jump)" : ""} = ${defensive}`];
+        if (specials.includes("FR")) { defensive += 0.5; defensiveParts.push("0.5 (FR)"); }
+        if (specials.includes("RCA") && armor >= 3) { defensive += Math.floor(armor / 3); defensiveParts.push(`${Math.floor(armor / 3)} (RCA)`); }
+        defensive += interaction;
+        defensiveParts.push(`(Armor ${armor} x 2 + Structure ${structure} x 2) x ${defenseFactor.toFixed(2)} = ${interaction}`);
+        log.push(`Defensive Value: ${defensiveParts.join(" + ")} = ${defensive}`);
+
+        let subTotal = offensive + defensive;
+        let agile = 0;
+        if (targetMovement > 1) {
+            if (medium > 0) agile = (targetMovement - 1) * medium;
+            else if (targetMovement >= 3) agile = (targetMovement - 2) * short;
+        }
+        agile = roundToHalf(agile);
+        if (agile > 0) log.push(`Agile: + ${agile}`);
+        subTotal += agile;
+        let force = 0;
+        if (specials.includes("LECM")) force += 0.5;
+        if (specials.includes("AECM")) force += 3;
+        if (specials.includes("LPRB")) force += 1;
+        if (specials.includes("RCN")) force += 2;
+        for (const code of specials) if (/^MHQ\d+$/.test(code)) force += Number(code.slice(3));
+        if (force > 0) log.push(`Force bonuses (ECM, probe, Recon, MHQ): + ${force}`);
+        subTotal += force;
+        const pointValue = Math.max(1, Math.round(subTotal + 1e-9));
+        log.push(`Point Value: ${subTotal}, rounded to ${pointValue}`);
+        if (bombs > 0) log.push("The Alpha Strike Companion's factor tables give no value for BOMB on a ground unit; none is added.");
+
+        return { type: "BA", size: 1, move, movement, armor, structure, damageValues, specialAbilities: specials, pointValue, calcLog: log };
+    }
+
+    /** The converted Alpha Strike card, built the same way as a Master Unit List record. */
+    public getAlphaStrikeUnit(): AlphaStrikeUnit {
+        const stats = this.getAlphaStrikeStats();
+        const damage = stats.damageValues;
+        const record = {
+            Id: 0,
+            Name: this.getDisplayName(),
+            Class: "Battle Armor",
+            Variant: "",
+            Tonnage: Math.ceil(this._weightClass.maxWeight / 1000),
+            Cost: this.getCBillCost(),
+            BattleValue: this.getBattleValue(),
+            BFType: stats.type,
+            BFSize: stats.size,
+            BFMove: stats.move,
+            BFTMM: 0,
+            BFArmor: stats.armor,
+            BFStructure: stats.structure,
+            BFThreshold: 0,
+            BFDamageShort: damage.short.damage,
+            BFDamageMedium: damage.medium.damage,
+            BFDamageLong: damage.long.damage,
+            BFDamageExtreme: 0,
+            BFDamageShortMin: damage.short.minimal,
+            BFDamageMediumMin: damage.medium.minimal,
+            BFDamageLongMin: damage.long.minimal,
+            BFDamageExtremeMin: false,
+            BFOverheat: 0,
+            BFPointValue: stats.pointValue,
+            BFAbilities: stats.specialAbilities.join(","),
+            Role: { Id: 0, Name: "None", Image: null, SortOrder: 0 },
+            Technology: { Id: 0, Name: this.isClan() ? "Clan" : "Inner Sphere", Image: null, SortOrder: 0 },
+            Type: { Id: 22, Name: "Battle Armor", Image: null, SortOrder: 0 },
+        } as unknown as IASMULUnit;
+        const unit = new AlphaStrikeUnit();
+        unit.importMUL(record);
+        unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        return unit;
+    }
+
     // Saving and loading
 
     /** Brings every choice back inside what the chassis allows. */
@@ -790,17 +1509,25 @@ export default class BattleArmor {
         if (!this.isQuad()) this._turret = null;
         const locations = this.getLocations();
         const fallback: BattleArmorLocation = "body";
-        this._items.forEach((entry) => {
+        this._baseItems.forEach((entry) => {
             if (!locations.includes(entry.location)) entry.location = fallback;
             if (this.isQuad()) { delete entry.modular; delete entry.squadSupport; }
+            if (entry.location === "turret") delete entry.dwp;
         });
+        this.setSquadSize(this._squadSize);
         this._apMounts.forEach((mount) => { if (!locations.includes(mount.location) || mount.location === "turret") mount.location = fallback; });
         if (this.isQuad()) this._arms = { la: defaultArm(), ra: defaultArm() };
     }
 
-    public export(): IBattleArmorExport {
+    public export(noInPlayVariables: boolean = false): IBattleArmorExport {
         const turret = this.getTurret();
+        const inPlay: IBattleArmorInPlay | undefined = noInPlayVariables || !(this.isDamaged() || this._inPlay.missilesJettisoned || this._inPlay.packsJettisoned) ? undefined : {
+            damage: Array.from({ length: this._squadSize }, (_unused, trooper) => this.getTrooperDamage(trooper)),
+            ...(this._inPlay.missilesJettisoned ? { missilesJettisoned: true } : {}),
+            ...(this._inPlay.packsJettisoned ? { packsJettisoned: true } : {}),
+        };
         return {
+            ...(inPlay ? { inPlay } : {}),
             uuid: this._uuid,
             lastUpdated: this.lastUpdated.toISOString(),
             name: this._name,
@@ -814,12 +1541,15 @@ export default class BattleArmor {
             arms: { la: { ...this._arms.la }, ra: { ...this._arms.ra } },
             armor: this._armor.tag,
             armorPoints: this._armorPoints,
-            items: this._items.map((entry) => ({ ...entry })),
+            items: this._baseItems.map((entry) => ({ ...entry })),
             apMounts: this._apMounts.map((mount) => ({ ...mount })),
             ...(turret ? { turret: { ...turret } } : {}),
             squadSize: this._squadSize,
             gunnery: this._gunnery,
             antiMech: this._antiMech,
+            era: this._era.tag,
+            ...(this._loadouts.length > 0 ? { loadouts: this._loadouts.map((loadout) => ({ name: loadout.name, weapons: { ...loadout.weapons }, manipulators: { ...loadout.manipulators } })) } : {}),
+            ...(this._loadouts[this._activeLoadout] ? { activeLoadout: this._activeLoadout } : {}),
         };
     }
 
@@ -847,6 +1577,10 @@ export default class BattleArmor {
         this.setName(savedString(raw.name));
 
         this._techBase = raw.techBase === "clan" ? "clan" : "is";
+        this._era = latestEra(this._techBase);
+        if (raw.era !== undefined && !this.setEra(savedString(raw.era))) this._importIssues.push(`Unknown era '${savedString(raw.era).slice(0, 60)}': using ${this._era.name}`);
+        this._loadouts = [];
+        this._activeLoadout = -1;
         const weightClass = battleArmorWeightClasses.find((entry) => entry.tag === raw.weightClass);
         if (!weightClass && raw.weightClass !== undefined) this._importIssues.push(`Unknown weight class '${savedString(raw.weightClass).slice(0, 60)}': using Medium`);
         this._weightClass = weightClass ?? findBattleArmorWeightClass("medium");
@@ -882,7 +1616,7 @@ export default class BattleArmor {
         this._turret = null;
         if (isPlainObject(raw.turret) && this.isQuad()) this.setTurret(savedNumber(raw.turret.size, 1, 1, BATTLE_ARMOR_TURRET.maxCapacity), raw.turret.configurable === true);
 
-        this._items = [];
+        this._baseItems = [];
         const items = Array.isArray(raw.items) ? raw.items.slice(0, MAX_BATTLE_ARMOR_ITEMS) : [];
         for (const saved of items) {
             if (!isPlainObject(saved)) continue;
@@ -893,13 +1627,14 @@ export default class BattleArmor {
                 this._importIssues.push(`Equipment '${tag.slice(0, 60)}' cannot be mounted: removed`);
                 continue;
             }
-            this.updateItem(this._items.length - 1, {
+            this.updateItem(this._baseItems.length - 1, {
                 shots: typeof saved.shots === "number" ? saved.shots : undefined,
                 oneShot: saved.oneShot === true,
                 detachable: saved.detachable === true,
                 modular: saved.modular === true,
                 squadSupport: saved.squadSupport === true,
                 kg: typeof saved.kg === "number" ? saved.kg : undefined,
+                dwp: saved.dwp === true,
             });
         }
 
@@ -915,6 +1650,32 @@ export default class BattleArmor {
         this._gunnery = savedNumber(raw.gunnery, 4, 0, 8);
         this._antiMech = savedNumber(raw.antiMech, 5, 0, 8);
         this._clamp();
+
+        const loadouts = Array.isArray(raw.loadouts) ? raw.loadouts.slice(0, MAX_BATTLE_ARMOR_LOADOUTS) : [];
+        for (const saved of loadouts) {
+            if (!isPlainObject(saved) || !this.addLoadout(savedString(saved.name))) continue;
+            const index = this._loadouts.length - 1;
+            const weapons = isPlainObject(saved.weapons) ? saved.weapons : {};
+            for (const [key, swap] of Object.entries(weapons)) {
+                if (!isPlainObject(swap) || !/^\d{1,2}$/.test(key)) continue;
+                if (!this.setLoadoutWeapon(index, Number(key), savedString(swap.tag), typeof swap.shots === "number" ? swap.shots : undefined, swap.oneShot === true)) {
+                    this._importIssues.push(`Loadout '${this._loadouts[index].name}': '${savedString(swap.tag).slice(0, 60)}' cannot go in that mount: removed`);
+                }
+            }
+            const manipulators = isPlainObject(saved.manipulators) ? saved.manipulators : {};
+            for (const arm of ["la", "ra"] as BattleArmorArm[]) {
+                if (typeof manipulators[arm] === "string") this.setLoadoutManipulator(index, arm, savedString(manipulators[arm]));
+            }
+        }
+        this._activeLoadout = savedNumber(raw.activeLoadout, -1, -1, this._loadouts.length - 1);
+
+        this._inPlay = { damage: [] };
+        if (isPlainObject(raw.inPlay)) {
+            const damage = Array.isArray(raw.inPlay.damage) ? raw.inPlay.damage : [];
+            for (let trooper = 0; trooper < this._squadSize; trooper++) this.setTrooperDamage(trooper, savedNumber(damage[trooper], 0, 0, 99));
+            if (raw.inPlay.missilesJettisoned === true) this._inPlay.missilesJettisoned = true;
+            if (raw.inPlay.packsJettisoned === true) this._inPlay.packsJettisoned = true;
+        }
         return true;
     }
 }

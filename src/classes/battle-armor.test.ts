@@ -139,7 +139,8 @@ describe("Battle armor construction (TechManual pp.160-173)", () => {
     it("gives every item a unique tag and a rules page", () => {
         const tags = battleArmorEquipment.map((entry) => entry.tag);
         expect(new Set(tags).size).toBe(tags.length);
-        for (const entry of battleArmorEquipment) expect(entry.page, entry.tag).toBeGreaterThan(200);
+        // TechManual equipment is described on pp.252-271; Tactical Operations items carry their page in that book.
+        for (const entry of battleArmorEquipment) expect(entry.page, entry.tag).toBeGreaterThan(entry.book === "TO:AUE" ? 90 : 200);
     });
 
     it("saves and loads a design, and cleans a broken save", () => {
