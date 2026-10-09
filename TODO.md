@@ -349,8 +349,9 @@ played first, then by dependency.
   and 85 are legal; 70 come to their exact tonnage. Of the 76 with Master Unit List cards: Battle Value 62,
   Alpha Strike armor 76, move 73, damage 73, abilities 75, Point Value 73.
 - [x] ProtoMech armor, fractional mass and Electric Discharge ProtoMech Armor (IO:AE pp.58-59, 190): 75 kg a
-  point, one torso item less, 32 Battle Value as a weapon, 1,250 C-bills a point. There is no "UltraProto"
-  armor in the books; Ultraheavy ProtoMechs use the same armor on a larger table.
+  point, one torso item less, 32 Battle Value as a weapon, 1,250 C-bills a point. "UltraProto Standard"
+  is the readouts' name for the standard armor of Ultraheavy ProtoMechs (The Wars of Reaving p.212; TRO:
+  Prototypes p.90); it has no rules of its own, and those units use the same armor on a larger table.
 - [x] ProtoMech-only weapons: Streak LRM by the tube (TO:AUE p.139, 400 kg a tube, Battle Values from its
   table) and the Fusillade launcher (IO:AE p.59: 1.5 tons with its two ATM 3 rounds, Battle Value 11).
 - [ ] ProtoMech readings for the user to rule on (2026-10-09). Each is built as stated and noted in the code:
