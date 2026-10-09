@@ -692,6 +692,11 @@ bundle: every open PR except #92 and #97, plus the unit builders, rules levels a
     on upstream master when #115 merges. The bundle branch carries two removal commits for them: when merging
     this branch into it, keep `building.ts`, the roster files and the MUL source files free of play and custom
     MUL code, then merge the bundle into `feature/building-play`.
+  - Pass 5 (2026-10-09) is fixed and #115 is marked ready for review. Open items in this file go up as
+    follow-up PRs on top of it.
+  - Custom MUL submission is off (`CONST_CUSTOM_MUL_SUBMISSION_ENABLED = false`, user 2026-10-09): the path takes
+    a GitHub token in the page. Before switching it on: a security review of that path, and the SSW
+    custom-content submission ready to ship beside it.
   - `tools/mul-sync/sync-mul.mjs`: the live-to-legacy era id table has no entry for ids 1 and 9. 494 bundled
     records carry era id 1 unmapped. Which legacy era each is has to come from the site's era list.
   - Reported as already on upstream master, not fixed here: Alpha Strike value adds Medium damage twice and
