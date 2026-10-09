@@ -7,8 +7,9 @@ import {
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
-import { findByTag } from "../data/tag-match";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, equipmentMatchesIdentifier, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { findByTag, matchesTag } from "../data/tag-match";
+import { getWeaponExplosionDamage } from "../data/weapon-explosions";
 import { IInfantryWeapon, INFANTRY_POWER_CELL_COST, findInfantryWeapon, getInfantryClipCost, infantryWeapons, isInfantryWeaponAvailable } from "../data/infantry-weapons";
 import { capitalWeapons } from "../data/capital-weapons";
 import { subCapitalWeapons } from "../data/sub-capital-weapons";
@@ -130,10 +131,65 @@ export const BUILDING_COST_MULTIPLIERS = { sealed: 1.5, heavyMetal: 1.25, ceilin
 export const BUILDING_BREACH_TARGET = 10;
 export const BUILDING_BREACH_MODIFIERS: Record<string, number> = { light: 2, medium: 0, heavy: -2, hardened: -4 };
 
+/** One hex's condition in play. */
+export interface IBuildingHexInPlay {
+    armorDamage: number;
+    cfDamage: number;
+    gunnersKilled: boolean;
+    /** Turns the gunners stay stunned. */
+    gunnersStunned: number;
+    /** Turret Jam critical hits taken; a second one locks the turret. */
+    turretJams: number;
+    turretJammed: boolean;
+    turretLocked: boolean;
+    ammoExploded: boolean;
+    /** The Construction Factor at the start of the turn, set by the turn's first damage; null until then. */
+    turnStartCF: number | null;
+}
+
+export interface IBuildingInPlay {
+    hexes: IBuildingHexInPlay[];
+    /** Items destroyed or rendered inoperative, by uuid. */
+    destroyed: string[];
+    /** Weapons with a malfunction to clear, by uuid. */
+    malfunctions: string[];
+    /** Shots fired from each ammunition bin, by uuid. */
+    ammoUsed: Record<string, number>;
+    /** A sealed or underwater building that has been breached: what is inside is lost (TO:AR pp.134, 138). */
+    breached?: boolean;
+}
+
+export interface IBuildingDamageResult {
+    lines: string[];
+    /** True when the attack calls for a roll on the Advanced Building Critical Hits Table. */
+    criticalRoll: boolean;
+    /** True when the attack calls for a roll on the Sealed Building Breach Table. */
+    breachRoll: boolean;
+}
+
+/** The Advanced Building Critical Hits Table (TO:AR p.119). */
+export const BUILDING_CRITICAL_HITS: { min: number; max: number; name: string }[] = [
+    { min: 2, max: 5, name: "No Critical Hit" },
+    { min: 6, max: 6, name: "Weapon Malfunction" },
+    { min: 7, max: 7, name: "Gunners Stunned" },
+    { min: 8, max: 8, name: "Weapon Destroyed" },
+    { min: 9, max: 9, name: "Gunners Killed" },
+    { min: 10, max: 10, name: "Turret Jammed (1-3) / Turret Locked (4-6)" },
+    { min: 11, max: 11, name: "Ammunition" },
+    { min: 12, max: 12, name: "Other" },
+];
+
+const newHexInPlay = (): IBuildingHexInPlay => ({
+    armorDamage: 0, cfDamage: 0, gunnersKilled: false, gunnersStunned: 0, turretJams: 0, turretJammed: false, turretLocked: false,
+    ammoExploded: false, turnStartCF: null,
+});
+const newInPlay = (): IBuildingInPlay => ({ hexes: [], destroyed: [], malfunctions: [], ammoUsed: {} });
+
 export interface IBuildingExport {
     /** The gunners' Gunnery skill; absent in saves from before buildings joined the roster. */
     gunnery?: number;
     /** Damage and critical hits taken in play; left out of a design save. */
+    inPlay?: IBuildingInPlay;
     uuid: string;
     lastUpdated: Date;
     name: string;
@@ -256,6 +312,7 @@ export default class Building {
     private _liquidStorage: number = 0;
     private _poweredHexes: number = 0;
     private _gunnery: number = 4;
+    private _inPlay: IBuildingInPlay = newInPlay();
     private _importIssues: string[] = [];
 
     constructor(importJSON: string = "") {
@@ -993,6 +1050,46 @@ export default class Building {
         return weapon.baseRange === 0 ? { short: 0, medium: 1, long: 2 } : { short: weapon.baseRange, medium: weapon.baseRange * 2, long: weapon.baseRange * 3 };
     }
 
+    /** Shots a Light or Medium weapon has left in play, or null for one that uses no ammunition. */
+    public getLightWeaponShots(uuid: string): number | null {
+        const mount = this._lightMount(uuid);
+        const total = mount ? Building.getLightMountShots(mount) : null;
+        return total === null ? null : Math.max(0, total - (this._inPlay.ammoUsed[uuid] ?? 0));
+    }
+    public setLightWeaponShots(uuid: string, shots: number): void {
+        const mount = this._lightMount(uuid);
+        const total = mount ? Building.getLightMountShots(mount) : null;
+        if (total === null) return;
+        const used = total - Math.floor(savedNumber(shots, total, 0, total));
+        if (used > 0) this._inPlay.ammoUsed[uuid] = used;
+        else delete this._inPlay.ammoUsed[uuid];
+    }
+
+    /**
+     * Why a Light or Medium weapon cannot fire, or "" when it can. None needs the building's power (TM p.137),
+     * but an energy-cell weapon is wired into it and falls back on its cells only when the power is out (user
+     * ruling, 2026-10-07): its shots matter only then.
+     */
+    public getLightWeaponStatus(uuid: string): string {
+        const mount = this._lightMount(uuid);
+        if (!mount) return "";
+        const state = this._peekHex(mount.hex);
+        if (this.isHexDestroyed(mount.hex)) return "Hex destroyed";
+        if (this.isBreached()) return "Lost to the breach";
+        if (this.isMountDestroyed(uuid)) return "Destroyed";
+        if (state.gunnersKilled) return "Gunners killed";
+        if (state.gunnersStunned > 0) return "Gunners stunned";
+        if (this.getLightWeaponShots(uuid) === 0 && !(mount.weapon.powerCells && this.hasPower())) return "Out of ammunition";
+        if (mount.mount === "turret" && state.turretLocked) return "Turret locked in its facing";
+        if (mount.mount === "turret" && state.turretJammed) return "Turret jammed in its facing";
+        return "";
+    }
+    public setLightWeaponDestroyed(uuid: string, destroyed: boolean): void {
+        if (!this._lightMount(uuid)) return;
+        this._inPlay.destroyed = this._inPlay.destroyed.filter((entry) => entry !== uuid);
+        if (destroyed) this._inPlay.destroyed.push(uuid);
+    }
+
     public getHeatSinkType(): IHeatSync { return this._heatSinkType; }
     public getAvailableHeatSinkTypes(): IHeatSync[] {
         return mechHeatSinkTypes.filter((type) => BUILDING_HEAT_SINK_TAGS.includes(type.tag));
@@ -1370,22 +1467,485 @@ export default class Building {
         ];
     }
 
+    // In play (TO:AR pp.115, 118-119, 124) ---------------------------------------------------------------------
+
     public getDisplayName(): string {
         return this._name.trim() || `${this._type.tag === "none" ? "" : this._type.name + " "}${this._classification.name}`;
+    }
+
+    public getGunnery(): number { return this._gunnery; }
+    public setGunnery(skill: number): void { this._gunnery = Math.floor(savedNumber(skill, this._gunnery, 0, 8)); }
+
+    public getInPlay(): IBuildingInPlay { return this._inPlay; }
+    public resetInPlay(): void { this._inPlay = newInPlay(); }
+
+    private _hexState(hex: number): IBuildingHexInPlay {
+        const index = Math.min(this._hexes, Math.max(1, Math.floor(hex) || 1)) - 1;
+        while (this._inPlay.hexes.length <= index) this._inPlay.hexes.push(newHexInPlay());
+        return this._inPlay.hexes[index];
+    }
+    private _peekHex(hex: number): IBuildingHexInPlay { return this._inPlay.hexes[hex - 1] ?? newHexInPlay(); }
+
+    /** Armor Factor left on a hex. */
+    public getHexArmor(hex: number): number { return Math.max(0, this.getArmorPoints() - this._peekHex(hex).armorDamage); }
+    /** Construction Factor left on a hex. */
+    public getHexCF(hex: number): number { return Math.max(0, this._cf - this._peekHex(hex).cfDamage); }
+    public isHexDestroyed(hex: number): boolean { return this.getHexCF(hex) <= 0; }
+    public getHexState(hex: number): IBuildingHexInPlay { return { ...this._peekHex(hex) }; }
+
+    /** Marks a hex's Armor Factor or Construction Factor by hand. */
+    public setHexArmor(hex: number, remaining: number): void {
+        this._hexState(hex).armorDamage = this.getArmorPoints() - Math.floor(savedNumber(remaining, this.getHexArmor(hex), 0, this.getArmorPoints()));
+    }
+    public setHexCF(hex: number, remaining: number): void {
+        this._hexState(hex).cfDamage = this._cf - Math.floor(savedNumber(remaining, this.getHexCF(hex), 0, this._cf));
+    }
+
+    public isDestroyed(): boolean {
+        for (let hex = 1; hex <= this._hexes; hex++) if (!this.isHexDestroyed(hex)) return false;
+        return true;
+    }
+    public isDamaged(): boolean {
+        return this.isBreached() || this._inPlay.destroyed.length > 0 || this._inPlay.malfunctions.length > 0 || Object.values(this._inPlay.ammoUsed).some((used) => used > 0)
+            || this._inPlay.hexes.slice(0, this._hexes).some((state) => state.armorDamage > 0 || state.cfDamage > 0 || state.gunnersKilled
+                || state.gunnersStunned > 0 || state.turretJammed || state.turretLocked || state.ammoExploded);
+    }
+    /** Armor Factor and Construction Factor left across the building. */
+    public getCurrentPoints(): number {
+        let points = 0;
+        for (let hex = 1; hex <= this._hexes; hex++) points += this.isHexDestroyed(hex) ? 0 : this.getHexArmor(hex) + this.getHexCF(hex);
+        return points;
+    }
+    public getStrengthPercentage(): number {
+        const full = (this.getArmorPoints() + this._cf) * this._hexes;
+        return full > 0 ? Math.round(this.getCurrentPoints() / full * 100) : 0;
+    }
+
+    /**
+     * A hex's Damage Threshold: its Construction Factor at the start of the turn / 10, rounded up. A single
+     * attack or Damage Value grouping above it calls for a critical hit roll (TO:AR p.118).
+     */
+    public getDamageThreshold(hex: number): number {
+        return Math.ceil((this._peekHex(hex).turnStartCF ?? this.getHexCF(hex)) / 10);
+    }
+
+    /** Points a hex takes off each attack against a unit inside: its Construction Factor / 10, rounded up (TW p.171; TO:AR p.125). */
+    public getDamageAbsorbed(hex: number): number { return Math.ceil(this.getHexCF(hex) / 10); }
+
+    /**
+     * Capital scale: the standard-scale damage a single hit must exceed to reach the units inside a hex, the
+     * current Construction Factor / 10, rounded up, as capital points. Such a hit does 10 points to every unit
+     * inside, in 5-point groupings (TO:AR p.124).
+     */
+    public getCapitalPassThroughDamage(hex: number): number { return Math.ceil(this.getHexCF(hex) / 10) * BUILDING_CAPITAL_SCALE; }
+
+    /**
+     * Damage to a unit that fails its roll entering the hex: the Construction Factor / 10, rounded up (TO:AR
+     * p.117), times the classification's scaling for damage to units, rounded down (TO:AR p.124).
+     */
+    public getUnitEntryDamage(hex: number): number {
+        let damage = Math.ceil(this.getHexCF(hex) / 10);
+        // Ceilings double (rounded up) or halve (rounded down) it; a heavy metal superstructure doubles it (TO:AR pp.117, 135).
+        if (this._ceilings === "low") damage *= 2;
+        if (this._ceilings === "high") damage = Math.floor(damage / 2);
+        if (this._heavyMetal) damage *= 2;
+        return Math.floor(damage * this._classification.damageToUnits);
+    }
+
+    // The Advanced Building Movement Table's rows for what a hex holds inside; rooftop and turret items do not count (TO:AR p.117).
+    private _hexFeature(hex: number): { mp: number; piloting: number; toHit: number } {
+        const inside = this._equipment.filter((mount) => mount.hex === hex && !mount.turret);
+        let row = { mp: 0, piloting: 0, toHit: 0 };
+        if (this._generator || inside.some((mount) => Building._isWeapon(mount.item))) row = { mp: 2, piloting: 2, toHit: 2 };
+        else if (inside.length > 0 || this._heatSinks > 0 || this.getElevatorWeight(hex) > 0) row = { mp: 1, piloting: 1, toHit: 2 };
+        else if (this._unspecifiedEquipment) row = { mp: 0, piloting: 0, toHit: 1 };
+        if (this._liquidStorage > 0) row = { mp: row.mp + 1, piloting: row.piloting + 2, toHit: row.toHit };
+        if (this._ceilings === "high") row.piloting -= 1;
+        if (this._ceilings === "low") row = { ...row, mp: row.mp + 1, piloting: row.piloting + 1 };
+        if (this._heavyMetal) row = { ...row, mp: row.mp + 1, piloting: row.piloting + 2 };
+        return row;
+    }
+    /**
+     * MP a non-infantry unit pays to enter a hex beyond the hex's own cost, and its Piloting/Driving Skill Roll
+     * modifier: the classification and type (TO:AR p.113) plus the Advanced Building Movement Table (p.117).
+     * Null where units cannot enter. A hangar's own reductions depend on the unit's height and are not counted.
+     */
+    public getHexMPCost(hex: number): number | null {
+        return this._type.mpCost === null ? null : this._type.mpCost + this._hexFeature(hex).mp;
+    }
+    public getHexPilotingModifier(hex: number): number | null {
+        return this._type.pilotingModifier === null ? null : this._type.pilotingModifier + this._hexFeature(hex).piloting;
+    }
+    /** To-hit modifier a hex's equipment adds to weapon attacks through it (TO:AR p.117). */
+    public getHexToHitModifier(hex: number): number { return this._hexFeature(hex).toHit; }
+
+    /** The generator is spread over every hex: losing one puts it out, and Heavy weapons and electronics with it (TO:AR p.132). */
+    public hasPower(): boolean {
+        if (!this._generator) return true;
+        for (let hex = 1; hex <= this._hexes; hex++) if (this.isHexDestroyed(hex)) return false;
+        return true;
     }
 
     /** Sealed Building Breach Table modifier: the building type, plus half the depth, rounded up (TO:AR p.135). */
     public getBreachModifier(): number {
         return (BUILDING_BREACH_MODIFIERS[this._type.tag] ?? 0) + (this._subsurface !== "none" ? Math.ceil(this._depth / 2) : 0);
     }
+    public isBreached(): boolean { return this._inPlay.breached === true; }
+    public setBreached(breached: boolean): void { this._inPlay.breached = breached || undefined; }
+    /**
+     * A roll on the Sealed Building Breach Table (TO:AR pp.134-135, 138). A breach loses everything unprotected
+     * inside; underground it collapses the hex instead, and under water it floods the building.
+     */
+    public resolveBreachRoll(hex: number, roll: number): string[] {
+        const modifier = this.getBreachModifier();
+        const total = Math.floor(savedNumber(roll, 2, 2, 12)) + modifier;
+        const head = `Breach roll ${Math.floor(savedNumber(roll, 2, 2, 12))} ${modifier >= 0 ? "+" : "-"} ${Math.abs(modifier)} = ${total}`;
+        if (total < BUILDING_BREACH_TARGET) return [`${head}: no breach (${BUILDING_BREACH_TARGET}+ needed)`];
+        if (this.isCapitalScale() && this._subsurface !== "underground") {
+            // A Castles Brian breaches only in the hex where the damage occurred (TO:AR p.134).
+            return [`${head}: breached. Only ${this._hexes > 1 ? `hex ${hex}` : "this hex"} ${this._subsurface === "underwater" ? "floods" : "loses its seal"}; unprotected personnel and equipment in it are destroyed`];
+        }
+        if (this._subsurface === "underground") {
+            this.setHexCF(hex, 0);
+            return [`${head}: breached. ${this._collapseLine(this._hexes > 1 ? `Hex ${hex}` : this.getDisplayName())}; equipment and unprotected personnel in it are lost`];
+        }
+        this._inPlay.breached = true;
+        return [`${head}: breached. ${this._subsurface === "underwater" ? "The building floods" : "The building loses its seal"}; all unprotected personnel and equipment inside are destroyed`];
+    }
 
-    public getGunnery(): number { return this._gunnery; }
-    public setGunnery(skill: number): void { this._gunnery = Math.floor(savedNumber(skill, this._gunnery, 0, 8)); }
+    /**
+     * Applies one attack, or one Damage Value grouping, to a hex. Scaled damage multiplies it by the
+     * classification's figure and rounds down (TO:AR p.124). At capital scale the damage is the total of one
+     * unit's attacks in the phase, divided by 10 and rounded to the nearest point: the rule's text says 20 and
+     * its worked example divides by 10 (TO:AR pp.124-125); the example is followed (user ruling, 2026-10-07).
+     * Armor goes first and the rest reaches the
+     * Construction Factor (TO:AR p.128); an attack from inside the building skips the armor (TO:AR p.119).
+     * A critical hit roll is due when the Construction Factor was damaged and the damage is above the hex's
+     * Damage Threshold (TO:AR p.118).
+     */
+    public applyDamage(hex: number, damage: number, scaled: boolean = true, fromInside: boolean = false): IBuildingDamageResult {
+        const lines: string[] = [];
+        const where = this._hexes > 1 ? `Hex ${hex}` : this.getDisplayName();
+        if (hex < 1 || hex > this._hexes || this.isHexDestroyed(hex)) return { lines: [`${where} is already destroyed`], criticalRoll: false, breachRoll: false };
+        const rated = Math.max(0, Math.floor(savedNumber(damage, 0, 0, 100000)));
+        const multiplier = scaled ? this._classification.damageToBuilding : 1;
+        const capital = scaled && this.isCapitalScale();
+        const applied = capital ? Math.floor(rated / BUILDING_CAPITAL_SCALE + 0.5) : Math.floor(rated * multiplier);
+        if (capital) lines.push(`${rated} damage / ${BUILDING_CAPITAL_SCALE} for capital scale = ${applied} (TO:AR pp.124-125)`);
+        else if (multiplier !== 1) lines.push(`${rated} damage x${multiplier} for a ${this._classification.name.toLowerCase()} = ${applied} (TO:AR p.124)`);
+        if (applied <= 0) return { lines: [...lines, `${where}: no damage`], criticalRoll: false, breachRoll: false };
+
+        const state = this._hexState(hex);
+        if (state.turnStartCF === null) state.turnStartCF = this.getHexCF(hex);
+        const threshold = this.getDamageThreshold(hex);
+        const armorTaken = fromInside ? 0 : Math.min(this.getHexArmor(hex), applied);
+        state.armorDamage += armorTaken;
+        const cfTaken = Math.min(this.getHexCF(hex), applied - armorTaken);
+        state.cfDamage += cfTaken;
+        if (armorTaken > 0) lines.push(`${where}: ${armorTaken} to armor, ${this.getHexArmor(hex)} left`);
+        if (cfTaken > 0) lines.push(`${where}: ${cfTaken} to the Construction Factor, ${this.getHexCF(hex)} left`);
+        if (this.isHexDestroyed(hex)) {
+            lines.push(this._collapseLine(where));
+            if (!this.hasPower()) lines.push("The generator is out: no Heavy weapons, communications or other electronics (TO:AR p.132)");
+            return { lines, criticalRoll: false, breachRoll: false };
+        }
+        // Capital-scale damage is a total: only a single hit above the threshold counts, which the total cannot show.
+        if (capital) lines.push(`If any single hit was more than ${threshold * BUILDING_CAPITAL_SCALE} points (Damage Threshold ${threshold}), every unit inside takes one 10-point hit, and a critical hit roll is due if it reached the Construction Factor (TO:AR pp.118, 124)`);
+        const criticalRoll = !capital && cfTaken > 0 && applied > threshold;
+        if (criticalRoll) lines.push(`${applied} damage is above the Damage Threshold of ${threshold}: roll on the Advanced Building Critical Hits Table (TO:AR p.118)`);
+        // A sealed building checks when a hit does more than 10 points to the CF; a subsurface one at 10 points of damage.
+        // Castles Brian are left out of the subsurface check, and count their capital points as 10 each (TO:AR pp.127, 138).
+        const breachRoll = !this.isBreached() && ((this._sealed && cfTaken * this.getCFScale() > 10) || (!this.isCapitalScale() && this._subsurface !== "none" && cfTaken >= 10));
+        if (breachRoll) lines.push(`Roll on the Sealed Building Breach Table: 2D6 ${this.getBreachModifier() >= 0 ? "+" : "-"} ${Math.abs(this.getBreachModifier())}, breached on ${BUILDING_BREACH_TARGET}+ (TO:AR p.135)`);
+        return { lines, criticalRoll, breachRoll };
+    }
+
+    private _collapseLine(where: string): string {
+        if (this.isGunEmplacement()) return `${where} is destroyed`;
+        return `${where} collapses${this._hexes > 1 ? "; under the expanded collapse rules, halve the Construction Factor left on each adjacent hex of this building (TO:AR p.121)" : ""}`;
+    }
+
+    /** A collapsing hex halves the Construction Factor left on an adjacent hex of the same building, rounded down (TO:AR p.121). */
+    public halveHexCF(hex: number): number {
+        this.setHexCF(hex, Math.floor(this.getHexCF(hex) / 2));
+        return this.getHexCF(hex);
+    }
+
+    // Damage that reaches the Construction Factor directly, as an explosion inside the hex does.
+    private _damageCF(hex: number, damage: number): string[] {
+        const where = this._hexes > 1 ? `Hex ${hex}` : this.getDisplayName();
+        const taken = Math.min(this.getHexCF(hex), Math.max(0, damage));
+        this._hexState(hex).cfDamage += taken;
+        return [`${where}: ${taken} to the Construction Factor, ${this.getHexCF(hex)} left`, ...(this.isHexDestroyed(hex) ? [this._collapseLine(where)] : [])];
+    }
+
+    public isMountDestroyed(uuid: string): boolean { return this._inPlay.destroyed.includes(uuid); }
+    public hasMalfunction(uuid: string): boolean { return this._inPlay.malfunctions.includes(uuid); }
+    private _mount(uuid: string): IBuildingMount | undefined { return this._equipment.find((mount) => mount.item.uuid === uuid); }
+
+    /** Weapons in a hex that still work. */
+    public getWorkingWeapons(hex: number): IBuildingMount[] {
+        return this._equipment.filter((mount) => mount.hex === hex && Building._isWeapon(mount.item) && !this.isMountDestroyed(mount.item.uuid || ""));
+    }
+
+    /** Why a weapon cannot fire this turn, or "" when it can. */
+    public getMountStatus(uuid: string): string {
+        const mount = this._mount(uuid);
+        if (!mount) return "";
+        const state = this._peekHex(mount.hex);
+        if (this.isHexDestroyed(mount.hex)) return "Hex destroyed";
+        if (this.isBreached()) return "Lost to the breach";
+        if (this.isMountDestroyed(uuid)) return mount.item.isAmmo ? "Destroyed" : Building._isWeapon(mount.item) ? "Destroyed" : "Inoperative";
+        if (mount.item.isAmmo) return state.ammoExploded ? "Destroyed" : "";
+        if (!this.hasPower() && (Building.isHeavyWeapon(mount.item) || !Building._isWeapon(mount.item))) return "No power";
+        if (!Building._isWeapon(mount.item)) return "";
+        if (state.gunnersKilled && !mount.automated) return "Gunners killed";
+        if (state.gunnersStunned > 0 && !mount.automated) return "Gunners stunned";
+        if (this.hasMalfunction(uuid)) return "Malfunction";
+        if (mount.turret && state.turretLocked) return "Turret locked in its facing";
+        if (mount.turret && state.turretJammed) return "Turret jammed in its facing";
+        return "";
+    }
+
+    /**
+     * Marks an item destroyed or working again. A weapon that can explode does so when a critical hit destroys
+     * it, as an ammunition explosion of that damage in its hex (TO:AR p.119).
+     */
+    public setMountDestroyed(uuid: string, destroyed: boolean, byCriticalHit: boolean = false): string[] {
+        const mount = this._mount(uuid);
+        if (!mount) return [];
+        this._inPlay.destroyed = this._inPlay.destroyed.filter((entry) => entry !== uuid);
+        this._inPlay.malfunctions = this._inPlay.malfunctions.filter((entry) => entry !== uuid);
+        if (!destroyed) return [];
+        this._inPlay.destroyed.push(uuid);
+        const lines = [`${mount.item.name} is ${Building._isWeapon(mount.item) ? "destroyed" : "inoperative"}`];
+        const explosion = byCriticalHit ? getWeaponExplosionDamage(mount.item) : null;
+        if (explosion) {
+            const damage = this.hasCASE(mount.hex) ? Math.floor(explosion.damage / 10) : explosion.damage;
+            lines.push(`${mount.item.name} explodes for ${explosion.damage} damage (${explosion.book} p.${explosion.page})${damage !== explosion.damage ? `, ${damage} with CASE` : ""}`);
+            lines.push(...this._damageCF(mount.hex, damage));
+        } else if (byCriticalHit && mount.item.explosive && !mount.item.isAmmo) {
+            lines.push(`${mount.item.name} can explode, but its explosion damage is not in the rulebooks in hand`);
+        }
+        return lines;
+    }
+
+    /** A malfunction stops a weapon until the gunners spend a Weapon Attack Phase clearing it (TO:AR p.119). */
+    public setMalfunction(uuid: string, malfunction: boolean): void {
+        const mount = this._mount(uuid);
+        this._inPlay.malfunctions = this._inPlay.malfunctions.filter((entry) => entry !== uuid);
+        if (malfunction && mount && Building._isWeapon(mount.item) && !this.isMountDestroyed(uuid)) this._inPlay.malfunctions.push(uuid);
+    }
+
+    public setGunnersKilled(hex: number, killed: boolean): void { this._hexState(hex).gunnersKilled = killed; }
+    public setGunnersStunned(hex: number, turns: number): void { this._hexState(hex).gunnersStunned = Math.floor(savedNumber(turns, 0, 0, 99)); }
+    /** Fixing a jam takes the gunners a Weapon Attack Phase; a locked turret stays locked (TO:AR p.118). */
+    public setTurretJammed(hex: number, jammed: boolean): void { this._hexState(hex).turretJammed = jammed && !this._peekHex(hex).turretLocked; }
+    public setTurretLocked(hex: number, locked: boolean): void {
+        const state = this._hexState(hex);
+        state.turretLocked = locked;
+        if (locked) state.turretJammed = false;
+        else state.turretJams = 0;
+    }
+
+    /** A new turn: stunned gunners recover a turn, and the next damage sets a fresh Damage Threshold. */
+    public startTurn(): void {
+        for (const state of this._inPlay.hexes) {
+            state.gunnersStunned = Math.max(0, state.gunnersStunned - 1);
+            state.turnStartCF = null;
+        }
+    }
+
+    public hasCASE(hex: number): boolean {
+        return this._equipment.some((mount) => mount.hex === hex && ["case", "case-ii", "clan-case-ii"].some((tag) => matchesTag(mount.item, tag)));
+    }
+
+    // The weapon an ammunition bin feeds: one in its own hex first, then any on the building.
+    private _binWeapon(bin: IBuildingMount): IEquipmentItem | undefined {
+        const weapons = [...this._equipment.filter((mount) => mount.hex === bin.hex), ...this._equipment].filter((mount) => !mount.item.isAmmo).map((mount) => mount.item);
+        return (bin.item.feedsWeaponTag ? weapons.find((weapon) => equipmentMatchesIdentifier(weapon, bin.item.feedsWeaponTag || "")) : undefined)
+            ?? weapons.find((weapon) => getCompatibleAmmo(weapon, bin.item));
+    }
+
+    /** Shots in a full bin: the fed weapon's shots a ton times the bin's weight; 0 with no weapon to fire it. */
+    public getAmmoCapacity(uuid: string): number {
+        const bin = this._mount(uuid);
+        const weapon = bin?.item.isAmmo ? this._binWeapon(bin) : undefined;
+        return bin && weapon ? Math.floor(getWeaponShotsPerTon(weapon, bin.item) * (bin.item.weight || 0)) : 0;
+    }
+    public getAmmoShots(uuid: string): number {
+        const bin = this._mount(uuid);
+        if (!bin || this.isMountDestroyed(uuid) || this._peekHex(bin.hex).ammoExploded) return 0;
+        return Math.max(0, this.getAmmoCapacity(uuid) - (this._inPlay.ammoUsed[uuid] ?? 0));
+    }
+    public setAmmoShots(uuid: string, shots: number): void {
+        const capacity = this.getAmmoCapacity(uuid);
+        if (!this._mount(uuid)?.item.isAmmo) return;
+        const used = capacity - Math.floor(savedNumber(shots, capacity, 0, capacity));
+        if (used > 0) this._inPlay.ammoUsed[uuid] = used;
+        else delete this._inPlay.ammoUsed[uuid];
+    }
+
+    private static _damagePerShot(weapon: IEquipmentItem): number {
+        if (weapon.damageClusters && weapon.damagePerCluster) return weapon.damageClusters * weapon.damagePerCluster;
+        if (typeof weapon.damage === "number") return weapon.damage;
+        return weapon.damage?.short ?? 0;
+    }
+
+    /**
+     * The damage of all the explosive ammunition left in a hex: each bin's shots times the Damage Value of one
+     * shot (TO:AR p.118; TW p.125). A bin with no weapon on the building to fire it cannot be valued.
+     */
+    public getAmmunitionExplosionDamage(hex: number): number {
+        let total = 0;
+        for (const bin of this._equipment.filter((mount) => mount.hex === hex && mount.item.isAmmo && mount.item.explosive)) {
+            const weapon = this._binWeapon(bin);
+            if (weapon) total += this.getAmmoShots(bin.item.uuid || "") * Building._damagePerShot(weapon);
+        }
+        return total;
+    }
+
+    /**
+     * Resolves a roll on the Advanced Building Critical Hits Table (TO:AR pp.118-119). `roll` is the 2D6 result,
+     * `die` the 1D6 that picks the side of a split result or who chooses the weapon. A successful aimed shot
+     * adds 2. A result with nothing in the hex for it to affect is no critical hit.
+     */
+    public resolveCriticalHit(hex: number, roll: number, die: number, aimedShot: boolean = false): string[] {
+        if (hex < 1 || hex > this._hexes || this.isHexDestroyed(hex)) return [];
+        const state = this._hexState(hex);
+        const total = Math.min(12, Math.floor(savedNumber(roll, 2, 2, 12)) + (aimedShot ? 2 : 0));
+        const d6 = Math.floor(savedNumber(die, 1, 1, 6));
+        const row = BUILDING_CRITICAL_HITS.find((entry) => total >= entry.min && total <= entry.max) ?? BUILDING_CRITICAL_HITS[0];
+        const head = `Critical hit roll ${total}${aimedShot ? " (aimed shot +2)" : ""}: ${row.name}`;
+        const none = (what: string): string[] => [`${head}. No ${what} in the hex: no critical hit`];
+        const chooser = d6 <= 3 ? "the building's player chooses" : "the attacker chooses";
+        const weapons = this.getWorkingWeapons(hex);
+        const anyWeapons = this._equipment.some((mount) => mount.hex === hex && Building._isWeapon(mount.item));
+        const hasTurret = this._equipment.some((mount) => mount.hex === hex && mount.turret);
+
+        if (total <= 5) return [head];
+        if (total === 6) {
+            const ready = weapons.filter((mount) => !this.hasMalfunction(mount.item.uuid || ""));
+            if (ready.length === 0) return none("working weapon");
+            if (ready.length === 1) {
+                this.setMalfunction(ready[0].item.uuid || "", true);
+                return [`${head}. ${ready[0].item.name} cannot fire until the gunners spend a Weapon Attack Phase clearing it`];
+            }
+            return [`${head}. 1D6 ${d6}: ${chooser} the weapon; mark its malfunction below`];
+        }
+        if (total === 7) {
+            if (!anyWeapons || state.gunnersKilled) return none("gunners");
+            state.gunnersStunned += 1;
+            return [`${head}. The hex takes no actions next turn${state.gunnersStunned > 1 ? ` (${state.gunnersStunned} turns in all)` : ""}`];
+        }
+        if (total === 8) {
+            if (weapons.length === 0) return none("working weapon");
+            if (weapons.length === 1) return [head, ...this.setMountDestroyed(weapons[0].item.uuid || "", true, true)];
+            return [`${head}. 1D6 ${d6}: ${chooser} the weapon; mark it destroyed below`];
+        }
+        if (total === 9) {
+            if (!anyWeapons || state.gunnersKilled) return none("gunners");
+            state.gunnersKilled = true;
+            return [`${head}. No weapons fire from this hex for the rest of the scenario`];
+        }
+        if (total === 10) {
+            if (!hasTurret) return none("turret");
+            if (state.turretLocked) return [`${head}. The turret is already locked: no further effect`];
+            // A second Turret Jam is a Turret Locks result, whether or not the first was cleared.
+            const locks = d6 >= 4 || state.turretJams > 0;
+            if (d6 <= 3) state.turretJams += 1;
+            if (locks) {
+                state.turretLocked = true;
+                state.turretJammed = false;
+                return [`${head}. 1D6 ${d6}: ${d6 >= 4 ? "Turret Locked" : "a second Turret Jam locks the turret"} in its facing for the rest of the game`];
+            }
+            state.turretJammed = true;
+            return [`${head}. 1D6 ${d6}: Turret Jammed in its facing until the gunners spend a Weapon Attack Phase fixing it`];
+        }
+        if (total === 11) {
+            const bins = this._equipment.filter((mount) => mount.hex === hex && mount.item.isAmmo && this.getAmmoShots(mount.item.uuid || "") > 0);
+            if (bins.length === 0 || state.ammoExploded) return none("ammunition");
+            const rated = this.getAmmunitionExplosionDamage(hex);
+            const damage = this.hasCASE(hex) ? Math.floor(rated / 10) : rated;
+            state.ammoExploded = true;
+            return [
+                `${head}. All the hex's ammunition is lost: ${rated} damage${damage !== rated ? `, ${damage} with CASE` : ""}`,
+                ...(damage > 0 ? this._damageCF(hex, damage) : []),
+            ];
+        }
+        const others = this._equipment.filter((mount) => mount.hex === hex && !mount.item.isAmmo && !Building._isWeapon(mount.item) && !this.isMountDestroyed(mount.item.uuid || ""));
+        if (others.length === 0) return none("other equipment");
+        if (others.length === 1) return [head, ...this.setMountDestroyed(others[0].item.uuid || "", true)];
+        return [`${head}. Pick one of the hex's other items at random and mark it inoperative below`];
+    }
 
     // Saving and loading --------------------------------------------------------------------------------------
 
-    public export(_noInPlayVariables: boolean = false): IBuildingExport {
+    // The play state worth saving: hexes and items that still exist, with nothing for an untouched building.
+    private _exportInPlay(): IBuildingInPlay | undefined {
+        if (!this.isDamaged() && !this._inPlay.hexes.some((state) => state.turnStartCF !== null)) return undefined;
+        const uuids = new Set([...this._equipment.map((mount) => mount.item.uuid || ""), ...this._lightWeapons.map((mount) => mount.uuid)]);
+        const hexes: IBuildingHexInPlay[] = [];
+        for (let hex = 1; hex <= this._hexes; hex++) hexes.push({ ...this._peekHex(hex) });
+        const ammoUsed: Record<string, number> = {};
+        for (const [uuid, used] of Object.entries(this._inPlay.ammoUsed)) if (uuids.has(uuid) && used > 0) ammoUsed[uuid] = used;
         return {
+            hexes,
+            destroyed: this._inPlay.destroyed.filter((uuid) => uuids.has(uuid)),
+            malfunctions: this._inPlay.malfunctions.filter((uuid) => uuids.has(uuid)),
+            ammoUsed,
+            ...(this.isBreached() ? { breached: true } : {}),
+        };
+    }
+
+    // Reads saved play state field by field; anything that is not what it should be is left at full strength.
+    private _importInPlay(raw: unknown): void {
+        this._inPlay = newInPlay();
+        if (!isPlainObject(raw)) return;
+        if (raw.breached === true) this._inPlay.breached = true;
+        const uuids = new Set([...this._equipment.map((mount) => mount.item.uuid || ""), ...this._lightWeapons.map((mount) => mount.uuid)]);
+        const hexes = Array.isArray(raw.hexes) ? raw.hexes.slice(0, this._hexes) : [];
+        hexes.forEach((entry, index) => {
+            const state = this._hexState(index + 1);
+            if (!isPlainObject(entry)) return;
+            state.armorDamage = Math.floor(savedNumber(entry.armorDamage, 0, 0, this.getArmorPoints()));
+            state.cfDamage = Math.floor(savedNumber(entry.cfDamage, 0, 0, this._cf));
+            state.gunnersKilled = entry.gunnersKilled === true;
+            state.gunnersStunned = Math.floor(savedNumber(entry.gunnersStunned, 0, 0, 99));
+            state.turretJams = Math.floor(savedNumber(entry.turretJams, 0, 0, 99));
+            state.turretLocked = entry.turretLocked === true;
+            state.turretJammed = entry.turretJammed === true && !state.turretLocked;
+            state.ammoExploded = entry.ammoExploded === true;
+            state.turnStartCF = typeof entry.turnStartCF === "number" ? Math.floor(savedNumber(entry.turnStartCF, this._cf, 0, this._cf)) : null;
+        });
+        const list = (value: unknown): string[] => Array.isArray(value)
+            ? Array.from(new Set(value.filter((entry): entry is string => typeof entry === "string" && uuids.has(entry)))).slice(0, MAX_BUILDING_EQUIPMENT + MAX_BUILDING_LIGHT_WEAPONS) : [];
+        this._inPlay.destroyed = list(raw.destroyed);
+        this._inPlay.malfunctions = list(raw.malfunctions).filter((uuid) => !this._inPlay.destroyed.includes(uuid));
+        if (isPlainObject(raw.ammoUsed)) {
+            for (const mount of this._equipment) {
+                const uuid = mount.item.uuid || "";
+                const used = Object.prototype.hasOwnProperty.call(raw.ammoUsed, uuid) ? raw.ammoUsed[uuid] : undefined;
+                if (mount.item.isAmmo && typeof used === "number") {
+                    const clean = Math.floor(savedNumber(used, 0, 0, this.getAmmoCapacity(uuid)));
+                    if (clean > 0) this._inPlay.ammoUsed[uuid] = clean;
+                }
+            }
+            for (const mount of this._lightWeapons) {
+                const used = Object.prototype.hasOwnProperty.call(raw.ammoUsed, mount.uuid) ? raw.ammoUsed[mount.uuid] : undefined;
+                const total = Building.getLightMountShots(mount);
+                if (total !== null && typeof used === "number") {
+                    const clean = Math.floor(savedNumber(used, 0, 0, total));
+                    if (clean > 0) this._inPlay.ammoUsed[mount.uuid] = clean;
+                }
+            }
+        }
+    }
+
+    public export(noInPlayVariables: boolean = false): IBuildingExport {
+        const inPlay = noInPlayVariables ? undefined : this._exportInPlay();
+        return {
+            ...(inPlay ? { inPlay } : {}),
             gunnery: this._gunnery,
             uuid: this._uuid,
             lastUpdated: this.lastUpdated,
@@ -1445,6 +2005,7 @@ export default class Building {
      */
     public importJSON(json: string): void {
         this._importIssues = [];
+        this._inPlay = newInPlay();
         const issue = (text: string) => { if (this._importIssues.length < 50) this._importIssues.push(text); };
         try {
             const parsed: unknown = JSON.parse(json);
@@ -1577,6 +2138,7 @@ export default class Building {
             this.setPoweredHexes(savedNumber(saved.poweredHexes, 0, 0, 1e9));
             if (saved.gunnery !== undefined && typeof saved.gunnery !== "number") issue("Ignored a gunnery skill that is not a number");
             this._gunnery = Math.floor(savedNumber(saved.gunnery, 4, 0, 8));
+            this._importInPlay(saved.inPlay);
         } catch (error) {
             issue("The saved building could not be read completely");
             console.error("Building importJSON failed:", error);
