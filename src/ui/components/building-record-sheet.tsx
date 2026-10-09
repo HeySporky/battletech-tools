@@ -31,20 +31,6 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
             ...(building.getLiquidStorage() > 0 ? [`Liquid storage for ${building.getLiquidCapacity()} tons`] : []),
             ...(building.getMinimumNonGunners() > 0 ? [`${building.getMinimumNonGunners()} other crew`] : []),
         ];
-        const armorLost = (hex: number): number => showDamage ? building.getArmorPoints() - building.getHexArmor(hex) : 0;
-        const cfLost = (hex: number): number => showDamage ? building.getCF() - building.getHexCF(hex) : 0;
-        // What play has done to a hex beyond its circles.
-        const condition = (hex: number): string => {
-            const state = building.getHexState(hex);
-            return [
-                ...(building.isHexDestroyed(hex) ? [building.isGunEmplacement() ? "Destroyed" : "Collapsed"] : []),
-                ...(state.gunnersKilled ? ["Gunners killed"] : []),
-                ...(state.gunnersStunned > 0 ? [`Gunners stunned (${state.gunnersStunned})`] : []),
-                ...(state.turretLocked ? ["Turret locked"] : state.turretJammed ? ["Turret jammed"] : []),
-                ...(state.ammoExploded ? ["Ammunition lost"] : []),
-            ].join(", ");
-        };
-
         return (
             <div className="print-page">
                 <h2>{building.getDisplayName()}</h2>
@@ -71,7 +57,6 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                     {type.mpCost === null ? "" : " (before the hex's equipment and the modifications below, TO:AR p.117)"}
                 </p>
                 {modifications.length > 0 ? <p data-testid="building-sheet-modifications"><strong>Modifications and Fittings</strong>: {modifications.join("; ")}</p> : null}
-                {showDamage && building.isBreached() ? <p><strong>BREACHED: unprotected personnel and equipment inside are lost.</strong></p> : null}
 
                 <h3>Weapons and Equipment Inventory</h3>
                 <table style={{ borderCollapse: "collapse", width: "100%" }}>
@@ -87,8 +72,6 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                                 <td style={cell}>{mount.hex}</td>
                                 <td style={cell}>
                                     {mount.item.name}{mount.turret ? " (T)" : ""}{mount.automated ? " (A)" : ""}{mount.item.isAmmo && mount.item.roundsPerTon ? ` (${mount.item.roundsPerTon} rounds)` : ""}
-                                    {showDamage && mount.item.isAmmo && building.getAmmoCapacity(mount.item.uuid || "") > 0 ? `, ${building.getAmmoShots(mount.item.uuid || "")} of ${building.getAmmoCapacity(mount.item.uuid || "")} shots left` : ""}
-                                    {showDamage && !mount.item.isAmmo && building.getMountStatus(mount.item.uuid || "") ? <strong> - {building.getMountStatus(mount.item.uuid || "")}</strong> : null}
                                 </td>
                                 <td style={cell}>{mount.item.isAmmo ? "" : mount.item.heat}</td>
                                 <td style={cell}>{mount.item.isAmmo || typeof mount.item.damage === "object" ? "" : mount.item.damage}</td>
@@ -102,14 +85,12 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                         {building.getLightWeapons().map((mount) => {
                             const ranges = Building.getLightWeaponRanges(mount.weapon);
                             const shots = Building.getLightMountShots(mount);
-                            const status = showDamage ? building.getLightWeaponStatus(mount.uuid) : "";
                             return (
                                 <tr key={mount.uuid} data-testid="building-sheet-light-weapon">
                                     <td style={cell}>{mount.hex}</td>
                                     <td style={cell}>
                                         {mount.weapon.name}{mount.mount === "turret" ? " (T)" : mount.mount === "pintle" ? " (P)" : ""}
-                                        {shots !== null ? (showDamage ? `, ${building.getLightWeaponShots(mount.uuid)} of ${shots} shots left` : ` (${shots} shots)`) : ""}
-                                        {status ? <strong> - {status}</strong> : null}
+                                        {shots !== null ? ` (${shots} shots)` : ""}
                                     </td>
                                     <td style={cell}></td>
                                     <td style={cell}>{Building.getLightWeaponDamage(mount.weapon)}{mount.weapon.special ? ` (${mount.weapon.special})` : ""}</td>
@@ -152,13 +133,10 @@ export default class BuildingRecordSheet extends React.Component<IBuildingRecord
                             <tr key={hex} data-testid="building-sheet-hex">
                                 <td style={{ ...cell, textAlign: "center" }}>{hex}</td>
                                 <td style={cell}>
-                                    {building.getArmorPoints() > 0 ? boxes(building.getArmorPoints(), armorLost(hex)) : "None"}
-                                    {armorLost(hex) > 0 ? <div>{building.getHexArmor(hex)} left</div> : null}
+                                    {building.getArmorPoints() > 0 ? boxes(building.getArmorPoints(), 0) : "None"}
                                 </td>
                                 <td style={cell}>
-                                    {boxes(building.getCF(), cfLost(hex))}
-                                    {cfLost(hex) > 0 ? <div>{building.getHexCF(hex)} left</div> : null}
-                                    {showDamage && condition(hex) ? <div><strong>{condition(hex)}</strong></div> : null}
+                                    {boxes(building.getCF(), 0)}
                                 </td>
                             </tr>
                         ))}

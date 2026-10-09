@@ -46,7 +46,6 @@ import BattledroidsPlayPanel from './_battledroidsPlay';
 import BattledroidsRulesReference from '../../../components/battledroids-rules-reference';
 import BattledroidsDroidHelper from '../../../components/battledroids-droid-helper';
 import Building from '../../../../classes/building';
-import BuildingPlayPanel from './_buildingPlay';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -453,9 +452,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           for( let craft of group.smallCraft ) {
             craft.turnReset();
           }
-          for( let building of group.buildings ) {
-            building.startTurn();
-          }
         }
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
@@ -806,9 +802,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let point of group.protoMechs ) {
             point.resetInPlay();
-          }
-          for( let building of group.buildings ) {
-            building.resetInPlay();
           }
           for( let unit of group.battledroidsUnits ) {
             unit.resetInPlay();
@@ -1311,15 +1304,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         for( let unit of group.battledroidsUnits ) {
           if( unit.getUUID() === this.state.selectedVehicleUUID ) {
             selectedBattledroidsUnit = unit;
-          }
-        }
-      }
-      // And a building.
-      let selectedBuilding: Building | null = null;
-      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
-        for( let building of group.buildings ) {
-          if( building.getUUID() === this.state.selectedVehicleUUID ) {
-            selectedBuilding = building;
           }
         }
       }
@@ -2824,12 +2808,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               unit={selectedBattledroidsUnit}
               onChange={this.onVehicleChange}
             />
-          ) : selectedBuilding ? (
-            <BuildingPlayPanel
-              key={selectedBuilding.getUUID()}
-              building={selectedBuilding}
-              onChange={this.onVehicleChange}
-            />
           ) : selectedInfantry ? (
             <InfantryPlayPanel
               key={selectedInfantry.getUUID()}
@@ -3168,36 +3146,6 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                               currentNumber={unit.getStrengthPercentage()}
                               height={8}
                               title="Strength Remaining"
-                            />
-                          </div>
-)}
-                        </div>
-                      </button>
-                      <hr />
-                    </li>
-                  ))}
-                  {group.buildings.map( (building) => (
-                    <li key={building.getUUID()}>
-                      <button
-                        onClick={(e) => this.selectVehicle(e, building.getUUID())}
-                        className={selectedBuilding && selectedBuilding.getUUID() === building.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
-                        title={"Select " + building.getDisplayName()}
-                      >
-                        {building.getDisplayName()}
-                        <div className="stats">
-{building.isDestroyed() ? (
-<h3 className="color-red text-center">
-    DESTROYED
-</h3>
-) : (
-                          <div className="bars">
-                            <StatBar
-                              color="white"
-                              background="#aaa"
-                              currentPercentage={building.getStrengthPercentage()}
-                              currentNumber={building.getCurrentPoints()}
-                              height={8}
-                              title="Armor and Construction Factor Remaining"
                             />
                           </div>
 )}
