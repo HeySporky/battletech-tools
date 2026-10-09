@@ -50,6 +50,9 @@ test("a fighter joins the roster, takes damage in play and prints", async ({ pag
 
     await page.goto("classic-battletech/roster/print");
     await expect(page.getByRole("heading", { name: "Wingman" })).toBeVisible();
+    // The printed sheet carries the damage: 5 points off the nose, none off the aft.
+    await expect(page.getByTestId("armor-diagram-nose").first()).toHaveAttribute("data-damage", "5");
+    await expect(page.getByTestId("armor-diagram-aft").first()).toHaveAttribute("data-damage", "0");
     await expect(page.getByText(/Gunnery 3 \/ Piloting 5/)).toBeVisible();
 
     expect(errors).toEqual([]);

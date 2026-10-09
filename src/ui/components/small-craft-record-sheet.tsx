@@ -50,6 +50,7 @@ export default class SmallCraftRecordSheet extends React.Component<ISmallCraftRe
                     thresholds={{ nose: thresholds.nose, leftWing: thresholds.left, rightWing: thresholds.right, aft: thresholds.aft }}
                     armorDamage={play ? { nose: play.armorDamage.nose, leftWing: play.armorDamage.left, rightWing: play.armorDamage.right, aft: play.armorDamage.aft } : undefined}
                     structureDamage={play?.structureDamage}
+                    sideLabels={{ left: craft.getFacingName("left"), right: craft.getFacingName("right") }}
                     width={600}
                 />
 

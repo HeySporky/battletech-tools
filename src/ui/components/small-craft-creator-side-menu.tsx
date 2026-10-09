@@ -8,7 +8,7 @@ const steps: { tag: string; path: string; title: string; subtitle?: string }[] =
     { tag: "chassis", path: "/chassis", title: "Steps 1-2", subtitle: "Hull, Engine, Fuel, Structure" },
     { tag: "armor", path: "/armor", title: "Steps 3-4", subtitle: "Armor and Heat Sinks" },
     { tag: "equipment", path: "/equipment", title: "Step 5", subtitle: "Weapons and Equipment" },
-    { tag: "crew", path: "/crew", title: "Step 5", subtitle: "Crew, Quarters and Bays" },
+    { tag: "crew", path: "/crew", title: "Step 6", subtitle: "Crew, Quarters and Bays" },
     { tag: "summary", path: "/summary", title: "Summary", subtitle: "Values and legality" },
 ];
 

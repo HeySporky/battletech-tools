@@ -142,6 +142,7 @@ export default class SmallCraftPlayPanel extends React.Component<ISmallCraftPlay
                     thresholds={{ nose: thresholds.nose, leftWing: thresholds.left, rightWing: thresholds.right, aft: thresholds.aft }}
                     armorDamage={{ nose: play.armorDamage.nose, leftWing: play.armorDamage.left, rightWing: play.armorDamage.right, aft: play.armorDamage.aft }}
                     structureDamage={play.structureDamage}
+                    sideLabels={{ left: craft.getFacingName("left"), right: craft.getFacingName("right") }}
                     onToggleArmor={this.toggleArmor}
                     onToggleStructure={this.toggleStructure}
                     width={600}
