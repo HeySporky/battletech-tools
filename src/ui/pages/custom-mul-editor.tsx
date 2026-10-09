@@ -1,4 +1,5 @@
 import * as React from 'react';
+import type { JSX } from 'react';
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { getMULDisplayName, IASMULUnit } from '../../classes/alpha-strike-unit';
 import { CONST_CUSTOM_MUL_GITHUB_OWNER, CONST_CUSTOM_MUL_GITHUB_REPO } from '../../configVars';
