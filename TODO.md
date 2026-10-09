@@ -686,9 +686,12 @@ bundle: every open PR except #92 and #97, plus the unit builders, rules levels a
 `.claude/` and the local Ollama worker tools. Update it (merge this branch, drop those files again) as work lands.
 
 - [ ] From the review of #115 (fleetfootmike, 2026-10-09), still open:
-  - Scope, for the user to decide: `building.ts` ships a full in-play combat engine; the Custom MUL editor
-    (`custom-mul.ts`, `/custom-mul-editor`) is in the bundle though it is not in the feature list. Keep both in
-    #115, or split them out.
+  - Scope, decided by the user 2026-10-09: both split out. The Custom MUL editor is upstream #116 (branch
+    `feature/custom-mul-editor`, from upstream master, entries proposed to the upstream repository). Building
+    play is upstream draft #117 (branch `feature/building-play` = the bundle branch plus one commit); rebase it
+    on upstream master when #115 merges. The bundle branch carries two removal commits for them: when merging
+    this branch into it, keep `building.ts`, the roster files and the MUL source files free of play and custom
+    MUL code, then merge the bundle into `feature/building-play`.
   - `tools/mul-sync/sync-mul.mjs`: the live-to-legacy era id table has no entry for ids 1 and 9. 494 bundled
     records carry era id 1 unmapped. Which legacy era each is has to come from the site's era list.
   - Reported as already on upstream master, not fixed here: Alpha Strike value adds Medium damage twice and

@@ -10,7 +10,7 @@ test("a motorized laser rifle platoon can be built, checked, saved and printed",
     });
 
     await page.goto("classic-battletech");
-    await page.getByRole("link", { name: "Infantry Creator" }).first().click();
+    await page.getByRole("link", { name: "Infantry Creator" }).last().click();
     await expect(page.getByText("Your Saved Platoons")).toBeVisible();
     await page.getByRole("button", { name: /Start Over/ }).click();
     await page.getByRole("link", { name: /Start Building/ }).click();

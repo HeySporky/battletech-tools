@@ -9,7 +9,7 @@ test("the TechManual's Delphyne-2 can be built, checked, saved and printed", asy
     });
 
     await page.goto("classic-battletech");
-    await page.getByRole("link", { name: "ProtoMech Creator" }).first().click();
+    await page.getByRole("link", { name: "ProtoMech Creator" }).last().click();
     await expect(page.getByText("Your Saved ProtoMechs")).toBeVisible();
     await page.getByRole("button", { name: /Start Over/ }).click();
     await page.getByRole("link", { name: /Start Building/ }).click();

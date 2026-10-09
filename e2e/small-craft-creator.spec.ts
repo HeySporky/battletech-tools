@@ -10,7 +10,7 @@ test("the TechManual's Astrolux can be built, checked, saved and printed", async
     });
 
     await page.goto("classic-battletech");
-    await page.getByRole("link", { name: "Small Craft Creator" }).first().click();
+    await page.getByRole("link", { name: "Small Craft Creator" }).last().click();
     await expect(page.getByText("Your Saved Small Craft")).toBeVisible();
     await page.getByRole("button", { name: /Start Over/ }).click();
     await page.getByRole("link", { name: /Start Building/ }).click();
@@ -35,7 +35,7 @@ test("the TechManual's Astrolux can be built, checked, saved and printed", async
     await expect(page.getByText(/Heat Sinks.*: 1 /)).toBeVisible();
 
     // Three crew in crew quarters, seven passengers in first class, and the rest cargo (TM p. 196).
-    await page.getByRole("link", { name: /Crew, Quarters and Bays/ }).last().click();
+    await page.goto("classic-battletech/small-craft-creator/crew");
     await page.getByLabel("Passengers").selectOption("7");
     await expect(page.getByTestId("sc-issues")).toContainText("Quarters for 3 of 10");
     await page.getByLabel(/Officer \/ 1st Class/).selectOption("7");
@@ -45,7 +45,7 @@ test("the TechManual's Astrolux can be built, checked, saved and printed", async
     await expect(page.getByTestId("sc-weight")).toHaveText("200");
     await expect(page.getByTestId("sc-bays")).toContainText("Cargo, Standard");
 
-    await page.getByRole("link", { name: /Summary/ }).last().click();
+    await page.goto("classic-battletech/small-craft-creator/summary");
     await expect(page.getByTestId("sc-legal")).toBeVisible();
     await expect(page.getByText("Summary: Astrolux")).toBeVisible();
     // 112 armor x 2.5 + Structural Integrity 8 x 2; TM p.283 structure costs x 5 for 200 tons.
