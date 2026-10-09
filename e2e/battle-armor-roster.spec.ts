@@ -205,3 +205,78 @@ test("a saved suit is offered to an Alpha Strike force, and a MegaMek file loads
 
     expect(errors).toEqual([]);
 });
+
+test("a mixed-technology suit takes Clan equipment, and one trooper can carry an item of their own", async ({ page }) => {
+    const errors = watchErrors(page);
+    await page.goto("classic-battletech/battle-armor-creator");
+    await page.getByRole("button", { name: /Start Over/ }).click();
+    await page.goto("classic-battletech/battle-armor-creator/chassis");
+    await page.getByLabel("Rules Level:").selectOption({ label: "Standard" });
+    await expect(page.getByTestId("ba-mixed-tech")).toHaveCount(0);
+    await page.getByLabel("Rules Level:").selectOption({ label: "Advanced" });
+    await page.getByTestId("ba-mixed-tech").check();
+    // Clan-made standard armor on the Inner Sphere chassis: 25 kg a point in place of 50.
+    await page.getByTestId("ba-armor").selectOption("clan:ba-standard");
+    await page.getByTestId("ba-armor-points").selectOption("4");
+
+    await page.goto("classic-battletech/battle-armor-creator/equipment");
+    await expect(page.getByRole("heading", { name: /Inner Sphere and Clan \(mixed technology\)/ })).toBeVisible();
+    await page.getByTestId("ba-add-location").selectOption("ra");
+    await page.getByTestId("ba-add-clan-er-small-laser").click();
+    await expect(page.getByTestId("ba-mounted-item")).toContainText("Clan ER Small Laser");
+    await page.getByTestId("ba-item-trooper").selectOption("2");
+    await expect(page.getByTestId("ba-item-trooper")).toHaveValue("2");
+
+    // A mine dispenser is valued by the mines it carries (TO:AUE pp. 195, 197).
+    await page.getByTestId("ba-add-location").selectOption("body");
+    await page.getByTestId("ba-add-is-mine-dispenser").click();
+    await page.getByTestId("ba-item-mine").selectOption("inferno");
+    await expect(page.getByTestId("ba-item-mine")).toHaveValue("inferno");
+    await expect(page.getByTestId("ba-issues")).toHaveCount(0);
+
+    await page.getByRole("link", { name: /Summary/ }).last().click();
+    await expect(page.getByTestId("ba-legal")).toBeVisible();
+    await expect(page.getByText("Mixed (Inner Sphere chassis)")).toBeVisible();
+    await expect(page.getByText(/Average of the 4 troopers' suits/)).toBeVisible();
+
+    // Turning mixed technology off brings the laser back to the Inner Sphere table.
+    await page.goto("classic-battletech/battle-armor-creator/chassis");
+    await page.getByTestId("ba-mixed-tech").uncheck();
+    await page.goto("classic-battletech/battle-armor-creator/equipment");
+    await expect(page.getByTestId("ba-mounted-item").first()).toContainText("ER Small Laser");
+    await expect(page.getByTestId("ba-mounted-item").first()).not.toContainText("Clan");
+
+    expect(errors).toEqual([]);
+});
+
+test("a vehicle carrying a squad is told what it may not do", async ({ page }) => {
+    const errors = watchErrors(page);
+    await buildPurifier(page, "Purifier Riders");
+    await page.goto("classic-battletech/battle-armor-creator");
+    await page.getByRole("button", { name: /Save as New/ }).click();
+    await page.goto("classic-battletech/vehicle-creator/step1");
+    await page.getByLabel("Motive Type").selectOption("tracked");
+    await page.goto("classic-battletech/vehicle-creator");
+    await page.getByRole("button", { name: /Save as New/ }).click();
+
+    await page.goto("classic-battletech/roster");
+    await page.getByLabel("Saved battle armor to add").first().selectOption({ index: 1 });
+    await page.getByRole("button", { name: "Add Battle Armor" }).first().click();
+    await page.getByLabel("Saved vehicle to add").first().selectOption({ index: 1 });
+    await page.getByRole("button", { name: "Add Vehicle" }).first().click();
+
+    await page.getByTitle("Click here to go into 'Play Mode'").click();
+    await page.locator(".mech-selector").getByTitle("Select Purifier Riders").click();
+    const panel = page.getByTestId("battle-armor-play");
+    await panel.getByTestId("battle-armor-play-carrier").selectOption({ index: 1 });
+    await expect(panel.getByTestId("battle-armor-play-transport")).toContainText("Right Side");
+
+    // The vehicle's own panel says who rides it and where, and what that stops (TW pp. 226-227).
+    await page.locator(".mech-selector").getByTitle(/^Select (?!Purifier)/).first().click();
+    const notes = page.getByTestId("vehicle-carrier-notes");
+    await expect(notes).toContainText("Carrying Purifier Riders (Right Side, Left Side).");
+    await expect(notes).toContainText("turret weapons may");
+    await expect(notes).toContainText("no VTOL, WiGE or Jumping MP");
+
+    expect(errors).toEqual([]);
+});

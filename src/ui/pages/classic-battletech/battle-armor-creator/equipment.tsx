@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import BattleArmor, { BATTLE_ARMOR_LOCATION_NAMES, BATTLE_ARMOR_WEAPON_PACK, BattleArmorLocation, IBattleArmorMountedItem } from '../../../../classes/battle-armor';
 import { BATTLE_ARMOR_TURRET } from '../../../../data/battle-armor-construction';
-import { IBattleArmorEquipment, findBattleArmorEquipment } from '../../../../data/battle-armor-equipment';
+import { IBattleArmorEquipment, battleArmorMineTypes, findBattleArmorEquipment, findBattleArmorMineType } from '../../../../data/battle-armor-equipment';
 import { IAppGlobals } from '../../../app-router';
 import BattleArmorCreatorSideMenu from '../../../components/battle-armor-creator-side-menu';
 import TextSection from '../../../components/text-section';
@@ -49,7 +49,7 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
         return (
             <tr key={index} data-testid="ba-mounted-item">
                 <td>
-                    {equipment.name}
+                    {suit.isMixedTech() ? (equipment.techBase === "clan" ? "Clan " : "IS ") : ""}{equipment.name}
                     {equipment.notes ? <div className="smaller-text">{equipment.notes}</div> : null}
                 </td>
                 <td>
@@ -96,6 +96,23 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                         <label>
                             <input type="checkbox" data-testid="ba-item-ssw" checked={!!entry.squadSupport} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.updateItem(index, { squadSupport: value })); }} />
                             &nbsp;Squad support weapon ({suit.isClan() ? "40" : "50"}% of its weight on each suit)
+                        </label>
+                    ) : null}
+                    {equipment.mineDispenser ? (
+                        <label>
+                            Mines:
+                            <select data-testid="ba-item-mine" value={findBattleArmorMineType(entry.mine).tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.updateItem(index, { mine: value })); }}>
+                                {battleArmorMineTypes.map((mine) => <option key={mine.tag} value={mine.tag}>{mine.name} (BV {mine.bv})</option>)}
+                            </select>
+                        </label>
+                    ) : null}
+                    {!entry.squadSupport ? (
+                        <label>
+                            Carried by:
+                            <select data-testid="ba-item-trooper" value={entry.trooper ?? 0} onChange={(e) => { const value = +e.currentTarget.value; this.update((s) => s.updateItem(index, { trooper: value || undefined })); }}>
+                                <option value={0}>Every trooper</option>
+                                {range(1, Math.max(suit.getSquadSize(), entry.trooper ?? 0)).map((value) => <option key={value} value={value}>Trooper {value} only</option>)}
+                            </select>
                         </label>
                     ) : null}
                     {equipment.variableWeight ? (
@@ -194,7 +211,7 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                             </p>
                         </TextSection>
 
-                        <TextSection label={`Battle Armor Equipment Table: ${suit.isClan() ? "Clan" : "Inner Sphere"}`}>
+                        <TextSection label={`Battle Armor Equipment Table: ${suit.isMixedTech() ? "Inner Sphere and Clan (mixed technology)" : suit.isClan() ? "Clan" : "Inner Sphere"}`}>
                             <label>
                                 Add to:
                                 <select data-testid="ba-add-location" value={location} onChange={(e) => this.setState({ location: e.currentTarget.value as BattleArmorLocation })}>
@@ -212,7 +229,7 @@ export default class BattleArmorCreatorEquipment extends React.Component<IEquipm
                                             {available.filter((equipment) => equipment.group === group).map((equipment) => (
                                                 <tr key={equipment.tag}>
                                                     <td>
-                                                        {equipment.name} <span className="smaller-text">({equipment.book ?? "TM"} p.{equipment.page}{equipment.rulesLevel === 4 ? ", Experimental" : equipment.rulesLevel === 3 ? ", Advanced" : ""})</span>
+                                                        {suit.isMixedTech() ? (equipment.techBase === "clan" ? "Clan " : "IS ") : ""}{equipment.name} <span className="smaller-text">({equipment.book ?? "TM"} p.{equipment.page}{equipment.rulesLevel === 4 ? ", Experimental" : equipment.rulesLevel === 3 ? ", Advanced" : ""})</span>
                                                         {!suit.isEquipmentInEra(equipment) ? <div className="smaller-text color-red">Not in the {suit.getEra().name} era</div> : null}
                                                     </td>
                                                     <td>{equipment.damage}</td>

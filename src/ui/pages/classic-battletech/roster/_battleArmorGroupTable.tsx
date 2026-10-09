@@ -121,7 +121,7 @@ export default class BattleArmorGroupTable extends React.Component<IBattleArmorG
                                     ) : null}
                                 </td>
                                 <td className="min-width no-wrap text-center">{squad.getSquadSize()}</td>
-                                <td className="min-width no-wrap text-center small-text">{squad.isClan() ? "Clan" : "Inner Sphere"}</td>
+                                <td className="min-width no-wrap text-center small-text">{squad.getTechName()}</td>
                                 <td className="min-width no-wrap text-center">
                                     {!capabilities.swarm && !capabilities.leg ? "-" : this.props.showEdit ? (
                                         <SkillSelect label="Battle armor Anti-'Mech skill" value={squad.getAntiMechSkill()} onChange={(value) => { squad.setAntiMechSkill(value); this._save(); }} />

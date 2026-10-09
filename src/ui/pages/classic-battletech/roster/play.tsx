@@ -35,6 +35,7 @@ import InfantryPlatoon from '../../../../classes/infantry-platoon';
 import InfantryPlayPanel from './_infantryPlay';
 import BattleArmor from '../../../../classes/battle-armor';
 import BattleArmorPlayPanel from './_battleArmorPlay';
+import { IBattleArmorCarrierLoad, getBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../classes/battle-armor-transport';
 import BattledroidsUnit from '../../../../classes/battledroids-unit';
 import BattledroidsPlayPanel from './_battledroidsPlay';
 import BattledroidsRulesReference from '../../../components/battledroids-rules-reference';
@@ -869,6 +870,17 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
     }
 
+    // What battle armor riding one of the force's units stops that unit doing (Total Warfare pp. 226-227).
+    private _carrierLoad = (
+      uuid: string,
+      name: string,
+      kind: "mech" | "vehicle",
+      omni: boolean | null,
+    ): IBattleArmorCarrierLoad => {
+      const squads = this.props.appGlobals.currentCBTForce ? this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.battleArmor ) : [];
+      return getBattleArmorCarrierLoad( squads, { uuid: uuid, name: name, kind: kind, omni: omni } );
+    }
+
     openSetTargetDialog = (
       currentBM: BattleMech,
     ) => {
@@ -880,9 +892,18 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           c: JSON.parse(JSON.stringify(currentBM.getTarget("c"))),
         }
 
+        // A weapon in a torso location a mechanized trooper occupies may not fire.
+        const carrierLoad = this._carrierLoad( currentBM.uuid, currentBM.getName(), "mech", currentBM.isOmnimech );
+        const targetWeaponSelection: IEquipmentItem[] = JSON.parse(JSON.stringify(currentBM.equipmentList));
+        for( let item of targetWeaponSelection ) {
+          if( isCarrierWeaponBlocked( carrierLoad, item ) ) {
+            item.target = "";
+          }
+        }
+
         this.setState({
           setTargetDialog: currentBM,
-          targetWeaponSelection: JSON.parse(JSON.stringify(currentBM.equipmentList)),
+          targetWeaponSelection: targetWeaponSelection,
           setMovementDialog: null,
           takeDamageDialog: null,
           targetData: targetData,
@@ -1210,6 +1231,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         return <></>;
       }
       let selectedMech: BattleMech | null = this.props.appGlobals.currentCBTForce.getSelectedMech();
+      const targetCarrierLoad = this.state.setTargetDialog
+        ? this._carrierLoad( this.state.setTargetDialog.uuid, this.state.setTargetDialog.getName(), "mech", this.state.setTargetDialog.isOmnimech )
+        : null;
+      const movementCarrierLoad = this.state.setMovementDialog
+        ? this._carrierLoad( this.state.setMovementDialog.uuid, this.state.setMovementDialog.getName(), "mech", this.state.setMovementDialog.isOmnimech )
+        : null;
+
       let selectedVehicle: Vehicle | null = null;
       for( let group of this.props.appGlobals.currentCBTForce.groups ) {
         for( let vehicle of group.vehicles ) {
@@ -1717,6 +1745,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   saveDisabled={this.state.setMovementMode === "n" || this.state.setMovementNumber < 0}
   title={this.state.setMovementDialog.getName() + " Movement Info"}
 >
+    {movementCarrierLoad && movementCarrierLoad.riders.length > 0 ? (
+      <div className="small-text" data-testid="mech-carrier-movement-notes">
+        <p>Carrying {movementCarrierLoad.riders.map( (squad) => squad.getDisplayName() ).join(", ")}.</p>
+        {movementCarrierLoad.walkingPenalty > 0 ? (
+          <p className="color-red">Not an OmniMech: it has {movementCarrierLoad.walkingPenalty} less Walking MP while it carries the squad, which is not taken off below (TW p. 227).</p>
+        ) : <p>An OmniMech loses no MP for carrying battle armor (TW p. 227).</p>}
+      </div>
+    ) : null}
 
     <div className="flex">
       <div className="text-center">
@@ -2131,6 +2167,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       <div className="col-md">
         <fieldset className="fieldset">
           <legend>Weapon Selection</legend>
+          {targetCarrierLoad && targetCarrierLoad.riders.length > 0 ? (
+            <div className="small-text" data-testid="mech-carrier-notes">
+              {targetCarrierLoad.issues.map( (issue, issueIndex) => <p key={"issue" + issueIndex} className="color-red">{issue}</p> )}
+              {targetCarrierLoad.notes.map( (note, noteIndex) => <p key={noteIndex}>{note}</p> )}
+            </div>
+          ) : null}
           <table className="table">
             <thead>
               <tr>
@@ -2161,6 +2203,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 if(item.damagePerShot)
                   itemDamage = item.damagePerShot.toString() + "/shot";
 
+                const carrierBlocked = !!targetCarrierLoad && isCarrierWeaponBlocked( targetCarrierLoad, item );
+
                 let targetGATOR: IGATOR | null = null;
                 let targetData: ITargetToHit | null = null;
                 if( item.target && this.state.targetData  ) {
@@ -2187,7 +2231,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     <tr>
                       <td>
                         <select
-                          value={item.target}
+                          value={carrierBlocked ? "" : item.target}
+                          disabled={carrierBlocked}
                           onChange={(e) => this.updateSetEquipmentTarget( e, itemIndex)}
                         >
                           <option value="">-none-</option>
@@ -2201,7 +2246,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             <option value="c">{this.state.targetData.c.name ? this.state.targetData.c.name + " (C)" : "Target C"}</option>
                           ) : null}
                         </select>
-                        {targetGATOR && targetGATOR.finalToHit > 0 ? (
+                        {carrierBlocked ? (
+                          <span className="color-red" data-testid="mech-weapon-blocked">
+                          Battle armor rides this location
+                          </span>
+                        ) : targetGATOR && targetGATOR.finalToHit > 0 ? (
                           <span>
                           To Hit: {targetGATOR.finalToHit}+
                           </span>
@@ -2762,7 +2811,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               carriers={[
                 ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.members ).map( (unit) => ({ uuid: unit.uuid, name: unit.getName(), kind: "mech" as const, omni: unit.isOmnimech }) ),
                 ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.vehicles ).map( (vehicle) => ({ uuid: vehicle.getUUID(), name: vehicleName(vehicle), kind: "vehicle" as const, omni: null }) ),
-              ]}
+              ].map( (carrier) => ({
+                ...carrier,
+                // A carrier takes one battle armor unit at a time (TW p. 226).
+                carrying: this._carrierLoad( carrier.uuid, carrier.name, carrier.kind, carrier.omni ).riders.filter( (squad) => squad.getUUID() !== selectedBattleArmor.getUUID() ).map( (squad) => squad.getDisplayName() ).join(", "),
+              }) )}
               onChange={this.onVehicleChange}
             />
           ) : selectedFighter ? (
@@ -2774,6 +2827,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           ) : selectedVehicle ? (
             <VehiclePlayPanel
               vehicle={selectedVehicle}
+              carrierLoad={this._carrierLoad( selectedVehicle.getUUID(), vehicleName(selectedVehicle), "vehicle", null )}
               onChange={this.onVehicleChange}
             />
           ) : selectedMech ? (

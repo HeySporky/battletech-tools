@@ -45,7 +45,7 @@ export default class BattleArmorCreatorSummary extends React.Component<ISummaryP
 
                             <p data-testid="ba-summary">
                                 <strong>Type</strong>: {weightClass.name} battle armor, {suit.isQuad() ? "quad" : "humanoid"} &nbsp;|&nbsp;
-                                <strong>Tech</strong>: {suit.isClan() ? "Clan" : "Inner Sphere"} &nbsp;|&nbsp;
+                                <strong>Tech</strong>: {suit.getTechName()} &nbsp;|&nbsp;
                                 <strong>Era</strong>: {suit.getEra().name} &nbsp;|&nbsp;
                                 <strong>Troopers</strong>: {suit.getSquadSize()} &nbsp;|&nbsp;
                                 <strong>Battle Value</strong>: {suit.getBattleValue()} ({suit.getSuitBattleValue()} a suit) &nbsp;|&nbsp;

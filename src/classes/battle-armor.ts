@@ -10,8 +10,8 @@ import {
 } from "../data/battle-armor-construction";
 import { battleArmorChassisDates, battleArmorFeatureDates, battleArmorManipulatorDates } from "../data/battle-armor-dates";
 import {
-    IBattleArmorDates, IBattleArmorEquipment, findBattleArmorEquipment, formatBattleArmorDates, getBattleArmorEquipmentFor,
-    isBattleArmorDateAvailable,
+    IBattleArmorDates, IBattleArmorEquipment, battleArmorEquipment, battleArmorMineTypes, findBattleArmorEquipment, findBattleArmorMineType,
+    formatBattleArmorDates, getBattleArmorEquipmentFor, isBattleArmorDateAvailable,
 } from "../data/battle-armor-equipment";
 import { IBattleArmorArmorType, IEras } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
@@ -86,6 +86,10 @@ export interface IBattleArmorMountedItem {
     kg?: number;
     /** Carried in a detachable weapon pack (TO:AUE pp.98-99). */
     dwp?: boolean;
+    /** Carried by this trooper only (1 to 6); absent when every trooper carries it. */
+    trooper?: number;
+    /** The mines a mine dispenser carries; absent for standard mines. */
+    mine?: string;
 }
 
 export type BattleArmorCarrierKind = "mech" | "vehicle";
@@ -170,6 +174,10 @@ export interface IBattleArmorExport {
     lastUpdated: string;
     name: string;
     techBase: BattleArmorTechBase;
+    /** Mixed technology (TO:AUE p.189): the chassis is of `techBase`, the equipment of either. */
+    mixedTech?: boolean;
+    /** The technology base of the armor on a mixed-technology suit, when it is not the chassis'. */
+    armorTechBase?: BattleArmorTechBase;
     weightClass: BattleArmorWeightClass;
     bodyType: BattleArmorBodyType;
     /** A Clan industrial exoskeleton on an Inner Sphere chassis weight (TM p.162). */
@@ -213,10 +221,12 @@ const roundToHalf = (value: number): number => Math.round(value * 2 + 1e-9) / 2;
 const rollD6 = (): number => 1 + Math.floor(Math.random() * 6);
 
 /** The newest era a technology base can design in. */
-const latestEra = (techBase: BattleArmorTechBase): IEras => {
+const latestEra = (techBase: string): IEras => {
     const eras = getErasForTech(techBase);
     return eras[eras.length - 1] ?? btEraOptions[btEraOptions.length - 1];
 };
+
+const techName = (techBase: BattleArmorTechBase): string => (techBase === "clan" ? "Clan" : "Inner Sphere");
 
 // Infantry Troop Factor Table (ASC p.103), by troopers; battle armor adds 0.5.
 const TROOP_FACTORS: number[] = [0, 1, 1, 2, 3, 3, 4];
@@ -242,6 +252,10 @@ export default class BattleArmor {
 
     private _name: string = "";
     private _techBase: BattleArmorTechBase = "is";
+    private _mixedTech: boolean = false;
+    private _armorTechBase: BattleArmorTechBase | null = null;
+    /** The trooper whose suit is being worked out; 0 for the squad as a whole. */
+    private _view: number = 0;
     private _weightClass: IBattleArmorWeightClass = findBattleArmorWeightClass("medium");
     private _bodyType: BattleArmorBodyType = "humanoid";
     private _exoskeletonChassis: boolean = false;
@@ -285,11 +299,19 @@ export default class BattleArmor {
         for (const entry of this._items) {
             level = Math.max(level, findBattleArmorEquipment(entry.tag)?.rulesLevel ?? BATTLE_ARMOR_RULES_LEVEL, entry.dwp ? BATTLE_ARMOR_WEAPON_PACK.rulesLevel : 0);
         }
+        // Mixed technology is an advanced construction option (TO:AUE p.189).
+        if (this._mixedTech) level = Math.max(level, BATTLE_ARMOR_ADVANCED_RULES_LEVEL);
         return level;
     }
 
-    /** The mounted items, with the active loadout's weapons in the mounts it changes. */
+    /** The mounted items; when one trooper's suit is being worked out, the squad's and that trooper's own. */
     private get _items(): IBattleArmorMountedItem[] {
+        const items = this._loadoutItems();
+        return this._view > 0 ? items.filter((entry) => !entry.trooper || entry.trooper === this._view) : items;
+    }
+
+    /** The mounted items, with the active loadout's weapons in the mounts it changes. */
+    private _loadoutItems(): IBattleArmorMountedItem[] {
         const loadout = this._loadouts[this._activeLoadout];
         if (!loadout) return this._baseItems;
         return this._baseItems.map((entry, index) => {
@@ -301,6 +323,7 @@ export default class BattleArmor {
                 tag: equipment.tag,
                 location: entry.location,
                 ...(entry.modular ? { modular: true } : {}),
+                ...(entry.trooper ? { trooper: entry.trooper } : {}),
                 ...(missile && equipment.oneShot !== "always" ? { shots: Math.min(40, Math.max(1, Math.round(swap.shots ?? 1) || 1)) } : {}),
                 ...(missile && typeof equipment.oneShot === "object" && swap.oneShot ? { oneShot: true } : {}),
             };
@@ -310,7 +333,9 @@ export default class BattleArmor {
     // Era (IO:AE pp.45-47)
 
     public getEra(): IEras { return this._era; }
-    public getAvailableEras(): IEras[] { return getErasForTech(this._techBase); }
+    public getAvailableEras(): IEras[] { return getErasForTech(this._eraTech()); }
+    /** Mixed technology has its own list of eras, which starts at the Clan Invasion. */
+    private _eraTech(): string { return this._mixedTech ? (this.isClan() ? "mclan" : "mis") : this._techBase; }
     /** Sets the era the suit is built in; what it carries that the era does not have is reported, not removed. */
     public setEra(tag: string): boolean {
         const era = findEraByTag(tag);
@@ -321,7 +346,7 @@ export default class BattleArmor {
     private _inEra(dates: IBattleArmorDates | undefined): boolean { return isBattleArmorDateAvailable(dates, this._era.yearStart, this._era.yearEnd); }
     public isEquipmentInEra(equipment: IBattleArmorEquipment): boolean { return this._inEra(equipment.dates); }
     private _armorDates(armor: IBattleArmorArmorType): IBattleArmorDates {
-        const dates = this.isClan() && armor.clanDates ? armor.clanDates : armor;
+        const dates = this._armorBase(armor) === "clan" && armor.clanDates ? armor.clanDates : armor;
         return {
             introduced: dates.introduced,
             ...(typeof dates.prototype === "number" ? { prototype: dates.prototype } : {}),
@@ -336,8 +361,8 @@ export default class BattleArmor {
     /** What the suit carries that was not in service in its era. */
     public getEraIssues(): string[] {
         const issues: string[] = [];
-        const who = this.isClan() ? "Clan" : "Inner Sphere";
-        const check = (name: string, dates: IBattleArmorDates | undefined): void => {
+        const check = (name: string, dates: IBattleArmorDates | undefined, base: BattleArmorTechBase = this._techBase): void => {
+            const who = techName(base);
             if (!this._inEra(dates)) issues.push(`${name} is not available to ${who} battle armor in the ${this._era.name} era: ${formatBattleArmorDates(dates)} (IO:AE pp.45-47).`);
         };
         check(`${this._weightClass.name} battle armor`, battleArmorChassisDates[this._weightClass.tag][this._techBase]);
@@ -353,11 +378,11 @@ export default class BattleArmor {
             }
             if (this._arms.la.adaptor || this._arms.ra.adaptor) check("The modular equipment adaptor", battleArmorFeatureDates.adaptor[this._techBase]);
         }
-        if (this._armorPoints > 0) check(`${this._armor.name} armor`, this._armorDates(this._armor));
+        if (this._armorPoints > 0) check(`${this._armor.name} armor`, this._armorDates(this._armor), this._armorBase());
         const seenItems = new Set<string>();
         for (const entry of this._items) {
             const equipment = findBattleArmorEquipment(entry.tag);
-            if (equipment && !seenItems.has(equipment.tag)) check(equipment.name, equipment.dates);
+            if (equipment && !seenItems.has(equipment.tag)) check(equipment.name, equipment.dates, equipment.techBase);
             seenItems.add(entry.tag);
         }
         if (this._apMounts.length > 0) check("The anti-personnel weapon mount", battleArmorFeatureDates.apMount[this._techBase]);
@@ -371,6 +396,41 @@ export default class BattleArmor {
 
     public getTechBase(): BattleArmorTechBase { return this._techBase; }
     public isClan(): boolean { return this._techBase === "clan"; }
+    /** Mixed technology (TO:AUE p.189): a chassis of one technology base carrying equipment and armor of either. */
+    public isMixedTech(): boolean { return this._mixedTech; }
+    public getTechName(): string { return this._mixedTech ? `Mixed (${techName(this._techBase)} chassis)` : techName(this._techBase); }
+    /** May the suit carry equipment of this technology base? */
+    private _offers(techBase: BattleArmorTechBase): boolean { return this._mixedTech || techBase === this._techBase; }
+    public setMixedTech(value: boolean): void {
+        if (value === this._mixedTech) return;
+        this._mixedTech = value;
+        if (!value) {
+            this._armorTechBase = null;
+            this._toChassisBase();
+        }
+        if (!this.getAvailableEras().some((item) => item.tag === this._era.tag)) this._era = latestEra(this._eraTech());
+        this._clamp();
+    }
+    /** Brings every item to the chassis' technology base, dropping what has no counterpart there. */
+    private _toChassisBase(): void {
+        const before = this._baseItems.length;
+        this._baseItems = this._baseItems.flatMap((entry) => {
+            const counterpart = findBattleArmorEquipment(entry.tag.replace(/^(is|clan)-/, `${this._techBase}-`));
+            return counterpart ? [{ ...entry, tag: counterpart.tag }] : [];
+        });
+        if (this._baseItems.length !== before) {
+            // The mounts a loadout names are no longer the same mounts.
+            this._loadouts = [];
+            this._activeLoadout = -1;
+        } else {
+            for (const loadout of this._loadouts) {
+                for (const [key, swap] of Object.entries(loadout.weapons)) {
+                    if (findBattleArmorEquipment(swap.tag)?.techBase !== this._techBase) delete loadout.weapons[key];
+                }
+            }
+        }
+        this._apMounts.forEach((mount) => { if (mount.weapon && !this.getAntiPersonnelWeapons().some((weapon) => weapon.tag === mount.weapon)) mount.weapon = ""; });
+    }
     public isQuad(): boolean { return this._bodyType === "quad"; }
     public getBodyType(): BattleArmorBodyType { return this._bodyType; }
     public getWeightClass(): IBattleArmorWeightClass { return this._weightClass; }
@@ -381,16 +441,18 @@ export default class BattleArmor {
     public setTechBase(techBase: BattleArmorTechBase): void {
         if (techBase === this._techBase) return;
         this._techBase = techBase;
-        // The same item is a different record in the other table; keep what has a counterpart there.
-        this._baseItems = this._baseItems.flatMap((entry) => {
-            const counterpart = findBattleArmorEquipment(entry.tag.replace(/^(is|clan)-/, `${techBase}-`));
-            return counterpart ? [{ ...entry, tag: counterpart.tag }] : [];
-        });
-        // The mounts a loadout names are no longer the same mounts.
-        this._loadouts = [];
-        this._activeLoadout = -1;
+        if (!this._mixedTech) {
+            // The same item is a different record in the other table; keep what has a counterpart there.
+            this._baseItems = this._baseItems.flatMap((entry) => {
+                const counterpart = findBattleArmorEquipment(entry.tag.replace(/^(is|clan)-/, `${techBase}-`));
+                return counterpart ? [{ ...entry, tag: counterpart.tag }] : [];
+            });
+            // The mounts a loadout names are no longer the same mounts.
+            this._loadouts = [];
+            this._activeLoadout = -1;
+        }
         this._squadSize = techBase === "clan" ? 5 : 4;
-        if (!this.getAvailableEras().some((item) => item.tag === this._era.tag)) this._era = latestEra(techBase);
+        if (!this.getAvailableEras().some((item) => item.tag === this._era.tag)) this._era = latestEra(this._eraTech());
         this._clamp();
     }
 
@@ -563,17 +625,51 @@ export default class BattleArmor {
     public getArmor(): IBattleArmorArmorType { return this._armor; }
     public getArmorPoints(): number { return this._armorPoints; }
     public getMaxArmorPoints(): number { return battleArmorMaximumArmor[this._weightClass.tag]; }
-    public getArmorKgPerPoint(armor: IBattleArmorArmorType = this._armor): number | null { return armor.kgPerPoint[this._techBase]; }
+    public getArmorKgPerPoint(armor: IBattleArmorArmorType = this._armor, techBase: BattleArmorTechBase = this._armorBase(armor)): number | null { return armor.kgPerPoint[techBase]; }
+    /** The technology base an armor is taken from: the chassis', or on a mixed-technology suit the one chosen. */
+    private _armorBase(armor: IBattleArmorArmorType = this._armor): BattleArmorTechBase {
+        if (!this._mixedTech) return this._techBase;
+        const preferred = this._armorTechBase ?? this._techBase;
+        const other: BattleArmorTechBase = preferred === "clan" ? "is" : "clan";
+        return armor.kgPerPoint[preferred] === null && armor.kgPerPoint[other] !== null ? other : preferred;
+    }
+    public getArmorTechBase(): BattleArmorTechBase { return this._armorBase(); }
 
     public getAvailableArmor(rulesLevel: number = BATTLE_ARMOR_ADVANCED_RULES_LEVEL): IBattleArmorArmorType[] {
         return battleArmorArmorTypes.filter((armor) => this.getArmorKgPerPoint(armor) !== null && (armor.tag === this._armor.tag
             || ((armor.book === "TM" || rulesLevel >= BATTLE_ARMOR_ADVANCED_RULES_LEVEL) && this.isArmorInEra(armor))));
     }
 
-    public setArmor(tag: string): boolean {
+    /** The armors on offer with the technology base of each; a mixed-technology suit is offered both bases' versions. */
+    public getArmorChoices(rulesLevel: number = BATTLE_ARMOR_ADVANCED_RULES_LEVEL): { armor: IBattleArmorArmorType; techBase: BattleArmorTechBase; kgPerPoint: number }[] {
+        const choices: { armor: IBattleArmorArmorType; techBase: BattleArmorTechBase; kgPerPoint: number }[] = [];
+        const bases: BattleArmorTechBase[] = this._mixedTech ? [this._techBase, this.isClan() ? "is" : "clan"] : [this._techBase];
+        for (const armor of battleArmorArmorTypes) {
+            for (const techBase of bases) {
+                const kgPerPoint = armor.kgPerPoint[techBase];
+                if (kgPerPoint === null) continue;
+                const current = armor.tag === this._armor.tag && techBase === this._armorBase();
+                const dates = techBase === "clan" && armor.clanDates ? { ...armor, ...armor.clanDates } : armor;
+                const inEra = this._inEra({
+                    introduced: dates.introduced,
+                    ...(typeof dates.prototype === "number" ? { prototype: dates.prototype } : {}),
+                    ...(typeof dates.extinct === "number" ? { extinct: dates.extinct } : {}),
+                    ...(typeof dates.reintroduced === "number" ? { reintroduced: dates.reintroduced } : {}),
+                });
+                if (current || ((armor.book === "TM" || rulesLevel >= BATTLE_ARMOR_ADVANCED_RULES_LEVEL) && inEra)) choices.push({ armor, techBase, kgPerPoint });
+            }
+        }
+        return choices;
+    }
+
+    /** Sets the armor; on a mixed-technology suit, with the technology base it is taken from. */
+    public setArmor(tag: string, techBase?: BattleArmorTechBase): boolean {
         const armor = battleArmorArmorTypes.find((entry) => entry.tag === tag);
-        if (!armor || this.getArmorKgPerPoint(armor) === null) return false;
+        if (!armor) return false;
+        const base = this._mixedTech && techBase ? techBase : this._armorBase(armor);
+        if (armor.kgPerPoint[base] === null) return false;
         this._armor = armor;
+        this._armorTechBase = this._mixedTech && base !== this._techBase ? base : null;
         return true;
     }
 
@@ -583,11 +679,49 @@ export default class BattleArmor {
     public getArmorSlots(): number { return this._armorPoints > 0 ? this._armor.slots : 0; }
     /** Slots that may be found anywhere on the suit: the armor's, and a myomer booster's (TO:AUE pp.98-99). */
     public getSpreadSlots(): number {
-        return this.getArmorSlots() + this._items.reduce((sum, entry) => {
+        return this._worst(() => this.getArmorSlots() + this._items.reduce((sum, entry) => {
             const equipment = findBattleArmorEquipment(entry.tag);
             return sum + (equipment?.spreadSlots ? equipment.slots : 0);
-        }, 0);
+        }, 0));
     }
+
+    // Equipment carried by one trooper only. The construction rules build one suit for the whole squad; published
+    // squads with a trooper equipped differently (the Kage's support trooper, TRO:3058U p.16) are handled as
+    // MegaMek does: every trooper's suit must be legal on its own.
+
+    public hasTrooperEquipment(): boolean { return this._loadoutItems().some((entry) => !!entry.trooper); }
+    /** Works something out for one trooper's suit: the squad's equipment and that trooper's own. */
+    private _asTrooper<T>(trooper: number, calc: () => T): T {
+        const before = this._view;
+        this._view = trooper;
+        try {
+            return calc();
+        } finally {
+            this._view = before;
+        }
+    }
+    /** The suits that differ in the squad: a trooper wearing each, and how many troopers wear it. */
+    private _trooperSuits(): { trooper: number; count: number }[] {
+        if (this._view > 0 || !this.hasTrooperEquipment()) return [{ trooper: this._view, count: this._squadSize }];
+        const own = [...new Set(this._loadoutItems().map((entry) => entry.trooper ?? 0))].filter((trooper) => trooper > 0 && trooper <= this._squadSize).sort((a, b) => a - b);
+        const suits = own.map((trooper) => ({ trooper, count: 1 }));
+        const plain = Array.from({ length: this._squadSize }, (_unused, index) => index + 1).find((trooper) => !own.includes(trooper));
+        if (plain) suits.push({ trooper: plain, count: this._squadSize - own.length });
+        return suits;
+    }
+    private _suitName(suit: { trooper: number; count: number }): string {
+        return suit.count > 1 ? `The other ${suit.count} troopers` : `Trooper ${suit.trooper}`;
+    }
+    /** The highest value among the troopers' suits. */
+    private _worst(calc: () => number): number {
+        return Math.max(...this._trooperSuits().map((suit) => this._asTrooper(suit.trooper, calc)));
+    }
+    /** The weight of one trooper's suit (1 to 6). */
+    public getTrooperWeight(trooper: number): number {
+        return this._asTrooper(trooper, () => round2(this.getWeightLog().reduce((sum, line) => sum + line.kg, 0)));
+    }
+    /** Is the item out of play because the one trooper who carries it is destroyed? */
+    public isItemLost(entry: IBattleArmorMountedItem): boolean { return !!entry.trooper && !this.isTrooperActive(entry.trooper - 1); }
 
     // Step 5: weapons, ammunition and other equipment (TM pp.170-171)
 
@@ -597,7 +731,7 @@ export default class BattleArmor {
     /** Equipment on offer at a rules level: what the era has, and whatever is mounted already. */
     public getAvailableEquipment(rulesLevel: number = 7): IBattleArmorEquipment[] {
         const mounted = new Set(this._items.map((entry) => entry.tag));
-        return getBattleArmorEquipmentFor(this._techBase).filter((equipment) =>
+        return (this._mixedTech ? battleArmorEquipment : getBattleArmorEquipmentFor(this._techBase)).filter((equipment) =>
             mounted.has(equipment.tag) || ((equipment.rulesLevel ?? BATTLE_ARMOR_RULES_LEVEL) <= rulesLevel && this.isEquipmentInEra(equipment)));
     }
 
@@ -670,7 +804,8 @@ export default class BattleArmor {
     }
 
     /** Slots taken in a location by equipment, mounts and adaptors; armor is counted over the whole suit. */
-    public getUsedSlots(location: BattleArmorLocation): number {
+    public getUsedSlots(location: BattleArmorLocation): number { return this._worst(() => this._usedSlots(location)); }
+    private _usedSlots(location: BattleArmorLocation): number {
         let used = this._items.filter((entry) => entry.location === location).reduce((sum, entry) => sum + this.getItemSlots(entry), 0);
         used += this._apMounts.filter((mount) => mount.location === location).length * BATTLE_ARMOR_AP_MOUNT.slots;
         if ((location === "la" || location === "ra") && !this.isQuad() && this._arms[location].adaptor) used += BATTLE_ARMOR_ADAPTOR.slots;
@@ -681,13 +816,14 @@ export default class BattleArmor {
     public getFreeSlots(location: BattleArmorLocation): number { return this.getSlots(location) - this.getUsedSlots(location); }
 
     /** Slots left on the suit once the armor's are found; a turret's capacity is for what it mounts, not armor. */
-    public getFreeSlotsAfterArmor(): number {
+    public getFreeSlotsAfterArmor(): number { return -this._worst(() => -this._freeSlotsAfterArmor()); }
+    private _freeSlotsAfterArmor(): number {
         return this.getLocations().filter((location) => location !== "turret").reduce((sum, location) => sum + Math.max(0, this.getFreeSlots(location)), 0) - this.getSpreadSlots();
     }
 
     public addItem(tag: string, location: BattleArmorLocation): boolean {
         const equipment = findBattleArmorEquipment(tag);
-        if (!equipment || equipment.techBase !== this._techBase || this._items.length >= MAX_BATTLE_ARMOR_ITEMS) return false;
+        if (!equipment || !this._offers(equipment.techBase) || this._baseItems.length >= MAX_BATTLE_ARMOR_ITEMS) return false;
         if (!this.getLocations().includes(location)) return false;
         const entry: IBattleArmorMountedItem = { tag, location: equipment.bodyOnly ? "body" : location };
         if (equipment.kind === "missile" && equipment.oneShot !== "always") entry.shots = 1;
@@ -733,6 +869,9 @@ export default class BattleArmor {
         next.kg = equipment.variableWeight ? Math.min(2000, Math.max(0, Math.round(next.kg ?? 0) || 0)) : undefined;
         // A detachable weapon pack carries one weapon that is not a missile launcher, and not in a modular mount (TO:AUE pp.98-99).
         next.dwp = this._packable(equipment) && next.location !== "turret" && !next.modular && !next.squadSupport && !!next.dwp ? true : undefined;
+        // Every suit carries its share of the squad support weapon, so it is never one trooper's own.
+        next.trooper = !next.squadSupport && typeof next.trooper === "number" && Number.isInteger(next.trooper) && next.trooper >= 1 && next.trooper <= BATTLE_ARMOR_MAX_SQUAD ? next.trooper : undefined;
+        next.mine = equipment.mineDispenser && next.mine !== battleArmorMineTypes[0].tag && battleArmorMineTypes.some((mine) => mine.tag === next.mine) ? next.mine : undefined;
         // One squad support weapon to a suit (TM p.270).
         if (next.squadSupport) this._baseItems.forEach((other, otherIndex) => { if (otherIndex !== index) delete other.squadSupport; });
         this._baseItems[index] = next;
@@ -740,7 +879,7 @@ export default class BattleArmor {
 
     /** Standard-type conventional infantry weapons an anti-personnel mount may carry (TM p.170). */
     public getAntiPersonnelWeapons(): IInfantryWeapon[] {
-        return infantryWeapons.filter((weapon) => weapon.type === "standard" && (weapon.techBase === "both" || weapon.techBase === this._techBase));
+        return infantryWeapons.filter((weapon) => weapon.type === "standard" && (weapon.techBase === "both" || this._mixedTech || weapon.techBase === this._techBase));
     }
 
     public addAPMount(location: BattleArmorLocation, weapon: string = ""): boolean {
@@ -790,7 +929,7 @@ export default class BattleArmor {
                 if (weight > 0) log.push({ label: `${this.getManipulator(arm).name} (${BATTLE_ARMOR_LOCATION_NAMES[arm]})`, kg: weight });
             }
         }
-        if (this._armorPoints > 0) log.push({ label: `${this._armor.name} armor, ${this._armorPoints} points`, kg: this.getArmorWeight() });
+        if (this._armorPoints > 0) log.push({ label: `${this._mixedTech ? `${techName(this._armorBase())} ` : ""}${this._armor.name} armor, ${this._armorPoints} points`, kg: this.getArmorWeight() });
         const turret = this._turretMount();
         if (turret.kg > 0) log.push({ label: `${this.getTurret()?.configurable ? "Configurable" : "Standard"} turret mount (${this.getSlots("turret")} slots)`, kg: turret.kg });
         this._items.forEach((entry) => log.push({ label: this.getItemLabel(entry), kg: this.getItemWeight(entry) }));
@@ -808,10 +947,13 @@ export default class BattleArmor {
         if (entry.modular) parts.push("modular mount");
         if (entry.dwp) parts.push("detachable weapon pack");
         if (entry.squadSupport) parts.push("squad support weapon");
-        return `${equipment.name}${parts.length ? ` (${parts.join(", ")})` : ""}, ${BATTLE_ARMOR_LOCATION_NAMES[entry.location]}`;
+        if (equipment.mineDispenser) parts.push(`${findBattleArmorMineType(entry.mine).name} mines`);
+        if (entry.trooper) parts.push(`trooper ${entry.trooper} only`);
+        return `${this._mixedTech ? `${equipment.techBase === "clan" ? "Clan" : "IS"} ` : ""}${equipment.name}${parts.length ? ` (${parts.join(", ")})` : ""}, ${BATTLE_ARMOR_LOCATION_NAMES[entry.location]}`;
     }
 
-    public getWeight(): number { return round2(this.getWeightLog().reduce((sum, line) => sum + line.kg, 0)); }
+    /** The weight of the suit; where troopers carry equipment of their own, of the heaviest trooper's. */
+    public getWeight(): number { return this._worst(() => round2(this.getWeightLog().reduce((sum, line) => sum + line.kg, 0))); }
     public getRemainingWeight(): number { return round2(this._weightClass.maxWeight - this.getWeight()); }
 
     // Legality
@@ -821,7 +963,8 @@ export default class BattleArmor {
         return !!equipment && equipment.kind !== "equipment";
     }
 
-    public getIssues(): string[] {
+    /** What is wrong with one suit: the squad's, or the trooper's being worked out. */
+    private _suitIssues(): string[] {
         const issues: string[] = [];
         const weightClass = this._weightClass;
         const weight = this.getWeight();
@@ -835,7 +978,7 @@ export default class BattleArmor {
             const what = this.getSpreadSlots() > this.getArmorSlots() ? (this.getArmorSlots() > 0 ? `${this._armor.name} armor and the myomer booster need` : "The myomer booster needs") : `${this._armor.name} armor needs`;
             issues.push(`${what} ${this.getSpreadSlots()} weapon slots; the suit has ${this.getFreeSlotsAfterArmor() + this.getSpreadSlots()} free (TM p.169).`);
         }
-        if (this.getArmorKgPerPoint() === null) issues.push(`${this._armor.name} armor is not made for ${this.isClan() ? "Clan" : "Inner Sphere"} battle armor (TM p.169).`);
+        if (this.getArmorKgPerPoint() === null) issues.push(`${this._armor.name} armor is not made for ${techName(this._armorBase())} battle armor (TM p.169).`);
 
         // Battle Armor Weapon Limits Table, TM p.170.
         for (const location of this.getLocations()) {
@@ -906,8 +1049,25 @@ export default class BattleArmor {
             if ((left.mustPair || right.mustPair) && left.tag !== right.tag) issues.push(`${left.mustPair ? left.name : right.name} must be mounted in pairs (TM p.166).`);
         }
         issues.push(...this.getEraIssues());
+        return issues;
+    }
+
+    public getIssues(): string[] {
+        const suits = this._trooperSuits();
+        const lists = suits.map((suit) => this._asTrooper(suit.trooper, () => this._suitIssues()));
+        const issues: string[] = [];
+        lists.forEach((list, at) => {
+            for (const issue of list) {
+                // What is wrong with every trooper's suit is said once.
+                const text = lists.every((other) => other.includes(issue)) ? issue : `${this._suitName(suits[at])}: ${issue}`;
+                if (!issues.includes(text)) issues.push(text);
+            }
+        });
+        for (const entry of this._view === 0 ? this._items : []) {
+            if ((entry.trooper ?? 0) > this._squadSize) issues.push(`${findBattleArmorEquipment(entry.tag)?.name ?? entry.tag} is carried by trooper ${entry.trooper}, but the squad has ${this._squadSize} troopers.`);
+        }
         // Every alternate loadout must be a legal suit too.
-        if (this._activeLoadout < 0) {
+        if (this._view === 0 && this._activeLoadout < 0) {
             this._loadouts.forEach((loadout, index) => {
                 const base = new Set(issues);
                 for (const issue of this.getLoadoutSuit(index).getIssues()) {
@@ -938,6 +1098,10 @@ export default class BattleArmor {
             const equipment = findBattleArmorEquipment(entry.tag);
             if (equipment?.book === "TO:AUE" && equipment.notes && !notes.includes(`${equipment.name}: ${equipment.notes}`)) notes.push(`${equipment.name}: ${equipment.notes}`);
         }
+        if (this._mixedTech) notes.push("Mixed technology: any unit may combine Clan and Inner Sphere technology as an advanced construction option, each item following its own construction rules (TO:AUE p.189).");
+        if (this.hasTrooperEquipment()) {
+            notes.push("Some equipment is carried by one trooper only. The construction rules build one suit for the whole squad; as in MegaMek, each trooper's suit must be legal on its own, the weight shown is the heaviest trooper's and the Battle Value is the average of the troopers' suits. The equipment is lost with its trooper.");
+        }
         if (this.canUseExoskeletonChassis() && this.usesExoskeletonChassis() && this._motive === "umu") {
             notes.push("TM p.165 allows UMUs on a Clan exoskeleton with an Inner Sphere chassis weight; TM p.270 says such an exoskeleton may not use them. The construction step is followed.");
         }
@@ -961,13 +1125,15 @@ export default class BattleArmor {
     private _itemBattleValue(entry: IBattleArmorMountedItem): number {
         const equipment = findBattleArmorEquipment(entry.tag);
         if (!equipment) return 0;
+        // A mine dispenser is worth a 10-point minefield of the mines it carries (TO:AUE p.195; Minefield BV Table p.197).
+        if (equipment.mineDispenser) return findBattleArmorMineType(entry.mine).bv;
         const oneShot = this.isOneShot(entry) && equipment.oneShot !== "always";
         const launcherBV = oneShot ? equipment.bvOneShot ?? equipment.bv : equipment.bv;
         const ammunition = equipment.kind === "missile" && !this.isOneShot(entry) ? (this.getItemShots(entry) * (equipment.ammoKg ?? 0) / 1000) * (equipment.ammoBVPerTon ?? 0) : 0;
         return launcherBV + ammunition;
     }
 
-    private _calcBattleValue(): { suit: number; squad: number; log: string[] } {
+    private _suitBattleValue(): { raw: number; log: string[] } {
         const log: string[] = [];
         const armorBV = ["ba-fire-resistant", "ba-laser-reflective", "ba-reactive"].includes(this._armor.tag) ? 3.5 : 2.5;
         let defensive = this._armorPoints * armorBV + 1;
@@ -1008,8 +1174,23 @@ export default class BattleArmor {
         log.push(`Offensive Battle Rating: ${round2(weaponRating)} x ${speedFactor} (Speed Factor, ${movement.mp} MP) = ${round2(offensiveRating)}`);
 
         const suit = defensiveRating + offensiveRating;
-        const modifier = BATTLE_ARMOR_UNIT_SIZE_BV[this._squadSize] ?? 1;
         log.push(`Battle Value of one suit: ${round2(defensiveRating)} + ${round2(offensiveRating)} = ${round2(suit)}, or ${roundNormally(suit)}`);
+        return { raw: suit, log };
+    }
+
+    private _calcBattleValue(): { suit: number; squad: number; log: string[] } {
+        const suits = this._trooperSuits().map((suit) => ({ ...suit, ...this._asTrooper(suit.trooper, () => this._suitBattleValue()) }));
+        const modifier = BATTLE_ARMOR_UNIT_SIZE_BV[this._squadSize] ?? 1;
+        const log: string[] = [];
+        let suit = suits[0].raw;
+        if (suits.length === 1) {
+            log.push(...suits[0].log);
+        } else {
+            // The rules value one suit and multiply; with unlike suits the troopers' average is used, as MegaMek does.
+            for (const item of suits) log.push(`${this._suitName(item)}:`, ...item.log);
+            suit = suits.reduce((sum, item) => sum + item.raw * item.count, 0) / this._squadSize;
+            log.push(`Average of the ${this._squadSize} troopers' suits: ${round2(suit)}`);
+        }
         log.push(`${this._squadSize} ${this._squadSize === 1 ? "trooper" : "troopers"}: ${round2(suit)} x ${modifier} = ${roundNormally(suit * modifier)}`);
         return { suit: roundNormally(suit), squad: roundNormally(suit * modifier), log };
     }
@@ -1022,7 +1203,7 @@ export default class BattleArmor {
 
     // Cost (TM pp.276, 281, 296-298)
 
-    private _calcCost(): { suit: number; squad: number; log: string[] } {
+    private _suitCost(): { raw: number; squadOnly: number; log: string[] } {
         const log: string[] = [];
         const weightClass = this._weightClass;
         let structural = weightClass.chassisCost;
@@ -1084,9 +1265,19 @@ export default class BattleArmor {
         });
         this._apMounts.forEach((mount) => { equipmentCost += BATTLE_ARMOR_AP_MOUNT.cost + (findInfantryWeapon(mount.weapon)?.cost ?? 0); });
         log.push(`Weapons, equipment and mounts: ${Math.round(equipmentCost).toLocaleString("en-US")}`);
-        const suit = Math.round(structural + equipmentCost);
-        const squad = Math.round((structural + equipmentCost) * this._squadSize + squadOnly);
-        log.push(`One suit: ${suit.toLocaleString("en-US")}; ${this._squadSize} suits${squadOnly > 0 ? ` and the squad support weapon (${squadOnly.toLocaleString("en-US")})` : ""}: ${squad.toLocaleString("en-US")}`);
+        return { raw: structural + equipmentCost, squadOnly, log };
+    }
+
+    private _calcCost(): { suit: number; squad: number; log: string[] } {
+        const suits = this._trooperSuits().map((suit) => ({ ...suit, ...this._asTrooper(suit.trooper, () => this._suitCost()) }));
+        const squadOnly = suits[0].squadOnly;
+        const log: string[] = [];
+        if (suits.length === 1) log.push(...suits[0].log);
+        else for (const item of suits) log.push(`${this._suitName(item)}:`, ...item.log, `Suit: ${Math.round(item.raw).toLocaleString("en-US")}`);
+        // The price of one suit; with unlike suits, of the dearest.
+        const suit = Math.round(Math.max(...suits.map((item) => item.raw)));
+        const squad = Math.round(suits.reduce((sum, item) => sum + item.raw * item.count, 0) + squadOnly);
+        log.push(`${suits.length === 1 ? "One suit" : "The dearest suit"}: ${suit.toLocaleString("en-US")}; ${this._squadSize} suits${squadOnly > 0 ? ` and the squad support weapon (${squadOnly.toLocaleString("en-US")})` : ""}: ${squad.toLocaleString("en-US")}`);
         return { suit, squad, log };
     }
 
@@ -1104,7 +1295,7 @@ export default class BattleArmor {
     public isSwappable(entry: IBattleArmorMountedItem): boolean {
         return !!entry.modular || (entry.location === "turret" && !!this.getTurret()?.configurable);
     }
-    private _fitsMount(equipment: IBattleArmorEquipment): boolean { return equipment.techBase === this._techBase && !equipment.noMount; }
+    private _fitsMount(equipment: IBattleArmorEquipment): boolean { return this._offers(equipment.techBase) && !equipment.noMount; }
 
     /** The base design's mounts a loadout may refit, by their position in the item list. */
     public getSwappableItems(): { index: number; entry: IBattleArmorMountedItem }[] {
@@ -1397,13 +1588,27 @@ export default class BattleArmor {
         const heat = [0, 0, 0];
         let indirect = 0;
         const flak = [0, 0, 0];
-        const counted = new Map<string, number>();
+        // Counted abilities: on every suit, and on each trooper's own.
+        const counted = new Map<string, number[]>();
+        const perSuit = (ability: string): number => {
+            const counts = counted.get(ability) ?? [0];
+            return counts[0] + Math.max(0, ...counts.slice(1).map((count) => count ?? 0));
+        };
+        const inUnit = (ability: string): number => {
+            const counts = counted.get(ability) ?? [0];
+            return counts[0] * troopers + counts.slice(1).reduce((sum, count) => sum + (count ?? 0), 0);
+        };
         for (const entry of this._items) {
             const equipment = findBattleArmorEquipment(entry.tag);
             if (!equipment) continue;
             for (const ability of (equipment.alphaStrikeSpecial ?? "").split(",").filter((item) => item)) {
-                if (["MDS", "BTAS", "BOMB", "RSD"].includes(ability)) counted.set(ability, (counted.get(ability) ?? 0) + 1);
-                else add(ability);
+                if (["MDS", "BTAS", "BOMB", "RSD"].includes(ability)) {
+                    const counts = counted.get(ability) ?? [0];
+                    const at = entry.trooper ?? 0;
+                    counts[at] = (counts[at] ?? 0) + 1;
+                    for (let index = 0; index < counts.length; index++) counts[index] = counts[index] ?? 0;
+                    counted.set(ability, counts);
+                } else add(ability);
             }
             const values = equipment.alphaStrike;
             if (!values) continue;
@@ -1411,11 +1616,13 @@ export default class BattleArmor {
             let multiplier = 1;
             if (this.isOneShot(entry) && equipment.oneShot !== "always") multiplier = 0.1;
             else if (equipment.kind === "missile" && equipment.oneShot !== "always" && this.getItemShots(entry) < 10) multiplier = 0.75;
-            const into = entry.squadSupport ? squad : suit;
+            // A weapon one trooper carries, like the squad support weapon, is in the squad once.
+            const once = !!entry.squadSupport || !!entry.trooper;
+            const into = once ? squad : suit;
             into.short += values.short * multiplier;
             into.medium += values.medium * multiplier;
             into.long += values.long * multiplier;
-            const share = entry.squadSupport ? 1 : factor;
+            const share = once ? 1 : factor;
             if (values.heat) values.heat.forEach((points, range) => { heat[range] += points * share; });
             // Indirect fire is rated by the Long range value of the weapons that have it (ASC p.125).
             if (values.indirect) indirect += values.long * multiplier * share;
@@ -1434,7 +1641,7 @@ export default class BattleArmor {
             damage <= 1e-9 ? { damage: 0, minimal: false } : damage < 0.5 ? { damage: 0, minimal: true } : { damage: Math.ceil(damage - 1e-9), minimal: false };
         const damageValues = { short: value(total.short), medium: value(total.medium), long: value(total.long) };
         log.push(`Damage of one suit: ${suit.short.toFixed(3)} / ${suit.medium.toFixed(3)} / ${suit.long.toFixed(3)}${antiPersonnel > 0 ? ` (with ${antiPersonnel.toFixed(2)} for anti-personnel weapons)` : ""}`);
-        log.push(`x ${factor} (Troop Factor for ${troopers} + 0.5)${squad.short + squad.medium + squad.long > 0 ? `, + the squad support weapon once (${squad.short.toFixed(2)} / ${squad.medium.toFixed(2)} / ${squad.long.toFixed(2)})` : ""}${vibro > 0 ? `, + ${vibro} at Short range for vibro-claws` : ""} = ${total.short.toFixed(2)} / ${total.medium.toFixed(2)} / ${total.long.toFixed(2)}: ${formatBattleArmorASDamage(damageValues.short)}/${formatBattleArmorASDamage(damageValues.medium)}/${formatBattleArmorASDamage(damageValues.long)}`);
+        log.push(`x ${factor} (Troop Factor for ${troopers} + 0.5)${squad.short + squad.medium + squad.long > 0 ? `, + weapons the squad has only one of (${squad.short.toFixed(2)} / ${squad.medium.toFixed(2)} / ${squad.long.toFixed(2)})` : ""}${vibro > 0 ? `, + ${vibro} at Short range for vibro-claws` : ""} = ${total.short.toFixed(2)} / ${total.medium.toFixed(2)} / ${total.long.toFixed(2)}: ${formatBattleArmorASDamage(damageValues.short)}/${formatBattleArmorASDamage(damageValues.medium)}/${formatBattleArmorASDamage(damageValues.long)}`);
 
         // Special abilities (ASC pp.117-133).
         const capabilities = this.getCapabilities();
@@ -1453,13 +1660,13 @@ export default class BattleArmor {
         if (indirect > 1e-9) add(`IF${formatBattleArmorASDamage(indirectValue)}`);
         if (flak.some((points) => points >= 0.5)) add(`FLK${flak.map((points) => (points >= 0.5 ? Math.round(points + 1e-9) : "-")).join("/")}`);
         // Mine dispensers and remote sensor dispensers are counted on one suit; tasers over the whole unit (ASC pp.127, 130, 132).
-        const mines = counted.get("MDS") ?? 0;
+        const mines = perSuit("MDS");
         if (mines > 0) add(`MDS${mines}`);
-        const tasers = (counted.get("BTAS") ?? 0) * troopers;
+        const tasers = inUnit("BTAS");
         if (tasers > 0) add(`BTAS${tasers}`);
-        const sensors = counted.get("RSD") ?? 0;
+        const sensors = perSuit("RSD");
         if (sensors > 0) add(`RSD${sensors}`);
-        const bombs = Math.round((counted.get("BOMB") ?? 0) * troopers / 5 + 1e-9);
+        const bombs = Math.round(inUnit("BOMB") / 5 + 1e-9);
         if (bombs > 0) add(`BOMB${bombs}`);
         // Recon: an active probe, a remote sensor dispenser or improved sensors (ASC p.130).
         if (specials.includes("LPRB") || sensors > 0 || this._hasItem("Improved Sensors")) add("RCN");
@@ -1562,7 +1769,7 @@ export default class BattleArmor {
             BFPointValue: stats.pointValue,
             BFAbilities: stats.specialAbilities.join(","),
             Role: { Id: 0, Name: "None", Image: null, SortOrder: 0 },
-            Technology: { Id: 0, Name: this.isClan() ? "Clan" : "Inner Sphere", Image: null, SortOrder: 0 },
+            Technology: { Id: 0, Name: this._mixedTech ? "Mixed" : techName(this._techBase), Image: null, SortOrder: 0 },
             Type: { Id: 22, Name: "Battle Armor", Image: null, SortOrder: 0 },
         } as unknown as IASMULUnit;
         const unit = new AlphaStrikeUnit();
@@ -1607,6 +1814,8 @@ export default class BattleArmor {
             lastUpdated: this.lastUpdated.toISOString(),
             name: this._name,
             techBase: this._techBase,
+            ...(this._mixedTech ? { mixedTech: true } : {}),
+            ...(this._mixedTech && this._armorBase() !== this._techBase ? { armorTechBase: this._armorBase() } : {}),
             weightClass: this._weightClass.tag,
             bodyType: this._bodyType,
             ...(this.usesExoskeletonChassis() ? { exoskeletonChassis: true } : {}),
@@ -1652,7 +1861,10 @@ export default class BattleArmor {
         this.setName(savedString(raw.name));
 
         this._techBase = raw.techBase === "clan" ? "clan" : "is";
-        this._era = latestEra(this._techBase);
+        this._mixedTech = raw.mixedTech === true;
+        this._armorTechBase = null;
+        this._view = 0;
+        this._era = latestEra(this._eraTech());
         if (raw.era !== undefined && !this.setEra(savedString(raw.era))) this._importIssues.push(`Unknown era '${savedString(raw.era).slice(0, 60)}': using ${this._era.name}`);
         this._loadouts = [];
         this._activeLoadout = -1;
@@ -1685,7 +1897,7 @@ export default class BattleArmor {
 
         this._armor = battleArmorArmorTypes.find((armor) => this.getArmorKgPerPoint(armor) !== null) ?? battleArmorArmorTypes[0];
         const armorTag = savedString(raw.armor);
-        if (armorTag && !this.setArmor(armorTag)) this._importIssues.push(`Armor '${armorTag.slice(0, 60)}' cannot be used: using ${this._armor.name}`);
+        if (armorTag && !this.setArmor(armorTag, raw.armorTechBase === "clan" || raw.armorTechBase === "is" ? raw.armorTechBase : undefined)) this._importIssues.push(`Armor '${armorTag.slice(0, 60)}' cannot be used: using ${this._armor.name}`);
         this._armorPoints = savedNumber(raw.armorPoints, 0, 0, this.getMaxArmorPoints());
 
         this._turret = null;
@@ -1698,7 +1910,7 @@ export default class BattleArmor {
             const tag = savedString(saved.tag);
             const location = LOCATIONS.find((entry) => entry === saved.location) ?? "body";
             const equipment = findBattleArmorEquipment(tag);
-            if (!equipment || equipment.techBase !== this._techBase || !this.addItem(tag, this.getLocations().includes(location) ? location : "body")) {
+            if (!equipment || !this._offers(equipment.techBase) || !this.addItem(tag, this.getLocations().includes(location) ? location : "body")) {
                 this._importIssues.push(`Equipment '${tag.slice(0, 60)}' cannot be mounted: removed`);
                 continue;
             }
@@ -1710,6 +1922,8 @@ export default class BattleArmor {
                 squadSupport: saved.squadSupport === true,
                 kg: typeof saved.kg === "number" ? saved.kg : undefined,
                 dwp: saved.dwp === true,
+                trooper: typeof saved.trooper === "number" ? saved.trooper : undefined,
+                mine: typeof saved.mine === "string" ? saved.mine : undefined,
             });
         }
 

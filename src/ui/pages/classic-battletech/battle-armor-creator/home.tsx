@@ -156,8 +156,8 @@ export default class BattleArmorCreatorHome extends React.Component<IHomeProps, 
                             ) : null}
                             <p className="smaller-text">
                                 The file's equipment names are matched to the Battle Armor Equipment Tables; anything without a match is left off
-                                and listed. A mixed-technology suit is read on its chassis' technology base. Equipment that only one trooper of
-                                the squad carries cannot be shown, as a squad here is made of identical suits.
+                                and listed. A mixed-technology suit keeps each item's own technology base. Equipment the file gives to every
+                                trooper is the squad's; what only one trooper carries stays that trooper's.
                             </p>
                         </TextSection>
 
@@ -182,7 +182,7 @@ export default class BattleArmorCreatorHome extends React.Component<IHomeProps, 
                                     {saves.length > 0 ? saves.map((save: IBattleArmorExport, saveIndex: number) => (
                                         <tr key={saveIndex}>
                                             <td title={"UUID: " + save.uuid}>{save.name || "(nameless)"}</td>
-                                            <td>{findBattleArmorWeightClass(save.weightClass).name}, {save.techBase === "clan" ? "Clan" : "Inner Sphere"}</td>
+                                            <td>{findBattleArmorWeightClass(save.weightClass).name}, {save.mixedTech ? "Mixed, " : ""}{save.techBase === "clan" ? "Clan" : "Inner Sphere"}{save.mixedTech ? " chassis" : ""}</td>
                                             <td className="min-width">{save.squadSize}</td>
                                             <td className="text-right">
                                                 <button className="btn btn-sm btn-primary" type="button" title={"Load " + save.name + " into the editor"} onClick={(e) => this.loadSave(e, saveIndex)}>

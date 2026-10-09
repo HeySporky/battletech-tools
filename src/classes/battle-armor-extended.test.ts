@@ -540,11 +540,13 @@ describe("MegaMek battle armor file import", () => {
         expect(importBattleArmorBlk("x".repeat(500000)).suit).toBeNull();
     });
 
-    it("reads a mixed-technology suit on its chassis' technology base and says what it left off", () => {
-        const mixed = BLK.replace("Clan Level 2", "Mixed (IS Chassis)");
-        const { suit, issues } = importBattleArmorBlk(mixed);
-        expect(suit?.getTechBase()).toBe("is");
-        expect(issues[0]).toContain("Mixed technology");
-        expect(issues.join(" ")).toContain("'CLBASmall Laser' is Clan equipment: left off.");
+    it("leaves the other technology base's equipment off a suit that is not mixed, and keeps it on one that is", () => {
+        const plain = importBattleArmorBlk(BLK.replace("Clan Level 2", "IS Level 2"));
+        expect(plain.suit?.getTechBase()).toBe("is");
+        expect(plain.issues.join(" ")).toContain("'CLBASmall Laser' is Clan equipment: left off.");
+        const mixed = importBattleArmorBlk(BLK.replace("Clan Level 2", "Mixed (IS Chassis)"));
+        expect([mixed.suit?.getTechBase(), mixed.suit?.isMixedTech()]).toEqual(["is", true]);
+        expect(mixed.issues).toEqual(["'NotARealItem' is not in the battle armor equipment tables: left off."]);
+        expect(mixed.suit?.getItems().map((entry) => entry.tag)).toEqual(["clan-small-laser", "clan-srm-2"]);
     });
 });

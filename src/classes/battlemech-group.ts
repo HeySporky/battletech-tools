@@ -159,7 +159,7 @@ export class BattleMechGroup {
         const techNames = [
             ...[...this.members, ...this.vehicles, ...this.fighters].map( (unit) => unit.getTech().name ),
             ...this.infantry.map( (platoon) => platoon.getTechName() ),
-            ...this.battleArmor.map( (squad) => squad.isClan() ? "Clan" : "Inner Sphere" ),
+            ...this.battleArmor.map( (squad) => squad.isMixedTech() ? "Mixed" : squad.isClan() ? "Clan" : "Inner Sphere" ),
             ...this.buildings.map( (building) => building.getTech().name ),
         ];
         for( let tech of techNames ) {

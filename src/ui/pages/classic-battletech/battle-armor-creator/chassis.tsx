@@ -42,6 +42,7 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
         const suit = this.props.appGlobals.currentBattleArmor;
         if (!suit) return <></>;
         const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const armorValue = (techBase: string, tag: string): string => (techBase === suit.getTechBase() ? tag : `${techBase}:${tag}`);
         const weightClass = suit.getWeightClass();
         const motive = suit.getMotive();
         const motiveLimit = suit.getMotiveLimit(motive);
@@ -69,6 +70,12 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                                     <option value="clan">Clan</option>
                                 </select>
                             </label>
+                            {rulesLevel >= 3 || suit.isMixedTech() ? (
+                                <label>
+                                    <input type="checkbox" data-testid="ba-mixed-tech" checked={suit.isMixedTech()} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.setMixedTech(value)); }} />
+                                    &nbsp;Mixed technology: the chassis above, with armor and equipment of either technology base (Advanced; TO:AUE p. 189)
+                                </label>
+                            ) : null}
                             <label>
                                 Era:
                                 <select data-testid="ba-era" value={suit.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setEra(value)); }}>
@@ -200,9 +207,21 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                         <TextSection label="Step 4: Add Armor">
                             <label>
                                 Armor Type:
-                                <select data-testid="ba-armor" value={armor.tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setArmor(value)); }}>
-                                    {suit.getAvailableArmor(rulesLevel).map((option) => (
-                                        <option key={option.tag} value={option.tag}>{option.name} ({suit.getArmorKgPerPoint(option)} kg a point, {option.slots} slots)</option>
+                                <select
+                                    data-testid="ba-armor"
+                                    value={armorValue(suit.getArmorTechBase(), armor.tag)}
+                                    onChange={(e) => {
+                                        // The other technology base's armor on a mixed suit is "clan:tag" or "is:tag".
+                                        const parts = e.currentTarget.value.split(":");
+                                        const tag = parts[parts.length - 1];
+                                        const techBase = parts.length > 1 ? (parts[0] === "clan" ? "clan" : "is") : suit.getTechBase();
+                                        this.update((s) => s.setArmor(tag, techBase));
+                                    }}
+                                >
+                                    {suit.getArmorChoices(rulesLevel).map((option) => (
+                                        <option key={armorValue(option.techBase, option.armor.tag)} value={armorValue(option.techBase, option.armor.tag)}>
+                                            {suit.isMixedTech() ? (option.techBase === "clan" ? "Clan " : "Inner Sphere ") : ""}{option.armor.name} ({option.kgPerPoint} kg a point, {option.armor.slots} slots)
+                                        </option>
                                     ))}
                                 </select>
                             </label>

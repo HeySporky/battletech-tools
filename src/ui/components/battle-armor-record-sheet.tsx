@@ -1,6 +1,6 @@
 import React, { type JSX } from 'react';
 import BattleArmor, { BATTLE_ARMOR_LOCATION_NAMES } from '../../classes/battle-armor';
-import { findBattleArmorEquipment } from '../../data/battle-armor-equipment';
+import { findBattleArmorEquipment, findBattleArmorMineType } from '../../data/battle-armor-equipment';
 import { findInfantryWeapon } from '../../data/infantry-weapons';
 
 // A battle armor record sheet (TechManual pp.172-173): the unit data, the weapons inventory with a line to count
@@ -27,7 +27,7 @@ export default class BattleArmorRecordSheet extends React.Component<IBattleArmor
                 <h2>{suit.getDisplayName()}</h2>
                 <p data-testid="battle-armor-sheet-data">
                     <strong>Battle Armor</strong> - {suit.getWeightClass().name}, {suit.isQuad() ? "Quad" : "Humanoid"} &nbsp;|&nbsp;
-                    {suit.isClan() ? "Clan" : "Inner Sphere"} &nbsp;|&nbsp;
+                    {suit.getTechName()} &nbsp;|&nbsp;
                     {suit.getWeight()} kg &nbsp;|&nbsp;
                     Movement: {suit.getMovementText()} &nbsp;|&nbsp;
                     <strong>Gunnery</strong> {suit.getGunnery()} / <strong>Anti-'Mech</strong> {suit.getAntiMechSkill()} &nbsp;|&nbsp;
@@ -52,13 +52,14 @@ export default class BattleArmorRecordSheet extends React.Component<IBattleArmor
                             return (
                                 <tr key={index}>
                                     <td style={cell}>
-                                        {equipment.name}
+                                        {suit.isMixedTech() ? (equipment.techBase === "clan" ? "Clan " : "IS ") : ""}{equipment.name}
                                         {entry.squadSupport ? " (squad support weapon)" : ""}{entry.modular ? " (modular)" : ""}{entry.detachable ? " (detachable)" : ""}
+                                        {entry.trooper ? ` (trooper ${entry.trooper} only)` : ""}{equipment.mineDispenser ? ` (${findBattleArmorMineType(entry.mine).name} mines)` : ""}
                                     </td>
                                     <td style={cell}>{BATTLE_ARMOR_LOCATION_NAMES[entry.location]}</td>
                                     <td style={cell}>{equipment.damage}</td>
                                     {bands.map((band, bandIndex) => <td key={bandIndex} style={cell}>{band === "-" ? "" : band}</td>)}
-                                    <td style={cell}>{shots > 0 ? `${shots}: ${"O ".repeat(shots * suit.getSquadSize()).trim()}` : ""}</td>
+                                    <td style={cell}>{shots > 0 ? `${shots}: ${"O ".repeat(shots * (entry.trooper ? 1 : suit.getSquadSize())).trim()}` : ""}</td>
                                 </tr>
                             );
                         })}

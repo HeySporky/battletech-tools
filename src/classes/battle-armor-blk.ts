@@ -7,7 +7,8 @@ import BattleArmor, { BattleArmorArm, BattleArmorLocation, IBattleArmorMountedIt
 
 // Reads a MegaMek battle armor ".blk" file into a suit. The file names its equipment by MegaMek's lookup names;
 // the tables below pair those names with this catalog. Anything that has no match is left off and reported, so
-// the importer never guesses. Mixed-technology suits are read on their chassis' technology base.
+// the importer never guesses. A mixed-technology suit keeps each item's own technology base; a name both bases
+// use is read on the chassis' base. Equipment listed for every trooper is the squad's; the rest is that trooper's.
 
 const WEIGHT_CLASSES: BattleArmorWeightClass[] = ["pa-l", "light", "medium", "heavy", "assault"];
 
@@ -168,6 +169,8 @@ interface IBlkLine {
     apWeapon: boolean;
     shots: number | null;
     size: number | null;
+    /** The one trooper who carries it. */
+    trooper?: number;
 }
 
 const readLine = (line: string): IBlkLine => {
@@ -207,8 +210,9 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
     const type = blkValue(file, "type").toLowerCase();
     const mixed = type.includes("mixed");
     const techBase: BattleArmorTechBase = type.includes("clan chassis") || (!mixed && type.startsWith("clan")) ? "clan" : "is";
-    if (mixed) issues.push(`Mixed technology: read as ${techBase === "clan" ? "a Clan" : "an Inner Sphere"} suit; equipment of the other technology base is left off.`);
     suit.setTechBase(techBase);
+    if (mixed) suit.setMixedTech(true);
+    const otherBase: BattleArmorTechBase = techBase === "clan" ? "is" : "clan";
     suit.setName(`${blkValue(file, "Name")} ${blkValue(file, "Model")}`.trim());
 
     const weightClass = WEIGHT_CLASSES[Number(blkValue(file, "weightclass"))];
@@ -242,22 +246,32 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
         suit.setTurret(Number(turret[2]) + (configurable ? 1 : 0), configurable);
     }
 
-    // Equipment: the squad's, then each trooper's own.
+    // Equipment: the squad's, then each trooper's own. What every trooper lists is the squad's too.
     const lines = [...blkLines(file, "Squad Equipment"), ...blkLines(file, "Point Equipment")].map(readLine);
     const slotless = blkLines(file, "slotless_equipment").map(readLine);
-    for (let trooper = 1; trooper <= 6; trooper++) {
-        const own = blkLines(file, `Trooper ${trooper} Equipment`);
-        if (own.length > 0) issues.push(`Trooper ${trooper} carries equipment of their own, which a squad of identical suits cannot show: ${own.map((line) => line.split(":")[0]).join(", ").slice(0, 200)}.`);
+    const own = Array.from({ length: suit.getSquadSize() }, (_unused, index) => blkLines(file, `Trooper ${index + 1} Equipment`).map((line) => line.trim()));
+    for (const line of [...(own[0] ?? [])]) {
+        if (!own.every((list) => list.includes(line))) continue;
+        own.forEach((list) => list.splice(list.indexOf(line), 1));
+        lines.push(readLine(line));
     }
+    own.forEach((list, index) => list.forEach((line) => lines.push({ ...readLine(line), trooper: index + 1 })));
 
     let armorTag = ARMOR_CODES[blkValue(file, "armor_type")] ?? "";
+    // The file's armor technology level: MegaMek numbers the Clan levels 2, 6, 8, 10 and 12.
+    const armorTech = blkValue(file, "armor_tech");
+    let armorBase: BattleArmorTechBase | undefined = /^\d+$/.test(armorTech) ? (["2", "6", "8", "10", "12"].includes(armorTech) ? "clan" : "is") : undefined;
     const pending: IBlkLine[] = [];
     for (const line of [...lines, ...slotless]) {
         if (IGNORED.has(line.key)) continue;
         // Armor is listed once for each slot it takes.
         if (/^(is|clan) ba /i.test(line.name)) {
             const armor = battleArmorArmorTypes.find((entry) => line.name.toLowerCase().endsWith(entry.name.toLowerCase()) || (entry.tag === "ba-standard-advanced" && /ba advanced$/i.test(line.name)));
-            if (armor) { armorTag = armor.tag; continue; }
+            if (armor) {
+                armorTag = armor.tag;
+                armorBase = armorBase ?? (/^clan/i.test(line.name) ? "clan" : "is");
+                continue;
+            }
         }
         if (line.apWeapon || line.key === "baapmount" || line.key === "bamea" || MANIPULATORS[line.key]) {
             pending.push(line);
@@ -273,14 +287,14 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
             issues.push(`'${line.name.slice(0, 60)}' is not in the battle armor equipment tables: left off.`);
             continue;
         }
-        if (known.base && known.base !== techBase) {
+        if (known.base && known.base !== techBase && !mixed) {
             issues.push(`'${line.name.slice(0, 60)}' is ${known.base === "clan" ? "Clan" : "Inner Sphere"} equipment: left off.`);
             continue;
         }
-        const equipment = findBattleArmorEquipment(`${techBase}-${known.slug}`);
+        const equipment = findBattleArmorEquipment(`${known.base ?? techBase}-${known.slug}`) ?? (mixed && !known.base ? findBattleArmorEquipment(`${otherBase}-${known.slug}`) : null);
         const location: BattleArmorLocation = line.turret && suit.getTurret() ? "turret" : line.location;
         if (!equipment || !suit.addItem(equipment.tag, suit.getLocations().includes(location) ? location : "body")) {
-            issues.push(`'${line.name.slice(0, 60)}' is not on the ${techBase === "clan" ? "Clan" : "Inner Sphere"} Battle Armor Equipment Table: left off.`);
+            issues.push(`'${line.name.slice(0, 60)}' is not on the ${(known.base ?? techBase) === "clan" ? "Clan" : "Inner Sphere"} Battle Armor Equipment Table: left off.`);
             continue;
         }
         const index = suit.getItems().length - 1;
@@ -288,6 +302,7 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
         if (launcher?.oneShot) change.oneShot = true;
         if (line.squadSupport) change.squadSupport = true;
         if (line.weaponPack) change.dwp = true;
+        if (line.trooper) change.trooper = line.trooper;
         if (equipment.variableWeight && line.size !== null && Number.isFinite(line.size)) change.kg = line.size;
         // An Inner Sphere suit with jump jets carries its body-mounted launchers as detachable packs (TM p.171).
         if (techBase === "is" && suit.getMotive() === "jump" && equipment.tubes && suit.getItems()[index].location === "body") change.detachable = true;
@@ -347,7 +362,7 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
         }
     }
 
-    if (armorTag && !suit.setArmor(armorTag)) issues.push(`${battleArmorArmorTypes.find((entry) => entry.tag === armorTag)?.name ?? "The armor"} is not made for ${techBase === "clan" ? "Clan" : "Inner Sphere"} battle armor: using ${suit.getArmor().name}.`);
+    if (armorTag && !suit.setArmor(armorTag, mixed ? armorBase : undefined) && !suit.setArmor(armorTag)) issues.push(`${battleArmorArmorTypes.find((entry) => entry.tag === armorTag)?.name ?? "The armor"} is not made for ${techBase === "clan" ? "Clan" : "Inner Sphere"} battle armor: using ${suit.getArmor().name}.`);
     const armorPoints = Number(blkValue(file, "armor"));
     if (Number.isFinite(armorPoints)) {
         suit.setArmorPoints(armorPoints);

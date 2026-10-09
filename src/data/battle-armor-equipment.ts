@@ -77,6 +77,8 @@ export interface IBattleArmorEquipment {
     spreadSlots?: boolean;
     /** Priced by the MP it provides. */
     costPerMP?: number;
+    /** A mine dispenser: its Battle Value is that of a 10-point minefield of the mines it carries (TO:AUE p.195). */
+    mineDispenser?: boolean;
     /** Armor types it may not be combined with. */
     barsArmor?: string[];
     /** When the item entered service (IO:AE pp.46-47). */
@@ -182,7 +184,7 @@ const sharedEquipment = (techBase: BattleArmorTechBase): IBattleArmorEquipment[]
     // Tactical Operations: Advanced Units & Equipment (pp.224-225; Battle Values pp.192-197)
     { ...weapon(techBase, "Flamers", "Heavy Flamer", "4", "-/2/3/4", 350, 2, 1, 10, 15, 11250, 124), ...ADVANCED },
     item(techBase, "Angel ECM", "-/-/-/2", techBase === "is" ? 250 : 150, 3, 750000, 91, { ...EXPERIMENTAL, defensive: true, defensiveValue: 2 }),
-    item(techBase, "Mine Dispenser", "NA", 50, 2, 20000, 137, { ...ADVANCED, magazine: 2, notes: "2 shots. Its Battle Value is that of a 10-point minefield of the mines carried (TO:AUE p.195) and is not counted here." }),
+    item(techBase, "Mine Dispenser", "NA", 50, 2, 20000, 137, { ...ADVANCED, magazine: 2, mineDispenser: true, notes: "2 shots of one kind of mine, chosen before play; a minefield it lays does 10 damage. One trooper of the unit may lay mines in a turn, and each trooper may carry a different kind (TO:AUE p.137)." }),
     item(techBase, "DropChute (Standard)", "NA", 200, 0, 1000, 161, { ...ADVANCED, ...DROPCHUTE }),
     item(techBase, "DropChute (Camouflage)", "NA", 200, 0, 3000, 161, { ...ADVANCED, ...DROPCHUTE }),
     item(techBase, "DropChute (Stealth)", "NA", 225, 0, 5000, 161, { ...ADVANCED, ...DROPCHUTE }),
@@ -496,6 +498,24 @@ export const battleArmorEquipment: IBattleArmorEquipment[] = equipmentRows.map((
     const alphaStrikeSpecial = ALPHA_STRIKE_SPECIALS.find(([pattern]) => pattern.test(entry.tag))?.[1];
     return { ...entry, ...(dates ? { dates } : {}), ...(alphaStrike ? { alphaStrike } : {}), ...(alphaStrikeSpecial ? { alphaStrikeSpecial } : {}) };
 });
+
+/** Minefield BV Table (TO:AUE p.197), for the land minefields a mine dispenser lays: Battle Value of a 10-point field. */
+export interface IBattleArmorMineType {
+    tag: string;
+    name: string;
+    /** Twice the table's "BV per 5 Points"; for EMP mines, its "BV per Hex". */
+    bv: number;
+}
+export const battleArmorMineTypes: IBattleArmorMineType[] = [
+    { tag: "standard", name: "Standard (conventional)", bv: 8 },
+    { tag: "active", name: "Active", bv: 12 },
+    { tag: "command-detonated", name: "Command-Detonated", bv: 12 },
+    { tag: "emp", name: "EMP", bv: 45 },
+    { tag: "inferno", name: "Inferno", bv: 10 },
+    { tag: "vibrabomb", name: "Vibrabomb", bv: 10 },
+];
+export const findBattleArmorMineType = (tag: string | undefined): IBattleArmorMineType =>
+    battleArmorMineTypes.find((entry) => entry.tag === tag) ?? battleArmorMineTypes[0];
 
 export const findBattleArmorEquipment = (tag: string): IBattleArmorEquipment | null =>
     battleArmorEquipment.find((entry) => entry.tag === tag) ?? null;

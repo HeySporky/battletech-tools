@@ -264,10 +264,33 @@ played first, then by dependency.
   Factor. (16) With several troopers on a hit location of a carrier, each is rolled for in turn and damage left
   over from one passes to the next roll. (17) The Clan Battle Armor Equipment Table (TM p.348) lists no
   mortars, though IO:AE p.47 gives mortars a Clan introduction date; none are offered to Clan suits.
-- [ ] Battle armor still owed: mixed-technology suits (the importer reads them on their chassis' technology
-  base and leaves the other base's equipment off); equipment carried by one trooper of a squad only; the Battle
-  Value of a mine dispenser (a 10-point minefield, TO:AUE p.195); the carrier's side of mechanized transport
-  (blocking the occupied locations' weapons on the 'Mech or vehicle sheet); `.blk` export.
+- [x] Mixed-technology suits (2026-10-08): a chassis of one technology base with armor and equipment of
+  either (TO:AUE p.189), as an Advanced option in the eras from the Clan Invasion on. Each item keeps its own
+  table's figures and dates; the armor is taken from either base at that base's weight. The importer reads the
+  147 mixed sample files this way (the armor's base from the file's `armor_tech` level): 142 come out legal.
+- [x] Equipment carried by one trooper (2026-10-08): any item can be given to one trooper. Each trooper's suit
+  is checked on its own, the weight shown is the heaviest trooper's, the item is lost with its trooper in play
+  and its Alpha Strike damage is counted once. The importer treats what every trooper lists as the squad's.
+- [x] Mine dispenser Battle Value (2026-10-08): that of a 10-point minefield of the mines carried (TO:AUE
+  p.195; Minefield BV Table p.197), with the kind of mine chosen for each dispenser (TO:AUE p.137).
+- [x] The carrier's side of mechanized transport (2026-10-08): `battle-armor-transport.ts` works out the
+  occupied locations of a 'Mech or vehicle. The 'Mech's weapon dialog and the vehicle play panel block the
+  weapons there (a weapon spread over locations is blocked if any is occupied), and say who rides, the MP
+  lost by a unit that is not an Omni, the ban on VTOL, WiGE and Jumping MP for vehicles and on dumping
+  ammunition, and when more than one unit rides (TW pp.226-227).
+  After these the importer brings in 1,173 of the 1,188 sample files with nothing left off and 1,171 come out
+  legal. Of the 1,087 compared with their Master Unit List cards: Move 1,058, Armor 1,086, damage 954,
+  special abilities 980, Point Value 882 the same; Battle Value 674 of the 834 with no anti-personnel weapon.
+  Readings to confirm: (18) The books give no construction or Battle Value rule for a squad whose troopers
+  are equipped differently (the Kage's support trooper, TRO:3058U p.16). MegaMek is followed: each suit must
+  be legal on its own and the squad's Battle Value is the average of the troopers' suits times the unit size
+  modifier. The Master Unit List's Kage [ECM] is 113; this gives 107, and 113 with the ECM on every trooper.
+  (19) A name MegaMek uses for both tables (its "CLBA" machine guns, flamers, recoilless rifles, mortars) is
+  read on the chassis' technology base in a mixed suit. (20) TW p.227 bars "no vehicle" from VTOL, WiGE or
+  Jumping MP while carrying battle armor; it is applied to vehicles only, not to a carrying 'Mech's jump.
+  (21) A 'Mech that is not an Omni is told of its lost Walking MP; the MP is not taken off the 'Mech's sheet.
+- [ ] Battle armor still owed: `.blk` export (left off for now at the user's word, 2026-10-08). Vehicles do
+  not record whether they are Omnis, so an OmniVehicle is not told apart from a standard one as a carrier.
 
 ### Conventional Infantry
 

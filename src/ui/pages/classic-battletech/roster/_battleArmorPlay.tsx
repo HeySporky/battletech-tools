@@ -2,7 +2,8 @@ import * as React from 'react';
 import BattleArmor, {
     BATTLE_ARMOR_ATTACK_KINDS, BATTLE_ARMOR_LOCATION_NAMES, BATTLE_ARMOR_SWARM_DEFENDER_MODIFIERS, BattleArmorAttackKind, BattleArmorCarrierKind,
 } from '../../../../classes/battle-armor';
-import { findBattleArmorEquipment } from '../../../../data/battle-armor-equipment';
+import { IBattleArmorCarrier } from '../../../../classes/battle-armor-transport';
+import { findBattleArmorEquipment, findBattleArmorMineType } from '../../../../data/battle-armor-equipment';
 import { findInfantryWeapon } from '../../../../data/infantry-weapons';
 
 const formatModifier = (modifier: number): string => modifier >= 0 ? `+${modifier}` : `${modifier}`;
@@ -141,13 +142,16 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
                             const equipment = findBattleArmorEquipment(entry.tag);
                             if (!equipment) return null;
                             const shots = squad.getItemShots(entry);
-                            const lost = (entry.dwp && !squad.carriesWeaponPacks()) || (entry.detachable && !squad.carriesMissilePacks());
+                            const jettisoned = (entry.dwp && !squad.carriesWeaponPacks()) || (entry.detachable && !squad.carriesMissilePacks());
+                            const lost = jettisoned || squad.isItemLost(entry);
                             return (
                                 <tr key={index} className={lost ? "color-red" : ""}>
                                     <td>
                                         {equipment.name}
                                         {entry.squadSupport ? " (squad support weapon: one trooper fires it)" : ""}
-                                        {entry.dwp ? " (detachable weapon pack)" : ""}{entry.detachable ? " (detachable)" : ""}{lost ? " - jettisoned" : ""}
+                                        {entry.dwp ? " (detachable weapon pack)" : ""}{entry.detachable ? " (detachable)" : ""}{jettisoned ? " - jettisoned" : ""}
+                                        {entry.trooper ? ` (trooper ${entry.trooper} only${squad.isItemLost(entry) ? ": lost with the trooper" : ""})` : ""}
+                                        {equipment.mineDispenser ? ` (${findBattleArmorMineType(entry.mine).name} mines)` : ""}
                                         {equipment.notes ? <div className="small-text">{equipment.notes}</div> : null}
                                     </td>
                                     <td>{BATTLE_ARMOR_LOCATION_NAMES[entry.location]}</td>
@@ -214,7 +218,7 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
                                 <option value="">On foot</option>
                                 {carriers.map((item) => (
                                     <option key={item.uuid} value={item.uuid}>
-                                        {item.name}{item.kind === "mech" ? (item.omni ? " (OmniMech)" : " ('Mech, not an Omni)") : " (vehicle)"}
+                                        {item.name}{item.kind === "mech" ? (item.omni ? " (OmniMech)" : " ('Mech, not an Omni)") : " (vehicle)"}{item.carrying ? `, carrying ${item.carrying}` : ""}
                                     </option>
                                 ))}
                             </select>
@@ -222,6 +226,9 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
                         {carriers.length === 0 ? <p className="small-text">Add a 'Mech or vehicle to the force for the squad to ride.</p> : null}
                         {riding && carrier ? (
                             <>
+                                {carrier.carrying ? (
+                                    <p className="color-red" data-testid="battle-armor-play-carrier-full">{carrier.name} already carries {carrier.carrying}: a carrier may transport one battle armor unit at a time (TW p. 226).</p>
+                                ) : null}
                                 {riding.kind === "mech" && !carrier.omni && !squad.hasMagneticClamps() ? (
                                     <p className="color-red">{carrier.name} is not an OmniMech: only battle armor with magnetic clamps may ride it (TW p. 227).</p>
                                 ) : null}
@@ -300,18 +307,15 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
     }
 }
 
-export interface IBattleArmorCarrier {
-    uuid: string;
-    name: string;
-    kind: BattleArmorCarrierKind;
-    /** Is the unit an Omni? null where the unit does not record it. */
-    omni: boolean | null;
+export interface IBattleArmorPlayCarrier extends IBattleArmorCarrier {
+    /** Another battle armor unit already riding it, by name. */
+    carrying?: string;
 }
 
 interface IBattleArmorPlayPanelProps {
     squad: BattleArmor;
     /** The force's 'Mechs and vehicles, which the squad may ride. */
-    carriers?: IBattleArmorCarrier[];
+    carriers?: IBattleArmorPlayCarrier[];
     onChange: (squad: BattleArmor) => void;
 }
 
