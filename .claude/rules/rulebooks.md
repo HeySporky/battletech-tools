@@ -6,7 +6,7 @@ reference these files from shipped code.
 
 ## Search the library first
 
-`library_search.py` is a full-text index (SQLite FTS5, one row per page) over every extract: 871 books, 55,000 pages.
+`library_search.py` is a full-text index (SQLite FTS5, one row per page) over every extract: 1,193 books, 66,700 pages.
 Use it before grepping or guessing which book a rule is in:
 
     python _KNOWLEDGE_DEV/rulebooks/library_search.py "partial wing" --canon          # current rulebooks and errata
@@ -68,7 +68,7 @@ file by folder; `_reorg-2026-10-06.json` maps old names to new paths and lists t
 | `magazines/mechforce/` | MechForce UK Comnet, MechForce NA Mech magazine | Not canon; treat as Apocryphal at best, ask first |
 | `magazines/australian-realms/` | Australian Realms, issues 1-30 and three specials (1988-1996), scans with no text layer | General gaming magazine: only some issues carry BattleTech material. Not canon; ask first |
 | `fan-made/`, `fan-made/magazines/`, `Custom/` | Fan rules, fan TROs, fanzines, personal designs | **Custom-only: rules level 6 or 7, with approval** |
-| `languages/de/`, `languages/es/`, `languages/fr/` | German, Spanish and French material: newsletters, Punto Nadir, Perditecnia, Troll, Lider (Spanish general RPG magazine, issues 1-62, scans) | Not canon; cite the English book where one exists |
+| `languages/de/`, `languages/es/`, `languages/fr/`, `languages/ru/` | German, Spanish, French and Russian material: newsletters, Punto Nadir, Perditecnia, Troll, Lider (Spanish general RPG magazine, issues 1-62, scans) | Not canon; cite the English book where one exists |
 | `fiction/` | Novels and comics | Not a rules source |
 
 Cite a Technical Readout as *TRO:3050* (or the volume name), an Experimental TRO as *XTRO:Liao*, a Recognition Guide
@@ -91,7 +91,27 @@ Errata (offset 0, "Page N of M"):
 - BattleMech Manual v2.1 and its corrected p. 42 flowchart;
 - A Time of War v2.02.
 
+Added 2026-10-08 from mordel.net's errata downloads (file names keep mordel's number prefix; in `errata/`, the RPG
+ones in `rpg/`): every older version of the sheets above, plus
+- Alpha Strike Companion v1.3 to v1.6 (v1.6, 2022, is the newest), Alpha Strike v2.3, v2.3.1 and v2.5, ASCE v2.0 to
+  v7.01;
+- TW v4.4, v6.0, v8.0; TM v3.1 (2016), v4.0, v4.1, v6.0, BV v4.0, infantry tables (2013); BMM v1.1.1 to v4.12;
+- TO v3.03 and v3.6; SO v2.0, v2.1, v3.02; IO v1.1; CO v4.0;
+- A Game of Armored Combat v8.01, Battle of Tukayyid v3.0 and v4.0, Hot Spots: Hinterlands v2.0, TRO: Clan Invasion
+  v3.0, Master Rules (FanPro, 2004), Shattered Sphere (2000);
+- A Time of War v3.0 and v4.0, AToW Companion v1.1, MechWarrior: Destiny v2.0.
+
 The file for each is listed in `INDEX.md`.
+
+Added 2026-10-09:
+- 37 files from the archive.org `rpg.rem.uz` BattleTech archive that the library lacked (`_archive-org-2026-10-09.json`
+  lists each): FASA House Kurita and House Davion (text reproductions), Field Manual: Capellan Confederation, Field
+  Manual: Periphery, Interstellar Players, Operation Flashpoint, the Succession Wars board game rules, the Fourth
+  Edition box sheets and tables, Solaris VII Gamemaster's Book, Null Set, 3025 record sheets (medium, assault), blank
+  record sheets, MechWarrior 3rd Edition character aids, fan maps, two Nova combat books (in `apocryphal/`, standing
+  not confirmed) and a Cyrillic translation of the Master Rules (`languages/ru/`). The archive's novels were not taken.
+- 43 files sorted out of `unsorted/` (`unsorted/_moves.json`); 17 byte-identical copies removed (`unsorted/_deleted.json`).
+  Six files left in `unsorted/` are different scans of books already in the library.
 
 ## Which edition wins
 
