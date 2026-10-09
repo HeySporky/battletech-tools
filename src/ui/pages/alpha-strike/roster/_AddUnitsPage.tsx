@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
-import { Link } from 'react-router';
 import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
 import AerospaceFighter from '../../../../classes/aerospace-fighter';
@@ -618,9 +617,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </label>
                         <div className="small-text">
                           {MUL_SOURCE_SELECTIONS.find( (option) => option.value === this.props.appGlobals.appSettings.alphaStrikeMULSources )?.description}
-                          {this.props.appGlobals.appSettings.developerMenu ? (
-                            <>&nbsp;<Link to={`${process.env.PUBLIC_URL}/custom-mul-editor`}>Manage custom units</Link></>
-                          ) : null}
                         </div>
                       </div>
                     </div>
@@ -769,12 +765,10 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                                   {asUnit.MulSource && asUnit.MulSource !== "mul2" ? (
                                     <>
                                       &nbsp;<span
-                                        className={asUnit.MulSource === "custom" ? "badge bg-warning text-dark" : "badge bg-secondary"}
-                                        title={asUnit.CustomInfo
-                                          ? `Non-canonical custom by ${asUnit.CustomInfo.author}${asUnit.CustomInfo.source ? ` (${asUnit.CustomInfo.source})` : ""}${asUnit.CustomInfo.local ? " - saved in this browser only" : ""}`
-                                          : "Legacy MUL 1.0 record not listed on the current MUL"}
+                                        className="badge bg-secondary"
+                                        title="Legacy MUL 1.0 record not listed on the current MUL"
                                       >
-                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}{asUnit.CustomInfo?.local ? " (local)" : ""}
+                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}
                                       </span>
                                       {asUnit.MulSource === "mul1" && !asUnit.BFPointValue ? (
                                         <span className="badge bg-danger" title="This legacy record has no Alpha Strike stats">&nbsp;No AS stats</span>
