@@ -47,6 +47,7 @@ const EQUIPMENT: Record<string, string> = {
     clprotomechac8: "protomech-autocannon-8",
     clams: "clan-ams",
     clecmsuite: "clan-ecm-system",
+    clangelecmsuite: "clan-angel-ecm",
     clactiveprobe: "clan-active-probe",
     cllightactiveprobe: "clan-light-active-probe",
     cltag: "clan-tag",
@@ -83,6 +84,13 @@ const LOCATION_BLOCKS: [string, ProtoMechMountLocation][] = [
     ["Main Gun Equipment", "mainGun"],
 ];
 
+// Inner Sphere items a published ProtoMech file carries, and the Clan record each is entered as. The Gorgon 6's
+// file lists an Inner Sphere Angel ECM suite: the plain Clan ECM suite would leave the design a ton light, so it is
+// entered as the Angel ECM suite, as printed (user ruling, 2026-10-09). Both Angel suites weigh 2 tons.
+const INNER_SPHERE_STAND_INS: Record<string, { tag: string; note: string }> = {
+    isangelecmsuite: { tag: "clan-angel-ecm", note: "The file's Inner Sphere Angel ECM suite is entered as the Angel ECM Suite (Clan): the same 2 tons and values." },
+};
+
 const slug = (name: string): string => name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 /** A tube launcher's family and size from a weapon name ("CLSRM4") or an ammunition name ("Clan Ammo ProtoMech LRM-4"). */
@@ -95,7 +103,10 @@ const readMissile = (name: string): { family: ProtoMechMissileFamily; tubes: num
 
 export interface IProtoMechBlkImport {
     proto: ProtoMech | null;
+    /** What could not be carried over. */
     issues: string[];
+    /** What was carried over in another form. */
+    notes?: string[];
 }
 
 export const isProtoMechBlk = (file: IBlkFile): boolean => ["protomek", "protomech"].includes(blkValue(file, "UnitType").toLowerCase());
@@ -106,6 +117,7 @@ export const importProtoMechBlk = (text: string): IProtoMechBlkImport => {
     if (!isProtoMechBlk(file)) return { proto: null, issues: [`This is not a ProtoMech file${blkValue(file, "UnitType") ? ` (unit type: ${blkValue(file, "UnitType").slice(0, 40)})` : ""}.`] };
 
     const issues: string[] = [];
+    const notes: string[] = [];
     const proto = new ProtoMech();
     proto.setName(`${blkValue(file, "Name")} ${blkValue(file, "Model")}`.trim());
 
@@ -146,7 +158,9 @@ export const importProtoMechBlk = (text: string): IProtoMechBlkImport => {
             }
             const rear = /\(r\)$/i.test(line);
             const missile = readMissile(line.replace(/\(r\)$/i, ""));
-            const tag = missile ? `pm-${missile.family}` : EQUIPMENT[slug(line.replace(/\(r\)$/i, ""))];
+            const standIn = INNER_SPHERE_STAND_INS[slug(line.replace(/\(r\)$/i, ""))];
+            if (standIn) notes.push(standIn.note);
+            const tag = missile ? `pm-${missile.family}` : standIn?.tag ?? EQUIPMENT[slug(line.replace(/\(r\)$/i, ""))];
             if (!tag || !proto.getMountLocations().includes(location) || !proto.addMount(tag, location, missile?.tubes)) {
                 issues.push(`Unknown or unmountable equipment '${line.slice(0, 60)}' (${block.replace(" Equipment", "")}) was left off.`);
                 continue;
@@ -192,5 +206,5 @@ export const importProtoMechBlk = (text: string): IProtoMechBlkImport => {
         const era = proto.getAvailableEras().find((item) => item.yearStart <= year && (item.yearEnd ?? Infinity) >= year);
         if (era) proto.setEra(era.tag);
     }
-    return { proto, issues };
+    return { proto, issues, notes };
 };

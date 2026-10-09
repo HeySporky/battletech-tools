@@ -506,3 +506,19 @@ describe("ProtoMech Alpha Strike conversion (ASC pp.92-141, errata v1.6)", () =>
         expect(light.getAlphaStrikeStats().specialAbilities).toContain("UCS");
     });
 });
+
+describe("ProtoMech files with Inner Sphere equipment", () => {
+    it("enters the Gorgon 6's Angel ECM suite as the Clan record and says so", () => {
+        const text = [
+            "<UnitType>", "ProtoMek", "</UnitType>", "<Name>", "Gorgon", "</Name>", "<Model>", "6", "</Model>",
+            "<motion_type>", "Biped", "</motion_type>", "<cruiseMP>", "5", "</cruiseMP>", "<armor>", "4", "12", "4", "4", "7", "</armor>",
+            "<Body Equipment>", "EIInterface", "</Body Equipment>", "<Torso Equipment>", "ISAngelECMSuite", "</Torso Equipment>", "<tonnage>", "8.0", "</tonnage>",
+        ].join("\n");
+        const { proto, issues, notes } = importProtoMechBlk(text);
+        expect(issues).toEqual([]);
+        expect(notes?.[0]).toContain("Angel ECM Suite (Clan)");
+        expect(proto?.getMounts()).toEqual([{ tag: "clan-angel-ecm", location: "torso" }]);
+        expect(proto?.getMountWeight(proto.getMounts()[0])).toBe(2000);
+        expect(proto?.getAlphaStrikeStats().specialAbilities).toContain("AECM");
+    });
+});

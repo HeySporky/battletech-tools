@@ -354,7 +354,7 @@ played first, then by dependency.
   Prototypes p.90); it has no rules of its own, and those units use the same armor on a larger table.
 - [x] ProtoMech-only weapons: Streak LRM by the tube (TO:AUE p.139, 400 kg a tube, Battle Values from its
   table) and the Fusillade launcher (IO:AE p.59: 1.5 tons with its two ATM 3 rounds, Battle Value 11).
-- [ ] ProtoMech readings for the user to rule on (2026-10-09). Each is built as stated and noted in the code:
+- [x] ProtoMech readings, approved by the user as written (2026-10-09). Each is built as stated and noted in the code:
   1. Plasma cannon: TechManual's equipment table gives it no ProtoMech column (NA), but its ProtoMech
      Ammunition Weight Table lists it (TM p.88) and the Boggart mounts one (The Wars of Reaving p.211). Entered
      as ProtoMech-mountable, as MegaMek has it.
@@ -387,9 +387,19 @@ played first, then by dependency.
   the heavy and vehicle flamers are ammunition-fed and need none (TO:AUE pp.124-125 give no other rule).
   Published exceptions (`PROTOMECH_PUBLISHED_EXCEPTIONS`): the Svartalfa Ultra's 7 points of main gun armor
   (TRO: Prototypes p.91), which brings it to its printed 14 tons and Battle Value of 540.
-- [ ] ProtoMechs, left for the MegaMek import and export run (user, 2026-10-09): `.blk` export; the Gorgon 6
-  file's Inner Sphere Angel ECM, left off on import because a ProtoMech here is Clan-only (its card has AECM;
-  no readout for it is in the library); the Svartalfa 3 file, 100 kg over, with no printed sheet to check.
+- [x] Gorgon 6 (user ruling, 2026-10-09): tried with the Clan ECM suite, which leaves it a ton light, so its
+  Inner Sphere Angel ECM is entered as printed, on the Angel ECM Suite (Clan) record (the same 2 tons); the
+  import says so. It then weighs exactly 8 tons, with Battle Value 355 and an Alpha Strike card that match the
+  Master Unit List. All 86 sample files now import with nothing left off.
+- [x] Builders checked in the UI (2026-10-09, `e2e/unit-builders.spec.ts`): infantry, battle armor, ProtoMechs,
+  aerospace fighters and conventional fighters are each on the Classic BattleTech page and menu and turn a
+  new design into a record sheet and an Alpha Strike card; buildings into a record sheet. A roster group
+  takes the saved designs of all of them.
+- [ ] Found in that check: buildings have no Alpha Strike card, and saved buildings and saved vehicles are not
+  offered to an Alpha Strike force. (ASCE says advanced buildings have their own unit card; the rules for
+  it have not been read yet.)
+- [ ] ProtoMechs, left for the MegaMek import and export run (user, 2026-10-09): `.blk` export; the
+  Svartalfa 3 file, 100 kg over, with no printed sheet to check.
 
 ### Small Craft
 

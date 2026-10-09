@@ -36,7 +36,7 @@ export default class ProtoMechCreatorHome extends React.Component<IHomeProps, IH
         reader.onload = () => {
             const result = importProtoMechBlk(typeof reader.result === "string" ? reader.result : "");
             if (result.proto) this.props.appGlobals.saveCurrentProtoMech(result.proto);
-            this.setState({ importName: file.name, importIssues: result.proto ? [...result.issues, ...result.proto.getIssues()] : result.issues, importLoaded: !!result.proto });
+            this.setState({ importName: file.name, importIssues: result.proto ? [...(result.notes ?? []), ...result.issues, ...result.proto.getIssues()] : result.issues, importLoaded: !!result.proto });
         };
         reader.onerror = () => this.setState({ importName: file.name, importIssues: ["The file could not be read."], importLoaded: false });
         reader.readAsText(file);
