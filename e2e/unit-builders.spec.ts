@@ -47,15 +47,15 @@ for (const builder of builders) {
     test(`${builder.name}: reachable, with a record sheet${builder.card ? " and an Alpha Strike card" : ""}`, async ({ page }) => {
         const errors = watchErrors(page);
         await page.goto("classic-battletech");
-        await page.getByRole("link", { name: builder.link }).first().click();
+        await page.getByRole("link", { name: builder.link }).last().click();
         await expect(page).toHaveURL(new RegExp(`classic-battletech/${builder.path}`));
         await expect(page.getByText(builder.saved)).toBeVisible();
         await page.getByRole("button", { name: /Start Over/ }).click();
         if (builder.prepare) await builder.prepare(page);
 
         await page.goto(`classic-battletech/${builder.path}/summary`);
-        await expect(page.getByRole("link", { name: /Record Sheet/ }).first()).toBeVisible();
-        if (builder.card) await expect(page.getByRole("link", { name: /Alpha Strike Card/ }).first()).toBeVisible();
+        await expect(page.getByRole("link", { name: /Record Sheet/ }).filter({ visible: true }).first()).toBeVisible();
+        if (builder.card) await expect(page.getByRole("link", { name: /Alpha Strike Card/ }).filter({ visible: true }).first()).toBeVisible();
 
         await page.goto(`classic-battletech/${builder.path}/record-sheet`);
         await expect(page.locator("body")).toContainText(builder.sheet);

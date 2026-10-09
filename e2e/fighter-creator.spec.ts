@@ -10,7 +10,7 @@ test("an aerospace fighter can be built, armed, checked and saved", async ({ pag
     });
 
     await page.goto("classic-battletech");
-    await page.getByRole("link", { name: "Fighter Creator" }).first().click();
+    await page.getByRole("link", { name: "Fighter Creator" }).last().click();
     await expect(page.getByText("Your Saved Fighters")).toBeVisible();
     await page.getByRole("link", { name: /Start Building/ }).click();
 
