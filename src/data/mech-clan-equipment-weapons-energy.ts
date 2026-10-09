@@ -1030,7 +1030,7 @@ export const mechClanEquipmentEnergy: IEquipmentItem[] = [
             medium: 12,
             long: 18
         },
-        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         shotsPerTon: 10,
         ammoBattleValue: 21,
         minAmmoTons: 1,
