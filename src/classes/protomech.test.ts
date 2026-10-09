@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { getProtoMechLocationLimit, getProtoMechStructureRow, protoMechMissiles, protoMechStructureTable } from "../data/protomech-construction";
 import ProtoMech, { PROTOMECH_HIT_LOCATIONS, getProtoMechCatalogItems, normalizeProtoMechExport } from "./protomech";
 import { importProtoMechBlk } from "./protomech-blk";
+import { BattleMechGroup } from "./battlemech-group";
 
 /** Lara's Delphyne-2, the 9-ton worked example (TM pp.81-89). */
 const delphyne = (): ProtoMech => {
@@ -340,5 +341,25 @@ describe("ProtoMech designs in print", () => {
         expect(proto.isLegal()).toBe(true);
         // The printed Battle Value of 540 counts the 65th armor point: 2.5 x 1.4 = 3.5 more than this.
         expect(proto.getBattleValue()).toBe(536);
+    });
+});
+
+describe("ProtoMech Points in a roster group", () => {
+    it("counts the Point's Battle Value and tonnage and survives a save", () => {
+        const group = new BattleMechGroup();
+        const point = delphyne();
+        point.setPointSize(4);
+        point.applyDamage(1, "head", 2);
+        group.protoMechs.push(point);
+        expect(group.getTotaBV2()).toBe(316 * 4);
+        expect(group.getTotalTons()).toBe(36);
+        expect(group.getTotalUnits()).toBe(1);
+        expect(group.getTech()).toBe("Clan");
+        expect(group.isUnderStrength()).toBe(true);
+        const restored = new BattleMechGroup(JSON.parse(JSON.stringify(group.export())));
+        expect(restored.protoMechs[0].getArmorLeft(1, "head")).toBe(4);
+        expect(new BattleMechGroup(JSON.parse(JSON.stringify(group.export(true)))).protoMechs[0].isDamaged()).toBe(false);
+        // A group saved before ProtoMechs has none, and a group without them saves no list.
+        expect(new BattleMechGroup().export().protoMechs).toBeUndefined();
     });
 });

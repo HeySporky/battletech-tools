@@ -12,6 +12,7 @@ import { vehicleName } from "./_vehicleGroupTable";
 import FighterRecordSheet from "../../../components/fighter-record-sheet";
 import InfantryRecordSheet from "../../../components/infantry-record-sheet";
 import BattleArmorRecordSheet from "../../../components/battle-armor-record-sheet";
+import ProtoMechRecordSheet from "../../../components/protomech-record-sheet";
 import BattledroidsUnitRecordSheet from "../../../components/battledroids-unit-record-sheet";
 import BuildingRecordSheet from "../../../components/building-record-sheet";
 import { buildingSummary } from "./_buildingGroupTable";
@@ -39,6 +40,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         ...groups.flatMap( (group) => group.fighters ).map( (fighter) => fighter.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.infantry ).map( (platoon) => platoon.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.battleArmor ).map( (squad) => squad.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.protoMechs ).map( (point) => point.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.buildings ).map( (building) => building.getRequiredRulesLevel() ),
       ];
       printWithRulesLevelGuard(
@@ -276,6 +278,33 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       </tr>
                     </tbody>
                     ))}
+                    {group.protoMechs.map( (point) => (
+                    <tbody key={point.getUUID()}>
+                      <tr>
+                        <td>
+                          {point.getDisplayName()} ({point.getTons()}-ton {point.getChassisName()} ProtoMech, Point of {point.getPointSize()})
+                        </td>
+                        <td>
+                          {point.getTons() * point.getPointSize()}
+                        </td>
+                        <td className="small-text">
+                          {point.getTechName()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          -
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {point.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {point.getPointBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {point.getSkillAdjustedPointBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
                     {group.battledroidsUnits.map( (unit) => (
                     <tbody key={unit.getUUID()}>
                       <tr>
@@ -390,6 +419,17 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         />
                         <BattleArmorRecordSheet
                           suit={squad}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.protoMechs.map( (point) => (
+                      <div className={"page"} key={point.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={point.getRequiredRulesLevel()}
+                        />
+                        <ProtoMechRecordSheet
+                          proto={point}
                           showDamage={true}
                         />
                       </div>

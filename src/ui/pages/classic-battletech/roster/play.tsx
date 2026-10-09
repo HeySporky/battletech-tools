@@ -35,6 +35,8 @@ import InfantryPlatoon from '../../../../classes/infantry-platoon';
 import InfantryPlayPanel from './_infantryPlay';
 import BattleArmor from '../../../../classes/battle-armor';
 import BattleArmorPlayPanel from './_battleArmorPlay';
+import ProtoMech from '../../../../classes/protomech';
+import ProtoMechPlayPanel from './_protoMechPlay';
 import { IBattleArmorCarrierLoad, getBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../classes/battle-armor-transport';
 import BattledroidsUnit from '../../../../classes/battledroids-unit';
 import BattledroidsPlayPanel from './_battledroidsPlay';
@@ -750,7 +752,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon | BattleArmor | Building | BattledroidsUnit ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon | BattleArmor | ProtoMech | Building | BattledroidsUnit ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -792,6 +794,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let squad of group.battleArmor ) {
             squad.resetInPlay();
+          }
+          for( let point of group.protoMechs ) {
+            point.resetInPlay();
           }
           for( let building of group.buildings ) {
             building.resetInPlay();
@@ -1270,6 +1275,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         for( let squad of group.battleArmor ) {
           if( squad.getUUID() === this.state.selectedVehicleUUID ) {
             selectedBattleArmor = squad;
+          }
+        }
+      }
+      // And a ProtoMech Point.
+      let selectedProtoMech: ProtoMech | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let point of group.protoMechs ) {
+          if( point.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedProtoMech = point;
           }
         }
       }
@@ -2818,6 +2832,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               }) )}
               onChange={this.onVehicleChange}
             />
+          ) : selectedProtoMech ? (
+            <ProtoMechPlayPanel
+              key={selectedProtoMech.getUUID()}
+              point={selectedProtoMech}
+              onChange={this.onVehicleChange}
+            />
           ) : selectedFighter ? (
             <FighterPlayPanel
               key={selectedFighter.getUUID()}
@@ -3064,6 +3084,36 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                                 currentNumber={squad.getActiveTroopers()}
                                 height={8}
                                 title="Troopers Active"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.protoMechs.map( (point) => (
+                    <li key={point.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, point.getUUID())}
+                        className={selectedProtoMech && selectedProtoMech.getUUID() === point.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + point.getDisplayName()}
+                      >
+                        {point.getDisplayName()}
+                        <div className="stats">
+                          {point.isDestroyed() ? (
+                            <h3 className="color-red text-center">
+                              DESTROYED
+                            </h3>
+                          ) : (
+                            <div className="bars">
+                              <StatBar
+                                color="white"
+                                background="#aaa"
+                                currentPercentage={Math.round(point.getActiveUnits() / point.getPointSize() * 100)}
+                                currentNumber={point.getActiveUnits()}
+                                height={8}
+                                title="ProtoMechs Active"
                               />
                             </div>
                           )}

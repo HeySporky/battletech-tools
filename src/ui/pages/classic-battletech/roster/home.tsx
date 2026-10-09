@@ -450,6 +450,21 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
           </tr>
           </tbody>
       ))}
+      {(favGroup.protoMechs ?? []).map( (point) => (
+          <tbody key={point.getUUID()}>
+          <tr>
+              <td>
+                  {point.getDisplayName()}
+                  <div className='small-text'>{point.getTons()}-ton {point.getChassisName()} ProtoMech, Point of {point.getPointSize()}</div>
+              </td>
+              <td className="min-width no-wrap text-center">{point.getTons() * point.getPointSize()}</td>
+              <td className="min-width no-wrap text-center small-text">{point.getTechName()}</td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center">{point.getGunnery()}</td>
+              <td className="min-width no-wrap text-center">{point.getSkillAdjustedPointBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
       {(favGroup.battledroidsUnits ?? []).map( (unit) => (
           <tbody key={unit.getUUID()}>
           <tr>
