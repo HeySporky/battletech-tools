@@ -65,6 +65,7 @@ test("the TechManual's Astrolux can be built, checked, saved and printed", async
     await page.getByRole("link", { name: "View Record Sheet" }).click();
     await expect(page.getByRole("heading", { name: "Astrolux" }).first()).toBeVisible();
     await expect(page.getByTestId("small-craft-sheet-data")).toContainText("Aerodyne Small Craft");
+    await expect(page.getByTestId("armor-diagram-leftWing").first()).toContainText("Left Wing");
     await expect(page.getByTestId("small-craft-sheet-crew")).toContainText("Passengers: 7");
 
     await page.goto("classic-battletech/small-craft-creator");
@@ -106,6 +107,11 @@ test("weapons are mounted by firing arc and checked", async ({ page }) => {
     await page.goto("classic-battletech/small-craft-creator/crew");
     await page.getByLabel(/^Crew \(7 tons each\)/).selectOption("4");
     await expect(page.getByTestId("sc-issues")).toHaveCount(0);
+
+    // A spheroid has no wings: its record sheet names the side arcs as the weapons table does.
+    await page.goto("classic-battletech/small-craft-creator/record-sheet");
+    await expect(page.getByTestId("armor-diagram-leftWing").first()).toContainText("Left Side");
+    await expect(page.getByTestId("armor-diagram-rightWing").first()).toContainText("Right Side");
 
     expect(errors).toEqual([]);
 });

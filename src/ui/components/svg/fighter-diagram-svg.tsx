@@ -36,7 +36,7 @@ export default class FighterDiagramSVG extends React.Component<IFighterDiagramSV
         const armor = this.props.armor[arc];
         const toggle = this.props.onToggleArmor;
         return (
-            <g>
+            <g data-testid={`armor-diagram-${arc}`} data-damage={this.props.armorDamage?.[arc] ?? 0}>
                 <rect x={x} y={y} width={width} height={height} fill="rgb(255,255,255)" stroke="rgb(0,0,0)" strokeWidth={1.5} />
                 <text x={x + 4} y={y + 12} fontSize={10} fontWeight="bold">{label} ({armor})</text>
                 {this.props.thresholds ? <text x={x + width - 4} y={y + 12} fontSize={9} textAnchor="end">Threshold {this.props.thresholds[arc]}</text> : null}
@@ -52,8 +52,8 @@ export default class FighterDiagramSVG extends React.Component<IFighterDiagramSV
                 <polygon points="300,4 345,150 590,250 590,300 345,300 330,440 380,462 220,462 270,440 255,300 10,300 10,250 255,150"
                     fill="none" stroke={this.outlineColor} strokeWidth={2} strokeDasharray="6 4" />
                 {this.renderArc("nose", "Nose", 215, 20, 170, 130)}
-                {this.renderArc("leftWing", "Left Wing", 15, 160, 190, 135)}
-                {this.renderArc("rightWing", "Right Wing", 395, 160, 190, 135)}
+                {this.renderArc("leftWing", this.props.sideLabels?.left ?? "Left Wing", 15, 160, 190, 135)}
+                {this.renderArc("rightWing", this.props.sideLabels?.right ?? "Right Wing", 395, 160, 190, 135)}
                 {this.renderArc("aft", "Aft", 215, 320, 170, 130)}
                 <g>
                     <rect x={215} y={160} width={170} height={150} fill="rgb(245,245,245)" stroke="rgb(0,0,0)" strokeWidth={1.5} />
@@ -75,4 +75,6 @@ interface IFighterDiagramSVGProps {
     structureDamage?: number;
     onToggleArmor?: (arc: FighterArc, index: number) => void;
     onToggleStructure?: (index: number) => void;
+    /** Names for the two side arcs when the craft has no wings (a spheroid Small Craft's "Left Side"). */
+    sideLabels?: { left: string; right: string };
 }
