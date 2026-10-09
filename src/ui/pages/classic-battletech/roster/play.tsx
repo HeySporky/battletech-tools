@@ -31,6 +31,9 @@ import VehiclePlayPanel from './_vehiclePlay';
 import AerospaceFighter from '../../../../classes/aerospace-fighter';
 import { fighterName } from './_fighterGroupTable';
 import FighterPlayPanel from './_fighterPlay';
+import SmallCraft from '../../../../classes/small-craft';
+import { smallCraftName } from './_smallCraftGroupTable';
+import SmallCraftPlayPanel from './_smallCraftPlay';
 import InfantryPlatoon from '../../../../classes/infantry-platoon';
 import InfantryPlayPanel from './_infantryPlay';
 import BattleArmor from '../../../../classes/battle-armor';
@@ -447,6 +450,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           for( let fighter of group.fighters ) {
             fighter.turnReset();
           }
+          for( let craft of group.smallCraft ) {
+            craft.turnReset();
+          }
           for( let building of group.buildings ) {
             building.startTurn();
           }
@@ -752,7 +758,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | InfantryPlatoon | BattleArmor | ProtoMech | Building | BattledroidsUnit ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | SmallCraft | InfantryPlatoon | BattleArmor | ProtoMech | Building | BattledroidsUnit ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -788,6 +794,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let fighter of group.fighters ) {
             fighter.resetInPlay();
+          }
+          for( let craft of group.smallCraft ) {
+            craft.resetInPlay();
           }
           for( let platoon of group.infantry ) {
             platoon.resetInPlay();
@@ -1257,6 +1266,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         for( let fighter of group.fighters ) {
           if( fighter.getUUID() === this.state.selectedVehicleUUID ) {
             selectedFighter = fighter;
+          }
+        }
+      }
+      // A Small Craft is selected the same way as a vehicle, by its UUID.
+      let selectedSmallCraft: SmallCraft | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let craft of group.smallCraft ) {
+          if( craft.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedSmallCraft = craft;
           }
         }
       }
@@ -2844,6 +2862,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               fighter={selectedFighter}
               onChange={this.onVehicleChange}
             />
+          ) : selectedSmallCraft ? (
+            <SmallCraftPlayPanel
+              key={selectedSmallCraft.getUUID()}
+              craft={selectedSmallCraft}
+              onChange={this.onVehicleChange}
+            />
           ) : selectedVehicle ? (
             <VehiclePlayPanel
               vehicle={selectedVehicle}
@@ -3210,6 +3234,44 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                               background="#aaa"
                               currentPercentage={fighter.getStructurePercentage()}
                               currentNumber={fighter.getCurrentStructure()}
+                              height={8}
+                              title="Current Structural Integrity"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.smallCraft.map( (craft) => (
+                    <li key={craft.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, craft.getUUID())}
+                        className={selectedSmallCraft && selectedSmallCraft.getUUID() === craft.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + smallCraftName(craft)}
+                      >
+                        {smallCraftName(craft)}
+                        <div className="stats">
+{craft.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="blue"
+                              background="#aaa"
+                              currentPercentage={craft.getArmorPercentage()}
+                              currentNumber={craft.getCurrentArmor()}
+                              height={8}
+                              title="Current Armor Status"
+                            />
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={craft.getStructurePercentage()}
+                              currentNumber={craft.getCurrentStructure()}
                               height={8}
                               title="Current Structural Integrity"
                             />

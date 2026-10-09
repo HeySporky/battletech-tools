@@ -19,8 +19,10 @@ interface IBuilder {
     saved: string;
     /** A line of the record sheet that names the unit type. */
     sheet: RegExp;
-    /** The Alpha Strike type on the card's summary line; null when the unit has no card. */
+    /** Whether the unit has an Alpha Strike card page. */
     card: boolean;
+    /** The test id of the card where it is not the standard card drawing. */
+    cardTestId?: string;
     /** Set up before the sheets are opened. */
     prepare?: (page: Page) => Promise<void>;
 }
@@ -37,6 +39,7 @@ const builders: IBuilder[] = [
             await page.getByLabel("Fighter Type").selectOption("conventional");
         },
     },
+    { name: "Small Craft", link: "Small Craft Creator", path: "small-craft-creator", saved: "Your Saved Small Craft", sheet: /Small Craft/, card: true, cardTestId: "small-craft-as-card" },
     { name: "buildings", link: "Building Creator", path: "building-creator", saved: "Your Saved Buildings", sheet: /Building|Structure/, card: false },
 ];
 
@@ -60,7 +63,7 @@ for (const builder of builders) {
 
         if (builder.card) {
             await page.goto(`classic-battletech/${builder.path}/print-as`);
-            await expect(page.locator("svg").first()).toBeVisible();
+            await expect(builder.cardTestId ? page.getByTestId(builder.cardTestId) : page.locator("svg").first()).toBeVisible();
         } else {
             // No card is made for this unit type: there is no such page.
             await page.goto(`classic-battletech/${builder.path}/print-as`);
@@ -73,7 +76,7 @@ for (const builder of builders) {
 test("a roster group takes every builder's saved designs", async ({ page }) => {
     // With nothing saved, each table says where its designs come from.
     await page.goto("classic-battletech/roster");
-    for (const creator of ["Fighter", "Infantry", "Battle Armor", "ProtoMech", "Building"]) {
+    for (const creator of ["Fighter", "Small Craft", "Infantry", "Battle Armor", "ProtoMech", "Building"]) {
         await expect(page.getByText(`in the ${creator} Creator to add them to this group.`).first()).toBeVisible();
     }
 });

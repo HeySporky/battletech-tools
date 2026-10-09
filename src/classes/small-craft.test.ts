@@ -3,6 +3,7 @@ import { getSmallCraftFireControlWeight, getSmallCraftFreeHeatSinks } from "../d
 import { getSmallCraftHitLocation } from "../data/small-craft-hit-tables";
 import SmallCraft, { normalizeSmallCraftExport } from "./small-craft";
 import { importSmallCraftBlk } from "./small-craft-blk";
+import { BattleMechGroup } from "./battlemech-group";
 
 /** The Astrolux Star Yacht, the TechManual's worked Small Craft (pp.184-197). */
 const buildAstrolux = (): SmallCraft => {
@@ -310,5 +311,23 @@ describe("Small Craft saves and imports", () => {
         expect(result.issues).toEqual(["\"No Such Gun\" has no match in this catalog and was left off."]);
         expect(importSmallCraftBlk(blk.replace("200.0", "5.0")).craft).toBeNull();
         expect(importSmallCraftBlk(blk.replace("SmallCraft", "Dropship")).craft).toBeNull();
+    });
+});
+
+describe("Small Craft in a roster group", () => {
+    it("counts the craft's Battle Value and tonnage and survives a save", () => {
+        const group = new BattleMechGroup();
+        const craft = buildAquarius();
+        craft.resolveAttack(7, "nose", 12, { criticalRolls: [2] });
+        group.smallCraft.push(craft);
+        expect(group.getTotaBV2()).toBe(2233);
+        expect(group.getTotalTons()).toBe(200);
+        expect(group.getTotalUnits()).toBe(1);
+        expect(group.isUnderStrength()).toBe(true);
+        const restored = new BattleMechGroup(JSON.parse(JSON.stringify(group.export())));
+        expect(restored.smallCraft[0].getInPlay().armorDamage.nose).toBe(12);
+        expect(new BattleMechGroup(JSON.parse(JSON.stringify(group.export(true)))).smallCraft[0].isDamaged()).toBe(false);
+        // A group saved before Small Craft has none, and a group without them saves no list.
+        expect(new BattleMechGroup().export().smallCraft).toBeUndefined();
     });
 });

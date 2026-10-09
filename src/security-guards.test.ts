@@ -115,6 +115,9 @@ describe("Security guard rails", () => {
         // Reviewed 2026-10-07: the fighter's Alpha Strike, Battle Value and cost logs. Equipment, engine, armor and
         // heat sink names and tags go through escapeLogText in aerospace-fighter.ts; the rest is numbers and constants.
         "ui/pages/classic-battletech/fighter-creator/summary.tsx": 3,
+        // Reviewed 2026-10-09: the Small Craft's Battle Value, cost and Alpha Strike logs. Equipment, armor and heat
+        // sink names and tags go through escapeLogText in small-craft.ts; the rest is numbers and constants.
+        "ui/pages/classic-battletech/small-craft-creator/summary.tsx": 3,
         "ui/pages/classic-battletech/roster/_tableGroup.tsx": 1,
         "ui/pages/ssw-sanity-check.tsx": 1,
         // Pre-existing sites not traced in the 2026-09-29 review (TRO output was hardened upstream in 7e01b14fe;

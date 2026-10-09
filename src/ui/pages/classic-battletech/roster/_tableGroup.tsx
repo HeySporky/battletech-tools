@@ -11,6 +11,7 @@ import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechAddMechDialog from './_addMechDialog';
 import VehicleGroupTable from './_vehicleGroupTable';
 import FighterGroupTable from './_fighterGroupTable';
+import SmallCraftGroupTable from './_smallCraftGroupTable';
 import InfantryGroupTable from './_infantryGroupTable';
 import BattleArmorGroupTable from './_battleArmorGroupTable';
 import ProtoMechGroupTable from './_protoMechGroupTable';
@@ -528,6 +529,12 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
     showEdit={this.props.showEdit}
 />
 <FighterGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<SmallCraftGroupTable
     appGlobals={this.props.appGlobals}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}

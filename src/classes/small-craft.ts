@@ -1190,9 +1190,12 @@ export default class SmallCraft {
         if (pointDefense > 0) specials.push(`PNT${pointDefense}`);
         const usesAmmo = weapons.some((item) => !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0);
         if (weapons.length > 0 && !usesAmmo) specials.push("ENE");
-        // Cargo and infantry transport, in tons of bay (ASC pp.119, 124).
-        const cargo = this.getCargoCapacity();
-        if (cargo >= 1) specials.push(`CT${Math.round(cargo * 10) / 10}`);
+        // Cargo Transport: the tons given to general cargo, with the doors of those bays on a spacecraft (ASC
+        // p.122). Infantry Transport: the tons given to infantry and battle armor bays (ASC p.125).
+        const cargoBays = this._bays.filter((bay) => { const type = findTransportBayType(bay.tag); return !!type && !type.infantry && (type.cargoFactor !== undefined || type.tag === "cargo-container"); });
+        const cargo = Math.round(cargoBays.reduce((total, bay) => total + this.getBayWeight(bay), 0) * 1000) / 1000;
+        const cargoDoors = cargoBays.reduce((total, bay) => total + bay.doors, 0);
+        if (cargo > 0) specials.push(`CT${cargo}${cargoDoors > 0 ? `-D${cargoDoors}` : ""}`);
         const infantry = this._bays.filter((bay) => findTransportBayType(bay.tag)?.infantry).reduce((sum, bay) => sum + this.getBayWeight(bay), 0);
         if (infantry > 0) specials.push(`IT${Math.round(infantry * 10) / 10}`);
         const equipmentSpecials = new Set<string>();

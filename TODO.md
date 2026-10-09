@@ -403,9 +403,57 @@ played first, then by dependency.
 
 ### Small Craft
 
-- [ ] Small Craft as an Aerospace subtype first (decide and record it); split it into its own editor only
-  when its transport, crew and capital-scale rules need one. Bays, doors, crew and passengers,
-  spheroid/aerodyne.
+- [x] Small Craft construction model and editor (2026-10-09). Decided: Small Craft have their own class and
+  editor, not a fighter subtype. Nearly every construction step is their own (engine by formula, bought
+  Structural Integrity, armor by the ton, crew, quarters and bays), and DropShips build on the same steps.
+  `small-craft.ts`, `small-craft-construction.ts` (with the transport bay, quarters and escape system tables
+  DropShips will use), `small-craft-hit-tables.ts`, `small-craft-blk.ts`, the Small Craft Creator (hull,
+  armor and heat sinks, weapons by arc, crew and bays, summary, record sheet, Alpha Strike card), saves and
+  backups, and Small Craft in the Classic roster (group table, play panel, print). Aerodyne and spheroid
+  craft of 100 to 200 tons (TM pp.180-197); Battle Value (TM pp.311-313); cost (TM pp.283-285); hits and
+  critical hits (TW pp.237-240); heat as a fighter (TW p.161). The book's Astrolux comes out step for step.
+  Of MegaMek's 39 sample files, 2 are 5-ton pods and are refused; of the other 37, all 37 load legal, 29
+  with nothing left off and 22 at their exact tonnage (the rest are lighter: older readouts, primitive
+  craft, or equipment not in the catalog). Of 17 with a Battle Value on their Master Unit List card, 6 match
+  exactly and 7 more are within 2 percent.
+- [ ] Small Craft readings for the user to rule on (2026-10-09). Each is built as stated and noted in the code:
+  1. Free armor from the structure: the rule gives the Structural Integrity "per facing" (TM p.191); the
+     Astrolux example pools the points and shares them out freely (TM p.192). Built as the example: a pool.
+  2. Free heat sinks: the table gives engine tons / 60 (aerodyne) or the square root of engine tons x 1.6
+     (spheroid) (TM p.193), and the Astrolux gets 1 (TM p.194); a sentence on p.195 speaks of Small Craft's
+     "initial 10 free sinks". Built by the table and the example.
+  3. Bay doors: "transport bays for any unit type other than infantry" need a door (TM p.196). Read as unit
+     bays; a cargo bay carries no unit and needs none (many published craft have doorless cargo bays).
+  4. Ten turns of fire (TM p.194) is not asked of anti-missile systems, which fire only at incoming
+     missiles (the published Oo-Suzumebachi carries 48 rounds for 6 systems).
+  5. Battle Value, rear-firing weapons (TM p.312): on an aerodyne craft the wing weapons turned to the rear
+     count as rear-firing with the aft ones; a spheroid's aft-side arcs are "not considered", as the book
+     says. The Master Unit List agrees on the first; on some cards (the three Aquarius Escorts, exactly) it
+     leaves out the 15 points for each type of explosive ammunition, on others it applies them. Built by
+     the book.
+  6. Battle Value heat of rapid-fire weapons: the x 2 (Ultra) and x 6 (rotary) apply to the heat of one
+     shot, not to the aerospace heat value, which is already a full burst. The fighter class multiplies the
+     aerospace value; it should be checked the same way (no rotary-armed fighter is in its tests).
+  7. Prices: quarters are not charged (the Nekohono'o example, TM p.284: "part of the life support costs"),
+     though the equipment table prices them. Battle armor bays are charged 15,000 a ton as the table has it;
+     the same example calls them free. Same-book conflict, to be ruled on.
+  8. A Clan craft takes the Clan engine factor (TM p.184). MegaMek's files mark Clan Small Craft
+     `clan_engine false`; the flag is read only for a Mixed Tech craft.
+  9. MegaMek's crew count takes in the troops carried in bays; on import the crew is whoever has quarters.
+  10. Alpha Strike: converted as a large aerospace unit with four firing arcs (ASC pp.101-102), heat worked
+      over all weapons (ASC pp.115-116). Armor, structure, Threshold and Move match the published cards.
+      The Point Value follows ASC p.144 with errata v1.6 and is marked provisional: published unarmed Small
+      Craft run 4 points higher than the formula gives (Astrolux 16 against 12, S-7A Bus 16 against 12),
+      and the source of that 4 has not been found. VSTOL is given to aerodyne craft only; LG and SPC to all.
+- [ ] Small Craft still owed: the Alpha Strike roster cannot take them (its cards have no firing arcs;
+  DropShips will need the same card); primitive Small Craft (IO:AE; 5 sample files); the hyperspectral
+  imager, space mine dispenser and booby trap are not in the catalog; a `.blk` export (with the MegaMek
+  run); the two 5-ton sample "Small Craft" (Escape Pod, Life Boat) are not buildable units.
+- [ ] Found while building Small Craft: the weekly Master Unit List sync files every "Aerospace Craft"
+  (Small Craft, DropShips, JumpShips, WarShips, stations) as type AF and does not read their firing arcs,
+  so those bundled cards show no damage; the catalog gives the Clan Rotary AC/2 and AC/5 an aerospace heat
+  of 1 where the Inner Sphere ones have 6; CASE is marked as not mountable on Small Craft (`smallCraft: -1`),
+  to be checked against TM p.210.
 
 ### DropShips
 

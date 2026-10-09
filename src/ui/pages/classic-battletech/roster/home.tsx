@@ -13,6 +13,7 @@ import './home.scss';
 import BattleMechTableGroup from './_tableGroup';
 import { vehicleName } from './_vehicleGroupTable';
 import { fighterName } from './_fighterGroupTable';
+import { smallCraftName } from './_smallCraftGroupTable';
 import { buildingSummary } from './_buildingGroupTable';
 const Dice = FaDice as any;
 const Print = FaPrint as any;
@@ -417,6 +418,21 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
               <td className="min-width no-wrap text-center">{fighter.getPilot().piloting}</td>
               <td className="min-width no-wrap text-center">{fighter.getPilot().gunnery}</td>
               <td className="min-width no-wrap text-center">{fighter.getPilotAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
+      {favGroup.smallCraft.map( (craft) => (
+          <tbody key={craft.getUUID()}>
+          <tr>
+              <td>
+                  {smallCraftName(craft)}
+                  <div className='small-text'>{craft.getShapeName()} Small Craft</div>
+              </td>
+              <td className="min-width no-wrap text-center">{craft.getTonnage()}</td>
+              <td className="min-width no-wrap text-center small-text">{craft.getTech().name}</td>
+              <td className="min-width no-wrap text-center">{craft.getPilot().piloting}</td>
+              <td className="min-width no-wrap text-center">{craft.getPilot().gunnery}</td>
+              <td className="min-width no-wrap text-center">{craft.getPilotAdjustedBattleValue()}</td>
           </tr>
           </tbody>
       ))}
