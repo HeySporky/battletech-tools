@@ -63,7 +63,9 @@ for (const builder of builders) {
 
         if (builder.card) {
             await page.goto(`classic-battletech/${builder.path}/print-as`);
-            await expect(builder.cardTestId ? page.getByTestId(builder.cardTestId) : page.locator("svg").first()).toBeVisible();
+            const card = page.getByTestId(builder.cardTestId ?? "alpha-strike-card").first();
+            await expect(card).toBeVisible();
+            await expect(card).toContainText(/PV/);
         } else {
             // No card is made for this unit type: there is no such page.
             await page.goto(`classic-battletech/${builder.path}/print-as`);
@@ -73,8 +75,8 @@ for (const builder of builders) {
     });
 }
 
-test("a roster group takes every builder's saved designs", async ({ page }) => {
-    // With nothing saved, each table says where its designs come from.
+// Adding a saved design to a group is covered by each unit type's own roster spec.
+test("with nothing saved, a roster group says which creator each kind of design comes from", async ({ page }) => {
     await page.goto("classic-battletech/roster");
     for (const creator of ["Fighter", "Small Craft", "Infantry", "Battle Armor", "ProtoMech", "Building"]) {
         await expect(page.getByText(`in the ${creator} Creator to add them to this group.`).first()).toBeVisible();

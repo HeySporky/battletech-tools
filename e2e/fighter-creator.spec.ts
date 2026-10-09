@@ -124,7 +124,8 @@ test("a fighter shows its pods, stores, values, record sheet and Alpha Strike ca
     await expect(page.getByText(/10 x Bomb - Cluster/)).toBeVisible();
 
     await page.goto("classic-battletech/fighter-creator/print-as");
-    await expect(page.locator("svg").first()).toBeVisible();
+    await expect(page.getByTestId("alpha-strike-card").first()).toBeVisible();
+    await expect(page.getByTestId("alpha-strike-card").first()).toContainText("BOMB3");
 
     expect(errors).toEqual([]);
 });

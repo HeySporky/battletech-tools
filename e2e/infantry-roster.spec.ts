@@ -78,7 +78,8 @@ test("a saved infantry platoon converts to Alpha Strike and joins an Alpha Strik
     await expect(stats).toContainText("AM, CAR6");
     await expect(stats.getByRole("row", { name: /Point Value/ })).toContainText("10");
     await page.getByRole("link", { name: "Print Alpha Strike Card" }).click();
-    await expect(page.locator("svg").first()).toBeVisible();
+    await expect(page.getByTestId("alpha-strike-card").first()).toBeVisible();
+    await expect(page.getByTestId("alpha-strike-card").first()).toContainText("CAR6");
 
     await page.goto("classic-battletech/infantry-creator");
     await page.getByRole("button", { name: /Save as New/ }).click();

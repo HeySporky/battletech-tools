@@ -281,7 +281,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
         return (
 
             <>
-                <svg className={this.props.className} version="1.1" x="0px" y="0px" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg">
+                <svg data-testid="alpha-strike-card" className={this.props.className} version="1.1" x="0px" y="0px" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg">
                 <g transform="translate(0, 0)">
                 <rect x="0" y="0" width="1000" height="640px" fill="rgb(0,0,0)"></rect>
                 {this.props.asUnit.isWrecked() ? (
