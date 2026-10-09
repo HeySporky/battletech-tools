@@ -681,6 +681,10 @@ Ultralight and Superheavy (tonnage); OmniMech and Primitive (checkboxes); Indust
 
 ### Canon equipment pass: still owed (branch `feature/canon-equipment-pass`, ledger `tools/canon-pass-ledger.md`)
 
+Status 2026-10-09: upstream draft PR #115 (branch `bundle/unit-builders-and-catalogs`) offers the whole fork as one
+bundle: every open PR except #92 and #97, plus the unit builders, rules levels and rules editions. It leaves out
+`.claude/` and the local Ollama worker tools. Update it (merge this branch, drop those files again) as work lands.
+
 Status 2026-10-02: rebased on upstream master (after #85), split into seven branches and opened upstream
 in HeySporky/battletech-tools. All of it is merged into local `master` together with the SSW runtime import.
 
@@ -965,8 +969,8 @@ Open:
   - [ ] Install Tesseract German and Spanish data before OCRing `languages/de/` or `languages/es/` scans.
 - [ ] Internal structure bug (found 2026-10-07): 25 tons had 5 leg points (6), and 55/60/65 tons had 17/19/20 center
   torso points (18/20/21), against TM p.47. Confirmed in four printings; the 2026 Core Rulebook has no
-  construction rules. Upstream issue #113, fix in PR #114 (branch `fix/internal-structure-table`). Merge it
-  into our master when the user says.
+  construction rules. Upstream issue #113, fix in PR #114 (branch `fix/internal-structure-table`). Merged into
+  `feature/rules-editions-list` 2026-10-09; not yet in our master.
 - [ ] Rules editions (`src/data/rules-editions.ts`, branch `feature/rules-editions-list`). Eleven editions are
   listed, Battledroids 1984 to the Core Rulebook 2026, the Third and Fourth Edition box sets included. Each record
   an earlier edition includes carries `editionStats`: one key per edition, the stats as printed, or `null` when
