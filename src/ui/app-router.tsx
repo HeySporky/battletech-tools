@@ -12,10 +12,11 @@ import AerospaceFighter, { IAerospaceFighterExport } from "../classes/aerospace-
 import InfantryPlatoon, { IInfantryPlatoonExport } from "../classes/infantry-platoon";
 import BattleArmor, { IBattleArmorExport } from "../classes/battle-armor";
 import ProtoMech, { IProtoMechExport } from "../classes/protomech";
+import SmallCraft, { ISmallCraftExport } from "../classes/small-craft";
 import Building, { IBuildingExport } from "../classes/building";
 import { CONST_SITE_TITLE } from '../configVars';
 import { registerLocalCustomContent } from "../data/custom-content-local";
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentFighter, getBuildingSaves, getCurrentBuilding, getCurrentInfantry, getCurrentBattleArmor, getBattleArmorSaves, saveBattleArmorSaves, saveCurrentBattleArmor, getCurrentProtoMech, getProtoMechSaves, saveProtoMechSaves, saveCurrentProtoMech, getCurrentVehicle, getFavoriteASGroups, getFighterSaves, getInfantrySaves, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentFighter, saveBuildingSaves, saveCurrentBuilding, saveCurrentInfantry, saveCurrentVehicle, saveFavoriteASGroups, saveFighterSaves, saveInfantrySaves, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentFighter, getBuildingSaves, getCurrentBuilding, getCurrentInfantry, getCurrentBattleArmor, getBattleArmorSaves, saveBattleArmorSaves, saveCurrentBattleArmor, getCurrentProtoMech, getProtoMechSaves, saveProtoMechSaves, saveCurrentProtoMech, getCurrentSmallCraft, getSmallCraftSaves, saveSmallCraftSaves, saveCurrentSmallCraft, getCurrentVehicle, getFavoriteASGroups, getFighterSaves, getInfantrySaves, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentFighter, saveBuildingSaves, saveCurrentBuilding, saveCurrentInfantry, saveCurrentVehicle, saveFavoriteASGroups, saveFighterSaves, saveInfantrySaves, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
@@ -113,6 +114,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             saveCurrentProtoMech: this.saveCurrentProtoMech,
             protoMechSaves: [],
             saveProtoMechSaves: this.saveProtoMechSaves,
+
+            currentSmallCraft: null,
+            saveCurrentSmallCraft: this.saveCurrentSmallCraft,
+            smallCraftSaves: [],
+            saveSmallCraftSaves: this.saveSmallCraftSaves,
 
             currentBuilding: null,
             saveCurrentBuilding: this.saveCurrentBuilding,
@@ -255,6 +261,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         const currentProtoMech = new ProtoMech( (await getCurrentProtoMech(appSettings)) || "" );
         const protoMechSaves: IProtoMechExport[] = await getProtoMechSaves(appSettings);
 
+        const currentSmallCraft = new SmallCraft( (await getCurrentSmallCraft(appSettings)) || "" );
+        const smallCraftSaves: ISmallCraftExport[] = await getSmallCraftSaves(appSettings);
+
         const currentBuilding = new Building( (await getCurrentBuilding(appSettings)) || "" );
         const buildingSaves: IBuildingExport[] = await getBuildingSaves(appSettings);
 
@@ -331,6 +340,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.battleArmorSaves = battleArmorSaves;
         appGlobals.currentProtoMech = currentProtoMech;
         appGlobals.protoMechSaves = protoMechSaves;
+        appGlobals.currentSmallCraft = currentSmallCraft;
+        appGlobals.smallCraftSaves = smallCraftSaves;
         appGlobals.currentBuilding = currentBuilding;
         appGlobals.buildingSaves = buildingSaves;
 
@@ -545,6 +556,29 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         proto.lastUpdated = new Date();
 
         saveCurrentProtoMech( appGlobals.appSettings, proto.exportJSON() );
+    }
+
+    saveSmallCraftSaves = ( newValue: ISmallCraftExport[] ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.smallCraftSaves = newValue;
+
+        saveSmallCraftSaves( appGlobals.appSettings, appGlobals.smallCraftSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveCurrentSmallCraft = ( craft: SmallCraft ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentSmallCraft = craft;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        craft.lastUpdated = new Date();
+
+        saveCurrentSmallCraft( appGlobals.appSettings, craft.exportJSON() );
     }
 
     saveCurrentFighter = ( fighter: AerospaceFighter ): void => {
@@ -945,6 +979,10 @@ export interface IAppGlobals {
     saveCurrentProtoMech( proto: ProtoMech ): void;
     protoMechSaves: IProtoMechExport[];
     saveProtoMechSaves( newValue: IProtoMechExport[] ): void;
+    currentSmallCraft: SmallCraft | null;
+    saveCurrentSmallCraft( craft: SmallCraft ): void;
+    smallCraftSaves: ISmallCraftExport[];
+    saveSmallCraftSaves( newValue: ISmallCraftExport[] ): void;
     currentBuilding: Building | null;
     saveCurrentBuilding( building: Building ): void;
     buildingSaves: IBuildingExport[];

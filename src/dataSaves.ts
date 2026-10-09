@@ -11,6 +11,7 @@ import AerospaceFighter, { IAerospaceFighterExport, normalizeAerospaceFighterExp
 import InfantryPlatoon, { IInfantryPlatoonExport, normalizeInfantryPlatoonExport } from "./classes/infantry-platoon";
 import BattleArmor, { IBattleArmorExport, normalizeBattleArmorExport } from "./classes/battle-armor";
 import ProtoMech, { IProtoMechExport, normalizeProtoMechExport } from "./classes/protomech";
+import SmallCraft, { ISmallCraftExport, normalizeSmallCraftExport } from "./classes/small-craft";
 import Building, { IBuildingExport, normalizeBuildingExport } from "./classes/building";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
@@ -80,6 +81,8 @@ export interface IFullBackup {
     currentBattleArmor?: string | null;
     protoMechSaves?: IProtoMechExport[];
     currentProtoMech?: string | null;
+    smallCraftSaves?: ISmallCraftExport[];
+    currentSmallCraft?: string | null;
 
     // Gun emplacements and buildings; optional so older backups still restore.
     buildingSaves?: IBuildingExport[];
@@ -112,6 +115,8 @@ export async function getFullBackup(
         currentBattleArmor: await getCurrentBattleArmor(appSettings),
         protoMechSaves: await getProtoMechSaves(appSettings),
         currentProtoMech: await getCurrentProtoMech(appSettings),
+        smallCraftSaves: await getSmallCraftSaves(appSettings),
+        currentSmallCraft: await getCurrentSmallCraft(appSettings),
         buildingSaves: await getBuildingSaves(appSettings),
         currentBuilding: await getCurrentBuilding(appSettings),
         acesGame: await getAcesGame(appSettings),
@@ -136,6 +141,7 @@ export const MAX_INFANTRY_SAVES = 500;
 /** Most saved battle armor designs read from storage or a backup. */
 export const MAX_BATTLE_ARMOR_SAVES = 500;
 export const MAX_PROTOMECH_SAVES = 500;
+export const MAX_SMALL_CRAFT_SAVES = 500;
 /** Most saved buildings read from storage or a backup. */
 export const MAX_BUILDING_SAVES = 500;
 /** Most groups read from one backup's favorites or force. */
@@ -565,6 +571,48 @@ export function restoreFullBackup(
         }
     }
 
+    if( Array.isArray(io.smallCraftSaves) ) {
+        // Saved Small Craft in a backup may come from someone else: clean each one and report what changed.
+        if( io.smallCraftSaves.length > MAX_SMALL_CRAFT_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_SMALL_CRAFT_SAVES + " of " + io.smallCraftSaves.length + " saved Small Craft are restored"));
+        }
+        for( const rawItem of io.smallCraftSaves.slice(0, MAX_SMALL_CRAFT_SAVES) ) {
+            const normalized = normalizeSmallCraftExport( rawItem );
+            const item = normalized.craft;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved Small Craft '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.smallCraftSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Small Craft '" + (appGlobals.smallCraftSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.smallCraftSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Small Craft: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.smallCraftSaves.push( item )
+                }
+            }
+        }
+    }
+
+    if( overWriteCurrentBattlemech && typeof io.currentSmallCraft === "string" && io.currentSmallCraft ) {
+        for( const issue of new SmallCraft(io.currentSmallCraft).getImportIssues() ) {
+            restoreMessages.push(warning("Current Small Craft: " + issue));
+        }
+    }
+
     if( Array.isArray(io.buildingSaves) ) {
         // Saved buildings in a backup may come from someone else: clean each one and report what changed.
         if( io.buildingSaves.length > MAX_BUILDING_SAVES ) {
@@ -625,6 +673,9 @@ export function restoreFullBackup(
         }
         if( typeof io.currentProtoMech === "string" && io.currentProtoMech ) {
             appGlobals.currentProtoMech = new ProtoMech(io.currentProtoMech);
+        }
+        if( typeof io.currentSmallCraft === "string" && io.currentSmallCraft ) {
+            appGlobals.currentSmallCraft = new SmallCraft(io.currentSmallCraft);
         }
         if( typeof io.currentBuilding === "string" && io.currentBuilding ) {
             appGlobals.currentBuilding = new Building(io.currentBuilding);
@@ -712,6 +763,9 @@ export function restoreFullBackup(
         appGlobals.saveProtoMechSaves( appGlobals.protoMechSaves );
         if( appGlobals.currentProtoMech )
             appGlobals.saveCurrentProtoMech( appGlobals.currentProtoMech );
+        appGlobals.saveSmallCraftSaves( appGlobals.smallCraftSaves );
+        if( appGlobals.currentSmallCraft )
+            appGlobals.saveCurrentSmallCraft( appGlobals.currentSmallCraft );
         appGlobals.saveBuildingSaves( appGlobals.buildingSaves );
         if( appGlobals.currentBuilding )
             appGlobals.saveCurrentBuilding( appGlobals.currentBuilding );
@@ -1149,6 +1203,50 @@ export async function getCurrentProtoMech(
     return await getData(
         appSettings,
         "currentProtoMech"
+    );
+}
+
+export function saveSmallCraftSaves(
+    appSettings: AppSettings,
+    newValue: ISmallCraftExport[]
+) {
+    saveData(appSettings, "smallCraftSaves", JSON.stringify(newValue) );
+}
+
+export async function getSmallCraftSaves(
+    appSettings: AppSettings,
+): Promise<ISmallCraftExport[]> {
+    let rv: ISmallCraftExport[] = [];
+
+    const rawData = await getData(appSettings, "smallCraftSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored Small Craft before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_SMALL_CRAFT_SAVES ).map( (item) => normalizeSmallCraftExport( item ).craft )
+            .filter( (item): item is ISmallCraftExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentSmallCraft(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentSmallCraft", newValue );
+}
+
+export async function getCurrentSmallCraft(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentSmallCraft"
     );
 }
 
