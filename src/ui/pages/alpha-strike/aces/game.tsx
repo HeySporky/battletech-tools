@@ -83,7 +83,20 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         const data = await getAcesGame( this.props.appGlobals.appSettings );
         const campaigns = await getAcesCampaigns( this.props.appGlobals.appSettings );
         const library = await getAcesCardLibrary( this.props.appGlobals.appSettings );
-        const game = new AcesGame( data );
+        // A save that cannot be read must not look like "no game": say so, and start from an empty game.
+        let game: AcesGame;
+        try {
+            game = new AcesGame( data );
+        } catch( error ) {
+            console.error("Unable to read the saved Aces game", error);
+            game = new AcesGame();
+            this.props.appGlobals.siteAlerts.addAlert(
+                "danger",
+                "Saved Aces Game Not Readable",
+                "Your saved Aces game could not be read, so an empty game is shown. It stays in storage until you change this one.",
+                "", true, null, 0,
+            );
+        }
         this.setState({
             game: game,
             library: library,
@@ -149,7 +162,8 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
             isBattleMech: unit.type.toUpperCase() === "BM",
             canJump: unit.jumpMove > 0 || unit.move.some( ( move ) => move.type.toLowerCase() === "j" ),
             canIndirectFire: getAcesAbilityValue( unit, "IF" ) !== null,
-            ovRating: getAcesAbilityValue( unit, "OV" ) || 0,
+            // The Overheat Value is the card's own field; the ability list only carries OVL.
+            ovRating: unit.overheat || getAcesAbilityValue( unit, "OV" ) || 0,
             currentHeat: unit.currentHeat,
             fireControlHits: unit.fireControlHits.filter( ( hit ) => hit ).length,
         };
@@ -878,7 +892,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                                 </td>
                                 {phase === "initiative" || phase === "movement" ? (
                                     <td>
-                                        <input type="number" className="aces-number" value={state.movePriority === null ? "" : state.movePriority} onChange={( e ) => { const value = this._number( e.currentTarget.value ); this._update( () => { state.movePriority = value; } ); }} />
+                                        <input type="number" className="aces-number" disabled={state.cardIds.length > 0} title={state.cardIds.length > 0 ? "Taken from the unit's top card" : undefined} value={state.movePriority === null ? "" : state.movePriority} onChange={( e ) => { const value = this._number( e.currentTarget.value ); this._update( () => { state.movePriority = value; } ); }} />
                                     </td>
                                 ) : null}
                                 {phase === "initiative" || phase === "movement" ? (
@@ -892,7 +906,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                                 ) : null}
                                 {phase === "combat" ? (
                                     <td>
-                                        <input type="number" className="aces-number" value={state.combatPriority === null ? "" : state.combatPriority} onChange={( e ) => { const value = this._number( e.currentTarget.value ); this._update( () => { state.combatPriority = value; } ); }} />
+                                        <input type="number" className="aces-number" disabled={state.cardIds.length > 0} title={state.cardIds.length > 0 ? "Taken from the unit's top card" : undefined} value={state.combatPriority === null ? "" : state.combatPriority} onChange={( e ) => { const value = this._number( e.currentTarget.value ); this._update( () => { state.combatPriority = value; } ); }} />
                                     </td>
                                 ) : null}
                                 <td>

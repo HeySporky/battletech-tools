@@ -12,12 +12,25 @@ const DATE_FIELDS = new Set(["introduced", "extinct", "reintroduced", "prototype
 
 const DRAFT_KINDS = new Set<string>(["equipment", "ammunition", ...CUSTOM_COMPONENT_KINDS]);
 
+// Stats the construction and Battle Value maths read as numbers. In a stored record each is a number, null
+// (unknown) or absent; `damage` and `criticals` may instead be an object of such values.
+const NUMERIC_FIELDS = ["weight", "heat", "heatAero", "cbills", "battleValue", "battleValueDefensive", "criticals",
+    "damage", "damageAero", "roundsPerTon", "shotsPerTon", "rulesLevel", "introduced", "extinct", "reintroduced"];
+
+const isStat = (value: unknown, nested: boolean = true): boolean => {
+    if (value === null || typeof value === "undefined") return true;
+    if (typeof value === "number") return Number.isFinite(value);
+    return nested && typeof value === "object" && !Array.isArray(value)
+        && Object.values(value as Record<string, unknown>).every((entry) => isStat(entry, false));
+};
+
 // Storage is user-editable: one malformed entry must not break startup or every later lookup, so drop it.
 const isWellFormedDraft = (value: unknown): value is ICustomContentDraft => {
     const draft = value as ICustomContentDraft | null;
     return !!draft && typeof draft === "object" && typeof draft.id === "string" && DRAFT_KINDS.has(draft.kind)
-        && !!draft.record && typeof draft.record === "object"
+        && !!draft.record && typeof draft.record === "object" && !Array.isArray(draft.record)
         && typeof draft.record.name === "string" && typeof draft.record.tag === "string"
+        && NUMERIC_FIELDS.every((field) => isStat(draft.record[field]))
         && Array.isArray(draft.sourceFiles);
 };
 

@@ -45,8 +45,9 @@ export default class ProtoMechPlayPanel extends React.Component<IProtoMechPlayPa
             return;
         }
         const lines = point.applyDamage(this.state.unit, location, this.state.damage);
-        this._log([`ProtoMech ${this.state.unit + 1}: rolled ${roll}, ${this.state.damage} damage to the ${point.getLocationName(point.getLocations().includes(location) ? location : "torso")}.`, ...lines]);
-        this.setState({ location: point.getLocations().includes(location) ? location : "torso" });
+        const struck = point.resolveHitLocation(location);
+        this._log([`ProtoMech ${this.state.unit + 1}: rolled ${roll}, ${this.state.damage} damage to the ${point.getLocationName(struck)}.`, ...lines]);
+        this.setState({ location: struck });
         this._changed();
     }
 

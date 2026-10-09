@@ -56,14 +56,16 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
         "No, thank you",
         () => {
           if( this.state.fullRestoreObject ) {
-            const warnings = restoreFullBackup(
+            const restoreResult = restoreFullBackup(
               this.state.fullRestoreObject,
               this.props.appGlobals,
               this.state.overwriteCurrentBattlemech,
               this.state.overwriteCurrentASGroup,
               this.state.overwriteCurrentCBTGroup,
               true,
-            ).filter( (msg) => msg.severity === "warning" ).length
+            )
+            const warnings = restoreResult.filter( (msg) => msg.severity === "warning" ).length
+            const failure = restoreResult.find( (msg) => msg.severity === "error" )
 
             this.setState({
               fullRestoreObject: null,
@@ -73,9 +75,9 @@ export default class SettingsBackupAndRestore extends React.Component<ISettingsB
             })
 
             this.props.appGlobals.siteAlerts.addAlert(
-              warnings ? "warning" : "success",
-              warnings ? "Restore Finished With Warnings" : "Restore Successful",
-              warnings
+              failure ? "danger" : warnings ? "warning" : "success",
+              failure ? "Restore Incomplete" : warnings ? "Restore Finished With Warnings" : "Restore Successful",
+              failure ? failure.message + "." : warnings
                 ? `Your data was restored, but ${warnings} problem(s) in the backup were cleaned up or skipped (listed before you confirmed).`
                 : "Your settings and data have been successfully restored",
               "",

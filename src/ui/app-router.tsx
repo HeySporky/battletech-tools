@@ -202,6 +202,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     }
 
     private _unmounted = false;
+    private _pageLeaving = false;
+    private _onPageLeaving = (): void => { this._pageLeaving = true; };
+    private _onPageShown = (): void => { this._pageLeaving = false; };
     private _sswImportTimer: ReturnType<typeof setTimeout> | null = null;
 
     private _onConnectionChange = (): void => {
@@ -213,12 +216,18 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     componentDidMount(): void {
         this._unmounted = false;
         window.addEventListener('offline', this._onConnectionChange);
+        window.addEventListener('pagehide', this._onPageLeaving);
+        window.addEventListener('beforeunload', this._onPageLeaving);
+        window.addEventListener('pageshow', this._onPageShown);
         window.addEventListener('online', this._onConnectionChange);
     }
 
     componentWillUnmount(): void {
         this._unmounted = true;
         window.removeEventListener('offline', this._onConnectionChange);
+        window.removeEventListener('pagehide', this._onPageLeaving);
+        window.removeEventListener('beforeunload', this._onPageLeaving);
+        window.removeEventListener('pageshow', this._onPageShown);
         window.removeEventListener('online', this._onConnectionChange);
         if( this._sswImportTimer !== null ) {
             clearTimeout( this._sswImportTimer );
@@ -393,6 +402,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 sswMechs = sswModule.sswMechs;
                 importSSWSlice();
             }).catch( (error) => {
+                // Leaving the page while the chunk is on its way cancels the request: that is not a failure.
+                if( this._unmounted || this._pageLeaving )
+                    return;
                 console.error("Unable to load the bundled SSW 'Mechs", error);
             });
         }, 500 );

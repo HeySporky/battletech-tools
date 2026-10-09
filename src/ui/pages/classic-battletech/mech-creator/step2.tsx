@@ -237,21 +237,11 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 value={this.props.appGlobals.currentBattleMech.getCockpitType().tag}
                                 onChange={this.setCockpitType}
                               >
-                                {this.props.appGlobals.currentBattleMech.getAvailableCockpits(this.props.appGlobals.appSettings.mechRulesFilter).map( (cockpitData, cockpitIndex) => {
-                                  if( cockpitData.available ) {
-                                    return (
-                                      <option key={cockpitIndex} value={cockpitData.tag}>{cockpitData.name}{cockpitData.availableAsPrototype ? " (Prototype)" : ""}</option>
-                                    )
-                                  } else {
-                                    if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
-                                      return (
-                                        <option disabled={true} key={cockpitIndex} value={cockpitData.tag}>{cockpitData.name}</option>
-                                      )
-                                    } else {
-                                      return <React.Fragment key={cockpitIndex}></React.Fragment>
-                                    }
-                                  }
-                              })}
+                                {this.props.appGlobals.currentBattleMech.getAvailableCockpits(this.props.appGlobals.appSettings.mechRulesFilter)
+                                  .filter( (cockpitData) => isOptionShown(cockpitData, cockpitData.tag === this.props.appGlobals.currentBattleMech?.getCockpitType().tag) )
+                                  .map( (cockpitData, cockpitIndex) => (
+                                    <option key={cockpitIndex} value={cockpitData.tag}>{availabilityOptionLabel(cockpitData)}</option>
+                                ))}
                               </select>
                             </label>
 

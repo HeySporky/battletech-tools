@@ -199,19 +199,29 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
     private _importFile = ( e: React.FormEvent<HTMLInputElement> ) => {
         const files = e.currentTarget.files;
         if( !files || files.length === 0 ) return;
-        this.fileReader = new FileReader();
-        this.fileReader.onloadend = () => {
-            if( !this.fileReader || !this.state.library ) return;
+        // Each import reads with its own reader, so a second import cannot pick up the first one's file.
+        const reader = new FileReader();
+        this.fileReader = reader;
+        reader.onloadend = () => {
+            if( !this.state.library ) return;
+            if( reader.error || typeof reader.result !== "string" ) {
+                this.setState({ message: "That file could not be read." });
+                return;
+            }
             try {
-                const incoming = normalizeAcesCardLibrary( JSON.parse( String( this.fileReader.result ) ) );
+                const incoming = normalizeAcesCardLibrary( JSON.parse( reader.result ) );
                 const count = incoming.cards.length + incoming.commandCards.length + incoming.specialOrders.length + incoming.scenarios.length;
+                if( count === 0 ) {
+                    this.setState({ message: "That file holds no Aces cards, Command cards, Special Orders or sorties: nothing was imported." });
+                    return;
+                }
                 this._saveLibrary( mergeAcesCardLibrary( this.state.library, incoming ), "Imported " + count + " records." );
             }
             catch {
                 this.setState({ message: "That file isn't an Aces card library (JSON)." });
             }
         };
-        this.fileReader.readAsText( files[0] );
+        reader.readAsText( files[0] );
     }
 
     /* ----- record actions ----- */

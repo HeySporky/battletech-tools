@@ -134,6 +134,9 @@ const AP_WEAPONS: Record<string, string> = {
     laserriflemauseriicias: "inf-laser-rifle-mauser-iic",
 };
 
+// A file names its own equipment: keep "constructor" or "__proto__" from finding an inherited property.
+[ARMOR_CODES, MANIPULATORS, EQUIPMENT, AP_WEAPONS].forEach((table) => Object.setPrototypeOf(table, null));
+
 /** Lines that carry no equipment of their own: motive systems and the weapon pack marker. */
 const IGNORED = new Set(["bajumpjet", "baumu", "bavtol", "isdetachableweaponpack", "cldetachableweaponpack"]);
 
@@ -225,6 +228,7 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
 
     const troopers = Number(blkValue(file, "Trooper Count"));
     if (Number.isFinite(troopers) && troopers > 0) suit.setSquadSize(troopers);
+    else issues.push(`The file gives no trooper count: ${suit.getSquadSize()} troopers used.`);
 
     const cruise = Number(blkValue(file, "cruiseMP"));
     if (Number.isFinite(cruise)) {
@@ -362,6 +366,7 @@ export const importBattleArmorBlk = (text: string): IBattleArmorBlkImport => {
         }
     }
 
+    if (!armorTag) issues.push(`The file names no armor type this builder knows: ${suit.getArmor().name} armor used.`);
     if (armorTag && !suit.setArmor(armorTag, mixed ? armorBase : undefined) && !suit.setArmor(armorTag)) issues.push(`${battleArmorArmorTypes.find((entry) => entry.tag === armorTag)?.name ?? "The armor"} is not made for ${techBase === "clan" ? "Clan" : "Inner Sphere"} battle armor: using ${suit.getArmor().name}.`);
     const armorPoints = Number(blkValue(file, "armor"));
     if (Number.isFinite(armorPoints)) {

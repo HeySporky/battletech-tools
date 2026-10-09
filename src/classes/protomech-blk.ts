@@ -93,6 +93,9 @@ const INNER_SPHERE_STAND_INS: Record<string, { tag: string; note: string }> = {
 
 const slug = (name: string): string => name.toLowerCase().replace(/[^a-z0-9]/g, "");
 
+// A file names its own equipment: keep "constructor" or "__proto__" from finding an inherited property.
+[EQUIPMENT, AMMO, INNER_SPHERE_STAND_INS].forEach((table) => Object.setPrototypeOf(table, null));
+
 /** A tube launcher's family and size from a weapon name ("CLSRM4") or an ammunition name ("Clan Ammo ProtoMech LRM-4"). */
 const readMissile = (name: string): { family: ProtoMechMissileFamily; tubes: number } | null => {
     const match = /^(?:cl|clanammo(?:protomech)?|clan)(streaksrm|streaklrm|srm|lrm)(\d+)(?:ammo)?$/.exec(slug(name));
@@ -192,6 +195,7 @@ export const importProtoMechBlk = (text: string): IProtoMechBlkImport => {
 
     // Armor: head, torso, right arm, left arm, legs, and the main gun when there is one.
     const armor = blkLines(file, "armor").map(Number);
+    if (armor.filter((points) => Number.isFinite(points)).length < 5) issues.push("The file does not list armor for every location: the rest carry none.");
     const order = ["head", "torso", "ra", "la", "legs", "mainGun"] as const;
     order.forEach((location, index) => {
         const points = armor[index];

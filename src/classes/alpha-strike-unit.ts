@@ -392,7 +392,10 @@ export class AlphaStrikeUnit {
         
 
             if( incomingMechData.BFAbilities && incomingMechData.BFAbilities.trim() ) {
-                this.abilities = incomingMechData.BFAbilities.split(",").map(ability => ability.trim());
+                // The role is its own field: an older Master Unit List sync also stored it as an ability.
+                const roleName = incomingMechData.Role?.Name?.trim();
+                this.abilities = incomingMechData.BFAbilities.split(",").map(ability => ability.trim())
+                    .filter(ability => ability !== "" && ability !== roleName);
             }
 
             this.overheat = +incomingMechData.BFOverheat;
