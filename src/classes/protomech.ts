@@ -143,6 +143,12 @@ const clampInt = (value: unknown, min: number, max: number, fallback: number): n
     const n = Math.round(Number(value));
     return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : fallback;
 };
+/** A weapon's damage for a table: one number, or short / medium / long where it changes with range. */
+export const formatProtoMechDamage = (damage: IEquipmentItem["damage"]): string => {
+    if (damage === undefined || damage === null) return "";
+    if (typeof damage === "object") return `${damage.short}/${damage.medium}/${damage.long}`;
+    return damage ? `${damage}` : "";
+};
 const speedFactor = (mp: number): number => Math.round(Math.pow(1 + (mp - 5) / 10, 1.2) * 100) / 100;
 const LOCATIONS: ProtoMechLocation[] = ["head", "torso", "la", "ra", "legs", "mainGun"];
 const MOUNT_LOCATIONS: ProtoMechMountLocation[] = ["torso", "la", "ra", "mainGun"];
@@ -837,8 +843,7 @@ export default class ProtoMech {
             const letter = String.fromCharCode(65 + (letters[mount.location] ?? 0));
             letters[mount.location] = (letters[mount.location] ?? 0) + 1;
             const slot = mount.location === "torso" ? `Torso ${letter}${mount.rear ? " (rear)" : ""}` : this.getLocationName(mount.location);
-            const perMissile = item?.damagePerCluster ?? item?.damage ?? 0;
-            const damage = missile ? `${missile.family.includes("srm") ? 2 : 1}/missile` : special?.fixedShots ? "2/missile" : item && !special ? `${item.damage ?? perMissile}` : "-";
+            const damage = missile ? `${missile.family.includes("srm") ? 2 : 1}/missile` : special?.fixedShots ? "2/missile" : item && !special ? formatProtoMechDamage(item.damage) || "-" : "-";
             return {
                 index, name: this.getMountName(mount), location: slot, damage,
                 min: item?.range?.min ?? 0, short: item?.range?.short ?? 0, medium: item?.range?.medium ?? 0, long: item?.range?.long ?? 0,

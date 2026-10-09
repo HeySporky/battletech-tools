@@ -10,6 +10,7 @@ import Vehicle, { IVehicleExport, normalizeVehicleExport } from "./classes/vehic
 import AerospaceFighter, { IAerospaceFighterExport, normalizeAerospaceFighterExport } from "./classes/aerospace-fighter";
 import InfantryPlatoon, { IInfantryPlatoonExport, normalizeInfantryPlatoonExport } from "./classes/infantry-platoon";
 import BattleArmor, { IBattleArmorExport, normalizeBattleArmorExport } from "./classes/battle-armor";
+import ProtoMech, { IProtoMechExport, normalizeProtoMechExport } from "./classes/protomech";
 import Building, { IBuildingExport, normalizeBuildingExport } from "./classes/building";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
@@ -77,6 +78,8 @@ export interface IFullBackup {
     // Battle armor designs; optional so older backups still restore.
     battleArmorSaves?: IBattleArmorExport[];
     currentBattleArmor?: string | null;
+    protoMechSaves?: IProtoMechExport[];
+    currentProtoMech?: string | null;
 
     // Gun emplacements and buildings; optional so older backups still restore.
     buildingSaves?: IBuildingExport[];
@@ -107,6 +110,8 @@ export async function getFullBackup(
         currentInfantry: await getCurrentInfantry(appSettings),
         battleArmorSaves: await getBattleArmorSaves(appSettings),
         currentBattleArmor: await getCurrentBattleArmor(appSettings),
+        protoMechSaves: await getProtoMechSaves(appSettings),
+        currentProtoMech: await getCurrentProtoMech(appSettings),
         buildingSaves: await getBuildingSaves(appSettings),
         currentBuilding: await getCurrentBuilding(appSettings),
         acesGame: await getAcesGame(appSettings),
@@ -130,6 +135,7 @@ export const MAX_FIGHTER_SAVES = 500;
 export const MAX_INFANTRY_SAVES = 500;
 /** Most saved battle armor designs read from storage or a backup. */
 export const MAX_BATTLE_ARMOR_SAVES = 500;
+export const MAX_PROTOMECH_SAVES = 500;
 /** Most saved buildings read from storage or a backup. */
 export const MAX_BUILDING_SAVES = 500;
 /** Most groups read from one backup's favorites or force. */
@@ -517,6 +523,48 @@ export function restoreFullBackup(
         }
     }
 
+    if( Array.isArray(io.protoMechSaves) ) {
+        // Saved ProtoMechs in a backup may come from someone else: clean each one and report what changed.
+        if( io.protoMechSaves.length > MAX_PROTOMECH_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_PROTOMECH_SAVES + " of " + io.protoMechSaves.length + " saved ProtoMechs are restored"));
+        }
+        for( const rawItem of io.protoMechSaves.slice(0, MAX_PROTOMECH_SAVES) ) {
+            const normalized = normalizeProtoMechExport( rawItem );
+            const item = normalized.proto;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved ProtoMech '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.protoMechSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved ProtoMech '" + (appGlobals.protoMechSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.protoMechSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved ProtoMechs: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.protoMechSaves.push( item )
+                }
+            }
+        }
+    }
+
+    if( overWriteCurrentBattlemech && typeof io.currentProtoMech === "string" && io.currentProtoMech ) {
+        for( const issue of new ProtoMech(io.currentProtoMech).getImportIssues() ) {
+            restoreMessages.push(warning("Current ProtoMech: " + issue));
+        }
+    }
+
     if( Array.isArray(io.buildingSaves) ) {
         // Saved buildings in a backup may come from someone else: clean each one and report what changed.
         if( io.buildingSaves.length > MAX_BUILDING_SAVES ) {
@@ -574,6 +622,9 @@ export function restoreFullBackup(
         }
         if( typeof io.currentBattleArmor === "string" && io.currentBattleArmor ) {
             appGlobals.currentBattleArmor = new BattleArmor(io.currentBattleArmor);
+        }
+        if( typeof io.currentProtoMech === "string" && io.currentProtoMech ) {
+            appGlobals.currentProtoMech = new ProtoMech(io.currentProtoMech);
         }
         if( typeof io.currentBuilding === "string" && io.currentBuilding ) {
             appGlobals.currentBuilding = new Building(io.currentBuilding);
@@ -658,6 +709,9 @@ export function restoreFullBackup(
         appGlobals.saveBattleArmorSaves( appGlobals.battleArmorSaves );
         if( appGlobals.currentBattleArmor )
             appGlobals.saveCurrentBattleArmor( appGlobals.currentBattleArmor );
+        appGlobals.saveProtoMechSaves( appGlobals.protoMechSaves );
+        if( appGlobals.currentProtoMech )
+            appGlobals.saveCurrentProtoMech( appGlobals.currentProtoMech );
         appGlobals.saveBuildingSaves( appGlobals.buildingSaves );
         if( appGlobals.currentBuilding )
             appGlobals.saveCurrentBuilding( appGlobals.currentBuilding );
@@ -1051,6 +1105,50 @@ export async function getCurrentBattleArmor(
     return await getData(
         appSettings,
         "currentBattleArmor"
+    );
+}
+
+export function saveProtoMechSaves(
+    appSettings: AppSettings,
+    newValue: IProtoMechExport[]
+) {
+    saveData(appSettings, "protoMechSaves", JSON.stringify(newValue) );
+}
+
+export async function getProtoMechSaves(
+    appSettings: AppSettings,
+): Promise<IProtoMechExport[]> {
+    let rv: IProtoMechExport[] = [];
+
+    const rawData = await getData(appSettings, "protoMechSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored ProtoMechs before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_PROTOMECH_SAVES ).map( (item) => normalizeProtoMechExport( item ).proto )
+            .filter( (item): item is IProtoMechExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentProtoMech(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentProtoMech", newValue );
+}
+
+export async function getCurrentProtoMech(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentProtoMech"
     );
 }
 
