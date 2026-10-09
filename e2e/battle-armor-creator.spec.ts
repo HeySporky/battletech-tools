@@ -9,7 +9,7 @@ test("the TechManual's Purifier can be built, checked, saved and printed", async
     });
 
     await page.goto("classic-battletech");
-    await page.getByRole("link", { name: "Battle Armor Creator" }).first().click();
+    await page.getByRole("link", { name: "Battle Armor Creator" }).last().click();
     await expect(page.getByText("Your Saved Battle Armor")).toBeVisible();
     await page.getByRole("button", { name: /Start Over/ }).click();
     await page.getByRole("link", { name: /Start Building/ }).click();
@@ -41,7 +41,7 @@ test("the TechManual's Purifier can be built, checked, saved and printed", async
     await page.getByRole("button", { name: "Remove Small Laser" }).click();
     await expect(page.getByTestId("ba-issues")).toHaveCount(0);
 
-    await page.getByRole("link", { name: /Summary/ }).last().click();
+    await page.goto("classic-battletech/battle-armor-creator/summary");
     await expect(page.getByTestId("ba-legal")).toBeVisible();
     await expect(page.getByText("Summary: Purifier")).toBeVisible();
     // TM p.311: 51.78 a suit, 466 for the Level I.

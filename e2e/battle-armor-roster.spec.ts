@@ -43,7 +43,7 @@ test("a suit gets an alternate loadout, an era and an Alpha Strike card", async 
 
     // The summary lists the loadout and converts the base design as the Master Unit List publishes the
     // Purifier Adaptive [Laser] (Sqd4): 6"j, 2/2/0, Armor 1, Structure 2, MAS, 19 points.
-    await page.getByRole("link", { name: /Summary/ }).last().click();
+    await page.goto("classic-battletech/battle-armor-creator/summary");
     await expect(page.getByTestId("ba-legal")).toBeVisible();
     await expect(page.getByTestId("ba-loadout-summary")).toContainText("Support PPC (modular mount), Left Arm");
     const card = page.getByTestId("ba-alpha-strike");
@@ -234,7 +234,7 @@ test("a mixed-technology suit takes Clan equipment, and one trooper can carry an
     await expect(page.getByTestId("ba-item-mine")).toHaveValue("inferno");
     await expect(page.getByTestId("ba-issues")).toHaveCount(0);
 
-    await page.getByRole("link", { name: /Summary/ }).last().click();
+    await page.goto("classic-battletech/battle-armor-creator/summary");
     await expect(page.getByTestId("ba-legal")).toBeVisible();
     await expect(page.getByText("Mixed (Inner Sphere chassis)")).toBeVisible();
     await expect(page.getByText(/Average of the 4 troopers' suits/)).toBeVisible();

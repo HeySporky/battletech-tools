@@ -10,7 +10,7 @@ test("a Clan gun emplacement can be built, armed, checked, saved and printed", a
     });
 
     await page.goto("classic-battletech");
-    await page.getByRole("link", { name: "Building Creator" }).first().click();
+    await page.getByRole("link", { name: "Building Creator" }).last().click();
     await expect(page.getByText("Your Saved Buildings")).toBeVisible();
     await page.getByRole("button", { name: /Start Over/ }).click();
     await page.getByRole("link", { name: /Start Building/ }).click();
