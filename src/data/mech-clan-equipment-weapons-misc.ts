@@ -53,7 +53,7 @@ export const mechClanEquipmentMisc: IEquipmentItem[] = [
         techRating: "e",
         book: "TM",
         page: 204,
-        alphaStrike: {
+        alphaStrike: { specialAbility: ["PRB"],
             heat: 0,
             rangeShort: 0,
             rangeMedium: 0,

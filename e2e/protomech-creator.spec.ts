@@ -53,6 +53,15 @@ test("the TechManual's Delphyne-2 can be built, checked, saved and printed", asy
     // TM p.307: Battle Value 316. TM pp.279-285: (741,700 + 80,000) x 1.09.
     await expect(page.getByTestId("pm-summary")).toContainText("Battle Value: 316 (Point of 5: 1580)");
     await expect(page.getByTestId("pm-cost-log")).toContainText("895,653 C-bills");
+    // The Master Unit List's Delphyne card: 10"j, 2/1/0, Armor 1, Structure 1, 13 points.
+    const card = page.getByTestId("pm-alpha-strike");
+    await expect(card).toContainText("Move: 10\"j");
+    await expect(card).toContainText("Damage (S/M/L): 2/1/0");
+    await expect(card).toContainText("Armor: 1");
+    await expect(card).toContainText("Point Value: 13");
+    await page.getByRole("link", { name: "View Alpha Strike Card" }).click();
+    await expect(page.getByTestId("pm-as-card")).toHaveCount(1);
+    await page.goto("classic-battletech/protomech-creator/summary");
 
     await page.getByRole("link", { name: "View Record Sheet" }).click();
     await expect(page.getByRole("heading", { name: "Delphyne-2" })).toBeVisible();
@@ -63,6 +72,14 @@ test("the TechManual's Delphyne-2 can be built, checked, saved and printed", asy
     await expect(page.getByRole("cell", { name: "Delphyne-2", exact: true })).toBeVisible();
     await page.reload();
     await expect(page.getByRole("cell", { name: "Delphyne-2", exact: true })).toBeVisible();
+
+    // The saved ProtoMech is offered to an Alpha Strike force.
+    await page.goto("alpha-strike-roster");
+    await page.getByRole("button", { name: /Add Units/ }).first().click();
+    const offered = page.getByTestId("as-protomech-saves");
+    await expect(offered).toContainText("Delphyne-2");
+    await expect(offered).toContainText("Type: PM");
+    await offered.getByTitle("Add this ProtoMech to your current group").click();
 
     expect(errors).toEqual([]);
 });

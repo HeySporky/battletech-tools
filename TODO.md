@@ -304,10 +304,11 @@ played first, then by dependency.
   Clan suits from 3065 (IO:AE p.47, "All") with the Inner Sphere table's figures, as TM p.348 prints none.
   After these: 1,174 of 1,188 sample files legal; of 1,087 cards, damage 1,033, Point Value 984, Battle Value
   705 of the 834 with no anti-personnel weapon.
-  Still to settle: the Brawler reduction of ASC p.141 is not taken by battle armor, on MegaMek's reading of
-  errata v1.4 (units with CAR 8 or less, or MEC, are left out), which is not in the library: with it 453
-  cards match, without it 984. The "VTOL or WiGE Vehicle" +1 is given to battle armor with VTOL movement, as
-  MegaMek and the cards do. ASC errata v1.4 should be added to the library and these two checked against it.
+  Brawler (user ruling, 2026-10-09): battle armor does not take the Brawler reduction of ASC p.141. ASC errata
+  v1.4 and v1.6 (added to the library 2026-10-08) print the reduction with no exception for battle armor, so
+  leaving it out rests on MegaMek (units with CAR 8 or less, or MEC, are left out) and the cards: with it 453
+  cards match, without it 984. The errata does not change the "VTOL or WiGE Vehicle" +1 either; it is given to
+  battle armor with VTOL movement, as MegaMek and the cards do.
 - [x] OmniVehicles (2026-10-08): a vehicle can be built as an Omni (TM p.97): the flag and each item's
   pod-mounted mark are saved with the design, the cost is x 1.25 (TM p.285), the equipment step has a Pod
   column and shows the pod space, and the summary, record sheet and roster say "Omni". As a carrier of
@@ -337,14 +338,48 @@ played first, then by dependency.
 
 ### ProtoMechs
 
-- [ ] ProtoMech construction model and editor. Ammunition whose `space.protomech` is `1` uses fractional,
-  shot-based tonnage accounting rather than a one-ton bin and consumes no BattleMech-style critical slots;
-  the builder allocates shots per mounted weapon and derives mass from the compatible ammunition.
-- [ ] ProtoMech armor, including fractional mass, UltraProto armor and Electric Discharge ProtoMech Armor
-  (needs a source), kept out of BattleMech armor accounting.
-- [ ] ProtoMech-only weapons once their Classic stats are sourced: ProtoMech Streak LRM (per tube;
-  workbook heat 1, 0.1/0.1/0.1 per tube) and Fusillade Launcher (workbook heat 0, 0.45/0.3, IATM). Every
-  non-ProtoMech `space` slot -1 (test-guarded).
+- [x] ProtoMech construction model and editor (2026-10-09): `protomech.ts`, `protomech-construction.ts`,
+  `protomech-blk.ts`, the ProtoMech Creator (chassis, equipment, summary, record sheet, Alpha Strike card),
+  saves and backups, Points in the Classic roster (group table, play panel, print) and saved designs offered
+  to Alpha Strike forces. Standard ProtoMechs (TM pp.80-89) and Ultraheavy, Quad and Glider ProtoMechs (IO:AE
+  pp.93-96), built in kilograms: tube missile launchers, ammunition by the shot, heat sinks for energy
+  weapons, jump jets, extended jump jets, UMUs, myomer booster, magnetic clamps, melee systems, partial wing,
+  Fusillade launcher. Battle Value (TM pp.306-307) and cost (TM pp.279-285) reproduce the book's Delphyne-2
+  (316 BV; 741,700 + 80,000 C-bills x 1.09). Of MegaMek's 86 sample files, 85 import with nothing left off
+  and 85 are legal; 70 come to their exact tonnage. Of the 76 with Master Unit List cards: Battle Value 62,
+  Alpha Strike armor 76, move 73, damage 73, abilities 75, Point Value 73.
+- [x] ProtoMech armor, fractional mass and Electric Discharge ProtoMech Armor (IO:AE pp.58-59, 190): 75 kg a
+  point, one torso item less, 32 Battle Value as a weapon, 1,250 C-bills a point. There is no "UltraProto"
+  armor in the books; Ultraheavy ProtoMechs use the same armor on a larger table.
+- [x] ProtoMech-only weapons: Streak LRM by the tube (TO:AUE p.139, 400 kg a tube, Battle Values from its
+  table) and the Fusillade launcher (IO:AE p.59: 1.5 tons with its two ATM 3 rounds, Battle Value 11).
+- [ ] ProtoMech readings for the user to rule on (2026-10-09). Each is built as stated and noted in the code:
+  1. Plasma cannon: TechManual's equipment table gives it no ProtoMech column (NA), but its ProtoMech
+     Ammunition Weight Table lists it (TM p.88) and the Boggart mounts one (The Wars of Reaving p.211). Entered
+     as ProtoMech-mountable, as MegaMek has it.
+  2. Myomer booster and Battle Value: TM p.306 adds 1 to the speed factor's MP. The Master Unit List uses the
+     boosted Running MP (Siren 4: 88 against our 84; Centaur 4: 228 against 214). Built by the book.
+  3. Chemical laser ammunition: TO:AUE p.131 says 1,000 / shots a ton, rounded up to the kilogram. Rounding
+     each shot gives 34 kg; the published Svartalfa Ultra weighs 15 shots at 500 kg (TRO: Prototypes p.91), so
+     the load is rounded, as TM p.88 does for other ammunition.
+  4. Published designs outside the rules: the Svartalfa Ultra prints 7 armor on a main gun whose limit is 6
+     (IO:AE p.96); the Svartalfa 3 file is 100 kg over; the Gorgon 6 file mounts an Inner Sphere Angel ECM,
+     which a Clan-only ProtoMech cannot (it is left off on import and reported). No exception list yet.
+  5. IO:AE p.96 prints an arm armor limit of 4 for 3 to 5 tons; TM p.82 prints 2 and the table's own Armor
+     Factor column only adds up with 2. Entered as 2 (obvious misprint).
+  6. Master Unit List Battle Values that differ and were left: LRM 3 carriers come out 1 to 2 lower here
+     (TM and MegaMek both value the launcher at 34), magnetic clamp carriers 1 higher (IO:AE p.190 gives the
+     clamp 1), and the ProtoMech AC/2's ammunition is not counted on the Minotaur 4's card.
+  7. Alpha Strike: the cards do not apply the fewer-than-ten-shots reduction (ASC p.101, errata v1.6) to the
+     Procyon 2, Procyon 4 and Minotaur-P2, and give a Glider one Move value where ASC p.124 gives two
+     (2"/8"g). Built by the book. A Glider takes the "VTOL or WiGE Vehicle" +1 in its Defense Factor, as the
+     cards do. The myomer booster moves as MASC does (x 1.25), which the Companion does not say outright.
+  8. Catalog corrections made from the Companion's Clan table (ASC pp.109-110): LB 5-X, Ultra AC/2 and /5,
+     ER small laser, ER PPC (no Extreme value), the three ER pulse lasers, large and medium pulse lasers, the
+     three improved heavy lasers, and the plasma cannon (no damage, heat 7); the Clan active probe now gives PRB.
+- [ ] ProtoMechs still owed: a `.blk` export; the machine gun array (left out until its ProtoMech rules are
+  read); special ammunition's own weights; the heavy and ER flamers' heat sink rule (taken as ammunition-fed
+  or not, not checked against TO:AUE); a list of published exceptions like battle armor's.
 
 ### Small Craft
 

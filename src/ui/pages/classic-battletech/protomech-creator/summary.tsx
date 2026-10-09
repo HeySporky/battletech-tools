@@ -1,6 +1,7 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { FaArrowCircleLeft } from "react-icons/fa";
+import { formatProtoMechASDamage } from '../../../../classes/protomech';
 import { IAppGlobals } from '../../../app-router';
 import ProtoMechCreatorSideMenu from '../../../components/protomech-creator-side-menu';
 import TextSection from '../../../components/text-section';
@@ -19,6 +20,7 @@ export default class ProtoMechCreatorSummary extends React.Component<ISummaryPro
         const issues = proto.getIssues();
         const notes = proto.getNotes();
         const point = proto.getPointSize();
+        const alphaStrike = proto.getAlphaStrikeStats();
 
         return (
             <UIPage current="classic-battletech-protomech-creator" appGlobals={this.props.appGlobals}>
@@ -93,9 +95,30 @@ export default class ProtoMechCreatorSummary extends React.Component<ISummaryPro
                                 priced by the tube except at the standard rack sizes; ammunition is not part of a unit's cost.
                             </p>
 
+                            <h3>Alpha Strike</h3>
+                            <p data-testid="pm-alpha-strike">
+                                <strong>Type</strong>: {alphaStrike.type} &nbsp;|&nbsp;
+                                <strong>Size</strong>: {alphaStrike.size} &nbsp;|&nbsp;
+                                <strong>Move</strong>: {alphaStrike.move} &nbsp;|&nbsp;
+                                <strong>Damage (S/M/L)</strong>: {formatProtoMechASDamage(alphaStrike.damageValues.short)}/{formatProtoMechASDamage(alphaStrike.damageValues.medium)}/{formatProtoMechASDamage(alphaStrike.damageValues.long)} &nbsp;|&nbsp;
+                                <strong>Armor</strong>: {alphaStrike.armor} &nbsp;|&nbsp;
+                                <strong>Structure</strong>: {alphaStrike.structure} &nbsp;|&nbsp;
+                                <strong>Specials</strong>: {alphaStrike.specialAbilities.join(", ") || "none"} &nbsp;|&nbsp;
+                                <strong>Point Value</strong>: {alphaStrike.pointValue}
+                            </p>
+                            <ul data-testid="pm-alpha-strike-log">
+                                {alphaStrike.calcLog.map((line, index) => <li key={index}>{line}</li>)}
+                            </ul>
+                            <p className="smaller-text">
+                                Converted under the Alpha Strike Companion (pp. 92-141) with its errata v1.6; each ProtoMech is its own
+                                unit. A published ProtoMech should use its Master Unit List card: those cards do not reduce damage for
+                                a weapon with fewer than ten shots, and give a Glider one Move value.
+                            </p>
+
                             <div className="clear-both overflow-hidden">
                                 <hr />
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/print-as`} className="btn btn-primary pull-right btn-sm">View Alpha Strike Card</Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/protomech-creator/equipment`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>

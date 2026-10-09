@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getProtoMechLocationLimit, getProtoMechStructureRow, protoMechMissiles, protoMechStructureTable } from "../data/protomech-construction";
-import ProtoMech, { PROTOMECH_HIT_LOCATIONS, getProtoMechCatalogItems, normalizeProtoMechExport } from "./protomech";
+import ProtoMech, { PROTOMECH_HIT_LOCATIONS, formatProtoMechASDamage, getProtoMechCatalogItems, normalizeProtoMechExport } from "./protomech";
 import { importProtoMechBlk } from "./protomech-blk";
 import { BattleMechGroup } from "./battlemech-group";
 
@@ -361,5 +361,91 @@ describe("ProtoMech Points in a roster group", () => {
         expect(new BattleMechGroup(JSON.parse(JSON.stringify(group.export(true)))).protoMechs[0].isDamaged()).toBe(false);
         // A group saved before ProtoMechs has none, and a group without them saves no list.
         expect(new BattleMechGroup().export().protoMechs).toBeUndefined();
+    });
+});
+
+describe("ProtoMech Alpha Strike conversion (ASC pp.92-141, errata v1.6)", () => {
+    const damage = (proto: ProtoMech): string => {
+        const values = proto.getAlphaStrikeStats().damageValues;
+        return [values.short, values.medium, values.long].map(formatProtoMechASDamage).join("/");
+    };
+
+    it("converts the Delphyne-2 as its Master Unit List card: 10\"j, 2/1/0, Armor 1, Structure 1, 13 points", () => {
+        const stats = delphyne().getAlphaStrikeStats();
+        expect(stats.move).toBe("10\"j");
+        expect(stats.tmm).toBe(2);
+        expect(stats.armor).toBe(1);
+        expect(stats.structure).toBe(1);
+        expect(damage(delphyne())).toBe("2/1/0");
+        expect(stats.specialAbilities).toEqual([]);
+        expect(stats.pointValue).toBe(13);
+        const unit = delphyne().getAlphaStrikeUnit();
+        expect(unit.type).toBe("PM");
+        expect(unit.basePoints).toBe(13);
+    });
+
+    it("rates tube launchers by the Cluster Hits Table at 7 and LRMs for indirect fire", () => {
+        const proto = new ProtoMech();
+        proto.setTons(9);
+        proto.setMainGun(true);
+        proto.addMount("pm-lrm", "mainGun", 12);
+        proto.updateMount(0, { shots: 10 });
+        // 12 tubes hit with 8 missiles at a roll of 7: 0.8 at every range, and LRM 1/1/1 with IF 1.
+        expect(damage(proto)).toBe("1/1/1");
+        expect(proto.getAlphaStrikeStats().specialAbilities).toEqual(["IF1"]);
+        // The LRM special needs a full point at Medium range before rounding: 20 tubes, 12 missiles, 1.2.
+        proto.updateMount(0, { tubes: 20 });
+        expect(proto.getAlphaStrikeStats().specialAbilities).toEqual(["IF1", "LRM1/1/1"]);
+        // Fewer than ten shots a weapon: x 0.75 (ASC p.101 as corrected by errata v1.6).
+        proto.updateMount(0, { tubes: 5, shots: 9 });
+        expect(damage(proto)).toBe("0*/0*/0*");
+        expect(proto.getAlphaStrikeStats().specialAbilities).toEqual(["IF0*"]);
+    });
+
+    it("moves a boosted ProtoMech as with MASC and marks energy-only designs ENE", () => {
+        const proto = new ProtoMech();
+        proto.setTons(3);
+        proto.setWalkMP(10);
+        proto.setMyomerBooster(true);
+        proto.addMount("er-micro-laser", "torso");
+        const stats = proto.getAlphaStrikeStats();
+        // 10 MP x 1.25 = 12.5, rounded to 13 MP: 26 inches, as the Siren 4's card has.
+        expect(stats.move).toBe("26\"");
+        expect(stats.specialAbilities).toEqual(["ENE"]);
+        expect(damage(proto)).toBe("0*/0/0");
+    });
+
+    it("gives a Glider two Move values and GLD, and a jump stronger than the ground Move JMPS (ASC p.124; errata v1.6)", () => {
+        const glider = new ProtoMech();
+        glider.setChassis("glider");
+        glider.setTons(14);
+        glider.setWalkMP(4);
+        const stats = glider.getAlphaStrikeStats();
+        expect(stats.move).toBe("2\"/8\"g");
+        expect(stats.specialAbilities).toContain("GLD");
+        const jumper = new ProtoMech();
+        jumper.setTons(15);
+        jumper.setWalkMP(3);
+        jumper.setJump("extended", 5);
+        expect(jumper.getAlphaStrikeStats().move).toBe("6\"/10\"j");
+        expect(jumper.getAlphaStrikeStats().specialAbilities).toContain("JMPS1");
+    });
+
+    it("names clamps by weight, melee systems MEL and a plasma cannon by its heat", () => {
+        const proto = new ProtoMech();
+        proto.setTons(13);
+        proto.setChassis("quad");
+        proto.setMainGun(true);
+        proto.addMount("plasma-cannon", "mainGun");
+        proto.updateMount(0, { shots: 10 });
+        proto.addMount("protomech-quad-melee-system", "torso");
+        const stats = proto.getAlphaStrikeStats();
+        expect(damage(proto)).toBe("0/0/0");
+        expect(stats.specialAbilities).toEqual(["HT1/1/1", "MEL"]);
+        const light = new ProtoMech();
+        light.addMount("protomech-magnetic-clamp", "torso");
+        expect(light.getAlphaStrikeStats().specialAbilities).toContain("MCS");
+        light.setTons(10);
+        expect(light.getAlphaStrikeStats().specialAbilities).toContain("UCS");
     });
 });

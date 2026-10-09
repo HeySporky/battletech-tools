@@ -1,7 +1,7 @@
 import { generateUUID } from "../utils/generateUUID";
 import { IEquipmentItem, IEras } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
-import { getAmmoBattleValuePerTon, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { getProtoMechJumpJetWeightKg, protoMechComponents } from "../data/protomech-components";
 import {
@@ -45,6 +45,7 @@ import {
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { findByTag } from "../data/tag-match";
 import { getMovementModifier } from "../utils";
+import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 
 // A ProtoMech (TechManual pp.80-89; Ultraheavy, Quad and Glider ProtoMechs, IO:AE pp.93-96), built in kilograms.
 // One design stands for a Point of up to five identical ProtoMechs; each tracks its own damage in play.
@@ -136,6 +137,39 @@ export interface IProtoMechWeaponLine {
     long: number;
     shots: number | null;
 }
+
+export interface IProtoMechASDamageValue {
+    damage: number;
+    /** Minimal damage, written 0*. */
+    minimal: boolean;
+}
+
+export interface IProtoMechAlphaStrikeStats {
+    type: "PM";
+    size: number;
+    move: string;
+    tmm: number;
+    armor: number;
+    structure: number;
+    damageValues: { short: IProtoMechASDamageValue; medium: IProtoMechASDamageValue; long: IProtoMechASDamageValue };
+    specialAbilities: string[];
+    pointValue: number;
+    calcLog: string[];
+}
+
+export const formatProtoMechASDamage = (value: IProtoMechASDamageValue): string => (value.minimal ? "0*" : `${value.damage}`);
+
+/** The Cluster Hits Table at a roll of 7, by weapon size (TW p.116). */
+const CLUSTER_HITS_ON_7: number[] = [0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12];
+/** Heat Values at short, medium and long range (Heat-Generating Weaponry Table, ASC p.124). */
+const PROTOMECH_AS_HEAT: Record<string, number[]> = {
+    "clan-flamer": [2, 0, 0],
+    "vehicle-flamer": [2, 0, 0],
+    "clan-heavy-flamer": [4, 0, 0],
+    "clan-er-flamer": [2, 2, 0],
+    "plasma-cannon": [7, 7, 7],
+};
+const roundToHalf = (value: number): number => Math.round(value * 2 + 1e-9) / 2;
 
 const round2 = (value: number): number => Math.round(value * 100) / 100;
 const roundNormally = (value: number): number => Math.floor(value + 0.5);
@@ -831,6 +865,219 @@ export default class ProtoMech {
     public getCBillCost(): number { return this._calcCost().value; }
     public getCBillCostLog(): string[] { return this._calcCost().log; }
     public getPointCBillCost(): number { return this.getCBillCost() * this._pointSize; }
+
+    // Alpha Strike (Alpha Strike Companion pp.92-141, with errata v1.6) ----------------------------------------
+
+    /** Alpha Strike damage of a mount at short, medium and long range, before any rounding. */
+    private _alphaStrikeDamage(mount: IProtoMechMount): [number, number, number] {
+        const missile = this.getMissile(mount);
+        if (missile) {
+            // The Companion's missile values are the Cluster Hits Table at a roll of 7 (TW p.116), a tenth of a point
+            // a missile, doubled for SRMs; Streak launchers hit with every tube (ASC pp.110, 112).
+            const tubes = mount.tubes ?? 1;
+            const hits = missile.family.startsWith("streak") ? tubes : CLUSTER_HITS_ON_7[tubes] ?? tubes;
+            const value = hits * (missile.family.endsWith("srm") ? 0.2 : 0.1);
+            return missile.family.endsWith("lrm") ? [value, value, value] : [value, value, 0];
+        }
+        const special = this.getSpecial(mount);
+        if (special) return special.tag === "protomech-fusillade" ? [0.45, 0.3, 0] : [0, 0, 0];
+        const values = findCatalogItem(mount.tag)?.alphaStrike;
+        return values ? [values.rangeShort || 0, values.rangeMedium || 0, values.rangeLong || 0] : [0, 0, 0];
+    }
+
+    public getAlphaStrikeStats(): IProtoMechAlphaStrikeStats {
+        const log: string[] = [];
+        const specials: string[] = [];
+        const add = (code: string): void => { if (!specials.includes(code)) specials.push(code); };
+        const tmmOf = (inches: number): number => (inches >= 35 ? 5 : inches >= 19 ? 4 : inches >= 13 ? 3 : inches >= 9 ? 2 : inches >= 5 ? 1 : 0);
+
+        // Move: 2 inches a MP; a myomer booster counts as MASC, x 1.25 on the ground (ASC p.93).
+        const groundMP = this.hasMyomerBooster() ? Math.round(this.getGroundWalkMP() * 1.25 + 1e-9) : this.getGroundWalkMP();
+        const ground = groundMP * 2;
+        const jump = this.getJumpMP() * 2;
+        const glide = this.isGlider() ? this._walkMP * 2 : 0;
+        const umu = this.getUMUMP() * 2;
+        let move = `${ground}"`;
+        if (glide > 0) { move = `${ground}"/${glide}"g`; add("GLD"); }
+        else if (jump > 0) move = jump === ground ? `${ground}"j` : `${ground}"/${jump}"j`;
+        if (umu > 0) { move += `/${umu}"s`; add("UMU"); }
+        const best = Math.max(ground, jump, glide, umu);
+        // The target movement modifier never comes from a jumping Move over a non-jumping one (errata v1.6, p.141).
+        const primary = Math.max(ground, glide);
+        const tmm = tmmOf(primary);
+        const jumpDifference = jump > 0 ? tmmOf(jump) - tmm : 0;
+        if (jumpDifference > 0) add(`JMPS${jumpDifference}`);
+        if (jumpDifference < 0) add(`JMPW${-jumpDifference}`);
+        log.push(`Move: ${move}${this.hasMyomerBooster() ? " (myomer booster, as MASC: x 1.25)" : ""}; target movement modifier +${tmm}`);
+
+        // Armor: armor factor / 30, rounded; Structure is always 1 (ASC pp.95, 97).
+        const armor = Math.round(this.getTotalArmor() / 30 + 1e-9);
+        const structure = 1;
+        log.push(`Armor: ${this.getTotalArmor()} / 30 = ${(this.getTotalArmor() / 30).toFixed(2)}, rounded to ${armor}. Structure: ${structure}`);
+
+        // Damage: forward weapons, or the rear ones if they do more (ASC p.100). Under 10 shots: x 0.75 (ASC p.101).
+        const sum = (mounts: IProtoMechMount[]): number[] => {
+            const total = [0, 0, 0];
+            for (const mount of mounts) {
+                const few = this.usesAmmo(mount) && !this.getSpecial(mount) && this._shotsFor(mount) < 10;
+                this._alphaStrikeDamage(mount).forEach((value, range) => { total[range] += value * (few ? 0.75 : 1); });
+            }
+            return total;
+        };
+        const front = this._mounts.filter((mount) => !mount.rear);
+        const rear = this._mounts.filter((mount) => !!mount.rear);
+        const useRear = sum(rear).reduce((a, b) => a + b, 0) > sum(front).reduce((a, b) => a + b, 0);
+        const firing = useRear ? rear : front;
+        const total = sum(firing);
+        const value = (damage: number): IProtoMechASDamageValue =>
+            damage <= 1e-9 ? { damage: 0, minimal: false } : damage < 0.5 ? { damage: 0, minimal: true } : { damage: Math.ceil(damage - 1e-9), minimal: false };
+        const rated = (damage: number): IProtoMechASDamageValue =>
+            damage <= 1e-9 ? { damage: 0, minimal: false } : damage < 0.5 ? { damage: 0, minimal: true } : { damage: Math.round(damage + 1e-9), minimal: false };
+        const damageValues = { short: value(total[0]), medium: value(total[1]), long: value(total[2]) };
+        log.push(`Damage: ${total.map((item) => item.toFixed(3)).join(" / ")}${useRear ? " (rear weapons)" : ""}, giving ${formatProtoMechASDamage(damageValues.short)}/${formatProtoMechASDamage(damageValues.medium)}/${formatProtoMechASDamage(damageValues.long)}`);
+
+        // Special abilities (ASC pp.117-133).
+        const family = (name: string): IProtoMechMount[] => firing.filter((mount) => this.getMissile(mount)?.family === name);
+        const lrm = sum(family("lrm"));
+        const srm = sum(family("srm"));
+        const autocannon = sum(firing.filter((mount) => mount.tag.startsWith("protomech-autocannon-")));
+        const flak = sum(firing.filter((mount) => (findCatalogItem(mount.tag)?.alphaStrike?.notes ?? []).some((note) => note.toLowerCase() === "flak")));
+        const iatm = sum(firing.filter((mount) => mount.tag === "protomech-fusillade"));
+        const triple = (values: number[], ranges: number): string => values.slice(0, ranges).map((item) => formatProtoMechASDamage(rated(item))).join("/");
+        if (lrm[1] >= 1) add(`LRM${triple(lrm, 3)}`);
+        if (srm[1] >= 1) add(`SRM${triple(srm, 2)}`);
+        if (autocannon[1] >= 1) add(`AC${triple(autocannon, 3)}`);
+        if (flak.some((item) => item > 1e-9)) add(`FLK${triple(flak, 3)}`);
+        if (iatm[1] >= 1) add(`IATM${triple(iatm, 3)}`);
+        // Indirect fire is rated by the Long range value of the LRMs (ASC p.125).
+        const indirect = rated(lrm[2]);
+        if (lrm[2] > 1e-9) add(`IF${formatProtoMechASDamage(indirect)}`);
+        // Heat: 5 to 10 points at a range bracket rate 1, 11 or more rate 2 (ASC p.124).
+        const heat = [0, 0, 0];
+        for (const mount of firing) (PROTOMECH_AS_HEAT[mount.tag] ?? [0, 0, 0]).forEach((points, range) => { heat[range] += points; });
+        const heatRatings = heat.map((points) => (points >= 11 ? 2 : points >= 5 ? 1 : 0));
+        if (heatRatings.some((rating) => rating > 0)) add(`HT${heatRatings.map((rating) => rating || "-").join("/")}`);
+        for (const mount of this._mounts) {
+            const item = this.getSpecial(mount) ? undefined : this.getMissile(mount) ? undefined : findCatalogItem(mount.tag);
+            if (item) for (const code of getAlphaStrikeEquipmentAbilityCodes(item)) add(code);
+            if (mount.tag === "protomech-magnetic-clamp") add(this.isUltraheavy() ? "UCS" : "MCS");
+            if (mount.tag === "protomech-melee-weapon" || mount.tag === "protomech-quad-melee-system") add("MEL");
+        }
+        if (["PRB", "LPRB", "BH", "WAT"].some((code) => specials.includes(code)) || this._mounts.some((mount) => mount.tag === "recon-camera")) add("RCN");
+        // Energy: nothing that feeds on ammunition, and no improved heavy lasers (ASC p.122).
+        const explosive = this._mounts.some((mount) => this.usesAmmo(mount) || !!this.getSpecial(mount)?.fixedShots || mount.tag.startsWith("clan-improved-heavy-"));
+        if (!explosive) add("ENE");
+        specials.sort();
+
+        // Point Value (ASC pp.138-141 as corrected by errata v1.6).
+        const points = (item: IProtoMechASDamageValue): number => (item.minimal ? 0.5 : item.damage);
+        const short = points(damageValues.short);
+        const medium = points(damageValues.medium);
+        const long = points(damageValues.long);
+        let offensive = short + medium * 2 + long + 0.5;
+        const offensiveParts: string[] = [`${short} + 2 x ${medium} + ${long}`, "0.5 (half its Size)"];
+        const addOffensive = (label: string, amount: number): void => { if (amount > 0) { offensive += amount; offensiveParts.push(`${amount} (${label})`); } };
+        const heatValue = Math.max(...heatRatings);
+        addOffensive("HT", heatValue > 0 ? heatValue + (heatRatings[1] > 0 ? 0.5 : 0) : 0);
+        addOffensive("IF", lrm[2] > 1e-9 ? points(indirect) : 0);
+        addOffensive("IATM", iatm[1] >= 1 ? points(rated(iatm[2])) : 0);
+        addOffensive("SNARC", specials.includes("SNARC") ? 1 : 0);
+        addOffensive("TAG", specials.includes("TAG") ? 0.5 : 0);
+        addOffensive("LTAG", specials.includes("LTAG") ? 0.25 : 0);
+        addOffensive("MEL", specials.includes("MEL") ? 0.5 : 0);
+        log.push(`Offensive Value: ${offensiveParts.join(" + ")} = ${offensive}`);
+
+        const jumps = jump > 0;
+        const unarmed = short + medium + long === 0;
+        // Movement modifier, + 1 for a ProtoMech, + half of JMPS; the jump-capable + 1 only for a unit with no damage values.
+        // The table's "VTOL or WiGE Vehicle" + 1 is given to a Glider too, as the Master Unit List's cards do.
+        const defenseModifier = tmm + 1 + Math.max(0, jumpDifference) / 2 + (jumps && unarmed ? 1 : 0) + (glide > 0 ? 1 : 0);
+        const defenseFactor = 1 + (defenseModifier <= 2 ? 0.1 : 0.25) * defenseModifier;
+        const interaction = roundToHalf((armor * 2 + structure) * defenseFactor);
+        let defensive = best / 8 + (jumps ? 0.5 : 0);
+        const defensiveParts: string[] = [`${best} / 8${jumps ? " + 0.5 (jump)" : ""} = ${defensive}`];
+        if (specials.includes("AMS")) { defensive += 1; defensiveParts.push("1 (AMS)"); }
+        defensive += interaction;
+        defensiveParts.push(`(Armor ${armor} x 2 + Structure ${structure}) x ${defenseFactor.toFixed(2)} = ${interaction}`);
+        log.push(`Defensive Value: ${defensiveParts.join(" + ")} = ${defensive}`);
+
+        const subTotal = offensive + defensive;
+        const agileTMM = tmm + Math.max(0, jumpDifference) / 2;
+        let agile = 0;
+        if (agileTMM > 1 && medium > 0) agile = (agileTMM - 1) * medium;
+        else if (medium === 0 && tmm >= 3) agile = (agileTMM - 2) * short;
+        agile = roundToHalf(agile);
+        if (agile > 0) log.push(`Agile: + ${agile}`);
+        // Brawler: slow units that reach no farther than Short or Medium range (errata v1.6, p.141).
+        let brawler = 0;
+        const shielded = specials.some((code) => code === "ECM" || code === "AECM" || code === "WAT");
+        if (!unarmed && best >= 2 && !shielded) {
+            const shortOnly = medium === 0 && long === 0;
+            if (best >= 6 && best <= 10 && shortOnly) brawler = subTotal * 0.25;
+            else if (best <= 5 && shortOnly) brawler = subTotal * 0.5;
+            else if (best <= 5 && long === 0) brawler = subTotal * 0.25;
+        }
+        brawler = roundToHalf(brawler);
+        if (brawler > 0) log.push(`Brawler: - ${brawler}`);
+        let force = 0;
+        if (specials.includes("AECM")) force += 3;
+        if (specials.includes("ECM") || specials.includes("WAT")) force += 2;
+        if (specials.includes("PRB") || specials.includes("LPRB")) force += 1;
+        if (specials.includes("RCN")) force += 2;
+        if (force > 0) log.push(`Force bonuses (ECM, probe, Recon): + ${force}`);
+        const final = subTotal + agile - brawler + force;
+        const pointValue = Math.max(1, Math.round(final + 1e-9));
+        log.push(`Point Value: ${subTotal} ${agile > 0 ? `+ ${agile} ` : ""}${brawler > 0 ? `- ${brawler} ` : ""}${force > 0 ? `+ ${force} ` : ""}= ${final}, rounded to ${pointValue}`);
+
+        return { type: "PM", size: 1, move, tmm, armor, structure, damageValues, specialAbilities: specials, pointValue, calcLog: log };
+    }
+
+    /** Shots carried for the weapon type a mount belongs to, shared by every mount of that type. */
+    private _shotsFor(mount: IProtoMechMount): number {
+        const key = this._mountKey(mount);
+        const same = this._mounts.filter((item) => this._mountKey(item) === key);
+        return same.reduce((sum, item) => sum + this.getShots(item), 0) / same.length;
+    }
+
+    /** The converted Alpha Strike card, built the same way as a Master Unit List record. */
+    public getAlphaStrikeUnit(): AlphaStrikeUnit {
+        const stats = this.getAlphaStrikeStats();
+        const damage = stats.damageValues;
+        const record = {
+            Id: 0,
+            Name: this.getDisplayName(),
+            Class: "ProtoMech",
+            Variant: "",
+            Tonnage: this._tons,
+            Cost: this.getCBillCost(),
+            BattleValue: this.getBattleValue(),
+            BFType: stats.type,
+            BFSize: stats.size,
+            BFMove: stats.move,
+            BFTMM: stats.tmm,
+            BFArmor: stats.armor,
+            BFStructure: stats.structure,
+            BFThreshold: 0,
+            BFDamageShort: damage.short.damage,
+            BFDamageMedium: damage.medium.damage,
+            BFDamageLong: damage.long.damage,
+            BFDamageExtreme: 0,
+            BFDamageShortMin: damage.short.minimal,
+            BFDamageMediumMin: damage.medium.minimal,
+            BFDamageLongMin: damage.long.minimal,
+            BFDamageExtremeMin: false,
+            BFOverheat: 0,
+            BFPointValue: stats.pointValue,
+            BFAbilities: stats.specialAbilities.join(","),
+            Role: { Id: 0, Name: "None", Image: null, SortOrder: 0 },
+            Technology: { Id: 0, Name: this._interfaceCockpit ? "Mixed" : "Clan", Image: null, SortOrder: 0 },
+            Type: { Id: 0, Name: "ProtoMech", Image: null, SortOrder: 0 },
+        } as unknown as IASMULUnit;
+        const unit = new AlphaStrikeUnit();
+        unit.importMUL(record);
+        unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        return unit;
+    }
 
     // Record sheet ---------------------------------------------------------------------------------------------
 

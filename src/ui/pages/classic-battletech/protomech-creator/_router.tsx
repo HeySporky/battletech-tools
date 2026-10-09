@@ -7,6 +7,7 @@ import ProtoMechCreatorChassis from './chassis';
 import ProtoMechCreatorEquipment from './equipment';
 import ProtoMechCreatorSummary from './summary';
 import ProtoMechCreatorRecordSheet from './record-sheet';
+import ProtoMechCreatorPrintAS from './print-as';
 
 import type { JSX } from "react";
 
@@ -25,6 +26,10 @@ export default class ProtoMechCreatorRouter extends React.Component<IProtoMechCr
 
                 <Route path={`equipment`} element={
                     <ProtoMechCreatorEquipment appGlobals={this.props.appGlobals} />
+                }/>
+
+                <Route path={`print-as`} element={
+                    <ProtoMechCreatorPrintAS appGlobals={this.props.appGlobals} />
                 }/>
 
                 <Route path={`summary`} element={

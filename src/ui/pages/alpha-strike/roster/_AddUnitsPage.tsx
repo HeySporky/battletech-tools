@@ -6,6 +6,7 @@ import { BattleMech } from '../../../../classes/battlemech';
 import AerospaceFighter from '../../../../classes/aerospace-fighter';
 import InfantryPlatoon from '../../../../classes/infantry-platoon';
 import BattleArmor from '../../../../classes/battle-armor';
+import ProtoMech from '../../../../classes/protomech';
 import { isMULSourceSelection, loadMULListItems, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
 import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
@@ -1150,6 +1151,72 @@ title="View this unit's Alpha Strike Card"
                     </tbody>
                     );
                 });
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.protoMechSaves && this.props.appGlobals.protoMechSaves.length > 0 ? (
+    <TextSection
+        label="Your Created ProtoMechs"
+    >
+        <table className="table" data-testid="as-protomech-saves">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.protoMechSaves.map( (save, unitIndex) => {
+                // Converted from the saved design, one ProtoMech to a card; a published ProtoMech should use its Master Unit List card.
+                const proto = new ProtoMech( JSON.stringify(save) );
+                const asUnit = proto.getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this ProtoMech to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this ProtoMech to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this ProtoMech's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {proto.getAlphaStrikeStats().move}&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                );
             })}
         </table>
     </TextSection>
