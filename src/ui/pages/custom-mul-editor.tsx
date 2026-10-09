@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { JSX } from 'react';
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { getMULDisplayName, IASMULUnit } from '../../classes/alpha-strike-unit';
-import { CONST_CUSTOM_MUL_GITHUB_OWNER, CONST_CUSTOM_MUL_GITHUB_REPO } from '../../configVars';
+import { CONST_CUSTOM_MUL_GITHUB_OWNER, CONST_CUSTOM_MUL_GITHUB_REPO, CONST_CUSTOM_MUL_SUBMISSION_ENABLED } from '../../configVars';
 import {
     buildCustomMULRecord,
     customMULRecordToForm,
@@ -75,6 +75,9 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
             this.setState({
                 canonicalIdentities: new Set(units.map((unit) => mulIdentity(unit.Name, unit.Variant))),
             });
+        }).catch((error) => {
+            // The list stays unloaded, and an entry cannot be saved until it loads (see _buildRecord).
+            console.error("Unable to load the Master Unit List to check custom names against", error);
         });
     }
 
@@ -119,9 +122,15 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
             return null;
         }
 
+        // Without the canonical list the name cannot be checked: never save, or propose, an unchecked entry.
+        if (!this.state.canonicalIdentities) {
+            this.setState({ editErrors: ["The Master Unit List has not loaded, so this name cannot be checked against the canonical units. Wait a moment and try again, or reload the page."] });
+            return null;
+        }
+
         const errors = validateCustomMULForm(form, {
             customRecords: [...this.state.localRecords, ...sharedRecords],
-            canonicalIdentities: this.state.canonicalIdentities ?? undefined,
+            canonicalIdentities: this.state.canonicalIdentities,
             editingKey: this.state.editKey ?? undefined,
         });
         if (errors.length > 0) {
@@ -180,6 +189,9 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
     }
 
     submitEntries = async (entries: IASMULUnit[]): Promise<void> => {
+        if (!CONST_CUSTOM_MUL_SUBMISSION_ENABLED) {
+            return;
+        }
         if (entries.length === 0) {
             return;
         }
@@ -380,7 +392,7 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
         const local = [...this.state.localRecords].sort(byName);
         const shared = [...sharedRecords].sort(byName);
         const selected = this.state.localRecords.filter((record) => this.state.selectedKeys.includes(record.MulUnitKey ?? ""));
-        const canSubmit = !this.state.isSubmittingContribution && this.state.githubToken.trim() !== "";
+        const canSubmit = CONST_CUSTOM_MUL_SUBMISSION_ENABLED && !this.state.isSubmittingContribution && this.state.githubToken.trim() !== "";
 
         return (
             <UIPage current="custom-mul-editor" appGlobals={this.props.appGlobals}>
@@ -395,8 +407,8 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
                         onClose={this.closeEdit}
                         onSave={this.saveEditLocally}
                         labelSave="Save Locally"
-                        onSaveAsNew={this.saveEditAndSubmit}
-                        labelSaveAsNew="Save Locally + Submit PR"
+                        onSaveAsNew={CONST_CUSTOM_MUL_SUBMISSION_ENABLED ? this.saveEditAndSubmit : undefined}
+                        labelSaveAsNew={CONST_CUSTOM_MUL_SUBMISSION_ENABLED ? "Save Locally + Submit PR" : undefined}
                         title={this.state.editKey ? `Editing ${this.state.editForm.name || "Custom Unit"}` : "New Custom Unit"}
                     >
                         {this._renderEditForm()}
@@ -426,7 +438,11 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
                     </p>
                     <ul className="no-margins">
                         <li><strong>Save Locally</strong> keeps an entry in this browser; it shows up in your own searches right away.</li>
-                        <li><strong>Submit PR</strong> proposes entries for the shared list ({CONST_CUSTOM_MUL_GITHUB_OWNER}/{CONST_CUSTOM_MUL_GITHUB_REPO}) so everyone gets them once merged.</li>
+                        {CONST_CUSTOM_MUL_SUBMISSION_ENABLED ? (
+                            <li><strong>Submit PR</strong> proposes entries for the shared list ({CONST_CUSTOM_MUL_GITHUB_OWNER}/{CONST_CUSTOM_MUL_GITHUB_REPO}) so everyone gets them once merged.</li>
+                        ) : (
+                            <li>Proposing entries for the shared list from this page is switched off for now. To share an entry, open a pull request against <code>src/data/mul/custom/custom-units.json</code> yourself.</li>
+                        )}
                     </ul>
                 </div>
 
@@ -466,24 +482,28 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
                         ) : local.map((record) => (
                             <tr key={record.MulUnitKey}>
                                 <td className="min-width">
-                                    <input
-                                        type="checkbox"
-                                        title="Include in the next pull request"
-                                        checked={this.state.selectedKeys.includes(record.MulUnitKey ?? "")}
-                                        onChange={() => this.toggleSelected(record.MulUnitKey ?? "")}
-                                    />
+                                    {CONST_CUSTOM_MUL_SUBMISSION_ENABLED ? (
+                                        <input
+                                            type="checkbox"
+                                            title="Include in the next pull request"
+                                            checked={this.state.selectedKeys.includes(record.MulUnitKey ?? "")}
+                                            onChange={() => this.toggleSelected(record.MulUnitKey ?? "")}
+                                        />
+                                    ) : null}
                                 </td>
                                 <td className="min-width no-wrap">
                                     <button className="btn btn-primary btn-sm" title="Edit" onClick={() => this.openEdit(record)}><Edit /></button>
                                     <button className="btn btn-danger btn-sm" title="Delete from this browser" onClick={() => this.removeRecord(record)}><Trash /></button>
-                                    <button
-                                        className="btn btn-secondary btn-sm"
-                                        title={canSubmit ? "Submit this entry as a pull request" : "Enter a GitHub token below to submit"}
-                                        disabled={!canSubmit}
-                                        onClick={() => void this.submitEntries([record])}
-                                    >
-                                        Submit PR
-                                    </button>
+                                    {CONST_CUSTOM_MUL_SUBMISSION_ENABLED ? (
+                                        <button
+                                            className="btn btn-secondary btn-sm"
+                                            title={canSubmit ? "Submit this entry as a pull request" : "Enter a GitHub token below to submit"}
+                                            disabled={!canSubmit}
+                                            onClick={() => void this.submitEntries([record])}
+                                        >
+                                            Submit PR
+                                        </button>
+                                    ) : null}
                                 </td>
                                 <td>{getMULDisplayName(record)}</td>
                                 {this._renderStatsCells(record)}
@@ -496,7 +516,7 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
                         ))}
                     </tbody>
                 </table>
-                {local.length > 0 ? (
+                {CONST_CUSTOM_MUL_SUBMISSION_ENABLED && local.length > 0 ? (
                     <div className="text-right">
                         <button
                             className="btn btn-primary btn-sm"
@@ -508,42 +528,44 @@ export default class CustomMULEditor extends React.Component<ICustomMULEditorPro
                     </div>
                 ) : null}
 
+                {CONST_CUSTOM_MUL_SUBMISSION_ENABLED ? (
                 <div className="alert alert-secondary">
-                    <h4>Submit to the shared list</h4>
-                    <p>
-                        Pull requests use your own GitHub personal access token (needs the <code>public_repo</code> scope). The token is
-                        used only to call GitHub's API directly from your browser - this app has no backend and never sees or stores it.
-                        Each pull request adds your entries to the shared list as it currently exists on GitHub.
-                    </p>
-                    <label>
-                        GitHub Personal Access Token:<br />
-                        <input
-                            type="password"
-                            autoComplete="off"
-                            value={this.state.githubToken}
-                            onChange={this.updateGithubToken}
-                            className="width-auto"
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={this.state.rememberGithubToken}
-                            onChange={this.toggleRememberGithubToken}
-                        />
-                        &nbsp;Remember token for this browser tab only
-                    </label>
-                    {this.state.isSubmittingContribution ? <div className="alert alert-info">Submitting pull request…</div> : null}
-                    {this.state.contributionPullRequestUrl ? (
-                        <div className="alert alert-success">
-                            Pull request created: <a href={this.state.contributionPullRequestUrl} target="_blank" rel="noopener noreferrer">{this.state.contributionPullRequestUrl}</a>
-                        </div>
-                    ) : null}
-                    {this.state.contributionError ? (
-                        <div className="alert alert-danger">{this.state.contributionError}</div>
-                    ) : null}
-                </div>
+                        <h4>Submit to the shared list</h4>
+                        <p>
+                            Pull requests use your own GitHub personal access token (needs the <code>public_repo</code> scope). The token is
+                            used only to call GitHub's API directly from your browser - this app has no backend and never sees or stores it.
+                            Each pull request adds your entries to the shared list as it currently exists on GitHub.
+                        </p>
+                        <label>
+                            GitHub Personal Access Token:<br />
+                            <input
+                                type="password"
+                                autoComplete="off"
+                                value={this.state.githubToken}
+                                onChange={this.updateGithubToken}
+                                className="width-auto"
+                            />
+                        </label>
+                        <br />
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={this.state.rememberGithubToken}
+                                onChange={this.toggleRememberGithubToken}
+                            />
+                            &nbsp;Remember token for this browser tab only
+                        </label>
+                        {this.state.isSubmittingContribution ? <div className="alert alert-info">Submitting pull request…</div> : null}
+                        {this.state.contributionPullRequestUrl ? (
+                            <div className="alert alert-success">
+                                Pull request created: <a href={this.state.contributionPullRequestUrl} target="_blank" rel="noopener noreferrer">{this.state.contributionPullRequestUrl}</a>
+                            </div>
+                        ) : null}
+                        {this.state.contributionError ? (
+                            <div className="alert alert-danger">{this.state.contributionError}</div>
+                        ) : null}
+                    </div>
+                ) : null}
 
                 <h3>Shared List (shipped with the app)</h3>
                 <table className="table">
