@@ -902,11 +902,12 @@ export default class Vehicle {
     public getAvailableArmorTypes(rulesLevel: number = 2): IArmorType[] {
         const techTag = this.getTech().tag;
         const isMixed = techTag === "mis" || techTag === "mclan";
+        // Copies: the availability marks are this vehicle's, and the shared table also serves 'Mechs.
         const armorTypes = mechArmorTypes.filter((armor) => armor.unitTypes.combatVehicle
             && (this._motiveType.allowsHardenedArmor || armor.tag !== "hardened")
             && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && (isMixed
             ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
-            : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0));
+            : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0)).map((armor) => ({ ...armor }));
         for (const armor of armorTypes) {
             const availability = this._techDatesAvailability(armor, rulesLevel);
             armor.available = availability.available;
@@ -919,7 +920,7 @@ export default class Vehicle {
     public getAvailableEngineTypes(rulesLevel: number = 2): IEngineType[] {
         const techTag = this.getTech().tag;
         const bases: ("is" | "clan")[] = techTag === "is" ? ["is"] : techTag === "clan" ? ["clan"] : ["is", "clan"];
-        const engineTypes = mechEngineTypes.filter((engine) => bases.some((base) => engine.criticals[base]));
+        const engineTypes = mechEngineTypes.filter((engine) => bases.some((base) => engine.criticals[base])).map((engine) => ({ ...engine }));
         for (const engine of engineTypes) {
             const availability = bases.filter((base) => engine.criticals[base])
                 .map((base) => this._datesAvailability(base === "clan" ? engine.clanDates ?? engine : engine, rulesLevel));

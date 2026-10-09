@@ -36,7 +36,8 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
             const files = await Promise.all([...fileList].map(async (file) => ({ fileName: file.name, xml: await file.text() })));
             const { results, drafts, saved } = await runSSWImportSession(files);
             const selected: Record<number, boolean> = {};
-            results.forEach((result, index) => { selected[index] = result.status !== "failed"; });
+            // A design missing a canon item has understated weight, BV and cost: the user ticks it knowingly.
+            results.forEach((result, index) => { selected[index] = result.status !== "failed" && result.status !== "canonPending"; });
             this.setState({ results, drafts, selected, openRow: -1, storageWarning: !saved });
         } catch (error) {
             this.setState({ error: `The import stopped: ${String(error)}` });
@@ -105,6 +106,7 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
                                 <div className="card card-body mb-3" data-testid="ssw-import-detail">
                                     <h4>{open.designName}</h4>
                                     {open.failureReason ? <div className="alert alert-danger">{open.failureReason}</div> : null}
+                                    {open.status === "canonPending" ? <div className="alert alert-warning" data-testid="ssw-import-canon-missing">A canon item this design uses is not in the catalogs yet, so it was left off: weight, BV and cost are understated. The design is not ticked for saving.</div> : null}
                                     {this.incompleteCustomStats(open) ? <div className="alert alert-warning">Incomplete custom stats: BV, heat and cost are not reliable until the placeholders' stats are entered.</div> : null}
                                     {open.unresolved.length > 0 ? (
                                         <>

@@ -1262,10 +1262,15 @@ export default class ProtoMech {
     }
 
     /** Applies damage to a location, passing what is left over to the torso (TW p.186). */
+    /** Where a hit lands on this chassis: a location it lacks passes an arm hit to the legs and any other to the torso. */
+    public resolveHitLocation(location: ProtoMechLocation): ProtoMechLocation {
+        return this.getLocations().includes(location) ? location : location === "la" || location === "ra" ? "legs" : "torso";
+    }
+
     public applyDamage(unit: number, location: ProtoMechLocation, points: number): string[] {
         const log: string[] = [];
         if (unit < 0 || unit >= this._pointSize || points <= 0) return log;
-        let target: ProtoMechLocation = this.getLocations().includes(location) ? location : location === "la" || location === "ra" ? "legs" : "torso";
+        let target: ProtoMechLocation = this.resolveHitLocation(location);
         if (target !== location) log.push(`No ${PROTOMECH_LOCATION_NAMES[location]}: the hit goes to the ${this.getLocationName(target)}.`);
         let left = Math.round(points);
         for (let pass = 0; pass < 2 && left > 0; pass++) {

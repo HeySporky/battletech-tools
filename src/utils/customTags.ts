@@ -36,5 +36,6 @@ export function finalizeTag(provisionalTag: string, submitter: string): string {
 
 /** The faction a custom tag names ("is" or "clan"), or null for a universal or legacy tag. */
 export function customTagFaction(tag: string): "is" | "clan" | null {
-    return (/^(?:ammo-)?[a-z0-9_]+-(is|clan)-/.exec(tag)?.[1] as "is" | "clan" | undefined) ?? null;
+    // A submitter name may itself hold hyphens (sanitizeSubmitter), so the faction is the first -is- or -clan- part.
+    return (/^(?:ammo-)?[a-z0-9]+(?:-[a-z0-9]+)*?-(is|clan)-/.exec(tag)?.[1] as "is" | "clan" | undefined) ?? null;
 }

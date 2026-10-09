@@ -685,6 +685,21 @@ Status 2026-10-09: upstream draft PR #115 (branch `bundle/unit-builders-and-cata
 bundle: every open PR except #92 and #97, plus the unit builders, rules levels and rules editions. It leaves out
 `.claude/` and the local Ollama worker tools. Update it (merge this branch, drop those files again) as work lands.
 
+- [ ] From the review of #115 (fleetfootmike, 2026-10-09), still open:
+  - Scope, for the user to decide: `building.ts` ships a full in-play combat engine; the Custom MUL editor
+    (`custom-mul.ts`, `/custom-mul-editor`) is in the bundle though it is not in the feature list. Keep both in
+    #115, or split them out.
+  - `tools/mul-sync/sync-mul.mjs`: the live-to-legacy era id table has no entry for ids 1 and 9. 494 bundled
+    records carry era id 1 unmapped. Which legacy era each is has to come from the site's era list.
+  - Reported as already on upstream master, not fixed here: Alpha Strike value adds Medium damage twice and
+    uses ground movement for jump-heavy units; restored favourite groups are not saved; three ammunition Battle
+    Values out of step with their Clan twins (IS LB 5-X cluster, IS Thumper Copperhead, IS Arrow IV Homing);
+    the roster footer counts only 'Mechs.
+  - The 'Mech armor, engine, gyro and other option lists still mark availability on the shared tables (as
+    upstream does); vehicles now mark copies. A 'Mech viewed after another 'Mech can still show the other's marks.
+  - Kept as the book prints them, against the review: Firedrake needler range 1 and Dragonsbane pulse laser
+    range 3 (TM infantry tables v4.1); ProtoMech Extended Jump Jets at Standard ("Tournament Legal", IO:AE p.59).
+
 Status 2026-10-02: rebased on upstream master (after #85), split into seven branches and opened upstream
 in HeySporky/battletech-tools. All of it is merged into local `master` together with the SSW runtime import.
 

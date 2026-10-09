@@ -440,8 +440,9 @@ function parseDetailIntoRecord(detail, roleName) {
         const ovMatch = chip.match(/^OV\s+(\d+)$/i);
 
         if (dmgMatch) {
+            // Ground units with no Extreme range print three values ("2/2/1"): a missing part is 0, not a crash.
             const [s, m, l, e] = dmgMatch[1].split("/");
-            const parse = (value) => ({ value: Number(String(value).replace("*", "")) || 0, minimal: value.includes("*") });
+            const parse = (value = "") => ({ value: Number(String(value).replace("*", "")) || 0, minimal: String(value).includes("*") });
             const short = parse(s);
             const medium = parse(m);
             const long = parse(l);
@@ -473,8 +474,51 @@ function parseDetailIntoRecord(detail, roleName) {
     return record;
 }
 
+/**
+ * Drops the unit's role from its special abilities. The detail page repeats the role as a chip, and runs before
+ * the role-name fix stored it as an ability on nearly every record ("AC 2/2/-,CASE,Brawler").
+ */
+function stripRoleFromAbilities(record) {
+    const roleName = String(record?.Role?.Name ?? "").trim();
+    if (!roleName || typeof record.BFAbilities !== "string" || record.BFAbilities === "") return false;
+    const abilities = record.BFAbilities.split(",").map((ability) => ability.trim());
+    const kept = abilities.filter((ability) => ability !== roleName);
+    if (kept.length === abilities.length) return false;
+    record.BFAbilities = kept.join(",");
+    return true;
+}
+
+/** Writes src/data/mul/live/*.json from the store, from scratch: cheap, deterministic, no incremental patching. */
+async function writeLiveChunks(store) {
+    await fs.rm(liveMulDir, { recursive: true, force: true });
+    await fs.mkdir(liveMulDir, { recursive: true });
+
+    const records = Object.values(store.units)
+        .map((u) => u.record)
+        .sort((a, b) => a.Id - b.Id);
+
+    for (let i = 0; i < records.length; i += CHUNK_SIZE) {
+        const chunk = records.slice(i, i + CHUNK_SIZE);
+        const first = chunk[0].Id;
+        const last = chunk[chunk.length - 1].Id;
+        await saveJson(path.join(liveMulDir, `mul_live_${first}_to_${last}.json`), chunk);
+    }
+
+    console.log(`Wrote ${records.length} live units across ${Math.ceil(records.length / CHUNK_SIZE)} chunk file(s).`);
+}
+
 async function main() {
     const store = await loadJson(storePath, { units: {} });
+
+    // MUL_SYNC_OFFLINE=1: no browser and no network. Clean the store and rewrite the chunk files from it.
+    if (process.env.MUL_SYNC_OFFLINE === "1") {
+        const cleaned = Object.values(store.units).filter((unit) => unit.record && stripRoleFromAbilities(unit.record)).length;
+        console.log(`Offline rebuild: removed the role from the abilities of ${cleaned} record(s).`);
+        await saveJson(storePath, store);
+        await writeLiveChunks(store);
+        return;
+    }
+
     const dupeCandidates = [];
     const legacyNameIndex = await loadLegacyNameIndex();
 
@@ -620,7 +664,8 @@ async function main() {
             const entry = store.units[opaqueId];
             try {
                 const detail = await scrapeUnitDetail(page, opaqueId);
-                const detailFields = parseDetailIntoRecord(detail, entry.record.Role);
+                // The role's name, not the { Id, Name } object: the parser compares it with each chip.
+                const detailFields = parseDetailIntoRecord(detail, entry.record.Role?.Name ?? "");
                 Object.assign(entry.record, detailFields);
                 entry.detailScrapedAt = new Date().toISOString();
                 consecutiveCloudflareBlocks = 0;
@@ -664,6 +709,9 @@ async function main() {
         await browser.close();
     }
 
+    for (const unit of Object.values(store.units)) {
+        if (unit.record) stripRoleFromAbilities(unit.record);
+    }
     await saveJson(storePath, store);
     await saveJson(dupeReportPath, dupeCandidates);
     await appendGithubStepSummary(
@@ -679,23 +727,7 @@ async function main() {
         ].join("\n")
     );
 
-    // Regenerate the exported chunk files from scratch — cheap, deterministic, and avoids
-    // incremental-patch bugs.
-    await fs.rm(liveMulDir, { recursive: true, force: true });
-    await fs.mkdir(liveMulDir, { recursive: true });
-
-    const records = Object.values(store.units)
-        .map((u) => u.record)
-        .sort((a, b) => a.Id - b.Id);
-
-    for (let i = 0; i < records.length; i += CHUNK_SIZE) {
-        const chunk = records.slice(i, i + CHUNK_SIZE);
-        const first = chunk[0].Id;
-        const last = chunk[chunk.length - 1].Id;
-        await saveJson(path.join(liveMulDir, `mul_live_${first}_to_${last}.json`), chunk);
-    }
-
-    console.log(`Wrote ${records.length} live units across ${Math.ceil(records.length / CHUNK_SIZE)} chunk file(s).`);
+    await writeLiveChunks(store);
     console.log(`${dupeCandidates.length} potential legacy duplicates logged to ${path.relative(repoRoot, dupeReportPath)} for manual review.`);
 
     if (runError) {

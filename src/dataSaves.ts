@@ -1,4 +1,4 @@
-import { IAcesCampaignExport } from "./classes/aces-campaign";
+import { AcesCampaign, IAcesCampaignExport } from "./classes/aces-campaign";
 import { IAcesGameExport } from "./classes/aces-game";
 import { IAcesCardLibrary, mergeAcesCardLibrary, normalizeAcesCardLibrary } from "./data/aces-cards";
 import AlphaStrikeForce, { IASForceExport } from "./classes/alpha-strike-force";
@@ -43,11 +43,52 @@ export function onStorageSaveError( handler: StorageSaveErrorHandler | null ): v
     storageSaveErrorHandler = handler;
 }
 
+/** Saves that could not be written since the page loaded; a restore compares it before and after. */
+let storageWriteFailures = 0;
+
+/** Most Aces campaigns restored from one backup, as for the other saved collections. */
+export const MAX_ACES_CAMPAIGNS = 500;
+
+// Reading throws when storage is blocked (some private modes): load as if nothing were saved.
+function readLocalStorage( keyName: string ): string | null {
+    try {
+        return localStorage.getItem( keyName );
+    } catch( error ) {
+        console.error("Unable to read " + keyName + " from localStorage", error);
+        return null;
+    }
+}
+
+// The restore reads what it merges with at once, so every write it makes is finished when it returns.
+function getDataNow( appSettings: AppSettings, keyName: string ): string | null {
+    return appSettings.storageLocation === ESaveDataMode.localStorage ? readLocalStorage( keyName ) : null;
+}
+
+function parseAcesCampaigns( rawData: string | null ): IAcesCampaignExport[] {
+    try {
+        const rv = rawData ? JSON.parse( rawData ) : null;
+        return Array.isArray(rv) ? rv.filter( (item) => item && typeof item === "object" ) : [];
+    }
+    catch {
+        return [];
+    }
+}
+
+function parseAcesCardLibrary( rawData: string | null ): IAcesCardLibrary {
+    try {
+        return normalizeAcesCardLibrary( rawData ? JSON.parse( rawData ) : null );
+    }
+    catch {
+        return normalizeAcesCardLibrary( null );
+    }
+}
+
 // localStorage.setItem throws when the origin's quota (about 5 MB) is used up, or when storage is disabled.
 function writeLocalStorage( keyName: string, data: string ): void {
     try {
         localStorage.setItem(keyName, data);
     } catch( error ) {
+        storageWriteFailures++;
         console.error("Unable to save " + keyName + " to localStorage", error);
         if( storageSaveErrorHandler )
             storageSaveErrorHandler( keyName, error );
@@ -212,6 +253,7 @@ export function restoreFullBackup(
 ): IRestoreMessage[] {
 
     let restoreMessages: IRestoreMessage[] = [];
+    const writeFailuresBefore = storageWriteFailures;
 
     restoreMessages.push({
         severity: "replace",
@@ -481,9 +523,10 @@ export function restoreFullBackup(
         }
     }
 
-    if( overWriteCurrentBattlemech && typeof io.currentInfantry === "string" && io.currentInfantry ) {
+    const currentInfantryPrefix = conditional( overWriteCurrentBattlemech, "current infantry platoon" );
+    if( currentInfantryPrefix !== null && typeof io.currentInfantry === "string" && io.currentInfantry ) {
         for( const issue of new InfantryPlatoon(io.currentInfantry).getImportIssues() ) {
-            restoreMessages.push(warning("Current infantry platoon: " + issue));
+            restoreMessages.push(warning(currentInfantryPrefix + "Current infantry platoon: " + issue));
         }
     }
 
@@ -523,9 +566,10 @@ export function restoreFullBackup(
         }
     }
 
-    if( overWriteCurrentBattlemech && typeof io.currentBattleArmor === "string" && io.currentBattleArmor ) {
+    const currentBattleArmorPrefix = conditional( overWriteCurrentBattlemech, "current battle armor design" );
+    if( currentBattleArmorPrefix !== null && typeof io.currentBattleArmor === "string" && io.currentBattleArmor ) {
         for( const issue of new BattleArmor(io.currentBattleArmor).getImportIssues() ) {
-            restoreMessages.push(warning("Current battle armor design: " + issue));
+            restoreMessages.push(warning(currentBattleArmorPrefix + "Current battle armor design: " + issue));
         }
     }
 
@@ -565,9 +609,10 @@ export function restoreFullBackup(
         }
     }
 
-    if( overWriteCurrentBattlemech && typeof io.currentProtoMech === "string" && io.currentProtoMech ) {
+    const currentProtoMechPrefix = conditional( overWriteCurrentBattlemech, "current ProtoMech" );
+    if( currentProtoMechPrefix !== null && typeof io.currentProtoMech === "string" && io.currentProtoMech ) {
         for( const issue of new ProtoMech(io.currentProtoMech).getImportIssues() ) {
-            restoreMessages.push(warning("Current ProtoMech: " + issue));
+            restoreMessages.push(warning(currentProtoMechPrefix + "Current ProtoMech: " + issue));
         }
     }
 
@@ -607,9 +652,10 @@ export function restoreFullBackup(
         }
     }
 
-    if( overWriteCurrentBattlemech && typeof io.currentSmallCraft === "string" && io.currentSmallCraft ) {
+    const currentSmallCraftPrefix = conditional( overWriteCurrentBattlemech, "current Small Craft" );
+    if( currentSmallCraftPrefix !== null && typeof io.currentSmallCraft === "string" && io.currentSmallCraft ) {
         for( const issue of new SmallCraft(io.currentSmallCraft).getImportIssues() ) {
-            restoreMessages.push(warning("Current Small Craft: " + issue));
+            restoreMessages.push(warning(currentSmallCraftPrefix + "Current Small Craft: " + issue));
         }
     }
 
@@ -649,15 +695,17 @@ export function restoreFullBackup(
         }
     }
 
-    if( overWriteCurrentBattlemech && typeof io.currentBuilding === "string" && io.currentBuilding ) {
+    const currentBuildingPrefix = conditional( overWriteCurrentBattlemech, "current building" );
+    if( currentBuildingPrefix !== null && typeof io.currentBuilding === "string" && io.currentBuilding ) {
         for( const issue of new Building(io.currentBuilding).getImportIssues() ) {
-            restoreMessages.push(warning("Current building: " + issue));
+            restoreMessages.push(warning(currentBuildingPrefix + "Current building: " + issue));
         }
     }
 
-    if( overWriteCurrentBattlemech && typeof io.currentFighter === "string" && io.currentFighter ) {
+    const currentFighterPrefix = conditional( overWriteCurrentBattlemech, "current fighter" );
+    if( currentFighterPrefix !== null && typeof io.currentFighter === "string" && io.currentFighter ) {
         for( const issue of new AerospaceFighter(io.currentFighter).getImportIssues() ) {
-            restoreMessages.push(warning("Current fighter: " + issue));
+            restoreMessages.push(warning(currentFighterPrefix + "Current fighter: " + issue));
         }
     }
 
@@ -705,7 +753,22 @@ export function restoreFullBackup(
     }
 
     if( Array.isArray(io.acesCampaigns) && io.acesCampaigns.length > 0 ) {
-        const incoming = io.acesCampaigns.filter( (item) => item && typeof item === "object" && typeof item.id === "string" );
+        // Campaigns in a backup may come from someone else: cap the count and rebuild each through the class.
+        if( io.acesCampaigns.length > MAX_ACES_CAMPAIGNS ) {
+            restoreMessages.push(warning("Only the first " + MAX_ACES_CAMPAIGNS + " of " + io.acesCampaigns.length + " Aces campaigns are restored"));
+        }
+        const incoming: IAcesCampaignExport[] = [];
+        for( const rawItem of io.acesCampaigns.slice(0, MAX_ACES_CAMPAIGNS) ) {
+            if( !rawItem || typeof rawItem !== "object" || typeof rawItem.id !== "string" || !rawItem.id ) {
+                restoreMessages.push(warning("An Aces campaign in the backup is not readable and is skipped"));
+                continue;
+            }
+            try {
+                incoming.push( new AcesCampaign( rawItem ).export() );
+            } catch {
+                restoreMessages.push(warning("Aces campaign '" + String(rawItem.name || "(nameless)").slice(0, 60) + "' is not readable and is skipped"));
+            }
+        }
         for( const item of incoming ) {
             restoreMessages.push({
                 severity: "add",
@@ -714,10 +777,9 @@ export function restoreFullBackup(
         }
         if( performActions ) {
             const appSettings = appGlobals.appSettings;
-            getAcesCampaigns( appSettings ).then( (existing) => {
-                const merged = existing.filter( (campaign) => !incoming.some( (item) => item.id === campaign.id ) );
-                saveAcesCampaigns( appSettings, merged.concat( incoming ) );
-            });
+            const existing = parseAcesCampaigns( getDataNow( appSettings, "acesCampaigns" ) );
+            const merged = existing.filter( (campaign) => !incoming.some( (item) => item.id === campaign.id ) );
+            saveAcesCampaigns( appSettings, merged.concat( incoming ) );
         }
     }
 
@@ -731,9 +793,8 @@ export function restoreFullBackup(
             })
             if( performActions ) {
                 const appSettings = appGlobals.appSettings;
-                getAcesCardLibrary( appSettings ).then( (existing) => {
-                    saveAcesCardLibrary( appSettings, mergeAcesCardLibrary( existing, incomingLibrary ) );
-                });
+                const existing = parseAcesCardLibrary( getDataNow( appSettings, "acesCardLibrary" ) );
+                saveAcesCardLibrary( appSettings, mergeAcesCardLibrary( existing, incomingLibrary ) );
             }
         }
     }
@@ -773,6 +834,14 @@ export function restoreFullBackup(
         // appGlobals.saveAppSettings( appSettingsObj );
     }
 
+    if( performActions && storageWriteFailures > writeFailuresBefore ) {
+        const failed = storageWriteFailures - writeFailuresBefore;
+        restoreMessages.push({
+            severity: "error",
+            message: failed + " save" + ( failed === 1 ? "" : "s" ) + " could not be written (the browser's storage is full or blocked), so part of this backup was not restored",
+        });
+    }
+
     return restoreMessages;
 }
 
@@ -805,7 +874,7 @@ async function getData(
     switch( appSettings.storageLocation ) {
         case ESaveDataMode.localStorage: {
 
-            return localStorage.getItem( keyName );;
+            return readLocalStorage( keyName );
         }
         case ESaveDataMode.firebase: {
             return null;
@@ -932,19 +1001,7 @@ export function saveAcesCampaigns(
 export async function getAcesCampaigns(
     appSettings: AppSettings,
 ): Promise<IAcesCampaignExport[]> {
-    let rawData = await getData(appSettings, "acesCampaigns" );
-    try {
-        if( rawData ) {
-            const rv = JSON.parse( rawData );
-            if( Array.isArray(rv) ) {
-                return rv.filter( (item) => item && typeof item === "object" );
-            }
-        }
-    }
-    catch {
-        return [];
-    }
-    return [];
+    return parseAcesCampaigns( await getData(appSettings, "acesCampaigns" ) );
 }
 
 export function saveAcesCardLibrary(
@@ -958,16 +1015,7 @@ export function saveAcesCardLibrary(
 export async function getAcesCardLibrary(
     appSettings: AppSettings,
 ): Promise<IAcesCardLibrary> {
-    let rawData = await getData(appSettings, "acesCardLibrary" );
-    try {
-        if( rawData ) {
-            return normalizeAcesCardLibrary( JSON.parse( rawData ) );
-        }
-    }
-    catch {
-        return normalizeAcesCardLibrary( null );
-    }
-    return normalizeAcesCardLibrary( null );
+    return parseAcesCardLibrary( await getData(appSettings, "acesCardLibrary" ) );
 }
 
 export async function getCurrentCBTForce(

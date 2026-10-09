@@ -291,7 +291,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                           {squad.getSquadSize()}
                         </td>
                         <td className="small-text">
-                          {squad.isClan() ? "Clan" : "Inner Sphere"}
+                          {squad.getTechName()}
                         </td>
                         <td className="min-width no-wrap text-center">
                           {squad.getCapabilities().swarm || squad.getCapabilities().leg ? squad.getAntiMechSkill() : "-"}

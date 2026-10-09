@@ -1,5 +1,5 @@
 import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
-import { getSkillMultiplier } from "../data/skill-multipliers";
+import { getEditionSkillMultipliers, getSkillMultiplier } from "../data/skill-multipliers";
 import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICockpitType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getEraForYear, getErasForTech } from "../data/era-options";
@@ -505,6 +505,9 @@ export class BattleMech {
     public reset() {
         this.lastUpdated = new Date();
         this._primitive = false;
+        this._rulesEdition = DEFAULT_RULES_EDITION;
+        this._advancedFireControl = false;
+        this._patchworkArmor = {};
         this.setTonnage(20);
         this.setWalkSpeed(0);
         this.setWalkSpeed(0);
@@ -1159,14 +1162,15 @@ export class BattleMech {
 
     /**
      * Applies pilot experience skill tracking multipliers to determine final deployment BV.
-     * Uses the default rules edition's BV Skill Multiplier Table (TechManual p. 315).
+     * Uses the 'Mech's rules edition's BV Skill Multiplier Table (TechManual p. 315 by default); an edition with
+     * no table of its own keeps the default edition's.
      */
     private _setPilotAdjustedBattleValue(): void {
         // Fetch raw pilot credentials with safe default constraints
         const gunnery = this._pilot?.gunnery ?? 4;
         const piloting = this._pilot?.piloting ?? 5;
         let skillMultiplier = 1.0;
-        const matrixMultiplier = getSkillMultiplier(gunnery, piloting, "mech");
+        const matrixMultiplier = getSkillMultiplier(gunnery, piloting, "mech", getEditionSkillMultipliers(this._rulesEdition) ? this._rulesEdition : DEFAULT_RULES_EDITION);
         if (matrixMultiplier !== null) {
             skillMultiplier = matrixMultiplier;
         } else {

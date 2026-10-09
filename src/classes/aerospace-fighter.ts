@@ -881,11 +881,15 @@ export default class AerospaceFighter {
 
     /** Heat a weapon counts for in the Battle Value: Ultra x 2, rotary x 6, Streak x 0.5, one-shot x 0.25 (TM p.303). */
     private static _bvHeat(item: IEquipmentItem): number {
-        const heat = item.heatAero ?? item.heat ?? 0;
+        // The multipliers apply to the heat of one shot: a rapid-fire weapon's aerospace heat is already that of
+        // a full burst, so it is not multiplied again.
         const text = `${item.tag} ${item.name}`.toLowerCase();
+        const rotary = /rotary|\brac\b/.test(text);
+        const ultra = !rotary && /ultra|\buac\b/.test(text);
+        const heat = rotary || ultra ? item.heat ?? 0 : item.heatAero ?? item.heat ?? 0;
         if (item.isOneShot) return heat * 0.25;
-        if (/rotary|\brac\b/.test(text)) return heat * 6;
-        if (/ultra/.test(text)) return heat * 2;
+        if (rotary) return heat * 6;
+        if (ultra) return heat * 2;
         if (/streak/.test(text)) return heat * 0.5;
         return heat;
     }

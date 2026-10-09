@@ -286,7 +286,9 @@ export class AcesNamedPilot {
     }
 
     public import( data: IAcesNamedPilotExport ) {
-        if( typeof data.id === "string" && data.id ) this.id = data.id;
+        // An id that names an Object.prototype property ("__proto__", "constructor") keeps the generated one:
+        // pilot ids key plain lookup objects.
+        if( typeof data.id === "string" && data.id && !( data.id in {} ) ) this.id = data.id;
         if( typeof data.callsign === "string" ) this.callsign = data.callsign;
         if( typeof data.type === "string" ) this.type = data.type;
         this.skillSP = +data.skillSP || 0;
@@ -315,7 +317,8 @@ export const getAcesPilotShares = (
     maxPerPilot: number,
     pilots: { id: string, status: TAcesPilotSortieStatus }[],
 ): { [id: string]: number } => {
-    const rv: { [id: string]: number } = {};
+    // No prototype: a pilot id from a saved file ("__proto__", "constructor") must not reach an inherited property.
+    const rv: { [id: string]: number } = Object.create( null );
     const participants = pilots.filter( ( pilot ) => pilot.status === "participated" ).length;
     const absent = pilots.filter( ( pilot ) => pilot.status === "absent" ).length;
     const weight = participants + absent / 2;
@@ -587,11 +590,13 @@ export class AcesCampaign {
             return loss;
         }
 
+        const statusOf = ( id: string ): TAcesPilotSortieStatus | undefined =>
+            Object.prototype.hasOwnProperty.call( pilotStatus, id ) ? pilotStatus[id] : undefined;
         const earnings = sortie.earnings;
         const shares = getAcesPilotShares(
             earnings,
             maxSPPerPilot,
-            this.getLivingPilots().map( ( pilot ) => ( { id: pilot.id, status: pilotStatus[pilot.id] || "absent" } ) ),
+            this.getLivingPilots().map( ( pilot ) => ( { id: pilot.id, status: statusOf( pilot.id ) || "absent" } ) ),
         );
 
         let namedPilotSP = 0;
@@ -599,12 +604,12 @@ export class AcesCampaign {
             const share = shares[pilot.id] || 0;
             namedPilotSP += share;
             pilot.unallocatedSP += share;
-            if( pilotStatus[pilot.id] === "participated" || pilotStatus[pilot.id] === "killed" ) {
+            if( statusOf( pilot.id ) === "participated" || statusOf( pilot.id ) === "killed" ) {
                 pilot.sortiesPlayed++;
             }
             // Previously wounded pilots recover; newly wounded ones sit out the next sortie (Aces p.33).
             pilot.wounded = woundedThisSortie.indexOf( pilot.id ) > -1;
-            if( pilotStatus[pilot.id] === "killed" ) {
+            if( statusOf( pilot.id ) === "killed" ) {
                 pilot.killed = true;
                 pilot.wounded = false;
                 this.memorial.push( pilot.callsign );

@@ -54,7 +54,7 @@ export default class BattleArmorCreatorSummary extends React.Component<ISummaryP
                             <p>
                                 <strong>Weight</strong>: {suit.getWeight()} of {weightClass.maxWeight} kg &nbsp;|&nbsp;
                                 <strong>Movement</strong>: {suit.getMovementText()} &nbsp;|&nbsp;
-                                <strong>Armor</strong>: {suit.getArmorPoints()} points of {suit.getArmor().name}, and the trooper
+                                <strong>Armor</strong>: {suit.getArmorPoints()} points of {suit.getArmor().name}, plus 1 for the trooper
                             </p>
                             <p>
                                 <strong>Swarm attacks</strong>: {capabilities.swarm ? "Yes" : "No"} &nbsp;|&nbsp;

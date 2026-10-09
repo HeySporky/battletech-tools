@@ -83,6 +83,9 @@ const ARMOR: Record<string, [string, string]> = {
     "21": ["light-ferro-aluminum", "light-ferro-aluminum"],
 };
 
+// A file names its own equipment: keep "constructor" or "__proto__" from finding an inherited property.
+[EQUIPMENT, FIRE_CONTROL, AMMO, ARMOR].forEach((table) => Object.setPrototypeOf(table, null));
+
 const LOCATIONS: { block: string; arc: SmallCraftArc | "hull"; rear?: SmallCraftArc }[] = [
     { block: "nose equipment", arc: "nose" },
     { block: "left side equipment", arc: "left", rear: "leftAft" },
@@ -141,17 +144,26 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
     }
     craft.setTonnage(fileTons);
     if (craft.getTonnage() !== fileTons) issues.push(`The file's weight of ${fileTons} tons is not a Small Craft weight; ${craft.getTonnage()} tons used.`);
-    craft.setSafeThrust(numberOf(file, "SafeThrust", 4));
+    // A value the file does not give is never filled in silently: say what was used in its place.
+    const missing = (tag: string): boolean => blkValue(file, tag).trim() === "";
+    const thrust = numberOf(file, "SafeThrust", 4);
+    craft.setSafeThrust(missing("SafeThrust") ? 4 : thrust);
+    if (missing("SafeThrust")) issues.push(`The file gives no Safe Thrust; ${craft.getSafeThrust()} used.`);
+    else if (craft.getSafeThrust() !== thrust) issues.push(`Safe Thrust ${thrust} is outside the rules; ${craft.getSafeThrust()} used.`);
+    if (missing("fuel")) issues.push("The file gives no fuel; none carried.");
     craft.setFuelTons(numberOf(file, "fuel") / SMALL_CRAFT_FUEL_POINTS_PER_TON);
-    const integrity = numberOf(file, "structural_integrity", craft.getMinStructuralIntegrity());
+    const integrity = missing("structural_integrity") ? craft.getMinStructuralIntegrity() : numberOf(file, "structural_integrity", craft.getMinStructuralIntegrity());
     craft.setStructuralIntegrity(integrity);
-    if (craft.getStructuralIntegrity() !== integrity) issues.push(`Structural Integrity ${integrity} is outside the rules; ${craft.getStructuralIntegrity()} used.`);
+    if (missing("structural_integrity")) issues.push(`The file gives no Structural Integrity; the least allowed, ${craft.getStructuralIntegrity()}, used.`);
+    else if (craft.getStructuralIntegrity() !== integrity) issues.push(`Structural Integrity ${integrity} is outside the rules; ${craft.getStructuralIntegrity()} used.`);
 
+    if (missing("armor_type")) notes.push("The file names no armor type; standard armor used, as MegaMek reads it.");
     const armorCode = blkValue(file, "armor_type") || "41";
     const armorTag = ARMOR[armorCode]?.[clan ? 1 : 0];
     if (!armorTag) issues.push(`Armor type ${armorCode} is not one this builder has for Small Craft; standard armor used.`);
     else if (craft.setArmorType(armorTag).tag !== armorTag) issues.push(`${armorTag} armor is not available to this tech base; standard armor used.`);
     const armor = blkLines(file, "armor").map((line) => Number(line)).filter((value) => Number.isFinite(value));
+    if (armor.length < 4) issues.push(`The file lists armor for ${armor.length} of the 4 facings; the rest carry none.`);
     const facings = ["nose", "left", "right", "aft"] as const;
     const total = armor.slice(0, 4).reduce((sum, value) => sum + value, 0);
     // The file lists the points on each facing, the structure's free points among them.
@@ -162,7 +174,7 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
     // Equipment.
     const techCatalog = clan ? "clan" : "is";
     const ammoCatalog: IEquipmentItem[] = [...getEquipmentListByTech("is", false), ...getEquipmentListByTech("clan", false)].filter((item) => item.isAmmo);
-    const mounted: Record<string, IEquipmentItem[]> = {};
+    const mounted: Record<string, IEquipmentItem[]> = Object.create(null);
     const pendingAmmo: string[] = [];
     const pendingFireControl: { name: string; arc: string }[] = [];
     for (const location of LOCATIONS) {

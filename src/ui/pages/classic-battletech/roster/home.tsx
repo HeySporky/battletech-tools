@@ -459,7 +459,7 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
                   <div className='small-text'>{squad.getWeightClass().name} battle armor, {squad.getSquadSize()} troopers</div>
               </td>
               <td className="min-width no-wrap text-center">{squad.getSquadSize()}</td>
-              <td className="min-width no-wrap text-center small-text">{squad.isClan() ? "Clan" : "Inner Sphere"}</td>
+              <td className="min-width no-wrap text-center small-text">{squad.getTechName()}</td>
               <td className="min-width no-wrap text-center">{squad.getCapabilities().swarm || squad.getCapabilities().leg ? squad.getAntiMechSkill() : "-"}</td>
               <td className="min-width no-wrap text-center">{squad.getGunnery()}</td>
               <td className="min-width no-wrap text-center">{squad.getSkillAdjustedBattleValue()}</td>
