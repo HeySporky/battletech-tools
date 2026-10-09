@@ -1,7 +1,7 @@
 import { generateUUID } from "../utils/generateUUID";
 import { IEquipmentItem, IEras } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
-import { getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { getProtoMechJumpJetWeightKg, protoMechComponents } from "../data/protomech-components";
 import {
@@ -54,6 +54,20 @@ export const MAX_PROTOMECH_NAME_LENGTH = 120;
 export const MAX_PROTOMECH_MOUNTS = 16;
 export const MAX_PROTOMECH_SHOTS = 500;
 export const PROTOMECH_POINT_SIZE = 5;
+export const PROTOMECH_MACHINE_GUN_ARRAY = "clan-machine-gun-array";
+const MACHINE_GUN_TAGS = ["clan-machine-gun", "clan-light-machine-gun", "clan-heavy-machine-gun"];
+
+/**
+ * Published designs that break a construction rule as this builder reads it. The named design is allowed that one
+ * thing, which is noted and not reported as an error (user ruling, 2026-10-08).
+ */
+export const PROTOMECH_PUBLISHED_EXCEPTIONS: { name: RegExp; mainGunArmor: number; note: string }[] = [
+    {
+        name: /^svartalfa ultra\b/i,
+        mainGunArmor: 7,
+        note: "The published Svartalfa Ultra carries 7 points of armor on its main gun (TRO: Prototypes p.91), one over the limit of 6 (IO:AE p.96); allowed as published.",
+    },
+];
 /** Critical hit boxes by location (TW pp.186-187); the main gun has none. */
 export const PROTOMECH_CRITICAL_BOXES: Record<ProtoMechLocation, number> = { head: 2, torso: 3, la: 2, ra: 2, legs: 3, mainGun: 0 };
 /** What each critical hit to a location does, in order (TW pp.186-187). */
@@ -195,11 +209,22 @@ const getClanCatalog = (): IEquipmentItem[] => {
     return clanCatalog;
 };
 const findCatalogItem = (tag: string): IEquipmentItem | undefined => findByTag(getClanCatalog(), tag);
+// The ammunition each weapon may load, worked out once: these lists are read for every weight and value.
+const ammoByWeapon = new Map<string, IEquipmentItem[]>();
+const getAmmoFor = (weapon: IEquipmentItem): IEquipmentItem[] => {
+    let options = ammoByWeapon.get(weapon.tag);
+    if (!options) {
+        // ProtoMechs may not install Artemis systems, so carry no Artemis-guided missiles (TM p.206).
+        options = getClanCatalog().filter((ammo) => ammo.isAmmo && (ammo.space?.protomech ?? -1) >= 0 && !ammo.tag.includes("artemis") && getCompatibleAmmo(weapon, ammo));
+        ammoByWeapon.set(weapon.tag, options);
+    }
+    return options;
+};
 
 /** Catalog weapons and equipment a ProtoMech may mount; missile launchers are built from tubes instead. */
 export const getProtoMechCatalogItems = (): IEquipmentItem[] =>
     getClanCatalog().filter((item) => !item.isAmmo && (item.space?.protomech ?? -1) >= 0
-        && !PROTOMECH_FIXED_LAUNCHER_PATTERN.test(item.tag) && item.tag !== PROTOMECH_MYOMER_BOOSTER.tag && item.tag !== "clan-machine-gun-array");
+        && !PROTOMECH_FIXED_LAUNCHER_PATTERN.test(item.tag) && item.tag !== PROTOMECH_MYOMER_BOOSTER.tag);
 
 /** Reads a saved ProtoMech; null when the data is not one. */
 export const normalizeProtoMechExport = (raw: unknown): { proto: IProtoMechExport | null; issues: string[] } => {
@@ -242,7 +267,10 @@ export default class ProtoMech {
     public getUUID(): string { return this._uuid; }
     public newUUID(): void { this._uuid = generateUUID(); }
     public getName(): string { return this._name; }
-    public setName(name: string): void { this._name = String(name ?? "").slice(0, MAX_PROTOMECH_NAME_LENGTH); }
+    public setName(name: string): void {
+        this._name = String(name ?? "").slice(0, MAX_PROTOMECH_NAME_LENGTH);
+        this._armor.mainGun = Math.min(this._armor.mainGun, this.getMaxArmor("mainGun"));
+    }
     public getDisplayName(): string { return this._name.trim() || `${this.getWeightClassName()} ProtoMech`; }
     public getImportIssues(): string[] { return this._importIssues; }
 
@@ -316,7 +344,16 @@ export default class ProtoMech {
         const row = getProtoMechStructureRow(this._tons);
         if (location === "la" || location === "ra") return row.arm.maxArmor;
         if (location === "legs") return (this.isQuad() ? row.quadLegs : row.legs).maxArmor;
+        if (location === "mainGun") return Math.max(row.mainGun.maxArmor, this._publishedException()?.mainGunArmor ?? 0);
         return row[location].maxArmor;
+    }
+    private _publishedException(): { name: RegExp; mainGunArmor: number; note: string } | undefined {
+        return PROTOMECH_PUBLISHED_EXCEPTIONS.find((exception) => exception.name.test(this._name.trim()));
+    }
+    /** The exceptions this design is using, as notes. */
+    public getAllowedExceptions(): string[] {
+        const exception = this._publishedException();
+        return exception && this._mainGun && this._armor.mainGun > getProtoMechStructureRow(this._tons).mainGun.maxArmor ? [exception.note] : [];
     }
     public getTotalStructure(): number { return this.getLocations().reduce((sum, location) => sum + this.getStructure(location), 0); }
     public getMaxTotalArmor(): number { return this.getLocations().reduce((sum, location) => sum + this.getMaxArmor(location), 0); }
@@ -461,7 +498,7 @@ export default class ProtoMech {
     public getAmmoOptions(mount: IProtoMechMount): IEquipmentItem[] {
         const weapon = this.getCatalogItem(mount);
         if (!weapon || !this.usesAmmo(mount)) return [];
-        return getClanCatalog().filter((ammo) => ammo.isAmmo && (ammo.space?.protomech ?? -1) >= 0 && getCompatibleAmmo(weapon, ammo));
+        return getAmmoFor(weapon);
     }
     public getAmmo(mount: IProtoMechMount): IEquipmentItem | undefined {
         const options = this.getAmmoOptions(mount);
@@ -475,7 +512,15 @@ export default class ProtoMech {
      */
     public getShotWeight(mount: IProtoMechMount): number {
         const missile = this.getMissile(mount);
-        if (missile) return missile.kgPerMissile * (mount.tubes ?? 1);
+        if (missile) {
+            // Special missiles are bought by the missile at the munition's weight multiplier (TO:AUE p.173): the
+            // standard round's missiles a ton over the munition's.
+            const options = this.getAmmoOptions(mount);
+            const standard = options.find((ammo) => !ammo.isSpecialAmmo);
+            const chosen = this.getAmmo(mount);
+            const multiplier = standard && chosen && getAmmoRoundsPerTon(chosen) > 0 ? getAmmoRoundsPerTon(standard) / getAmmoRoundsPerTon(chosen) : 1;
+            return missile.kgPerMissile * (mount.tubes ?? 1) * multiplier;
+        }
         if (!this.usesAmmo(mount)) return 0;
         const listed = protoMechAmmoKgPerShot[mount.tag];
         if (listed) return listed;
@@ -497,7 +542,7 @@ export default class ProtoMech {
         const loads: Record<string, { name: string; shots: number; raw: number }> = {};
         for (const mount of this._mounts) {
             if (!this.usesAmmo(mount) || this.getSpecial(mount) || this.getShots(mount) <= 0) continue;
-            const ammo = this.getMissile(mount) ? undefined : this.getAmmo(mount);
+            const ammo = this.getAmmo(mount);
             const key = `${this._mountKey(mount)}:${mount.ammoTag ?? ""}`;
             const special = ammo?.isSpecialAmmo ? ` (${ammo.name})` : "";
             const load = loads[key] ?? (loads[key] = { name: `${this.getMountName(mount)}${special}`, shots: 0, raw: 0 });
@@ -699,6 +744,8 @@ export default class ProtoMech {
         for (const tag of ["protomech-melee-weapon", "protomech-magnetic-clamp", "protomech-partial-wing", "protomech-quad-melee-system"]) {
             if (this._mounts.filter((mount) => mount.tag === tag).length > 1) issues.push(`Only one ${findProtoMechEquipment(tag)?.name} may be mounted.`);
         }
+        const arrays = this.getMachineGunArrays();
+        if (arrays.some((linked) => linked.length < 2)) issues.push("A machine gun array links two to four machine guns of one size class; there are not enough for every array (TM p.228).");
         if (this.hasPartialWing() && this.getJumpType() === "umu") issues.push("A ProtoMech with UMUs has no jump jets for a partial wing to help.");
         const over = -this.getRemainingWeight();
         if (over > 0) issues.push(`${over} kg over its ${this._tons} tons.`);
@@ -716,6 +763,8 @@ export default class ProtoMech {
         if (this._interfaceCockpit) notes.push("Inner Sphere ProtoMech Interface: Mixed Technology; the pilot has no ejection system (IO:AE p.96).");
         if (this._armorType === "edp") notes.push("EDP armor: a successful Frenzy attack also hits as a BattleMech Taser at -2 on its effects table; six turns to recharge, during which weapons that need heat sinks do not work (IO:AE p.59).");
         if (this.hasPartialWing()) notes.push("Partial wing: +2 Jumping MP in a standard atmosphere, +1 in a trace one, +3 in a high or very high one, none in vacuum (TO:AUE p.107).");
+        notes.push(...this.getAllowedExceptions());
+        if (this._mounts.some((mount) => mount.tag === PROTOMECH_MACHINE_GUN_ARRAY)) notes.push("Machine gun array: the linked machine guns fire as one weapon and may be mounted anywhere on the ProtoMech (TM p.228).");
         if (this.getHeatSinks() > 0) notes.push(`${this.getHeatSinks()} heat sinks cover the energy weapons; ProtoMechs do not track heat (TM p.86).`);
         return notes;
     }
@@ -729,7 +778,26 @@ export default class ProtoMech {
         return damage;
     }
 
+    /**
+     * The machine guns each array links: two to four of one size class, mounted anywhere on the ProtoMech (TM p.228).
+     * Each array takes the largest group of unlinked machine guns of one class.
+     */
+    public getMachineGunArrays(): IProtoMechMount[][] {
+        const free: Record<string, IProtoMechMount[]> = {};
+        for (const tag of MACHINE_GUN_TAGS) free[tag] = this._mounts.filter((mount) => mount.tag === tag);
+        return this._mounts.filter((mount) => mount.tag === PROTOMECH_MACHINE_GUN_ARRAY).map(() => {
+            const tag = MACHINE_GUN_TAGS.reduce((best, item) => (free[item].length > free[best].length ? item : best), MACHINE_GUN_TAGS[0]);
+            return free[tag].splice(0, 4);
+        });
+    }
+
     private _mountBattleValue(mount: IProtoMechMount): number {
+        // An array is worth 0.67 of the machine guns it links, on top of the guns themselves (TM p.318, note F).
+        if (mount.tag === PROTOMECH_MACHINE_GUN_ARRAY) {
+            const index = this._mounts.filter((item) => item.tag === PROTOMECH_MACHINE_GUN_ARRAY).indexOf(mount);
+            const linked = this.getMachineGunArrays()[index] ?? [];
+            return linked.length >= 2 ? linked.reduce((sum, gun) => sum + (findCatalogItem(gun.tag)?.battleValue ?? 0), 0) * 0.67 : 0;
+        }
         const missile = this.getMissile(mount);
         if (missile) return missile.bv[(mount.tubes ?? 1) - 1] ?? 0;
         const special = this.getSpecial(mount);

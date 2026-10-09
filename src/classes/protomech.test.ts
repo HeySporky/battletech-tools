@@ -318,29 +318,86 @@ describe("ProtoMech saves and MegaMek files", () => {
 });
 
 describe("ProtoMech designs in print", () => {
-    it("matches the Svartalfa Ultra's weights (TRO: Prototypes p.91)", () => {
+    const svartalfa = (name: string): ProtoMech => {
         const proto = new ProtoMech();
+        proto.setName(name);
         proto.setChassis("glider");
         proto.setTons(14);
         proto.setWalkMP(4);
         proto.setMainGun(true);
-        // Printed armor: head 9, torso 23, arms 6 each, legs 14, main gun 7. The main gun's limit is 6 (IO:AE p.96),
-        // so the printed 65 points become 64 here.
+        // Printed armor: head 9, torso 23, arms 6 each, legs 14, main gun 7.
         (["head", "torso", "la", "ra", "legs", "mainGun"] as const).forEach((location, index) => proto.setArmor(location, [9, 23, 6, 6, 14, 7][index]));
         proto.addMount("clan-medium-chemical-laser", "ra");
         proto.addMount("clan-medium-chemical-laser", "la");
         proto.addMount("clan-machine-gun", "torso");
         proto.addMount("pm-streak-srm", "mainGun", 6);
         [15, 15, 50, 10].forEach((shots, index) => proto.updateMount(index, { shots }));
+        return proto;
+    };
+
+    it("matches the Svartalfa Ultra's weights and Battle Value of 540 (TRO: Prototypes p.91)", () => {
+        const proto = svartalfa("Svartalfa Ultra");
         expect(proto.getInstalledEngineRating()).toBe(60);
         expect(proto.getEngineWeight()).toBe(1500);
         expect(proto.getHeatSinks()).toBe(0);
         expect(proto.getAmmoLoads().map((load) => load.kg)).toEqual([1000, 250, 600]);
-        expect(proto.getTotalArmor()).toBe(64);
-        expect(proto.getRemainingWeight()).toBe(50);
+        // The published design is allowed its 7 points on a main gun whose limit is 6 (IO:AE p.96), as a note.
+        expect(proto.getTotalArmor()).toBe(65);
+        expect(proto.getRemainingWeight()).toBe(0);
         expect(proto.isLegal()).toBe(true);
-        // The printed Battle Value of 540 counts the 65th armor point: 2.5 x 1.4 = 3.5 more than this.
-        expect(proto.getBattleValue()).toBe(536);
+        expect(proto.getAllowedExceptions()[0]).toContain("allowed as published");
+        expect(proto.getBattleValue()).toBe(540);
+        expect(new ProtoMech(proto.exportJSON()).getArmor("mainGun")).toBe(7);
+    });
+
+    it("holds any other design to the main gun's limit", () => {
+        const proto = svartalfa("My Glider");
+        expect(proto.getArmor("mainGun")).toBe(6);
+        expect(proto.getAllowedExceptions()).toEqual([]);
+        // Renaming a published design takes the allowance away.
+        const renamed = svartalfa("Svartalfa Ultra");
+        renamed.setName("Something Else");
+        expect(renamed.getArmor("mainGun")).toBe(6);
+    });
+});
+
+describe("ProtoMech machine gun arrays and special munitions", () => {
+    it("links machine guns mounted anywhere and values the array at 0.67 of them (TM pp.228, 318)", () => {
+        const proto = new ProtoMech();
+        proto.setTons(6);
+        proto.addMount("clan-machine-gun", "la");
+        proto.addMount("clan-machine-gun", "ra");
+        proto.updateMount(0, { shots: 20 });
+        proto.updateMount(1, { shots: 20 });
+        const before = proto.getBattleValueLog().join("\n");
+        expect(before).not.toContain("Machine Gun Array");
+        proto.addMount("clan-machine-gun-array", "torso");
+        expect(proto.getMountWeight(proto.getMounts()[2])).toBe(250);
+        expect(proto.getMachineGunArrays()[0].length).toBe(2);
+        // Two machine guns at 5: 10 x 0.67.
+        expect(proto.getBattleValueLog().join("\n")).toContain("Machine Gun Array (Clan) (Torso) = 6.7");
+        expect(proto.getIssues().some((issue) => issue.includes("machine gun array"))).toBe(false);
+        proto.removeMount(1);
+        expect(proto.getIssues().some((issue) => issue.includes("machine gun array links two to four"))).toBe(true);
+    });
+
+    it("weighs special missiles by the munition's multiplier and offers no Artemis missiles (TO:AUE p.173; TM p.206)", () => {
+        const proto = new ProtoMech();
+        proto.addMount("pm-lrm", "torso", 3);
+        proto.updateMount(0, { shots: 10 });
+        const options = proto.getAmmoOptions(proto.getMounts()[0]).map((ammo) => ammo.tag);
+        expect(options).toContain("ammo-lrm-standard");
+        expect(options).toContain("ammo-clan-lrm-ftl");
+        expect(options.some((tag) => tag.includes("artemis"))).toBe(false);
+        // 30 missiles x 8.33 kg.
+        expect(proto.getAmmoLoads()[0].kg).toBe(250);
+        // Follow-the-leader missiles come 60 to the ton against 120: twice the weight.
+        proto.updateMount(0, { ammoTag: "ammo-clan-lrm-ftl" });
+        expect(proto.getAmmoLoads()[0].kg).toBe(500);
+        expect(new ProtoMech(proto.exportJSON()).getAmmoLoads()[0].kg).toBe(500);
+        // A Streak launcher fires only its own missiles.
+        proto.addMount("pm-streak-srm", "torso", 2);
+        expect(proto.getAmmoOptions(proto.getMounts()[1]).map((ammo) => ammo.tag)).toEqual(["ammo-clan-streak-srm-standard"]);
     });
 });
 

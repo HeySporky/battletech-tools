@@ -57,7 +57,7 @@ export default class ProtoMechCreatorEquipment extends React.Component<IEquipmen
                                     {mounts.map((mount, index) => {
                                         const missile = proto.getMissile(mount);
                                         const special = proto.getSpecial(mount);
-                                        const ammoOptions = missile ? [] : proto.getAmmoOptions(mount);
+                                        const ammoOptions = proto.getAmmoOptions(mount);
                                         return (
                                             <tr key={index}>
                                                 <td>

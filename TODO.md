@@ -365,7 +365,8 @@ played first, then by dependency.
      the load is rounded, as TM p.88 does for other ammunition.
   4. Published designs outside the rules: the Svartalfa Ultra prints 7 armor on a main gun whose limit is 6
      (IO:AE p.96); the Svartalfa 3 file is 100 kg over; the Gorgon 6 file mounts an Inner Sphere Angel ECM,
-     which a Clan-only ProtoMech cannot (it is left off on import and reported). No exception list yet.
+     which a Clan-only ProtoMech cannot (it is left off on import and reported). The Svartalfa Ultra's armor
+     is now allowed as a published exception; the other two are not, having no printed sheet in the library.
   5. IO:AE p.96 prints an arm armor limit of 4 for 3 to 5 tons; TM p.82 prints 2 and the table's own Armor
      Factor column only adds up with 2. Entered as 2 (obvious misprint).
   6. Master Unit List Battle Values that differ and were left: LRM 3 carriers come out 1 to 2 lower here
@@ -378,9 +379,17 @@ played first, then by dependency.
   8. Catalog corrections made from the Companion's Clan table (ASC pp.109-110): LB 5-X, Ultra AC/2 and /5,
      ER small laser, ER PPC (no Extreme value), the three ER pulse lasers, large and medium pulse lasers, the
      three improved heavy lasers, and the plasma cannon (no damage, heat 7); the Clan active probe now gives PRB.
-- [ ] ProtoMechs still owed: a `.blk` export; the machine gun array (left out until its ProtoMech rules are
-  read); special ammunition's own weights; the heavy and ER flamers' heat sink rule (taken as ammunition-fed
-  or not, not checked against TO:AUE); a list of published exceptions like battle armor's.
+- [x] ProtoMech follow-ups (2026-10-09). Machine gun arrays: offered, linking two to four machine guns of
+  one size class mounted anywhere on the ProtoMech (TM p.228), worth 0.67 of the linked guns (TM p.318, note
+  F). Special missile munitions: chosen per launcher and weighed by the missile at the munition's multiplier
+  (TO:AUE p.173), taken as the standard round's missiles a ton over the munition's; no Artemis missiles, as
+  ProtoMechs may not install Artemis (TM p.206). Flamers: the ER flamer is fusion-fed and needs heat sinks,
+  the heavy and vehicle flamers are ammunition-fed and need none (TO:AUE pp.124-125 give no other rule).
+  Published exceptions (`PROTOMECH_PUBLISHED_EXCEPTIONS`): the Svartalfa Ultra's 7 points of main gun armor
+  (TRO: Prototypes p.91), which brings it to its printed 14 tons and Battle Value of 540.
+- [ ] ProtoMechs, left for the MegaMek import and export run (user, 2026-10-09): `.blk` export; the Gorgon 6
+  file's Inner Sphere Angel ECM, left off on import because a ProtoMech here is Clan-only (its card has AECM;
+  no readout for it is in the library); the Svartalfa 3 file, 100 kg over, with no printed sheet to check.
 
 ### Small Craft
 
