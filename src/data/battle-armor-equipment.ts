@@ -269,6 +269,10 @@ const equipmentRows: IBattleArmorEquipment[] = [
     weapon("clan", "Machine Guns", "Machine Gun", "2", "-/1/2/3", 100, 1, 0.1, 50, 5, 5000, 258),
     weapon("clan", "Machine Guns", "Heavy Machine Gun", "3", "-/1/2/-", 150, 1, 0.1, 50, 6, 7500, 258),
     weapon("clan", "Machine Guns", "Bearhunter Superheavy AC", "3", "-/0/1/2", 150, 2, 1.5, 20, 4, 11250, 258, "The table prints the range as \"-0/1/2\"."),
+    // The Clan table (TM p.348) prints no mortars; the technology is open to both bases ("All", Clan introduction
+    // about 3065, IO:AE p.47), so they are offered with the Inner Sphere table's figures (user ruling, 2026-10-08).
+    weapon("clan", "Mortars", "Light Mortar", "3", "1/1/2/3", 300, 2, 2, 20, 9, 2100, 262, "Not on the Clan Battle Armor Equipment Table (TM p.348): the Inner Sphere table's figures (TM p.346)."),
+    weapon("clan", "Mortars", "Heavy Mortar", "3", "2/2/4/6", 400, 2, 4, 20, 17, 7500, 262, "Not on the Clan Battle Armor Equipment Table (TM p.348): the Inner Sphere table's figures (TM p.346)."),
     weapon("clan", "Recoilless Rifles", "Light Recoilless Rifle", "2", "-/2/4/6", 175, 2, 1, 20, 12, 1000, 268),
     weapon("clan", "Recoilless Rifles", "Medium Recoilless Rifle", "3", "-/2/4/6", 250, 2, 2, 20, 19, 3000, 268),
     weapon("clan", "Recoilless Rifles", "Heavy Recoilless Rifle", "3", "-/3/5/7", 325, 3, 4, 20, 22, 5000, 268),
@@ -400,6 +404,7 @@ const DATE_ROWS: [RegExp, IBattleArmorDates][] = [
     [/^clan-srm-/, on(2868, 2865)],
     [/^clan-advanced-srm-/, on(3056, 3052)],
     [/^is-(light|heavy)-mortar$/, on(3057, 3054)],
+    [/^clan-(light|heavy)-mortar$/, on(3065)],
     [/^clan-compact-narc$/, on(2875, 2870)],
     [/^is-compact-narc$/, on(3060)],
     [/^is-firedrake-support-needler$/, on(3060, 3058)],
@@ -431,8 +436,9 @@ const ALPHA_STRIKE_ROWS: [RegExp, (tag: string) => IBattleArmorAlphaStrikeDamage
     [/^is-(grand-mauler|tsunami)-gauss-rifle$/, () => sm(0.1)],
     [/^is-magshot-gauss-rifle$/, () => sm(0.2)],
     [/-(micro|heavy)-grenade-launcher$/, () => strike(0.1)],
-    [/^is-light-mortar$/, () => strike(0.276, 0, 0, INDIRECT)],
-    [/^is-heavy-mortar$/, () => strike(0.249, 0, 0, INDIRECT)],
+    // Battle armor mortars have no Indirect Fire note (ASC errata v1.2, p.112).
+    [/-light-mortar$/, () => strike(0.276, 0, 0)],
+    [/-heavy-mortar$/, () => strike(0.249, 0, 0)],
     [/-light-recoilless-rifle$/, () => sm(0.2)],
     [/-(medium|heavy)-recoilless-rifle$/, () => sm(0.3)],
     [/-flamer-ba$/, () => strike(0.2, 0, 0, { heat: [2, 0, 0] })],

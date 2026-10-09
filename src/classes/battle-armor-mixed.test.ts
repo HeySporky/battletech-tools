@@ -305,3 +305,71 @@ describe("The carrier of mechanized battle armor (Total Warfare pp.226-227)", ()
         expect(getBattleArmorCarrierLoad([squad], { ...mech, uuid: "22222222-bbbb" }).blockedLocations).toEqual([]);
     });
 });
+
+describe("Battle armor rulings (user, 2026-10-08)", () => {
+    it("counts only arm-mounted direct-fire weapons again for Anti-'Mech attacks (TM p.310, TW p.220)", () => {
+        const suit = new BattleArmor();
+        suit.setManipulator("la", "battle-claw");
+        suit.addItem("is-small-laser", "ra");
+        const arm = suit.getBattleValueLog().join("\n");
+        expect(arm).toContain("9 (direct fire)");
+        expect(arm).toContain("+ 9 (Anti-'Mech attacks)");
+        suit.updateItem(0, { location: "body" });
+        const body = suit.getBattleValueLog().join("\n");
+        expect(body).toContain("9 (direct fire)");
+        expect(body).toContain("+ 0 (Anti-'Mech attacks)");
+    });
+
+    it("offers mortars to Clan suits with the Inner Sphere table's figures, from about 3065 (IO:AE p.47)", () => {
+        const clan = findBattleArmorEquipment("clan-light-mortar");
+        const sphere = findBattleArmorEquipment("is-light-mortar");
+        expect([clan?.kg, clan?.slots, clan?.bv, clan?.range, clan?.damage]).toEqual([sphere?.kg, sphere?.slots, sphere?.bv, sphere?.range, sphere?.damage]);
+        expect(clan?.dates?.introduced).toBe(3065);
+        expect(clan?.notes).toContain("Not on the Clan Battle Armor Equipment Table");
+        const suit = new BattleArmor();
+        suit.setTechBase("clan");
+        expect(suit.addItem("clan-heavy-mortar", "ra")).toBe(true);
+        expect(suit.getIssues()).toEqual([]);
+        // Battle armor mortars are not Indirect Fire weapons in Alpha Strike (ASC errata v1.2, p.112).
+        expect(suit.getAlphaStrikeStats().specialAbilities.some((code) => code.startsWith("IF"))).toBe(false);
+    });
+
+    it("allows the published Undine its extra body slot, as a note", () => {
+        const undine = (name: string): BattleArmor => {
+            const suit = new BattleArmor();
+            suit.setName(name);
+            suit.setTechBase("clan");
+            suit.setWeightClass("medium");
+            suit.setMotive("umu", 3);
+            suit.setManipulator("ra", "battle-claw");
+            suit.addItem("clan-er-micro-laser", "ra");
+            suit.addItem("clan-lrm-5", "body");
+            suit.updateItem(1, { oneShot: true });
+            suit.addItem("clan-searchlight", "body");
+            return suit;
+        };
+        const other = undine("Homebrew Diver");
+        expect(other.getIssues()).toContain("Body: 5 slots used of 4 (TM p.163).");
+        expect(other.getAllowedExceptions()).toEqual([]);
+        const published = undine("Undine Battle Armor (Sqd5)");
+        expect(published.getIssues()).toEqual([]);
+        expect(published.getNotes().join(" ")).toContain("allowed as published");
+        // The exception is for that one thing: a second slot over is an error again.
+        published.addItem("clan-searchlight", "body");
+        expect(published.getIssues().some((issue) => issue.startsWith("Body: 6 slots used of 4"))).toBe(true);
+    });
+
+    it("adds 5% of the Point Value subtotal for C3 and rates tube artillery at 6 (ASC pp.139-141; errata v1.2)", () => {
+        const suit = new BattleArmor();
+        suit.setWeightClass("heavy");
+        suit.setArmorPoints(8);
+        suit.addItem("is-c3-system", "body");
+        const c3 = suit.getAlphaStrikeStats().calcLog.join("\n");
+        expect(c3).toContain("C3: + ");
+        expect(c3).not.toContain("(C3)");
+        const gunner = new BattleArmor();
+        gunner.setWeightClass("assault");
+        gunner.addItem("is-tube-artillery", "body");
+        expect(gunner.getAlphaStrikeStats().calcLog.join("\n")).toContain("6 (ARTBA, 1 damage x 6)");
+    });
+});

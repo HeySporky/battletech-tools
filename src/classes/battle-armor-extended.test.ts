@@ -417,7 +417,7 @@ describe("Battle armor Alpha Strike conversion (ASC pp.92-141)", () => {
         expect(stats.damageValues.long).toEqual({ damage: 1, minimal: false });
     });
 
-    it("gives equipment its special abilities and adds vibro-claws after the Troop Factor (ASC pp.102, 117-133)", () => {
+    it("gives equipment its special abilities and adds 0.1 a vibro-claw after the Troop Factor (ASC pp.102, 117-133; errata v1.2)", () => {
         const suit = new BattleArmor();
         suit.setWeightClass("light");
         suit.setArmor("ba-stealth-basic");
@@ -429,8 +429,8 @@ describe("Battle armor Alpha Strike conversion (ASC pp.92-141)", () => {
         suit.addItem("is-parafoil", "body");
         const stats = suit.getAlphaStrikeStats();
         expect(stats.specialAbilities).toEqual(["AM", "CAR4", "LECM", "LPRB", "MEC", "PAR", "RCN", "STL"]);
-        // No weapons: the 2 points are the vibro-claws'.
-        expect(stats.damageValues.short).toEqual({ damage: 2, minimal: false });
+        // No weapons: the 0.2 points of two vibro-claws are minimal damage.
+        expect(stats.damageValues.short).toEqual({ damage: 0, minimal: true });
         const card = suit.getAlphaStrikeUnit();
         expect(card.type).toBe("BA");
         expect(card.basePoints).toBe(stats.pointValue);

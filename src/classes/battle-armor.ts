@@ -69,6 +69,18 @@ export const BATTLE_ARMOR_SWARM_DEFENDER_MODIFIERS: number[][] = [
 /** Most a cargo lifter is asked to lift here, in half tons; the book sets no ceiling but the suit's weight. */
 export const BATTLE_ARMOR_MAX_CARGO_HALF_TONS = 20;
 
+/**
+ * Published designs that break a construction rule as this builder reads it. The named design is allowed that one
+ * thing, which is noted and not reported as an error (user ruling, 2026-10-08).
+ */
+export const BATTLE_ARMOR_PUBLISHED_EXCEPTIONS: { name: RegExp; issue: string; note: string }[] = [
+    {
+        name: /^undine\b/i,
+        issue: "Body: 5 slots used of 4 (TM p.163).",
+        note: "The published Undine (MegaMek's file gives TRO:3058U as its source) is one body slot over with the one-shot launcher slots the Equipment Tables print in brackets (TM pp.346-348); allowed as published.",
+    },
+];
+
 export interface IBattleArmorMountedItem {
     tag: string;
     location: BattleArmorLocation;
@@ -1052,7 +1064,21 @@ export default class BattleArmor {
         return issues;
     }
 
+    /** What breaks the rules; a published design's noted exception is left out (see getAllowedExceptions). */
     public getIssues(): string[] {
+        const allowed = this._publishedExceptions();
+        return this._allIssues().filter((issue) => !allowed.some((exception) => issue.endsWith(exception.issue)));
+    }
+    private _publishedExceptions(): { name: RegExp; issue: string; note: string }[] {
+        return BATTLE_ARMOR_PUBLISHED_EXCEPTIONS.filter((exception) => exception.name.test(this._name.trim()));
+    }
+    /** The exceptions this design is using, as notes. */
+    public getAllowedExceptions(): string[] {
+        const issues = this._allIssues();
+        return this._publishedExceptions().filter((exception) => issues.some((issue) => issue.endsWith(exception.issue))).map((exception) => `${exception.issue} ${exception.note}`);
+    }
+
+    private _allIssues(): string[] {
         const suits = this._trooperSuits();
         const lists = suits.map((suit) => this._asTrooper(suit.trooper, () => this._suitIssues()));
         const issues: string[] = [];
@@ -1070,7 +1096,7 @@ export default class BattleArmor {
         if (this._view === 0 && this._activeLoadout < 0) {
             this._loadouts.forEach((loadout, index) => {
                 const base = new Set(issues);
-                for (const issue of this.getLoadoutSuit(index).getIssues()) {
+                for (const issue of this.getLoadoutSuit(index)._allIssues()) {
                     if (!base.has(issue)) issues.push(`Loadout "${loadout.name}": ${issue}`);
                 }
             });
@@ -1098,6 +1124,7 @@ export default class BattleArmor {
             const equipment = findBattleArmorEquipment(entry.tag);
             if (equipment?.book === "TO:AUE" && equipment.notes && !notes.includes(`${equipment.name}: ${equipment.notes}`)) notes.push(`${equipment.name}: ${equipment.notes}`);
         }
+        notes.push(...this.getAllowedExceptions());
         if (this._mixedTech) notes.push("Mixed technology: any unit may combine Clan and Inner Sphere technology as an advanced construction option, each item following its own construction rules (TO:AUE p.189).");
         if (this.hasTrooperEquipment()) {
             notes.push("Some equipment is carried by one trooper only. The construction rules build one suit for the whole squad; as in MegaMek, each trooper's suit must be legal on its own, the weight shown is the heaviest trooper's and the Battle Value is the average of the troopers' suits. The equipment is lost with its trooper.");
@@ -1162,7 +1189,10 @@ export default class BattleArmor {
             const manipulators = this.isQuad() ? [] : (["la", "ra"] as BattleArmorArm[]).map((arm) => this.getManipulator(arm));
             const each = manipulators.reduce((sum, manipulator) => sum + (manipulator.bv?.per === "each" ? manipulator.bv.value : 0), 0);
             const pair = manipulators.length === 2 && manipulators[0].bv?.per === "pair" && manipulators[0].tag === manipulators[1].tag ? manipulators[0].bv.value : 0;
-            antiMech = directFire + each + pair;
+            // TM p.310 prints "all direct-fire weapons"; only arm-mounted weapons fire in a Swarm attack (TW p.220), and
+            // those alone are counted (user ruling, 2026-10-08; MegaMek does the same).
+            const armFire = own.filter((entry) => findBattleArmorEquipment(entry.tag)?.kind === "weapon" && (entry.location === "la" || entry.location === "ra")).reduce((sum, entry) => sum + this._itemBattleValue(entry), 0);
+            antiMech = armFire + each + pair;
         }
         const antiPersonnel = this._apMounts.reduce((sum, mount) => sum + (findInfantryWeapon(mount.weapon)?.battleValue ?? 0), 0);
         const squadSupport = this._items.filter((entry) => entry.squadSupport).reduce((sum, entry) => sum + this._itemBattleValue(entry), 0) / this._squadSize;
@@ -1541,10 +1571,11 @@ export default class BattleArmor {
     // Alpha Strike conversion (Alpha Strike Companion pp.92-141)
 
     /**
-     * The converted Alpha Strike stats of the squad. The conversion follows the Alpha Strike Companion; the Point
-     * Value is worked out the way the Master Unit List's battle armor cards are: no rounding of the Offensive
-     * Value, Defense Factor steps of 0.1 (to a modifier of 2) and 0.25, +1 each for battle armor, jumping or VTOL
-     * movement and stealth armor, and a mimetic or camo system counted as a movement modifier of 3 or 2.
+     * The converted Alpha Strike stats of the squad. The conversion follows the Alpha Strike Companion as corrected
+     * by its errata v1.2 (2018): no rounding of the Offensive Value, minimal damage worth half a point, a Movement
+     * Factor of Move / 8, Defense Factor steps of 0.1 (to a modifier of 2) and 0.25, +1 for stealth armor, a mimetic
+     * or camo system used as a movement modifier of 3 or 2, a DIR rounded to the nearest half, and the Agile and C3
+     * modifiers of Step 3.
      */
     public getAlphaStrikeStats(): IBattleArmorAlphaStrikeStats {
         const log: string[] = [];
@@ -1571,8 +1602,8 @@ export default class BattleArmor {
         // Armor: every trooper's armor, without the trooper, over 30 (ASC p.95); Structure is 2 (ASC p.99).
         const armorFactor = this._armorPoints * troopers;
         const special = this._armorPoints > 0 ? this._armor.tag : "";
-        // The Master Unit List's cards give battle armor in reactive or reflective armor the special ability
-        // without the 0.75 armor multiplier ASC p.97 applies to larger units; they are followed here.
+        // Reactive and reflective armor give the special ability and no armor multiplier (ASC p.97 as corrected by
+        // errata v1.2).
         if (special === "ba-laser-reflective" || special === "ba-reactive") add(special === "ba-reactive" ? "RCA" : "RFA");
         const armor = Math.round(armorFactor / 30 + 1e-9);
         const structure = 2;
@@ -1633,7 +1664,8 @@ export default class BattleArmor {
         suit.short += antiPersonnel;
         const vibro = this._vibroClaws();
         const total = {
-            short: suit.short * factor + squad.short + vibro,
+            // 0.1 for one vibro-claw, 0.2 for two (ASC p.102 as corrected by errata v1.2).
+            short: suit.short * factor + squad.short + vibro * 0.1,
             medium: suit.medium * factor + squad.medium,
             long: suit.long * factor + squad.long,
         };
@@ -1641,7 +1673,7 @@ export default class BattleArmor {
             damage <= 1e-9 ? { damage: 0, minimal: false } : damage < 0.5 ? { damage: 0, minimal: true } : { damage: Math.ceil(damage - 1e-9), minimal: false };
         const damageValues = { short: value(total.short), medium: value(total.medium), long: value(total.long) };
         log.push(`Damage of one suit: ${suit.short.toFixed(3)} / ${suit.medium.toFixed(3)} / ${suit.long.toFixed(3)}${antiPersonnel > 0 ? ` (with ${antiPersonnel.toFixed(2)} for anti-personnel weapons)` : ""}`);
-        log.push(`x ${factor} (Troop Factor for ${troopers} + 0.5)${squad.short + squad.medium + squad.long > 0 ? `, + weapons the squad has only one of (${squad.short.toFixed(2)} / ${squad.medium.toFixed(2)} / ${squad.long.toFixed(2)})` : ""}${vibro > 0 ? `, + ${vibro} at Short range for vibro-claws` : ""} = ${total.short.toFixed(2)} / ${total.medium.toFixed(2)} / ${total.long.toFixed(2)}: ${formatBattleArmorASDamage(damageValues.short)}/${formatBattleArmorASDamage(damageValues.medium)}/${formatBattleArmorASDamage(damageValues.long)}`);
+        log.push(`x ${factor} (Troop Factor for ${troopers} + 0.5)${squad.short + squad.medium + squad.long > 0 ? `, + weapons the squad has only one of (${squad.short.toFixed(2)} / ${squad.medium.toFixed(2)} / ${squad.long.toFixed(2)})` : ""}${vibro > 0 ? `, + ${(vibro * 0.1).toFixed(1)} at Short range for vibro-claws` : ""} = ${total.short.toFixed(2)} / ${total.medium.toFixed(2)} / ${total.long.toFixed(2)}: ${formatBattleArmorASDamage(damageValues.short)}/${formatBattleArmorASDamage(damageValues.medium)}/${formatBattleArmorASDamage(damageValues.long)}`);
 
         // Special abilities (ASC pp.117-133).
         const capabilities = this.getCapabilities();
@@ -1688,10 +1720,10 @@ export default class BattleArmor {
         addOffensive("LTAG", specials.includes("LTAG") ? 0.25 : 0);
         addOffensive("MDS", mines);
         addOffensive("BTAS", tasers * 0.25);
-        addOffensive("ARTBA, 2 damage x 4", artillery ? 8 : 0);
-        const blanket = specials.some((code) => code === "C3S" || code === "C3I") ? 1.1 : 1;
-        offensive = Math.round(offensive * blanket * 1000) / 1000;
-        log.push(`Offensive Value: ${offensiveParts.join(" + ")}${blanket > 1 ? `, x ${blanket} (C3)` : ""} = ${offensive}`);
+        // Battle armor tube artillery does 1 damage, at 6 points a point (ASC pp.111, 139 as corrected by errata v1.2).
+        addOffensive("ARTBA, 1 damage x 6", artillery ? 6 : 0);
+        offensive = Math.round(offensive * 1000) / 1000;
+        log.push(`Offensive Value: ${offensiveParts.join(" + ")} = ${offensive}`);
 
         const jumps = code === "j";
         let targetMovement = 0;
@@ -1703,6 +1735,8 @@ export default class BattleArmor {
         const stealth = specials.includes("STL");
         // A mimetic system counts as a movement modifier of 3, a camo system as 2, when the suit's own is lower.
         const concealed = specials.includes("MAS") ? 3 : specials.includes("LMAS") ? 2 : 0;
+        // The table's "VTOL or WiGE Vehicle" +1 is given to battle armor with VTOL movement too, as MegaMek and the
+        // Master Unit List's cards do.
         const defenseModifier = Math.max(targetMovement + (jumps || code === "v" ? 1 : 0), concealed) + 1 + (stealth ? 1 : 0);
         const defenseFactor = 1 + (defenseModifier <= 2 ? 0.1 : 0.25) * defenseModifier;
         const interaction = roundToHalf((armor * 2 + structure * 2) * defenseFactor);
@@ -1722,7 +1756,13 @@ export default class BattleArmor {
         }
         agile = roundToHalf(agile);
         if (agile > 0) log.push(`Agile: + ${agile}`);
-        subTotal += agile;
+        // The Brawler reduction for slow, short-ranged units is not taken by battle armor: MegaMek, citing errata
+        // v1.4 (not in the library), leaves out units with CAR of 8 or less or MEC, and the cards agree.
+        // C3: 5% of the subtotal (ASC p.141 as corrected by errata v1.2).
+        const c3 = specials.some((code) => code === "C3S" || code === "C3I");
+        const c3Points = c3 ? roundToHalf(subTotal * 0.05) : 0;
+        if (c3Points > 0) log.push(`C3: + ${c3Points}`);
+        subTotal += agile + c3Points;
         let force = 0;
         if (specials.includes("LECM")) force += 0.5;
         if (specials.includes("AECM")) force += 3;

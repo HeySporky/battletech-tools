@@ -289,6 +289,25 @@ played first, then by dependency.
   read on the chassis' technology base in a mixed suit. (20) TW p.227 bars "no vehicle" from VTOL, WiGE or
   Jumping MP while carrying battle armor; it is applied to vehicles only, not to a carrying 'Mech's jump.
   (21) A 'Mech that is not an Omni is told of its lost Walking MP; the MP is not taken off the 'Mech's sheet.
+- [x] Battle armor readings 1-21 ruled on by the user (2026-10-08). Confirmed as built: 1 (UMUs on a Clan
+  exoskeleton: the suits come from underwater mining rigs), 2, 4 (a bomb rack is nearer a ballistic weapon than
+  a missile), 5-8, 12, 13 (BOMB has no value of its own, so none is added), 15, 16, 18-21. Changed:
+  (3) Anti-'Mech Battle Value adds arm-mounted direct-fire weapons only, though TM p.310 prints "all
+  direct-fire weapons": only those fire in a Swarm attack (TW p.220). (9) The anti-personnel mount's weapon
+  stays in the Battle Value; the Master Unit List leaves it out and can be wrong. (10, 11) The Alpha Strike
+  Companion errata v1.2 (2018) is the newer source and prints what the cards do: no armor multiplier for
+  reactive or reflective armor, no rounding of the Offensive Value, minimal damage worth half a point,
+  Movement Factor of Move / 8, Defense Factor steps of 0.1 and 0.25, stealth +1, MAS / LMAS as a movement
+  modifier, DIR to the nearest half, Agile, C3 as 5% of the subtotal (not a 1.1 multiplier), tube artillery
+  1 damage at 6 points, vibro-claws 0.1 each, no Indirect Fire for mortars. (14) The published Undine is
+  allowed its one body slot over, as a note (`BATTLE_ARMOR_PUBLISHED_EXCEPTIONS`). (17) Mortars are offered to
+  Clan suits from 3065 (IO:AE p.47, "All") with the Inner Sphere table's figures, as TM p.348 prints none.
+  After these: 1,174 of 1,188 sample files legal; of 1,087 cards, damage 1,033, Point Value 984, Battle Value
+  705 of the 834 with no anti-personnel weapon.
+  Still to settle: the Brawler reduction of ASC p.141 is not taken by battle armor, on MegaMek's reading of
+  errata v1.4 (units with CAR 8 or less, or MEC, are left out), which is not in the library: with it 453
+  cards match, without it 984. The "VTOL or WiGE Vehicle" +1 is given to battle armor with VTOL movement, as
+  MegaMek and the cards do. ASC errata v1.4 should be added to the library and these two checked against it.
 - [ ] Battle armor still owed: `.blk` export (left off for now at the user's word, 2026-10-08). Vehicles do
   not record whether they are Omnis, so an OmniVehicle is not told apart from a standard one as a carrier.
 
