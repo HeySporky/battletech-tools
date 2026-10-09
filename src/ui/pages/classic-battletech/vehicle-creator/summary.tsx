@@ -32,7 +32,7 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                     <div className="col-md-9 col-lg-10">
                         <TextSection label={`${vehicle.getModel()} ${vehicle.getName()}`.trim() || "Vehicle Summary"}>
                             <p>
-                                <strong>{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons
+                                <strong>{vehicle.isOmni() ? "Omni " : ""}{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons
                                 {vehicle.hasTurret() ? ` - ${vehicle.getTurretName()}` : " - No Turret"}
                                 {` - Cruise ${vehicle.getCruiseMP()} / Flank ${vehicle.getFlankMP()}${vehicle.getJumpMP() > 0 ? ` / Jump ${vehicle.getJumpMP()}` : ""} - ${vehicle.getEngineType().name} ${vehicle.getEngineRating()} - Crew ${vehicle.getCrew()} - Item Slots ${vehicle.getUsedItemSlots()}/${vehicle.getTotalItemSlots()}`}
                             </p>

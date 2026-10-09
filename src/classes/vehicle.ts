@@ -43,6 +43,8 @@ export interface IVehicleEquipmentExport {
     location?: string;
     rear?: boolean;
     uuid?: string;
+    /** On an OmniVehicle: true for a pod-mounted item, absent for one fixed to the base chassis. */
+    pod?: boolean;
     currentAmmo?: number;
     selectedAmmoBinUUID?: string;
     currentAdditionalArmor?: number;
@@ -361,6 +363,8 @@ export interface IVehicleExport {
     hasTurret: boolean;
     dualTurret?: boolean;
     sponsonTurrets?: boolean;
+    /** An OmniVehicle: one base chassis whose pod-mounted equipment changes between configurations (TM pp.95-97). */
+    omni?: boolean;
     jumpMP?: number;
     troopSpace?: number;
     tech: string;
@@ -431,6 +435,8 @@ export default class Vehicle {
     private _hasTurret: boolean = true;
     private _dualTurret: boolean = false;
     private _sponsonTurrets: boolean = false;
+    private _omni: boolean = false;
+    private _podUUIDs: Set<string> = new Set();
     private _jumpMP: number = 0;
     private _troopSpace: number = 0;
     private _inPlay: IVehicleInPlay = newInPlay();
@@ -1150,7 +1156,41 @@ export default class Vehicle {
         return equipment;
     }
 
+    // OmniVehicles ---------------------------------------------------------------------------------------------
+
+    /** Vehicles of either technology base may be built as OmniVehicles (TM p.97). */
+    public isOmni(): boolean { return this._omni; }
+
+    public setOmni(omni: boolean): boolean {
+        this._omni = omni === true;
+        if (!this._omni) this._podUUIDs.clear();
+        this._calc();
+        return this._omni;
+    }
+
+    /** On an OmniVehicle: is the item pod-mounted, and not fixed to the base chassis? */
+    public isPodMounted(uuid: string | undefined): boolean { return this._omni && !!uuid && this._podUUIDs.has(uuid); }
+
+    public setPodMounted(uuid: string | undefined, pod: boolean): boolean {
+        if (!uuid) return false;
+        if (this._omni && pod && this._equipmentList.some((item) => item.uuid === uuid)) this._podUUIDs.add(uuid);
+        else this._podUUIDs.delete(uuid);
+        this._calc();
+        return this.isPodMounted(uuid);
+    }
+
+    /** Tonnage of the pod-mounted equipment. */
+    public getPodTonnage(): number {
+        return Math.round(this._equipmentList.filter((item) => this.isPodMounted(item.uuid)).reduce((sum, item) => sum + (item.weight || 0), 0) * 1000) / 1000;
+    }
+
+    /** Tonnage the base chassis leaves for pods: what is pod-mounted, and what is still unspent. */
+    public getPodSpace(): number {
+        return this._omni ? Math.round((this.getPodTonnage() + Math.max(0, this.getRemainingTonnage())) * 1000) / 1000 : 0;
+    }
+
     public removeEquipment(uuid: string): IEquipmentItem[] {
+        this._podUUIDs.delete(uuid);
         this._equipmentList = this._equipmentList.filter((item) => item.uuid !== uuid);
         this._calc();
         return this._equipmentList;
@@ -1498,9 +1538,11 @@ export default class Vehicle {
             hover: 50, "naval-sub": 50, hydrofoil: 75, "naval-surface": 200, wheeled: 200, tracked: 100, vtol: 30, wige: 25,
         };
         const multiplier = 1 + this._tonnage / (divisors[this._motiveType.tag] ?? 100);
-        this._cost = Math.round(subtotal * multiplier);
+        // Omni Conversion Cost: x 1.25 (TM p.285).
+        const omni = this._omni ? 1.25 : 1;
+        this._cost = Math.round(subtotal * multiplier * omni);
         this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${Math.round(value).toLocaleString()}`).join("<br />")
-            + `<br />Subtotal ${Math.round(subtotal).toLocaleString()} x ${multiplier.toFixed(3)} (1 + ${this._tonnage} / ${divisors[this._motiveType.tag] ?? 100})`
+            + `<br />Subtotal ${Math.round(subtotal).toLocaleString()} x ${multiplier.toFixed(3)} (1 + ${this._tonnage} / ${divisors[this._motiveType.tag] ?? 100})${this._omni ? " x 1.25 (OmniVehicle)" : ""}`
             + ` = <strong>${this._cost.toLocaleString()}</strong> (provisional)`;
     }
 
@@ -2802,6 +2844,7 @@ export default class Vehicle {
             hasTurret: this._hasTurret,
             dualTurret: this._dualTurret,
             sponsonTurrets: this._sponsonTurrets,
+            omni: this._omni || undefined,
             jumpMP: this._jumpMP,
             troopSpace: this._troopSpace || undefined,
             tech: this._tech.tag,
@@ -2818,6 +2861,7 @@ export default class Vehicle {
                 location: item.location,
                 rear: item.rear,
                 uuid: item.uuid,
+                pod: this.isPodMounted(item.uuid) || undefined,
                 currentAmmo: item.currentAmmo,
                 selectedAmmoBinUUID: item.selectedAmmoBinUUID,
                 currentAdditionalArmor: item.currentAdditionalArmor,
@@ -2869,6 +2913,9 @@ export default class Vehicle {
             this._hasTurret = typeof importObject.hasTurret === "boolean" ? importObject.hasTurret : true;
             this._dualTurret = importObject.dualTurret === true && this._hasTurret && this.canHaveDualTurret();
             this._troopSpace = savedNumber(importObject.troopSpace, 0, 0, 1000);
+            // Vehicles saved before Omnis were recorded load as standard vehicles.
+            this._omni = importObject.omni === true;
+            this._podUUIDs = new Set();
             this._inPlay = normalizeVehicleInPlay(importObject.inPlay);
             this.setTech(savedString(importObject.tech));
             this.setEra(savedString(importObject.era));
@@ -2913,6 +2960,7 @@ export default class Vehicle {
                     item.currentAdditionalArmor = savedNumber(entry.currentAdditionalArmor, item.currentAdditionalArmor ?? 0, 0, item.additionalArmor ?? 10);
                 }
                 this._equipmentList.push(item);
+                if (this._omni && entry.pod === true && item.uuid) this._podUUIDs.add(item.uuid);
                 restored.push([item, entry]);
             }
             // Shots left in each bin, clamped to what the bin holds, once every weapon is mounted.

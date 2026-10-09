@@ -2810,7 +2810,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               squad={selectedBattleArmor}
               carriers={[
                 ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.members ).map( (unit) => ({ uuid: unit.uuid, name: unit.getName(), kind: "mech" as const, omni: unit.isOmnimech }) ),
-                ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.vehicles ).map( (vehicle) => ({ uuid: vehicle.getUUID(), name: vehicleName(vehicle), kind: "vehicle" as const, omni: null }) ),
+                ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.vehicles ).map( (vehicle) => ({ uuid: vehicle.getUUID(), name: vehicleName(vehicle), kind: "vehicle" as const, omni: vehicle.isOmni() as boolean | null }) ),
               ].map( (carrier) => ({
                 ...carrier,
                 // A carrier takes one battle armor unit at a time (TW p. 226).
@@ -2827,7 +2827,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           ) : selectedVehicle ? (
             <VehiclePlayPanel
               vehicle={selectedVehicle}
-              carrierLoad={this._carrierLoad( selectedVehicle.getUUID(), vehicleName(selectedVehicle), "vehicle", null )}
+              carrierLoad={this._carrierLoad( selectedVehicle.getUUID(), vehicleName(selectedVehicle), "vehicle", selectedVehicle.isOmni() )}
               onChange={this.onVehicleChange}
             />
           ) : selectedMech ? (

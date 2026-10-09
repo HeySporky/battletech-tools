@@ -218,7 +218,7 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
                                 <option value="">On foot</option>
                                 {carriers.map((item) => (
                                     <option key={item.uuid} value={item.uuid}>
-                                        {item.name}{item.kind === "mech" ? (item.omni ? " (OmniMech)" : " ('Mech, not an Omni)") : " (vehicle)"}{item.carrying ? `, carrying ${item.carrying}` : ""}
+                                        {item.name}{item.kind === "mech" ? (item.omni ? " (OmniMech)" : " ('Mech, not an Omni)") : item.omni ? " (OmniVehicle)" : item.omni === false ? " (vehicle, not an Omni)" : " (vehicle)"}{item.carrying ? `, carrying ${item.carrying}` : ""}
                                     </option>
                                 ))}
                             </select>
@@ -229,11 +229,11 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
                                 {carrier.carrying ? (
                                     <p className="color-red" data-testid="battle-armor-play-carrier-full">{carrier.name} already carries {carrier.carrying}: a carrier may transport one battle armor unit at a time (TW p. 226).</p>
                                 ) : null}
-                                {riding.kind === "mech" && !carrier.omni && !squad.hasMagneticClamps() ? (
-                                    <p className="color-red">{carrier.name} is not an OmniMech: only battle armor with magnetic clamps may ride it (TW p. 227).</p>
+                                {carrier.omni === false && !squad.hasMagneticClamps() ? (
+                                    <p className="color-red" data-testid="battle-armor-play-not-omni">{carrier.name} is not an Omni: only battle armor with magnetic clamps may ride it (TW p. 227).</p>
                                 ) : null}
-                                {riding.kind === "vehicle" && !squad.hasMagneticClamps() ? (
-                                    <p className="small-text">Without magnetic clamps the squad may only ride an OmniVehicle (TW p. 227).</p>
+                                {carrier.omni === null && !squad.hasMagneticClamps() ? (
+                                    <p className="small-text">Without magnetic clamps the squad may only ride an Omni (TW p. 227).</p>
                                 ) : null}
                                 <table className="table">
                                     <thead><tr><th>Trooper</th><th>Rides on</th></tr></thead>

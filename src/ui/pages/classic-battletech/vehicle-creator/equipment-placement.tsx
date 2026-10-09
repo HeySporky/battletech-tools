@@ -23,6 +23,14 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
         }
     }
 
+    setPod = (uuid: string | undefined, pod: boolean): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle && uuid) {
+            vehicle.setPodMounted(uuid, pod);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     render = (): JSX.Element => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (!vehicle) return <></>;
@@ -59,6 +67,7 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                                         <th>Weight</th>
                                         <th>Slots</th>
                                         <th>Location</th>
+                                        {vehicle.isOmni() ? <th>Pod</th> : null}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -77,10 +86,27 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                                                     ))}
                                                 </select>
                                             </td>
+                                            {vehicle.isOmni() ? (
+                                                <td>
+                                                    <input
+                                                        type="checkbox"
+                                                        aria-label={`${item.name} is pod-mounted`}
+                                                        checked={vehicle.isPodMounted(item.uuid)}
+                                                        onChange={(e) => this.setPod(item.uuid, e.currentTarget.checked)}
+                                                    />
+                                                </td>
+                                            ) : null}
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
+                            {vehicle.isOmni() ? (
+                                <p className="smaller-text" data-testid="vehicle-pod-space">
+                                    OmniVehicle: {vehicle.getPodTonnage()} tons pod-mounted, {vehicle.getPodSpace()} tons of pod space. What is not
+                                    pod-mounted is fixed to the base chassis and is the same in every configuration, as are the engine, armor,
+                                    structure and turret tonnage (TM pp. 95, 108).
+                                </p>
+                            ) : null}
 
                             <h3>Slots Used By Location</h3>
                             <table className="table">

@@ -256,6 +256,10 @@ test("a vehicle carrying a squad is told what it may not do", async ({ page }) =
     await page.getByRole("button", { name: /Save as New/ }).click();
     await page.goto("classic-battletech/vehicle-creator/step1");
     await page.getByLabel("Motive Type").selectOption("tracked");
+    // Built as an OmniVehicle, it carries battle armor that has no magnetic clamps (TW p. 227).
+    await page.getByText(/^OmniVehicle/).click();
+    await page.goto("classic-battletech/vehicle-creator/summary");
+    await expect(page.getByText("Omni Tracked")).toBeVisible();
     await page.goto("classic-battletech/vehicle-creator");
     await page.getByRole("button", { name: /Save as New/ }).click();
 
@@ -268,8 +272,10 @@ test("a vehicle carrying a squad is told what it may not do", async ({ page }) =
     await page.getByTitle("Click here to go into 'Play Mode'").click();
     await page.locator(".mech-selector").getByTitle("Select Purifier Riders").click();
     const panel = page.getByTestId("battle-armor-play");
+    await expect(panel.getByTestId("battle-armor-play-carrier")).toContainText("(OmniVehicle)");
     await panel.getByTestId("battle-armor-play-carrier").selectOption({ index: 1 });
     await expect(panel.getByTestId("battle-armor-play-transport")).toContainText("Right Side");
+    await expect(panel.getByTestId("battle-armor-play-not-omni")).toHaveCount(0);
 
     // The vehicle's own panel says who rides it and where, and what that stops (TW pp. 226-227).
     await page.locator(".mech-selector").getByTitle(/^Select (?!Purifier)/).first().click();
@@ -277,6 +283,7 @@ test("a vehicle carrying a squad is told what it may not do", async ({ page }) =
     await expect(notes).toContainText("Carrying Purifier Riders (Right Side, Left Side).");
     await expect(notes).toContainText("turret weapons may");
     await expect(notes).toContainText("no VTOL, WiGE or Jumping MP");
+    await expect(notes).not.toContainText("Not an Omni");
 
     expect(errors).toEqual([]);
 });

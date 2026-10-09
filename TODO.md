@@ -308,8 +308,15 @@ played first, then by dependency.
   errata v1.4 (units with CAR 8 or less, or MEC, are left out), which is not in the library: with it 453
   cards match, without it 984. The "VTOL or WiGE Vehicle" +1 is given to battle armor with VTOL movement, as
   MegaMek and the cards do. ASC errata v1.4 should be added to the library and these two checked against it.
-- [ ] Battle armor still owed: `.blk` export (left off for now at the user's word, 2026-10-08). Vehicles do
-  not record whether they are Omnis, so an OmniVehicle is not told apart from a standard one as a carrier.
+- [x] OmniVehicles (2026-10-08): a vehicle can be built as an Omni (TM p.97): the flag and each item's
+  pod-mounted mark are saved with the design, the cost is x 1.25 (TM p.285), the equipment step has a Pod
+  column and shows the pod space, and the summary, record sheet and roster say "Omni". As a carrier of
+  mechanized battle armor an OmniVehicle needs no magnetic clamps on the squad and loses no MP; a standard
+  vehicle does. OmniFighters and OmniMechs already had this; canon LAMs may not be Omnis (TRO:3085
+  pp.286-288) and the fan-made Omni-LAM stays at the Custom Homebrew level.
+  Not built for vehicles: named alternate configurations of one chassis (OmniMechs have them; OmniFighters
+  and OmniVehicles only mark pods), and the import of the Omni flag from MegaMek or SSW vehicle files.
+- [ ] Battle armor still owed: `.blk` export (left off for now at the user's word, 2026-10-08).
 
 ### Conventional Infantry
 
