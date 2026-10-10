@@ -435,7 +435,7 @@ Both tags are unchanged, so saved designs that mount them still load. A regressi
 
 ### Errata search (user: "Conflicts in IOAE... Look for an errata to see if the clears that")
 
-The current official errata sheets were fetched from the battletech.com files (the live links return HTTP 500; the Internet Archive capture of 27 July 2025 was used) into `_KNOWLEDGE_DEV/rulebooks/errata-2025/` (git-ignored), with text extracts:
+The current official errata sheets were fetched from the battletech.com files (the live links return HTTP 500; the Internet Archive capture of 27 July 2025 was used) into `C:/repo/JBTIICRework/errata-2025/` (the rulebook library, a separate repository), with text extracts:
 
 | book | errata | date |
 |---|---|---|

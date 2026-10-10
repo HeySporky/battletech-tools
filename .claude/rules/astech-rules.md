@@ -35,7 +35,7 @@ Canon is the authoritative source of truth (ASOT), per the user (2026-09-27):
 1. Catalyst Game Labs rulebooks and official Alpha Strike material — canonical
    when the exact field is present (TW, TM, BMM, TO:AR, TO:AUE, SO, IO, CO,
    AS:CE, ASC, TROs/RSs, current errata). Local copies and text extracts are in
-   `_KNOWLEDGE_DEV/rulebooks/`; see `.claude/rules/rulebooks.md` for the lookup
+   `C:/repo/JBTIICRework/`; see `.claude/rules/rulebooks.md` for the lookup
    table, page offsets and which edition wins.
 2. battletech.com, including the official Master Unit List
    (masterunitlist.battletech.com) — canonical for published unit records and

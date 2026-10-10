@@ -67,7 +67,7 @@ own taste.
 ## How you work
 
 - **Research before you write.** Look in the local rulebooks first
-  (`_KNOWLEDGE_DEV/rulebooks/`, per `.claude/rules/rulebooks.md`), then
+  (`C:/repo/JBTIICRework/`, per `.claude/rules/rulebooks.md`), then
   `_KNOWLEDGE_DEV/`, `WorkingData_DEV/`,
   `tools/*.md` review ledgers, and cached lookups first. Then check the local
   sibling reference repos under `C:\repo\` (MegaMek, MegaMekLab, mm-data,
