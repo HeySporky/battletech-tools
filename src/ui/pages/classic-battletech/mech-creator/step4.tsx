@@ -139,6 +139,14 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    setFractionalArmorPoints = ( event: React.FormEvent<HTMLInputElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setFractionalArmorPoints( +event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
     setArmorType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -206,6 +214,22 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                 </label>
                             </div>
                             <div className="col-xs-12 col-md-6">
+                            {this.props.appGlobals.currentBattleMech.usesFractionalAccounting() ? (
+                              <label data-testid="fractional-armor-points">
+                                  Armor Points (Fractional Accounting, TO:AUE p.188):
+                                  <input
+                                    type="number"
+                                    min={0}
+                                    max={this.props.appGlobals.currentBattleMech.getMaxArmor()}
+                                    value={this.props.appGlobals.currentBattleMech.getFractionalArmorPoints()}
+                                    onChange={this.setFractionalArmorPoints}
+                                  />
+                                  <span className="smaller-text">
+                                    {this.props.appGlobals.currentBattleMech.getArmorWeight()} tons
+                                    at {this.props.appGlobals.currentBattleMech.getFractionalArmorTonsPerPoint().toFixed(4)} tons per point
+                                  </span>
+                              </label>
+                            ) : (
                             <label>
                                   Armor Weight:
                                   <select
@@ -220,6 +244,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                                   })}
                                   </select>
                                 </label>
+                            )}
                             </div>
                           </div>
 

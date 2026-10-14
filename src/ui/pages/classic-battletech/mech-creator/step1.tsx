@@ -36,6 +36,18 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    toggleFractionalAccounting = (): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setWeightAccounting(
+          currentMech.usesFractionalAccounting() ? "standard" : "fractional",
+          this.props.appGlobals.appSettings.mechRulesFilter,
+        );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+        this.setState({ updated: !this.state.updated });
+      }
+    }
+
     updateMake = ( e: React.FormEvent<HTMLInputElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -290,6 +302,22 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               onChange={this.updateHideNonAvailableEquipment}
                               label="Hide non-available weapons and equipment (will be gray otherwise)"
                             />
+
+                          {this.props.appGlobals.currentBattleMech.canUseFractionalAccounting( this.props.appGlobals.appSettings.mechRulesFilter )
+                            || this.props.appGlobals.currentBattleMech.usesFractionalAccounting() ? (
+                            <div data-testid="fractional-accounting-option">
+                              <InputCheckbox
+                                label="Fractional Accounting"
+                                checked={this.props.appGlobals.currentBattleMech.usesFractionalAccounting()}
+                                onChange={this.toggleFractionalAccounting}
+                              />
+                              <p className="smaller-text">
+                                Experimental construction option (TO:AUE p.188): engine, structure, armor and ammunition
+                                weights are not rounded to the half ton, only up to the kilogram. Armor is bought by the
+                                point and ammunition by the shot.
+                              </p>
+                            </div>
+                          ) : null}
 
                           <label>
                             Mech Tonnage:

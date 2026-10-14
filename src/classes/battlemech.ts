@@ -4,6 +4,7 @@ import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
+import { getFractionalArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
 import { findByTag, matchesTag } from "../data/tag-match";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
@@ -150,6 +151,8 @@ export interface IBattleMechExport {
     armor_allocation: IArmorAllocation,
     armor_type: string;
     armor_weight: number;
+    weight_accounting?: "fractional";   // Fractional Accounting (TO:AUE p.188); absent = standard rounding
+    fractional_armor_points?: number;
     as_role: string;
     as_value: number;   // for easy listing
     battle_value: number;     // for easy listing
@@ -384,6 +387,10 @@ export class BattleMech {
     private _heatDissipation: number = 0;
     private _additionalHeatSinks: number = 0;
     private _armorWeight: number = 0;
+    /** Weight rounding: "fractional" is the Fractional Accounting construction option (TO:AUE p.188). */
+    private _weightAccounting: "standard" | "fractional" = "standard";
+    /** Armor points bought under Fractional Accounting, where armor is installed by the point. */
+    private _fractionalArmorPoints: number = 0;
     private _totalArmor: number = 0;
     private _unallocatedArmor: number = 0;
     private _equipmentList: IEquipmentItem[] = [];
@@ -1487,6 +1494,10 @@ export class BattleMech {
             // } else {
             //     return this._engine.weight[this._engineType.tag];
             // }
+            if( this.usesFractionalAccounting() ) {
+                const fractionalWeight = getFractionalEngineWeight(this._engineType.tag, this._engine.weight.standard);
+                if( fractionalWeight !== null ) return fractionalWeight;
+            }
             switch( this._engineType.tag ) {
                 case "standard": {
                     return this._engine.weight.standard;
@@ -1613,8 +1624,9 @@ export class BattleMech {
         };
         const factor = factors[this._selectedInternalStructure?.tag] ?? factors["standard"];
         const tripodMultiplier = this.getType().tag === "tripod" ? 1.1 : 1;
-        // Structure weight rounds up to the half ton.
-        return Math.ceil(tonnage * (superheavy ? factor.superheavy : factor.base) * tripodMultiplier * 2) / 2;
+        const weight = tonnage * (superheavy ? factor.superheavy : factor.base) * tripodMultiplier;
+        // Structure weight rounds up to the half ton; under Fractional Accounting, up to the kilogram (TO:AUE p.188).
+        return this.usesFractionalAccounting() ? roundUpToKilogram(weight) : Math.ceil(weight * 2) / 2;
     }
 
     public getJumpJetWeight() {
@@ -2924,7 +2936,11 @@ export class BattleMech {
             });
         }
         this._totalArmor = 0;
-        if( this.getArmorTechBase() === "clan" ) {
+        if( this.usesFractionalAccounting() ) {
+            // Armor is bought by the point, at the type's weight per point (TO:AUE p.188).
+            this._armorWeight = roundUpToKilogram(this._fractionalArmorPoints * this.getFractionalArmorTonsPerPoint());
+            this._maxArmor = this._fractionalArmorPoints;
+        } else if( this.getArmorTechBase() === "clan" ) {
             this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.clan);
         } else {
             this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.is);
@@ -3010,7 +3026,14 @@ export class BattleMech {
             this._currentTonnage += this._weights[weight_counter].weight;
         }
 
+        if( this.usesFractionalAccounting() ) {
+            // Kilogram weights do not add up exactly in binary; keep the total to the gram.
+            this._currentTonnage = Math.round(this._currentTonnage * 1e6) / 1e6;
+        }
         this._remainingTonnage = this._tonnage - this._currentTonnage;
+        if( this.usesFractionalAccounting() ) {
+            this._remainingTonnage = Math.round(this._remainingTonnage * 1e6) / 1e6;
+        }
 
         this._heatSinkCriticals = {
             slotsEach: 1,
@@ -4442,6 +4465,10 @@ export class BattleMech {
     public setArmorCount( armorCount: number ) {
 
         // console.log("setArmorCount", armorCount)
+        if( this.usesFractionalAccounting() ) {
+            this.setFractionalArmorPoints(armorCount);
+            return;
+        }
         this._totalArmor = armorCount; // ;
         this._armorWeight = armorCount / 16
 
@@ -4486,8 +4513,95 @@ export class BattleMech {
         armorWeight: number,
     ) {
         this._armorWeight = armorWeight;
+        if( this.usesFractionalAccounting() ) {
+            this._fractionalArmorPoints = this._armorPointsForWeight(armorWeight);
+        }
         this._calc();
         return this._armorWeight;
+    }
+
+    public usesFractionalAccounting(): boolean {
+        return this._weightAccounting === "fractional";
+    }
+
+    /** Fractional Accounting is "experimental-level unit design" (TO:AUE p.188): Experimental rules and above. */
+    public canUseFractionalAccounting(rulesLevel: number = 2): boolean {
+        return rulesLevel >= EXPERIMENTAL_RULES_LEVEL;
+    }
+
+    /**
+     * Turns the Fractional Accounting construction option on or off (TO:AUE p.188). It can be turned on
+     * only at the Experimental rules level or above; it can always be turned off.
+     *
+     * Turning it on keeps the armor points already bought. Turning it off rounds the armor and every
+     * ammunition bin back up to the half ton.
+     */
+    public setWeightAccounting(accounting: "standard" | "fractional", rulesLevel: number = 2): "standard" | "fractional" {
+        if( accounting === this._weightAccounting ) return this._weightAccounting;
+        if( accounting === "fractional" ) {
+            if( !this.canUseFractionalAccounting(rulesLevel) ) return this._weightAccounting;
+            const points = this._armorPointsForWeight(this._armorWeight);
+            this._weightAccounting = "fractional";
+            this._fractionalArmorPoints = points;
+        } else {
+            this._weightAccounting = "standard";
+            this._armorWeight = Math.ceil(this._armorWeight * 2 - 1e-6) / 2;
+            for( const item of this._equipmentList ) {
+                if( item && item.isAmmo ) item.weight = Math.ceil(item.weight * 2 - 1e-6) / 2;
+            }
+        }
+        this._calc();
+        return this._weightAccounting;
+    }
+
+    /** Tons per point of the selected armor under Fractional Accounting (Fractional Armor Table, TO:AUE p.188). */
+    public getFractionalArmorTonsPerPoint(): number {
+        const techBase = this.getArmorTechBase() === "clan" ? "clan" : "is";
+        return getFractionalArmorTonsPerPoint(this.getArmorType(), techBase, this.getArmorObj().armorMultiplier[techBase]);
+    }
+
+    /** Whole armor points a weight of the selected armor buys, never more than the chassis can carry. */
+    private _armorPointsForWeight(weight: number): number {
+        const techBase = this.getArmorTechBase() === "clan" ? "clan" : "is";
+        const tonsPerPoint = this.usesFractionalAccounting()
+            ? this.getFractionalArmorTonsPerPoint()
+            : 1 / (this.getArmorObj().armorMultiplier[techBase] || 16);
+        return Math.max(0, Math.min(this.getChassisMaxArmor(), Math.floor(weight / tonsPerPoint + 1e-6)));
+    }
+
+    public getFractionalArmorPoints(): number {
+        return this._fractionalArmorPoints;
+    }
+
+    /** Fractional Accounting: buy armor by the point, "in any desired quantity" (TO:AUE p.188). */
+    public setFractionalArmorPoints(points: number): number {
+        if( !this.usesFractionalAccounting() ) return this._fractionalArmorPoints;
+        this._fractionalArmorPoints = Math.max(0, Math.min(this.getChassisMaxArmor(), Math.floor(points) || 0));
+        this._calc();
+        return this._fractionalArmorPoints;
+    }
+
+    /** Shots in one full ton of a bin's ammunition, for the weapon it feeds. */
+    public getAmmoBinShotsPerTon( bin: IEquipmentItem ): number {
+        if( !bin.isAmmo ) return 0;
+        const weapon = this.getAmmoBinWeapon(bin);
+        return weapon ? getWeaponShotsPerTon(weapon, bin) : getAmmoRoundsPerTon(bin);
+    }
+
+    /**
+     * Fractional Accounting: carry ammunition by the shot. A shot weighs a full-ton bin divided by its
+     * number of shots, and a bin still takes one critical slot for a ton "or fraction thereof", so a bin
+     * holds from one shot to a full ton (TO:AUE p.189).
+     */
+    public setAmmoBinShots( ammoUUID: string | undefined, shots: number ): number {
+        const bin = this._equipmentList.find(eq => eq && eq.uuid === ammoUUID && eq.isAmmo);
+        if( !bin || !this.usesFractionalAccounting() ) return 0;
+        const shotsPerTon = this.getAmmoBinShotsPerTon(bin);
+        if( !(shotsPerTon > 0) ) return 0;
+        const wanted = Math.max(1, Math.min(shotsPerTon, Math.floor(shots) || 1));
+        bin.weight = roundUpToKilogram(wanted / shotsPerTon);
+        this._calc();
+        return wanted;
     }
 
     public getEngine(): IEngineOption | null {
@@ -4940,6 +5054,8 @@ export class BattleMech {
             if (bomb) level = Math.max(level, getEquipmentRulesLevel(bomb));
         }
         if (this.isOmniLAM()) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
+        // Fractional Accounting is "experimental-level unit design" (TO:AUE p.188).
+        if (this.usesFractionalAccounting()) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         return level;
     }
 
@@ -5896,6 +6012,8 @@ export class BattleMech {
             armor_allocation: this._armorAllocation,
             armor_type: this.getArmorType(),
             armor_weight: this._armorWeight,
+            weight_accounting: this.usesFractionalAccounting() ? "fractional" : undefined,
+            fractional_armor_points: this.usesFractionalAccounting() ? this._fractionalArmorPoints : undefined,
             engineType: this.getEngineType().tag,
             engineTechBase: this.getEngineTechBase(),
             equipment: [],
@@ -6256,8 +6374,15 @@ export class BattleMech {
             if( importObject.myomer_type)
                 this.setMyomerType(importObject.myomer_type);
 
+            // A saved design keeps its accounting whatever the rules level set now.
+            this._weightAccounting = importObject.weight_accounting === "fractional" ? "fractional" : "standard";
+
             if( importObject.armor_weight)
                 this.setArmorWeight(importObject.armor_weight);
+            if( this.usesFractionalAccounting() && Number.isFinite(importObject.fractional_armor_points) ) {
+                // Saved data is not trusted: never more points than the chassis can carry.
+                this._fractionalArmorPoints = Math.max(0, Math.min(this.getChassisMaxArmor(), Math.floor(importObject.fractional_armor_points as number)));
+            }
 
             if( importObject.armor_allocation)
                 this._armorAllocation = importObject.armor_allocation;
@@ -8066,6 +8191,7 @@ export class BattleMech {
         this._armorAllocation = maxAllocation;
         const armorMultiplier = this.getArmorObj().armorMultiplier[this.getArmorTechBase()];
         this._armorWeight = Math.ceil((this.getChassisMaxArmor() / armorMultiplier) * 2) / 2;
+        this._fractionalArmorPoints = this.getChassisMaxArmor();
         this._calc();
     }
 
@@ -9148,7 +9274,7 @@ export class BattleMech {
         }
         const weapon = this.getAmmoBinWeapon(bin);
         const shotsPerTon = weapon ? getWeaponShotsPerTon(weapon, bin) : getAmmoRoundsPerTon(bin);
-        return Math.floor(shotsPerTon * (bin.weight || 1));
+        return Math.floor(shotsPerTon * (bin.weight || 1) + 1e-6);
     }
 
     /** Shots left in an ammunition bin; an untouched bin is full. */

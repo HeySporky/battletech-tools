@@ -57,6 +57,14 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
         }
     }
 
+    updateTotalArmorPoints = (points: number): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setArmorPoints(points);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     stepArmorTonnage = (delta: number): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
@@ -94,6 +102,21 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                                 <strong>Remaining Tonnage</strong>: {vehicle.getRemainingTonnage()}
                             </p>
 
+                            {vehicle.usesFractionalAccounting() ? (
+                            <label data-testid="fractional-armor-points">
+                                Armor Points (Fractional Accounting, TO:AUE p.188):
+                                <div className="inline-block">
+                                    <input
+                                        type="number"
+                                        min={0}
+                                        max={vehicle.getMaxAffordableArmorPoints()}
+                                        value={vehicle.getArmorPoints()}
+                                        onChange={(e) => this.updateTotalArmorPoints(+e.currentTarget.value)}
+                                    />
+                                    &nbsp;{vehicle.getArmorWeight()} tons at {vehicle.getFractionalArmorTonsPerPoint().toFixed(4)} tons per point
+                                </div>
+                            </label>
+                            ) : (
                             <label>
                                 Armor Tonnage:
                                 <div className="inline-block">
@@ -108,6 +131,7 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                                     <button type="button" className="btn btn-secondary btn-sm" onClick={() => this.stepArmorTonnage(0.5)}>+</button>
                                 </div>
                             </label>
+                            )}
 
                             <button className="btn btn-primary btn-sm" onClick={this.allocateMax}>Max Armor</button>
                             &nbsp;
