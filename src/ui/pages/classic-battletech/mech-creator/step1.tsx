@@ -69,8 +69,12 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
     toggleFractionalAccounting = (): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setWeightAccounting( currentMech.getWeightAccounting() === "fractional" ? "standard" : "fractional" );
+        currentMech.setWeightAccounting(
+          currentMech.usesFractionalAccounting() ? "standard" : "fractional",
+          this.props.appGlobals.appSettings.mechRulesFilter,
+        );
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
+        this.setState({ updated: !this.state.updated });
       }
     }
 
@@ -360,18 +364,6 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </>
                           ) : null}
 
-                          <InputCheckbox
-                            label="Fractional Accounting"
-                            checked={this.props.appGlobals.currentBattleMech.getWeightAccounting() === "fractional"}
-                            readOnly={!BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE}
-                            onChange={this.toggleFractionalAccounting}
-                          />
-                          {!BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE ? (
-                            <p className="smaller-text">
-                              Fractional Accounting (TO:AUE p.188) is not built yet. Weights round to the half ton as normal.
-                            </p>
-                          ) : null}
-
                           <label>
                             Mech Era:
                             <select
@@ -387,6 +379,27 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                           </label>
                           {this.props.appGlobals.currentBattleMech.getEra().description ? (
                             <p className="smaller-text">{this.props.appGlobals.currentBattleMech.getEra().description}</p>
+                          ) : null}
+
+                          {this.props.appGlobals.currentBattleMech.canUseFractionalAccounting( this.props.appGlobals.appSettings.mechRulesFilter )
+                            || this.props.appGlobals.currentBattleMech.usesFractionalAccounting() ? (
+                            <div data-testid="fractional-accounting-option">
+                              <InputCheckbox
+                                label="Fractional Accounting"
+                                checked={this.props.appGlobals.currentBattleMech.usesFractionalAccounting()}
+                                onChange={this.toggleFractionalAccounting}
+                              />
+                              <p className="smaller-text">
+                                Experimental construction option (TO:AUE p.188): engine, structure, armor and ammunition
+                                weights are not rounded to the half ton, only up to the kilogram. Armor is bought by the
+                                point and ammunition by the shot.
+                              </p>
+                              {this.props.appGlobals.currentBattleMech.requiresFractionalAccounting() ? (
+                                <p className="smaller-text" data-testid="fractional-accounting-required">
+                                  Stays on while battle armor weapons are mounted (Ghosts of Obeedah p.54).
+                                </p>
+                              ) : null}
+                            </div>
                           ) : null}
 
                           <label>

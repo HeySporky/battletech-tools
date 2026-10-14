@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
+import { EXPERIMENTAL_RULES_LEVEL } from "../data/equipment-registry";
 import { mechArmorTypes } from "../data/mech-armor-types";
 
 const build = (options: { tech?: string, era?: string, type?: string, tonnage?: number, structure?: string } = {}) => {
@@ -198,15 +199,16 @@ describe("Patchwork Armor: weight accounting switch (TO:AUE p.188)", () => {
         expect(BattleMech.roundPatchworkArmorWeight(1, "fractional")).toBe(1);
     });
 
-    it("stays on standard accounting: fractional accounting is not built yet", () => {
+    it("rounds each location to the kilogram once Fractional Accounting is on, which needs the Experimental rules level", () => {
         const mech = patchwork();
-        expect(BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE).toBe(false);
-        expect(mech.getWeightAccounting()).toBe("standard");
-        expect(mech.setWeightAccounting("fractional")).toBe("standard");
-        expect(mech.getWeightAccounting()).toBe("standard");
         mech.setPatchworkArmorType("rightArm", "ferro-fibrous");
         mech.setRightArmArmor(18);
+        expect(mech.setWeightAccounting("fractional", 3)).toBe("standard");
         expect(mech.getPatchworkLocationWeight("rightArm")).toBe(1.5);
+
+        expect(mech.setWeightAccounting("fractional", EXPERIMENTAL_RULES_LEVEL)).toBe("fractional");
+        expect(mech.getWeightAccounting()).toBe("fractional");
+        expect(mech.getPatchworkLocationWeight("rightArm")).toBe(1.005);
     });
 });
 

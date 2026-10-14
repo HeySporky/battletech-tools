@@ -152,6 +152,16 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return false;
     }
 
+    setAmmoBinShots = (
+      itemUUID: string | undefined,
+      shots: number,
+    ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setAmmoBinShots( itemUUID, shots );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
     setWeight = (
       itemUUID: string | undefined,
       weight: number,
@@ -414,7 +424,20 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                         ) : null}
                                       </td>
                                       <td>
-                                        {item.minAmmoTons && item.isAmmo && item.minAmmoTons < 1 ? (
+                                        {item.isAmmo && this.props.appGlobals.currentBattleMech?.usesFractionalAccounting()
+                                          && this.props.appGlobals.currentBattleMech.getAmmoBinShotsPerTon(item) > 0 ? (
+                                          <label className="smaller-text" data-testid="fractional-ammo-shots">
+                                            {item.weight} tons,&nbsp;shots:&nbsp;
+                                            <input
+                                              type="number"
+                                              min={1}
+                                              max={this.props.appGlobals.currentBattleMech.getAmmoBinShotsPerTon(item)}
+                                              value={this.props.appGlobals.currentBattleMech.getAmmoBinCapacity(item)}
+                                              onChange={( event: React.FormEvent<HTMLInputElement>) => this.setAmmoBinShots( item.uuid, +event.currentTarget.value)}
+                                              className="width-auto"
+                                            />
+                                          </label>
+                                        ) : item.minAmmoTons && item.isAmmo && item.minAmmoTons < 1 ? (
                                           <select
                                             value={item.weight}
                                             onChange={( event: React.FormEvent<HTMLSelectElement>) => this.setWeight( item.uuid, +event.currentTarget.value)}

@@ -15,8 +15,10 @@ import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
 import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, isEquipmentWithinRulesLevel, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getStarLeagueCarryOverDates, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
+import { getFractionalArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
+import { getBattleArmorScaleExplosionDamage } from "../data/battle-armor-scale-equipment";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
 import { findByTag, matchesTag } from "../data/tag-match";
 import { getMovementModifier } from "../utils";
@@ -48,6 +50,7 @@ export interface IVehicleEquipmentExport {
     currentAmmo?: number;
     selectedAmmoBinUUID?: string;
     currentAdditionalArmor?: number;
+    shots?: number;     // Fractional Accounting: shots bought for an ammunition bin (TO:AUE p.189)
 }
 
 /** An Alpha Strike damage value: a whole number, or minimal damage (0*). */
@@ -367,6 +370,7 @@ export interface IVehicleExport {
     omni?: boolean;
     jumpMP?: number;
     troopSpace?: number;
+    weightAccounting?: "fractional";   // Fractional Accounting (TO:AUE p.188); absent = standard rounding
     tech: string;
     era: string;
     engineType: string;
@@ -439,6 +443,8 @@ export default class Vehicle {
     private _podUUIDs: Set<string> = new Set();
     private _jumpMP: number = 0;
     private _troopSpace: number = 0;
+    /** Weight rounding: "fractional" is the Fractional Accounting construction option (TO:AUE p.188). */
+    private _weightAccounting: "standard" | "fractional" = "standard";
     private _inPlay: IVehicleInPlay = newInPlay();
     // Rolls the rules call for after a hit, a critical hit or another roll; not saved.
     private _followUps: VehicleFollowUpRoll[] = [];
@@ -550,7 +556,7 @@ export default class Vehicle {
     /** Sponson weight: 10% of the weapons in both sponsons, 5% a side, each rounded up to the half ton (TO p. 411). */
     public getSponsonWeight(): number {
         if (!this._sponsonTurrets) return 0;
-        const side = (tons: number) => Math.ceil(tons * 0.05 * 2) / 2;
+        const side = (tons: number) => this._roundWeight(tons * 0.05);
         return side(this._sideWeaponTons("left")) + side(this._sideWeaponTons("right"));
     }
 
@@ -576,7 +582,50 @@ export default class Vehicle {
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
         }
+        // Fractional Accounting is "experimental-level unit design" (TO:AUE p.188).
+        if (this.usesFractionalAccounting()) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         return level;
+    }
+
+    public usesFractionalAccounting(): boolean {
+        return this._weightAccounting === "fractional";
+    }
+
+    /** Fractional Accounting is "experimental-level unit design" (TO:AUE p.188): Experimental rules and above. */
+    public canUseFractionalAccounting(rulesLevel: number = 2): boolean {
+        return rulesLevel >= EXPERIMENTAL_RULES_LEVEL;
+    }
+
+    /**
+     * Turns the Fractional Accounting construction option on or off (TO:AUE p.188). It can be turned on
+     * only at the Experimental rules level or above; it can always be turned off, which puts every
+     * ammunition bin back to a full ton.
+     */
+    public setWeightAccounting(accounting: "standard" | "fractional", rulesLevel: number = 2): "standard" | "fractional" {
+        if (accounting === this._weightAccounting) return this._weightAccounting;
+        if (accounting === "fractional" && !this.canUseFractionalAccounting(rulesLevel)) return this._weightAccounting;
+        if (accounting === "standard" && this.requiresFractionalAccounting()) return this._weightAccounting;
+        this._weightAccounting = accounting;
+        if (accounting === "standard") {
+            for (const item of this._equipmentList) {
+                if (item.isAmmo) item.weight = Math.ceil(item.weight * 2 - 1e-6) / 2;
+            }
+        }
+        this._calc();
+        return this._weightAccounting;
+    }
+
+    /**
+     * A unit "built or modified to carry battle armor equipment uses the Fractional Accounting construction
+     * option by default" (Ghosts of Obeedah p.54): with such an item mounted the option cannot be turned off.
+     */
+    public requiresFractionalAccounting(): boolean {
+        return this._equipmentList.some((item) => item.battleArmorScale === true);
+    }
+
+    /** Rounds a calculated weight up: to the half ton, or to the kilogram under Fractional Accounting (TO:AUE p.188). */
+    private _roundWeight(weight: number): number {
+        return this.usesFractionalAccounting() ? roundUpToKilogram(weight) : Math.ceil(weight * 2) / 2;
     }
 
     public getMotiveType(): IVehicleMotiveType {
@@ -715,7 +764,9 @@ export default class Vehicle {
         let heat = 0;
         for (const item of this._equipmentList) {
             if (item.isAmmo) continue;
-            const usesAmmo = !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0;
+            // A battle armor energy weapon fed from power cells does "not affect the unit's heat sink
+            // requirements" (Ghosts of Obeedah p.54).
+            const usesAmmo = !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0 || this._hasPowerCells(item);
             if (Vehicle._isEnergyWeapon(item)) {
                 if (!usesAmmo) heat += item.heat || 0;
             } else if (item.isEquipment) {
@@ -723,6 +774,11 @@ export default class Vehicle {
             }
         }
         return heat;
+    }
+
+    private _hasPowerCells(weapon: IEquipmentItem): boolean {
+        return weapon.battleArmorScale === true
+            && this._equipmentList.some((ammo) => ammo.isAmmo && getCompatibleAmmo(weapon, ammo));
     }
 
     /** Heat sinks that weigh anything: those above the engine's free ones, plus any extra ones added. */
@@ -737,14 +793,15 @@ export default class Vehicle {
     /**
      * Power amplifiers: vehicles without a fusion or fission engine need 10% of their energy weapons'
      * weight, rounded up to the half ton (vehicle flamers and chemical lasers excepted; as
-     * implemented by MegaMek TestTank).
+     * implemented by MegaMek TestTank). Battle armor weapons need none: the amplifier "is integral to
+     * the weapon itself as part of its mounting system" (Ghosts of Obeedah p.54).
      */
     public getPowerAmplifierWeight(): number {
         if (this.isFusionEngine() || this._engineType.tag === "fission") return 0;
         const weight = this._equipmentList
-            .filter((item) => Vehicle._isEnergyWeapon(item) && !/vehicle-flamer|chemical-laser/.test(item.tag))
+            .filter((item) => Vehicle._isEnergyWeapon(item) && !item.battleArmorScale && !/vehicle-flamer|chemical-laser/.test(item.tag))
             .reduce((sum, item) => sum + (item.weight || 0), 0);
-        return Math.ceil(weight / 10 * 2) / 2;
+        return this._roundWeight(weight / 10);
     }
 
     /** Item slots: 5 + tonnage / 5, rounded down (as implemented by MegaMek Tank.getTotalSlots). */
@@ -888,6 +945,11 @@ export default class Vehicle {
         const weight = engineOption.weight[engineTag] ?? engineOption.weight.standard;
         // Fusion and fission engines in vehicles need extra shielding: weight x 1.5 (TechManual, Combat Vehicle engines).
         const shielded = this._engineType.tag !== "ice" && this._engineType.tag !== "cell";
+        if (this.usesFractionalAccounting()) {
+            // The engine type's multiplier on the standard fusion weight, in place of the table (TO:AUE p.188).
+            const fractionalWeight = getFractionalEngineWeight(this._engineType.tag, engineOption.weight.standard, shielded ? 1.5 : 1);
+            if (fractionalWeight !== null) return fractionalWeight;
+        }
         return shielded ? Math.ceil(weight * 1.5 * 2) / 2 : weight;
     }
 
@@ -962,7 +1024,39 @@ export default class Vehicle {
 
     public getArmorWeight(): number {
         const totalPoints = Object.values(this._armorAllocation).reduce((sum: number, points) => sum + (points ?? 0), 0);
+        if (this.usesFractionalAccounting()) {
+            // Armor is installed by the point, at the type's weight per point (TO:AUE p.188).
+            return roundUpToKilogram(totalPoints * this.getFractionalArmorTonsPerPoint());
+        }
         return Math.ceil((totalPoints / this.getArmorPointsPerTon()) * 2) / 2;
+    }
+
+    public getArmorPoints(): number {
+        return Object.values(this._armorAllocation).reduce((sum: number, points) => sum + (points ?? 0), 0);
+    }
+
+    /** Tons per point of the selected armor under Fractional Accounting (Fractional Armor Table, TO:AUE p.188). */
+    public getFractionalArmorTonsPerPoint(): number {
+        const pointsPerTon = this.getArmorPointsPerTon();
+        const techBase = this._armorType.armorMultiplier.clan === pointsPerTon && this._armorType.armorMultiplier.is !== pointsPerTon ? "clan" : "is";
+        return getFractionalArmorTonsPerPoint(this._armorType.tag, techBase, pointsPerTon);
+    }
+
+    /**
+     * Most armor points the vehicle can mount under Fractional Accounting: the point cap, or what the
+     * tonnage still free will carry at the type's weight per point.
+     */
+    public getMaxAffordableArmorPoints(): number {
+        const budget = this.getArmorWeight() + Math.max(0, this.getRemainingTonnage());
+        return Math.min(this.getMaxArmorPoints(), Math.floor(budget / this.getFractionalArmorTonsPerPoint() + 1e-6));
+    }
+
+    /** Fractional Accounting: set total armor by the point, "in any desired quantity" (TO:AUE p.188). */
+    public setArmorPoints(points: number): number {
+        if (!this.usesFractionalAccounting()) return this.getArmorPoints();
+        this._distributeArmorPoints(Math.max(0, Math.min(this.getMaxAffordableArmorPoints(), Math.floor(points) || 0)));
+        this._calc();
+        return this.getArmorPoints();
     }
 
     // TechManual Combat Vehicle armor cap: (Tonnage x 3.5) + 40 points, rounded down.
@@ -990,6 +1084,10 @@ export default class Vehicle {
     }
 
     public allocateMaxArmor(): void {
+        if (this.usesFractionalAccounting()) {
+            this.setArmorPoints(this.getMaxAffordableArmorPoints());
+            return;
+        }
         this.setArmorTonnage(this.getMaxArmorTonnage());
     }
 
@@ -1055,7 +1153,7 @@ export default class Vehicle {
     public getStructureWeight(): number {
         const multiplier = (VEHICLE_STRUCTURE_MULTIPLIERS[this._structureType] ?? 0.1)
             * (this.isSuperheavy() && !this._motiveType.naval ? 2 : 1);
-        return Math.ceil(this._tonnage * multiplier * 2) / 2;
+        return this._roundWeight(this._tonnage * multiplier);
     }
 
     // Combat Vehicle Internal Structure: 1 point per 10 tons, rounded up, in every location
@@ -1135,7 +1233,8 @@ export default class Vehicle {
      */
     public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string, anyTechBase: boolean = false): IEquipmentItem[] {
         const catalogItem = findByTag(getEquipmentListByTech(this._tech.tag, true), tag)
-            ?? (anyTechBase ? findByTag(this._otherTechBaseEquipment(), tag) : undefined);
+            ?? (anyTechBase ? findByTag(this._otherTechBaseEquipment(), tag) : undefined)
+            ?? findByTag(getBattleArmorScaleListByTech(this._tech.tag), tag);
         if (catalogItem) {
             this._equipmentList.push(this._newEquipment(catalogItem, location, rear, uuid));
             this._calc();
@@ -1335,6 +1434,14 @@ export default class Vehicle {
                 returnItems.push(item);
             }
         }
+        // Battle armor weapons on a vehicle are Experimental (Ghosts of Obeedah p.53).
+        if (rulesLevel >= EXPERIMENTAL_RULES_LEVEL) {
+            for (const item of getBattleArmorScaleListByTech(techTag)) {
+                item.criticals = item.space.combatVehicle;
+                this._setAvailability(item, rulesLevel);
+                returnItems.push(item);
+            }
+        }
         returnItems.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
         // Apocryphal, Custom Homebrew and Munchkin items are only offered at their own level or above.
         const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
@@ -1369,7 +1476,7 @@ export default class Vehicle {
 
     /** Control systems: 5% of tonnage, rounded up to the half ton (TM, as implemented by MegaMek). */
     public getControlSystemsWeight(): number {
-        return Math.ceil(this._tonnage * 0.05 * 2) / 2;
+        return this._roundWeight(this._tonnage * 0.05);
     }
 
     /**
@@ -1377,7 +1484,7 @@ export default class Vehicle {
      * rounded up to the half ton (TM, as implemented by MegaMek). Other motive types need none.
      */
     public getLiftEquipmentWeight(): number {
-        return this._motiveType.liftEquipment ? Math.ceil(this._tonnage * 0.1 * 2) / 2 : 0;
+        return this._motiveType.liftEquipment ? this._roundWeight(this._tonnage * 0.1) : 0;
     }
 
     /** Defensive BV type modifier by motive (as implemented by MegaMek CombatVehicleBVCalculator). */
@@ -1564,6 +1671,7 @@ export default class Vehicle {
     }
 
     private _calc() {
+        if (this.requiresFractionalAccounting()) this._weightAccounting = "fractional";
         this._weights = [];
 
         this._weights.push({ name: "Internal Structure", weight: this.getStructureWeight() });
@@ -1589,9 +1697,9 @@ export default class Vehicle {
 
         // Turret mass: 10% of the combined weight of turret-mounted equipment (ammunition excluded),
         // rounded up to the nearest half-ton, minimum half a ton.
-        const turretWeight = (location: string) => Math.max(0.5, Math.ceil(this._equipmentList
+        const turretWeight = (location: string) => Math.max(0.5, this._roundWeight(this._equipmentList
             .filter((item) => item.location === location && !item.isAmmo)
-            .reduce((sum, item) => sum + item.weight, 0) * 0.1 * 2) / 2);
+            .reduce((sum, item) => sum + item.weight, 0) * 0.1));
         if (this._hasTurret && this._dualTurret) {
             this._weights.push({ name: "Front Turret", weight: turretWeight("turret2") });
         }
@@ -1608,6 +1716,11 @@ export default class Vehicle {
 
         this._currentTonnage = this._weights.reduce((sum, w) => sum + w.weight, 0);
         this._remainingTonnage = this._tonnage - this._currentTonnage;
+        if (this.usesFractionalAccounting()) {
+            // Kilogram weights do not add up exactly in binary; keep the totals to the gram.
+            this._currentTonnage = Math.round(this._currentTonnage * 1e6) / 1e6;
+            this._remainingTonnage = Math.round(this._remainingTonnage * 1e6) / 1e6;
+        }
         this._calcBattleValue();
         this._calcCost();
     }
@@ -2061,7 +2174,35 @@ export default class Vehicle {
     // Shots in a full bin: the fed weapon's shots per ton times the bin's weight.
     private _fullBinShots(ammo: IEquipmentItem): number {
         const weapon = this._binWeapon(ammo);
-        return weapon ? Math.floor(getWeaponShotsPerTon(weapon, ammo) * (ammo.weight || 0)) : 0;
+        return weapon ? Math.floor(getWeaponShotsPerTon(weapon, ammo) * (ammo.weight || 0) + 1e-6) : 0;
+    }
+
+    /** Shots in one full ton of a bin's ammunition, for the weapon it feeds; 0 with no such weapon aboard. */
+    public getAmmoBinShotsPerTon(ammo: IEquipmentItem): number {
+        if (!ammo.isAmmo) return 0;
+        const weapon = this._binWeapon(ammo);
+        return weapon ? getWeaponShotsPerTon(weapon, ammo) : 0;
+    }
+
+    /** Shots a bin holds as bought. */
+    public getAmmoBinShots(ammo: IEquipmentItem): number {
+        return ammo.isAmmo ? this._fullBinShots(ammo) : 0;
+    }
+
+    /**
+     * Fractional Accounting: carry ammunition by the shot. A shot weighs a full-ton bin divided by its
+     * number of shots; a bin holds from one shot to a full ton (TO:AUE p.189).
+     */
+    public setAmmoBinShots(uuid: string | undefined, shots: number): number {
+        const bin = this._equipmentList.find((item) => item.uuid === uuid && item.isAmmo);
+        if (!bin || !this.usesFractionalAccounting()) return 0;
+        const shotsPerTon = this.getAmmoBinShotsPerTon(bin);
+        if (!(shotsPerTon > 0)) return 0;
+        const wanted = Math.max(1, Math.min(shotsPerTon, Math.floor(shots) || 1));
+        bin.weight = roundUpToKilogram(wanted / shotsPerTon);
+        if (typeof bin.currentAmmo === "number") bin.currentAmmo = Math.min(bin.currentAmmo, wanted);
+        this._calc();
+        return wanted;
     }
 
     public getAmmunitionExplosionDamage(): number {
@@ -2071,6 +2212,11 @@ export default class Vehicle {
             const weapon = this._binWeapon(ammo);
             if (!weapon) continue;
             const shots = ammo.currentAmmo ?? this._fullBinShots(ammo);
+            if (ammo.battleArmorScale) {
+                // 20 points per quarter-ton left, whatever the weapon (Ghosts of Obeedah p.54).
+                total += getBattleArmorScaleExplosionDamage(Math.max(0, shots) * (ammo.kgPerShot ?? 0) / 1000);
+                continue;
+            }
             total += Math.max(0, shots) * Vehicle._damagePerShot(weapon);
         }
         return total;
@@ -2848,6 +2994,7 @@ export default class Vehicle {
             omni: this._omni || undefined,
             jumpMP: this._jumpMP,
             troopSpace: this._troopSpace || undefined,
+            weightAccounting: this.usesFractionalAccounting() ? "fractional" : undefined,
             tech: this._tech.tag,
             era: this._era.tag,
             engineType: this._engineType.tag,
@@ -2866,6 +3013,7 @@ export default class Vehicle {
                 currentAmmo: item.currentAmmo,
                 selectedAmmoBinUUID: item.selectedAmmoBinUUID,
                 currentAdditionalArmor: item.currentAdditionalArmor,
+                shots: this.usesFractionalAccounting() && item.isAmmo && item.weight < 1 ? this._fullBinShots(item) : undefined,
             })),
             pilot: this._pilot.export(),
             inPlay: noInPlayVariables ? undefined : this._inPlay,
@@ -2917,6 +3065,8 @@ export default class Vehicle {
             // Vehicles saved before Omnis were recorded load as standard vehicles.
             this._omni = importObject.omni === true;
             this._podUUIDs = new Set();
+            // A saved design keeps its accounting whatever the rules level set now.
+            this._weightAccounting = importObject.weightAccounting === "fractional" ? "fractional" : "standard";
             this._inPlay = normalizeVehicleInPlay(importObject.inPlay);
             this.setTech(savedString(importObject.tech));
             this.setEra(savedString(importObject.era));
@@ -2951,7 +3101,8 @@ export default class Vehicle {
                     continue;
                 }
                 // A saved vehicle keeps what it mounted, including equipment since moved to the other tech base's catalog.
-                const catalogItem = findByTag(catalog, entry.tag) ?? findByTag(this._otherTechBaseEquipment(), entry.tag);
+                const catalogItem = findByTag(catalog, entry.tag) ?? findByTag(this._otherTechBaseEquipment(), entry.tag)
+                    ?? findByTag(getBattleArmorScaleListByTech(this._tech.tag), entry.tag);
                 if (!catalogItem) {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;
@@ -2966,6 +3117,10 @@ export default class Vehicle {
             }
             // Shots left in each bin, clamped to what the bin holds, once every weapon is mounted.
             for (const [item, entry] of restored) {
+                if (item.isAmmo && this.usesFractionalAccounting() && typeof entry.shots === "number" && Number.isFinite(entry.shots)) {
+                    const shotsPerTon = this.getAmmoBinShotsPerTon(item);
+                    if (shotsPerTon > 0) item.weight = roundUpToKilogram(Math.max(1, Math.min(shotsPerTon, Math.floor(entry.shots))) / shotsPerTon);
+                }
                 if (item.isAmmo && typeof entry.currentAmmo === "number" && Number.isFinite(entry.currentAmmo)) {
                     item.currentAmmo = Math.max(0, Math.min(this._fullBinShots(item), Math.floor(entry.currentAmmo)));
                 }

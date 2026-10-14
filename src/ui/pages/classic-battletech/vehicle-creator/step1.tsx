@@ -30,6 +30,17 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         }
     }
 
+    toggleFractionalAccounting = (): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setWeightAccounting(
+                vehicle.usesFractionalAccounting() ? "standard" : "fractional",
+                this.props.appGlobals.appSettings.mechRulesFilter,
+            );
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     updateModel = (e: React.FormEvent<HTMLInputElement>): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
@@ -283,6 +294,25 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     />
                                 ) : null}
                                 {vehicle.getSponsonIssue() ? <p className="color-red smaller-text">{vehicle.getSponsonIssue()} (TO p. 411).</p> : null}
+                                {vehicle.canUseFractionalAccounting(rulesLevel) || vehicle.usesFractionalAccounting() ? (
+                                    <div data-testid="fractional-accounting-option">
+                                        <InputCheckbox
+                                            label="Fractional Accounting (Experimental)"
+                                            checked={vehicle.usesFractionalAccounting()}
+                                            onChange={this.toggleFractionalAccounting}
+                                        />
+                                        <p className="smaller-text">
+                                            Construction option (TO:AUE p.188): engine, structure, control, lift, turret and armor
+                                            weights are not rounded to the half ton, only up to the kilogram. Armor is bought by
+                                            the point and ammunition by the shot.
+                                        </p>
+                                        {vehicle.requiresFractionalAccounting() ? (
+                                            <p className="smaller-text" data-testid="fractional-accounting-required">
+                                                Stays on while battle armor weapons are mounted (Ghosts of Obeedah p.54).
+                                            </p>
+                                        ) : null}
+                                    </div>
+                                ) : null}
 
                                 {vehicle.getRequiredRulesLevel() > rulesLevel ? (
                                     <p className="color-red smaller-text">
