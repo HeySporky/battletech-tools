@@ -8,7 +8,7 @@ import { fractionalArmorTonsPerPoint, getFractionalArmorTonsPerPoint, getFractio
 function fractionalMech(tonnage: number, walk: number): BattleMech {
     const mech = new BattleMech();
     mech.setTech("is");
-    mech.setEra("dark-age");
+    mech.setEra("dark-ages");
     mech.setTonnage(tonnage);
     mech.setWalkSpeed(walk);
     mech.setWeightAccounting("fractional", EXPERIMENTAL_RULES_LEVEL);
@@ -66,7 +66,7 @@ describe("Fractional Accounting on a BattleMech (TO:AUE pp.188-189)", () => {
     it("is off by default and leaves standard weights alone", () => {
         const mech = new BattleMech();
         mech.setTech("is");
-        mech.setEra("dark-age");
+        mech.setEra("dark-ages");
         mech.setTonnage(70);
         mech.setWalkSpeed(5);
         mech.setEngineType("light");

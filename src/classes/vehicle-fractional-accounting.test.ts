@@ -9,7 +9,7 @@ import { getFractionalEngineWeight } from "../data/fractional-accounting";
 function tank(tonnage: number, cruise: number, fractional: boolean = true): Vehicle {
     const vehicle = new Vehicle();
     vehicle.setTech("is");
-    vehicle.setEra("dark-age");
+    vehicle.setEra("dark-ages");
     vehicle.setTonnage(tonnage);
     vehicle.setCruiseMP(cruise);
     if (fractional) vehicle.setWeightAccounting("fractional", EXPERIMENTAL_RULES_LEVEL);

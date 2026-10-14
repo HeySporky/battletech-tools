@@ -15,9 +15,10 @@ import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions } from "../data/era-options";
 import { getVehicleMotiveType, getVehicleSuspensionFactor, vehicleMotiveTypes } from "../data/vehicle-motive-types";
-import { EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getAmmoBattleValuePerTon, getCompatibleAmmo, getBattleArmorScaleListByTech, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { getFractionalArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
+import { getBattleArmorScaleExplosionDamage } from "../data/battle-armor-scale-equipment";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
 import { findByTag, matchesTag } from "../data/tag-match";
 import { getMovementModifier } from "../utils";
@@ -597,6 +598,7 @@ export default class Vehicle {
     public setWeightAccounting(accounting: "standard" | "fractional", rulesLevel: number = 2): "standard" | "fractional" {
         if (accounting === this._weightAccounting) return this._weightAccounting;
         if (accounting === "fractional" && !this.canUseFractionalAccounting(rulesLevel)) return this._weightAccounting;
+        if (accounting === "standard" && this.requiresFractionalAccounting()) return this._weightAccounting;
         this._weightAccounting = accounting;
         if (accounting === "standard") {
             for (const item of this._equipmentList) {
@@ -605,6 +607,14 @@ export default class Vehicle {
         }
         this._calc();
         return this._weightAccounting;
+    }
+
+    /**
+     * A unit "built or modified to carry battle armor equipment uses the Fractional Accounting construction
+     * option by default" (Ghosts of Obeedah p.54): with such an item mounted the option cannot be turned off.
+     */
+    public requiresFractionalAccounting(): boolean {
+        return this._equipmentList.some((item) => item.battleArmorScale === true);
     }
 
     /** Rounds a calculated weight up: to the half ton, or to the kilogram under Fractional Accounting (TO:AUE p.188). */
@@ -748,7 +758,9 @@ export default class Vehicle {
         let heat = 0;
         for (const item of this._equipmentList) {
             if (item.isAmmo) continue;
-            const usesAmmo = !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0;
+            // A battle armor energy weapon fed from power cells does "not affect the unit's heat sink
+            // requirements" (Ghosts of Obeedah p.54).
+            const usesAmmo = !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0 || this._hasPowerCells(item);
             if (Vehicle._isEnergyWeapon(item)) {
                 if (!usesAmmo) heat += item.heat || 0;
             } else if (item.isEquipment) {
@@ -756,6 +768,11 @@ export default class Vehicle {
             }
         }
         return heat;
+    }
+
+    private _hasPowerCells(weapon: IEquipmentItem): boolean {
+        return weapon.battleArmorScale === true
+            && this._equipmentList.some((ammo) => ammo.isAmmo && getCompatibleAmmo(weapon, ammo));
     }
 
     /** Heat sinks that weigh anything: those above the engine's free ones, plus any extra ones added. */
@@ -770,12 +787,13 @@ export default class Vehicle {
     /**
      * Power amplifiers: vehicles without a fusion or fission engine need 10% of their energy weapons'
      * weight, rounded up to the half ton (vehicle flamers and chemical lasers excepted; as
-     * implemented by MegaMek TestTank).
+     * implemented by MegaMek TestTank). Battle armor weapons need none: the amplifier "is integral to
+     * the weapon itself as part of its mounting system" (Ghosts of Obeedah p.54).
      */
     public getPowerAmplifierWeight(): number {
         if (this.isFusionEngine() || this._engineType.tag === "fission") return 0;
         const weight = this._equipmentList
-            .filter((item) => Vehicle._isEnergyWeapon(item) && !/vehicle-flamer|chemical-laser/.test(item.tag))
+            .filter((item) => Vehicle._isEnergyWeapon(item) && !item.battleArmorScale && !/vehicle-flamer|chemical-laser/.test(item.tag))
             .reduce((sum, item) => sum + (item.weight || 0), 0);
         return this._roundWeight(weight / 10);
     }
@@ -1156,7 +1174,8 @@ export default class Vehicle {
     }
 
     public addEquipmentFromTag(tag: string, location?: string, rear?: boolean, uuid?: string): IEquipmentItem[] {
-        const catalogItem = findByTag(getEquipmentListByTech(this._tech.tag, true), tag);
+        const catalogItem = findByTag(getEquipmentListByTech(this._tech.tag, true), tag)
+            ?? findByTag(getBattleArmorScaleListByTech(this._tech.tag), tag);
         if (catalogItem) {
             this._equipmentList.push(this._newEquipment(catalogItem, location, rear, uuid));
             this._calc();
@@ -1270,6 +1289,14 @@ export default class Vehicle {
         if (includeIS) {
             for (const item of getEquipmentListByTech("is", includeCustom)) {
                 item.catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : "is");
+                item.criticals = item.space.combatVehicle;
+                this._setAvailability(item, rulesLevel);
+                returnItems.push(item);
+            }
+        }
+        // Battle armor weapons on a vehicle are Experimental (Ghosts of Obeedah p.53).
+        if (rulesLevel >= EXPERIMENTAL_RULES_LEVEL) {
+            for (const item of getBattleArmorScaleListByTech(techTag)) {
                 item.criticals = item.space.combatVehicle;
                 this._setAvailability(item, rulesLevel);
                 returnItems.push(item);
@@ -1498,6 +1525,7 @@ export default class Vehicle {
     }
 
     private _calc() {
+        if (this.requiresFractionalAccounting()) this._weightAccounting = "fractional";
         this._weights = [];
 
         this._weights.push({ name: "Internal Structure", weight: this.getStructureWeight() });
@@ -2038,6 +2066,11 @@ export default class Vehicle {
             const weapon = this._binWeapon(ammo);
             if (!weapon) continue;
             const shots = ammo.currentAmmo ?? this._fullBinShots(ammo);
+            if (ammo.battleArmorScale) {
+                // 20 points per quarter-ton left, whatever the weapon (Ghosts of Obeedah p.54).
+                total += getBattleArmorScaleExplosionDamage(Math.max(0, shots) * (ammo.kgPerShot ?? 0) / 1000);
+                continue;
+            }
             total += Math.max(0, shots) * Vehicle._damagePerShot(weapon);
         }
         return total;
@@ -2913,7 +2946,7 @@ export default class Vehicle {
                     issue("Skipped an equipment entry that could not be read");
                     continue;
                 }
-                const catalogItem = findByTag(catalog, entry.tag);
+                const catalogItem = findByTag(catalog, entry.tag) ?? findByTag(getBattleArmorScaleListByTech(this._tech.tag), entry.tag);
                 if (!catalogItem) {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;

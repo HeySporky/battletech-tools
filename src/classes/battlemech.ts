@@ -6,7 +6,7 @@ import { btEraOptions } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
 import { getFractionalArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
 import { findByTag, matchesTag } from "../data/tag-match";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getBattleArmorScaleListByTech, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
@@ -2818,6 +2818,7 @@ export class BattleMech {
         if(!this._tonnage) {
             this._tonnage = 20;
         }
+        this._adoptFractionalAccounting();
         const typeTag = this._mechType.tag.toLowerCase();
 
         if (typeTag === "lam") {
@@ -4543,6 +4544,8 @@ export class BattleMech {
             const points = this._armorPointsForWeight(this._armorWeight);
             this._weightAccounting = "fractional";
             this._fractionalArmorPoints = points;
+        } else if( this.requiresFractionalAccounting() ) {
+            return this._weightAccounting;
         } else {
             this._weightAccounting = "standard";
             this._armorWeight = Math.ceil(this._armorWeight * 2 - 1e-6) / 2;
@@ -4552,6 +4555,22 @@ export class BattleMech {
         }
         this._calc();
         return this._weightAccounting;
+    }
+
+    /**
+     * A unit "built or modified to carry battle armor equipment uses the Fractional Accounting construction
+     * option by default" (Ghosts of Obeedah p.54): with such an item mounted the option cannot be turned off.
+     */
+    public requiresFractionalAccounting(): boolean {
+        return this._equipmentList.some(item => item && item.battleArmorScale === true);
+    }
+
+    // Mounting a battle armor item turns the option on; the armor already bought is kept, by the point.
+    private _adoptFractionalAccounting(): void {
+        if( this.usesFractionalAccounting() || !this.requiresFractionalAccounting() ) return;
+        const points = this._armorPointsForWeight(this._armorWeight);
+        this._weightAccounting = "fractional";
+        this._fractionalArmorPoints = points;
     }
 
     /** Tons per point of the selected armor under Fractional Accounting (Fractional Armor Table, TO:AUE p.188). */
@@ -8249,6 +8268,15 @@ export class BattleMech {
             const catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : techTag === "clan" ? "clan" : "is");
             addEquipment(item, catalog);
         }
+        // Battle armor weapons on a 'Mech are Experimental (Ghosts of Obeedah p.53).
+        if (rulesLevel >= EXPERIMENTAL_RULES_LEVEL) {
+            const battleArmorScale = getBattleArmorScaleListByTech(techTag);
+            // A 'Mech tracks heat, so its battle armor energy weapons run off heat sinks, never power cells.
+            const energyTags = battleArmorScale.filter(item => item.category === "Energy Weapons").map(item => item.tag);
+            for (const item of battleArmorScale) {
+                if (!energyTags.includes(item.feedsWeaponTag ?? "")) addEquipment(item, item.catalog ?? "is");
+            }
+        }
         // Sort compiled equipment strictly by the dataset sorting values
         returnItems.sort((a, b) => {
             if (a.sort > b.sort) return 1;
@@ -8946,7 +8974,8 @@ export class BattleMech {
         equipmentListTag: string,
         includeCustom: boolean = false,
     ): IEquipmentItem[] {
-        return getEquipmentListByTech(equipmentListTag, includeCustom);
+        // Battle armor scale items go last, so a catalog record always wins a lookup.
+        return [...getEquipmentListByTech(equipmentListTag, includeCustom), ...getBattleArmorScaleListByTech(equipmentListTag)];
     }
 
 

@@ -291,6 +291,11 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                             weights are not rounded to the half ton, only up to the kilogram. Armor is bought by
                                             the point and ammunition by the shot.
                                         </p>
+                                        {vehicle.requiresFractionalAccounting() ? (
+                                            <p className="smaller-text" data-testid="fractional-accounting-required">
+                                                Stays on while battle armor weapons are mounted (Ghosts of Obeedah p.54).
+                                            </p>
+                                        ) : null}
                                     </div>
                                 ) : null}
 

@@ -281,6 +281,10 @@ export interface IEquipmentItem {
     chassisTypes?: string[];
     /** Most copies of this item one unit may mount (e.g. LAM Bomb Bays, 20). */
     maxPerUnit?: number;
+    /** A battle armor weapon, or its ammunition, mounted on a larger unit (Ghosts of Obeedah pp.53-54). */
+    battleArmorScale?: boolean;
+    /** Battle armor scale ammunition: kilograms one shot weighs (TM pp.346-348). */
+    kgPerShot?: number;
     /** Bombs: bomb bay (or fighter bomb) slots one bomb occupies. Bombs are loaded, not mounted. */
     bombBaySlots?: number;
 }
