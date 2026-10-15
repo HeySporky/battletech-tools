@@ -306,11 +306,13 @@ describe("Small Craft saves and imports", () => {
         expect(craft.getArcItems("nose").map((item) => item.tag).sort()).toEqual(["lrm-15-artemis-iv", "medium-laser"]);
         expect(craft.getQuarters().steerage).toBe(4);
         expect(craft.getBays().map((bay) => bay.tag)).toEqual(["cargo", "battle-armor-is"]);
-        // The file's 16 aboard take in the battle armor squads; four have quarters.
-        expect(craft.getCrew()).toBe(4);
+        // The file's 16 aboard include the 6 in the battle armor bay, who need no quarters (TM p.239); the other 10
+        // are crew, though only four have quarters.
+        expect(craft.getCrew()).toBe(10);
         expect(result.issues).toEqual(["\"No Such Gun\" has no match in this catalog and was left off."]);
         expect(importSmallCraftBlk(blk.replace("200.0", "5.0")).craft).toBeNull();
-        expect(importSmallCraftBlk(blk.replace("SmallCraft", "Dropship")).craft).toBeNull();
+        // A DropShip weighs 200 tons or more (TM p.184).
+        expect(importSmallCraftBlk(blk.replace("SmallCraft", "Dropship").replace("200.0", "150.0")).craft).toBeNull();
     });
 });
 

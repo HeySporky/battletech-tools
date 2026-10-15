@@ -457,8 +457,27 @@ played first, then by dependency.
 
 ### DropShips
 
-- [ ] DropShip construction and record data: spheroid/aerodyne hulls, bays and doors, weapon bays by arc,
-  crew and quarters, drives and fuel, capital-scale damage.
+- [x] DropShip construction (TM pp.184-196) in the Small Craft class and creator (`craftType: "dropShip"`,
+  a military flag): 200-35,000 t aerodyne or 200-100,000 t spheroid in 100-ton steps; fuel points and
+  civilian/military burn by weight; controls x 0.0075; base crew 3 or 4 + 1 per 5,000 t; military free heat
+  sinks; 7 + 1 per 50,000 t bay doors; DropShip armor tables; cost with gunnery control by armed arc, docking
+  collar, fuel with pumps and x 28 / x 36 (TM p.285). The Arcadia and Nekohono'o worked examples are tests,
+  the Nekohono'o cost included. Old saves load as Small Craft.
+- [x] DropShip Battle Value by arc (TM p.312): Front at full value, the higher adjacent arc as Left Side, the
+  other as Right Side, the three left as Rear at x 0.25; no CASE penalty. Flagged readings: (1) step 7 prints
+  Right Side x 0.5 or x 0.25 as the book has it; (2) hull ammunition goes to the arcs of the weapons it feeds by
+  their BV; (3) ties take the first arc from the nose; (4) capital ammunition is capped per launcher model.
+- [x] Capital missile launchers on DropShips only (TM p.210), Screen Launchers (TM p.237) and sub-capital
+  weapons (TO:AUE, rules level 3) from `capital-weapons.ts` / `sub-capital-weapons.ts`: weight with missiles,
+  cost, one gunner per capital missile launcher, the 10-shot minimum enforced, an AR-10 loading the three
+  standard missiles (heat of the hottest one carried, a reading), BV in its arc. Creator panel and e2e.
+- [x] MegaMek DropShip `.blk` import (`small-craft-blk.ts`): weapon bays "(B)", rear "(R)", shot counts after the
+  colon, capital and sub-capital lines, bay personnel kept out of the crew (TM p.239). The catalog learned 57
+  MegaMek internal names through `altNames`.
+- [ ] Capital and sub-capital weapons in the DropShip Alpha Strike conversion and in play (damage, criticals).
+- [ ] DropShip record sheet layout (it uses the Small Craft sheet now) and the Alpha Strike large-craft card.
+- [ ] Check imported DropShip BV against the MUL where it has one (most DropShips show BV 0 there; the
+  Overlord A3 imports at 25,708 against 24,600).
 
 ### JumpShips, WarShips and Space Stations
 

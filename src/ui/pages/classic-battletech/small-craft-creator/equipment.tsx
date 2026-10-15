@@ -4,6 +4,7 @@ import { FaArrowCircleLeft, FaArrowCircleRight, FaTrash } from "react-icons/fa";
 import SmallCraft from '../../../../classes/small-craft';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
+import { findCapitalWeapon } from '../../../../data/capital-weapon-helpers';
 import { SMALL_CRAFT_ARCS, SMALL_CRAFT_WEAPONS_PER_ARC } from '../../../../data/small-craft-construction';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
@@ -15,7 +16,9 @@ const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Trash = FaTrash as any;
 
-export default class SmallCraftCreatorEquipment extends React.Component<IEquipmentProps> {
+export default class SmallCraftCreatorEquipment extends React.Component<IEquipmentProps, IEquipmentState> {
+    state: IEquipmentState = { capitalTag: "" };
+
     constructor(props: IEquipmentProps) {
         super(props);
         this.props.appGlobals.makeDocumentTitle("Step 5 | Small Craft Creator");
@@ -35,6 +38,83 @@ export default class SmallCraftCreatorEquipment extends React.Component<IEquipme
         const added = craft.addEquipmentFromTag(item.tag);
         this.props.appGlobals.saveCurrentSmallCraft(craft);
         return added !== null;
+    }
+
+    /** Capital missile launchers (DropShips only, TM p.210), Screen Launchers and sub-capital weapons. */
+    renderCapitalWeapons = (craft: SmallCraft, rulesLevel: number): JSX.Element | null => {
+        const available = craft.getAvailableCapitalWeapons(rulesLevel);
+        const mounts = craft.getCapitalWeapons();
+        if (available.length === 0 && mounts.length === 0) return null;
+        const selected = available.find((weapon) => weapon.tag === this.state.capitalTag) ?? available[0];
+        return (
+            <TextSection label="Capital Weapons">
+                <p className="smaller-text">
+                    Only DropShips mount capital missile launchers, each with a gunner of its own and at least 10
+                    missiles; an AR-10 fires Killer Whale, White Shark and Barracuda missiles (TM pp. 210, 342).
+                </p>
+                {available.length > 0 ? (
+                    <div className="input-group mb-2">
+                        <select
+                            aria-label="Capital weapon to add"
+                            data-testid="sc-capital-select"
+                            className="form-control"
+                            value={selected?.tag ?? ""}
+                            onChange={(e) => this.setState({ capitalTag: e.currentTarget.value })}
+                        >
+                            {available.map((weapon) => <option key={weapon.tag} value={weapon.tag}>{weapon.name} ({weapon.weight} t)</option>)}
+                        </select>
+                        <button className="btn btn-primary btn-sm" data-testid="sc-capital-add" onClick={() => { if (selected) this.update((c) => c.addCapitalWeapon(selected.tag)); }}>
+                            Add
+                        </button>
+                    </div>
+                ) : null}
+                <table className="table" data-testid="sc-capital-installed">
+                    <thead>
+                        <tr><th>Name</th><th>Tons</th><th>Location</th><th>Shots</th><th></th></tr>
+                    </thead>
+                    <tbody>
+                        {mounts.map((mount) => (
+                            <tr key={mount.uuid}>
+                                <td>{mount.weapon.name}</td>
+                                <td>{craft.getCapitalWeaponWeight(mount)}</td>
+                                <td>
+                                    <select
+                                        aria-label={"Firing arc for " + mount.weapon.name}
+                                        className={mount.location ? "" : "color-red"}
+                                        value={mount.location ?? ""}
+                                        onChange={(e) => { const value = e.currentTarget.value; this.update((c) => c.setCapitalWeaponLocation(mount.uuid, value)); }}
+                                    >
+                                        <option value="">- choose an arc -</option>
+                                        {SMALL_CRAFT_ARCS.map((arc) => <option key={arc} value={arc}>{craft.getArcName(arc)}</option>)}
+                                    </select>
+                                </td>
+                                <td>
+                                    {craft.getCapitalAmmoTags(mount).map((tag) => (
+                                        <label key={tag} className="d-block">
+                                            {craft.getCapitalAmmoTags(mount).length > 1 ? `${findCapitalWeapon(tag)?.name ?? tag} ` : ""}
+                                            <input
+                                                type="number"
+                                                min={0}
+                                                aria-label={`Shots of ${findCapitalWeapon(tag)?.name ?? tag} for ${mount.weapon.name}`}
+                                                style={{ width: "5em" }}
+                                                value={mount.shots[tag] ?? 0}
+                                                onChange={(e) => { const value = Number(e.currentTarget.value); this.update((c) => c.setCapitalWeaponShots(mount.uuid, tag, value)); }}
+                                            />
+                                        </label>
+                                    ))}
+                                </td>
+                                <td>
+                                    <button className="btn btn-danger btn-sm" title={"Remove " + mount.weapon.name} onClick={() => this.update((c) => c.removeCapitalWeapon(mount.uuid))}>
+                                        <Trash />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                        {mounts.length === 0 ? <tr><td colSpan={5}>No capital weapons.</td></tr> : null}
+                    </tbody>
+                </table>
+            </TextSection>
+        );
     }
 
     render = (): JSX.Element => {
@@ -86,7 +166,7 @@ export default class SmallCraftCreatorEquipment extends React.Component<IEquipme
                                         })}
                                     </p>
                                     <p>
-                                        <strong>Gunners needed</strong>: {craft.getMinimumGunners()} (one for every six weapons, TM p. 189)
+                                        <strong>Gunners needed</strong>: {craft.getMinimumGunners()} (one for every six weapons, TM p. 189, and one for each capital missile launcher, TM p. 210)
                                     </p>
                                     <table className="table" data-testid="sc-installed">
                                         <thead>
@@ -123,6 +203,7 @@ export default class SmallCraftCreatorEquipment extends React.Component<IEquipme
                                         </tbody>
                                     </table>
                                 </TextSection>
+                                {this.renderCapitalWeapons(craft, rulesLevel)}
                             </div>
                         </div>
                     </div>
@@ -130,6 +211,10 @@ export default class SmallCraftCreatorEquipment extends React.Component<IEquipme
             </UIPage>
         );
     }
+}
+
+interface IEquipmentState {
+    capitalTag: string;
 }
 
 interface IEquipmentProps {
