@@ -110,6 +110,55 @@ export default class ProtoMechCreatorChassis extends React.Component<IChassisPro
                                 ({proto.getTotalStructure()} points); cockpit {proto.getCockpitWeight()} kg.
                                 {!advanced ? " Ultraheavy (10 to 15 tons), Quad and Glider ProtoMechs are offered at the Advanced rules level." : ""}
                             </p>
+                            {proto.isFrankenProto() || proto.canBeFrankenProto(rulesLevel) ? (
+                                <label>
+                                    <input type="checkbox" data-testid="pm-franken" checked={proto.isFrankenProto()} onChange={(e) => { const value = e.currentTarget.checked; this.update((p) => p.setFrankenProto(value, rulesLevel)); }} />
+                                    &nbsp;FrankenProto (Custom Homebrew: built from the parts of other ProtoMechs)
+                                </label>
+                            ) : null}
+                            {proto.isFrankenProto() ? (
+                                <fieldset className="fieldset" data-testid="pm-franken-donors">
+                                    <legend>FrankenProto (Custom Homebrew)</legend>
+                                    <p className="smaller-text">
+                                        The torso sets the tonnage. Each other location keeps the structure points and armor limit of the
+                                        ProtoMech it came from, on the same chassis, and weighs its share of that ProtoMech's structure (head 5%,
+                                        torso 55%, arms 10% each, legs 20%, or 40% for four). Legs come from a ProtoMech at least as heavy;
+                                        Ultraheavy parts only go on an Ultraheavy.
+                                    </p>
+                                    <table className="table table-sm">
+                                        <thead>
+                                            <tr><th>Location</th><th>Donor ProtoMech</th><th>Tons</th><th className="text-center">Pts</th><th className="text-center">kg</th></tr>
+                                        </thead>
+                                        <tbody>
+                                            {proto.getFrankenProtoLocations().map((location) => {
+                                                const donor = proto.getFrankenProtoDonor(location);
+                                                return (
+                                                    <tr key={location} data-testid={`pm-franken-${location}`}>
+                                                        <td>{proto.getLocationName(location)}</td>
+                                                        <td>
+                                                            <input
+                                                                type="text" value={donor.name ?? ""} maxLength={ProtoMech.FRANKEN_PROTO_DONOR_NAME_LENGTH}
+                                                                aria-label={`${proto.getLocationName(location)} donor ProtoMech`}
+                                                                onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setFrankenProtoDonor(location, { name: value })); }}
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <select
+                                                                value={donor.tons} aria-label={`${proto.getLocationName(location)} donor tons`}
+                                                                onChange={(e) => { const value = +e.currentTarget.value; this.update((p) => p.setFrankenProtoDonor(location, { tons: value })); }}
+                                                            >
+                                                                {proto.getFrankenProtoDonorTons(location).map((tons) => <option key={tons} value={tons}>{tons}</option>)}
+                                                            </select>
+                                                        </td>
+                                                        <td className="text-center">{proto.getStructure(location)}</td>
+                                                        <td className="text-center">{proto.getFrankenProtoStructureKg(location)}</td>
+                                                    </tr>
+                                                );
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </fieldset>
+                            ) : null}
                         </TextSection>
 
                         <TextSection label="Step 2: Install Engine and Control Systems">

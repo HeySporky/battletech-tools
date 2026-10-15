@@ -24,6 +24,7 @@ export default class VehicleRecordSheet extends React.Component<IVehicleRecordSh
                     {vehicle.getEngineType().name} {vehicle.getEngineRating()}
                     {this.props.showCrew ? <> &nbsp;|&nbsp; Gunnery {pilot.gunnery} / Driving {pilot.piloting}{pilot.name ? ` (${pilot.name})` : ""} &nbsp;|&nbsp; Adjusted BV {vehicle.getPilotAdjustedBattleValue()}</> : null}
                 </p>
+                {vehicle.getFrankenVehicleNotes().map((note) => <p key={note} className="smaller-text">{note}</p>)}
 
                 <VehicleDiagramSVG
                     motive={vehicle.getMotiveType()}

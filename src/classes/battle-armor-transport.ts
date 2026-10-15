@@ -9,6 +9,8 @@ export interface IBattleArmorCarrier {
     kind: BattleArmorCarrierKind;
     /** Is the unit an Omni? null where the unit does not record it. */
     omni: boolean | null;
+    /** Is the 'Mech a FrankenMech, which "cannot carry Mechanized Battle Armor" (CO p.213)? */
+    frankenMech?: boolean;
 }
 
 export interface IBattleArmorCarrierLoad {
@@ -64,6 +66,7 @@ export const getBattleArmorCarrierLoad = (squads: BattleArmor[], carrier: IBattl
     else if (carrier.omni === null) load.notes.push("If the unit is not an Omni it loses 1 Cruising MP while it carries the squad (TW p. 227).");
     if (load.noAmmoDump) load.notes.push("With a trooper on the rear, it may not dump ammunition (TW p. 227).");
 
+    if (carrier.frankenMech) load.issues.push(`${carrier.name} is a FrankenMech, which cannot carry mechanized battle armor (CO p. 213).`);
     if (riders.length > 1) load.issues.push(`${carrier.name} carries ${riders.length} battle armor units; a carrier may transport one at a time (TW p. 226).`);
     for (const squad of riders) {
         if (carrier.omni === false && !squad.hasMagneticClamps()) load.issues.push(`${squad.getDisplayName()} has no magnetic clamps and may only ride an Omni (TW p. 227).`);

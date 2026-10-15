@@ -1,6 +1,7 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
+import Vehicle, { IFrankenVehicle } from '../../../../classes/vehicle';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
@@ -120,6 +121,22 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
             vehicle.setOmni(e.currentTarget.checked);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateFrankenVehicle = (e: React.FormEvent<HTMLInputElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setFrankenVehicle(e.currentTarget.checked, this.props.appGlobals.appSettings.mechRulesFilter);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateFrankenVehicleTurret = (turret: Partial<IFrankenVehicle>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setFrankenVehicleTurret(turret);
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -284,10 +301,69 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                 ) : null}
                                 {vehicle.getSponsonIssue() ? <p className="color-red smaller-text">{vehicle.getSponsonIssue()} (TO p. 411).</p> : null}
 
+                                {vehicle.isFrankenVehicle() || vehicle.canBeFrankenVehicle(rulesLevel) ? (
+                                    <InputCheckbox
+                                        label="FrankenVehicle (Custom Homebrew: a turret taken from another vehicle)"
+                                        checked={vehicle.isFrankenVehicle()}
+                                        onChange={this.updateFrankenVehicle}
+                                    />
+                                ) : null}
+                                {vehicle.getFrankenVehicle() ? (
+                                    <fieldset className="fieldset" data-testid="franken-vehicle">
+                                        <legend>FrankenVehicle Turret (Custom Homebrew)</legend>
+                                        <p className="smaller-text">
+                                            The chassis sets the tonnage, motive type and structure. The turret comes from a vehicle no heavier
+                                            than this one and keeps that vehicle's structure points (1 per 10 tons). Driving Skill Rolls take +1
+                                            if the loaded turret is heavier than the one the chassis was built for; turret weapons take +1 to hit
+                                            unless the commander, riding in the turret, fires them; and whenever the turret takes damage, its
+                                            mismatched linkages lock it on 2D6 {Vehicle.FRANKEN_TURRET_LOCK_TARGET}+. Not an OmniVehicle.
+                                        </p>
+                                        <label>
+                                            Turret donor vehicle:
+                                            <input
+                                                type="text"
+                                                value={vehicle.getFrankenVehicle()?.turretDonorName ?? ""}
+                                                maxLength={Vehicle.FRANKEN_DONOR_NAME_LENGTH}
+                                                onChange={(e) => this.updateFrankenVehicleTurret({ turretDonorName: e.currentTarget.value })}
+                                            />
+                                        </label>
+                                        <label>
+                                            Turret donor tonnage:
+                                            <input
+                                                type="number" min={1} max={vehicle.getTonnage()} step={1}
+                                                value={vehicle.getFrankenVehicle()?.turretDonorTonnage}
+                                                onChange={(e) => this.updateFrankenVehicleTurret({ turretDonorTonnage: +e.currentTarget.value })}
+                                            />
+                                        </label>
+                                        <label>
+                                            Chassis's original turret, loaded (tons; 0 if it had none):
+                                            <input
+                                                type="number" min={0} max={vehicle.getTonnage()} step={0.5}
+                                                value={vehicle.getFrankenVehicle()?.originalTurretWeight}
+                                                onChange={(e) => this.updateFrankenVehicleTurret({ originalTurretWeight: +e.currentTarget.value })}
+                                            />
+                                        </label>
+                                        <label>
+                                            Turret weapons fired by:
+                                            <select
+                                                value={vehicle.getFrankenVehicle()?.turretGunner}
+                                                onChange={(e) => this.updateFrankenVehicleTurret({ turretGunner: e.currentTarget.value === "chassis" ? "chassis" : "commander" })}
+                                            >
+                                                <option value="commander">The commander, in the turret</option>
+                                                <option value="chassis">A gunner in the chassis (+1 to hit)</option>
+                                            </select>
+                                        </label>
+                                        <p className="smaller-text" data-testid="franken-vehicle-summary">
+                                            Turret: {vehicle.getStructureAllocation().turret ?? 0} structure points; {vehicle.getTurretLoadedWeight()} tons loaded.
+                                            {vehicle.getFrankenVehicleDrivingModifier() > 0 ? " Heavier than the original: +1 to Driving Skill Rolls." : ""}
+                                        </p>
+                                    </fieldset>
+                                ) : null}
+
                                 {vehicle.getRequiredRulesLevel() > rulesLevel ? (
                                     <p className="color-red smaller-text">
                                         This design needs the {getRulesLevelOptions().find((option) => option.id === vehicle.getRequiredRulesLevel())?.name} rules
-                                        level{vehicle.isSuperheavy() ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""}{vehicle.getJumpMP() > 0 ? " (jump jets)" : ""}{vehicle.hasDualTurret() ? " (dual turrets)" : ""}{vehicle.hasSponsonTurrets() ? " (sponson turrets)" : ""} and
+                                        level{vehicle.isSuperheavy() ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""}{vehicle.getJumpMP() > 0 ? " (jump jets)" : ""}{vehicle.hasDualTurret() ? " (dual turrets)" : ""}{vehicle.hasSponsonTurrets() ? " (sponson turrets)" : ""}{vehicle.isFrankenVehicle() ? " (FrankenVehicle)" : ""} and
                                         is not legal at the selected level. Printing will ask for confirmation.
                                     </p>
                                 ) : null}

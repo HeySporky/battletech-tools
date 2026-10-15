@@ -304,6 +304,12 @@ describe("The carrier of mechanized battle armor (Total Warfare pp.226-227)", ()
         // A unit nobody rides is not affected, and neither is one whose riders are on another unit.
         expect(getBattleArmorCarrierLoad([squad], { ...mech, uuid: "22222222-bbbb" }).blockedLocations).toEqual([]);
     });
+
+    it("may not be a FrankenMech (CO p.213)", () => {
+        expect(getBattleArmorCarrierLoad([rider(4)], mech).issues).toEqual([]);
+        expect(getBattleArmorCarrierLoad([rider(4)], { ...mech, frankenMech: true }).issues)
+            .toEqual(["Timber Wolf is a FrankenMech, which cannot carry mechanized battle armor (CO p. 213)."]);
+    });
 });
 
 describe("Battle armor rulings (user, 2026-10-08)", () => {

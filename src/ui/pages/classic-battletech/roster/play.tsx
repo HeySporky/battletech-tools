@@ -883,9 +883,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       name: string,
       kind: "mech" | "vehicle",
       omni: boolean | null,
+      frankenMech: boolean = false,
     ): IBattleArmorCarrierLoad => {
       const squads = this.props.appGlobals.currentCBTForce ? this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.battleArmor ) : [];
-      return getBattleArmorCarrierLoad( squads, { uuid: uuid, name: name, kind: kind, omni: omni } );
+      return getBattleArmorCarrierLoad( squads, { uuid: uuid, name: name, kind: kind, omni: omni, frankenMech: frankenMech } );
     }
 
     openSetTargetDialog = (
@@ -900,7 +901,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         }
 
         // A weapon in a torso location a mechanized trooper occupies may not fire.
-        const carrierLoad = this._carrierLoad( currentBM.uuid, currentBM.getName(), "mech", currentBM.isOmnimech );
+        const carrierLoad = this._carrierLoad( currentBM.uuid, currentBM.getName(), "mech", currentBM.isOmnimech, currentBM.isFrankenMech() );
         const targetWeaponSelection: IEquipmentItem[] = JSON.parse(JSON.stringify(currentBM.equipmentList));
         for( let item of targetWeaponSelection ) {
           if( isCarrierWeaponBlocked( carrierLoad, item ) ) {
@@ -1239,10 +1240,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
       let selectedMech: BattleMech | null = this.props.appGlobals.currentCBTForce.getSelectedMech();
       const targetCarrierLoad = this.state.setTargetDialog
-        ? this._carrierLoad( this.state.setTargetDialog.uuid, this.state.setTargetDialog.getName(), "mech", this.state.setTargetDialog.isOmnimech )
+        ? this._carrierLoad( this.state.setTargetDialog.uuid, this.state.setTargetDialog.getName(), "mech", this.state.setTargetDialog.isOmnimech, this.state.setTargetDialog.isFrankenMech() )
         : null;
       const movementCarrierLoad = this.state.setMovementDialog
-        ? this._carrierLoad( this.state.setMovementDialog.uuid, this.state.setMovementDialog.getName(), "mech", this.state.setMovementDialog.isOmnimech )
+        ? this._carrierLoad( this.state.setMovementDialog.uuid, this.state.setMovementDialog.getName(), "mech", this.state.setMovementDialog.isOmnimech, this.state.setMovementDialog.isFrankenMech() )
         : null;
 
       let selectedVehicle: Vehicle | null = null;
@@ -2819,7 +2820,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               key={selectedBattleArmor.getUUID()}
               squad={selectedBattleArmor}
               carriers={[
-                ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.members ).map( (unit) => ({ uuid: unit.uuid, name: unit.getName(), kind: "mech" as const, omni: unit.isOmnimech }) ),
+                // A FrankenMech cannot carry mechanized battle armor (CO p. 213).
+                ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.members ).filter( (unit) => !unit.isFrankenMech() ).map( (unit) => ({ uuid: unit.uuid, name: unit.getName(), kind: "mech" as const, omni: unit.isOmnimech }) ),
                 ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.vehicles ).map( (vehicle) => ({ uuid: vehicle.getUUID(), name: vehicleName(vehicle), kind: "vehicle" as const, omni: vehicle.isOmni() as boolean | null }) ),
               ].map( (carrier) => ({
                 ...carrier,
