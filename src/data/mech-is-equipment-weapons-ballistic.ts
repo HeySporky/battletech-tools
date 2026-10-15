@@ -515,7 +515,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Silver Bullet Gauss Rifle",
         tag: "silver-bullet-gauss-rifle",
-        altNames: ["Silver Bullet Gauss"],
+        altNames: ["Silver Bullet Gauss", "ISSBGR"],
         sort: "gauss rifle, e",
         category: "Ballistic Weapons",
         damagePerCluster: 1,
@@ -746,7 +746,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "LB 10-X AC",
         tag: "autocannon-lbx-10",
-        altNames: ["ISLBXAC10"],
+        altNames: ["ISLBXAC10", "ISLBXAC20"],
         introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, name: "LB 10-X AC", heat: 2, damage: 10, range: { min: 0, short: 6, medium: 12, long: 18 }, weight: 11, criticals: 6, shotsPerTon: 10, cbills: 400000, notes: "Fires standard or cluster rounds, chosen by the ton before play. Cluster: -1 to hit at every range, rolled on the Missile Hits table's 10 column, each submunition doing 1 point at its own location (BTC p.120)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, name: "LB 10-X AC", heat: 2, damage: 10, range: { min: 0, short: 6, medium: 12, long: 18 }, weight: 11, criticals: 6, shotsPerTon: 10, cbills: 400000, notes: "Fires standard or cluster munitions, designated before play in full-ton lots. Cluster: -1 to hit at all ranges, rolled on the Missile Hits Table column for the autocannon's size, each hit doing 1 point at its own location; no aimed shots and no targeting computer benefit (BTC:RoW p.118). Against a flying VTOL the cluster modifier is -3 (BTC:RoW p.87). Not available as an Ultra." }, "master-rules": { book: "BMR", page: 115, name: "LB 10-X AC", heat: 2, damage: 10, range: { min: 0, short: 6, medium: 12, long: 18 }, weight: 11, criticals: 6, shotsPerTon: 10, cbills: 400000, notes: "Fires standard or cluster munitions, designated in full-ton lots before play. Cluster: -1 to hit at all ranges, rolled on the Missile Hits Table column for the autocannon's size, each submunition doing 1 point at its own location; no aimed shots and no targeting computer benefit (BMR p.124). Against a flying VTOL the cluster modifier is -3 (BMR p.75). Not available as an Ultra." }, "master-rules-revised": { book: "BMR(R)", page: 121, name: "LB 10-X AC", heat: 2, damage: 10, range: { min: 0, short: 6, medium: 12, long: 18 }, weight: 11, criticals: 6, shotsPerTon: 10, cbills: 400000, notes: "Fires standard or cluster munitions, designated in full-ton lots before play. Cluster: -1 to hit at all ranges, rolled on the Missile Hits Table column for the autocannon's size, each submunition doing 1 point at its own location; no aimed shots and no targeting computer benefit (BMR(R) p.132). Against a flying VTOL the cluster modifier is -3 (BMR(R) p.82). Not available as an Ultra." } },
         sort: "LB c-X AC",
         category: "Ballistic Weapons",
@@ -867,6 +867,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
     {
         name: "Light Autocannon/2",
         tag: "autocannon-light-2",
+        altNames: ["Light Auto Cannon/2", "LAC/2", "Light Auto Cannon/5", "LAC/5"],
         sort: "Light Autocannon/2",
         category: "Ballistic Weapons",
         damage: 2,
@@ -1340,7 +1341,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         tag: "rotary-ac-5",
         introducedInEdition: "master-rules-revised", editionStats: { "master-rules-revised": { book: "BMR(R)", page: 121, name: "Rotary AC/5", heat: 1, damage: 5, range: { min: 0, short: 5, medium: 10, long: 15 }, weight: 10, criticals: 6, shotsPerTon: 20, cbills: 275000, notes: "Fires one, two, four or six shots: heat and ammunition multiply by the number fired, and the \"2\", \"4\" or \"6\" column of the Missile Hits Table says how many hit, each at its own location, all at the same target. It jams on a to-hit roll of 2 when firing two shots, 2-3 when firing four and 2-4 when firing six. To clear it, declare the attempt in an End Phase; next turn the unit stands still or walks/cruises, makes no weapon attacks, and makes a Gunnery Skill Roll at +3 at the end of the Weapon Attack Phase. A critical hit on a jammed rotary autocannon explodes one shot of its ammunition (BMR(R) pp.132-133). No special autocannon munitions (BMR(R) p.133)." } },
         ammoTypes: ["ammo-is-rotary-ac-5-standard"],
-        altNames: [],
+        altNames: ["ISUltraAC2"],
         altTags: ["autocannon-rac-5"],
         sort: "rotary, autocannon, 5",
         category: "Ballistic Weapons",
@@ -1478,7 +1479,7 @@ export const mechISEquipmentBallistic: IEquipmentItem[] = [
         tag: "autocannon-ultra-b",
         introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, name: "Ultra AC/5", heat: 1, damage: 5, range: { min: 2, short: 6, medium: 13, long: 20 }, weight: 9, criticals: 5, shotsPerTon: 20, cbills: 200000, notes: "May fire at double rate: twice the heat, two shots, and the 2 column of the Missile Hits table for how many hit. A to-hit roll of 2 at double rate leaves the weapon useless until repaired (BTC p.122)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, name: "Ultra AC/5", heat: 1, damage: 5, range: { min: 2, short: 6, medium: 13, long: 20 }, weight: 9, criticals: 5, shotsPerTon: 20, cbills: 200000, notes: "May fire at a double rate: twice the heat, 2 shots of ammunition, and the \"2\" column of the Missile Hits Table for how many shots hit, each at its own location, both at the same target; aimed with a Clan targeting computer, both shots hit the targeted location. A to-hit roll of 2 at the double rate leaves the weapon useless until repaired after the battle (BTC:RoW p.122)." }, "master-rules": { book: "BMR", page: 115, name: "Ultra AC/5", heat: 1, damage: 5, range: { min: 2, short: 6, medium: 13, long: 20 }, weight: 9, criticals: 5, shotsPerTon: 20, cbills: 200000, notes: "May fire at a double rate: twice the heat, 2 shots of ammunition, and the \"2\" column of the Missile Hits Table for how many shots hit, each at its own location, both at the same target. A to-hit roll of 2 at the double rate leaves the weapon useless until repaired after the battle (BMR p.124)." }, "master-rules-revised": { book: "BMR(R)", page: 121, name: "Ultra AC/5", heat: 1, damage: 5, range: { min: 2, short: 6, medium: 13, long: 20 }, weight: 9, criticals: 5, shotsPerTon: 20, cbills: 200000, notes: "May fire at a double rate: twice the heat, 2 shots of ammunition, and the \"2\" column of the Missile Hits Table for how many shots hit, each at its own location, both at the same target. A to-hit roll of 2 at the double rate leaves the weapon useless until repaired after the battle (BMR(R) p.133)." } },
         ammoTypes: ["ammo-is-ultra-ac-5-standard"],
-        altNames: [],
+        altNames: ["ISUltraAC10"],
         altTags: ["autocannon-uac-5"],
         sort: "Ultra AC/b",
         category: "Ballistic Weapons",
