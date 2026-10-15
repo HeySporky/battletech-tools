@@ -11,6 +11,9 @@ test("a design built under Battledroids takes that rulebook's tonnages and parts
     await page.goto("classic-battletech/mech-creator/step1");
     const edition = page.getByLabel("Rules Edition");
     await expect(edition).toHaveValue("total-warfare");
+    // The edition is the first field: it decides what the others offer.
+    const step1 = page.locator(".text-section", { has: page.getByRole("heading", { name: "Step 1: Design the Chassis" }) });
+    await expect(step1.locator("input, select").first()).toHaveAccessibleName(/Rules Edition/);
     await expect(page.getByLabel("Mech Tonnage").locator("option").first()).toHaveText("20 (Light)");
 
     await edition.selectOption("battledroids");
@@ -19,6 +22,8 @@ test("a design built under Battledroids takes that rulebook's tonnages and parts
     await expect(page.getByLabel("Mech Tonnage").locator("option").first()).toHaveText("5 (Ultralight)");
     await expect(page.getByText(/has no Battle Value/)).toBeVisible();
     await expect(page.getByLabel("Mech Type").locator("option")).toHaveText(["Biped"]);
+    // Battledroids has no Clan or Mixed technology.
+    await expect(page.getByLabel("Technology Base").locator("option")).toHaveText(["Inner Sphere"]);
     await expect(page.getByLabel("Internal Structure Type").locator("option:not([disabled])")).toHaveText(["Standard"]);
 
     await page.goto("classic-battletech/mech-creator/step3");

@@ -3,7 +3,9 @@ import { defineConfig, devices } from "@playwright/test";
 // End-to-end smoke tests against the production build served by `vite preview` (same base path as GitHub Pages).
 //
 //   npx playwright install            one-time browser download (Chromium, Firefox, WebKit)
-//   npm run test:e2e                  all desktop engines + phone/tablet emulation
+//   npm run test:e2e                  e2e main: the desktop engines and tablet emulation
+//   npm run test:e2e:mobile           e2e mobile: phone emulation (Android, iPhone)
+//   npm run test:e2e:all              both
 //   npm run test:e2e -- --project=webkit
 //
 // PLAYWRIGHT_CHANNEL=msedge|chrome drives an already-installed Edge/Chrome for the Chromium-based projects instead of
@@ -27,12 +29,14 @@ export default defineConfig({
         trace: "on-first-retry",
     },
     projects: [
+        // e2e main (npm run test:e2e)
         { name: "chromium", use: { ...devices["Desktop Chrome"], channel } },
         { name: "firefox", use: { ...devices["Desktop Firefox"] } },
         { name: "webkit", use: { ...devices["Desktop Safari"] } },
+        { name: "tablet-ipad", use: { ...devices["iPad (gen 11)"] } },
+        // e2e mobile (npm run test:e2e:mobile)
         { name: "mobile-android", use: { ...devices["Pixel 10"], channel } },
         { name: "mobile-ios", use: { ...devices["iPhone 17"] } },
-        { name: "tablet-ipad", use: { ...devices["iPad (gen 11)"] } },
     ],
     webServer: {
         command: `npm run build && npm run preview -- --port ${PORT} --strictPort`,

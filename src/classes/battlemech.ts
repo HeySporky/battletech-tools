@@ -10,7 +10,7 @@ import type { CustomComponentKind, ISSWUnresolvedItem } from "../data/custom-con
 import { getCockpitType } from "../data/mech-cockpit-types";
 import { btMechTonnages } from "../data/mech-tonnages";
 import { DEFAULT_RULES_EDITION, editionEngineHoldsHeatSinks, getEditionJumpJetWeight, getEditionPlayRules, getEditionStats, getEditionStructure, getEquipmentForEdition, getRulesEdition, isEarlierRulesEdition, isInRulesEdition } from "../data/rules-editions";
-import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getWeaponAmmoFamilies, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon, getBattleArmorScaleListByTech } from "../data/equipment-registry";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getWeaponAmmoFamilies, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon, getBattleArmorScaleListByTech, getEquipmentCatalogDefinitions } from "../data/equipment-registry";
 import { getFractionalArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -5651,9 +5651,32 @@ export class BattleMech {
             this._frankenMechDonors = {};
             this._frankenMechJumpJetClass = null;
         }
+        // The technology base must be one the edition has: Clan falls back to Inner Sphere, Mixed to its base.
+        const techTags = this.getAvailableTechOptions().map((option) => option.tag);
+        if (!techTags.includes(this._tech.tag)) {
+            const base = this._tech.tag === "mclan" && techTags.includes("clan") ? "clan" : "is";
+            this.setTech(base);
+        }
         // The structure boxes are the edition's as well; setTonnage recalculates everything after them.
         this.setTonnage(this._tonnage);
         return this._rulesEdition;
+    }
+
+    /**
+     * Technology bases the design's rules edition builds with. An earlier edition has the Clan base only when its
+     * rulebook prints Clan equipment (Battledroids to the BattleTech Manual, BT3 and BT4 print none; the BattleTech
+     * Compendium builds "Inner Sphere or Clan", BTC p.111, BTC:RoW p.99), and Mixed Tech only when it lets the two
+     * be mixed (`mixedTech`). Total Warfare and later editions have them all; the rules level and era decide.
+     */
+    public getAvailableTechOptions(): typeof btTechOptions {
+        if (!this.usesEarlierRulesEdition()) {
+            return btTechOptions;
+        }
+        const edition = getRulesEdition(this._rulesEdition);
+        const clan = getEquipmentCatalogDefinitions().some((catalog) => catalog.techBase === "clan"
+            && catalog.equipment.some((item) => isInRulesEdition(item, edition.tag)));
+        return btTechOptions.filter((option) => option.tag === "is" || (clan && option.tag === "clan")
+            || (clan && edition.mixedTech === true && (option.tag === "mis" || option.tag === "mclan")));
     }
 
     /**
@@ -5709,6 +5732,9 @@ export class BattleMech {
                 issues.push(`${kind}: ${name ?? record.name}`);
             }
         };
+        if (!this.getAvailableTechOptions().some((option) => option.tag === this._tech.tag)) {
+            issues.push(`Technology base: ${this._tech.name}`);
+        }
         check("Chassis type", this._mechType);
         check("Tonnage", btMechTonnages.find(option => option.tons === this._tonnage) ?? {}, `${this._tonnage} tons`);
         check("Engine", this._engineType);

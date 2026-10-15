@@ -10,6 +10,7 @@ import { availabilityOptionLabel, isOptionShown } from '../../../components/avai
 import FighterCreatorSideMenu from '../../../components/fighter-creator-side-menu';
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
+import RulesEditionSelect from '../../../components/rules-edition-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SupportAircraftChassis from './_support-chassis';
@@ -57,6 +58,8 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                     </div>
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Step 1: Design the Chassis">
+                            {/* The rules edition comes first: it decides what every field below offers. */}
+                            <RulesEditionSelect unitType="fighter" value={fighter.getRulesEdition()} onChange={(tag) => this.update((f) => f.setRulesEdition(tag))} />
                             <InputField
                                 label="Fighter Model # (e.g. SL-17)"
                                 value={fighter.getModel()}

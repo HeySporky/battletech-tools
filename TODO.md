@@ -321,20 +321,15 @@ played first, then by dependency.
 
 ### Conventional Infantry
 
-- [ ] Platoon construction (TechManual): motive type (foot, jump, motorized, mechanized
-  tracked/wheeled/hover/VTOL, beast-mounted), primary and secondary weapons, armor kits, field guns and
-  artillery, specializations (paratroops, anti-'Mech training, marines and others).
-- [ ] Damage by trooper count, infantry damage tables, record sheet, BV, cost, Alpha Strike conversion, and
-  transport capacity checks against vehicles and aerospace bays.
+- [ ] The Infantry Creator builds platoons (motive types, weapons by era, armor kits, specializations, record sheet,
+  BV, cost, Alpha Strike card). Still owed: beast-mounted infantry, field guns and field artillery, and transport
+  capacity checks against vehicle and aerospace bays.
 
 ### Aerospace and Conventional Fighters
 
-- [ ] Aerospace fighter construction: thrust, fuel, structural integrity, heat, aerospace armor locations
-  (nose, wings, aft), weapon arcs, bombs and external stores.
-- [ ] Conventional fighter construction (its own engine and fuel rules).
-- [ ] Atmospheric/orbital movement, aerospace criticals, and air-to-air/air-to-ground record sheets.
-- [ ] BV, cost, Alpha Strike conversion (armor threshold, aerospace specials) and aerospace validation
-  tests. Also unlocks the LAM items under section 6 (Aerospace-mode skills, Alpha Strike LAMs).
+- [ ] The Fighter Creator builds aerospace, conventional and OmniFighters with bombs and external stores, record
+  sheets, BV, cost and Alpha Strike cards. Still owed: atmospheric and orbital movement in play (altitude,
+  velocity) and the air-to-ground attack rules.
 
 ### ProtoMechs
 

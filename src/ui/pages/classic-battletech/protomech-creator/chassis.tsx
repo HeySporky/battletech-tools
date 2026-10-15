@@ -9,6 +9,7 @@ import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import InputField from "../../../components/form_elements/input_field";
 import ProtoMechCreatorSideMenu from '../../../components/protomech-creator-side-menu';
+import RulesEditionSelect from '../../../components/rules-edition-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import ProtoMechStatusBar from './_statusBar';
@@ -58,6 +59,8 @@ export default class ProtoMechCreatorChassis extends React.Component<IChassisPro
                     <div className="col-md-9 col-lg-10">
                         <ProtoMechStatusBar proto={proto} />
                         <TextSection label="Step 1: Design the Chassis">
+                            {/* The rules edition comes first: it decides what every field below offers. */}
+                            <RulesEditionSelect unitType="protomech" value={proto.getRulesEdition()} onChange={(tag) => this.update((p) => p.setRulesEdition(tag))} />
                             <InputField
                                 label="Name (e.g. Centaur 2, Roc)"
                                 value={proto.getName()}

@@ -35,9 +35,11 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <h3><Link to="alpha-strike/roster">Alpha Strike Roster</Link></h3>
                       <ul>
                         <li>The ability to search the <a href="http://masterunitlist.info" target="_blank" rel="noopener noreferrer">Master Unit List (MUL)</a> and add Alpha Strike Units to your Companies/Lances/Stars/Binaries, etc.</li>
+                        <li>A copy of the Master Unit List is bundled with the app and kept current every week, so you can search it offline.</li>
+                        <li>Filter the search by faction and special ability.</li>
                         <li>After the MUL is searched and added to your forces, your units are stored offline on your local device.</li>
                         <li>You may print your AS forces here (which you can do on the MUL if you like), but more importantly you can...</li>
-                        <li>Play your Alpha Strike games using a live in-play virtual stack of Alpha Strike Cards. When you unit takes damage or heat, the effects of the damage affect the card live and immediately. All your to-hit rolls are updated on-the-fly.</li>
+                        <li>Play your Alpha Strike games using a live in-play virtual stack of Alpha Strike Cards. When your unit takes damage or heat, the effects of the damage affect the card live and immediately. All your to-hit rolls are updated on-the-fly.</li>
                       </ul>
                       <br />
                       <h3>Advanced Search Terms</h3>
@@ -63,32 +65,77 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <br />
                     </li>
                     <li>
+                      <h3><Link to="alpha-strike/aces">BattleTech: Aces</Link></h3>
+                      <ul>
+                        <li>A companion for the solo and co-op <i>BattleTech: Aces</i> game: the card library, a card reader, the rules, a to-hit calculator and campaign tracking.</li>
+                      </ul>
+                      <br />
+                    </li>
+                    <li>
                       <h3><Link to="classic-battletech">Classic BattleTech Tools</Link></h3>
+                      <p>Every creator follows the TechManual's construction steps and gives the unit a record sheet, Battle Value and C-Bill cost, and every unit but a building an Alpha Strike card. Each one starts with the Rules Edition and the Rules Level (Introductory to Experimental, plus Apocryphal, Custom Homebrew and Munchkin for non-canon play), and only offers what those allow. Saved units go into the Classic Roster.</p>
                       <ul>
                         <li>
                           <h4><Link to="classic-battletech/mech-creator">'Mech Creator</Link></h4>
-                          <p>The 'mech creator closely follows the Classic BattleTech Tech Manual's steps in creating a BattleMech, whether it is a Biped or Quad.</p>
                           <ul>
-                            <li>BattleValue 2, Alpha Strike Stats, and C-Bill cost are all matching up with standard BattleTech designs</li>
-                            <li>Currently most introductory and standard equipment are available to Inner Sphere designs.</li>
-                            <li>Very basic Clan 'mechs can be created, though data entry for the Clan equipment is lagging.</li>
-                            <li>When you save your 'mechs you have the ability to add them to your 'mech roster.</li>
+                            <li>Biped, Quad, Tripod, LAM and QuadVee BattleMechs, OmniMechs, Superheavy 'Mechs, IndustrialMechs and Primitive 'Mechs.</li>
+                            <li>Inner Sphere, Clan and Mixed technology from the canon equipment catalogs.</li>
+                            <li>Build under any rules edition from <i>Battledroids</i> (1984) to the 2026 Core Rulebook: each edition offers only what its rulebook prints, with that book's weights, heat, ranges and damage.</li>
+                            <li>Patchwork Armor, Fractional Accounting and FrankenMechs.</li>
+                            <li>Import Solaris Skunk Werks (.ssw) designs.</li>
                           </ul>
                         </li>
                         <li>
-                          <h4><Link to="classic-battletech/roster">'Mech Roster</Link></h4>
-                          <p>Heavily under construction. Like the Alpha Strike Roster, this is a set of Electronic Record Sheets which will allow you to:</p>
+                          <h4><Link to="classic-battletech/vehicle-creator">Vehicle Creator</Link></h4>
+                          <p>Combat Vehicles of every motive type, OmniVehicles and Support Vehicles (chassis modifications, BAR and tech ratings, light and medium weapons), with turrets, transport bays, Patchwork Armor and Fractional Accounting.</p>
+                        </li>
+                        <li>
+                          <h4><Link to="classic-battletech/fighter-creator">Fighter Creator</Link></h4>
+                          <p>Aerospace and conventional fighters, OmniFighters, bombs and external stores, and Support Vehicle aircraft: airships, fixed-wing and satellites.</p>
+                        </li>
+                        <li>
+                          <h4><Link to="classic-battletech/infantry-creator">Infantry Creator</Link></h4>
+                          <p>Conventional infantry platoons: motive types, weapons by era, armor kits and specializations.</p>
+                        </li>
+                        <li>
+                          <h4><Link to="classic-battletech/battle-armor-creator">Battle Armor Creator</Link></h4>
+                          <p>Battle armor suits and squads, weapon loadouts, Tactical Operations equipment and mixed technology.</p>
+                        </li>
+                        <li>
+                          <h4><Link to="classic-battletech/protomech-creator">ProtoMech Creator</Link></h4>
+                          <p>ProtoMechs and Points, with MegaMek (.blk) import.</p>
+                        </li>
+                        <li>
+                          <h4><Link to="classic-battletech/small-craft-creator">Small Craft Creator</Link></h4>
+                          <p>Small Craft and DropShips, aerodyne and spheroid: fuel, crew, bays and doors, and capital weapons by arc, with MegaMek (.blk) import.</p>
+                        </li>
+                        <li>
+                          <h4><Link to="classic-battletech/building-creator">Building Creator</Link></h4>
+                          <p>Buildings, gun emplacements, advanced buildings and Castles Brian, with their weapons. In the roster they take damage, critical hits and breaches.</p>
+                        </li>
+                        <li>
+                          <h4><Link to="classic-battletech/roster">Classic Roster</Link></h4>
+                          <p>Electronic record sheets for every unit type above, grouped into lances and other formations. They let you:</p>
                           <ul>
-                            <li>Track your movement modes and to-hit numbers for each mech at a glance</li>
-                            <li>Set your targets speed, range, and other to-hit modifiers (you may have up to 3 targets at one time)</li>
-                            <li>Assign your weapons to your targets, your GATOR and final To-Hit will be calculated for you</li>
-                            <li>During the Firing Phase, you'll open up a single sheet with all your 'mechs and weapons with their respective targets with the ability to mark the attack as resolved. Cluster hits are easily tracked as well.</li>
-                            <li>Heat is automatically assigned during the heat phase per the 'mech's movement mode and discharged weapons.</li>
+                            <li>Track your movement modes and to-hit numbers for each unit at a glance</li>
+                            <li>Set your targets' speed, range and other to-hit modifiers (up to 3 targets at a time)</li>
+                            <li>Assign your weapons to your targets: your GATOR and final to-hit are worked out for you</li>
+                            <li>Fire everything from one sheet, mark attacks as resolved and track cluster hits</li>
+                            <li>Take damage and critical hits by location, with each unit type's own damage rules</li>
+                            <li>Apply heat for each 'Mech's movement mode and the weapons it fired</li>
+                            <li>Play <i>Battledroids</i> (1984) rules games</li>
+                            <li>Print the record sheets and Alpha Strike cards</li>
                           </ul>
                         </li>
-
                       </ul>
-
+                      <br />
+                    </li>
+                    <li>
+                      <h3><Link to="game-management/match-play">Alpha Strike Match Play</Link></h3>
+                      <ul>
+                        <li>Generates deployments and scenarios for the Alpha Strike Match Play format, with a custom ban system for variety.</li>
+                      </ul>
+                      <br />
                     </li>
                     <li>
                       <h4><Link to="settings/backup-and-restore">Backing up and Restoring</Link></h4>
@@ -96,7 +143,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <p><strong>Jeff wanted this app to be forever free and forever open source,</strong> even after his untimely demise. Having this app hosted at GitHub helps guarantee that.</p>
                     </li>
                   </ul>
-                  <h3>Why? What's the purpose of ths app? I use Solaris Skunk Werks/Mech Factory/ etc.</h3>
+                  <h3>Why? What's the purpose of this app? I use Solaris Skunk Werks/Mech Factory/ etc.</h3>
                   <p>Each of these software packages are amazing tools! However what they lack is complete cross-platform compatibility and ease of tablet use. Sure, <a href="https://battletech.rpg.hu/mechfactory_frame.php">Mech Factory</a> comes close, but it can't be used offline.</p>
                   <p>Jeff created this app originally as an electronic Alpha Strike roster sheet, but it's grown into more.</p>
 
@@ -109,6 +156,42 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
               label="News"
             >
                   <ul className="news">
+                  <li>
+                  <h3>
+                      <strong>October 15th, 2026</strong> - Every unit type, on the beta site
+                    </h3>
+                    <h4>Author - NGCFells</h4>
+                      <p>The <a href="https://ngcfells.github.io/battletech-tools" target="_blank" rel="noopener noreferrer">beta test site</a> now builds and plays every ground and aerospace unit short of JumpShips. This work is offered to the main site for review.</p>
+                      <ul>
+                        <li>New creators: fighters (aerospace, conventional and OmniFighters), conventional infantry, battle armor, ProtoMechs, Small Craft and DropShips, and buildings, each with a record sheet, Battle Value, cost and a place in the Classic Roster.</li>
+                        <li>Vehicles: Support Vehicles of every motive type and OmniVehicles.</li>
+                        <li>'Mechs: Tripods, LAMs, QuadVees, Superheavy 'Mechs, IndustrialMechs and Primitive 'Mechs, with the canon Inner Sphere and Clan equipment checked against the rulebooks.</li>
+                        <li>Rules levels from Introductory to Experimental, plus Apocryphal, Custom Homebrew and Munchkin for non-canon play.</li>
+                        <li>Rules editions: build a 'Mech under any core rulebook from <i>Battledroids</i> (1984) to the 2026 Core Rulebook, and play <i>Battledroids</i> games. Every creator now starts with the rules edition.</li>
+                        <li>Patchwork Armor, Fractional Accounting, FrankenMechs and the <i>Ghosts of Obeedah</i> units.</li>
+                        <li>Solaris Skunk Werks import for 'Mechs, and MegaMek import for ProtoMechs and Small Craft.</li>
+                        <li>Alpha Strike: a companion for <i>BattleTech: Aces</i>, special ability filters, search results in pages, and the bundled Master Unit List updated every week.</li>
+                      </ul>
+                   </li>
+                  <li>
+                  <h3>
+                      <strong>October 1st, 2026</strong> - Vehicle Creator
+                    </h3>
+                    <h4>Author - NGCFells</h4>
+                      <p>The Vehicle Creator now covers the full Combat Vehicle rules: every motive type, Battle Value, cost, Alpha Strike cards and play in the Classic Roster. Imports were hardened along the way.</p>
+                   </li>
+                  <li>
+                  <h3>
+                      <strong>September 29th, 2026</strong> - New Foundations
+                    </h3>
+                    <h4>Author - NGCFells</h4>
+                      <ul>
+                        <li>The app moved to current tools (Vite, React 19, TypeScript), with automated tests on every change.</li>
+                        <li>The Alpha Strike Roster searches a copy of the Master Unit List bundled with the app, so it works offline.</li>
+                        <li>Fixed: Battle Value for units faster than 25 MP (TechManual p.316), and engines with no matching rating.</li>
+                        <li>The license is now GPLv3, matching the code it came from.</li>
+                      </ul>
+                   </li>
                   <li>
                   <h3>
                       <strong>July 26th, 2025</strong> - Enhanced Alpha Strike Search

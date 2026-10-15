@@ -9,6 +9,7 @@ import { IAppGlobals } from '../../../app-router';
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import SmallCraftCreatorSideMenu from '../../../components/small-craft-creator-side-menu';
+import RulesEditionSelect from '../../../components/rules-edition-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SmallCraftStatusBar from './_statusBar';
@@ -55,6 +56,8 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                     <div className="col-md-9 col-lg-10">
                         <SmallCraftStatusBar craft={craft} rulesLevel={rulesLevel} />
                         <TextSection label="Step 1: Design the Hull">
+                            {/* The rules edition comes first: it decides what every field below offers. */}
+                            <RulesEditionSelect unitType="small-craft" value={craft.getRulesEdition()} onChange={(tag) => this.update((c) => c.setRulesEdition(tag))} />
                             <InputField
                                 label="Model # (e.g. LC-100)"
                                 value={craft.getModel()}

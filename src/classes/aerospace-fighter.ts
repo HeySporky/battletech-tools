@@ -1,4 +1,5 @@
 import { generateUUID } from "../utils/generateUUID";
+import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
 import { aerospaceArmorTypes, getAerospaceArmorPointsPerTon } from "../data/aerospace-armor-types";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
@@ -206,6 +207,8 @@ export interface IFighterEquipmentExport {
 }
 
 export interface IAerospaceFighterExport {
+    /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
+    rulesEdition?: string;
     uuid: string;
     lastUpdated: Date;
     name: string;
@@ -301,6 +304,7 @@ export default class AerospaceFighter {
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
+    private _rulesEdition: string = DEFAULT_RULES_EDITION;
     private _model: string = "";
     private _fighterType: FighterType = "aerospace";
     private _vstol: boolean = false;
@@ -351,6 +355,13 @@ export default class AerospaceFighter {
     public newUUID(): void { this._uuid = generateUUID(); }
 
     public getName(): string { return this._name; }
+    /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
+    public getRulesEdition(): string { return this._rulesEdition; }
+    public setRulesEdition(editionTag: string): string {
+        this._rulesEdition = getSelectableRulesEditionTag(editionTag, "fighter");
+        return this._rulesEdition;
+    }
+
     public setName(name: string): string {
         this._name = name.slice(0, 200);
         return this._name;
@@ -2621,6 +2632,7 @@ export default class AerospaceFighter {
             uuid: this._uuid,
             lastUpdated: this.lastUpdated,
             name: this._name,
+            ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
             model: this._model,
             fighterType: this._fighterType,
             vstol: this._vstol,
@@ -2747,6 +2759,7 @@ export default class AerospaceFighter {
                 if (saved[key] !== undefined && typeof saved[key] !== "string") issue(`Ignored a ${key} that is not text`);
             }
             this.setName(savedString(saved.name));
+            this._rulesEdition = getSelectableRulesEditionTag(saved.rulesEdition, "fighter");
             this.setModel(savedString(saved.model));
             // A save from before conventional fighters has no type: it is an aerospace fighter.
             if (saved.fighterType !== undefined && !["aerospace", "conventional", "support"].includes(saved.fighterType as string)) issue("Ignored an unknown fighter type");

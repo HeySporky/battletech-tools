@@ -1,4 +1,5 @@
 import { generateUUID } from "../utils/generateUUID";
+import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
 import { aerospaceArmorTypes, getAerospaceArmorPointsPerTon } from "../data/aerospace-armor-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
@@ -167,6 +168,8 @@ export interface ISmallCraftEquipmentExport {
 }
 
 export interface ISmallCraftExport {
+    /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
+    rulesEdition?: string;
     version: number;
     uuid: string;
     lastUpdated: Date;
@@ -241,6 +244,7 @@ export default class SmallCraft {
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
+    private _rulesEdition: string = DEFAULT_RULES_EDITION;
     private _model: string = "";
     private _shape: SmallCraftShape = "aerodyne";
     private _craftType: CraftType = "smallCraft";
@@ -294,6 +298,13 @@ export default class SmallCraft {
     public newUUID(): void { this._uuid = generateUUID(); }
 
     public getName(): string { return this._name; }
+    /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
+    public getRulesEdition(): string { return this._rulesEdition; }
+    public setRulesEdition(editionTag: string): string {
+        this._rulesEdition = getSelectableRulesEditionTag(editionTag, "small-craft");
+        return this._rulesEdition;
+    }
+
     public setName(name: string): string {
         this._name = String(name ?? "").slice(0, 200);
         return this._name;
@@ -1957,6 +1968,7 @@ export default class SmallCraft {
             uuid: this._uuid,
             lastUpdated: this.lastUpdated,
             name: this._name,
+            ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
             model: this._model,
             shape: this._shape,
             craftType: this._craftType,
@@ -2051,6 +2063,7 @@ export default class SmallCraft {
                 if (saved[key] !== undefined && typeof saved[key] !== "string") issue(`Ignored a ${key} that is not text`);
             }
             this.setName(savedString(saved.name));
+            this._rulesEdition = getSelectableRulesEditionTag(saved.rulesEdition, "small-craft");
             this.setModel(savedString(saved.model));
             if (saved.shape !== undefined && saved.shape !== "aerodyne" && saved.shape !== "spheroid") issue("Ignored an unknown shape");
             this._shape = saved.shape === "spheroid" ? "spheroid" : "aerodyne";

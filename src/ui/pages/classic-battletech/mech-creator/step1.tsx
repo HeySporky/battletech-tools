@@ -4,7 +4,6 @@ import { Link } from 'react-router';
 import { BattleMech, IFrankenMechDonor } from '../../../../classes/battlemech';
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
-import { btTechOptions } from '../../../../data/tech-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { editionHasBattleValue, editionHasPrices, getRulesEdition, getSelectableRulesEditions } from '../../../../data/rules-editions';
 import { IAppGlobals } from '../../../app-router';
@@ -214,46 +213,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                       <TextSection
                         label="Step 1: Design the Chassis"
                       >
-
-
-                          <InputField
-                            label="Mech Model # (e.g. WSP-1A, Timber Wolf)"
-                            value={this.props.appGlobals.currentBattleMech.model}
-                            onChange={this.updateMake}
-                          />
-
-                           <InputField
-                            label="Mech Model Name, or Omni Variant (e.g. Wasp, Prime, C )"
-                            value={this.props.appGlobals.currentBattleMech.name}
-                            onChange={this.updateName}
-                          />
-
-                          <label>
-                            Technology Base:
-                            <select
-                              value={this.props.appGlobals.currentBattleMech.getTech().tag}
-                              onChange={this.updateTech}
-                            >
-                            {btTechOptions.map( (option) => {
-                              return (
-                                <option key={option.tag} value={option.tag}>{option.name}</option>
-                              )
-                            })}
-                            </select>
-                          </label>
-
-                          <label>
-                            Rules Level:
-                            <select
-                              value={this.props.appGlobals.appSettings.mechRulesFilter}
-                              onChange={this.updateRulesLevel}
-                            >
-                            {getRulesLevelOptions().map((option) => (
-                              <option key={option.id} value={option.id}>{option.name}</option>
-                            ))}
-                            </select>
-                          </label>
-
+                          {/* The rules edition comes first: it decides what every field below offers. */}
                           <label>
                             Rules Edition:
                             <select
@@ -293,6 +253,45 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               </ul>
                             </div>
                           ) : null}
+
+                          <InputField
+                            label="Mech Model # (e.g. WSP-1A, Timber Wolf)"
+                            value={this.props.appGlobals.currentBattleMech.model}
+                            onChange={this.updateMake}
+                          />
+
+                           <InputField
+                            label="Mech Model Name, or Omni Variant (e.g. Wasp, Prime, C )"
+                            value={this.props.appGlobals.currentBattleMech.name}
+                            onChange={this.updateName}
+                          />
+
+                          <label>
+                            Technology Base:
+                            <select
+                              value={this.props.appGlobals.currentBattleMech.getTech().tag}
+                              onChange={this.updateTech}
+                            >
+                            {this.props.appGlobals.currentBattleMech.getAvailableTechOptions().map( (option) => {
+                              return (
+                                <option key={option.tag} value={option.tag}>{option.name}</option>
+                              )
+                            })}
+                            </select>
+                          </label>
+
+                          <label>
+                            Rules Level:
+                            <select
+                              value={this.props.appGlobals.appSettings.mechRulesFilter}
+                              onChange={this.updateRulesLevel}
+                            >
+                            {getRulesLevelOptions().map((option) => (
+                              <option key={option.id} value={option.id}>{option.name}</option>
+                            ))}
+                            </select>
+                          </label>
+
 
                           <label>
                             Mech Type:

@@ -11,6 +11,12 @@
 
 import { IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure } from "./data-interfaces";
 
+/** The unit types the creators build, for an edition's `unitTypes`. */
+export type RulesEditionUnitType = "mech" | "vehicle" | "fighter" | "small-craft" | "infantry" | "battle-armor" | "protomech" | "building";
+
+/** Every unit type: Total Warfare and its companion books (TechManual, Tactical and Strategic Operations) build them all. */
+export const ALL_RULES_EDITION_UNIT_TYPES: RulesEditionUnitType[] = ["mech", "vehicle", "fighter", "small-craft", "infantry", "battle-armor", "protomech", "building"];
+
 /**
  * Editions of the BattleTech rules, oldest first, so a player can choose to build with one edition's rules only.
  * The Mech Creator's Rules Edition control is the first user: BattleMech.setRulesEdition() filters its lists and
@@ -68,6 +74,16 @@ export interface IRulesEdition {
     noBattleValue?: boolean;
     /** The edition's rulebook prints no prices, for equipment or for a finished unit. */
     noPrices?: boolean;
+    /**
+     * An earlier edition whose rules let Clan and Inner Sphere technology be mixed on one chassis. Whether it has
+     * the Clan technology base at all follows from its Clan equipment (`editionStats`).
+     */
+    mixedTech?: boolean;
+    /**
+     * The unit types a design can be built for under this edition. Absent means 'Mechs only: the earlier rulebooks
+     * print their other units as fixed designs (`otherUnits`), with no rules to build them.
+     */
+    unitTypes?: RulesEditionUnitType[];
     /** The 'Mechs the rulebook prints, as it names them. */
     mechs?: string[];
     /** Other units the rulebook gives rules for; they are fixed designs, not built from the catalogs. */
@@ -291,6 +307,9 @@ export const btRulesEditions: IRulesEdition[] = [
         book: "BMR",
         complete: true,
         ammoTonsFor: "class",
+        // Designs are built "factory-built" with one technology base; custom modifications may mix Clan and Inner
+        // Sphere technology on a chassis (BMR pp.87, 108).
+        mixedTech: true,
         // A rulebook only: it prints no 'Mech record listings. The construction example builds a 45-ton Wyvern
         // (BMR pp.109-114), and designs are named in passing.
         mechs: [],
@@ -329,6 +348,8 @@ export const btRulesEditions: IRulesEdition[] = [
         book: "BMR(R)",
         complete: true,
         ammoTonsFor: "class",
+        // As in the Master Rules: custom modifications may mix Clan and Inner Sphere technology (BMR(R) pp.89, 115).
+        mixedTech: true,
         // A rulebook only, as the Master Rules was: no 'Mech record listings. The construction example is again the
         // 45-ton Wyvern (BMR(R) pp.115-120), and the Battle Value example a Goshawk (BMR(R) p.159).
         mechs: [],
@@ -370,6 +391,7 @@ export const btRulesEditions: IRulesEdition[] = [
         name: "Total Warfare",
         year: 2006,
         book: "TW",
+        unitTypes: ALL_RULES_EDITION_UNIT_TYPES,
     },
     {
         // BattleTech Core Rulebook: credits page, "First Printing", "2026 The Topps Company". Its changes to the
@@ -378,6 +400,9 @@ export const btRulesEditions: IRulesEdition[] = [
         name: "BattleTech Core Rulebook",
         year: 2026,
         book: "CRB",
+        // 'Mechs, and buildings in its urban combat rules (CRB pp.130-137). Vehicles, infantry and aerospace units
+        // are Battlefield Support Assets there (CRB p.140), not units built or played on their own.
+        unitTypes: ["mech", "building"],
     },
 ];
 
@@ -474,11 +499,17 @@ export function isEarlierRulesEdition(editionTag: string): boolean {
 }
 
 /**
- * Editions a design can be built under: the default edition, those after it, and each earlier edition that has
- * been entered whole (`complete`).
+ * Editions a design of `unitType` can be built under: the default edition, those after it, and each earlier
+ * edition that has been entered whole (`complete`), when the edition has rules for that unit type.
  */
-export function getSelectableRulesEditions(): IRulesEdition[] {
-    return btRulesEditions.filter(edition => edition.complete || !isEarlierRulesEdition(edition.tag));
+export function getSelectableRulesEditions(unitType: RulesEditionUnitType = "mech"): IRulesEdition[] {
+    return btRulesEditions.filter(edition => (edition.complete || !isEarlierRulesEdition(edition.tag))
+        && (edition.unitTypes ?? ["mech"]).includes(unitType));
+}
+
+/** The tag itself when `unitType` can be built under that edition, otherwise the default edition's. */
+export function getSelectableRulesEditionTag(editionTag: unknown, unitType: RulesEditionUnitType): string {
+    return getSelectableRulesEditions(unitType).find(edition => edition.tag === editionTag)?.tag ?? DEFAULT_RULES_EDITION;
 }
 
 /** The edition with this tag, or the default edition when the tag is unknown (a save from a newer version). */

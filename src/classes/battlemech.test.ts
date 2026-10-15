@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { sswTestFixtures } from "../data/ssw/sswTestFixtures";
-import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { BattleMech } from "./battlemech";
 import { mechInternalStructureTypes, validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
@@ -1931,29 +1930,7 @@ describe("BattleMech", () => {
         expect(new BattleMech(exported).exportJSON()).toBe(exported);
     });
 
-    it("imports every bundled SSW mech at its declared tonnage and round-trips it through JSON", () => {
-        const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
-        const failedAllocations: string[] = [];
-        for (const xml of sswMechs) {
-            const info = getSSWXMLBasicInfo(xml)!;
-            const label = `${info.name} ${info.model}`;
-
-            const mech = new BattleMech();
-            warn.mockClear();
-            mech.importSSWXML(xml);
-            for (const [message] of warn.mock.calls) {
-                if (String(message).startsWith("_allocateCritical failed")) failedAllocations.push(`${label}: ${message}`);
-            }
-            expect(mech.getTonnage(), label).toBe(+info.tonnage);
-
-            const reimported = new BattleMech(mech.exportJSON());
-            expect(reimported.getTonnage(), label).toBe(mech.getTonnage());
-            expect(reimported.getName(), label).toBe(mech.getName());
-        }
-        // Regression: allocation used to match by UUID only, so ~8,300 SSW-import allocations failed (heat sinks etc.).
-        expect(failedAllocations).toEqual([]);
-        warn.mockRestore();
-    }, 300_000); // ~500 full imports; generous for slower phones running Termux (about 2 minutes on a laptop)
+    // Every bundled SSW 'Mech is imported and round-tripped in ssw-corpus-1..4.test.ts.
 
     // Regression: odd Jump MP used to produce a fractional Speed Factor table index and crash the import.
     // TechManual p. 316: MP = Run + round(Jump / 2) = 8 + round(2.5) = 11 -> Speed Factor 1.76.
@@ -2029,44 +2006,7 @@ describe("BattleMech", () => {
         expect(mech.getUnallocatedCriticals()).toEqual([]);
     });
 
-    // Regression: SSW writes its own names for chassis components ("XL Engine", "Extra-Light Gyro", "Endo-Steel").
-    // The importer compared them with our display names only and never read <structure>, so every such design
-    // imported with a Standard engine, gyro or structure. SSW's techbase attribute (0 Inner Sphere, 1 Clan) picks
-    // the Inner Sphere or Clan XL/XXL engine.
-    it("imports the engine, gyro and internal structure of every bundled SSW 'Mech", () => {
-        const engines: Record<string, string> = {
-            "Fusion Engine": "standard", "XL Engine/0": "xl", "XL Engine/1": "clan_xl", "XXL Engine/0": "xxl",
-            "XXL Engine/1": "clan_xxl", "Light Fusion Engine": "light", "Compact Fusion Engine": "compact",
-            "I.C.E. Engine": "ice", "Fuel-Cell Engine": "cell", "Fission Engine": "fission",
-            "Primitive Fusion Engine": "primitive",
-        };
-        const gyros: Record<string, string> = {
-            "Standard Gyro": "standard", "Extra-Light Gyro": "xl", "Compact Gyro": "compact", "Heavy-Duty Gyro": "heavy-duty",
-        };
-        const structures: Record<string, string> = {
-            "Standard Structure": "standard", "Endo-Steel": "endo-steel", "Endo-Composite": "endo-composite",
-            "Composite Structure": "composite", "Reinforced Structure": "reinforced", "Industrial Structure": "industrial",
-        };
-        const wrong: string[] = [];
-        for (const xml of sswMechs) {
-            const label = /name="([^"]*)" model="([^"]*)"/.exec(xml)!.slice(1).join(" ");
-            const engine = /<engine [^>]*techbase="(\d)"[^>]*>([^<]+)</.exec(xml)!;
-            const gyro = /<gyro[^>]*>([^<]+)</.exec(xml)![1];
-            const structure = /<structure[^>]*>\s*<type>([^<]+)</.exec(xml)![1];
-            const mech = new BattleMech();
-            mech.importSSWXML(xml);
-
-            const expectedEngine = engines[`${engine[2]}/${engine[1]}`] ?? engines[engine[2]];
-            if (mech.getEngineType().tag !== expectedEngine) wrong.push(`${label}: ${engine[2]} -> ${mech.getEngineType().tag}`);
-            if (mech.getGyro().tag !== gyros[gyro]) wrong.push(`${label}: ${gyro} -> ${mech.getGyro().tag}`);
-            if (mech.getInternalStructureType() !== structures[structure]) {
-                wrong.push(`${label}: ${structure} -> ${mech.getInternalStructureType()}`);
-            }
-            const unplacedStructure = mech.getUnallocatedCriticals().filter((slot) => slot?.tag === structures[structure]);
-            if (unplacedStructure.length > 0) wrong.push(`${label}: ${unplacedStructure.length} ${structure} slots unplaced`);
-        }
-        expect(wrong).toEqual([]);
-    }, 120_000);
+    // The engine, gyro and structure of every bundled SSW 'Mech are checked in ssw-corpus-1..4.test.ts.
 
     // SSW's spellings of canon armor, heat sink and jump jet types (TM, TO:AUE) used to fall back to Standard armor,
     // Double heat sinks and Standard jump jets without a warning.
