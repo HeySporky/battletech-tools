@@ -15,6 +15,14 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
         this.props.appGlobals.makeDocumentTitle("Step 4 | Vehicle Creator");
     }
 
+    setAmmoBinShots = (uuid: string | undefined, shots: number): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setAmmoBinShots(uuid, shots);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     setLocation = (uuid: string | undefined, location: string): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle && uuid) {
@@ -113,6 +121,19 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                                                             checked={vehicle.isHalfTonBin(item)}
                                                             onChange={(e) => this.setHalfTon(item.uuid, e.currentTarget.checked)}
                                                         />{" "}half ton
+                                                    </label>
+                                                ) : null}
+                                                {vehicle.canSetAmmoBinShots(item) && vehicle.getAmmoBinShotsPerTon(item) > 0 ? (
+                                                    <label className="smaller-text" data-testid="fractional-ammo-shots">
+                                                        &nbsp;shots:&nbsp;
+                                                        <input
+                                                            type="number"
+                                                            min={1}
+                                                            max={vehicle.getAmmoBinShotsPerTon(item)}
+                                                            value={vehicle.getAmmoBinShots(item)}
+                                                            onChange={(e) => this.setAmmoBinShots(item.uuid, +e.currentTarget.value)}
+                                                            className="width-auto"
+                                                        />
                                                     </label>
                                                 ) : null}
                                             </td>

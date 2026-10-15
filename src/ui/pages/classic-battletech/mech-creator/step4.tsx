@@ -148,6 +148,14 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    setFractionalArmorPoints = ( event: React.FormEvent<HTMLInputElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setFractionalArmorPoints( +event.currentTarget.value);
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
     setArmorType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -206,8 +214,23 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
                             {this.props.appGlobals.currentBattleMech.isPatchworkArmor() ? (
                               <p>
                                 Armor Weight: <strong>{this.props.appGlobals.currentBattleMech.getArmorWeight()}</strong> tons<br />
-                                <span className="smaller-text">Patchwork armor weighs what its locations carry: each location's points, rounded up to the half ton (TO:AUE p.189).</span>
+                                <span className="smaller-text">Patchwork armor weighs what its locations carry: each location's points, rounded up to the half ton (TO:AUE p.189), or to the kilogram under Fractional Accounting.</span>
                               </p>
+                            ) : this.props.appGlobals.currentBattleMech.usesFractionalAccounting() ? (
+                              <label data-testid="fractional-armor-points">
+                                  Armor Points (Fractional Accounting, TO:AUE p.188):
+                                  <input
+                                    type="number"
+                                    min={0}
+                                    max={this.props.appGlobals.currentBattleMech.getMaxArmor()}
+                                    value={this.props.appGlobals.currentBattleMech.getFractionalArmorPoints()}
+                                    onChange={this.setFractionalArmorPoints}
+                                  />
+                                  <span className="smaller-text">
+                                    {this.props.appGlobals.currentBattleMech.getArmorWeight()} tons
+                                    at {this.props.appGlobals.currentBattleMech.getFractionalArmorTonsPerPoint().toFixed(4)} tons per point
+                                  </span>
+                              </label>
                             ) : (
                             <label>
                                   Armor Weight:

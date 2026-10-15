@@ -772,6 +772,45 @@ played first, then by dependency.
 - [ ] Fractional Accounting (TO:AUE p.188): the switch is in step 1 but locked
   (`BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE = false`). Building it means engine multipliers, armor by the
   point, ammunition by the shot, all rounded up to the kilogram; then turn the switch on.
+- [x] Fractional Accounting (TO:AUE pp.188-189), an Experimental option on 'Mechs, Combat Vehicles, fighters
+  (aerospace and conventional) and Small Craft: engine multipliers, armor by the point, ammunition by the shot,
+  rounded up to the kilogram. Fuel stays in half-ton lots (TM p.186). ProtoMechs are already built in kilograms.
+  Still owed: Support Vehicles.
+- [x] Battle armor weapons on 'Mechs, Combat Vehicles, fighters, Small Craft and ProtoMechs (Ghosts of Obeedah
+  pp.53-54), Short range on aerospace units, power cells on conventional fighters. Fractional Accounting comes on
+  "by default" with the first battle armor item and may be turned off (user ruling 2026-10-14: the book's own Hi-Scout
+  and Cherubs are built with half-ton rounding); battle armor ammunition stays by the kilogram either way. Non-weapon battle armor
+  equipment too (p.54): standard weight, 1 slot, no mobility, fuel, power or life support gear; stealth and C3 noted
+  as working only at 3 tons or less (p.55), with no Alpha Strike special; no Battle Value (none printed, TM p.317).
+  DropChutes, magnetic clamps and Mission Equipment are left out as a reading (the book names none of them; the user
+  agreed, 2026-10-14). The Taser, Pop-Up Mine, Bomb Rack and Tube Artillery too (not missile weapons): one-shot,
+  BA table BV, rules in their notes; Tube Artillery shells by the 15 kg shot (Ghosts of Obeedah p.54 over the TO:AUE
+  1-ton lots). No Alpha Strike specials for them off battle armor (ASC gives only BA codes). Magnetic sole
+  plates are built into every 'Mech and suit (Explorer Corps (FASA) p.86, a game rule; user ruling 2026-10-14 over
+  SO p.154's background remark): no item. Custom Homebrew Improved Magnetic Grapples (level 6): one per foot, 0.5 t,
+  1 slot, 25,000 C-bills, -1 to rolls to stay on a hull. Still owed: hull-walking play (boarding, Control Rolls,
+  Explorer Corps pp.85-86; Northwind Highlanders p.39) once space play exists. Still
+  owed: the 2D6 shock roll in play, power cells required on non-fusion Combat Vehicles, and the 3-ton test applied
+  per unit (a ProtoMech or ultralight of 3 tons or less should keep the stealth and C3 effects).
+- [x] Automata (Ghosts of Obeedah pp.51-53) in the Battle Armor Creator, Experimental: Clan chassis weight on any
+  technology base, the Core's Gunnery 4 / Anti-'Mech 5, Anti-Personnel with basic manipulators, ca. 3090, and the
+  Disruption Effects Table and self-destruct rolls in play. The book gives no cost or BV change.
+- [x] The book's published units rebuilt from their record sheets, as regression tests (2026-10-14): the five
+  Automata (BV 369, 270, 825, 109, 109), the Cherub Invictus (507) and Comminus (695), the Hi-Scout Armored Automata
+  Carrier (60.0 t) and the SwiftStar drone (30 t). Flagged, not entered: the Cherub Dominus prints BV 517 where the
+  rules give 537 (as if its Support PPCs were 12 BV, TM p.317 says 14, or it took a -15 penalty it has nothing for);
+  the Labor Automata weigh 1,560 kg built from their sheets, not the "500kg underweight" of p.51. The app has no
+  library of published designs outside the MUL, so these are tests only.
+- [x] Smart Robotic Control System, basic and Improved (IO:AE pp.134-135, 187, 215), Advanced, on Combat Vehicles and
+  fighters: the table's share of the unit's mass rounded up to the half ton (none under 10 tons, 1 ton to improve),
+  the table's Skills, 5,000 + 10,000 C-bills a ton, and final BV x 0.85 (user ruling 2026-10-14: the Ghosts of
+  Obeedah sheets leave the 0.85 out, Hi-Scout 527 and SwiftStar 529, where the rule gives 448 and 450). Still owed:
+  the SRCS on 'Mechs, IndustrialMechs, Small Craft, Support Vehicles and the large units; the shielded aerospace
+  SRCS, SDS (Caspar) and Caspar II systems; the robotic play rules (Aggression levels, the separate -4 Initiative,
+  shutdown after a jump, IO:AE pp.128-135). The Microcopter and Tankette drones wait for Support Vehicles.
+- [ ] Play panels fail axe color-contrast: white on gold fieldset legends and `btn-primary` buttons (2.09:1), and
+  `small-text` paragraphs inside a fieldset render #212529 on #333 (1.22:1). Found 2026-10-14 on the battle armor
+  play panel; it is the shared theme, so every play fieldset is affected.
 - [ ] Clans' pre-2825 use of Star League Ferro-Fibrous isn't modeled.
 
 ### IndustrialMechs and Primitive 'Mechs

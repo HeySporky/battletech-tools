@@ -53,14 +53,30 @@ export default class SmallCraftCreatorArmor extends React.Component<IArmorProps>
                                         ))}
                                 </select>
                             </label>
-                            <InputNumeric
-                                label={`Armor (tons; up to ${craft.getMaxArmorTons()})`}
-                                value={craft.getArmorTons()}
-                                min={0}
-                                max={craft.getMaxArmorTons()}
-                                step={0.5}
-                                setValue={(tons) => this.update((c) => c.setArmorTons(tons))}
-                            />
+                            {craft.usesFractionalAccounting() ? (
+                                <div data-testid="fractional-armor-points">
+                                    <InputNumeric
+                                        label={`Armor (points; up to ${craft.getMaxFractionalArmorPoints()})`}
+                                        value={craft.getPurchasedArmorPoints()}
+                                        min={0}
+                                        max={craft.getMaxFractionalArmorPoints()}
+                                        step={1}
+                                        setValue={(points) => this.update((c) => c.setPurchasedArmorPoints(points))}
+                                    />
+                                    <p className="smaller-text">
+                                        Fractional Accounting: {craft.getArmorTons()} tons at {craft.getFractionalArmorTonsPerPoint()} tons per point (TO:AUE p.188).
+                                    </p>
+                                </div>
+                            ) : (
+                                <InputNumeric
+                                    label={`Armor (tons; up to ${craft.getMaxArmorTons()})`}
+                                    value={craft.getArmorTons()}
+                                    min={0}
+                                    max={craft.getMaxArmorTons()}
+                                    step={0.5}
+                                    setValue={(tons) => this.update((c) => c.setArmorTons(tons))}
+                                />
+                            )}
                             <p>
                                 <strong>Points per Ton</strong>: {craft.getArmorPointsPerTon() ?? "not available"} &nbsp;|&nbsp;
                                 <strong>Bought</strong>: {craft.getPurchasedArmorPoints()} &nbsp;|&nbsp;

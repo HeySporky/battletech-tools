@@ -123,12 +123,13 @@ export default class BattleArmorGroupTable extends React.Component<IBattleArmorG
                                 <td className="min-width no-wrap text-center">{squad.getSquadSize()}</td>
                                 <td className="min-width no-wrap text-center small-text">{squad.getTechName()}</td>
                                 <td className="min-width no-wrap text-center">
-                                    {!capabilities.swarm && !capabilities.leg ? "-" : this.props.showEdit ? (
+                                    {!capabilities.swarm && !capabilities.leg ? "-" : this.props.showEdit && !squad.isAutomata() ? (
                                         <SkillSelect label="Battle armor Anti-'Mech skill" value={squad.getAntiMechSkill()} onChange={(value) => { squad.setAntiMechSkill(value); this._save(); }} />
                                     ) : squad.getAntiMechSkill()}
                                 </td>
                                 <td className="min-width no-wrap text-center">
-                                    {this.props.showEdit ? (
+                                    {/* An Automata's skills are its Core's (Ghosts of Obeedah p.52). */}
+                                    {this.props.showEdit && !squad.isAutomata() ? (
                                         <SkillSelect label="Battle armor gunnery skill" value={squad.getGunnery()} onChange={(value) => { squad.setGunnery(value); this._save(); }} />
                                     ) : squad.getGunnery()}
                                 </td>

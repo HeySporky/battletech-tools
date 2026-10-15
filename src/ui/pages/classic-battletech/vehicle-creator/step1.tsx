@@ -13,6 +13,7 @@ import { btTechOptions } from '../../../../data/tech-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { vehicleMotiveTypes } from '../../../../data/vehicle-motive-types';
 import { getVehicleTonnageBounds } from '../../../../data/vehicle-motive-types';
+import { SRCS_RULES_LEVEL } from '../../../../data/robotic-control-systems';
 import { FaArrowCircleRight } from "react-icons/fa";
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 import { SUPPORT_VEHICLE_CHASSIS_MODIFICATIONS, SUPPORT_VEHICLE_FIRE_CONTROL, SUPPORT_VEHICLE_TECH_RATINGS } from '../../../../data/support-vehicle-construction';
@@ -29,6 +30,17 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
             vehicle.setName(e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    toggleFractionalAccounting = (): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setWeightAccounting(
+                vehicle.usesFractionalAccounting() ? "standard" : "fractional",
+                this.props.appGlobals.appSettings.mechRulesFilter,
+            );
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -155,6 +167,14 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
             vehicle.setJumpMP(+e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateRoboticControl = (e: React.FormEvent<HTMLSelectElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setRoboticControl(e.currentTarget.value);
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -529,6 +549,25 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     />
                                 ) : null}
                                 {vehicle.getSponsonIssue() ? <p className="color-red smaller-text">{vehicle.getSponsonIssue()} (TO p. 411).</p> : null}
+                                {vehicle.canUseFractionalAccounting(rulesLevel) || vehicle.usesFractionalAccounting() ? (
+                                    <div data-testid="fractional-accounting-option">
+                                        <InputCheckbox
+                                            label="Fractional Accounting (Experimental)"
+                                            checked={vehicle.usesFractionalAccounting()}
+                                            onChange={this.toggleFractionalAccounting}
+                                        />
+                                        <p className="smaller-text">
+                                            Construction option (TO:AUE p.188): engine, structure, control, lift, turret and armor
+                                            weights are not rounded to the half ton, only up to the kilogram. Armor is bought by
+                                            the point and ammunition by the shot.
+                                        </p>
+                                        {vehicle.defaultsToFractionalAccounting() ? (
+                                            <p className="smaller-text" data-testid="fractional-accounting-default">
+                                                On by default with battle armor equipment mounted (Ghosts of Obeedah p.54); it may be turned off.
+                                            </p>
+                                        ) : null}
+                                    </div>
+                                ) : null}
 
                                 {vehicle.isFrankenVehicle() || vehicle.canBeFrankenVehicle(rulesLevel) ? (
                                     <InputCheckbox
@@ -592,7 +631,7 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                 {vehicle.getRequiredRulesLevel() > rulesLevel ? (
                                     <p className="color-red smaller-text">
                                         This design needs the {getRulesLevelOptions().find((option) => option.id === vehicle.getRequiredRulesLevel())?.name} rules
-                                        level{vehicle.isSuperheavy() && !support ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""}{vehicle.getJumpMP() > 0 ? " (jump jets)" : ""}{vehicle.hasDualTurret() ? " (dual turrets)" : ""}{vehicle.hasSponsonTurrets() ? " (sponson turrets)" : ""}{vehicle.isFrankenVehicle() ? " (FrankenVehicle)" : ""} and
+                                        level{vehicle.isSuperheavy() && !support ? " (Superheavy vehicle)" : ""}{vehicle.hasChinTurret() ? " (chin turret)" : ""}{vehicle.getJumpMP() > 0 ? " (jump jets)" : ""}{vehicle.hasDualTurret() ? " (dual turrets)" : ""}{vehicle.hasSponsonTurrets() ? " (sponson turrets)" : ""}{vehicle.isFrankenVehicle() ? " (FrankenVehicle)" : ""}{vehicle.getRoboticControl().tag !== "none" ? " (robotic control)" : ""} and
                                         is not legal at the selected level. Printing will ask for confirmation.
                                     </p>
                                 ) : null}
@@ -668,6 +707,25 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                         setValue={this.updateHeatSinks}
                                     />
                                 </label>
+
+                                {rulesLevel >= SRCS_RULES_LEVEL || vehicle.getRoboticControl().tag !== "none" ? (
+                                    <div data-testid="robotic-control-option">
+                                        <label>
+                                            Robotic Control (Advanced):
+                                            <select value={vehicle.getRoboticControl().tag} onChange={this.updateRoboticControl}>
+                                                {vehicle.getAvailableRoboticControls().map((system) => (
+                                                    <option key={system.tag} value={system.tag}>{system.name}</option>
+                                                ))}
+                                            </select>
+                                        </label>
+                                        {vehicle.getRoboticSkills() ? (
+                                            <p className="smaller-text" data-testid="robotic-control-summary">
+                                                {vehicle.getRoboticControlWeight()} t; the vehicle drives itself at Gunnery {vehicle.getRoboticSkills()?.gunnery} /
+                                                Driving {vehicle.getRoboticSkills()?.piloting}, and its Battle Value is multiplied by 0.85 (IO:AE pp.134-135, 187).
+                                            </p>
+                                        ) : null}
+                                    </div>
+                                ) : null}
 
                                 <p>
                                     <strong>Current Tonnage</strong>: {vehicle.getCurrentTonnage()} &nbsp;|&nbsp;
