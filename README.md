@@ -67,7 +67,8 @@ npm run lint    # see "Lint" below
 | `npm run test:watch` | Unit tests in watch mode; re-runs as you save. |
 | `npm run test:coverage` | Unit tests with a coverage report in `coverage/`. |
 | `npm run test:browser` | Component tests (`*.browser.test.tsx`) in real Chromium, Firefox and WebKit. Desktop only. |
-| `npm run test:e2e` | Playwright end-to-end tests against a production build, on desktop browsers plus phone and tablet emulation. Desktop only. |
+| `npm run test:e2e` | e2e main: Playwright end-to-end tests against a production build, on desktop Chromium, Firefox and WebKit plus iPad emulation. Desktop only. |
+| `npm run test:e2e:mobile` | e2e mobile: the same tests on Android phone and iPhone emulation. `npm run test:e2e:all` runs both. Desktop only. |
 | `npm run check` | `typecheck`, `test` and `build` in one go. |
 | `npm run lint` | ESLint over the whole project. |
 
@@ -127,7 +128,8 @@ these jobs:
 | `check` | `npm ci`, typecheck, unit tests and build on Ubuntu, Windows and macOS × Node 22, 24 and 26 (9 runs). | `npm run check` |
 | `lint` | ESLint. Doesn't block. | `npm run lint` |
 | `browser tests` | Component tests in Chromium, Firefox and WebKit. | `npm run test:browser` |
-| `e2e` | End-to-end tests on desktop Chromium, Firefox and WebKit plus Android phone, iPhone and iPad emulation. Uploads an HTML report. | `npm run test:e2e` |
+| `e2e main` | End-to-end tests on desktop Chromium, Firefox and WebKit plus iPad emulation. Uploads an HTML report. | `npm run test:e2e` |
+| `e2e mobile` | The same tests on Android phone and iPhone emulation, in parallel with e2e main. Uploads an HTML report. | `npm run test:e2e:mobile` |
 
 - **See results:** open the pull request's **Checks** tab, or the repository's **Actions** tab → **CI**.
 - **Failed E2E run:** download the `playwright-report` artifact from the run's summary page, unzip it and open
