@@ -44,8 +44,10 @@ describe("BattleMech engine availability by era", () => {
             .filter(engine => engine.available)
             .map(engine => engine.tag);
 
-        // IO: fission engines are prototypes until production in 2882.
-        expect(availableEngineTags).toEqual(["standard", "xl", "ice", "cell"]);
+        // IO: fission engines are prototypes until production in 2882. ICE and fuel cell engines make a Non-Fusion
+        // BattleMech, which is Experimental (TO:AUE p.120).
+        expect(availableEngineTags).toEqual(["standard", "xl"]);
+        expect(mech.getAvailableEngines(4).filter(engine => engine.available).map(engine => engine.tag)).toEqual(expect.arrayContaining(["ice", "cell"]));
     });
 
     it("offers prototype engines only at the Experimental rules level", () => {

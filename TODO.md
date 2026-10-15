@@ -667,11 +667,23 @@ played first, then by dependency.
 Chassis types the Mech Creator builds (checked 2026-10-02): Biped, Quad, Tripod, LAM, QuadVee (Mech Type);
 Ultralight and Superheavy (tonnage); OmniMech and Primitive (checkboxes); IndustrialMech (Industrial structure).
 
+- [x] 'Mech play rolls the Determining Critical Hits Table (TW p.124) in every location: lines rolled again when
+  empty, already hit or unable to take a hit (armor and structure slots, CASE; CASE II and CASE-P via MegaMek).
+  IndustrialMechs +2, a modified 13 as 12, 14 or more four torso hits or the head or limb blown off; Primitive
+  BattleMechs +2 (13 or more as 12), Primitive IndustrialMechs +4 (IO:AE p.114; read as replacing TW's +2, not adding
+  to it). The IndustrialMech End Phase damage check after a fall or physical attack (TW pp.68, 144): +1 a level
+  fallen above 1, as the book says (MegaMek adds every level), location from the Front/Rear column. An
+  IndustrialMech's sensors go after one hit (TW p.128). ICE and fuel cell IndustrialMechs make no walking or running
+  heat (TW p.158).
+- [x] Non-Fusion BattleMechs (TO:AUE p.120): ICE, fuel cell and fission engines on a BattleMech are Experimental and
+  offered only at that rules level; they make movement heat as BattleMechs.
+- [ ] Flagged, kept as printed: the BV Movement Heat of 0 is for "ICE-powered IndustrialMechs" only (TM p.303, still so
+  in the BV errata v4.1), though fuel cell IndustrialMechs also make no movement heat in play (TW p.158). MegaMek
+  gives every IndustrialMech 0.
 - [ ] IndustrialMechs still owed: Extended Fuel Tanks on Combat Vehicles (vehicle builder cannot size
-  variable equipment); critical hit roll modifiers (the 'Mech play mode does not roll for critical hits).
-  The builder still offers ICE and fuel cell engines to BattleMechs.
-- [ ] Primitive 'Mechs still owed: critical hit roll modifiers (+2 / +4, IO:AE p.114) once the 'Mech play
-  mode rolls for critical hits.
+  variable equipment; with the Support Vehicles work); an ICE engine stalling on a failed Piloting Skill Roll
+  (TW p.59) and the water-depth rules (TW p.52) need 'Mech play to track Piloting Skill Rolls and terrain; fuel
+  consumption (TM p.68); a Tripod's legs on the Front/Rear column for the End Phase check.
 - [ ] Alpha Strike specials on builder cards (already on upstream master, every unit): a weapon with no
   `alphaStrike.specialAbility` falls back to its TechManual weapon type codes (`getAlphaStrikeEquipmentAbilityCodes`
   in `equipment-registry.ts`), so cards print "DB", "DE", "S"; and `alphaStrike.notes` are pushed into the
@@ -762,8 +774,7 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
 - [ ] Cockpit slots (Batch 24): Tripod, superheavy and QuadVee cockpits now sit in the head only, per the
   IO:AE record sheets. The center torso slot was in upstream too: call it out in the equipment PR.
 - [ ] Battle Value (Batches 26, 27): explosive penalty by location, CASE II, floor of 1, weapon order by
-  Modified BV. Owed: IndustrialMech Offensive Battle Rating x0.9 without Advanced Fire Control (TM p.304)
-  needs a fire control choice (TM p.69); prototype CASE is not counted as CASE; `hasXLEngine()` answers
+  Modified BV. Owed: prototype CASE is not counted as CASE; `hasXLEngine()` answers
   true for Light and Clan XL engines and drives the "wrecked" check in play tracking.
 - [ ] TM equipment limits not modeled: torso-only weapons (Heavy Gauss), one industrial item per location.
 
