@@ -5,6 +5,8 @@ import AerospaceFighter, { IAerospaceFighterExport } from '../../../../classes/a
 import { IAppGlobals } from '../../../app-router';
 import FighterCreatorSideMenu from '../../../components/fighter-creator-side-menu';
 import TextSection from '../../../components/text-section';
+import BlkImportSection, { IBlkImportOutcome } from '../../../components/blk-import-section';
+import { importFixedWingSupportBlk } from '../../../../classes/support-vehicle-blk';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
@@ -77,6 +79,14 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
         );
     }
 
+    // A MegaMek Fixed-Wing Support Vehicle file.
+    importBlk = (text: string): IBlkImportOutcome => {
+        const result = importFixedWingSupportBlk(text);
+        if (!result.fighter) return { loaded: false, messages: result.issues };
+        this.props.appGlobals.saveCurrentFighter(result.fighter);
+        return { loaded: true, messages: [...result.notes, ...result.issues, ...result.fighter.getIssues(4)] };
+    }
+
     render = (): JSX.Element => {
         if (!this.props.appGlobals.currentFighter) return <></>;
         const saves = this.props.appGlobals.fighterSaves || [];
@@ -110,6 +120,8 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
                                 </Link>
                             </div>
                         </TextSection>
+
+                        <BlkImportSection unitName="a Fixed-Wing Support Vehicle" testId="fw" onImport={this.importBlk} />
 
                         <TextSection
                             label="Your Saved Fighters"

@@ -31,9 +31,35 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
         }
     }
 
+    setHalfTon = (uuid: string | undefined, halfTon: boolean): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle && uuid) {
+            vehicle.setHalfTonBin(uuid, halfTon);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    setPintle = (uuid: string | undefined, pintle: boolean): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle && uuid) {
+            vehicle.setPintle(uuid, pintle);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    setClips = (uuid: string | undefined, clips: number): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle && uuid) {
+            vehicle.setLightWeaponClips(uuid, clips);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     render = (): JSX.Element => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (!vehicle) return <></>;
+        // Light and Medium weapons on a Small Support Vehicle: extra clips, and a pintle on their side (TM pp.136, 234).
+        const lightWeapons = vehicle.getEquipmentList().some((item) => item.sizeLabel === "Extra clips");
 
         // Equipment mounts in the body locations or the turret; the VTOL rotor takes none.
         const locationOptions: { tag: string; name: string }[] = [
@@ -68,14 +94,29 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                                         <th>Slots</th>
                                         <th>Location</th>
                                         {vehicle.isOmni() ? <th>Pod</th> : null}
+                                        {lightWeapons ? <th>Extra Clips</th> : null}
+                                        {lightWeapons && vehicle.canHavePintles() ? <th>Pintle</th> : null}
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {vehicle.getEquipmentList().map((item) => (
                                         <tr key={item.uuid}>
                                             <td>{item.name}</td>
-                                            <td>{item.weight}</td>
-                                            <td>{item.space?.combatVehicle ?? 0}</td>
+                                            <td>
+                                                {item.weight}
+                                                {vehicle.canBeHalfTonBin(item) ? (
+                                                    // Machine gun ammunition may come in half-ton lots (TM pp.107, 137).
+                                                    <label className="d-block smaller-text">
+                                                        <input
+                                                            type="checkbox"
+                                                            aria-label={`${item.name} is a half-ton lot`}
+                                                            checked={vehicle.isHalfTonBin(item)}
+                                                            onChange={(e) => this.setHalfTon(item.uuid, e.currentTarget.checked)}
+                                                        />{" "}half ton
+                                                    </label>
+                                                ) : null}
+                                            </td>
+                                            <td>{vehicle.getItemSlots(item)}</td>
                                             <td>
                                                 <select
                                                     value={item.location ?? ""}
@@ -94,6 +135,32 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                                                         checked={vehicle.isPodMounted(item.uuid)}
                                                         onChange={(e) => this.setPod(item.uuid, e.currentTarget.checked)}
                                                     />
+                                                </td>
+                                            ) : null}
+                                            {lightWeapons ? (
+                                                <td>
+                                                    {item.sizeLabel === "Extra clips" ? (
+                                                        <input
+                                                            type="number"
+                                                            min={0}
+                                                            step={1}
+                                                            aria-label={`${item.name} extra clips`}
+                                                            value={item.size ?? 0}
+                                                            onChange={(e) => this.setClips(item.uuid, +e.currentTarget.value)}
+                                                        />
+                                                    ) : null}
+                                                </td>
+                                            ) : null}
+                                            {lightWeapons && vehicle.canHavePintles() ? (
+                                                <td>
+                                                    {item.sizeLabel === "Extra clips" ? (
+                                                        <input
+                                                            type="checkbox"
+                                                            aria-label={`${item.name} is on a pintle`}
+                                                            checked={!!item.pintle}
+                                                            onChange={(e) => this.setPintle(item.uuid, e.currentTarget.checked)}
+                                                        />
+                                                    ) : null}
                                                 </td>
                                             ) : null}
                                         </tr>

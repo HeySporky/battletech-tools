@@ -12,16 +12,40 @@ import { getSkillMultiplier } from "../data/skill-multipliers";
 import { FIGHTER_CRITICAL_NAMES, FighterAttackDirection, FighterCritical, getFighterHitLocation } from "../data/fighter-hit-tables";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { findByTag } from "../data/tag-match";
+import {
+    getSupportVehicleBaseCrew, getSupportVehicleChassisModification, getSupportVehicleEngine, getSupportVehicleEngineWeight,
+    getSupportVehicleGunners, getSupportVehicleItemSlots, getSupportVehicleMaxArmor, getSupportVehicleOfficers,
+    getSupportVehicleStructureWeight, ISupportVehicleEngine, ISupportVehicleWeightClass, roundSupportVehicleWeight,
+    SATELLITE_FUEL_TONS_PER_BURN_DAY, SUPPORT_AIRCRAFT_AS_MOVE, SUPPORT_AIRCRAFT_BV_TYPE_MODIFIER, SUPPORT_AIRCRAFT_MOTIVES,
+    SUPPORT_VEHICLE_ARMOR_REQUIRED_MODIFICATIONS, SUPPORT_VEHICLE_CHASSIS_COST_PER_TON, SUPPORT_VEHICLE_CHASSIS_MODIFICATIONS,
+    SUPPORT_VEHICLE_COST_TECH_MULTIPLIER, SUPPORT_VEHICLE_COST_TONNAGE_DIVISOR, SUPPORT_VEHICLE_ENGINE_COST_PER_TON,
+    SUPPORT_VEHICLE_ENGINES, SUPPORT_VEHICLE_FIRE_CONTROL, SUPPORT_VEHICLE_HEAT_SINK_COST, SUPPORT_VEHICLE_MIN_TONNAGE,
+    SUPPORT_VEHICLE_POWER_AMPLIFIER_COST_PER_TON, SUPPORT_VEHICLE_SMALL_LIMIT, SUPPORT_VEHICLE_TECH_RATINGS, SupportAircraftMotive,
+    SupportVehicleEngineTag, SupportVehicleFireControl, SupportVehicleTechRating, ULTRA_LIGHT_MAX_BAR,
+} from "../data/support-vehicle-construction";
+import { supportVehicleArmor } from "../data/support-vehicle-armor";
+import {
+    getFixedWingDamageThreshold, getSupportAircraftFuelKgPerPoint, getSupportAircraftMaxThrust, getSupportAircraftMaxTonnage,
+    getSupportAircraftStructuralIntegrity, getSupportAircraftWeightClass, AIRSHIP_MAX_SAFE_THRUST, AIRSHIP_THRUST_STEP,
+} from "../data/support-aircraft";
+import {
+    AIRCRAFT_BAY_TYPES, getVehicleBayAlphaStrikeSpecials, getVehicleBayCost, getVehicleBaySlots, getVehicleBayType, getVehicleBayWeight,
+    IVehicleBay, MAX_VEHICLE_BAY_COUNT, MAX_VEHICLE_BAYS, MAX_VEHICLE_CARGO_TONS, normalizeVehicleBays,
+} from "../data/vehicle-transport-bays";
+import { getSmallCraftHitLocation, SMALL_CRAFT_CRITICAL_NAMES, SmallCraftCritical } from "../data/small-craft-hit-tables";
 import { IAerospaceArmorType, IEngineType, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
 
 // Aerospace Fighter construction (TechManual pp.180-197). Shares the engine, heat sink and equipment catalogs
 // with BattleMechs and Combat Vehicles; armor comes from the aerospace armor catalog. The same class builds
-// conventional fighters, which differ in weight limit, engine, controls, fuel, armor limit and heat sinks.
+// conventional fighters, which differ in weight limit, engine, controls, fuel, armor limit and heat sinks, and the
+// Support Vehicles that fly by aerospace rules: Fixed-Wing, Airship and Satellite (TM pp.116-139; TO:AUE pp.52-71),
+// built with the Support Vehicle tables.
 
-export type FighterType = "aerospace" | "conventional";
+export type FighterType = "aerospace" | "conventional" | "support";
 export const FIGHTER_TYPES: { tag: FighterType; name: string }[] = [
     { tag: "aerospace", name: "Aerospace Fighter" },
     { tag: "conventional", name: "Conventional Fighter" },
+    { tag: "support", name: "Support Vehicle (Fixed-Wing, Airship or Satellite)" },
 ];
 
 /** The four firing arcs, and the fuselage for whatever takes no weapon slot (TM p.196). */
@@ -67,7 +91,7 @@ export const MAX_FIGHTER_EQUIPMENT = 200;
  */
 export const AEROSPACE_VSTOL_RULES_LEVEL = 3;
 /** Unit Type Modifiers Table (TM p.316). */
-export const FIGHTER_BV_TYPE_MODIFIER: Record<FighterType, number> = { aerospace: 1.2, conventional: 1.1 };
+export const FIGHTER_BV_TYPE_MODIFIER: Record<FighterType, number> = { aerospace: 1.2, conventional: 1.1, support: 1.0 };
 
 /** An Alpha Strike damage value: a whole number, or minimal damage (0*). */
 export interface IFighterASDamageValue {
@@ -76,7 +100,9 @@ export interface IFighterASDamageValue {
 }
 
 export interface IFighterAlphaStrikeStats {
-    type: "AF" | "CF";
+    type: "AF" | "CF" | "SV";
+    /** The movement code: a for fighters and Fixed-Wing Support Vehicles, i for Airships, k for Satellites (ASC p.94). */
+    movementCode: string;
     size: number;
     /** Thrust: the Safe Thrust, with the "a" movement code. */
     movement: number;
@@ -194,9 +220,35 @@ export interface IAerospaceFighterExport {
     heatSinkType: string;
     additionalHeatSinks: number;
     equipment: IFighterEquipmentExport[];
+    /** Present only on an Airship, Fixed-Wing or Satellite Support Vehicle. */
+    supportVehicle?: IFighterSupportExport;
+    /** A Support Vehicle's transport bays (TM p.239). */
+    bays?: IVehicleBay[];
     pilot?: IPilot;
     inPlay?: IFighterInPlay;
 }
+
+/** A flying Support Vehicle's construction choices: the parts of the Support Vehicle rules fighters do not have. */
+export interface IFighterSupportExport {
+    motive: SupportAircraftMotive;
+    structuralTechRating: SupportVehicleTechRating;
+    engine: SupportVehicleEngineTag;
+    engineTechRating: SupportVehicleTechRating;
+    chassisModifications: string[];
+    /** Barrier Armor Rating, 2 to 10 (TM p.134). */
+    bar: number;
+    armorTechRating: SupportVehicleTechRating;
+    fireControl: SupportVehicleFireControl;
+    /** Crew carried above the minimum (TM p.131). */
+    extraCrew?: number;
+    /** A Satellite built without crew: no weapons or crew-served equipment but satellite communications (TO:AUE p.66). */
+    unmanned?: boolean;
+}
+
+const newFighterSupport = (motive: SupportAircraftMotive): IFighterSupportExport => ({
+    motive, structuralTechRating: "d", engine: motive === "satellite" ? "solar" : "ice", engineTechRating: "d",
+    chassisModifications: [], bar: 5, armorTechRating: "d", fireControl: "none",
+});
 
 const savedString = (value: unknown, fallback: string = ""): string => typeof value === "string" ? value : fallback;
 const savedNumber = (value: unknown, fallback: number, min: number, max: number): number =>
@@ -257,6 +309,10 @@ export default class AerospaceFighter {
     private _additionalHeatSinks: number = 0;
     private _equipmentList: IEquipmentItem[] = [];
     private _importIssues: string[] = [];
+    // Set on an Airship, Fixed-Wing or Satellite Support Vehicle, which replaces the fighter's structure, engine, fuel,
+    // armor and crew rules with the Support Vehicle ones.
+    private _support: IFighterSupportExport | null = null;
+    private _bays: IVehicleBay[] = [];
 
     private _weights: { name: string; weight: number }[] = [];
     private _currentTonnage: number = 0;
@@ -284,11 +340,35 @@ export default class AerospaceFighter {
     }
 
     public getFighterType(): FighterType { return this._fighterType; }
-    public getFighterTypeName(): string { return FIGHTER_TYPES.find((type) => type.tag === this._fighterType)?.name ?? ""; }
+    public getFighterTypeName(): string {
+        if (this._support) return SUPPORT_AIRCRAFT_MOTIVES.find((motive) => motive.tag === this._support?.motive)?.name ?? "Support Vehicle";
+        return FIGHTER_TYPES.find((type) => type.tag === this._fighterType)?.name ?? "";
+    }
     public isConventional(): boolean { return this._fighterType === "conventional"; }
 
     /** Switching type pulls tonnage, engine, thrust, armor and heat sinks back inside the new type's rules. */
     public setFighterType(type: string): FighterType {
+        if (type === "support") {
+            if (!this._support) {
+                this._fighterType = "support";
+                this._support = newFighterSupport("fixed-wing");
+                this._vstol = false;
+                this._externalStores = [];
+                this._heatSinkType = mechHeatSinkTypes.find((sink) => sink.tag === "single") ?? this._heatSinkType;
+                this._additionalHeatSinks = 0;
+                this._armorAllocation = emptyArmor();
+                this._safeThrust = 4;
+                this._fuelTons = 1;
+            }
+            this.setTonnage(this._tonnage);
+            return this._fighterType;
+        }
+        if (this._support && (type === "conventional" || type === "aerospace")) {
+            this._support = null;
+            this._bays = [];
+            this._armorAllocation = emptyArmor();
+            this._tonnage = Math.round(this._tonnage / 5) * 5;
+        }
         this._fighterType = type === "conventional" ? "conventional" : type === "aerospace" ? "aerospace" : this._fighterType;
         if (this.isConventional()) this._omni = false;
         if (this.isConventional()) this._heatSinkType = mechHeatSinkTypes.find((sink) => sink.tag === "single") ?? this._heatSinkType;
@@ -312,15 +392,304 @@ export default class AerospaceFighter {
 
     /** Whether VSTOL equipment is offered to this fighter at the rules level. */
     public isVSTOLOffered(rulesLevel: number = 2): boolean {
+        // A Fixed-Wing Support Vehicle takes VSTOL as a chassis modification instead (TM p.122).
+        if (this._support) return false;
         return this.isConventional() || rulesLevel >= AEROSPACE_VSTOL_RULES_LEVEL;
+    }
+
+    // Airship, Fixed-Wing and Satellite Support Vehicles (TM pp.116-139; TO:AUE pp.52-71) ---------------------------
+
+    public isSupportVehicle(): boolean { return this._support !== null; }
+
+    /** The Support Vehicle settings; null on a fighter. A copy: change them through the setters. */
+    public getSupportVehicleSettings(): IFighterSupportExport | null {
+        return this._support ? { ...this._support, chassisModifications: [...this._support.chassisModifications] } : null;
+    }
+
+    public getSupportMotive(): SupportAircraftMotive | null { return this._support?.motive ?? null; }
+
+    public getSupportWeightClass(): ISupportVehicleWeightClass | null {
+        return this._support ? getSupportAircraftWeightClass(this._support.motive, this._tonnage) : null;
+    }
+
+    /** A Large Airship or a Satellite: the advanced Support Vehicles of TO:AUE, at the Advanced rules level. */
+    public isAdvancedSupportVehicle(): boolean { return !!this.getSupportWeightClass()?.advanced; }
+
+    private _isSmallSupport(): boolean { return !!this._support && this._tonnage < SUPPORT_VEHICLE_SMALL_LIMIT; }
+
+    private _roundSupport(tons: number): number { return roundSupportVehicleWeight(tons, this._isSmallSupport()); }
+
+    /** Makes the Support Vehicle a Fixed-Wing, Airship or Satellite; engine, thrust and modifications follow the new type. */
+    public setSupportMotive(motive: string): void {
+        const option = SUPPORT_AIRCRAFT_MOTIVES.find((entry) => entry.tag === motive);
+        if (!this._support || !option) return;
+        this._support.motive = option.tag;
+        const available = this.getAvailableSupportChassisModifications();
+        this._support.chassisModifications = this._support.chassisModifications.filter((tag) => available.includes(tag));
+        if (!this.getAvailableSupportEngines().some((engine) => engine.tag === this._support?.engine)) {
+            this._support.engine = this.getAvailableSupportEngines()[0]?.tag ?? "fusion";
+        }
+        if (option.tag !== "satellite") this._support.unmanned = undefined;
+        this.setTonnage(this._tonnage);
+    }
+
+    /** The chassis modifications in force, with Omni on an OmniVehicle (TM p.119). */
+    public getSupportChassisModifications(): string[] {
+        if (!this._support) return [];
+        const mods = new Set(this._support.chassisModifications);
+        if (this._omni) mods.add("omni");
+        return SUPPORT_VEHICLE_CHASSIS_MODIFICATIONS.map((mod) => mod.tag).filter((tag) => mods.has(tag));
+    }
+
+    /** Chassis modifications the type and size may take (TM p.122; TO:AUE p.59). */
+    public getAvailableSupportChassisModifications(): string[] {
+        if (!this._support) return [];
+        const motive = this._support.motive;
+        return SUPPORT_VEHICLE_CHASSIS_MODIFICATIONS
+            .filter((mod) => mod.tag !== "omni" && (!mod.motives || mod.motives.includes(motive)) && (!mod.smallOnly || this._isSmallSupport()))
+            .map((mod) => mod.tag);
+    }
+
+    public setSupportChassisModification(tag: string, installed: boolean): void {
+        if (!this._support || !getSupportVehicleChassisModification(tag) || tag === "omni") return;
+        const mods = this._support.chassisModifications.filter((mod) => mod !== tag);
+        if (installed) mods.push(tag);
+        this._support.chassisModifications = mods;
+        this._calc();
+    }
+
+    public setSupportTechRating(part: "structural" | "engine" | "armor", rating: string): void {
+        if (!this._support || !SUPPORT_VEHICLE_TECH_RATINGS.includes(rating as SupportVehicleTechRating)) return;
+        const value = rating as SupportVehicleTechRating;
+        if (part === "structural") this._support.structuralTechRating = value;
+        else if (part === "engine") this._support.engineTechRating = value;
+        else this._support.armorTechRating = value;
+        this._calc();
+    }
+
+    public getSupportEngine(): ISupportVehicleEngine | null {
+        return this._support ? getSupportVehicleEngine(this._support.engine) ?? null : null;
+    }
+
+    /**
+     * Engines the type may use (Base Support Vehicle Engine Compatibilities Table, TM p.127; TO:AUE p.62). A
+     * Fixed-Wing may use an electric engine only with the Prop modification; that is reported, not hidden.
+     */
+    public getAvailableSupportEngines(): ISupportVehicleEngine[] {
+        const motive = this._support?.motive;
+        return motive ? SUPPORT_VEHICLE_ENGINES.filter((engine) => !engine.incompatible.includes(motive)) : [];
+    }
+
+    public setSupportEngine(tag: string): void {
+        const engine = this.getAvailableSupportEngines().find((option) => option.tag === tag);
+        if (!this._support || !engine) return;
+        this._support.engine = engine.tag;
+        this._calc();
+    }
+
+    /** Barrier Armor Rating (TM p.134); fighters carry full-strength armor, BAR 10. */
+    public getBAR(): number { return this._support?.bar ?? 10; }
+
+    public setBAR(bar: number): void {
+        if (!this._support || !supportVehicleArmor.some((armor) => armor.bar === bar)) return;
+        this._support.bar = bar;
+        this._calc();
+    }
+
+    /** Kilograms per armor point; Large Airships and Satellites use the advanced table (TM p.134; TO:AUE p.69). */
+    public getSupportArmorKgPerPoint(): number | null {
+        if (!this._support) return null;
+        const support = this._support;
+        const armor = supportVehicleArmor.find((entry) => entry.bar === support.bar);
+        const table = this.isAdvancedSupportVehicle() ? armor?.advancedKgPerPoint : armor?.kgPerPoint;
+        return table?.[support.armorTechRating] ?? null;
+    }
+
+    private _armorNeedsArmoredChassis(): boolean {
+        if (!this._support) return false;
+        const support = this._support;
+        const armor = supportVehicleArmor.find((entry) => entry.bar === support.bar);
+        const ratings = this.isAdvancedSupportVehicle() ? armor?.advancedArmoredChassisRatings : armor?.armoredChassisRatings;
+        return !!ratings?.includes(support.armorTechRating);
+    }
+
+    public getSupportFireControl(): SupportVehicleFireControl { return this._support?.fireControl ?? "advanced"; }
+
+    public setSupportFireControl(fireControl: string): void {
+        if (!this._support || !Object.prototype.hasOwnProperty.call(SUPPORT_VEHICLE_FIRE_CONTROL, fireControl)) return;
+        this._support.fireControl = fireControl as SupportVehicleFireControl;
+        this._calc();
+    }
+
+    /** Weight of the heavy weapons, ammunition excluded: what fire control and gunners are based on (TM pp.131, 217). */
+    private _supportWeaponTons(): number {
+        return this._equipmentList.filter((item) => this._isWeapon(item)).reduce((sum, item) => sum + (item.weight || 0), 0);
+    }
+
+    /** Basic fire control weighs 5 percent of the weapons, advanced 10 percent (TM p.217). */
+    public getSupportFireControlWeight(): number {
+        if (!this._support) return 0;
+        const factor = SUPPORT_VEHICLE_FIRE_CONTROL[this._support.fireControl].weightFactor;
+        return factor > 0 ? this._roundSupport(this._supportWeaponTons() * factor) : 0;
+    }
+
+    /** To-hit modifier for a Support Vehicle's weapons: +2 without fire control, +1 with basic (TW p.206). */
+    public getFireControlToHitModifier(): number {
+        return this._support ? SUPPORT_VEHICLE_FIRE_CONTROL[this._support.fireControl].toHit : 0;
+    }
+
+    public getSupportExtraCrew(): number { return this._support?.extraCrew ?? 0; }
+
+    public setSupportExtraCrew(crew: number): void {
+        if (!this._support) return;
+        this._support.extraCrew = Math.max(0, Math.min(1000, Math.floor(Number.isFinite(crew) ? crew : 0))) || undefined;
+        this._calc();
+    }
+
+    /** A Satellite may be built unmanned (TO:AUE p.66). */
+    public setUnmanned(unmanned: boolean): void {
+        if (!this._support) return;
+        this._support.unmanned = this._support.motive === "satellite" && unmanned === true ? true : undefined;
+        this._calc();
+    }
+
+    /** Tons of communications equipment; one record is mounted per ton (TM p.212). */
+    public getCommunicationsTons(): number {
+        return this._equipmentList.filter((item) => item.tag === "communications-equipment").length;
+    }
+
+    /**
+     * Crew (Support Vehicle Minimum Crew Table, TM p.131; TO:AUE p.66): base crew, 3 per Field Kitchen, 5 per MASH
+     * theater, 1 a ton of communications equipment (none on an unmanned Satellite), gunners by fire control and weapon
+     * tonnage (Small: 1 per weapon, or per facing with fire control), any extra crew, then officers for 4 or more.
+     */
+    public getCrew(): number {
+        if (!this._support) return 1;
+        const weightClass = this.getSupportWeightClass();
+        if (!weightClass) return 0;
+        const unmanned = !!this._support.unmanned;
+        let crew = getSupportVehicleBaseCrew(this._support.motive, weightClass.size, unmanned, this._tonnage);
+        for (const item of this._equipmentList) {
+            if (item.tag === "field-kitchen") crew += 3;
+            if (item.tag === "mash-core" || item.tag === "mash-theater") crew += 5;
+        }
+        if (!unmanned) crew += this.getCommunicationsTons();
+        const weapons = this._equipmentList.filter((item) => this._isWeapon(item));
+        if (weightClass.size === "small") {
+            const facings = new Set(weapons.map((item) => item.location ?? "")).size;
+            crew += this._support.fireControl === "none" ? weapons.length : this._support.fireControl === "advanced" ? Math.max(0, facings - 1) : facings;
+        } else {
+            crew += getSupportVehicleGunners(this._support.fireControl, this._support.structuralTechRating, this._supportWeaponTons());
+        }
+        crew += this._support.extraCrew ?? 0;
+        return crew + getSupportVehicleOfficers(crew);
+    }
+
+    /** Overall Tech Rating: the highest of the structure, engine, armor and installed equipment (TM p.117). */
+    public getSupportOverallTechRating(): SupportVehicleTechRating | null {
+        if (!this._support) return null;
+        const ratings = [this._support.structuralTechRating, this._support.engineTechRating];
+        if (this.getTotalArmorPoints() > 0) ratings.push(this._support.armorTechRating);
+        for (const item of this._equipmentList) {
+            const rating = item.techRating?.toLowerCase();
+            if (rating && SUPPORT_VEHICLE_TECH_RATINGS.includes(rating as SupportVehicleTechRating)) ratings.push(rating as SupportVehicleTechRating);
+        }
+        return ratings.reduce((best, rating) => (rating > best ? rating : best));
+    }
+
+    /** Item slots: 5 + tonnage / 10, or 35 + tonnage / 100 over 300 tons (TM p.120; TO:AUE p.56). */
+    public getTotalItemSlots(): number { return this._support ? getSupportVehicleItemSlots(this._tonnage) : 0; }
+
+    /**
+     * Item slots used: each item's Support Vehicle slots, one per kind of ammunition, one for all communications
+     * equipment, the bays, and BAR 10 armor at Tech E or F (Ferro-Fibrous space, errata v8.0).
+     */
+    public getUsedItemSlots(): number {
+        const ammoTypes = new Set<string>();
+        let used = 0;
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) ammoTypes.add(item.tag);
+            else if (item.tag !== "communications-equipment") used += Math.max(0, item.space?.supportVehicle ?? 0);
+        }
+        used += ammoTypes.size + (this.getCommunicationsTons() > 0 ? 1 : 0) + getVehicleBaySlots(this._bays);
+        const ferroFibrous = supportVehicleArmor.find((armor) => armor.bar === this._support?.bar)?.ferroFibrousSlotRatings ?? [];
+        if (this._support && this.getTotalArmorPoints() > 0 && ferroFibrous.includes(this._support.armorTechRating)) used += this.getChassisTechBase() === "clan" ? 1 : 2;
+        return used;
+    }
+
+    public getBays(): IVehicleBay[] { return this._bays; }
+
+    public addBay(tag: string): IVehicleBay | null {
+        const type = AIRCRAFT_BAY_TYPES.find((entry) => entry.tag === tag);
+        if (!this._support || !type || this._bays.length >= MAX_VEHICLE_BAYS) return null;
+        const bay: IVehicleBay = { tag: type.tag, amount: 1, doors: type.infantry || type.tonsEach === null ? 0 : 1 };
+        this._bays.push(bay);
+        this._calc();
+        return bay;
+    }
+
+    public setBay(index: number, amount: number, doors: number): IVehicleBay[] {
+        const bay = this._bays[index];
+        const type = bay ? getVehicleBayType(bay.tag) : undefined;
+        if (bay && type) {
+            const value = Number.isFinite(amount) ? amount : bay.amount;
+            bay.amount = type.tonsEach === null
+                ? Math.min(MAX_VEHICLE_CARGO_TONS, Math.max(0.001, Math.round(value * 1000) / 1000))
+                : Math.min(MAX_VEHICLE_BAY_COUNT, Math.max(1, Math.floor(value)));
+            bay.doors = Math.min(MAX_VEHICLE_BAY_COUNT, Math.max(0, Math.floor(Number.isFinite(doors) ? doors : bay.doors)));
+            this._calc();
+        }
+        return this._bays;
+    }
+
+    public removeBay(index: number): IVehicleBay[] {
+        this._bays = this._bays.filter((_bay, bayIndex) => bayIndex !== index);
+        this._calc();
+        return this._bays;
+    }
+
+    public getBayName(bay: IVehicleBay): string { return getVehicleBayType(bay.tag)?.name ?? bay.tag; }
+
+    /** Days of station-keeping fuel: 0.043 tons a day, 0.005 for a fusion engine (TO:AUE p.63). */
+    public getSatelliteBurnDays(): number {
+        if (this._support?.motive !== "satellite") return 0;
+        const perDay = this._support.engine === "fusion" ? SATELLITE_FUEL_TONS_PER_BURN_DAY.fusion : SATELLITE_FUEL_TONS_PER_BURN_DAY.other;
+        return Math.floor(this._fuelTons / perDay + 1e-9);
+    }
+
+    /** Kilograms per Fuel Point, or null when the unit needs none (TM pp.128-129; TO:AUE p.63). */
+    public getSupportFuelKgPerPoint(): number | null {
+        const weightClass = this.getSupportWeightClass();
+        if (!this._support || !weightClass) return null;
+        return getSupportAircraftFuelKgPerPoint(this._support.motive, weightClass.size, this._support.engineTechRating, this._support.engine,
+            this.getSupportChassisModifications().includes("prop"));
+    }
+
+    /** Fuel carried, in tons: none for an engine that needs no Fuel Points (a Satellite's is station-keeping fuel). */
+    public getSupportFuelWeight(): number {
+        if (!this._support) return this._fuelTons;
+        return this._support.motive === "satellite" || this.getSupportFuelKgPerPoint() !== null ? this._fuelTons : 0;
+    }
+
+    /** Chassis weight: Base Chassis Value x Tech Rating multiplier x modifications x weight (TM p.122); fighters have none. */
+    public getStructureWeight(): number {
+        const weightClass = this.getSupportWeightClass();
+        if (!this._support || !weightClass) return 0;
+        return getSupportVehicleStructureWeight(weightClass, this._support.structuralTechRating, this.getSupportChassisModifications(), this._tonnage);
+    }
+
+    /** Heat sinks a Support Vehicle needs: the heat of its heavy energy weapons fired together (TM p.133). */
+    public getRequiredHeatSinks(): number {
+        return this._support ? this.getWeaponHeat() : 0;
     }
 
     // OmniFighters --------------------------------------------------------------------------------------------
 
     public isOmni(): boolean { return this._omni; }
 
-    /** Only aerospace fighters can be built as Omnis (TM pp.184, 285). A standard fighter has no pods. */
+    /** Aerospace fighters and Support Vehicles can be built as Omnis (TM pp.122, 184, 285). A standard fighter has no pods. */
     public setOmni(omni: boolean): boolean {
+        // Aerospace fighters and Support Vehicles (with the Omni chassis modification, TM p.122) may be Omnis.
         this._omni = !this.isConventional() && omni === true;
         if (!this._omni) this._podUUIDs.clear();
         this._calc();
@@ -349,13 +718,29 @@ export default class AerospaceFighter {
     public getVSTOLWeight(): number { return this._vstol ? roundUpHalf(this._tonnage * 0.05) : 0; }
 
     public getTonnage(): number { return this._tonnage; }
-    public getMaxTonnage(): number { return this.isConventional() ? CONVENTIONAL_FIGHTER_MAX_TONNAGE : FIGHTER_MAX_TONNAGE; }
+    public getMaxTonnage(): number {
+        if (this._support) return getSupportAircraftMaxTonnage(this._support.motive);
+        return this.isConventional() ? CONVENTIONAL_FIGHTER_MAX_TONNAGE : FIGHTER_MAX_TONNAGE;
+    }
+
+    /** 5 tons for a fighter; a Support Vehicle from 100 kg (TM p.120). */
+    public getMinTonnage(): number { return this._support ? SUPPORT_VEHICLE_MIN_TONNAGE : FIGHTER_MIN_TONNAGE; }
 
     /**
      * 5 to 100 tons in 5-ton increments, 5 to 50 for a conventional fighter (TM p.184). Thrust, fuel and armor
      * are pulled back inside the new limits.
      */
     public setTonnage(tonnage: number): number {
+        if (this._support) {
+            // Under 5 tons by the kilogram, from 5 tons by the half ton (TM p.120).
+            const tons = Math.max(SUPPORT_VEHICLE_MIN_TONNAGE, Math.min(this.getMaxTonnage(), Number.isFinite(tonnage) ? tonnage : this._tonnage));
+            this._tonnage = tons < SUPPORT_VEHICLE_SMALL_LIMIT ? Math.round(tons * 1000) / 1000 : Math.round(tons * 2) / 2;
+            for (const arc of FIGHTER_ARCS) this._armorAllocation[arc.tag] = Math.min(this.getMaxArmorPoints(), this._armorAllocation[arc.tag]);
+            this._fuelTons = Math.min(this._tonnage, this._fuelTons);
+            this._safeThrust = Math.min(this.getMaxSafeThrust(), Math.max(this.getMinSafeThrust(), this._safeThrust));
+            this._calc();
+            return this._tonnage;
+        }
         const stepped = Math.round((Number.isFinite(tonnage) ? tonnage : this._tonnage) / 5) * 5;
         this._tonnage = Math.min(this.getMaxTonnage(), Math.max(FIGHTER_MIN_TONNAGE, stepped));
         for (const arc of FIGHTER_ARCS) this._armorAllocation[arc.tag] = Math.min(this.getMaxArmorPoints(), this._armorAllocation[arc.tag]);
@@ -422,23 +807,50 @@ export default class AerospaceFighter {
 
     public getSafeThrust(): number { return this._safeThrust; }
 
-    /** Max Thrust = Safe Thrust x 1.5, rounded up (TM p.186). */
-    public getMaxThrust(): number { return Math.ceil(this._safeThrust * 1.5); }
+    /** Max Thrust = Safe Thrust x 1.5, rounded up (TM p.186); an Airship's to the 0.25, a Satellite's none (TM p.127). */
+    public getMaxThrust(): number {
+        if (this._support) return getSupportAircraftMaxThrust(this._support.motive, this._safeThrust);
+        return Math.ceil(this._safeThrust * 1.5);
+    }
 
     /** What the engine formula takes off Safe Thrust: 2 for an aerospace fighter, nothing for a conventional one. */
     private _thrustOffset(): number { return this.isConventional() ? 0 : 2; }
 
     /** Engine rating = tonnage x (Safe Thrust - 2); tonnage x Safe Thrust for a conventional fighter (TM p.185). */
-    public getEngineRating(): number { return this._tonnage * (this._safeThrust - this._thrustOffset()); }
+    public getEngineRating(): number {
+        // A Support Vehicle's Engine Rating is Safe Thrust x tonnage, at most 500 (TM errata v8.0, p.126).
+        if (this._support) return Math.min(500, Math.ceil(this._safeThrust * this._tonnage - 1e-9));
+        return this._tonnage * (this._safeThrust - this._thrustOffset());
+    }
 
     /** The lowest Safe Thrust whose engine is on the Master Engine Table, which starts at a rating of 10. */
-    public getMinSafeThrust(): number { return Math.ceil(10 / this._tonnage) + this._thrustOffset(); }
+    public getMinSafeThrust(): number {
+        if (this._support) return this._support.motive === "satellite" ? 0 : this._support.motive === "airship" ? AIRSHIP_THRUST_STEP : 1;
+        return Math.ceil(10 / this._tonnage) + this._thrustOffset();
+    }
 
     /** The highest Safe Thrust whose engine is on the Master Engine Table, which ends at a rating of 400. */
-    public getMaxSafeThrust(): number { return Math.floor(FIGHTER_MAX_ENGINE_RATING / this._tonnage) + this._thrustOffset(); }
+    public getMaxSafeThrust(): number {
+        if (this._support) {
+            // An Airship flies at Safe Thrust 2 at most (TM p.127); a Fixed-Wing as fast as its engine still fits beside
+            // the chassis, up to 20 (a bound for the choice list, not a rule); a Satellite only keeps station.
+            if (this._support.motive === "satellite") return 0;
+            if (this._support.motive === "airship") return AIRSHIP_MAX_SAFE_THRUST;
+            const weightClass = this.getSupportWeightClass();
+            const engine = this.getSupportEngine();
+            if (!weightClass || !engine) return 1;
+            const room = this._tonnage - this.getStructureWeight();
+            let thrust = 1;
+            while (thrust < 20 && (getSupportVehicleEngineWeight(weightClass, engine, this._support.engineTechRating, thrust + 1, this._tonnage) ?? Infinity) <= room) thrust++;
+            return thrust;
+        }
+        return Math.floor(FIGHTER_MAX_ENGINE_RATING / this._tonnage) + this._thrustOffset();
+    }
 
     public setSafeThrust(safeThrust: number): number {
-        const value = Number.isFinite(safeThrust) ? Math.floor(safeThrust) : this._safeThrust;
+        // An Airship's Thrust Points come in quarters (TM p.127).
+        const step = this._support?.motive === "airship" ? AIRSHIP_THRUST_STEP : 1;
+        const value = Number.isFinite(safeThrust) ? Math.floor(safeThrust / step + 1e-9) * step : this._safeThrust;
         this._safeThrust = Math.min(this.getMaxSafeThrust(), Math.max(this.getMinSafeThrust(), value));
         this._calc();
         return this._safeThrust;
@@ -449,6 +861,12 @@ export default class AerospaceFighter {
      * "Conventional fighters multiply fusion engine weights by 1.5 (round up to the nearest 0.5 ton)" (TM p.185).
      */
     public getEngineWeight(): number {
+        if (this._support) {
+            const weightClass = this.getSupportWeightClass();
+            const engine = this.getSupportEngine();
+            if (!weightClass || !engine) return 0;
+            return getSupportVehicleEngineWeight(weightClass, engine, this._support.engineTechRating, this._safeThrust, this._tonnage) ?? 0;
+        }
         const rating = this.getEngineRating();
         const option = mechEngineOptions.find((entry) => entry.rating >= rating) ?? mechEngineOptions[mechEngineOptions.length - 1];
         const tag = this._engineType.tag as keyof typeof option.weight;
@@ -458,11 +876,14 @@ export default class AerospaceFighter {
 
     /** 3 tons; a tenth of the tonnage, rounded up to the half ton, for a conventional fighter (TM p.189). */
     public getControlsWeight(): number {
+        // A Support Vehicle's controls are part of its chassis (TM p.131).
+        if (this._support) return 0;
         return this.isConventional() ? roundUpHalf(this._tonnage * 0.1) : FIGHTER_COCKPIT_TONS;
     }
 
     /** The higher of Safe Thrust and 10 percent of tonnage, rounded down; it weighs nothing (TM p.187). */
     public getStructuralIntegrity(): number {
+        if (this._support) return getSupportAircraftStructuralIntegrity(this._support.motive, this._safeThrust, this._tonnage);
         return Math.max(this._safeThrust, Math.floor(this._tonnage / 10));
     }
 
@@ -472,17 +893,29 @@ export default class AerospaceFighter {
 
     public setFuelTons(tons: number): number {
         const value = Number.isFinite(tons) ? tons : this._fuelTons;
-        this._fuelTons = Math.min(this._tonnage, Math.max(0, Math.round(value * 2) / 2));
+        // A Support Vehicle's fuel is rounded to the kilogram when Small, the half ton from 5 tons (TM p.129).
+        const step = this._isSmallSupport() ? 1000 : 2;
+        this._fuelTons = Math.min(this._tonnage, Math.max(0, Math.round(value * step) / step));
         this._calc();
         return this._fuelTons;
     }
 
     /** 80 fuel points per ton, 160 for a conventional fighter (TM p.186). */
     public getFuelPointsPerTon(): number {
+        if (this._support) {
+            const kg = this.getSupportFuelKgPerPoint();
+            return kg ? 1000 / kg : 0;
+        }
         return this.isConventional() ? CONVENTIONAL_FIGHTER_FUEL_POINTS_PER_TON : FIGHTER_FUEL_POINTS_PER_TON;
     }
 
-    public getFuelPoints(): number { return Math.floor(this._fuelTons * this.getFuelPointsPerTon()); }
+    public getFuelPoints(): number {
+        if (this._support) {
+            const kg = this.getSupportFuelKgPerPoint();
+            return kg ? Math.floor(Math.round(this._fuelTons * 1000) / kg + 1e-9) : 0;
+        }
+        return Math.floor(this._fuelTons * this.getFuelPointsPerTon());
+    }
 
     // Armor ---------------------------------------------------------------------------------------------------
 
@@ -490,6 +923,8 @@ export default class AerospaceFighter {
 
     /** Armor a fighter of this tech base can mount (TM pp.191-192). */
     public getAvailableArmorTypes(rulesLevel: number = 2): (IAerospaceArmorType & { available: boolean })[] {
+        // A Support Vehicle's armor is chosen by BAR and Tech Rating instead (TM p.134).
+        if (this._support) return [];
         const techBase = this.getChassisTechBase();
         return aerospaceArmorTypes
             .filter((armor) => armor.fighterSlots !== null && armor.fighterSlots[techBase] !== null
@@ -509,6 +944,10 @@ export default class AerospaceFighter {
     }
 
     public getArmorPointsPerTon(): number | null {
+        if (this._support) {
+            const kg = this.getSupportArmorKgPerPoint();
+            return kg ? Math.floor(1000 / kg) : null;
+        }
         return getAerospaceArmorPointsPerTon(this._armorType.tag, this._armorUnit(), this.getChassisTechBase());
     }
 
@@ -529,8 +968,11 @@ export default class AerospaceFighter {
         return this.isConventional() ? CONVENTIONAL_FIGHTER_ARMOR_POINTS_PER_TON_OF_FIGHTER : FIGHTER_ARMOR_POINTS_PER_TON_OF_FIGHTER;
     }
 
-    /** Tonnage x 8 points, tonnage x 1 for a conventional fighter (TM p.191). */
-    public getMaxArmorPoints(): number { return this._tonnage * this.getMaxArmorPointsPerTonOfFighter(); }
+    /** Tonnage x 8 points, tonnage x 1 for a conventional fighter (TM p.191); a Support Vehicle by its type (TM p.134; TO:AUE p.69). */
+    public getMaxArmorPoints(): number {
+        if (this._support) return getSupportVehicleMaxArmor(this._support.motive, this._tonnage);
+        return this._tonnage * this.getMaxArmorPointsPerTonOfFighter();
+    }
 
     /**
      * Damage Threshold of each facing: a tenth of its full armor, rounded up. A single hit that does more than
@@ -538,18 +980,29 @@ export default class AerospaceFighter {
      */
     public getDamageThresholds(): IFighterArmorAllocation {
         const thresholds = emptyArmor();
-        for (const arc of FIGHTER_ARCS) thresholds[arc.tag] = Math.ceil(this._armorAllocation[arc.tag] / 10);
+        // A Fixed-Wing Support Vehicle's thresholds go by its BAR (TW p.206).
+        const fixedWing = this._support?.motive === "fixed-wing";
+        for (const arc of FIGHTER_ARCS) {
+            thresholds[arc.tag] = fixedWing ? getFixedWingDamageThreshold(this.getBAR(), this._armorAllocation[arc.tag]) : Math.ceil(this._armorAllocation[arc.tag] / 10);
+        }
         return thresholds;
     }
 
     /** Armor is bought in half tons: the allocated points divided by the points per ton, rounded up (TM p.191). */
     public getArmorWeight(): number {
+        if (this._support) {
+            // Points x kilograms a point: to the kilogram when Small, up to the half ton from 5 tons (TM p.134).
+            const kg = this.getSupportArmorKgPerPoint();
+            return kg ? this._roundSupport(this.getTotalArmorPoints() * kg / 1000) : 0;
+        }
         const perTon = this.getArmorPointsPerTon() ?? 16;
         return roundUpHalf(this.getTotalArmorPoints() / perTon);
     }
 
     /** Points the armor tonnage paid for but that are not allocated yet (fractions of a point are lost). */
     public getUnallocatedArmorPoints(): number {
+        // A Support Vehicle buys armor by the point.
+        if (this._support) return 0;
         const perTon = this.getArmorPointsPerTon() ?? 16;
         return Math.min(this.getMaxArmorPoints(), Math.floor(this.getArmorWeight() * perTon + 1e-9)) - this.getTotalArmorPoints();
     }
@@ -565,12 +1018,13 @@ export default class AerospaceFighter {
 
     /** Single or double heat sinks, single only for a conventional fighter (TM p.193); doubles follow the era. */
     public getAvailableHeatSinkTypes(rulesLevel: number = 2): (IHeatSync & { available: boolean })[] {
-        return mechHeatSinkTypes.filter((sink) => sink.tag === "single" || (sink.tag === "double" && !this.isConventional()))
+        // Support Vehicles use single heat sinks only (TM p.133).
+        return mechHeatSinkTypes.filter((sink) => sink.tag === "single" || (sink.tag === "double" && !this.isConventional() && !this._support))
             .map((sink) => ({ ...sink, available: sink.tag === "single" || this._techDatesAvailability(sink, rulesLevel).available }));
     }
 
     public setHeatSinkType(tag: string): IHeatSync {
-        const allowed = tag === "single" || (tag === "double" && !this.isConventional());
+        const allowed = tag === "single" || (tag === "double" && !this.isConventional() && !this._support);
         this._heatSinkType = mechHeatSinkTypes.find((sink) => sink.tag === tag && allowed) ?? this._heatSinkType;
         this._calc();
         return this._heatSinkType;
@@ -585,7 +1039,11 @@ export default class AerospaceFighter {
     }
 
     /** Ten come free with a fusion engine and none with a turbine (Aerospace Unit Heat Sinks Table, TM p.193). */
-    public getFreeHeatSinks(): number { return this._engineType.tag === "ice" ? 0 : FIGHTER_FREE_HEAT_SINKS; }
+    public getFreeHeatSinks(): number {
+        // Support Vehicle engines give no free heat sinks (TM p.133).
+        if (this._support) return 0;
+        return this._engineType.tag === "ice" ? 0 : FIGHTER_FREE_HEAT_SINKS;
+    }
 
     /** Each heat sink beyond the free ones weighs a ton (TM pp.193-194). */
     public getTotalHeatSinks(): number { return this.getFreeHeatSinks() + this._additionalHeatSinks; }
@@ -601,7 +1059,7 @@ export default class AerospaceFighter {
      * alike (TM p.194). A conventional fighter counts its energy weapons only, and must sink all of it (TM p.193).
      */
     public getWeaponHeat(): number {
-        return this._equipmentList.filter((item) => !item.isAmmo && (!this.isConventional() || AerospaceFighter._isEnergyWeapon(item)))
+        return this._equipmentList.filter((item) => !item.isAmmo && (!(this.isConventional() || this._support) || AerospaceFighter._isEnergyWeapon(item)))
             .reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0);
     }
 
@@ -610,7 +1068,8 @@ export default class AerospaceFighter {
      * rounded up to the half ton (TM p.195). Flamers and chemical lasers are left out, as on vehicles.
      */
     public getPowerAmplifierWeight(): number {
-        if (this._engineType.tag !== "ice") return 0;
+        // A Support Vehicle without a fission or fusion engine needs amplifiers too (TM p.137).
+        if (this._support ? ["fission", "fusion"].includes(this._support.engine) : this._engineType.tag !== "ice") return 0;
         const energyTons = this._equipmentList
             .filter((item) => AerospaceFighter._isEnergyWeapon(item) && !/vehicle-flamer|chemical-laser/.test(item.tag))
             .reduce((sum, item) => sum + (item.weight || 0), 0);
@@ -620,7 +1079,7 @@ export default class AerospaceFighter {
     // Equipment -----------------------------------------------------------------------------------------------
 
     /** External stores hardpoints: tonnage divided by 5, rounded down (TM p.196). */
-    public getExternalStoresHardpoints(): number { return Math.floor(this._tonnage / 5); }
+    public getExternalStoresHardpoints(): number { return this._support ? 0 : Math.floor(this._tonnage / 5); }
 
     /**
      * Bombs and pods the hardpoints can carry: catalog records that give a bomb size, one hardpoint per size
@@ -674,11 +1133,15 @@ export default class AerospaceFighter {
     /** Weapon slots an item takes in an arc. Ammunition and core components take none (TM p.196). */
     public getItemSlots(item: IEquipmentItem): number {
         if (item.isAmmo) return 0;
+        // A Support Vehicle reads the Support Vehicle slot column (TM p.136).
+        if (this._support) return Math.max(0, item.space?.supportVehicle ?? 0);
         return Math.max(0, item.space?.aerospaceFighter ?? 0);
     }
 
     /** Weapon slots an arc has: 5, less what the armor type takes there (TM pp.191, 196). */
     public getArcSlots(arc: FighterArc): number {
+        // A Support Vehicle has item slots for the whole unit, not weapon slots by arc (TM p.120).
+        if (this._support) return this.getTotalItemSlots();
         const lost = this._armorType.fighterSlots?.[this.getChassisTechBase()] ?? 0;
         const placement = (this._armorType.fighterSlots?.placement ?? "").toLowerCase();
         let taken = 0;
@@ -697,6 +1160,11 @@ export default class AerospaceFighter {
     public getEquipmentList(): IEquipmentItem[] { return this._equipmentList; }
 
     public isEquipmentAllowed(item: IEquipmentItem): boolean {
+        if (this._support) {
+            if ((item.space?.supportVehicle ?? -1) < 0) return false;
+            // Small Support Vehicles carry no heavy weapons (TM p.136).
+            return !(this._isSmallSupport() && (this._isWeapon(item) || item.isAmmo));
+        }
         return (item.space?.aerospaceFighter ?? -1) >= 0;
     }
 
@@ -739,6 +1207,14 @@ export default class AerospaceFighter {
 
     /** Whatever takes a weapon slot sits in an arc; everything else is in the fuselage (TM p.196). */
     private _validLocation(item: IEquipmentItem, location: unknown): string | undefined {
+        // On a Support Vehicle anything but a weapon may sit in the body (fuselage), as the Dixon's cargo and
+        // communications gear do (TM p.140); weapons fire from an arc.
+        if (this._support) {
+            if (typeof location === "string" && FIGHTER_LOCATIONS.some((loc) => loc.tag === location)) {
+                return location === "fuselage" && this._isWeapon(item) ? undefined : location;
+            }
+            return this._isWeapon(item) ? undefined : "fuselage";
+        }
         if (this.getItemSlots(item) === 0) return "fuselage";
         return typeof location === "string" && FIGHTER_ARCS.some((arc) => arc.tag === location) ? location : undefined;
     }
@@ -770,10 +1246,11 @@ export default class AerospaceFighter {
 
     public getWeights(): { name: string; weight: number }[] { return this._weights; }
     public getCurrentTonnage(): number { return this._currentTonnage; }
-    public getRemainingTonnage(): number { return Math.round((this._tonnage - this._currentTonnage) * 1000) / 1000; }
+    public getRemainingTonnage(): number { return Math.round((this._tonnage - this._currentTonnage) * 1e6) / 1e6; }
 
     /** Everything that keeps the design from being legal under TechManual, in plain words. */
     public getIssues(rulesLevel: number = 2): string[] {
+        if (this._support) return this._getSupportIssues(rulesLevel);
         const issues: string[] = [];
         const remaining = this.getRemainingTonnage();
         if (remaining < 0) issues.push(`Overweight by ${-remaining} tons.`);
@@ -819,6 +1296,66 @@ export default class AerospaceFighter {
         return issues;
     }
 
+    /** What makes an Airship, Fixed-Wing or Satellite Support Vehicle illegal (TM pp.116-139; TO:AUE pp.52-71). */
+    private _getSupportIssues(rulesLevel: number): string[] {
+        const support = this._support;
+        if (!support) return [];
+        const issues: string[] = [];
+        const weightClass = this.getSupportWeightClass();
+        if (!weightClass) return [`${this.getFighterTypeName()}s weigh from 0.1 to ${this.getMaxTonnage()} tons (TM p.120; TO:AUE p.57).`];
+        const remaining = this.getRemainingTonnage();
+        if (remaining < 0) issues.push(`Overweight by ${-remaining} tons.`);
+        const rating = (value: string) => value.toUpperCase();
+        if (support.structuralTechRating < weightClass.minTechRating) issues.push(`The structure needs at least Tech Rating ${rating(weightClass.minTechRating)} for this type and size (TM p.120).`);
+        const mods = this.getSupportChassisModifications();
+        const available = new Set([...this.getAvailableSupportChassisModifications(), "omni"]);
+        for (const tag of mods) {
+            const mod = getSupportVehicleChassisModification(tag);
+            if (!mod) continue;
+            if (!available.has(tag)) issues.push(`${mod.name} is not available to this type or size (TM p.122).`);
+            if (support.structuralTechRating < mod.minTechRating) issues.push(`${mod.name} needs a Structural Tech Rating of ${rating(mod.minTechRating)} or better (TM p.122).`);
+            for (const excluded of mod.excludes ?? []) {
+                if (mods.includes(excluded) && tag < excluded) issues.push(`${mod.name} and ${getSupportVehicleChassisModification(excluded)?.name} may not be combined (TM p.122).`);
+            }
+        }
+        const engine = this.getSupportEngine();
+        if (!engine || engine.incompatible.includes(support.motive)) issues.push("This engine cannot power this type (TM p.127; TO:AUE p.62).");
+        else if (engine.multiplier[support.engineTechRating] === null) issues.push(`${engine.name} engines do not exist at Tech Rating ${rating(support.engineTechRating)} (TM p.127).`);
+        if (support.motive === "fixed-wing" && engine && ["battery", "fuel-cell", "solar"].includes(engine.tag) && !mods.includes("prop")) {
+            issues.push("A Fixed-Wing Support Vehicle may use an electric engine only with the Prop modification (TM p.127).");
+        }
+        if (this.getSupportFuelKgPerPoint() !== null && this._fuelTons <= 0) issues.push("This engine needs Fuel Points (TM p.129).");
+        if (support.motive !== "satellite" && this._safeThrust <= 0) issues.push("A Fixed-Wing or Airship needs a Safe Thrust of at least 1 (0.25 for an Airship).");
+        const kgPerPoint = this.getSupportArmorKgPerPoint();
+        if (this.getTotalArmorPoints() > 0 || mods.some((mod) => SUPPORT_VEHICLE_ARMOR_REQUIRED_MODIFICATIONS.includes(mod))) {
+            if (kgPerPoint === null) issues.push(`BAR ${support.bar} armor does not exist at Tech Rating ${rating(support.armorTechRating)} (TM p.134).`);
+            else if (this._armorNeedsArmoredChassis() && !mods.includes("armored")) issues.push(`BAR ${support.bar} armor at Tech Rating ${rating(support.armorTechRating)} needs the Armored chassis modification (TM p.134).`);
+        }
+        if (mods.includes("ultra-light") && support.bar > ULTRA_LIGHT_MAX_BAR) issues.push(`An Ultra-Light chassis may not mount armor better than BAR ${ULTRA_LIGHT_MAX_BAR} (TM p.123).`);
+        if (this.getTotalArmorPoints() > this.getMaxArmorPoints()) issues.push(`Armor exceeds the maximum of ${this.getMaxArmorPoints()} points (TM p.134; TO:AUE p.69).`);
+        if (mods.some((mod) => SUPPORT_VEHICLE_ARMOR_REQUIRED_MODIFICATIONS.includes(mod)) && FIGHTER_ARCS.some((arc) => this._armorAllocation[arc.tag] < 1)) {
+            issues.push("Armored, Amphibious and Environmentally Sealed chassis need at least 1 armor point in every facing (TM p.134).");
+        }
+        if (this.getWeaponHeat() > this.getTotalHeatSinks()) issues.push(`Heavy energy weapons make ${this.getWeaponHeat()} heat; ${this.getTotalHeatSinks()} heat sinks are installed (TM p.133).`);
+        if (this.getUsedItemSlots() > this.getTotalItemSlots()) issues.push(`${this.getUsedItemSlots()} item slots used of ${this.getTotalItemSlots()} (TM p.120).`);
+        if (this._isSmallSupport() && this._equipmentList.some((item) => this._isWeapon(item) || item.isAmmo)) issues.push("Small Support Vehicles may not mount heavy weapons (TM p.136).");
+        if (support.unmanned && this._equipmentList.some((item) => this._isWeapon(item) || ["field-kitchen", "mash-core", "mash-theater"].includes(item.tag))) {
+            issues.push("An unmanned Satellite may not mount weapons or crew-served equipment (TO:AUE p.66).");
+        }
+        if (this._isSmallSupport()) {
+            const seats = this._equipmentList.filter((item) => ["seating-standard", "seating-pillion", "support-vehicle-ejection-seat"].includes(item.tag)).length;
+            if (seats < this.getCrew()) issues.push(`A Small Support Vehicle needs a seat for each of its ${this.getCrew()} crew (${seats} installed; TM p.132).`);
+        }
+        if (this.getCommunicationsTons() > 15) issues.push(`${this.getCommunicationsTons()} tons of communications equipment; a unit carries at most 15 (TM p.212).`);
+        for (const item of this._equipmentList) {
+            if (!this.isEquipmentAllowed(item)) issues.push(`${item.name} cannot be mounted on this Support Vehicle.`);
+        }
+        const unplaced = this._equipmentList.filter((item) => !item.location).length;
+        if (unplaced > 0) issues.push(`${unplaced} weapon${unplaced === 1 ? " has" : "s have"} no firing arc yet.`);
+        if (this.isAdvancedSupportVehicle() && rulesLevel < 3) issues.push("Large Airships and Satellites are Advanced rules (TO:AUE).");
+        return issues;
+    }
+
     private _itemIsAvailable(introduced: number | null, extinct: number | null, reintroduced: number | null): boolean {
         const introductionYear = introduced ?? 0;
         const extinctionYear = extinct ?? 0;
@@ -849,6 +1386,12 @@ export default class AerospaceFighter {
     }
 
     private _calc(): void {
+        if (this._support) {
+            this._calcSupportWeights();
+            this._calcBattleValue();
+            this._calcCost();
+            return;
+        }
         this._weights = [
             { name: `Engine (${this._engineType.name}, rating ${this.getEngineRating()})`, weight: this.getEngineWeight() },
             { name: "Cockpit and Controls", weight: this.getControlsWeight() },
@@ -862,6 +1405,38 @@ export default class AerospaceFighter {
         this._currentTonnage = Math.round(this._weights.reduce((sum, entry) => sum + entry.weight, 0) * 1000) / 1000;
         this._calcBattleValue();
         this._calcCost();
+    }
+
+    /**
+     * A Support Vehicle's weights: chassis, engine, fuel, armor, heat sinks, amplifiers, fire control, bays and
+     * equipment; on Medium and Large ones, items weighed in kilograms are totalled and rounded up to the half ton
+     * (TM p.137).
+     */
+    private _calcSupportWeights(): void {
+        const engine = this.getSupportEngine();
+        const fuelPoints = this.getFuelPoints();
+        this._weights = [
+            { name: "Chassis (Structural Integrity)", weight: this.getStructureWeight() },
+            { name: `${engine?.name ?? "Engine"} Engine`, weight: this.getEngineWeight() },
+            ...(this.getSupportFuelWeight() > 0 ? [{ name: this._support?.motive === "satellite" ? `Station-keeping Fuel (${this.getSatelliteBurnDays()} burn days)` : `Fuel (${fuelPoints} points)`, weight: this.getSupportFuelWeight() }] : []),
+            { name: `Armor (BAR ${this.getBAR()}, ${this.getTotalArmorPoints()} points)`, weight: this.getArmorWeight() },
+            ...(this._additionalHeatSinks > 0 ? [{ name: `Heat Sinks (${this._additionalHeatSinks})`, weight: this._additionalHeatSinks }] : []),
+            ...(this.getPowerAmplifierWeight() > 0 ? [{ name: "Power Amplifiers", weight: this.getPowerAmplifierWeight() }] : []),
+            ...(this.getSupportFireControlWeight() > 0 ? [{ name: SUPPORT_VEHICLE_FIRE_CONTROL[this.getSupportFireControl()].name, weight: this.getSupportFireControlWeight() }] : []),
+        ];
+        // Loose kilograms may go to cargo, so cargo by the kilogram joins the kilogram total (TM p.137).
+        let smallItems = 0;
+        for (const bay of this._bays) {
+            const weight = getVehicleBayWeight(bay);
+            if (!this._isSmallSupport() && (weight * 2) % 1 !== 0) smallItems += weight;
+            else this._weights.push({ name: this.getBayName(bay), weight });
+        }
+        for (const item of this._equipmentList) {
+            if (!this._isSmallSupport() && ((item.weight || 0) * 2) % 1 !== 0) smallItems += item.weight || 0;
+            else this._weights.push({ name: item.name, weight: item.weight || 0 });
+        }
+        if (smallItems > 0) this._weights.push({ name: `Items and cargo weighed in kilograms (${Math.round(smallItems * 1000)} kg)`, weight: roundSupportVehicleWeight(smallItems, false) });
+        this._currentTonnage = Math.round(this._weights.reduce((sum, entry) => sum + entry.weight, 0) * 1e6) / 1e6;
     }
 
     // Battle Value and cost -----------------------------------------------------------------------------------
@@ -923,6 +1498,10 @@ export default class AerospaceFighter {
      * more than the plain launcher. External stores are not part of a fighter's own Battle Value.
      */
     private _calcBattleValue(): void {
+        if (this._support) {
+            this._calcSupportBattleValue(this._support);
+            return;
+        }
         let log = "<strong>DEFENSIVE BATTLE RATING</strong><br />";
         const armorPoints = this.getTotalArmorPoints();
         const structuralIntegrity = this.getStructuralIntegrity();
@@ -1023,11 +1602,86 @@ export default class AerospaceFighter {
     }
 
     /**
+     * Battle Value of an Airship, Fixed-Wing or Satellite Support Vehicle (TM pp.312-314; TO:AUE p.190): defensive =
+     * (armor x 2.5 x BAR / 10 + Structural Integrity x 2 + defensive equipment) x the type modifier (Airship 0.7,
+     * Fixed-Wing 1.0, Satellite 0.7); no explosive ammunition penalty, which is for fighters and Small Craft.
+     * Offensive = weapons (the weaker of nose and aft at half) and ammunition (capped at its weapons) x the fire
+     * control multiplier, plus other equipment, x the Speed Factor for Maximum Thrust: an Airship's rounded up, a
+     * Satellite's 0. Support Vehicles track no heat, so no weapon is halved for it.
+     */
+    private _calcSupportBattleValue(support: IFighterSupportExport): void {
+        let log = "<strong>DEFENSIVE BATTLE RATING</strong><br />";
+        const armorPoints = this.getTotalArmorPoints();
+        const armorBV = armorPoints * 2.5 * support.bar / 10;
+        const structuralIntegrity = this.getStructuralIntegrity();
+        let defensive = armorBV + structuralIntegrity * 2;
+        log += `Armor: ${armorPoints} x 2.5 x ${support.bar / 10} (BAR ${support.bar}) = ${armorBV.toFixed(2)}<br />Structural Integrity: ${structuralIntegrity} x 2 = ${structuralIntegrity * 2}<br />`;
+        const weapons = this._equipmentList.filter((item) => !item.isAmmo);
+        let amsAmmoBV = 0;
+        let amsBV = 0;
+        for (const item of this._equipmentList) {
+            if (item.isAmmo) {
+                const fed = weapons.find((weapon) => weapon.battleValueDefensive && getCompatibleAmmo(weapon, item));
+                if (fed) amsAmmoBV += getAmmoBattleValuePerTon(fed, item) * (item.weight || 0);
+            } else if (item.battleValueDefensive) {
+                defensive += item.battleValue || 0;
+                if (item.weaponType?.includes("AMS")) amsBV += item.battleValue || 0;
+                log += `+ Defensive Equipment: ${escapeLogText(item.name)} = ${item.battleValue || 0}<br />`;
+            }
+        }
+        defensive += Math.min(amsAmmoBV, amsBV);
+        const typeModifier = SUPPORT_AIRCRAFT_BV_TYPE_MODIFIER[support.motive];
+        log += `Subtotal ${defensive.toFixed(2)} x ${typeModifier} (${escapeLogText(this.getFighterTypeName())})`;
+        defensive *= typeModifier;
+        log += ` = ${defensive.toFixed(2)}<br /><strong>OFFENSIVE BATTLE RATING</strong><br />`;
+
+        const hasTC = this.hasTargetingComputer();
+        const offensiveWeapons = this._equipmentList.filter((item) => this._isWeapon(item));
+        const arcBV = (arc: FighterArc) => offensiveWeapons.filter((item) => item.location === arc).reduce((sum, item) => sum + (item.battleValue || 0), 0);
+        const halvedArc: FighterArc = arcBV("nose") < arcBV("aft") ? "nose" : "aft";
+        let weaponBV = 0;
+        const weaponBVByTag: Record<string, number> = {};
+        for (const item of offensiveWeapons) {
+            const value = this._weaponBaseBV(item) * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1) * (item.location === halvedArc ? 0.5 : 1);
+            weaponBV += value;
+            weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + (item.battleValue || 0);
+            log += `+ ${escapeLogText(item.name)} = ${value.toFixed(2)}${item.location === halvedArc ? " (weaker of nose and aft x 0.5)" : ""}<br />`;
+        }
+        const ammoBVByTag: Record<string, number> = {};
+        for (const ammo of this._equipmentList.filter((item) => item.isAmmo)) {
+            const fed = offensiveWeapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
+            if (fed) ammoBVByTag[fed.tag] = (ammoBVByTag[fed.tag] ?? 0) + getAmmoBattleValuePerTon(fed, ammo) * (ammo.weight || 0);
+        }
+        let ammoBV = 0;
+        for (const [tag, value] of Object.entries(ammoBVByTag)) ammoBV += Math.min(value, weaponBVByTag[tag] ?? 0);
+        const fireControl = SUPPORT_VEHICLE_FIRE_CONTROL[support.fireControl];
+        weaponBV *= fireControl.bvMultiplier;
+        ammoBV *= fireControl.bvMultiplier;
+        log += `Weapons and ammunition x ${fireControl.bvMultiplier} (${fireControl.name === "None" ? "no fire control" : escapeLogText(fireControl.name)})<br />`;
+        let equipmentBV = 0;
+        for (const item of weapons) {
+            if (!this._isWeapon(item) && !item.battleValueDefensive && (item.battleValue || 0) > 0) equipmentBV += item.battleValue || 0;
+        }
+        const maxThrust = support.motive === "satellite" ? 0 : Math.ceil(this.getMaxThrust() - 1e-9);
+        const speedFactor = AerospaceFighter.speedFactor(maxThrust);
+        const rating = weaponBV + ammoBV + equipmentBV;
+        const offensive = rating * speedFactor;
+        log += `(Weapons ${weaponBV.toFixed(2)} + Ammo ${ammoBV.toFixed(2)} + Equipment ${equipmentBV}) x Speed Factor ${speedFactor} (Max Thrust ${maxThrust}) = ${offensive.toFixed(2)}<br />`;
+        this._battleValue = Math.round(defensive + offensive);
+        log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)} = ${this._battleValue}<br />`;
+        this._calcLogBV = log;
+    }
+
+    /**
      * C-bill cost (Aerospace Unit Structural Costs table and the final cost formula, TM pp.283-285; the worked
      * 'Mechbuster on p.277). Structure, engine, fuel, armor, heat sinks, amplifiers, weapons and ammunition,
      * then x 1.25 for an OmniFighter and x (1 + tonnage / 200). External stores are not part of the price.
      */
     private _calcCost(): void {
+        if (this._support) {
+            this._calcSupportCost(this._support);
+            return;
+        }
         const rows: [string, number][] = [];
         if (this.isConventional()) {
             rows.push([`Avionics (4,000 x ${this.getControlsWeight()} t)`, 4000 * this.getControlsWeight()]);
@@ -1057,9 +1711,53 @@ export default class AerospaceFighter {
             + ` = <strong>${money(this._cost)}</strong>`;
     }
 
+    /**
+     * Support Vehicle cost (TM pp.280, 285; TO:AUE p.229): (chassis 2,500 x structure tons x the modifications' cost
+     * multipliers + engine 5,000 x engine tons x the engine's multiplier + armor points x BAR cost) x the Structural
+     * Tech Rating multiplier (none for a Large Airship or Satellite), plus heat sinks, power amplifiers, bays,
+     * equipment and fire control, all x (1 + tonnage / 50 Fixed-Wing, 10,000 Airship, 75 Satellite) x 1.25 for an
+     * OmniVehicle.
+     */
+    private _calcSupportCost(support: IFighterSupportExport): void {
+        const rows: [string, number][] = [];
+        const mods = this.getSupportChassisModifications();
+        const modMultiplier = mods.reduce((product, tag) => product * (getSupportVehicleChassisModification(tag)?.costMultiplier ?? 1), 1);
+        const chassis = SUPPORT_VEHICLE_CHASSIS_COST_PER_TON * this.getStructureWeight() * modMultiplier;
+        const engine = this.getSupportEngine();
+        const engineCost = SUPPORT_VEHICLE_ENGINE_COST_PER_TON * this.getEngineWeight() * (engine?.costMultiplier ?? 0);
+        const armorCost = this.getTotalArmorPoints() * (supportVehicleArmor.find((armor) => armor.bar === support.bar)?.costPerPoint ?? 0);
+        const techMultiplier = this.isAdvancedSupportVehicle() ? 1 : SUPPORT_VEHICLE_COST_TECH_MULTIPLIER[support.structuralTechRating];
+        rows.push([`Chassis (${SUPPORT_VEHICLE_CHASSIS_COST_PER_TON} x ${this.getStructureWeight()} t${modMultiplier !== 1 ? ` x ${modMultiplier.toFixed(3)}` : ""})`, chassis]);
+        if (engine) rows.push([`${engine.name} Engine (${SUPPORT_VEHICLE_ENGINE_COST_PER_TON} x ${this.getEngineWeight()} t x ${engine.costMultiplier})`, engineCost]);
+        if (armorCost > 0) rows.push([`Armor (${this.getTotalArmorPoints()} points of BAR ${support.bar})`, armorCost]);
+        const structural = (chassis + engineCost + armorCost) * techMultiplier;
+        rows.push([`Structural subtotal x ${techMultiplier} (Structural Tech Rating ${support.structuralTechRating.toUpperCase()})`, structural - chassis - engineCost - armorCost]);
+        if (this._additionalHeatSinks > 0) rows.push([`Heat Sinks (${this._additionalHeatSinks})`, this._additionalHeatSinks * SUPPORT_VEHICLE_HEAT_SINK_COST]);
+        if (this.getPowerAmplifierWeight() > 0) rows.push(["Power Amplifiers", this.getPowerAmplifierWeight() * SUPPORT_VEHICLE_POWER_AMPLIFIER_COST_PER_TON]);
+        const bayCost = this._bays.reduce((sum, bay) => sum + getVehicleBayCost(bay), 0);
+        if (bayCost > 0) rows.push(["Transport Bays and Doors", bayCost]);
+        rows.push(["Weapons, Equipment and Ammunition", this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * (item.weight || 0) : item.cbills || 0), 0)]);
+        const fireControl = SUPPORT_VEHICLE_FIRE_CONTROL[support.fireControl];
+        if (fireControl.costFactor > 0) {
+            const weaponCost = this._equipmentList.filter((item) => this._isWeapon(item)).reduce((sum, item) => sum + (item.cbills || 0), 0);
+            rows.push([`${fireControl.name} (${fireControl.costFactor * 100}% of weapons)`, weaponCost * fireControl.costFactor]);
+        }
+        const divisor = SUPPORT_VEHICLE_COST_TONNAGE_DIVISOR[support.motive];
+        const subtotal = rows.reduce((sum, [, value]) => sum + value, 0);
+        const multiplier = 1 + this._tonnage / divisor;
+        const omni = this._omni ? 1.25 : 1;
+        this._cost = Math.round(subtotal * multiplier * omni);
+        const money = (value: number) => (Math.round(value * 100) / 100).toLocaleString("en-US");
+        this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${money(value)}`).join("<br />")
+            + `<br />Subtotal ${money(subtotal)} x ${multiplier.toFixed(4)} (1 + ${this._tonnage} / ${divisor})${this._omni ? " x 1.25 (OmniVehicle)" : ""}`
+            + ` = <strong>${money(this._cost)}</strong>`;
+    }
+
     /** The lowest rules level that allows everything on the design. */
     public getRequiredRulesLevel(): number {
         let level = this._vstol && !this.isConventional() ? AEROSPACE_VSTOL_RULES_LEVEL : 0;
+        // Large Airships and Satellites are Advanced (TO:AUE).
+        if (this.isAdvancedSupportVehicle()) level = Math.max(level, 3);
         for (const item of this._equipmentList) level = Math.max(level, getEquipmentRulesLevel(item));
         for (const store of this._externalStores) {
             const record = this._storeRecord(store.tag);
@@ -1074,7 +1772,17 @@ export default class AerospaceFighter {
     // Weapon damage comes from each catalog record's alphaStrike values.
 
     /** Fighters under 50 tons are Size 1, 50 to 74 tons Size 2, 75 tons and over Size 3 (ASC p.92). */
-    public getAlphaStrikeSize(): number { return this._tonnage >= 75 ? 3 : this._tonnage >= 50 ? 2 : 1; }
+    public getAlphaStrikeSize(): number {
+        // Support Vehicles by type and weight: Small 1, Medium 2, Large 3; Large Airships 3 to 5 (ASC p.92).
+        const weightClass = this.getSupportWeightClass();
+        if (weightClass) {
+            if (weightClass.size === "small") return 1;
+            if (weightClass.size === "medium") return 2;
+            if (this._support?.motive === "airship") return this._tonnage > 900 ? 5 : this._tonnage > 600 ? 4 : 3;
+            return 3;
+        }
+        return this._tonnage >= 75 ? 3 : this._tonnage >= 50 ? 2 : 1;
+    }
 
     private static _roundUpToTenth(value: number): number {
         return Math.ceil(Math.round(value * 1000) / 100) / 10;
@@ -1176,15 +1884,28 @@ export default class AerospaceFighter {
         const [short, medium, long, extreme] = adjusted.map((raw) => AerospaceFighter._asDamage(raw));
 
         const size = this.getAlphaStrikeSize();
-        const specials: string[] = [`BOMB${size}`];
-        if (this.isConventional()) {
+        const specials: string[] = this._support ? [] : [`BOMB${size}`];
+        if (this._support) {
+            // BAR under 10 (ASC p.95); fire control (AS p.170); engine specials as for vehicles; Large Airships are LG,
+            // VLG or SLG on the ground map (ASC p.92); transport bays and communications equipment as MegaMek assigns them.
+            if (this._support.bar < 10) specials.push("BAR");
+            if (this._support.fireControl === "advanced") specials.push("AFC");
+            if (this._support.fireControl === "basic") specials.push("BFC");
+            if (this._support.engine === "ice" || this._support.engine === "steam") specials.push("EE");
+            if (this._support.engine === "fuel-cell") specials.push("FC");
+            if (this._support.motive === "airship" && size >= 3) specials.push(size >= 5 ? "SLG" : size === 4 ? "VLG" : "LG");
+            specials.push(...getVehicleBayAlphaStrikeSpecials(this._bays, 0));
+            const commsTons = this.getCommunicationsTons();
+            if (commsTons > 0) specials.push(`MHQ${commsTons}`);
+            if (commsTons > 0 && commsTons >= this._tonnage / 20) specials.push("RCN");
+        } else if (this.isConventional()) {
             specials.push("ATMO");
             if (this._engineType.tag === "ice") specials.push("EE");
         } else {
             specials.push("SPC", `FUEL${Math.round(this.getFuelPoints() / 20)}`);
         }
         // The Master Unit List prints VSTOL on every fighter card, with or without the equipment.
-        specials.push("VSTOL");
+        if (!this._support) specials.push("VSTOL");
         if (rear.length) {
             const vector = this._asSum(rear).slice(0, 3).map((raw) => {
                 const tenth = AerospaceFighter._roundUpToTenth(raw);
@@ -1215,11 +1936,15 @@ export default class AerospaceFighter {
         specials.push(...[...equipmentSpecials].filter((code) => !specials.includes(code)));
         specials.sort();
 
-        const armor = Math.round(this.getTotalArmorPoints() / 30);
-        const structure = Math.ceil(this.getStructuralIntegrity() / 2);
+        // A Support Vehicle's armor under BAR 10 counts BAR / 10, rounded, before converting (ASC p.95); a Satellite's
+        // Structure is 1 (ASC p.97).
+        const armorFactor = this._support ? Math.round(this.getTotalArmorPoints() * Math.min(10, this._support.bar) / 10) : this.getTotalArmorPoints();
+        const armor = Math.round(armorFactor / 30);
+        const structure = this._support?.motive === "satellite" ? 1 : Math.ceil(this.getStructuralIntegrity() / 2);
         const threshold = Math.ceil(armor / 3);
         const move = this._safeThrust;
-        log += `Size ${size}, Thrust ${move}a, Armor ${armor} (${this.getTotalArmorPoints()} / 30), Structure ${structure} (SI ${this.getStructuralIntegrity()} / 2), Threshold ${threshold}<br />`;
+        const movementCode = this._support ? SUPPORT_AIRCRAFT_AS_MOVE[this._support.motive] : "a";
+        log += `Size ${size}, Thrust ${move}${movementCode}, Armor ${armor} (${armorFactor} / 30), Structure ${structure} (SI ${this.getStructuralIntegrity()} / 2), Threshold ${threshold}<br />`;
 
         const pvDamage = (value: IFighterASDamageValue) => (value.minimal ? 0.5 : value.damage);
         let offensive = pvDamage(short) + 2 * pvDamage(medium) + pvDamage(long);
@@ -1240,7 +1965,8 @@ export default class AerospaceFighter {
         log += `Point Value ${pointValue} (provisional)<br />`;
 
         return {
-            type: this.isConventional() ? "CF" : "AF",
+            type: this._support ? "SV" : this.isConventional() ? "CF" : "AF",
+            movementCode,
             size, movement: move, damageValues: { short, medium, long, extreme },
             armor, structure, threshold, overheat, pointValue, specialAbilities: specials, calcLog: log,
         };
@@ -1260,7 +1986,7 @@ export default class AerospaceFighter {
             BattleValue: this.getBattleValue(),
             BFType: stats.type,
             BFSize: stats.size,
-            BFMove: `${stats.movement}a`,
+            BFMove: `${stats.movement}${stats.movementCode}`,
             BFTMM: 0,
             BFArmor: stats.armor,
             BFStructure: stats.structure,
@@ -1310,7 +2036,8 @@ export default class AerospaceFighter {
     // Heat in play (TW p.161): an aerospace fighter builds heat from weapons fire and engine hits only.
 
     /** Conventional fighters work on a zero-heat principle and have no Heat Scale (TM p.193). */
-    public tracksHeat(): boolean { return !this.isConventional(); }
+    /** Conventional fighters and Support Vehicles track no heat (TW p.161; TM p.141). */
+    public tracksHeat(): boolean { return !this.isConventional() && !this._support; }
 
     public isWeaponFired(uuid: string): boolean { return this._inPlay.firedWeapons.includes(uuid); }
 
@@ -1459,7 +2186,8 @@ export default class AerospaceFighter {
     public getDamageToHitModifier(): number | null {
         const play = this._inPlay;
         if (play.fcs >= 3) return null;
-        return play.fcs * 2 + (play.sensors >= 3 ? 5 : play.sensors) + play.pilotHits;
+        // A Support Vehicle adds its fire control's to-hit modifier (TW p.206).
+        return play.fcs * 2 + (play.sensors >= 3 ? 5 : play.sensors) + play.pilotHits + this.getFireControlToHitModifier();
     }
 
     /** Control Roll modifier from avionics damage: +1, +2, then +5 when destroyed (TW p.239). */
@@ -1538,7 +2266,9 @@ export default class AerospaceFighter {
         const d6 = () => Math.floor(random() * 6) + 1;
         const log: string[] = [];
         const points = Math.max(0, Math.floor(Number.isFinite(damage) ? damage : 0));
-        const hit = getFighterHitLocation(roll, direction, options.wingRoll ?? d6());
+        const hit = this._supportUsesDropShipTable()
+            ? this._airshipHitLocation(roll, direction, options.wingRoll ?? d6(), random, log)
+            : getFighterHitLocation(roll, direction, options.wingRoll ?? d6());
         const arcName = FIGHTER_ARCS.find((entry) => entry.tag === hit.arc)?.name ?? hit.arc;
         const remaining = Math.max(0, this._armorAllocation[hit.arc] - this._inPlay.armorDamage[hit.arc]);
         const armorDamage = Math.min(remaining, points);
@@ -1556,12 +2286,41 @@ export default class AerospaceFighter {
         if (points > threshold) reasons.push(`damage ${points} over the Damage Threshold of ${threshold}`);
         if (structureDamage >= 1) reasons.push("Structural Integrity damage");
         if (options.natural12) reasons.push("a natural 12 to hit");
+        // A Support Vehicle hit harder than its BAR may take a penetrating critical hit (TW p.206).
+        if (this._support && this._support.bar < 10 && points > this._support.bar) reasons.push(`damage ${points} over BAR ${this._support.bar} (penetrating)`);
         reasons.forEach((reason, index) => {
             const check = options.criticalRolls?.[index] ?? d6() + d6();
             if (check >= 8) log.push(`Critical check for ${reason}: ${check}. ${this._applyCritical(hit.critical, hit.arc, random, options.fuelRoll)}`);
             else log.push(`Critical check for ${reason}: ${check}, no critical hit (8+ needed)`);
         });
         return log;
+    }
+
+    /** Airships (and Satellites) use the aerodyne DropShip hit locations (TW p.206); Fixed-Wings the fighter table. */
+    private _supportUsesDropShipTable(): boolean {
+        return !!this._support && this._support.motive !== "fixed-wing";
+    }
+
+    /**
+     * An Airship's hit on the DropShips/Small Craft column of the Aerospace Units Hit Location Table (TW p.237): the
+     * side facings are its wings. Critical hits to the K-F boom, docking collar or gear are re-rolled until one applies
+     * (TW p.206); the others are mapped to the fighter's tracks, or described where the fighter has none.
+     */
+    private _airshipHitLocation(roll: number, direction: FighterAttackDirection, sideRoll: number, random: () => number, log: string[]): { arc: FighterArc; critical: FighterCritical } {
+        const smallCraftDirection = direction === "left" || direction === "right" || direction === "nose" || direction === "aft" ? direction : "above";
+        const hit = getSmallCraftHitLocation(roll, smallCraftDirection, sideRoll);
+        const arc: FighterArc = hit.facing === "left" ? "leftWing" : hit.facing === "right" ? "rightWing" : hit.facing;
+        let critical: SmallCraftCritical = hit.critical;
+        for (let tries = 0; tries < 20 && ["kfBoom", "dockingCollar", "gear"].includes(critical); tries++) {
+            const reroll = Math.floor(random() * 6) + Math.floor(random() * 6) + 2;
+            log.push(`${SMALL_CRAFT_CRITICAL_NAMES[critical]} critical does not apply to an Airship: re-rolled ${reroll} (TW p.206)`);
+            critical = getSmallCraftHitLocation(reroll, smallCraftDirection, sideRoll).critical;
+        }
+        const mapped: Partial<Record<SmallCraftCritical, FighterCritical>> = {
+            crew: "crew", avionics: "avionics", weapon: "weapon", fcs: "fcs", control: "control", sensors: "sensors", engine: "engine", fuel: "fuel",
+        };
+        if (!mapped[critical]) log.push(`Critical location ${SMALL_CRAFT_CRITICAL_NAMES[critical]}: apply it from the DropShip rules (TW p.240); it is not tracked here`);
+        return { arc, critical: mapped[critical] ?? "control" };
     }
 
     // Saving --------------------------------------------------------------------------------------------------
@@ -1593,6 +2352,8 @@ export default class AerospaceFighter {
             armorAllocation: { ...this._armorAllocation },
             heatSinkType: this._heatSinkType.tag,
             additionalHeatSinks: this._additionalHeatSinks,
+            supportVehicle: this.getSupportVehicleSettings() ?? undefined,
+            bays: this._bays.length > 0 ? this._bays.map((bay) => ({ ...bay })) : undefined,
             equipment: this._equipmentList.map((item) => ({
                 tag: item.tag, location: item.location, uuid: item.uuid, ...(this.isPodMounted(item.uuid ?? "") ? { pod: true } : {}),
             })),
@@ -1639,6 +2400,41 @@ export default class AerospaceFighter {
     /** Problems found in the last import: fields that were invalid and replaced, or entries that were dropped. */
     public getImportIssues(): string[] { return this._importIssues; }
 
+    /** Reads saved Support Vehicle settings: every field allowlisted or clamped, anything invalid replaced and reported. */
+    private _importSupport(saved: unknown, issue: (text: string) => void): IFighterSupportExport {
+        const record = isPlainObject(saved) ? saved : {};
+        if (!isPlainObject(saved)) issue("Read Support Vehicle settings that were missing as a Fixed-Wing");
+        const motive = SUPPORT_AIRCRAFT_MOTIVES.find((entry) => entry.tag === record.motive)?.tag ?? "fixed-wing";
+        const defaults = newFighterSupport(motive);
+        const rating = (key: "structuralTechRating" | "engineTechRating" | "armorTechRating"): SupportVehicleTechRating => {
+            const value = record[key];
+            if (typeof value === "string" && SUPPORT_VEHICLE_TECH_RATINGS.includes(value as SupportVehicleTechRating)) return value as SupportVehicleTechRating;
+            if (value !== undefined) issue(`Replaced an unknown ${key} with ${defaults[key].toUpperCase()}`);
+            return defaults[key];
+        };
+        const engine = SUPPORT_VEHICLE_ENGINES.find((option) => option.tag === record.engine && !option.incompatible.includes(motive))?.tag;
+        if (record.engine !== undefined && !engine) issue(`Replaced an unknown Support Vehicle engine with ${defaults.engine}`);
+        const mods = Array.isArray(record.chassisModifications) ? record.chassisModifications.filter((tag): tag is string => typeof tag === "string") : [];
+        const known = mods.filter((tag) => !!getSupportVehicleChassisModification(tag) && tag !== "omni");
+        if (known.length < mods.length) issue("Dropped unknown chassis modifications");
+        const bar = supportVehicleArmor.some((armor) => armor.bar === record.bar) ? record.bar as number : defaults.bar;
+        if (record.bar !== undefined && bar !== record.bar) issue(`Replaced an unknown BAR with ${defaults.bar}`);
+        const fireControl = typeof record.fireControl === "string" && Object.prototype.hasOwnProperty.call(SUPPORT_VEHICLE_FIRE_CONTROL, record.fireControl)
+            ? record.fireControl as SupportVehicleFireControl : defaults.fireControl;
+        return {
+            motive,
+            structuralTechRating: rating("structuralTechRating"),
+            engine: engine ?? defaults.engine,
+            engineTechRating: rating("engineTechRating"),
+            chassisModifications: [...new Set(known)].slice(0, SUPPORT_VEHICLE_CHASSIS_MODIFICATIONS.length),
+            bar,
+            armorTechRating: rating("armorTechRating"),
+            fireControl,
+            extraCrew: Math.floor(savedNumber(record.extraCrew, 0, 0, 1000)) || undefined,
+            unmanned: motive === "satellite" && record.unmanned === true ? true : undefined,
+        };
+    }
+
     /**
      * Loads a saved fighter. Saves can come from other people's backup files, so every field is type-checked,
      * allowlisted or clamped through the setters, and anything dropped is recorded in getImportIssues().
@@ -1663,22 +2459,28 @@ export default class AerospaceFighter {
             this.setName(savedString(saved.name));
             this.setModel(savedString(saved.model));
             // A save from before conventional fighters has no type: it is an aerospace fighter.
-            if (saved.fighterType !== undefined && saved.fighterType !== "aerospace" && saved.fighterType !== "conventional") issue("Ignored an unknown fighter type");
-            this._fighterType = saved.fighterType === "conventional" ? "conventional" : "aerospace";
+            if (saved.fighterType !== undefined && !["aerospace", "conventional", "support"].includes(saved.fighterType as string)) issue("Ignored an unknown fighter type");
+            this._support = saved.fighterType === "support" ? this._importSupport(saved.supportVehicle, issue) : null;
+            this._fighterType = this._support ? "support" : saved.fighterType === "conventional" ? "conventional" : "aerospace";
             this.setTech(savedString(saved.tech));
             this.setEra(savedString(saved.era));
             if (saved.tonnage !== undefined && typeof saved.tonnage !== "number") issue("Ignored a tonnage that is not a number");
-            this.setTonnage(savedNumber(saved.tonnage, 50, FIGHTER_MIN_TONNAGE, FIGHTER_MAX_TONNAGE));
-            const engineTag = savedString(saved.engineType);
-            this.setEngineType(engineTag);
-            if (engineTag && this._engineType.tag !== engineTag) issue(`Replaced engine "${engineTag.slice(0, 40)}" with ${this._engineType.name}`);
+            this.setTonnage(savedNumber(saved.tonnage, 50, this.getMinTonnage(), this.getMaxTonnage()));
+            if (!this._support) {
+                const engineTag = savedString(saved.engineType);
+                this.setEngineType(engineTag);
+                if (engineTag && this._engineType.tag !== engineTag) issue(`Replaced engine "${engineTag.slice(0, 40)}" with ${this._engineType.name}`);
+            }
             const thrust = savedNumber(saved.safeThrust, 5, 0, 1000);
             this.setSafeThrust(thrust);
-            if (this._safeThrust !== Math.floor(thrust)) issue(`Safe Thrust set to ${this._safeThrust}`);
-            this.setFuelTons(savedNumber(saved.fuelTons, 5, 0, FIGHTER_MAX_TONNAGE));
-            const armorTag = savedString(saved.armorType);
-            this.setArmorType(armorTag);
-            if (armorTag && this._armorType.tag !== armorTag) issue(`Replaced armor "${armorTag.slice(0, 40)}" with ${this._armorType.name}`);
+            if (!this._support && this._safeThrust !== Math.floor(thrust)) issue(`Safe Thrust set to ${this._safeThrust}`);
+            this.setFuelTons(savedNumber(saved.fuelTons, 5, 0, this.getMaxTonnage()));
+            if (!this._support) {
+                const armorTag = savedString(saved.armorType);
+                this.setArmorType(armorTag);
+                if (armorTag && this._armorType.tag !== armorTag) issue(`Replaced armor "${armorTag.slice(0, 40)}" with ${this._armorType.name}`);
+            }
+            this._bays = this._support ? normalizeVehicleBays(saved.bays, AIRCRAFT_BAY_TYPES) : [];
             this._armorAllocation = emptyArmor();
             const armor = isPlainObject(saved.armorAllocation) ? saved.armorAllocation : {};
             for (const arc of FIGHTER_ARCS) this.setArmorAllocation(arc.tag, savedNumber(armor[arc.tag], 0, 0, 10000));

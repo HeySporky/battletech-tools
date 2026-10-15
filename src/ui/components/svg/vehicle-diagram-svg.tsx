@@ -143,6 +143,9 @@ export default class VehicleDiagramSVG extends React.Component<IVehicleDiagramSV
         const has = (tag: VehicleLocation) => this.props.locations.some((loc) => loc.tag === tag);
         const nameOf = (tag: VehicleLocation) => (this.props.locations.find((loc) => loc.tag === tag)?.name ?? tag).toUpperCase();
         const isChinTurret = has("turret") && this.props.motive.turret === "chin";
+        // A Large Naval Vessel with three or more turrets (TO:AUE p.60): the turrets in a grid down the hull.
+        const turretGrid = has("turret3") ? this.props.locations.filter((loc) => loc.tag.startsWith("turret")) : [];
+        const gridRows = Math.ceil(turretGrid.length / 3);
 
         return (
             <svg width={width} height={Math.round(width / 500 * height)} viewBox={`0 0 500 400`}>
@@ -158,8 +161,17 @@ export default class VehicleDiagramSVG extends React.Component<IVehicleDiagramSV
                 {has("rotor") ? this.renderCircleLocation("ROTOR", 250, 230, 80, s.rotor ?? 0, a.rotor ?? 0, true, "rotor") : null}
                 {has("turret") && isChinTurret ? this.renderLocation(nameOf("turret"), 150, 86, 200, 56, s.turret, a.turret, "turret") : null}
                 {has("turret") && !isChinTurret && !has("turret2") ? this.renderCircleLocation(nameOf("turret"), 250, 200, 90, s.turret, a.turret, false, "turret") : null}
-                {has("turret2") ? this.renderCircleLocation(nameOf("turret2"), 250, 146, 54, s.turret2 ?? 0, a.turret2 ?? 0, false, "turret2") : null}
-                {has("turret2") ? this.renderCircleLocation(nameOf("turret"), 250, 256, 54, s.turret, a.turret, false, "turret") : null}
+                {has("turret2") && turretGrid.length === 0 ? this.renderCircleLocation(nameOf("turret2"), 250, 146, 54, s.turret2 ?? 0, a.turret2 ?? 0, false, "turret2") : null}
+                {has("turret2") && turretGrid.length === 0 ? this.renderCircleLocation(nameOf("turret"), 250, 256, 54, s.turret, a.turret, false, "turret") : null}
+                {turretGrid.map((loc, index) => {
+                    const cellHeight = 220 / gridRows;
+                    return (
+                        <g key={loc.tag} data-testid={`vehicle-turret-${loc.tag}`}>
+                            {this.renderLocation(nameOf(loc.tag), 100 + (index % 3) * 100 + 4, 90 + Math.floor(index / 3) * cellHeight + 4, 92, cellHeight - 8,
+                                s[loc.tag as keyof IVehicleStructureAllocation] ?? 0, a[loc.tag as keyof IVehicleArmorAllocation] ?? 0, loc.tag)}
+                        </g>
+                    );
+                })}
                 {this.props.motive.tag === "naval-sub" && !has("turret") ? (
                     <rect x={215} y={150} width={70} height={100} rx={30} fill="none" stroke={this.outlineColor} strokeWidth={4} />
                 ) : null}

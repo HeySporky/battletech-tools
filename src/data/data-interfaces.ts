@@ -375,6 +375,8 @@ export interface IEquipmentItem {
     costPerItemTon?: number;
     location?: string;
     rear?: boolean;
+    /** On a Small Support Vehicle: mounted on a pintle on its location's side (TM p.234). */
+    pintle?: boolean;
     criticals?: number;
     available?: boolean;
     rulesLevel?: number;
@@ -754,6 +756,8 @@ export interface IVehicleMotiveType {
     /** Vehicular jump jets fit only hover, wheeled, tracked and WiGE vehicles. */
     allowsJumpJets: boolean;
     naval: boolean;
+    /** Only Support Vehicles use this motive type (Rail, TO:AUE p.55). */
+    supportOnly?: boolean;
     /** Alpha Strike movement mode code (e.g. 8"t). */
     alphaStrikeMove: string;
     book: string;
@@ -773,8 +777,16 @@ export interface IVehicleArmorAllocation {
     frontRight?: number;
     rearLeft?: number;
     rearRight?: number;
-    /** Front turret of a dual-turret vehicle ("turret" is then the rear turret). */
+    /** Front turret of a dual-turret vehicle ("turret" is then the rear turret); a Large Naval Vessel's second turret. */
     turret2?: number;
+    /** A Large Naval Vessel's third to ninth turrets (TO:AUE p.60). */
+    turret3?: number;
+    turret4?: number;
+    turret5?: number;
+    turret6?: number;
+    turret7?: number;
+    turret8?: number;
+    turret9?: number;
 }
 
 export interface IVehicleStructureAllocation {
@@ -789,10 +801,17 @@ export interface IVehicleStructureAllocation {
     rearLeft?: number;
     rearRight?: number;
     turret2?: number;
+    turret3?: number;
+    turret4?: number;
+    turret5?: number;
+    turret6?: number;
+    turret7?: number;
+    turret8?: number;
+    turret9?: number;
 }
 
 export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" | "frontRight" | "rearLeft" | "rearRight"
-    | "rotor" | "turret" | "turret2";
+    | "rotor" | "turret" | "turret2" | "turret3" | "turret4" | "turret5" | "turret6" | "turret7" | "turret8" | "turret9";
 
 /**
  * A capital-scale or sub-capital weapon for large craft (capital-weapons.ts, sub-capital-weapons.ts).
@@ -870,6 +889,9 @@ export interface ISupportVehicleArmor {
     kgPerPoint: Record<"a" | "b" | "c" | "d" | "e" | "f", number | null>;
     /** Tech Ratings at which the Armored chassis modification is required. */
     armoredChassisRatings: string[];
+    /** Advanced Support Vehicles (Rail, Large Naval, Large Airship, Satellite) use their own table (TO:AUE p.69). */
+    advancedKgPerPoint: Record<"a" | "b" | "c" | "d" | "e" | "f", number | null>;
+    advancedArmoredChassisRatings: string[];
     /** Tech Ratings at which the armor takes Ferro-Fibrous slot space (BAR 10 at E and F). */
     ferroFibrousSlotRatings: string[];
     /** C-bills per armor point. */

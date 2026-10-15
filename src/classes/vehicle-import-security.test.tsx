@@ -71,7 +71,7 @@ describe("Imported play state is normalized (X2, CWE-20)", () => {
     it("keeps well-formed play state and filters unknown entries", () => {
         const save = saveWithLaser();
         save.inPlay = {
-            motiveHits: ["minor", "bogus"], breachedLocations: ["front", "nowhere"], turretFacing: { turret: 2, turret9: 1 },
+            motiveHits: ["minor", "bogus"], breachedLocations: ["front", "nowhere"], turretFacing: { turret: 2, turret10: 1 },
             armorDamage: { front: 3, nowhere: 9 }, crashDestroyed: "water", elevation: 2,
         };
         const vehicle = new Vehicle(JSON.stringify(save));
