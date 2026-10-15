@@ -12,8 +12,8 @@ test("a 55-ton 'Mech mounts the book's Griffin arm of ferro-fibrous under Patchw
     await page.getByLabel("Rules Level").selectOption("3");
     await page.getByLabel("Mech Era").selectOption("dark-ages");
     await page.getByLabel("Mech Tonnage").selectOption("55");
-    // The Fractional Accounting switch is there, but cannot be turned on yet.
-    await expect(page.getByText("Fractional Accounting (TO:AUE p.188) is not built yet.")).toBeVisible();
+    // Fractional Accounting is Experimental (TO:AUE p.188): not offered at the Advanced rules level.
+    await expect(page.getByTestId("fractional-accounting-option")).toHaveCount(0);
 
     await page.goto("classic-battletech/mech-creator/step2");
     await page.getByLabel("Walking Movement Points").selectOption("5");
