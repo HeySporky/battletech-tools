@@ -1,0 +1,1122 @@
+import { generateUUID } from "../utils/generateUUID";
+import { IInfantryWeapon, INFANTRY_MAX_PRIMARY_DAMAGE, INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons, isInfantryWeaponAvailable } from "../data/infantry-weapons";
+import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
+import { IEras } from "../data/data-interfaces";
+import { DEFAULT_RULES_EDITION } from "../data/rules-editions";
+import { IInfantryArmor, INFANTRY_ARMOR_RULES_LEVEL, INFANTRY_STEALTH_SYSTEMS, findInfantryArmor, infantryArmor } from "../data/infantry-armor";
+import { getSkillMultiplier } from "../data/skill-multipliers";
+import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
+
+// Conventional infantry platoon construction (TechManual pp.144-155), Battle Value (TM p.309) and cost (TM pp.276, 282).
+
+export type InfantryMotive = "foot" | "motorized" | "jump" | "mech-hover" | "mech-tracked" | "mech-wheeled";
+export type InfantryTechBase = "is" | "clan";
+
+export interface IInfantryMotiveType {
+    tag: InfantryMotive;
+    name: string;
+    maxSquadSize: number;
+    maxPlatoonSize: number;
+    mp: number;
+    moveType: string;
+    prohibitedTerrain: string;
+    /** Tons per trooper, without Anti-'Mech kits (TM p.155). */
+    weightPerTrooper: number;
+    /** Fewest troopers the platoon may be broken into for transport. */
+    minimumBreakdown: number;
+    costMultiplier: number;
+    mechanized: boolean;
+    /** MP lost for carrying 2 support weapons per squad; foot platoons move or fire instead (TM p.151). */
+    supportMPLoss: number;
+}
+
+// Conventional Infantry Motive Types Table (TM p.145), Weight Table (p.155) and cost multipliers (p.282).
+export const INFANTRY_MOTIVE_TYPES: IInfantryMotiveType[] = [
+    { tag: "foot", name: "Foot", maxSquadSize: 10, maxPlatoonSize: 30, mp: 1, moveType: "Ground", prohibitedTerrain: "Water (Any)", weightPerTrooper: 0.085, minimumBreakdown: 1, costMultiplier: 1.0, mechanized: false, supportMPLoss: 0 },
+    { tag: "motorized", name: "Motorized", maxSquadSize: 10, maxPlatoonSize: 30, mp: 3, moveType: "Ground", prohibitedTerrain: "Water (Any)", weightPerTrooper: 0.195, minimumBreakdown: 1, costMultiplier: 1.6, mechanized: false, supportMPLoss: 1 },
+    { tag: "jump", name: "Jump", maxSquadSize: 10, maxPlatoonSize: 30, mp: 3, moveType: "Jump", prohibitedTerrain: "Water (Any)", weightPerTrooper: 0.165, minimumBreakdown: 1, costMultiplier: 2.6, mechanized: false, supportMPLoss: 1 },
+    { tag: "mech-hover", name: "Mechanized (Hover)", maxSquadSize: 5, maxPlatoonSize: 20, mp: 5, moveType: "Hover", prohibitedTerrain: "Woods (Any)", weightPerTrooper: 1, minimumBreakdown: 5, costMultiplier: 3.2, mechanized: true, supportMPLoss: 1 },
+    { tag: "mech-tracked", name: "Mechanized (Tracked)", maxSquadSize: 7, maxPlatoonSize: 28, mp: 3, moveType: "Tracked", prohibitedTerrain: "Woods (Heavy), Water (Depth 1+)", weightPerTrooper: 1, minimumBreakdown: 5, costMultiplier: 3.2, mechanized: true, supportMPLoss: 0 },
+    { tag: "mech-wheeled", name: "Mechanized (Wheeled)", maxSquadSize: 6, maxPlatoonSize: 24, mp: 4, moveType: "Wheeled", prohibitedTerrain: "Rough, Rubble, Woods (Any), Water (Depth 1+)", weightPerTrooper: 1, minimumBreakdown: 5, costMultiplier: 3.2, mechanized: true, supportMPLoss: 1 },
+];
+
+/** Tons an Anti-'Mech Infantry kit adds to each trooper (TM p.155). */
+export const INFANTRY_ANTI_MECH_KIT_TONS = 0.015;
+/** Cost multiplier for Anti-'Mech Training and Equipment (TM p.282). */
+export const INFANTRY_ANTI_MECH_COST_MULTIPLIER = 5;
+/** Anti-'Mech Skill of a platoon without kits, or of any mechanized platoon; it cannot be improved (TM pp.155, 309). */
+export const INFANTRY_FIXED_ANTI_MECH_SKILL = 8;
+export const INFANTRY_MAX_SQUADS_PER_PLATOON = 5;
+export const INFANTRY_MAX_SECONDARY_PER_SQUAD = 2;
+/** Most squads a formation may be given here: the Marian Hegemony's ten (TM p.147). */
+export const INFANTRY_MAX_SQUADS = 10;
+/** MP a platoon carrying the Support Particle Cannon is held to (TM p.352). */
+export const INFANTRY_SUPPORT_PPC_MP = 2;
+/** Conventional infantry follow Total Warfare's standard rules. */
+export const INFANTRY_RULES_LEVEL = 2;
+
+export interface IInfantryFormation {
+    tag: string;
+    name: string;
+    techBase: InfantryTechBase;
+    /** Troopers per squad and squads per platoon, by motive type. */
+    sizes: Record<InfantryMotive, [number, number]>;
+    notes?: string;
+}
+
+const standardIS: Record<InfantryMotive, [number, number]> = {
+    "foot": [7, 4], "motorized": [7, 4], "jump": [7, 3], "mech-hover": [5, 4], "mech-wheeled": [6, 4], "mech-tracked": [7, 4],
+};
+const taurian: Record<InfantryMotive, [number, number]> = {
+    "foot": [10, 3], "motorized": [10, 3], "jump": [10, 3], "mech-hover": [5, 4], "mech-wheeled": [5, 4], "mech-tracked": [5, 4],
+};
+
+// Conventional Infantry Formations (by Tech Base) Table (TM p.147).
+export const INFANTRY_FORMATIONS: IInfantryFormation[] = [
+    { tag: "is-generic", name: "Generic / Mercenary", techBase: "is", sizes: standardIS },
+    { tag: "capellan-confederation", name: "Capellan Confederation", techBase: "is", sizes: standardIS },
+    { tag: "draconis-combine", name: "Draconis Combine", techBase: "is", sizes: standardIS },
+    { tag: "federated-suns", name: "Federated Suns", techBase: "is", sizes: standardIS },
+    { tag: "free-rasalhague-republic", name: "Free Rasalhague Republic", techBase: "is", sizes: standardIS },
+    { tag: "free-worlds-league", name: "Free Worlds League", techBase: "is", sizes: standardIS },
+    { tag: "lyran-alliance", name: "Lyran Alliance", techBase: "is", sizes: standardIS },
+    { tag: "comstar-word-of-blake", name: "ComStar / Word of Blake", techBase: "is", sizes: { "foot": [6, 6], "motorized": [6, 6], "jump": [6, 5], "mech-hover": [5, 4], "mech-wheeled": [6, 4], "mech-tracked": [6, 4] } },
+    { tag: "periphery-major", name: "Periphery (Major)", techBase: "is", sizes: standardIS, notes: "Includes the Circinus Federation, Magistracy of Canopus, Niops Association, Outworlds Alliance, Nueva Castile, Hanseatic League and pirates." },
+    { tag: "marian-hegemony", name: "Marian Hegemony", techBase: "is", sizes: { "foot": [10, 10], "motorized": [10, 10], "jump": [10, 5], "mech-hover": [5, 4], "mech-wheeled": [5, 4], "mech-tracked": [5, 4] } },
+    { tag: "taurian-concordat", name: "Taurian Concordat", techBase: "is", sizes: taurian },
+    { tag: "calderon-protectorate", name: "Calderon Protectorate", techBase: "is", sizes: taurian },
+    { tag: "clan", name: "Clan (All)", techBase: "clan", sizes: { "foot": [5, 5], "motorized": [5, 5], "jump": [5, 4], "mech-hover": [5, 4], "mech-wheeled": [5, 4], "mech-tracked": [5, 4] } },
+];
+
+// Conventional Infantry Range Modifiers Table (TM p.149): to-hit modifiers by Base Range, from the platoon's own
+// hex (index 0) out to three times the Base Range. A range past the end of a row cannot be attacked.
+export const INFANTRY_RANGE_MODIFIERS: number[][] = [
+    [0],
+    [-2, 0, 2, 4],
+    [-2, 0, 0, 2, 2, 4, 4],
+    [-2, 0, 0, 0, 2, 2, 2, 4, 4, 4],
+    [-2, 0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4],
+    [-1, 0, 0, 0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4],
+    [-1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 4, 4, 4, 5, 5, 5],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 6, 6, 6, 6],
+];
+
+export const INFANTRY_SPECIAL_FEATURES: Record<string, string> = {
+    A: "Anti-aircraft: may attack airborne aerospace units",
+    B: "Heavy burst: -1 to-hit in its own hex, +1D6 damage against conventional infantry",
+    F: "Flame-based: may apply its damage as heat instead",
+    N: "Non-penetrating: affects other conventional infantry only",
+};
+
+export interface IInfantryASDamageValue {
+    damage: number;
+    /** Minimal damage, printed 0* (Alpha Strike Companion p.103). */
+    minimal: boolean;
+}
+
+export interface IInfantryAlphaStrikeStats {
+    type: "CI";
+    size: number;
+    /** Inches. */
+    movement: number;
+    movementCode: string;
+    armor: number;
+    structure: number;
+    damageValues: { short: IInfantryASDamageValue; medium: IInfantryASDamageValue; long: IInfantryASDamageValue };
+    specialAbilities: string[];
+    pointValue: number;
+    /** The conversion, one plain-text line per step. */
+    calcLog: string[];
+}
+
+export const formatInfantryASDamage = (value: IInfantryASDamageValue): string => (value.minimal ? "0*" : `${value.damage}`);
+
+// Infantry Troop Factor Table (Alpha Strike Companion p.103): the number of troopers whose damage is converted,
+// by the unit's full size. Index 0 is unused; the table starts at 2 troopers, so a lone trooper counts as 1.
+const INFANTRY_TROOP_FACTORS: number[] = [
+    0, 1, 1, 2, 3, 3, 4, 4, 5, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 13, 14, 15, 16, 16, 17, 17, 17, 18, 18,
+];
+
+// Alpha Strike movement codes for conventional infantry (ASC p.93).
+const INFANTRY_AS_MOVEMENT_CODES: Record<InfantryMotive, string> = {
+    "foot": "f", "motorized": "m", "jump": "j", "mech-hover": "h", "mech-tracked": "t", "mech-wheeled": "w",
+};
+
+const roundToHalf = (value: number): number => Math.round(value * 2 + 1e-9) / 2;
+
+/** How an attack against the platoon is counted (Total Warfare pp.215-217). */
+export type InfantryAttackKind = "direct" | "physical" | "cluster-ballistic" | "pulse" | "cluster-missile" | "area-effect" | "burst" | "infantry" | "heat";
+
+// Non-Infantry Weapon Damage Against Infantry Table (TW p.216). "formula" kinds take the weapon's Damage Value;
+// the others take damage that is already worked out (dice for a burst-fire weapon, a platoon's own damage, or
+// the figure a heat-effect weapon's entry gives).
+export const INFANTRY_ATTACK_KINDS: { tag: InfantryAttackKind; name: string; formula: string; nonInfantryWeapon: boolean }[] = [
+    { tag: "direct", name: "Direct Fire (Ballistic or Energy)", formula: "Damage Value / 10", nonInfantryWeapon: true },
+    { tag: "physical", name: "BattleMech Physical Attack", formula: "Damage Value / 10", nonInfantryWeapon: true },
+    { tag: "cluster-ballistic", name: "Cluster (Ballistic)", formula: "Damage Value / 10 + 1", nonInfantryWeapon: true },
+    { tag: "pulse", name: "Pulse", formula: "Damage Value / 10 + 2", nonInfantryWeapon: true },
+    { tag: "cluster-missile", name: "Cluster (Missile)", formula: "Damage Value / 5", nonInfantryWeapon: true },
+    { tag: "area-effect", name: "Area-Effect (AE)", formula: "Damage Value / 0.5", nonInfantryWeapon: true },
+    { tag: "burst", name: "Burst-Fire Weapon", formula: "the dice rolled on the Burst-Fire Weapon table", nonInfantryWeapon: false },
+    { tag: "infantry", name: "Conventional Infantry", formula: "the attacking platoon's damage", nonInfantryWeapon: false },
+    { tag: "heat", name: "Heat-Effect Weapon", formula: "the damage its entry gives against infantry", nonInfantryWeapon: false },
+];
+
+/** Most damage one attack may be entered with. */
+export const INFANTRY_MAX_ATTACK_DAMAGE = 1000;
+
+export interface IInfantryInPlay {
+    /** Damage points marked on each record sheet line; a mechanized trooper takes 2 to eliminate. */
+    damage: number[];
+}
+
+export interface IInfantryPlatoonExport {
+    uuid: string;
+    lastUpdated: string;
+    name: string;
+    techBase: InfantryTechBase;
+    formation: string;
+    /** Era tag; absent in platoons saved before eras were tracked, which load into the latest era. */
+    era?: string;
+    motive: InfantryMotive;
+    squadSize: number;
+    squads: number;
+    primaryWeapon: string;
+    secondaryWeapon: string;
+    secondaryPerSquad: number;
+    /** Infantry armor tag (Tactical Operations); empty or absent for a platoon without it. */
+    armor?: string;
+    antiMechKit: boolean;
+    gunnery: number;
+    antiMech: number;
+    inPlay?: IInfantryInPlay;
+}
+
+const savedString = (value: unknown, fallback: string = ""): string => typeof value === "string" ? value : fallback;
+const savedNumber = (value: unknown, fallback: number, min: number, max: number): number =>
+    typeof value === "number" && Number.isFinite(value) ? Math.min(max, Math.max(min, Math.round(value))) : fallback;
+const isPlainObject = (value: unknown): value is Record<string, unknown> =>
+    typeof value === "object" && value !== null && !Array.isArray(value);
+/** Rounds normally, .5 up; the small allowance keeps 0.285 x 2 style products from falling short in binary. */
+const roundNormally = (value: number): number => Math.floor(value + 0.5 + 1e-9);
+const roundUpHalf = (tons: number): number => Math.ceil(tons * 2 - 1e-9) / 2;
+const format = (value: number, digits: number = 2): string => value.toLocaleString("en-US", { minimumFractionDigits: digits, maximumFractionDigits: digits });
+
+/** The newest era a technology base can design in: every weapon that is not extinct is on offer there. */
+const latestEra = (techBase: InfantryTechBase): IEras => {
+    const eras = getErasForTech(techBase);
+    return eras[eras.length - 1] ?? btEraOptions[btEraOptions.length - 1];
+};
+
+const DEFAULT_PRIMARY = "inf-auto-rifle";
+export const MAX_INFANTRY_NAME_LENGTH = 120;
+
+/** A saved platoon cleaned by a full import, with what the import changed; null when it is not an object. */
+export const normalizeInfantryPlatoonExport = (raw: unknown): { platoon: IInfantryPlatoonExport | null; issues: string[] } => {
+    if (!isPlainObject(raw)) return { platoon: null, issues: ["Skipped a saved platoon that could not be read"] };
+    let json: string;
+    try {
+        json = JSON.stringify(raw);
+    } catch {
+        return { platoon: null, issues: ["Skipped a saved platoon that could not be read"] };
+    }
+    const loaded = new InfantryPlatoon(json);
+    return { platoon: loaded.export(true), issues: [...loaded.getImportIssues()] };
+};
+
+export default class InfantryPlatoon {
+    private _uuid: string = generateUUID();
+    public lastUpdated: Date = new Date();
+
+    private _name: string = "";
+    private _techBase: InfantryTechBase = "is";
+    private _formation: IInfantryFormation = INFANTRY_FORMATIONS[0];
+    private _era: IEras = latestEra("is");
+    private _motive: IInfantryMotiveType = INFANTRY_MOTIVE_TYPES[0];
+    private _squadSize: number = 7;
+    private _squads: number = 4;
+    private _primary: IInfantryWeapon = findInfantryWeapon(DEFAULT_PRIMARY) ?? infantryWeapons[0];
+    private _secondary: IInfantryWeapon | null = null;
+    private _secondaryPerSquad: number = 0;
+    private _armor: IInfantryArmor | null = null;
+    private _antiMechKit: boolean = false;
+    private _gunnery: number = 4;
+    private _antiMech: number = 5;
+    private _inPlay: IInfantryInPlay = { damage: [] };
+    private _importIssues: string[] = [];
+
+    constructor(importJSON: string = "") {
+        if (importJSON) this.importJSON(importJSON);
+    }
+
+    // Identity
+
+    public getUUID(): string { return this._uuid; }
+    public newUUID(): void { this._uuid = generateUUID(); }
+    public getName(): string { return this._name; }
+    public setName(name: string): void { this._name = String(name ?? "").slice(0, MAX_INFANTRY_NAME_LENGTH); }
+    /** The saved name, or the book's style of name: motive and weapon (TM p.154). */
+    public getDisplayName(): string { return this._name.trim() || this.getNomenclature(); }
+    public getNomenclature(): string {
+        const weapon = this.getSecondaryCount() > 0 && this._secondary ? this._secondary.name : this._primary.name;
+        return `${this._motive.name} ${weapon} Infantry`;
+    }
+    public getImportIssues(): readonly string[] { return this._importIssues; }
+    /** Standard, or Advanced once the platoon wears Tactical Operations infantry armor. */
+    public getRequiredRulesLevel(): number { return this._armor ? Math.max(INFANTRY_RULES_LEVEL, INFANTRY_ARMOR_RULES_LEVEL) : INFANTRY_RULES_LEVEL; }
+
+    // Step 1: platoon type (TM p.145)
+
+    public getTechBase(): InfantryTechBase { return this._techBase; }
+    public isClan(): boolean { return this._techBase === "clan"; }
+    public getTechName(): string { return this.isClan() ? "Clan" : "Inner Sphere"; }
+    public getMotive(): IInfantryMotiveType { return this._motive; }
+    public isMechanized(): boolean { return this._motive.mechanized; }
+    public getFormation(): IInfantryFormation { return this._formation; }
+    public getAvailableFormations(): IInfantryFormation[] { return INFANTRY_FORMATIONS.filter((formation) => formation.techBase === this._techBase); }
+
+    public getEra(): IEras { return this._era; }
+    public getAvailableEras(): IEras[] { return getErasForTech(this._techBase); }
+    /** Sets the era the platoon is raised in; weapons it carries that the era does not have are reported, not removed. */
+    public setEra(tag: string): boolean {
+        const era = findEraByTag(tag);
+        if (!era || !this.getAvailableEras().some((item) => item.tag === era.tag)) return false;
+        this._era = era;
+        return true;
+    }
+    /** Is the weapon in production for this technology base during the platoon's era (TM pp.298-301)? */
+    public isWeaponInEra(weapon: IInfantryWeapon): boolean {
+        return isInfantryWeaponAvailable(weapon, this._techBase, this._era.yearStart, this._era.yearEnd);
+    }
+
+    /** Changes the technology base, moving to that base's first formation and dropping weapons it cannot use. */
+    public setTechBase(techBase: InfantryTechBase): void {
+        if (techBase !== "is" && techBase !== "clan") return;
+        this._techBase = techBase;
+        if (!this.getAvailableEras().some((item) => item.tag === this._era.tag)) this._era = latestEra(techBase);
+        if (this._formation.techBase !== techBase) this._formation = this.getAvailableFormations()[0];
+        this.applyFormation();
+        this._clampWeapons();
+        if (this._armor && !this.isArmorForPlatoon(this._armor)) this._armor = null;
+    }
+
+    public setFormation(tag: string): boolean {
+        const formation = this.getAvailableFormations().find((item) => item.tag === tag);
+        if (!formation) return false;
+        this._formation = formation;
+        this.applyFormation();
+        return true;
+    }
+
+    public setMotive(tag: string): boolean {
+        const motive = INFANTRY_MOTIVE_TYPES.find((item) => item.tag === tag);
+        if (!motive) return false;
+        this._motive = motive;
+        this.applyFormation();
+        this._clampWeapons();
+        return true;
+    }
+
+    /** Sets the squad size and count the Formations Table gives this affiliation and motive type (TM p.147). */
+    public applyFormation(): void {
+        const [squadSize, squads] = this._formation.sizes[this._motive.tag];
+        this._squadSize = squadSize;
+        this._squads = squads;
+        this.resetInPlay();
+        this._clampSecondaryCount();
+    }
+
+    /** True while the platoon keeps the Formations Table's arrangement; a designer may choose another (TM p.146). */
+    public usesFormationSizes(): boolean {
+        const [squadSize, squads] = this._formation.sizes[this._motive.tag];
+        return this._squadSize === squadSize && this._squads === squads;
+    }
+
+    public getSquadSize(): number { return this._squadSize; }
+    public getSquads(): number { return this._squads; }
+    public setSquadSize(size: number): void {
+        this._squadSize = savedNumber(size, this._squadSize, 1, this._motive.maxSquadSize);
+        this._clampSecondaryCount();
+        this.resetInPlay();
+    }
+    public setSquads(count: number): void {
+        this._squads = savedNumber(count, this._squads, 1, INFANTRY_MAX_SQUADS);
+        this.resetInPlay();
+    }
+    public getTroopers(): number { return this._squadSize * this._squads; }
+
+    /**
+     * Troopers on each record sheet line. A formation over the motive type's platoon maximum is split as evenly as
+     * possible into sub-platoons, odd troopers going to the first (TM p.146).
+     */
+    public getSubPlatoons(): number[] {
+        const troopers = this.getTroopers();
+        const count = Math.max(1, Math.ceil(troopers / this._motive.maxPlatoonSize));
+        const base = Math.floor(troopers / count);
+        const extra = troopers - base * count;
+        return Array.from({ length: count }, (_unused, index) => base + (index < extra ? 1 : 0));
+    }
+    public isOversized(): boolean { return this.getSubPlatoons().length > 1; }
+
+    // Step 2: weapons (TM pp.148-152)
+
+    public getPrimaryWeapon(): IInfantryWeapon { return this._primary; }
+    public getSecondaryWeapon(): IInfantryWeapon | null { return this._secondary; }
+    public getSecondaryPerSquad(): number { return this._secondary ? this._secondaryPerSquad : 0; }
+    /** Troopers firing the secondary weapon: one per weapon, whatever its crew (TM p.151). */
+    public getSecondaryCount(): number { return this.getSecondaryPerSquad() * this._squads; }
+    public getPrimaryCount(): number { return this.getTroopers() - this.getSecondaryCount(); }
+
+    public isWeaponForTechBase(weapon: IInfantryWeapon): boolean { return weapon.techBase === "both" || weapon.techBase === this._techBase; }
+
+    /** Why the platoon may not carry the weapon at all, or null when it may. */
+    private _weaponBar(weapon: IInfantryWeapon): string | null {
+        if (!this.isWeaponForTechBase(weapon)) return `${weapon.name} is not available to ${this.isClan() ? "Clan" : "Inner Sphere"} infantry`;
+        if (this.isMechanized() && weapon.type === "melee") return "Mechanized infantry may not use melee weapons (TM p.148)";
+        if (this.isMechanized() && weapon.damageType === "P") return "Mechanized infantry may not use point-blank weapons (TM p.148)";
+        if (weapon.tag === INFANTRY_SUPPORT_PPC_TAG && this._motive.tag !== "motorized" && this._motive.tag !== "mech-tracked") {
+            return "The Support Particle Cannon may only be carried by motorized and mechanized (tracked) platoons (TM p.352)";
+        }
+        return null;
+    }
+
+    /** Primary weapons must be Melee or Standard (TM p.150). */
+    public canBePrimary(weapon: IInfantryWeapon): boolean {
+        return weapon.type !== "support" && this._weaponBar(weapon) === null;
+    }
+
+    /** A platoon with a Melee primary weapon may only add a Melee or Standard secondary (TM p.151). */
+    public canBeSecondary(weapon: IInfantryWeapon): boolean {
+        if (this._weaponBar(weapon) !== null) return false;
+        if (this._primary.type === "melee" && weapon.type === "support") return false;
+        return this.getMaxSecondaryPerSquad(weapon) > 0;
+    }
+
+    /** Weapons on offer: those the platoon may carry that its era has, and the one it carries already. */
+    public getAvailablePrimaryWeapons(): IInfantryWeapon[] {
+        return infantryWeapons.filter((weapon) => this.canBePrimary(weapon) && (this.isWeaponInEra(weapon) || weapon.tag === this._primary.tag));
+    }
+    public getAvailableSecondaryWeapons(): IInfantryWeapon[] {
+        return infantryWeapons.filter((weapon) => this.canBeSecondary(weapon) && (this.isWeaponInEra(weapon) || weapon.tag === this._secondary?.tag));
+    }
+
+    /** 2 per squad, or the squad's troopers divided by the weapon's crew, whichever is lower (TM p.151). */
+    public getMaxSecondaryPerSquad(weapon: IInfantryWeapon | null = this._secondary): number {
+        if (!weapon) return 0;
+        return Math.min(INFANTRY_MAX_SECONDARY_PER_SQUAD, Math.floor(this._squadSize / Math.max(1, weapon.crew)));
+    }
+
+    public setPrimaryWeapon(tag: string): boolean {
+        const weapon = findInfantryWeapon(tag);
+        if (!weapon || !this.canBePrimary(weapon)) return false;
+        this._primary = weapon;
+        if (this._secondary && !this.canBeSecondary(this._secondary)) this.setSecondaryWeapon("");
+        return true;
+    }
+
+    /** An empty tag removes the secondary weapon. A newly chosen weapon starts at one per squad. */
+    public setSecondaryWeapon(tag: string): boolean {
+        if (!tag) {
+            this._secondary = null;
+            this._secondaryPerSquad = 0;
+            return true;
+        }
+        const weapon = findInfantryWeapon(tag);
+        if (!weapon || !this.canBeSecondary(weapon)) return false;
+        this._secondary = weapon;
+        if (this._secondaryPerSquad < 1) this._secondaryPerSquad = 1;
+        this._clampSecondaryCount();
+        return true;
+    }
+
+    public setSecondaryPerSquad(count: number): void {
+        this._secondaryPerSquad = savedNumber(count, this._secondaryPerSquad, 0, INFANTRY_MAX_SECONDARY_PER_SQUAD);
+        this._clampSecondaryCount();
+    }
+
+    private _clampSecondaryCount(): void {
+        if (!this._secondary) {
+            this._secondaryPerSquad = 0;
+            return;
+        }
+        this._secondaryPerSquad = Math.min(this._secondaryPerSquad, this.getMaxSecondaryPerSquad());
+    }
+
+    private _clampWeapons(): void {
+        if (!this.canBePrimary(this._primary)) {
+            const fallback = findInfantryWeapon(DEFAULT_PRIMARY);
+            this._primary = fallback && this.canBePrimary(fallback) ? fallback : this.getAvailablePrimaryWeapons()[0] ?? this._primary;
+        }
+        if (this._secondary && !this.canBeSecondary(this._secondary)) this.setSecondaryWeapon("");
+        this._clampSecondaryCount();
+    }
+
+    /** True when the platoon carries 2 Support secondary weapons per squad, which costs it mobility (TM p.151). */
+    public carriesHeavySupportLoad(): boolean {
+        return !!this._secondary && this._secondary.type === "support" && this.getSecondaryPerSquad() >= 2;
+    }
+
+    /** Foot platoons with 2 support weapons per squad may move or fire in a turn, not both (TM p.151). */
+    public isMoveOrFire(): boolean { return this._motive.tag === "foot" && this.carriesHeavySupportLoad(); }
+
+    public getMP(): number {
+        let mp = this._motive.mp;
+        if (this.carriesHeavySupportLoad()) mp -= this._motive.supportMPLoss;
+        // Encumbering armor: -1 MP, to a minimum of 1, on top of the support weapon penalty (TO:AUE p.130).
+        if (this._armor?.encumbering) mp = Math.max(1, mp - 1);
+        if (this.getSecondaryCount() > 0 && this._secondary?.tag === INFANTRY_SUPPORT_PPC_TAG) mp = Math.min(mp, INFANTRY_SUPPORT_PPC_MP);
+        return Math.max(0, mp);
+    }
+
+    public getMovementText(): string {
+        return `${this.getMP()} (${this._motive.moveType})${this.isMoveOrFire() ? ", Move or Shoot" : ""}`;
+    }
+
+    /** The weapon whose range, modifiers and damage type the platoon attacks with (TM p.152). */
+    public getRangeWeapon(): IInfantryWeapon {
+        return this._secondary && this.getSecondaryPerSquad() >= 2 ? this._secondary : this._primary;
+    }
+
+    /** Weapons the platoon actually fields. */
+    private _fieldedWeapons(): IInfantryWeapon[] {
+        return this._secondary && this.getSecondaryCount() > 0 ? [this._primary, this._secondary] : [this._primary];
+    }
+
+    /** A primary weapon over the 0.60 limit counts as 0.60 and gives the platoon heavy burst (TM p.150). */
+    public isPrimaryDamageCapped(): boolean { return this._primary.damage > INFANTRY_MAX_PRIMARY_DAMAGE; }
+    public getPrimaryDamage(): number { return Math.min(this._primary.damage, INFANTRY_MAX_PRIMARY_DAMAGE); }
+
+    /** Special feature codes that apply to the platoon's attack (Infantry Weapon Classifications Table, TM p.148). */
+    public getSpecialFeatures(): string[] {
+        const features = new Set<string>();
+        for (const weapon of this._fieldedWeapons()) {
+            // Anti-aircraft and flame-based: one weapon is enough.
+            if (weapon.special.includes("A")) features.add("A");
+            if (weapon.special.includes("F")) features.add("F");
+        }
+        if (this.hasHeavyBurst()) features.add("B");
+        // Non-penetrating applies only when that weapon sets the Base Range.
+        if (this.getRangeWeapon().special.includes("N")) features.add("N");
+        return [...features].sort();
+    }
+
+    /** Heavy burst needs at least 2 such weapons per squad; a primary weapon is carried by far more than that. */
+    public hasHeavyBurst(): boolean {
+        if (this._primary.special.includes("B") || this.isPrimaryDamageCapped()) return true;
+        return !!this._secondary && this._secondary.special.includes("B") && this.getSecondaryPerSquad() >= 2;
+    }
+
+    /**
+     * Modifier added in the platoon's own hex on top of the range table: +1 for a point-blank weapon, -1 for heavy
+     * burst and +1 for a weapon with a crew of 2 or more, or of 1E (TM pp.148-149, 152).
+     */
+    public getSameHexModifier(): number {
+        let modifier = 0;
+        if (this.getRangeWeapon().damageType === "P") modifier += 1;
+        if (this.hasHeavyBurst()) modifier -= 1;
+        if (this._fieldedWeapons().some((weapon) => weapon.crew >= 2 || weapon.encumbering)) modifier += 1;
+        return modifier;
+    }
+
+    /** To-hit modifiers from the platoon's own hex outwards; the list ends at its maximum range. */
+    public getRangeModifiers(): number[] {
+        const row = INFANTRY_RANGE_MODIFIERS[this.getRangeWeapon().baseRange] ?? INFANTRY_RANGE_MODIFIERS[0];
+        return row.map((modifier, range) => range === 0 ? modifier + this.getSameHexModifier() : modifier);
+    }
+    public getMaxRange(): number { return this.getRangeModifiers().length - 1; }
+
+    /** Damage of the full formation, rounded normally (TM p.152). */
+    public getTotalDamage(): number {
+        const secondary = this._secondary ? this.getSecondaryCount() * this._secondary.damage : 0;
+        return roundNormally(secondary + this.getPrimaryCount() * this.getPrimaryDamage());
+    }
+    public getDamagePerTrooper(): number {
+        const troopers = this.getTroopers();
+        return troopers > 0 ? this.getTotalDamage() / troopers : 0;
+    }
+    /** Damage with that many troopers left on a record sheet line (TM p.152). */
+    public getDamageForTroopers(troopers: number): number { return roundNormally(this.getDamagePerTrooper() * Math.max(0, troopers)); }
+    /** Max Weapon Damage boxes for one record sheet line: index 0 is one surviving trooper. */
+    public getDamageTable(lineTroopers: number = this.getSubPlatoons()[0]): number[] {
+        return Array.from({ length: lineTroopers }, (_unused, index) => this.getDamageForTroopers(index + 1));
+    }
+
+    // Infantry armor (Tactical Operations: Advanced Units & Equipment pp.129-130)
+
+    public getArmor(): IInfantryArmor | null { return this._armor; }
+    /** 1 without infantry armor. */
+    public getDamageDivisor(): number { return this._armor ? this._armor.damageDivisor : 1; }
+    public isArmorForPlatoon(armor: IInfantryArmor): boolean {
+        return armor.techBase === "both" || armor.techBase === this._techBase;
+    }
+    public isArmorInEra(armor: IInfantryArmor): boolean {
+        return typeof armor.introduced !== "number" || armor.introduced <= (this._era.yearEnd ?? Number.POSITIVE_INFINITY);
+    }
+    /** Armor on offer: what the technology base and era have, and the armor worn already. */
+    public getAvailableArmor(): IInfantryArmor[] {
+        return infantryArmor.filter((armor) => armor.tag === this._armor?.tag || (this.isArmorForPlatoon(armor) && this.isArmorInEra(armor)));
+    }
+    /** An empty tag removes the armor. The whole platoon wears one type. */
+    public setArmor(tag: string): boolean {
+        if (!tag) {
+            this._armor = null;
+            return true;
+        }
+        const armor = findInfantryArmor(tag);
+        if (!armor || !this.isArmorForPlatoon(armor)) return false;
+        this._armor = armor;
+        return true;
+    }
+    /** Defensive Factor added for stealth armor (TO:AUE p.191); the modifiers are cumulative. */
+    public getStealthDefensiveFactor(): number {
+        return (this._armor?.stealth ?? []).reduce((sum, system) => sum + INFANTRY_STEALTH_SYSTEMS[system].defensiveFactor, 0);
+    }
+
+    // Anti-'Mech capability, weight (TM p.155)
+
+    /** Mechanized platoons are barred from Anti-'Mech attacks and take no kits. */
+    /**
+     * True while the kits count. A platoon that cannot make Anti-'Mech attacks, for its motive type or its
+     * encumbering armor, has neither the benefits nor the drawbacks of the kits it chose (their weight, cost and
+     * skill) until it can again (user ruling, 2026-10-07).
+     */
+    public hasAntiMechKit(): boolean { return this._antiMechKit && this.canMakeAntiMechAttacks(); }
+    /** The designer's choice, whether or not the platoon can use it now. */
+    public isAntiMechKitChosen(): boolean { return this._antiMechKit && !this.isMechanized(); }
+    public setAntiMechKit(equipped: boolean): boolean {
+        if (equipped && this.isMechanized()) return false;
+        this._antiMechKit = !!equipped;
+        return true;
+    }
+    /** Mechanized platoons cannot, nor can a platoon in encumbering armor (TO:AUE p.130). */
+    public canMakeAntiMechAttacks(): boolean { return !this.isMechanized() && !this._armor?.encumbering; }
+
+    public getGunnery(): number { return this._gunnery; }
+    public setGunnery(skill: number): void { this._gunnery = savedNumber(skill, this._gunnery, 0, 8); }
+    /** 8, fixed, without Anti-'Mech kits or on a mechanized platoon. */
+    public getAntiMechSkill(): number { return this.hasAntiMechKit() ? this._antiMech : INFANTRY_FIXED_ANTI_MECH_SKILL; }
+    public setAntiMechSkill(skill: number): void { this._antiMech = savedNumber(skill, this._antiMech, 0, 8); }
+
+    public getWeightPerTrooper(): number {
+        return this._motive.weightPerTrooper + (this.hasAntiMechKit() ? INFANTRY_ANTI_MECH_KIT_TONS : 0);
+    }
+    /** Transport weight, rounded up to the half ton. */
+    public getWeight(troopers: number = this.getTroopers()): number { return roundUpHalf(troopers * this.getWeightPerTrooper()); }
+
+    // Battle Value (TM p.309)
+
+    /** Target movement modifier at the platoon's MP, with +1 for jumping (Total Warfare's movement modifiers). */
+    public getTargetMovementModifier(): number {
+        const mp = this.getMP();
+        let modifier = 0;
+        if (mp >= 25) modifier = 6;
+        else if (mp >= 18) modifier = 5;
+        else if (mp >= 10) modifier = 4;
+        else if (mp >= 7) modifier = 3;
+        else if (mp >= 5) modifier = 2;
+        else if (mp >= 3) modifier = 1;
+        return modifier + (this._motive.tag === "jump" && mp > 0 ? 1 : 0);
+    }
+
+    /** Speed Factor for the platoon's fastest movement mode, to two decimal places (TM p.316). */
+    public static speedFactor(mp: number): number {
+        return Math.round(Math.pow(1 + (mp - 5) / 10, 1.2) * 100) / 100;
+    }
+
+    private _calcBattleValue(): { value: number; log: string[] } {
+        const troopers = this.getTroopers();
+        // With infantry armor: damage divisor x 1.5 x Defensive Factor x troopers (TO:AUE p.191).
+        const divisor = this.getDamageDivisor();
+        const stealth = this.getStealthDefensiveFactor();
+        const defensiveFactor = 1 + this.getTargetMovementModifier() / 10 + stealth;
+        const defensive = troopers * divisor * 1.5 * defensiveFactor;
+        const log: string[] = [];
+        log.push(`${troopers} troopers x 1.5${this._armor ? ` x damage divisor ${divisor} (${this._armor.name})` : ""} = ${format(troopers * divisor * 1.5)}`);
+        log.push(`Target Movement Modifier +${this.getTargetMovementModifier()}${stealth > 0 ? `, stealth armor +${format(stealth, 1)}` : ""}: Defensive Factor ${format(defensiveFactor, 1)}`);
+        log.push(`Defensive Battle Rating = ${format(defensive)}`);
+
+        const primary = this.getPrimaryCount() * this._primary.battleValue;
+        const secondary = this._secondary ? this.getSecondaryCount() * this._secondary.battleValue : 0;
+        log.push(`${this.getPrimaryCount()} x ${this._primary.name} (${format(this._primary.battleValue)}) = ${format(primary)}`);
+        if (this._secondary && this.getSecondaryCount() > 0) {
+            log.push(`${this.getSecondaryCount()} x ${this._secondary.name} (${format(this._secondary.battleValue)}) = ${format(secondary)}`);
+        }
+        let weapons = primary + secondary;
+        if (this.canMakeAntiMechAttacks()) {
+            log.push(`Anti-'Mech attack capability: weapons added again, ${format(weapons)} + ${format(weapons)}`);
+            weapons *= 2;
+        }
+        const speedFactor = InfantryPlatoon.speedFactor(this.getMP());
+        const offensive = weapons * speedFactor;
+        log.push(`Offensive Battle Rating = ${format(weapons)} x Speed Factor ${format(speedFactor)} (${this.getMP()} MP) = ${format(offensive)}`);
+        const value = roundNormally(defensive + offensive);
+        log.push(`Battle Value: ${format(defensive)} + ${format(offensive)} = ${format(defensive + offensive)}, rounded to ${value}`);
+        return { value, log };
+    }
+
+    /**
+     * Battle Value methods by rules edition tag. Only the TechManual's is entered so far; an edition's own method
+     * is added here as that edition's rules are entered, and no caller changes.
+     */
+    private _battleValueMethods: Record<string, () => { value: number; log: string[] }> = {
+        [DEFAULT_RULES_EDITION]: () => this._calcBattleValue(),
+    };
+    /** The edition whose method works out the Battle Value: the one asked for, or the default where it has none entered. */
+    public getBattleValueEdition(edition: string = DEFAULT_RULES_EDITION): string {
+        return Object.prototype.hasOwnProperty.call(this._battleValueMethods, edition) ? edition : DEFAULT_RULES_EDITION;
+    }
+    public getBattleValue(edition?: string): number { return this._battleValueMethods[this.getBattleValueEdition(edition)]().value; }
+    /** The calculation, one plain-text line per step. */
+    public getBattleValueLog(edition?: string): string[] { return this._battleValueMethods[this.getBattleValueEdition(edition)]().log; }
+
+    /**
+     * The rules edition's skill multiplier (TechManual p.315 by default). Under the TechManual, mechanized platoons
+     * adjust Gunnery only and use the table's 5 column (TM p.314); under the Master Rules every infantry unit does.
+     * An edition with no table gives 1.
+     */
+    public getSkillMultiplier(edition?: string): number {
+        // A platoon that cannot make Anti-'Mech attacks adjusts Gunnery only, as mechanized infantry do.
+        return getSkillMultiplier(this._gunnery, this.getAntiMechSkill(), this.canMakeAntiMechAttacks() ? "infantry" : "mechanized-infantry", edition) ?? 1;
+    }
+    public getSkillAdjustedBattleValue(edition?: string): number { return roundNormally(this.getBattleValue(edition) * this.getSkillMultiplier(edition)); }
+
+    // Cost (TM pp.276, 282)
+
+    /**
+     * Base Trooper Cost = 2,000 x the square root of the weapon's cost, times the motive type's multiplier and 5 for
+     * Anti-'Mech training and equipment. The book prices a platoon with one weapon type; where a secondary weapon
+     * is carried, each trooper is priced by the weapon they fire, as MegaMek does. Null when a fielded weapon has
+     * no price in the cost table.
+     */
+    private _calcCost(): { value: number | null; log: string[] } {
+        const unpriced = this._fieldedWeapons().filter((weapon) => weapon.cost === null);
+        if (unpriced.length > 0) {
+            return { value: null, log: [`The cost table (TM pp.298-301) gives no price for ${unpriced.map((weapon) => weapon.name).join(" or ")}.`] };
+        }
+        const trooperCost = (weapon: IInfantryWeapon): number => 2000 * Math.sqrt(weapon.cost ?? 0);
+        const log: string[] = [];
+        let total = this.getPrimaryCount() * trooperCost(this._primary);
+        log.push(`${this.getPrimaryCount()} troopers x 2,000 x square root of ${format(this._primary.cost ?? 0, 0)} (${this._primary.name}) = ${format(total)}`);
+        if (this._secondary && this.getSecondaryCount() > 0) {
+            const secondary = this.getSecondaryCount() * trooperCost(this._secondary);
+            log.push(`${this.getSecondaryCount()} troopers x 2,000 x square root of ${format(this._secondary.cost ?? 0, 0)} (${this._secondary.name}) = ${format(secondary)}`);
+            total += secondary;
+        }
+        if (this._armor) {
+            const armorCost = this._armor.cost * this.getTroopers();
+            log.push(`${this.getTroopers()} x ${this._armor.name} at ${format(this._armor.cost, 0)} = ${format(armorCost)}`);
+            total += armorCost;
+        }
+        log.push(`${this._motive.name}: x ${format(this._motive.costMultiplier, 1)}`);
+        total *= this._motive.costMultiplier;
+        if (this.hasAntiMechKit()) {
+            log.push(`Anti-'Mech training and equipment: x ${INFANTRY_ANTI_MECH_COST_MULTIPLIER}`);
+            total *= INFANTRY_ANTI_MECH_COST_MULTIPLIER;
+        }
+        const value = Math.floor(total + 1e-6);
+        log.push(`Cost: ${format(value, 0)} C-bills`);
+        return { value, log };
+    }
+
+    public getCBillCost(): number | null { return this._calcCost().value; }
+    public getCBillCostLog(): string[] { return this._calcCost().log; }
+
+    // Alpha Strike conversion (Alpha Strike Companion pp.92-103, 138-140)
+
+    /**
+     * The converted Alpha Strike stats of one platoon; an oversized formation converts its first sub-platoon, as
+     * each is a unit of its own. The conversion follows the Alpha Strike Companion; the Point Value is worked out
+     * as MegaMek does, which the Master Unit List's infantry cards match.
+     */
+    public getAlphaStrikeStats(): IInfantryAlphaStrikeStats {
+        const log: string[] = [];
+        const troopers = this.getSubPlatoons()[0];
+
+        const movement = this.getMP() * 2;
+        const movementCode = INFANTRY_AS_MOVEMENT_CODES[this._motive.tag];
+        log.push(`Move: ${this.getMP()} MP x 2 = ${movement}"${movementCode}`);
+
+        // 15 over the damage divisor; a mechanized platoon's divisor is halved (ASC p.99).
+        const divisor = this.getDamageDivisor() * (this.isMechanized() ? 0.5 : 1);
+        const armor = Math.round(troopers * divisor / 15 + 1e-9);
+        log.push(`Armor: ${troopers} troopers / (15 / damage divisor ${divisor}) = ${(troopers * divisor / 15).toFixed(2)}, rounded to ${armor}`);
+        const structure = 1;
+
+        const troopFactor = INFANTRY_TROOP_FACTORS[Math.min(troopers, 30)] ?? 0;
+        const platoonDamage = this.getDamageForTroopers(troopFactor);
+        const converted = platoonDamage / 10;
+        const value: IInfantryASDamageValue = converted > 0 && converted < 0.5 ? { damage: 0, minimal: true } : { damage: Math.ceil(converted - 1e-9), minimal: false };
+        const none: IInfantryASDamageValue = { damage: 0, minimal: false };
+        const maxRange = this.getMaxRange();
+        const reachesMedium = maxRange > 3;
+        const reachesLong = maxRange > 15;
+        log.push(`Damage: Troop Factor ${troopFactor} for ${troopers} troopers; ${platoonDamage} damage at ${troopFactor} troopers / 10 = ${converted.toFixed(1)}: ${formatInfantryASDamage(value)}`);
+        log.push(`Range: ${maxRange} ${maxRange === 1 ? "hex" : "hexes"}: ${reachesLong ? "Short, Medium and Long" : reachesMedium ? "Short and Medium" : "Short only"}`);
+        const damageValues = { short: value, medium: reachesMedium ? value : none, long: reachesLong ? value : none };
+
+        const specialAbilities: string[] = [];
+        if (this.canMakeAntiMechAttacks()) specialAbilities.push("AM");
+        specialAbilities.push(`CAR${this.getWeight(troopers)}`);
+        // A platoon that can deliver heat has HT equal to its Short damage, 2 at most (ASC p.121).
+        let heat = 0;
+        if (this.getSpecialFeatures().includes("F") && value.damage >= 1) {
+            heat = Math.min(2, value.damage);
+            specialAbilities.push(`HT${heat}/${reachesMedium ? heat : "-"}/${reachesLong ? heat : "-"}`);
+        }
+
+        // Point Value.
+        const points = (item: IInfantryASDamageValue): number => item.minimal ? 0.5 : item.damage;
+        const short = points(damageValues.short);
+        const medium = points(damageValues.medium);
+        const long = points(damageValues.long);
+        let offensive = short + medium * 2 + long;
+        log.push(`Offensive Value: ${short} + 2 x ${medium} + ${long} = ${offensive}`);
+        if (heat > 0) {
+            const heatValue = heat + (reachesMedium ? 0.5 : 0);
+            offensive += heatValue;
+            log.push(`HT: + ${heatValue} = ${offensive}`);
+        }
+        const jumps = this._motive.tag === "jump" && movement > 0;
+        let targetMovement = 0;
+        if (movement >= 35) targetMovement = 5;
+        else if (movement >= 19) targetMovement = 4;
+        else if (movement >= 13) targetMovement = 3;
+        else if (movement >= 9) targetMovement = 2;
+        else if (movement >= 5) targetMovement = 1;
+        let defensive = movement / 8 + (jumps ? 0.5 : 0);
+        const defenseModifier = targetMovement + (jumps ? 1 : 0);
+        const defenseFactor = 1 + (defenseModifier <= 2 ? 0.1 : 0.25) * defenseModifier;
+        const interaction = roundToHalf((armor * 2 + structure * 2) * defenseFactor);
+        log.push(`Defensive Value: ${movement} / 8${jumps ? " + 0.5 (jump)" : ""} = ${defensive}; (Armor ${armor} x 2 + Structure ${structure} x 2) x ${defenseFactor.toFixed(2)} = ${interaction}`);
+        defensive += interaction;
+        let subTotal = offensive + defensive;
+        // Agile bonus and brawler penalty; a unit an infantry transport can carry (CAR 8 or less) is no brawler.
+        let agile = 0;
+        if (targetMovement > 1) {
+            if (medium > 0) agile = (targetMovement - 1) * medium;
+            else if (targetMovement >= 3) agile = (targetMovement - 2) * short;
+        }
+        agile = roundToHalf(agile);
+        let brawler = 0;
+        if (movement >= 2 && this.getWeight(troopers) > 8) {
+            const shortOnly = medium + long === 0 && short > 0;
+            const shortAndMedium = long === 0 && short + medium > 0;
+            if (movement >= 6 && movement <= 10 && shortOnly) brawler = 0.25;
+            else if (movement < 6 && shortOnly) brawler = 0.5;
+            else if (movement < 6 && shortAndMedium) brawler = 0.25;
+        }
+        const penalty = roundToHalf(subTotal * brawler);
+        if (agile > 0) log.push(`Agile: + ${agile}`);
+        if (penalty > 0) log.push(`Brawler: - ${penalty}`);
+        subTotal += agile - penalty;
+        const pointValue = Math.max(1, Math.round(subTotal + 1e-9));
+        log.push(`Point Value: ${offensive} + ${defensive}${agile > 0 ? ` + ${agile}` : ""}${penalty > 0 ? ` - ${penalty}` : ""} = ${subTotal}, rounded to ${pointValue}`);
+
+        return { type: "CI", size: 1, movement, movementCode, armor, structure, damageValues, specialAbilities, pointValue, calcLog: log };
+    }
+
+    /** The converted Alpha Strike card, built the same way as a Master Unit List record. */
+    public getAlphaStrikeUnit(): AlphaStrikeUnit {
+        const stats = this.getAlphaStrikeStats();
+        const damage = stats.damageValues;
+        const record = {
+            Id: 0,
+            Name: this.getDisplayName(),
+            Class: this.getDisplayName(),
+            Variant: "",
+            Tonnage: this.getWeight(this.getSubPlatoons()[0]),
+            Cost: this.getCBillCost() ?? 0,
+            BattleValue: this.getBattleValue(),
+            BFType: stats.type,
+            BFSize: stats.size,
+            BFMove: `${stats.movement}"${stats.movementCode}`,
+            BFTMM: 0,
+            BFArmor: stats.armor,
+            BFStructure: stats.structure,
+            BFThreshold: 0,
+            BFDamageShort: damage.short.damage,
+            BFDamageMedium: damage.medium.damage,
+            BFDamageLong: damage.long.damage,
+            BFDamageExtreme: 0,
+            BFDamageShortMin: damage.short.minimal,
+            BFDamageMediumMin: damage.medium.minimal,
+            BFDamageLongMin: damage.long.minimal,
+            BFDamageExtremeMin: false,
+            BFOverheat: 0,
+            BFPointValue: stats.pointValue,
+            BFAbilities: stats.specialAbilities.join(","),
+            Role: { Id: 0, Name: "None", Image: null, SortOrder: 0 },
+            Technology: { Id: 0, Name: this.getTechName(), Image: null, SortOrder: 0 },
+            Type: { Id: 21, Name: "Infantry", Image: null, SortOrder: 0 },
+        } as unknown as IASMULUnit;
+        const unit = new AlphaStrikeUnit();
+        unit.importMUL(record);
+        unit.rulesLevel = Math.max(2, this.getRequiredRulesLevel());
+        return unit;
+    }
+
+    // Legality
+
+    public getIssues(): string[] {
+        const issues: string[] = [];
+        const troopers = this.getTroopers();
+        const subPlatoons = this.getSubPlatoons();
+        if (this._squadSize > this._motive.maxSquadSize) {
+            issues.push(`${this._motive.name} squads hold at most ${this._motive.maxSquadSize} troopers (TM p.145)`);
+        }
+        if (this._squads > INFANTRY_MAX_SQUADS_PER_PLATOON * subPlatoons.length) {
+            issues.push(`At most ${INFANTRY_MAX_SQUADS_PER_PLATOON} squads are allowed per platoon or sub-platoon (TM p.146)`);
+        }
+        if (this.isMechanized() && troopers > this._motive.maxPlatoonSize) {
+            issues.push(`${this._motive.name} platoons hold at most ${this._motive.maxPlatoonSize} troopers (TM p.145)`);
+        }
+        for (const weapon of this._fieldedWeapons()) {
+            const bar = this._weaponBar(weapon);
+            if (bar) issues.push(bar);
+            else if (!this.isWeaponInEra(weapon)) issues.push(`${weapon.name} is not available to ${this.getTechName()} infantry in the ${this._era.name} era (TM pp.298-301)`);
+        }
+        if (this._armor) {
+            if (!this.isArmorForPlatoon(this._armor)) issues.push(`${this._armor.name} is not available to ${this.getTechName()} infantry (TO:AUE p.${this._armor.page})`);
+            else if (!this.isArmorInEra(this._armor)) issues.push(`${this._armor.name} is not available in the ${this._era.name} era (TO:AUE p.${this._armor.page})`);
+        }
+        if (this._primary.type === "support") issues.push("The primary weapon must be a Melee or Standard weapon (TM p.150)");
+        if (this._secondary && this._primary.type === "melee" && this._secondary.type === "support") {
+            issues.push("A platoon with a Melee primary weapon may only carry a Melee or Standard secondary weapon (TM p.151)");
+        }
+        if (this._secondary && this.getSecondaryPerSquad() > this.getMaxSecondaryPerSquad()) {
+            issues.push(`A squad of ${this._squadSize} can crew ${this.getMaxSecondaryPerSquad()} ${this._secondary.name} at most (TM p.151)`);
+        }
+        return issues;
+    }
+
+    /** Things worth knowing that do not make the platoon illegal. */
+    public getNotes(): string[] {
+        const notes: string[] = [];
+        const subPlatoons = this.getSubPlatoons();
+        if (subPlatoons.length > 1) {
+            notes.push(`Oversized: ${this.getTroopers()} troopers are fielded as ${subPlatoons.length} sub-platoons of ${subPlatoons.join(", ")} (TM p.146).`);
+        }
+        if (this.isPrimaryDamageCapped()) {
+            notes.push(`${this._primary.name} counts as ${INFANTRY_MAX_PRIMARY_DAMAGE.toFixed(2)} damage per trooper and gives the platoon heavy burst (TM p.150).`);
+        }
+        if (this.isMoveOrFire()) notes.push("With 2 support weapons per squad, a foot platoon may move or fire in a turn, not both (TM p.151).");
+        else if (this.carriesHeavySupportLoad() && this._motive.supportMPLoss > 0) notes.push("Carrying 2 support weapons per squad costs 1 MP (TM p.151).");
+        if (this._secondary?.tag === INFANTRY_SUPPORT_PPC_TAG && this.getSecondaryCount() > 0) notes.push("The Support Particle Cannon holds the platoon to 2 MP (TM p.352).");
+        if (this._armor) {
+            notes.push(`${this._armor.name}: damage to the platoon is divided by ${this._armor.damageDivisor}, fractions rounded up (TO:AUE p.129). Advanced rules.`);
+            if (this._armor.encumbering) notes.push("Encumbering armor: -1 MP (to a minimum of 1) and no Anti-'Mech Leg or Swarm attacks (TO:AUE p.130).");
+            if (this._armor.vacuum) notes.push("The troopers may operate in vacuum (TO:AUE p.130).");
+            for (const system of this._armor.stealth) {
+                const stealth = INFANTRY_STEALTH_SYSTEMS[system];
+                notes.push(`${stealth.name}: Camo to-hit modifier ${stealth.camoToHit} by MP moved (0/1/2/3/4+), IR to-hit modifier ${stealth.irToHit} at Short/Medium/Long for non-infantry attackers, ECM effect: ${stealth.ecm} (TO:AUE p.130).`);
+            }
+        }
+        if (this.isAntiMechKitChosen() && !this.hasAntiMechKit()) notes.push("The Anti-'Mech kits add no weight, cost or skill while the platoon's armor keeps it from Anti-'Mech attacks.");
+        else if (this.canMakeAntiMechAttacks() && !this.hasAntiMechKit()) notes.push("Without Anti-'Mech kits the platoon's Anti-'Mech Skill is fixed at 8 (TM p.155).");
+        if (this.isMechanized()) notes.push("Mechanized infantry cannot make Anti-'Mech Leg or Swarm attacks (TM p.144).");
+        if (!this.usesFormationSizes()) notes.push(`Custom arrangement: ${this._formation.name} ${this._motive.name.toLowerCase()} platoons are ${this._formation.sizes[this._motive.tag].join(" troopers in each of ")} squads (TM p.147).`);
+        return notes;
+    }
+
+    // Play (Total Warfare pp.215-217)
+
+    public getInPlay(): IInfantryInPlay { return this._inPlay; }
+    public resetInPlay(): void { this._inPlay = { damage: [] }; }
+
+    /**
+     * Damage points that eliminate one trooper. Against infantry and burst-fire attacks each mechanized trooper
+     * takes twice the damage (TW p.217), so mechanized platoons are tracked in half-troopers.
+     */
+    public getDamagePointsPerTrooper(): number { return this.isMechanized() ? 2 : 1; }
+
+    public getLineDamage(line: number): number {
+        const troopers = this.getSubPlatoons()[line] ?? 0;
+        return Math.min(Math.max(0, this._inPlay.damage[line] ?? 0), troopers * this.getDamagePointsPerTrooper());
+    }
+    public setLineDamage(line: number, points: number): void {
+        const lines = this.getSubPlatoons();
+        if (line < 0 || line >= lines.length) return;
+        const damage = lines.map((_troopers, index) => this.getLineDamage(index));
+        damage[line] = savedNumber(points, damage[line], 0, lines[line] * this.getDamagePointsPerTrooper());
+        this._inPlay.damage = damage;
+    }
+    /** Troopers still active on a record sheet line. */
+    public getLineTroopers(line: number): number {
+        const troopers = this.getSubPlatoons()[line] ?? 0;
+        return troopers - Math.floor(this.getLineDamage(line) / this.getDamagePointsPerTrooper());
+    }
+    public setLineTroopers(line: number, troopers: number): void {
+        const full = this.getSubPlatoons()[line] ?? 0;
+        this.setLineDamage(line, (full - savedNumber(troopers, full, 0, full)) * this.getDamagePointsPerTrooper());
+    }
+    /** Damage the line does on a successful attack with the troopers it has left. */
+    public getLineAttackDamage(line: number): number { return this.getDamageForTroopers(this.getLineTroopers(line)); }
+    public getCurrentTroopers(): number { return this.getSubPlatoons().reduce((sum, _troopers, line) => sum + this.getLineTroopers(line), 0); }
+    public isLineDestroyed(line: number): boolean { return this.getLineTroopers(line) <= 0; }
+    public isDestroyed(): boolean { return this.getCurrentTroopers() <= 0; }
+    public isDamaged(): boolean { return this.getSubPlatoons().some((_troopers, line) => this.getLineDamage(line) > 0); }
+    public getStrengthPercentage(): number {
+        const troopers = this.getTroopers();
+        return troopers > 0 ? Math.round(this.getCurrentTroopers() / troopers * 100) : 0;
+    }
+
+    /**
+     * Applies one successful attack to a record sheet line and says what it did. A non-infantry weapon eliminates
+     * troopers by the Non-Infantry Weapon Damage Against Infantry Table, fractions rounded up and doubled against
+     * mechanized infantry; a burst-fire, infantry or heat-effect attack applies its damage point for point. Either
+     * is doubled against a platoon in Clear terrain (TW pp.216-217). Modifiers apply in the order the books give
+     * them (user ruling, 2026-10-07): Clear terrain (TW p.216), mechanized infantry (TW p.217), then infantry
+     * armor's damage divisor (TO:AUE p.129).
+     */
+    public resolveAttack(line: number, kind: InfantryAttackKind, damage: number, clearTerrain: boolean = false): string[] {
+        const lines = this.getSubPlatoons();
+        const attack = INFANTRY_ATTACK_KINDS.find((item) => item.tag === kind);
+        if (!attack || line < 0 || line >= lines.length) return [];
+        const value = savedNumber(damage, 0, 0, INFANTRY_MAX_ATTACK_DAMAGE);
+        const perTrooper = this.getDamagePointsPerTrooper();
+        const log: string[] = [];
+        let points: number;
+        if (attack.nonInfantryWeapon) {
+            let troopers: number;
+            if (kind === "cluster-ballistic") troopers = Math.ceil(value / 10) + 1;
+            else if (kind === "pulse") troopers = Math.ceil(value / 10) + 2;
+            else if (kind === "cluster-missile") troopers = Math.ceil(value / 5);
+            else if (kind === "area-effect") troopers = value * 2;
+            else troopers = Math.ceil(value / 10);
+            if (value <= 0) troopers = 0;
+            log.push(`${attack.name}, Damage Value ${value}: ${attack.formula} = ${troopers} ${troopers === 1 ? "trooper" : "troopers"} hit`);
+            if (clearTerrain && troopers > 0) {
+                troopers *= 2;
+                log.push(`Clear terrain: doubled to ${troopers}`);
+            }
+            if (this.isMechanized() && troopers > 0) {
+                troopers *= 2;
+                log.push(`Mechanized infantry: doubled to ${troopers}`);
+            }
+            if (this._armor && this.getDamageDivisor() !== 1 && troopers > 0) {
+                troopers = Math.ceil(troopers / this.getDamageDivisor() - 1e-9);
+                log.push(`${this._armor.name}, damage divisor ${this.getDamageDivisor()}: ${troopers}`);
+            }
+            points = troopers * perTrooper;
+        } else {
+            points = value;
+            log.push(`${attack.name}: ${value} damage`);
+            if (clearTerrain && points > 0) {
+                points *= 2;
+                log.push(`Clear terrain: doubled to ${points}`);
+            }
+            if (this.isMechanized() && value > 0) log.push("Mechanized infantry: each trooper takes 2 points to eliminate");
+            if (this._armor && this.getDamageDivisor() !== 1 && points > 0) {
+                points = Math.ceil(points / this.getDamageDivisor() - 1e-9);
+                log.push(`${this._armor.name}, damage divisor ${this.getDamageDivisor()}: ${points}`);
+            }
+        }
+        const before = this.getLineTroopers(line);
+        this.setLineDamage(line, this.getLineDamage(line) + points);
+        const after = this.getLineTroopers(line);
+        log.push(`${before - after} ${before - after === 1 ? "trooper" : "troopers"} eliminated: ${after} of ${lines[line]} remain`);
+        if (after <= 0) log.push(lines.length > 1 ? `Sub-platoon ${line + 1} is destroyed` : "The platoon is destroyed");
+        return log;
+    }
+
+    // Saving
+
+    public export(noInPlayVariables: boolean = false): IInfantryPlatoonExport {
+        const inPlay = noInPlayVariables || !this.isDamaged() ? undefined : { damage: this.getSubPlatoons().map((_troopers, line) => this.getLineDamage(line)) };
+        return {
+            ...(inPlay ? { inPlay } : {}),
+            uuid: this._uuid,
+            lastUpdated: this.lastUpdated.toISOString(),
+            name: this._name,
+            techBase: this._techBase,
+            formation: this._formation.tag,
+            era: this._era.tag,
+            motive: this._motive.tag,
+            squadSize: this._squadSize,
+            squads: this._squads,
+            primaryWeapon: this._primary.tag,
+            secondaryWeapon: this._secondary ? this._secondary.tag : "",
+            secondaryPerSquad: this.getSecondaryPerSquad(),
+            ...(this._armor ? { armor: this._armor.tag } : {}),
+            antiMechKit: this._antiMechKit,
+            gunnery: this._gunnery,
+            antiMech: this._antiMech,
+        };
+    }
+
+    public exportJSON(): string { return JSON.stringify(this.export()); }
+
+    /** Reads a saved platoon one field at a time; anything unusable falls back to a default and is reported. */
+    public importJSON(json: string): boolean {
+        this._importIssues = [];
+        let raw: unknown;
+        try {
+            raw = JSON.parse(json);
+        } catch {
+            this._importIssues.push("The saved platoon could not be read");
+            return false;
+        }
+        if (!isPlainObject(raw)) {
+            this._importIssues.push("The saved platoon could not be read");
+            return false;
+        }
+
+        const uuid = savedString(raw.uuid);
+        if (/^[0-9a-zA-Z-]{8,64}$/.test(uuid)) this._uuid = uuid;
+        const updated = new Date(savedString(raw.lastUpdated));
+        if (!Number.isNaN(updated.getTime())) this.lastUpdated = updated;
+        this.setName(savedString(raw.name));
+
+        this._techBase = raw.techBase === "clan" ? "clan" : "is";
+        const formation = INFANTRY_FORMATIONS.find((item) => item.tag === raw.formation && item.techBase === this._techBase);
+        if (!formation && raw.formation !== undefined) this._importIssues.push(`Unknown formation '${savedString(raw.formation).slice(0, 60)}': using ${this.getAvailableFormations()[0].name}`);
+        this._formation = formation ?? this.getAvailableFormations()[0];
+        this._era = latestEra(this._techBase);
+        if (raw.era !== undefined && !this.setEra(savedString(raw.era))) this._importIssues.push(`Unknown era '${savedString(raw.era).slice(0, 60)}': using ${this._era.name}`);
+        const motive = INFANTRY_MOTIVE_TYPES.find((item) => item.tag === raw.motive);
+        if (!motive && raw.motive !== undefined) this._importIssues.push(`Unknown motive type '${savedString(raw.motive).slice(0, 60)}': using Foot`);
+        this._motive = motive ?? INFANTRY_MOTIVE_TYPES[0];
+
+        const [formationSquadSize, formationSquads] = this._formation.sizes[this._motive.tag];
+        this._squadSize = savedNumber(raw.squadSize, formationSquadSize, 1, this._motive.maxSquadSize);
+        this._squads = savedNumber(raw.squads, formationSquads, 1, INFANTRY_MAX_SQUADS);
+        if (typeof raw.squadSize === "number" && raw.squadSize !== this._squadSize) this._importIssues.push(`Squad size set to ${this._squadSize}`);
+        if (typeof raw.squads === "number" && raw.squads !== this._squads) this._importIssues.push(`Squads set to ${this._squads}`);
+
+        this._primary = findInfantryWeapon(DEFAULT_PRIMARY) ?? infantryWeapons[0];
+        this._secondary = null;
+        this._secondaryPerSquad = 0;
+        const primaryTag = savedString(raw.primaryWeapon);
+        if (primaryTag && !this.setPrimaryWeapon(primaryTag)) {
+            this._clampWeapons();
+            this._importIssues.push(`Primary weapon '${primaryTag.slice(0, 60)}' cannot be carried: using ${this._primary.name}`);
+        } else {
+            this._clampWeapons();
+        }
+        const secondaryTag = savedString(raw.secondaryWeapon);
+        const perSquad = savedNumber(raw.secondaryPerSquad, 0, 0, INFANTRY_MAX_SECONDARY_PER_SQUAD);
+        if (secondaryTag && perSquad > 0) {
+            if (this.setSecondaryWeapon(secondaryTag)) {
+                this.setSecondaryPerSquad(perSquad);
+                if (this._secondaryPerSquad !== perSquad) this._importIssues.push(`Secondary weapons per squad set to ${this._secondaryPerSquad}`);
+            } else {
+                this._importIssues.push(`Secondary weapon '${secondaryTag.slice(0, 60)}' cannot be carried: removed`);
+            }
+        }
+
+        this._armor = null;
+        const armorTag = savedString(raw.armor);
+        if (armorTag && !this.setArmor(armorTag)) this._importIssues.push(`Infantry armor '${armorTag.slice(0, 60)}' cannot be worn: removed`);
+
+        this._antiMechKit = raw.antiMechKit === true && !this.isMechanized();
+        this._gunnery = savedNumber(raw.gunnery, 4, 0, 8);
+        this._antiMech = savedNumber(raw.antiMech, 5, 0, 8);
+
+        this._inPlay = { damage: [] };
+        if (isPlainObject(raw.inPlay) && Array.isArray(raw.inPlay.damage)) {
+            const saved = raw.inPlay.damage;
+            this.getSubPlatoons().forEach((_troopers, line) => this.setLineDamage(line, savedNumber(saved[line], 0, 0, INFANTRY_MAX_ATTACK_DAMAGE)));
+        }
+        return true;
+    }
+}

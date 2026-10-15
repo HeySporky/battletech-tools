@@ -119,9 +119,10 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 onChange={this.setWalkingMP}
                               >
                                 <option value={0}>-Select Walking Speed-</option>
-                                {[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map( (option) => {
-                                // Engine ratings above 400 (Large engines) are Experimental only.
-                                const overMax = option > (this.props.appGlobals.currentBattleMech?.getMaxWalkSpeed(this.props.appGlobals.appSettings.mechRulesFilter) ?? 20);
+                                {Array.from({ length: Math.max(20, this.props.appGlobals.currentBattleMech?.getMaxWalkSpeed(this.props.appGlobals.appSettings.mechRulesFilter) ?? 20) }, (_, index) => index + 1).map( (option) => {
+                                // Engine ratings above 400 (Large engines) are Experimental only; the Engine Table starts at 10.
+                                const overMax = option > (this.props.appGlobals.currentBattleMech?.getMaxWalkSpeed(this.props.appGlobals.appSettings.mechRulesFilter) ?? 20)
+                                  || option < (this.props.appGlobals.currentBattleMech?.getMinWalkSpeed() ?? 1);
                                 if( overMax && option !== this.props.appGlobals.currentBattleMech?.getWalkSpeed() ) {
                                   return <React.Fragment key={option}></React.Fragment>;
                                 }
@@ -236,21 +237,11 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                 value={this.props.appGlobals.currentBattleMech.getCockpitType().tag}
                                 onChange={this.setCockpitType}
                               >
-                                {this.props.appGlobals.currentBattleMech.getAvailableCockpits(this.props.appGlobals.appSettings.mechRulesFilter).map( (cockpitData, cockpitIndex) => {
-                                  if( cockpitData.available ) {
-                                    return (
-                                      <option key={cockpitIndex} value={cockpitData.tag}>{cockpitData.name}{cockpitData.availableAsPrototype ? " (Prototype)" : ""}</option>
-                                    )
-                                  } else {
-                                    if( this.props.appGlobals.currentBattleMech &&  !this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment) {
-                                      return (
-                                        <option disabled={true} key={cockpitIndex} value={cockpitData.tag}>{cockpitData.name}</option>
-                                      )
-                                    } else {
-                                      return <React.Fragment key={cockpitIndex}></React.Fragment>
-                                    }
-                                  }
-                              })}
+                                {this.props.appGlobals.currentBattleMech.getAvailableCockpits(this.props.appGlobals.appSettings.mechRulesFilter)
+                                  .filter( (cockpitData) => isOptionShown(cockpitData, cockpitData.tag === this.props.appGlobals.currentBattleMech?.getCockpitType().tag) )
+                                  .map( (cockpitData, cockpitIndex) => (
+                                    <option key={cockpitIndex} value={cockpitData.tag}>{availabilityOptionLabel(cockpitData)}</option>
+                                ))}
                               </select>
                             </label>
 

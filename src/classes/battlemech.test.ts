@@ -4969,7 +4969,9 @@ describe("Batch 28 unit slot columns of the Weapons and Equipment Tables (TM pp.
             [mechUniversalEquipment, "vehicle-flamer", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [mechClanEquipmentEnergy, "medium-heavy-laser", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [mechClanEquipmentEnergy, "large-heavy-laser", { space: { battlemech: 3, protomech: 1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [mechClanEquipmentEnergy, "plasma-cannon", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            // The table's ProtoMech column reads NA, but the ProtoMech Ammunition Weight Table lists the plasma cannon
+            // (TM p.88) and the Boggart mounts one (Wars of Reaving): entered as mountable, with MegaMek.
+            [mechClanEquipmentEnergy, "plasma-cannon", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [mechClanEquipmentMissile, "atm-3", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [mechClanEquipmentMissile, "atm-6", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [mechClanEquipmentMissile, "atm-9", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],

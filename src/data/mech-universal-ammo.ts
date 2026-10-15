@@ -37,7 +37,15 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 96,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ART-LT"] },
-        prototype: 2445
+        prototype: 2445,
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 5, cbills: 10000, notes: "Reloads cost 10,000 a ton (BTM p.86)." },
+            "battletech-compendium": null,
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, weight: 1, shotsPerTon: 5, cbills: 10000 },
+            "master-rules": { book: "BMR", page: 116, weight: 1, shotsPerTon: 5, cbills: 10000 },
+            "master-rules-revised": { book: "BMR(R)", page: 122, weight: 1, shotsPerTon: 5, cbills: 10000 },
+        },
     },
     {
         isAmmo: true,
@@ -92,7 +100,22 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 231,
         alphaStrike: { specialAbility: ["LRM#/#/#/#", "IF#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2295
+        prototype: 2295,
+        introducedInEdition: "battledroids",
+        editionStats: {
+            battledroids: {
+                book: "BD", page: 20, weight: 1, criticals: 1,
+                notes: "Shots per ton by launcher: 24 (5 rack), 12 (10 rack), 8 (15 rack), 6 (20 rack). At least 1 ton for each launcher (BD p.25). One critical box per ton (BD pp.16-17). An exploding pack does 1 point per missile left (BD p.13).",
+            },
+            "battletech-2nd-edition": null,
+            "battletech-manual": { book: "BTM", page: 87, weight: 1, cbills: 30000, notes: "Shots per ton by launcher: 24 (5-pack), 12 (10-pack), 8 (15-pack), 6 (20-pack). At least one ton for each launcher (BTM p.79). Exploding ammunition does 1 point for every missile left (BTM p.24). Reloads cost 30,000 a ton (BTM p.86)." },
+            "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, notes: "Shots per ton by launcher: 24 (LRM-5), 12 (LRM-10), 8 (LRM-15), 6 (LRM-20). At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, weight: 1, cbills: 30000, notes: "Shots per ton by launcher: 24 (LRM 5), 12 (LRM 10), 8 (LRM 15), 6 (LRM 20). At least 1 ton for each class of missile launcher or ballistic weapon, none for one-shot weapons (BTC:RoW p.101); each ton takes 1 critical slot, in any location (BTC:RoW p.102)." },
+            "battletech-4th-edition": { book: "BT4", page: 45, weight: 1, notes: "Shots per ton by launcher: 24 (LRM 5), 12 (LRM 10), 8 (LRM 15), 6 (LRM 20). At least one ton for each class of missile launcher or ballistic weapon, none for one-shot weapons (BT4 p.43); each ton takes 1 critical slot, in any location (BT4 p.44). No price is printed." },
+            "master-rules": { book: "BMR", page: 115, weight: 1, cbills: 30000, notes: "Shots per ton by launcher: 24 (LRM 5), 12 (LRM 10), 8 (LRM 15), 6 (LRM 20). At least 1 ton for each class of launcher or ballistic weapon; none for one-shot weapons (BMR p.114)." },
+            "master-rules-revised": { book: "BMR(R)", page: 121, weight: 1, cbills: 30000, notes: "Shots per ton by launcher: 24 (LRM 5), 12 (LRM 10), 8 (LRM 15), 6 (LRM 20). At least 1 ton for each class of launcher or ballistic weapon; none for one-shot weapons (BMR(R) p.120)." },
+        },
     },
     {
         isAmmo: true,
@@ -119,6 +142,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 182,
         alphaStrike: { specialAbility: ["HT1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Ignites terrain hexes and increases enemy thermal scales"] },
+        introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 130, name: "Incendiary LRM", weight: 1, cbills: 45000, notes: "Starts fires on 5+ instead of 9+ and otherwise works as normal LRMs. A ton may combine incendiary with one other munition, such as semiguided or Swarm, never Thunder or flare: the launcher then rolls on the Missile Hits Table as one size smaller, so an LRM-5 cannot. The carrier makes the extra ammunition-explosion rolls of the Inferno rules (BMR p.130). 1.5 x normal on the price list (BMR p.138). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR p.130)." }, "master-rules-revised": { book: "BMR(R)", page: 141, name: "Incendiary LRM", weight: 1, cbills: 45000, notes: "Starts fires on 5+ instead of 9+ and otherwise works as normal LRMs. A ton may combine incendiary with one other munition, such as semiguided or Swarm, never Thunder or flare: the launcher then rolls on the Missile Hits Table as one size smaller, so an LRM-5 cannot. The carrier makes the extra ammunition-explosion rolls of the Inferno rules (BMR(R) p.141). 1.5 x normal on the price list (BMR(R) p.151). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR(R) p.141)." } },
         prototype: 2341
     },
     {
@@ -172,7 +196,23 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         techRating: "b",
         book: "TM",
         page: 228,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "battledroids",
+        editionStats: {
+            battledroids: {
+                book: "BD", page: 20, name: "M.G. Rounds", weight: 1, criticals: 1, shotsPerTon: 200,
+                notes: "At least 1 ton for each ballistic weapon (BD p.25). One critical box per ton (BD pp.16-17). An exploding rack has a Damage Value of 2 (BD p.13).",
+                errata: "The worked example on BD p.25 gives 1 ton of machine gun ammunition as 100 shots. Entered as 200: the Weapons Table (BD pp.20, 27) and every record listing (BD pp.16-17) print 200.",
+            },
+            "battletech-2nd-edition": null,
+            "battletech-manual": { book: "BTM", page: 87, name: "MG ammo", weight: 1, shotsPerTon: 200, cbills: 1000, notes: "May be bought in half-ton lots, alone among ammunition (BTM p.79). The worked example now gives one ton as 200 shots (BTM p.79), and a full ton explodes for 400 points (BTM p.24). Reloads cost 1,000 a ton (BTM p.86)." },
+            "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, shotsPerTon: 200, notes: "At least one-half ton for machine guns; it can be acquired in half-ton lots, and a critical slot can accommodate a full ton (BT3 p.43). No price is printed." },
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, weight: 1, shotsPerTon: 200, cbills: 1000, notes: "At least 1/2 ton for machine guns (BTC:RoW p.101); it can be acquired in half-ton lots, and a critical slot can accommodate a full ton (BTC:RoW p.102)." },
+            "battletech-4th-edition": { book: "BT4", page: 45, weight: 1, shotsPerTon: 200, notes: "At least 1/2 ton for machine guns (BT4 p.43); it can be acquired in half-ton lots, and a critical slot can accommodate a full ton (BT4 p.44). No price is printed." },
+            "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 200, cbills: 1000, notes: "At least 1/2 ton for machine guns (BMR p.114)." },
+            "master-rules-revised": { book: "BMR(R)", page: 121, weight: 1, shotsPerTon: 200, cbills: 1000, notes: "At least 1/2 ton for machine guns (BMR(R) p.120)." },
+        },
     },
     {
         isAmmo: true,
@@ -198,7 +238,15 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         techRating: "c",
         book: "TO:AUE",
         page: 96,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ART-S"] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ART-S"] },
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 10, cbills: 6000, notes: "Reloads cost 6,000 a ton (BTM p.86)." },
+            "battletech-compendium": null,
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 106, weight: 1, shotsPerTon: 10, cbills: 6000 },
+            "master-rules": { book: "BMR", page: 116, weight: 1, shotsPerTon: 10, cbills: 6000 },
+            "master-rules-revised": { book: "BMR(R)", page: 122, weight: 1, shotsPerTon: 10, cbills: 6000 },
+        },
     },
     {
         isAmmo: true,
@@ -253,7 +301,22 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TM",
         page: 231,
         alphaStrike: { specialAbility: ["SRM#/#/#"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2365
+        prototype: 2365,
+        introducedInEdition: "battledroids",
+        editionStats: {
+            battledroids: {
+                book: "BD", page: 20, weight: 1, criticals: 1,
+                notes: "Shots per ton by launcher: 50 (2 rack), 25 (4 rack), 15 (6 rack). At least 1 ton for each launcher (BD p.25). One critical box per ton (BD pp.16-17). An exploding pack does 2 points per missile left (BD p.13).",
+            },
+            "battletech-2nd-edition": null,
+            "battletech-manual": { book: "BTM", page: 87, weight: 1, cbills: 27000, notes: "Shots per ton by launcher: 50 (2-pack), 25 (4-pack), 15 (6-pack). At least one ton for each launcher (BTM p.79). Exploding ammunition does 2 points for every missile left: 200 for a full ton of SRM 2 (BTM p.24). Reloads cost 27,000 a ton (BTM p.86)." },
+            "battletech-compendium": null,
+            "battletech-3rd-edition": { book: "BT3", page: 44, weight: 1, notes: "Shots per ton by launcher: 50 (SRM-2), 25 (SRM-4), 15 (SRM-6). At least one ton for each class of missile launcher or ballistic weapon; each ton takes one critical hit slot, in any location (BT3 p.43). No price is printed." },
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, weight: 1, cbills: 27000, notes: "Shots per ton by launcher: 50 (SRM 2), 25 (SRM 4), 15 (SRM 6). At least 1 ton for each class of missile launcher or ballistic weapon, none for one-shot weapons (BTC:RoW p.101); each ton takes 1 critical slot, in any location (BTC:RoW p.102)." },
+            "battletech-4th-edition": { book: "BT4", page: 45, weight: 1, notes: "Shots per ton by launcher: 50 (SRM 2), 25 (SRM 4), 15 (SRM 6). At least one ton for each class of missile launcher or ballistic weapon, none for one-shot weapons (BT4 p.43); each ton takes 1 critical slot, in any location (BT4 p.44). No price is printed." },
+            "master-rules": { book: "BMR", page: 115, weight: 1, cbills: 27000, notes: "Shots per ton by launcher: 50 (SRM 2), 25 (SRM 4), 15 (SRM 6). At least 1 ton for each class of launcher or ballistic weapon; none for one-shot weapons (BMR p.114)." },
+            "master-rules-revised": { book: "BMR(R)", page: 122, weight: 1, cbills: 27000, notes: "Shots per ton by launcher: 50 (SRM 2), 25 (SRM 4), 15 (SRM 6). At least 1 ton for each class of launcher or ballistic weapon; none for one-shot weapons (BMR(R) p.120)." },
+        },
     },
     {
         isAmmo: true,
@@ -308,7 +371,15 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TW",
         page: 141,
         alphaStrike: { specialAbility: ["HT1"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Max +6 heat per turn limit rules apply"] },
-        prototype: 2370
+        prototype: 2370,
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 45, name: "Inferno", weight: 1, cbills: 13500, notes: "Optional rule. Fired from a 2-pack only, with the SRM 2's hit chances: any vehicle with an SRM 2-pack, SRM infantry, and 'Mechs if all players agree. A hit adds 6 heat to a 'Mech for three turns and sets the hex on fire; only one missile counts. Carried Infernos risk an ammunition explosion from heat level 10, and add 30 heat if they explode (BTM p.45). Reloads cost 13,500 a ton (BTM p.86)." },
+            "battletech-compendium": { book: "BTC", page: 60, name: "Inferno", weight: 1, cbills: 13500, notes: "Optional rule. Fired from a 2-pack only, with the SRM 2's ranges and hit chances, by any vehicle with an SRM 2 or Streak SRM 2 and by SRM infantry; BattleMechs carrying them make extra ammunition explosion rolls at heat 10 (4+), 14 (6+), 19 (8+), 23 (10+) and 28 (12). A hit adds 6 heat to a BattleMech for three turns and sets the hex on fire; a vehicle hit is destroyed unless it rolls 8+ in each of the three turns. Exploding Infernos add 30 heat (BTC p.60). 13,500 C-bills a ton (BTC p.129)." },
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 117, name: "Inferno", weight: 1, cbills: 13500, notes: "Used against BattleMechs and vehicles, never infantry, and only if all players agree, with the Fire rules (BTC:RoW p.84). SRM-equipped infantry and any vehicle with an SRM-2 or a Streak SRM-2 can carry an inferno 2-pack instead of standard missiles; Clan battle armor cannot. A 'Mech hit gains 6 heat points in each of 3 Heat Phases; a vehicle must roll 8+ in each of those turns or be destroyed; a miss sets the hex on fire. A carrier makes extra ammunition-explosion Avoid Rolls at heat 10 (4+), 14 (6+), 19 (8+), 23 (10+) and 28 (12); an explosion adds 30 heat points to the SRM-2 explosion damage (BTC:RoW pp.117-118). 13,500 C-bills a ton, on the Inferno row under SRM 2 (BTC:RoW p.124)." },
+            "master-rules": { book: "BMR", page: 131, name: "Inferno SRM", weight: 1, cbills: 13500, notes: "All players must agree to their use, with the Fire rules (BMR p.74). Used against BattleMechs and vehicles, never directly against infantry: a 'Mech hit gains 6 heat points in each of 3 Heat Phases; a vehicle must roll 8+ in each of those turns or be destroyed; the target hex burns whether or not the attack hits. A carrier makes extra ammunition-explosion Avoid rolls at heat 10 (4+), 14 (6+), 19 (8+), 23 (10+) and 28 (12); an explosion adds 30 heat points to the SRM 2 explosion damage (BMR p.131). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR p.130)." },
+            "master-rules-revised": { book: "BMR(R)", page: 141, name: "Inferno SRM", weight: 1, cbills: 13500, notes: "All players must agree to their use, with the Fire rules (BMR(R) p.79). Used against BattleMechs and vehicles, never directly against infantry: a 'Mech hit gains 6 heat points in each of 3 Heat Phases; a vehicle must roll 8+ in each of those turns or be destroyed; the target hex burns whether or not the attack hits. A carrier makes extra ammunition-explosion Avoid rolls at heat 10 (4+), 14 (6+), 19 (8+), 23 (10+) and 28 (12); an explosion adds 30 heat points to the SRM 2 explosion damage (BMR(R) pp.141-142). Special munitions go in standard LRM or SRM launchers only, in full-ton lots, and a launcher combines no more than one special munition or property (BMR(R) p.141)." },
+        },
     },
     {
         isAmmo: true,
@@ -415,7 +486,15 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         techRating: "b",
         book: "TO:AUE",
         page: 96,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ART-T"] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["ART-T"] },
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 87, weight: 1, shotsPerTon: 20, cbills: 4500, notes: "Reloads cost 4,500 a ton (BTM p.86)." },
+            "battletech-compendium": null,
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 106, weight: 1, shotsPerTon: 20, cbills: 4500 },
+            "master-rules": { book: "BMR", page: 116, weight: 1, shotsPerTon: 20, cbills: 4500 },
+            "master-rules-revised": { book: "BMR(R)", page: 122, weight: 1, shotsPerTon: 20, cbills: 4500 },
+        },
     },
     {
         isAmmo: true,
@@ -495,7 +574,16 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         techRating: "b",
         book: "TM",
         page: 218,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 45, weight: 1, shotsPerTon: 20, notes: "20 shots a ton for the conventional Vehicle Flamer (BTM p.45). No price is printed." },
+            "battletech-compendium": null,
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, weight: 1, shotsPerTon: 20, cbills: 1000, notes: "20 in the Ammo column of the Flamer (Vehicle) row on both tables (BTC:RoW pp.104, 105). No price is printed (BTC:RoW p.124). The 1,000 entered is MegaMek's (user ruling, 2026-10-08: MegaMek's price where the book prints none); BMR p.138 later prints the same figure." },
+            "battletech-4th-edition": { book: "BT4", page: 45, weight: 1, shotsPerTon: 20, notes: "20 in the Ammo column of the Flamer (Vehicle) row (BT4 p.45). No price is printed." },
+            "master-rules": { book: "BMR", page: 115, weight: 1, shotsPerTon: 20, cbills: 1000 },
+            "master-rules-revised": { book: "BMR(R)", page: 121, weight: 1, shotsPerTon: 20, cbills: 1000 },
+        },
     },
     {
         isAmmo: true,
@@ -760,7 +848,15 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 168,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Creates a smoke screen"] },
-        prototype: 2445
+        prototype: 2445,
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 46, notes: "Smoke Rounds: artillery may fire smoke instead of conventional rounds. The target hex, and the adjacent hexes if the piece damages them, are smoked for three turns: +2 to hit into or out of them, one level higher, line of sight blocked (BTM p.46). No separate weight, shots or price are printed." },
+            "battletech-compendium": { book: "BTC", page: 49, notes: "Smoke Rounds: off-board artillery may fire smoke instead of conventional rounds. The target hex, and the adjacent hexes if the piece damages them, fill with smoke until the End Phase of the third turn: +2 to hit into or out of them, one level high, line of sight blocked through them (BTC p.49). New: the price list has a Smoke Round row, with \"= Conventional\" in the ammunition column (BTC p.129), read here as the conventional round's price; no figure is entered." },
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 80, notes: "Off-board artillery may fire smoke rounds instead of conventional rounds: the target hex, and the adjacent hexes if the piece normally damages them, fill with smoke, which acts as heavy woods for line of sight and to-hit modifiers, rises 1 level and disperses in the End Phase of the third turn after it lands (BTC:RoW p.80). No weight, shot count or price is printed: the price list has no smoke round row (BTC:RoW p.124)." },
+            "master-rules": { book: "BMR", page: 71, notes: "Off-board artillery may fire smoke rounds: a hit fills the target hex and the adjacent hexes with smoke, which acts as Heavy Woods for line of sight and to-hit modifiers and dissipates in the End Phase of the third turn after it lands (BMR p.71). No price is printed." },
+            "master-rules-revised": { book: "BMR(R)", page: 76, notes: "Off-board artillery may fire smoke rounds: a hit fills the target hex and the adjacent hexes with smoke, which acts as Heavy Woods for line of sight and to-hit modifiers and dissipates in the End Phase of the third turn after it lands (BMR(R) p.76). No price is printed." },
+        },
     },
     {
         isAmmo: true,
@@ -838,7 +934,15 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         techRating: "e",
         book: "TO:AUE",
         page: 168,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Creates a smoke screen"] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Creates a smoke screen"] },
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 46, notes: "Smoke Rounds: artillery may fire smoke instead of conventional rounds. The target hex, and the adjacent hexes if the piece damages them, are smoked for three turns: +2 to hit into or out of them, one level higher, line of sight blocked (BTM p.46). No separate weight, shots or price are printed." },
+            "battletech-compendium": { book: "BTC", page: 49, notes: "Smoke Rounds: off-board artillery may fire smoke instead of conventional rounds. The target hex, and the adjacent hexes if the piece damages them, fill with smoke until the End Phase of the third turn: +2 to hit into or out of them, one level high, line of sight blocked through them (BTC p.49). New: the price list has a Smoke Round row, with \"= Conventional\" in the ammunition column (BTC p.129), read here as the conventional round's price; no figure is entered." },
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 80, notes: "Off-board artillery may fire smoke rounds instead of conventional rounds: the target hex, and the adjacent hexes if the piece normally damages them, fill with smoke, which acts as heavy woods for line of sight and to-hit modifiers, rises 1 level and disperses in the End Phase of the third turn after it lands (BTC:RoW p.80). No weight, shot count or price is printed: the price list has no smoke round row (BTC:RoW p.124)." },
+            "master-rules": { book: "BMR", page: 71, notes: "Off-board artillery may fire smoke rounds: a hit fills the target hex and the adjacent hexes with smoke, which acts as Heavy Woods for line of sight and to-hit modifiers and dissipates in the End Phase of the third turn after it lands (BMR p.71). No price is printed." },
+            "master-rules-revised": { book: "BMR(R)", page: 76, notes: "Off-board artillery may fire smoke rounds: a hit fills the target hex and the adjacent hexes with smoke, which acts as Heavy Woods for line of sight and to-hit modifiers and dissipates in the End Phase of the third turn after it lands (BMR(R) p.76). No price is printed." },
+        },
     },
     {
         isAmmo: true,
@@ -916,7 +1020,15 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         techRating: "e",
         book: "TO:AUE",
         page: 168,
-        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Creates a smoke screen"] }
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Creates a smoke screen"] },
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 46, notes: "Smoke Rounds: artillery may fire smoke instead of conventional rounds. The target hex, and the adjacent hexes if the piece damages them, are smoked for three turns: +2 to hit into or out of them, one level higher, line of sight blocked (BTM p.46). No separate weight, shots or price are printed." },
+            "battletech-compendium": { book: "BTC", page: 49, notes: "Smoke Rounds: off-board artillery may fire smoke instead of conventional rounds. The target hex, and the adjacent hexes if the piece damages them, fill with smoke until the End Phase of the third turn: +2 to hit into or out of them, one level high, line of sight blocked through them (BTC p.49). New: the price list has a Smoke Round row, with \"= Conventional\" in the ammunition column (BTC p.129), read here as the conventional round's price; no figure is entered." },
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 80, notes: "Off-board artillery may fire smoke rounds instead of conventional rounds: the target hex, and the adjacent hexes if the piece normally damages them, fill with smoke, which acts as heavy woods for line of sight and to-hit modifiers, rises 1 level and disperses in the End Phase of the third turn after it lands (BTC:RoW p.80). No weight, shot count or price is printed: the price list has no smoke round row (BTC:RoW p.124)." },
+            "master-rules": { book: "BMR", page: 71, notes: "Off-board artillery may fire smoke rounds: a hit fills the target hex and the adjacent hexes with smoke, which acts as Heavy Woods for line of sight and to-hit modifiers and dissipates in the End Phase of the third turn after it lands (BMR p.71). No price is printed." },
+            "master-rules-revised": { book: "BMR(R)", page: 76, notes: "Off-board artillery may fire smoke rounds: a hit fills the target hex and the adjacent hexes with smoke, which acts as Heavy Woods for line of sight and to-hit modifiers and dissipates in the End Phase of the third turn after it lands (BMR(R) p.76). No price is printed." },
+        },
     },
     {
         isAmmo: true,
@@ -1193,7 +1305,13 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         damage: 10,
         bombBaySlots: 1,
         rulesLevel: 2,
-        notes: "Ground attack: 10 damage to the target hex. Loaded into bomb bays (LAM) or bomb slots; one bomb per record. Via MegaMek; provisional."
+        notes: "Ground attack: 10 damage to the target hex. Loaded into bomb bays (LAM) or bomb slots; one bomb per record. Via MegaMek; provisional.",
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 68, notes: "Dive Bombing: fighter bombs are rated 10, 20, 40, 60, 80 or 100 points; a hit does the rating to everything in the hex and half to the adjacent hexes, and each bomb costs thrust (Thrust Loss Table) while carried (BTM pp.68-69). No weight or price is printed." },
+            "battletech-compendium": null,
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 73, name: "High Explosive (HE) Bomb", notes: "Aerospace Support, a simplified version of the BattleSpace AeroBattle rules: a fighter carries 1 bomb for each 5 tons of its mass, and every 5 bombs or part thereof add 1 to its Piloting Skill Rolls. Each High Explosive bomb does 10 points of damage to any units in the hex of impact (BTC:RoW p.73). No weight or price is printed." },
+        },
     },
     {
         isAmmo: true,
@@ -1220,6 +1338,7 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         book: "TW",
         page: 246,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        introducedInEdition: "compendium-rules-of-warfare", editionStats: { "compendium-rules-of-warfare": { book: "BTC:RoW", page: 73, name: "Cluster Bomb", notes: "Each cluster bomb does 5 points of damage to each unit in the hex of impact and each unit in the surrounding 6 hexes (BTC:RoW p.73). No weight or price is printed." } },
         damage: 5,
         bombBaySlots: 1,
         rulesLevel: 2,
@@ -1253,7 +1372,13 @@ export const mechUniversalAmmo: IEquipmentItem[] = [
         damage: 5,
         bombBaySlots: 1,
         rulesLevel: 3,
-        notes: "Ground attack; inferno effects. Loaded into bomb bays (LAM) or bomb slots; one bomb per record. Via MegaMek; provisional."
+        notes: "Ground attack; inferno effects. Loaded into bomb bays (LAM) or bomb slots; one bomb per record. Via MegaMek; provisional.",
+        introducedInEdition: "battletech-manual",
+        editionStats: {
+            "battletech-manual": { book: "BTM", page: 69, notes: "Inferno Bombs: no explosive damage; otherwise like a 10-point bomb. Raises heat by 10 in the impact hex and 5 in the adjacent hexes, starts fires, destroys vehicles and infantry in the hex (BTM p.69)." },
+            "battletech-compendium": null,
+            "compendium-rules-of-warfare": { book: "BTC:RoW", page: 73, name: "Inferno Bomb", notes: "One inferno bomb creates a fire in the hex of impact, even in a Clear or Water hex, which burns for 30 turns under the Fire rules (BTC:RoW pp.73, 84). No weight or price is printed." },
+        },
     },
     {
         isAmmo: true,

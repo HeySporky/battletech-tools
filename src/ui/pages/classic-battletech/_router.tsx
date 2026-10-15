@@ -6,6 +6,12 @@ import ClassicBattleTechHome from './home';
 import MechCreatorRouter from './mech-creator/_router';
 import BattleMechRosterRouter from './roster/_router';
 import VehicleCreatorRouter from './vehicle-creator/_router';
+import FighterCreatorRouter from './fighter-creator/_router';
+import InfantryCreatorRouter from './infantry-creator/_router';
+import BattleArmorCreatorRouter from './battle-armor-creator/_router';
+import ProtoMechCreatorRouter from './protomech-creator/_router';
+import SmallCraftCreatorRouter from './small-craft-creator/_router';
+import BuildingCreatorRouter from './building-creator/_router';
 
 import type { JSX } from "react";
 
@@ -29,6 +35,42 @@ export default class ClassicBattleTechRouter extends React.Component<IClassicBat
 
                 <Route path={`vehicle-creator/*`} element={
                     <VehicleCreatorRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`fighter-creator/*`} element={
+                    <FighterCreatorRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`infantry-creator/*`} element={
+                    <InfantryCreatorRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`battle-armor-creator/*`} element={
+                    <BattleArmorCreatorRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`protomech-creator/*`} element={
+                    <ProtoMechCreatorRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`small-craft-creator/*`} element={
+                    <SmallCraftCreatorRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`building-creator/*`} element={
+                    <BuildingCreatorRouter
                         appGlobals={this.props.appGlobals}
                     />
                 }/>

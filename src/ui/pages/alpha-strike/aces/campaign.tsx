@@ -147,7 +147,25 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
 
     componentDidMount = async () => {
         const data = await getAcesCampaigns( this.props.appGlobals.appSettings );
-        const campaigns = data.map( ( entry ) => new AcesCampaign( entry ) );
+        // One campaign that cannot be read must not hide the rest, or pass for "no campaigns".
+        const campaigns: AcesCampaign[] = [];
+        let unreadable = 0;
+        for( const entry of data ) {
+            try {
+                campaigns.push( new AcesCampaign( entry ) );
+            } catch( error ) {
+                console.error("Unable to read a saved Aces campaign", error);
+                unreadable++;
+            }
+        }
+        if( unreadable > 0 ) {
+            this.props.appGlobals.siteAlerts.addAlert(
+                "danger",
+                "Saved Aces Campaign Not Readable",
+                unreadable + " saved Aces campaign" + ( unreadable === 1 ? "" : "s" ) + " could not be read and " + ( unreadable === 1 ? "is" : "are" ) + " not shown. Saving a change here will drop " + ( unreadable === 1 ? "it" : "them" ) + ": make a backup first if you want to keep the data.",
+                "", true, null, 0,
+            );
+        }
         this.setState({
             loaded: true,
             campaigns: campaigns,
@@ -645,7 +663,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                         <input type="text" placeholder="e.g. Scouring Sands" value={campaign.campaignBook} onChange={( e ) => { const value = e.currentTarget.value; this._update( ( c ) => { c.campaignBook = value; } ); }} />
                     </label>
                     <label>Difficulty:{" "}
-                        <select value={campaign.difficulty} onChange={( e ) => { const value = e.currentTarget.value; this._update( ( c ) => { c.difficulty = value; } ); }}>
+                        <select value={campaign.difficulty} onChange={( e ) => { const value = e.currentTarget.value; this._update( ( c ) => { c.difficulty = value; } ); const current = this._getCurrent(); if( current ) { /* the sortie being drafted earns at the new difficulty */ this.setState({ sortie: { ...this.state.sortie, ledgerInput: { ...this.state.sortie.ledgerInput, spPercent: current.getSPPercent() } } }); } }}>
                             {acesDifficultyLevels.map( ( level ) => (
                                 <option key={level.id} value={level.id}>{level.name} ({level.pvModifier > 0 ? "+" : ""}{level.pvModifier}% PV, {level.spPercent}% SP)</option>
                             ) )}

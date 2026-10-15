@@ -2,6 +2,7 @@ import * as React from 'react';
 import Vehicle, { IVehicleCriticalHits, VEHICLE_MAX_SENSOR_HITS, VehicleFollowUpRoll, VehicleMotiveHit, VehicleMovementMode, VehicleTurretLocation } from '../../../../classes/vehicle';
 import { IDamagePerRange, IEquipmentItem } from '../../../../data/data-interfaces';
 import { VehicleAttackDirection } from '../../../../data/vehicle-hit-tables';
+import { IBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../classes/battle-armor-transport';
 import TextSection from '../../../components/text-section';
 import VehicleDiagramSVG from '../../../components/svg/vehicle-diagram-svg';
 import { vehicleName } from './_vehicleGroupTable';
@@ -213,11 +214,13 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const vehicle = this.props.vehicle;
         const modifier = vehicle.getWeaponToHitModifier(weapon);
         const status = vehicle.getWeaponStatus(weapon.uuid);
-        const target = (rangeModifier: number) => modifier === null ? "-" : `${gunnery + modifier + rangeModifier}+`;
+        // A weapon in a side or rear location a mechanized battle armor trooper occupies may not fire (TW p. 226).
+        const blocked = !!this.props.carrierLoad && isCarrierWeaponBlocked(this.props.carrierLoad, weapon);
+        const target = (rangeModifier: number) => modifier === null || blocked ? "-" : `${gunnery + modifier + rangeModifier}+`;
         const range = weapon.range;
         return (
-            <tr key={weapon.uuid} className={status === "ok" && modifier !== null ? "" : "color-red"}>
-                <td>{weapon.name}{weapon.rear ? " (R)" : ""}</td>
+            <tr key={weapon.uuid} className={status === "ok" && modifier !== null && !blocked ? "" : "color-red"}>
+                <td>{weapon.name}{weapon.rear ? " (R)" : ""}{blocked ? <span data-testid="vehicle-weapon-blocked"> (battle armor rides this location)</span> : null}</td>
                 <td className="text-center">{weapon.location ? vehicle.getLocations().find((loc) => loc.tag === weapon.location)?.name ?? weapon.location : "-"}</td>
                 <td className="text-center">{vehicle.describeFiringArc(vehicle.getWeaponFiringArc(weapon))}</td>
                 <td className="text-center">{formatDamage(weapon.damage)}</td>
@@ -645,6 +648,12 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
 
                     <h4>Weapons</h4>
                     {cannotFire ? <p className="color-red"><strong>Cannot fire:</strong> {cannotFire}</p> : null}
+                    {this.props.carrierLoad && this.props.carrierLoad.riders.length > 0 ? (
+                        <div className="smaller-text" data-testid="vehicle-carrier-notes">
+                            {this.props.carrierLoad.issues.map((issue, index) => <p key={`issue-${index}`} className="color-red">{issue}</p>)}
+                            {this.props.carrierLoad.notes.map((note, index) => <p key={index}>{note}</p>)}
+                        </div>
+                    ) : null}
                     <table className="table">
                         <thead>
                             <tr>
@@ -680,6 +689,8 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
 
 interface IVehiclePlayPanelProps {
     vehicle: Vehicle;
+    /** Mechanized battle armor riding the vehicle, and what it stops the vehicle doing. */
+    carrierLoad?: IBattleArmorCarrierLoad;
     onChange: (vehicle: Vehicle) => void;
 }
 

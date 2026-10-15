@@ -8,9 +8,15 @@ import { BattleMech, IBattleMechExport } from "../classes/battlemech";
 import { BattleMechForce, ICBTForceExport } from "../classes/battlemech-force";
 import { BattleMechGroup, ICBTGroupExport } from "../classes/battlemech-group";
 import Vehicle, { IVehicleExport } from "../classes/vehicle";
+import AerospaceFighter, { IAerospaceFighterExport } from "../classes/aerospace-fighter";
+import InfantryPlatoon, { IInfantryPlatoonExport } from "../classes/infantry-platoon";
+import BattleArmor, { IBattleArmorExport } from "../classes/battle-armor";
+import ProtoMech, { IProtoMechExport } from "../classes/protomech";
+import SmallCraft, { ISmallCraftExport } from "../classes/small-craft";
+import Building, { IBuildingExport } from "../classes/building";
 import { CONST_SITE_TITLE } from '../configVars';
 import { registerLocalCustomContent } from "../data/custom-content-local";
-import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentVehicle, getFavoriteASGroups, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentVehicle, saveFavoriteASGroups, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
+import { getAppSettings, getBattleMechSaves, getCurrentASForce, getCurrentBattleMech, getCurrentCBTForce, getCurrentFighter, getBuildingSaves, getCurrentBuilding, getCurrentInfantry, getCurrentBattleArmor, getBattleArmorSaves, saveBattleArmorSaves, saveCurrentBattleArmor, getCurrentProtoMech, getProtoMechSaves, saveProtoMechSaves, saveCurrentProtoMech, getCurrentSmallCraft, getSmallCraftSaves, saveSmallCraftSaves, saveCurrentSmallCraft, getCurrentVehicle, getFavoriteASGroups, getFighterSaves, getInfantrySaves, getFavoriteCBTGroups, getVehicleSaves, onStorageSaveError, saveAppSettings, saveBattleMechSaves, saveCurrentASForce, saveCurrentBattleMech, saveCurrentCBTForce, saveCurrentFighter, saveBuildingSaves, saveCurrentBuilding, saveCurrentInfantry, saveCurrentVehicle, saveFavoriteASGroups, saveFighterSaves, saveInfantrySaves, saveFavoriteASGroupsObjects, saveFavoriteCBTGroupsObjects, saveVehicleSaves } from "../dataSaves";
 import { callAnalytics } from "../jdgAnalytics";
 import { generateUUID } from "../utils/generateUUID";
 import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
@@ -25,7 +31,6 @@ import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 const About = React.lazy(() => import("./pages/about"));
 const AlphaStrikeRouter = React.lazy(() => import("./pages/alpha-strike/_router"));
 const ClassicBattleTechRouter = React.lazy(() => import("./pages/classic-battletech/_router"));
-const CustomMULEditor = React.lazy(() => import("./pages/custom-mul-editor"));
 const DevelopmentStatus = React.lazy(() => import("./pages/development-status"));
 const EquipmentEditor = React.lazy(() => import("./pages/equipment-editor"));
 const GameManagementRouter = React.lazy(() => import("./pages/game-management/_router"));
@@ -88,6 +93,36 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
             vehicleSaves: [],
             saveVehicleSaves: this.saveVehicleSaves,
+
+            currentFighter: null,
+            saveCurrentFighter: this.saveCurrentFighter,
+            fighterSaves: [],
+            saveFighterSaves: this.saveFighterSaves,
+
+            currentInfantry: null,
+            saveCurrentInfantry: this.saveCurrentInfantry,
+            infantrySaves: [],
+            saveInfantrySaves: this.saveInfantrySaves,
+
+            currentBattleArmor: null,
+            saveCurrentBattleArmor: this.saveCurrentBattleArmor,
+            battleArmorSaves: [],
+            saveBattleArmorSaves: this.saveBattleArmorSaves,
+
+            currentProtoMech: null,
+            saveCurrentProtoMech: this.saveCurrentProtoMech,
+            protoMechSaves: [],
+            saveProtoMechSaves: this.saveProtoMechSaves,
+
+            currentSmallCraft: null,
+            saveCurrentSmallCraft: this.saveCurrentSmallCraft,
+            smallCraftSaves: [],
+            saveSmallCraftSaves: this.saveSmallCraftSaves,
+
+            currentBuilding: null,
+            saveCurrentBuilding: this.saveCurrentBuilding,
+            buildingSaves: [],
+            saveBuildingSaves: this.saveBuildingSaves,
 
             saveCurrentASForce: this.saveCurrentASForce,
             saveFavoriteASGroups: this.saveFavoriteASGroups,
@@ -166,6 +201,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     }
 
     private _unmounted = false;
+    private _pageLeaving = false;
+    private _onPageLeaving = (): void => { this._pageLeaving = true; };
+    private _onPageShown = (): void => { this._pageLeaving = false; };
     private _sswImportTimer: ReturnType<typeof setTimeout> | null = null;
 
     private _onConnectionChange = (): void => {
@@ -177,12 +215,18 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
     componentDidMount(): void {
         this._unmounted = false;
         window.addEventListener('offline', this._onConnectionChange);
+        window.addEventListener('pagehide', this._onPageLeaving);
+        window.addEventListener('beforeunload', this._onPageLeaving);
+        window.addEventListener('pageshow', this._onPageShown);
         window.addEventListener('online', this._onConnectionChange);
     }
 
     componentWillUnmount(): void {
         this._unmounted = true;
         window.removeEventListener('offline', this._onConnectionChange);
+        window.removeEventListener('pagehide', this._onPageLeaving);
+        window.removeEventListener('beforeunload', this._onPageLeaving);
+        window.removeEventListener('pageshow', this._onPageShown);
         window.removeEventListener('online', this._onConnectionChange);
         if( this._sswImportTimer !== null ) {
             clearTimeout( this._sswImportTimer );
@@ -212,6 +256,24 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         let currentVehicle = new Vehicle( lsVehicleImport || "" );
 
         let vehicleSaves: IVehicleExport[] = await getVehicleSaves(appSettings);
+
+        const currentFighter = new AerospaceFighter( (await getCurrentFighter(appSettings)) || "" );
+        const fighterSaves: IAerospaceFighterExport[] = await getFighterSaves(appSettings);
+
+        const currentInfantry = new InfantryPlatoon( (await getCurrentInfantry(appSettings)) || "" );
+        const infantrySaves: IInfantryPlatoonExport[] = await getInfantrySaves(appSettings);
+
+        const currentBattleArmor = new BattleArmor( (await getCurrentBattleArmor(appSettings)) || "" );
+        const battleArmorSaves: IBattleArmorExport[] = await getBattleArmorSaves(appSettings);
+
+        const currentProtoMech = new ProtoMech( (await getCurrentProtoMech(appSettings)) || "" );
+        const protoMechSaves: IProtoMechExport[] = await getProtoMechSaves(appSettings);
+
+        const currentSmallCraft = new SmallCraft( (await getCurrentSmallCraft(appSettings)) || "" );
+        const smallCraftSaves: ISmallCraftExport[] = await getSmallCraftSaves(appSettings);
+
+        const currentBuilding = new Building( (await getCurrentBuilding(appSettings)) || "" );
+        const buildingSaves: IBuildingExport[] = await getBuildingSaves(appSettings);
 
         let battleMechSaves: IBattleMechExport[] = await getBattleMechSaves(appSettings);
         let asImportFavorites: IASGroupExport[] = await getFavoriteASGroups(appSettings);
@@ -278,6 +340,18 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.currentCBTForce = currentCBTForce;
         appGlobals.currentVehicle = currentVehicle;
         appGlobals.vehicleSaves = vehicleSaves;
+        appGlobals.currentFighter = currentFighter;
+        appGlobals.fighterSaves = fighterSaves;
+        appGlobals.currentInfantry = currentInfantry;
+        appGlobals.infantrySaves = infantrySaves;
+        appGlobals.currentBattleArmor = currentBattleArmor;
+        appGlobals.battleArmorSaves = battleArmorSaves;
+        appGlobals.currentProtoMech = currentProtoMech;
+        appGlobals.protoMechSaves = protoMechSaves;
+        appGlobals.currentSmallCraft = currentSmallCraft;
+        appGlobals.smallCraftSaves = smallCraftSaves;
+        appGlobals.currentBuilding = currentBuilding;
+        appGlobals.buildingSaves = buildingSaves;
 
 
         // console.log("initial appGlobals loaded")
@@ -327,6 +401,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 sswMechs = sswModule.sswMechs;
                 importSSWSlice();
             }).catch( (error) => {
+                // Leaving the page while the chunk is on its way cancels the request: that is not a failure.
+                if( this._unmounted || this._pageLeaving )
+                    return;
                 console.error("Unable to load the bundled SSW 'Mechs", error);
             });
         }, 500 );
@@ -387,6 +464,144 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         mech.lastUpdated = new Date();
 
         saveCurrentBattleMech( appGlobals.appSettings, mech.exportJSON() );
+    }
+
+    saveFighterSaves = ( newValue: IAerospaceFighterExport[] ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.fighterSaves = newValue;
+
+        saveFighterSaves( appGlobals.appSettings, appGlobals.fighterSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveBuildingSaves = ( newValue: IBuildingExport[] ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.buildingSaves = newValue;
+
+        saveBuildingSaves( appGlobals.appSettings, appGlobals.buildingSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveCurrentBuilding = ( building: Building ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentBuilding = building;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        building.lastUpdated = new Date();
+
+        saveCurrentBuilding( appGlobals.appSettings, building.exportJSON() );
+    }
+
+    saveInfantrySaves = ( newValue: IInfantryPlatoonExport[] ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.infantrySaves = newValue;
+
+        saveInfantrySaves( appGlobals.appSettings, appGlobals.infantrySaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveCurrentInfantry = ( platoon: InfantryPlatoon ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentInfantry = platoon;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        platoon.lastUpdated = new Date();
+
+        saveCurrentInfantry( appGlobals.appSettings, platoon.exportJSON() );
+    }
+
+    saveBattleArmorSaves = ( newValue: IBattleArmorExport[] ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.battleArmorSaves = newValue;
+
+        saveBattleArmorSaves( appGlobals.appSettings, appGlobals.battleArmorSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveCurrentBattleArmor = ( suit: BattleArmor ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentBattleArmor = suit;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        suit.lastUpdated = new Date();
+
+        saveCurrentBattleArmor( appGlobals.appSettings, suit.exportJSON() );
+    }
+
+    saveProtoMechSaves = ( newValue: IProtoMechExport[] ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.protoMechSaves = newValue;
+
+        saveProtoMechSaves( appGlobals.appSettings, appGlobals.protoMechSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveCurrentProtoMech = ( proto: ProtoMech ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentProtoMech = proto;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        proto.lastUpdated = new Date();
+
+        saveCurrentProtoMech( appGlobals.appSettings, proto.exportJSON() );
+    }
+
+    saveSmallCraftSaves = ( newValue: ISmallCraftExport[] ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.smallCraftSaves = newValue;
+
+        saveSmallCraftSaves( appGlobals.appSettings, appGlobals.smallCraftSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveCurrentSmallCraft = ( craft: SmallCraft ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentSmallCraft = craft;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        craft.lastUpdated = new Date();
+
+        saveCurrentSmallCraft( appGlobals.appSettings, craft.exportJSON() );
+    }
+
+    saveCurrentFighter = ( fighter: AerospaceFighter ): void => {
+        let appGlobals = this.state.appGlobals;
+        appGlobals.currentFighter = fighter;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        fighter.lastUpdated = new Date();
+
+        saveCurrentFighter( appGlobals.appSettings, fighter.exportJSON() );
     }
 
     saveCurrentVehicle = ( vehicle: Vehicle ): void => {
@@ -640,12 +855,6 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                     />
                 }/>
 
-                <Route path={`${process.env.PUBLIC_URL}/custom-mul-editor`}   element={
-                    <CustomMULEditor
-                        appGlobals={this.state.appGlobals}
-                    />
-                }/>
-
                 <Route path={`${process.env.PUBLIC_URL}/ssw-sanity-check`}   element={
                     <SSWSanityCheck
                         appGlobals={this.state.appGlobals}
@@ -759,6 +968,30 @@ export interface IAppGlobals {
     saveCurrentVehicle( vehicle: Vehicle | null ): void;
     vehicleSaves: IVehicleExport[];
     saveVehicleSaves( newValue: IVehicleExport[] ): void;
+    currentFighter: AerospaceFighter | null;
+    saveCurrentFighter( fighter: AerospaceFighter ): void;
+    fighterSaves: IAerospaceFighterExport[];
+    saveFighterSaves( newValue: IAerospaceFighterExport[] ): void;
+    currentInfantry: InfantryPlatoon | null;
+    saveCurrentInfantry( platoon: InfantryPlatoon ): void;
+    infantrySaves: IInfantryPlatoonExport[];
+    saveInfantrySaves( newValue: IInfantryPlatoonExport[] ): void;
+    currentBattleArmor: BattleArmor | null;
+    saveCurrentBattleArmor( suit: BattleArmor ): void;
+    battleArmorSaves: IBattleArmorExport[];
+    saveBattleArmorSaves( newValue: IBattleArmorExport[] ): void;
+    currentProtoMech: ProtoMech | null;
+    saveCurrentProtoMech( proto: ProtoMech ): void;
+    protoMechSaves: IProtoMechExport[];
+    saveProtoMechSaves( newValue: IProtoMechExport[] ): void;
+    currentSmallCraft: SmallCraft | null;
+    saveCurrentSmallCraft( craft: SmallCraft ): void;
+    smallCraftSaves: ISmallCraftExport[];
+    saveSmallCraftSaves( newValue: ISmallCraftExport[] ): void;
+    currentBuilding: Building | null;
+    saveCurrentBuilding( building: Building ): void;
+    buildingSaves: IBuildingExport[];
+    saveBuildingSaves( newValue: IBuildingExport[] ): void;
     saveAppSettings( appSettings: AppSettings ): void;
 
     battleMechSaves: IBattleMechExport[];

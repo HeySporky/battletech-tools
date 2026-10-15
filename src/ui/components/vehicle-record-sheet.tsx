@@ -15,7 +15,7 @@ export default class VehicleRecordSheet extends React.Component<IVehicleRecordSh
             <div className="print-page">
                 <h2>{`${vehicle.getModel()} ${vehicle.getName()}`.trim() || "Combat Vehicle"}</h2>
                 <p>
-                    <strong>{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons &nbsp;|&nbsp;
+                    <strong>{vehicle.isOmni() ? "Omni " : ""}{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons &nbsp;|&nbsp;
                     Cruise {vehicle.getCruiseMP()} / Flank {vehicle.getFlankMP()}{vehicle.getJumpMP() > 0 ? ` / Jump ${vehicle.getJumpMP()}` : ""} &nbsp;|&nbsp;
                     Crew {vehicle.getCrew()} &nbsp;|&nbsp; Heat Sinks {vehicle.getTotalHeatSinks()} &nbsp;|&nbsp;
                     Armor: {vehicle.getArmorType().name} &nbsp;|&nbsp;

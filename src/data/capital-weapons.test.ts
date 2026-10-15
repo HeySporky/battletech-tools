@@ -109,4 +109,49 @@ describe("capital and sub-capital weapon catalogs", () => {
         });
         expect(find("heavy-scc")).toMatchObject({ heat: 42, damage: 7, range: "medium", weight: 700, cbills: 1300000, battleValue: 991, ammo: { tonsPerShot: 2, cbills: 25000, battleValue: 124 }, space: { supportVehicle: 60 } });
     });
+
+    it("grades every record at the rules level its book prints", () => {
+        // TM pp.210, 237: Standard. TO:AUE pp.220, 222: "Adv" for the naval and sub-capital weapons, "Exp" for Mass Drivers.
+        for (const item of all) {
+            const expected = item.book === "TM" ? 2 : item.category === "Mass Driver" ? 4 : 3;
+            expect(item.rulesLevel, item.tag).toBe(expected);
+        }
+        expect(all.filter(item => item.book === "TM").map(item => item.category).filter((category, index, list) => list.indexOf(category) === index))
+            .toEqual(["Capital Missile", "Screen Launcher"]);
+    });
+
+    it("prices TO:AUE ammunition by the ton and TechManual missiles by the missile (TO:AUE p.223; TM p.296)", () => {
+        for (const item of all) {
+            if (!item.ammo) continue;
+            expect(item.ammo.cbillsPer, item.tag).toBe(item.book === "TO:AUE" ? "ton" : "shot");
+        }
+    });
+
+    it("lets the AR-10 fire the standard missiles only (TM p.342)", () => {
+        expect(find("ar-10-launcher")?.notes).toContain("never the tele-operated ones");
+    });
+
+    it("keeps Mass Drivers off everything but WarShips and space stations (TO:AUE p.135)", () => {
+        for (const item of all.filter(entry => entry.category === "Mass Driver")) {
+            expect(item.space, item.tag).toMatchObject({ dropShip: -1, jumpShip: -1, mobileStructure: -1, warShip: 1, spaceStation: 1 });
+        }
+    });
+
+    it("keeps what the other books of the edition print beside the IO:AE values it follows", () => {
+        // TO:AUE p.221 dates a weapon at a time; IO:AE p.33 dates the family.
+        expect(find("nac-20")).toMatchObject({ introduced: 2195, sourceVariants: [{ book: "TO:AUE", page: 221, introduced: 2197 }] });
+        expect(find("light-n-ppc")).toMatchObject({ introduced: 2356, sourceVariants: [{ book: "TO:AUE", page: 221, introduced: 2358 }] });
+        expect(all.filter(item => item.sourceVariants?.some(variant => variant.introduced !== undefined)).map(item => item.tag))
+            .toEqual(["nac-20", "nac-40", "heavy-n-gauss", "nl55", "light-n-ppc", "medium-n-ppc"]);
+        // TM p.342 against IO:AE p.33.
+        expect(find("killer-whale")).toMatchObject({ techRating: "e", sourceVariants: [{ book: "TM", page: 342, techRating: "d" }] });
+        expect(find("screen-launcher")).toMatchObject({ techRating: "f", sourceVariants: [{ book: "TM", page: 342, techRating: "e" }] });
+        // Clan sub-capital cannons and lasers from 3091 (IO:AE p.33; user ruling); TO:AUE p.223 has them Inner Sphere only.
+        for (const item of all.filter(entry => ["Sub-Capital Cannon", "Sub-Capital Laser"].includes(entry.category))) {
+            expect(item, item.tag).toMatchObject({ techBase: "both", clanDates: { introduced: 3091 }, sourceVariants: [{ book: "TO:AUE", page: 223, techBase: "is" }] });
+        }
+        for (const item of all) {
+            for (const variant of item.sourceVariants ?? []) expect(variant.page, item.tag).toBeGreaterThan(0);
+        }
+    });
 });

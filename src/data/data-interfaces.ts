@@ -19,7 +19,67 @@ export type ArmorCriticalLocationsByChassis = Partial<Record<
     Partial<Record<keyof ICriticalLocations, number>>
 >>;
 
-export interface IArmorType {
+/**
+ * One record's rules in one earlier rules edition, as that edition's rulebook prints them. Only the fields the
+ * edition states are set; `book` and `page` cite where.
+ */
+export interface IEditionStats {
+    /** The edition's rulebook, by its abbreviation in rules-editions.ts. */
+    book: string;
+    page: number;
+    /** The name as that edition prints it. */
+    name?: string;
+    heat?: number;
+    /** Damage of one hit; missile launchers use `damagePerMissile`. */
+    damage?: number;
+    damagePerMissile?: number;
+    /** Artillery: damage to each hex adjacent to the target hex. */
+    damageAdjacent?: number;
+    range?: { min: number; short: number; medium: number; long: number };
+    /** Artillery: maximum range in mapsheets. */
+    rangeMapsheets?: number;
+    /** Tons. */
+    weight?: number;
+    criticals?: number;
+    shotsPerTon?: number;
+    /** Price in C-bills; for ammunition, the price of a ton. */
+    cbills?: number;
+    /** Jump jets: tons per jump movement point for 'Mechs up to each tonnage. */
+    weightByTonnage?: { upTo: number; tons: number }[];
+    /**
+     * Heat sinks: false when every sink takes a critical slot, the engine's ten included; true when the engine
+     * holds its rating divided by 25 without slots. Unset means true.
+     */
+    engineHeatSinks?: boolean;
+    /** Armor: points per ton. */
+    pointsPerTon?: number;
+    /** Engine: tons by rating. */
+    engineWeights?: { [rating: number]: number };
+    /** Internal structure: boxes per location by tonnage. */
+    structure?: { [tons: number]: IRawMechStructure };
+    /**
+     * An obvious misprint corrected in the fields above (user ruling, 2026-10-07): what the book prints, what was
+     * entered instead, and the evidence. Anything less than obvious stays as printed and goes in `notes`.
+     */
+    errata?: string;
+    /** Rules the fields above cannot hold, each with its page. */
+    notes?: string;
+}
+
+/**
+ * A record's history through the rules editions before the one the catalogs cite. One key per edition that
+ * includes the record (tags from rules-editions.ts): the stats that edition prints, or `null` when they are the
+ * same as in the previous edition that lists the record. A record's first edition is never `null`.
+ */
+export type IEditionStatsTable = { [editionTag: string]: IEditionStats | null };
+
+export interface IEditionHistory {
+    /** First rules edition that includes this record (a tag from rules-editions.ts); the default edition when absent. */
+    introducedInEdition?: string;
+    editionStats?: IEditionStatsTable;
+}
+
+export interface IArmorType extends IEditionHistory {
 	tag: string;
 	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
 	altTags?: string[];
@@ -101,7 +161,7 @@ export interface ICriticalLocations {
     frl?: number,
 }
 
-export interface IEngineType {
+export interface IEngineType extends IEditionHistory {
 	tag: string;
 	/** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
 	altTags?: string[];
@@ -180,6 +240,8 @@ export interface IEquipmentItem {
     catalog?: "is" | "clan" | "custom" | "universal";
     /** First rules edition that includes this item (a tag from rules-editions.ts); the default edition when absent. */
     introducedInEdition?: string;
+    /** Stats in each earlier rules edition that includes this record; see IEditionStatsTable. */
+    editionStats?: IEditionStatsTable;
     metadata?: IEquipmentMetadata;
     split_location?: ISplitLocation[];
     isRotary?: boolean;
@@ -381,7 +443,7 @@ export interface ICriticalSpace {
     dropShip: number;
 }
 
-export interface IGyro {
+export interface IGyro extends IEditionHistory {
     name: string;
     alternateName?: string;
     tag: string;
@@ -412,9 +474,11 @@ export interface ITechDates {
     reintroduced: number | null;
     /** First rules edition that includes this record (a tag from rules-editions.ts); the default edition when absent. */
     introducedInEdition?: string;
+    /** Stats in each earlier rules edition that includes this record; see IEditionStatsTable. */
+    editionStats?: IEditionStatsTable;
 }
 
-export interface ICockpitType {
+export interface ICockpitType extends IEditionHistory {
     name: string;
     tag: string;
     /** Tons. For an add-on (Command Console) this is the weight added to the base cockpit. */
@@ -444,7 +508,7 @@ export interface ICockpitType {
     availableAsPrototype?: boolean;
 }
 
-export interface IHeatSync {
+export interface IHeatSync extends IEditionHistory {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -515,12 +579,12 @@ export interface IRawMechStructure {
     leg: number;
 }
 
-export interface IMechTonnage {
+export interface IMechTonnage extends IEditionHistory {
     tons: number;
     type: string;
 }
 
-export interface IInternalStructure {
+export interface IInternalStructure extends IEditionHistory {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -560,7 +624,7 @@ export interface IInternalStructure {
     availableAsPrototype?: boolean;
 }
 
-export interface IJumpJet {
+export interface IJumpJet extends IEditionHistory {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -597,7 +661,7 @@ export interface IJumpJet {
     availableAsPrototype?: boolean;
 }
 
-export interface IMyomerType {
+export interface IMyomerType extends IEditionHistory {
     name: string;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -625,7 +689,7 @@ export interface IMyomerType {
     availableAsPrototype?: boolean;
 }
 
-export interface IMechType {
+export interface IMechType extends IEditionHistory {
     id: number;
     tag: string;
     /** Earlier tags for this record, so old saves still resolve (see tag-match.ts). */
@@ -734,7 +798,7 @@ export type VehicleLocation = "front" | "left" | "right" | "rear" | "frontLeft" 
  * A capital-scale or sub-capital weapon for large craft (capital-weapons.ts, sub-capital-weapons.ts).
  * Kept apart from IEquipmentItem: these are never mounted on a 'Mech or offered by the equipment registry.
  */
-export interface ICapitalWeapon {
+export interface ICapitalWeapon extends IEditionHistory {
     name: string;
     altNames: string[];
     tag: string;
@@ -785,6 +849,11 @@ export interface ICapitalWeapon {
     reintroduced: number | null;
     /** Clan availability window when it differs from the dates above. */
     clanDates?: ITechDates;
+    /**
+     * What another book of the same rules edition prints where it differs from this record, which follows the
+     * newest publication. Earlier rules editions go in editionStats instead.
+     */
+    sourceVariants?: { book: string; page: number; introduced?: number; techRating?: string; techBase?: "is" | "clan" | "both" }[];
     /** 2 = Standard, 3 = Advanced, 4 = Experimental. */
     rulesLevel: number;
     book: string;

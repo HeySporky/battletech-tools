@@ -102,7 +102,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,MHQ 3,RCN,SRCH,TUR (1/1/-),None"
+    "BFAbilities": "ENE,MHQ 3,RCN,SRCH,TUR (1/1/-)"
   },
   {
     "Id": 105402,
@@ -157,7 +157,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 2,None"
+    "BFAbilities": "TH 2"
   },
   {
     "Id": 105403,
@@ -256,7 +256,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AMS,Brawler"
+    "BFAbilities": "AMS"
   },
   {
     "Id": 105404,
@@ -364,7 +364,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 4,BOMB 3,FUEL 20,OVL,SPC,VSTOL,Fire-Support"
+    "BFAbilities": "TH 4,BOMB 3,FUEL 20,OVL,SPC,VSTOL"
   },
   {
     "Id": 105405,
@@ -450,7 +450,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ECM,ENE,HT 1/1/-,STL,TSM,Brawler"
+    "BFAbilities": "ECM,ENE,HT 1/1/-,STL,TSM"
   },
   {
     "Id": 105406,
@@ -696,7 +696,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 4,Ambusher"
+    "BFAbilities": "AM,CAR 4"
   },
   {
     "Id": 105407,
@@ -980,7 +980,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "EE,MHQ 4,RCN,SRCH,Scout"
+    "BFAbilities": "EE,MHQ 4,RCN,SRCH"
   },
   {
     "Id": 105408,
@@ -1177,7 +1177,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "EE,IF 1,IT 3,SRCH,TAG,TUR (2/1/-,TAG),Striker"
+    "BFAbilities": "EE,IF 1,IT 3,SRCH,TAG,TUR (2/1/-,TAG)"
   },
   {
     "Id": 105409,
@@ -1238,7 +1238,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 1,Sniper"
+    "BFAbilities": "CASE,IF 1"
   },
   {
     "Id": 105410,
@@ -1307,7 +1307,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AECM,ARM,ENE,IRA,MEL,TSM,Juggernaut"
+    "BFAbilities": "AECM,ARM,ENE,IRA,MEL,TSM"
   },
   {
     "Id": 105411,
@@ -1433,7 +1433,7 @@
     "BFDamageMediumMin": true,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 20,Ambusher"
+    "BFAbilities": "CAR 20"
   },
   {
     "Id": 105412,
@@ -1495,7 +1495,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 3,LRM 2/2/3,Missile Boat"
+    "BFAbilities": "CASE,IF 3,LRM 2/2/3"
   },
   {
     "Id": 105413,
@@ -1562,7 +1562,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,SRM 2/2,Skirmisher"
+    "BFAbilities": "CASE,SRM 2/2"
   },
   {
     "Id": 105414,
@@ -1633,7 +1633,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 2,MHQ 1,Sniper"
+    "BFAbilities": "CASE,IF 2,MHQ 1"
   },
   {
     "Id": 105415,
@@ -1695,7 +1695,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASEII,FLK 3/3/3,OVL,Sniper"
+    "BFAbilities": "CASEII,FLK 3/3/3,OVL"
   },
   {
     "Id": 105416,
@@ -1756,7 +1756,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "SRCH,TUR (2/2/2),Sniper"
+    "BFAbilities": "SRCH,TUR (2/2/2)"
   },
   {
     "Id": 105417,
@@ -1811,7 +1811,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105418,
@@ -1924,7 +1924,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,ECM,IF 1,Sniper"
+    "BFAbilities": "CASE,ECM,IF 1"
   },
   {
     "Id": 105419,
@@ -2071,7 +2071,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,FLK 1/1/1,JMPW 1,LPRB,OMNI,RCN,Skirmisher"
+    "BFAbilities": "CASE,FLK 1/1/1,JMPW 1,LPRB,OMNI,RCN"
   },
   {
     "Id": 105420,
@@ -2142,7 +2142,7 @@
     "BFDamageMediumMin": true,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "JMPW 1,Striker"
+    "BFAbilities": "JMPW 1"
   },
   {
     "Id": 105421,
@@ -2203,7 +2203,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CR,FLK 1/1/1,MEL,TSM,Brawler"
+    "BFAbilities": "CR,FLK 1/1/1,MEL,TSM"
   },
   {
     "Id": 105422,
@@ -2264,7 +2264,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "BH,C3RS,ENE,IT 4,RCN,SEAL,SRCH,Scout"
+    "BFAbilities": "BH,C3RS,ENE,IT 4,RCN,SEAL,SRCH"
   },
   {
     "Id": 105423,
@@ -2427,7 +2427,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IT 5,OMNI,SRCH,TUR (3/3/-),Striker"
+    "BFAbilities": "CASE,IT 5,OMNI,SRCH,TUR (3/3/-)"
   },
   {
     "Id": 105424,
@@ -2507,7 +2507,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 4,LTAG,MEC,STL,Ambusher"
+    "BFAbilities": "AM,CAR 4,LTAG,MEC,STL"
   },
   {
     "Id": 105425,
@@ -2607,7 +2607,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 1,OMNI,Skirmisher"
+    "BFAbilities": "CASE,IF 1,OMNI"
   },
   {
     "Id": 105426,
@@ -2721,7 +2721,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105427,
@@ -2890,7 +2890,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 2/2/-,EE,RCN,RSD 1,SRCH,Ambusher"
+    "BFAbilities": "AC 2/2/-,EE,RCN,RSD 1,SRCH"
   },
   {
     "Id": 105428,
@@ -2969,7 +2969,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105429,
@@ -3051,7 +3051,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,SRCH,TUR (5/5/3),Juggernaut"
+    "BFAbilities": "CASE,SRCH,TUR (5/5/3)"
   },
   {
     "Id": 105430,
@@ -3195,7 +3195,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IF 1,LRM 1/1/1,Brawler"
+    "BFAbilities": "IF 1,LRM 1/1/1"
   },
   {
     "Id": 105431,
@@ -3251,7 +3251,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105432,
@@ -3344,7 +3344,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,JMPS 1,Scout"
+    "BFAbilities": "ENE,JMPS 1"
   },
   {
     "Id": 105433,
@@ -3498,7 +3498,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,Striker"
+    "BFAbilities": "ENE"
   },
   {
     "Id": 105434,
@@ -3647,7 +3647,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IF 1,OMNI,REAR 0*/-/-,Sniper"
+    "BFAbilities": "IF 1,OMNI,REAR 0*/-/-"
   },
   {
     "Id": 105435,
@@ -3712,7 +3712,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 1/1/-,IT 4,SRCH,TUR (2/2/-,AC1/1/-),Skirmisher"
+    "BFAbilities": "AC 1/1/-,IT 4,SRCH,TUR (2/2/-,AC1/1/-)"
   },
   {
     "Id": 105436,
@@ -3782,7 +3782,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IT 8,OMNI,SRCH,TUR (1/1/-),Skirmisher"
+    "BFAbilities": "IT 8,OMNI,SRCH,TUR (1/1/-)"
   },
   {
     "Id": 105437,
@@ -3885,7 +3885,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 3,None"
+    "BFAbilities": "TH 3"
   },
   {
     "Id": 105438,
@@ -4050,7 +4050,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 4,MEC,Ambusher"
+    "BFAbilities": "AM,CAR 4,MEC"
   },
   {
     "Id": 105439,
@@ -4213,7 +4213,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 3,AFC,ATMO,CT 23.5,LG,REAR 1/1/1/1,Fire-Support"
+    "BFAbilities": "TH 3,AFC,ATMO,CT 23.5,LG,REAR 1/1/1/1"
   },
   {
     "Id": 105440,
@@ -4526,7 +4526,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "BAR,BFC,CT 4,EE,Ambusher"
+    "BFAbilities": "BAR,BFC,CT 4,EE"
   },
   {
     "Id": 105441,
@@ -4593,7 +4593,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AMS,CASE,IF 1,Brawler"
+    "BFAbilities": "AMS,CASE,IF 1"
   },
   {
     "Id": 105442,
@@ -4677,7 +4677,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 16,None"
+    "BFAbilities": "TH 16"
   },
   {
     "Id": 105443,
@@ -4853,7 +4853,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,OMNI,Striker"
+    "BFAbilities": "CASE,OMNI"
   },
   {
     "Id": 105444,
@@ -4926,7 +4926,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AMS,ARTAIS -2,C3S,CASE,CR,ECM,HTC,IT 4,MHQ 5,REAR 0*/0*/-,SRCH,TUR (2/2/2,AMS,ARTAIS-2),Missile Boat"
+    "BFAbilities": "AMS,ARTAIS -2,C3S,CASE,CR,ECM,HTC,IT 4,MHQ 5,REAR 0*/0*/-,SRCH,TUR (2/2/2,AMS,ARTAIS-2)"
   },
   {
     "Id": 105445,
@@ -4987,7 +4987,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,Sniper"
+    "BFAbilities": "ENE"
   },
   {
     "Id": 105446,
@@ -5116,7 +5116,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,FLK 1/1/1,OMNI,Sniper"
+    "BFAbilities": "CASE,FLK 1/1/1,OMNI"
   },
   {
     "Id": 105447,
@@ -5171,7 +5171,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3I,ECM,ENE,MHQ 2,OMNI,Juggernaut"
+    "BFAbilities": "C3I,ECM,ENE,MHQ 2,OMNI"
   },
   {
     "Id": 105448,
@@ -5259,7 +5259,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,OMNI,Sniper"
+    "BFAbilities": "CASE,OMNI"
   },
   {
     "Id": 105449,
@@ -5333,7 +5333,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "FLK 1/1/1,IF 1,SRCH,Sniper"
+    "BFAbilities": "FLK 1/1/1,IF 1,SRCH"
   },
   {
     "Id": 105450,
@@ -5426,7 +5426,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105451,
@@ -5666,7 +5666,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,FLK 1/1/1,JMPW 1,Skirmisher"
+    "BFAbilities": "CASE,FLK 1/1/1,JMPW 1"
   },
   {
     "Id": 105452,
@@ -5801,7 +5801,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105453,
@@ -5920,7 +5920,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105454,
@@ -6000,7 +6000,7 @@
     "BFDamageMediumMin": true,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 5,MEC,SRCH,Scout"
+    "BFAbilities": "AM,CAR 5,MEC,SRCH"
   },
   {
     "Id": 105455,
@@ -6129,7 +6129,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3M,EE,ENE,MHQ 5,SRCH,TAG,Scout"
+    "BFAbilities": "C3M,EE,ENE,MHQ 5,SRCH,TAG"
   },
   {
     "Id": 105456,
@@ -6184,7 +6184,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3I,CASE,ECM,MHQ 2,OMNI,Brawler"
+    "BFAbilities": "C3I,CASE,ECM,MHQ 2,OMNI"
   },
   {
     "Id": 105457,
@@ -6606,7 +6606,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "BAR,BFC,CT 20,EE,ENE,MEL,SAW,Ambusher"
+    "BFAbilities": "BAR,BFC,CT 20,EE,ENE,MEL,SAW"
   },
   {
     "Id": 105458,
@@ -6700,7 +6700,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 20,Scout"
+    "BFAbilities": "CAR 20"
   },
   {
     "Id": 105459,
@@ -6771,7 +6771,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,OMNI,TAG,Scout"
+    "BFAbilities": "CASE,OMNI,TAG"
   },
   {
     "Id": 105460,
@@ -6832,7 +6832,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 10,None"
+    "BFAbilities": "TH 10"
   },
   {
     "Id": 105461,
@@ -6893,7 +6893,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3S,DRO,ENE,MHQ 1,OMNI,TAG,Scout"
+    "BFAbilities": "C3S,DRO,ENE,MHQ 1,OMNI,TAG"
   },
   {
     "Id": 105462,
@@ -7133,7 +7133,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,OMNI,Skirmisher"
+    "BFAbilities": "CASE,OMNI"
   },
   {
     "Id": 105463,
@@ -7271,7 +7271,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105464,
@@ -7344,7 +7344,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AMS,CASE,LPRB,RCN,Striker"
+    "BFAbilities": "AMS,CASE,LPRB,RCN"
   },
   {
     "Id": 105465,
@@ -7478,7 +7478,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IF 1,SRCH,TUR (3/3/1,IF1),Brawler"
+    "BFAbilities": "IF 1,SRCH,TUR (3/3/1,IF1)"
   },
   {
     "Id": 105466,
@@ -7557,7 +7557,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,FLK 1/1/1,Sniper"
+    "BFAbilities": "CASE,FLK 1/1/1"
   },
   {
     "Id": 105467,
@@ -7657,7 +7657,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IF 1,Skirmisher"
+    "BFAbilities": "IF 1"
   },
   {
     "Id": 105468,
@@ -7742,7 +7742,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,ECM,FLK 1/1/-,STL,TSM,Skirmisher"
+    "BFAbilities": "CASE,ECM,FLK 1/1/-,STL,TSM"
   },
   {
     "Id": 105469,
@@ -7797,7 +7797,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3I,ENE,MHQ 2,OMNI,OVL,PRB,RCN,UMU,Sniper"
+    "BFAbilities": "C3I,ENE,MHQ 2,OMNI,OVL,PRB,RCN,UMU"
   },
   {
     "Id": 105470,
@@ -7894,7 +7894,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AFC,SEAL,TOR 0*/0*/-,None"
+    "BFAbilities": "AFC,SEAL,TOR 0*/0*/-"
   },
   {
     "Id": 105471,
@@ -7979,7 +7979,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,FLK 1/1/-,Skirmisher"
+    "BFAbilities": "CASE,FLK 1/1/-"
   },
   {
     "Id": 105472,
@@ -8065,7 +8065,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "Ambusher"
+    "BFAbilities": ""
   },
   {
     "Id": 105473,
@@ -8143,7 +8143,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,HT 1/-/-,REAR 0*/-/-,Scout"
+    "BFAbilities": "ENE,HT 1/-/-,REAR 0*/-/-"
   },
   {
     "Id": 105474,
@@ -8388,7 +8388,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,None"
+    "BFAbilities": "ENE"
   },
   {
     "Id": 105475,
@@ -8493,7 +8493,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105476,
@@ -8566,7 +8566,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,Striker"
+    "BFAbilities": "ENE"
   },
   {
     "Id": 105477,
@@ -8630,7 +8630,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105478,
@@ -8702,7 +8702,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,MEL,Skirmisher"
+    "BFAbilities": "ENE,MEL"
   },
   {
     "Id": 105479,
@@ -8834,7 +8834,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,ECM,FLK 2/2/2,OMNI,Brawler"
+    "BFAbilities": "CASE,ECM,FLK 2/2/2,OMNI"
   },
   {
     "Id": 105480,
@@ -8910,7 +8910,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 5,None"
+    "BFAbilities": "TH 5"
   },
   {
     "Id": 105481,
@@ -8990,7 +8990,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,ECM,OMNI,TAG,Striker"
+    "BFAbilities": "CASE,ECM,OMNI,TAG"
   },
   {
     "Id": 105482,
@@ -9091,7 +9091,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,Striker"
+    "BFAbilities": "ENE"
   },
   {
     "Id": 105483,
@@ -9177,7 +9177,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": true,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AFC,I-TSM,IF 0*,SEAL,SRCH,Brawler"
+    "BFAbilities": "AFC,I-TSM,IF 0*,SEAL,SRCH"
   },
   {
     "Id": 105484,
@@ -9253,7 +9253,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AFC,FLK 1/1/1,REAR 1/1/-,Brawler"
+    "BFAbilities": "AFC,FLK 1/1/1,REAR 1/1/-"
   },
   {
     "Id": 105485,
@@ -9449,7 +9449,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 1,Brawler"
+    "BFAbilities": "CASE,IF 1"
   },
   {
     "Id": 105486,
@@ -9703,7 +9703,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AMS,CASE,IF 2,LRM 2/2/2,OMNI,SNARC,SRM 1/1,Missile Boat"
+    "BFAbilities": "AMS,CASE,IF 2,LRM 2/2/2,OMNI,SNARC,SRM 1/1"
   },
   {
     "Id": 105487,
@@ -9936,7 +9936,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 1,BOMB 1,ENE,FUEL 20,SPC,VSTOL,Interceptor"
+    "BFAbilities": "TH 1,BOMB 1,ENE,FUEL 20,SPC,VSTOL"
   },
   {
     "Id": 105488,
@@ -10047,7 +10047,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "BFC,CT 5,EE,IF 1,MEL,SAW,Missile Boat"
+    "BFAbilities": "BFC,CT 5,EE,IF 1,MEL,SAW"
   },
   {
     "Id": 105489,
@@ -10115,7 +10115,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 1,OMNI,Skirmisher"
+    "BFAbilities": "CASE,IF 1,OMNI"
   },
   {
     "Id": 105490,
@@ -10203,7 +10203,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 2,BOMB 1,ENE,FUEL 20,PNT 2,SPC,VSTOL,Interceptor"
+    "BFAbilities": "TH 2,BOMB 1,ENE,FUEL 20,PNT 2,SPC,VSTOL"
   },
   {
     "Id": 105491,
@@ -10402,7 +10402,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 1/1/1,Sniper"
+    "BFAbilities": "AC 1/1/1"
   },
   {
     "Id": 105492,
@@ -10527,7 +10527,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,OMNI,Striker"
+    "BFAbilities": "ENE,OMNI"
   },
   {
     "Id": 105493,
@@ -10614,7 +10614,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,FLK 1/1/1,Brawler"
+    "BFAbilities": "CASE,FLK 1/1/1"
   },
   {
     "Id": 105494,
@@ -10696,7 +10696,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 1/1/-,IF 2,LRM 1/1/2,Juggernaut"
+    "BFAbilities": "AC 1/1/-,IF 2,LRM 1/1/2"
   },
   {
     "Id": 105495,
@@ -10751,7 +10751,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 1/1/-,CASE,IF 1,Juggernaut"
+    "BFAbilities": "AC 1/1/-,CASE,IF 1"
   },
   {
     "Id": 105496,
@@ -10888,7 +10888,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 1,Juggernaut"
+    "BFAbilities": "CASE,IF 1"
   },
   {
     "Id": 105497,
@@ -11031,7 +11031,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3S,CASE,ECM,IF 0*,JMPS 1,MHQ 1,Striker"
+    "BFAbilities": "C3S,CASE,ECM,IF 0*,JMPS 1,MHQ 1"
   },
   {
     "Id": 105498,
@@ -11146,7 +11146,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105499,
@@ -11424,7 +11424,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 3,Ambusher"
+    "BFAbilities": "AM,CAR 3"
   },
   {
     "Id": 105500,
@@ -11491,7 +11491,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 3,BOMB 2,ECM,FUEL 20,PRB,RCN,RFA,SPC,VSTOL,Fire-Support"
+    "BFAbilities": "TH 3,BOMB 2,ECM,FUEL 20,PRB,RCN,RFA,SPC,VSTOL"
   },
   {
     "Id": 105501,
@@ -11546,7 +11546,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3I,LTAG,MHQ 2,OMNI,Brawler"
+    "BFAbilities": "C3I,LTAG,MHQ 2,OMNI"
   },
   {
     "Id": 105502,
@@ -11601,7 +11601,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 4,BOMB 2,ENE,FUEL 20,PNT 2,REAR 1/1/-,SPC,VSTOL,Fast Dogfighter"
+    "BFAbilities": "TH 4,BOMB 2,ENE,FUEL 20,PNT 2,REAR 1/1/-,SPC,VSTOL"
   },
   {
     "Id": 105503,
@@ -11680,7 +11680,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,Striker"
+    "BFAbilities": "ENE"
   },
   {
     "Id": 105504,
@@ -11856,7 +11856,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105505,
@@ -11923,7 +11923,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "FLK 1/1/1,IF 0*,Sniper"
+    "BFAbilities": "FLK 1/1/1,IF 0*"
   },
   {
     "Id": 105506,
@@ -11971,7 +11971,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "BTAS 2,CAR 5,Juggernaut"
+    "BFAbilities": "BTAS 2,CAR 5"
   },
   {
     "Id": 105507,
@@ -12083,7 +12083,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "Brawler"
+    "BFAbilities": ""
   },
   {
     "Id": 105508,
@@ -12156,7 +12156,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 5,MEC,STL,Ambusher"
+    "BFAbilities": "AM,CAR 5,MEC,STL"
   },
   {
     "Id": 105509,
@@ -12254,7 +12254,7 @@
     "BFDamageMediumMin": true,
     "BFDamageLongMin": true,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AFC,EE,FLK 0*/0*/0*,MEL,SAW,Sniper"
+    "BFAbilities": "AFC,EE,FLK 0*/0*/0*,MEL,SAW"
   },
   {
     "Id": 105510,
@@ -12302,7 +12302,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 5,MEC,SRCH,None"
+    "BFAbilities": "CAR 5,MEC,SRCH"
   },
   {
     "Id": 105511,
@@ -12403,7 +12403,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IF 1,Missile Boat"
+    "BFAbilities": "IF 1"
   },
   {
     "Id": 105512,
@@ -12507,7 +12507,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,ATMO,BOMB 1,CAR 5,MEC,Scout"
+    "BFAbilities": "AM,ATMO,BOMB 1,CAR 5,MEC"
   },
   {
     "Id": 105513,
@@ -12583,7 +12583,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 4,LECM,MEC,Ambusher"
+    "BFAbilities": "AM,CAR 4,LECM,MEC"
   },
   {
     "Id": 105514,
@@ -12662,7 +12662,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IF 1,TOR 1/1/-,UMU,Brawler"
+    "BFAbilities": "IF 1,TOR 1/1/-,UMU"
   },
   {
     "Id": 105515,
@@ -12743,7 +12743,7 @@
     "BFDamageMediumMin": true,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "TH 2,BOMB 1,FUEL 20,PNT 1,SPC,VSTOL,Interceptor"
+    "BFAbilities": "TH 2,BOMB 1,FUEL 20,PNT 1,SPC,VSTOL"
   },
   {
     "Id": 105516,
@@ -12831,7 +12831,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,ECM,OMNI,Brawler"
+    "BFAbilities": "CASE,ECM,OMNI"
   },
   {
     "Id": 105517,
@@ -13044,7 +13044,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AMS,IF 1,Skirmisher"
+    "BFAbilities": "AMS,IF 1"
   },
   {
     "Id": 105518,
@@ -13099,7 +13099,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,PRB,RCN,Scout"
+    "BFAbilities": "ENE,PRB,RCN"
   },
   {
     "Id": 105519,
@@ -13240,7 +13240,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "BAR,BFC,CT 15,IT 5,None"
+    "BFAbilities": "BAR,BFC,CT 15,IT 5"
   },
   {
     "Id": 105520,
@@ -13381,7 +13381,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105521,
@@ -13429,7 +13429,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 4,IF 1,MEC,Missile Boat"
+    "BFAbilities": "AM,CAR 4,IF 1,MEC"
   },
   {
     "Id": 105522,
@@ -13477,7 +13477,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 6,FR,MEC,Scout"
+    "BFAbilities": "AM,CAR 6,FR,MEC"
   },
   {
     "Id": 105523,
@@ -13691,7 +13691,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IF 1,Skirmisher"
+    "BFAbilities": "IF 1"
   },
   {
     "Id": 105524,
@@ -13752,7 +13752,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "Fast Dogfighter"
+    "BFAbilities": ""
   },
   {
     "Id": 105525,
@@ -13934,7 +13934,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 1,Skirmisher"
+    "BFAbilities": "CASE,IF 1"
   },
   {
     "Id": 105526,
@@ -13995,7 +13995,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "FLK 1/1/1,Skirmisher"
+    "BFAbilities": "FLK 1/1/1"
   },
   {
     "Id": 105527,
@@ -14076,7 +14076,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3S,CASE,MHQ 1,OMNI,Brawler"
+    "BFAbilities": "C3S,CASE,MHQ 1,OMNI"
   },
   {
     "Id": 105528,
@@ -14137,7 +14137,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": true,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3BSS,IF 0*,MHQ 2,SRCH,TUR (2/1/0*,IF0*),Scout"
+    "BFAbilities": "C3BSS,IF 0*,MHQ 2,SRCH,TUR (2/1/0*,IF0*)"
   },
   {
     "Id": 105529,
@@ -14222,7 +14222,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 2,LRM 2/2/2,Missile Boat"
+    "BFAbilities": "CASE,IF 2,LRM 2/2/2"
   },
   {
     "Id": 105530,
@@ -14298,7 +14298,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,OMNI,PRB,RCN,Scout"
+    "BFAbilities": "CASE,OMNI,PRB,RCN"
   },
   {
     "Id": 105531,
@@ -14502,7 +14502,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "REAR 1/1/-,Skirmisher"
+    "BFAbilities": "REAR 1/1/-"
   },
   {
     "Id": 105532,
@@ -14550,7 +14550,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,ATMO,BOMB 1,CAR 6,MEC,Scout"
+    "BFAbilities": "AM,ATMO,BOMB 1,CAR 6,MEC"
   },
   {
     "Id": 105533,
@@ -14661,7 +14661,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ATMO,BOMB 1,PNT 1,VSTOL,Fast Dogfighter"
+    "BFAbilities": "ATMO,BOMB 1,PNT 1,VSTOL"
   },
   {
     "Id": 105534,
@@ -14723,7 +14723,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": true,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASEII,IF 0*,REL,Skirmisher"
+    "BFAbilities": "CASEII,IF 0*,REL"
   },
   {
     "Id": 105535,
@@ -14824,7 +14824,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASEII,FLK 0*/1/1,Sniper"
+    "BFAbilities": "CASEII,FLK 0*/1/1"
   },
   {
     "Id": 105536,
@@ -14996,7 +14996,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105537,
@@ -15107,7 +15107,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IF 0*,JMPW 1,Sniper"
+    "BFAbilities": "IF 0*,JMPW 1"
   },
   {
     "Id": 105538,
@@ -15162,7 +15162,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CR,DN,ENE,OMNI,RHS,TSM,Striker"
+    "BFAbilities": "CR,DN,ENE,OMNI,RHS,TSM"
   },
   {
     "Id": 105539,
@@ -15229,7 +15229,7 @@
     "BFDamageMediumMin": true,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AECM,Striker"
+    "BFAbilities": "AECM"
   },
   {
     "Id": 105540,
@@ -15277,7 +15277,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 6,MEC,Ambusher"
+    "BFAbilities": "AM,CAR 6,MEC"
   },
   {
     "Id": 105541,
@@ -15403,7 +15403,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 6,Ambusher"
+    "BFAbilities": "AM,CAR 6"
   },
   {
     "Id": 105542,
@@ -15451,7 +15451,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3S,CAR 5,IF 2,MHQ 1,Missile Boat"
+    "BFAbilities": "C3S,CAR 5,IF 2,MHQ 1"
   },
   {
     "Id": 105543,
@@ -15544,7 +15544,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105544,
@@ -15773,7 +15773,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AMS,ATMO,PRB,RCN,SRCH,TAG,Scout"
+    "BFAbilities": "AMS,ATMO,PRB,RCN,SRCH,TAG"
   },
   {
     "Id": 105545,
@@ -15829,7 +15829,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,FLK 2/2/2,Brawler"
+    "BFAbilities": "CASE,FLK 2/2/2"
   },
   {
     "Id": 105546,
@@ -15925,7 +15925,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 20,Ambusher"
+    "BFAbilities": "CAR 20"
   },
   {
     "Id": 105547,
@@ -16029,7 +16029,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "SRCH,TUR (2/2/2),Sniper"
+    "BFAbilities": "SRCH,TUR (2/2/2)"
   },
   {
     "Id": 105548,
@@ -16077,7 +16077,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 6,MEC,STL,Scout"
+    "BFAbilities": "AM,CAR 6,MEC,STL"
   },
   {
     "Id": 105549,
@@ -16208,7 +16208,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ECM,ENE,JMPW 1,Skirmisher"
+    "BFAbilities": "ECM,ENE,JMPW 1"
   },
   {
     "Id": 105550,
@@ -16256,7 +16256,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 5,MEC,SRCH,None"
+    "BFAbilities": "AM,CAR 5,MEC,SRCH"
   },
   {
     "Id": 105551,
@@ -16318,7 +16318,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 1/1/-,CASE,Juggernaut"
+    "BFAbilities": "AC 1/1/-,CASE"
   },
   {
     "Id": 105552,
@@ -16366,7 +16366,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 6,LTAG,Scout"
+    "BFAbilities": "CAR 6,LTAG"
   },
   {
     "Id": 105553,
@@ -16527,7 +16527,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 2/2/-,EE,IF 1,LRM 1/1/1,SRCH,SRM 2/2,TUR (4/4/-,SRM2/2,AC2/2/-),Juggernaut"
+    "BFAbilities": "AC 2/2/-,EE,IF 1,LRM 1/1/1,SRCH,SRM 2/2,TUR (4/4/-,SRM2/2,AC2/2/-)"
   },
   {
     "Id": 105554,
@@ -16674,7 +16674,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,OMNI,REAR 0*/-/-,Striker"
+    "BFAbilities": "ENE,OMNI,REAR 0*/-/-"
   },
   {
     "Id": 105555,
@@ -16735,7 +16735,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105556,
@@ -17071,7 +17071,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105557,
@@ -17119,7 +17119,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 6,HT 1/-/-,MEC,SOA,Ambusher"
+    "BFAbilities": "AM,CAR 6,HT 1/-/-,MEC,SOA"
   },
   {
     "Id": 105558,
@@ -17225,7 +17225,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "HT 1/-/-,Striker"
+    "BFAbilities": "HT 1/-/-"
   },
   {
     "Id": 105559,
@@ -17286,7 +17286,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AECM,BH,C3I,ENE,MHQ 3,RCN,RSD 1,TAG,Brawler"
+    "BFAbilities": "AECM,BH,C3I,ENE,MHQ 3,RCN,RSD 1,TAG"
   },
   {
     "Id": 105560,
@@ -17372,7 +17372,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "Skirmisher"
+    "BFAbilities": ""
   },
   {
     "Id": 105561,
@@ -17474,7 +17474,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,Striker"
+    "BFAbilities": "ENE"
   },
   {
     "Id": 105562,
@@ -17659,7 +17659,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 1,LRM 1/1/1,SNARC,Missile Boat"
+    "BFAbilities": "CASE,IF 1,LRM 1/1/1,SNARC"
   },
   {
     "Id": 105563,
@@ -17764,7 +17764,7 @@
     "BFDamageMediumMin": true,
     "BFDamageLongMin": true,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ATMO,SRCH,TUR (0*/0*/0*),Sniper"
+    "BFAbilities": "ATMO,SRCH,TUR (0*/0*/0*)"
   },
   {
     "Id": 105564,
@@ -17844,7 +17844,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,SRCH,TUR (2/1/-),Scout"
+    "BFAbilities": "ENE,SRCH,TUR (2/1/-)"
   },
   {
     "Id": 105565,
@@ -17937,7 +17937,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105566,
@@ -18141,7 +18141,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 1,Juggernaut"
+    "BFAbilities": "CASE,IF 1"
   },
   {
     "Id": 105567,
@@ -18196,7 +18196,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AECM,ENE,STL,Striker"
+    "BFAbilities": "AECM,ENE,STL"
   },
   {
     "Id": 105568,
@@ -18244,7 +18244,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 6,HT 1/1/-,RCA,Juggernaut"
+    "BFAbilities": "CAR 6,HT 1/1/-,RCA"
   },
   {
     "Id": 105569,
@@ -18323,7 +18323,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105570,
@@ -18395,7 +18395,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ECM,IF 1,STL,Missile Boat"
+    "BFAbilities": "ECM,IF 1,STL"
   },
   {
     "Id": 105571,
@@ -18663,7 +18663,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AFC,BAR,CT 20,ORO,TUR (1/1/0),None"
+    "BFAbilities": "AFC,BAR,CT 20,ORO,TUR (1/1/0)"
   },
   {
     "Id": 105572,
@@ -18739,7 +18739,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ECM,IF 0*,STL,Sniper"
+    "BFAbilities": "ECM,IF 0*,STL"
   },
   {
     "Id": 105573,
@@ -18856,7 +18856,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AFC,CT 3,ENE,ENG,JMPW 1,MEL,SEAL,SOA,SRCH,None"
+    "BFAbilities": "AFC,CT 3,ENE,ENG,JMPW 1,MEL,SEAL,SOA,SRCH"
   },
   {
     "Id": 105574,
@@ -18960,7 +18960,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,ECM,REAR 1/1/-,SRM 1/1,Juggernaut"
+    "BFAbilities": "CASE,ECM,REAR 1/1/-,SRM 1/1"
   },
   {
     "Id": 105575,
@@ -19030,7 +19030,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 1/1/-,AFC,CASEII,ES,Brawler"
+    "BFAbilities": "AC 1/1/-,AFC,CASEII,ES"
   },
   {
     "Id": 105576,
@@ -19266,7 +19266,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,ECM,OMNI,Striker"
+    "BFAbilities": "CASE,ECM,OMNI"
   },
   {
     "Id": 105577,
@@ -19334,7 +19334,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AMS,CASEII,JMPW 1,LTAG,OMNI,RFA,Striker"
+    "BFAbilities": "AMS,CASEII,JMPW 1,LTAG,OMNI,RFA"
   },
   {
     "Id": 105578,
@@ -19382,7 +19382,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 6,HT 1/1/-,MEC,RCA,Ambusher"
+    "BFAbilities": "CAR 6,HT 1/1/-,MEC,RCA"
   },
   {
     "Id": 105579,
@@ -19445,7 +19445,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 1/1/-,AFC,ENG,FC,MEL,Juggernaut"
+    "BFAbilities": "AC 1/1/-,AFC,ENG,FC,MEL"
   },
   {
     "Id": 105580,
@@ -19500,7 +19500,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3S,CAR 5,IF 1,MEC,MHQ 1,STL,Missile Boat"
+    "BFAbilities": "C3S,CAR 5,IF 1,MEC,MHQ 1,STL"
   },
   {
     "Id": 105581,
@@ -19631,7 +19631,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,OMNI,Brawler"
+    "BFAbilities": "CASE,OMNI"
   },
   {
     "Id": 105582,
@@ -19689,7 +19689,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "IF 2,LRM 1/2/2,Missile Boat"
+    "BFAbilities": "IF 2,LRM 1/2/2"
   },
   {
     "Id": 105583,
@@ -19816,7 +19816,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105584,
@@ -19907,7 +19907,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 20,HT 1/-/-,Ambusher"
+    "BFAbilities": "CAR 20,HT 1/-/-"
   },
   {
     "Id": 105585,
@@ -19976,7 +19976,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 2/2/-,PRB,RCN,REAR 0*/-/-,SRCH,TUR (5/5/-,AC2/2/-),Juggernaut"
+    "BFAbilities": "AC 2/2/-,PRB,RCN,REAR 0*/-/-,SRCH,TUR (5/5/-,AC2/2/-)"
   },
   {
     "Id": 105586,
@@ -20076,7 +20076,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 4,LECM,MEC,PAR,STL,Ambusher"
+    "BFAbilities": "AM,CAR 4,LECM,MEC,PAR,STL"
   },
   {
     "Id": 105587,
@@ -20147,7 +20147,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,Ambusher"
+    "BFAbilities": "ENE"
   },
   {
     "Id": 105588,
@@ -20202,7 +20202,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   },
   {
     "Id": 105589,
@@ -20263,7 +20263,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "C3I,INARC,MHQ 2,Skirmisher"
+    "BFAbilities": "C3I,INARC,MHQ 2"
   },
   {
     "Id": 105590,
@@ -20365,7 +20365,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ENE,Brawler"
+    "BFAbilities": "ENE"
   },
   {
     "Id": 105591,
@@ -20590,7 +20590,7 @@
     "BFDamageMediumMin": true,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 20,Ambusher"
+    "BFAbilities": "CAR 20"
   },
   {
     "Id": 105592,
@@ -20669,7 +20669,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,IF 1,Missile Boat"
+    "BFAbilities": "CASE,IF 1"
   },
   {
     "Id": 105593,
@@ -20760,7 +20760,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 5,HT 1/-/-,Ambusher"
+    "BFAbilities": "AM,CAR 5,HT 1/-/-"
   },
   {
     "Id": 105594,
@@ -21104,7 +21104,7 @@
     "BFDamageMediumMin": true,
     "BFDamageLongMin": true,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "EE,IF 0*,SRCH,Missile Boat"
+    "BFAbilities": "EE,IF 0*,SRCH"
   },
   {
     "Id": 105595,
@@ -21185,7 +21185,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AM,CAR 4,MEC,SRCH,None"
+    "BFAbilities": "AM,CAR 4,MEC,SRCH"
   },
   {
     "Id": 105596,
@@ -21252,7 +21252,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CASE,TSEMP 1,Striker"
+    "BFAbilities": "CASE,TSEMP 1"
   },
   {
     "Id": 105597,
@@ -21300,7 +21300,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "CAR 5,MEC,RCN,SRCH,None"
+    "BFAbilities": "CAR 5,MEC,RCN,SRCH"
   },
   {
     "Id": 105598,
@@ -21379,7 +21379,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ECM,STL,Sniper"
+    "BFAbilities": "ECM,STL"
   },
   {
     "Id": 105599,
@@ -21440,7 +21440,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AMS,C3I,MHQ 2,Brawler"
+    "BFAbilities": "AMS,C3I,MHQ 2"
   },
   {
     "Id": 105600,
@@ -21501,6 +21501,6 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "ARM,ARTT -1,CASEII,CR,Missile Boat"
+    "BFAbilities": "ARM,ARTT -1,CASEII,CR"
   }
 ]

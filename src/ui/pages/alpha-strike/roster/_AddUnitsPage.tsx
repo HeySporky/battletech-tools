@@ -1,8 +1,11 @@
 import * as React from 'react';
 import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
-import { Link } from 'react-router';
 import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
+import AerospaceFighter from '../../../../classes/aerospace-fighter';
+import InfantryPlatoon from '../../../../classes/infantry-platoon';
+import BattleArmor from '../../../../classes/battle-armor';
+import ProtoMech from '../../../../classes/protomech';
 import { isMULSourceSelection, loadMULListItems, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
 import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
@@ -614,9 +617,6 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </label>
                         <div className="small-text">
                           {MUL_SOURCE_SELECTIONS.find( (option) => option.value === this.props.appGlobals.appSettings.alphaStrikeMULSources )?.description}
-                          {this.props.appGlobals.appSettings.developerMenu ? (
-                            <>&nbsp;<Link to={`${process.env.PUBLIC_URL}/custom-mul-editor`}>Manage custom units</Link></>
-                          ) : null}
                         </div>
                       </div>
                     </div>
@@ -765,12 +765,10 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                                   {asUnit.MulSource && asUnit.MulSource !== "mul2" ? (
                                     <>
                                       &nbsp;<span
-                                        className={asUnit.MulSource === "custom" ? "badge bg-warning text-dark" : "badge bg-secondary"}
-                                        title={asUnit.CustomInfo
-                                          ? `Non-canonical custom by ${asUnit.CustomInfo.author}${asUnit.CustomInfo.source ? ` (${asUnit.CustomInfo.source})` : ""}${asUnit.CustomInfo.local ? " - saved in this browser only" : ""}`
-                                          : "Legacy MUL 1.0 record not listed on the current MUL"}
+                                        className="badge bg-secondary"
+                                        title="Legacy MUL 1.0 record not listed on the current MUL"
                                       >
-                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}{asUnit.CustomInfo?.local ? " (local)" : ""}
+                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}
                                       </span>
                                       {asUnit.MulSource === "mul1" && !asUnit.BFPointValue ? (
                                         <span className="badge bg-danger" title="This legacy record has no Alpha Strike stats">&nbsp;No AS stats</span>
@@ -952,6 +950,269 @@ title="View this unit's Alpha Strike Card"
             )
         }) }
             </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.fighterSaves && this.props.appGlobals.fighterSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Fighters"
+    >
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.fighterSaves.map( (save, unitIndex) => {
+                // Converted from the saved design; a published fighter should use its Master Unit List card.
+                const asUnit = new AerospaceFighter( JSON.stringify(save) ).getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this fighter to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this fighter to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this fighter's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.overheat && asUnit.overheat > 0 ? <>&nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}</> : null}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                )
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.infantrySaves && this.props.appGlobals.infantrySaves.length > 0 ? (
+    <TextSection
+        label="Your Created Infantry"
+    >
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.infantrySaves.map( (save, unitIndex) => {
+                // Converted from the saved platoon; a published platoon should use its Master Unit List card.
+                const asUnit = new InfantryPlatoon( JSON.stringify(save) ).getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this platoon to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this platoon to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this platoon's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.overheat && asUnit.overheat > 0 ? <>&nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}</> : null}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                )
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.battleArmorSaves && this.props.appGlobals.battleArmorSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Battle Armor"
+    >
+        <table className="table" data-testid="as-battle-armor-saves">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.battleArmorSaves.flatMap( (save, unitIndex) => {
+                // Converted from the saved suit, the base design and each loadout; a published suit should use its Master Unit List card.
+                const suit = new BattleArmor( JSON.stringify(save) );
+                const suits = [suit, ...suit.getLoadouts().map( (_loadout, loadoutIndex) => suit.getLoadoutSuit(loadoutIndex) )];
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return suits.map( (item, itemIndex) => {
+                    const asUnit = item.getAlphaStrikeUnit();
+                    return (
+                    <tbody key={`${unitIndex}-${itemIndex}`}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this squad to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this squad to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this squad's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {item.getAlphaStrikeStats().move}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                    );
+                });
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.protoMechSaves && this.props.appGlobals.protoMechSaves.length > 0 ? (
+    <TextSection
+        label="Your Created ProtoMechs"
+    >
+        <table className="table" data-testid="as-protomech-saves">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.protoMechSaves.map( (save, unitIndex) => {
+                // Converted from the saved design, one ProtoMech to a card; a published ProtoMech should use its Master Unit List card.
+                const proto = new ProtoMech( JSON.stringify(save) );
+                const asUnit = proto.getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this ProtoMech to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this ProtoMech to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this ProtoMech's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {proto.getAlphaStrikeStats().move}&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                );
+            })}
+        </table>
     </TextSection>
 ) : null}
     </div>

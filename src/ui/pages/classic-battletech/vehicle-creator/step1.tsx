@@ -116,6 +116,14 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         }
     }
 
+    updateOmni = (e: React.FormEvent<HTMLInputElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setOmni(e.currentTarget.checked);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     updateSponsonTurrets = (e: React.FormEvent<HTMLInputElement>): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
@@ -246,6 +254,11 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     <p className="smaller-text">{vehicle.getEra().description}</p>
                                 ) : null}
 
+                                <InputCheckbox
+                                    label="OmniVehicle (one base chassis; weapons and equipment may be pod-mounted; cost x 1.25, TM pp. 97, 285)"
+                                    checked={vehicle.isOmni()}
+                                    onChange={this.updateOmni}
+                                />
                                 {turretAllowed ? (
                                     <InputCheckbox
                                         label={motive.turret === "chin" ? "Has a Chin Turret (Advanced)" : "Has a Turret"}

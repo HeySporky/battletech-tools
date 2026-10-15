@@ -28,7 +28,22 @@ export const mechCockpitTypes: ICockpitType[] = [
 		prototype: 2468,
 		introduced: 2470,
 		extinct: null,
-		reintroduced: null
+		reintroduced: null,
+		introducedInEdition: "battledroids",
+		editionStats: {
+			battledroids: {
+				book: "BD", page: 24, name: "Cockpit", weight: 3,
+				notes: "3 tons at every tonnage; holds the control station, life support and sensors (BD p.24). Head boxes: Life Support, Sensors, Cockpit, one open, Sensors, Life Support (record sheet, BD p.13).",
+			},
+			"battletech-2nd-edition": null,
+			"battletech-manual": null,
+			"battletech-compendium": null,
+			"battletech-3rd-edition": null,
+			"compendium-rules-of-warfare": null,
+			"battletech-4th-edition": null,
+			"master-rules": null,
+			"master-rules-revised": null,
+		},
 	},
 	{
 		name: "Small Cockpit",

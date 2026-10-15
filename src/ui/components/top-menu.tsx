@@ -58,6 +58,36 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     tag: "classic-battletech-vehicle-creator",
                 },
                 {
+                    label: "Fighter Creator",
+                    url: "/classic-battletech/fighter-creator",
+                    tag: "classic-battletech-fighter-creator",
+                },
+                {
+                    label: "Infantry Creator",
+                    url: "/classic-battletech/infantry-creator",
+                    tag: "classic-battletech-infantry-creator",
+                },
+                {
+                    label: "Battle Armor Creator",
+                    url: "/classic-battletech/battle-armor-creator",
+                    tag: "classic-battletech-battle-armor-creator",
+                },
+                {
+                    label: "ProtoMech Creator",
+                    url: "/classic-battletech/protomech-creator",
+                    tag: "classic-battletech-protomech-creator",
+                },
+                {
+                    label: "Small Craft Creator",
+                    url: "/classic-battletech/small-craft-creator",
+                    tag: "classic-battletech-small-craft-creator",
+                },
+                {
+                    label: "Building Creator",
+                    url: "/classic-battletech/building-creator",
+                    tag: "classic-battletech-building-creator",
+                },
+                {
                     label: "Roster",
                     url: "/classic-battletech/roster",
                     tag: "classic-battletech-roster",
@@ -110,6 +140,36 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "Vehicle Creator",
                     url: "/classic-battletech/vehicle-creator",
                     tag: "classic-battletech-vehicle-creator",
+                },
+                {
+                    label: "Fighter Creator",
+                    url: "/classic-battletech/fighter-creator",
+                    tag: "classic-battletech-fighter-creator",
+                },
+                {
+                    label: "Infantry Creator",
+                    url: "/classic-battletech/infantry-creator",
+                    tag: "classic-battletech-infantry-creator",
+                },
+                {
+                    label: "Battle Armor Creator",
+                    url: "/classic-battletech/battle-armor-creator",
+                    tag: "classic-battletech-battle-armor-creator",
+                },
+                {
+                    label: "ProtoMech Creator",
+                    url: "/classic-battletech/protomech-creator",
+                    tag: "classic-battletech-protomech-creator",
+                },
+                {
+                    label: "Small Craft Creator",
+                    url: "/classic-battletech/small-craft-creator",
+                    tag: "classic-battletech-small-craft-creator",
+                },
+                {
+                    label: "Building Creator",
+                    url: "/classic-battletech/building-creator",
+                    tag: "classic-battletech-building-creator",
                 },
                 {
                     label: "Roster",
@@ -212,14 +272,6 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                 label: "Equipment Editor",
                 url: "/equipment-editor",
                 tag: "equipment-editor",
-            },
-        );
-
-        menuStructure.push(
-            {
-                label: "Custom MUL Editor",
-                url: "/custom-mul-editor",
-                tag: "custom-mul-editor",
             },
         );
 

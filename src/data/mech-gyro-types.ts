@@ -25,7 +25,22 @@ export const mechGyroTypes: IGyro[] = [
 		extinct: null,
 		reintroduced: null,
 		book: "TM",
-		page: 219
+		page: 219,
+		introducedInEdition: "battledroids",
+		editionStats: {
+			battledroids: {
+				book: "BD", page: 24, name: "Gyroscope", criticals: 4,
+				notes: "Weighs the engine rating divided by 100, rounded up, in tons (BD p.24). Four Gyro boxes in the center torso (record sheet, BD p.13).",
+			},
+			"battletech-2nd-edition": null,
+			"battletech-manual": null,
+			"battletech-compendium": null,
+			"battletech-3rd-edition": null,
+			"compendium-rules-of-warfare": null,
+			"battletech-4th-edition": null,
+			"master-rules": null,
+			"master-rules-revised": null,
+		},
 	},
 	{
 		name: "Extra-light (XL) Gyro",

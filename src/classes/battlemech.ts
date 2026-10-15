@@ -1,5 +1,5 @@
 import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
-import { getSkillMultiplier } from "../data/skill-multipliers";
+import { getEditionSkillMultipliers, getSkillMultiplier } from "../data/skill-multipliers";
 import { battlemechLocations } from "../data/battlemech-locations";
 import { IArmorType, ICockpitType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getEraForYear, getErasForTech } from "../data/era-options";
@@ -8,7 +8,9 @@ import { findAllByName, findByTag, matchesTag } from "../data/tag-match";
 import { ComponentRecord, getComponentRecords, getComponentTiers, isCustomComponent } from "../data/custom-component-registry";
 import type { CustomComponentKind, ISSWUnresolvedItem } from "../data/custom-content-types";
 import { getCockpitType } from "../data/mech-cockpit-types";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { btMechTonnages } from "../data/mech-tonnages";
+import { DEFAULT_RULES_EDITION, editionEngineHoldsHeatSinks, getEditionJumpJetWeight, getEditionPlayRules, getEditionStats, getEditionStructure, getEquipmentForEdition, getRulesEdition, isEarlierRulesEdition, isInRulesEdition } from "../data/rules-editions";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getWeaponAmmoFamilies, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { describeEngineRequirement, engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
@@ -172,6 +174,8 @@ export interface IBattleMechExport {
     jump_jet_type?: string;
     myomer_type?: string;
     hideNonAvailableEquipment: boolean;
+    /** Rules edition the design is built under; absent for the default edition (Total Warfare). */
+    rulesEdition?: string;
     introductoryRules?: boolean;
     is_type: string;
     jumpSpeed: number;
@@ -314,6 +318,8 @@ export class BattleMech {
     private _transformationMode: "mech" | "airmech" | "aerospace" | "vehicle" = "mech";
     private _tech = btTechOptions[0];
     private _era = btEraOptions[1]; // Default to the Star League
+    /** The rules edition the design is built under (a tag from rules-editions.ts). */
+    private _rulesEdition: string = DEFAULT_RULES_EDITION;
     private _model: string = "";
     private _name: string = "";
     private _tonnage = 20;
@@ -499,6 +505,9 @@ export class BattleMech {
     public reset() {
         this.lastUpdated = new Date();
         this._primitive = false;
+        this._rulesEdition = DEFAULT_RULES_EDITION;
+        this._advancedFireControl = false;
+        this._patchworkArmor = {};
         this.setTonnage(20);
         this.setWalkSpeed(0);
         this.setWalkSpeed(0);
@@ -1153,14 +1162,15 @@ export class BattleMech {
 
     /**
      * Applies pilot experience skill tracking multipliers to determine final deployment BV.
-     * References the canonical cross-grid lookup matrix from TechManual, p. 305.
+     * Uses the 'Mech's rules edition's BV Skill Multiplier Table (TechManual p. 315 by default); an edition with
+     * no table of its own keeps the default edition's.
      */
     private _setPilotAdjustedBattleValue(): void {
         // Fetch raw pilot credentials with safe default constraints
         const gunnery = this._pilot?.gunnery ?? 4;
         const piloting = this._pilot?.piloting ?? 5;
         let skillMultiplier = 1.0;
-        const matrixMultiplier = getSkillMultiplier(gunnery, piloting);
+        const matrixMultiplier = getSkillMultiplier(gunnery, piloting, "mech", getEditionSkillMultipliers(this._rulesEdition) ? this._rulesEdition : DEFAULT_RULES_EDITION);
         if (matrixMultiplier !== null) {
             skillMultiplier = matrixMultiplier;
         } else {
@@ -1640,7 +1650,9 @@ export class BattleMech {
             // }
             switch( this._engineType.tag ) {
                 case "standard": {
-                    return this._engine.weight.standard;
+                    // An earlier edition's own Engine Table (Battledroids prints the 170 at 6.5 tons).
+                    const edition = isEarlierRulesEdition(this._rulesEdition) ? getEditionStats(this._engineType, this._rulesEdition) : undefined;
+                    return edition?.engineWeights?.[this._engine.rating] ?? this._engine.weight.standard;
                 }
                 case "xl": {
                     return this._engine.weight.xl;
@@ -1764,6 +1776,10 @@ export class BattleMech {
 
     /** Heat sinks the engine holds without critical slots: floor(rating / 25), doubled for Compact (TO:AUE p.128). */
     public getEngineHeatSinkCapacity(): number {
+        // Battledroids and the Second Edition give every heat sink a box, the engine's ten included (BD p.25).
+        if (!editionEngineHoldsHeatSinks(this._heatSinkType, this._rulesEdition)) {
+            return 0;
+        }
         const rating = this.getEngine()?.rating ?? 0;
         return Math.floor(rating / 25) * (this._heatSinkType.engineCapacityMultiplier ?? 1);
     }
@@ -1832,7 +1848,7 @@ export class BattleMech {
             const availability = this._techDatesAvailability(cockpit, rulesLevel);
             cockpit.availableAsPrototype = availability.asPrototype;
             // The cockpit a chassis must mount is never withheld.
-            cockpit.available = mandatory || availability.available;
+            cockpit.available = mandatory || (availability.available && this.isInRulesEdition(cockpit));
             return cockpit;
         });
     }
@@ -1914,20 +1930,29 @@ export class BattleMech {
         return Math.ceil(tonnage * (superheavy ? factor.superheavy : factor.base) * tripodMultiplier * 2) / 2;
     }
 
-    public getJumpJetWeight() {
+    /** Tons of one jump jet: the selected edition's figure where it prints one, else by weight class (TM p.51). */
+    private _jumpJetWeightEach(): number {
+        const edition = getEditionJumpJetWeight(this._jumpJetType, this._rulesEdition, this._tonnage);
+        if( edition !== undefined ) {
+            return edition;
+        }
         if( this._tonnage <= 55) {
             // 10-55 tons
-            return this._jumpSpeed * this._jumpJetType.weight_multiplier.light;
+            return this._jumpJetType.weight_multiplier.light;
         } else if( this._tonnage <= 85) {
             // 60 - 85 tons
-            return this._jumpSpeed * this._jumpJetType.weight_multiplier.medium;
+            return this._jumpJetType.weight_multiplier.medium;
         } else if( this._tonnage <= 100) {
             // 90 100 tons
-            return this._jumpSpeed * this._jumpJetType.weight_multiplier.heavy;
+            return this._jumpJetType.weight_multiplier.heavy;
         } else {
             // 105-200 tons
-            return this._jumpSpeed * this._jumpJetType.weight_multiplier.superheavy;
+            return this._jumpJetType.weight_multiplier.superheavy;
         }
+    }
+
+    public getJumpJetWeight() {
+        return this._jumpSpeed * this._jumpJetWeightEach();
     }
 
     public getASCalcHTML() {
@@ -2833,19 +2858,7 @@ export class BattleMech {
 
             if( jjObjs.length > 0) {
                 let areaWeight = 0;
-                if( this._tonnage <= 55) {
-                    // 10-55 tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.light;
-                } else if( this._tonnage <= 85) {
-                    // 60 - 85 tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.medium;
-                } else if ( this._tonnage <= 100) {
-                    // 90-100 tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.heavy;
-                } else {
-                    // 105+ tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.superheavy;
-                }
+                areaWeight = jjObjs.length * this._jumpJetWeightEach();
                 html += "" + jjObjs[0].name.padEnd(col1Padding, " " ) + "" + this._validJJLocations[locC].short.toUpperCase().padEnd(col2Padding, " " ) + "" + jjObjs.length.toString().padEnd(col3Padding, " " ) + "" + areaWeight.toString().padEnd(col4Padding, " " ) + "\n";
 
             }
@@ -2865,16 +2878,7 @@ export class BattleMech {
 
         if( jjObjs.length > 0) {
             let areaWeight = 0;
-            if( this._tonnage <= 55) {
-                // 10-55 tons
-                areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.light;
-            } else if( this._tonnage <= 85) {
-                // 60 - 85 tons
-                areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.medium;
-            } else {
-                // 90+ tons
-                areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.heavy;
-            }
+            areaWeight = jjObjs.length * this._jumpJetWeightEach();
             html += "" + jjObjs[0].name.padEnd(col1Padding, " " ) + "n/a".toUpperCase().padEnd(col2Padding, " " ) + "" + jjObjs.length.toString().padEnd(col3Padding, " " ) + "" + areaWeight.toString().padEnd(col4Padding, " " ) + "\n";
 
         }
@@ -3046,15 +3050,7 @@ export class BattleMech {
 
         // Isolate the base unit weight per Jump Jet once to eliminate code duplication
         let singleJJWeight = 0;
-        if (this._tonnage <= 55) {
-            singleJJWeight = this._jumpJetType.weight_multiplier.light;       // 10 - 55 tons
-        } else if (this._tonnage <= 85) {
-            singleJJWeight = this._jumpJetType.weight_multiplier.medium;      // 60 - 85 tons
-        } else if (this._tonnage <= 100) {
-            singleJJWeight = this._jumpJetType.weight_multiplier.heavy;       // 90 - 100 tons
-        } else {
-            singleJJWeight = this._jumpJetType.weight_multiplier.superheavy;  // 105+ tons
-        }
+        singleJJWeight = this._jumpJetWeightEach();
 
         // Process allocated Jump Jets across valid equipment locations
         for (let locC = 0; locC < this._validJJLocations.length; locC++) {
@@ -3178,7 +3174,9 @@ export class BattleMech {
             this._selectedInternalStructure = findByTag(mechInternalStructureTypes, "standard") ?? mechInternalStructureTypes[0];
         }
 
-        this._maxMoveHeat = 2;
+        // Running heat; an earlier edition's own Heat Point Table where it has one (Battledroids: 1, BD p.12).
+        const editionMoveHeat = getEditionPlayRules(this._rulesEdition)?.moveHeat;
+        this._maxMoveHeat = editionMoveHeat ? editionMoveHeat.run : 2;
         this._heatDissipation = 0;
 
         this._weights = [];
@@ -3253,7 +3251,9 @@ export class BattleMech {
         }
 
         if( this._jumpSpeed > 0) {
-            this._maxMoveHeat = this._jumpSpeed;
+            this._maxMoveHeat = editionMoveHeat
+                ? Math.max(editionMoveHeat.run, editionMoveHeat.jumpMinimum, this._jumpSpeed * editionMoveHeat.jumpPerHex)
+                : this._jumpSpeed;
             this._weights.push({
                 name: this._jumpJetType.name,
                 weight: this.getJumpJetWeight()
@@ -3893,7 +3893,9 @@ export class BattleMech {
             }
         }
         // Jump Jets
-        let jump_move = this._jumpSpeed;
+        // Battledroids keeps jump jets off the Critical Hit Chart (BD p.25).
+        const jumpJetCriticals = getEditionStats(this._jumpJetType, this._rulesEdition)?.criticals ?? this._jumpJetType.criticals;
+        let jump_move = jumpJetCriticals > 0 ? this._jumpSpeed : 0;
         for( let jmc = 0; jmc < jump_move; jmc++) {
             this._unallocatedCriticals.push({
                 uuid: generateUUID(),
@@ -3902,7 +3904,7 @@ export class BattleMech {
                 tag: "jj-" + this._jumpJetType.tag,
                 rear: false,
                 movable: true,
-                crits: this._jumpJetType.criticals,
+                crits: jumpJetCriticals,
             });
         }
 
@@ -4285,8 +4287,14 @@ export class BattleMech {
      * Highest walking MP an engine can give this 'Mech: rating (walk MP x tonnage) is capped at 400,
      * or 500 with Large engines, which are Experimental technology (TO:AUE).
      */
+    /** Lowest Walking MP an engine exists for. The Engine Table starts at a rating of 10, so a 5-ton battledroid needs 2 (BD p.23). */
+    public getMinWalkSpeed(): number {
+        return Math.max(1, Math.ceil(10 / Math.max(1, this.getTonnage())));
+    }
+
     public getMaxWalkSpeed(rulesLevel: number = 2): number {
-        const maxRating = rulesLevel >= EXPERIMENTAL_RULES_LEVEL ? 500 : 400;
+        // The Engine Tables before Total Warfare end at 400, whatever the rules level.
+        const maxRating = rulesLevel >= EXPERIMENTAL_RULES_LEVEL && !this.usesEarlierRulesEdition() ? 500 : 400;
         const walk = Math.floor(maxRating / Math.max(1, this.getTonnage()));
         if (!this._primitive) return walk;
         // A Primitive engine's adjusted rating comes from the Master Engine Table, which ends at 400 (IO:AE p.117).
@@ -4344,7 +4352,7 @@ export class BattleMech {
             const availability = this._techDatesAvailability(myomer, rulesLevel);
             myomer.availableAsPrototype = availability.asPrototype;
             // Superheavy musculature is incompatible with Triple-Strength Myomer (IO:AE p.156).
-            myomer.available = availability.available && !(myomer.techBase && pureTech && myomer.techBase !== pureTech)
+            myomer.available = availability.available && (myomer.tag === "standard" || this.isInRulesEdition(myomer)) && !(myomer.techBase && pureTech && myomer.techBase !== pureTech)
                 && !(this.isSuperheavy() && BattleMech._isTripleStrengthMyomer(myomer))
                 && this._isChassisLegalMyomer(myomer);
             return myomer;
@@ -4356,7 +4364,7 @@ export class BattleMech {
             const availability = this._techDatesAvailability(jumpJet, rulesLevel);
             jumpJet.availableAsPrototype = availability.asPrototype;
             // Superheavy 'Mechs mount no jump jets, improved jump jets or UMUs (IO:AE p.156).
-            jumpJet.available = availability.available && !this.isSuperheavy()
+            jumpJet.available = availability.available && this.isInRulesEdition(jumpJet) && !this.isSuperheavy()
                 && !(jumpJet.innerSphereOnly && this.getTech().tag === "clan")
                 // IndustrialMechs "may use only standard jump jets" (TM p.69).
                 && this._hasFusionOrFissionEngine() && (!this.isIndustrialMech() || jumpJet.tag === "standard");
@@ -4724,6 +4732,14 @@ export class BattleMech {
     }
 
     public getActiveMoveHeat(): number {
+        // An earlier edition's own Heat Point Table (Battledroids: walking 0, running 1, jumping 1 a hex, BD p.12).
+        const editionMoveHeat = getEditionPlayRules(this._rulesEdition)?.moveHeat;
+        if( editionMoveHeat ) {
+            if( this.currentMovementMode === "w" ) return editionMoveHeat.walk;
+            if( this.currentMovementMode === "r" ) return editionMoveHeat.run;
+            if( this.currentMovementMode === "j" ) return Math.max(editionMoveHeat.jumpMinimum, this.currentTargetJumpingMP * editionMoveHeat.jumpPerHex);
+            return 0;
+        }
         // TODO check if heat sinks are broken
         if( this.currentMovementMode === "w" ) {
             return 1;
@@ -5116,6 +5132,180 @@ export class BattleMech {
         return this._unallocatedCriticals;
     }
 
+    public getRulesEdition(): string {
+        return this._rulesEdition;
+    }
+
+    /** What the Heat Scale adds to the To-Hit Number at the current heat: +1 at 8, +2 at 13, +3 at 17, +4 at 24 (TW pp.158-160; BD p.13). */
+    public getHeatToHitModifier(): number {
+        const heat = this.currentHeat;
+        return heat >= 24 ? 4 : heat >= 17 ? 3 : heat >= 13 ? 2 : heat >= 8 ? 1 : 0;
+    }
+
+    /**
+     * Roll for a critical hit in a location by the rules of the design's edition, for an edition whose play rules
+     * are entered (Battledroids, BD p.18: 7 or more on two dice is one critical hit; one die picks the line in the
+     * head or a leg, a die for the group and a die for the line elsewhere; an empty line is rolled again). The
+     * line hit is marked. `dice` supplies the players' rolls: the chance roll, then the dice for the line in order.
+     */
+    public rollEditionCriticalHit(location: string, dice: { chance?: number; lines?: number[] } = {}): string[] {
+        const rules = this.getEditionPlayRules();
+        if (!rules) {
+            return [];
+        }
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const chance = dice.chance ?? die() + die();
+        if (chance < rules.criticalHitRoll) {
+            return [`Critical hit roll ${chance}: no critical hit (${rules.criticalHitRoll} or more is needed).`];
+        }
+        const normalized = this._normalizeLocation(location);
+        const slots: (ICriticalSlot | null | undefined)[] = (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[normalized]] ?? [];
+        const lines = [...(dice.lines ?? [])];
+        const next = () => lines.shift() ?? die();
+        const twelve = !["hd", "ll", "rl", "cl", "fll", "frl"].includes(normalized);
+        const log = [`Critical hit roll ${chance}: a critical hit.`];
+        for (let attempt = 0; attempt < 100; attempt++) {
+            const first = next();
+            const index = twelve ? (first <= 3 ? 0 : 6) + next() - 1 : first - 1;
+            const label = twelve ? `${first <= 3 ? 1 : 2}${index % 6 + 1}` : `${index + 1}`;
+            if (!slots[index]) {
+                log.push(`Line ${label} is empty: rolled again.`);
+                continue;
+            }
+            let named = index;
+            while (named > 0 && slots[named]?.placeholder) named--;
+            const name = slots[named]?.name ?? "that line";
+            if (this.isCriticalDamaged(normalized, index)) {
+                log.push(`Line ${label}, ${name}: already hit.`);
+            } else {
+                this.toggleCritical(normalized, index);
+                log.push(`Line ${label}: ${name} is hit.`);
+            }
+            return log;
+        }
+        log.push("This location has nothing to hit.");
+        return log;
+    }
+
+    /** The play rules of the design's edition where they differ from Total Warfare's; undefined when they do not. */
+    public getEditionPlayRules() {
+        return getEditionPlayRules(this._rulesEdition);
+    }
+
+    /** True when the design is built under an edition before Total Warfare, whose lists and stats come from that edition's rulebook. */
+    public usesEarlierRulesEdition(): boolean {
+        return isEarlierRulesEdition(this._rulesEdition);
+    }
+
+    /** Do the rules of the design's edition include this record (a component type, tonnage, chassis type or item)? */
+    public isInRulesEdition(record: { introducedInEdition?: string; editionStats?: IEquipmentItem["editionStats"] }): boolean {
+        return isInRulesEdition(record, this._rulesEdition);
+    }
+
+    /**
+     * Build the design under another rules edition. Mounted equipment takes the new edition's weight, heat,
+     * damage, ranges, critical slots and price wherever it still held the old edition's; nothing is removed.
+     * getRulesEditionIssues() lists what the new edition does not include. An unknown tag is ignored.
+     */
+    public setRulesEdition(editionTag: string): string {
+        const edition = getRulesEdition(editionTag);
+        if (edition.tag !== editionTag || edition.tag === this._rulesEdition) {
+            return this._rulesEdition;
+        }
+        const previous = this._rulesEdition;
+        this._rulesEdition = edition.tag;
+        const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+        const restat = (item: IEquipmentItem | null | undefined): void => {
+            const record = item ? getEquipmentListByTech("mis", true).find(candidate => candidate.tag === item.tag) : undefined;
+            if (!item || !record) {
+                return;
+            }
+            const [before, after] = [getEquipmentForEdition(record, previous), getEquipmentForEdition(record, edition.tag)];
+            for (const field of ["weight", "heat", "damage", "range", "space", "cbills", "book", "page"] as const) {
+                if (same(item[field], before[field])) {
+                    (item as unknown as Record<string, unknown>)[field] = JSON.parse(JSON.stringify(after[field] ?? null)) ?? undefined;
+                }
+            }
+        };
+        this._equipmentList.forEach(restat);
+        // The structure boxes are the edition's as well; setTonnage recalculates everything after them.
+        this.setTonnage(this._tonnage);
+        return this._rulesEdition;
+    }
+
+    /**
+     * Construction rules of the design's edition that it breaks, one line each: today the least ammunition its
+     * weapons must carry (a ton for each launcher or ballistic weapon in Battledroids, BD p.25). Weapons that
+     * share ammunition are counted together. Always empty for Total Warfare and later editions.
+     */
+    public getRulesEditionRuleIssues(): string[] {
+        const rule = this.usesEarlierRulesEdition() ? getRulesEdition(this._rulesEdition).ammoTonsFor : undefined;
+        if (!rule) {
+            return [];
+        }
+        const familiesByTag = new Map<string, string[]>();
+        const groups = new Map<string, { names: Set<string>; weapons: number; families: string[] }>();
+        for (const item of this._equipmentList) {
+            if (!item || item.isAmmo) {
+                continue;
+            }
+            if (!familiesByTag.has(item.tag)) {
+                familiesByTag.set(item.tag, getWeaponAmmoFamilies(item).sort());
+            }
+            const families = familiesByTag.get(item.tag)!;
+            if (families.length === 0) {
+                continue;
+            }
+            const group = groups.get(families.join("|")) ?? { names: new Set<string>(), weapons: 0, families };
+            group.names.add(item.name);
+            group.weapons++;
+            groups.set(families.join("|"), group);
+        }
+        const issues: string[] = [];
+        for (const group of groups.values()) {
+            const carried = this._equipmentList.reduce((tons, item) => tons + (item?.isAmmo && group.families.includes(getAmmoFamily(item)) ? item.weight : 0), 0);
+            const needed = rule === "launcher" ? group.weapons : 1;
+            if (carried < needed) {
+                issues.push(`Ammunition for ${Array.from(group.names).join(", ")}: at least ${needed} ${needed === 1 ? "ton" : "tons"}${rule === "launcher" ? " (1 for each weapon)" : ""}, ${carried} carried`);
+            }
+        }
+        return issues;
+    }
+
+    /**
+     * What the design uses that its rules edition does not include, one line each. Always empty for Total Warfare
+     * and later editions, where the rules level and era filters decide legality.
+     */
+    public getRulesEditionIssues(): string[] {
+        if (!this.usesEarlierRulesEdition()) {
+            return [];
+        }
+        const issues: string[] = [];
+        const check = (kind: string, record: { name?: string; introducedInEdition?: string; editionStats?: IEquipmentItem["editionStats"] } | undefined, name?: string): void => {
+            if (record && !this.isInRulesEdition(record)) {
+                issues.push(`${kind}: ${name ?? record.name}`);
+            }
+        };
+        check("Chassis type", this._mechType);
+        check("Tonnage", btMechTonnages.find(option => option.tons === this._tonnage) ?? {}, `${this._tonnage} tons`);
+        check("Engine", this._engineType);
+        check("Gyro", this._gyro);
+        check("Cockpit", this.getCockpitType());
+        check("Internal structure", this._selectedInternalStructure);
+        check("Armor", this.getArmorObj());
+        check("Heat sinks", this._heatSinkType);
+        if (this._jumpSpeed > 0) check("Jump jets", this._jumpJetType);
+        if (this._myomerType.tag !== "standard") check("Myomer", this._myomerType);
+        const listed = new Set<string>();
+        for (const item of this._equipmentList) {
+            if (item && !listed.has(item.tag)) {
+                listed.add(item.tag);
+                check("Equipment", item);
+            }
+        }
+        return issues;
+    }
+
     public setEra(
         eraTag: string,
     ) {
@@ -5471,6 +5661,8 @@ export class BattleMech {
         if (this.isIndustrialMech() && armorTags.some(tag => BattleMech.DARK_AGE_ARMOR_TAGS.includes(tag))) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
         if (this.isPatchworkArmor()) level = Math.max(level, 3);
+        // An edition before Total Warfare has no rules levels: only content from outside the canon keeps its level.
+        if (this.usesEarlierRulesEdition() && level < APOCRYPHAL_RULES_LEVEL) return 0;
         return level;
     }
 
@@ -5792,7 +5984,7 @@ export class BattleMech {
     public getAvailableBombs(rulesLevel: number = 2): IEquipmentItem[] {
         if (!this.isLAM()) return [];
         return getEquipmentListForChassis(this.getTech().tag)
-            .filter(item => !!item.bombBaySlots
+            .filter(item => !!item.bombBaySlots && this.isInRulesEdition(item)
                 && getEquipmentRulesLevel(item) <= rulesLevel
                 && this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced))
             .sort((a, b) => a.sort.localeCompare(b.sort));
@@ -6170,7 +6362,17 @@ export class BattleMech {
       // Get the current active mech configuration type tag key
       const mechTypeKey = this.getMechType().tag as keyof typeof this._selectedInternalStructure.perMechType;
       // Fetch the normalized structural data block for this specific tonnage
-      const structureData = this._selectedInternalStructure.perMechType[mechTypeKey][this.getTonnage()];
+      // An earlier edition's own Internal Structure Table comes first (Battledroids' runs down to 5 tons, BD p.24).
+      const listedStructure = this._selectedInternalStructure.perMechType[mechTypeKey][this.getTonnage()];
+      const editionBoxes = getEditionStructure(mechInternalStructureTypes[0], this._rulesEdition, this.getTonnage(), !listedStructure);
+      const structureData: IInternalStructurePerTon = editionBoxes ? {
+        tonnage: this.getTonnage(), head: editionBoxes.head, centerTorso: editionBoxes.ct, leftTorso: editionBoxes.torso, rightTorso: editionBoxes.torso,
+        leftLeg: editionBoxes.leg, rightLeg: editionBoxes.leg,
+        ...(mechTypeKey === "quad" || mechTypeKey === "quadvee"
+          ? { frontLeftLeg: editionBoxes.leg, frontRightLeg: editionBoxes.leg }
+          : { leftArm: editionBoxes.arm, rightArm: editionBoxes.arm }),
+        ...(mechTypeKey === "tripod" ? { centerLeg: editionBoxes.leg } : {}),
+      } : listedStructure;
       // Assigning core internal structure properties
       this._internalStructure.head = structureData.head;
       this._internalStructure.centerTorso = structureData.centerTorso;
@@ -6271,7 +6473,7 @@ export class BattleMech {
         }
       }
 
-      this.setWalkSpeed(this._walkSpeed);
+      this.setWalkSpeed(this._walkSpeed > 0 ? Math.max(this._walkSpeed, this.getMinWalkSpeed()) : this._walkSpeed);
       this._calc();
 
       return this._tonnage;
@@ -6594,6 +6796,7 @@ export class BattleMech {
             engineTechBase: this.getEngineTechBase(),
             equipment: [],
             era: this._era.tag,
+            rulesEdition: this._rulesEdition === DEFAULT_RULES_EDITION ? undefined : this._rulesEdition,
             features: [],
             gyro: this._gyro.tag,
             heat_sink_type: this.getHeatSinksType(),
@@ -6892,6 +7095,9 @@ export class BattleMech {
             if (importObject.transformationMode) {
                 this.setTransformationMode(importObject.transformationMode);
             }
+
+            // Before anything is mounted: the edition decides the stats of what is loaded.
+            this._rulesEdition = getRulesEdition(importObject.rulesEdition).tag;
 
             this.setTonnage(importObject.tonnage);
 
@@ -8460,7 +8666,7 @@ export class BattleMech {
                 // engines stop at an adjusted 400.
                 const buildableAtRating = !weights || (weights as Record<string, number | undefined>)[engine.tag] !== undefined;
                 engine.availableAsPrototype = availability.asPrototype;
-                engine.available = availability.available && buildableAtRating
+                engine.available = availability.available && buildableAtRating && this.isInRulesEdition(engine)
                     && this._isSuperheavyLegalEngine(engine.tag)
                     && this._isChassisLegalEngine(engine.tag)
                     && (!this.isLAM() || this._isLAMLegalComponent("engine", engine.tag));
@@ -8604,7 +8810,7 @@ export class BattleMech {
         for(let gyro of mechGyroTypes ) {
             const availability = this._datesAvailability(gyro, rulesLevel);
             gyro.availableAsPrototype = availability.asPrototype;
-            gyro.available = availability.available && !(gyro.innerSphereOnly && this.getTech().tag === "clan")
+            gyro.available = availability.available && this.isInRulesEdition(gyro) && !(gyro.innerSphereOnly && this.getTech().tag === "clan")
                 && (!this.isLAM() || BattleMech.LAM_GYRO_TAGS.includes(gyro.tag))
                 // IndustrialMechs and Primitive 'Mechs take the standard gyro only (TM p.69; IO:AE p.116).
                 && (!this._hasBasicChassis() || gyro.tag === "standard");
@@ -8619,7 +8825,7 @@ export class BattleMech {
         return mechInternalStructureTypes.map(structure => {
             const availability = this._techDatesAvailability(structure, rulesLevel);
             structure.availableAsPrototype = availability.asPrototype;
-            structure.available = availability.available && !(structure.innerSphereOnly && this.getTech().tag === "clan")
+            structure.available = availability.available && this.isInRulesEdition(structure) && !(structure.innerSphereOnly && this.getTech().tag === "clan")
                 && (!this.isLAM() || this._isLAMLegalComponent("structure", structure.tag))
                 && (!this.isSuperheavy() || BattleMech.SUPERHEAVY_STRUCTURE_TAGS.includes(structure.tag))
                 // "standard internal structure (or standard IndustrialMech structure, for IndustrialMechs)" (IO:AE p.116).
@@ -8634,7 +8840,7 @@ export class BattleMech {
             const techTag = this.getTech().tag;
             const pureTech = techTag === "is" || techTag === "clan" ? techTag : null;
             heatSink.availableAsPrototype = availability.asPrototype;
-            heatSink.available = availability.available && !(heatSink.techBase && pureTech && heatSink.techBase !== pureTech)
+            heatSink.available = availability.available && this.isInRulesEdition(heatSink) && !(heatSink.techBase && pureTech && heatSink.techBase !== pureTech)
                 // IndustrialMechs and Primitive 'Mechs use single heat sinks only (TM p.71; IO:AE p.117).
                 && (!this._hasBasicChassis() || heatSink.tag === "single");
             return heatSink;
@@ -8937,7 +9143,7 @@ export class BattleMech {
             // need the Experimental rules level as well as a mixed tech base (IO:AE p.82).
             const mandatory = this._primitive && armor.tag === this._getPrimitiveArmorTag();
             const experimentalOnly = this.isIndustrialMech() && BattleMech.DARK_AGE_ARMOR_TAGS.includes(armor.tag);
-            armor.available = mandatory || (hasCompatibleMultiplier && availability.available
+            armor.available = mandatory || (hasCompatibleMultiplier && availability.available && this.isInRulesEdition(armor)
                 && this._isArmorLegalForChassis(armor)
                 && (!experimentalOnly || rulesLevel >= EXPERIMENTAL_RULES_LEVEL)
                 // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
@@ -9296,7 +9502,12 @@ export class BattleMech {
             returnItems.push(item);
         };
 
-        for (const item of getEquipmentListForChassis(techTag, includeCustom)) {
+        for (const record of getEquipmentListForChassis(techTag, includeCustom)) {
+            // Only what the selected rules edition includes, with the stats that edition prints.
+            if (!this.isInRulesEdition(record)) {
+                continue;
+            }
+            const item = getEquipmentForEdition(record, this._rulesEdition);
             const catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : techTag === "clan" ? "clan" : "is");
             addEquipment(item, catalog);
         }
@@ -9997,7 +10208,8 @@ export class BattleMech {
         equipmentListTag: string,
         includeCustom: boolean = false,
     ): IEquipmentItem[] {
-        return getEquipmentListByTech(equipmentListTag, includeCustom);
+        // Not filtered by rules edition: a saved design keeps what it mounts. Stats are the edition's.
+        return getEquipmentListByTech(equipmentListTag, includeCustom).map(item => getEquipmentForEdition(item, this._rulesEdition));
     }
 
 

@@ -12,6 +12,9 @@ import UIPage from '../../../components/ui-page';
 import './home.scss';
 import BattleMechTableGroup from './_tableGroup';
 import { vehicleName } from './_vehicleGroupTable';
+import { fighterName } from './_fighterGroupTable';
+import { smallCraftName } from './_smallCraftGroupTable';
+import { buildingSummary } from './_buildingGroupTable';
 const Dice = FaDice as any;
 const Print = FaPrint as any;
 const Heart = FaHeart as any;
@@ -400,6 +403,111 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
               <td className="min-width no-wrap text-center">{vehicle.getPilot().piloting}</td>
               <td className="min-width no-wrap text-center">{vehicle.getPilot().gunnery}</td>
               <td className="min-width no-wrap text-center">{vehicle.getPilotAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
+      {favGroup.fighters.map( (fighter) => (
+          <tbody key={fighter.getUUID()}>
+          <tr>
+              <td>
+                  {fighterName(fighter)}
+                  <div className='small-text'>{fighter.getFighterTypeName()}</div>
+              </td>
+              <td className="min-width no-wrap text-center">{fighter.getTonnage()}</td>
+              <td className="min-width no-wrap text-center small-text">{fighter.getTech().name}</td>
+              <td className="min-width no-wrap text-center">{fighter.getPilot().piloting}</td>
+              <td className="min-width no-wrap text-center">{fighter.getPilot().gunnery}</td>
+              <td className="min-width no-wrap text-center">{fighter.getPilotAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
+      {favGroup.smallCraft.map( (craft) => (
+          <tbody key={craft.getUUID()}>
+          <tr>
+              <td>
+                  {smallCraftName(craft)}
+                  <div className='small-text'>{craft.getShapeName()} Small Craft</div>
+              </td>
+              <td className="min-width no-wrap text-center">{craft.getTonnage()}</td>
+              <td className="min-width no-wrap text-center small-text">{craft.getTech().name}</td>
+              <td className="min-width no-wrap text-center">{craft.getPilot().piloting}</td>
+              <td className="min-width no-wrap text-center">{craft.getPilot().gunnery}</td>
+              <td className="min-width no-wrap text-center">{craft.getPilotAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
+      {favGroup.infantry.map( (platoon) => (
+          <tbody key={platoon.getUUID()}>
+          <tr>
+              <td>
+                  {platoon.getDisplayName()}
+                  <div className='small-text'>{platoon.getMotive().name} conventional infantry, {platoon.getTroopers()} troopers</div>
+              </td>
+              <td className="min-width no-wrap text-center">{platoon.getWeight()}</td>
+              <td className="min-width no-wrap text-center small-text">{platoon.getTechName()}</td>
+              <td className="min-width no-wrap text-center">{platoon.canMakeAntiMechAttacks() ? platoon.getAntiMechSkill() : "-"}</td>
+              <td className="min-width no-wrap text-center">{platoon.getGunnery()}</td>
+              <td className="min-width no-wrap text-center">{platoon.getSkillAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
+      {(favGroup.battleArmor ?? []).map( (squad) => (
+          <tbody key={squad.getUUID()}>
+          <tr>
+              <td>
+                  {squad.getDisplayName()}
+                  <div className='small-text'>{squad.getWeightClass().name} battle armor, {squad.getSquadSize()} troopers</div>
+              </td>
+              <td className="min-width no-wrap text-center">{squad.getSquadSize()}</td>
+              <td className="min-width no-wrap text-center small-text">{squad.getTechName()}</td>
+              <td className="min-width no-wrap text-center">{squad.getCapabilities().swarm || squad.getCapabilities().leg ? squad.getAntiMechSkill() : "-"}</td>
+              <td className="min-width no-wrap text-center">{squad.getGunnery()}</td>
+              <td className="min-width no-wrap text-center">{squad.getSkillAdjustedBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
+      {(favGroup.protoMechs ?? []).map( (point) => (
+          <tbody key={point.getUUID()}>
+          <tr>
+              <td>
+                  {point.getDisplayName()}
+                  <div className='small-text'>{point.getTons()}-ton {point.getChassisName()} ProtoMech, Point of {point.getPointSize()}</div>
+              </td>
+              <td className="min-width no-wrap text-center">{point.getTons() * point.getPointSize()}</td>
+              <td className="min-width no-wrap text-center small-text">{point.getTechName()}</td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center">{point.getGunnery()}</td>
+              <td className="min-width no-wrap text-center">{point.getSkillAdjustedPointBattleValue()}</td>
+          </tr>
+          </tbody>
+      ))}
+      {(favGroup.battledroidsUnits ?? []).map( (unit) => (
+          <tbody key={unit.getUUID()}>
+          <tr>
+              <td>
+                  {unit.getDisplayName()}
+                  <div className='small-text'>{unit.getKind().name}, Battledroids p.{unit.getDesign().page}</div>
+              </td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center small-text">Battledroids</td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center">{unit.getGunnery()}</td>
+              <td className="min-width no-wrap text-center">-</td>
+          </tr>
+          </tbody>
+      ))}
+      {favGroup.buildings.map( (building) => (
+          <tbody key={building.getUUID()}>
+          <tr>
+              <td>
+                  {building.getDisplayName()}
+                  <div className='small-text'>{buildingSummary(building)}</div>
+              </td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center small-text">{building.getTech().name}</td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center">{building.getMinimumGunners() > 0 ? building.getGunnery() : "-"}</td>
+              <td className="min-width no-wrap text-center">-</td>
           </tr>
           </tbody>
       ))}

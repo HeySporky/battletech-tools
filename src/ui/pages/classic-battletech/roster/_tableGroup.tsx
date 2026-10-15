@@ -10,6 +10,13 @@ import StatBar from '../../../components/stat-bar';
 import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import BattleMechAddMechDialog from './_addMechDialog';
 import VehicleGroupTable from './_vehicleGroupTable';
+import FighterGroupTable from './_fighterGroupTable';
+import SmallCraftGroupTable from './_smallCraftGroupTable';
+import InfantryGroupTable from './_infantryGroupTable';
+import BattleArmorGroupTable from './_battleArmorGroupTable';
+import ProtoMechGroupTable from './_protoMechGroupTable';
+import BattledroidsGroupTable from './_battledroidsGroupTable';
+import BuildingGroupTable from './_buildingGroupTable';
 import type { JSX } from "react";
 const Edit = FaEdit as any;
 const Trash = FaTrash as any;
@@ -516,6 +523,48 @@ export default class BattleMechTableGroup extends React.Component<IBattleMechTab
 
 </table>
 <VehicleGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<FighterGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<SmallCraftGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<InfantryGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<BattleArmorGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<ProtoMechGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<BuildingGroupTable
+    appGlobals={this.props.appGlobals}
+    bmGroupIndex={this.props.bmGroupIndex}
+    showAdd={this.props.showAdd}
+    showEdit={this.props.showEdit}
+/>
+<BattledroidsGroupTable
     appGlobals={this.props.appGlobals}
     bmGroupIndex={this.props.bmGroupIndex}
     showAdd={this.props.showAdd}
