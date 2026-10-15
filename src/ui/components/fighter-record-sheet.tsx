@@ -1,6 +1,7 @@
 import React, { type JSX } from 'react';
 import AerospaceFighter, { FIGHTER_CRITICAL_TRACKS, FIGHTER_LOCATIONS, formatFighterASDamage } from '../../classes/aerospace-fighter';
 import FighterDiagramSVG from './svg/fighter-diagram-svg';
+import { SUPPORT_VEHICLE_CHASSIS_MODIFICATIONS, SUPPORT_VEHICLE_FIRE_CONTROL } from '../../data/support-vehicle-construction';
 
 // A fighter record sheet: summary line, armor diagram with damage thresholds, weapons by arc, external stores,
 // the critical damage tracks and the converted Alpha Strike stats. With showDamage, damage marked in play is
@@ -35,11 +36,20 @@ export default class FighterRecordSheet extends React.Component<IFighterRecordSh
                     Structural Integrity {fighter.getStructuralIntegrity()} &nbsp;|&nbsp;
                     Fuel {fighter.getFuelPoints()} points &nbsp;|&nbsp;
                     Heat Sinks {fighter.getTotalHeatSinks()} ({fighter.getHeatSinkType().name}, {fighter.getHeatDissipation()} dissipated) &nbsp;|&nbsp;
-                    {fighter.getEngineType().name} {fighter.getEngineRating()} &nbsp;|&nbsp;
-                    Armor: {fighter.getArmorType().name}{fighter.hasVSTOL() ? <> &nbsp;|&nbsp; VSTOL</> : null} &nbsp;|&nbsp;
+                    {fighter.isSupportVehicle() ? fighter.getSupportEngine()?.name : fighter.getEngineType().name} {fighter.getEngineRating()} &nbsp;|&nbsp;
+                    Armor: {fighter.isSupportVehicle() ? `BAR ${fighter.getBAR()} (Tech ${fighter.getSupportVehicleSettings()?.armorTechRating.toUpperCase()})` : fighter.getArmorType().name}{fighter.hasVSTOL() ? <> &nbsp;|&nbsp; VSTOL</> : null} &nbsp;|&nbsp;
                     BV {fighter.getBattleValue()} &nbsp;|&nbsp; {fighter.getCBillCost().toLocaleString("en-US")} C-Bills
                     {this.props.showPilot ? <> &nbsp;|&nbsp; Gunnery {pilot.gunnery} / Piloting {pilot.piloting}{pilot.name ? ` (${pilot.name})` : ""} &nbsp;|&nbsp; Adjusted BV {fighter.getPilotAdjustedBattleValue()}</> : null}
                 </p>
+
+                {fighter.isSupportVehicle() ? (
+                    <p className="smaller-text" data-testid="support-aircraft-sheet">
+                        Support Vehicle: Tech Rating {fighter.getSupportOverallTechRating()?.toUpperCase()} &nbsp;|&nbsp; Crew {fighter.getCrew()} &nbsp;|&nbsp;
+                        {SUPPORT_VEHICLE_FIRE_CONTROL[fighter.getSupportFireControl()].name}{fighter.getFireControlToHitModifier() > 0 ? ` (+${fighter.getFireControlToHitModifier()} to-hit)` : ""}
+                        {fighter.getSupportChassisModifications().length > 0 ? <> &nbsp;|&nbsp; {fighter.getSupportChassisModifications().map((tag) => SUPPORT_VEHICLE_CHASSIS_MODIFICATIONS.find((mod) => mod.tag === tag)?.name).join(", ")}</> : null}
+                        {fighter.getBays().length > 0 ? <> &nbsp;|&nbsp; Bays: {fighter.getBays().map((bay) => `${fighter.getBayName(bay)} ${bay.amount}`).join(", ")}</> : null}
+                    </p>
+                ) : null}
 
                 <FighterDiagramSVG
                     armor={fighter.getArmorAllocation()}

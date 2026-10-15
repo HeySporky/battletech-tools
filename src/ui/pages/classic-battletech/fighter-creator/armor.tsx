@@ -8,6 +8,7 @@ import FighterCreatorSideMenu from '../../../components/fighter-creator-side-men
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { SUPPORT_VEHICLE_TECH_RATINGS } from '../../../../data/support-vehicle-construction';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -51,6 +52,27 @@ export default class FighterCreatorArmor extends React.Component<IArmorProps> {
                     </div>
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Step 2: Allocate Armor">
+                            {fighter.isSupportVehicle() ? (
+                                <>
+                                    <label>
+                                        Barrier Armor Rating (BAR):
+                                        <select value={fighter.getBAR()} onChange={(e) => { const value = +e.currentTarget.value; this.update((f) => f.setBAR(value)); }}>
+                                            {[2, 3, 4, 5, 6, 7, 8, 9, 10].map((bar) => <option key={bar} value={bar}>BAR {bar}</option>)}
+                                        </select>
+                                    </label>
+                                    <label>
+                                        Armor Tech Rating:
+                                        <select value={fighter.getSupportVehicleSettings()?.armorTechRating} onChange={(e) => { const value = e.currentTarget.value; this.update((f) => f.setSupportTechRating("armor", value)); }}>
+                                            {SUPPORT_VEHICLE_TECH_RATINGS.map((rating) => <option key={rating} value={rating}>{rating.toUpperCase()}</option>)}
+                                        </select>
+                                    </label>
+                                    <p>
+                                        <strong>Weight a Point</strong>: {fighter.getSupportArmorKgPerPoint() ?? "not made at this Tech Rating"} kg &nbsp;|&nbsp;
+                                        <strong>Maximum</strong>: {fighter.getMaxArmorPoints()} points (TM p.134; TO:AUE p.69) &nbsp;|&nbsp;
+                                        <strong>Armor Weight</strong>: {fighter.getArmorWeight()} t
+                                    </p>
+                                </>
+                            ) : (<>
                             <label>
                                 Armor Type:
                                 <select value={fighter.getArmorType().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((f) => f.setArmorType(value)); }}>
@@ -66,6 +88,7 @@ export default class FighterCreatorArmor extends React.Component<IArmorProps> {
                                 <strong>Maximum</strong>: {fighter.getMaxArmorPoints()} points (tonnage x {fighter.getMaxArmorPointsPerTonOfFighter()}, TM p. 191)
                                 {slots && slots.placement ? <> &nbsp;|&nbsp; <strong>Weapon slots given up</strong>: {slots.placement}</> : null}
                             </p>
+                            </>)}
 
                             <div className="row">
                                 {FIGHTER_ARCS.map((arc) => (

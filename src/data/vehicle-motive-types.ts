@@ -40,6 +40,9 @@ export const vehicleMotiveTypes: IVehicleMotiveType[] = [
         liftEquipment: "Hydrofoil Equipment", turret: "standard", allowsHardenedArmor: true, allowsJumpJets: false, naval: true, alphaStrikeMove: "n", book: "TM", page: null },
     { id: 7, tag: "naval-sub", name: "Naval (Submarine)", minTonnage: 1, standardMaxTonnage: 300, superheavyMaxTonnage: 555,
         liftEquipment: "Dive Equipment", turret: "standard", allowsHardenedArmor: true, allowsJumpJets: false, naval: true, alphaStrikeMove: "s", book: "TM", page: null },
+    // Rail Support Vehicles only (TO:AUE pp.17, 55); "r" is the Alpha Strike movement code MegaMek gives rail units.
+    { id: 9, tag: "rail", name: "Rail (Support Vehicles)", minTonnage: 0.1, standardMaxTonnage: 600, superheavyMaxTonnage: null,
+        turret: "standard", allowsHardenedArmor: false, allowsJumpJets: false, naval: false, supportOnly: true, alphaStrikeMove: "r", book: "TO:AUE", page: 55 },
 ];
 
 export function getVehicleMotiveType(motiveTag: string): IVehicleMotiveType {

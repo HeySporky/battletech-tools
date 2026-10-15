@@ -5,6 +5,8 @@ import Vehicle, { IVehicleExport } from '../../../../classes/vehicle';
 import { IAppGlobals } from '../../../app-router';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
 import TextSection from '../../../components/text-section';
+import BlkImportSection, { IBlkImportOutcome } from '../../../components/blk-import-section';
+import { importSupportVehicleBlk } from '../../../../classes/support-vehicle-blk';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
@@ -78,6 +80,14 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
         }
     }
 
+    // A MegaMek Support Vehicle file (SupportTank, LargeSupportTank, SupportVTOL).
+    importBlk = (text: string): IBlkImportOutcome => {
+        const result = importSupportVehicleBlk(text);
+        if (!result.vehicle) return { loaded: false, messages: result.issues };
+        this.props.appGlobals.saveCurrentVehicle(result.vehicle);
+        return { loaded: true, messages: [...result.notes, ...result.issues, ...result.vehicle.getSupportVehicleIssues()] };
+    }
+
     render = (): JSX.Element => {
         if (!this.props.appGlobals.currentVehicle) return <></>;
 
@@ -108,6 +118,8 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
                                 </Link>
                             </div>
                         </TextSection>
+
+                        <BlkImportSection unitName="a ground or VTOL Support Vehicle" testId="sv" onImport={this.importBlk} />
 
                         <TextSection
                             label="Your Saved Vehicles"

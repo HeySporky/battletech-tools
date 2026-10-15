@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Vehicle, { IVehicleCriticalHits, VEHICLE_MAX_SENSOR_HITS, VehicleFollowUpRoll, VehicleMotiveHit, VehicleMovementMode, VehicleTurretLocation } from '../../../../classes/vehicle';
+import Vehicle, { isTurretLocation, IVehicleCriticalHits, VEHICLE_MAX_SENSOR_HITS, VehicleFollowUpRoll, VehicleMotiveHit, VehicleMovementMode, VehicleTurretLocation } from '../../../../classes/vehicle';
 import { IDamagePerRange, IEquipmentItem } from '../../../../data/data-interfaces';
 import { VehicleAttackDirection } from '../../../../data/vehicle-hit-tables';
 import { IBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../classes/battle-armor-transport';
@@ -14,7 +14,7 @@ const MOTIVE_LEVELS: { level: VehicleMotiveHit; label: string }[] = [
     { level: "immobilized", label: "Major (immobile)" },
 ];
 
-type CriticalFlag = Exclude<keyof IVehicleCriticalHits, "sensorHits" | "stabilizers" | "crewStunnedTurns" | "rotorDamage">;
+type CriticalFlag = Exclude<keyof IVehicleCriticalHits, "sensorHits" | "stabilizers" | "crewStunnedTurns" | "rotorDamage" | "crewHits" | "engineHits" | "ammoHits">;
 
 // Checkbox list per vehicle kind; "ground" also covers naval, hover and WiGE (TW pp. 194-198).
 const CRITICALS: { key: CriticalFlag; label: string; vtol?: boolean; ground?: boolean; turret?: boolean }[] = [
@@ -164,7 +164,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const name = (tag: string) => vehicle.getLocations().find((loc) => loc.tag === tag)?.name ?? tag;
         switch (pending.kind) {
             case "motive": {
-                const modifier = vehicle.getMotiveDamageRollModifier(pending.direction, pending.cause, !!pending.roughTerrain);
+                const modifier = vehicle.getMotiveDamageRollModifier(pending.direction, pending.cause, !!pending.roughTerrain) + (pending.modifier ?? 0);
                 const why = pending.cause === "skid" ? " after a skid" : pending.cause === "jump" ? " on landing a jump" : "";
                 return `Motive System Damage roll${why} (${modifier >= 0 ? "+" : ""}${modifier})`;
             }
@@ -174,6 +174,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
             case "drivingSkill": return `Driving Skill Roll (${pending.target}+): ${pending.reason === "pilotHit" ? "or drop one elevation" : "land, or crash"}`;
             case "crashFacing": return `Facing After a Fall (1D6), ${pending.damage} falling damage`;
             case "crashHit": return `Crash damage ${pending.damage}: hit location from the ${pending.direction}`;
+            case "engineSurvival": return "Engine Hit check (2D6; 8+ ignores it)";
         }
         return "";
     }
@@ -256,7 +257,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const locations = vehicle.getLocations();
         const isVTOL = !!vehicle.getMotiveType().hasRotor;
         const isNaval = !!vehicle.getMotiveType().naval;
-        const turrets = locations.filter((loc) => loc.tag === "turret" || loc.tag === "turret2");
+        const turrets = locations.filter((loc) => isTurretLocation(loc.tag));
         const weapons = vehicle.getEquipmentList().filter((item) => !item.isAmmo && (item.damage !== undefined || item.range));
         const movementModes: { mode: VehicleMovementMode; label: string; mp: number }[] = [
             { mode: "stationary", label: "Stationary", mp: 0 },
@@ -272,9 +273,50 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
             <div className="vehicle-play" data-testid="vehicle-play">
                 <TextSection label={vehicleName(vehicle)}>
                     <p>
-                        {vehicle.getTonnage()} t {vehicle.getMotiveType().name} &ndash; Gunnery {pilot.gunnery} / Driving {pilot.piloting}
+                        {vehicle.getTonnage()} t {vehicle.getMotiveType().name}{vehicle.isSupportVehicle() ? ` Support Vehicle, BAR ${vehicle.getBAR()}${vehicle.getFireControlToHitModifier() ? `, +${vehicle.getFireControlToHitModifier()} to-hit for fire control` : ""}` : ""} &ndash; Gunnery {pilot.gunnery} / Driving {pilot.piloting}
                         {pilot.name ? <> &ndash; Commander: {pilot.name}</> : null}
                     </p>
+                    {vehicle.isLargeNavalVessel() ? (
+                        <p className="smaller-text" data-testid="large-naval-status">
+                            Template {vehicle.getLargeVesselTemplate()?.template} Large Naval Vessel: {vehicle.getTemplateToHitModifier()} to attacks against it.
+                            Crew hits {crits.crewHits} of 6 (+{crits.crewHits} to Gunnery and Piloting);
+                            engine hits {crits.engineHits}, ammunition hits {crits.ammoHits} (-1 Cruising MP each). It speeds up or slows down 1 MP a turn,
+                            and survives losing a turret (TO:AUE pp.22-27).
+                        </p>
+                    ) : null}
+                    {vehicle.getSupportVehicleMotive() === "rail" ? (
+                        <p className="smaller-text">
+                            Rail: moves only along rails; speeds up or slows down {vehicle.isSuperheavy() ? 1 : 2} MP a turn, and if immobilized slows by that much each
+                            turn. A destroyed car makes the one behind it derail on 8+ on 2D6 (TO:AUE pp.17-21).
+                        </p>
+                    ) : null}
+                    {vehicle.ignoresSecondaryTargetModifier() ? (
+                        <p className="smaller-text">A Large Support Vehicle ignores the multiple-targets modifier when firing at more than one unit (TW p.206).</p>
+                    ) : null}
+                    {vehicle.isTractor() ? (
+                        <label className="d-block">
+                            Trailers towed (tons, at most {vehicle.getMaxTowTons()}):{" "}
+                            <input
+                                type="number"
+                                aria-label="Trailers towed"
+                                min={0}
+                                max={vehicle.getMaxTowTons()}
+                                value={inPlay.towedTons}
+                                onChange={(e) => { vehicle.setTowedTons(+e.currentTarget.value); this._changed(); }}
+                                style={{ width: "6em" }}
+                            />{" "}
+                            <span className="smaller-text">Up to a quarter of its weight costs 3 Cruising MP or half, whichever is less; more halves it (TW p.205).</span>
+                        </label>
+                    ) : null}
+                    {vehicle.isTrailer() ? (
+                        <label className="d-block">
+                            <input
+                                type="checkbox"
+                                checked={inPlay.beingTowed}
+                                onChange={(e) => { vehicle.setBeingTowed(e.currentTarget.checked); this._changed(); }}
+                            />{" "}Hitched to a Tractor (unhitched, a Trailer without an engine is an immobile target; TW p.205)
+                        </label>
+                    ) : null}
                     {vehicle.isDestroyed() ? (
                         <h3 className="color-red text-center">DESTROYED ({vehicle.getDestroyedReason()})</h3>
                     ) : null}

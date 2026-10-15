@@ -621,14 +621,69 @@ played first, then by dependency.
 
 ### Support Vehicles
 
-- [ ] Support vehicle construction (TechManual; large support vehicles and airships in TO), reusing the
-  Combat Vehicle model: structural and armor tech ratings, chassis modifications, fixed-wing and airship
-  types. MegaMek `battlefieldsupport` samples.
-- [ ] Support vehicle construction rules for each motive type (requested 2026-10-01): wheeled, tracked,
-  hover, VTOL, WiGE, naval, airship, fixed-wing and rail each need their own weight limits, chassis and
-  engine multipliers and legal equipment (TM support vehicle construction; large vehicles in TO:AUE).
-  Check every motive type against the book rather than reusing the Combat Vehicle numbers. Related:
-  Support Vehicle Armor BAR 2-10 is missing from the armor catalog (canon pass ledger, Batch 6).
+- [x] Ground, VTOL and naval Support Vehicle construction (TM pp.116-139 with errata v8.0, 2024), as a
+  Support Vehicle mode of the Vehicle Creator: Small (to the kilogram), Medium and Large sizes; Structural,
+  engine and armor Tech Ratings and the Overall Tech Rating; the chassis modifications and their limits;
+  the seven Support Vehicle engines with minimum weights and fuel range; BAR 2-10 armor (catalog
+  `support-vehicle-armor.ts`, now used); fire control; minimum crew, gunners and officers; slots; the
+  legality checks; Battle Value (armor x BAR / 10, fire control x 0.8 / 0.9); cost; Alpha Strike (armor x
+  BAR / 10, BAR, AFC, BFC; ASC p.95); record sheet. Checked against the Simca, Swiftran, Hesiod and
+  CellCo Ranger examples. Errata v8.0 applied where the 6th printing still differs: a Support Vehicle
+  Engine Rating (Cruising MP x tonnage, at most 500).
+- [x] Support Vehicles in play (TW pp.206-207): fire control to-hit (+2 none, +1 basic), penetrating critical
+  hits when one hit beats the BAR (-1 Armored, immune with Armored and BAR 10), +2 to armor-piercing
+  critical rolls under BAR 10. Large Ground Support Vehicles use the Superheavy hit location table, which
+  matches TW p.206 row for row.
+- [ ] Readings, flagged: TM p.308's CellCo Ranger example leaves the x 2.5 off armor BV (38 x 0.7 = 26.6);
+  the rule text and MegaMek keep it, so it is read as a misprint. The Dixon example divides officers by 5;
+  the Minimum Crew Table (reprinted in errata v8.0) divides by 6, which is used. The same example counts a
+  half ton of machine gun ammunition as BV 1; the catalog's 1 BV a ton gives 0.5.
+- [x] Transport bays on Combat and Support Vehicles (TM p.239 as revised by errata v8.0; shared with Small Craft):
+  cargo, infantry, battle armor and unit cubicles with doors; 1 slot a bay, 1 a container, 1 for all infantry
+  bays of a type; cost; Alpha Strike CT/CK, IT, AT, MT, PT, ST, VTM, VTH and MFB (as MegaMek assigns them); door
+  limits (TM p.209). The Simca's cargo bay and rear door now price to the book.
+- [x] Communications Equipment (1-ton records, one slot for the set on vehicles, +1 crew a ton on Support
+  Vehicles, at most 15; MHQ and RCN in Alpha Strike as MegaMek assigns them) and the Support Vehicle ejection
+  seat (Small Support Vehicles and VTOLs; counts as a seat), TM pp.131, 212-213; IO:AE pp.34, 39.
+- [x] Light and Medium (infantry) weapons on Small Support Vehicles with extra clips, pintle mounts (5 percent,
+  to the kilogram; not naval), gunners by Crew value or facing (TM pp.131, 136-137, 234). Their Battle Value is
+  the infantry weapon's (TM gives no other; MegaMek uses it). No Alpha Strike value: no cited conversion.
+- [x] Extended Fuel Tanks on Combat Vehicles with an ICE or fuel cell (10 percent of the engine, ammo-bin
+  explosion 40 a ton); not on Support Vehicles (TM p.244 as rewritten by errata v8.0 names IndustrialMechs and
+  Combat Vehicles only).
+- [x] Tractors and Trailers in play (TW p.205): Cruising MP lost to towed weight, naval Tractors pull 5 times
+  their weight, an unhitched engineless Trailer is immobile. Large Support Vehicles ignore the multiple-targets
+  modifier (TW p.206).
+- [x] Infantry Bay slots (reading): errata v8.0's Crew Systems Space Table says 1 slot per 30 men, its rewritten
+  Transport Bays rule (marked "This ruling has changed") 1 slot per distinct bay and one for all infantry bays of
+  a type; the Transport Bays rule is followed.
+- [x] Rail and Large Naval Support Vehicles (TO:AUE pp.16-71): rail motive type (Support Vehicles only), Small to
+  Large rail units, External Power Pickup, External and MagLev engines, rail Movement Factor; Large Naval
+  Vessels to 100,000 tons with templates, up to 9 turrets, 30 + tons / 2,000 structure, 35 + tons / 100 slots;
+  the advanced armor table (p.69), crew (p.66) and costs (p.229, no Tech Rating multiplier); Alpha Strike sizes
+  by the ASC Size Class Table (p.92; Support Vehicles had used Combat Vehicle sizes) with LG/VLG/SLG. Play: rail
+  towing table, Large Naval hit table, template to-hit, crew boxes, engine check 8+, ammunition by location,
+  turrets lost without the vessel. Checked against the Adelante and Jormungand. Readings: TO:AUE prints
+  Environmental Sealing at C and Steam at E as 2.8; the newer TechManual errata's B and 2.6 are used.
+- [x] Airship (Small, Medium and Large), Fixed-Wing and Satellite Support Vehicles as a Support Vehicle mode of
+  the Fighter Creator (`support-aircraft.ts`; TM pp.116-139; TO:AUE pp.16, 32-33, 52-71; TW pp.204-207).
+- [x] MegaMek `.blk` import for SupportTank, LargeSupportTank and SupportVTOL (`importSupportVehicleBlk`) and
+  FixedWingSupport (`importFixedWingSupportBlk`), with import panels in the Vehicle and Fighter Creators and a
+  half-ton machine gun ammunition checkbox. Fuel Points in fixed-wing files become tons at the half ton (TM
+  p.129), noted when the count changes. A local run over the 258 MegaMek samples (2026-10-14): 92 of 225 ground
+  and VTOL files and 21 of 33 fixed-wing files import as legal designs. Most of the rest come from the file,
+  not the import: 80 files save 0 tons of fuel for an engine that needs it (TM p.128), 38 have no armor in a
+  location an Armored, Amphibious, Sealed or Submersible chassis must armor, 9 fixed-wing files are overweight.
+- [ ] Support Vehicle equipment the catalog lacks, from that run: Handheld Searchlight (38 files), Vehicular
+  Mine Dispenser (22), Minesweeper, Vehicle Jump Jets, Ladder, Mobile Field Base, Drone Operating System,
+  infrared / high-resolution / hyperspectral imagers, Refueling Drogue, Medium VSP Laser, light and heavy
+  torpedoes, primitive autocannon ammunition, vehicle flamer and heavy/medium rifle ammunition; the
+  troopspace, infantry, battle armor and light vehicle bays on vehicles and aircraft; MegaMek's internal names
+  for light weapons ("InfantryAssaultRifle", "InfantrySRMLight"), which the importer matches by display name only.
+- [ ] Support Vehicles still owed: Patchwork armor (the Patchwork code is on
+  `feature/patchwork-vehicles-fighters`); BV and Alpha Strike checks against published cards (the bundled
+  live MUL lists Support Vehicles with BV 0); Large Naval sinking, running aground and boarding, and rail
+  derailing and collisions, which need map play.
 
 ## 6. BattleMech construction and play gaps
 
