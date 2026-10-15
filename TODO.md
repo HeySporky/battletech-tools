@@ -740,6 +740,35 @@ played first, then by dependency.
   merged in; SSW/MTF import (there is no 'Mech MTF importer, and the SSW library holds no Patchwork design to take
   the format from); armor types on the 'Mech record sheet; era checks per location on vehicles (they have no
   issues list).
+- [x] FrankenMechs (CO pp.213-214), Experimental (XTRO:Royal Fantasy p.8): a donor tonnage, structure type and
+  name per location; structure points, armor limits and weight (5/15/25/10% shares, rounded up) from the donors;
+  endo steel slots per location (Internal Structure Distribution Table, CO p.212); legs at least as heavy, +1/+2
+  Piloting Skill Roll modifier; lighter jump jets kept at reduced MP with heat per jet; no OmniMech, no mechanized
+  battle armor, standard myomer with MASC; hybrid structure BV and cost by location. Checked against the CO worked
+  example and the Schwerer Gustav (XTRO:Mercenaries p.7). Patchwork armor and FrankenMech structure slots now
+  re-roll on a critical hit. User rulings (2026-10-14): the +2 leg modifier replaces the +1; a four-legged 'Mech's
+  front legs use the table's leg row; hybrid structure is priced by weight share.
+- [x] FrankenMech donor slots: a location keeps its structure's slots from the donor's design ("retained from the
+  donor design", CO p.213), with the table as the fallback; Inner Sphere and Clan endo steel side by side on Mixed
+  Tech. Checked against the MegaMek files and XTRO weights for Anastasia and Drizella (XTRO:Royal Fantasy, 3.5 t
+  each) and the Ninjabolt's two right-leg slots. Published exception: XTRO:Boondocks prints the Ninjabolt's
+  structure as 7 t, which is each location rounded up on its own; the rule (CO p.213, SO p.190) rounds the sum:
+  6 t. MegaMek's file also gives its right leg a 90-ton donor, but the XTRO's donor is a 65-ton Tempest and it
+  prints 65-ton leg structure.
+- [x] FrankenVehicles (Custom Homebrew, the user's rule 2026-10-14): a turret from a vehicle no heavier than the
+  chassis, with its donor's structure points; +1 Driving Skill Rolls only when the loaded turret is heavier than
+  the chassis's original; +1 to hit for turret weapons fired by a gunner in the chassis, none when the commander
+  in the turret fires; a turret linkage roll (2D6, locks on 10+, my number, not the user's) whenever the turret
+  takes damage; not an OmniVehicle. Support Vehicles follow with task 6.
+- [x] FrankenProtos (Custom Homebrew, the user's rule 2026-10-14): head, arms and legs from other ProtoMechs of the
+  same chassis, with their donors' structure and armor limits; structure weight by share (head 5%, torso 55%,
+  arms 10% each, legs 20% or 40% for four); legs at least as heavy; Ultraheavy parts on an Ultraheavy only.
+- [ ] FrankenMechs still owed: MTF import of "Config:Biped FrankenMek" files (no 'Mech MTF importer; samples in
+  mm-data: Sneede, Sneede II, Temax Cat Ninjabolt, Schwerer Gustav, the two Royal Fantasy Hunchbacks); the
+  Centurion susceptibility of FrankenMechs (IO:AE p.80) waits for the Centurion in play; Quality Rating and
+  refit time (CO pp.211-214) belong to a campaign tool.
+- [ ] For the accessibility pass (after the canon work, before more custom work): the theme's fieldset legend
+  (white on #dfab2d) fails WCAG contrast (2.09:1, axe `color-contrast`) everywhere it is used.
 - [ ] Fractional Accounting (TO:AUE p.188): the switch is in step 1 but locked
   (`BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE = false`). Building it means engine multipliers, armor by the
   point, ammunition by the shot, all rounded up to the kilogram; then turn the switch on.

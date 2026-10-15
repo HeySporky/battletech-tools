@@ -390,6 +390,8 @@ export type VehicleFollowUpRoll =
     | { kind: "motive"; direction: VehicleAttackDirection; cause?: VehicleMotiveRollCause; roughTerrain?: boolean; modifier?: number }
     | { kind: "engineSurvival" }
     | { kind: "hullBreach"; location: VehicleLocation; target: number }
+    /** FrankenVehicle: a damaged turret's mismatched linkages may lock it (Custom Homebrew). */
+    | { kind: "turretLinkage"; target: number }
     | { kind: "drivingSkill"; reason: "pilotHit" | "engineDamage"; target: number }
     | { kind: "crashFacing"; damage: number }
     | { kind: "crashHit"; damage: number; direction: VehicleAttackDirection; fall: boolean };
@@ -411,6 +413,20 @@ export interface IVehicleDamageResult {
     criticalRoll: boolean;
 }
 
+/**
+ * FrankenVehicle (Custom Homebrew; the user's rule, 2026-10-14, after CO pp.213-214's FrankenMechs): a vehicle
+ * carrying a turret taken from another vehicle. The chassis sets tonnage, motive type and structure.
+ */
+export interface IFrankenVehicle {
+    /** Tonnage of the vehicle the turret came from, no heavier than this one: the turret takes its structure points. */
+    turretDonorTonnage: number;
+    /** What the chassis's own turret weighed with everything in it, in tons; 0 if it had none. */
+    originalTurretWeight: number;
+    /** Who fires the turret weapons: the commander, riding in the turret, or a gunner in the chassis. */
+    turretGunner: "commander" | "chassis";
+    turretDonorName?: string;
+}
+
 export interface IVehicleExport {
     uuid: string;
     lastUpdated: Date;
@@ -422,6 +438,7 @@ export interface IVehicleExport {
     hasTurret: boolean;
     dualTurret?: boolean;
     sponsonTurrets?: boolean;
+    frankenVehicle?: IFrankenVehicle;
     /** An OmniVehicle: one base chassis whose pod-mounted equipment changes between configurations (TM pp.95-97). */
     omni?: boolean;
     jumpMP?: number;
@@ -530,6 +547,8 @@ export default class Vehicle {
     private _motiveType: IVehicleMotiveType = vehicleMotiveTypes[0];
     private _hasTurret: boolean = true;
     private _dualTurret: boolean = false;
+    /** FrankenVehicle: the turret's donor; null on an ordinary vehicle. */
+    private _frankenVehicle: IFrankenVehicle | null = null;
     private _sponsonTurrets: boolean = false;
     private _omni: boolean = false;
     private _podUUIDs: Set<string> = new Set();
@@ -1100,7 +1119,107 @@ export default class Vehicle {
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
         }
+        if (this._frankenVehicle) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
         return level;
+    }
+
+    // FrankenVehicles ------------------------------------------------------------------------------------------
+
+    /** Turret linkage roll target: a FrankenVehicle's turret locks when it takes damage and 2D6 makes this. */
+    public static readonly FRANKEN_TURRET_LOCK_TARGET = 10;
+    public static readonly FRANKEN_DONOR_NAME_LENGTH = 60;
+
+    public isFrankenVehicle(): boolean {
+        return this._frankenVehicle !== null;
+    }
+
+    /** A Custom Homebrew rule for a vehicle with a turret. */
+    public canBeFrankenVehicle(rulesLevel: number): boolean {
+        return rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL && this._hasTurret;
+    }
+
+    /** Makes the vehicle a FrankenVehicle, its turret starting as its own, or an ordinary vehicle again. Not an Omni. */
+    public setFrankenVehicle(frankenVehicle: boolean, rulesLevel: number = CUSTOM_HOMEBREW_RULES_LEVEL): boolean {
+        if (!frankenVehicle) {
+            this._frankenVehicle = null;
+        } else if (!this._frankenVehicle && this.canBeFrankenVehicle(rulesLevel)) {
+            this._omni = false;
+            this._podUUIDs.clear();
+            this._frankenVehicle = { turretDonorTonnage: this._tonnage, originalTurretWeight: this.getTurretLoadedWeight(), turretGunner: "commander" };
+        }
+        this._calc();
+        return this.isFrankenVehicle();
+    }
+
+    public getFrankenVehicle(): IFrankenVehicle | null {
+        return this._frankenVehicle ? { ...this._frankenVehicle } : null;
+    }
+
+    /** Sets where the turret came from and who fires it. Values the vehicle may not take are ignored. */
+    public setFrankenVehicleTurret(turret: Partial<IFrankenVehicle>): IFrankenVehicle | null {
+        const current = this._frankenVehicle;
+        if (!current) return null;
+        if (typeof turret.turretDonorTonnage === "number" && Number.isInteger(turret.turretDonorTonnage)
+            && turret.turretDonorTonnage >= 1 && turret.turretDonorTonnage <= this._tonnage) {
+            current.turretDonorTonnage = turret.turretDonorTonnage;
+        }
+        if (typeof turret.originalTurretWeight === "number" && turret.originalTurretWeight >= 0
+            && turret.originalTurretWeight <= this._tonnage && Number.isInteger(turret.originalTurretWeight * 2)) {
+            current.originalTurretWeight = turret.originalTurretWeight;
+        }
+        if (turret.turretGunner === "commander" || turret.turretGunner === "chassis") current.turretGunner = turret.turretGunner;
+        if (typeof turret.turretDonorName === "string") current.turretDonorName = turret.turretDonorName.slice(0, Vehicle.FRANKEN_DONOR_NAME_LENGTH);
+        this._calc();
+        return this.getFrankenVehicle();
+    }
+
+    /** Keeps a FrankenVehicle legal after the chassis changes: no turret, no FrankenVehicle; no donor heavier than the chassis. */
+    private _pruneFrankenVehicle(): void {
+        if (!this._frankenVehicle) return;
+        if (!this._hasTurret) {
+            this._frankenVehicle = null;
+            return;
+        }
+        this._frankenVehicle.turretDonorTonnage = Math.min(this._frankenVehicle.turretDonorTonnage, this._tonnage);
+    }
+
+    /** The turret with everything in it, ammunition included. */
+    public getTurretLoadedWeight(): number {
+        if (!this._hasTurret) return 0;
+        return this.getTurretWeight("turret") + this._equipmentList
+            .filter((item) => item.location === "turret")
+            .reduce((sum, item) => sum + item.weight, 0);
+    }
+
+    /**
+     * Turret mass: 10% of the combined weight of turret-mounted equipment (ammunition excluded), rounded up to the
+     * nearest half-ton, minimum half a ton.
+     */
+    public getTurretWeight(location: "turret" | "turret2"): number {
+        return Math.max(0.5, Math.ceil(this._equipmentList
+            .filter((item) => item.location === location && !item.isAmmo)
+            .reduce((sum, item) => sum + item.weight, 0) * 0.1 * 2) / 2);
+    }
+
+    /** +1 to Driving Skill Rolls when the turret is heavier than the one the chassis was built for. */
+    public getFrankenVehicleDrivingModifier(): number {
+        return this._frankenVehicle && this.getTurretLoadedWeight() > this._frankenVehicle.originalTurretWeight ? 1 : 0;
+    }
+
+    /** +1 to hit for turret weapons fired by a gunner in the chassis; none when the commander in the turret fires them. */
+    public getFrankenVehicleTurretToHitModifier(): number {
+        return this._frankenVehicle?.turretGunner === "chassis" ? 1 : 0;
+    }
+
+    /** What a FrankenVehicle's crew needs at the table, for the record sheet. */
+    public getFrankenVehicleNotes(): string[] {
+        const franken = this._frankenVehicle;
+        if (!franken) return [];
+        const donor = franken.turretDonorName?.trim() ? ` (${franken.turretDonorName.trim()})` : "";
+        const notes = [`FrankenVehicle: turret from a ${franken.turretDonorTonnage}-ton vehicle${donor}; turret linkage roll when the turret is damaged, locks on ${Vehicle.FRANKEN_TURRET_LOCK_TARGET}+.`];
+        if (this.getFrankenVehicleDrivingModifier() > 0) notes.push("Turret heavier than the chassis's own: +1 to Driving Skill Rolls.");
+        if (this.getFrankenVehicleTurretToHitModifier() > 0) notes.push("Turret weapons fired by a gunner in the chassis: +1 to hit.");
+        return notes;
     }
 
     public getMotiveType(): IVehicleMotiveType {
@@ -1981,6 +2100,8 @@ export default class Vehicle {
         for (const loc of this.getLocations()) {
             result[loc.tag] = pointsPerLocation;
         }
+        // A FrankenVehicle's turret keeps its donor's structure.
+        if (this._frankenVehicle && this._hasTurret) result.turret = Math.max(1, Math.ceil(this._frankenVehicle.turretDonorTonnage / 10));
         return result;
     }
 
@@ -2078,7 +2199,8 @@ export default class Vehicle {
     public isOmni(): boolean { return this._omni; }
 
     public setOmni(omni: boolean): boolean {
-        this._omni = omni === true;
+        // A FrankenVehicle is not an OmniVehicle, as a FrankenMech is not an OmniMech (CO p.213).
+        this._omni = omni === true && !this._frankenVehicle;
         if (!this._omni) this._podUUIDs.clear();
         this._calc();
         return this._omni;
@@ -2655,6 +2777,7 @@ export default class Vehicle {
 
     private _calc() {
         this._prunePatchworkArmor();
+        this._pruneFrankenVehicle();
         this._weights = [];
         this._sizeVariableEquipment();
         if (this._support) {
@@ -2689,16 +2812,11 @@ export default class Vehicle {
         }
         for (const bay of this._bays) this._weights.push({ name: this.getBayName(bay), weight: getVehicleBayWeight(bay) });
 
-        // Turret mass: 10% of the combined weight of turret-mounted equipment (ammunition excluded),
-        // rounded up to the nearest half-ton, minimum half a ton.
-        const turretWeight = (location: string) => Math.max(0.5, Math.ceil(this._equipmentList
-            .filter((item) => item.location === location && !item.isAmmo)
-            .reduce((sum, item) => sum + item.weight, 0) * 0.1 * 2) / 2);
         if (this._hasTurret && this._dualTurret) {
-            this._weights.push({ name: "Front Turret", weight: turretWeight("turret2") });
+            this._weights.push({ name: "Front Turret", weight: this.getTurretWeight("turret2") });
         }
         if (this._hasTurret) {
-            this._weights.push({ name: this.getTurretName(), weight: turretWeight("turret") });
+            this._weights.push({ name: this.getTurretName(), weight: this.getTurretWeight("turret") });
         }
         if (this._sponsonTurrets) {
             this._weights.push({ name: "Sponson Turrets", weight: this.getSponsonWeight() });
@@ -3159,6 +3277,12 @@ export default class Vehicle {
             const lowBAR = this._support && this._support.bar < 10 ? 2 : 0;
             this._followUps.push({ kind: "critical", location, modifier: ARMOR_PIERCING_CRITICAL_MODIFIER[options.armorPiercing] + lowBAR });
         }
+        // A FrankenVehicle's turret sits on linkages built for another turret: damage to it may lock it.
+        const c = this._inPlay.criticals;
+        if (this._frankenVehicle && location === "turret" && result.armor + result.structure > 0
+            && !c.turretLocked && !c.turretBlownOff && !c.turretDestroyed) {
+            this._followUps.push({ kind: "turretLinkage", target: Vehicle.FRANKEN_TURRET_LOCK_TARGET });
+        }
         if (result.armor + result.structure > 0) {
             const target = this.getHullBreachTarget(location, !!options.attackerUnderwater);
             if (target !== null && !this.isBreached(location)) {
@@ -3196,6 +3320,11 @@ export default class Vehicle {
                 if (roll < followUp.target) return `Hull Integrity ${roll} (breach on ${followUp.target}+): the ${name} hull holds`;
                 this.setBreached(followUp.location, true);
                 return `Hull Integrity ${roll} (breach on ${followUp.target}+): the ${name} is breached and floods; nothing in it works`;
+            }
+            case "turretLinkage": {
+                if (roll < followUp.target) return `Turret linkage ${roll} (locks on ${followUp.target}+): the turret still turns`;
+                this._inPlay.criticals.turretLocked = true;
+                return `Turret linkage ${roll} (locks on ${followUp.target}+): the mismatched linkages bind and the turret locks`;
             }
             case "drivingSkill": {
                 const passed = roll >= followUp.target;
@@ -4043,7 +4172,7 @@ export default class Vehicle {
         if (c.commanderHit) modifier += 1;
         if (c.pilotHit) modifier += 2;
         if (c.flightStabilizer) modifier += 3;
-        return modifier;
+        return modifier + this.getFrankenVehicleDrivingModifier();
     }
 
     /** Attacker movement modifier: stationary 0, cruise +1, flank +2, jump +3 (TW). */
@@ -4099,6 +4228,7 @@ export default class Vehicle {
         if (c.commanderHit) modifier += 1;
         if (c.coPilotHit) modifier += 1;
         if (c.flightStabilizer) modifier += 1;
+        if (weapon.location === "turret") modifier += this.getFrankenVehicleTurretToHitModifier();
         if (weapon.location && c.stabilizers.includes(weapon.location as VehicleLocation)) {
             modifier += this.getAttackerMovementModifier();
         }
@@ -4128,6 +4258,7 @@ export default class Vehicle {
             hasTurret: this._hasTurret,
             dualTurret: this._dualTurret,
             sponsonTurrets: this._sponsonTurrets,
+            frankenVehicle: this.getFrankenVehicle() ?? undefined,
             omni: this._omni || undefined,
             jumpMP: this._jumpMP,
             troopSpace: this._troopSpace || undefined,
@@ -4328,6 +4459,22 @@ export default class Vehicle {
             for (const [item, entry] of restored) {
                 if (item.isAmmo && typeof entry.currentAmmo === "number" && Number.isFinite(entry.currentAmmo)) {
                     item.currentAmmo = Math.max(0, Math.min(this._fullBinShots(item), Math.floor(entry.currentAmmo)));
+                }
+            }
+            // FrankenVehicle: each value is checked as it is set; one with no turret is an ordinary vehicle.
+            this._frankenVehicle = null;
+            const franken = importObject.frankenVehicle as unknown;
+            if (isPlainObject(franken)) {
+                if (!this._hasTurret) {
+                    issue("Dropped the FrankenVehicle turret: the vehicle has no turret");
+                } else {
+                    if (this._omni) {
+                        this._omni = false;
+                        this._podUUIDs.clear();
+                        issue("Dropped OmniVehicle pods: a FrankenVehicle is not an OmniVehicle");
+                    }
+                    this._frankenVehicle = { turretDonorTonnage: this._tonnage, originalTurretWeight: 0, turretGunner: "commander" };
+                    this.setFrankenVehicleTurret(franken as Partial<IFrankenVehicle>);
                 }
             }
             this._calc();

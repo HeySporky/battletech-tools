@@ -1,7 +1,7 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
-import { BattleMech } from '../../../../classes/battlemech';
+import { BattleMech, IFrankenMechDonor } from '../../../../classes/battlemech';
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
@@ -62,6 +62,24 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setPrimitive( !currentMech.isPrimitive() );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    toggleFrankenMech = ( e: React.FormEvent<HTMLInputElement>): void => {
+      if( e && e.preventDefault ) e.preventDefault();
+
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setFrankenMech( !currentMech.isFrankenMech(), this.props.appGlobals.appSettings.mechRulesFilter );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    updateFrankenMechDonor = ( locationKey: string, donor: Partial<IFrankenMechDonor> ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setFrankenMechDonor( locationKey, donor );
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -425,6 +443,123 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             })}
                             </select>
                           </label>
+
+                          {this.props.appGlobals.currentBattleMech.isFrankenMech() || this.props.appGlobals.currentBattleMech.canBeFrankenMech(this.props.appGlobals.appSettings.mechRulesFilter) ? (
+                            <InputCheckbox
+                              label="Is a FrankenMech"
+                              checked={this.props.appGlobals.currentBattleMech.isFrankenMech()}
+                              onChange={this.toggleFrankenMech}
+                            />
+                          ) : null}
+                          {this.props.appGlobals.currentBattleMech.isFrankenMech() ? (
+                            <fieldset className="fieldset frankenmech" data-testid="frankenmech-donors">
+                              <legend>FrankenMech (CO pp.213-214)</legend>
+                              <p className="smaller-text">
+                                Built from the parts of other 'Mechs. The center torso sets the tonnage and the structure type chosen above;
+                                each other location keeps the structure points of the 'Mech it came from and weighs its share of that
+                                'Mech's structure (head 5%, side torsos 15%, center torso 25%, limbs 10%). Endo steel and endo-composite
+                                keep the slots they had on the donor's design, or the Internal Structure Distribution Table's when
+                                that is not known. Legs must come from a 'Mech at least as heavy. A FrankenMech cannot be an OmniMech or carry mechanized battle armor.
+                              </p>
+                              <table className="table table-sm">
+                                <thead>
+                                  <tr>
+                                    <th>Location</th><th>Donor 'Mech</th><th>Tons</th><th>Structure</th>
+                                    {this.props.appGlobals.currentBattleMech.getFrankenMechStructureTechBases().length > 1 ? <th>Tech</th> : null}
+                                    <th title="Critical slots the structure kept from the donor's design">Slots</th>
+                                    <th className="text-center" title="Structure points">Pts</th><th className="text-center" title="Share of structure weight">Weight</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {this.props.appGlobals.currentBattleMech.getFrankenMechLocations().map( (location) => {
+                                    const currentMech = this.props.appGlobals.currentBattleMech!;
+                                    const donor = currentMech.getFrankenMechDonor(location.key);
+                                    const centerTorso = location.key === "centerTorso";
+                                    const offered = currentMech.getFrankenMechDonorStructures(this.props.appGlobals.appSettings.mechRulesFilter)
+                                      .filter( (structure) => isOptionShown(structure, structure.tag === donor.structure) );
+                                    const structures = offered.some( (structure) => structure.tag === donor.structure )
+                                      ? offered : [currentMech.getFrankenMechLocationStructure(location.key), ...offered];
+                                    const points = currentMech.getInternalStructure() as unknown as Record<string, number | undefined>;
+                                    return (
+                                      <tr key={location.key} data-testid={`frankenmech-${location.key}`}>
+                                        <td>{location.label}</td>
+                                        <td>
+                                          <input
+                                            type="text"
+                                            value={donor.name ?? ""}
+                                            maxLength={BattleMech.FRANKENMECH_DONOR_NAME_LENGTH}
+                                            aria-label={`${location.label} donor 'Mech`}
+                                            onChange={(event: React.FormEvent<HTMLInputElement>) => this.updateFrankenMechDonor( location.key, { name: event.currentTarget.value })}
+                                          />
+                                        </td>
+                                        <td>
+                                          {centerTorso ? donor.tonnage : (
+                                            <select
+                                              value={donor.tonnage}
+                                              aria-label={`${location.label} donor tonnage`}
+                                              onChange={(event: React.FormEvent<HTMLSelectElement>) => this.updateFrankenMechDonor( location.key, { tonnage: +event.currentTarget.value })}
+                                            >
+                                              {currentMech.getFrankenMechDonorTonnages(location.key).map( (tons) => (
+                                                <option key={tons} value={tons}>{tons}</option>
+                                              ))}
+                                            </select>
+                                          )}
+                                        </td>
+                                        <td>
+                                          {centerTorso ? currentMech.getFrankenMechLocationStructure(location.key).name : (
+                                            <select
+                                              value={donor.structure}
+                                              aria-label={`${location.label} structure`}
+                                              onChange={(event: React.FormEvent<HTMLSelectElement>) => this.updateFrankenMechDonor( location.key, { structure: event.currentTarget.value })}
+                                            >
+                                              {structures.map( (structure) => (
+                                                <option key={structure.tag} value={structure.tag}>{availabilityOptionLabel(structure)}</option>
+                                              ))}
+                                            </select>
+                                          )}
+                                        </td>
+                                        {currentMech.getFrankenMechStructureTechBases().length > 1 ? (
+                                          <td>
+                                            <select
+                                              value={donor.structureTechBase}
+                                              aria-label={`${location.label} structure tech base`}
+                                              onChange={(event: React.FormEvent<HTMLSelectElement>) => this.updateFrankenMechDonor( location.key, { structureTechBase: event.currentTarget.value === "clan" ? "clan" : "is" })}
+                                            >
+                                              <option value="is">IS</option>
+                                              <option value="clan">Clan</option>
+                                            </select>
+                                          </td>
+                                        ) : null}
+                                        <td>
+                                          {currentMech.getFrankenMechDonorSlotCounts(location.key).length > 0 ? (
+                                            <select
+                                              value={donor.structureSlots ?? 0}
+                                              aria-label={`${location.label} structure slots`}
+                                              onChange={(event: React.FormEvent<HTMLSelectElement>) => this.updateFrankenMechDonor( location.key, { structureSlots: +event.currentTarget.value })}
+                                            >
+                                              <option value={0}>Table ({currentMech.getFrankenMechTableStructureSlots(location.key)})</option>
+                                              {currentMech.getFrankenMechDonorSlotCounts(location.key).map( (slots) => (
+                                                <option key={slots} value={slots}>{slots}</option>
+                                              ))}
+                                            </select>
+                                          ) : "-"}
+                                        </td>
+                                        <td className="text-center">{points[location.key] ?? 0}</td>
+                                        <td className="text-center">{Math.round(currentMech.getFrankenMechLocationStructureWeight(location.key) * 1000) / 1000}</td>
+                                      </tr>
+                                    );
+                                  })}
+                                </tbody>
+                              </table>
+                              <p className="smaller-text" data-testid="frankenmech-summary">
+                                Internal structure: {this.props.appGlobals.currentBattleMech.getInternalStructureWeight()} tons
+                                ({this.props.appGlobals.currentBattleMech.getInternalStructureLabel()}).
+                                {this.props.appGlobals.currentBattleMech.getFrankenMechLegPilotingModifier() > 0
+                                  ? ` Legs from ${this.props.appGlobals.currentBattleMech.getFrankenMechLegPilotingModifier() === 2 ? "'Mechs of different tonnages" : "different 'Mechs"}: +${this.props.appGlobals.currentBattleMech.getFrankenMechLegPilotingModifier()} to Piloting Skill Rolls.`
+                                  : ""}
+                              </p>
+                            </fieldset>
+                          ) : null}
 
                           <div className="clear-both overflow-hidden">
                           <hr />
