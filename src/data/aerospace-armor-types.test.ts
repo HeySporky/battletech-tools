@@ -7,7 +7,7 @@ describe("aerospace and large-craft armor catalog", () => {
     it("lists the armor of TechManual p.192, Strategic Operations p.140 and IO:AE p.119", () => {
         expect(aerospaceArmorTypes.map(armor => armor.tag)).toEqual([
             "aerospace-standard", "light-ferro-aluminum", "ferro-aluminum", "clan-ferro-aluminum", "heavy-ferro-aluminum",
-            "primitive-aerospace-fighter",
+            "primitive-aerospace-fighter", "patchwork",
             "capital-standard", "improved-ferro-aluminum", "ferro-carbide", "lamellor-ferro-carbide",
         ]);
         for (const armor of aerospaceArmorTypes) {
@@ -56,6 +56,18 @@ describe("aerospace and large-craft armor catalog", () => {
         expect(find("ferro-aluminum")?.fighterSlots).toEqual({ is: 2, clan: null, placement: "1 each Wing" });
         expect(find("clan-ferro-aluminum")?.fighterSlots).toEqual({ is: null, clan: 2, placement: "1 each Wing" });
         expect(find("heavy-ferro-aluminum")?.fighterSlots).toEqual({ is: 4, clan: null, placement: "1 each Arc" });
+    });
+
+    it("gives each fighter armor its Patchwork Armor slots per arc and tons per point (TO:AUE pp.188-189)", () => {
+        expect(find("aerospace-standard")?.patchwork).toEqual({ slots: { is: 0, clan: 0 }, tonsPerPoint: { is: 0.0625, clan: 0.0625 } });
+        expect(find("light-ferro-aluminum")?.patchwork).toEqual({ slots: { is: 1 }, tonsPerPoint: { is: 0.0590 } });
+        expect(find("ferro-aluminum")?.patchwork).toEqual({ slots: { is: 1 }, tonsPerPoint: { is: 0.0558 } });
+        expect(find("clan-ferro-aluminum")?.patchwork).toEqual({ slots: { clan: 1 }, tonsPerPoint: { clan: 0.0521 } });
+        expect(find("heavy-ferro-aluminum")?.patchwork).toEqual({ slots: { is: 2 }, tonsPerPoint: { is: 0.0504 } });
+        // Not on the Patchwork Armor Table.
+        expect(find("primitive-aerospace-fighter")?.patchwork).toBeUndefined();
+        // Patchwork itself is for fighters only among aerospace units (TO:AUE p.189).
+        expect(getAerospaceArmorPointsPerTon("patchwork", "small-craft", "is")).toBeNull();
     });
 
     it("gives capital-scale points per ton for JumpShips, WarShips and stations (SO p.140)", () => {

@@ -1,7 +1,7 @@
 import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { Link } from 'react-router';
-import { IVehicleArmorAllocation } from '../../../../data/data-interfaces';
+import { IVehicleArmorAllocation, VehicleLocation } from '../../../../data/data-interfaces';
 import { IAppGlobals } from '../../../app-router';
 import InputNumeric from '../../../components/form_elements/input_numeric';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
@@ -30,6 +30,14 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
             vehicle.setArmorAllocation(location, points);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updatePatchworkType = (location: VehicleLocation, armorTag: string): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setPatchworkArmorType(location, armorTag);
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -72,6 +80,8 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
         const armor = vehicle.getArmorAllocation();
         const maxArmor = vehicle.getMaxArmorAllocation();
         const locations = vehicle.getLocations();
+        const rulesLevel = this.props.appGlobals.appSettings.mechRulesFilter;
+        const patchwork = vehicle.isPatchworkArmor();
 
         return (
             <UIPage current="classic-battletech-vehicle-creator" appGlobals={this.props.appGlobals}>
@@ -84,7 +94,7 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                             <label>
                                 Armor Type:
                                 <select value={vehicle.getArmorType().tag} onChange={this.updateArmorType}>
-                                    {vehicle.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter)
+                                    {vehicle.getAvailableArmorTypes(rulesLevel)
                                         .filter((option) => isOptionShown(option, option.tag === vehicle.getArmorType().tag))
                                         .map((option) => (
                                             <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
@@ -93,24 +103,35 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                             </label>
 
                             <p>
-                                <strong>Max Armor</strong>: {vehicle.getMaxArmorPoints()} points ({vehicle.getMaxArmorTonnage()} tons) &nbsp;|&nbsp;
+                                <strong>Max Armor</strong>: {vehicle.getMaxArmorPoints()} points{patchwork ? null : ` (${vehicle.getMaxArmorTonnage()} tons)`} &nbsp;|&nbsp;
                                 <strong>Remaining Tonnage</strong>: {vehicle.getRemainingTonnage()}
+                                {vehicle.getArmorItemSlots() > 0 ? <> &nbsp;|&nbsp; <strong>Armor Item Slots</strong>: {vehicle.getArmorItemSlots()}</> : null}
                             </p>
 
-                            <label>
-                                Armor Tonnage:
-                                <div className="inline-block">
-                                    <button type="button" className="btn btn-secondary btn-sm" onClick={() => this.stepArmorTonnage(-0.5)}>-</button>
-                                    <InputNumeric
-                                        value={vehicle.getArmorWeight()}
-                                        min={0}
-                                        max={vehicle.getMaxArmorTonnage()}
-                                        step={0.5}
-                                        setValue={this.updateArmorTonnage}
-                                    />
-                                    <button type="button" className="btn btn-secondary btn-sm" onClick={() => this.stepArmorTonnage(0.5)}>+</button>
-                                </div>
-                            </label>
+                            {patchwork ? (
+                                <p data-testid="patchwork-armor-note">
+                                    <strong>Armor Weight</strong>: {vehicle.getArmorWeight()} tons.{" "}
+                                    <span className="smaller-text">
+                                        Patchwork Armor (Advanced, TO:AUE p. 189): each location takes its own armor type, weighed by the
+                                        point and rounded up to the half ton per location, and that type's item slots.
+                                    </span>
+                                </p>
+                            ) : (
+                                <label>
+                                    Armor Tonnage:
+                                    <div className="inline-block">
+                                        <button type="button" className="btn btn-secondary btn-sm" onClick={() => this.stepArmorTonnage(-0.5)}>-</button>
+                                        <InputNumeric
+                                            value={vehicle.getArmorWeight()}
+                                            min={0}
+                                            max={vehicle.getMaxArmorTonnage()}
+                                            step={0.5}
+                                            setValue={this.updateArmorTonnage}
+                                        />
+                                        <button type="button" className="btn btn-secondary btn-sm" onClick={() => this.stepArmorTonnage(0.5)}>+</button>
+                                    </div>
+                                </label>
+                            )}
 
                             <button className="btn btn-primary btn-sm" onClick={this.allocateMax}>Max Armor</button>
                             &nbsp;
@@ -122,12 +143,23 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
 
                             <table className="table">
                                 <thead>
-                                    <tr><th>Location</th><th>Structure</th><th>Armor</th><th>Max</th></tr>
+                                    <tr><th>Location</th>{patchwork ? <th>Armor Type</th> : null}<th>Structure</th><th>Armor</th><th>Max</th>{patchwork ? <th>Weight</th> : null}</tr>
                                 </thead>
                                 <tbody>
                                     {locations.map((loc) => (
                                         <tr key={loc.tag}>
                                             <td>{loc.name}</td>
+                                            {patchwork ? (
+                                                <td data-testid={`patchwork-armor-${loc.tag}`}>
+                                                    <select aria-label={`${loc.name} Armor Type`} value={vehicle.getPatchworkArmorType(loc.tag).tag} onChange={(e) => this.updatePatchworkType(loc.tag, e.currentTarget.value)}>
+                                                        {vehicle.getAvailablePatchworkArmorTypes(rulesLevel)
+                                                            .filter((option) => isOptionShown(option, option.tag === vehicle.getPatchworkArmorType(loc.tag).tag))
+                                                            .map((option) => (
+                                                                <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
+                                                            ))}
+                                                    </select>
+                                                </td>
+                                            ) : null}
                                             <td>{vehicle.getStructureAllocation()[loc.tag] ?? 0}</td>
                                             <td>
                                                 <InputNumeric
@@ -138,6 +170,12 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                                                 />
                                             </td>
                                             <td>{maxArmor[loc.tag] ?? 0}</td>
+                                            {patchwork ? (
+                                                <td>
+                                                    {vehicle.getPatchworkLocationWeight(loc.tag)} t
+                                                    {vehicle.getPatchworkLocationSlots(loc.tag) > 0 ? `, ${vehicle.getPatchworkLocationSlots(loc.tag)} slot${vehicle.getPatchworkLocationSlots(loc.tag) === 1 ? "" : "s"}` : ""}
+                                                </td>
+                                            ) : null}
                                         </tr>
                                     ))}
                                 </tbody>

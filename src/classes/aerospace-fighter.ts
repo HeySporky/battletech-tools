@@ -66,6 +66,8 @@ export const MAX_FIGHTER_EQUIPMENT = 200;
  * enhancement". The rule text is followed, as an option.
  */
 export const AEROSPACE_VSTOL_RULES_LEVEL = 3;
+/** Patchwork Armor is an "advanced construction option" (TO:AUE p.189): the Advanced rules level. */
+export const PATCHWORK_ARMOR_RULES_LEVEL = 3;
 /** Unit Type Modifiers Table (TM p.316). */
 export const FIGHTER_BV_TYPE_MODIFIER: Record<FighterType, number> = { aerospace: 1.2, conventional: 1.1 };
 
@@ -191,6 +193,8 @@ export interface IAerospaceFighterExport {
     fuelTons: number;
     armorType: string;
     armorAllocation: IFighterArmorAllocation;
+    /** Patchwork Armor: armor type tag by arc; present only when armorType is "patchwork". */
+    patchworkArmor?: Partial<Record<FighterArc, string>>;
     heatSinkType: string;
     additionalHeatSinks: number;
     equipment: IFighterEquipmentExport[];
@@ -229,6 +233,8 @@ export const normalizeAerospaceFighterExport = (raw: unknown): { fighter: IAeros
 };
 
 export default class AerospaceFighter {
+    public static readonly PATCHWORK_ARMOR_TAG = "patchwork";
+
     private _uuid: string = generateUUID();
     public lastUpdated: Date = new Date();
 
@@ -253,6 +259,8 @@ export default class AerospaceFighter {
     private _fuelTons: number = 5;
     private _armorType: IAerospaceArmorType = aerospaceArmorTypes[0];
     private _armorAllocation: IFighterArmorAllocation = emptyArmor();
+    /** Patchwork Armor: the armor type tag of each arc (TO:AUE p.189); standard where none is set. */
+    private _patchworkArmor: Partial<Record<FighterArc, string>> = {};
     private _heatSinkType: IHeatSync = mechHeatSinkTypes[0];
     private _additionalHeatSinks: number = 0;
     private _equipmentList: IEquipmentItem[] = [];
@@ -494,14 +502,71 @@ export default class AerospaceFighter {
         return aerospaceArmorTypes
             .filter((armor) => armor.fighterSlots !== null && armor.fighterSlots[techBase] !== null
                 && getAerospaceArmorPointsPerTon(armor.tag, this._armorUnit(), techBase) !== null)
-            .map((armor) => ({ ...armor, available: this._datesAvailability(armorDates(armor), rulesLevel).available }));
+            .map((armor) => ({ ...armor, available: this._datesAvailability(armorDates(armor), rulesLevel).available
+                && (armor.tag !== AerospaceFighter.PATCHWORK_ARMOR_TAG || rulesLevel >= PATCHWORK_ARMOR_RULES_LEVEL) }));
     }
 
     public setArmorType(tag: string): IAerospaceArmorType {
         const armor = this.getAvailableArmorTypes().find((entry) => entry.tag === tag);
+        const previous = this._armorType.tag;
         if (armor) this._armorType = aerospaceArmorTypes.find((entry) => entry.tag === armor.tag) ?? this._armorType;
+        if (this._armorType.tag !== previous) this._patchworkArmor = {};
         this._calc();
         return this._armorType;
+    }
+
+    /** The armor for a record sheet: the type, or under Patchwork Armor each arc's type. */
+    public getArmorDescription(): string {
+        if (!this.isPatchworkArmor()) return this._armorType.name;
+        return `${this._armorType.name} (${FIGHTER_ARCS.map((arc) => `${arc.name}: ${this.getPatchworkArmorType(arc.tag).name}`).join(", ")})`;
+    }
+
+    /** Patchwork Armor: an armor type for each arc (TO:AUE p.189). */
+    public isPatchworkArmor(): boolean {
+        return this._armorType.tag === AerospaceFighter.PATCHWORK_ARMOR_TAG;
+    }
+
+    /** The armor types an arc may carry: those the fighter could mount as its only armor that the Patchwork Armor Table lists. */
+    public getAvailablePatchworkArmorTypes(rulesLevel: number = 2): (IAerospaceArmorType & { available: boolean })[] {
+        const techBase = this.getChassisTechBase();
+        return this.getAvailableArmorTypes(rulesLevel).filter((armor) => armor.tag !== AerospaceFighter.PATCHWORK_ARMOR_TAG
+            && armor.patchwork?.slots[techBase] !== undefined && armor.patchwork?.tonsPerPoint[techBase] !== undefined);
+    }
+
+    public getPatchworkArmorType(arc: FighterArc): IAerospaceArmorType {
+        return aerospaceArmorTypes.find((armor) => armor.tag === (this._patchworkArmor[arc] ?? "aerospace-standard")) ?? aerospaceArmorTypes[0];
+    }
+
+    public setPatchworkArmorType(arc: FighterArc, armorTag: string): IAerospaceArmorType {
+        const armor = this.getAvailablePatchworkArmorTypes().find((entry) => entry.tag === armorTag);
+        if (this.isPatchworkArmor() && armor && FIGHTER_ARCS.some((entry) => entry.tag === arc)) {
+            this._patchworkArmor[arc] = armor.tag;
+            this._calc();
+        }
+        return this.getPatchworkArmorType(arc);
+    }
+
+    /** Weapon slots the arc gives up for its armor (Patchwork Armor Table, right of the slash; TO:AUE p.189). */
+    public getPatchworkArcSlots(arc: FighterArc): number {
+        if (!this.isPatchworkArmor()) return 0;
+        return this.getPatchworkArmorType(arc).patchwork?.slots[this.getChassisTechBase()] ?? 0;
+    }
+
+    /** Tons of armor on the arc: points x the type's tons per point, "rounding the final result up to the nearest half-ton" (TO:AUE p.189). */
+    public getPatchworkArcWeight(arc: FighterArc): number {
+        if (!this.isPatchworkArmor()) return 0;
+        const tonsPerPoint = this.getPatchworkArmorType(arc).patchwork?.tonsPerPoint[this.getChassisTechBase()] ?? 0;
+        const weight = this._armorAllocation[arc] * tonsPerPoint;
+        return weight > 0 ? roundUpHalf(weight) : 0;
+    }
+
+    /** Drops arc types the fighter can no longer carry (a new tech base or fighter type). */
+    private _prunePatchworkArmor(): void {
+        if (!this.isPatchworkArmor()) return;
+        const allowed = this.getAvailablePatchworkArmorTypes().map((armor) => armor.tag);
+        for (const arc of Object.keys(this._patchworkArmor) as FighterArc[]) {
+            if (!allowed.includes(this._patchworkArmor[arc] ?? "")) delete this._patchworkArmor[arc];
+        }
     }
 
     private _armorUnit(): "aerospace-fighter" | "conventional-fighter" {
@@ -544,12 +609,15 @@ export default class AerospaceFighter {
 
     /** Armor is bought in half tons: the allocated points divided by the points per ton, rounded up (TM p.191). */
     public getArmorWeight(): number {
+        if (this.isPatchworkArmor()) return FIGHTER_ARCS.reduce((sum, arc) => sum + this.getPatchworkArcWeight(arc.tag), 0);
         const perTon = this.getArmorPointsPerTon() ?? 16;
         return roundUpHalf(this.getTotalArmorPoints() / perTon);
     }
 
     /** Points the armor tonnage paid for but that are not allocated yet (fractions of a point are lost). */
     public getUnallocatedArmorPoints(): number {
+        // Patchwork armor is weighed from the points on each arc: nothing is bought that is not allocated.
+        if (this.isPatchworkArmor()) return 0;
         const perTon = this.getArmorPointsPerTon() ?? 16;
         return Math.min(this.getMaxArmorPoints(), Math.floor(this.getArmorWeight() * perTon + 1e-9)) - this.getTotalArmorPoints();
     }
@@ -677,8 +745,9 @@ export default class AerospaceFighter {
         return Math.max(0, item.space?.aerospaceFighter ?? 0);
     }
 
-    /** Weapon slots an arc has: 5, less what the armor type takes there (TM pp.191, 196). */
+    /** Weapon slots an arc has: 5, less what the armor type takes there (TM pp.191, 196; TO:AUE p.189). */
     public getArcSlots(arc: FighterArc): number {
+        if (this.isPatchworkArmor()) return FIGHTER_WEAPONS_PER_ARC - this.getPatchworkArcSlots(arc);
         const lost = this._armorType.fighterSlots?.[this.getChassisTechBase()] ?? 0;
         const placement = (this._armorType.fighterSlots?.placement ?? "").toLowerCase();
         let taken = 0;
@@ -789,6 +858,12 @@ export default class AerospaceFighter {
         }
         if (this.getArmorPointsPerTon() === null) issues.push(`${this._armorType.name} is not available to this tech base.`);
         else if (!this._datesAvailability(armorDates(this._armorType), rulesLevel).available) issues.push(`${this._armorType.name} is not available in the selected era.`);
+        if (this.isPatchworkArmor()) {
+            for (const arc of FIGHTER_ARCS) {
+                const arcArmor = this.getPatchworkArmorType(arc.tag);
+                if (!this._datesAvailability(armorDates(arcArmor), rulesLevel).available) issues.push(`${arc.name}: ${arcArmor.name} is not available in the selected era.`);
+            }
+        }
         if (this._heatSinkType.tag !== "single" && !this._techDatesAvailability(this._heatSinkType, rulesLevel).available) {
             issues.push(`${this._heatSinkType.name} heat sinks are not available in the selected era.`);
         }
@@ -849,6 +924,7 @@ export default class AerospaceFighter {
     }
 
     private _calc(): void {
+        this._prunePatchworkArmor();
         this._weights = [
             { name: `Engine (${this._engineType.name}, rating ${this.getEngineRating()})`, weight: this.getEngineWeight() },
             { name: "Cockpit and Controls", weight: this.getControlsWeight() },
@@ -1042,7 +1118,16 @@ export default class AerospaceFighter {
         rows.push([`${this._engineType.name} Engine (${(this._engineType.costMultiplier || 0).toLocaleString("en-US")} x rating ${rating} x ${this._tonnage} t / 75)`,
             (this._engineType.costMultiplier || 0) * rating * this._tonnage / 75]);
         rows.push([`Fuel Tanks (200 x ${this._fuelTons} t)`, 200 * this._fuelTons]);
-        rows.push([`Armor (${this._armorType.name}, ${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
+        if (this.isPatchworkArmor()) {
+            // Patchwork: each arc's armor at its own type's cost per ton.
+            for (const arc of FIGHTER_ARCS) {
+                const weight = this.getPatchworkArcWeight(arc.tag);
+                const arcArmor = this.getPatchworkArmorType(arc.tag);
+                if (weight > 0) rows.push([`Armor, ${arc.name} (${arcArmor.name}, ${weight} t)`, weight * (arcArmor.costMultiplier || 10000)]);
+            }
+        } else {
+            rows.push([`Armor (${this._armorType.name}, ${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
+        }
         if (this.getTotalHeatSinks() > 0) rows.push([`Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name})`, this.getTotalHeatSinks() * (this._heatSinkType.cost || 2000)]);
         if (this.getPowerAmplifierWeight() > 0) rows.push([`Power Amplifiers (20,000 x ${this.getPowerAmplifierWeight()} t)`, 20000 * this.getPowerAmplifierWeight()]);
         const equipment = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * (item.weight || 0) : item.cbills || 0), 0);
@@ -1060,6 +1145,8 @@ export default class AerospaceFighter {
     /** The lowest rules level that allows everything on the design. */
     public getRequiredRulesLevel(): number {
         let level = this._vstol && !this.isConventional() ? AEROSPACE_VSTOL_RULES_LEVEL : 0;
+        // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
+        if (this.isPatchworkArmor()) level = Math.max(level, PATCHWORK_ARMOR_RULES_LEVEL);
         for (const item of this._equipmentList) level = Math.max(level, getEquipmentRulesLevel(item));
         for (const store of this._externalStores) {
             const record = this._storeRecord(store.tag);
@@ -1591,6 +1678,9 @@ export default class AerospaceFighter {
             fuelTons: this._fuelTons,
             armorType: this._armorType.tag,
             armorAllocation: { ...this._armorAllocation },
+            patchworkArmor: this.isPatchworkArmor()
+                ? Object.fromEntries(FIGHTER_ARCS.map((arc) => [arc.tag, this.getPatchworkArmorType(arc.tag).tag]))
+                : undefined,
             heatSinkType: this._heatSinkType.tag,
             additionalHeatSinks: this._additionalHeatSinks,
             equipment: this._equipmentList.map((item) => ({
@@ -1677,8 +1767,15 @@ export default class AerospaceFighter {
             if (this._safeThrust !== Math.floor(thrust)) issue(`Safe Thrust set to ${this._safeThrust}`);
             this.setFuelTons(savedNumber(saved.fuelTons, 5, 0, FIGHTER_MAX_TONNAGE));
             const armorTag = savedString(saved.armorType);
+            this._patchworkArmor = {};
             this.setArmorType(armorTag);
             if (armorTag && this._armorType.tag !== armorTag) issue(`Replaced armor "${armorTag.slice(0, 40)}" with ${this._armorType.name}`);
+            const patchwork = isPlainObject(saved.patchworkArmor) ? saved.patchworkArmor : {};
+            for (const arc of FIGHTER_ARCS) {
+                const arcTag = patchwork[arc.tag];
+                if (!this.isPatchworkArmor() || typeof arcTag !== "string") continue;
+                if (this.setPatchworkArmorType(arc.tag, arcTag).tag !== arcTag) issue(`Replaced patchwork armor "${arcTag.slice(0, 40)}" (${arc.name}) with ${this.getPatchworkArmorType(arc.tag).name}`);
+            }
             this._armorAllocation = emptyArmor();
             const armor = isPlainObject(saved.armorAllocation) ? saved.armorAllocation : {};
             for (const arc of FIGHTER_ARCS) this.setArmorAllocation(arc.tag, savedNumber(armor[arc.tag], 0, 0, 10000));
