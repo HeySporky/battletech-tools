@@ -75,6 +75,7 @@ export class BattleMechGroup {
 			|| this.smallCraft.some( (craft) => craft.isDamaged() )
 			|| this.infantry.some( (platoon) => platoon.isDamaged() ) || this.battleArmor.some( (squad) => squad.isDamaged() )
 			|| this.protoMechs.some( (point) => point.isDamaged() )
+			|| this.buildings.some( (building) => building.isDamaged() )
 			|| this.battledroidsUnits.some( (unit) => unit.isDamaged() );
 	}
 	public getName(
