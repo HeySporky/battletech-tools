@@ -7,6 +7,10 @@ import { IEquipmentItem } from "../data/data-interfaces";
 
 const squash = (value: string): string => value.toLowerCase().replace(/[^a-z0-9]/g, "");
 const unprefixed = (value: string): string => squash(value).replace(/^(is|cl|clan)(?=[a-z0-9])/, "");
+/** Short weapon names ammunition lines use where the catalog spells the weapon out. */
+const WEAPON_ALIASES: Record<string, string> = Object.assign(Object.create(null), {
+    mg: "machinegun", lightmg: "machinegunlight", heavymg: "machinegunheavy", lmg: "machinegunlight", hmg: "machinegunheavy",
+});
 
 export interface IBlkAmmoLine {
     /** The weapon part of the line, squashed: "ac10", "gauss", "lb10x". */
@@ -27,7 +31,8 @@ export const parseBlkAmmoLine = (name: string): IBlkAmmoLine | null => {
         .replace(/ammo/ig, "")
         .replace(/-\s*(half|full)\b/ig, "")
         .replace(/\b(cluster|slug|artemis-capable|artemis capable|homing|standard)\b/ig, "");
-    return { weaponKey: unprefixed(weapon), half: /-\s*half/i.test(name), kind };
+    const weaponKey = unprefixed(weapon);
+    return { weaponKey: WEAPON_ALIASES[weaponKey] ?? weaponKey, half: /-\s*half/i.test(name), kind };
 };
 
 const weaponKeys = (item: IEquipmentItem): string[] =>
