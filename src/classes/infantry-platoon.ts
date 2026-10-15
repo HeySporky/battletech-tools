@@ -2,7 +2,7 @@ import { generateUUID } from "../utils/generateUUID";
 import { IInfantryWeapon, INFANTRY_MAX_PRIMARY_DAMAGE, INFANTRY_SUPPORT_PPC_TAG, findInfantryWeapon, infantryWeapons, isInfantryWeaponAvailable } from "../data/infantry-weapons";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
 import { IEras } from "../data/data-interfaces";
-import { DEFAULT_RULES_EDITION } from "../data/rules-editions";
+import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
 import { IInfantryArmor, INFANTRY_ARMOR_RULES_LEVEL, INFANTRY_STEALTH_SYSTEMS, findInfantryArmor, infantryArmor } from "../data/infantry-armor";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
@@ -171,6 +171,8 @@ export interface IInfantryInPlay {
 }
 
 export interface IInfantryPlatoonExport {
+    /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
+    rulesEdition?: string;
     uuid: string;
     lastUpdated: string;
     name: string;
@@ -229,6 +231,7 @@ export default class InfantryPlatoon {
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
+    private _rulesEdition: string = DEFAULT_RULES_EDITION;
     private _techBase: InfantryTechBase = "is";
     private _formation: IInfantryFormation = INFANTRY_FORMATIONS[0];
     private _era: IEras = latestEra("is");
@@ -254,6 +257,13 @@ export default class InfantryPlatoon {
     public getUUID(): string { return this._uuid; }
     public newUUID(): void { this._uuid = generateUUID(); }
     public getName(): string { return this._name; }
+    /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
+    public getRulesEdition(): string { return this._rulesEdition; }
+    public setRulesEdition(editionTag: string): string {
+        this._rulesEdition = getSelectableRulesEditionTag(editionTag, "infantry");
+        return this._rulesEdition;
+    }
+
     public setName(name: string): void { this._name = String(name ?? "").slice(0, MAX_INFANTRY_NAME_LENGTH); }
     /** The saved name, or the book's style of name: motive and weapon (TM p.154). */
     public getDisplayName(): string { return this._name.trim() || this.getNomenclature(); }
@@ -1028,6 +1038,7 @@ export default class InfantryPlatoon {
             uuid: this._uuid,
             lastUpdated: this.lastUpdated.toISOString(),
             name: this._name,
+            ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
             techBase: this._techBase,
             formation: this._formation.tag,
             era: this._era.tag,
@@ -1066,6 +1077,7 @@ export default class InfantryPlatoon {
         const updated = new Date(savedString(raw.lastUpdated));
         if (!Number.isNaN(updated.getTime())) this.lastUpdated = updated;
         this.setName(savedString(raw.name));
+        this._rulesEdition = getSelectableRulesEditionTag(raw.rulesEdition, "infantry");
 
         this._techBase = raw.techBase === "clan" ? "clan" : "is";
         const formation = INFANTRY_FORMATIONS.find((item) => item.tag === raw.formation && item.techBase === this._techBase);

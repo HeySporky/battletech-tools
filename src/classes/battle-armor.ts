@@ -1,4 +1,5 @@
 import { generateUUID } from "../utils/generateUUID";
+import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
 import { battleArmorArmorTypes, battleArmorMaximumArmor } from "../data/battle-armor-armor-types";
 import {
     BATTLE_ARMOR_ADAPTOR, BATTLE_ARMOR_AP_MOUNT, BATTLE_ARMOR_CLAN_COST_MULTIPLIER, BATTLE_ARMOR_DETACHABLE, BATTLE_ARMOR_GROUND_MP_COST,
@@ -196,6 +197,8 @@ export interface IBattleArmorTurret {
 }
 
 export interface IBattleArmorExport {
+    /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
+    rulesEdition?: string;
     uuid: string;
     lastUpdated: string;
     name: string;
@@ -279,6 +282,7 @@ export default class BattleArmor {
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
+    private _rulesEdition: string = DEFAULT_RULES_EDITION;
     private _techBase: BattleArmorTechBase = "is";
     private _mixedTech: boolean = false;
     private _armorTechBase: BattleArmorTechBase | null = null;
@@ -315,6 +319,13 @@ export default class BattleArmor {
     public getUUID(): string { return this._uuid; }
     public newUUID(): void { this._uuid = generateUUID(); }
     public getName(): string { return this._name; }
+    /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
+    public getRulesEdition(): string { return this._rulesEdition; }
+    public setRulesEdition(editionTag: string): string {
+        this._rulesEdition = getSelectableRulesEditionTag(editionTag, "battle-armor");
+        return this._rulesEdition;
+    }
+
     public setName(name: string): void { this._name = String(name ?? "").slice(0, MAX_BATTLE_ARMOR_NAME_LENGTH); }
     public getBaseName(): string { return this._name.trim() || `${this._weightClass.name} ${this.getUnitTypeName()}`; }
     /** "Automata" or "Battle Armor". */
@@ -1919,6 +1930,7 @@ export default class BattleArmor {
             uuid: this._uuid,
             lastUpdated: this.lastUpdated.toISOString(),
             name: this._name,
+            ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
             techBase: this._techBase,
             ...(this._mixedTech ? { mixedTech: true } : {}),
             ...(this._mixedTech && this._armorBase() !== this._techBase ? { armorTechBase: this._armorBase() } : {}),
@@ -1966,6 +1978,7 @@ export default class BattleArmor {
         const updated = new Date(savedString(raw.lastUpdated));
         if (!Number.isNaN(updated.getTime())) this.lastUpdated = updated;
         this.setName(savedString(raw.name));
+        this._rulesEdition = getSelectableRulesEditionTag(raw.rulesEdition, "battle-armor");
 
         this._techBase = raw.techBase === "clan" ? "clan" : "is";
         this._mixedTech = raw.mixedTech === true;

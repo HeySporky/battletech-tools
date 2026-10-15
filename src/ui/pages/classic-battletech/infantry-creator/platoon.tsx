@@ -7,6 +7,7 @@ import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import InfantryCreatorSideMenu from '../../../components/infantry-creator-side-menu';
 import InputField from "../../../components/form_elements/input_field";
+import RulesEditionSelect from '../../../components/rules-edition-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -53,6 +54,8 @@ export default class InfantryCreatorPlatoon extends React.Component<IPlatoonProp
                     </div>
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Step 1: Establish Platoon Type">
+                            {/* The rules edition comes first: it decides what every field below offers. */}
+                            <RulesEditionSelect unitType="infantry" value={platoon.getRulesEdition()} onChange={(tag) => this.update((p) => p.setRulesEdition(tag))} />
                             <InputField
                                 label="Platoon Name (e.g. Laser Rifle Platoon, Third Crucis Lancers)"
                                 value={platoon.getName()}

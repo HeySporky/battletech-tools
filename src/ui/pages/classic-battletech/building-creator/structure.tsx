@@ -9,6 +9,7 @@ import { IAppGlobals } from '../../../app-router';
 import BuildingCreatorSideMenu from '../../../components/building-creator-side-menu';
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
+import RulesEditionSelect from '../../../components/rules-edition-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -51,6 +52,8 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                     </div>
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Step 1: Establish Superstructure">
+                            {/* The rules edition comes first: it decides what every field below offers. */}
+                            <RulesEditionSelect unitType="building" value={building.getRulesEdition()} onChange={(tag) => this.update((b) => b.setRulesEdition(tag))} />
                             <InputField
                                 label="Building Name (e.g. Battery Kenyon, Gate Bunker)"
                                 value={building.getName()}

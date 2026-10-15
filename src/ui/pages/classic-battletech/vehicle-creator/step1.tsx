@@ -4,6 +4,7 @@ import { IAppGlobals } from '../../../app-router';
 import Vehicle, { IFrankenVehicle } from '../../../../classes/vehicle';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
 import VehicleBays from './_vehicle-bays';
+import RulesEditionSelect from '../../../components/rules-edition-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import InputField from "../../../components/form_elements/input_field";
@@ -428,6 +429,8 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                         </div>
                         <div className="col-md-9 col-lg-10">
                             <TextSection label="Step 1: Design the Chassis">
+                                {/* The rules edition comes first: it decides what every field below offers. */}
+                                <RulesEditionSelect unitType="vehicle" value={vehicle.getRulesEdition()} onChange={(tag) => { vehicle.setRulesEdition(tag); this.props.appGlobals.saveCurrentVehicle(vehicle); }} />
                                 <InputField
                                     label="Vehicle Model # (e.g. SRT-1, Vedette)"
                                     value={vehicle.getModel()}

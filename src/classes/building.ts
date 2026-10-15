@@ -1,4 +1,5 @@
 import { generateUUID } from "../utils/generateUUID";
+import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
 import {
     BUILDING_ARMOR_COST_PER_TON, BUILDING_ARMOR_POINTS_PER_TON, BUILDING_CLASSIFICATIONS, BUILDING_GENERATORS, BUILDING_MAX_UNLIMITED_HEXES,
     BUILDING_UNSPECIFIED_EQUIPMENT_COST_PER_CF, findBuildingClassification, findBuildingGenerator, HANGAR_CAPACITY_PER_FOUR_LEVELS, BUILDING_CAPITAL_SCALE, OPEN_SPACE_MAX_CAPACITY,
@@ -186,6 +187,8 @@ const newHexInPlay = (): IBuildingHexInPlay => ({
 const newInPlay = (): IBuildingInPlay => ({ hexes: [], destroyed: [], malfunctions: [], ammoUsed: {} });
 
 export interface IBuildingExport {
+    /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
+    rulesEdition?: string;
     /** The gunners' Gunnery skill; absent in saves from before buildings joined the roster. */
     gunnery?: number;
     /** Damage and critical hits taken in play; left out of a design save. */
@@ -285,6 +288,7 @@ export default class Building {
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
+    private _rulesEdition: string = DEFAULT_RULES_EDITION;
     private _tech: ITechOptions = btTechOptions[0];
     private _era: IEras = latestEra("is");
     private _classification: IBuildingClassification = BUILDING_CLASSIFICATIONS[0];
@@ -323,6 +327,13 @@ export default class Building {
     public newUUID(): void { this._uuid = generateUUID(); }
 
     public getName(): string { return this._name; }
+    /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
+    public getRulesEdition(): string { return this._rulesEdition; }
+    public setRulesEdition(editionTag: string): string {
+        this._rulesEdition = getSelectableRulesEditionTag(editionTag, "building");
+        return this._rulesEdition;
+    }
+
     public setName(name: string): string {
         this._name = name.slice(0, 200);
         return this._name;
@@ -1950,6 +1961,7 @@ export default class Building {
             uuid: this._uuid,
             lastUpdated: this.lastUpdated,
             name: this._name,
+            ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
             tech: this._tech.tag,
             era: this._era.tag,
             classification: this._classification.tag,
@@ -2019,6 +2031,7 @@ export default class Building {
             this.lastUpdated = Number.isNaN(updated.getTime()) ? new Date() : updated;
             if (saved.name !== undefined && typeof saved.name !== "string") issue("Ignored a name that is not text");
             this.setName(savedString(saved.name));
+            this._rulesEdition = getSelectableRulesEditionTag(saved.rulesEdition, "building");
             this.setTech(savedString(saved.tech));
             this.setEra(savedString(saved.era));
 

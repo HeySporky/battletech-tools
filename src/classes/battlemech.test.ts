@@ -1,7 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { sswTestFixtures } from "../data/ssw/sswTestFixtures";
-import { getSSWXMLBasicInfo } from "../utils/getSSWXMLBasicInfo";
 import { BattleMech } from "./battlemech";
 import { mechInternalStructureTypes, validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";

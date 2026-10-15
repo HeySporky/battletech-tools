@@ -1,4 +1,5 @@
 import { generateUUID } from "../utils/generateUUID";
+import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import {
     getDamageGroupings, getDualTurretHit, getFacingAfterFallDirection, getLargeNavalVesselHitLocation, getSuperheavyVehicleHitLocation, getVehicleCriticalEffect,
@@ -435,6 +436,8 @@ export interface IFrankenVehicle {
 }
 
 export interface IVehicleExport {
+    /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
+    rulesEdition?: string;
     uuid: string;
     lastUpdated: Date;
     name: string;
@@ -549,6 +552,7 @@ export default class Vehicle {
     public lastUpdated: Date = new Date();
 
     private _name: string = "";
+    private _rulesEdition: string = DEFAULT_RULES_EDITION;
     private _model: string = "";
     private _nickname: string = "";
 
@@ -617,6 +621,13 @@ export default class Vehicle {
 
     public getName(): string {
         return this._name;
+    }
+
+    /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
+    public getRulesEdition(): string { return this._rulesEdition; }
+    public setRulesEdition(editionTag: string): string {
+        this._rulesEdition = getSelectableRulesEditionTag(editionTag, "vehicle");
+        return this._rulesEdition;
     }
 
     public setName(name: string): string {
@@ -4459,6 +4470,7 @@ export default class Vehicle {
             uuid: this._uuid,
             lastUpdated: this.lastUpdated,
             name: this._name,
+            ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
             model: this._model,
             nickname: this._nickname,
             tonnage: this._tonnage,
@@ -4581,6 +4593,7 @@ export default class Vehicle {
                 ? new Date(importObject.lastUpdated) : new Date();
             this.lastUpdated = Number.isNaN(updated.getTime()) ? new Date() : updated;
             this._name = text("name");
+            this._rulesEdition = getSelectableRulesEditionTag(importObject.rulesEdition, "vehicle");
             this._model = text("model");
             this._nickname = text("nickname");
             if (importObject.tonnage !== undefined && typeof importObject.tonnage !== "number") issue("Ignored a tonnage that is not a number");

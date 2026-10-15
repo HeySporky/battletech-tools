@@ -1,4 +1,5 @@
 import { generateUUID } from "../utils/generateUUID";
+import { DEFAULT_RULES_EDITION, getSelectableRulesEditionTag } from "../data/rules-editions";
 import { IEquipmentItem, IEras } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
@@ -127,6 +128,8 @@ export interface IFrankenProtoDonor {
 }
 
 export interface IProtoMechExport {
+    /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
+    rulesEdition?: string;
     version: 1;
     /** FrankenProto (Custom Homebrew): each location's donor; present only on a FrankenProto. */
     frankenProto?: Partial<Record<FrankenProtoLocation, IFrankenProtoDonor>>;
@@ -255,6 +258,7 @@ export default class ProtoMech {
 
     private _uuid: string = generateUUID();
     private _name: string = "";
+    private _rulesEdition: string = DEFAULT_RULES_EDITION;
     private _tons: number = 5;
     private _chassis: ProtoMechChassis = "biped";
     private _walkMP: number = 4;
@@ -283,6 +287,13 @@ export default class ProtoMech {
     public getUUID(): string { return this._uuid; }
     public newUUID(): void { this._uuid = generateUUID(); }
     public getName(): string { return this._name; }
+    /** The rules edition the design is built under. Only the editions with rules for this unit type are offered. */
+    public getRulesEdition(): string { return this._rulesEdition; }
+    public setRulesEdition(editionTag: string): string {
+        this._rulesEdition = getSelectableRulesEditionTag(editionTag, "protomech");
+        return this._rulesEdition;
+    }
+
     public setName(name: string): void {
         this._name = String(name ?? "").slice(0, MAX_PROTOMECH_NAME_LENGTH);
         this._armor.mainGun = Math.min(this._armor.mainGun, this.getMaxArmor("mainGun"));
@@ -1417,6 +1428,7 @@ export default class ProtoMech {
             version: 1,
             uuid: this._uuid,
             name: this._name,
+            ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
             tons: this._tons,
             chassis: this._chassis,
             walkMP: this._walkMP,
@@ -1446,6 +1458,7 @@ export default class ProtoMech {
         this._importIssues = [];
         this._uuid = typeof data.uuid === "string" && data.uuid ? data.uuid.slice(0, 64) : generateUUID();
         this.setName(typeof data.name === "string" ? data.name : "");
+        this._rulesEdition = getSelectableRulesEditionTag(data.rulesEdition, "protomech");
         this._chassis = CHASSIS_TAGS.includes(data.chassis) ? data.chassis : "biped";
         this._tons = clampInt(data.tons, this.getMinTons(), PROTOMECH_MAX_TONS, 5);
         this._mainGun = data.mainGun === true;

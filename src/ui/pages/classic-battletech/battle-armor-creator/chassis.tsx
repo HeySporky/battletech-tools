@@ -9,6 +9,7 @@ import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import BattleArmorCreatorSideMenu from '../../../components/battle-armor-creator-side-menu';
 import InputField from "../../../components/form_elements/input_field";
+import RulesEditionSelect from '../../../components/rules-edition-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import BattleArmorStatusBar from './_statusBar';
@@ -58,6 +59,8 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                     <div className="col-md-9 col-lg-10">
                         <BattleArmorStatusBar suit={suit} />
                         <TextSection label="Step 1: Design the Chassis">
+                            {/* The rules edition comes first: it decides what every field below offers. */}
+                            <RulesEditionSelect unitType="battle-armor" value={suit.getRulesEdition()} onChange={(tag) => this.update((s) => s.setRulesEdition(tag))} />
                             <InputField
                                 label="Name (e.g. Elemental, Purifier Adaptive Battle Armor)"
                                 value={suit.getName()}
