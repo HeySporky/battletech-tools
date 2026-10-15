@@ -8,7 +8,10 @@ import Pilot, { IPilot } from "./pilot";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { findByTag } from "../data/tag-match";
-import { IAerospaceArmorType, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
+import { IAerospaceArmorType, ICapitalWeapon, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
+import {
+    CAPITAL_WEAPON_CATALOG, findCapitalWeapon, getCapitalAmmoBattleValue, getCapitalAmmoCost, getCapitalAmmoTags, getCapitalAmmoTons,
+} from "../data/capital-weapon-helpers";
 import {
     BAY_DOOR_COST, ESCAPE_SYSTEM_COST, ESCAPE_SYSTEM_TONS, QuartersTag, SMALL_CRAFT_ARCS, SMALL_CRAFT_ARC_FACING, SMALL_CRAFT_BASE_CREW,
     SMALL_CRAFT_CONTROLS_FACTOR, SMALL_CRAFT_FACINGS, SMALL_CRAFT_FUEL_POINTS_PER_TON, SMALL_CRAFT_FUEL_PUMP_FACTOR, SMALL_CRAFT_MAX_ARMOR_TONS_PER_SI,
@@ -17,6 +20,9 @@ import {
     SMALL_CRAFT_WEAPONS_PER_GUNNER, SmallCraftArc, SmallCraftFacing, SmallCraftShape, findTransportBayType, getSmallCraftArcName,
     getSmallCraftEngineWeight, getSmallCraftFacingName, getSmallCraftFireControlWeight, getSmallCraftFreeHeatSinks, getSmallCraftStructureWeight,
     quartersTypes, roundUpToHalfTon,
+    CraftType, DROPSHIP_MIN_TONNAGE, DROPSHIP_MAX_TONNAGE, DROPSHIP_TONNAGE_STEP, getDropShipFuelPointsPerTon,
+    getDropShipStrategicFuelPerDay, getDropShipControlsWeight, getDropShipBaseCrew, getDropShipFreeHeatSinks,
+    getDropShipMaxBayDoors, DOCKING_COLLAR_COST, GUNNERY_CONTROL_COST_PER_ARC, DROPSHIP_COST_MULTIPLIER,
 } from "../data/small-craft-construction";
 import { SMALL_CRAFT_CRITICAL_NAMES, SmallCraftAttackDirection, SmallCraftCritical, getSmallCraftHitLocation } from "../data/small-craft-hit-tables";
 
@@ -28,8 +34,32 @@ import { SMALL_CRAFT_CRITICAL_NAMES, SmallCraftAttackDirection, SmallCraftCritic
 export const MAX_SMALL_CRAFT_EQUIPMENT = 300;
 export const MAX_SMALL_CRAFT_BAYS = 20;
 export const MAX_SMALL_CRAFT_PEOPLE = 200;
+/** Crew, passengers and quarters a DropShip may list; well above the largest published ships. */
+export const MAX_DROPSHIP_PEOPLE = 10000;
+/** Units a DropShip bay may hold; well above the largest published bays. */
+export const MAX_DROPSHIP_BAY_UNITS = 1000;
 /** Unit Type Modifier for the Defensive Battle Rating (Unit Type Modifiers Table, TM p.316). */
 export const SMALL_CRAFT_BV_TYPE_MODIFIER = 1.0;
+export const MAX_SMALL_CRAFT_CAPITAL_WEAPONS = 100;
+export const MAX_SMALL_CRAFT_CAPITAL_SHOTS = 9999;
+/** Shots a capital weapon that fires ammunition carries at the least: 10 turns of fire (TM pp.194, 210). */
+export const MIN_CAPITAL_SHOTS = 10;
+
+/** A capital or sub-capital weapon in a firing arc, with its ammunition by the tag of the weapon whose rounds they are. */
+export interface ISmallCraftCapitalMount {
+    uuid: string;
+    weapon: ICapitalWeapon;
+    location?: string;
+    /** Shots carried, by the tag of the weapon whose ammunition they are (an AR-10 carries three kinds). */
+    shots: Record<string, number>;
+}
+
+export interface ISmallCraftCapitalExport {
+    tag: string;
+    location?: string;
+    uuid?: string;
+    shots?: Record<string, number>;
+}
 
 export type ISmallCraftArmorAllocation = Record<SmallCraftFacing, number>;
 
@@ -142,6 +172,9 @@ export interface ISmallCraftExport {
     name: string;
     model: string;
     shape: SmallCraftShape;
+    /** Absent in saves from before DropShips: a Small Craft. */
+    craftType?: CraftType;
+    military?: boolean;
     tonnage: number;
     tech: string;
     /** The engine's tech base; a Mixed Tech craft may use either. */
@@ -163,6 +196,8 @@ export interface ISmallCraftExport {
     escapePods: number;
     lifeBoats: number;
     equipment: ISmallCraftEquipmentExport[];
+    /** Capital and sub-capital weapons; absent in saves from before them. */
+    capitalWeapons?: ISmallCraftCapitalExport[];
     pilot?: IPilot;
     inPlay?: ISmallCraftInPlay;
 }
@@ -203,6 +238,8 @@ export default class SmallCraft {
     private _name: string = "";
     private _model: string = "";
     private _shape: SmallCraftShape = "aerodyne";
+    private _craftType: CraftType = "smallCraft";
+    private _military: boolean = false;
     private _pilot: Pilot = new Pilot();
     private _inPlay: ISmallCraftInPlay = newInPlay();
     private _battleValue: number = 0;
@@ -229,6 +266,7 @@ export default class SmallCraft {
     private _escapePods: number = 0;
     private _lifeBoats: number = 0;
     private _equipmentList: IEquipmentItem[] = [];
+    private _capitalWeapons: ISmallCraftCapitalMount[] = [];
     private _importIssues: string[] = [];
 
     private _weights: { name: string; weight: number }[] = [];
@@ -262,9 +300,41 @@ export default class SmallCraft {
     public getShapeName(): string { return SMALL_CRAFT_SHAPES.find((shape) => shape.tag === this._shape)?.name ?? ""; }
     public isAerodyne(): boolean { return this._shape === "aerodyne"; }
 
+    public getCraftType(): CraftType { return this._craftType; }
+    public isDropShip(): boolean { return this._craftType === "dropShip"; }
+    public getCraftTypeName(): string { return this.isDropShip() ? "DropShip" : "Small Craft"; }
+
+    /** Small Craft and DropShips share every construction step; the tables give each its own values (TM pp.180-197). */
+    public setCraftType(craftType: string): CraftType {
+        if (craftType === "smallCraft" || craftType === "dropShip") this._craftType = craftType;
+        this._tonnage = this._steppedTonnage(this._tonnage);
+        this._clampToRules();
+        this._calc();
+        return this._craftType;
+    }
+
+    /** Military or civilian construction: a DropShip's crew, free heat sinks and fuel use depend on it (TM pp.186-193). */
+    public isMilitary(): boolean { return this._military; }
+    public setMilitary(military: boolean): boolean {
+        this._military = !!military;
+        this._clampToRules();
+        this._calc();
+        return this._military;
+    }
+
+    public getMinTonnage(): number { return this.isDropShip() ? DROPSHIP_MIN_TONNAGE : SMALL_CRAFT_MIN_TONNAGE; }
+    public getMaxTonnage(): number { return this.isDropShip() ? DROPSHIP_MAX_TONNAGE[this._shape] : SMALL_CRAFT_MAX_TONNAGE; }
+    public getTonnageStep(): number { return this.isDropShip() ? DROPSHIP_TONNAGE_STEP : SMALL_CRAFT_TONNAGE_STEP; }
+    private _steppedTonnage(tonnage: number): number {
+        const step = this.getTonnageStep();
+        return Math.min(this.getMaxTonnage(), Math.max(this.getMinTonnage(), Math.round(tonnage / step) * step));
+    }
+    private _maxPeople(): number { return this.isDropShip() ? MAX_DROPSHIP_PEOPLE : MAX_SMALL_CRAFT_PEOPLE; }
+
     /** Changing shape changes the weight of the structure, the armor limit, the free heat sinks and the door limit. */
     public setShape(shape: string): SmallCraftShape {
         if (shape === "aerodyne" || shape === "spheroid") this._shape = shape;
+        this._tonnage = this._steppedTonnage(this._tonnage);
         this._clampToRules();
         this._calc();
         return this._shape;
@@ -272,11 +342,9 @@ export default class SmallCraft {
 
     public getTonnage(): number { return this._tonnage; }
 
-    /** 100 to 200 tons, in 5-ton steps (TM p.184). */
+    /** Small Craft 100 to 200 tons in 5-ton steps; DropShips 200 to 35,000 (aerodyne) or 100,000 tons in 100-ton steps (TM p.184). */
     public setTonnage(tonnage: number): number {
-        const value = Number.isFinite(tonnage) ? tonnage : SMALL_CRAFT_MAX_TONNAGE;
-        const stepped = Math.round(value / SMALL_CRAFT_TONNAGE_STEP) * SMALL_CRAFT_TONNAGE_STEP;
-        this._tonnage = Math.min(SMALL_CRAFT_MAX_TONNAGE, Math.max(SMALL_CRAFT_MIN_TONNAGE, stepped));
+        this._tonnage = this._steppedTonnage(Number.isFinite(tonnage) ? tonnage : this.getMaxTonnage());
         this._clampToRules();
         this._calc();
         return this._tonnage;
@@ -343,16 +411,21 @@ export default class SmallCraft {
     /** Fuel comes in whole or half tons (TM p.186). */
     public setFuelTons(tons: number): number {
         const value = Number.isFinite(tons) ? tons : 0;
-        this._fuelTons = Math.min(SMALL_CRAFT_MAX_TONNAGE, Math.max(0, Math.round(value * 2) / 2));
+        this._fuelTons = Math.min(this._tonnage, Math.max(0, Math.round(value * 2) / 2));
         this._calc();
         return this._fuelTons;
     }
 
-    public getFuelPoints(): number { return Math.floor(this._fuelTons * SMALL_CRAFT_FUEL_POINTS_PER_TON); }
+    /** 80 points a ton for a Small Craft; a DropShip's points fall with its weight (TM p.186). */
+    public getFuelPointsPerTon(): number { return this.isDropShip() ? getDropShipFuelPointsPerTon(this._tonnage) : SMALL_CRAFT_FUEL_POINTS_PER_TON; }
+    public getFuelPoints(): number { return Math.floor(this._fuelTons * this.getFuelPointsPerTon()); }
     /** Tanks and pumps: 2 percent of the fuel, rounded up to the half ton (TM p.186). */
     public getFuelPumpWeight(): number { return roundUpToHalfTon(this._fuelTons * SMALL_CRAFT_FUEL_PUMP_FACTOR); }
-    /** Days of travel at 1 G: 1.84 tons of fuel a day (TM p.186). */
-    public getBurnDays(): number { return Math.round(this._fuelTons / SMALL_CRAFT_STRATEGIC_FUEL_TONS_PER_DAY * 100) / 100; }
+    /** Tons of fuel a day at 1 G: 1.84, or more for a large civilian DropShip (TM p.186). */
+    public getStrategicFuelPerDay(): number {
+        return this.isDropShip() ? getDropShipStrategicFuelPerDay(this._tonnage, this._military) : SMALL_CRAFT_STRATEGIC_FUEL_TONS_PER_DAY;
+    }
+    public getBurnDays(): number { return Math.round(this._fuelTons / this.getStrategicFuelPerDay() * 100) / 100; }
 
     public getStructuralIntegrity(): number { return this._structuralIntegrity; }
     public getMinStructuralIntegrity(): number { return this.getMaxThrust(); }
@@ -369,8 +442,10 @@ export default class SmallCraft {
     /** SI x tonnage / 200 for an aerodyne craft, / 500 for a spheroid, rounded up to the half ton (TM p.187). */
     public getStructureWeight(): number { return getSmallCraftStructureWeight(this._tonnage, this._structuralIntegrity, this._shape); }
 
-    /** Tonnage x 0.0075, rounded up to the half ton (TM p.189). */
-    public getControlsWeight(): number { return roundUpToHalfTon(this._tonnage * SMALL_CRAFT_CONTROLS_FACTOR); }
+    /** Tonnage x 0.0075, rounded up to the half ton, or to the whole ton for a DropShip (TM p.189). */
+    public getControlsWeight(): number {
+        return this.isDropShip() ? getDropShipControlsWeight(this._tonnage) : roundUpToHalfTon(this._tonnage * SMALL_CRAFT_CONTROLS_FACTOR);
+    }
 
     /** Pulls values that depend on others back inside the rules after a change. */
     private _clampToRules(): void {
@@ -388,7 +463,7 @@ export default class SmallCraft {
     public getAvailableArmorTypes(rulesLevel: number = 2): (IAerospaceArmorType & { available: boolean })[] {
         const techBase = this.getChassisTechBase();
         return aerospaceArmorTypes
-            .filter((armor) => getAerospaceArmorPointsPerTon(armor.tag, "small-craft", techBase, this._tonnage) !== null)
+            .filter((armor) => getAerospaceArmorPointsPerTon(armor.tag, this._armorUnit(), techBase, this._tonnage) !== null)
             .map((armor) => ({ ...armor, available: this._datesAvailability(armorDates(armor), rulesLevel).available }));
     }
 
@@ -400,7 +475,11 @@ export default class SmallCraft {
     }
 
     public getArmorPointsPerTon(): number | null {
-        return getAerospaceArmorPointsPerTon(this._armorType.tag, "small-craft", this.getChassisTechBase(), this._tonnage);
+        return getAerospaceArmorPointsPerTon(this._armorType.tag, this._armorUnit(), this.getChassisTechBase(), this._tonnage);
+    }
+    /** The row of the Aerospace Armor Points per Ton Table (TM p.192). */
+    private _armorUnit(): "small-craft" | "aerodyne-dropship" | "spheroid-dropship" {
+        return this.isDropShip() ? `${this._shape}-dropship` : "small-craft";
     }
 
     public getArmorTons(): number { return this._armorTons; }
@@ -482,37 +561,51 @@ export default class SmallCraft {
     public getAdditionalHeatSinks(): number { return this._additionalHeatSinks; }
 
     public setAdditionalHeatSinks(count: number): number {
-        this._additionalHeatSinks = wholeNumber(count, 0, SMALL_CRAFT_MAX_TONNAGE);
+        this._additionalHeatSinks = wholeNumber(count, 0, this._tonnage);
         this._calc();
         return this._additionalHeatSinks;
     }
 
-    /** Engine tons / 60 on an aerodyne craft, the square root of engine tons x 1.6 on a spheroid (TM p.193). */
-    public getFreeHeatSinks(): number { return getSmallCraftFreeHeatSinks(this.getEngineWeight(), this._shape); }
+    /** Engine tons / 60 on an aerodyne craft, the square root of engine tons x 1.6 on a spheroid; / 20 and x 6.8 for a military DropShip (TM p.193). */
+    public getFreeHeatSinks(): number {
+        return this.isDropShip()
+            ? getDropShipFreeHeatSinks(this.getEngineWeight(), this._shape, this._military)
+            : getSmallCraftFreeHeatSinks(this.getEngineWeight(), this._shape);
+    }
     public getTotalHeatSinks(): number { return this.getFreeHeatSinks() + this._additionalHeatSinks; }
     public getHeatDissipation(): number { return this.getTotalHeatSinks() * (this._heatSinkType.dissipation ?? 1); }
 
     /** Heat of every weapon fired together: energy and non-energy weapons alike (TM p.194). */
     public getWeaponHeat(): number {
-        return this._equipmentList.filter((item) => !item.isAmmo).reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0);
+        return this._equipmentList.filter((item) => !item.isAmmo).reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0)
+            + this._capitalWeapons.reduce((sum, mount) => sum + this.getCapitalWeaponHeat(mount), 0);
     }
 
     // Crew, quarters and bays -----------------------------------------------------------------------------------
 
     /** Weapons that need a gunner: those fired with a Gunnery Skill roll, so not anti-missile systems or other gear (TM p.188). */
     public getGunneryWeaponCount(): number {
-        return this._equipmentList.filter((item) => this._isWeapon(item)).length;
+        return this._equipmentList.filter((item) => this._isWeapon(item)).length
+            + this._capitalWeapons.filter((mount) => !mount.weapon.battleValueDefensive && mount.weapon.category !== "Capital Missile").length;
     }
-    /** One gunner for every six weapons, rounded up (TM p.189). */
-    public getMinimumGunners(): number { return Math.ceil(this.getGunneryWeaponCount() / SMALL_CRAFT_WEAPONS_PER_GUNNER); }
-    /** Three crew and the gunners (TM p.189). */
-    public getMinimumCrew(): number { return SMALL_CRAFT_BASE_CREW + this.getMinimumGunners(); }
+    /** Capital missile launchers: each needs a gunner of its own (TM p.210). */
+    public getCapitalMissileLauncherCount(): number {
+        return this._capitalWeapons.filter((mount) => mount.weapon.category === "Capital Missile").length;
+    }
+    /** One gunner for every six weapons, rounded up (TM p.189), and one for each capital missile launcher (TM p.210). */
+    public getMinimumGunners(): number {
+        return Math.ceil(this.getGunneryWeaponCount() / SMALL_CRAFT_WEAPONS_PER_GUNNER) + this.getCapitalMissileLauncherCount();
+    }
+    /** Three for a Small Craft; for a DropShip 3 (civilian) or 4 (military) and 1 for every 5,000 tons (TM p.189). */
+    public getBaseCrew(): number { return this.isDropShip() ? getDropShipBaseCrew(this._tonnage, this._military) : SMALL_CRAFT_BASE_CREW; }
+    /** The base crew and the gunners (TM p.189). */
+    public getMinimumCrew(): number { return this.getBaseCrew() + this.getMinimumGunners(); }
     /** One crew member in five, rounded up, is an officer (TM p.189). */
     public getMinimumOfficers(): number { return Math.ceil(this._crew / 5); }
 
     public getCrew(): number { return this._crew; }
     public setCrew(crew: number): number {
-        this._crew = wholeNumber(crew, this.getMinimumCrew(), MAX_SMALL_CRAFT_PEOPLE);
+        this._crew = wholeNumber(crew, this.getMinimumCrew(), this._maxPeople());
         this._officers = Math.min(this._officers, this._crew);
         this._calc();
         return this._crew;
@@ -527,14 +620,14 @@ export default class SmallCraft {
 
     public getPassengers(): number { return this._passengers; }
     public setPassengers(passengers: number): number {
-        this._passengers = wholeNumber(passengers, 0, MAX_SMALL_CRAFT_PEOPLE);
+        this._passengers = wholeNumber(passengers, 0, this._maxPeople());
         this._calc();
         return this._passengers;
     }
 
     public getQuarters(): ISmallCraftQuarters { return this._quarters; }
     public setQuarters(tag: QuartersTag, count: number): ISmallCraftQuarters {
-        if (quartersTypes.some((type) => type.tag === tag)) this._quarters[tag] = wholeNumber(count, 0, MAX_SMALL_CRAFT_PEOPLE);
+        if (quartersTypes.some((type) => type.tag === tag)) this._quarters[tag] = wholeNumber(count, 0, this._maxPeople());
         this._calc();
         return this._quarters;
     }
@@ -559,8 +652,9 @@ export default class SmallCraft {
         if (bay && type) {
             const value = Number.isFinite(amount) ? amount : 1;
             // Whatever weight is left over is cargo (TM p.184), so a cargo bay is not held to half tons.
-            bay.amount = type.tonsEach === null ? Math.min(SMALL_CRAFT_MAX_TONNAGE, Math.max(0.001, Math.round(value * 1000) / 1000)) : wholeNumber(value, 1, 40);
-            bay.doors = wholeNumber(doors, 0, SMALL_CRAFT_MAX_BAY_DOORS.spheroid);
+            bay.amount = type.tonsEach === null ? Math.min(this.getMaxTonnage(), Math.max(0.001, Math.round(value * 1000) / 1000))
+                : wholeNumber(value, 1, this.isDropShip() ? MAX_DROPSHIP_BAY_UNITS : 40);
+            bay.doors = wholeNumber(doors, 0, Math.max(SMALL_CRAFT_MAX_BAY_DOORS.spheroid, this.getMaxBayDoors()));
         }
         this._calc();
         return this._bays;
@@ -579,7 +673,8 @@ export default class SmallCraft {
     public getBayName(bay: ISmallCraftBay): string { return findTransportBayType(bay.tag)?.name ?? bay.tag; }
     public getBaysWeight(): number { return this._bays.reduce((sum, bay) => sum + this.getBayWeight(bay), 0); }
     public getBayDoors(): number { return this._bays.reduce((sum, bay) => sum + bay.doors, 0); }
-    public getMaxBayDoors(): number { return SMALL_CRAFT_MAX_BAY_DOORS[this._shape]; }
+    /** 2 on an aerodyne Small Craft, 4 on a spheroid; 7 plus the weight / 50,000 on a DropShip (TM p.196). */
+    public getMaxBayDoors(): number { return this.isDropShip() ? getDropShipMaxBayDoors(this._tonnage) : SMALL_CRAFT_MAX_BAY_DOORS[this._shape]; }
     /** Tons of cargo the cargo bays hold, after each kind's share is taken off (TM p.239). */
     public getCargoCapacity(): number {
         return Math.round(this._bays.reduce((sum, bay) => {
@@ -590,13 +685,13 @@ export default class SmallCraft {
 
     public getEscapePods(): number { return this._escapePods; }
     public setEscapePods(count: number): number {
-        this._escapePods = wholeNumber(count, 0, 20);
+        this._escapePods = wholeNumber(count, 0, this.isDropShip() ? 1000 : 20);
         this._calc();
         return this._escapePods;
     }
     public getLifeBoats(): number { return this._lifeBoats; }
     public setLifeBoats(count: number): number {
-        this._lifeBoats = wholeNumber(count, 0, 20);
+        this._lifeBoats = wholeNumber(count, 0, this.isDropShip() ? 1000 : 20);
         this._calc();
         return this._lifeBoats;
     }
@@ -616,11 +711,13 @@ export default class SmallCraft {
         return this._equipmentList.filter((item) => item.location === "hull");
     }
     /** Weapons in an arc, for the limit of 12 (TM p.196). */
-    public getArcWeaponCount(arc: SmallCraftArc): number { return this.getArcItems(arc).length; }
+    public getArcWeaponCount(arc: SmallCraftArc): number { return this.getArcItems(arc).length + this.getArcCapitalWeapons(arc).length; }
     /** Extra fire control for an arc with more than 12 weapons (TM p.196). */
     public getArcFireControlWeight(arc: SmallCraftArc): number {
         const items = this.getArcItems(arc);
-        return getSmallCraftFireControlWeight(items.length, items.reduce((sum, item) => sum + (item.weight || 0), 0));
+        const capital = this.getArcCapitalWeapons(arc);
+        return getSmallCraftFireControlWeight(items.length + capital.length,
+            items.reduce((sum, item) => sum + (item.weight || 0), 0) + capital.reduce((sum, mount) => sum + mount.weapon.weight, 0));
     }
     public getFireControlWeight(): number {
         return SMALL_CRAFT_ARCS.reduce((sum, arc) => sum + this.getArcFireControlWeight(arc), 0);
@@ -629,7 +726,7 @@ export default class SmallCraft {
     public getEquipmentList(): IEquipmentItem[] { return this._equipmentList; }
 
     public isEquipmentAllowed(item: IEquipmentItem): boolean {
-        return (item.space?.smallCraft ?? -1) >= 0;
+        return ((this.isDropShip() ? item.space?.dropShip : item.space?.smallCraft) ?? -1) >= 0;
     }
 
     public getAvailableEquipment(includeCustom: boolean = false, rulesLevel: number = 2): IEquipmentItem[] {
@@ -707,6 +804,87 @@ export default class SmallCraft {
         return this._equipmentList;
     }
 
+    // Capital and sub-capital weapons (TM pp.210, 237; TO:AUE pp.82-83) -----------------------------------------
+
+    /** Capital missile launchers for DropShips, Screen Launchers for both, sub-capital weapons as TO:AUE allows. */
+    public isCapitalWeaponAllowed(weapon: ICapitalWeapon): boolean {
+        return ((this.isDropShip() ? weapon.space.dropShip : weapon.space.smallCraft) ?? -1) > 0;
+    }
+    private _capitalTechAllowed(weapon: ICapitalWeapon): boolean {
+        return weapon.techBase === "both" || this.isMixedTech() || weapon.techBase === this.getChassisTechBase();
+    }
+    private _capitalDates(weapon: ICapitalWeapon): ITechDates {
+        return { introduced: weapon.introduced, extinct: weapon.extinct, reintroduced: weapon.reintroduced, prototype: weapon.prototype ?? undefined } as ITechDates;
+    }
+    /** Capital and sub-capital weapons the craft type, technology base, era and rules level offer. */
+    public getAvailableCapitalWeapons(rulesLevel: number = 2): ICapitalWeapon[] {
+        return CAPITAL_WEAPON_CATALOG.filter((weapon) => this.isCapitalWeaponAllowed(weapon) && this._capitalTechAllowed(weapon)
+            && weapon.rulesLevel <= rulesLevel && this._datesAvailability(this._capitalDates(weapon), rulesLevel).available);
+    }
+    public getCapitalWeapons(): ISmallCraftCapitalMount[] { return this._capitalWeapons; }
+    public getArcCapitalWeapons(arc: SmallCraftArc): ISmallCraftCapitalMount[] {
+        return this._capitalWeapons.filter((mount) => mount.location === arc);
+    }
+    public getCapitalAmmoTags(mount: ISmallCraftCapitalMount): string[] { return getCapitalAmmoTags(mount.weapon); }
+    public getCapitalShots(mount: ISmallCraftCapitalMount): number { return Object.values(mount.shots).reduce((sum, shots) => sum + shots, 0); }
+    /** The launcher and its ammunition. */
+    public getCapitalWeaponWeight(mount: ISmallCraftCapitalMount): number {
+        return Math.round((mount.weapon.weight + Object.keys(mount.shots).reduce((sum, tag) => sum + getCapitalAmmoTons(tag, mount.shots[tag]), 0)) * 1000) / 1000;
+    }
+    /**
+     * Heat of one shot. An AR-10 makes the heat of the missile it fires (TM p.342); counted here at the hottest
+     * missile it carries, or the hottest it may fire when it carries none (a reading).
+     */
+    public getCapitalWeaponHeat(mount: ISmallCraftCapitalMount): number {
+        if (mount.weapon.heat !== null) return mount.weapon.heat;
+        const tags = getCapitalAmmoTags(mount.weapon);
+        const loaded = tags.filter((tag) => (mount.shots[tag] ?? 0) > 0);
+        return Math.max(0, ...(loaded.length ? loaded : tags).map((tag) => findCapitalWeapon(tag)?.heat ?? 0));
+    }
+
+    private _newCapitalMount(weapon: ICapitalWeapon, location: unknown, shots: unknown, uuid?: unknown): ISmallCraftCapitalMount {
+        const taken = (id: string) => this._capitalWeapons.some((mount) => mount.uuid === id) || this._equipmentList.some((item) => item.uuid === id);
+        const mount: ISmallCraftCapitalMount = {
+            uuid: typeof uuid === "string" && uuid && !taken(uuid) ? uuid : generateUUID(),
+            weapon,
+            location: typeof location === "string" && (SMALL_CRAFT_ARCS as string[]).includes(location) ? location : undefined,
+            shots: {},
+        };
+        for (const tag of getCapitalAmmoTags(weapon)) {
+            mount.shots[tag] = Math.floor(savedNumber(isPlainObject(shots) ? shots[tag] : undefined, 0, 0, MAX_SMALL_CRAFT_CAPITAL_SHOTS));
+        }
+        return mount;
+    }
+
+    /** A new weapon that fires ammunition comes with 10 shots, the least it may carry (TM pp.194, 210). */
+    public addCapitalWeapon(tag: string, location?: string): ISmallCraftCapitalMount | null {
+        const weapon = findCapitalWeapon(tag);
+        if (!weapon || !this.isCapitalWeaponAllowed(weapon) || this._capitalWeapons.length >= MAX_SMALL_CRAFT_CAPITAL_WEAPONS) return null;
+        const first = getCapitalAmmoTags(weapon)[0];
+        const mount = this._newCapitalMount(weapon, location, first ? { [first]: MIN_CAPITAL_SHOTS } : {});
+        this._capitalWeapons.push(mount);
+        this._clampToRules();
+        this._calc();
+        return mount;
+    }
+    public removeCapitalWeapon(uuid: string): ISmallCraftCapitalMount[] {
+        this._capitalWeapons = this._capitalWeapons.filter((mount) => mount.uuid !== uuid);
+        this._calc();
+        return this._capitalWeapons;
+    }
+    public setCapitalWeaponLocation(uuid: string, location: string): void {
+        const mount = this._capitalWeapons.find((entry) => entry.uuid === uuid);
+        if (mount) mount.location = (SMALL_CRAFT_ARCS as string[]).includes(location) ? location : undefined;
+        this._calc();
+    }
+    /** Shots of one kind of ammunition; only kinds the weapon fires. */
+    public setCapitalWeaponShots(uuid: string, ammoTag: string, shots: number): void {
+        const mount = this._capitalWeapons.find((entry) => entry.uuid === uuid);
+        if (!mount || !getCapitalAmmoTags(mount.weapon).includes(ammoTag)) return;
+        mount.shots[ammoTag] = Math.floor(savedNumber(shots, 0, 0, MAX_SMALL_CRAFT_CAPITAL_SHOTS));
+        this._calc();
+    }
+
     /** Shots a weapon fires in a turn at its fastest: 2 for an Ultra autocannon, 6 for a rotary one (TM p.194). */
     private static _shotsPerTurn(weapon: IEquipmentItem): number {
         const text = `${weapon.tag} ${weapon.name}`.toLowerCase();
@@ -762,29 +940,41 @@ export default class SmallCraft {
         if (this._heatSinkType.tag !== "single" && !this._techDatesAvailability(this._heatSinkType, rulesLevel).available) {
             issues.push(`${this._heatSinkType.name} heat sinks are not available in the selected era.`);
         }
-        const unplaced = this._equipmentList.filter((item) => !item.location).length;
+        const unplaced = this._equipmentList.filter((item) => !item.location).length + this._capitalWeapons.filter((mount) => !mount.location).length;
         if (unplaced > 0) issues.push(`${unplaced} item${unplaced === 1 ? " has" : "s have"} no firing arc yet.`);
         for (const item of this._equipmentList) {
-            if (!this.isEquipmentAllowed(item)) issues.push(`${item.name} cannot be mounted on a Small Craft.`);
+            if (!this.isEquipmentAllowed(item)) issues.push(`${item.name} cannot be mounted on a ${this.getCraftTypeName()}.`);
+        }
+        for (const mount of this._capitalWeapons) {
+            if (!this.isCapitalWeaponAllowed(mount.weapon)) {
+                issues.push(`${mount.weapon.name} cannot be mounted on a ${this.getCraftTypeName()}${mount.weapon.category === "Capital Missile" ? "; only DropShips mount capital missile launchers (TM p.210)" : ""}.`);
+            } else if (mount.weapon.rulesLevel > rulesLevel) {
+                issues.push(`${mount.weapon.name} needs a higher rules level (${mount.weapon.book}).`);
+            } else if (!this._capitalTechAllowed(mount.weapon) || !this._datesAvailability(this._capitalDates(mount.weapon), rulesLevel).available) {
+                issues.push(`${mount.weapon.name} is not available to this tech base in the selected era.`);
+            }
+            if (getCapitalAmmoTags(mount.weapon).length > 0 && this.getCapitalShots(mount) < MIN_CAPITAL_SHOTS) {
+                issues.push(`${mount.weapon.name}: ${this.getCapitalShots(mount)} shots carried, at least ${MIN_CAPITAL_SHOTS} needed (TM pp.194, 210).`);
+            }
         }
         // Side and wing weapons must be the same on both sides (TM p.195).
         for (const arc of ["left", "leftAft"] as SmallCraftArc[]) {
             const other = SMALL_CRAFT_OPPOSITE_ARC[arc] as SmallCraftArc;
-            const tags = (list: IEquipmentItem[]) => list.map((item) => item.tag).sort().join(",");
-            if (tags(this.getArcItems(arc)) !== tags(this.getArcItems(other))) {
+            const tags = (side: SmallCraftArc) => [...this.getArcItems(side).map((item) => item.tag), ...this.getArcCapitalWeapons(side).map((mount) => mount.weapon.tag)].sort().join(",");
+            if (tags(arc) !== tags(other)) {
                 issues.push(`${this.getArcName(arc)} and ${this.getArcName(other)} must carry the same weapons (TM p.195).`);
             }
         }
         for (const shortfall of this.getAmmunitionShortfalls()) {
             issues.push(`${shortfall.name}: ${shortfall.shots} shots carried, ${shortfall.needed} needed for 10 turns of fire for each (TM p.194).`);
         }
-        if (this._crew < this.getMinimumCrew()) issues.push(`The crew must be at least ${this.getMinimumCrew()} (3 and ${this.getMinimumGunners()} gunners, TM p.189).`);
+        if (this._crew < this.getMinimumCrew()) issues.push(`The crew must be at least ${this.getMinimumCrew()} (${this.getBaseCrew()} and ${this.getMinimumGunners()} gunners, TM p.189).`);
         const people = this._crew + this._passengers;
         if (this.getQuartersCapacity() < people) {
             issues.push(`Quarters for ${this.getQuartersCapacity()} of ${people} crew and passengers; everyone aboard needs quarters (TM p.195).`);
         }
         if (this.getBayDoors() > this.getMaxBayDoors()) {
-            issues.push(`${this.getBayDoors()} bay doors; ${this.isAerodyne() ? "an aerodyne" : "a spheroid"} Small Craft has no more than ${this.getMaxBayDoors()} (TM p.196).`);
+            issues.push(`${this.getBayDoors()} bay doors; ${this.isDropShip() ? `a DropShip of ${this._tonnage.toLocaleString("en-US")} tons` : this.isAerodyne() ? "an aerodyne Small Craft" : "a spheroid Small Craft"} has no more than ${this.getMaxBayDoors()} (TM p.196).`);
         }
         for (const bay of this._bays) {
             const type = findTransportBayType(bay.tag);
@@ -799,10 +989,11 @@ export default class SmallCraft {
     public getNotes(): string[] {
         const notes: string[] = [];
         if (this._officers < this.getMinimumOfficers()) notes.push(`One crew member in five is normally an officer: ${this.getMinimumOfficers()} for this crew (TM p.189).`);
-        if (this._fuelTons > 0 && this._fuelTons < this._tonnage * 0.05) notes.push(`A Small Craft should give at least 5 percent of its weight to fuel: ${roundUpToHalfTon(this._tonnage * 0.05)} tons (TM p.186).`);
+        if (this._fuelTons > 0 && this._fuelTons < this._tonnage * 0.05) notes.push(`A ${this.getCraftTypeName()} should give at least 5 percent of its weight to fuel: ${roundUpToHalfTon(this._tonnage * 0.05)} tons (TM p.186).`);
         const remaining = this.getRemainingTonnage();
         if (remaining > 0) notes.push(`${remaining} tons are unspent: cargo if a bay is added for them, wasted otherwise (TM p.184).`);
         if (this.getWeaponHeat() > this.getHeatDissipation()) notes.push(`Firing everything makes ${this.getWeaponHeat()} heat against ${this.getHeatDissipation()} dissipated; a Small Craft tracks heat as a fighter does (TM p.193).`);
+        if (this._capitalWeapons.length > 0) notes.push("Capital and sub-capital weapons are not yet counted in the Alpha Strike conversion or in play.");
         for (const arc of SMALL_CRAFT_ARCS) {
             const count = this.getArcWeaponCount(arc);
             if (count > SMALL_CRAFT_WEAPONS_PER_ARC) notes.push(`${this.getArcName(arc)}: ${count} weapons, over the 12 an arc holds; ${this.getArcFireControlWeight(arc)} tons of extra fire control added (TM p.196).`);
@@ -857,6 +1048,10 @@ export default class SmallCraft {
             { name: `Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name}, ${this.getFreeHeatSinks()} free)`, weight: this._additionalHeatSinks },
             ...(this.getFireControlWeight() > 0 ? [{ name: "Extra Fire Control", weight: this.getFireControlWeight() }] : []),
             ...this._equipmentList.map((item) => ({ name: item.name, weight: item.weight || 0 })),
+            ...this._capitalWeapons.map((mount) => {
+                const shots = this.getCapitalShots(mount);
+                return { name: `${mount.weapon.name}${getCapitalAmmoTags(mount.weapon).length ? ` (${shots} shot${shots === 1 ? "" : "s"})` : ""}`, weight: this.getCapitalWeaponWeight(mount) };
+            }),
             ...quarters,
             ...bays,
             ...(this._escapePods > 0 ? [{ name: `Escape Pods (${this._escapePods})`, weight: this._escapePods * ESCAPE_SYSTEM_TONS }] : []),
@@ -945,9 +1140,16 @@ export default class SmallCraft {
         }
         defensive += Math.min(amsAmmoBV, amsBV);
         if (amsAmmoBV > 0) log += `+ Anti-missile ammunition = ${Math.min(amsAmmoBV, amsBV)}<br />`;
+        // A Screen Launcher counts toward the Defensive Battle Rating, with its ammunition capped at its own value.
+        for (const mount of this._capitalWeapons.filter((entry) => entry.weapon.battleValueDefensive)) {
+            const ammoBV = Math.min(mount.weapon.battleValue, Object.keys(mount.shots).reduce((sum, tag) => sum + getCapitalAmmoBattleValue(tag, mount.shots[tag]), 0));
+            defensive += mount.weapon.battleValue + ammoBV;
+            log += `+ Defensive Equipment: ${escapeLogText(mount.weapon.name)} = ${mount.weapon.battleValue} + ammunition ${ammoBV}<br />`;
+        }
 
         // Clan craft are taken to have CASE; an Inner Sphere one needs to mount it (TM p.311).
-        const hasCASE = this.getChassisTechBase() === "clan" || this._equipmentList.some((item) => /(^|-)case(-|$)/.test(item.tag));
+        // The subtraction is for fighters and Small Craft only (TM p.311).
+        const hasCASE = this.isDropShip() || this.getChassisTechBase() === "clan" || this._equipmentList.some((item) => /(^|-)case(-|$)/.test(item.tag));
         if (!hasCASE) {
             const explosiveTypes = new Set(this._equipmentList.filter((item) => item.isAmmo && item.explosive).map((item) => item.tag)).size;
             const gaussWeapons = weapons.filter((item) => /gauss|(^|-)hag(-|$)/.test(item.tag)).length;
@@ -957,7 +1159,7 @@ export default class SmallCraft {
                 log += `- Explosive ammunition (${explosiveTypes} type${explosiveTypes === 1 ? "" : "s"} x 15) and Gauss weapons (${gaussWeapons} x 1), no CASE = -${penalty}<br />`;
             }
         }
-        log += `Subtotal ${defensive.toFixed(2)} x ${SMALL_CRAFT_BV_TYPE_MODIFIER} (Small Craft)`;
+        log += `Subtotal ${defensive.toFixed(2)} x ${SMALL_CRAFT_BV_TYPE_MODIFIER} (${this.getCraftTypeName()})`;
         defensive *= SMALL_CRAFT_BV_TYPE_MODIFIER;
         log += ` = ${defensive.toFixed(2)}<br />`;
 
@@ -974,50 +1176,56 @@ export default class SmallCraft {
             * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1) * (isHalved(item) ? 0.5 : 1);
 
         let rating = 0;
-        // Ammunition, capped at the unmodified value of the weapons of the model it feeds.
-        const weaponBVByTag: Record<string, number> = {};
-        for (const item of offensiveWeapons) weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + (item.battleValue || 0);
-        const ammoBVByTag: Record<string, number> = {};
-        for (const ammo of this._equipmentList.filter((item) => item.isAmmo)) {
-            const fed = offensiveWeapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
-            if (fed) ammoBVByTag[fed.tag] = (ammoBVByTag[fed.tag] ?? 0) + getAmmoBattleValuePerTon(fed, ammo) * (ammo.weight || 0);
-        }
-        for (const [tag, value] of Object.entries(ammoBVByTag)) {
-            const capped = Math.min(value, weaponBVByTag[tag] ?? 0);
-            rating += capped;
-            log += `+ Ammunition for ${escapeLogText(tag)} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}<br />`;
-        }
-        // Equipment that is neither a weapon nor defensive.
-        for (const item of weapons) {
-            if (!this._isWeapon(item) && !item.battleValueDefensive && (item.battleValue || 0) > 0) {
-                rating += item.battleValue || 0;
-                log += `+ ${escapeLogText(item.name)} = ${item.battleValue}<br />`;
+        if (this.isDropShip()) {
+            const dropShip = this._dropShipWeaponRating(offensiveWeapons, hasTC);
+            rating = dropShip.rating;
+            log += dropShip.log;
+        } else {
+            // Ammunition, capped at the unmodified value of the weapons of the model it feeds.
+            const weaponBVByTag: Record<string, number> = {};
+            for (const item of offensiveWeapons) weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + (item.battleValue || 0);
+            const ammoBVByTag: Record<string, number> = {};
+            for (const ammo of this._equipmentList.filter((item) => item.isAmmo)) {
+                const fed = offensiveWeapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
+                if (fed) ammoBVByTag[fed.tag] = (ammoBVByTag[fed.tag] ?? 0) + getAmmoBattleValuePerTon(fed, ammo) * (ammo.weight || 0);
             }
-        }
+            for (const [tag, value] of Object.entries(ammoBVByTag)) {
+                const capped = Math.min(value, weaponBVByTag[tag] ?? 0);
+                rating += capped;
+                log += `+ Ammunition for ${escapeLogText(tag)} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}<br />`;
+            }
+            // Equipment that is neither a weapon nor defensive.
+            for (const item of weapons) {
+                if (!this._isWeapon(item) && !item.battleValueDefensive && (item.battleValue || 0) > 0) {
+                    rating += item.battleValue || 0;
+                    log += `+ ${escapeLogText(item.name)} = ${item.battleValue}<br />`;
+                }
+            }
 
-        const efficiency = 6 + this.getHeatDissipation();
-        const totalHeat = offensiveWeapons.reduce((sum, item) => sum + SmallCraft._bvHeat(item), 0);
-        const overEfficiency = totalHeat > efficiency;
-        log += `Heat Efficiency 6 + ${this.getHeatDissipation()} = ${efficiency}; Total Weapon Heat ${totalHeat}<br />`;
-        const ordered = [...offensiveWeapons].sort((a, b) => {
-            const heatless = (SmallCraft._bvHeat(a) > 0 ? 1 : 0) - (SmallCraft._bvHeat(b) > 0 ? 1 : 0);
-            if (heatless !== 0) return heatless;
-            return modifiedBV(b) - modifiedBV(a) || SmallCraft._bvHeat(a) - SmallCraft._bvHeat(b);
-        });
-        let runningHeat = 0;
-        let overheated = false;
-        for (const item of ordered) {
-            const heat = SmallCraft._bvHeat(item);
-            const halved = overEfficiency && overheated && heat > 0;
-            const value = modifiedBV(item) * (halved ? 0.5 : 1);
-            rating += value;
-            if (overEfficiency && heat > 0 && !overheated) {
-                runningHeat += heat;
-                if (runningHeat >= efficiency) overheated = true;
+            const efficiency = 6 + this.getHeatDissipation();
+            const totalHeat = offensiveWeapons.reduce((sum, item) => sum + SmallCraft._bvHeat(item), 0);
+            const overEfficiency = totalHeat > efficiency;
+            log += `Heat Efficiency 6 + ${this.getHeatDissipation()} = ${efficiency}; Total Weapon Heat ${totalHeat}<br />`;
+            const ordered = [...offensiveWeapons].sort((a, b) => {
+                const heatless = (SmallCraft._bvHeat(a) > 0 ? 1 : 0) - (SmallCraft._bvHeat(b) > 0 ? 1 : 0);
+                if (heatless !== 0) return heatless;
+                return modifiedBV(b) - modifiedBV(a) || SmallCraft._bvHeat(a) - SmallCraft._bvHeat(b);
+            });
+            let runningHeat = 0;
+            let overheated = false;
+            for (const item of ordered) {
+                const heat = SmallCraft._bvHeat(item);
+                const halved = overEfficiency && overheated && heat > 0;
+                const value = modifiedBV(item) * (halved ? 0.5 : 1);
+                rating += value;
+                if (overEfficiency && heat > 0 && !overheated) {
+                    runningHeat += heat;
+                    if (runningHeat >= efficiency) overheated = true;
+                }
+                const arcName = item.location && item.location !== "hull" ? this.getArcName(item.location as SmallCraftArc) : "no arc";
+                log += `+ ${escapeLogText(item.name)} (${escapeLogText(arcName)}) = ${value.toFixed(2)}`
+                    + `${isHalved(item) ? " (weaker of nose and rear x 0.5)" : ""}${halved ? " (over Heat Efficiency x 0.5)" : ""}<br />`;
             }
-            const arcName = item.location && item.location !== "hull" ? this.getArcName(item.location as SmallCraftArc) : "no arc";
-            log += `+ ${escapeLogText(item.name)} (${escapeLogText(arcName)}) = ${value.toFixed(2)}`
-                + `${isHalved(item) ? " (weaker of nose and rear x 0.5)" : ""}${halved ? " (over Heat Efficiency x 0.5)" : ""}<br />`;
         }
         const speedFactor = SmallCraft.speedFactor(this.getMaxThrust());
         const offensive = rating * speedFactor;
@@ -1026,6 +1234,97 @@ export default class SmallCraft {
         this._battleValue = Math.round(defensive + offensive);
         log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)} = ${this._battleValue}<br />`;
         this._calcLogBV = log;
+    }
+
+    /**
+     * A DropShip's Weapon Battle Rating, worked by firing arc (TM p.312). The arc with the highest weapon BV is the
+     * Front, at full value with its ammunition. Of the two arcs beside it the higher is the Left Side, halved if
+     * firing the Front alone exceeds the Heat Efficiency (the heat sink capacity, with no 6 added); the other is the
+     * Right Side, x 0.5, or x 0.25 if the Front and Left Side together exceed it, as the book prints step 7. The
+     * three remaining arcs are the Rear, x 0.25. Then equipment with a BV. Rear-firing halving does not apply.
+     * Readings: ammunition kept in the hull goes to the arcs of the weapons it feeds, shared by their BV; a tie for
+     * Front takes the first arc from the nose, a tie for Left Side the arc after the Front going around the left.
+     */
+    private _dropShipWeaponRating(offensiveWeapons: IEquipmentItem[], hasTC: boolean): { rating: number; log: string } {
+        const ring: SmallCraftArc[] = ["nose", "left", "leftAft", "aft", "rightAft", "right"];
+        const arcBV: Record<string, number> = {};
+        const arcHeat: Record<string, number> = {};
+        for (const arc of ring) { arcBV[arc] = 0; arcHeat[arc] = 0; }
+        for (const item of offensiveWeapons) {
+            const arc = item.location ?? "";
+            if (!(arc in arcBV)) continue;
+            arcBV[arc] += this._weaponBaseBV(item) * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1);
+            arcHeat[arc] += SmallCraft._bvHeat(item);
+        }
+        let log = "";
+        // Capital and sub-capital weapons count in their arcs as other weapons do. Their ammunition is capped at the
+        // value of the launchers of the model and shared among those launchers' arcs by the ammunition each carries.
+        const capital = this._capitalWeapons.filter((mount) => !mount.weapon.battleValueDefensive && (mount.location ?? "") in arcBV);
+        const capitalAmmoArcBV: Record<string, number> = {};
+        for (const mount of capital) {
+            arcBV[mount.location as string] += mount.weapon.battleValue;
+            arcHeat[mount.location as string] += this.getCapitalWeaponHeat(mount);
+        }
+        for (const tag of new Set(capital.map((mount) => mount.weapon.tag))) {
+            const mounts = capital.filter((mount) => mount.weapon.tag === tag);
+            const ammoBV = mounts.map((mount) => Object.keys(mount.shots).reduce((sum, ammoTag) => sum + getCapitalAmmoBattleValue(ammoTag, mount.shots[ammoTag]), 0));
+            const value = ammoBV.reduce((sum, entry) => sum + entry, 0);
+            if (value <= 0) continue;
+            const capped = Math.min(value, mounts.reduce((sum, mount) => sum + mount.weapon.battleValue, 0));
+            mounts.forEach((mount, index) => {
+                capitalAmmoArcBV[mount.location as string] = (capitalAmmoArcBV[mount.location as string] ?? 0) + capped * ammoBV[index] / value;
+            });
+            log += `Ammunition for ${escapeLogText(mounts[0].weapon.name)} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}, with the arcs of its weapons<br />`;
+        }
+        // Ammunition, capped at the unmodified value of the weapons of the model it feeds, then given to arcs.
+        const weaponBVByTag: Record<string, number> = {};
+        for (const item of offensiveWeapons) weaponBVByTag[item.tag] = (weaponBVByTag[item.tag] ?? 0) + (item.battleValue || 0);
+        const ammoBVByTag: Record<string, number> = {};
+        const ammoArcBV: Record<string, number> = {};
+        for (const ammo of this._equipmentList.filter((item) => item.isAmmo)) {
+            const fed = offensiveWeapons.find((weapon) => getCompatibleAmmo(weapon, ammo));
+            if (fed) ammoBVByTag[fed.tag] = (ammoBVByTag[fed.tag] ?? 0) + getAmmoBattleValuePerTon(fed, ammo) * (ammo.weight || 0);
+        }
+        for (const [tag, value] of Object.entries(ammoBVByTag)) {
+            const capped = Math.min(value, weaponBVByTag[tag] ?? 0);
+            for (const item of offensiveWeapons.filter((weapon) => weapon.tag === tag && (weapon.location ?? "") in arcBV)) {
+                const share = weaponBVByTag[tag] > 0 ? (item.battleValue || 0) / weaponBVByTag[tag] : 0;
+                ammoArcBV[item.location as string] = (ammoArcBV[item.location as string] ?? 0) + capped * share;
+            }
+            log += `Ammunition for ${escapeLogText(tag)} = ${capped.toFixed(2)}${capped < value ? " (capped at weapon BV)" : ""}, with the arcs of its weapons<br />`;
+        }
+        const total = (arc: SmallCraftArc) => arcBV[arc] + (ammoArcBV[arc] ?? 0) + (capitalAmmoArcBV[arc] ?? 0);
+        for (const arc of ring) log += `${escapeLogText(this.getArcName(arc))}: weapons ${arcBV[arc].toFixed(2)}, heat ${arcHeat[arc]}<br />`;
+
+        const front = ring.reduce((best, arc) => (arcBV[arc] > arcBV[best] ? arc : best), ring[0]);
+        const index = ring.indexOf(front);
+        const before = ring[(index + 5) % 6];
+        const after = ring[(index + 1) % 6];
+        const left = arcBV[before] > arcBV[after] ? before : after;
+        const right = left === after ? before : after;
+        const rear = ring.filter((arc) => arc !== front && arc !== left && arc !== right);
+        const efficiency = this.getHeatDissipation();
+        const frontOver = arcHeat[front] > efficiency;
+        const leftOver = arcHeat[front] + arcHeat[left] > efficiency;
+        const leftFactor = frontOver ? 0.5 : 1;
+        const rightFactor = leftOver ? 0.25 : 0.5;
+        log += `Heat Efficiency ${efficiency} (heat sink capacity)<br />`;
+        const parts: [string, SmallCraftArc[], number][] = [
+            ["Front", [front], 1], ["Left Side", [left], leftFactor], ["Right Side", [right], rightFactor], ["Rear", rear, 0.25],
+        ];
+        let rating = 0;
+        for (const [name, arcs, factor] of parts) {
+            const value = arcs.reduce((sum, arc) => sum + total(arc), 0);
+            rating += value * factor;
+            log += `+ ${name} (${arcs.map((arc) => escapeLogText(this.getArcName(arc))).join(", ")}): ${value.toFixed(2)} x ${factor} = ${(value * factor).toFixed(2)}<br />`;
+        }
+        for (const item of this._equipmentList) {
+            if (!item.isAmmo && !this._isWeapon(item) && !item.battleValueDefensive && (item.battleValue || 0) > 0) {
+                rating += item.battleValue || 0;
+                log += `+ ${escapeLogText(item.name)} = ${item.battleValue}<br />`;
+            }
+        }
+        return { rating, log };
     }
 
     /**
@@ -1047,12 +1346,24 @@ export default class SmallCraft {
             [`Landing Gear (10 x ${this._tonnage} t)`, 10 * this._tonnage],
             [`Drive Unit (500 x Safe Thrust ${this._safeThrust} x ${this._tonnage} t / 100)`, 500 * this._safeThrust * this._tonnage / 100],
             [`Engine (1,000 x ${this.getEngineWeight()} t)`, 1000 * this.getEngineWeight()],
-            [`Fuel Tanks (200 x ${this._fuelTons} t)`, 200 * this._fuelTons],
+            // The Nekohono'o example prices the fuel with its tanks and pumps (TM p.284).
+            this.isDropShip()
+                ? [`Fuel Tanks (200 x ${this._fuelTons + this.getFuelPumpWeight()} t with pumps)`, 200 * (this._fuelTons + this.getFuelPumpWeight())]
+                : [`Fuel Tanks (200 x ${this._fuelTons} t)`, 200 * this._fuelTons],
             [`Armor (${this._armorType.name}, ${this._armorTons} t)`, this._armorTons * (this._armorType.costMultiplier || 10000)],
         ];
+        if (this.isDropShip()) {
+            const arcs = SMALL_CRAFT_ARCS.filter((arc) => this.getArcWeaponCount(arc) > 0).length;
+            if (arcs > 0) rows.push([`Gunnery Control Systems (10,000 x ${arcs} arcs)`, GUNNERY_CONTROL_COST_PER_ARC * arcs]);
+            rows.push(["Docking Collar", DOCKING_COLLAR_COST]);
+        }
         if (this.getTotalHeatSinks() > 0) rows.push([`Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name})`, this.getTotalHeatSinks() * (this._heatSinkType.cost || 2000)]);
         const equipment = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * (item.weight || 0) : item.cbills || 0), 0);
         rows.push(["Weapons, Equipment and Ammunition", equipment]);
+        for (const mount of this._capitalWeapons) {
+            const ammo = Object.keys(mount.shots).reduce((sum, tag) => sum + getCapitalAmmoCost(tag, mount.shots[tag]), 0);
+            rows.push([`${mount.weapon.name}${ammo > 0 ? " and ammunition" : ""}`, mount.weapon.cbills + ammo]);
+        }
         for (const bay of this._bays) {
             const type = findTransportBayType(bay.tag);
             if (!type) continue;
@@ -1063,17 +1374,18 @@ export default class SmallCraft {
         const escape = this._escapePods + this._lifeBoats;
         if (escape > 0) rows.push([`Escape Pods and Lifeboats (${escape})`, escape * ESCAPE_SYSTEM_COST]);
         const subtotal = rows.reduce((sum, [, value]) => sum + value, 0);
-        const multiplier = 1 + this._tonnage / 50;
+        const multiplier = this.isDropShip() ? DROPSHIP_COST_MULTIPLIER[this._shape] : 1 + this._tonnage / 50;
         this._cost = Math.round(subtotal * multiplier);
         const money = (value: number) => Math.round(value).toLocaleString("en-US");
         this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${money(value)}`).join("<br />")
-            + `<br />Subtotal ${money(subtotal)} x ${multiplier} (1 + ${this._tonnage} / 50) = <strong>${money(this._cost)}</strong>`;
+            + `<br />Subtotal ${money(subtotal)} x ${multiplier} (${this.isDropShip() ? `${this.getShapeName()} DropShip` : `1 + ${this._tonnage} / 50`}) = <strong>${money(this._cost)}</strong>`;
     }
 
     /** The lowest rules level that allows everything on the design. */
     public getRequiredRulesLevel(): number {
         let level = 0;
         for (const item of this._equipmentList) level = Math.max(level, getEquipmentRulesLevel(item));
+        for (const mount of this._capitalWeapons) level = Math.max(level, mount.weapon.rulesLevel);
         return level;
     }
 
@@ -1510,6 +1822,8 @@ export default class SmallCraft {
             name: this._name,
             model: this._model,
             shape: this._shape,
+            craftType: this._craftType,
+            military: this._military,
             tonnage: this._tonnage,
             tech: this._tech.tag,
             engineTech: this._engineTech,
@@ -1530,6 +1844,7 @@ export default class SmallCraft {
             escapePods: this._escapePods,
             lifeBoats: this._lifeBoats,
             equipment: this._equipmentList.map((item) => ({ tag: item.tag, location: item.location, uuid: item.uuid })),
+            capitalWeapons: this._capitalWeapons.map((mount) => ({ tag: mount.weapon.tag, location: mount.location, uuid: mount.uuid, shots: { ...mount.shots } })),
         };
     }
 
@@ -1598,13 +1913,16 @@ export default class SmallCraft {
             this.setModel(savedString(saved.model));
             if (saved.shape !== undefined && saved.shape !== "aerodyne" && saved.shape !== "spheroid") issue("Ignored an unknown shape");
             this._shape = saved.shape === "spheroid" ? "spheroid" : "aerodyne";
+            if (saved.craftType !== undefined && saved.craftType !== "smallCraft" && saved.craftType !== "dropShip") issue("Ignored an unknown craft type");
+            this._craftType = saved.craftType === "dropShip" ? "dropShip" : "smallCraft";
+            this._military = saved.military === true;
             this.setTech(savedString(saved.tech));
             this.setEngineTechBase(savedString(saved.engineTech));
             this.setEra(savedString(saved.era));
             if (saved.tonnage !== undefined && typeof saved.tonnage !== "number") issue("Ignored a tonnage that is not a number");
-            this.setTonnage(savedNumber(saved.tonnage, SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_MIN_TONNAGE, SMALL_CRAFT_MAX_TONNAGE));
+            this.setTonnage(savedNumber(saved.tonnage, this.getMaxTonnage(), this.getMinTonnage(), this.getMaxTonnage()));
             this.setSafeThrust(savedNumber(saved.safeThrust, 4, 1, 20));
-            this.setFuelTons(savedNumber(saved.fuelTons, 10, 0, SMALL_CRAFT_MAX_TONNAGE));
+            this.setFuelTons(savedNumber(saved.fuelTons, 10, 0, this._tonnage));
             const integrity = savedNumber(saved.structuralIntegrity, this.getMinStructuralIntegrity(), 0, 10000);
             this.setStructuralIntegrity(integrity);
             if (this._structuralIntegrity !== Math.floor(integrity)) issue(`Structural Integrity set to ${this._structuralIntegrity}`);
@@ -1635,13 +1953,23 @@ export default class SmallCraft {
                 }
                 this._equipmentList.push(this._newEquipment(catalogItem, entry.location, entry.uuid));
             }
+            this._capitalWeapons = [];
+            if (saved.capitalWeapons !== undefined && !Array.isArray(saved.capitalWeapons)) issue("Ignored a capital weapon list that is not a list");
+            for (const entry of (Array.isArray(saved.capitalWeapons) ? saved.capitalWeapons : []).slice(0, MAX_SMALL_CRAFT_CAPITAL_WEAPONS)) {
+                const weapon = isPlainObject(entry) && typeof entry.tag === "string" ? findCapitalWeapon(entry.tag) : undefined;
+                if (!isPlainObject(entry) || !weapon) {
+                    issue("Skipped a capital weapon that could not be read");
+                    continue;
+                }
+                this._capitalWeapons.push(this._newCapitalMount(weapon, entry.location, entry.shots, entry.uuid));
+            }
 
-            this._crew = Math.floor(savedNumber(saved.crew, SMALL_CRAFT_BASE_CREW, 0, MAX_SMALL_CRAFT_PEOPLE));
-            this._officers = Math.floor(savedNumber(saved.officers, 0, 0, MAX_SMALL_CRAFT_PEOPLE));
-            this.setPassengers(savedNumber(saved.passengers, 0, 0, MAX_SMALL_CRAFT_PEOPLE));
+            this._crew = Math.floor(savedNumber(saved.crew, this.getBaseCrew(), 0, this._maxPeople()));
+            this._officers = Math.floor(savedNumber(saved.officers, 0, 0, this._maxPeople()));
+            this.setPassengers(savedNumber(saved.passengers, 0, 0, this._maxPeople()));
             this._quarters = emptyQuarters();
             const quarters = isPlainObject(saved.quarters) ? saved.quarters : {};
-            for (const type of quartersTypes) this.setQuarters(type.tag, savedNumber(quarters[type.tag], 0, 0, MAX_SMALL_CRAFT_PEOPLE));
+            for (const type of quartersTypes) this.setQuarters(type.tag, savedNumber(quarters[type.tag], 0, 0, this._maxPeople()));
             this._bays = [];
             if (saved.bays !== undefined && !Array.isArray(saved.bays)) issue("Ignored a bay list that is not a list");
             for (const entry of (Array.isArray(saved.bays) ? saved.bays : []).slice(0, MAX_SMALL_CRAFT_BAYS)) {
@@ -1649,12 +1977,12 @@ export default class SmallCraft {
                     issue("Skipped a transport bay that could not be read");
                     continue;
                 }
-                if (this.addBay(entry.tag, savedNumber(entry.amount, 1, 0, 1000))) {
-                    this.setBay(this._bays.length - 1, savedNumber(entry.amount, 1, 0, 1000), savedNumber(entry.doors, 0, 0, 10));
+                if (this.addBay(entry.tag, savedNumber(entry.amount, 1, 0, this.getMaxTonnage()))) {
+                    this.setBay(this._bays.length - 1, savedNumber(entry.amount, 1, 0, this.getMaxTonnage()), savedNumber(entry.doors, 0, 0, 20));
                 }
             }
-            this.setEscapePods(savedNumber(saved.escapePods, 0, 0, 20));
-            this.setLifeBoats(savedNumber(saved.lifeBoats, 0, 0, 20));
+            this.setEscapePods(savedNumber(saved.escapePods, 0, 0, this.isDropShip() ? 1000 : 20));
+            this.setLifeBoats(savedNumber(saved.lifeBoats, 0, 0, this.isDropShip() ? 1000 : 20));
             this._clampToRules();
             this._importPlay(saved.pilot, saved.inPlay);
             this._calc();

@@ -160,3 +160,56 @@ export const getSmallCraftFreeHeatSinks = (engineTons: number, shape: SmallCraft
  */
 export const getSmallCraftFireControlWeight = (weaponCount: number, weaponTons: number): number =>
     weaponCount > SMALL_CRAFT_WEAPONS_PER_ARC ? roundUpToHalfTon(Math.floor(weaponCount / SMALL_CRAFT_WEAPONS_PER_ARC) * 0.1 * weaponTons) : 0;
+
+// DropShips (TechManual pp.180-197) build on the same steps; these are the values that differ from Small Craft.
+
+/** A Small Craft or a DropShip: one class builds both. */
+export type CraftType = "smallCraft" | "dropShip";
+
+/** DropShips weigh 200 to 35,000 tons (aerodyne) or 100,000 (spheroid), in 100-ton steps (TM p.184). */
+export const DROPSHIP_MIN_TONNAGE = 200;
+export const DROPSHIP_MAX_TONNAGE: Record<SmallCraftShape, number> = { aerodyne: 35000, spheroid: 100000 };
+export const DROPSHIP_TONNAGE_STEP = 100;
+
+/** Fuel points a ton by DropShip weight (Aerospace Fuel Table, TM p.186): [lowest tonnage, points]. */
+const DROPSHIP_FUEL_POINTS: [number, number][] = [
+    [40000, 10], [20000, 20], [3000, 30], [1900, 40], [1200, 50], [800, 60], [400, 70], [0, 80],
+];
+export const getDropShipFuelPointsPerTon = (tonnage: number): number =>
+    (DROPSHIP_FUEL_POINTS.find(([tons]) => tonnage >= tons) ?? [0, 80])[1];
+
+/**
+ * Tons of fuel a day at 1 G (Aerospace Fuel Table, TM p.186): 1.84 for a military DropShip of any weight; a
+ * civilian one by its weight: [lowest tonnage, tons a day].
+ */
+const CIVILIAN_DROPSHIP_FUEL_PER_DAY: [number, number][] = [
+    [70000, 8.83], [50000, 8.37], [40000, 7.71], [30000, 6.52], [20000, 5.19], [9000, 4.22], [4000, 3.37], [1000, 2.82], [0, 1.84],
+];
+export const getDropShipStrategicFuelPerDay = (tonnage: number, military: boolean): number =>
+    military ? SMALL_CRAFT_STRATEGIC_FUEL_TONS_PER_DAY : (CIVILIAN_DROPSHIP_FUEL_PER_DAY.find(([tons]) => tonnage >= tons) ?? [0, 1.84])[1];
+
+/** Controls: tonnage x 0.0075, rounded up to the whole ton for a DropShip (Aerospace Control Systems Table, TM p.189). */
+export const getDropShipControlsWeight = (tonnage: number): number => Math.ceil(tonnage * SMALL_CRAFT_CONTROLS_FACTOR - 1e-9);
+
+/** Base crew: 3 (civilian) or 4 (military), plus 1 for every 5,000 tons, rounded up (TM p.189). */
+export const getDropShipBaseCrew = (tonnage: number, military: boolean): number =>
+    (military ? 4 : 3) + Math.ceil(tonnage / 5000 - 1e-9);
+
+/**
+ * Free heat sinks, rounded down (Aerospace Unit Heat Sinks Table, TM p.193): a civilian DropShip as a Small Craft;
+ * a military one engine tons / 20 (aerodyne) or the square root of engine tons x 6.8 (spheroid).
+ */
+export const getDropShipFreeHeatSinks = (engineTons: number, shape: SmallCraftShape, military: boolean): number =>
+    military
+        ? Math.floor((shape === "aerodyne" ? engineTons / 20 : Math.sqrt(engineTons * 6.8)) + 1e-9)
+        : getSmallCraftFreeHeatSinks(engineTons, shape);
+
+/** Bay doors: 7 plus the weight / 50,000, rounded up (TM p.196). */
+export const getDropShipMaxBayDoors = (tonnage: number): number => 7 + Math.ceil(tonnage / 50000 - 1e-9);
+
+/** A DropShip's docking collar (TM p.284). */
+export const DOCKING_COLLAR_COST = 10000;
+/** Gunnery control systems, for each arc with weapons (Aerospace Units Structural Costs Table, TM p.284). */
+export const GUNNERY_CONTROL_COST_PER_ARC = 10000;
+/** Final cost multiplier (TM p.285). */
+export const DROPSHIP_COST_MULTIPLIER: Record<SmallCraftShape, number> = { aerodyne: 36, spheroid: 28 };

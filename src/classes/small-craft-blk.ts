@@ -1,8 +1,14 @@
 import { getCompatibleAmmo, getEquipmentListByTech } from "../data/equipment-registry";
 import { IEquipmentItem } from "../data/data-interfaces";
-import { SMALL_CRAFT_FUEL_POINTS_PER_TON, SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_MIN_TONNAGE, SmallCraftArc, quartersTypes } from "../data/small-craft-construction";
+import {
+    DROPSHIP_MAX_TONNAGE, DROPSHIP_MIN_TONNAGE, SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_MIN_TONNAGE, SmallCraftArc, findTransportBayType, quartersTypes,
+} from "../data/small-craft-construction";
 import { IBlkFile, blkLines, blkValue, parseBlkFile } from "../utils/blk-file";
 import SmallCraft from "./small-craft";
+import { findImportedEquipment } from "../utils/importedEquipment";
+import { IBlkAmmoLine, findBlkAmmo, findBlkAmmoWeapon, parseBlkAmmoLine } from "../utils/blk-ammo";
+import { findCapitalWeaponByName, getCapitalAmmoTags } from "../data/capital-weapon-helpers";
+import { ICapitalWeapon } from "../data/data-interfaces";
 
 // Reads a MegaMek Small Craft ".blk" file into a SmallCraft. The file names its equipment by MegaMek's lookup
 // names; the tables below pair those names with this catalog. Anything that has no match is left off and
@@ -52,7 +58,7 @@ const EQUIPMENT: Record<string, [string | null, string | null]> = {
 };
 
 /** Launchers that the file fits with a fire control system listed on its own line. */
-const FIRE_CONTROL: Record<string, string> = { isartemisiv: "-artemis-iv", isapollo: "-apollo" };
+const FIRE_CONTROL: Record<string, string> = { isartemisiv: "-artemis-iv", clartemisiv: "-artemis-iv", isapollo: "-apollo" };
 
 // Ammunition lines: the weapon lookup name the round belongs to, and the kind of round where it is not the standard one.
 const AMMO: Record<string, { weapon: string; kind?: RegExp }> = {
@@ -95,10 +101,33 @@ const LOCATIONS: { block: string; arc: SmallCraftArc | "hull"; rear?: SmallCraft
 ];
 
 const lookupName = (name: string): string => name.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+/** A capital or sub-capital weapon line: "Capital Missile Launcher (AR10 Launcher)", "Tele-operated Missile (Kraken T)". */
+const findBlkCapitalWeapon = (name: string): ICapitalWeapon | undefined => {
+    if (/^ammo\b/i.test(name)) return undefined;
+    const inner = /capital|tele-?operated/i.test(name) ? /\(([^)]*)\)\s*$/.exec(name)?.[1] : undefined;
+    return findCapitalWeaponByName(name) ?? (inner ? findCapitalWeaponByName(inner) : undefined);
+};
+/** The weapon whose rounds a capital ammunition line holds: "Ammo AR10 Killer Whale", "Ammo KrakenT", "Ammo Screen". */
+const findBlkCapitalAmmo = (name: string): ICapitalWeapon | undefined => {
+    if (!/^ammo\s/i.test(name)) return undefined;
+    const rest = name.replace(/^ammo\s+/i, "").replace(/^AR10\s+/i, "");
+    return findCapitalWeaponByName(rest) ?? findCapitalWeaponByName(`${rest} Launcher`);
+};
 const numberOf = (file: IBlkFile, tag: string, fallback: number = 0): number => {
     const value = Number(blkValue(file, tag));
     return Number.isFinite(value) ? value : fallback;
 };
+
+/** MegaMek transporter names for cargo bays (bought by the ton) and unit bays (by the cubicle). */
+const CARGO_BAYS: Record<string, string> = Object.assign(Object.create(null), {
+    cargobay: "cargo", liquidcargobay: "cargo-liquid", refrigeratedcargobay: "cargo-refrigerated",
+    insulatedcargobay: "cargo-insulated", livestockcargobay: "cargo-livestock",
+});
+const UNIT_BAYS: Record<string, string> = Object.assign(Object.create(null), {
+    mekbay: "mech", asfbay: "fighter", smallcraftbay: "small-craft", lightvehiclebay: "vehicle-light",
+    heavyvehiclebay: "vehicle-heavy", superheavyvehiclebay: "vehicle-superheavy", protomekbay: "protomech",
+});
 
 export interface ISmallCraftBlkResult {
     craft: SmallCraft | null;
@@ -112,20 +141,31 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
     const file = parseBlkFile(text);
     if (!file) return { craft: null, issues: ["This is not a MegaMek unit file."], notes: [] };
     const unitType = blkValue(file, "UnitType");
-    if (unitType.toLowerCase() !== "smallcraft") {
-        return { craft: null, issues: [`This file holds a ${unitType || "unit of an unknown type"}, not a Small Craft.`], notes: [] };
+    const dropShip = unitType.toLowerCase() === "dropship";
+    if (unitType.toLowerCase() !== "smallcraft" && !dropShip) {
+        return { craft: null, issues: [`This file holds a ${unitType || "unit of an unknown type"}, not a Small Craft or DropShip.`], notes: [] };
     }
     const issues: string[] = [];
     const notes: string[] = [];
-    const fileTons = numberOf(file, "tonnage", SMALL_CRAFT_MAX_TONNAGE);
-    if (fileTons < SMALL_CRAFT_MIN_TONNAGE || fileTons > SMALL_CRAFT_MAX_TONNAGE) {
+    const spheroid = blkValue(file, "motion_type").toLowerCase() === "spheroid";
+    const fileTons = numberOf(file, "tonnage", dropShip ? DROPSHIP_MIN_TONNAGE : SMALL_CRAFT_MAX_TONNAGE);
+    if (!dropShip && (fileTons < SMALL_CRAFT_MIN_TONNAGE || fileTons > SMALL_CRAFT_MAX_TONNAGE)) {
         return { craft: null, issues: [`At ${fileTons} tons this is not a Small Craft, which weighs 100 to 200 tons (TM p.184).`], notes: [] };
     }
+    const dropShipMax = DROPSHIP_MAX_TONNAGE[spheroid ? "spheroid" : "aerodyne"];
+    if (dropShip && (fileTons < DROPSHIP_MIN_TONNAGE || fileTons > dropShipMax)) {
+        return { craft: null, issues: [`At ${fileTons} tons this is not a DropShip, which weighs 200 to ${dropShipMax.toLocaleString("en-US")} tons (TM p.184).`], notes: [] };
+    }
     const craft = new SmallCraft();
+    if (dropShip) {
+        craft.setCraftType("dropShip");
+        // MegaMek's design type: 1 military, 0 civilian.
+        craft.setMilitary(blkValue(file, "designtype") === "1");
+    }
     for (const quarters of quartersTypes) craft.setQuarters(quarters.tag, 0);
     craft.setName(blkValue(file, "Name"));
     craft.setModel(blkValue(file, "Model"));
-    craft.setShape(blkValue(file, "motion_type").toLowerCase() === "spheroid" ? "spheroid" : "aerodyne");
+    craft.setShape(spheroid ? "spheroid" : "aerodyne");
 
     const type = blkValue(file, "type").toLowerCase();
     const clan = type.startsWith("clan") || type.includes("clan chassis");
@@ -143,7 +183,7 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
         if (era) craft.setEra(era.tag);
     }
     craft.setTonnage(fileTons);
-    if (craft.getTonnage() !== fileTons) issues.push(`The file's weight of ${fileTons} tons is not a Small Craft weight; ${craft.getTonnage()} tons used.`);
+    if (craft.getTonnage() !== fileTons) issues.push(`The file's weight of ${fileTons} tons is not a ${craft.getCraftTypeName()} weight; ${craft.getTonnage()} tons used.`);
     // A value the file does not give is never filled in silently: say what was used in its place.
     const missing = (tag: string): boolean => blkValue(file, tag).trim() === "";
     const thrust = numberOf(file, "SafeThrust", 4);
@@ -151,7 +191,7 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
     if (missing("SafeThrust")) issues.push(`The file gives no Safe Thrust; ${craft.getSafeThrust()} used.`);
     else if (craft.getSafeThrust() !== thrust) issues.push(`Safe Thrust ${thrust} is outside the rules; ${craft.getSafeThrust()} used.`);
     if (missing("fuel")) issues.push("The file gives no fuel; none carried.");
-    craft.setFuelTons(numberOf(file, "fuel") / SMALL_CRAFT_FUEL_POINTS_PER_TON);
+    craft.setFuelTons(numberOf(file, "fuel") / craft.getFuelPointsPerTon());
     const integrity = missing("structural_integrity") ? craft.getMinStructuralIntegrity() : numberOf(file, "structural_integrity", craft.getMinStructuralIntegrity());
     craft.setStructuralIntegrity(integrity);
     if (missing("structural_integrity")) issues.push(`The file gives no Structural Integrity; the least allowed, ${craft.getStructuralIntegrity()}, used.`);
@@ -176,22 +216,52 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
     const ammoCatalog: IEquipmentItem[] = [...getEquipmentListByTech("is", false), ...getEquipmentListByTech("clan", false)].filter((item) => item.isAmmo);
     const mounted: Record<string, IEquipmentItem[]> = Object.create(null);
     const pendingAmmo: string[] = [];
-    const pendingFireControl: { name: string; arc: string }[] = [];
+    const pendingFireControl: { name: string; arc: string; rear?: string }[] = [];
+    const pendingLineAmmo: { line: IBlkAmmoLine; raw: string }[] = [];
+    const pendingCapitalAmmo: { tag: string; ar10: boolean; arc: string; shots: number; raw: string }[] = [];
     for (const location of LOCATIONS) {
         for (const rawLine of blkLines(file, location.block)) {
             const rear = /\(R\)/i.test(rawLine);
-            const name = lookupName(rawLine.replace(/\(R\)/gi, "").replace(/:.*$/, ""));
+            // MegaMek marks the first weapon of each DropShip weapon bay "(B)"; bays are worked out from the arcs here.
+            const fileName = rawLine.replace(/\((R|B)\)/gi, "").replace(/:.*$/, "").trim();
+            const capitalArc = rear && location.rear ? location.rear : location.arc;
+            const capitalAmmo = findBlkCapitalAmmo(fileName);
+            if (capitalAmmo) {
+                const shots = Number(rawLine.split(":")[1]);
+                pendingCapitalAmmo.push({ tag: capitalAmmo.tag, ar10: /^ammo\s+ar10\s/i.test(fileName), arc: capitalArc, shots: shots > 0 ? shots : 1, raw: rawLine.trim() });
+                continue;
+            }
+            const capitalWeapon = findBlkCapitalWeapon(fileName);
+            if (capitalWeapon) {
+                const mount = craft.addCapitalWeapon(capitalWeapon.tag, capitalArc);
+                if (!mount) issues.push(`"${rawLine.trim()}" cannot be mounted on a ${craft.getCraftTypeName()} and was left off.`);
+                // Shots come from the file's ammunition lines, not the 10 a new launcher starts with.
+                else for (const tag of Object.keys(mount.shots)) craft.setCapitalWeaponShots(mount.uuid, tag, 0);
+                continue;
+            }
+            const name = lookupName(fileName);
             if (!name) continue;
-            if (AMMO[name]) {
+            if (AMMO[name] && !dropShip) {
                 pendingAmmo.push(name);
                 continue;
             }
             if (FIRE_CONTROL[name]) {
-                pendingFireControl.push({ name, arc: location.arc });
+                pendingFireControl.push({ name, arc: location.arc, rear: location.rear });
+                continue;
+            }
+            const ammoLine = parseBlkAmmoLine(fileName);
+            if (ammoLine) {
+                pendingLineAmmo.push({ line: ammoLine, raw: rawLine.trim() });
                 continue;
             }
             const pair = EQUIPMENT[name];
-            const tag = pair ? pair[techCatalog === "clan" ? 1 : 0] ?? pair[0] ?? pair[1] : null;
+            // Names the table does not list go to the catalog's own import names (altNames and altTags).
+            const match = pair ? null : findImportedEquipment(fileName, techCatalog, mixed);
+            if (match?.item.isAmmo) {
+                if (!craft.addEquipmentFromTag(match.item.tag)) issues.push(`"${rawLine.trim()}" could not be carried and was left off.`);
+                continue;
+            }
+            const tag = pair ? pair[techCatalog === "clan" ? 1 : 0] ?? pair[0] ?? pair[1] : match?.item.tag ?? null;
             const arc = rear && location.rear ? location.rear : location.arc;
             const item = tag ? craft.addEquipmentFromTag(tag, arc) : null;
             if (!item) {
@@ -201,12 +271,13 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
             (mounted[name] = mounted[name] ?? []).push(item);
         }
     }
-    // A fire control system upgrades one launcher in its arc to the catalog's record for the fitted launcher.
+    // A fire control system upgrades one launcher in its arc to the catalog's record for the fitted launcher. The
+    // file does not mark the system "(R)" when its launcher faces the rear, so the arc's rear half is searched too.
     for (const fireControl of pendingFireControl) {
         const suffix = FIRE_CONTROL[fireControl.name];
-        const launcher = craft.getEquipmentList().find((item) => item.location === fireControl.arc && !item.isAmmo
-            && /^(lrm|srm|mrm)-\d+$/.test(item.tag));
-        const upgraded = launcher ? craft.addEquipmentFromTag(launcher.tag + suffix, fireControl.arc) : null;
+        const launcher = craft.getEquipmentList().find((item) => (item.location === fireControl.arc || (!!fireControl.rear && item.location === fireControl.rear)) && !item.isAmmo
+            && /^(clan-)?(lrm|srm|mrm)-\d+$/.test(item.tag));
+        const upgraded = launcher ? craft.addEquipmentFromTag(launcher.tag + suffix, launcher.location) : null;
         if (launcher && upgraded) {
             craft.removeEquipment(launcher.uuid ?? "");
             for (const list of Object.values(mounted)) {
@@ -216,6 +287,35 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
         } else {
             issues.push(`A fire control system (${fireControl.name}) had no launcher to fit and was left off.`);
         }
+    }
+    // Ammunition the table above does not list: the line names the weapon it feeds.
+    for (const { line, raw } of pendingLineAmmo) {
+        const weapon = findBlkAmmoWeapon(line, craft.getEquipmentList());
+        const ammo = weapon ? findBlkAmmo(line, weapon) : undefined;
+        // A DropShip line gives its shots after the colon; the bins are whole tons (TM p.194).
+        const shots = Number(raw.split(":")[1]);
+        const perTon = weapon?.shotsPerTon || ammo?.roundsPerTon || 0;
+        const tons = dropShip && shots > 0 && perTon > 0 ? Math.ceil(shots / perTon - 1e-9) : 1;
+        let added = 0;
+        for (let ton = 0; ammo && ton < tons; ton++) if (craft.addEquipmentFromTag(ammo.tag)) added++;
+        if (!ammo || added === 0) issues.push(`Ammunition "${raw}" has no weapon or no match in this catalog and was left off.`);
+        else if (line.half) notes.push(`"${raw}" is a half-ton bin; carried as a full ton.`);
+    }
+    // Capital ammunition goes to a launcher that fires it, one in the same arc first; an "AR10" line to an AR-10.
+    for (const ammo of pendingCapitalAmmo) {
+        const launchers = craft.getCapitalWeapons().filter((mount) => getCapitalAmmoTags(mount.weapon).includes(ammo.tag));
+        const kind = (entry: { weapon: { tag: string } }) => (entry.weapon.tag === "ar-10-launcher") === ammo.ar10;
+        const groups = [
+            launchers.filter((entry) => entry.location === ammo.arc && kind(entry)), launchers.filter((entry) => entry.location === ammo.arc),
+            launchers.filter(kind), launchers,
+        ];
+        // The launchers of a bay share its ammunition; the shots are split evenly among them (a reading).
+        const bay = groups.find((group) => group.length > 0) ?? [];
+        if (bay.length === 0) issues.push(`Ammunition "${ammo.raw}" has no launcher that fires it and was left off.`);
+        bay.forEach((mount, index) => {
+            const share = Math.floor(ammo.shots / bay.length) + (index < ammo.shots % bay.length ? 1 : 0);
+            craft.setCapitalWeaponShots(mount.uuid, ammo.tag, (mount.shots[ammo.tag] ?? 0) + share);
+        });
     }
     for (const name of pendingAmmo) {
         const weapon = mounted[AMMO[name].weapon]?.[0];
@@ -248,8 +348,8 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
         const quarters = quarterTags[kind];
         if (quarters) {
             craft.setQuarters(quarters.tag, Math.round(size / quarters.tons));
-        } else if (kind === "cargobay") {
-            if (craft.addBay("cargo", size)) craft.setBay(craft.getBays().length - 1, size, doors);
+        } else if (CARGO_BAYS[kind] || UNIT_BAYS[kind]) {
+            if (craft.addBay(CARGO_BAYS[kind] ?? UNIT_BAYS[kind], size)) craft.setBay(craft.getBays().length - 1, size, doors);
         } else if (kind === "troopspace") {
             craft.addBay("infantry-compartment", size);
         } else if (kind === "infantrybay") {
@@ -265,13 +365,14 @@ export const importSmallCraftBlk = (text: string): ISmallCraftBlkResult => {
             issues.push(`Transport bay "${kind}" is not one this builder has and was left off.`);
         }
     }
-    // The file's crew count takes in the troops its bays carry, who bunk in the bays and need no quarters (TM
-    // p.188): the crew proper is whoever has quarters, and never fewer than the rules require.
+    // The file's crew count takes in the troops its bays carry and the bay personnel, who bunk in the bays and need
+    // no quarters (TM pp.188, 239): the crew proper is whoever has quarters, and never fewer than the rules require.
     const passengers = numberOf(file, "passengers") + numberOf(file, "otherpassenger");
     const listed = numberOf(file, "crew", craft.getMinimumCrew());
     const housed = Math.max(0, craft.getQuartersCapacity() - passengers);
+    const bayPersonnel = craft.getBays().reduce((sum, bay) => sum + (findTransportBayType(bay.tag)?.personnel ?? 0) * bay.amount, 0);
     const carriesTroops = craft.getBays().some((bay) => bay.tag.startsWith("infantry") || bay.tag.startsWith("battle-armor"));
-    const crew = carriesTroops && listed > housed ? housed : listed;
+    const crew = (carriesTroops || bayPersonnel > 0) && listed > housed ? Math.max(housed, listed - bayPersonnel) : listed;
     craft.setCrew(crew);
     if (crew !== listed) notes.push(`The file lists ${listed} aboard; ${craft.getCrew()} are crew with quarters, the rest ride in the bays.`);
     else if (craft.getCrew() !== listed) notes.push(`The file lists a crew of ${listed}; the minimum for this craft is ${craft.getMinimumCrew()}.`);

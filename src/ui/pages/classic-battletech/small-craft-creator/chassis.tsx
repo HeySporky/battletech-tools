@@ -67,6 +67,23 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                             />
 
                             <label>
+                                Craft Type:
+                                <select data-testid="sc-craft-type" value={craft.getCraftType()} onChange={(e) => { const value = e.currentTarget.value; this.update((c) => c.setCraftType(value)); }}>
+                                    <option value="smallCraft">Small Craft (100 to 200 tons)</option>
+                                    <option value="dropShip">DropShip (200 to 100,000 tons)</option>
+                                </select>
+                            </label>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    data-testid="sc-military"
+                                    checked={craft.isMilitary()}
+                                    onChange={(e) => { const value = e.currentTarget.checked; this.update((c) => c.setMilitary(value)); }}
+                                />
+                                {" "}Military design (a DropShip's crew, free heat sinks and fuel use depend on it, TM pp. 186-193)
+                            </label>
+
+                            <label>
                                 Shape:
                                 <select value={craft.getShape()} onChange={(e) => { const value = e.currentTarget.value; this.update((c) => c.setShape(value)); }}>
                                     {SMALL_CRAFT_SHAPES.map((option) => (
@@ -110,11 +127,23 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
 
                             <label>
                                 Tonnage:
-                                <select data-testid="sc-tonnage" value={craft.getTonnage()} onChange={(e) => { const value = +e.currentTarget.value; this.update((c) => c.setTonnage(value)); }}>
-                                    {range(SMALL_CRAFT_MIN_TONNAGE, SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_TONNAGE_STEP).map((tons) => (
-                                        <option key={tons} value={tons}>{tons}</option>
-                                    ))}
-                                </select>
+                                {craft.isDropShip() ? (
+                                    <input
+                                        type="number"
+                                        data-testid="sc-tonnage"
+                                        min={craft.getMinTonnage()}
+                                        max={craft.getMaxTonnage()}
+                                        step={craft.getTonnageStep()}
+                                        value={craft.getTonnage()}
+                                        onChange={(e) => { const value = +e.currentTarget.value; this.update((c) => c.setTonnage(value)); }}
+                                    />
+                                ) : (
+                                    <select data-testid="sc-tonnage" value={craft.getTonnage()} onChange={(e) => { const value = +e.currentTarget.value; this.update((c) => c.setTonnage(value)); }}>
+                                        {range(SMALL_CRAFT_MIN_TONNAGE, SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_TONNAGE_STEP).map((tons) => (
+                                            <option key={tons} value={tons}>{tons}</option>
+                                        ))}
+                                    </select>
+                                )}
                             </label>
                         </TextSection>
 

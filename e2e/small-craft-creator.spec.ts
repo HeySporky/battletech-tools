@@ -115,3 +115,35 @@ test("weapons are mounted by firing arc and checked", async ({ page }) => {
 
     expect(errors).toEqual([]);
 });
+
+// A DropShip is built with the same steps and may mount capital missile launchers (TM pp. 184-196, 210).
+test("a DropShip mounts a capital missile launcher with its missiles", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+    page.on("console", (message) => {
+        if (message.type() === "error") errors.push(`console.error: ${message.text()}`);
+    });
+
+    await page.goto("classic-battletech/small-craft-creator");
+    await page.getByRole("button", { name: /Start Over/ }).click();
+    await page.goto("classic-battletech/small-craft-creator/chassis");
+    await page.getByTestId("sc-craft-type").selectOption("dropShip");
+    await page.getByTestId("sc-military").check();
+
+    await page.goto("classic-battletech/small-craft-creator/equipment");
+    await expect(page.getByText("No capital weapons.")).toBeVisible();
+    await page.getByTestId("sc-capital-add").click();
+    const installed = page.getByTestId("sc-capital-installed");
+    await expect(installed.getByRole("row")).toHaveCount(2);
+    await expect(page.getByTestId("sc-issues")).toContainText("no firing arc yet");
+    await installed.getByLabel(/Firing arc for/).selectOption("nose");
+    await expect(page.getByTestId("sc-issues")).not.toContainText("no firing arc yet");
+    // A new launcher comes with the 10 shots it needs; fewer is an issue (TM p.210).
+    const shots = installed.getByLabel(/^Shots of/).first();
+    await expect(shots).toHaveValue("10");
+    await shots.fill("9");
+    await expect(page.getByTestId("sc-issues")).toContainText("9 shots carried, at least 10 needed");
+    await installed.getByRole("button", { name: /^Remove/ }).click();
+    await expect(page.getByText("No capital weapons.")).toBeVisible();
+    expect(errors).toEqual([]);
+});
