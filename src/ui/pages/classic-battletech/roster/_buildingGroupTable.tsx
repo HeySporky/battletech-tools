@@ -2,6 +2,7 @@ import * as React from 'react';
 import { FaTrash } from 'react-icons/fa';
 import Building from '../../../../classes/building';
 import { IAppGlobals } from '../../../app-router';
+import StatBar from '../../../components/stat-bar';
 const Trash = FaTrash as any;
 
 /** One line on what a building is: "Heavy Gun Emplacement, CF 80, 1 hex, 1 level". */
@@ -40,6 +41,7 @@ export default class BuildingGroupTable extends React.Component<IBuildingGroupTa
         if( save && force && force.groups[this.props.bmGroupIndex] ) {
             const building = new Building( JSON.stringify(save) );
             building.newUUID();
+            building.resetInPlay();
             force.groups[this.props.bmGroupIndex].buildings.push( building );
             this._save();
             this.setState({ addIndex: -1 });
@@ -117,6 +119,25 @@ export default class BuildingGroupTable extends React.Component<IBuildingGroupTa
                                 ) : building.getGunnery()}
                             </td>
                             <td className="min-width no-wrap text-center" title="No Battle Value method for buildings was found in the rulebooks">-</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={this.props.showEdit ? 6 : 5}>
+                                {building.isDestroyed() ? (
+                                    <div className="text-center color-bright-red"><strong>This Building is Destroyed</strong></div>
+                                ) : building.isDamaged() ? (
+                                    <div className="text-center color-bright-red"><strong>This Building is Damaged</strong></div>
+                                ) : <div className="text-center">This Building is Undamaged</div>}
+                                <div className="bars">
+                                    <StatBar
+                                        color="white"
+                                        background="#aaa"
+                                        currentPercentage={building.getStrengthPercentage()}
+                                        currentNumber={building.getCurrentPoints()}
+                                        height={8}
+                                        title="Armor and Construction Factor Remaining"
+                                    />
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 ))}
