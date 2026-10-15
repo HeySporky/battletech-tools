@@ -4,6 +4,7 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import AerospaceFighter, { FIGHTER_MIN_TONNAGE, FIGHTER_TYPES } from '../../../../classes/aerospace-fighter';
 import { btTechOptions } from '../../../../data/tech-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
+import { SRCS_RULES_LEVEL } from '../../../../data/robotic-control-systems';
 import { IAppGlobals } from '../../../app-router';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 import FighterCreatorSideMenu from '../../../components/fighter-creator-side-menu';
@@ -171,6 +172,47 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                                     <input type="checkbox" checked={fighter.isOmni()} onChange={(e) => { const value = e.currentTarget.checked; this.update((f) => f.setOmni(value)); }} />
                                     &nbsp;OmniFighter (weapons and equipment may be pod-mounted; cost x 1.25, TM p. 285)
                                 </label>
+                            ) : null}
+                            {fighter.canUseFractionalAccounting(rulesLevel) || fighter.usesFractionalAccounting() ? (
+                                <div data-testid="fractional-accounting-option">
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={fighter.usesFractionalAccounting()}
+                                            onChange={(e) => { const value = e.currentTarget.checked; this.update((f) => f.setWeightAccounting(value ? "fractional" : "standard", rulesLevel)); }}
+                                        />
+                                        &nbsp;Fractional Accounting (Experimental)
+                                    </label>
+                                    <p className="smaller-text">
+                                        Construction option (TO:AUE p.188): engine, control, VSTOL, power amplifier and armor weights
+                                        are not rounded to the half ton, only up to the kilogram. Armor is bought by the point and
+                                        ammunition by the shot. Fuel is still bought in half tons (TM p. 186).
+                                    </p>
+                                    {fighter.defaultsToFractionalAccounting() ? (
+                                        <p className="smaller-text" data-testid="fractional-accounting-default">
+                                            On by default with battle armor equipment mounted (Ghosts of Obeedah p.54); it may be turned off.
+                                        </p>
+                                    ) : null}
+                                </div>
+                            ) : null}
+
+                            {rulesLevel >= SRCS_RULES_LEVEL || fighter.getRoboticControl().tag !== "none" ? (
+                                <div data-testid="robotic-control-option">
+                                    <label>
+                                        Robotic Control (Advanced):
+                                        <select value={fighter.getRoboticControl().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((f) => f.setRoboticControl(value)); }}>
+                                            {fighter.getAvailableRoboticControls().map((system) => (
+                                                <option key={system.tag} value={system.tag}>{system.name}</option>
+                                            ))}
+                                        </select>
+                                    </label>
+                                    {fighter.getRoboticSkills() ? (
+                                        <p className="smaller-text" data-testid="robotic-control-summary">
+                                            {fighter.getRoboticControlWeight()} t on top of the cockpit; the drone flies at Gunnery {fighter.getRoboticSkills()?.gunnery} /
+                                            Piloting {fighter.getRoboticSkills()?.piloting}, and its Battle Value is multiplied by 0.85 (IO:AE pp.134-135, 187).
+                                        </p>
+                                    ) : null}
+                                </div>
                             ) : null}
 
                             <h3>Fuel</h3>

@@ -16,12 +16,14 @@ import {
 import { IBattleArmorArmorType, IEras } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
 import { IInfantryWeapon, findInfantryWeapon, infantryWeapons } from "../data/infantry-weapons";
+import { EXPERIMENTAL_RULES_LEVEL } from "../data/rules-level-options";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 
 // Battle armor construction (TechManual pp.160-173), Battle Value (TM pp.310-311, 316) and cost (TM pp.276, 281, 296-298);
 // the battle armor equipment of Tactical Operations: Advanced Units & Equipment (pp.91-161, 192-197, 224-225);
-// introduction dates (IO:AE pp.45-47); play (Total Warfare pp.219-227); Alpha Strike conversion (ASC pp.92-141).
+// introduction dates (IO:AE pp.45-47); play (Total Warfare pp.219-227); Alpha Strike conversion (ASC pp.92-141);
+// Automata (BattleTech Adventures: Ghosts of Obeedah pp.51-53).
 
 export type BattleArmorLocation = "la" | "ra" | "body" | "turret";
 export type BattleArmorArm = "la" | "ra";
@@ -41,6 +43,18 @@ export const MAX_BATTLE_ARMOR_ITEMS = 40;
 export const MAX_BATTLE_ARMOR_LOADOUTS = 12;
 /** A detachable weapon pack (TO:AUE pp.99, 225): the weapon counts three quarters of its weight and takes one slot. */
 export const BATTLE_ARMOR_WEAPON_PACK = { share: 0.75, roundTo: 5, slots: 1, cost: 18000, rulesLevel: 3 };
+
+/** The skills an Automata's Core gives it (Ghosts of Obeedah p.52). */
+export const AUTOMATA_SKILLS = { gunnery: 4, antiMech: 5 };
+
+/** Automata Disruption Effects Table (Ghosts of Obeedah p.53), by unmodified 2D6 roll. */
+export const AUTOMATA_DISRUPTION_EFFECTS: { from: number; to: number; name: string; effect: string }[] = [
+    { from: 2, to: 7, name: "No Effect", effect: "Nothing obvious happens." },
+    { from: 8, to: 9, name: "Berserker!", effect: "For the next turn a random target, friend or foe, within 100 meters becomes the sole target of its combat actions. If that unit is not destroyed or withdrawn by the End Phase, roll 2D6: on 6 or less the Automata keeps attacking it, ignoring all orders." },
+    { from: 10, to: 10, name: "Roll for Reboot", effect: "Roll 2D6: on 7 or less the Automata shuts down, and restarts only on a 2D6 roll of 8 or higher in a later turn's End Phase." },
+    { from: 11, to: 11, name: "Forced Withdrawal", effect: "The Automata retreats to friendly lines, heading for the nearest friendly repair bay." },
+    { from: 12, to: 12, name: "System Crash!", effect: "The Automata shuts down at once, and reactivates only on a 2D6 roll of 12 in a later turn's End Phase." },
+];
 
 export type BattleArmorAttackKind = "standard" | "energy" | "explosive" | "heat";
 export const BATTLE_ARMOR_ATTACK_KINDS: { tag: BattleArmorAttackKind; name: string }[] = [
@@ -194,6 +208,8 @@ export interface IBattleArmorExport {
     bodyType: BattleArmorBodyType;
     /** A Clan industrial exoskeleton on an Inner Sphere chassis weight (TM p.162). */
     exoskeletonChassis?: boolean;
+    /** A robotic Automata on the Clan chassis weight (Ghosts of Obeedah p.51). */
+    automata?: boolean;
     groundMP: number;
     motive: BattleArmorMotive;
     motiveMP: number;
@@ -271,6 +287,7 @@ export default class BattleArmor {
     private _weightClass: IBattleArmorWeightClass = findBattleArmorWeightClass("medium");
     private _bodyType: BattleArmorBodyType = "humanoid";
     private _exoskeletonChassis: boolean = false;
+    private _automata: boolean = false;
     private _groundMP: number = 1;
     private _motive: BattleArmorMotive = "none";
     private _motiveMP: number = 0;
@@ -299,7 +316,9 @@ export default class BattleArmor {
     public newUUID(): void { this._uuid = generateUUID(); }
     public getName(): string { return this._name; }
     public setName(name: string): void { this._name = String(name ?? "").slice(0, MAX_BATTLE_ARMOR_NAME_LENGTH); }
-    public getBaseName(): string { return this._name.trim() || `${this._weightClass.name} Battle Armor`; }
+    public getBaseName(): string { return this._name.trim() || `${this._weightClass.name} ${this.getUnitTypeName()}`; }
+    /** "Automata" or "Battle Armor". */
+    public getUnitTypeName(): string { return this._automata ? "Automata" : "Battle Armor"; }
     public getDisplayName(): string {
         const loadout = this._loadouts[this._activeLoadout];
         return loadout ? `${this.getBaseName()} [${loadout.name}]` : this.getBaseName();
@@ -313,6 +332,7 @@ export default class BattleArmor {
         }
         // Mixed technology is an advanced construction option (TO:AUE p.189).
         if (this._mixedTech) level = Math.max(level, BATTLE_ARMOR_ADVANCED_RULES_LEVEL);
+        if (this._automata) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         return level;
     }
 
@@ -378,6 +398,7 @@ export default class BattleArmor {
             if (!this._inEra(dates)) issues.push(`${name} is not available to ${who} battle armor in the ${this._era.name} era: ${formatBattleArmorDates(dates)} (IO:AE pp.45-47).`);
         };
         check(`${this._weightClass.name} battle armor`, battleArmorChassisDates[this._weightClass.tag][this._techBase]);
+        if (this._automata) check("The Automata Core", battleArmorFeatureDates.automata[this._techBase]);
         if (this._motive === "jump") check("Jump jets", battleArmorFeatureDates.jump[this._techBase]);
         if (this._motive === "umu") check("UMUs", battleArmorFeatureDates.umu[this._techBase]);
         if (this._motive === "vtol") check("VTOL equipment", battleArmorFeatureDates.vtol[this._techBase]);
@@ -447,8 +468,42 @@ export default class BattleArmor {
     public getBodyType(): BattleArmorBodyType { return this._bodyType; }
     public getWeightClass(): IBattleArmorWeightClass { return this._weightClass; }
     public usesExoskeletonChassis(): boolean { return this._exoskeletonChassis && this.canUseExoskeletonChassis(); }
-    /** Clan-made industrial exoskeletons may use an Inner Sphere chassis weight (TM p.162). */
-    public canUseExoskeletonChassis(): boolean { return this.isClan() && this._weightClass.tag === "pa-l"; }
+    /** Clan-made industrial exoskeletons may use an Inner Sphere chassis weight (TM p.162); an Automata may not. */
+    public canUseExoskeletonChassis(): boolean { return !this._automata && this.isClan() && this._weightClass.tag === "pa-l"; }
+
+    // Automata (Ghosts of Obeedah pp.51-53)
+
+    /** A robotic suit run by an Automata Core in place of a trooper (Ghosts of Obeedah p.51). */
+    public isAutomata(): boolean { return this._automata; }
+    /** Automata are Experimental. */
+    public canBeAutomata(rulesLevel: number): boolean { return rulesLevel >= EXPERIMENTAL_RULES_LEVEL; }
+    /** Makes the suit an Automata, or battle armor again; refused below the Experimental rules level. The Core sets the skills (p.52). */
+    public setAutomata(value: boolean, rulesLevel: number): boolean {
+        if (value && !this._automata && !this.canBeAutomata(rulesLevel)) return false;
+        this._automata = value;
+        if (value) {
+            this._gunnery = AUTOMATA_SKILLS.gunnery;
+            this._antiMech = AUTOMATA_SKILLS.antiMech;
+        }
+        return true;
+    }
+
+    /** One roll on the Automata Disruption Effects Table (p.53): an unmodified 2D6 roll. */
+    public rollAutomataDisruption(roll: () => number = rollD6): string {
+        const total = roll() + roll();
+        const row = AUTOMATA_DISRUPTION_EFFECTS.find((entry) => total >= entry.from && total <= entry.to) ?? AUTOMATA_DISRUPTION_EFFECTS[0];
+        return `Disruption roll ${total}: ${row.name} ${row.effect} (Ghosts of Obeedah p.53)`;
+    }
+
+    /** The self-destruct roll for a destroyed or disabled Automata (p.53): 2D6, +2 if it was shut down; 10+ and it fails to engage. */
+    public rollAutomataSelfDestruct(shutDown: boolean, roll: () => number = rollD6): string {
+        const dice = roll() + roll();
+        const total = dice + (shutDown ? 2 : 0);
+        const text = total >= 10
+            ? "the self-destruct fails to engage: the Automata may be salvaged like a battlesuit of its mass"
+            : "the Automata self-destructs, leaving nothing to salvage (no collateral damage)";
+        return `Self-destruct roll ${dice}${shutDown ? " + 2 (shut down)" : ""} = ${total}: ${text} (Ghosts of Obeedah p.53)`;
+    }
 
     public setTechBase(techBase: BattleArmorTechBase): void {
         if (techBase === this._techBase) return;
@@ -483,8 +538,10 @@ export default class BattleArmor {
 
     public setExoskeletonChassis(value: boolean): void { this._exoskeletonChassis = value; }
 
+    /** An Automata always uses the Clan chassis weight, which holds its Core (Ghosts of Obeedah p.51). */
+    private _usesClanChassis(): boolean { return this._automata || (this.isClan() && !this.usesExoskeletonChassis()); }
     public getChassisWeight(): number {
-        return this.isClan() && !this.usesExoskeletonChassis() ? this._weightClass.chassisWeight.clan : this._weightClass.chassisWeight.is;
+        return this._usesClanChassis() ? this._weightClass.chassisWeight.clan : this._weightClass.chassisWeight.is;
     }
 
     // Step 2: motive systems (TM pp.164-165)
@@ -923,13 +980,14 @@ export default class BattleArmor {
     public setSquadSize(size: number): void { this._squadSize = Math.min(BATTLE_ARMOR_MAX_SQUAD, Math.max(1, Math.round(size) || 1)); }
     public getGunnery(): number { return this._gunnery; }
     public getAntiMechSkill(): number { return this._antiMech; }
-    public setGunnery(skill: number): void { this._gunnery = Math.min(8, Math.max(0, Math.round(skill) || 0)); }
-    public setAntiMechSkill(skill: number): void { this._antiMech = Math.min(8, Math.max(0, Math.round(skill) || 0)); }
+    /** An Automata's skills are its Core's (Ghosts of Obeedah p.52). */
+    public setGunnery(skill: number): void { if (!this._automata) this._gunnery = Math.min(8, Math.max(0, Math.round(skill) || 0)); }
+    public setAntiMechSkill(skill: number): void { if (!this._automata) this._antiMech = Math.min(8, Math.max(0, Math.round(skill) || 0)); }
 
     // Weight
 
     public getWeightLog(): { label: string; kg: number }[] {
-        const log: { label: string; kg: number }[] = [{ label: `Chassis (${this._weightClass.name}, ${this.isClan() && !this.usesExoskeletonChassis() ? "Clan" : "Inner Sphere"})`, kg: this.getChassisWeight() }];
+        const log: { label: string; kg: number }[] = [{ label: `Chassis (${this._weightClass.name}, ${this._usesClanChassis() ? "Clan" : "Inner Sphere"}${this._automata ? ", with the Automata Core" : ""})`, kg: this.getChassisWeight() }];
         const extraGround = this._groundMP - this.getFreeGroundMP();
         if (extraGround > 0) log.push({ label: `Ground MP, ${extraGround} above the free ${this.getFreeGroundMP()}`, kg: extraGround * this._weightClass.kgPerGroundMP });
         const limit = this.getMotiveLimit(this._motive);
@@ -1111,7 +1169,10 @@ export default class BattleArmor {
         if (this._weightClass.tag === "pa-l" && (!this.isClan() || this.usesExoskeletonChassis()) && !(this._hasItem("Extended Life Support") && this._armorPoints >= 1)) {
             notes.push("An exoskeleton on an Inner Sphere chassis weight is \"open\" unless it has extended life support and at least 1 point of armor; a PA(L) suit is enclosed (TM p.168).");
         }
-        if (!this.isQuad() && (["la", "ra"] as BattleArmorArm[]).some((arm) => this.getManipulator(arm).kind === "glove")) {
+        const kinds = this.isQuad() ? [] : (["la", "ra"] as BattleArmorArm[]).map((arm) => this.getManipulator(arm).kind);
+        if (this._automata && (kinds.includes("glove") || kinds.includes("basic"))) {
+            notes.push("An Automata uses handheld small arms and support weapons with armored gloves or basic manipulators alike, and with at least one of either has Anti-Personnel capability (Ghosts of Obeedah p.51; TM p.171).");
+        } else if (kinds.includes("glove")) {
             notes.push("With an armored glove the trooper may carry one more non-Melee conventional infantry weapon with a crew of less than 2; its weight is not counted (TM p.171).");
         }
         if (this._apMounts.length > 0) notes.push("The weight of anti-personnel weapons and their ammunition is not counted against the suit (TM p.271).");
@@ -1125,6 +1186,11 @@ export default class BattleArmor {
             if (equipment?.book === "TO:AUE" && equipment.notes && !notes.includes(`${equipment.name}: ${equipment.notes}`)) notes.push(`${equipment.name}: ${equipment.notes}`);
         }
         notes.push(...this.getAllowedExceptions());
+        if (this._automata) {
+            notes.push("Automata (Experimental): built as battle armor on the Clan chassis weight, which holds the Automata's Core in place of a trooper; the point of internal structure is the Core. Clan-made Automata have none of the HarJel benefits of Clan battle armor (Ghosts of Obeedah p.51).");
+            notes.push("The Core gives Gunnery 4 and Anti-'Mech 5, and is destroyed wherever a trooper would be killed, except by vacuum, drowning, toxic atmospheres or extreme temperatures. Automata are fearless: they ignore Morale and Forced Withdrawal (Ghosts of Obeedah p.52).");
+            notes.push("Ghosts of Obeedah gives no cost or Battle Value change for Automata: those of the battle armor built are used.");
+        }
         if (this._mixedTech) notes.push("Mixed technology: any unit may combine Clan and Inner Sphere technology as an advanced construction option, each item following its own construction rules (TO:AUE p.189).");
         if (this.hasTrooperEquipment()) {
             notes.push("Some equipment is carried by one trooper only. The construction rules build one suit for the whole squad; as in MegaMek, each trooper's suit must be legal on its own, the weight shown is the heaviest trooper's and the Battle Value is the average of the troopers' suits. The equipment is lost with its trooper.");
@@ -1859,6 +1925,7 @@ export default class BattleArmor {
             weightClass: this._weightClass.tag,
             bodyType: this._bodyType,
             ...(this.usesExoskeletonChassis() ? { exoskeletonChassis: true } : {}),
+            ...(this._automata ? { automata: true } : {}),
             groundMP: this._groundMP,
             motive: this._motive,
             motiveMP: this.getMotiveMP(),
@@ -1914,6 +1981,7 @@ export default class BattleArmor {
         this._bodyType = raw.bodyType === "quad" && this._weightClass.quadSlots !== null ? "quad" : "humanoid";
         if (raw.bodyType === "quad" && this._bodyType !== "quad") this._importIssues.push("Exoskeletons and PA(L) suits are humanoid: body type set to humanoid");
         this._exoskeletonChassis = raw.exoskeletonChassis === true;
+        this._automata = raw.automata === true;
 
         this._groundMP = savedNumber(raw.groundMP, this.getFreeGroundMP(), this.getFreeGroundMP(), this.getMaxGroundMP());
         this._motive = "none";
@@ -1976,8 +2044,8 @@ export default class BattleArmor {
         }
 
         this._squadSize = savedNumber(raw.squadSize, this.isClan() ? 5 : 4, 1, BATTLE_ARMOR_MAX_SQUAD);
-        this._gunnery = savedNumber(raw.gunnery, 4, 0, 8);
-        this._antiMech = savedNumber(raw.antiMech, 5, 0, 8);
+        this._gunnery = this._automata ? AUTOMATA_SKILLS.gunnery : savedNumber(raw.gunnery, 4, 0, 8);
+        this._antiMech = this._automata ? AUTOMATA_SKILLS.antiMech : savedNumber(raw.antiMech, 5, 0, 8);
         this._clamp();
 
         const loadouts = Array.isArray(raw.loadouts) ? raw.loadouts.slice(0, MAX_BATTLE_ARMOR_LOADOUTS) : [];

@@ -21,6 +21,7 @@ import { mechClanAmmo } from "./mech-clan-ammo";
 import { mechUniversalAmmo } from "./mech-universal-ammo";
 import { isUniversalEquipment, mechUniversalEquipment } from "./mech-universal-equipment";
 import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, MUNCHKIN_RULES_LEVEL } from "./rules-level-options";
+import { getBattleArmorScaleEquipment } from "./battle-armor-scale-equipment";
 
 export type EquipmentCatalog = "is" | "clan" | "custom" | "universal";
 
@@ -91,6 +92,26 @@ function getCatalogByTech(techBase: EquipmentCatalog): IEquipmentItem[] {
         .flatMap((catalog) => catalog.equipment)
         .filter((item) => techBase === "universal" || !isUniversalEquipment(item));
     return techBase === "custom" ? [...items, ...localCustomEquipment] : items;
+}
+
+/**
+ * Battle armor weapons, and their ammunition, that a larger unit of this technology base may mount
+ * (Ghosts of Obeedah pp.53-54). They are kept out of the catalog lists: a unit looks a tag up here only
+ * after the catalogs, so no catalog record is ever reached through them.
+ */
+export function getBattleArmorScaleListByTech(techTag: string): IEquipmentItem[] {
+    switch (techTag.toLowerCase()) {
+        case "clan":
+            return cloneEquipment(getBattleArmorScaleEquipment("clan"));
+        case "mis":
+            return cloneEquipment([...getBattleArmorScaleEquipment("is"), ...getBattleArmorScaleEquipment("clan")]);
+        case "mclan":
+            return cloneEquipment([...getBattleArmorScaleEquipment("clan"), ...getBattleArmorScaleEquipment("is")]);
+        case "custom":
+            return [];
+        default:
+            return cloneEquipment(getBattleArmorScaleEquipment("is"));
+    }
 }
 
 export function getEquipmentCatalogDefinitions(): IEquipmentCatalogDefinition[] {
@@ -333,6 +354,10 @@ export function getCompatibleAmmo(weapon: IEquipmentItem, ammo: IEquipmentItem):
     if (!ammo.isAmmo || weapon.isAmmo) {
         return false;
     }
+    // Battle armor scale ammunition feeds its own weapon and nothing else, and that weapon takes no other.
+    if (ammo.battleArmorScale || weapon.battleArmorScale) {
+        return !!ammo.battleArmorScale && !!weapon.battleArmorScale && matchesTag(weapon, ammo.feedsWeaponTag);
+    }
 
     return getWeaponAmmoFamilies(weapon).includes(getAmmoFamily(ammo));
 }
@@ -360,6 +385,10 @@ function getStandardRoundsPerTon(family: string): number {
 }
 
 export function getWeaponShotsPerTon(weapon: IEquipmentItem, ammo?: IEquipmentItem): number {
+    // Battle armor scale ammunition: the mass carried divided by the weapon's weight per shot (Ghosts of Obeedah p.54).
+    if (ammo?.battleArmorScale && ammo.kgPerShot && ammo.kgPerShot > 0) {
+        return 1000 / ammo.kgPerShot;
+    }
     if (ammo && weapon.shotsPerTonByAmmo) {
         const family = getAmmoFamily(ammo);
         const override = Object.entries(weapon.shotsPerTonByAmmo)

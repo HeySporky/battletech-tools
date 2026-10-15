@@ -5,10 +5,15 @@ import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { getFractionalAerospaceArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 import Pilot, { IPilot } from "./pilot";
 import { getSkillMultiplier } from "../data/skill-multipliers";
+import {
+    getRoboticControlCost, getRoboticControlSystem, getRoboticControlSystemsFor, getRoboticControlWeight, getRoboticSkills,
+    IRoboticControlSystem, RoboticControlTag, RoboticUnitType, SRCS_BATTLE_VALUE_MULTIPLIER, SRCS_RULES_LEVEL,
+} from "../data/robotic-control-systems";
 import { FIGHTER_CRITICAL_NAMES, FighterAttackDirection, FighterCritical, getFighterHitLocation } from "../data/fighter-hit-tables";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
 import { findByTag } from "../data/tag-match";
@@ -196,6 +201,8 @@ export interface IFighterEquipmentExport {
     uuid?: string;
     /** On an OmniFighter: true for a pod-mounted item, absent for one fixed to the base chassis. */
     pod?: boolean;
+    /** Fractional Accounting: shots bought for an ammunition bin of less than a ton (TO:AUE p.189). */
+    shots?: number;
 }
 
 export interface IAerospaceFighterExport {
@@ -207,10 +214,13 @@ export interface IAerospaceFighterExport {
     fighterType?: FighterType;
     /** VSTOL equipment, conventional fighters only (TM p.190). */
     vstol?: boolean;
+    roboticControl?: RoboticControlTag;    // Smart Robotic Control System (IO:AE p.134); absent = piloted
     /** An OmniFighter: equipment may be pod-mounted (aerospace fighters only). */
     omni?: boolean;
     /** Bombs and pods on the external hardpoints. */
     externalStores?: IFighterExternalStore[];
+    /** Fractional Accounting (TO:AUE p.188); absent = standard rounding. */
+    weightAccounting?: "fractional";
     tonnage: number;
     tech: string;
     era: string;
@@ -294,6 +304,7 @@ export default class AerospaceFighter {
     private _model: string = "";
     private _fighterType: FighterType = "aerospace";
     private _vstol: boolean = false;
+    private _roboticControl: RoboticControlTag = "none";
     private _omni: boolean = false;
     private _podUUIDs: Set<string> = new Set();
     private _externalStores: IFighterExternalStore[] = [];
@@ -321,6 +332,10 @@ export default class AerospaceFighter {
     // armor and crew rules with the Support Vehicle ones.
     private _support: IFighterSupportExport | null = null;
     private _bays: IVehicleBay[] = [];
+    /** Weight rounding: "fractional" is the Fractional Accounting construction option (TO:AUE p.188). */
+    private _weightAccounting: "standard" | "fractional" = "standard";
+    // Whether battle armor items were mounted at the last recalculation: only the first one turns Fractional Accounting on.
+    private _hadBattleArmorEquipment = false;
 
     private _weights: { name: string; weight: number }[] = [];
     private _currentTonnage: number = 0;
@@ -382,6 +397,8 @@ export default class AerospaceFighter {
         if (this.isConventional()) this._heatSinkType = mechHeatSinkTypes.find((sink) => sink.tag === "single") ?? this._heatSinkType;
         if (!this.getPermittedEngineTags().includes(this._engineType.tag)) this._engineType = mechEngineTypes[0];
         if (this.getArmorPointsPerTon() === null) this._armorType = aerospaceArmorTypes[0];
+        // A conventional fighter's SRCS cannot be Improved (IO:AE p.135).
+        if (!this.getAvailableRoboticControls().some((system) => system.tag === this._roboticControl)) this._roboticControl = "srcs";
         this.setTonnage(this._tonnage);
         return this._fighterType;
     }
@@ -396,6 +413,37 @@ export default class AerospaceFighter {
         this._vstol = vstol === true;
         this._calc();
         return this._vstol;
+    }
+
+    private _roboticUnitType(): RoboticUnitType { return this.isConventional() ? "conventional-fighter" : "aerospace-fighter"; }
+
+    public getRoboticControl(): IRoboticControlSystem { return getRoboticControlSystem(this._roboticControl); }
+
+    public getAvailableRoboticControls(): IRoboticControlSystem[] { return getRoboticControlSystemsFor(this._roboticUnitType()); }
+
+    /**
+     * Fits a Smart Robotic Control System (IO:AE pp.134-135), or "none" for a piloted fighter. The cockpit stays: a
+     * drone "is not exempt" from it (p.135). The pilot then takes the system's Gunnery and Piloting Skills.
+     */
+    public setRoboticControl(tag: string): IRoboticControlSystem {
+        const wanted = getRoboticControlSystem(tag);
+        this._roboticControl = this.getAvailableRoboticControls().some((system) => system.tag === wanted.tag) ? wanted.tag : "none";
+        const skills = this.getRoboticSkills();
+        if (skills) {
+            this._pilot.gunnery = skills.gunnery;
+            this._pilot.piloting = skills.piloting;
+        }
+        this._calc();
+        return this.getRoboticControl();
+    }
+
+    /** Gunnery and Piloting Skills of a drone fighter (IO:AE p.135); null when piloted. */
+    public getRoboticSkills(): { gunnery: number; piloting: number } | null {
+        return getRoboticSkills(this._roboticUnitType(), this._roboticControl);
+    }
+
+    public getRoboticControlWeight(): number {
+        return getRoboticControlWeight(this._roboticUnitType(), this._roboticControl, this._tonnage, (weight) => this._roundWeight(weight));
     }
 
     /** Whether VSTOL equipment is offered to this fighter at the rules level. */
@@ -723,7 +771,51 @@ export default class AerospaceFighter {
     public getPodSpace(): number { return Math.round((this._tonnage - this.getBaseChassisTonnage()) * 1000) / 1000; }
 
     /** VSTOL equipment weighs 5 percent of the fighter, rounded up to the half ton (TM p.190). */
-    public getVSTOLWeight(): number { return this._vstol ? roundUpHalf(this._tonnage * 0.05) : 0; }
+    public getVSTOLWeight(): number { return this._vstol ? this._roundWeight(this._tonnage * 0.05) : 0; }
+
+    // Fractional Accounting -----------------------------------------------------------------------------------
+
+    public usesFractionalAccounting(): boolean { return this._weightAccounting === "fractional"; }
+
+    /** Fractional Accounting is "experimental-level unit design" (TO:AUE p.188): Experimental rules and above. */
+    public canUseFractionalAccounting(rulesLevel: number = 2): boolean { return rulesLevel >= EXPERIMENTAL_RULES_LEVEL; }
+
+    /**
+     * Turns the Fractional Accounting construction option on or off (TO:AUE p.188). It can be turned on only at
+     * the Experimental rules level or above; it can always be turned off. Turning it off rounds every ammunition bin back
+     * up to the half ton, except battle armor ammunition, which stays by the kilogram (Ghosts of Obeedah p.54).
+     */
+    public setWeightAccounting(accounting: "standard" | "fractional", rulesLevel: number = 2): "standard" | "fractional" {
+        if (accounting === this._weightAccounting) return this._weightAccounting;
+        if (accounting === "fractional" && !this.canUseFractionalAccounting(rulesLevel)) return this._weightAccounting;
+        this._weightAccounting = accounting;
+        if (accounting === "standard") {
+            for (const item of this._equipmentList) {
+                if (item.isAmmo && !item.battleArmorScale) item.weight = roundUpHalf(item.weight || 0);
+            }
+        }
+        this._calc();
+        return this._weightAccounting;
+    }
+
+    /**
+     * A unit "built or modified to carry battle armor equipment uses the Fractional Accounting construction
+     * option by default" (Ghosts of Obeedah p.54). The book's own designs are built with standard rounding, so
+     * the option is turned on when the first such item is mounted and can be turned off (user ruling, 2026-10-14).
+     */
+    public defaultsToFractionalAccounting(): boolean {
+        return this._equipmentList.some((item) => item.battleArmorScale === true);
+    }
+
+    /** Ammunition can be bought by the shot under Fractional Accounting, and battle armor ammunition always. */
+    public canSetAmmoBinShots(bin: IEquipmentItem): boolean {
+        return !!bin.isAmmo && (this.usesFractionalAccounting() || bin.battleArmorScale === true);
+    }
+
+    /** Rounds a calculated weight up: to the half ton, or to the kilogram under Fractional Accounting (TO:AUE p.188). */
+    private _roundWeight(weight: number): number {
+        return this.usesFractionalAccounting() ? roundUpToKilogram(weight) : roundUpHalf(weight);
+    }
 
     public getTonnage(): number { return this._tonnage; }
     public getMaxTonnage(): number {
@@ -877,16 +969,22 @@ export default class AerospaceFighter {
         }
         const rating = this.getEngineRating();
         const option = mechEngineOptions.find((entry) => entry.rating >= rating) ?? mechEngineOptions[mechEngineOptions.length - 1];
+        const shielded = this.isConventional() && this._engineType.tag !== "ice";
+        if (this.usesFractionalAccounting()) {
+            // Standard fusion weight x the Fractional Engine Multiplier, then the conventional fighter's x 1.5 (TO:AUE p.188).
+            const fractionalWeight = getFractionalEngineWeight(this._engineType.tag, option.weight.standard, shielded ? 1.5 : 1);
+            if (fractionalWeight !== null) return fractionalWeight;
+        }
         const tag = this._engineType.tag as keyof typeof option.weight;
         const weight = option.weight[tag] ?? option.weight.standard;
-        return this.isConventional() && this._engineType.tag !== "ice" ? roundUpHalf(weight * 1.5) : weight;
+        return shielded ? roundUpHalf(weight * 1.5) : weight;
     }
 
     /** 3 tons; a tenth of the tonnage, rounded up to the half ton, for a conventional fighter (TM p.189). */
     public getControlsWeight(): number {
         // A Support Vehicle's controls are part of its chassis (TM p.131).
         if (this._support) return 0;
-        return this.isConventional() ? roundUpHalf(this._tonnage * 0.1) : FIGHTER_COCKPIT_TONS;
+        return this.isConventional() ? this._roundWeight(this._tonnage * 0.1) : FIGHTER_COCKPIT_TONS;
     }
 
     /** The higher of Safe Thrust and 10 percent of tonnage, rounded down; it weighs nothing (TM p.187). */
@@ -899,6 +997,10 @@ export default class AerospaceFighter {
 
     public getFuelTons(): number { return this._fuelTons; }
 
+    /**
+     * "Fuel may only be added in full or half-ton lots" (TM p.186). That is a lot size, not a calculated weight,
+     * so Fractional Accounting, which frees calculated weights, armor and ammunition (TO:AUE pp.188-189), leaves it.
+     */
     public setFuelTons(tons: number): number {
         const value = Number.isFinite(tons) ? tons : this._fuelTons;
         // A Support Vehicle's fuel is rounded to the kilogram when Small, the half ton from 5 tons (TM p.129).
@@ -1053,7 +1155,10 @@ export default class AerospaceFighter {
         return thresholds;
     }
 
-    /** Armor is bought in half tons: the allocated points divided by the points per ton, rounded up (TM p.191). */
+    /**
+     * Armor is bought in half tons: the allocated points divided by the points per ton, rounded up (TM p.191).
+     * Under Fractional Accounting it is bought by the point, at the Fractional Armor Table weight (TO:AUE p.188).
+     */
     public getArmorWeight(): number {
         if (this._support) {
             // Points x kilograms a point: to the kilogram when Small, up to the half ton from 5 tons (TM p.134).
@@ -1061,8 +1166,14 @@ export default class AerospaceFighter {
             return kg ? this._roundSupport(this.getTotalArmorPoints() * kg / 1000) : 0;
         }
         if (this.isPatchworkArmor()) return FIGHTER_ARCS.reduce((sum, arc) => sum + this.getPatchworkArcWeight(arc.tag), 0);
+        if (this.usesFractionalAccounting()) return roundUpToKilogram(this.getTotalArmorPoints() * this.getFractionalArmorTonsPerPoint());
         const perTon = this.getArmorPointsPerTon() ?? 16;
         return roundUpHalf(this.getTotalArmorPoints() / perTon);
+    }
+
+    /** Tons per point of the selected armor under Fractional Accounting (Fractional Armor Table, TO:AUE p.188). */
+    public getFractionalArmorTonsPerPoint(): number {
+        return getFractionalAerospaceArmorTonsPerPoint(this._armorType.tag, this.getChassisTechBase(), this.getArmorPointsPerTon() ?? 16);
     }
 
     /** Points the armor tonnage paid for but that are not allocated yet (fractions of a point are lost). */
@@ -1071,6 +1182,8 @@ export default class AerospaceFighter {
         if (this._support) return 0;
         // Patchwork armor is weighed from the points on each arc: nothing is bought that is not allocated.
         if (this.isPatchworkArmor()) return 0;
+        // Fractional Accounting buys by the point: nothing is paid for that is not allocated.
+        if (this.usesFractionalAccounting()) return 0;
         const perTon = this.getArmorPointsPerTon() ?? 16;
         return Math.min(this.getMaxArmorPoints(), Math.floor(this.getArmorWeight() * perTon + 1e-9)) - this.getTotalArmorPoints();
     }
@@ -1128,20 +1241,31 @@ export default class AerospaceFighter {
      */
     public getWeaponHeat(): number {
         return this._equipmentList.filter((item) => !item.isAmmo && (!(this.isConventional() || this._support) || AerospaceFighter._isEnergyWeapon(item)))
+            .filter((item) => !this._hasPowerCells(item))
             .reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0);
     }
 
     /**
+     * A battle armor energy weapon fed from power cells (its "ammunition") needs no heat sinks. Only a unit that
+     * does not track heat may use them, so an aerospace fighter never does (Ghosts of Obeedah p.54).
+     */
+    private _hasPowerCells(weapon: IEquipmentItem): boolean {
+        return this.isConventional() && weapon.battleArmorScale === true && AerospaceFighter._isEnergyWeapon(weapon)
+            && this._equipmentList.some((ammo) => ammo.isAmmo && getCompatibleAmmo(weapon, ammo));
+    }
+
+    /**
      * Power amplifiers: a turbine-powered conventional fighter needs 10 percent of its energy weapons' weight,
-     * rounded up to the half ton (TM p.195). Flamers and chemical lasers are left out, as on vehicles.
+     * rounded up to the half ton (TM p.195). Flamers and chemical lasers are left out, as on vehicles, and so are
+     * battle armor weapons, whose mount includes them (Ghosts of Obeedah p.54).
      */
     public getPowerAmplifierWeight(): number {
         // A Support Vehicle without a fission or fusion engine needs amplifiers too (TM p.137).
         if (this._support ? ["fission", "fusion"].includes(this._support.engine) : this._engineType.tag !== "ice") return 0;
         const energyTons = this._equipmentList
-            .filter((item) => AerospaceFighter._isEnergyWeapon(item) && !/vehicle-flamer|chemical-laser/.test(item.tag))
+            .filter((item) => AerospaceFighter._isEnergyWeapon(item) && !item.battleArmorScale && !/vehicle-flamer|chemical-laser/.test(item.tag))
             .reduce((sum, item) => sum + (item.weight || 0), 0);
-        return roundUpHalf(energyTons * 0.1);
+        return this._roundWeight(energyTons * 0.1);
     }
 
     // Equipment -----------------------------------------------------------------------------------------------
@@ -1254,6 +1378,20 @@ export default class AerospaceFighter {
                 items.push(item);
             }
         }
+        // Battle armor weapons on aerospace fighters and small craft are Experimental (Ghosts of Obeedah p.53).
+        if (rulesLevel >= EXPERIMENTAL_RULES_LEVEL) {
+            const battleArmorScale = getBattleArmorScaleListByTech(techTag);
+            // An aerospace fighter tracks heat, so its battle armor energy weapons run off heat sinks, never power cells.
+            const energyTags = this.isConventional() ? [] : battleArmorScale.filter((item) => AerospaceFighter._isEnergyWeapon(item)).map((item) => item.tag);
+            for (const item of battleArmorScale) {
+                if (energyTags.includes(item.feedsWeaponTag ?? "")) continue;
+                item.criticals = this.getItemSlots(item);
+                const availability = this._datesAvailability(item, rulesLevel);
+                item.availableAsPrototype = availability.asPrototype;
+                item.available = availability.available;
+                items.push(item);
+            }
+        }
         items.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
         const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
         return items.filter((item) => isEquipmentWithinRulesLevel(item, offeredLevel));
@@ -1263,7 +1401,9 @@ export default class AerospaceFighter {
         const techTag = this._tech.tag;
         const own = getEquipmentListByTech(techTag, true);
         // A saved fighter keeps what it mounted, including equipment since moved to the other tech base's catalog.
-        return techTag === "is" || techTag === "clan" ? [...own, ...getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true)] : own;
+        const catalog = techTag === "is" || techTag === "clan" ? [...own, ...getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true)] : own;
+        // Battle armor scale items go last, so a catalog record always wins a lookup.
+        return [...catalog, ...getBattleArmorScaleListByTech(techTag)];
     }
 
     private _newEquipment(catalogItem: IEquipmentItem, location?: unknown, uuid?: unknown): IEquipmentItem {
@@ -1309,6 +1449,40 @@ export default class AerospaceFighter {
         if (item) item.location = this._validLocation(item, location);
         this._calc();
         return this._equipmentList;
+    }
+
+    // Ammunition by the shot ----------------------------------------------------------------------------------
+
+    /** The weapon a bin feeds; undefined with no such weapon aboard. */
+    private _binWeapon(ammo: IEquipmentItem): IEquipmentItem | undefined {
+        return this._equipmentList.find((item) => !item.isAmmo && getCompatibleAmmo(item, ammo));
+    }
+
+    /** Shots in one full ton of a bin's ammunition, for the weapon it feeds; 0 with no such weapon aboard. */
+    public getAmmoBinShotsPerTon(ammo: IEquipmentItem): number {
+        if (!ammo.isAmmo) return 0;
+        const weapon = this._binWeapon(ammo);
+        return weapon ? getWeaponShotsPerTon(weapon, ammo) : 0;
+    }
+
+    /** Shots a bin holds as bought. */
+    public getAmmoBinShots(ammo: IEquipmentItem): number {
+        return Math.floor(this.getAmmoBinShotsPerTon(ammo) * (ammo.weight || 0) + 1e-6);
+    }
+
+    /**
+     * Fractional Accounting: carry ammunition by the shot. A shot weighs a full-ton bin divided by its number of
+     * shots, rounded up to the kilogram; a bin holds from one shot to a full ton (TO:AUE p.189).
+     */
+    public setAmmoBinShots(uuid: string | undefined, shots: number): number {
+        const bin = this._equipmentList.find((item) => item.uuid === uuid && item.isAmmo);
+        if (!bin || !this.canSetAmmoBinShots(bin)) return 0;
+        const shotsPerTon = this.getAmmoBinShotsPerTon(bin);
+        if (!(shotsPerTon > 0)) return 0;
+        const wanted = Math.max(1, Math.min(shotsPerTon, Math.floor(shots) || 1));
+        bin.weight = roundUpToKilogram(wanted / shotsPerTon);
+        this._calc();
+        return wanted;
     }
 
     // Totals --------------------------------------------------------------------------------------------------
@@ -1358,6 +1532,12 @@ export default class AerospaceFighter {
             issues.push("VSTOL equipment on an aerospace fighter is an optional rule, offered from the Advanced rules level: TM p.190 allows it in the rule text and denies it in the Sabutai example.");
         }
         if (this._omni && this.isConventional()) issues.push("A conventional fighter cannot be built as an Omni.");
+        if (this.isConventional() && this._engineType.tag === "ice") {
+            // A unit without a fusion or fission engine runs battle armor energy weapons off power cells (Ghosts of Obeedah p.54).
+            for (const item of this._equipmentList.filter((entry) => entry.battleArmorScale && AerospaceFighter._isEnergyWeapon(entry) && !this._hasPowerCells(entry))) {
+                issues.push(`${item.name} needs power cells: a turbine-powered fighter cannot run battle armor energy weapons off heat sinks (Ghosts of Obeedah p.54).`);
+            }
+        }
         const hardpoints = this.getExternalStoresHardpointsUsed();
         if (hardpoints > this.getExternalStoresHardpoints()) {
             issues.push(`External stores need ${hardpoints} hardpoints; the fighter has ${this.getExternalStoresHardpoints()} (TM p.196).`);
@@ -1468,9 +1648,14 @@ export default class AerospaceFighter {
             return;
         }
         this._prunePatchworkArmor();
+        // Mounting the first battle armor item turns Fractional Accounting on (Ghosts of Obeedah p.54).
+        const hasBattleArmorEquipment = this.defaultsToFractionalAccounting();
+        if (hasBattleArmorEquipment && !this._hadBattleArmorEquipment) this._weightAccounting = "fractional";
+        this._hadBattleArmorEquipment = hasBattleArmorEquipment;
         this._weights = [
             { name: `Engine (${this._engineType.name}, rating ${this.getEngineRating()})`, weight: this.getEngineWeight() },
             { name: "Cockpit and Controls", weight: this.getControlsWeight() },
+            ...(this.getRoboticControlWeight() > 0 ? [{ name: this.getRoboticControl().name, weight: this.getRoboticControlWeight() }] : []),
             ...(this._vstol ? [{ name: "VSTOL Equipment", weight: this.getVSTOLWeight() }] : []),
             { name: `Fuel (${this.getFuelPoints()} points)`, weight: this._fuelTons },
             { name: `Armor (${this._armorType.name}, ${this.getTotalArmorPoints()} points)`, weight: this.getArmorWeight() },
@@ -1672,8 +1857,10 @@ export default class AerospaceFighter {
         const offensive = rating * speedFactor;
         log += `Weapon Battle Rating ${rating.toFixed(2)} x Speed Factor ${speedFactor} (Max Thrust ${this.getMaxThrust()}) = ${offensive.toFixed(2)}<br />`;
 
-        this._battleValue = Math.round(defensive + offensive);
-        log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)} = ${this._battleValue}<br />`;
+        const robotic = this._roboticControl === "none" ? 1 : SRCS_BATTLE_VALUE_MULTIPLIER;
+        this._battleValue = Math.round((defensive + offensive) * robotic);
+        log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)}`
+            + `${robotic !== 1 ? ` x ${robotic} (Smart Robotic Control System, IO:AE p.187)` : ""} = ${this._battleValue}<br />`;
         this._calcLogBV = log;
     }
 
@@ -1765,6 +1952,9 @@ export default class AerospaceFighter {
             rows.push(["Cockpit", 200000], ["Life Support", 50000], [`Sensors (2,000 x ${this._tonnage} t)`, 2000 * this._tonnage]);
         }
         if (this._vstol) rows.push([`VSTOL (5,000 x ${this.getVSTOLWeight()} t)`, 5000 * this.getVSTOLWeight()]);
+        if (this._roboticControl !== "none") {
+            rows.push([`${this.getRoboticControl().name} (${this.getRoboticControlWeight()} t)`, getRoboticControlCost(this._roboticControl, this.getRoboticControlWeight())]);
+        }
         const structureRate = this.isConventional() ? 4000 : 50000;
         rows.push([`Structural Integrity (${structureRate.toLocaleString("en-US")} x ${this.getStructuralIntegrity()})`, structureRate * this.getStructuralIntegrity()]);
         rows.push(["Attitude Thruster", 25000], [`Landing Gear (10 x ${this._tonnage} t)`, 10 * this._tonnage]);
@@ -1845,11 +2035,14 @@ export default class AerospaceFighter {
         if (this.isAdvancedSupportVehicle()) level = Math.max(level, 3);
         // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
         if (this.isPatchworkArmor()) level = Math.max(level, PATCHWORK_ARMOR_RULES_LEVEL);
+        if (this._roboticControl !== "none") level = Math.max(level, SRCS_RULES_LEVEL);
         for (const item of this._equipmentList) level = Math.max(level, getEquipmentRulesLevel(item));
         for (const store of this._externalStores) {
             const record = this._storeRecord(store.tag);
             if (record) level = Math.max(level, getEquipmentRulesLevel(record));
         }
+        // Fractional Accounting is "experimental-level unit design" (TO:AUE p.188).
+        if (this.usesFractionalAccounting()) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         return level;
     }
 
@@ -1899,6 +2092,8 @@ export default class AerospaceFighter {
         const as = weapon.alphaStrike;
         if (!as) return [0, 0, 0, 0];
         const multiplier = this._asAmmoMultiplier(weapon) * (this.hasTargetingComputer() && as.tc ? 1.1 : 1);
+        // On an aerospace unit a battle armor weapon's range is Short (Ghosts of Obeedah p.54).
+        if (weapon.battleArmorScale) return [(as.rangeShort || 0) * multiplier, 0, 0, 0];
         return [as.rangeShort || 0, as.rangeMedium || 0, as.rangeLong || 0, as.rangeExtreme || 0].map((value) => value * multiplier);
     }
 
@@ -2111,7 +2306,9 @@ export default class AerospaceFighter {
 
     /** Battle Value adjusted for gunnery and piloting skill (TM p.315 skill multipliers, as for 'Mechs). */
     public getPilotAdjustedBattleValue(edition?: string): number {
-        const multiplier = getSkillMultiplier(this._pilot?.gunnery ?? 4, this._pilot?.piloting ?? 5, "fighter", edition) ?? 1;
+        // A drone fights at its control system's Skills (IO:AE p.187).
+        const skills = this.getRoboticSkills();
+        const multiplier = getSkillMultiplier(skills?.gunnery ?? this._pilot?.gunnery ?? 4, skills?.piloting ?? this._pilot?.piloting ?? 5, "fighter", edition) ?? 1;
         return Math.round(this._battleValue * multiplier);
     }
 
@@ -2427,8 +2624,10 @@ export default class AerospaceFighter {
             model: this._model,
             fighterType: this._fighterType,
             vstol: this._vstol,
+            roboticControl: this._roboticControl !== "none" ? this._roboticControl : undefined,
             omni: this._omni,
             externalStores: this._externalStores.map((store) => ({ ...store })),
+            ...(this.usesFractionalAccounting() ? { weightAccounting: "fractional" as const } : {}),
             tonnage: this._tonnage,
             tech: this._tech.tag,
             era: this._era.tag,
@@ -2446,6 +2645,7 @@ export default class AerospaceFighter {
             bays: this._bays.length > 0 ? this._bays.map((bay) => ({ ...bay })) : undefined,
             equipment: this._equipmentList.map((item) => ({
                 tag: item.tag, location: item.location, uuid: item.uuid, ...(this.isPodMounted(item.uuid ?? "") ? { pod: true } : {}),
+                ...(this.canSetAmmoBinShots(item) && (item.weight || 0) < 1 ? { shots: this.getAmmoBinShots(item) } : {}),
             })),
         };
     }
@@ -2584,7 +2784,11 @@ export default class AerospaceFighter {
             this.setHeatSinkType(savedString(saved.heatSinkType));
             this.setAdditionalHeatSinks(savedNumber(saved.additionalHeatSinks, 0, 0, 200));
             this.setVSTOL(saved.vstol === true);
+            const robotic = getRoboticControlSystem(typeof saved.roboticControl === "string" ? saved.roboticControl : "none").tag;
+            this._roboticControl = this.getAvailableRoboticControls().some((system) => system.tag === robotic) ? robotic : "srcs";
 
+            // Fractional Accounting is kept from the save whatever the rules level, so the design loads as built.
+            this._weightAccounting = saved.weightAccounting === "fractional" ? "fractional" : "standard";
             this._omni = saved.omni === true && !this.isConventional();
             this._podUUIDs = new Set();
             this._equipmentList = [];
@@ -2592,6 +2796,7 @@ export default class AerospaceFighter {
             const entries = Array.isArray(saved.equipment) ? saved.equipment : [];
             if (entries.length > MAX_FIGHTER_EQUIPMENT) issue(`Kept the first ${MAX_FIGHTER_EQUIPMENT} of ${entries.length} equipment entries`);
             const catalog = this._catalog();
+            const pendingShots: { uuid: string | undefined; shots: number }[] = [];
             for (const entry of entries.slice(0, MAX_FIGHTER_EQUIPMENT)) {
                 if (!isPlainObject(entry) || typeof entry.tag !== "string") {
                     issue("Skipped an equipment entry that could not be read");
@@ -2605,7 +2810,12 @@ export default class AerospaceFighter {
                 const item = this._newEquipment(catalogItem, entry.location, entry.uuid);
                 this._equipmentList.push(item);
                 if (this._omni && entry.pod === true && item.uuid) this._podUUIDs.add(item.uuid);
+                if (item.isAmmo && typeof entry.shots === "number" && Number.isFinite(entry.shots)) pendingShots.push({ uuid: item.uuid, shots: entry.shots });
             }
+            // After every weapon is aboard, so each bin can find the weapon it feeds; clamped to one ton.
+            // A saved design keeps the accounting it was saved with, battle armor items or not.
+            this._hadBattleArmorEquipment = this.defaultsToFractionalAccounting();
+            for (const pending of pendingShots) this.setAmmoBinShots(pending.uuid, pending.shots);
 
             this._externalStores = [];
             if (saved.externalStores !== undefined && !Array.isArray(saved.externalStores)) issue("Ignored an external stores list that is not a list");

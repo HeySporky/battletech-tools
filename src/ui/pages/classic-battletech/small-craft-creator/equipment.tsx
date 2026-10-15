@@ -176,7 +176,22 @@ export default class SmallCraftCreatorEquipment extends React.Component<IEquipme
                                             {craft.getEquipmentList().map((item) => (
                                                 <tr key={item.uuid}>
                                                     <td>{item.name}</td>
-                                                    <td>{item.weight}</td>
+                                                    <td>
+                                                        {item.weight}
+                                                        {craft.canSetAmmoBinShots(item) && craft.getAmmoBinShotsPerTon(item) > 0 ? (
+                                                            <label className="smaller-text" data-testid="fractional-ammo-shots">
+                                                                &nbsp;shots:&nbsp;
+                                                                <input
+                                                                    type="number"
+                                                                    min={1}
+                                                                    max={craft.getAmmoBinShotsPerTon(item)}
+                                                                    value={craft.getAmmoBinShots(item)}
+                                                                    onChange={(e) => { const value = +e.currentTarget.value; this.update((c) => c.setAmmoBinShots(item.uuid, value)); }}
+                                                                    className="width-auto"
+                                                                />
+                                                            </label>
+                                                        ) : null}
+                                                    </td>
                                                     <td>
                                                         {craft.getItemSlots(item) === 0 ? "Hull" : (
                                                             <select

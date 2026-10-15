@@ -84,6 +84,14 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
         }
     }
 
+    updateTotalArmorPoints = (points: number): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setArmorPoints(points);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
     stepArmorTonnage = (delta: number): void => {
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
@@ -166,6 +174,20 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                                         point and rounded up to the half ton per location, and that type's item slots.
                                     </span>
                                 </p>
+                            ) : vehicle.usesFractionalAccounting() ? (
+                                <label data-testid="fractional-armor-points">
+                                    Armor Points (Fractional Accounting, TO:AUE p.188):
+                                    <div className="inline-block">
+                                        <input
+                                            type="number"
+                                            min={0}
+                                            max={vehicle.getMaxAffordableArmorPoints()}
+                                            value={vehicle.getArmorPoints()}
+                                            onChange={(e) => this.updateTotalArmorPoints(+e.currentTarget.value)}
+                                        />
+                                        &nbsp;{vehicle.getArmorWeight()} tons at {vehicle.getFractionalArmorTonsPerPoint().toFixed(4)} tons per point
+                                    </div>
+                                </label>
                             ) : (
                                 <label>
                                     Armor Tonnage:

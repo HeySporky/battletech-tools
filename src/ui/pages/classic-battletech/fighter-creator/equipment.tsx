@@ -107,7 +107,22 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                         {fighter.getEquipmentList().map((item) => (
                                             <tr key={item.uuid}>
                                                 <td>{item.name}</td>
-                                                <td>{item.weight}</td>
+                                                <td>
+                                                    {item.weight}
+                                                    {fighter.canSetAmmoBinShots(item) && fighter.getAmmoBinShotsPerTon(item) > 0 ? (
+                                                        <label className="smaller-text" data-testid="fractional-ammo-shots">
+                                                            &nbsp;shots:&nbsp;
+                                                            <input
+                                                                type="number"
+                                                                min={1}
+                                                                max={fighter.getAmmoBinShotsPerTon(item)}
+                                                                value={fighter.getAmmoBinShots(item)}
+                                                                onChange={(e) => { const value = +e.currentTarget.value; this.update((f) => f.setAmmoBinShots(item.uuid, value)); }}
+                                                                className="width-auto"
+                                                            />
+                                                        </label>
+                                                    ) : null}
+                                                </td>
                                                 <td>
                                                     {fighter.getItemSlots(item) === 0 && !fighter.isSupportVehicle() ? "Fuselage" : (
                                                         <select

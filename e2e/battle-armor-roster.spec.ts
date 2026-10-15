@@ -287,3 +287,50 @@ test("a vehicle carrying a squad is told what it may not do", async ({ page }) =
 
     expect(errors).toEqual([]);
 });
+
+test("an Automata is built on the Clan chassis weight and rolls for disruption in play", async ({ page }) => {
+    const errors = watchErrors(page);
+    await page.goto("classic-battletech/battle-armor-creator");
+    await page.getByRole("button", { name: /Start Over/ }).click();
+    await page.goto("classic-battletech/battle-armor-creator/chassis");
+    await page.getByLabel("Name (e.g.").fill("Scout Automata");
+    await page.getByTestId("ba-weight-class").selectOption("medium");
+    // Automata are Experimental (Ghosts of Obeedah p. 51).
+    await page.getByLabel("Rules Level:").selectOption({ label: "Advanced" });
+    await expect(page.getByTestId("ba-automata")).toHaveCount(0);
+    await page.getByLabel("Rules Level:").selectOption({ label: "Experimental" });
+    await expect(page.getByText("Chassis 175 kg")).toBeVisible();
+    await page.getByTestId("ba-automata").check();
+    // An Inner Sphere Automata still takes the 250 kg Clan Medium chassis, and its Core sets the skills (pp. 51-52).
+    await expect(page.getByText("Chassis 250 kg")).toBeVisible();
+    await expect(page.getByTestId("ba-automata-skills")).toBeVisible();
+    await expect(page.getByLabel("Gunnery Skill:")).toBeDisabled();
+    await expect(page.getByLabel("Gunnery Skill:")).toHaveValue("4");
+    await expect(page.getByLabel("Anti-'Mech Skill:")).toHaveValue("5");
+    await page.getByTestId("ba-manipulator-la").selectOption("basic");
+    await page.getByTestId("ba-manipulator-ra").selectOption("basic");
+
+    await page.goto("classic-battletech/battle-armor-creator/summary");
+    await expect(page.getByText(/plus 1 for the Automata's Core/)).toBeVisible();
+    await expect(page.getByText(/Anti-Personnel capability/)).toBeVisible();
+    await page.goto("classic-battletech/battle-armor-creator");
+    await page.getByRole("button", { name: /Save as New/ }).click();
+
+    await page.goto("classic-battletech/roster");
+    await page.getByLabel("Saved battle armor to add").first().selectOption({ index: 1 });
+    await page.getByRole("button", { name: "Add Battle Armor" }).first().click();
+    await expect(page.getByLabel("Battle armor gunnery skill")).toHaveCount(0);
+
+    await page.getByTitle("Click here to go into 'Play Mode'").click();
+    await page.locator(".mech-selector").getByTitle("Select Scout Automata").click();
+    const panel = page.getByTestId("battle-armor-play");
+    await expect(panel).toContainText("Medium Automata, 4 troopers");
+    await expect(panel).toContainText("Gunnery: 4");
+    await panel.getByTestId("battle-armor-play-disruption").click();
+    await expect(panel.getByTestId("battle-armor-play-log")).toContainText("Disruption roll");
+    await panel.getByLabel("It was shut down (+2)").check();
+    await panel.getByTestId("battle-armor-play-self-destruct").click();
+    await expect(panel.getByTestId("battle-armor-play-log")).toContainText("+ 2 (shut down)");
+
+    expect(errors).toEqual([]);
+});

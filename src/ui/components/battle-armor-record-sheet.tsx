@@ -26,7 +26,7 @@ export default class BattleArmorRecordSheet extends React.Component<IBattleArmor
             <div className="print-page">
                 <h2>{suit.getDisplayName()}</h2>
                 <p data-testid="battle-armor-sheet-data">
-                    <strong>Battle Armor</strong> - {suit.getWeightClass().name}, {suit.isQuad() ? "Quad" : "Humanoid"} &nbsp;|&nbsp;
+                    <strong>{suit.getUnitTypeName()}</strong> - {suit.getWeightClass().name}, {suit.isQuad() ? "Quad" : "Humanoid"} &nbsp;|&nbsp;
                     {suit.getTechName()} &nbsp;|&nbsp;
                     {suit.getWeight()} kg &nbsp;|&nbsp;
                     Movement: {suit.getMovementText()} &nbsp;|&nbsp;

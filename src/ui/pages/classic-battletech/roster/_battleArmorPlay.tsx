@@ -23,6 +23,7 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
             defenders: 0,
             carrierPosition: "",
             carrierDamage: 5,
+            shutDown: false,
             log: [],
         };
     }
@@ -48,6 +49,11 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
     // "5, 5, 2" is three Damage Value groupings; each strikes a trooper of its own.
     private _groupings = (): number[] =>
         this.state.damage.split(/[^0-9]+/).filter((part) => part !== "").map((part) => Math.min(999, +part)).filter((value) => value > 0);
+
+    // Automata rolls (Ghosts of Obeedah p.53).
+    automataRoll = (line: string): void => {
+        this.setState({ log: [line, ...this.state.log].slice(0, 40) });
+    }
 
     resolve = (): void => {
         const lines = this.props.squad.resolveAttack(this.state.kind, this._groupings(), this.state.areaEffect);
@@ -81,7 +87,7 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
 
         return (
             <div className="battle-armor-play" data-testid="battle-armor-play">
-                <h3>{squad.getDisplayName()} <small>({squad.getWeightClass().name} battle armor, {squad.getSquadSize()} troopers)</small></h3>
+                <h3>{squad.getDisplayName()} <small>({squad.getWeightClass().name} {squad.isAutomata() ? "Automata" : "battle armor"}, {squad.getSquadSize()} troopers)</small></h3>
                 {squad.isDestroyed() ? <h3 className="color-red text-center">DESTROYED</h3> : null}
                 <p>
                     <strong>Movement</strong>: <span data-testid="battle-armor-play-movement">{movement.text}</span> &nbsp;|&nbsp;
@@ -274,6 +280,24 @@ export default class BattleArmorPlayPanel extends React.Component<IBattleArmorPl
                     </fieldset>
                 ) : null}
 
+                {squad.isAutomata() ? (
+                    <fieldset className="fieldset" data-testid="battle-armor-play-automata">
+                        <legend>Automata</legend>
+                        <p className="small-text">
+                            Fearless: Automata ignore Morale and Forced Withdrawal. Strong EMP effects, sensor damage or conflicting orders call for a
+                            roll on the Disruption Effects Table; a destroyed or disabled Automata rolls to self-destruct (Ghosts of Obeedah pp. 52-53).
+                        </p>
+                        <button className="btn btn-primary btn-sm" data-testid="battle-armor-play-disruption" onClick={() => this.automataRoll(squad.rollAutomataDisruption())}>Roll for Disruption</button>
+                        &nbsp;
+                        <button className="btn btn-primary btn-sm" data-testid="battle-armor-play-self-destruct" onClick={() => this.automataRoll(squad.rollAutomataSelfDestruct(this.state.shutDown))}>Roll to Self-Destruct</button>
+                        &nbsp;
+                        <label>
+                            <input type="checkbox" checked={this.state.shutDown} onChange={(e) => this.setState({ shutDown: e.currentTarget.checked })} />
+                            &nbsp;It was shut down (+2)
+                        </label>
+                    </fieldset>
+                ) : null}
+
                 <fieldset className="fieldset">
                     <legend>Resolve an Attack Against the Squad</legend>
                     <label>
@@ -328,5 +352,7 @@ interface IBattleArmorPlayPanelState {
     defenders: number;
     carrierPosition: string;
     carrierDamage: number;
+    /** The Automata was shut down when destroyed: +2 to its self-destruct roll. */
+    shutDown: boolean;
     log: string[];
 }
