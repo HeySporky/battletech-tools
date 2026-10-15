@@ -37,7 +37,7 @@ export default class FighterRecordSheet extends React.Component<IFighterRecordSh
                     Fuel {fighter.getFuelPoints()} points &nbsp;|&nbsp;
                     Heat Sinks {fighter.getTotalHeatSinks()} ({fighter.getHeatSinkType().name}, {fighter.getHeatDissipation()} dissipated) &nbsp;|&nbsp;
                     {fighter.isSupportVehicle() ? fighter.getSupportEngine()?.name : fighter.getEngineType().name} {fighter.getEngineRating()} &nbsp;|&nbsp;
-                    Armor: {fighter.isSupportVehicle() ? `BAR ${fighter.getBAR()} (Tech ${fighter.getSupportVehicleSettings()?.armorTechRating.toUpperCase()})` : fighter.getArmorType().name}{fighter.hasVSTOL() ? <> &nbsp;|&nbsp; VSTOL</> : null} &nbsp;|&nbsp;
+                    Armor: {fighter.isSupportVehicle() ? `BAR ${fighter.getBAR()} (Tech ${fighter.getSupportVehicleSettings()?.armorTechRating.toUpperCase()})` : fighter.getArmorDescription()}{fighter.hasVSTOL() ? <> &nbsp;|&nbsp; VSTOL</> : null} &nbsp;|&nbsp;
                     BV {fighter.getBattleValue()} &nbsp;|&nbsp; {fighter.getCBillCost().toLocaleString("en-US")} C-Bills
                     {this.props.showPilot ? <> &nbsp;|&nbsp; Gunnery {pilot.gunnery} / Piloting {pilot.piloting}{pilot.name ? ` (${pilot.name})` : ""} &nbsp;|&nbsp; Adjusted BV {fighter.getPilotAdjustedBattleValue()}</> : null}
                 </p>
