@@ -23,6 +23,10 @@ import { getWeaponExplosionDamage } from "../data/weapon-explosions";
 import { findByTag, matchesTag } from "../data/tag-match";
 import { getMovementModifier } from "../utils";
 import {
+    getRoboticControlCost, getRoboticControlSystem, getRoboticControlSystemsFor, getRoboticControlWeight, getRoboticSkills,
+    IRoboticControlSystem, RoboticControlTag, SRCS_BATTLE_VALUE_MULTIPLIER, SRCS_RULES_LEVEL,
+} from "../data/robotic-control-systems";
+import {
     IArmorType,
     IEngineType,
     IEquipmentItem,
@@ -370,6 +374,7 @@ export interface IVehicleExport {
     omni?: boolean;
     jumpMP?: number;
     troopSpace?: number;
+    roboticControl?: RoboticControlTag;    // Smart Robotic Control System (IO:AE p.134); absent = crewed
     weightAccounting?: "fractional";   // Fractional Accounting (TO:AUE p.188); absent = standard rounding
     tech: string;
     era: string;
@@ -443,8 +448,11 @@ export default class Vehicle {
     private _podUUIDs: Set<string> = new Set();
     private _jumpMP: number = 0;
     private _troopSpace: number = 0;
+    private _roboticControl: RoboticControlTag = "none";
     /** Weight rounding: "fractional" is the Fractional Accounting construction option (TO:AUE p.188). */
     private _weightAccounting: "standard" | "fractional" = "standard";
+    // Whether battle armor items were mounted at the last recalculation: only the first one turns Fractional Accounting on.
+    private _hadBattleArmorEquipment = false;
     private _inPlay: IVehicleInPlay = newInPlay();
     // Rolls the rules call for after a hit, a critical hit or another roll; not saved.
     private _followUps: VehicleFollowUpRoll[] = [];
@@ -579,6 +587,7 @@ export default class Vehicle {
         const advanced = this.isSuperheavy() || this.hasChinTurret() || this._dualTurret
             || this._sponsonTurrets || this._jumpMP > 0;
         let level = advanced ? 3 : 0;
+        if (this._roboticControl !== "none") level = Math.max(level, SRCS_RULES_LEVEL);
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
         }
@@ -598,17 +607,17 @@ export default class Vehicle {
 
     /**
      * Turns the Fractional Accounting construction option on or off (TO:AUE p.188). It can be turned on
-     * only at the Experimental rules level or above; it can always be turned off, which puts every
-     * ammunition bin back to a full ton.
+     * only at the Experimental rules level or above; it can always be turned off, which rounds every
+     * ammunition bin back up to the half ton except battle armor ammunition, which stays by the kilogram
+     * whatever the accounting (Ghosts of Obeedah p.54).
      */
     public setWeightAccounting(accounting: "standard" | "fractional", rulesLevel: number = 2): "standard" | "fractional" {
         if (accounting === this._weightAccounting) return this._weightAccounting;
         if (accounting === "fractional" && !this.canUseFractionalAccounting(rulesLevel)) return this._weightAccounting;
-        if (accounting === "standard" && this.requiresFractionalAccounting()) return this._weightAccounting;
         this._weightAccounting = accounting;
         if (accounting === "standard") {
             for (const item of this._equipmentList) {
-                if (item.isAmmo) item.weight = Math.ceil(item.weight * 2 - 1e-6) / 2;
+                if (item.isAmmo && !item.battleArmorScale) item.weight = Math.ceil(item.weight * 2 - 1e-6) / 2;
             }
         }
         this._calc();
@@ -617,10 +626,17 @@ export default class Vehicle {
 
     /**
      * A unit "built or modified to carry battle armor equipment uses the Fractional Accounting construction
-     * option by default" (Ghosts of Obeedah p.54): with such an item mounted the option cannot be turned off.
+     * option by default" (Ghosts of Obeedah p.54). The book's own Hi-Scout Armored Automata Carrier (p.80) is
+     * built with standard rounding, so the option is turned on when the first such item is mounted and can be
+     * turned off (user ruling, 2026-10-14).
      */
-    public requiresFractionalAccounting(): boolean {
+    public defaultsToFractionalAccounting(): boolean {
         return this._equipmentList.some((item) => item.battleArmorScale === true);
+    }
+
+    /** Ammunition can be bought by the shot under Fractional Accounting, and battle armor ammunition always. */
+    public canSetAmmoBinShots(bin: IEquipmentItem): boolean {
+        return !!bin.isAmmo && (this.usesFractionalAccounting() || bin.battleArmorScale === true);
     }
 
     /** Rounds a calculated weight up: to the half ton, or to the kilogram under Fractional Accounting (TO:AUE p.188). */
@@ -738,6 +754,38 @@ export default class Vehicle {
         this._troopSpace = Math.max(0, Math.round(tons * 2) / 2);
         this._calc();
         return this._troopSpace;
+    }
+
+    public getRoboticControl(): IRoboticControlSystem {
+        return getRoboticControlSystem(this._roboticControl);
+    }
+
+    public getAvailableRoboticControls(): IRoboticControlSystem[] {
+        return getRoboticControlSystemsFor("combat-vehicle");
+    }
+
+    /**
+     * Fits a Smart Robotic Control System (IO:AE pp.134-135), or "none" for a crewed vehicle. The vehicle's crew
+     * then takes the system's Gunnery and Driving Skills.
+     */
+    public setRoboticControl(tag: string): IRoboticControlSystem {
+        this._roboticControl = getRoboticControlSystem(tag).tag;
+        const skills = this.getRoboticSkills();
+        if (skills) {
+            this._pilot.gunnery = skills.gunnery;
+            this._pilot.piloting = skills.piloting;
+        }
+        this._calc();
+        return this.getRoboticControl();
+    }
+
+    /** Gunnery and Driving Skills of a robotic vehicle (IO:AE p.135); null when crewed. */
+    public getRoboticSkills(): { gunnery: number; piloting: number } | null {
+        return getRoboticSkills("combat-vehicle", this._roboticControl);
+    }
+
+    public getRoboticControlWeight(): number {
+        return getRoboticControlWeight("combat-vehicle", this._roboticControl, this._tonnage, (weight) => this._roundWeight(weight));
     }
 
     public isFusionEngine(): boolean {
@@ -1605,8 +1653,10 @@ export default class Vehicle {
         offensive *= speedFactor;
         log += ` = ${offensive.toFixed(2)}<br />`;
 
-        this._battleValue = Math.round(defensive + offensive);
-        log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)} = ${this._battleValue} (provisional)<br />`;
+        const robotic = this._roboticControl === "none" ? 1 : SRCS_BATTLE_VALUE_MULTIPLIER;
+        this._battleValue = Math.round((defensive + offensive) * robotic);
+        log += `<strong>Battle Value</strong>: ${defensive.toFixed(2)} + ${offensive.toFixed(2)}`
+            + `${robotic !== 1 ? ` x ${robotic} (Smart Robotic Control System, IO:AE p.187)` : ""} = ${this._battleValue} (provisional)<br />`;
         this._calcLogBV = log;
     }
 
@@ -1627,6 +1677,9 @@ export default class Vehicle {
         rows.push([`Armor (${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
         rows.push([`Internal Structure (${this.getStructureWeight()} t)`, this.getStructureWeight() * 10000]);
         rows.push([`Control Systems (${this.getControlSystemsWeight()} t)`, this.getControlSystemsWeight() * 10000]);
+        if (this._roboticControl !== "none") {
+            rows.push([`${this.getRoboticControl().name} (${this.getRoboticControlWeight()} t)`, getRoboticControlCost(this._roboticControl, this.getRoboticControlWeight())]);
+        }
         if (this.getPowerAmplifierWeight() > 0) rows.push(["Power Amplifiers", this.getPowerAmplifierWeight() * 20000]);
         if (this.getWeightedHeatSinks() > 0) rows.push([`Heat Sinks (${this.getWeightedHeatSinks()})`, this.getWeightedHeatSinks() * 2000]);
         const turretWeaponWeight = this._equipmentList
@@ -1671,12 +1724,18 @@ export default class Vehicle {
     }
 
     private _calc() {
-        if (this.requiresFractionalAccounting()) this._weightAccounting = "fractional";
+        // Mounting the first battle armor item turns Fractional Accounting on (Ghosts of Obeedah p.54).
+        const hasBattleArmorEquipment = this.defaultsToFractionalAccounting();
+        if (hasBattleArmorEquipment && !this._hadBattleArmorEquipment) this._weightAccounting = "fractional";
+        this._hadBattleArmorEquipment = hasBattleArmorEquipment;
         this._weights = [];
 
         this._weights.push({ name: "Internal Structure", weight: this.getStructureWeight() });
         this._weights.push({ name: this._engineType.name, weight: this.getEngineWeight() });
         this._weights.push({ name: "Control Systems", weight: this.getControlSystemsWeight() });
+        if (this.getRoboticControlWeight() > 0) {
+            this._weights.push({ name: this.getRoboticControl().name, weight: this.getRoboticControlWeight() });
+        }
         if (this._motiveType.liftEquipment) {
             this._weights.push({ name: this._motiveType.liftEquipment, weight: this.getLiftEquipmentWeight() });
         }
@@ -2195,7 +2254,7 @@ export default class Vehicle {
      */
     public setAmmoBinShots(uuid: string | undefined, shots: number): number {
         const bin = this._equipmentList.find((item) => item.uuid === uuid && item.isAmmo);
-        if (!bin || !this.usesFractionalAccounting()) return 0;
+        if (!bin || !this.canSetAmmoBinShots(bin)) return 0;
         const shotsPerTon = this.getAmmoBinShotsPerTon(bin);
         if (!(shotsPerTon > 0)) return 0;
         const wanted = Math.max(1, Math.min(shotsPerTon, Math.floor(shots) || 1));
@@ -2973,8 +3032,10 @@ export default class Vehicle {
      * (TechManual p. 315 by default). An edition with no table leaves the Battle Value as it is.
      */
     public getPilotAdjustedBattleValue(edition?: string): number {
-        const gunnery = this._pilot?.gunnery ?? 4;
-        const piloting = this._pilot?.piloting ?? 5;
+        // A robotic vehicle fights at its control system's Skills (IO:AE p.187).
+        const skills = this.getRoboticSkills();
+        const gunnery = skills?.gunnery ?? this._pilot?.gunnery ?? 4;
+        const piloting = skills?.piloting ?? this._pilot?.piloting ?? 5;
         const multiplier = getSkillMultiplier(gunnery, piloting, "vehicle", edition) ?? 1;
         return Math.round(this._battleValue * multiplier);
     }
@@ -2994,6 +3055,7 @@ export default class Vehicle {
             omni: this._omni || undefined,
             jumpMP: this._jumpMP,
             troopSpace: this._troopSpace || undefined,
+            roboticControl: this._roboticControl !== "none" ? this._roboticControl : undefined,
             weightAccounting: this.usesFractionalAccounting() ? "fractional" : undefined,
             tech: this._tech.tag,
             era: this._era.tag,
@@ -3013,7 +3075,7 @@ export default class Vehicle {
                 currentAmmo: item.currentAmmo,
                 selectedAmmoBinUUID: item.selectedAmmoBinUUID,
                 currentAdditionalArmor: item.currentAdditionalArmor,
-                shots: this.usesFractionalAccounting() && item.isAmmo && item.weight < 1 ? this._fullBinShots(item) : undefined,
+                shots: item.isAmmo && this.canSetAmmoBinShots(item) && item.weight < 1 ? this._fullBinShots(item) : undefined,
             })),
             pilot: this._pilot.export(),
             inPlay: noInPlayVariables ? undefined : this._inPlay,
@@ -3062,6 +3124,7 @@ export default class Vehicle {
             this._hasTurret = typeof importObject.hasTurret === "boolean" ? importObject.hasTurret : true;
             this._dualTurret = importObject.dualTurret === true && this._hasTurret && this.canHaveDualTurret();
             this._troopSpace = savedNumber(importObject.troopSpace, 0, 0, 1000);
+            this._roboticControl = getRoboticControlSystem(savedString(importObject.roboticControl)).tag;
             // Vehicles saved before Omnis were recorded load as standard vehicles.
             this._omni = importObject.omni === true;
             this._podUUIDs = new Set();
@@ -3117,7 +3180,7 @@ export default class Vehicle {
             }
             // Shots left in each bin, clamped to what the bin holds, once every weapon is mounted.
             for (const [item, entry] of restored) {
-                if (item.isAmmo && this.usesFractionalAccounting() && typeof entry.shots === "number" && Number.isFinite(entry.shots)) {
+                if (this.canSetAmmoBinShots(item) && typeof entry.shots === "number" && Number.isFinite(entry.shots)) {
                     const shotsPerTon = this.getAmmoBinShotsPerTon(item);
                     if (shotsPerTon > 0) item.weight = roundUpToKilogram(Math.max(1, Math.min(shotsPerTon, Math.floor(entry.shots))) / shotsPerTon);
                 }
@@ -3125,6 +3188,8 @@ export default class Vehicle {
                     item.currentAmmo = Math.max(0, Math.min(this._fullBinShots(item), Math.floor(entry.currentAmmo)));
                 }
             }
+            // A saved design keeps the accounting it was saved with, battle armor items or not.
+            this._hadBattleArmorEquipment = this.defaultsToFractionalAccounting();
             this._calc();
         } catch (error) {
             issue("The saved vehicle could not be read completely");

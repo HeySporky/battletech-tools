@@ -1,7 +1,6 @@
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
-import { BattleMech } from '../../../../classes/battlemech';
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { btTechOptions } from '../../../../data/tech-options';
@@ -394,9 +393,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                                 weights are not rounded to the half ton, only up to the kilogram. Armor is bought by the
                                 point and ammunition by the shot.
                               </p>
-                              {this.props.appGlobals.currentBattleMech.requiresFractionalAccounting() ? (
-                                <p className="smaller-text" data-testid="fractional-accounting-required">
-                                  Stays on while battle armor weapons are mounted (Ghosts of Obeedah p.54).
+                              {this.props.appGlobals.currentBattleMech.defaultsToFractionalAccounting() ? (
+                                <p className="smaller-text" data-testid="fractional-accounting-default">
+                                  On by default with battle armor equipment mounted (Ghosts of Obeedah p.54); it may be turned off.
                                 </p>
                               ) : null}
                             </div>

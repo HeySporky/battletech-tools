@@ -414,6 +414,10 @@ export class BattleMech {
     private _armorWeight: number = 0;
     /** Weight rounding: "fractional" is the Fractional Accounting construction option (TO:AUE p.188). */
     private _weightAccounting: "standard" | "fractional" = "standard";
+    // Whether battle armor items were mounted at the last recalculation, so only the first one turns
+    // Fractional Accounting on; and whether a saved design is loading, which keeps its own accounting.
+    private _hadBattleArmorEquipment = false;
+    private _importing = false;
     /** Armor points bought under Fractional Accounting, where armor is installed by the point. */
     private _fractionalArmorPoints: number = 0;
     private _totalArmor: number = 0;
@@ -5052,13 +5056,12 @@ export class BattleMech {
             const points = this._armorPointsForWeight(this._armorWeight);
             this._weightAccounting = "fractional";
             this._fractionalArmorPoints = points;
-        } else if( this.requiresFractionalAccounting() ) {
-            return this._weightAccounting;
         } else {
             this._weightAccounting = "standard";
             this._armorWeight = Math.ceil(this._armorWeight * 2 - 1e-6) / 2;
             for( const item of this._equipmentList ) {
-                if( item && item.isAmmo ) item.weight = Math.ceil(item.weight * 2 - 1e-6) / 2;
+                // Battle armor ammunition stays by the kilogram whatever the accounting (Ghosts of Obeedah p.54).
+                if( item && item.isAmmo && !item.battleArmorScale ) item.weight = Math.ceil(item.weight * 2 - 1e-6) / 2;
             }
         }
         this._calc();
@@ -5067,18 +5070,28 @@ export class BattleMech {
 
     /**
      * A unit "built or modified to carry battle armor equipment uses the Fractional Accounting construction
-     * option by default" (Ghosts of Obeedah p.54): with such an item mounted the option cannot be turned off.
+     * option by default" (Ghosts of Obeedah p.54). The book's own designs (the Cherub, p.81-83) are built with
+     * standard rounding, so the option is turned on when the first such item is mounted and can be turned off
+     * (user ruling, 2026-10-14).
      */
-    public requiresFractionalAccounting(): boolean {
+    public defaultsToFractionalAccounting(): boolean {
         return this._equipmentList.some(item => item && item.battleArmorScale === true);
     }
 
-    // Mounting a battle armor item turns the option on; the armor already bought is kept, by the point.
+    // Mounting the first battle armor item turns the option on; the armor already bought is kept, by the point.
     private _adoptFractionalAccounting(): void {
-        if( this.usesFractionalAccounting() || !this.requiresFractionalAccounting() ) return;
+        const hasBattleArmorEquipment = this.defaultsToFractionalAccounting();
+        const adopt = hasBattleArmorEquipment && !this._hadBattleArmorEquipment && !this._importing && !this.usesFractionalAccounting();
+        this._hadBattleArmorEquipment = hasBattleArmorEquipment;
+        if( !adopt ) return;
         const points = this._armorPointsForWeight(this._armorWeight);
         this._weightAccounting = "fractional";
         this._fractionalArmorPoints = points;
+    }
+
+    /** Ammunition can be bought by the shot under Fractional Accounting, and battle armor ammunition always. */
+    public canSetAmmoBinShots( bin: IEquipmentItem ): boolean {
+        return !!bin.isAmmo && (this.usesFractionalAccounting() || bin.battleArmorScale === true);
     }
 
     /** Tons per point of the selected armor under Fractional Accounting (Fractional Armor Table, TO:AUE p.188). */
@@ -5122,7 +5135,7 @@ export class BattleMech {
      */
     public setAmmoBinShots( ammoUUID: string | undefined, shots: number ): number {
         const bin = this._equipmentList.find(eq => eq && eq.uuid === ammoUUID && eq.isAmmo);
-        if( !bin || !this.usesFractionalAccounting() ) return 0;
+        if( !bin || !this.canSetAmmoBinShots(bin) ) return 0;
         const shotsPerTon = this.getAmmoBinShotsPerTon(bin);
         if( !(shotsPerTon > 0) ) return 0;
         const wanted = Math.max(1, Math.min(shotsPerTon, Math.floor(shots) || 1));
@@ -7158,6 +7171,19 @@ export class BattleMech {
     }
 
     import(
+        importObject: IBattleMechExport,
+    ) {
+        // A saved design keeps the accounting it was saved with, battle armor items or not.
+        this._importing = true;
+        try {
+            return this._importRecord( importObject );
+        } finally {
+            this._importing = false;
+            this._hadBattleArmorEquipment = this.defaultsToFractionalAccounting();
+        }
+    }
+
+    private _importRecord(
         importObject: IBattleMechExport,
     ) {
 

@@ -84,7 +84,7 @@ export default class VehicleCreatorEquipmentPlacement extends React.Component<IE
                                             <td>{item.name}</td>
                                             <td>
                                                 {item.weight}
-                                                {vehicle.usesFractionalAccounting() && vehicle.getAmmoBinShotsPerTon(item) > 0 ? (
+                                                {vehicle.canSetAmmoBinShots(item) && vehicle.getAmmoBinShotsPerTon(item) > 0 ? (
                                                     <label className="smaller-text" data-testid="fractional-ammo-shots">
                                                         &nbsp;shots:&nbsp;
                                                         <input

@@ -104,20 +104,27 @@ describe("Vehicle-Mounted Battle Armor Equipment (Ghosts of Obeedah pp.53-54)", 
         expect(vehicle.getAmmoBinShots(cells)).toBe(39);
     });
 
-    it("turns Fractional Accounting on, and keeps it on, while an item is mounted on a 'Mech", () => {
+    it("turns Fractional Accounting on by default when the first item is mounted on a 'Mech, and lets it be turned off", () => {
         const battleMech = mech();
         expect(battleMech.usesFractionalAccounting()).toBe(false);
         const laser = addToMech(battleMech, "ba-is-er-medium-laser");
 
-        expect(battleMech.requiresFractionalAccounting()).toBe(true);
+        // "uses the Fractional Accounting construction option by default" (p.54); the book's Cherubs use standard rounding.
+        expect(battleMech.defaultsToFractionalAccounting()).toBe(true);
         expect(battleMech.usesFractionalAccounting()).toBe(true);
-        expect(battleMech.setWeightAccounting("standard")).toBe("fractional");
         expect(battleMech.getRequiredRulesLevel()).toBeGreaterThanOrEqual(EXPERIMENTAL_RULES_LEVEL);
         expect(laser.heat).toBe(4);
 
-        battleMech.removeEquipment(laser.uuid!);
-        expect(battleMech.requiresFractionalAccounting()).toBe(false);
         expect(battleMech.setWeightAccounting("standard")).toBe("standard");
+        addToMech(battleMech, "ba-is-medium-laser");
+        expect(battleMech.usesFractionalAccounting()).toBe(false);
+
+        // Battle armor ammunition is still bought by the kilogram (p.54).
+        const bin = addToMech(battleMech, "ammo-ba-is-medium-recoilless-rifle");
+        addToMech(battleMech, "ba-is-medium-recoilless-rifle");
+        expect(battleMech.canSetAmmoBinShots(bin)).toBe(true);
+        expect(battleMech.setAmmoBinShots(bin.uuid, 125)).toBe(125);
+        expect(bin.weight).toBe(0.25);
     });
 
     it("offers the weapons on a 'Mech only at the Experimental rules level, without power cells", () => {
@@ -131,18 +138,27 @@ describe("Vehicle-Mounted Battle Armor Equipment (Ghosts of Obeedah pp.53-54)", 
         expect(offered.some((item) => item.tag.startsWith("ba-clan-"))).toBe(false);
     });
 
-    it("turns Fractional Accounting on, and keeps it on, while an item is mounted on a vehicle", () => {
+    it("turns Fractional Accounting on by default when the first item is mounted on a vehicle, and keeps a design saved without it", () => {
         const vehicle = tank();
         expect(vehicle.getAvailableEquipment(false, 3).some((item) => item.battleArmorScale)).toBe(false);
         expect(vehicle.getAvailableEquipment(false, EXPERIMENTAL_RULES_LEVEL).some((item) => item.tag === "ba-is-machine-gun")).toBe(true);
 
         vehicle.addEquipmentFromTag("ba-is-machine-gun");
         expect(vehicle.usesFractionalAccounting()).toBe(true);
-        expect(vehicle.setWeightAccounting("standard")).toBe("fractional");
         expect(vehicle.getRequiredRulesLevel()).toBeGreaterThanOrEqual(EXPERIMENTAL_RULES_LEVEL);
 
-        vehicle.removeEquipment(vehicle.getEquipmentList()[0].uuid!);
+        vehicle.addEquipmentFromTag("ammo-ba-is-machine-gun");
+        const bin = vehicle.getEquipmentList().find((item) => item.isAmmo)!;
+        vehicle.setAmmoBinShots(bin.uuid, 75);
         expect(vehicle.setWeightAccounting("standard")).toBe("standard");
+        // Battle armor ammunition stays by the kilogram when the option is off (p.54): 75 shots of 100 g.
+        expect(bin.weight).toBe(0.008);
+        vehicle.addEquipmentFromTag("ba-is-machine-gun");
+        expect(vehicle.usesFractionalAccounting()).toBe(false);
+
+        const reloaded = new Vehicle(vehicle.exportJSON());
+        expect(reloaded.usesFractionalAccounting()).toBe(false);
+        expect(reloaded.getEquipmentList().find((item) => item.isAmmo)?.weight).toBe(0.008);
     });
 
     it("needs heat sinks for an energy weapon on a vehicle unless it is fed from power cells", () => {
@@ -171,6 +187,81 @@ describe("Vehicle-Mounted Battle Armor Equipment (Ghosts of Obeedah pp.53-54)", 
         vehicle.addEquipmentFromTag("ammo-ba-is-machine-gun");
         // A quarter-ton bin of machine gun rounds: 20 points, not 2,500 shots x 2 damage.
         expect(vehicle.getAmmunitionExplosionDamage()).toBe(20);
+    });
+
+    it("offers non-weapon equipment at its standard weight in one slot, but no mobility, fuel, power or life support gear", () => {
+        const tags = [...getBattleArmorScaleEquipment("is"), ...getBattleArmorScaleEquipment("clan")].map((item) => item.tag);
+        for (const tag of ["ba-is-active-probe", "ba-clan-active-probe", "ba-is-ecm-suite", "ba-is-angel-ecm", "ba-is-camo-system", "ba-is-c3-system",
+            "ba-is-cutting-torch", "ba-is-searchlight", "ba-is-remote-sensor-dispenser", "ba-is-mine-dispenser", "ba-clan-heat-sensor", "ba-clan-improved-sensors"]) {
+            expect(tags).toContain(tag);
+        }
+        expect(tags.filter((tag) => /jump-booster|myomer-booster|parafoil|partial-wing|fuel-tank|power-pack|life-support|space-operations|dropchute|magnetic-clamps|harjel|mission-equipment/.test(tag))).toEqual([]);
+
+        // Not rounded to the quarter ton, as weapons are: TM pp.346-348.
+        expect(find("is", "ba-is-cutting-torch").weight).toBe(0.005);
+        expect(find("is", "ba-is-ecm-suite").weight).toBe(0.1);
+        expect(find("clan", "ba-clan-active-probe").weight).toBe(0.15);
+        expect(find("is", "ba-is-camo-system").space.combatVehicle).toBe(1);
+        expect(find("is", "ba-is-active-probe").battleValue).toBe(0);
+    });
+
+    it("notes that battle armor stealth gear and C3 work only on a unit of 3 tons or less (p.55)", () => {
+        for (const tag of ["ba-is-ecm-suite", "ba-is-angel-ecm", "ba-is-camo-system", "ba-is-c3-system", "ba-is-improved-c3-system"]) {
+            expect(find("is", tag).notes).toContain("3 tons or less");
+            expect(find("is", tag).alphaStrike.specialAbility).toEqual([]);
+        }
+        expect(find("is", "ba-is-active-probe").notes).not.toContain("3 tons or less");
+        expect(find("is", "ba-is-active-probe").alphaStrike.specialAbility).toEqual(["LPRB"]);
+    });
+
+    it("mounts non-weapon equipment on a vehicle and a 'Mech by the kilogram", () => {
+        const vehicle = tank();
+        // Fractional Accounting changes the rest of the vehicle's weights, so it is on before the baseline is taken.
+        expect(vehicle.setWeightAccounting("fractional", EXPERIMENTAL_RULES_LEVEL)).toBe("fractional");
+        const before = vehicle.getCurrentTonnage();
+        vehicle.addEquipmentFromTag("ba-is-cutting-torch");
+        expect(vehicle.defaultsToFractionalAccounting()).toBe(true);
+        expect(vehicle.getCurrentTonnage() - before).toBeCloseTo(0.005, 6);
+
+        const battleMech = mech();
+        expect(battleMech.getAvailableEquipment(false, EXPERIMENTAL_RULES_LEVEL).some((item) => item.tag === "ba-is-active-probe")).toBe(true);
+        const probe = addToMech(battleMech, "ba-is-active-probe");
+        expect(probe.weight).toBe(0.25);
+        expect(battleMech.usesFractionalAccounting()).toBe(true);
+    });
+
+    it("offers the Taser, Pop-Up Mine, Bomb Rack and Tube Artillery, which are not missile weapons", () => {
+        // Weights from the battle armor tables, rounded up to the quarter ton: 300, 200, 100 and 500 kg.
+        const taser = find("is", "ba-is-taser");
+        expect([taser.weight, taser.heat, taser.damage, taser.isOneShot, taser.battleValue]).toEqual([0.5, 1, 1, true, 15]);
+        expect(taser.ammoTypes).toBeUndefined();
+        const mine = find("is", "ba-is-pop-up-mine");
+        expect([mine.weight, mine.heat, mine.damage, mine.isOneShot, mine.battleValue]).toEqual([0.25, 0, 4, true, 6]);
+        const bombs = find("clan", "ba-clan-bomb-rack");
+        expect([bombs.weight, bombs.damage, bombs.isOneShot, bombs.battleValue]).toEqual([0.25, 2, true, 11]);
+        expect(getBattleArmorScaleEquipment("is").some((item) => item.tag === "ba-clan-bomb-rack")).toBe(false);
+
+        // TO:AUE p.96: 3 points to the hex and 1 to those around it, 2 mapsheets, 15 kg a shot.
+        const tube = find("is", "ba-is-tube-artillery");
+        expect([tube.weight, tube.heat, tube.damage, tube.range.maxMapSheets, tube.category]).toEqual([0.5, 1, 3, 2, "Artillery Weapons"]);
+        expect(tube.notes).toContain("1 to each adjacent hex");
+        const shells = find("is", "ammo-ba-is-tube-artillery");
+        expect(getCompatibleAmmo(tube, shells)).toBe(true);
+        expect(getWeaponShotsPerTon(tube, shells)).toBeCloseTo(1000 / 15);
+        expect(shells.battleValue).toBe(4);
+    });
+
+    it("mounts a Taser and Tube Artillery on a vehicle, with shells bought by the shot", () => {
+        const vehicle = tank();
+        vehicle.addEquipmentFromTag("ba-is-taser");
+        vehicle.addEquipmentFromTag("ba-is-tube-artillery");
+        vehicle.addEquipmentFromTag("ammo-ba-is-tube-artillery");
+        const bin = vehicle.getEquipmentList().find((item) => item.isAmmo)!;
+        vehicle.setAmmoBinShots(bin.uuid, 4);
+        // 4 shells at 15 kg: 60 kg.
+        expect(bin.weight).toBe(0.06);
+        expect(vehicle.getAmmoBinShots(bin)).toBe(4);
+        expect(vehicle.usesFractionalAccounting()).toBe(true);
     });
 
     it("survives a save and load on a 'Mech and on a vehicle", () => {

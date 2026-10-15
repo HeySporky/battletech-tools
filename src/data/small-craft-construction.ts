@@ -141,11 +141,12 @@ export const ESCAPE_SYSTEM_CAPACITY = 7;
 
 export const roundUpToHalfTon = (tons: number): number => Math.ceil(tons * 2 - 1e-9) / 2;
 
-export const getSmallCraftEngineWeight = (tonnage: number, safeThrust: number, techBase: "is" | "clan"): number =>
-    roundUpToHalfTon(tonnage * safeThrust * SMALL_CRAFT_ENGINE_FACTOR[techBase]);
+/** `round` is the half-ton rounding by default; Fractional Accounting passes a round up to the kilogram (TO:AUE p.188). */
+export const getSmallCraftEngineWeight = (tonnage: number, safeThrust: number, techBase: "is" | "clan", round: (tons: number) => number = roundUpToHalfTon): number =>
+    round(tonnage * safeThrust * SMALL_CRAFT_ENGINE_FACTOR[techBase]);
 
-export const getSmallCraftStructureWeight = (tonnage: number, structuralIntegrity: number, shape: SmallCraftShape): number =>
-    roundUpToHalfTon(structuralIntegrity * tonnage / SMALL_CRAFT_SI_DIVISOR[shape]);
+export const getSmallCraftStructureWeight = (tonnage: number, structuralIntegrity: number, shape: SmallCraftShape, round: (tons: number) => number = roundUpToHalfTon): number =>
+    round(structuralIntegrity * tonnage / SMALL_CRAFT_SI_DIVISOR[shape]);
 
 /**
  * Heat sinks that come free with the engine (Aerospace Unit Heat Sinks Table, TM p.193): engine tons / 60 on an
@@ -158,5 +159,5 @@ export const getSmallCraftFreeHeatSinks = (engineTons: number, shape: SmallCraft
  * Extra fire control for an arc holding more than 12 weapons: the weapon count over 12, rounded down, times a
  * tenth of the arc's weapon tonnage, rounded up to the half ton (TM p.196).
  */
-export const getSmallCraftFireControlWeight = (weaponCount: number, weaponTons: number): number =>
-    weaponCount > SMALL_CRAFT_WEAPONS_PER_ARC ? roundUpToHalfTon(Math.floor(weaponCount / SMALL_CRAFT_WEAPONS_PER_ARC) * 0.1 * weaponTons) : 0;
+export const getSmallCraftFireControlWeight = (weaponCount: number, weaponTons: number, round: (tons: number) => number = roundUpToHalfTon): number =>
+    weaponCount > SMALL_CRAFT_WEAPONS_PER_ARC ? round(Math.floor(weaponCount / SMALL_CRAFT_WEAPONS_PER_ARC) * 0.1 * weaponTons) : 0;

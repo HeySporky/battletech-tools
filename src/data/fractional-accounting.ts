@@ -49,6 +49,18 @@ export const fractionalArmorTonsPerPoint: Record<string, { is: number, clan: num
     "reactive": { is: 0.0625, clan: 0.0625 },
 };
 
+/**
+ * The Fractional Armor Table row for each aerospace armor: the table lists ground armor names, and each of these
+ * is that armor's aerospace form (TM p.192). The printed rows equal one ton divided by the aerospace points per ton.
+ */
+const fractionalAerospaceArmorRows: Record<string, string> = {
+    "aerospace-standard": "standard",
+    "light-ferro-aluminum": "light-ferro-fibrous",
+    "ferro-aluminum": "ferro-fibrous",
+    "clan-ferro-aluminum": "ferro-fibrous",
+    "heavy-ferro-aluminum": "heavy-ferro-fibrous",
+};
+
 /** "Round any figures up to the nearest kilogram (0.001 tons)" (TO:AUE p.188). */
 export function roundUpToKilogram(weight: number): number {
     if (!(weight > 0)) return 0;
@@ -81,4 +93,9 @@ export function getFractionalArmorTonsPerPoint(armorTag: string, techBase: "is" 
     const printed = fractionalArmorTonsPerPoint[armorTag]?.[techBase];
     if (printed) return printed;
     return pointsPerTon > 0 ? 1 / pointsPerTon : 0.0625;
+}
+
+/** As above for an aerospace armor (fighters and Small Craft), read from the row of its ground form. */
+export function getFractionalAerospaceArmorTonsPerPoint(armorTag: string, techBase: "is" | "clan", pointsPerTon: number): number {
+    return getFractionalArmorTonsPerPoint(fractionalAerospaceArmorRows[armorTag] ?? armorTag, techBase, pointsPerTon);
 }

@@ -1,7 +1,7 @@
 import { generateUUID } from "../utils/generateUUID";
 import { IEquipmentItem, IEras } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
-import { getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { getProtoMechJumpJetWeightKg, protoMechComponents } from "../data/protomech-components";
 import {
@@ -205,7 +205,9 @@ const JUMP_TYPES: ProtoMechJumpType[] = ["none", "standard", "extended", "umu"];
 
 let clanCatalog: IEquipmentItem[] | null = null;
 const getClanCatalog = (): IEquipmentItem[] => {
-    if (!clanCatalog) clanCatalog = getEquipmentListByTech("clan");
+    // Clan battle armor weapons may be mounted on ProtoMechs, at one item each (Ghosts of Obeedah pp.53-54). They go
+    // last, so a catalog record always wins a lookup, and are Experimental, which the rules-level filters enforce.
+    if (!clanCatalog) clanCatalog = [...getEquipmentListByTech("clan"), ...getBattleArmorScaleListByTech("clan")];
     return clanCatalog;
 };
 const findCatalogItem = (tag: string): IEquipmentItem | undefined => findByTag(getClanCatalog(), tag);

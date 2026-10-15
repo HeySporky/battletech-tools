@@ -60,4 +60,6 @@ export const battleArmorFeatureDates = {
     squadSupport: { is: { introduced: 3056, prototype: 3052 }, clan: { introduced: 3058 } } as ByTechBase,
     detachableMissilePack: { clan: { introduced: 2885, prototype: 2870 }, is: { introduced: 3051 } } as ByTechBase,
     detachableWeaponPack: { clan: { introduced: 3072, prototype: 3070 }, is: { introduced: 3073 } } as ByTechBase,
+    // Automata: "Introduced: ca. 3090 (Word of Blake)", both technology bases (Ghosts of Obeedah p.51).
+    automata: both({ introduced: 3090 }),
 };

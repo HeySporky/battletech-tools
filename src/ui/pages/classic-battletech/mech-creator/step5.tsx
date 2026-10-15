@@ -424,7 +424,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                         ) : null}
                                       </td>
                                       <td>
-                                        {item.isAmmo && this.props.appGlobals.currentBattleMech?.usesFractionalAccounting()
+                                        {this.props.appGlobals.currentBattleMech?.canSetAmmoBinShots(item)
                                           && this.props.appGlobals.currentBattleMech.getAmmoBinShotsPerTon(item) > 0 ? (
                                           <label className="smaller-text" data-testid="fractional-ammo-shots">
                                             {item.weight} tons,&nbsp;shots:&nbsp;

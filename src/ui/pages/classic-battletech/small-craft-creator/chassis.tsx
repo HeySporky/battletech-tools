@@ -116,6 +116,28 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                                     ))}
                                 </select>
                             </label>
+                            {craft.canUseFractionalAccounting(rulesLevel) || craft.usesFractionalAccounting() ? (
+                                <div data-testid="fractional-accounting-option">
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={craft.usesFractionalAccounting()}
+                                            onChange={(e) => { const value = e.currentTarget.checked; this.update((c) => c.setWeightAccounting(value ? "fractional" : "standard", rulesLevel)); }}
+                                        />
+                                        &nbsp;Fractional Accounting (Experimental)
+                                    </label>
+                                    <p className="smaller-text">
+                                        Construction option (TO:AUE p.188): engine, fuel pump, structure, control, fire control and
+                                        armor weights are not rounded to the half ton, only up to the kilogram. Armor is bought by
+                                        the point and ammunition by the shot. Fuel is still bought in half tons (TM p. 186).
+                                    </p>
+                                    {craft.defaultsToFractionalAccounting() ? (
+                                        <p className="smaller-text" data-testid="fractional-accounting-default">
+                                            On by default with battle armor equipment mounted (Ghosts of Obeedah p.54); it may be turned off.
+                                        </p>
+                                    ) : null}
+                                </div>
+                            ) : null}
                         </TextSection>
 
                         <TextSection label="Step 2: Engine, Fuel, Structure and Controls">

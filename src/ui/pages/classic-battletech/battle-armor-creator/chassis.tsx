@@ -76,6 +76,12 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                                     &nbsp;Mixed technology: the chassis above, with armor and equipment of either technology base (Advanced; TO:AUE p. 189)
                                 </label>
                             ) : null}
+                            {suit.canBeAutomata(rulesLevel) || suit.isAutomata() ? (
+                                <label>
+                                    <input type="checkbox" data-testid="ba-automata" checked={suit.isAutomata()} onChange={(e) => { const value = e.currentTarget.checked; this.update((s) => s.setAutomata(value, rulesLevel)); }} />
+                                    &nbsp;Automata: a robot on the Clan chassis weight, run by an Automata Core in place of a trooper (Experimental; Ghosts of Obeedah p. 51)
+                                </label>
+                            ) : null}
                             <label>
                                 Era:
                                 <select data-testid="ba-era" value={suit.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setEra(value)); }}>
@@ -115,7 +121,7 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                             ) : null}
                             <p className="smaller-text">
                                 Chassis {suit.getChassisWeight()} kg; weapon slots: {suit.isQuad() ? `${suit.getSlots("body")} in the body` : `${suit.getSlots("la")} in each arm and ${suit.getSlots("body")} in the body`}.
-                                Every suit has 1 point of internal structure, the trooper (TM pp. 162-163).
+                                Every suit has 1 point of internal structure, {suit.isAutomata() ? "the Automata's Core (Ghosts of Obeedah p. 51)" : "the trooper (TM pp. 162-163)"}.
                             </p>
 
                             <h3>Squad</h3>
@@ -127,16 +133,21 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                             </label>
                             <label>
                                 Gunnery Skill:
-                                <select value={suit.getGunnery()} onChange={(e) => { const value = +e.currentTarget.value; this.update((s) => s.setGunnery(value)); }}>
+                                <select value={suit.getGunnery()} disabled={suit.isAutomata()} onChange={(e) => { const value = +e.currentTarget.value; this.update((s) => s.setGunnery(value)); }}>
                                     {range(0, 8).map((value) => <option key={value} value={value}>{value}</option>)}
                                 </select>
                             </label>
                             <label>
                                 Anti-'Mech Skill:
-                                <select value={suit.getAntiMechSkill()} onChange={(e) => { const value = +e.currentTarget.value; this.update((s) => s.setAntiMechSkill(value)); }}>
+                                <select value={suit.getAntiMechSkill()} disabled={suit.isAutomata()} onChange={(e) => { const value = +e.currentTarget.value; this.update((s) => s.setAntiMechSkill(value)); }}>
                                     {range(0, 8).map((value) => <option key={value} value={value}>{value}</option>)}
                                 </select>
                             </label>
+                            {suit.isAutomata() ? (
+                                <p className="smaller-text" data-testid="ba-automata-skills">
+                                    An Automata's Core gives it Gunnery 4 and Anti-'Mech 5; the Word of Blake fielded them in squads of 6 (Ghosts of Obeedah p. 52).
+                                </p>
+                            ) : null}
                             <p className="smaller-text">
                                 Recommended formations (TM p. 172): {battleArmorFormations.filter((formation) => formation.techBase === suit.getTechBase()).map((formation) => `${formation.name} ${formation.troopers}`).join("; ")}. No squad has more than 6 troopers.
                             </p>

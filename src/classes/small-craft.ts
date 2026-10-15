@@ -3,7 +3,8 @@ import { aerospaceArmorTypes, getAerospaceArmorPointsPerTon } from "../data/aero
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getAmmoBattleValuePerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { getFractionalAerospaceArmorTonsPerPoint, roundUpToKilogram } from "../data/fractional-accounting";
 import Pilot, { IPilot } from "./pilot";
 import { getSkillMultiplier } from "../data/skill-multipliers";
 import { isTargetingComputerWeapon } from "../data/variable-equipment";
@@ -152,6 +153,10 @@ export interface ISmallCraftExport {
     structuralIntegrity: number;
     armorType: string;
     armorTons: number;
+    /** Fractional Accounting (TO:AUE p.188); absent = standard rounding. */
+    weightAccounting?: "fractional";
+    /** Fractional Accounting: armor points bought, at the Fractional Armor Table weight (TO:AUE p.188). */
+    fractionalArmorPoints?: number;
     armorAllocation: ISmallCraftArmorAllocation;
     heatSinkType: string;
     additionalHeatSinks: number;
@@ -218,6 +223,12 @@ export default class SmallCraft {
     private _structuralIntegrity: number = 6;
     private _armorType: IAerospaceArmorType = aerospaceArmorTypes[0];
     private _armorTons: number = 0;
+    /** Weight rounding: "fractional" is the Fractional Accounting construction option (TO:AUE p.188). */
+    private _weightAccounting: "standard" | "fractional" = "standard";
+    // Whether battle armor items were mounted at the last recalculation: only the first one turns Fractional Accounting on.
+    private _hadBattleArmorEquipment = false;
+    /** Armor points bought under Fractional Accounting, which buys armor by the point (TO:AUE p.188). */
+    private _fractionalArmorPoints: number = 0;
     private _armorAllocation: ISmallCraftArmorAllocation = emptyArmor();
     private _heatSinkType: IHeatSync = mechHeatSinkTypes[0];
     private _additionalHeatSinks: number = 0;
@@ -336,11 +347,14 @@ export default class SmallCraft {
     }
 
     /** Tonnage x Safe Thrust x 0.065 (0.061 for a Clan engine), rounded up to the half ton (TM p.185). */
-    public getEngineWeight(): number { return getSmallCraftEngineWeight(this._tonnage, this._safeThrust, this._engineTech); }
+    public getEngineWeight(): number { return getSmallCraftEngineWeight(this._tonnage, this._safeThrust, this._engineTech, this._round); }
 
     public getFuelTons(): number { return this._fuelTons; }
 
-    /** Fuel comes in whole or half tons (TM p.186). */
+    /**
+     * Fuel comes in whole or half tons (TM p.186). That is a lot size, not a calculated weight, so Fractional
+     * Accounting, which frees calculated weights, armor and ammunition (TO:AUE pp.188-189), leaves it.
+     */
     public setFuelTons(tons: number): number {
         const value = Number.isFinite(tons) ? tons : 0;
         this._fuelTons = Math.min(SMALL_CRAFT_MAX_TONNAGE, Math.max(0, Math.round(value * 2) / 2));
@@ -350,7 +364,7 @@ export default class SmallCraft {
 
     public getFuelPoints(): number { return Math.floor(this._fuelTons * SMALL_CRAFT_FUEL_POINTS_PER_TON); }
     /** Tanks and pumps: 2 percent of the fuel, rounded up to the half ton (TM p.186). */
-    public getFuelPumpWeight(): number { return roundUpToHalfTon(this._fuelTons * SMALL_CRAFT_FUEL_PUMP_FACTOR); }
+    public getFuelPumpWeight(): number { return this._round(this._fuelTons * SMALL_CRAFT_FUEL_PUMP_FACTOR); }
     /** Days of travel at 1 G: 1.84 tons of fuel a day (TM p.186). */
     public getBurnDays(): number { return Math.round(this._fuelTons / SMALL_CRAFT_STRATEGIC_FUEL_TONS_PER_DAY * 100) / 100; }
 
@@ -367,15 +381,62 @@ export default class SmallCraft {
     }
 
     /** SI x tonnage / 200 for an aerodyne craft, / 500 for a spheroid, rounded up to the half ton (TM p.187). */
-    public getStructureWeight(): number { return getSmallCraftStructureWeight(this._tonnage, this._structuralIntegrity, this._shape); }
+    public getStructureWeight(): number { return getSmallCraftStructureWeight(this._tonnage, this._structuralIntegrity, this._shape, this._round); }
 
     /** Tonnage x 0.0075, rounded up to the half ton (TM p.189). */
-    public getControlsWeight(): number { return roundUpToHalfTon(this._tonnage * SMALL_CRAFT_CONTROLS_FACTOR); }
+    public getControlsWeight(): number { return this._round(this._tonnage * SMALL_CRAFT_CONTROLS_FACTOR); }
+
+    // Fractional Accounting -----------------------------------------------------------------------------------
+
+    public usesFractionalAccounting(): boolean { return this._weightAccounting === "fractional"; }
+
+    /** Fractional Accounting is "experimental-level unit design" (TO:AUE p.188): Experimental rules and above. */
+    public canUseFractionalAccounting(rulesLevel: number = 2): boolean { return rulesLevel >= EXPERIMENTAL_RULES_LEVEL; }
+
+    /**
+     * Turns the Fractional Accounting construction option on or off (TO:AUE p.188). It can be turned on only at
+     * the Experimental rules level or above; it can always be turned off. Armor keeps its points when turned on; turned
+     * off, armor and ammunition round back up to the half ton, except battle armor ammunition, which stays by the
+     * kilogram (Ghosts of Obeedah p.54).
+     */
+    public setWeightAccounting(accounting: "standard" | "fractional", rulesLevel: number = 2): "standard" | "fractional" {
+        if (accounting === this._weightAccounting) return this._weightAccounting;
+        if (accounting === "fractional" && !this.canUseFractionalAccounting(rulesLevel)) return this._weightAccounting;
+        if (accounting === "fractional") {
+            this._fractionalArmorPoints = this.getPurchasedArmorPoints();
+        } else {
+            this._armorTons = Math.min(this.getMaxArmorTons(), roundUpToHalfTon(this.getArmorTons()));
+            for (const item of this._equipmentList) {
+                if (item.isAmmo && !item.battleArmorScale) item.weight = roundUpToHalfTon(item.weight || 0);
+            }
+        }
+        this._weightAccounting = accounting;
+        this._calc();
+        return this._weightAccounting;
+    }
+
+    /**
+     * A unit "built or modified to carry battle armor equipment uses the Fractional Accounting construction
+     * option by default" (Ghosts of Obeedah p.54). The book's own designs are built with standard rounding, so
+     * the option is turned on when the first such item is mounted and can be turned off (user ruling, 2026-10-14).
+     */
+    public defaultsToFractionalAccounting(): boolean {
+        return this._equipmentList.some((item) => item.battleArmorScale === true);
+    }
+
+    /** Ammunition can be bought by the shot under Fractional Accounting, and battle armor ammunition always. */
+    public canSetAmmoBinShots(bin: IEquipmentItem): boolean {
+        return !!bin.isAmmo && (this.usesFractionalAccounting() || bin.battleArmorScale === true);
+    }
+
+    /** Rounds a calculated weight up: to the half ton, or to the kilogram under Fractional Accounting (TO:AUE p.188). */
+    private _round = (weight: number): number => this.usesFractionalAccounting() ? roundUpToKilogram(weight) : roundUpToHalfTon(weight);
 
     /** Pulls values that depend on others back inside the rules after a change. */
     private _clampToRules(): void {
         this._structuralIntegrity = wholeNumber(this._structuralIntegrity, this.getMinStructuralIntegrity(), this.getMaxStructuralIntegrity());
         this._armorTons = Math.min(this._armorTons, this.getMaxArmorTons());
+        this._fractionalArmorPoints = Math.min(this._fractionalArmorPoints, this.getMaxFractionalArmorPoints());
         this._crew = Math.max(this._crew, this.getMinimumCrew());
         this._officers = Math.min(this._officers, this._crew);
     }
@@ -403,7 +464,28 @@ export default class SmallCraft {
         return getAerospaceArmorPointsPerTon(this._armorType.tag, "small-craft", this.getChassisTechBase(), this._tonnage);
     }
 
-    public getArmorTons(): number { return this._armorTons; }
+    /** Under Fractional Accounting, the points bought times the Fractional Armor Table weight, to the kilogram (TO:AUE p.188). */
+    public getArmorTons(): number {
+        return this.usesFractionalAccounting() ? roundUpToKilogram(this._fractionalArmorPoints * this.getFractionalArmorTonsPerPoint()) : this._armorTons;
+    }
+
+    /** Tons per point of the selected armor under Fractional Accounting (Fractional Armor Table, TO:AUE p.188). */
+    public getFractionalArmorTonsPerPoint(): number {
+        return getFractionalAerospaceArmorTonsPerPoint(this._armorType.tag, this.getChassisTechBase(), this.getArmorPointsPerTon() ?? 16);
+    }
+
+    /** Most points Fractional Accounting can buy: what the armor tonnage limit holds. */
+    public getMaxFractionalArmorPoints(): number {
+        return Math.floor(this.getMaxArmorTons() / this.getFractionalArmorTonsPerPoint() + 1e-6);
+    }
+
+    /** Fractional Accounting: buy armor by the point, "in any desired quantity" (TO:AUE p.188). */
+    public setPurchasedArmorPoints(points: number): number {
+        if (!this.usesFractionalAccounting()) return this.getPurchasedArmorPoints();
+        this._fractionalArmorPoints = wholeNumber(points, 0, this.getMaxFractionalArmorPoints());
+        this._calc();
+        return this._fractionalArmorPoints;
+    }
     /** Structural Integrity x 4.5 tons for an aerodyne craft, x 3.6 for a spheroid, in half tons (TM p.191). */
     public getMaxArmorTons(): number {
         return Math.floor(this._structuralIntegrity * SMALL_CRAFT_MAX_ARMOR_TONS_PER_SI[this._shape] * 2 + 1e-9) / 2;
@@ -419,6 +501,7 @@ export default class SmallCraft {
 
     /** Points the armor tonnage buys, rounded down (TM p.191). */
     public getPurchasedArmorPoints(): number {
+        if (this.usesFractionalAccounting()) return this._fractionalArmorPoints;
         return Math.floor(this._armorTons * (this.getArmorPointsPerTon() ?? 16) + 1e-9);
     }
     /** Free points from the structure: the Structural Integrity for each of the four facings (TM p.191). */
@@ -620,7 +703,7 @@ export default class SmallCraft {
     /** Extra fire control for an arc with more than 12 weapons (TM p.196). */
     public getArcFireControlWeight(arc: SmallCraftArc): number {
         const items = this.getArcItems(arc);
-        return getSmallCraftFireControlWeight(items.length, items.reduce((sum, item) => sum + (item.weight || 0), 0));
+        return getSmallCraftFireControlWeight(items.length, items.reduce((sum, item) => sum + (item.weight || 0), 0), this._round);
     }
     public getFireControlWeight(): number {
         return SMALL_CRAFT_ARCS.reduce((sum, arc) => sum + this.getArcFireControlWeight(arc), 0);
@@ -649,6 +732,20 @@ export default class SmallCraft {
                 items.push(item);
             }
         }
+        // Battle armor weapons on aerospace fighters and small craft are Experimental (Ghosts of Obeedah p.53).
+        if (rulesLevel >= EXPERIMENTAL_RULES_LEVEL) {
+            const battleArmorScale = getBattleArmorScaleListByTech(techTag);
+            // A Small Craft tracks heat, so its battle armor energy weapons run off heat sinks, never power cells (p.54).
+            const energyTags = battleArmorScale.filter((item) => item.category === "Energy Weapons").map((item) => item.tag);
+            for (const item of battleArmorScale) {
+                if (energyTags.includes(item.feedsWeaponTag ?? "")) continue;
+                item.criticals = this.getItemSlots(item);
+                const availability = this._datesAvailability(item, rulesLevel);
+                item.availableAsPrototype = availability.asPrototype;
+                item.available = availability.available;
+                items.push(item);
+            }
+        }
         items.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
         const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
         return items.filter((item) => isEquipmentWithinRulesLevel(item, offeredLevel));
@@ -658,7 +755,38 @@ export default class SmallCraft {
         const techTag = this._tech.tag;
         const own = getEquipmentListByTech(techTag, true);
         // A saved craft keeps what it mounted, including equipment since moved to the other tech base's catalog.
-        return techTag === "is" || techTag === "clan" ? [...own, ...getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true)] : own;
+        const catalog = techTag === "is" || techTag === "clan" ? [...own, ...getEquipmentListByTech(techTag === "clan" ? "mclan" : "mis", true)] : own;
+        // Battle armor scale items go last, so a catalog record always wins a lookup.
+        return [...catalog, ...getBattleArmorScaleListByTech(techTag)];
+    }
+
+    // Ammunition by the shot ----------------------------------------------------------------------------------
+
+    /** Shots in one full ton of a bin's ammunition, for the weapon it feeds; 0 with no such weapon aboard. */
+    public getAmmoBinShotsPerTon(ammo: IEquipmentItem): number {
+        if (!ammo.isAmmo) return 0;
+        const weapon = this._equipmentList.find((item) => !item.isAmmo && getCompatibleAmmo(item, ammo));
+        return weapon ? getWeaponShotsPerTon(weapon, ammo) : 0;
+    }
+
+    /** Shots a bin holds as bought. */
+    public getAmmoBinShots(ammo: IEquipmentItem): number {
+        return Math.floor(this.getAmmoBinShotsPerTon(ammo) * (ammo.weight || 0) + 1e-6);
+    }
+
+    /**
+     * Fractional Accounting: carry ammunition by the shot. A shot weighs a full-ton bin divided by its number of
+     * shots, rounded up to the kilogram; a bin holds from one shot to a full ton (TO:AUE p.189).
+     */
+    public setAmmoBinShots(uuid: string | undefined, shots: number): number {
+        const bin = this._equipmentList.find((item) => item.uuid === uuid && item.isAmmo);
+        if (!bin || !this.canSetAmmoBinShots(bin)) return 0;
+        const shotsPerTon = this.getAmmoBinShotsPerTon(bin);
+        if (!(shotsPerTon > 0)) return 0;
+        const wanted = Math.max(1, Math.min(shotsPerTon, Math.floor(shots) || 1));
+        bin.weight = roundUpToKilogram(wanted / shotsPerTon);
+        this._calc();
+        return wanted;
     }
 
     private _newEquipment(catalogItem: IEquipmentItem, location?: unknown, uuid?: unknown): IEquipmentItem {
@@ -751,7 +879,7 @@ export default class SmallCraft {
         if (this._structuralIntegrity < this.getMinStructuralIntegrity() || this._structuralIntegrity > this.getMaxStructuralIntegrity()) {
             issues.push(`Structural Integrity must be from ${this.getMinStructuralIntegrity()} to ${this.getMaxStructuralIntegrity()} (Maximum Thrust to 30 times it, TM p.187).`);
         }
-        if (this._armorTons > this.getMaxArmorTons()) {
+        if (this.getArmorTons() > this.getMaxArmorTons()) {
             issues.push(`Armor exceeds the maximum of ${this.getMaxArmorTons()} tons (Structural Integrity x ${SMALL_CRAFT_MAX_ARMOR_TONS_PER_SI[this._shape]}, TM p.191).`);
         }
         if (this.getUnallocatedArmorPoints() < 0) {
@@ -840,6 +968,10 @@ export default class SmallCraft {
     }
 
     private _calc(): void {
+        // Mounting the first battle armor item turns Fractional Accounting on (Ghosts of Obeedah p.54).
+        const hasBattleArmorEquipment = this.defaultsToFractionalAccounting();
+        if (hasBattleArmorEquipment && !this._hadBattleArmorEquipment) this._weightAccounting = "fractional";
+        this._hadBattleArmorEquipment = hasBattleArmorEquipment;
         const quarters = quartersTypes.filter((type) => this._quarters[type.tag] > 0)
             .map((type) => ({ name: `Quarters, ${type.name} (${this._quarters[type.tag]})`, weight: this._quarters[type.tag] * type.tons }));
         const bays = this._bays.map((bay) => {
@@ -853,7 +985,7 @@ export default class SmallCraft {
             { name: "Fuel Tanks and Pumps", weight: this.getFuelPumpWeight() },
             { name: `Structural Integrity (${this._structuralIntegrity})`, weight: this.getStructureWeight() },
             { name: "Control Systems", weight: this.getControlsWeight() },
-            { name: `Armor (${this._armorType.name}, ${this.getPurchasedArmorPoints()} + ${this.getBonusArmorPoints()} points)`, weight: this._armorTons },
+            { name: `Armor (${this._armorType.name}, ${this.getPurchasedArmorPoints()} + ${this.getBonusArmorPoints()} points)`, weight: this.getArmorTons() },
             { name: `Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name}, ${this.getFreeHeatSinks()} free)`, weight: this._additionalHeatSinks },
             ...(this.getFireControlWeight() > 0 ? [{ name: "Extra Fire Control", weight: this.getFireControlWeight() }] : []),
             ...this._equipmentList.map((item) => ({ name: item.name, weight: item.weight || 0 })),
@@ -1048,7 +1180,7 @@ export default class SmallCraft {
             [`Drive Unit (500 x Safe Thrust ${this._safeThrust} x ${this._tonnage} t / 100)`, 500 * this._safeThrust * this._tonnage / 100],
             [`Engine (1,000 x ${this.getEngineWeight()} t)`, 1000 * this.getEngineWeight()],
             [`Fuel Tanks (200 x ${this._fuelTons} t)`, 200 * this._fuelTons],
-            [`Armor (${this._armorType.name}, ${this._armorTons} t)`, this._armorTons * (this._armorType.costMultiplier || 10000)],
+            [`Armor (${this._armorType.name}, ${this.getArmorTons()} t)`, this.getArmorTons() * (this._armorType.costMultiplier || 10000)],
         ];
         if (this.getTotalHeatSinks() > 0) rows.push([`Heat Sinks (${this.getTotalHeatSinks()} ${this._heatSinkType.name})`, this.getTotalHeatSinks() * (this._heatSinkType.cost || 2000)]);
         const equipment = this._equipmentList.reduce((sum, item) => sum + (item.isAmmo ? (item.cbills || 0) * (item.weight || 0) : item.cbills || 0), 0);
@@ -1074,6 +1206,8 @@ export default class SmallCraft {
     public getRequiredRulesLevel(): number {
         let level = 0;
         for (const item of this._equipmentList) level = Math.max(level, getEquipmentRulesLevel(item));
+        // Fractional Accounting is "experimental-level unit design" (TO:AUE p.188).
+        if (this.usesFractionalAccounting()) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         return level;
     }
 
@@ -1110,6 +1244,8 @@ export default class SmallCraft {
         const as = weapon.alphaStrike;
         if (!as) return [0, 0, 0, 0];
         const multiplier = this._asAmmoMultiplier(weapon) * (this.hasTargetingComputer() && as.tc ? 1.1 : 1);
+        // On an aerospace unit a battle armor weapon's range is Short (Ghosts of Obeedah p.54).
+        if (weapon.battleArmorScale) return [(as.rangeShort || 0) * multiplier, 0, 0, 0];
         return [as.rangeShort || 0, as.rangeMedium || 0, as.rangeLong || 0, as.rangeExtreme || 0].map((value) => value * multiplier);
     }
 
@@ -1518,7 +1654,8 @@ export default class SmallCraft {
             fuelTons: this._fuelTons,
             structuralIntegrity: this._structuralIntegrity,
             armorType: this._armorType.tag,
-            armorTons: this._armorTons,
+            armorTons: this.getArmorTons(),
+            ...(this.usesFractionalAccounting() ? { weightAccounting: "fractional" as const, fractionalArmorPoints: this._fractionalArmorPoints } : {}),
             armorAllocation: { ...this._armorAllocation },
             heatSinkType: this._heatSinkType.tag,
             additionalHeatSinks: this._additionalHeatSinks,
@@ -1529,7 +1666,10 @@ export default class SmallCraft {
             bays: this._bays.map((bay) => ({ ...bay })),
             escapePods: this._escapePods,
             lifeBoats: this._lifeBoats,
-            equipment: this._equipmentList.map((item) => ({ tag: item.tag, location: item.location, uuid: item.uuid })),
+            equipment: this._equipmentList.map((item) => ({
+                tag: item.tag, location: item.location, uuid: item.uuid,
+                ...(this.canSetAmmoBinShots(item) && (item.weight || 0) < 1 ? { shots: this.getAmmoBinShots(item) } : {}),
+            })),
         };
     }
 
@@ -1612,6 +1752,9 @@ export default class SmallCraft {
             this.setArmorType(armorTag);
             if (armorTag && this._armorType.tag !== armorTag) issue(`Replaced armor "${armorTag.slice(0, 40)}" with ${this._armorType.name}`);
             this.setArmorTons(savedNumber(saved.armorTons, 0, 0, 10000));
+            // Fractional Accounting is kept from the save whatever the rules level, so the design loads as built.
+            this._weightAccounting = saved.weightAccounting === "fractional" ? "fractional" : "standard";
+            if (this.usesFractionalAccounting()) this.setPurchasedArmorPoints(savedNumber(saved.fractionalArmorPoints, 0, 0, 100000));
             this._armorAllocation = emptyArmor();
             const armor = isPlainObject(saved.armorAllocation) ? saved.armorAllocation : {};
             for (const facing of SMALL_CRAFT_FACINGS) this.setArmorAllocation(facing, savedNumber(armor[facing], 0, 0, 10000));
@@ -1623,6 +1766,7 @@ export default class SmallCraft {
             const entries = Array.isArray(saved.equipment) ? saved.equipment : [];
             if (entries.length > MAX_SMALL_CRAFT_EQUIPMENT) issue(`Kept the first ${MAX_SMALL_CRAFT_EQUIPMENT} of ${entries.length} equipment entries`);
             const catalog = this._catalog();
+            const pendingShots: { uuid: string | undefined; shots: number }[] = [];
             for (const entry of entries.slice(0, MAX_SMALL_CRAFT_EQUIPMENT)) {
                 if (!isPlainObject(entry) || typeof entry.tag !== "string") {
                     issue("Skipped an equipment entry that could not be read");
@@ -1633,8 +1777,14 @@ export default class SmallCraft {
                     issue(`Skipped unknown equipment "${entry.tag.slice(0, 60)}"`);
                     continue;
                 }
-                this._equipmentList.push(this._newEquipment(catalogItem, entry.location, entry.uuid));
+                const item = this._newEquipment(catalogItem, entry.location, entry.uuid);
+                this._equipmentList.push(item);
+                if (item.isAmmo && typeof entry.shots === "number" && Number.isFinite(entry.shots)) pendingShots.push({ uuid: item.uuid, shots: entry.shots });
             }
+            // After every weapon is aboard, so each bin can find the weapon it feeds; clamped to one ton.
+            // A saved design keeps the accounting it was saved with, battle armor items or not.
+            this._hadBattleArmorEquipment = this.defaultsToFractionalAccounting();
+            for (const pending of pendingShots) this.setAmmoBinShots(pending.uuid, pending.shots);
 
             this._crew = Math.floor(savedNumber(saved.crew, SMALL_CRAFT_BASE_CREW, 0, MAX_SMALL_CRAFT_PEOPLE));
             this._officers = Math.floor(savedNumber(saved.officers, 0, 0, MAX_SMALL_CRAFT_PEOPLE));
