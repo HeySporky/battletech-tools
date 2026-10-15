@@ -89,12 +89,17 @@ export function getMULFactionLabels(id: number): string {
         if(id === 109){ return 'Insufficient Data'; }
         if(id === 110){ return 'Spirit Cats'; }
         if(id === 111){ return 'Star League (SLDF)'; }
+        // MUL 2.0 factions with no single MUL 1.0 id (see getLegacyMULFactionID in mul-list-items.ts).
+        if(id === 1041){ return 'Rim Worlds Republic'; }
+        if(id === 1044){ return 'Star League (First)'; }
+        if(id === 1076){ return 'ilClan Wolf'; }
+        if(id === 1190){ return 'Jade Falcon Remnant'; }
       
         return "";
 }
 
 export function getMULFactionIDs(): number[] {
-    return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,54,55,56,57,59,60,67,72,74,75,76,77,78,80,82,83,84,85,86,87,88,89,90,91,92,94,95,96,97,98,100,101,102,104,105,106,107,108,109,110,111];
+    return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,54,55,56,57,59,60,67,72,74,75,76,77,78,80,82,83,84,85,86,87,88,89,90,91,92,94,95,96,97,98,100,101,102,104,105,106,107,108,109,110,111,1041,1044,1076,1190];
 }
 
 export function getMULEraLabel(

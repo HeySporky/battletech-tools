@@ -310,6 +310,7 @@ function matchesMULDropdownFilters(
     roleFilter: string,
     eraFilter: number,
     typeFilter: number,
+    factionFilter: number[],
 ): boolean {
     // MUL 2.0 records carry no Rules level, so the Rules filter only narrows records that have one.
     if (mechRules && mechRules.trim() && unit.Rules) {
@@ -331,8 +332,18 @@ function matchesMULDropdownFilters(
         }
     }
 
-    if (eraFilter && eraFilter > 0) {
-        if (unit.EraId !== eraFilter) {
+    // The MUL era filter means "available in the era" (the live site's AvailableEras), not the era the unit was
+    // introduced in. With factions selected, a unit matches when any of them fields it (in that era, if one is set).
+    if ((eraFilter && eraFilter > 0) || factionFilter.length > 0) {
+        if (unit.Availability) {
+            const available = unit.Availability.some((entry) =>
+                (!eraFilter || entry.EraId === eraFilter)
+                && (factionFilter.length === 0 || entry.FactionIds.some((id) => factionFilter.includes(id))));
+            if (!available) {
+                return false;
+            }
+        } else if (factionFilter.length > 0 || unit.EraId !== eraFilter) {
+            // MUL 1.0 records carry no availability: only the introduction era can be checked.
             return false;
         }
     }
@@ -460,11 +471,12 @@ async function getCachedMULSearchResults(
     roleFilter: string,
     eraFilter: number,
     typeFilter: number,
+    factionFilter: number[],
     appGlobals: IAppGlobals | null,
 ): Promise<IASMULUnit[]> {
     const tokens = parseMULSearchTokens(searchTerm);
     const matchesAllFilters = (unit: IASMULUnit) =>
-        matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter) &&
+        matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter) &&
         matchesMULSearchTokens(unit, tokens);
 
     const selection = appGlobals?.appSettings.alphaStrikeMULSources ?? DEFAULT_MUL_SOURCE_SELECTION;
@@ -487,7 +499,7 @@ async function getCachedMULSearchResults(
     }));
 }
 
-function addMULUnavailableAlert(appGlobals: IAppGlobals | null, factionFilterActive: boolean): void {
+function addMULUnavailableAlert(appGlobals: IAppGlobals | null): void {
     if (!appGlobals) {
         return;
     }
@@ -495,8 +507,7 @@ function addMULUnavailableAlert(appGlobals: IAppGlobals | null, factionFilterAct
     appGlobals.siteAlerts.addAlert(
         "warning",
         "",
-        "The Master Unit List live search is unavailable. Showing matching results from this device's saved data instead."
-            + (factionFilterActive ? " Faction filtering is not available in this offline mode." : ""),
+        "The Master Unit List live search is unavailable. Showing matching results from this device's saved data instead.",
         "warning",
         true,
         null,
@@ -643,8 +654,8 @@ export async function getMULASSearchResults(
             }
         } catch (err) {
             console.error('MUL Fetch Error: ', err);
-            addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-            return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+            addMULUnavailableAlert(appGlobals);
+            return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter, appGlobals);
         }
     } else {
         if( offLine ) {
@@ -652,8 +663,8 @@ export async function getMULASSearchResults(
         } else {
             console.warn("MUL API is disabled, using bundled fallback data.");
         }
-        addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-        return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+        addMULUnavailableAlert(appGlobals);
+        return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter, appGlobals);
     }
 
     return returnUnits;
