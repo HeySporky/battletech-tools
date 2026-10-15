@@ -25,6 +25,7 @@ import TextSection from "../../../components/text-section";
 import ToHitTable from '../../../components/to-hit-table';
 import './play.scss';
 import InPlayCriticalHitTable from './_criticalHitTable';
+import InPlayIndustrialDamageCheck from './_industrialDamageCheck';
 import Vehicle from '../../../../classes/vehicle';
 import { vehicleName } from './_vehicleGroupTable';
 import VehiclePlayPanel from './_vehiclePlay';
@@ -2445,6 +2446,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             </div>
           </div>
         </fieldset>
+        {this.state.criticalHitDialog.isIndustrialMech() ? (
+          <InPlayIndustrialDamageCheck
+            mechData={this.state.criticalHitDialog}
+            onChange={this.updateCriticalHitDialog}
+          />
+        ) : null}
       </div>
       <div className="col">
 

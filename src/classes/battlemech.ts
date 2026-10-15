@@ -22,7 +22,7 @@ import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechTypeOptions } from "../data/mech-type-options";
 import { IVariableEquipmentContext, isTargetingComputerWeapon, sizeVariableEquipment } from "../data/variable-equipment";
 import { btTechOptions } from "../data/tech-options";
-import { getHexDistanceFromModifier, getMovementModifier } from "../utils";
+import { getHexDistanceFromModifier, getLocationName, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
 import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
 import { isAlphaStrikeAbilityCode } from "../data/alpha-strike-special-abilities";
@@ -4373,6 +4373,9 @@ export class BattleMech {
     }
 
     public getMaxMovementHeat() {
+        // "ICE-powered IndustrialMechs ... always have a Movement Heat Value of 0" (TM p.303; the BV errata v4.1 keep
+        // it to ICE, though fuel cell IndustrialMechs also make no walking or running heat in play, TW p.158).
+        if (this.isIndustrialMech() && this._engineType.tag === "ice") return 0;
         // Battle Value uses the higher of running and jumping heat (TM p.303). Standard LAMs
         // use AirMech flank heat: 1 per 3 AirMech MP, rounded normally (IO pp.113, 192).
         let maxMoveHeat = this.hasAirMechMode()
@@ -4740,12 +4743,14 @@ export class BattleMech {
             if( this.currentMovementMode === "j" ) return Math.max(editionMoveHeat.jumpMinimum, this.currentTargetJumpingMP * editionMoveHeat.jumpPerHex);
             return 0;
         }
+        // Fuel cell and ICE IndustrialMechs make no heat walking or running (TW p.158); a non-fusion BattleMech does (TO:AUE p.120).
+        const noWalkRunHeat = this.isIndustrialMech() && !this._hasFusionOrFissionEngine();
         // TODO check if heat sinks are broken
         if( this.currentMovementMode === "w" ) {
-            return 1;
+            return noWalkRunHeat ? 0 : 1;
         }
         if( this.currentMovementMode === "r" ) {
-            return 2;
+            return noWalkRunHeat ? 0 : 2;
         }
         if( this.currentMovementMode === "j" ) {
             if( this.currentTargetJumpingMP > 3 ) {
@@ -5185,6 +5190,127 @@ export class BattleMech {
         }
         log.push("This location has nothing to hit.");
         return log;
+    }
+
+    /** Front/Rear column of the 'Mech Hit Location Table (TW p.119); on a four-legged 'Mech the arms are its front legs. */
+    private static readonly FRONT_REAR_HIT_LOCATIONS: Readonly<Record<number, string>> = {
+        2: "ct", 3: "ra", 4: "ra", 5: "rl", 6: "rt", 7: "ct", 8: "lt", 9: "ll", 10: "la", 11: "la", 12: "hd",
+    };
+
+    /**
+     * Modifier to rolls on the Determining Critical Hits Table: +2 against an IndustrialMech (TW p.124); against a
+     * Primitive or RetroTech 'Mech, +2 for a BattleMech and +4 for an IndustrialMech (IO:AE p.114). The +4 is read as
+     * replacing TW's +2, not adding to it.
+     */
+    public getCriticalHitRollModifier(): number {
+        if (this._primitive) return this.isIndustrialMech() ? 4 : 2;
+        return this.isIndustrialMech() ? 2 : 0;
+    }
+
+    /**
+     * Roll on the Determining Critical Hits Table for a location (TW p.124), or by the edition's own rule when it has
+     * one (see rollEditionCriticalHit). 8-9 is one critical hit, 10-11 two, 12 three in a torso or the head or limb
+     * blown off. An IndustrialMech's modified 13 counts as 12 and 14 or more is four hits in a torso or the head or limb
+     * blown off (TW p.124; IO:AE p.114); a Primitive BattleMech's 13 or more counts as 12. Each hit rolls a line on
+     * the location's table, rolling again on an empty line, a line that cannot take a critical hit (endo steel,
+     * ferro-fibrous armor, CASE; TW p.124) or one already hit. `dice` supplies the players' rolls in order;
+     * `extraModifier` is added to the chance roll (a fall, see rollIndustrialMechDamageCheck).
+     */
+    public rollCriticalHit(location: string, dice: { chance?: number; lines?: number[] } = {}, extraModifier: number = 0): string[] {
+        if (this.getEditionPlayRules()) return this.rollEditionCriticalHit(location, dice);
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const roll = dice.chance ?? die() + die();
+        const modifier = this.getCriticalHitRollModifier() + extraModifier;
+        const result = roll + modifier;
+        const normalized = this._normalizeLocation(location);
+        const torso = ["ct", "lt", "rt"].includes(normalized);
+        const log = [modifier ? `Critical hit roll ${roll} + ${modifier} = ${result}.` : `Critical hit roll ${roll}.`];
+        let hits = 0;
+        let blownOff = false;
+        if (this.isIndustrialMech() && result >= 14) {
+            if (torso) hits = 4;
+            else blownOff = true;
+        } else {
+            const capped = Math.min(12, result);
+            if (capped >= 12) {
+                if (torso) hits = 3;
+                else blownOff = true;
+            } else {
+                hits = capped >= 10 ? 2 : capped >= 8 ? 1 : 0;
+            }
+        }
+        if (blownOff) {
+            log.push(`${getLocationName(location, this._hasFrontLegs())} blown off.`);
+            this._blowOffLocation(normalized);
+            this._calc();
+            return log;
+        }
+        if (hits === 0) {
+            log.push("No critical hit.");
+            return log;
+        }
+        log.push(hits === 1 ? "One critical hit." : `${hits} critical hits.`);
+        const slots: (ICriticalSlot | null | undefined)[] = (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[normalized]] ?? [];
+        const twelve = !["hd", "ll", "rl", "cl", "fll", "frl"].includes(normalized);
+        const lines = [...(dice.lines ?? [])];
+        const next = () => lines.shift() ?? die();
+        const hittable = (index: number) => !!slots[index] && !this.isCriticalDamaged(normalized, index) && !this._isRollAgainSlot(slots[index]!);
+        for (let hit = 0; hit < hits; hit++) {
+            const open = slots.map((_, index) => index).filter(hittable);
+            if (open.length === 0) {
+                log.push("No line left that can take a critical hit.");
+                break;
+            }
+            for (let attempt = 0; attempt < 100; attempt++) {
+                const first = next();
+                const index = twelve ? (first <= 3 ? 0 : 6) + next() - 1 : first - 1;
+                if (!hittable(index)) continue;
+                let named = index;
+                while (named > 0 && slots[named]?.placeholder) named--;
+                this.toggleCritical(normalized, index);
+                const label = twelve ? `${first <= 3 ? "1-3" : "4-6"}, ${index % 6 + 1}` : `${index + 1}`;
+                log.push(`Line ${label}: ${slots[named]?.name ?? "that line"} is hit.`);
+                break;
+            }
+        }
+        return log;
+    }
+
+    /**
+     * An IndustrialMech's End Phase damage check, made once in a turn in which it fell or was the target of a successful
+     * physical attack: a roll on the Determining Critical Hits Table, +1 for each level fallen above 1, at a location
+     * rolled on the Front/Rear column of the 'Mech Hit Location Table (TW pp.68, 144). MegaMek adds every level fallen;
+     * this follows the book.
+     */
+    public rollIndustrialMechDamageCheck(levelsFallen: number = 0, dice: { location?: number; chance?: number; lines?: number[] } = {}): string[] {
+        if (!this.isIndustrialMech()) return [];
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const locationRoll = dice.location ?? die() + die();
+        const location = BattleMech.FRONT_REAR_HIT_LOCATIONS[locationRoll];
+        if (!location) return [];
+        const fallModifier = Math.max(0, Math.floor(levelsFallen) - 1);
+        return [
+            `Location roll ${locationRoll}: ${getLocationName(location, this._hasFrontLegs())}.`,
+            ...this.rollCriticalHit(location, dice, fallModifier),
+        ];
+    }
+
+    /** A line that cannot take a critical hit: armor and structure slots, CASE (TW p.124; CASE II and CASE-P via MegaMek). */
+    private _isRollAgainSlot(slot: ICriticalSlot): boolean {
+        if (slot.rollAgain) return true;
+        if (/^(clan-|is-)?case(-ii|-prototype)?$/.test(slot.tag)) return true;
+        const armorTags = this.isPatchworkArmor()
+            ? this.getPatchworkLocations().map(location => this.getPatchworkArmorType(location.key).tag)
+            : [this._armorType.tag];
+        return armorTags.includes(slot.tag) || slot.tag === this._selectedInternalStructure.tag;
+    }
+
+    /** A head or limb blown off: its armor and internal structure are gone. */
+    private _blowOffLocation(location: string): void {
+        const key = BattleMech.MECH_LOCATION_MAP[location];
+        for (const bubbles of [(this._armorBubbles as any)[key], (this._structureBubbles as any)[key]]) {
+            if (Array.isArray(bubbles)) bubbles.fill(false);
+        }
     }
 
     /** The play rules of the design's edition where they differ from Total Warfare's; undefined when they do not. */
@@ -5661,6 +5787,8 @@ export class BattleMech {
         if (this.isIndustrialMech() && armorTags.some(tag => BattleMech.DARK_AGE_ARMOR_TAGS.includes(tag))) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
         if (this.isPatchworkArmor()) level = Math.max(level, 3);
+        // Non-Fusion BattleMechs are Experimental (TO:AUE p.120).
+        if (this.isNonFusionBattleMech()) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         // An edition before Total Warfare has no rules levels: only content from outside the canon keeps its level.
         if (this.usesEarlierRulesEdition() && level < APOCRYPHAL_RULES_LEVEL) return 0;
         return level;
@@ -7728,7 +7856,7 @@ export class BattleMech {
             ];
             return this._returnRandomString(damageSnarks);
         }
-        if( this.sensorHits() > 1 ) {
+        if( this.areSensorsDestroyed() ) {
             let damageSnarks: string[] = [
                 "I can't see!",
             ];
@@ -8669,6 +8797,7 @@ export class BattleMech {
                 engine.available = availability.available && buildableAtRating && this.isInRulesEdition(engine)
                     && this._isSuperheavyLegalEngine(engine.tag)
                     && this._isChassisLegalEngine(engine.tag)
+                    && (!this._isNonFusionBattleMechEngine(engine.tag) || rulesLevel >= EXPERIMENTAL_RULES_LEVEL)
                     && (!this.isLAM() || this._isLAMLegalComponent("engine", engine.tag));
                 returnValue.push(engine);
             }
@@ -9042,6 +9171,19 @@ export class BattleMech {
     /** A superheavy IndustrialMech has its own, narrower engine rule (see _isSuperheavyLegalEngine). */
     private _isChassisLegalEngine(engineTag: string): boolean {
         return !this._hasBasicChassis() || BattleMech.BASIC_ENGINE_TAGS.includes(engineTag);
+    }
+
+    /**
+     * An ICE, fuel cell or fission engine in a BattleMech built to the modern rules: a "low-tech 'Mech", Experimental
+     * (Non-Fusion BattleMechs, TO:AUE p.120). IndustrialMechs and Primitive 'Mechs mount these engines by their own rules.
+     */
+    private _isNonFusionBattleMechEngine(engineTag: string): boolean {
+        return !this._hasBasicChassis() && !this.usesEarlierRulesEdition() && /^(ice|cell|fission)$/.test(engineTag);
+    }
+
+    /** A BattleMech with an ICE, fuel cell or fission engine (TO:AUE p.120). */
+    public isNonFusionBattleMech(): boolean {
+        return this._isNonFusionBattleMechEngine(this._engineType.tag);
     }
 
     /**
@@ -9789,6 +9931,11 @@ export class BattleMech {
             }
         }
         return rv;
+    }
+
+    /** Sensors that can no longer fire weapons: two hits, or one on an IndustrialMech (TW p.128). */
+    public areSensorsDestroyed(): boolean {
+        return this.sensorHits() >= (this.isIndustrialMech() ? 1 : 2);
     }
 
     public toggleISBubble(clickLocation: string, clickIndex: number): void {
