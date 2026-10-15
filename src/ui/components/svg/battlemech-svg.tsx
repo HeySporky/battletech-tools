@@ -348,9 +348,10 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 225}
                     textAnchor="end" fontFamily="sans-serif"
                     fill={strokeColor} style={{fontWeight: 500}}
-                    fontSize={25}
+                    fontSize={this.props.mechData.isFrankenMech() ? 18 : 25}
                 >
-                    {this.props.mechData.getTech().name}
+                    {/* The XTROs name a FrankenMech beside its tech base ("Mixed Tech (Experimental - FrankenMech)"). */}
+                    {this.props.mechData.getTech().name}{this.props.mechData.isFrankenMech() ? " (FrankenMech)" : ""}
                 </text>
 
                 <text

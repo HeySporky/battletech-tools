@@ -1,7 +1,7 @@
 import { generateUUID } from "../utils/generateUUID";
 import { IEquipmentItem, IEras } from "../data/data-interfaces";
 import { btEraOptions, findEraByTag, getErasForTech } from "../data/era-options";
-import { getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, getAlphaStrikeEquipmentAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon } from "../data/equipment-registry";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { getProtoMechJumpJetWeightKg, protoMechComponents } from "../data/protomech-components";
 import {
@@ -117,8 +117,19 @@ export interface IProtoMechInPlay {
     units: IProtoMechUnitInPlay[];
 }
 
+/** The locations a FrankenProto may take from another ProtoMech; the torso sets its tonnage. */
+export type FrankenProtoLocation = "head" | "la" | "ra" | "legs";
+
+/** The ProtoMech one FrankenProto location came from. */
+export interface IFrankenProtoDonor {
+    tons: number;
+    name?: string;
+}
+
 export interface IProtoMechExport {
     version: 1;
+    /** FrankenProto (Custom Homebrew): each location's donor; present only on a FrankenProto. */
+    frankenProto?: Partial<Record<FrankenProtoLocation, IFrankenProtoDonor>>;
     uuid: string;
     name: string;
     tons: number;
@@ -201,6 +212,7 @@ const speedFactor = (mp: number): number => Math.round(Math.pow(1 + (mp - 5) / 1
 const LOCATIONS: ProtoMechLocation[] = ["head", "torso", "la", "ra", "legs", "mainGun"];
 const MOUNT_LOCATIONS: ProtoMechMountLocation[] = ["torso", "la", "ra", "mainGun"];
 const CHASSIS_TAGS: ProtoMechChassis[] = ["biped", "quad", "glider"];
+const FRANKEN_PROTO_LOCATIONS: FrankenProtoLocation[] = ["head", "la", "ra", "legs"];
 const JUMP_TYPES: ProtoMechJumpType[] = ["none", "standard", "extended", "umu"];
 
 let clanCatalog: IEquipmentItem[] | null = null;
@@ -252,6 +264,8 @@ export default class ProtoMech {
     private _armorType: ProtoMechArmorType = "standard";
     private _armor: Record<ProtoMechLocation, number> = { head: 0, torso: 0, la: 0, ra: 0, legs: 0, mainGun: 0 };
     private _mounts: IProtoMechMount[] = [];
+    /** FrankenProto donors by location; null on an ordinary ProtoMech. */
+    private _frankenProto: Partial<Record<FrankenProtoLocation, Partial<IFrankenProtoDonor>>> | null = null;
     private _era: IEras = findEraByTag("jihad") ?? btEraOptions[btEraOptions.length - 1];
     private _gunnery: number = 4;
     private _pointSize: number = PROTOMECH_POINT_SIZE;
@@ -334,14 +348,14 @@ export default class ProtoMech {
 
     public getStructure(location: ProtoMechLocation): number {
         if (!this.getLocations().includes(location)) return 0;
-        const row = getProtoMechStructureRow(this._tons);
+        const row = this._structureRow(location);
         if (location === "la" || location === "ra") return row.arm.structure;
         if (location === "legs") return (this.isQuad() ? row.quadLegs : row.legs).structure;
         return row[location].structure;
     }
     public getMaxArmor(location: ProtoMechLocation): number {
         if (!this.getLocations().includes(location)) return 0;
-        const row = getProtoMechStructureRow(this._tons);
+        const row = this._structureRow(location);
         if (location === "la" || location === "ra") return row.arm.maxArmor;
         if (location === "legs") return (this.isQuad() ? row.quadLegs : row.legs).maxArmor;
         if (location === "mainGun") return Math.max(row.mainGun.maxArmor, this._publishedException()?.mainGunArmor ?? 0);
@@ -365,6 +379,89 @@ export default class ProtoMech {
     }
     public setMaximumArmor(): void { for (const location of this.getLocations()) this._armor[location] = this.getMaxArmor(location); }
     public clearArmor(): void { for (const location of LOCATIONS) this._armor[location] = 0; }
+
+    /** The structure table row a location uses: its donor's tonnage on a FrankenProto. */
+    private _structureRow(location: ProtoMechLocation): ReturnType<typeof getProtoMechStructureRow> {
+        const franken = FRANKEN_PROTO_LOCATIONS.includes(location as FrankenProtoLocation) && this._frankenProto;
+        return getProtoMechStructureRow(franken ? this.getFrankenProtoDonor(location as FrankenProtoLocation).tons : this._tons);
+    }
+
+    // FrankenProtos (Custom Homebrew; the user's rule, 2026-10-14, after CO pp.213-214's FrankenMechs) -----------
+
+    /**
+     * A FrankenProto location's share of its donor's structure weight, as CO p.213 shares a 'Mech's: head 5%, the
+     * torso the 'Mech's three torsos' 55%, each arm 10%, the legs 10% each (20%, or 40% for four).
+     */
+    public static readonly FRANKEN_PROTO_SHARES: Record<ProtoMechLocation, number> = { head: 0.05, torso: 0.55, la: 0.1, ra: 0.1, legs: 0.2, mainGun: 0 };
+    public static readonly FRANKEN_PROTO_DONOR_NAME_LENGTH = 60;
+
+    public isFrankenProto(): boolean { return this._frankenProto !== null; }
+    public canBeFrankenProto(rulesLevel: number): boolean { return rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL; }
+
+    /** Makes the design a FrankenProto, every location starting as the torso's ProtoMech, or an ordinary one again. */
+    public setFrankenProto(frankenProto: boolean, rulesLevel: number = CUSTOM_HOMEBREW_RULES_LEVEL): boolean {
+        if (!frankenProto) this._frankenProto = null;
+        else if (!this._frankenProto && this.canBeFrankenProto(rulesLevel)) this._frankenProto = {};
+        this._clamp();
+        return this.isFrankenProto();
+    }
+
+    public getFrankenProtoLocations(): FrankenProtoLocation[] {
+        return FRANKEN_PROTO_LOCATIONS.filter((location) => this.getLocations().includes(location));
+    }
+
+    public getFrankenProtoDonor(location: FrankenProtoLocation): IFrankenProtoDonor {
+        const saved = this._frankenProto?.[location];
+        return { tons: saved?.tons ?? this._tons, name: saved?.name ?? "" };
+    }
+
+    /**
+     * Tonnages a location may come from, on the same chassis: legs from a ProtoMech at least as heavy, as a
+     * FrankenMech's (CO p.213); Ultraheavy parts only on an Ultraheavy, as superheavy parts on a superheavy 'Mech.
+     */
+    public getFrankenProtoDonorTons(location: FrankenProtoLocation): number[] {
+        const lightest = location === "legs" ? this._tons : this.getMinTons();
+        const heaviest = this.isUltraheavy() ? PROTOMECH_MAX_TONS : PROTOMECH_MAX_STANDARD_TONS;
+        return Array.from({ length: Math.max(0, heaviest - lightest + 1) }, (_, index) => lightest + index);
+    }
+
+    /** Sets where one location came from. Values it may not take are ignored. */
+    public setFrankenProtoDonor(location: FrankenProtoLocation, donor: Partial<IFrankenProtoDonor>): IFrankenProtoDonor {
+        if (!this._frankenProto || !this.getFrankenProtoLocations().includes(location)) return this.getFrankenProtoDonor(location);
+        const saved = { ...this._frankenProto[location] };
+        if (typeof donor.tons === "number" && this.getFrankenProtoDonorTons(location).includes(donor.tons)) saved.tons = donor.tons;
+        if (typeof donor.name === "string") saved.name = donor.name.slice(0, ProtoMech.FRANKEN_PROTO_DONOR_NAME_LENGTH);
+        this._frankenProto[location] = saved;
+        this._clamp();
+        return this.getFrankenProtoDonor(location);
+    }
+
+    /** Kilograms of structure a location brings: its share of its donor's 100 kg a ton. */
+    public getFrankenProtoStructureKg(location: ProtoMechLocation): number {
+        const tons = FRANKEN_PROTO_LOCATIONS.includes(location as FrankenProtoLocation) ? this.getFrankenProtoDonor(location as FrankenProtoLocation).tons : this._tons;
+        const share = location === "legs" && this.isQuad() ? 0.4 : ProtoMech.FRANKEN_PROTO_SHARES[location];
+        return share * tons * 100;
+    }
+
+    /** Drops donors the design can no longer take: a location it lost, or a tonnage outside the range. */
+    private _pruneFrankenProto(): void {
+        if (!this._frankenProto) return;
+        for (const location of FRANKEN_PROTO_LOCATIONS) {
+            const donor = this._frankenProto[location];
+            if (!donor) continue;
+            if (!this.getFrankenProtoLocations().includes(location)) delete this._frankenProto[location];
+            else if (donor.tons !== undefined && !this.getFrankenProtoDonorTons(location).includes(donor.tons)) delete donor.tons;
+        }
+    }
+
+    /** One line per location for the record sheet: "Left Arm: 7-ton ProtoMech (Minotaur)". */
+    public getFrankenProtoNotes(): string[] {
+        if (!this._frankenProto) return [];
+        return this.getFrankenProtoLocations().map((location) => {
+            const donor = this.getFrankenProtoDonor(location);
+            return `${this.getLocationName(location)}: ${donor.tons}-ton ProtoMech${donor.name?.trim() ? ` (${donor.name.trim()})` : ""}`;
+        });
+    }
 
     public getArmorType(): ProtoMechArmorType { return this._armorType; }
     public getArmorTypeName(): string { return this._armorType === "edp" ? "Electric Discharge ProtoMech (EDP) Armor" : "ProtoMech Standard Armor"; }
@@ -418,7 +515,12 @@ export default class ProtoMech {
     }
 
     public getCockpitWeight(): number { return this.isUltraheavy() ? 750 : 500; }
-    public getStructureWeight(): number { return this._tons * 100; }
+    /** 100 kg a ton; a FrankenProto's is each location's share of its donor's, rounded up to the kilogram. */
+    public getStructureWeight(): number {
+        if (!this._frankenProto) return this._tons * 100;
+        const locations: ProtoMechLocation[] = ["torso", ...this.getFrankenProtoLocations()];
+        return Math.ceil(locations.reduce((sum, location) => sum + this.getFrankenProtoStructureKg(location), 0) - 1e-9);
+    }
 
     public getJumpType(): ProtoMechJumpType { return this.isGlider() ? "none" : this._jumpType; }
     public getAvailableJumpTypes(): ProtoMechJumpType[] { return this.isGlider() ? ["none"] : JUMP_TYPES; }
@@ -656,6 +758,7 @@ export default class ProtoMech {
         if (this._chassis !== "biped" || this.isUltraheavy()) level = Math.max(level, PROTOMECH_ADVANCED_RULES_LEVEL);
         if (this._interfaceCockpit) level = Math.max(level, PROTOMECH_INTERFACE_COCKPIT.rulesLevel);
         if (this._armorType === "edp" || this.getJumpType() === "umu") level = Math.max(level, PROTOMECH_EXPERIMENTAL_RULES_LEVEL);
+        if (this._frankenProto) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
         for (const mount of this._mounts) {
             const missile = this.getMissile(mount);
             const special = this.getSpecial(mount);
@@ -1294,6 +1397,7 @@ export default class ProtoMech {
     /** Brings the design back inside what the chassis allows after a change. */
     private _clamp(): void {
         if (this._tons < this.getMinTons()) this._tons = this.getMinTons();
+        this._pruneFrankenProto();
         this._walkMP = Math.min(this.getMaxWalkMP(), Math.max(this.getMinWalkMP(), this._walkMP));
         if (this.isGlider()) { this._jumpType = "none"; this._jumpMP = 0; this._myomerBooster = false; }
         if (this._jumpType === "none") this._jumpMP = 0;
@@ -1319,6 +1423,9 @@ export default class ProtoMech {
             myomerBooster: this.hasMyomerBooster() || undefined,
             mainGun: this._mainGun || undefined,
             interfaceCockpit: this._interfaceCockpit || undefined,
+            frankenProto: this._frankenProto
+                ? Object.fromEntries(this.getFrankenProtoLocations().map((location) => [location, this.getFrankenProtoDonor(location)]))
+                : undefined,
             armorType: this._armorType,
             armor,
             mounts: this._mounts.map((mount) => ({ ...mount })),
@@ -1363,6 +1470,18 @@ export default class ProtoMech {
             this._mounts.push(mount);
         }
         this._clamp();
+        // FrankenProto donors set the structure, so they come before the armor; each is checked as it is set.
+        this._frankenProto = null;
+        const franken: unknown = data.frankenProto;
+        if (franken && typeof franken === "object" && !Array.isArray(franken)) {
+            this._frankenProto = {};
+            for (const location of this.getFrankenProtoLocations()) {
+                const donor: unknown = (franken as Record<string, unknown>)[location];
+                if (!donor || typeof donor !== "object") continue;
+                const { tons, name } = donor as Record<string, unknown>;
+                this.setFrankenProtoDonor(location, { tons: typeof tons === "number" ? tons : undefined, name: typeof name === "string" ? name : undefined });
+            }
+        }
         for (const location of this.getLocations()) this._armor[location] = clampInt(data.armor?.[location], 0, this.getMaxArmor(location), 0);
         this._era = this.getAvailableEras().find((era) => era.tag === data.era) ?? this._era;
         this._gunnery = clampInt(data.gunnery, 0, 8, 4);

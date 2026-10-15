@@ -32,6 +32,7 @@ export default class ProtoMechRecordSheet extends React.Component<IProtoMechReco
                     BV {proto.getBattleValue()}{proto.getPointSize() > 1 ? ` (Point of ${proto.getPointSize()}: ${proto.getPointBattleValue()})` : ""} &nbsp;|&nbsp;
                     {proto.getCBillCost().toLocaleString("en-US")} C-Bills
                 </p>
+                {proto.isFrankenProto() ? <p className="smaller-text">FrankenProto: {proto.getFrankenProtoNotes().join("; ")}.</p> : null}
 
                 {units.map((unit) => {
                     const destroyed = showDamage && proto.isUnitDestroyed(unit);

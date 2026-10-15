@@ -36,6 +36,7 @@ export default class VehicleRecordSheet extends React.Component<IVehicleRecordSh
                         {vehicle.getSupportVehicleRangeKm() !== null ? <> &nbsp;|&nbsp; Range {vehicle.getSupportVehicleRangeKm()} km</> : null}
                     </p>
                 ) : null}
+                {vehicle.getFrankenVehicleNotes().map((note) => <p key={note} className="smaller-text">{note}</p>)}
 
                 <VehicleDiagramSVG
                     motive={vehicle.getMotiveType()}

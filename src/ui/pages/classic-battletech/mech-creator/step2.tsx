@@ -54,6 +54,15 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
       }
     }
 
+    setFrankenMechJumpJetClass = ( event: React.FormEvent<HTMLSelectElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        let currentMech = this.props.appGlobals.currentBattleMech;
+        const value = event.currentTarget.value;
+        currentMech.setFrankenMechJumpJetClass( value === "light" || value === "medium" || value === "heavy" ? value : null );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
     setEngineType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
@@ -169,6 +178,46 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                               </select>
                             </label>
 
+                          {this.props.appGlobals.currentBattleMech.getFrankenMechJumpJetClasses().length > 0 ? (
+                            <>
+                              <label>
+                                Jump Jet Size:
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getFrankenMechJumpJetClass() ?? ""}
+                                  onChange={this.setFrankenMechJumpJetClass}
+                                >
+                                  <option value="">Built for this 'Mech</option>
+                                  {this.props.appGlobals.currentBattleMech.getFrankenMechJumpJetClasses().map( (jetClass) => (
+                                    <option key={jetClass} value={jetClass}>Kept from a {jetClass === "light" ? "10-55" : jetClass === "medium" ? "60-85" : "90-100"} ton 'Mech</option>
+                                  ))}
+                                </select>
+                              </label>
+                              <p className="smaller-text">
+                                FrankenMech (CO p.213): jump jets from a lighter 'Mech may be kept, giving their weight's share of a
+                                Jumping MP (fractions dropped) and 1 heat each. Heavier jump jets cannot be mounted.
+                              </p>
+                            </>
+                          ) : null}
+
+                          {this.props.appGlobals.currentBattleMech.usesLighterJumpJets() ? (
+                            <>
+                              <label>
+                                Jump Jets:
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getJumpJetCount()}
+                                  onChange={this.setJumpingMP}
+                                >
+                                  <option value={0}>-Select Jump Jets-</option>
+                                  {Array.from({ length: this.props.appGlobals.currentBattleMech.getMaxJumpJetCount() }, (_, index) => index + 1).map( (jets) => (
+                                    <option key={jets} value={jets}>{jets} jets</option>
+                                  ))}
+                                </select>
+                              </label>
+                              <p className="smaller-text" data-testid="frankenmech-jump">
+                                Jumping MP: {this.props.appGlobals.currentBattleMech.getJumpSpeed()}, {this.props.appGlobals.currentBattleMech.getJumpHeat()} heat, {this.props.appGlobals.currentBattleMech.getJumpJetWeight()} tons.
+                              </p>
+                            </>
+                          ) : (
                           <label>
                           {this.props.appGlobals.currentBattleMech.getJumpJetType().underwater ? "Underwater Movement Points (UMU)" : "Jumping Movement Points"}:
                               <select
@@ -188,6 +237,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                               })}
                               </select>
                             </label>
+                          )}
                             <h3>Engine Type</h3>
                             {this.props.appGlobals.currentBattleMech.getTech().tag === "mis" || this.props.appGlobals.currentBattleMech.getTech().tag === "mclan" ? (
                               <label>

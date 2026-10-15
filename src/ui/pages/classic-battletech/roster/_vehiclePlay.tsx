@@ -171,6 +171,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
             case "critical":
                 return `Critical Hit roll: ${name(pending.location)}${pending.modifier ? ` (armor-piercing ${pending.modifier})` : ""}`;
             case "hullBreach": return `Hull Integrity roll: ${name(pending.location)} (breached on ${pending.target}+)`;
+            case "turretLinkage": return `Turret linkage roll: the turret locks on ${pending.target}+ (FrankenVehicle)`;
             case "drivingSkill": return `Driving Skill Roll (${pending.target}+): ${pending.reason === "pilotHit" ? "or drop one elevation" : "land, or crash"}`;
             case "crashFacing": return `Facing After a Fall (1D6), ${pending.damage} falling damage`;
             case "crashHit": return `Crash damage ${pending.damage}: hit location from the ${pending.direction}`;

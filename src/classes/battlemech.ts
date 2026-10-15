@@ -130,6 +130,26 @@ export interface IOmniConfiguration {
     bombLoadout?: Record<string, number>;
 }
 
+/** The 'Mech one FrankenMech location came from (CO p.213): its tonnage, its internal structure and, optionally, its name. */
+export interface IFrankenMechDonor {
+    tonnage: number;
+    structure: string;
+    /** Which 'Mech it was; legs from different 'Mechs make Piloting Skill Rolls harder. Blank: the center torso's 'Mech. */
+    name?: string;
+    /** Whose structure it is: a Mixed Tech FrankenMech may carry Inner Sphere and Clan endo steel side by side. */
+    structureTechBase?: "is" | "clan";
+    /** Slots the structure took in this location on the donor's own design; left out, the distribution table's. */
+    structureSlots?: number;
+}
+
+/** Jump jets a FrankenMech kept from a lighter 'Mech, named by the weight class they were built for (TM p.51). */
+export type FrankenMechJumpJetClass = "light" | "medium" | "heavy";
+
+export interface IFrankenMechExport {
+    donors: Record<string, IFrankenMechDonor>;
+    jumpJetClass?: FrankenMechJumpJetClass;
+}
+
 export interface IBattleMechExport {
 
     // in play variables
@@ -160,6 +180,8 @@ export interface IBattleMechExport {
     armor_type: string;
     /** Patchwork Armor: armor type tag by location key; present only when armor_type is "patchwork". */
     patchworkArmor?: Record<string, string>;
+    /** FrankenMech (CO pp.213-214): each location's donor, by long location key; present only on a FrankenMech. */
+    frankenMech?: IFrankenMechExport;
     armor_weight: number;
     as_role: string;
     as_value: number;   // for easy listing
@@ -333,6 +355,14 @@ export class BattleMech {
     private _patchworkArmor: Record<string, string> = {};
     /** Patchwork locations whose armor found no free critical slots; rebuilt with the critical table. */
     private _patchworkSlotShortfalls: string[] = [];
+    /** FrankenMech (CO pp.213-214): a 'Mech built from the body locations of others. */
+    private _frankenMech: boolean = false;
+    /** FrankenMech donors by long location key; a location left out comes from the center torso's 'Mech. */
+    private _frankenMechDonors: Record<string, Partial<IFrankenMechDonor>> = {};
+    /** FrankenMech jump jets of a lighter weight class than the 'Mech's own; null for its own. */
+    private _frankenMechJumpJetClass: FrankenMechJumpJetClass | null = null;
+    /** FrankenMech locations whose structure found no free critical slots; rebuilt with the critical table. */
+    private _frankenMechSlotShortfalls: string[] = [];
     /** Weight rounding. "fractional" is Fractional Accounting (TO:AUE p.188), which is not built yet. */
     private _weightAccounting: "standard" | "fractional" = "standard";
 
@@ -508,6 +538,9 @@ export class BattleMech {
         this._rulesEdition = DEFAULT_RULES_EDITION;
         this._advancedFireControl = false;
         this._patchworkArmor = {};
+        this._frankenMech = false;
+        this._frankenMechDonors = {};
+        this._frankenMechJumpJetClass = null;
         this.setTonnage(20);
         this.setWalkSpeed(0);
         this.setWalkSpeed(0);
@@ -655,9 +688,22 @@ export class BattleMech {
         let totalInternalStructurePoints = 1.5 * this._totalInternalStructurePoints;
         this._calcLogBV += `Total Internal Structure Points = IS Points x 1.5: ${totalInternalStructurePoints} = 1.5 x ${this._totalInternalStructurePoints}<br />`;
         // Structure type modifier: Industrial and Composite 0.5, Reinforced 2.
-        const structureBVMultiplier = this._selectedInternalStructure?.bvMultiplier ?? 1;
-        totalInternalStructurePoints *= structureBVMultiplier;
-        this._calcLogBV += `Total Internal Structure BV = ${structureBVMultiplier} x ${this._selectedInternalStructure?.name ?? "Standard"} Modifier: ${totalInternalStructurePoints}<br />`;
+        if (this.hasFrankenMechHybridStructure()) {
+            // A FrankenMech of mixed structure: each location's points take their own type's modifier.
+            const points = this._internalStructure as unknown as Record<string, number>;
+            totalInternalStructurePoints = 0;
+            for (const location of this.getFrankenMechLocations()) {
+                const structure = this.getFrankenMechLocationStructure(location.key);
+                const locationPoints = 1.5 * (points[location.key] ?? 0) * (structure.bvMultiplier ?? 1);
+                totalInternalStructurePoints += locationPoints;
+                this._calcLogBV += `Internal Structure (${location.label}): ${points[location.key] ?? 0} points x 1.5 x ${structure.bvMultiplier ?? 1} (${this._escapeLogText(structure.name)}) = ${locationPoints.toFixed(2)}<br />`;
+            }
+            this._calcLogBV += `Total Internal Structure BV: ${totalInternalStructurePoints}<br />`;
+        } else {
+            const structureBVMultiplier = this._selectedInternalStructure?.bvMultiplier ?? 1;
+            totalInternalStructurePoints *= structureBVMultiplier;
+            this._calcLogBV += `Total Internal Structure BV = ${structureBVMultiplier} x ${this._selectedInternalStructure?.name ?? "Standard"} Modifier: ${totalInternalStructurePoints}<br />`;
+        }
         // 1C. Adjust Internal Structure for Engine Type Safety Factor (TM p. 302 / Errata)
         const engineTag = this._engineType.tag;
         let engineModifier = 1.0;
@@ -1341,12 +1387,28 @@ export class BattleMech {
         // Internal Structure. Superheavy structure uses its own per-ton table, and Tripod
         // structure costs x1.2 (provisional, via MegaMek).
         const superheavyStructureCost: Record<string, number> = { "standard": 4000, "industrial": 3000, "endo-steel": 16000, "composite": 1600, "endo-composite": 6400 };
-        const structureCostPerTon = this._tonnage > 100
-            ? superheavyStructureCost[this._selectedInternalStructure.tag] ?? this._selectedInternalStructure.cost
-            : this._selectedInternalStructure.cost;
+        const structureCostPerTonOf = (structure: IInternalStructure): number => this._tonnage > 100
+            ? superheavyStructureCost[structure.tag] ?? structure.cost
+            : structure.cost;
         const structureChassisMultiplier = this.isTripod() ? 1.2 : 1;
-        const structureCost = structureCostPerTon * this.getTonnage() * structureChassisMultiplier;
-        this._calcLogCBill += "<tr><td><strong>Internal Structure: " + this._selectedInternalStructure.name  + "</strong><br />" +  addCommas( structureCostPerTon ) + " x Unit Tonnage [" + this.getTonnage() + "]" + (structureChassisMultiplier !== 1 ? " x 1.2 [Tripod]" : "") + "</td><td>" +  addCommas( structureCost ) + "</td></tr>\n";
+        let structureCost = 0;
+        if (this.hasFrankenMechHybridStructure()) {
+            // Campaign Operations prices no hybrid structure: each location is read as its weight share of the
+            // structure, at its own type's cost per ton of 'Mech.
+            const locations = this.getFrankenMechLocations();
+            const totalShare = locations.reduce((sum, location) => sum + (BattleMech.FRANKENMECH_STRUCTURE_SHARES[location.key] ?? 0), 0);
+            for (const location of locations) {
+                const structure = this.getFrankenMechLocationStructure(location.key);
+                const share = (BattleMech.FRANKENMECH_STRUCTURE_SHARES[location.key] ?? 0) / totalShare;
+                const locationCost = structureCostPerTonOf(structure) * this.getTonnage() * share * structureChassisMultiplier;
+                this._calcLogCBill += "<tr><td><strong>Internal Structure, " + location.label + ": " + structure.name + "</strong><br />" + addCommas( structureCostPerTonOf(structure) ) + " x Unit Tonnage [" + this.getTonnage() + "] x " + Math.round(share * 1000) / 10 + "%" + (structureChassisMultiplier !== 1 ? " x 1.2 [Tripod]" : "") + "</td><td>" + addCommas( locationCost ) + "</td></tr>\n";
+                structureCost += locationCost;
+            }
+        } else {
+            const structureCostPerTon = structureCostPerTonOf(this._selectedInternalStructure);
+            structureCost = structureCostPerTon * this.getTonnage() * structureChassisMultiplier;
+            this._calcLogCBill += "<tr><td><strong>Internal Structure: " + this._selectedInternalStructure.name  + "</strong><br />" +  addCommas( structureCostPerTon ) + " x Unit Tonnage [" + this.getTonnage() + "]" + (structureChassisMultiplier !== 1 ? " x 1.2 [Tripod]" : "") + "</td><td>" +  addCommas( structureCost ) + "</td></tr>\n";
+        }
         cbillDryTotal += structureCost;
 
         this._calcLogCBill += "<tr><td colspan=\"2\"><strong>Actuators</strong></td></tr>\n";
@@ -1912,10 +1974,17 @@ export class BattleMech {
     }
 
     public getInternalStructureWeight(): number {
-        const tonnage = this.getTonnage();
-        const superheavy = tonnage > 100;
-        // Share of 'Mech tonnage by structure type (TechManual; TO:AUE for Composite, Endo-Composite, Reinforced).
-        // Superheavy 'Mechs double it except for Reinforced and Composite.
+        if (this._frankenMech) return this._getFrankenMechStructureWeight();
+        const tripodMultiplier = this.getType().tag === "tripod" ? 1.1 : 1;
+        return BattleMech._structureWeight(this._selectedInternalStructure?.tag, this.getTonnage(), tripodMultiplier);
+    }
+
+    /**
+     * Internal structure weight of a 'Mech of this tonnage, rounded up to the half ton. Share of 'Mech tonnage by
+     * structure type (TechManual; TO:AUE for Composite, Endo-Composite, Reinforced); superheavy 'Mechs double it
+     * except for Reinforced and Composite.
+     */
+    private static _structureWeight(structureTag: string | undefined, tonnage: number, multiplier: number = 1): number {
         const factors: Record<string, { base: number, superheavy: number }> = {
             "standard": { base: 0.1, superheavy: 0.2 },
             "endo-steel": { base: 0.05, superheavy: 0.1 },
@@ -1924,10 +1993,8 @@ export class BattleMech {
             "reinforced": { base: 0.2, superheavy: 0.2 },
             "industrial": { base: 0.2, superheavy: 0.4 },
         };
-        const factor = factors[this._selectedInternalStructure?.tag] ?? factors["standard"];
-        const tripodMultiplier = this.getType().tag === "tripod" ? 1.1 : 1;
-        // Structure weight rounds up to the half ton.
-        return Math.ceil(tonnage * (superheavy ? factor.superheavy : factor.base) * tripodMultiplier * 2) / 2;
+        const factor = factors[structureTag ?? ""] ?? factors["standard"];
+        return Math.ceil(tonnage * (tonnage > 100 ? factor.superheavy : factor.base) * multiplier * 2) / 2;
     }
 
     /** Tons of one jump jet: the selected edition's figure where it prints one, else by weight class (TM p.51). */
@@ -1936,6 +2003,15 @@ export class BattleMech {
         if( edition !== undefined ) {
             return edition;
         }
+        // A FrankenMech's jets kept from a lighter 'Mech weigh what they did there (CO p.213).
+        if( this._frankenMechJumpJetClass && this.usesLighterJumpJets() ) {
+            return this._jumpJetType.weight_multiplier[this._frankenMechJumpJetClass];
+        }
+        return this._ownJumpJetWeightEach();
+    }
+
+    /** Tons of one jump jet built for this 'Mech's weight class (TM p.51). */
+    private _ownJumpJetWeightEach(): number {
         if( this._tonnage <= 55) {
             // 10-55 tons
             return this._jumpJetType.weight_multiplier.light;
@@ -2624,7 +2700,10 @@ export class BattleMech {
 
         // Equipment
         html += "Equipment".padEnd(col1Padding + col2Padding, " " ) + "Mass\n";
-        html += "" + ( "Internal Structure ( " + this._selectedInternalStructure.name + " )" ).toString().padEnd(col1Padding + col2Padding, " " ) + "" + this.getInternalStructureWeight() + "\n";
+        html += "" + ( "Internal Structure ( " + this.getInternalStructureLabel() + " )" ).toString().padEnd(col1Padding + col2Padding, " " ) + "" + this.getInternalStructureWeight() + "\n";
+        for (const line of this._getFrankenMechReadoutLines()) {
+            html += "  " + line + "\n";
+        }
         html += "" + this.getEngineName().padEnd(col1Padding, " " ) + "" + this.getEngineRating().toString().padEnd(col2Padding, " " ) + "" + this.getEngineWeight() + "\n";
 
         html += "Walking".padStart(col1Padding - 10, " " ) + " " + this.getWalkSpeed().toString().padStart(3, " " ) + "\n";
@@ -2919,7 +2998,10 @@ export class BattleMech {
 
         // Equipment
         html += "<tr><th class=\"text-left\" colspan=\"3\">Equipment</th><th class=\"text-center\" colspan=\"1\">Mass</th></tr>";
-        html += "<tr><td colspan=\"3\">Internal Structure ( " + esc(this._selectedInternalStructure.name) + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"3\">Internal Structure ( " + esc(this.getInternalStructureLabel()) + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
+        for (const line of this._getFrankenMechReadoutLines()) {
+            html += "<tr><td colspan=\"4\">&nbsp;&nbsp;" + esc(line) + "</td></tr>";
+        }
         html += "<tr><td colspan=\"1\">" + esc(this.getEngineName()) + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
 
         html += "<tr><td colspan=\"1\" class=\"text-right\">Walking</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
@@ -3940,8 +4022,15 @@ export class BattleMech {
             }
         }
 
-        // Internal Structure critical Items
-        if( this.getTech().tag === "clan" && !this._usesStarLeagueVersion(this._selectedInternalStructure) ) {
+        // Internal Structure critical Items. A FrankenMech's are placed location by location after the saved
+        // allocations, like patchwork armor's.
+        const frankenMechStructureTags = new Set<string>(this._frankenMech
+            ? this.getFrankenMechLocations().filter(location => this.getFrankenMechLocationStructureSlots(location.key) > 0)
+                .map(location => this.getFrankenMechLocationStructure(location.key).tag)
+            : []);
+        if( this._frankenMech ) {
+            // Placed below.
+        } else if( this.getTech().tag === "clan" && !this._usesStarLeagueVersion(this._selectedInternalStructure) ) {
             for( let aCounter = 0; aCounter < this.getCriticalSlots(this._selectedInternalStructure.crits.clan); aCounter++) {
                 this._unallocatedCriticals.push({
                     uuid: generateUUID(),
@@ -4075,8 +4164,9 @@ export class BattleMech {
             if( armorCriticalLocations && item.tag === armorObj.tag ) {
                 continue;
             }
-            // The same goes for a patchwork location's armor slots, which are placed after this loop.
-            if( patchworkArmorTags.has(item.tag) ) {
+            // The same goes for a patchwork location's armor slots and a FrankenMech's structure slots, which are
+            // placed after this loop.
+            if( patchworkArmorTags.has(item.tag) || frankenMechStructureTags.has(item.tag) ) {
                 continue;
             }
             let removeFromUnallocated = false;
@@ -4114,12 +4204,29 @@ export class BattleMech {
                 if (slots <= 0) continue;
                 const locationArmor = this.getPatchworkArmorType(location.key);
                 let placed = 0;
-                while (placed < slots && this._addCriticalItem(locationArmor.tag, locationArmor.name, 1, location.abbr, null, false)) {
+                while (placed < slots && this._addCriticalItem(locationArmor.tag, locationArmor.name, 1, location.abbr, null, false, true)) {
                     placed++;
                 }
                 if (placed < slots) {
                     this._patchworkSlotShortfalls.push(`Patchwork Armor: ${locationArmor.name} needs ${slots} free critical slot${slots === 1 ? "" : "s"} in the ${location.label}.`);
                 }
+            }
+        }
+
+        // FrankenMech: each location keeps its own structure's slots, from the Internal Structure Distribution
+        // Table (CO pp.212-213).
+        this._frankenMechSlotShortfalls = [];
+        for (const location of this._frankenMech ? this.getFrankenMechLocations() : []) {
+            const slots = this.getFrankenMechLocationStructureSlots(location.key);
+            if (slots <= 0) continue;
+            const structure = this.getFrankenMechLocationStructure(location.key);
+            const structureName = this.getFrankenMechLocationStructureName(location.key);
+            let placed = 0;
+            while (placed < slots && this._addCriticalItem(structure.tag, structureName, 1, location.abbr, null, false, true)) {
+                placed++;
+            }
+            if (placed < slots) {
+                this._frankenMechSlotShortfalls.push(`FrankenMech: ${structureName} structure needs ${slots} free critical slot${slots === 1 ? "" : "s"} in the ${location.label}.`);
             }
         }
 
@@ -4275,7 +4382,9 @@ export class BattleMech {
             const prototypeHeat = Math.max(this._jumpJetType.minimumHeat ?? 3, jumpMP * this._jumpJetType.heatPerHex);
             return this.isXXLEngine() ? prototypeHeat * 2 : prototypeHeat;
         }
-        const heatMP = this._jumpJetType.tag === "improved" ? Math.ceil(jumpMP / 2) : jumpMP;
+        // A FrankenMech's lighter jets make heat jet by jet: six half-ton jets on a 60-ton 'Mech give 6 points (CO p.213).
+        const jetsForHeat = this.usesLighterJumpJets() ? this._jumpSpeed : jumpMP;
+        const heatMP = this._jumpJetType.tag === "improved" ? Math.ceil(jetsForHeat / 2) : jetsForHeat;
         return this.isXXLEngine() ? Math.max(6, heatMP * 2) : Math.max(3, heatMP);
     }
 
@@ -4397,6 +4506,7 @@ export class BattleMech {
     location: string,
     slot: number | null = 0,
     movable: boolean = false,
+    rollAgain: boolean = false,
 ): boolean {
     // Generate a unique identifier tracking tag for the component instance
     const uuid = generateUUID();
@@ -4407,7 +4517,8 @@ export class BattleMech {
         name: item_nickname,
         crits: criticalCount,
         movable: movable,
-        uuid: uuid
+        uuid: uuid,
+        ...(rollAgain ? { rollAgain: true } : {}),
     };
 
     // Standardize input parameters to eliminate undefined values
@@ -4802,8 +4913,8 @@ export class BattleMech {
         // Engine rating = tonnage x Walk MP; Walk 0 clears the engine (setEngine(0) -> null).
         this.setEngine(this._engineRatingForWalk(this._walkSpeed));
 
-        if( this._jumpSpeed > this._walkSpeed)
-            this.setJumpSpeed(this._walkSpeed);
+        if( this._jumpSpeed > this._walkSpeed * this._jumpJetsPerMP())
+            this.setJumpSpeed(this._walkSpeed * this._jumpJetsPerMP());
 
         return this._walkSpeed;
     }
@@ -4844,7 +4955,41 @@ export class BattleMech {
     /** Jump MP from jump jets: shields and modular armor reduce it; a partial wing adds to it (TO:AUE pp.103, 105). */
     public getJumpSpeed() {
         if (this._jumpJetType.underwater) return 0;
-        return this._applyJumpModifiers(this._jumpSpeed);
+        return this._applyJumpModifiers(this._getJumpJetMP());
+    }
+
+    /**
+     * Jump MP the jets give before modifiers: one per jet, or for a FrankenMech's lighter jets their weight over a
+     * full-size jet's, dropping fractions (CO p.213: on a 60-ton 'Mech six half-ton jets give 3 MP).
+     */
+    private _getJumpJetMP(): number {
+        if (!this.usesLighterJumpJets()) return this._jumpSpeed;
+        return Math.floor(this._jumpSpeed * this._jumpJetWeightEach() / this._ownJumpJetWeightEach() + 1e-9);
+    }
+
+    /** Jump jets mounted. Each gives a Jumping MP, except a FrankenMech's lighter jets. */
+    public getJumpJetCount(): number {
+        return this._jumpSpeed;
+    }
+
+    /** Most jump jets worth mounting: as many as give the highest Jumping MP. */
+    public getMaxJumpJetCount(): number {
+        return this.getMaxJumpSpeed() * this._jumpJetsPerMP();
+    }
+
+    /** Jump jets that make one Jumping MP: 1, or 2 or 4 of a FrankenMech's lighter jets. */
+    private _jumpJetsPerMP(): number {
+        return this.usesLighterJumpJets() ? Math.round(this._ownJumpJetWeightEach() / this._jumpJetWeightEach()) : 1;
+    }
+
+    /**
+     * Does this FrankenMech keep jump jets from a lighter 'Mech? "Smaller jump jets can be retained on larger 'Mechs,
+     * but their performance is reduced" (CO p.213). Not offered for UMUs, which are not jump jets, nor for LAMs,
+     * whose conversion needs its Jumping MP.
+     */
+    public usesLighterJumpJets(): boolean {
+        return this._frankenMech && this._frankenMechJumpJetClass !== null
+            && !this._jumpJetType.underwater && !this.isLAM() && !this.usesEarlierRulesEdition();
     }
 
     /** Underwater MP from UMUs (TO:AUE p.107); UMUs replace jump jets. */
@@ -5354,6 +5499,12 @@ export class BattleMech {
             }
         };
         this._equipmentList.forEach(restat);
+        // FrankenMechs are a Campaign Operations rule, which no earlier edition has.
+        if (this.usesEarlierRulesEdition()) {
+            this._frankenMech = false;
+            this._frankenMechDonors = {};
+            this._frankenMechJumpJetClass = null;
+        }
         // The structure boxes are the edition's as well; setTonnage recalculates everything after them.
         this.setTonnage(this._tonnage);
         return this._rulesEdition;
@@ -5704,6 +5855,8 @@ export class BattleMech {
         if (this.isTripod()) return false;
         // "Primitive 'Mechs cannot be constructed as OmniMechs" (IO:AE p.117).
         if (this._primitive) return false;
+        // OmniMech parts on a FrankenMech lose their Omni abilities, and "cannot be reconfigured" (CO p.213).
+        if (this._frankenMech) return false;
         if (this.isLAM()) return rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL && this._hasOmniLAMTechBase();
         return true;
     }
@@ -5789,6 +5942,7 @@ export class BattleMech {
         if (this.isPatchworkArmor()) level = Math.max(level, 3);
         // Non-Fusion BattleMechs are Experimental (TO:AUE p.120).
         if (this.isNonFusionBattleMech()) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        if (this._frankenMech) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
         // An edition before Total Warfare has no rules levels: only content from outside the canon keeps its level.
         if (this.usesEarlierRulesEdition() && level < APOCRYPHAL_RULES_LEVEL) return 0;
         return level;
@@ -6219,6 +6373,13 @@ export class BattleMech {
             }
             violations.push(...this._patchworkSlotShortfalls);
         }
+        if (this._frankenMech) {
+            violations.push(...this._frankenMechSlotShortfalls);
+            // "If MASC is installed, only standard myomers can be used" (CO p.213).
+            if (this._myomerType.tag !== "standard" && this._equipmentList.some(item => item && /(^|-)masc$/.test(item.tag.toLowerCase()))) {
+                violations.push("FrankenMech: with MASC installed, only standard myomer can be used.");
+            }
+        }
         const chassisName = this._primitive ? "Primitive 'Mechs" : "IndustrialMechs";
         if (this._primitive) {
             const typeTag = this._mechType.tag.toLowerCase();
@@ -6536,6 +6697,8 @@ export class BattleMech {
         this._internalStructure.frontLeftLeg = 0;
         this._internalStructure.frontRightLeg = 0;
       }
+      // A FrankenMech location keeps the structure of the 'Mech it came from (CO p.213).
+      this._applyFrankenMechStructure(mechTypeKey);
 
       // Establish core fixed armor allocations (Head maximum is 9; Torsos carry 2x internal structure)
       this._maxArmor = 9 + 
@@ -6725,7 +6888,7 @@ export class BattleMech {
         }
 
         public getPilotingSkillModifier(): number {
-            return (this.isTripod() ? -1 : 0) + (this.hasActiveModularArmor() ? 1 : 0);
+            return (this.isTripod() ? -1 : 0) + (this.hasActiveModularArmor() ? 1 : 0) + this.getFrankenMechLegPilotingModifier();
         }
 
         public ignoresSecondaryTargetModifier(): boolean {
@@ -6918,6 +7081,12 @@ export class BattleMech {
             armor_type: this.getArmorType(),
             patchworkArmor: this.isPatchworkArmor()
                 ? Object.fromEntries(this.getPatchworkLocations().map(location => [location.key, this.getPatchworkArmorType(location.key).tag]))
+                : undefined,
+            frankenMech: this._frankenMech
+                ? {
+                    donors: Object.fromEntries(this.getFrankenMechLocations().map(location => [location.key, this.getFrankenMechDonor(location.key)])),
+                    jumpJetClass: this.getFrankenMechJumpJetClass() ?? undefined,
+                }
                 : undefined,
             armor_weight: this._armorWeight,
             engineType: this.getEngineType().tag,
@@ -7273,6 +7442,30 @@ export class BattleMech {
 
             if( importObject.is_type)
                 this.setInternalStructureType(importObject.is_type);
+
+            // FrankenMech donors decide the structure points and weight; set after tonnage, type and structure,
+            // and before the jump jets, whose count may depend on their size.
+            this._frankenMech = false;
+            this._frankenMechDonors = {};
+            this._frankenMechJumpJetClass = null;
+            const frankenMech = importObject.frankenMech;
+            if (frankenMech && typeof frankenMech === "object" && this.setFrankenMech(true)) {
+                const donors = frankenMech.donors && typeof frankenMech.donors === "object" ? frankenMech.donors : {};
+                for (const location of this.getFrankenMechLocations()) {
+                    const donor: unknown = donors[location.key];
+                    if (!donor || typeof donor !== "object") continue;
+                    const { tonnage, structure, name, structureTechBase, structureSlots } = donor as Record<string, unknown>;
+                    this.setFrankenMechDonor(location.key, {
+                        tonnage: typeof tonnage === "number" ? tonnage : undefined,
+                        structure: typeof structure === "string" ? structure : undefined,
+                        name: typeof name === "string" ? name : undefined,
+                        structureTechBase: structureTechBase === "is" || structureTechBase === "clan" ? structureTechBase : undefined,
+                        structureSlots: typeof structureSlots === "number" ? structureSlots : undefined,
+                    });
+                }
+                const jetClass = this.getFrankenMechJumpJetClasses().find(candidate => candidate === frankenMech.jumpJetClass);
+                if (jetClass) this._frankenMechJumpJetClass = jetClass;
+            }
 
             if( importObject.walkSpeed)
                 this.setWalkSpeed(importObject.walkSpeed);
@@ -9146,6 +9339,288 @@ export class BattleMech {
     private _hasRepairSystemArmor(): boolean {
         if (!this.isPatchworkArmor()) return BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this._armorType.tag);
         return this.getPatchworkLocations().some(location => BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this.getPatchworkArmorType(location.key).tag));
+    }
+
+    /**
+     * FrankenMech internal structure weight, by location: "Each limb is considered to weigh 10 percent of the total
+     * internal structure weight. The center torso weighs 25 percent, the left and right torso weigh 15 percent each,
+     * and the head weighs 5 percent" (CO p.213).
+     */
+    private static readonly FRANKENMECH_STRUCTURE_SHARES: Record<string, number> = {
+        head: 0.05, centerTorso: 0.25, leftTorso: 0.15, rightTorso: 0.15,
+        leftArm: 0.1, rightArm: 0.1, leftLeg: 0.1, rightLeg: 0.1, frontLeftLeg: 0.1, frontRightLeg: 0.1, centerLeg: 0.1,
+    };
+    /**
+     * Internal Structure Distribution Table (CO p.212): a location's slots for Inner Sphere endo steel ("is") and for
+     * Clan endo steel or either endo-composite ("compact"). A four-legged 'Mech's front legs are legs (via MegaMek).
+     */
+    private static readonly FRANKENMECH_STRUCTURE_SLOTS: Record<"is" | "compact", Record<"head" | "centerTorso" | "sideTorso" | "arm" | "leg", number>> = {
+        is: { head: 1, centerTorso: 1, sideTorso: 3, arm: 2, leg: 1 },
+        compact: { head: 0, centerTorso: 1, sideTorso: 1, arm: 1, leg: 1 },
+    };
+    /** Structure a FrankenMech location may come with: the types the distribution table covers, or that take no slots. */
+    public static readonly FRANKENMECH_STRUCTURE_TAGS: readonly string[] = ["standard", "endo-steel", "endo-composite", "reinforced", "composite", "industrial"];
+    private static readonly FRANKENMECH_LEG_KEYS: readonly string[] = ["leftLeg", "rightLeg", "frontLeftLeg", "frontRightLeg", "centerLeg"];
+
+    /** FrankenMech: built from the body locations of other 'Mechs (CO pp.213-214). */
+    public isFrankenMech(): boolean {
+        return this._frankenMech;
+    }
+
+    /**
+     * FrankenMechs are Experimental: the published ones are "Experimental-FrankenMech" (XTRO:Royal Fantasy p.8),
+     * and MegaMek offers them at that level. The rule is Campaign Operations', so an earlier edition has none.
+     */
+    public canBeFrankenMech(rulesLevel: number = 2): boolean {
+        return rulesLevel >= EXPERIMENTAL_RULES_LEVEL && !this.usesEarlierRulesEdition();
+    }
+
+    /** Makes the design a FrankenMech, every location starting as the center torso's 'Mech, or an ordinary 'Mech again. */
+    public setFrankenMech(frankenMech: boolean, rulesLevel: number = EXPERIMENTAL_RULES_LEVEL): boolean {
+        if (frankenMech && !this._frankenMech && !this.canBeFrankenMech(rulesLevel)) return this._frankenMech;
+        this._frankenMech = frankenMech;
+        this._frankenMechDonors = {};
+        this._frankenMechJumpJetClass = null;
+        // OmniMech parts "lose all benefits and special abilities associated with OmniMechs" (CO p.213).
+        if (frankenMech && this._omnimech) this.toggleOmni();
+        this.setTonnage(this._tonnage);
+        return this._frankenMech;
+    }
+
+    /** The body locations a FrankenMech is assembled from: those that take an armor type under Patchwork Armor. */
+    public getFrankenMechLocations(): { key: string, abbr: string, label: string }[] {
+        return this.getPatchworkLocations();
+    }
+
+    /** Where a location came from. The center torso sets the FrankenMech's tonnage and structure type. */
+    public getFrankenMechDonor(locationKey: string): IFrankenMechDonor {
+        const saved = this._frankenMech ? this._frankenMechDonors[locationKey] : undefined;
+        const centerTorso = locationKey === "centerTorso";
+        const structureTag = !centerTorso ? saved?.structure ?? this._selectedInternalStructure.tag : this._selectedInternalStructure.tag;
+        const structure = findByTag(mechInternalStructureTypes, structureTag) ?? this._selectedInternalStructure;
+        const structureTechBase = saved?.structureTechBase && this.getFrankenMechStructureTechBases().includes(saved.structureTechBase)
+            ? saved.structureTechBase : this._defaultStructureTechBase(structure);
+        const donor: IFrankenMechDonor = {
+            tonnage: !centerTorso ? saved?.tonnage ?? this._tonnage : this._tonnage,
+            structure: structureTag,
+            name: saved?.name ?? "",
+            structureTechBase,
+        };
+        const wholeUnitSlots = structure.crits[structureTechBase];
+        if (saved?.structureSlots !== undefined && wholeUnitSlots > 0 && saved.structureSlots <= wholeUnitSlots) {
+            donor.structureSlots = saved.structureSlots;
+        }
+        return donor;
+    }
+
+    /** Whose structure slots a whole 'Mech of this tech base uses: a Clan 'Mech's, unless the structure is the Star League version. */
+    private _defaultStructureTechBase(structure: IInternalStructure): "is" | "clan" {
+        return this.getTech().tag === "clan" && !this._usesStarLeagueVersion(structure) ? "clan" : "is";
+    }
+
+    /** Structure tech bases a location may come with: either on a Mixed Tech 'Mech, otherwise the 'Mech's own. */
+    public getFrankenMechStructureTechBases(): ("is" | "clan")[] {
+        if (this._isMixedTechBase()) return ["is", "clan"];
+        return [this.getTech().tag === "clan" ? "clan" : "is"];
+    }
+
+    /** Slot counts a location's structure may have kept from its donor's design: 1 up to the whole structure's. */
+    public getFrankenMechDonorSlotCounts(locationKey: string): number[] {
+        const donor = this.getFrankenMechDonor(locationKey);
+        const wholeUnitSlots = findByTag(mechInternalStructureTypes, donor.structure)?.crits[donor.structureTechBase ?? "is"] ?? 0;
+        return Array.from({ length: wholeUnitSlots }, (_, index) => index + 1);
+    }
+
+    /**
+     * Tonnages a location may come from. "The legs must be from a 'Mech of the same tonnage or heavier" (CO p.213);
+     * other parts may come from any 'Mech up to 100 tons, or up to 200 on a superheavy (via MegaMek).
+     */
+    public getFrankenMechDonorTonnages(locationKey: string): number[] {
+        if (locationKey === "centerTorso") return [this._tonnage];
+        const typeKey = this.getMechType().tag as keyof IInternalStructure["perMechType"];
+        const heaviest = this._tonnage > 100 ? 200 : 100;
+        const lightest = BattleMech.FRANKENMECH_LEG_KEYS.includes(locationKey) ? this._tonnage : 0;
+        return Object.keys(this._selectedInternalStructure.perMechType[typeKey] ?? {}).map(Number)
+            .filter(tonnage => tonnage >= lightest && tonnage <= heaviest)
+            .sort((a, b) => a - b);
+    }
+
+    /** Structure types a location may come with, marked available as the 'Mech's own structure selector marks them. */
+    public getFrankenMechDonorStructures(rulesLevel: number = 2): IInternalStructure[] {
+        return this.getAvailableInternalStructures(rulesLevel).filter(structure => this._isFrankenMechDonorStructure(structure.tag));
+    }
+
+    private _isFrankenMechDonorStructure(structureTag: string): boolean {
+        if (!BattleMech.FRANKENMECH_STRUCTURE_TAGS.includes(structureTag)) return false;
+        const structure = findByTag(mechInternalStructureTypes, structureTag);
+        if (!structure) return false;
+        return !this.isQuadVee() || structure.tag === "standard";
+    }
+
+    /** Sets where one location came from. Values the location may not take are ignored. */
+    public setFrankenMechDonor(locationKey: string, donor: Partial<IFrankenMechDonor>): IFrankenMechDonor {
+        if (!this._frankenMech || !this.getFrankenMechLocations().some(location => location.key === locationKey)) {
+            return this.getFrankenMechDonor(locationKey);
+        }
+        const saved = { ...this._frankenMechDonors[locationKey] };
+        if (donor.tonnage !== undefined && locationKey !== "centerTorso" && this.getFrankenMechDonorTonnages(locationKey).includes(donor.tonnage)) {
+            saved.tonnage = donor.tonnage;
+        }
+        if (donor.structure !== undefined && locationKey !== "centerTorso" && this._isFrankenMechDonorStructure(donor.structure)) {
+            saved.structure = findByTag(mechInternalStructureTypes, donor.structure)?.tag ?? saved.structure;
+        }
+        if (donor.name !== undefined) saved.name = donor.name.slice(0, BattleMech.FRANKENMECH_DONOR_NAME_LENGTH);
+        if (donor.structureTechBase !== undefined && this.getFrankenMechStructureTechBases().includes(donor.structureTechBase)) {
+            saved.structureTechBase = donor.structureTechBase;
+        }
+        this._frankenMechDonors[locationKey] = saved;
+        // The slot count is checked against the structure just set; 0 goes back to the table.
+        if (donor.structureSlots === 0) {
+            delete saved.structureSlots;
+        } else if (donor.structureSlots !== undefined && this.getFrankenMechDonorSlotCounts(locationKey).includes(donor.structureSlots)) {
+            saved.structureSlots = donor.structureSlots;
+        }
+        this.setTonnage(this._tonnage);
+        return this.getFrankenMechDonor(locationKey);
+    }
+
+    public static readonly FRANKENMECH_DONOR_NAME_LENGTH = 60;
+
+    /** Drops donors the 'Mech can no longer take: a location it lost, legs lighter than the 'Mech, a structure it cannot use. */
+    private _pruneFrankenMechDonors(): void {
+        const locations = this.getFrankenMechLocations().map(location => location.key);
+        for (const [locationKey, donor] of Object.entries(this._frankenMechDonors)) {
+            if (!locations.includes(locationKey)) {
+                delete this._frankenMechDonors[locationKey];
+                continue;
+            }
+            if (donor.tonnage !== undefined && !this.getFrankenMechDonorTonnages(locationKey).includes(donor.tonnage)) delete donor.tonnage;
+            if (donor.structure !== undefined && !this._isFrankenMechDonorStructure(donor.structure)) delete donor.structure;
+        }
+    }
+
+    /** Gives each FrankenMech location the structure points of its donor's tonnage. */
+    private _applyFrankenMechStructure(typeKey: keyof IInternalStructure["perMechType"]): void {
+        if (!this._frankenMech) return;
+        this._pruneFrankenMechDonors();
+        const points = this._internalStructure as unknown as Record<string, number>;
+        for (const location of this.getFrankenMechLocations()) {
+            const donor = this.getFrankenMechDonor(location.key);
+            const listed = this._selectedInternalStructure.perMechType[typeKey]?.[donor.tonnage] as unknown as Record<string, number | undefined> | undefined;
+            const locationPoints = listed?.[location.key];
+            if (locationPoints !== undefined) points[location.key] = locationPoints;
+        }
+    }
+
+    public getFrankenMechLocationStructure(locationKey: string): IInternalStructure {
+        return findByTag(mechInternalStructureTypes, this.getFrankenMechDonor(locationKey).structure) ?? this._selectedInternalStructure;
+    }
+
+    /** The location's structure by name, saying whose it is on a Mixed Tech 'Mech when it takes slots: "Endo-Steel (Clan)". */
+    public getFrankenMechLocationStructureName(locationKey: string): string {
+        const structure = this.getFrankenMechLocationStructure(locationKey);
+        if (!this._isMixedTechBase() || structure.crits.is <= 0) return structure.name;
+        return `${structure.name} (${this.getFrankenMechDonor(locationKey).structureTechBase === "clan" ? "Clan" : "IS"})`;
+    }
+
+    /** The location's share of its donor's whole internal structure weight (CO p.213). */
+    public getFrankenMechLocationStructureWeight(locationKey: string): number {
+        const donor = this.getFrankenMechDonor(locationKey);
+        return BattleMech._structureWeight(donor.structure, donor.tonnage) * (BattleMech.FRANKENMECH_STRUCTURE_SHARES[locationKey] ?? 0);
+    }
+
+    /** "The combined weight of all eight locations is added together and the result is rounded up to the nearest .5 tons" (CO p.213). */
+    private _getFrankenMechStructureWeight(): number {
+        const total = this.getFrankenMechLocations().reduce((sum, location) => sum + this.getFrankenMechLocationStructureWeight(location.key), 0);
+        return BattleMech.roundPatchworkArmorWeight(total, this._weightAccounting);
+    }
+
+    /**
+     * Critical slots the location's structure takes there: "retained from the donor design or, if no critical slot
+     * of the appropriate internal structure type is present, the number listed on the Internal Structure
+     * Distribution Table" (CO pp.212-213).
+     */
+    public getFrankenMechLocationStructureSlots(locationKey: string): number {
+        if (!this._frankenMech) return 0;
+        const donor = this.getFrankenMechDonor(locationKey);
+        if (donor.structureSlots !== undefined) return donor.structureSlots;
+        return this.getFrankenMechTableStructureSlots(locationKey);
+    }
+
+    /** The Internal Structure Distribution Table's slots for the location's structure (CO p.212). */
+    public getFrankenMechTableStructureSlots(locationKey: string): number {
+        const donor = this.getFrankenMechDonor(locationKey);
+        const structure = this.getFrankenMechLocationStructure(locationKey);
+        const wholeUnitSlots = structure.crits[donor.structureTechBase ?? this._defaultStructureTechBase(structure)];
+        if (wholeUnitSlots <= 0) return 0;
+        // Inner Sphere endo steel takes 14 slots in a whole 'Mech; the table's other column is for the 7-slot kinds.
+        const column = BattleMech.FRANKENMECH_STRUCTURE_SLOTS[wholeUnitSlots >= 14 ? "is" : "compact"];
+        if (locationKey === "head" || locationKey === "centerTorso") return column[locationKey];
+        if (locationKey === "leftTorso" || locationKey === "rightTorso") return column.sideTorso;
+        return BattleMech.FRANKENMECH_LEG_KEYS.includes(locationKey) ? column.leg : column.arm;
+    }
+
+    /** Does a location's structure differ from the center torso's? Then the structure is a hybrid. */
+    public hasFrankenMechHybridStructure(): boolean {
+        return this._frankenMech && this.getFrankenMechLocations()
+            .some(location => this.getFrankenMechDonor(location.key).structure !== this._selectedInternalStructure.tag);
+    }
+
+    /**
+     * Piloting Skill Roll modifier for the legs: "if they are not from the same 'Mech, apply a +1 Piloting Skill Roll
+     * modifier; if the legs are from different tonnage 'Mechs, apply a +2" (CO p.213). The +2 is read as taking the
+     * place of the +1, since legs of different tonnages are never from the same 'Mech.
+     */
+    public getFrankenMechLegPilotingModifier(): number {
+        if (!this._frankenMech) return 0;
+        const legs = this.getFrankenMechLocations().filter(location => BattleMech.FRANKENMECH_LEG_KEYS.includes(location.key))
+            .map(location => this.getFrankenMechDonor(location.key));
+        if (new Set(legs.map(leg => leg.tonnage)).size > 1) return 2;
+        return new Set(legs.map(leg => (leg.name ?? "").trim().toLowerCase())).size > 1 ? 1 : 0;
+    }
+
+    /** Lighter jump jet classes this FrankenMech may have kept; heavier jets "cannot be mounted" (CO p.213, errata v4.0). */
+    public getFrankenMechJumpJetClasses(): FrankenMechJumpJetClass[] {
+        if (!this._frankenMech || this.isLAM() || this._jumpJetType.underwater || this.isSuperheavy()) return [];
+        const classes: FrankenMechJumpJetClass[] = ["light", "medium", "heavy"];
+        return classes.filter(jetClass => this._jumpJetType.weight_multiplier[jetClass] < this._ownJumpJetWeightEach());
+    }
+
+    public getFrankenMechJumpJetClass(): FrankenMechJumpJetClass | null {
+        return this.usesLighterJumpJets() ? this._frankenMechJumpJetClass : null;
+    }
+
+    /** Keeps lighter jump jets, or (null) the 'Mech's own size. The jet count is kept to what the new size allows. */
+    public setFrankenMechJumpJetClass(jetClass: FrankenMechJumpJetClass | null): FrankenMechJumpJetClass | null {
+        if (jetClass === null || this.getFrankenMechJumpJetClasses().includes(jetClass)) {
+            this._frankenMechJumpJetClass = jetClass;
+            this.setJumpSpeed(Math.min(this._jumpSpeed, this.getMaxJumpJetCount()));
+        }
+        return this.getFrankenMechJumpJetClass();
+    }
+
+    /** The structure as the readouts name it: a FrankenMech of mixed structure has "Hybrid" structure, as MegaMek writes it. */
+    public getInternalStructureLabel(): string {
+        if (!this._frankenMech) return this._selectedInternalStructure.name;
+        return this.hasFrankenMechHybridStructure() ? "Hybrid, FrankenMech" : `${this._selectedInternalStructure.name}, FrankenMech`;
+    }
+
+    /** One readout line per FrankenMech location ("Right Arm: 70-ton 'Mech (Warhammer), Standard, 11 points"), then the legs' modifier. */
+    private _getFrankenMechReadoutLines(): string[] {
+        if (!this._frankenMech) return [];
+        const points = this._internalStructure as unknown as Record<string, number>;
+        const lines = this.getFrankenMechLocations().map(location => {
+            const donor = this.getFrankenMechDonor(location.key);
+            const name = donor.name?.trim() ? ` (${donor.name.trim()})` : "";
+            const slots = this.getFrankenMechLocationStructureSlots(location.key);
+            const slotText = slots > 0 ? `, ${slots} slot${slots === 1 ? "" : "s"}` : "";
+            return `${location.label}: ${donor.tonnage}-ton 'Mech${name}, ${this.getFrankenMechLocationStructureName(location.key)}${slotText}, ${points[location.key] ?? 0} points`;
+        });
+        const legModifier = this.getFrankenMechLegPilotingModifier();
+        if (legModifier > 0) {
+            lines.push(`Legs from ${legModifier === 2 ? "'Mechs of different tonnages" : "different 'Mechs"}: +${legModifier} to Piloting Skill Rolls`);
+        }
+        return lines;
     }
 
     /** The Dark Age armors of IO:AE pp.80-82 (Advanced Armor Table). */
