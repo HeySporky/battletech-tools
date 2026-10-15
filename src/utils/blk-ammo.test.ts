@@ -7,6 +7,7 @@ describe("MegaMek .blk ammunition lines", () => {
         expect(parseBlkAmmoLine("IS Ammo AC/10 - Half")).toMatchObject({ weaponKey: "ac10", half: true, kind: undefined });
         expect(parseBlkAmmoLine("IS LB 10-X Cluster Ammo")?.kind?.source).toBe("cluster");
         expect(parseBlkAmmoLine("Medium Laser")).toBeNull();
+        expect(parseBlkAmmoLine("IS Ammo MG - Full")).toMatchObject({ weaponKey: "machinegun", half: false });
     });
 
     it("finds the mounted weapon a line feeds and its standard round", () => {
