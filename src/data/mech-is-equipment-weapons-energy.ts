@@ -280,6 +280,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         isAmmo: false,
         name: "ER Medium Laser",
         tag: "er-medium-laser",
+        altNames: ["ISERMediumLaser"],
         introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, name: "ER Medium Laser", heat: 5, damage: 5, range: { min: 0, short: 4, medium: 8, long: 12 }, weight: 1, criticals: 1, cbills: 80000 }, "master-rules-revised": { book: "BMR(R)", page: 121, name: "ER Medium Laser", heat: 5, damage: 5, range: { min: 0, short: 4, medium: 8, long: 12 }, weight: 1, criticals: 1, cbills: 80000 } },
         sort: "laser, er, 1, medium",
         category: "Energy Weapons",
@@ -388,6 +389,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         isAmmo: false,
         name: "ER Small Laser",
         tag: "er-small-laser",
+        altNames: ["ISERSmallLaser"],
         introducedInEdition: "master-rules", editionStats: { "master-rules": { book: "BMR", page: 115, name: "ER Small Laser", heat: 2, damage: 3, range: { min: 0, short: 2, medium: 4, long: 5 }, weight: 0.5, criticals: 1, cbills: 11250 }, "master-rules-revised": { book: "BMR(R)", page: 121, name: "ER Small Laser", heat: 2, damage: 3, range: { min: 0, short: 2, medium: 4, long: 5 }, weight: 0.5, criticals: 1, cbills: 11250 } },
         sort: "laser, er, 0, small",
         category: "Energy Weapons",
@@ -714,7 +716,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
     {
         name: "Large Variable-Speed Pulse Laser",
         tag: "large-vspl",
-        altNames: ["Large Variable Speed Pulse Laser"],
+        altNames: ["Large Variable Speed Pulse Laser", "ISLargeXPulseLaser"],
         sort: "laser, vspl, 2, large",
         category: "Energy Weapons",
         damage: {
@@ -1332,6 +1334,7 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
         isAmmo: false,
         name: "Small Pulse Laser",
         tag: "small-pulse-laser",
+        altNames: ["ISSmallPulseLaser"],
         introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 116, name: "Pulse Laser (Small)", heat: 2, damage: 3, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 1, criticals: 1, cbills: 16000, notes: "To-hit number modified by -2 (BTC p.121)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 105, name: "Pulse Laser (Small)", heat: 2, damage: 3, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 1, criticals: 1, cbills: 16000, notes: "Applies a -2 modifier to the to-hit number (BTC:RoW p.120)." }, "master-rules": { book: "BMR", page: 115, name: "Pulse Laser (Small)", heat: 2, damage: 3, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 1, criticals: 1, cbills: 16000, notes: "Applies a -2 modifier to the to-hit number (BMR p.129)." }, "master-rules-revised": { book: "BMR(R)", page: 121, name: "Pulse Laser (Small)", heat: 2, damage: 3, range: { min: 0, short: 1, medium: 2, long: 3 }, weight: 1, criticals: 1, cbills: 16000, notes: "Applies a -2 modifier to the to-hit number (BMR(R) p.139)." } },
         sort: "laser, pulse, 0, small",
         category: "Energy Weapons",
