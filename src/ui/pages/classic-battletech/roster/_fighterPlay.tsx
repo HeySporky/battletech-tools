@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { AIRSHIP_VELOCITY_TABLE } from '../../../../data/support-aircraft';
 import AerospaceFighter, { FIGHTER_ARCS, FIGHTER_CRITICAL_TRACKS, FIGHTER_HEAT_TRIGGERS, FighterArc } from '../../../../classes/aerospace-fighter';
 import { FIGHTER_ATTACK_DIRECTIONS, FighterAttackDirection } from '../../../../data/fighter-hit-tables';
 import FighterDiagramSVG from '../../../components/svg/fighter-diagram-svg';
@@ -77,6 +78,33 @@ export default class FighterPlayPanel extends React.Component<IFighterPlayPanelP
                     <strong>Control Rolls</strong>: +{fighter.getControlRollModifier()}{play.gear ? " (+5 landing)" : ""} &nbsp;|&nbsp;
                     <strong>Pilot</strong>: Gunnery {fighter.getPilot().gunnery} / Piloting {fighter.getPilot().piloting}
                 </p>
+                {fighter.isSupportVehicle() ? (
+                    <div className="smaller-text" data-testid="support-aircraft-play">
+                        <p>
+                            Support Vehicle, BAR {fighter.getBAR()}{fighter.getFireControlToHitModifier() > 0 ? `, +${fighter.getFireControlToHitModifier()} to-hit for fire control` : ""}.
+                            {fighter.getBAR() < 10 ? ` A hit of more than ${fighter.getBAR()} damage also checks for a penetrating critical hit (TW p.206).` : ""}
+                            {fighter.getSupportMotive() === "fixed-wing" ? " Fixed-Wing: attacks, hit locations and critical hits as a conventional fighter; Damage Threshold 0 at BAR 2, 1 at BAR 3-9 (TW p.206)." : ""}
+                            {fighter.getSupportMotive() === "satellite" ? " Satellite: static in combat; its attitude jets give 0.2 thrust a turn toward a facing change (TO:AUE p.16)." : ""}
+                        </p>
+                        {fighter.getSupportMotive() === "airship" ? (
+                            <>
+                                <p>
+                                    Airship: hit locations on the aerodyne DropShip column, K-F boom, docking collar and gear criticals re-rolled. Thrust
+                                    is spent over a four-turn cycle at a set velocity; over Velocity 3 it goes out of control, and out of control after
+                                    a hit it rolls on the Airship Random Altitude Change Table instead of losing 1D6 altitude (TW pp.204-206).
+                                </p>
+                                <table className="table table-sm" data-testid="airship-velocity">
+                                    <thead><tr><th>Velocity</th><th>Turn 1</th><th>Turn 2</th><th>Turn 3</th><th>Turn 4</th></tr></thead>
+                                    <tbody>
+                                        {AIRSHIP_VELOCITY_TABLE.filter((row) => row.velocity <= Math.max(0.25, fighter.getCurrentMaxThrust())).map((row) => (
+                                            <tr key={row.velocity}><td>{row.velocity}</td>{row.thrustPerTurn.map((thrust, turn) => <td key={turn}>{thrust || "-"}</td>)}</tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </>
+                        ) : null}
+                    </div>
+                ) : null}
 
                 <fieldset className="fieldset">
                     <legend>Resolve a Hit</legend>

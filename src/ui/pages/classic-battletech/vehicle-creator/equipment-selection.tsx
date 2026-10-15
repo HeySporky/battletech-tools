@@ -8,6 +8,7 @@ import AvailableEquipment from '../../../components/available-equipment';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import VehicleLightWeapons from './_light-weapons';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Trash = FaTrash as any;
@@ -56,6 +57,7 @@ export default class VehicleCreatorEquipmentSelection extends React.Component<IE
                                     equipment={vehicle.getAvailableEquipmentByCatalog("all", this.props.appGlobals.appSettings.mechRulesFilter >= CUSTOM_HOMEBREW_RULES_LEVEL, this.props.appGlobals.appSettings.mechRulesFilter)}
                                     addFunction={this.addEquipment}
                                 />
+                                {vehicle.isSupportVehicle() && vehicle.getTonnage() < 5 ? <VehicleLightWeapons appGlobals={this.props.appGlobals} /> : null}
 
                                 <div className="clear-both overflow-hidden">
                                     <hr />

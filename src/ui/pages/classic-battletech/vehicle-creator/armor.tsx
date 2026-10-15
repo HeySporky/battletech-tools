@@ -8,6 +8,8 @@ import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-men
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
+import { supportVehicleArmor } from '../../../../data/support-vehicle-armor';
+import { SUPPORT_VEHICLE_TECH_RATINGS } from '../../../../data/support-vehicle-construction';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -22,6 +24,22 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
         const vehicle = this.props.appGlobals.currentVehicle;
         if (vehicle) {
             vehicle.setArmorType(e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateBAR = (e: React.FormEvent<HTMLSelectElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setBAR(+e.currentTarget.value);
+            this.props.appGlobals.saveCurrentVehicle(vehicle);
+        }
+    }
+
+    updateArmorTechRating = (e: React.FormEvent<HTMLSelectElement>): void => {
+        const vehicle = this.props.appGlobals.currentVehicle;
+        if (vehicle) {
+            vehicle.setSupportVehicleTechRating("armor", e.currentTarget.value);
             this.props.appGlobals.saveCurrentVehicle(vehicle);
         }
     }
@@ -72,6 +90,7 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
         const armor = vehicle.getArmorAllocation();
         const maxArmor = vehicle.getMaxArmorAllocation();
         const locations = vehicle.getLocations();
+        const support = vehicle.getSupportVehicleSettings();
 
         return (
             <UIPage current="classic-battletech-vehicle-creator" appGlobals={this.props.appGlobals}>
@@ -81,16 +100,47 @@ export default class VehicleCreatorArmor extends React.Component<IArmorProps, IA
                     </div>
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Step 2: Allocate Armor">
-                            <label>
-                                Armor Type:
-                                <select value={vehicle.getArmorType().tag} onChange={this.updateArmorType}>
-                                    {vehicle.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter)
-                                        .filter((option) => isOptionShown(option, option.tag === vehicle.getArmorType().tag))
-                                        .map((option) => (
-                                            <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
-                                        ))}
-                                </select>
-                            </label>
+                            {support ? (
+                                <>
+                                    <label>
+                                        Barrier Armor Rating (BAR):
+                                        <select value={support.bar} onChange={this.updateBAR}>
+                                            {supportVehicleArmor.map((option) => {
+                                                const kg = option.kgPerPoint[support.armorTechRating];
+                                                const armored = option.armoredChassisRatings.includes(support.armorTechRating);
+                                                return (
+                                                    <option key={option.bar} value={option.bar}>
+                                                        BAR {option.bar} ({kg ? `${kg} kg a point${armored ? ", needs the Armored chassis" : ""}` : "not made at this Tech Rating"})
+                                                    </option>
+                                                );
+                                            })}
+                                        </select>
+                                    </label>
+                                    <label>
+                                        Armor Tech Rating:
+                                        <select value={support.armorTechRating} onChange={this.updateArmorTechRating}>
+                                            {SUPPORT_VEHICLE_TECH_RATINGS.map((rating) => (
+                                                <option key={rating} value={rating}>{rating.toUpperCase()}</option>
+                                            ))}
+                                        </select>
+                                    </label>
+                                    <p className="smaller-text">
+                                        Damage greater than the BAR in a single hit can cause a critical hit even when armor remains (TW p.206).
+                                        Support Vehicle armor is bought by the point and its weight rounded up: to the kilogram under 5 tons, to the half ton from 5 tons (TM p.134).
+                                    </p>
+                                </>
+                            ) : (
+                                <label>
+                                    Armor Type:
+                                    <select value={vehicle.getArmorType().tag} onChange={this.updateArmorType}>
+                                        {vehicle.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter)
+                                            .filter((option) => isOptionShown(option, option.tag === vehicle.getArmorType().tag))
+                                            .map((option) => (
+                                                <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
+                                            ))}
+                                    </select>
+                                </label>
+                            )}
 
                             <p>
                                 <strong>Max Armor</strong>: {vehicle.getMaxArmorPoints()} points ({vehicle.getMaxArmorTonnage()} tons) &nbsp;|&nbsp;

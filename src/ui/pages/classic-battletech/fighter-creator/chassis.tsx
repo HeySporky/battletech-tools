@@ -11,6 +11,7 @@ import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import SupportAircraftChassis from './_support-chassis';
 const ArrowCircleRight = FaArrowCircleRight as any;
 
 const range = (from: number, to: number, step: number = 1): number[] => {
@@ -75,7 +76,9 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                                 </select>
                             </label>
                             <p className="smaller-text">
-                                {conventional
+                                {fighter.isSupportVehicle()
+                                    ? "Fixed-Wing, Airship and Satellite Support Vehicles are built with the Support Vehicle rules and fly by aerospace rules (TM pp.116-139; Large Airships and Satellites, TO:AUE pp.52-71)."
+                                    : conventional
                                     ? "A conventional fighter flies in atmosphere only: 5 to 50 tons, a turbine or standard fusion engine, single heat sinks and armor of one point per ton of fighter (TM pp. 184-193)."
                                     : "An aerospace fighter flies in atmosphere and space: 5 to 100 tons, a fusion engine and armor of up to eight points per ton of fighter (TM pp. 184-193)."}
                             </p>
@@ -108,6 +111,7 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                             </label>
                             {fighter.getEra().description ? <p className="smaller-text">{fighter.getEra().description}</p> : null}
 
+                            {fighter.isSupportVehicle() ? <SupportAircraftChassis fighter={fighter} update={this.update} /> : (<>
                             <label>
                                 Tonnage:
                                 <select value={fighter.getTonnage()} onChange={(e) => { const value = +e.currentTarget.value; this.update((f) => f.setTonnage(value)); }}>
@@ -210,6 +214,7 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                                     other weapons make none (TM p. 193).
                                 </p>
                             ) : null}
+                            </>)}
 
                             <p className={remaining < 0 ? "color-red" : ""}><strong>Remaining Tonnage</strong>: {remaining}</p>
 

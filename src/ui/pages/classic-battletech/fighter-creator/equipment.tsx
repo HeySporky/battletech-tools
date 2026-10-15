@@ -77,6 +77,12 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                         </div>
                         <div className="col-md-12 col-lg-5">
                             <TextSection label="Installed Equipment">
+                                {fighter.isSupportVehicle() ? (
+                                    <p className={fighter.getUsedItemSlots() > fighter.getTotalItemSlots() ? "color-red" : ""}>
+                                        <strong>Item Slots</strong>: {fighter.getUsedItemSlots()} / {fighter.getTotalItemSlots()}. A Support Vehicle has item
+                                        slots for the whole unit; weapons fire from an arc, everything else may sit in the body (TM pp.120, 136).
+                                    </p>
+                                ) : (<>
                                 <p className="smaller-text">
                                     Each arc holds up to five weapons, fewer with some armor types; ammunition and other equipment
                                     sit in the fuselage and take no slot (TM p. 196).
@@ -92,6 +98,7 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                         );
                                     })}
                                 </p>
+                                </>)}
                                 <table className="table">
                                     <thead>
                                         <tr><th>Name</th><th>Tons</th><th>Location</th>{fighter.isOmni() ? <th>Pod</th> : null}<th></th></tr>
@@ -102,7 +109,7 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                                 <td>{item.name}</td>
                                                 <td>{item.weight}</td>
                                                 <td>
-                                                    {fighter.getItemSlots(item) === 0 ? "Fuselage" : (
+                                                    {fighter.getItemSlots(item) === 0 && !fighter.isSupportVehicle() ? "Fuselage" : (
                                                         <select
                                                             aria-label={"Firing arc for " + item.name}
                                                             className={item.location ? "" : "color-red"}
@@ -113,6 +120,7 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                                             {FIGHTER_ARCS.map((arc) => (
                                                                 <option key={arc.tag} value={arc.tag}>{arc.name}</option>
                                                             ))}
+                                                            {fighter.isSupportVehicle() ? <option value="fuselage">Body</option> : null}
                                                         </select>
                                                     )}
                                                 </td>
@@ -143,6 +151,7 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                     </p>
                                 ) : null}
                             </TextSection>
+                            {fighter.isSupportVehicle() ? null : (
                             <TextSection label="External Stores">
                                 <p className="smaller-text">
                                     One bomb or pod per hardpoint, one hardpoint per 5 tons of fighter (TM p. 196). Every 5 bombs,
@@ -173,6 +182,7 @@ export default class FighterCreatorEquipment extends React.Component<IEquipmentP
                                     </select>
                                 </label>
                             </TextSection>
+                            )}
                         </div>
                     </div>
                 </div>
