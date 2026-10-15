@@ -7,7 +7,7 @@ Finished items are moved to `TODO-Completed.md`, which also lists the commit his
 
 Local references (git-ignored, never imported by shipped code):
 
-- `_KNOWLEDGE_DEV/rulebooks/`: the reference library, about 870 files sorted into folders on 2026-10-06:
+- `C:/repo/JBTIICRework/`: the reference library, about 870 files sorted into folders on 2026-10-06:
   `rulebooks/` (current Catalyst line, BMM, Core Rulebook, box sets), `rulebooks-legacy/` (Battledroids, BattleTech
   2nd/3rd Edition, Compendium, Master Rules, Maximum Tech, CityTech, AeroTech, BattleSpace and the FanPro printings),
   `alpha-strike/`, `errata/` and `errata-2025/`, `rpg/`, `technical-readouts/` (TROs, XTROs, Recognition Guides),
@@ -153,7 +153,7 @@ designs, 44 still report errors (421 before).
 ## 3. Check the data against the sourcebooks
 
 - [ ] Sourcebook validation tool (`tools/`, dev only): check every catalog table entry against the rulebook
-  text in `_KNOWLEDGE_DEV/rulebooks` and report mismatches with book and page. Cover weapons, ammunition,
+  text in `C:/repo/JBTIICRework` and report mismatches with book and page. Cover weapons, ammunition,
   equipment, engines, gyros, cockpits, structure, armor, heat sinks, jump jets and myomer: weight, slots,
   damage, heat, ranges, BV, cost, tech rating and dates. Records whose book isn't local are listed as
   unchecked, not passed.
@@ -855,6 +855,11 @@ bundle: every open PR except #92 and #97, plus the unit builders, rules levels a
     on upstream master when #115 merges. The bundle branch carries two removal commits for them: when merging
     this branch into it, keep `building.ts`, the roster files and the MUL source files free of play and custom
     MUL code, then merge the bundle into `feature/building-play`.
+  - Pass 5 (2026-10-09) is fixed and #115 is marked ready for review. Open items in this file go up as
+    follow-up PRs on top of it.
+  - Custom MUL submission is off (`CONST_CUSTOM_MUL_SUBMISSION_ENABLED = false`, user 2026-10-09): the path takes
+    a GitHub token in the page. Before switching it on: a security review of that path, and the SSW
+    custom-content submission ready to ship beside it.
   - `tools/mul-sync/sync-mul.mjs`: the live-to-legacy era id table has no entry for ids 1 and 9. 494 bundled
     records carry era id 1 unmapped. Which legacy era each is has to come from the site's era list.
   - Reported as already on upstream master, not fixed here: Alpha Strike value adds Medium damage twice and
@@ -1125,7 +1130,8 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
 
 ## 10. JBTIICRework review (2026-10-06)
 
-`C:\repo\JBTIICRework` is a Gemini AI Studio export of master at `0a1f061e`. It is reference only: port by hand,
+`C:\repo\JBTIICRework` was a Gemini AI Studio export of master at `0a1f061e` when this review was done; its
+`main` branch now holds the rulebook library instead. The export is reference only: port by hand,
 never copy its `package.json`, lockfiles, Vite config, `.gitignore`, `tsconfig.json` or `index.html`. Its
 `errors.md` was checked item by item.
 
@@ -1137,7 +1143,7 @@ socket (CPU profile), which points at a network filter driver, not the app: Fire
 Open:
 - [ ] Upstream draft PRs waiting on review: #110 (`fix/storage-quota-handling`) and #112
   (`perf/lazy-ssw-corpus`, which now carries the AppRouter cleanup too; #111 was closed into it).
-- [ ] Read the sources added to `_KNOWLEDGE_DEV/rulebooks/` on 2026-10-06 for rules and options the tool lacks:
+- [ ] Read the sources added to `C:/repo/JBTIICRework/` on 2026-10-06 for rules and options the tool lacks:
   the BattleMech Manual (7th printing), Ghosts of Obeedah, The Wars of Reaving and Supplemental, the 31 XTROs
   (experimental equipment), and the quick-start rulebooks. Log each gap under the section it belongs to.
 - [ ] Reference library, after the 2026-10-06 sort:
