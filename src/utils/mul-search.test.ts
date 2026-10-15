@@ -25,6 +25,31 @@ describe("Bundled MUL 2.0 search and cards", () => {
         expect(results.every((unit) => (unit.BFAbilities ?? "").split(",").some((ability) => ability.trim() === "ECM"))).toBe(true);
     }, 30_000);
 
+    // Issue #119: Era ilClan + Mercenary listed only the units introduced in the ilClan era.
+    it("filters by the eras and factions a unit is available to, not its introduction era", async () => {
+        const ilClan = 257;
+        const mercenary = 34;
+        const inEra = await getMULASSearchResults("", "", "", "", ilClan, 0, [], true);
+        expect(inEra.length).toBeGreaterThan(1000);
+        expect(inEra.every((unit) => unit.Availability?.some((entry) => entry.EraId === ilClan))).toBe(true);
+        expect(inEra.some((unit) => unit.EraId !== ilClan)).toBe(true);
+
+        const mercs = await getMULASSearchResults("", "", "", "", ilClan, 0, [mercenary], true);
+        expect(mercs.length).toBeGreaterThan(1000);
+        expect(mercs.length).toBeLessThan(inEra.length);
+        expect(mercs.every((unit) => unit.Availability?.some((entry) =>
+            entry.EraId === ilClan && entry.FactionIds.includes(mercenary)))).toBe(true);
+    }, 30_000);
+
+    it("reads MUL 2.0 faction ids as the MUL 1.0 ids the faction picker uses", async () => {
+        const pirates = 38;
+        const ids = new Set((await loadMULListItems()).flatMap((unit) =>
+            (unit.Availability ?? []).flatMap((entry) => entry.FactionIds)));
+        expect(ids.has(pirates)).toBe(true);
+        // MUL 2.0's own Pirates id is 37, which MUL 1.0 never used.
+        expect(ids.has(37)).toBe(false);
+    }, 30_000);
+
     it("builds an Alpha Strike card with the full name, PV and no armor threshold", async () => {
         const atlas = (await loadMULListItems()).find((unit) => unit.Name === "Atlas" && unit.Variant === "AS7-D")!;
         const card = new AlphaStrikeUnit();
