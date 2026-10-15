@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { BattleMech } from "../classes/battlemech";
+import { SSW_KNOWN_MISSING_ITEMS } from "../classes/ssw-corpus-checks";
 import { getEquipmentCatalogDefinitions } from "../data/equipment-registry";
 import { sswMechs } from "../data/ssw/sswMechs";
 import { findCatalogMatches, findImportedEquipment } from "./importedEquipment";
@@ -69,21 +70,20 @@ describe("equipment catalogs", () => {
 });
 
 describe("SSW import", () => {
-    // New spellings go in the records' altNames; this list only shrinks as missing canon records are added.
-    it("resolves every item of the bundled SSW designs except known missing records", () => {
+    // The corpus shards (ssw-corpus-1..4.test.ts) allow these errors and no others; each must still happen, so the
+    // list is shortened when a missing canon record is added.
+    it.each(SSW_KNOWN_MISSING_ITEMS)("still raises %s on the bundled designs that use it", (error) => {
         vi.spyOn(console, "warn").mockImplementation(() => {});
         vi.spyOn(console, "log").mockImplementation(() => {});
-        const unresolved = new Set<string>();
-        for (const xml of sswMechs) {
+        const name = /'(.*)'/.exec(error)![1];
+        const designs = sswMechs.filter((xml) => xml.includes(name));
+        expect(designs.length).toBeGreaterThan(0);
+        const raised = designs.some((xml) => {
             const mech = new BattleMech();
             mech.importSSWXML(xml);
-            for (const error of mech.sswImportErrors.filter((e) => e.startsWith("Cannot find"))) {
-                unresolved.add(error);
-            }
-        }
-        expect([...unresolved].sort()).toEqual([
-            "Cannot find any equipment named: 'Electronic Warfare Equipment'",
-        ]);
+            return mech.sswImportErrors.includes(error);
+        });
+        expect(raised).toBe(true);
         vi.restoreAllMocks();
-    }, 120_000);
+    });
 });
