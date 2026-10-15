@@ -43,6 +43,7 @@ export default class FighterCreatorArmor extends React.Component<IArmorProps> {
         const remaining = fighter.getRemainingTonnage();
         const slots = fighter.getArmorType().fighterSlots;
         const over = fighter.getTotalArmorPoints() > fighter.getMaxArmorPoints();
+        const patchwork = fighter.isPatchworkArmor();
 
         return (
             <UIPage current="classic-battletech-fighter-creator" appGlobals={this.props.appGlobals}>
@@ -84,10 +85,16 @@ export default class FighterCreatorArmor extends React.Component<IArmorProps> {
                                 </select>
                             </label>
                             <p>
-                                <strong>Points per Ton</strong>: {fighter.getArmorPointsPerTon() ?? "n/a"} &nbsp;|&nbsp;
+                                {patchwork ? null : <><strong>Points per Ton</strong>: {fighter.getArmorPointsPerTon() ?? "n/a"} &nbsp;|&nbsp;</>}
                                 <strong>Maximum</strong>: {fighter.getMaxArmorPoints()} points (tonnage x {fighter.getMaxArmorPointsPerTonOfFighter()}, TM p. 191)
-                                {slots && slots.placement ? <> &nbsp;|&nbsp; <strong>Weapon slots given up</strong>: {slots.placement}</> : null}
+                                {!patchwork && slots && slots.placement ? <> &nbsp;|&nbsp; <strong>Weapon slots given up</strong>: {slots.placement}</> : null}
                             </p>
+                            {patchwork ? (
+                                <p className="smaller-text" data-testid="patchwork-armor-note">
+                                    Patchwork Armor (Advanced, TO:AUE p. 189): each arc takes its own armor type, weighed by the point and
+                                    rounded up to the half ton per arc, and gives up that type's weapon slots in the arc.
+                                </p>
+                            ) : null}
                             </>)}
 
                             <div className="row">
@@ -101,14 +108,32 @@ export default class FighterCreatorArmor extends React.Component<IArmorProps> {
                                             step={1}
                                             setValue={(points) => this.update((f) => f.setArmorAllocation(arc.tag as FighterArc, points))}
                                         />
+                                        {patchwork ? (
+                                            <div data-testid={`patchwork-armor-${arc.tag}`}>
+                                                <label>
+                                                    {arc.name} Armor Type:
+                                                    <select value={fighter.getPatchworkArmorType(arc.tag).tag} onChange={(e) => { const value = e.currentTarget.value; this.update((f) => f.setPatchworkArmorType(arc.tag, value)); }}>
+                                                        {fighter.getAvailablePatchworkArmorTypes(rulesLevel)
+                                                            .filter((option) => isOptionShown(option, option.tag === fighter.getPatchworkArmorType(arc.tag).tag))
+                                                            .map((option) => (
+                                                                <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
+                                                            ))}
+                                                    </select>
+                                                </label>
+                                                <div className="smaller-text">
+                                                    {fighter.getPatchworkArcWeight(arc.tag)} tons
+                                                    {fighter.getPatchworkArcSlots(arc.tag) > 0 ? `, ${fighter.getPatchworkArcSlots(arc.tag)} weapon slot${fighter.getPatchworkArcSlots(arc.tag) === 1 ? "" : "s"} given up` : ""}
+                                                </div>
+                                            </div>
+                                        ) : null}
                                     </div>
                                 ))}
                             </div>
 
                             <p className={over ? "color-red" : ""}>
                                 <strong>Allocated</strong>: {fighter.getTotalArmorPoints()} points &nbsp;|&nbsp;
-                                <strong>Armor Weight</strong>: {fighter.getArmorWeight()} tons &nbsp;|&nbsp;
-                                <strong>Paid for but unallocated</strong>: {Math.max(0, fighter.getUnallocatedArmorPoints())} points
+                                <strong>Armor Weight</strong>: {fighter.getArmorWeight()} tons
+                                {patchwork ? null : <> &nbsp;|&nbsp; <strong>Paid for but unallocated</strong>: {Math.max(0, fighter.getUnallocatedArmorPoints())} points</>}
                             </p>
                             <p className={remaining < 0 ? "color-red" : ""}><strong>Remaining Tonnage</strong>: {remaining}</p>
 

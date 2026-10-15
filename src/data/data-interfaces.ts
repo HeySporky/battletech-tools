@@ -93,6 +93,8 @@ export interface IArmorType extends IEditionHistory {
     crits: {
         [key: string]: number;
     },
+    /** Item slots the armor takes on a Combat Vehicle, by tech base (TM p.105; TO:AUE p.93; IO:AE pp.66, 82). */
+    combatVehicleSlots?: { is?: number, clan?: number };
 	armorMultiplier: {
 		clan: number;
 		is: number;
@@ -116,10 +118,12 @@ export interface IArmorType extends IEditionHistory {
     /**
      * Patchwork Armor: the critical slots this armor takes in each 'Mech location that carries it, and its
      * weight in tons per point, by tech base (TO:AUE pp.188-189; IO:AE p.82). Without it the armor cannot
-     * be a patchwork location's type.
+     * be a patchwork location's type. `vehicleSlots` is the table's other column, the item slots each
+     * Combat Vehicle location takes; without it a Combat Vehicle cannot carry the armor as patchwork.
      */
     patchwork?: {
         slots: { is?: number, clan?: number };
+        vehicleSlots?: { is?: number, clan?: number };
         tonsPerPoint: { is?: number, clan?: number };
     };
     available?: boolean;
@@ -927,6 +931,14 @@ export interface IAerospaceArmorType {
     }[];
     /** Weapon slots a fighter gives up for the armor, and where; null for armor fighters cannot mount. */
     fighterSlots: { is: number | null; clan: number | null; placement: string } | null;
+    /**
+     * Patchwork Armor on a fighter: the weapon slots each arc carrying the armor gives up, and its weight in
+     * tons per point, by tech base (TO:AUE pp.188-189). Without it the armor cannot be an arc's type.
+     */
+    patchwork?: {
+        slots: { is?: number, clan?: number };
+        tonsPerPoint: { is?: number, clan?: number };
+    };
     /** C-bills per ton of armor. */
     costMultiplier: number;
     techRating: string;

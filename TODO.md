@@ -729,8 +729,17 @@ played first, then by dependency.
   OTP: Hanseatic Crusade p.30.
 - [ ] Placement rules not enforced yet: spread items (one per location, side torsos, legs), hand-actuator
   requirements, Claw replacing the hand.
-- [ ] Patchwork armor still owed: Combat Vehicles, Support Vehicles and fighters; SSW/MTF import; armor
-  types on the record sheet (none printed today).
+- [x] Patchwork Armor on Combat Vehicles and fighters (TO:AUE pp.188-189; IO:AE p.82): an armor type per location
+  or arc at the Advanced rules level, each weighed by the point and rounded up to the half ton, taking the table's
+  right-hand column of item slots (vehicles) or weapon slots in the arc (fighters); BV, cost and the Alpha Strike
+  armor value per location (ASC errata v1.6). Vehicle and fighter record sheets name each location's armor.
+  Combat Vehicles now also count the item slots their armor takes (TM p.105; TO:AUE p.93, which prints Hardened as
+  1; IO:AE pp.66, 82).
+- [ ] Patchwork armor still owed: Support Vehicles (with the Armored Chassis modification; wait for the Support
+  Vehicle builder); Fractional Accounting's kilogram rounding per location on vehicles and fighters once #118 is
+  merged in; SSW/MTF import (there is no 'Mech MTF importer, and the SSW library holds no Patchwork design to take
+  the format from); armor types on the 'Mech record sheet; era checks per location on vehicles (they have no
+  issues list).
 - [ ] Fractional Accounting (TO:AUE p.188): the switch is in step 1 but locked
   (`BattleMech.FRACTIONAL_ACCOUNTING_AVAILABLE = false`). Building it means engine multipliers, armor by the
   point, ammunition by the shot, all rounded up to the kilogram; then turn the switch on.

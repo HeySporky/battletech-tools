@@ -434,6 +434,8 @@ export interface IVehicleExport {
     cruiseMP: number;
     armorType: string;
     armorAllocation: IVehicleArmorAllocation;
+    /** Patchwork Armor: armor type tag by location; present only when armorType is "patchwork". */
+    patchworkArmor?: Partial<Record<VehicleLocation, string>>;
     structureType: string;
     heatSinkType: string;
     additionalHeatSinks: number;
@@ -549,6 +551,9 @@ export default class Vehicle {
 
     private _armorType: IArmorType = mechArmorTypes[0];
     private _armorAllocation: IVehicleArmorAllocation = emptyArmorAllocation();
+    public static readonly PATCHWORK_ARMOR_TAG = "patchwork";
+    /** Patchwork Armor: the armor type tag of each location (TO:AUE p.189); standard where none is set. */
+    private _patchworkArmor: Partial<Record<VehicleLocation, string>> = {};
 
     private _structureType: string = "standard";
 
@@ -1085,11 +1090,12 @@ export default class Vehicle {
      * equipment. Standard (2) is tournament play. Superheavy vehicles, dual, sponson and chin
      * turrets and vehicular jump jets are Advanced: TO:AUE, which moved the turrets and jump jets
      * from TO 2008's Experimental (TO pp. 347-349) to Advanced. IO pp. 35 and 50 date them as
-     * production technology (turrets ~3079-3080, jump jets ~3083).
+     * production technology (turrets ~3079-3080, jump jets ~3083). Patchwork Armor is an "advanced
+     * construction option" (TO:AUE p.189).
      */
     public getRequiredRulesLevel(): number {
         const advanced = (this.isSuperheavy() && !this._support) || this.hasChinTurret() || this._dualTurret
-            || this._sponsonTurrets || this._jumpMP > 0 || this.isAdvancedSupportVehicle();
+            || this._sponsonTurrets || this._jumpMP > 0 || this.isAdvancedSupportVehicle() || this.isPatchworkArmor();
         let level = advanced ? 3 : 0;
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
@@ -1478,8 +1484,8 @@ export default class Vehicle {
     }
 
     /**
-     * Item slots used: equipment (ammunition takes one slot per ammo type), one slot for all jump
-     * jets, and engine slots (as implemented by MegaMek Tank.getFreeSlots).
+     * Item slots used: equipment (ammunition takes one slot per ammo type), armor (TM p.105), one slot
+     * for all jump jets, and engine slots (as implemented by MegaMek Tank.getFreeSlots).
      */
     public getUsedItemSlots(): number {
         const ammoTypes = new Set<string>();
@@ -1505,6 +1511,7 @@ export default class Vehicle {
             if (this._troopSpace > 0) used += 1;
             return used;
         }
+        used += this.getArmorItemSlots();
         if (this._jumpMP > 0) used += 1;
         if (this._troopSpace > 0) used += 1;
         used += ENGINE_ITEM_SLOTS[this._engineType.tag] ?? 0;
@@ -1694,7 +1701,8 @@ export default class Vehicle {
             : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0)).map((armor) => ({ ...armor }));
         for (const armor of armorTypes) {
             const availability = this._techDatesAvailability(armor, rulesLevel);
-            armor.available = availability.available;
+            // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
+            armor.available = availability.available && (armor.tag !== Vehicle.PATCHWORK_ARMOR_TAG || rulesLevel >= 3);
             armor.availableAsPrototype = availability.asPrototype;
         }
         return armorTypes;
@@ -1719,7 +1727,9 @@ export default class Vehicle {
     public setArmorType(tag: string): IArmorType {
         // BattleMech Stealth is BM-only (TM p.206); vehicles saved with it get Vehicular Stealth (TO:AUE p.94).
         if (tag === "stealth-basic" || tag === "stealth") tag = "vehicular-stealth";
+        const previous = this._armorType.tag;
         this._armorType = findByTag(this.getAvailableArmorTypes(), tag) ?? this._armorType;
+        if (this._armorType.tag !== previous) this._patchworkArmor = {};
         this._calc();
         return this._armorType;
     }
@@ -1735,21 +1745,28 @@ export default class Vehicle {
         return this._armorAllocation;
     }
 
+    /** The tech base whose version of the armor this vehicle mounts. */
+    private _armorTechBase(armor: IArmorType): "is" | "clan" {
+        const starLeagueVersion = this.getTech().tag === "clan" && this._usesStarLeagueVersion(armor);
+        const preferredBase = !starLeagueVersion && (this.getTech().tag === "clan" || this.getTech().tag === "mclan") ? "clan" : "is";
+        return armor.armorMultiplier[preferredBase] > 0
+            ? preferredBase
+            : preferredBase === "clan" ? "is" : "clan";
+    }
+
     public getArmorPointsPerTon(): number {
         // Support Vehicle armor: 1,000 kg divided by the kilograms a point weighs (TM p.134).
         if (this._support) {
             const kgPerPoint = this.getSupportVehicleArmorKgPerPoint();
             return kgPerPoint ? 1000 / kgPerPoint : 0;
         }
-        const starLeagueVersion = this.getTech().tag === "clan" && this._usesStarLeagueVersion(this._armorType);
-        const preferredBase = !starLeagueVersion && (this.getTech().tag === "clan" || this.getTech().tag === "mclan") ? "clan" : "is";
-        const armorBase = this._armorType.armorMultiplier[preferredBase] > 0
-            ? preferredBase
-            : preferredBase === "clan" ? "is" : "clan";
-        return this._armorType.armorMultiplier[armorBase] || 16;
+        return this._armorType.armorMultiplier[this._armorTechBase(this._armorType)] || 16;
     }
 
     public getArmorWeight(): number {
+        if (this.isPatchworkArmor()) {
+            return this.getLocations().reduce((total, location) => total + this.getPatchworkLocationWeight(location.tag), 0);
+        }
         const totalPoints = Object.values(this._armorAllocation).reduce((sum: number, points) => sum + (points ?? 0), 0);
         if (this._support) {
             // Points x kilograms per point: unrounded on a Small Support Vehicle, up to the half ton from 5 tons (TM p.134).
@@ -1757,6 +1774,84 @@ export default class Vehicle {
             return this._isSmallSupportVehicle() ? kg / 1000 : Math.ceil(kg / 500 - 1e-9) / 2;
         }
         return Math.ceil((totalPoints / this.getArmorPointsPerTon()) * 2) / 2;
+    }
+
+    /**
+     * Item slots the armor takes (Combat Vehicle Armor Table, TM p.105; TO:AUE p.93; IO:AE pp.66, 82). Under
+     * Patchwork Armor each location takes its own type's slots, whatever its points (TO:AUE p.189).
+     */
+    public getArmorItemSlots(): number {
+        if (this.isPatchworkArmor()) {
+            return this.getLocations().reduce((total, location) => total + this.getPatchworkLocationSlots(location.tag), 0);
+        }
+        return this._armorType.combatVehicleSlots?.[this._armorTechBase(this._armorType)] ?? 0;
+    }
+
+    /** Commercial armor counts half in the defensive BV; the other modifiers are on the records. */
+    private static _armorBVMultiplier(armor: IArmorType): number {
+        return armor.bvMultiplier ?? (armor.tag === "commercial" ? 0.5 : 1);
+    }
+
+    /** The armor for a record sheet: the type, or under Patchwork Armor each location's type. */
+    public getArmorDescription(): string {
+        if (!this.isPatchworkArmor()) return this._armorType.name;
+        return `${this._armorType.name} (${this.getLocations().map((location) => `${location.name}: ${this.getPatchworkArmorType(location.tag).name}`).join(", ")})`;
+    }
+
+    /** Patchwork Armor: an armor type for each location (TO:AUE p.189). */
+    public isPatchworkArmor(): boolean {
+        return this._armorType.tag === Vehicle.PATCHWORK_ARMOR_TAG;
+    }
+
+    /** A patchwork value of the armor for this vehicle's tech base, or undefined where the table has none. */
+    private _patchworkValue(armor: IArmorType, field: "vehicleSlots" | "tonsPerPoint"): number | undefined {
+        return armor.patchwork?.[field]?.[this._armorTechBase(armor)];
+    }
+
+    /**
+     * The armor types a location may carry: those the vehicle could mount as its only armor that the
+     * Patchwork Armor Table gives Combat Vehicle slots for (Hardened kept off VTOL, WiGE and Hover).
+     */
+    public getAvailablePatchworkArmorTypes(rulesLevel: number = 2): IArmorType[] {
+        return this.getAvailableArmorTypes(rulesLevel).filter((armor) => armor.tag !== Vehicle.PATCHWORK_ARMOR_TAG
+            && this._patchworkValue(armor, "vehicleSlots") !== undefined && this._patchworkValue(armor, "tonsPerPoint") !== undefined);
+    }
+
+    public getPatchworkArmorType(location: VehicleLocation): IArmorType {
+        return findByTag(mechArmorTypes, this._patchworkArmor[location] ?? "standard") ?? mechArmorTypes[0];
+    }
+
+    public setPatchworkArmorType(location: VehicleLocation, armorTag: string): IArmorType {
+        const armor = findByTag(this.getAvailablePatchworkArmorTypes(), armorTag);
+        if (this.isPatchworkArmor() && armor && this.getLocations().some((entry) => entry.tag === location)) {
+            this._patchworkArmor[location] = armor.tag;
+            this._calc();
+        }
+        return this.getPatchworkArmorType(location);
+    }
+
+    /** Item slots the location's armor takes (Patchwork Armor Table, right of the slash; TO:AUE p.189, IO:AE p.82). */
+    public getPatchworkLocationSlots(location: VehicleLocation): number {
+        if (!this.isPatchworkArmor()) return 0;
+        return this._patchworkValue(this.getPatchworkArmorType(location), "vehicleSlots") ?? 0;
+    }
+
+    /** Tons of armor in the location: points x the type's tons per point, "rounding the final result up to the nearest half-ton" (TO:AUE p.189). */
+    public getPatchworkLocationWeight(location: VehicleLocation): number {
+        if (!this.isPatchworkArmor()) return 0;
+        const tonsPerPoint = this._patchworkValue(this.getPatchworkArmorType(location), "tonsPerPoint") ?? 0;
+        const weight = (this._armorAllocation[location] ?? 0) * tonsPerPoint;
+        return weight > 0 ? Math.ceil(weight * 2 - 1e-9) / 2 : 0;
+    }
+
+    /** Drops location types the vehicle can no longer carry there (a removed turret, a new motive type or tech base). */
+    private _prunePatchworkArmor(): void {
+        if (!this.isPatchworkArmor()) return;
+        const locations = this.getLocations().map((location) => location.tag);
+        const allowed = this.getAvailablePatchworkArmorTypes().map((armor) => armor.tag);
+        for (const location of Object.keys(this._patchworkArmor) as VehicleLocation[]) {
+            if (!locations.includes(location) || !allowed.includes(this._patchworkArmor[location] ?? "")) delete this._patchworkArmor[location];
+        }
     }
 
     // TechManual Combat Vehicle armor cap: (Tonnage x 3.5) + 40 points, rounded down. Support Vehicles: 4 plus a
@@ -1783,6 +1878,8 @@ export default class Vehicle {
     // Sets total armor by tonnage (0.5-ton increments) and redistributes points across locations,
     // keeping each location's current proportion of the total (or splitting evenly when empty).
     public setArmorTonnage(tons: number): number {
+        // Patchwork armor is set by the point in each location; its weight follows from the types.
+        if (this.isPatchworkArmor()) return this.getArmorWeight();
         const clampedTons = Math.max(0, Math.min(this.getMaxArmorTonnage(), Math.round(tons * 2) / 2));
         const targetPoints = Math.min(this.getMaxArmorPoints(), Math.floor(clampedTons * this.getArmorPointsPerTon() + 1e-9));
         this._distributeArmorPoints(targetPoints);
@@ -1791,7 +1888,17 @@ export default class Vehicle {
     }
 
     public allocateMaxArmor(): void {
-        this.setArmorTonnage(this.getMaxArmorTonnage());
+        if (!this.isPatchworkArmor()) {
+            this.setArmorTonnage(this.getMaxArmorTonnage());
+            return;
+        }
+        // Patchwork: the most points, spread as usual, whose per-location weights still fit the tonnage free.
+        const budget = this.getArmorWeight() + Math.max(0, this.getRemainingTonnage());
+        for (let points = this.getMaxArmorPoints(); points >= 0; points--) {
+            this._distributeArmorPoints(points);
+            if (this.getArmorWeight() <= budget) break;
+        }
+        this._calc();
     }
 
     public allocateArmorClear(): void {
@@ -2245,12 +2352,33 @@ export default class Vehicle {
         const modularArmor = this._equipmentList
             .filter((item) => item.isModularArmor)
             .reduce((sum, item) => sum + (item.currentAdditionalArmor ?? item.additionalArmor ?? 0), 0);
-        const armorPoints = locations.reduce((sum, loc) => sum + (this._armorAllocation[loc] ?? 0), 0) + modularArmor;
-        // Support Vehicles multiply their armor by BAR / 10 (TM p.307). TM p.308's CellCo Ranger example leaves out
-        // the x 2.5 (38 x 0.7 = 26.6); the rule text and MegaMek keep it, so it is read as a misprint.
-        const armorMultiplier = this._support ? this._support.bar / 10 : this._armorType.bvMultiplier ?? (this._armorType.tag === "commercial" ? 0.5 : 1);
-        const armorBV = armorPoints * 2.5 * armorMultiplier;
-        log += `Armor: ${armorPoints} points x 2.5 x ${armorMultiplier} (${this._support ? `BAR ${this._support.bar} / 10` : escapeLogText(this._armorType.name)}) = ${armorBV.toFixed(2)}<br />`;
+        let armorBV = 0;
+        if (this._support) {
+            const armorPoints = locations.reduce((sum, loc) => sum + (this._armorAllocation[loc] ?? 0), 0) + modularArmor;
+            // Support Vehicles multiply their armor by BAR / 10 (TM p.307). TM p.308's CellCo Ranger example leaves out
+            // the x 2.5 (38 x 0.7 = 26.6); the rule text and MegaMek keep it, so it is read as a misprint.
+            const armorMultiplier = this._support.bar / 10;
+            armorBV = armorPoints * 2.5 * armorMultiplier;
+            log += `Armor: ${armorPoints} points x 2.5 x ${armorMultiplier} (BAR ${this._support.bar} / 10) = ${armorBV.toFixed(2)}<br />`;
+        } else if (this.isPatchworkArmor()) {
+            // Patchwork: each location's points at its own type's modifier (TO:AUE p.189); modular armor counts at 1.
+            for (const loc of locations) {
+                const locationArmor = this.getPatchworkArmorType(loc);
+                const points = this._armorAllocation[loc] ?? 0;
+                const multiplier = Vehicle._armorBVMultiplier(locationArmor);
+                armorBV += points * 2.5 * multiplier;
+                log += `Armor (${LOCATION_NAMES[loc]}): ${points} points x 2.5 x ${multiplier} (${locationArmor.name}) = ${(points * 2.5 * multiplier).toFixed(2)}<br />`;
+            }
+            if (modularArmor > 0) {
+                armorBV += modularArmor * 2.5;
+                log += `Armor (Modular): ${modularArmor} points x 2.5 = ${(modularArmor * 2.5).toFixed(2)}<br />`;
+            }
+        } else {
+            const armorPoints = locations.reduce((sum, loc) => sum + (this._armorAllocation[loc] ?? 0), 0) + modularArmor;
+            const armorMultiplier = Vehicle._armorBVMultiplier(this._armorType);
+            armorBV = armorPoints * 2.5 * armorMultiplier;
+            log += `Armor: ${armorPoints} points x 2.5 x ${armorMultiplier} (${this._armorType.name}) = ${armorBV.toFixed(2)}<br />`;
+        }
 
         const structure = this.getStructureAllocation();
         const structurePoints = locations.reduce((sum, loc) => sum + (structure[loc] ?? 0), 0);
@@ -2409,7 +2537,16 @@ export default class Vehicle {
         const engineForCost = (engineRating > MAX_STANDARD_ENGINE_RATING ? getLargeEngineType(this._engineType.tag) : undefined) ?? this._engineType;
         rows.push([`${engineForCost.name} (${engineForCost.costMultiplier} x rating ${engineRating} x ${this._tonnage} t / 75)`,
             (engineForCost.costMultiplier || 0) * engineRating * this._tonnage / 75]);
-        rows.push([`Armor (${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
+        if (this.isPatchworkArmor()) {
+            // Patchwork: each location's armor at its own type's cost per ton.
+            for (const location of this.getLocations()) {
+                const weight = this.getPatchworkLocationWeight(location.tag);
+                const locationArmor = this.getPatchworkArmorType(location.tag);
+                if (weight > 0) rows.push([`Armor, ${location.name} (${locationArmor.name}, ${weight} t)`, weight * (locationArmor.costMultiplier || 10000)]);
+            }
+        } else {
+            rows.push([`Armor (${this.getArmorWeight()} t)`, this.getArmorWeight() * (this._armorType.costMultiplier || 10000)]);
+        }
         rows.push([`Internal Structure (${this.getStructureWeight()} t)`, this.getStructureWeight() * 10000]);
         rows.push([`Control Systems (${this.getControlSystemsWeight()} t)`, this.getControlSystemsWeight() * 10000]);
         if (this.getPowerAmplifierWeight() > 0) rows.push(["Power Amplifiers", this.getPowerAmplifierWeight() * 20000]);
@@ -2517,6 +2654,7 @@ export default class Vehicle {
     }
 
     private _calc() {
+        this._prunePatchworkArmor();
         this._weights = [];
         this._sizeVariableEquipment();
         if (this._support) {
@@ -2701,11 +2839,12 @@ export default class Vehicle {
 
     public getAlphaStrikeArmor(): number {
         const modifiers: Record<string, number> = { hardened: 2, "ferro-lamellor": 1.2, commercial: 0.5 };
-        // Armor under BAR 10 is multiplied by BAR / 10 and rounded normally before converting (ASC p.95).
+        // Armor under BAR 10 is multiplied by BAR / 10 and rounded normally before converting (ASC p.95). Patchwork:
+        // like armor types are grouped and take their own multipliers before the sum (ASC errata v1.6, p.97).
         const points = this._support
             ? Math.round(this._armorPoints() * Math.min(10, this._support.bar) / 10)
-            : this.getLocations().reduce((sum, loc) => sum + (this._armorAllocation[loc.tag] ?? 0), 0)
-                * (modifiers[this._armorType.tag] ?? 1);
+            : this.getLocations().reduce((sum, loc) => sum + (this._armorAllocation[loc.tag] ?? 0)
+                * (modifiers[(this.isPatchworkArmor() ? this.getPatchworkArmorType(loc.tag) : this._armorType).tag] ?? 1), 0);
         const modularPacks = this._equipmentList.filter((item) => item.isModularArmor).length;
         return Math.round((points + 10 * modularPacks) / 30);
     }
@@ -3999,6 +4138,9 @@ export default class Vehicle {
             cruiseMP: this._cruiseMP,
             armorType: this._armorType.tag,
             armorAllocation: this._armorAllocation,
+            patchworkArmor: this.isPatchworkArmor()
+                ? Object.fromEntries(this.getLocations().map((location) => [location.tag, this.getPatchworkArmorType(location.tag).tag]))
+                : undefined,
             structureType: this._structureType,
             heatSinkType: this._heatSinkType.tag,
             additionalHeatSinks: this._additionalHeatSinks,
@@ -4127,11 +4269,20 @@ export default class Vehicle {
                 issue("Dropped the turret: this Support Vehicle cannot mount one");
             }
             if (importObject.sponsonTurrets === true && !this._sponsonTurrets) issue("Dropped sponson turrets: the design also has jump jets");
+            this._patchworkArmor = {};
             this.setArmorType(savedString(importObject.armorType));
             const armor = savedLocationPoints(importObject.armorAllocation);
             for (const tag of Object.keys(armor) as VehicleLocation[]) armor[tag] = Math.floor(armor[tag] ?? 0);
             if (armor.rotor !== undefined) armor.rotor = Math.min(VTOL_MAX_ROTOR_ARMOR, armor.rotor);
             this._armorAllocation = { ...emptyArmorAllocation(), ...armor };
+            const patchwork = importObject.patchworkArmor;
+            if (this.isPatchworkArmor() && patchwork && typeof patchwork === "object") {
+                for (const location of this.getLocations()) {
+                    const armorTag = (patchwork as Record<string, unknown>)[location.tag];
+                    if (typeof armorTag !== "string") continue;
+                    if (this.setPatchworkArmorType(location.tag, armorTag).tag !== armorTag) issue(`Replaced patchwork armor "${armorTag.slice(0, 40)}" (${location.name}) with Standard`);
+                }
+            }
             this._structureType = "standard";
             this.setStructureType(savedString(importObject.structureType, "standard"));
             this.setHeatSinkType(savedString(importObject.heatSinkType));
