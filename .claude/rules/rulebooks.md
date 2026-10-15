@@ -196,9 +196,13 @@ When PDFs are added:
    `python C:/repo/JBTIICRework/ocr_ollama.py C:/repo/JBTIICRework "<folder>/<file>.pdf"`. It uses the
    local Ollama vision model `glm-ocr` (about 7 s a page), reads only pages with no text layer, resumes if
    interrupted and falls back to Tesseract on a page the model fails on. `ocr_rulebooks.py` is Tesseract alone
-   (`C:\Program Files\Tesseract-OCR`). Tesseract language packs (deu, spa, fra, ita, jpn, rus) are in
+   (`C:\Program Files\Tesseract-OCR`). Tesseract language packs (deu, spa, fra, ita, jpn, pol, por, rus) are in
    `%USERPROFILE%/tessdata`; the scripts point `TESSDATA_PREFIX` there and pick the language from the
-   `languages/<code>/` folder. `ocr_queue.py .` works through every scan without an extract (maps and record sheets
+   `languages/<code>/` folder. Japanese has its own script, `ocr_japanese.py` (2026-10-13): `ocr_ollama.py` hands anything in
+   `languages/jp/` to it, and with no file named it reads every PDF, image, zip or folder of page images there
+   that has no extract. It handles vertical text (`jpn_vert`) and Japanese line lengths; the opening-page reads
+   in `sort_unsorted.py` and `verify_unsorted.py` do not include Japanese, so the user files those by hand.
+   `ocr_queue.py .` works through every scan without an extract (maps and record sheets
    excluded), most useful folders first; `--list` shows what is waiting. Then rebuild the search index.
 3. Dedupe by edition, not file name.
 4. Update `INDEX.md` and this table.
