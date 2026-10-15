@@ -316,6 +316,46 @@ describe("Rules edition selector", () => {
         expect(build().rollEditionCriticalHit("hd", { chance: 12 })).toEqual([]);
     });
 
+    // The edition decides the technology bases: no Clan before the BattleTech Compendium ("Inner Sphere or Clan",
+    // BTC p.111), Mixed Tech only through the Master Rules' custom modifications (BMR pp.87, 108; BMR(R) p.89).
+    it("offers only the technology bases the rules edition has", () => {
+        const techTags = (edition: string) => build(edition).getAvailableTechOptions().map((option) => option.tag);
+        for (const edition of ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-3rd-edition", "battletech-4th-edition"]) {
+            expect(techTags(edition), edition).toEqual(["is"]);
+        }
+        expect(techTags("battletech-compendium")).toEqual(["is", "clan"]);
+        expect(techTags("compendium-rules-of-warfare")).toEqual(["is", "clan"]);
+        expect(techTags("master-rules")).toEqual(["is", "clan", "mis", "mclan"]);
+        expect(techTags("master-rules-revised")).toEqual(["is", "clan", "mis", "mclan"]);
+        expect(techTags(DEFAULT_RULES_EDITION)).toEqual(["is", "clan", "mis", "mclan"]);
+    });
+
+    it("moves the technology base to one the new edition has", () => {
+        const clan = build();
+        clan.setTech("clan");
+        clan.setRulesEdition("battledroids");
+        expect(clan.getTech().tag).toBe("is");
+
+        const mixedClan = build();
+        mixedClan.setTech("mclan");
+        mixedClan.setRulesEdition("battletech-compendium");
+        expect(mixedClan.getTech().tag).toBe("clan");
+
+        const mixed = build();
+        mixed.setTech("mis");
+        mixed.setRulesEdition("master-rules");
+        expect(mixed.getTech().tag).toBe("mis");
+    });
+
+    it("flags a saved design whose technology base its edition does not have", () => {
+        const saved = JSON.parse(build("battledroids").exportJSON());
+        saved.tech = "clan";
+        // A save loads as saved, and the creator says what the edition does not have.
+        const loaded = new BattleMech(JSON.stringify(saved));
+        expect(loaded.getTech().tag).toBe("clan");
+        expect(loaded.getRulesEditionIssues()).toContain("Technology base: Clan");
+    });
+
     it("saves the edition with the design and loads old saves as Total Warfare", () => {
         const mech = build("battledroids");
         add(mech, "srm-2");

@@ -68,6 +68,11 @@ export interface IRulesEdition {
     noBattleValue?: boolean;
     /** The edition's rulebook prints no prices, for equipment or for a finished unit. */
     noPrices?: boolean;
+    /**
+     * An earlier edition whose rules let Clan and Inner Sphere technology be mixed on one chassis. Whether it has
+     * the Clan technology base at all follows from its Clan equipment (`editionStats`).
+     */
+    mixedTech?: boolean;
     /** The 'Mechs the rulebook prints, as it names them. */
     mechs?: string[];
     /** Other units the rulebook gives rules for; they are fixed designs, not built from the catalogs. */
@@ -291,6 +296,9 @@ export const btRulesEditions: IRulesEdition[] = [
         book: "BMR",
         complete: true,
         ammoTonsFor: "class",
+        // Designs are built "factory-built" with one technology base; custom modifications may mix Clan and Inner
+        // Sphere technology on a chassis (BMR pp.87, 108).
+        mixedTech: true,
         // A rulebook only: it prints no 'Mech record listings. The construction example builds a 45-ton Wyvern
         // (BMR pp.109-114), and designs are named in passing.
         mechs: [],
@@ -329,6 +337,8 @@ export const btRulesEditions: IRulesEdition[] = [
         book: "BMR(R)",
         complete: true,
         ammoTonsFor: "class",
+        // As in the Master Rules: custom modifications may mix Clan and Inner Sphere technology (BMR(R) pp.89, 115).
+        mixedTech: true,
         // A rulebook only, as the Master Rules was: no 'Mech record listings. The construction example is again the
         // 45-ton Wyvern (BMR(R) pp.115-120), and the Battle Value example a Goshawk (BMR(R) p.159).
         mechs: [],
