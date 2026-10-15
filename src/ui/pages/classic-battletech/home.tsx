@@ -69,6 +69,11 @@ export default class ClassicBattleTechHome extends React.Component<IClassicBattl
                     Small Craft Creator
                   </Link>
 
+                  <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/capital-ship-creator`}>
+                    <SmallCraftIcon />
+                    JumpShip and WarShip Creator
+                  </Link>
+
                   <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/building-creator`}>
                     <BuildingIcon />
                     Building Creator

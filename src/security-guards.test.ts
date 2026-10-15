@@ -118,6 +118,10 @@ describe("Security guard rails", () => {
         // Reviewed 2026-10-09: the Small Craft's Battle Value, cost and Alpha Strike logs. Equipment, armor and heat
         // sink names and tags go through escapeLogText in small-craft.ts; the rest is numbers and constants.
         "ui/pages/classic-battletech/small-craft-creator/summary.tsx": 3,
+        // Reviewed 2026-10-15: the JumpShip, WarShip and station cost and Battle Value logs. Every row name (armor, heat
+        // sinks, weapons, ammunition tags, arcs, bays, grav decks) and the type name go through escapeLogText in
+        // capital-ship.ts; the rest is numbers.
+        "ui/pages/classic-battletech/capital-ship-creator/summary.tsx": 3,
         "ui/pages/classic-battletech/roster/_tableGroup.tsx": 1,
         "ui/pages/ssw-sanity-check.tsx": 1,
         // Pre-existing sites not traced in the 2026-09-29 review (TRO output was hardened upstream in 7e01b14fe;

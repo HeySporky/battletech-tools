@@ -12,6 +12,7 @@ import InfantryPlatoon, { IInfantryPlatoonExport, normalizeInfantryPlatoonExport
 import BattleArmor, { IBattleArmorExport, normalizeBattleArmorExport } from "./classes/battle-armor";
 import ProtoMech, { IProtoMechExport, normalizeProtoMechExport } from "./classes/protomech";
 import SmallCraft, { ISmallCraftExport, normalizeSmallCraftExport } from "./classes/small-craft";
+import CapitalShip, { ICapitalShipExport, normalizeCapitalShipExport } from "./classes/capital-ship";
 import Building, { IBuildingExport, normalizeBuildingExport } from "./classes/building";
 import { IAppGlobals } from "./ui/app-router";
 import { AppSettings, IAppSettingsExport } from "./ui/classes/app_settings";
@@ -124,6 +125,9 @@ export interface IFullBackup {
     currentProtoMech?: string | null;
     smallCraftSaves?: ISmallCraftExport[];
     currentSmallCraft?: string | null;
+    // JumpShips, WarShips and space stations; optional so older backups still restore.
+    capitalShipSaves?: ICapitalShipExport[];
+    currentCapitalShip?: string | null;
 
     // Gun emplacements and buildings; optional so older backups still restore.
     buildingSaves?: IBuildingExport[];
@@ -158,6 +162,8 @@ export async function getFullBackup(
         currentProtoMech: await getCurrentProtoMech(appSettings),
         smallCraftSaves: await getSmallCraftSaves(appSettings),
         currentSmallCraft: await getCurrentSmallCraft(appSettings),
+        capitalShipSaves: await getCapitalShipSaves(appSettings),
+        currentCapitalShip: await getCurrentCapitalShip(appSettings),
         buildingSaves: await getBuildingSaves(appSettings),
         currentBuilding: await getCurrentBuilding(appSettings),
         acesGame: await getAcesGame(appSettings),
@@ -183,6 +189,7 @@ export const MAX_INFANTRY_SAVES = 500;
 export const MAX_BATTLE_ARMOR_SAVES = 500;
 export const MAX_PROTOMECH_SAVES = 500;
 export const MAX_SMALL_CRAFT_SAVES = 500;
+export const MAX_CAPITAL_SHIP_SAVES = 500;
 /** Most saved buildings read from storage or a backup. */
 export const MAX_BUILDING_SAVES = 500;
 /** Most groups read from one backup's favorites or force. */
@@ -659,6 +666,49 @@ export function restoreFullBackup(
         }
     }
 
+    if( Array.isArray(io.capitalShipSaves) ) {
+        // Saved JumpShips, WarShips and Stations in a backup may come from someone else: clean each one and report what changed.
+        if( io.capitalShipSaves.length > MAX_CAPITAL_SHIP_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_CAPITAL_SHIP_SAVES + " of " + io.capitalShipSaves.length + " saved JumpShips, WarShips and stations are restored"));
+        }
+        for( const rawItem of io.capitalShipSaves.slice(0, MAX_CAPITAL_SHIP_SAVES) ) {
+            const normalized = normalizeCapitalShipExport( rawItem );
+            const item = normalized.ship;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved JumpShips, WarShips and Stations '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = appGlobals.capitalShipSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved JumpShips, WarShips and Stations '" + (appGlobals.capitalShipSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    appGlobals.capitalShipSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved JumpShips, WarShips and Stations: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    appGlobals.capitalShipSaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentCapitalShipPrefix = conditional( overWriteCurrentBattlemech, "current JumpShip, WarShip or station" );
+    if( currentCapitalShipPrefix !== null && typeof io.currentCapitalShip === "string" && io.currentCapitalShip ) {
+        for( const issue of new CapitalShip(io.currentCapitalShip).getImportIssues() ) {
+            restoreMessages.push(warning(currentCapitalShipPrefix + "Current JumpShip, WarShip or station: " + issue));
+        }
+    }
+
     if( Array.isArray(io.buildingSaves) ) {
         // Saved buildings in a backup may come from someone else: clean each one and report what changed.
         if( io.buildingSaves.length > MAX_BUILDING_SAVES ) {
@@ -724,6 +774,9 @@ export function restoreFullBackup(
         }
         if( typeof io.currentSmallCraft === "string" && io.currentSmallCraft ) {
             appGlobals.currentSmallCraft = new SmallCraft(io.currentSmallCraft);
+        }
+        if( typeof io.currentCapitalShip === "string" && io.currentCapitalShip ) {
+            appGlobals.currentCapitalShip = new CapitalShip(io.currentCapitalShip);
         }
         if( typeof io.currentBuilding === "string" && io.currentBuilding ) {
             appGlobals.currentBuilding = new Building(io.currentBuilding);
@@ -827,6 +880,9 @@ export function restoreFullBackup(
         appGlobals.saveSmallCraftSaves( appGlobals.smallCraftSaves );
         if( appGlobals.currentSmallCraft )
             appGlobals.saveCurrentSmallCraft( appGlobals.currentSmallCraft );
+        appGlobals.saveCapitalShipSaves( appGlobals.capitalShipSaves );
+        if( appGlobals.currentCapitalShip )
+            appGlobals.saveCurrentCapitalShip( appGlobals.currentCapitalShip );
         appGlobals.saveBuildingSaves( appGlobals.buildingSaves );
         if( appGlobals.currentBuilding )
             appGlobals.saveCurrentBuilding( appGlobals.currentBuilding );
@@ -1295,6 +1351,50 @@ export async function getCurrentSmallCraft(
     return await getData(
         appSettings,
         "currentSmallCraft"
+    );
+}
+
+export function saveCapitalShipSaves(
+    appSettings: AppSettings,
+    newValue: ICapitalShipExport[]
+) {
+    saveData(appSettings, "capitalShipSaves", JSON.stringify(newValue) );
+}
+
+export async function getCapitalShipSaves(
+    appSettings: AppSettings,
+): Promise<ICapitalShipExport[]> {
+    let rv: ICapitalShipExport[] = [];
+
+    const rawData = await getData(appSettings, "capitalShipSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored vessels before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_CAPITAL_SHIP_SAVES ).map( (item) => normalizeCapitalShipExport( item ).ship )
+            .filter( (item): item is ICapitalShipExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentCapitalShip(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentCapitalShip", newValue );
+}
+
+export async function getCurrentCapitalShip(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentCapitalShip"
     );
 }
 

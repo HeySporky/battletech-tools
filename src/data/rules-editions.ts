@@ -12,10 +12,10 @@
 import { IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure } from "./data-interfaces";
 
 /** The unit types the creators build, for an edition's `unitTypes`. */
-export type RulesEditionUnitType = "mech" | "vehicle" | "fighter" | "small-craft" | "infantry" | "battle-armor" | "protomech" | "building";
+export type RulesEditionUnitType = "mech" | "vehicle" | "fighter" | "small-craft" | "capital-ship" | "infantry" | "battle-armor" | "protomech" | "building";
 
 /** Every unit type: Total Warfare and its companion books (TechManual, Tactical and Strategic Operations) build them all. */
-export const ALL_RULES_EDITION_UNIT_TYPES: RulesEditionUnitType[] = ["mech", "vehicle", "fighter", "small-craft", "infantry", "battle-armor", "protomech", "building"];
+export const ALL_RULES_EDITION_UNIT_TYPES: RulesEditionUnitType[] = ["mech", "vehicle", "fighter", "small-craft", "capital-ship", "infantry", "battle-armor", "protomech", "building"];
 
 /**
  * Editions of the BattleTech rules, oldest first, so a player can choose to build with one edition's rules only.

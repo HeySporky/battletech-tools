@@ -110,6 +110,10 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                           <p>Small Craft and DropShips, aerodyne and spheroid: fuel, crew, bays and doors, and capital weapons by arc, with MegaMek (.blk) import.</p>
                         </li>
                         <li>
+                          <h4><Link to="classic-battletech/capital-ship-creator">JumpShip and WarShip Creator</Link></h4>
+                          <p>JumpShips, WarShips and space stations: K-F drive, capital armor and weapons in up to eight arcs, docking collars, grav decks and bays. New, in progress.</p>
+                        </li>
+                        <li>
                           <h4><Link to="classic-battletech/building-creator">Building Creator</Link></h4>
                           <p>Buildings, gun emplacements, advanced buildings and Castles Brian, with their weapons. In the roster they take damage, critical hits and breaches.</p>
                         </li>

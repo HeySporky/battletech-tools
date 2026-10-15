@@ -122,6 +122,10 @@ test("a fighter shows its pods, stores, values, record sheet and Alpha Strike ca
     await page.getByRole("link", { name: "View Record Sheet" }).click();
     await expect(page.getByRole("heading", { name: "Critical Damage" })).toBeVisible();
     await expect(page.getByText(/10 x Bomb - Cluster/)).toBeVisible();
+    // TM p.336: Attack Values by range bracket, the pilot's hits track, the Heat Scale and the Velocity Record.
+    await expect(page.getByTestId("fighter-sheet-inventory")).toContainText("SRV");
+    await expect(page.getByTestId("aerospace-heat-scale")).toContainText("Random Movement, avoid on 5+");
+    await expect(page.getByRole("heading", { name: "Velocity Record" })).toBeVisible();
 
     await page.goto("classic-battletech/fighter-creator/print-as");
     await expect(page.getByTestId("alpha-strike-card").first()).toBeVisible();

@@ -480,8 +480,44 @@ played first, then by dependency.
 - [ ] WarShip construction with capital weapons, bays, arcs and naval armor. Confirm the current
   capital-ship construction rules (edition) before starting.
 - [ ] Space stations (MegaMek `spacestation` samples).
-- [ ] Capital-scale record sheets; keep capital aerospace a separate domain from fighters while reusing
-  the shared equipment and source models.
+  - 2026-10-15: the construction model for all three is in `advanced-aerospace-construction.ts` and
+    `classes/capital-ship.ts` (SO:AA pp.130-149 with errata v5.0); the three book examples reproduce. Creator
+    pages, Battle Value, record sheet and Alpha Strike card are done (below). Still owed: cost check against a
+    published design, play, pressurized repair bays (TO:AUE p.146), and checking imports against the mm-data
+    JumpShip, WarShip and station samples.
+  - JumpShip firing arcs: SO:AA p.142's text gives JumpShips the broadsides, its p.133 table does not. Same
+    book, so MegaMek decides (broadsides on WarShips only); flagged in the module.
+  - The K-F boom on a station has no weight in SO:AA (p.139); only its cost multiplier is modelled.
+- [x] JumpShip, WarShip and station Battle Value (SO:AA pp.148-149): matches MegaMek on the Vincent Mk 39 (15,822),
+  Explorer (428) and Merchant (503). Older TROs print different values (TRO:3057R Vincent 20,427, TRO:3026R Explorer
+  424) under the pre-SO rules. Reading flagged: p.149 halves the adjacent arc when it and the front pass the heat
+  capacity together; MegaMek checks the front alone. Capital missiles and the Screen Launcher now mount on JumpShips,
+  WarShips and stations (SO:AA p.141: anything a DropShip may mount).
+- [x] Custom Homebrew (rules level 6) monitor: a WarShip with no K-F drive or sail; a keel of half the structure's weight,
+  double base crew, carried on one docking collar per 100,000 tons. Canon has the SLDF's monitors (XTRO: Boondoggles p.19,
+  project AMPHITRITE, 2683) but no construction rules, so these figures are ours. Still to do: play rules for collar
+  transport (Boondoggles' Newgrange was damaged carrying one) and campaign maintenance at x3.
+- [x] JumpShip, WarShip and station Alpha Strike card (ASC pp.91-117, 144, errata v1.6; `large-craft-alpha-strike.ts`):
+  Size, Thrust or 0.2k, capital armor x 0.33, Structure, Threshold, STD/CAP/SCAP/MSL damage by arc from the ASC p.114
+  table, transport and crew specials, large-craft PV. Explorer reproduces its card (PV 12); the Vincent Mk 39 matches its
+  card's armor, Threshold, Size, Thrust and Structure. Flagged: (1) ASC p.103 joins a WarShip's fore-sides to the Front,
+  the 2021 cards split them half to the broadsides; (2) p.95 rounds the Threshold up, the cards round normally (Aegis 16
+  where the rule gives 17); (3) the p.95 Agamemnon example leaves out the division by 4 arcs (rule, MegaMek, card agree on
+  it); (4) p.103 gives stations six arcs, the cards and MegaMek four; (5) Vincent PV 110 here, 107 on the card, gap not
+  found; (6) PNT is one value for the ship, MegaMek splits it by arc. Some JumpShip cards print Thrust "2" for 0.2k.
+  Still to do: MFB from repair bays, offensive special ability factors (MegaMek adds them on a forum ruling).
+- [ ] SDS (Caspar) drone control system (IO p.143; Historical: Liberation of Terra I p.159): a percentage of
+  the vessel's weight on top of the controls, quarters for half the minimum crew, the SDS self-destruct, and
+  WarShip drones of 800,000 tons at most. SDS WarShip drones still carry a K-F drive; the fail-safe only stops
+  them jumping while the AI is active.
+- [x] Capital-scale record sheets (SO:AA pp.9-11, Step 6 p.146): data block, inventory by weapon bay with capital-scale
+  Attack Values (standard in parentheses), armor and SI as capital-scale squares with Damage Thresholds, K-F drive and
+  sail integrity, collars, crew hits, critical damage, heat per arc, Velocity Record (not stations). Same-book conflict
+  flagged: p.9 lists capital first, p.146's example standard first; p.9 and MegaMekLab followed. The fighter and Small
+  Craft sheets now follow TM pp.336-339 too: SRV/MRV/LRV/ERV per weapon, pilot hits with consciousness numbers, labelled
+  critical boxes, the Heat Scale (not conventional fighters) and the Velocity Record. The sheets print the Medium bracket
+  as "6-12", an obvious misprint for 7-12. Three experimental rifles have no aerospace range in the catalog and show "?".
+  Still to do: the Fighter Squadron sheet (SO:AA p.9) and the conventional fighter's Fighter Return Table block.
 
 ### Buildings, Gun Emplacements and Mobile Structures
 

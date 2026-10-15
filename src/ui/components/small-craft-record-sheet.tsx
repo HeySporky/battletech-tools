@@ -3,10 +3,11 @@ import SmallCraft, { SMALL_CRAFT_CRITICAL_TRACKS } from '../../classes/small-cra
 import { SMALL_CRAFT_ARCS, findTransportBayType, quartersTypes } from '../../data/small-craft-construction';
 import FighterDiagramSVG from './svg/fighter-diagram-svg';
 import SmallCraftAlphaStrikeCard from './small-craft-as-card';
+import { AerospaceHeatBlock, AerospaceInventoryTable, AerospaceVelocityRecord, aerospaceInventoryRows } from './aerospace-sheet-blocks';
 
 // A Small Craft record sheet (TechManual pp.337-338): craft data, the armor diagram with Damage Thresholds,
-// weapons by firing arc, crew, quarters and bays, the critical damage tracks and the Alpha Strike card. With
-// showDamage, damage marked in play is filled in.
+// the Weapons and Equipment Inventory with Attack Values by range bracket, crew, quarters and bays, the critical damage tracks and the Alpha Strike card. With
+// showDamage, damage marked in play is filled in. The Heat Scale and Velocity Record follow the printed sheets.
 export default class SmallCraftRecordSheet extends React.Component<ISmallCraftRecordSheetProps> {
     renderBoxes = (label: string, count: number, filled: number = 0): JSX.Element => (
         <span style={{ display: "inline-block", marginRight: "1.5em", whiteSpace: "nowrap" }}>
@@ -27,6 +28,7 @@ export default class SmallCraftRecordSheet extends React.Component<ISmallCraftRe
         const armor = craft.getArmorAllocation();
         const thresholds = craft.getDamageThresholds();
         const quarters = quartersTypes.filter((type) => craft.getQuarters()[type.tag] > 0).map((type) => `${craft.getQuarters()[type.tag]} ${type.name}`);
+        const ammo = craft.getEquipmentList().filter((item) => item.isAmmo).map((item) => item.name);
         const locations: { tag: string; name: string }[] = [...SMALL_CRAFT_ARCS.map((arc) => ({ tag: arc as string, name: craft.getArcName(arc) })), { tag: "hull", name: "Hull" }];
 
         return (
@@ -54,24 +56,17 @@ export default class SmallCraftRecordSheet extends React.Component<ISmallCraftRe
                     width={600}
                 />
 
-                <table className="table" data-testid="small-craft-sheet-weapons">
-                    <thead>
-                        <tr><th>Firing Arc</th><th>Weapons and Equipment</th><th className="text-right">Heat</th></tr>
-                    </thead>
-                    <tbody>
-                        {locations.map((location) => {
-                            const items = craft.getEquipmentList().filter((item) => item.location === location.tag);
-                            if (items.length === 0 && location.tag !== "nose") return null;
-                            return (
-                                <tr key={location.tag}>
-                                    <td>{location.name}</td>
-                                    <td>{items.map((item) => item.name + (play && craft.isWeaponDestroyed(item.uuid ?? "") ? " (destroyed)" : "")).join(", ") || "-"}</td>
-                                    <td className="text-right">{items.filter((item) => !item.isAmmo).reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0) || "-"}</td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <h3>Weapons and Equipment Inventory</h3>
+                <AerospaceInventoryTable
+                    testId="small-craft-sheet-weapons"
+                    locationHeader="Arc"
+                    rows={aerospaceInventoryRows(
+                        craft.getEquipmentList(),
+                        (tag) => locations.find((location) => location.tag === tag)?.name ?? tag,
+                        (item) => (play && craft.isWeaponDestroyed(item.uuid ?? "") ? " (destroyed)" : ""),
+                    )}
+                />
+                {ammo.length ? <p><strong>Ammo</strong>: {ammo.join(", ")}</p> : null}
 
                 <h3>Crew and Cargo</h3>
                 <p data-testid="small-craft-sheet-crew">
@@ -108,6 +103,9 @@ export default class SmallCraftRecordSheet extends React.Component<ISmallCraftRe
                     to Control Rolls; a thruster hit raises the cost of turning away from that side (TW pp. 239-240). Heat is tracked
                     as on a fighter (TW p. 161).
                 </p>
+
+                <AerospaceHeatBlock heatSinks={craft.getTotalHeatSinks()} heatSinkType={craft.getHeatSinkType().name} dissipation={craft.getHeatDissipation()} heat={play?.heat} />
+                <AerospaceVelocityRecord altitude />
 
                 <h3>Alpha Strike</h3>
                 <SmallCraftAlphaStrikeCard craft={craft} />

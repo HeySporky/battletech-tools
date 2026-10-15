@@ -1,30 +1,34 @@
 import React, { type JSX } from 'react';
-import AerospaceFighter, { FIGHTER_CRITICAL_TRACKS, FIGHTER_LOCATIONS, formatFighterASDamage } from '../../classes/aerospace-fighter';
+import AerospaceFighter, { FIGHTER_LOCATIONS, formatFighterASDamage } from '../../classes/aerospace-fighter';
+import { AEROSPACE_FIGHTER_CRITICAL_BLOCK } from '../../data/aerospace-record-sheet';
+import { AerospaceCriticalBlock, AerospaceHeatBlock, AerospaceInventoryTable, AerospacePilotBlock, AerospaceVelocityRecord, aerospaceInventoryRows } from './aerospace-sheet-blocks';
 import FighterDiagramSVG from './svg/fighter-diagram-svg';
 import { SUPPORT_VEHICLE_CHASSIS_MODIFICATIONS, SUPPORT_VEHICLE_FIRE_CONTROL } from '../../data/support-vehicle-construction';
 
-// A fighter record sheet: summary line, armor diagram with damage thresholds, weapons by arc, external stores,
-// the critical damage tracks and the converted Alpha Strike stats. With showDamage, damage marked in play is
-// filled in.
+// A fighter record sheet after TechManual's Aerospace and Conventional Fighter Record Sheets (TM pp.336-337): fighter
+// data, the Weapons and Equipment Inventory with Attack Values by range bracket, external stores, pilot data,
+// critical damage, the Heat Scale (aerospace fighters; conventional fighters have none), the Velocity Record and the
+// armor diagram with damage thresholds, then the converted Alpha Strike stats. With showDamage, damage marked in
+// play is filled in.
 export default class FighterRecordSheet extends React.Component<IFighterRecordSheetProps> {
-    renderBoxes = (label: string, count: number, filled: number = 0): JSX.Element => (
-        <span style={{ display: "inline-block", marginRight: "1.5em", whiteSpace: "nowrap" }}>
-            <strong>{label}</strong>&nbsp;
-            {Array.from({ length: count }, (_, index) => (
-                <span key={index} style={{
-                    display: "inline-block", width: "0.9em", height: "0.9em", border: "1px solid #000", marginRight: "0.2em", verticalAlign: "middle",
-                    background: index < filled ? "#000" : "transparent",
-                }} />
-            ))}
-        </span>
-    );
-
     render = (): JSX.Element => {
         const fighter = this.props.fighter;
         const as = fighter.getAlphaStrikeStats();
         const stores = fighter.getExternalStores();
         const play = this.props.showDamage ? fighter.getInPlay() : null;
         const pilot = fighter.getPilot();
+        const ammo = fighter.getEquipmentList().filter((item) => item.isAmmo).map((item) => item.name);
+        const criticalHits = (track: string): number => {
+            if (!play) return 0;
+            switch (track) {
+                case "Avionics": return play.avionics;
+                case "Engine": return play.engine;
+                case "FCS": return play.fcs;
+                case "Sensors": return play.sensors;
+                case "Gear": return play.gear ? 1 : 0;
+                default: return 0;
+            }
+        };
 
         return (
             <div className="print-page">
@@ -60,40 +64,33 @@ export default class FighterRecordSheet extends React.Component<IFighterRecordSh
                     width={600}
                 />
 
-                <table className="table">
-                    <thead>
-                        <tr><th>Location</th><th>Weapons and Equipment</th><th className="text-right">Heat</th></tr>
-                    </thead>
-                    <tbody>
-                        {FIGHTER_LOCATIONS.map((location) => {
-                            const items = fighter.getEquipmentList().filter((item) => item.location === location.tag);
-                            return (
-                                <tr key={location.tag}>
-                                    <td>{location.name}</td>
-                                    <td>{items.map((item) => item.name + (fighter.isPodMounted(item.uuid ?? "") ? " (pod)" : "") + (play && fighter.isWeaponDestroyed(item.uuid ?? "") ? " (destroyed)" : "")).join(", ") || "-"}</td>
-                                    <td className="text-right">{items.filter((item) => !item.isAmmo).reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0) || "-"}</td>
-                                </tr>
-                            );
-                        })}
-                        <tr>
-                            <td>External Stores</td>
-                            <td colSpan={2}>
-                                {stores.length ? stores.map((store) => `${store.count} x ${store.name}`).join(", ") : "-"}
-                                {" "}({fighter.getExternalStoresHardpointsUsed()} of {fighter.getExternalStoresHardpoints()} hardpoints
-                                {stores.length ? `; thrust ${fighter.getLoadedSafeThrust()}/${fighter.getLoadedMaxThrust()} while loaded` : ""})
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <h3>Weapons and Equipment Inventory</h3>
+                <AerospaceInventoryTable
+                    testId="fighter-sheet-inventory"
+                    rows={aerospaceInventoryRows(
+                        fighter.getEquipmentList(),
+                        (tag) => FIGHTER_LOCATIONS.find((location) => location.tag === tag)?.name ?? tag,
+                        (item) => (fighter.isPodMounted(item.uuid ?? "") ? " (pod)" : "") + (play && fighter.isWeaponDestroyed(item.uuid ?? "") ? " (destroyed)" : ""),
+                    )}
+                />
+                {ammo.length ? <p><strong>Ammo</strong>: {ammo.join(", ")}</p> : null}
+                <p>
+                    <strong>External Stores</strong>: {stores.length ? stores.map((store) => `${store.count} x ${store.name}`).join(", ") : "-"}
+                    {" "}({fighter.getExternalStoresHardpointsUsed()} of {fighter.getExternalStoresHardpoints()} hardpoints
+                    {stores.length ? `; thrust ${fighter.getLoadedSafeThrust()}/${fighter.getLoadedMaxThrust()} while loaded` : ""})
+                </p>
+
+                <AerospacePilotBlock name={this.props.showPilot ? pilot.name : undefined} gunnery={this.props.showPilot ? pilot.gunnery : undefined}
+                    piloting={this.props.showPilot ? pilot.piloting : undefined} hits={play?.pilotHits ?? 0} />
 
                 <h3>Critical Damage</h3>
-                <p>
-                    {FIGHTER_CRITICAL_TRACKS.map((track) => (
-                        <React.Fragment key={track.tag}>{this.renderBoxes(track.name, track.boxes, play?.[track.tag] ?? 0)}</React.Fragment>
-                    ))}
-                    {this.renderBoxes("Gear", 1, play?.gear ? 1 : 0)}
-                    {play && play.heatSinks > 0 ? <span><strong>Heat sinks lost</strong>: {play.heatSinks}</span> : null}
-                </p>
+                <AerospaceCriticalBlock testId="fighter-sheet-criticals" tracks={AEROSPACE_FIGHTER_CRITICAL_BLOCK.map((track) => ({ ...track, filled: criticalHits(track.name) }))} />
+                {play && play.heatSinks > 0 ? <p><strong>Heat sinks lost</strong>: {play.heatSinks}</p> : null}
+
+                {fighter.isConventional() ? null : (
+                    <AerospaceHeatBlock heatSinks={fighter.getTotalHeatSinks()} heatSinkType={fighter.getHeatSinkType().name} dissipation={fighter.getHeatDissipation()} heat={play?.heat} />
+                )}
+                <AerospaceVelocityRecord altitude />
 
                 <h3>Alpha Strike</h3>
                 <table className="table">

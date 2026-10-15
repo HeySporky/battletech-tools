@@ -26,6 +26,9 @@ import {
     getDropShipStrategicFuelPerDay, getDropShipControlsWeight, getDropShipBaseCrew, getDropShipFreeHeatSinks,
     getDropShipMaxBayDoors, DOCKING_COLLAR_COST, GUNNERY_CONTROL_COST_PER_ARC, DROPSHIP_COST_MULTIPLIER,
 } from "../data/small-craft-construction";
+import {
+    LARGE_CRAFT_AS_DEFENSIVE_ABILITY_FACTORS, getLargeCraftASHeat, getLargeCraftASPointDefense, getLargeCraftMovementFactor, roundUpToTenth, toLargeCraftASDamage,
+} from "../data/large-craft-alpha-strike";
 import { SMALL_CRAFT_CRITICAL_NAMES, SmallCraftAttackDirection, SmallCraftCritical, getSmallCraftHitLocation } from "../data/small-craft-hit-tables";
 
 // Small Craft construction (TechManual pp.180-197): aerodyne and spheroid craft of 100 to 200 tons. They share
@@ -1226,7 +1229,7 @@ export default class SmallCraft {
      * p.312). The multipliers apply to the heat of one shot, so a rapid-fire weapon starts from that and not
      * from its aerospace heat, which is already the heat of a full burst.
      */
-    private static _bvHeat(item: IEquipmentItem): number {
+    public static bvHeat(item: IEquipmentItem): number {
         const text = `${item.tag} ${item.name}`.toLowerCase();
         const rotary = /rotary|\brac\b/.test(text);
         const ultra = !rotary && /ultra|\buac\b/.test(text);
@@ -1347,18 +1350,18 @@ export default class SmallCraft {
             }
 
             const efficiency = 6 + this.getHeatDissipation();
-            const totalHeat = offensiveWeapons.reduce((sum, item) => sum + SmallCraft._bvHeat(item), 0);
+            const totalHeat = offensiveWeapons.reduce((sum, item) => sum + SmallCraft.bvHeat(item), 0);
             const overEfficiency = totalHeat > efficiency;
             log += `Heat Efficiency 6 + ${this.getHeatDissipation()} = ${efficiency}; Total Weapon Heat ${totalHeat}<br />`;
             const ordered = [...offensiveWeapons].sort((a, b) => {
-                const heatless = (SmallCraft._bvHeat(a) > 0 ? 1 : 0) - (SmallCraft._bvHeat(b) > 0 ? 1 : 0);
+                const heatless = (SmallCraft.bvHeat(a) > 0 ? 1 : 0) - (SmallCraft.bvHeat(b) > 0 ? 1 : 0);
                 if (heatless !== 0) return heatless;
-                return modifiedBV(b) - modifiedBV(a) || SmallCraft._bvHeat(a) - SmallCraft._bvHeat(b);
+                return modifiedBV(b) - modifiedBV(a) || SmallCraft.bvHeat(a) - SmallCraft.bvHeat(b);
             });
             let runningHeat = 0;
             let overheated = false;
             for (const item of ordered) {
-                const heat = SmallCraft._bvHeat(item);
+                const heat = SmallCraft.bvHeat(item);
                 const halved = overEfficiency && overheated && heat > 0;
                 const value = modifiedBV(item) * (halved ? 0.5 : 1);
                 rating += value;
@@ -1398,7 +1401,7 @@ export default class SmallCraft {
             const arc = item.location ?? "";
             if (!(arc in arcBV)) continue;
             arcBV[arc] += this._weaponBaseBV(item) * (hasTC && isTargetingComputerWeapon(item) ? 1.25 : 1);
-            arcHeat[arc] += SmallCraft._bvHeat(item);
+            arcHeat[arc] += SmallCraft.bvHeat(item);
         }
         let log = "";
         // Capital and sub-capital weapons count in their arcs as other weapons do. Their ammunition is capped at the
@@ -1540,18 +1543,6 @@ export default class SmallCraft {
     // Companion pp.92-102, 115-116), and the large aerospace Point Value (ASC p.144 with errata v1.6). Weapon
     // damage comes from each catalog record's alphaStrike values.
 
-    private static _roundUpToTenth(value: number): number {
-        return Math.ceil(Math.round(value * 1000) / 100) / 10;
-    }
-
-    /** Rounded up to the tenth; under 0.5 is minimal damage (0*), otherwise rounded up. */
-    private static _asDamage(raw: number): ISmallCraftASDamageValue {
-        const tenth = SmallCraft._roundUpToTenth(raw);
-        if (tenth <= 0) return { damage: 0, minimal: false };
-        if (tenth < 0.5) return { damage: 0, minimal: true };
-        return { damage: Math.ceil(tenth), minimal: false };
-    }
-
     /** Fewer than 10 shots for each weapon of a kind x 0.75; no ammunition at all x 0 (ASC p.101). */
     private _asAmmoMultiplier(weapon: IEquipmentItem): number {
         const usesAmmo = !!weapon.ammoTypes?.length || (weapon.shotsPerTon ?? 0) > 0;
@@ -1571,24 +1562,6 @@ export default class SmallCraft {
         // On an aerospace unit a battle armor weapon's range is Short (Ghosts of Obeedah p.54).
         if (weapon.battleArmorScale) return [(as.rangeShort || 0) * multiplier, 0, 0, 0];
         return [as.rangeShort || 0, as.rangeMedium || 0, as.rangeLong || 0, as.rangeExtreme || 0].map((value) => value * multiplier);
-    }
-
-    /** Heat a weapon adds to the maximum heat output: none for one-shot and rocket launchers (ASC p.115). */
-    private static _asHeat(item: IEquipmentItem): number {
-        if (item.isOneShot || /rocket-launcher/.test(item.tag)) return 0;
-        return item.heatAero ?? item.heat ?? 0;
-    }
-
-    /** Point Defense weapons (ASC pp.104-109): machine guns, small-class lasers and flamers; an anti-missile system counts 0.3 (ASC p.128). */
-    private static _asPointDefense(item: IEquipmentItem): number {
-        if (item.isAmmo) return 0;
-        if (item.weaponType?.includes("AMS")) return 0.3;
-        const name = item.name.toLowerCase();
-        const listed = (/machine gun/.test(name) && !/array/.test(name))
-            || /\b(er |heavy )?small (laser|x-pulse laser|chemical laser|re-engineered laser)\b/.test(name)
-            || /\b(er )?micro (laser|pulse laser)\b/.test(name)
-            || /^flamer\b|^vehicle flamer\b|^flamer \(vehicle\)/.test(name);
-        return listed && !/small pulse/.test(name) ? item.alphaStrike?.rangeShort || 0 : 0;
     }
 
     /**
@@ -1626,12 +1599,12 @@ export default class SmallCraft {
         // Heat: a craft that fires in several arcs counts every weapon, and anti-missile systems. Once the heat
         // passes the dissipation by 4 or more, damage is base x dissipation / (heat - 4) (ASC pp.115-116).
         const dissipation = this.getHeatDissipation();
-        const heat = this._equipmentList.filter((item) => !item.isAmmo).reduce((sum, item) => sum + SmallCraft._asHeat(item), 0);
+        const heat = this._equipmentList.filter((item) => !item.isAmmo).reduce((sum, item) => sum + getLargeCraftASHeat(item), 0);
         const factor = heat - dissipation >= 4 ? dissipation / (heat - 4) : 1;
         log += `Heat ${heat} against ${dissipation} dissipated${factor < 1 ? `: damage x ${factor.toFixed(2)}` : ""}<br />`;
         const arcs = {} as Record<SmallCraftASArc, ISmallCraftASDamageValue[]>;
         for (const arc of SMALL_CRAFT_AS_ARCS) {
-            arcs[arc.tag] = raw[arc.tag].map((value) => SmallCraft._asDamage(value * factor));
+            arcs[arc.tag] = raw[arc.tag].map((value) => toLargeCraftASDamage(value * factor));
             log += `${arc.name}: ${raw[arc.tag].map((value) => (value * factor).toFixed(2)).join("/")} = ${arcs[arc.tag].map(formatSmallCraftASDamage).join("/")}<br />`;
         }
 
@@ -1646,7 +1619,7 @@ export default class SmallCraft {
 
         const specials: string[] = ["LG", "SPC"];
         if (this.isAerodyne()) specials.push("VSTOL");
-        const pointDefense = Math.ceil(SmallCraft._roundUpToTenth(this._equipmentList.reduce((sum, item) => sum + SmallCraft._asPointDefense(item), 0)) - 1e-9);
+        const pointDefense = Math.ceil(roundUpToTenth(this._equipmentList.reduce((sum, item) => sum + getLargeCraftASPointDefense(item), 0)) - 1e-9);
         if (pointDefense > 0) specials.push(`PNT${pointDefense}`);
         const usesAmmo = weapons.some((item) => !!item.ammoTypes?.length || (item.shotsPerTon ?? 0) > 0);
         if (weapons.length > 0 && !usesAmmo) specials.push("ENE");
@@ -1672,11 +1645,10 @@ export default class SmallCraft {
         // side arcs; a spheroid counts all four arcs and divides by 4. Minimal damage counts as 0.
         const sum = (arc: SmallCraftASArc) => arcs[arc].slice(0, 3).reduce((total, value) => total + value.damage, 0);
         const offensive = this.isAerodyne() ? sum("nose") + sum("left") + sum("right") : (sum("nose") + sum("left") + sum("right") + sum("rear")) / 4;
-        const movementFactor = 0.25 * move + (move >= 10 ? 2 : move >= 7 ? 0.5 : 0);
+        const movementFactor = getLargeCraftMovementFactor(move);
         const defensive = movementFactor + pointDefense + armor * 1.5 + structure + threshold * size / 2;
         let subtotal = offensive + defensive;
-        const forceBonus: Record<string, number> = { AECM: 3, BH: 2, C3RS: 2, ECM: 2, RCN: 2, LPRB: 1, PRB: 1, LECM: 0.5 };
-        for (const code of equipmentSpecials) subtotal += forceBonus[code] ?? 0;
+        for (const code of equipmentSpecials) subtotal += LARGE_CRAFT_AS_DEFENSIVE_ABILITY_FACTORS[code] ?? 0;
         const pointValue = Math.max(1, Math.round(subtotal));
         log += `Offensive value ${offensive}; Defensive value: Thrust ${movementFactor}${pointDefense ? ` + PNT ${pointDefense}` : ""} + Armor ${armor} x 1.5 + Structure ${structure} + Threshold ${threshold} x Size ${size} / 2 = ${defensive}<br />`;
         log += `Point Value ${pointValue} (provisional: published Small Craft cards run higher than this formula gives)<br />`;

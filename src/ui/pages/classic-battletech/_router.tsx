@@ -11,6 +11,7 @@ import InfantryCreatorRouter from './infantry-creator/_router';
 import BattleArmorCreatorRouter from './battle-armor-creator/_router';
 import ProtoMechCreatorRouter from './protomech-creator/_router';
 import SmallCraftCreatorRouter from './small-craft-creator/_router';
+import CapitalShipCreatorRouter from './capital-ship-creator/_router';
 import BuildingCreatorRouter from './building-creator/_router';
 
 import type { JSX } from "react";
@@ -65,6 +66,12 @@ export default class ClassicBattleTechRouter extends React.Component<IClassicBat
 
                 <Route path={`small-craft-creator/*`} element={
                     <SmallCraftCreatorRouter
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`capital-ship-creator/*`} element={
+                    <CapitalShipCreatorRouter
                         appGlobals={this.props.appGlobals}
                     />
                 }/>

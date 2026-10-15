@@ -11,6 +11,9 @@ import { IRulesLevelOption } from "./data-interfaces";
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
+/** The Advanced rules level ("adv"). */
+export const ADVANCED_RULES_LEVEL = 3;
+
 /** Rules level at which experimental prototypes may be used (Experimental and every level above it). */
 export const EXPERIMENTAL_RULES_LEVEL = 4;
 
