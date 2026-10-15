@@ -298,8 +298,7 @@ function parseMULSearchTokens(searchTerm: string): IMULSearchTokens {
     return tokens;
 }
 
-// Applies the dropdown filters (Rules/Technology/Role/Era/Type) the live API used to take as query params.
-// Faction filtering is intentionally excluded: per-faction availability isn't part of the bundled/cached unit data.
+// Applies the dropdown filters (Rules/Technology/Role/Era/Type/Faction) the live API used to take as query params.
 function matchesMULDropdownFilters(
     unit: IASMULUnit,
     mechRules: string,
