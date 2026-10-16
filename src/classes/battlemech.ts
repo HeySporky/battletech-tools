@@ -201,6 +201,8 @@ export interface IBattleMechExport {
     hideNonAvailableEquipment: boolean;
     /** Rules edition the design is built under; absent for the default edition (Total Warfare). */
     rulesEdition?: string;
+    /** The printed droid the design was loaded from (an id from battledroids-mechs.ts); absent for a built design. */
+    printedDroid?: string;
     introductoryRules?: boolean;
     is_type: string;
     jumpSpeed: number;
@@ -345,6 +347,8 @@ export class BattleMech {
     private _era = btEraOptions[1]; // Default to the Star League
     /** The rules edition the design is built under (a tag from rules-editions.ts). */
     private _rulesEdition: string = DEFAULT_RULES_EDITION;
+    /** The printed droid the design was loaded from (an id from battledroids-mechs.ts), if any. */
+    private _printedDroid: string | undefined = undefined;
     private _model: string = "";
     private _name: string = "";
     private _tonnage = 20;
@@ -545,6 +549,7 @@ export class BattleMech {
         this.lastUpdated = new Date();
         this._primitive = false;
         this._rulesEdition = DEFAULT_RULES_EDITION;
+        this._printedDroid = undefined;
         this._advancedFireControl = false;
         this._patchworkArmor = {};
         this._frankenMech = false;
@@ -5432,6 +5437,15 @@ export class BattleMech {
         return this._rulesEdition;
     }
 
+    /** The printed droid the design was loaded from, if any (an id from battledroids-mechs.ts). */
+    public getPrintedDroid(): string | undefined {
+        return this._printedDroid;
+    }
+
+    public setPrintedDroid(id: string | undefined): void {
+        this._printedDroid = id || undefined;
+    }
+
     /** What the Heat Scale adds to the To-Hit Number at the current heat: +1 at 8, +2 at 13, +3 at 17, +4 at 24 (TW pp.158-160; BD p.13). */
     public getHeatToHitModifier(): number {
         const heat = this.currentHeat;
@@ -7274,6 +7288,7 @@ export class BattleMech {
             equipment: [],
             era: this._era.tag,
             rulesEdition: this._rulesEdition === DEFAULT_RULES_EDITION ? undefined : this._rulesEdition,
+            printedDroid: this._printedDroid,
             features: [],
             gyro: this._gyro.tag,
             heat_sink_type: this.getHeatSinksType(),
@@ -7588,6 +7603,7 @@ export class BattleMech {
 
             // Before anything is mounted: the edition decides the stats of what is loaded.
             this._rulesEdition = getRulesEdition(importObject.rulesEdition).tag;
+            this._printedDroid = importObject.printedDroid || undefined;
 
             this.setTonnage(importObject.tonnage);
 
