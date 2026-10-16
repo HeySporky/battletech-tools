@@ -4,12 +4,12 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import SmallCraft from '../../../../classes/small-craft';
 import { SMALL_CRAFT_MAX_TONNAGE, SMALL_CRAFT_MIN_TONNAGE, SMALL_CRAFT_SHAPES, SMALL_CRAFT_TONNAGE_STEP } from '../../../../data/small-craft-construction';
 import { btTechOptions } from '../../../../data/tech-options';
-import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import SmallCraftCreatorSideMenu from '../../../components/small-craft-creator-side-menu';
 import RulesEditionSelect from '../../../components/rules-edition-select';
+import RulesLevelSelect from '../../../components/rules-level-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SmallCraftStatusBar from './_statusBar';
@@ -36,9 +36,9 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
         }
     }
 
-    updateRulesLevel = (e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesLevel = (level: number): void => {
         const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = +e.currentTarget.value;
+        appSettings.mechRulesFilter = level;
         this.props.appGlobals.saveAppSettings(appSettings);
     }
 
@@ -58,6 +58,7 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                         <TextSection label="Step 1: Design the Hull">
                             {/* The rules edition comes first: it decides what every field below offers. */}
                             <RulesEditionSelect unitType="small-craft" value={craft.getRulesEdition()} onChange={(tag) => this.update((c) => c.setRulesEdition(tag))} />
+                            <RulesLevelSelect editionTag={craft.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
                             <InputField
                                 label="Model # (e.g. LC-100)"
                                 value={craft.getModel()}
@@ -109,14 +110,6 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                                 </select>
                             </label>
 
-                            <label>
-                                Rules Level:
-                                <select value={rulesLevel} onChange={this.updateRulesLevel}>
-                                    {getRulesLevelOptions().map((option) => (
-                                        <option key={option.id} value={option.id}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
 
                             <label>
                                 Era:

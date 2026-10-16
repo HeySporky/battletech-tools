@@ -5,7 +5,12 @@ import { BattleMech, IFrankenMechDonor } from '../../../../classes/battlemech';
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
-import { editionHasBattleValue, editionHasPrices, getRulesEdition, getSelectableRulesEditions } from '../../../../data/rules-editions';
+import { editionEditsPrintedUnitsAfterWarning, editionHasBattleValue, editionHasPrices, getRulesEdition, getShownRulesLevel } from '../../../../data/rules-editions';
+import { editionHasPrintedDroids, getPrintedDroid, getPrintedDroids } from '../../../../data/battledroids-mechs';
+import { buildPrintedDroid, isUnmodifiedPrintedDroid } from '../../../../classes/printed-droid';
+import { confirmEditPrintedDroid, getDesignLockNote } from '../../../components/design-lock';
+import RulesEditionSelect from '../../../components/rules-edition-select';
+import RulesLevelSelect from '../../../components/rules-level-select';
 import { IAppGlobals } from '../../../app-router';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
@@ -16,6 +21,8 @@ import './home.scss';
 import InputCheckbox from "../../../components/form_elements/input_checkbox";
 import InputField from "../../../components/form_elements/input_field";
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
+import { replaceCurrentBattleMech } from '../../../components/confirm-replace-design';
+import EditionChoice from '../../../components/edition-choice';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -106,9 +113,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       }
     }
 
-    updateRulesLevel = ( e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesLevel = ( level: number ): void => {
       const appSettings = this.props.appGlobals.appSettings;
-      appSettings.mechRulesFilter = +e.currentTarget.value;
+      appSettings.mechRulesFilter = level;
       this.props.appGlobals.saveAppSettings(appSettings);
 
       if( this.props.appGlobals.currentBattleMech ) {
@@ -119,13 +126,26 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
     }
 
     // Builds the design under another rules edition; its tonnage moves into that edition's range.
-    updateRulesEdition = ( e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesEdition = ( editionTag: string ): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setRulesEdition( e.currentTarget.value );
+        currentMech.setRulesEdition( editionTag );
         this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
+        // The clamp finishes the switch; an undo of the switch still brings back the design as it was.
+        currentMech.settleRulesEditionSwitch();
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
         this.setState({ updated: !this.state.updated });
+      }
+    }
+
+    // Loads a droid as its record listing prints it, in place of the current design.
+    loadPrintedDroid = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      const droid = getPrintedDroid( e.currentTarget.value );
+      if( droid ) {
+        replaceCurrentBattleMech( this.props.appGlobals, () => {
+          this.props.appGlobals.saveCurrentBattleMech( buildPrintedDroid( droid ) );
+          this.setState({ updated: !this.state.updated });
+        });
       }
     }
 
@@ -195,6 +215,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
+      // At a rules level with no construction rules, only a printed droid can be chosen.
+      const locked = getDesignLockNote(this.props.appGlobals);
+      const shownLevel = getShownRulesLevel(this.props.appGlobals.currentBattleMech.getRulesEdition(), this.props.appGlobals.appSettings.mechRulesFilter);
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
@@ -213,18 +236,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                       <TextSection
                         label="Step 1: Design the Chassis"
                       >
-                          {/* The rules edition comes first: it decides what every field below offers. */}
-                          <label>
-                            Rules Edition:
-                            <select
-                              value={this.props.appGlobals.currentBattleMech.getRulesEdition()}
-                              onChange={this.updateRulesEdition}
-                            >
-                            {getSelectableRulesEditions().map((edition) => (
-                              <option key={edition.tag} value={edition.tag}>{edition.name} ({edition.year})</option>
-                            ))}
-                            </select>
-                          </label>
+                          {/* The rules edition comes first: it decides what every field below offers, the rules levels included. */}
+                          <RulesEditionSelect unitType="mech" value={this.props.appGlobals.currentBattleMech.getRulesEdition()} onChange={this.updateRulesEdition} />
+                          <RulesLevelSelect editionTag={this.props.appGlobals.currentBattleMech.getRulesEdition()} value={this.props.appGlobals.appSettings.mechRulesFilter} onChange={this.updateRulesLevel} />
                           {this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition() ? (
                             <p className="smaller-text">
                               Built from the {getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).name} rulebook: only what it includes is offered,
@@ -233,11 +247,11 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               {editionHasPrices(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? (editionHasBattleValue(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? " and total cost still follow the current rules." : " prints prices, but the total cost still follows the current rules.") : " prints no prices either, so the design has no cost."}
                             </p>
                           ) : null}
-                          {this.props.appGlobals.currentBattleMech.getRulesEditionIssues().length > 0 ? (
+                          {this.props.appGlobals.currentBattleMech.getRulesEditionIssues(shownLevel).length > 0 ? (
                             <div className="color-red smaller-text">
                               Not in this rules edition:
                               <ul>
-                                {this.props.appGlobals.currentBattleMech.getRulesEditionIssues().map((issue) => (
+                                {this.props.appGlobals.currentBattleMech.getRulesEditionIssues(shownLevel).map((issue) => (
                                   <li key={issue}>{issue}</li>
                                 ))}
                               </ul>
@@ -254,6 +268,26 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </div>
                           ) : null}
 
+                          {editionHasPrintedDroids(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? (
+                            <label>
+                              Droid:
+                              <select value={isUnmodifiedPrintedDroid(this.props.appGlobals.currentBattleMech) ? this.props.appGlobals.currentBattleMech.getPrintedDroid() : ""} onChange={this.loadPrintedDroid}>
+                                <option value="">{locked ? "Choose a printed droid" : "Start from a printed droid (optional)"}</option>
+                                {getPrintedDroids(shownLevel).map((droid) => (
+                                  <option key={droid.id} value={droid.id}>{droid.model} {droid.name}{droid.inferred ? " (inferred)" : ""}</option>
+                                ))}
+                              </select>
+                            </label>
+                          ) : null}
+                          {locked ? (
+                            <p className="color-red smaller-text">
+                              {locked}{" "}
+                              {editionEditsPrintedUnitsAfterWarning(this.props.appGlobals.currentBattleMech.getRulesEdition(), shownLevel) ? (
+                                <button type="button" className="btn btn-primary btn-sm" onClick={() => confirmEditPrintedDroid(this.props.appGlobals)}>Edit this droid</button>
+                              ) : null}
+                            </p>
+                          ) : null}
+                          {locked ? null : (<>
                           <InputField
                             label="Mech Model # (e.g. WSP-1A, Timber Wolf)"
                             value={this.props.appGlobals.currentBattleMech.model}
@@ -266,51 +300,43 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             onChange={this.updateName}
                           />
 
-                          <label>
-                            Technology Base:
-                            <select
-                              value={this.props.appGlobals.currentBattleMech.getTech().tag}
-                              onChange={this.updateTech}
-                            >
-                            {this.props.appGlobals.currentBattleMech.getAvailableTechOptions().map( (option) => {
-                              return (
-                                <option key={option.tag} value={option.tag}>{option.name}</option>
-                              )
-                            })}
-                            </select>
-                          </label>
-
-                          <label>
-                            Rules Level:
-                            <select
-                              value={this.props.appGlobals.appSettings.mechRulesFilter}
-                              onChange={this.updateRulesLevel}
-                            >
-                            {getRulesLevelOptions().map((option) => (
-                              <option key={option.id} value={option.id}>{option.name}</option>
-                            ))}
-                            </select>
-                          </label>
+                          <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                            <label>
+                              Technology Base:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getTech().tag}
+                                onChange={this.updateTech}
+                              >
+                              {this.props.appGlobals.currentBattleMech.getAvailableTechOptions().map( (option) => {
+                                return (
+                                  <option key={option.tag} value={option.tag}>{option.name}</option>
+                                )
+                              })}
+                              </select>
+                            </label>
+                          </EditionChoice>
 
 
-                          <label>
-                            Mech Type:
-                            <select
-                              value={this.props.appGlobals.currentBattleMech.getType().tag}
-                              onChange={this.updateType}
-                            >
-                            {mechTypeOptions
-                              .filter( (option) => (this.props.appGlobals.currentBattleMech?.usesEarlierRulesEdition()
-                                  ? this.props.appGlobals.currentBattleMech.isInRulesEdition(option)
-                                  : option.rulesLevel <= this.props.appGlobals.appSettings.mechRulesFilter)
-                                || option.tag === this.props.appGlobals.currentBattleMech?.getType().tag )
-                              .map( (option) => {
-                              return (
-                                <option key={option.tag} value={option.tag}>{option.name}{option.notes ? ` (${option.notes})` : ""}</option>
-                              )
-                            })}
-                            </select>
-                          </label>
+                          <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                            <label>
+                              Mech Type:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getType().tag}
+                                onChange={this.updateType}
+                              >
+                              {mechTypeOptions
+                                .filter( (option) => (this.props.appGlobals.currentBattleMech?.usesEarlierRulesEdition()
+                                    ? this.props.appGlobals.currentBattleMech.isInRulesEdition(option, shownLevel)
+                                    : option.rulesLevel <= this.props.appGlobals.appSettings.mechRulesFilter)
+                                  || option.tag === this.props.appGlobals.currentBattleMech?.getType().tag )
+                                .map( (option) => {
+                                return (
+                                  <option key={option.tag} value={option.tag}>{option.name}{option.notes ? ` (${option.notes})` : ""}</option>
+                                )
+                              })}
+                              </select>
+                            </label>
+                          </EditionChoice>
                           {!this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition() && this.props.appGlobals.currentBattleMech.getRequiredRulesLevel() > this.props.appGlobals.appSettings.mechRulesFilter ? (
                             <p className="color-red smaller-text">
                               This design requires the {getRulesLevelOptions().find( (option) => option.id === this.props.appGlobals.currentBattleMech?.getRequiredRulesLevel() )?.name} rules
@@ -344,11 +370,14 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </label>
                           ) : null}
 
-                          <InputCheckbox
-                            label="Is an Omnimech"
-                            checked={this.props.appGlobals.currentBattleMech.isOmnimech}
-                            onChange={this.toggleOmni}
-                          />
+                          {/* No OmniMechs in a rulebook from before them. */}
+                          {this.props.appGlobals.currentBattleMech.isOmnimech || !getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).noOmniMechs ? (
+                            <InputCheckbox
+                              label="Is an Omnimech"
+                              checked={this.props.appGlobals.currentBattleMech.isOmnimech}
+                              onChange={this.toggleOmni}
+                            />
+                          ) : null}
                           {this.props.appGlobals.currentBattleMech.isLAM() ? (
                             <p className="smaller-text">
                               {this.props.appGlobals.currentBattleMech.isOmniLAM()
@@ -381,6 +410,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </>
                           ) : null}
 
+                          <EditionChoice earlierEdition={false} hidden={!!getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).noEras}>
                           <label>
                             Mech Era:
                             <select
@@ -397,6 +427,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                           {this.props.appGlobals.currentBattleMech.getEra().description ? (
                             <p className="smaller-text">{this.props.appGlobals.currentBattleMech.getEra().description}</p>
                           ) : null}
+                          </EditionChoice>
 
                           {this.props.appGlobals.currentBattleMech.canUseFractionalAccounting( this.props.appGlobals.appSettings.mechRulesFilter )
                             || this.props.appGlobals.currentBattleMech.usesFractionalAccounting() ? (
@@ -438,23 +469,25 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </select>
                           </label>
 
-                          <label>
-                            Internal Structure Type:
-                            <select
-                              value={this.props.appGlobals.currentBattleMech.getInternalStructureType()}
-                              onChange={this.updateStructureType}
-                            >
-                            {this.props.appGlobals.currentBattleMech.getAvailableInternalStructures(this.props.appGlobals.appSettings.mechRulesFilter).map( (option) => {
-                              const selected = option.tag === this.props.appGlobals.currentBattleMech?.getInternalStructureType();
-                              if( !isOptionShown(option, selected) ) {
-                                return <React.Fragment key={option.tag}></React.Fragment>;
-                              }
-                              return (
-                                <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
-                              )
-                            })}
-                            </select>
-                          </label>
+                          <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                            <label>
+                              Internal Structure Type:
+                              <select
+                                value={this.props.appGlobals.currentBattleMech.getInternalStructureType()}
+                                onChange={this.updateStructureType}
+                              >
+                              {this.props.appGlobals.currentBattleMech.getAvailableInternalStructures(this.props.appGlobals.appSettings.mechRulesFilter).map( (option) => {
+                                const selected = option.tag === this.props.appGlobals.currentBattleMech?.getInternalStructureType();
+                                if( !isOptionShown(option, selected) ) {
+                                  return <React.Fragment key={option.tag}></React.Fragment>;
+                                }
+                                return (
+                                  <option key={option.tag} value={option.tag}>{availabilityOptionLabel(option)}</option>
+                                )
+                              })}
+                              </select>
+                            </label>
+                          </EditionChoice>
 
                           {this.props.appGlobals.currentBattleMech.isFrankenMech() || this.props.appGlobals.currentBattleMech.canBeFrankenMech(this.props.appGlobals.appSettings.mechRulesFilter) ? (
                             <InputCheckbox
@@ -572,6 +605,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               </p>
                             </fieldset>
                           ) : null}
+
+                          </>)}
 
                           <div className="clear-both overflow-hidden">
                           <hr />

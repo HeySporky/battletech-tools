@@ -7,7 +7,7 @@ Finished items are moved to `TODO-Completed.md`, which also lists the commit his
 
 Local references (git-ignored, never imported by shipped code):
 
-- `_KNOWLEDGE_DEV/rulebooks/`: the reference library, about 870 files sorted into folders on 2026-10-06:
+- `C:/repo/JBTIICRework/`: the reference library, about 870 files sorted into folders on 2026-10-06:
   `rulebooks/` (current Catalyst line, BMM, Core Rulebook, box sets), `rulebooks-legacy/` (Battledroids, BattleTech
   2nd/3rd Edition, Compendium, Master Rules, Maximum Tech, CityTech, AeroTech, BattleSpace and the FanPro printings),
   `alpha-strike/`, `errata/` and `errata-2025/`, `rpg/`, `technical-readouts/` (TROs, XTROs, Recognition Guides),
@@ -153,7 +153,7 @@ designs, 44 still report errors (421 before).
 ## 3. Check the data against the sourcebooks
 
 - [ ] Sourcebook validation tool (`tools/`, dev only): check every catalog table entry against the rulebook
-  text in `_KNOWLEDGE_DEV/rulebooks` and report mismatches with book and page. Cover weapons, ammunition,
+  text in `C:/repo/JBTIICRework` and report mismatches with book and page. Cover weapons, ammunition,
   equipment, engines, gyros, cockpits, structure, armor, heat sinks, jump jets and myomer: weight, slots,
   damage, heat, ranges, BV, cost, tech rating and dates. Records whose book isn't local are listed as
   unchecked, not passed.
@@ -893,6 +893,11 @@ bundle: every open PR except #92 and #97, plus the unit builders, rules levels a
     on upstream master when #115 merges. The bundle branch carries two removal commits for them: when merging
     this branch into it, keep `building.ts`, the roster files and the MUL source files free of play and custom
     MUL code, then merge the bundle into `feature/building-play`.
+  - Pass 5 (2026-10-09) is fixed and #115 is marked ready for review. Open items in this file go up as
+    follow-up PRs on top of it.
+  - Custom MUL submission is off (`CONST_CUSTOM_MUL_SUBMISSION_ENABLED = false`, user 2026-10-09): the path takes
+    a GitHub token in the page. Before switching it on: a security review of that path, and the SSW
+    custom-content submission ready to ship beside it.
   - `tools/mul-sync/sync-mul.mjs`: the live-to-legacy era id table has no entry for ids 1 and 9. 494 bundled
     records carry era id 1 unmapped. Which legacy era each is has to come from the site's era list.
   - Reported as already on upstream master, not fixed here: Alpha Strike value adds Medium damage twice and
@@ -1163,7 +1168,8 @@ type ships. The card reader walks each unit's top card; decks deal from the libr
 
 ## 10. JBTIICRework review (2026-10-06)
 
-`C:\repo\JBTIICRework` is a Gemini AI Studio export of master at `0a1f061e`. It is reference only: port by hand,
+`C:\repo\JBTIICRework` was a Gemini AI Studio export of master at `0a1f061e` when this review was done; its
+`main` branch now holds the rulebook library instead. The export is reference only: port by hand,
 never copy its `package.json`, lockfiles, Vite config, `.gitignore`, `tsconfig.json` or `index.html`. Its
 `errors.md` was checked item by item.
 
@@ -1175,7 +1181,7 @@ socket (CPU profile), which points at a network filter driver, not the app: Fire
 Open:
 - [ ] Upstream draft PRs waiting on review: #110 (`fix/storage-quota-handling`) and #112
   (`perf/lazy-ssw-corpus`, which now carries the AppRouter cleanup too; #111 was closed into it).
-- [ ] Read the sources added to `_KNOWLEDGE_DEV/rulebooks/` on 2026-10-06 for rules and options the tool lacks:
+- [ ] Read the sources added to `C:/repo/JBTIICRework/` on 2026-10-06 for rules and options the tool lacks:
   the BattleMech Manual (7th printing), Ghosts of Obeedah, The Wars of Reaving and Supplemental, the 31 XTROs
   (experimental equipment), and the quick-start rulebooks. Log each gap under the section it belongs to.
 - [ ] Reference library, after the 2026-10-06 sort:
@@ -1417,8 +1423,8 @@ Open:
     control listing the nine earlier editions, Total Warfare (the default) and the Core Rulebook. The edition is
     saved with the design (`rulesEdition`, absent for Total Warfare, so old saves load unchanged). Under an
     earlier edition the creator offers only that rulebook's chassis types, tonnages, components and equipment,
-    with the weight, heat, damage, ranges, critical slots and price it prints; rules levels do not apply, eras
-    still do. Edition-only rules applied: Battledroids jump jets at 0.5 tons a point at any weight (BD p.24);
+    with the weight, heat, damage, ranges, critical slots and price it prints; eras still apply, and since
+    2026-10-16 the edition's own rules levels do (below). Edition-only rules applied: Battledroids jump jets at 0.5 tons a point at any weight (BD p.24);
     every heat sink on the critical chart in Battledroids and the Second Edition (BD p.25); the edition's own
     Engine Table (Battledroids' 6.5-ton 170). Changing edition restats mounted equipment and removes nothing;
     Step 1 lists what the new edition does not include.
@@ -1464,6 +1470,42 @@ Open:
   - [x] Battledroids, left to the players by the user's choice (2026-10-08): the effects of a critical hit once marked (MP, to-hit and heat
     changes from destroyed actuators, sensors, engine and heat sinks), ammunition explosions, the Heat Scale's
     MP loss, shutdown and avoid rolls (shown by the helper, not applied), and line of sight.
+  - [x] Rules levels by edition, Battledroids (2026-10-16). Every creator's Step 1 is Rules Edition, then Rules
+    Level (`RulesLevelSelect`), and the level list is the edition's own: Basic, Advanced and Expert Battledroids
+    (BD pp.1, 7, 14; levels 0, 1 and 2) plus Apocryphal, Custom Homebrew and Munchkin. A stored level the
+    edition does not list shows as the next one up without being rewritten. Construction starts at Expert
+    (`constructionLevel`, "the information needed to design and build new classes of droids", BD p.14): at
+    Basic the Mech Creator offers only the printed droids, read-only; at Advanced a droid can be edited after a
+    warning that this moves the design to Expert. The printed droids (`battledroids-mechs.ts`, built by
+    `printed-droid.ts`, saved as `printedDroid`): the ten listings of BD pp.16-17, and at the Apocryphal level
+    the SPI-5R Spider (*Game News* #3, May 1985) and the 1984 TCI kit-back sheets (GOL-1H, WLV-3Nb/3Nc,
+    GRF-2N, SHD-3H, THN-8T, BTL-5R), whose four-legged Goliath brings the quad layout into Battledroids at
+    Apocryphal only (`apocryphalIn`). At Custom Homebrew, the user's conversions for four Ral Partha
+    Battledroids miniatures (FLE-15 Flea, FS9-H Firestarter, BKX-7K Battleaxe, LCT-1V Locust), corrected to
+    the book's rules. Every correction and every sheet that does not add up is in the droid's notes.
+  - [x] Battledroids follow-ups (2026-10-16). The GOL-1H's center torso items that its slots cannot hold are mounted
+    in the figurine's turret, as the sheet prints them (`turret`, Step 6 lists them apart). Replacing a design in
+    any creator (Start Over, loading a save, a file or MegaMek import, the Droid picker) first offers to save it,
+    unless it is blank or already saved as it stands. Under an earlier edition a field the rulebook leaves one
+    choice for is hidden (`EditionChoice`), as are eras under Battledroids (`noEras`) and OmniMechs before
+    TR:3050 (`noOmniMechs`); Primitive 'Mechs and Fractional Accounting are offered under Total Warfare and
+    later only, and turned off by a switch to an earlier edition. The rules edition decides: switching straight
+    back to the edition a design just left, with nothing changed since, brings back the design it had there
+    (`rulesEditionReturn`), so a Battledroids Griffin keeps its Jumping MP 6 through Total Warfare and back.
+  - [ ] Fields by edition in the other creators: vehicles, fighters, small craft, infantry, battle armor,
+    ProtoMechs and buildings do not hide the fields an earlier edition lacks yet (`EditionChoice` is the
+    Mech Creator's).
+  - [ ] Rules levels by edition, the rest: each other edition's own level names, its construction level and its
+    printed units, from its own book, one edition at a time. Two TCI kit sheets are still to find (the Dougram
+    Jakt-type Shadow Hawk and the plain Soltic H8 Griffin, entered from the book's SHD-2H and GRF-1N and marked
+    inferred); the 1985-86 TCI BattleTech sets (Scorpion, Locust, Ostroc Mk II, TCI Hunter) belong to the Second
+    Edition pass. Photographs of the sheets found so far are in the library's `unsorted/` folder.
+  - [ ] Battledroids armor limit: BD p.25 caps a location's armor at twice its internal structure (head 9), and
+    the book's own Stinger, Wasp, Phoenix Hawk, Archer and Marauder fit only if a torso's front section is
+    capped alone. The creator's armor maximum counts front and rear together, so it is stricter than the book
+    under Battledroids. Read as front-only for the printed droids' check; the creator still to follow.
+  - [ ] A printed droid's heat sinks are left unallocated: Battledroids puts every heat sink on the critical
+    chart (BD p.25), but the listings do not say where.
   - [ ] Rules edition selector, still to do: (1) the Master Rules' own Battle Value system and each edition's
     cost rules are not built, so the editions that have them still show the current rules' figures; (2) the
     Internal Combustion Engine is offered to BattleMechs under the editions that list it, though the

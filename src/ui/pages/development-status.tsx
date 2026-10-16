@@ -34,14 +34,13 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                     <h4>Done</h4>
                     <ul>
                       <li><del>Force Manual formation bonuses (Davion, Kurita)</del></li>
-                      <li><del>Filter units by faction and by special ability</del></li>
+                      <li><del>Filter units by era, faction and special ability</del></li>
                       <li><del>Search the Master Unit List offline, kept current every week</del></li>
                       <li><del>SPA point calculation fix</del></li>
                       <li><del><i>BattleTech: Aces</i> companion: card library, card reader, rules, to-hit calculator, campaigns</del></li>
                     </ul>
                     <h4>Coming</h4>
                     <ul>
-                      <li>Filter the unit search by era</li>
                       <li><i>BattleTech: Aces</i>: the automated opponent, its additional rules and the <i>Scouring Sands</i> campaign</li>
                       <li>Small Craft and DropShips in Alpha Strike forces</li>
                       <li>Armor thresholds and rules levels on aerospace cards from the new Master Unit List</li>

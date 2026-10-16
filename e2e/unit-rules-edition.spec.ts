@@ -19,6 +19,8 @@ test("each unit creator starts Step 1 with the rules editions it has rules for",
         await page.goto(`classic-battletech/${path}`);
         const step1 = page.locator(".text-section", { has: page.getByRole("heading", { name: heading }) });
         await expect(step1.locator("input, select").first(), path).toHaveAccessibleName(/Rules Edition/);
+        // The rules level comes straight after the edition, with the edition's own level names.
+        await expect(step1.locator("input, select").nth(1), path).toHaveAccessibleName(/Rules Level/);
         await expect(page.getByLabel("Rules Edition").locator("option"), path).toHaveText(editions);
     }
 

@@ -1,6 +1,7 @@
 
 import React, { type JSX } from 'react';
 import { IAppGlobals } from '../app-router';
+import { getUnallocatedCriticals } from '../../classes/printed-droid';
 import './mech-creator-status-bar.scss';
 
 export default class MechCreatorStatusBar extends React.Component<IMechCreatorStatusBarProps, IMechCreatorStatusBarState> {
@@ -13,7 +14,7 @@ export default class MechCreatorStatusBar extends React.Component<IMechCreatorSt
           <div className="mech-creator-status-bar">
             <span className="no-wrap inline-block"><strong>Remaining Tons</strong>: {this.props.appGlobals.currentBattleMech.getRemainingTonnage()}</span>&nbsp;|&nbsp;
             <span className="no-wrap inline-block"><strong>Unallocated Armor</strong>: {this.props.appGlobals.currentBattleMech.getUnallocatedArmor()}</span>&nbsp;|&nbsp;
-            <span className="no-wrap inline-block"><strong>Unallocated Criticals</strong>: {this.props.appGlobals.currentBattleMech.getUnallocatedCritCount()}</span>&nbsp;|&nbsp;
+            <span className="no-wrap inline-block"><strong>Unallocated Criticals</strong>: {getUnallocatedCriticals(this.props.appGlobals.currentBattleMech).length}</span>&nbsp;|&nbsp;
 
             <span className="no-wrap inline-block"><strong>Move Heat</strong>: {this.props.appGlobals.currentBattleMech.getMoveHeat()}</span>&nbsp;|&nbsp;
             <span className="no-wrap inline-block"><strong>Weapon Heat</strong>: {this.props.appGlobals.currentBattleMech.getWeaponHeat()}</span>&nbsp;|&nbsp;

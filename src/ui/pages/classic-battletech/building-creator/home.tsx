@@ -7,6 +7,7 @@ import { IAppGlobals } from '../../../app-router';
 import BuildingCreatorSideMenu from '../../../components/building-creator-side-menu';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FolderOpen = FaFolderOpen as any;
@@ -19,9 +20,19 @@ export default class BuildingCreatorHome extends React.Component<IHomeProps> {
         this.props.appGlobals.makeDocumentTitle("Building Creator");
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "building",
+            lost: designWouldBeLost(this.props.appGlobals.currentBuilding, () => new Building(), this.props.appGlobals.buildingSaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        this.props.appGlobals.saveCurrentBuilding(new Building());
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentBuilding(new Building()));
     }
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -38,7 +49,7 @@ export default class BuildingCreatorHome extends React.Component<IHomeProps> {
     loadSave = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
         e.preventDefault();
         const save = this.props.appGlobals.buildingSaves[saveIndex];
-        if (save) this.props.appGlobals.saveCurrentBuilding(new Building(JSON.stringify(save)));
+        if (save) this.replaceDesign(() => this.props.appGlobals.saveCurrentBuilding(new Building(JSON.stringify(save))));
     }
 
     saveOver = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {

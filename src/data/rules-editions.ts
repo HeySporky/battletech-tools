@@ -9,7 +9,8 @@
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
-import { IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure } from "./data-interfaces";
+import { IEditionHistory, IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure, IRulesLevelOption } from "./data-interfaces";
+import { APOCRYPHAL_RULES_LEVEL, btRulesLevelOptions, getRulesLevelOptions } from "./rules-level-options";
 
 /** The unit types the creators build, for an edition's `unitTypes`. */
 export type RulesEditionUnitType = "mech" | "vehicle" | "fighter" | "small-craft" | "capital-ship" | "infantry" | "battle-armor" | "protomech" | "building";
@@ -52,6 +53,17 @@ export interface IEditionPlayRules {
     criticalHitRoll: number;
 }
 
+/** One of an edition's own game levels, as its rulebook names it, and the tool's rules level it stands for. */
+export interface IRulesEditionLevel {
+    /** The tool's rules level (0-4) this level stands for. */
+    id: number;
+    name: string;
+    book: string;
+    page: number;
+    /** Below the construction level: a printed unit may be edited after a warning that this moves it to that level. */
+    editsAfterWarning?: boolean;
+}
+
 export interface IRulesEdition {
     /** Stable id stored on records and in saves. */
     tag: string;
@@ -90,12 +102,22 @@ export interface IRulesEdition {
     otherUnits?: string[];
     /** What the edition includes that the tool has no record for. */
     notModelled?: string[];
+    /** The edition predates OmniMechs, which first appeared in Technical Readout: 3050 (1989). */
+    noOmniMechs?: boolean;
+    /** The rulebook has no eras to build in; the design keeps its era, out of sight. */
+    noEras?: boolean;
+    /** The edition's own game levels; absent means Total Warfare's. Apocryphal, Custom Homebrew and Munchkin follow. */
+    levels?: IRulesEditionLevel[];
+    /** The lowest rules level whose rules design new units; absent means every level. */
+    constructionLevel?: number;
 }
 
 export const btRulesEditions: IRulesEdition[] = [
     {
         // Battledroids, the game's first edition: credits page, "Copyright 1984 FASA Corporation".
         tag: "battledroids",
+        noEras: true,
+        noOmniMechs: true,
         name: "Battledroids",
         year: 1984,
         book: "BD",
@@ -111,6 +133,13 @@ export const btRulesEditions: IRulesEdition[] = [
         ammoTonsFor: "launcher",
         noBattleValue: true,
         noPrices: true,
+        levels: [
+            { id: 0, name: "Basic Battledroids", book: "BD", page: 1 },
+            { id: 1, name: "Advanced Battledroids", book: "BD", page: 7, editsAfterWarning: true },
+            // "the information needed to design and build new classes of droids"
+            { id: 2, name: "Expert Battledroids", book: "BD", page: 14 },
+        ],
+        constructionLevel: 2,
         // BD pp.16-17, the ten record listings.
         mechs: [
             "STG-3R Stinger", "WSP-1A Wasp", "PXH-1K Phoenix Hawk", "GRF-1N Griffin", "SHD-2H Shadow Hawk",
@@ -125,6 +154,7 @@ export const btRulesEditions: IRulesEdition[] = [
     {
         // BattleTech, Second Edition box set: "that 1985 box set" (CRB p.247); its rulebook prints "Copyright 1985".
         tag: "battletech-2nd-edition",
+        noOmniMechs: true,
         name: "BattleTech, Second Edition",
         year: 1985,
         book: "BT2",
@@ -147,6 +177,7 @@ export const btRulesEditions: IRulesEdition[] = [
     {
         // The BattleTech Manual: The Rules of Warfare: credits page, "Copyright 1987"; CRB p.247.
         tag: "battletech-manual",
+        noOmniMechs: true,
         name: "The BattleTech Manual",
         year: 1987,
         book: "BTM",
@@ -433,7 +464,7 @@ export function getRulesEditions(): IRulesEdition[] {
     return btRulesEditions;
 }
 
-type IEditionRecord = { introducedInEdition?: string; editionStats?: IEditionStatsTable };
+type IEditionRecord = { introducedInEdition?: string; editionStats?: IEditionStatsTable; apocryphalIn?: IEditionHistory["apocryphalIn"] };
 
 const editionOrder = (tag: string) => btRulesEditions.findIndex(edition => edition.tag === tag);
 
@@ -446,9 +477,13 @@ export function getIntroducedInEdition(record: IEditionRecord): string {
  * Do the rules of `editionTag` include this record? Before the default edition, only when the record's
  * `editionStats` lists that edition: the box sets hold less than the rulebooks around them, so nothing is
  * inherited from an earlier edition. From the default edition on, when the record's first edition is that
- * edition or an earlier one. An edition tag that is not in the list never matches.
+ * edition or an earlier one. An edition tag that is not in the list never matches. From the Apocryphal rules level up,
+ * the record's `apocryphalIn` editions match too.
  */
-export function isInRulesEdition(record: IEditionRecord, editionTag: string = DEFAULT_RULES_EDITION): boolean {
+export function isInRulesEdition(record: IEditionRecord, editionTag: string = DEFAULT_RULES_EDITION, rulesLevel?: number): boolean {
+    if (rulesLevel !== undefined && rulesLevel >= APOCRYPHAL_RULES_LEVEL && record.apocryphalIn && editionTag in record.apocryphalIn) {
+        return true;
+    }
     const selected = editionOrder(editionTag);
     if (selected < 0) {
         return false;
@@ -635,4 +670,34 @@ export const DEFAULT_ALPHA_STRIKE_EDITION = "alpha-strike-commanders-edition";
 /** The default edition, and each earlier one entered whole. */
 export function getSelectableAlphaStrikeEditions(): IAlphaStrikeEdition[] {
     return asRulesEditions.filter(edition => edition.complete || edition.tag === DEFAULT_ALPHA_STRIKE_EDITION);
+}
+
+/** The rules levels to offer under an edition: its own game levels, then Apocryphal, Custom Homebrew and Munchkin. */
+export function getRulesLevelOptionsForEdition(editionTag: string | undefined): IRulesLevelOption[] {
+    const levels = getRulesEdition(editionTag).levels;
+    if (!levels) {
+        return getRulesLevelOptions();
+    }
+    const canon = levels.map(level => ({ ...btRulesLevelOptions.find(option => option.id === level.id)!, name: level.name }));
+    return [...canon, ...btRulesLevelOptions.filter(option => option.id >= APOCRYPHAL_RULES_LEVEL)];
+}
+
+/**
+ * The level the Rules Level control shows for the stored app-wide level: the stored level when the edition lists it,
+ * else the lowest listed level above it, else the highest listed. The stored setting is left as it is.
+ */
+export function getShownRulesLevel(editionTag: string | undefined, storedLevel: number): number {
+    const ids = getRulesLevelOptionsForEdition(editionTag).map(option => option.id);
+    return ids.find(id => id >= storedLevel) ?? ids[ids.length - 1];
+}
+
+/** Whether the edition's rules allow designing a new unit at this rules level. */
+export function editionAllowsConstruction(editionTag: string | undefined, rulesLevel: number): boolean {
+    return rulesLevel >= (getRulesEdition(editionTag).constructionLevel ?? 0);
+}
+
+/** Whether a printed unit may be edited at this level after a warning that editing moves it to the construction level. */
+export function editionEditsPrintedUnitsAfterWarning(editionTag: string | undefined, rulesLevel: number): boolean {
+    return !editionAllowsConstruction(editionTag, rulesLevel)
+        && !!getRulesEdition(editionTag).levels?.find(level => level.id === rulesLevel)?.editsAfterWarning;
 }

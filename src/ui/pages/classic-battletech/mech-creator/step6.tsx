@@ -13,7 +13,9 @@ import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import UnallocatedEquipmentList from '../../../components/unallocated-equipment-list';
+import { getPrintedTurretCriticals, getUnallocatedCriticals } from '../../../../classes/printed-droid';
 import './home.scss';
+import DesignLockColumn, { getDesignLockNote } from '../../../components/design-lock';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -43,6 +45,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       e: React.FormEvent<HTMLButtonElement>
     ) => {
       if( e && e.preventDefault ) e.preventDefault();
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
 
       this.setState({
         splitItemCount: 1,
@@ -87,6 +91,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
     }
 
     toggleLowerArmActuator = ( loc: string ): void => {
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.toggleLowerArmActuator( loc );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
@@ -94,6 +100,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
     }
 
     toggleHandActuator = ( loc: string ): void => {
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.toggleHandActuator( loc );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
@@ -101,6 +109,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
     }
 
     resetAllocations = (): void => {
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
       this.props.appGlobals.openConfirmDialog(
         "Confirmation",
         "Are you sure you want to clear out all your critical allocations?",
@@ -123,6 +133,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       selectedItemSize: number,
       selectedItemName: string,
     ): void => {
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
 
 
       if( selectedItem ) {
@@ -385,7 +397,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                   current="step6"
                 />
               </div>
-              <div className="col-md-9 col-lg-10">
+              <DesignLockColumn appGlobals={this.props.appGlobals}>
                   <div className="row">
                     <div className="col-md-12">
                       <TextSection
@@ -427,13 +439,13 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                             <div className="col-lg-3">
                               <fieldset className="fieldset">
                                 <legend>Unallocated</legend>
-                                {this.props.appGlobals.currentBattleMech.unallocatedCriticals.length > 0 ? (
+                                {getUnallocatedCriticals(this.props.appGlobals.currentBattleMech).length > 0 ? (
                                   <>
                                   {/* {this.state.selectedItemIndex}<br />
                                   {this.state.selectedItemLocation}<br /> */}
                                   {/* {this.props.appGlobals.currentBattleMech.unallocatedCriticals.length} */}
                                     <UnallocatedEquipmentList
-                                        crits={this.props.appGlobals.currentBattleMech.unallocatedCriticals}
+                                        crits={this.props.appGlobals.currentBattleMech.unallocatedCriticals.map(crit => getPrintedTurretCriticals(this.props.appGlobals.currentBattleMech!).includes(crit) ? null : crit)}
                                         appGlobals={this.props.appGlobals}
                                         selectItemClick={this.selectItemClick}
                                         currentSelectedIndex={this.state.selectedItemIndex}
@@ -445,6 +457,16 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                                   <p className="text-center">Huzzah! All equipment has been allocated!</p>
                                   </>
                                 )}
+
+                                {getPrintedTurretCriticals(this.props.appGlobals.currentBattleMech).length > 0 ? (
+                                  <fieldset className="fieldset" aria-label="Turret">
+                                    <legend>Turret</legend>
+                                    <p className="small-text">Mounted in the center torso's turret, as the figurine and its sheet have them.</p>
+                                    <ul>
+                                      {getPrintedTurretCriticals(this.props.appGlobals.currentBattleMech).map(crit => <li key={crit.uuid}>{crit.name} ({crit.crits})</li>)}
+                                    </ul>
+                                  </fieldset>
+                                ) : null}
 
                                 <button
                                   className="btn btn-primary full-width"
@@ -643,7 +665,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                     </div>
 
                   </div>
-              </div>
+              </DesignLockColumn>
 
             </div>
 

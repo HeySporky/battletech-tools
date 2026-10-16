@@ -5,6 +5,7 @@ import Vehicle, { IFrankenVehicle } from '../../../../classes/vehicle';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
 import VehicleBays from './_vehicle-bays';
 import RulesEditionSelect from '../../../components/rules-edition-select';
+import RulesLevelSelect from '../../../components/rules-level-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import InputField from "../../../components/form_elements/input_field";
@@ -70,9 +71,9 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
         }
     }
 
-    updateRulesLevel = (e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesLevel = (level: number): void => {
         const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = +e.currentTarget.value;
+        appSettings.mechRulesFilter = level;
         this.props.appGlobals.saveAppSettings(appSettings);
 
         const vehicle = this.props.appGlobals.currentVehicle;
@@ -431,6 +432,7 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                             <TextSection label="Step 1: Design the Chassis">
                                 {/* The rules edition comes first: it decides what every field below offers. */}
                                 <RulesEditionSelect unitType="vehicle" value={vehicle.getRulesEdition()} onChange={(tag) => { vehicle.setRulesEdition(tag); this.props.appGlobals.saveCurrentVehicle(vehicle); }} />
+                                <RulesLevelSelect editionTag={vehicle.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
                                 <InputField
                                     label="Vehicle Model # (e.g. SRT-1, Vedette)"
                                     value={vehicle.getModel()}
@@ -460,14 +462,6 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     </select>
                                 </label>
 
-                                <label>
-                                    Rules Level:
-                                    <select value={rulesLevel} onChange={this.updateRulesLevel}>
-                                        {getRulesLevelOptions().map((option) => (
-                                            <option key={option.id} value={option.id}>{option.name}</option>
-                                        ))}
-                                    </select>
-                                </label>
 
                                 <label>
                                     Motive Type:

@@ -32,6 +32,7 @@ import { IAlphaStrikeMPTerrain } from "../data/alpha-strike-mp-terrain";
 const About = React.lazy(() => import("./pages/about"));
 const AlphaStrikeRouter = React.lazy(() => import("./pages/alpha-strike/_router"));
 const ClassicBattleTechRouter = React.lazy(() => import("./pages/classic-battletech/_router"));
+const CustomMULEditor = React.lazy(() => import("./pages/custom-mul-editor"));
 const DevelopmentStatus = React.lazy(() => import("./pages/development-status"));
 const EquipmentEditor = React.lazy(() => import("./pages/equipment-editor"));
 const GameManagementRouter = React.lazy(() => import("./pages/game-management/_router"));
@@ -74,6 +75,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             confirmDialogNoLabel: "",
             showConfirmDialog: false,
             confirmDialogConfirm: null,
+            confirmDialogAltLabel: "",
+            confirmDialogAlt: null,
             makeDocumentTitle: this.makeDocumentTitle,
             openConfirmDialog: this.openConfirmDialog,
             refreshGlobalState: this.refreshGlobalState,
@@ -807,6 +810,15 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         })
     }
 
+    // The dialog's optional middle choice, such as "Discard it" beside "Save it first" and "Cancel".
+    altConfirmDialog = (): void => {
+        const alt = this.state.appGlobals.confirmDialogAlt;
+        const appGlobals = this.state.appGlobals;
+        appGlobals.showConfirmDialog = false;
+        this.setState({ appGlobals: appGlobals });
+        if( alt ) alt();
+    }
+
     confirmConfirmDialog = (): void => {
         if( this.state.appGlobals ) {
             if( this.state.appGlobals.confirmDialogConfirm ) {
@@ -826,6 +838,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         confirmYesLabel: string,
         confirmNoLabel: string,
         confirmCallback: Function,
+        altLabel?: string,
+        altCallback?: Function,
     ): void => {
         let appGlobals = this.state.appGlobals;
         appGlobals.confirmDialogMessage = confirmMessage;
@@ -834,6 +848,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.confirmDialogNoLabel = confirmNoLabel;
         appGlobals.showConfirmDialog = true;
         appGlobals.confirmDialogConfirm = confirmCallback;
+        appGlobals.confirmDialogAltLabel = altLabel ?? "";
+        appGlobals.confirmDialogAlt = altCallback ?? null;
         this.setState({
             appGlobals: appGlobals,
         })
@@ -862,6 +878,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                     <button className="btn btn-secondary" onClick={this.closeConfirmDialog}>
                         {this.state.appGlobals.confirmDialogNoLabel}
                     </button>
+                    {this.state.appGlobals.confirmDialogAlt ? (
+                        <button className="btn btn-danger" onClick={this.altConfirmDialog}>
+                            {this.state.appGlobals.confirmDialogAltLabel}
+                        </button>
+                    ) : null}
                     <button className="btn btn-primary" onClick={this.confirmConfirmDialog}>
                         {this.state.appGlobals.confirmDialogYesLabel}
                     </button>
@@ -885,6 +906,12 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
                 </Route> */}
                 <Route path={`${process.env.PUBLIC_URL}/equipment-editor`}   element={
                     <EquipmentEditor
+                        appGlobals={this.state.appGlobals}
+                    />
+                }/>
+
+                <Route path={`${process.env.PUBLIC_URL}/custom-mul-editor`}   element={
+                    <CustomMULEditor
                         appGlobals={this.state.appGlobals}
                     />
                 }/>
@@ -971,6 +998,8 @@ export interface IAppGlobals {
     confirmDialogNoLabel: string;
     showConfirmDialog: boolean;
     confirmDialogConfirm: Function | null;
+    confirmDialogAltLabel: string;
+    confirmDialogAlt: Function | null;
     refreshGlobalState(appGlobals: IAppGlobals | null): void;
 
     makeDocumentTitle( subTitle: string ): void;
@@ -984,6 +1013,8 @@ export interface IAppGlobals {
         confirmYesLabel: string,
         confirmNoLabel: string,
         confirmCallback: Function,
+        altLabel?: string,
+        altCallback?: Function,
     ): void;
 
     currentASForce: AlphaStrikeForce | null;

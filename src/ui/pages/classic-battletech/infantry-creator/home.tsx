@@ -6,6 +6,7 @@ import { IAppGlobals } from '../../../app-router';
 import InfantryCreatorSideMenu from '../../../components/infantry-creator-side-menu';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FolderOpen = FaFolderOpen as any;
@@ -18,9 +19,19 @@ export default class InfantryCreatorHome extends React.Component<IHomeProps> {
         this.props.appGlobals.makeDocumentTitle("Infantry Creator");
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "platoon",
+            lost: designWouldBeLost(this.props.appGlobals.currentInfantry, () => new InfantryPlatoon(), this.props.appGlobals.infantrySaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        this.props.appGlobals.saveCurrentInfantry(new InfantryPlatoon());
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentInfantry(new InfantryPlatoon()));
     }
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -37,7 +48,7 @@ export default class InfantryCreatorHome extends React.Component<IHomeProps> {
     loadSave = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
         e.preventDefault();
         const save = this.props.appGlobals.infantrySaves[saveIndex];
-        if (save) this.props.appGlobals.saveCurrentInfantry(new InfantryPlatoon(JSON.stringify(save)));
+        if (save) this.replaceDesign(() => this.props.appGlobals.saveCurrentInfantry(new InfantryPlatoon(JSON.stringify(save))));
     }
 
     saveOver = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {

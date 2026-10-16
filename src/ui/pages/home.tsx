@@ -36,7 +36,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                       <ul>
                         <li>The ability to search the <a href="http://masterunitlist.info" target="_blank" rel="noopener noreferrer">Master Unit List (MUL)</a> and add Alpha Strike Units to your Companies/Lances/Stars/Binaries, etc.</li>
                         <li>A copy of the Master Unit List is bundled with the app and kept current every week, so you can search it offline.</li>
-                        <li>Filter the search by faction and special ability.</li>
+                        <li>Filter the search by era, faction and special ability.</li>
                         <li>After the MUL is searched and added to your forces, your units are stored offline on your local device.</li>
                         <li>You may print your AS forces here (which you can do on the MUL if you like), but more importantly you can...</li>
                         <li>Play your Alpha Strike games using a live in-play virtual stack of Alpha Strike Cards. When your unit takes damage or heat, the effects of the damage affect the card live and immediately. All your to-hit rolls are updated on-the-fly.</li>

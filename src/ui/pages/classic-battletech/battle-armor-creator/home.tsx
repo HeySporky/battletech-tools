@@ -9,6 +9,7 @@ import BattleArmorCreatorSideMenu from '../../../components/battle-armor-creator
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import { findBattleArmorWeightClass } from '../../../../data/battle-armor-construction';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FolderOpen = FaFolderOpen as any;
@@ -35,7 +36,8 @@ export default class BattleArmorCreatorHome extends React.Component<IHomeProps, 
         const reader = new FileReader();
         reader.onload = () => {
             const result = importBattleArmorBlk(typeof reader.result === "string" ? reader.result : "");
-            if (result.suit) this.props.appGlobals.saveCurrentBattleArmor(result.suit);
+            const suit = result.suit;
+            if (suit) this.replaceDesign(() => this.props.appGlobals.saveCurrentBattleArmor(suit));
             this.setState({ importName: file.name, importIssues: result.suit ? [...result.issues, ...result.suit.getIssues()] : result.issues, importLoaded: !!result.suit });
         };
         reader.onerror = () => this.setState({ importName: file.name, importIssues: ["The file could not be read."], importLoaded: false });
@@ -43,9 +45,19 @@ export default class BattleArmorCreatorHome extends React.Component<IHomeProps, 
         input.value = "";
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "battle armor suit",
+            lost: designWouldBeLost(this.props.appGlobals.currentBattleArmor, () => new BattleArmor(), this.props.appGlobals.battleArmorSaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        this.props.appGlobals.saveCurrentBattleArmor(new BattleArmor());
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentBattleArmor(new BattleArmor()));
     }
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -62,7 +74,7 @@ export default class BattleArmorCreatorHome extends React.Component<IHomeProps, 
     loadSave = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
         e.preventDefault();
         const save = this.props.appGlobals.battleArmorSaves[saveIndex];
-        if (save) this.props.appGlobals.saveCurrentBattleArmor(new BattleArmor(JSON.stringify(save)));
+        if (save) this.replaceDesign(() => this.props.appGlobals.saveCurrentBattleArmor(new BattleArmor(JSON.stringify(save))));
     }
 
     saveOver = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {

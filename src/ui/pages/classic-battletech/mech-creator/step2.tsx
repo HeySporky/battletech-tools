@@ -9,6 +9,8 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
+import DesignLockColumn from '../../../components/design-lock';
+import EditionChoice from '../../../components/edition-choice';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -113,7 +115,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                   current="step2"
                 />
               </div>
-              <div className="col-md-9 col-lg-10">
+              <DesignLockColumn appGlobals={this.props.appGlobals}>
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
                       <TextSection
@@ -142,41 +144,45 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                               </select>
                             </label>
 
-                          <label>
-                          Myomer:
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getMyomerType().tag}
-                                onChange={this.setMyomerType}
-                              >
-                                {this.props.appGlobals.currentBattleMech.getAvailableMyomerTypes(this.props.appGlobals.appSettings.mechRulesFilter).map( (myomer) => {
-                                  const selected = myomer.tag === this.props.appGlobals.currentBattleMech?.getMyomerType().tag;
-                                  if( !isOptionShown(myomer, selected) ) {
-                                    return <React.Fragment key={myomer.tag}></React.Fragment>;
-                                  }
-                                  return (
-                                    <option key={myomer.tag} value={myomer.tag}>{availabilityOptionLabel(myomer)}</option>
-                                  )
-                                })}
-                              </select>
-                            </label>
+                          <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                            <label>
+                            Myomer:
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getMyomerType().tag}
+                                  onChange={this.setMyomerType}
+                                >
+                                  {this.props.appGlobals.currentBattleMech.getAvailableMyomerTypes(this.props.appGlobals.appSettings.mechRulesFilter).map( (myomer) => {
+                                    const selected = myomer.tag === this.props.appGlobals.currentBattleMech?.getMyomerType().tag;
+                                    if( !isOptionShown(myomer, selected) ) {
+                                      return <React.Fragment key={myomer.tag}></React.Fragment>;
+                                    }
+                                    return (
+                                      <option key={myomer.tag} value={myomer.tag}>{availabilityOptionLabel(myomer)}</option>
+                                    )
+                                  })}
+                                </select>
+                              </label>
+                          </EditionChoice>
 
-                          <label>
-                          Jump Jet Type:
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getJumpJetType().tag}
-                                onChange={this.setJumpJetType}
-                              >
-                                {this.props.appGlobals.currentBattleMech.getAvailableJumpJets(this.props.appGlobals.appSettings.mechRulesFilter).map( (jumpJet) => {
-                                  const selected = jumpJet.tag === this.props.appGlobals.currentBattleMech?.getJumpJetType().tag;
-                                  if( !isOptionShown(jumpJet, selected) ) {
-                                    return <React.Fragment key={jumpJet.tag}></React.Fragment>;
-                                  }
-                                  return (
-                                    <option key={jumpJet.tag} value={jumpJet.tag}>{availabilityOptionLabel(jumpJet)}</option>
-                                  )
-                                })}
-                              </select>
-                            </label>
+                          <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                            <label>
+                            Jump Jet Type:
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getJumpJetType().tag}
+                                  onChange={this.setJumpJetType}
+                                >
+                                  {this.props.appGlobals.currentBattleMech.getAvailableJumpJets(this.props.appGlobals.appSettings.mechRulesFilter).map( (jumpJet) => {
+                                    const selected = jumpJet.tag === this.props.appGlobals.currentBattleMech?.getJumpJetType().tag;
+                                    if( !isOptionShown(jumpJet, selected) ) {
+                                      return <React.Fragment key={jumpJet.tag}></React.Fragment>;
+                                    }
+                                    return (
+                                      <option key={jumpJet.tag} value={jumpJet.tag}>{availabilityOptionLabel(jumpJet)}</option>
+                                    )
+                                  })}
+                                </select>
+                              </label>
+                          </EditionChoice>
 
                           {this.props.appGlobals.currentBattleMech.getFrankenMechJumpJetClasses().length > 0 ? (
                             <>
@@ -238,62 +244,68 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                               </select>
                             </label>
                           )}
-                            <h3>Engine Type</h3>
-                            {this.props.appGlobals.currentBattleMech.getTech().tag === "mis" || this.props.appGlobals.currentBattleMech.getTech().tag === "mclan" ? (
+                            <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                              <h3>Engine Type</h3>
+                              {this.props.appGlobals.currentBattleMech.getTech().tag === "mis" || this.props.appGlobals.currentBattleMech.getTech().tag === "mclan" ? (
+                                <label>
+                                  Engine Technology:
+                                  <select
+                                    value={this.props.appGlobals.currentBattleMech.getEngineTechBase()}
+                                    onChange={this.setEngineTechBase}
+                                  >
+                                    <option value="is">Inner Sphere</option>
+                                    <option value="clan">Clan</option>
+                                  </select>
+                                </label>
+                              ) : null}
                               <label>
-                                Engine Technology:
+                                Select Engine Type:
                                 <select
-                                  value={this.props.appGlobals.currentBattleMech.getEngineTechBase()}
-                                  onChange={this.setEngineTechBase}
+                                  value={this.props.appGlobals.currentBattleMech.getEngineType().tag}
+                                  onChange={this.setEngineType}
                                 >
-                                  <option value="is">Inner Sphere</option>
-                                  <option value="clan">Clan</option>
+                                  {/* <option value={0}>-Select Jumping Speed-</option> */}
+                                  {this.props.appGlobals.currentBattleMech.getAvailableEngines(this.props.appGlobals.appSettings.mechRulesFilter)
+                                    .filter( (engineData) => isOptionShown(engineData, engineData.tag === this.props.appGlobals.currentBattleMech?.getEngineType().tag) )
+                                    .map( (engineData, engineIndex) => (
+                                      <option key={engineIndex} value={engineData.tag}>{availabilityOptionLabel(engineData)}</option>
+                                  ))}
                                 </select>
                               </label>
-                            ) : null}
-                            <label>
-                              Select Engine Type:
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getEngineType().tag}
-                                onChange={this.setEngineType}
-                              >
-                                {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                {this.props.appGlobals.currentBattleMech.getAvailableEngines(this.props.appGlobals.appSettings.mechRulesFilter)
-                                  .filter( (engineData) => isOptionShown(engineData, engineData.tag === this.props.appGlobals.currentBattleMech?.getEngineType().tag) )
-                                  .map( (engineData, engineIndex) => (
-                                    <option key={engineIndex} value={engineData.tag}>{availabilityOptionLabel(engineData)}</option>
-                                ))}
-                              </select>
-                            </label>
-                            <h3>Gyro Type</h3>
-                            <label>
-                              Select Gyro Type:
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getGyro().tag}
-                                onChange={this.setGyroType}
-                              >
-                                {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                {this.props.appGlobals.currentBattleMech.getAvailableGyros(this.props.appGlobals.appSettings.mechRulesFilter)
-                                  .filter( (gyroData) => isOptionShown(gyroData, gyroData.tag === this.props.appGlobals.currentBattleMech?.getGyro().tag) )
-                                  .map( (gyroData, gyroIndex) => (
-                                    <option key={gyroIndex} value={gyroData.tag}>{availabilityOptionLabel(gyroData)}</option>
-                                ))}
-                              </select>
-                            </label>
-                            <h3>Cockpit</h3>
-                            <label>
-                              Select Cockpit:
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getCockpitType().tag}
-                                onChange={this.setCockpitType}
-                              >
-                                {this.props.appGlobals.currentBattleMech.getAvailableCockpits(this.props.appGlobals.appSettings.mechRulesFilter)
-                                  .filter( (cockpitData) => isOptionShown(cockpitData, cockpitData.tag === this.props.appGlobals.currentBattleMech?.getCockpitType().tag) )
-                                  .map( (cockpitData, cockpitIndex) => (
-                                    <option key={cockpitIndex} value={cockpitData.tag}>{availabilityOptionLabel(cockpitData)}</option>
-                                ))}
-                              </select>
-                            </label>
+                            </EditionChoice>
+                            <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                              <h3>Gyro Type</h3>
+                              <label>
+                                Select Gyro Type:
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getGyro().tag}
+                                  onChange={this.setGyroType}
+                                >
+                                  {/* <option value={0}>-Select Jumping Speed-</option> */}
+                                  {this.props.appGlobals.currentBattleMech.getAvailableGyros(this.props.appGlobals.appSettings.mechRulesFilter)
+                                    .filter( (gyroData) => isOptionShown(gyroData, gyroData.tag === this.props.appGlobals.currentBattleMech?.getGyro().tag) )
+                                    .map( (gyroData, gyroIndex) => (
+                                      <option key={gyroIndex} value={gyroData.tag}>{availabilityOptionLabel(gyroData)}</option>
+                                  ))}
+                                </select>
+                              </label>
+                            </EditionChoice>
+                            <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                              <h3>Cockpit</h3>
+                              <label>
+                                Select Cockpit:
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getCockpitType().tag}
+                                  onChange={this.setCockpitType}
+                                >
+                                  {this.props.appGlobals.currentBattleMech.getAvailableCockpits(this.props.appGlobals.appSettings.mechRulesFilter)
+                                    .filter( (cockpitData) => isOptionShown(cockpitData, cockpitData.tag === this.props.appGlobals.currentBattleMech?.getCockpitType().tag) )
+                                    .map( (cockpitData, cockpitIndex) => (
+                                      <option key={cockpitIndex} value={cockpitData.tag}>{availabilityOptionLabel(cockpitData)}</option>
+                                  ))}
+                                </select>
+                              </label>
+                            </EditionChoice>
 
                             <div className="clear-both overflow-hidden">
                               <hr />
@@ -315,7 +327,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                     </TextSection>
                     </div>
                   </div>
-              </div>
+              </DesignLockColumn>
 
             </div>
 

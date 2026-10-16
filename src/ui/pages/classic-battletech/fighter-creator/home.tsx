@@ -8,6 +8,7 @@ import TextSection from '../../../components/text-section';
 import BlkImportSection, { IBlkImportOutcome } from '../../../components/blk-import-section';
 import { importFixedWingSupportBlk } from '../../../../classes/support-vehicle-blk';
 import UIPage from '../../../components/ui-page';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FolderOpen = FaFolderOpen as any;
@@ -20,9 +21,19 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
         this.props.appGlobals.makeDocumentTitle("Fighter Creator");
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "fighter",
+            lost: designWouldBeLost(this.props.appGlobals.currentFighter, () => new AerospaceFighter(), this.props.appGlobals.fighterSaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        this.props.appGlobals.saveCurrentFighter(new AerospaceFighter());
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentFighter(new AerospaceFighter()));
     }
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -39,7 +50,7 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
     loadSave = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
         e.preventDefault();
         const save = this.props.appGlobals.fighterSaves[saveIndex];
-        if (save) this.props.appGlobals.saveCurrentFighter(new AerospaceFighter(JSON.stringify(save)));
+        if (save) this.replaceDesign(() => this.props.appGlobals.saveCurrentFighter(new AerospaceFighter(JSON.stringify(save))));
     }
 
     saveOver = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
@@ -83,7 +94,8 @@ export default class FighterCreatorHome extends React.Component<IHomeProps> {
     importBlk = (text: string): IBlkImportOutcome => {
         const result = importFixedWingSupportBlk(text);
         if (!result.fighter) return { loaded: false, messages: result.issues };
-        this.props.appGlobals.saveCurrentFighter(result.fighter);
+        const fighter = result.fighter;
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentFighter(fighter));
         return { loaded: true, messages: [...result.notes, ...result.issues, ...result.fighter.getIssues(4)] };
     }
 
