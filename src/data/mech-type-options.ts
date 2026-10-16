@@ -32,6 +32,8 @@ export const mechTypeOptions: IMechType[] = [
 		name:  "Quad",
 		rulesLevel: 0,
 		book: "TM",
+		// Battledroids has no four-legged layout; the TCI Crabgunner kit's sheet prints one with its own rules.
+		apocryphalIn: { battledroids: { source: "TCI kit back, GOL-1H Goliath (FASA 1984)", notes: "Special Rules-Four Legged Walkers: Treat All Arm and Arm Critical Hits As Leg Hits and Leg Criticals. Four Legged walkers May Do No Jumping or Punching. Four legged walkers also get a Bonus of -3 on the falling and Standing Table." } },
 	},
 	{
 		id: 3,

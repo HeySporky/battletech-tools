@@ -77,6 +77,11 @@ export interface IEditionHistory {
     /** First rules edition that includes this record (a tag from rules-editions.ts); the default edition when absent. */
     introducedInEdition?: string;
     editionStats?: IEditionStatsTable;
+    /**
+     * Editions that include the record only at the Apocryphal rules level and above, from a licensed source outside
+     * the rulebook, keyed by edition tag.
+     */
+    apocryphalIn?: { [editionTag: string]: { source: string; notes: string } };
 }
 
 export interface IArmorType extends IEditionHistory {

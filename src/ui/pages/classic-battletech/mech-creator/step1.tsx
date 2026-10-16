@@ -233,11 +233,11 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               {editionHasPrices(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? (editionHasBattleValue(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? " and total cost still follow the current rules." : " prints prices, but the total cost still follows the current rules.") : " prints no prices either, so the design has no cost."}
                             </p>
                           ) : null}
-                          {this.props.appGlobals.currentBattleMech.getRulesEditionIssues().length > 0 ? (
+                          {this.props.appGlobals.currentBattleMech.getRulesEditionIssues(this.props.appGlobals.appSettings.mechRulesFilter).length > 0 ? (
                             <div className="color-red smaller-text">
                               Not in this rules edition:
                               <ul>
-                                {this.props.appGlobals.currentBattleMech.getRulesEditionIssues().map((issue) => (
+                                {this.props.appGlobals.currentBattleMech.getRulesEditionIssues(this.props.appGlobals.appSettings.mechRulesFilter).map((issue) => (
                                   <li key={issue}>{issue}</li>
                                 ))}
                               </ul>
@@ -301,7 +301,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             >
                             {mechTypeOptions
                               .filter( (option) => (this.props.appGlobals.currentBattleMech?.usesEarlierRulesEdition()
-                                  ? this.props.appGlobals.currentBattleMech.isInRulesEdition(option)
+                                  ? this.props.appGlobals.currentBattleMech.isInRulesEdition(option, this.props.appGlobals.appSettings.mechRulesFilter)
                                   : option.rulesLevel <= this.props.appGlobals.appSettings.mechRulesFilter)
                                 || option.tag === this.props.appGlobals.currentBattleMech?.getType().tag )
                               .map( (option) => {

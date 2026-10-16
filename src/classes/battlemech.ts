@@ -5614,9 +5614,12 @@ export class BattleMech {
         return isEarlierRulesEdition(this._rulesEdition);
     }
 
-    /** Do the rules of the design's edition include this record (a component type, tonnage, chassis type or item)? */
-    public isInRulesEdition(record: { introducedInEdition?: string; editionStats?: IEquipmentItem["editionStats"] }): boolean {
-        return isInRulesEdition(record, this._rulesEdition);
+    /**
+     * Do the rules of the design's edition include this record (a component type, tonnage, chassis type or item)?
+     * With a rules level, records the edition allows only at the Apocryphal level count from that level up.
+     */
+    public isInRulesEdition(record: Parameters<typeof isInRulesEdition>[0], rulesLevel?: number): boolean {
+        return isInRulesEdition(record, this._rulesEdition, rulesLevel);
     }
 
     /**
@@ -5720,15 +5723,16 @@ export class BattleMech {
 
     /**
      * What the design uses that its rules edition does not include, one line each. Always empty for Total Warfare
-     * and later editions, where the rules level and era filters decide legality.
+     * and later editions, where the rules level and era filters decide legality. The rules level, when given, admits
+     * what the edition allows only at the Apocryphal level.
      */
-    public getRulesEditionIssues(): string[] {
+    public getRulesEditionIssues(rulesLevel?: number): string[] {
         if (!this.usesEarlierRulesEdition()) {
             return [];
         }
         const issues: string[] = [];
         const check = (kind: string, record: { name?: string; introducedInEdition?: string; editionStats?: IEquipmentItem["editionStats"] } | undefined, name?: string): void => {
-            if (record && !this.isInRulesEdition(record)) {
+            if (record && !this.isInRulesEdition(record, rulesLevel)) {
                 issues.push(`${kind}: ${name ?? record.name}`);
             }
         };

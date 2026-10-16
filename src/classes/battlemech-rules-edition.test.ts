@@ -372,3 +372,22 @@ describe("Rules edition selector", () => {
         expect(new BattleMech(JSON.stringify(old)).getRulesEdition()).toBe("total-warfare");
     });
 });
+
+// TCI kit back, GOL-1H Goliath (FASA 1984): Battledroids has no four-legged layout except on this sheet.
+describe("A four-legged droid under Battledroids", () => {
+    const goliath = () => {
+        const mech = build("battledroids", 80, 4);
+        mech.setType("quad");
+        return mech;
+    };
+
+    it("lists the four-legged layout as not in the edition below Apocryphal", () => {
+        expect(goliath().getRulesEditionIssues(2)).toContain("Chassis type: Quad");
+        expect(goliath().getRulesEditionIssues()).toContain("Chassis type: Quad");
+    });
+
+    it("allows it at Apocryphal", () => {
+        expect(goliath().getRulesEditionIssues(5)).not.toContain("Chassis type: Quad");
+        expect(goliath().isInRulesEdition(mechTypeOptions.find(option => option.tag === "quad")!, 5)).toBe(true);
+    });
+});

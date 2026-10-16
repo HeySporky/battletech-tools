@@ -1498,3 +1498,22 @@ describe("rules levels by edition", () => {
         expect(editionAllowsConstruction("total-warfare", 0)).toBe(true);
     });
 });
+
+// TCI kit back, GOL-1H Goliath (FASA 1984): the four-legged layout before the Compendium, outside the book.
+describe("records an edition allows only at the Apocryphal level", () => {
+    const quad = mechTypeOptions.find(option => option.tag === "quad")!;
+
+    it("keeps the four-legged layout out of Battledroids below Apocryphal", () => {
+        expect(isInRulesEdition(quad, "battledroids")).toBe(false);
+        expect(isInRulesEdition(quad, "battledroids", 2)).toBe(false);
+        expect(isInRulesEdition(quad, "battledroids", 4)).toBe(false);
+    });
+
+    it("allows it from Apocryphal up, sourced to the Goliath sheet", () => {
+        expect(isInRulesEdition(quad, "battledroids", 5)).toBe(true);
+        expect(isInRulesEdition(quad, "battledroids", 7)).toBe(true);
+        expect(quad.apocryphalIn!.battledroids.source).toBe("TCI kit back, GOL-1H Goliath (FASA 1984)");
+        expect(quad.apocryphalIn!.battledroids.notes).toContain("Treat All Arm and Arm Critical Hits As Leg Hits");
+        expect(isInRulesEdition(quad, "battletech-2nd-edition", 5)).toBe(false);
+    });
+});

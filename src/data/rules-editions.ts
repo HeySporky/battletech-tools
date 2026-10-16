@@ -9,7 +9,7 @@
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
-import { IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure, IRulesLevelOption } from "./data-interfaces";
+import { IEditionHistory, IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure, IRulesLevelOption } from "./data-interfaces";
 import { APOCRYPHAL_RULES_LEVEL, btRulesLevelOptions, getRulesLevelOptions } from "./rules-level-options";
 
 /** The unit types the creators build, for an edition's `unitTypes`. */
@@ -434,7 +434,7 @@ export function getRulesEditions(): IRulesEdition[] {
     return btRulesEditions;
 }
 
-type IEditionRecord = { introducedInEdition?: string; editionStats?: IEditionStatsTable };
+type IEditionRecord = { introducedInEdition?: string; editionStats?: IEditionStatsTable; apocryphalIn?: IEditionHistory["apocryphalIn"] };
 
 const editionOrder = (tag: string) => btRulesEditions.findIndex(edition => edition.tag === tag);
 
@@ -447,9 +447,13 @@ export function getIntroducedInEdition(record: IEditionRecord): string {
  * Do the rules of `editionTag` include this record? Before the default edition, only when the record's
  * `editionStats` lists that edition: the box sets hold less than the rulebooks around them, so nothing is
  * inherited from an earlier edition. From the default edition on, when the record's first edition is that
- * edition or an earlier one. An edition tag that is not in the list never matches.
+ * edition or an earlier one. An edition tag that is not in the list never matches. From the Apocryphal rules level up,
+ * the record's `apocryphalIn` editions match too.
  */
-export function isInRulesEdition(record: IEditionRecord, editionTag: string = DEFAULT_RULES_EDITION): boolean {
+export function isInRulesEdition(record: IEditionRecord, editionTag: string = DEFAULT_RULES_EDITION, rulesLevel?: number): boolean {
+    if (rulesLevel !== undefined && rulesLevel >= APOCRYPHAL_RULES_LEVEL && record.apocryphalIn && editionTag in record.apocryphalIn) {
+        return true;
+    }
     const selected = editionOrder(editionTag);
     if (selected < 0) {
         return false;
