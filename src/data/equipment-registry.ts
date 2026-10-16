@@ -193,20 +193,42 @@ export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
     "clan-harjel-ii", "clan-harjel-iii",
 ];
 
-let artemisIVLaunchers: Set<string> | null = null;
+/** Artemis fire control, which the catalog holds as launcher records with a tag suffix: the suffix and its BV multiplier. */
+export const ARTEMIS_FIRE_CONTROL = [
+    // "Multiply the BV for all missile launchers enhanced by prototype Artemis IV by 1.1" (IO:AE p.183).
+    { name: "Prototype Artemis IV", suffix: "-artemis-p", battleValueMultiplier: 1.1 },
+    // "Increase by 20 percent the BV of any missile launcher equipped with Artemis IV" (TM p.303).
+    { name: "Artemis IV", suffix: "-artemis-iv", battleValueMultiplier: 1.2 },
+    // "Increase by 30 percent the BV of any missile launcher equipped with Artemis V" (TO:AUE p.197).
+    { name: "Artemis V", suffix: "-artemis-v", battleValueMultiplier: 1.3 },
+] as const;
+
+const artemisLaunchers = new Map<string, Set<string>>();
 
 /**
- * Is this a launcher Artemis IV applies to, i.e. one that also exists with Artemis IV fitted?
- * "every single standard LRM, SRM and MML launcher on the unit must have Artemis IV" once one does (TM p.207).
+ * Is this a launcher the Artemis system applies to, i.e. one that also exists with it fitted? "Every single standard
+ * LRM, SRM and MML launcher on the unit must have Artemis IV" once one does (TM p.207); Artemis V likewise for the
+ * standard Clan SRM and LRM launchers and their torpedo equivalents (TO:AUE p.94).
  */
-export function isArtemisIVCapableLauncher(tag: string): boolean {
-    if (!artemisIVLaunchers) {
-        const suffix = "-artemis-iv";
-        artemisIVLaunchers = new Set(equipmentCatalogDefinitions.flatMap(definition => definition.equipment)
+export function isArtemisCapableLauncher(tag: string, suffix: string = "-artemis-iv"): boolean {
+    if (!artemisLaunchers.has(suffix)) {
+        artemisLaunchers.set(suffix, new Set(equipmentCatalogDefinitions.flatMap(definition => definition.equipment)
             .filter(item => item.tag.endsWith(suffix))
-            .map(item => item.tag.slice(0, -suffix.length)));
+            .map(item => item.tag.slice(0, -suffix.length))));
     }
-    return artemisIVLaunchers.has(tag);
+    return artemisLaunchers.get(suffix)!.has(tag);
+}
+
+export const isArtemisIVCapableLauncher = (tag: string): boolean => isArtemisCapableLauncher(tag, "-artemis-iv");
+
+/** A launcher's Battle Value with its Artemis system: the plain launcher's raised by the system's multiplier. */
+export function getArtemisLauncherBattleValue(item: IEquipmentItem, catalog: () => readonly IEquipmentItem[]): number {
+    const system = ARTEMIS_FIRE_CONTROL.find(fireControl => item.tag.endsWith(fireControl.suffix));
+    if (system) {
+        const plain = catalog().find(candidate => candidate.tag === item.tag.slice(0, -system.suffix.length));
+        if (plain && (plain.battleValue || 0) > 0) return (plain.battleValue || 0) * system.battleValueMultiplier;
+    }
+    return item.battleValue || 0;
 }
 
 export function isOmniFixedOnly(item: IEquipmentItem): boolean {

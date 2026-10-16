@@ -58,7 +58,7 @@ const EQUIPMENT: Record<string, [string | null, string | null]> = {
 };
 
 /** Launchers that the file fits with a fire control system listed on its own line. */
-const FIRE_CONTROL: Record<string, string> = { isartemisiv: "-artemis-iv", clartemisiv: "-artemis-iv", isapollo: "-apollo" };
+const FIRE_CONTROL: Record<string, string> = { isartemisiv: "-artemis-iv", clartemisiv: "-artemis-iv", clartemisv: "-artemis-v", isapollo: "-apollo" };
 
 // Ammunition lines: the weapon lookup name the round belongs to, and the kind of round where it is not the standard one.
 const AMMO: Record<string, { weapon: string; kind?: RegExp }> = {

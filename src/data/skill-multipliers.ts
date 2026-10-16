@@ -89,6 +89,13 @@ export const SKILL_MULTIPLIERS_BY_EDITION: Record<string, IEditionSkillMultiplie
         // battle armor use their Anti-'Mech Skill as the column.
         fixedColumnUnitTypes: ["protomech", "mechanized-infantry"],
     },
+    // The BattleMech Manual prints no table: Clan skills "must still be paid for in BV" and Battle Values come from
+    // the Master Unit List (BMM p.9), which uses TechManual's. Canon is silent: TechManual's table is used (flagged).
+    "battlemech-manual": {
+        source: "TechManual p.315 (BattleMech Manual p.9 prints no table)",
+        table: TECH_MANUAL_TABLE,
+        fixedColumnUnitTypes: ["protomech", "mechanized-infantry"],
+    },
     "core-rulebook": {
         source: "BattleTech Core Rulebook p.222",
         table: TECH_MANUAL_TABLE,

@@ -19,13 +19,13 @@ const offered = (mech: BattleMech) => mech.getAvailableEquipment(false, 2).filte
 const available = (list: { tag: string; available?: boolean }[]) => list.filter(option => option.available).map(option => option.tag);
 
 describe("Rules edition selector", () => {
-    it("offers Total Warfare, the Core Rulebook and every earlier edition entered whole", () => {
+    it("offers Total Warfare, the BattleMech Manual, the Core Rulebook and every earlier edition entered whole", () => {
         expect(getSelectableRulesEditions().map(edition => edition.tag)).toEqual([
             "battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-compendium", "battletech-3rd-edition",
-            "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "core-rulebook",
+            "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook",
         ]);
-        expect(["battledroids", "master-rules-revised", "total-warfare", "core-rulebook", "nonsense"].map(isEarlierRulesEdition))
-            .toEqual([true, true, false, false, false]);
+        expect(["battledroids", "master-rules-revised", "classic-battletech-box-set", "total-warfare", "core-rulebook", "nonsense"].map(isEarlierRulesEdition))
+            .toEqual([true, true, true, false, false, false]);
         expect(getRulesEdition("nonsense").tag).toBe(DEFAULT_RULES_EDITION);
     });
 

@@ -4,11 +4,11 @@ import { aerospaceArmorTypes, getAerospaceArmorPointsPerTon } from "../data/aero
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, getArtemisLauncherBattleValue, EXPERIMENTAL_RULES_LEVEL, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
 import { getFractionalAerospaceArmorTonsPerPoint, roundUpToKilogram } from "../data/fractional-accounting";
 import Pilot, { IPilot } from "./pilot";
 import { getSkillMultiplier } from "../data/skill-multipliers";
-import { isTargetingComputerWeapon } from "../data/variable-equipment";
+import { isTargetingComputerWeapon, sizeDroneSystems } from "../data/variable-equipment";
 import { findByTag } from "../data/tag-match";
 import { IAerospaceArmorType, ICapitalWeapon, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
 import {
@@ -1174,6 +1174,8 @@ export default class SmallCraft {
     }
 
     private _calc(): void {
+        // Drone carrier control systems: 2 tons plus 0.5 per drone (TO:AUE p.117).
+        sizeDroneSystems(this._equipmentList, this._tonnage);
         // Mounting the first battle armor item turns Fractional Accounting on (Ghosts of Obeedah p.54).
         const hasBattleArmorEquipment = this.defaultsToFractionalAccounting();
         if (hasBattleArmorEquipment && !this._hadBattleArmorEquipment) this._weightAccounting = "fractional";
@@ -1241,13 +1243,9 @@ export default class SmallCraft {
         return heat;
     }
 
-    /** A launcher with Artemis IV counts 20 percent more than the plain launcher (TM p.312). */
+    /** A launcher with Artemis IV counts 20 percent more than the plain launcher (TM p.312), with Artemis V 30 percent (TO:AUE p.197). */
     private _weaponBaseBV(item: IEquipmentItem): number {
-        if (item.tag.endsWith("-artemis-iv")) {
-            const plain = findByTag(this._catalog(), item.tag.slice(0, -"-artemis-iv".length));
-            if (plain && (plain.battleValue || 0) > 0) return (plain.battleValue || 0) * 1.2;
-        }
-        return item.battleValue || 0;
+        return getArtemisLauncherBattleValue(item, () => this._catalog());
     }
 
     /** The Speed Factor for a Maximum Thrust (Speed Factor Table and formula, TM p.316). */

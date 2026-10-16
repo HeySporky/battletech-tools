@@ -367,6 +367,8 @@ export interface IEquipmentItem {
     variableSize?: boolean;
     /** Sizing rule for variable equipment (see variable-equipment.ts); implies variableSize. */
     variableFormula?: VariableEquipmentFormula;
+    /** Drones a mounted Drone Carrier Control System controls (TO:AUE p.117); 1 when unset. */
+    controlledDrones?: number;
     /** Each critical slot is placed on its own (spread across locations), e.g. Null Signature System. */
     spreadSlots?: boolean;
     /** Label for a user-chosen size on the installed item (e.g. "Jump MP"); its value is `size`. */

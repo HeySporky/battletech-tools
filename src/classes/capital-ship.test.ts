@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import CapitalShip from "./capital-ship";
 import { getCapitalShipHitLocation } from "../data/capital-ship-hit-tables";
+import { findCapitalWeapon } from "../data/capital-weapon-helpers";
 
 // The worked examples of the construction chapter (SO:AA pp.132-147), built through the class: each check is a
 // running "unspent tons" total the book prints.
@@ -362,5 +363,15 @@ describe("CapitalShip (SO:AA pp.130-149)", () => {
         expect(copy.getPilot().gunnery).toBe(3);
         expect(copy.getDamageToHitModifier()).toBe(4);
         expect(ship.export(true).inPlay).toBeUndefined();
+    });
+});
+
+describe("Dragon's Breath MCM launch system (IO:AE pp.142-143, 215)", () => {
+    it("goes on WarShips and space stations only, without a weapon slot", () => {
+        const dragon = findCapitalWeapon("dragons-breath-mcm")!;
+        expect(dragon.space).toMatchObject({ warShip: 0, spaceStation: 0, jumpShip: -1, dropShip: -1 });
+        expect(build("warShip", 420000).isCapitalWeaponAllowed(dragon)).toBe(true);
+        expect(build("spaceStation", 100000).isCapitalWeaponAllowed(dragon)).toBe(true);
+        expect(build("jumpShip", 100000).isCapitalWeaponAllowed(dragon)).toBe(false);
     });
 });

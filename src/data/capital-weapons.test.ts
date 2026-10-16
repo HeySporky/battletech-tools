@@ -15,10 +15,11 @@ describe("capital and sub-capital weapon catalogs", () => {
         expect(byCategory("Naval PPC")).toEqual(["Light N-PPC", "Medium N-PPC", "Heavy N-PPC"]);
         expect(byCategory("Capital Missile")).toEqual([
             "Killer Whale", "White Shark", "Barracuda", "AR-10 Launcher", "Kraken-T", "Killer Whale-T", "White Shark-T", "Barracuda-T",
+            "Dragon's Breath MCM Launch System",
         ]);
         expect(byCategory("Screen Launcher")).toEqual(["Screen Launcher"]);
         expect(byCategory("Mass Driver")).toEqual(["Light Mass Driver", "Medium Mass Driver", "Heavy Mass Driver"]);
-        expect(capitalWeapons.length).toBe(27);
+        expect(capitalWeapons.length).toBe(28);
         expect(capitalWeapons.every(item => item.scale === "capital")).toBe(true);
     });
 
@@ -31,7 +32,7 @@ describe("capital and sub-capital weapon catalogs", () => {
 
     it("cites a book and page for every record and leaves nothing unpriced", () => {
         for (const item of all) {
-            expect(["TM", "TO:AUE"], item.tag).toContain(item.book);
+            expect(["TM", "TO:AUE", "IO:AE"], item.tag).toContain(item.book);
             expect(item.page, item.tag).toBeGreaterThan(0);
             expect(item.cbills, item.tag).toBeGreaterThan(0);
             expect(item.weight, item.tag).toBeGreaterThan(0);
@@ -54,7 +55,8 @@ describe("capital and sub-capital weapon catalogs", () => {
     it("gives energy weapons no ammunition and everything else its shot weight", () => {
         for (const item of all) {
             const energy = ["Naval Laser", "Naval PPC", "Sub-Capital Laser"].includes(item.category);
-            if (energy || item.tag === "ar-10-launcher") {
+            // The AR-10 takes the missile it fires; the Dragon's Breath carries its ten missiles built in (IO:AE p.143).
+            if (energy || item.tag === "ar-10-launcher" || item.tag === "dragons-breath-mcm") {
                 expect(item.ammo, item.tag).toBeNull();
             } else {
                 expect(item.ammo?.tonsPerShot, item.tag).toBeGreaterThan(0);
@@ -113,7 +115,8 @@ describe("capital and sub-capital weapon catalogs", () => {
     it("grades every record at the rules level its book prints", () => {
         // TM pp.210, 237: Standard. TO:AUE pp.220, 222: "Adv" for the naval and sub-capital weapons, "Exp" for Mass Drivers.
         for (const item of all) {
-            const expected = item.book === "TM" ? 2 : item.category === "Mass Driver" ? 4 : 3;
+            // IO:AE p.142: the Dragon's Breath is Experimental.
+            const expected = item.book === "TM" ? 2 : item.category === "Mass Driver" || item.book === "IO:AE" ? 4 : 3;
             expect(item.rulesLevel, item.tag).toBe(expected);
         }
         expect(all.filter(item => item.book === "TM").map(item => item.category).filter((category, index, list) => list.indexOf(category) === index))

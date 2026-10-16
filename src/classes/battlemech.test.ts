@@ -5,7 +5,7 @@ import { BattleMech } from "./battlemech";
 import { mechInternalStructureTypes, validateChassisCombination } from "../data/mech-internal-structure-types";
 import { getTargetToHitFromWeapon } from "../utils";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getWeaponAmmoFamilies, isOmniFixedOnly } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, getEquipmentListByTech, getWeaponAmmoFamilies, isOmniFixedOnly } from "../data/equipment-registry";
 import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { getLargeEngineType, mechEngineTypes, mechLargeEngineTypes } from "../data/mech-engine-types";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -1958,6 +1958,17 @@ describe("BattleMech", () => {
         expect(ammo.some((name) => /^SRM/.test(name))).toBe(true);
     });
 
+    // SSW marks Artemis IV once per design (baseloadout fcsa4="TRUE"); the launchers used to import without it,
+    // and the "+ Artemis IV" records carried the plain BV plus 8 instead of x 1.2 (TM p.303).
+    it("imports Artemis IV launchers and matches the Master Unit List BV (Commando COM-5S, Shogun C)", () => {
+        for (const [name, model, bv] of [["Commando", "COM-5S", 557], ["Shogun", "C", 3032]] as const) {
+            const mech = new BattleMech();
+            mech.importSSWXML(sswMechs.find((xml) => new RegExp(`name="${name}" model="${model}"`).test(xml))!);
+            expect(mech.getInstalledEquipment().some((item) => item.tag.endsWith("-artemis-iv")), `${name} ${model}`).toBe(true);
+            expect(mech.getBattleValue(), `${name} ${model}`).toBe(bv);
+        }
+    });
+
     // SSW writes Clan items as "(CL) ...", and a Clan design's unprefixed items (e.g. "@ SRM-6 (Artemis IV Capable)")
     // are Clan equipment too. Both used to be looked up in the Inner Sphere list and dropped.
     it("imports every item of a Clan SSW design (Champion C)", () => {
@@ -2585,7 +2596,11 @@ describe("Batch 8 cockpit catalog", () => {
             "primitive-industrial-advanced-fire-control": [5, 200000],                      // IO:AE p.117 with TM p.69 (derived)
             "torso-mounted": [4, 750000], "command-console": [3, 500000],                   // TO:AUE pp.112-113, 219
             "interface": [4, 1500000],                                                      // IO:AE pp.110, 213
-            "direct-neural-interface": [0, 500000],                                         // IO:AE pp.62, 213
+            // Text p.62 (and MegaMek) 250,000; the p.213 table prints 500,000.
+            "direct-neural-interface": [0, 250000],                                         // IO:AE p.62
+            "damage-interrupt-circuit": [0, 150], "sldf-advanced-neurohelmet": [0, 5000],   // IO:AE pp.62, 211, 213
+            "enhanced-imaging-interface": [0, 1500000],                                     // IO:AE p.69 (no cost printed; MegaMek)
+            "virtual-reality-piloting-pod": [3, 1250000],                                   // IO:AE pp.63-64, 213
             "quadvee": [4, 375000], "tripod": [4, 400000],                                  // IO:AE pp.128, 159, 215, 217
             "superheavy": [4, 300000], "superheavy-industrial": [4, 200000],                // IO:AE pp.156, 215
             "superheavy-tripod": [5, 500000],                                               // IO:AE pp.156, 217
@@ -2609,6 +2624,10 @@ describe("Batch 8 cockpit catalog", () => {
             "command-console": [2625, 2631, 2850, 3030],
             "interface": [3074, null, null, null],
             "direct-neural-interface": [3052, 3055, null, null],
+            "damage-interrupt-circuit": [3055, null, 3060, null],
+            "sldf-advanced-neurohelmet": [2755, 2759, 2770, null],
+            "enhanced-imaging-interface": [undefined, 3040, null, null],
+            "virtual-reality-piloting-pod": [3052, null, 3055, null],
             "quadvee": [3130, 3135, null, null],
             "tripod": [2590, 2602, null, null],
             "superheavy": [3060, 3076, null, null],
@@ -2632,6 +2651,8 @@ describe("Batch 8 cockpit catalog", () => {
             "primitive": ["IO:AE", 117], "primitive-industrial": ["IO:AE", 117], "primitive-industrial-advanced-fire-control": ["IO:AE", 117],
             "torso-mounted": ["TO:AUE", 113], "command-console": ["TO:AUE", 113],
             "interface": ["IO:AE", 110], "direct-neural-interface": ["IO:AE", 62],
+            "damage-interrupt-circuit": ["IO:AE", 62], "sldf-advanced-neurohelmet": ["IO:AE", 62],
+            "enhanced-imaging-interface": ["IO:AE", 69], "virtual-reality-piloting-pod": ["IO:AE", 63],
             "quadvee": ["IO:AE", 128], "tripod": ["IO:AE", 159],
             "superheavy": ["IO:AE", 156], "superheavy-industrial": ["IO:AE", 156], "superheavy-tripod": ["IO:AE", 156],
         };
@@ -6365,5 +6386,54 @@ describe("Batch 55 placement limits (TM pp.207, 210, 219, 220, 237, 241-249; TO:
         add(plain, "srm-4");
         add(plain, "lrm-5");
         expect(plain.getChassisEquipmentViolations()).toEqual([]);
+    });
+
+    it("needs Artemis V on every applicable launcher and never alongside Artemis IV (TO:AUE p.94)", () => {
+        const addClan = (mech: BattleMech, tag: string) => mech.addEquipmentFromTag(tag, "clan", "", false, undefined, "", false, [], undefined, undefined)!;
+        const mech = build();
+        addClan(mech, "clan-lrm-10-artemis-v");
+        expect(mech.getChassisEquipmentViolations()).toEqual([]);
+        addClan(mech, "clan-srm-4");
+        expect(mech.getChassisEquipmentViolations()).toEqual(["Artemis V must be fitted to every applicable launcher on the unit (Clan SRM 4 has none)."]);
+        const mixed = build();
+        addClan(mixed, "clan-lrm-10-artemis-v");
+        addClan(mixed, "clan-srm-4-artemis-iv");
+        expect(mixed.getChassisEquipmentViolations()).toContain("Artemis V cannot be mounted alongside Artemis IV (TO:AUE p.94).");
+    });
+});
+
+describe("Artemis fire control records (TM p.303, TO:AUE pp.95, 197, 217)", () => {
+    const clan = getEquipmentListByTech("clan", true);
+    const tagged = (tag: string) => clan.find(item => item.tag === tag)!;
+
+    it("raises the plain launcher's Battle Value 20 percent with Artemis IV and 30 percent with Artemis V", () => {
+        for (const launcher of ["clan-lrm-5", "clan-lrm-20", "clan-srm-6"]) {
+            expect(tagged(`${launcher}-artemis-iv`).battleValue).toBeCloseTo(tagged(launcher).battleValue! * 1.2);
+            expect(tagged(`${launcher}-artemis-v`).battleValue).toBeCloseTo(tagged(launcher).battleValue! * 1.3);
+        }
+    });
+
+    it("offers the Core Rulebook's light and heavy plasma rifles only under that edition (CRB p.189)", () => {
+        const light = getEquipmentListByTech("is", true).find(item => item.tag === "light-plasma-rifle")!;
+        const mech = new BattleMech();
+        expect(mech.isInRulesEdition(light)).toBe(false);
+        mech.setRulesEdition("core-rulebook");
+        expect(mech.isInRulesEdition(light)).toBe(true);
+    });
+
+    it("raises the BV 10 percent for prototype Artemis IV, which weighs what Artemis IV weighs (IO:AE pp.65, 183)", () => {
+        const is = getEquipmentListByTech("is", true);
+        const isTagged = (tag: string) => is.find(item => item.tag === tag)!;
+        expect(isTagged("lrm-10-artemis-p").battleValue).toBeCloseTo(isTagged("lrm-10").battleValue! * 1.1);
+        expect(isTagged("lrm-10-artemis-p").weight).toBe(isTagged("lrm-10-artemis-iv").weight);
+        expect(isTagged("srm-6-artemis-p").space.battlemech).toBe(isTagged("srm-6-artemis-iv").space.battlemech);
+    });
+
+    it("adds 1.5 tons and 2 critical slots for Artemis V, and keeps the Clan LRM's lack of a minimum range", () => {
+        const plain = tagged("clan-lrm-15"), artemis = tagged("clan-lrm-15-artemis-v");
+        expect(artemis.weight).toBe(plain.weight + 1.5);
+        expect(artemis.space.battlemech).toBe(plain.space.battlemech + 2);
+        expect(artemis.range.min).toBe(0);
+        expect(tagged("clan-lrm-15-artemis-iv").range.min).toBe(0);
     });
 });

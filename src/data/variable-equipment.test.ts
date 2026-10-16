@@ -5,6 +5,14 @@ import { IEquipmentItem } from "./data-interfaces";
 const ctx = { tonnage: 75, engineRating: 300, engineWeight: 19, directFireWeaponWeight: 21 };
 
 describe("variable equipment sizing", () => {
+    it("sizes drone operating and carrier control systems (TO:AUE pp.117, 219)", () => {
+        // 10% of a 75-ton drone (7.5 t) plus the half-ton sensors; 5,000 + 10,000 x 7.5.
+        expect(sizeVariableEquipment("drone-operating-system", ctx)).toEqual({ weight: 8, slots: 1, cbills: 80000, battleValue: 0 });
+        // 2 tons plus 0.5 per drone; 10,000 a ton.
+        expect(sizeVariableEquipment("drone-carrier-control", { ...ctx, drones: 4 })).toEqual({ weight: 4, slots: 1, cbills: 40000, battleValue: 0 });
+        expect(sizeVariableEquipment("drone-carrier-control", ctx)?.weight).toBe(2.5);
+    });
+
     it("rounds up to the half ton", () => {
         expect(roundUpHalfTon(2.75)).toBe(3);
         expect(roundUpHalfTon(2.5)).toBe(2.5);

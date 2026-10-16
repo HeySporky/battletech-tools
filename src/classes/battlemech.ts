@@ -10,7 +10,7 @@ import type { CustomComponentKind, ISSWUnresolvedItem } from "../data/custom-con
 import { getCockpitType } from "../data/mech-cockpit-types";
 import { btMechTonnages } from "../data/mech-tonnages";
 import { DEFAULT_RULES_EDITION, editionEngineHoldsHeatSinks, getEditionJumpJetWeight, getEditionPlayRules, getEditionStats, getEditionStructure, getEquipmentForEdition, getRulesEdition, isEarlierRulesEdition, isInRulesEdition } from "../data/rules-editions";
-import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getWeaponAmmoFamilies, getEquipmentRulesLevel, isArtemisIVCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon, getBattleArmorScaleListByTech, getEquipmentCatalogDefinitions } from "../data/equipment-registry";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getWeaponAmmoFamilies, getEquipmentRulesLevel, ARTEMIS_FIRE_CONTROL, isArtemisCapableLauncher, isEquipmentWithinRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon, getBattleArmorScaleListByTech, getEquipmentCatalogDefinitions } from "../data/equipment-registry";
 import { getFractionalArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
 import { isUniversalEquipment } from "../data/mech-universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
@@ -1978,7 +1978,7 @@ export class BattleMech {
         const tag = item.tag.toLowerCase();
         // The C3 Remote Sensor Launcher is a launcher, not a C3 unit.
         if (tag === BattleMech.C3_REMOTE_SENSOR_TAG) return false;
-        return /-artemis-iv$/.test(tag) || /^c3/.test(tag)
+        return /-artemis-(iv|v|p)$/.test(tag) || /^c3/.test(tag)
             || ["beagle-active-probe", "clan-active-probe", "targeting-computer", "clan-targeting-computer"].includes(tag);
     }
 
@@ -6680,13 +6680,16 @@ export class BattleMech {
             const [group, location] = key.split("@");
             if (count > 1) violations.push(`Only one ${BattleMech.LOCATION_GROUP_NAMES[group] ?? group} may be mounted in a location (${location.toUpperCase()}).`);
         });
-        // "If Artemis IV is added to an applicable launcher, every applicable launcher on the unit must have Artemis IV" (TM p.207).
-        if (mounted.some(item => item.tag.endsWith("-artemis-iv"))) {
-            const plain = Array.from(new Set(mounted.filter(item => isArtemisIVCapableLauncher(item.tag)).map(item => item.name)));
+        // "If Artemis IV is added to an applicable launcher, every applicable launcher on the unit must have Artemis IV" (TM p.207);
+        // the same holds for Artemis V, which "is incompatible with Artemis IV" (TO:AUE p.94).
+        const fitted = ARTEMIS_FIRE_CONTROL.filter(system => mounted.some(item => item.tag.endsWith(system.suffix)));
+        for (const system of fitted) {
+            const plain = Array.from(new Set(mounted.filter(item => isArtemisCapableLauncher(item.tag, system.suffix)).map(item => item.name)));
             if (plain.length > 0) {
-                violations.push(`Artemis IV must be fitted to every applicable launcher on the unit (${plain.join(", ")} ${plain.length > 1 ? "have" : "has"} none).`);
+                violations.push(`${system.name} must be fitted to every applicable launcher on the unit (${plain.join(", ")} ${plain.length > 1 ? "have" : "has"} none).`);
             }
         }
+        if (fitted.length > 1 && fitted.some(system => system.suffix === "-artemis-v")) violations.push("Artemis V cannot be mounted alongside Artemis IV (TO:AUE p.94).");
         if (this.isLAM()) {
             if (this.getJumpSpeed() > this.getMaxJumpSpeed()) {
                 violations.push(`LAMs need at least ${BattleMech.LAM_MIN_JUMP_MP} Jump MP, but Jump MP ${this.getJumpSpeed()} exceeds Walk MP ${this.getWalkSpeed()}; raise the engine rating.`);
@@ -11602,6 +11605,33 @@ export class BattleMech {
         }
     }
 
+    /**
+     * SSW marks fire control once per design, on the base loadout (fcsa4, fcsa5, fcsapollo): every applicable
+     * launcher carries it. The catalog holds a launcher with its fire control as its own record, so each launcher
+     * is swapped for that record, keeping where and how it is mounted.
+     */
+    private _applySSWFireControl( baseloadout: Record<string, unknown> ): void {
+        const systems = [ [ "@_fcsa4", "-artemis-iv" ], [ "@_fcsa5", "-artemis-v" ], [ "@_fcsapollo", "-apollo" ] ];
+        const fitted = systems.filter( ( [ attribute ] ) => String( baseloadout[attribute] ?? "" ).toLowerCase().trim() === "true" );
+        if( fitted.length === 0 ) return;
+        const catalog = getEquipmentCatalogDefinitions().flatMap( definition => definition.equipment );
+        this._equipmentList = this._equipmentList.map( item => {
+            if( item.isAmmo ) return item;
+            for( const [ , suffix ] of fitted ) {
+                const withFireControl = catalog.find( candidate => candidate.tag === item.tag + suffix );
+                if( !withFireControl ) continue;
+                const plain = catalog.find( candidate => candidate.tag === item.tag );
+                const swapped: IEquipmentItem = JSON.parse( JSON.stringify( withFireControl ) );
+                // Fields the import set on the mounted copy (location, slot, rear, splits, id) carry over.
+                for( const key of Object.keys( item ) as ( keyof IEquipmentItem )[] ) {
+                    if( !plain || !( key in plain ) ) ( swapped as unknown as Record<string, unknown> )[key] = item[key];
+                }
+                return swapped;
+            }
+            return item;
+        } );
+    }
+
     public getCriticalsForLocation(
         shortLoc: string
     ): ICriticalSlot[] {
@@ -11847,6 +11877,7 @@ export class BattleMech {
                     for( let item of jObj.mech.baseloadout.equipment ) {
                         this._installSSWEquipment( item );
                     }
+                    this._applySSWFireControl( jObj.mech.baseloadout );
 
                     this._calcCriticals();
 
@@ -11893,6 +11924,7 @@ export class BattleMech {
                     if( jObj.mech.baseloadout.equipment ) {
                         // a single weapon?!?!
                         this._installSSWEquipment( jObj.mech.baseloadout.equipment );
+                        this._applySSWFireControl( jObj.mech.baseloadout );
 
 
                         this._calcCriticals();

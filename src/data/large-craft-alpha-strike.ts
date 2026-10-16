@@ -61,7 +61,7 @@ export interface ICapitalWeaponASValues {
 
 /**
  * The Alpha Strike Capital and Sub-Capital Weapon Conversion Table (ASC p.114), by capital weapon tag. Errata v1.6 corrects
- * the NAC/25's Short value from 23 to 25. The Screen Launcher is not in it: it converts as the SCR special (ASC p.130).
+ * the NAC/25's Short value from 23 to 25. The Screen Launcher is not in it: it converts as the SCR special (ASC p.130). Nor is the Dragon's Breath, which converts as the DB special (IO:AE p.207; not modeled yet).
  */
 export const CAPITAL_WEAPON_ALPHA_STRIKE: Record<string, ICapitalWeaponASValues> = {
     "light-mass-driver": { heat: 30, damage: [54, 54, 54, 0], attackClass: "CAP" },
