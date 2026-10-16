@@ -43,6 +43,8 @@ export interface IPrintedDroid {
     printedArmorFactor: number;
     /** One entry per item; each ammunition line is one ton per critical box printed. */
     equipment: { tag: string; location: PrintedDroidLocation; rear?: boolean }[];
+    /** The figurine carries a turret here: items listed in it that do not fit its slots are mounted in the turret. */
+    turret?: PrintedDroidLocation;
     notes: string[];
 }
 
@@ -203,7 +205,7 @@ export const battledroidsPrintedDroids: IPrintedDroid[] = [
         kit: "Abitate F44A Crabgunner", mechType: "quad",
         tonnage: 80, engineRating: 320, walk: 4, jump: 0, heatSinks: 13,
         armor: { head: 12, centerTorso: 50, centerTorsoRear: 40, sideTorso: 30, sideTorsoRear: 27, arm: 20, leg: 20 },
-        printedArmorFactor: 296,
+        printedArmorFactor: 296, turret: "ct",
         equipment: [
             ...items(1, "standard-ppc", "ct"), ...items(1, "lrm-10", "rt"), ...items(1, "lrm-10", "lt"),
             ...items(2, "ammo-lrm-standard", "ct"), ...items(2, "machine-gun", "ct"), ...items(1, "ammo-machine-gun-standard", "ct"),
@@ -212,7 +214,7 @@ export const battledroidsPrintedDroids: IPrintedDroid[] = [
             "Special Rules-Four Legged Walkers: Treat All Arm and Arm Critical Hits As Leg Hits and Leg Criticals. Four Legged walkers May Do No Jumping or Punching. Four legged walkers also get a Bonus of -3 on the falling and Standing Table.",
             "The sheet has no cockpit line; the cockpit is the standard 3 tons. Its \"Rt/Lt Arm\" armor is the front legs'.",
             "The four-legged layout is not in Battledroids: it needs the Apocryphal level under this edition.",
-            "The sheet lists 8 critical boxes of weapons and ammunition in the center torso, which holds 2 beside the engine and gyro here: the PPC, the machine guns and their ammunition stay unallocated, listed in the center torso.",
+            "The sheet lists 8 critical boxes of weapons and ammunition in the center torso, which holds 2 beside the engine and gyro here: the figurine carries the PPC and machine guns in a turret on it, so the PPC, the machine guns and their ammunition are mounted in that turret as printed.",
         ],
     },
     wolverine("wlv-3nb", "WLV-3Nb", "Abitate T-10B Blockhead"),

@@ -3,7 +3,7 @@ import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL } from "../data/rul
 import { battledroidsPrintedDroids, getPrintedDroids, IPrintedDroid } from "../data/battledroids-mechs";
 import { editionAllowsConstruction, getRulesEdition } from "../data/rules-editions";
 import { BattleMech } from "./battlemech";
-import { buildPrintedDroid, isUnmodifiedPrintedDroid } from "./printed-droid";
+import { buildPrintedDroid, isUnmodifiedPrintedDroid, getPrintedTurretCriticals, getUnallocatedCriticals } from "./printed-droid";
 
 const droid = (id: string): IPrintedDroid => battledroidsPrintedDroids.find(entry => entry.id === id)!;
 
@@ -183,12 +183,15 @@ describe("Printed Battledroids droids: the apocryphal sources", () => {
         expect([mech.getTonnage(), mech.getWalkSpeed(), mech.getJumpSpeed(), mech.getHeatSinks()]).toEqual([80, 4, 0, 13]);
         // The center torso holds 2 slots beside the engine and gyro; the sheet lists 8 boxes of items there.
         expect(mounted(mech)).toEqual(["ammo-lrm-standard ct", "ammo-lrm-standard ct", "lrm-10 lt", "lrm-10 rt"]);
-        expect(mech.unallocatedCriticals.map(critical => critical.tag).sort()).toEqual(
-            expect.arrayContaining(["ammo-machine-gun-standard", "machine-gun", "machine-gun", "standard-ppc"]));
+        // The figurine carries them in a turret on the center torso: mounted there as printed, nothing left over.
+        expect(getPrintedTurretCriticals(mech).map(critical => critical.tag).sort()).toEqual(
+            ["ammo-machine-gun-standard", "machine-gun", "machine-gun", "standard-ppc"]);
+        // The extra heat sinks wait for slots on every droid (TODO.md); no weapon or ammunition does.
+        expect(getUnallocatedCriticals(mech).filter(critical => critical.tag !== "heat-sink")).toEqual([]);
         expect(mech.getInstalledEquipment().filter(item => item.location === "ct").map(item => item.tag).sort()).toEqual([
             "ammo-lrm-standard", "ammo-lrm-standard", "ammo-machine-gun-standard", "machine-gun", "machine-gun", "standard-ppc",
         ]);
-        expect(goliath.notes.join(" ")).toContain("unallocated");
+        expect([goliath.turret, goliath.notes.join(" ")]).toEqual(["ct", expect.stringContaining("turret")]);
         expect(mech.getCurrentTonnage()).toBe(80);
         expect(goliath.notes.join(" ")).toContain("Four Legged Walkers");
         expect(goliath.notes.join(" ")).toContain("no cockpit line");

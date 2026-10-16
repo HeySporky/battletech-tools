@@ -116,5 +116,9 @@ test("a stored level Battledroids does not list acts as the level shown", async 
     await page.getByRole("combobox", { name: /^Droid/ }).selectOption("gol-1h");
     await expect(page.getByText("Not in this rules edition")).toHaveCount(0);
     await expect(page.getByLabel("Mech Type").locator("option")).toHaveText(["Biped", "Quad"]);
+    // The figurine's turret holds what the center torso has no slots for.
+    await page.goto("classic-battletech/mech-creator/step6");
+    await expect(page.getByRole("group", { name: "Turret" })).toContainText("PPC");
+    await expect(page.getByText("Machine Gun").first()).toBeVisible();
     expect(errors).toEqual([]);
 });

@@ -1,5 +1,5 @@
 import { getPrintedDroid, IPrintedDroid, PrintedDroidLocation } from "../data/battledroids-mechs";
-import { BattleMech } from "./battlemech";
+import { BattleMech, ICriticalSlot } from "./battlemech";
 
 const criticalKeys: Record<PrintedDroidLocation, string> = {
     hd: "head", ct: "centerTorso", lt: "leftTorso", rt: "rightTorso", la: "leftArm", ra: "rightArm", ll: "leftLeg", rl: "rightLeg",
@@ -51,6 +51,22 @@ export function buildPrintedDroid(droid: IPrintedDroid): BattleMech {
     }
     mech.setPrintedDroid(droid.id);
     return mech;
+}
+
+/** The left-over criticals a printed droid mounts in its turret (the GOL-1H's center torso), as the sheet prints them. */
+export function getPrintedTurretCriticals(mech: BattleMech): ICriticalSlot[] {
+    const turret = getPrintedDroid(mech.getPrintedDroid())?.turret;
+    if (!turret) {
+        return [];
+    }
+    const inTurret = new Set(mech.getInstalledEquipment().filter(item => item.location === turret).map(item => item.uuid));
+    return mech.unallocatedCriticals.filter(critical => critical && inTurret.has(critical.uuid));
+}
+
+/** The criticals still waiting for a slot: the unallocated ones, less any a printed droid mounts in its turret. */
+export function getUnallocatedCriticals(mech: BattleMech): ICriticalSlot[] {
+    const turret = new Set(getPrintedTurretCriticals(mech));
+    return mech.unallocatedCriticals.filter(critical => !turret.has(critical));
 }
 
 /** What makes a design that design: chassis, movement, heat sinks, armor and each item where it is mounted. */
