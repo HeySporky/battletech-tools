@@ -14,7 +14,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import UnallocatedEquipmentList from '../../../components/unallocated-equipment-list';
 import './home.scss';
-import DesignLockColumn from '../../../components/design-lock';
+import DesignLockColumn, { getDesignLockNote } from '../../../components/design-lock';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -44,6 +44,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       e: React.FormEvent<HTMLButtonElement>
     ) => {
       if( e && e.preventDefault ) e.preventDefault();
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
 
       this.setState({
         splitItemCount: 1,
@@ -88,6 +90,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
     }
 
     toggleLowerArmActuator = ( loc: string ): void => {
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.toggleLowerArmActuator( loc );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
@@ -95,6 +99,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
     }
 
     toggleHandActuator = ( loc: string ): void => {
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.toggleHandActuator( loc );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
@@ -102,6 +108,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
     }
 
     resetAllocations = (): void => {
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
       this.props.appGlobals.openConfirmDialog(
         "Confirmation",
         "Are you sure you want to clear out all your critical allocations?",
@@ -124,6 +132,8 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
       selectedItemSize: number,
       selectedItemName: string,
     ): void => {
+      // A droid locked at this rules level is not changed by any click here.
+      if( getDesignLockNote( this.props.appGlobals ) ) return;
 
 
       if( selectedItem ) {

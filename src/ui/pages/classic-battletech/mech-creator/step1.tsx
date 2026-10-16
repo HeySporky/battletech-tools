@@ -7,7 +7,7 @@ import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { editionEditsPrintedUnitsAfterWarning, editionHasBattleValue, editionHasPrices, getRulesEdition, getShownRulesLevel } from '../../../../data/rules-editions';
 import { editionHasPrintedDroids, getPrintedDroid, getPrintedDroids } from '../../../../data/battledroids-mechs';
-import { buildPrintedDroid } from '../../../../classes/printed-droid';
+import { buildPrintedDroid, isUnmodifiedPrintedDroid } from '../../../../classes/printed-droid';
 import { confirmEditPrintedDroid, getDesignLockNote } from '../../../components/design-lock';
 import RulesEditionSelect from '../../../components/rules-edition-select';
 import RulesLevelSelect from '../../../components/rules-level-select';
@@ -241,11 +241,11 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               {editionHasPrices(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? (editionHasBattleValue(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? " and total cost still follow the current rules." : " prints prices, but the total cost still follows the current rules.") : " prints no prices either, so the design has no cost."}
                             </p>
                           ) : null}
-                          {this.props.appGlobals.currentBattleMech.getRulesEditionIssues(this.props.appGlobals.appSettings.mechRulesFilter).length > 0 ? (
+                          {this.props.appGlobals.currentBattleMech.getRulesEditionIssues(shownLevel).length > 0 ? (
                             <div className="color-red smaller-text">
                               Not in this rules edition:
                               <ul>
-                                {this.props.appGlobals.currentBattleMech.getRulesEditionIssues(this.props.appGlobals.appSettings.mechRulesFilter).map((issue) => (
+                                {this.props.appGlobals.currentBattleMech.getRulesEditionIssues(shownLevel).map((issue) => (
                                   <li key={issue}>{issue}</li>
                                 ))}
                               </ul>
@@ -265,7 +265,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                           {editionHasPrintedDroids(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? (
                             <label>
                               Droid:
-                              <select value={this.props.appGlobals.currentBattleMech.getPrintedDroid() ?? ""} onChange={this.loadPrintedDroid}>
+                              <select value={isUnmodifiedPrintedDroid(this.props.appGlobals.currentBattleMech) ? this.props.appGlobals.currentBattleMech.getPrintedDroid() : ""} onChange={this.loadPrintedDroid}>
                                 <option value="">{locked ? "Choose a printed droid" : "Start from a printed droid (optional)"}</option>
                                 {getPrintedDroids(shownLevel).map((droid) => (
                                   <option key={droid.id} value={droid.id}>{droid.model} {droid.name}{droid.inferred ? " (inferred)" : ""}</option>
@@ -317,7 +317,7 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             >
                             {mechTypeOptions
                               .filter( (option) => (this.props.appGlobals.currentBattleMech?.usesEarlierRulesEdition()
-                                  ? this.props.appGlobals.currentBattleMech.isInRulesEdition(option, this.props.appGlobals.appSettings.mechRulesFilter)
+                                  ? this.props.appGlobals.currentBattleMech.isInRulesEdition(option, shownLevel)
                                   : option.rulesLevel <= this.props.appGlobals.appSettings.mechRulesFilter)
                                 || option.tag === this.props.appGlobals.currentBattleMech?.getType().tag )
                               .map( (option) => {

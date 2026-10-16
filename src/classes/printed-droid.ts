@@ -1,4 +1,4 @@
-import { IPrintedDroid, PrintedDroidLocation } from "../data/battledroids-mechs";
+import { getPrintedDroid, IPrintedDroid, PrintedDroidLocation } from "../data/battledroids-mechs";
 import { BattleMech } from "./battlemech";
 
 const criticalKeys: Record<PrintedDroidLocation, string> = {
@@ -51,4 +51,27 @@ export function buildPrintedDroid(droid: IPrintedDroid): BattleMech {
     }
     mech.setPrintedDroid(droid.id);
     return mech;
+}
+
+/** What makes a design that design: chassis, movement, heat sinks, armor and each item where it is mounted. */
+const fingerprint = (mech: BattleMech): string => {
+    const saved = mech.export();
+    return JSON.stringify([
+        mech.getTonnage(), mech.getType().tag, mech.getTech().tag, mech.getWalkSpeed(), mech.getJumpSpeed(), mech.getHeatSinks(),
+        saved.engineType, saved.gyro, saved.heat_sink_type, saved.armor_type, saved.armor_weight, saved.armor_allocation,
+        mech.getInstalledEquipment().map(item => `${item.tag} ${item.location ?? ""}${item.rear ? " rear" : ""}`).sort(),
+    ]);
+};
+const printedFingerprints = new Map<string, string>();
+
+/** Is the design still the printed droid it was loaded from, with nothing changed? */
+export function isUnmodifiedPrintedDroid(mech: BattleMech): boolean {
+    const droid = getPrintedDroid(mech.getPrintedDroid());
+    if (!droid) {
+        return false;
+    }
+    if (!printedFingerprints.has(droid.id)) {
+        printedFingerprints.set(droid.id, fingerprint(buildPrintedDroid(droid)));
+    }
+    return fingerprint(mech) === printedFingerprints.get(droid.id);
 }

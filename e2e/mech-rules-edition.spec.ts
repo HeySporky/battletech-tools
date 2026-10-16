@@ -66,6 +66,13 @@ test("Battledroids lists its own rules levels and plays the printed droids below
     await page.goto("classic-battletech/mech-creator/step2");
     await expect(page.locator("fieldset.design-lock :is(input, select)").first()).toBeDisabled();
     await expect(page.getByRole("button", { name: "Edit this droid" })).toHaveCount(0);
+    // The critical slots move by clicks on list items, which a disabled fieldset does not stop.
+    await page.goto("classic-battletech/mech-creator/step6");
+    const criticals = page.locator("fieldset.design-lock");
+    const before = await criticals.innerText();
+    await page.locator("fieldset.design-lock li.cursor-pointer[title]").first().dispatchEvent("click");
+    await page.locator("fieldset.design-lock li.critical-empty").last().dispatchEvent("click");
+    expect(await criticals.innerText()).toEqual(before);
 
     // Advanced: the droid can be edited after a warning that this moves the design to Expert.
     await page.goto("classic-battletech/mech-creator/step1");
@@ -83,11 +90,31 @@ test("Battledroids lists its own rules levels and plays the printed droids below
     await page.goto("classic-battletech/mech-creator/step1");
     await expect(page.getByLabel("Rules Level")).toHaveValue("2");
     await expect(page.getByLabel("Mech Model # (e.g. WSP-1A, Timber Wolf)")).toHaveValue("GRF-1N");
+    await expect(page.getByRole("combobox", { name: /^Droid/ })).toHaveValue("grf-1n");
+    // Once changed it is no longer the printed Griffin.
+    await page.goto("classic-battletech/mech-creator/step2");
+    await page.getByLabel("Walking Movement Points").selectOption("4");
+    await page.goto("classic-battletech/mech-creator/step1");
+    await expect(page.getByRole("combobox", { name: /^Droid/ })).toHaveValue("");
 
     // Apocryphal: the magazine's Spider and the TCI kit backs join the list, and the chassis can be built.
     await page.getByLabel("Rules Level").selectOption("5");
     await expect(page.getByRole("combobox", { name: /^Droid/ }).locator("option")).toContainText(["SPI-5R Spider", "GOL-1H Goliath", "SHD-2H Shadow Hawk (Dougram Jakt-type kit) (inferred)"]);
     await expect(page.getByLabel("Mech Tonnage")).toBeVisible();
 
+    expect(errors).toEqual([]);
+});
+
+// A stored rules level Battledroids does not list (3) shows as Apocryphal, and Step 1 judges everything by it.
+test("a stored level Battledroids does not list acts as the level shown", async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.stack ?? error.message));
+    await page.goto("classic-battletech/mech-creator/step1");
+    await page.getByLabel("Rules Level").selectOption("3");
+    await page.getByLabel("Rules Edition").selectOption("battledroids");
+    await expect(page.getByLabel("Rules Level")).toHaveValue("5");
+    await page.getByRole("combobox", { name: /^Droid/ }).selectOption("gol-1h");
+    await expect(page.getByText("Not in this rules edition")).toHaveCount(0);
+    await expect(page.getByLabel("Mech Type").locator("option")).toHaveText(["Biped", "Quad"]);
     expect(errors).toEqual([]);
 });

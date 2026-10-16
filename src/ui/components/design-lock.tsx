@@ -1,5 +1,6 @@
 import React, { type JSX } from 'react';
 import { editionAllowsConstruction, editionEditsPrintedUnitsAfterWarning, getRulesEdition, getRulesLevelOptionsForEdition, getShownRulesLevel } from '../../data/rules-editions';
+import { isUnmodifiedPrintedDroid } from '../../classes/printed-droid';
 import { IAppGlobals } from '../app-router';
 
 /** Why the current 'Mech design cannot be changed at the selected rules level, or null when it can. */
@@ -16,7 +17,7 @@ export function getDesignLockNote(appGlobals: IAppGlobals): string | null {
     const names = getRulesLevelOptionsForEdition(editionTag);
     const levelName = names.find(option => option.id === level)?.name;
     const buildName = names.find(option => option.id === getRulesEdition(editionTag).constructionLevel)?.name;
-    return mech.getPrintedDroid()
+    return isUnmodifiedPrintedDroid(mech)
         ? `${levelName} plays the printed droids only.`
         : `${levelName} plays the printed droids only: building a droid needs ${buildName}.`;
 }
@@ -54,7 +55,8 @@ export default function DesignLockColumn(props: { appGlobals: IAppGlobals; child
                     ) : null}
                 </p>
             ) : null}
-            <fieldset className="design-lock" disabled={!!note} style={{ border: 0, margin: 0, padding: 0, minWidth: 0 }}>
+            {/* A disabled fieldset stops form controls only; clickable lists (Step 6's criticals) need the pointer turned off too. */}
+            <fieldset className="design-lock" disabled={!!note} style={{ border: 0, margin: 0, padding: 0, minWidth: 0, pointerEvents: note ? "none" : undefined }}>
                 {props.children}
             </fieldset>
         </div>

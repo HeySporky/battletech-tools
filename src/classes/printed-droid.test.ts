@@ -3,7 +3,7 @@ import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL } from "../data/rul
 import { battledroidsPrintedDroids, getPrintedDroids, IPrintedDroid } from "../data/battledroids-mechs";
 import { editionAllowsConstruction, getRulesEdition } from "../data/rules-editions";
 import { BattleMech } from "./battlemech";
-import { buildPrintedDroid } from "./printed-droid";
+import { buildPrintedDroid, isUnmodifiedPrintedDroid } from "./printed-droid";
 
 const droid = (id: string): IPrintedDroid => battledroidsPrintedDroids.find(entry => entry.id === id)!;
 
@@ -123,6 +123,31 @@ describe("Printed Battledroids droids: across rules editions and old saves", () 
         expect(mech.getPrintedDroid()).toBe("whm-6r");
         expect(editionAllowsConstruction(mech.getRulesEdition(), 0)).toBe(false);
     });
+
+    // An edited droid is no longer the printed one: the picker and the lock stop naming it.
+    it("knows a printed droid from one that has been changed", () => {
+        expect(isUnmodifiedPrintedDroid(built("grf-1n"))).toBe(true);
+        // A round trip through Total Warfare changes nothing on a droid without jump jets; Total Warfare caps Jumping MP
+        // at Walking MP, so the Griffin's 6 comes back as 5, and it is then a changed droid.
+        const roundTrip = buildPrintedDroid(droid("whm-6r"));
+        roundTrip.setRulesEdition("total-warfare");
+        roundTrip.setRulesEdition("battledroids");
+        expect(isUnmodifiedPrintedDroid(roundTrip)).toBe(true);
+        const jumper = buildPrintedDroid(droid("grf-1n"));
+        jumper.setRulesEdition("total-warfare");
+        jumper.setRulesEdition("battledroids");
+        expect(isUnmodifiedPrintedDroid(jumper)).toBe(false);
+        const faster = buildPrintedDroid(droid("grf-1n"));
+        faster.setWalkSpeed(6);
+        expect(isUnmodifiedPrintedDroid(faster)).toBe(false);
+        const rearmed = buildPrintedDroid(droid("grf-1n"));
+        rearmed.addEquipmentFromTag("medium-laser", "is", "la", false, undefined, "", false, [], undefined, undefined);
+        expect(isUnmodifiedPrintedDroid(rearmed)).toBe(false);
+        const armored = buildPrintedDroid(droid("grf-1n"));
+        armored.setHeadArmor(9);
+        expect(isUnmodifiedPrintedDroid(armored)).toBe(false);
+        expect(isUnmodifiedPrintedDroid(new BattleMech())).toBe(false);
+    }, 30000);
 
     it("loads a Battledroids save without a printed droid as a built design, unchanged", () => {
         const saved = JSON.parse(built("arc-2r").exportJSON());
