@@ -45,6 +45,19 @@ interface IWeights {
     weight: number;
 }
 
+/** Shield sizes' Damage Absorption and Damage Capacity, from the Shield Table (TO:AUE p.103). */
+const shieldTable: Record<"small" | "medium" | "large", [number, number]> = { small: [3, 11], medium: [5, 18], large: [7, 25] };
+
+/** A shield as the record sheet shows it. */
+export interface IMechShield {
+    item: IEquipmentItem;
+    location: string;
+    size: string;
+    damageAbsorption: number;
+    damageCapacity: number;
+    damageTaken: number;
+}
+
 export interface IRulesEditionReturn {
     edition: string;
     design: string;
@@ -125,6 +138,7 @@ interface IBMEquipmentExport {
     selectedAmmoBinUUID?: string | undefined;
     feedsWeaponTag?: string | undefined;
     currentAdditionalArmor?: number | undefined;
+    shieldDamage?: number | undefined;
     size?: number | undefined;
     omniFixed?: boolean | undefined;
 }
@@ -7435,6 +7449,7 @@ export class BattleMech {
             exported.damageClusterHits = item.damageClusterHits;
             exported.currentAmmo = item.currentAmmo;
             exported.selectedAmmoBinUUID = item.selectedAmmoBinUUID;
+            exported.shieldDamage = item.shieldDamage;
         }
         return exported;
     }
@@ -7468,6 +7483,9 @@ export class BattleMech {
             ?? (otherTechTag ? restoreFrom(otherTechTag, true) : null);
         if (restoredEquipment && typeof importItem.currentAdditionalArmor === "number") {
             restoredEquipment.currentAdditionalArmor = importItem.currentAdditionalArmor;
+        }
+        if (restoredEquipment && typeof importItem.shieldDamage === "number") {
+            restoredEquipment.shieldDamage = importItem.shieldDamage;
         }
         if (restoredEquipment && typeof importItem.size === "number") {
             restoredEquipment.size = importItem.size;
@@ -10470,6 +10488,31 @@ export class BattleMech {
             }
         }
         return false;
+    }
+
+    /** Each shield mounted, with its Damage Absorption and Damage Capacity (TO:AUE p.103) and the capacity used up. */
+    public getShields(): IMechShield[] {
+        return this._equipmentList.flatMap(item => {
+            const size = (["small", "medium", "large"] as const).find(name => matchesTag(item, "shield-" + name));
+            if (!size) {
+                return [];
+            }
+            const [damageAbsorption, damageCapacity] = shieldTable[size];
+            return [{
+                item, location: item.location ?? "", size: size[0].toUpperCase() + size.slice(1), damageAbsorption, damageCapacity,
+                damageTaken: Math.min(damageCapacity, item.shieldDamage ?? 0),
+            }];
+        });
+    }
+
+    /** In play: a click on a shield's Damage Capacity circle marks it and every one before it, or clears it if it was the last marked. */
+    public toggleShieldBubble(uuid: string, index: number): void {
+        const shield = this.getShields().find(entry => entry.item.uuid === uuid);
+        if (!shield) {
+            return;
+        }
+        const marked = Math.min(shield.damageCapacity, index + 1);
+        shield.item.shieldDamage = shield.damageTaken === marked ? marked - 1 : marked;
     }
 
     public getModularArmorPacks(): IEquipmentItem[] {

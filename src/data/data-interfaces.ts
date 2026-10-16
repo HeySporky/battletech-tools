@@ -260,6 +260,8 @@ export interface IEquipmentItem {
     isModularArmor?: boolean;
     additionalArmor?: number;
     currentAdditionalArmor?: number;
+    /** In play: the shield's Damage Capacity used up (TO:AUE p.103). */
+    shieldDamage?: number;
     needsAmmo?: boolean;
     uuid?: string;
     resolved?: boolean;

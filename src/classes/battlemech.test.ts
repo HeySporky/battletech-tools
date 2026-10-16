@@ -1397,6 +1397,35 @@ describe("BattleMech spread, movement and limb equipment", () => {
         expect(large.getJumpSpeed()).toBe(0);
     });
 
+    it("lists each shield with its Damage Absorption and Damage Capacity for the record sheet (TO:AUE p.103)", () => {
+        const mech = build(60, 5);
+        add(mech, "shield-medium", "la");
+        add(mech, "shield-small", "ra");
+        expect(mech.getShields().map(({ location, size, damageAbsorption, damageCapacity, damageTaken }) =>
+            [location, size, damageAbsorption, damageCapacity, damageTaken])).toEqual([
+            ["la", "Medium", 5, 18, 0],
+            ["ra", "Small", 3, 11, 0],
+        ]);
+        add(mech, "shield-large", "ra");
+        expect(mech.getShields().find(shield => shield.size === "Large")).toMatchObject({ damageAbsorption: 7, damageCapacity: 25 });
+    });
+
+    it("marks shield Damage Capacity in play and keeps it in the save", () => {
+        const mech = build(60, 5);
+        add(mech, "shield-medium", "la");
+        const uuid = mech.getShields()[0].item.uuid!;
+        mech.toggleShieldBubble(uuid, 3);
+        expect(mech.getShields()[0].damageTaken).toBe(4);
+        mech.toggleShieldBubble(uuid, 3);
+        expect(mech.getShields()[0].damageTaken).toBe(3);
+        mech.toggleShieldBubble(uuid, 30);
+        expect(mech.getShields()[0].damageTaken).toBe(18);
+        mech.toggleShieldBubble(uuid, 4);
+        const copy = new BattleMech();
+        copy.importJSON(mech.exportJSON());
+        expect(copy.getShields()[0].damageTaken).toBe(5);
+    });
+
     it("treats UMUs as underwater MP generating 1 heat (TO:AUE p.107)", () => {
         const mech = build(50, 5);
         mech.setJumpJetType("umu");
