@@ -14,6 +14,7 @@ import BattleMechSVG from '../../../components/svg/battlemech-svg';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import { replaceCurrentBattleMech } from '../../../components/confirm-replace-design';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const CheckCircle = FaCheckCircle as any;
 const Eye = FaEye as any;
@@ -104,7 +105,7 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
         e.preventDefault()
       }
       if( unit ) {
-        this.props.appGlobals.saveCurrentBattleMech( unit );
+        replaceCurrentBattleMech( this.props.appGlobals, () => this.props.appGlobals.saveCurrentBattleMech( unit ) );
       }
     }
 
@@ -146,7 +147,8 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
 
         currentBattleMech = new BattleMech();
         currentBattleMech.import( this.state.ParsedTRO.export() )
-        this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
+        const imported = currentBattleMech;
+        replaceCurrentBattleMech( this.props.appGlobals, () => this.props.appGlobals.saveCurrentBattleMech( imported ) );
         this.setState({
           TRO: "",
           ParsedTRO: null,
@@ -203,7 +205,8 @@ export default class MechCreatorImports extends React.Component<IHomeProps, IHom
           e.preventDefault();
       }
       if( this.state.viewingUnit ) {
-        this.props.appGlobals.saveCurrentBattleMech( this.state.viewingUnit );
+        const viewed = this.state.viewingUnit;
+        replaceCurrentBattleMech( this.props.appGlobals, () => this.props.appGlobals.saveCurrentBattleMech( viewed ) );
       }
 
   }

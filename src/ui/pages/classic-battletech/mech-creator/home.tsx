@@ -9,6 +9,7 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FileExport = FaFileExport as any;
@@ -119,11 +120,21 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       }
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "'mech",
+            lost: designWouldBeLost(this.props.appGlobals.currentBattleMech, () => new BattleMech(), this.props.appGlobals.battleMechSaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
       e.preventDefault();
 
       let currentBattleMech = new BattleMech();
-      this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
+      this.replaceDesign(() => this.props.appGlobals.saveCurrentBattleMech( currentBattleMech ))
     }
 
     loadSave = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
@@ -133,7 +144,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
 
         currentBattleMech = new BattleMech();
         currentBattleMech.import( this.props.appGlobals.battleMechSaves[saveIndex] )
-        this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentBattleMech( currentBattleMech ))
 
       }
     }

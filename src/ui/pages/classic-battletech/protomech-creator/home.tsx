@@ -9,6 +9,7 @@ import { IAppGlobals } from '../../../app-router';
 import ProtoMechCreatorSideMenu from '../../../components/protomech-creator-side-menu';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FolderOpen = FaFolderOpen as any;
@@ -35,7 +36,8 @@ export default class ProtoMechCreatorHome extends React.Component<IHomeProps, IH
         const reader = new FileReader();
         reader.onload = () => {
             const result = importProtoMechBlk(typeof reader.result === "string" ? reader.result : "");
-            if (result.proto) this.props.appGlobals.saveCurrentProtoMech(result.proto);
+            const proto = result.proto;
+            if (proto) this.replaceDesign(() => this.props.appGlobals.saveCurrentProtoMech(proto));
             this.setState({ importName: file.name, importIssues: result.proto ? [...(result.notes ?? []), ...result.issues, ...result.proto.getIssues()] : result.issues, importLoaded: !!result.proto });
         };
         reader.onerror = () => this.setState({ importName: file.name, importIssues: ["The file could not be read."], importLoaded: false });
@@ -43,9 +45,19 @@ export default class ProtoMechCreatorHome extends React.Component<IHomeProps, IH
         input.value = "";
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "ProtoMech",
+            lost: designWouldBeLost(this.props.appGlobals.currentProtoMech, () => new ProtoMech(), this.props.appGlobals.protoMechSaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        this.props.appGlobals.saveCurrentProtoMech(new ProtoMech());
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentProtoMech(new ProtoMech()));
     }
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -62,7 +74,7 @@ export default class ProtoMechCreatorHome extends React.Component<IHomeProps, IH
     loadSave = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
         e.preventDefault();
         const save = this.props.appGlobals.protoMechSaves[saveIndex];
-        if (save) this.props.appGlobals.saveCurrentProtoMech(new ProtoMech(JSON.stringify(save)));
+        if (save) this.replaceDesign(() => this.props.appGlobals.saveCurrentProtoMech(new ProtoMech(JSON.stringify(save))));
     }
 
     saveOver = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {

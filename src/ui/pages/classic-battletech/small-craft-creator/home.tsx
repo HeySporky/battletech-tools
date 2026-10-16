@@ -8,6 +8,7 @@ import { IAppGlobals } from '../../../app-router';
 import SmallCraftCreatorSideMenu from '../../../components/small-craft-creator-side-menu';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FolderOpen = FaFolderOpen as any;
@@ -34,7 +35,8 @@ export default class SmallCraftCreatorHome extends React.Component<IHomeProps, I
         const reader = new FileReader();
         reader.onload = () => {
             const result = importSmallCraftBlk(typeof reader.result === "string" ? reader.result : "");
-            if (result.craft) this.props.appGlobals.saveCurrentSmallCraft(result.craft);
+            const craft = result.craft;
+            if (craft) this.replaceDesign(() => this.props.appGlobals.saveCurrentSmallCraft(craft));
             this.setState({ importName: file.name, importIssues: result.craft ? [...result.notes, ...result.issues, ...result.craft.getIssues(4)] : result.issues, importLoaded: !!result.craft });
         };
         reader.onerror = () => this.setState({ importName: file.name, importIssues: ["The file could not be read."], importLoaded: false });
@@ -42,9 +44,19 @@ export default class SmallCraftCreatorHome extends React.Component<IHomeProps, I
         input.value = "";
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "small craft",
+            lost: designWouldBeLost(this.props.appGlobals.currentSmallCraft, () => new SmallCraft(), this.props.appGlobals.smallCraftSaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        this.props.appGlobals.saveCurrentSmallCraft(new SmallCraft());
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentSmallCraft(new SmallCraft()));
     }
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -61,7 +73,7 @@ export default class SmallCraftCreatorHome extends React.Component<IHomeProps, I
     loadSave = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
         e.preventDefault();
         const save = this.props.appGlobals.smallCraftSaves[saveIndex];
-        if (save) this.props.appGlobals.saveCurrentSmallCraft(new SmallCraft(JSON.stringify(save)));
+        if (save) this.replaceDesign(() => this.props.appGlobals.saveCurrentSmallCraft(new SmallCraft(JSON.stringify(save))));
     }
 
     saveOver = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
