@@ -5,11 +5,11 @@ import ProtoMech, { PROTOMECH_POINT_SIZE, ProtoMechJumpType } from '../../../../
 import {
     PROTOMECH_ADVANCED_RULES_LEVEL, PROTOMECH_CHASSIS, PROTOMECH_EXPERIMENTAL_RULES_LEVEL, PROTOMECH_MAX_STANDARD_TONS,
 } from '../../../../data/protomech-construction';
-import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import InputField from "../../../components/form_elements/input_field";
 import ProtoMechCreatorSideMenu from '../../../components/protomech-creator-side-menu';
 import RulesEditionSelect from '../../../components/rules-edition-select';
+import RulesLevelSelect from '../../../components/rules-level-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import ProtoMechStatusBar from './_statusBar';
@@ -34,9 +34,9 @@ export default class ProtoMechCreatorChassis extends React.Component<IChassisPro
         }
     }
 
-    updateRulesLevel = (e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesLevel = (level: number): void => {
         const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = +e.currentTarget.value;
+        appSettings.mechRulesFilter = level;
         this.props.appGlobals.saveAppSettings(appSettings);
     }
 
@@ -61,6 +61,7 @@ export default class ProtoMechCreatorChassis extends React.Component<IChassisPro
                         <TextSection label="Step 1: Design the Chassis">
                             {/* The rules edition comes first: it decides what every field below offers. */}
                             <RulesEditionSelect unitType="protomech" value={proto.getRulesEdition()} onChange={(tag) => this.update((p) => p.setRulesEdition(tag))} />
+                            <RulesLevelSelect editionTag={proto.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
                             <InputField
                                 label="Name (e.g. Centaur 2, Roc)"
                                 value={proto.getName()}
@@ -71,14 +72,6 @@ export default class ProtoMechCreatorChassis extends React.Component<IChassisPro
                                 <select data-testid="pm-era" value={proto.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((p) => p.setEra(value)); }}>
                                     {proto.getAvailableEras().map((option) => (
                                         <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
-                            <label>
-                                Rules Level:
-                                <select value={rulesLevel} onChange={this.updateRulesLevel}>
-                                    {getRulesLevelOptions().map((option) => (
-                                        <option key={option.id} value={option.id}>{option.name}</option>
                                     ))}
                                 </select>
                             </label>

@@ -60,6 +60,8 @@ export interface IRulesEditionLevel {
     name: string;
     book: string;
     page: number;
+    /** Below the construction level: a printed unit may be edited after a warning that this moves it to that level. */
+    editsAfterWarning?: boolean;
 }
 
 export interface IRulesEdition {
@@ -127,7 +129,7 @@ export const btRulesEditions: IRulesEdition[] = [
         noPrices: true,
         levels: [
             { id: 0, name: "Basic Battledroids", book: "BD", page: 1 },
-            { id: 1, name: "Advanced Battledroids", book: "BD", page: 7 },
+            { id: 1, name: "Advanced Battledroids", book: "BD", page: 7, editsAfterWarning: true },
             // "the information needed to design and build new classes of droids"
             { id: 2, name: "Expert Battledroids", book: "BD", page: 14 },
         ],
@@ -599,4 +601,10 @@ export function getShownRulesLevel(editionTag: string | undefined, storedLevel: 
 /** Whether the edition's rules allow designing a new unit at this rules level. */
 export function editionAllowsConstruction(editionTag: string | undefined, rulesLevel: number): boolean {
     return rulesLevel >= (getRulesEdition(editionTag).constructionLevel ?? 0);
+}
+
+/** Whether a printed unit may be edited at this level after a warning that editing moves it to the construction level. */
+export function editionEditsPrintedUnitsAfterWarning(editionTag: string | undefined, rulesLevel: number): boolean {
+    return !editionAllowsConstruction(editionTag, rulesLevel)
+        && !!getRulesEdition(editionTag).levels?.find(level => level.id === rulesLevel)?.editsAfterWarning;
 }

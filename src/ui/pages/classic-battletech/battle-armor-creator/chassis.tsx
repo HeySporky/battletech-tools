@@ -5,11 +5,11 @@ import BattleArmor, { BATTLE_ARMOR_LOCATION_NAMES, BATTLE_ARMOR_MAX_CARGO_HALF_T
 import {
     BATTLE_ARMOR_MAX_SQUAD, BattleArmorMotive, battleArmorFormations, battleArmorManipulators, battleArmorWeightClasses,
 } from '../../../../data/battle-armor-construction';
-import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import BattleArmorCreatorSideMenu from '../../../components/battle-armor-creator-side-menu';
 import InputField from "../../../components/form_elements/input_field";
 import RulesEditionSelect from '../../../components/rules-edition-select';
+import RulesLevelSelect from '../../../components/rules-level-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import BattleArmorStatusBar from './_statusBar';
@@ -33,9 +33,9 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
         }
     }
 
-    updateRulesLevel = (e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesLevel = (level: number): void => {
         const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = +e.currentTarget.value;
+        appSettings.mechRulesFilter = level;
         this.props.appGlobals.saveAppSettings(appSettings);
     }
 
@@ -61,6 +61,7 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                         <TextSection label="Step 1: Design the Chassis">
                             {/* The rules edition comes first: it decides what every field below offers. */}
                             <RulesEditionSelect unitType="battle-armor" value={suit.getRulesEdition()} onChange={(tag) => this.update((s) => s.setRulesEdition(tag))} />
+                            <RulesLevelSelect editionTag={suit.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
                             <InputField
                                 label="Name (e.g. Elemental, Purifier Adaptive Battle Armor)"
                                 value={suit.getName()}
@@ -90,14 +91,6 @@ export default class BattleArmorCreatorChassis extends React.Component<IChassisP
                                 <select data-testid="ba-era" value={suit.getEra().tag} onChange={(e) => { const value = e.currentTarget.value; this.update((s) => s.setEra(value)); }}>
                                     {suit.getAvailableEras().map((option) => (
                                         <option key={option.tag} value={option.tag}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
-                            <label>
-                                Rules Level:
-                                <select value={rulesLevel} onChange={this.updateRulesLevel}>
-                                    {getRulesLevelOptions().map((option) => (
-                                        <option key={option.id} value={option.id}>{option.name}</option>
                                     ))}
                                 </select>
                             </label>

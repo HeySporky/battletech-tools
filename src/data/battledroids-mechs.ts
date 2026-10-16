@@ -300,3 +300,8 @@ export function getPrintedDroids(rulesLevel: number): IPrintedDroid[] {
 export function getPrintedDroid(id: string | undefined): IPrintedDroid | undefined {
     return battledroidsPrintedDroids.find(droid => droid.id === id);
 }
+
+/** Whether the rules edition prints droids a player can choose from (only Battledroids so far). */
+export function editionHasPrintedDroids(editionTag: string | undefined): boolean {
+    return editionTag === "battledroids";
+}

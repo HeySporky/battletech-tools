@@ -12,7 +12,7 @@ import { mechJumpJetTypes } from "./mech-jump-jet-types";
 import { mechMyomerTypes } from "./mech-myomer-types";
 import { btMechTonnages } from "./mech-tonnages";
 import { mechTypeOptions } from "./mech-type-options";
-import { DEFAULT_RULES_EDITION, editionAllowsConstruction, getEditionStats, getIntroducedInEdition, getRulesEditions, getRulesLevelOptionsForEdition, getShownRulesLevel, isInRulesEdition } from "./rules-editions";
+import { DEFAULT_RULES_EDITION, editionAllowsConstruction, editionEditsPrintedUnitsAfterWarning, getEditionStats, getIntroducedInEdition, getRulesEditions, getRulesLevelOptionsForEdition, getShownRulesLevel, isInRulesEdition } from "./rules-editions";
 import { getRulesLevelOptions } from "./rules-level-options";
 
 // Every record that can carry an edition history, labelled so a failure says where to look.
@@ -1490,6 +1490,14 @@ describe("rules levels by edition", () => {
     });
 
     // BD p.14: the Expert rules carry "the information needed to design and build new classes of droids".
+    // Spec (user, 2026-10-16): Basic is locked; Advanced edits a printed droid after a warning that moves it to Expert.
+    it("lets Advanced Battledroids edit a printed droid after a warning, and Basic not at all", () => {
+        expect(editionEditsPrintedUnitsAfterWarning("battledroids", 0)).toBe(false);
+        expect(editionEditsPrintedUnitsAfterWarning("battledroids", 1)).toBe(true);
+        expect(editionEditsPrintedUnitsAfterWarning("battledroids", 2)).toBe(false);
+        expect(editionEditsPrintedUnitsAfterWarning("total-warfare", 1)).toBe(false);
+    });
+
     it("allows construction from Expert Battledroids up", () => {
         expect(editionAllowsConstruction("battledroids", 0)).toBe(false);
         expect(editionAllowsConstruction("battledroids", 1)).toBe(false);

@@ -3,13 +3,13 @@ import { Link } from 'react-router';
 import { FaArrowCircleRight } from "react-icons/fa";
 import Building from '../../../../classes/building';
 import { BUILDING_CLASSIFICATIONS } from '../../../../data/building-classifications';
-import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { btTechOptions } from '../../../../data/tech-options';
 import { IAppGlobals } from '../../../app-router';
 import BuildingCreatorSideMenu from '../../../components/building-creator-side-menu';
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import RulesEditionSelect from '../../../components/rules-edition-select';
+import RulesLevelSelect from '../../../components/rules-level-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -30,9 +30,9 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
         }
     }
 
-    updateRulesLevel = (e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesLevel = (level: number): void => {
         const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = +e.currentTarget.value;
+        appSettings.mechRulesFilter = level;
         this.props.appGlobals.saveAppSettings(appSettings);
     }
 
@@ -54,6 +54,7 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                         <TextSection label="Step 1: Establish Superstructure">
                             {/* The rules edition comes first: it decides what every field below offers. */}
                             <RulesEditionSelect unitType="building" value={building.getRulesEdition()} onChange={(tag) => this.update((b) => b.setRulesEdition(tag))} />
+                            <RulesLevelSelect editionTag={building.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
                             <InputField
                                 label="Building Name (e.g. Battery Kenyon, Gate Bunker)"
                                 value={building.getName()}
@@ -69,14 +70,6 @@ export default class BuildingCreatorStructure extends React.Component<IStructure
                                 </select>
                             </label>
 
-                            <label>
-                                Rules Level:
-                                <select value={rulesLevel} onChange={this.updateRulesLevel}>
-                                    {getRulesLevelOptions().map((option) => (
-                                        <option key={option.id} value={option.id}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
                             <p className="smaller-text">Building construction is an Advanced rule (Tactical Operations: Advanced Rules p. 126).</p>
 
                             <label>

@@ -3,7 +3,6 @@ import { Link } from 'react-router';
 import { FaArrowCircleRight } from "react-icons/fa";
 import AerospaceFighter, { FIGHTER_MIN_TONNAGE, FIGHTER_TYPES } from '../../../../classes/aerospace-fighter';
 import { btTechOptions } from '../../../../data/tech-options';
-import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { SRCS_RULES_LEVEL } from '../../../../data/robotic-control-systems';
 import { IAppGlobals } from '../../../app-router';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
@@ -11,6 +10,7 @@ import FighterCreatorSideMenu from '../../../components/fighter-creator-side-men
 import InputField from "../../../components/form_elements/input_field";
 import InputNumeric from "../../../components/form_elements/input_numeric";
 import RulesEditionSelect from '../../../components/rules-edition-select';
+import RulesLevelSelect from '../../../components/rules-level-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SupportAircraftChassis from './_support-chassis';
@@ -37,9 +37,9 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
         }
     }
 
-    updateRulesLevel = (e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesLevel = (level: number): void => {
         const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = +e.currentTarget.value;
+        appSettings.mechRulesFilter = level;
         this.props.appGlobals.saveAppSettings(appSettings);
     }
 
@@ -60,6 +60,7 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                         <TextSection label="Step 1: Design the Chassis">
                             {/* The rules edition comes first: it decides what every field below offers. */}
                             <RulesEditionSelect unitType="fighter" value={fighter.getRulesEdition()} onChange={(tag) => this.update((f) => f.setRulesEdition(tag))} />
+                            <RulesLevelSelect editionTag={fighter.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
                             <InputField
                                 label="Fighter Model # (e.g. SL-17)"
                                 value={fighter.getModel()}
@@ -96,14 +97,6 @@ export default class FighterCreatorChassis extends React.Component<IChassisProps
                                 </select>
                             </label>
 
-                            <label>
-                                Rules Level:
-                                <select value={rulesLevel} onChange={this.updateRulesLevel}>
-                                    {getRulesLevelOptions().map((option) => (
-                                        <option key={option.id} value={option.id}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
 
                             <label>
                                 Era:

@@ -9,6 +9,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
+import DesignLockColumn from '../../../components/design-lock';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -113,7 +114,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                   current="step2"
                 />
               </div>
-              <div className="col-md-9 col-lg-10">
+              <DesignLockColumn appGlobals={this.props.appGlobals}>
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
                       <TextSection
@@ -315,7 +316,7 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                     </TextSection>
                     </div>
                   </div>
-              </div>
+              </DesignLockColumn>
 
             </div>
 

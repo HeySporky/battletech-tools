@@ -3,11 +3,11 @@ import { Link } from 'react-router';
 import { FaArrowCircleRight } from "react-icons/fa";
 import InfantryPlatoon, { INFANTRY_MAX_SQUADS, INFANTRY_MOTIVE_TYPES } from '../../../../classes/infantry-platoon';
 import { INFANTRY_ARMOR_GROUPS, INFANTRY_ARMOR_RULES_LEVEL } from '../../../../data/infantry-armor';
-import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { IAppGlobals } from '../../../app-router';
 import InfantryCreatorSideMenu from '../../../components/infantry-creator-side-menu';
 import InputField from "../../../components/form_elements/input_field";
 import RulesEditionSelect from '../../../components/rules-edition-select';
+import RulesLevelSelect from '../../../components/rules-level-select';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -29,9 +29,9 @@ export default class InfantryCreatorPlatoon extends React.Component<IPlatoonProp
         }
     }
 
-    updateRulesLevel = (e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesLevel = (level: number): void => {
         const appSettings = this.props.appGlobals.appSettings;
-        appSettings.mechRulesFilter = +e.currentTarget.value;
+        appSettings.mechRulesFilter = level;
         this.props.appGlobals.saveAppSettings(appSettings);
     }
 
@@ -56,6 +56,7 @@ export default class InfantryCreatorPlatoon extends React.Component<IPlatoonProp
                         <TextSection label="Step 1: Establish Platoon Type">
                             {/* The rules edition comes first: it decides what every field below offers. */}
                             <RulesEditionSelect unitType="infantry" value={platoon.getRulesEdition()} onChange={(tag) => this.update((p) => p.setRulesEdition(tag))} />
+                            <RulesLevelSelect editionTag={platoon.getRulesEdition()} value={rulesLevel} onChange={this.updateRulesLevel} />
                             <InputField
                                 label="Platoon Name (e.g. Laser Rifle Platoon, Third Crucis Lancers)"
                                 value={platoon.getName()}
@@ -85,14 +86,6 @@ export default class InfantryCreatorPlatoon extends React.Component<IPlatoonProp
                                 </select>
                             </label>
 
-                            <label>
-                                Rules Level:
-                                <select value={rulesLevel} onChange={this.updateRulesLevel}>
-                                    {getRulesLevelOptions().map((option) => (
-                                        <option key={option.id} value={option.id}>{option.name}</option>
-                                    ))}
-                                </select>
-                            </label>
 
                             <label>
                                 Era:

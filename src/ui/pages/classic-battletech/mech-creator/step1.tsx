@@ -5,7 +5,12 @@ import { BattleMech, IFrankenMechDonor } from '../../../../classes/battlemech';
 import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
-import { editionHasBattleValue, editionHasPrices, getRulesEdition, getSelectableRulesEditions } from '../../../../data/rules-editions';
+import { editionEditsPrintedUnitsAfterWarning, editionHasBattleValue, editionHasPrices, getRulesEdition, getShownRulesLevel } from '../../../../data/rules-editions';
+import { editionHasPrintedDroids, getPrintedDroid, getPrintedDroids } from '../../../../data/battledroids-mechs';
+import { buildPrintedDroid } from '../../../../classes/printed-droid';
+import { confirmEditPrintedDroid, getDesignLockNote } from '../../../components/design-lock';
+import RulesEditionSelect from '../../../components/rules-edition-select';
+import RulesLevelSelect from '../../../components/rules-level-select';
 import { IAppGlobals } from '../../../app-router';
 import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
@@ -106,9 +111,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       }
     }
 
-    updateRulesLevel = ( e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesLevel = ( level: number ): void => {
       const appSettings = this.props.appGlobals.appSettings;
-      appSettings.mechRulesFilter = +e.currentTarget.value;
+      appSettings.mechRulesFilter = level;
       this.props.appGlobals.saveAppSettings(appSettings);
 
       if( this.props.appGlobals.currentBattleMech ) {
@@ -119,12 +124,21 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
     }
 
     // Builds the design under another rules edition; its tonnage moves into that edition's range.
-    updateRulesEdition = ( e: React.FormEvent<HTMLSelectElement>): void => {
+    updateRulesEdition = ( editionTag: string ): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         let currentMech = this.props.appGlobals.currentBattleMech;
-        currentMech.setRulesEdition( e.currentTarget.value );
+        currentMech.setRulesEdition( editionTag );
         this.clampTonnageToChassisRules(currentMech, this.props.appGlobals.appSettings.mechRulesFilter);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
+        this.setState({ updated: !this.state.updated });
+      }
+    }
+
+    // Loads a droid as its record listing prints it, in place of the current design.
+    loadPrintedDroid = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      const droid = getPrintedDroid( e.currentTarget.value );
+      if( droid ) {
+        this.props.appGlobals.saveCurrentBattleMech( buildPrintedDroid( droid ) );
         this.setState({ updated: !this.state.updated });
       }
     }
@@ -195,6 +209,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
     render = (): JSX.Element => {
       if(!this.props.appGlobals.currentBattleMech)
         return <></>
+      // At a rules level with no construction rules, only a printed droid can be chosen.
+      const locked = getDesignLockNote(this.props.appGlobals);
+      const shownLevel = getShownRulesLevel(this.props.appGlobals.currentBattleMech.getRulesEdition(), this.props.appGlobals.appSettings.mechRulesFilter);
       return (
         <>
           <MechCreatorStatusbar  appGlobals={this.props.appGlobals}  />
@@ -213,18 +230,9 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                       <TextSection
                         label="Step 1: Design the Chassis"
                       >
-                          {/* The rules edition comes first: it decides what every field below offers. */}
-                          <label>
-                            Rules Edition:
-                            <select
-                              value={this.props.appGlobals.currentBattleMech.getRulesEdition()}
-                              onChange={this.updateRulesEdition}
-                            >
-                            {getSelectableRulesEditions().map((edition) => (
-                              <option key={edition.tag} value={edition.tag}>{edition.name} ({edition.year})</option>
-                            ))}
-                            </select>
-                          </label>
+                          {/* The rules edition comes first: it decides what every field below offers, the rules levels included. */}
+                          <RulesEditionSelect unitType="mech" value={this.props.appGlobals.currentBattleMech.getRulesEdition()} onChange={this.updateRulesEdition} />
+                          <RulesLevelSelect editionTag={this.props.appGlobals.currentBattleMech.getRulesEdition()} value={this.props.appGlobals.appSettings.mechRulesFilter} onChange={this.updateRulesLevel} />
                           {this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition() ? (
                             <p className="smaller-text">
                               Built from the {getRulesEdition(this.props.appGlobals.currentBattleMech.getRulesEdition()).name} rulebook: only what it includes is offered,
@@ -254,6 +262,26 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                             </div>
                           ) : null}
 
+                          {editionHasPrintedDroids(this.props.appGlobals.currentBattleMech.getRulesEdition()) ? (
+                            <label>
+                              Droid:
+                              <select value={this.props.appGlobals.currentBattleMech.getPrintedDroid() ?? ""} onChange={this.loadPrintedDroid}>
+                                <option value="">{locked ? "Choose a printed droid" : "Start from a printed droid (optional)"}</option>
+                                {getPrintedDroids(shownLevel).map((droid) => (
+                                  <option key={droid.id} value={droid.id}>{droid.model} {droid.name}{droid.inferred ? " (inferred)" : ""}</option>
+                                ))}
+                              </select>
+                            </label>
+                          ) : null}
+                          {locked ? (
+                            <p className="color-red smaller-text">
+                              {locked}{" "}
+                              {editionEditsPrintedUnitsAfterWarning(this.props.appGlobals.currentBattleMech.getRulesEdition(), shownLevel) ? (
+                                <button type="button" className="btn btn-primary btn-sm" onClick={() => confirmEditPrintedDroid(this.props.appGlobals)}>Edit this droid</button>
+                              ) : null}
+                            </p>
+                          ) : null}
+                          {locked ? null : (<>
                           <InputField
                             label="Mech Model # (e.g. WSP-1A, Timber Wolf)"
                             value={this.props.appGlobals.currentBattleMech.model}
@@ -277,18 +305,6 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                                 <option key={option.tag} value={option.tag}>{option.name}</option>
                               )
                             })}
-                            </select>
-                          </label>
-
-                          <label>
-                            Rules Level:
-                            <select
-                              value={this.props.appGlobals.appSettings.mechRulesFilter}
-                              onChange={this.updateRulesLevel}
-                            >
-                            {getRulesLevelOptions().map((option) => (
-                              <option key={option.id} value={option.id}>{option.name}</option>
-                            ))}
                             </select>
                           </label>
 
@@ -572,6 +588,8 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               </p>
                             </fieldset>
                           ) : null}
+
+                          </>)}
 
                           <div className="clear-both overflow-hidden">
                           <hr />
