@@ -1380,8 +1380,8 @@ Open:
     control listing the nine earlier editions, Total Warfare (the default) and the Core Rulebook. The edition is
     saved with the design (`rulesEdition`, absent for Total Warfare, so old saves load unchanged). Under an
     earlier edition the creator offers only that rulebook's chassis types, tonnages, components and equipment,
-    with the weight, heat, damage, ranges, critical slots and price it prints; rules levels do not apply, eras
-    still do. Edition-only rules applied: Battledroids jump jets at 0.5 tons a point at any weight (BD p.24);
+    with the weight, heat, damage, ranges, critical slots and price it prints; eras still apply, and since
+    2026-10-16 the edition's own rules levels do (below). Edition-only rules applied: Battledroids jump jets at 0.5 tons a point at any weight (BD p.24);
     every heat sink on the critical chart in Battledroids and the Second Edition (BD p.25); the edition's own
     Engine Table (Battledroids' 6.5-ton 170). Changing edition restats mounted equipment and removes nothing;
     Step 1 lists what the new edition does not include.
@@ -1427,6 +1427,30 @@ Open:
   - [x] Battledroids, left to the players by the user's choice (2026-10-08): the effects of a critical hit once marked (MP, to-hit and heat
     changes from destroyed actuators, sensors, engine and heat sinks), ammunition explosions, the Heat Scale's
     MP loss, shutdown and avoid rolls (shown by the helper, not applied), and line of sight.
+  - [x] Rules levels by edition, Battledroids (2026-10-16). Every creator's Step 1 is Rules Edition, then Rules
+    Level (`RulesLevelSelect`), and the level list is the edition's own: Basic, Advanced and Expert Battledroids
+    (BD pp.1, 7, 14; levels 0, 1 and 2) plus Apocryphal, Custom Homebrew and Munchkin. A stored level the
+    edition does not list shows as the next one up without being rewritten. Construction starts at Expert
+    (`constructionLevel`, "the information needed to design and build new classes of droids", BD p.14): at
+    Basic the Mech Creator offers only the printed droids, read-only; at Advanced a droid can be edited after a
+    warning that this moves the design to Expert. The printed droids (`battledroids-mechs.ts`, built by
+    `printed-droid.ts`, saved as `printedDroid`): the ten listings of BD pp.16-17, and at the Apocryphal level
+    the SPI-5R Spider (*Game News* #3, May 1985) and the 1984 TCI kit-back sheets (GOL-1H, WLV-3Nb/3Nc,
+    GRF-2N, SHD-3H, THN-8T, BTL-5R), whose four-legged Goliath brings the quad layout into Battledroids at
+    Apocryphal only (`apocryphalIn`). At Custom Homebrew, the user's conversions for four Ral Partha
+    Battledroids miniatures (FLE-15 Flea, FS9-H Firestarter, BKX-7K Battleaxe, LCT-1V Locust), corrected to
+    the book's rules. Every correction and every sheet that does not add up is in the droid's notes.
+  - [ ] Rules levels by edition, the rest: each other edition's own level names, its construction level and its
+    printed units, from its own book, one edition at a time. Two TCI kit sheets are still to find (the Dougram
+    Jakt-type Shadow Hawk and the plain Soltic H8 Griffin, entered from the book's SHD-2H and GRF-1N and marked
+    inferred); the 1985-86 TCI BattleTech sets (Scorpion, Locust, Ostroc Mk II, TCI Hunter) belong to the Second
+    Edition pass. Photographs of the sheets found so far are in the library's `unsorted/` folder.
+  - [ ] Battledroids armor limit: BD p.25 caps a location's armor at twice its internal structure (head 9), and
+    the book's own Stinger, Wasp, Phoenix Hawk, Archer and Marauder fit only if a torso's front section is
+    capped alone. The creator's armor maximum counts front and rear together, so it is stricter than the book
+    under Battledroids. Read as front-only for the printed droids' check; the creator still to follow.
+  - [ ] A printed droid's heat sinks are left unallocated: Battledroids puts every heat sink on the critical
+    chart (BD p.25), but the listings do not say where.
   - [ ] Rules edition selector, still to do: (1) the Master Rules' own Battle Value system and each edition's
     cost rules are not built, so the editions that have them still show the current rules' figures; (2) the
     Internal Combustion Engine is offered to BattleMechs under the editions that list it, though the
