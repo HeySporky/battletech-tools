@@ -32,7 +32,9 @@ const armor = (mech: BattleMech) => {
     return [a.head, a.centerTorso, a.centerTorsoRear, a.leftTorso, a.leftTorsoRear, a.rightTorso, a.rightTorsoRear, a.leftArm, a.rightArm, a.leftLeg, a.rightLeg];
 };
 
-const built = (id: string) => buildPrintedDroid(droid(id));
+// Building a droid is slow: each is built once and shared by the tests that only read it.
+const builds = new Map<string, BattleMech>();
+const built = (id: string): BattleMech => builds.get(id) ?? builds.set(id, buildPrintedDroid(droid(id))).get(id)!;
 
 const BOOK = ["stg-3r", "wsp-1a", "pxh-1k", "grf-1n", "shd-2h", "rfl-3n", "crd-3r", "arc-2r", "whm-6r", "mad-3r"];
 
@@ -113,7 +115,7 @@ describe("Printed Battledroids droids: the ten of the box set", () => {
 
 describe("Printed Battledroids droids: across rules editions and old saves", () => {
     it("keeps the printed droid through a change of edition and back", () => {
-        const mech = built("whm-6r");
+        const mech = buildPrintedDroid(droid("whm-6r"));
         mech.setRulesEdition("total-warfare");
         expect(mech.getPrintedDroid()).toBe("whm-6r");
         expect(editionAllowsConstruction(mech.getRulesEdition(), 0)).toBe(true);
@@ -269,7 +271,7 @@ const overCap = (mech: BattleMech): string[] => {
 describe("Printed Battledroids droids: the armor limit", () => {
     it("flags every droid whose printed armor is over twice a location's internal structure", () => {
         const unflagged = battledroidsPrintedDroids
-            .map(entry => [entry, overCap(buildPrintedDroid(entry))] as const)
+            .map(entry => [entry, overCap(built(entry.id))] as const)
             .filter(([entry, over]) => over.length && !entry.notes.join(" ").includes("twice its internal structure"))
             .map(([entry, over]) => `${entry.id}: ${over.join(", ")}`);
         expect(unflagged).toEqual([]);
@@ -343,7 +345,7 @@ describe("Printed Battledroids droids: building and saving", () => {
         for (const entry of battledroidsPrintedDroids) {
             expect(entry.model, entry.id).toMatch(/^[A-Z]{2,3}\d*-[0-9A-Z]+/);
             expect(entry.source, entry.id).not.toBe("");
-            expect(buildPrintedDroid(entry).model, entry.id).toBe(entry.model);
+            expect(built(entry.id).model, entry.id).toBe(entry.model);
         }
     }, 30000);
 });
