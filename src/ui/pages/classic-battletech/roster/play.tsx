@@ -35,6 +35,9 @@ import FighterPlayPanel from './_fighterPlay';
 import SmallCraft from '../../../../classes/small-craft';
 import { smallCraftName } from './_smallCraftGroupTable';
 import SmallCraftPlayPanel from './_smallCraftPlay';
+import CapitalShip from '../../../../classes/capital-ship';
+import { capitalShipName } from './_capitalShipGroupTable';
+import CapitalShipPlayPanel from './_capitalShipPlay';
 import InfantryPlatoon from '../../../../classes/infantry-platoon';
 import InfantryPlayPanel from './_infantryPlay';
 import BattleArmor from '../../../../classes/battle-armor';
@@ -454,6 +457,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           for( let craft of group.smallCraft ) {
             craft.turnReset();
           }
+          for( let ship of group.capitalShips ) {
+            ship.turnReset();
+          }
           for( let building of group.buildings ) {
             building.startTurn();
           }
@@ -759,7 +765,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | SmallCraft | InfantryPlatoon | BattleArmor | ProtoMech | Building | BattledroidsUnit ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | SmallCraft | CapitalShip | InfantryPlatoon | BattleArmor | ProtoMech | Building | BattledroidsUnit ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -798,6 +804,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let craft of group.smallCraft ) {
             craft.resetInPlay();
+          }
+          for( let ship of group.capitalShips ) {
+            ship.resetInPlay();
           }
           for( let platoon of group.infantry ) {
             platoon.resetInPlay();
@@ -1277,6 +1286,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         for( let craft of group.smallCraft ) {
           if( craft.getUUID() === this.state.selectedVehicleUUID ) {
             selectedSmallCraft = craft;
+          }
+        }
+      }
+      // So is a JumpShip, WarShip or space station.
+      let selectedCapitalShip: CapitalShip | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let ship of group.capitalShips ) {
+          if( ship.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedCapitalShip = ship;
           }
         }
       }
@@ -2877,6 +2895,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               craft={selectedSmallCraft}
               onChange={this.onVehicleChange}
             />
+          ) : selectedCapitalShip ? (
+            <CapitalShipPlayPanel
+              key={selectedCapitalShip.getUUID()}
+              ship={selectedCapitalShip}
+              onChange={this.onVehicleChange}
+            />
           ) : selectedVehicle ? (
             <VehiclePlayPanel
               vehicle={selectedVehicle}
@@ -3281,6 +3305,44 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                               background="#aaa"
                               currentPercentage={craft.getStructurePercentage()}
                               currentNumber={craft.getCurrentStructure()}
+                              height={8}
+                              title="Current Structural Integrity"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.capitalShips.map( (ship) => (
+                    <li key={ship.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, ship.getUUID())}
+                        className={selectedCapitalShip && selectedCapitalShip.getUUID() === ship.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + capitalShipName(ship)}
+                      >
+                        {capitalShipName(ship)}
+                        <div className="stats">
+{ship.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="blue"
+                              background="#aaa"
+                              currentPercentage={ship.getArmorPercentage()}
+                              currentNumber={ship.getCurrentArmor()}
+                              height={8}
+                              title="Current Armor Status"
+                            />
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={ship.getStructurePercentage()}
+                              currentNumber={ship.getCurrentStructure()}
                               height={8}
                               title="Current Structural Integrity"
                             />

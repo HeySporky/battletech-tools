@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import CapitalShip from "./capital-ship";
+import { getCapitalShipHitLocation } from "../data/capital-ship-hit-tables";
 
 // The worked examples of the construction chapter (SO:AA pp.132-147), built through the class: each check is a
 // running "unspent tons" total the book prints.
@@ -286,5 +287,80 @@ describe("CapitalShip (SO:AA pp.130-149)", () => {
         expect(card.arcs.front.CAP.map((value) => value.damage)).toEqual([13, 13, 13, 13]);
         expect(card.arcs.left.CAP.map((value) => value.damage)).toEqual([13, 13, 13, 13]);
         expect(card.arcs.front.STD.map((value) => value.damage)).toEqual([0, 0, 0, 0]);
+    });
+
+    it("play: the SO:AA p.83 hit table, by attack direction", () => {
+        expect(getCapitalShipHitLocation(6, "nose", true)).toEqual({ facing: "nose", critical: "cic", weaponArc: null });
+        expect(getCapitalShipHitLocation(12, "aft", true)).toEqual({ facing: "aft", critical: "kfDrive", weaponArc: null });
+        // Side 7: Aft-Side / Broadside Weapon. A JumpShip has no broadside, so no bay is hit.
+        expect(getCapitalShipHitLocation(7, "left", true)).toEqual({ facing: "aftLeft", critical: "weapon", weaponArc: "leftBroadside" });
+        expect(getCapitalShipHitLocation(7, "right", false).weaponArc).toBeNull();
+        expect(getCapitalShipHitLocation(4, "right", true)).toEqual({ facing: "foreRight", critical: "weapon", weaponArc: "foreRight" });
+        // Above or below: the Side column on a random side (4-6 left).
+        expect(getCapitalShipHitLocation(5, "above", true, 5).facing).toBe("foreLeft");
+    });
+
+    it("play: standard-scale damage is a tenth against capital armor, and half the excess reaches SI (TW p.238)", () => {
+        const ship = buildVincent();
+        // A 25-point standard attack to the nose: 3 capital points (2.5 rounds up), under the nose's Threshold of 2? No: 16 armor, Threshold 2.
+        const log = ship.resolveAttack(7, "nose", 25, { standardScale: true, criticalRolls: [2] });
+        expect(ship.getCurrentFacingArmor("nose")).toBe(13);
+        expect(log[0]).toContain("25 standard-scale damage / 10 = 3");
+        // 3 over the Threshold of 2: a critical check (2 here, no hit).
+        expect(log[1]).toContain("no critical hit");
+        // 20 capital points into 13 left: 7 over, 3 to SI (rounded down).
+        ship.resolveAttack(7, "nose", 20, { criticalRolls: [2, 2] });
+        expect(ship.getCurrentStructure()).toBe(37);
+    });
+
+    it("play: a K-F Drive hit takes 1 Drive Integrity; at 0 the ship cannot jump (SO:AA p.82)", () => {
+        const ship = buildVincent();
+        const integrity = ship.getKFDriveIntegrity();
+        ship.resolveAttack(12, "nose", 10, { criticalRolls: [8] });
+        expect(ship.getCurrentKFDriveIntegrity()).toBe(integrity - 1);
+        ship.setKFDriveDamage(integrity);
+        expect(ship.canJump()).toBe(false);
+    });
+
+    it("play: a Weapon hit on Large Craft takes out a bay; both bays of an arc wait for a choice (TW p.240)", () => {
+        const ship = buildVincent();
+        // Fore-Right holds a capital bay (NAC/10) and a standard bay (Large Lasers).
+        const log = ship.resolveAttack(4, "nose", 10, { criticalRolls: [9] }, () => 0.9);
+        expect(log.join(" ")).toContain("attacking player chooses a bay");
+        const pending = ship.getPendingWeaponCritical();
+        expect(pending?.arc).toBe("foreRight");
+        expect(ship.resolvePendingWeaponCritical(pending!.bays[0].index)).toBe(true);
+        expect(ship.getWorkingBays("foreRight")).toHaveLength(1);
+    });
+
+    it("play: arcs fired in a turn may not pass the heat sinks (zero net heat, TW p.161)", () => {
+        const ship = buildVincent();
+        // 493 heat sinks. Heavy Naval PPCs (225 heat) in the nose and left broadside push those arcs to 245 and 271.
+        ship.addCapitalWeapon("heavy-n-ppc", "nose");
+        ship.addCapitalWeapon("heavy-n-ppc", "leftBroadside");
+        expect(ship.getArcHeat("leftBroadside")).toBe(30 + 16 + 225);
+        expect(ship.setArcFired("nose", true)).toBe(true);
+        // 245 + 271 = 516 is over 493: the broadside may not fire this turn.
+        expect(ship.setArcFired("leftBroadside", false)).toBe(true);
+        expect(ship.setArcFired("leftBroadside", true)).toBe(false);
+        expect(ship.setArcFired("foreLeft", true)).toBe(true);
+        expect(ship.getHeatThisTurn()).toBe(245 + 46);
+        ship.turnReset();
+        expect(ship.getHeatThisTurn()).toBe(0);
+    });
+
+    it("play: damage and crew are saved with the vessel and can be left out", () => {
+        const ship = buildVincent();
+        ship.setArmorDamage("aft", 5);
+        ship.setCriticalHits("cic", 2);
+        ship.setBayDestroyed("nose", 0, true);
+        ship.getPilot().gunnery = 3;
+        const copy = new CapitalShip(ship.exportJSON());
+        expect(copy.getCurrentFacingArmor("aft")).toBe(11);
+        expect(copy.getInPlay().cic).toBe(2);
+        expect(copy.isBayDestroyed("nose", 0)).toBe(true);
+        expect(copy.getPilot().gunnery).toBe(3);
+        expect(copy.getDamageToHitModifier()).toBe(4);
+        expect(ship.export(true).inPlay).toBeUndefined();
     });
 });

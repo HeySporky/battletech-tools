@@ -483,7 +483,7 @@ played first, then by dependency.
   - 2026-10-15: the construction model for all three is in `advanced-aerospace-construction.ts` and
     `classes/capital-ship.ts` (SO:AA pp.130-149 with errata v5.0); the three book examples reproduce. Creator
     pages, Battle Value, record sheet and Alpha Strike card are done (below). Still owed: cost check against a
-    published design, play, pressurized repair bays (TO:AUE p.146), and checking imports against the mm-data
+    published design, pressurized repair bays (TO:AUE p.146), and checking imports against the mm-data
     JumpShip, WarShip and station samples.
   - JumpShip firing arcs: SO:AA p.142's text gives JumpShips the broadsides, its p.133 table does not. Same
     book, so MegaMek decides (broadsides on WarShips only); flagged in the module.
@@ -506,6 +506,13 @@ played first, then by dependency.
   it); (4) p.103 gives stations six arcs, the cards and MegaMek four; (5) Vincent PV 110 here, 107 on the card, gap not
   found; (6) PNT is one value for the ship, MegaMek splits it by arc. Some JumpShip cards print Thrust "2" for 0.2k.
   Still to do: MFB from repair bays, offensive special ability factors (MegaMek adds them on a forum ruling).
+- [x] JumpShip, WarShip and station play (TW pp.237-240; SO:AA pp.82-83): vessels join roster groups (up to 50) with a
+  crew and skill-adjusted BV, and play mode resolves a hit from the SO:AA p.83 table (Above/Below on the Side column of a
+  random side, as TW p.238 does for DropShips): standard-scale damage / 10, armor by facing, Damage Threshold, excess to
+  SI halved and rounded down (TW p.238; MegaMek rounds normally), critical checks at 8+ and capital missiles' own numbers,
+  weapon bay hits with the 1D6 chooser, K-F drive (integrity -1, 0 = cannot jump), grav decks, collars, doors, cargo,
+  engine / CIC / sensor / crew / thruster tracks, and zero net heat per fired arc. Print adds the vessel's record sheet
+  without damage marks (the sheet has none yet).
 - [ ] SDS (Caspar) drone control system (IO p.143; Historical: Liberation of Terra I p.159): a percentage of
   the vessel's weight on top of the controls, quarters for half the minimum crew, the SDS self-destruct, and
   WarShip drones of 800,000 tons at most. SDS WarShip drones still carry a K-F drive; the fail-safe only stops

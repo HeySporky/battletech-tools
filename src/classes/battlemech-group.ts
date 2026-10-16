@@ -3,6 +3,7 @@ import { BattleMech, IBattleMechExport } from "./battlemech";
 import Vehicle, { IVehicleExport } from "./vehicle";
 import AerospaceFighter, { IAerospaceFighterExport } from "./aerospace-fighter";
 import SmallCraft, { ISmallCraftExport } from "./small-craft";
+import CapitalShip, { ICapitalShipExport } from "./capital-ship";
 import InfantryPlatoon, { IInfantryPlatoonExport } from "./infantry-platoon";
 import Building, { IBuildingExport } from "./building";
 import BattleArmor, { IBattleArmorExport } from "./battle-armor";
@@ -13,6 +14,7 @@ import BattledroidsUnit, { IBattledroidsUnitExport, findBattledroidsUnitDesign }
 export const MAX_GROUP_VEHICLES = 100;
 export const MAX_GROUP_FIGHTERS = 100;
 export const MAX_GROUP_SMALL_CRAFT = 100;
+export const MAX_GROUP_CAPITAL_SHIPS = 50;
 export const MAX_GROUP_INFANTRY = 100;
 export const MAX_GROUP_BUILDINGS = 100;
 export const MAX_GROUP_BATTLE_ARMOR = 100;
@@ -25,6 +27,7 @@ export interface ICBTGroupExport {
 	vehicles?: IVehicleExport[];
 	fighters?: IAerospaceFighterExport[];
 	smallCraft?: ISmallCraftExport[];
+	capitalShips?: ICapitalShipExport[];
 	infantry?: IInfantryPlatoonExport[];
 	battleArmor?: IBattleArmorExport[];
 	protoMechs?: IProtoMechExport[];
@@ -47,6 +50,8 @@ export class BattleMechGroup {
     public vehicles: Vehicle[] = [];
     public fighters: AerospaceFighter[] = [];
     public smallCraft: SmallCraft[] = [];
+    // JumpShips, WarShips and space stations.
+    public capitalShips: CapitalShip[] = [];
     public infantry: InfantryPlatoon[] = [];
     public battleArmor: BattleArmor[] = [];
     // ProtoMech Points: each entry is one design fielded as up to five ProtoMechs.
@@ -72,7 +77,7 @@ export class BattleMechGroup {
 			}
 		}
 		return this.vehicles.some( (vehicle) => vehicle.isDamaged() ) || this.fighters.some( (fighter) => fighter.isDamaged() )
-			|| this.smallCraft.some( (craft) => craft.isDamaged() )
+			|| this.smallCraft.some( (craft) => craft.isDamaged() ) || this.capitalShips.some( (ship) => ship.isDamaged() )
 			|| this.infantry.some( (platoon) => platoon.isDamaged() ) || this.battleArmor.some( (squad) => squad.isDamaged() )
 			|| this.protoMechs.some( (point) => point.isDamaged() )
 			|| this.buildings.some( (building) => building.isDamaged() )
@@ -105,6 +110,9 @@ export class BattleMechGroup {
 		}
 		for( let craft of this.smallCraft ) {
 			craft.newUUID();
+		}
+		for( let ship of this.capitalShips ) {
+			ship.newUUID();
 		}
 		for( let platoon of this.infantry ) {
 			platoon.newUUID();
@@ -139,6 +147,9 @@ export class BattleMechGroup {
         for( let craft of this.smallCraft ) {
             rv += craft.getPilotAdjustedBattleValue();
         }
+        for( let ship of this.capitalShips ) {
+            rv += ship.getPilotAdjustedBattleValue();
+        }
         for( let platoon of this.infantry ) {
             rv += platoon.getSkillAdjustedBattleValue();
         }
@@ -167,6 +178,9 @@ export class BattleMechGroup {
         for( let craft of this.smallCraft ) {
             rv += craft.getTonnage();
         }
+        for( let ship of this.capitalShips ) {
+            rv += ship.getTonnage();
+        }
         // Infantry count by their transport weight (TM p. 155).
         for( let platoon of this.infantry ) {
             rv += platoon.getWeight();
@@ -186,7 +200,7 @@ export class BattleMechGroup {
         let rv = "";
 
         const techNames = [
-            ...[...this.members, ...this.vehicles, ...this.fighters, ...this.smallCraft].map( (unit) => unit.getTech().name ),
+            ...[...this.members, ...this.vehicles, ...this.fighters, ...this.smallCraft, ...this.capitalShips].map( (unit) => unit.getTech().name ),
             ...this.infantry.map( (platoon) => platoon.getTechName() ),
             ...this.battleArmor.map( (squad) => squad.isMixedTech() ? "Mixed" : squad.isClan() ? "Clan" : "Inner Sphere" ),
             ...this.protoMechs.map( (point) => point.hasInterfaceCockpit() ? "Mixed" : "Clan" ),
@@ -224,6 +238,12 @@ export class BattleMechGroup {
 		for( let fighter of fighters ) {
 			if( fighter && typeof fighter === "object" && !Array.isArray(fighter) ) {
 				this.fighters.push( new AerospaceFighter( JSON.stringify(fighter) ) );
+			}
+		}
+		const capitalShips = Array.isArray(importObj.capitalShips) ? importObj.capitalShips.slice(0, MAX_GROUP_CAPITAL_SHIPS) : [];
+		for( let ship of capitalShips ) {
+			if( ship && typeof ship === "object" && !Array.isArray(ship) ) {
+				this.capitalShips.push( new CapitalShip( JSON.stringify(ship) ) );
 			}
 		}
 		// Small Craft likewise: a capped list, read through the craft's own validating import.
@@ -299,6 +319,7 @@ export class BattleMechGroup {
 			...(this.battleArmor.length > 0 ? { battleArmor: this.battleArmor.map( (squad) => squad.export(noInPlayVariabless) ) } : {}),
 			...(this.protoMechs.length > 0 ? { protoMechs: this.protoMechs.map( (point) => point.export(noInPlayVariabless) ) } : {}),
 			...(this.smallCraft.length > 0 ? { smallCraft: this.smallCraft.map( (craft) => craft.export(noInPlayVariabless) ) } : {}),
+			...(this.capitalShips.length > 0 ? { capitalShips: this.capitalShips.map( (ship) => ship.export(noInPlayVariabless) ) } : {}),
 			...(this.battledroidsUnits.length > 0 ? { battledroidsUnits: this.battledroidsUnits.map( (unit) => unit.export(noInPlayVariabless) ) } : {}),
 		}
 
@@ -313,7 +334,7 @@ export class BattleMechGroup {
     }
 
 	public getTotalUnits(): number {
-        return this.members.length + this.vehicles.length + this.fighters.length + this.smallCraft.length + this.infantry.length + this.battleArmor.length + this.protoMechs.length + this.buildings.length + this.battledroidsUnits.length;
+        return this.members.length + this.vehicles.length + this.fighters.length + this.smallCraft.length + this.capitalShips.length + this.infantry.length + this.battleArmor.length + this.protoMechs.length + this.buildings.length + this.battledroidsUnits.length;
     }
 
 }

@@ -11,6 +11,7 @@ import VehicleRecordSheet from "../../../components/vehicle-record-sheet";
 import { vehicleName } from "./_vehicleGroupTable";
 import FighterRecordSheet from "../../../components/fighter-record-sheet";
 import SmallCraftRecordSheet from "../../../components/small-craft-record-sheet";
+import CapitalShipRecordSheet from "../../../components/capital-ship-record-sheet";
 import InfantryRecordSheet from "../../../components/infantry-record-sheet";
 import BattleArmorRecordSheet from "../../../components/battle-armor-record-sheet";
 import ProtoMechRecordSheet from "../../../components/protomech-record-sheet";
@@ -19,6 +20,7 @@ import BuildingRecordSheet from "../../../components/building-record-sheet";
 import { buildingSummary } from "./_buildingGroupTable";
 import { fighterName } from "./_fighterGroupTable";
 import { smallCraftName } from "./_smallCraftGroupTable";
+import { capitalShipName } from "./_capitalShipGroupTable";
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const PrintIcon = FaPrint as any;
 
@@ -41,6 +43,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         ...groups.flatMap( (group) => group.vehicles ).map( (vehicle) => vehicle.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.fighters ).map( (fighter) => fighter.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.smallCraft ).map( (craft) => craft.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.capitalShips ).map( (ship) => ship.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.infantry ).map( (platoon) => platoon.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.battleArmor ).map( (squad) => squad.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.protoMechs ).map( (point) => point.getRequiredRulesLevel() ),
@@ -254,6 +257,33 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       </tr>
                     </tbody>
                     ))}
+                    {group.capitalShips.map( (ship) => (
+                    <tbody key={ship.getUUID()}>
+                      <tr>
+                        <td>
+                          {capitalShipName(ship)} ({ship.getShipTypeName()})
+                        </td>
+                        <td>
+                          {ship.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {ship.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {ship.getPilot().piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {ship.getPilot().gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {ship.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {ship.getPilotAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
                     {group.infantry.map( (platoon) => (
                     <tbody key={platoon.getUUID()}>
                       <tr>
@@ -440,6 +470,16 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                           craft={craft}
                           showPilot={true}
                           showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.capitalShips.map( (ship) => (
+                      <div className={"page"} key={ship.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={ship.getRequiredRulesLevel()}
+                        />
+                        <CapitalShipRecordSheet
+                          ship={ship}
                         />
                       </div>
                   ))}

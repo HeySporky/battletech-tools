@@ -5,6 +5,9 @@ import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
 import SmallCraft from "./small-craft";
+import Pilot, { IPilot } from "./pilot";
+import { getSkillMultiplier } from "../data/skill-multipliers";
+import { CAPITAL_MISSILE_CRITICAL_CHANCE, CAPITAL_SHIP_CRITICAL_NAMES, CapitalShipAttackDirection, ICapitalShipHit, getCapitalShipHitLocation } from "../data/capital-ship-hit-tables";
 import { CUSTOM_HOMEBREW_RULES_LEVEL, getAmmoBattleValuePerTon, getCompatibleAmmo, getEquipmentRulesLevel, getEffectiveIntroduction, getEquipmentListByTech, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
 import { findByTag } from "../data/tag-match";
 import { getEquipmentSubtype } from "../data/equipment-subtypes";
@@ -36,7 +39,7 @@ import {
 // JumpShip, WarShip and space station construction (Strategic Operations: Advanced Aerospace Rules pp.130-149).
 // The steps follow the DropShip ones (TM pp.180-197), so quarters, transport bays, escape systems, capital weapons and
 // the aerospace armor catalog are shared with SmallCraft; what differs (six facings, up to eight firing arcs, the
-// K-F drive, docking collars, grav decks) comes from advanced-aerospace-construction.ts. Play is not built yet.
+// K-F drive, docking collars, grav decks) comes from advanced-aerospace-construction.ts.
 
 export const MAX_CAPITAL_SHIP_EQUIPMENT = 1000;
 export const MAX_CAPITAL_SHIP_CAPITAL_WEAPONS = 500;
@@ -74,6 +77,50 @@ export interface ICapitalShipAlphaStrikeStats {
     calcLog: string;
 }
 
+export type CapitalShipCriticalTrack = "avionics" | "cic" | "sensors" | "crewHits" | "leftThruster" | "rightThruster" | "engine";
+/** Critical damage tracks and how many boxes each has (SO:AA pp.10-11; TW pp.239-240). */
+export const CAPITAL_SHIP_CRITICAL_TRACKS: { tag: CapitalShipCriticalTrack; name: string; max: number }[] = [
+    { tag: "avionics", name: "Avionics", max: 3 },
+    { tag: "cic", name: "CIC", max: 3 },
+    { tag: "sensors", name: "Sensors", max: 3 },
+    { tag: "crewHits", name: "Crew", max: 6 },
+    { tag: "leftThruster", name: "Left Thrusters", max: 4 },
+    { tag: "rightThruster", name: "Right Thrusters", max: 4 },
+    { tag: "engine", name: "Engine", max: 6 },
+];
+export interface ICapitalShipPendingWeaponCritical {
+    arc: AdvancedAerospaceArc;
+    /** Who picks the bay: 1-3 on 1D6 the controlling player, 4-6 the attacker (TW p.240). */
+    chooser: "controlling" | "attacking";
+}
+export interface ICapitalShipInPlay {
+    armorDamage: ICapitalShipArmorAllocation;
+    structureDamage: number;
+    avionics: number;
+    cic: number;
+    sensors: number;
+    crewHits: number;
+    leftThruster: number;
+    rightThruster: number;
+    engine: number;
+    lifeSupport: boolean;
+    kfDriveDamage: number;
+    dockingCollarsDamaged: number;
+    gravDecksDamaged: number;
+    doorsDamaged: number;
+    cargoLostPercent: number;
+    fuelExploded: boolean;
+    /** Weapon bays lost to critical hits, as "arc:index" of getArcWeaponBays(). */
+    destroyedBays: string[];
+    firedArcs: AdvancedAerospaceArc[];
+    pendingWeaponCriticals: ICapitalShipPendingWeaponCritical[];
+}
+const newCapitalShipInPlay = (): ICapitalShipInPlay => ({
+    armorDamage: { nose: 0, foreLeft: 0, foreRight: 0, aftLeft: 0, aftRight: 0, aft: 0 }, structureDamage: 0, avionics: 0, cic: 0, sensors: 0,
+    crewHits: 0, leftThruster: 0, rightThruster: 0, engine: 0, lifeSupport: false, kfDriveDamage: 0, dockingCollarsDamaged: 0,
+    gravDecksDamaged: 0, doorsDamaged: 0, cargoLostPercent: 0, fuelExploded: false, destroyedBays: [], firedArcs: [], pendingWeaponCriticals: [],
+});
+
 export interface ICapitalShipMount {
     uuid: string;
     weapon: ICapitalWeapon;
@@ -102,6 +149,8 @@ export interface ICapitalShipMountExport {
 }
 
 export interface ICapitalShipExport {
+    pilot?: IPilot;
+    inPlay?: ICapitalShipInPlay;
     /** The rules edition it is built under (rules-editions.ts); absent means Total Warfare. */
     rulesEdition?: string;
     version: number;
@@ -218,6 +267,8 @@ export default class CapitalShip {
     private _equipmentList: IEquipmentItem[] = [];
     private _capitalWeapons: ICapitalShipMount[] = [];
     private _importIssues: string[] = [];
+    private _pilot: Pilot = new Pilot();
+    private _inPlay: ICapitalShipInPlay = newCapitalShipInPlay();
 
     private _weights: { name: string; weight: number }[] = [];
     private _currentTonnage: number = 0;
@@ -1343,10 +1394,288 @@ export default class CapitalShip {
             + `<br />Subtotal ${money(subtotal)} x ${multiplier} (${escapeLogText(this.getShipTypeName())}${this.hasKFBoom() ? " with a K-F boom" : ""}) = <strong>${money(this._cost)}</strong>`;
     }
 
+    // Roster and play ------------------------------------------------------------------------------------------
+    // Total Warfare's aerospace rules (pp.237-240) with SO:AA's hit location table and critical hits (pp.82-83).
+    // Armor and Structural Integrity are capital scale: standard-scale damage is totaled per location and divided by
+    // 10, rounding .5 up (TW p.238).
+
+    public getPilot(): Pilot { return this._pilot; }
+    public setPilot(pilot: Pilot): Pilot {
+        this._pilot = pilot;
+        return this._pilot;
+    }
+
+    /** Battle Value adjusted for the crew's skills, with the multipliers Small Craft use. */
+    public getPilotAdjustedBattleValue(edition?: string): number {
+        const multiplier = getSkillMultiplier(this._pilot.gunnery ?? 4, this._pilot.piloting ?? 5, "fighter", edition) ?? 1;
+        return Math.round(this._battleValue * multiplier);
+    }
+
+    public getInPlay(): ICapitalShipInPlay { return this._inPlay; }
+    public resetInPlay(): void { this._inPlay = newCapitalShipInPlay(); }
+    /** A new turn: no arc has fired yet. */
+    public turnReset(): void { this._inPlay.firedArcs = []; }
+
+    public static bayKey(arc: AdvancedAerospaceArc, index: number): string { return `${arc}:${index}`; }
+    public isBayDestroyed(arc: AdvancedAerospaceArc, index: number): boolean { return this._inPlay.destroyedBays.includes(CapitalShip.bayKey(arc, index)); }
+    public setBayDestroyed(arc: AdvancedAerospaceArc, index: number, destroyed: boolean): void {
+        const key = CapitalShip.bayKey(arc, index);
+        this._inPlay.destroyedBays = this._inPlay.destroyedBays.filter((entry) => entry !== key);
+        if (destroyed && this.getArcs().includes(arc) && index >= 0 && index < this.getArcWeaponBays(arc).length) this._inPlay.destroyedBays.push(key);
+    }
+    /** The bays of an arc that can still fire, with their index in getArcWeaponBays(). */
+    public getWorkingBays(arc: AdvancedAerospaceArc): (ICapitalShipWeaponBay & { index: number })[] {
+        return this.getArcWeaponBays(arc).map((bay, index) => ({ ...bay, index })).filter((bay) => !this.isBayDestroyed(arc, bay.index));
+    }
+
+    /**
+     * Large Craft work on zero net heat: firing an arc costs the heat of all its working bays, and the arcs fired in a
+     * turn may not pass the heat sinks' dissipation (TW p.161; SO:AA p.82).
+     */
+    public getArcHeat(arc: AdvancedAerospaceArc): number { return this.getWorkingBays(arc).reduce((sum, bay) => sum + bay.heat, 0); }
+    public getHeatThisTurn(): number { return this._inPlay.firedArcs.reduce((sum, arc) => sum + this.getArcHeat(arc), 0); }
+    public isArcFired(arc: AdvancedAerospaceArc): boolean { return this._inPlay.firedArcs.includes(arc); }
+    /** Marks an arc as fired; false (and not marked) when its heat would pass the dissipation or it has no working bay. */
+    public setArcFired(arc: AdvancedAerospaceArc, fired: boolean): boolean {
+        this._inPlay.firedArcs = this._inPlay.firedArcs.filter((entry) => entry !== arc);
+        if (!fired) return true;
+        if (!this.getArcs().includes(arc) || this.getWorkingBays(arc).length === 0 || this._inPlay.cic >= 3) return false;
+        if (this.getHeatThisTurn() + this.getArcHeat(arc) > this.getHeatDissipation()) return false;
+        this._inPlay.firedArcs.push(arc);
+        return true;
+    }
+
+    public getCurrentFacingArmor(facing: AdvancedAerospaceFacing): number { return Math.max(0, this.getFacingArmor(facing) - this._inPlay.armorDamage[facing]); }
+    public getCurrentArmor(): number { return ADVANCED_AEROSPACE_FACINGS.reduce((sum, facing) => sum + this.getCurrentFacingArmor(facing), 0); }
+    public getArmorPercentage(): number {
+        const total = ADVANCED_AEROSPACE_FACINGS.reduce((sum, facing) => sum + this.getFacingArmor(facing), 0);
+        return total > 0 ? Math.round(this.getCurrentArmor() / total * 100) : 0;
+    }
+    public getCurrentStructure(): number { return Math.max(0, this.getStructuralIntegrity() - this._inPlay.structureDamage); }
+    public getStructurePercentage(): number { return Math.round(this.getCurrentStructure() / Math.max(1, this.getStructuralIntegrity()) * 100); }
+    public setArmorDamage(facing: AdvancedAerospaceFacing, points: number): void {
+        if (ADVANCED_AEROSPACE_FACINGS.includes(facing)) this._inPlay.armorDamage[facing] = wholeNumber(points, 0, this.getFacingArmor(facing));
+    }
+    public setStructureDamage(points: number): void { this._inPlay.structureDamage = wholeNumber(points, 0, this.getStructuralIntegrity()); }
+    public setCriticalHits(track: CapitalShipCriticalTrack, hits: number): void {
+        const max = CAPITAL_SHIP_CRITICAL_TRACKS.find((entry) => entry.tag === track)?.max;
+        if (max !== undefined) this._inPlay[track] = wholeNumber(hits, 0, max);
+    }
+    public setLifeSupportDamaged(damaged: boolean): void { this._inPlay.lifeSupport = damaged === true; }
+    public setKFDriveDamage(points: number): void { this._inPlay.kfDriveDamage = wholeNumber(points, 0, this.hasKFDrive() ? this.getKFDriveIntegrity() : 0); }
+    public setDockingCollarsDamaged(count: number): void { this._inPlay.dockingCollarsDamaged = wholeNumber(count, 0, this._dockingCollars); }
+    public setGravDecksDamaged(count: number): void { this._inPlay.gravDecksDamaged = wholeNumber(count, 0, this.getGravDeckCount()); }
+    public setDoorsDamaged(count: number): void { this._inPlay.doorsDamaged = wholeNumber(count, 0, this.getBayDoors()); }
+    public setCargoLostPercent(percent: number): void { this._inPlay.cargoLostPercent = wholeNumber(percent, 0, 100); }
+
+    public getCurrentKFDriveIntegrity(): number { return this.hasKFDrive() ? Math.max(0, this.getKFDriveIntegrity() - this._inPlay.kfDriveDamage) : 0; }
+    /** A K-F drive at Integrity 0 cannot jump (SO:AA p.82). */
+    public canJump(): boolean { return this.getCurrentKFDriveIntegrity() > 0; }
+    public isEngineDestroyed(): boolean { return this._inPlay.engine >= 6; }
+    /** Each engine hit takes 1 Safe Thrust; the sixth destroys the engine (TW p.240). */
+    public getCurrentSafeThrust(): number { return this.isEngineDestroyed() ? 0 : Math.max(0, this.getSafeThrust() - this._inPlay.engine); }
+    public getCurrentMaxThrust(): number { return Math.ceil(this.getCurrentSafeThrust() * 1.5); }
+    public isDestroyed(): boolean { return this.getCurrentStructure() <= 0 || this._inPlay.fuelExploded; }
+    public isDamaged(): boolean {
+        const play = this._inPlay;
+        return ADVANCED_AEROSPACE_FACINGS.some((facing) => play.armorDamage[facing] > 0) || play.structureDamage > 0
+            || CAPITAL_SHIP_CRITICAL_TRACKS.some((track) => play[track.tag] > 0) || play.lifeSupport || play.kfDriveDamage > 0
+            || play.dockingCollarsDamaged > 0 || play.gravDecksDamaged > 0 || play.doorsDamaged > 0 || play.cargoLostPercent > 0
+            || play.fuelExploded || play.destroyedBays.length > 0;
+    }
+    /** To-hit modifier from damage: CIC +2 a hit (no attacks at 3), sensors +1, +2, then +5, crew +1 a hit (TW pp.239-240). Null when the ship cannot attack. */
+    public getDamageToHitModifier(): number | null {
+        const play = this._inPlay;
+        if (play.cic >= 3 || play.crewHits >= 6) return null;
+        return play.cic * 2 + (play.sensors >= 3 ? 5 : play.sensors) + play.crewHits;
+    }
+    /** Control Roll modifier: avionics +1, +2, then +5 when destroyed; +2 for failed life support (TW pp.239-240). */
+    public getControlRollModifier(): number { return (this._inPlay.avionics >= 3 ? 5 : this._inPlay.avionics) + (this._inPlay.lifeSupport ? 2 : 0); }
+
+    public getPendingWeaponCritical(): (ICapitalShipPendingWeaponCritical & { bays: (ICapitalShipWeaponBay & { index: number })[] }) | null {
+        const pending = this._inPlay.pendingWeaponCriticals[0];
+        return pending ? { ...pending, bays: this.getWorkingBays(pending.arc) } : null;
+    }
+    /** Destroys the chosen bay for the waiting critical hit. False when it is not a working bay of that arc. */
+    public resolvePendingWeaponCritical(index: number): boolean {
+        const pending = this.getPendingWeaponCritical();
+        if (!pending || !pending.bays.some((bay) => bay.index === index)) return false;
+        this.setBayDestroyed(pending.arc, index, true);
+        this._inPlay.pendingWeaponCriticals.shift();
+        return true;
+    }
+    public skipPendingWeaponCritical(): void { this._inPlay.pendingWeaponCriticals.shift(); }
+
+    private _applyCritical(hit: ICapitalShipHit, damage: number, random: () => number, fuelRoll?: number): string {
+        const play = this._inPlay;
+        const d6 = () => Math.floor(random() * 6) + 1;
+        switch (hit.critical) {
+            case "avionics":
+                play.avionics = Math.min(3, play.avionics + 1);
+                return `Avionics hit ${play.avionics}: Control Rolls at +${play.avionics >= 3 ? 5 : play.avionics}; make a Control Roll now`;
+            case "control":
+                return "Control hit: make a Control Roll, or go out of control";
+            case "crew":
+                play.crewHits = Math.min(6, play.crewHits + 1);
+                return play.crewHits >= 6 ? "Crew hit 6: the crew is disabled" : `Crew hit ${play.crewHits}: +1 to hit for each`;
+            case "engine":
+                play.engine = Math.min(6, play.engine + 1);
+                return play.engine >= 6 ? "Engine hit 6: the engine is destroyed"
+                    : `Engine hit ${play.engine}: Safe Thrust -1 (now ${this.getCurrentSafeThrust()}/${this.getCurrentMaxThrust()})`;
+            case "cic":
+                play.cic = Math.min(3, play.cic + 1);
+                return play.cic >= 3 ? "CIC hit 3: the Combat Information Center is destroyed; no weapon attacks" : `CIC hit ${play.cic}: +2 to hit for each`;
+            case "sensors":
+                play.sensors = Math.min(3, play.sensors + 1);
+                return play.sensors >= 3 ? "Sensor hit 3: the sensors are destroyed; +5 to hit" : `Sensor hit ${play.sensors}: +1 to hit for each`;
+            case "lifeSupport":
+                play.lifeSupport = true;
+                return "Life support fails: +2 to all Control Rolls";
+            case "thruster": {
+                const left = hit.facing === "foreLeft" || hit.facing === "aftLeft";
+                const track = left ? "leftThruster" : "rightThruster";
+                play[track] = Math.min(4, play[track] + 1);
+                const away = left ? "right" : "left";
+                return play[track] >= 4 ? `${left ? "Left" : "Right"} thruster hit 4: the thrusters are out; no turns to the ${away}`
+                    : `${left ? "Left" : "Right"} thruster hit ${play[track]}: turns to the ${away} cost ${play[track]} more`;
+            }
+            case "kfDrive":
+                if (!this.hasKFDrive()) return "K-F Drive hit: no K-F drive, no effect";
+                play.kfDriveDamage = Math.min(this.getKFDriveIntegrity(), play.kfDriveDamage + 1);
+                return `K-F Drive hit: Drive Integrity ${this.getCurrentKFDriveIntegrity()}${this.canJump() ? "" : "; the ship cannot jump"}`;
+            case "dockingCollar":
+                if (play.dockingCollarsDamaged >= this._dockingCollars) return "Docking Collar hit: no working collar, no effect";
+                play.dockingCollarsDamaged += 1;
+                return "Docking Collar hit: one collar can no longer take a DropShip";
+            case "gravDeck":
+                if (play.gravDecksDamaged >= this.getGravDeckCount()) return "Grav Deck hit: no working grav deck, no effect";
+                play.gravDecksDamaged += 1;
+                return "Grav Deck hit: a grav deck, picked at random, is out (no effect in the battle)";
+            case "door":
+                if (play.doorsDamaged >= this.getBayDoors()) return "Door hit: no working bay door, no effect";
+                play.doorsDamaged += 1;
+                return "Door hit: one bay door, picked at random, cannot be used for the rest of the scenario";
+            case "cargo": {
+                // Capital-scale damage over twice the SI (TW p.239 uses standard scale only for DropShips and Small Craft).
+                const percent = Math.min(100, Math.ceil(damage / (2 * Math.max(1, this.getStructuralIntegrity())) * 100));
+                play.cargoLostPercent = Math.min(100, play.cargoLostPercent + percent);
+                return `Cargo hit: ${percent} percent of the cargo is destroyed (damage ${damage} / twice the Structural Integrity); roll 1D6, 1-3 general cargo, 4-6 carried units`;
+            }
+            case "fuel": {
+                const roll = fuelRoll ?? d6() + d6();
+                if (roll >= 10) {
+                    play.fuelExploded = true;
+                    return `Fuel tank hit, roll ${roll}: the fuel explodes and the ship is destroyed`;
+                }
+                return `Fuel tank hit, roll ${roll}: no explosion (10+ explodes)`;
+            }
+            default: {
+                const arc = hit.weaponArc;
+                if (!arc || !this.getArcs().includes(arc)) return "Weapon hit: the ship has no such firing arc, no effect";
+                const arcName = this.getArcName(arc);
+                const working = this.getWorkingBays(arc);
+                const waiting = play.pendingWeaponCriticals.filter((pending) => pending.arc === arc).length;
+                if (working.length - waiting <= 0) return `Weapon hit on the ${arcName}: no working bay there, no effect`;
+                if (working.length === 1) {
+                    this.setBayDestroyed(arc, working[0].index, true);
+                    return `Weapon hit on the ${arcName}: the ${working[0].name} bay is destroyed`;
+                }
+                const chooser = d6();
+                play.pendingWeaponCriticals.push({ arc, chooser: chooser <= 3 ? "controlling" : "attacking" });
+                return `Weapon hit on the ${arcName}, roll ${chooser}: the ${chooser <= 3 ? "controlling" : "attacking"} player chooses a bay there to mark destroyed`;
+            }
+        }
+    }
+
+    /**
+     * Resolves one hit: hit location by attack direction and 2D6 (SO:AA p.83), capital-scale armor damage, half of any
+     * excess (rounded down, TW p.238; MegaMek rounds normally) against Structural Integrity, then a critical hit check
+     * (8+ on 2D6) for each of: damage over the facing's Damage Threshold, Structural Integrity damage and a natural 12;
+     * a capital missile adds its own check (TW p.239). Standard-scale damage is divided by 10, .5 up (TW p.238).
+     */
+    public resolveAttack(roll: number, direction: CapitalShipAttackDirection, damage: number,
+        options: { standardScale?: boolean; natural12?: boolean; sideRoll?: number; criticalRolls?: number[]; fuelRoll?: number; missileTag?: string } = {},
+        random: () => number = Math.random): string[] {
+        const d6 = () => Math.floor(random() * 6) + 1;
+        const log: string[] = [];
+        const given = Math.max(0, Math.floor(Number.isFinite(damage) ? damage : 0));
+        const points = options.standardScale ? Math.floor(given / 10 + 0.5) : given;
+        const hit = getCapitalShipHitLocation(roll, direction, this.isWarShip(), options.sideRoll ?? d6());
+        const facingName = this.getFacingName(hit.facing);
+        const armorDamage = Math.min(this.getCurrentFacingArmor(hit.facing), points);
+        this._inPlay.armorDamage[hit.facing] += armorDamage;
+        const structureDamage = Math.min(this.getCurrentStructure(), Math.floor((points - armorDamage) / 2));
+        this._inPlay.structureDamage += structureDamage;
+        log.push(`Hit location ${roll}: ${facingName} / ${CAPITAL_SHIP_CRITICAL_NAMES[hit.critical]} takes ${armorDamage} armor`
+            + (options.standardScale ? ` (${given} standard-scale damage / 10 = ${points})` : "")
+            + (points > armorDamage ? ` and ${structureDamage} Structural Integrity (half of the ${points - armorDamage} left over, rounded down)` : ""));
+        if (this.getCurrentStructure() <= 0) {
+            log.push("Structural Integrity is gone: the ship is destroyed");
+            return log;
+        }
+        const checks: { reason: string; target: number }[] = [];
+        const threshold = this.getDamageThresholds()[hit.facing];
+        if (points > threshold) checks.push({ reason: `damage ${points} over the Damage Threshold of ${threshold}`, target: 8 });
+        if (structureDamage >= 1) checks.push({ reason: "Structural Integrity damage", target: 8 });
+        if (options.natural12) checks.push({ reason: "a natural 12 to hit", target: 8 });
+        const missileChance = options.missileTag ? CAPITAL_MISSILE_CRITICAL_CHANCE[options.missileTag] : undefined;
+        if (missileChance !== undefined && armorDamage > 0) checks.push({ reason: "a capital missile", target: missileChance });
+        checks.forEach((check, index) => {
+            const result = options.criticalRolls?.[index] ?? d6() + d6();
+            if (result >= check.target) log.push(`Critical check for ${check.reason}: ${result}. ${this._applyCritical(hit, points, random, options.fuelRoll)}`);
+            else log.push(`Critical check for ${check.reason}: ${result}, no critical hit (${check.target}+ needed)`);
+        });
+        return log;
+    }
+
+    private _importPlay(pilot: unknown, inPlay: unknown): void {
+        this._pilot = new Pilot();
+        if (isPlainObject(pilot)) {
+            this._pilot.name = savedString(pilot.name).slice(0, 200);
+            this._pilot.piloting = Math.floor(savedNumber(pilot.piloting, 5, 0, 8));
+            this._pilot.gunnery = Math.floor(savedNumber(pilot.gunnery, 4, 0, 8));
+            this._pilot.wounds = Math.floor(savedNumber(pilot.wounds, 0, 0, 6));
+        }
+        this._inPlay = newCapitalShipInPlay();
+        if (!isPlainObject(inPlay)) return;
+        const armor = isPlainObject(inPlay.armorDamage) ? inPlay.armorDamage : {};
+        for (const facing of ADVANCED_AEROSPACE_FACINGS) this.setArmorDamage(facing, savedNumber(armor[facing], 0, 0, 1000000));
+        this.setStructureDamage(savedNumber(inPlay.structureDamage, 0, 0, 100000));
+        for (const track of CAPITAL_SHIP_CRITICAL_TRACKS) this.setCriticalHits(track.tag, savedNumber(inPlay[track.tag], 0, 0, track.max));
+        this.setLifeSupportDamaged(inPlay.lifeSupport === true);
+        this.setKFDriveDamage(savedNumber(inPlay.kfDriveDamage, 0, 0, 1000));
+        this.setDockingCollarsDamaged(savedNumber(inPlay.dockingCollarsDamaged, 0, 0, 1000));
+        this.setGravDecksDamaged(savedNumber(inPlay.gravDecksDamaged, 0, 0, 1000));
+        this.setDoorsDamaged(savedNumber(inPlay.doorsDamaged, 0, 0, 1000));
+        this.setCargoLostPercent(savedNumber(inPlay.cargoLostPercent, 0, 0, 100));
+        this._inPlay.fuelExploded = inPlay.fuelExploded === true;
+        const destroyed = Array.isArray(inPlay.destroyedBays) ? inPlay.destroyedBays.slice(0, MAX_CAPITAL_SHIP_EQUIPMENT) : [];
+        for (const key of destroyed) {
+            if (typeof key !== "string") continue;
+            const [arc, index] = key.split(":");
+            if (this.getArcs().includes(arc as AdvancedAerospaceArc)) this.setBayDestroyed(arc as AdvancedAerospaceArc, Number(index), true);
+        }
+        const fired = Array.isArray(inPlay.firedArcs) ? inPlay.firedArcs.slice(0, 8) : [];
+        for (const arc of fired) if (typeof arc === "string" && this.getArcs().includes(arc as AdvancedAerospaceArc)) this.setArcFired(arc as AdvancedAerospaceArc, true);
+        const pending = Array.isArray(inPlay.pendingWeaponCriticals) ? inPlay.pendingWeaponCriticals.slice(0, 20) : [];
+        for (const entry of pending) {
+            if (!isPlainObject(entry)) continue;
+            const arc = this.getArcs().find((candidate) => candidate === entry.arc);
+            if (arc) this._inPlay.pendingWeaponCriticals.push({ arc, chooser: entry.chooser === "attacking" ? "attacking" : "controlling" });
+        }
+    }
+
     // Saving and loading --------------------------------------------------------------------------------------
 
-    public export(): ICapitalShipExport {
+    public export(noInPlayVariables: boolean = false): ICapitalShipExport {
         return {
+            ...(noInPlayVariables ? {} : {
+                pilot: this._pilot.export(),
+                inPlay: {
+                    ...this._inPlay, armorDamage: { ...this._inPlay.armorDamage }, destroyedBays: [...this._inPlay.destroyedBays],
+                    firedArcs: [...this._inPlay.firedArcs], pendingWeaponCriticals: this._inPlay.pendingWeaponCriticals.map((entry) => ({ ...entry })),
+                },
+            }),
             version: 1,
             uuid: this._uuid,
             lastUpdated: this.lastUpdated,
@@ -1478,6 +1807,8 @@ export default class CapitalShip {
         for (const deck of GRAV_DECKS) this.setGravDecks(deck.tag, savedNumber(decks[deck.tag], 0, 0, 1000));
         this.setEscapePods(savedNumber(saved.escapePods, 0, 0, MAX_CAPITAL_SHIP_PEOPLE));
         this.setLifeBoats(savedNumber(saved.lifeBoats, 0, 0, MAX_CAPITAL_SHIP_PEOPLE));
+        this._calc();
+        this._importPlay(saved.pilot, saved.inPlay);
         this._clampToRules();
         this._calc();
     }
