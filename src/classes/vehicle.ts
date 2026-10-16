@@ -50,6 +50,10 @@ import {
     IRoboticControlSystem, RoboticControlTag, SRCS_BATTLE_VALUE_MULTIPLIER, SRCS_RULES_LEVEL,
 } from "../data/robotic-control-systems";
 import {
+    COMBAT_VEHICLE_CHASSIS_MODIFICATIONS, CombatVehicleChassisModificationTag, findCombatVehicleChassisModification,
+    getCombatVehicleChassisModificationWeight, ICombatVehicleChassisModification,
+} from "../data/combat-vehicle-chassis-modifications";
+import {
     IArmorType,
     IEngineType,
     IEquipmentItem,
@@ -80,6 +84,8 @@ export interface IVehicleEquipmentExport {
     halfTon?: boolean;
     /** A Light or Medium weapon on a pintle (TM p.234). */
     pintle?: boolean;
+    /** Drones a Drone Carrier Control System controls (TO:AUE p.117). */
+    drones?: number;
     currentAmmo?: number;
     selectedAmmoBinUUID?: string;
     currentAdditionalArmor?: number;
@@ -456,6 +462,8 @@ export interface IVehicleExport {
     /** Transport bays other than the troop space (TM p.239). */
     bays?: IVehicleBay[];
     roboticControl?: RoboticControlTag;    // Smart Robotic Control System (IO:AE p.134); absent = crewed
+    /** Combat Vehicle chassis modifications (TO:AUE pp.114-115). */
+    chassisModifications?: CombatVehicleChassisModificationTag[];
     weightAccounting?: "fractional";   // Fractional Accounting (TO:AUE p.188); absent = standard rounding
     tech: string;
     era: string;
@@ -571,6 +579,8 @@ export default class Vehicle {
     // Set on a Support Vehicle, which replaces the Combat Vehicle structure, engine, armor and crew rules.
     private _support: IVehicleSupportExport | null = null;
     private _roboticControl: RoboticControlTag = "none";
+    /** Combat Vehicle chassis modifications (TO:AUE pp.114-115); Support Vehicles keep theirs in _support. */
+    private _chassisModifications: CombatVehicleChassisModificationTag[] = [];
     /** Weight rounding: "fractional" is the Fractional Accounting construction option (TO:AUE p.188). */
     private _weightAccounting: "standard" | "fractional" = "standard";
     // Whether battle armor items were mounted at the last recalculation: only the first one turns Fractional Accounting on.
@@ -1142,6 +1152,7 @@ export default class Vehicle {
             || this._sponsonTurrets || this._jumpMP > 0 || this.isAdvancedSupportVehicle() || this.isPatchworkArmor();
         let level = advanced ? 3 : 0;
         if (this._roboticControl !== "none") level = Math.max(level, SRCS_RULES_LEVEL);
+        for (const mod of this.getChassisModifications()) level = Math.max(level, mod.rulesLevel);
         for (const item of this._equipmentList) {
             if (item) level = Math.max(level, getEquipmentRulesLevel(item));
         }
@@ -1250,6 +1261,40 @@ export default class Vehicle {
     }
 
     /** Keeps a FrankenVehicle legal after the chassis changes: no turret, no FrankenVehicle; no donor heavier than the chassis. */
+    /** Drops chassis modifications the motive type can no longer take, and all of them on a Support Vehicle. */
+    private _pruneChassisModifications(): void {
+        this._chassisModifications = this._support ? [] : this._chassisModifications
+            .filter((tag) => findCombatVehicleChassisModification(tag)?.motives.includes(this._motiveType.tag));
+    }
+
+    /** Chassis modifications this Combat Vehicle's motive type may take (TO:AUE p.114). */
+    public getAvailableChassisModifications(): ICombatVehicleChassisModification[] {
+        if (this._support) return [];
+        return COMBAT_VEHICLE_CHASSIS_MODIFICATIONS.filter((mod) => mod.motives.includes(this._motiveType.tag));
+    }
+
+    public getChassisModifications(): ICombatVehicleChassisModification[] {
+        return this._chassisModifications.map((tag) => findCombatVehicleChassisModification(tag))
+            .filter((mod): mod is ICombatVehicleChassisModification => !!mod);
+    }
+
+    public hasChassisModification(tag: CombatVehicleChassisModificationTag): boolean {
+        return this._chassisModifications.includes(tag);
+    }
+
+    /** Fits or removes a chassis modification; Limited and Fully Amphibious replace each other. */
+    public setChassisModification(tag: string, on: boolean): void {
+        const mod = findCombatVehicleChassisModification(tag);
+        if (!mod) return;
+        const others = this._chassisModifications.filter((existing) => existing !== mod.tag && !(on && (mod.excludes ?? []).includes(existing)));
+        this._chassisModifications = on && this.getAvailableChassisModifications().includes(mod) ? [...others, mod.tag] : others;
+        this._calc();
+    }
+
+    public getChassisModificationWeight(mod: ICombatVehicleChassisModification): number {
+        return getCombatVehicleChassisModificationWeight(mod, this._tonnage);
+    }
+
     private _pruneFrankenVehicle(): void {
         if (!this._frankenVehicle) return;
         if (!this._hasTurret) {
@@ -1539,6 +1584,14 @@ export default class Vehicle {
         const item = this._equipmentList.find((entry) => entry.uuid === uuid);
         if (!item || !findSupportVehicleLightWeapon(item.tag)) return;
         item.pintle = pintle && this.canHavePintles() && !!item.location && item.location !== "turret";
+        this._calc();
+    }
+
+    /** Sets how many drones a mounted Drone Carrier Control System controls: 2 tons plus 0.5 a drone (TO:AUE p.117). */
+    public setControlledDrones(uuid: string, drones: number): void {
+        const item = this._equipmentList.find((entry) => entry.uuid === uuid);
+        if (!item || item.variableFormula !== "drone-carrier-control" || !Number.isFinite(drones)) return;
+        item.controlledDrones = Math.max(1, Math.min(1000, Math.floor(drones)));
         this._calc();
     }
 
@@ -1845,6 +1898,8 @@ export default class Vehicle {
         let cruise = this._cruiseMP;
         // A Support Vehicle hydrofoil multiplies its base Cruising MP by 1.25, rounding .5 up (TM p.123).
         if (this.getSupportVehicleChassisModifications().includes("hydrofoil")) cruise = Math.floor(cruise * 1.25 + 0.5);
+        // A Dune Buggy loses 1 Cruising MP (TO:AUE p.115).
+        if (this.hasChassisModification("dune-buggy")) cruise -= 1;
         return Math.max(0, cruise - (this.hasActiveModularArmor() ? 1 : 0));
     }
 
@@ -2692,8 +2747,10 @@ export default class Vehicle {
         defensiveEquipmentBV += Math.min(amsAmmoBV, amsBV);
 
         let defensive = armorBV + structureBV + defensiveEquipmentBV;
-        const typeModifier = this._bvTypeModifier();
-        log += `Subtotal ${defensive.toFixed(2)} x ${typeModifier} (${this._motiveType.name} type modifier)`;
+        // Combat Vehicle chassis modifications add to the type modifier (TO:AUE p.193).
+        const chassisModifier = this.getChassisModifications().reduce((sum, mod) => sum + mod.bvTypeModifier, 0);
+        const typeModifier = Math.round((this._bvTypeModifier() + chassisModifier) * 100) / 100;
+        log += `Subtotal ${defensive.toFixed(2)} x ${typeModifier} (${this._motiveType.name} type modifier${chassisModifier ? `, chassis modifications +${chassisModifier.toFixed(1)}` : ""})`;
         defensive *= typeModifier;
         log += ` = ${defensive.toFixed(2)}<br />`;
 
@@ -2855,6 +2912,9 @@ export default class Vehicle {
         if (bayCost > 0) rows.push(["Transport Bays and Doors", bayCost]);
         if (this._sponsonTurrets) rows.push([`Sponson Turrets (${this.getSponsonWeight()} t)`, this.getSponsonWeight() * 4000]);
         if (this._jumpMP > 0) rows.push(["Jump Jets", 200 * this._tonnage * this._jumpMP * this._jumpMP]);
+        for (const mod of this.getChassisModifications()) {
+            if (mod.cost) rows.push([mod.name, mod.cost(this._tonnage, this.getChassisModificationWeight(mod))]);
+        }
         if (this._motiveType.liftEquipment) {
             const liftTons = Math.ceil(this._tonnage / 5) / 2;
             rows.push([`${this._motiveType.liftEquipment} (${liftTons} t)`, liftTons * (this._motiveType.hasRotor ? 40000 : 20000)]);
@@ -2866,9 +2926,13 @@ export default class Vehicle {
         const multiplier = 1 + this._tonnage / (divisors[this._motiveType.tag] ?? 100);
         // Omni Conversion Cost: x 1.25 (TM p.285).
         const omni = this._omni ? 1.25 : 1;
-        this._cost = Math.round(subtotal * multiplier * omni);
+        // Flotation Hull and Environmental Sealing multiply the total cost by 1.25 (TO:AUE p.219).
+        const chassisCost = this.getChassisModifications().filter((mod) => mod.totalCostMultiplier);
+        const chassis = chassisCost.reduce((product, mod) => product * (mod.totalCostMultiplier ?? 1), 1);
+        this._cost = Math.round(subtotal * multiplier * omni * chassis);
         this._calcLogCost = rows.map(([name, value]) => `${escapeLogText(name)}: ${Math.round(value).toLocaleString()}`).join("<br />")
             + `<br />Subtotal ${Math.round(subtotal).toLocaleString()} x ${multiplier.toFixed(3)} (1 + ${this._tonnage} / ${divisors[this._motiveType.tag] ?? 100})${this._omni ? " x 1.25 (OmniVehicle)" : ""}`
+            + chassisCost.map((mod) => ` x ${mod.totalCostMultiplier} (${mod.name})`).join("")
             + ` = <strong>${this._cost.toLocaleString()}</strong> (provisional)`;
     }
 
@@ -2935,11 +2999,14 @@ export default class Vehicle {
         }
     }
 
-    /** Extended fuel tanks weigh 10 percent of the engine, rounded up to the half ton, 500 C-bills a ton (TM p.244). */
+    /**
+     * Extended fuel tanks weigh 10 percent of the engine, rounded up to the half ton, 500 C-bills a ton (TM p.244); drone
+     * operating and carrier control systems are sized by the drone's weight and the drones controlled (TO:AUE p.117).
+     */
     private _sizeVariableEquipment(): void {
         for (const item of this._equipmentList) {
-            if (item.variableFormula !== "extended-fuel-tank") continue;
-            const size = sizeVariableEquipment("extended-fuel-tank", { tonnage: this._tonnage, engineRating: this.getEngineRating(), engineWeight: this.getEngineWeight(), directFireWeaponWeight: 0 });
+            if (item.variableFormula !== "extended-fuel-tank" && item.variableFormula !== "drone-operating-system" && item.variableFormula !== "drone-carrier-control") continue;
+            const size = sizeVariableEquipment(item.variableFormula, { tonnage: this._tonnage, engineRating: this.getEngineRating(), engineWeight: this.getEngineWeight(), directFireWeaponWeight: 0, drones: item.controlledDrones });
             if (size) {
                 item.weight = size.weight;
                 item.cbills = size.cbills;
@@ -2950,6 +3017,7 @@ export default class Vehicle {
     private _calc() {
         this._prunePatchworkArmor();
         this._pruneFrankenVehicle();
+        this._pruneChassisModifications();
         // Mounting the first battle armor item turns Fractional Accounting on (Ghosts of Obeedah p.54).
         const hasBattleArmorEquipment = this.defaultsToFractionalAccounting();
         if (hasBattleArmorEquipment && !this._hadBattleArmorEquipment) this._weightAccounting = "fractional";
@@ -2974,6 +3042,9 @@ export default class Vehicle {
         }
         if (this._motiveType.liftEquipment) {
             this._weights.push({ name: this._motiveType.liftEquipment, weight: this.getLiftEquipmentWeight() });
+        }
+        for (const mod of this.getChassisModifications()) {
+            if (this.getChassisModificationWeight(mod) > 0) this._weights.push({ name: mod.name, weight: this.getChassisModificationWeight(mod) });
         }
         this._weights.push({ name: "Armor", weight: this.getArmorWeight() });
 
@@ -4484,6 +4555,7 @@ export default class Vehicle {
             troopSpace: this._troopSpace || undefined,
             bays: this._bays.length > 0 ? this._bays.map((bay) => ({ ...bay })) : undefined,
             roboticControl: this._roboticControl !== "none" ? this._roboticControl : undefined,
+            chassisModifications: this._chassisModifications.length ? [...this._chassisModifications] : undefined,
             weightAccounting: this.usesFractionalAccounting() ? "fractional" : undefined,
             tech: this._tech.tag,
             era: this._era.tag,
@@ -4506,6 +4578,7 @@ export default class Vehicle {
                 size: findSupportVehicleLightWeapon(item.tag) ? item.size : undefined,
                 halfTon: this.isHalfTonBin(item) || undefined,
                 pintle: item.pintle || undefined,
+                drones: item.variableFormula === "drone-carrier-control" ? item.controlledDrones : undefined,
                 currentAmmo: item.currentAmmo,
                 selectedAmmoBinUUID: item.selectedAmmoBinUUID,
                 currentAdditionalArmor: item.currentAdditionalArmor,
@@ -4608,6 +4681,10 @@ export default class Vehicle {
             this._bays = normalizeVehicleBays(importObject.bays);
             if (Array.isArray(importObject.bays) && this._bays.length < Math.min(importObject.bays.length, MAX_VEHICLE_BAYS)) issue("Dropped transport bays that could not be read");
             this._roboticControl = getRoboticControlSystem(savedString(importObject.roboticControl)).tag;
+            this._chassisModifications = Array.isArray(importObject.chassisModifications)
+                ? importObject.chassisModifications.map((tag: unknown) => findCombatVehicleChassisModification(String(tag))?.tag)
+                    .filter((tag): tag is CombatVehicleChassisModificationTag => !!tag)
+                : [];
             // Vehicles saved before Omnis were recorded load as standard vehicles.
             this._omni = importObject.omni === true;
             this._podUUIDs = new Set();
@@ -4672,6 +4749,7 @@ export default class Vehicle {
                 }
                 const item = this._newEquipment(catalogItem, entry.location, entry.rear, entry.uuid);
                 if (lightWeapon && entry.pintle === true && item.location && item.location !== "turret") item.pintle = true;
+                if (item.variableFormula === "drone-carrier-control" && typeof entry.drones === "number") item.controlledDrones = savedNumber(entry.drones, 1, 1, 1000);
                 if (entry.halfTon === true && this.canBeHalfTonBin(item)) {
                     item.weight = catalogItem.weight / 2;
                     item.cbills = catalogItem.cbills / 2;

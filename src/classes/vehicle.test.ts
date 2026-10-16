@@ -451,6 +451,26 @@ describe("Vehicle construction details", () => {
         expect(tank.getUsedItemSlots()).toBe(4);
     });
 
+    it("loads a Cruise Missile one 25-ton missile at a time (TO:AUE pp.97, 216)", () => {
+        const tank = build("tracked", 100);
+        place(tank, "cruise-missile-50", "body");
+        const ammo = tank.addEquipmentFromTag("ammo-is-cruise-missile-50-standard").at(-1)!;
+        expect(ammo.weight).toBe(25);
+        expect(tank.getAmmoBinShots(ammo)).toBe(1);
+    });
+
+    it("sizes a drone's operating system and a carrier's control system, and keeps the drone count (TO:AUE p.117)", () => {
+        const drone = build("tracked", 40);
+        const os = drone.addEquipmentFromTag("drone-operating-system").at(-1)!;
+        expect([os.weight, os.cbills]).toEqual([4.5, 45000]);
+        const carrier = build("wheeled", 60);
+        const control = carrier.addEquipmentFromTag("drone-carrier-control-system").at(-1)!;
+        carrier.setControlledDrones(control.uuid!, 6);
+        expect([control.weight, control.cbills]).toEqual([5, 50000]);
+        const restored = new Vehicle(carrier.exportJSON());
+        expect(restored.getEquipmentList().find(item => item.tag === "drone-carrier-control-system")?.weight).toBe(5);
+    });
+
     it("keeps dual turrets and jump MP through a save", () => {
         const tank = build("hover", 40);
         tank.setDualTurret(true);
@@ -747,5 +767,53 @@ describe("Batch 54 industrial equipment for vehicles and the combat vehicle slot
         expect(clan.get("clan-harjel-ii")).toBe(false);
         expect(clan.get("clan-masc")).toBe(false);
         expect(clan.get("bulldozer")).toBe(true);
+    });
+});
+
+describe("Combat Vehicle chassis modifications (TO:AUE pp.114-115, 193, 219)", () => {
+    const build = (motive: string, tonnage: number): Vehicle => {
+        const vehicle = new Vehicle();
+        vehicle.setMotiveType(motive);
+        vehicle.setTonnage(tonnage);
+        return vehicle;
+    };
+    const weightOf = (vehicle: Vehicle, name: string) => vehicle.getWeights().find((entry) => entry.name === name)?.weight;
+
+    it("offers each modification only to the motive types the rules name", () => {
+        expect(build("tracked", 50).getAvailableChassisModifications().map((mod) => mod.tag)).toEqual(["limited-amphibious", "fully-amphibious", "environmental-sealing"]);
+        expect(build("wheeled", 50).getAvailableChassisModifications().map((mod) => mod.tag)).toContain("dune-buggy");
+        expect(build("hover", 30).getAvailableChassisModifications().map((mod) => mod.tag)).toEqual(["flotation-hull", "environmental-sealing"]);
+        // Submarines are sealed already.
+        expect(build("naval-sub", 100).getAvailableChassisModifications()).toEqual([]);
+    });
+
+    it("weighs amphibious kits at tonnage / 25 or / 10, rounded up to the half ton, and lets only one be fitted", () => {
+        const tank = build("tracked", 47);
+        tank.setChassisModification("limited-amphibious", true);
+        expect(weightOf(tank, "Limited Amphibious")).toBe(2);
+        tank.setChassisModification("fully-amphibious", true);
+        expect(tank.getChassisModifications().map((mod) => mod.tag)).toEqual(["fully-amphibious"]);
+        expect(weightOf(tank, "Fully Amphibious")).toBe(5);
+        expect(tank.getRequiredRulesLevel()).toBeGreaterThanOrEqual(3);
+    });
+
+    it("adds to the defensive type modifier and scales the cost", () => {
+        const plain = build("hover", 30);
+        const floating = build("hover", 30);
+        floating.setChassisModification("flotation-hull", true);
+        expect(floating.getBattleValueLog()).toContain("x 0.8 (Hover type modifier, chassis modifications +0.1)");
+        expect(floating.getCBillCost()).toBe(Math.round(plain.getCBillCost() * 1.25));
+    });
+
+    it("costs a Dune Buggy 1 Cruising MP and keeps the modifications through a save", () => {
+        const buggy = build("wheeled", 20);
+        buggy.setCruiseMP(6);
+        buggy.setChassisModification("dune-buggy", true);
+        expect(buggy.getCruiseMP()).toBe(5);
+        expect(buggy.getCBillCostLog()).toContain("Dune Buggy: 4,000");
+        const restored = new Vehicle(buggy.exportJSON());
+        expect(restored.hasChassisModification("dune-buggy")).toBe(true);
+        restored.setMotiveType("tracked");
+        expect(restored.getChassisModifications()).toEqual([]);
     });
 });

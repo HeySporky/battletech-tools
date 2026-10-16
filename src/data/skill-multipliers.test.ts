@@ -17,7 +17,7 @@ describe("Battle Value skill multipliers by rules edition", () => {
                 }
             }
         }
-        expect(getEditionsWithSkillMultipliers()).toEqual(["master-rules", "master-rules-revised", "total-warfare", "core-rulebook"]);
+        expect(getEditionsWithSkillMultipliers()).toEqual(["master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"]);
     });
 
     it("uses the TechManual's current table by default (TM p.315; Core Rulebook p.222)", () => {

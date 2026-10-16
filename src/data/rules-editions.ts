@@ -385,6 +385,15 @@ export const btRulesEditions: IRulesEdition[] = [
         ],
     },
     {
+        // Classic BattleTech box set (FanPro), the introductory game beside the Master Rules, Revised Edition. The
+        // year is the box set's first release as the user gave it (2026-10-15); the library holds only the 2005
+        // printing of its rulebook (FanPro 10980A, "©2005 WizKids"), which does not confirm 2002. Not entered yet.
+        tag: "classic-battletech-box-set",
+        name: "Classic BattleTech (box set)",
+        year: 2002,
+        book: "CBT",
+    },
+    {
         // Total Warfare, ©2006 (first printing), with TechManual, Tactical Operations, Strategic Operations and
         // Interstellar Operations: the rules line every catalog record cites.
         tag: "total-warfare",
@@ -392,6 +401,17 @@ export const btRulesEditions: IRulesEdition[] = [
         year: 2006,
         book: "TW",
         unitTypes: ALL_RULES_EDITION_UNIT_TYPES,
+    },
+    {
+        // BattleMech Manual: credits page, "©2017, 2023 The Topps Company" (the library's copy is the corrected 7th
+        // printing). A play rulebook for 'Mechs on the Total Warfare rules: it has no construction rules (an item
+        // that needs them is marked so, BMM pp.126-127) and takes Battle Values from the Master Unit List (BMM p.9),
+        // so its designs are built as under Total Warfare. Its rule differences are not modelled yet.
+        tag: "battlemech-manual",
+        name: "BattleMech Manual",
+        year: 2017,
+        book: "BMM",
+        unitTypes: ["mech"],
     },
     {
         // BattleTech Core Rulebook: credits page, "First Printing", "2026 The Topps Company". Its changes to the
@@ -550,4 +570,69 @@ export function getEditionJumpJetWeight(jumpJet: IEditionRecord, editionTag: str
 export function editionEngineHoldsHeatSinks(heatSink: IEditionRecord, editionTag: string): boolean {
     const stats = isEarlierRulesEdition(editionTag) ? getEditionStats(heatSink, editionTag) : undefined;
     return stats?.engineHeatSinks ?? true;
+}
+
+/**
+ * Expansion rulebooks that added unit types to the core rules of their day. Years are the copyright dates on each
+ * book's credits page; the unit types come from its contents pages. An expansion is offered once it has been entered
+ * whole from its page images (`complete`), as an earlier edition is; until then it is listed here only.
+ */
+export interface IRulesExpansion {
+    tag: string;
+    name: string;
+    year: number;
+    book: string;
+    /** The unit types the expansion gives rules (or construction rules) for. */
+    unitTypes: RulesEditionUnitType[];
+    complete?: boolean;
+}
+
+export const btRulesExpansions: IRulesExpansion[] = [
+    // CityTech (FASA 1608): "Copyright 1986". Buildings, vehicles with their design rules, and infantry.
+    { tag: "citytech", name: "CityTech", year: 1986, book: "CT", unitTypes: ["vehicle", "infantry", "building"] },
+    // AeroTech (FASA 1609): "Copyright 1986". Aerospace fighters with their design rules, and DropShips.
+    { tag: "aerotech", name: "AeroTech", year: 1986, book: "AT", unitTypes: ["fighter", "small-craft"] },
+    // BattleTroops (FASA 1637): "Copyright © 1989". Infantry, with vehicles and buildings in its tactical game.
+    { tag: "battletroops", name: "BattleTroops", year: 1989, book: "BTr", unitTypes: ["infantry"] },
+    // ClanTroops (FASA 1664): "Copyright © 1991". Clan battle armor (Elementals), supplementing BattleTroops.
+    { tag: "clantroops", name: "ClanTroops", year: 1991, book: "CTr", unitTypes: ["battle-armor"] },
+    // CityTech, Second Edition (FASA 1608R): "Copyright © 1994".
+    { tag: "citytech-2nd-edition", name: "CityTech, Second Edition", year: 1994, book: "CT2", unitTypes: ["vehicle", "infantry", "building"] },
+    // AeroTech 2 (FASA 1718): "Copyright © 2000". Aerospace and conventional fighters, Small Craft, DropShips.
+    { tag: "aerotech-2", name: "AeroTech 2", year: 2000, book: "AT2", unitTypes: ["fighter", "small-craft"] },
+    // AeroTech 2, Revised Edition (FanPro 35011): "© 2004 WizKids". Adds JumpShips and WarShips.
+    { tag: "aerotech-2-revised", name: "AeroTech 2, Revised Edition", year: 2004, book: "AT2R", unitTypes: ["fighter", "small-craft", "capital-ship"] },
+];
+
+/** Expansions that have been entered whole and give rules for `unitType`. */
+export function getSelectableRulesExpansions(unitType: RulesEditionUnitType): IRulesExpansion[] {
+    return btRulesExpansions.filter(expansion => expansion.complete && expansion.unitTypes.includes(unitType));
+}
+
+/**
+ * Editions of the Alpha Strike rules, oldest first. Play mode follows the Commander's Edition; the 2013 rulebook is
+ * offered once its differences are entered (`complete`). The ACES rules are a separate ruleset, not an edition.
+ */
+export interface IAlphaStrikeEdition {
+    tag: string;
+    name: string;
+    year: number;
+    book: string;
+    complete?: boolean;
+}
+
+export const asRulesEditions: IAlphaStrikeEdition[] = [
+    // Alpha Strike: credits page, "©2013 The Topps Company".
+    { tag: "alpha-strike", name: "Alpha Strike", year: 2013, book: "AS" },
+    // Alpha Strike: Commander's Edition, first published 2019 (as the user gave it, 2026-10-15); the library's copy is
+    // the 2024 printing ("©2024 The Topps Company"), the one play mode follows.
+    { tag: "alpha-strike-commanders-edition", name: "Alpha Strike: Commander's Edition", year: 2019, book: "ASCE" },
+];
+
+/** The Alpha Strike edition play mode follows. */
+export const DEFAULT_ALPHA_STRIKE_EDITION = "alpha-strike-commanders-edition";
+
+/** The default edition, and each earlier one entered whole. */
+export function getSelectableAlphaStrikeEditions(): IAlphaStrikeEdition[] {
+    return asRulesEditions.filter(edition => edition.complete || edition.tag === DEFAULT_ALPHA_STRIKE_EDITION);
 }

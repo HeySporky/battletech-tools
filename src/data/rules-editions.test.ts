@@ -12,7 +12,10 @@ import { mechJumpJetTypes } from "./mech-jump-jet-types";
 import { mechMyomerTypes } from "./mech-myomer-types";
 import { btMechTonnages } from "./mech-tonnages";
 import { mechTypeOptions } from "./mech-type-options";
-import { DEFAULT_RULES_EDITION, getEditionStats, getIntroducedInEdition, getRulesEditions, isInRulesEdition } from "./rules-editions";
+import {
+    DEFAULT_ALPHA_STRIKE_EDITION, DEFAULT_RULES_EDITION, asRulesEditions, btRulesExpansions, getEditionStats, getIntroducedInEdition,
+    getRulesEditions, getSelectableAlphaStrikeEditions, getSelectableRulesEditions, getSelectableRulesExpansions, isInRulesEdition,
+} from "./rules-editions";
 
 // Every record that can carry an edition history, labelled so a failure says where to look.
 const equipment = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment);
@@ -56,9 +59,37 @@ describe("Rules editions", () => {
             ["battletech-4th-edition", 1996],
             ["master-rules", 1998],
             ["master-rules-revised", 2001],
+            ["classic-battletech-box-set", 2002],
             ["total-warfare", 2006],
+            ["battlemech-manual", 2017],
             ["core-rulebook", 2026],
         ]);
+    });
+
+    // An edition not yet entered from its page images is listed but cannot be chosen.
+    it("offers the Classic BattleTech box set only once it is entered, and the BattleMech Manual for 'Mechs", () => {
+        const mech = getSelectableRulesEditions("mech").map(edition => edition.tag);
+        expect(mech).not.toContain("classic-battletech-box-set");
+        expect(mech).toContain("battlemech-manual");
+        expect(getSelectableRulesEditions("vehicle").map(edition => edition.tag)).not.toContain("battlemech-manual");
+    });
+
+    // Copyright dates from each book's credits page; unit types from its contents.
+    it("lists the expansions with their years, and offers none until entered", () => {
+        expect(btRulesExpansions.map(expansion => [expansion.tag, expansion.year])).toEqual([
+            ["citytech", 1986], ["aerotech", 1986], ["battletroops", 1989], ["clantroops", 1991],
+            ["citytech-2nd-edition", 1994], ["aerotech-2", 2000], ["aerotech-2-revised", 2004],
+        ]);
+        expect(new Set(btRulesExpansions.map(expansion => expansion.book)).size).toBe(btRulesExpansions.length);
+        expect(btRulesExpansions.find(expansion => expansion.tag === "aerotech-2-revised")!.unitTypes).toContain("capital-ship");
+        expect(getSelectableRulesExpansions("vehicle")).toEqual([]);
+    });
+
+    it("lists the Alpha Strike editions and offers the Commander's Edition", () => {
+        expect(asRulesEditions.map(edition => [edition.tag, edition.year])).toEqual([
+            ["alpha-strike", 2013], ["alpha-strike-commanders-edition", 2019],
+        ]);
+        expect(getSelectableAlphaStrikeEditions().map(edition => edition.tag)).toEqual([DEFAULT_ALPHA_STRIKE_EDITION]);
     });
 
     it("treats a record with no edition as part of the default edition and later", () => {

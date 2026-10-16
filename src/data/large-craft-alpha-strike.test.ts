@@ -3,9 +3,9 @@ import { CAPITAL_WEAPON_CATALOG } from "./capital-weapon-helpers";
 import { CAPITAL_WEAPON_ALPHA_STRIKE, getCapitalASArmor, getCapitalShipASSize, getLargeCraftASThreshold, getLargeCraftMovementFactor, toLargeCraftASDamage } from "./large-craft-alpha-strike";
 
 describe("large craft Alpha Strike conversion", () => {
-    it("every capital and sub-capital weapon has a row of the ASC p.114 table except the Screen Launcher (SCR, ASC p.130)", () => {
+    it("every capital and sub-capital weapon has a row of the ASC p.114 table except the Screen Launcher (SCR, ASC p.130) and the Dragon's Breath (DB, IO:AE p.207)", () => {
         const missing = CAPITAL_WEAPON_CATALOG.filter((weapon) => !CAPITAL_WEAPON_ALPHA_STRIKE[weapon.tag]).map((weapon) => weapon.tag);
-        expect(missing).toEqual(["screen-launcher"]);
+        expect(missing).toEqual(["screen-launcher", "dragons-breath-mcm"]);
     });
 
     it("errata v1.6 corrects the NAC/25's Short damage from 23 to 25", () => {

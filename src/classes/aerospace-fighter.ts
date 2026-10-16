@@ -6,7 +6,7 @@ import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, getArtemisLauncherBattleValue, EXPERIMENTAL_RULES_LEVEL, getAmmoBattleValuePerTon, getBattleArmorScaleListByTech, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentRulesLevel, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
 import { getFractionalAerospaceArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
 import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 import Pilot, { IPilot } from "./pilot";
@@ -16,7 +16,7 @@ import {
     IRoboticControlSystem, RoboticControlTag, RoboticUnitType, SRCS_BATTLE_VALUE_MULTIPLIER, SRCS_RULES_LEVEL,
 } from "../data/robotic-control-systems";
 import { FIGHTER_CRITICAL_NAMES, FighterAttackDirection, FighterCritical, getFighterHitLocation } from "../data/fighter-hit-tables";
-import { isTargetingComputerWeapon } from "../data/variable-equipment";
+import { isTargetingComputerWeapon, sizeDroneSystems } from "../data/variable-equipment";
 import { findByTag } from "../data/tag-match";
 import {
     getSupportVehicleBaseCrew, getSupportVehicleChassisModification, getSupportVehicleEngine, getSupportVehicleEngineWeight,
@@ -1652,6 +1652,8 @@ export default class AerospaceFighter {
     }
 
     private _calc(): void {
+        // A drone operating system weighs 10 percent of the fighter plus its sensors (TO:AUE p.117).
+        sizeDroneSystems(this._equipmentList, this._tonnage);
         if (this._support) {
             this._calcSupportWeights();
             this._calcBattleValue();
@@ -1747,11 +1749,7 @@ export default class AerospaceFighter {
      * record, so the plain launcher's value is looked up and raised.
      */
     private _weaponBaseBV(item: IEquipmentItem): number {
-        if (item.tag.endsWith("-artemis-iv")) {
-            const plain = findByTag(this._catalog(), item.tag.slice(0, -"-artemis-iv".length));
-            if (plain && (plain.battleValue || 0) > 0) return (plain.battleValue || 0) * 1.2;
-        }
-        return item.battleValue || 0;
+        return getArtemisLauncherBattleValue(item, () => this._catalog());
     }
 
     /** The Speed Factor for a Maximum Thrust (Speed Factor Table and formula, TM p.316). */

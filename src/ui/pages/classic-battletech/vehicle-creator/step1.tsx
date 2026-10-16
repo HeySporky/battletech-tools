@@ -730,6 +730,25 @@ export default class VehicleCreatorStep1 extends React.Component<IStep1Props, IS
                                     </div>
                                 ) : null}
 
+                                {vehicle.getAvailableChassisModifications().length > 0 && (rulesLevel >= 3 || vehicle.getChassisModifications().length > 0) ? (
+                                    <fieldset data-testid="chassis-modifications">
+                                        <legend>Chassis Modifications (Advanced, TO:AUE pp.114-115)</legend>
+                                        {vehicle.getAvailableChassisModifications().map((mod) => (
+                                            <label key={mod.tag} title={mod.description}>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={vehicle.hasChassisModification(mod.tag)}
+                                                    onChange={(e) => {
+                                                        const on = e.currentTarget.checked;
+                                                        this.changeVehicle((current) => current.setChassisModification(mod.tag, on));
+                                                    }}
+                                                />{" "}
+                                                {mod.name}{vehicle.getChassisModificationWeight(mod) > 0 ? ` (${vehicle.getChassisModificationWeight(mod)} t)` : ""}
+                                            </label>
+                                        ))}
+                                    </fieldset>
+                                ) : null}
+
                                 <p>
                                     <strong>Current Tonnage</strong>: {vehicle.getCurrentTonnage()} &nbsp;|&nbsp;
                                     <strong>Remaining Tonnage</strong>: <span className={vehicle.getRemainingTonnage() < 0 ? "color-red" : ""}>{vehicle.getRemainingTonnage()}</span>

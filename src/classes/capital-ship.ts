@@ -5,8 +5,9 @@ import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { btTechOptions } from "../data/tech-options";
 import { btEraOptions, findEraByTag, getClosestEraForTech, getErasForTech } from "../data/era-options";
 import SmallCraft from "./small-craft";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, getAmmoBattleValuePerTon, getCompatibleAmmo, getEquipmentRulesLevel, getEffectiveIntroduction, getEquipmentListByTech, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
+import { CUSTOM_HOMEBREW_RULES_LEVEL, getArtemisLauncherBattleValue, getAmmoBattleValuePerTon, getCompatibleAmmo, getEquipmentRulesLevel, getEffectiveIntroduction, getEquipmentListByTech, getWeaponShotsPerTon, isEquipmentWithinRulesLevel } from "../data/equipment-registry";
 import { findByTag } from "../data/tag-match";
+import { sizeDroneSystems } from "../data/variable-equipment";
 import { getEquipmentSubtype } from "../data/equipment-subtypes";
 import { getAerospaceDamageByBracket } from "../data/aerospace-record-sheet";
 import { ADVANCED_RULES_LEVEL } from "../data/rules-level-options";
@@ -562,9 +563,10 @@ export default class CapitalShip {
     /**
      * Capital and sub-capital weapons go on every advanced aerospace unit, as does anything a DropShip may mount (SO:AA
      * p.141), so a weapon whose JumpShip, WarShip or station column the source table leaves blank (the capital missiles
-     * and Screen Launcher, TM pp.210, 237) follows its DropShip column.
+     * and Screen Launcher, TM pp.210, 237) follows its DropShip column. A 0 is mountable without a weapon slot (the
+     * Dragon's Breath, IO:AE p.215).
      */
-    public isCapitalWeaponAllowed(weapon: ICapitalWeapon): boolean { return (weapon.space[this._shipType] ?? weapon.space.dropShip ?? -1) > 0; }
+    public isCapitalWeaponAllowed(weapon: ICapitalWeapon): boolean { return (weapon.space[this._shipType] ?? weapon.space.dropShip ?? -1) >= 0; }
     private _capitalTechAllowed(weapon: ICapitalWeapon): boolean {
         return weapon.techBase === "both" || this.isMixedTech() || weapon.techBase === this.getChassisTechBase();
     }
@@ -851,6 +853,8 @@ export default class CapitalShip {
     public getRemainingTonnage(): number { return Math.round((this._tonnage - this._currentTonnage) * 1000) / 1000; }
 
     private _calc(): void {
+        // Drone carrier control systems: 2 tons plus 0.5 per drone (TO:AUE p.117).
+        sizeDroneSystems(this._equipmentList, this._tonnage);
         const quarters = quartersTypes.filter((type) => this._quarters[type.tag] > 0)
             .map((type) => ({ name: `Quarters, ${type.name} (${this._quarters[type.tag]})`, weight: this._quarters[type.tag] * type.tons }));
         const bays = this._bays.map((bay) => {
@@ -1168,13 +1172,9 @@ export default class CapitalShip {
     public getBattleValue(): number { return this._battleValue; }
     public getBattleValueLog(): string { return this._calcLogBV; }
 
-    /** A launcher with Artemis IV counts 20 percent more than the plain launcher (TM p.312). */
+    /** A launcher with Artemis IV counts 20 percent more than the plain launcher (TM p.312), with Artemis V 30 percent (TO:AUE p.197). */
     private _weaponBaseBV(item: IEquipmentItem): number {
-        if (item.tag.endsWith("-artemis-iv")) {
-            const plain = findByTag(this._catalog(), item.tag.slice(0, -"-artemis-iv".length));
-            if (plain && (plain.battleValue || 0) > 0) return (plain.battleValue || 0) * 1.2;
-        }
-        return item.battleValue || 0;
+        return getArtemisLauncherBattleValue(item, () => this._catalog());
     }
 
     /**
