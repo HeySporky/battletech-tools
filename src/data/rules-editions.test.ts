@@ -12,7 +12,8 @@ import { mechJumpJetTypes } from "./mech-jump-jet-types";
 import { mechMyomerTypes } from "./mech-myomer-types";
 import { btMechTonnages } from "./mech-tonnages";
 import { mechTypeOptions } from "./mech-type-options";
-import { DEFAULT_RULES_EDITION, getEditionStats, getIntroducedInEdition, getRulesEditions, isInRulesEdition } from "./rules-editions";
+import { DEFAULT_RULES_EDITION, editionAllowsConstruction, getEditionStats, getIntroducedInEdition, getRulesEditions, getRulesLevelOptionsForEdition, getShownRulesLevel, isInRulesEdition } from "./rules-editions";
+import { getRulesLevelOptions } from "./rules-level-options";
 
 // Every record that can carry an edition history, labelled so a failure says where to look.
 const equipment = getEquipmentCatalogDefinitions().flatMap(definition => definition.equipment);
@@ -1464,5 +1465,36 @@ describe("Rules editions: Master Rules, Revised Edition, complete", () => {
         expect(ferro.notes).toContain("up on .5");
         expect(ferro.notes).toContain("round .5 down");
         expect(mechTypeOptions.find(type => type.tag === "quad")!.editionStats![TAG]!.page).toBe(82);
+    });
+});
+
+// BD p.1 Basic Battledroids, p.7 Advanced Battledroids, p.14 Expert Battledroids.
+describe("rules levels by edition", () => {
+    it("lists Battledroids' own three game levels, then the non-canon levels (BD pp.1, 7, 14)", () => {
+        expect(getRulesLevelOptionsForEdition("battledroids").map(option => [option.id, option.name])).toEqual([
+            [0, "Basic Battledroids"], [1, "Advanced Battledroids"], [2, "Expert Battledroids"],
+            [5, "Apocryphal"], [6, "Custom Homebrew"], [7, "Munchkin"],
+        ]);
+    });
+
+    it("keeps Total Warfare's list as it was", () => {
+        expect(getRulesLevelOptionsForEdition("total-warfare")).toEqual(getRulesLevelOptions());
+        expect(getRulesLevelOptionsForEdition(undefined)).toEqual(getRulesLevelOptions());
+    });
+
+    it("shows the lowest listed level above a stored level the edition does not list", () => {
+        expect(getShownRulesLevel("battledroids", 3)).toBe(5);
+        expect(getShownRulesLevel("battledroids", 1)).toBe(1);
+        expect(getShownRulesLevel("battledroids", 9)).toBe(7);
+        expect(getShownRulesLevel("total-warfare", 3)).toBe(3);
+    });
+
+    // BD p.14: the Expert rules carry "the information needed to design and build new classes of droids".
+    it("allows construction from Expert Battledroids up", () => {
+        expect(editionAllowsConstruction("battledroids", 0)).toBe(false);
+        expect(editionAllowsConstruction("battledroids", 1)).toBe(false);
+        expect(editionAllowsConstruction("battledroids", 2)).toBe(true);
+        expect(editionAllowsConstruction("battledroids", 5)).toBe(true);
+        expect(editionAllowsConstruction("total-warfare", 0)).toBe(true);
     });
 });

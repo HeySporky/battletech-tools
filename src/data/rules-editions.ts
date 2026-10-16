@@ -9,7 +9,8 @@
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
-import { IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure } from "./data-interfaces";
+import { IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure, IRulesLevelOption } from "./data-interfaces";
+import { APOCRYPHAL_RULES_LEVEL, btRulesLevelOptions, getRulesLevelOptions } from "./rules-level-options";
 
 /** The unit types the creators build, for an edition's `unitTypes`. */
 export type RulesEditionUnitType = "mech" | "vehicle" | "fighter" | "small-craft" | "infantry" | "battle-armor" | "protomech" | "building";
@@ -52,6 +53,15 @@ export interface IEditionPlayRules {
     criticalHitRoll: number;
 }
 
+/** One of an edition's own game levels, as its rulebook names it, and the tool's rules level it stands for. */
+export interface IRulesEditionLevel {
+    /** The tool's rules level (0-4) this level stands for. */
+    id: number;
+    name: string;
+    book: string;
+    page: number;
+}
+
 export interface IRulesEdition {
     /** Stable id stored on records and in saves. */
     tag: string;
@@ -90,6 +100,10 @@ export interface IRulesEdition {
     otherUnits?: string[];
     /** What the edition includes that the tool has no record for. */
     notModelled?: string[];
+    /** The edition's own game levels; absent means Total Warfare's. Apocryphal, Custom Homebrew and Munchkin follow. */
+    levels?: IRulesEditionLevel[];
+    /** The lowest rules level whose rules design new units; absent means every level. */
+    constructionLevel?: number;
 }
 
 export const btRulesEditions: IRulesEdition[] = [
@@ -111,6 +125,13 @@ export const btRulesEditions: IRulesEdition[] = [
         ammoTonsFor: "launcher",
         noBattleValue: true,
         noPrices: true,
+        levels: [
+            { id: 0, name: "Basic Battledroids", book: "BD", page: 1 },
+            { id: 1, name: "Advanced Battledroids", book: "BD", page: 7 },
+            // "the information needed to design and build new classes of droids"
+            { id: 2, name: "Expert Battledroids", book: "BD", page: 14 },
+        ],
+        constructionLevel: 2,
         // BD pp.16-17, the ten record listings.
         mechs: [
             "STG-3R Stinger", "WSP-1A Wasp", "PXH-1K Phoenix Hawk", "GRF-1N Griffin", "SHD-2H Shadow Hawk",
@@ -550,4 +571,28 @@ export function getEditionJumpJetWeight(jumpJet: IEditionRecord, editionTag: str
 export function editionEngineHoldsHeatSinks(heatSink: IEditionRecord, editionTag: string): boolean {
     const stats = isEarlierRulesEdition(editionTag) ? getEditionStats(heatSink, editionTag) : undefined;
     return stats?.engineHeatSinks ?? true;
+}
+
+/** The rules levels to offer under an edition: its own game levels, then Apocryphal, Custom Homebrew and Munchkin. */
+export function getRulesLevelOptionsForEdition(editionTag: string | undefined): IRulesLevelOption[] {
+    const levels = getRulesEdition(editionTag).levels;
+    if (!levels) {
+        return getRulesLevelOptions();
+    }
+    const canon = levels.map(level => ({ ...btRulesLevelOptions.find(option => option.id === level.id)!, name: level.name }));
+    return [...canon, ...btRulesLevelOptions.filter(option => option.id >= APOCRYPHAL_RULES_LEVEL)];
+}
+
+/**
+ * The level the Rules Level control shows for the stored app-wide level: the stored level when the edition lists it,
+ * else the lowest listed level above it, else the highest listed. The stored setting is left as it is.
+ */
+export function getShownRulesLevel(editionTag: string | undefined, storedLevel: number): number {
+    const ids = getRulesLevelOptionsForEdition(editionTag).map(option => option.id);
+    return ids.find(id => id >= storedLevel) ?? ids[ids.length - 1];
+}
+
+/** Whether the edition's rules allow designing a new unit at this rules level. */
+export function editionAllowsConstruction(editionTag: string | undefined, rulesLevel: number): boolean {
+    return rulesLevel >= (getRulesEdition(editionTag).constructionLevel ?? 0);
 }
