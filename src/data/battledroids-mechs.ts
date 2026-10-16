@@ -9,7 +9,7 @@
 * excluded from the software's underlying license (GNU GPLv3).
 */
 
-import { APOCRYPHAL_RULES_LEVEL } from "./rules-level-options";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
 
 /** A location on a printed record listing, by the creator's location code. */
 export type PrintedDroidLocation = "hd" | "ct" | "lt" | "rt" | "la" | "ra" | "ll" | "rl";
@@ -288,6 +288,66 @@ export const battledroidsPrintedDroids: IPrintedDroid[] = [
         ...griffin1N,
         notes: [
             "Sheet not found: inferred from the GRF-1N of BD p.16 (the Round Facer kit's sheet is the GRF-2N). Replace with the sheet when a photograph turns up.",
+        ],
+    },
+    // The user's conversions of canon designs whose Ral Partha miniatures were sold in Battledroids blister packs
+    // (user, 2026-10-16), corrected to the book's rules: armor within twice the internal structure and in half tons
+    // (BD pp.24-25), a ton of ammunition for each weapon that uses it (BD p.25), heat sinks for the weapons' heat,
+    // then the rest of the tonnage in armor.
+    {
+        id: "fle-15", model: "FLE-15", name: "Flea", rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, source: "Ral Partha Battledroids miniature; statistics by the user (2026-10-16)", mechType: "biped",
+        tonnage: 15, engineRating: 150, walk: 10, jump: 0, heatSinks: 10,
+        armor: { head: 3, centerTorso: 6, centerTorsoRear: 1, sideTorso: 4, sideTorsoRear: 1, arm: 3, leg: 3 },
+        printedArmorFactor: 32,
+        equipment: [...items(1, "small-laser", "ra"), ...items(1, "small-laser", "la")],
+        notes: [
+            "Listed with 38 armor points in locations adding up to 46; a 15-ton droid has 2 tons left for armor, so 32 points, shared out in the listing's proportions.",
+        ],
+    },
+    {
+        id: "fs9-h", model: "FS9-H", name: "Firestarter", rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, source: "Ral Partha Battledroids miniature; statistics by the user (2026-10-16)", mechType: "biped",
+        tonnage: 35, engineRating: 210, walk: 6, jump: 0, heatSinks: 11,
+        armor: { head: 8, centerTorso: 18, centerTorsoRear: 4, sideTorso: 12, sideTorsoRear: 2, arm: 12, leg: 11 },
+        printedArmorFactor: 104,
+        equipment: [
+            ...items(1, "medium-laser", "rt"), ...items(1, "medium-laser", "lt"), ...items(1, "standard-flamer", "ra"),
+            ...items(1, "standard-flamer", "la"), ...items(1, "standard-flamer", "rt"), ...items(1, "standard-flamer", "lt"),
+            ...items(1, "machine-gun", "hd"), ...items(1, "machine-gun", "ct"), ...items(1, "ammo-machine-gun-standard", "ct"),
+            ...items(1, "ammo-machine-gun-standard", "lt"),
+        ],
+        notes: [
+            "Listed with 70 armor points in locations adding up to 90; the 90 are kept and the 1.5 tons left over go to an 11th heat sink and 8 more armor points (arms 12, legs 11).",
+            "Two tons of machine gun ammunition, one for each machine gun (BD p.25), in place of the listing's 10 rounds each; the second is in the left torso, as the center torso is full.",
+            "Full fire makes 18 heat against 11 heat sinks.",
+        ],
+    },
+    {
+        id: "bkx-7k", model: "BKX-7K", name: "Battleaxe", rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, source: "Ral Partha Battledroids miniature; statistics by the user (2026-10-16)", mechType: "biped",
+        tonnage: 70, engineRating: 280, walk: 4, jump: 0, heatSinks: 15,
+        armor: { head: 9, centerTorso: 33, centerTorsoRear: 10, sideTorso: 22, sideTorsoRear: 8, arm: 22, leg: 30 },
+        printedArmorFactor: 216,
+        equipment: [
+            ...items(1, "large-laser", "ra"), ...items(1, "autocannon-standard-b", "la"), ...items(1, "ammo-is-ac-5-standard", "lt"),
+            ...items(1, "srm-6", "rt"), ...items(1, "srm-6", "lt"), ...items(1, "ammo-srm-standard", "rt"),
+            ...items(1, "ammo-srm-standard", "lt"),
+        ],
+        notes: [
+            "Ral Partha blister 20-811. The listing's Autocannon/10 is the book's Auto Cannon (user, 2026-10-16), with a ton of its ammunition and a ton for each SRM 6 (BD p.25).",
+            "The listing's 133 armor points left 10.5 tons unspent: three more heat sinks cover full fire (13 heat), armor goes to its limit (216 points, 13.5 tons) and two more heat sinks take the rest. 69.5 tons, half a ton under, since armor comes in half tons and is at its limit.",
+        ],
+    },
+    {
+        id: "lct-1v", model: "LCT-1V", name: "Locust", rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, source: "Ral Partha Battledroids miniature; statistics by the user (2026-10-16)", mechType: "biped",
+        tonnage: 20, engineRating: 160, walk: 8, jump: 0, heatSinks: 10,
+        armor: { head: 4, centerTorso: 10, centerTorsoRear: 2, sideTorso: 6, sideTorsoRear: 1, arm: 4, leg: 5 },
+        printedArmorFactor: 48,
+        equipment: [
+            ...items(1, "medium-laser", "ct"), ...items(1, "machine-gun", "ra"), ...items(1, "machine-gun", "la"),
+            ...items(1, "ammo-machine-gun-standard", "ct"), ...items(1, "ammo-machine-gun-standard", "lt"),
+        ],
+        notes: [
+            "Ral Partha blister 20-844. The listing's 50 armor points need 3.5 tons and the droid has 3 left, so the center torso front goes from 12 to 10: 48 points.",
+            "Two tons of machine gun ammunition, one for each machine gun (BD p.25), in place of the listing's 10 rounds each; the second is in the left torso, as the center torso is full.",
         ],
     },
 ];

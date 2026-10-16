@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { APOCRYPHAL_RULES_LEVEL } from "../data/rules-level-options";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL } from "../data/rules-level-options";
 import { battledroidsPrintedDroids, getPrintedDroids, IPrintedDroid } from "../data/battledroids-mechs";
 import { editionAllowsConstruction, getRulesEdition } from "../data/rules-editions";
 import { BattleMech } from "./battlemech";
@@ -252,6 +252,74 @@ describe("Printed Battledroids droids: the apocryphal sources", () => {
     });
 });
 
+// BD p.25: a location's armor is at most twice its internal structure boxes, the head up to 9. Read for the front
+// section of a torso: the book's own Stinger, Wasp, Phoenix Hawk, Archer and Marauder pass only that way.
+const overCap = (mech: BattleMech): string[] => {
+    const structure = mech.getInternalStructure() as unknown as Record<string, number>;
+    const a = mech.export().armor_allocation as unknown as Record<string, number>;
+    const sums: [string, number, number][] = [
+        ["head", a.head, 9], ["center torso", a.centerTorso, 2 * structure.centerTorso],
+        ["left torso", a.leftTorso, 2 * structure.leftTorso], ["right torso", a.rightTorso, 2 * structure.rightTorso],
+        ["left arm", a.leftArm, 2 * structure.leftArm], ["right arm", a.rightArm, 2 * structure.rightArm],
+        ["left leg", a.leftLeg, 2 * structure.leftLeg], ["right leg", a.rightLeg, 2 * structure.rightLeg],
+    ];
+    return mech.getType().tag === "biped" ? sums.filter(([, points, cap]) => points > cap).map(([name]) => name) : [];
+};
+
+describe("Printed Battledroids droids: the armor limit", () => {
+    it("flags every droid whose printed armor is over twice a location's internal structure", () => {
+        const unflagged = battledroidsPrintedDroids
+            .map(entry => [entry, overCap(buildPrintedDroid(entry))] as const)
+            .filter(([entry, over]) => over.length && !entry.notes.join(" ").includes("twice its internal structure"))
+            .map(([entry, over]) => `${entry.id}: ${over.join(", ")}`);
+        expect(unflagged).toEqual([]);
+    }, 30000);
+});
+
+// The user's conversions of the Ral Partha Battledroids miniatures (user, 2026-10-16), corrected to the BD rules:
+// armor within twice the internal structure (BD p.25) and in half tons (BD p.24), a ton of ammunition for each
+// weapon that uses it (BD p.25), the book's Auto Cannon, and every ton spent.
+describe("Printed Battledroids droids: the user's Ral Partha conversions", () => {
+    const custom = (id: string, stats: number[], armorBoxes: number[], items: string[], tons: number) => {
+        const entry = droid(id);
+        const mech = built(id);
+        expect([entry.rulesLevel, entry.source], id).toEqual([CUSTOM_HOMEBREW_RULES_LEVEL, "Ral Partha Battledroids miniature; statistics by the user (2026-10-16)"]);
+        expect([mech.getTonnage(), mech.getWalkSpeed(), mech.getJumpSpeed(), mech.getHeatSinks(), entry.printedArmorFactor], id).toEqual(stats);
+        expect(armor(mech), id).toEqual(armorBoxes);
+        expect(mounted(mech), id).toEqual(items);
+        expect(mech.getCurrentTonnage(), id).toBe(tons);
+        expect(overCap(mech), id).toEqual([]);
+        expect(mech.getRulesEditionRuleIssues(), id).toEqual([]);
+        return entry.notes.join(" ");
+    };
+
+    it("FLE-15 Flea: the armor cut to the 2 tons a 15-ton droid has left", () => {
+        const notes = custom("fle-15", [15, 10, 0, 10, 32], [3, 6, 1, 4, 1, 4, 1, 3, 3, 3, 3],
+            ["small-laser la", "small-laser ra"], 15);
+        expect(notes).toContain("38");
+    });
+    it("FS9-H Firestarter: two tons of machine gun ammunition, the armor as listed plus what tonnage is left", () => {
+        custom("fs9-h", [35, 6, 0, 11, 104], [8, 18, 4, 12, 2, 12, 2, 12, 12, 11, 11], [
+            "ammo-machine-gun-standard ct", "ammo-machine-gun-standard lt", "machine-gun ct", "machine-gun hd", "medium-laser lt", "medium-laser rt",
+            "standard-flamer la", "standard-flamer lt", "standard-flamer ra", "standard-flamer rt",
+        ], 35);
+    });
+    it("BKX-7K Battleaxe: the book's Auto Cannon, armor to the limit, half a ton under", () => {
+        const notes = custom("bkx-7k", [70, 4, 0, 15, 216], [9, 33, 10, 22, 8, 22, 8, 22, 22, 30, 30], [
+            "ammo-is-ac-5-standard lt", "ammo-srm-standard lt", "ammo-srm-standard rt", "autocannon-standard-b la", "large-laser ra",
+            "srm-6 lt", "srm-6 rt",
+        ], 69.5);
+        expect(notes).toContain("Auto Cannon");
+        expect(notes).toContain("20-811");
+    });
+    it("LCT-1V Locust: the armor cut to the 3 tons left", () => {
+        const notes = custom("lct-1v", [20, 8, 0, 10, 48], [4, 10, 2, 6, 1, 6, 1, 4, 4, 5, 5], [
+            "ammo-machine-gun-standard ct", "ammo-machine-gun-standard lt", "machine-gun la", "machine-gun ra", "medium-laser ct",
+        ], 20);
+        expect(notes).toContain("20-844");
+    });
+});
+
 describe("Printed Battledroids droids: building and saving", () => {
     it("keeps the printed droid's id through a save and load", () => {
         const mech = built("grf-2n");
@@ -273,9 +341,9 @@ describe("Printed Battledroids droids: building and saving", () => {
 
     it("names each droid with its model, name and source", () => {
         for (const entry of battledroidsPrintedDroids) {
-            expect(entry.model, entry.id).toMatch(/^[A-Z]{3}-\d[A-Z]/);
+            expect(entry.model, entry.id).toMatch(/^[A-Z]{2,3}\d*-[0-9A-Z]+/);
             expect(entry.source, entry.id).not.toBe("");
             expect(buildPrintedDroid(entry).model, entry.id).toBe(entry.model);
         }
-    });
+    }, 30000);
 });
