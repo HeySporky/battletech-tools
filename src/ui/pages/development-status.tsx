@@ -58,6 +58,9 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li><del>Canon Inner Sphere and Clan equipment, checked against the rulebooks</del></li>
                       <li><del>Rules levels, including Apocryphal, Custom Homebrew and Munchkin</del></li>
                       <li><del>Rules editions from <i>Battledroids</i> (1984) to the 2026 Core Rulebook</del></li>
+                      <li><del>Each edition's own rules levels, starting with <i>Battledroids</i>' Basic, Advanced and Expert</del></li>
+                      <li><del>Printed <i>Battledroids</i> droids: the box set, the Spider and the TCI kit backs</del></li>
+                      <li><del>Shields on the record sheet</del></li>
                       <li><del>Patchwork Armor, Fractional Accounting and FrankenMechs</del></li>
                       <li><del>Solaris Skunk Werks import</del></li>
                     </ul>
@@ -68,6 +71,8 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li>Pod-mounted heat sinks and jump jets on OmniMechs</li>
                       <li>Alpha Strike stats for LAMs</li>
                       <li>Compact 'Mechs, Micro 'Mechs, Hexapods and Octapods as Custom Homebrew rules</li>
+                      <li>Each later rules edition's own levels and printed units, edition by edition</li>
+                      <li>Shields absorbing damage on their own in play</li>
                     </ul>
                   </TextSection>
 
@@ -83,10 +88,11 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li><del>ProtoMechs</del></li>
                       <li><del>Small Craft and DropShips</del></li>
                       <li><del>Buildings, gun emplacements and Castles Brian</del></li>
+                      <li><del>JumpShips, WarShips and space stations</del></li>
+                      <li><del>Save the current design before a load, import or start over replaces it</del></li>
                     </ul>
                     <h4>Coming</h4>
                     <ul>
-                      <li>JumpShips, WarShips and space stations</li>
                       <li>Mobile Structures</li>
                       <li>Earlier rules editions for each unit type, as their rulebooks are entered</li>
                       <li>Beast-mounted infantry, field guns and field artillery</li>
@@ -104,7 +110,7 @@ export default class DevelopmentStatus extends React.Component<IDevelopmentStatu
                       <li><del>Apply heat, and manual adjustments</del></li>
                       <li><del>Take Damage dialog</del></li>
                       <li><del>Critical hit management</del></li>
-                      <li><del>Play for every unit type the creators build</del></li>
+                      <li><del>Play for every unit type the creators build, JumpShips and WarShips included</del></li>
                       <li><del><i>Battledroids</i> games</del></li>
                     </ul>
                     <h4>Coming</h4>

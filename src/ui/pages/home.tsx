@@ -73,7 +73,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                     </li>
                     <li>
                       <h3><Link to="classic-battletech">Classic BattleTech Tools</Link></h3>
-                      <p>Every creator follows the TechManual's construction steps and gives the unit a record sheet, Battle Value and C-Bill cost, and every unit but a building an Alpha Strike card. Each one starts with the Rules Edition and the Rules Level (Introductory to Experimental, plus Apocryphal, Custom Homebrew and Munchkin for non-canon play), and only offers what those allow. Saved units go into the Classic Roster.</p>
+                      <p>Every creator follows the TechManual's construction steps and gives the unit a record sheet, Battle Value and C-Bill cost, and every unit but a building an Alpha Strike card. Each one starts with the Rules Edition, then that edition's own Rules Levels (Introductory to Experimental, plus Apocryphal, Custom Homebrew and Munchkin for non-canon play), and only offers what those allow. Before a load, import or start over replaces your design, each creator offers to save it. Saved units go into the Classic Roster.</p>
                       <ul>
                         <li>
                           <h4><Link to="classic-battletech/mech-creator">'Mech Creator</Link></h4>
@@ -81,6 +81,8 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                             <li>Biped, Quad, Tripod, LAM and QuadVee BattleMechs, OmniMechs, Superheavy 'Mechs, IndustrialMechs and Primitive 'Mechs.</li>
                             <li>Inner Sphere, Clan and Mixed technology from the canon equipment catalogs.</li>
                             <li>Build under any rules edition from <i>Battledroids</i> (1984) to the 2026 Core Rulebook: each edition offers only what its rulebook prints, with that book's weights, heat, ranges and damage.</li>
+                            <li>Pick a printed <i>Battledroids</i> droid: the ten in the box set, the Spider from <i>Game News</i> #3 and the 1984 TCI kit-back sheets, built under that edition's rules.</li>
+                            <li>Shields on the record sheet: a circle for each point of Damage Capacity and a diamond for each point of Damage Absorption, marked off in play.</li>
                             <li>Patchwork Armor, Fractional Accounting and FrankenMechs.</li>
                             <li>Import Solaris Skunk Werks (.ssw) designs.</li>
                           </ul>
@@ -111,7 +113,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                         </li>
                         <li>
                           <h4><Link to="classic-battletech/capital-ship-creator">JumpShip and WarShip Creator</Link></h4>
-                          <p>JumpShips, WarShips and space stations: K-F drive, capital armor and weapons in up to eight arcs, docking collars, grav decks and bays. New, in progress.</p>
+                          <p>JumpShips, WarShips and space stations: K-F drive, capital armor and weapons in up to eight arcs, docking collars, grav decks and bays, with Battle Value, a record sheet, an Alpha Strike card and play in the Classic Roster.</p>
                         </li>
                         <li>
                           <h4><Link to="classic-battletech/building-creator">Building Creator</Link></h4>
@@ -160,6 +162,20 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
               label="News"
             >
                   <ul className="news">
+                  <li>
+                  <h3>
+                      <strong>October 16th, 2026</strong> - JumpShips, WarShips and <i>Battledroids</i>
+                    </h3>
+                    <h4>Author - NGCFells</h4>
+                      <p>New on the <a href="https://ngcfells.github.io/battletech-tools" target="_blank" rel="noopener noreferrer">beta test site</a>, and offered to the main site for review:</p>
+                      <ul>
+                        <li>JumpShips, WarShips and space stations: a creator, Battle Value, record sheet, Alpha Strike card and play in the Classic Roster. Every unit type can now be built and played.</li>
+                        <li>Each rules edition has its own rules levels. <i>Battledroids</i> has Basic, Advanced and Expert; below Expert you pick from the droids the books print: the box set's ten, the Spider and the 1984 TCI kit backs.</li>
+                        <li><i>Battledroids</i> designs show only what that rulebook has, and undoing an edition switch brings back the design you had.</li>
+                        <li>Every creator offers to save your design before a load, import or start over replaces it.</li>
+                        <li>'Mech record sheets draw shields beside the arm, with Damage Capacity and Damage Absorption to mark off in play.</li>
+                      </ul>
+                   </li>
                   <li>
                   <h3>
                       <strong>October 15th, 2026</strong> - Every unit type, on the beta site
