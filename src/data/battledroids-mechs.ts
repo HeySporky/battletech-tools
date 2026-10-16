@@ -86,6 +86,104 @@ const wolverine = (id: string, model: string, kit: string): IPrintedDroid => ({
 });
 
 export const battledroidsPrintedDroids: IPrintedDroid[] = [
+    // BD p.16 (STG-3R, GRF-1N, ARC-2R, SHD-2H, WHM-6R) and p.17 (PXH-1K, WSP-1A, CRD-3R, MAD-3R, RFL-3N).
+    {
+        id: "stg-3r", model: "STG-3R", name: "Stinger", rulesLevel: 0, source: "BD", page: 16, mechType: "biped",
+        tonnage: 20, engineRating: 120, walk: 6, jump: 6, heatSinks: 10,
+        armor: { head: 9, centerTorso: 10, centerTorsoRear: 4, sideTorso: 7, sideTorsoRear: 2, arm: 6, leg: 8 },
+        printedArmorFactor: 64,
+        equipment: [
+            ...items(1, "medium-laser", "ra"), ...items(1, "machine-gun", "ra"), ...items(1, "machine-gun", "la"),
+            ...items(1, "ammo-machine-gun-standard", "ct"),
+        ],
+        notes: [
+            "The locations add up to 69 armor boxes against the printed Armor Factor of 64 (4 tons); both are as printed (flagged).",
+            "The tons column adds up to 21, a ton over, as printed.",
+        ],
+    },
+    {
+        id: "wsp-1a", model: "WSP-1A", name: "Wasp", rulesLevel: 0, source: "BD", page: 17, mechType: "biped",
+        tonnage: 20, engineRating: 120, walk: 6, jump: 6, heatSinks: 10,
+        armor: { head: 6, centerTorso: 10, centerTorsoRear: 4, sideTorso: 7, sideTorsoRear: 2, arm: 6, leg: 7 },
+        printedArmorFactor: 64,
+        equipment: [...items(1, "medium-laser", "ra"), ...items(1, "srm-2", "ll"), ...items(1, "ammo-srm-standard", "ct")],
+        notes: ["The tons column adds up to 21, a ton over, as printed."],
+    },
+    {
+        id: "pxh-1k", model: "PXH-1K", name: "Phoenix Hawk", rulesLevel: 0, source: "BD", page: 17, mechType: "biped",
+        tonnage: 45, engineRating: 270, walk: 6, jump: 6, heatSinks: 10,
+        armor: { head: 6, centerTorso: 25, centerTorsoRear: 5, sideTorso: 18, sideTorsoRear: 3, arm: 10, leg: 15 },
+        printedArmorFactor: 128,
+        equipment: [
+            ...items(1, "large-laser", "ra"), ...items(1, "medium-laser", "ra"), ...items(1, "medium-laser", "la"),
+            ...items(1, "machine-gun", "ra"), ...items(1, "machine-gun", "la"), ...items(1, "ammo-machine-gun-standard", "ct"),
+        ],
+        notes: [],
+    },
+    { id: "grf-1n", model: "GRF-1N", name: "Griffin", rulesLevel: 0, source: "BD", page: 16, mechType: "biped", ...griffin1N, notes: [] },
+    { id: "shd-2h", model: "SHD-2H", name: "Shadow Hawk", rulesLevel: 0, source: "BD", page: 16, mechType: "biped", ...shadowHawk2H, notes: [] },
+    {
+        id: "rfl-3n", model: "RFL-3N", name: "Rifleman", rulesLevel: 0, source: "BD", page: 17, mechType: "biped",
+        tonnage: 60, engineRating: 260, walk: 4, jump: 0, heatSinks: 10,
+        armor: { head: 6, centerTorso: 22, centerTorsoRear: 4, sideTorso: 15, sideTorsoRear: 2, arm: 15, leg: 12 },
+        printedArmorFactor: 120,
+        equipment: [
+            ...items(1, "large-laser", "ra"), ...items(1, "large-laser", "la"), ...items(1, "autocannon-standard-b", "ra"),
+            ...items(1, "autocannon-standard-b", "la"), ...items(1, "ammo-is-ac-5-standard", "ct"),
+        ],
+        notes: [
+            "The engine is printed as a VOX 260 (13.5 tons), larger than the 240 that 4 Walking MP on 60 tons needs; the creator builds the 240, so it weighs less than the sheet's 60 tons.",
+        ],
+    },
+    {
+        id: "crd-3r", model: "CRD-3R", name: "Crusader", rulesLevel: 0, source: "BD", page: 17, mechType: "biped",
+        tonnage: 65, engineRating: 260, walk: 4, jump: 0, heatSinks: 10,
+        armor: { head: 6, centerTorso: 30, centerTorsoRear: 8, sideTorso: 24, sideTorsoRear: 6, arm: 20, leg: 20 },
+        printedArmorFactor: 184,
+        equipment: [
+            ...items(1, "lrm-15", "ra"), ...items(1, "lrm-15", "la"), ...items(1, "ammo-lrm-standard", "rt"),
+            ...items(1, "ammo-lrm-standard", "lt"), ...items(1, "srm-6", "rl"), ...items(1, "srm-6", "ll"),
+            ...items(1, "ammo-srm-standard", "ct"), ...items(1, "medium-laser", "ra"), ...items(1, "medium-laser", "la"),
+            ...items(1, "machine-gun", "ra"), ...items(1, "machine-gun", "la"), ...items(1, "ammo-machine-gun-standard", "ct"),
+        ],
+        notes: ["The tons column adds up to 64.5, half a ton under, as printed."],
+    },
+    {
+        id: "arc-2r", model: "ARC-2R", name: "Archer", rulesLevel: 0, source: "BD", page: 16, mechType: "biped",
+        tonnage: 70, engineRating: 280, walk: 4, jump: 0, heatSinks: 10,
+        armor: { head: 9, centerTorso: 35, centerTorsoRear: 10, sideTorso: 30, sideTorsoRear: 7, arm: 15, leg: 25 },
+        printedArmorFactor: 208,
+        equipment: [
+            ...items(1, "lrm-20", "rt"), ...items(1, "lrm-20", "lt"), ...items(2, "ammo-lrm-standard", "rt"),
+            ...items(2, "ammo-lrm-standard", "lt"), ...items(1, "medium-laser", "ra"), ...items(1, "medium-laser", "la"),
+            ...items(2, "medium-laser", "ct", true),
+        ],
+        notes: [],
+    },
+    {
+        id: "whm-6r", model: "WHM-6R", name: "Warhammer", rulesLevel: 0, source: "BD", page: 16, mechType: "biped",
+        tonnage: 70, engineRating: 280, walk: 4, jump: 0, heatSinks: 18,
+        armor: { head: 9, centerTorso: 22, centerTorsoRear: 9, sideTorso: 17, sideTorsoRear: 8, arm: 20, leg: 15 },
+        printedArmorFactor: 160,
+        equipment: [
+            ...items(1, "standard-ppc", "la"), ...items(1, "standard-ppc", "ra"), ...items(1, "srm-6", "rt"),
+            ...items(1, "ammo-srm-standard", "rt"), ...items(1, "medium-laser", "rt"), ...items(1, "medium-laser", "lt"),
+            ...items(1, "small-laser", "rt"), ...items(1, "small-laser", "lt"), ...items(1, "machine-gun", "rt"),
+            ...items(1, "machine-gun", "lt"), ...items(1, "ammo-machine-gun-standard", "ct"),
+        ],
+        notes: [],
+    },
+    {
+        id: "mad-3r", model: "MAD-3R", name: "Marauder", rulesLevel: 0, source: "BD", page: 17, mechType: "biped",
+        tonnage: 75, engineRating: 300, walk: 4, jump: 0, heatSinks: 16,
+        armor: { head: 9, centerTorso: 35, centerTorsoRear: 16, sideTorso: 16, sideTorsoRear: 8, arm: 22, leg: 16 },
+        printedArmorFactor: 184,
+        equipment: [
+            ...items(1, "standard-ppc", "ra"), ...items(1, "standard-ppc", "la"), ...items(1, "medium-laser", "ra"),
+            ...items(1, "medium-laser", "la"), ...items(1, "autocannon-standard-b", "rt"), ...items(1, "ammo-is-ac-5-standard", "lt"),
+        ],
+        notes: [],
+    },
     {
         id: "spi-5r", model: "SPI-5R", name: "Spider", rulesLevel: APOCRYPHAL_RULES_LEVEL,
         source: "Game News #3 (May 1985)", page: 13, mechType: "biped",

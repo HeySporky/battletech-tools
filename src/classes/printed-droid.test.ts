@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { APOCRYPHAL_RULES_LEVEL } from "../data/rules-level-options";
 import { battledroidsPrintedDroids, getPrintedDroids, IPrintedDroid } from "../data/battledroids-mechs";
+import { editionAllowsConstruction, getRulesEdition } from "../data/rules-editions";
 import { BattleMech } from "./battlemech";
 import { buildPrintedDroid } from "./printed-droid";
 
@@ -32,6 +33,105 @@ const armor = (mech: BattleMech) => {
 };
 
 const built = (id: string) => buildPrintedDroid(droid(id));
+
+const BOOK = ["stg-3r", "wsp-1a", "pxh-1k", "grf-1n", "shd-2h", "rfl-3n", "crd-3r", "arc-2r", "whm-6r", "mad-3r"];
+
+// BD p.16 (STG-3R, GRF-1N, ARC-2R, SHD-2H, WHM-6R) and p.17 (PXH-1K, WSP-1A, CRD-3R, MAD-3R, RFL-3N), the record listings.
+describe("Printed Battledroids droids: the ten of the box set", () => {
+    const listing = (id: string, page: number, stats: number[], armorBoxes: number[], items: string[], tons: number) => {
+        const entry = droid(id);
+        const mech = built(id);
+        expect([entry.rulesLevel, entry.source, entry.page], id).toEqual([0, "BD", page]);
+        expect([mech.getTonnage(), mech.getWalkSpeed(), mech.getJumpSpeed(), mech.getHeatSinks(), entry.printedArmorFactor], id).toEqual(stats);
+        expect(armor(mech), id).toEqual(armorBoxes);
+        expect(mounted(mech), id).toEqual(items);
+        expect(mech.getCurrentTonnage(), id).toBe(tons);
+        return entry.notes.join(" ");
+    };
+
+    it("STG-3R Stinger: armor boxes add up to 69 against the printed 64, a ton over", () => {
+        const notes = listing("stg-3r", 16, [20, 6, 6, 10, 64], [9, 10, 4, 7, 2, 7, 2, 6, 6, 8, 8],
+            ["ammo-machine-gun-standard ct", "machine-gun la", "machine-gun ra", "medium-laser ra"], 21);
+        expect(notes).toContain("69");
+        expect(notes).toContain("a ton over");
+    });
+    it("WSP-1A Wasp: a ton over", () => {
+        const notes = listing("wsp-1a", 17, [20, 6, 6, 10, 64], [6, 10, 4, 7, 2, 7, 2, 6, 6, 7, 7],
+            ["ammo-srm-standard ct", "medium-laser ra", "srm-2 ll"], 21);
+        expect(notes).toContain("a ton over");
+    });
+    it("PXH-1K Phoenix Hawk", () => {
+        listing("pxh-1k", 17, [45, 6, 6, 10, 128], [6, 25, 5, 18, 3, 18, 3, 10, 10, 15, 15],
+            ["ammo-machine-gun-standard ct", "large-laser ra", "machine-gun la", "machine-gun ra", "medium-laser la", "medium-laser ra"], 45);
+    });
+    it("GRF-1N Griffin", () => {
+        listing("grf-1n", 16, [55, 5, 6, 12, 144], [8, 20, 6, 20, 6, 20, 6, 13, 13, 16, 16],
+            ["ammo-lrm-standard rt", "ammo-lrm-standard rt", "lrm-10 rt", "standard-ppc ra"], 55);
+    });
+    it("SHD-2H Shadow Hawk", () => {
+        listing("shd-2h", 16, [55, 5, 3, 12, 152], [9, 23, 8, 18, 6, 18, 6, 16, 16, 16, 16],
+            ["ammo-is-ac-5-standard lt", "ammo-lrm-standard lt", "ammo-srm-standard lt", "autocannon-standard-b lt", "lrm-5 rt", "medium-laser ra", "srm-2 hd"], 55);
+    });
+    it("RFL-3N Rifleman: the VOX 260 printed is larger than its Walking MP needs", () => {
+        const entry = droid("rfl-3n");
+        const notes = listing("rfl-3n", 17, [60, 4, 0, 10, 120], [6, 22, 4, 15, 2, 15, 2, 15, 15, 12, 12],
+            ["ammo-is-ac-5-standard ct", "autocannon-standard-b la", "autocannon-standard-b ra", "large-laser la", "large-laser ra"],
+            built("rfl-3n").getCurrentTonnage());
+        expect(entry.engineRating).toBe(260);
+        expect(built("rfl-3n").getEngineRating()).toBe(240);
+        expect(notes).toContain("VOX 260");
+    });
+    it("CRD-3R Crusader: half a ton under", () => {
+        const notes = listing("crd-3r", 17, [65, 4, 0, 10, 184], [6, 30, 8, 24, 6, 24, 6, 20, 20, 20, 20], [
+            "ammo-lrm-standard lt", "ammo-lrm-standard rt", "ammo-machine-gun-standard ct", "ammo-srm-standard ct", "lrm-15 la", "lrm-15 ra",
+            "machine-gun la", "machine-gun ra", "medium-laser la", "medium-laser ra", "srm-6 ll", "srm-6 rl",
+        ], 64.5);
+        expect(notes).toContain("half a ton under");
+    });
+    it("ARC-2R Archer: two medium lasers facing rear", () => {
+        listing("arc-2r", 16, [70, 4, 0, 10, 208], [9, 35, 10, 30, 7, 30, 7, 15, 15, 25, 25], [
+            "ammo-lrm-standard lt", "ammo-lrm-standard lt", "ammo-lrm-standard rt", "ammo-lrm-standard rt", "lrm-20 lt", "lrm-20 rt",
+            "medium-laser ct(R)", "medium-laser ct(R)", "medium-laser la", "medium-laser ra",
+        ], 70);
+    });
+    it("WHM-6R Warhammer", () => {
+        listing("whm-6r", 16, [70, 4, 0, 18, 160], [9, 22, 9, 17, 8, 17, 8, 20, 20, 15, 15], [
+            "ammo-machine-gun-standard ct", "ammo-srm-standard rt", "machine-gun lt", "machine-gun rt", "medium-laser lt", "medium-laser rt",
+            "small-laser lt", "small-laser rt", "srm-6 rt", "standard-ppc la", "standard-ppc ra",
+        ], 70);
+    });
+    it("MAD-3R Marauder", () => {
+        listing("mad-3r", 17, [75, 4, 0, 16, 184], [9, 35, 16, 16, 8, 16, 8, 22, 22, 16, 16], [
+            "ammo-is-ac-5-standard lt", "autocannon-standard-b rt", "medium-laser la", "medium-laser ra", "standard-ppc la", "standard-ppc ra",
+        ], 75);
+    });
+
+    it("are the edition's 'Mechs, and the apocryphal droids are not", () => {
+        expect(getRulesEdition("battledroids").mechs).toEqual(BOOK.map(id => `${droid(id).model} ${droid(id).name}`));
+    });
+});
+
+describe("Printed Battledroids droids: across rules editions and old saves", () => {
+    it("keeps the printed droid through a change of edition and back", () => {
+        const mech = built("whm-6r");
+        mech.setRulesEdition("total-warfare");
+        expect(mech.getPrintedDroid()).toBe("whm-6r");
+        expect(editionAllowsConstruction(mech.getRulesEdition(), 0)).toBe(true);
+        mech.setRulesEdition("battledroids");
+        expect(mech.getPrintedDroid()).toBe("whm-6r");
+        expect(editionAllowsConstruction(mech.getRulesEdition(), 0)).toBe(false);
+    });
+
+    it("loads a Battledroids save without a printed droid as a built design, unchanged", () => {
+        const saved = JSON.parse(built("arc-2r").exportJSON());
+        delete saved.printedDroid;
+        const loaded = new BattleMech();
+        loaded.importJSON(JSON.stringify(saved));
+        expect(loaded.getPrintedDroid()).toBeUndefined();
+        expect(loaded.getRulesEdition()).toBe("battledroids");
+        expect(JSON.parse(loaded.exportJSON())).toEqual(saved);
+    });
+});
 
 describe("Printed Battledroids droids: the apocryphal sources", () => {
     // Game News #3 (May 1985) pp.12-13, "New Battledroid".
@@ -164,9 +264,10 @@ describe("Printed Battledroids droids: building and saving", () => {
     });
 
     it("lists the droids at or below a rules level", () => {
-        expect(getPrintedDroids(1)).toEqual([]);
+        expect(getPrintedDroids(0).map(entry => entry.id)).toEqual(BOOK);
+        expect(getPrintedDroids(1).map(entry => entry.id)).toEqual(BOOK);
         expect(getPrintedDroids(APOCRYPHAL_RULES_LEVEL).map(entry => entry.id)).toEqual([
-            "spi-5r", "gol-1h", "wlv-3nb", "wlv-3nc", "grf-2n", "shd-3h", "thn-8t", "btl-5r", "shd-2h-jakt", "grf-1n-soltic-h8",
+            ...BOOK, "spi-5r", "gol-1h", "wlv-3nb", "wlv-3nc", "grf-2n", "shd-3h", "thn-8t", "btl-5r", "shd-2h-jakt", "grf-1n-soltic-h8",
         ]);
     });
 
