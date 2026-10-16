@@ -127,19 +127,35 @@ describe("Printed Battledroids droids: across rules editions and old saves", () 
     // An edited droid is no longer the printed one: the picker and the lock stop naming it.
     it("knows a printed droid from one that has been changed", () => {
         expect(isUnmodifiedPrintedDroid(built("grf-1n"))).toBe(true);
-        // A round trip through Total Warfare changes nothing on a droid without jump jets; Total Warfare caps Jumping MP
-        // at Walking MP, so the Griffin's 6 comes back as 5, and it is then a changed droid.
-        const roundTrip = buildPrintedDroid(droid("whm-6r"));
-        roundTrip.setRulesEdition("total-warfare");
-        roundTrip.setRulesEdition("battledroids");
-        expect(isUnmodifiedPrintedDroid(roundTrip)).toBe(true);
-        const jumper = buildPrintedDroid(droid("grf-1n"));
-        jumper.setRulesEdition("total-warfare");
-        jumper.setRulesEdition("battledroids");
-        expect(isUnmodifiedPrintedDroid(jumper)).toBe(false);
         const faster = buildPrintedDroid(droid("grf-1n"));
         faster.setWalkSpeed(6);
         expect(isUnmodifiedPrintedDroid(faster)).toBe(false);
+    });
+
+    // The rules edition decides: Total Warfare caps the Griffin's Jumping MP at its Walking MP, and going back to
+    // Battledroids with nothing changed in between brings back the droid as Battledroids prints it.
+    it("restores the design an edition had when the switch away from it is undone", () => {
+        const jumper = buildPrintedDroid(droid("grf-1n"));
+        jumper.setRulesEdition("total-warfare");
+        expect([jumper.getWalkSpeed(), jumper.getJumpSpeed()]).toEqual([5, 5]);
+        jumper.setRulesEdition("battledroids");
+        expect(jumper.getJumpSpeed()).toBe(6);
+        expect(isUnmodifiedPrintedDroid(jumper)).toBe(true);
+
+        // A save made in between keeps the way back.
+        const saved = buildPrintedDroid(droid("grf-1n"));
+        saved.setRulesEdition("total-warfare");
+        const reloaded = new BattleMech();
+        reloaded.importJSON(saved.exportJSON());
+        reloaded.setRulesEdition("battledroids");
+        expect(isUnmodifiedPrintedDroid(reloaded)).toBe(true);
+
+        // A change made under the other edition is kept: the design is conformed, not restored.
+        const edited = buildPrintedDroid(droid("grf-1n"));
+        edited.setRulesEdition("total-warfare");
+        edited.setWalkSpeed(4);
+        edited.setRulesEdition("battledroids");
+        expect([edited.getWalkSpeed(), isUnmodifiedPrintedDroid(edited)]).toEqual([4, false]);
         const rearmed = buildPrintedDroid(droid("grf-1n"));
         rearmed.addEquipmentFromTag("medium-laser", "is", "la", false, undefined, "", false, [], undefined, undefined);
         expect(isUnmodifiedPrintedDroid(rearmed)).toBe(false);

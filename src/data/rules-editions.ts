@@ -102,6 +102,10 @@ export interface IRulesEdition {
     otherUnits?: string[];
     /** What the edition includes that the tool has no record for. */
     notModelled?: string[];
+    /** The edition predates OmniMechs, which first appeared in Technical Readout: 3050 (1989). */
+    noOmniMechs?: boolean;
+    /** The rulebook has no eras to build in; the design keeps its era, out of sight. */
+    noEras?: boolean;
     /** The edition's own game levels; absent means Total Warfare's. Apocryphal, Custom Homebrew and Munchkin follow. */
     levels?: IRulesEditionLevel[];
     /** The lowest rules level whose rules design new units; absent means every level. */
@@ -112,6 +116,8 @@ export const btRulesEditions: IRulesEdition[] = [
     {
         // Battledroids, the game's first edition: credits page, "Copyright 1984 FASA Corporation".
         tag: "battledroids",
+        noEras: true,
+        noOmniMechs: true,
         name: "Battledroids",
         year: 1984,
         book: "BD",
@@ -148,6 +154,7 @@ export const btRulesEditions: IRulesEdition[] = [
     {
         // BattleTech, Second Edition box set: "that 1985 box set" (CRB p.247); its rulebook prints "Copyright 1985".
         tag: "battletech-2nd-edition",
+        noOmniMechs: true,
         name: "BattleTech, Second Edition",
         year: 1985,
         book: "BT2",
@@ -170,6 +177,7 @@ export const btRulesEditions: IRulesEdition[] = [
     {
         // The BattleTech Manual: The Rules of Warfare: credits page, "Copyright 1987"; CRB p.247.
         tag: "battletech-manual",
+        noOmniMechs: true,
         name: "The BattleTech Manual",
         year: 1987,
         book: "BTM",

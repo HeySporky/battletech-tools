@@ -16,6 +16,7 @@ import './home.scss';
 import './step4.scss';
 import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
 import DesignLockColumn from '../../../components/design-lock';
+import EditionChoice from '../../../components/edition-choice';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -196,20 +197,22 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
 
                           <div className="row">
                             <div className="col-xs-12 col-md-6">
-                            <label>
-                                  Armor Type:
-                                  <select
-                                    value={this.props.appGlobals.currentBattleMech.getArmorType()}
-                                    onChange={this.setArmorType}
-                                  >
-                                    {/* <option value={0}>-Select Jumping Speed-</option> */}
-                                    {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter)
-                                      .filter( (armorData) => isOptionShown(armorData, armorData.tag === this.props.appGlobals.currentBattleMech?.getArmorType()) )
-                                      .map( (armorData, armorIndex) => (
-                                        <option key={armorIndex} value={armorData.tag}>{availabilityOptionLabel(armorData)}</option>
-                                    ))}
-                                  </select>
-                                </label>
+                            <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                              <label>
+                                    Armor Type:
+                                    <select
+                                      value={this.props.appGlobals.currentBattleMech.getArmorType()}
+                                      onChange={this.setArmorType}
+                                    >
+                                      {/* <option value={0}>-Select Jumping Speed-</option> */}
+                                      {this.props.appGlobals.currentBattleMech.getAvailableArmorTypes(this.props.appGlobals.appSettings.mechRulesFilter)
+                                        .filter( (armorData) => isOptionShown(armorData, armorData.tag === this.props.appGlobals.currentBattleMech?.getArmorType()) )
+                                        .map( (armorData, armorIndex) => (
+                                          <option key={armorIndex} value={armorData.tag}>{availabilityOptionLabel(armorData)}</option>
+                                      ))}
+                                    </select>
+                                  </label>
+                            </EditionChoice>
                             </div>
                             <div className="col-xs-12 col-md-6">
                             {this.props.appGlobals.currentBattleMech.isPatchworkArmor() ? (

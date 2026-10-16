@@ -122,3 +122,41 @@ test("a stored level Battledroids does not list acts as the level shown", async 
     await expect(page.getByText("Machine Gun").first()).toBeVisible();
     expect(errors).toEqual([]);
 });
+
+// The rules edition decides: Total Warfare caps the Griffin's Jumping MP, and switching straight back to
+// Battledroids brings back the droid as printed.
+test("going back to Battledroids restores the printed droid's specs", async ({ page }) => {
+    await page.goto("classic-battletech/mech-creator/step1");
+    await page.getByLabel("Rules Edition").selectOption("battledroids");
+    await page.getByLabel("Rules Level").selectOption("2");
+    await page.getByRole("combobox", { name: /^Droid/ }).selectOption("grf-1n");
+    await page.getByLabel("Rules Edition").selectOption("total-warfare");
+    await page.getByLabel("Rules Edition").selectOption("battledroids");
+    await expect(page.getByRole("combobox", { name: /^Droid/ })).toHaveValue("grf-1n");
+});
+
+// A field the edition's rulebook does not have is not shown: Battledroids has one engine, one gyro, one armor, no
+// eras and no OmniMechs. Total Warfare keeps them all.
+test("Battledroids hides the fields its rulebook does not have", async ({ page }) => {
+    await page.goto("classic-battletech/mech-creator/step1");
+    await expect(page.getByText("Is an Omnimech")).toBeVisible();
+    await expect(page.getByLabel("Technology Base")).toBeVisible();
+    await page.getByLabel("Rules Edition").selectOption("battledroids");
+    await page.getByLabel("Rules Level").selectOption("2");
+    for (const field of ["Technology Base", "Mech Type", "Mech Era", "Internal Structure Type"]) {
+        await expect(page.getByLabel(field), field).toBeHidden();
+    }
+    await expect(page.getByText("Is an Omnimech")).toBeHidden();
+    await expect(page.getByLabel("Mech Tonnage")).toBeVisible();
+    await page.goto("classic-battletech/mech-creator/step2");
+    for (const field of ["Myomer", "Jump Jet Type", "Select Engine Type", "Select Gyro Type", "Select Cockpit"]) {
+        await expect(page.getByLabel(field), field).toBeHidden();
+    }
+    await expect(page.getByRole("heading", { name: "Engine Type" })).toBeHidden();
+    await expect(page.getByLabel("Walking Movement Points")).toBeVisible();
+    await page.goto("classic-battletech/mech-creator/step3");
+    await expect(page.getByLabel("Heat Sink Technology")).toBeHidden();
+    await page.goto("classic-battletech/mech-creator/step4");
+    await expect(page.getByLabel("Armor Type")).toBeHidden();
+    await expect(page.getByLabel("Armor Weight")).toBeVisible();
+});

@@ -45,6 +45,12 @@ interface IWeights {
     weight: number;
 }
 
+export interface IRulesEditionReturn {
+    edition: string;
+    design: string;
+    left: string;
+}
+
 export interface ICriticalSlot {
     uuid: string;
     name: string;
@@ -203,6 +209,8 @@ export interface IBattleMechExport {
     rulesEdition?: string;
     /** The printed droid the design was loaded from (an id from battledroids-mechs.ts); absent for a built design. */
     printedDroid?: string;
+    /** The edition the design last left, its design then, and its design just after the switch (see setRulesEdition). */
+    rulesEditionReturn?: IRulesEditionReturn;
     introductoryRules?: boolean;
     is_type: string;
     jumpSpeed: number;
@@ -349,6 +357,7 @@ export class BattleMech {
     private _rulesEdition: string = DEFAULT_RULES_EDITION;
     /** The printed droid the design was loaded from (an id from battledroids-mechs.ts), if any. */
     private _printedDroid: string | undefined = undefined;
+    private _rulesEditionReturn: IRulesEditionReturn | undefined = undefined;
     private _model: string = "";
     private _name: string = "";
     private _tonnage = 20;
@@ -550,6 +559,7 @@ export class BattleMech {
         this._primitive = false;
         this._rulesEdition = DEFAULT_RULES_EDITION;
         this._printedDroid = undefined;
+        this._rulesEditionReturn = undefined;
         this._advancedFireControl = false;
         this._patchworkArmor = {};
         this._frankenMech = false;
@@ -5196,7 +5206,8 @@ export class BattleMech {
 
     /** Fractional Accounting is "experimental-level unit design" (TO:AUE p.188): Experimental rules and above. */
     public canUseFractionalAccounting(rulesLevel: number = 2): boolean {
-        return rulesLevel >= EXPERIMENTAL_RULES_LEVEL;
+        // A TO:AUE rule: no earlier rulebook has it.
+        return rulesLevel >= EXPERIMENTAL_RULES_LEVEL && !this.usesEarlierRulesEdition();
     }
 
     /**
@@ -5641,11 +5652,44 @@ export class BattleMech {
      * damage, ranges, critical slots and price wherever it still held the old edition's; nothing is removed.
      * getRulesEditionIssues() lists what the new edition does not include. An unknown tag is ignored.
      */
+    /** The design as it stands, for telling whether it changed: no ids, timestamps or way back. */
+    private _editionState(): string {
+        const saved = this.export() as unknown as Record<string, unknown>;
+        return JSON.stringify({ ...saved, uuid: undefined, lastUpdated: undefined, rulesEditionReturn: undefined });
+    }
+
+    /**
+     * The edition the design last left, kept with the switch. Call again after anything that finishes the switch
+     * (the creator's tonnage clamp), so that is not taken for a change.
+     */
+    public settleRulesEditionSwitch(): void {
+        if (this._rulesEditionReturn) {
+            this._rulesEditionReturn.left = this._editionState();
+        }
+    }
+
+    /**
+     * Change the rules edition; the edition decides. Equipment takes its stats, rules it lacks are dropped and the
+     * design conformed. Going back to the edition the design just left, with nothing changed since, brings back the
+     * design it had there exactly (a Battledroids droid's Jumping MP above its Walking MP, which Total Warfare caps).
+     */
     public setRulesEdition(editionTag: string): string {
         const edition = getRulesEdition(editionTag);
         if (edition.tag !== editionTag || edition.tag === this._rulesEdition) {
             return this._rulesEdition;
         }
+        const back = this._rulesEditionReturn;
+        if (back && back.edition === edition.tag && back.left === this._editionState()) {
+            this.reset();
+            this.importJSON(back.design);
+            this._rulesEditionReturn = undefined;
+            return this._rulesEdition;
+        }
+        const leaving: IRulesEditionReturn = {
+            edition: this._rulesEdition,
+            design: JSON.stringify({ ...this.export(), rulesEditionReturn: undefined }),
+            left: "",
+        };
         const previous = this._rulesEdition;
         this._rulesEdition = edition.tag;
         const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
@@ -5667,6 +5711,9 @@ export class BattleMech {
             this._frankenMech = false;
             this._frankenMechDonors = {};
             this._frankenMechJumpJetClass = null;
+            // Primitive 'Mechs (IO:AE) and Fractional Accounting (TO:AUE) came later too.
+            if (this._primitive) this.setPrimitive(false);
+            if (this.usesFractionalAccounting()) this.setWeightAccounting("standard");
         }
         // The technology base must be one the edition has: Clan falls back to Inner Sphere, Mixed to its base.
         const techTags = this.getAvailableTechOptions().map((option) => option.tag);
@@ -5676,6 +5723,8 @@ export class BattleMech {
         }
         // The structure boxes are the edition's as well; setTonnage recalculates everything after them.
         this.setTonnage(this._tonnage);
+        this._rulesEditionReturn = leaving;
+        this.settleRulesEditionSwitch();
         return this._rulesEdition;
     }
 
@@ -6042,6 +6091,7 @@ export class BattleMech {
      * for Inner Sphere LAMs at the Custom Homebrew rules level.
      */
     public canBeOmniMech(rulesLevel: number = 2): boolean {
+        if (getRulesEdition(this._rulesEdition).noOmniMechs) return false;
         if (this.isTripod()) return false;
         // "Primitive 'Mechs cannot be constructed as OmniMechs" (IO:AE p.117).
         if (this._primitive) return false;
@@ -7289,6 +7339,7 @@ export class BattleMech {
             era: this._era.tag,
             rulesEdition: this._rulesEdition === DEFAULT_RULES_EDITION ? undefined : this._rulesEdition,
             printedDroid: this._printedDroid,
+            rulesEditionReturn: this._rulesEditionReturn,
             features: [],
             gyro: this._gyro.tag,
             heat_sink_type: this.getHeatSinksType(),
@@ -7604,6 +7655,7 @@ export class BattleMech {
             // Before anything is mounted: the edition decides the stats of what is loaded.
             this._rulesEdition = getRulesEdition(importObject.rulesEdition).tag;
             this._printedDroid = importObject.printedDroid || undefined;
+            this._rulesEditionReturn = importObject.rulesEditionReturn || undefined;
 
             this.setTonnage(importObject.tonnage);
 
@@ -9919,7 +9971,8 @@ export class BattleMech {
      */
     public canBePrimitive(): boolean {
         const typeTag = this._mechType.tag.toLowerCase();
-        return (typeTag === "biped" || typeTag === "quad") && !this._omnimech && this._tonnage <= 100
+        // An IO:AE rule: no earlier rulebook has it.
+        return !this.usesEarlierRulesEdition() && (typeTag === "biped" || typeTag === "quad") && !this._omnimech && this._tonnage <= 100
             && (this._tech.tag === "is" || this._tech.tag === "mis");
     }
 

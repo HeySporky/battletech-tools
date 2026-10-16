@@ -1440,6 +1440,18 @@ Open:
     Apocryphal only (`apocryphalIn`). At Custom Homebrew, the user's conversions for four Ral Partha
     Battledroids miniatures (FLE-15 Flea, FS9-H Firestarter, BKX-7K Battleaxe, LCT-1V Locust), corrected to
     the book's rules. Every correction and every sheet that does not add up is in the droid's notes.
+  - [x] Battledroids follow-ups (2026-10-16). The GOL-1H's center torso items that its slots cannot hold are mounted
+    in the figurine's turret, as the sheet prints them (`turret`, Step 6 lists them apart). Replacing a design in
+    any creator (Start Over, loading a save, a file or MegaMek import, the Droid picker) first offers to save it,
+    unless it is blank or already saved as it stands. Under an earlier edition a field the rulebook leaves one
+    choice for is hidden (`EditionChoice`), as are eras under Battledroids (`noEras`) and OmniMechs before
+    TR:3050 (`noOmniMechs`); Primitive 'Mechs and Fractional Accounting are offered under Total Warfare and
+    later only, and turned off by a switch to an earlier edition. The rules edition decides: switching straight
+    back to the edition a design just left, with nothing changed since, brings back the design it had there
+    (`rulesEditionReturn`), so a Battledroids Griffin keeps its Jumping MP 6 through Total Warfare and back.
+  - [ ] Fields by edition in the other creators: vehicles, fighters, small craft, infantry, battle armor,
+    ProtoMechs and buildings do not hide the fields an earlier edition lacks yet (`EditionChoice` is the
+    Mech Creator's).
   - [ ] Rules levels by edition, the rest: each other edition's own level names, its construction level and its
     printed units, from its own book, one edition at a time. Two TCI kit sheets are still to find (the Dougram
     Jakt-type Shadow Hawk and the plain Soltic H8 Griffin, entered from the book's SHD-2H and GRF-1N and marked

@@ -15,6 +15,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import DesignLockColumn from '../../../components/design-lock';
+import { getShownRulesLevel } from '../../../../data/rules-editions';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Plus = FaPlus as any;
@@ -198,7 +199,9 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       const techTag = currentMech.getTech().tag;
       const includeClan = techTag === "clan" || techTag === "mis" || techTag === "mclan";
       const includeIS = techTag === "is" || techTag === "mis" || techTag === "mclan";
-      const includeCustom = this.props.appGlobals.appSettings.mechRulesFilter >= CUSTOM_HOMEBREW_RULES_LEVEL;
+      // The level the edition shows: a stored level the edition does not list acts as the next one it does.
+      const shownLevel = getShownRulesLevel(currentMech.getRulesEdition(), this.props.appGlobals.appSettings.mechRulesFilter);
+      const includeCustom = shownLevel >= CUSTOM_HOMEBREW_RULES_LEVEL;
       return (
         <>
             <StandardModal
@@ -212,7 +215,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                   <div>
                       <AvailableEquipment
                         appGlobals={this.props.appGlobals}
-                        equipment={currentMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, includeCustom, this.props.appGlobals.appSettings.mechRulesFilter)}
+                        equipment={currentMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, includeCustom, shownLevel)}
                         addFunction={this.addEquipment}
                       />
                   </div>
@@ -354,7 +357,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {currentMech.getAvailableBombs(this.props.appGlobals.appSettings.mechRulesFilter).map( (bomb) => (
+                                    {currentMech.getAvailableBombs(shownLevel).map( (bomb) => (
                                       <tr key={bomb.tag}>
                                         <td>{bomb.name}</td>
                                         <td>{bomb.bombBaySlots}</td>

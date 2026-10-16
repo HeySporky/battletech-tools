@@ -109,8 +109,10 @@ describe("Rules edition selector", () => {
         expect([launcher.heat, launcher.book]).toEqual([0, "BD"]);
         expect(mech.getCurrentTonnage()).toBe(weight);
         mech.setRulesEdition("total-warfare");
-        expect(launcher.heat).toBe(2);
-        expect(launcher.book).not.toBe("BD");
+        // Undoing the switch brings back the design as it was, its items included.
+        const restored = mech.getInstalledEquipment().find(item => item.tag === "srm-2")!;
+        expect(restored.heat).toBe(2);
+        expect(restored.book).not.toBe("BD");
     });
 
     // BD p.24: 0.5 tons a jump point at every tonnage. BT2 p.39 brings in the three weight bands.
@@ -389,5 +391,31 @@ describe("A four-legged droid under Battledroids", () => {
     it("allows it at Apocryphal", () => {
         expect(goliath().getRulesEditionIssues(5)).not.toContain("Chassis type: Quad");
         expect(goliath().isInRulesEdition(mechTypeOptions.find(option => option.tag === "quad")!, 5)).toBe(true);
+    });
+});
+
+// An earlier rulebook offers only the construction options it prints: no OmniMechs before TR:3050 (1989), and no
+// Primitive 'Mechs (IO:AE) or Fractional Accounting (TO:AUE), which came after every earlier edition.
+describe("BattleMech construction options by rules edition", () => {
+    it("offers OmniMechs, Primitive 'Mechs and Fractional Accounting only where the edition has them", () => {
+        const options = (edition: string) => {
+            const mech = new BattleMech();
+            mech.setRulesEdition(edition);
+            return [mech.canBeOmniMech(4), mech.canBePrimitive(), mech.canUseFractionalAccounting(4)];
+        };
+        expect(options("total-warfare")).toEqual([true, true, true]);
+        expect(options("battledroids")).toEqual([false, false, false]);
+        expect(options("battletech-manual")).toEqual([false, false, false]);
+        expect(options("battletech-compendium")).toEqual([true, false, false]);
+    });
+
+    it("turns them off when the design moves to an edition without them", () => {
+        const mech = new BattleMech();
+        mech.setTech("is");
+        mech.setPrimitive(true);
+        mech.setWeightAccounting("fractional", 4);
+        expect([mech.isPrimitive(), mech.usesFractionalAccounting()]).toEqual([true, true]);
+        mech.setRulesEdition("battledroids");
+        expect([mech.isPrimitive(), mech.usesFractionalAccounting()]).toEqual([false, false]);
     });
 });
