@@ -14,6 +14,7 @@ const ROUTES = [
     "game-management",
     "settings",
     "dev-status",
+    "other-tools",
 ];
 
 for (const route of ROUTES) {

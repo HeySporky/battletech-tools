@@ -37,6 +37,7 @@ const DevelopmentStatus = React.lazy(() => import("./pages/development-status"))
 const EquipmentEditor = React.lazy(() => import("./pages/equipment-editor"));
 const GameManagementRouter = React.lazy(() => import("./pages/game-management/_router"));
 const Home = React.lazy(() => import("./pages/home"));
+const OtherTools = React.lazy(() => import("./pages/other-tools"));
 const SettingsRouter = React.lazy(() => import("./pages/settings/_router"));
 const SSWSanityCheck = React.lazy(() => import("./pages/ssw-sanity-check"));
 
@@ -924,6 +925,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
                 <Route path={`${process.env.PUBLIC_URL}/dev-status`}    element={
                     <DevelopmentStatus
+                        appGlobals={this.state.appGlobals}
+                    />
+                }/>
+                <Route path={`${process.env.PUBLIC_URL}/other-tools`}  element={
+                    <OtherTools
                         appGlobals={this.state.appGlobals}
                     />
                 }/>

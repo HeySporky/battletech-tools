@@ -242,6 +242,14 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
 
     menuStructure.push(
         {
+            label: "Other Tools",
+            url: "/other-tools",
+            tag: "other-tools",
+        },
+    );
+
+    menuStructure.push(
+        {
             label: "About",
             url: "/about",
             tag: "about",
