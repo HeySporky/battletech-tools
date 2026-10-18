@@ -67,6 +67,62 @@ export const mechISEquipmentEnergy: IEquipmentItem[] = [
     },
     {
         isAmmo: false,
+        name: "Light Blazer",
+        tag: "light-blazer",
+        altNames: ["Light Binary Laser"],
+        sort: "Laser, binary, light",
+        category: "Energy Weapons",
+        // BattleTech Gothic, Weapons and Equipment Table p.93: Heat 6, Damage 7, no minimum, 1-3 / 4-6 / 7-9. Gothic
+        // has no construction rules, so weight, slots, cost, Battle Value and dates are not printed (2026-10-17).
+        notes: "BattleTech Gothic only (Weapons and Equipment Table p.93; Abomination-Mounted Weapons Table p.92 gives 1K shots per ton for Abominations). Gothic prints no weight, slots, cost, Battle Value or dates. Provisional: 2 tons inferred from the FS9-B Firestarter, which trades its two medium lasers, two machine guns and ammunition for a pair of light blazers (Gothic p.107); 2 slots by analogy with the Binary Laser Cannon, which takes the slots of the two lasers it pairs. Cost and Battle Value unknown (0).",
+        damage: 7,
+        damageAero: 7,
+        accuracyModifier: 0,
+        cbills: 0,
+        introduced: null,
+        extinct: null,
+        reintroduced: null,
+        battleValue: 0,
+        heat: 6,
+        weight: 2,
+        range: {
+            min: 0,
+            short: 3,
+            medium: 6,
+            long: 9
+        },
+        space: {
+            battlemech: 2,
+            protomech: -1,
+            combatVehicle: 1,
+            supportVehicle: 2,
+            aerospaceFighter: 1,
+            smallCraft: 1,
+            dropShip: 1
+        },
+        shotsPerTon: 0,
+        minAmmoTons: 1,
+        explosive: false,
+        weaponType: [
+            "DE"
+        ],
+        rulesLevel: 5, // Apocryphal: licensed, outside the main BattleTech setting.
+        book: "Gothic",
+        page: 93,
+        alphaStrike: {
+            heat: 6,
+            rangeShort: 0.7,
+            rangeMedium: 0.7,
+            rangeLong: 0,
+            rangeExtreme: 0,
+            tc: true,
+            notes: ["Provisional: damage / 10 per range band, as the Medium Laser"]
+        },
+        heatAero: 6,
+        rangeAero: "s"
+    },
+    {
+        isAmmo: false,
         name: "Bombast Laser",
         tag: "bombast-laser",
         sort: "laser, bombast",

@@ -292,8 +292,8 @@ export const battledroidsPrintedDroids: IPrintedDroid[] = [
             "Sheet not found: inferred from the GRF-1N of BD p.16 (the Round Facer kit's sheet is the GRF-2N). Replace with the sheet when a photograph turns up.",
         ],
     },
-    // The user's conversions of canon designs whose Ral Partha miniatures were sold in Battledroids blister packs
-    // (user, 2026-10-16), corrected to the book's rules: armor within twice the internal structure and in half tons
+    // The NGCFells' conversions of canon designs whose Ral Partha miniatures were sold in Battledroids blister packs
+    // (2026-10-16), corrected to the book's rules: armor within twice the internal structure and in half tons
     // (BD pp.24-25), a ton of ammunition for each weapon that uses it (BD p.25), heat sinks for the weapons' heat,
     // then the rest of the tonnage in armor.
     {

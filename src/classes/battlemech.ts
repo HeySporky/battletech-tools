@@ -908,12 +908,12 @@ export class BattleMech {
         const runSpeed = this.getBVRunSpeed();
         const jumpSpeed = this.getBVJumpSpeed();
         // Standard LAMs rate their running TMM on AirMech Flank MP plus the +1 airborne
-        // modifier; bimodal LAMs use the normal 'Mech TMM (IO p.192).
+        // modifier; bimodal LAMs use the normal 'Mech TMM (IO:AE p.186).
         const runModifier = this.hasAirMechMode()
             ? getMovementModifier(this.getAirMechFlankMP()) + 1
             : getMovementModifier(runSpeed);
         if (this.hasAirMechMode()) {
-            this._calcLogBV += `LAM: running TMM uses AirMech Flank MP ${this.getAirMechFlankMP()} +1 airborne (IO p.192)<br />`;
+            this._calcLogBV += `LAM: running TMM uses AirMech Flank MP ${this.getAirMechFlankMP()} +1 airborne (IO:AE p.186)<br />`;
         }
         // Jumping modifier bonus (TM p. 304); UMU movement earns no jump bonus.
         const jumpModifier = Math.max(jumpSpeed > 0 ? getMovementModifier(jumpSpeed) + 1 : 0, getMovementModifier(this.getUMUSpeed()));
@@ -1042,14 +1042,14 @@ export class BattleMech {
         mechHeatEfficiency += (this.getHeatSinks() * sinkEfficiencyMultiplier) - this.getMaxMovementHeat();
         // Partial wing: +3 heat capacity in a standard atmosphere (TO:AUE p.105).
         mechHeatEfficiency += this.getPartialWingHeatBonus();
-        // LAMs add 9 instead of 6 to heat capacity (IO p.192). The +3 matches AirMech mode's
-        // partial-wing heat bonus (IO p.113), so bimodal LAMs, which have no AirMech mode,
+        // LAMs add 9 instead of 6 to heat capacity (IO:AE p.186). The +3 matches AirMech mode's
+        // partial-wing heat bonus (IO:AE p.107), so bimodal LAMs, which have no AirMech mode,
         // keep the 'Mech value (as MegaMek also reads it; IO does not say).
         if (this.hasAirMechMode()) {
             mechHeatEfficiency += 3;
             this._calcLogBV += `LAM: heat capacity +9 instead of +6; movement heat ${this.getMaxMovementHeat()} from AirMech Flank MP / 3 (IO pp.113, 192)<br />`;
         }
-        // RISC Emergency Coolant System: +4 (IO p.91).
+        // RISC Emergency Coolant System: +4 to Heat Efficiency (IO:AE p.190).
         if (this._equipmentList.some(item => matchesTag(item, "risc-emergency-coolant-system"))) {
             mechHeatEfficiency += 4;
         }
@@ -1230,8 +1230,8 @@ export class BattleMech {
         const absoluteRoundedBV = Math.round(finalBattleValue);
         this._calcLogBV += `<strong>Final Unit Battle Value:</strong> ${absoluteRoundedBV} (Rounded from ${finalBattleValue.toFixed(2)})<br />`;
         
-        // LAM bombs add their BV after rounding, like aerospace external stores
-        // (TO:AUE via MegaMek BVCalculator.processExternalStores; provisional).
+        // LAM bombs add their BV to the base BV before the skill multiplier, as external stores do on
+        // fighters (TM p.315). Provisional: IO:AE's LAM BV rules (p.186) do not say bombs follow that rule.
         const bombBV = this.getBombBattleValue();
         if (bombBV > 0) {
             this._calcLogBV += `<em>PROVISIONAL LAM BV:</em> + Loaded bombs (external stores): ${bombBV} -> ${absoluteRoundedBV + bombBV}<br />`;
@@ -1278,7 +1278,7 @@ export class BattleMech {
      * speed (same implementation as MegaMek's BVCalculator.offensiveSpeedFactor / offensiveSpeedFactorMP).
      */
     private _getSpeedFactorModifier(): number {
-        // Speed Factor MP (TM p.316). Standard LAMs use 'Mech Run MP + half AirMech Flank MP, rounded normally (IO p.192);
+        // Speed Factor MP (TM p.316). Standard LAMs use 'Mech Run MP + half AirMech Flank MP, rounded normally (IO:AE p.186);
         // other 'Mechs use the better of Jump MP and UMU MP (TO:AUE p.107).
         const speedFactorMP = this.hasAirMechMode()
             ? this.getBVRunSpeed() + Math.round(this.getAirMechFlankMP() / 2)
@@ -3348,14 +3348,14 @@ export class BattleMech {
         }
 
         // LAM/QuadVee conversion equipment is 10% of mass, rounded up to a whole ton
-        // (IO p.114 LAM; QuadVee IO p.134 via MegaMek TestMek, not yet checked in the book).
+        // (IO:AE p.108 LAM; QuadVee IO:AE p.128).
         if (typeTag === "quadvee") {
             this._weights.push({
                 name: "QuadVee Conversion / Motive Package",
                 weight: Math.ceil(this._tonnage * 0.1)
             });
         } else if (typeTag === "lam") {
-            // Bimodal LAMs: 15% (IO p.113 via MegaMek).
+            // Bimodal LAMs: 15% (IO:AE p.108).
             this._weights.push({
                 name: this._lamType === "bimodal" ? "Bimodal LAM Conversion Equipment" : "LAM Conversion Equipment",
                 weight: Math.ceil(this._tonnage * (this._lamType === "bimodal" ? 0.15 : 0.1))
@@ -6134,20 +6134,20 @@ export class BattleMech {
         return this.isLAM() && this._lamType !== "bimodal";
     }
 
-    /** AirMech Cruise MP: 'Mech-mode Jump MP x 3 (IO p.108). */
+    /** AirMech Cruise MP: 'Mech-mode Jump MP x 3 (IO:AE p.102). */
     public getAirMechCruiseMP(): number {
         return this.hasAirMechMode() ? this.getJumpSpeed() * 3 : 0;
     }
 
-    /** AirMech Flank MP: Cruise MP x 1.5, rounded up (IO p.108). */
+    /** AirMech Flank MP: Cruise MP x 1.5, rounded up (IO:AE p.102). */
     public getAirMechFlankMP(): number {
         return Math.ceil(this.getAirMechCruiseMP() * 1.5);
     }
 
     /**
      * Battle Value built on rules we have not yet verified against the book: loaded LAM
-     * bombs (via MegaMek; IO p.192 gives no bomb BV rule) and the Custom Homebrew Omni-LAM.
-     * The LAM movement and heat adjustments themselves follow IO p.192.
+     * bombs (TM p.315's external-stores rule, which IO:AE p.186 does not extend to LAMs) and the Custom Homebrew Omni-LAM.
+     * The LAM movement and heat adjustments themselves follow IO:AE p.186.
      */
     public isBattleValueProvisional(): boolean {
         return this.isOmniLAM() || (this.isLAM() && this.getBombLoadoutSlots() > 0);
@@ -6458,12 +6458,12 @@ export class BattleMech {
      * 1 ton and 1 slot each, in the side torsos only. Each bay holds one bomb slot; bays in
      * the same location combine for multi-slot bombs (IO errata as quoted by a moderator,
      * bg.battletech.com forums topic 84643; errata document not checked).
-     * Bomb mass is accounted for by the bays, so loaded bombs add no weight (IO p.110), and
-     * LAM cost counts only the bays and fuel tanks (IO p.186).
+     * Bomb mass is accounted for by the bays, so loaded bombs add no weight (IO:AE p.104), and
+     * LAM cost counts only the bays and fuel tanks (IO:AE p.180).
      */
-    /** LAMs need at least 3 Jump MP (IO p.114); the usual walking-MP cap still applies. */
+    /** LAMs need at least 3 Jump MP (IO:AE p.108); the usual walking-MP cap still applies. */
     public static readonly LAM_MIN_JUMP_MP = 3;
-    /** Equipment LAMs may not mount (IO p.114); bridge-layers are matched by tag prefix. */
+    /** Equipment LAMs may not mount (IO:AE p.108); bridge-layers are matched by tag prefix. */
     public static readonly LAM_PROHIBITED_TAGS: readonly string[] = [
         "supercharger", "backhoe", "combine", "dumper", "mechanical-jump-booster",
         "partial-wing", "clan-partial-wing", "chameleon-lps",
@@ -6488,7 +6488,7 @@ export class BattleMech {
      * types are available".
      */
     public static readonly SUPERHEAVY_STRUCTURE_TAGS: readonly string[] = ["standard", "endo-steel", "endo-composite", "industrial"];
-    /** Gyros a LAM may use: Standard, Compact, Heavy-Duty (IO p.114). */
+    /** Gyros a LAM may use: Standard, Compact, Heavy-Duty (IO:AE p.108). */
     public static readonly LAM_GYRO_TAGS: readonly string[] = ["standard", "compact", "heavy-duty"];
     public static readonly LAM_BOMB_BAY_TAG = "lam-bomb-bay";
     public static readonly LAM_FUEL_TANK_TAG = "lam-fuel-tank";
@@ -6499,7 +6499,7 @@ export class BattleMech {
         return this._equipmentList.filter(item => matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG)).length;
     }
 
-    /** Bomb Bays per side torso; bays may only go in the left or right torso (IO p.114). */
+    /** Bomb Bays per side torso; bays may only go in the left or right torso (IO:AE p.108). */
     public getBombBaysByLocation(): Record<string, number> {
         const bays: Record<string, number> = { lt: 0, rt: 0 };
         if (!this.isLAM()) return bays;
@@ -6777,7 +6777,7 @@ export class BattleMech {
                 violations.push(`LAMs need at least ${BattleMech.LAM_MIN_JUMP_MP} Jump MP, but Jump MP ${this.getJumpSpeed()} exceeds Walk MP ${this.getWalkSpeed()}; raise the engine rating.`);
             }
             // No equipment split across locations; spreadable equipment stays in one location
-            // (IO p.114, Extra-Large Weapons and Other Items).
+            // (IO:AE p.108, Extra-Large Weapons and Other Items).
             const locationsByKey = new Map<string, { name: string; locations: Set<string> }>();
             for (const area of Object.keys(this._criticals)) {
                 for (const slot of this._criticals[area] ?? []) {
@@ -6795,7 +6795,7 @@ export class BattleMech {
             const torsoBays = Object.values(this.getBombBaysByLocation()).reduce((sum, bays) => sum + bays, 0);
             const placedBays = this._equipmentList.filter(item => matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG) && item.location).length;
             if (placedBays > torsoBays) {
-                violations.push(`${placedBays - torsoBays} Bomb Bay(s) are outside the side torsos; LAM bomb bays go only in the left or right torso (IO p.114).`);
+                violations.push(`${placedBays - torsoBays} Bomb Bay(s) are outside the side torsos; LAM bomb bays go only in the left or right torso (IO:AE p.108).`);
             }
         }
         return violations;
@@ -9297,7 +9297,7 @@ export class BattleMech {
 
     /**
      * LAM bomb bays and fuel tanks: each slot counts as explosive ammunition (-15 BV) for the
-     * defensive battle rating (IO p.192; -15 per slot, IO p.196).
+     * defensive battle rating (-15 per slot, IO:AE p.186).
      */
     private static _isLAMInternalStore(item: IEquipmentItem): boolean {
         return matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG) || matchesTag(item, BattleMech.LAM_FUEL_TANK_TAG);
@@ -10072,7 +10072,7 @@ export class BattleMech {
 
     /**
      * LAM construction limits: no armor or internal structure that occupies critical slots,
-     * no Hardened armor, and only Standard or Compact fusion engines (IO p.114).
+     * no Hardened armor, and only Standard or Compact fusion engines (IO:AE p.108).
      */
     private _isLAMLegalComponent(kind: "armor" | "structure" | "engine", tag: string): boolean {
         if (kind === "engine") {
@@ -10087,7 +10087,7 @@ export class BattleMech {
     }
 
     private _isEquipmentAllowedForChassis(item: IEquipmentItem): boolean {
-        // Chassis-specific equipment, e.g. LAM Bomb Bays and Fuel Tanks (IO p.114).
+        // Chassis-specific equipment, e.g. LAM Bomb Bays and Fuel Tanks (IO:AE p.108).
         if (item.chassisTypes && item.chassisTypes.length > 0
             && !item.chassisTypes.includes(this._mechType.tag.toLowerCase())) {
             return false;
@@ -10134,7 +10134,7 @@ export class BattleMech {
         const tag = item.tag.toLowerCase();
         const name = item.name.toLowerCase();
         if (this.isLAM()) {
-            // IO p.114, Prohibited Technologies and construction notes: no artillery, no weapon
+            // IO:AE p.108, Prohibited Technologies and construction notes: no artillery, no weapon
             // that needs a Piloting skill except physical attack weapons (heavy Gauss), no
             // supercharger, and none of the listed conversion-blocking equipment. Items split
             // across locations are reported by getChassisEquipmentViolations().

@@ -28,8 +28,6 @@ Local references (git-ignored, never imported by shipped code):
 
 ## 1. Fix what ships
 
-- [skipping ] Ask GitHub Support to drop the cached views of the old commits and the fork PR #8 ref (a "Remove
-  sensitive data" request listing the old commit IDs).
 - [ ] BV differs from SSW's BV2 figure: after the import fixes, 350 of 2,610 non-bundled designs match
   exactly and 805 within 2%. Work through the differences by cause (unplaced criticals and unknown
   equipment first, since they skew BV).
@@ -157,23 +155,30 @@ designs, 44 still report errors (421 before).
   equipment, engines, gyros, cockpits, structure, armor, heat sinks, jump jets and myomer: weight, slots,
   damage, heat, ranges, BV, cost, tech rating and dates. Records whose book isn't local are listed as
   unchecked, not passed.
-- [ ] Books still missing from the library: BattleMech Manual, A Time of War, Interstellar Operations: Alpha
-  Strike Edition. The Aces rulebook and Aces: Scouring Sands are scans that need OCR before the tool can
-  read them.
-- [ ] Re-check the "(original single-volume TO)" page references in this file (building construction TO
-  pp. 128-131, mobile structures TO p. 259, and the Sarna leads) against TO:AR and TO:AUE, now that both
-  are local.
+- [x] Re-check the "(original single-volume TO)" page references against TO:AR and TO:AUE (2026-10-17, from
+  the library text and contents pages). The original-TO pages were right; their new homes: building
+  construction TO pp.128-131 = TO:AR pp.126-129; mobile structures TO p.259 = TO:AUE p.75; Booby Trap TO:AUE
+  p.108; Chaff Pod TO p.299 = TO:AUE p.110; Collapsible Command Module TO:AUE p.112; Drone (Remote) Systems
+  TO:AUE p.116; Artemis V TO p.283 = TO:AUE p.95; Apollo TO:AUE p.143; Mobile HPG TO:AUE p.142 (table
+  p.220); Recon Camera TO:AUE p.148; 'Mech turrets TO:AUE p.159; cruise missiles TO:AUE pp.96-97 (table
+  p.216; each missile's damage is the number in its name, the text layer runs the columns together).
+- [x] Sources found 2026-10-17 (the catalog already carried the right values; notes updated):
+  - Improved SRM 2/4/6 BV 28/52/79, ammo 4/7/10 (IO:AE p.189). MegaMek's 39 for the iSRM 4 is wrong.
+  - The Improved PPC and improved autocannons do not explode: they "perform in the same fashion" as their
+    standard versions (IO:AE p.90); the 20-point explosion there is the improved Gauss rifle's.
+  - I-OS launchers have one row for every type (IO:AE p.40, read from the page image): prototype 3056 (DC),
+    production ~3081 (DC), common 3085, Clan prototype 3058 (CNC). SRM/Streak SRM/SRT I-OS match the LRM's.
+  - Arrow IV: IS 8, Clan 9 mapsheets (TO:AR p.149, Artillery Ranges Table).
+  - Conversion weights: LAM 10%, bimodal LAM 15% (IO:AE p.108), QuadVee 10% (IO:AE p.128).
+  - Primitive engine dates: the Primitive BattleMech row, prototype 2439 (TH), production 2443 (TH), common
+    2470 (IO:AE p.44, page image), which the code already uses.
 - [ ] Items waiting on a source (fold into the tool's report as it lands):
-  - Improved SRM 4 BV: MegaMek lists 39 (same as the SRM 4) while the iSRM 2/6 run a third above their SRMs.
-  - Whether the Improved PPC and Improved AC/20 explode when critically hit (MegaMek flags them).
-  - IS SRM/Streak SRM/SRT I-OS dates: MegaMek gives production 3056, while LRM/MRM/Narc I-OS are prototype
-    3056, production 3081.
-  - Arrow IV range: `maxMapSheets: 8`; check 8 or 9 against TO.
-  - LAM, QuadVee and Tripod values cited "via MegaMek" (conversion weights, IO p.113/134; chassis rules
-    levels, IO p.50; cost multipliers; Superheavy costs; the Tripod prohibited-equipment list).
-  - Naval vehicles over 300 t use MegaMek's suspension formula, unverified.
-  - Artillery Thunder/FASCAM ammo BV against the rack-size formulas; IndustrialMech armor (Industrial,
-    Heavy Industrial, Commercial); primitive fusion engine dates.
+  - LAM and Tripod values cited "via MegaMek" (chassis rules levels, IO p.50; cost multipliers; Superheavy
+    costs; the Tripod prohibited-equipment list).
+  - Naval vehicles over 300 t use MegaMek's suspension formula, unverified (no hit in the library text).
+  - Artillery Thunder/FASCAM ammo BV against the rack-size formulas (the TO:AUE p.198 Alternative Munitions
+    Table has the "Thunder/FASCAM †" row; the formula is not checked); IndustrialMech armor (Industrial,
+    Heavy Industrial, Commercial).
 - [ ] Apocryphal hunt: `enhanced_er_ppc`, `enhanced_er_large_laser` and `enhanced_clan_lrm_10` don't match
   IO's Clan Enhanced PPC / Improved Large Laser / Improved LRM statistics; Clan LRM Mag-Pulse ammo has no
   Clan IO window. Decide the canon mapping or move them to custom.
@@ -727,8 +732,10 @@ played first, then by dependency.
 
 ### LAMs
 
-- [ ] Loaded bomb BV is added after rounding, like external stores (via MegaMek; provisional). IO's LAM BV
-  rules (p.192) don't mention bomb BV; check TM's aerospace external-stores BV rule.
+- [ ] Loaded bomb BV is added to the base BV before the skill multiplier, as TM p.315 does for external
+  stores ("The BV of any external stores is added to the base BV of a unit before the base BV is modified
+  for skill rating"). Still provisional: IO:AE's LAM BV rules (p.186) don't say LAM bombs follow it; they
+  only count each bomb bay and fuel slot as explosive ammunition (-15).
 - [ ] Not included: the Alamo nuclear missile (optional nuclear rules) and the prototype rocket pod
   (Experimental).
 - [ ] Averaged pilot skills ('Mech + aerospace, rounded normally; IO p.192, TM p.314): we store one skill
@@ -739,17 +746,33 @@ played first, then by dependency.
 
 - [ ] Pod-mounted heat sinks and jump jets (legal per TM) can't be modeled: they are counts in our model,
   not equipment.
-- [ ] HarJel II/III, Drone OS, SRCS and Mobile HPG are fixed-only but missing from the catalogs. Sources:
-  HarJel II/III IO pp.88-89 (rules), p.191 (BV), pp.220-221 (Clan, F/X-X-X-F, 3136/3139, 240,000/360,000
-  C-bills, 1/2 slots; the "2*"/"3*" tonnage footnote not found yet); SRCS IO p.140, cost p.221, BV x0.85
-  (p.196); Drone (Remote) OS TO pp.305-306; Mobile HPG TO p.330.
+- [ ] HarJel II/III, Drone OS, SRCS and Mobile HPG are now in the catalogs (`clan-harjel-ii`/`-iii`,
+  `drone-operating-system`, `srcs`, `mobile-hpg`). Left: the HarJel "2*"/"3*" tonnage footnote (IO
+  pp.220-221) is still not found. The BV footnote is: HarJel II x1.1, HarJel III x1.2 armor multiplier on
+  protected locations only, stacking with other armor modifiers, and -1 Defensive BV per HarJel slot (IO:AE
+  p.185, Dark Age Armor Modifiers Table).
 
 ### Equipment still missing or unwired
 
-- [ ] Weapons still missing (need sources or construction support): M-Pod, B-Pod (no stats in hand);
-  BattleMech Taser (book unknown); TSEMP Cannon / One-Shot / Repeating; Cruise Missiles 50-120 (TO
-  pp.284-285, with the artillery pass); C3 Remote Sensor Launcher; Light/Heavy Plasma Rifle, Light Blazer,
-  Kinslaughter H ER PPC, Enhanced LRT, Rocket Launcher 1-5, Clan LRM 1 (no canon source found yet).
+- [ ] Weapons still missing. Already in the catalogs (2026-10-17 check): M-Pod, B-Pod (TM p.205), BattleMech
+  Taser (TO:AUE p.157), TSEMP Cannon / One-Shot / Repeating, Cruise Missiles 50-120, C3 Remote Sensor
+  Launcher, Light/Heavy Plasma Rifle (CRB p.189, table p.248; BV and cost from MegaMek, dates unknown).
+  Added 2026-10-17:
+  - Enhanced LRT 5/10/15/20 (`enhanced-lrt-*`) and Enhanced LRT ammo (`ammo-is-enhanced-lrt-standard`): the
+    Enhanced LRM records with torpedo rules, as the LRTs copy the LRMs. TO:AUE p.139: "The maritime
+    equivalent of the Enhanced LRM (NLRM) is the Enhanced LRT (NLRT)"; BMM p.104: torpedo launchers "use the
+    same statistics as the launcher type chosen", indirect fire for LRT and NLRT only. No Artemis or one-shot
+    versions, since the LRTs have none as separate records.
+  - Light Blazer (`light-blazer`), from BattleTech Gothic (which counts as a source): Weapons and Equipment
+    Table p.93, heat 6, damage 7, 1-3/4-6/7-9; Abominations 1K shots per ton (p.92). Entered at the
+    Apocryphal rules level (licensed, outside the main setting); move it if Gothic should rank as canon.
+    Gothic has no construction rules: 2 tons inferred from the FS9-B Firestarter swap (p.107), 2 slots by
+    analogy with the Binary Laser Cannon; cost, BV and dates unknown (0 / null).
+  What the library shows for the rest:
+  - Rocket Launcher 1-5 and LRM 1: battle armor weapons only (TW p.305; in the battle armor catalog). No
+    'Mech-scale source.
+  - Kinslaughter H ER PPC: a brand name in the TM p.233 ER PPC entry ("Martinson Armaments' Kinslaughter
+    H-Class"), not a separate weapon. Use the ER PPC.
 - [ ] Artemis V and Apollo launcher combos (Artemis IV exists as combined launcher records). Then the Clan
   LRM/SRM + Artemis V records from workbook rows 157/159/161/163 (LRM 5/10/15/20: heat 2/4/5/6,
   0.42/0.84/1.26/1.68 at S/M/L) and 169/171/173 (SRM 2/4/6: heat 2/3/4, 0.42/0.84/1.05 at S/M). Alpha Strike
@@ -956,8 +979,11 @@ in HeySporky/battletech-tools. All of it is merged into local `master` together 
   the custom catalogs, Alpha Strike conversions marked unresolved, play-rule items, the import
   "ask the importer" step, review of `tools/spec-c-sources-staging.jsonl`. The equipment PRs are open
   (#98-#104); these items go in follow-up PRs.
-- [ ] Re-cite the LAM and QuadVee comments in `battlemech.ts` that still give IO (2016) pages (pp.105-196)
-  to IO:AE, checking each page.
+- [x] Re-cite the LAM and QuadVee comments in `battlemech.ts` that still gave IO (2016) pages to IO:AE,
+  checking each page (2026-10-17; also the tests and the LAM Bomb Bay and Fuel Tank records). IO pp.106-196
+  sit 6 pages earlier in IO:AE. The RISC Emergency Coolant System's "+4" was cited to IO p.91 (the TSEMP
+  page); it is "+4 to unit Heat Efficiency" in the IO:AE p.190 BV table. Other IO (2016) citations remain
+  (TSEMP, Freezers and others in `ssw-canon-pending-names.ts`).
 - [ ] Alpha Strike conversions for the pods added in Batch 9c (B-Pod, M-Pod, Chaff Pod) are marked
   unresolved.
 - [ ] Vehicles have no era check on engine types, so large engine dates (Batch 16) apply to 'Mechs only.
@@ -1188,9 +1214,12 @@ Open:
   - [ ] About 205 files (42,000 pages) are scans with no text layer. OCR of the 21 scanned `rulebooks-legacy/` books
     was started 2026-10-06; next the 20 scanned Technical Readouts, then `rpg/` and `sourcebooks/` as needed.
     Check OCR against the page image before citing a stat block.
-  - [ ] Identify the files whose names say "title unconfirmed" or "title truncated" (about 60, mostly fan and
-    foreign-language magazines, plus a few FASA/FanPro scans) and rename them.
-  - [ ] Install Tesseract German and Spanish data before OCRing `languages/de/` or `languages/es/` scans.
+  - [ ] Identify the files whose names say "title unconfirmed" or "title truncated" (20 left on 2026-10-17,
+    mostly fan and foreign-language magazines, plus a few FASA/FanPro scans) and rename them.
+  - [x] Tesseract language data (2026-10-17): eng, osd, spa, deu, pol, por, jpn, rus, ita and fra are in
+    `~/tessdata`, which `ocr_ollama.py` uses. `ocr_queue.py` now ranks `languages/pl` and `languages/pt`;
+    the queue holds 57 files (about 2,900 pages), started 2026-10-17 (log
+    `text/_ocr_run_2026-10-17.log`; offsets, catalog and search index rebuild after it).
 - [ ] Internal structure bug (found 2026-10-07): 25 tons had 5 leg points (6), and 55/60/65 tons had 17/19/20 center
   torso points (18/20/21), against TM p.47. Confirmed in four printings; the 2026 Core Rulebook has no
   construction rules. Upstream issue #113, fix in PR #114 (branch `fix/internal-structure-table`). Merged into
@@ -1278,7 +1307,8 @@ Open:
     Battle Values of 'Mechs, vehicles and fighters change (Gunnery 3 / Piloting 4: 1.38 before, 1.32 now). The
     2007 first printing's table (3.68) is noted in the file, not selectable. Nothing chooses an edition yet:
     every unit takes an optional edition and defaults to Total Warfare until the edition selector is built.
-    Not checked: BattleTech Compendium: The Rules of Warfare (1994), added to the library since.
+    BattleTech Compendium: The Rules of Warfare (1994), added to the library since, has no Battle Value
+    system (checked in its OCR text, 2026-10-17).
     - [x] Gun emplacement / building (2026-10-07): Building Creator under Tactical Operations: Advanced Rules
       pp.126-131. Classifications and types from the table on p.113 (gun emplacement, fortress, standard, hangar,
       wall, fence, bridge, tent), Construction Factor, size in hexes and levels, internal weight capacity (CF x
@@ -1355,9 +1385,10 @@ Open:
     15 tons and slots), the Flamer (Vehicle) (0.5 tons, 1 slot, 20 shots) and single-shot LRM and SRM launchers
     (launcher + 0.5 tons). Engine and structure tables, cockpit, gyro, jump jets, armor, layout and tonnages
     unchanged; no prices; BattleMechs only.
-    Readings to confirm: (1) the box has 24 'Mech designs (p.5) but its record sheet book and Introduction to
-    BattleTech book are not in the library; the 20 the rulebook's scenarios name are listed, the Assassin
-    without a model code, and the missing four are noted on the edition; (2) the contents page puts Equipment
+    Readings to confirm: (1) the box has 24 'Mech designs (p.5); the 20 the rulebook's scenarios name are
+    listed, the Assassin without a model code, and the missing four are noted on the edition. The box's
+    'Mech sheets scan has since been added to the library (see "Wanted for the library" below) and names
+    all 24; (2) the contents page puts Equipment
     on p.47, the section is printed on p.46 and is cited so; (3) single-shot launchers have no table row, so no
     critical slots are entered; (4) the Flamer (Vehicle) sits under Ballistic Weapons on the 'Mech table and is
     entered on the existing vehicle flamer record.
@@ -1513,8 +1544,13 @@ Open:
     for Battledroids only, and the other creators (vehicles, fighters, infantry, buildings) do not read the
     edition; (4) the missile damage per missile and
     shots per ton an edition prints are not applied (none differs from the catalog today).
-  - [ ] Wanted for the library: the Fourth Edition record sheet book and Introduction to BattleTech book; a
-    1992 printing of the Third Edition's record sheet book (the scan's sheets are dated 1996).
+  - [ ] Wanted for the library: the Introduction to BattleTech book (Fourth Edition box). Since found: the
+    Fourth Edition 'Mech sheets (`rulebooks-legacy/BattleTech, Fourth Edition box - 'Mech sheets and tables
+    (FASA 1604, 32p scan).pdf`, OCR text: all 24 designs, including the four missing from the edition, WTH-1
+    Whitworth, VND-1R Vindicator, CP-10-Z Cyclops and BNC-3E Banshee, and the Assassin as ASN-21; check the
+    page images before entering them); the 1992 Third Edition record sheets
+    (`record-sheets/Battletech-3rd-Edition-RecordSheets.pdf`, added 2026-10-17: 14 sheets, "Copyright 1992",
+    plus the 3025 'Mech Stats sheet).
   - [ ] Model the Core Rulebook's changes to the Total Warfare rules (CRB p.247 describes their scope).
 - [ ] `refactor/catalog-by-category`: step 1 done, every equipment record states
   `techBase` (commit c959dbc8). Review the 62 custom records, whose tech base was set from tag and name. Next:

@@ -5,7 +5,7 @@ import { DEFAULT_RULES_EDITION, btRulesEditions } from "./rules-editions";
  * Gunnery Skill, columns the Piloting, Driving or Anti-'Mech Skill.
  *
  * - Battledroids to BattleTech, Fourth Edition (1984-1996) have no Battle Value system and so no table.
- *   BattleTech Compendium: The Rules of Warfare (1994) is not in the library and has not been checked.
+ *   BattleTech Compendium: The Rules of Warfare (1994) has none either (checked in its OCR text, 2026-10-17).
  * - Master Rules (1998, p.144) and Master Rules, Revised Edition (2001, p.158) print the same table for skills
  *   0 to 7.
  * - Total Warfare's table is the TechManual's (p.315). It has been printed three ways: the 2007 first printing

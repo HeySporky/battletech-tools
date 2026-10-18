@@ -609,7 +609,7 @@ describe("LAM and QuadVee chassis rules", () => {
         expect(quadvee.getCurrentTonnage() - biped.getCurrentTonnage()).toBe(3);
     });
 
-    // IO p.113 (LAM) / p.134 (QuadVee): conversion equipment is 10% of mass, rounded up to a whole ton.
+    // IO:AE p.108 (LAM) / p.128 (QuadVee): conversion equipment is 10% of mass, rounded up to a whole ton.
     it("rounds LAM and QuadVee conversion equipment up to a whole ton", () => {
         const conversionWeight = (mech: BattleMech) =>
             mech.getWeightBreakdown().find(entry => /Conversion/.test(entry.name))?.weight;
@@ -629,7 +629,7 @@ describe("LAM and QuadVee chassis rules", () => {
         expect(conversionWeight(new BattleMech())).toBeUndefined();
     });
 
-    // TRO:3085 pp.286-288 / IO p.113: no Endo Steel, ferro-fibrous (or other slot-occupying
+    // TRO:3085 pp.286-288 / IO:AE p.108: no Endo Steel, ferro-fibrous (or other slot-occupying
     // armor/structure), Hardened armor, advanced engines, or OmniMech construction for LAMs.
     it("enforces LAM armor, structure, engine, and Omni construction limits", () => {
         const lam = new BattleMech();
@@ -804,7 +804,7 @@ describe("LAM and QuadVee chassis rules", () => {
         expect(quadvee.getWalkSpeed()).toBe(5);
     });
 
-    it("marks prohibited LAM equipment unavailable (IO p.114)", () => {
+    it("marks prohibited LAM equipment unavailable (IO:AE p.108)", () => {
         const mech = new BattleMech();
         mech.setType("lam");
         mech.setEra("ilClan");
@@ -1493,7 +1493,7 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(getMechTypeOptionsForRulesLevel(4).map(option => option.tag)).toContain("lam");
     });
 
-    // AirMech Cruise MP = Jump MP x 3, Flank = x1.5 rounded up (IO p.108); flank heat = MP / 3 (IO p.113).
+    // AirMech Cruise MP = Jump MP x 3, Flank = x1.5 rounded up (IO:AE p.102); flank heat = MP / 3 (IO:AE p.102).
     it("uses AirMech Flank MP for LAM movement heat", () => {
         const lam = new BattleMech();
         lam.setType("lam");
@@ -1509,9 +1509,9 @@ describe("Chassis rules levels, provisional BV, and cost multipliers", () => {
         expect(new BattleMech().isPointValueProvisional()).toBe(false);
     });
 
-    // IO p.192 worked example, Phoenix Hawk LAM: 50 t, Run 8, Jump 5 (AirMech Flank 23), 12 single
+    // IO:AE p.186 worked example, Phoenix Hawk LAM: 50 t, Run 8, Jump 5 (AirMech Flank 23), 12 single
     // heat sinks. TMM +5 +1 airborne = +6; heat efficiency 9 + 12 - 8 = 13; speed factor 8 + 12 = 20 -> 3.00.
-    it("follows the IO p.192 LAM Battle Value example", () => {
+    it("follows the IO:AE p.186 LAM Battle Value example", () => {
         const lam = new BattleMech();
         lam.setType("lam");
         lam.setTonnage(50);
@@ -1640,7 +1640,7 @@ describe("LAM arm actuators", () => {
     });
 });
 
-// Bimodal LAMs: no AirMech mode (IO p.106), 15% conversion weight (IO p.114), x0.65 conversion cost (IO p.186).
+// Bimodal LAMs: no AirMech mode (IO:AE p.100), 15% conversion weight (IO:AE p.108), x0.65 conversion cost (IO:AE p.180).
 describe("Bimodal LAM", () => {
     const makeBimodal = () => {
         const lam = new BattleMech();
@@ -1711,7 +1711,7 @@ describe("LAM bombs and fuel", () => {
         addTo(lam, "lam-bomb-bay", "la", "leftArm");
         addTo(lam, "lam-bomb-bay", "ct", "centerTorso");
         expect(lam.getBombBayCount()).toBe(6);
-        // Bays go only in the left or right torso (IO p.114).
+        // Bays go only in the left or right torso (IO:AE p.108).
         expect(lam.getBombBaysByLocation()).toEqual({ lt: 3, rt: 1 });
         expect(lam.getChassisEquipmentViolations().find(message => /outside the side torsos/.test(message))).toMatch(/^2 Bomb Bay/);
 
@@ -1739,7 +1739,7 @@ describe("LAM bombs and fuel", () => {
         expect(restored.getBombLoadout()).toEqual({});
     });
 
-    it("counts each Bomb Bay and Fuel Tank slot as explosive ammunition for BV (IO p.192)", () => {
+    it("counts each Bomb Bay and Fuel Tank slot as explosive ammunition for BV (IO:AE p.186)", () => {
         const penalty = (tag: string) => {
             const lam = makeLAM();
             addTo(lam, tag, "lt", "leftTorso");
@@ -2837,8 +2837,8 @@ describe("Batch 9b universal equipment catalog", () => {
             "environmental-sealing": [2300, 2350, null, null, "TM", 216],
             "remote-sensor-dispenser": [2586, 2590, null, null, "TM", 236],
             "searchlight": [undefined, 1950, null, null, "TM", 237],
-            "lam-bomb-bay": [2680, 2684, null, null, "IO", 114],
-            "lam-fuel-tank": [undefined, 2100, null, null, "IO", 221],
+            "lam-bomb-bay": [2680, 2684, null, null, "IO:AE", 108],
+            "lam-fuel-tank": [undefined, 2100, null, null, "IO:AE", 215],
         };
         for (const [tag, want] of Object.entries(expected)) {
             const item = mechUniversalEquipment.find(record => record.tag === tag);
@@ -3187,6 +3187,10 @@ describe("Batch 10c missile and artillery catalogs", () => {
             "lrt-10": [2370, 2380, null, null, "TM", 231],
             "lrt-15": [2370, 2380, null, null, "TM", 231],
             "lrt-20": [2370, 2380, null, null, "TM", 231],
+            "enhanced-lrt-5": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrt-10": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrt-15": [3058, 3082, null, null, "TO:AUE", 139],
+            "enhanced-lrt-20": [3058, 3082, null, null, "TO:AUE", 139],
             "srt-2": [2370, 2380, null, null, "TM", 231],
             "srt-4": [2370, 2380, null, null, "TM", 231],
             "srt-6": [2370, 2380, null, null, "TM", 231],
@@ -3495,6 +3499,7 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
             "ammo-is-heavy-machine-gun-standard": [3063, 3068, null, null, "TM", 228],
             "ammo-is-light-machine-gun-standard": [3064, 3068, null, null, "TM", 228],
             "ammo-is-lrt-standard": [2370, 2380, null, null, "TM", 231],
+            "ammo-is-enhanced-lrt-standard": [3058, 3082, null, null, "TO:AUE", 139],
             "ammo-is-srt-standard": [2370, 2380, null, null, "TM", 231],
             "ammo-is-rotary-ac-2-standard": [3060, 3062, null, null, "TM", 208],
             "ammo-is-rotary-ac-5-standard": [3060, 3062, null, null, "TM", 208],
