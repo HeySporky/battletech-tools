@@ -21,7 +21,8 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
           <div className="row">
             <div className="col-md">
             <TextSection label="Jeff's Battletech Tools IIC - State of the Site">
-              The original <a href="https://jdgwf.github.io/battletech-tools">Jeff's BattleTech Tools</a> was created by Jeffrey D. Gordon. He passed from cancer in late 2024. This site is a fork of his original work, and is maintained by a group of volunteers. We are working to keep the site up to date and add new features. If you have any questions or suggestions, please feel free to reach out to us on the <a href="https://discord.gg/U539K45v8U">Discord</a>.
+              The original <a href="https://jdgwf.github.io/battletech-tools">Jeff's BattleTech Tools</a> was created by Jeffrey D. Gordon. He passed from cancer in late 2024. This site is a fork of his original work, and is maintained by a group of volunteers. We are working to keep the site up to date and add new features. If you have any questions or suggestions, please feel free to reach out to us on the <a href="https://discord.gg/U539K45v8U">Discord</a>.<br/>
+              <p><strong>Jeff wanted this app to be forever free and forever open source,</strong> even after his untimely demise. Having this app hosted at GitHub helps guarantee that.</p>
              <br /><br />Cancer sucks. Jeff's family has asked for any donations to be made to the <a href="https://colorectalcancer.org/?form=2024EOY" target="_blank" rel="noopener noreferrer">Colorectal Cancer Alliance</a><br /><br /></TextSection>.
               </div>
           </div>
@@ -146,7 +147,6 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                     <li>
                       <h4><Link to="settings/backup-and-restore">Backing up and Restoring</Link></h4>
                       <p className="alert alert-warning alert-thin">Your data is always private and stored on your own device. This means that if you lose your device you lose your data!</p>
-                      <p><strong>Jeff wanted this app to be forever free and forever open source,</strong> even after his untimely demise. Having this app hosted at GitHub helps guarantee that.</p>
                     </li>
                   </ul>
                   <h3>Why? What's the purpose of this app? I use Solaris Skunk Werks/Mech Factory/ etc.</h3>

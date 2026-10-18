@@ -21,20 +21,21 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
             label="Current Maintainers"
           >   
               <h4><strong>Michael "Spork" Evans</strong></h4>
-              Software Architecture and Development - <a href="https://github.com/HeySporky">GitHub</a> - <a href="https://instagram.com/TheSpork">Instagram</a><br /><br />
-
+              Software Architecture and Development - <a href="https://github.com/HeySporky">GitHub</a> - <a href="https://instagram.com/TheSpork">Instagram</a>
+              <br /><br />
               <h4><strong>FleetfootMike</strong></h4>
-              DevOps/Design - <a href="https://www.talesfromtheperiphery.org.uk/">Podcast</a><br /><br />
-
+              DevOps/Design - <a href="https://www.talesfromtheperiphery.org.uk/">Podcast</a>
+              <br /><br />
               <h4><strong>Phasertech</strong></h4>
               QA/User Experience<br /><br />
               <h4><strong>Shadoblade</strong></h4>
-              More Info Soon!<br /><br />
+              More Info Soon!
+              <br /><br />
               <h4><strong>blackstarthegodkiller</strong></h4>
               Spiritual Bum / Research Lead<br /><br />
               <h4><strong>NGCFells</strong></h4>
-              Gaming Grognard - <a href="https://github.com/ngcfells">GitHub</a><br /><br /><br /><br />
-
+              Gaming Grognard - <a href="https://github.com/ngcfells">GitHub</a>
+              <br /><br /><br /><br />
               <h4><strong>A Great Discord Community</strong> -  <a href="https://discord.gg/U539K45v8U">Join us!</a></h4>
               <br />
               </TextSection>
@@ -69,10 +70,9 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
           <TextSection
             label="Copyrights"
           >
-          <p>This site and app is a completely free fan-site that makes no claim to ownership to any of <a href="http://catalystgamelabs.com/">Catalyst Game Labs</a> or <a href="http://topps.com">The Topps Company, Inc</a> properties.</p>
+          <p>This site and app is a completely free fan-site that makes no claim to ownership to any of <a href="http://catalystgamelabs.com/">Catalyst Game Labs</a>, <a href="http://topps.com">The Topps Company, Inc</a>, or <a href="http://microsoft.com">Microsoft Corporation</a> properties.</p>
 
-          <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks
-          of <a href="http://topps.com">The Topps Company, Inc</a>. All Rights Reserved.</p>
+          <p>InMediaRes Productions, LLC. BattleTech, Alpha Strike, BattleMech, 'Mech, and the BattleTech logo are registered trademarks or trademarks of <a href="http://topps.com">The Topps Company, Inc.</a> in the United States and/or other countries.</p>
 
           <p> Catalyst Game Labs and the Catalyst Game Labs logo are trademarks of InMediaRes Production, LLC. Used with permission. Neither Topps nor Catalyst Game Labs makes no representation or warranty as to the quality, viability, or suitability for purpose of this product.</p>
 
