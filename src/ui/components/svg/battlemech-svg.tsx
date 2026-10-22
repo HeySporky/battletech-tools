@@ -2,6 +2,7 @@
 import React, { type JSX } from 'react';
 import { BattleMech, IGATOR } from '../../../classes/battlemech';
 import { CONST_HIGHLIGHT_COLOR } from '../../../configVars';
+import { editionHasPrices } from '../../../data/rules-editions';
 import { breakLines } from '../../../utils/breakLines';
 import BattleTechLogo from '../battletech-logo';
 import BattleMechHeatEffectsBoxSVG from './battlemech-heat-effects-box-svg';
@@ -25,6 +26,7 @@ import QuadRearArmorDiagramSVG from './quad-rear-armor-diagram-svg';
 import RecordSheetEquipmentTable from './record-sheet-equipment-table';
 import RecordSheetGATORTable from './record-sheet-gator-table';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
+import ShieldDiagramSVG from './shield-diagram-svg';
 import TakeDamageButtonSVG from './take-damage-button';
 import TargetSelectSVG from './target-select-svg';
 import TripodArmorCircles from './tripod-armor-circles';
@@ -54,6 +56,15 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                 this.props.onChange( this.props.mechData );
             }
 		}
+    }
+
+    toggleShieldBubble = ( uuid: string, index: number ): void => {
+        if( this.props.inPlay ) {
+            this.props.mechData.toggleShieldBubble( uuid, index );
+            if( this.props.onChange ) {
+                this.props.onChange( this.props.mechData );
+            }
+        }
     }
 
     render = (): JSX.Element => {
@@ -347,9 +358,10 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     y={generalDataBoxY + 225}
                     textAnchor="end" fontFamily="sans-serif"
                     fill={strokeColor} style={{fontWeight: 500}}
-                    fontSize={25}
+                    fontSize={this.props.mechData.isFrankenMech() ? 18 : 25}
                 >
-                    {this.props.mechData.getTech().name}
+                    {/* The XTROs name a FrankenMech beside its tech base ("Mixed Tech (Experimental - FrankenMech)"). */}
+                    {this.props.mechData.getTech().name}{this.props.mechData.isFrankenMech() ? " (FrankenMech)" : ""}
                 </text>
 
                 <text
@@ -405,7 +417,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
                     style={{fontWeight: 500}}
                     fontSize={25  }
                 >
-                    {this.props.mechData.getCBillCost()}
+                    {editionHasPrices(this.props.mechData.getRulesEdition()) ? this.props.mechData.getCBillCost() : "Not in this edition"}
                 </text>
 	            {/* // BV */}
                 <text
@@ -709,6 +721,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             ) : (
                 <BipedRearArmorDiagramSVG xLoc={1413} yLoc={875} width={400} bgColor={bgColor} />
             )}
+
+            {/* Each arm's shield beside the arm, as the Gundam RX-78-2 sheet draws it (TO:AUE p.103). */}
+            {this.props.mechData.getShields().filter(shield => shield.location === "la" || shield.location === "ra").map(shield => (
+                <ShieldDiagramSVG
+                    key={shield.item.uuid}
+                    shield={shield}
+                    xLoc={shield.location === "la" ? this.armorBoxLeft + 6 : this.armorBoxLeft + this.armorBoxWidth - 52}
+                    yLoc={140}
+                    side={shield.location === "la" ? "left" : "right"}
+                    strokeColor={strokeColor}
+                    inPlay={inPlay}
+                    onToggle={this.toggleShieldBubble}
+                />
+            ))}
 
         {/* Main Armor Labels */}
 		<text x={this.armorBoxLeft + this.armorBoxWidth / 2} y={this.armorBoxTop + 70} textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 700}} fontSize={20}>HEAD [{this.props.mechData.getArmorAllocation().head }]</text>

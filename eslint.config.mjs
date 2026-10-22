@@ -9,7 +9,7 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
     {
         ignores: [
-            "build", "cli-tools", "node_modules", "coverage", "playwright-report", "test-results",
+            "build", "cli-tools", "node_modules", "battletech-tools", "coverage", "playwright-report", "test-results",
             // local-only environments/working folders that some contributors keep in the repo root
             ".venv", "venv", "**/*_DEV/**",
         ],
@@ -18,8 +18,13 @@ export default tseslint.config(
     ...tseslint.configs.recommended,
     {
         // Node-side scripts and config files.
-        files: ["scripts/**/*.{js,mjs,cjs}", "*.{js,mjs,cjs,mts}"],
+        files: ["scripts/**/*.{js,mjs,cjs}", "tools/**/*.{js,mjs,cjs}", "*.{js,mjs,cjs,mts}"],
         languageOptions: { globals: { ...globals.node } },
+    },
+    {
+        // These two drive a real browser with Playwright; the callbacks they pass to page.evaluate() run in the page.
+        files: ["tools/live_mul_browser_probe.mjs", "tools/mul-sync/sync-mul.mjs"],
+        languageOptions: { globals: { ...globals.node, ...globals.browser } },
     },
     {
         files: ["**/*.{ts,tsx}"],

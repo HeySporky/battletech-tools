@@ -16,7 +16,7 @@ export default class VehicleCreatorRecordSheet extends React.Component<IRecordSh
 
         return (
             <PrintablePage backTo={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/summary`} appGlobals={this.props.appGlobals} requiredRulesLevel={vehicle.getRequiredRulesLevel()}>
-                <VehicleRecordSheet vehicle={vehicle} />
+                <VehicleRecordSheet vehicle={vehicle} showAlphaStrike={true} />
             </PrintablePage>
         );
     }

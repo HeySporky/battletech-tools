@@ -1,5 +1,4 @@
 import { IRulesLevelOption } from "../data/data-interfaces";
-
 import { XMLParser } from "fast-xml-parser";
 
 export interface ISSWBasicInfo {

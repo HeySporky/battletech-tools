@@ -2,15 +2,12 @@ import { IASMULUnit } from "./classes/alpha-strike-unit";
 import { BattleMech, IGATOR, ITargetToHit } from "./classes/battlemech";
 import { CONST_MUL_API_ENABLED } from "./configVars";
 import { IEquipmentItem } from "./data/data-interfaces";
-import { DEFAULT_MUL_SOURCE_SELECTION, getMULRecordKey, getMULSourcesForSelection, loadMULListItems } from "./data/mul-list-items";
-import { mechClanEquipmentEnergy } from "./data/mech-clan-equipment-weapons-energy";
-import { mechISEquipmentBallistic } from "./data/mech-is-equipment-weapons-ballistic";
-import { mechISEquipmentEnergy } from "./data/mech-is-equipment-weapons-energy";
-import { mechISEquipmentMisc } from "./data/mech-is-equipment-weapons-misc";
-import { mechISEquipmentMissiles } from "./data/mech-is-equipment-weapons-missiles";
 import { getEquipmentCatalogs, getEquipmentListByTech } from "./data/equipment-registry";
+import { DEFAULT_MUL_SOURCE_SELECTION, getMULRecordKey, getMULSourcesForSelection, loadMULListItems } from "./data/mul-list-items";
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
+import { unitHasAbility } from "./utils/mulAbilities";
+import { resolveMULEraFilter } from "./utils/mulUtilities";
 
 export function getISEquipmentList(): IEquipmentItem[] {
     return getEquipmentListByTech("is");
@@ -301,8 +298,7 @@ function parseMULSearchTokens(searchTerm: string): IMULSearchTokens {
     return tokens;
 }
 
-// Applies the dropdown filters (Rules/Technology/Role/Era/Type) the live API used to take as query params.
-// Faction filtering is intentionally excluded: per-faction availability isn't part of the bundled/cached unit data.
+// Applies the dropdown filters (Rules/Technology/Role/Era/Type/Faction) the live API used to take as query params.
 function matchesMULDropdownFilters(
     unit: IASMULUnit,
     mechRules: string,
@@ -310,6 +306,7 @@ function matchesMULDropdownFilters(
     roleFilter: string,
     eraFilter: number,
     typeFilter: number,
+    factionFilter: number[],
 ): boolean {
     // MUL 2.0 records carry no Rules level, so the Rules filter only narrows records that have one.
     if (mechRules && mechRules.trim() && unit.Rules) {
@@ -331,8 +328,18 @@ function matchesMULDropdownFilters(
         }
     }
 
-    if (eraFilter && eraFilter > 0) {
-        if (unit.EraId !== eraFilter) {
+    // The MUL era filter means "available in the era" (the live site's AvailableEras), not the era the unit was
+    // introduced in. With factions selected, a unit matches when any of them fields it (in that era, if one is set).
+    if ((eraFilter && eraFilter > 0) || factionFilter.length > 0) {
+        if (unit.Availability) {
+            const available = unit.Availability.some((entry) =>
+                (!eraFilter || entry.EraId === eraFilter)
+                && (factionFilter.length === 0 || entry.FactionIds.some((id) => factionFilter.includes(id))));
+            if (!available) {
+                return false;
+            }
+        } else if (factionFilter.length > 0 || unit.EraId !== eraFilter) {
+            // MUL 1.0 records carry no availability: only the introduction era can be checked.
             return false;
         }
     }
@@ -430,41 +437,29 @@ function matchesMULSearchTokens(unit: IASMULUnit, tokens: IMULSearchTokens): boo
         }
     }
 
-    if (tokens.abilitySearch.length > 0) {
-        const unitAbilities = (unit.BFAbilities ?? "").toUpperCase();
-        for (const ability of tokens.abilitySearch) {
-            if (!unitAbilities.includes(ability.toUpperCase())) {
-                return false;
-            }
-        }
+    // Matched by ability code, so "ECM" does not also match LECM or AECM.
+    if (!tokens.abilitySearch.every((ability) => unitHasAbility(unit.BFAbilities, ability))) {
+        return false;
     }
-
-    if (tokens.abilityExclude.length > 0) {
-        const unitAbilities = unit.BFAbilities
-            ? unit.BFAbilities.toUpperCase().split(",").map((a) => a.trim())
-            : [];
-        for (const excludeAbility of tokens.abilityExclude) {
-            if (unitAbilities.some((a) => a.startsWith(excludeAbility.toUpperCase()))) {
-                return false;
-            }
-        }
+    if (tokens.abilityExclude.some((ability) => unitHasAbility(unit.BFAbilities, ability))) {
+        return false;
     }
 
     return true;
 }
 
 async function getCachedMULSearchResults(
-    searchTerm: string,
+    tokens: IMULSearchTokens,
     mechRules: string,
     techFilter: string,
     roleFilter: string,
     eraFilter: number,
     typeFilter: number,
+    factionFilter: number[],
     appGlobals: IAppGlobals | null,
 ): Promise<IASMULUnit[]> {
-    const tokens = parseMULSearchTokens(searchTerm);
     const matchesAllFilters = (unit: IASMULUnit) =>
-        matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter) &&
+        matchesMULDropdownFilters(unit, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter) &&
         matchesMULSearchTokens(unit, tokens);
 
     const selection = appGlobals?.appSettings.alphaStrikeMULSources ?? DEFAULT_MUL_SOURCE_SELECTION;
@@ -487,7 +482,7 @@ async function getCachedMULSearchResults(
     }));
 }
 
-function addMULUnavailableAlert(appGlobals: IAppGlobals | null, factionFilterActive: boolean): void {
+function addMULUnavailableAlert(appGlobals: IAppGlobals | null): void {
     if (!appGlobals) {
         return;
     }
@@ -495,8 +490,7 @@ function addMULUnavailableAlert(appGlobals: IAppGlobals | null, factionFilterAct
     appGlobals.siteAlerts.addAlert(
         "warning",
         "",
-        "The Master Unit List live search is unavailable. Showing matching results from this device's saved data instead."
-            + (factionFilterActive ? " Faction filtering is not available in this offline mode." : ""),
+        "The Master Unit List live search is unavailable. Showing matching results from this device's saved data instead.",
         "warning",
         true,
         null,
@@ -519,7 +513,12 @@ export async function getMULASSearchResults(
     offLine: boolean,
     overrideSearchLimitLength: boolean = false,
     appGlobals: IAppGlobals | null = null,
+    // Ability codes the unit must have, or must not have when prefixed with "!" (e.g. ["ECM", "!IF"]).
+    abilityFilters: string[] = [],
 ): Promise<IASMULUnit[]> {
+
+    // A Clan era picked in the filter searches the MUL era it maps to; the MUL has no Clan eras.
+    eraFilter = resolveMULEraFilter(eraFilter);
 
     let returnUnits: IASMULUnit[] = [];
 
@@ -591,6 +590,13 @@ export async function getMULASSearchResults(
     }
 
     const tokens = parseMULSearchTokens(searchTerm);
+    for (const filter of abilityFilters) {
+        if (filter.startsWith("!")) {
+            tokens.abilityExclude.push(filter.substring(1));
+        } else {
+            tokens.abilitySearch.push(filter);
+        }
+    }
 
     console.log('Searching...');
     if( offLine === false && CONST_MUL_API_ENABLED ) {
@@ -643,8 +649,8 @@ export async function getMULASSearchResults(
             }
         } catch (err) {
             console.error('MUL Fetch Error: ', err);
-            addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-            return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+            addMULUnavailableAlert(appGlobals);
+            return await getCachedMULSearchResults(tokens, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter, appGlobals);
         }
     } else {
         if( offLine ) {
@@ -652,8 +658,8 @@ export async function getMULASSearchResults(
         } else {
             console.warn("MUL API is disabled, using bundled fallback data.");
         }
-        addMULUnavailableAlert(appGlobals, factionFilter.length > 0);
-        return await getCachedMULSearchResults(searchTerm, mechRules, techFilter, roleFilter, eraFilter, typeFilter, appGlobals);
+        addMULUnavailableAlert(appGlobals);
+        return await getCachedMULSearchResults(tokens, mechRules, techFilter, roleFilter, eraFilter, typeFilter, factionFilter, appGlobals);
     }
 
     return returnUnits;
@@ -898,11 +904,26 @@ export function getTargetToHitFromWeapon(
                 // @ts-expect-error Legacy compatibility type mismatch
                 gator.finalToHit += equipmentList[index].accuracyModifier;
                 // @ts-expect-error Legacy compatibility type mismatch
-                gator.otherModifiers = equipmentList[index].accuracyModifier;
+                gator.otherModifiers += equipmentList[index].accuracyModifier;
 
                 otherModifiersExplanation.push( "Weapon Accuracy Modifier" );
             }
-            if( !target.primary) {
+            // IndustrialMech fire control (TM p.69; IO:AE p.114).
+            const fireControlModifier = mech.getFireControlToHitModifier();
+            if( fireControlModifier > 0 ) {
+                gator.finalToHit += fireControlModifier;
+                gator.otherModifiers += fireControlModifier;
+                otherModifiersExplanation.push( (mech.isPrimitive() ? "Primitive IndustrialMech cockpit" : "IndustrialMech fire control") + " (+" + fireControlModifier + ")" );
+            }
+            // The Heat Scale's fire modifier (TW pp.158-160; BD p.13).
+            const heatModifier = mech.getHeatToHitModifier();
+            if( heatModifier > 0 ) {
+                gator.finalToHit += heatModifier;
+                gator.otherModifiers += heatModifier;
+                otherModifiersExplanation.push( "Heat (+" + heatModifier + ")" );
+            }
+            // Battledroids has no modifier for a second target (BD pp.8-11, 15).
+            if( !target.primary && mech.getEditionPlayRules()?.secondaryTargetModifiers !== false ) {
                 if( target.inRearArc ) {
                     otherModifiersExplanation.push( "Secondary Target In Rear Arc (+2)");
                     gator.otherModifiers += 2;
@@ -928,8 +949,9 @@ export function getTargetToHitFromWeapon(
                     let minRange: number = 0;
                     minRange = weaponRange.min;
 
-                    if( target.range < minRange ) {
-                        let rangeModifier = minRange - target.range;
+                    // +1 at the minimum range and +1 for each hex closer: [minimum] - [target range] + 1 (TW p.118; BD p.9).
+                    if( target.range <= minRange ) {
+                        let rangeModifier = minRange - target.range + 1;
                         gator.finalToHit += rangeModifier;
                         gator.rangeModifier = rangeModifier;
                         gator.rangeExplanation = "Minimum Range";

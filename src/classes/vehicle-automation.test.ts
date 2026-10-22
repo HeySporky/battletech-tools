@@ -2,8 +2,10 @@ import { describe, expect, it } from "vitest";
 import Vehicle from "./vehicle";
 import Pilot from "./pilot";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
-import { mechISEquipmentBallistic } from "../data/mech-is-equipment-weapons-ballistic";
-import { mechClanEquipmentBallistic } from "../data/mech-clan-equipment-weapons-ballistic";
+import { equipmentBallistic } from "../data/equipment-ballistic";
+
+const isBallisticList = equipmentBallistic.filter((item) => item.techBase === "is");
+const clanBallisticList = equipmentBallistic.filter((item) => item.techBase === "clan");
 
 // Combat Vehicle rules automated in play mode and construction: Total Warfare (corrected 2010 PDF) and
 // Tactical Operations (2008).
@@ -49,7 +51,7 @@ describe("Explosive weapons (TW pp. 135-136, 195; TO pp. 314-315)", () => {
     });
 
     it("marks every Gauss weapon with a sourced explosion as explosive in the catalog (TW pp. 135-136)", () => {
-        const catalog = [...mechISEquipmentBallistic, ...mechClanEquipmentBallistic];
+        const catalog = [...isBallisticList, ...clanBallisticList];
         for (const tag of ["hyper-assault-gauss-20", "hyper-assault-gauss-30", "hyper-assault-gauss-40", "ap-gauss-rifle", "prototype-gauss-rifle", "clan-improved-gauss-rifle"]) {
             const item = catalog.find((entry) => entry.tag === tag);
             expect(item?.explosive, tag).toBe(true);
@@ -131,7 +133,9 @@ describe("Sponson turrets (TO pp. 348, 411)", () => {
         expect(tank.getSponsonWeight()).toBe(1);
         expect(tank.getRequiredRulesLevel()).toBe(3);
         expect(tank.getSponsonIssue()).toBeNull();
-        mount(tank, "medium-laser", "left");
+        const extra = mount(tank, "medium-laser", "left");
+        expect(tank.getSponsonIssue()).toBeNull();
+        tank.setEquipmentSponson(extra.uuid!, true);
         expect(tank.getSponsonIssue()).toContain("same tonnage");
     });
 
@@ -157,6 +161,66 @@ describe("Sponson turrets (TO pp. 348, 411)", () => {
         expect(tank.getCBillCostLog()).toContain("Sponson Turrets");
         const copy = new Vehicle(tank.exportJSON());
         expect(copy.hasSponsonTurrets()).toBe(true);
+    });
+});
+
+describe("Sponsons as placement locations (beta feedback 2026-10-21; TO p. 348)", () => {
+    it("move the side weapons in when sponsons are fitted, and leave weapons placed later on the side until moved in", () => {
+        const tank = build("tracked", 60);
+        const left = mount(tank, "large-laser", "left");
+        tank.setSponsonTurrets(true);
+        expect(tank.isSponsonMounted(left)).toBe(true);
+        const side = mount(tank, "medium-laser", "right");
+        expect(tank.isSponsonMounted(side)).toBe(false);
+        expect(tank.getWeaponFiringArc(side)).toEqual({ arc: "right", turretRotation: null });
+    });
+
+    it("weigh 5% of each sponson's weapons, rounded up to the half ton, counting only the weapons in the sponsons", () => {
+        const tank = build("tracked", 60);
+        tank.setSponsonTurrets(true);
+        const left = mount(tank, "large-laser", "left");
+        const right = mount(tank, "large-laser", "right");
+        expect(tank.getSponsonWeight()).toBe(0);
+        expect(tank.setEquipmentSponson(left.uuid!, true)).toBe(true);
+        expect(tank.setEquipmentSponson(right.uuid!, true)).toBe(true);
+        expect(tank.getSponsonWeight()).toBe(1);
+    });
+
+    it("take only side weapons, and drop a weapon moved off the side", () => {
+        const tank = build("tracked", 60);
+        tank.setSponsonTurrets(true);
+        const front = mount(tank, "large-laser", "front");
+        expect(tank.setEquipmentSponson(front.uuid!, true)).toBe(false);
+        const left = mount(tank, "large-laser", "left");
+        tank.setEquipmentSponson(left.uuid!, true);
+        tank.setEquipmentLocation(left.uuid!, "turret");
+        expect(tank.isSponsonMounted(tank.getEquipmentList().find((item) => item.uuid === left.uuid)!)).toBe(false);
+    });
+
+    it("are not offered without sponson turrets, and come off when the turrets do", () => {
+        const tank = build("tracked", 60);
+        const left = mount(tank, "large-laser", "left");
+        expect(tank.setEquipmentSponson(left.uuid!, true)).toBe(false);
+        tank.setSponsonTurrets(true);
+        tank.setSponsonTurrets(false);
+        expect(tank.isSponsonMounted(left)).toBe(false);
+    });
+
+    it("save which weapons are in the sponsons, and load an older save's side weapons into them", () => {
+        const tank = build("tracked", 60);
+        tank.setSponsonTurrets(true);
+        const inSponson = mount(tank, "large-laser", "left");
+        tank.setEquipmentSponson(inSponson.uuid!, true);
+        const onSide = mount(tank, "medium-laser", "left");
+        const copy = new Vehicle(tank.exportJSON());
+        const find = (vehicle: Vehicle, uuid?: string) => vehicle.getEquipmentList().find((item) => item.uuid === uuid)!;
+        expect(copy.isSponsonMounted(find(copy, inSponson.uuid))).toBe(true);
+        expect(copy.isSponsonMounted(find(copy, onSide.uuid))).toBe(false);
+        const old = JSON.parse(tank.exportJSON());
+        delete old.sponsonMounts;
+        for (const entry of old.equipment) delete entry.sponson;
+        const legacy = new Vehicle(JSON.stringify(old));
+        expect(legacy.isSponsonMounted(find(legacy, onSide.uuid))).toBe(true);
     });
 });
 

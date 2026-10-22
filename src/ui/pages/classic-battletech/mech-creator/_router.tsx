@@ -7,6 +7,7 @@ import Home from './home';
 import MechCreatorImports from './imports';
 import MechCreatorPrintAS from './print-as';
 import MechCreatorPrintRS from './print-rs';
+import MechCreatorSSWFileImport from './ssw-file-import';
 import MechCreatorStep1 from './step1';
 import MechCreatorStep2 from './step2';
 import MechCreatorStep3 from './step3';
@@ -74,6 +75,12 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
 
                 <Route path={`imports`} element={
                     <MechCreatorImports
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
+                <Route path={`ssw-file-import`} element={
+                    <MechCreatorSSWFileImport
                         appGlobals={this.props.appGlobals}
                     />
                 }/>

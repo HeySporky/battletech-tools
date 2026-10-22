@@ -25,9 +25,34 @@ import TextSection from "../../../components/text-section";
 import ToHitTable from '../../../components/to-hit-table';
 import './play.scss';
 import InPlayCriticalHitTable from './_criticalHitTable';
+import InPlayIndustrialDamageCheck from './_industrialDamageCheck';
 import Vehicle from '../../../../classes/vehicle';
 import { vehicleName } from './_vehicleGroupTable';
 import VehiclePlayPanel from './_vehiclePlay';
+import AerospaceFighter from '../../../../classes/aerospace-fighter';
+import { fighterName } from './_fighterGroupTable';
+import FighterPlayPanel from './_fighterPlay';
+import SmallCraft from '../../../../classes/small-craft';
+import { smallCraftName } from './_smallCraftGroupTable';
+import SmallCraftPlayPanel from './_smallCraftPlay';
+import CapitalShip from '../../../../classes/capital-ship';
+import { capitalShipName } from './_capitalShipGroupTable';
+import CapitalShipPlayPanel from './_capitalShipPlay';
+import InfantryPlatoon from '../../../../classes/infantry-platoon';
+import InfantryPlayPanel from './_infantryPlay';
+import BattleArmor from '../../../../classes/battle-armor';
+import BattleArmorPlayPanel from './_battleArmorPlay';
+import ProtoMech from '../../../../classes/protomech';
+import ProtoMechPlayPanel from './_protoMechPlay';
+import { IBattleArmorCarrierLoad, getBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../classes/battle-armor-transport';
+import BattledroidsUnit from '../../../../classes/battledroids-unit';
+import BattledroidsPlayPanel from './_battledroidsPlay';
+import BattledroidsRulesReference from '../../../components/battledroids-rules-reference';
+import BattledroidsDroidHelper from '../../../components/battledroids-droid-helper';
+import Building from '../../../../classes/building';
+import BuildingPlayPanel from './_buildingPlay';
+import SpaceTrackerBar from './_spaceTrackerBar';
+import { AntiOrbitalGunControls, SpaceResolutionDialog } from './_antiOrbitalControls';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
@@ -57,6 +82,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             setMovementJumpingMP: 0,
 
             resolveFireDialog: false,
+            spaceResolutionDialog: false,
 
 
             criticalHitDialog: null,
@@ -365,6 +391,28 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     }
 
+    // The space turn tracker changed the force: save it and redraw.
+    spaceTrackerChanged = (): void => {
+      if( this.props.appGlobals.currentCBTForce ) {
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+      }
+      this.setState({
+        updated: true,
+      })
+    }
+
+    openSpaceResolutionDialog = (): void => {
+      this.setState({
+        spaceResolutionDialog: true,
+      })
+    }
+
+    closeSpaceResolutionDialog = (): void => {
+      this.setState({
+        spaceResolutionDialog: false,
+      })
+    }
+
     openResolveFireDialog = (
       e: React.FormEvent<HTMLButtonElement>,
       ) => {
@@ -428,12 +476,26 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           for( let vehicle of group.vehicles ) {
             vehicle.turnReset();
           }
+          for( let fighter of group.fighters ) {
+            fighter.turnReset();
+          }
+          for( let craft of group.smallCraft ) {
+            craft.turnReset();
+          }
+          for( let ship of group.capitalShips ) {
+            ship.turnReset();
+          }
+          for( let building of group.buildings ) {
+            building.startTurn();
+          }
         }
 
         this.props.appGlobals.saveCurrentCBTForce( currentCBTForce );
 
         this.setState({
           updated: true,
+          // A new space turn opens with its anti-orbital shots to resolve; any left unresolved stay on the bar.
+          spaceResolutionDialog: currentCBTForce.spaceInPlay && currentCBTForce.spaceTracker.opensSpacePhase( currentCBTForce.turn ),
         })
       }
 
@@ -730,7 +792,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | SmallCraft | CapitalShip | InfantryPlatoon | BattleArmor | ProtoMech | Building | BattledroidsUnit ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -763,6 +825,30 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( let vehicle of group.vehicles ) {
             vehicle.resetInPlay();
+          }
+          for( let fighter of group.fighters ) {
+            fighter.resetInPlay();
+          }
+          for( let craft of group.smallCraft ) {
+            craft.resetInPlay();
+          }
+          for( let ship of group.capitalShips ) {
+            ship.resetInPlay();
+          }
+          for( let platoon of group.infantry ) {
+            platoon.resetInPlay();
+          }
+          for( let squad of group.battleArmor ) {
+            squad.resetInPlay();
+          }
+          for( let point of group.protoMechs ) {
+            point.resetInPlay();
+          }
+          for( let building of group.buildings ) {
+            building.resetInPlay();
+          }
+          for( let unit of group.battledroidsUnits ) {
+            unit.resetInPlay();
           }
           if( this.props.appGlobals.currentCBTForce )
             this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
@@ -835,6 +921,18 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
     }
 
+    // What battle armor riding one of the force's units stops that unit doing (Total Warfare pp. 226-227).
+    private _carrierLoad = (
+      uuid: string,
+      name: string,
+      kind: "mech" | "vehicle",
+      omni: boolean | null,
+      frankenMech: boolean = false,
+    ): IBattleArmorCarrierLoad => {
+      const squads = this.props.appGlobals.currentCBTForce ? this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.battleArmor ) : [];
+      return getBattleArmorCarrierLoad( squads, { uuid: uuid, name: name, kind: kind, omni: omni, frankenMech: frankenMech } );
+    }
+
     openSetTargetDialog = (
       currentBM: BattleMech,
     ) => {
@@ -846,9 +944,18 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           c: JSON.parse(JSON.stringify(currentBM.getTarget("c"))),
         }
 
+        // A weapon in a torso location a mechanized trooper occupies may not fire.
+        const carrierLoad = this._carrierLoad( currentBM.uuid, currentBM.getName(), "mech", currentBM.isOmnimech, currentBM.isFrankenMech() );
+        const targetWeaponSelection: IEquipmentItem[] = JSON.parse(JSON.stringify(currentBM.equipmentList));
+        for( let item of targetWeaponSelection ) {
+          if( isCarrierWeaponBlocked( carrierLoad, item ) ) {
+            item.target = "";
+          }
+        }
+
         this.setState({
           setTargetDialog: currentBM,
-          targetWeaponSelection: JSON.parse(JSON.stringify(currentBM.equipmentList)),
+          targetWeaponSelection: targetWeaponSelection,
           setMovementDialog: null,
           takeDamageDialog: null,
           targetData: targetData,
@@ -1121,6 +1228,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
 
       let setMovementNumber = 0;
+      // The Movement Modifiers Table of an earlier edition may stop sooner (Battledroids: +3 for 7-9 hexes, BD p.5).
+      const maxMovementNumber = this.state.setMovementDialog?.getEditionPlayRules()?.maxTargetMovementModifier ?? 6;
       if( +e.currentTarget.value >= 25 ) {
         setMovementNumber = 6
       } else if( +e.currentTarget.value >= 18 ) {
@@ -1137,7 +1246,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
       this.setState({
         setMovementJumpingMP: +e.currentTarget.value,
-        setMovementNumber: setMovementNumber,
+        setMovementNumber: Math.min(setMovementNumber, maxMovementNumber),
       })
     }
 
@@ -1174,11 +1283,90 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         return <></>;
       }
       let selectedMech: BattleMech | null = this.props.appGlobals.currentCBTForce.getSelectedMech();
+      const targetCarrierLoad = this.state.setTargetDialog
+        ? this._carrierLoad( this.state.setTargetDialog.uuid, this.state.setTargetDialog.getName(), "mech", this.state.setTargetDialog.isOmnimech, this.state.setTargetDialog.isFrankenMech() )
+        : null;
+      const movementCarrierLoad = this.state.setMovementDialog
+        ? this._carrierLoad( this.state.setMovementDialog.uuid, this.state.setMovementDialog.getName(), "mech", this.state.setMovementDialog.isOmnimech, this.state.setMovementDialog.isFrankenMech() )
+        : null;
+
       let selectedVehicle: Vehicle | null = null;
       for( let group of this.props.appGlobals.currentCBTForce.groups ) {
         for( let vehicle of group.vehicles ) {
           if( vehicle.getUUID() === this.state.selectedVehicleUUID ) {
             selectedVehicle = vehicle;
+          }
+        }
+      }
+      // A fighter is selected the same way as a vehicle, by its UUID.
+      let selectedFighter: AerospaceFighter | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let fighter of group.fighters ) {
+          if( fighter.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedFighter = fighter;
+          }
+        }
+      }
+      // A Small Craft is selected the same way as a vehicle, by its UUID.
+      let selectedSmallCraft: SmallCraft | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let craft of group.smallCraft ) {
+          if( craft.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedSmallCraft = craft;
+          }
+        }
+      }
+      // So is a JumpShip, WarShip or space station.
+      let selectedCapitalShip: CapitalShip | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let ship of group.capitalShips ) {
+          if( ship.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedCapitalShip = ship;
+          }
+        }
+      }
+      // So is an infantry platoon.
+      let selectedInfantry: InfantryPlatoon | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let platoon of group.infantry ) {
+          if( platoon.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedInfantry = platoon;
+          }
+        }
+      }
+      // And a battle armor squad.
+      let selectedBattleArmor: BattleArmor | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let squad of group.battleArmor ) {
+          if( squad.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedBattleArmor = squad;
+          }
+        }
+      }
+      // And a ProtoMech Point.
+      let selectedProtoMech: ProtoMech | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let point of group.protoMechs ) {
+          if( point.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedProtoMech = point;
+          }
+        }
+      }
+      // And a Battledroids tank, jeep or infantry squad.
+      let selectedBattledroidsUnit: BattledroidsUnit | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let unit of group.battledroidsUnits ) {
+          if( unit.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedBattledroidsUnit = unit;
+          }
+        }
+      }
+      // And a building.
+      let selectedBuilding: Building | null = null;
+      for( let group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( let building of group.buildings ) {
+          if( building.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedBuilding = building;
           }
         }
       }
@@ -1342,6 +1530,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 
     {/* <h4>Step 3: ???</h4> */}
   </StandardModal>
+) : null}
+{this.state.spaceResolutionDialog && this.props.appGlobals.currentCBTForce ? (
+  <SpaceResolutionDialog
+    force={this.props.appGlobals.currentCBTForce}
+    onChange={this.spaceTrackerChanged}
+    onClose={this.closeSpaceResolutionDialog}
+  />
 ) : null}
 {this.state.resolveFireDialog && this.props.appGlobals.currentCBTForce ? (
   <StandardModal
@@ -1636,6 +1831,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
   saveDisabled={this.state.setMovementMode === "n" || this.state.setMovementNumber < 0}
   title={this.state.setMovementDialog.getName() + " Movement Info"}
 >
+    {movementCarrierLoad && movementCarrierLoad.riders.length > 0 ? (
+      <div className="small-text" data-testid="mech-carrier-movement-notes">
+        <p>Carrying {movementCarrierLoad.riders.map( (squad) => squad.getDisplayName() ).join(", ")}.</p>
+        {movementCarrierLoad.walkingPenalty > 0 ? (
+          <p className="color-red">Not an OmniMech: it has {movementCarrierLoad.walkingPenalty} less Walking MP while it carries the squad, which is not taken off below (TW p. 227).</p>
+        ) : <p>An OmniMech loses no MP for carrying battle armor (TW p. 227).</p>}
+      </div>
+    ) : null}
 
     <div className="flex">
       <div className="text-center">
@@ -1783,6 +1986,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               <td>+3</td>
             </tr>
             </tbody>
+            {(this.state.setMovementDialog.getEditionPlayRules()?.maxTargetMovementModifier ?? 6) >= 4 ? (<>
             <tbody className={this.state.setMovementNumber === 4 ? "highlighted" : ""}>
             <tr className="cursor-pointer" onClick={(e) => this.setMovementNumber(e, 4)}>
               <td>10-17</td>
@@ -1801,6 +2005,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               <td>+6</td>
             </tr>
           </tbody>
+            </>) : null}
           {this.state.setMovementMode === "j" ? (
             <tfoot>
               <tr>
@@ -1891,7 +2096,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onChange={(e) => this.updateTargetOtherMods(e, "a")}
           step={1}
           inline={true}
-          min={0}
+          min={-10}
           max={50}
         />
         <InputNumeric
@@ -1959,7 +2164,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onChange={(e) => this.updateTargetOtherMods(e, "b")}
           step={1}
           inline={true}
-          min={0}
+          min={-10}
           max={50}
         />
         <InputNumeric
@@ -2027,7 +2232,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           onChange={(e) => this.updateTargetOtherMods(e, "c")}
           step={1}
           inline={true}
-          min={0}
+          min={-10}
           max={50}
         />
         <InputNumeric
@@ -2048,6 +2253,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       <div className="col-md">
         <fieldset className="fieldset">
           <legend>Weapon Selection</legend>
+          {targetCarrierLoad && targetCarrierLoad.riders.length > 0 ? (
+            <div className="small-text" data-testid="mech-carrier-notes">
+              {targetCarrierLoad.issues.map( (issue, issueIndex) => <p key={"issue" + issueIndex} className="color-red">{issue}</p> )}
+              {targetCarrierLoad.notes.map( (note, noteIndex) => <p key={noteIndex}>{note}</p> )}
+            </div>
+          ) : null}
           <table className="table">
             <thead>
               <tr>
@@ -2078,6 +2289,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 if(item.damagePerShot)
                   itemDamage = item.damagePerShot.toString() + "/shot";
 
+                const carrierBlocked = !!targetCarrierLoad && isCarrierWeaponBlocked( targetCarrierLoad, item );
+
                 let targetGATOR: IGATOR | null = null;
                 let targetData: ITargetToHit | null = null;
                 if( item.target && this.state.targetData  ) {
@@ -2104,7 +2317,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                     <tr>
                       <td>
                         <select
-                          value={item.target}
+                          value={carrierBlocked ? "" : item.target}
+                          disabled={carrierBlocked}
                           onChange={(e) => this.updateSetEquipmentTarget( e, itemIndex)}
                         >
                           <option value="">-none-</option>
@@ -2118,7 +2332,11 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                             <option value="c">{this.state.targetData.c.name ? this.state.targetData.c.name + " (C)" : "Target C"}</option>
                           ) : null}
                         </select>
-                        {targetGATOR && targetGATOR.finalToHit > 0 ? (
+                        {carrierBlocked ? (
+                          <span className="color-red" data-testid="mech-weapon-blocked">
+                          Battle armor rides this location
+                          </span>
+                        ) : targetGATOR && targetGATOR.finalToHit > 0 ? (
                           <span>
                           To Hit: {targetGATOR.finalToHit}+
                           </span>
@@ -2297,6 +2515,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             </div>
           </div>
         </fieldset>
+        {this.state.criticalHitDialog.isIndustrialMech() ? (
+          <InPlayIndustrialDamageCheck
+            mechData={this.state.criticalHitDialog}
+            onChange={this.updateCriticalHitDialog}
+          />
+        ) : null}
       </div>
       <div className="col">
 
@@ -2572,6 +2796,10 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       </div>
       <div className="grow-2">
         <h5>{this.props.appGlobals.currentCBTForce.getPhaseName(this.props.appGlobals.currentCBTForce.phase)}</h5>
+        <SpaceTrackerBar
+          force={this.props.appGlobals.currentCBTForce}
+          onResolve={this.openSpaceResolutionDialog}
+        />
       </div>
 
       {this.props.appGlobals.currentCBTForce.phase === 4 ? (
@@ -2654,13 +2882,82 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
 </TextSection>
 
 <div className="selected-mech">
-          {selectedVehicle ? (
+          <AntiOrbitalGunControls
+            force={this.props.appGlobals.currentCBTForce}
+            unitUuid={selectedBuilding?.getUUID() ?? selectedVehicle?.getUUID() ?? selectedMech?.uuid ?? ""}
+            onChange={this.spaceTrackerChanged}
+          />
+          {selectedBattledroidsUnit ? (
+            <BattledroidsPlayPanel
+              key={selectedBattledroidsUnit.getUUID()}
+              unit={selectedBattledroidsUnit}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedBuilding ? (
+            <BuildingPlayPanel
+              key={selectedBuilding.getUUID()}
+              building={selectedBuilding}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedInfantry ? (
+            <InfantryPlayPanel
+              key={selectedInfantry.getUUID()}
+              platoon={selectedInfantry}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedBattleArmor ? (
+            <BattleArmorPlayPanel
+              key={selectedBattleArmor.getUUID()}
+              squad={selectedBattleArmor}
+              carriers={[
+                // A FrankenMech cannot carry mechanized battle armor (CO p. 213).
+                ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.members ).filter( (unit) => !unit.isFrankenMech() ).map( (unit) => ({ uuid: unit.uuid, name: unit.getName(), kind: "mech" as const, omni: unit.isOmnimech }) ),
+                ...this.props.appGlobals.currentCBTForce.groups.flatMap( (group) => group.vehicles ).map( (vehicle) => ({ uuid: vehicle.getUUID(), name: vehicleName(vehicle), kind: "vehicle" as const, omni: vehicle.isOmni() as boolean | null }) ),
+              ].map( (carrier) => ({
+                ...carrier,
+                // A carrier takes one battle armor unit at a time (TW p. 226).
+                carrying: this._carrierLoad( carrier.uuid, carrier.name, carrier.kind, carrier.omni ).riders.filter( (squad) => squad.getUUID() !== selectedBattleArmor.getUUID() ).map( (squad) => squad.getDisplayName() ).join(", "),
+              }) )}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedProtoMech ? (
+            <ProtoMechPlayPanel
+              key={selectedProtoMech.getUUID()}
+              point={selectedProtoMech}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedFighter ? (
+            <FighterPlayPanel
+              key={selectedFighter.getUUID()}
+              fighter={selectedFighter}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedSmallCraft ? (
+            <SmallCraftPlayPanel
+              key={selectedSmallCraft.getUUID()}
+              craft={selectedSmallCraft}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedCapitalShip ? (
+            <CapitalShipPlayPanel
+              key={selectedCapitalShip.getUUID()}
+              ship={selectedCapitalShip}
+              onChange={this.onVehicleChange}
+            />
+          ) : selectedVehicle ? (
             <VehiclePlayPanel
               vehicle={selectedVehicle}
+              carrierLoad={this._carrierLoad( selectedVehicle.getUUID(), vehicleName(selectedVehicle), "vehicle", selectedVehicle.isOmni() )}
               onChange={this.onVehicleChange}
             />
           ) : selectedMech ? (
             <>
+              {selectedMech.getRulesEdition() === "battledroids" ? (
+                <>
+                  <BattledroidsDroidHelper key={selectedMech.uuid} mechData={selectedMech} />
+                  <BattledroidsRulesReference />
+                </>
+              ) : null}
               <button
                 className="btn btn-primary btn-sm full-width"
                 onClick={this.openZoomSheet}
@@ -2835,6 +3132,270 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         </li>
                     )
                   })}
+                  {group.infantry.map( (platoon) => (
+                    <li key={platoon.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, platoon.getUUID())}
+                        className={selectedInfantry && selectedInfantry.getUUID() === platoon.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + platoon.getDisplayName()}
+                      >
+                        {platoon.getDisplayName()}
+                        <div className="stats">
+{platoon.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={platoon.getStrengthPercentage()}
+                              currentNumber={platoon.getCurrentTroopers()}
+                              height={8}
+                              title="Troopers Remaining"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.battleArmor.map( (squad) => (
+                    <li key={squad.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, squad.getUUID())}
+                        className={selectedBattleArmor && selectedBattleArmor.getUUID() === squad.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + squad.getDisplayName()}
+                      >
+                        {squad.getDisplayName()}
+                        <div className="stats">
+                          {squad.isDestroyed() ? (
+                            <h3 className="color-red text-center">
+                              DESTROYED
+                            </h3>
+                          ) : (
+                            <div className="bars">
+                              <StatBar
+                                color="white"
+                                background="#aaa"
+                                currentPercentage={squad.getStrengthPercentage()}
+                                currentNumber={squad.getActiveTroopers()}
+                                height={8}
+                                title="Troopers Active"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.protoMechs.map( (point) => (
+                    <li key={point.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, point.getUUID())}
+                        className={selectedProtoMech && selectedProtoMech.getUUID() === point.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + point.getDisplayName()}
+                      >
+                        {point.getDisplayName()}
+                        <div className="stats">
+                          {point.isDestroyed() ? (
+                            <h3 className="color-red text-center">
+                              DESTROYED
+                            </h3>
+                          ) : (
+                            <div className="bars">
+                              <StatBar
+                                color="white"
+                                background="#aaa"
+                                currentPercentage={Math.round(point.getActiveUnits() / point.getPointSize() * 100)}
+                                currentNumber={point.getActiveUnits()}
+                                height={8}
+                                title="ProtoMechs Active"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.battledroidsUnits.map( (unit) => (
+                    <li key={unit.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, unit.getUUID())}
+                        className={selectedBattledroidsUnit && selectedBattledroidsUnit.getUUID() === unit.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + unit.getDisplayName()}
+                      >
+                        {unit.getDisplayName()}
+                        <div className="stats">
+{unit.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={unit.getStrengthPercentage()}
+                              currentNumber={unit.getStrengthPercentage()}
+                              height={8}
+                              title="Strength Remaining"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.buildings.map( (building) => (
+                    <li key={building.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, building.getUUID())}
+                        className={selectedBuilding && selectedBuilding.getUUID() === building.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + building.getDisplayName()}
+                      >
+                        {building.getDisplayName()}
+                        <div className="stats">
+{building.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={building.getStrengthPercentage()}
+                              currentNumber={building.getCurrentPoints()}
+                              height={8}
+                              title="Armor and Construction Factor Remaining"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.fighters.map( (fighter) => (
+                    <li key={fighter.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, fighter.getUUID())}
+                        className={selectedFighter && selectedFighter.getUUID() === fighter.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + fighterName(fighter)}
+                      >
+                        {fighterName(fighter)}
+                        <div className="stats">
+{fighter.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="blue"
+                              background="#aaa"
+                              currentPercentage={fighter.getArmorPercentage()}
+                              currentNumber={fighter.getCurrentArmor()}
+                              height={8}
+                              title="Current Armor Status"
+                            />
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={fighter.getStructurePercentage()}
+                              currentNumber={fighter.getCurrentStructure()}
+                              height={8}
+                              title="Current Structural Integrity"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.smallCraft.map( (craft) => (
+                    <li key={craft.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, craft.getUUID())}
+                        className={selectedSmallCraft && selectedSmallCraft.getUUID() === craft.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + smallCraftName(craft)}
+                      >
+                        {smallCraftName(craft)}
+                        <div className="stats">
+{craft.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="blue"
+                              background="#aaa"
+                              currentPercentage={craft.getArmorPercentage()}
+                              currentNumber={craft.getCurrentArmor()}
+                              height={8}
+                              title="Current Armor Status"
+                            />
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={craft.getStructurePercentage()}
+                              currentNumber={craft.getCurrentStructure()}
+                              height={8}
+                              title="Current Structural Integrity"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
+                  {group.capitalShips.map( (ship) => (
+                    <li key={ship.getUUID()}>
+                      <button
+                        onClick={(e) => this.selectVehicle(e, ship.getUUID())}
+                        className={selectedCapitalShip && selectedCapitalShip.getUUID() === ship.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                        title={"Select " + capitalShipName(ship)}
+                      >
+                        {capitalShipName(ship)}
+                        <div className="stats">
+{ship.isDestroyed() ? (
+<h3 className="color-red text-center">
+    DESTROYED
+</h3>
+) : (
+                          <div className="bars">
+                            <StatBar
+                              color="blue"
+                              background="#aaa"
+                              currentPercentage={ship.getArmorPercentage()}
+                              currentNumber={ship.getCurrentArmor()}
+                              height={8}
+                              title="Current Armor Status"
+                            />
+                            <StatBar
+                              color="white"
+                              background="#aaa"
+                              currentPercentage={ship.getStructurePercentage()}
+                              currentNumber={ship.getCurrentStructure()}
+                              height={8}
+                              title="Current Structural Integrity"
+                            />
+                          </div>
+)}
+                        </div>
+                      </button>
+                      <hr />
+                    </li>
+                  ))}
                   {group.vehicles.map( (vehicle) => (
                     <li key={vehicle.getUUID()}>
                       <button
@@ -2904,6 +3465,8 @@ interface IPlayState {
   setMovementJumpingMP: number;
 
   resolveFireDialog: boolean;
+  /** The space turn tracker's resolution dialog (design 2026-10-22). */
+  spaceResolutionDialog: boolean;
 
   takeDamageDialog: BattleMech | null;
   takeDamageAmount: number;

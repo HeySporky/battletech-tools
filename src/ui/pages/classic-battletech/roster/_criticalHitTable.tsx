@@ -21,8 +21,20 @@ export default class InPlayCriticalHitTable extends React.Component<IInPlayCriti
         }
     }
 
+    // Roll on the Determining Critical Hits Table (TW p.124), or by the design's edition (Battledroids: 7 or more, BD p.18).
+    rollCritical = (e: React.FormEvent<HTMLButtonElement>) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        this.setState({ log: this.props.mechData.rollCriticalHit( this.props.location ) });
+        this.props.onChange( this.props.mechData );
+    }
+
     render = (): JSX.Element => {
         let lastCritName = "";
+        const editionRoll = this.props.mechData.getEditionPlayRules()?.criticalHitRoll;
+        const modifier = this.props.mechData.getCriticalHitRollModifier();
+        const rollLabel = editionRoll ? `${editionRoll}+` : modifier ? `8+, +${modifier} to the roll` : "8+";
         return(
             <fieldset className="fieldset">
                 <legend>{getLocationName(this.props.location, this.props.mechData.isQuad() )}</legend>
@@ -103,6 +115,12 @@ export default class InPlayCriticalHitTable extends React.Component<IInPlayCriti
                 })}
                 </tbody>
                 </table>
+                <div className="small-text">
+                    <button className="btn btn-sm btn-primary" onClick={this.rollCritical} title="Roll when this location's internal structure is damaged">
+                        Roll for a Critical Hit ({rollLabel})
+                    </button>
+                    {(this.state?.log ?? []).map( (line, index) => <div key={index}>{line}</div> )}
+                </div>
             </fieldset>
         )
     }
@@ -118,5 +136,6 @@ interface IInPlayCriticalHitTableProps {
 }
 
 interface IInPlayCriticalHitTableState {
+    log?: string[];
 
 }

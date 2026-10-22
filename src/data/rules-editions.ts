@@ -1,0 +1,783 @@
+/*
+* DISCLAIMER: This file processes gameplay data derived from the BattleTech universe.
+* All lore, stats, and intellectual property belong strictly to Catalyst Game Labs,
+* Topps, and their respective rights holders.
+*
+* This open-source utility is a non-commercial fan project designed purely for
+* tabletop gameplay assistance. Content processed by this file is not intended
+* to challenge any copyright or trademark status, and this data is explicitly
+* excluded from the software's underlying license (GNU GPLv3).
+*/
+
+import { IEditionHistory, IEditionStats, IEditionStatsTable, IEquipmentItem, IRawMechStructure, IRulesLevelOption } from "./data-interfaces";
+import { APOCRYPHAL_RULES_LEVEL, btRulesLevelOptions, getRulesLevelOptions } from "./rules-level-options";
+
+/** The unit types the creators build, for an edition's `unitTypes`. */
+export type RulesEditionUnitType = "mech" | "vehicle" | "fighter" | "small-craft" | "capital-ship" | "infantry" | "battle-armor" | "protomech" | "building";
+
+/** Every unit type: Total Warfare and its companion books (TechManual, Tactical and Strategic Operations) build them all. */
+export const ALL_RULES_EDITION_UNIT_TYPES: RulesEditionUnitType[] = ["mech", "vehicle", "fighter", "small-craft", "capital-ship", "infantry", "battle-armor", "protomech", "building"];
+
+/**
+ * Editions of the BattleTech rules, oldest first, so a player can choose to build with one edition's rules only.
+ * The Mech Creator's Rules Edition control is the first user: BattleMech.setRulesEdition() filters its lists and
+ * reads its stats through the helpers at the end of this file.
+ *
+ * Each official record lists the editions it is canon in, in `editions` (empty when it never was): that list is
+ * what an edition contains. `editionStats` holds only stats, with one key per earlier edition in the list: what that
+ * edition prints, or `null` when it matches the previous edition that lists the record. `introducedInEdition` is the
+ * list's first entry; catalog-editions.test.ts keeps the three in step. Custom and Munchkin records have no list,
+ * and getRecordEditions() works one out. An edition is entered whole, from its rulebook's page images, before the
+ * next is begun; `complete` says which are done. Never tag from memory or from OCR text.
+ *
+ * Stats are entered as printed, with one exception (user ruling, 2026-10-07): an obvious misprint is corrected,
+ * and the entry's `errata` says what the book prints and why it was changed. Anything less than obvious stays
+ * as printed with a note, such as the 6.5-ton 170 engine in Battledroids.
+ *
+ * The core rulebooks replaced one another: the Core Rulebook's designer's notes (CRB p.247) give that line and
+ * its years for 1987 to 2001 and date the Second Edition box set to 1985. The other years are the copyright
+ * dates on the books' own credits pages. The Third Edition (1992) and Fourth Edition (1996) box sets were the
+ * introductory game sold beside the reference rulebook of the day (Master Rules, introduction: "The introductory
+ * game in the BattleTech line is the BattleTech, Fourth Edition boxed set"), so each holds less than the
+ * rulebook before it in this list. That is why an edition's contents come from each record's `editions` and
+ * never from the edition's place in this list.
+ */
+/** The game rules play mode applies, where an earlier edition's differ from Total Warfare's. */
+export interface IEditionPlayRules {
+    /** Heat points for moving: walking, running, and each hex jumped with its least. */
+    moveHeat: { walk: number; run: number; jumpPerHex: number; jumpMinimum: number };
+    /** Highest target movement modifier on the edition's table, before the +1 for jumping. */
+    maxTargetMovementModifier: number;
+    /** False when the edition has no modifier for firing at a second target. */
+    secondaryTargetModifiers: boolean;
+    /** Two-dice roll that makes a hit on the internal structure a critical hit. */
+    criticalHitRoll: number;
+}
+
+/** One of an edition's own game levels, as its rulebook names it, and the tool's rules level it stands for. */
+export interface IRulesEditionLevel {
+    /** The tool's rules level (0-4) this level stands for. */
+    id: number;
+    name: string;
+    book: string;
+    page: number;
+    /** Below the construction level: a printed unit may be edited after a warning that this moves it to that level. */
+    editsAfterWarning?: boolean;
+}
+
+export interface IRulesEdition {
+    /** Stable id stored on records and in saves. */
+    tag: string;
+    name: string;
+    /** First publication year of the edition's core rulebook. */
+    year: number;
+    /** The core rulebook, by the abbreviation used in record citations. */
+    book: string;
+    /** True once every item the edition's rulebook includes has its `editionStats` entry. */
+    complete?: boolean;
+    /**
+     * The least ammunition a design must carry: a ton for each launcher or ballistic weapon ("launcher": BD p.25,
+     * BTM p.79), or a ton for each class of them ("class": BT3 p.43, BTC:RoW p.101, BT4 p.43, BMR p.114,
+     * BMR(R) p.120). One-shot weapons need none.
+     */
+    ammoTonsFor?: "launcher" | "class";
+    /** Where the edition's game rules differ from Total Warfare's in what play mode works out; absent while not reviewed. */
+    playRules?: IEditionPlayRules;
+    /** The edition has no Battle Value system: the first one is in the Master Rules. */
+    noBattleValue?: boolean;
+    /** The edition's rulebook prints no prices, for equipment or for a finished unit. */
+    noPrices?: boolean;
+    /**
+     * An earlier edition whose rules let Clan and Inner Sphere technology be mixed on one chassis. Whether it has
+     * the Clan technology base at all follows from its Clan equipment (`editionStats`).
+     */
+    mixedTech?: boolean;
+    /**
+     * The unit types a design can be built for under this edition. Absent means 'Mechs only: the earlier rulebooks
+     * print their other units as fixed designs (`otherUnits`), with no rules to build them.
+     */
+    unitTypes?: RulesEditionUnitType[];
+    /** The 'Mechs the rulebook prints, as it names them. */
+    mechs?: string[];
+    /** Other units the rulebook gives rules for; they are fixed designs, not built from the catalogs. */
+    otherUnits?: string[];
+    /** What the edition includes that the tool has no record for. */
+    notModelled?: string[];
+    /** The edition predates OmniMechs, which first appeared in Technical Readout: 3050 (1989). */
+    noOmniMechs?: boolean;
+    /** The rulebook has no eras to build in; the design keeps its era, out of sight. */
+    noEras?: boolean;
+    /** The edition's own game levels; absent means Total Warfare's. Apocryphal, Custom Homebrew and Munchkin follow. */
+    levels?: IRulesEditionLevel[];
+    /** The lowest rules level whose rules design new units; absent means every level. */
+    constructionLevel?: number;
+}
+
+export const btRulesEditions: IRulesEdition[] = [
+    {
+        // Battledroids, the game's first edition: credits page, "Copyright 1984 FASA Corporation".
+        tag: "battledroids",
+        noEras: true,
+        noOmniMechs: true,
+        name: "Battledroids",
+        year: 1984,
+        book: "BD",
+        complete: true,
+        // Heat Point Table, BD p.12; Movement Modifiers Table, BD p.5; Determining Critical Hits, BD p.18. The
+        // weapon attack rules (BD pp.8-11, 15) have no modifier for a second target.
+        playRules: {
+            moveHeat: { walk: 0, run: 1, jumpPerHex: 1, jumpMinimum: 0 },
+            maxTargetMovementModifier: 3,
+            secondaryTargetModifiers: false,
+            criticalHitRoll: 7,
+        },
+        ammoTonsFor: "launcher",
+        noBattleValue: true,
+        noPrices: true,
+        levels: [
+            { id: 0, name: "Basic Battledroids", book: "BD", page: 1 },
+            { id: 1, name: "Advanced Battledroids", book: "BD", page: 7, editsAfterWarning: true },
+            // "the information needed to design and build new classes of droids"
+            { id: 2, name: "Expert Battledroids", book: "BD", page: 14 },
+        ],
+        constructionLevel: 2,
+        // BD pp.16-17, the ten record listings.
+        mechs: [
+            "STG-3R Stinger", "WSP-1A Wasp", "PXH-1K Phoenix Hawk", "GRF-1N Griffin", "SHD-2H Shadow Hawk",
+            "RFL-3N Rifleman", "CRD-3R Crusader", "ARC-2R Archer", "WHM-6R Warhammer", "MAD-3R Marauder",
+        ],
+        // BD pp.22-23, Expert Battledroids optional rules.
+        otherUnits: ["SCR-8N Scorpion tank", "HNT-3R Hunter tank", "VDE-3T Vedette tank", "Jeep", "Infantry squad"],
+        notModelled: [
+            "A severed arm or leg picked up as a club: an optional rule, not an item (BD p.21).",
+        ],
+    },
+    {
+        // BattleTech, Second Edition box set: "that 1985 box set" (CRB p.247); its rulebook prints "Copyright 1985".
+        tag: "battletech-2nd-edition",
+        noOmniMechs: true,
+        name: "BattleTech, Second Edition",
+        year: 1985,
+        book: "BT2",
+        complete: true,
+        ammoTonsFor: "launcher",
+        noBattleValue: true,
+        noPrices: true,
+        // BT2 pp.36-41, the fourteen record listings, and the training 'Mech of p.1.
+        mechs: [
+            "LCT-1V Locust", "STG-3R Stinger", "WSP-1A Wasp", "PXH-1 Phoenix Hawk", "GRF-1N Griffin",
+            "SHD-2H Shadow Hawk", "WVR-6R Wolverine", "RFL-3N Rifleman", "CRD-3R Crusader", "TDR-5S Thunderbolt",
+            "ARC-2R Archer", "WHM-6R Warhammer", "MAD-3R Marauder", "BLR-1G BattleMaster", "CHM-3 Chameleon",
+        ],
+        // Tanks, jeeps and infantry are mentioned in the background text only (BT2 p.5); they have no rules.
+        otherUnits: [],
+        notModelled: [
+            "A severed arm or leg picked up as a club: an optional rule, not an item (BT2 p.36).",
+        ],
+    },
+    {
+        // The BattleTech Manual: The Rules of Warfare: credits page, "Copyright 1987"; CRB p.247.
+        tag: "battletech-manual",
+        noOmniMechs: true,
+        name: "The BattleTech Manual",
+        year: 1987,
+        book: "BTM",
+        complete: true,
+        ammoTonsFor: "launcher",
+        noBattleValue: true,
+        // A rulebook only: it prints no 'Mech record listings and names designs in passing (BTM pp.41, 74).
+        mechs: [],
+        // Units with their own construction rules (BTM pp.80-84) or tables (BTM pp.36, 50).
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Conventional naval vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon",
+            "AeroSpace Fighter", "Conventional Fighter", "DropShip", "Land-Air 'Mech",
+            "Gun emplacement or building",
+        ],
+        notModelled: [
+            "Component prices: the 'Mech Cost Chart gives formulas for the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets and armor (BTM p.84); only the fixed prices are entered.",
+            "Mines: command-detonated, conventional and Vibrabombs are placed by scenario, not mounted (BTM p.45).",
+            "Cargo space: tonnage a 'Mech or vehicle sets aside, with no item of its own (BTM p.40).",
+            "Vehicle parts: lift, rotor and diving equipment, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items (BTM pp.81-82).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon damage rows (BTM p.36).",
+            "Clubs: a severed arm or leg, an uprooted tree or a girder from a rubbled building, picked up on the map (BTM p.27).",
+        ],
+    },
+    {
+        // The BattleTech Compendium (FASA 1640): credits page, "Copyright 1990 FASA Corporation"; CRB p.247.
+        tag: "battletech-compendium",
+        name: "The BattleTech Compendium",
+        year: 1990,
+        book: "BTC",
+        complete: true,
+        ammoTonsFor: "launcher",
+        noBattleValue: true,
+        // A rulebook only: it prints no 'Mech record listings and names designs in passing (BTC pp.56, 61, 104).
+        mechs: [],
+        // Units with their own construction rules (BTC pp.105, 122-127), tables (BTC pp.45-46) or record sheets.
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Displacement hull vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon", "BattleArmor point",
+            "AeroSpace Fighter", "Conventional Fighter", "DropShip", "JumpShip", "Land-Air BattleMech",
+            "OmniMech", "OmniFighter",
+            "Installation (building or gun emplacement)",
+        ],
+        notModelled: [
+            "Component prices: the BattleMech Costs and Formulas chart prices the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets, heat sinks and armor by formula, with x.75 for a LAM and x.25 for an OmniMech (BTC p.128); only the fixed prices are entered.",
+            "Clan CASE: no weight, no critical slot, built into every Clan ammunition-fed weapon pod (BTC pp.118-119, 122); the catalogs have no record for it.",
+            "OmniMech pods: a design sets aside tonnage and critical slots for pods filled before each battle; engines, Endo Steel, MASC and armor never go in pods (BTC pp.112, 122-123).",
+            "Mines: conventional, command-detonated and Vibrabomb fields are placed by scenario; Thunder LRMs and the Clan Arrow IV FASCAM round lay conventional fields (BTC pp.60-61, 117, 121).",
+            "Vehicle parts: lift, rotor and diving equipment, controls, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items (BTC pp.123-125).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon to-hit and damage rows and platoon prices (BTC pp.45, 130).",
+            "BattleArmor: a fixed design, five Elementals to a Point, each suit with 11 points of armor, SRMs and a small laser, flamer or machine gun; 3,500,000 C-bills a Point (BTC pp.8, 45-46, 130).",
+            "Clubs: a severed arm or leg, an uprooted tree or a girder from a rubbled building, picked up on the map (BTC p.31).",
+            "Single-shot launchers fitted for special munitions or an Artemis IV FCS: allowed at double the launcher's base price, with no rows of their own (BTC p.121). The LRM, SRM, Streak and Narc single-shot launchers are entered; the Streak and Narc ones carry no price, because the book does not say which base price is doubled.",
+        ],
+    },
+    {
+        // BattleTech, Third Edition box set: rulebook credits page, "Copyright 1992 FASA Corporation".
+        tag: "battletech-3rd-edition",
+        name: "BattleTech, Third Edition",
+        year: 1992,
+        book: "BT3",
+        complete: true,
+        ammoTonsFor: "class",
+        noBattleValue: true,
+        noPrices: true,
+        // The four training scenarios name the fourteen 'Mechs of the box by chassis (BT3 pp.36-39); the model
+        // codes are from the pregenerated record sheets (BT3 p.5: "the fourteen 'Mechs included in the basic
+        // game"). The sheets in the library's scan are footed "Copyright 1996", so they are a later printing
+        // of that booklet; the blank sheet beside them is footed 1992.
+        mechs: [
+            "LCT-1V Locust", "STG-3R Stinger", "WSP-1A Wasp", "PXH-1 Phoenix Hawk", "GRF-1N Griffin",
+            "SHD-2H Shadow Hawk", "WVR-6R Wolverine", "RFL-3N Rifleman", "CRD-3R Crusader", "TDR-5S Thunderbolt",
+            "ARC-2R Archer", "WHM-6R Warhammer", "MAD-3R Marauder", "BLR-1G BattleMaster",
+        ],
+        // BattleMechs only: other combat units appear in the background text alone.
+        otherUnits: [],
+        notModelled: [
+            "Clubs: a severed arm or leg, or an uprooted tree good for one successful attack, picked up on the map and swung with two hands (BT3 pp.30-31).",
+        ],
+    },
+    {
+        // BattleTech Compendium: The Rules of Warfare: credits page, "Copyright 1994 FASA Corporation"; CRB p.247.
+        // The library's copy is the third printing (September 1995); what it may correct over the first
+        // printing is not known.
+        tag: "compendium-rules-of-warfare",
+        name: "BattleTech Compendium: The Rules of Warfare",
+        year: 1994,
+        book: "BTC:RoW",
+        complete: true,
+        ammoTonsFor: "class",
+        noBattleValue: true,
+        // The Technical Readout sections (BTC:RoW pp.125-132), with a record sheet for each at the back of the
+        // book. The Clan designs are headed by their Clan names, with the Inner Sphere designation beside them.
+        mechs: [
+            "RVN-3L Raven", "BSW-X1 Bushwacker", "AXM-2N Axman", "MAL-1R Mauler",
+            "Hunchback IIC", "Mad Dog (Vulture)", "Summoner (Thor)", "Timber Wolf (Mad Cat)",
+        ],
+        // Units with their own construction rules (BTC:RoW pp.106-109), tables (BTC:RoW pp.66, 69) or rules
+        // sections (BTC:RoW pp.56, 70, 88). It is a ground game: the AeroTech rules and Land-Air BattleMechs of
+        // the 1990 Compendium are gone (BTC:RoW p.7), and fighters appear only as off-map support.
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Displacement hull vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon",
+            "Battle armor Point", "Inner Sphere battle suit unit",
+            "OmniMech",
+            "Aerospace support fighter (light, medium, heavy)",
+            "Building", "Gun emplacement",
+        ],
+        notModelled: [
+            "Component prices: the BattleMech Cost Table prices the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets, heat sinks and armor by formula, with x.25 for an OmniMech and a final multiplier of 1 + tonnage / 100 (BTC:RoW p.123); only the fixed prices are entered.",
+            "Clan CASE: no weight and no critical slots, in every Clan weapon pod that holds an ammunition-fed weapon (BTC:RoW pp.104, 115); the catalogs have no record for it.",
+            "OmniMech pods: a design sets aside tonnage and critical slots for pods filled before each battle; engines, endo steel, MASC and armor never go in pods, and lower arm and hand actuators are pods that cannot share an arm with a PPC, autocannon or Gauss rifle (BTC:RoW pp.106-107).",
+            "Mines: Thunder LRMs, the Clan Arrow IV FASCAM round and the mine-type bomb lay conventional fields (BTC:RoW pp.73, 93, 113, 121).",
+            "Vehicle parts: control components, lift, rotor and diving equipment, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items; a vehicle carries 5 items plus 1 for every 5 full tons (BTC:RoW pp.107-109).",
+            "Cargo space: tonnage a vehicle sets aside; BattleMechs cannot allocate it (BTC:RoW p.115).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon damage rows and platoon prices (BTC:RoW pp.66, 123).",
+            "Battle armor: a fixed design, five Elementals to a Point, each suit with 10 points of armor and an SRM-2 with a small laser, flamer or machine gun; Inner Sphere battle suits have 9 points and no SRMs (BTC:RoW pp.66, 69). 3,500,000 C-bills a Clan Point, 3,000,000 an Inner Sphere unit (BTC:RoW p.123).",
+            "Clubs: a severed arm or leg, an uprooted tree good for one successful attack, or a girder from a rubbled building, picked up on the map and swung with two hands (BTC:RoW p.46).",
+            "Single-shot launchers fitted for special munitions or an Artemis IV FCS: allowed at double the launcher's base cost, with no rows of their own (BTC:RoW p.120). The LRM, SRM, Streak and Narc single-shot launchers are entered; the Streak and Narc ones carry no price, because the book does not say which base cost is doubled.",
+        ],
+    },
+    {
+        // BattleTech, Fourth Edition box set: rulebook credits page, "4th Edition Revision", "Copyright 1996
+        // FASA Corporation".
+        tag: "battletech-4th-edition",
+        name: "BattleTech, Fourth Edition",
+        year: 1996,
+        book: "BT4",
+        complete: true,
+        ammoTonsFor: "class",
+        noBattleValue: true,
+        noPrices: true,
+        // The box holds playing pieces for "twenty-four different BattleMech designs" (BT4 p.5). Only the
+        // twenty the rulebook's scenarios name are listed (BT4 pp.36-39); the Assassin is named without a model
+        // code (BT4 p.36). The box's 'Mech sheets scan, added to the library since, names all twenty-four
+        // (the Assassin as ASN-21); its sheets are still to be read from the page images and entered.
+        mechs: [
+            "COM-2D Commando", "SDR-5V Spider", "JR7-D Jenner", "PNT-9R Panther", "Assassin", "CDA-2A Cicada",
+            "CLNT-2-3T Clint", "HER-2S Hermes II", "ENF-4R Enforcer", "HBK-4G Hunchback", "TBT-5N Trebuchet",
+            "DV-6M Dervish", "DRG-1N Dragon", "QKD-4G Quickdraw", "CPLT-C1 Catapult", "JM6-S JagerMech",
+            "GHR-5H Grasshopper", "AWS-8Q Awesome", "ZEU-6S Zeus", "AS7-D Atlas",
+        ],
+        // BattleMechs only: infantry and conventional vehicles are left to CityTech, Second Edition (BT4 p.4).
+        otherUnits: [],
+        notModelled: [
+            "Four of the box's twenty-four BattleMech designs: the rulebook names twenty; the box's sheets for the other four have not been entered yet (BT4 p.5).",
+            "Clubs: picked up on the map and swung with two hands; the hatchet attacks by the same rules with one (BT4 pp.28, 46).",
+        ],
+    },
+    {
+        // BattleTech Master Rules (FASA 1707): back cover, "Copyright 1998 FASA Corporation"; CRB p.247.
+        tag: "master-rules",
+        name: "BattleTech Master Rules",
+        year: 1998,
+        book: "BMR",
+        complete: true,
+        ammoTonsFor: "class",
+        // Designs are built "factory-built" with one technology base; custom modifications may mix Clan and Inner
+        // Sphere technology on a chassis (BMR pp.87, 108).
+        mixedTech: true,
+        // A rulebook only: it prints no 'Mech record listings. The construction example builds a 45-ton Wyvern
+        // (BMR pp.109-114), and designs are named in passing.
+        mechs: [],
+        // Units with their own construction rules (BMR pp.118-120), rules sections (BMR pp.51, 56-67) or prices
+        // (BMR p.137). There are no aerospace units or Land-Air BattleMechs in this book.
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Displacement hull vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon",
+            "Clan battle armor Point (Standard, Gnome, Salamander)",
+            "Inner Sphere battle armor squad (Standard, Infiltrator, Sloth, Gray Death Light Scout, Longinus, Achileus, Kage, Kanazuchi)",
+            "OmniMech", "OmniVehicle",
+            "Building",
+        ],
+        notModelled: [
+            "Component prices: the BattleMech Costs Table prices the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets, heat sinks and armor by formula, with x.25 for an OmniMech and a final multiplier of 1 + tonnage / 100 (BMR p.136); only the fixed prices are entered.",
+            "Clan CASE: no weight and no critical slots, in every Clan location that holds explosive ammunition or equipment (BMR pp.117, 126); the catalogs have no record for it.",
+            "OmniMech and OmniVehicle pods: a design fixes its structure, engine and armor and leaves tonnage and space for pods (BMR pp.114, 120).",
+            "Flare LRMs: fired at a hex to light it and everything within 3 hexes, for the launcher's size divided by 5 turns (BMR p.130); the catalogs have no record for them.",
+            "Narc Explosive Pods for the Clan launcher: the price list serves both technology bases (BMR pp.133, 138); the catalogs have an Inner Sphere record only.",
+            "Mines: conventional, command-detonated and vibrabomb fields are placed before play; Thunder LRMs and the Clan Arrow IV FASCAM round lay conventional fields (BMR pp.80-81, 132).",
+            "Vehicle parts: control components, lift, rotor and diving equipment, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items; a vehicle carries 5 items plus 1 for every 5 full tons (BMR pp.118-119).",
+            "Cargo space: tonnage a vehicle sets aside; BattleMechs cannot allocate it (BMR pp.125-126).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon damage rows and platoon prices (BMR p.137).",
+            "Battle armor: eleven fixed designs with their own armor, movement and weapons, priced by the Point or squad (BMR pp.60-66, 137).",
+            "Clubs: a severed arm or leg, an uprooted tree good for one successful attack, or a girder from a rubbled building, picked up on the map and swung with two hands (BMR p.40).",
+            "Single-shot launchers with special munitions: the launcher's base cost is multiplied by the munition's multiple (BMR p.129); only the plain single-shot launchers are entered.",
+        ],
+    },
+    {
+        // Classic BattleTech Master Rules, Revised Edition (FanPro 35000): credits page, "2001-2005 WizKids";
+        // CRB p.247.
+        tag: "master-rules-revised",
+        name: "BattleTech Master Rules, Revised Edition",
+        year: 2001,
+        book: "BMR(R)",
+        complete: true,
+        ammoTonsFor: "class",
+        // As in the Master Rules: custom modifications may mix Clan and Inner Sphere technology (BMR(R) pp.89, 115).
+        mixedTech: true,
+        // A rulebook only, as the Master Rules was: no 'Mech record listings. The construction example is again the
+        // 45-ton Wyvern (BMR(R) pp.115-120), and the Battle Value example a Goshawk (BMR(R) p.159).
+        mechs: [],
+        // Units with their own construction rules (BMR(R) pp.124-129), rules sections (BMR(R) pp.49-71) or prices
+        // (BMR(R) p.150). ProtoMechs are new; the battle armor names are those of the Infantry Costs Table.
+        otherUnits: [
+            "Tracked vehicle", "Wheeled vehicle", "Hovercraft", "VTOL", "Hydrofoil",
+            "Displacement hull vessel", "Submarine",
+            "Foot infantry platoon", "Motorized infantry platoon", "Jump infantry platoon",
+            "Clan battle armor Point (Standard, Gnome, Salamander, Sylph, Undine)",
+            "Inner Sphere battle armor squad (Standard, Achileus, Cavalier, Fa Shih, Fenrir, Gray Death Light Scout, Gray Death Standard, Infiltrator, Infiltrator Mk. II, Kage, Kanazuchi, Longinus, Raiden, Purifier, Sloth)",
+            "ProtoMech",
+            "OmniMech", "OmniVehicle",
+            "Building", "Gun emplacement",
+        ],
+        notModelled: [
+            "Component prices: the BattleMech Costs Table prices the cockpit, life support, sensors, musculature, skeleton, actuators, engine, gyro, jump jets, heat sinks and armor by formula, with x.25 for an OmniMech and a final multiplier of 1 + tonnage / 100 (BMR(R) p.149); only the fixed prices are entered.",
+            "Battle Values: the Battle Value System gives formulas for BattleMechs, vehicles, ProtoMechs and infantry and a Battle Value for every weapon and item (BMR(R) pp.152-159); the edition entries hold no Battle Values.",
+            "ProtoMechs: 2 to 9 tons, built from their own tables and priced by their own cost table (BMR(R) pp.54-55, 124-126, 150); they are fixed designs here, not built from the catalogs.",
+            "Clan CASE: no weight and no critical slots, in every Clan location that holds explosive ammunition or equipment (BMR(R) pp.123, 136); the catalogs have no record for it.",
+            "OmniMech and OmniVehicle pods: a design fixes its structure, engine and armor and leaves tonnage and space for pods (BMR(R) pp.120, 129).",
+            "Flare LRMs: fired at a hex to light it and everything within 3 hexes, for the launcher's size divided by 5 turns (BMR(R) p.141); the catalogs have no record for them.",
+            "Incendiary autocannon ammunition: 2 more points against unarmored infantry, fires on 5+, a +1 night modifier, and an explosion if the autocannon takes a critical hit in a turn it fired the rounds; 2 x normal (BMR(R) pp.133, 151). The catalogs have no record for it.",
+            "Narc Explosive Pods for the Clan launcher: the one Narc munition Clan units may use (BMR(R) pp.146, 151); the catalogs have an Inner Sphere record only.",
+            "Rocket launcher reloads: the price list's Ammo Cost for a rocket launcher is its reload after a mission (BMR(R) pp.140, 151); it is noted on the launchers, which carry no ammunition.",
+            "Mines: conventional, command-detonated and vibrabomb fields are placed before play; Thunder LRMs and their variants and the Arrow IV FASCAM and Vibrabomb-IV rounds lay fields in play (BMR(R) pp.77, 86, 144-145).",
+            "Vehicle parts: control components, lift, rotor and diving equipment, turrets, power amplifiers and fusion shielding are percentages of the vehicle, not items; a vehicle carries 5 items plus 1 for every 5 full tons (BMR(R) pp.126-128).",
+            "Cargo space: tonnage a vehicle sets aside; BattleMechs cannot allocate it (BMR(R) p.135).",
+            "Infantry weapons: rifles, machine guns, flamers, portable lasers and SRMs exist only as platoon damage rows and platoon prices (BMR(R) p.150).",
+            "Battle armor: fixed designs with their own armor, movement and weapons, priced by the Point or squad (BMR(R) pp.62-71, 150).",
+            "Clubs: picked up on the map and swung with two hands (BMR(R) p.40).",
+            "Single-shot launchers with special munitions: the launcher's base cost is multiplied by the munition's multiple (BMR(R) p.140); only the plain single-shot launchers are entered.",
+        ],
+    },
+    {
+        // Classic BattleTech box set (FanPro), the introductory game beside the Master Rules, Revised Edition. The
+        // year is the box set's first release as the user gave it (2026-10-15); the library holds only the 2005
+        // printing of its rulebook (FanPro 10980A, "©2005 WizKids"), which does not confirm 2002. Not entered yet.
+        tag: "classic-battletech-box-set",
+        name: "Classic BattleTech (box set)",
+        year: 2002,
+        book: "CBT",
+    },
+    {
+        // Total Warfare, ©2006 (first printing), with TechManual, Tactical Operations, Strategic Operations and
+        // Interstellar Operations: the rules line every catalog record cites.
+        tag: "total-warfare",
+        name: "Total Warfare",
+        year: 2006,
+        book: "TW",
+        unitTypes: ALL_RULES_EDITION_UNIT_TYPES,
+    },
+    {
+        // BattleMech Manual: credits page, "©2017, 2023 The Topps Company" (the library's copy is the corrected 7th
+        // printing). A play rulebook for 'Mechs on the Total Warfare rules: it has no construction rules (an item
+        // that needs them is marked so, BMM pp.126-127) and takes Battle Values from the Master Unit List (BMM p.9),
+        // so its designs are built as under Total Warfare. Its rule differences are not modelled yet.
+        tag: "battlemech-manual",
+        name: "BattleMech Manual",
+        year: 2017,
+        book: "BMM",
+        unitTypes: ["mech"],
+    },
+    {
+        // BattleTech Core Rulebook: credits page, "First Printing", "2026 The Topps Company". Its changes to the
+        // Total Warfare rules are not modelled yet; a record first published in it is tagged with this edition.
+        tag: "core-rulebook",
+        name: "BattleTech Core Rulebook",
+        year: 2026,
+        book: "CRB",
+        // 'Mechs, and buildings in its urban combat rules (CRB pp.130-137). Vehicles, infantry and aerospace units
+        // are Battlefield Support Assets there (CRB p.140), not units built or played on their own.
+        unitTypes: ["mech", "building"],
+    },
+];
+
+/** The edition a record belongs to when it does not say: the one the catalogs are written against. */
+export const DEFAULT_RULES_EDITION = "total-warfare";
+
+/**
+ * The first edition published after FanPro took over the line. FASA-era licensed material (BattleTechnology and the
+ * like) is canon in the editions before it that were current at its publication, and apocryphal from this one on
+ * (user ruling, 2026-10-21). The library's copy of the Master Rules, Revised Edition names its publisher on its credits
+ * page (BMR(R) p.4): "Published by FanPro LLC", "© 2001-2005 WizKids". That copy is a 2005 printing; its record
+ * sheets (BMR(R) p.2) still read "Copyright 2001" under FASA Corporation, so the first printing's publisher is not
+ * shown in the library.
+ */
+export const FANPRO_FIRST_EDITION = "master-rules-revised";
+
+export function getRulesEditions(): IRulesEdition[] {
+    return btRulesEditions;
+}
+
+type IEditionRecord = {
+    introducedInEdition?: string;
+    editionStats?: IEditionStatsTable;
+    apocryphalIn?: IEditionHistory["apocryphalIn"];
+    editions?: string[];
+    editionLevels?: { [editionTag: string]: number };
+    rulesLevel?: number;
+};
+
+const editionOrder = (tag: string) => btRulesEditions.findIndex(edition => edition.tag === tag);
+
+/** A record's first edition: its own `introducedInEdition`, or the default when it has none. */
+export function getIntroducedInEdition(record: IEditionRecord): string {
+    return record.introducedInEdition ?? DEFAULT_RULES_EDITION;
+}
+
+/**
+ * Every edition this record is canon in, in `btRulesEditions` order; empty when it is never canon. A record's own
+ * `editions` wins. Without one, the list is derived from today's rules: nothing for a record at the Apocryphal rules
+ * level or above; otherwise the earlier editions its `editionStats` lists, then every edition from the default
+ * edition on that is not before the record's first edition.
+ */
+export function getRecordEditions(record: IEditionRecord): string[] {
+    if (record.editions !== undefined) {
+        return record.editions;
+    }
+    if (record.rulesLevel !== undefined && record.rulesLevel >= APOCRYPHAL_RULES_LEVEL) {
+        return [];
+    }
+    const defaultOrder = editionOrder(DEFAULT_RULES_EDITION);
+    const introduced = editionOrder(getIntroducedInEdition(record));
+    return btRulesEditions
+        .filter((edition, index) => {
+            if (index < defaultOrder) {
+                return record.editionStats !== undefined && edition.tag in record.editionStats;
+            }
+            return introduced >= 0 && introduced <= index;
+        })
+        .map(edition => edition.tag);
+}
+
+/**
+ * The rules level at which this record is canon in `editionTag`: its own `editionLevels` entry, else 0 in an earlier
+ * edition (the box sets are not graded by level) and the record's `rulesLevel` from the default edition on.
+ */
+export function getRecordLevelInEdition(record: IEditionRecord, editionTag: string): number {
+    if (record.editionLevels !== undefined && editionTag in record.editionLevels) {
+        return record.editionLevels[editionTag];
+    }
+    return isEarlierRulesEdition(editionTag) ? 0 : (record.rulesLevel ?? 0);
+}
+
+/**
+ * Why the rules of `editionTag` at `rulesLevel` do not offer this record: "edition" when the edition does not
+ * include it, "level" when it does but at a higher rules level, null when it is offered. A record dropped from the
+ * rules is apocryphal in the later editions, and a never-canon record with no source is apocryphal from the default
+ * edition on; both appear from the Apocryphal rules level up.
+ */
+export function getRecordOfferIssue(record: IEditionRecord, editionTag: string, rulesLevel: number): "edition" | "level" | null {
+    const selected = editionOrder(editionTag);
+    if (selected < 0) {
+        return "edition";
+    }
+    const editions = getRecordEditions(record);
+    if (editions.includes(editionTag)) {
+        return getRecordLevelInEdition(record, editionTag) <= rulesLevel ? null : "level";
+    }
+    if (rulesLevel < APOCRYPHAL_RULES_LEVEL) {
+        return "edition";
+    }
+    if (record.apocryphalIn && editionTag in record.apocryphalIn) {
+        return null;
+    }
+    if (editions.length === 0) {
+        if (record.apocryphalIn) {
+            return "edition";
+        }
+        return selected >= editionOrder(DEFAULT_RULES_EDITION) ? null : "edition";
+    }
+    return selected > editionOrder(editions[editions.length - 1]) ? null : "edition";
+}
+
+/** Does the rules of `editionTag` at `rulesLevel` offer this record? */
+export function isOfferedInEdition(record: IEditionRecord, editionTag: string, rulesLevel: number): boolean {
+    return getRecordOfferIssue(record, editionTag, rulesLevel) === null;
+}
+
+/**
+ * Do the rules of `editionTag` include this record? Without a `rulesLevel`, when the edition is one of its editions,
+ * read without regard to its rules level. With one, unless the record is missing from the edition itself; a record held back only by its level
+ * still counts as included, as do the apocryphal appearances from the Apocryphal rules level up.
+ */
+export function isInRulesEdition(record: IEditionRecord, editionTag: string = DEFAULT_RULES_EDITION, rulesLevel?: number): boolean {
+    if (rulesLevel === undefined) {
+        // The question here is the record's first edition, not its level: an Apocryphal-level record still counts.
+        return getRecordEditions({ ...record, rulesLevel: undefined }).includes(editionTag);
+    }
+    return getRecordOfferIssue(record, editionTag, rulesLevel) !== "edition";
+}
+
+/**
+ * The stats `editionTag` prints for this record: its own entry, or, where that is `null` (unchanged), the entry
+ * of the nearest earlier edition that lists the record. Undefined when the edition does not include the record,
+ * or is the default edition or later, whose stats are the record itself.
+ */
+export function getEditionStats(record: IEditionRecord, editionTag: string): IEditionStats | undefined {
+    const table = record.editionStats;
+    if (!table || !(editionTag in table)) {
+        return undefined;
+    }
+    for (let index = editionOrder(editionTag); index >= 0; index--) {
+        const stats = table[btRulesEditions[index].tag];
+        if (stats) {
+            return stats;
+        }
+    }
+    return undefined;
+}
+
+/** The edition's own play rules, or undefined where play mode follows Total Warfare. */
+export function getEditionPlayRules(editionTag: string | undefined): IEditionPlayRules | undefined {
+    return getRulesEdition(editionTag).playRules;
+}
+
+/** Does the edition have a Battle Value system? The first is in the Master Rules. */
+export function editionHasBattleValue(editionTag: string | undefined): boolean {
+    return !getRulesEdition(editionTag).noBattleValue;
+}
+
+/** Does the edition's rulebook print prices? */
+export function editionHasPrices(editionTag: string | undefined): boolean {
+    return !getRulesEdition(editionTag).noPrices;
+}
+
+/**
+ * Internal structure boxes an earlier edition's own table gives a 'Mech of `tons` (read from the standard
+ * structure record). With `anyEdition`, the first edition whose table has the row: Battledroids alone has 5 tons.
+ */
+export function getEditionStructure(record: IEditionRecord, editionTag: string, tons: number, anyEdition: boolean = false): IRawMechStructure | undefined {
+    const own = isEarlierRulesEdition(editionTag) ? getEditionStats(record, editionTag)?.structure?.[tons] : undefined;
+    if (own || !anyEdition) {
+        return own;
+    }
+    for (const edition of btRulesEditions) {
+        const row = record.editionStats?.[edition.tag]?.structure?.[tons];
+        if (row) {
+            return row;
+        }
+    }
+    return undefined;
+}
+
+/** True for an edition before the one the catalogs are written against: its lists and stats come from `editionStats`. */
+export function isEarlierRulesEdition(editionTag: string): boolean {
+    const selected = editionOrder(editionTag);
+    return selected >= 0 && selected < editionOrder(DEFAULT_RULES_EDITION);
+}
+
+/**
+ * Editions a design of `unitType` can be built under: the default edition, those after it, and each earlier
+ * edition that has been entered whole (`complete`), when the edition has rules for that unit type.
+ */
+export function getSelectableRulesEditions(unitType: RulesEditionUnitType = "mech"): IRulesEdition[] {
+    return btRulesEditions.filter(edition => (edition.complete || !isEarlierRulesEdition(edition.tag))
+        && (edition.unitTypes ?? ["mech"]).includes(unitType));
+}
+
+/** The tag itself when `unitType` can be built under that edition, otherwise the default edition's. */
+export function getSelectableRulesEditionTag(editionTag: unknown, unitType: RulesEditionUnitType): string {
+    return getSelectableRulesEditions(unitType).find(edition => edition.tag === editionTag)?.tag ?? DEFAULT_RULES_EDITION;
+}
+
+/** The edition with this tag, or the default edition when the tag is unknown (a save from a newer version). */
+export function getRulesEdition(editionTag: string | undefined): IRulesEdition {
+    return btRulesEditions.find(edition => edition.tag === editionTag)
+        ?? btRulesEditions.find(edition => edition.tag === DEFAULT_RULES_EDITION)!;
+}
+
+/**
+ * An equipment record as `editionTag` prints it: a copy with the edition's weight, heat, damage, ranges, critical
+ * slots, price and citation in place of the catalog's. The record itself for the default edition and later ones,
+ * and for a record the edition does not include.
+ */
+export function getEquipmentForEdition(item: IEquipmentItem, editionTag: string): IEquipmentItem {
+    const stats = isEarlierRulesEdition(editionTag) ? getEditionStats(item, editionTag) : undefined;
+    if (!stats) {
+        return item;
+    }
+    const copy = JSON.parse(JSON.stringify(item)) as IEquipmentItem;
+    copy.book = stats.book;
+    copy.page = stats.page;
+    if (stats.weight !== undefined) copy.weight = stats.weight;
+    if (stats.heat !== undefined) copy.heat = stats.heat;
+    if (stats.cbills !== undefined) copy.cbills = stats.cbills;
+    if (stats.damage !== undefined && typeof copy.damage === "number") copy.damage = stats.damage;
+    if (stats.range) copy.range = { ...copy.range, ...stats.range };
+    if (stats.criticals !== undefined) copy.space = { ...copy.space, battlemech: stats.criticals };
+    return copy;
+}
+
+/** Tons of jump jet for each jump movement point at this tonnage, where `editionTag` prints its own figure. */
+export function getEditionJumpJetWeight(jumpJet: IEditionRecord, editionTag: string, tonnage: number): number | undefined {
+    const stats = isEarlierRulesEdition(editionTag) ? getEditionStats(jumpJet, editionTag) : undefined;
+    return stats?.weightByTonnage?.find(band => tonnage <= band.upTo)?.tons ?? stats?.weight;
+}
+
+/** Does the engine hold some heat sinks without critical slots under `editionTag`? The first two editions say no. */
+export function editionEngineHoldsHeatSinks(heatSink: IEditionRecord, editionTag: string): boolean {
+    const stats = isEarlierRulesEdition(editionTag) ? getEditionStats(heatSink, editionTag) : undefined;
+    return stats?.engineHeatSinks ?? true;
+}
+
+/**
+ * Expansion rulebooks that added unit types to the core rules of their day. Years are the copyright dates on each
+ * book's credits page; the unit types come from its contents pages. An expansion is offered once it has been entered
+ * whole from its page images (`complete`), as an earlier edition is; until then it is listed here only.
+ */
+export interface IRulesExpansion {
+    tag: string;
+    name: string;
+    year: number;
+    book: string;
+    /** The unit types the expansion gives rules (or construction rules) for. */
+    unitTypes: RulesEditionUnitType[];
+    complete?: boolean;
+}
+
+export const btRulesExpansions: IRulesExpansion[] = [
+    // CityTech (FASA 1608): "Copyright 1986". Buildings, vehicles with their design rules, and infantry.
+    { tag: "citytech", name: "CityTech", year: 1986, book: "CT", unitTypes: ["vehicle", "infantry", "building"] },
+    // AeroTech (FASA 1609): "Copyright 1986". Aerospace fighters with their design rules, and DropShips.
+    { tag: "aerotech", name: "AeroTech", year: 1986, book: "AT", unitTypes: ["fighter", "small-craft"] },
+    // BattleTroops (FASA 1637): "Copyright © 1989". Infantry, with vehicles and buildings in its tactical game.
+    { tag: "battletroops", name: "BattleTroops", year: 1989, book: "BTr", unitTypes: ["infantry"] },
+    // ClanTroops (FASA 1664): "Copyright © 1991". Clan battle armor (Elementals), supplementing BattleTroops.
+    { tag: "clantroops", name: "ClanTroops", year: 1991, book: "CTr", unitTypes: ["battle-armor"] },
+    // CityTech, Second Edition (FASA 1608R): "Copyright © 1994".
+    { tag: "citytech-2nd-edition", name: "CityTech, Second Edition", year: 1994, book: "CT2", unitTypes: ["vehicle", "infantry", "building"] },
+    // AeroTech 2 (FASA 1718): "Copyright © 2000". Aerospace and conventional fighters, Small Craft, DropShips.
+    { tag: "aerotech-2", name: "AeroTech 2", year: 2000, book: "AT2", unitTypes: ["fighter", "small-craft"] },
+    // AeroTech 2, Revised Edition (FanPro 35011): "© 2004 WizKids". Adds JumpShips and WarShips.
+    { tag: "aerotech-2-revised", name: "AeroTech 2, Revised Edition", year: 2004, book: "AT2R", unitTypes: ["fighter", "small-craft", "capital-ship"] },
+];
+
+/** Expansions that have been entered whole and give rules for `unitType`. */
+export function getSelectableRulesExpansions(unitType: RulesEditionUnitType): IRulesExpansion[] {
+    return btRulesExpansions.filter(expansion => expansion.complete && expansion.unitTypes.includes(unitType));
+}
+
+/**
+ * Editions of the Alpha Strike rules, oldest first. Play mode follows the Commander's Edition; the 2013 rulebook is
+ * offered once its differences are entered (`complete`). The ACES rules are a separate ruleset, not an edition.
+ */
+export interface IAlphaStrikeEdition {
+    tag: string;
+    name: string;
+    year: number;
+    book: string;
+    complete?: boolean;
+}
+
+export const asRulesEditions: IAlphaStrikeEdition[] = [
+    // Alpha Strike: credits page, "©2013 The Topps Company".
+    { tag: "alpha-strike", name: "Alpha Strike", year: 2013, book: "AS" },
+    // Alpha Strike: Commander's Edition, first published 2019 (as the user gave it, 2026-10-15); the library's copy is
+    // the 2024 printing ("©2024 The Topps Company"), the one play mode follows.
+    { tag: "alpha-strike-commanders-edition", name: "Alpha Strike: Commander's Edition", year: 2019, book: "ASCE" },
+];
+
+/** The Alpha Strike edition play mode follows. */
+export const DEFAULT_ALPHA_STRIKE_EDITION = "alpha-strike-commanders-edition";
+
+/** The default edition, and each earlier one entered whole. */
+export function getSelectableAlphaStrikeEditions(): IAlphaStrikeEdition[] {
+    return asRulesEditions.filter(edition => edition.complete || edition.tag === DEFAULT_ALPHA_STRIKE_EDITION);
+}
+
+/** The rules levels to offer under an edition: its own game levels, then Apocryphal, Custom Homebrew and Munchkin. */
+export function getRulesLevelOptionsForEdition(editionTag: string | undefined): IRulesLevelOption[] {
+    const levels = getRulesEdition(editionTag).levels;
+    if (!levels) {
+        return getRulesLevelOptions();
+    }
+    const canon = levels.map(level => ({ ...btRulesLevelOptions.find(option => option.id === level.id)!, name: level.name }));
+    return [...canon, ...btRulesLevelOptions.filter(option => option.id >= APOCRYPHAL_RULES_LEVEL)];
+}
+
+/**
+ * The level the Rules Level control shows for the stored app-wide level: the stored level when the edition lists it,
+ * else the lowest listed level above it, else the highest listed. The stored setting is left as it is.
+ */
+export function getShownRulesLevel(editionTag: string | undefined, storedLevel: number): number {
+    const ids = getRulesLevelOptionsForEdition(editionTag).map(option => option.id);
+    return ids.find(id => id >= storedLevel) ?? ids[ids.length - 1];
+}
+
+/** Whether the edition's rules allow designing a new unit at this rules level. */
+export function editionAllowsConstruction(editionTag: string | undefined, rulesLevel: number): boolean {
+    return rulesLevel >= (getRulesEdition(editionTag).constructionLevel ?? 0);
+}
+
+/** Whether a printed unit may be edited at this level after a warning that editing moves it to the construction level. */
+export function editionEditsPrintedUnitsAfterWarning(editionTag: string | undefined, rulesLevel: number): boolean {
+    return !editionAllowsConstruction(editionTag, rulesLevel)
+        && !!getRulesEdition(editionTag).levels?.find(level => level.id === rulesLevel)?.editsAfterWarning;
+}

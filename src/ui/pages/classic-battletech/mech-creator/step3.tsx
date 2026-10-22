@@ -9,6 +9,9 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import { makeRange } from "../../../../utils/makeRange";
+import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
+import DesignLockColumn from '../../../components/design-lock';
+import EditionChoice from '../../../components/edition-choice';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -56,33 +59,41 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                   current="step3"
                 />
               </div>
-              <div className="col-md-9 col-lg-10">
+              <DesignLockColumn appGlobals={this.props.appGlobals}>
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
                       <TextSection
                         label="Step 3: Add additional heat sinks"
                       >
 
-                          <p className="text-center">Your BattleMech includes 10 heat sinks.</p>
+                          <p className="text-center">
+                            {this.props.appGlobals.currentBattleMech.getFreeHeatSinks() === 0
+                              ? "This engine type comes with no heat sinks."
+                              : this.props.appGlobals.currentBattleMech.getFreeHeatSinks() === 1
+                                ? "This engine type comes with 1 heat sink."
+                                : "Your BattleMech includes " + this.props.appGlobals.currentBattleMech.getFreeHeatSinks() + " heat sinks."}
+                          </p>
 
-                          <label>
-                              Heat Sink Technology :
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getHeatSinksType()}
-                                onChange={this.setHeatSinkType}
-                              >
-                                {this.props.appGlobals.currentBattleMech.getAvailableHeatSinks(this.props.appGlobals.appSettings.mechRulesFilter).map( (heatSink) => {
-                                  const selected = heatSink.tag === this.props.appGlobals.currentBattleMech?.getHeatSinksType();
-                                  if( !heatSink.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
-                                    return <React.Fragment key={heatSink.tag}></React.Fragment>;
-                                  }
-                                  return (
-                                    <option key={heatSink.tag} value={heatSink.tag} disabled={!heatSink.available && !selected}>{heatSink.name}{heatSink.availableAsPrototype ? " (Prototype)" : ""}</option>
-                                  );
-                                })}
+                          <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                            <label>
+                                Heat Sink Technology :
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getHeatSinksType()}
+                                  onChange={this.setHeatSinkType}
+                                >
+                                  {this.props.appGlobals.currentBattleMech.getAvailableHeatSinks(this.props.appGlobals.appSettings.mechRulesFilter).map( (heatSink) => {
+                                    const selected = heatSink.tag === this.props.appGlobals.currentBattleMech?.getHeatSinksType();
+                                    if( !isOptionShown(heatSink, selected) ) {
+                                      return <React.Fragment key={heatSink.tag}></React.Fragment>;
+                                    }
+                                    return (
+                                      <option key={heatSink.tag} value={heatSink.tag}>{availabilityOptionLabel(heatSink)}</option>
+                                    );
+                                  })}
 
-                              </select>
-                            </label>
+                                </select>
+                              </label>
+                          </EditionChoice>
                             {heatSinkObj.notes ? (
                               <p className="text-center smaller-text">{heatSinkObj.notes}{heatSinkObj.book ? " (" + heatSinkObj.book + (heatSinkObj.page ? " p." + heatSinkObj.page : "") + ")" : ""}</p>
                             ) : null}
@@ -133,7 +144,7 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                     </TextSection>
                     </div>
                   </div>
-              </div>
+              </DesignLockColumn>
 
             </div>
 

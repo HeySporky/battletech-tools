@@ -7,12 +7,14 @@ const ROUTES = [
     "about",
     "classic-battletech",
     "mech-creator",
+    "classic-battletech/mech-creator/ssw-file-import",
     "alpha-strike",
     "alpha-strike-roster",
     "equipment-editor",
     "game-management",
     "settings",
     "dev-status",
+    "other-tools",
 ];
 
 for (const route of ROUTES) {

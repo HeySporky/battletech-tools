@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { ICriticalSpace, IEquipmentItem } from '../../data/data-interfaces';
+import { parseTechYear } from '../../data/equipment-registry';
 import AlphaStrikeEquipmentEntry from './alpha-strike-equipment-entry';
 import CriticalEntry from './critical-entry';
 import DamageInput from './damage-input';
@@ -87,7 +88,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        item.reintroduced = +e.currentTarget.value;
+        item.reintroduced = parseTechYear(e.currentTarget.value);
 
         this.props.onChange( item );
     }
@@ -365,7 +366,7 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        item.extinct = +e.currentTarget.value;
+        item.extinct = parseTechYear(e.currentTarget.value);
 
         this.props.onChange( item );
     }
@@ -401,7 +402,19 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
             e.preventDefault();
         }
         let item = this.props.editingItem;
-        item.introduced = +e.currentTarget.value;
+        item.introduced = parseTechYear(e.currentTarget.value);
+
+        this.props.onChange( item );
+    }
+
+    updatePrototype = (
+        e: React.FormEvent<HTMLInputElement>,
+    ) => {
+        if( e && e.preventDefault ) {
+            e.preventDefault();
+        }
+        let item = this.props.editingItem;
+        item.prototype = parseTechYear(e.currentTarget.value) ?? undefined;
 
         this.props.onChange( item );
     }
@@ -528,24 +541,33 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                     <div className="small-text">This is derived from the list you've chosen to edit or add to.</div>
                 </label>
 
+                <div className="small-text">Leave a year blank when there is none or it is unknown. A prototype year with no Introduced year marks a prototype-only item.</div>
+
+                <InputNumeric
+                    step={1}
+                    onChange={this.updatePrototype}
+                    value={this.props.editingItem.prototype ?? ""}
+                    label="Prototype"
+                />
+
                 <InputNumeric
                     step={1}
                     onChange={this.updateIntroduced}
-                    value={this.props.editingItem.introduced ?? 0}
-                    label="Introduced"
+                    value={this.props.editingItem.introduced ?? ""}
+                    label="Introduced (Production)"
                 />
 
                 <InputNumeric
                     step={1}
                     onChange={this.updateExtinct}
-                    value={this.props.editingItem.extinct ?? 0}
+                    value={this.props.editingItem.extinct || ""}
                     label="Extinct"
                 />
 
                 <InputNumeric
                     step={1}
                     onChange={this.updateReintroduced}
-                    value={this.props.editingItem.reintroduced ?? 0}
+                    value={this.props.editingItem.reintroduced || ""}
                     label="Reintroduced"
                 />
 

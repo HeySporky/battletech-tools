@@ -84,6 +84,26 @@
 }
 .mobile-menu {
 
+    .mobile-menu-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        background: none;
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        border: solid 1px $primaryBG;
+        border-radius: .5rem;
+        padding: .5rem 1rem;
+        margin: 0 0 .5rem 0;
+        min-height: 2.75rem;
+        cursor: pointer;
+        &.open {
+            border-bottom-width: 3px;
+        }
+    }
+
     ul {
         padding-left: 0rem;
         li {
@@ -199,7 +219,7 @@ body.retro {
         ul.sub-menu {
             li {
                 a {
-                    font-size: .55rem;
+                    font-size: .75rem;
                     color: $retroPrimaryBG;
                     background: $headerFooterBackground;
                     border-right: dotted 2px $headerFooterBackground;
@@ -231,7 +251,7 @@ body.retro {
             li {
                 display: block;
                 a, span {
-                    font-size: .55rem;
+                    font-size: .75rem;
                     color: $retroPrimaryBG;
                     background: $headerFooterBackground;
                     border-right: dotted 2px $headerFooterBackground;

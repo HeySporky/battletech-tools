@@ -4,6 +4,7 @@ import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 import { CONST_GITHUB_OWNER, CONST_GITHUB_REPO } from '../../configVars';
 import { IEquipmentItem } from "../../data/data-interfaces";
 import { getEquipmentCatalogById, getEquipmentCatalogDefinitions, getEquipmentCatalogExportName } from '../../data/equipment-registry';
+import { getRecordEditions, getRecordLevelInEdition, getRulesEdition, getRulesLevelOptionsForEdition } from '../../data/rules-editions';
 import { getAeroRangeLabel, sortEquipment } from '../../utils';
 import { addCommas } from "../../utils/addCommas";
 import { exportCleanJSON } from "../../utils/exportCleanJSON";
@@ -13,6 +14,43 @@ import EquipmentEditForm from '../components/equipment-edit-form';
 import StandardModal from '../components/standard-modal';
 import UIPage from '../components/ui-page';
 import './equipment-editor.scss';
+
+const DEFAULT_CATALOG_ID = "equipment-ballistic";
+
+const CATEGORY_NAMES: Record<string, string> = {
+    ballistic: "Ballistic Weapons", energy: "Energy Weapons", missile: "Missile Weapons",
+    misc: "Miscellaneous Equipment", artillery: "Artillery Weapons", ammunition: "Ammunition",
+};
+
+const TECH_BASE_NAMES: Record<string, string> = { is: "Inner Sphere", clan: "Clan", universal: "Universal" };
+
+/** The catalog to open: the remembered one if it still exists (ids changed when the catalogs merged), else the default. */
+export function getEditorCatalogId(remembered: string | undefined): string {
+    const id = remembered?.trim();
+    return id && getEquipmentCatalogDefinitions().some(definition => definition.id === id) ? id : DEFAULT_CATALOG_ID;
+}
+
+/** A catalog's table heading, from the registry: its tech base ("Custom" for homebrew) and category. */
+export function getCatalogHeading(catalogId: string): { techBase: string; category: string } {
+    const definition = getEquipmentCatalogDefinitions().find(entry => entry.id === catalogId);
+    return {
+        techBase: definition?.custom ? "Custom" : "Inner Sphere, Clan and Universal",
+        category: (definition && CATEGORY_NAMES[definition.category]) ?? "????",
+    };
+}
+
+/** Each edition a record is in, with its rules level there: "Total Warfare (Advanced); ...", or "Never canon". */
+export function formatRecordEditions(record: Parameters<typeof getRecordEditions>[0]): string {
+    const editions = getRecordEditions(record);
+    if (editions.length === 0) {
+        return "Never canon";
+    }
+    return editions.map(tag => {
+        const level = getRecordLevelInEdition(record, tag);
+        const levelName = getRulesLevelOptionsForEdition(tag).find(option => option.id === level)?.name ?? String(level);
+        return `${getRulesEdition(tag).name} (${levelName})`;
+    }).join("; ");
+}
 const Edit = FaEdit as any;
 const Plus = FaPlus as any;
 const Trash = FaTrash as any;
@@ -26,16 +64,9 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     constructor(props: IEquipmentEditorProps) {
         super(props);
 
-        let currentList = this.props.appGlobals.appSettings.equipmentEditorFile;
+        const currentList = getEditorCatalogId(this.props.appGlobals.appSettings.equipmentEditorFile);
 
-        let currentListData: IEquipmentItem[] = [];
-
-        if( !currentList || !currentList.trim() ) {
-            currentList = "mech-is-equipment-weapons-ballistic"
-        }
-        currentListData = getEquipmentCatalogById(currentList)
-            ?? getEquipmentCatalogById("mech-is-equipment-weapons-ballistic")
-            ?? [];
+        let currentListData: IEquipmentItem[] = getEquipmentCatalogById(currentList) ?? [];
 
         currentListData = this._normalizeListData(currentListData);
 
@@ -179,23 +210,17 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
     }
 
     _getCategoryName = (): string => {
-        if( this.state.currentList.toLocaleLowerCase().indexOf("-energy") > -1) {
-            return "Energy Weapons"
-        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-ballistic") > -1) {
-            return "Ballistic Weapons"
-        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-misc") > -1) {
-            return "Miscellaneous Equipment"
-        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-missiles") > -1) {
-            return "Missile Weapons"
-        } else if( this.state.currentList.toLocaleLowerCase().indexOf("-artillery") > -1) {
-            return "Artillery Weapons"
-        }
-
-        return "????";
+        return getCatalogHeading(this.state.currentList).category;
     }
 
     _getTechnologyName = (): string => {
-        return this.state.currentList.indexOf("-is-") > -1 ? "Inner Sphere" : "Clan"
+        return getCatalogHeading(this.state.currentList).techBase;
+    }
+
+    /** The item being edited's own tech base; the catalog's when it has none. */
+    _getEditItemTechName = (): string => {
+        const techBase = this.state.editItem?.techBase;
+        return (techBase && TECH_BASE_NAMES[techBase]) ?? this._getTechnologyName();
     }
 
     editItem = (
@@ -239,9 +264,10 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             accuracyModifiier: 0,
             cbills: 0,
             cbillsOneShot: 0,
-            introduced: 0,
-            extinct: 0,
-            reintroduced: 0,
+            // Unknown until entered (parseTechYear); 0 would read as "available since year 0".
+            introduced: null,
+            extinct: null,
+            reintroduced: null,
             battleValue: 0,
             battleValueOneShot: 0,
             heat: 0,
@@ -485,7 +511,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             editingItem={this.state.editItem}
             onChange={this.editItemOnChange}
             category={this._getCategoryName()}
-            techBase={this._getTechnologyName()}
+            techBase={this._getEditItemTechName()}
         />
     </StandardModal>
 ) : null}
@@ -567,7 +593,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
 <table className="table">
     <thead>
         <tr>
-            <th colSpan={10} className="text-center">
+            <th colSpan={11} className="text-center">
                 {this._getTechnologyName()} {this._getCategoryName()}
             </th>
         </tr>
@@ -593,6 +619,7 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
             <th className="min-width text-center no-wrap">Explosive</th>
 
             <th className="min-width text-center no-wrap">Active</th>
+            <th className="min-width text-center">Editions</th>
 
             <th
                 className="min-width text-right no-wrap"
@@ -720,10 +747,13 @@ export default class EquipmentEditor extends React.Component<IEquipmentEditorPro
                     </div>
                 </td>
                 <td className="text-center no-wrap ">
-                    {item.introduced ?? "?"}-{item.extinct && item.extinct > 0 ? item.extinct : "current"}<br />
+                    {item.introduced ?? (item.prototype ? `${item.prototype} (prototype)` : "?")}-{item.extinct && item.extinct > 0 ? item.extinct : "current"}<br />
                     {item.reintroduced && item.reintroduced > 0 ? (
                         <div className="small-text">Reintroduced: {item.reintroduced}</div>
                     ): null}
+                </td>
+                <td className="text-center small-text">
+                    {formatRecordEditions(item)}
                 </td>
 
                 <td className="text-center no-wrap">

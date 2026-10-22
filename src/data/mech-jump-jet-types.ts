@@ -10,15 +10,17 @@ import { IJumpJet } from "./data-interfaces";
 * to challenge any copyright or trademark status, and this data is explicitly 
 * excluded from the software's underlying license (GNU GPLv3).
 *
-* Dates: IO tech progression. Improved jump jets: Inner Sphere prototype 3067,
-* Clan prototype 3060, production 3068 for both. UMUs (TO:AUE p.107) follow the jump jet
-* construction rules and give underwater MP instead: Inner Sphere 3066, Clan 3061.
+* Dates: IO:AE p.29 tech progression. Improved jump jets: Clan prototype 3060, production 3069;
+* Inner Sphere introduction 3070. UMUs (TO:AUE p.107) follow the jump jet
+* construction rules and give underwater MP instead: Inner Sphere 3066, Clan prototype 3061, Clan introduction 3072.
 */
 
 export const mechJumpJetTypes: IJumpJet[] = [
 	{
 		name: "Standard Jump Jets",
 		tag: "standard",
+		editions: ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-compendium", "battletech-3rd-edition", "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
+		altNames: ["Standard Jump Jet"],
 		weight_multiplier: {
 			light: 0.5,
 			medium: 1,
@@ -27,15 +29,38 @@ export const mechJumpJetTypes: IJumpJet[] = [
 		},
 		criticals: 1,
 		costMultiplier: 200,
+		book: "TM",
+		page: 225,
 		prototype: 2464,
 		introduced: 2471,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null,
+		introducedInEdition: "battledroids",
+		editionStats: {
+			battledroids: {
+				book: "BD", page: 24, name: "Jump Jets", weight: 0.5, criticals: 0,
+				notes: "0.5 tons for every jump movement point at every tonnage; mounted in the feet or back (BD p.24). No critical boxes: the construction rules put weapons and heat sinks on the Critical Hit Chart and do not mention jump jets (BD p.25), and the record listings show none (BD pp.16-17).",
+			},
+			"battletech-2nd-edition": {
+				book: "BT2", page: 39, name: "Jump Jets", criticals: 1,
+				weightByTonnage: [{ upTo: 55, tons: 0.5 }, { upTo: 85, tons: 1 }, { upTo: 100, tons: 2 }],
+				notes: "Tons for every jump movement point, by the 'Mech's tonnage: 0.5 to 55 tons, 1.0 from 60 to 85, 2.0 from 90 to 100. Each jet's exhaust port takes space on the Equipment Chart of a leg or torso (BT2 p.39); the record listings give one box per jump movement point (BT2 pp.36-41).",
+			},
+			"battletech-manual": null,
+			"battletech-compendium": null,
+			"battletech-3rd-edition": null,
+			"compendium-rules-of-warfare": null,
+			"battletech-4th-edition": null,
+			"master-rules": null,
+			"master-rules-revised": null,
+		},
 	},
 
 	{
 		name:  "Improved Jump Jets",
 		tag: "improved",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
+		altNames: ["Improved Jump Jet"],
 		weight_multiplier: {
 			light: 1,
 			medium: 2,
@@ -44,16 +69,19 @@ export const mechJumpJetTypes: IJumpJet[] = [
 		},
 		criticals: 2,
 		costMultiplier: 500,
-		prototype: 3067,
-		introduced: 3068,
-		extinct: 0,
-		reintroduced: 0,
-		clanDates: { prototype: 3060, introduced: 3068, extinct: 0, reintroduced: 0 }
+		book: "TM",
+		page: 225,
+		introduced: 3070,
+		extinct: null,
+		reintroduced: null,
+		clanDates: { prototype: 3060, introduced: 3069, extinct: null, reintroduced: null }
 	},
 
 	{
 		name:  "UMU (Underwater Maneuvering Units)",
 		tag: "umu",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
+		altNames: ["Mech UMU"],
 		weight_multiplier: {
 			light: 0.5,
 			medium: 1,
@@ -63,9 +91,38 @@ export const mechJumpJetTypes: IJumpJet[] = [
 		criticals: 1,
 		costMultiplier: 200,
 		underwater: true,
+		book: "TO:AUE",
+		page: 107,
 		introduced: 3066,
-		extinct: 0,
-		reintroduced: 0,
-		clanDates: { introduced: 3061, extinct: 0, reintroduced: 0 }
+		extinct: null,
+		reintroduced: null,
+		clanDates: { prototype: 3061, introduced: 3072, extinct: null, reintroduced: null }
+	},
+
+	// Recovered prototype (IO:AE p.97): the construction rules of standard jump jets, the reach of
+	// improved ones, 2 heat a hex (at least 6), and a 10-point explosion when a jet takes a critical hit.
+	// IO:AE prints no cost; the standard jump jet rate is used, as MegaMek does.
+	{
+		name: "Prototype Improved Jump Jets",
+		tag: "prototype-improved",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
+		weight_multiplier: {
+			light: 0.5,
+			medium: 1,
+			heavy: 2,
+			superheavy: 4
+		},
+		criticals: 1,
+		costMultiplier: 200,
+		jumpAsRun: true,
+		heatPerHex: 2,
+		minimumHeat: 6,
+		innerSphereOnly: true,
+		book: "IO:AE",
+		page: 97,
+		prototype: 3022,
+		introduced: null,
+		extinct: 3069,
+		reintroduced: null
 	}
 ];

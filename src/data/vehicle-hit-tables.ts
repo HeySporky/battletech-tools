@@ -62,6 +62,24 @@ export const getSuperheavyVehicleHitLocation = (roll: number, direction: Vehicle
 };
 
 /**
+ * Large Naval Vessel Hit Location Table (TO:AUE p.26). A 5 or 9 strikes the armor of the hex next to the one
+ * targeted, in the direction the table names; on a record sheet that is the facing named (a Right or Left result
+ * from the front or rear strikes that side's half nearest the attack). Motive rolls (dagger) come on rear and
+ * rear-side attacks; attacks from above the waterline take -2 on them.
+ */
+const LARGE_NAVAL_HIT_LOCATIONS: Record<"front" | "rear" | "frontSide" | "rearSide", HitRow[]> = {
+    front: [h("front", true), h("front"), h("front"), h("right"), h("front"), h("front"), h("front"), h("left"), h("turret"), h("turret"), h("turret", true)],
+    rear: [h("rear", true), h("rear", false, true), h("rear", false, true), h("left", false, true), h("rear"), h("rear"), h("rear"), h("right", false, true), h("turret"), h("turret"), h("turret", true)],
+    frontSide: [h("side", true), h("side"), h("side"), h("front"), h("side"), h("side"), h("side"), h("rear"), h("turret"), h("turret"), h("turret", true)],
+    rearSide: [h("side", true), h("side", false, true), h("side", false, true), h("rear", false, true), h("side"), h("side"), h("side"), h("front", false, true), h("turret"), h("turret"), h("turret", true)],
+};
+
+export const getLargeNavalVesselHitLocation = (roll: number, direction: VehicleAttackDirection): IVehicleHitLocationResult => {
+    const column = direction === "front" || direction === "rear" ? direction : isRearwardAttack(direction) ? "rearSide" : "frontSide";
+    return tableRow(LARGE_NAVAL_HIT_LOCATIONS[column], roll);
+};
+
+/**
  * Vehicular Dual Turret (TO p. 347): which turret a Turret hit strikes. Roll 1D6, -2 for hits through the
  * front arc, +2 through the rear arc: 3 or less strikes the forward turret, 4 or more the rear turret.
  * Location tags: "turret2" is the forward turret and "turret" the rear one on a dual-turret vehicle.

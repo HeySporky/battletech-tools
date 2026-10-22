@@ -32,9 +32,12 @@ export type VariableEquipmentFormula =
     | "jump-booster"
     | "tracks"
     | "environmental-sealing"
+    | "extended-fuel-tank"
     | "aes-arm"
     | "aes-leg"
-    | "talons";
+    | "talons"
+    | "drone-operating-system"
+    | "drone-carrier-control";
 
 export interface IVariableEquipmentContext {
     /** Unit tonnage. */
@@ -51,6 +54,8 @@ export interface IVariableEquipmentContext {
     isQuad?: boolean;
     /** Size chosen for the installed item (Mechanical Jump Booster: jump MP). */
     size?: number;
+    /** Drones a Drone Carrier Control System controls (TO:AUE p.117). */
+    drones?: number;
 }
 
 /** Weight class index: 1 light (<= 35 t), 2 medium (<= 55), 3 heavy (<= 75), 4 assault and heavier. */
@@ -83,6 +88,21 @@ export function isTargetingComputerWeapon(item: IEquipmentItem): boolean {
     if (item.category !== "Energy Weapons" && item.category !== "Ballistic Weapons") return false;
     const tag = item.tag.toLowerCase();
     return !/(flamer|machine-gun|(^|-)mg(-|$)|ams|apds|fluid-gun|nail-gun|rivet-gun)/.test(tag);
+}
+
+/**
+ * Sizes the drone operating and carrier control systems on a unit (TO:AUE p.117), for the builders that size no
+ * other variable equipment (fighters, Small Craft, DropShips and capital ships).
+ */
+export function sizeDroneSystems(items: IEquipmentItem[], tonnage: number): void {
+    for (const item of items) {
+        if (item.variableFormula !== "drone-operating-system" && item.variableFormula !== "drone-carrier-control") continue;
+        const size = sizeVariableEquipment(item.variableFormula, { tonnage, engineRating: 0, engineWeight: 0, directFireWeaponWeight: 0, drones: item.controlledDrones });
+        if (size) {
+            item.weight = size.weight;
+            item.cbills = size.cbills;
+        }
+    }
 }
 
 /** Size a variable piece of equipment for a unit; null when the formula is unknown. */
@@ -162,9 +182,15 @@ export function sizeVariableEquipment(
         // TM p.249: 10% of tonnage (half ton), one slot per leg; cost 500 x rating x tonnage / 75.
         case "tracks":
             return { weight: roundUpHalfTon(t * 0.1), slots: ctx.isQuad ? 4 : 2, cbills: Math.ceil(500 * ctx.engineRating * t / 75), battleValue: 0 };
-        // TM p.216 (IndustrialMechs): 10% of tonnage (half ton), one slot in each of 8 locations; 225 per ton.
+        // TM pp.70, 216 (IndustrialMechs): 10% of tonnage, "rounded up to the nearest full ton"; one slot in each
+        // of 8 locations; 225 x tonnage C-bills (TM p.278).
         case "environmental-sealing":
-            return { weight: roundUpHalfTon(t / 10), slots: 8, cbills: 225 * t, battleValue: 0 };
+            return { weight: Math.ceil(t / 10 - 1e-9), slots: 8, cbills: 225 * t, battleValue: 0 };
+        // TM p.244: 10% of the engine weight (half ton); 'Mech slots equal to the tonnage, rounded up; 500 per ton (TM p.292).
+        case "extended-fuel-tank": {
+            const weight = roundUpHalfTon(ctx.engineWeight / 10);
+            return { weight, slots: Math.ceil(weight), cbills: 500 * weight, battleValue: 0 };
+        }
         // TO:AUE p.91: one per limb; tonnage / 35 (biped) or / 50 (quad), half ton; slots by weight class.
         case "aes-arm":
         case "aes-leg": {
@@ -176,6 +202,18 @@ export function sizeVariableEquipment(
             const weight = Math.ceil(t / 15);
             const kickBonus = Math.round(Math.floor(t / 5) * 0.5);
             return { weight, slots: ctx.isQuad ? 8 : 4, cbills: Math.ceil(weight * 300), battleValue: kickBonus * (ctx.hasTSM ? 2 : 1) };
+        }
+        // TO:AUE p.117: 10% of the drone's weight (half ton) plus the required half-ton sensor system, one item and one
+        // slot; 5,000 + 10,000 x item tons C-bills (p.219), the 5,000 being the sensors (table note). Item tons read as
+        // the 10% share, without the sensors (flagged).
+        case "drone-operating-system": {
+            const system = roundUpHalfTon(t * 0.1);
+            return { weight: system + 0.5, slots: 1, cbills: 5000 + 10000 * system, battleValue: 0 };
+        }
+        // TO:AUE p.117: 2 tons plus 0.5 per controlled drone, one slot; 10,000 x item tons C-bills (p.219).
+        case "drone-carrier-control": {
+            const weight = 2 + 0.5 * Math.max(1, Math.floor(ctx.drones ?? 1));
+            return { weight, slots: 1, cbills: 10000 * weight, battleValue: 0 };
         }
     }
     return null;

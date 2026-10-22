@@ -19631,7 +19631,7 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "AC 2/2/-,CASE,Brawler"
+    "BFAbilities": "AC 2/2/-,CASE"
   },
   {
     "Id": 100400,
@@ -19725,6 +19725,6 @@
     "BFDamageMediumMin": false,
     "BFDamageLongMin": false,
     "BFDamageExtremeMin": false,
-    "BFAbilities": "None"
+    "BFAbilities": ""
   }
 ]

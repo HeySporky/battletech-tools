@@ -1,0 +1,266 @@
+.aces-page {
+    .aces-phase-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        align-items: center;
+        margin-bottom: .5rem;
+
+        .aces-phase {
+            padding: .25rem .75rem;
+            border: 1px solid currentColor;
+            border-radius: .25rem;
+            opacity: .5;
+
+            &.current {
+                opacity: 1;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .aces-inline {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem 1rem;
+        align-items: center;
+        margin-bottom: .5rem;
+
+        label {
+            margin: 0;
+        }
+
+        input[type=text],
+        select {
+            width: auto;
+            display: inline-block;
+        }
+    }
+
+    table select,
+    table input[type=text] {
+        width: auto;
+        display: inline-block;
+    }
+
+    input[type=number].aces-number {
+        width: 5.5rem;
+        display: inline-block;
+    }
+
+    .aces-unit-cards {
+        display: flex;
+        flex-wrap: wrap;
+
+        .unit-card {
+            width: 100%;
+            max-width: 32rem;
+        }
+    }
+
+    .aces-log {
+        max-height: 16rem;
+        overflow-y: auto;
+        font-size: .9rem;
+    }
+
+    .aces-issue-error {
+        color: #b00;
+    }
+
+    .aces-muted {
+        opacity: .7;
+        font-size: .9rem;
+    }
+
+    table td, table th {
+        vertical-align: middle;
+    }
+
+    .aces-field {
+        display: inline-flex;
+        flex-direction: column;
+        margin: 0 1rem .5rem 0;
+
+        &.aces-field-wide {
+            display: flex;
+            margin-right: 0;
+        }
+    }
+
+    .aces-check {
+        margin: 0 1rem .5rem 0;
+    }
+
+    .aces-top {
+        align-items: flex-start;
+    }
+
+    textarea.aces-json {
+        width: 100%;
+        font-family: monospace;
+        font-size: .85rem;
+    }
+
+    .aces-icon {
+        display: inline-block;
+        min-width: 1.2em;
+        padding: 0 .15em;
+        border: 1px solid currentColor;
+        border-radius: .2em;
+        font-size: .85em;
+        text-align: center;
+        cursor: help;
+    }
+
+    .aces-card-view {
+        border: 1px solid currentColor;
+        border-radius: .4rem;
+        padding: .5rem .75rem;
+        margin-bottom: .75rem;
+        break-inside: avoid;
+        page-break-inside: avoid;
+
+        h5 {
+            font-size: 1rem;
+            margin: .25rem 0;
+        }
+
+        p, ol, ul {
+            margin-bottom: .25rem;
+        }
+    }
+
+    .aces-card-head {
+        display: flex;
+        gap: .5rem;
+        align-items: baseline;
+        border-bottom: 1px solid currentColor;
+        margin-bottom: .5rem;
+    }
+
+    .aces-priority {
+        margin-left: auto;
+        font-size: 1.4rem;
+        font-weight: bold;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .aces-card-columns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+
+        .aces-card-column {
+            flex: 1 1 10rem;
+            min-width: 0;
+        }
+    }
+
+    .aces-condition {
+        font-style: italic;
+    }
+
+    .aces-card-combat {
+        border-top: 1px dashed currentColor;
+        margin-top: .5rem;
+        padding-top: .25rem;
+    }
+
+    .aces-red h5 { color: #c62828; }
+    .aces-yellow h5 { color: #b58900; }
+    .aces-blue h5 { color: #1565c0; }
+
+    .aces-reader {
+        border-left: 4px solid currentColor;
+        padding: .25rem 0 .25rem .75rem;
+        margin: .75rem 0;
+    }
+
+    .aces-reader-question {
+        padding: .5rem;
+        margin: .5rem 0;
+        border: 1px dashed currentColor;
+        border-radius: .25rem;
+    }
+
+    .aces-reader-trace {
+        font-size: .9rem;
+        opacity: .85;
+        margin-bottom: .25rem;
+    }
+
+    .aces-turn-track {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .25rem;
+        margin-bottom: .5rem;
+
+        .aces-turn-space {
+            min-width: 3rem;
+            padding: .25rem .5rem;
+            border: 1px solid currentColor;
+            border-radius: .25rem;
+            opacity: .6;
+
+            &.current {
+                opacity: 1;
+                font-weight: bold;
+            }
+
+            &.past-limit {
+                border-style: dashed;
+            }
+        }
+    }
+
+    .aces-sortie-over {
+        padding: .5rem;
+        border: 2px solid currentColor;
+    }
+}
+
+.aces-print {
+    background: #fff;
+    color: #000;
+    padding: 0 .25in;
+
+    .aces-print-section {
+        margin-top: 1rem;
+    }
+
+    .aces-print-grid {
+        columns: 2 18rem;
+        column-gap: 1rem;
+    }
+
+    table.aces-print-track,
+    table.aces-print-roster {
+        border-collapse: collapse;
+        margin-bottom: .75rem;
+
+        th, td {
+            border: 1px solid #000;
+            padding: .15rem .5rem;
+            min-width: 2.5rem;
+        }
+
+        .past-limit {
+            border-style: dashed;
+        }
+    }
+
+    .aces-print-log {
+        font-size: .8rem;
+    }
+}
+
+@media print {
+    .aces-print {
+        padding: 0;
+
+        .aces-print-section {
+            break-before: auto;
+        }
+    }
+}

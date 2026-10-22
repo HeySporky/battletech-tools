@@ -29,18 +29,22 @@ export default class HeatTrackSVG extends React.Component<IHeatTrackSVGProps, IH
     render = (): JSX.Element => {
 
         let heatScale: JSX.Element[] = [];
-        let boxHeight = 37;
+        let boxHeight = 36;
+        // As on the Total Warfare sheet: an Overflow box, then 30 at the top down to 0.
+        const overflowTop = this.props.yLoc + 60;
+        const scaleTop = overflowTop + boxHeight + 8;
+        const rowY = (heat: number) => scaleTop + boxHeight * (30 - heat);
         let boxWidth = 60;
         let normalBG = this.bgColor;
         let effectBG = this.effectBGColor;
         let boxBG = normalBG;
 
-        for( var hCounter = 0; hCounter < 31; hCounter++ ) {
+        for( var hCounter = 30; hCounter >= 0; hCounter-- ) {
             heatScale.push(
                 <rect
                     key={hCounter.toString() + "a"}
                     x={this.props.xLoc}
-                    y={this.props.yLoc + 60 + boxHeight * hCounter}
+                    y={rowY(hCounter)}
                     width={boxWidth}
                     height={boxHeight}
                     fill={this.strokeColor}
@@ -93,7 +97,7 @@ export default class HeatTrackSVG extends React.Component<IHeatTrackSVGProps, IH
                 <rect
                     key={hCounter.toString() + "b"}
                     x={this.props.xLoc + 2}
-                    y={this.props.yLoc + 62 + boxHeight * hCounter}
+                    y={rowY(hCounter) + 2}
                     width={boxWidth -4}
                     height={boxHeight -4}
                     fill={boxBG}
@@ -104,7 +108,7 @@ export default class HeatTrackSVG extends React.Component<IHeatTrackSVGProps, IH
                 <text
                     key={hCounter.toString() + "c"}
                     x={this.props.xLoc + 27}
-                    y={this.props.yLoc + 89 + boxHeight * hCounter}
+                    y={rowY(hCounter) + 27}
                     textAnchor="middle"
                     fontFamily="sans-serif"
                     fill={this.strokeColor}
@@ -154,7 +158,7 @@ export default class HeatTrackSVG extends React.Component<IHeatTrackSVGProps, IH
                     <text
                     key={hCounter.toString() + "d"}
                         x={this.props.xLoc + 43}
-                        y={this.props.yLoc + 83 + boxHeight * hCounter}
+                        y={rowY(hCounter) + 21}
                         textAnchor="end"
                         fontFamily="sans-serif"
                         fill={this.strokeColor}
@@ -191,6 +195,16 @@ export default class HeatTrackSVG extends React.Component<IHeatTrackSVGProps, IH
                 >
                     SCALE
                 </text>
+
+                <rect x={this.props.xLoc} y={overflowTop} width={boxWidth} height={boxHeight} rx={8} fill={this.bgColor} stroke={this.strokeColor} strokeWidth={2} />
+                <text
+                    x={this.props.xLoc + boxWidth / 2}
+                    y={overflowTop + 15}
+                    textAnchor="middle"
+                    fontFamily="sans-serif"
+                    fill={this.strokeColor}
+                    fontSize={15}
+                >Overflow</text>
 
                 {heatScale}
             </>

@@ -1,6 +1,7 @@
 
 import React, { type JSX } from 'react';
 import { IEquipmentItem } from '../../data/data-interfaces';
+import { getCompatibleAmmo } from '../../data/equipment-registry';
 import { getEquipmentSubtype, getEquipmentSubtypes } from '../../data/equipment-subtypes';
 import { sortEquipment } from '../../utils';
 import { IAppGlobals } from '../app-router';
@@ -14,6 +15,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         this.state = {
             updated: false,
             subtype: "",
+            showAllAmmo: false,
             // equipmentFilter: this.props.appGlobals.appSettings.equipmentFilter,
         }
     }
@@ -61,6 +63,13 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         return false;
     }
 
+    /** With the design's mounted equipment passed, ammunition shows only when a mounted weapon fires it, or Show all is ticked. */
+    _ammoFilter = ( item: IEquipmentItem ): boolean => {
+        const mounted = this.props.mounted;
+        if( !item.isAmmo || !mounted || this.state.showAllAmmo ) return true;
+        return mounted.some( (weapon) => !weapon.isAmmo && !!getCompatibleAmmo( weapon, item ) );
+    }
+
     _subtypeFilter = ( item: IEquipmentItem ): boolean => {
         return this.state.subtype === "" || getEquipmentSubtype( item ) === this.state.subtype;
     }
@@ -71,7 +80,7 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
 
         let groupedItems : { [categoryName: string] : IEquipmentItem[]; }= {};
         for( let item of this.props.equipment ) {
-            if( !this.props.hideUnavailable || item.available ) {
+            if( item.available && this._ammoFilter( item ) ) {
                 if( !groupedItems[ item.category ] ) {
                     groupedItems[ item.category ] = []
                 }
@@ -97,6 +106,16 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
         Available Equipment
 
     </h2>
+    {this.props.mounted ? (
+        <label className="small-text">
+            <input
+                type="checkbox"
+                checked={this.state.showAllAmmo}
+                onChange={(e) => { const checked = e.currentTarget.checked; this.setState({ showAllAmmo: checked }); }}
+            />
+            &nbsp;Show all ammunition (otherwise only ammunition for the weapons already mounted)
+        </label>
+    ) : null}
     <table className="table">
         <thead>
             <tr>
@@ -152,11 +171,10 @@ export default class AvailableEquipment extends React.Component<IAvailableEquipm
                             </tr>
                         ) : null}
                         {groupedItems[catName].filter(this._equipmentFilter).filter( (item) => !isCurrentCategory || this._subtypeFilter( item ) ).sort( sortEquipment ).map( (item, itemIndex) => {
-                            if( !this.props.hideUnavailable || item.available ) {
+                            if( item.available ) {
                                 return (
                                     <tr
                                         key={itemIndex}
-                                        className={!item.available ? "disabled" : ""}
                                     >
                                         <td>{item.name}{item.availableAsPrototype ? <span className="small-text"> (Prototype)</span> : null}</td>
                                         <td>{item.category}</td>
@@ -196,11 +214,13 @@ interface IAvailableEquipmentProps {
     appGlobals: IAppGlobals;
     equipment: IEquipmentItem[];
     addFunction( item: IEquipmentItem ): boolean;
-    hideUnavailable?: boolean;
+    /** The design's mounted equipment; when given, the ammunition list follows it (see `_ammoFilter`). */
+    mounted?: IEquipmentItem[];
 }
 
 interface IAvailableEquipmentState {
     updated: boolean;
     subtype: string;
+    showAllAmmo: boolean;
     // equipmentFilter: string;
 }

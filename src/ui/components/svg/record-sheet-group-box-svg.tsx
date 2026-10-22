@@ -43,6 +43,10 @@ export default class RecordSheetGroupBoxSVG extends React.Component<IRecordSheet
             title = this.props.title;
         }
 
+        if( this.props.textSize ) {
+            textSize = this.props.textSize;
+        }
+
         return (
             <svg>
         <rect
@@ -120,6 +124,8 @@ interface IRecordSheetGroupBoxSVGProps {
     yLoc: number;
 
     title?: string;
+    /** Title text size; 35 by default. */
+    textSize?: number;
     subTitle?: string;
     onClick?(): void;
     children?: React.ReactNode | React.ReactNode[];

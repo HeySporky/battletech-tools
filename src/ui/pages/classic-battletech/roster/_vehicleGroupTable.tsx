@@ -134,7 +134,7 @@ export default class VehicleGroupTable extends React.Component<IVehicleGroupTabl
                                     </div>
                                 </td>
                                 <td className="min-width no-wrap text-center">{vehicle.getTonnage()}</td>
-                                <td className="min-width no-wrap text-center small-text">{vehicle.getTech().name}</td>
+                                <td className="min-width no-wrap text-center small-text">{vehicle.getTech().name}{vehicle.isOmni() ? " (Omni)" : ""}</td>
                                 <td className="min-width no-wrap text-center">
                                     {this.props.showEdit ? (
                                         <SkillSelect label="Driving skill" value={pilot.piloting} onChange={(value) => this.updateCrew(vehicle, "piloting", value)} />

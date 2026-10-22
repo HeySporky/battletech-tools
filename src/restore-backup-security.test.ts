@@ -1,6 +1,7 @@
 // @vitest-environment happy-dom
 import { describe, expect, it } from "vitest";
-import { MAX_VEHICLE_SAVES, restoreFullBackup, IFullBackup } from "./dataSaves";
+import { MAX_ACES_CAMPAIGNS, MAX_VEHICLE_SAVES, restoreFullBackup, IFullBackup } from "./dataSaves";
+import SmallCraft from "./classes/small-craft";
 import Vehicle from "./classes/vehicle";
 import { BattleMechForce, MAX_FORCE_GROUPS } from "./classes/battlemech-force";
 
@@ -28,7 +29,8 @@ describe("Restoring a backup", () => {
         expect(Date.now() - started).toBeLessThan(20000);
         expect(messages.filter((msg) => msg.severity === "add")).toHaveLength(MAX_VEHICLE_SAVES);
         expect(messages.some((msg) => msg.severity === "warning" && msg.message.includes(String(MAX_VEHICLE_SAVES)))).toBe(true);
-    });
+    // The 20-second bound above is the test; the runner's 5-second default sits below it (about 4 s on a slow machine).
+    }, 30_000);
 
     it("reports cleaned vehicles in favorite groups and vehicles over the per-group limit (P4)", () => {
         const bad = { ...vehicleSave("bad"), equipment: [null] };
@@ -51,5 +53,24 @@ describe("Restoring a backup", () => {
         const preview = restoreFullBackup(io, appGlobals()).filter((msg) => msg.severity === "warning");
         expect(preview.length).toBeGreaterThan(0);
         expect(preview.every((msg) => msg.message.startsWith("If you overwrite"))).toBe(true);
+    });
+
+    // Review of the unit-builder bundle: the newer "current unit" types were only checked once the overwrite box
+    // was ticked, so the preview never listed what restoring them would clean.
+    it("lists what a current Small Craft would have cleaned in the preview, before any box is ticked", () => {
+        const bad = { ...JSON.parse(new SmallCraft().exportJSON()), tonnage: 5000, equipment: [null, { tag: "no-such-item", location: "nose" }] };
+        const preview = restoreFullBackup(backup({ currentSmallCraft: JSON.stringify(bad) }), appGlobals())
+            .filter((msg) => msg.severity === "warning").map((msg) => msg.message);
+        expect(preview.length).toBeGreaterThan(0);
+        expect(preview.every((msg) => msg.startsWith("If you overwrite your current Small Craft: "))).toBe(true);
+    });
+
+    it("caps the Aces campaigns it reads and skips entries that are not campaigns", () => {
+        const acesCampaigns = [null, { name: "no id" }, ...Array.from({ length: MAX_ACES_CAMPAIGNS + 5 }, (_, i) => ({ id: "c" + i, name: "Campaign " + i }))];
+        const messages = restoreFullBackup(backup({ acesCampaigns }), appGlobals());
+        expect(messages.filter((msg) => msg.severity === "add")).toHaveLength(MAX_ACES_CAMPAIGNS - 2);
+        const warnings = messages.filter((msg) => msg.severity === "warning").map((msg) => msg.message);
+        expect(warnings.some((msg) => msg.includes(String(MAX_ACES_CAMPAIGNS)))).toBe(true);
+        expect(warnings.filter((msg) => msg.includes("not readable"))).toHaveLength(2);
     });
 });

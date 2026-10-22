@@ -1,7 +1,8 @@
 import * as React from 'react';
-import Vehicle, { IVehicleCriticalHits, VEHICLE_MAX_SENSOR_HITS, VehicleFollowUpRoll, VehicleMotiveHit, VehicleMovementMode, VehicleTurretLocation } from '../../../../classes/vehicle';
+import Vehicle, { isTurretLocation, IVehicleCriticalHits, VEHICLE_MAX_SENSOR_HITS, VehicleFollowUpRoll, VehicleMotiveHit, VehicleMovementMode, VehicleTurretLocation } from '../../../../classes/vehicle';
 import { IDamagePerRange, IEquipmentItem } from '../../../../data/data-interfaces';
 import { VehicleAttackDirection } from '../../../../data/vehicle-hit-tables';
+import { IBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../classes/battle-armor-transport';
 import TextSection from '../../../components/text-section';
 import VehicleDiagramSVG from '../../../components/svg/vehicle-diagram-svg';
 import { vehicleName } from './_vehicleGroupTable';
@@ -13,7 +14,7 @@ const MOTIVE_LEVELS: { level: VehicleMotiveHit; label: string }[] = [
     { level: "immobilized", label: "Major (immobile)" },
 ];
 
-type CriticalFlag = Exclude<keyof IVehicleCriticalHits, "sensorHits" | "stabilizers" | "crewStunnedTurns" | "rotorDamage">;
+type CriticalFlag = Exclude<keyof IVehicleCriticalHits, "sensorHits" | "stabilizers" | "crewStunnedTurns" | "rotorDamage" | "crewHits" | "engineHits" | "ammoHits">;
 
 // Checkbox list per vehicle kind; "ground" also covers naval, hover and WiGE (TW pp. 194-198).
 const CRITICALS: { key: CriticalFlag; label: string; vtol?: boolean; ground?: boolean; turret?: boolean }[] = [
@@ -163,16 +164,18 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const name = (tag: string) => vehicle.getLocations().find((loc) => loc.tag === tag)?.name ?? tag;
         switch (pending.kind) {
             case "motive": {
-                const modifier = vehicle.getMotiveDamageRollModifier(pending.direction, pending.cause, !!pending.roughTerrain);
+                const modifier = vehicle.getMotiveDamageRollModifier(pending.direction, pending.cause, !!pending.roughTerrain) + (pending.modifier ?? 0);
                 const why = pending.cause === "skid" ? " after a skid" : pending.cause === "jump" ? " on landing a jump" : "";
                 return `Motive System Damage roll${why} (${modifier >= 0 ? "+" : ""}${modifier})`;
             }
             case "critical":
                 return `Critical Hit roll: ${name(pending.location)}${pending.modifier ? ` (armor-piercing ${pending.modifier})` : ""}`;
             case "hullBreach": return `Hull Integrity roll: ${name(pending.location)} (breached on ${pending.target}+)`;
+            case "turretLinkage": return `Turret linkage roll: the turret locks on ${pending.target}+ (FrankenVehicle)`;
             case "drivingSkill": return `Driving Skill Roll (${pending.target}+): ${pending.reason === "pilotHit" ? "or drop one elevation" : "land, or crash"}`;
             case "crashFacing": return `Facing After a Fall (1D6), ${pending.damage} falling damage`;
             case "crashHit": return `Crash damage ${pending.damage}: hit location from the ${pending.direction}`;
+            case "engineSurvival": return "Engine Hit check (2D6; 8+ ignores it)";
         }
         return "";
     }
@@ -209,15 +212,58 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         );
     }
 
+    renderArtVee = (): React.ReactNode => {
+        const vehicle = this.props.vehicle;
+        const inPlay = vehicle.getInPlay();
+        const mode = vehicle.getArtVeeMode();
+        const target = mode === "siege" ? "Vehicle" : "Siege";
+        const reason = vehicle.getArtVeeTransformationBlock();
+        return (
+            <div className="d-block" data-testid="vehicle-artvee">
+                <strong>Mode</strong>:{" "}
+                <span className="badge" data-testid="vehicle-artvee-mode">{mode === "siege" ? "Siege Mode" : "Vehicle Mode"}</span>
+                {inPlay.artVeeTransformingTo && !vehicle.getArtVeeTransformationBlockedByDamage() ? <span data-testid="vehicle-artvee-transforming"> (transforming to {inPlay.artVeeTransformingTo === "siege" ? "Siege" : "Vehicle"} Mode at the end of the turn)</span> : null}
+                <div>
+                    <button
+                        type="button"
+                        className="btn btn-sm btn-secondary"
+                        disabled={reason !== null}
+                        title={reason ?? undefined}
+                        onClick={() => { vehicle.startArtVeeTransformation(); this._changed(); }}
+                    >Transform to {target} Mode</button>
+                    {inPlay.artVeeTransformingTo && !vehicle.getArtVeeTransformationBlockedByDamage() ? (
+                        <button
+                            type="button"
+                            className="btn btn-sm btn-secondary ms-1"
+                            data-testid="vehicle-artvee-cancel"
+                            onClick={() => { vehicle.cancelArtVeeTransformation(); this._changed(); }}
+                        >Cancel transformation</button>
+                    ) : null}
+                    {reason ? <span className="smaller-text"> ({reason})</span> : null}
+                </div>
+                <label className="d-block">
+                    <input
+                        type="checkbox"
+                        checked={!!inPlay.artVeeConversionDestroyed}
+                        onChange={(e) => { inPlay.artVeeConversionDestroyed = e.currentTarget.checked; this._changed(); }}
+                    />{" "}Conversion equipment destroyed
+                </label>
+            </div>
+        );
+    }
+
     renderWeaponRow = (weapon: IEquipmentItem, gunnery: number): React.ReactNode => {
         const vehicle = this.props.vehicle;
         const modifier = vehicle.getWeaponToHitModifier(weapon);
         const status = vehicle.getWeaponStatus(weapon.uuid);
-        const target = (rangeModifier: number) => modifier === null ? "-" : `${gunnery + modifier + rangeModifier}+`;
+        // A weapon in a side or rear location a mechanized battle armor trooper occupies may not fire (TW p. 226).
+        const blocked = !!this.props.carrierLoad && isCarrierWeaponBlocked(this.props.carrierLoad, weapon);
+        const artVeeBlock = vehicle.getArtVeeWeaponBlock(weapon);
+        const target = (rangeModifier: number) => modifier === null || blocked ? "-" : `${gunnery + modifier + rangeModifier}+`;
         const range = weapon.range;
         return (
-            <tr key={weapon.uuid} className={status === "ok" && modifier !== null ? "" : "color-red"}>
-                <td>{weapon.name}{weapon.rear ? " (R)" : ""}</td>
+            <tr key={weapon.uuid} className={status === "ok" && modifier !== null && !blocked ? "" : "color-red"}>
+                <td>{weapon.name}{weapon.rear ? " (R)" : ""}{blocked ? <span data-testid="vehicle-weapon-blocked"> (battle armor rides this location)</span> : null}{artVeeBlock ? <span data-testid="vehicle-weapon-artvee-block" className="d-block smaller-text">{artVeeBlock}</span> : null}</td>
                 <td className="text-center">{weapon.location ? vehicle.getLocations().find((loc) => loc.tag === weapon.location)?.name ?? weapon.location : "-"}</td>
                 <td className="text-center">{vehicle.describeFiringArc(vehicle.getWeaponFiringArc(weapon))}</td>
                 <td className="text-center">{formatDamage(weapon.damage)}</td>
@@ -253,14 +299,15 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
         const locations = vehicle.getLocations();
         const isVTOL = !!vehicle.getMotiveType().hasRotor;
         const isNaval = !!vehicle.getMotiveType().naval;
-        const turrets = locations.filter((loc) => loc.tag === "turret" || loc.tag === "turret2");
+        const turrets = locations.filter((loc) => isTurretLocation(loc.tag));
         const weapons = vehicle.getEquipmentList().filter((item) => !item.isAmmo && (item.damage !== undefined || item.range));
         const movementModes: { mode: VehicleMovementMode; label: string; mp: number }[] = [
             { mode: "stationary", label: "Stationary", mp: 0 },
             { mode: "cruise", label: "Cruise", mp: vehicle.getEffectiveCruiseMP() },
         ];
-        if (!vehicle.isCruiseOnly()) movementModes.push({ mode: "flank", label: "Flank", mp: vehicle.getEffectiveFlankMP() });
-        if (vehicle.getEffectiveJumpMP() > 0) movementModes.push({ mode: "jump", label: "Jump", mp: vehicle.getEffectiveJumpMP() });
+        if (vehicle.getArtVeeMode() === "siege" || inPlay.artVeeTransformingTo) movementModes.splice(1);
+        else if (!vehicle.isCruiseOnly()) movementModes.push({ mode: "flank", label: "Flank", mp: vehicle.getEffectiveFlankMP() });
+        if (vehicle.getEffectiveJumpMP() > 0 && vehicle.getArtVeeMode() !== "siege") movementModes.push({ mode: "jump", label: "Jump", mp: vehicle.getEffectiveJumpMP() });
         const maxHexes = movementModes.find((m) => m.mode === inPlay.movementMode)?.mp ?? 0;
         const cannotFire = vehicle.getCannotFireReason();
         const pending = this.state.pendingRoll;
@@ -269,9 +316,50 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
             <div className="vehicle-play" data-testid="vehicle-play">
                 <TextSection label={vehicleName(vehicle)}>
                     <p>
-                        {vehicle.getTonnage()} t {vehicle.getMotiveType().name} &ndash; Gunnery {pilot.gunnery} / Driving {pilot.piloting}
+                        {vehicle.getTonnage()} t {vehicle.getMotiveType().name}{vehicle.isSupportVehicle() ? ` Support Vehicle, BAR ${vehicle.getBAR()}${vehicle.getFireControlToHitModifier() ? `, +${vehicle.getFireControlToHitModifier()} to-hit for fire control` : ""}` : ""} &ndash; Gunnery {pilot.gunnery} / Driving {pilot.piloting}
                         {pilot.name ? <> &ndash; Commander: {pilot.name}</> : null}
                     </p>
+                    {vehicle.isLargeNavalVessel() ? (
+                        <p className="smaller-text" data-testid="large-naval-status">
+                            Template {vehicle.getLargeVesselTemplate()?.template} Large Naval Vessel: {vehicle.getTemplateToHitModifier()} to attacks against it.
+                            Crew hits {crits.crewHits} of 6 (+{crits.crewHits} to Gunnery and Piloting);
+                            engine hits {crits.engineHits}, ammunition hits {crits.ammoHits} (-1 Cruising MP each). It speeds up or slows down 1 MP a turn,
+                            and survives losing a turret (TO:AUE pp.22-27).
+                        </p>
+                    ) : null}
+                    {vehicle.getSupportVehicleMotive() === "rail" ? (
+                        <p className="smaller-text">
+                            Rail: moves only along rails; speeds up or slows down {vehicle.isSuperheavy() ? 1 : 2} MP a turn, and if immobilized slows by that much each
+                            turn. A destroyed car makes the one behind it derail on 8+ on 2D6 (TO:AUE pp.17-21).
+                        </p>
+                    ) : null}
+                    {vehicle.ignoresSecondaryTargetModifier() ? (
+                        <p className="smaller-text">A Large Support Vehicle ignores the multiple-targets modifier when firing at more than one unit (TW p.206).</p>
+                    ) : null}
+                    {vehicle.isTractor() ? (
+                        <label className="d-block">
+                            Trailers towed (tons, at most {vehicle.getMaxTowTons()}):{" "}
+                            <input
+                                type="number"
+                                aria-label="Trailers towed"
+                                min={0}
+                                max={vehicle.getMaxTowTons()}
+                                value={inPlay.towedTons}
+                                onChange={(e) => { vehicle.setTowedTons(+e.currentTarget.value); this._changed(); }}
+                                style={{ width: "6em" }}
+                            />{" "}
+                            <span className="smaller-text">Up to a quarter of its weight costs 3 Cruising MP or half, whichever is less; more halves it (TW p.205).</span>
+                        </label>
+                    ) : null}
+                    {vehicle.isTrailer() ? (
+                        <label className="d-block">
+                            <input
+                                type="checkbox"
+                                checked={inPlay.beingTowed}
+                                onChange={(e) => { vehicle.setBeingTowed(e.currentTarget.checked); this._changed(); }}
+                            />{" "}Hitched to a Tractor (unhitched, a Trailer without an engine is an immobile target; TW p.205)
+                        </label>
+                    ) : null}
                     {vehicle.isDestroyed() ? (
                         <h3 className="color-red text-center">DESTROYED ({vehicle.getDestroyedReason()})</h3>
                     ) : null}
@@ -425,7 +513,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                 <legend>Movement</legend>
                                 <select
                                     aria-label="Movement mode"
-                                    value={inPlay.movementMode}
+                                    value={movementModes.some((m) => m.mode === inPlay.movementMode) ? inPlay.movementMode : "stationary"}
                                     onChange={(e) => { vehicle.setMovement(e.currentTarget.value as VehicleMovementMode, inPlay.hexesMoved); this._changed(); }}
                                 >
                                     {movementModes.map((m) => <option key={m.mode} value={m.mode}>{m.label} ({m.mp} MP)</option>)}
@@ -444,6 +532,7 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
                                         />
                                     </label>
                                 ) : null}
+                                {vehicle.isArtVee() ? this.renderArtVee() : null}
                                 {vehicle.isAirborneCapable() ? (
                                     <label className="d-block">
                                         <input
@@ -645,6 +734,12 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
 
                     <h4>Weapons</h4>
                     {cannotFire ? <p className="color-red"><strong>Cannot fire:</strong> {cannotFire}</p> : null}
+                    {this.props.carrierLoad && this.props.carrierLoad.riders.length > 0 ? (
+                        <div className="smaller-text" data-testid="vehicle-carrier-notes">
+                            {this.props.carrierLoad.issues.map((issue, index) => <p key={`issue-${index}`} className="color-red">{issue}</p>)}
+                            {this.props.carrierLoad.notes.map((note, index) => <p key={index}>{note}</p>)}
+                        </div>
+                    ) : null}
                     <table className="table">
                         <thead>
                             <tr>
@@ -680,6 +775,8 @@ export default class VehiclePlayPanel extends React.Component<IVehiclePlayPanelP
 
 interface IVehiclePlayPanelProps {
     vehicle: Vehicle;
+    /** Mechanized battle armor riding the vehicle, and what it stops the vehicle doing. */
+    carrierLoad?: IBattleArmorCarrierLoad;
     onChange: (vehicle: Vehicle) => void;
 }
 

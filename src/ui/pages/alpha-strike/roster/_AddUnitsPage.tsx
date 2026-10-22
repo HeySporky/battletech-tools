@@ -1,20 +1,30 @@
 import * as React from 'react';
 import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
+import { Link } from 'react-router';
 import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import { BattleMech } from '../../../../classes/battlemech';
-import { isMULSourceSelection, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
+import AerospaceFighter from '../../../../classes/aerospace-fighter';
+import InfantryPlatoon from '../../../../classes/infantry-platoon';
+import BattleArmor from '../../../../classes/battle-armor';
+import ProtoMech from '../../../../classes/protomech';
+import { isMULSourceSelection, loadMULListItems, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
-import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
+import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
+import { getMULAerospaceRoles, getMULEraAliases, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
 import { IAppGlobals } from '../../../app-router';
 import InputField from '../../../components/form_elements/input_field';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
 import { generateUUID } from '../../../../utils/generateUUID';
+import { IPage, paginate } from '../../../../utils/paginate';
 import type { JSX } from "react";
 const Bars = FaBars as any;
 const Eye = FaEye as any;
 const Plus = FaPlus as any;
 const Trash = FaTrash as any;
+
+// Rendering every match froze the page once a search returned the whole bundled MUL (~8.7k units).
+const SEARCH_RESULTS_PAGE_SIZE = 25;
 
 //TODO: Clearfix Hack for overflowing results
 /*
@@ -26,6 +36,7 @@ const Trash = FaTrash as any;
 
 */
 
+const MAX_ABILITY_SUGGESTIONS = 12;
 
 export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrikeAddUnitsViewProps, IAlphaStrikeAddUnitsViewState> {
 
@@ -35,24 +46,40 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     // before it lands, which made every search look superseded and left "Searching..." up forever.
     private latestSearchId: string = '';
 
+    private searchResultsHeading = React.createRef<HTMLHeadingElement>();
+
     constructor( props: IAlphaStrikeAddUnitsViewProps ) {
         super(props)
 
 
         this.state = {
+          abilityCodes: [],
           searchResults: [],
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
-            isSearching: false
+            isSearching: false,
+            searchPage: 0,
         }
     }
 
       componentDidMount() {
-        if (this.props.appGlobals.appSettings.alphaStrikeSearchTerm.trim().length >= 3) {
+        if (
+          this.props.appGlobals.appSettings.alphaStrikeSearchTerm.trim().length >= 3
+          || this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.length > 0
+        ) {
           void this.updateSearchResults();
         }
+        void this.loadAbilityCodes();
       }
+
+    // Suggestions come from the abilities in the unit lists being searched.
+    loadAbilityCodes = async (): Promise<void> => {
+      const units = await loadMULListItems( this.props.appGlobals.appSettings.alphaStrikeMULSources );
+      this.setState({
+        abilityCodes: countAbilityCodes( units ),
+      });
+    }
 
     componentWillUnmount() {
         // Clean up timeout when component unmounts
@@ -165,6 +192,41 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       this.props.appGlobals.saveAppSettings( appSettings );
 
       this.updateSearchResults();
+      void this.loadAbilityCodes();
+    }
+
+    updateAbilitySearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
+      let appSettings = this.props.appGlobals.appSettings;
+      appSettings.alphaStrikeAbilitySearchTerm = event.currentTarget.value;
+      this.props.appGlobals.saveAppSettings( appSettings );
+    }
+
+    getAbilitySuggestions = (): IAbilityCodeCount[] => {
+      const term = this.props.appGlobals.appSettings.alphaStrikeAbilitySearchTerm.trim().toUpperCase();
+      if( !term ) {
+        return [];
+      }
+      const selectedCodes = this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.map( (filter) => filter.replace(/^!/, "") );
+      return this.state.abilityCodes
+        .filter( (ability) => ability.code.startsWith( term ) && !selectedCodes.includes( ability.code ) )
+        .slice( 0, MAX_ABILITY_SUGGESTIONS );
+    }
+
+    addAbilityFilter = ( code: string, exclude: boolean ): void => {
+      let appSettings = this.props.appGlobals.appSettings;
+      appSettings.alphaStrikeSearchAbilities = appSettings.alphaStrikeSearchAbilities
+        .filter( (filter) => filter.replace(/^!/, "") !== code )
+        .concat( exclude ? "!" + code : code );
+      appSettings.alphaStrikeAbilitySearchTerm = "";
+      this.props.appGlobals.saveAppSettings( appSettings );
+      this.updateSearchResults();
+    }
+
+    removeAbilityFilter = ( filter: string ): void => {
+      let appSettings = this.props.appGlobals.appSettings;
+      appSettings.alphaStrikeSearchAbilities = appSettings.alphaStrikeSearchAbilities.filter( (existing) => existing !== filter );
+      this.props.appGlobals.saveAppSettings( appSettings );
+      this.updateSearchResults();
     }
 
     updateFactionSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
@@ -229,6 +291,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           !navigator.onLine,
           false,
           this.props.appGlobals,
+          this.props.appGlobals.appSettings.alphaStrikeSearchAbilities,
         );
 
         if(this.latestSearchId !== currentSearchId) {
@@ -259,6 +322,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         searchResults: data,
         contextMenuSearch: -1,
         isSearching: false,
+        searchPage: 0,
       });
 
       let appSettings = this.props.appGlobals.appSettings;
@@ -296,6 +360,32 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     }
 
 
+    goToSearchPage = ( page: number ): void => {
+        this.setState({
+          searchPage: page,
+          contextMenuSearch: -1,
+        });
+        this.searchResultsHeading.current?.scrollIntoView({ block: "nearest" });
+    }
+
+    renderSearchPager = ( resultsPage: IPage<IASMULUnit> ): JSX.Element | null => {
+        if( resultsPage.totalPages < 2 ) {
+          return null;
+        }
+        const isFirst = resultsPage.page === 0;
+        const isLast = resultsPage.page === resultsPage.totalPages - 1;
+
+        return (
+          <nav className="text-center" aria-label="Search results pages">
+            <button className="btn btn-sm btn-secondary" disabled={isFirst} onClick={() => this.goToSearchPage(0)} title="First page">&laquo;</button>
+            <button className="btn btn-sm btn-secondary" disabled={isFirst} onClick={() => this.goToSearchPage(resultsPage.page - 1)} title="Previous page">&lsaquo; Prev</button>
+            &nbsp;Page {resultsPage.page + 1} of {resultsPage.totalPages}&nbsp;
+            <button className="btn btn-sm btn-secondary" disabled={isLast} onClick={() => this.goToSearchPage(resultsPage.page + 1)} title="Next page">Next &rsaquo;</button>
+            <button className="btn btn-sm btn-secondary" disabled={isLast} onClick={() => this.goToSearchPage(resultsPage.totalPages - 1)} title="Last page">&raquo;</button>
+          </nav>
+        );
+    }
+
     handleSort = ({ target: { value } }: any) => {
         this.setState({ searchSort: value }, () => this.updateSearchResults());
     }
@@ -304,6 +394,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       if(!this.props.appGlobals.currentASForce) {
         return <></>
       }
+
+        const resultsPage = paginate( this.state.searchResults, this.state.searchPage, SEARCH_RESULTS_PAGE_SIZE );
 
         return(
             <>
@@ -398,6 +490,11 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         {getMULEraIDs().map( (eraID ) => {
                           return <option key={eraID} value={eraID}>{getMULEraLabel( eraID )}</option>
                         })}
+                        <optgroup label="Clan eras">
+                          {getMULEraAliases().map( (alias) => {
+                            return <option key={alias.id} value={alias.id}>{alias.label}</option>
+                          })}
+                        </optgroup>
                         {/* {btEraOptions.map( (era, eraIndex) => {
                           return (
                             <option key={eraIndex} value={era.yearStart}>{era.name}</option>
@@ -464,6 +561,49 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                     </div>
                     <div className="row">
                       <div className="col-md-12 text-center">
+                      <InputField
+                         type="search"
+                         onChange={this.updateAbilitySearch}
+                         value={this.props.appGlobals.appSettings.alphaStrikeAbilitySearchTerm}
+                         label="Filter By Special Abilities"
+                         placeholder='Type an ability code, such as ECM, IF or TAG.'
+                        />
+                      </div>
+                      <div className="col-md-6 text-center">
+                      {this.getAbilitySuggestions().length > 0 ? (
+                      <div>
+                      Add to Ability Filter?<br />
+                      {this.getAbilitySuggestions().map( (ability) => {
+                        return (
+                          <div key={ability.code} className="text-left">
+                            <button onClick={() => this.addAbilityFilter(ability.code, false)} className="btn-sm btn btn-primary" title={"Only units with " + ability.code} aria-label={"Has " + ability.code}>Has</button>
+                            <button onClick={() => this.addAbilityFilter(ability.code, true)} className="btn-sm btn btn-secondary" title={"Only units without " + ability.code} aria-label={"Lacks " + ability.code}>Lacks</button>
+                            &nbsp;{ability.code} <span className="small-text">({ability.count} units)</span>
+                          </div>
+                        )
+                      })}
+                      </div>
+                      ) : null}
+                      </div>
+                      <div className="col-md-6 text-center">
+                      {this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.length > 0 ? (
+                    <div>
+                      Current Ability Filter:<br />
+                      {this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.map( (filter) => {
+                        const label = filter.startsWith("!") ? "Lacks " + filter.substring(1) : "Has " + filter;
+                        return (
+                          <div key={filter} className="text-left">
+                            <button onClick={() => this.removeAbilityFilter(filter)} className="btn btn-sm btn-danger" title={"Remove " + label + " from the filter"} aria-label={"Remove " + label + " from the filter"}><Trash /></button>
+                            {label}
+                          </div>
+                        )
+                      })}
+                      </div>
+                    ):null}
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 text-center">
                         <label>
                           Unit Lists:<br />
                           <select
@@ -478,16 +618,24 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </label>
                         <div className="small-text">
                           {MUL_SOURCE_SELECTIONS.find( (option) => option.value === this.props.appGlobals.appSettings.alphaStrikeMULSources )?.description}
+                          {this.props.appGlobals.appSettings.developerMenu ? (
+                            <>&nbsp;<Link to={`${process.env.PUBLIC_URL}/custom-mul-editor`}>Manage custom units</Link></>
+                          ) : null}
                         </div>
                       </div>
                     </div>
 
                   </fieldset>
 
-                <h3 className="text-center">
+                <h3 className="text-center" ref={this.searchResultsHeading}>
                   Search Results ({this.state.isSearching ? '...' : this.state.searchResults.length})
                   {this.state.isSearching && <span className="ms-2 text-muted">(Searching...)</span>}
                 </h3>
+                {!this.state.isSearching && resultsPage.totalPages > 1 ? (
+                  <div className="small-text text-center">
+                    Showing {resultsPage.firstIndex + 1}&ndash;{resultsPage.lastIndex + 1} of {this.state.searchResults.length}
+                  </div>
+                ) : null}
                 <div className="search-sort-wrapper">
                     Sort:
                     <span>
@@ -513,6 +661,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         <label htmlFor="search-sort-pv">PV</label>
                     </span>
                 </div>
+                  {!this.state.isSearching ? this.renderSearchPager( resultsPage ) : null}
                   <div className="table-wrapper">
                     <table className="table">
                       <thead>
@@ -548,7 +697,9 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </tbody>
                       ) : this.state.searchResults.length > 0 ? (
                         <>
-                          {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
+                          {resultsPage.items.map( (asUnit: IASMULUnit, pageIndex: number) => {
+                            // Index into the full result list, so keys and the open context menu stay unique across pages.
+                            const unitIndex = resultsPage.firstIndex + pageIndex;
 
                             return (
                               <tbody key={unitIndex}>
@@ -618,10 +769,12 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                                   {asUnit.MulSource && asUnit.MulSource !== "mul2" ? (
                                     <>
                                       &nbsp;<span
-                                        className="badge bg-secondary"
-                                        title="Legacy MUL 1.0 record not listed on the current MUL"
+                                        className={asUnit.MulSource === "custom" ? "badge bg-warning text-dark" : "badge bg-secondary"}
+                                        title={asUnit.CustomInfo
+                                          ? `Non-canonical custom by ${asUnit.CustomInfo.author}${asUnit.CustomInfo.source ? ` (${asUnit.CustomInfo.source})` : ""}${asUnit.CustomInfo.local ? " - saved in this browser only" : ""}`
+                                          : "Legacy MUL 1.0 record not listed on the current MUL"}
                                       >
-                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}
+                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}{asUnit.CustomInfo?.local ? " (local)" : ""}
                                       </span>
                                       {asUnit.MulSource === "mul1" && !asUnit.BFPointValue ? (
                                         <span className="badge bg-danger" title="This legacy record has no Alpha Strike stats">&nbsp;No AS stats</span>
@@ -664,7 +817,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </>
                       ) : (
                         <>
-                        {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 ? (
+                        {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 && this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.length === 0 ? (
                           <tbody>
                           <tr>
                             <td className="text-center" colSpan={7}>
@@ -686,6 +839,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                     </table>
                   </div>
+                  {!this.state.isSearching ? this.renderSearchPager( resultsPage ) : null}
     </>
 ) : (
     <div className="alert alert-warning">
@@ -804,6 +958,269 @@ title="View this unit's Alpha Strike Card"
             </table>
     </TextSection>
 ) : null}
+
+{this.props.appGlobals.fighterSaves && this.props.appGlobals.fighterSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Fighters"
+    >
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.fighterSaves.map( (save, unitIndex) => {
+                // Converted from the saved design; a published fighter should use its Master Unit List card.
+                const asUnit = new AerospaceFighter( JSON.stringify(save) ).getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this fighter to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this fighter to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this fighter's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.overheat && asUnit.overheat > 0 ? <>&nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}</> : null}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                )
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.infantrySaves && this.props.appGlobals.infantrySaves.length > 0 ? (
+    <TextSection
+        label="Your Created Infantry"
+    >
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.infantrySaves.map( (save, unitIndex) => {
+                // Converted from the saved platoon; a published platoon should use its Master Unit List card.
+                const asUnit = new InfantryPlatoon( JSON.stringify(save) ).getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this platoon to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this platoon to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this platoon's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.overheat && asUnit.overheat > 0 ? <>&nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}</> : null}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                )
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.battleArmorSaves && this.props.appGlobals.battleArmorSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Battle Armor"
+    >
+        <table className="table" data-testid="as-battle-armor-saves">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.battleArmorSaves.flatMap( (save, unitIndex) => {
+                // Converted from the saved suit, the base design and each loadout; a published suit should use its Master Unit List card.
+                const suit = new BattleArmor( JSON.stringify(save) );
+                const suits = [suit, ...suit.getLoadouts().map( (_loadout, loadoutIndex) => suit.getLoadoutSuit(loadoutIndex) )];
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return suits.map( (item, itemIndex) => {
+                    const asUnit = item.getAlphaStrikeUnit();
+                    return (
+                    <tbody key={`${unitIndex}-${itemIndex}`}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this squad to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this squad to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this squad's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {item.getAlphaStrikeStats().move}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                    );
+                });
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.protoMechSaves && this.props.appGlobals.protoMechSaves.length > 0 ? (
+    <TextSection
+        label="Your Created ProtoMechs"
+    >
+        <table className="table" data-testid="as-protomech-saves">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.protoMechSaves.map( (save, unitIndex) => {
+                // Converted from the saved design, one ProtoMech to a card; a published ProtoMech should use its Master Unit List card.
+                const proto = new ProtoMech( JSON.stringify(save) );
+                const asUnit = proto.getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this ProtoMech to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this ProtoMech to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this ProtoMech's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {proto.getAlphaStrikeStats().move}&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                );
+            })}
+        </table>
+    </TextSection>
+) : null}
     </div>
   </div>
             </>
@@ -818,9 +1235,11 @@ interface IAlphaStrikeAddUnitsViewProps {
 }
 
 interface IAlphaStrikeAddUnitsViewState {
+    abilityCodes: IAbilityCodeCount[];
     searchResults: IASMULUnit[];
     contextMenuSearch: number;
     contextMenuSavedBattleMechs: number;
     searchSort: 'Name' | 'BFPointValue';
     isSearching: boolean;
+    searchPage: number;
 }

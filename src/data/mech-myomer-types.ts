@@ -10,28 +10,35 @@ import { IMyomerType } from "./data-interfaces";
 * to challenge any copyright or trademark status, and this data is explicitly 
 * excluded from the software's underlying license (GNU GPLv3).
 *
-* Dates: IO tech progression. TSM: Inner Sphere prototype 3028, production 3050.
-* Industrial TSM: prototype 3035, production 3045. Prototype TSM (IO:AE p.98):
-* 3028 until production TSM replaces it in 3050.
+* Dates: IO:AE p.42 tech progression; unknown dates are null, not 0. Standard
+* musculature: prototype 2300, production 2350 (cost TM p.277). TSM: Inner Sphere
+* prototype 3028, production 3050. Industrial TSM: prototype 3035, production 3045
+* (12 slots, TM p.70; BV multipliers TM p.304). Prototype TSM (IO:AE p.98): 3028
+* until production TSM replaces it in 3050. Super-Cooled Myomer (IO:AE p.88): RISC
+* experimental, prototype 3132, extinct 3140.
 */
 
 export const mechMyomerTypes: IMyomerType[] = [
 	{
 		name: "Standard",
 		tag: "standard",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		criticals: 0,
 		costPerTon: 2000,
 		bvWeightMultiplier: 1,
 		tripleStrength: false,
 		book: "TM",
-		page: null,
-		introduced: 1950,
-		extinct: 0,
-		reintroduced: 0
+		page: 277,
+		prototype: 2300,
+		introduced: 2350,
+		extinct: null,
+		reintroduced: null
 	},
 	{
 		name: "Triple-Strength Myomer",
 		tag: "tsm",
+		editions: ["battletech-compendium", "compendium-rules-of-warfare", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 122, name: "Triple Strength Myomer", criticals: 6, notes: "Works only when the BattleMech ends a turn at heat 9 or higher: for the next turn it ignores the -1 MP heat effect at 5, walks 1 MP faster, doubles punch, kick and club damage and doubles its lifting ability. 6 critical slots anywhere; hits on them are re-rolled. Incompatible with MASC (BTC p.122). Musculature cost: tonnage x 16,000 C-bills (BTC p.128)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 121, name: "Triple-Strength Myomer", criticals: 6, notes: "Not available to Clan BattleMechs. Works only when the BattleMech ends a turn at heat 9 or higher: for the next turn it ignores the -1 MP heat effect at 5, adds 1 to its Walking MP, doubles punch, kick, club and hatchet damage and doubles its lifting ability. No tonnage; 6 critical slots, and hits on them are rerolled. Cannot be used with MASC (BTC:RoW pp.106, 121-122). Musculature cost: tonnage x 16,000 C-bills (BTC:RoW p.123)." }, "master-rules": { book: "BMR", page: 134, name: "Triple-Strength Myomer", criticals: 6, notes: "Not available to Clan BattleMechs. Works only when the BattleMech ends a turn at heat 9 or higher: for the next turn it ignores the -1 MP heat effect at 5, adds 1 to its Walking MP, doubles punch, kick, club and hatchet or sword damage and doubles its lifting ability. No tonnage; 6 critical slots anywhere, which may be spread over any number of locations, and hits on them are rerolled. Cannot be combined with MASC (BMR pp.114, 116, 134). Musculature cost: tonnage x 16,000 C-bills (BMR p.136)." }, "master-rules-revised": { book: "BMR(R)", page: 148, name: "Triple-Strength Myomer", criticals: 6, notes: "Not available to Clan BattleMechs. Works only when the BattleMech ends a turn at heat 9 or higher: for the next turn it ignores the -1 MP heat effect at 5, adds 1 to its Walking MP, doubles punch, kick, club and hatchet or sword damage and doubles its lifting ability. No tonnage; 6 critical slots anywhere, which may be spread over any number of locations, and hits on them are rerolled. Cannot be combined with MASC (BMR(R) pp.120, 122, 148). Musculature cost: tonnage x 16,000 C-bills (BMR(R) p.149)." } },
 		criticals: 6,
 		costPerTon: 16000,
 		bvWeightMultiplier: 1.5,
@@ -42,12 +49,13 @@ export const mechMyomerTypes: IMyomerType[] = [
 		notes: "+1 walk MP and double physical attack damage at 9+ heat.",
 		prototype: 3028,
 		introduced: 3050,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null
 	},
 	{
 		name: "Industrial Triple-Strength Myomer",
 		tag: "industrial-tsm",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		criticals: 12,
 		costPerTon: 12000,
 		bvWeightMultiplier: 1.15,
@@ -58,23 +66,41 @@ export const mechMyomerTypes: IMyomerType[] = [
 		notes: "IndustrialMech myomer; no MP bonus.",
 		prototype: 3035,
 		introduced: 3045,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null
 	},
 	{
 		name: "Prototype Triple-Strength Myomer",
 		tag: "prototype-tsm",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		criticals: 6,
 		costPerTon: 32000,
 		bvWeightMultiplier: 1.5,
 		tripleStrength: true,
 		techBase: "is",
-		book: "IO_AE",
+		book: "IO:AE",
 		page: 98,
 		notes: "Experimental rules only; no MP bonus.",
 		prototype: 3028,
 		introduced: null,
 		extinct: 3050,
-		reintroduced: 0
+		reintroduced: null
+	},
+	{
+		name: "Super-Cooled Myomer",
+		tag: "risc-super-cooled-myomer",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
+		criticals: 6,
+		costPerTon: 10000,
+		bvWeightMultiplier: 1,
+		tripleStrength: false,
+		techBase: "is",
+		book: "IO:AE",
+		page: 88,
+		notes: "RISC experimental; 6 slots (IO:AE p.215), cost IO:AE p.179, BV IO:AE p.185.",
+		prototype: 3132,
+		introduced: null,
+		extinct: 3140,
+		reintroduced: null
 	}
 ];

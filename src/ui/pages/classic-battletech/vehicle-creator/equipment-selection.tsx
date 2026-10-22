@@ -2,11 +2,14 @@ import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
+import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
 import TextSection from '../../../components/text-section';
+import TonnageBar from '../../../components/tonnage-bar';
 import UIPage from '../../../components/ui-page';
+import VehicleLightWeapons from './_light-weapons';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Trash = FaTrash as any;
@@ -52,10 +55,11 @@ export default class VehicleCreatorEquipmentSelection extends React.Component<IE
                                 <p><strong>Remaining Tonnage</strong>: {vehicle.getRemainingTonnage()}</p>
                                 <AvailableEquipment
                                     appGlobals={this.props.appGlobals}
-                                    equipment={vehicle.getAvailableEquipmentByCatalog("all", this.props.appGlobals.appSettings.mechRulesFilter === 5, this.props.appGlobals.appSettings.mechRulesFilter)}
+                                    equipment={vehicle.getAvailableEquipmentByCatalog("all", this.props.appGlobals.appSettings.mechRulesFilter >= CUSTOM_HOMEBREW_RULES_LEVEL, this.props.appGlobals.appSettings.mechRulesFilter)}
+                                    mounted={vehicle.getEquipmentList()}
                                     addFunction={this.addEquipment}
-                                    hideUnavailable={false}
                                 />
+                                {vehicle.isSupportVehicle() && vehicle.getTonnage() < 5 ? <VehicleLightWeapons appGlobals={this.props.appGlobals} /> : null}
 
                                 <div className="clear-both overflow-hidden">
                                     <hr />
@@ -90,6 +94,7 @@ export default class VehicleCreatorEquipmentSelection extends React.Component<IE
                         </div>
                     </div>
                 </div>
+                <TonnageBar used={vehicle.getCurrentTonnage()} total={vehicle.getTonnage()} slots={{ used: vehicle.getUsedItemSlots(), total: vehicle.getTotalItemSlots() }} />
             </UIPage>
         );
     }

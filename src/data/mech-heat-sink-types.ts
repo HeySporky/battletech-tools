@@ -10,7 +10,7 @@ import { IHeatSync } from "./data-interfaces";
 * to challenge any copyright or trademark status, and this data is explicitly 
 * excluded from the software's underlying license (GNU GPLv3).
 *
-* Dates: IO tech progression (single: Early Spaceflight). Double heat sinks:
+* Dates: IO:AE p.36 tech progression (single: Early Spaceflight; circa 2022 per TM p.220). Double heat sinks:
 * Inner Sphere prototype 2559, production 2567, lost 2865, recovered 3040;
 * Clan prototype 2825, production 2827. Laser (Clan, TO:AUE p.129): prototype 3040,
 * production 3051. Double Heat Sink Prototype (IO:AE p.65, 2559-2567) and Freezers
@@ -22,6 +22,8 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 	{
 		name:  "Single",
 		tag: "single",
+		editions: ["battledroids", "battletech-2nd-edition", "battletech-manual", "battletech-compendium", "battletech-3rd-edition", "compendium-rules-of-warfare", "battletech-4th-edition", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
+		altNames: ["Single Heat Sink"],
 		dissipation: 1,
 		crits: {
 			clan: 1,
@@ -31,14 +33,35 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		cost: 2000,
 		freeSinks: 10,
 		book: "TM",
-		page: 221,
-		introduced: 1950,
-		extinct: 0,
-		reintroduced: 0
+		page: 220,
+		introduced: 2022,
+		extinct: null,
+		reintroduced: null,
+		introducedInEdition: "battledroids",
+		editionStats: {
+			battledroids: {
+				book: "BD", page: 24, name: "Heat Sink", weight: 1, criticals: 1, engineHeatSinks: false,
+				notes: "Ten come with the engine; each extra one weighs 1 ton (BD p.24). Every heat sink takes one box on the Critical Hit Chart, the engine's ten included (BD p.25; record sheet, BD p.13). Each working sink removes 1 heat point a turn (Heat Point Table, BD p.27).",
+			},
+			"battletech-2nd-edition": null,
+			"battletech-manual": {
+				book: "BTM", page: 79, name: "Heat Sink", weight: 1, criticals: 1, cbills: 2000, engineHeatSinks: true,
+				notes: "Ten come with the engine; each extra one weighs one ton (BTM p.79). New: only some of the engine's ten are placed on the Equipment Tables. Engine rating divided by 25, rounded down, are integral to the engine and are lost only with it; the rest, and every extra sink, take one critical location each (BTM pp.79-80). Only allocated sinks can take a critical hit (BTM p.24). 2,000 C-bills for each sink over 10 (BTM p.84).",
+			},
+			"battletech-compendium": null,
+			"battletech-3rd-edition": { book: "BT3", page: 43, name: "Heat Sink", weight: 1, criticals: 1, notes: "Ten come with every BattleMech and do not count against its tonnage; each extra one weighs 1 ton. Engine rating divided by 25, rounded down, need no critical hit slots: they are part of the engine and are destroyed only with it (BT3 p.43). No price is printed." },
+			"compendium-rules-of-warfare": { book: "BTC:RoW", page: 106, name: "Heat Sink", heat: -1, weight: 1, criticals: 1, cbills: 2000, notes: "Dissipates 1 point of heat a turn (BTC:RoW p.117). Every BattleMech comes with 10 that take up no tonnage; each extra one weighs 1 ton, and standard and double sinks cannot be mixed (BTC:RoW p.101). Engine rating divided by 25, rounded down, need no critical slots (BTC:RoW p.102). 2,000 C-bills for each over 10 (BTC:RoW p.123)." },
+			"battletech-4th-edition": { book: "BT4", page: 45, name: "Heat Sink", heat: -1, weight: 1, criticals: 1, notes: "Listed under Other Equipment with a heat of -1: a standard heat sink dissipates 1 point of heat a turn (BT4 p.46). Every BattleMech comes with 10 integral heat sinks that take up no tonnage; each extra one weighs 1 ton. Engine rating divided by 25, rounded down, need no critical slots: they are part of the engine, cannot take critical hits and are destroyed only with it (BT4 p.43). No price is printed." },
+			"master-rules": { book: "BMR", page: 116, name: "Heat Sink", heat: -1, weight: 1, criticals: 1, cbills: 2000, notes: "Dissipates 1 point of heat a turn (BMR p.128). Every BattleMech comes with 10 that take up no tonnage; each extra one weighs 1 ton. Engine rating divided by 25, rounded down, need no critical slots; single and double heat sinks cannot be mixed (BMR p.112). 2,000 C-bills for each over 10 (BMR p.136)." },
+			"master-rules-revised": { book: "BMR(R)", page: 122, name: "Heat Sink", heat: -1, weight: 1, criticals: 1, cbills: 2000, notes: "Dissipates 1 point of heat a turn (BMR(R) p.138). Every BattleMech comes with 10 that take up no tonnage; each extra one weighs 1 ton. Engine rating divided by 25, rounded down, need no critical slots; single and double heat sinks cannot be mixed (BMR(R) p.118). 2,000 C-bills for each over 10 (BMR(R) p.149)." },
+		},
 	},
 	{
 		name: "Double",
 		tag: "double",
+		editions: ["battletech-compendium", "compendium-rules-of-warfare", "master-rules", "master-rules-revised", "total-warfare", "battlemech-manual", "core-rulebook"],
+		introducedInEdition: "battletech-compendium", editionStats: { "battletech-compendium": { book: "BTC", page: 119, name: "Double Heat Sink", weight: 1, notes: "Sheds 2 heat points a turn for the weight of a standard sink. 3 critical slots (Inner Sphere), which keeps it out of a BattleMech's legs, or 2 (Clan). No mixing with standard sinks: the 10 that come with the engine are double as well. Not for vehicles; AeroSpace fighters may use them (BTC pp.112, 119). 6,000 C-bills each, the engine's 10 included (BTC p.128)." }, "compendium-rules-of-warfare": { book: "BTC:RoW", page: 106, name: "Double Heat Sink", heat: -2, weight: 1, criticals: 3, notes: "Dissipates 2 points of heat a turn for the weight of a standard sink. 3 critical slots for the Inner Sphere model (BTC:RoW p.106) and 2 for the Clan one (BTC:RoW p.104); no mixing with standard sinks: the 10 that come with the BattleMech are double as well (BTC:RoW p.101). Vehicles cannot carry them (BTC:RoW pp.109, 117). 6,000 C-bills each, including the 10 that come with the engine (BTC:RoW p.123)." }, "master-rules": { book: "BMR", page: 116, name: "Double Heat Sink", heat: -2, weight: 1, criticals: 3, notes: "Dissipates 2 points of heat a turn for the weight of a standard sink. 3 critical slots for the Inner Sphere model (BMR p.116) and 2 for the Clan one (BMR p.117); no mixing with standard sinks. Vehicles cannot carry them (BMR p.128). 6,000 C-bills each, including the 10 that come with the engine (BMR p.136)." }, "master-rules-revised": { book: "BMR(R)", page: 122, name: "Double Heat Sink", heat: -2, weight: 1, criticals: 3, notes: "Dissipates 2 points of heat a turn for the weight of a standard sink. 3 critical slots for the Inner Sphere model (BMR(R) p.122) and 2 for the Clan one (BMR(R) p.123); no mixing with standard sinks. Vehicles cannot carry them (BMR(R) p.138). 6,000 C-bills each, including the 10 that come with the engine (BMR(R) p.149)." } },
+		altNames: ["Double Heat Sink"],
 		dissipation: 2,
 		crits: {
 			clan: 2,
@@ -52,11 +75,13 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		introduced: 2567,
 		extinct: 2865,
 		reintroduced: 3040,
-		clanDates: { prototype: 2825, introduced: 2827, extinct: 0, reintroduced: 0 }
+		clanDates: { prototype: 2825, introduced: 2827, extinct: null, reintroduced: null }
 	},
 	{
 		name: "Laser",
 		tag: "laser",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
+		altNames: ["Laser Heat Sink"],
 		dissipation: 2,
 		crits: {
 			clan: 2,
@@ -69,13 +94,14 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		page: 129,
 		notes: "Clan laser heat sinks: double heat sinks that do not boil water and reduce the heat of their own vent.",
 		introduced: 3051,
-		extinct: 0,
-		reintroduced: 0,
-		clanDates: { prototype: 3040, introduced: 3051, extinct: 0, reintroduced: 0 }
+		extinct: null,
+		reintroduced: null,
+		clanDates: { prototype: 3040, introduced: 3051, extinct: null, reintroduced: null }
 	},
 	{
 		name: "Double (Prototype)",
 		tag: "double-prototype",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		dissipation: 2,
 		crits: {
 			clan: 0,
@@ -84,17 +110,18 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		cost: 18000,
 		freeSinks: 0,
 		techBase: "is",
-		book: "IO_AE",
+		book: "IO:AE",
 		page: 65,
 		notes: "Star League prototype double heat sinks: Experimental rules only.",
 		prototype: 2559,
 		introduced: null,
 		extinct: 2567,
-		reintroduced: 0
+		reintroduced: null
 	},
 	{
 		name: "Double (Freezers)",
 		tag: "double-freezers",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
 		dissipation: 2,
 		crits: {
 			clan: 0,
@@ -103,17 +130,19 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		cost: 30000,
 		freeSinks: 0,
 		techBase: "is",
-		book: "IO_AE",
+		book: "IO:AE",
 		page: 96,
 		notes: "Succession Wars 'Freezer' prototype double heat sinks: Experimental rules only.",
 		prototype: 3022,
 		introduced: null,
 		extinct: 3040,
-		reintroduced: 0
+		reintroduced: null
 	},
 	{
 		name: "Compact",
 		tag: "compact",
+		editions: ["total-warfare", "battlemech-manual", "core-rulebook"],
+		altNames: ["Compact Heat Sink"],
 		dissipation: 1,
 		crits: {
 			clan: 0,
@@ -130,7 +159,7 @@ export const mechHeatSinkTypes: IHeatSync[] = [
 		notes: "Single-strength sinks at 1.5 tons each, two per critical slot; an engine holds twice its normal number.",
 		prototype: 3058,
 		introduced: 3079,
-		extinct: 0,
-		reintroduced: 0
+		extinct: null,
+		reintroduced: null
 	}
 ];

@@ -9,6 +9,19 @@ import { CONST_BATTLETECH_URL } from "../../../../configVars";
 import RulesLevelStamp, { getHighestRulesLevel, printWithRulesLevelGuard } from "../../../components/rules-level-print";
 import VehicleRecordSheet from "../../../components/vehicle-record-sheet";
 import { vehicleName } from "./_vehicleGroupTable";
+import FighterRecordSheet from "../../../components/fighter-record-sheet";
+import SmallCraftRecordSheet from "../../../components/small-craft-record-sheet";
+import CapitalShipRecordSheet from "../../../components/capital-ship-record-sheet";
+import InfantryRecordSheet from "../../../components/infantry-record-sheet";
+import { infantrySheetLines } from "../../../components/svg/infantry-record-sheet-svg";
+import BattleArmorRecordSheet from "../../../components/battle-armor-record-sheet";
+import ProtoMechRecordSheet from "../../../components/protomech-record-sheet";
+import BattledroidsUnitRecordSheet from "../../../components/battledroids-unit-record-sheet";
+import BuildingRecordSheet from "../../../components/building-record-sheet";
+import { buildingSummary } from "./_buildingGroupTable";
+import { fighterName } from "./_fighterGroupTable";
+import { smallCraftName } from "./_smallCraftGroupTable";
+import { capitalShipName } from "./_capitalShipGroupTable";
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const PrintIcon = FaPrint as any;
 
@@ -29,6 +42,13 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
       const rulesLevels = [
         ...groups.flatMap( (group) => group.members ).map( (unit) => unit.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.vehicles ).map( (vehicle) => vehicle.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.fighters ).map( (fighter) => fighter.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.smallCraft ).map( (craft) => craft.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.capitalShips ).map( (ship) => ship.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.infantry ).map( (platoon) => platoon.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.battleArmor ).map( (squad) => squad.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.protoMechs ).map( (point) => point.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.buildings ).map( (building) => building.getRequiredRulesLevel() ),
       ];
       printWithRulesLevelGuard(
         getHighestRulesLevel( rulesLevels ),
@@ -184,6 +204,204 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       </tr>
                     </tbody>
                     ))}
+                    {group.fighters.map( (fighter) => (
+                    <tbody key={fighter.getUUID()}>
+                      <tr>
+                        <td>
+                          {fighterName(fighter)} ({fighter.getFighterTypeName()})
+                        </td>
+                        <td>
+                          {fighter.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {fighter.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {fighter.getPilot().piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {fighter.getPilot().gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {fighter.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {fighter.getPilotAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.smallCraft.map( (craft) => (
+                    <tbody key={craft.getUUID()}>
+                      <tr>
+                        <td>
+                          {smallCraftName(craft)} ({craft.getShapeName()} Small Craft)
+                        </td>
+                        <td>
+                          {craft.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {craft.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {craft.getPilot().piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {craft.getPilot().gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {craft.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {craft.getPilotAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.capitalShips.map( (ship) => (
+                    <tbody key={ship.getUUID()}>
+                      <tr>
+                        <td>
+                          {capitalShipName(ship)} ({ship.getShipTypeName()})
+                        </td>
+                        <td>
+                          {ship.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {ship.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {ship.getPilot().piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {ship.getPilot().gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {ship.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {ship.getPilotAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.infantry.map( (platoon) => (
+                    <tbody key={platoon.getUUID()}>
+                      <tr>
+                        <td>
+                          {platoon.getDisplayName()} ({platoon.getMotive().name} infantry, {platoon.getTroopers()} troopers)
+                        </td>
+                        <td>
+                          {platoon.getWeight()}
+                        </td>
+                        <td className="small-text">
+                          {platoon.getTechName()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {platoon.canMakeAntiMechAttacks() ? platoon.getAntiMechSkill() : "-"}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {platoon.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {platoon.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {platoon.getSkillAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.battleArmor.map( (squad) => (
+                    <tbody key={squad.getUUID()}>
+                      <tr>
+                        <td>
+                          {squad.getDisplayName()} ({squad.getWeightClass().name} battle armor, {squad.getSquadSize()} troopers)
+                        </td>
+                        <td>
+                          {squad.getSquadSize()}
+                        </td>
+                        <td className="small-text">
+                          {squad.getTechName()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {squad.getCapabilities().swarm || squad.getCapabilities().leg ? squad.getAntiMechSkill() : "-"}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {squad.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {squad.getBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {squad.getSkillAdjustedBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.protoMechs.map( (point) => (
+                    <tbody key={point.getUUID()}>
+                      <tr>
+                        <td>
+                          {point.getDisplayName()} ({point.getTons()}-ton {point.getChassisName()} ProtoMech, Point of {point.getPointSize()})
+                        </td>
+                        <td>
+                          {point.getTons() * point.getPointSize()}
+                        </td>
+                        <td className="small-text">
+                          {point.getTechName()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          -
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {point.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {point.getPointBattleValue()}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {point.getSkillAdjustedPointBattleValue()}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.battledroidsUnits.map( (unit) => (
+                    <tbody key={unit.getUUID()}>
+                      <tr>
+                        <td>
+                          {unit.getDisplayName()} ({unit.getKind().name}, Battledroids p.{unit.getDesign().page})
+                        </td>
+                        <td>-</td>
+                        <td className="small-text">Battledroids</td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-center">
+                          {unit.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-right">-</td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.buildings.map( (building) => (
+                    <tbody key={building.getUUID()}>
+                      <tr>
+                        <td>
+                          {building.getDisplayName()} ({buildingSummary(building)})
+                        </td>
+                        <td>-</td>
+                        <td className="small-text">
+                          {building.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-center">
+                          {building.getMinimumGunners() > 0 ? building.getGunnery() : "-"}
+                        </td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-right">-</td>
+                      </tr>
+                    </tbody>
+                    ))}
                   </table>
                 </div>
               )
@@ -228,6 +446,97 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         <VehicleRecordSheet
                           vehicle={vehicle}
                           showCrew={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.fighters.map( (fighter) => (
+                      <div className={"page"} key={fighter.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={fighter.getRequiredRulesLevel()}
+                        />
+                        <FighterRecordSheet
+                          fighter={fighter}
+                          showPilot={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.smallCraft.map( (craft) => (
+                      <div className={"page"} key={craft.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={craft.getRequiredRulesLevel()}
+                        />
+                        <SmallCraftRecordSheet
+                          craft={craft}
+                          showPilot={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.capitalShips.map( (ship) => (
+                      <div className={"page"} key={ship.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={ship.getRequiredRulesLevel()}
+                        />
+                        <CapitalShipRecordSheet
+                          ship={ship}
+                          showPilot={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {/* Four infantry platoons or sub-platoons to a page, as on the record sheet books. */}
+                  {Array.from({ length: Math.ceil(infantrySheetLines(group.infantry).length / 4) }, (_, page) => infantrySheetLines(group.infantry).slice(page * 4, page * 4 + 4)).map( (lines) => (
+                      <div className={"page"} key={`${lines[0].platoon.getUUID()}-${lines[0].line}`}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={Math.max(...lines.map((entry) => entry.platoon.getRequiredRulesLevel()))}
+                        />
+                        <InfantryRecordSheet
+                          lines={lines}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {/* Five battle armor squads to a page, as on the Total Warfare sheet. */}
+                  {Array.from({ length: Math.ceil(group.battleArmor.length / 5) }, (_, page) => group.battleArmor.slice(page * 5, page * 5 + 5)).map( (squads) => (
+                      <div className={"page"} key={squads[0].getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={Math.max(...squads.map((squad) => squad.getRequiredRulesLevel()))}
+                        />
+                        <BattleArmorRecordSheet
+                          squads={squads}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.protoMechs.map( (point) => (
+                      <div className={"page"} key={point.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={point.getRequiredRulesLevel()}
+                        />
+                        <ProtoMechRecordSheet
+                          proto={point}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {/* Two Battledroids tanks, jeeps or infantry squads to a page, as the book prints its droid sheets. */}
+                  {Array.from({ length: Math.ceil(group.battledroidsUnits.length / 2) }, (_, page) => group.battledroidsUnits.slice(page * 2, page * 2 + 2)).map( (units) => (
+                      <div className={"page"} key={units[0].getUUID()}>
+                        <BattledroidsUnitRecordSheet
+                          units={units}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.buildings.map( (building) => (
+                      <div className={"page"} key={building.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={building.getRequiredRulesLevel()}
+                        />
+                        <BuildingRecordSheet
+                          building={building}
                           showDamage={true}
                         />
                       </div>

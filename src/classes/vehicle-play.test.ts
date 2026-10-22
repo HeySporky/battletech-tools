@@ -311,14 +311,17 @@ describe("Vehicle play mode: save and roster", () => {
         expect(tank.export(true).inPlay).toBeUndefined();
     });
 
-    it("adjusts BV for crew skill with the TM p. 305 table used for 'Mechs (G4/P5 x1.00, G3/P4 x1.38)", () => {
+    it("adjusts BV for crew skill by the rules edition's table (TM p. 315: G4/P5 x1.00, G3/P4 x1.32)", () => {
         const tank = buildTank();
         expect(tank.getPilotAdjustedBattleValue()).toBe(tank.getBattleValue());
         const pilot = new Pilot();
         pilot.gunnery = 3;
         pilot.piloting = 4;
         tank.setPilot(pilot);
-        expect(tank.getPilotAdjustedBattleValue()).toBe(Math.round(tank.getBattleValue() * 1.38));
+        expect(tank.getPilotAdjustedBattleValue()).toBe(Math.round(tank.getBattleValue() * 1.32));
+        // Master Rules p.144 gives 1.25 for the same crew; the 1987 Manual has no Battle Value to adjust.
+        expect(tank.getPilotAdjustedBattleValue("master-rules")).toBe(Math.round(tank.getBattleValue() * 1.25));
+        expect(tank.getPilotAdjustedBattleValue("battletech-manual")).toBe(tank.getBattleValue());
     });
 
     it("groups carry vehicles in totals and in saves; older saves without vehicles still load", () => {

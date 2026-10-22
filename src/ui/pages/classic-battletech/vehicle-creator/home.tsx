@@ -5,7 +5,10 @@ import Vehicle, { IVehicleExport } from '../../../../classes/vehicle';
 import { IAppGlobals } from '../../../app-router';
 import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
 import TextSection from '../../../components/text-section';
+import BlkImportSection, { IBlkImportOutcome } from '../../../components/blk-import-section';
+import { importSupportVehicleBlk } from '../../../../classes/support-vehicle-blk';
 import UIPage from '../../../components/ui-page';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FolderOpen = FaFolderOpen as any;
@@ -19,9 +22,19 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
         this.props.appGlobals.makeDocumentTitle("Vehicle Creator");
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "vehicle",
+            lost: designWouldBeLost(this.props.appGlobals.currentVehicle, () => new Vehicle(), this.props.appGlobals.vehicleSaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
         e.preventDefault();
-        this.props.appGlobals.saveCurrentVehicle(new Vehicle());
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentVehicle(new Vehicle()));
     }
 
     saveAsNew = (e: React.FormEvent<HTMLButtonElement>): void => {
@@ -38,7 +51,7 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
         if (this.props.appGlobals.vehicleSaves.length > saveIndex) {
             const vehicle = new Vehicle();
             vehicle.importJSON(JSON.stringify(this.props.appGlobals.vehicleSaves[saveIndex]));
-            this.props.appGlobals.saveCurrentVehicle(vehicle);
+            this.replaceDesign(() => this.props.appGlobals.saveCurrentVehicle(vehicle));
         }
     }
 
@@ -78,6 +91,14 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
         }
     }
 
+    // A MegaMek Support Vehicle file (SupportTank, LargeSupportTank, SupportVTOL).
+    importBlk = (text: string): IBlkImportOutcome => {
+        const result = importSupportVehicleBlk(text);
+        if (!result.vehicle) return { loaded: false, messages: result.issues };
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentVehicle(result.vehicle));
+        return { loaded: true, messages: [...result.notes, ...result.issues, ...result.vehicle.getSupportVehicleIssues()] };
+    }
+
     render = (): JSX.Element => {
         if (!this.props.appGlobals.currentVehicle) return <></>;
 
@@ -108,6 +129,8 @@ export default class VehicleCreatorHome extends React.Component<IHomeProps, IHom
                                 </Link>
                             </div>
                         </TextSection>
+
+                        <BlkImportSection unitName="a ground or VTOL Support Vehicle" testId="sv" onImport={this.importBlk} />
 
                         <TextSection
                             label="Your Saved Vehicles"

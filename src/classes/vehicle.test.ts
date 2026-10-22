@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import Vehicle, { formatVehicleASDamage } from "./vehicle";
 import { getVehicleTonnageBounds } from "../data/vehicle-motive-types";
+import { universalEquipment } from "../data/universal-equipment";
 
 describe("Vehicle tonnage bounds by motive type and rules level", () => {
     it("caps Tracked vehicles at 100 tons under standard rules and 200 under Advanced+", () => {
@@ -67,10 +68,18 @@ describe("Vehicle construction basics", () => {
     it("offers only armor marked for combat vehicles", () => {
         const vehicle = new Vehicle();
         expect(vehicle.getAvailableArmorTypes().every(armor => armor.unitTypes.combatVehicle)).toBe(true);
-        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "stealth-basic")).toBe(true);
+        // TM p.206: BattleMech Stealth armor is BM-only; vehicles mount Vehicular Stealth (TO:AUE p.94).
+        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "stealth-basic")).toBe(false);
+        expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "vehicular-stealth")).toBe(true);
         expect(vehicle.getAvailableArmorTypes().some(armor => armor.tag === "modular")).toBe(false);
         vehicle.setArmorType("stealth-improved");
         expect(vehicle.getArmorType().tag).toBe("standard");
+    });
+
+    it("loads vehicles saved with BattleMech Stealth armor as Vehicular Stealth (TO:AUE p.94)", () => {
+        const saved = JSON.parse(new Vehicle().exportJSON());
+        saved.armorType = "stealth-basic";
+        expect(new Vehicle(JSON.stringify(saved)).getArmorType().tag).toBe("vehicular-stealth");
     });
 
     it("mounts one Modular Armor pack per location and applies its cruise penalty", () => {
@@ -442,6 +451,26 @@ describe("Vehicle construction details", () => {
         expect(tank.getUsedItemSlots()).toBe(4);
     });
 
+    it("loads a Cruise Missile one 25-ton missile at a time (TO:AUE pp.97, 216)", () => {
+        const tank = build("tracked", 100);
+        place(tank, "cruise-missile-50", "body");
+        const ammo = tank.addEquipmentFromTag("ammo-is-cruise-missile-50-standard").at(-1)!;
+        expect(ammo.weight).toBe(25);
+        expect(tank.getAmmoBinShots(ammo)).toBe(1);
+    });
+
+    it("sizes a drone's operating system and a carrier's control system, and keeps the drone count (TO:AUE p.117)", () => {
+        const drone = build("tracked", 40);
+        const os = drone.addEquipmentFromTag("drone-operating-system").at(-1)!;
+        expect([os.weight, os.cbills]).toEqual([4.5, 45000]);
+        const carrier = build("wheeled", 60);
+        const control = carrier.addEquipmentFromTag("drone-carrier-control-system").at(-1)!;
+        carrier.setControlledDrones(control.uuid!, 6);
+        expect([control.weight, control.cbills]).toEqual([5, 50000]);
+        const restored = new Vehicle(carrier.exportJSON());
+        expect(restored.getEquipmentList().find(item => item.tag === "drone-carrier-control-system")?.weight).toBe(5);
+    });
+
     it("keeps dual turrets and jump MP through a save", () => {
         const tank = build("hover", 40);
         tank.setDualTurret(true);
@@ -526,4 +555,267 @@ describe("Vehicles against the Master Unit List", () => {
                 + `PV${as.pointValue} ${specials.join(",")}`).toBe(spec.card);
         });
     }
+});
+
+describe("Vehicle era availability", () => {
+    const vehicle = (tech: string, era: string) => {
+        const created = new Vehicle();
+        created.setTech(tech);
+        created.setEra(era);
+        return created;
+    };
+
+    it("offers the Clan eras only to Clan vehicles", () => {
+        expect(vehicle("clan", "clan-golden-years").getEra().tag).toBe("clan-golden-years");
+        expect(vehicle("is", "clan-golden-years").getEra().tag).toBe("early-sw");
+        expect(vehicle("mis", "star-league").getEra().tag).toBe("clan-inv");
+    });
+
+    it("uses the Clan dates for Clan armor (Ferro-Fibrous: IS 2571-2810, Clan 2825)", () => {
+        const ferro = (tech: string, era: string) =>
+            vehicle(tech, era).getAvailableArmorTypes().find((armor) => armor.tag === "ferro-fibrous");
+        expect(ferro("is", "late-sw-lt")?.available).toBe(false);
+        expect(ferro("clan", "clan-golden-years")?.available).toBe(true);
+        // Clan designs start in the Founding Years (user ruling 2026-10-21), with Clan Ferro-Fibrous in production.
+        expect(ferro("clan", "clan-founding-years")?.available).toBe(true);
+    });
+
+    it("uses the Clan dates for Clan engines", () => {
+        const engine = (tech: string, era: string, tag: string) =>
+            vehicle(tech, era).getAvailableEngineTypes().find((option) => option.tag === tag);
+        expect(engine("clan", "clan-golden-years", "clan_xl")?.available).toBe(true);
+        expect(engine("is", "clan-inv", "clan_xl")).toBeUndefined();
+        expect(engine("clan", "clan-inv", "xl")?.available).toBe(false);
+    });
+});
+
+// Clan designs start in the Clan Founding Years (user ruling 2026-10-21), where Clan Ferro-Fibrous is in production.
+describe("Vehicle Clan tech from the first Clan era", () => {
+    it("cannot build a Clan design in the Star League era, and rates Ferro-Fibrous at the Clan factor", () => {
+        const created = new Vehicle();
+        created.setTech("clan");
+        created.setEra("star-league");
+        expect(created.getEra().tag).toBe("clan-founding-years");
+        created.setArmorType("ferro-fibrous");
+        const inner = new Vehicle();
+        inner.setTech("is");
+        inner.setEra("star-league");
+        inner.setArmorType("ferro-fibrous");
+        expect(created.getArmorPointsPerTon()).toBeGreaterThan(inner.getArmorPointsPerTon());
+    });
+});
+
+describe("Vehicle equipment saved before the Batch 15 tech-base splits", () => {
+    it("loads the old universal tags on a Clan vehicle as the Clan records", () => {
+        const clan = new Vehicle();
+        clan.setTech("clan");
+        clan.setEra("ilClan");
+        for (const tag of ["mech-mortar-8", "long-tom-cannon", "laser-insulator"]) {
+            clan.addEquipmentFromTag(tag);
+        }
+        expect(clan.getEquipmentList().map(item => item.tag)).toEqual(["clan-mech-mortar-8", "clan-long-tom-cannon", "clan-laser-insulator"]);
+
+        const is = new Vehicle();
+        is.setTech("is");
+        is.setEra("ilClan");
+        is.addEquipmentFromTag("mech-mortar-8");
+        expect(is.getEquipmentList().map(item => [item.tag, item.weight])).toEqual([["mech-mortar-8", 10]]);
+    });
+});
+
+describe("Vehicle large engines (TO:AUE pp.119-120, 219)", () => {
+    const tank = (engine: string, cruise: number): Vehicle => {
+        const vehicle = new Vehicle();
+        vehicle.setMotiveType("tracked");
+        vehicle.setTonnage(50);
+        vehicle.setEngineType(engine);
+        vehicle.setCruiseMP(cruise);
+        return vehicle;
+    };
+
+    it("prices a large engine at twice its base type's multiplier", () => {
+        const large = tank("standard", 10); // rating 500
+        expect(large.getEngineRating()).toBe(500);
+        expect(large.getCBillCostLog()).toContain("Large Fusion (10000 x rating 500 x 50 t / 75)");
+        const standard = tank("standard", 8); // rating 400
+        expect(standard.getCBillCostLog()).toContain("Standard Fusion (5000 x rating 400 x 50 t / 75)");
+    });
+
+    it("stops engine types with no large form at rating 400, even at the Experimental level", () => {
+        expect(tank("standard", 4).getMaxCruiseMP(4)).toBe(10);
+        expect(tank("xl", 4).getMaxCruiseMP(4)).toBe(10);
+        for (const engine of ["cell", "fission", "compact"]) {
+            expect(tank(engine, 4).getMaxCruiseMP(4), engine).toBe(8);
+        }
+    });
+});
+
+describe("Vehicle saved with equipment from the other tech base (Batch 12d)", () => {
+    it("loads it, though a Clan vehicle is no longer offered it", () => {
+        const clan = new Vehicle();
+        clan.setTech("clan");
+        clan.setEra("ilClan");
+        clan.addEquipmentFromTag("ammo-lrm-semi-guided");
+        expect(clan.getEquipmentList()).toEqual([]);
+
+        const saved = JSON.parse(clan.exportJSON());
+        saved.equipment = [{ tag: "ammo-lrm-semi-guided", location: "body", uuid: "saved-semi-guided" }];
+        const restored = new Vehicle(JSON.stringify(saved));
+        expect(restored.getTech().tag).toBe("clan");
+        expect(restored.getEquipmentList().map(item => item.tag)).toEqual(["ammo-is-lrm-semi-guided"]);
+    });
+});
+
+describe("Vehicle engine requirements and the one-jammer limit (IO:AE pp.85, 88; TO:AUE p.158)", () => {
+    const build = (engine: string) => {
+        const vehicle = new Vehicle();
+        vehicle.setTech("is");
+        vehicle.setEra("dark-ages");
+        vehicle.setTonnage(50);
+        vehicle.setEngineType(engine);
+        expect(vehicle.getEngineType().tag).toBe(engine);
+        return vehicle;
+    };
+    const offered = (vehicle: Vehicle) => new Map(vehicle.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
+
+    it("offers TSEMP cannons with fusion or fission engines, the Taser with fusion only, the One-Shot with any", () => {
+        const tags = ["tsemp-cannon", "risc-repeating-tsemp", "mech-taser", "tsemp-one-shot", "medium-laser"];
+        const expected: Record<string, boolean[]> = {
+            "standard": [true, true, true, true, true],
+            "xl": [true, true, true, true, true],
+            "fission": [true, true, false, true, true],
+            "ice": [false, false, false, true, true],
+            "cell": [false, false, false, true, true],
+        };
+        for (const [engine, values] of Object.entries(expected)) {
+            const available = offered(build(engine));
+            expect(tags.map(tag => available.get(tag)), engine).toEqual(values);
+        }
+    });
+
+    it("allows one RISC Viral Jammer of either type, not one of each", () => {
+        const vehicle = build("standard");
+        const jammers = ["risc-viral-jammer-decoy", "risc-viral-jammer-homing"];
+        expect(jammers.map(tag => offered(vehicle).get(tag))).toEqual([true, true]);
+        vehicle.addEquipmentFromTag("risc-viral-jammer-decoy");
+        expect(jammers.map(tag => offered(vehicle).get(tag))).toEqual([false, false]);
+    });
+});
+
+describe("Batch 54 industrial equipment for vehicles and the combat vehicle slot column (TM pp.292-293, 344-345)", () => {
+    const build = (tech = "is") => {
+        const vehicle = new Vehicle();
+        vehicle.setTech(tech);
+        vehicle.setEra("dark-ages");
+        vehicle.setTonnage(50);
+        return vehicle;
+    };
+    const offered = (vehicle: Vehicle) => new Map(vehicle.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
+    // tag, name, tons, C-bills, slots [M, CV, SV, F, SC, DS], rating, prototype, introduced, page
+    const items: [string, string, number, number, number[], string, number | null, number, number][] = [
+        ["bulldozer", "Bulldozer", 2, 50000, [-1, 1, 1, -1, -1, -1], "b", null, 1950, 242],
+        ["field-kitchen", "Field Kitchen", 3, 25000, [-1, 1, 1, -1, -1, -1], "a", null, 1950, 217],
+        ["fluid-suction-system", "Fluid Suction System (Standard)", 1, 25000, [1, 1, 1, 1, 1, -1], "c", null, 1950, 247],
+        ["fluid-suction-system-light-mech", "Fluid Suction System (Light, 'Mech)", 0.5, 1000, [1, -1, -1, -1, -1, -1], "b", null, 1950, 248],
+        ["fluid-suction-system-light-vehicular", "Fluid Suction System (Light, Vehicular)", 0.015, 1000, [-1, 1, 1, 1, 1, -1], "b", null, 1950, 248],
+        ["arresting-hoist", "Arresting Hoist", 3, 90000, [-1, -1, 1, -1, -1, -1], "c", null, 1950, 245],
+        ["look-down-radar", "Look-Down Radar", 5, 400000, [-1, -1, 1, 0, 0, 0], "b", null, 1950, 227],
+        ["manipulator", "Manipulator", 0.01, 7500, [-1, 1, 1, -1, -1, -1], "c", null, 2100, 245],
+        ["mash-core", "MASH (Core Unit)", 3.5, 35000, [-1, 1, 1, -1, 1, 1], "b", null, 1950, 228],
+        ["mash-theater", "MASH (Added Theater)", 1, 10000, [-1, 0, 0, -1, 0, 0], "b", null, 1950, 228],
+        ["paramedic-equipment", "Paramedic Equipment", 0.25, 7500, [1, 1, 1, -1, -1, -1], "c", null, 1950, 233],
+        ["refueling-drogue", "Refueling Drogue", 1, 25000, [-1, 1, 1, 1, 1, -1], "c", null, 1950, 247],
+        ["sprayer-mech", "Sprayer ('Mech)", 0.5, 1000, [1, -1, -1, -1, -1, -1], "b", 2305, 2315, 248],
+        ["sprayer-vehicular", "Sprayer (Vehicular)", 0.015, 1000, [-1, 1, 1, 1, 1, -1], "b", null, 1950, 248],
+        ["cargo-container", "Cargo Container", 10, 0, [1, 1, 1, 0, 0, 0], "a", null, 1950, 239],
+        ["external-stores-hardpoint", "External Stores Hardpoint", 0.2, 5000, [-1, -1, 1, -1, -1, -1], "b", null, 1950, 216],
+        ["quarters-steerage", "Quarters (Steerage)", 5, 5000, [-1, -1, 1, -1, 0, 0], "a", null, 1950, 236],
+        ["quarters-crew", "Quarters (Crew / 2nd Class)", 7, 15000, [-1, -1, 1, -1, 0, 0], "a", null, 1950, 236],
+        ["quarters-officer", "Quarters (Officer / 1st Class)", 10, 30000, [-1, -1, 1, -1, 0, 0], "b", null, 1950, 236],
+        ["seating-standard", "Seating (Standard)", 0.075, 100, [-1, -1, 0, -1, -1, -1], "a", null, 1950, 236],
+        ["seating-pillion", "Seating (Pillion)", 0.025, 10, [-1, -1, 0, -1, -1, -1], "a", null, 1950, 236],
+        ["escape-pod-aerospace", "Escape Pod (Aerospace)", 7, 5000, [-1, -1, 0, -1, 0, 0], "d", null, 2100, 216],
+        ["escape-pod-maritime", "Escape Pod (Maritime)", 7, 5000, [-1, -1, 0, -1, -1, -1], "c", null, 2100, 216],
+        ["lifeboat-aerospace", "Lifeboat (Aerospace)", 7, 5000, [-1, -1, -1, -1, 0, 0], "c", null, 2100, 227],
+        ["lifeboat-atmospheric", "Lifeboat (Atmospheric)", 1, 6000, [-1, -1, 0, -1, -1, -1], "a", null, 2100, 227],
+        ["lifeboat-maritime", "Lifeboat (Maritime)", 1, 5000, [-1, 0, 0, -1, -1, -1], "a", null, 1950, 227],
+    ];
+
+    it("lists the industrial items with the table values", () => {
+        for (const [tag, name, weight, cbills, [battlemech, combatVehicle, supportVehicle, aerospaceFighter, smallCraft, dropShip], techRating, prototype, introduced, page] of items) {
+            const item = universalEquipment.find(entry => entry.tag === tag);
+            expect(item, tag).toMatchObject({
+                name, weight, cbills, techRating, introduced, extinct: null, reintroduced: null, book: "TM", page, battleValue: 0,
+                space: { battlemech, protomech: -1, combatVehicle, supportVehicle, aerospaceFighter, smallCraft, dropShip },
+            });
+            expect(item?.prototype ?? null, tag).toBe(prototype);
+        }
+        // The Arresting Hoist is its own item now, no longer a second name for the Lift Hoist.
+        expect(universalEquipment.find(entry => entry.tag === "lift-hoist")?.altNames).not.toContain("Arresting Hoist");
+    });
+
+    it("offers a combat vehicle only what has a combat vehicle slot value", () => {
+        const available = offered(build());
+        for (const [tag, , , , [, combatVehicle]] of items) {
+            expect(available.get(tag), tag).toBe(combatVehicle >= 0);
+        }
+        expect(available.get("medium-laser")).toBe(true);
+        expect(available.get("lift-hoist")).toBe(true);
+        // 'Mech-only equipment was being offered to vehicles.
+        for (const tag of ["masc", "collapsible-command-module", "full-head-ejection-system", "risc-heat-sink-override-kit", "coolant-pod", "industrialmech-ejection-seat", "null-signature-system"]) {
+            expect(available.get(tag), tag).toBe(false);
+        }
+        const clan = offered(build("clan"));
+        expect(clan.get("clan-harjel-ii")).toBe(false);
+        expect(clan.get("clan-masc")).toBe(false);
+        expect(clan.get("bulldozer")).toBe(true);
+    });
+});
+
+describe("Combat Vehicle chassis modifications (TO:AUE pp.114-115, 193, 219)", () => {
+    const build = (motive: string, tonnage: number): Vehicle => {
+        const vehicle = new Vehicle();
+        vehicle.setMotiveType(motive);
+        vehicle.setTonnage(tonnage);
+        return vehicle;
+    };
+    const weightOf = (vehicle: Vehicle, name: string) => vehicle.getWeights().find((entry) => entry.name === name)?.weight;
+
+    it("offers each modification only to the motive types the rules name", () => {
+        expect(build("tracked", 50).getAvailableChassisModifications().map((mod) => mod.tag)).toEqual(["limited-amphibious", "fully-amphibious", "environmental-sealing"]);
+        expect(build("wheeled", 50).getAvailableChassisModifications().map((mod) => mod.tag)).toContain("dune-buggy");
+        expect(build("hover", 30).getAvailableChassisModifications().map((mod) => mod.tag)).toEqual(["flotation-hull", "environmental-sealing"]);
+        // Submarines are sealed already.
+        expect(build("naval-sub", 100).getAvailableChassisModifications()).toEqual([]);
+    });
+
+    it("weighs amphibious kits at tonnage / 25 or / 10, rounded up to the half ton, and lets only one be fitted", () => {
+        const tank = build("tracked", 47);
+        tank.setChassisModification("limited-amphibious", true);
+        expect(weightOf(tank, "Limited Amphibious")).toBe(2);
+        tank.setChassisModification("fully-amphibious", true);
+        expect(tank.getChassisModifications().map((mod) => mod.tag)).toEqual(["fully-amphibious"]);
+        expect(weightOf(tank, "Fully Amphibious")).toBe(5);
+        expect(tank.getRequiredRulesLevel()).toBeGreaterThanOrEqual(3);
+    });
+
+    it("adds to the defensive type modifier and scales the cost", () => {
+        const plain = build("hover", 30);
+        const floating = build("hover", 30);
+        floating.setChassisModification("flotation-hull", true);
+        expect(floating.getBattleValueLog()).toContain("x 0.8 (Hover type modifier, chassis modifications +0.1)");
+        expect(floating.getCBillCost()).toBe(Math.round(plain.getCBillCost() * 1.25));
+    });
+
+    it("costs a Dune Buggy 1 Cruising MP and keeps the modifications through a save", () => {
+        const buggy = build("wheeled", 20);
+        buggy.setCruiseMP(6);
+        buggy.setChassisModification("dune-buggy", true);
+        expect(buggy.getCruiseMP()).toBe(5);
+        expect(buggy.getCBillCostLog()).toContain("Dune Buggy: 4,000");
+        const restored = new Vehicle(buggy.exportJSON());
+        expect(restored.hasChassisModification("dune-buggy")).toBe(true);
+        restored.setMotiveType("tracked");
+        expect(restored.getChassisModifications()).toEqual([]);
+    });
 });

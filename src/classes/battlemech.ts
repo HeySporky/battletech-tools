@@ -1,14 +1,23 @@
 import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
-import { getSkillMultiplier } from "../data/skill-multipliers";
+import { IAssignedQuirk, IQuirkTargets, QuirkUnitType } from "../data/quirk-interfaces";
+import { getQuirkIssues, getQuirkTargets } from "../data/quirk-registry";
+import { QuirkList } from "./quirk-list";
+import { getEditionSkillMultipliers, getSkillMultiplier } from "../data/skill-multipliers";
 import { battlemechLocations } from "../data/battlemech-locations";
-import { IArmorType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
-import { btEraOptions } from "../data/era-options";
+import { IArmorType, ICockpitType, ICriticalLocations, IEngineOption, IEngineType, IEquipmentItem, IGyro, IHeatSync, IInternalStructure, IInternalStructurePerTon, IJumpJet, IMyomerType, IResolvedInternalStructure, ISplitLocation, ITechDates } from "../data/data-interfaces";
+import { btEraOptions, findEraByTag, getClosestEraForTech, getEraForYear, getErasForTech } from "../data/era-options";
 import { mechArmorTypes } from "../data/mech-armor-types";
-import { findByTag, matchesTag } from "../data/tag-match";
-import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getEquipmentRulesLevel, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getWeaponShotsPerTon } from "../data/equipment-registry";
-import { isUniversalEquipment } from "../data/mech-universal-equipment";
+import { findAllByName, findByTag, matchesTag } from "../data/tag-match";
+import { ComponentRecord, getComponentRecords, getComponentTiers, isCustomComponent } from "../data/custom-component-registry";
+import type { CustomComponentKind, ISSWUnresolvedItem } from "../data/custom-content-types";
+import { getCockpitType } from "../data/mech-cockpit-types";
+import { btMechTonnages } from "../data/mech-tonnages";
+import { DEFAULT_RULES_EDITION, editionEngineHoldsHeatSinks, getEditionJumpJetWeight, getEditionPlayRules, getEditionStats, getEditionStructure, getEquipmentForEdition, getRulesEdition, isEarlierRulesEdition, isInRulesEdition, isOfferedInEdition, getRecordOfferIssue } from "../data/rules-editions";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, equipmentMatchesIdentifier, getWeaponAmmoFamilies, getEquipmentRulesLevel, ARTEMIS_FIRE_CONTROL, isArtemisCapableLauncher, isEquipmentOffered, isOmniFixedOnly, getAlphaStrikeEquipmentDisplayAbilityCodes, getAmmoBattleValuePerTon, getAmmoFamily, getAmmoRoundsPerTon, getCompatibleAmmo, getEffectiveIntroduction, getEquipmentListByTech, getEquipmentListForChassis, getStarLeagueCarryOverDates, getWeaponShotsPerTon, getBattleArmorScaleListByTech, getEquipmentCatalogDefinitions, getEquipmentOfferIssue } from "../data/equipment-registry";
+import { getFractionalArmorTonsPerPoint, getFractionalEngineWeight, roundUpToKilogram } from "../data/fractional-accounting";
+import { isUniversalEquipment } from "../data/universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
-import { mechEngineTypes } from "../data/mech-engine-types";
+import { describeEngineRequirement, engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
@@ -17,11 +26,13 @@ import { mechMyomerTypes } from "../data/mech-myomer-types";
 import { mechTypeOptions } from "../data/mech-type-options";
 import { IVariableEquipmentContext, isTargetingComputerWeapon, sizeVariableEquipment } from "../data/variable-equipment";
 import { btTechOptions } from "../data/tech-options";
-import { getHexDistanceFromModifier, getMovementModifier } from "../utils";
+import { getHexDistanceFromModifier, getLocationName, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
-import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport } from "../utils/calculateAlphaStrikeValue";
+import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
+import { isAlphaStrikeAbilityCode } from "../data/alpha-strike-special-abilities";
 import { generateUUID } from "../utils/generateUUID";
 import { ISSWBasicInfo } from "../utils/getSSWXMLBasicInfo";
+import { findImportedEquipment, ImportFaction } from "../utils/importedEquipment";
 import {
     ICanonicalBattleMechRecord,
     ICanonicalSourceMetadata,
@@ -37,6 +48,25 @@ interface IWeights {
     weight: number;
 }
 
+/** Shield sizes' Damage Absorption and Damage Capacity, from the Shield Table (TO:AUE p.103). */
+const shieldTable: Record<"small" | "medium" | "large", [number, number]> = { small: [3, 11], medium: [5, 18], large: [7, 25] };
+
+/** A shield as the record sheet shows it. */
+export interface IMechShield {
+    item: IEquipmentItem;
+    location: string;
+    size: string;
+    damageAbsorption: number;
+    damageCapacity: number;
+    damageTaken: number;
+}
+
+export interface IRulesEditionReturn {
+    edition: string;
+    design: string;
+    left: string;
+}
+
 export interface ICriticalSlot {
     uuid: string;
     name: string;
@@ -47,6 +77,8 @@ export interface ICriticalSlot {
     obj: any;
     movable?: boolean;
     placeholder?: boolean;
+    /** A second ton of ammunition sharing this slot on a superheavy 'Mech (IO:AE p.157). */
+    shared?: ICriticalSlot;
 
     size?: number;
 
@@ -109,6 +141,7 @@ interface IBMEquipmentExport {
     selectedAmmoBinUUID?: string | undefined;
     feedsWeaponTag?: string | undefined;
     currentAdditionalArmor?: number | undefined;
+    shieldDamage?: number | undefined;
     size?: number | undefined;
     omniFixed?: boolean | undefined;
 }
@@ -119,6 +152,26 @@ export interface IOmniConfiguration {
     equipment: IBMEquipmentExport[];
     allocation: ICriticalSlot[];
     bombLoadout?: Record<string, number>;
+}
+
+/** The 'Mech one FrankenMech location came from (CO p.213): its tonnage, its internal structure and, optionally, its name. */
+export interface IFrankenMechDonor {
+    tonnage: number;
+    structure: string;
+    /** Which 'Mech it was; legs from different 'Mechs make Piloting Skill Rolls harder. Blank: the center torso's 'Mech. */
+    name?: string;
+    /** Whose structure it is: a Mixed Tech FrankenMech may carry Inner Sphere and Clan endo steel side by side. */
+    structureTechBase?: "is" | "clan";
+    /** Slots the structure took in this location on the donor's own design; left out, the distribution table's. */
+    structureSlots?: number;
+}
+
+/** Jump jets a FrankenMech kept from a lighter 'Mech, named by the weight class they were built for (TM p.51). */
+export type FrankenMechJumpJetClass = "light" | "medium" | "heavy";
+
+export interface IFrankenMechExport {
+    donors: Record<string, IFrankenMechDonor>;
+    jumpJetClass?: FrankenMechJumpJetClass;
 }
 
 export interface IBattleMechExport {
@@ -149,7 +202,13 @@ export interface IBattleMechExport {
     allocation: ICriticalSlot[],
     armor_allocation: IArmorAllocation,
     armor_type: string;
+    /** Patchwork Armor: armor type tag by location key; present only when armor_type is "patchwork". */
+    patchworkArmor?: Record<string, string>;
+    /** FrankenMech (CO pp.213-214): each location's donor, by long location key; present only on a FrankenMech. */
+    frankenMech?: IFrankenMechExport;
     armor_weight: number;
+    weight_accounting?: "fractional";   // Fractional Accounting (TO:AUE p.188); absent = standard rounding
+    fractional_armor_points?: number;
     as_role: string;
     as_value: number;   // for easy listing
     battle_value: number;     // for easy listing
@@ -163,6 +222,12 @@ export interface IBattleMechExport {
     jump_jet_type?: string;
     myomer_type?: string;
     hideNonAvailableEquipment: boolean;
+    /** Rules edition the design is built under; absent for the default edition (Total Warfare). */
+    rulesEdition?: string;
+    /** The printed droid the design was loaded from (an id from battledroids-mechs.ts); absent for a built design. */
+    printedDroid?: string;
+    /** The edition the design last left, its design then, and its design just after the switch (see setRulesEdition). */
+    rulesEditionReturn?: IRulesEditionReturn;
     introductoryRules?: boolean;
     is_type: string;
     jumpSpeed: number;
@@ -186,6 +251,7 @@ export interface IBattleMechExport {
     tech_label: string;  // for easy listing
     tonnage: number;
     uuid: string;
+    quirks?: IAssignedQuirk[];
     walkSpeed: number;
 }
 
@@ -269,6 +335,8 @@ export class BattleMech {
     };
 
     private _sswImportErrors: string[] = [];
+    // Items and components an SSW import could not resolve, for the import review screen and custom drafts.
+    private _sswUnresolved: ISSWUnresolvedItem[] = [];
 
     private _introductoryRules: boolean = false;
 
@@ -291,6 +359,9 @@ export class BattleMech {
     private _lastUpdated: Date = new Date();
     private _uuid: string = generateUUID();
 
+    /** The design quirks assigned to this unit (quirk tables, Campaign Operations pp.228 and 232). */
+    public quirks: QuirkList = new QuirkList();
+
     private _mechType = mechTypeOptions[0];
     private _quadVeeMotive: "tracked" | "wheeled" = "tracked";
     // Standard LAMs have Mech/AirMech/Fighter modes; Bimodal LAMs have no AirMech mode (IO).
@@ -302,7 +373,12 @@ export class BattleMech {
     private _activeOmniConfiguration = BattleMech.DEFAULT_OMNI_CONFIGURATION;
     private _transformationMode: "mech" | "airmech" | "aerospace" | "vehicle" = "mech";
     private _tech = btTechOptions[0];
-    private _era = btEraOptions[1]; // Default to Succession Wars
+    private _era = btEraOptions[1]; // Default to the Star League
+    /** The rules edition the design is built under (a tag from rules-editions.ts). */
+    private _rulesEdition: string = DEFAULT_RULES_EDITION;
+    /** The printed droid the design was loaded from (an id from battledroids-mechs.ts), if any. */
+    private _printedDroid: string | undefined = undefined;
+    private _rulesEditionReturn: IRulesEditionReturn | undefined = undefined;
     private _model: string = "";
     private _name: string = "";
     private _tonnage = 20;
@@ -312,6 +388,18 @@ export class BattleMech {
     private _mirrorArmorAllocations: boolean = true;
 
     private _armorType = mechArmorTypes[0];
+    /** Patchwork Armor: the armor type tag of each hit location, by long location key (TO:AUE p.189). */
+    private _patchworkArmor: Record<string, string> = {};
+    /** Patchwork locations whose armor found no free critical slots; rebuilt with the critical table. */
+    private _patchworkSlotShortfalls: string[] = [];
+    /** FrankenMech (CO pp.213-214): a 'Mech built from the body locations of others. */
+    private _frankenMech: boolean = false;
+    /** FrankenMech donors by long location key; a location left out comes from the center torso's 'Mech. */
+    private _frankenMechDonors: Record<string, Partial<IFrankenMechDonor>> = {};
+    /** FrankenMech jump jets of a lighter weight class than the 'Mech's own; null for its own. */
+    private _frankenMechJumpJetClass: FrankenMechJumpJetClass | null = null;
+    /** FrankenMech locations whose structure found no free critical slots; rebuilt with the critical table. */
+    private _frankenMechSlotShortfalls: string[] = [];
 
     private _maxArmor: number = 0;
 
@@ -377,6 +465,10 @@ export class BattleMech {
     private _no_left_arm_lower_actuator: boolean = false;
 
     private _smallCockpit: boolean = false;
+    // IndustrialMechs: the Advanced Fire Control cockpit enhancement (TM p.69). An option, off by default.
+    private _advancedFireControl: boolean = false;
+    // Built under the Primitive 'Mech rules (IO:AE pp.116-118). With later equipment it is a RetroTech unit.
+    private _primitive: boolean = false;
     private _cockpitWeight: number = 3;
     private _totalInternalStructurePoints = 0;
     private _maxMoveHeat: number = 2;
@@ -384,6 +476,14 @@ export class BattleMech {
     private _heatDissipation: number = 0;
     private _additionalHeatSinks: number = 0;
     private _armorWeight: number = 0;
+    /** Weight rounding: "fractional" is the Fractional Accounting construction option (TO:AUE p.188). */
+    private _weightAccounting: "standard" | "fractional" = "standard";
+    // Whether battle armor items were mounted at the last recalculation, so only the first one turns
+    // Fractional Accounting on; and whether a saved design is loading, which keeps its own accounting.
+    private _hadBattleArmorEquipment = false;
+    private _importing = false;
+    /** Armor points bought under Fractional Accounting, where armor is installed by the point. */
+    private _fractionalArmorPoints: number = 0;
     private _totalArmor: number = 0;
     private _unallocatedArmor: number = 0;
     private _equipmentList: IEquipmentItem[] = [];
@@ -418,6 +518,8 @@ export class BattleMech {
     private _alphaStrikeSpecialAmmoTag = "";
 
     private _calcLogBV = "";
+    /** Set when a critical slot move changes what the Battle Value depends on; cleared by the next calculation. */
+    private _battleValueStale = false;
     private _calcLogAS = "";
     private _calcLogCBill = "";
 
@@ -475,6 +577,15 @@ export class BattleMech {
 
     public reset() {
         this.lastUpdated = new Date();
+        this._primitive = false;
+        this._rulesEdition = DEFAULT_RULES_EDITION;
+        this._printedDroid = undefined;
+        this._rulesEditionReturn = undefined;
+        this._advancedFireControl = false;
+        this._patchworkArmor = {};
+        this._frankenMech = false;
+        this._frankenMechDonors = {};
+        this._frankenMechJumpJetClass = null;
         this.setTonnage(20);
         this.setWalkSpeed(0);
         this.setWalkSpeed(0);
@@ -493,12 +604,38 @@ export class BattleMech {
             this.setHeatSinksType( "double" )
         }
         this.setInternalStructureType( "standard" );
+        this.setEngineType( "standard" );
+        this.setJumpJetType( "standard" );
+        this._smallCockpit = false;
         this._criticalAllocationTable = [];
         this._calc();
     }
 
     public newUUID() {
         this._uuid = generateUUID();
+    }
+
+    /** Which column of the quirk tables this unit is graded by. */
+    public getQuirkUnitType(): QuirkUnitType { return "mech"; }
+
+    /** What the quirk picker can attach quirks to on this unit. */
+    public getQuirkTargets(): IQuirkTargets {
+        const hasArms = !this.isQuad() && !this.isQuadVee();
+        const locations = battlemechLocations.filter((location) => !location.rear).map((location) => {
+            const isArm = hasArms && (location.tag === "ra" || location.tag === "la");
+            return {
+                tag: location.tag, label: location.name,
+                ...(isArm ? { arm: true, lowerArm: this.hasLowerArmActuator(location.tag), hand: this.hasHandActuator(location.tag) } : {}),
+                ...(["ct", "lt", "rt"].includes(location.tag) ? { torso: true } : {}),
+            };
+        });
+        const targets = getQuirkTargets(locations, this._equipmentList.filter((item) => item && !item.isAmmo).map((item) => ({ ...item, label: (item.location ? `${item.name} (${item.location!.toUpperCase()})` : item.name) })));
+        return hasArms ? targets : { ...targets, quad: true };
+    }
+
+    /** One line for each quirk this unit could not be given now: rules edition, rules level or unit type. */
+    public getQuirkIssues(rulesLevel: number): string[] {
+        return getQuirkIssues(this.quirks.getAll(), this.getQuirkUnitType(), this._rulesEdition, rulesLevel);
     }
 
     public setTargets(
@@ -562,6 +699,7 @@ export class BattleMech {
     }
 
     private _calcBattleValue(): void {
+        this._battleValueStale = false;
         let hasCamo = false;
         let hasBasicStealth = this._armorType.tag === "stealth-basic" && !this.hasActiveModularArmor();
         let hasPrototypeStealth = false;
@@ -576,18 +714,64 @@ export class BattleMech {
         this._calcLogBV += "<strong>STEP 1: CALCULATE DEFENSIVE BATTLE RATING - TM p302</strong><br />";
         // 1A. Total Armor Factor Valuation (TM p. 302)
         let totalArmorFactor = 2.5 * this.getTotalArmor();
-        this._calcLogBV += `Total Armor Factor = Armor Factor x 2.5: ${totalArmorFactor} = 2.5 x ${this.getTotalArmor()}<br />`;
         // Armor type BV modifier (Commercial 0.5, Hardened 2, Reactive/Reflective/Ballistic-Reinforced 1.5, ...).
-        const armorBVMultiplier = this._armorType.bvMultiplier ?? (this._armorType.tag === "commercial" ? 0.5 : 1);
-        totalArmorFactor *= armorBVMultiplier;
-        this._calcLogBV += `Total Armor Factor = ${armorBVMultiplier} x Modifier for ${this._armorType.name}: ${totalArmorFactor}<br />`;
+        const armorBVMultiplier = BattleMech._armorBVMultiplier(this._armorType);
+        const isPatchwork = this.isPatchworkArmor();
+        if (isPatchwork) {
+            // Patchwork: "Calculate the modified Defensive Battle Rating on a location-by-location basis, and
+            // then sum the total before multiplying by 2.5" (TO:AUE p.194).
+            let modifiedArmorPoints = 0;
+            for (const location of this.getPatchworkLocations()) {
+                const locationArmor = this.getPatchworkArmorType(location.key);
+                const points = this._getPatchworkLocationPoints(location.key);
+                const multiplier = BattleMech._armorBVMultiplier(locationArmor);
+                modifiedArmorPoints += points * multiplier;
+                this._calcLogBV += `${location.label}: ${points} x ${multiplier} (${this._escapeLogText(locationArmor.name)}) = ${points * multiplier}<br />`;
+            }
+            totalArmorFactor = 2.5 * modifiedArmorPoints;
+            this._calcLogBV += `Total Armor Factor = Armor Factor x 2.5: ${totalArmorFactor} = 2.5 x ${modifiedArmorPoints}<br />`;
+        } else {
+            this._calcLogBV += `Total Armor Factor = Armor Factor x 2.5: ${totalArmorFactor} = 2.5 x ${this.getTotalArmor()}<br />`;
+            totalArmorFactor *= armorBVMultiplier;
+            this._calcLogBV += `Total Armor Factor = ${armorBVMultiplier} x Modifier for ${this._armorType.name}: ${totalArmorFactor}<br />`;
+        }
+        // HarJel repair systems: an armor multiplier "only for body sections where a HarJel system is located",
+        // stacking with the armor type's own; "every critical slot ... will add -1 to the unit's Defensive BV" (IO:AE p.185).
+        let repairSystemSlots = 0;
+        const repairedLocations = new Set<string>();
+        for (const item of this._equipmentList) {
+            if (!item?.armorRepairBVMultiplier) continue;
+            repairSystemSlots += this.getCriticalSlots(item.space.battlemech);
+            const longKey = item.location ? BattleMech.MECH_LOCATION_MAP[item.location] : undefined;
+            if (!longKey || repairedLocations.has(longKey)) continue;
+            repairedLocations.add(longKey);
+            const allocation = this._armorAllocation as unknown as Record<string, number>;
+            const locationArmor = (allocation[longKey] ?? 0) + (allocation[`${longKey}Rear`] ?? 0);
+            const locationBVMultiplier = isPatchwork ? BattleMech._armorBVMultiplier(this.getPatchworkArmorType(longKey)) : armorBVMultiplier;
+            const bonus = 2.5 * locationArmor * locationBVMultiplier * (item.armorRepairBVMultiplier - 1);
+            totalArmorFactor += bonus;
+            this._calcLogBV += `${this._escapeLogText(item.name)} in ${longKey}: armor x ${item.armorRepairBVMultiplier} on ${locationArmor} points = +${bonus.toFixed(2)} -> Total Armor Factor: ${totalArmorFactor.toFixed(2)}<br />`;
+        }
         // 1B. Internal Structure Points Valuation (TM p. 302)
         let totalInternalStructurePoints = 1.5 * this._totalInternalStructurePoints;
         this._calcLogBV += `Total Internal Structure Points = IS Points x 1.5: ${totalInternalStructurePoints} = 1.5 x ${this._totalInternalStructurePoints}<br />`;
         // Structure type modifier: Industrial and Composite 0.5, Reinforced 2.
-        const structureBVMultiplier = this._selectedInternalStructure?.bvMultiplier ?? 1;
-        totalInternalStructurePoints *= structureBVMultiplier;
-        this._calcLogBV += `Total Internal Structure BV = ${structureBVMultiplier} x ${this._selectedInternalStructure?.name ?? "Standard"} Modifier: ${totalInternalStructurePoints}<br />`;
+        if (this.hasFrankenMechHybridStructure()) {
+            // A FrankenMech of mixed structure: each location's points take their own type's modifier.
+            const points = this._internalStructure as unknown as Record<string, number>;
+            totalInternalStructurePoints = 0;
+            for (const location of this.getFrankenMechLocations()) {
+                const structure = this.getFrankenMechLocationStructure(location.key);
+                const locationPoints = 1.5 * (points[location.key] ?? 0) * (structure.bvMultiplier ?? 1);
+                totalInternalStructurePoints += locationPoints;
+                this._calcLogBV += `Internal Structure (${location.label}): ${points[location.key] ?? 0} points x 1.5 x ${structure.bvMultiplier ?? 1} (${this._escapeLogText(structure.name)}) = ${locationPoints.toFixed(2)}<br />`;
+            }
+            this._calcLogBV += `Total Internal Structure BV: ${totalInternalStructurePoints}<br />`;
+        } else {
+            const structureBVMultiplier = this._selectedInternalStructure?.bvMultiplier ?? 1;
+            totalInternalStructurePoints *= structureBVMultiplier;
+            this._calcLogBV += `Total Internal Structure BV = ${structureBVMultiplier} x ${this._selectedInternalStructure?.name ?? "Standard"} Modifier: ${totalInternalStructurePoints}<br />`;
+        }
         // 1C. Adjust Internal Structure for Engine Type Safety Factor (TM p. 302 / Errata)
         const engineTag = this._engineType.tag;
         let engineModifier = 1.0;
@@ -614,7 +798,8 @@ export class BattleMech {
         // 1D. Gyro Points Modifier (TM p. 302)
         const gyroType = this.getGyro().tag;
         let gyroModifier = 0.5;
-        if (gyroType === "heavy-duty") {
+        // A Superheavy 'Mech's gyro counts as a standard gyro for BV (IO:AE p.187).
+        if (gyroType === "heavy-duty" && this.getTonnage() <= 100) {
             gyroModifier = 1.0;
         }
         let totalGyroPoints = this.getTonnage() * gyroModifier;
@@ -649,85 +834,102 @@ export class BattleMech {
         // 1E. Get Explosive Ammo Modifiers (TM pp. 302-303)
         let explosiveAmmoModifiers = 0;
         this._calcLogBV += "<strong>Get Explosive Ammo Modifiers (TM p302-303)</strong><br />";
-        // Build automated CASE enablement profile array cleanly using static map
+        // CASE and CASE II by location.
         const caseMap: Record<string, boolean> = {};
+        const caseIIMap: Record<string, boolean> = {};
         const validLocations = Object.keys(BattleMech.MECH_LOCATION_MAP);
         validLocations.forEach(locShorthand => {
-            caseMap[locShorthand] = false; 
             const longKey = BattleMech.MECH_LOCATION_MAP[locShorthand];
             const critArray: any[] = (this._criticals as any)[longKey] || [];
-            for (let lCrit = 0; lCrit < critArray.length; lCrit++) {
-                if (matchesTag(critArray[lCrit], "case")) {
-                    caseMap[locShorthand] = true;
-                    break;
-                }
-            }
+            caseMap[locShorthand] = critArray.some(critical => matchesTag(critical, "case"));
+            caseIIMap[locShorthand] = critArray.some(critical => matchesTag(critical, "case-ii") || matchesTag(critical, "clan-case-ii"));
         });
-        // 1F. Technology-Based Critical Evaluation (Clan vs Inner Sphere Rulesets)
-        if (this._tech.tag === "clan" || this._tech.tag === "mclan") {
-            const clanVulnerableShorthands = ["hd", "ct", "ll", "rl", "cl", "fll", "frl"];
-            clanVulnerableShorthands.forEach(loc => {
-                const longKey = BattleMech.MECH_LOCATION_MAP[loc];
-                const critArray: any[] = (this._criticals as any)[longKey] || [];
-                critArray.forEach((item) => {
-                    if (item && item.obj) {
-                        if (BattleMech._isExplosiveAmmoSlot(item.obj)) {
-                            this._calcLogBV += `Explosive Ammo Crit in ${longKey} (Clan, -15)<br />`;
+        // The next location inward on the Damage Transfer Diagram (TW p.123), legs left out: CASE II
+        // covers its own location and the one that transfers into it, "excepting the legs" (TO:AUE p.193).
+        const inward: Record<string, string> = { la: "lt", ra: "rt", lt: "ct", rt: "ct" };
+        const hasCaseII = (loc: string): boolean => caseIIMap[loc] || (inward[loc] !== undefined && caseIIMap[inward[loc]]);
+        // "Inner Sphere XL engine": three or more engine slots in each side torso, so CASE there cannot
+        // save the 'Mech (TM p.302). Light and Clan XL engines take two and count as standard.
+        const engineSideSlots = (this.getLargeEngineType() ?? this._engineType).criticals?.[this.getEngineTechBase()]?.lt ?? 0;
+        const isClanBase = this._tech.tag === "clan" || this._tech.tag === "mclan";
+        // Does an explosive slot in this location cost Battle Value (TM p.302)?
+        //  Clan: center torso, legs and head.
+        //  Inner Sphere XL engine: every location.
+        //  Inner Sphere standard or light engine: center torso, legs and head; a side torso without CASE;
+        //  an arm with CASE neither in it nor in the torso inward.
+        const isPenalisedLocation = (loc: string): boolean => {
+            if (hasCaseII(loc)) return false;
+            const isSideTorso = loc === "lt" || loc === "rt";
+            const isArm = loc === "la" || loc === "ra";
+            if (isClanBase) return !isSideTorso && !isArm;
+            if (engineSideSlots >= 3) return true;
+            if (isSideTorso) return !caseMap[loc];
+            if (isArm) return !caseMap[loc] && !caseMap[inward[loc]];
+            return true;
+        };
+        // An explosive component loses 1 BV for each critical slot it fills (TM p.302). Only the first
+        // slot of an item carries the item itself; its `crits` is the number of slots in this location.
+        // A record can cap the slots counted: an HVAC counts as one slot (TO:AUE p.195).
+        const explosiveSlotsCounted = new Map<string, number>();
+        const explosiveComponentSlots = (critical: { obj: IEquipmentItem, crits?: number }): number => {
+            const item = critical.obj;
+            if (!BattleMech._isExplosiveComponent(item)) return 0;
+            const slots = Math.max(1, critical.crits ?? 1);
+            if (item.explosiveBattleValueSlots === undefined) return slots;
+            const key = item.uuid ?? item.tag;
+            const counted = explosiveSlotsCounted.get(key) ?? 0;
+            const allowed = Math.max(0, Math.min(slots, item.explosiveBattleValueSlots - counted));
+            explosiveSlotsCounted.set(key, counted + allowed);
+            return allowed;
+        };
+        // 1F. Explosive ammunition and components, location by location
+        const techLabel = isClanBase ? "Clan" : "Inner Sphere";
+        ["hd", "ct", "lt", "rt", "la", "ra", "ll", "rl", "cl", "fll", "frl"].forEach(loc => {
+            const longKey = BattleMech.MECH_LOCATION_MAP[loc];
+            const critArray: any[] = (this._criticals as any)[longKey] || [];
+            if (critArray.length === 0) return;
+            const penalised = isPenalisedLocation(loc);
+            // A Clan 'Mech's side torsos and arms were never listed; an Inner Sphere 'Mech's protected locations are.
+            const logProtected = !penalised && (!isClanBase || hasCaseII(loc));
+            const protection = hasCaseII(loc) ? "CASE II" : "CASE";
+            critArray.forEach((item) => {
+                if (!item || !item.obj) return;
+                if (BattleMech._isExplosiveAmmoSlot(item.obj)) {
+                    // An Extended Fuel Tank fills several slots, each an ammunition bin (TM p.244).
+                    const ammoSlots = item.obj.explosiveAsAmmo ? Math.max(1, item.crits ?? 1) : 1;
+                    if (penalised) {
+                        for (let slot = 0; slot < ammoSlots; slot++) {
+                            this._calcLogBV += `Explosive Ammo Crit in ${longKey} (${techLabel}, -15)<br />`;
                             explosiveAmmoModifiers += 15;
                         }
-                        if (BattleMech._isExplosiveComponent(item.obj)) {
-                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Clan, -1)<br />`;
-                            explosiveAmmoModifiers += 1;
-                        }
+                    } else if (logProtected) {
+                        this._calcLogBV += `Explosive Ammo in ${longKey} protected by ${protection}. Penalty negated (0).<br />`;
                     }
-                });
-            });
-        } else {
-            // Inner Sphere / Mixed IS Base processing loop parameters
-            const isXLEngineActive = this.hasXLEngine();
-            const isShorthands = ["hd", "ct", "lt", "rt", "la", "ra", "ll", "rl", "cl", "fll", "frl"];
-            isShorthands.forEach(loc => {
-                const longKey = BattleMech.MECH_LOCATION_MAP[loc];
-                const critArray: any[] = (this._criticals as any)[longKey] || [];
-                if (critArray.length === 0) return; 
-                let isLocationProtected = false;
-                if (loc === "lt" || loc === "rt") {
-                    isLocationProtected = caseMap[loc] && !isXLEngineActive;
-                } else if (loc === "la" || loc === "fll" || loc === "ll") {
-                    isLocationProtected = caseMap["lt"];
-                } else if (loc === "ra" || loc === "frl" || loc === "rl") {
-                    isLocationProtected = caseMap["rt"];
-                } else if (loc === "cl") {
-                    isLocationProtected = caseMap["ct"];
-                } else {
-                    isLocationProtected = false; 
                 }
-                critArray.forEach((item) => {
-                    if (!item || !item.obj) return;
-                    if (BattleMech._isExplosiveAmmoSlot(item.obj)) {
-                        if (isLocationProtected) {
-                            this._calcLogBV += `Explosive Ammo in ${longKey} protected by CASE. Penalty negated (0).<br />`;
-                        } else {
-                            this._calcLogBV += `Explosive Ammo Crit in ${longKey} (Inner Sphere, -15)<br />`;
-                            explosiveAmmoModifiers += 15;
-                        }
+                const componentSlots = explosiveComponentSlots(item);
+                if (componentSlots > 0) {
+                    if (penalised) {
+                        this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (${techLabel}, -${componentSlots})<br />`;
+                        explosiveAmmoModifiers += componentSlots;
+                    } else if (logProtected) {
+                        this._calcLogBV += `Explosive Component (${item.obj.name}) in ${longKey} protected by ${protection}. Penalty negated (0).<br />`;
                     }
-                    if (BattleMech._isExplosiveComponent(item.obj)) {
-                        if (isLocationProtected) {
-                            this._calcLogBV += `Explosive Component (${item.obj.name}) in ${longKey} protected by CASE. Penalty negated (0).<br />`;
-                        } else {
-                            this._calcLogBV += `Explosive Component Crit (${item.obj.name}) in ${longKey} (Inner Sphere, -1)<br />`;
-                            explosiveAmmoModifiers += 1;
-                        }
-                    }
-                });
+                }
             });
-        }
+        });
         // =====================================================================
         // 1G. COMPILE DEFENSIVE SUBTOTAL (TM p. 303)
         // =====================================================================
-        let defensiveSubtotal = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints + defensiveEquipmentBV - explosiveAmmoModifiers;
+        let defensiveSubtotal = totalArmorFactor + totalInternalStructurePoints + totalGyroPoints + defensiveEquipmentBV - explosiveAmmoModifiers - repairSystemSlots;
+        if (repairSystemSlots > 0) {
+            this._calcLogBV += `HarJel repair system slots: -${repairSystemSlots} (included in the Defensive Subtotal below)<br />`;
+        }
         this._calcLogBV += `Defensive Subtotal (Armor + IS + Gyro + Defensive Equipment - Ammo Penalties): ${defensiveSubtotal} = ${totalArmorFactor} + ${totalInternalStructurePoints} + ${totalGyroPoints} + ${defensiveEquipmentBV} - ${explosiveAmmoModifiers}<br />`;
+        // "These subtractions cannot drop the running total below 1" (TM p.302).
+        if (explosiveAmmoModifiers > 0 && defensiveSubtotal < 1) {
+            defensiveSubtotal = 1;
+            this._calcLogBV += "Penalties cannot take the total below 1: Defensive Subtotal set to 1<br />";
+        }
         /* *************************************************************************
          * STEP 2: CALCULATE DEFENSIVE FACTOR MODIFIER & STEALTH GEAR - TM p. 304
          * *********************************************************************** */
@@ -736,12 +938,12 @@ export class BattleMech {
         const runSpeed = this.getBVRunSpeed();
         const jumpSpeed = this.getBVJumpSpeed();
         // Standard LAMs rate their running TMM on AirMech Flank MP plus the +1 airborne
-        // modifier; bimodal LAMs use the normal 'Mech TMM (IO p.192).
+        // modifier; bimodal LAMs use the normal 'Mech TMM (IO:AE p.186).
         const runModifier = this.hasAirMechMode()
             ? getMovementModifier(this.getAirMechFlankMP()) + 1
             : getMovementModifier(runSpeed);
         if (this.hasAirMechMode()) {
-            this._calcLogBV += `LAM: running TMM uses AirMech Flank MP ${this.getAirMechFlankMP()} +1 airborne (IO p.192)<br />`;
+            this._calcLogBV += `LAM: running TMM uses AirMech Flank MP ${this.getAirMechFlankMP()} +1 airborne (IO:AE p.186)<br />`;
         }
         // Jumping modifier bonus (TM p. 304); UMU movement earns no jump bonus.
         const jumpModifier = Math.max(jumpSpeed > 0 ? getMovementModifier(jumpSpeed) + 1 : 0, getMovementModifier(this.getUMUSpeed()));
@@ -870,16 +1072,23 @@ export class BattleMech {
         mechHeatEfficiency += (this.getHeatSinks() * sinkEfficiencyMultiplier) - this.getMaxMovementHeat();
         // Partial wing: +3 heat capacity in a standard atmosphere (TO:AUE p.105).
         mechHeatEfficiency += this.getPartialWingHeatBonus();
-        // LAMs add 9 instead of 6 to heat capacity (IO p.192). The +3 matches AirMech mode's
-        // partial-wing heat bonus (IO p.113), so bimodal LAMs, which have no AirMech mode,
+        // LAMs add 9 instead of 6 to heat capacity (IO:AE p.186). The +3 matches AirMech mode's
+        // partial-wing heat bonus (IO:AE p.107), so bimodal LAMs, which have no AirMech mode,
         // keep the 'Mech value (as MegaMek also reads it; IO does not say).
         if (this.hasAirMechMode()) {
             mechHeatEfficiency += 3;
             this._calcLogBV += `LAM: heat capacity +9 instead of +6; movement heat ${this.getMaxMovementHeat()} from AirMech Flank MP / 3 (IO pp.113, 192)<br />`;
         }
-        // RISC Emergency Coolant System: +4 (IO p.91).
+        // RISC Emergency Coolant System: +4 to Heat Efficiency (IO:AE p.190).
         if (this._equipmentList.some(item => matchesTag(item, "risc-emergency-coolant-system"))) {
             mechHeatEfficiency += 4;
+        }
+        // Coolant Pods: heat sinks x pods / 5, rounded up, at most twice the number of heat sinks (TO:AUE p.193).
+        const coolantPods = this._equipmentList.filter(item => item?.coolantPod).length;
+        if (coolantPods > 0) {
+            const coolantPodCapacity = Math.min(Math.ceil(this.getHeatSinks() * coolantPods / 5), this.getHeatSinks() * 2);
+            mechHeatEfficiency += coolantPodCapacity;
+            this._calcLogBV += `Coolant Pods: ${coolantPods} x ${this.getHeatSinks()} heat sinks / 5 = +${coolantPodCapacity} heat sink capacity (TO:AUE p.193)<br />`;
         }
         
         this._calcLogBV += `<strong>Heat Efficiency Capacity Pool:</strong> ${mechHeatEfficiency} (6 + Engine Sinks: ${this.getHeatSinks() * sinkEfficiencyMultiplier} - Movement Heat: ${this.getMaxMovementHeat()})<br />`;
@@ -888,9 +1097,6 @@ export class BattleMech {
         // 3E. Weapon Heat Multiplier Mapping (TM p. 303 / Errata updates)
         let totalWeaponHeat = 0;
         const heatLogFragments: string[] = [];
-
-        // Sort weapon assets using prioritized combat sorting logic
-        this._equipmentList.sort((a, b) => sortByAdjustedBVThenHeat(a, b, this));
 
         for (let eqC = 0; eqC < this._equipmentList.length; eqC++) {
             const currentItem = this._equipmentList[eqC];
@@ -922,16 +1128,27 @@ export class BattleMech {
         let runningHeat = 0;
         let inHalfCost = false;
 
-        for (let weaponC = 0; weaponC < this._equipmentList.length; weaponC++) {
-            const currentItem = this._equipmentList[weaponC];
-            if (currentItem.isAmmo || currentItem.tag.startsWith("ammo-") || this._isDefensiveBVEquipment(currentItem)) continue;
+        // Rear-firing torso, leg and head weapons count half; when they are worth more than the
+        // forward-firing weapons in those locations, the forward-firing ones are halved instead (TM p.303).
+        const isRearDominant = this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons();
+        const arcMultiplier = (item: IEquipmentItem): number => {
+            if (this.isNotOnTorsoHeadOrLegs(item.location)) return 1;
+            return !!item.rear === isRearDominant ? 1 : 0.5;
+        };
+        // The heat steps take the weapon with the highest Modified BV first and, between equals, the one
+        // that generates the least heat (TM p.303). A copy is sorted: the installed list keeps its order.
+        const weaponsByModifiedBV = this._equipmentList
+            .filter(item => !(item.isAmmo || item.tag.startsWith("ammo-") || this._isDefensiveBVEquipment(item)))
+            .map(item => ({ item, modifiedBV: this._getWeaponBattleValue(item) * arcMultiplier(item) }))
+            .sort((a, b) => b.modifiedBV - a.modifiedBV || (a.item.bvHeat || 0) - (b.item.bvHeat || 0))
+            .map(entry => entry.item);
 
+        for (const currentItem of weaponsByModifiedBV) {
             const baseBV = this._getWeaponBattleValue(currentItem);
             const weaponHeat = currentItem.bvHeat || 0;
             let finalWeaponMultiplier = 1.0;
 
             // Resolve explicit firing arc boundaries
-            const isRearDominant = this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons();
             const isFlexibleLimb = this.isNotOnTorsoHeadOrLegs(currentItem.location);
             const waiveRearPenalty = isRearDominant || isFlexibleLimb;
 
@@ -945,7 +1162,7 @@ export class BattleMech {
                     finalWeaponMultiplier *= 0.5;
                 }
             } else {
-                if (!waiveRearPenalty && this.getTotalBVFrontWeapons() < this.getTotalBVRearWeapons()) {
+                if (isRearDominant && !isFlexibleLimb) {
                     this._calcLogBV += `+ Adding Front Weapon ${logName} (${logLoc}) - Base BV: ${baseBV} halved due to Rear Dominance: ${baseBV / 2}, Heat: ${weaponHeat}<br />`;
                     finalWeaponMultiplier *= 0.5;
                 } else {
@@ -995,12 +1212,20 @@ export class BattleMech {
 
         // 3H. Apply Speed Factor Scaling Multiplier (TM p. 304)
         const speedFactorModifier = this._getSpeedFactorModifier();
-        const finalOffensiveBattleRating = baseOffensiveRating * speedFactorModifier;
+        let finalOffensiveBattleRating = baseOffensiveRating * speedFactorModifier;
+        // "IndustrialMechs, unless equipped with Advanced Fire Control (see p. 69), multiply their
+        // Offensive Battle Rating by 0.9" (TM p.304).
+        if (!this.hasAdvancedFireControl()) {
+            finalOffensiveBattleRating *= 0.9;
+        }
 
         this._calcLogBV += `<strong>Final Offensive Battle Rating:</strong> ${finalOffensiveBattleRating.toFixed(2)} ` +
             `(${totalWeaponBV.toFixed(2)} [Weapon BV] + ${totalAmmoBV.toFixed(2)} [Ammo BV] + ${modifiedMechTonnage} [Mech Tonnage]) ` +
             `x ${speedFactorModifier.toFixed(4)} [Speed Factor Rating]<br />`;
 
+        if (!this.hasAdvancedFireControl()) {
+            this._calcLogBV += `IndustrialMech without Advanced Fire Control: Offensive Battle Rating x 0.9 -> ${finalOffensiveBattleRating.toFixed(2)}<br />`;
+        }
         this._offensiveBattleRating = finalOffensiveBattleRating;
 
         /* *************************************************************************
@@ -1016,17 +1241,27 @@ export class BattleMech {
         this._calcLogBV += `Unmodified Combined BV = Defensive Rating + Offensive Rating: ${finalBattleValue.toFixed(2)} = ${currentDBR.toFixed(2)} + ${currentOBR.toFixed(2)}<br />`;
 
         // Apply cockpit sizing penalty rules (TM p. 304)
-        if (this._smallCockpit) {
+        if (this.getCockpitType().tag === "small") {
             finalBattleValue *= 0.95;
             this._calcLogBV += `Small Cockpit Penalty Applied: Total multiplied by 0.95 -> Intermediate BV: ${finalBattleValue.toFixed(2)}<br />`;
         }
+
+        // Equipment that multiplies the final BV, once per kind (RISC Heat Sink Override Kit x1.01, IO:AE p.190).
+        const finalMultipliers = new Map<string, IEquipmentItem>();
+        for (const item of this._equipmentList) {
+            if (item?.battleValueFinalMultiplier) finalMultipliers.set(item.tag, item);
+        }
+        finalMultipliers.forEach(item => {
+            finalBattleValue *= item.battleValueFinalMultiplier!;
+            this._calcLogBV += `${this._escapeLogText(item.name)}: Total multiplied by ${item.battleValueFinalMultiplier} -> Intermediate BV: ${finalBattleValue.toFixed(2)}<br />`;
+        });
 
         // Execute absolute rounding to whole integer values (TM p. 304)
         const absoluteRoundedBV = Math.round(finalBattleValue);
         this._calcLogBV += `<strong>Final Unit Battle Value:</strong> ${absoluteRoundedBV} (Rounded from ${finalBattleValue.toFixed(2)})<br />`;
         
-        // LAM bombs add their BV after rounding, like aerospace external stores
-        // (TO:AUE via MegaMek BVCalculator.processExternalStores; provisional).
+        // LAM bombs add their BV to the base BV before the skill multiplier, as external stores do on
+        // fighters (TM p.315). Provisional: IO:AE's LAM BV rules (p.186) do not say bombs follow that rule.
         const bombBV = this.getBombBattleValue();
         if (bombBV > 0) {
             this._calcLogBV += `<em>PROVISIONAL LAM BV:</em> + Loaded bombs (external stores): ${bombBV} -> ${absoluteRoundedBV + bombBV}<br />`;
@@ -1041,14 +1276,15 @@ export class BattleMech {
 
     /**
      * Applies pilot experience skill tracking multipliers to determine final deployment BV.
-     * References the canonical cross-grid lookup matrix from TechManual, p. 305.
+     * Uses the 'Mech's rules edition's BV Skill Multiplier Table (TechManual p. 315 by default); an edition with
+     * no table of its own keeps the default edition's.
      */
     private _setPilotAdjustedBattleValue(): void {
         // Fetch raw pilot credentials with safe default constraints
         const gunnery = this._pilot?.gunnery ?? 4;
         const piloting = this._pilot?.piloting ?? 5;
         let skillMultiplier = 1.0;
-        const matrixMultiplier = getSkillMultiplier(gunnery, piloting);
+        const matrixMultiplier = getSkillMultiplier(gunnery, piloting, "mech", getEditionSkillMultipliers(this._rulesEdition) ? this._rulesEdition : DEFAULT_RULES_EDITION);
         if (matrixMultiplier !== null) {
             skillMultiplier = matrixMultiplier;
         } else {
@@ -1072,7 +1308,7 @@ export class BattleMech {
      * speed (same implementation as MegaMek's BVCalculator.offensiveSpeedFactor / offensiveSpeedFactorMP).
      */
     private _getSpeedFactorModifier(): number {
-        // Speed Factor MP (TM p.316). Standard LAMs use 'Mech Run MP + half AirMech Flank MP, rounded normally (IO p.192);
+        // Speed Factor MP (TM p.316). Standard LAMs use 'Mech Run MP + half AirMech Flank MP, rounded normally (IO:AE p.186);
         // other 'Mechs use the better of Jump MP and UMU MP (TO:AUE p.107).
         const speedFactorMP = this.hasAirMechMode()
             ? this.getBVRunSpeed() + Math.round(this.getAirMechFlankMP() / 2)
@@ -1098,6 +1334,24 @@ export class BattleMech {
         else
             return false;
     }
+    /** Triple-Strength Myomer in any form: standard, Industrial or prototype. */
+    private static _isTripleStrengthMyomer(myomer: IMyomerType): boolean {
+        return myomer.tripleStrength || /(^|-)tsm$/.test(myomer.tag);
+    }
+
+    /** Over 100 tons: a superheavy 'Mech (IO:AE pp.154-156). */
+    public isSuperheavy(): boolean {
+        return this._tonnage > 100;
+    }
+
+    /**
+     * Critical slots an item takes on this chassis. On a superheavy 'Mech everything but the actuators,
+     * sensors, life support and cockpit takes half its usual space, rounded up (IO:AE p.157).
+     */
+    public getCriticalSlots(standardSlots: number): number {
+        return this.isSuperheavy() ? Math.ceil(standardSlots / 2) : standardSlots;
+    }
+
     public isLAM() {
         if( this._mechType.tag.toLowerCase() === "lam" )
             return true;
@@ -1169,23 +1423,10 @@ export class BattleMech {
         this._calcLogCBill += "<table class=\"cbill-cost\">\n";
 
         this._calcLogCBill += "<tbody>\n";
-        // Cockpit. Chassis cockpits (TO:AUE/IO values as implemented by MegaMek; provisional):
-        // Tripod 400,000 (Superheavy Tripod 500,000), QuadVee 375,000, Superheavy 300,000.
-        const chassisCockpit = this.isTripod()
-            ? (this._tonnage > 100 ? { name: "Superheavy Tripod Cockpit", cost: 500000 } : { name: "Tripod Cockpit", cost: 400000 })
-            : this.isQuadVee() ? { name: "QuadVee Cockpit", cost: 375000 }
-            : this._tonnage > 100 ? { name: "Superheavy Cockpit", cost: 300000 }
-            : null;
-        if( chassisCockpit ) {
-            this._calcLogCBill += "<tr><td><strong>" + chassisCockpit.name + "</strong><br /><span class=\"smaller-text\">provisional</span></td><td>" + addCommas(chassisCockpit.cost) + "</td></tr>\n";
-            cbillDryTotal += chassisCockpit.cost;
-        } else if( this._smallCockpit ) {
-            this._calcLogCBill += "<tr><td><strong>Small Cockpit</strong></td><td>175,000</td></tr>\n";
-            cbillDryTotal += 175000;
-        } else {
-            this._calcLogCBill += "<tr><td><strong>Standard Cockpit</strong></td><td>200,000</td></tr>\n";
-            cbillDryTotal += 200000;
-        }
+        // Cockpit: the chassis decides (Tripod, QuadVee, superheavy: IO:AE pp.215, 217); otherwise Standard or Small (TM p.277).
+        const cockpit = this.getCockpitType();
+        this._calcLogCBill += "<tr><td><strong>" + (cockpit.tag === "standard" ? "Standard Cockpit" : cockpit.name) + "</strong></td><td>" + addCommas(cockpit.cost) + "</td></tr>\n";
+        cbillDryTotal += cockpit.cost;
 
         // Life Support
         this._calcLogCBill += "<tr><td><strong>Life Support</strong></td><td>50,000</td></tr>\n";
@@ -1199,9 +1440,13 @@ export class BattleMech {
 
         // Myomer
         {
-            const myomerName = this._myomerType.tag === "standard" ? "Standard Musculature" : this._myomerType.name;
+            const primitiveMusculature = this._primitive && this._myomerType.tag === "standard";
+            const myomerName = primitiveMusculature ? "Primitive Musculature"
+                : this._myomerType.tag === "standard" ? "Standard Musculature" : this._myomerType.name;
+            // Primitive 'Mech musculature costs 1,000 x tonnage (IO:AE pp.181, 215).
             // Superheavy standard musculature costs 12,000/ton (provisional, via MegaMek).
-            const myomerCostPerTon = this._myomerType.tag === "standard" && this._tonnage > 100 ? 12000 : this._myomerType.costPerTon;
+            const myomerCostPerTon = primitiveMusculature ? 1000
+                : this._myomerType.tag === "standard" && this._tonnage > 100 ? 12000 : this._myomerType.costPerTon;
             const myomerCost = myomerCostPerTon * this.getTonnage();
             this._calcLogCBill += "<tr><td><strong>" + myomerName + "</strong><br /><span class=\"smaller-text\">" + addCommas(myomerCostPerTon) + " x Unit Tonnage [" + this.getTonnage() + "]</span></td><td>" +  addCommas( myomerCost ) + "</td></tr>\n";
             cbillDryTotal += myomerCost;
@@ -1210,12 +1455,28 @@ export class BattleMech {
         // Internal Structure. Superheavy structure uses its own per-ton table, and Tripod
         // structure costs x1.2 (provisional, via MegaMek).
         const superheavyStructureCost: Record<string, number> = { "standard": 4000, "industrial": 3000, "endo-steel": 16000, "composite": 1600, "endo-composite": 6400 };
-        const structureCostPerTon = this._tonnage > 100
-            ? superheavyStructureCost[this._selectedInternalStructure.tag] ?? this._selectedInternalStructure.cost
-            : this._selectedInternalStructure.cost;
+        const structureCostPerTonOf = (structure: IInternalStructure): number => this._tonnage > 100
+            ? superheavyStructureCost[structure.tag] ?? structure.cost
+            : structure.cost;
         const structureChassisMultiplier = this.isTripod() ? 1.2 : 1;
-        const structureCost = structureCostPerTon * this.getTonnage() * structureChassisMultiplier;
-        this._calcLogCBill += "<tr><td><strong>Internal Structure: " + this._selectedInternalStructure.name  + "</strong><br />" +  addCommas( structureCostPerTon ) + " x Unit Tonnage [" + this.getTonnage() + "]" + (structureChassisMultiplier !== 1 ? " x 1.2 [Tripod]" : "") + "</td><td>" +  addCommas( structureCost ) + "</td></tr>\n";
+        let structureCost = 0;
+        if (this.hasFrankenMechHybridStructure()) {
+            // Campaign Operations prices no hybrid structure: each location is read as its weight share of the
+            // structure, at its own type's cost per ton of 'Mech.
+            const locations = this.getFrankenMechLocations();
+            const totalShare = locations.reduce((sum, location) => sum + (BattleMech.FRANKENMECH_STRUCTURE_SHARES[location.key] ?? 0), 0);
+            for (const location of locations) {
+                const structure = this.getFrankenMechLocationStructure(location.key);
+                const share = (BattleMech.FRANKENMECH_STRUCTURE_SHARES[location.key] ?? 0) / totalShare;
+                const locationCost = structureCostPerTonOf(structure) * this.getTonnage() * share * structureChassisMultiplier;
+                this._calcLogCBill += "<tr><td><strong>Internal Structure, " + location.label + ": " + structure.name + "</strong><br />" + addCommas( structureCostPerTonOf(structure) ) + " x Unit Tonnage [" + this.getTonnage() + "] x " + Math.round(share * 1000) / 10 + "%" + (structureChassisMultiplier !== 1 ? " x 1.2 [Tripod]" : "") + "</td><td>" + addCommas( locationCost ) + "</td></tr>\n";
+                structureCost += locationCost;
+            }
+        } else {
+            const structureCostPerTon = structureCostPerTonOf(this._selectedInternalStructure);
+            structureCost = structureCostPerTon * this.getTonnage() * structureChassisMultiplier;
+            this._calcLogCBill += "<tr><td><strong>Internal Structure: " + this._selectedInternalStructure.name  + "</strong><br />" +  addCommas( structureCostPerTon ) + " x Unit Tonnage [" + this.getTonnage() + "]" + (structureChassisMultiplier !== 1 ? " x 1.2 [Tripod]" : "") + "</td><td>" +  addCommas( structureCost ) + "</td></tr>\n";
+        }
         cbillDryTotal += structureCost;
 
         this._calcLogCBill += "<tr><td colspan=\"2\"><strong>Actuators</strong></td></tr>\n";
@@ -1348,9 +1609,13 @@ export class BattleMech {
         // ENGINE C-BILL COST CALCULATION (TechManual p. 278)
         // =====================================================================
         const engineType = this.getEngineType();
-        const engineName = engineType.name;
+        const largeEngineType = this.getLargeEngineType();
+        const engineName = largeEngineType?.name ?? engineType.name;
         const engineRating = this.getEngineRating();
-        const engineCostMultiplier = (engineType.costMultiplier || 0) * (this.isLargeEngine() ? 2 : 1);
+        // Large engines carry their own multiplier, twice the base type's (TO:AUE p.219).
+        const engineCostMultiplier = largeEngineType
+            ? largeEngineType.costMultiplier
+            : (engineType.costMultiplier || 0) * (this.isLargeEngine() ? 2 : 1);
         // Execute canonical cost calculation and round to the nearest whole C-Bill
         const engineCost = Math.round((engineCostMultiplier * engineRating * this.getTonnage()) / 75);
         this._calcLogCBill += "<tr><td><strong>Engine: " + engineName + "</strong><br />" +
@@ -1387,19 +1652,36 @@ export class BattleMech {
         // console.log( numberOfHeatSinks );
         // console.log( heatSinkType );
 
-        // Single-type sinks: the first 10 are free; double-type sinks are all paid for.
-        const freeSinks = this.getHeatSinksObj().freeSinks ?? (heatSinkType === "single" ? 10 : 0);
+        // Single-type sinks: the ones that come with the engine are free; double-type sinks are all paid for.
+        const freeSinks = Math.min(this.getFreeHeatSinks(), this.getHeatSinksObj().freeSinks ?? (heatSinkType === "single" ? 10 : 0));
         const paidSinks = Math.max(0, numberOfHeatSinks - freeSinks);
         this._calcLogCBill += "<tr><td><strong>Heat Sinks: " + heatSinksName  + "</strong><br /><span class=\"smaller-text\">" + addCommas(heatSinksCost) + " x (Number of Heat Sinks" + (freeSinks ? " over " + freeSinks : "") + " [" + paidSinks + "])</span></td><td>" +  addCommas( heatSinksCost * paidSinks ) + "</td></tr>\n";
         cbillDryTotal +=  heatSinksCost * paidSinks;
+
+        // Power amplifiers: 20,000 C-bills per ton (TM pp.278-279).
+        const powerAmplifierWeight = this.getPowerAmplifierWeight();
+        if (powerAmplifierWeight > 0) {
+            this._calcLogCBill += "<tr><td><strong>Power Amplifiers</strong><br /><span class=\"smaller-text\">20,000 x Amplifier Tonnage [" + powerAmplifierWeight + "]</span></td><td>" + addCommas( 20000 * powerAmplifierWeight ) + "</td></tr>\n";
+            cbillDryTotal += 20000 * powerAmplifierWeight;
+        }
 
         // Armor
         let armorName = this.getArmorObj().name;
         let armorcostMultiplier = this.getArmorObj().costMultiplier;
         let armorTonnage = this.getArmorWeight();
 
-        this._calcLogCBill += "<tr><td><strong>Armor: " + armorName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( armorcostMultiplier ) + " x Armor Tonnage [" + armorTonnage + "]</span></td><td>" +  addCommas( armorcostMultiplier * armorTonnage  ) + "</td></tr>\n";
-        cbillDryTotal += armorcostMultiplier * armorTonnage ;
+        if (this.isPatchworkArmor()) {
+            // Patchwork: each location's armor at its own type's cost per ton.
+            for (const location of this.getPatchworkLocations()) {
+                const locationWeight = this.getPatchworkLocationWeight(location.key);
+                if (locationWeight <= 0) continue;
+                const locationArmor = this.getPatchworkArmorType(location.key);
+                this._calcLogCBill += "<tr><td><strong>Armor: " + locationArmor.name + " (" + location.label + ")</strong><br /><span class=\"smaller-text\">" + addCommas( locationArmor.costMultiplier ) + " x Armor Tonnage [" + locationWeight + "]</span></td><td>" + addCommas( locationArmor.costMultiplier * locationWeight ) + "</td></tr>\n";
+            }
+        } else {
+            this._calcLogCBill += "<tr><td><strong>Armor: " + armorName  + "</strong><br /><span class=\"smaller-text\">" +  addCommas( armorcostMultiplier ) + " x Armor Tonnage [" + armorTonnage + "]</span></td><td>" +  addCommas( armorcostMultiplier * armorTonnage  ) + "</td></tr>\n";
+        }
+        cbillDryTotal += this.getArmorCost();
 
         // Equipment
         let equipmentCost = 0;
@@ -1454,11 +1736,20 @@ export class BattleMech {
         return this.getJumpSpeed();
     }
 
+    /** Recalculates the Battle Value if critical slots have moved since it was last worked out. */
+    private _refreshBattleValue(): void {
+        if (this._battleValueStale) {
+            this._calcBattleValue();
+        }
+    }
+
     public getBattleValue() {
+        this._refreshBattleValue();
         return this._battleValue;
     }
 
     public getPilotAdjustedBattleValue() {
+        this._refreshBattleValue();
         return this._pilotAdjustedBattleValue;
     }
 
@@ -1487,9 +1778,15 @@ export class BattleMech {
             // } else {
             //     return this._engine.weight[this._engineType.tag];
             // }
+            if( this.usesFractionalAccounting() ) {
+                const fractionalWeight = getFractionalEngineWeight(this._engineType.tag, this._engine.weight.standard);
+                if( fractionalWeight !== null ) return fractionalWeight;
+            }
             switch( this._engineType.tag ) {
                 case "standard": {
-                    return this._engine.weight.standard;
+                    // An earlier edition's own Engine Table (Battledroids prints the 170 at 6.5 tons).
+                    const edition = isEarlierRulesEdition(this._rulesEdition) ? getEditionStats(this._engineType, this._rulesEdition) : undefined;
+                    return edition?.engineWeights?.[this._engine.rating] ?? this._engine.weight.standard;
                 }
                 case "xl": {
                     return this._engine.weight.xl;
@@ -1536,9 +1833,17 @@ export class BattleMech {
 
     }
 
-    /** Engines rated above 400 are large engines (TO:AUE): double cost and two more center torso slots. */
+    /** Engines rated above 400 are large engines (TO:AUE p.119): double cost and two more center torso slots. */
     public isLargeEngine(): boolean {
         return this.getEngineRating() > 400;
+    }
+
+    /**
+     * The large engine record for the current engine type, with its own dates, cost and slots.
+     * Null at ratings up to 400, and for types that have no large form (Compact, Fuel Cell, Fission, Primitive).
+     */
+    public getLargeEngineType(): IEngineType | null {
+        return this.isLargeEngine() ? getLargeEngineType(this._engineType.tag) ?? null : null;
     }
 
     /** Engine column of the ASC p.98 'Mech structure table. */
@@ -1563,8 +1868,33 @@ export class BattleMech {
         }
     }
 
+    /**
+     * Heat sinks that come with the engine at no cost in weight: 10 with a fusion engine, 5 with
+     * fission, 1 with a fuel cell and none with an ICE (IndustrialMech Bonus Heat Sinks Table, TM p.71).
+     */
+    public getFreeHeatSinks(): number {
+        switch (this._engineType.tag) {
+            case "ice": return 0;
+            case "cell": return 1;
+            case "fission": return 5;
+            default: return 10;
+        }
+    }
+
     public getHeatSinks() {
-        return 10 + this._additionalHeatSinks;
+        return this.getFreeHeatSinks() + this._additionalHeatSinks;
+    }
+
+    /**
+     * Power amplifiers: an ICE or fuel cell 'Mech carrying energy weapons mounts amplifiers weighing 10 percent
+     * of those weapons, rounded up to the half ton; they take no critical slots (TM p.72).
+     */
+    public getPowerAmplifierWeight(): number {
+        if (this._hasFusionOrFissionEngine()) return 0;
+        const weight = this._equipmentList
+            .filter(item => item && !item.isAmmo && item.category === "Energy Weapons" && !/vehicle-flamer|chemical-laser/.test(item.tag))
+            .reduce((sum, item) => sum + (item.weight || 0), 0);
+        return weight > 0 ? Math.ceil(weight / 10 * 2 - 1e-9) / 2 : 0;
     }
 
     public getHeatSinksWeight() {
@@ -1580,29 +1910,154 @@ export class BattleMech {
 
     /** Heat sinks the engine holds without critical slots: floor(rating / 25), doubled for Compact (TO:AUE p.128). */
     public getEngineHeatSinkCapacity(): number {
+        // Battledroids and the Second Edition give every heat sink a box, the engine's ten included (BD p.25).
+        if (!editionEngineHoldsHeatSinks(this._heatSinkType, this._rulesEdition)) {
+            return 0;
+        }
         const rating = this.getEngine()?.rating ?? 0;
         return Math.floor(rating / 25) * (this._heatSinkType.engineCapacityMultiplier ?? 1);
     }
 
     public getGyroWeight() {
-        // Superheavy Mechs (>100 tons) of any chassis type require a doubled-weight Superheavy Gyro.
-        const superheavyGyroMultiplier = this._tonnage > 100 ? 2 : 1;
         if( this._engine ) {
+            // Superheavy Mechs (>100 tons) of any chassis type must mount the Superheavy Gyro:
+            // it weighs as a Heavy-Duty gyro, engine rating / 100 rounded up, then doubled
+            // (IO:AE p.156; IO errata v1.21 replaced the older "rating / 50" wording).
+            if( this._tonnage > 100 ) {
+                return Math.ceil(this._engine.rating / 100) * 2;
+            }
             // Gyro weight: engine rating / 100 rounded up, times the gyro multiplier, rounded up to the half ton.
-            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * superheavyGyroMultiplier * 2) / 2;
+            return Math.ceil(Math.ceil(this._engine.rating / 100) * this._gyro.weight_multiplier * 2) / 2;
         } else {
             return 0;
         }
     }
+    /**
+     * The cockpit this chassis mounts. Tripods, QuadVees and superheavy 'Mechs have a mandatory
+     * cockpit (IO:AE pp.128, 156, 159); everything else chooses between Standard and Small.
+     */
+    public getCockpitType(): ICockpitType {
+        const superheavy = this._tonnage > 100;
+        if (this.isTripod()) return getCockpitType(superheavy ? "superheavy-tripod" : "tripod");
+        if (this.isQuadVee()) return getCockpitType("quadvee");
+        // A Primitive 'Mech mounts the 5-ton Primitive cockpit of its kind (IO:AE p.117).
+        if (this._primitive) {
+            return getCockpitType(!this.isIndustrialMech() ? "primitive"
+                : this._advancedFireControl ? "primitive-industrial-advanced-fire-control" : "primitive-industrial");
+        }
+        // A superheavy IndustrialMech takes the superheavy BattleMech cockpit when it has Advanced Fire Control.
+        if (superheavy) return getCockpitType(this.isIndustrialMech() && !this._advancedFireControl ? "superheavy-industrial" : "superheavy");
+        if (this.isIndustrialMech()) return getCockpitType(this._advancedFireControl ? "industrial-advanced-fire-control" : "industrial");
+        return getCockpitType(this._smallCockpit ? "small" : "standard");
+    }
+
+    /** An IndustrialMech: a 'Mech built on industrial internal structure (TM p.66). */
+    public isIndustrialMech(): boolean {
+        return this._selectedInternalStructure.tag === "industrial";
+    }
+
+    /** Does the cockpit have fire control fit for combat? Always, except an IndustrialMech without the enhancement. */
+    public hasAdvancedFireControl(): boolean {
+        return !["industrial", "superheavy-industrial", "primitive-industrial"].includes(this.getCockpitType().tag);
+    }
+
+    /**
+     * Cockpits this chassis may mount. Tripods, QuadVees and superheavy 'Mechs have one mandatory
+     * cockpit; an IndustrialMech chooses whether to add Advanced Fire Control (TM p.69); any other
+     * 'Mech chooses between the Standard and Small cockpits (TM p.52).
+     */
+    public getAvailableCockpits(rulesLevel: number = 2): ICockpitType[] {
+        const current = this.getCockpitType();
+        const superheavyIndustrial = this.isSuperheavy() && this.isIndustrialMech() && !this.isTripod();
+        // A Primitive 'Mech's cockpit is part of what makes it Primitive, so its dates never withhold it.
+        const mandatory = this._primitive
+            || (!superheavyIndustrial && ["tripod", "superheavy-tripod", "quadvee", "superheavy"].includes(current.tag));
+        const tags = this._primitive && this.isIndustrialMech() ? ["primitive-industrial", "primitive-industrial-advanced-fire-control"]
+            : mandatory ? [current.tag]
+            : superheavyIndustrial ? ["superheavy-industrial", "superheavy"]
+            : this.isIndustrialMech() ? ["industrial", "industrial-advanced-fire-control"]
+            : ["standard", "small"];
+        return tags.map(tag => {
+            const cockpit = getCockpitType(tag);
+            const availability = this._techDatesAvailability(cockpit, rulesLevel);
+            cockpit.availableAsPrototype = availability.asPrototype;
+            // The cockpit a chassis must mount is never withheld.
+            cockpit.available = mandatory || (availability.available && this.isOfferedInEdition(cockpit, rulesLevel));
+            return cockpit;
+        });
+    }
+
+    /** Choose one of the cockpits offered by getAvailableCockpits(); anything else is ignored. */
+    public setCockpitType(tag: string): ICockpitType {
+        if (this.getAvailableCockpits().some(cockpit => cockpit.tag === tag)) {
+            if (tag === "standard" || tag === "small") this._smallCockpit = tag === "small";
+            if (tag === "industrial" || tag === "industrial-advanced-fire-control") this._advancedFireControl = tag !== "industrial";
+            if (tag === "primitive-industrial" || tag === "primitive-industrial-advanced-fire-control") this._advancedFireControl = tag !== "primitive-industrial";
+            if (this.isIndustrialMech() && (tag === "superheavy" || tag === "superheavy-industrial")) this._advancedFireControl = tag === "superheavy";
+            this._calc();
+        }
+        return this.getCockpitType();
+    }
+
+    /**
+     * Equipment an IndustrialMech cannot use without Advanced Fire Control (TM p.69): Artemis IV,
+     * the Beagle Active Probe or its Clan equivalent, C3 and C3i units, and targeting computers.
+     */
+    /** What the "one to a location" groups are called in a violation message. */
+    private static readonly LOCATION_GROUP_NAMES: Record<string, string> = {
+        "harjel-repair": "HarJel repair system",
+        "industrial-tool": "industrial tool",
+        "spot-welder": "spot welder",
+        "bridgelayer": "bridgelayer",
+        "hatchet": "hatchet",
+        "sword": "sword",
+    };
+
+    /**
+     * 'Mech locations an item must be placed in, or null for anywhere. Industrial tools go in the arms of a
+     * humanoid 'Mech and the side torsos of a four-legged one (TM pp.241-249).
+     */
+    private _getAllowedLocations(item: IEquipmentItem): string[] | null {
+        if (item.armTool) return this._hasFrontLegs() ? ["lt", "rt"] : ["la", "ra"];
+        if (!item.allowedLocations) return null;
+        // A four-legged 'Mech has no arm locations.
+        return this._hasFrontLegs() ? item.allowedLocations.filter(location => location !== "la" && location !== "ra") : item.allowedLocations;
+    }
+
+    /** "The C3 Remote Sensor system is incompatible with C3i-based systems" (TO:AUE p.110). */
+    private static readonly C3_REMOTE_SENSOR_TAG = "c3-remote-sensor-launcher";
+    private static _isC3iSystem(item: IEquipmentItem): boolean {
+        return /^(clan-)?c3i/.test(item.tag.toLowerCase());
+    }
+
+    /** Armor a HarJel II or III repair system works with (IO:AE pp.82-83); heavy industrial armor is Standard armor. */
+    private static readonly REPAIR_SYSTEM_ARMOR_TAGS = ["standard", "light-ferro-fibrous", "ferro-fibrous", "heavy-ferro-fibrous"];
+
+    private static _needsAdvancedFireControl(item: IEquipmentItem): boolean {
+        const tag = item.tag.toLowerCase();
+        // The C3 Remote Sensor Launcher is a launcher, not a C3 unit.
+        if (tag === BattleMech.C3_REMOTE_SENSOR_TAG) return false;
+        return /-artemis-(iv|v|p)$/.test(tag) || /^c3/.test(tag)
+            || ["beagle-active-probe", "clan-active-probe", "targeting-computer", "clan-targeting-computer"].includes(tag);
+    }
+
     public getCockpitWeight() {
         return this._cockpitWeight;
     }
 
     public getInternalStructureWeight(): number {
-        const tonnage = this.getTonnage();
-        const superheavy = tonnage > 100;
-        // Share of 'Mech tonnage by structure type (TechManual; TO:AUE for Composite, Endo-Composite, Reinforced).
-        // Superheavy 'Mechs double it except for Reinforced and Composite.
+        if (this._frankenMech) return this._getFrankenMechStructureWeight();
+        const tripodMultiplier = this.getType().tag === "tripod" ? 1.1 : 1;
+        return BattleMech._structureWeight(this._selectedInternalStructure?.tag, this.getTonnage(), tripodMultiplier, this.usesFractionalAccounting());
+    }
+
+    /**
+     * Internal structure weight of a 'Mech of this tonnage, rounded up to the half ton (the kilogram under Fractional
+     * Accounting). Share of 'Mech tonnage by
+     * structure type (TechManual; TO:AUE for Composite, Endo-Composite, Reinforced); superheavy 'Mechs double it
+     * except for Reinforced and Composite.
+     */
+    private static _structureWeight(structureTag: string | undefined, tonnage: number, multiplier: number = 1, fractional: boolean = false): number {
         const factors: Record<string, { base: number, superheavy: number }> = {
             "standard": { base: 0.1, superheavy: 0.2 },
             "endo-steel": { base: 0.05, superheavy: 0.1 },
@@ -1611,26 +2066,44 @@ export class BattleMech {
             "reinforced": { base: 0.2, superheavy: 0.2 },
             "industrial": { base: 0.2, superheavy: 0.4 },
         };
-        const factor = factors[this._selectedInternalStructure?.tag] ?? factors["standard"];
-        const tripodMultiplier = this.getType().tag === "tripod" ? 1.1 : 1;
-        // Structure weight rounds up to the half ton.
-        return Math.ceil(tonnage * (superheavy ? factor.superheavy : factor.base) * tripodMultiplier * 2) / 2;
+        const factor = factors[structureTag ?? ""] ?? factors["standard"];
+        const weight = tonnage * (tonnage > 100 ? factor.superheavy : factor.base) * multiplier;
+        // Structure weight rounds up to the half ton; under Fractional Accounting, up to the kilogram (TO:AUE p.188).
+        return fractional ? roundUpToKilogram(weight) : Math.ceil(weight * 2) / 2;
+    }
+
+    /** Tons of one jump jet: the selected edition's figure where it prints one, else by weight class (TM p.51). */
+    private _jumpJetWeightEach(): number {
+        const edition = getEditionJumpJetWeight(this._jumpJetType, this._rulesEdition, this._tonnage);
+        if( edition !== undefined ) {
+            return edition;
+        }
+        // A FrankenMech's jets kept from a lighter 'Mech weigh what they did there (CO p.213).
+        if( this._frankenMechJumpJetClass && this.usesLighterJumpJets() ) {
+            return this._jumpJetType.weight_multiplier[this._frankenMechJumpJetClass];
+        }
+        return this._ownJumpJetWeightEach();
+    }
+
+    /** Tons of one jump jet built for this 'Mech's weight class (TM p.51). */
+    private _ownJumpJetWeightEach(): number {
+        if( this._tonnage <= 55) {
+            // 10-55 tons
+            return this._jumpJetType.weight_multiplier.light;
+        } else if( this._tonnage <= 85) {
+            // 60 - 85 tons
+            return this._jumpJetType.weight_multiplier.medium;
+        } else if( this._tonnage <= 100) {
+            // 90 100 tons
+            return this._jumpJetType.weight_multiplier.heavy;
+        } else {
+            // 105-200 tons
+            return this._jumpJetType.weight_multiplier.superheavy;
+        }
     }
 
     public getJumpJetWeight() {
-        if( this._tonnage <= 55) {
-            // 10-55 tons
-            return this._jumpSpeed * this._jumpJetType.weight_multiplier.light;
-        } else if( this._tonnage <= 85) {
-            // 60 - 85 tons
-            return this._jumpSpeed * this._jumpJetType.weight_multiplier.medium;
-        } else if( this._tonnage <= 100) {
-            // 90 100 tons
-            return this._jumpSpeed * this._jumpJetType.weight_multiplier.heavy;
-        } else {
-            // 105-200 tons
-            return this._jumpSpeed * this._jumpJetType.weight_multiplier.superheavy;
-        }
+        return this._jumpSpeed * this._jumpJetWeightEach();
     }
 
     public getASCalcHTML() {
@@ -1638,6 +2111,7 @@ export class BattleMech {
     }
 
     public getBVCalcHTML() {
+        this._refreshBattleValue();
         return "<div class=\"mech-tro\">" + this._calcLogBV + "</div>";
     }
 
@@ -1809,6 +2283,7 @@ export class BattleMech {
         let longTotalDamageRear = 0;
         let extremeTotalDamageRear = 0;
 
+        const selectedSpecialAmmoTag = this.getAlphaStrikeSpecialAmmoTag();
         for (let weapon_counter = 0; weapon_counter < this._equipmentList.length; weapon_counter++) {
             if (this._equipmentList[weapon_counter].explosive) {
                 has_explosive = true;
@@ -1816,7 +2291,7 @@ export class BattleMech {
             const equipment = this._equipmentList[weapon_counter];
             const appliesSelectedSpecialAmmo = equipment.isAmmo
                 && equipment.isSpecialAmmo
-                && matchesTag(equipment, this._alphaStrikeSpecialAmmoTag);
+                && equipment.tag === selectedSpecialAmmoTag;
             if (!equipment.isAmmo || appliesSelectedSpecialAmmo) {
                 for (const displayAbilityCode of getAlphaStrikeEquipmentDisplayAbilityCodes(equipment)) {
                 if (!this._alphaStrikeForceStats.abilityCodes.includes(displayAbilityCode)) {
@@ -1877,8 +2352,12 @@ export class BattleMech {
 
                 if ( this._equipmentList[weapon_counter].alphaStrike.notes && this._equipmentList[weapon_counter].alphaStrike.notes.length && this._equipmentList[weapon_counter].alphaStrike.notes.length > 0) {
                     for (let nC = 0; nC < this._equipmentList[weapon_counter].alphaStrike.notes.length; nC++) {
-                        if (this._alphaStrikeForceStats.abilityCodes.indexOf(this._equipmentList[weapon_counter].alphaStrike.notes[nC]) === -1) {
-                            this._alphaStrikeForceStats.abilityCodes.push(this._equipmentList[weapon_counter].alphaStrike.notes[nC]);
+                        // Notes carry both ability codes and remarks ("Provisional workbook conversion"); only the
+                        // codes, and the keywords calculateAlphaStrikeValue turns into damage codes, go on the card.
+                        const note = this._equipmentList[weapon_counter].alphaStrike.notes[nC];
+                        if (this._alphaStrikeForceStats.abilityCodes.indexOf(note) === -1
+                            && (isAlphaStrikeAbilityCode(note) || isAlphaStrikeConversionKeyword(note))) {
+                            this._alphaStrikeForceStats.abilityCodes.push(note);
                         }
 
                         if (this._equipmentList[weapon_counter].alphaStrike.notes[nC].toLowerCase() === "mel" ) {
@@ -1971,7 +2450,7 @@ export class BattleMech {
 
         let heatDissipation = 0;
 
-        heatDissipation += (10 + this._additionalHeatSinks) * this._heatSinkType.dissipation;
+        heatDissipation += this.getHeatSinks() * this._heatSinkType.dissipation;
 
         let max_short_overheat_value =  move_heat + total_weapon_heat_short ;
         let max_medium_overheat_value =  move_heat + total_weapon_heat_medium ;
@@ -2277,6 +2756,7 @@ export class BattleMech {
         // Header Info
         html += "Type: " + this.getName() + "\n";
         html += "Technology Base: " + this.getTech().name + "\n";
+        if (this.getConstructionName()) html += "Construction: " + this.getConstructionName() + "\n";
         html += "Era: " + this.getEra().name + "\n";
         html += "Tonnage: " + this.getTonnage() + "\n";
         html += "Battle Value: " + this.getBattleValue() + "\n";
@@ -2295,7 +2775,10 @@ export class BattleMech {
 
         // Equipment
         html += "Equipment".padEnd(col1Padding + col2Padding, " " ) + "Mass\n";
-        html += "" + ( "Internal Structure ( " + this._selectedInternalStructure.name + " )" ).toString().padEnd(col1Padding + col2Padding, " " ) + "" + this.getInternalStructureWeight() + "\n";
+        html += "" + ( "Internal Structure ( " + this.getInternalStructureLabel() + " )" ).toString().padEnd(col1Padding + col2Padding, " " ) + "" + this.getInternalStructureWeight() + "\n";
+        for (const line of this._getFrankenMechReadoutLines()) {
+            html += "  " + line + "\n";
+        }
         html += "" + this.getEngineName().padEnd(col1Padding, " " ) + "" + this.getEngineRating().toString().padEnd(col2Padding, " " ) + "" + this.getEngineWeight() + "\n";
 
         html += "Walking".padStart(col1Padding - 10, " " ) + " " + this.getWalkSpeed().toString().padStart(3, " " ) + "\n";
@@ -2342,6 +2825,9 @@ export class BattleMech {
         }
 
         html += "" + ( "Armor Value ( " + this._armorType.name + " )" ).padEnd(col1Padding, " " ) + "" + this.getTotalArmor().toString().padEnd(col2Padding, " " ) + "" + this.getArmorWeight() + "\n";
+        for (const line of this._getPatchworkReadoutLines()) {
+            html += "  " + line + "\n";
+        }
 
         col1Padding = 20;
         col2Padding = 10;
@@ -2501,9 +2987,9 @@ export class BattleMech {
                 item_location += " (R)"
 
             if( currentItem.isAmmo && this.getAmmoBinCapacity(currentItem) > 0) {
-                html += "" + (currentItem.name + " " + this.getAmmoBinCapacity(currentItem)).padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + currentItem.space.battlemech.toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
+                html += "" + (currentItem.name + " " + this.getAmmoBinCapacity(currentItem)).padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + this.getCriticalSlots(currentItem.space.battlemech).toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
             } else {
-                html += "" + currentItem.name.padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + currentItem.space.battlemech.toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
+                html += "" + currentItem.name.padEnd(col1Padding, " " ) + "" + item_location.toUpperCase().toString().padEnd(col2Padding, " " ) + "" + this.getCriticalSlots(currentItem.space.battlemech).toString().padEnd(col3Padding, " " ) + "" + currentItem.weight.toString().padEnd(col4Padding, " " ) + "\n";
             }
 
         }
@@ -2526,19 +3012,7 @@ export class BattleMech {
 
             if( jjObjs.length > 0) {
                 let areaWeight = 0;
-                if( this._tonnage <= 55) {
-                    // 10-55 tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.light;
-                } else if( this._tonnage <= 85) {
-                    // 60 - 85 tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.medium;
-                } else if ( this._tonnage <= 100) {
-                    // 90-100 tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.heavy;
-                } else {
-                    // 105+ tons
-                    areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.superheavy;
-                }
+                areaWeight = jjObjs.length * this._jumpJetWeightEach();
                 html += "" + jjObjs[0].name.padEnd(col1Padding, " " ) + "" + this._validJJLocations[locC].short.toUpperCase().padEnd(col2Padding, " " ) + "" + jjObjs.length.toString().padEnd(col3Padding, " " ) + "" + areaWeight.toString().padEnd(col4Padding, " " ) + "\n";
 
             }
@@ -2558,16 +3032,7 @@ export class BattleMech {
 
         if( jjObjs.length > 0) {
             let areaWeight = 0;
-            if( this._tonnage <= 55) {
-                // 10-55 tons
-                areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.light;
-            } else if( this._tonnage <= 85) {
-                // 60 - 85 tons
-                areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.medium;
-            } else {
-                // 90+ tons
-                areaWeight = jjObjs.length * this._jumpJetType.weight_multiplier.heavy;
-            }
+            areaWeight = jjObjs.length * this._jumpJetWeightEach();
             html += "" + jjObjs[0].name.padEnd(col1Padding, " " ) + "n/a".toUpperCase().padEnd(col2Padding, " " ) + "" + jjObjs.length.toString().padEnd(col3Padding, " " ) + "" + areaWeight.toString().padEnd(col4Padding, " " ) + "\n";
 
         }
@@ -2592,6 +3057,7 @@ export class BattleMech {
         // Header Info
         html += "<tr><td colspan=\"4\">Type: " + esc(this.getName()) + "</td></tr>";
         html += "<tr><td colspan=\"4\">Technology Base: " + esc(this.getTech().name) + "</td></tr>";
+        if (this.getConstructionName()) html += "<tr><td colspan=\"4\">Construction: " + esc(this.getConstructionName()!) + "</td></tr>";
         html += "<tr><td colspan=\"4\">Era: " + esc(this.getEra().name) + "</td></tr>";
         html += "<tr><td colspan=\"4\">Tonnage: " + this.getTonnage() + "</td></tr>";
         html += "<tr><td colspan=\"4\">Battle Value: " + this.getBattleValue() + "</td></tr>";
@@ -2607,7 +3073,10 @@ export class BattleMech {
 
         // Equipment
         html += "<tr><th class=\"text-left\" colspan=\"3\">Equipment</th><th class=\"text-center\" colspan=\"1\">Mass</th></tr>";
-        html += "<tr><td colspan=\"3\">Internal Structure ( " + esc(this._selectedInternalStructure.name) + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
+        html += "<tr><td colspan=\"3\">Internal Structure ( " + esc(this.getInternalStructureLabel()) + " )</td><td class=\"text-center\" colspan=\"1\">" + this.getInternalStructureWeight() + "</td></tr>";
+        for (const line of this._getFrankenMechReadoutLines()) {
+            html += "<tr><td colspan=\"4\">&nbsp;&nbsp;" + esc(line) + "</td></tr>";
+        }
         html += "<tr><td colspan=\"1\">" + esc(this.getEngineName()) + "</td><td class=\"text-center\" colspan=\"2\">" + this.getEngineRating() + "</td><td class=\"text-center\" colspan=\"1\">" + this.getEngineWeight() + "</td></tr>";
 
         html += "<tr><td colspan=\"1\" class=\"text-right\">Walking</td><td class=\"text-center\" colspan=\"2\">" + this.getWalkSpeed() + "</td><td colspan=\"1\">&nbsp;</td></tr>";
@@ -2650,6 +3119,9 @@ export class BattleMech {
         }
 
         html += "<tr><th colspan=\"1\">Armor Value ( " + esc(this._armorType.name) + " )</th><th class=\"text-center\" colspan=\"2\">" + this.getTotalArmor() + "</th><th class=\"text-center\" colspan=\"1\">" + this.getArmorWeight() + "</th></tr>";
+        for (const line of this._getPatchworkReadoutLines()) {
+            html += "<tr><td colspan=\"4\">&nbsp;&nbsp;" + esc(line) + "</td></tr>";
+        }
 
         // Armor Factor Table
         html += "<tr><td colspan=\"1\"></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Internal Structure</em></td><td class=\"text-center\" colspan=\"1\"><em style=\"font-size: 12px;\">Armor Value</em></td><td>&nbsp;</td></tr>";
@@ -2728,22 +3200,14 @@ export class BattleMech {
             const eqName = esc(currentItem.name);
             const eqLocAbbr = esc(item_location.toUpperCase());
             if( currentItem.isAmmo && this.getAmmoBinCapacity(currentItem) > 0)
-                html += "<tr><td class=\"text-left\">" + eqName + " " + this.getAmmoBinCapacity(currentItem) + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + eqName + " " + this.getAmmoBinCapacity(currentItem) + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + this.getCriticalSlots(currentItem.space.battlemech) + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
             else
-                html += "<tr><td class=\"text-left\">" + eqName + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + currentItem.space.battlemech + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
+                html += "<tr><td class=\"text-left\">" + eqName + "</td><td class=\"text-center\">" + eqLocAbbr + "</strong></td><td class=\"text-center\">" + this.getCriticalSlots(currentItem.space.battlemech) + "</td><td class=\"text-center\">" + currentItem.weight + "</td></tr>";
         }
 
         // Isolate the base unit weight per Jump Jet once to eliminate code duplication
         let singleJJWeight = 0;
-        if (this._tonnage <= 55) {
-            singleJJWeight = this._jumpJetType.weight_multiplier.light;       // 10 - 55 tons
-        } else if (this._tonnage <= 85) {
-            singleJJWeight = this._jumpJetType.weight_multiplier.medium;      // 60 - 85 tons
-        } else if (this._tonnage <= 100) {
-            singleJJWeight = this._jumpJetType.weight_multiplier.heavy;       // 90 - 100 tons
-        } else {
-            singleJJWeight = this._jumpJetType.weight_multiplier.superheavy;  // 105+ tons
-        }
+        singleJJWeight = this._jumpJetWeightEach();
 
         // Process allocated Jump Jets across valid equipment locations
         for (let locC = 0; locC < this._validJJLocations.length; locC++) {
@@ -2806,6 +3270,7 @@ export class BattleMech {
         if(!this._tonnage) {
             this._tonnage = 20;
         }
+        this._adoptFractionalAccounting();
         const typeTag = this._mechType.tag.toLowerCase();
 
         if (typeTag === "lam") {
@@ -2836,6 +3301,25 @@ export class BattleMech {
                 this._engineType = findByTag(mechEngineTypes, "standard") ?? mechEngineTypes[0];
             }
         }
+        // Superheavy 'Mechs cannot jump, cannot use Triple-Strength Myomer (IO:AE p.156) and have
+        // four structure types to choose from (p.155).
+        if (this.isSuperheavy()) {
+            this._jumpSpeed = 0;
+            if (!BattleMech.SUPERHEAVY_STRUCTURE_TAGS.includes(this._selectedInternalStructure.tag)) {
+                this._selectedInternalStructure = mechInternalStructureTypes.find(structure => structure.tag === "standard") ?? mechInternalStructureTypes[0];
+            }
+            if (BattleMech._isTripleStrengthMyomer(this._myomerType)) {
+                this._myomerType = mechMyomerTypes.find(myomer => myomer.tag === "standard") ?? mechMyomerTypes[0];
+            }
+        }
+        // Jump jets need a fusion or fission engine (TM p.69).
+        if (!this._hasFusionOrFissionEngine()) {
+            this._jumpSpeed = 0;
+        }
+        // A Primitive 'Mech has one armor type, set by its structure (IO:AE p.118).
+        if (this._primitive && this._armorType.tag !== this._getPrimitiveArmorTag()) {
+            this._armorType = findByTag(mechArmorTypes, this._getPrimitiveArmorTag()) ?? this._armorType;
+        }
         // OmniMechs build fixed-only equipment (MASC, Partial Wing, signature systems...) into
         // the base chassis (MegaMek omniFixedOnly; provisional).
         if (this._omnimech) {
@@ -2848,7 +3332,9 @@ export class BattleMech {
             this._selectedInternalStructure = findByTag(mechInternalStructureTypes, "standard") ?? mechInternalStructureTypes[0];
         }
 
-        this._maxMoveHeat = 2;
+        // Running heat; an earlier edition's own Heat Point Table where it has one (Battledroids: 1, BD p.12).
+        const editionMoveHeat = getEditionPlayRules(this._rulesEdition)?.moveHeat;
+        this._maxMoveHeat = editionMoveHeat ? editionMoveHeat.run : 2;
         this._heatDissipation = 0;
 
         this._weights = [];
@@ -2859,26 +3345,32 @@ export class BattleMech {
         });
 
         if (typeTag === "quadvee" || typeTag === "tripod") {
-            this._cockpitWeight = this._tonnage > 100 && typeTag === "tripod" ? 6 : 4;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else if (this._tonnage > 100) {
             // Superheavy Bipeds/Quads require a two-pilot Superheavy Cockpit, same as any other Superheavy chassis.
-            this._cockpitWeight = 4;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
-                name: "Superheavy Cockpit",
+                name: this.getCockpitType().tag === "superheavy-industrial" ? this.getCockpitType().name : "Superheavy Cockpit",
+                weight: this.getCockpitWeight()
+            });
+        } else if (this.isIndustrialMech() || this._primitive) {
+            this._cockpitWeight = this.getCockpitType().weight;
+            this._weights.push({
+                name: this.getCockpitType().name,
                 weight: this.getCockpitWeight()
             });
         } else if( this._smallCockpit) {
-            this._cockpitWeight = 2;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: "Small Cockpit",
                 weight: this.getCockpitWeight()
             });
         } else {
-            this._cockpitWeight = 3;
+            this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: "Cockpit",
                 weight: this.getCockpitWeight()
@@ -2886,14 +3378,14 @@ export class BattleMech {
         }
 
         // LAM/QuadVee conversion equipment is 10% of mass, rounded up to a whole ton
-        // (IO p.114 LAM; QuadVee IO p.134 via MegaMek TestMek, not yet checked in the book).
+        // (IO:AE p.108 LAM; QuadVee IO:AE p.128).
         if (typeTag === "quadvee") {
             this._weights.push({
                 name: "QuadVee Conversion / Motive Package",
                 weight: Math.ceil(this._tonnage * 0.1)
             });
         } else if (typeTag === "lam") {
-            // Bimodal LAMs: 15% (IO p.113 via MegaMek).
+            // Bimodal LAMs: 15% (IO:AE p.108).
             this._weights.push({
                 name: this._lamType === "bimodal" ? "Bimodal LAM Conversion Equipment" : "LAM Conversion Equipment",
                 weight: Math.ceil(this._tonnage * (this._lamType === "bimodal" ? 0.15 : 0.1))
@@ -2917,14 +3409,24 @@ export class BattleMech {
         }
 
         if( this._jumpSpeed > 0) {
-            this._maxMoveHeat = this._jumpSpeed;
+            this._maxMoveHeat = editionMoveHeat
+                ? Math.max(editionMoveHeat.run, editionMoveHeat.jumpMinimum, this._jumpSpeed * editionMoveHeat.jumpPerHex)
+                : this._jumpSpeed;
             this._weights.push({
                 name: this._jumpJetType.name,
                 weight: this.getJumpJetWeight()
             });
         }
         this._totalArmor = 0;
-        if( this.getArmorTechBase() === "clan" ) {
+        // Patchwork: the weight follows the points in each location (TO:AUE p.189).
+        if (this.isPatchworkArmor()) {
+            this._armorWeight = this._getPatchworkArmorWeight();
+        }
+        if( this.usesFractionalAccounting() && !this.isPatchworkArmor() ) {
+            // Armor is bought by the point, at the type's weight per point (TO:AUE p.188).
+            this._armorWeight = roundUpToKilogram(this._fractionalArmorPoints * this.getFractionalArmorTonsPerPoint());
+            this._maxArmor = this._fractionalArmorPoints;
+        } else if( this.getArmorTechBase() === "clan" ) {
             this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.clan);
         } else {
             this._maxArmor = Math.floor(this._armorWeight * this.getArmorObj().armorMultiplier.is);
@@ -2979,6 +3481,9 @@ export class BattleMech {
         }
 
         // Compute remaining armor tonnage capacities accurately
+        if (this.isPatchworkArmor()) {
+            this._maxArmor = this._totalArmor;
+        }
         this._unallocatedArmor = this._maxArmor - this._totalArmor;
 
         this._maxWeaponHeat = 0;
@@ -2986,6 +3491,11 @@ export class BattleMech {
             this._weights.push({
                 name: "Additional Heat Sinks",
                 weight: this.getHeatSinksWeight()
+            });
+        if( this.getPowerAmplifierWeight() > 0)
+            this._weights.push({
+                name: "Power Amplifiers",
+                weight: this.getPowerAmplifierWeight()
             });
 
         this._calcVariableEquipment();
@@ -3010,15 +3520,22 @@ export class BattleMech {
             this._currentTonnage += this._weights[weight_counter].weight;
         }
 
+        if( this.usesFractionalAccounting() ) {
+            // Kilogram weights do not add up exactly in binary; keep the total to the gram.
+            this._currentTonnage = Math.round(this._currentTonnage * 1e6) / 1e6;
+        }
         this._remainingTonnage = this._tonnage - this._currentTonnage;
+        if( this.usesFractionalAccounting() ) {
+            this._remainingTonnage = Math.round(this._remainingTonnage * 1e6) / 1e6;
+        }
 
         this._heatSinkCriticals = {
             slotsEach: 1,
             number: 0,
         };
         
-        this._heatDissipation = (this._additionalHeatSinks + 10) * this._heatSinkType.dissipation + this.getPartialWingHeatBonus();
-        if( this.getTech().tag === "clan" ) {
+        this._heatDissipation = this.getHeatSinks() * this._heatSinkType.dissipation + this.getPartialWingHeatBonus();
+        if( this.getTech().tag === "clan" && !this._usesStarLeagueVersion(this._heatSinkType) ) {
             this._heatSinkCriticals.slotsEach = this._heatSinkType.crits.clan;
         } else {
             this._heatSinkCriticals.slotsEach = this._heatSinkType.crits.is;
@@ -3027,8 +3544,9 @@ export class BattleMech {
         let findEngine = this.getEngine();
         if( findEngine && findEngine.rating) {
             // Sinks the engine cannot hold need slots; Compact sinks pair up, two per slot.
-            const external = Math.max(0, this._additionalHeatSinks + 10 - this.getEngineHeatSinkCapacity());
-            this._heatSinkCriticals.number = Math.ceil(external / (this._heatSinkType.perSlot ?? 1));
+            const external = Math.max(0, this.getHeatSinks() - this.getEngineHeatSinkCapacity());
+            this._heatSinkCriticals.number = Math.ceil(external / this._getHeatSinksPerSlot());
+            this._heatSinkCriticals.slotsEach = this.getCriticalSlots(this._heatSinkCriticals.slotsEach);
         } else {
             this._heatSinkCriticals.number = 0
         }
@@ -3338,10 +3856,14 @@ export class BattleMech {
         this._unallocatedCriticals = [];
 
         // Add required components....
-        // Superheavy Bipeds/Quads (>100 tons) mount a two-pilot Superheavy Cockpit, same as Tripods/QuadVees.
+        // Tripod and superheavy cockpits take the one head slot of a standard cockpit; the QuadVee's pilot
+        // and gunner take two (IO:AE record sheets; "all Tripod cockpits occupy the same number of critical
+        // slots", p.159).
         const isSuperheavyCockpit = (typeTag === "biped" || typeTag === "quad" || typeTag === "lam") && this._tonnage > 100;
         const cockpitTag = typeTag === "quadvee" || typeTag === "tripod" || isSuperheavyCockpit ? "multi-pilot-cockpit" : "cockpit";
-        const cockpitName = typeTag === "quadvee" ? "QuadVee Dual Cockpit" : typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
+        const cockpitName = typeTag === "quadvee" ? "Cockpit (Pilot)"
+            : typeTag === "tripod" ? (this._tonnage > 100 ? "Superheavy Tripod Cockpit" : "Tripod Cockpit")
+            : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
         if( this._smallCockpit) {
             this._addCriticalItem( "life-support", "Life Support", 1, "hd", 0);
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 1);
@@ -3368,6 +3890,9 @@ export class BattleMech {
         }
         if (typeTag === "lam") {
             this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "hd", 3);
+        }
+        if (typeTag === "quadvee") {
+            this._addCriticalItem(cockpitTag, "Cockpit (Gunner)", 1, "hd", 3);
         }
         if (typeTag === "quad" || typeTag === "quadvee") {
             // ---- QUAD / QUADVEE FRONT LEGS ----
@@ -3452,11 +3977,18 @@ export class BattleMech {
                 engineCrits = { ct: 6, rt: 0, lt: 0 }; 
             }
         }
-        const engineName = this._engineType.name;
+        // Large engines (rating over 400) take their slots from their own record: two more center
+        // torso slots than the base type, placed after the gyro (TO:AUE p.120).
+        const largeEngineType = this.getLargeEngineType();
+        const largeEngineCrits = largeEngineType?.criticals[currentTechTag];
+        if (largeEngineCrits) {
+            engineCrits = largeEngineCrits;
+        }
+        const engineName = largeEngineType?.name ?? this._engineType.name;
         // FIRST ENGINE BLOCK (Slots 1-3): Seats the upper drive mechanism
         // If an engine takes 6 slots, we limit the first sequential chunk to exactly 3 slots. Currently unless I can find something canonical or homebrew somewhere
-        // Large engines (rating over 400, TO:AUE) add two center torso slots after the gyro.
-        const engineCriticalTorso = (engineCrits.ct ?? 0) + (this.isLargeEngine() ? 2 : 0);
+        // A superheavy 'Mech's engine takes half its usual slots in each location, rounded up (IO:AE p.156).
+        const engineCriticalTorso = this.getCriticalSlots((engineCrits.ct ?? 0) + (this.isLargeEngine() && !largeEngineCrits ? 2 : 0));
         const initialEngineAllocation = engineCriticalTorso > 3 ? 3 : engineCriticalTorso;
         if (initialEngineAllocation > 0) {
             this._addCriticalItem(
@@ -3467,10 +3999,11 @@ export class BattleMech {
             );
         }
         // GYRO POSITIONING (Slots 4-6): Injected immediately below the upper engine core as is tradition and as I saw all the way back in 1989.
+        // Superheavy Mechs mount the Superheavy Gyro, which takes only 2 center torso slots (IO:AE p.156).
         this._addCriticalItem(
-            "gyro", 
-            this._gyro.name, 
-            this._gyro.criticals, 
+            "gyro",
+            this._gyro.name,
+            this._tonnage > 100 ? 2 : this._gyro.criticals,
             "ct"
         );
         // SECOND ENGINE BLOCK (Slots 7-9): Handles the trailing split block for 6-slot engines
@@ -3485,15 +4018,10 @@ export class BattleMech {
         }
         // TORSO SHIELDING: Distribute side shield critical slots
         if (engineCrits.rt) {
-            this._addCriticalItem("engine", engineName, engineCrits.rt, "rt");
+            this._addCriticalItem("engine", engineName, this.getCriticalSlots(engineCrits.rt), "rt");
         }
         if (engineCrits.lt) {
-            this._addCriticalItem("engine", engineName, engineCrits.lt, "lt");
-        }
-        if (typeTag === "quadvee" || typeTag === "tripod") {
-            this._addCriticalItem("multi-pilot-cockpit", typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit", typeTag === "tripod" && this._tonnage > 100 ? 2 : 1, "ct");
-        } else if (isSuperheavyCockpit) {
-            this._addCriticalItem("multi-pilot-cockpit", "Superheavy Cockpit", 1, "ct");
+            this._addCriticalItem("engine", engineName, this.getCriticalSlots(engineCrits.lt), "lt");
         }
         if (typeTag === "lam") {
             this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "lt");
@@ -3534,7 +4062,9 @@ export class BattleMech {
             }
         }
         // Jump Jets
-        let jump_move = this._jumpSpeed;
+        // Battledroids keeps jump jets off the Critical Hit Chart (BD p.25).
+        const jumpJetCriticals = getEditionStats(this._jumpJetType, this._rulesEdition)?.criticals ?? this._jumpJetType.criticals;
+        let jump_move = jumpJetCriticals > 0 ? this._jumpSpeed : 0;
         for( let jmc = 0; jmc < jump_move; jmc++) {
             this._unallocatedCriticals.push({
                 uuid: generateUUID(),
@@ -3543,7 +4073,7 @@ export class BattleMech {
                 tag: "jj-" + this._jumpJetType.tag,
                 rear: false,
                 movable: true,
-                crits: this._jumpJetType.criticals,
+                crits: jumpJetCriticals,
             });
         }
 
@@ -3551,14 +4081,21 @@ export class BattleMech {
         const armorObj = this.getArmorObj();
         const armorTechBase = this.getArmorTechBase();
         const armorCriticalLocations = armorObj.critLocs?.[typeTag as keyof NonNullable<typeof armorObj.critLocs>];
-        if (armorCriticalLocations) {
+        // Patchwork armor slots belong to their locations. They are placed after the saved allocations below,
+        // in the slots those leave free, so the restore loop skips them.
+        const patchworkArmorTags = new Set<string>();
+        if (this.isPatchworkArmor()) {
+            for (const location of this.getPatchworkLocations()) {
+                if (this.getPatchworkLocationSlots(location.key) > 0) patchworkArmorTags.add(this.getPatchworkArmorType(location.key).tag);
+            }
+        } else if (armorCriticalLocations) {
             for (const [location, criticalCount] of Object.entries(armorCriticalLocations)) {
                 if (criticalCount && criticalCount > 0) {
-                    this._addCriticalItem(armorObj.tag, armorObj.name, criticalCount, location, null, true);
+                    this._addCriticalItem(armorObj.tag, armorObj.name, this.getCriticalSlots(criticalCount), location, null, true);
                 }
             }
         } else {
-            for (let armorCritical = 0; armorCritical < armorObj.crits[armorTechBase]; armorCritical++) {
+            for (let armorCritical = 0; armorCritical < this.getCriticalSlots(armorObj.crits[armorTechBase]); armorCritical++) {
                 this._unallocatedCriticals.push({
                     uuid: generateUUID(),
                     name: armorObj.name,
@@ -3572,9 +4109,16 @@ export class BattleMech {
             }
         }
 
-        // Internal Structure critical Items
-        if( this.getTech().tag === "clan" ) {
-            for( let aCounter = 0; aCounter < this._selectedInternalStructure.crits.clan; aCounter++) {
+        // Internal Structure critical Items. A FrankenMech's are placed location by location after the saved
+        // allocations, like patchwork armor's.
+        const frankenMechStructureTags = new Set<string>(this._frankenMech
+            ? this.getFrankenMechLocations().filter(location => this.getFrankenMechLocationStructureSlots(location.key) > 0)
+                .map(location => this.getFrankenMechLocationStructure(location.key).tag)
+            : []);
+        if( this._frankenMech ) {
+            // Placed below.
+        } else if( this.getTech().tag === "clan" && !this._usesStarLeagueVersion(this._selectedInternalStructure) ) {
+            for( let aCounter = 0; aCounter < this.getCriticalSlots(this._selectedInternalStructure.crits.clan); aCounter++) {
                 this._unallocatedCriticals.push({
                     uuid: generateUUID(),
                     name: this._selectedInternalStructure.name,
@@ -3588,7 +4132,8 @@ export class BattleMech {
             }
 
         } else {
-            for( let aCounter = 0; aCounter < this._selectedInternalStructure.crits.is; aCounter++) {
+            // Superheavy endo steel takes 7 slots and endo-composite 4 (IO:AE p.155).
+            for( let aCounter = 0; aCounter < this.getCriticalSlots(this._selectedInternalStructure.crits.is); aCounter++) {
                 this._unallocatedCriticals.push({
                     uuid: generateUUID(),
                     name: this._selectedInternalStructure.name,
@@ -3630,7 +4175,7 @@ export class BattleMech {
             // Spread equipment (signature systems, sealing, tracks...) places each slot on its own.
             if( this._equipmentList[elc].spreadSlots ) {
                 const baseUUID = this._equipmentList[elc].uuid ?? generateUUID();
-                for( let slotIndex = 0; slotIndex < this._equipmentList[elc].space.battlemech; slotIndex++) {
+                for( let slotIndex = 0; slotIndex < this.getCriticalSlots(this._equipmentList[elc].space.battlemech); slotIndex++) {
                     this._unallocatedCriticals.push({
                         uuid: baseUUID + ":" + slotIndex,
                         name: this._equipmentList[elc].name,
@@ -3644,13 +4189,18 @@ export class BattleMech {
                 continue;
             }
 
+            // Equipment that takes no critical slot is carried but never placed (RISC Heat Sink Override Kit).
+            if( this._equipmentList[elc].space.battlemech === 0 ) {
+                continue;
+            }
+
             this._unallocatedCriticals.push({
                 uuid: this._equipmentList[elc].uuid ?? generateUUID(),
                 name: this._equipmentList[elc].name + rearTag,
                 tag: this._equipmentList[elc].tag,
                 loc: this._equipmentList[elc].location,
                 rear: isRear,
-                crits: this._equipmentList[elc].space.battlemech,
+                crits: this.getCriticalSlots(this._equipmentList[elc].space.battlemech),
                 obj: this._equipmentList[elc],
                 movable: true,
 
@@ -3668,12 +4218,21 @@ export class BattleMech {
             hs_nickname = "Double Heat Sink";
         else
             hs_nickname ="Heat Sink";
+        // A superheavy slot shared by several heat sinks says how many it holds (IO:AE p.157).
+        const heatSinksPerSlot = this._getHeatSinksPerSlot();
+        let externalHeatSinks = Math.max(0, this.getHeatSinks() - this.getEngineHeatSinkCapacity());
         for( let hsc = 0; hsc < hs_requirements.number; hsc++) {
+            const heatSinksInSlot = Math.min(heatSinksPerSlot, externalHeatSinks);
+            externalHeatSinks -= heatSinksInSlot;
+            let hs_slotName = hs_nickname;
+            if( this.isSuperheavy() && heatSinksPerSlot > 1 && heatSinksInSlot > 1 ) {
+                hs_slotName = (hs_nickname === "Heat Sink" ? "Heat Sinks" : hs_nickname) + " (" + heatSinksInSlot + ")";
+            }
 
             this._unallocatedCriticals.push({
                 obj: null,
                 uuid: generateUUID(),
-                name: hs_nickname,
+                name: hs_slotName,
                 rear: false,
                 tag: "heat-sink",
                 crits: hs_requirements.slotsEach,
@@ -3690,6 +4249,11 @@ export class BattleMech {
             // Armor with fixed critical locations (Stealth, ...) was already placed above; saved/imported allocation
             // entries for it would only fail to find it in the unallocated list.
             if( armorCriticalLocations && item.tag === armorObj.tag ) {
+                continue;
+            }
+            // The same goes for a patchwork location's armor slots and a FrankenMech's structure slots, which are
+            // placed after this loop.
+            if( patchworkArmorTags.has(item.tag) || frankenMechStructureTags.has(item.tag) ) {
                 continue;
             }
             let removeFromUnallocated = false;
@@ -3718,6 +4282,40 @@ export class BattleMech {
             )
         }
 
+        // Patchwork: each location takes the slots of its own armor type, and they stay there. "If slot space
+        // is unavailable ... the desired armor type may not be mounted there" (TO:AUE p.189).
+        this._patchworkSlotShortfalls = [];
+        if (this.isPatchworkArmor()) {
+            for (const location of this.getPatchworkLocations()) {
+                const slots = this.getPatchworkLocationSlots(location.key);
+                if (slots <= 0) continue;
+                const locationArmor = this.getPatchworkArmorType(location.key);
+                let placed = 0;
+                while (placed < slots && this._addCriticalItem(locationArmor.tag, locationArmor.name, 1, location.abbr, null, false, true)) {
+                    placed++;
+                }
+                if (placed < slots) {
+                    this._patchworkSlotShortfalls.push(`Patchwork Armor: ${locationArmor.name} needs ${slots} free critical slot${slots === 1 ? "" : "s"} in the ${location.label}.`);
+                }
+            }
+        }
+
+        // FrankenMech: each location keeps its own structure's slots, from the Internal Structure Distribution
+        // Table (CO pp.212-213).
+        this._frankenMechSlotShortfalls = [];
+        for (const location of this._frankenMech ? this.getFrankenMechLocations() : []) {
+            const slots = this.getFrankenMechLocationStructureSlots(location.key);
+            if (slots <= 0) continue;
+            const structure = this.getFrankenMechLocationStructure(location.key);
+            const structureName = this.getFrankenMechLocationStructureName(location.key);
+            let placed = 0;
+            while (placed < slots && this._addCriticalItem(structure.tag, structureName, 1, location.abbr, null, false, true)) {
+                placed++;
+            }
+            if (placed < slots) {
+                this._frankenMechSlotShortfalls.push(`FrankenMech: ${structureName} structure needs ${slots} free critical slot${slots === 1 ? "" : "s"} in the ${location.label}.`);
+            }
+        }
 
     }
 
@@ -3866,7 +4464,14 @@ export class BattleMech {
         // Movement granted by a partial wing generates no heat.
         const jumpMP = this.getJumpSpeed() - (this.getJumpSpeed() > 0 ? this.getPartialWingJumpBonus() : 0);
         if (jumpMP <= 0) return 0;
-        const heatMP = this._jumpJetType.tag === "improved" ? Math.ceil(jumpMP / 2) : jumpMP;
+        // Prototype improved jump jets: 2 heat a hex, at least 6 (IO:AE p.97).
+        if (this._jumpJetType.heatPerHex) {
+            const prototypeHeat = Math.max(this._jumpJetType.minimumHeat ?? 3, jumpMP * this._jumpJetType.heatPerHex);
+            return this.isXXLEngine() ? prototypeHeat * 2 : prototypeHeat;
+        }
+        // A FrankenMech's lighter jets make heat jet by jet: six half-ton jets on a 60-ton 'Mech give 6 points (CO p.213).
+        const jetsForHeat = this.usesLighterJumpJets() ? this._jumpSpeed : jumpMP;
+        const heatMP = this._jumpJetType.tag === "improved" ? Math.ceil(jetsForHeat / 2) : jetsForHeat;
         return this.isXXLEngine() ? Math.max(6, heatMP * 2) : Math.max(3, heatMP);
     }
 
@@ -3878,14 +4483,31 @@ export class BattleMech {
      * Highest walking MP an engine can give this 'Mech: rating (walk MP x tonnage) is capped at 400,
      * or 500 with Large engines, which are Experimental technology (TO:AUE).
      */
+    /** Lowest Walking MP an engine exists for. The Engine Table starts at a rating of 10, so a 5-ton battledroid needs 2 (BD p.23). */
+    public getMinWalkSpeed(): number {
+        return Math.max(1, Math.ceil(10 / Math.max(1, this.getTonnage())));
+    }
+
     public getMaxWalkSpeed(rulesLevel: number = 2): number {
-        const maxRating = rulesLevel >= EXPERIMENTAL_RULES_LEVEL ? 500 : 400;
-        return Math.floor(maxRating / Math.max(1, this.getTonnage()));
+        // The Engine Tables before Total Warfare end at 400, whatever the rules level.
+        const maxRating = rulesLevel >= EXPERIMENTAL_RULES_LEVEL && !this.usesEarlierRulesEdition() ? 500 : 400;
+        const walk = Math.floor(maxRating / Math.max(1, this.getTonnage()));
+        if (!this._primitive) return walk;
+        // A Primitive engine's adjusted rating comes from the Master Engine Table, which ends at 400 (IO:AE p.117).
+        let primitiveWalk = walk;
+        while (primitiveWalk > 0 && this._engineRatingForWalk(primitiveWalk) > 400) primitiveWalk--;
+        return primitiveWalk;
+    }
+
+    /** Jump jets need a fusion or fission engine (TM p.69; IO:AE p.117); so does running energy weapons without power amplifiers (TM p.72). */
+    private _hasFusionOrFissionEngine(): boolean {
+        return this._engineType.tag !== "ice" && this._engineType.tag !== "cell";
     }
 
     /** Highest jump MP the jump jet type allows: walking MP, or running MP for Improved jump jets. */
     public getMaxJumpSpeed(): number {
-        return this._jumpJetType.tag === "improved" ? this.getRunSpeed() : this.getWalkSpeed();
+        if (this.isSuperheavy() || !this._hasFusionOrFissionEngine()) return 0;
+        return this._jumpJetType.tag === "improved" || this._jumpJetType.jumpAsRun ? this.getRunSpeed() : this.getWalkSpeed();
     }
 
     public getJumpJetType(): IJumpJet {
@@ -3893,7 +4515,7 @@ export class BattleMech {
     }
 
     public setJumpJetType(tag: string): IJumpJet {
-        const jumpJet = findByTag(mechJumpJetTypes, tag);
+        const jumpJet = findByTag(getComponentRecords("jumpJet"), tag);
         if (jumpJet) {
             this._jumpJetType = jumpJet;
             this._calc();
@@ -3906,7 +4528,7 @@ export class BattleMech {
     }
 
     public setMyomerType(tag: string): IMyomerType {
-        const myomer = findByTag(mechMyomerTypes, tag);
+        const myomer = findByTag(getComponentRecords("myomer"), tag);
         if (myomer) {
             this._myomerType = myomer;
             this._calc();
@@ -3925,7 +4547,10 @@ export class BattleMech {
         return mechMyomerTypes.map(myomer => {
             const availability = this._techDatesAvailability(myomer, rulesLevel);
             myomer.availableAsPrototype = availability.asPrototype;
-            myomer.available = availability.available && !(myomer.techBase && pureTech && myomer.techBase !== pureTech);
+            // Superheavy musculature is incompatible with Triple-Strength Myomer (IO:AE p.156).
+            myomer.available = availability.available && (myomer.tag === "standard" || this.isOfferedInEdition(myomer, rulesLevel)) && !(myomer.techBase && pureTech && myomer.techBase !== pureTech)
+                && !(this.isSuperheavy() && BattleMech._isTripleStrengthMyomer(myomer))
+                && this._isChassisLegalMyomer(myomer);
             return myomer;
         });
     }
@@ -3934,12 +4559,19 @@ export class BattleMech {
         return mechJumpJetTypes.map(jumpJet => {
             const availability = this._techDatesAvailability(jumpJet, rulesLevel);
             jumpJet.availableAsPrototype = availability.asPrototype;
-            jumpJet.available = availability.available;
+            // Superheavy 'Mechs mount no jump jets, improved jump jets or UMUs (IO:AE p.156).
+            jumpJet.available = availability.available && this.isOfferedInEdition(jumpJet, rulesLevel) && !this.isSuperheavy()
+                && !(jumpJet.innerSphereOnly && this.getTech().tag === "clan")
+                // IndustrialMechs "may use only standard jump jets" (TM p.69).
+                && this._hasFusionOrFissionEngine() && (!this.isIndustrialMech() || jumpJet.tag === "standard");
             return jumpJet;
         });
     }
 
     public getMaxMovementHeat() {
+        // "ICE-powered IndustrialMechs ... always have a Movement Heat Value of 0" (TM p.303; the BV errata v4.1 keep
+        // it to ICE, though fuel cell IndustrialMechs also make no walking or running heat in play, TW p.158).
+        if (this.isIndustrialMech() && this._engineType.tag === "ice") return 0;
         // Battle Value uses the higher of running and jumping heat (TM p.303). Standard LAMs
         // use AirMech flank heat: 1 per 3 AirMech MP, rounded normally (IO pp.113, 192).
         let maxMoveHeat = this.hasAirMechMode()
@@ -3961,6 +4593,7 @@ export class BattleMech {
     location: string,
     slot: number | null = 0,
     movable: boolean = false,
+    rollAgain: boolean = false,
 ): boolean {
     // Generate a unique identifier tracking tag for the component instance
     const uuid = generateUUID();
@@ -3971,7 +4604,8 @@ export class BattleMech {
         name: item_nickname,
         crits: criticalCount,
         movable: movable,
-        uuid: uuid
+        uuid: uuid,
+        ...(rollAgain ? { rollAgain: true } : {}),
     };
 
     // Standardize input parameters to eliminate undefined values
@@ -4009,6 +4643,34 @@ export class BattleMech {
     console.error(`_addCriticalItem failed: Location '${location}' is not a valid structural component for the active layout.`);
     return false;
 }
+
+    /**
+     * On a superheavy 'Mech a slot of ammunition in the torsos, arms or legs may hold two tons, as long
+     * as both feed the same weapon type; the rounds themselves may differ (IO:AE p.157).
+     */
+    private _canShareAmmunitionSlot(
+        occupant: ICriticalSlot | null | undefined,
+        incoming: ICriticalSlot,
+        location: string,
+    ): boolean {
+        if (!this.isSuperheavy() || location === "hd" || location === "un") return false;
+        if (!occupant || occupant.placeholder || occupant.shared || occupant.uuid === incoming.uuid) return false;
+        const held = occupant.obj as IEquipmentItem | null;
+        const added = incoming.obj as IEquipmentItem | null;
+        if (!held?.isAmmo || !added?.isAmmo) return false;
+        return getAmmoFamily(held) === getAmmoFamily(added);
+    }
+
+    /** Puts a second ton of ammunition into an occupied slot and names the slot for both. */
+    private _shareAmmunitionSlot(occupant: ICriticalSlot, incoming: ICriticalSlot): void {
+        const companion: ICriticalSlot = JSON.parse(JSON.stringify(incoming));
+        delete companion.shared;
+        companion.size = 1;
+        occupant.shared = companion;
+        const heldName = occupant.obj?.name ?? occupant.name;
+        const addedName = companion.obj?.name ?? companion.name;
+        occupant.name = heldName === addedName ? `${heldName} (x2)` : `${heldName} + ${addedName}`;
+    }
 
     private _isNextXCritsAvailable(
         areaArray: ICriticalSlot[],
@@ -4051,6 +4713,13 @@ export class BattleMech {
         };
 
         newItem.size = criticalCount;
+        // A saved design's second ton of ammunition goes back into the slot it shared (slot 0 included,
+        // which otherwise means "anywhere").
+        if( typeof(slotNumber) === "number" && this._canShareAmmunitionSlot(areaArray[slotNumber], newItem, location) ) {
+            this._shareAmmunitionSlot(areaArray[slotNumber], newItem);
+            this._setEquipmentAllocation(newItem.uuid, slotNumber, location);
+            return true;
+        }
         // console.log( "newItem", newItem );
         if( typeof(slotNumber) === "undefined" || slotNumber === null || slotNumber === 0) {
             // place anywhere available
@@ -4170,9 +4839,13 @@ export class BattleMech {
         newValue: string,
     ) {
 
-        for( let heatSink of mechHeatSinkTypes ) {
-            if( matchesTag(heatSink, newValue))
-                this._heatSinkType = heatSink;
+        // Canon first, then custom, then this browser's drafts: the first tier with a match wins.
+        for( const tier of getComponentTiers("heatSink") ) {
+            const matches = tier.filter( ( heatSink ) => matchesTag( heatSink, newValue ) );
+            if( matches.length > 0 ) {
+                this._heatSinkType = matches[ matches.length - 1 ];
+                break;
+            }
         }
 
         for( let localCount = this._criticalAllocationTable.length; localCount >= 0; localCount--) {
@@ -4187,6 +4860,16 @@ export class BattleMech {
 
     public getCurrentTonnage() {
         return this._currentTonnage;
+    }
+
+    /**
+     * Heat sinks one critical slot holds. A superheavy slot holds what two standard slots would:
+     * two single or four compact heat sinks; larger sinks cannot share (IO:AE p.157).
+     */
+    private _getHeatSinksPerSlot(): number {
+        const perSlot = this._heatSinkType.perSlot ?? 1;
+        const standardSlots = this.getTech().tag === "clan" ? this._heatSinkType.crits.clan : this._heatSinkType.crits.is;
+        return this.isSuperheavy() && standardSlots === 1 ? perSlot * 2 : perSlot;
     }
 
     public getHeatSinkCriticalRequirements() {
@@ -4250,12 +4933,22 @@ export class BattleMech {
     }
 
     public getActiveMoveHeat(): number {
+        // An earlier edition's own Heat Point Table (Battledroids: walking 0, running 1, jumping 1 a hex, BD p.12).
+        const editionMoveHeat = getEditionPlayRules(this._rulesEdition)?.moveHeat;
+        if( editionMoveHeat ) {
+            if( this.currentMovementMode === "w" ) return editionMoveHeat.walk;
+            if( this.currentMovementMode === "r" ) return editionMoveHeat.run;
+            if( this.currentMovementMode === "j" ) return Math.max(editionMoveHeat.jumpMinimum, this.currentTargetJumpingMP * editionMoveHeat.jumpPerHex);
+            return 0;
+        }
+        // Fuel cell and ICE IndustrialMechs make no heat walking or running (TW p.158); a non-fusion BattleMech does (TO:AUE p.120).
+        const noWalkRunHeat = this.isIndustrialMech() && !this._hasFusionOrFissionEngine();
         // TODO check if heat sinks are broken
         if( this.currentMovementMode === "w" ) {
-            return 1;
+            return noWalkRunHeat ? 0 : 1;
         }
         if( this.currentMovementMode === "r" ) {
-            return 2;
+            return noWalkRunHeat ? 0 : 2;
         }
         if( this.currentMovementMode === "j" ) {
             if( this.currentTargetJumpingMP > 3 ) {
@@ -4305,12 +4998,21 @@ export class BattleMech {
     ) {
         this._walkSpeed = walkSpeed
         // Engine rating = tonnage x Walk MP; Walk 0 clears the engine (setEngine(0) -> null).
-        this.setEngine(this._tonnage * this._walkSpeed);
+        this.setEngine(this._engineRatingForWalk(this._walkSpeed));
 
-        if( this._jumpSpeed > this._walkSpeed)
-            this.setJumpSpeed(this._walkSpeed);
+        if( this._jumpSpeed > this._walkSpeed * this._jumpJetsPerMP())
+            this.setJumpSpeed(this._walkSpeed * this._jumpJetsPerMP());
 
         return this._walkSpeed;
+    }
+
+    /**
+     * The engine rating a Walking MP needs: tonnage x Walking MP. For a Primitive 'Mech that result
+     * "must be multiplied by 1.2 and rounded up to the nearest available Engine Rating" (IO:AE p.117).
+     */
+    private _engineRatingForWalk(walkSpeed: number): number {
+        const rating = this._tonnage * walkSpeed;
+        return this._primitive ? Math.ceil(rating * 1.2 / 5 - 1e-9) * 5 : rating;
     }
 
     public getRunSpeed() {
@@ -4340,7 +5042,41 @@ export class BattleMech {
     /** Jump MP from jump jets: shields and modular armor reduce it; a partial wing adds to it (TO:AUE pp.103, 105). */
     public getJumpSpeed() {
         if (this._jumpJetType.underwater) return 0;
-        return this._applyJumpModifiers(this._jumpSpeed);
+        return this._applyJumpModifiers(this._getJumpJetMP());
+    }
+
+    /**
+     * Jump MP the jets give before modifiers: one per jet, or for a FrankenMech's lighter jets their weight over a
+     * full-size jet's, dropping fractions (CO p.213: on a 60-ton 'Mech six half-ton jets give 3 MP).
+     */
+    private _getJumpJetMP(): number {
+        if (!this.usesLighterJumpJets()) return this._jumpSpeed;
+        return Math.floor(this._jumpSpeed * this._jumpJetWeightEach() / this._ownJumpJetWeightEach() + 1e-9);
+    }
+
+    /** Jump jets mounted. Each gives a Jumping MP, except a FrankenMech's lighter jets. */
+    public getJumpJetCount(): number {
+        return this._jumpSpeed;
+    }
+
+    /** Most jump jets worth mounting: as many as give the highest Jumping MP. */
+    public getMaxJumpJetCount(): number {
+        return this.getMaxJumpSpeed() * this._jumpJetsPerMP();
+    }
+
+    /** Jump jets that make one Jumping MP: 1, or 2 or 4 of a FrankenMech's lighter jets. */
+    private _jumpJetsPerMP(): number {
+        return this.usesLighterJumpJets() ? Math.round(this._ownJumpJetWeightEach() / this._jumpJetWeightEach()) : 1;
+    }
+
+    /**
+     * Does this FrankenMech keep jump jets from a lighter 'Mech? "Smaller jump jets can be retained on larger 'Mechs,
+     * but their performance is reduced" (CO p.213). Not offered for UMUs, which are not jump jets, nor for LAMs,
+     * whose conversion needs its Jumping MP.
+     */
+    public usesLighterJumpJets(): boolean {
+        return this._frankenMech && this._frankenMechJumpJetClass !== null
+            && !this._jumpJetType.underwater && !this.isLAM() && !this.usesEarlierRulesEdition();
     }
 
     /** Underwater MP from UMUs (TO:AUE p.107); UMUs replace jump jets. */
@@ -4406,7 +5142,9 @@ export class BattleMech {
 
     public getArmorTechBase(): "is" | "clan" {
         const techTag = this.getTech().tag;
-        if (techTag === "clan") return "clan";
+        if (techTag === "clan") {
+            return this._armorType.armorMultiplier.is > 0 && this._usesStarLeagueVersion(this._armorType) ? "is" : "clan";
+        }
         if (techTag === "is") return "is";
         const preferredBase = techTag === "mclan" ? "clan" : "is";
         if (this._armorType.armorMultiplier[preferredBase] > 0) return preferredBase;
@@ -4423,18 +5161,27 @@ export class BattleMech {
         if (this.isLAM() && !this._isLAMLegalComponent("armor", armorTag)) {
             return this._armorType;
         }
-        for( let aCount = 0; aCount < mechArmorTypes.length; aCount++) {
-            if( matchesTag(mechArmorTypes[aCount], armorTag)) {
-                const armor = mechArmorTypes[aCount];
-                const techTag = this.getTech().tag;
-                const supportsTech = techTag === "mis" || techTag === "mclan"
-                    ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
-                    : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0;
-                if (armor.unitTypes.battlemech && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && supportsTech) {
-                    this._armorType = armor;
-                    this._calc();
+        // Canon first, then custom, then this browser's drafts: the first tier with an accepted match wins.
+        for( const tier of getComponentTiers("armor") ) {
+            let accepted = false;
+            for( const armor of tier ) {
+                if( matchesTag(armor, armorTag)) {
+                    const techTag = this.getTech().tag;
+                    const supportsTech = techTag === "mis" || techTag === "mclan"
+                        ? armor.armorMultiplier.is > 0 || armor.armorMultiplier.clan > 0
+                        : armor.armorMultiplier[techTag === "clan" ? "clan" : "is"] > 0;
+                    if (armor.unitTypes.battlemech && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment" && supportsTech
+                        && this._isArmorLegalForChassis(armor)) {
+                        if (armor.tag === BattleMech.PATCHWORK_ARMOR_TAG && !this.isPatchworkArmor()) {
+                            this._patchworkArmor = {};
+                        }
+                        this._armorType = armor;
+                        this._calc();
+                        accepted = true;
+                    }
                 }
             }
+            if( accepted ) break;
         }
         return this._armorType;
     }
@@ -4442,6 +5189,10 @@ export class BattleMech {
     public setArmorCount( armorCount: number ) {
 
         // console.log("setArmorCount", armorCount)
+        if( this.usesFractionalAccounting() ) {
+            this.setFractionalArmorPoints(armorCount);
+            return;
+        }
         this._totalArmor = armorCount; // ;
         this._armorWeight = armorCount / 16
 
@@ -4486,8 +5237,123 @@ export class BattleMech {
         armorWeight: number,
     ) {
         this._armorWeight = armorWeight;
+        if( this.usesFractionalAccounting() ) {
+            this._fractionalArmorPoints = this._armorPointsForWeight(armorWeight);
+        }
         this._calc();
         return this._armorWeight;
+    }
+
+    public usesFractionalAccounting(): boolean {
+        return this._weightAccounting === "fractional";
+    }
+
+    /** Fractional Accounting is "experimental-level unit design" (TO:AUE p.188): Experimental rules and above. */
+    public canUseFractionalAccounting(rulesLevel: number = 2): boolean {
+        // A TO:AUE rule: no earlier rulebook has it.
+        return rulesLevel >= EXPERIMENTAL_RULES_LEVEL && !this.usesEarlierRulesEdition();
+    }
+
+    /**
+     * Turns the Fractional Accounting construction option on or off (TO:AUE p.188). It can be turned on
+     * only at the Experimental rules level or above; it can always be turned off.
+     *
+     * Turning it on keeps the armor points already bought. Turning it off rounds the armor and every
+     * ammunition bin back up to the half ton.
+     */
+    public setWeightAccounting(accounting: "standard" | "fractional", rulesLevel: number = 2): "standard" | "fractional" {
+        if( accounting === this._weightAccounting ) return this._weightAccounting;
+        if( accounting === "fractional" ) {
+            if( !this.canUseFractionalAccounting(rulesLevel) ) return this._weightAccounting;
+            const points = this._armorPointsForWeight(this._armorWeight);
+            this._weightAccounting = "fractional";
+            this._fractionalArmorPoints = points;
+        } else {
+            this._weightAccounting = "standard";
+            this._armorWeight = Math.ceil(this._armorWeight * 2 - 1e-6) / 2;
+            for( const item of this._equipmentList ) {
+                // Battle armor ammunition stays by the kilogram whatever the accounting (Ghosts of Obeedah p.54).
+                if( item && item.isAmmo && !item.battleArmorScale ) item.weight = Math.ceil(item.weight * 2 - 1e-6) / 2;
+            }
+        }
+        this._calc();
+        return this._weightAccounting;
+    }
+
+    /**
+     * A unit "built or modified to carry battle armor equipment uses the Fractional Accounting construction
+     * option by default" (Ghosts of Obeedah p.54). The book's own designs (the Cherub, p.81-83) are built with
+     * standard rounding, so the option is turned on when the first such item is mounted and can be turned off
+     * (user ruling, 2026-10-14).
+     */
+    public defaultsToFractionalAccounting(): boolean {
+        return this._equipmentList.some(item => item && item.battleArmorScale === true);
+    }
+
+    // Mounting the first battle armor item turns the option on; the armor already bought is kept, by the point.
+    private _adoptFractionalAccounting(): void {
+        const hasBattleArmorEquipment = this.defaultsToFractionalAccounting();
+        const adopt = hasBattleArmorEquipment && !this._hadBattleArmorEquipment && !this._importing && !this.usesFractionalAccounting();
+        this._hadBattleArmorEquipment = hasBattleArmorEquipment;
+        if( !adopt ) return;
+        const points = this._armorPointsForWeight(this._armorWeight);
+        this._weightAccounting = "fractional";
+        this._fractionalArmorPoints = points;
+    }
+
+    /** Ammunition can be bought by the shot under Fractional Accounting, and battle armor ammunition always. */
+    public canSetAmmoBinShots( bin: IEquipmentItem ): boolean {
+        return !!bin.isAmmo && (this.usesFractionalAccounting() || bin.battleArmorScale === true);
+    }
+
+    /** Tons per point of the selected armor under Fractional Accounting (Fractional Armor Table, TO:AUE p.188). */
+    public getFractionalArmorTonsPerPoint(): number {
+        const techBase = this.getArmorTechBase() === "clan" ? "clan" : "is";
+        return getFractionalArmorTonsPerPoint(this.getArmorType(), techBase, this.getArmorObj().armorMultiplier[techBase]);
+    }
+
+    /** Whole armor points a weight of the selected armor buys, never more than the chassis can carry. */
+    private _armorPointsForWeight(weight: number): number {
+        const techBase = this.getArmorTechBase() === "clan" ? "clan" : "is";
+        const tonsPerPoint = this.usesFractionalAccounting()
+            ? this.getFractionalArmorTonsPerPoint()
+            : 1 / (this.getArmorObj().armorMultiplier[techBase] || 16);
+        return Math.max(0, Math.min(this.getChassisMaxArmor(), Math.floor(weight / tonsPerPoint + 1e-6)));
+    }
+
+    public getFractionalArmorPoints(): number {
+        return this._fractionalArmorPoints;
+    }
+
+    /** Fractional Accounting: buy armor by the point, "in any desired quantity" (TO:AUE p.188). */
+    public setFractionalArmorPoints(points: number): number {
+        if( !this.usesFractionalAccounting() ) return this._fractionalArmorPoints;
+        this._fractionalArmorPoints = Math.max(0, Math.min(this.getChassisMaxArmor(), Math.floor(points) || 0));
+        this._calc();
+        return this._fractionalArmorPoints;
+    }
+
+    /** Shots in one full ton of a bin's ammunition, for the weapon it feeds. */
+    public getAmmoBinShotsPerTon( bin: IEquipmentItem ): number {
+        if( !bin.isAmmo ) return 0;
+        const weapon = this.getAmmoBinWeapon(bin);
+        return weapon ? getWeaponShotsPerTon(weapon, bin) : getAmmoRoundsPerTon(bin);
+    }
+
+    /**
+     * Fractional Accounting: carry ammunition by the shot. A shot weighs a full-ton bin divided by its
+     * number of shots, and a bin still takes one critical slot for a ton "or fraction thereof", so a bin
+     * holds from one shot to a full ton (TO:AUE p.189).
+     */
+    public setAmmoBinShots( ammoUUID: string | undefined, shots: number ): number {
+        const bin = this._equipmentList.find(eq => eq && eq.uuid === ammoUUID && eq.isAmmo);
+        if( !bin || !this.canSetAmmoBinShots(bin) ) return 0;
+        const shotsPerTon = this.getAmmoBinShotsPerTon(bin);
+        if( !(shotsPerTon > 0) ) return 0;
+        const wanted = Math.max(1, Math.min(shotsPerTon, Math.floor(shots) || 1));
+        bin.weight = roundUpToKilogram(wanted / shotsPerTon);
+        this._calc();
+        return wanted;
     }
 
     public getEngine(): IEngineOption | null {
@@ -4546,7 +5412,7 @@ export class BattleMech {
         if (this.isLAM() && !this._isLAMLegalComponent("structure", isTag)) {
             return this._selectedInternalStructure;
         }
-        for( let is of mechInternalStructureTypes) {
+        for( let is of getComponentRecords("structure")) {
             if( matchesTag(is, isTag)) {
                 this._selectedInternalStructure = is;
                 this._calc();
@@ -4622,18 +5488,409 @@ export class BattleMech {
         return this._unallocatedCriticals;
     }
 
+    public getRulesEdition(): string {
+        return this._rulesEdition;
+    }
+
+    /** The printed droid the design was loaded from, if any (an id from battledroids-mechs.ts). */
+    public getPrintedDroid(): string | undefined {
+        return this._printedDroid;
+    }
+
+    public setPrintedDroid(id: string | undefined): void {
+        this._printedDroid = id || undefined;
+    }
+
+    /** What the Heat Scale adds to the To-Hit Number at the current heat: +1 at 8, +2 at 13, +3 at 17, +4 at 24 (TW pp.158-160; BD p.13). */
+    public getHeatToHitModifier(): number {
+        const heat = this.currentHeat;
+        return heat >= 24 ? 4 : heat >= 17 ? 3 : heat >= 13 ? 2 : heat >= 8 ? 1 : 0;
+    }
+
+    /**
+     * Roll for a critical hit in a location by the rules of the design's edition, for an edition whose play rules
+     * are entered (Battledroids, BD p.18: 7 or more on two dice is one critical hit; one die picks the line in the
+     * head or a leg, a die for the group and a die for the line elsewhere; an empty line is rolled again). The
+     * line hit is marked. `dice` supplies the players' rolls: the chance roll, then the dice for the line in order.
+     */
+    public rollEditionCriticalHit(location: string, dice: { chance?: number; lines?: number[] } = {}): string[] {
+        const rules = this.getEditionPlayRules();
+        if (!rules) {
+            return [];
+        }
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const chance = dice.chance ?? die() + die();
+        if (chance < rules.criticalHitRoll) {
+            return [`Critical hit roll ${chance}: no critical hit (${rules.criticalHitRoll} or more is needed).`];
+        }
+        const normalized = this._normalizeLocation(location);
+        const slots: (ICriticalSlot | null | undefined)[] = (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[normalized]] ?? [];
+        const lines = [...(dice.lines ?? [])];
+        const next = () => lines.shift() ?? die();
+        const twelve = !["hd", "ll", "rl", "cl", "fll", "frl"].includes(normalized);
+        const log = [`Critical hit roll ${chance}: a critical hit.`];
+        for (let attempt = 0; attempt < 100; attempt++) {
+            const first = next();
+            const index = twelve ? (first <= 3 ? 0 : 6) + next() - 1 : first - 1;
+            const label = twelve ? `${first <= 3 ? 1 : 2}${index % 6 + 1}` : `${index + 1}`;
+            if (!slots[index]) {
+                log.push(`Line ${label} is empty: rolled again.`);
+                continue;
+            }
+            let named = index;
+            while (named > 0 && slots[named]?.placeholder) named--;
+            const name = slots[named]?.name ?? "that line";
+            if (this.isCriticalDamaged(normalized, index)) {
+                log.push(`Line ${label}, ${name}: already hit.`);
+            } else {
+                this.toggleCritical(normalized, index);
+                log.push(`Line ${label}: ${name} is hit.`);
+            }
+            return log;
+        }
+        log.push("This location has nothing to hit.");
+        return log;
+    }
+
+    /** Front/Rear column of the 'Mech Hit Location Table (TW p.119); on a four-legged 'Mech the arms are its front legs. */
+    private static readonly FRONT_REAR_HIT_LOCATIONS: Readonly<Record<number, string>> = {
+        2: "ct", 3: "ra", 4: "ra", 5: "rl", 6: "rt", 7: "ct", 8: "lt", 9: "ll", 10: "la", 11: "la", 12: "hd",
+    };
+
+    /**
+     * Modifier to rolls on the Determining Critical Hits Table: +2 against an IndustrialMech (TW p.124); against a
+     * Primitive or RetroTech 'Mech, +2 for a BattleMech and +4 for an IndustrialMech (IO:AE p.114). The +4 is read as
+     * replacing TW's +2, not adding to it.
+     */
+    public getCriticalHitRollModifier(): number {
+        if (this._primitive) return this.isIndustrialMech() ? 4 : 2;
+        return this.isIndustrialMech() ? 2 : 0;
+    }
+
+    /**
+     * Roll on the Determining Critical Hits Table for a location (TW p.124), or by the edition's own rule when it has
+     * one (see rollEditionCriticalHit). 8-9 is one critical hit, 10-11 two, 12 three in a torso or the head or limb
+     * blown off. An IndustrialMech's modified 13 counts as 12 and 14 or more is four hits in a torso or the head or limb
+     * blown off (TW p.124; IO:AE p.114); a Primitive BattleMech's 13 or more counts as 12. Each hit rolls a line on
+     * the location's table, rolling again on an empty line, a line that cannot take a critical hit (endo steel,
+     * ferro-fibrous armor, CASE; TW p.124) or one already hit. `dice` supplies the players' rolls in order;
+     * `extraModifier` is added to the chance roll (a fall, see rollIndustrialMechDamageCheck).
+     */
+    public rollCriticalHit(location: string, dice: { chance?: number; lines?: number[] } = {}, extraModifier: number = 0): string[] {
+        if (this.getEditionPlayRules()) return this.rollEditionCriticalHit(location, dice);
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const roll = dice.chance ?? die() + die();
+        const modifier = this.getCriticalHitRollModifier() + extraModifier;
+        const result = roll + modifier;
+        const normalized = this._normalizeLocation(location);
+        const torso = ["ct", "lt", "rt"].includes(normalized);
+        const log = [modifier ? `Critical hit roll ${roll} + ${modifier} = ${result}.` : `Critical hit roll ${roll}.`];
+        let hits = 0;
+        let blownOff = false;
+        if (this.isIndustrialMech() && result >= 14) {
+            if (torso) hits = 4;
+            else blownOff = true;
+        } else {
+            const capped = Math.min(12, result);
+            if (capped >= 12) {
+                if (torso) hits = 3;
+                else blownOff = true;
+            } else {
+                hits = capped >= 10 ? 2 : capped >= 8 ? 1 : 0;
+            }
+        }
+        if (blownOff) {
+            log.push(`${getLocationName(location, this._hasFrontLegs())} blown off.`);
+            this._blowOffLocation(normalized);
+            this._calc();
+            return log;
+        }
+        if (hits === 0) {
+            log.push("No critical hit.");
+            return log;
+        }
+        log.push(hits === 1 ? "One critical hit." : `${hits} critical hits.`);
+        const slots: (ICriticalSlot | null | undefined)[] = (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[normalized]] ?? [];
+        const twelve = !["hd", "ll", "rl", "cl", "fll", "frl"].includes(normalized);
+        const lines = [...(dice.lines ?? [])];
+        const next = () => lines.shift() ?? die();
+        const hittable = (index: number) => !!slots[index] && !this.isCriticalDamaged(normalized, index) && !this._isRollAgainSlot(slots[index]!);
+        for (let hit = 0; hit < hits; hit++) {
+            const open = slots.map((_, index) => index).filter(hittable);
+            if (open.length === 0) {
+                log.push("No line left that can take a critical hit.");
+                break;
+            }
+            for (let attempt = 0; attempt < 100; attempt++) {
+                const first = next();
+                const index = twelve ? (first <= 3 ? 0 : 6) + next() - 1 : first - 1;
+                if (!hittable(index)) continue;
+                let named = index;
+                while (named > 0 && slots[named]?.placeholder) named--;
+                this.toggleCritical(normalized, index);
+                const label = twelve ? `${first <= 3 ? "1-3" : "4-6"}, ${index % 6 + 1}` : `${index + 1}`;
+                log.push(`Line ${label}: ${slots[named]?.name ?? "that line"} is hit.`);
+                break;
+            }
+        }
+        return log;
+    }
+
+    /**
+     * An IndustrialMech's End Phase damage check, made once in a turn in which it fell or was the target of a successful
+     * physical attack: a roll on the Determining Critical Hits Table, +1 for each level fallen above 1, at a location
+     * rolled on the Front/Rear column of the 'Mech Hit Location Table (TW pp.68, 144). MegaMek adds every level fallen;
+     * this follows the book.
+     */
+    public rollIndustrialMechDamageCheck(levelsFallen: number = 0, dice: { location?: number; chance?: number; lines?: number[] } = {}): string[] {
+        if (!this.isIndustrialMech()) return [];
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const locationRoll = dice.location ?? die() + die();
+        const location = BattleMech.FRONT_REAR_HIT_LOCATIONS[locationRoll];
+        if (!location) return [];
+        const fallModifier = Math.max(0, Math.floor(levelsFallen) - 1);
+        return [
+            `Location roll ${locationRoll}: ${getLocationName(location, this._hasFrontLegs())}.`,
+            ...this.rollCriticalHit(location, dice, fallModifier),
+        ];
+    }
+
+    /** A line that cannot take a critical hit: armor and structure slots, CASE (TW p.124; CASE II and CASE-P via MegaMek). */
+    private _isRollAgainSlot(slot: ICriticalSlot): boolean {
+        if (slot.rollAgain) return true;
+        if (/^(clan-|is-)?case(-ii|-prototype)?$/.test(slot.tag)) return true;
+        const armorTags = this.isPatchworkArmor()
+            ? this.getPatchworkLocations().map(location => this.getPatchworkArmorType(location.key).tag)
+            : [this._armorType.tag];
+        return armorTags.includes(slot.tag) || slot.tag === this._selectedInternalStructure.tag;
+    }
+
+    /** A head or limb blown off: its armor and internal structure are gone. */
+    private _blowOffLocation(location: string): void {
+        const key = BattleMech.MECH_LOCATION_MAP[location];
+        for (const bubbles of [(this._armorBubbles as any)[key], (this._structureBubbles as any)[key]]) {
+            if (Array.isArray(bubbles)) bubbles.fill(false);
+        }
+    }
+
+    /** The play rules of the design's edition where they differ from Total Warfare's; undefined when they do not. */
+    public getEditionPlayRules() {
+        return getEditionPlayRules(this._rulesEdition);
+    }
+
+    /** True when the design is built under an edition before Total Warfare, whose lists and stats come from that edition's rulebook. */
+    public usesEarlierRulesEdition(): boolean {
+        return isEarlierRulesEdition(this._rulesEdition);
+    }
+
+    /**
+     * Do the rules of the design's edition include this record (a component type, tonnage, chassis type or item)?
+     * With a rules level, records the edition allows only at the Apocryphal level count from that level up.
+     */
+    public isInRulesEdition(record: Parameters<typeof isInRulesEdition>[0], rulesLevel?: number): boolean {
+        return isInRulesEdition(record, this._rulesEdition, rulesLevel);
+    }
+
+    /**
+     * Is the record offered in the design's rules edition at this rules level?
+     */
+    public isOfferedInEdition(record: Parameters<typeof isOfferedInEdition>[0], rulesLevel: number): boolean {
+        return isOfferedInEdition(record, this._rulesEdition, rulesLevel);
+    }
+
+    /**
+     * Build the design under another rules edition. Mounted equipment takes the new edition's weight, heat,
+     * damage, ranges, critical slots and price wherever it still held the old edition's; nothing is removed.
+     * getRulesEditionIssues() lists what the new edition does not include. An unknown tag is ignored.
+     */
+    /** The design as it stands, for telling whether it changed: no ids, timestamps or way back. */
+    private _editionState(): string {
+        const saved = this.export() as unknown as Record<string, unknown>;
+        return JSON.stringify({ ...saved, uuid: undefined, lastUpdated: undefined, rulesEditionReturn: undefined });
+    }
+
+    /**
+     * The edition the design last left, kept with the switch. Call again after anything that finishes the switch
+     * (the creator's tonnage clamp), so that is not taken for a change.
+     */
+    public settleRulesEditionSwitch(): void {
+        if (this._rulesEditionReturn) {
+            this._rulesEditionReturn.left = this._editionState();
+        }
+    }
+
+    /**
+     * Change the rules edition; the edition decides. Equipment takes its stats, rules it lacks are dropped and the
+     * design conformed. Going back to the edition the design just left, with nothing changed since, brings back the
+     * design it had there exactly (a Battledroids droid's Jumping MP above its Walking MP, which Total Warfare caps).
+     */
+    public setRulesEdition(editionTag: string): string {
+        const edition = getRulesEdition(editionTag);
+        if (edition.tag !== editionTag || edition.tag === this._rulesEdition) {
+            return this._rulesEdition;
+        }
+        const back = this._rulesEditionReturn;
+        if (back && back.edition === edition.tag && back.left === this._editionState()) {
+            this.reset();
+            this.importJSON(back.design);
+            this._rulesEditionReturn = undefined;
+            return this._rulesEdition;
+        }
+        const leaving: IRulesEditionReturn = {
+            edition: this._rulesEdition,
+            design: JSON.stringify({ ...this.export(), rulesEditionReturn: undefined }),
+            left: "",
+        };
+        const previous = this._rulesEdition;
+        this._rulesEdition = edition.tag;
+        const same = (a: unknown, b: unknown) => JSON.stringify(a) === JSON.stringify(b);
+        const restat = (item: IEquipmentItem | null | undefined): void => {
+            const record = item ? getEquipmentListByTech("mis", true).find(candidate => candidate.tag === item.tag) : undefined;
+            if (!item || !record) {
+                return;
+            }
+            const [before, after] = [getEquipmentForEdition(record, previous), getEquipmentForEdition(record, edition.tag)];
+            for (const field of ["weight", "heat", "damage", "range", "space", "cbills", "book", "page"] as const) {
+                if (same(item[field], before[field])) {
+                    (item as unknown as Record<string, unknown>)[field] = JSON.parse(JSON.stringify(after[field] ?? null)) ?? undefined;
+                }
+            }
+        };
+        this._equipmentList.forEach(restat);
+        // FrankenMechs are a Campaign Operations rule, which no earlier edition has.
+        if (this.usesEarlierRulesEdition()) {
+            this._frankenMech = false;
+            this._frankenMechDonors = {};
+            this._frankenMechJumpJetClass = null;
+            // Primitive 'Mechs (IO:AE) and Fractional Accounting (TO:AUE) came later too.
+            if (this._primitive) this.setPrimitive(false);
+            if (this.usesFractionalAccounting()) this.setWeightAccounting("standard");
+        }
+        // The technology base must be one the edition has: Clan falls back to Inner Sphere, Mixed to its base.
+        const techTags = this.getAvailableTechOptions().map((option) => option.tag);
+        if (!techTags.includes(this._tech.tag)) {
+            const base = this._tech.tag === "mclan" && techTags.includes("clan") ? "clan" : "is";
+            this.setTech(base);
+        }
+        // The structure boxes are the edition's as well; setTonnage recalculates everything after them.
+        this.setTonnage(this._tonnage);
+        this._rulesEditionReturn = leaving;
+        this.settleRulesEditionSwitch();
+        return this._rulesEdition;
+    }
+
+    /**
+     * Technology bases the design's rules edition builds with. An earlier edition has the Clan base only when its
+     * rulebook prints Clan equipment (Battledroids to the BattleTech Manual, BT3 and BT4 print none; the BattleTech
+     * Compendium builds "Inner Sphere or Clan", BTC p.111, BTC:RoW p.99), and Mixed Tech only when it lets the two
+     * be mixed (`mixedTech`). Total Warfare and later editions have them all; the rules level and era decide.
+     */
+    public getAvailableTechOptions(): typeof btTechOptions {
+        if (!this.usesEarlierRulesEdition()) {
+            return btTechOptions;
+        }
+        const edition = getRulesEdition(this._rulesEdition);
+        const clan = getEquipmentCatalogDefinitions().some((catalog) => !catalog.custom
+            && catalog.equipment.some((item) => item.techBase === "clan" && isInRulesEdition(item, edition.tag)));
+        return btTechOptions.filter((option) => option.tag === "is" || (clan && option.tag === "clan")
+            || (clan && edition.mixedTech === true && (option.tag === "mis" || option.tag === "mclan")));
+    }
+
+    /**
+     * Construction rules of the design's edition that it breaks, one line each: today the least ammunition its
+     * weapons must carry (a ton for each launcher or ballistic weapon in Battledroids, BD p.25). Weapons that
+     * share ammunition are counted together. Always empty for Total Warfare and later editions.
+     */
+    public getRulesEditionRuleIssues(): string[] {
+        const rule = this.usesEarlierRulesEdition() ? getRulesEdition(this._rulesEdition).ammoTonsFor : undefined;
+        if (!rule) {
+            return [];
+        }
+        const familiesByTag = new Map<string, string[]>();
+        const groups = new Map<string, { names: Set<string>; weapons: number; families: string[] }>();
+        for (const item of this._equipmentList) {
+            if (!item || item.isAmmo) {
+                continue;
+            }
+            if (!familiesByTag.has(item.tag)) {
+                familiesByTag.set(item.tag, getWeaponAmmoFamilies(item).sort());
+            }
+            const families = familiesByTag.get(item.tag)!;
+            if (families.length === 0) {
+                continue;
+            }
+            const group = groups.get(families.join("|")) ?? { names: new Set<string>(), weapons: 0, families };
+            group.names.add(item.name);
+            group.weapons++;
+            groups.set(families.join("|"), group);
+        }
+        const issues: string[] = [];
+        for (const group of groups.values()) {
+            const carried = this._equipmentList.reduce((tons, item) => tons + (item?.isAmmo && group.families.includes(getAmmoFamily(item)) ? item.weight : 0), 0);
+            const needed = rule === "launcher" ? group.weapons : 1;
+            if (carried < needed) {
+                issues.push(`Ammunition for ${Array.from(group.names).join(", ")}: at least ${needed} ${needed === 1 ? "ton" : "tons"}${rule === "launcher" ? " (1 for each weapon)" : ""}, ${carried} carried`);
+            }
+        }
+        return issues;
+    }
+
+    /**
+     * What the design uses that its rules edition does not include, one line each, naming the edition. Level
+     * issues are reported by the rules-level warnings, not here.
+     */
+    public getRulesEditionIssues(rulesLevel?: number): string[] {
+        const issues: string[] = [];
+        const check = (kind: string, record: { name?: string; introducedInEdition?: string; editionStats?: IEquipmentItem["editionStats"] } | undefined, name?: string): void => {
+            if (record && getRecordOfferIssue(record, this._rulesEdition, rulesLevel ?? 0) === "edition") {
+                issues.push(`${kind}: ${name ?? record.name} (not in ${getRulesEdition(this._rulesEdition).name})`);
+            }
+        };
+        if (!this.getAvailableTechOptions().some((option) => option.tag === this._tech.tag)) {
+            issues.push(`Technology base: ${this._tech.name}`);
+        }
+        check("Chassis type", this._mechType);
+        check("Tonnage", btMechTonnages.find(option => option.tons === this._tonnage) ?? {}, `${this._tonnage} tons`);
+        check("Engine", this._engineType);
+        check("Gyro", this._gyro);
+        check("Cockpit", this.getCockpitType());
+        check("Internal structure", this._selectedInternalStructure);
+        check("Armor", this.getArmorObj());
+        check("Heat sinks", this._heatSinkType);
+        if (this._jumpSpeed > 0) check("Jump jets", this._jumpJetType);
+        if (this._myomerType.tag !== "standard") check("Myomer", this._myomerType);
+        const listed = new Set<string>();
+        for (const item of this._equipmentList) {
+            // Equipment is judged as the pickers judge it, so offered Custom Homebrew items are not flagged.
+            if (item && !listed.has(item.tag)) {
+                listed.add(item.tag);
+                if (getEquipmentOfferIssue(item, this._rulesEdition, rulesLevel ?? 0) === "edition") {
+                    issues.push(`Equipment: ${item.name} (not in ${getRulesEdition(this._rulesEdition).name})`);
+                }
+            }
+        }
+        issues.push(...getQuirkIssues(this.quirks.getAll(), this.getQuirkUnitType(), this._rulesEdition, rulesLevel ?? 0, "edition"));
+        return issues;
+    }
+
     public setEra(
         eraTag: string,
     ) {
 
-        for( let era of btEraOptions ) {
-            if( matchesTag(era, eraTag)) {
-                this._era = era;
-                this._calc();
-                return this._era;
-            }
+        const era = findEraByTag(eraTag);
+        if( !era ) {
+            return null;
         }
-        return null;
+        // An era the tech base cannot design in (e.g. a Clan-only era on an Inner Sphere 'Mech)
+        // becomes the nearest one it can.
+        this._era = getClosestEraForTech(era, this._tech.tag);
+        this._calc();
+        return this._era;
+    }
+
+    /** The eras this 'Mech's tech base can be designed in. */
+    public getAvailableEras() {
+        return getErasForTech(this._tech.tag);
     }
 
     public getTech() {
@@ -4647,12 +5904,9 @@ export class BattleMech {
             if( matchesTag(technology, techTag)) {
                 this._tech = technology;
                 this._engineTechBase = technology.tag === "clan" || technology.tag === "mclan" ? "clan" : "is";
+                // Clan-only eras are closed to the Inner Sphere, and Mixed Tech starts at the Clan Invasion.
+                this._era = getClosestEraForTech(this._era, technology.tag);
                 this._calc();
-
-                // set era to Clan Invasion (id 3) if the techID is 2 (Clan)
-                // if( techID === 2 && this.getEra().id !== 3) {
-                //     this.setEra(3);
-                // }
 
                 return this._tech;
             }
@@ -4668,8 +5922,15 @@ export class BattleMech {
         return this.calcAlphaStrike();
     }
 
+    /**
+     * Tag of the selected special ammunition. A design saved before a munition was re-tagged stores
+     * the old tag, which the record keeps as an alias: the mounted round's current tag is returned.
+     */
     public getAlphaStrikeSpecialAmmoTag(): string {
-        return this._alphaStrikeSpecialAmmoTag;
+        const stored = this._alphaStrikeSpecialAmmoTag;
+        if (!stored) return stored;
+        const mounted = this.getAlphaStrikeSpecialAmmoOptions().find(ammo => equipmentMatchesIdentifier(ammo, stored));
+        return mounted?.tag ?? stored;
     }
 
     public getAlphaStrikeSpecialAmmoOptions(): IEquipmentItem[] {
@@ -4683,8 +5944,9 @@ export class BattleMech {
     }
 
     public setAlphaStrikeSpecialAmmoTag(ammoTag: string): string {
-        const selectedAmmo = this.getAlphaStrikeSpecialAmmoOptions()
-            .find(ammo => matchesTag(ammo, ammoTag));
+        const options = this.getAlphaStrikeSpecialAmmoOptions();
+        const selectedAmmo = options.find(ammo => ammo.tag === ammoTag)
+            ?? options.find(ammo => equipmentMatchesIdentifier(ammo, ammoTag));
         this._alphaStrikeSpecialAmmoTag = selectedAmmo?.tag ?? "";
         return this._alphaStrikeSpecialAmmoTag;
     }
@@ -4719,7 +5981,7 @@ export class BattleMech {
         if (this.isLAM() && !this._isLAMLegalComponent("engine", engineTag.toLowerCase())) {
             return this._engineType;
         }
-        for( let engine of mechEngineTypes) {
+        for( let engine of getComponentRecords("engine")) {
             if( matchesTag(engine, engineTag.toLowerCase())) {
                 this._engineType = engine;
                 this._calc();
@@ -4783,7 +6045,7 @@ export class BattleMech {
         if (this.isLAM() && !BattleMech.LAM_GYRO_TAGS.includes(gyroType.toLowerCase())) {
             gyroType = "standard";
         }
-        for( let gyro of mechGyroTypes) {
+        for( let gyro of getComponentRecords("gyro")) {
             if( matchesTag(gyro, gyroType.toLowerCase())) {
                 this._gyro = gyro;
                 this._calc();
@@ -4820,8 +6082,15 @@ export class BattleMech {
         return this.getEngineTechBase();
     }
 
+    /** The engine's name; above rating 400, the large engine's (e.g. "Large XL Fusion"). */
     getEngineName(): string {
-        return this._engineType.name;
+        if (this._primitive) {
+            // Any engine in a Primitive 'Mech "is considered a Primitive engine" (IO:AE p.117).
+            return this._engineType.tag === "standard"
+                ? findByTag(mechEngineTypes, "primitive")?.name ?? "Primitive Fusion Engine"
+                : this._engineType.name.startsWith("Primitive") ? this._engineType.name : "Primitive " + this._engineType.name;
+        }
+        return this.getLargeEngineType()?.name ?? this._engineType.name;
     }
 
     getHeatSyncName() {
@@ -4873,7 +6142,12 @@ export class BattleMech {
      * for Inner Sphere LAMs at the Custom Homebrew rules level.
      */
     public canBeOmniMech(rulesLevel: number = 2): boolean {
+        if (getRulesEdition(this._rulesEdition).noOmniMechs) return false;
         if (this.isTripod()) return false;
+        // "Primitive 'Mechs cannot be constructed as OmniMechs" (IO:AE p.117).
+        if (this._primitive) return false;
+        // OmniMech parts on a FrankenMech lose their Omni abilities, and "cannot be reconfigured" (CO p.213).
+        if (this._frankenMech) return false;
         if (this.isLAM()) return rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL && this._hasOmniLAMTechBase();
         return true;
     }
@@ -4897,20 +6171,20 @@ export class BattleMech {
         return this.isLAM() && this._lamType !== "bimodal";
     }
 
-    /** AirMech Cruise MP: 'Mech-mode Jump MP x 3 (IO p.108). */
+    /** AirMech Cruise MP: 'Mech-mode Jump MP x 3 (IO:AE p.102). */
     public getAirMechCruiseMP(): number {
         return this.hasAirMechMode() ? this.getJumpSpeed() * 3 : 0;
     }
 
-    /** AirMech Flank MP: Cruise MP x 1.5, rounded up (IO p.108). */
+    /** AirMech Flank MP: Cruise MP x 1.5, rounded up (IO:AE p.102). */
     public getAirMechFlankMP(): number {
         return Math.ceil(this.getAirMechCruiseMP() * 1.5);
     }
 
     /**
      * Battle Value built on rules we have not yet verified against the book: loaded LAM
-     * bombs (via MegaMek; IO p.192 gives no bomb BV rule) and the Custom Homebrew Omni-LAM.
-     * The LAM movement and heat adjustments themselves follow IO p.192.
+     * bombs (TM p.315's external-stores rule, which IO:AE p.186 does not extend to LAMs) and the Custom Homebrew Omni-LAM.
+     * The LAM movement and heat adjustments themselves follow IO:AE p.186.
      */
     public isBattleValueProvisional(): boolean {
         return this.isOmniLAM() || (this.isLAM() && this.getBombLoadoutSlots() > 0);
@@ -4925,7 +6199,7 @@ export class BattleMech {
     }
 
     /**
-     * Lowest rules level at which this design is legal: its chassis type (IO p.50), Ultra-light
+     * Lowest rules level at which this design is legal: its chassis type (IO:AE p.44), Ultra-light
      * or Superheavy tonnage (Advanced), prototype or rules-levelled equipment, and Custom
      * Homebrew content (fan rules, custom equipment). Standard (2) is tournament play.
      */
@@ -4940,6 +6214,30 @@ export class BattleMech {
             if (bomb) level = Math.max(level, getEquipmentRulesLevel(bomb));
         }
         if (this.isOmniLAM()) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
+        // A custom or draft chassis component (custom-component-registry.ts) is homebrew.
+        const components: [CustomComponentKind, { tag: string } | null | undefined][] = [
+            ["armor", this._armorType], ["structure", this._selectedInternalStructure], ["engine", this._engineType],
+            ["gyro", this._gyro], ["heatSink", this._heatSinkType], ["jumpJet", this._jumpJetType], ["myomer", this._myomerType],
+        ];
+        if (components.some(([kind, record]) => isCustomComponent(kind, record as never))) {
+            level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
+        }
+        // Primitive 'Mech construction is Advanced (IO:AE p.116).
+        if (this._primitive) level = Math.max(level, 3);
+        // IndustrialMechs mount the Dark Age armors "only under Experimental Mixed-Tech rules" (IO:AE p.82).
+        const armorTags = this.isPatchworkArmor()
+            ? this.getPatchworkLocations().map(location => this.getPatchworkArmorType(location.key).tag)
+            : [this._armorType.tag];
+        if (this.isIndustrialMech() && armorTags.some(tag => BattleMech.DARK_AGE_ARMOR_TAGS.includes(tag))) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
+        if (this.isPatchworkArmor()) level = Math.max(level, 3);
+        // Non-Fusion BattleMechs are Experimental (TO:AUE p.120).
+        if (this.isNonFusionBattleMech()) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        if (this._frankenMech) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        // Fractional Accounting is "experimental-level unit design" (TO:AUE p.188).
+        if (this.usesFractionalAccounting()) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        // An edition before Total Warfare has no rules levels: only content from outside the canon keeps its level.
+        if (this.usesEarlierRulesEdition() && level < APOCRYPHAL_RULES_LEVEL) return 0;
         return level;
     }
 
@@ -5197,17 +6495,37 @@ export class BattleMech {
      * 1 ton and 1 slot each, in the side torsos only. Each bay holds one bomb slot; bays in
      * the same location combine for multi-slot bombs (IO errata as quoted by a moderator,
      * bg.battletech.com forums topic 84643; errata document not checked).
-     * Bomb mass is accounted for by the bays, so loaded bombs add no weight (IO p.110), and
-     * LAM cost counts only the bays and fuel tanks (IO p.186).
+     * Bomb mass is accounted for by the bays, so loaded bombs add no weight (IO:AE p.104), and
+     * LAM cost counts only the bays and fuel tanks (IO:AE p.180).
      */
-    /** LAMs need at least 3 Jump MP (IO p.114); the usual walking-MP cap still applies. */
+    /** LAMs need at least 3 Jump MP (IO:AE p.108); the usual walking-MP cap still applies. */
     public static readonly LAM_MIN_JUMP_MP = 3;
-    /** Equipment LAMs may not mount (IO p.114); bridge-layers are matched by tag prefix. */
+    /** Equipment LAMs may not mount (IO:AE p.108); bridge-layers are matched by tag prefix. */
     public static readonly LAM_PROHIBITED_TAGS: readonly string[] = [
         "supercharger", "backhoe", "combine", "dumper", "mechanical-jump-booster",
         "partial-wing", "clan-partial-wing", "chameleon-lps",
     ];
-    /** Gyros a LAM may use: Standard, Compact, Heavy-Duty (IO p.114). */
+    /**
+     * Equipment a superheavy 'Mech may not mount (IO:AE p.156): its musculature is incompatible with
+     * MASC and the Actuator Enhancement System, it cannot use Superchargers or Modular Armor, and it
+     * has no jumping or underwater movement, so no jump boosters or partial wings.
+     */
+    public static readonly SUPERHEAVY_PROHIBITED_TAGS: readonly string[] = [
+        "masc", "clan-masc", "supercharger", "aes-arm", "aes-leg", "clan-aes-arm", "clan-aes-leg",
+        "modular-armor", "clan-modular-armor", "mechanical-jump-booster", "partial-wing", "clan-partial-wing",
+    ];
+    /**
+     * Artillery "ordinarily denied to standard-weight 'Mechs" that a superheavy 'Mech can mount
+     * (IO:AE p.157): the Long Tom, which the TO:AUE construction table (p.217) gives no 'Mech space.
+     */
+    public static readonly SUPERHEAVY_ONLY_TAGS: readonly string[] = ["long-tom-artillery", "primitive-prototype-long-tom"];
+    /**
+     * Internal structure a superheavy 'Mech may use (IO:AE p.155): standard, endo steel and
+     * endo-composite for BattleMechs, industrial for IndustrialMechs; "no other internal structure
+     * types are available".
+     */
+    public static readonly SUPERHEAVY_STRUCTURE_TAGS: readonly string[] = ["standard", "endo-steel", "endo-composite", "industrial"];
+    /** Gyros a LAM may use: Standard, Compact, Heavy-Duty (IO:AE p.108). */
     public static readonly LAM_GYRO_TAGS: readonly string[] = ["standard", "compact", "heavy-duty"];
     public static readonly LAM_BOMB_BAY_TAG = "lam-bomb-bay";
     public static readonly LAM_FUEL_TANK_TAG = "lam-fuel-tank";
@@ -5218,7 +6536,7 @@ export class BattleMech {
         return this._equipmentList.filter(item => matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG)).length;
     }
 
-    /** Bomb Bays per side torso; bays may only go in the left or right torso (IO p.114). */
+    /** Bomb Bays per side torso; bays may only go in the left or right torso (IO:AE p.108). */
     public getBombBaysByLocation(): Record<string, number> {
         const bays: Record<string, number> = { lt: 0, rt: 0 };
         if (!this.isLAM()) return bays;
@@ -5241,7 +6559,7 @@ export class BattleMech {
     public getAvailableBombs(rulesLevel: number = 2): IEquipmentItem[] {
         if (!this.isLAM()) return [];
         return getEquipmentListForChassis(this.getTech().tag)
-            .filter(item => !!item.bombBaySlots
+            .filter(item => !!item.bombBaySlots && this.isOfferedInEdition(item, rulesLevel)
                 && getEquipmentRulesLevel(item) <= rulesLevel
                 && this._itemIsAvailable(item.introduced, item.extinct, item.reintroduced))
             .sort((a, b) => a.sort.localeCompare(b.sort));
@@ -5324,29 +6642,179 @@ export class BattleMech {
     /** Chassis-specific equipment limits (LAM Bomb Bays and other per-unit caps). */
     public getChassisEquipmentViolations(): string[] {
         const violations: string[] = [];
-        const counted = new Map<string, { item: IEquipmentItem; count: number }>();
+        // The Clans do not build superheavy 'Mechs (IO:AE p.154).
+        if (this.isSuperheavy() && (this._tech.tag === "clan" || this._tech.tag === "mclan")) {
+            violations.push("Superheavy 'Mechs are available only to the Inner Sphere tech base.");
+        }
+        if (!this._isSuperheavyLegalEngine(this._engineType.tag)) {
+            violations.push(this.isIndustrialMech()
+                ? "Superheavy IndustrialMechs may use only standard fusion engines."
+                : "Superheavy 'Mechs may use only fusion engines.");
+        }
+        if (!this._isArmorLegalForChassis(this._armorType)) {
+            violations.push(this.isIndustrialMech()
+                ? "IndustrialMechs may mount only Commercial, Industrial or Standard (Heavy Industrial) armor."
+                : `${this._armorType.name} can only be mounted on an IndustrialMech.`);
+        }
+        if (this.isPatchworkArmor()) {
+            // "A unit may also not mount armor types illegal for that unit type to mount" (TO:AUE p.189).
+            for (const location of this.getPatchworkLocations()) {
+                const locationArmor = this.getPatchworkArmorType(location.key);
+                if (!this._isPatchworkLocationType(locationArmor)) {
+                    violations.push(`Patchwork Armor: ${locationArmor.name} cannot be mounted on this unit (${location.label}).`);
+                }
+            }
+            violations.push(...this._patchworkSlotShortfalls);
+        }
+        if (this._frankenMech) {
+            violations.push(...this._frankenMechSlotShortfalls);
+            // "If MASC is installed, only standard myomers can be used" (CO p.213).
+            if (this._myomerType.tag !== "standard" && this._equipmentList.some(item => item && /(^|-)masc$/.test(item.tag.toLowerCase()))) {
+                violations.push("FrankenMech: with MASC installed, only standard myomer can be used.");
+            }
+        }
+        const chassisName = this._primitive ? "Primitive 'Mechs" : "IndustrialMechs";
+        if (this._primitive) {
+            const typeTag = this._mechType.tag.toLowerCase();
+            if (this._tech.tag === "clan" || this._tech.tag === "mclan") {
+                violations.push("Primitive 'Mechs can be built only with an Inner Sphere tech base.");
+            }
+            if (typeTag !== "biped" && typeTag !== "quad") {
+                violations.push("Primitive 'Mechs may only be built as bipeds or four-legged units.");
+            }
+            if (this._tonnage > 100) {
+                violations.push("Primitive 'Mechs may weigh between 10 and 100 tons.");
+            }
+            if (!BattleMech.PRIMITIVE_STRUCTURE_TAGS.includes(this._selectedInternalStructure.tag)) {
+                violations.push("Primitive 'Mechs may use only standard or industrial internal structure.");
+            }
+        }
+        if (this._hasBasicChassis()) {
+            // A superheavy IndustrialMech's engine is reported above.
+            if (!this._isChassisLegalEngine(this._engineType.tag) && this._isSuperheavyLegalEngine(this._engineType.tag)) {
+                violations.push(this._primitive
+                    ? "Primitive 'Mechs may use only ICE, fuel cell, fission or standard fusion engines."
+                    : "IndustrialMechs may use only standard fusion, ICE, fuel cell or fission engines.");
+            }
+            if (this._gyro.tag !== "standard") {
+                violations.push(`${chassisName} may use only standard gyros.`);
+            }
+            if (this._heatSinkType.tag !== "single") {
+                violations.push(`${chassisName} may use only single heat sinks.`);
+            }
+            if (!this._primitive && this._jumpSpeed > 0 && this._jumpJetType.tag !== "standard") {
+                violations.push("IndustrialMechs may use only standard jump jets.");
+            }
+        }
+        if (!this._isChassisLegalMyomer(this._myomerType)) {
+            violations.push(this._primitive ? `${this._myomerType.name} cannot be mounted on a Primitive 'Mech.`
+                : this.isIndustrialMech() ? `${this._myomerType.name} cannot be mounted on an IndustrialMech.`
+                : `${this._myomerType.name} can only be mounted on an IndustrialMech.`);
+        }
+        const counted = new Map<string, { item: IEquipmentItem; count: number; names: string[] }>();
+        const repairSystems = new Set<string>();
+        const perLocation = new Map<string, number>();
         for (const item of this._equipmentList) {
             if (!item) continue;
             if (item.chassisTypes?.length && !item.chassisTypes.includes(this._mechType.tag.toLowerCase())) {
                 violations.push(`${item.name} can only be mounted on: ${item.chassisTypes.join(", ").toUpperCase()}.`);
             }
+            if (this.isSuperheavy() && BattleMech.SUPERHEAVY_PROHIBITED_TAGS.includes(item.tag.toLowerCase())) {
+                violations.push(`${item.name} cannot be mounted on a superheavy 'Mech.`);
+            }
+            if (!this.isSuperheavy() && BattleMech.SUPERHEAVY_ONLY_TAGS.includes(item.tag.toLowerCase())) {
+                violations.push(`${item.name} can only be mounted on a superheavy 'Mech.`);
+            }
+            if (!this.hasAdvancedFireControl() && BattleMech._needsAdvancedFireControl(item)) {
+                violations.push(`${item.name} needs Advanced Fire Control on an IndustrialMech.`);
+            }
+            if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) {
+                violations.push(`${item.name} needs ${describeEngineRequirement(item.requiresEngine!)}.`);
+            }
+            if (item.industrialMechOnly && !this.isIndustrialMech()) {
+                violations.push(`${item.name} can only be mounted on an IndustrialMech.`);
+            }
+            // MASC on an IndustrialMech (TM p.70); MASC, Superchargers and the like on a Primitive 'Mech (IO:AE p.117).
+            const isMASC = item.variableFormula === "masc-is" || item.variableFormula === "masc-clan";
+            if (this._primitive && (isMASC || item.variableFormula === "supercharger")) {
+                violations.push(`${item.name} cannot be mounted on a Primitive 'Mech.`);
+            } else if (this.isIndustrialMech() && isMASC) {
+                violations.push(`${item.name} cannot be mounted on an IndustrialMech.`);
+            }
+            const allowedLocations = this._getAllowedLocations(item);
+            if (allowedLocations && item.location && BattleMech.MECH_LOCATION_MAP[item.location] && !allowedLocations.includes(item.location)) {
+                violations.push(allowedLocations.length > 0
+                    ? `${item.name} must be placed in: ${allowedLocations.join(", ").toUpperCase()}.`
+                    : `${item.name} cannot be mounted on this chassis.`);
+            }
+            if (item.armorRepairBVMultiplier) {
+                // HarJel II / III: BattleMechs only, and only some armor types (IO:AE pp.82-83).
+                if (this.isIndustrialMech()) {
+                    violations.push(`${item.name} can only be mounted on a BattleMech.`);
+                }
+                // Under Patchwork Armor the armor that counts is the one in the system's own location.
+                const repairLocation = item.location ? BattleMech.MECH_LOCATION_MAP[item.location] : undefined;
+                const repairedArmor = this.isPatchworkArmor()
+                    ? (repairLocation ? this.getPatchworkArmorType(repairLocation) : null)
+                    : this._armorType;
+                if (repairedArmor && !BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(repairedArmor.tag)) {
+                    violations.push(`${item.name} does not work with ${repairedArmor.name.replace(/ Armor$/, "")} armor.`);
+                }
+                repairSystems.add(item.tag);
+            }
+            if (item.onePerLocationGroup && item.location && BattleMech.MECH_LOCATION_MAP[item.location]) {
+                const key = `${item.onePerLocationGroup}@${item.location}`;
+                perLocation.set(key, (perLocation.get(key) ?? 0) + 1);
+            }
             if (item.maxPerUnit) {
-                const entry = counted.get(item.tag) ?? { item, count: 0 };
+                // Items in a group count together: one RISC Viral Jammer of any type (IO:AE p.88).
+                const key = item.maxPerUnitGroup ?? item.tag;
+                const entry = counted.get(key) ?? { item, count: 0, names: [] };
                 entry.count++;
-                counted.set(item.tag, entry);
+                if (!entry.names.includes(item.name)) entry.names.push(item.name);
+                counted.set(key, entry);
             }
         }
-        counted.forEach(({ item, count }) => {
+        counted.forEach(({ item, count, names }) => {
             if (count > (item.maxPerUnit ?? count)) {
-                violations.push(`${item.name}: ${count} mounted; at most ${item.maxPerUnit} allowed.`);
+                violations.push(`${names.join(" / ")}: ${count} mounted; at most ${item.maxPerUnit} allowed.`);
             }
         });
+        const mounted = this._equipmentList.filter(item => !!item);
+        if (mounted.some(item => item.tag === BattleMech.C3_REMOTE_SENSOR_TAG) && mounted.some(item => BattleMech._isC3iSystem(item))) {
+            violations.push("C3 Remote Sensor Launcher is incompatible with C3i-based systems.");
+        }
+        // "the MRM FCS must be incorporated on all of an individual unit's standard MRM Launchers" (TO:AUE p.142).
+        if (mounted.some(item => /^mrm-\d+-apollo$/.test(item.tag))) {
+            const plain = Array.from(new Set(mounted.filter(item => /^mrm-\d+$/.test(item.tag)).map(item => item.name)));
+            if (plain.length > 0) {
+                violations.push(`The MRM Apollo FCS must be fitted to every standard MRM launcher on the unit (${plain.join(", ")} ${plain.length > 1 ? "have" : "has"} none).`);
+            }
+        }
+        // "Units may not combine different HarJel repair systems" (IO:AE p.83).
+        if (repairSystems.size > 1) {
+            violations.push("HarJel II and HarJel III repair systems cannot be combined on one unit.");
+        }
+        perLocation.forEach((count, key) => {
+            const [group, location] = key.split("@");
+            if (count > 1) violations.push(`Only one ${BattleMech.LOCATION_GROUP_NAMES[group] ?? group} may be mounted in a location (${location.toUpperCase()}).`);
+        });
+        // "If Artemis IV is added to an applicable launcher, every applicable launcher on the unit must have Artemis IV" (TM p.207);
+        // the same holds for Artemis V, which "is incompatible with Artemis IV" (TO:AUE p.94).
+        const fitted = ARTEMIS_FIRE_CONTROL.filter(system => mounted.some(item => item.tag.endsWith(system.suffix)));
+        for (const system of fitted) {
+            const plain = Array.from(new Set(mounted.filter(item => isArtemisCapableLauncher(item.tag, system.suffix)).map(item => item.name)));
+            if (plain.length > 0) {
+                violations.push(`${system.name} must be fitted to every applicable launcher on the unit (${plain.join(", ")} ${plain.length > 1 ? "have" : "has"} none).`);
+            }
+        }
+        if (fitted.length > 1 && fitted.some(system => system.suffix === "-artemis-v")) violations.push("Artemis V cannot be mounted alongside Artemis IV (TO:AUE p.94).");
         if (this.isLAM()) {
             if (this.getJumpSpeed() > this.getMaxJumpSpeed()) {
                 violations.push(`LAMs need at least ${BattleMech.LAM_MIN_JUMP_MP} Jump MP, but Jump MP ${this.getJumpSpeed()} exceeds Walk MP ${this.getWalkSpeed()}; raise the engine rating.`);
             }
             // No equipment split across locations; spreadable equipment stays in one location
-            // (IO p.114, Extra-Large Weapons and Other Items).
+            // (IO:AE p.108, Extra-Large Weapons and Other Items).
             const locationsByKey = new Map<string, { name: string; locations: Set<string> }>();
             for (const area of Object.keys(this._criticals)) {
                 for (const slot of this._criticals[area] ?? []) {
@@ -5364,7 +6832,7 @@ export class BattleMech {
             const torsoBays = Object.values(this.getBombBaysByLocation()).reduce((sum, bays) => sum + bays, 0);
             const placedBays = this._equipmentList.filter(item => matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG) && item.location).length;
             if (placedBays > torsoBays) {
-                violations.push(`${placedBays - torsoBays} Bomb Bay(s) are outside the side torsos; LAM bomb bays go only in the left or right torso (IO p.114).`);
+                violations.push(`${placedBays - torsoBays} Bomb Bay(s) are outside the side torsos; LAM bomb bays go only in the left or right torso (IO:AE p.108).`);
             }
         }
         return violations;
@@ -5479,7 +6947,17 @@ export class BattleMech {
       // Get the current active mech configuration type tag key
       const mechTypeKey = this.getMechType().tag as keyof typeof this._selectedInternalStructure.perMechType;
       // Fetch the normalized structural data block for this specific tonnage
-      const structureData = this._selectedInternalStructure.perMechType[mechTypeKey][this.getTonnage()];
+      // An earlier edition's own Internal Structure Table comes first (Battledroids' runs down to 5 tons, BD p.24).
+      const listedStructure = this._selectedInternalStructure.perMechType[mechTypeKey][this.getTonnage()];
+      const editionBoxes = getEditionStructure(mechInternalStructureTypes[0], this._rulesEdition, this.getTonnage(), !listedStructure);
+      const structureData: IInternalStructurePerTon = editionBoxes ? {
+        tonnage: this.getTonnage(), head: editionBoxes.head, centerTorso: editionBoxes.ct, leftTorso: editionBoxes.torso, rightTorso: editionBoxes.torso,
+        leftLeg: editionBoxes.leg, rightLeg: editionBoxes.leg,
+        ...(mechTypeKey === "quad" || mechTypeKey === "quadvee"
+          ? { frontLeftLeg: editionBoxes.leg, frontRightLeg: editionBoxes.leg }
+          : { leftArm: editionBoxes.arm, rightArm: editionBoxes.arm }),
+        ...(mechTypeKey === "tripod" ? { centerLeg: editionBoxes.leg } : {}),
+      } : listedStructure;
       // Assigning core internal structure properties
       this._internalStructure.head = structureData.head;
       this._internalStructure.centerTorso = structureData.centerTorso;
@@ -5515,6 +6993,8 @@ export class BattleMech {
         this._internalStructure.frontLeftLeg = 0;
         this._internalStructure.frontRightLeg = 0;
       }
+      // A FrankenMech location keeps the structure of the 'Mech it came from (CO p.213).
+      this._applyFrankenMechStructure(mechTypeKey);
 
       // Establish core fixed armor allocations (Head maximum is 9; Torsos carry 2x internal structure)
       this._maxArmor = 9 + 
@@ -5580,7 +7060,7 @@ export class BattleMech {
         }
       }
 
-      this.setWalkSpeed(this._walkSpeed);
+      this.setWalkSpeed(this._walkSpeed > 0 ? Math.max(this._walkSpeed, this.getMinWalkSpeed()) : this._walkSpeed);
       this._calc();
 
       return this._tonnage;
@@ -5704,7 +7184,7 @@ export class BattleMech {
         }
 
         public getPilotingSkillModifier(): number {
-            return (this.isTripod() ? -1 : 0) + (this.hasActiveModularArmor() ? 1 : 0);
+            return (this.isTripod() ? -1 : 0) + (this.hasActiveModularArmor() ? 1 : 0) + this.getFrankenMechLegPilotingModifier();
         }
 
         public ignoresSecondaryTargetModifier(): boolean {
@@ -5885,7 +7365,7 @@ export class BattleMech {
             tonnage: this.getTonnage(),
             as_role: this._alphaStrikeForceStats.role,
             as_value: this.getAlphaStrikeValue(),
-            as_special_ammo_tag: this._alphaStrikeSpecialAmmoTag,
+            as_special_ammo_tag: this.getAlphaStrikeSpecialAmmoTag(),
             battle_value: this.getBattleValue(),
             c_bills: this.getCBillCost(),
 
@@ -5895,11 +7375,25 @@ export class BattleMech {
             allocation: thinnedAllocations,
             armor_allocation: this._armorAllocation,
             armor_type: this.getArmorType(),
+            patchworkArmor: this.isPatchworkArmor()
+                ? Object.fromEntries(this.getPatchworkLocations().map(location => [location.key, this.getPatchworkArmorType(location.key).tag]))
+                : undefined,
+            frankenMech: this._frankenMech
+                ? {
+                    donors: Object.fromEntries(this.getFrankenMechLocations().map(location => [location.key, this.getFrankenMechDonor(location.key)])),
+                    jumpJetClass: this.getFrankenMechJumpJetClass() ?? undefined,
+                }
+                : undefined,
             armor_weight: this._armorWeight,
+            weight_accounting: this.usesFractionalAccounting() ? "fractional" : undefined,
+            fractional_armor_points: this.usesFractionalAccounting() ? this._fractionalArmorPoints : undefined,
             engineType: this.getEngineType().tag,
             engineTechBase: this.getEngineTechBase(),
             equipment: [],
             era: this._era.tag,
+            rulesEdition: this._rulesEdition === DEFAULT_RULES_EDITION ? undefined : this._rulesEdition,
+            printedDroid: this._printedDroid,
+            rulesEditionReturn: this._rulesEditionReturn,
             features: [],
             gyro: this._gyro.tag,
             heat_sink_type: this.getHeatSinksType(),
@@ -5920,6 +7414,7 @@ export class BattleMech {
             strictEra: this._strictEra,
             uuid: this._uuid,
             walkSpeed: this._walkSpeed,
+            quirks: this.quirks.export(),
         };
 
         if( !noInPlayVariables ) {
@@ -5960,6 +7455,12 @@ export class BattleMech {
             exportObject.features.push( "no_raha" );
         if( this._smallCockpit)
             exportObject.features.push( "sm_cockpit" );
+        // IndustrialMech cockpit with the Advanced Fire Control enhancement (TM p.69).
+        if( this._advancedFireControl)
+            exportObject.features.push( "afc" );
+        // Built under the Primitive 'Mech rules (IO:AE pp.116-118).
+        if( this._primitive)
+            exportObject.features.push( "primitive" );
 
 
             return exportObject;
@@ -5986,15 +7487,20 @@ export class BattleMech {
             exported.damageClusterHits = item.damageClusterHits;
             exported.currentAmmo = item.currentAmmo;
             exported.selectedAmmoBinUUID = item.selectedAmmoBinUUID;
+            exported.shieldDamage = item.shieldDamage;
         }
         return exported;
     }
 
     /** Re-creates one saved equipment item (import and OmniMech configuration switching). */
     private _restoreEquipmentItem( importItem: IBMEquipmentExport ): IEquipmentItem | null {
-        const restoredEquipment = this.addEquipmentFromTag(
+        // A saved design keeps whatever it mounted: Custom Homebrew, and equipment that has since
+        // moved to the other tech base's catalog. The tech and rules-level filters limit what can be
+        // added, not what can be loaded. Canon comes first, so a custom record can never capture a
+        // canon save, and the design's own tech base before the other one.
+        const restoreFrom = ( equipmentListTag: string, includeCustom: boolean ) => this.addEquipmentFromTag(
             importItem.tag,
-            this.getTech().tag,
+            equipmentListTag,
             importItem.loc,
             importItem.rear ? true : false,
             importItem.uuid,
@@ -6005,9 +7511,19 @@ export class BattleMech {
             importItem.split_location,
             importItem.currentAmmo,
             importItem.selectedAmmoBinUUID,
+            includeCustom,
         );
+        const techTag = this.getTech().tag;
+        const otherTechTag = techTag === "clan" ? "mclan" : techTag === "is" ? "mis" : null;
+        const restoredEquipment = restoreFrom(techTag, false)
+            ?? (otherTechTag ? restoreFrom(otherTechTag, false) : null)
+            ?? restoreFrom(techTag, true)
+            ?? (otherTechTag ? restoreFrom(otherTechTag, true) : null);
         if (restoredEquipment && typeof importItem.currentAdditionalArmor === "number") {
             restoredEquipment.currentAdditionalArmor = importItem.currentAdditionalArmor;
+        }
+        if (restoredEquipment && typeof importItem.shieldDamage === "number") {
+            restoredEquipment.shieldDamage = importItem.shieldDamage;
         }
         if (restoredEquipment && typeof importItem.size === "number") {
             restoredEquipment.size = importItem.size;
@@ -6111,6 +7627,21 @@ export class BattleMech {
     import(
         importObject: IBattleMechExport,
     ) {
+        // A saved design keeps the accounting it was saved with, battle armor items or not.
+        this._importing = true;
+        try {
+            return this._importRecord( importObject );
+        } finally {
+            this._importing = false;
+            this._hadBattleArmorEquipment = this.defaultsToFractionalAccounting();
+        }
+    }
+
+    private _importRecord(
+        importObject: IBattleMechExport,
+    ) {
+
+        this.quirks.import(importObject?.quirks);
 
         this.selectedMech = false;
         if( importObject && importObject.selectedMech ) {
@@ -6170,6 +7701,8 @@ export class BattleMech {
             // console.log( "importObject.mechType", importObject.mechType );
             if( importObject.mechType)
                 this.setMechType(importObject.mechType);
+            // Before the tonnage and Walking MP: a Primitive 'Mech's engine rating depends on it.
+            this._primitive = Array.isArray(importObject.features) && importObject.features.indexOf( "primitive" ) > -1;
             if (importObject.lamType) {
                 this.setLAMType(importObject.lamType);
             }
@@ -6179,6 +7712,11 @@ export class BattleMech {
             if (importObject.transformationMode) {
                 this.setTransformationMode(importObject.transformationMode);
             }
+
+            // Before anything is mounted: the edition decides the stats of what is loaded.
+            this._rulesEdition = getRulesEdition(importObject.rulesEdition).tag;
+            this._printedDroid = importObject.printedDroid || undefined;
+            this._rulesEditionReturn = importObject.rulesEditionReturn || undefined;
 
             this.setTonnage(importObject.tonnage);
 
@@ -6197,11 +7735,12 @@ export class BattleMech {
             }
 
             this._hideNonAvailableEquipment = importObject.hideNonAvailableEquipment;
-            if( importObject.era)
-                this.setEra(importObject.era);
-
+            // Tech first: it decides which eras the saved era can be.
             if( importObject.tech)
                 this.setTech(importObject.tech);
+
+            if( importObject.era)
+                this.setEra(importObject.era);
 
             if (importObject.engineTechBase) {
                 this.setEngineTechBase(importObject.engineTechBase);
@@ -6225,6 +7764,30 @@ export class BattleMech {
 
             if( importObject.is_type)
                 this.setInternalStructureType(importObject.is_type);
+
+            // FrankenMech donors decide the structure points and weight; set after tonnage, type and structure,
+            // and before the jump jets, whose count may depend on their size.
+            this._frankenMech = false;
+            this._frankenMechDonors = {};
+            this._frankenMechJumpJetClass = null;
+            const frankenMech = importObject.frankenMech;
+            if (frankenMech && typeof frankenMech === "object" && this.setFrankenMech(true)) {
+                const donors = frankenMech.donors && typeof frankenMech.donors === "object" ? frankenMech.donors : {};
+                for (const location of this.getFrankenMechLocations()) {
+                    const donor: unknown = donors[location.key];
+                    if (!donor || typeof donor !== "object") continue;
+                    const { tonnage, structure, name, structureTechBase, structureSlots } = donor as Record<string, unknown>;
+                    this.setFrankenMechDonor(location.key, {
+                        tonnage: typeof tonnage === "number" ? tonnage : undefined,
+                        structure: typeof structure === "string" ? structure : undefined,
+                        name: typeof name === "string" ? name : undefined,
+                        structureTechBase: structureTechBase === "is" || structureTechBase === "clan" ? structureTechBase : undefined,
+                        structureSlots: typeof structureSlots === "number" ? structureSlots : undefined,
+                    });
+                }
+                const jetClass = this.getFrankenMechJumpJetClasses().find(candidate => candidate === frankenMech.jumpJetClass);
+                if (jetClass) this._frankenMechJumpJetClass = jetClass;
+            }
 
             if( importObject.walkSpeed)
                 this.setWalkSpeed(importObject.walkSpeed);
@@ -6256,11 +7819,25 @@ export class BattleMech {
             if( importObject.myomer_type)
                 this.setMyomerType(importObject.myomer_type);
 
+            // A saved design keeps its accounting whatever the rules level set now.
+            this._weightAccounting = importObject.weight_accounting === "fractional" ? "fractional" : "standard";
+
             if( importObject.armor_weight)
                 this.setArmorWeight(importObject.armor_weight);
+            if( this.usesFractionalAccounting() && Number.isFinite(importObject.fractional_armor_points) ) {
+                // Saved data is not trusted: never more points than the chassis can carry.
+                this._fractionalArmorPoints = Math.max(0, Math.min(this.getChassisMaxArmor(), Math.floor(importObject.fractional_armor_points as number)));
+            }
 
             if( importObject.armor_allocation)
                 this._armorAllocation = importObject.armor_allocation;
+
+            // Set after the structure and tech base, which decide what a location may carry.
+            if (importObject.patchworkArmor && this.isPatchworkArmor()) {
+                for (const [locationKey, armorTag] of Object.entries(importObject.patchworkArmor)) {
+                    if (typeof armorTag === "string") this.setPatchworkArmorType(locationKey, armorTag);
+                }
+            }
 
             if( importObject.uuid)
                 this._uuid = importObject.uuid;
@@ -6286,6 +7863,10 @@ export class BattleMech {
                 // Small Cockpit
                 if( importObject.features.indexOf( "sm_cockpit" ) > -1)
                     this._smallCockpit = true;
+
+                // IndustrialMech cockpit with Advanced Fire Control
+                if( importObject.features.indexOf( "afc" ) > -1)
+                    this._advancedFireControl = true;
 
                 // Other features
             }
@@ -6578,35 +8159,46 @@ export class BattleMech {
                     ||
                 (item.alternateName && item.alternateName.toLowerCase().trim() === equipmentName.toLowerCase().trim() )
             ) {
-
-                let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify( item ));
-
-                if( typeof(location) !== "undefined" )
-                    equipmentItem.location = location;
-
-                if( typeof(weight) !== "undefined" )
-                    equipmentItem.weight = weight;
-                equipmentItem.rear = rear;
-                equipmentItem.uuid = uuid;
-                equipmentItem.split_location = split_location;
-
-                if( equipmentItem.criticalsDivisor && equipmentItem.criticalsDivisor > -1 ) {
-                    equipmentItem.criticals = this.getTonnage() / equipmentItem.criticalsDivisor;
-                }
-
-                if(  equipmentItem.weightDivisor && equipmentItem.weightDivisor  > -1) {
-                    equipmentItem.weight = this.getTonnage() / equipmentItem.weightDivisor;
-                }
-
-                this._equipmentList.push(equipmentItem);
-                this._sortInstalledEquipment();
-
-                return equipmentItem;
+                return this._installEquipmentRecord( item, location, rear, uuid, weight, split_location );
             }
         }
 
         return null;
     };
+
+    // Installs a copy of a catalog record.
+    private _installEquipmentRecord(
+        item: IEquipmentItem,
+        location: string,
+        rear: boolean,
+        uuid: string,
+        weight: number | undefined,
+        split_location: ISplitLocation[],
+    ): IEquipmentItem {
+        let equipmentItem: IEquipmentItem = JSON.parse(JSON.stringify( item ));
+
+        if( typeof(location) !== "undefined" )
+            equipmentItem.location = location;
+
+        if( typeof(weight) !== "undefined" )
+            equipmentItem.weight = weight;
+        equipmentItem.rear = rear;
+        equipmentItem.uuid = uuid;
+        equipmentItem.split_location = split_location;
+
+        if( equipmentItem.criticalsDivisor && equipmentItem.criticalsDivisor > -1 ) {
+            equipmentItem.criticals = this.getTonnage() / equipmentItem.criticalsDivisor;
+        }
+
+        if(  equipmentItem.weightDivisor && equipmentItem.weightDivisor  > -1) {
+            equipmentItem.weight = this.getTonnage() / equipmentItem.weightDivisor;
+        }
+
+        this._equipmentList.push(equipmentItem);
+        this._sortInstalledEquipment();
+
+        return equipmentItem;
+    }
 
     public addEquipmentFromTag(
         equipmentTag: string,
@@ -6786,7 +8378,7 @@ export class BattleMech {
             ];
             return this._returnRandomString(damageSnarks);
         }
-        if( this.sensorHits() > 1 ) {
+        if( this.areSensorsDestroyed() ) {
             let damageSnarks: string[] = [
                 "I can't see!",
             ];
@@ -7196,6 +8788,13 @@ export class BattleMech {
                         }
                         // Push the item straight into the flat tracking array matrix
                         this._criticalAllocationTable.push(currentItem);
+                        // The second ton of a shared ammunition slot is saved at the same location and slot.
+                        if (currentItem.shared) {
+                            currentItem.shared.loc = shortLoc;
+                            currentItem.shared.slot = critItemCounter;
+                            currentItem.shared.size = 1;
+                            this._criticalAllocationTable.push(currentItem.shared);
+                        }
                     }
                 }
             }
@@ -7255,7 +8854,8 @@ export class BattleMech {
             return false;
         }
         const fromItem = fromLocationObj[fromIndex];
-        if (matchesTag(fromItem, "modular-armor") && destLoc !== "un") {
+        const movingModularArmor = this._equipmentList.some(item => item.isModularArmor && item.uuid === fromItem.uuid);
+        if (movingModularArmor && destLoc !== "un") {
             const duplicatePack = this._equipmentList.some(item =>
                 item.isModularArmor
                 && item.uuid !== fromItem.uuid
@@ -7264,6 +8864,20 @@ export class BattleMech {
             if (duplicatePack) {
                 return false;
             }
+        }
+        // One HarJel repair system to a location (IO:AE p.83).
+        const movingItem = this._equipmentList.find(item => item?.uuid === fromItem.uuid);
+        // Equipment tied to a location, e.g. the IndustrialMech Ejection Seat in the head (TM p.214).
+        const allowedLocations = movingItem ? this._getAllowedLocations(movingItem) : null;
+        if (allowedLocations && destLoc !== "un" && !allowedLocations.includes(destLoc)) {
+            return false;
+        }
+        if (movingItem?.onePerLocationGroup && destLoc !== "un" && this._equipmentList.some(item =>
+            item?.onePerLocationGroup === movingItem.onePerLocationGroup
+            && item.uuid !== movingItem.uuid
+            && item.allocationLocation === destLoc
+        )) {
+            return false;
         }
         // PATHWAY A: ADVANCED ITEM SPLIT ALLOCATION PROCESSING (e.g., Critical Item splits across multiple parts)
         if (split_location && split_location.length > 0) {
@@ -7300,7 +8914,7 @@ export class BattleMech {
             console.warn("moveCritical() failed: Terminal destination location tag could not be resolved in the layout schema registry.", destLoc);
             return false;
         }
-        return this._moveItemToArea(
+        const moved = this._moveItemToArea(
             fromLocationObj,
             fromItem,
             fromIndex,
@@ -7310,6 +8924,13 @@ export class BattleMech {
             fromItem.size || fromItem.crits || 1, // Dynamically evaluate size criteria parameters
             true                                  // Direct moves behave implicitly like a final segment block
         );
+        // Battle Value depends on where explosive items and CASE sit (TM pp.302-303). It is worked out
+        // again when next read, not here: imports place many items in a row, and the calculation
+        // reorders the equipment list.
+        if (moved) {
+            this._battleValueStale = true;
+        }
+        return moved;
     }
 
     private _setEquipmentAllocation(
@@ -7324,6 +8945,13 @@ export class BattleMech {
                 item.location = allocationLocation;
             }
         }
+    }
+
+    /** The second ton of a shared ammunition slot, as the slot's only occupant. */
+    private _promoteSharedAmmunition(companion: ICriticalSlot): ICriticalSlot {
+        companion.name = companion.obj?.name ?? companion.name;
+        companion.size = 1;
+        return companion;
     }
 
     private _moveItemToArea(
@@ -7377,6 +9005,18 @@ export class BattleMech {
         while (toLocation.length < toIndex + targetSize && toLocation.length < maxLegalSlots) {
             toLocation.push(null);
         }
+        // A slot holding one ton of ammunition takes a second on a superheavy 'Mech (IO:AE p.157).
+        if (targetSize === 1 && removeFrom && this._canShareAmmunitionSlot(toLocation[toIndex], fromItem, normalizedTag)) {
+            const companion = fromItem.shared;
+            delete fromItem.shared;
+            fromItem.name = fromItem.obj?.name ?? fromItem.name;
+            this._shareAmmunitionSlot(toLocation[toIndex], fromItem);
+            fromLocation[fromIndex] = companion ? this._promoteSharedAmmunition(companion) : null;
+            this._removeUUIDFromUnallocated(fromItem.uuid);
+            this._setEquipmentAllocation(fromItem.uuid, toIndex, normalizedTag);
+            this._updateCriticalAllocationTable();
+            return true;
+        }
         // Collision Validation Check
         let hasSpace = true;
         for (let testC = 0; testC < targetSize; testC++) {
@@ -7415,6 +9055,12 @@ export class BattleMech {
         }
         fromItem.loc = normalizedTag;
         fromItem.slot = toIndex;
+        // The second ton of a shared ammunition slot stays where it is.
+        const sharedCompanion = fromItem.shared;
+        if (sharedCompanion) {
+            delete fromItem.shared;
+            fromItem.name = fromItem.obj?.name ?? fromItem.name;
+        }
         // Deep clone object layout parameter state reference safely
         toLocation[toIndex] = JSON.parse(JSON.stringify(fromItem));
         toLocation[toIndex].size = targetSize;
@@ -7433,7 +9079,7 @@ export class BattleMech {
         }
         // Clean up on Aisle Three
         if (removeFrom) {
-            fromLocation[fromIndex] = null;
+            fromLocation[fromIndex] = sharedCompanion ? this._promoteSharedAmmunition(sharedCompanion) : null;
             let nextCounter = 1;
             while (fromIndex + nextCounter < fromLocation.length) {
                 const trailingItem = fromLocation[fromIndex + nextCounter];
@@ -7504,7 +9150,9 @@ export class BattleMech {
             currentItem.obj.location = normalizedLocation;
         }
         // Fallback back to native slots if no custom overrides are set
-        const allocationSize = critSize < 0 ? (currentItem.crits || 1) : critSize;
+        // A saved size never exceeds what the item takes on this chassis: a superheavy design saved with
+        // full-size slots loads at half size (IO:AE p.157).
+        const allocationSize = critSize < 0 ? (currentItem.crits || 1) : Math.min(critSize, currentItem.crits || critSize);
         const placementSuccess = this._assignItemToArea(
             targetCriticalArray,
             currentItem,
@@ -7640,18 +9288,38 @@ export class BattleMech {
         }
     }
 
+    /**
+     * Superheavy 'Mechs take fusion engines only, and superheavy IndustrialMechs "may only use standard
+     * and large fusion engine types" (IO:AE p.156). Large engines are the same type above rating 400.
+     */
+    private _isSuperheavyLegalEngine(engineTag: string): boolean {
+        if (!this.isSuperheavy()) return true;
+        return this.isIndustrialMech() ? engineTag === "standard" : FUSION_ENGINE_TAGS.includes(engineTag);
+    }
+
     public getAvailableEngines(rulesLevel: number = 2): IEngineType[] {
         let returnValue: IEngineType[] = [];
         const lookupTag = this.getEngineTechBase();
         const weights = this._engine?.weight;
+        const large = this.isLargeEngine();
         for (let engine of mechEngineTypes) {
             // Enforce strict key verification against the normalized tech base
             if (engine.criticals && lookupTag in engine.criticals) {
-                const availability = this._datesAvailability(engine, rulesLevel);
-                // No weight at this rating: compact engines cannot be large, primitive tops out at an adjusted 500.
+                // Above rating 400 the large engine's own dates apply (IO:AE p.38); a type with
+                // no large form is not offered.
+                const largeEngine = large ? getLargeEngineType(engine.tag) : undefined;
+                const engineDates = lookupTag === "clan" ? engine.clanDates ?? engine : engine;
+                const availability = !large
+                    ? this._datesAvailability(engineDates, rulesLevel)
+                    : largeEngine ? this._datesAvailability(largeEngine, rulesLevel) : { available: false, asPrototype: false };
+                // No weight at this rating: no large Compact, Fuel Cell or Fission engines, and Primitive
+                // engines stop at an adjusted 400.
                 const buildableAtRating = !weights || (weights as Record<string, number | undefined>)[engine.tag] !== undefined;
                 engine.availableAsPrototype = availability.asPrototype;
-                engine.available = availability.available && buildableAtRating
+                engine.available = availability.available && buildableAtRating && this.isOfferedInEdition(engine, rulesLevel)
+                    && this._isSuperheavyLegalEngine(engine.tag)
+                    && this._isChassisLegalEngine(engine.tag)
+                    && (!this._isNonFusionBattleMechEngine(engine.tag) || rulesLevel >= EXPERIMENTAL_RULES_LEVEL)
                     && (!this.isLAM() || this._isLAMLegalComponent("engine", engine.tag));
                 returnValue.push(engine);
             }
@@ -7664,12 +9332,12 @@ export class BattleMech {
      * lasers, etc.): -1 BV per slot (TM p.302), unlike explosive ammunition at -15 per slot.
      */
     private static _isExplosiveComponent(item: IEquipmentItem): boolean {
-        return !item.isAmmo && !BattleMech._isLAMInternalStore(item) && (item.gauss === true || item.explosive === true);
+        return !item.isAmmo && !item.explosiveAsAmmo && !BattleMech._isLAMInternalStore(item) && (item.gauss === true || item.explosive === true);
     }
 
     /**
      * LAM bomb bays and fuel tanks: each slot counts as explosive ammunition (-15 BV) for the
-     * defensive battle rating (IO p.192; -15 per slot, IO p.196).
+     * defensive battle rating (-15 per slot, IO:AE p.186).
      */
     private static _isLAMInternalStore(item: IEquipmentItem): boolean {
         return matchesTag(item, BattleMech.LAM_BOMB_BAY_TAG) || matchesTag(item, BattleMech.LAM_FUEL_TANK_TAG);
@@ -7677,7 +9345,7 @@ export class BattleMech {
 
     /** Slots that take the -15 explosive ammunition BV penalty (TM p.302). */
     private static _isExplosiveAmmoSlot(item: IEquipmentItem): boolean {
-        return (item.explosive === true && item.isAmmo === true) || BattleMech._isLAMInternalStore(item);
+        return (item.explosive === true && (item.isAmmo === true || item.explosiveAsAmmo === true)) || BattleMech._isLAMInternalStore(item);
     }
 
     /**
@@ -7740,7 +9408,13 @@ export class BattleMech {
     private _datesAvailability(dates: ITechDates, rulesLevel: number): { available: boolean, asPrototype: boolean } {
         // A prototype year with no production year: IO prototype only (Experimental rules).
         const prototypeOnly = dates.introduced === null && !!dates.prototype;
-        const inProduction = !prototypeOnly && this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced);
+        // Lost before it reached production (extinct earlier than the production year, e.g. the
+        // Inner Sphere Large XL engine): the extinction and recovery bound the prototype phase,
+        // and production simply starts at `introduced`.
+        const lostAsPrototype = dates.introduced !== null && dates.extinct !== null && dates.extinct < dates.introduced;
+        const inProduction = !prototypeOnly && (lostAsPrototype
+            ? this._itemIsAvailable(dates.introduced, null, null)
+            : this._itemIsAvailable(dates.introduced, dates.extinct, dates.reintroduced));
         const effectiveIntroduction = getEffectiveIntroduction(dates, rulesLevel);
         const asPrototype = !inProduction && effectiveIntroduction !== dates.introduced
             && this._itemIsAvailable(effectiveIntroduction, dates.extinct, dates.reintroduced);
@@ -7751,12 +9425,34 @@ export class BattleMech {
     private _techDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean, asPrototype: boolean } {
         const techTag = this.getTech().tag;
         const innerSphere = this._datesAvailability(item, rulesLevel);
-        const clan = this._datesAvailability(item.clanDates ?? item, rulesLevel);
+        const clan = this._clanDatesAvailability(item, rulesLevel);
         if (techTag === "clan") return clan;
         if (techTag === "is") return innerSphere;
         if (innerSphere.available && !innerSphere.asPrototype) return innerSphere;
         if (clan.available && !clan.asPrototype) return clan;
         return innerSphere.available ? innerSphere : clan;
+    }
+
+    /** Clan availability, including the Star League version before the Clan version replaces it. */
+    private _clanDatesAvailability(item: ITechDates & { clanDates?: ITechDates }, rulesLevel: number): { available: boolean, asPrototype: boolean } {
+        const clan = this._datesAvailability(item.clanDates ?? item, rulesLevel);
+        const starLeague = getStarLeagueCarryOverDates(item);
+        if ((clan.available && !clan.asPrototype) || !starLeague) return clan;
+        const carried = this._datesAvailability(starLeague, rulesLevel);
+        return carried.available ? carried : clan;
+    }
+
+    /**
+     * Whether this Clan design fields the Star League version of a component (Inner Sphere slots and
+     * armor factor) because the Clan version is not yet in production in the selected era.
+     */
+    private _usesStarLeagueVersion(item: ITechDates & { clanDates?: ITechDates }): boolean {
+        const starLeague = getStarLeagueCarryOverDates(item);
+        if (this.getTech().tag !== "clan" || !starLeague || !item.clanDates) return false;
+        const clanInProduction = !!item.clanDates.introduced
+            && this._itemIsAvailable(item.clanDates.introduced, item.clanDates.extinct, item.clanDates.reintroduced);
+        return !clanInProduction
+            && this._itemIsAvailable(starLeague.prototype ?? starLeague.introduced, starLeague.extinct, null);
     }
 
     public getAvailableGyros(rulesLevel: number = 2): IGyro[] {
@@ -7765,8 +9461,10 @@ export class BattleMech {
         for(let gyro of mechGyroTypes ) {
             const availability = this._datesAvailability(gyro, rulesLevel);
             gyro.availableAsPrototype = availability.asPrototype;
-            gyro.available = availability.available && !(gyro.innerSphereOnly && this.getTech().tag === "clan")
-                && (!this.isLAM() || BattleMech.LAM_GYRO_TAGS.includes(gyro.tag));
+            gyro.available = availability.available && this.isOfferedInEdition(gyro, rulesLevel) && !(gyro.innerSphereOnly && this.getTech().tag === "clan")
+                && (!this.isLAM() || BattleMech.LAM_GYRO_TAGS.includes(gyro.tag))
+                // IndustrialMechs and Primitive 'Mechs take the standard gyro only (TM p.69; IO:AE p.116).
+                && (!this._hasBasicChassis() || gyro.tag === "standard");
 
             returnValue.push( gyro );
         }
@@ -7778,8 +9476,11 @@ export class BattleMech {
         return mechInternalStructureTypes.map(structure => {
             const availability = this._techDatesAvailability(structure, rulesLevel);
             structure.availableAsPrototype = availability.asPrototype;
-            structure.available = availability.available && !(structure.innerSphereOnly && this.getTech().tag === "clan")
-                && (!this.isLAM() || this._isLAMLegalComponent("structure", structure.tag));
+            structure.available = availability.available && this.isOfferedInEdition(structure, rulesLevel) && !(structure.innerSphereOnly && this.getTech().tag === "clan")
+                && (!this.isLAM() || this._isLAMLegalComponent("structure", structure.tag))
+                && (!this.isSuperheavy() || BattleMech.SUPERHEAVY_STRUCTURE_TAGS.includes(structure.tag))
+                // "standard internal structure (or standard IndustrialMech structure, for IndustrialMechs)" (IO:AE p.116).
+                && (!this._primitive || BattleMech.PRIMITIVE_STRUCTURE_TAGS.includes(structure.tag));
             return structure;
         });
     }
@@ -7790,9 +9491,571 @@ export class BattleMech {
             const techTag = this.getTech().tag;
             const pureTech = techTag === "is" || techTag === "clan" ? techTag : null;
             heatSink.availableAsPrototype = availability.asPrototype;
-            heatSink.available = availability.available && !(heatSink.techBase && pureTech && heatSink.techBase !== pureTech);
+            heatSink.available = availability.available && this.isOfferedInEdition(heatSink, rulesLevel) && !(heatSink.techBase && pureTech && heatSink.techBase !== pureTech)
+                // IndustrialMechs and Primitive 'Mechs use single heat sinks only (TM p.71; IO:AE p.117).
+                && (!this._hasBasicChassis() || heatSink.tag === "single");
             return heatSink;
         });
+    }
+
+    /**
+     * IndustrialMech armor: Commercial, Industrial and Heavy Industrial (which is Standard armor) are for
+     * IndustrialMechs, which "may not carry Ferro-Fibrous or Stealth armor" (TM p.72); the Dark Age armors
+     * are open to them only under Experimental Mixed-Tech rules (IO:AE p.82).
+     */
+    private _isArmorLegalForChassis(armor: IArmorType): boolean {
+        if (this._primitive) return armor.tag === this._getPrimitiveArmorTag();
+        if (!this.isIndustrialMech()) return !armor.industrialMechOnly;
+        // Patchwork is a way of mounting armor, open to every 'Mech; its locations are held to the same rule.
+        return armor.industrialMechOnly === true || armor.tag === "standard" || armor.tag === BattleMech.PATCHWORK_ARMOR_TAG
+            || (BattleMech.DARK_AGE_ARMOR_TAGS.includes(armor.tag) && this._isMixedTechBase());
+    }
+
+    public static readonly PATCHWORK_ARMOR_TAG = "patchwork";
+    private static readonly PATCHWORK_LOCATIONS: Record<string, { key: string, abbr: string, label: string }> = {
+        head: { key: "head", abbr: "hd", label: "Head" },
+        centerTorso: { key: "centerTorso", abbr: "ct", label: "Center Torso" },
+        leftTorso: { key: "leftTorso", abbr: "lt", label: "Left Torso" },
+        rightTorso: { key: "rightTorso", abbr: "rt", label: "Right Torso" },
+        leftArm: { key: "leftArm", abbr: "la", label: "Left Arm" },
+        rightArm: { key: "rightArm", abbr: "ra", label: "Right Arm" },
+        leftLeg: { key: "leftLeg", abbr: "ll", label: "Left Leg" },
+        rightLeg: { key: "rightLeg", abbr: "rl", label: "Right Leg" },
+        centerLeg: { key: "centerLeg", abbr: "cl", label: "Center Leg" },
+        frontLeftLeg: { key: "frontLeftLeg", abbr: "fll", label: "Front Left Leg" },
+        frontRightLeg: { key: "frontRightLeg", abbr: "frl", label: "Front Right Leg" },
+    };
+
+    /** Commercial armor counts half in the defensive BV; the other modifiers are on the records. */
+    private static _armorBVMultiplier(armor: IArmorType): number {
+        return armor.bvMultiplier ?? (armor.tag === "commercial" ? 0.5 : 1);
+    }
+
+    /**
+     * The weight of one patchwork location's armor: "rounding the final result up to the nearest half-ton"
+     * (TO:AUE p.189). Under Fractional Accounting such rounding is dropped and figures are rounded "up to
+     * the nearest kilogram (0.001 tons)" (TO:AUE p.188).
+     */
+    public static roundPatchworkArmorWeight(weight: number, accounting: "standard" | "fractional" = "standard"): number {
+        if (!(weight > 0)) return 0;
+        return accounting === "fractional"
+            ? Math.ceil(weight * 1000 - 1e-9) / 1000
+            : Math.ceil(weight * 2 - 1e-9) / 2;
+    }
+
+    public getWeightAccounting(): "standard" | "fractional" {
+        return this._weightAccounting;
+    }
+
+    /** Patchwork Armor: an armor type for each hit location (TO:AUE p.189). */
+    public isPatchworkArmor(): boolean {
+        return this._armorType.tag === BattleMech.PATCHWORK_ARMOR_TAG;
+    }
+
+    /** The hit locations that take an armor type under Patchwork Armor; a torso's front and rear share one. */
+    public getPatchworkLocations(): { key: string, abbr: string, label: string }[] {
+        const typeTag = this._mechType.tag.toLowerCase();
+        const locations = BattleMech.PATCHWORK_LOCATIONS;
+        const core = [locations.head, locations.centerTorso, locations.leftTorso, locations.rightTorso];
+        if (typeTag === "quad" || typeTag === "quadvee") {
+            return [...core, locations.frontLeftLeg, locations.frontRightLeg,
+                { ...locations.leftLeg, label: "Rear Left Leg" }, { ...locations.rightLeg, label: "Rear Right Leg" }];
+        }
+        const limbs = [locations.leftArm, locations.rightArm, locations.leftLeg, locations.rightLeg];
+        return typeTag === "tripod" ? [...core, ...limbs, locations.centerLeg] : [...core, ...limbs];
+    }
+
+    /** The tech base whose table row a patchwork location uses, or null when the armor has none for this unit. */
+    private _getPatchworkTechBase(armor: IArmorType): "is" | "clan" | null {
+        const slots = armor.patchwork?.slots;
+        if (!slots) return null;
+        const techTag = this.getTech().tag;
+        const preferred = techTag === "clan" || techTag === "mclan" ? "clan" : "is";
+        if (slots[preferred] !== undefined) return preferred;
+        const other = preferred === "clan" ? "is" : "clan";
+        return (techTag === "mis" || techTag === "mclan") && slots[other] !== undefined ? other : null;
+    }
+
+    /** Whether this unit may carry the armor in a patchwork location, dates aside. */
+    private _isPatchworkLocationType(armor: IArmorType): boolean {
+        return armor.tag !== BattleMech.PATCHWORK_ARMOR_TAG
+            && armor.unitTypes.battlemech
+            && armor.constructionStatus !== "deferred" && armor.constructionMode !== "equipment"
+            && this._getPatchworkTechBase(armor) !== null
+            && this._isArmorLegalForChassis(armor)
+            && (!this.isLAM() || this._isLAMLegalComponent("armor", armor.tag));
+    }
+
+    /** The armor types this unit may put in a patchwork location: those it could mount as its only armor. */
+    public getAvailablePatchworkArmorTypes(rulesLevel: number = 2): IArmorType[] {
+        return this.getAvailableArmorTypes(rulesLevel).filter(armor => armor.available && this._isPatchworkLocationType(armor));
+    }
+
+    public getPatchworkArmorType(locationKey: string): IArmorType {
+        return findByTag(mechArmorTypes, this._patchworkArmor[locationKey] ?? "standard") ?? mechArmorTypes[0];
+    }
+
+    public setPatchworkArmorType(locationKey: string, armorTag: string): IArmorType {
+        const armor = findByTag(mechArmorTypes, armorTag);
+        if (this.isPatchworkArmor() && armor && this._isPatchworkLocationType(armor)
+            && this.getPatchworkLocations().some(location => location.key === locationKey)) {
+            this._patchworkArmor[locationKey] = armor.tag;
+            this._calc();
+        }
+        return this.getPatchworkArmorType(locationKey);
+    }
+
+    /** Armor points in a patchwork location, a torso's rear included. */
+    private _getPatchworkLocationPoints(locationKey: string): number {
+        const allocation = this._armorAllocation as unknown as Record<string, number>;
+        return (allocation[locationKey] ?? 0) + (allocation[`${locationKey}Rear`] ?? 0);
+    }
+
+    /** Critical slots the location's armor takes there (Patchwork Armor Table, TO:AUE p.189; IO:AE p.82). */
+    public getPatchworkLocationSlots(locationKey: string): number {
+        if (!this.isPatchworkArmor()) return 0;
+        const armor = this.getPatchworkArmorType(locationKey);
+        const techBase = this._getPatchworkTechBase(armor);
+        return techBase ? this.getCriticalSlots(armor.patchwork?.slots[techBase] ?? 0) : 0;
+    }
+
+    /** Tons of armor in the location: points x the type's tons per point, rounded per location. */
+    public getPatchworkLocationWeight(locationKey: string): number {
+        if (!this.isPatchworkArmor()) return 0;
+        const armor = this.getPatchworkArmorType(locationKey);
+        const techBase = this._getPatchworkTechBase(armor);
+        const tonsPerPoint = techBase ? armor.patchwork?.tonsPerPoint[techBase] ?? 0 : 0;
+        return BattleMech.roundPatchworkArmorWeight(this._getPatchworkLocationPoints(locationKey) * tonsPerPoint, this._weightAccounting);
+    }
+
+    private _getPatchworkArmorWeight(): number {
+        return this.getPatchworkLocations().reduce((total, location) => total + this.getPatchworkLocationWeight(location.key), 0);
+    }
+
+    /** Armor cost: tons x the type's cost per ton; under Patchwork Armor, location by location. */
+    public getArmorCost(): number {
+        if (!this.isPatchworkArmor()) return this._armorType.costMultiplier * this._armorWeight;
+        return this.getPatchworkLocations().reduce((total, location) =>
+            total + this.getPatchworkLocationWeight(location.key) * this.getPatchworkArmorType(location.key).costMultiplier, 0);
+    }
+
+    /** One readout line per patchwork location: "Right Arm: Ferro Fibrous, 1.5 tons". */
+    private _getPatchworkReadoutLines(): string[] {
+        if (!this.isPatchworkArmor()) return [];
+        return this.getPatchworkLocations().map(location => {
+            const weight = this.getPatchworkLocationWeight(location.key);
+            return `${location.label}: ${this.getPatchworkArmorType(location.key).name}, ${weight} ton${weight === 1 ? "" : "s"}`;
+        });
+    }
+
+    /** HarJel II / III work with some armor types only; under Patchwork Armor one such location is enough to mount one. */
+    private _hasRepairSystemArmor(): boolean {
+        if (!this.isPatchworkArmor()) return BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this._armorType.tag);
+        return this.getPatchworkLocations().some(location => BattleMech.REPAIR_SYSTEM_ARMOR_TAGS.includes(this.getPatchworkArmorType(location.key).tag));
+    }
+
+    /**
+     * FrankenMech internal structure weight, by location: "Each limb is considered to weigh 10 percent of the total
+     * internal structure weight. The center torso weighs 25 percent, the left and right torso weigh 15 percent each,
+     * and the head weighs 5 percent" (CO p.213).
+     */
+    private static readonly FRANKENMECH_STRUCTURE_SHARES: Record<string, number> = {
+        head: 0.05, centerTorso: 0.25, leftTorso: 0.15, rightTorso: 0.15,
+        leftArm: 0.1, rightArm: 0.1, leftLeg: 0.1, rightLeg: 0.1, frontLeftLeg: 0.1, frontRightLeg: 0.1, centerLeg: 0.1,
+    };
+    /**
+     * Internal Structure Distribution Table (CO p.212): a location's slots for Inner Sphere endo steel ("is") and for
+     * Clan endo steel or either endo-composite ("compact"). A four-legged 'Mech's front legs are legs (via MegaMek).
+     */
+    private static readonly FRANKENMECH_STRUCTURE_SLOTS: Record<"is" | "compact", Record<"head" | "centerTorso" | "sideTorso" | "arm" | "leg", number>> = {
+        is: { head: 1, centerTorso: 1, sideTorso: 3, arm: 2, leg: 1 },
+        compact: { head: 0, centerTorso: 1, sideTorso: 1, arm: 1, leg: 1 },
+    };
+    /** Structure a FrankenMech location may come with: the types the distribution table covers, or that take no slots. */
+    public static readonly FRANKENMECH_STRUCTURE_TAGS: readonly string[] = ["standard", "endo-steel", "endo-composite", "reinforced", "composite", "industrial"];
+    private static readonly FRANKENMECH_LEG_KEYS: readonly string[] = ["leftLeg", "rightLeg", "frontLeftLeg", "frontRightLeg", "centerLeg"];
+
+    /** FrankenMech: built from the body locations of other 'Mechs (CO pp.213-214). */
+    public isFrankenMech(): boolean {
+        return this._frankenMech;
+    }
+
+    /**
+     * FrankenMechs are Experimental: the published ones are "Experimental-FrankenMech" (XTRO:Royal Fantasy p.8),
+     * and MegaMek offers them at that level. The rule is Campaign Operations', so an earlier edition has none.
+     */
+    public canBeFrankenMech(rulesLevel: number = 2): boolean {
+        return rulesLevel >= EXPERIMENTAL_RULES_LEVEL && !this.usesEarlierRulesEdition();
+    }
+
+    /** Makes the design a FrankenMech, every location starting as the center torso's 'Mech, or an ordinary 'Mech again. */
+    public setFrankenMech(frankenMech: boolean, rulesLevel: number = EXPERIMENTAL_RULES_LEVEL): boolean {
+        if (frankenMech && !this._frankenMech && !this.canBeFrankenMech(rulesLevel)) return this._frankenMech;
+        this._frankenMech = frankenMech;
+        this._frankenMechDonors = {};
+        this._frankenMechJumpJetClass = null;
+        // OmniMech parts "lose all benefits and special abilities associated with OmniMechs" (CO p.213).
+        if (frankenMech && this._omnimech) this.toggleOmni();
+        this.setTonnage(this._tonnage);
+        return this._frankenMech;
+    }
+
+    /** The body locations a FrankenMech is assembled from: those that take an armor type under Patchwork Armor. */
+    public getFrankenMechLocations(): { key: string, abbr: string, label: string }[] {
+        return this.getPatchworkLocations();
+    }
+
+    /** Where a location came from. The center torso sets the FrankenMech's tonnage and structure type. */
+    public getFrankenMechDonor(locationKey: string): IFrankenMechDonor {
+        const saved = this._frankenMech ? this._frankenMechDonors[locationKey] : undefined;
+        const centerTorso = locationKey === "centerTorso";
+        const structureTag = !centerTorso ? saved?.structure ?? this._selectedInternalStructure.tag : this._selectedInternalStructure.tag;
+        const structure = findByTag(mechInternalStructureTypes, structureTag) ?? this._selectedInternalStructure;
+        const structureTechBase = saved?.structureTechBase && this.getFrankenMechStructureTechBases().includes(saved.structureTechBase)
+            ? saved.structureTechBase : this._defaultStructureTechBase(structure);
+        const donor: IFrankenMechDonor = {
+            tonnage: !centerTorso ? saved?.tonnage ?? this._tonnage : this._tonnage,
+            structure: structureTag,
+            name: saved?.name ?? "",
+            structureTechBase,
+        };
+        const wholeUnitSlots = structure.crits[structureTechBase];
+        if (saved?.structureSlots !== undefined && wholeUnitSlots > 0 && saved.structureSlots <= wholeUnitSlots) {
+            donor.structureSlots = saved.structureSlots;
+        }
+        return donor;
+    }
+
+    /** Whose structure slots a whole 'Mech of this tech base uses: a Clan 'Mech's, unless the structure is the Star League version. */
+    private _defaultStructureTechBase(structure: IInternalStructure): "is" | "clan" {
+        return this.getTech().tag === "clan" && !this._usesStarLeagueVersion(structure) ? "clan" : "is";
+    }
+
+    /** Structure tech bases a location may come with: either on a Mixed Tech 'Mech, otherwise the 'Mech's own. */
+    public getFrankenMechStructureTechBases(): ("is" | "clan")[] {
+        if (this._isMixedTechBase()) return ["is", "clan"];
+        return [this.getTech().tag === "clan" ? "clan" : "is"];
+    }
+
+    /** Slot counts a location's structure may have kept from its donor's design: 1 up to the whole structure's. */
+    public getFrankenMechDonorSlotCounts(locationKey: string): number[] {
+        const donor = this.getFrankenMechDonor(locationKey);
+        const wholeUnitSlots = findByTag(mechInternalStructureTypes, donor.structure)?.crits[donor.structureTechBase ?? "is"] ?? 0;
+        return Array.from({ length: wholeUnitSlots }, (_, index) => index + 1);
+    }
+
+    /**
+     * Tonnages a location may come from. "The legs must be from a 'Mech of the same tonnage or heavier" (CO p.213);
+     * other parts may come from any 'Mech up to 100 tons, or up to 200 on a superheavy (via MegaMek).
+     */
+    public getFrankenMechDonorTonnages(locationKey: string): number[] {
+        if (locationKey === "centerTorso") return [this._tonnage];
+        const typeKey = this.getMechType().tag as keyof IInternalStructure["perMechType"];
+        const heaviest = this._tonnage > 100 ? 200 : 100;
+        const lightest = BattleMech.FRANKENMECH_LEG_KEYS.includes(locationKey) ? this._tonnage : 0;
+        return Object.keys(this._selectedInternalStructure.perMechType[typeKey] ?? {}).map(Number)
+            .filter(tonnage => tonnage >= lightest && tonnage <= heaviest)
+            .sort((a, b) => a - b);
+    }
+
+    /** Structure types a location may come with, marked available as the 'Mech's own structure selector marks them. */
+    public getFrankenMechDonorStructures(rulesLevel: number = 2): IInternalStructure[] {
+        return this.getAvailableInternalStructures(rulesLevel).filter(structure => this._isFrankenMechDonorStructure(structure.tag));
+    }
+
+    private _isFrankenMechDonorStructure(structureTag: string): boolean {
+        if (!BattleMech.FRANKENMECH_STRUCTURE_TAGS.includes(structureTag)) return false;
+        const structure = findByTag(mechInternalStructureTypes, structureTag);
+        if (!structure) return false;
+        return !this.isQuadVee() || structure.tag === "standard";
+    }
+
+    /** Sets where one location came from. Values the location may not take are ignored. */
+    public setFrankenMechDonor(locationKey: string, donor: Partial<IFrankenMechDonor>): IFrankenMechDonor {
+        if (!this._frankenMech || !this.getFrankenMechLocations().some(location => location.key === locationKey)) {
+            return this.getFrankenMechDonor(locationKey);
+        }
+        const saved = { ...this._frankenMechDonors[locationKey] };
+        if (donor.tonnage !== undefined && locationKey !== "centerTorso" && this.getFrankenMechDonorTonnages(locationKey).includes(donor.tonnage)) {
+            saved.tonnage = donor.tonnage;
+        }
+        if (donor.structure !== undefined && locationKey !== "centerTorso" && this._isFrankenMechDonorStructure(donor.structure)) {
+            saved.structure = findByTag(mechInternalStructureTypes, donor.structure)?.tag ?? saved.structure;
+        }
+        if (donor.name !== undefined) saved.name = donor.name.slice(0, BattleMech.FRANKENMECH_DONOR_NAME_LENGTH);
+        if (donor.structureTechBase !== undefined && this.getFrankenMechStructureTechBases().includes(donor.structureTechBase)) {
+            saved.structureTechBase = donor.structureTechBase;
+        }
+        this._frankenMechDonors[locationKey] = saved;
+        // The slot count is checked against the structure just set; 0 goes back to the table.
+        if (donor.structureSlots === 0) {
+            delete saved.structureSlots;
+        } else if (donor.structureSlots !== undefined && this.getFrankenMechDonorSlotCounts(locationKey).includes(donor.structureSlots)) {
+            saved.structureSlots = donor.structureSlots;
+        }
+        this.setTonnage(this._tonnage);
+        return this.getFrankenMechDonor(locationKey);
+    }
+
+    public static readonly FRANKENMECH_DONOR_NAME_LENGTH = 60;
+
+    /** Drops donors the 'Mech can no longer take: a location it lost, legs lighter than the 'Mech, a structure it cannot use. */
+    private _pruneFrankenMechDonors(): void {
+        const locations = this.getFrankenMechLocations().map(location => location.key);
+        for (const [locationKey, donor] of Object.entries(this._frankenMechDonors)) {
+            if (!locations.includes(locationKey)) {
+                delete this._frankenMechDonors[locationKey];
+                continue;
+            }
+            if (donor.tonnage !== undefined && !this.getFrankenMechDonorTonnages(locationKey).includes(donor.tonnage)) delete donor.tonnage;
+            if (donor.structure !== undefined && !this._isFrankenMechDonorStructure(donor.structure)) delete donor.structure;
+        }
+    }
+
+    /** Gives each FrankenMech location the structure points of its donor's tonnage. */
+    private _applyFrankenMechStructure(typeKey: keyof IInternalStructure["perMechType"]): void {
+        if (!this._frankenMech) return;
+        this._pruneFrankenMechDonors();
+        const points = this._internalStructure as unknown as Record<string, number>;
+        for (const location of this.getFrankenMechLocations()) {
+            const donor = this.getFrankenMechDonor(location.key);
+            const listed = this._selectedInternalStructure.perMechType[typeKey]?.[donor.tonnage] as unknown as Record<string, number | undefined> | undefined;
+            const locationPoints = listed?.[location.key];
+            if (locationPoints !== undefined) points[location.key] = locationPoints;
+        }
+    }
+
+    public getFrankenMechLocationStructure(locationKey: string): IInternalStructure {
+        return findByTag(mechInternalStructureTypes, this.getFrankenMechDonor(locationKey).structure) ?? this._selectedInternalStructure;
+    }
+
+    /** The location's structure by name, saying whose it is on a Mixed Tech 'Mech when it takes slots: "Endo-Steel (Clan)". */
+    public getFrankenMechLocationStructureName(locationKey: string): string {
+        const structure = this.getFrankenMechLocationStructure(locationKey);
+        if (!this._isMixedTechBase() || structure.crits.is <= 0) return structure.name;
+        return `${structure.name} (${this.getFrankenMechDonor(locationKey).structureTechBase === "clan" ? "Clan" : "IS"})`;
+    }
+
+    /** The location's share of its donor's whole internal structure weight (CO p.213). */
+    public getFrankenMechLocationStructureWeight(locationKey: string): number {
+        const donor = this.getFrankenMechDonor(locationKey);
+        return BattleMech._structureWeight(donor.structure, donor.tonnage) * (BattleMech.FRANKENMECH_STRUCTURE_SHARES[locationKey] ?? 0);
+    }
+
+    /** "The combined weight of all eight locations is added together and the result is rounded up to the nearest .5 tons" (CO p.213). */
+    private _getFrankenMechStructureWeight(): number {
+        const total = this.getFrankenMechLocations().reduce((sum, location) => sum + this.getFrankenMechLocationStructureWeight(location.key), 0);
+        return BattleMech.roundPatchworkArmorWeight(total, this._weightAccounting);
+    }
+
+    /**
+     * Critical slots the location's structure takes there: "retained from the donor design or, if no critical slot
+     * of the appropriate internal structure type is present, the number listed on the Internal Structure
+     * Distribution Table" (CO pp.212-213).
+     */
+    public getFrankenMechLocationStructureSlots(locationKey: string): number {
+        if (!this._frankenMech) return 0;
+        const donor = this.getFrankenMechDonor(locationKey);
+        if (donor.structureSlots !== undefined) return donor.structureSlots;
+        return this.getFrankenMechTableStructureSlots(locationKey);
+    }
+
+    /** The Internal Structure Distribution Table's slots for the location's structure (CO p.212). */
+    public getFrankenMechTableStructureSlots(locationKey: string): number {
+        const donor = this.getFrankenMechDonor(locationKey);
+        const structure = this.getFrankenMechLocationStructure(locationKey);
+        const wholeUnitSlots = structure.crits[donor.structureTechBase ?? this._defaultStructureTechBase(structure)];
+        if (wholeUnitSlots <= 0) return 0;
+        // Inner Sphere endo steel takes 14 slots in a whole 'Mech; the table's other column is for the 7-slot kinds.
+        const column = BattleMech.FRANKENMECH_STRUCTURE_SLOTS[wholeUnitSlots >= 14 ? "is" : "compact"];
+        if (locationKey === "head" || locationKey === "centerTorso") return column[locationKey];
+        if (locationKey === "leftTorso" || locationKey === "rightTorso") return column.sideTorso;
+        return BattleMech.FRANKENMECH_LEG_KEYS.includes(locationKey) ? column.leg : column.arm;
+    }
+
+    /** Does a location's structure differ from the center torso's? Then the structure is a hybrid. */
+    public hasFrankenMechHybridStructure(): boolean {
+        return this._frankenMech && this.getFrankenMechLocations()
+            .some(location => this.getFrankenMechDonor(location.key).structure !== this._selectedInternalStructure.tag);
+    }
+
+    /**
+     * Piloting Skill Roll modifier for the legs: "if they are not from the same 'Mech, apply a +1 Piloting Skill Roll
+     * modifier; if the legs are from different tonnage 'Mechs, apply a +2" (CO p.213). The +2 is read as taking the
+     * place of the +1, since legs of different tonnages are never from the same 'Mech.
+     */
+    public getFrankenMechLegPilotingModifier(): number {
+        if (!this._frankenMech) return 0;
+        const legs = this.getFrankenMechLocations().filter(location => BattleMech.FRANKENMECH_LEG_KEYS.includes(location.key))
+            .map(location => this.getFrankenMechDonor(location.key));
+        if (new Set(legs.map(leg => leg.tonnage)).size > 1) return 2;
+        return new Set(legs.map(leg => (leg.name ?? "").trim().toLowerCase())).size > 1 ? 1 : 0;
+    }
+
+    /** Lighter jump jet classes this FrankenMech may have kept; heavier jets "cannot be mounted" (CO p.213, errata v4.0). */
+    public getFrankenMechJumpJetClasses(): FrankenMechJumpJetClass[] {
+        if (!this._frankenMech || this.isLAM() || this._jumpJetType.underwater || this.isSuperheavy()) return [];
+        const classes: FrankenMechJumpJetClass[] = ["light", "medium", "heavy"];
+        return classes.filter(jetClass => this._jumpJetType.weight_multiplier[jetClass] < this._ownJumpJetWeightEach());
+    }
+
+    public getFrankenMechJumpJetClass(): FrankenMechJumpJetClass | null {
+        return this.usesLighterJumpJets() ? this._frankenMechJumpJetClass : null;
+    }
+
+    /** Keeps lighter jump jets, or (null) the 'Mech's own size. The jet count is kept to what the new size allows. */
+    public setFrankenMechJumpJetClass(jetClass: FrankenMechJumpJetClass | null): FrankenMechJumpJetClass | null {
+        if (jetClass === null || this.getFrankenMechJumpJetClasses().includes(jetClass)) {
+            this._frankenMechJumpJetClass = jetClass;
+            this.setJumpSpeed(Math.min(this._jumpSpeed, this.getMaxJumpJetCount()));
+        }
+        return this.getFrankenMechJumpJetClass();
+    }
+
+    /** The structure as the readouts name it: a FrankenMech of mixed structure has "Hybrid" structure, as MegaMek writes it. */
+    public getInternalStructureLabel(): string {
+        if (!this._frankenMech) return this._selectedInternalStructure.name;
+        return this.hasFrankenMechHybridStructure() ? "Hybrid, FrankenMech" : `${this._selectedInternalStructure.name}, FrankenMech`;
+    }
+
+    /** One readout line per FrankenMech location ("Right Arm: 70-ton 'Mech (Warhammer), Standard, 11 points"), then the legs' modifier. */
+    private _getFrankenMechReadoutLines(): string[] {
+        if (!this._frankenMech) return [];
+        const points = this._internalStructure as unknown as Record<string, number>;
+        const lines = this.getFrankenMechLocations().map(location => {
+            const donor = this.getFrankenMechDonor(location.key);
+            const name = donor.name?.trim() ? ` (${donor.name.trim()})` : "";
+            const slots = this.getFrankenMechLocationStructureSlots(location.key);
+            const slotText = slots > 0 ? `, ${slots} slot${slots === 1 ? "" : "s"}` : "";
+            return `${location.label}: ${donor.tonnage}-ton 'Mech${name}, ${this.getFrankenMechLocationStructureName(location.key)}${slotText}, ${points[location.key] ?? 0} points`;
+        });
+        const legModifier = this.getFrankenMechLegPilotingModifier();
+        if (legModifier > 0) {
+            lines.push(`Legs from ${legModifier === 2 ? "'Mechs of different tonnages" : "different 'Mechs"}: +${legModifier} to Piloting Skill Rolls`);
+        }
+        return lines;
+    }
+
+    /** The Dark Age armors of IO:AE pp.80-82 (Advanced Armor Table). */
+    public static readonly DARK_AGE_ARMOR_TAGS: readonly string[] = ["anti-penetrative-ablation", "ballistic-reinforced", "heat-dissipating", "impact-resistant"];
+    /** Engines an IndustrialMech or a Primitive 'Mech may mount (TM p.68; IO:AE p.117). */
+    public static readonly BASIC_ENGINE_TAGS: readonly string[] = ["standard", "ice", "cell", "fission"];
+    public static readonly PRIMITIVE_STRUCTURE_TAGS: readonly string[] = ["standard", "industrial"];
+
+    private _isMixedTechBase(): boolean {
+        return this._tech.tag === "mis" || this._tech.tag === "mclan";
+    }
+
+    /** An IndustrialMech or a Primitive 'Mech: standard gyro and single heat sinks only. */
+    private _hasBasicChassis(): boolean {
+        return this._primitive || this.isIndustrialMech();
+    }
+
+    /** "Primitive BattleMechs can only mount Primitive BattleMech armor"; Primitive IndustrialMechs "only ... Commercial armor" (IO:AE p.118). */
+    private _getPrimitiveArmorTag(): string {
+        return this.isIndustrialMech() ? "commercial" : "primitive";
+    }
+
+    /** A superheavy IndustrialMech has its own, narrower engine rule (see _isSuperheavyLegalEngine). */
+    private _isChassisLegalEngine(engineTag: string): boolean {
+        return !this._hasBasicChassis() || BattleMech.BASIC_ENGINE_TAGS.includes(engineTag);
+    }
+
+    /**
+     * An ICE, fuel cell or fission engine in a BattleMech built to the modern rules: a "low-tech 'Mech", Experimental
+     * (Non-Fusion BattleMechs, TO:AUE p.120). IndustrialMechs and Primitive 'Mechs mount these engines by their own rules.
+     */
+    private _isNonFusionBattleMechEngine(engineTag: string): boolean {
+        return !this._hasBasicChassis() && !this.usesEarlierRulesEdition() && /^(ice|cell|fission)$/.test(engineTag);
+    }
+
+    /** A BattleMech with an ICE, fuel cell or fission engine (TO:AUE p.120). */
+    public isNonFusionBattleMech(): boolean {
+        return this._isNonFusionBattleMechEngine(this._engineType.tag);
+    }
+
+    /**
+     * IndustrialMechs are "incompatible with the MASC and Triple-Strength Myomer (TSM) technologies" and may use
+     * Industrial TSM instead (TM p.70); Primitive 'Mechs take no physical enhancement at all (IO:AE p.117).
+     */
+    private _isChassisLegalMyomer(myomer: IMyomerType): boolean {
+        if (this._primitive) return myomer.tag === "standard";
+        if (this.isIndustrialMech()) return myomer.tag === "standard" || myomer.tag === "industrial-tsm";
+        return myomer.tag !== "industrial-tsm";
+    }
+
+    public isPrimitive(): boolean {
+        return this._primitive;
+    }
+
+    /** Primitive technology is what was introduced by 2500 (IO:AE p.116). */
+    private static readonly PRIMITIVE_TECHNOLOGY_YEAR = 2500;
+
+    /**
+     * RetroTech: "RetroTech rules apply any time a unit built with the Primitive Tech Base is designed to employ any
+     * non-Primitive weapons or equipment" (IO:AE p.116). Here that is anything first introduced after 2500, or jump
+     * jets other than the standard kind (Primitive 'Mechs use prototype or standard jump jets; RetroTech 'Mechs any).
+     */
+    public isRetroTech(): boolean {
+        if (!this._primitive) return false;
+        if (this._jumpSpeed > 0 && this._jumpJetType.tag !== "standard") return true;
+        return this._equipmentList.some(item => item && BattleMech._isPostPrimitiveTechnology(item));
+    }
+
+    /** First introduced, as a prototype or in production, after 2500. */
+    private static _isPostPrimitiveTechnology(item: IEquipmentItem): boolean {
+        const years = [item.prototype, item.introduced].filter((year): year is number => typeof year === "number" && year > 0);
+        return years.length > 0 && Math.min(...years) > BattleMech.PRIMITIVE_TECHNOLOGY_YEAR;
+    }
+
+    /** "Primitive BattleMech", "RetroTech IndustrialMech" and so on; null for a 'Mech built to the modern rules. */
+    public getConstructionName(): string | null {
+        if (!this._primitive) return null;
+        return (this.isRetroTech() ? "RetroTech " : "Primitive ") + (this.isIndustrialMech() ? "IndustrialMech" : "BattleMech");
+    }
+
+    /**
+     * To-hit modifier on weapon attacks from the cockpit's fire control. An IndustrialMech without Advanced Fire
+     * Control: +1 (TM p.69). A Primitive IndustrialMech cockpit: +2, or +1 with Advanced Fire Control; the Primitive
+     * BattleMech cockpit "applies no modifiers in combat" (IO:AE p.114). RetroTech IndustrialMechs keep it (IO:AE p.116).
+     */
+    public getFireControlToHitModifier(): number {
+        if (!this.isIndustrialMech()) return 0;
+        if (this._primitive) return this.hasAdvancedFireControl() ? 1 : 2;
+        return this.hasAdvancedFireControl() ? 0 : 1;
+    }
+
+    /**
+     * Primitive 'Mechs "can only be built using Inner Sphere technology", "cannot be constructed as OmniMechs,
+     * nor may they be designed as LAMs, QuadVees, or Tripods", and weigh 10 to 100 tons (IO:AE p.117).
+     * A mixed-tech design with an Inner Sphere base is the RetroTech case of p.115.
+     */
+    public canBePrimitive(): boolean {
+        const typeTag = this._mechType.tag.toLowerCase();
+        // An IO:AE rule: no earlier rulebook has it.
+        return !this.usesEarlierRulesEdition() && (typeTag === "biped" || typeTag === "quad") && !this._omnimech && this._tonnage <= 100
+            && (this._tech.tag === "is" || this._tech.tag === "mis");
+    }
+
+    /** Switch the Primitive 'Mech rules on or off. Switching on replaces the components a Primitive 'Mech cannot use. */
+    public setPrimitive(primitive: boolean): boolean {
+        if (primitive && !this.canBePrimitive()) return this._primitive;
+        this._primitive = primitive;
+        if (primitive) {
+            const standard = <T extends { tag: string }>(records: T[], current: T, keep: (record: T) => boolean): T =>
+                keep(current) ? current : findByTag(records, "standard") ?? records[0];
+            this._selectedInternalStructure = standard(mechInternalStructureTypes, this._selectedInternalStructure, structure => BattleMech.PRIMITIVE_STRUCTURE_TAGS.includes(structure.tag));
+            this._engineType = standard(mechEngineTypes, this._engineType, engine => BattleMech.BASIC_ENGINE_TAGS.includes(engine.tag));
+            this._gyro = standard(mechGyroTypes, this._gyro, gyro => gyro.tag === "standard");
+            this._myomerType = standard(mechMyomerTypes, this._myomerType, myomer => myomer.tag === "standard");
+            this._heatSinkType = findByTag(mechHeatSinkTypes, "single") ?? this._heatSinkType;
+            this._smallCockpit = false;
+            // The structure setter sizes the internal structure for the tonnage.
+            this.setInternalStructureType(this._selectedInternalStructure.tag);
+        }
+        // The engine rating follows the rules in force; a Walking MP the adjusted rating cannot reach comes down.
+        this.setWalkSpeed(Math.min(this._walkSpeed, this.getMaxWalkSpeed(EXPERIMENTAL_RULES_LEVEL)));
+        return this._primitive;
     }
 
     public getAvailableArmorTypes(rulesLevel: number = 2): IArmorType[] {
@@ -7807,8 +10070,16 @@ export class BattleMech {
                 : (techTag === "clan" ? armor.armorMultiplier.clan : armor.armorMultiplier.is) > 0);
             const availability = this._techDatesAvailability(armor, rulesLevel);
             armor.availableAsPrototype = availability.asPrototype;
-            armor.available = hasCompatibleMultiplier && availability.available
-                && (!this.isLAM() || this._isLAMLegalComponent("armor", armor.tag));
+            // A Primitive 'Mech's one armor type is never withheld. On an IndustrialMech the Dark Age armors
+            // need the Experimental rules level as well as a mixed tech base (IO:AE p.82).
+            const mandatory = this._primitive && armor.tag === this._getPrimitiveArmorTag();
+            const experimentalOnly = this.isIndustrialMech() && BattleMech.DARK_AGE_ARMOR_TAGS.includes(armor.tag);
+            armor.available = mandatory || (hasCompatibleMultiplier && availability.available && this.isOfferedInEdition(armor, rulesLevel)
+                && this._isArmorLegalForChassis(armor)
+                && (!experimentalOnly || rulesLevel >= EXPERIMENTAL_RULES_LEVEL)
+                // Patchwork Armor is an "advanced construction option" (TO:AUE p.189).
+                && (armor.tag !== BattleMech.PATCHWORK_ARMOR_TAG || rulesLevel >= 3)
+                && (!this.isLAM() || this._isLAMLegalComponent("armor", armor.tag)));
 
             returnValue.push( armor );
         }
@@ -7841,7 +10112,7 @@ export class BattleMech {
 
     /**
      * LAM construction limits: no armor or internal structure that occupies critical slots,
-     * no Hardened armor, and only Standard or Compact fusion engines (IO p.114).
+     * no Hardened armor, and only Standard or Compact fusion engines (IO:AE p.108).
      */
     private _isLAMLegalComponent(kind: "armor" | "structure" | "engine", tag: string): boolean {
         if (kind === "engine") {
@@ -7856,9 +10127,44 @@ export class BattleMech {
     }
 
     private _isEquipmentAllowedForChassis(item: IEquipmentItem): boolean {
-        // Chassis-specific equipment, e.g. LAM Bomb Bays and Fuel Tanks (IO p.114).
+        // Chassis-specific equipment, e.g. LAM Bomb Bays and Fuel Tanks (IO:AE p.108).
         if (item.chassisTypes && item.chassisTypes.length > 0
             && !item.chassisTypes.includes(this._mechType.tag.toLowerCase())) {
+            return false;
+        }
+        if (this.isSuperheavy() && BattleMech.SUPERHEAVY_PROHIBITED_TAGS.includes(item.tag.toLowerCase())) {
+            return false;
+        }
+        if (!this.isSuperheavy() && BattleMech.SUPERHEAVY_ONLY_TAGS.includes(item.tag.toLowerCase())) {
+            return false;
+        }
+        // TSEMP cannons need a fusion or fission engine, the BattleMech Taser a fusion engine (IO:AE p.85, TO:AUE p.158).
+        if (!engineMeetsRequirement(item.requiresEngine, this._engineType.tag)) {
+            return false;
+        }
+        if (!this.hasAdvancedFireControl() && BattleMech._needsAdvancedFireControl(item)) {
+            return false;
+        }
+        if (item.industrialMechOnly && !this.isIndustrialMech()) {
+            return false;
+        }
+        // Nowhere to put it on this chassis: wrecking balls and salvage arms on a quad (TM pp.248-249).
+        if (this._getAllowedLocations(item)?.length === 0) {
+            return false;
+        }
+        // The C3 Remote Sensor Launcher and C3i exclude each other (TO:AUE p.110).
+        if (item.tag === BattleMech.C3_REMOTE_SENSOR_TAG && this._equipmentList.some(other => other && BattleMech._isC3iSystem(other))) {
+            return false;
+        }
+        if (BattleMech._isC3iSystem(item) && this._equipmentList.some(other => other?.tag === BattleMech.C3_REMOTE_SENSOR_TAG)) {
+            return false;
+        }
+        // HarJel II / III: BattleMechs with compatible armor, and never the two kinds together (IO:AE pp.82-83).
+        if (item.armorRepairBVMultiplier && (
+            this.isIndustrialMech()
+            || !this._hasRepairSystemArmor()
+            || this._equipmentList.some(other => other?.armorRepairBVMultiplier && other.tag !== item.tag)
+        )) {
             return false;
         }
         if (!this.isLAM() && !this.isTripod()) {
@@ -7868,7 +10174,7 @@ export class BattleMech {
         const tag = item.tag.toLowerCase();
         const name = item.name.toLowerCase();
         if (this.isLAM()) {
-            // IO p.114, Prohibited Technologies and construction notes: no artillery, no weapon
+            // IO:AE p.108, Prohibited Technologies and construction notes: no artillery, no weapon
             // that needs a Piloting skill except physical attack weapons (heavy Gauss), no
             // supercharger, and none of the listed conversion-blocking equipment. Items split
             // across locations are reported by getChassisEquipmentViolations().
@@ -7927,6 +10233,8 @@ export class BattleMech {
     // right pairs together, so no location ever exceeds its cap and the
     // Step 4 dropdowns always contain the allocated value.
     public allocateArmorSane(): void {
+        // Patchwork Armor has no purchased tonnage to spread: the weight follows the points.
+        if (this.isPatchworkArmor()) return;
         this.allocateArmorClear();
         const chassisMax = this.getChassisMaxArmor();
         let remaining = Math.floor(Math.min(this._maxArmor, chassisMax));
@@ -8066,6 +10374,7 @@ export class BattleMech {
         this._armorAllocation = maxAllocation;
         const armorMultiplier = this.getArmorObj().armorMultiplier[this.getArmorTechBase()];
         this._armorWeight = Math.ceil((this.getChassisMaxArmor() / armorMultiplier) * 2) / 2;
+        this._fractionalArmorPoints = this.getChassisMaxArmor();
         this._calc();
     }
 
@@ -8095,6 +10404,7 @@ export class BattleMech {
         const techTag = this.getTech().tag;
 
         const addedTags = new Set<string>();
+        const offeredLevel = includeCustom ? Math.max(rulesLevel, CUSTOM_HOMEBREW_RULES_LEVEL) : rulesLevel;
         const addEquipment = (item: IEquipmentItem, catalog: "is" | "clan" | "custom" | "universal"): void => {
             // space.battlemech -1 means the item cannot be mounted on a 'Mech at all
             // (ProtoMech-only weapons such as the ProtoMech ACs).
@@ -8102,8 +10412,12 @@ export class BattleMech {
             if (addedTags.has(item.tag) || item.space.battlemech < 0 || item.bombBaySlots) {
                 return;
             }
+            // Only what the selected rules edition offers at the selected rules level (custom content at its own level).
+            if (!isEquipmentOffered(item, this._rulesEdition, offeredLevel)) {
+                return;
+            }
             item.catalog = isUniversalEquipment(item) ? "universal" : item.catalog ?? catalog;
-            item.criticals = item.space.battlemech;
+            item.criticals = this.getCriticalSlots(item.space.battlemech);
             // Equipment records carry side-specific IS or Clan dates, so extinction always applies.
             // A prototype year with no production year marks an IO prototype-only item (Experimental).
             const prototypeOnly = item.introduced === null && !!item.prototype;
@@ -8112,16 +10426,31 @@ export class BattleMech {
             const asPrototype = !inProduction && effectiveIntroduction !== item.introduced
                 && this._itemIsAvailable(effectiveIntroduction, item.extinct, item.reintroduced);
             item.availableAsPrototype = asPrototype;
+            const limitKey = item.maxPerUnitGroup ?? item.tag;
             const underUnitLimit = !item.maxPerUnit
-                || this._equipmentList.filter(installed => installed?.tag === item.tag).length < item.maxPerUnit;
+                || this._equipmentList.filter(installed => (installed?.maxPerUnitGroup ?? installed?.tag) === limitKey).length < item.maxPerUnit;
             item.available = (inProduction || asPrototype) && this._isEquipmentAllowedForChassis(item) && underUnitLimit;
             addedTags.add(item.tag);
             returnItems.push(item);
         };
 
-        for (const item of getEquipmentListForChassis(techTag, includeCustom)) {
+        for (const record of getEquipmentListForChassis(techTag, includeCustom)) {
+            // Only what the selected rules edition offers at the selected rules level (custom content at its own level).
+            if (!isEquipmentOffered(record, this._rulesEdition, offeredLevel)) {
+                continue;
+            }
+            const item = getEquipmentForEdition(record, this._rulesEdition);
             const catalog = item.catalog ?? (item.category === "Custom Equipment" ? "custom" : techTag === "clan" ? "clan" : "is");
             addEquipment(item, catalog);
+        }
+        // Battle armor weapons on a 'Mech are Experimental (Ghosts of Obeedah p.53).
+        if (rulesLevel >= EXPERIMENTAL_RULES_LEVEL) {
+            const battleArmorScale = getBattleArmorScaleListByTech(techTag);
+            // A 'Mech tracks heat, so its battle armor energy weapons run off heat sinks, never power cells.
+            const energyTags = battleArmorScale.filter(item => item.category === "Energy Weapons").map(item => item.tag);
+            for (const item of battleArmorScale) {
+                if (!energyTags.includes(item.feedsWeaponTag ?? "")) addEquipment(item, item.catalog ?? "is");
+            }
         }
         // Sort compiled equipment strictly by the dataset sorting values
         returnItems.sort((a, b) => {
@@ -8199,6 +10528,31 @@ export class BattleMech {
             }
         }
         return false;
+    }
+
+    /** Each shield mounted, with its Damage Absorption and Damage Capacity (TO:AUE p.103) and the capacity used up. */
+    public getShields(): IMechShield[] {
+        return this._equipmentList.flatMap(item => {
+            const size = (["small", "medium", "large"] as const).find(name => matchesTag(item, "shield-" + name));
+            if (!size) {
+                return [];
+            }
+            const [damageAbsorption, damageCapacity] = shieldTable[size];
+            return [{
+                item, location: item.location ?? "", size: size[0].toUpperCase() + size.slice(1), damageAbsorption, damageCapacity,
+                damageTaken: Math.min(damageCapacity, item.shieldDamage ?? 0),
+            }];
+        });
+    }
+
+    /** In play: a click on a shield's Damage Capacity circle marks it and every one before it, or clears it if it was the last marked. */
+    public toggleShieldBubble(uuid: string, index: number): void {
+        const shield = this.getShields().find(entry => entry.item.uuid === uuid);
+        if (!shield) {
+            return;
+        }
+        const marked = Math.min(shield.damageCapacity, index + 1);
+        shield.item.shieldDamage = shield.damageTaken === marked ? marked - 1 : marked;
     }
 
     public getModularArmorPacks(): IEquipmentItem[] {
@@ -8403,6 +10757,11 @@ export class BattleMech {
         return rv;
     }
 
+    /** Sensors that can no longer fire weapons: two hits, or one on an IndustrialMech (TW p.128). */
+    public areSensorsDestroyed(): boolean {
+        return this.sensorHits() >= (this.isIndustrialMech() ? 1 : 2);
+    }
+
     public toggleISBubble(clickLocation: string, clickIndex: number): void {
         clickLocation = this._normalizeLocation(clickLocation);
         const targetProp = BattleMech.MECH_LOCATION_MAP[clickLocation];
@@ -8538,7 +10897,7 @@ export class BattleMech {
 
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
-                        this.setAdditionalHeatSinks(+splitLine[0] - 10 )
+                        this.setAdditionalHeatSinks(Math.max(0, +splitLine[0] - this.getFreeHeatSinks()))
                         this.setHeatSinksType( "double" )
                     }
                 }
@@ -8552,7 +10911,7 @@ export class BattleMech {
 
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
-                        this.setAdditionalHeatSinks(+splitLine[0] - 10 )
+                        this.setAdditionalHeatSinks(Math.max(0, +splitLine[0] - this.getFreeHeatSinks()))
                         this.setHeatSinksType( "single" )
                     }
 
@@ -8567,7 +10926,7 @@ export class BattleMech {
 
                     if( splitLine.length > 1 && !isNaN(+splitLine[0]) ) {
 
-                        this.setAdditionalHeatSinks(+splitLine[0] - 10 )
+                        this.setAdditionalHeatSinks(Math.max(0, +splitLine[0] - this.getFreeHeatSinks()))
                         this.setHeatSinksType( "single" )
                     }
 
@@ -8820,7 +11179,10 @@ export class BattleMech {
         equipmentListTag: string,
         includeCustom: boolean = false,
     ): IEquipmentItem[] {
-        return getEquipmentListByTech(equipmentListTag, includeCustom);
+        // Not filtered by rules edition: a saved design keeps what it mounts. Stats are the edition's.
+        // Battle armor scale items go last, so a catalog record always wins a lookup.
+        return [...getEquipmentListByTech(equipmentListTag, includeCustom), ...getBattleArmorScaleListByTech(equipmentListTag)]
+            .map(item => getEquipmentForEdition(item, this._rulesEdition));
     }
 
 
@@ -9148,7 +11510,7 @@ export class BattleMech {
         }
         const weapon = this.getAmmoBinWeapon(bin);
         const shotsPerTon = weapon ? getWeaponShotsPerTon(weapon, bin) : getAmmoRoundsPerTon(bin);
-        return Math.floor(shotsPerTon * (bin.weight || 1));
+        return Math.floor(shotsPerTon * (bin.weight || 1) + 1e-6);
     }
 
     /** Shots left in an ammunition bin; an untouched bin is full. */
@@ -9208,24 +11570,98 @@ export class BattleMech {
         }
     }
 
+    /**
+     * The catalog record an SSW component name stands for, matched on the record's name, alternateName or
+     * altNames. SSW gives the Inner Sphere and Clan XL engines one name ("XL Engine") and tells them apart by
+     * the element's techbase attribute (0 Inner Sphere, 1 Clan); a Clan one picks the record without Inner
+     * Sphere criticals. An unknown name goes into the import errors and returns undefined.
+     */
+    private _findSSWComponent<K extends CustomComponentKind>(
+        kind: K,
+        component: string,
+        sswName: unknown,
+        sswTechbase?: unknown,
+    ): ComponentRecord<K> | undefined {
+        const isClan = String( sswTechbase ) === "1";
+        const hasInnerSphereCriticals = ( record: ComponentRecord<K> ) => !!( record as { criticals?: { is?: unknown } } ).criticals?.is;
+        // Canon wins; custom and draft records answer only names canon doesn't.
+        for( const tier of getComponentTiers( kind ) ) {
+            const matches = findAllByName( tier as ComponentRecord<K>[], sswName );
+            if( matches.length > 0 ) {
+                return matches.find( ( record ) => hasInnerSphereCriticals( record ) !== isClan ) ?? matches[0];
+            }
+        }
+        this._sswImportErrors.push( "Cannot find any " + component + " named: '" + sswName + "'" );
+        this._addSSWUnresolvedComponent( kind, String( sswName ), sswTechbase );
+        return undefined;
+    }
+
+    /**
+     * A custom component the setter refused (a draft's unknown stats are 0 at runtime, which no setter accepts):
+     * report it, so the design isn't silently built with the fallback type.
+     */
+    private _checkSSWComponentUsed<K extends CustomComponentKind>( kind: K, record: ComponentRecord<K>, currentTag: string ) {
+        if( currentTag !== record.tag && isCustomComponent( kind, record ) ) {
+            this._sswImportErrors.push( "Cannot use the custom " + kind + " '" + record.name + "' until its stats are entered; using '" + currentTag + "' instead" );
+            this._addSSWUnresolvedComponent( kind, record.name );
+        }
+    }
+
+    /** An unresolved chassis component; its faction is SSW's techbase (0 Inner Sphere, 1 Clan), else the design's. */
+    private _addSSWUnresolvedComponent( kind: CustomComponentKind | "cockpit", name: string, sswTechbase?: unknown ) {
+        const techTag = this.getTech().tag;
+        const faction = String( sswTechbase ) === "1" ? "clan"
+            : String( sswTechbase ) === "0" ? "is"
+                : techTag === "clan" || techTag === "mclan" ? "clan" : "is";
+        this._sswUnresolved.push( {
+            kind, name, sswName: name, faction, sswType: kind, location: "", slotIndex: -1, splitLocations: [], tons: null,
+        } );
+    }
+
+    /** Moves one unallocated critical tagged `tag` to each SSW `<location index="N">loc</location>`. */
+    private _placeSSWCriticals( sswLocations: unknown, tag: string ) {
+        if( !sswLocations || typeof sswLocations !== "object" ) {
+            return;
+        }
+        this._calcCriticals();
+        const locations: any[] = Array.isArray( sswLocations ) ? sswLocations : [ sswLocations ];
+        for( const loc of locations ) {
+            const foundIndex = this._unallocatedCriticals.findIndex( ( crit ) => crit && crit.tag === tag );
+            if( foundIndex < 0 ) {
+                break;
+            }
+            this.moveCritical(
+                "un",
+                foundIndex,
+                loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
+                loc["@_index"] ? +loc["@_index"] : -1,
+            );
+        }
+    }
+
     private _installSSWEquipment(
         item: any
     ) {
 
-        let listTag = "is";
+        // Unprefixed items belong to the design's own tech base; SSW marks the other side's items
+        // with "(IS) " or "(CL) " (older files: "(CLAN) ").
+        const techTag = this.getTech().tag;
+        let listTag: ImportFaction = techTag === "clan" || techTag === "mclan" ? "clan" : "is";
         let itemName = "";
         let location = "";
         let allocationIndex = -1;
         let rear = false;
-        if( item.name &&  item.name["#text"].indexOf( "(IS) " ) > -1) {
-            itemName = item.name["#text"].replace( "(IS) ", "" )
-            listTag = "is";
-        } else if( item.name &&  item.name["#text"].indexOf( "(CLAN) ") > -1 ) {
-                itemName = item.name["#text"].replace( "(CLAN) ", "" )
-                listTag = "clan";
-
+        const techPrefix = item.name ? /\((IS|CL|CLAN)\) /.exec( item.name["#text"] ) : null;
+        if( techPrefix ) {
+            itemName = item.name["#text"].replace( techPrefix[0], "" );
+            listTag = techPrefix[1] === "IS" ? "is" : "clan";
         } else {
             itemName = item.name["#text"];
+        }
+
+        // "(T) " marks a turret mount; 'Mech turrets are not modeled yet, so the item is installed unturreted.
+        if( itemName.startsWith("(T) ") ) {
+            itemName = itemName.slice( 4 );
         }
 
         if( itemName.indexOf("(R) ") > -1 ) {
@@ -9267,20 +11703,33 @@ export class BattleMech {
 
         if( itemName ) {
 
-            let newItem = this.addEquipmentByName(
-                itemName,
-                listTag,
+            // SSW's names are listed on the catalog records (altNames); see findImportedEquipment.
+            const match = findImportedEquipment( itemName, listTag, techTag === "mis" || techTag === "mclan" );
+            let newItem = match ? this._installEquipmentRecord(
+                match.item,
                 location,
                 rear,
                 generateUUID(),
                 undefined,
                 item.splitlocation ? item.splitlocation : [],
-            );
+            ) : null;
 
             if( !newItem ) {
                 //TODO: Commenting out warning - Why is this firing  during alpha strike generation?
                 //console.warn( "Cannot find any equipment named: '" + itemName + "'" );
                 this._sswImportErrors.push( "Cannot find any equipment named: '" + itemName + "'" )
+                const splits = Array.isArray( item.splitlocation ) ? item.splitlocation : item.splitlocation ? [ item.splitlocation ] : [];
+                this._sswUnresolved.push( {
+                    kind: String( item.type ).toLowerCase().trim() === "ammunition" ? "ammunition" : "equipment",
+                    name: itemName,
+                    sswName: item.name["#text"],
+                    faction: listTag,
+                    sswType: String( item.type ?? "" ).toLowerCase().trim(),
+                    location,
+                    slotIndex: allocationIndex,
+                    splitLocations: splits.map( ( split: any ) => ( { location: String( split["#text"] ?? "" ).toLowerCase().trim(), index: +( split["@_index"] ?? -1 ) } ) ),
+                    tons: item.tons !== undefined && Number.isFinite( +item.tons ) ? +item.tons : null,
+                } );
             } else {
 
 
@@ -9310,6 +11759,33 @@ export class BattleMech {
                 }
             }
         }
+    }
+
+    /**
+     * SSW marks fire control once per design, on the base loadout (fcsa4, fcsa5, fcsapollo): every applicable
+     * launcher carries it. The catalog holds a launcher with its fire control as its own record, so each launcher
+     * is swapped for that record, keeping where and how it is mounted.
+     */
+    private _applySSWFireControl( baseloadout: Record<string, unknown> ): void {
+        const systems = [ [ "@_fcsa4", "-artemis-iv" ], [ "@_fcsa5", "-artemis-v" ], [ "@_fcsapollo", "-apollo" ] ];
+        const fitted = systems.filter( ( [ attribute ] ) => String( baseloadout[attribute] ?? "" ).toLowerCase().trim() === "true" );
+        if( fitted.length === 0 ) return;
+        const catalog = getEquipmentCatalogDefinitions().flatMap( definition => definition.equipment );
+        this._equipmentList = this._equipmentList.map( item => {
+            if( item.isAmmo ) return item;
+            for( const [ , suffix ] of fitted ) {
+                const withFireControl = catalog.find( candidate => candidate.tag === item.tag + suffix );
+                if( !withFireControl ) continue;
+                const plain = catalog.find( candidate => candidate.tag === item.tag );
+                const swapped: IEquipmentItem = JSON.parse( JSON.stringify( withFireControl ) );
+                // Fields the import set on the mounted copy (location, slot, rear, splits, id) carry over.
+                for( const key of Object.keys( item ) as ( keyof IEquipmentItem )[] ) {
+                    if( !plain || !( key in plain ) ) ( swapped as unknown as Record<string, unknown> )[key] = item[key];
+                }
+                return swapped;
+            }
+            return item;
+        } );
     }
 
     public getCriticalsForLocation(
@@ -9352,6 +11828,7 @@ export class BattleMech {
     ): void {
 
         this._sswImportErrors = [];
+        this._sswUnresolved = [];
 
 
 
@@ -9401,6 +11878,22 @@ export class BattleMech {
                     this.setTech("is");
                 } else if( jObj.mech.techbase["#text"].toLowerCase().indexOf("clan") > -1) {
                     this.setTech("clan");
+                } else if( jObj.mech.techbase["#text"].toLowerCase().indexOf("mixed") > -1) {
+                    // SSW has no chassis field for a Mixed design, but each component carries a techbase
+                    // (0 Inner Sphere, 1 Clan, 2 either). The engine decides, then the internal structure.
+                    const componentTech = ( component: any ): string => String( component?.["@_techbase"] ?? "2" );
+                    const chassisTech = [ componentTech( jObj.mech.engine ), componentTech( jObj.mech.structure ) ]
+                        .find( ( tech ) => tech !== "2" );
+                    this.setTech( chassisTech === "1" ? "mclan" : "mis" );
+                }
+            }
+            // The design year sets the era, so era-dependent rules (such as a Clan design's Star League
+            // equipment) match the design.
+            const sswYear = Number( jObj.mech.year?.["#text"] ?? jObj.mech.year );
+            if( Number.isFinite( sswYear ) && sswYear > 0 ) {
+                const sswEra = getEraForYear( sswYear, this.getTech().tag );
+                if( sswEra ) {
+                    this.setEra( sswEra.tag );
                 }
             }
 
@@ -9426,6 +11919,45 @@ export class BattleMech {
                     } else {
                         this.addLowerArmActuator( "ra" );
                     }
+                }
+            }
+
+            // The cockpit, engine, gyro and internal structure come before the armor and equipment, whose
+            // critical slots depend on them (an XL engine fills side torso slots).
+            if( jObj.mech.cockpit && jObj.mech.cockpit.type ) {
+                const cockpitType = String( jObj.mech.cockpit.type["#text"] ?? jObj.mech.cockpit.type ).trim();
+                if( cockpitType === "Small Cockpit" ) {
+                    this._smallCockpit = true;
+                } else if( cockpitType !== "Standard Cockpit" ) {
+                    this._sswImportErrors.push( "Cannot import the cockpit type: '" + cockpitType + "'" );
+                    this._addSSWUnresolvedComponent( "cockpit", cockpitType );
+                }
+            }
+
+            if( jObj.mech.engine ) {
+                this.setWalkSpeed( +jObj.mech.engine["@_rating"] / this._tonnage );
+                const engineType = this._findSSWComponent( "engine", "engine", jObj.mech.engine["#text"], jObj.mech.engine["@_techbase"] );
+                if( engineType ) {
+                    this.setEngineType( engineType.tag );
+                    this._checkSSWComponentUsed( "engine", engineType, this.getEngineType().tag );
+                }
+            }
+
+            if( jObj.mech.gyro ) {
+                const gyroType = this._findSSWComponent( "gyro", "gyro", jObj.mech.gyro["#text"] );
+                if( gyroType ) {
+                    this.setGyroType( gyroType.tag );
+                    this._checkSSWComponentUsed( "gyro", gyroType, this.getGyro().tag );
+                }
+            }
+
+            if( jObj.mech.structure && jObj.mech.structure.type ) {
+                const structureType = this._findSSWComponent( "structure", "internal structure", jObj.mech.structure.type );
+                if( structureType && this.setInternalStructureType( structureType.tag ) ) {
+                    this._placeSSWCriticals( jObj.mech.structure.location, this.getInternalStructureType() );
+                }
+                if( structureType ) {
+                    this._checkSSWComponentUsed( "structure", structureType, this.getInternalStructureType() );
                 }
             }
 
@@ -9477,67 +12009,16 @@ export class BattleMech {
                     totalArmor += this._armorAllocation.rightTorsoRear;
                 }
                 if( jObj.mech.armor.type ) {
-                    if( jObj.mech.armor.type === "Standard Armor" ) {
-                        this.setArmorType( "standard" )
-                    } else if( jObj.mech.armor.type === "Ferro Fibrous" ) {
-                        this.setArmorType( "ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Ferro-Fibrous" ) {
-                        this.setArmorType( "ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Light Ferro Fibrous" ) {
-                        this.setArmorType( "light-ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Light Ferro-Fibrous" ) {
-                        this.setArmorType( "light-ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Heavy Ferro Fibrous" ) {
-                        this.setArmorType( "heavy-ferro-fibrous" )
-                    } else if( jObj.mech.armor.type === "Heavy Ferro-Fibrous" ) {
-                        this.setArmorType( "heavy-ferro-fibrous" )
-                    } else if( jObj.mech.armor.type.indexOf( "Stealth" )  > -1) {
-                        this.setArmorType( "stealth-basic" )
+                    const armorType = this._findSSWComponent( "armor", "armor", jObj.mech.armor.type );
+                    if( armorType ) {
+                        this.setArmorType( armorType.tag );
+                        this._checkSSWComponentUsed( "armor", armorType, this.getArmorType() );
                     }
 
                     this.setArmorCount( totalArmor );
 
-
-                    if( typeof(  jObj.mech.armor.location ) === "object" ) {
-                        this._calcCriticals();
-
-
-                        for( let loc of jObj.mech.armor.location ) {
-                            let foundIndex = -1;
-
-
-                            for( let critItemIndex in this._unallocatedCriticals ) {
-                                if(
-                                    this._unallocatedCriticals[critItemIndex]
-                                    && this._unallocatedCriticals[critItemIndex].tag === this.getArmorType()
-                                ) {
-                                    foundIndex = +critItemIndex;
-                                    break;
-                                }
-                            }
-
-                            this.moveCritical(
-                                "un",
-                                foundIndex,
-                                loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
-                                loc["@_index"] ? +loc["@_index"] : -1,
-
-                            )
-                        }
-
-                    }
-
-
+                    this._placeSSWCriticals( jObj.mech.armor.location, this.getArmorType() );
                 }
-            }
-
-            if( jObj.mech.engine ) {
-                this.setWalkSpeed( +jObj.mech.engine["@_rating"] / this._tonnage );
-                this.setEngineTypeByName( jObj.mech.engine["#text"] );
-            }
-
-            if( jObj.mech.gyro ) {
-                this.setGyroTypeByName( jObj.mech.gyro["#text"] );
             }
 
             if( jObj.mech.baseloadout ) {
@@ -9552,6 +12033,7 @@ export class BattleMech {
                     for( let item of jObj.mech.baseloadout.equipment ) {
                         this._installSSWEquipment( item );
                     }
+                    this._applySSWFireControl( jObj.mech.baseloadout );
 
                     this._calcCriticals();
 
@@ -9598,6 +12080,7 @@ export class BattleMech {
                     if( jObj.mech.baseloadout.equipment ) {
                         // a single weapon?!?!
                         this._installSSWEquipment( jObj.mech.baseloadout.equipment );
+                        this._applySSWFireControl( jObj.mech.baseloadout );
 
 
                         this._calcCriticals();
@@ -9626,12 +12109,14 @@ export class BattleMech {
 
                 if( jObj.mech.baseloadout.heatsinks ) {
 
-                    if( jObj.mech.baseloadout.heatsinks["type"].toLowerCase().indexOf("single") > -1)
-                        this.setHeatSinksType( "single" )
-                    else
-                        this.setHeatSinksType( "double" )
+                    const heatSinkType = this._findSSWComponent( "heatSink", "heat sink", jObj.mech.baseloadout.heatsinks["type"] );
+                    if( heatSinkType ) {
+                        this.setHeatSinksType( heatSinkType.tag );
+                        this._checkSSWComponentUsed( "heatSink", heatSinkType, this.getHeatSinksType() );
+                    }
 
-                    this.setAdditionalHeatSinks( (+ jObj.mech.baseloadout.heatsinks["@_number"] ) - 10 );
+                    // The file gives the total; the engine brings some of them free (TM p.71).
+                    this.setAdditionalHeatSinks( Math.max( 0, (+ jObj.mech.baseloadout.heatsinks["@_number"] ) - this.getFreeHeatSinks() ) );
 
                     if( typeof(  jObj.mech.baseloadout.heatsinks.location ) === "object" ) {
                         this._calcCriticals();
@@ -9696,11 +12181,16 @@ export class BattleMech {
                     this.setJumpSpeed(jumpJetNumber);
                     this._calcCriticals();
 
-                    let jjType = "jj-standard";
-
-                    if( jObj.mech.baseloadout.jumpjets.type && jObj.mech.baseloadout.jumpjets.type.toLowerCase().indexOf("improved") > -1 ) {
-                        jjType = "jj-improved";
+                    if( jObj.mech.baseloadout.jumpjets.type ) {
+                        const jumpJetType = this._findSSWComponent( "jumpJet", "jump jet", jObj.mech.baseloadout.jumpjets.type );
+                        if( jumpJetType ) {
+                            this.setJumpJetType( jumpJetType.tag );
+                            this._checkSSWComponentUsed( "jumpJet", jumpJetType, this.getJumpJetType().tag );
+                            this._calcCriticals();
+                        }
                     }
+                    const jjType = "jj-" + this.getJumpJetType().tag;
+
                     for( let loc of jObj.mech.baseloadout.jumpjets.location ) {
                         let foundIndex = -1;
 
@@ -9747,6 +12237,21 @@ export class BattleMech {
 
     public get sswImportErrors(): string[] {
         return this._sswImportErrors;
+    }
+
+    /** What the last SSW import could not resolve to any record (see ISSWUnresolvedItem). */
+    public getSSWUnresolved(): ISSWUnresolvedItem[] {
+        return this._sswUnresolved;
+    }
+
+    /** Which slots of a location (SSW code: "hd", "ct", "lt", ...) hold something; [] for an unknown location. */
+    public getCriticalOccupancy( sswLocation: string ): boolean[] {
+        const keys: Record<string, string> = {
+            hd: "head", ct: "centerTorso", lt: "leftTorso", rt: "rightTorso", la: "leftArm", ra: "rightArm",
+            ll: "leftLeg", rl: "rightLeg", cl: "centerLeg", fll: "frontLeftLeg", frl: "frontRightLeg",
+        };
+        const slots = ( this.getCriticals() as unknown as Record<string, unknown> )[ keys[ sswLocation.toLowerCase().trim() ] ?? "" ];
+        return Array.isArray( slots ) ? slots.map( ( slot ) => !!slot ) : [];
     }
 
 
@@ -9973,47 +12478,6 @@ export interface IClusterHit {
 
 
 
-  function sortByAdjustedBVThenHeat(
-      a: IEquipmentItem,
-      b: IEquipmentItem,
-      mech: BattleMech,
-) {
-
-    let aBattleValue = a.battleValue ? a.battleValue : 0;
-    let bBattleValue = b.battleValue ? b.battleValue : 0;
-
-    if( mech && a.rear && mech.getTotalBVFrontWeapons() >= mech.getTotalBVRearWeapons()) {
-        aBattleValue = aBattleValue / 2;
-    } else if( mech && !a.rear && mech.getTotalBVFrontWeapons() < mech.getTotalBVRearWeapons()) {
-        aBattleValue = aBattleValue / 2;
-    }
-
-    if( mech && b.rear && mech.getTotalBVFrontWeapons() >= mech.getTotalBVRearWeapons() ) {
-        bBattleValue = bBattleValue / 2;
-    } else if( mech && !b.rear && mech.getTotalBVFrontWeapons() < mech.getTotalBVRearWeapons()) {
-        bBattleValue = bBattleValue / 2;
-    }
-
-    if(  aBattleValue < bBattleValue )
-        return 1;
-    if(  aBattleValue > bBattleValue )
-        return -1;
-
-
-
-    if( a.heat < b.heat )
-        return 1;
-    if( a.heat > b.heat )
-        return -1;
-
-
-    // if( a.rear < b.rear )
-    //     return -1;
-    // if( a.rear > b.rear )
-    //     return 1;
-
-    return 0;
-}
 function sortByLocationThenName( a: IEquipmentItem, b: IEquipmentItem ) {
     if( a.location && b.location && a.location > b.location )
         return 1;

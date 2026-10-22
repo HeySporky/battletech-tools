@@ -1,3 +1,5 @@
+import { btEraOptions } from "../data/era-options";
+
 export function getMULFactionLabels(id: number): string {
     if(id === 1){ return 'Clan Burrock'; }
         if(id === 2){ return 'Clan Blood Spirit'; }
@@ -89,46 +91,88 @@ export function getMULFactionLabels(id: number): string {
         if(id === 109){ return 'Insufficient Data'; }
         if(id === 110){ return 'Spirit Cats'; }
         if(id === 111){ return 'Star League (SLDF)'; }
+        // MUL 2.0 factions with no single MUL 1.0 id (see getLegacyMULFactionID in mul-list-items.ts).
+        if(id === 1041){ return 'Rim Worlds Republic'; }
+        if(id === 1044){ return 'Star League (First)'; }
+        if(id === 1076){ return 'ilClan Wolf'; }
+        if(id === 1190){ return 'Jade Falcon Remnant'; }
       
         return "";
 }
 
 export function getMULFactionIDs(): number[] {
-    return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,54,55,56,57,59,60,67,72,74,75,76,77,78,80,82,83,84,85,86,87,88,89,90,91,92,94,95,96,97,98,100,101,102,104,105,106,107,108,109,110,111];
+    return [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,54,55,56,57,59,60,67,72,74,75,76,77,78,80,82,83,84,85,86,87,88,89,90,91,92,94,95,96,97,98,100,101,102,104,105,106,107,108,109,110,111,1041,1044,1076,1190];
+}
+
+export interface IMULEra {
+    id: number;
+    label: string;
+    yearStart: number;
+    yearEnd: number | null;
+}
+
+// The Master Unit List's own eras (IDs and start years from the MUL unit data's EraId/EraStart). The MUL
+// starts the Age of War in 2005 and the Early Republic in 3081; the Classic eras in era-options.ts follow
+// Interstellar Operations instead (Age of War from 2300).
+export const mulEras: IMULEra[] = [
+    { id: 1, label: "Age of War", yearStart: 2005, yearEnd: 2570 },
+    { id: 10, label: "Star League", yearStart: 2571, yearEnd: 2780 },
+    { id: 11, label: "Early Succession War", yearStart: 2781, yearEnd: 2900 },
+    { id: 255, label: "Late Succession War - LosTech", yearStart: 2901, yearEnd: 3019 },
+    { id: 256, label: "Late Succession War - Renaissance", yearStart: 3020, yearEnd: 3049 },
+    { id: 13, label: "Clan Invasion", yearStart: 3050, yearEnd: 3061 },
+    { id: 247, label: "Civil War", yearStart: 3062, yearEnd: 3067 },
+    { id: 14, label: "Jihad", yearStart: 3068, yearEnd: 3080 },
+    { id: 15, label: "Early Republic", yearStart: 3081, yearEnd: 3100 },
+    { id: 254, label: "Late Republic", yearStart: 3101, yearEnd: 3130 },
+    { id: 16, label: "Dark Ages", yearStart: 3131, yearEnd: 3150 },
+    { id: 257, label: "ilClan", yearStart: 3151, yearEnd: null },
+];
+
+export interface IMULEraAlias {
+    /** Filter value for the alias; never a MUL era ID. */
+    id: number;
+    label: string;
+    /** The MUL era searched in its place. */
+    mulEraId: number;
+}
+
+const MUL_ERA_ALIAS_OFFSET = 1000;
+
+const overlapYears = (startA: number, endA: number | null, startB: number, endB: number | null): number => {
+    const end = Math.min(endA ?? 9999, endB ?? 9999);
+    return Math.max(0, end - Math.max(startA, startB) + 1);
+};
+
+/**
+ * The MUL has no Clan eras: it files Clan units by Inner Sphere era. Each Clan era (one the Inner Sphere
+ * tech base cannot use) searches the MUL era holding most of its years, so the Golden Years, for example,
+ * search the Late Succession War - LosTech.
+ */
+export function getMULEraAliases(): IMULEraAlias[] {
+    return btEraOptions.filter((era) => !era.techBases.includes("is")).map((era) => {
+        const mulEra = mulEras.reduce((best, option) =>
+            overlapYears(era.yearStart, era.yearEnd, option.yearStart, option.yearEnd)
+                > overlapYears(era.yearStart, era.yearEnd, best.yearStart, best.yearEnd) ? option : best);
+        return { id: MUL_ERA_ALIAS_OFFSET + era.id, label: `${era.name} (as MUL ${mulEra.label})`, mulEraId: mulEra.id };
+    });
+}
+
+/** The MUL era ID to search for an era filter value (a MUL era or a Clan era alias). */
+export function resolveMULEraFilter(eraFilter: number): number {
+    return getMULEraAliases().find((alias) => alias.id === eraFilter)?.mulEraId ?? eraFilter;
 }
 
 export function getMULEraLabel(
     id: number,
 ): string {
-
-    if( id === 10 ) {
-        return "Star League";
-    } else if( id === 11 ) {
-        return "Early Succession War";
-    } else  if( id === 255 ) {
-        return "Late Succession War - LosTech";
-    } else if( id === 256 ) {
-        return "Late Succession War - renaissance";
-    } else if( id === 13 ) {
-        return "Clan Invasion";
-    } else if( id === 247 ) {
-        return "Civil War";
-    } else if( id === 14 ) {
-        return "Jihad";
-    } else if( id === 15 ) {
-        return "Early Republic";
-    } else if( id === 254 ) {
-        return "Late Republic";
-    } else if( id === 16 ) {
-        return "Dark Ages";
-    } else if( id === 257 ) {
-        return "ilClan";
-    }
-    return "n/a";
+    return mulEras.find((era) => era.id === id)?.label
+        ?? getMULEraAliases().find((alias) => alias.id === id)?.label
+        ?? "n/a";
 }
 
 export function getMULEraIDs(): number[] {
-    return [10, 11, 255, 256, 13, 247, 14, 15, 254, 16, 257]
+    return mulEras.map((era) => era.id);
 }
 
 export function getMULTypeLabel(

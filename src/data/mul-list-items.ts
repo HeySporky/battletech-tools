@@ -1,4 +1,5 @@
 import type { IASMULUnit, MULSource } from "../classes/alpha-strike-unit";
+import { getLocalCustomMULUnits } from "./custom-mul-local";
 
 /*
 * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -19,7 +20,7 @@ type MULChunkEntry = Partial<IASMULUnit> & {
 };
 
 // Which bundled lists the user wants searched. Each option is a superset of the one before it.
-export type MULSourceSelection = "mul2" | "mul2+mul1";
+export type MULSourceSelection = "mul2" | "mul2+mul1" | "mul2+mul1+custom";
 
 export const DEFAULT_MUL_SOURCE_SELECTION: MULSourceSelection = "mul2";
 
@@ -34,11 +35,17 @@ export const MUL_SOURCE_SELECTIONS: { value: MULSourceSelection; label: string; 
         label: "MUL 2.0 + MUL 1.0 leftovers",
         description: "Adds legacy MUL 1.0 records that the current MUL no longer lists.",
     },
+    {
+        value: "mul2+mul1+custom",
+        label: "MUL 2.0 + MUL 1.0 + customs",
+        description: "Also adds non-canonical custom units: the shared curated list plus any saved in this browser.",
+    },
 ];
 
 export const MUL_SOURCE_LABELS: Record<MULSource, string> = {
     mul2: "MUL 2.0",
     mul1: "MUL 1.0",
+    custom: "Custom",
 };
 
 export function isMULSourceSelection(value: unknown): value is MULSourceSelection {
@@ -49,6 +56,8 @@ export function getMULSourcesForSelection(selection: MULSourceSelection): MULSou
     switch (selection) {
         case "mul2+mul1":
             return ["mul2", "mul1"];
+        case "mul2+mul1+custom":
+            return ["mul2", "mul1", "custom"];
         default:
             return ["mul2"];
     }
@@ -73,11 +82,38 @@ const LEGACY_ERA_ID_BY_LIVE_ID: Record<number, number> = {
     8: 247, 10: 254, 11: 255, 12: 256, 13: 257,
 };
 
+// MUL 2.0 renumbered its factions from id 37 up (the site's /data/factions.json, read 2026-09-30); the legacy
+// ids in getMULFactionLabels() are MUL 1.0's. Pairs match on the exact faction name. Factions with no single
+// legacy id (a merged list, or new since MUL 1.0) take MUL_LIVE_ONLY_FACTION_OFFSET + their live id.
+export const MUL_LIVE_ONLY_FACTION_OFFSET = 1000;
+
+const LEGACY_FACTION_ID_BY_LIVE_ID: Record<number, number> = {
+    37: 38, 38: 39, 39: 40, 40: 41, 43: 44, 45: 46, 46: 47, 47: 48, 48: 49,
+    53: 59, 54: 60, 55: 67, 56: 72, 57: 74, 58: 75, 59: 76, 60: 77, 61: 78, 62: 80,
+    63: 82, 64: 83, 65: 84, 67: 86, 68: 87, 70: 89, 73: 91, 74: 94, 75: 95,
+    79: 100, 80: 101, 81: 102, 82: 104, 83: 105,
+};
+
+// Rim Worlds Republic (legacy splits it into Home Guard 42 / Terran Corps 88), Star League (First) (legacy
+// Royal 43 / Regular 45 / General 90 / SLDF 111), ilClan Wolf and Jade Falcon Remnant.
+const LIVE_ONLY_FACTION_IDS = [41, 44, 76, 190];
+
+export function getLegacyMULFactionID(liveID: number): number {
+    if (liveID in LEGACY_FACTION_ID_BY_LIVE_ID) {
+        return LEGACY_FACTION_ID_BY_LIVE_ID[liveID];
+    }
+    if (LIVE_ONLY_FACTION_IDS.includes(liveID)) {
+        return MUL_LIVE_ONLY_FACTION_OFFSET + liveID;
+    }
+    return liveID;
+}
+
 type ChunkLoaders = Record<string, () => Promise<unknown>>;
 
 const mulChunkModulesBySource: Record<MULSource, ChunkLoaders> = {
     mul2: import.meta.glob("./mul/live/*.json", { eager: false, import: "default" }) as ChunkLoaders,
     mul1: import.meta.glob("./mul/mul1/*.json", { eager: false, import: "default" }) as ChunkLoaders,
+    custom: import.meta.glob("./mul/custom/*.json", { eager: false, import: "default" }) as ChunkLoaders,
 };
 
 const cachedBySource: Partial<Record<MULSource, Promise<IASMULUnit[]>>> = {};
@@ -92,8 +128,19 @@ function isMULListEntry(item: unknown): item is IASMULUnit {
 }
 
 function normalizeLiveEntry(item: IASMULUnit): IASMULUnit {
-    if (!item.MulUnitKey || (typeof item.Role !== "string" && item.Type)) {
+    if (!item.MulUnitKey) {
         return item;
+    }
+
+    // The sync writes legacy era ids but live-site faction ids, so faction ids are always mapped here.
+    if (typeof item.Role !== "string" && item.Type) {
+        return {
+            ...item,
+            Availability: item.Availability?.map(entry => ({
+                ...entry,
+                FactionIds: entry.FactionIds.map(getLegacyMULFactionID),
+            })),
+        };
     }
 
     const roleName = typeof item.Role === "string" ? item.Role : item.Role?.Name ?? "None";
@@ -110,6 +157,7 @@ function normalizeLiveEntry(item: IASMULUnit): IASMULUnit {
         Availability: item.Availability?.map(entry => ({
             ...entry,
             EraId: LEGACY_ERA_ID_BY_LIVE_ID[entry.EraId] ?? entry.EraId,
+            FactionIds: entry.FactionIds.map(getLegacyMULFactionID),
         })),
     };
 }
@@ -147,7 +195,17 @@ function loadMULSource(source: MULSource): Promise<IASMULUnit[]> {
 }
 
 export async function loadMULListItems(selection: MULSourceSelection = DEFAULT_MUL_SOURCE_SELECTION): Promise<IASMULUnit[]> {
-    const lists = await Promise.all(getMULSourcesForSelection(selection).map(loadMULSource));
+    const sources = getMULSourcesForSelection(selection);
+    const lists = await Promise.all(sources.map(loadMULSource));
+
+    // Read fresh on every call (never cached) so entries saved in the Custom MUL Editor show up at once.
+    // They come before the shared list so a local edit of a shared entry wins for its author.
+    if (sources.includes("custom")) {
+        const local = getLocalCustomMULUnits()
+            .filter(isMULListEntry)
+            .map((entry) => ({ ...entry, MulSource: "custom" as const }));
+        lists.splice(sources.indexOf("custom"), 0, local);
+    }
 
     const seen = new Set<string>();
     const uniqueItems: IASMULUnit[] = [];

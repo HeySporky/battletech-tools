@@ -14,6 +14,7 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
         super(props);
         this.state = {
             updated: false,
+            openGroup: undefined,
         }
 
     }
@@ -23,6 +24,10 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
     }
     closeMobile= (): void => {
         this.props.appGlobals.closeMobile();
+    }
+    /** Opens a mobile menu group, closing the open one; tapping the open group closes it. */
+    toggleGroup = (tag: string, open: boolean): void => {
+        this.setState({ openGroup: open ? null : tag });
     }
 
     render = (): JSX.Element => {
@@ -58,6 +63,41 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     tag: "classic-battletech-vehicle-creator",
                 },
                 {
+                    label: "Fighter Creator",
+                    url: "/classic-battletech/fighter-creator",
+                    tag: "classic-battletech-fighter-creator",
+                },
+                {
+                    label: "Infantry Creator",
+                    url: "/classic-battletech/infantry-creator",
+                    tag: "classic-battletech-infantry-creator",
+                },
+                {
+                    label: "Battle Armor Creator",
+                    url: "/classic-battletech/battle-armor-creator",
+                    tag: "classic-battletech-battle-armor-creator",
+                },
+                {
+                    label: "ProtoMech Creator",
+                    url: "/classic-battletech/protomech-creator",
+                    tag: "classic-battletech-protomech-creator",
+                },
+                {
+                    label: "Small Craft Creator",
+                    url: "/classic-battletech/small-craft-creator",
+                    tag: "classic-battletech-small-craft-creator",
+                },
+                {
+                    label: "JumpShip and WarShip Creator",
+                    url: "/classic-battletech/capital-ship-creator",
+                    tag: "classic-battletech-capital-ship-creator",
+                },
+                {
+                    label: "Building Creator",
+                    url: "/classic-battletech/building-creator",
+                    tag: "classic-battletech-building-creator",
+                },
+                {
                     label: "Roster",
                     url: "/classic-battletech/roster",
                     tag: "classic-battletech-roster",
@@ -80,6 +120,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "Roster",
                     url: "/alpha-strike/roster",
                     tag: "alpha-strike-roster",
+                },
+                {
+                    label: "Aces",
+                    url: "/alpha-strike/aces",
+                    tag: "alpha-strike-aces",
                 }
             ]
 
@@ -107,6 +152,41 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     tag: "classic-battletech-vehicle-creator",
                 },
                 {
+                    label: "Fighter Creator",
+                    url: "/classic-battletech/fighter-creator",
+                    tag: "classic-battletech-fighter-creator",
+                },
+                {
+                    label: "Infantry Creator",
+                    url: "/classic-battletech/infantry-creator",
+                    tag: "classic-battletech-infantry-creator",
+                },
+                {
+                    label: "Battle Armor Creator",
+                    url: "/classic-battletech/battle-armor-creator",
+                    tag: "classic-battletech-battle-armor-creator",
+                },
+                {
+                    label: "ProtoMech Creator",
+                    url: "/classic-battletech/protomech-creator",
+                    tag: "classic-battletech-protomech-creator",
+                },
+                {
+                    label: "Small Craft Creator",
+                    url: "/classic-battletech/small-craft-creator",
+                    tag: "classic-battletech-small-craft-creator",
+                },
+                {
+                    label: "JumpShip and WarShip Creator",
+                    url: "/classic-battletech/capital-ship-creator",
+                    tag: "classic-battletech-capital-ship-creator",
+                },
+                {
+                    label: "Building Creator",
+                    url: "/classic-battletech/building-creator",
+                    tag: "classic-battletech-building-creator",
+                },
+                {
                     label: "Roster",
                     url: "/classic-battletech/roster",
                     tag: "classic-battletech-roster",
@@ -129,6 +209,11 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "Roster",
                     url: "/alpha-strike/roster",
                     tag: "alpha-strike-roster",
+                },
+                {
+                    label: "Aces",
+                    url: "/alpha-strike/aces",
+                    tag: "alpha-strike-aces",
                 },
                 // {
                 //     label: "Unit Creator",
@@ -159,6 +244,14 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
         ]
 
     });
+
+    menuStructure.push(
+        {
+            label: "Other Tools",
+            url: "/other-tools",
+            tag: "other-tools",
+        },
+    );
 
     menuStructure.push(
         {
@@ -202,6 +295,14 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                 label: "Equipment Editor",
                 url: "/equipment-editor",
                 tag: "equipment-editor",
+            },
+        );
+
+        menuStructure.push(
+            {
+                label: "Custom MUL Editor",
+                url: "/custom-mul-editor",
+                tag: "custom-mul-editor",
             },
         );
 
@@ -280,9 +381,21 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                 {menuStructure.map( (item, itemIndex) => {
                     return (
                         <React.Fragment key={itemIndex}>
-                            {item.subMenu && item.subMenu.length > 0 && item.startsWithTag ? (
+                            {item.subMenu && item.subMenu.length > 0 && item.startsWithTag ? (() => {
+                                // Until a group is tapped, the one holding the current page is open.
+                                const groupTag = item.startsWithTag;
+                                const open = this.state.openGroup === undefined
+                                    ? !!this.props.current?.startsWith(groupTag)
+                                    : this.state.openGroup === groupTag;
+                                return (
                                 <li>
-                                <div>{item.label}</div>
+                                <button
+                                    type="button"
+                                    className={`mobile-menu-group${open ? " open" : ""}`}
+                                    aria-expanded={open}
+                                    onClick={() => this.toggleGroup(groupTag, open)}
+                                >{item.label}<span aria-hidden="true">{open ? "▾" : "▸"}</span></button>
+                                {open ? (
                                 <ul className="sub-menu">
                                     {item.subMenu.map( (subItem, subItemIndex) => {
                                         return (
@@ -291,8 +404,10 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                                     })}
 
                                 </ul>
+                                ) : null}
                             </li>
-                            ) : (
+                                );
+                            })() : (
                                 <li><Link onClick={this.closeMobile} className={this.props.current === item.tag ? "current" : "" } to={`${process.env.PUBLIC_URL}${item.url}`}>{item.label}</Link></li>
                             )}
                         </React.Fragment>
@@ -315,6 +430,8 @@ interface ITopMenuProps {
 
 interface ITopMenuState {
     updated: boolean;
+    /** The open mobile menu group: undefined until one is tapped (the current page's group shows), null for none. */
+    openGroup?: string | null;
 
 }
 

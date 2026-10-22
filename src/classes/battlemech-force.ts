@@ -1,6 +1,7 @@
 import { generateUUID } from "../utils/generateUUID";
 import { BattleMech } from "./battlemech";
 import { BattleMechGroup, ICBTGroupExport } from "./battlemech-group";
+import { ISpaceTrackerExport, SpaceTracker } from "./space-tracker";
 
 /** Most groups read from one saved force. */
 export const MAX_FORCE_GROUPS = 200;
@@ -14,6 +15,11 @@ export interface ICBTForceExport {
     turn: number;
     phase: number;
     hideHelp: boolean;
+
+    /** "Space forces in this game": the space turn tracker (design 2026-10-22). Missing in older saves. */
+    spaceInPlay?: boolean;
+    /** Saved whenever it tracks anything, so turning the option off and on again keeps the shots in flight. */
+    spaceTracker?: ISpaceTrackerExport;
 }
 
 export class BattleMechForce {
@@ -35,6 +41,9 @@ export class BattleMechForce {
     public hideHelp: boolean = false;
 
     public heatApplied: boolean = false;
+
+    public spaceInPlay: boolean = false;
+    public spaceTracker: SpaceTracker = new SpaceTracker();
 
     constructor(importObj: ICBTForceExport | null = null ) {
         if( importObj ) {
@@ -100,6 +109,10 @@ export class BattleMechForce {
             phase: this.phase,
             hideHelp: this.hideHelp,
             heatApplied: this.heatApplied,
+            spaceInPlay: this.spaceInPlay,
+        }
+        if( this.spaceTracker.hasState() ) {
+            returnValue.spaceTracker = this.spaceTracker.export();
         }
 
         for( let group of this.groups) {
@@ -179,6 +192,9 @@ export class BattleMechForce {
         if( typeof(importObj.heatApplied) !== "undefined" ) {
             this.heatApplied = importObj.heatApplied;
         }
+
+        this.spaceInPlay = importObj.spaceInPlay === true;
+        this.spaceTracker = new SpaceTracker( importObj.spaceTracker );
 
         if( importObj.lastUpdated ) {
             this._lastUpdated = new Date(importObj.lastUpdated);

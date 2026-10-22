@@ -50,7 +50,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm audit --omit=dev --audit-level=high
-      - run: npx vitest run --project unit src/security-guards.test.ts src/classes/vehicle-import-security.test.tsx
+      - run: npx vitest run --project unit src/security-guards.test.ts src/classes/vehicle-import-security.test.tsx src/license-files.test.ts
       - run: npx eslint src --quiet
 
   lint:
@@ -80,7 +80,7 @@ jobs:
       - run: npm run test:browser
 
   e2e:
-    name: e2e (Playwright, desktop + mobile emulation)
+    name: e2e main (Playwright, desktop + tablet emulation)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -95,5 +95,24 @@ jobs:
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+  e2e-mobile:
+    name: e2e mobile (Playwright, phone emulation)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium webkit
+      - run: npm run test:e2e:mobile
+      - uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report-mobile
           path: playwright-report/
           retention-days: 14

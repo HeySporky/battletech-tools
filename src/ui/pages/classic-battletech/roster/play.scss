@@ -94,6 +94,10 @@ body {
         display: flex;
         .record-sheet-column {
             width: 60vw;
+            // A play panel wider than the column (a phone, a tablet upright) scrolls sideways inside it;
+            // left to overflow, its right edge sat under the unit list and could not be tapped.
+            min-width: 0;
+            overflow-x: auto;
 
         }
 

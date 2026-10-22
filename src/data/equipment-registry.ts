@@ -1,38 +1,39 @@
-import { IEquipmentItem } from "./data-interfaces";
+import { IEquipmentItem, ITechDates } from "./data-interfaces";
 import { matchesTag } from "./tag-match";
-import { mechISEquipmentBallistic } from "./mech-is-equipment-weapons-ballistic";
-import { mechISEquipmentEnergy } from "./mech-is-equipment-weapons-energy";
-import { mechISEquipmentMisc } from "./mech-is-equipment-weapons-misc";
-import { mechISEquipmentMissiles } from "./mech-is-equipment-weapons-missiles";
-import { mechISEquipmentArtillery } from "./mech-is-equipment-weapons-artillery";
-import { mechClanEquipmentBallistic } from "./mech-clan-equipment-weapons-ballistic";
-import { mechClanEquipmentEnergy } from "./mech-clan-equipment-weapons-energy";
-import { mechClanEquipmentMisc } from "./mech-clan-equipment-weapons-misc";
-import { mechClanEquipmentMissile } from "./mech-clan-equipment-weapons-missile";
-import { mechClanEquipmentArtillery } from "./mech-clan-equipment-weapons-artillery";
-import { mechCustomEquipmentBallistic } from "./mech-custom-equipment-weapons-ballistic";
-import { mechCustomEquipmentEnergy } from "./mech-custom-equipment-weapons-energy";
-import { mechCustomEquipmentMisc } from "./mech-custom-equipment-weapons-misc";
-import { mechCustomEquipmentMissile } from "./mech-custom-equipment-weapons-missile";
-import { mechCustomAmmo } from "./mech-custom-ammo";
-import { mechISAmmo } from "./mech-is-ammo";
-import { mechClanAmmo } from "./mech-clan-ammo";
-import { mechUniversalAmmo } from "./mech-universal-ammo";
-import { isUniversalEquipment, mechUniversalEquipment } from "./mech-universal-equipment";
+import { isAlphaStrikeAbilityCode } from "./alpha-strike-special-abilities";
+import { equipmentBallistic } from "./equipment-ballistic";
+import { equipmentEnergy } from "./equipment-energy";
+import { equipmentMisc } from "./equipment-misc";
+import { equipmentMissile } from "./equipment-missile";
+import { equipmentArtillery } from "./equipment-artillery";
+import { ballisticCustom } from "./ballistic-custom";
+import { energyCustom } from "./energy-custom";
+import { miscCustom } from "./misc-custom";
+import { missileCustom } from "./missile-custom";
+import { ammoCustom } from "./ammo-custom";
+import { artilleryCustom } from "./artillery-custom";
+import { ammoApocryphal, artilleryApocryphal } from "./hailstorm-apocryphal";
+import { ammoCatalog } from "./ammo";
+import { isUniversalEquipment } from "./universal-equipment";
+import { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, MUNCHKIN_RULES_LEVEL } from "./rules-level-options";
+import { getBattleArmorScaleEquipment } from "./battle-armor-scale-equipment";
+import { getRecordOfferIssue } from "./rules-editions";
 
 export type EquipmentCatalog = "is" | "clan" | "custom" | "universal";
 
 export interface IEquipmentCatalogDefinition {
     id: string;
     exportName: string;
-    techBase: EquipmentCatalog;
+    /** A Custom Homebrew or Munchkin catalog. Official catalogs leave it out; their records say their own tech base. */
+    custom?: true;
     category: "ballistic" | "energy" | "missile" | "misc" | "artillery" | "ammunition";
     equipment: IEquipmentItem[];
 }
 
 export interface IEquipmentCatalogSummary {
     catalogId: string;
-    techBase: EquipmentCatalog;
+    /** The tiers its records belong to (see getEquipmentTier). */
+    techBases: EquipmentCatalog[];
     category: IEquipmentCatalogDefinition["category"];
     itemCount: number;
     ammoCount: number;
@@ -44,36 +45,70 @@ export interface IEquipmentCatalogSummary {
 }
 
 const equipmentCatalogDefinitions: IEquipmentCatalogDefinition[] = [
-    { id: "mech-is-equipment-weapons-ballistic", exportName: "mechISEquipmentBallistic", techBase: "is", category: "ballistic", equipment: mechISEquipmentBallistic },
-    { id: "mech-is-equipment-weapons-energy", exportName: "mechISEquipmentEnergy", techBase: "is", category: "energy", equipment: mechISEquipmentEnergy },
-    { id: "mech-is-equipment-weapons-missiles", exportName: "mechISEquipmentMissiles", techBase: "is", category: "missile", equipment: mechISEquipmentMissiles },
-    { id: "mech-is-equipment-weapons-misc", exportName: "mechISEquipmentMisc", techBase: "is", category: "misc", equipment: mechISEquipmentMisc },
-    { id: "mech-is-equipment-weapons-artillery", exportName: "mechISEquipmentArtillery", techBase: "is", category: "artillery", equipment: mechISEquipmentArtillery },
-    { id: "mech-is-ammo", exportName: "mechISAmmo", techBase: "is", category: "ammunition", equipment: mechISAmmo },
-    { id: "mech-clan-equipment-weapons-ballistic", exportName: "mechClanEquipmentBallistic", techBase: "clan", category: "ballistic", equipment: mechClanEquipmentBallistic },
-    { id: "mech-clan-equipment-weapons-energy", exportName: "mechClanEquipmentEnergy", techBase: "clan", category: "energy", equipment: mechClanEquipmentEnergy },
-    { id: "mech-clan-equipment-weapons-missile", exportName: "mechClanEquipmentMissile", techBase: "clan", category: "missile", equipment: mechClanEquipmentMissile },
-    { id: "mech-clan-equipment-weapons-misc", exportName: "mechClanEquipmentMisc", techBase: "clan", category: "misc", equipment: mechClanEquipmentMisc },
-    { id: "mech-clan-equipment-weapons-artillery", exportName: "mechClanEquipmentArtillery", techBase: "clan", category: "artillery", equipment: mechClanEquipmentArtillery },
-    { id: "mech-clan-ammo", exportName: "mechClanAmmo", techBase: "clan", category: "ammunition", equipment: mechClanAmmo },
-    { id: "mech-custom-equipment-weapons-ballistic", exportName: "mechCustomEquipmentBallistic", techBase: "custom", category: "ballistic", equipment: mechCustomEquipmentBallistic },
-    { id: "mech-custom-equipment-weapons-energy", exportName: "mechCustomEquipmentEnergy", techBase: "custom", category: "energy", equipment: mechCustomEquipmentEnergy },
-    { id: "mech-custom-equipment-weapons-missile", exportName: "mechCustomEquipmentMissile", techBase: "custom", category: "missile", equipment: mechCustomEquipmentMissile },
-    { id: "mech-custom-equipment-weapons-misc", exportName: "mechCustomEquipmentMisc", techBase: "custom", category: "misc", equipment: mechCustomEquipmentMisc },
-    { id: "mech-custom-ammo", exportName: "mechCustomAmmo", techBase: "custom", category: "ammunition", equipment: mechCustomAmmo },
-    { id: "mech-universal-equipment", exportName: "mechUniversalEquipment", techBase: "universal", category: "artillery", equipment: mechUniversalEquipment },
-    { id: "mech-universal-ammo", exportName: "mechUniversalAmmo", techBase: "universal", category: "ammunition", equipment: mechUniversalAmmo },
+    { id: "equipment-ballistic", exportName: "equipmentBallistic", category: "ballistic", equipment: equipmentBallistic },
+    { id: "equipment-energy", exportName: "equipmentEnergy", category: "energy", equipment: equipmentEnergy },
+    { id: "equipment-missile", exportName: "equipmentMissile", category: "missile", equipment: equipmentMissile },
+    { id: "equipment-misc", exportName: "equipmentMisc", category: "misc", equipment: equipmentMisc },
+    { id: "equipment-artillery", exportName: "equipmentArtillery", category: "artillery", equipment: equipmentArtillery },
+    { id: "ammo", exportName: "ammoCatalog", category: "ammunition", equipment: ammoCatalog },
+    { id: "artillery-apocryphal", exportName: "artilleryApocryphal", category: "artillery", equipment: artilleryApocryphal },
+    { id: "ammo-apocryphal", exportName: "ammoApocryphal", category: "ammunition", equipment: ammoApocryphal },
+    { id: "ballistic-custom", exportName: "ballisticCustom", custom: true, category: "ballistic", equipment: ballisticCustom },
+    { id: "energy-custom", exportName: "energyCustom", custom: true, category: "energy", equipment: energyCustom },
+    { id: "missile-custom", exportName: "missileCustom", custom: true, category: "missile", equipment: missileCustom },
+    { id: "misc-custom", exportName: "miscCustom", custom: true, category: "misc", equipment: miscCustom },
+    { id: "artillery-custom", exportName: "artilleryCustom", custom: true, category: "artillery", equipment: artilleryCustom },
+    { id: "ammo-custom", exportName: "ammoCustom", custom: true, category: "ammunition", equipment: ammoCustom },
 ];
 
 function cloneEquipment(items: IEquipmentItem[]): IEquipmentItem[] {
     return JSON.parse(JSON.stringify(items)) as IEquipmentItem[];
 }
 
+// Custom drafts made in this browser (see custom-content-local.ts). They join the custom tier at runtime and
+// never appear in the catalog definitions, summaries or exports.
+let localCustomEquipment: IEquipmentItem[] = [];
+
+export function setLocalCustomEquipment(items: IEquipmentItem[]): void {
+    localCustomEquipment = items.map((item) => ({ ...item, catalog: "custom" }));
+    standardAmmoBases = null;
+    standardRoundsByFamily = null;
+}
+
+export function getLocalCustomEquipment(): IEquipmentItem[] {
+    return localCustomEquipment;
+}
+
+/** The tier a catalog record belongs to: "custom" for the custom catalogs, otherwise the record's own tech base. */
+export function getEquipmentTier(definition: Pick<IEquipmentCatalogDefinition, "custom">, item: IEquipmentItem): EquipmentCatalog {
+    return definition.custom ? "custom" : item.techBase ?? "is";
+}
+
 function getCatalogByTech(techBase: EquipmentCatalog): IEquipmentItem[] {
-    return equipmentCatalogDefinitions
-        .filter((catalog) => catalog.techBase === techBase)
-        .flatMap((catalog) => catalog.equipment)
+    const items = equipmentCatalogDefinitions
+        .flatMap((catalog) => catalog.equipment.filter((item) => getEquipmentTier(catalog, item) === techBase))
         .filter((item) => techBase === "universal" || !isUniversalEquipment(item));
+    return techBase === "custom" ? [...items, ...localCustomEquipment] : items;
+}
+
+/**
+ * Battle armor weapons, and their ammunition, that a larger unit of this technology base may mount
+ * (Ghosts of Obeedah pp.53-54). They are kept out of the catalog lists: a unit looks a tag up here only
+ * after the catalogs, so no catalog record is ever reached through them.
+ */
+export function getBattleArmorScaleListByTech(techTag: string): IEquipmentItem[] {
+    switch (techTag.toLowerCase()) {
+        case "clan":
+            return cloneEquipment(getBattleArmorScaleEquipment("clan"));
+        case "mis":
+            return cloneEquipment([...getBattleArmorScaleEquipment("is"), ...getBattleArmorScaleEquipment("clan")]);
+        case "mclan":
+            return cloneEquipment([...getBattleArmorScaleEquipment("clan"), ...getBattleArmorScaleEquipment("is")]);
+        case "custom":
+            return [];
+        default:
+            return cloneEquipment(getBattleArmorScaleEquipment("is"));
+    }
 }
 
 export function getEquipmentCatalogDefinitions(): IEquipmentCatalogDefinition[] {
@@ -102,10 +137,14 @@ export function equipmentMatchesIdentifier(item: IEquipmentItem, identifier: str
     return identifiers.some(value => value.trim().toLowerCase() === normalizedIdentifier);
 }
 
+/**
+ * An item's Alpha Strike special abilities: its own list, or else those of its TechManual weapon type codes that
+ * are also Alpha Strike codes ("AMS", "ECM"). The others ("DE", "DB", "M", ...) are not special abilities.
+ */
 export function getAlphaStrikeEquipmentAbilityCodes(item: IEquipmentItem): string[] {
     return item.alphaStrike.specialAbility && item.alphaStrike.specialAbility.length > 0
         ? item.alphaStrike.specialAbility
-        : item.weaponType ?? [];
+        : (item.weaponType ?? []).filter(isAlphaStrikeAbilityCode);
 }
 
 export function getAlphaStrikeEquipmentDisplayAbilityCodes(item: IEquipmentItem): string[] {
@@ -132,16 +171,12 @@ export function calculateShotsPerTon(totalRoundsPerTon: number, launcherSize: nu
     return Math.ceil(totalRoundsPerTon / launcherSize);
 }
 
-/** Rules level at which experimental prototypes may be used (Experimental and Custom Homebrew). */
-export const EXPERIMENTAL_RULES_LEVEL = 4;
-
-/** Custom Homebrew rules level: the only level at which fan-made rules are enabled. */
-export const CUSTOM_HOMEBREW_RULES_LEVEL = 5;
+export { APOCRYPHAL_RULES_LEVEL, CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, MUNCHKIN_RULES_LEVEL };
 
 /**
  * 'Mech equipment an OmniMech must build into its base chassis: it can never be pod-mounted.
  * Via MegaMek's `omniFixedOnly` flags (TM/TO:AUE/IO:AE pages cited there; provisional).
- * HarJel I stays pod-mountable; HarJel II/III are fixed but not in our catalogs yet.
+ * HarJel I stays pod-mountable; HarJel II and III "may not be pod-mounted" (IO:AE p.83).
  */
 export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
     "masc", "clan-masc",
@@ -152,15 +187,54 @@ export const OMNI_FIXED_ONLY_TAGS: readonly string[] = [
     "risc-emergency-coolant-system",
     "tracks",
     "environmental-sealing",
+    "clan-harjel-ii", "clan-harjel-iii",
 ];
+
+/** Artemis fire control, which the catalog holds as launcher records with a tag suffix: the suffix and its BV multiplier. */
+export const ARTEMIS_FIRE_CONTROL = [
+    // "Multiply the BV for all missile launchers enhanced by prototype Artemis IV by 1.1" (IO:AE p.183).
+    { name: "Prototype Artemis IV", suffix: "-artemis-p", battleValueMultiplier: 1.1 },
+    // "Increase by 20 percent the BV of any missile launcher equipped with Artemis IV" (TM p.303).
+    { name: "Artemis IV", suffix: "-artemis-iv", battleValueMultiplier: 1.2 },
+    // "Increase by 30 percent the BV of any missile launcher equipped with Artemis V" (TO:AUE p.197).
+    { name: "Artemis V", suffix: "-artemis-v", battleValueMultiplier: 1.3 },
+] as const;
+
+const artemisLaunchers = new Map<string, Set<string>>();
+
+/**
+ * Is this a launcher the Artemis system applies to, i.e. one that also exists with it fitted? "Every single standard
+ * LRM, SRM and MML launcher on the unit must have Artemis IV" once one does (TM p.207); Artemis V likewise for the
+ * standard Clan SRM and LRM launchers and their torpedo equivalents (TO:AUE p.94).
+ */
+export function isArtemisCapableLauncher(tag: string, suffix: string = "-artemis-iv"): boolean {
+    if (!artemisLaunchers.has(suffix)) {
+        artemisLaunchers.set(suffix, new Set(equipmentCatalogDefinitions.flatMap(definition => definition.equipment)
+            .filter(item => item.tag.endsWith(suffix))
+            .map(item => item.tag.slice(0, -suffix.length))));
+    }
+    return artemisLaunchers.get(suffix)!.has(tag);
+}
+
+export const isArtemisIVCapableLauncher = (tag: string): boolean => isArtemisCapableLauncher(tag, "-artemis-iv");
+
+/** A launcher's Battle Value with its Artemis system: the plain launcher's raised by the system's multiplier. */
+export function getArtemisLauncherBattleValue(item: IEquipmentItem, catalog: () => readonly IEquipmentItem[]): number {
+    const system = ARTEMIS_FIRE_CONTROL.find(fireControl => item.tag.endsWith(fireControl.suffix));
+    if (system) {
+        const plain = catalog().find(candidate => candidate.tag === item.tag.slice(0, -system.suffix.length));
+        if (plain && (plain.battleValue || 0) > 0) return (plain.battleValue || 0) * system.battleValueMultiplier;
+    }
+    return item.battleValue || 0;
+}
 
 export function isOmniFixedOnly(item: IEquipmentItem): boolean {
     return OMNI_FIXED_ONLY_TAGS.some((tag) => matchesTag(item, tag));
 }
 
 /**
- * Lowest rules level an installed item needs: Custom Homebrew for custom content,
- * Experimental for prototype-only items, otherwise its own rules level (0 when unknown).
+ * Lowest rules level an installed item needs: at least Custom Homebrew for custom content (Munchkin when the
+ * record says so), Experimental for prototype-only items, otherwise its own rules level (0 when unknown).
  */
 export function getEquipmentRulesLevel(item: IEquipmentItem): number {
     let level = typeof item.rulesLevel === "number" ? item.rulesLevel : 0;
@@ -174,6 +248,24 @@ export function getEquipmentRulesLevel(item: IEquipmentItem): number {
 }
 
 /**
+ * Why an item is not offered in `editionTag` at `rulesLevel`: "edition", "level", or null when it is offered. Custom
+ * content belongs to no edition: it is offered in every one at its own level or higher. Other records follow
+ * `getRecordOfferIssue`, with the canon level raised to the item's installed level (the Experimental floor).
+ */
+export function getEquipmentOfferIssue(item: IEquipmentItem, editionTag: string, rulesLevel: number): "edition" | "level" | null {
+    const level = getEquipmentRulesLevel(item);
+    if (level >= CUSTOM_HOMEBREW_RULES_LEVEL) {
+        return level > rulesLevel ? "level" : null;
+    }
+    return getRecordOfferIssue({ ...item, rulesLevel: level }, editionTag, rulesLevel);
+}
+
+/** Is the item offered in `editionTag` at `rulesLevel`? */
+export function isEquipmentOffered(item: IEquipmentItem, editionTag: string, rulesLevel: number): boolean {
+    return getEquipmentOfferIssue(item, editionTag, rulesLevel) === null;
+}
+
+/**
  * Year an item becomes usable in construction: its production year, or its
  * IO prototype year when the rules level allows experimental technology.
  */
@@ -182,6 +274,39 @@ export function getEffectiveIntroduction(item: Pick<IEquipmentItem, "prototype" 
         return item.prototype;
     }
     return item.introduced;
+}
+
+/**
+ * A tech progression year typed by a user or read from an import. Blank, zero or anything that is not a
+ * positive year means unknown or none: null, which the availability checks read as "no such date"
+ * (`introduced: null` with a `prototype` year marks a prototype-only item).
+ */
+export function parseTechYear(value: string | number | null | undefined): number | null {
+    if (value === null || value === undefined || (typeof value === "string" && value.trim() === "")) {
+        return null;
+    }
+    const year = Number(value);
+    return Number.isFinite(year) && year > 0 ? Math.round(year) : null;
+}
+
+/** Last year of the Star League era: the Exodus fleet left with what the SLDF fielded then. */
+export const STAR_LEAGUE_END_YEAR = 2780;
+
+/**
+ * Clan designs keep the Star League (Inner Sphere) version of a component until their own Clan version
+ * replaces it (project decision, 2026-09-30). The carried version keeps the Inner Sphere slots and armor
+ * factor. Null when the item has no separate Clan dates or was not in Star League service.
+ */
+export function getStarLeagueCarryOverDates(item: ITechDates & { clanDates?: ITechDates }): ITechDates | null {
+    if (!item.clanDates || !item.introduced || item.introduced > STAR_LEAGUE_END_YEAR
+        || (item.extinct && item.extinct <= STAR_LEAGUE_END_YEAR)) {
+        return null;
+    }
+    const clanProduction = item.clanDates.introduced;
+    if (clanProduction && clanProduction <= item.introduced) {
+        return null;
+    }
+    return { prototype: item.prototype, introduced: item.introduced, extinct: clanProduction ?? null, reintroduced: null };
 }
 
 export function getAmmoRoundsPerTon(ammo: IEquipmentItem): number {
@@ -200,7 +325,7 @@ function getAllAmmo(): IEquipmentItem[] {
 
 function getCustomAmmo(): IEquipmentItem[] {
     return equipmentCatalogDefinitions
-        .filter(catalog => catalog.category === "ammunition" && catalog.techBase === "custom")
+        .filter(catalog => catalog.category === "ammunition" && catalog.custom)
         .flatMap(catalog => catalog.equipment);
 }
 
@@ -256,6 +381,10 @@ export function getCompatibleAmmo(weapon: IEquipmentItem, ammo: IEquipmentItem):
     if (!ammo.isAmmo || weapon.isAmmo) {
         return false;
     }
+    // Battle armor scale ammunition feeds its own weapon and nothing else, and that weapon takes no other.
+    if (ammo.battleArmorScale || weapon.battleArmorScale) {
+        return !!ammo.battleArmorScale && !!weapon.battleArmorScale && matchesTag(weapon, ammo.feedsWeaponTag);
+    }
 
     return getWeaponAmmoFamilies(weapon).includes(getAmmoFamily(ammo));
 }
@@ -283,6 +412,10 @@ function getStandardRoundsPerTon(family: string): number {
 }
 
 export function getWeaponShotsPerTon(weapon: IEquipmentItem, ammo?: IEquipmentItem): number {
+    // Battle armor scale ammunition: the mass carried divided by the weapon's weight per shot (Ghosts of Obeedah p.54).
+    if (ammo?.battleArmorScale && ammo.kgPerShot && ammo.kgPerShot > 0) {
+        return 1000 / ammo.kgPerShot;
+    }
     if (ammo && weapon.shotsPerTonByAmmo) {
         const family = getAmmoFamily(ammo);
         const override = Object.entries(weapon.shotsPerTonByAmmo)
@@ -339,6 +472,14 @@ export function getAmmoBattleValuePerTon(weapon: IEquipmentItem | null, ammo: IE
                 return rack * shots / 5 * 6;
         }
     }
+    if (weapon && ammo.battleValueByLauncher) {
+        // Published per launcher (e.g. Dead-Fire, IO:AE p.190).
+        const launcher = /(mml|lrm|srm)-(\d+)/.exec(weapon.tag);
+        const published = launcher ? ammo.battleValueByLauncher[`${launcher[1]}-${launcher[2]}`] : undefined;
+        if (published !== undefined) {
+            return published;
+        }
+    }
     if (weapon && weapon.ammoBattleValue !== undefined) {
         return weapon.ammoBattleValue * (ammo.battleValueMultiplier ?? 1);
     }
@@ -354,7 +495,7 @@ export function getEquipmentCatalogSummaries(): IEquipmentCatalogSummary[] {
 
         return {
             catalogId: definition.id,
-            techBase: definition.techBase,
+            techBases: Array.from(new Set(definition.equipment.map(item => getEquipmentTier(definition, item)))),
             category: definition.category,
             itemCount: definition.equipment.length,
             ammoCount: definition.equipment.filter(item => item.isAmmo).length,

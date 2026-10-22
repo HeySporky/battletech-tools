@@ -2,7 +2,7 @@ import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
-import { isOmniFixedOnly } from '../../../../data/equipment-registry';
+import { CUSTOM_HOMEBREW_RULES_LEVEL, isOmniFixedOnly } from '../../../../data/equipment-registry';
 import { sortEquipment } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
@@ -14,6 +14,8 @@ import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import DesignLockColumn from '../../../components/design-lock';
+import { getShownRulesLevel } from '../../../../data/rules-editions';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Plus = FaPlus as any;
@@ -46,7 +48,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
           undefined,
           undefined,
           undefined,
-          this.props.appGlobals.appSettings.mechRulesFilter === 5,
+          this.props.appGlobals.appSettings.mechRulesFilter >= CUSTOM_HOMEBREW_RULES_LEVEL,
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
@@ -152,6 +154,16 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return false;
     }
 
+    setAmmoBinShots = (
+      itemUUID: string | undefined,
+      shots: number,
+    ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setAmmoBinShots( itemUUID, shots );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
     setWeight = (
       itemUUID: string | undefined,
       weight: number,
@@ -187,7 +199,9 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       const techTag = currentMech.getTech().tag;
       const includeClan = techTag === "clan" || techTag === "mis" || techTag === "mclan";
       const includeIS = techTag === "is" || techTag === "mis" || techTag === "mclan";
-      const includeCustom = this.props.appGlobals.appSettings.mechRulesFilter === 5;
+      // The level the edition shows: a stored level the edition does not list acts as the next one it does.
+      const shownLevel = getShownRulesLevel(currentMech.getRulesEdition(), this.props.appGlobals.appSettings.mechRulesFilter);
+      const includeCustom = shownLevel >= CUSTOM_HOMEBREW_RULES_LEVEL;
       return (
         <>
             <StandardModal
@@ -201,9 +215,9 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                   <div>
                       <AvailableEquipment
                         appGlobals={this.props.appGlobals}
-                        equipment={currentMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, includeCustom, this.props.appGlobals.appSettings.mechRulesFilter)}
+                        equipment={currentMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, includeCustom, shownLevel)}
+                        mounted={currentMech.getInstalledEquipment()}
                         addFunction={this.addEquipment}
-                        hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
                       />
                   </div>
               </div>
@@ -219,7 +233,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                   current="step5"
                 />
               </div>
-              <div className="col-md-9 col-lg-10">
+              <DesignLockColumn appGlobals={this.props.appGlobals}>
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
                       <TextSection
@@ -344,7 +358,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {currentMech.getAvailableBombs(this.props.appGlobals.appSettings.mechRulesFilter).map( (bomb) => (
+                                    {currentMech.getAvailableBombs(shownLevel).map( (bomb) => (
                                       <tr key={bomb.tag}>
                                         <td>{bomb.name}</td>
                                         <td>{bomb.bombBaySlots}</td>
@@ -366,6 +380,16 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                             </fieldset>
                           ) : null}
 
+                          {this.props.appGlobals.currentBattleMech.getRulesEditionRuleIssues().length > 0 ? (
+                            <div className="color-red smaller-text">
+                              Against this rules edition:
+                              <ul>
+                                {this.props.appGlobals.currentBattleMech.getRulesEditionRuleIssues().map((issue) => (
+                                  <li key={issue}>{issue}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : null}
                           {this.props.appGlobals.currentBattleMech.getInstalledEquipment().length > 0 ? (
 
                               <table className="table">
@@ -401,11 +425,24 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                           </label>
                                         ) : null}
                                         {item.spreadSlots ? (
-                                          <div className="smaller-text">{item.space.battlemech} slots, placed one at a time</div>
+                                          <div className="smaller-text">{this.props.appGlobals.currentBattleMech?.getCriticalSlots(item.space.battlemech) ?? item.space.battlemech} slots, placed one at a time</div>
                                         ) : null}
                                       </td>
                                       <td>
-                                        {item.minAmmoTons && item.isAmmo && item.minAmmoTons < 1 ? (
+                                        {this.props.appGlobals.currentBattleMech?.canSetAmmoBinShots(item)
+                                          && this.props.appGlobals.currentBattleMech.getAmmoBinShotsPerTon(item) > 0 ? (
+                                          <label className="smaller-text" data-testid="fractional-ammo-shots">
+                                            {item.weight} tons,&nbsp;shots:&nbsp;
+                                            <input
+                                              type="number"
+                                              min={1}
+                                              max={this.props.appGlobals.currentBattleMech.getAmmoBinShotsPerTon(item)}
+                                              value={this.props.appGlobals.currentBattleMech.getAmmoBinCapacity(item)}
+                                              onChange={( event: React.FormEvent<HTMLInputElement>) => this.setAmmoBinShots( item.uuid, +event.currentTarget.value)}
+                                              className="width-auto"
+                                            />
+                                          </label>
+                                        ) : item.minAmmoTons && item.isAmmo && item.minAmmoTons < 1 ? (
                                           <select
                                             value={item.weight}
                                             onChange={( event: React.FormEvent<HTMLSelectElement>) => this.setWeight( item.uuid, +event.currentTarget.value)}
@@ -494,7 +531,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                     </div>
                   </div>
 
-              </div>
+              </DesignLockColumn>
 
               </div>
 
