@@ -13,10 +13,10 @@ import { IEditionHistory, IEditionStats, IEditionStatsTable, IEquipmentItem, IRa
 import { APOCRYPHAL_RULES_LEVEL, btRulesLevelOptions, getRulesLevelOptions } from "./rules-level-options";
 
 /** The unit types the creators build, for an edition's `unitTypes`. */
-export type RulesEditionUnitType = "mech" | "vehicle" | "fighter" | "small-craft" | "capital-ship" | "infantry" | "battle-armor" | "protomech" | "building";
+export type RulesEditionUnitType = "mech" | "vehicle" | "fighter" | "small-craft" | "capital-ship" | "infantry" | "battle-armor" | "protomech" | "building" | "walker";
 
 /** Every unit type: Total Warfare and its companion books (TechManual, Tactical and Strategic Operations) build them all. */
-export const ALL_RULES_EDITION_UNIT_TYPES: RulesEditionUnitType[] = ["mech", "vehicle", "fighter", "small-craft", "capital-ship", "infantry", "battle-armor", "protomech", "building"];
+export const ALL_RULES_EDITION_UNIT_TYPES: RulesEditionUnitType[] = ["mech", "vehicle", "fighter", "small-craft", "capital-ship", "infantry", "battle-armor", "protomech", "building", "walker"];
 
 /**
  * Editions of the BattleTech rules, oldest first, so a player can choose to build with one edition's rules only.

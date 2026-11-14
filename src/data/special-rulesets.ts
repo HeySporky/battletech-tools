@@ -26,7 +26,7 @@ export type GameSettingStep = "edition" | "rulesLevel" | "techBase" | "era";
 /** Plural names for the unit types a ruleset can take away, for its notices. */
 export const UNIT_TYPE_PLURALS: Record<RulesEditionUnitType, string> = {
     mech: "BattleMechs", vehicle: "Vehicles", fighter: "Fighters", "small-craft": "Small Craft", "capital-ship": "Capital Ships",
-    infantry: "Infantry", "battle-armor": "Battle Armor", protomech: "ProtoMechs", building: "Buildings",
+    infantry: "Infantry", "battle-armor": "Battle Armor", protomech: "ProtoMechs", building: "Buildings", walker: "Walkers",
 };
 
 export interface ISpecialRuleset {

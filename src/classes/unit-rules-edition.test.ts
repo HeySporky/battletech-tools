@@ -7,6 +7,7 @@ import InfantryPlatoon from "./infantry-platoon";
 import ProtoMech from "./protomech";
 import SmallCraft from "./small-craft";
 import Vehicle from "./vehicle";
+import Walker from "./walker";
 
 interface IEditionUnit { getRulesEdition(): string; setRulesEdition(tag: string): string; exportJSON(): string }
 
@@ -18,6 +19,7 @@ const units: [RulesEditionUnitType, () => IEditionUnit, (json: string) => IEditi
     ["battle-armor", () => new BattleArmor(), (json) => new BattleArmor(json)],
     ["protomech", () => new ProtoMech(), (json) => new ProtoMech(json)],
     ["building", () => new Building(), (json) => new Building(json)],
+    ["walker", () => new Walker(), (json) => new Walker(json)],
 ];
 
 describe("Rules editions offered by each unit creator", () => {

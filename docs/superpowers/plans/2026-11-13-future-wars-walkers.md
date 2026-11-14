@@ -51,7 +51,8 @@ slot counts) is the same in both.
 ## Rules (both editions; confirm each on the page)
 
 - Locations: right front leg, right rear leg, left front leg, left rear leg, front torso, rear torso, right torso,
-  left torso, center torso, control section.
+  left torso, center torso, control section. (Best-of p.36's list leaves out the rear torso; its slot chart and hit
+  table have one, as #11 has. Read in Chunk A.)
 - Structure: 10 percent of tonnage. Points by tonnage 10 to 100 in 5-ton steps (center torso / other torsos / legs /
   control section), e.g. 10: 1/2/1/2; 50: 8/10/8/10; 100: 17/19/17/19 (full table on the page).
 - Armor: at most 2 x structure in every location.
@@ -126,7 +127,8 @@ Chunk A, which reads `usesFutureWarsConstruction` for the variant slot counts.
 - A Walker built with the construction ruleset, opened after the ruleset was unticked: back to standard slot counts
   with issues, nothing deleted.
 - A fourth weapon type in the center torso (a medium laser): refused with the rule's reason.
-- Walking MP 3 x 1.25 = 3.75 (drop: 3), 5 x 1.25 = 6.25 (drop: 6), 6 x 1.25 = 7.5 (round up: 8): the rounding rule.
+- Walking MP 3 x 1.25 = 3.75 (round up: 4), 5 x 1.25 = 6.25 (drop: 6), 6 x 1.25 = 7.5 (round up: 8): the rounding rule
+  (only a fraction of .25 is dropped; corrected in Chunk A, the plan had 3.75 dropping to 3).
 - A destroyed leg's actuator hit does not reduce movement a second time.
 
 ---
@@ -150,9 +152,9 @@ Chunk A, which reads `usesFutureWarsConstruction` for the variant slot counts.
   `getCockpitWeight`, `hasTurret/setTurret`, `getSlots(location)`, `getFreeSlots(location)`, `usesVariantSlots()`.
 - `IWalkerExport` and `normalizeWalkerExport(raw)`, after `normalizeProtoMechExport`.
 
-- [ ] **Step 1: Read** both editions' walker pages and the biped rules they lean on (Best-of pp.35-36, #11 p.24).
+- [x] **Step 1: Read** both editions' walker pages and the biped rules they lean on (Best-of pp.35-36, #11 p.24).
   Correct this plan and the ledger wherever the page differs.
-- [ ] **Step 2: Failing tests:** structure points for every row of the table (it.each); structure weight 10 percent;
+- [x] **Step 2: Failing tests:** structure points for every row of the table (it.each); structure weight 10 percent;
   armor maximum 2 x structure everywhere; slot counts standard and variant, per class, per edition (the assault
   control section 16 / 14); the turret's slots and weight, standard and variant; engine rating = tonnage x the
   *biped* Walking MP, weight from `mechEngineOptions`; `getWalkerWalkMP` for 1 to 10 (the rounding rule); gyro weight
@@ -160,8 +162,8 @@ Chunk A, which reads `usesFutureWarsConstruction` for the variant slot counts.
   (variant: by weight class, as the Compact plan's Chunk B places them in a head); tonnage 5 and 105 refused;
   required rules level Custom Homebrew; round trip; `normalizeWalkerExport` rejects junk and reports each clamp; a
   save with no `edition` loads as `best-of-1991`.
-- [ ] **Step 3: See them fail. Step 4: Implement**, no equipment yet. **Step 5:** unit tests, `npm run check`.
-- [ ] **Step 6:** Commit `Custom Homebrew: Future Wars Walker construction core (#172)`, push, ledger, handoff.
+- [x] **Step 3: See them fail. Step 4: Implement**, no equipment yet. **Step 5:** unit tests, `npm run check`.
+- [x] **Step 6:** Commit `Custom Homebrew: Future Wars Walker construction core (#172)`, push, ledger, handoff.
 
 ## Chunk B: Equipment, turret, heat sinks, jump jets, ammunition
 
