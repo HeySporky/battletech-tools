@@ -155,10 +155,12 @@ describe("Walker critical slots", () => {
     it("puts an engine's side-torso slots in the left and right torsos (ours)", () => {
         const walker = build(50, 4);
         walker.setEngineType("xl");
-        expect(walker.getSlots("lt").filter((slot) => slot !== null)).toHaveLength(3);
-        expect(walker.getSlots("rt").filter((slot) => slot !== null)).toHaveLength(3);
-        expect(walker.getSlots("ft").filter((slot) => slot !== null)).toHaveLength(0);
-        expect(walker.getSlots("rrt").filter((slot) => slot !== null)).toHaveLength(0);
+        // Count the engine's slots: since Chunk B the heat sinks the engine cannot hold are placed too.
+        const engine = (location: WalkerLocation) => walker.getSlots(location).filter((slot) => slot === walker.getEngineName());
+        expect(engine("lt")).toHaveLength(3);
+        expect(engine("rt")).toHaveLength(3);
+        expect(engine("ft")).toHaveLength(0);
+        expect(engine("rrt")).toHaveLength(0);
     });
 });
 

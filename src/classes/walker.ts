@@ -12,6 +12,20 @@ import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
 import { getCockpitType } from "../data/mech-cockpit-types";
 import { findSpecialRuleset } from "../data/special-rulesets";
+import { IEquipmentItem, IHeatSync, IJumpJet, ITechDates } from "../data/data-interfaces";
+import {
+    getCompatibleAmmo,
+    getEquipmentListForChassis,
+    getEquipmentRecordsByTech,
+    getTechDatesAvailability,
+    isEquipmentOffered,
+    isUnderUnitLimit,
+} from "../data/equipment-registry";
+import { matchesTag } from "../data/tag-match";
+import { VariableEquipmentFormula, getTargetingComputerWeaponWeight, sizeVariableEquipment } from "../data/variable-equipment";
+import { describeEngineRequirement, engineMeetsRequirement } from "../data/mech-engine-types";
+import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
+import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
 import {
     FUTURE_WARS_CONSTRUCTION_RULESETS,
     FUTURE_WARS_EXTRA_SLOT_TONS,
@@ -26,7 +40,20 @@ import {
     WALKER_DEFAULT_EDITION,
     WALKER_EDITION_RULES,
     WALKER_BATTLEMECH_ENGINE_TYPES,
+    WALKER_CENTER_TORSO_RULE,
     WALKER_ENGINE_TYPES,
+    WALKER_HEAT_SINK_LOCATIONS,
+    WALKER_HEAT_SINK_TYPES,
+    WALKER_JUMP_JET_LOCATIONS,
+    WALKER_JUMP_JET_TYPES,
+    WALKER_OUTER_TORSOS,
+    WALKER_VARIABLE_FORMULAS,
+    WalkerHeatSinkType,
+    WalkerJumpJetType,
+    getWalkerLocationsForMechLocations,
+    isWalkerAntiInfantryWeapon,
+    isWalkerLocation,
+    isWalkerWeapon,
     WALKER_GYRO_TYPES,
     WALKER_INDUSTRIAL_ENGINE_TYPES,
     WALKER_INDUSTRIAL_GYRO_TYPES,
@@ -51,8 +78,8 @@ import {
 
 // A Walker (#172): Clell Flint's four-legged 'Mech from Future Wars, a unit type of its own (owner ruling 2,
 // 2026-11-13). Ten locations, its own structure table and slot counts (walker-construction.ts); the 'Mech engine, gyro
-// and cockpit data. Custom Homebrew. Chunk A of docs/superpowers/plans/2026-11-13-future-wars-walkers.md: the
-// construction core, no equipment yet.
+// and cockpit data. Custom Homebrew. Chunks A (construction core) and B (equipment, turret, heat sinks, jump jets,
+// ammunition) of docs/superpowers/plans/2026-11-13-future-wars-walkers.md.
 
 export type WalkerTechTag = "is" | "clan";
 
@@ -89,14 +116,77 @@ export interface IWalkerExport {
     extraSensors?: boolean;
     extraLifeSupport?: boolean;
     armor: Partial<Record<WalkerLocation, number>>;
+    /** Mounted equipment and ammunition (Chunk B); absent in older saves. */
+    equipment?: IWalkerMountExport[];
+    /** Total heat sinks, the engine's free ones included; absent means the engine's free ones only. */
+    heatSinks?: number;
+    heatSinkType?: WalkerHeatSinkType;
+    jumpJets?: number;
+    jumpJetType?: WalkerJumpJetType;
     era: string;
     lastUpdated?: string;
+}
+
+/** One mounted 'Mech catalog item: its tag, its location and whether it is in the turret. */
+export interface IWalkerMountExport {
+    tag: string;
+    location: WalkerLocation;
+    inTurret?: boolean;
+    /** The chosen size of a sized item (a cargo bay's tons, a modular C3's links). */
+    size?: number;
+}
+
+/** A mounted item as the creator and the sheet read it. */
+export interface IWalkerEquipment {
+    uuid: string;
+    tag: string;
+    name: string;
+    location: WalkerLocation;
+    inTurret: boolean;
+    weight: number;
+    slots: number;
+    heat: number;
+    isAmmo: boolean;
+    /** A center-torso weapon: fires only at infantry and vehicles in the walker's hex (Best-of p.36). */
+    antiInfantryOnly: boolean;
+    item: IEquipmentItem;
+}
+
+export interface IWalkerAddResult {
+    added: boolean;
+    uuid?: string;
+    /** Why the item was refused. */
+    reason?: string;
 }
 
 export interface IWalkerWeightLine {
     name: string;
     weight: number;
 }
+
+interface IWalkerMount {
+    uuid: string;
+    tag: string;
+    location: WalkerLocation;
+    inTurret: boolean;
+    size?: number;
+}
+
+/** Jump jet weight class (TM p.51): up to 55 tons, 60 to 85, 90 and over. */
+const jumpJetWeightClass = (tons: number): "light" | "medium" | "heavy" => (tons <= 55 ? "light" : tons <= 85 ? "medium" : "heavy");
+/** A 'Mech arm item: hand and lower arm actuator items (hatchets, swords, claws and the like). */
+const needsArm = (item: IEquipmentItem): boolean => !!(item.requiresHandActuator || item.requiresLowerArmActuator || item.replacesHandActuator);
+/**
+ * Equipment an IndustrialMech cannot use without Advanced Fire Control (TM p.69): Artemis, the Beagle Active Probe or its
+ * Clan equivalent, C3 and C3i units and targeting computers. The same test as BattleMech's, which is private there.
+ */
+const needsAdvancedFireControl = (item: IEquipmentItem): boolean => {
+    const tag = item.tag.toLowerCase();
+    if (tag === "c3-remote-sensor-launcher") return false;
+    return /-artemis-(iv|v|p)$/.test(tag) || /^c3/.test(tag)
+        || ["beagle-active-probe", "clan-active-probe", "targeting-computer", "clan-targeting-computer"].includes(tag);
+};
+const isMASC = (item: IEquipmentItem): boolean => item.variableFormula === "masc-is" || item.variableFormula === "masc-clan";
 
 const clampInt = (value: unknown, min: number, max: number, fallback: number): number => {
     const n = Math.round(Number(value));
@@ -149,6 +239,12 @@ export default class Walker implements IGameSettingsUnit {
     private _extraSensors: boolean = false;
     private _extraLifeSupport: boolean = false;
     private _armor: Record<WalkerLocation, number> = emptyArmor();
+    private _mounts: IWalkerMount[] = [];
+    /** Heat sinks beyond the engine's free ones (as BattleMech's additional heat sinks). */
+    private _extraHeatSinks: number = 0;
+    private _heatSinkType: WalkerHeatSinkType = "single";
+    private _jumpJets: number = 0;
+    private _jumpJetType: WalkerJumpJetType = "standard";
     /** Flint wrote for the 3025 rules: the late Succession Wars (ours). */
     private _era: IEras = findEraByTag("late-sw-lt") ?? btEraOptions[btEraOptions.length - 1];
     private _importIssues: string[] = [];
@@ -315,6 +411,241 @@ export default class Walker implements IGameSettingsUnit {
     public setTurret(fitted: boolean): void { this._turret = !!fitted; }
     public getTurretWeight(): number { return this._turret ? getWalkerTurret(this._tons, this.usesVariantSlots()).tons : 0; }
 
+    // Equipment (Chunk B) ---------------------------------------------------------------------------------------------
+
+    private _rulesLevel(): number { return this.gameSettings.getRulesLevel(CUSTOM_HOMEBREW_RULES_LEVEL); }
+    /** Does the walker's era overlap the item's years? The 'Mech's test (BattleMech._itemIsAvailable). */
+    private _inEra(introduced: number | null, extinct: number | null, reintroduced: number | null): boolean {
+        const start = this._era.yearStart;
+        const end = this._era.yearEnd ?? Number.POSITIVE_INFINITY;
+        const first = (introduced ?? 0) <= end && (!extinct || extinct >= start);
+        return first || (!!reintroduced && reintroduced <= end);
+    }
+    private _available(dates: ITechDates & { clanDates?: ITechDates }): boolean {
+        return getTechDatesAvailability(dates, this._tech, this._rulesLevel(), (a, b, c) => this._inEra(a, b, c)).available;
+    }
+
+    /** The catalog record for a tag (altTags too), copied; undefined when no 'Mech catalog has it. */
+    private _findRecord(tag: string): IEquipmentItem | undefined {
+        const records = getEquipmentRecordsByTech(this._tech, true);
+        const record = records.find((each) => each.tag === tag) ?? records.find((each) => matchesTag(each, tag));
+        return record ? { ...record, space: { ...record.space } } : undefined;
+    }
+
+    /** Weight and slots of an item on this walker: sized items by their formula with the walker's figures (ours). */
+    private _sized(item: IEquipmentItem, mount: Pick<IWalkerMount, "size">, weaponWeight: number): { weight: number; slots: number } {
+        const formula = item.variableFormula as VariableEquipmentFormula | undefined;
+        if (formula) {
+            const size = sizeVariableEquipment(formula, {
+                tonnage: this._tons, engineRating: this.getEngineRating(), engineWeight: this.getEngineWeight(),
+                directFireWeaponWeight: weaponWeight, isQuad: true, size: mount.size ?? item.size,
+            });
+            if (size) return { weight: size.weight, slots: size.slots };
+        }
+        return { weight: item.weight || 0, slots: Math.max(0, item.space.battlemech) };
+    }
+
+    private _resolveMounts(mounts: readonly IWalkerMount[] = this._mounts): IWalkerEquipment[] {
+        const records = mounts.map((mount) => ({ mount, item: this._findRecord(mount.tag) }))
+            .filter((each): each is { mount: IWalkerMount; item: IEquipmentItem } => !!each.item);
+        const weaponWeight = getTargetingComputerWeaponWeight(records.map((each) => each.item));
+        return records.map(({ mount, item }) => {
+            const { weight, slots } = this._sized(item, mount, weaponWeight);
+            return {
+                uuid: mount.uuid, tag: mount.tag, name: item.name, location: mount.location, inTurret: mount.inTurret,
+                weight, slots, heat: item.heat || 0, isAmmo: !!item.isAmmo,
+                antiInfantryOnly: mount.location === "ct" && isWalkerAntiInfantryWeapon(item),
+                item: { ...item, weight, criticals: slots },
+            };
+        });
+    }
+
+    public getEquipment(): IWalkerEquipment[] { return this._resolveMounts(); }
+    public getAmmo(): IWalkerEquipment[] { return this.getEquipment().filter((each) => each.isAmmo); }
+    public getEquipmentWeight(): number { return this.getEquipment().reduce((sum, each) => sum + each.weight, 0); }
+    /** Heat of every weapon fired at once. */
+    public getHeat(): number {
+        return this.getEquipment().filter((each) => isWalkerWeapon(each.item)).reduce((sum, each) => sum + each.heat, 0);
+    }
+
+    /**
+     * Why a 'Mech item cannot go on this walker at all, or null (owner ruling 4: "any equipment that makes sense"). Arm
+     * items, items of another 'Mech type, items spread over 'Mech locations and variable items outside
+     * WALKER_VARIABLE_FORMULAS are ours to refuse; the IndustrialMech limits are TM pp.69-70.
+     */
+    public getChassisRefusal(item: IEquipmentItem): string | null {
+        const name = item.name;
+        if (item.space.battlemech < 0 || item.bombBaySlots) return `${name} cannot be mounted on a 'Mech.`;
+        if (needsArm(item)) return `${name} needs an arm, and a walker has none.`;
+        if ((item.chassisTypes?.length ?? 0) > 0 || item.tag === "mech-turret-head") return `${name} is built for another kind of 'Mech.`;
+        if (item.spreadLocations || item.spreadSlots) return `${name} spreads over a 'Mech's locations; a walker does not take it (ours).`;
+        if ((item.variableFormula && !WALKER_VARIABLE_FORMULAS.includes(item.variableFormula)) || (item.variableSize && !item.variableFormula)) {
+            return `${name} is not offered on a walker (ours).`;
+        }
+        if (item.allowedLocations && !item.armTool && getWalkerLocationsForMechLocations(item.allowedLocations).length === 0) {
+            return `${name} has no place on a walker.`;
+        }
+        if (!engineMeetsRequirement(item.requiresEngine, this._engineType)) return `${name} needs ${describeEngineRequirement(item.requiresEngine!)}.`;
+        if (item.industrialMechOnly && !this._industrial) return `${name} can only be mounted on an IndustrialMech (industrial walker).`;
+        if (this._industrial && isMASC(item)) return `${name} cannot be mounted on an IndustrialMech (TM p.70).`;
+        if (this._industrial && item.armorRepairBVMultiplier) return `${name} can only be mounted on a BattleMech.`;
+        if (this._industrial && !this.hasAdvancedFireControl() && needsAdvancedFireControl(item)) {
+            return `${name} needs Advanced Fire Control on an IndustrialMech (TM p.69).`;
+        }
+        return null;
+    }
+
+    /** Why an item cannot go in this place, or null. `others` are the other mounts (not the one being checked). */
+    private _placementRefusal(item: IEquipmentItem, location: WalkerLocation, inTurret: boolean, others: readonly IWalkerMount[]): string | null {
+        const name = item.name;
+        if (inTurret && location !== "cs") return `Turret items go in the control section.`;
+        if (inTurret && !this._turret) return `${name} is in the turret, and the walker has no turret.`;
+        if (location === "ct" && isWalkerWeapon(item) && !isWalkerAntiInfantryWeapon(item)) return `${name}: ${WALKER_CENTER_TORSO_RULE}`;
+        if (item.armTool) {
+            // Ours: a walker has no arms; its tools go on the legs or the outer torsos.
+            if (!WALKER_LEGS.includes(location) && !WALKER_OUTER_TORSOS.includes(location)) return `${name} goes in the legs or outer torsos (ours: a walker has no arms).`;
+        } else if (item.allowedLocations) {
+            const allowed = getWalkerLocationsForMechLocations(item.allowedLocations);
+            if (!allowed.includes(location)) return `${name} must be placed in: ${allowed.map((each) => this.getLocationName(each)).join(", ")}.`;
+        }
+        if (item.onePerLocationGroup) {
+            const group = item.onePerLocationGroup;
+            const clash = others.some((other) => other.location === location && this._findRecord(other.tag)?.onePerLocationGroup === group);
+            if (clash) return `${name}: one ${group.replace(/-/g, " ")} to a location.`;
+        }
+        const installed = others.map((other) => this._findRecord(other.tag));
+        if (!isUnderUnitLimit(item, installed)) return `${name}: at most ${item.maxPerUnit} to a unit.`;
+        return null;
+    }
+
+    /**
+     * The 'Mech catalogs at the walker's tech base, era, rules edition and rules level, less what a walker cannot mount
+     * (getChassisRefusal), each sized for this walker.
+     */
+    public getEquipmentOffer(): IEquipmentItem[] {
+        const level = this._rulesLevel();
+        const seen = new Set<string>();
+        const offer: IEquipmentItem[] = [];
+        const weaponWeight = getTargetingComputerWeaponWeight(this.getEquipment().map((each) => each.item));
+        for (const item of getEquipmentListForChassis(this._tech, level >= CUSTOM_HOMEBREW_RULES_LEVEL)) {
+            if (seen.has(item.tag)) continue;
+            seen.add(item.tag);
+            if (!isEquipmentOffered(item, this._rulesEdition, level) || this.getChassisRefusal(item) || !this._available(item)) continue;
+            const { weight, slots } = this._sized(item, {}, weaponWeight);
+            offer.push({ ...item, weight, criticals: slots });
+        }
+        return offer.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
+    }
+
+    /**
+     * Mounts a 'Mech catalog item. Refused, with the reason, when the walker cannot take it, the place breaks a rule, the
+     * walker would be over its tonnage or the location has no room (an item is never split between locations: ours).
+     * The era and rules level are the offer's business (getEquipmentOffer), as on a 'Mech.
+     */
+    public addEquipment(tag: string, location: WalkerLocation, inTurret: boolean = false, size?: number): IWalkerAddResult {
+        const item = this._findRecord(tag);
+        if (!item) return { added: false, reason: `Unknown equipment "${String(tag).slice(0, 60)}".` };
+        if (!isWalkerLocation(location)) return { added: false, reason: `Unknown location "${String(location).slice(0, 20)}".` };
+        const refusal = this.getChassisRefusal(item) ?? this._placementRefusal(item, location, !!inTurret, this._mounts);
+        if (refusal) return { added: false, reason: refusal };
+        const mount: IWalkerMount = { uuid: generateUUID(), tag: item.tag, location, inTurret: !!inTurret, ...(size !== undefined ? { size } : {}) };
+        const sized = this._resolveMounts([...this._mounts, mount]).find((each) => each.uuid === mount.uuid)!;
+        const left = this._tons - this.getWeight();
+        if (sized.weight > left + 1e-9) return { added: false, reason: `${item.name} weighs ${sized.weight} tons; the walker has ${Math.max(0, left)} left.` };
+        const trial = this._layout(false, mount).slots[location];
+        if (Walker._usedLength(trial) > this.getSlotCount(location)) {
+            return { added: false, reason: `${item.name} needs ${sized.slots} slots together and the ${this.getLocationName(location)} has no room for them.` };
+        }
+        this._mounts.push(mount);
+        return { added: true, uuid: mount.uuid };
+    }
+    public removeEquipment(uuid: string): boolean {
+        const before = this._mounts.length;
+        this._mounts = this._mounts.filter((mount) => mount.uuid !== uuid);
+        return this._mounts.length < before;
+    }
+
+    /**
+     * Power amplifiers: energy weapons on an ICE or fuel cell walker need amplifiers weighing 10 percent of them, rounded
+     * up to the half ton, taking no slots (TM p.72), as on an IndustrialMech.
+     */
+    public getPowerAmplifierWeight(): number {
+        if (this._engineType !== "ice" && this._engineType !== "cell") return 0;
+        const weight = this.getEquipment()
+            .filter((each) => !each.isAmmo && each.item.category === "Energy Weapons" && !/vehicle-flamer|chemical-laser/.test(each.tag))
+            .reduce((sum, each) => sum + each.weight, 0);
+        return weight > 0 ? Math.ceil(weight / 10 * 2 - 1e-9) / 2 : 0;
+    }
+
+    // Heat sinks (as on a 'Mech) ----------------------------------------------------------------------------------
+
+    private _heatSinkRecord(): IHeatSync { return mechHeatSinkTypes.find((type) => type.tag === this._heatSinkType)!; }
+    /** Heat sinks that come with the engine and weigh nothing: 10 fusion, 5 fission, 1 fuel cell, 0 ICE (TM p.71). */
+    public getFreeHeatSinks(): number {
+        return this._engineType === "ice" ? 0 : this._engineType === "cell" ? 1 : this._engineType === "fission" ? 5 : 10;
+    }
+    public getHeatSinks(): number { return this.getFreeHeatSinks() + this._extraHeatSinks; }
+    /** At least the engine's free heat sinks. */
+    public setHeatSinks(total: number): boolean {
+        if (!Number.isInteger(total) || total < this.getFreeHeatSinks() || total > this.getFreeHeatSinks() + 100) return false;
+        this._extraHeatSinks = total - this.getFreeHeatSinks();
+        return true;
+    }
+    /** Heat sinks the engine holds without slots: floor(rating / 25) (TM p.71). */
+    public getEngineHeatSinkCapacity(): number { return Math.floor(this.getEngineRating() / 25); }
+    /** Heat sinks that need slots of their own. */
+    public getExternalHeatSinks(): number { return Math.max(0, this.getHeatSinks() - this.getEngineHeatSinkCapacity()); }
+    private _heatSinkSlotsEach(): number { return this._heatSinkRecord().crits[this._tech] ?? 1; }
+    public getHeatSinkWeight(): number { return this._extraHeatSinks * (this._heatSinkRecord().weightEach ?? 1); }
+    public getHeatSinkType(): WalkerHeatSinkType { return this._heatSinkType; }
+    /** Single, and double where the era has them; an industrial walker single only (TM p.71). */
+    public getHeatSinkTypeOptions(): WalkerHeatSinkType[] {
+        if (this._industrial) return ["single"];
+        return WALKER_HEAT_SINK_TYPES.filter((tag) => tag === "single" || this._available(mechHeatSinkTypes.find((type) => type.tag === tag)!));
+    }
+    public setHeatSinkType(tag: string): boolean {
+        const type = WALKER_HEAT_SINK_TYPES.find((each) => each === tag);
+        if (!type || !this.getHeatSinkTypeOptions().includes(type)) return false;
+        this._heatSinkType = type;
+        return true;
+    }
+    public getHeatDissipation(): number { return this.getHeatSinks() * this._heatSinkRecord().dissipation; }
+
+    // Jump jets (ours: in the legs and outer torsos, by the 'Mech rule) ---------------------------------------------
+
+    private _jumpJetRecord(): IJumpJet { return mechJumpJetTypes.find((type) => type.tag === this._jumpJetType)!; }
+    public getJumpJetType(): WalkerJumpJetType { return this._jumpJetType; }
+    /**
+     * Standard, and improved where the era has them. None without a fusion or fission engine; an industrial walker
+     * standard only (TM p.69).
+     */
+    public getJumpJetTypeOptions(): WalkerJumpJetType[] {
+        if (this._engineType === "ice" || this._engineType === "cell") return [];
+        if (this._industrial) return ["standard"];
+        return WALKER_JUMP_JET_TYPES.filter((tag) => {
+            const record = mechJumpJetTypes.find((type) => type.tag === tag)!;
+            return tag === "standard" || (this._available(record) && !(record.innerSphereOnly && this._tech === "clan"));
+        });
+    }
+    public setJumpJetType(tag: string): boolean {
+        const type = WALKER_JUMP_JET_TYPES.find((each) => each === tag);
+        if (!type || !this.getJumpJetTypeOptions().includes(type)) return false;
+        this._jumpJetType = type;
+        return true;
+    }
+    /** Jump MP is at most the biped Walking MP, the Running MP with improved jets (ours: the x 1.25 is the legs, not the engine). */
+    public getMaxJumpMP(): number { return this._jumpJetType === "improved" ? Math.ceil(this._walkMP * 1.5) : this._walkMP; }
+    public getJumpJets(): number { return this._jumpJets; }
+    public getJumpMP(): number { return this._jumpJets; }
+    public setJumpJets(count: number): boolean {
+        if (!Number.isInteger(count) || count < 0 || count > this.getMaxJumpMP()) return false;
+        if (count > 0 && !this.getJumpJetTypeOptions().includes(this._jumpJetType)) return false;
+        this._jumpJets = count;
+        return true;
+    }
+    /** Tons a jet by weight class (TM p.51), times the count. */
+    public getJumpJetWeight(): number { return this._jumpJets * this._jumpJetRecord().weight_multiplier[jumpJetWeightClass(this._tons)]; }
+
     // Structure and armor -----------------------------------------------------------------------------------------
 
     public getStructure(location: WalkerLocation): number { return getWalkerStructure(location, this._tons); }
@@ -359,31 +690,109 @@ export default class Walker implements IGameSettingsUnit {
         }
         if (location === "lt" || location === "rt") return Array(engineSlots[location] ?? 0).fill(engine);
         if (location === "cs") {
-            const turret: string[] = this._turret ? Array(getWalkerTurret(this._tons, this.usesVariantSlots()).slots).fill("Turret") : [];
             const cockpit = this._variantCockpit();
-            if (!cockpit) return ["Life Support", "Sensors", "Cockpit", null, "Sensors", "Life Support", ...turret];
-            // Flint's head order, as the Compact 'Mech's (ours): life support, sensors, cockpit, then the turret.
+            if (!cockpit) return ["Life Support", "Sensors", "Cockpit", null, "Sensors", "Life Support"];
+            // Flint's head order, as the Compact 'Mech's (ours): life support, sensors, cockpit; the turret follows (_layout).
             const lifeSupport = cockpit.lifeSupportSlots + (this.hasExtraLifeSupport() ? 1 : 0);
             const sensors = FUTURE_WARS_SENSOR_SLOTS + (this.hasExtraSensors() ? 1 : 0);
-            return [
-                ...Array(lifeSupport).fill("Life Support"), ...Array(sensors).fill("Sensors"), ...Array(cockpit.slots).fill("Cockpit"), ...turret,
-            ];
+            return [...Array(lifeSupport).fill("Life Support"), ...Array(sensors).fill("Sensors"), ...Array(cockpit.slots).fill("Cockpit")];
         }
         return [];
+    }
+    private _turretSlots(): string[] {
+        return this._turret ? Array(getWalkerTurret(this._tons, this.usesVariantSlots()).slots).fill("Turret") : [];
+    }
+
+    /** Puts an item of `size` slots in the first run of free slots long enough, else after the last. */
+    private static _place(slots: (string | null)[], name: string, size: number): void {
+        for (let start = 0; start + size <= slots.length; start++) {
+            if (slots.slice(start, start + size).every((slot) => slot === null)) {
+                for (let index = start; index < start + size; index++) slots[index] = name;
+                return;
+            }
+        }
+        let end = slots.length;
+        while (end > 0 && slots[end - 1] === null) end--;
+        slots.length = end;
+        for (let index = 0; index < size; index++) slots.push(name);
+    }
+    /** Slots used, counting free slots between items but not after the last. */
+    private static _usedLength(slots: (string | null)[]): number {
+        let end = slots.length;
+        while (end > 0 && slots[end - 1] === null) end--;
+        return end;
+    }
+
+    /**
+     * Every location's slots in order: the fixed items, the equipment, then (with `auto`) the jump jets and the heat sinks
+     * the engine cannot hold. In the control section the turret mechanism and the turret's items come last: "anything on
+     * the critical chart listed below the turret mechanism" is in the turret (Best-of p.36). Jump jets and heat sinks are
+     * placed where there is room (ours); what finds no room is counted in `unplaced`.
+     */
+    private _layout(auto: boolean = true, extra?: IWalkerMount): { slots: Record<WalkerLocation, (string | null)[]>; unplacedJets: number; unplacedSinks: number } {
+        const slots = {} as Record<WalkerLocation, (string | null)[]>;
+        const mounts = extra ? [...this._mounts, extra] : this._mounts;
+        const equipment = this._resolveMounts(mounts);
+        for (const location of WALKER_LOCATIONS) {
+            const list: (string | null)[] = [...this._fixedItems(location)];
+            for (const each of equipment) if (each.location === location && !each.inTurret) Walker._place(list, each.name, each.slots);
+            slots[location] = list;
+        }
+        const turretItems = equipment.filter((each) => each.location === "cs" && each.inTurret);
+        // The control section keeps room for the turret mechanism and the turret's items below it.
+        const turretReserve = this._turretSlots().length + turretItems.reduce((sum, each) => sum + each.slots, 0);
+        const fits = (location: WalkerLocation, size: number): boolean => {
+            const trial = [...slots[location]];
+            Walker._place(trial, "?", size);
+            return Walker._usedLength(trial) <= this.getSlotCount(location) - (location === "cs" ? turretReserve : 0);
+        };
+        let unplacedJets = 0;
+        let unplacedSinks = 0;
+        if (auto) {
+            const jet = this._jumpJetRecord();
+            let jets = this._jumpJets;
+            while (jets > 0) {
+                const before = jets;
+                for (const location of WALKER_JUMP_JET_LOCATIONS) {
+                    if (jets > 0 && fits(location, jet.criticals)) {
+                        Walker._place(slots[location], this._jumpJetType === "improved" ? "Improved Jump Jet" : "Jump Jet", jet.criticals);
+                        jets--;
+                    }
+                }
+                if (jets === before) break;
+            }
+            unplacedJets = jets;
+            const sinkSlots = this._heatSinkSlotsEach();
+            const sinkName = this._heatSinkType === "double" ? "Double Heat Sink" : "Heat Sink";
+            let sinks = this.getExternalHeatSinks();
+            for (const location of WALKER_HEAT_SINK_LOCATIONS) {
+                while (sinks > 0 && fits(location, sinkSlots)) {
+                    Walker._place(slots[location], sinkName, sinkSlots);
+                    sinks--;
+                }
+            }
+            unplacedSinks = sinks;
+        }
+        const cs = slots.cs;
+        if (this._turret || turretItems.length > 0) {
+            cs.length = Walker._usedLength(cs);
+            cs.push(...this._turretSlots());
+            for (const each of turretItems) for (let index = 0; index < each.slots; index++) cs.push(each.name);
+        }
+        return { slots, unplacedJets, unplacedSinks };
     }
 
     /** The location's slots, each an item name or null for a free slot. Items past the last slot are cut (getIssues says so). */
     public getSlots(location: WalkerLocation): (string | null)[] {
-        const items = this._fixedItems(location);
+        const items = this._layout().slots[location];
         const count = this.getSlotCount(location);
         return Array.from({ length: count }, (_, index) => items[index] ?? null);
     }
     public getFreeSlots(location: WalkerLocation): number { return this.getSlots(location).filter((slot) => slot === null).length; }
+    /** Slots the fixed items take, the turret mechanism included. */
     private _usedSlotCount(location: WalkerLocation): number {
         const items = this._fixedItems(location);
-        let last = items.length;
-        while (last > 0 && items[last - 1] === null) last--;
-        return last;
+        return Walker._usedLength(items) + (location === "cs" ? this._turretSlots().length : 0);
     }
 
     // Weight, issues ------------------------------------------------------------------------------------------------
@@ -399,6 +808,14 @@ export default class Walker implements IGameSettingsUnit {
         if (this.hasExtraLifeSupport()) lines.push({ name: "Extra Life Support", weight: FUTURE_WARS_EXTRA_SLOT_TONS });
         if (this._turret) lines.push({ name: "Turret", weight: this.getTurretWeight() });
         if (this.getArmorPoints() > 0) lines.push({ name: "Armor", weight: this.getArmorWeight() });
+        if (this.getHeatSinkWeight() > 0) lines.push({ name: "Heat Sinks", weight: this.getHeatSinkWeight() });
+        if (this.getJumpJetWeight() > 0) lines.push({ name: "Jump Jets", weight: this.getJumpJetWeight() });
+        const equipment = this.getEquipment();
+        const gear = equipment.filter((each) => !each.isAmmo).reduce((sum, each) => sum + each.weight, 0);
+        const ammo = equipment.filter((each) => each.isAmmo).reduce((sum, each) => sum + each.weight, 0);
+        if (gear > 0) lines.push({ name: "Equipment", weight: gear });
+        if (ammo > 0) lines.push({ name: "Ammunition", weight: ammo });
+        if (this.getPowerAmplifierWeight() > 0) lines.push({ name: "Power Amplifiers", weight: this.getPowerAmplifierWeight() });
         return lines;
     }
     public getWeight(): number { return this.getWeightLog().reduce((sum, line) => sum + line.weight, 0); }
@@ -419,14 +836,40 @@ export default class Walker implements IGameSettingsUnit {
             issues.push(`The ${this.getGyroName()} is not available to ${this._industrial ? "an industrial" : "a Clan"} walker.`);
         }
         if (this.getEngineRating() > WALKER_MAX_ENGINE_RATING) issues.push(`Engine rating ${this.getEngineRating()} is over ${WALKER_MAX_ENGINE_RATING}.`);
+        if (!this.getHeatSinkTypeOptions().includes(this._heatSinkType)) {
+            issues.push(`${this._heatSinkRecord().name} heat sinks are not available to ${this._industrial ? "an industrial walker" : "this walker in its era"}.`);
+        }
+        if (this._jumpJets > 0 && !this.getJumpJetTypeOptions().includes(this._jumpJetType)) {
+            issues.push(this.getJumpJetTypeOptions().length === 0
+                ? `Jump jets need a fusion or fission engine.`
+                : `${this._jumpJetRecord().name} are not available to ${this._industrial ? "an industrial walker (TM p.69)" : "this walker in its era"}.`);
+        }
+        if (this._jumpJets > this.getMaxJumpMP()) issues.push(`Jump MP ${this._jumpJets} is over the most allowed, ${this.getMaxJumpMP()}.`);
+        const layout = this._layout();
         for (const location of WALKER_LOCATIONS) {
             if (this._armor[location] > this.getMaxArmor(location)) {
                 issues.push(`${this.getLocationName(location)} armor ${this._armor[location]} is over its maximum of ${this.getMaxArmor(location)}.`);
             }
             const used = this._usedSlotCount(location);
+            const all = Walker._usedLength(layout.slots[location]);
             if (used > this.getSlotCount(location)) {
                 issues.push(`${this.getLocationName(location)} needs ${used} slots for its fixed items and has ${this.getSlotCount(location)}.`);
+            } else if (all > this.getSlotCount(location)) {
+                issues.push(`${this.getLocationName(location)} needs ${all} slots for its items and has ${this.getSlotCount(location)}.`);
             }
+        }
+        if (layout.unplacedJets > 0) issues.push(`${layout.unplacedJets} jump ${layout.unplacedJets === 1 ? "jet has" : "jets have"} no slot.`);
+        if (layout.unplacedSinks > 0) issues.push(`${layout.unplacedSinks} heat ${layout.unplacedSinks === 1 ? "sink has" : "sinks have"} no slot.`);
+        // Each mount against the rules, as addEquipment checks it (a save, a switch to industrial, a turret taken off).
+        const equipment = this.getEquipment();
+        for (const each of equipment) {
+            const others = this._mounts.filter((mount) => mount.uuid !== each.uuid);
+            const problem = this.getChassisRefusal(each.item) ?? this._placementRefusal(each.item, each.location, each.inTurret, others);
+            if (problem) issues.push(problem);
+        }
+        const weapons = equipment.filter((each) => !each.isAmmo).map((each) => each.item);
+        for (const ammo of equipment.filter((each) => each.isAmmo)) {
+            if (!weapons.some((weapon) => getCompatibleAmmo(weapon, ammo.item))) issues.push(`${ammo.name} has no weapon to feed.`);
         }
         return issues;
     }
@@ -457,6 +900,16 @@ export default class Walker implements IGameSettingsUnit {
             ...(this._extraSensors ? { extraSensors: true } : {}),
             ...(this._extraLifeSupport ? { extraLifeSupport: true } : {}),
             armor,
+            ...(this._mounts.length > 0 ? {
+                equipment: this._mounts.map((mount) => ({
+                    tag: mount.tag, location: mount.location,
+                    ...(mount.inTurret ? { inTurret: true } : {}),
+                    ...(mount.size !== undefined ? { size: mount.size } : {}),
+                })),
+            } : {}),
+            heatSinks: this.getHeatSinks(),
+            heatSinkType: this._heatSinkType,
+            ...(this._jumpJets > 0 ? { jumpJets: this._jumpJets, jumpJetType: this._jumpJetType } : {}),
             era: this._era.tag,
             lastUpdated: this.lastUpdated.toISOString(),
         };
@@ -515,6 +968,36 @@ export default class Walker implements IGameSettingsUnit {
             this._armor[location] = points;
         }
         this._era = this.getAvailableEras().find((era) => era.tag === data.era) ?? this._era;
+
+        // Equipment (Chunk B). An unknown item or location is dropped with an issue; a known item in a place the rules
+        // do not allow is kept, and getIssues reports it.
+        this._mounts = [];
+        for (const raw of Array.isArray(data.equipment) ? data.equipment.slice(0, 200) : []) {
+            if (!raw || typeof raw !== "object") continue;
+            const tag = typeof raw.tag === "string" ? raw.tag : "";
+            const record = tag ? this._findRecord(tag) : undefined;
+            if (!record) {
+                issues.push(`Unknown equipment "${tag.slice(0, 60)}": dropped.`);
+                continue;
+            }
+            if (!isWalkerLocation(raw.location)) {
+                issues.push(`Unknown location "${String(raw.location).slice(0, 20)}" for ${record.name}: dropped.`);
+                continue;
+            }
+            const size = typeof raw.size === "number" && Number.isFinite(raw.size) && raw.size > 0 ? raw.size : undefined;
+            this._mounts.push({ uuid: generateUUID(), tag: record.tag, location: raw.location, inTurret: raw.inTurret === true, ...(size !== undefined ? { size } : {}) });
+        }
+        this._heatSinkType = (WALKER_HEAT_SINK_TYPES as readonly unknown[]).includes(data.heatSinkType) ? data.heatSinkType! : "single";
+        if (data.heatSinkType !== undefined && data.heatSinkType !== this._heatSinkType) issues.push(`Unknown heat sink type "${String(data.heatSinkType).slice(0, 30)}": read as single.`);
+        const sinks = data.heatSinks === undefined ? this.getFreeHeatSinks() : clampInt(data.heatSinks, this.getFreeHeatSinks(), this.getFreeHeatSinks() + 100, this.getFreeHeatSinks());
+        if (data.heatSinks !== undefined && sinks !== data.heatSinks) issues.push(`Heat sinks ${String(data.heatSinks)} is out of range: set to ${sinks}.`);
+        this._extraHeatSinks = sinks - this.getFreeHeatSinks();
+        this._jumpJetType = (WALKER_JUMP_JET_TYPES as readonly unknown[]).includes(data.jumpJetType) ? data.jumpJetType! : "standard";
+        if (data.jumpJetType !== undefined && data.jumpJetType !== this._jumpJetType) issues.push(`Unknown jump jet type "${String(data.jumpJetType).slice(0, 30)}": read as standard.`);
+        // Kept above the limit (getIssues reports it) so a design is never cut silently; only junk is clamped.
+        const jets = data.jumpJets === undefined ? 0 : clampInt(data.jumpJets, 0, 20, 0);
+        if (data.jumpJets !== undefined && jets !== data.jumpJets) issues.push(`Jump jets ${String(data.jumpJets)} is out of range: set to ${jets}.`);
+        this._jumpJets = jets;
         const saved = typeof data.lastUpdated === "string" ? new Date(data.lastUpdated) : new Date();
         this.lastUpdated = Number.isNaN(saved.getTime()) ? new Date() : saved;
         this._importIssues = issues;

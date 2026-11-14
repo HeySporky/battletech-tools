@@ -184,16 +184,22 @@ Chunk A, which reads `usesFutureWarsConstruction` for the variant slot counts.
 `setHeatSinks`, `getJumpJets/setJumpJets`, `getAmmo`, `getHeat()`, `getEquipmentOffer()` (the 'Mech catalogs at the
 user's era, tech and level, minus what a Walker cannot mount).
 
-- [ ] **Step 1:** List in the ledger which 'Mech item kinds are refused and why (owner ruling 4, "any equipment that
+- [x] **Step 1:** List in the ledger which 'Mech item kinds are refused and why (owner ruling 4, "any equipment that
   makes sense"): hand- and arm-only items (hatchets, swords, claws, lower-arm items), LAM and QuadVee parts, a
   second cockpit, torso-mounted cockpit, triple-strength myomer only if its rules need arms (read TM). Everything else
   is offered.
-- [ ] **Step 2: Failing tests:** a medium laser on a leg, the front torso and in the turret; a medium laser in the
+- [x] **Step 2: Failing tests:** a medium laser on a leg, the front torso and in the turret; a medium laser in the
   center torso refused with the rule; a machine gun, small laser and flamer accepted there and flagged
   anti-infantry only; turret items must be in the control section; engine-free heat sinks as on a 'Mech; jump jets
   in legs and outer torsos (ours); ammunition and CASE by the 'Mech rules; slots and weight never exceeded.
-- [ ] **Step 3:** Implement, unit tests, `npm run check`.
-- [ ] **Step 4:** Commit `Custom Homebrew: Walker equipment (#172)`, push, ledger, handoff.
+- [x] **Step 3:** Implement, unit tests, `npm run check`.
+- [x] **Step 4:** Commit `Custom Homebrew: Walker equipment (#172)`, push, ledger, handoff.
+
+Done 2026-11-14 (home): tests in `src/classes/walker-equipment.test.ts`; the ledger lists every call that was ours.
+**For Chunk C:** `getEquipment()` gives each item sized (weight, slots) with its record in `item`; heat sinks, jump jets
+and power amplifiers have their own getters. **For Chunk D:** `addEquipment` returns the refusal reason to show;
+`getEquipmentOffer()` is the picker's list. **For Chunk F:** jump jets and the heat sinks the engine cannot hold are
+placed automatically (legs first for jets; outer torsos first for heat sinks), so their slots follow from the design.
 
 ## Chunk C: Cost and Battle Value (provisional)
 

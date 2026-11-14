@@ -184,3 +184,53 @@ export const WALKER_INDUSTRIAL_GYRO_TYPES: readonly WalkerGyroType[] = ["standar
 export const WALKER_INDUSTRIAL_CREDIT = "Industrial walker: ours. Inspired by Clell Flint's walker rules and the IndustrialMech rules (TechManual pp.66-71).";
 export const WALKER_INDUSTRIAL_STRUCTURE_FACTOR = 0.2;
 export const WALKER_MAX_ENGINE_RATING = 400;
+
+// Equipment (Chunk B) ------------------------------------------------------------------------------------------------
+
+/** "The center torso may only mount the following weapons; machine guns, small lasers, and flamers" (Best-of p.36; #11 p.26). */
+export const WALKER_CENTER_TORSO_RULE = "Only machine guns, small lasers and flamers may be mounted in the center torso, and they fire only at "
+    + "infantry and vehicles in the walker's hex (Best-of p.36; Future Wars #11 p.26).";
+
+/** A weapon (not ammunition, not equipment): its category ends in "Weapons". */
+export const isWalkerWeapon = (item: { isAmmo?: boolean; category?: string }): boolean => !item.isAmmo && /Weapons$/.test(item.category ?? "");
+
+/** A machine gun (arrays included), a small laser of any kind, or a flamer of any kind: the center torso's weapons. */
+export const isWalkerAntiInfantryWeapon = (item: { tag: string; isAmmo?: boolean; category?: string }): boolean =>
+    isWalkerWeapon(item) && /machine-gun|flamer|small.*laser|laser.*small/.test(item.tag.toLowerCase());
+
+/**
+ * Variable-size 'Mech equipment a walker can carry, sized with the walker's tonnage, engine and weapons (ours). The
+ * rest is for arms (hatchets, swords, claws, maces, lances, AES), spreads over 'Mech locations (talons, tracks, wings,
+ * jump boosters, sealing) or belongs to another chassis (the 'Mech turret, the ram plate, QuadVee wheels, naval gear).
+ */
+export const WALKER_VARIABLE_FORMULAS: readonly string[] = [
+    "variable-range-targeting", "multi-trac-ii", "masc-is", "masc-clan", "supercharger", "targeting-computer-is", "targeting-computer-clan",
+    "extended-fuel-tank", "cargo-standard", "cargo-liquid", "cargo-insulated", "modular-c3", "spikes", "drone-operating-system",
+];
+
+/**
+ * Where a 'Mech item limited to some locations goes on a walker (ours): the head is the control section, the center
+ * torso the center torso, a side torso any outer torso, a leg any leg; an arm has no walker counterpart.
+ */
+export function getWalkerLocationsForMechLocations(mechLocations: readonly string[]): WalkerLocation[] {
+    const found = new Set<WalkerLocation>();
+    for (const location of mechLocations) {
+        if (location === "hd") found.add("cs");
+        else if (location === "ct") found.add("ct");
+        else if (location === "lt" || location === "rt") WALKER_OUTER_TORSOS.forEach((each) => found.add(each));
+        else if (["ll", "rl", "cl", "fll", "frl"].includes(location)) WALKER_LEGS.forEach((each) => found.add(each));
+    }
+    return WALKER_LOCATIONS.filter((location) => found.has(location));
+}
+
+/** Heat sink types a walker can take (ours, Chunk B): single and double. An industrial walker: single only (TM p.71). */
+export const WALKER_HEAT_SINK_TYPES = ["single", "double"] as const;
+export type WalkerHeatSinkType = typeof WALKER_HEAT_SINK_TYPES[number];
+/** Jump jet types (ours, Chunk B): standard and improved. An industrial walker: standard only (TM p.69). */
+export const WALKER_JUMP_JET_TYPES = ["standard", "improved"] as const;
+export type WalkerJumpJetType = typeof WALKER_JUMP_JET_TYPES[number];
+
+/** Jump jets go in the legs first, then the outer torsos, one location at a time in turn (ours). */
+export const WALKER_JUMP_JET_LOCATIONS: readonly WalkerLocation[] = ["lfl", "rfl", "lrl", "rrl", "ft", "rrt", "lt", "rt"];
+/** Heat sinks the engine cannot hold fill the outer torsos, then the legs, the center torso and the control section (ours). */
+export const WALKER_HEAT_SINK_LOCATIONS: readonly WalkerLocation[] = ["lt", "rt", "ft", "rrt", "lfl", "rfl", "lrl", "rrl", "ct", "cs"];
