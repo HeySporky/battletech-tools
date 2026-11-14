@@ -143,6 +143,10 @@ Best-of. The walker plan carries all four rows as edition rules.
 
 ## Chunk A: Slot counts from one place (no behaviour change)
 
+**Done 2026-11-14, `06d048997`.** Also routed `_trimCriticals` (the grep below misses its `slice(0, N)` lines). One
+change on an invalid move: a location the 'Mech lacks counts 0, so nothing can be placed there. Ledger:
+`.superpowers/sdd/2026-11-13-compact-mechs/progress.md`.
+
 **Files:** Modify `src/classes/battlemech.ts`; test in `src/classes/battlemech.test.ts` (or a new
 `battlemech-slots.test.ts`).
 
