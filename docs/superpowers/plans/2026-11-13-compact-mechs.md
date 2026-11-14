@@ -212,6 +212,12 @@ location)`, `getFutureWarsEngineSlots(engineTons)`, `getFutureWarsCockpit(tons, 
 
 ## Chunk D: Record sheet and play mode
 
+**Done 2026-11-14.** `src/utils/critical-tables.ts` holds the tables of six and the roll; the sheet, the play table
+and both critical rolls read it. Four tables take 1 / 2 / 3 / 4 and re-roll 5-6 (ours). Under the ruleset the sheet
+stacks each column and shrinks its type to fit (`getCritSheetLayout`); standard sheets are unchanged (snapshots).
+The 35, 60 and 100 t sheets were rendered in Chromium and read. Ledger:
+`.superpowers/sdd/2026-11-13-compact-mechs/progress.md`.
+
 **Our rule (no text for bipeds), to put in the ruleset description:** a location's slots are printed in tables of
 six, the last one short if needed. For a hit, roll 1D6 for the table when there is more than one (re-roll a number
 with no table), then 1D6 for the slot (re-roll a number with no slot, as for an empty slot). This is the standard

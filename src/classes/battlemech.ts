@@ -48,6 +48,7 @@ import { btTechOptions } from "../data/tech-options";
 import { getEditionTechBases, IGameSettings } from "../data/game-settings";
 import { getHexDistanceFromModifier, getLocationName, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
+import { rollCriticalLine } from "../utils/critical-tables";
 import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
 import { isAlphaStrikeAbilityCode } from "../data/alpha-strike-special-abilities";
 import { generateUUID } from "../utils/generateUUID";
@@ -6798,12 +6799,17 @@ export class BattleMech {
         const slots: (ICriticalSlot | null | undefined)[] = (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[normalized]] ?? [];
         const lines = [...(dice.lines ?? [])];
         const next = () => lines.shift() ?? die();
-        const twelve = !["hd", "ll", "rl", "cl", "fll", "frl"].includes(normalized);
+        const slotCount = this.getLocationSlotCount(normalized) || slots.length;
         const log = [`Critical hit roll ${chance}: a critical hit.`];
         for (let attempt = 0; attempt < 100; attempt++) {
-            const first = next();
-            const index = twelve ? (first <= 3 ? 0 : 6) + next() - 1 : first - 1;
-            const label = twelve ? `${first <= 3 ? 1 : 2}${index % 6 + 1}` : `${index + 1}`;
+            // Tables of six, as on the sheet (src/utils/critical-tables.ts); two for a canon 12-slot location.
+            const roll = rollCriticalLine(slotCount, next);
+            if (roll.tableRoll !== undefined && !roll.table) {
+                log.push(`Table roll ${roll.tableRoll}: no table, rolled again.`);
+                continue;
+            }
+            const label = roll.table ? `${roll.tableNumber}${roll.line}` : `${roll.line}`;
+            const index = roll.index ?? -1;
             if (!slots[index]) {
                 log.push(`Line ${label} is empty: rolled again.`);
                 continue;
@@ -6840,7 +6846,8 @@ export class BattleMech {
 
     /**
      * Roll on the Determining Critical Hits Table for a location (TW p.124), or by the edition's own rule when it has
-     * one (see rollEditionCriticalHit). 8-9 is one critical hit, 10-11 two, 12 three in a torso or the head or limb
+     * one (see rollEditionCriticalHit). Under Clell Flint's construction rules a location is longer; its line is rolled
+     * in tables of six (ours, src/utils/critical-tables.ts). 8-9 is one critical hit, 10-11 two, 12 three in a torso or the head or limb
      * blown off. An IndustrialMech's modified 13 counts as 12 and 14 or more is four hits in a torso or the head or limb
      * blown off (TW p.124; IO:AE p.114); a Primitive BattleMech's 13 or more counts as 12. Each hit rolls a line on
      * the location's table, rolling again on an empty line, a line that cannot take a critical hit (endo steel,
@@ -6883,7 +6890,7 @@ export class BattleMech {
         }
         log.push(hits === 1 ? "One critical hit." : `${hits} critical hits.`);
         const slots: (ICriticalSlot | null | undefined)[] = (this._criticals as any)[BattleMech.MECH_LOCATION_MAP[normalized]] ?? [];
-        const twelve = !["hd", "ll", "rl", "cl", "fll", "frl"].includes(normalized);
+        const slotCount = this.getLocationSlotCount(normalized) || slots.length;
         const lines = [...(dice.lines ?? [])];
         const next = () => lines.shift() ?? die();
         const hittable = (index: number) => !!slots[index] && !this.isCriticalDamaged(normalized, index) && !this._isRollAgainSlot(slots[index]!);
@@ -6894,13 +6901,14 @@ export class BattleMech {
                 break;
             }
             for (let attempt = 0; attempt < 100; attempt++) {
-                const first = next();
-                const index = twelve ? (first <= 3 ? 0 : 6) + next() - 1 : first - 1;
-                if (!hittable(index)) continue;
+                // Tables of six, as on the sheet (src/utils/critical-tables.ts); two for a canon 12-slot location.
+                const roll = rollCriticalLine(slotCount, next);
+                if (roll.index === null || !hittable(roll.index)) continue;
+                const index = roll.index;
                 let named = index;
                 while (named > 0 && slots[named]?.placeholder) named--;
                 this.toggleCritical(normalized, index);
-                const label = twelve ? `${first <= 3 ? "1-3" : "4-6"}, ${index % 6 + 1}` : `${index + 1}`;
+                const label = roll.table ? `${roll.table.label}, ${roll.line}` : `${roll.line}`;
                 log.push(`Line ${label}: ${slots[named]?.name ?? "that line"} is hit.`, ...this._onSlotHit(normalized, slots[named]));
                 break;
             }

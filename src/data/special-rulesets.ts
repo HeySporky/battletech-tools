@@ -56,7 +56,10 @@ const FUTURE_WARS_CONSTRUCTION_DESCRIPTION = "Clell Flint's alternate rules for 
     + "with its own life support; extra sensors and extra life support are a slot and half a ton each. The engine takes 4 to 10 center "
     + "torso slots by its weight and the gyro one slot a ton. Ours, not Flint's: two-legged 'Mechs of up to 100 tons only (his "
     + "four-legged rules are the Walker unit type); Battle Value and cost by the edition's rules on the design as built; the order of "
-    + "the head's items; half the engine before the gyro and half after; no small, torso-mounted or interface cockpit.";
+    + "the head's items; half the engine before the gyro and half after; no small, torso-mounted or interface cockpit. Also ours: "
+    + "a location's slots print in tables of six, the last one short. For a critical hit, roll 1D6 for the table when there is more "
+    + "than one (two tables 1-3 / 4-6, three 1-2 / 3-4 / 5-6, four 1 / 2 / 3 / 4, re-rolling a number with no table), then 1D6 for "
+    + "the slot, re-rolling a number with no slot as for an empty one.";
 
 export const btSpecialRulesets: ISpecialRuleset[] = [
     // Both printings print the same rules for two-legged 'Mechs; they differ only on walkers (owner ruling 3, 2026-11-13).

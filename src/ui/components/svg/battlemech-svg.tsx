@@ -19,6 +19,7 @@ import BipedInternalStructureDiagramSVG from './biped-internal-structure-diagram
 import BipedRearArmorDiagramSVG from './biped-rear-armor-diagram-svg';
 import ComponentDamageSVG from './component-damage-svg';
 import CritAllocationTableSVG from './crit-allocation-table-svg';
+import { getCriticalTables } from '../../../utils/critical-tables';
 import DamageCircleSVG from './damage-circle-svg';
 import DieSVG from './die-svg';
 import HeatSinksSVG from './heat-sink-svg';
@@ -39,6 +40,61 @@ import TakeDamageButtonSVG from './take-damage-button';
 import TargetSelectSVG from './target-select-svg';
 import TripodArmorCircles from './tripod-armor-circles';
 import { TripodArmorDiagramSVG, TripodDamageTransferDiagramSVG, TripodInternalStructureDiagramSVG, TRIPOD_INTERNAL_CENTER_LEG_LAYOUT, tripodCenterLegBubbles } from './tripod-diagram-svg';
+
+export interface ICritTablePlacement {
+    /** Baseline of the location's name, from the top of the Critical Hit Table box. */
+    labelY: number;
+    /** First line of its slots, from the top of the box. */
+    tableY: number;
+    /** Type size against the standard sheet's. */
+    scale: number;
+}
+
+type CritSheetLocation = "la" | "ra" | "hd" | "ct" | "lt" | "rt" | "ll" | "rl";
+
+/** The standard sheet's places: arms and head at the top, center torso under the head, side torsos, legs at the foot. */
+const STANDARD_CRIT_PLACEMENTS: Record<CritSheetLocation, ICritTablePlacement> = {
+    la: { labelY: 100, tableY: 140, scale: 1 }, ra: { labelY: 100, tableY: 140, scale: 1 }, hd: { labelY: 100, tableY: 140, scale: 1 },
+    ct: { labelY: 350, tableY: 375, scale: 1 },
+    lt: { labelY: 550, tableY: 575, scale: 1 }, rt: { labelY: 550, tableY: 575, scale: 1 },
+    ll: { labelY: 1010, tableY: 1050, scale: 1 }, rl: { labelY: 1010, tableY: 1050, scale: 1 },
+};
+
+/**
+ * Where each location's critical table goes in the Critical Hit Table box. A standard 'Mech keeps the sheet's fixed
+ * places. Under Clell Flint's construction rules (#172) a location can run to 20 slots, so each column is stacked
+ * (left: arm, torso, leg; middle: head, center torso, above the Component Damage box; right as the left) and its type
+ * shrunk until the column fits. Ours: Flint prints no record sheet.
+ */
+export function getCritSheetLayout(mech: BattleMech): Record<CritSheetLocation, ICritTablePlacement> {
+    if (!mech.usesFutureWarsConstruction()) return STANDARD_CRIT_PLACEMENTS;
+    const line = 31, labelGap = 40, blockGap = 15, top = 100;
+    const lines = (slots: number) => slots + Math.max(0, getCriticalTables(slots).length - 1);
+    const layout = {} as Record<CritSheetLocation, ICritTablePlacement>;
+    const stack = (column: CritSheetLocation[], bottom: number, reserveTop: number) => {
+        const blocks = column.map(location => ({ location, lines: lines(mech.getLocationSlotCount(location)) }));
+        // From the first name's baseline to the last line's.
+        const needed = reserveTop + blocks.reduce((sum, block) => sum + labelGap + block.lines * line, 0) + blockGap * (blocks.length - 1) - line;
+        const scale = Math.min(1, (bottom - top) / needed);
+        let y = top + reserveTop * scale;
+        for (const block of blocks) {
+            const tableY = y + labelGap * scale;
+            layout[block.location] = { labelY: y, tableY, scale };
+            y = tableY + (block.lines * line + blockGap) * scale;
+        }
+    };
+    // An armless 'Mech's arm column holds the ARMLESS note instead (Maximum Tech p.62).
+    const armless = mech.isArmless();
+    const armReserve = STANDARD_CRIT_PLACEMENTS.lt.labelY - top;
+    stack(armless ? ["lt", "ll"] : ["la", "lt", "ll"], 1200, armless ? armReserve : 0);
+    stack(armless ? ["rt", "rl"] : ["ra", "rt", "rl"], 1200, armless ? armReserve : 0);
+    stack(["hd", "ct"], 735, 0);
+    if (armless) {
+        layout.la = STANDARD_CRIT_PLACEMENTS.la;
+        layout.ra = STANDARD_CRIT_PLACEMENTS.ra;
+    }
+    return layout;
+}
 
 export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, IBattleMechSVGState> {
 
@@ -153,6 +209,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         const critCol1Start = 125;
         const critCol2Start = 513;
         const critCol3Start = 925;
+        const critLayout = getCritSheetLayout( this.props.mechData );
 
         let currentMoveColor = "white";
         let currentMoveBackground = "#009";
@@ -1089,12 +1146,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 {/* // Left Arm */}
         <text
             x={critBoxLeft + critCol1Start}
-            y={critBoxTop + 100}
+            y={critBoxTop + critLayout.la.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.la.scale}
         >
             {hasArms ? (
                 <>LEFT ARM</>
@@ -1109,19 +1166,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             inPlay={inPlay}
             mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol1Start}
-            yLoc={critBoxTop + 140}
+            yLoc={critBoxTop + critLayout.la.tableY}
+            scale={critLayout.la.scale}
             location="la"
         />
         </>}
 	{/* // Head */}
         <text
             x={critBoxLeft + critCol2Start}
-            y={(critBoxTop + 100)}
+            y={critBoxTop + critLayout.hd.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.hd.scale}
         >
                 HEAD
         </text>
@@ -1131,19 +1189,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             inPlay={inPlay}
             mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol2Start}
-            yLoc={critBoxTop + 140}
+            yLoc={critBoxTop + critLayout.hd.tableY}
+            scale={critLayout.hd.scale}
             location="hd"
         />
 
         {armless ? null : <>
         <text
             x={critBoxLeft + critCol3Start}
-            y={critBoxTop + 100}
+            y={critBoxTop + critLayout.ra.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.ra.scale}
         >
             {hasArms ? (
                 <>RIGHT ARM</>
@@ -1157,20 +1216,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             critData={hasArms ? this.props.mechData.getCriticals().rightArm : this.props.mechData.getCriticals().frontRightLeg}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol3Start}
-            yLoc={critBoxTop + 140}
+            yLoc={critBoxTop + critLayout.ra.tableY}
+            scale={critLayout.ra.scale}
             location="ra"
         />
         </>}
 
         <text
             x={critBoxLeft + critCol1Start}
-            y={critBoxTop + 550}
+            y={critBoxTop + critLayout.lt.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30
-        }>
+            fontSize={30 * critLayout.lt.scale}>
             LEFT TORSO
         </text>
         <CritAllocationTableSVG
@@ -1179,7 +1238,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             critData={this.props.mechData.getCriticals().leftTorso}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol1Start}
-            yLoc={critBoxTop + 575}
+            yLoc={critBoxTop + critLayout.lt.tableY}
+            scale={critLayout.lt.scale}
             location="lt"
 
         />
@@ -1187,12 +1247,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 	{/* // Center Torso */}
         <text
             x={critBoxLeft + critCol2Start}
-            y={critBoxTop + 350}
+            y={critBoxTop + critLayout.ct.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.ct.scale}
         >
             CENTER TORSO
         </text>
@@ -1202,7 +1262,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             inPlay={inPlay}
             mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol2Start}
-            yLoc={critBoxTop + 375}
+            yLoc={critBoxTop + critLayout.ct.tableY}
+            scale={critLayout.ct.scale}
             location="ct"
 
         />
@@ -1210,12 +1271,12 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
 	{/* // Right Torso */}
         <text
             x={critBoxLeft + critCol3Start}
-            y={critBoxTop + 550}
+            y={critBoxTop + critLayout.rt.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.rt.scale}
         >
             RIGHT TORSO
         </text>
@@ -1226,19 +1287,20 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             inPlay={inPlay}
             mechData={this.props.mechData}
             xLoc={critBoxLeft + critCol3Start}
-            yLoc={critBoxTop + 575}
+            yLoc={critBoxTop + critLayout.rt.tableY}
+            scale={critLayout.rt.scale}
             location="rt"
         />
 
 	{/* // Left Leg */}
         <text
             x={critBoxLeft + critCol1Start}
-            y={critBoxTop + 1010}
+            y={critBoxTop + critLayout.ll.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.ll.scale}
         >
             {hasArms ? (
                 <>LEFT LEG</>
@@ -1253,18 +1315,19 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             critData={this.props.mechData.getCriticals().leftLeg}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol1Start}
-            yLoc={critBoxTop + 1050}
+            yLoc={critBoxTop + critLayout.ll.tableY}
+            scale={critLayout.ll.scale}
             location="ll"
         />
         {/* // Right Leg */}
         <text
             x={critBoxLeft + critCol3Start}
-            y={critBoxTop + 1010}
+            y={critBoxTop + critLayout.rl.labelY}
             textAnchor="start"
             fontFamily="sans-serif"
             fill={strokeColor}
             style={{fontWeight: 700}}
-            fontSize={30}
+            fontSize={30 * critLayout.rl.scale}
         >
             {hasArms ? (
                 <>RIGHT LEG</>
@@ -1278,7 +1341,8 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
             mechData={this.props.mechData}
             inPlay={inPlay}
             xLoc={critBoxLeft + critCol3Start}
-            yLoc={critBoxTop + 1050}
+            yLoc={critBoxTop + critLayout.rl.tableY}
+            scale={critLayout.rl.scale}
             location="rl"
         />
 
