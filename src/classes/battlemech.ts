@@ -4837,61 +4837,61 @@ export class BattleMech {
         )
     }
 
+    /** Location tags (and their legacy spellings) to the critical table that holds them. */
+    private static readonly _SLOT_LOCATION_KEYS: Record<string, string> = {
+        hd: "head", ct: "centerTorso", lt: "leftTorso", rt: "rightTorso", la: "leftArm", ra: "rightArm",
+        ll: "leftLeg", rl: "rightLeg", cl: "centerLeg", fll: "frontLeftLeg", frl: "frontRightLeg",
+        rll: "leftLeg", rrl: "rightLeg",
+    };
+
+    /**
+     * How many critical slots a location has on this 'Mech: head and legs 6, torsos and arms 12, a QuadVee leg 2, and 0
+     * for a location this type lacks (a quad's arms, a biped's center leg) or an armless 'Mech's arms. Takes a location
+     * tag ("hd", "fll") or a critical table name ("head", "frontLeftLeg"), in any case. Every place that sizes, trims or
+     * fills a location reads it here, so a construction ruleset can change the counts in one place (#172).
+     */
+    public getLocationSlotCount(location: string): number {
+        const raw = (location || "").trim();
+        const key: string | undefined = BattleMech._SLOT_LOCATION_KEYS[raw.toLowerCase()]
+            ?? Object.values(BattleMech._SLOT_LOCATION_KEYS).find(name => name.toLowerCase() === raw.toLowerCase());
+        if (!key) return 0;
+        const typeTag = this._mechType.tag.toLowerCase();
+        const fourLegged = typeTag === "quad" || typeTag === "quadvee";
+        switch (key) {
+            case "head":
+                return 6;
+            case "centerTorso": case "leftTorso": case "rightTorso":
+                return 12;
+            case "leftArm": case "rightArm":
+                return fourLegged || this.isArmless() ? 0 : 12;
+            case "leftLeg": case "rightLeg":
+                return typeTag === "quadvee" ? 2 : 6;
+            case "frontLeftLeg": case "frontRightLeg":
+                return typeTag === "quadvee" ? 2 : typeTag === "quad" ? 6 : 0;
+            case "centerLeg":
+                return typeTag === "tripod" ? 6 : 0;
+        }
+        return 0;
+    }
+
     private _calcCriticals() {
 
         this._calcVariableEquipment();
-        // WORK IN PROGRESS (Not so much? - JDG Apr 2 2022)
-        // CORE FIXED LOCATIONS: Head (6 slots) & Torsos (12 slots) always exist
-        this._criticals.head = Array(6).fill(null);
-        this._criticals.centerTorso = Array(12).fill(null);
-        this._criticals.leftTorso = Array(12).fill(null);
-        this._criticals.rightTorso = Array(12).fill(null);
+        // Every location is laid out at its slot count; a location this type lacks gets an empty table.
+        const empty = (tag: string) => Array(this.getLocationSlotCount(tag)).fill(null);
+        this._criticals.head = empty("hd");
+        this._criticals.centerTorso = empty("ct");
+        this._criticals.leftTorso = empty("lt");
+        this._criticals.rightTorso = empty("rt");
+        this._criticals.leftArm = empty("la");
+        this._criticals.rightArm = empty("ra");
+        this._criticals.leftLeg = empty("ll");   // a quad's rear left leg
+        this._criticals.rightLeg = empty("rl");  // a quad's rear right leg
+        this._criticals.centerLeg = empty("cl");
+        this._criticals.frontLeftLeg = empty("fll");
+        this._criticals.frontRightLeg = empty("frl");
 
         const typeTag = this.getType().tag.toLowerCase();
-
-        // DYNAMIC CRITICAL SLOTS: Get the stuff the different types need
-        if (typeTag === "biped" || typeTag === "lam") {
-            // Standard Bipeds and Land Air Mechs feature 12 slots per arm and 6 slots per leg; an armless 'Mech's arms are not there.
-            this._criticals.leftArm = Array(this.isArmless() ? 0 : 12).fill(null);
-            this._criticals.rightArm = Array(this.isArmless() ? 0 : 12).fill(null);
-            this._criticals.leftLeg = Array(6).fill(null);
-            this._criticals.rightLeg = Array(6).fill(null);
-            // Scrub non-existent limbs in this type
-            this._criticals.centerLeg = [];
-            this._criticals.frontLeftLeg = [];
-            this._criticals.frontRightLeg = [];
-        } else if (typeTag === "quad" || typeTag === "quadvee") {
-            // QuadVees reserve both available critical slots in each leg for
-            // conversion and motive systems; ordinary Quads have six slots.
-            const legSlots = typeTag === "quadvee" ? 2 : 6;
-            this._criticals.frontLeftLeg = Array(legSlots).fill(null);
-            this._criticals.frontRightLeg = Array(legSlots).fill(null);
-            this._criticals.leftLeg = Array(legSlots).fill(null);  // Rear Left Leg
-            this._criticals.rightLeg = Array(legSlots).fill(null); // Rear Right Leg
-            // Clear biped/tripod slot arrays
-            this._criticals.leftArm = [];
-            this._criticals.rightArm = [];
-            this._criticals.centerLeg = [];
-        } else if (typeTag === "tripod") {
-            // Tripods possess 3 legs with 6 slots each, plus 2 standard 12-slot arms
-            this._criticals.leftArm = Array(this.isArmless() ? 0 : 12).fill(null);
-            this._criticals.rightArm = Array(this.isArmless() ? 0 : 12).fill(null);
-            this._criticals.leftLeg = Array(6).fill(null);
-            this._criticals.rightLeg = Array(6).fill(null);
-            this._criticals.centerLeg = Array(6).fill(null);
-            // Clear quad layout tracks
-            this._criticals.frontLeftLeg = [];
-            this._criticals.frontRightLeg = [];
-        } else {
-            // Safe Default Fallback: Standard Biped layout array profiles
-            this._criticals.leftArm = Array(12).fill(null);
-            this._criticals.rightArm = Array(12).fill(null);
-            this._criticals.leftLeg = Array(6).fill(null);
-            this._criticals.rightLeg = Array(6).fill(null);
-            this._criticals.centerLeg = [];
-            this._criticals.frontLeftLeg = [];
-            this._criticals.frontRightLeg = [];
-        }
         this._unallocatedCriticals = [];
 
         // Add required components....
@@ -5831,51 +5831,9 @@ export class BattleMech {
 
     // Overriding this currently... I will look into removing the functionality entirely later... no need to trim if you are good the first round.
     private _trimCriticals() {
-    // CORE FIXED LOCATIONS: Head (6 slots) & Torsos (12 slots) are universal
-    this._criticals.head = this._criticals.head.slice(0, 6);
-    this._criticals.centerTorso = this._criticals.centerTorso.slice(0, 12);
-    this._criticals.leftTorso = this._criticals.leftTorso.slice(0, 12);
-    this._criticals.rightTorso = this._criticals.rightTorso.slice(0, 12);
-
-    const typeTag = this._mechType.tag.toLowerCase();
-
-    // DYNAMIC LIMB TRUNCATION: Clip arrays exactly to their structural rules profiles
-    if (typeTag === "biped" || typeTag === "lam") {
-        // Standard profiles: 12-slot manipulative arms and 6-slot driving legs
-        this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
-        this._criticals.rightArm = this._criticals.rightArm.slice(0, 12);
-        this._criticals.leftLeg = this._criticals.leftLeg.slice(0, 6);
-        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6);
-        // Wipe trailing advanced slots to ensure data cleanliness as we have been doing... 
-        (this._criticals as any).centerLeg = [];
-        (this._criticals as any).frontLeftLeg = [];
-        (this._criticals as any).frontRightLeg = [];
-    } else if (typeTag === "quad" || typeTag === "quadvee") {
-        // Four-legged frames: 4 driving legs carrying exactly 6 inventory spaces each. No arms.
-        (this._criticals as any).frontLeftLeg = ((this._criticals as any).frontLeftLeg ?? []).slice(0, 6);
-        (this._criticals as any).frontRightLeg = ((this._criticals as any).frontRightLeg ?? []).slice(0, 6);
-        this._criticals.leftLeg = this._criticals.leftLeg.slice(0, 6);   // Rear Left
-        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6); // Rear Right
-        // Flush standard arm parameters
-        this._criticals.leftArm = [];
-        this._criticals.rightArm = [];
-        (this._criticals as any).centerLeg = [];
-    } else if (typeTag === "tripod") {
-        // Tripods: 3 distinct 6-slot legs alongside two standard 12-slot weapon mount arms
-        this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
-        this._criticals.rightArm = this._criticals.rightArm.slice(0, 12);
-        this._criticals.leftLeg = this._criticals.leftLeg.slice(0, 6);
-        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6);
-        (this._criticals as any).centerLeg = ((this._criticals as any).centerLeg ?? []).slice(0, 6);
-        // Flush quad tracks
-        (this._criticals as any).frontLeftLeg = [];
-        (this._criticals as any).frontRightLeg = [];
-    } else {
-        // Safe Architecture Fallback: Standard Biped profile clipping parameters
-        this._criticals.leftArm = this._criticals.leftArm.slice(0, 12);
-        this._criticals.rightArm = this._criticals.rightArm.slice(0, 12);
-        this._criticals.leftLeg = this._criticals.leftLeg.slice(0, 6);
-        this._criticals.rightLeg = this._criticals.rightLeg.slice(0, 6);
+    // Clip every location to its slot count; a location this type lacks is emptied.
+    for (const key of ["head", "centerTorso", "leftTorso", "rightTorso", "leftArm", "rightArm", "leftLeg", "rightLeg", "centerLeg", "frontLeftLeg", "frontRightLeg"]) {
+        this._criticals[key] = (this._criticals[key] ?? []).slice(0, this.getLocationSlotCount(key));
     }
 }
 
@@ -10819,22 +10777,8 @@ export class BattleMech {
         const normalizedTag = toLocTag.toLowerCase().trim();
         const typeTag = this._mechType.tag.toLowerCase();
 
-        // Determine Max Legal Slot Count for Target Location Component
-        // Head and all leg configurations are locked to exactly 6 slots in BattleTech rules blueprints
-        let maxLegalSlots = 12;
-        if (
-            normalizedTag === "hd" || 
-            normalizedTag === "ll" || 
-            normalizedTag === "rl" || 
-            normalizedTag === "cl" || 
-            normalizedTag === "fll" || 
-            normalizedTag === "frl"
-        ) {
-            maxLegalSlots = 6;
-        }
-        if (typeTag === "quadvee" && ["ll", "rl", "fll", "frl"].includes(normalizedTag)) {
-            maxLegalSlots = 2;
-        }
+        // The target location's slot count; 0 for a location this 'Mech lacks, so nothing is placed there.
+        const maxLegalSlots = this.getLocationSlotCount(normalizedTag);
 
         // Automated Unassigned Index Resolution (Find next open gap space sequence)
         if (toIndex === -1) {
@@ -14837,16 +14781,7 @@ export class BattleMech {
             }
             if( toIndex === -1 ) {
 
-                let numSlots = 12;
-                if(
-                    toLocTag === "ll"
-                    ||  toLocTag === "rl"
-                    ||  toLocTag === "hd"
-                ) {
-                    numSlots = 6;
-                }
-
-                if( toLocation.length < numSlots) {
+                if( toLocation.length < this.getLocationSlotCount( toLocTag ) ) {
                     toIndex = toLocation.length - 1;
                 }
             }
