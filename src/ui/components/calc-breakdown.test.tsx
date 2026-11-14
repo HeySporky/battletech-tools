@@ -144,6 +144,14 @@ describe("CalcBreakdown (#599)", () => {
         expect(screen.queryByRole("region", { name: "Cost" })).toBeNull();
     });
 
+    it("prints the breakdown's notes under its heading, for Battle Value and cost (#172)", () => {
+        const battleValue = (): ICalcBreakdown => ({ ...bv2([step({})]), notes: ["Built under a construction ruleset: BV note."] });
+        const cost = (): ICalcBreakdown => ({ kind: "cost", edition: "total-warfare", result: 5, steps: [step({ id: "cost.x", label: "Thing" })], notes: ["Cost note."] });
+        renderIt({ battleValue, cost });
+        expect(within(screen.getByRole("region", { name: "Battle Value" })).getByText("Built under a construction ruleset: BV note.")).toBeTruthy();
+        expect(within(screen.getByRole("region", { name: "Cost" })).getByText("Cost note.")).toBeTruthy();
+    });
+
     it("an edition tag that is not offered starts on the last one offered", () => {
         const battleValue = vi.fn(() => bv2([step({})]));
         renderIt({ battleValue, edition: "no-such-edition" });

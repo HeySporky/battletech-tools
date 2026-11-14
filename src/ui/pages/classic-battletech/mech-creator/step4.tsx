@@ -360,7 +360,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "hd", +event.currentTarget.value)}
       title="Change this BattleMech's head armor value"
     >
-      {makeRange(0, 9).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxHeadArmor()).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )
@@ -567,7 +567,7 @@ export default class MechCreatorStep4 extends React.Component<IHomeProps, IHomeS
       onChange={(event: React.FormEvent<HTMLSelectElement>) => this.setArmorLocationValue( "hd", +event.currentTarget.value)}
       title="Change this BattleMech's head armor value"
     >
-      {makeRange(0, 9).map( (armorValue) => {
+      {makeRange(0, this.props.appGlobals.currentBattleMech.getMaxHeadArmor()).map( (armorValue) => {
         return (
           <option key={armorValue} value={armorValue}>{armorValue}</option>
         )

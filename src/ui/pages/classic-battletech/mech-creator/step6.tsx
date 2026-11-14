@@ -235,7 +235,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                 1000)
               } else {
                 if( this.state.selectedItem ) {
-                  selectionMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
+                  selectionMessage = this.props.appGlobals.currentBattleMech?.getSlotFitMessage( selectedLocation, this.state.selectedItem.crits ) ?? ("Cannot place that " + this.state.selectedItem.name + " there.");
                   selectedItemName = "";
                   selectionMessageType = "danger";
                 } else {
@@ -323,7 +323,7 @@ export default class MechCreatorStep6 extends React.Component<IHomeProps, IHomeS
                 1000)
               } else {
                 if( this.state.selectedItem ) {
-                  selectionMessage = "Cannot place that "  + this.state.selectedItem.name + " there.";
+                  selectionMessage = this.props.appGlobals.currentBattleMech?.getSlotFitMessage( selectedLocation, this.state.selectedItem.crits ) ?? ("Cannot place that " + this.state.selectedItem.name + " there.");
                   selectionMessageType = "danger";
                   selectedItemName = "";
                 } else {

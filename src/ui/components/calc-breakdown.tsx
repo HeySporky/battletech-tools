@@ -134,6 +134,7 @@ export default function CalcBreakdown(props: ICalcBreakdownProps): JSX.Element {
                                     {mulDifference !== 0 && props.accuracyHref ? <Link to={props.accuracyHref}>See the Battle Value accuracy record</Link> : null}
                                 </p>
                             ) : null}
+                            {battleValue.notes?.map((note, index) => <p key={index} className="smaller-text">{note}</p>)}
                             <StepsTable steps={battleValue.steps} caption="Battle Value steps" />
                         </>
                     ) : (
@@ -145,6 +146,7 @@ export default function CalcBreakdown(props: ICalcBreakdownProps): JSX.Element {
                     <section aria-labelledby={`${id}-cost`}>
                         <h4 id={`${id}-cost`}>Cost</h4>
                         {cost.result !== null ? <p className="calc-breakdown-result"><strong>{formatNumber(cost.result)} C-bills</strong></p> : null}
+                        {cost.notes?.map((note, index) => <p key={index} className="smaller-text">{note}</p>)}
                         <StepsTable steps={cost.steps} caption="Cost steps" />
                     </section>
                 ) : null}

@@ -2,6 +2,7 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
+import { getFutureWarsWeightClass } from '../../../../data/future-wars-construction';
 import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
@@ -110,6 +111,30 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
       if( this.props.appGlobals.currentBattleMech ) {
         const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setCommandConsole( event.currentTarget.checked );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    setFutureWarsLargeCockpit = ( event: React.FormEvent<HTMLInputElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setFutureWarsLargeCockpit( event.currentTarget.checked );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    setExtraSensors = ( event: React.FormEvent<HTMLInputElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setExtraSensors( event.currentTarget.checked );
+        this.props.appGlobals.saveCurrentBattleMech( currentMech );
+      }
+    }
+
+    setExtraLifeSupport = ( event: React.FormEvent<HTMLInputElement>): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        const currentMech = this.props.appGlobals.currentBattleMech;
+        currentMech.setExtraLifeSupport( event.currentTarget.checked );
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
     }
@@ -367,6 +392,29 @@ export default class MechCreatorStep2 extends React.Component<IHomeProps, IHomeS
                                     />{" "}
                                     {availabilityOptionLabel(console)}: 3 tons, 1 head slot
                                   </label>
+                                );
+                              })()}
+                              {(() => {
+                                const mech = this.props.appGlobals.currentBattleMech;
+                                if( !mech.usesFutureWarsConstruction() ) return null;
+                                const heavy = getFutureWarsWeightClass( mech.getTonnage() )?.tag === "heavy";
+                                return (
+                                  <div data-testid="future-wars-head-options">
+                                    {heavy ? (
+                                      <label className="d-block">
+                                        <input type="checkbox" checked={mech.getFutureWarsLargeCockpit()} onChange={this.setFutureWarsLargeCockpit} />{" "}
+                                        4-ton cockpit (2 slots; Clell Flint's construction rules, Best-of p.35)
+                                      </label>
+                                    ) : null}
+                                    <label className="d-block">
+                                      <input type="checkbox" checked={mech.getExtraSensors()} onChange={this.setExtraSensors} />{" "}
+                                      Extra sensors: 1 head slot, 0.5 tons
+                                    </label>
+                                    <label className="d-block">
+                                      <input type="checkbox" checked={mech.getExtraLifeSupport()} onChange={this.setExtraLifeSupport} />{" "}
+                                      Extra life support: 1 head slot, 0.5 tons
+                                    </label>
+                                  </div>
                                 );
                               })()}
                               {(() => {

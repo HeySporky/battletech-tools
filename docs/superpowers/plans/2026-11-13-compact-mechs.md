@@ -203,11 +203,11 @@ location)`, `getFutureWarsEngineSlots(engineTons)`, `getFutureWarsCockpit(tons, 
 **Files:** `src/ui/pages/classic-battletech/mech-creator/` (the criticals page and the step that holds the cockpit),
 `src/ui/components/edition-choice.tsx` only if the ruleset needs a description there; page tests beside them.
 
-- [ ] **Step 1:** Failing tests: the ruleset is offered at Custom Homebrew and not below; under it the criticals page
+- [x] **Step 1:** Failing tests: the ruleset is offered at Custom Homebrew and not below; under it the criticals page
   shows each location at its class's length; the heavy cockpit choice and the two extras appear only under it.
-- [ ] **Step 2:** Implement, fixing the UI sites Chunk A listed. Then run the app: build a 35-ton and a 100-ton
+- [x] **Step 2:** Implement, fixing the UI sites Chunk A listed. Then run the app: build a 35-ton and a 100-ton
   'Mech under the ruleset by hand.
-- [ ] **Step 3:** Unit tests, `npm run check`, commit `Custom Homebrew: Future Wars construction in the 'Mech creator
+- [x] **Step 3:** Unit tests, `npm run check`, commit `Custom Homebrew: Future Wars construction in the 'Mech creator
   (#172)`, push, ledger, handoff.
 
 ## Chunk D: Record sheet and play mode
