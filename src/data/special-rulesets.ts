@@ -14,6 +14,7 @@
  */
 
 import { RulesEditionUnitType } from "./rules-editions";
+import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
 
 // Special Rulesets (#324): optional and homebrew rules that change how the game plays or how units are built. They
 // are chosen first in the shared settings block, so each can set the minimum edition and narrow every list below it.
@@ -47,7 +48,34 @@ export interface ISpecialRuleset {
     changes: string[];
 }
 
+/** What both printings of Clell Flint's construction rules say, for the ruleset list. */
+const FUTURE_WARS_CONSTRUCTION_DESCRIPTION = "Clell Flint's alternate rules for building two-legged 'Mechs (#172, \"Compact 'Mechs\"): "
+    + "a 'Mech's critical slots go by its weight class (a light 'Mech has a 5-slot head, 6-slot arms, 7-slot legs and side torsos and an "
+    + "11-slot center torso; an assault 'Mech 8, 12, 16 and 20). The head has 3 to 6 internal structure points by class and at most twice "
+    + "that in armor. The cockpit is 2 tons for a light 'Mech, 3 for a medium or most heavies, 4 for a few heavies and every assault, "
+    + "with its own life support; extra sensors and extra life support are a slot and half a ton each. The engine takes 4 to 10 center "
+    + "torso slots by its weight and the gyro one slot a ton. Ours, not Flint's: two-legged 'Mechs of up to 100 tons only (his "
+    + "four-legged rules are the Walker unit type); Battle Value and cost by the edition's rules on the design as built; the order of "
+    + "the head's items; half the engine before the gyro and half after; no small, torso-mounted or interface cockpit.";
+
 export const btSpecialRulesets: ISpecialRuleset[] = [
+    // Both printings print the same rules for two-legged 'Mechs; they differ only on walkers (owner ruling 3, 2026-11-13).
+    {
+        id: "best-of-future-wars-construction",
+        name: "Future Wars: Alternate 'Mech construction (Best of Future Wars printing)",
+        description: FUTURE_WARS_CONSTRUCTION_DESCRIPTION,
+        source: { title: "Clell Flint, 'Alternate Rules for Building Mechs in BattleTech', The Best of Future Wars, Volume One (1991), pp.35-36" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["mechConstruction"],
+    },
+    {
+        id: "future-wars-11-construction",
+        name: "Future Wars: Alternate 'Mech construction (Future Wars #11 printing)",
+        description: FUTURE_WARS_CONSTRUCTION_DESCRIPTION,
+        source: { title: "Clell Flint, 'Alternative Rules for Building Mechs in BattleTech', Future Wars #11, p.24" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["mechConstruction"],
+    },
     {
         id: "sample-no-clans",
         name: "Sample: The Clans never existed (alternate universe)",

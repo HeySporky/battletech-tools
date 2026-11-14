@@ -48,6 +48,8 @@ export interface ICalcBreakdown {
     steps: ICalcStep[];
     /** Null where the edition has no such value (no Battle Value before the Master Rules). */
     result: number | null;
+    /** Plain-text notes on the whole breakdown (a construction ruleset it was worked out under). */
+    notes?: string[];
 }
 
 export interface ICalcStepInput {

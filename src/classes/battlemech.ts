@@ -1,3 +1,5 @@
+import { FUTURE_WARS_CONSTRUCTION_RULESETS, FUTURE_WARS_EXTRA_SLOT_TONS, FUTURE_WARS_SENSOR_SLOTS, IFutureWarsCockpit, getFutureWarsCockpit, getFutureWarsEngineSlots, getFutureWarsGyroSlots, getFutureWarsSlots, getFutureWarsWeightClass } from "../data/future-wars-construction";
+import { findSpecialRuleset } from "../data/special-rulesets";
 import { CalcTrace, ICalcBreakdown, ICalcCitation, ICalcStep, formatCalcNumber, renderCalcStepsHtml, renderCalcStepsTable } from "../data/calc-steps";
 import { MECH_COST_STEPS, getMechCostStep } from "../data/calc-steps-mech-cost";
 import { NO_BATTLE_VALUE_STEPS, getMechBv1Steps } from "../data/calc-steps-mech-bv1";
@@ -321,6 +323,12 @@ export interface IBattleMechExport {
     rulesLevel?: number;
     /** Special Rulesets the design is built under (ids from special-rulesets.ts); absent when none. */
     rulesets?: string[];
+    /** Clell Flint's construction rules (#172): a heavy 'Mech's 4-ton, two-slot cockpit; absent when not chosen. */
+    futureWarsLargeCockpit?: boolean;
+    /** Clell Flint's construction rules: extra sensors, a head slot and half a ton; absent when not fitted. */
+    extraSensors?: boolean;
+    /** Clell Flint's construction rules: extra life support, a head slot and half a ton; absent when not fitted. */
+    extraLifeSupport?: boolean;
     introductoryRules?: boolean;
     is_type: string;
     jumpSpeed: number;
@@ -602,6 +610,12 @@ export class BattleMech {
     private _torsoMountedCockpit: boolean = false;
     /** BattleMech Interface Cockpit (IO:AE p.110). */
     private _interfaceCockpit: boolean = false;
+    /** Clell Flint's construction rules (#172): a heavy 'Mech's 4-ton cockpit ("a few heavy mechs", Best-of p.35). */
+    private _futureWarsLargeCockpit: boolean = false;
+    /** Clell Flint's construction rules: extra sensors, +1 head slot and +0.5 t (Best-of p.35). */
+    private _extraSensors: boolean = false;
+    /** Clell Flint's construction rules: extra life support, +1 head slot and +0.5 t (Best-of p.35). */
+    private _extraLifeSupport: boolean = false;
     /** Smart Robotic Control System on top of the cockpit (IO:AE p.134); "none" for a piloted 'Mech. */
     private _roboticControl: RoboticControlTag = "none";
     // IndustrialMechs: the Advanced Fire Control cockpit enhancement (TM p.69). An option, off by default.
@@ -780,6 +794,9 @@ export class BattleMech {
         this._smallCockpit = false;
         this._torsoMountedCockpit = false;
         this._interfaceCockpit = false;
+        this._futureWarsLargeCockpit = false;
+        this._extraSensors = false;
+        this._extraLifeSupport = false;
         this._criticalAllocationTable = [];
         this._calc();
     }
@@ -2266,7 +2283,8 @@ export class BattleMech {
     /** The C-bill cost calculation as cited steps. */
     public getCostBreakdown(): ICalcBreakdown {
         this._calcCBillCost();
-        return { kind: "cost", edition: this._rulesEdition, steps: this._costSteps, result: this.getCBillCostNumeric() };
+        const notes = this._futureWarsBreakdownNotes(this._rulesEdition);
+        return { kind: "cost", edition: this._rulesEdition, steps: this._costSteps, result: this.getCBillCostNumeric(), ...(notes ? { notes } : {}) };
     }
 
     public getNumberOfJumpJets() {
@@ -2287,7 +2305,9 @@ export class BattleMech {
     public getBattleValueBreakdown(edition: string = this._rulesEdition): ICalcBreakdown {
         // Always recalculated: the steps quote names and numbers that can change without a slot move marking the BV stale.
         this._calcBattleValue();
-        return this._getBattleValueBreakdown(edition);
+        const breakdown = this._getBattleValueBreakdown(edition);
+        const notes = this._futureWarsBreakdownNotes(edition);
+        return notes ? { ...breakdown, notes } : breakdown;
     }
 
     /** The breakdown under `edition`, from the BV2 steps already worked out. */
@@ -2561,6 +2581,9 @@ export class BattleMech {
         // A superheavy IndustrialMech takes the superheavy BattleMech cockpit when it has Advanced Fire Control.
         if (superheavy) return getCockpitType(this.isIndustrialMech() && !this._advancedFireControl ? "superheavy-industrial" : "superheavy");
         if (this.isIndustrialMech()) return getCockpitType(this._advancedFireControl ? "industrial-advanced-fire-control" : "industrial");
+        // Flint's cockpit rule replaces the cockpit choice: a small, torso-mounted or interface cockpit chosen before the
+        // ruleset was ticked is built as his (owner ruling 4, 2026-11-13).
+        if (this.usesFutureWarsConstruction()) return getCockpitType("standard");
         return getCockpitType(this._torsoMountedCockpit ? "torso-mounted" : this._smallCockpit ? "small" : this._interfaceCockpit ? "interface" : "standard");
     }
 
@@ -2628,6 +2651,7 @@ export class BattleMech {
             : mandatory ? [current.tag]
             : superheavyIndustrial ? ["superheavy-industrial", "superheavy"]
             : this.isIndustrialMech() ? ["industrial", "industrial-advanced-fire-control"]
+            : this.usesFutureWarsConstruction() ? ["standard"]
             : ["standard", "small", "torso-mounted", "interface"];
         return tags.map(tag => {
             // Copies: the availability marks are this 'Mech's, not the shared table's (issue 35).
@@ -4384,7 +4408,7 @@ export class BattleMech {
                 name: this.getCockpitType().name,
                 weight: this.getCockpitWeight()
             });
-        } else if( this._smallCockpit || this._torsoMountedCockpit || this._interfaceCockpit ) {
+        } else if( (this._smallCockpit || this._torsoMountedCockpit || this._interfaceCockpit) && !this.usesFutureWarsConstruction() ) {
             this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: this.getCockpitType().name,
@@ -4396,6 +4420,17 @@ export class BattleMech {
                 name: "Cockpit",
                 weight: this.getCockpitWeight()
             });
+        }
+        // Clell Flint's cockpit weighs by class, its life support included (Best-of p.35); a Primitive cockpit keeps
+        // its own weight (ours). Extra sensors and extra life support are half a ton each.
+        const futureWarsCockpit = this._getFutureWarsCockpit();
+        if (futureWarsCockpit) {
+            this._cockpitWeight = futureWarsCockpit.tons;
+            this._weights[this._weights.length - 1].weight = futureWarsCockpit.tons;
+        }
+        if (this.usesFutureWarsConstruction()) {
+            if (this._extraSensors) this._weights.push({ name: "Extra Sensors", weight: FUTURE_WARS_EXTRA_SLOT_TONS });
+            if (this._extraLifeSupport) this._weights.push({ name: "Extra Life Support", weight: FUTURE_WARS_EXTRA_SLOT_TONS });
         }
         if (this.hasCommandConsole()) {
             const console = getCockpitType("command-console");
@@ -4844,6 +4879,124 @@ export class BattleMech {
         rll: "leftLeg", rrl: "rightLeg",
     };
 
+    // ---- Clell Flint's alternate construction rules (#172, "Compact 'Mechs"; src/data/future-wars-construction.ts) ----
+
+    /** The ticked Future Wars construction ruleset that the registry lists, or undefined. */
+    private _futureWarsRuleset(): string | undefined {
+        return this._rulesets.find(id => (FUTURE_WARS_CONSTRUCTION_RULESETS as readonly string[]).includes(id) && !!findSpecialRuleset(id));
+    }
+
+    /**
+     * Is this 'Mech built under Clell Flint's construction rules? Only a two-legged BattleMech or IndustrialMech of up
+     * to 100 tons (ours: his four-legged rules are the Walker unit type, and his tables stop at 100 tons); any other
+     * type with the ruleset ticked is built by the standard rules and reported (getChassisEquipmentViolations).
+     */
+    public usesFutureWarsConstruction(): boolean {
+        return !!this._futureWarsRuleset() && this._mechType.tag.toLowerCase() === "biped" && !!getFutureWarsWeightClass(this._tonnage);
+    }
+
+    /** Flint's cockpit for this 'Mech, when the ruleset is in use and the cockpit is one it replaces. */
+    private _getFutureWarsCockpit(): IFutureWarsCockpit | undefined {
+        if (!this.usesFutureWarsConstruction() || this._primitive) return undefined;
+        return getFutureWarsCockpit(this._tonnage, this.getFutureWarsLargeCockpit());
+    }
+
+    /** A heavy 'Mech's 4-ton, two-slot cockpit ("a few heavy mechs", Best-of p.35). False for any other class. */
+    public getFutureWarsLargeCockpit(): boolean {
+        return this._futureWarsLargeCockpit && getFutureWarsWeightClass(this._tonnage)?.tag === "heavy";
+    }
+
+    public setFutureWarsLargeCockpit(large: boolean): boolean {
+        this._futureWarsLargeCockpit = large;
+        this._calc();
+        return this.getFutureWarsLargeCockpit();
+    }
+
+    /** Special or additional sensors: one more head slot and half a ton (Best-of p.35). Kept, but unbuilt, without the ruleset. */
+    public getExtraSensors(): boolean {
+        return this._extraSensors;
+    }
+
+    public setExtraSensors(fitted: boolean): boolean {
+        this._extraSensors = fitted;
+        this._calc();
+        return this._extraSensors;
+    }
+
+    /** Extra life support: one more head slot and half a ton (Best-of p.35). Kept, but unbuilt, without the ruleset. */
+    public getExtraLifeSupport(): boolean {
+        return this._extraLifeSupport;
+    }
+
+    public setExtraLifeSupport(fitted: boolean): boolean {
+        this._extraLifeSupport = fitted;
+        this._calc();
+        return this._extraLifeSupport;
+    }
+
+    /** The head's armor cap: 9, or twice the head's structure under Flint's rules (Best-of p.35). */
+    public getMaxHeadArmor(): number {
+        return this.usesFutureWarsConstruction() ? (this._internalStructure.head ?? 0) * 2 : 9;
+    }
+
+    /** " on a light 'Mech under Clell Flint's construction rules", or nothing without them. */
+    private _futureWarsClassPhrase(): string {
+        const weightClass = this.usesFutureWarsConstruction() ? getFutureWarsWeightClass(this._tonnage) : undefined;
+        return weightClass ? ` on a ${weightClass.name.toLowerCase()} 'Mech under Clell Flint's construction rules` : "";
+    }
+
+    /** Why an item of `size` slots cannot go in `location` at all, or undefined when the location is long enough. */
+    public getSlotFitMessage(location: string, size: number): string | undefined {
+        const slots = this.getLocationSlotCount(location);
+        if (size <= slots) return undefined;
+        const name = getLocationName(BattleMech._SLOT_TAGS[location] ?? location, this._hasFrontLegs()).toLowerCase();
+        return `A ${size}-slot item cannot fit the ${name}: it has ${slots} critical slots${this._futureWarsClassPhrase()}.`;
+    }
+
+    /** Critical table names to location tags, for messages. */
+    private static readonly _SLOT_TAGS: Record<string, string> = {
+        head: "hd", centerTorso: "ct", leftTorso: "lt", rightTorso: "rt", leftArm: "la", rightArm: "ra",
+        leftLeg: "ll", rightLeg: "rl", centerLeg: "cl", frontLeftLeg: "fll", frontRightLeg: "frl",
+    };
+
+    /**
+     * What Flint's rules, or a ruleset gone from the registry, leave wrong: the ruleset ticked on a 'Mech it does not
+     * build; a ruleset the app no longer lists; head armor over twice the head's structure; and each item whose saved
+     * slots now run past the end of its location, left unallocated rather than cut.
+     */
+    private _getFutureWarsConstructionIssues(): string[] {
+        const issues: string[] = [];
+        for (const id of this._rulesets) {
+            if (!findSpecialRuleset(id)) {
+                issues.push(`Built under the Special Ruleset "${id}", which this version of the app does not list: checked by the standard rules.`);
+            }
+        }
+        if (this._futureWarsRuleset() && !this.usesFutureWarsConstruction()) {
+            issues.push(`Clell Flint's construction rules (Special Ruleset) are for two-legged 'Mechs of up to 100 tons; this ${this._mechType.name} is built by the standard rules. His four-legged rules are Walkers, a unit type of their own.`);
+        }
+        if (this.usesFutureWarsConstruction() && this._armorAllocation.head > this.getMaxHeadArmor()) {
+            issues.push(`Head armor ${this._armorAllocation.head} is more than twice the head's ${this._internalStructure.head} internal structure points (Clell Flint's construction rules, Best-of p.35): at most ${this.getMaxHeadArmor()}.`);
+        }
+        const unallocated = new Map(this._unallocatedCriticals.filter(slot => slot?.uuid).map(slot => [slot.uuid, slot]));
+        const reported = new Set<string>();
+        for (const saved of this._criticalAllocationTable) {
+            const item = unallocated.get(saved.uuid);
+            if (!item || reported.has(saved.uuid) || !saved.loc || saved.loc === "un" || typeof saved.slot !== "number") continue;
+            const slots = this.getLocationSlotCount(saved.loc);
+            if (saved.slot + (saved.size ?? saved.crits ?? 1) <= slots) continue;
+            reported.add(saved.uuid);
+            const name = getLocationName(saved.loc, this._hasFrontLegs()).toLowerCase();
+            issues.push(`${item.name} no longer fits the ${name} (${slots} critical slots${this._futureWarsClassPhrase()}): it is unallocated.`);
+        }
+        return issues;
+    }
+
+    /** The note on a Battle Value or cost breakdown worked out under Flint's rules, which give neither. */
+    private _futureWarsBreakdownNotes(edition: string): string[] | undefined {
+        if (!this.usesFutureWarsConstruction()) return undefined;
+        return [`Built under Clell Flint's alternate construction rules (Future Wars); Battle Value and cost by ${getRulesEdition(edition).name} on the design as built.`];
+    }
+
     /**
      * How many critical slots a location has on this 'Mech: head and legs 6, torsos and arms 12, a QuadVee leg 2, and 0
      * for a location this type lacks (a quad's arms, a biped's center leg) or an armless 'Mech's arms. Takes a location
@@ -4855,6 +5008,11 @@ export class BattleMech {
         const key: string | undefined = BattleMech._SLOT_LOCATION_KEYS[raw.toLowerCase()]
             ?? Object.values(BattleMech._SLOT_LOCATION_KEYS).find(name => name.toLowerCase() === raw.toLowerCase());
         if (!key) return 0;
+        // Clell Flint's construction rules size every location by weight class (Best-of p.35).
+        if (this.usesFutureWarsConstruction()) {
+            if ((key === "leftArm" || key === "rightArm") && this.isArmless()) return 0;
+            return getFutureWarsSlots(this._tonnage, key) ?? 0;
+        }
         const typeTag = this._mechType.tag.toLowerCase();
         const fourLegged = typeTag === "quad" || typeTag === "quadvee";
         switch (key) {
@@ -4904,7 +5062,19 @@ export class BattleMech {
             : typeTag === "tripod" ? (this._tonnage > 100 ? "Superheavy Tripod Cockpit" : "Tripod Cockpit")
             : isSuperheavyCockpit ? "Superheavy Cockpit" : "Cockpit";
         const torsoMountedCockpit = this.getCockpitType().tag === "torso-mounted";
-        if( torsoMountedCockpit ) {
+        const futureWarsCockpit = this.usesFutureWarsConstruction()
+            ? (this._getFutureWarsCockpit() ?? getFutureWarsCockpit(this._tonnage, this.getFutureWarsLargeCockpit()))
+            : undefined;
+        if( futureWarsCockpit ) {
+            // Clell Flint's head (Best-of p.35): the cockpit's life support, two sensor slots, the cockpit, in that
+            // order (ours), each extra beside its kind. The rest of the head is free.
+            const lifeSupport = futureWarsCockpit.lifeSupportSlots + (this._extraLifeSupport ? 1 : 0);
+            const sensors = FUTURE_WARS_SENSOR_SLOTS + (this._extraSensors ? 1 : 0);
+            let headSlot = 0;
+            for (let slot = 0; slot < lifeSupport; slot++) this._addCriticalItem("life-support", "Life Support", 1, "hd", headSlot++);
+            for (let slot = 0; slot < sensors; slot++) this._addCriticalItem("sensors", "Sensors", 1, "hd", headSlot++);
+            this._addCriticalItem(cockpitTag, cockpitName, futureWarsCockpit.slots, "hd", headSlot);
+        } else if( torsoMountedCockpit ) {
             // The head keeps its 2 sensor slots; cockpit and sensors go in the center torso, and Life Support in
             // each side torso, after the engine and gyro below (TO:AUE p.112).
             this._addCriticalItem( "sensors", "Sensors", 1, "hd", 0);
@@ -4940,7 +5110,8 @@ export class BattleMech {
         }
         // The console sits beside the cockpit, in the cockpit's own location (TO:AUE p.112).
         if (this.hasCommandConsole()) {
-            this._addCriticalItem("command-console", "Command Console", 1, "hd", 3);
+            // Under Flint's rules the console takes the head's first free slot (ours).
+            this._addCriticalItem("command-console", "Command Console", 1, "hd", futureWarsCockpit ? null : 3);
         }
         if (typeTag === "quadvee") {
             this._addCriticalItem(cockpitTag, "Cockpit (Gunner)", 1, "hd", 3);
@@ -5005,8 +5176,13 @@ export class BattleMech {
         // FIRST ENGINE BLOCK (Slots 1-3): Seats the upper drive mechanism
         // If an engine takes 6 slots, we limit the first sequential chunk to exactly 3 slots. Currently unless I can find something canonical or homebrew somewhere
         // A superheavy 'Mech's engine takes half its usual slots in each location, rounded up (IO:AE p.156).
-        const engineCriticalTorso = this.getCriticalSlots((engineCrits.ct ?? 0) + (this.isLargeEngine() && !largeEngineCrits ? 2 : 0));
-        const initialEngineAllocation = engineCriticalTorso > 3 ? 3 : engineCriticalTorso;
+        // Under Clell Flint's rules every engine's center torso slots go by its weight (Best-of p.36); half go before
+        // the gyro and the rest after it (ours, as the standard 3 + 3).
+        const engineCriticalTorso = futureWarsCockpit
+            ? getFutureWarsEngineSlots(this.getEngineWeight() ?? 0)
+            : this.getCriticalSlots((engineCrits.ct ?? 0) + (this.isLargeEngine() && !largeEngineCrits ? 2 : 0));
+        const initialEngineAllocation = futureWarsCockpit ? Math.ceil(engineCriticalTorso / 2)
+            : engineCriticalTorso > 3 ? 3 : engineCriticalTorso;
         if (initialEngineAllocation > 0) {
             this._addCriticalItem(
                 "engine", 
@@ -5020,7 +5196,8 @@ export class BattleMech {
         this._addCriticalItem(
             "gyro",
             this._gyro.name,
-            this._tonnage > 100 ? 2 : this._gyro.criticals,
+            // Flint: "Gyroscopes take up one critical space per ton" (Best-of p.36).
+            futureWarsCockpit ? getFutureWarsGyroSlots(this.getGyroWeight()) : this._tonnage > 100 ? 2 : this._gyro.criticals,
             "ct"
         );
         // SECOND ENGINE BLOCK (Slots 7-9): Handles the trailing split block for 6-slot engines
@@ -5730,7 +5907,10 @@ export class BattleMech {
         beginSlot: number,
         selfUUID: string,
     ): boolean {
-
+        // An item never runs past the end of its location: the slots past it would be cut off, and the item lost.
+        if( beginSlot + criticalCount > areaArray.length ) {
+            return false;
+        }
         for( let countItem = 0; countItem < criticalCount; countItem++) {
             if(
                 areaArray[beginSlot + countItem]
@@ -6944,6 +7124,15 @@ export class BattleMech {
      * going back to the edition the design just left re-imports the save it had there.
      */
     public applyGameSettings(settings: IGameSettings): void {
+        const futureWarsBefore = this.usesFutureWarsConstruction();
+        this._applyGameSettings(settings);
+        // Ticking or unticking Flint's construction rules changes the head's structure and every location's slots.
+        if (this.usesFutureWarsConstruction() !== futureWarsBefore) {
+            this.setTonnage(this._tonnage);
+        }
+    }
+
+    private _applyGameSettings(settings: IGameSettings): void {
         if (settings.edition !== this._rulesEdition) {
             const back = this._rulesEditionReturn;
             const awayLevel = this._rulesLevel;
@@ -8238,7 +8427,7 @@ export class BattleMech {
 
     /** Chassis-specific equipment limits (LAM Bomb Bays and other per-unit caps). */
     public getChassisEquipmentViolations(): string[] {
-        const violations: string[] = [];
+        const violations: string[] = this._getFutureWarsConstructionIssues();
         // The Clans do not build superheavy 'Mechs (IO:AE p.154).
         if (this.isSuperheavy() && (this._tech.tag === "clan" || this._tech.tag === "mclan")) {
             violations.push("Superheavy 'Mechs are available only to the Inner Sphere tech base.");
@@ -8639,8 +8828,10 @@ export class BattleMech {
           : { leftArm: editionBoxes.arm, rightArm: editionBoxes.arm }),
         ...(mechTypeKey === "tripod" ? { centerLeg: editionBoxes.leg } : {}),
       } : listedStructure;
-      // Assigning core internal structure properties
-      this._internalStructure.head = structureData.head;
+      // Assigning core internal structure properties. Clell Flint's head has 3 to 6 points by class (Best-of p.35).
+      this._internalStructure.head = this.usesFutureWarsConstruction()
+        ? getFutureWarsWeightClass(tonnage)!.headStructure
+        : structureData.head;
       this._internalStructure.centerTorso = structureData.centerTorso;
       this._internalStructure.leftTorso = structureData.leftTorso;
       this._internalStructure.rightTorso = structureData.rightTorso;
@@ -8677,8 +8868,8 @@ export class BattleMech {
       // A FrankenMech location keeps the structure of the 'Mech it came from (CO p.213).
       this._applyFrankenMechStructure(mechTypeKey);
 
-      // Establish core fixed armor allocations (Head maximum is 9; Torsos carry 2x internal structure)
-      this._maxArmor = 9 + 
+      // Establish core fixed armor allocations (Head maximum is 9, or Flint's; Torsos carry 2x internal structure)
+      this._maxArmor = this.getMaxHeadArmor() +
         (this._internalStructure.centerTorso * 2) + 
         (this._internalStructure.leftTorso * 2) + 
         (this._internalStructure.rightTorso * 2);
@@ -8780,7 +8971,7 @@ export class BattleMech {
         private getChassisMaxArmor(torsoSections: number = this.torsoArmorSectionsApart() ? 2 : 1): number {
       // Dynamic fallback calculation: Head maximum is 9; Torso locations carry 2x internal structure, front and
       // rear together, or each section apart through the BattleTech Manual (BD p.25, BT2 p.40, BTM p.80)
-      let totalMaxArmor = 9 +
+      let totalMaxArmor = this.getMaxHeadArmor() +
         (this._internalStructure.centerTorso * 2 * torsoSections) + 
         (this._internalStructure.leftTorso * 2 * torsoSections) + 
         (this._internalStructure.rightTorso * 2 * torsoSections);
@@ -9099,6 +9290,9 @@ export class BattleMech {
             rulesEditionReturn: this._rulesEditionReturn,
             rulesLevel: this._rulesLevel,
             rulesets: this._rulesets.length > 0 ? [...this._rulesets] : undefined,
+            futureWarsLargeCockpit: this._futureWarsLargeCockpit || undefined,
+            extraSensors: this._extraSensors || undefined,
+            extraLifeSupport: this._extraLifeSupport || undefined,
             features: [],
             gyro: this._gyro.tag,
             heat_sink_type: this.getHeatSinksType(),
@@ -9470,6 +9664,9 @@ export class BattleMech {
             this._rulesLevel = typeof importObject.rulesLevel === "number" ? importObject.rulesLevel : undefined;
             this._rulesets = Array.isArray(importObject.rulesets) ? importObject.rulesets.filter((id: unknown): id is string => typeof id === "string") : [];
             this._printedDroid = importObject.printedDroid || undefined;
+            this._futureWarsLargeCockpit = importObject.futureWarsLargeCockpit === true;
+            this._extraSensors = importObject.extraSensors === true;
+            this._extraLifeSupport = importObject.extraLifeSupport === true;
             this._rulesEditionReturn = importObject.rulesEditionReturn || undefined;
 
             this.setTonnage(importObject.tonnage);
@@ -12170,7 +12367,7 @@ export class BattleMech {
         const isTripod = typeTag === "tripod";
         // Generate a zeroed structure record to populate safely
         const maxAllocation: IArmorAllocation = {
-            head: 9, // Absolute standard max ceiling rule for Head locations
+            head: this.getMaxHeadArmor(), // 9, or twice the head's structure under Flint's rules
             centerTorso: Math.ceil((internalStructure.centerTorso || 0) * (5 / 3)),
             rightTorso: Math.ceil((internalStructure.rightTorso || 0) * (5 / 3)),
             leftTorso: Math.ceil((internalStructure.leftTorso || 0) * (5 / 3)),
@@ -12226,7 +12423,7 @@ export class BattleMech {
      */
     public getMaxLocationArmor(location: string): number {
         switch (location) {
-            case "head": return 9;
+            case "head": return this.getMaxHeadArmor();
             case "centerTorso": return this.getMaxCenterTorsoArmor();
             case "centerTorsoRear": return this.getMaxCenterTorsoRearArmor();
             case "leftTorso": return this.getMaxLeftTorsoArmor();

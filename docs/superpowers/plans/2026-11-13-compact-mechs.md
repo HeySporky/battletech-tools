@@ -165,6 +165,12 @@ change on an invalid move: a location the 'Mech lacks counts 0, so nothing can b
 
 ## Chunk B: The ruleset
 
+**Done 2026-11-14.** Pages pp.35-36 re-read: the Rules table above agrees. Ours, beyond the table: half the engine
+before the gyro and half after; a Primitive cockpit keeps its weight; extras carry no cost; the Command Console
+takes the head's first free slot; an item can no longer be placed past the end of a location (all 'Mechs). The
+breakdowns carry a `notes` line (shown in Chunk C). Issues go through `getChassisEquipmentViolations`. Ledger:
+`.superpowers/sdd/2026-11-13-compact-mechs/progress.md`.
+
 **Files:** Modify `src/data/special-rulesets.ts` (+ test), `src/classes/battlemech.ts`; create
 `src/data/future-wars-construction.ts` (the tables) and `src/classes/battlemech-future-wars.test.ts`.
 
