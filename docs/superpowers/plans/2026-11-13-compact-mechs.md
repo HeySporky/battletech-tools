@@ -234,10 +234,10 @@ section.
 
 ## Chunk E: Verify and report
 
-- [ ] **Step 1:** `npm run check`; confirm no bundled design changed.
-- [ ] **Step 2:** Comment on #172 with what is in, and what the walker and fanzine plans still owe. Leave the issue open
+- [x] **Step 1:** `npm run check`; confirm no bundled design changed.
+- [x] **Step 2:** Comment on #172 with what is in, and what the walker and fanzine plans still owe. Leave the issue open
   until they are done.
-- [ ] **Step 3:** Ask the owner about shipping. No deploy, `master` fast-forward or news entry without the answer.
+- [ ] **Step 3 (asked, awaiting the owner):** Ask the owner about shipping. No deploy, `master` fast-forward or news entry without the answer.
 
 ## Other material in the Best-of (owner ruling 5: all of it; see the fanzine plan)
 
