@@ -10,6 +10,7 @@ import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../data/rules-level-options";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
+import { getCockpitType } from "../data/mech-cockpit-types";
 import { findSpecialRuleset } from "../data/special-rulesets";
 import {
     FUTURE_WARS_CONSTRUCTION_RULESETS,
@@ -24,8 +25,12 @@ import {
     IWalkerEditionRules,
     WALKER_DEFAULT_EDITION,
     WALKER_EDITION_RULES,
+    WALKER_BATTLEMECH_ENGINE_TYPES,
     WALKER_ENGINE_TYPES,
     WALKER_GYRO_TYPES,
+    WALKER_INDUSTRIAL_ENGINE_TYPES,
+    WALKER_INDUSTRIAL_GYRO_TYPES,
+    WALKER_INDUSTRIAL_STRUCTURE_FACTOR,
     WALKER_LEGS,
     WALKER_LOCATIONS,
     WALKER_LOCATION_NAMES,
@@ -74,6 +79,10 @@ export interface IWalkerExport {
     techBase: WalkerTechTag;
     engineType: WalkerEngineType;
     gyroType: WalkerGyroType;
+    /** An industrial walker (ours); absent means a BattleMech walker. */
+    industrial?: boolean;
+    /** An industrial walker's Advanced Fire Control (TechManual p.69). */
+    advancedFireControl?: boolean;
     turret?: boolean;
     /** A heavy walker's 4-ton cockpit under the variant. */
     largeCockpit?: boolean;
@@ -133,6 +142,8 @@ export default class Walker implements IGameSettingsUnit {
     private _tech: WalkerTechTag = "is";
     private _engineType: WalkerEngineType = "standard";
     private _gyroType: WalkerGyroType = "standard";
+    private _industrial: boolean = false;
+    private _advancedFireControl: boolean = false;
     private _turret: boolean = false;
     private _largeCockpit: boolean = false;
     private _extraSensors: boolean = false;
@@ -182,7 +193,16 @@ export default class Walker implements IGameSettingsUnit {
     public getEdition(): WalkerEdition { return this._edition; }
     public getEditionRules(): IWalkerEditionRules { return WALKER_EDITION_RULES[this._edition]; }
     public setEdition(edition: WalkerEdition): void { if (isWalkerEdition(edition)) this._edition = edition; }
-    public getCredit(): string { return getWalkerCredit(this._edition); }
+    public getCredit(): string { return getWalkerCredit(this._edition, this._industrial); }
+
+    /**
+     * An industrial walker (owner ruling 2026-11-14; ours, inspired by Flint and the IndustrialMech rules). Switching
+     * keeps the engine and gyro; one the chassis does not allow is reported by getIssues, nothing is changed.
+     */
+    public isIndustrial(): boolean { return this._industrial; }
+    public setIndustrial(industrial: boolean): void { this._industrial = !!industrial; }
+    public hasAdvancedFireControl(): boolean { return this._industrial && this._advancedFireControl; }
+    public setAdvancedFireControl(fitted: boolean): void { this._advancedFireControl = !!fitted; }
 
     /** Flint's variant slots: a Future Wars construction ruleset (either printing) is ticked and registered. */
     public usesVariantSlots(): boolean {
@@ -223,9 +243,13 @@ export default class Walker implements IGameSettingsUnit {
     public getEngineType(): WalkerEngineType { return this._engineType; }
     private _engineRecord() { return mechEngineTypes.find((type) => type.tag === this._engineType)!; }
     public getEngineName(): string { return this._engineRecord().name; }
-    /** Engine types with slot data for the tech base; an Inner Sphere walker takes no Clan engine and the reverse. */
+    /**
+     * Engine types for the chassis (fusion for a BattleMech walker, the IndustrialMech's for an industrial one) with
+     * slot data for the tech base; an Inner Sphere walker takes no Clan engine and the reverse.
+     */
     public getEngineTypeOptions(): WalkerEngineType[] {
-        return WALKER_ENGINE_TYPES.filter((tag) => {
+        const chassis = this._industrial ? WALKER_INDUSTRIAL_ENGINE_TYPES : WALKER_BATTLEMECH_ENGINE_TYPES;
+        return chassis.filter((tag) => {
             const record = mechEngineTypes.find((type) => type.tag === tag);
             if (!record?.criticals?.[this._tech]) return false;
             return this._tech === "clan" ? tag !== "xl" && tag !== "xxl" : !tag.startsWith("clan_");
@@ -249,6 +273,7 @@ export default class Walker implements IGameSettingsUnit {
     public getGyroName(): string { return this._gyroRecord().name; }
     /** Every 'Mech gyro but "none"; the XL, Compact and Heavy-Duty gyros are Inner Sphere only. */
     public getGyroTypeOptions(): WalkerGyroType[] {
+        if (this._industrial) return [...WALKER_INDUSTRIAL_GYRO_TYPES];
         return WALKER_GYRO_TYPES.filter((tag) => this._tech === "is" || !mechGyroTypes.find((gyro) => gyro.tag === tag)?.innerSphereOnly);
     }
     public setGyroType(tag: string): boolean {
@@ -268,7 +293,13 @@ export default class Walker implements IGameSettingsUnit {
     private _variantCockpit() {
         return this.usesVariantSlots() ? getFutureWarsCockpit(this._tons, this.getLargeCockpit()) : undefined;
     }
-    public getCockpitWeight(): number { return this._variantCockpit()?.tons ?? STANDARD_COCKPIT_TONS; }
+    /** Under the variant Flint's cockpit weight applies to an industrial walker too (ours, as on a Compact IndustrialMech). */
+    public getCockpitWeight(): number { return this._variantCockpit()?.tons ?? (this._industrial ? getCockpitType("industrial").weight : STANDARD_COCKPIT_TONS); }
+    /** The cockpit's name: the IndustrialMech cockpit, with or without Advanced Fire Control (TechManual p.211), or "Cockpit". */
+    public getCockpitName(): string {
+        if (!this._industrial) return "Cockpit";
+        return getCockpitType(this._advancedFireControl ? "industrial-advanced-fire-control" : "industrial").name;
+    }
     /** A heavy walker's 4-ton cockpit ("a few heavy mechs", Best-of p.35); false for any other class or without the variant. */
     public getLargeCockpit(): boolean { return this._largeCockpit && getFutureWarsWeightClass(this._tons)?.tag === "heavy"; }
     public setLargeCockpit(large: boolean): void { this._largeCockpit = !!large; }
@@ -288,8 +319,8 @@ export default class Walker implements IGameSettingsUnit {
 
     public getStructure(location: WalkerLocation): number { return getWalkerStructure(location, this._tons); }
     public getTotalStructure(): number { return WALKER_LOCATIONS.reduce((sum, location) => sum + this.getStructure(location), 0); }
-    /** "Tons Required" is 10 percent of the walker's weight (Best-of p.37). */
-    public getStructureWeight(): number { return this._tons / 10; }
+    /** "Tons Required" is 10 percent of the walker's weight (Best-of p.37); industrial structure twice that (ours, TechManual p.66). */
+    public getStructureWeight(): number { return this._tons * (this._industrial ? WALKER_INDUSTRIAL_STRUCTURE_FACTOR : 0.1); }
 
     /** At most twice the structure in every location (Best-of p.37); with no location, the whole walker's. */
     public getMaxArmor(location?: WalkerLocation): number {
@@ -359,7 +390,7 @@ export default class Walker implements IGameSettingsUnit {
 
     public getWeightLog(): IWalkerWeightLine[] {
         const lines: IWalkerWeightLine[] = [
-            { name: "Internal Structure", weight: this.getStructureWeight() },
+            { name: this._industrial ? "Industrial Internal Structure" : "Internal Structure", weight: this.getStructureWeight() },
             { name: "Engine", weight: this.getEngineWeight() },
             { name: "Gyro", weight: this.getGyroWeight() },
             { name: "Cockpit", weight: this.getCockpitWeight() },
@@ -381,7 +412,11 @@ export default class Walker implements IGameSettingsUnit {
         const over = this.getWeight() - this._tons;
         if (over > 0) issues.push(`The design weighs ${this.getWeight()} tons, ${over} over the ${this._tons}-ton limit.`);
         if (!this.getEngineTypeOptions().includes(this._engineType)) {
-            issues.push(`The ${this.getEngineName()} is not available to ${this._tech === "clan" ? "a Clan" : "an Inner Sphere"} walker.`);
+            const chassis = this._industrial ? "an industrial" : this._tech === "clan" ? "a Clan" : "an Inner Sphere";
+            issues.push(`The ${this.getEngineName()} is not available to ${chassis} walker.`);
+        }
+        if (!this.getGyroTypeOptions().includes(this._gyroType)) {
+            issues.push(`The ${this.getGyroName()} is not available to ${this._industrial ? "an industrial" : "a Clan"} walker.`);
         }
         if (this.getEngineRating() > WALKER_MAX_ENGINE_RATING) issues.push(`Engine rating ${this.getEngineRating()} is over ${WALKER_MAX_ENGINE_RATING}.`);
         for (const location of WALKER_LOCATIONS) {
@@ -415,6 +450,8 @@ export default class Walker implements IGameSettingsUnit {
             techBase: this._tech,
             engineType: this._engineType,
             gyroType: this._gyroType,
+            ...(this._industrial ? { industrial: true } : {}),
+            ...(this._advancedFireControl ? { advancedFireControl: true } : {}),
             ...(this._turret ? { turret: true } : {}),
             ...(this._largeCockpit ? { largeCockpit: true } : {}),
             ...(this._extraSensors ? { extraSensors: true } : {}),
@@ -442,6 +479,8 @@ export default class Walker implements IGameSettingsUnit {
         this._rulesEdition = getSelectableRulesEditionTag(data.rulesEdition, "walker");
         this.gameSettings.import(data);
         this._tech = data.techBase === "clan" ? "clan" : "is";
+        this._industrial = data.industrial === true;
+        this._advancedFireControl = data.advancedFireControl === true;
 
         const tons = Math.min(WALKER_MAX_TONS, Math.max(WALKER_MIN_TONS, Math.round(Number(data.tons) / WALKER_TON_STEP) * WALKER_TON_STEP || WALKER_MIN_TONS));
         if (tons !== data.tons) issues.push(`Tonnage ${String(data.tons)} is out of range: set to ${tons}.`);
@@ -456,10 +495,11 @@ export default class Walker implements IGameSettingsUnit {
             this._engineType = "standard";
             issues.push(`Unknown engine "${String(data.engineType).slice(0, 40)}": read as standard fusion.`);
         }
-        if (isGyroType(data.gyroType) && this.getGyroTypeOptions().includes(data.gyroType)) this._gyroType = data.gyroType;
+        // As the engine: a known gyro the chassis or tech base does not allow is kept and reported by getIssues.
+        if (isGyroType(data.gyroType)) this._gyroType = data.gyroType;
         else {
             this._gyroType = "standard";
-            issues.push(`Gyro "${String(data.gyroType).slice(0, 40)}" is not offered: read as standard.`);
+            issues.push(`Unknown gyro "${String(data.gyroType).slice(0, 40)}": read as standard.`);
         }
         this._turret = data.turret === true;
         this._largeCockpit = data.largeCockpit === true;

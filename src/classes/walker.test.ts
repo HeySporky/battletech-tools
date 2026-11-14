@@ -240,6 +240,94 @@ describe("Walker engine, movement and gyro", () => {
     });
 });
 
+// Owner ruling, 2026-11-14: industrial walkers are allowed ("probably the first place the tech would have been used").
+// Flint gives none: ours, inspired by his walker rules and the IndustrialMech rules (TechManual pp.66-71).
+describe("Industrial walkers (ours)", () => {
+    const industrial = (tons: number, walk: number, variant = false): Walker => {
+        const walker = build(tons, walk, variant);
+        walker.setIndustrial(true);
+        return walker;
+    };
+
+    it("keeps Flint's structure points and weighs industrial structure at 20 percent", () => {
+        const walker = industrial(50, 4);
+        expect(walker.isIndustrial()).toBe(true);
+        expect(walker.getStructure("ct")).toBe(8);
+        expect(walker.getStructure("cs")).toBe(10);
+        expect(walker.getStructureWeight()).toBe(10);
+        expect(walker.getWeightLog()[0]).toEqual({ name: "Industrial Internal Structure", weight: 10 });
+    });
+
+    it("offers the IndustrialMech engines and the standard gyro only", () => {
+        const walker = industrial(50, 4);
+        expect(walker.getEngineTypeOptions()).toEqual(["standard", "ice", "cell", "fission"]);
+        expect(walker.getGyroTypeOptions()).toEqual(["standard"]);
+        expect(walker.setEngineType("xl")).toBe(false);
+        expect(walker.setEngineType("ice")).toBe(true);
+        expect(walker.getEngineWeight()).toBe(17);
+        walker.setTechTag("clan");
+        expect(walker.getEngineTypeOptions()).toEqual(["standard", "ice", "cell"]);
+    });
+
+    it("a BattleMech walker takes no ICE, fuel cell or fission engine", () => {
+        const walker = build(50, 4);
+        for (const tag of ["ice", "cell", "fission"]) expect(walker.setEngineType(tag)).toBe(false);
+    });
+
+    it("variant: an ICE takes center-torso slots by its weight", () => {
+        const heavy = industrial(60, 4, true);
+        heavy.setEngineType("ice"); // rating 240, 23 tons: 9 slots, gyro 3: the heavy 12-slot center torso is full
+        expect(heavy.getSlots("ct").filter((slot) => slot === "Internal Combustion Engine")).toHaveLength(9);
+        expect(heavy.getFreeSlots("ct")).toBe(0);
+        expect(heavy.getIssues()).toEqual([]);
+        const medium = industrial(50, 4, true);
+        medium.setEngineType("ice"); // 17 tons: 9 slots, gyro 2, in a 10-slot center torso
+        expect(medium.getIssues()).toContain("Center Torso needs 11 slots for its fixed items and has 10.");
+    });
+
+    it("mounts the IndustrialMech cockpit, with Advanced Fire Control as an option", () => {
+        const walker = industrial(50, 4);
+        expect(walker.getCockpitName()).toBe("IndustrialMech Cockpit");
+        expect(walker.getCockpitWeight()).toBe(3);
+        expect(walker.hasAdvancedFireControl()).toBe(false);
+        walker.setAdvancedFireControl(true);
+        expect(walker.getCockpitName()).toBe("IndustrialMech Cockpit (Advanced Fire Control)");
+        expect(walker.getCockpitWeight()).toBe(3);
+        expect(build(50, 4).getCockpitName()).toBe("Cockpit");
+        expect(industrial(25, 4, true).getCockpitWeight()).toBe(2);
+    });
+
+    it("keeps a BattleMech engine and gyro when switched to industrial, and reports them", () => {
+        const walker = build(50, 4);
+        walker.setEngineType("xl");
+        walker.setGyroType("compact");
+        walker.setIndustrial(true);
+        expect(walker.getEngineType()).toBe("xl");
+        expect(walker.getGyroType()).toBe("compact");
+        const issues = walker.getIssues().join(" ");
+        expect(issues).toMatch(/XL Fusion is not available to an industrial walker/);
+        expect(issues).toMatch(/Compact Gyro is not available to an industrial walker/);
+    });
+
+    it("credits Flint with 'Inspired by' and names the IndustrialMech rules", () => {
+        const walker = industrial(50, 4);
+        expect(walker.getCredit()).toMatch(/Industrial walker: ours\. Inspired by Clell Flint's walker rules and the IndustrialMech rules \(TechManual pp\.66-71\)/);
+        expect(build(50, 4).getCredit()).not.toMatch(/Industrial/);
+    });
+
+    it("round-trips, and an older save loads as a BattleMech walker", () => {
+        const walker = industrial(60, 4);
+        walker.setEngineType("fission");
+        walker.setAdvancedFireControl(true);
+        const copy = new Walker(walker.exportJSON());
+        expect(copy.export()).toEqual(walker.export());
+        expect(copy.isIndustrial()).toBe(true);
+        expect(copy.hasAdvancedFireControl()).toBe(true);
+        expect(JSON.parse(build(60, 4).exportJSON()).industrial).toBeUndefined();
+        expect(new Walker(build(60, 4).exportJSON()).isIndustrial()).toBe(false);
+    });
+});
+
 describe("Walker tonnage, rules level, editions and saves", () => {
     it("refuses tonnage off the structure table", () => {
         const walker = new Walker();
@@ -298,7 +386,7 @@ describe("Walker tonnage, rules level, editions and saves", () => {
         }
         const saved = JSON.parse(build(50, 4).exportJSON());
         const { walker, issues } = normalizeWalkerExport({
-            ...saved, tons: 105, walkMP: 9, edition: "future-wars-99", engineType: "fission", gyroType: "none",
+            ...saved, tons: 105, walkMP: 9, edition: "future-wars-99", engineType: "warp-drive", gyroType: "none",
             armor: { ...saved.armor, ct: 500, zz: 3 },
         });
         expect(walker).not.toBeNull();
@@ -312,7 +400,7 @@ describe("Walker tonnage, rules level, editions and saves", () => {
         expect(issues.join(" ")).toMatch(/Tonnage 105/);
         expect(issues.join(" ")).toMatch(/Walking MP 9/);
         expect(issues.join(" ")).toMatch(/future-wars-99/);
-        expect(issues.join(" ")).toMatch(/fission/);
+        expect(issues.join(" ")).toMatch(/warp-drive/);
         expect(issues.join(" ")).toMatch(/none/);
         expect(issues.join(" ")).toMatch(/Center Torso armor 500/);
     });

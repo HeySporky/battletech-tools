@@ -68,9 +68,10 @@ export const WALKER_EDITION_RULES: Record<WalkerEdition, IWalkerEditionRules> = 
 };
 
 /** "Walker rules by Clell Flint, ..." naming the edition in use (plan, Global Constraints). */
-export function getWalkerCredit(edition: WalkerEdition): string {
+export function getWalkerCredit(edition: WalkerEdition, industrial: boolean = false): string {
     return `Walker rules by Clell Flint, Future Wars #11; reprinted in The Best of Future Wars, Volume One (1991). `
-        + `Built under the ${WALKER_EDITION_RULES[edition].name} printing.`;
+        + `Built under the ${WALKER_EDITION_RULES[edition].name} printing.`
+        + (industrial ? ` ${WALKER_INDUSTRIAL_CREDIT}` : "");
 }
 
 /**
@@ -161,13 +162,25 @@ export function getWalkerTurret(tons: number, variant: boolean): IWalkerTurret {
     } as const)[weightClass.tag];
 }
 
-/**
- * Engines offered (ours, plan "Ours"): the fusion types of the 'Mech engine table, to rating 400. No ICE, fuel cell,
- * fission or primitive engine (no industrial walker in the first build), no large engine.
- */
-export const WALKER_ENGINE_TYPES = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl"] as const;
+/** Every engine a walker can save: the 'Mech engine table's types to rating 400; no primitive or large engine (ours). */
+export const WALKER_ENGINE_TYPES = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl", "ice", "cell", "fission"] as const;
 export type WalkerEngineType = typeof WALKER_ENGINE_TYPES[number];
-/** Gyros offered: every 'Mech gyro but "none" (which serves the interface cockpit only). */
+/** A BattleMech walker's engines: the fusion types (ours). */
+export const WALKER_BATTLEMECH_ENGINE_TYPES: readonly WalkerEngineType[] = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl"];
+/** An industrial walker's engines: the IndustrialMech's, standard fusion, ICE, fuel cell or fission (TechManual pp.66-71, as the app's IndustrialMech check has it). */
+export const WALKER_INDUSTRIAL_ENGINE_TYPES: readonly WalkerEngineType[] = ["standard", "ice", "cell", "fission"];
+/** Gyros a walker can save: every 'Mech gyro but "none" (which serves the interface cockpit only). */
 export const WALKER_GYRO_TYPES = ["standard", "xl", "compact", "heavy-duty"] as const;
 export type WalkerGyroType = typeof WALKER_GYRO_TYPES[number];
+/** An industrial walker's gyro: standard only, as an IndustrialMech's (TechManual pp.66-71, as the app's IndustrialMech check has it). */
+export const WALKER_INDUSTRIAL_GYRO_TYPES: readonly WalkerGyroType[] = ["standard"];
+
+/**
+ * Industrial walkers (owner ruling, 2026-11-14): Flint prints none. Ours, inspired by his walker rules and the
+ * IndustrialMech rules (TechManual pp.66-71): his structure points on industrial internal structure (twice the weight,
+ * 20 percent), the IndustrialMech's engines, gyro and cockpit (with Advanced Fire Control as an option), and later its
+ * heat sink, jump jet and equipment limits.
+ */
+export const WALKER_INDUSTRIAL_CREDIT = "Industrial walker: ours. Inspired by Clell Flint's walker rules and the IndustrialMech rules (TechManual pp.66-71).";
+export const WALKER_INDUSTRIAL_STRUCTURE_FACTOR = 0.2;
 export const WALKER_MAX_ENGINE_RATING = 400;

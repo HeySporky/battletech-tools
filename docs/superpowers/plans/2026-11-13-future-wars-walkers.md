@@ -77,7 +77,18 @@ slot counts) is the same in both.
 
 **Ours (the text is silent), labelled as ours in the notes and the ledger:**
 - Jump jets: allowed, in legs and outer torsos, by the 'Mech rule (TechManual), since Flint neither allows nor bans them.
-- Tonnage 10 to 100 (the structure table's range). No superheavy, no industrial, no OmniWalker in the first build.
+- Tonnage 10 to 100 (the structure table's range). No superheavy and no OmniWalker in the first build.
+- **Industrial walkers (owner ruling, 2026-11-14: "allow industrial walkers... they are probably the first place the
+  tech would have been used"; Flint prints none, so they are ours, credited "Inspired by" Flint and the IndustrialMech
+  rules, TechManual pp.66-71).** Built in Chunk A: Flint's structure points on industrial structure (20 percent of
+  tonnage), standard fusion / ICE / fuel cell / fission engines, standard gyro only, the IndustrialMech cockpit with
+  Advanced Fire Control as an option (Flint's cockpit weight under the variant). Owed by later chunks, each as the app
+  already does it for an IndustrialMech: **B** single heat sinks and standard jump jets only, the items that need
+  Advanced Fire Control, industrial-only equipment (industrial tools: in the legs or outer torsos, ours, since a walker
+  has no arms), the power amplifier rule for energy weapons on an ICE or fuel cell; **C** the IndustrialMech BV and cost
+  steps (structure, offensive x 0.9 without Advanced Fire Control); **E** "IndustrialMech" on the sheet and the TRO;
+  **F** the +2 critical-hit modifier and the End Phase damage check; **G** the card's industrial specials; **H** one
+  industrial sample walker.
 - Engines that need side-torso slots (XL, XXL, Light, Clan XL) put them in the left and right torsos; a Compact
   engine and every gyro type are allowed. Torso-mounted, small and drone cockpits are not offered.
 - Which arcs each location fires into beyond the text (front and rear torso: front and rear; left and right torso:
