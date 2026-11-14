@@ -7,7 +7,6 @@ import {
     acesPilotSkillThresholds,
     acesRepairMultipliers,
     acesSalvageTargets,
-    ACES_ADVANCED_FORCE_TYPES,
     ACES_EXISTING_FORCE_MIN_WARCHEST,
     ACES_MAX_MECHS_PER_CHASSIS,
     ACES_MAX_NAMED_PILOTS,
@@ -26,6 +25,7 @@ import {
     ACES_UNSPENT_PV_TO_SP,
     ACES_WOUNDED_CREW_COST,
     IAcesDifficultyLevel,
+    getAcesAdvancedForceTypes,
     IAcesPilotThreshold,
     lookupAcesTable,
     TAcesCrewResult,
@@ -110,6 +110,7 @@ export const validateAcesStartingForce = (
     units: IAcesRosterUnit[],
     advanced: boolean,
     budget: number = ACES_STARTING_PV,
+    customUnits: boolean = false,
 ): IAcesForceIssue[] => {
     const issues: IAcesForceIssue[] = [];
     const active = units.filter( ( unit ) => unit.status === "active" );
@@ -123,12 +124,13 @@ export const validateAcesStartingForce = (
     }
 
     if( advanced ) {
+        const allowedTypes = getAcesAdvancedForceTypes( customUnits );
         const mechsByChassis: { [chassis: string]: string[] } = {};
         const othersByVariant: { [key: string]: number } = {};
         for( const unit of active ) {
             const type = unit.type.trim().toUpperCase();
-            if( ACES_ADVANCED_FORCE_TYPES.indexOf( type ) === -1 ) {
-                issues.push( { severity: "error", message: unit.name + ": only BM, BA, CV and CI units may be taken." } );
+            if( allowedTypes.indexOf( type ) === -1 ) {
+                issues.push( { severity: "error", message: unit.name + ": only " + allowedTypes.slice( 0, -1 ).join( ", " ) + " and " + allowedTypes[ allowedTypes.length - 1 ] + " units may be taken." } );
             }
             if( type === "BM" ) {
                 const chassis = unit.chassis.trim().toLowerCase();
@@ -478,6 +480,8 @@ export interface IAcesCampaignExport {
     difficulty: string;
     existingForce: boolean;
     advancedForceCreation: boolean;
+    /** Custom Homebrew: adds Micro-Mechs to advanced force creation and Named Pilots. Absent in older saves. */
+    customUnits?: boolean;
     startingWarchest: number;
     roster: IAcesRosterUnit[];
     pilots: IAcesNamedPilotExport[];
@@ -493,6 +497,7 @@ export class AcesCampaign {
     public difficulty: string = "standard";
     public existingForce: boolean = false;
     public advancedForceCreation: boolean = false;
+    public customUnits: boolean = false;
     public startingWarchest: number = 0;
     public roster: IAcesRosterUnit[] = [];
     public pilots: AcesNamedPilot[] = [];
@@ -547,7 +552,7 @@ export class AcesCampaign {
     public getIssues(): IAcesForceIssue[] {
         const issues: IAcesForceIssue[] = [];
         if( this.sorties.length === 0 ) {
-            issues.push( ...validateAcesStartingForce( this.roster, this.advancedForceCreation ) );
+            issues.push( ...validateAcesStartingForce( this.roster, this.advancedForceCreation, ACES_STARTING_PV, this.customUnits ) );
         }
         const living = this.getLivingPilots().length;
         if( living < ACES_MIN_NAMED_PILOTS || living > ACES_MAX_NAMED_PILOTS ) {
@@ -644,6 +649,7 @@ export class AcesCampaign {
             difficulty: this.difficulty,
             existingForce: this.existingForce,
             advancedForceCreation: this.advancedForceCreation,
+            customUnits: this.customUnits,
             startingWarchest: this.startingWarchest,
             roster: this.roster.map( ( unit ) => ( { ...unit } ) ),
             pilots: this.pilots.map( ( pilot ) => pilot.export() ),
@@ -661,6 +667,7 @@ export class AcesCampaign {
         if( typeof data.difficulty === "string" ) this.difficulty = getAcesDifficulty( data.difficulty ).id;
         this.existingForce = !!data.existingForce;
         this.advancedForceCreation = !!data.advancedForceCreation;
+        this.customUnits = !!data.customUnits;
         this.startingWarchest = +data.startingWarchest || 0;
         this.roster = Array.isArray( data.roster ) ? data.roster.map( ( unit ) => ( { ...unit } ) ) : [];
         this.pilots = Array.isArray( data.pilots ) ? data.pilots.map( ( pilot ) => new AcesNamedPilot( pilot ) ) : [];

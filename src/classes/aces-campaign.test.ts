@@ -17,7 +17,12 @@ import {
     resolveAcesCrew,
     validateAcesStartingForce,
 } from "./aces-campaign";
-import { acesPilotSkillThresholds } from "../data/aces-rules";
+import {
+    ACES_STARTING_PV,
+    acesPilotSkillThresholds,
+    getAcesAdvancedForceTypes,
+    getAcesNamedPilotTypes,
+} from "../data/aces-rules";
 
 const rosterUnit = ( name: string, chassis: string, variant: string, type: string, pv: number ): IAcesRosterUnit => ( {
     id: name,
@@ -90,6 +95,43 @@ describe("Aces force creation (Aces p.26)", () => {
         expect( threeMaxims.length ).toBe( 1 );
         const aerospace = validateAcesStartingForce( [ ...base, rosterUnit( "7", "Sparrowhawk", "SPR-H5", "AF", 20 ), rosterUnit( "8", "Wasp", "WSP-1D", "BM", 18 ) ], true );
         expect( aerospace.length ).toBe( 1 );
+    });
+
+    it("takes Micro-Mechs in advanced creation only with custom units on (Custom Homebrew)", () => {
+        const force = [
+            rosterUnit( "1", "Locust", "LCT-1V", "BM", 18 ),
+            rosterUnit( "2", "Wasp", "WSP-1A", "BM", 18 ),
+            rosterUnit( "3", "Stinger", "STG-3R", "BM", 18 ),
+            rosterUnit( "4", "Commando", "COM-2D", "BM", 20 ),
+            rosterUnit( "5", "Maxim Heavy Hover Transport", "(Standard)", "CV", 29 ),
+            rosterUnit( "6", "Warhammer", "WHM-6R", "BM", 32 ),
+            rosterUnit( "7", "Warhammer", "WHM-7A", "BM", 33 ),
+            rosterUnit( "8", "Gnat", "GN-1", "MM", 8 ),
+        ];
+        const off = validateAcesStartingForce( force, true );
+        expect( off.length ).toBe( 1 );
+        expect( off[0].message ).toBe( "8: only BM, BA, CV and CI units may be taken." );
+        expect( validateAcesStartingForce( force, true, ACES_STARTING_PV, true ) ).toEqual( [] );
+        // Custom units still refuses types nobody allows.
+        const aerospace = [ ...force.slice( 0, 7 ), rosterUnit( "8", "Sparrowhawk", "SPR-H5", "AF", 20 ) ];
+        expect( validateAcesStartingForce( aerospace, true, ACES_STARTING_PV, true ).length ).toBe( 1 );
+    });
+
+    it("lists MM for advanced creation and Named Pilots only with custom units on", () => {
+        expect( getAcesAdvancedForceTypes( false ) ).toEqual( [ "BM", "BA", "CV", "CI" ] );
+        expect( getAcesAdvancedForceTypes( true ) ).toEqual( [ "BM", "BA", "CV", "CI", "MM" ] );
+        expect( getAcesNamedPilotTypes( false ) ).toEqual( [ "BM", "CV", "BA" ] );
+        expect( getAcesNamedPilotTypes( true ) ).toEqual( [ "BM", "CV", "BA", "MM" ] );
+    });
+
+    it("saves and loads the custom units switch, off by default", () => {
+        const campaign = new AcesCampaign();
+        expect( campaign.customUnits ).toBe( false );
+        campaign.customUnits = true;
+        expect( new AcesCampaign( campaign.export() ).customUnits ).toBe( true );
+        const old = campaign.export() as Partial<ReturnType<AcesCampaign["export"]>>;
+        delete old.customUnits;
+        expect( new AcesCampaign( old as ReturnType<AcesCampaign["export"]> ).customUnits ).toBe( false );
     });
 
     it("prices OMNI reconfiguration, purchases and sales (Aces pp.31, 36)", () => {

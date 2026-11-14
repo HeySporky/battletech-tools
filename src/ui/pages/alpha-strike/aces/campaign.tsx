@@ -26,8 +26,8 @@ import {
     acesPilotEdgeTokenThresholds,
     acesPilotSkillThresholds,
     ACES_MAX_NAMED_PILOTS,
-    ACES_NAMED_PILOT_TYPES,
     ACES_STARTING_PV,
+    getAcesNamedPilotTypes,
     IAcesPilotThreshold,
     TAcesRepairCategory,
 } from '../../../../data/aces-rules';
@@ -322,7 +322,9 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
         this._update( ( campaign ) => {
             const pilot = new AcesNamedPilot();
             pilot.callsign = callsign;
-            pilot.type = this.state.newPilotType;
+            const types = getAcesNamedPilotTypes( campaign.customUnits );
+            // MM stays chosen in the form after custom units is switched off; fall back to BM.
+            pilot.type = types.indexOf( this.state.newPilotType ) > -1 ? this.state.newPilotType : types[0];
             campaign.pilots.push( pilot );
         } );
         this.setState({ newPilotCallsign: "" });
@@ -405,8 +407,8 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                             <input type="text" value={this.state.newPilotCallsign} onChange={( e ) => this.setState( { newPilotCallsign: e.currentTarget.value } )} />
                         </label>
                         <label>Unit type:{" "}
-                            <select value={this.state.newPilotType} onChange={( e ) => this.setState( { newPilotType: e.currentTarget.value } )}>
-                                {ACES_NAMED_PILOT_TYPES.map( ( type ) => <option key={type} value={type}>{type}</option> )}
+                            <select value={getAcesNamedPilotTypes( campaign.customUnits ).indexOf( this.state.newPilotType ) > -1 ? this.state.newPilotType : "BM"} onChange={( e ) => this.setState( { newPilotType: e.currentTarget.value } )}>
+                                {getAcesNamedPilotTypes( campaign.customUnits ).map( ( type ) => <option key={type} value={type}>{type}</option> )}
                             </select>
                         </label>
                         <button className="btn btn-primary btn-sm" onClick={this._addPilot}>Add Named Pilot</button>
@@ -673,6 +675,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                 <div className="aces-inline">
                     <label><input type="checkbox" checked={campaign.existingForce} onChange={( e ) => { const value = e.currentTarget.checked; this._update( ( c ) => { c.existingForce = value; } ); }} /> Existing force from another campaign (<em>Aces</em> p.29)</label>
                     <label><input type="checkbox" checked={campaign.advancedForceCreation} onChange={( e ) => { const value = e.currentTarget.checked; this._update( ( c ) => { c.advancedForceCreation = value; } ); }} /> Advanced force creation (<em>Aces</em> p.26)</label>
+                    <label title="Not in Aces. Adds Micro-Mechs (MM) to advanced force creation and to Named Pilots."><input type="checkbox" checked={campaign.customUnits} onChange={( e ) => { const value = e.currentTarget.checked; this._update( ( c ) => { c.customUnits = value; } ); }} /> Custom units: Micro-Mechs (Custom Homebrew, not in <em>Aces</em>)</label>
                     <label>Starting warchest (SP):{" "}
                         <input type="number" className="aces-number" value={campaign.startingWarchest} onChange={( e ) => { const value = this._num( e.currentTarget.value ); this._update( ( c ) => { c.startingWarchest = value; } ); }} />
                     </label>

@@ -362,6 +362,20 @@ export const ACES_MAX_NAMED_PILOTS = 6;
 export const ACES_NAMED_PILOT_STARTING_SP = 150;
 export const ACES_NAMED_PILOT_TYPES = [ "BM", "CV", "BA" ];
 
+/**
+ * Unit types the campaign's "custom units" switch adds to advanced force creation and
+ * Named Pilots. Custom Homebrew, not in Aces: Micro-Mechs (TRO - JBT: Micro-Mechs).
+ */
+export const ACES_CUSTOM_UNIT_TYPES = [ "MM" ];
+
+export const getAcesAdvancedForceTypes = ( customUnits: boolean ): string[] => {
+    return customUnits ? [ ...ACES_ADVANCED_FORCE_TYPES, ...ACES_CUSTOM_UNIT_TYPES ] : [ ...ACES_ADVANCED_FORCE_TYPES ];
+};
+
+export const getAcesNamedPilotTypes = ( customUnits: boolean ): string[] => {
+    return customUnits ? [ ...ACES_NAMED_PILOT_TYPES, ...ACES_CUSTOM_UNIT_TYPES ] : [ ...ACES_NAMED_PILOT_TYPES ];
+};
+
 /** SP thresholds printed on the Named Pilot card: cumulative SP in a column to reach each value (Aces pp.27, 29). */
 export interface IAcesPilotThreshold {
     value: number;
