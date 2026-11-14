@@ -189,7 +189,10 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                         <li>Record sheets and printing, roster groups, and play mode: damage, critical hits, ammunition explosions, pilot hits, and the effects on movement and to-hit.</li>
                         <li>Alpha Strike: our own ruleset (type MM, one ability, MCR), with cards, an entry on the Alpha Strike roster's add page, and a TRO - JBT entry that explains every code.</li>
                         <li>Sample Micro-Mechs on the creator's home page: the document's Storm, Tunnel Rat, Hillman and Slayer. The Storm's and Hillman's Battle Values differ from the document's print (223 and 339 against 217 and 352; we keep the rules text), and the Tunnel Rat's printed mass, cost and Battle Value are corrupt, so its figures are ours.</li>
-                        <li>Not built: the document's RPG traits and DropShip bay appendices.</li>
+                        <li>Alpha Strike cards for Micro-Mechs show no heat scale or OV, as official vehicle cards do. An Upper Leg Actuator hit is +4 on Piloting, as the document's table prints.</li>
+                        <li>A Micro-Mech Bay (75 tons, one Micro-Mech of up to 19 tons) in the DropShip, Small Craft and capital ship creators at Custom Homebrew, with our own Alpha Strike transport ability, MMT#. DropShips and Small Craft now also show the official unit-bay transport abilities (AT, ST, MT, PT, VTM, VTH, VTS), which they were missing.</li>
+                        <li>Aces: a Micro-Mech's Engine Hit follows MCR, and the to-hit calculator offers MM targets. A new campaign option, Custom units (Custom Homebrew, not in <em>Aces</em>), lets advanced force creation take Micro-Mechs and lets a Named Pilot fly one.</li>
+                        <li>Not built yet: the document's RolePlaying and BattleForce 2 appendices. They wait for those games to get sections of their own.</li>
                       </ul>
                   </li>
                   <li>
