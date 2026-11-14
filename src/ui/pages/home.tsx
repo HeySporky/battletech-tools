@@ -179,10 +179,16 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
-                      <strong>November 14th, 2026</strong> - Micro-Mechs join Custom Homebrew: a creator, record sheets, play mode and Alpha Strike cards
+                      <strong>November 14th, 2026</strong> - Micro-Mechs and Compact 'Mechs join Custom Homebrew
                     </h3>
                     <h4>Author - NGCFells</h4>
                       <ul>
+                        <li><strong>Compact 'Mechs.</strong> Two Special Rulesets at Custom Homebrew, one for each printing of Clell Flint's "Alternate Rules for Building Mechs": Future Wars #11 and the Best of Future Wars. Fan-made, NOT OFFICIAL. Turn one on and a biped 'Mech of up to 100 tons is built by his tables. The two cannot be on together.</li>
+                        <li>Critical slots by weight class, head structure of 3 to 6 with head armor at most twice that, his cockpits (a heavy 'Mech may take the 4-ton one), two sensor slots, extra sensors and life support, engine slots in the center torso by engine weight, and a gyro of one slot per ton.</li>
+                        <li>The creator, record sheet and play mode all follow. Locations of more than six slots are rolled in tables of six; the 4-table roll (1, 2, 3, 4, re-roll 5-6) is ours, and the ruleset says so. The record sheet shrinks its type to fit; an assault 'Mech's middle column is small.</li>
+                        <li>Anything that no longer fits is left unallocated, never deleted. 'Mechs built without the ruleset are unchanged, except that an item can no longer be placed past the end of a location.</li>
+                        <li>Not built yet: Flint's walkers and the rest of the Best of Future Wars. Both are planned (issue #172).</li>
+                        <li><strong>Micro-Mechs</strong>: a creator, record sheets, play mode and Alpha Strike cards.</li>
                         <li>Needs the Custom Homebrew rules level to be offered; a Micro-Mech you have saved opens at any level. Fan-made, NOT OFFICIAL. Micro-Mechs are by Solarmech; version 6.1.0.2 was revised by an unnamed editor with Discord. Where a rule or number is ours, the notes say so.</li>
                         <li>A Micro-Mech is a walker of 10 to 19 tons built in kilograms, with one torso and at most four weapons. Build one under either rules text: the 6.1.0.2 document or Solarmech's 2019 post.</li>
                         <li>The creator covers the chassis, engine, armor, weapons, ammunition and heat sinks, with cost and Battle Value shown step by step. The Battle Value of the document is used for the classic editions; a second Battle Value is ours and marked provisional.</li>
