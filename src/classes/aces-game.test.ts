@@ -36,6 +36,59 @@ const makeGame = ( units: AlphaStrikeUnit[] ): AcesGame => {
     return game;
 }
 
+describe("Aces game tracker, units added during play", () => {
+    it("adds a unit with its own deck and a log line", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const added = game.addAutomatedUnit( makeUnit( "Jenner", "Striker", 25 ) );
+        expect( game.getAutomatedUnits().length ).toBe( 2 );
+        const state = game.getUnitState( added.uuid );
+        expect( state.deckId ).toBe( "striker" );
+        expect( state.addedDuringPlay ).toBe( true );
+        expect( game.log[game.log.length - 1] ).toContain( "joins the automated force" );
+    });
+
+    it("keeps the other units' state", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const brawler = game.getAutomatedUnits()[0];
+        game.cycleCard( brawler.uuid );
+        brawler.currentArmor = [ true, false, false, false ];
+        const cardIds = game.getUnitState( brawler.uuid ).cardIds.slice();
+        game.addAutomatedUnit( makeUnit( "Jenner", "Striker", 25 ) );
+        expect( game.getUnitState( brawler.uuid ).cardsCycled ).toBe( 1 );
+        expect( game.getUnitState( brawler.uuid ).cardIds ).toEqual( cardIds );
+        expect( brawler.currentArmor ).toEqual( [ true, false, false, false ] );
+    });
+
+    it("adds an emplacement card ticked, with no deck", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const card = new AlphaStrikeUnit();
+        card.importMUL( buildEmplacementMULRecords()[0] );
+        const added = game.addAutomatedUnit( card );
+        const state = game.getUnitState( added.uuid );
+        expect( [ state.isEmplacement, state.deckId ] ).toEqual( [ true, "" ] );
+    });
+
+    it("removes only units added during play", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const start = game.getAutomatedUnits()[0];
+        const added = game.addAutomatedUnit( makeUnit( "Jenner", "Striker", 25 ) );
+        expect( game.removeAutomatedUnit( added.uuid ) ).toBe( true );
+        expect( game.getAutomatedUnits().length ).toBe( 1 );
+        expect( game.log[game.log.length - 1] ).toContain( "leaves the automated force" );
+        expect( game.removeAutomatedUnit( start.uuid ) ).toBe( false );
+        expect( game.getAutomatedUnits().length ).toBe( 1 );
+    });
+
+    it("keeps added units through save and load", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const added = game.addAutomatedUnit( makeUnit( "Jenner", "Striker", 25 ) );
+        const restored = new AcesGame( JSON.parse( JSON.stringify( game.export() ) ) );
+        expect( restored.getAutomatedUnits().length ).toBe( 2 );
+        expect( restored.getUnitState( added.uuid ).addedDuringPlay ).toBe( true );
+        expect( restored.removeAutomatedUnit( added.uuid ) ).toBe( true );
+    });
+});
+
 describe("Aces game tracker", () => {
     // The Scouring Sands Battlefield Support cards (#191): an emplacement starts ticked and plays no deck (Aces pp.6, 31).
     it("ticks an emplacement card as an emplacement, with no deck", () => {

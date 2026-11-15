@@ -55,6 +55,8 @@ export interface IAcesUnitState {
     /** Transport carrying this unit (Aces p.5); a transported unit can't move, attack or spot. */
     transportedBy: string;
     mountedThisTurn: boolean;
+    /** True for a unit brought in mid-game; only these can be taken back out. Optional so older saves load. */
+    addedDuringPlay?: boolean;
 }
 
 export interface IAcesGameWaypoint extends IAcesWaypoint {
@@ -246,6 +248,46 @@ export class AcesGame {
         this.unitStates = [];
         this.syncUnitStates();
         this.assignDecks();
+    }
+
+    /**
+     * Brings another unit into the automated force mid-game. It joins as a fresh copy (new id, undamaged) and gets
+     * its own deck dealt; the other decks and every other unit's state are left alone. Aces names no rule for this,
+     * so the unit simply acts from the current phase on (not moved, not attacked).
+     */
+    public addAutomatedUnit( unit: AlphaStrikeUnit, groupIndex: number = 0 ): AlphaStrikeUnit {
+        const copy = new AlphaStrikeUnit();
+        copy.importUnit( unit.export() );
+        copy.uuid = generateUUID();
+        copy.reset();
+        this.automatedForce.addToGroup( copy, groupIndex );
+        const state = this.getUnitState( copy.uuid );
+        state.addedDuringPlay = true;
+        if( state.deckId ) this.dealDeck( state.deckId );
+        this.addLog( this.getUnitLabel( copy ) + " joins the automated force." );
+        return copy;
+    }
+
+    /** Takes back a unit added by mistake. Only units added during play can go; false otherwise. */
+    public removeAutomatedUnit( unitUUID: string ): boolean {
+        const state = this.unitStates.find( ( entry ) => entry.unitUUID === unitUUID );
+        if( !state || !state.addedDuringPlay ) return false;
+        const unit = this.getUnit( unitUUID );
+        if( !unit ) return false;
+        const label = this.getUnitLabel( unit );
+        for( let groupIndex = 0; groupIndex < this.automatedForce.groups.length; groupIndex++ ) {
+            const unitIndex = this.automatedForce.groups[groupIndex].members.indexOf( unit );
+            if( unitIndex > -1 ) {
+                this.automatedForce.removeUnitFromGroup( groupIndex, unitIndex );
+                break;
+            }
+        }
+        this.unitStates = this.unitStates.filter( ( entry ) => entry.unitUUID !== unitUUID );
+        if( this.automatedCommanderUUID === unitUUID ) this.automatedCommanderUUID = "";
+        // Units that shared its deck split it again; a deck of its own has nothing left to deal.
+        if( state.deckId && this.getUnitsUsingDeck( state.deckId ).length > 0 ) this.dealDeck( state.deckId );
+        this.addLog( label + " leaves the automated force (added by mistake)." );
+        return true;
     }
 
     /** Adds states for new units and drops states for removed ones. */
@@ -767,8 +809,12 @@ export class AcesGame {
         for( const unit of this.getAutomatedUnits() ) {
             unit.reset();
         }
-        const keep = this.unitStates.map( ( state ) => ( { unitUUID: state.unitUUID, deckId: state.deckId, isEmplacement: state.isEmplacement } ) );
-        this.unitStates = keep.map( ( entry ) => ( { ...newAcesUnitState( entry.unitUUID ), deckId: entry.deckId, isEmplacement: entry.isEmplacement } ) );
+        const keep = this.unitStates.map( ( state ) => ( { unitUUID: state.unitUUID, deckId: state.deckId, isEmplacement: state.isEmplacement, addedDuringPlay: state.addedDuringPlay } ) );
+        this.unitStates = keep.map( ( entry ) => {
+            const fresh: IAcesUnitState = { ...newAcesUnitState( entry.unitUUID ), deckId: entry.deckId, isEmplacement: entry.isEmplacement };
+            if( entry.addedDuringPlay ) fresh.addedDuringPlay = true;
+            return fresh;
+        } );
         this.rng = newAcesRngState( this.rng.seed );
         this.assignDecks();
         this.turn = 1;
