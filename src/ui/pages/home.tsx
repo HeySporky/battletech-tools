@@ -179,6 +179,24 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
+                      <strong>November 15th, 2026</strong> - Walkers join Custom Homebrew, and 'Mech Alpha Strike cards get their heat right
+                    </h3>
+                    <h4>Author - NGCFells</h4>
+                      <ul>
+                        <li><strong>Walkers.</strong> Clell Flint's four-legged 'Mechs from <em>Future Wars</em> #11 and <em>The Best of Future Wars, Volume One</em> (1991). Fan-made, NOT OFFICIAL, offered at the Custom Homebrew rules level; a walker you have saved opens at any level. Pick the printing you build under: the two differ in a few places, and the walker follows its own.</li>
+                        <li>A walker has ten locations: four legs, front, left, right and rear torsos, a center torso that takes only belly guns (machine guns, small lasers, flamers) and a control section that can carry a turret. Its Walking MP is the engine's figure times 1.25, as Flint's rule rounds it.</li>
+                        <li>The Walker Creator covers the chassis, engine, gyro, cockpit, turret, heat sinks, jump jets, armor and weapons, Flint's variant slot counts, and an item split between two locations. Cost and Battle Value are shown step by step; both are ours and marked provisional.</li>
+                        <li>An industrial walker is ours, Inspired by Flint's rules and the IndustrialMech rules of <em>TechManual</em>.</li>
+                        <li>Record sheets and printing, roster groups, and play mode: damage by location, critical hits, lost legs, ammunition, and the effects on movement and Piloting.</li>
+                        <li>Alpha Strike: our own ruleset, with cards for a walker (type WK) and an industrial walker (IWK), read as a BattleMech and an IndustrialMech wherever the rules ask. A WLK ability carries the four-legged rules, and AIF# carries the belly guns. Walkers can join an Alpha Strike roster and an Aces campaign (with Custom units on).</li>
+                        <li>Three sample walkers of ours on the creator's home page (Flint printed no designs): the Harrowhound HRH-1, the Ironback IBK-2T with a turret, and the Steppe Titan STN-5V under the variant slots.</li>
+                        <li>TRO - JBT: Walkers, a new readout: what a walker is, the Alpha Strike rules and every code on the card, and the three samples as printed TRO entries with their stat blocks.</li>
+                        <li><strong>'Mech Alpha Strike heat (issue #636).</strong> The conversion of a 'Mech that runs hot now follows the Converting Heat errata v1.3: Overheat is no longer always 0, damage is scaled before it is rounded, and minimal damage (0*) is no longer turned around. AMS, stealth and Chameleon heat count; rocket and one-shot launchers do not. Against the Master Unit List, the damage and Overheat of our bundled 'Mechs now match on 2,763 of 3,473 cards, up from 1,359.</li>
+                        <li>The Clan and Inner Sphere Laser AMS had each other's heat (now 5 and 7).</li>
+                      </ul>
+                  </li>
+                  <li>
+                  <h3>
                       <strong>November 14th, 2026</strong> - Micro-Mechs and Compact 'Mechs join Custom Homebrew
                     </h3>
                     <h4>Author - NGCFells</h4>
