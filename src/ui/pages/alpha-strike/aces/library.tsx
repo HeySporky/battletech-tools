@@ -53,6 +53,7 @@ import { acesDecks, ACES_BOOK, ACES_SS_BOOK } from '../../../../data/aces-rules'
 import { acesBehaviorLabel } from '../../../../classes/aces-engine';
 import { getAcesCardLibrary, saveAcesCardLibrary } from '../../../../dataSaves';
 import { acesCardScanOptions, applyAcesScanToCard, scanAcesCard, TAcesScanSide } from '../../../../classes/aces-card-scan';
+import { acesSpecialOrderScanOptions, applyAcesSpecialOrderScan, scanAcesSpecialOrder } from '../../../../classes/aces-special-order-scan';
 import { acesCommandCardScanOptions, applyAcesCommandScan, scanAcesCommandCard, TAcesCommandScanSide } from '../../../../classes/aces-command-card-scan';
 import { generateUUID } from '../../../../utils/generateUUID';
 import { AcesCardView, AcesCommandCardView, AcesScenarioView, AcesSpecialOrderView } from './_aces-card-view';
@@ -191,6 +192,12 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
                 if( result.found && this.state.draft ) {
                     this.setState({ draft: applyAcesCommandScan( this.state.draft as IAcesCommandCard, result ), buffers: {}, json: null });
                 }
+            } else if( this.state.kind === "specialOrders" ) {
+                const result = await scanCardPhoto( file, scanAcesSpecialOrder, acesSpecialOrderScanOptions );
+                scan = { photo: photo, side: result.found ? "special" : null, warnings: result.warnings };
+                if( result.found && this.state.draft ) {
+                    this.setState({ draft: applyAcesSpecialOrderScan( this.state.draft as IAcesSpecialOrder, result ), buffers: {}, json: null });
+                }
             } else {
                 const result = await scanCardPhoto( file, scanAcesCard, acesCardScanOptions );
                 scan = { photo: photo, side: result.side, warnings: result.warnings };
@@ -222,7 +229,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
                     <strong>The card reader isn't perfect.</strong> It misreads some words, numbers and icons. Check every line of the form against your card before you save it.
                 </p>
                 <label>
-                    {this.state.kind === "commandCards" ? "Photo of the Orders or Support side:" : "Photo of the Movement or Combat side:"}{" "}
+                    {this.state.kind === "specialOrders" ? "Photo of the Special Order card:" : this.state.kind === "commandCards" ? "Photo of the Orders or Support side:" : "Photo of the Movement or Combat side:"}{" "}
                     <input type="file" accept="image/*" disabled={this.state.scanning} style={{ width: "auto" }} onChange={this._scanPhoto} />
                 </label>
                 {this.state.scanning ? <p><strong>Reading the card...</strong> This takes a little while, longer the first time.</p> : null}
@@ -686,7 +693,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
                 {issues.length > 0 ? (
                     <ul className="aces-issue-error">{issues.map( ( issue, index ) => <li key={index}>{issue}</li> )}</ul>
                 ) : <p className="aces-muted">The card reader can use this record.</p>}
-                {( kind === "cards" || kind === "commandCards" ) && this.state.json === null ? this._renderScan() : null}
+                {( kind === "cards" || kind === "commandCards" || kind === "specialOrders" ) && this.state.json === null ? this._renderScan() : null}
                 <div className="row">
                     <div className="col-lg-7">
                         {this.state.json !== null ? (
@@ -806,15 +813,16 @@ interface IAcesLibraryPageState {
     scanChecked: boolean;
 }
 
-const scanSideLabels: { [side in TAcesScanSide | TAcesCommandScanSide]: string } = {
+const scanSideLabels: { [side in TAcesScanSide | TAcesCommandScanSide | "special"]: string } = {
     movement: "Movement side",
     combat: "Combat side",
     orders: "Orders side",
     support: "Support side",
+    special: "Special Order card",
 };
 
 interface IAcesCardScan {
     photo: string;
-    side: TAcesScanSide | TAcesCommandScanSide | null;
+    side: TAcesScanSide | TAcesCommandScanSide | "special" | null;
     warnings: string[];
 }

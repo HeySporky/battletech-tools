@@ -129,3 +129,18 @@ describe( "Aces Command card scan in the library", () => {
         expect( ( screen.getByText( "Save" ) as HTMLButtonElement ).disabled ).toBe( false );
     } );
 } );
+
+describe( "Aces Special Order scan in the library", () => {
+    it( "reads a Special Order photo into its form, behind the same check", async () => {
+        scanResult.current = { found: true, name: "Test Order", kind: "other", cardNumber: "1/5", priority: 500, priorityIsModifier: true, rules: [ "An invented rule." ], column: null, preFilters: [], spotter: [], warnings: [ "Check every line against the card." ] } as unknown as IAcesScanResult;
+        const view = render( <MemoryRouter><AcesLibraryPage appGlobals={appGlobals} /></MemoryRouter> );
+        fireEvent.click( await screen.findByText( /^Special Orders/ ) );
+        fireEvent.click( screen.getByText( "New" ) );
+        await choosePhoto( view.container );
+        expect( view.container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Special Order card" );
+        const save = screen.getByText( "Save" ) as HTMLButtonElement;
+        expect( save.disabled ).toBe( true );
+        fireEvent.click( screen.getByLabelText( /checked the form against my photos/ ) );
+        expect( save.disabled ).toBe( false );
+    } );
+} );
