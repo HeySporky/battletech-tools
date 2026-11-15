@@ -70,8 +70,9 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
         newGroup.customName = pack.name;
 
-        // Members are looked up in the bundled MUL by full name (Name and Variant, e.g. "Locust IIC 4").
-        const units = await loadMULListItems();
+        // Members are looked up in the bundled MUL by full name (Name and Variant, e.g. "Locust IIC 4"), then in the
+        // custom unit list for the Aces emplacement cards the MUL does not list (#191).
+        const units = await loadMULListItems(["mul2", "custom"]);
         pack.members.forEach((member, index) => {
           const item = units.find((unit) => getMULDisplayName(unit).toLowerCase() === member.trim().toLowerCase());
           if( !item ) {

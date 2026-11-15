@@ -1,8 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
-import type { IASMULUnit } from "../classes/alpha-strike-unit";
-import { buildArtVeeMULRecords, buildSampleMULRecords, buildVTOLAMMULRecords } from "./sample-mul";
+import { getMULDisplayName, type IASMULUnit } from "../classes/alpha-strike-unit";
+import { buildArtVeeMULRecords, buildEmplacementMULRecords, buildSampleMULRecords, buildVTOLAMMULRecords } from "./sample-mul";
+import { isAlphaStrikeAbilityCode } from "./alpha-strike-special-abilities";
+import { EMPLACEMENT_CARDS } from "./emplacement-cards";
 import { ARTVEE_SAMPLES } from "./artvee-samples";
 import { VTOLAM_SAMPLES } from "./vtolam-samples";
 import { loadMULListItems } from "./mul-list-items";
@@ -22,7 +24,7 @@ describe("Sample units in the custom unit list", () => {
 
     it("carries every sample with the stats its creator converts to", () => {
         const list = untabulate(JSON.parse(fs.readFileSync(listPath, "utf8"))) as IASMULUnit[];
-        expect(built).toHaveLength(ARTVEE_SAMPLES.length + VTOLAM_SAMPLES.length);
+        expect(built).toHaveLength(ARTVEE_SAMPLES.length + VTOLAM_SAMPLES.length + EMPLACEMENT_CARDS.length);
         for (const record of built) {
             expect(list.find((entry) => entry.MulUnitKey === record.MulUnitKey)).toEqual(record);
         }
@@ -57,6 +59,35 @@ describe("ArtVees in the custom unit list", () => {
             expect(codes.some((code) => /^REAR-(\/-)*$/.test(code))).toBe(false);
         }
         expect(built.find((record) => record.Name === "Archerfish ArtVee")?.BFAbilities?.split(",")).toContain("IF0*");
+    });
+});
+
+// Read from the Battlefield Support cards in the Aces: Scouring Sands box (photos from Rekikire).
+describe("Aces emplacements in the custom unit list (#191)", () => {
+    const built = buildEmplacementMULRecords();
+
+    it("copies each card as printed: type BD, no size, no move, immobile", () => {
+        expect(built.map((record) => getMULDisplayName(record))).toEqual([
+            "Light Emplacement 3x AC/2", "Medium Emplacement 2x AC/5", "Heavy Emplacement AC/20",
+        ]);
+        for (const record of built) {
+            expect(record.BFType).toBe("BD");
+            expect([record.BFSize, record.BFTMM, record.BFMove]).toEqual([0, 0, "0\""]);
+            expect(record.BFAbilities?.split(",")).toContain("IMMOBILE");
+            expect(record.CustomInfo?.source).toMatch(/Scouring Sands, Battlefield Support card \d+\/42$/);
+        }
+        const [light, medium, heavy] = built;
+        expect([light.BFPointValue, light.BFArmor, light.BFStructure, light.BFDamageShortMin, light.BFDamageMedium, light.BFDamageLong])
+            .toEqual([9, 3, 3, true, 1, 1]);
+        expect([medium.BFPointValue, medium.BFDamageShort, medium.BFDamageMedium, medium.BFDamageLong, medium.BFAbilities])
+            .toEqual([10, 1, 1, 1, "AC1/1/1,CF4,IMMOBILE"]);
+        expect([heavy.BFPointValue, heavy.BFArmor, heavy.BFDamageShort, heavy.BFDamageMedium, heavy.BFDamageLong, heavy.BFAbilities])
+            .toEqual([15, 6, 2, 2, 0, "AC2/2/0,CF6,IMMOBILE"]);
+    });
+
+    it("explains IMMOBILE and CF on the card popup", () => {
+        expect(isAlphaStrikeAbilityCode("IMMOBILE")).toBe(true);
+        expect(isAlphaStrikeAbilityCode("CF6")).toBe(true);
     });
 });
 

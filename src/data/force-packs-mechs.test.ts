@@ -5,7 +5,7 @@ import { loadMULListItems } from "./mul-list-items";
 
 describe("ForcePacks", () => {
     it("name every member as a bundled MUL unit's full name, so the roster finds it", async () => {
-        const names = new Set((await loadMULListItems()).map((unit) => getMULDisplayName(unit).toLowerCase()));
+        const names = new Set((await loadMULListItems(["mul2", "custom"])).map((unit) => getMULDisplayName(unit).toLowerCase()));
         const missing = CONST_FORCE_PACKS.flatMap((pack) => pack.members.filter((member) => !names.has(member.trim().toLowerCase())).map((member) => `${pack.name}: ${member}`));
         expect(missing).toEqual([]);
     }, 60000);
@@ -27,5 +27,15 @@ describe("ForcePacks", () => {
             skills: [3, 3, 3, 3, 3],
         });
         expect(aces.find((pack) => pack.name.includes("Sortie 06"))?.skills?.[0]).toBe(2);
+    });
+
+    // #191: the sorties' emplacements are the box's Battlefield Support cards, in the custom unit list at Skill 4.
+    it("give the Aces sorties their emplacement cards at Skill 4", () => {
+        const sortie03 = CONST_FORCE_PACKS.find((pack) => pack.name.includes("Scouring Sands Sortie 03"))!;
+        expect(sortie03.members.slice(-2)).toEqual(["Heavy Emplacement AC/20", "Heavy Emplacement AC/20"]);
+        expect(sortie03.skills?.slice(-2)).toEqual([4, 4]);
+        expect(CONST_FORCE_PACKS.filter((pack) => pack.members.some((member) => member.includes(" Emplacement "))))
+            .toHaveLength(6);
+        expect(CONST_FORCE_PACKS.some((pack) => pack.note?.includes("not MUL units"))).toBe(false);
     });
 });

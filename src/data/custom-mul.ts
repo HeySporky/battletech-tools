@@ -22,6 +22,8 @@ export const CUSTOM_UNIT_TYPES: { name: string; typeId: number; bfType: string }
     { name: "Infantry", typeId: 21, bfType: "CI" },
     { name: "Fighter Craft", typeId: 17, bfType: "AF" },
     { name: "Aerospace Craft", typeId: 17, bfType: "AF" },
+    // Not a MUL type: the MUL lists no buildings. Type id 0 keeps them out of the Classic roster's unit kinds.
+    { name: "Emplacement", typeId: 0, bfType: "BD" },
 ];
 
 export const CUSTOM_TECHNOLOGIES: { name: string; id: number }[] = [
@@ -183,7 +185,8 @@ export function validateCustomMULForm(form: ICustomMULForm, context: ICustomMULV
     }
     requireInt("Battle Value", form.battleValue || "0", 0, 1_000_000);
     requireInt("Point Value", form.pointValue, 1, 1000);
-    requireInt("Size", form.size, 1, 4);
+    // An emplacement card prints SZ "-", kept as 0.
+    requireInt("Size", form.size, form.unitType === "Emplacement" ? 0 : 1, 4);
     requireInt("TMM", form.tmm, 0, 5);
     requireInt("Armor", form.armor, 0, 200);
     requireInt("Structure", form.structure, 1, 200);

@@ -6,6 +6,7 @@ import { mulEras } from "../utils/mulUtilities";
 import { ARTVEE_SAMPLES } from "./artvee-samples";
 import { buildCustomMULRecord, CUSTOM_MUL_ID_START, CUSTOM_MUL_KEY_PREFIX, CUSTOM_TECHNOLOGIES, emptyCustomMULForm, ICustomMULForm } from "./custom-mul";
 import { VTOLAM_SAMPLES } from "./vtolam-samples";
+import { EMPLACEMENT_CARDS, IEmplacementCard } from "./emplacement-cards";
 
 // The sample units the creators ship (ArtVees, VTOLAMs) as entries in the shared custom unit list
 // (src/data/mul/custom/custom-units.json), so the Alpha Strike and Classic roster searches find them when "Custom
@@ -17,6 +18,8 @@ export const ARTVEE_MUL_ID_START = CUSTOM_MUL_ID_START + 9000;
 export const ARTVEE_MUL_DATE = "2026-10-23T00:00:00.000Z";
 export const VTOLAM_MUL_ID_START = ARTVEE_MUL_ID_START + 100;
 export const VTOLAM_MUL_DATE = "2026-10-26T00:00:00.000Z";
+export const EMPLACEMENT_MUL_ID_START = VTOLAM_MUL_ID_START + 100;
+export const EMPLACEMENT_MUL_DATE = "2026-11-15T00:00:00.000Z";
 
 export function getMULEraIdForYear(year: number): number {
     return mulEras.find((era) => year >= era.yearStart && (era.yearEnd === null || year <= era.yearEnd))?.id ?? 0;
@@ -144,6 +147,38 @@ export function buildVTOLAMMULRecords(): IASMULUnit[] {
     });
 }
 
+/** The Aces: Scouring Sands emplacement cards (#191), copied from the cards as printed. */
+export function emplacementMULForm(card: IEmplacementCard): ICustomMULForm {
+    return {
+        ...emptyCustomMULForm(),
+        name: card.name,
+        variant: card.variant,
+        unitType: "Emplacement",
+        technology: "Inner Sphere",
+        role: "None",
+        eraId: String(getMULEraIdForYear(3151)),
+        tonnage: "0",
+        pointValue: String(card.pointValue),
+        size: "0",
+        move: "0\"",
+        tmm: "0",
+        armor: String(card.armor),
+        structure: String(card.structure),
+        damageShort: card.damage[0],
+        damageMedium: card.damage[1],
+        damageLong: card.damage[2],
+        abilities: card.abilities.join(","),
+        author: "Catalyst Game Labs",
+        source: `BattleTech: Aces - Scouring Sands, Battlefield Support card ${card.cardNumber}`,
+        notes: "Not on the MUL. Copied from the box's Battlefield Support card (photos from Rekikire). Immobile; critical hits are Weapon Hits, -1 damage each; crippled at 0 damage; no Forced Withdrawal (Aces p.6).",
+    };
+}
+
+export function buildEmplacementMULRecords(): IASMULUnit[] {
+    return EMPLACEMENT_CARDS.map((card, index) =>
+        sampleRecord(emplacementMULForm(card), EMPLACEMENT_MUL_ID_START + index, card.key, EMPLACEMENT_MUL_DATE));
+}
+
 export function buildSampleMULRecords(): IASMULUnit[] {
-    return [...buildArtVeeMULRecords(), ...buildVTOLAMMULRecords()];
+    return [...buildArtVeeMULRecords(), ...buildVTOLAMMULRecords(), ...buildEmplacementMULRecords()];
 }

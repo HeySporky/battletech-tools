@@ -457,6 +457,12 @@ export const suggestAcesDeck = (
     }
 }
 
+/** A Battlefield Support emplacement card: type BD with IMMOBILE (Aces: Scouring Sands, #191). */
+export const isAcesEmplacementCard = ( unit: Pick<AlphaStrikeUnit, "type" | "abilities"> ): boolean => {
+    return ( unit.type || "" ).trim().toUpperCase() === "BD"
+        && ( unit.abilities || [] ).some( ( ability ) => ability.trim().toUpperCase() === "IMMOBILE" );
+}
+
 export const suggestAcesDeckForUnit = ( unit: AlphaStrikeUnit, hasScouringSands: boolean ): TAcesDeckId | null => {
     return suggestAcesDeck(
         unit.role || "",

@@ -1555,6 +1555,26 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Custom
     },
     {
+        // The Aces: Scouring Sands emplacement cards print these two (#191). The MUL lists no buildings.
+        tag: "IMMOBILE",
+        name: "Immobile (Emplacement)",
+        summary: [
+            "An emplacement cannot move. Attacks against it take the -4 immobile target modifier, and its own attacks and spotting take -1. It uses no Aces behavior deck.",
+            "Every critical hit is a Weapon Hit (-1 damage each). It is crippled when its damage drops to 0, and it never makes a Forced Withdrawal.",
+        ],
+        source: { book: "BattleTech: Aces", page: 6 },
+        type: ESpecialAbilityType.Standard,
+    },
+    {
+        tag: "CF#",
+        name: "Construction Factor",
+        summary: [
+            "The emplacement's Construction Factor, as printed on its Battlefield Support card.",
+        ],
+        source: { book: "BattleTech: Aces", page: 6 },
+        type: ESpecialAbilityType.Standard,
+    },
+    {
         // Walkers (#172): the Alpha Strike ruleset is ours, from Clell Flint's walker rules (Future Wars #11; The Best
         // of Future Wars, Volume One). docs/superpowers/specs/2026-11-15-walker-alpha-strike.md
         tag: "WLK",

@@ -9,6 +9,7 @@ import {
     getAcesUnitLabels,
     IAcesModifier,
     IAcesMoveStep,
+    isAcesEmplacementCard,
     sortAcesActivation,
     splitAcesDeck,
     suggestAcesDeckForUnit,
@@ -218,7 +219,9 @@ export class AcesGame {
             state = newAcesUnitState( unitUUID );
             const unit = this.getUnit( unitUUID );
             if( unit ) {
-                state.deckId = suggestAcesDeckForUnit( unit, this.hasScouringSands ) || "";
+                // A Battlefield Support emplacement card (type BD, IMMOBILE) starts ticked as one, with no deck (Aces p.6, p.31).
+                state.isEmplacement = isAcesEmplacementCard( unit );
+                state.deckId = state.isEmplacement ? "" : suggestAcesDeckForUnit( unit, this.hasScouringSands ) || "";
             }
             this.unitStates.push( state );
         }

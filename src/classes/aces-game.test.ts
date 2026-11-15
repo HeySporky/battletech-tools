@@ -3,6 +3,7 @@ import { acesSampleBattleROMReview, acesSampleSniper475, acesSampleStarCaptainB,
 import { AcesGame } from "./aces-game";
 import AlphaStrikeForce from "./alpha-strike-force";
 import { AlphaStrikeUnit } from "./alpha-strike-unit";
+import { buildEmplacementMULRecords } from "../data/sample-mul";
 
 const makeUnit = ( name: string, role: string, pv: number, moveType: string = "" ): AlphaStrikeUnit => {
     const unit = new AlphaStrikeUnit();
@@ -36,6 +37,17 @@ const makeGame = ( units: AlphaStrikeUnit[] ): AcesGame => {
 }
 
 describe("Aces game tracker", () => {
+    // The Scouring Sands Battlefield Support cards (#191): an emplacement starts ticked and plays no deck (Aces pp.6, 31).
+    it("ticks an emplacement card as an emplacement, with no deck", () => {
+        const heavy = new AlphaStrikeUnit();
+        heavy.importMUL( buildEmplacementMULRecords()[2] );
+        const game = makeGame( [ heavy, makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const stateOf = ( type: string ) => game.getUnitState( game.getAutomatedUnits().find( ( unit ) => unit.type === type )!.uuid );
+        expect( [ stateOf( "BD" ).isEmplacement, stateOf( "BD" ).deckId ] ).toEqual( [ true, "" ] );
+        expect( [ stateOf( "BM" ).isEmplacement, stateOf( "BM" ).deckId ] ).toEqual( [ false, "brawler" ] );
+        expect( game.getUnitsUsingDeck( "brawler" ) ).toHaveLength( 1 );
+    });
+
     it("copies the automated force with new unit ids and suggests decks by role (Aces p.10)", () => {
         const brawler = makeUnit( "Thunderbolt", "Brawler", 38 );
         const game = makeGame( [ brawler, makeUnit( "Jenner", "Striker", 25 ) ] );
