@@ -5,6 +5,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { newAcesCardLibrary } from "../../../../data/aces-cards";
 import { IAcesScanResult } from "../../../../classes/aces-card-scan";
 import { IAcesCommandScanResult } from "../../../../classes/aces-command-card-scan";
+import { IAcesSpecialOrderScanResult } from "../../../../classes/aces-special-order-scan";
 import { IAppGlobals } from "../../../app-router";
 import { AppSettings } from "../../../classes/app_settings";
 import AcesLibraryPage from "./library";
@@ -130,17 +131,38 @@ describe( "Aces Command card scan in the library", () => {
     } );
 } );
 
+const specialScan = ( found: boolean ): IAcesSpecialOrderScanResult => found
+    ? { found: true, name: "Teapot Parade", kind: "other", cardNumber: "3/5", priority: -500, priorityIsModifier: true, rules: [ "Every teapot here is painted green." ], column: null, preFilters: [], spotter: [], warnings: [ "Check every line against the card." ] }
+    : { found: false, name: "", kind: "other", cardNumber: "", priority: null, priorityIsModifier: false, rules: [], column: null, preFilters: [], spotter: [], warnings: [ "This looks like a behavior card, not a Special Order: read it from a behavior card's form." ] };
+
+const openNewSpecialOrder = async () => {
+    const view = render( <MemoryRouter><AcesLibraryPage appGlobals={appGlobals} /></MemoryRouter> );
+    fireEvent.click( await screen.findByText( /^Special Orders/ ) );
+    fireEvent.click( screen.getByText( "New" ) );
+    return view;
+}
+
 describe( "Aces Special Order scan in the library", () => {
-    it( "reads a Special Order photo into its form, behind the same check", async () => {
-        scanResult.current = { found: true, name: "Test Order", kind: "other", cardNumber: "1/5", priority: 500, priorityIsModifier: true, rules: [ "An invented rule." ], column: null, preFilters: [], spotter: [], warnings: [ "Check every line against the card." ] } as unknown as IAcesScanResult;
-        const view = render( <MemoryRouter><AcesLibraryPage appGlobals={appGlobals} /></MemoryRouter> );
-        fireEvent.click( await screen.findByText( /^Special Orders/ ) );
-        fireEvent.click( screen.getByText( "New" ) );
-        await choosePhoto( view.container );
-        expect( view.container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Special Order card" );
+    it( "reads a Special Order photo into its form, through the same note and check as a behavior card", async () => {
+        scanResult.current = specialScan( true ) as unknown as IAcesScanResult;
+        const { container } = await openNewSpecialOrder();
+        expect( screen.getByText( "The card reader isn't perfect." ) ).toBeTruthy();
+        await choosePhoto( container );
+        expect( ( container.querySelector( "input[placeholder='1/5']" ) as HTMLInputElement ).value ).toBe( "3/5" );
+        expect( screen.getByDisplayValue( "Teapot Parade" ) ).toBeTruthy();
+        expect( container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Special Order card" );
         const save = screen.getByText( "Save" ) as HTMLButtonElement;
         expect( save.disabled ).toBe( true );
         fireEvent.click( screen.getByLabelText( /checked the form against my photos/ ) );
         expect( save.disabled ).toBe( false );
+    } );
+
+    it( "leaves a Special Order alone when the photo is another kind of card", async () => {
+        scanResult.current = specialScan( false ) as unknown as IAcesScanResult;
+        const { container } = await openNewSpecialOrder();
+        await choosePhoto( container );
+        expect( ( container.querySelector( "input[placeholder='1/5']" ) as HTMLInputElement ).value ).toBe( "" );
+        expect( screen.getByText( /looks like a behavior card/ ) ).toBeTruthy();
+        expect( container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Not read" );
     } );
 } );
