@@ -22,11 +22,12 @@ import {
     TAcesRuleset,
 } from '../../../../classes/aces-engine';
 import AcesIdealTargets from './_ideal-targets';
+import AcesAddAutomatedUnits from './_add-automated-units';
 import { getAcesCrippledReasonsForUnit, getAcesUnitLabels, TAcesPriorityToken, TAcesSide } from '../../../../classes/aces-helpers';
 import { IAcesCardLibrary, IAcesCommandCard, IAcesSpecialOrder, newAcesCardLibrary, TAcesSpecialOrderKind } from '../../../../data/aces-cards';
 import AlphaStrikeForce from '../../../../classes/alpha-strike-force';
 import AlphaStrikeGroup from '../../../../classes/alpha-strike-group';
-import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
+import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
 import {
     acesCombatSteps,
     acesDecks,
@@ -246,6 +247,14 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         return force;
     }
 
+    private _addUnit = ( record: IASMULUnit, skill: number, groupIndex: number ) => {
+        const unit = new AlphaStrikeUnit();
+        unit.importMUL( record );
+        unit.setPilotSkill( skill );
+        unit.calcCurrentValues();
+        this._update( ( game ) => { game.addAutomatedUnit( unit, groupIndex ); } );
+    }
+
     private _loadForce = () => {
         const force = this._getSourceForce();
         if( !force || force.getTotalUnits() === 0 ) return;
@@ -314,6 +323,9 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                         The automated force is copied, so the Alpha Strike roster stays free for your own force.
                         Currently {game.getAutomatedUnits().length} units, {automatedPV} PV.
                     </p>
+                    <AcesAddAutomatedUnits
+                        groups={game.automatedForce.groups.map( ( group ) => group.getName( 0 ) )}
+                        onAdd={this._addUnit} />
                     <div className="aces-inline">
                         <label>Game name:{" "}
                             <input type="text" value={game.name} onChange={( e ) => { const value = e.currentTarget.value; this._update( ( g ) => { g.name = value; } ); }} />
@@ -958,6 +970,9 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                                         {this._renderTransport( unit, phase )}
                                     </td>
                                     <td>
+                                        {state.addedDuringPlay ? (
+                                            <><button className="btn btn-secondary btn-sm" onClick={() => this._update( ( g ) => { g.removeAutomatedUnit( unit.uuid ); } )}>Remove</button>{" "}</>
+                                        ) : null}
                                         {( phase === "movement" && !state.moved ) || ( phase === "combat" && !state.attacked ) ? (
                                             !wrecked && !state.isEmplacement && !state.transportedBy ? (
                                                 <><button className="btn btn-secondary btn-sm" onClick={() => this.setState( { readerUUID: unit.uuid } )}>Read card</button>{" "}</>
