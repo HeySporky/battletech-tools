@@ -661,6 +661,12 @@ export const acesSupportOnlyIfStructure = ( commandCard: IAcesCommandCard | null
     return commandCard.supportOnlyIfStructure || /hit[^.]*structure/i.test( commandCard.supportOrders );
 }
 
+/** The N in the Command card's "up to N" Battlefield Support cards, or null when it names no limit. */
+export const getAcesSupportSpendLimit = ( supportOrders: string ): number | null => {
+    const match = /up to (\d+)/i.exec( supportOrders || "" );
+    return match ? +match[1] : null;
+}
+
 /** Support order check: a card that must hit structure is played only when its damage gets through the armor. */
 export const acesSupportCardAllowed = ( commandCard: IAcesCommandCard | null, damage: number, targetArmor: number ): boolean => {
     if( !acesSupportOnlyIfStructure( commandCard ) ) return true;

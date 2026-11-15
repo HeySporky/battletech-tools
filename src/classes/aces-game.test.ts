@@ -401,3 +401,63 @@ describe("Aces player units moved this turn (#630 point 2)", () => {
         expect( again.playerUnitsMoved ).toEqual( [] );
     });
 });
+
+
+describe("Aces game tracker, Battlefield Support cards (#605)", () => {
+    const withCards = () => {
+        const game = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        game.turn = 3;
+        const a = game.addSupportCard( "Made Up Strike" );
+        const b = game.addSupportCard( "Made Up Barrage" );
+        return { game, a, b };
+    };
+
+    it("spends the chosen cards and logs them", () => {
+        const { game, a, b } = withCards();
+        const result = game.spendSupportCards( [ a.id ], 2 );
+        expect( result.ok ).toBe( true );
+        expect( game.supportCards.find( ( c ) => c.id === a.id )!.spentTurn ).toBe( 3 );
+        expect( game.supportCards.find( ( c ) => c.id === b.id )!.spentTurn ).toBeNull();
+        expect( game.log[game.log.length - 1] ).toContain( "Made Up Strike" );
+    });
+
+    it("refuses more than the limit and spends none", () => {
+        const { game, a, b } = withCards();
+        const c = game.addSupportCard( "Made Up Volley" );
+        const result = game.spendSupportCards( [ a.id, b.id, c.id ], 2 );
+        expect( result.ok ).toBe( false );
+        expect( result.reason.length ).toBeGreaterThan( 0 );
+        expect( game.supportCards.every( ( card ) => card.spentTurn === null ) ).toBe( true );
+    });
+
+    it("refuses unknown and already spent ids, and removes cards", () => {
+        const { game, a, b } = withCards();
+        game.spendSupportCards( [ a.id ], null );
+        expect( game.spendSupportCards( [ a.id ], null ).ok ).toBe( false );
+        expect( game.spendSupportCards( [ b.id, "nope" ], null ).ok ).toBe( false );
+        expect( game.supportCards.find( ( c ) => c.id === b.id )!.spentTurn ).toBeNull();
+        game.removeSupportCard( b.id );
+        expect( game.supportCards.map( ( c ) => c.id ) ).toEqual( [ a.id ] );
+    });
+
+    it("keeps support cards and spent turns through save and load", () => {
+        const { game, a } = withCards();
+        game.spendSupportCards( [ a.id ], 1 );
+        const again = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        again.import( JSON.parse( JSON.stringify( game.export() ) ) );
+        expect( again.supportCards ).toEqual( game.supportCards );
+        expect( again.supportCards[0].spentTurn ).toBe( 3 );
+        const old = game.export();
+        delete old.supportCards;
+        again.import( old );
+        expect( again.supportCards ).toEqual( [] );
+    });
+
+    it("keeps the cards through reset but makes them unspent", () => {
+        const { game, a } = withCards();
+        game.spendSupportCards( [ a.id ], 1 );
+        game.reset();
+        expect( game.supportCards.length ).toBe( 2 );
+        expect( game.supportCards.every( ( card ) => card.spentTurn === null ) ).toBe( true );
+    });
+});

@@ -59,6 +59,14 @@ export interface IAcesUnitState {
     addedDuringPlay?: boolean;
 }
 
+/** A Battlefield Support card the automated force holds. The player names it; nothing about the card is shipped. */
+export interface IAcesGameSupportCard {
+    id: string;
+    name: string;
+    /** Game turn it was spent on, or null while still in hand. */
+    spentTurn: number | null;
+}
+
 export interface IAcesGameWaypoint extends IAcesWaypoint {
     resolved: boolean;
 }
@@ -121,6 +129,8 @@ export interface IAcesGameExport {
     deckPools?: { [deckId: string]: string[] };
     /** Player units (by uuid) that have moved this turn, for the Command card conditions. */
     playerUnitsMoved?: string[];
+    /** Battlefield Support cards the automated force holds. Optional so older saves load. */
+    supportCards?: IAcesGameSupportCard[];
 }
 
 export const newAcesUnitState = ( unitUUID: string ): IAcesUnitState => {
@@ -165,6 +175,7 @@ export class AcesGame {
     public playerUnitsAbleToMove: number = 0;
     /** Player units that moved this turn; ticking one once carries to every automated unit card reading. */
     public playerUnitsMoved: string[] = [];
+    public supportCards: IAcesGameSupportCard[] = [];
     public scenario: IAcesGameScenario = {
         gameSize: "battle",
         deploymentId: null,
@@ -288,6 +299,35 @@ export class AcesGame {
         if( state.deckId && this.getUnitsUsingDeck( state.deckId ).length > 0 ) this.dealDeck( state.deckId );
         this.addLog( label + " leaves the automated force (added by mistake)." );
         return true;
+    }
+
+    public addSupportCard( name: string ): IAcesGameSupportCard {
+        const card: IAcesGameSupportCard = { id: generateUUID(), name: name.trim() || "Battlefield Support card", spentTurn: null };
+        this.supportCards.push( card );
+        return card;
+    }
+
+    public removeSupportCard( id: string ) {
+        this.supportCards = this.supportCards.filter( ( card ) => card.id !== id );
+    }
+
+    /**
+     * Spends the chosen unspent cards this turn. Spending more than the Command card's limit, or a card that is
+     * unknown or already spent, is refused and spends none.
+     */
+    public spendSupportCards( ids: string[], limit: number | null ): { ok: boolean; reason: string } {
+        const unique = ids.filter( ( id, index ) => ids.indexOf( id ) === index );
+        if( unique.length === 0 ) return { ok: false, reason: "Choose at least one card." };
+        if( limit !== null && unique.length > limit ) {
+            return { ok: false, reason: "The Command card allows up to " + limit + " Battlefield Support card" + ( limit === 1 ? "" : "s" ) + "; " + unique.length + " chosen." };
+        }
+        const chosen = unique.map( ( id ) => this.supportCards.find( ( card ) => card.id === id ) );
+        if( chosen.some( ( card ) => !card || card.spentTurn !== null ) ) {
+            return { ok: false, reason: "Only cards still in hand can be spent." };
+        }
+        for( const card of chosen ) card!.spentTurn = this.turn;
+        this.addLog( "Battlefield Support spent: " + chosen.map( ( card ) => card!.name ).join( ", " ) + "." );
+        return { ok: true, reason: "" };
     }
 
     /** Adds states for new units and drops states for removed ones. */
@@ -825,6 +865,8 @@ export class AcesGame {
         this.automatedCommanderDestroyed = false;
         this.commandCard = "A";
         this.log = [];
+        // A restart keeps the force's cards but they are all back in hand.
+        for( const card of this.supportCards ) card.spentTurn = null;
         this.automatedObjectiveComplete = false;
         for( const waypoint of this.waypoints ) waypoint.resolved = false;
         for( const objective of this.objectives ) objective.complete = false;
@@ -867,6 +909,7 @@ export class AcesGame {
             commandCardId: this.commandCardId,
             deckPools: JSON.parse( JSON.stringify( this.deckPools ) ),
             playerUnitsMoved: this.playerUnitsMoved.slice(),
+            supportCards: this.supportCards.map( ( card ) => ( { ...card } ) ),
         };
     }
 
@@ -925,6 +968,11 @@ export class AcesGame {
         }
         if( typeof data.commandCardId === "string" ) this.commandCardId = data.commandCardId;
         this.playerUnitsMoved = Array.isArray( data.playerUnitsMoved ) ? data.playerUnitsMoved.filter( ( id ) => typeof id === "string" ) : [];
+        this.supportCards = Array.isArray( data.supportCards )
+            ? data.supportCards
+                .filter( ( item ) => item && typeof item.id === "string" && item.id && typeof item.name === "string" )
+                .map( ( item ) => ( { id: item.id, name: item.name, spentTurn: typeof item.spentTurn === "number" && item.spentTurn > 0 ? item.spentTurn : null } ) )
+            : [];
         this.deckPools = {};
         if( data.deckPools && typeof data.deckPools === "object" ) {
             for( const key of Object.keys( data.deckPools ) ) {

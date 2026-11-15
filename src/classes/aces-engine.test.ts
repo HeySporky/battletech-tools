@@ -10,6 +10,7 @@ import {
 import {
     acesSpotterAttacks,
     acesSupportCardAllowed,
+    getAcesSupportSpendLimit,
     applyAcesCriticalToUnit,
     chooseAcesTokenUnit,
     getAcesOrdersForPhase,
@@ -572,5 +573,14 @@ describe("Aces behavior conditions answered from known data (#630 point 2)", () 
         expect( ask( "If this unit is crippled", [] ) ).toBeNull();
         expect( ask( "If there are any enemies in this unit's [range]", [ at( "A", 3 ) ] ) ).toBeNull();
         expect( ask( "", [ at( "A", 3 ) ] ) ).toBeNull();
+    });
+});
+
+
+describe("Aces support spend limit (#605)", () => {
+    it("reads the N in 'up to N'", () => {
+        expect( getAcesSupportSpendLimit( "Spend up to 2 Battlefield Support cards" ) ).toBe( 2 );
+        expect( getAcesSupportSpendLimit( "" ) ).toBeNull();
+        expect( getAcesSupportSpendLimit( "Spend Battlefield Support when able." ) ).toBeNull();
     });
 });

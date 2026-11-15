@@ -10,6 +10,7 @@ import {
     applyAcesCriticalToUnit,
     chooseAcesTokenUnit,
     acesSupportOnlyIfStructure,
+    getAcesSupportSpendLimit,
     evaluateAcesStrategy,
     getAcesDestroyObjectiveStats,
     getAcesOrdersForPhase,
@@ -47,6 +48,7 @@ import AcesCardReader, { IAcesReaderEnemy, IAcesReaderUnit } from './_card-reade
 import AcesPlayerForceCards, { applyAcesPlayerForceRound } from './_player-force-cards';
 import { AcesCommandCardView } from './_aces-card-view';
 import AcesText from './_aces-text';
+import AcesSupportCards from './_support-cards';
 import './aces.scss';
 
 const phaseLabels: { [phase in TAcesPhase]: string } = {
@@ -804,13 +806,27 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
     /** Support attacks after every automated unit has attacked (Aces p.20). */
     private _renderSupport = (): JSX.Element | null => {
         const card = this._commandCard();
-        if( !card || ( card.emplacements.length === 0 && card.artillery.length === 0 && card.bsp.length === 0 && !card.supportOrders ) ) return null;
+        const game = this.state.game!;
+        const holdsCards = game.supportCards.length > 0;
+        if( !holdsCards && ( !card || ( card.emplacements.length === 0 && card.artillery.length === 0 && card.bsp.length === 0 && !card.supportOrders ) ) ) return null;
         return (
             <details>
                 <summary>Support attacks (<em>Aces</em> p.20)</summary>
                 <p className="aces-muted">After all automated units attack: emplacements, then artillery, then Battlefield Support cards, lowest Target Number first.</p>
-                {card.supportOrders ? <p><AcesText text={card.supportOrders} /></p> : null}
-                {acesSupportOnlyIfStructure( card ) ? <p>Battlefield Support is only spent when its damage gets through the target's armor.</p> : null}
+                {card && card.supportOrders ? <p><AcesText text={card.supportOrders} /></p> : null}
+                <AcesSupportCards
+                    cards={game.supportCards}
+                    limit={card ? getAcesSupportSpendLimit( card.supportOrders ) : null}
+                    onlyIfStructure={acesSupportOnlyIfStructure( card )}
+                    onSpend={( ids ) => {
+                        const limit = card ? getAcesSupportSpendLimit( card.supportOrders ) : null;
+                        let result = { ok: true, reason: "" };
+                        this._update( ( g ) => { result = g.spendSupportCards( ids, limit ); } );
+                        return result;
+                    }}
+                    onAdd={( name ) => this._update( ( g ) => { g.addSupportCard( name ); } )}
+                    onRemove={( id ) => this._update( ( g ) => { g.removeSupportCard( id ); } )}
+                />
             </details>
         );
     }
