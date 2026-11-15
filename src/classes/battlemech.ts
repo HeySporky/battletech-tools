@@ -49,7 +49,8 @@ import { getEditionTechBases, IGameSettings } from "../data/game-settings";
 import { getHexDistanceFromModifier, getLocationName, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
 import { rollCriticalLine } from "../utils/critical-tables";
-import { adjustAlphaStrikeDamage, calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
+import { calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
+import { addsNoAlphaStrikeWeaponHeat, alphaStrikeExtraHeat, alphaStrikeMovementHeat, applyAlphaStrikeHeat } from "../utils/alphaStrikeHeat";
 import { isAlphaStrikeAbilityCode } from "../data/alpha-strike-special-abilities";
 import { generateUUID } from "../utils/generateUUID";
 import { ISSWBasicInfo, parseSSWXML } from "../utils/getSSWXMLBasicInfo";
@@ -3223,11 +3224,12 @@ export class BattleMech {
         this._alphaStrikeForceStats.structure = structurePoints;
         this._calcLogAS += `<strong>Setting structure to ${structurePoints}</strong><br />\n`;
 
-        // Heat Modified Damage, p115 AS companion
-        let total_weapon_heat_short = 0;
-        let total_weapon_heat_medium = 0;
-        let total_weapon_heat_long = 0;
-        // let total_weapon_heat_extreme = 0;
+        // Weapon heat for the heat step (Converting Heat errata v1.3): forward and rear-firing weapons apart, and again
+        // for the weapons that reach Long range. Rocket and one-shot launchers add none; AMS heat is added below.
+        let frontWeaponHeat = 0;
+        let frontWeaponHeatLong = 0;
+        let rearWeaponHeat = 0;
+        let rearWeaponHeatLong = 0;
         let has_explosive = false;
 
         const lrmDamage: IAlphaStrikeDamage = {
@@ -3309,12 +3311,16 @@ export class BattleMech {
                 }
             }
             if (this._equipmentList[weapon_counter].alphaStrike && !this._equipmentList[weapon_counter].isAmmo ) {
-                if (this._equipmentList[weapon_counter].alphaStrike.rangeLong > 0) {
-                    total_weapon_heat_long += getMountedHeat(this._equipmentList[weapon_counter], +this._equipmentList[weapon_counter].alphaStrike.heat);
+                const strike = equipment.alphaStrike;
+                const firesForDamage = +strike.rangeShort > 0 || +strike.rangeMedium > 0 || +strike.rangeLong > 0 || +strike.rangeExtreme > 0;
+                const weaponHeat = firesForDamage && !addsNoAlphaStrikeWeaponHeat(equipment) ? getMountedHeat(equipment, +strike.heat || 0) : 0;
+                if (equipment.rear) {
+                    rearWeaponHeat += weaponHeat;
+                    if (+strike.rangeLong > 0) rearWeaponHeatLong += weaponHeat;
+                } else {
+                    frontWeaponHeat += weaponHeat;
+                    if (+strike.rangeLong > 0) frontWeaponHeatLong += weaponHeat;
                 }
-                // if (this._equipmentList[weapon_counter].alphaStrike.rangeExtreme > 0) {
-                //     total_weapon_heat_extreme += +this._equipmentList[weapon_counter].alphaStrike.heat;
-                // }
 
 
 
@@ -3340,11 +3346,6 @@ export class BattleMech {
                     this._calcLogAS += this._equipmentList[weapon_counter].alphaStrike.rangeMedium + ", ";
                     this._calcLogAS += this._equipmentList[weapon_counter].alphaStrike.rangeLong + ", ";
                     this._calcLogAS += this._equipmentList[weapon_counter].alphaStrike.rangeExtreme + " )<br />\n";
-
-                    if( this._equipmentList[weapon_counter].alphaStrike.rangeMedium > 0 )
-                        total_weapon_heat_medium += getMountedHeat(this._equipmentList[weapon_counter], +this._equipmentList[weapon_counter].alphaStrike.heat);
-                    if( this._equipmentList[weapon_counter].alphaStrike.rangeShort > 0 )
-                        total_weapon_heat_short += getMountedHeat(this._equipmentList[weapon_counter], +this._equipmentList[weapon_counter].alphaStrike.heat);
 
                 }
 
@@ -3437,18 +3438,7 @@ export class BattleMech {
 
 
 
-        let move_heat = 0;
-        if (this.getJumpSpeed() > 0) {
-            if (this.getJumpSpeed() < 3)
-                move_heat += 3;
-            else
-                move_heat += +this.getJumpSpeed();
-
-            this._calcLogAS += "<strong>Move Is " + this.getWalkSpeed() * 2 + "\"/" + this.getJumpSpeed() * 2 + "\"J</strong><br />\n";
-        } else {
-            move_heat += 2;
-            this._calcLogAS += "<strong>Move Is " + this.getWalkSpeed() * 2 + "\"</strong><br />\n";
-        }
+        this._calcLogAS += "<strong>Move Is " + this.getWalkSpeed() * 2 + "\"" + (this.getJumpSpeed() > 0 ? "/" + this.getJumpSpeed() * 2 + "\"J" : "") + "</strong><br />\n";
 
         // if there are no explosive components, then the mech gets the ENE ability :)
         if (!has_explosive) {
@@ -3456,155 +3446,51 @@ export class BattleMech {
             this._calcLogAS += "Mech has no explosive components, gets ENE ability<br />\n";
         }
 
-        let heatDissipation = 0;
+        // Heat-modified damage, Overheat and OVL: the Alpha Strike Companion's Converting Heat errata v1.3 (CGL 2025),
+        // which supersedes ASC pp.115-116, through the routine the walker uses too (#636).
+        const move_heat = alphaStrikeMovementHeat({
+            jumpMP: this.getJumpSpeed(), xxl: this.isXXLEngine(), improvedJets: this._jumpJetType.tag === "improved",
+            industrial: this.isIndustrialMech(),
+        });
+        // Rear-firing weapons add no heat, unless they make more than the forward weapons; then theirs counts instead.
+        const rearHotter = rearWeaponHeat > frontWeaponHeat;
+        const weaponHeat = rearHotter ? rearWeaponHeat : frontWeaponHeat;
+        const weaponHeatLong = rearHotter ? rearWeaponHeatLong : frontWeaponHeatLong;
+        const extraHeat = alphaStrikeExtraHeat({
+            equipmentTags: this._equipmentList.filter((item) => !item.isAmmo).map((item) => item.tag),
+            stealthArmor: this._armorType.tag === "stealth-basic" || this._armorType.tag === "stealth-improved",
+        });
+        const heatDissipation = this.getHeatSinks() * this._heatSinkType.dissipation + this.getEquipmentHeatDissipation();
+        const heatOutput = move_heat + weaponHeat + extraHeat;
+        const heatOutputLong = move_heat + weaponHeatLong + extraHeat;
+        const subtotals = [this._alphaStrikeForceStats.damage.short, this._alphaStrikeForceStats.damage.medium,
+            this._alphaStrikeForceStats.damage.long, this._alphaStrikeForceStats.damage.extreme].map((value) => +value || 0);
+        const heat = applyAlphaStrikeHeat({ subtotals, heatOutput, longHeatOutput: heatOutputLong, dissipation: heatDissipation });
 
-        heatDissipation += this.getHeatSinks() * this._heatSinkType.dissipation + this.getEquipmentHeatDissipation();
+        this._calcLogAS += "<strong>Damage subtotals: " + subtotals.map((value) => value.toFixed(2)).join(" / ") + "</strong><br />\n";
+        this._calcLogAS += "Heat: " + move_heat + " movement + " + weaponHeat + (rearHotter ? " rear (hotter than the forward)" : "") + " weapon"
+            + (extraHeat > 0 ? " + " + extraHeat + " AMS / stealth" : "") + " = " + heatOutput + " (Long " + heatOutputLong + "), less 4, against "
+            + heatDissipation + " dissipation<br />\n";
+        if (heat.hot) this._calcLogAS += "Heat-modified damage: " + heat.modified.map((value) => value.toFixed(1)).join(" / ") + "<br />\n";
 
-        const max_short_overheat_value =  move_heat + total_weapon_heat_short ;
-        const max_medium_overheat_value =  move_heat + total_weapon_heat_medium ;
-        const max_long_overheat_value =  move_heat + total_weapon_heat_long;
-        // let max_weapon_heat_extreme = move_heat + total_weapon_heat_extreme;
+        const [shortValue, mediumValue, longValue, extremeValue] = heat.values;
+        this._alphaStrikeForceStats.damage.short = shortValue.damage;
+        this._alphaStrikeForceStats.damage.shortMinimal = shortValue.minimal;
+        this._alphaStrikeForceStats.damage.medium = mediumValue.damage;
+        this._alphaStrikeForceStats.damage.mediumMinimal = mediumValue.minimal;
+        this._alphaStrikeForceStats.damage.long = longValue.damage;
+        this._alphaStrikeForceStats.damage.longMinimal = longValue.minimal;
+        this._alphaStrikeForceStats.damage.extreme = extremeValue.damage;
+        this._alphaStrikeForceStats.damage.extremeMinimal = extremeValue.minimal;
 
-        let max_heat_output =  max_short_overheat_value;
-        if( max_medium_overheat_value > max_heat_output)
-            max_heat_output = max_medium_overheat_value
-        if( max_long_overheat_value > max_heat_output)
-            max_heat_output = max_long_overheat_value
-
-
-        if( this._alphaStrikeForceStats.damage.short >= .5 && this._alphaStrikeForceStats.damage.short < 1) {
-            this._alphaStrikeForceStats.damage.short = 0;
-            this._alphaStrikeForceStats.damage.shortMinimal = true;
-        } else {
-            this._alphaStrikeForceStats.damage.short = Math.ceil( this._alphaStrikeForceStats.damage.short );
-        }
-
-        if( this._alphaStrikeForceStats.damage.medium >= .5 && this._alphaStrikeForceStats.damage.medium < 1) {
-            this._alphaStrikeForceStats.damage.medium = 0;
-            this._alphaStrikeForceStats.damage.mediumMinimal = true;
-        } else {
-            this._alphaStrikeForceStats.damage.medium = Math.ceil( this._alphaStrikeForceStats.damage.medium );
-        }
-        if( this._alphaStrikeForceStats.damage.long >= .5 && this._alphaStrikeForceStats.damage.long < 1) {
-            this._alphaStrikeForceStats.damage.long = 0;
-            this._alphaStrikeForceStats.damage.longMinimal = true;
-        } else {
-            this._alphaStrikeForceStats.damage.long = Math.ceil( this._alphaStrikeForceStats.damage.long );
-        }
-        if( this._alphaStrikeForceStats.damage.extreme >= .5 && this._alphaStrikeForceStats.damage.extreme < 1) {
-            this._alphaStrikeForceStats.damage.extreme = 0;
-            this._alphaStrikeForceStats.damage.extremeMinimal = true;
-        } else {
-            this._alphaStrikeForceStats.damage.extreme = Math.ceil( this._alphaStrikeForceStats.damage.extreme );
-        }
-
-
-
-
-        this._calcLogAS += "<strong>Base Short Damage: " + this._alphaStrikeForceStats.damage.short + "</strong><br />\n";
-        this._calcLogAS += "<strong>Base Medium Damage: " + this._alphaStrikeForceStats.damage.medium + "</strong><br />\n";
-        this._calcLogAS += "<strong>Base Long Damage: " + this._alphaStrikeForceStats.damage.long + "</strong><br />\n";
-        this._calcLogAS += "<strong>Base Extreme Damage: " + this._alphaStrikeForceStats.damage.extreme + "</strong><br />\n";
-
-        let final_overheat_value = 0;
-
-
-        // Heat-modified damage (ASC p.115) only ever reduces damage: a unit whose heat (less 4) the sinks can shed keeps its damage.
-        const heatDamageScale = (damage: number | string): number => (max_heat_output - 4 <= heatDissipation
-            ? Math.ceil(+damage)
-            : Math.ceil((+damage * heatDissipation) / (max_heat_output - 4)));
-        const weapon_heat_damage_short = heatDamageScale(this._alphaStrikeForceStats.damage.short);
-        const weapon_heat_damage_medium = heatDamageScale(this._alphaStrikeForceStats.damage.medium);
-        const weapon_heat_damage_long = heatDamageScale(this._alphaStrikeForceStats.damage.long);
-        // let weapon_heat_damage_extreme = Math.ceil((this._alphaStrikeForceStats.damage.extreme * heatDissipation) / (max_heat_output - 4));
-
-
-
-        // if( this._alphaStrikeForceStats.damage.short.toString() !== "0*" )
-        this._alphaStrikeForceStats.damage.short = Math.ceil(+this._alphaStrikeForceStats.damage.short);
-
-        // if( this._alphaStrikeForceStats.damage.medium.toString() !== "0*" )
-        this._alphaStrikeForceStats.damage.medium = Math.ceil(+this._alphaStrikeForceStats.damage.medium);
-
-
-        if (weapon_heat_damage_medium !== this._alphaStrikeForceStats.damage.medium || weapon_heat_damage_short !== this._alphaStrikeForceStats.damage.short )  {
-
-
-            // Heat Modified Damage, p115 AS companion
-            this._alphaStrikeForceStats.damage.short = weapon_heat_damage_short;
-
-            this._alphaStrikeForceStats.damage.medium = weapon_heat_damage_medium;
-            if( this._alphaStrikeForceStats.damage.medium > 0 && weapon_heat_damage_medium !== this._alphaStrikeForceStats.damage.medium  ) {
-
-                this._calcLogAS += "total_weapon_heat_medium is over 3, weapon damages must be adjusted - " + weapon_heat_damage_medium + " as per p115<br />";
-
-                final_overheat_value = this._alphaStrikeForceStats.damage.medium - weapon_heat_damage_medium;
-
-
-            } else if( this._alphaStrikeForceStats.damage.short !== weapon_heat_damage_short ) {
-                 final_overheat_value = this._alphaStrikeForceStats.damage.short - weapon_heat_damage_short;
-            }
-
-        }
-        this._alphaStrikeForceStats.damage.short = weapon_heat_damage_short;
-        this._alphaStrikeForceStats.damage.medium = weapon_heat_damage_medium;
-
-        let final_long_overheat_value = 0;
-        let heat_damage_long = 0;
-        let heat_damage_extreme = 0;
-
-        if (weapon_heat_damage_long > 4) {
-
-            if( this._alphaStrikeForceStats.damage.long.toString() !== "0*" ) {
-                heat_damage_long = +this._alphaStrikeForceStats.damage.long;
-                heat_damage_extreme = +this._alphaStrikeForceStats.damage.extreme;
-
-
-                this._alphaStrikeForceStats.damage.long = Math.ceil((+this._alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4));
-                this._alphaStrikeForceStats.damage.extreme = Math.ceil((+this._alphaStrikeForceStats.damage.long * heatDissipation) / (total_weapon_heat_long - 4));
-
-                if (heat_damage_long > +this._alphaStrikeForceStats.damage.long) {
-                    final_long_overheat_value = heat_damage_long - +this._alphaStrikeForceStats.damage.long;
-                    this._alphaStrikeForceStats.damage.long = (heat_damage_long - final_long_overheat_value);
-                    this._alphaStrikeForceStats.damage.extreme = (heat_damage_extreme - final_long_overheat_value);
-                }
-
-
-            }
-        }
-
-        if (final_long_overheat_value > 0) {
-            this._alphaStrikeForceStats.abilityCodes.push( "OVL " + final_long_overheat_value);
-
-        }
-
-
-        this._alphaStrikeForceStats.damage = adjustAlphaStrikeDamage(this._alphaStrikeForceStats.damage, true);
-
-        // Determine Overheat Values - p116 AS Companion
-        if( final_overheat_value > 4 )
-            final_overheat_value = 4;
-
+        // OVL is printed only when there is an Overheat to use at Long range (it does nothing otherwise).
+        const final_overheat_value = heat.overheat;
+        const final_long_overheat_value = heat.ovl ? heat.overheat : 0;
+        if (final_long_overheat_value > 0) this._alphaStrikeForceStats.abilityCodes.push("OVL");
         this._alphaStrikeForceStats.ov = final_overheat_value;
 
-        this._calcLogAS += "Move Heat: " + move_heat + "<br />\n";
-        this._calcLogAS += "Weapon Heat: " + final_overheat_value + "<br />\n";
-        this._calcLogAS += "Long Weapon Heat: " + total_weapon_heat_long + "<br />\n";
-        this._calcLogAS += "Heat Dissipation: " + heatDissipation + "<br />\n";
-
-        this._calcLogAS += "Short Overheat Damage: " + weapon_heat_damage_short + "<br />\n";
-        this._calcLogAS += "Medium Overheat Damage: " + weapon_heat_damage_medium + "<br />\n";
-        this._calcLogAS += "Long Overheat Damage: " + weapon_heat_damage_long + "<br />\n";
-        this._calcLogAS += "Final Overheat Damage: " + final_overheat_value + "<br />\n";
-
-        this._calcLogAS += "<strong>Final Short Damage: " + this._alphaStrikeForceStats.damage.short + "</strong><br />\n";
-        this._calcLogAS += "<strong>Final Medium Damage: " + this._alphaStrikeForceStats.damage.medium + "</strong><br />\n";
-        this._calcLogAS += "<strong>Final Long Damage: " + this._alphaStrikeForceStats.damage.long + "</strong><br />\n";
-        this._calcLogAS += "<strong>Final Extreme Damage: " + this._alphaStrikeForceStats.damage.extreme + "</strong><br />\n";
-
-        // Overheat Value is
-        this._calcLogAS += "<strong>Final Overheat Value: " + final_overheat_value + "</strong><br />\n";
-        this._calcLogAS += "<strong>Final Long Overheat Value: " + final_long_overheat_value + "</strong><br />\n";
+        this._calcLogAS += "<strong>Final Damage: " + heat.values.map((value) => (value.minimal ? "0*" : String(value.damage))).join(" / ") + "</strong><br />\n";
+        this._calcLogAS += "<strong>Final Overheat Value: " + final_overheat_value + (final_long_overheat_value > 0 ? ", OVL" : "") + "</strong><br />\n";
 
         this._alphaStrikeForceStats.overheat = final_overheat_value;
         this._alphaStrikeForceStats.longOverheat = final_long_overheat_value;
@@ -3625,6 +3511,7 @@ export class BattleMech {
             srmDamage,
             mslDamage,
             indirectFireRating,
+            heat.factor,
         );
 
         this._calcLogAS += alphaStrikeCalculation.calcLogs;

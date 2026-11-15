@@ -958,7 +958,7 @@ export const equipmentEnergy: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 134,
         alphaStrike: {
-            heat: 5,
+            heat: 7, // Converting Heat errata v1.3: +7 for an Inner Sphere Laser AMS
             rangeShort: 0,
             rangeMedium: 0,
             rangeLong: 0,
@@ -2784,7 +2784,7 @@ export const equipmentEnergy: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 134,
         alphaStrike: {
-            heat: 7,
+            heat: 5, // Converting Heat errata v1.3: +5 for a Clan Laser AMS
             rangeShort: 0,
             rangeMedium: 0,
             rangeLong: 0,

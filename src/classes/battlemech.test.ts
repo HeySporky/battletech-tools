@@ -488,12 +488,57 @@ describe("BattleMech Alpha Strike special ammunition", () => {
     });
 
     // A lone Medium Laser converts to minimal damage, which the card showed as plain 0 (found with #376).
-    it("keeps minimal damage on the card as 0*", () => {
+    it("rounds a subtotal from 0.5 up to 1 (Converting Heat errata v1.3; #636 had it print 0*)", () => {
+        // A medium laser and two machine guns, as the Locust LCT-1V, whose MUL card reads 1/1/0.
         const locust = getVTOLAMSamples(CUSTOM_HOMEBREW_RULES_LEVEL).find((sample) => sample.id === "locust-vtolam")!;
         const damage = new BattleMech(JSON.stringify(locust.save)).calcAlphaStrike().damage;
+        expect([damage.short, damage.medium, damage.long]).toEqual([1, 1, 0]);
+        expect(damage.shortMinimal).toBeFalsy();
+        expect(damage.mediumMinimal).toBeFalsy();
+    });
+
+    const hotMech = (tags: string[]): BattleMech => {
+        const mech = new BattleMech();
+        mech.setTonnage(100);
+        tags.forEach((tag, index) => mech.addEquipmentFromTag(tag, "is", index % 2 ? "rt" : "lt", false, undefined, "", false, [], undefined, undefined));
+        return mech;
+    };
+
+    it("gives a hot 'Mech its Overheat (Converting Heat errata v1.3; #636 had it always 0)", () => {
+        // 4 Large Lasers, 10 sinks: 2 + 32 - 4 = 30. 3.2 x 10 / 30 = 1.07 -> 1.1 -> 2; 4 before the heat: Overheat 2.
+        const unit = hotMech(["large-laser", "large-laser", "large-laser", "large-laser"]).calcAlphaStrike();
+        expect([unit.damage.short, unit.damage.medium, unit.damage.long]).toEqual([2, 2, 0]);
+        expect(unit.overheat).toBe(2);
+    });
+
+    it("checks OVL with the Long output, then scales Long with the full output; prints plain OVL (errata v1.3)", () => {
+        // 4 PPCs (0.75/1/1), 4 Medium Lasers (0.5/0.5/0), 10 sinks: 2 + 52 - 4 = 50. Long output 2 + 40 - 4 = 38:
+        // 4 x 10 / 38 = 1.05 -> 1.1 -> 2, 2 under 4: OVL. Long 4 x 10 / 50 = 0.8 -> 1. Short 5 -> 1; Medium 6 -> 1.2 -> 2;
+        // Overheat 6 - 2 = 4.
+        const unit = hotMech(["standard-ppc", "standard-ppc", "standard-ppc", "standard-ppc", "medium-laser", "medium-laser", "medium-laser", "medium-laser"]).calcAlphaStrike();
+        expect([unit.damage.short, unit.damage.medium, unit.damage.long]).toEqual([1, 2, 1]);
+        expect(unit.overheat).toBe(4);
+        expect(unit.abilities).toContain("OVL");
+    });
+
+    it("adds AMS heat: +1 an AMS, +7 an Inner Sphere Laser AMS (errata v1.3)", () => {
+        // 3 Large Lasers, 10 sinks: 2 + 24 = 26, less 4 = 22: 2.4 x 10 / 22 = 1.09 -> 1.1 -> 2, Overheat 1.
+        expect(hotMech(["large-laser", "large-laser", "large-laser"]).calcAlphaStrike().overheat).toBe(1);
+        // With an IS Laser AMS: 33 - 4 = 29: 2.4 x 10 / 29 = 0.83 -> 0.9 -> 1, Overheat 2.
+        const unit = hotMech(["large-laser", "large-laser", "large-laser", "is-laser-ams"]).calcAlphaStrike();
+        expect(unit.damage.medium).toBe(1);
+        expect(unit.overheat).toBe(2);
+    });
+
+    it("keeps minimal damage, more than 0 and under 0.5, on the card as 0* (#636 had it print 1)", () => {
+        const mech = new BattleMech();
+        mech.setTonnage(20);
+        mech.addEquipmentFromTag("small-laser", "is", "ra", false, undefined, "", false, [], undefined, undefined);
+        const damage = mech.calcAlphaStrike().damage;
         expect(damage.short).toBe(0);
         expect(damage.shortMinimal).toBe(true);
-        expect(damage.mediumMinimal).toBe(true);
+        expect(damage.medium).toBe(0);
+        expect(damage.mediumMinimal).toBeFalsy();
     });
 });
 

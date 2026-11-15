@@ -1,5 +1,6 @@
 import { IAlphaStrikeDamage } from "../classes/alpha-strike-unit";
 import { calculateGroundPointValue } from "./alphaStrikeGroundPointValue";
+import { roundAlphaStrikeAbilityDamage, roundUpToTenth } from "./alphaStrikeHeat";
 
 /** Notes the conversion turns into damage codes below ("LRM" into "LRM 1/1/1", "Indirect Fire" into "IF 1"). */
 const ALPHA_STRIKE_CONVERSION_KEYWORDS: readonly string[] = ["heat", "lrm", "flak", "ac", "srm", "missile", "msl", "rear", "indirect fire", "if"];
@@ -50,6 +51,8 @@ export function calculateAlphaStrikeValue(
     srmDamage: IAlphaStrikeDamage,
     mslDamage: IAlphaStrikeDamage,
     indirectFireRating: number,
+    /** The heat-modified damage's multiplier per bracket (Short, Medium, Long, Extreme), from applyAlphaStrikeHeat. */
+    heatFactor: readonly number[] = [1, 1, 1, 1],
 ): IAlphaStrikeCalculationResult {
     let _calcLogAS = "";
     _alphaStrikeForceStats.pv = 0;
@@ -61,11 +64,16 @@ export function calculateAlphaStrikeValue(
     // Write the damage-bearing special abilities onto the card ("LRM" becomes "LRM 1/1/1"); null leaves one off (#378).
     // LRM, SRM and AC need 10 or more points (1 or more) at medium range, before rounding (StratOps errata 2.0, Base
     // Damage; ASC errata); below that their damage stays in the base damage. A special with no damage at all is left off.
-    const damageCode = (label: string, damage: IAlphaStrikeDamage, needsMedium: boolean): string | null => {
-        // Rounded up to the tenth first, as Vehicle._asFamilySpecials does (0.95 counts as 1).
-        if (needsMedium && Math.ceil(Math.round(+damage.medium * 1000) / 100) / 10 < 1) return null;
-        const adjusted = adjustAlphaStrikeDamage(damage);
-        const values = (["short", "medium", "long"] as const).map((range) => adjusted[`${range}Minimal`] && !needsMedium ? "0*" : String(adjusted[range]));
+    // Each value is heat-modified as the base damage is, rounded up to the tenth, then rounded normally (Converting Heat
+    // errata v1.3, Special Ability Damage); REAR is not heat-modified, its weapons' heat being left out.
+    const damageCode = (label: string, damage: IAlphaStrikeDamage, needsMedium: boolean, heatModified: boolean = true): string | null => {
+        // The Medium threshold is on the damage before the heat, rounded up to the tenth first, as
+        // Vehicle._asFamilySpecials does (0.95 counts as 1).
+        if (needsMedium && roundUpToTenth(+damage.medium) < 1) return null;
+        const values = (["short", "medium", "long"] as const).map((range, bracket) => {
+            const value = roundAlphaStrikeAbilityDamage(+damage[range] * (heatModified ? heatFactor[bracket] : 1));
+            return value.minimal && !needsMedium ? "0*" : String(value.damage);
+        });
         if (values.every((value) => value === "0")) return null;
         _calcLogAS += "<strong>Adding</strong> " + label + " Ability: " + values.join("/") + "<br />\n";
         return label + " " + values.join("/");
@@ -74,7 +82,8 @@ export function calculateAlphaStrikeValue(
     // conversion and the MUL print it.
     const indirectFireCode = (): string | null => {
         if (indirectFireRating <= 0) return null;
-        const value = indirectFireRating < 0.5 ? "0*" : String(Math.round(indirectFireRating));
+        const rounded = roundAlphaStrikeAbilityDamage(indirectFireRating * heatFactor[2]);
+        const value = rounded.minimal ? "0*" : String(rounded.damage);
         _calcLogAS += "<strong>Adding</strong> IF Ability: " + value + "<br />\n";
         return "IF " + value;
     };
@@ -86,7 +95,7 @@ export function calculateAlphaStrikeValue(
             case "ac": return damageCode("AC", acDamage, true);
             case "srm": return damageCode("SRM", srmDamage, true);
             case "missile": case "msl": return damageCode("MSL", mslDamage, false);
-            case "rear": return damageCode("Rear", rearDamage, false);
+            case "rear": return damageCode("Rear", rearDamage, false, false);
             case "indirect fire": case "if": return indirectFireCode();
             default: return code;
         }

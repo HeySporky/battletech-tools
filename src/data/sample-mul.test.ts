@@ -82,10 +82,12 @@ describe("VTOLAMs in the custom unit list (#376)", () => {
         expect(built.filter((record) => record.CustomInfo?.author === "professorheyteen")).toHaveLength(VTOLAM_SAMPLES.length - 1);
     });
 
-    // A lone Medium Laser is minimal damage at short and medium range.
-    it("keeps minimal damage as 0*", () => {
+    // A Medium Laser is 0.5 at short and medium range, which rounds up to 1, not 0* (Converting Heat errata v1.3; the
+    // MUL Locust's card is 1/1/0). Fixed with the 'Mech heat step (#636).
+    it("rounds a half point up to 1, not 0*", () => {
         const locust = built.find((record) => record.Variant === "LCT-XX")!;
-        expect(locust.BFDamageShortMin).toBe(true);
-        expect(locust.BFDamageMediumMin).toBe(true);
+        expect([locust.BFDamageShort, locust.BFDamageMedium]).toEqual([1, 1]);
+        expect(locust.BFDamageShortMin).toBeFalsy();
+        expect(locust.BFDamageMediumMin).toBeFalsy();
     });
 });
