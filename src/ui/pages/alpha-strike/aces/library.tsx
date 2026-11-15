@@ -53,6 +53,7 @@ import { acesDecks, ACES_BOOK, ACES_SS_BOOK } from '../../../../data/aces-rules'
 import { acesBehaviorLabel } from '../../../../classes/aces-engine';
 import { getAcesCardLibrary, saveAcesCardLibrary } from '../../../../dataSaves';
 import { acesCardScanOptions, applyAcesScanToCard, scanAcesCard, TAcesScanSide } from '../../../../classes/aces-card-scan';
+import { acesCommandCardScanOptions, applyAcesCommandScan, scanAcesCommandCard, TAcesCommandScanSide } from '../../../../classes/aces-command-card-scan';
 import { generateUUID } from '../../../../utils/generateUUID';
 import { AcesCardView, AcesCommandCardView, AcesScenarioView, AcesSpecialOrderView } from './_aces-card-view';
 import './aces.scss';
@@ -183,10 +184,19 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
         try {
             // Loaded on demand, with tesseract, so the library page stays small for everyone else.
             const { scanCardPhoto } = await import( '../../../../classes/card-scan-browser' );
-            const result = await scanCardPhoto( file, scanAcesCard, acesCardScanOptions );
-            scan = { photo: photo, side: result.side, warnings: result.warnings };
-            if( result.side && this.state.draft ) {
-                this.setState({ draft: applyAcesScanToCard( this.state.draft as IAcesCard, result ), buffers: {}, json: null });
+            if( this.state.kind === "commandCards" ) {
+                const result = await scanCardPhoto( file, scanAcesCommandCard, acesCommandCardScanOptions );
+                // A photo of another kind of card comes back not found, and the draft is left as it was.
+                scan = { photo: photo, side: result.found ? result.side : null, warnings: result.warnings };
+                if( result.found && this.state.draft ) {
+                    this.setState({ draft: applyAcesCommandScan( this.state.draft as IAcesCommandCard, result ), buffers: {}, json: null });
+                }
+            } else {
+                const result = await scanCardPhoto( file, scanAcesCard, acesCardScanOptions );
+                scan = { photo: photo, side: result.side, warnings: result.warnings };
+                if( result.side && this.state.draft ) {
+                    this.setState({ draft: applyAcesScanToCard( this.state.draft as IAcesCard, result ), buffers: {}, json: null });
+                }
             }
         } catch( err ) {
             scan = { photo: photo, side: null, warnings: [ "The photo couldn't be read (" + ( err instanceof Error ? err.message : String( err ) ) + "). The text reader downloads its English data the first time, so it needs a connection once." ] };
@@ -212,14 +222,14 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
                     <strong>The card reader isn't perfect.</strong> It misreads some words, numbers and icons. Check every line of the form against your card before you save it.
                 </p>
                 <label>
-                    Photo of the Movement or Combat side:{" "}
+                    {this.state.kind === "commandCards" ? "Photo of the Orders or Support side:" : "Photo of the Movement or Combat side:"}{" "}
                     <input type="file" accept="image/*" disabled={this.state.scanning} style={{ width: "auto" }} onChange={this._scanPhoto} />
                 </label>
                 {this.state.scanning ? <p><strong>Reading the card...</strong> This takes a little while, longer the first time.</p> : null}
                 {this.state.scans.map( ( scan, index ) => (
                     <div key={index} className="aces-scan-result">
                         <p>
-                            <strong>{scan.side === "movement" ? "Movement side" : scan.side === "combat" ? "Combat side" : "Not read"}</strong>
+                            <strong>{scan.side ? scanSideLabels[scan.side] : "Not read"}</strong>
                             {scan.side ? ": filled in below. Check every line against the photo; OCR gets some words and icons wrong, and [?] marks an icon it couldn't place." : null}
                         </p>
                         {scan.warnings.length > 0 ? <ul className="aces-issue-error">{scan.warnings.map( ( warning, warningIndex ) => <li key={warningIndex}>{warning}</li> )}</ul> : null}
@@ -676,7 +686,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
                 {issues.length > 0 ? (
                     <ul className="aces-issue-error">{issues.map( ( issue, index ) => <li key={index}>{issue}</li> )}</ul>
                 ) : <p className="aces-muted">The card reader can use this record.</p>}
-                {kind === "cards" && this.state.json === null ? this._renderScan() : null}
+                {( kind === "cards" || kind === "commandCards" ) && this.state.json === null ? this._renderScan() : null}
                 <div className="row">
                     <div className="col-lg-7">
                         {this.state.json !== null ? (
@@ -796,8 +806,15 @@ interface IAcesLibraryPageState {
     scanChecked: boolean;
 }
 
+const scanSideLabels: { [side in TAcesScanSide | TAcesCommandScanSide]: string } = {
+    movement: "Movement side",
+    combat: "Combat side",
+    orders: "Orders side",
+    support: "Support side",
+};
+
 interface IAcesCardScan {
     photo: string;
-    side: TAcesScanSide | null;
+    side: TAcesScanSide | TAcesCommandScanSide | null;
     warnings: string[];
 }

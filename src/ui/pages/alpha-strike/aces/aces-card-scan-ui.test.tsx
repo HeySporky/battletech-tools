@@ -4,6 +4,7 @@ import { MemoryRouter } from "react-router";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { newAcesCardLibrary } from "../../../../data/aces-cards";
 import { IAcesScanResult } from "../../../../classes/aces-card-scan";
+import { IAcesCommandScanResult } from "../../../../classes/aces-command-card-scan";
 import { IAppGlobals } from "../../../app-router";
 import { AppSettings } from "../../../classes/app_settings";
 import AcesLibraryPage from "./library";
@@ -85,6 +86,46 @@ describe( "Aces card scan in the library", () => {
         await choosePhoto( container );
         expect( ( container.querySelector( "input[placeholder='Brawler']" ) as HTMLInputElement ).value ).toBe( "" );
         expect( screen.getByText( /Couldn't find the Aggressive/ ) ).toBeTruthy();
+        expect( ( screen.getByText( "Save" ) as HTMLButtonElement ).disabled ).toBe( false );
+    } );
+} );
+
+const commandScan = ( found: boolean ): IAcesCommandScanResult => ( {
+    found, side: found ? "orders" : null, deck: found ? "Test Deck" : "", faction: found ? "Clan Nowhere" : "", letter: found ? "B" : "", cardNumber: found ? "7/10" : "",
+    orders: found ? [ { phase: "initiative", text: "Add 1 to your test roll.", token: null, tokenRank: [], behavior: null, filter: "" } ] : [],
+    red: found ? [ { text: "[highest] PV", stat: "pv", direction: "highest" } ] : [], yellow: [], blue: [],
+    supportOrders: "", emplacementZoneRings: [], emplacements: [], artillery: [], bsp: [], strategy: [],
+    warnings: found ? [ "Check every line against the card." ] : [ "This looks like a behavior card, not a Command card: read it from a behavior card's form." ],
+} as IAcesCommandScanResult );
+
+const openNewCommandCard = async () => {
+    const view = render( <MemoryRouter><AcesLibraryPage appGlobals={appGlobals} /></MemoryRouter> );
+    fireEvent.click( await screen.findByText( /^Command cards/ ) );
+    fireEvent.click( screen.getByText( "New" ) );
+    return view;
+}
+
+describe( "Aces Command card scan in the library", () => {
+    it( "reads a Command card photo into its form, through the same note and check as a behavior card", async () => {
+        scanResult.current = commandScan( true ) as unknown as IAcesScanResult;
+        const { container } = await openNewCommandCard();
+        expect( screen.getByText( "The card reader isn't perfect." ) ).toBeTruthy();
+        await choosePhoto( container );
+        expect( ( container.querySelector( "input[placeholder='Star Captain']" ) as HTMLInputElement ).value ).toBe( "Test Deck" );
+        expect( ( container.querySelector( "input[placeholder='A']" ) as HTMLInputElement ).value ).toBe( "B" );
+        expect( container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Orders side" );
+        const save = screen.getByText( "Save" ) as HTMLButtonElement;
+        expect( save.disabled ).toBe( true );
+        fireEvent.click( screen.getByLabelText( /checked the form against my photos/ ) );
+        expect( save.disabled ).toBe( false );
+    } );
+
+    it( "leaves a Command card alone when the photo is another kind of card", async () => {
+        scanResult.current = commandScan( false ) as unknown as IAcesScanResult;
+        const { container } = await openNewCommandCard();
+        await choosePhoto( container );
+        expect( ( container.querySelector( "input[placeholder='Star Captain']" ) as HTMLInputElement ).value ).toBe( "" );
+        expect( screen.getByText( /looks like a behavior card/ ) ).toBeTruthy();
         expect( ( screen.getByText( "Save" ) as HTMLButtonElement ).disabled ).toBe( false );
     } );
 } );
