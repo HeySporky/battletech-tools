@@ -52,7 +52,7 @@ import { getAcesSampleLibrary } from '../../../../data/aces-card-samples';
 import { acesDecks, ACES_BOOK, ACES_SS_BOOK } from '../../../../data/aces-rules';
 import { acesBehaviorLabel } from '../../../../classes/aces-engine';
 import { getAcesCardLibrary, saveAcesCardLibrary } from '../../../../dataSaves';
-import { applyAcesScanToCard, scanAcesCard, TAcesScanSide } from '../../../../classes/aces-card-scan';
+import { acesCardScanOptions, applyAcesScanToCard, scanAcesCard, TAcesScanSide } from '../../../../classes/aces-card-scan';
 import { generateUUID } from '../../../../utils/generateUUID';
 import { AcesCardView, AcesCommandCardView, AcesScenarioView, AcesSpecialOrderView } from './_aces-card-view';
 import './aces.scss';
@@ -183,7 +183,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
         try {
             // Loaded on demand, with tesseract, so the library page stays small for everyone else.
             const { scanCardPhoto } = await import( '../../../../classes/card-scan-browser' );
-            const result = await scanCardPhoto( file, scanAcesCard );
+            const result = await scanCardPhoto( file, scanAcesCard, acesCardScanOptions );
             scan = { photo: photo, side: result.side, warnings: result.warnings };
             if( result.side && this.state.draft ) {
                 this.setState({ draft: applyAcesScanToCard( this.state.draft as IAcesCard, result ), buffers: {}, json: null });

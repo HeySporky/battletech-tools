@@ -11,7 +11,7 @@ import {
 } from "../data/aces-cards";
 import { acesCombatFilterPhrases, acesConditionPhrases, acesMovementFilterPhrases } from "../data/aces-card-phrases";
 import { acesDecks } from "../data/aces-rules";
-import { ICardScanBox, ICardScanColours, ICardScanIO, ICardScanLine, ICardScanRect, ICardScanWord, TCardScanMode, cardScanInkBoxes, cardScanMargin } from "./card-scan-io";
+import { ICardScanBox, ICardScanColours, ICardScanIO, ICardScanLine, ICardScanOptions, ICardScanRect, ICardScanWord, TCardScanMode, cardScanInkBoxes, cardScanMargin } from "./card-scan-io";
 
 /*
  * Reads an Aces behavior card from a photo of the players' own card, for those who find the small print hard to
@@ -727,6 +727,9 @@ const withBlankRows = ( lines: ICardScanLine[], column: ICardScanRect ): ICardSc
     }
     return rv;
 }
+
+/** Behavior cards print landscape; a scan that found the column headers or TARGET found the card. */
+export const acesCardScanOptions: ICardScanOptions<IAcesScanResult> = { shape: "landscape", found: ( result ) => result.side !== null };
 
 export const scanAcesCard = async ( io: ICardScanIO ): Promise<IAcesScanResult> => {
     const result: IAcesScanResult = {

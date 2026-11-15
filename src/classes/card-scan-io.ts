@@ -302,6 +302,53 @@ export const cardScanRotate = ( data: ArrayLike<number>, width: number, height: 
     return { data: out, width: outWidth, height: outHeight };
 }
 
+/** RGBA pixels, row by row. */
+export interface ICardScanImage {
+    data: ArrayLike<number>;
+    width: number;
+    height: number;
+}
+
+/** The photo turned clockwise by whole quarter turns. */
+export const cardScanTurn = ( data: ArrayLike<number>, width: number, height: number, quarters: 1 | 2 | 3 ): { data: Uint8ClampedArray<ArrayBuffer>, width: number, height: number } => {
+    const outWidth = quarters === 2 ? width : height;
+    const outHeight = quarters === 2 ? height : width;
+    const out = new Uint8ClampedArray( width * height * 4 );
+    for( let y = 0; y < outHeight; y++ ) for( let x = 0; x < outWidth; x++ ) {
+        // The source pixel that lands on (x, y).
+        const sx = quarters === 1 ? y : quarters === 2 ? width - 1 - x : width - 1 - y;
+        const sy = quarters === 1 ? height - 1 - x : quarters === 2 ? height - 1 - y : x;
+        const from = ( sy * width + sx ) * 4, to = ( y * outWidth + x ) * 4;
+        for( let c = 0; c < 4; c++ ) out[to + c] = data[from + c];
+    }
+    return { data: out, width: outWidth, height: outHeight };
+}
+
+/** How a card type is held: its printed shape, and whether a scan's result found the card at all. */
+export interface ICardScanOptions<T> {
+    shape: "landscape" | "portrait";
+    found: ( result: T ) => boolean;
+}
+
+/**
+ * Reads a photo that may be turned a quarter or upside down. A photo the other shape from the card is turned a
+ * quarter clockwise first; if the card isn't found, the other way, then the photo as it came. A photo the card's
+ * shape is read as it is, then upside down, then a quarter turned. The first result that finds the card wins, else
+ * the first result. makeIO readies each turned photo for the scan (scaling, straightening).
+ */
+export const scanWithTurns = async <T,>( image: ICardScanImage, makeIO: ( image: ICardScanImage ) => ICardScanIO | Promise<ICardScanIO>, scan: ( io: ICardScanIO ) => Promise<T>, options?: ICardScanOptions<T> ): Promise<T> => {
+    const turned = ( quarters: number ): ICardScanImage => quarters % 4 === 0 ? image : cardScanTurn( image.data, image.width, image.height, ( quarters % 4 ) as 1 | 2 | 3 );
+    if( !options ) return scan( await makeIO( image ) );
+    const sideways = ( image.width >= image.height ) !== ( options.shape === "landscape" );
+    const results: T[] = [];
+    for( const quarters of sideways ? [ 1, 3, 0 ] : [ 0, 2, 1 ] ) {
+        const result = await scan( await makeIO( turned( quarters ) ) );
+        if( options.found( result ) ) return result;
+        results.push( result );
+    }
+    return results[0];
+}
+
 /** Icon colours from RGBA pixels. Tags and checks are strongly saturated; the card's cream and gold are not. */
 export const cardScanColoursFromPixels = ( data: ArrayLike<number> ): ICardScanColours => {
     const rv: ICardScanColours = { red: 0, yellow: 0, blue: 0, green: 0 };

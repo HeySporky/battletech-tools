@@ -5,7 +5,10 @@ import {
     acesScanOnesAndSevens, acesScanTagColour, applyAcesScanToCard, findAcesCardLayout, matchAcesPhrase, parseAcesScanColumn, parseAcesScanCombat, parseAcesScanFooter,
     parseAcesScanHeader, restoreAcesScanIcons, scanAcesCard, tidyAcesScanLines,
 } from "./aces-card-scan";
-import { cardScanBinarize, cardScanColoursFromPixels, cardScanMargin, cardScanRotate, cardScanSkew, ICardScanColours, ICardScanIO, ICardScanLine, ICardScanRect } from "./card-scan-io";
+import {
+    cardScanBinarize, cardScanColoursFromPixels, cardScanMargin, cardScanRotate, cardScanSkew, cardScanTurn, ICardScanColours, ICardScanImage, ICardScanIO, ICardScanLine, ICardScanRect,
+    scanWithTurns,
+} from "./card-scan-io";
 
 // Line fixtures are real tesseract output from photos of the printed cards.
 
@@ -511,5 +514,73 @@ describe( "Card photo straightening", () => {
         const level = lines( 0 );
         expect( cardScanSkew( level.data, level.width, level.height ) ).toBe( 0 );
         expect( cardScanSkew( new Uint8ClampedArray( 400 * 300 * 4 ).fill( 255 ), 400, 300 ) ).toBe( 0 );
+    } );
+} );
+
+describe( "Card photo quarter-turn retry", () => {
+    // A 4x2 card, upright, marked by its one bright top-left pixel.
+    const upright = (): ICardScanImage => {
+        const data = new Uint8ClampedArray( 4 * 2 * 4 ).fill( 0 );
+        data[0] = 200;
+        return { data, width: 4, height: 2 };
+    };
+    const turned = ( quarters: 1 | 2 | 3 ): ICardScanImage => {
+        const card = upright();
+        return cardScanTurn( card.data, card.width, card.height, quarters );
+    };
+    // A stand-in for a card reader: it finds the card only when the photo is landscape with the mark at the top left.
+    const makeIO = ( image: ICardScanImage ): ICardScanIO => ( {
+        width: image.width, height: image.height,
+        recognize: async () => [],
+        colours: () => none,
+        pixels: ( rect ) => Array.from( image.data ).slice( ( rect.top * image.width + rect.left ) * 4, ( rect.top * image.width + rect.left + 1 ) * 4 ),
+    } );
+    const options = { shape: "landscape" as const, found: ( result: { found: boolean } ) => result.found };
+    const run = async ( image: ICardScanImage, withOptions = true ) => {
+        const calls: number[] = [];
+        const scan = async ( io: ICardScanIO ) => {
+            const found = io.width > io.height && io.pixels( { left: 0, top: 0, width: 1, height: 1 } )[0] === 200;
+            calls.push( found ? 1 : 0 );
+            return { found, width: io.width, height: io.height };
+        };
+        const result = await scanWithTurns( image, makeIO, scan, withOptions ? options : undefined );
+        return { result, calls };
+    };
+
+    it( "reads an upright photo once", async () => {
+        const { result, calls } = await run( upright() );
+        expect( result.found ).toBe( true );
+        expect( calls ).toEqual( [ 1 ] );
+    } );
+
+    it( "turns a sideways photo a quarter first, then the other way", async () => {
+        // Turned three quarters: one more quarter puts it upright.
+        const anticlockwise = await run( turned( 3 ) );
+        expect( anticlockwise.result.found ).toBe( true );
+        expect( anticlockwise.calls ).toEqual( [ 1 ] );
+        // Turned one quarter: the first try is upside down, the second upright.
+        const clockwise = await run( turned( 1 ) );
+        expect( clockwise.result.found ).toBe( true );
+        expect( clockwise.calls ).toEqual( [ 0, 1 ] );
+    } );
+
+    it( "turns an upside-down photo round", async () => {
+        const { result, calls } = await run( turned( 2 ) );
+        expect( result.found ).toBe( true );
+        expect( calls ).toEqual( [ 0, 1 ] );
+    } );
+
+    it( "stops after three tries and returns the first", async () => {
+        const blank: ICardScanImage = { data: new Uint8ClampedArray( 2 * 4 * 4 ), width: 2, height: 4 };
+        const { result, calls } = await run( blank );
+        expect( calls ).toEqual( [ 0, 0, 0 ] );
+        // The first try was turned a quarter, to landscape.
+        expect( [ result.width, result.height ] ).toEqual( [ 4, 2 ] );
+    } );
+
+    it( "reads once, as it is, with no options", async () => {
+        const { result, calls } = await run( turned( 2 ), false );
+        expect( result.found ).toBe( false );
+        expect( calls ).toEqual( [ 0 ] );
     } );
 } );
