@@ -287,13 +287,21 @@ direction)`, `setSlotHit(location, slot, hit)`, `getWorkingLegs()`, `getPlayMove
 current base; one out: biped; two: crawl; three: none), `getPilotingModifier()` (-3 with four legs, read the sign
 convention the 'Mech play code uses), `canKick()`, `isDestroyed()`, and the edition's knock-over rule.
 
-- [ ] **Step 1: Read** the play rules on both pages again; the #11 firing-arc diagram; write the arc and
+- [x] **Step 1: Read** the play rules on both pages again; the #11 firing-arc diagram; write the arc and
   attack-direction mapping in the ledger, and the damage transfer order (ours, from the 'Mech rule: a leg to the
   adjacent outer torso, an outer torso to the center torso, the control section to the center torso; say so).
-- [ ] **Step 2: Failing tests**, one per rule, the edition rows under both editions.
-- [ ] **Step 3:** Implement with a play panel showing the boxes, working legs, movement, modifiers and the hit table.
-- [ ] **Step 4:** Unit tests, `npm run check`; play a walker through two lost legs in the app.
-- [ ] **Step 5:** Commit `Custom Homebrew: Walker play mode (#172)`, push, ledger, handoff.
+- [x] **Step 2: Failing tests**, one per rule, the edition rows under both editions.
+- [x] **Step 3:** Implement with a play panel showing the boxes, working legs, movement, modifiers and the hit table.
+- [x] **Step 4:** Unit tests, `npm run check`; play a walker through two lost legs in the app.
+- [x] **Step 5:** Commit `Custom Homebrew: Walker play mode (#172)`, push, ledger, handoff.
+
+Done 2026-11-15 (home, commit d0acf9c98): the play section of `walker.ts` (`walker-play.test.ts`, 95 tests), the
+attack directions, cell reader, damage transfer and firing arcs in `walker-construction.ts`, `roster/_walkerPlay.tsx`
+(+ test), wired into `play.tsx` (panel, sidebar, reset); the roster group table gains Gunnery / Piloting and the
+skill-adjusted BV (the group total uses it); the group save carries play state unless asked not to. The "six arcs" of
+the Editions row were the six attack directions; the firing arcs are #11 p.27's four (F, RS, R, LS) and the turret.
+Rulings are in the ledger. **For Chunk G:** `getSkillAdjustedBattleValue`, `getPlayMovement`, `WALKER_LOCATION_ARCS`,
+`getWeaponPlayLines` (arcs, anti-infantry-only) are there to read; the Alpha Strike conversion has nothing yet.
 
 ## Chunk G: Alpha Strike ruleset (design, then build)
 
@@ -302,6 +310,12 @@ and how `BattleMech.getAlphaStrikeStats()` does it; write `docs/superpowers/spec
 (type code, size, Move with the x 1.25, armor and structure from the ten locations, damage bands, a TUR special for
 the turret, a special for the anti-infantry center torso, Point Value), each rule marked "from the conversion rules"
 or "ours"; **bring it to the owner in one message**; build only after the answer, the card marked NOT OFFICIAL.
+
+Design written 2026-11-15 (home): `docs/superpowers/specs/2026-11-15-walker-alpha-strike.md`, brought to the owner
+with four questions (type `BM` / `IM` + `WLK` or a type of its own; side weapons on the one damage line or a card
+with arcs; the `AIF#` anti-infantry ability and the two printings' to-hit; structure from the 'Mech table and
+Flint's +3 read as the Companion's -2). **Not built: the build waits for the answer** and is the next session's
+work (tests first; the spec's "Build" section lists it).
 
 ## Chunk H: Samples, verify, report
 
