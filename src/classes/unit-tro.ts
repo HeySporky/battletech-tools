@@ -11,11 +11,12 @@ import InfantryPlatoon from "./infantry-platoon";
 import ProtoMech from "./protomech";
 import SmallCraft from "./small-craft";
 import Vehicle from "./vehicle";
+import Walker from "./walker";
 
 // TRO fields round 2: the shared Technical Readout adapter for the Classic types other than 'Mechs (those have
 // battlemech-tro.ts), JumpShips, WarShips, space stations and buildings included. Each type gives its spec block, component rows, equipment and construction table.
 
-export type TroUnit = Vehicle | AerospaceFighter | InfantryPlatoon | BattleArmor | ProtoMech | SmallCraft | CapitalShip | Building;
+export type TroUnit = Vehicle | AerospaceFighter | InfantryPlatoon | BattleArmor | ProtoMech | SmallCraft | CapitalShip | Building | Walker;
 
 /** Modern TROs print speeds in kph: 10.8 kph per movement point, to the whole kph. */
 const kph = (movementPoints: number): string => `${Math.round(movementPoints * 10.8)} kph`;
@@ -334,6 +335,31 @@ function protoMechParts(proto: ProtoMech): IUnitTroParts {
     };
 }
 
+/** A Walker (fan-made four-legged 'Mech): its spec block, components, weight list and the equipment by location. */
+function walkerParts(walker: Walker): IUnitTroParts {
+    const jump = walker.getJumpMP();
+    const equipment = walker.getEquipment();
+    const where = (each: (typeof equipment)[number]): string =>
+        `${walker.getLocationName(each.location)}${each.split ? ` and ${walker.getLocationName(each.split.location)}` : ""}${each.inTurret ? " (turret)" : ""}`;
+    return {
+        spec: {
+            title: walker.getDisplayName(),
+            subtitle: subtitle(walker.isIndustrial() ? "Industrial Walker" : "Walker", walker.getTechTag() === "clan" ? "Clan" : "Inner Sphere", `${walker.getTons()} tons`),
+            mass: `${walker.getTons()} tons`,
+            cruisingSpeed: kph(walker.getWalkerWalkMP()),
+            maximumSpeed: kph(walker.getRunMP()),
+            jumpCapacity: jump > 0 ? `${jump * 30} meters` : undefined,
+        },
+        components: [
+            { key: "chassis", label: walker.isIndustrial() ? "Industrial Walker Chassis" : "Walker Chassis" },
+            { key: "engine", label: `Engine (${walker.getEngineName()} ${walker.getEngineRating()})` },
+            { key: "armor", label: "Armor" },
+        ],
+        construction: walker.getWeightLog().map((line) => ({ label: line.name, mass: tonsText(line.weight) })),
+        equipment: equipment.filter((each) => !each.isAmmo).map((each) => ({ item: { uuid: each.uuid, tag: each.tag }, name: each.name, location: where(each), armament: !each.item.isEquipment })),
+    };
+}
+
 /** Armor facings: a spheroid's sides are its sides, an aerodyne's its wings. */
 function smallCraftFacingName(craft: SmallCraft, facing: "nose" | "left" | "right" | "aft"): string {
     if (facing === "left" || facing === "right") {
@@ -477,5 +503,6 @@ export function getUnitTroAdapter(unit: TroUnit): ITroUnitAdapter {
     if (unit instanceof ProtoMech) return buildAdapter(() => protoMechParts(unit));
     if (unit instanceof CapitalShip) return buildAdapter(() => capitalShipParts(unit));
     if (unit instanceof Building) return buildAdapter(() => buildingParts(unit));
+    if (unit instanceof Walker) return buildAdapter(() => walkerParts(unit));
     return buildAdapter(() => smallCraftParts(unit));
 }

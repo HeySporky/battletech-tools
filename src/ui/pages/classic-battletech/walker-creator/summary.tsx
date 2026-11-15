@@ -96,7 +96,9 @@ export default class WalkerCreatorSummary extends React.Component<ISummaryProps>
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/criticals`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/print-tro`} className="btn btn-primary pull-right btn-sm">Print the TRO sheet</Link>
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/technical-readout`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>
                             </div>
                         </TextSection>
                     </div>

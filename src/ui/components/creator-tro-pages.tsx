@@ -25,9 +25,9 @@ export type ITroHost = IRulesetsHost & {
 };
 
 type CurrentUnitKey = "currentBattleMech" | "currentVehicle" | "currentFighter" | "currentInfantry" | "currentBattleArmor"
-    | "currentProtoMech" | "currentSmallCraft" | "currentCapitalShip" | "currentBuilding";
+    | "currentProtoMech" | "currentSmallCraft" | "currentCapitalShip" | "currentBuilding" | "currentWalker";
 type SaveUnitKey = "saveCurrentBattleMech" | "saveCurrentVehicle" | "saveCurrentFighter" | "saveCurrentInfantry" | "saveCurrentBattleArmor"
-    | "saveCurrentProtoMech" | "saveCurrentSmallCraft" | "saveCurrentCapitalShip" | "saveCurrentBuilding";
+    | "saveCurrentProtoMech" | "saveCurrentSmallCraft" | "saveCurrentCapitalShip" | "saveCurrentBuilding" | "saveCurrentWalker";
 
 export interface ICreatorTroConfig {
     /** The creator's route, e.g. "small-craft-creator". */

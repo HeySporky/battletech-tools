@@ -96,7 +96,9 @@ export const WalkerCreatorSideMenu = creatorSideMenu("walker-creator", [
     ["chassis", "Steps 1-3", "Edition, Chassis, Engine, Armor"],
     ["equipment", "Step 4", "Turret, Weapons, Heat Sinks and Equipment"],
     ["criticals", "Step 5", "Critical Slots"],
+    ["technical-readout", "Step 6", "Technical Readout"],
     ["summary", "Summary", "Cost, Battle Value and legality"],
+    ["record-sheet", "Print", "Record sheet"],
 ]);
 
 export const SmallCraftCreatorSideMenu = creatorSideMenu("small-craft-creator", [

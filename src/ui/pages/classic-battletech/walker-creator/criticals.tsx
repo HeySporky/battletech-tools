@@ -67,7 +67,7 @@ export default class WalkerCreatorCriticals extends React.Component<ICriticalsPr
 
                             <div className="clear-both overflow-hidden">
                                 <hr />
-                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/summary`} className="btn btn-primary pull-right btn-sm">
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/technical-readout`} className="btn btn-primary pull-right btn-sm">
                                     Summary <ArrowCircleRight />
                                 </Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/equipment`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>

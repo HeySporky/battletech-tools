@@ -18,6 +18,7 @@ import { infantrySheetLines } from "../../../components/svg/infantry-record-shee
 import BattleArmorRecordSheet from "../../../components/battle-armor-record-sheet";
 import ProtoMechRecordSheet from "../../../components/protomech-record-sheet";
 import MicroMechRecordSheet from "../../../components/micro-mech-record-sheet";
+import WalkerRecordSheet from "../../../components/walker-record-sheet";
 import BattledroidsUnitRecordSheet from "../../../components/battledroids-unit-record-sheet";
 import BuildingRecordSheet from "../../../components/building-record-sheet";
 import { buildingSummary } from "./_buildingGroupTable";
@@ -53,6 +54,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
         ...groups.flatMap( (group) => group.battleArmor ).map( (squad) => squad.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.protoMechs ).map( (point) => point.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.microMechs ).map( (micro) => micro.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.walkers ).map( (walker) => walker.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.buildings ).map( (building) => building.getRequiredRulesLevel() ),
       ];
       printWithRulesLevelGuard(
@@ -398,6 +400,33 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                       </tr>
                     </tbody>
                     ))}
+                    {group.walkers.map( (walker) => (
+                    <tbody key={walker.getUUID()}>
+                      <tr>
+                        <td>
+                          {walker.getDisplayName()} ({walker.getTons()}-ton {walker.isIndustrial() ? "industrial " : ""}Walker, fan-made)
+                        </td>
+                        <td>
+                          {walker.getTons()}
+                        </td>
+                        <td className="small-text">
+                          {walker.getTechTag() === "clan" ? "Clan" : "Inner Sphere"}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          -
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          -
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {formatBattleValue((edition) => walker.getBattleValue(edition), "walker", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {formatBattleValue((edition) => walker.getBattleValue(edition), "walker", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
                     {group.battledroidsUnits.map( (unit) => (
                     <tbody key={unit.getUUID()}>
                       <tr>
@@ -560,6 +589,16 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         />
                         <MicroMechRecordSheet
                           micro={micro}
+                        />
+                      </div>
+                  ))}
+                  {group.walkers.map( (walker) => (
+                      <div className={"page"} key={walker.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={walker.getRequiredRulesLevel()}
+                        />
+                        <WalkerRecordSheet
+                          walker={walker}
                         />
                       </div>
                   ))}

@@ -7,6 +7,9 @@ import WalkerCreatorChassis from './chassis';
 import WalkerCreatorEquipment from './equipment';
 import WalkerCreatorCriticals from './criticals';
 import WalkerCreatorSummary from './summary';
+import WalkerCreatorRecordSheet from './record-sheet';
+import { CreatorPrintTRO, CreatorTechnicalReadoutStep } from '../../../components/creator-tro-pages';
+import { WALKER_TRO } from '../creator-tro-configs';
 
 import type { JSX } from "react";
 
@@ -34,6 +37,18 @@ export default class WalkerCreatorRouter extends React.Component<IWalkerCreatorR
 
                 <Route path={`summary`} element={
                     <WalkerCreatorSummary appGlobals={this.props.appGlobals} />
+                }/>
+
+                <Route path={`technical-readout`} element={
+                    <CreatorTechnicalReadoutStep appGlobals={this.props.appGlobals} config={WALKER_TRO} />
+                }/>
+
+                <Route path={`print-tro`} element={
+                    <CreatorPrintTRO appGlobals={this.props.appGlobals} config={WALKER_TRO} />
+                }/>
+
+                <Route path={`record-sheet`} element={
+                    <WalkerCreatorRecordSheet appGlobals={this.props.appGlobals} />
                 }/>
 
                 <Route path="*" element={

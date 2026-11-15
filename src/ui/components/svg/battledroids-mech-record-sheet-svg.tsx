@@ -13,7 +13,7 @@ const RIGHT = { x: 1415, w: 560 };
 const LEFT_W = 1370;
 
 // The Heat Scale as the sheet prints it, from 30 down.
-const HEAT_SCALE: Record<number, string> = {
+export const HEAT_SCALE: Record<number, string> = {
     30: "Shut down", 28: "Ammo explosion; avoid on 8+", 26: "Shut down; avoid on 10+", 25: "-5 Move", 24: "-4 Fire",
     23: "Ammo explosion; avoid on 6+", 22: "Shutdown; avoid on 8+", 20: "-4 Move", 19: "Ammo explosion; avoid on 4+",
     18: "Shutdown; avoid on 6+", 17: "-3 Fire", 15: "-3 Move", 14: "Shutdown; avoid on 4+", 13: "-2 Fire", 10: "-2 Move",

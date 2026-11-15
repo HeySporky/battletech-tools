@@ -21,7 +21,7 @@ import BuildingCreatorSummary from "../pages/classic-battletech/building-creator
 import CapitalShipCreatorCrew from "../pages/classic-battletech/capital-ship-creator/crew";
 import CapitalShipCreatorSummary from "../pages/classic-battletech/capital-ship-creator/summary";
 import {
-    BATTLE_ARMOR_TRO, BUILDING_TRO, CAPITAL_SHIP_TRO, CREATOR_TRO_CONFIGS, FIGHTER_TRO, INFANTRY_TRO, MECH_TRO, PROTOMECH_TRO, SMALL_CRAFT_TRO, VEHICLE_TRO,
+    BATTLE_ARMOR_TRO, BUILDING_TRO, CAPITAL_SHIP_TRO, CREATOR_TRO_CONFIGS, FIGHTER_TRO, INFANTRY_TRO, MECH_TRO, PROTOMECH_TRO, SMALL_CRAFT_TRO, VEHICLE_TRO, WALKER_TRO,
 } from "../pages/classic-battletech/creator-tro-configs";
 import FighterCreatorEquipment from "../pages/classic-battletech/fighter-creator/equipment";
 import FighterCreatorSummary from "../pages/classic-battletech/fighter-creator/summary";
@@ -35,6 +35,9 @@ import SmallCraftCreatorCrew from "../pages/classic-battletech/small-craft-creat
 import SmallCraftCreatorSummary from "../pages/classic-battletech/small-craft-creator/summary";
 import VehicleCreatorEquipmentPlacement from "../pages/classic-battletech/vehicle-creator/equipment-placement";
 import VehicleCreatorSummary from "../pages/classic-battletech/vehicle-creator/summary";
+import WalkerCreatorCriticals from "../pages/classic-battletech/walker-creator/criticals";
+import WalkerCreatorSummary from "../pages/classic-battletech/walker-creator/summary";
+import Walker from "../../classes/walker";
 import { CreatorPrintTRO, CreatorTechnicalReadoutStep, type ICreatorTroConfig, troStepPath } from "./creator-tro-pages";
 import TechnicalReadoutSheet from "./technical-readout-sheet";
 
@@ -53,6 +56,7 @@ const creators: [ICreatorTroConfig, () => TroUnit, Page, Page][] = [
     [SMALL_CRAFT_TRO, () => new SmallCraft(), SmallCraftCreatorCrew, SmallCraftCreatorSummary],
     [CAPITAL_SHIP_TRO, () => new CapitalShip(), CapitalShipCreatorCrew, CapitalShipCreatorSummary],
     [BUILDING_TRO, () => new Building(), BuildingCreatorEquipment, BuildingCreatorSummary],
+    [WALKER_TRO, () => new Walker(), WalkerCreatorCriticals, WalkerCreatorSummary],
 ];
 
 const makeGlobals = (config: ICreatorTroConfig, unit: TroUnit) => ({

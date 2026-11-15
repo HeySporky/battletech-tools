@@ -577,6 +577,21 @@ export default class BattleMechRosterHome extends React.Component<IHomeProps, IH
           </tr>
           </tbody>
       ))}
+      {(favGroup.walkers ?? []).map( (walker) => (
+          <tbody key={walker.getUUID()}>
+          <tr>
+              <td>
+                  {walker.getDisplayName()}
+                  <div className='small-text'>{walker.getTons()}-ton {walker.isIndustrial() ? "industrial " : ""}Walker (fan-made)</div>
+              </td>
+              <td className="min-width no-wrap text-center">{walker.getTons()}</td>
+              <td className="min-width no-wrap text-center small-text">{walker.getTechTag() === "clan" ? "Clan" : "Inner Sphere"}</td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center">-</td>
+              <td className="min-width no-wrap text-center">{formatBattleValue((edition) => walker.getBattleValue(edition), "walker", this.props.appGlobals.currentCBTForce?.rulesEdition)}</td>
+          </tr>
+          </tbody>
+      ))}
       {(favGroup.battledroidsUnits ?? []).map( (unit) => (
           <tbody key={unit.getUUID()}>
           <tr>

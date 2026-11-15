@@ -4,7 +4,7 @@ import { getUnitTroAdapter } from '../../../classes/unit-tro';
 import type { ICreatorTroConfig } from '../../components/creator-tro-pages';
 import {
     BattleArmorCreatorSideMenu, BuildingCreatorSideMenu, CapitalShipCreatorSideMenu, FighterCreatorSideMenu, InfantryCreatorSideMenu, MechCreatorSideMenu,
-    ProtoMechCreatorSideMenu, SmallCraftCreatorSideMenu, VehicleCreatorSideMenu,
+    ProtoMechCreatorSideMenu, SmallCraftCreatorSideMenu, VehicleCreatorSideMenu, WalkerCreatorSideMenu,
 } from '../../components/creator-side-menus';
 import MechCreatorStatusBar from '../../components/mech-creator-status-bar';
 
@@ -57,6 +57,12 @@ export const BUILDING_TRO: ICreatorTroConfig = {
     current: "currentBuilding", save: "saveCurrentBuilding", adapter: getUnitTroAdapter, SideMenu: BuildingCreatorSideMenu,
 };
 
+export const WALKER_TRO: ICreatorTroConfig = {
+    creator: "walker-creator", name: "Walker Creator", step: 6, previous: "criticals",
+    current: "currentWalker", save: "saveCurrentWalker", adapter: getUnitTroAdapter, SideMenu: WalkerCreatorSideMenu,
+    provisionalNote: () => "provisional BV",
+};
+
 export const CREATOR_TRO_CONFIGS: ICreatorTroConfig[] = [
-    MECH_TRO, VEHICLE_TRO, FIGHTER_TRO, INFANTRY_TRO, BATTLE_ARMOR_TRO, PROTOMECH_TRO, SMALL_CRAFT_TRO, CAPITAL_SHIP_TRO, BUILDING_TRO,
+    MECH_TRO, VEHICLE_TRO, FIGHTER_TRO, INFANTRY_TRO, BATTLE_ARMOR_TRO, PROTOMECH_TRO, SMALL_CRAFT_TRO, CAPITAL_SHIP_TRO, BUILDING_TRO, WALKER_TRO,
 ];

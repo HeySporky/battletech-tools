@@ -262,11 +262,20 @@ numbers (the variant's 7-, 8-, 10-, 14- and 16-slot locations as the Compact pla
 location table, the firing arc diagram (#11 p.27, redrawn), the heat scale, Walk (with the x 1.25), Run and Jump,
 the credit, the edition, and the NOT OFFICIAL mark.
 
-- [ ] **Step 1:** Failing tests (the sheet renders in both editions and both slot systems; the roster total includes
+- [x] **Step 1:** Failing tests (the sheet renders in both editions and both slot systems; the roster total includes
   a Walker's BV; an older roster without `walkers` loads).
-- [ ] **Step 2:** Implement; print a light and an assault walker and look at both.
-- [ ] **Step 3:** Unit tests, `npm run check`, commit `Custom Homebrew: Walker record sheet and roster (#172)`, push,
+- [x] **Step 2:** Implement; print a light and an assault walker and look at both.
+- [x] **Step 3:** Unit tests, `npm run check`, commit `Custom Homebrew: Walker record sheet and roster (#172)`, push,
   ledger, handoff.
+
+Done 2026-11-15 (home): `walker-record-sheet-svg.tsx` (+ test), `walker-record-sheet.tsx`, `walker-creator/record-sheet.tsx`
+(side menu "Print", summary "View Record Sheet"), `roster/_walkerGroupTable.tsx` (+ test), `BattleMechGroup.walkers`
+(save, load, BV, tons, tech, copy ids; `battlemech-group-walker.test.ts`), roster print and favorites rows, and the
+Technical Readout step (`WALKER_TRO`, `walkerParts` in `unit-tro.ts`, route `technical-readout` and `print-tro`, summary
+button). The hit location table is `WALKER_HIT_TABLE` in `walker-construction.ts`, as printed (Best-of p.36, read on the
+page image). **For Chunk F:** the sheet's test ids are `walker-armor-<loc>-<n>`, `walker-structure-<loc>-<n>`,
+`walker-slot-<loc>-<n>`, `walker-pilot-<n>`; the hit table's cells are the printed text ("Fr/(Rr) Torso"), to be read
+into locations; the roster BV is the unadjusted, provisional one (no Gunnery / Piloting on the unit yet).
 
 ## Chunk F: Play mode
 

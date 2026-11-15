@@ -253,3 +253,25 @@ export type WalkerJumpJetType = typeof WALKER_JUMP_JET_TYPES[number];
 export const WALKER_JUMP_JET_LOCATIONS: readonly WalkerLocation[] = ["lfl", "rfl", "lrl", "rrl", "ft", "rrt", "lt", "rt"];
 /** Heat sinks the engine cannot hold fill the outer torsos, then the legs, the center torso and the control section (ours). */
 export const WALKER_HEAT_SINK_LOCATIONS: readonly WalkerLocation[] = ["lt", "rt", "ft", "rrt", "lfl", "rfl", "lrl", "rrl", "ct", "cs"];
+
+/**
+ * The hit location table (both printings, Best-of p.36), as printed: a 2D6 roll down the side, one column for an attack
+ * from the right front, the front and the left front. "Fr/(Rr) Torso" is the front torso, or the rear torso if the hit
+ * came through the rear arc (each "(Rr)" is the rear alternative). Infantry and vehicles in the walker's hex use the
+ * Front column, front or rear at random, and a control section hit is a center torso hit. A 12 is a critical hit on the
+ * control section. Kept as the printed text: the play chunk reads it into locations.
+ */
+export interface IWalkerHitRow { roll: number; rightFront: string; front: string; leftFront: string }
+export const WALKER_HIT_TABLE: readonly IWalkerHitRow[] = [
+    { roll: 2, rightFront: "Center Torso", front: "Center Torso", leftFront: "Center Torso" },
+    { roll: 3, rightFront: "Fr/(Rr) Torso", front: "Rr/(Fr) Rt Leg", leftFront: "Fr/(Rr) Torso" },
+    { roll: 4, rightFront: "Rt Rr/(Fr) Leg", front: "Rt Torso", leftFront: "Lt Rr/(Fr) Leg" },
+    { roll: 5, rightFront: "Rt Fr/(Rr) Leg", front: "Fr/(Rr) Torso", leftFront: "Lt Fr/(Rr) Leg" },
+    { roll: 6, rightFront: "Rt Torso", front: "Fr/(Rr) Rt Leg", leftFront: "Lt Torso" },
+    { roll: 7, rightFront: "Rt Torso", front: "Fr/(Rr) Torso", leftFront: "Lt Torso" },
+    { roll: 8, rightFront: "Rt Torso", front: "Fr/(Rr) Lt Leg", leftFront: "Lt Torso" },
+    { roll: 9, rightFront: "CS", front: "CS", leftFront: "CS" },
+    { roll: 10, rightFront: "Fr/(Rr) Torso", front: "Lt Torso", leftFront: "Fr/(Rr) Torso" },
+    { roll: 11, rightFront: "Lt Rr/(Fr) Leg", front: "Rr/(Fr) Lt Leg", leftFront: "Rt Rr/(Fr) Leg" },
+    { roll: 12, rightFront: "CS Critical", front: "CS Critical", leftFront: "CS Critical" },
+];
