@@ -52,6 +52,31 @@ describe("Walker roster table (#172, Chunk E)", () => {
         expect(force.groups[0].getTotalBattleValue()).toBe(walker.getBattleValue());
     });
 
+    it("sets the pilot's skills, which adjust the Battle Value and the roster total (Chunk F)", () => {
+        const { force, appGlobals, saveCurrentCBTForce } = setup([]);
+        const walker = new Walker(JSON.stringify(save()));
+        force.groups[0].walkers.push(walker);
+        render(<WalkerGroupTable appGlobals={appGlobals} bmGroupIndex={0} showAdd={false} showEdit={true} />);
+        fireEvent.change(screen.getByLabelText("Walker gunnery skill"), { target: { value: "3" } });
+        fireEvent.change(screen.getByLabelText("Walker piloting skill"), { target: { value: "4" } });
+        expect(walker.getGunnery()).toBe(3);
+        expect(walker.getPiloting()).toBe(4);
+        expect(saveCurrentCBTForce).toHaveBeenCalled();
+        expect(walker.getSkillAdjustedBattleValue()).toBeGreaterThan(walker.getBattleValue());
+        expect(force.groups[0].getTotalBattleValue()).toBe(walker.getSkillAdjustedBattleValue());
+        expect(screen.getByTestId("walker-group-bv-0").textContent).toMatch(/Base:/);
+    });
+
+    it("keeps a Walker's damage in the group save, and leaves it out when asked", () => {
+        const { force } = setup([]);
+        const walker = new Walker(JSON.stringify(save()));
+        walker.setArmor("ct", 10);
+        walker.applyDamage("ct", 4);
+        force.groups[0].walkers.push(walker);
+        expect(force.groups[0].export().walkers?.[0].inPlay).toEqual({ armor: { ct: 4 } });
+        expect(force.groups[0].export(true).walkers?.[0].inPlay).toBeUndefined();
+    });
+
     it("removes a Walker after the confirmation", () => {
         const { force, appGlobals } = setup([]);
         force.groups[0].walkers.push(new Walker(JSON.stringify(save())));

@@ -27,12 +27,16 @@ import { VariableEquipmentFormula, getTargetingComputerWeaponWeight, isTargeting
 import { CalcTrace, ICalcBreakdown, formatCalcNumber } from "../data/calc-steps";
 import { NO_BATTLE_VALUE_STEPS } from "../data/calc-steps-mech-bv1";
 import { WALKER_BV2_STEPS, WALKER_COST_STEPS, getWalkerBv1Steps } from "../data/calc-steps-walker";
+import { getAmmoDamagePerShot } from "../data/ammo-explosion";
+import { rollCriticalLine } from "../utils/critical-tables";
 import {
     editionHasBattleValue,
     getBattleValue1Ammo,
     getBattleValueEdition,
     getBattleValueFor,
     getBattleValueRules,
+    getBattleValueSkillEdition,
+    getSkillMultiplier,
     getSpeedFactor,
     isBattleValue1Defensive,
     rateBattleValue1,
@@ -88,6 +92,14 @@ import {
     WalkerGyroType,
     WalkerLocation,
     getWalkerCredit,
+    readWalkerHitCell,
+    WALKER_ALL_ARCS,
+    WALKER_ATTACK_DIRECTIONS,
+    WALKER_DAMAGE_TRANSFER,
+    WALKER_HIT_TABLE,
+    WALKER_LOCATION_ARCS,
+    WalkerAttackDirection,
+    WalkerFiringArc,
     getWalkerSlotCount,
     getWalkerStructure,
     getWalkerTurret,
@@ -142,8 +154,72 @@ export interface IWalkerExport {
     jumpJets?: number;
     jumpJetType?: WalkerJumpJetType;
     era: string;
+    /** The pilot's skills (roster); absent means 4 and 5. */
+    gunnery?: number;
+    piloting?: number;
+    /** The record sheet in play (roster); absent when clean. */
+    inPlay?: IWalkerInPlay;
     lastUpdated?: string;
 }
+
+/**
+ * The record sheet's state in play (Chunk F), saved with the roster. Every field is optional and absent when clean:
+ * armor and structure points lost per location, hit slot indexes (into getSlots), pilot hits, and shots fired per
+ * ammunition bin (getAmmo order).
+ */
+export interface IWalkerInPlay {
+    armor?: Partial<Record<WalkerLocation, number>>;
+    structure?: Partial<Record<WalkerLocation, number>>;
+    slots?: Partial<Record<WalkerLocation, number[]>>;
+    pilotHits?: number;
+    shotsFired?: number[];
+}
+
+/** A hit location read off the table: the 2D6 roll, the printed cell, and whether it is also a critical hit chance. */
+export interface IWalkerHitLocation {
+    roll: number;
+    direction: WalkerAttackDirection;
+    cell: string;
+    location: WalkerLocation;
+    critical: boolean;
+}
+
+export interface IWalkerPlayMovement {
+    walk: number;
+    run: number;
+    jump: number;
+    text: string;
+    notes: string[];
+}
+
+export interface IWalkerModifier {
+    total: number;
+    lines: string[];
+}
+
+/** A weapon in play: where it fires, its to-hit modifier from damage, whether it is lost and whether it may fire now. */
+export interface IWalkerWeaponPlayLine {
+    uuid: string;
+    name: string;
+    location: WalkerLocation;
+    inTurret: boolean;
+    arcs: WalkerFiringArc[];
+    toHit: number;
+    destroyed: boolean;
+    canFire: boolean;
+    reasons: string[];
+    /** The center torso's anti-infantry rule, or the turret's. */
+    note: string;
+}
+
+const WALKER_PILOT_HITS = 6;
+/** "MechWarriors take 2 points of damage" from an ammunition explosion (TW p.125). */
+const AMMO_EXPLOSION_PILOT_HITS = 2;
+const LEG_ACTUATORS = ["Upper Leg Actuator", "Lower Leg Actuator", "Foot Actuator"];
+/** A slot a critical hit rolls again on: CASE (TW p.124). */
+const isRollAgainTag = (tag: string): boolean => /^(clan-|is-)?case(-ii|-prototype)?$/.test(tag);
+/** Determining Critical Hits Table (TW p.124): the hits for a 2D6 roll; 12 is three in a torso, a leg or the control section blown off. */
+const criticalHitsForRoll = (roll: number): number => (roll >= 12 ? 3 : roll >= 10 ? 2 : roll >= 8 ? 1 : 0);
 
 /** One mounted 'Mech catalog item: its tag, its location and whether it is in the turret. */
 export interface IWalkerMountExport {
@@ -281,6 +357,9 @@ export default class Walker implements IGameSettingsUnit {
     private _jumpJetType: WalkerJumpJetType = "standard";
     /** Flint wrote for the 3025 rules: the late Succession Wars (ours). */
     private _era: IEras = findEraByTag("late-sw-lt") ?? btEraOptions[btEraOptions.length - 1];
+    private _gunnery: number = 4;
+    private _piloting: number = 5;
+    private _inPlay: IWalkerInPlay = {};
     private _importIssues: string[] = [];
 
     constructor(json: string = "") {
@@ -766,18 +845,28 @@ export default class Walker implements IGameSettingsUnit {
         return this._turret ? Array(getWalkerTurret(this._tons, this.usesVariantSlots()).slots).fill("Turret") : [];
     }
 
-    /** Puts an item of `size` slots in the first run of free slots long enough, else after the last. */
-    private static _place(slots: (string | null)[], name: string, size: number): void {
+    /**
+     * Puts an item of `size` slots in the first run of free slots long enough, else after the last. `owners`, kept beside
+     * `slots`, records what each slot belongs to (a mount's uuid, "fixed", "jet", "sink", "turret") for play.
+     */
+    private static _place(slots: (string | null)[], name: string, size: number, owners?: (string | null)[], owner: string = "fixed"): void {
         for (let start = 0; start + size <= slots.length; start++) {
             if (slots.slice(start, start + size).every((slot) => slot === null)) {
-                for (let index = start; index < start + size; index++) slots[index] = name;
+                for (let index = start; index < start + size; index++) {
+                    slots[index] = name;
+                    if (owners) owners[index] = owner;
+                }
                 return;
             }
         }
         let end = slots.length;
         while (end > 0 && slots[end - 1] === null) end--;
         slots.length = end;
-        for (let index = 0; index < size; index++) slots.push(name);
+        if (owners) owners.length = end;
+        for (let index = 0; index < size; index++) {
+            slots.push(name);
+            if (owners) owners.push(owner);
+        }
     }
     /** Slots used, counting free slots between items but not after the last. */
     private static _usedLength(slots: (string | null)[]): number {
@@ -792,16 +881,22 @@ export default class Walker implements IGameSettingsUnit {
      * the critical chart listed below the turret mechanism" is in the turret (Best-of p.36). Jump jets and heat sinks are
      * placed where there is room (ours); what finds no room is counted in `unplaced`.
      */
-    private _layout(auto: boolean = true, extra?: IWalkerMount): { slots: Record<WalkerLocation, (string | null)[]>; unplacedJets: number; unplacedSinks: number } {
+    private _layout(auto: boolean = true, extra?: IWalkerMount): {
+        slots: Record<WalkerLocation, (string | null)[]>; owners: Record<WalkerLocation, (string | null)[]>; unplacedJets: number; unplacedSinks: number;
+    } {
         const slots = {} as Record<WalkerLocation, (string | null)[]>;
+        const owners = {} as Record<WalkerLocation, (string | null)[]>;
         const mounts = extra ? [...this._mounts, extra] : this._mounts;
         const equipment = this._resolveMounts(mounts);
-        for (const location of WALKER_LOCATIONS) slots[location] = [...this._fixedItems(location)];
+        for (const location of WALKER_LOCATIONS) {
+            slots[location] = [...this._fixedItems(location)];
+            owners[location] = slots[location].map((slot) => (slot === null ? null : "fixed"));
+        }
         for (const each of equipment) {
             if (each.inTurret) continue;
             const rest = each.split ? Math.min(each.split.slots, each.slots) : 0;
-            Walker._place(slots[each.location], each.name, each.slots - rest);
-            if (each.split && rest > 0) Walker._place(slots[each.split.location], each.name, rest);
+            Walker._place(slots[each.location], each.name, each.slots - rest, owners[each.location], each.uuid);
+            if (each.split && rest > 0) Walker._place(slots[each.split.location], each.name, rest, owners[each.split.location], each.uuid);
         }
         const turretItems = equipment.filter((each) => each.location === "cs" && each.inTurret);
         // The control section keeps room for the turret mechanism and the turret's items below it.
@@ -820,7 +915,7 @@ export default class Walker implements IGameSettingsUnit {
                 const before = jets;
                 for (const location of WALKER_JUMP_JET_LOCATIONS) {
                     if (jets > 0 && fits(location, jet.criticals)) {
-                        Walker._place(slots[location], this._jumpJetType === "improved" ? "Improved Jump Jet" : "Jump Jet", jet.criticals);
+                        Walker._place(slots[location], this._jumpJetType === "improved" ? "Improved Jump Jet" : "Jump Jet", jet.criticals, owners[location], "jet");
                         jets--;
                     }
                 }
@@ -832,7 +927,7 @@ export default class Walker implements IGameSettingsUnit {
             let sinks = this.getExternalHeatSinks();
             for (const location of WALKER_HEAT_SINK_LOCATIONS) {
                 while (sinks > 0 && fits(location, sinkSlots)) {
-                    Walker._place(slots[location], sinkName, sinkSlots);
+                    Walker._place(slots[location], sinkName, sinkSlots, owners[location], "sink");
                     sinks--;
                 }
             }
@@ -841,10 +936,19 @@ export default class Walker implements IGameSettingsUnit {
         const cs = slots.cs;
         if (this._turret || turretItems.length > 0) {
             cs.length = Walker._usedLength(cs);
-            cs.push(...this._turretSlots());
-            for (const each of turretItems) for (let index = 0; index < each.slots; index++) cs.push(each.name);
+            owners.cs.length = cs.length;
+            for (const turret of this._turretSlots()) {
+                cs.push(turret);
+                owners.cs.push("turret");
+            }
+            for (const each of turretItems) {
+                for (let index = 0; index < each.slots; index++) {
+                    cs.push(each.name);
+                    owners.cs.push(each.uuid);
+                }
+            }
         }
-        return { slots, unplacedJets, unplacedSinks };
+        return { slots, owners, unplacedJets, unplacedSinks };
     }
 
     /** The location's slots, each an item name or null for a free slot. Items past the last slot are cut (getIssues says so). */
@@ -1482,9 +1586,548 @@ export default class Walker implements IGameSettingsUnit {
         });
     }
 
+    // Play (Chunk F) ----------------------------------------------------------------------------------------------
+    // Flint's play rules (Best-of pp.36-37; Future Wars #11 pp.25-27, read on the page images). Where he says "as a
+    // regular mech", Total Warfare (2022 printing) is followed and cited. What he leaves open is ours, and says so.
+
+    public getGunnery(): number { return this._gunnery; }
+    public setGunnery(skill: number): void { this._gunnery = clampInt(skill, 0, 8, 4); }
+    public getPiloting(): number { return this._piloting; }
+    public setPiloting(skill: number): void { this._piloting = clampInt(skill, 0, 8, 5); }
+    /** The 'Mech skill table (ours: a walker is a 'Mech with four legs). */
+    public getSkillMultiplier(edition: string = this._rulesEdition): number {
+        return getSkillMultiplier(this._gunnery, this._piloting, "mech", getBattleValueSkillEdition(edition, "mech")) ?? 1;
+    }
+    /** The provisional Battle Value with the pilot's skills, for the roster (rounded to the nearest). */
+    public getSkillAdjustedBattleValue(edition: string = this._rulesEdition): number {
+        return Math.floor(this.getBattleValue(edition) * this.getSkillMultiplier(edition) + 0.5);
+    }
+
+    public getInPlay(): IWalkerInPlay { return JSON.parse(JSON.stringify(this._inPlay)); }
+    /** Clears all damage, hits and shots fired. */
+    public resetInPlay(): void { this._inPlay = {}; }
+    public hasInPlayState(): boolean { return Object.keys(this._inPlay).length > 0; }
+
+    private _lost(field: "armor" | "structure", location: WalkerLocation): number { return this._inPlay[field]?.[location] ?? 0; }
+    private _setLost(field: "armor" | "structure", location: WalkerLocation, points: number): void {
+        const record = { ...(this._inPlay[field] ?? {}) };
+        if (points > 0) record[location] = points;
+        else delete record[location];
+        if (Object.keys(record).length > 0) this._inPlay[field] = record;
+        else delete this._inPlay[field];
+    }
+    public getArmorLeft(location: WalkerLocation): number { return Math.max(0, this.getArmor(location) - this._lost("armor", location)); }
+    public getStructureLeft(location: WalkerLocation): number { return Math.max(0, this.getStructure(location) - this._lost("structure", location)); }
+    /** Marks a location's armor points lost (the sheet's circles). */
+    public setArmorDamage(location: WalkerLocation, points: number): void {
+        if (isWalkerLocation(location)) this._setLost("armor", location, clampInt(points, 0, this.getArmor(location), 0));
+    }
+    public setStructureDamage(location: WalkerLocation, points: number): void {
+        if (isWalkerLocation(location)) this._setLost("structure", location, clampInt(points, 0, this.getStructure(location), 0));
+    }
+    /** A location whose structure is gone (a leg or the control section blown off too). */
+    public isLocationDestroyed(location: WalkerLocation): boolean { return this.getStructureLeft(location) === 0; }
+
+    private _storedPilotHits(): number { return this._inPlay.pilotHits ?? 0; }
+    /** Six hits, or killed outright (a Cockpit hit, or the control section gone with the cockpit in it). */
+    public getPilotHits(): number { return this.isPilotKilled() ? WALKER_PILOT_HITS : this._storedPilotHits(); }
+    public setPilotHits(hits: number): void {
+        const value = clampInt(hits, 0, WALKER_PILOT_HITS, 0);
+        if (value > 0) this._inPlay.pilotHits = value;
+        else delete this._inPlay.pilotHits;
+    }
+    public isPilotKilled(): boolean {
+        return this._storedPilotHits() >= WALKER_PILOT_HITS || this._fixedHits("cs", "Cockpit") > 0 || this.isLocationDestroyed("cs");
+    }
+
+    // Ammunition in play: one counter per bin, in getAmmo order.
+    /** Shots in a bin: its tons times the shots a ton. */
+    public getAmmoShots(binIndex: number): number {
+        const bin = this.getAmmo()[binIndex];
+        return bin ? Math.floor(bin.weight * (bin.item.roundsPerTon ?? 0)) : 0;
+    }
+    public getShotsFired(binIndex: number): number { return this._inPlay.shotsFired?.[binIndex] ?? 0; }
+    public getShotsLeft(binIndex: number): number { return Math.max(0, this.getAmmoShots(binIndex) - this.getShotsFired(binIndex)); }
+    public setShotsFired(binIndex: number, shots: number): void {
+        const bins = this.getAmmo();
+        if (!Number.isInteger(binIndex) || binIndex < 0 || binIndex >= bins.length) return;
+        const fired = bins.map((_bin, index) => this._inPlay.shotsFired?.[index] ?? 0);
+        fired[binIndex] = clampInt(shots, 0, this.getAmmoShots(binIndex), 0);
+        if (fired.some((value) => value > 0)) this._inPlay.shotsFired = fired;
+        else delete this._inPlay.shotsFired;
+    }
+
+    // Slots in play ---------------------------------------------------------------------------------------------
+
+    /** What each slot of a location belongs to: a mount's uuid, "fixed", "jet", "sink" or "turret"; null when empty. */
+    private _slotOwners(location: WalkerLocation): (string | null)[] {
+        const owners = this._layout().owners[location];
+        return Array.from({ length: this.getSlotCount(location) }, (_, index) => owners[index] ?? null);
+    }
+    public isSlotHit(location: WalkerLocation, slot: number): boolean { return this._inPlay.slots?.[location]?.includes(slot) ?? false; }
+    /** Hit slots of one fixed item in a location. */
+    private _fixedHits(location: WalkerLocation, name: string): number {
+        const slots = this.getSlots(location);
+        const owners = this._slotOwners(location);
+        return (this._inPlay.slots?.[location] ?? []).filter((index) => slots[index] === name && owners[index] === "fixed").length;
+    }
+    /** Engine slots hit, in every location (an XL engine's side torso slots too). */
+    public getEngineHits(): number {
+        return WALKER_LOCATIONS.reduce((sum, location) => sum + this._fixedHits(location, this.getEngineName()), 0);
+    }
+    public getGyroHits(): number { return this._fixedHits("ct", this.getGyroName()); }
+    /** A standard, XL or compact gyro is destroyed by two hits, a heavy-duty one by three (TW p.128; TM p.214). */
+    public isGyroDestroyed(): boolean { return this.getGyroHits() >= (this._gyroType === "heavy-duty" ? 3 : 2); }
+    public getSensorHits(): number { return this._fixedHits("cs", "Sensors"); }
+    /** Two sensor hits end weapon attacks (TW p.128); an IndustrialMech's sensors go with one (TW p.128), as an industrial walker's (ours). */
+    public areSensorsDestroyed(): boolean { return this.getSensorHits() >= (this._industrial ? 1 : 2); }
+
+    /** +2 on the Determining Critical Hits Table against an industrial walker, as against an IndustrialMech (TW p.124). */
+    public getCriticalHitRollModifier(): number { return this._industrial ? 2 : 0; }
+
+    /**
+     * Rolls on the Determining Critical Hits Table as for a 'Mech (TW p.124: 8-9 one hit, 10-11 two, 12 three in a torso
+     * or a limb blown off; an industrial walker's 13 counts as 12 and 14 or more is four hits or the limb blown off).
+     * A leg is a limb; so is the control section, as a 'Mech's head (ours). The line is rolled in tables of six, as the
+     * sheet prints them, again on an empty line, CASE or a line already hit (TW p.124). `dice` supplies the players'
+     * rolls in order; `extraModifier` is added to the chance roll (a fall).
+     */
+    public rollCriticalHit(location: WalkerLocation, dice: { chance?: number; lines?: number[] } = {}, extraModifier: number = 0): string[] {
+        if (!isWalkerLocation(location)) return [];
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const roll = dice.chance ?? die() + die();
+        const modifier = this.getCriticalHitRollModifier() + extraModifier;
+        const result = roll + modifier;
+        const name = this.getLocationName(location);
+        const limb = WALKER_LEGS.includes(location) || location === "cs";
+        const log = [modifier ? `Critical hit roll ${roll} + ${modifier} = ${result}.` : `Critical hit roll ${roll}.`];
+        let hits = 0;
+        let blownOff = false;
+        if (this._industrial && result >= 14) {
+            if (limb) blownOff = true;
+            else hits = 4;
+        } else if (Math.min(12, result) >= 12) {
+            if (limb) blownOff = true;
+            else hits = 3;
+        } else {
+            hits = criticalHitsForRoll(result);
+        }
+        if (blownOff) {
+            this.setArmorDamage(location, this.getArmor(location));
+            this.setStructureDamage(location, this.getStructure(location));
+            log.push(`${name} blown off.${location === "cs" ? " The cockpit goes with it: the pilot is killed." : ""}`);
+            return log;
+        }
+        if (hits === 0) {
+            log.push("No critical hit.");
+            return log;
+        }
+        log.push(hits === 1 ? "One critical hit." : `${hits} critical hits.`);
+        const slots = this.getSlots(location);
+        const owners = this._slotOwners(location);
+        const mounts = this.getEquipment();
+        const rollAgain = (index: number) => {
+            const owner = owners[index];
+            const mount = owner ? mounts.find((each) => each.uuid === owner) : undefined;
+            return !!mount && isRollAgainTag(mount.tag);
+        };
+        const hittable = (index: number) => slots[index] !== null && !this.isSlotHit(location, index) && !rollAgain(index);
+        const queue = [...(dice.lines ?? [])];
+        const next = () => queue.shift() ?? die();
+        for (let hit = 0; hit < hits; hit++) {
+            if (!slots.some((_slot, index) => hittable(index))) {
+                log.push("No line left that can take a critical hit.");
+                break;
+            }
+            for (let attempt = 0; attempt < 100; attempt++) {
+                const line = rollCriticalLine(slots.length, next);
+                if (line.index === null || !hittable(line.index)) continue;
+                const label = line.table ? `${line.table.label}, ${line.line}` : `${line.line}`;
+                log.push(`Line ${label}: ${slots[line.index]} is hit.`, ...this.setSlotHit(location, line.index, true));
+                break;
+            }
+        }
+        return log;
+    }
+
+    /**
+     * An industrial walker's End Phase damage check, made in a turn in which it fell or was the target of a successful
+     * physical attack, as an IndustrialMech's (TW pp.68, 144): a location on the Front column, read as from the front
+     * (ours), then the Determining Critical Hits Table with +1 a level fallen above 1.
+     */
+    public rollIndustrialDamageCheck(levelsFallen: number = 0, dice: { location?: number; chance?: number; lines?: number[] } = {}): string[] {
+        if (!this._industrial) return [];
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const hit = this.getHitLocation("f", dice.location ?? die() + die());
+        const fall = Math.max(0, Math.floor(levelsFallen) - 1);
+        return [`Location roll ${hit.roll}: ${this.getLocationName(hit.location)}.`, ...this.rollCriticalHit(hit.location, dice, fall)];
+    }
+
+    /** Marks a slot hit or not; a new hit returns its effects (ammunition explodes). */
+    public setSlotHit(location: WalkerLocation, slot: number, hit: boolean): string[] {
+        if (!isWalkerLocation(location) || !Number.isInteger(slot)) return [];
+        const slots = this.getSlots(location);
+        if (slot < 0 || slot >= slots.length || slots[slot] === null) return [];
+        const was = this.isSlotHit(location, slot);
+        this._markSlot(location, slot, hit);
+        if (!hit || was) return [];
+        return this._criticalEffect(location, slot);
+    }
+    private _markSlot(location: WalkerLocation, slot: number, hit: boolean): void {
+        const record = { ...(this._inPlay.slots ?? {}) };
+        const list = (record[location] ?? []).filter((index) => index !== slot);
+        if (hit) list.push(slot);
+        list.sort((a, b) => a - b);
+        if (list.length > 0) record[location] = list;
+        else delete record[location];
+        if (Object.keys(record).length > 0) this._inPlay.slots = record;
+        else delete this._inPlay.slots;
+    }
+
+    private _criticalEffect(location: WalkerLocation, slot: number): string[] {
+        const owner = this._slotOwners(location)[slot];
+        const name = this.getSlots(location)[slot] ?? "";
+        if (owner === "jet") return ["A jump jet is lost: -1 Jump MP."];
+        if (owner === "sink") return [`A heat sink is lost: ${this._heatSinkType === "double" ? 2 : 1} less heat dissipated a turn.`];
+        if (owner === "turret") return ["Turret mechanism hit: the turret is locked facing where it last fired (ours, as a vehicle's turret lock)."];
+        if (owner && owner !== "fixed") {
+            const ammoIndex = this.getAmmo().findIndex((each) => each.uuid === owner);
+            if (ammoIndex >= 0) return this._explodeAmmo(location, ammoIndex);
+            return [`${name} destroyed.`];
+        }
+        const legOut = WALKER_LEGS.includes(location) && !this._legModel().working.some((leg) => leg.leg === location);
+        if (name === this.getEngineName()) {
+            return this.getEngineHits() >= 3
+                ? ["Third engine hit: the engine is destroyed, and the walker with it (TW p.128)."]
+                : [`Engine hit ${this.getEngineHits()}: +5 heat a turn each (TW p.128).`];
+        }
+        if (name === this.getGyroName()) {
+            return this.isGyroDestroyed()
+                ? ["Gyro destroyed: the walker falls and cannot stand (TW p.128)."]
+                : ["Gyro hit: +3 on Piloting Skill Rolls, and a roll at once to stay standing (TW p.128)."];
+        }
+        switch (name) {
+            case "Cockpit": return ["Cockpit hit: the pilot is killed (TW p.128)."];
+            case "Sensors": return this.areSensorsDestroyed()
+                ? ["Sensors destroyed: no weapon attacks (TW p.128)."]
+                : ["Sensors hit: +2 to hit on all weapon attacks (TW p.128)."];
+            case "Life Support": return ["Life Support hit: the pilot takes 1 damage in every turn the heat is 15 or more (TW p.128)."];
+            case "Hip": {
+                const model = this._legModel();
+                if (model.ceased?.leg === location) return ["Hip hit: the leg ceases to function. The walker loses its 1.25 movement and +3 piloting bonuses and moves as a two-legged 'Mech (Best-of p.37)."];
+                return ["Hip hit after a leg is out: as on a 'Mech, Walking MP halved, +2 on Piloting Skill Rolls; with a second such hip it cannot move (Best-of p.37; TW p.128)."];
+            }
+            default:
+                if (LEG_ACTUATORS.includes(name)) {
+                    return legOut
+                        ? [`${name} hit: no effect, the leg is already out (Best-of p.37).`]
+                        : [`${name} hit: -1 MP off the walker's current movement base, +1 on Piloting Skill Rolls (Best-of p.37; TW p.128).`];
+                }
+                return [`${name} hit.`];
+        }
+    }
+
+    /** CASE in the location: a CASE item, or a Clan walker's built-in CASE (ours, as a Clan 'Mech's). */
+    private _hasCaseAt(location: WalkerLocation): boolean {
+        if (this._tech === "clan") return true;
+        return this.getEquipment().some((each) => isRollAgainTag(each.tag) && (each.location === location || each.split?.location === location));
+    }
+
+    /**
+     * An ammunition bin explodes (TW p.125): its shots left times one shot's Damage Value go to the location's internal
+     * structure, the rest inward to the next location's (as the Micro-Mech's, ours); CASE vents what is left after its
+     * location. The pilot takes 2 hits.
+     */
+    private _explodeAmmo(location: WalkerLocation, binIndex: number): string[] {
+        const bin = this.getAmmo()[binIndex];
+        const weapon = this.getEquipment().find((each) => !each.isAmmo && getCompatibleAmmo(each.item, bin.item));
+        const perShot = weapon ? getAmmoDamagePerShot(weapon.item) : 0;
+        const shots = this.getShotsLeft(binIndex);
+        const damage = shots * perShot;
+        this.setShotsFired(binIndex, this.getAmmoShots(binIndex));
+        this.setPilotHits(this._storedPilotHits() + AMMO_EXPLOSION_PILOT_HITS);
+        const lines = [`Ammunition explosion: ${damage} damage (${shots} shots x ${perShot}) to the ${this.getLocationName(location)}'s internal structure; the pilot takes ${AMMO_EXPLOSION_PILOT_HITS} hits (TW p.125).`];
+        let where: WalkerLocation | null = location;
+        let remaining = damage;
+        while (remaining > 0 && where) {
+            const points = Math.min(this.getStructureLeft(where), remaining);
+            this.setStructureDamage(where, this._lost("structure", where) + points);
+            remaining -= points;
+            if (points > 0 && this.isLocationDestroyed(where)) lines.push(`${this.getLocationName(where)} destroyed.`);
+            if (remaining <= 0) break;
+            if (this._hasCaseAt(where)) {
+                lines.push(`CASE: the other ${remaining} damage is vented.`);
+                break;
+            }
+            where = WALKER_DAMAGE_TRANSFER[where];
+        }
+        if (remaining > 0 && !where) lines.push(`The other ${remaining} damage is lost: the walker is destroyed.`);
+        return lines;
+    }
+
+    /**
+     * The hit table (Best-of p.36; #11 p.25): the column for the hex face the attack comes through, the plain reading
+     * from the front faces and the parenthesized one from the rear. Infantry and vehicles in the walker's hex use the
+     * Front/(Rear) column, front or rear at random (pass "f" or "r"), and a control hit is a center torso hit.
+     */
+    public getHitLocation(direction: WalkerAttackDirection, roll: number, inHex: boolean = false): IWalkerHitLocation {
+        const face = WALKER_ATTACK_DIRECTIONS.find((each) => each.tag === direction) ?? WALKER_ATTACK_DIRECTIONS[0];
+        const dice = clampInt(roll, 2, 12, 7);
+        const row = WALKER_HIT_TABLE.find((each) => each.roll === dice)!;
+        const cell = row[inHex ? "front" : face.column];
+        const read = readWalkerHitCell(cell, face.rear);
+        const location = inHex && read.location === "cs" ? "ct" : read.location;
+        return { roll: dice, direction: face.tag, cell, location, critical: read.critical };
+    }
+    /** Rolls 2D6 on the hit table; in the walker's hex the front or rear reading is picked at random. */
+    public rollHitLocation(direction: WalkerAttackDirection, inHex: boolean = false): IWalkerHitLocation {
+        const die = () => 1 + Math.floor(Math.random() * 6);
+        const face: WalkerAttackDirection = inHex ? (die() <= 3 ? "f" : "r") : direction;
+        return this.getHitLocation(face, die() + die(), inHex);
+    }
+
+    /**
+     * Damage "as on a regular mech": armor, then internal structure; a location whose structure is gone passes the rest
+     * on (WALKER_DAMAGE_TRANSFER, ours). Each hit on the control section (the turret is part of it for damage, Best-of
+     * p.36) gives the pilot a hit, as a hit on a 'Mech's head does (ours). A walker has no rear armor: the rear torso is
+     * a location of its own.
+     */
+    public applyDamage(location: WalkerLocation, points: number): string[] {
+        if (!isWalkerLocation(location)) return [];
+        let remaining = clampInt(points, 0, 9999, 0);
+        const lines: string[] = [];
+        if (location === "cs" && remaining > 0 && !this.isLocationDestroyed("cs")) {
+            this.setPilotHits(this._storedPilotHits() + 1);
+            lines.push("A hit on the control section: the pilot takes a hit (as a 'Mech's head, ours).");
+        }
+        let where: WalkerLocation | null = location;
+        while (remaining > 0 && where) {
+            const name = this.getLocationName(where);
+            if (!this.isLocationDestroyed(where)) {
+                const armor = Math.min(this.getArmorLeft(where), remaining);
+                this.setArmorDamage(where, this._lost("armor", where) + armor);
+                remaining -= armor;
+                if (remaining <= 0) break;
+                const structure = Math.min(this.getStructureLeft(where), remaining);
+                this.setStructureDamage(where, this._lost("structure", where) + structure);
+                remaining -= structure;
+                lines.push(`${name}: ${structure} to the internal structure; roll for critical hits.`);
+                if (this.isLocationDestroyed(where)) lines.push(`${name} destroyed.${where === "cs" ? " The pilot is killed." : ""}`);
+                if (remaining <= 0) break;
+            }
+            const next: WalkerLocation | null = WALKER_DAMAGE_TRANSFER[where];
+            if (!next) {
+                lines.push(`The other ${remaining} damage is lost: the walker is destroyed.`);
+                break;
+            }
+            lines.push(`${remaining} passes to the ${this.getLocationName(next)}.`);
+            where = next;
+        }
+        return lines;
+    }
+
+    /** Destroyed with its pilot, its center torso's structure or its engine (three hits), as a 'Mech (TW). */
+    public isDestroyed(): boolean { return this.getDestroyedReason() !== null; }
+    public getDestroyedReason(): string | null {
+        if (this.isPilotKilled()) return "The pilot is killed.";
+        if (this.isLocationDestroyed("ct")) return "The center torso's internal structure is gone.";
+        if (this.getEngineHits() >= 3) return "The engine is destroyed (three hits).";
+        return null;
+    }
+
+    /**
+     * The legs (Best-of p.37; #11 p.26). A leg "ceases to function" with a hip critical, all its structure lost, or
+     * blown off. "Hip criticals taken after one leg ceases to function ... affect a walker the way they would a normal
+     * mech." The sheet keeps no order of events, so (ours): with a leg's structure gone, every hip hit on a standing leg
+     * is a 'Mech hip; with none gone, the first hipped leg has ceased and any other hip hit is a 'Mech hip. Actuator hits
+     * count only on standing legs without a hip hit (a hip supersedes them).
+     */
+    private _legModel() {
+        const legs = WALKER_LEGS.map((leg) => {
+            const hits = (this._inPlay.slots?.[leg] ?? []).map((index) => this.getSlots(leg)[index]);
+            return {
+                leg, destroyed: this.isLocationDestroyed(leg), hip: hits.includes("Hip"),
+                actuators: hits.filter((name) => !!name && LEG_ACTUATORS.includes(name)).length,
+            };
+        });
+        const destroyed = legs.filter((each) => each.destroyed);
+        const hipped = legs.filter((each) => !each.destroyed && each.hip);
+        const ceased = destroyed.length === 0 && hipped.length > 0 ? hipped[0] : null;
+        const working = legs.filter((each) => !each.destroyed && each !== ceased);
+        return {
+            legs, ceased, working,
+            out: destroyed.length + (ceased ? 1 : 0),
+            mechHips: hipped.filter((each) => each !== ceased).length,
+            actuatorHits: working.filter((each) => !each.hip).reduce((sum, each) => sum + each.actuators, 0),
+        };
+    }
+    /** Legs still working (4 less those that have ceased to function). */
+    public getWorkingLegs(): number { return WALKER_LEGS.length - this._legModel().out; }
+
+    /** Jump jets lost: hit, or in a location whose structure is gone. */
+    private _jumpJetsLost(): number {
+        const per = Math.max(1, this._jumpJetRecord().criticals);
+        let lost = 0;
+        for (const location of WALKER_LOCATIONS) {
+            const owners = this._slotOwners(location);
+            const jets = owners.map((owner, index) => (owner === "jet" ? index : -1)).filter((index) => index >= 0);
+            if (jets.length === 0) continue;
+            lost += this.isLocationDestroyed(location) ? jets.length / per : Math.ceil(jets.filter((index) => this.isSlotHit(location, index)).length / per);
+        }
+        return Math.floor(lost);
+    }
+
+    /**
+     * Movement now (Best-of p.37). Four legs: the biped Walking MP x 1.25, less one for each actuator hit ("actuator hits
+     * reduce MP's off a walker's current movement base"). One leg out: the biped Walking MP, each 'Mech hip halving it
+     * (round up; two leave none, TW p.128), less the actuator hits. Two out: it crawls, 1 MP (ours), no running or
+     * jumping. Three or more: none. Running is figured from the walking figure. A destroyed gyro: no movement.
+     */
+    public getPlayMovement(): IWalkerPlayMovement {
+        if (this.isDestroyed()) return { walk: 0, run: 0, jump: 0, text: "Destroyed", notes: [] };
+        const model = this._legModel();
+        const notes: string[] = [];
+        let walk = 0;
+        let canRun = true;
+        let canJump = true;
+        let crawl = false;
+        if (model.out === 0) {
+            walk = this.getWalkerWalkMP() - model.actuatorHits;
+        } else if (model.out === 1) {
+            walk = this._walkMP;
+            for (let hip = 0; hip < model.mechHips; hip++) walk = Math.ceil(walk / 2);
+            if (model.mechHips >= 2) walk = 0;
+            walk -= model.actuatorHits;
+            notes.push("A leg is out: no 1.25 movement or +3 piloting bonus; it moves as a two-legged 'Mech and cannot kick (Best-of p.37).");
+        } else if (model.out === 2) {
+            walk = 1;
+            canRun = false;
+            canJump = false;
+            crawl = true;
+            notes.push("Two legs are out: it may only crawl (Best-of p.37); 1 hex a turn, no running or jumping (ours).");
+        } else {
+            canRun = false;
+            canJump = false;
+            notes.push("Three or more legs are out: it cannot move (Best-of p.37).");
+        }
+        walk = Math.max(0, walk);
+        if (this.isGyroDestroyed()) {
+            walk = 0;
+            canRun = false;
+            canJump = false;
+            crawl = false;
+            notes.push("Gyro destroyed: it falls and cannot stand (TW p.128).");
+        }
+        const run = canRun && walk > 0 ? Math.ceil(walk * 1.5) : 0;
+        const jump = canJump ? Math.max(0, this._jumpJets - this._jumpJetsLost()) : 0;
+        const knockOver = this.getKnockOverRule();
+        if (knockOver) notes.push(knockOver);
+        const text = crawl ? `Crawl ${walk}` : `Walk ${walk}, Run ${run}${this._jumpJets > 0 ? `, Jump ${jump}` : ""}`;
+        return { walk, run, jump, text, notes };
+    }
+
+    /**
+     * The modifier on every Piloting Skill Roll now (target number; negative is easier). Four working legs: the "+3"
+     * piloting bonus, -3 (Best-of p.37). Each actuator hit on a standing leg +1, a 'Mech hip +2, a gyro hit +3 (TW
+     * p.128). Each leg out past the first +5, as a 'Mech's destroyed leg (ours: with one out it moves as a biped).
+     */
+    public getPilotingModifier(): IWalkerModifier {
+        const model = this._legModel();
+        const lines: string[] = [];
+        let total = 0;
+        if (model.out === 0) {
+            total -= 3;
+            lines.push("Four working legs -3");
+        }
+        for (const leg of model.working) {
+            if (leg.hip) {
+                if (model.ceased !== leg) {
+                    total += 2;
+                    lines.push(`${this.getLocationName(leg.leg)} hip +2`);
+                }
+            } else if (leg.actuators > 0) {
+                total += leg.actuators;
+                lines.push(`${this.getLocationName(leg.leg)} actuators +${leg.actuators}`);
+            }
+        }
+        if (model.out >= 2) {
+            const extra = 5 * (model.out - 1);
+            total += extra;
+            lines.push(`${model.out - 1} more ${model.out === 2 ? "leg" : "legs"} out +${extra}`);
+        }
+        if (this.getGyroHits() > 0) {
+            total += 3 * this.getGyroHits();
+            lines.push(`Gyro hit${this.getGyroHits() > 1 ? "s" : ""} +${3 * this.getGyroHits()}`);
+        }
+        return { total, lines };
+    }
+
+    /** "They may kick in any direction if all their legs are intact. If they lose a leg they may no longer kick" (Best-of p.37). No punches. */
+    public canKick(): boolean { return !this.isDestroyed() && this._legModel().out === 0; }
+
+    /**
+     * #11 p.26 only: an immobilized walker with structure in every leg, not knocked over when it was immobilized, can be
+     * knocked over only by a 'Mech pushing it until a leg's structure is gone. The rule text while it applies, else null.
+     */
+    public getKnockOverRule(): string | null {
+        const rule = this.getEditionRules().immobilizedKnockOver;
+        if (!rule || this.isDestroyed()) return null;
+        if (WALKER_LEGS.some((leg) => this.isLocationDestroyed(leg))) return null;
+        const model = this._legModel();
+        const immobile = this.isGyroDestroyed() || model.out >= 3 || (model.out === 1 && (model.mechHips >= 2
+            || Math.max(0, Math.ceil(this._walkMP / 2 ** model.mechHips) - model.actuatorHits) === 0));
+        const fourLegs = model.out === 0 && this.getWalkerWalkMP() - model.actuatorHits <= 0;
+        return immobile || fourLegs ? rule : null;
+    }
+
+    /**
+     * Each weapon in play: its arcs (WALKER_LOCATION_ARCS; the turret all four), lost with any of its slots or its
+     * location, +2 to hit with a sensor hit, none with the sensors destroyed, none with its ammunition gone.
+     */
+    public getWeaponPlayLines(): IWalkerWeaponPlayLine[] {
+        const rules = this.getEditionRules();
+        const ammo = this.getAmmo();
+        const destroyedUnit = this.isDestroyed();
+        return this.getEquipment().filter((each) => isWalkerWeapon(each.item)).map((each) => {
+            const reasons: string[] = [];
+            const places = [each.location, ...(each.split ? [each.split.location] : [])];
+            const slotHit = places.some((place) => this._slotOwners(place).some((owner, index) => owner === each.uuid && this.isSlotHit(place, index)));
+            const lost = slotHit || this.isLocationDestroyed(each.location);
+            if (lost) reasons.push(slotHit ? "destroyed" : `the ${this.getLocationName(each.location)} is gone`);
+            if (this.areSensorsDestroyed()) reasons.push("sensors destroyed");
+            const bins = ammo.map((bin, index) => ({ bin, index })).filter(({ bin }) => getCompatibleAmmo(each.item, bin.item));
+            if (bins.length > 0 && bins.every(({ index }) => this.getShotsLeft(index) <= 0)) reasons.push("no ammunition");
+            if (destroyedUnit) reasons.push("the walker is destroyed");
+            const arcs = each.inTurret ? [...WALKER_ALL_ARCS] : each.antiInfantryOnly ? [] : [...WALKER_LOCATION_ARCS[each.location]];
+            const note = each.antiInfantryOnly
+                ? `Only at infantry and vehicles in the walker's hex, short range: base to-hit ${rules.antiInfantryBaseToHit} with the -2 (${rules.name}).`
+                : each.inTurret ? "Turret: any arc (the standard turret rules)." : each.location === "cs" ? "Control section: front or rear." : "";
+            return {
+                uuid: each.uuid, name: each.name, location: each.location, inTurret: each.inTurret, arcs,
+                toHit: this.getSensorHits() > 0 && !this.areSensorsDestroyed() ? 2 : 0,
+                destroyed: lost, canFire: reasons.length === 0, reasons, note,
+            };
+        });
+    }
+
+    /** The play rules the sheet does not track, in our own words, for the play panel. */
+    public getPlayNotes(): string[] {
+        const rules = this.getEditionRules();
+        const notes = [
+            "Hit locations: roll on the column for the hex face the attack comes through; the plain reading from a front face, the one in brackets from a rear face. A 12 is a control section hit and a critical hit roll (ours).",
+            "Infantry and vehicles in the walker's hex use the Front/(Rear) column, front or rear at random; a control section hit is a center torso hit.",
+            `Firing arcs: ${rules.firingArcs} Legs fire into both arcs of their quadrant; control section weapons not in the turret fire front or rear; the turret fires all round.`,
+            "No punches. Kicks in any direction while all four legs work; none once a leg is out.",
+            "Damage passes from a leg to the torso on its side, and from an outer torso or the control section to the center torso (ours). The turret is part of the control section for damage.",
+        ];
+        if (rules.immobilizedKnockOver) notes.push(rules.immobilizedKnockOver);
+        if (this._industrial) notes.push("Industrial walker: +2 on critical hit rolls, and an End Phase damage check after a fall or a successful physical attack (as an IndustrialMech, TW pp.68, 124, 144).");
+        return notes;
+    }
+
     // Save ----------------------------------------------------------------------------------------------------------
 
-    public export(): IWalkerExport {
+    public export(noInPlayVariables: boolean = false): IWalkerExport {
         const armor: Partial<Record<WalkerLocation, number>> = {};
         for (const location of WALKER_LOCATIONS) armor[location] = this._armor[location];
         return {
@@ -1519,8 +2162,33 @@ export default class Walker implements IGameSettingsUnit {
             heatSinkType: this._heatSinkType,
             ...(this._jumpJets > 0 ? { jumpJets: this._jumpJets, jumpJetType: this._jumpJetType } : {}),
             era: this._era.tag,
+            ...(this._gunnery !== 4 ? { gunnery: this._gunnery } : {}),
+            ...(this._piloting !== 5 ? { piloting: this._piloting } : {}),
+            ...(!noInPlayVariables && this.hasInPlayState() ? { inPlay: this.getInPlay() } : {}),
             lastUpdated: this.lastUpdated.toISOString(),
         };
+    }
+
+    /** Reads saved play state, keeping only what fits this walker: points within each location, slots that exist. */
+    private _importInPlay(raw: unknown): void {
+        this._inPlay = {};
+        if (!raw || typeof raw !== "object") return;
+        const data = raw as IWalkerInPlay;
+        for (const location of WALKER_LOCATIONS) {
+            const armor = data.armor?.[location];
+            if (armor !== undefined) this.setArmorDamage(location, armor);
+            const structure = data.structure?.[location];
+            if (structure !== undefined) this.setStructureDamage(location, structure);
+            const slots = data.slots?.[location];
+            if (Array.isArray(slots)) {
+                const count = this.getSlots(location).length;
+                for (const slot of slots.slice(0, 40)) {
+                    if (Number.isInteger(slot) && slot >= 0 && slot < count && this.getSlots(location)[slot] !== null) this._markSlot(location, slot, true);
+                }
+            }
+        }
+        if (data.pilotHits !== undefined) this.setPilotHits(data.pilotHits);
+        if (Array.isArray(data.shotsFired)) data.shotsFired.slice(0, 200).forEach((shots, index) => this.setShotsFired(index, shots));
     }
     public exportJSON(): string { return JSON.stringify(this.export()); }
 
@@ -1621,6 +2289,9 @@ export default class Walker implements IGameSettingsUnit {
         const jets = data.jumpJets === undefined ? 0 : clampInt(data.jumpJets, 0, 20, 0);
         if (data.jumpJets !== undefined && jets !== data.jumpJets) issues.push(`Jump jets ${String(data.jumpJets)} is out of range: set to ${jets}.`);
         this._jumpJets = jets;
+        this._gunnery = clampInt(data.gunnery, 0, 8, 4);
+        this._piloting = clampInt(data.piloting, 0, 8, 5);
+        this._importInPlay(data.inPlay);
         const saved = typeof data.lastUpdated === "string" ? new Date(data.lastUpdated) : new Date();
         this.lastUpdated = Number.isNaN(saved.getTime()) ? new Date() : saved;
         this._importIssues = issues;

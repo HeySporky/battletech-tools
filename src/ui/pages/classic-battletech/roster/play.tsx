@@ -46,6 +46,9 @@ import ProtoMech from '../../../../classes/protomech';
 import ProtoMechPlayPanel from './_protoMechPlay';
 import MicroMech from '../../../../classes/micro-mech';
 import MicroMechPlayPanel from './_microMechPlay';
+import Walker from '../../../../classes/walker';
+import WalkerPlayPanel from './_walkerPlay';
+import { WALKER_LOCATIONS } from '../../../../data/walker-construction';
 import { IBattleArmorCarrierLoad, getBattleArmorCarrierLoad, isCarrierWeaponBlocked } from '../../../../classes/battle-armor-transport';
 import BattledroidsUnit from '../../../../classes/battledroids-unit';
 import BattledroidsPlayPanel from './_battledroidsPlay';
@@ -878,7 +881,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       });
     }
 
-    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | SmallCraft | CapitalShip | InfantryPlatoon | BattleArmor | ProtoMech | MicroMech | Building | BattledroidsUnit ): void => {
+    onVehicleChange = ( _vehicle: Vehicle | AerospaceFighter | SmallCraft | CapitalShip | InfantryPlatoon | BattleArmor | ProtoMech | MicroMech | Walker | Building | BattledroidsUnit ): void => {
       if(this.props.appGlobals.currentCBTForce) {
         this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
       }
@@ -932,6 +935,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
           for( const micro of group.microMechs ) {
             micro.resetInPlay();
+          }
+          for( const walker of group.walkers ) {
+            walker.resetInPlay();
           }
           for( const building of group.buildings ) {
             building.resetInPlay();
@@ -1479,6 +1485,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
           }
         }
       }
+      // And a walker (Custom Homebrew, #172).
+      let selectedWalker: Walker | null = null;
+      for( const group of this.props.appGlobals.currentCBTForce.groups ) {
+        for( const walker of group.walkers ) {
+          if( walker.getUUID() === this.state.selectedVehicleUUID ) {
+            selectedWalker = walker;
+          }
+        }
+      }
       // And a Battledroids tank, jeep or infantry squad.
       let selectedBattledroidsUnit: BattledroidsUnit | null = null;
       for( const group of this.props.appGlobals.currentCBTForce.groups ) {
@@ -1498,7 +1513,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         }
       }
       // The selected unit's quirks, in the same order the panels below are chosen; units without quirks show none.
-      const quirkCarrier: IQuirkCarrier | null = selectedBattledroidsUnit || selectedBuilding || selectedInfantry || selectedProtoMech || selectedMicroMech ? null
+      const quirkCarrier: IQuirkCarrier | null = selectedBattledroidsUnit || selectedBuilding || selectedInfantry || selectedProtoMech || selectedMicroMech || selectedWalker ? null
         : selectedBattleArmor ?? selectedFighter ?? selectedSmallCraft ?? selectedCapitalShip ?? selectedVehicle ?? selectedMech;
       return (
         <>
@@ -3147,6 +3162,12 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               micro={selectedMicroMech}
               onChange={this.onVehicleChange}
             />
+          ) : selectedWalker ? (
+            <WalkerPlayPanel
+              key={selectedWalker.getUUID()}
+              walker={selectedWalker}
+              onChange={this.onVehicleChange}
+            />
           ) : selectedFighter ? (
             <FighterPlayPanel
               key={selectedFighter.getUUID()}
@@ -3475,6 +3496,39 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                       <hr />
                     </li>
                   ))}
+                  {group.walkers.map( (walker) => {
+                    const armorLeft = WALKER_LOCATIONS.reduce((sum, location) => sum + walker.getArmorLeft(location), 0);
+                    return (
+                      <li key={walker.getUUID()}>
+                        <button
+                          onClick={(e) => this.selectVehicle(e, walker.getUUID())}
+                          className={selectedWalker && selectedWalker.getUUID() === walker.getUUID() ? "btn btn-sm btn-primary full-width" : "btn btn-sm btn-secondary full-width"}
+                          title={"Select " + walker.getDisplayName()}
+                        >
+                          {walker.getDisplayName()}
+                          <div className="stats">
+                            {walker.isDestroyed() ? (
+                              <h3 className="color-red text-center">
+                                DESTROYED
+                              </h3>
+                            ) : (
+                              <div className="bars">
+                                <StatBar
+                                  color="white"
+                                  background="#aaa"
+                                  currentPercentage={Math.round(armorLeft / Math.max(1, walker.getArmorPoints()) * 100)}
+                                  currentNumber={armorLeft}
+                                  height={8}
+                                  title="Armor Left"
+                                />
+                              </div>
+                            )}
+                          </div>
+                        </button>
+                        <hr />
+                      </li>
+                    );
+                  })}
                   {group.battledroidsUnits.map( (unit) => (
                     <li key={unit.getUUID()}>
                       <button

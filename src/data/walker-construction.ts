@@ -275,3 +275,66 @@ export const WALKER_HIT_TABLE: readonly IWalkerHitRow[] = [
     { roll: 11, rightFront: "Lt Rr/(Fr) Leg", front: "Rr/(Fr) Lt Leg", leftFront: "Rt Rr/(Fr) Leg" },
     { roll: 12, rightFront: "CS Critical", front: "CS Critical", leftFront: "CS Critical" },
 ];
+
+// Play (Chunk F) ------------------------------------------------------------------------------------------------------
+
+/**
+ * The six ways a walker can be hit, one to a hex face, clockwise from the front (#11 p.25: "Walkers have 6 possible
+ * arcs that they can be shot through corresponding to the 6 hex faces"). Each picks a column of the hit table and
+ * whether its plain or its parenthesized reading applies.
+ */
+export type WalkerAttackDirection = "f" | "rf" | "rr" | "r" | "lr" | "lf";
+export interface IWalkerAttackDirection { tag: WalkerAttackDirection; name: string; column: "rightFront" | "front" | "leftFront"; rear: boolean }
+export const WALKER_ATTACK_DIRECTIONS: readonly IWalkerAttackDirection[] = [
+    { tag: "f", name: "Front", column: "front", rear: false },
+    { tag: "rf", name: "Right Front", column: "rightFront", rear: false },
+    { tag: "rr", name: "Right Rear", column: "rightFront", rear: true },
+    { tag: "r", name: "Rear", column: "front", rear: true },
+    { tag: "lr", name: "Left Rear", column: "leftFront", rear: true },
+    { tag: "lf", name: "Left Front", column: "leftFront", rear: false },
+];
+
+/**
+ * Reads a printed hit table cell into a location. "X/(Y)" gives X for an attack through a front face (front, right
+ * front, left front) and Y through a rear face; "Fr"/"Rr" name the front or rear torso, or with "Rt"/"Lt" a leg.
+ * "CS Critical" is a control section hit with a roll for a critical hit, as a 'Mech's 2 (ours: the table prints no
+ * meaning for it).
+ */
+export function readWalkerHitCell(cell: string, rear: boolean): { location: WalkerLocation; critical: boolean } {
+    const text = cell.trim();
+    if (/^CS\b/.test(text)) return { location: "cs", critical: /Critical/i.test(text) };
+    if (/^Center Torso$/i.test(text)) return { location: "ct", critical: false };
+    const pair = /(Fr|Rr)\/\((Fr|Rr)\)/.exec(text);
+    const end = pair ? (rear ? pair[2] : pair[1]) : null;
+    const side = /\bRt\b/.test(text) ? "r" : /\bLt\b/.test(text) ? "l" : null;
+    if (/Leg$/.test(text) && side && end) return { location: `${side}${end === "Fr" ? "f" : "r"}l` as WalkerLocation, critical: false };
+    if (/Torso$/.test(text)) {
+        if (end) return { location: end === "Fr" ? "ft" : "rrt", critical: false };
+        if (side) return { location: side === "r" ? "rt" : "lt", critical: false };
+    }
+    throw new Error(`Unreadable walker hit table cell "${cell}"`);
+}
+
+/**
+ * Where damage goes past a location whose structure is gone (ours, from the 'Mech rule, TW: a limb to its torso, a
+ * torso or the head to the center torso): a leg to the outer torso on its side, an outer torso and the control section
+ * to the center torso. Past the center torso the walker is destroyed and the rest is lost.
+ */
+export const WALKER_DAMAGE_TRANSFER: Record<WalkerLocation, WalkerLocation | null> = {
+    lfl: "lt", lrl: "lt", rfl: "rt", rrl: "rt", ft: "ct", rrt: "ct", lt: "ct", rt: "ct", cs: "ct", ct: null,
+};
+
+/**
+ * Firing arcs: #11 p.27's diagram marks a front (F), right side (RS), rear (R) and left side (LS) arc, and T for the
+ * turret's all-round fire. "Weapons mounted in the control section that are not in a turret are either front or rear.
+ * Turrets use the standard turret rules. Legs fire into both the arcs in their quadrant, i.e. weapons on the right front
+ * leg could fire into both the front and the right arc" (#11 p.26; Best-of p.36). The outer torsos fire into the arc
+ * they face (ours). Center torso weapons fire only into the walker's own hex (no arc).
+ */
+export type WalkerFiringArc = "F" | "RS" | "R" | "LS";
+export const WALKER_ALL_ARCS: readonly WalkerFiringArc[] = ["F", "RS", "R", "LS"];
+export const WALKER_LOCATION_ARCS: Record<WalkerLocation, readonly WalkerFiringArc[]> = {
+    ft: ["F"], rt: ["RS"], rrt: ["R"], lt: ["LS"],
+    rfl: ["F", "RS"], lfl: ["F", "LS"], rrl: ["R", "RS"], lrl: ["R", "LS"],
+    cs: ["F", "R"], ct: [],
+};

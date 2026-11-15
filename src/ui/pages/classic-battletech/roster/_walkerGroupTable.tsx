@@ -7,8 +7,8 @@ const Trash = FaTrash as any;
 
 /**
  * The Walkers (fan-made four-legged 'Mechs, Custom Homebrew) in a Classic BattleTech roster group: add saved designs
- * from the Walker Creator. They are not on the Master Unit List, so there is no search button. A Walker has no pilot
- * skills yet (they come with its play mode), so the Battle Value shown is the design's own, provisional figure.
+ * from the Walker Creator. They are not on the Master Unit List, so there is no search button. The pilot's skills
+ * adjust the provisional Battle Value on the 'Mech skill table (ours), with the design's own shown as the base.
  */
 export default class WalkerGroupTable extends React.Component<IWalkerGroupTableProps, IWalkerGroupTableState> {
 
@@ -80,11 +80,21 @@ export default class WalkerGroupTable extends React.Component<IWalkerGroupTableP
                         <th>Walker (fan-made, NOT OFFICIAL)</th>
                         <th className="min-width no-wrap text-center">Tons</th>
                         <th className="min-width no-wrap text-center">Move</th>
+                        <th className="min-width no-wrap text-center">Gunnery</th>
+                        <th className="min-width no-wrap text-center">Piloting</th>
                         <th className="min-width no-wrap text-center">BV</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {walkers.map( (walker, index) => (
+                    {walkers.map( (walker, index) => {
+                        const adjustedBV = formatBattleValue((each) => walker.getSkillAdjustedBattleValue(each), "walker", force.rulesEdition);
+                        const baseBV = formatBattleValue((each) => walker.getBattleValue(each), "walker", force.rulesEdition);
+                        const skill = (label: string, value: number, set: (skill: number) => void) => this.props.showEdit ? (
+                            <select aria-label={`Walker ${label} skill`} value={value} onChange={(e) => { set(+e.currentTarget.value); this._save(); this.forceUpdate(); }}>
+                                {[0, 1, 2, 3, 4, 5, 6, 7, 8].map( (each) => <option key={each} value={each}>{each}</option> )}
+                            </select>
+                        ) : value;
+                        return (
                         <tr key={walker.getUUID()}>
                             {this.props.showEdit ? (
                                 <td className="min-width no-wrap text-center">
@@ -103,17 +113,20 @@ export default class WalkerGroupTable extends React.Component<IWalkerGroupTableP
                             </td>
                             <td className="min-width no-wrap text-center">{walker.getTons()}</td>
                             <td className="min-width no-wrap text-center">{walker.getWalkerWalkMP()}/{walker.getRunMP()}{walker.getJumpMP() > 0 ? `/${walker.getJumpMP()}` : ""}</td>
-                            <td className="min-width no-wrap text-center">
-                                {formatBattleValue((each) => walker.getBattleValue(each), "walker", force.rulesEdition)}
-                                <div className='small-text'>provisional</div>
+                            <td className="min-width no-wrap text-center">{skill("gunnery", walker.getGunnery(), (value) => walker.setGunnery(value))}</td>
+                            <td className="min-width no-wrap text-center">{skill("piloting", walker.getPiloting(), (value) => walker.setPiloting(value))}</td>
+                            <td className="min-width no-wrap text-center" data-testid={`walker-group-bv-${index}`}>
+                                {adjustedBV}
+                                <div className='small-text'>{adjustedBV !== baseBV ? `Base: ${baseBV}, ` : ""}provisional</div>
                             </td>
                         </tr>
-                    ))}
+                        );
+                    })}
                 </tbody>
                 {this.props.showAdd ? (
                     <tfoot>
                         <tr>
-                            <td colSpan={this.props.showEdit ? 5 : 4}>
+                            <td colSpan={this.props.showEdit ? 7 : 6}>
                                 {saves.length > 0 ? (
                                     <>
                                         <select

@@ -178,8 +178,8 @@ export class BattleMechGroup {
             + sum([...this.infantry, ...this.battleArmor], (unit) => unit.getSkillAdjustedBattleValue(edition))
             + sum(this.protoMechs, (point) => point.getSkillAdjustedPointBattleValue(edition))
             + sum(this.microMechs, (micro) => micro.getSkillAdjustedBattleValue(edition))
-            // A Walker has no pilot skills yet (play mode), so its Battle Value is the design's own.
-            + sum(this.walkers, (walker) => walker.getBattleValue(edition));
+            // A Walker's provisional Battle Value with its pilot's skills, on the 'Mech skill table (Chunk F, ours).
+            + sum(this.walkers, (walker) => walker.getSkillAdjustedBattleValue(edition));
     }
 
     /** The Battle Value unit types the group holds (buildings and Battledroids units have no BV). */
@@ -374,7 +374,7 @@ export class BattleMechGroup {
 			...(this.battleArmor.length > 0 ? { battleArmor: this.battleArmor.map( (squad) => squad.export(noInPlayVariabless) ) } : {}),
 			...(this.protoMechs.length > 0 ? { protoMechs: this.protoMechs.map( (point) => point.export(noInPlayVariabless) ) } : {}),
 			...(this.microMechs.length > 0 ? { microMechs: this.microMechs.map( (micro) => micro.export() ) } : {}),
-			...(this.walkers.length > 0 ? { walkers: this.walkers.map( (walker) => walker.export() ) } : {}),
+			...(this.walkers.length > 0 ? { walkers: this.walkers.map( (walker) => walker.export(noInPlayVariabless) ) } : {}),
 			...(this.smallCraft.length > 0 ? { smallCraft: this.smallCraft.map( (craft) => craft.export(noInPlayVariabless) ) } : {}),
 			...(this.capitalShips.length > 0 ? { capitalShips: this.capitalShips.map( (ship) => ship.export(noInPlayVariabless) ) } : {}),
 			...(this.battledroidsUnits.length > 0 ? { battledroidsUnits: this.battledroidsUnits.map( (unit) => unit.export(noInPlayVariabless) ) } : {}),
