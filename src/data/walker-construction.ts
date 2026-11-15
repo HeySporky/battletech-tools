@@ -70,7 +70,8 @@ export const WALKER_EDITION_RULES: Record<WalkerEdition, IWalkerEditionRules> = 
 /** "Walker rules by Clell Flint, ..." naming the edition in use (plan, Global Constraints). */
 export function getWalkerCredit(edition: WalkerEdition, industrial: boolean = false): string {
     return `Walker rules by Clell Flint, Future Wars #11; reprinted in The Best of Future Wars, Volume One (1991). `
-        + `Built under the ${WALKER_EDITION_RULES[edition].name} printing.`
+        // "the Future Wars #11 printing", but "The Best of Future Wars ... printing" without a second "the".
+        + `Built under ${WALKER_EDITION_RULES[edition].name.startsWith("The ") ? "" : "the "}${WALKER_EDITION_RULES[edition].name} printing.`
         + (industrial ? ` ${WALKER_INDUSTRIAL_CREDIT}` : "");
 }
 

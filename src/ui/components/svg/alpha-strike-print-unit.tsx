@@ -90,7 +90,7 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
             return <></>
         }
 
-        const showHeat = this.props.asUnit.type.toLocaleLowerCase() === "bm" || this.props.asUnit.type.toLocaleLowerCase() === "af";
+        const showHeat = this.props.asUnit.type.toLocaleLowerCase() === "bm" || this.props.asUnit.type.toLocaleLowerCase() === "wk" || this.props.asUnit.type.toLocaleLowerCase() === "iwk" || this.props.asUnit.type.toLocaleLowerCase() === "af";
         let critLineStart = showHeat ? 63 : 72;
         const critLineHeight = showHeat ? 33 : 36;
 
@@ -439,7 +439,7 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
                 <text x={152 + (this.buttonRadius * 1.8)*4} y={critLineStart} textAnchor="start" className='crit-description'>+2 To Hit Each</text>
                 {critLineStart += critLineHeight}
 
-                {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' ? (
+                {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' || this.props.asUnit.type.toLowerCase() === 'wk' || this.props.asUnit.type.toLowerCase() === 'iwk' ? (
                     <>
                         <text x="144" y={critLineStart} textAnchor="end" className='crit-label'>MP</text>
                         <circle

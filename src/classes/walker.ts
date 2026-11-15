@@ -22,6 +22,13 @@ import {
     isUnderUnitLimit,
 } from "../data/equipment-registry";
 import { getAmmoBattleValuePerTon, getItemBattleValue as getCatalogBattleValue } from "../data/equipment-registry";
+import { getAlphaStrikeEquipmentDisplayAbilityCodes, getWeaponShotsPerTon } from "../data/equipment-registry";
+import { AlphaStrikeStructureColumn, getAlphaStrikeMechStructure } from "../data/alpha-strike-mech-structure";
+import { isAlphaStrikeAbilityCode } from "../data/alpha-strike-special-abilities";
+import { getMountedHeat } from "../data/laser-insulator";
+import { calculateGroundPointValue, groundTMM } from "../utils/alphaStrikeGroundPointValue";
+import { addsNoAlphaStrikeWeaponHeat, alphaStrikeExtraHeat, alphaStrikeMovementHeat, applyAlphaStrikeHeat, finalAlphaStrikeDamage, roundAlphaStrikeAbilityDamage, roundUpToTenth } from "../utils/alphaStrikeHeat";
+import { AlphaStrikeUnit, IASMULUnit } from "./alpha-strike-unit";
 import { matchesTag } from "../data/tag-match";
 import { VariableEquipmentFormula, getTargetingComputerWeaponWeight, isTargetingComputerWeapon, sizeVariableEquipment } from "../data/variable-equipment";
 import { CalcTrace, ICalcBreakdown, formatCalcNumber } from "../data/calc-steps";
@@ -307,6 +314,45 @@ const isEngineType = (value: unknown): value is WalkerEngineType => (WALKER_ENGI
 const isGyroType = (value: unknown): value is WalkerGyroType => (WALKER_GYRO_TYPES as readonly unknown[]).includes(value);
 const isTonnage = (tons: number): boolean => Number.isInteger(tons) && tons >= WALKER_MIN_TONS && tons <= WALKER_MAX_TONS && tons % WALKER_TON_STEP === 0;
 const emptyArmor = (): Record<WalkerLocation, number> => ({ cs: 0, ft: 0, lt: 0, ct: 0, rt: 0, rrt: 0, lfl: 0, rfl: 0, lrl: 0, rrl: 0 });
+
+/** A walker's Alpha Strike unit type: one of its own (owner, 2026-11-15), read as BM wherever Alpha Strike asks the type. */
+export const WALKER_AS_TYPE = "WK";
+/** An industrial walker's: read as IM. */
+export const WALKER_INDUSTRIAL_AS_TYPE = "IWK";
+/** The one ability every walker card carries (alpha-strike-special-abilities.ts has its text). */
+export const WALKER_AS_ABILITY = "WLK";
+
+export interface IWalkerASDamageValue {
+    damage: number;
+    /** 0*: more than nothing and under half a point. */
+    minimal: boolean;
+}
+
+export interface IWalkerAlphaStrikeStats {
+    type: typeof WALKER_AS_TYPE | typeof WALKER_INDUSTRIAL_AS_TYPE;
+    size: number;
+    move: string;
+    tmm: number;
+    armor: number;
+    structure: number;
+    overheat: number;
+    damageValues: { short: IWalkerASDamageValue; medium: IWalkerASDamageValue; long: IWalkerASDamageValue };
+    specialAbilities: string[];
+    pointValue: number;
+    calcLog: string[];
+}
+
+export const formatWalkerASDamage = (value: IWalkerASDamageValue): string => (value.minimal ? "0*" : `${value.damage}`);
+
+/**
+ * Internal structure points of a biped BattleMech, all eight locations, 10 to 100 tons (TM p.47, as
+ * mech-internal-structure-types.ts holds the table): what the ASC p.98 structure values stand for.
+ */
+const BIPED_STRUCTURE_POINTS: Record<number, number> = {
+    10: 19, 15: 26, 20: 33, 25: 43, 30: 51, 35: 58, 40: 67, 45: 75, 50: 83, 55: 91,
+    60: 99, 65: 104, 70: 107, 75: 114, 80: 122, 85: 130, 90: 138, 95: 145, 100: 152,
+};
+
 
 /** "multiply by 1.25, dropping fractions of .25 and rounding up the rest" (Best-of p.37; #11 p.26). */
 export function getWalkerWalkMPFromBiped(walk: number): number {
@@ -2123,6 +2169,238 @@ export default class Walker implements IGameSettingsUnit {
         if (rules.immobilizedKnockOver) notes.push(rules.immobilizedKnockOver);
         if (this._industrial) notes.push("Industrial walker: +2 on critical hit rolls, and an End Phase damage check after a fall or a successful physical attack (as an IndustrialMech, TW pp.68, 124, 144).");
         return notes;
+    }
+
+    // Alpha Strike --------------------------------------------------------------------------------------------------
+    // Our ruleset (owner answers 2026-11-15): docs/superpowers/specs/2026-11-15-walker-alpha-strike.md. NOT OFFICIAL.
+
+    /** Flint's base to-hit less his 2, in place of the pilot's Skill for an AIF attack: 6 (Best-of) or -2 (#11). */
+    public getAlphaStrikeAntiInfantryTargetNumber(): number { return this.getEditionRules().antiInfantryBaseToHit - 2; }
+
+    /**
+     * Structure: the 'Mech Structure Conversion Table (ASC p.98) by tonnage and engine, scaled by the walker's own
+     * structure points (ten locations) against a biped 'Mech's (eight), rounded normally, at least 1 (owner, 2026-11-15).
+     */
+    public getAlphaStrikeStructure(): { structure: number; table: number; column: AlphaStrikeStructureColumn; bipedPoints: number } {
+        const columns: Partial<Record<WalkerEngineType, AlphaStrikeStructureColumn>> = {
+            xl: "isXl", clan_xl: "clanXl", light: "isLight", compact: "isCompact", xxl: "isXxl", clan_xxl: "clanXxl",
+        };
+        const column = columns[this._engineType] ?? "standard";
+        const table = getAlphaStrikeMechStructure(column, this._tons) ?? Math.max(1, Math.ceil(this._tons / 10));
+        const bipedPoints = BIPED_STRUCTURE_POINTS[this._tons] ?? this.getTotalStructure();
+        const structure = Math.max(1, Math.round(table * this.getTotalStructure() / bipedPoints + 1e-9));
+        return { structure, table, column, bipedPoints };
+    }
+
+    /** Damage multiplier for ammunition: none carried x 0, under 10 shots a weapon of its kind x 0.75 (ASC p.101). */
+    private _asAmmoFactor(weapon: IEquipmentItem, equipment: IWalkerEquipment[]): number {
+        const usesAmmo = !!weapon.ammoTypes?.length || (weapon.shotsPerTon ?? 0) > 0;
+        if (!usesAmmo || weapon.isOneShot) return 1;
+        const sameWeapons = equipment.filter((each) => !each.isAmmo && each.item.tag === weapon.tag).length;
+        const shots = equipment.filter((each) => each.isAmmo && getCompatibleAmmo(weapon, each.item))
+            .reduce((sum, bin) => sum + getWeaponShotsPerTon(weapon, bin.item) * bin.weight, 0);
+        if (shots <= 0) return 0;
+        return shots / Math.max(1, sameWeapons) >= 10 ? 1 : 0.75;
+    }
+
+    public getAlphaStrikeStats(): IWalkerAlphaStrikeStats {
+        const log: string[] = [];
+        const specials: string[] = [WALKER_AS_ABILITY];
+        const add = (code: string): void => { if (code && !specials.includes(code)) specials.push(code); };
+        const type = this._industrial ? WALKER_INDUSTRIAL_AS_TYPE : WALKER_AS_TYPE;
+        const equipment = this.getEquipment();
+
+        // Size by tonnage, the 'Mech rows (ASC p.92).
+        const size = this._tons >= 80 ? 4 : this._tons >= 60 ? 3 : this._tons >= 40 ? 2 : 1;
+
+        // Move: 2 inches a Walking MP on four legs; MASC or a Supercharger x 1.25, both x 1.5, rounded normally; the
+        // jump is not boosted (ASC pp.92-93).
+        const masc = equipment.some((each) => isMASC(each.item));
+        const supercharger = equipment.some((each) => each.item.variableFormula === "supercharger");
+        const boost = masc && supercharger ? 1.5 : masc || supercharger ? 1.25 : 1;
+        const walk = Math.round(this.getWalkerWalkMP() * boost + 1e-9);
+        const ground = walk * 2;
+        const jumpMP = this.getJumpMP();
+        const jump = jumpMP * 2;
+        const move = jump <= 0 ? `${ground}"` : jump === ground ? `${ground}"j` : `${ground}"/${jump}"j`;
+        const tmm = groundTMM(ground);
+        const jumpDifference = jump > 0 ? groundTMM(jump) - tmm : 0;
+        if (jumpDifference > 0) add(`JMPS${jumpDifference}`);
+        if (jumpDifference < 0) add(`JMPW${-jumpDifference}`);
+        log.push(`Size ${size} (${this._tons} tons). Move: ${this.getWalkerWalkMP()} Walking MP on four legs${boost > 1 ? ` x ${boost} = ${walk}` : ""} x 2 = ${move}; Target Movement Modifier +${tmm}`);
+
+        // Armor: the ten locations' points / 30, rounded normally (ASC p.95).
+        const armorPoints = this.getArmorPoints();
+        const armor = Math.round(armorPoints / 30 + 1e-9);
+        const scaled = this.getAlphaStrikeStructure();
+        const structure = scaled.structure;
+        log.push(`Armor: ${armorPoints} / 30 = ${(armorPoints / 30).toFixed(2)}, rounded to ${armor}`);
+        log.push(`Structure: ASC p.98 column ${scaled.column}, ${scaled.table}; x ${this.getTotalStructure()} walker structure points / ${scaled.bipedPoints} for a biped = ${(scaled.table * this.getTotalStructure() / scaled.bipedPoints).toFixed(2)}, rounded to ${structure}`);
+
+        // Which weapons count where: the rear torso is REAR only; the center torso is AIF only; the rest, the turret
+        // included, is the damage line (spec section 2).
+        const targetingComputer = equipment.some((each) => each.item.variableFormula === "targeting-computer-is" || each.item.variableFormula === "targeting-computer-clan");
+        const weapons = equipment.filter((each) => !each.isAmmo && isWalkerWeapon(each.item) && !!each.item.alphaStrike).map((each) => {
+            const as = each.item.alphaStrike;
+            const factor = this._asAmmoFactor(each.item, equipment) * (targetingComputer && as.tc ? 1.1 : 1);
+            const notes = (as.notes ?? []).map((note) => note.trim().toLowerCase());
+            return {
+                each, factor, notes,
+                damage: [as.rangeShort || 0, as.rangeMedium || 0, as.rangeLong || 0].map((value) => value * factor),
+                // Rocket launchers and one-shot launchers give no heat (ASC p.116).
+                heat: each.item.isOneShot ? 0 : getMountedHeat(each.item, +as.heat || 0),
+                where: (each.location === "ct" && !each.inTurret ? "aif" : each.location === "rrt" && !each.inTurret ? "rear" : "forward") as "aif" | "rear" | "forward",
+            };
+        });
+        type Counted = typeof weapons[number];
+        const sum = (list: Counted[]): number[] => list.reduce((total, weapon) => total.map((value, range) => value + weapon.damage[range]), [0, 0, 0]);
+        const forward = weapons.filter((weapon) => weapon.where === "forward");
+        const rear = weapons.filter((weapon) => weapon.where === "rear");
+        const belly = weapons.filter((weapon) => weapon.where === "aif");
+        const turret = forward.filter((weapon) => weapon.each.inTurret);
+        for (const weapon of weapons) {
+            const text = weapon.damage.map((value) => value.toFixed(2)).join(" / ");
+            const place = weapon.each.inTurret ? "turret" : this.getLocationName(weapon.each.location);
+            const counts = weapon.where === "aif" ? "AIF only" : weapon.where === "rear" ? "REAR only" : weapon.each.inTurret ? "damage line and TUR" : "damage line";
+            log.push(`${weapon.each.name} (${place}): ${text}, ${counts}${weapon.factor === 0 ? ", no ammunition" : weapon.factor < 1 ? ", under 10 shots: x 0.75" : weapon.factor > 1 ? ", targeting computer: x 1.1" : ""}`);
+        }
+
+        // Heat (Companion Converting Heat errata v1.3, superseding ASC pp.115-116): movement heat, the forward weapons'
+        // heat (the rear torso's instead when it is greater; the center torso's anti-infantry weapons add none, ours), every
+        // AMS, against the heat sinks. The Long output leaves out the weapons with no Long damage.
+        const moveHeat = alphaStrikeMovementHeat({
+            jumpMP, industrial: this._industrial, improvedJets: this._jumpJetType === "improved",
+            xxl: this._engineType === "xxl" || this._engineType === "clan_xxl",
+        });
+        const heatOf = (list: Counted[]): number => list.filter((weapon) => weapon.factor > 0 && !addsNoAlphaStrikeWeaponHeat(weapon.each.item))
+            .reduce((total, weapon) => total + weapon.heat, 0);
+        const rearHotter = heatOf(rear) > heatOf(forward);
+        const firing = rearHotter ? rear : forward;
+        const extraHeat = alphaStrikeExtraHeat({ equipmentTags: equipment.filter((each) => !each.isAmmo).map((each) => each.item.tag) });
+        const heatAll = moveHeat + extraHeat + heatOf(firing);
+        const heatLong = moveHeat + extraHeat + heatOf(firing.filter((weapon) => weapon.damage[2] > 0));
+        const dissipation = this.getHeatDissipation();
+        const base = sum(forward);
+        const heat = applyAlphaStrikeHeat({ subtotals: [...base, 0], heatOutput: heatAll, longHeatOutput: heatLong, dissipation });
+        const { modified, overheat, factor } = heat;
+        const damageValues = { short: heat.values[0], medium: heat.values[1], long: heat.values[2] };
+        // OVL only when there is an Overheat to use at Long range (ours: it does nothing otherwise).
+        if (heat.ovl && overheat > 0) add("OVL");
+        log.push(`Heat: ${moveHeat} for movement + ${heatAll - moveHeat - extraHeat} for the ${rearHotter ? "rear (hotter than the forward)" : "forward"} weapons${extraHeat > 0 ? ` + ${extraHeat} for AMS` : ""} = ${heatAll} (Long range ${heatLong}), less 4, against ${dissipation} dissipated`);
+        log.push(`Damage: ${base.map((value) => value.toFixed(2)).join(" / ")}${heat.hot ? `, heat-modified to ${modified.slice(0, 3).map((value) => value.toFixed(2)).join(" / ")}` : ""}, giving ${[damageValues.short, damageValues.medium, damageValues.long].map(formatWalkerASDamage).join("/")}; Overheat ${overheat}${heat.ovl ? ", OVL" : ""}`);
+
+        // The damage abilities (ASC pp.117-133), heat-modified like the damage line (errata v1.3). LRM, SRM and AC need
+        // 1 point at Medium range before the heat; IF is the Long damage of the indirect-fire weapons; all rounded normally.
+        const vector = (values: number[], rounding: "up" | "normal" | "normalNoMinimal", scale: number[] = [1, 1, 1]): string => values.map((raw, range) => {
+            const scaled = raw * scale[range];
+            const value = rounding === "up" ? finalAlphaStrikeDamage(scaled) : roundAlphaStrikeAbilityDamage(scaled);
+            if (rounding === "normalNoMinimal" && value.minimal) return "-";
+            return value.minimal ? "0*" : value.damage > 0 ? `${value.damage}` : "-";
+        }).join("/");
+        const families = (list: Counted[]): string[] => {
+            const codes: string[] = [];
+            const of = (...keys: string[]): number[] => sum(list.filter((weapon) => weapon.notes.some((note) => keys.includes(note))));
+            const indirect = of("indirect fire", "if");
+            if (indirect[2] > 0) codes.push(`IF${vector([indirect[2]], "normal", [factor[2]])}`);
+            for (const [code, keys, ranges] of [["LRM", ["lrm"], 3], ["SRM", ["srm"], 2], ["AC", ["ac"], 3]] as const) {
+                const damage = of(...keys);
+                if (roundUpToTenth(damage[1]) >= 1) codes.push(`${code}${vector(damage.slice(0, ranges), "normalNoMinimal", factor)}`);
+            }
+            const flak = of("flak");
+            if (flak.some((value) => value > 0)) codes.push(`FLK${vector(flak, "normal", factor)}`);
+            const heatDamage = of("heat");
+            if (heatDamage.some((value) => value > 0)) codes.push(`HT${vector(heatDamage, "normal", factor)}`);
+            return codes;
+        };
+        families(forward).forEach(add);
+        // REAR is not heat-modified: its heat is not in the output (unless it is the hotter side; then it is the one
+        // weapon set counted, and the forward line is modified by it). Ours.
+        const rearVector = vector(sum(rear), "normal");
+        if (/[^-/]/.test(rearVector)) add(`REAR${rearVector}`);
+        // TUR is heat-modified: its weapons' heat is in the output (ours).
+        if (turret.length > 0) add(`TUR(${[vector(sum(turret), "up", factor), ...families(turret)].join(",")})`);
+        // AIF#: the center-torso weapons' Short values, rounded normally; under 0.5 is AIF0*.
+        const bellyShort = sum(belly)[0];
+        if (bellyShort > 0) {
+            add(`AIF${vector([bellyShort], "normal")}`);
+            log.push(`AIF: ${bellyShort.toFixed(2)} at Short range from the center torso; target number ${this.getAlphaStrikeAntiInfantryTargetNumber()} (${this.getEditionRules().name})`);
+        }
+
+        // The equipment's own abilities; no MEL (a walker has no arms), and the keywords above are already written.
+        const written = ["mel", "lrm", "srm", "ac", "flak", "flk", "heat", "ht", "if", "indirect fire", "rear", "missile", "msl"];
+        let explosive = false;
+        for (const each of equipment) {
+            if (each.item.explosive) explosive = true;
+            if (each.isAmmo || !each.item.alphaStrike) continue;
+            const codes = [...getAlphaStrikeEquipmentDisplayAbilityCodes(each.item), ...(each.item.alphaStrike.notes ?? []).filter(isAlphaStrikeAbilityCode)];
+            for (const code of codes) if (!written.includes(code.trim().toLowerCase())) add(code.replace(/\s+/g, ""));
+        }
+        if (["PRB", "LPRB", "BH"].some((code) => specials.includes(code))) add("RCN");
+        if (this._industrial) {
+            // An IndustrialMech's fire control and engine (ASC pp.117-118, 121, 123).
+            add(this.hasAdvancedFireControl() ? "AFC" : "BFC");
+            if (this._engineType === "ice") add("EE");
+            if (this._engineType === "cell") add("FC");
+        }
+        if (!explosive) {
+            add("ENE");
+            for (const code of ["CASE", "CASEII"]) { const index = specials.indexOf(code); if (index >= 0) specials.splice(index, 1); }
+        }
+        specials.sort();
+
+        // Point Value: the ground procedure (ASC pp.138-141, errata v1.6); WK on the BattleMech lines, IWK on the
+        // IndustrialMech's. WLK and AIF cost nothing.
+        const pv = calculateGroundPointValue({
+            type, size, moves: [{ inches: ground, mode: "" }], jump,
+            short: damageValues.short, medium: damageValues.medium, long: damageValues.long,
+            overheat, armor, structure, specials,
+        });
+        log.push(...pv.log);
+
+        return { type, size, move, tmm, armor, structure, overheat, damageValues, specialAbilities: specials, pointValue: pv.pointValue, calcLog: log };
+    }
+
+    /** The converted Alpha Strike card, built the same way as a Master Unit List record; a custom source, so NOT OFFICIAL. */
+    public getAlphaStrikeUnit(): AlphaStrikeUnit {
+        const stats = this.getAlphaStrikeStats();
+        const damage = stats.damageValues;
+        const className = this._industrial ? "Industrial Walker" : "Walker";
+        const record = {
+            Id: 0,
+            Name: this.getDisplayName(),
+            Class: className,
+            Variant: "",
+            Tonnage: this._tons,
+            Cost: this.getCBillCost(),
+            BattleValue: this.getBattleValue(),
+            BFType: stats.type,
+            BFSize: stats.size,
+            BFMove: stats.move,
+            BFTMM: stats.tmm,
+            BFArmor: stats.armor,
+            BFStructure: stats.structure,
+            BFThreshold: 0,
+            BFDamageShort: damage.short.damage,
+            BFDamageMedium: damage.medium.damage,
+            BFDamageLong: damage.long.damage,
+            BFDamageExtreme: 0,
+            BFDamageShortMin: damage.short.minimal,
+            BFDamageMediumMin: damage.medium.minimal,
+            BFDamageLongMin: damage.long.minimal,
+            BFDamageExtremeMin: false,
+            BFOverheat: stats.overheat,
+            BFPointValue: stats.pointValue,
+            BFAbilities: stats.specialAbilities.join(","),
+            MulSource: "custom",
+            Role: { Id: 0, Name: "None", Image: null, SortOrder: 0 },
+            Technology: { Id: 0, Name: this._tech === "clan" ? "Clan" : "Inner Sphere", Image: null, SortOrder: 0 },
+            Type: { Id: 0, Name: className, Image: null, SortOrder: 0 },
+        } as unknown as IASMULUnit;
+        const unit = new AlphaStrikeUnit();
+        unit.importMUL(record);
+        unit.rulesLevel = this.getRequiredRulesLevel();
+        unit.rulesets = this.gameSettings.getRulesets();
+        return unit;
     }
 
     // Save ----------------------------------------------------------------------------------------------------------

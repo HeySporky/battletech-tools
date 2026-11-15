@@ -314,8 +314,14 @@ or "ours"; **bring it to the owner in one message**; build only after the answer
 Design written 2026-11-15 (home): `docs/superpowers/specs/2026-11-15-walker-alpha-strike.md`, brought to the owner
 with four questions (type `BM` / `IM` + `WLK` or a type of its own; side weapons on the one damage line or a card
 with arcs; the `AIF#` anti-infantry ability and the two printings' to-hit; structure from the 'Mech table and
-Flint's +3 read as the Companion's -2). **Not built: the build waits for the answer** and is the next session's
-work (tests first; the spec's "Build" section lists it).
+Flint's +3 read as the Companion's -2).
+
+Answered and built 2026-11-15 (home): a type of its own (`WK`, `IWK`), one damage line with `TUR` / `REAR`, `AIF#` by
+printing, structure scaled to the walker's ten locations, the Companion's four-legged rules. `getAlphaStrikeStats()` /
+`getAlphaStrikeUnit()` on `Walker`, `print-as.tsx`, the summary block, the Alpha Strike roster's add page, `WLK` and
+`AIF#` in the special abilities reference. The heat step follows the Companion's text, not the app's 'Mech conversion
+(three faults found there; ledger). Not done: a TRO - JBT: Walkers page (none exists; Chunk H), Aces target types.
+**For Chunk H:** samples, that page if wanted, a look at a card in Chromium.
 
 ## Chunk H: Samples, verify, report
 

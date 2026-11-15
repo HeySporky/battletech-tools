@@ -1,6 +1,10 @@
 # Walker Alpha Strike ruleset (#172, Walkers plan Chunk G)
 
-**Status: design, waiting for the owner's answer (2026-11-15). Nothing is built.**
+**Status: answered by the owner 2026-11-15; built in Chunk G.** The answers: (1) a type of its own, `WK` (`IWK` for
+an industrial walker), priced and played on the 'Mech lines; (2) one damage line with `TUR` and `REAR`, as Alpha Strike
+does for a unit of this size (arc cards are for very large units); (3) `AIF#` with the to-hit of the printing the walker
+is built under; (4a) structure follows the walker's own ten locations: the 'Mech table value scaled by the walker's
+structure points against a biped's; (4b) the Companion's four-legged rules, not Flint's 3-point Piloting bonus.
 
 This ruleset is ours. Clell Flint's walker rules (*Future Wars* #11, pp.25-27; *The Best of Future Wars, Volume
 One*, pp.36-38) are for the board game only, and no book converts a walker. Every card made by it is marked NOT
@@ -9,7 +13,7 @@ where it comes from:
 
 - **[Flint]** his walker rules, either printing; the two differ on one point used here (section 4).
 - **[AS]** the Alpha Strike conversion rules: Alpha Strike Companion (ASC), conversion chapter pp.91-141, with
-  errata v1.6 and the heat errata v1.1; play rules from ASC p.40 (four-legged 'Mechs) and Alpha Strike:
+  errata v1.6 and the Converting Heat errata v1.3 (2025); play rules from ASC p.40 (four-legged 'Mechs) and Alpha Strike:
   Commander's Edition (AS:CE).
 - **[Ours]** a call of ours, where neither says anything or the two differ.
 
@@ -32,13 +36,13 @@ where it comes from:
 
 | Stat | Rule | From |
 |---|---|---|
-| Type | **BM**; **IM** for an industrial walker. Flint calls it a "4 Legged Mech", and everything Alpha Strike keys on the type (the critical hit column, the Heat Scale, the Point Value lines) is right for it as a 'Mech. The walker's own rules ride on the `WLK` ability. | Ours (see question 1) |
+| Type | **WK**; **IWK** for an industrial walker (owner, 2026-11-15: a type of its own). Flint calls it a "4 Legged Mech": wherever Alpha Strike asks the type (the critical hit column, the Heat Scale, the Point Value lines), `WK` reads as `BM` and `IWK` as `IM`. The walker's own rules ride on the `WLK` ability. | Ours |
 | Size | By tonnage, the 'Mech rows: under 40 tons 1, 40-55 2, 60-75 3, 80-100 4 (ASC p.92). | AS |
-| Move | 2 inches for each Walking MP **on four legs** (the biped figure x 1.25, Flint's rounding); jump as a 'Mech: `10"j`, or `10"/6"j` when the two differ (ASC pp.92-93). MASC and a Supercharger as the Companion has them for a 'Mech. | AS on Flint's figure |
+| Move | 2 inches for each Walking MP **on four legs** (the biped figure x 1.25, Flint's rounding); jump as a 'Mech: `10"j`, or `10"/6"j` when the two differ (ASC pp.92-93). MASC or a Supercharger: the four-legged Walking MP x 1.25, both x 1.5, rounded normally, before the x 2; no effect on the jump (ASC p.93). | AS on Flint's figure |
 | TMM | From the non-jumping Move, the standard table; `JMPS#` / `JMPW#` when the jump differs. | AS |
 | Armor | The armor points of all ten locations / 30, rounded normally (ASC p.95). The rear torso is a location of its own, so it counts as a 'Mech's rear armor does. | AS |
-| Structure | The 'Mech Structure Conversion Table by tonnage and engine type (ASC p.98), as the app's 'Mech conversion reads it. A walker's ten locations hold a little more structure than a biped's eight (90 points against 83 at 50 tons); the table already stands for "a 'Mech of this weight with this engine", so nothing is added. | AS; Ours for not adding |
-| Overheat | As a 'Mech (ASC pp.115-116): section 2. | AS |
+| Structure | The 'Mech Structure Conversion Table by tonnage and engine type (ASC p.98), **scaled by the walker's own structure** (owner, 2026-11-15): the table value x the walker's structure points (Flint's table, ten locations) / a biped 'Mech's at that tonnage (TM p.47, eight locations), rounded normally, at least 1. At 50 tons 90 / 83: 4 stays 4. At 60 tons and over a walker has 11 to 18 percent more structure and nearly always gains 1 (100 tons, standard engine: 8 becomes 9); a compact engine at 90 tons and over gains 2. Under 45 tons a walker has less than a biped (15 points against 19 at 10 tons), but no table value drops. | AS; Ours for the scaling |
+| Overheat | As a 'Mech (Converting Heat errata v1.3): section 2. | AS |
 | Damage S/M/L | Section 2. | AS, Ours for the walker's arcs |
 | Specials | Section 3. | AS, Ours |
 | Point Value | Section 5. | AS |
@@ -58,13 +62,23 @@ p.27); a card has one damage line and the `TUR` and `REAR` abilities. So:
 | Rear torso | `REAR#/#/#` only, rounded normally, not adjusted for heat (ASC p.129). | AS |
 | Center torso (machine guns, small lasers, flamers) | `AIF#` only (section 4). They cannot fire at an ordinary target, so they add nothing to the damage line and give no `HT`. | Ours |
 
-- **Heat.** Movement heat and Overheat as a 'Mech: 2 for walking or the jump's heat, the forward and turret
-  weapons' heat, less 4, against the heat sinks; the damage is scaled down and the difference becomes Overheat (at
-  most 4), `OVL` when it reaches Long range. Rear-torso and center-torso weapons add no heat, as the Companion has
-  it for rear-firing weapons (ASC p.116). [AS; Ours for the center torso]
-- **The same card as a 'Mech.** A walker and a biped 'Mech carrying the same weapons, heat sinks and jump jets,
-  with nothing in the walker's rear or center torso, get the same damage, Overheat and damage abilities. A test
-  will pin this. [Ours]
+- **Heat.** The Companion's Converting Heat errata v1.3 (CGL 2025; it supersedes ASC pp.115-116), through the
+  shared routine `src/utils/alphaStrikeHeat.ts` that the 'Mech conversion uses too. Movement heat: 2 for walking (none
+  for an industrial walker that cannot jump), or a point a Jumping MP, at least 3; improved jets half, rounded up, at
+  least 3; an XXL engine 6 without jump jets, 2 a Jumping MP with them (at least 6), 1 a Jumping MP with improved
+  jets (at least 3). Weapon heat: the forward and turret weapons; the rear torso's instead when it is greater. Every
+  AMS +1, a Clan Laser AMS +5, an Inner Sphere Laser AMS +7. Rocket and one-shot launchers add none. Every subtotal is
+  rounded up to the tenth; when the sinks dissipate less than the output - 4 the unrounded subtotal is scaled by
+  dissipation / (output - 4) and rounded up to the tenth. Final values round up; more than 0 and under 0.5 is 0*.
+  Overheat: the Medium value before less after (Short if there is no Medium), at most 4. `OVL` is checked with the
+  Long output (weapons with no Long damage left out); with OVL the Long value is scaled with the full output, without
+  it the Long value is not scaled. `OVL` is printed only when Overheat is above 0 (ours: it does nothing otherwise).
+  The damage abilities (`LRM`, `SRM`, `AC`, `IF`, `FLK`, `HT`) and `TUR` are scaled by the same factors and rounded
+  normally; `REAR` and `AIF` are not. Center-torso weapons add no heat. [AS; Ours for the center torso, TUR, REAR,
+  and printing OVL]
+- **The same card as a 'Mech.** A walker and a biped 'Mech carrying the same weapons and heat sinks, with nothing in
+  the walker's rear or center torso, get the same damage, hot or cool, since both use the shared routine (the 'Mech's
+  old heat step was fixed at the same time); a test pins this. [Ours]
 - A weapon whose ammunition is not carried counts nothing; few shots as the Companion (ASC p.101). [AS; the first
   as the Micro-Mech ruling]
 - "If the unit can deliver more damage to its rear arc than its front, use the rear arc weapons" (ASC p.99) is
@@ -77,7 +91,7 @@ p.27); a card has one damage line and the `TUR` and `REAR` abilities. So:
 `AMS`, `TSM`, `JMPS#`, `JMPW#`, `OVL`, `REAR#/#/#`, `TUR(...)`, and the others the 'Mech conversion writes from the
 catalog. No `MEL` (a walker has no arms and takes no hand-held weapon).
 
-**An industrial walker [AS, on our industrial walker]:** type `IM`; `BFC` unless it has Advanced Fire Control;
+**An industrial walker [AS, on our industrial walker]:** type `IWK` (priced as `IM`); `BFC` unless it has Advanced Fire Control;
 `EE` with an internal combustion engine, `FC` with a fuel cell; `SEAL` with environmental sealing. (The app's 'Mech
 conversion does not yet write these for an IndustrialMech; the walker will, and the Point Value procedure already
 prices `IM`.)
@@ -132,13 +146,16 @@ a torso).
 | Size | 50 tons | 2 |
 | Move | 4 x 1.25 = 5 Walking MP on four legs; x 2 | 10", TMM 2 |
 | Armor | 152 / 30 = 5.07 | 5 |
-| Structure | 50 tons, standard engine | 4 |
+| Structure | 50 tons, standard engine: 4 x 90 / 83 = 4.34 | 4 |
 | Damage | Large Laser 0.8 / 0.8 / 0 + 2 Medium Lasers 1.0 / 1.0 / 0 = 1.8 / 1.8 / 0 | 2/2/- |
 | Overheat | 2 (move) + 8 + 6 = 16, less 4 = 12, against 12 sinks | 0 |
 | Specials | Turret 0.8 / 0.8 / 0; rear 0.5 / 0.5 / 0; center torso 0.4 | AIF0*, REAR1/1/-, TUR(1/1/-), WLK |
 | Point Value | Offensive 2 + 2 x 2 + 0 + 1 (half Size) = 7. Defensive 10 / 8 + (5 x 2 + 4) x 1.2 = 1.25 + 17 = 18.25. Agile (2 - 1) x 2 = 2 | 27 |
 
-## Questions for the owner
+## Questions for the owner (answered 2026-11-15; see Status)
+
+Answers: 1 a type of its own (`WK`, `IWK`); 2 what Alpha Strike uses, which is the one damage line proposed; 3 by
+edition, as proposed; 4 structure scaled to the walker's locations, and the Companion's four-legged rules.
 
 1. **Type code.** `BM` / `IM` with the `WLK` ability (proposed), or a type of its own as the Micro-Mech's `MM`
    (say `WK`)? A type of its own would need the 'Mech lines named again wherever Alpha Strike asks the type.
@@ -153,17 +170,20 @@ a torso).
 
 ## Calls that were ours
 
-1. Type `BM` / `IM`, one `WLK` ability.
+1. Type `WK` / `IWK` (the owner's), one `WLK` ability.
 2. Move from the four-legged Walking MP (the figure the walker plays with).
 3. Which locations count on the damage line; `REAR` for the rear torso only; the rear-heavier rule not applied.
 4. Center-torso weapons off the damage line and off the heat, as `AIF#`; `AIF` to-hit from Flint's base number.
-5. Structure from the 'Mech table, nothing added.
+5. Structure from the 'Mech table, scaled by the walker's structure points against a biped's (the owner's).
 6. The Companion's four-legged rules in place of Flint's Piloting bonus; no leg tracking.
 7. The industrial specials (`IM`, `BFC`, `EE`, `FC`, `SEAL`) written for a walker though the app's 'Mech conversion
    does not yet write them.
 8. `WLK` and `AIF#` cost nothing in the Point Value.
 
 ## Build (after the answer; plan Chunk G)
+
+Built 2026-11-15, except the TRO entry (there is no TRO - JBT: Walkers page yet; left for Chunk H) and a look at
+the card in a browser. The ledger lists the rulings.
 
 Tests first, pinning the worked walker and the walker-against-biped check. `getAlphaStrikeStats()` and
 `getAlphaStrikeUnit()` on `Walker`; `print-as.tsx` in the walker creator and an Alpha Strike block on the summary;

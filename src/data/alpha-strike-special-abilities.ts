@@ -52,6 +52,37 @@ export const MICRO_MECH_TRANSPORT_AS_ABILITY_TEXT: string[] = [
     "Emergency loading: a ’Mech Transport (MT#) bay may hold two Micro-Mechs in place of one ’Mech. Each such Micro-Mech counts as two units against the number its bay doors can deploy in a turn, and it may not be dropped (Dropping Troops).",
 ];
 
+/**
+ * What the WLK ability means on the table: Clell Flint's walker (Future Wars #11; The Best of Future Wars, Volume One)
+ * in Alpha Strike. Ours (owner answers 2026-11-15): docs/superpowers/specs/2026-11-15-walker-alpha-strike.md.
+ */
+export const WALKER_AS_ABILITY_TEXT: string[] = [
+    "Every walker (unit type WK; IWK for an industrial walker) has this ability. It is a Custom Homebrew rule of this app, not an official one, after Clell Flint’s walker rules in Future Wars.",
+    "Unit type: wherever the rules ask a unit’s type, WK counts as a BattleMech (BM) and IWK as an IndustrialMech (IM): the ’Mech critical hit column, the Heat Scale and Overheat.",
+    "Four legs: the rules for a four-legged ’Mech apply: -2 on Control Rolls to avoid skidding, -1 on bog-down checks, no Climbing, no External Cargo.",
+    "Firing arc: the damage line is fired into the 90-degree Fore arc of a four-legged ’Mech; REAR into the rear arc; TUR all round.",
+    "Kicks only: it may make a standard physical attack (damage equal to its Size) or a charge, and a Death From Above if it jumps. It has no melee weapon.",
+    "Belly guns: a walker with AIF# may make that attack as well.",
+    "Legs: no leg is tracked. An MP Hit on the ’Mech critical hit column stands for a lost leg.",
+];
+
+/** AIF#, Anti-Infantry Fire: a walker's center-torso weapons. Ours, from Flint; the two printings give the base to-hit differently. */
+export const WALKER_AIF_AS_ABILITY_TEXT: string[] = [
+    "A walker’s center-torso weapons (machine guns, small lasers, flamers) fire only at infantry and vehicles under it. It is a Custom Homebrew rule of this app, not an official one, after Clell Flint’s walker rules in Future Wars.",
+    "In addition to its other attacks, the unit may make one AIF attack on an infantry (CI, BA) or vehicle (CV, SV) unit in base contact, in any direction. It does the rating in damage (AIF0*: minimal damage). It is not a physical attack and needs no firing arc.",
+    "To-hit: Flint’s base number replaces the pilot’s Skill. The target number is 6 for a walker built under The Best of Future Wars, Volume One (8 - 2), or -2 under Future Wars #11 (0 - 2, which all but always hits), plus the target’s Target Movement Modifier and the other usual modifiers; no range modifier. The walker’s card page names its printing.",
+    "Heat: the attack builds no heat, and a flamer in the center torso gives no HT.",
+];
+
+/** The AIF text for one walker: the target number of the printing it is built under. */
+export function getWalkerAntiInfantryFireText(rules: { name: string; antiInfantryBaseToHit: number }): string[] {
+    return [
+        WALKER_AIF_AS_ABILITY_TEXT[1],
+        `To-hit: built under ${rules.name}, so the target number is ${rules.antiInfantryBaseToHit - 2} (Flint’s base ${rules.antiInfantryBaseToHit}, less 2) in place of the pilot’s Skill, plus the target’s Target Movement Modifier and the other usual modifiers; no range modifier.`,
+        WALKER_AIF_AS_ABILITY_TEXT[3],
+    ];
+}
+
 export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
     /* ***************************
       Standard Special Abilities
@@ -1521,6 +1552,22 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         name: "Micro-Mech Transport",
         summary: MICRO_MECH_TRANSPORT_AS_ABILITY_TEXT,
         source: { book: "TRO - JBT: Micro-Mechs (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Walkers (#172): the Alpha Strike ruleset is ours, from Clell Flint's walker rules (Future Wars #11; The Best
+        // of Future Wars, Volume One). docs/superpowers/specs/2026-11-15-walker-alpha-strike.md
+        tag: "WLK",
+        name: "Walker",
+        summary: WALKER_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Walkers (Custom Homebrew, NOT OFFICIAL)", page: 4 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        tag: "AIF#",
+        name: "Anti-Infantry Fire",
+        summary: WALKER_AIF_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Walkers (Custom Homebrew, NOT OFFICIAL)", page: 4 },
         type: ESpecialAbilityType.Custom
     }
 

@@ -8,6 +8,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import { formatBattleValue } from '../../../../data/battle-value';
 import { btRulesEditions } from '../../../../data/rules-editions';
+import { formatWalkerASDamage } from '../../../../classes/walker';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 
 export default class WalkerCreatorSummary extends React.Component<ISummaryProps> {
@@ -22,6 +23,7 @@ export default class WalkerCreatorSummary extends React.Component<ISummaryProps>
         const issues = walker.getIssues();
         const jump = walker.getJumpMP();
         const equipment = walker.getEquipment();
+        const alphaStrike = walker.getAlphaStrikeStats();
 
         return (
             <UIPage current="classic-battletech-walker-creator" appGlobals={this.props.appGlobals}>
@@ -94,8 +96,31 @@ export default class WalkerCreatorSummary extends React.Component<ISummaryProps>
                                 edition={walker.getRulesEdition()}
                             />
 
+                            <h3>Alpha Strike</h3>
+                            <p data-testid="walker-alpha-strike">
+                                <strong>Type</strong>: {alphaStrike.type} &nbsp;|&nbsp;
+                                <strong>Size</strong>: {alphaStrike.size} &nbsp;|&nbsp;
+                                <strong>Move</strong>: {alphaStrike.move} &nbsp;|&nbsp;
+                                <strong>Damage (S/M/L)</strong>: {formatWalkerASDamage(alphaStrike.damageValues.short)}/{formatWalkerASDamage(alphaStrike.damageValues.medium)}/{formatWalkerASDamage(alphaStrike.damageValues.long)} &nbsp;|&nbsp;
+                                <strong>Overheat</strong>: {alphaStrike.overheat} &nbsp;|&nbsp;
+                                <strong>Armor</strong>: {alphaStrike.armor} &nbsp;|&nbsp;
+                                <strong>Structure</strong>: {alphaStrike.structure} &nbsp;|&nbsp;
+                                <strong>Specials</strong>: {alphaStrike.specialAbilities.join(", ")} &nbsp;|&nbsp;
+                                <strong>Point Value</strong>: {alphaStrike.pointValue}
+                            </p>
+                            <ul data-testid="walker-alpha-strike-log">
+                                {alphaStrike.calcLog.map((line, index) => <li key={index}>{line}</li>)}
+                            </ul>
+                            <p className="smaller-text">
+                                <strong>NOT OFFICIAL.</strong> No rulebook and neither printing of Clell Flint's walker rules has Alpha Strike rules for a
+                                walker: these are this app's own, made from the Alpha Strike Companion's conversion (pp. 92-141, errata v1.6) and Flint's
+                                play rules. A walker is a unit type of its own ({alphaStrike.type}) that plays on the {walker.isIndustrial() ? "IndustrialMech" : "BattleMech"} lines;
+                                the WLK and AIF abilities are explained under the card.
+                            </p>
+
                             <div className="clear-both overflow-hidden">
                                 <hr />
+                                <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/print-as`} className="btn btn-primary pull-right btn-sm">View Alpha Strike Card</Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/record-sheet`} className="btn btn-primary pull-right btn-sm">View Record Sheet</Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/print-tro`} className="btn btn-primary pull-right btn-sm">Print the TRO sheet</Link>
                                 <Link to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator/technical-readout`} className="btn btn-primary btn-sm"><ArrowCircleLeft /> Previous Step</Link>

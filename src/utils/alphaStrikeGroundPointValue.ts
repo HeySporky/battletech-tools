@@ -11,7 +11,7 @@ export interface IGroundPVDamage {
 }
 
 export interface IGroundPVInput {
-    /** Alpha Strike unit type: BM, IM, PM, CV, SV, BA, CI ...; MM is our Micro-Mech. */
+    /** Alpha Strike unit type: BM, IM, PM, CV, SV, BA, CI ...; MM is our Micro-Mech, WK and IWK our walkers. */
     type: string;
     size: number;
     /** Non-jumping Move rates in inches, with their mode letter ("" for a 'Mech's walk; t, w, h, n, v, g, f ...). */
@@ -84,7 +84,9 @@ function ratingValue(text: string | undefined): number {
 
 export function calculateGroundPointValue(input: IGroundPVInput): IGroundPVResult {
     const log: string[] = [];
-    const type = input.type.trim().toUpperCase();
+    const given = input.type.trim().toUpperCase();
+    // A walker (Custom Homebrew, ours): WK is priced on the BattleMech lines, IWK on the IndustrialMech's.
+    const type = given === "WK" ? "BM" : given === "IWK" ? "IM" : given;
     // The Master Unit List prints a space before the rating ("IF 1", "ARTAIS -1"); the card prints none.
     const specials = input.specials.map((code) => code.replace(/\s+/g, "").toUpperCase()).filter((code) => code !== "");
     const has = (code: string) => specials.includes(code);

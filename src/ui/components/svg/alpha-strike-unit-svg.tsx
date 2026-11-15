@@ -786,7 +786,7 @@ export default class AlphaStrikeUnitSVG extends React.Component<IAlphaStrikeUnit
                 <text x="750" y={critLineStart + this.buttonRadius + 3} textAnchor="start" fontFamily="sans-serif" fontSize="12">+2 To Hit Each</text>
                 {critLineStart += this.critLineHeight}
 
-                {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' || this.props.asUnit.type.toLowerCase() === 'mm' ? (
+                {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' || this.props.asUnit.type.toLowerCase() === 'mm' || this.props.asUnit.type.toLowerCase() === 'wk' || this.props.asUnit.type.toLowerCase() === 'iwk' ? (
                     <>
                         <text x="750"y={critLineStart} textAnchor="end" fontFamily="sans-serif" fontSize="20">MP</text>
                         {this.props.asUnit.mpControlHits.map( (mpValue, mpIndex) => {
