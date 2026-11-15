@@ -36,7 +36,7 @@ const makeUnit = ( name: string, role: string, pv: number ): AlphaStrikeUnit => 
 
 const stats = ( armor: number ): IAcesUnitStats => ( {
     "armor": armor, "structure": 2, "armor-lost": 0, "structure-lost": 0, "tmm": 2, "pv": 20, "mv": 12,
-    "damage-s": 2, "damage-m": 2, "damage-l": 0, "size": 1, "heat": 0,
+    "damage-s": 2, "damage-m": 2, "damage-l": 0, "size": 1, "heat": 0, "armor-start": 4, "structure-start": 4,
 } );
 
 // Every export stamps its own lastUpdated time, at each level of the force; those differ between two exports.

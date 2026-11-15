@@ -9,7 +9,7 @@ afterEach( cleanup );
 
 const stats = ( values: Partial<IAcesUnitStats> ): IAcesUnitStats => ( {
     "armor": 4, "structure": 4, "armor-lost": 0, "structure-lost": 0, "tmm": 1, "pv": 30, "mv": 8,
-    "damage-s": 2, "damage-m": 2, "damage-l": 1, "size": 2, "heat": 0, ...values,
+    "damage-s": 2, "damage-m": 2, "damage-l": 1, "size": 2, "heat": 0, "armor-start": 4, "structure-start": 4, ...values,
 } );
 
 describe("Aces ideal targets list (#630)", () => {

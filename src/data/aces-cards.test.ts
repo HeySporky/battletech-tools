@@ -23,6 +23,7 @@ import {
     newAcesCardLibrary,
     newAcesScenario,
     normalizeAcesCardLibrary,
+    normalizeAcesPriorityRule,
     parseAcesText,
     validateAcesCard,
     validateAcesCommandCard,
@@ -122,6 +123,13 @@ describe("Aces typed lines (library editor)", () => {
             }
         }
         expect( parseAcesPriorityLine( "? hidden line" ) ).toEqual( { text: "hidden line", unresolved: true } );
+        expect( parseAcesPriorityLine( "[highest] Starting Armor" ) ).toEqual( { text: "[highest] Starting Armor", stat: "armor-start", direction: "highest" } );
+        expect( parseAcesPriorityLine( "[lowest] Starting Structure" ).stat ).toBe( "structure-start" );
+        expect( parseAcesPriorityLine( "[highest] [M] damage" ) ).toMatchObject( { stat: "damage-m", direction: "highest" } );
+        expect( parseAcesPriorityLine( "[highest] [S] damage" ).stat ).toBe( "damage-s" );
+        expect( parseAcesPriorityLine( "no Armor" ) ).toEqual( { text: "no Armor", noArmor: true } );
+        expect( normalizeAcesPriorityRule( { text: "no Armor", noArmor: true } )?.noArmor ).toBe( true );
+        expect( parseAcesPriorityLine( "Hit target's Rear" ).stat ).toBeUndefined();
     });
 
     it("reads printed OV rows (Aces SS pp.6-7)", () => {

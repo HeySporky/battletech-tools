@@ -13,6 +13,7 @@ import {
     TAcesMoveType,
     TAcesStat,
     acesTextToPlain,
+    parseAcesPriorityLine,
 } from "../data/aces-cards";
 import {
     asceAerospaceCriticalTable,
@@ -127,6 +128,8 @@ export const getAcesUnitStats = ( unit: AlphaStrikeUnit ): IAcesUnitStats => {
         "damage-l": +unit.currentDamage.long || 0,
         "size": unit.size,
         "heat": unit.currentHeat,
+        "armor-start": unit.armor,
+        "structure-start": unit.structure,
     };
 }
 
@@ -145,6 +148,8 @@ export const getAcesDestroyObjectiveStats = ( currentCF: number = 0, startingCF:
         "damage-l": 0,
         "size": startingCF,
         "heat": 0,
+        "armor-start": startingCF,
+        "structure-start": startingCF,
     };
 }
 
@@ -201,8 +206,9 @@ export const narrowAcesCandidates = (
     trace: string[] = [],
 ): IAcesNarrowResult => {
     let remaining = candidates.slice();
-    for( const rule of rules ) {
+    for( let rule of rules ) {
         if( remaining.length <= 1 ) break;
+        if( !rule.stat && !rule.color && !rule.objective && !rule.noArmor && !rule.unresolved ) rule = parseAcesPriorityLine( rule.text );
         const label = acesTextToPlain( rule.text );
         if( rule.unresolved ) {
             trace.push( "Skipped unreadable line \"" + label + "\"." );
@@ -224,6 +230,8 @@ export const narrowAcesCandidates = (
             matched = bestByStat( remaining, rule.stat, rule.direction );
         } else if( rule.objective ) {
             matched = remaining.filter( ( candidate ) => candidate.isObjective );
+        } else if( rule.noArmor ) {
+            matched = remaining.filter( ( candidate ) => candidate.stats.armor === 0 );
         } else {
             const answer = judgements[rule.text];
             if( !answer ) return { remaining: remaining, trace: trace, pending: rule };

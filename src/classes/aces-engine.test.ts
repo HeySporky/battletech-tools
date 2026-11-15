@@ -22,6 +22,7 @@ import {
     IAcesUnitStats,
     identifyAcesCombatTarget,
     identifyAcesMovementTarget,
+    getAcesUnitStats,
     narrowAcesCandidates,
     newAcesRngState,
     orderAcesSupportCards,
@@ -52,6 +53,8 @@ const stats = ( values: Partial<IAcesUnitStats> ): IAcesUnitStats => ( {
     "damage-l": 1,
     "size": 2,
     "heat": 0,
+    "armor-start": 4,
+    "structure-start": 4,
     ...values,
 } );
 
@@ -134,6 +137,45 @@ describe("Aces priority lists (Aces pp.12, 18)", () => {
         const warhammer = enemy( "Warhammer", { armor: 7 }, { distance: 17 } );
         const result = narrowAcesCandidates( [ archer, warhammer ], [ { text: "[yellow]", color: "yellow" } ], acesSampleMechWarriorC );
         expect( result.remaining.map( ( unit ) => unit.id ) ).toEqual( [ "Archer" ] );
+    });
+});
+
+describe("Aces unit-card ranking lines (#637)", () => {
+    const candidate = ( id: string, armor: number, damaged: number ): IAcesCandidate => {
+        const unit = new AlphaStrikeUnit();
+        unit.type = "CV";
+        unit.armor = armor;
+        unit.structure = 4;
+        unit.move = [ { move: 8, currentMove: 8, type: "t" } ];
+        unit.calcCurrentValues();
+        unit.currentArmor = unit.currentArmor.map( ( _hit, index ) => index < damaged );
+        return { id: id, name: id, stats: getAcesUnitStats( unit ) };
+    };
+
+    it("ranks Starting Armor from the printed value", () => {
+        const rule = { text: "[highest] Starting Armor", stat: "armor-start" as const, direction: "highest" as const };
+        const result = narrowAcesCandidates( [ candidate( "A", 6, 0 ), candidate( "B", 8, 6 ) ], [ rule ], null );
+        expect( result.remaining.map( ( unit ) => unit.id ) ).toEqual( [ "B" ] );
+        expect( result.pending ).toBeNull();
+    });
+
+    it("re-reads an old saved rule", () => {
+        const result = narrowAcesCandidates( [ candidate( "A", 6, 0 ), candidate( "B", 8, 6 ) ], [ { text: "[highest] Starting Armor" } ], null );
+        expect( result.remaining.map( ( unit ) => unit.id ) ).toEqual( [ "B" ] );
+        expect( result.pending ).toBeNull();
+    });
+
+    it("filters no Armor", () => {
+        const some = narrowAcesCandidates( [ candidate( "A", 6, 0 ), candidate( "B", 8, 8 ) ], [ { text: "no Armor" } ], null );
+        expect( some.remaining.map( ( unit ) => unit.id ) ).toEqual( [ "B" ] );
+        const none = narrowAcesCandidates( [ candidate( "A", 6, 0 ), candidate( "B", 8, 6 ) ], [ { text: "no Armor" } ], null );
+        expect( none.remaining.length ).toBe( 2 );
+        expect( none.trace.join( " " ) ).toContain( "matches nobody" );
+    });
+
+    it("still asks about a judged line", () => {
+        const result = narrowAcesCandidates( [ candidate( "A", 6, 0 ), candidate( "B", 8, 6 ) ], [ { text: "Attacked by ally this turn" } ], null );
+        expect( result.pending!.text ).toBe( "Attacked by ally this turn" );
     });
 });
 

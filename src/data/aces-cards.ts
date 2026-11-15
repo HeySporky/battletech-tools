@@ -102,7 +102,7 @@ export const acesTextToPlain = ( text: string ): string => {
 /** Stats the engine can read off an Alpha Strike unit to rank candidates. */
 export type TAcesStat =
     "armor" | "structure" | "armor-lost" | "structure-lost" | "tmm" | "pv" | "mv" |
-    "damage-s" | "damage-m" | "damage-l" | "size" | "heat";
+    "damage-s" | "damage-m" | "damage-l" | "size" | "heat" | "armor-start" | "structure-start";
 
 export const acesStats: { id: TAcesStat, label: string }[] = [
     { id: "armor", label: "Armor" },
@@ -117,6 +117,8 @@ export const acesStats: { id: TAcesStat, label: string }[] = [
     { id: "damage-l", label: "L damage" },
     { id: "size", label: "Size" },
     { id: "heat", label: "Heat" },
+    { id: "armor-start", label: "Starting Armor" },
+    { id: "structure-start", label: "Starting Structure" },
 ];
 
 /**
@@ -134,6 +136,8 @@ export interface IAcesPriorityRule {
     objective?: boolean;
     /** A line the source doesn't show clearly; the engine skips it. */
     unresolved?: boolean;
+    /** "no Armor": keeps candidates whose armor is gone. */
+    noArmor?: boolean;
 }
 
 /* ---------------------------------------------------------------------------------------------------------------
@@ -520,6 +524,7 @@ export const normalizeAcesPriorityRule = ( value: unknown ): IAcesPriorityRule |
     if( acesColors.indexOf( data.color as TAcesColor ) > -1 ) rv.color = data.color as TAcesColor;
     if( data.objective === true ) rv.objective = true;
     if( data.unresolved === true ) rv.unresolved = true;
+    if( data.noArmor === true ) rv.noArmor = true;
     return rv;
 }
 
@@ -752,6 +757,7 @@ const statSynonyms: { [label: string]: TAcesStat } = {
     "armor": "armor", "structure": "structure", "armor lost": "armor-lost", "structure lost": "structure-lost",
     "tmm": "tmm", "pv": "pv", "mv": "mv", "move": "mv", "s damage": "damage-s", "m damage": "damage-m",
     "l damage": "damage-l", "size": "size", "heat": "heat",
+    "starting armor": "armor-start", "starting structure": "structure-start",
 };
 
 /**
@@ -767,9 +773,10 @@ export const parseAcesPriorityLine = ( line: string ): IAcesPriorityRule => {
     const color = /^\[(red|yellow|blue)\](\s*(command\s+)?list)?$/i.exec( text );
     if( color ) return { text: text, color: color[1].toLowerCase() as TAcesColor };
     if( /\[destroyobj\]/i.test( text ) ) return { text: text, objective: true };
+    if( /^no armor$/i.test( text ) ) return { text: text, noArmor: true };
     const ranked = /^\[(highest|lowest)\]\s*(.+)$/i.exec( text );
     if( ranked ) {
-        const stat = statSynonyms[ ranked[2].trim().toLowerCase() ];
+        const stat = statSynonyms[ ranked[2].replace( /\[([sml])\]/i, "$1" ).trim().toLowerCase() ];
         if( stat ) return { text: text, stat: stat, direction: ranked[1].toLowerCase() as "highest" | "lowest" };
     }
     text = text.replace( /\s+/g, " " );
