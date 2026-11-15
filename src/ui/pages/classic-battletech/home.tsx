@@ -4,6 +4,7 @@ import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
 import { microMechCreatorOffered } from '../../components/micro-mech-offer';
+import { walkerCreatorOffered } from '../../components/walker-offer';
 import { GiBattleMech, GiBunker, GiJetFighter, GiMissileMech, GiRank3, GiSamusHelmet, GiSpaceShuttle, GiSpaceship, GiTank } from "react-icons/gi";
 import { MdFactCheck, MdTableView } from 'react-icons/md';
 const MissileMechIcon = GiMissileMech as any;
@@ -15,6 +16,7 @@ const InfantryIcon = GiRank3 as any;
 const BattleArmorIcon = GiSamusHelmet as any;
 const ProtoMechIcon = GiBattleMech as any;
 const MicroMechIcon = GiBattleMech as any;
+const WalkerIcon = GiBattleMech as any;
 const SmallCraftIcon = GiSpaceShuttle as any;
 const CapitalShipIcon = GiSpaceship as any;
 const BuildingIcon = GiBunker as any;
@@ -72,6 +74,13 @@ export default class ClassicBattleTechHome extends React.Component<IClassicBattl
                     <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/micro-mech-creator`}>
                       <MicroMechIcon />
                       Micro-Mech Creator (Custom Homebrew)
+                    </Link>
+                  ) : null}
+
+                  {walkerCreatorOffered(this.props.appGlobals) ? (
+                    <Link className="mech-creator-link" to={`${process.env.PUBLIC_URL}/classic-battletech/walker-creator`}>
+                      <WalkerIcon />
+                      Walker Creator (Custom Homebrew)
                     </Link>
                   ) : null}
 

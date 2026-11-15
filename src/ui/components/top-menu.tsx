@@ -6,6 +6,7 @@ import { CONST_BATTLETECH_URL } from '../../configVars';
 import { IAppGlobals } from '../app-router';
 import BattleTechLogo from './battletech-logo';
 import { microMechCreatorOffered } from './micro-mech-offer';
+import { walkerCreatorOffered } from './walker-offer';
 import './top-menu.scss';
 const Bars = FaBars as any;
 
@@ -319,6 +320,21 @@ export default class TopMenu extends React.Component<ITopMenuProps, ITopMenuStat
                     label: "Micro-Mech Creator",
                     url: "/classic-battletech/micro-mech-creator",
                     tag: "classic-battletech-micro-mech-creator",
+                });
+            }
+        }
+    }
+
+    // The Walker Creator is Custom Homebrew: its link follows the rules level (or a saved design), after the Micro-Mech Creator.
+    if( walkerCreatorOffered(this.props.appGlobals) ) {
+        for( const menu of menuStructure ) {
+            const afterIndex = menu.subMenu?.findIndex( (item) => item.tag === "classic-battletech-micro-mech-creator" || item.tag === "classic-battletech-protomech-creator" ) ?? -1;
+            if( menu.subMenu && afterIndex > -1 ) {
+                const lastIndex = menu.subMenu.reduce( (found, item, index) => (item.tag === "classic-battletech-micro-mech-creator" || item.tag === "classic-battletech-protomech-creator") ? index : found, afterIndex );
+                menu.subMenu.splice( lastIndex + 1, 0, {
+                    label: "Walker Creator",
+                    url: "/classic-battletech/walker-creator",
+                    tag: "classic-battletech-walker-creator",
                 });
             }
         }

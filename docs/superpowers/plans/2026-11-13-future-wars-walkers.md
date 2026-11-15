@@ -237,10 +237,17 @@ criticals page. Modify `src/dataSaves.ts` (`walkerSaves`, `currentWalker`, `MAX_
 Follow every place `ProtoMech` is wired (`grep -n -i protomech` over those files). If the Micro-Mech plan's Chunk D
 has landed, follow its wiring instead and share what it shares.
 
-- [ ] **Step 1:** Failing tests: link absent below Custom Homebrew, present at it; a saved Walker opens at any level;
+- [x] **Step 1:** Failing tests: link absent below Custom Homebrew, present at it; a saved Walker opens at any level;
   a backup with `walkerSaves` restores; the edition is chosen first and shown with the credit.
-- [ ] **Step 2:** Implement; run the app; build a 50-ton walker with a turret by hand.
-- [ ] **Step 3:** Unit tests, `npm run check`, commit `Custom Homebrew: Walker creator (#172)`, push, ledger, handoff.
+- [x] **Step 2:** Implement; run the app; build a 50-ton walker with a turret by hand.
+- [x] **Step 3:** Unit tests, `npm run check`, commit `Custom Homebrew: Walker creator (#172)`, push, ledger, handoff.
+
+Done 2026-11-15 (home): the creator is in `src/ui/pages/classic-battletech/walker-creator/` (home, chassis, equipment,
+criticals, summary; `creator.test.tsx`), saves in `dataSaves.ts` (`walkerSaves`, `currentWalker`, backup, restore,
+`MAX_WALKER_SAVES`; `src/walker-saves.test.ts`), the link in `walker-offer.ts` (+ test). **For Chunk E:** the side menu
+(`WalkerCreatorSideMenu`) has no Print entry yet: add `record-sheet` after `criticals`, and a route and a "View Record
+Sheet" button on the summary; the roster work reads `appGlobals.currentWalker` / `walkerSaves`. The criticals page is a
+read-only view of `getSlots` (the class places everything); a split item shows in both locations by name.
 
 ## Chunk E: Record sheet, print, roster, TRO
 

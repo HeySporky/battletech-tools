@@ -1,7 +1,7 @@
 // The unit classes and the equipment catalogs they pull in, loaded by the app router after the shell has rendered,
 // so they stay out of the entry chunk (#589). Each class is its own import, so each can land in its own chunk.
 export const loadUnitClasses = async () => {
-    const [asForce, asGroup, battleMech, cbtForce, cbtGroup, vehicle, fighter, infantry, battleArmor, protoMech, microMech,
+    const [asForce, asGroup, battleMech, cbtForce, cbtGroup, vehicle, fighter, infantry, battleArmor, protoMech, microMech, walker,
         smallCraft, capitalShip, building, customContent] = await Promise.all([
         import("../classes/alpha-strike-force"),
         import("../classes/alpha-strike-group"),
@@ -14,6 +14,7 @@ export const loadUnitClasses = async () => {
         import("../classes/battle-armor"),
         import("../classes/protomech"),
         import("../classes/micro-mech"),
+        import("../classes/walker"),
         import("../classes/small-craft"),
         import("../classes/capital-ship"),
         import("../classes/building"),
@@ -31,6 +32,7 @@ export const loadUnitClasses = async () => {
         BattleArmor: battleArmor.default,
         ProtoMech: protoMech.default,
         MicroMech: microMech.default,
+        Walker: walker.default,
         SmallCraft: smallCraft.default,
         CapitalShip: capitalShip.default,
         Building: building.default,

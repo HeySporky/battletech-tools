@@ -92,6 +92,13 @@ export const MicroMechCreatorSideMenu = creatorSideMenu("micro-mech-creator", [
     ["print-as", "Alpha Strike", "Card (not official)"],
 ]);
 
+export const WalkerCreatorSideMenu = creatorSideMenu("walker-creator", [
+    ["chassis", "Steps 1-3", "Edition, Chassis, Engine, Armor"],
+    ["equipment", "Step 4", "Turret, Weapons, Heat Sinks and Equipment"],
+    ["criticals", "Step 5", "Critical Slots"],
+    ["summary", "Summary", "Cost, Battle Value and legality"],
+]);
+
 export const SmallCraftCreatorSideMenu = creatorSideMenu("small-craft-creator", [
     ["chassis", "Steps 1-2", "Hull, Engine, Fuel, Structure"],
     ["armor", "Steps 3-4", "Armor and Heat Sinks"],

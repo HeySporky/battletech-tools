@@ -21,6 +21,8 @@ import type ProtoMech from "../classes/protomech";
 import type { IProtoMechExport } from "../classes/protomech";
 import type MicroMech from "../classes/micro-mech";
 import type { IMicroMechExport } from "../classes/micro-mech";
+import type Walker from "../classes/walker";
+import type { IWalkerExport } from "../classes/walker";
 import type SmallCraft from "../classes/small-craft";
 import type { ISmallCraftExport } from "../classes/small-craft";
 import type CapitalShip from "../classes/capital-ship";
@@ -136,6 +138,11 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
             saveCurrentMicroMech: this.saveCurrentMicroMech,
             microMechSaves: [],
             saveMicroMechSaves: this.saveMicroMechSaves,
+
+            currentWalker: null,
+            saveCurrentWalker: this.saveCurrentWalker,
+            walkerSaves: [],
+            saveWalkerSaves: this.saveWalkerSaves,
 
             currentSmallCraft: null,
             saveCurrentSmallCraft: this.saveCurrentSmallCraft,
@@ -260,7 +267,7 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         saves = loadedSaves;
         this._unitClasses = units;
         const { AlphaStrikeForce, AlphaStrikeGroup, BattleMech, BattleMechForce, BattleMechGroup, Vehicle,
-            AerospaceFighter, InfantryPlatoon, BattleArmor, ProtoMech, MicroMech, SmallCraft, CapitalShip, Building } = units;
+            AerospaceFighter, InfantryPlatoon, BattleArmor, ProtoMech, MicroMech, Walker, SmallCraft, CapitalShip, Building } = units;
 
         // This browser's custom content drafts must be registered before saved designs that use them load.
         units.registerLocalCustomContent();
@@ -294,6 +301,9 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
 
         const currentMicroMech = new MicroMech( (await saves.getCurrentMicroMech(appSettings)) || "" );
         const microMechSaves: IMicroMechExport[] = await saves.getMicroMechSaves(appSettings);
+
+        const currentWalker = new Walker( (await saves.getCurrentWalker(appSettings)) || "" );
+        const walkerSaves: IWalkerExport[] = await saves.getWalkerSaves(appSettings);
 
         const currentSmallCraft = new SmallCraft( (await saves.getCurrentSmallCraft(appSettings)) || "" );
         const smallCraftSaves: ISmallCraftExport[] = await saves.getSmallCraftSaves(appSettings);
@@ -379,6 +389,8 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         appGlobals.protoMechSaves = protoMechSaves;
         appGlobals.currentMicroMech = currentMicroMech;
         appGlobals.microMechSaves = microMechSaves;
+        appGlobals.currentWalker = currentWalker;
+        appGlobals.walkerSaves = walkerSaves;
         appGlobals.currentSmallCraft = currentSmallCraft;
         appGlobals.smallCraftSaves = smallCraftSaves;
         appGlobals.currentCapitalShip = currentCapitalShip;
@@ -566,6 +578,29 @@ export default class AppRouter extends React.Component<IAppRouterProps, IAppRout
         this.setState({
             appGlobals: appGlobals,
         });
+    }
+
+    saveWalkerSaves = ( newValue: IWalkerExport[] ): void => {
+        const appGlobals = this.state.appGlobals;
+        appGlobals.walkerSaves = newValue;
+
+        saves.saveWalkerSaves( appGlobals.appSettings, appGlobals.walkerSaves )
+
+        this.setState({
+            appGlobals: appGlobals,
+        });
+    }
+
+    saveCurrentWalker = ( walker: Walker ): void => {
+        const appGlobals = this.state.appGlobals;
+        appGlobals.currentWalker = walker;
+        this.setState({
+            appGlobals: appGlobals,
+        });
+
+        walker.lastUpdated = new Date();
+
+        saves.saveCurrentWalker( appGlobals.appSettings, walker.exportJSON() );
     }
 
     saveCurrentMicroMech = ( micro: MicroMech ): void => {
@@ -1053,6 +1088,10 @@ export interface IAppGlobals {
     saveCurrentMicroMech( micro: MicroMech ): void;
     microMechSaves: IMicroMechExport[];
     saveMicroMechSaves( newValue: IMicroMechExport[] ): void;
+    currentWalker: Walker | null;
+    saveCurrentWalker( walker: Walker ): void;
+    walkerSaves: IWalkerExport[];
+    saveWalkerSaves( newValue: IWalkerExport[] ): void;
     currentSmallCraft: SmallCraft | null;
     saveCurrentSmallCraft( craft: SmallCraft ): void;
     smallCraftSaves: ISmallCraftExport[];

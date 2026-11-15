@@ -12,6 +12,7 @@ import InfantryPlatoon, { IInfantryPlatoonExport, normalizeInfantryPlatoonExport
 import BattleArmor, { IBattleArmorExport, normalizeBattleArmorExport } from "./classes/battle-armor";
 import ProtoMech, { IProtoMechExport, normalizeProtoMechExport } from "./classes/protomech";
 import MicroMech, { IMicroMechExport, normalizeMicroMechExport } from "./classes/micro-mech";
+import Walker, { IWalkerExport, normalizeWalkerExport } from "./classes/walker";
 import SmallCraft, { ISmallCraftExport, normalizeSmallCraftExport } from "./classes/small-craft";
 import CapitalShip, { ICapitalShipExport, normalizeCapitalShipExport } from "./classes/capital-ship";
 import Building, { IBuildingExport, normalizeBuildingExport } from "./classes/building";
@@ -82,6 +83,9 @@ export interface IFullBackup {
     // Micro-Mechs (Custom Homebrew); optional so older backups still restore.
     microMechSaves?: IMicroMechExport[];
     currentMicroMech?: string | null;
+    // Walkers (Custom Homebrew); optional so older backups still restore.
+    walkerSaves?: IWalkerExport[];
+    currentWalker?: string | null;
     smallCraftSaves?: ISmallCraftExport[];
     currentSmallCraft?: string | null;
     // JumpShips, WarShips and space stations; optional so older backups still restore.
@@ -121,6 +125,8 @@ export async function getFullBackup(
         currentProtoMech: await getCurrentProtoMech(appSettings),
         microMechSaves: await getMicroMechSaves(appSettings),
         currentMicroMech: await getCurrentMicroMech(appSettings),
+        walkerSaves: await getWalkerSaves(appSettings),
+        currentWalker: await getCurrentWalker(appSettings),
         smallCraftSaves: await getSmallCraftSaves(appSettings),
         currentSmallCraft: await getCurrentSmallCraft(appSettings),
         capitalShipSaves: await getCapitalShipSaves(appSettings),
@@ -151,6 +157,8 @@ export const MAX_BATTLE_ARMOR_SAVES = 500;
 export const MAX_PROTOMECH_SAVES = 500;
 /** Most saved Micro-Mech designs read from storage or a backup. */
 export const MAX_MICRO_MECH_SAVES = 500;
+/** Most saved Walker designs read from storage or a backup. */
+export const MAX_WALKER_SAVES = 500;
 export const MAX_SMALL_CRAFT_SAVES = 500;
 export const MAX_CAPITAL_SHIP_SAVES = 500;
 /** Most saved buildings read from storage or a backup. */
@@ -632,6 +640,55 @@ export function restoreFullBackup(
         }
     }
 
+    if( Array.isArray(io.walkerSaves) ) {
+        // Saved Walkers in a backup may come from someone else, or from a build that predates the type: clean each one
+        // and report what changed; an entry that is not a Walker is skipped with a message, never a failure.
+        if( io.walkerSaves.length > MAX_WALKER_SAVES ) {
+            restoreMessages.push(warning("Only the first " + MAX_WALKER_SAVES + " of " + io.walkerSaves.length + " saved Walkers are restored"));
+        }
+        // A store from before the type has no list yet: start one, but only when the restore is really being done.
+        const walkerSaves = Array.isArray(appGlobals.walkerSaves) ? appGlobals.walkerSaves : [];
+        if( performActions && !Array.isArray(appGlobals.walkerSaves) ) {
+            appGlobals.walkerSaves = walkerSaves;
+        }
+        for( const rawItem of io.walkerSaves.slice(0, MAX_WALKER_SAVES) ) {
+            const normalized = normalizeWalkerExport( rawItem );
+            const item = normalized.walker;
+            for( const issue of normalized.issues ) {
+                restoreMessages.push({ severity: "warning", message: "Saved Walker '" + (item?.name || "(nameless)") + "': " + issue });
+            }
+            if( !item ) {
+                continue;
+            }
+            const itemName = item.name || "(nameless)";
+            const existingIndex = walkerSaves.findIndex( (existing) => existing.uuid === item.uuid );
+            if( existingIndex > -1 ) {
+                restoreMessages.push({
+                    severity: "replace",
+                    message: "Replace Saved Walker '" + (walkerSaves[existingIndex].name || "(nameless)") + "' with '" + itemName + "'",
+                });
+                if( performActions ) {
+                    walkerSaves[existingIndex] = item;
+                }
+            } else {
+                restoreMessages.push({
+                    severity: "add",
+                    message: "Add to your Saved Walkers: '" + itemName + "'",
+                })
+                if( performActions ) {
+                    walkerSaves.push( item )
+                }
+            }
+        }
+    }
+
+    const currentWalkerPrefix = conditional( overWriteCurrentBattlemech, "current Walker" );
+    if( currentWalkerPrefix !== null && typeof io.currentWalker === "string" && io.currentWalker ) {
+        for( const issue of new Walker(io.currentWalker).getImportIssues() ) {
+            restoreMessages.push(warning(currentWalkerPrefix + "Current Walker: " + issue));
+        }
+    }
+
     if( Array.isArray(io.smallCraftSaves) ) {
         // Saved Small Craft in a backup may come from someone else: clean each one and report what changed.
         if( io.smallCraftSaves.length > MAX_SMALL_CRAFT_SAVES ) {
@@ -784,6 +841,9 @@ export function restoreFullBackup(
         if( typeof io.currentMicroMech === "string" && io.currentMicroMech ) {
             appGlobals.currentMicroMech = new MicroMech(io.currentMicroMech);
         }
+        if( typeof io.currentWalker === "string" && io.currentWalker ) {
+            appGlobals.currentWalker = new Walker(io.currentWalker);
+        }
         if( typeof io.currentSmallCraft === "string" && io.currentSmallCraft ) {
             appGlobals.currentSmallCraft = new SmallCraft(io.currentSmallCraft);
         }
@@ -894,6 +954,9 @@ export function restoreFullBackup(
         appGlobals.saveMicroMechSaves( appGlobals.microMechSaves );
         if( appGlobals.currentMicroMech )
             appGlobals.saveCurrentMicroMech( appGlobals.currentMicroMech );
+        appGlobals.saveWalkerSaves( appGlobals.walkerSaves );
+        if( appGlobals.currentWalker )
+            appGlobals.saveCurrentWalker( appGlobals.currentWalker );
         appGlobals.saveSmallCraftSaves( appGlobals.smallCraftSaves );
         if( appGlobals.currentSmallCraft )
             appGlobals.saveCurrentSmallCraft( appGlobals.currentSmallCraft );
@@ -1368,6 +1431,50 @@ export async function getCurrentMicroMech(
     return await getData(
         appSettings,
         "currentMicroMech"
+    );
+}
+
+export function saveWalkerSaves(
+    appSettings: AppSettings,
+    newValue: IWalkerExport[]
+) {
+    saveData(appSettings, "walkerSaves", JSON.stringify(newValue) );
+}
+
+export async function getWalkerSaves(
+    appSettings: AppSettings,
+): Promise<IWalkerExport[]> {
+    let rv: IWalkerExport[] = [];
+
+    const rawData = await getData(appSettings, "walkerSaves" );
+    try {
+        if( rawData )
+            rv = JSON.parse( rawData );
+
+        // Clean stored Walkers before anything renders them (restored backups included).
+        rv = Array.isArray( rv ) ? rv.slice( 0, MAX_WALKER_SAVES ).map( (item) => normalizeWalkerExport( item ).walker )
+            .filter( (item): item is IWalkerExport => item !== null ) : [];
+    }
+    catch {
+        rv = [];
+    }
+
+    return rv;
+}
+
+export function saveCurrentWalker(
+    appSettings: AppSettings,
+    newValue: string,
+) {
+    saveData(appSettings, "currentWalker", newValue );
+}
+
+export async function getCurrentWalker(
+    appSettings: AppSettings,
+): Promise<string | null> {
+    return await getData(
+        appSettings,
+        "currentWalker"
     );
 }
 
