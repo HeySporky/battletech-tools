@@ -87,9 +87,6 @@ describe("Walker equipment", () => {
         const full = walker.addEquipment("machine-gun", "rfl");
         expect(full.added).toBe(false);
         expect(full.reason).toMatch(/slot/);
-        // A Gauss Rifle (7 slots) fits no 6-slot location; items are not split between locations (ours).
-        latestEra(walker);
-        expect(walker.addEquipment("standard-gauss-rifle", "ft").reason).toMatch(/needs 7 slots/);
         const light = build(20, 4);
         // 10 tons left; an AC/20 weighs 14.
         const over = light.addEquipment("autocannon-standard-d", "cs");
@@ -175,6 +172,67 @@ describe("Walker equipment", () => {
         walker.addEquipment("medium-laser", "ft");
         walker.addEquipment("small-laser", "rrt");
         expect(walker.getHeat()).toBe(4);
+    });
+});
+
+// Owner ruling 2026-11-14: "big items can split across adjacent sections, but only into one and only if there is
+// enough room." Which locations are adjacent is ours (WALKER_ADJACENT_LOCATIONS).
+describe("Walker split items (owner ruling)", () => {
+    const gaussWalker = (): Walker => {
+        const walker = build(50, 4);
+        latestEra(walker);
+        return walker;
+    };
+
+    it("splits a Gauss Rifle (7 slots) from the front torso into one adjacent location with room", () => {
+        const walker = gaussWalker();
+        const result = walker.addEquipment("standard-gauss-rifle", "ft");
+        expect(result.reason).toBeUndefined();
+        const gauss = walker.getEquipment()[0];
+        // The center torso is next, but a Gauss Rifle is no center-torso weapon; the left front leg has room.
+        expect(gauss.split).toEqual({ location: "lfl", slots: 1 });
+        expect(walker.getSlots("ft")).toEqual(Array(6).fill("Gauss Rifle"));
+        expect(walker.getSlots("lfl")).toEqual(["Hip", "Upper Leg Actuator", "Lower Leg Actuator", "Foot Actuator", "Gauss Rifle", null]);
+        expect(walker.getIssues()).toEqual([]);
+    });
+
+    it("splits into the adjacent location asked for, and refuses one that is not adjacent", () => {
+        const walker = gaussWalker();
+        expect(walker.addEquipment("standard-gauss-rifle", "ft", false, { splitInto: "rrl" }).reason).toMatch(/not next to the Front Torso/);
+        expect(walker.addEquipment("standard-gauss-rifle", "ft", false, { splitInto: "rfl" }).added).toBe(true);
+        expect(walker.getEquipment()[0].split).toEqual({ location: "rfl", slots: 1 });
+    });
+
+    it("splits into one location only: an AC/20 (10) does not go 6 + 2 + 2", () => {
+        const walker = gaussWalker();
+        const result = walker.addEquipment("autocannon-standard-d", "ft");
+        expect(result.added).toBe(false);
+        expect(result.reason).toMatch(/needs 10 slots/);
+        expect(result.reason).toMatch(/one adjacent location/);
+    });
+
+    it("does not split an item that fits whole, a one-slot item or a turret item", () => {
+        const walker = gaussWalker();
+        walker.addEquipment("large-laser", "ft");
+        expect(walker.getEquipment()[0].split).toBeUndefined();
+        walker.setTurret(true);
+        // The standard control section: 6 fixed, 2 turret slots, 4 left; a Gauss Rifle in the turret cannot split.
+        expect(walker.addEquipment("standard-gauss-rifle", "cs", true).added).toBe(false);
+    });
+
+    it("keeps the split in a save; a save splitting into a location not adjacent drops the split with an issue", () => {
+        const walker = gaussWalker();
+        walker.addEquipment("standard-gauss-rifle", "ft");
+        const copy = new Walker(walker.exportJSON());
+        expect(copy.getEquipment()[0].split).toEqual({ location: "lfl", slots: 1 });
+        expect(copy.getImportIssues()).toEqual([]);
+        const data = walker.export();
+        data.equipment![0].split = { location: "rrl", slots: 1 };
+        const read = new Walker();
+        read.import(data);
+        expect(read.getImportIssues().join(" ")).toMatch(/split/i);
+        expect(read.getEquipment()[0].split).toBeUndefined();
+        expect(read.getIssues().join(" ")).toMatch(/Front Torso needs 7 slots/);
     });
 });
 

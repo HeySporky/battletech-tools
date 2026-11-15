@@ -39,6 +39,7 @@ import {
     IWalkerEditionRules,
     WALKER_DEFAULT_EDITION,
     WALKER_EDITION_RULES,
+    WALKER_ADJACENT_LOCATIONS,
     WALKER_BATTLEMECH_ENGINE_TYPES,
     WALKER_CENTER_TORSO_RULE,
     WALKER_ENGINE_TYPES,
@@ -134,6 +135,19 @@ export interface IWalkerMountExport {
     inTurret?: boolean;
     /** The chosen size of a sized item (a cargo bay's tons, a modular C3's links). */
     size?: number;
+    /** An item split into one adjacent location: that location and the slots it takes there (owner ruling 2026-11-14). */
+    split?: IWalkerSplit;
+}
+
+export interface IWalkerSplit {
+    location: WalkerLocation;
+    slots: number;
+}
+
+export interface IWalkerAddOptions {
+    size?: number;
+    /** The adjacent location to split into when the item does not fit whole; without it the first adjacent one with room. */
+    splitInto?: WalkerLocation;
 }
 
 /** A mounted item as the creator and the sheet read it. */
@@ -149,6 +163,8 @@ export interface IWalkerEquipment {
     isAmmo: boolean;
     /** A center-torso weapon: fires only at infantry and vehicles in the walker's hex (Best-of p.36). */
     antiInfantryOnly: boolean;
+    /** Where the rest of a split item sits; its slots in `location` are `slots` less these. */
+    split?: IWalkerSplit;
     item: IEquipmentItem;
 }
 
@@ -170,6 +186,7 @@ interface IWalkerMount {
     location: WalkerLocation;
     inTurret: boolean;
     size?: number;
+    split?: IWalkerSplit;
 }
 
 /** Jump jet weight class (TM p.51): up to 55 tons, 60 to 85, 90 and over. */
@@ -455,6 +472,7 @@ export default class Walker implements IGameSettingsUnit {
                 uuid: mount.uuid, tag: mount.tag, name: item.name, location: mount.location, inTurret: mount.inTurret,
                 weight, slots, heat: item.heat || 0, isAmmo: !!item.isAmmo,
                 antiInfantryOnly: mount.location === "ct" && isWalkerAntiInfantryWeapon(item),
+                ...(mount.split ? { split: { ...mount.split } } : {}),
                 item: { ...item, weight, criticals: slots },
             };
         });
@@ -537,24 +555,51 @@ export default class Walker implements IGameSettingsUnit {
         return offer.sort((a, b) => (a.sort > b.sort ? 1 : a.sort < b.sort ? -1 : 0));
     }
 
+    /** Do the locations the mount uses fit their slot counts, with the equipment already mounted? */
+    private _mountFits(mount: IWalkerMount): boolean {
+        const { slots } = this._layout(false, mount);
+        return [mount.location, ...(mount.split ? [mount.split.location] : [])].every((location) => Walker._usedLength(slots[location]) <= this.getSlotCount(location));
+    }
+
     /**
      * Mounts a 'Mech catalog item. Refused, with the reason, when the walker cannot take it, the place breaks a rule, the
-     * walker would be over its tonnage or the location has no room (an item is never split between locations: ours).
-     * The era and rules level are the offer's business (getEquipmentOffer), as on a 'Mech.
+     * walker would be over its tonnage or there is no room. An item too big for the location's free slots fills them and
+     * splits the rest into one adjacent location with room (owner ruling 2026-11-14), `options.splitInto` or the first in
+     * WALKER_ADJACENT_LOCATIONS that takes it; a turret item never splits. The era and rules level are the offer's
+     * business (getEquipmentOffer), as on a 'Mech.
      */
-    public addEquipment(tag: string, location: WalkerLocation, inTurret: boolean = false, size?: number): IWalkerAddResult {
+    public addEquipment(tag: string, location: WalkerLocation, inTurret: boolean = false, options: IWalkerAddOptions = {}): IWalkerAddResult {
         const item = this._findRecord(tag);
         if (!item) return { added: false, reason: `Unknown equipment "${String(tag).slice(0, 60)}".` };
         if (!isWalkerLocation(location)) return { added: false, reason: `Unknown location "${String(location).slice(0, 20)}".` };
         const refusal = this.getChassisRefusal(item) ?? this._placementRefusal(item, location, !!inTurret, this._mounts);
         if (refusal) return { added: false, reason: refusal };
+        const { size, splitInto } = options;
         const mount: IWalkerMount = { uuid: generateUUID(), tag: item.tag, location, inTurret: !!inTurret, ...(size !== undefined ? { size } : {}) };
         const sized = this._resolveMounts([...this._mounts, mount]).find((each) => each.uuid === mount.uuid)!;
         const left = this._tons - this.getWeight();
         if (sized.weight > left + 1e-9) return { added: false, reason: `${item.name} weighs ${sized.weight} tons; the walker has ${Math.max(0, left)} left.` };
-        const trial = this._layout(false, mount).slots[location];
-        if (Walker._usedLength(trial) > this.getSlotCount(location)) {
-            return { added: false, reason: `${item.name} needs ${sized.slots} slots together and the ${this.getLocationName(location)} has no room for them.` };
+        if (!this._mountFits(mount)) {
+            const name = this.getLocationName(location);
+            if (inTurret || sized.slots < 2 || WALKER_ADJACENT_LOCATIONS[location].length === 0) {
+                return { added: false, reason: `${item.name} needs ${sized.slots} slots together and the ${name} has no room for them.` };
+            }
+            if (splitInto !== undefined && !WALKER_ADJACENT_LOCATIONS[location].includes(splitInto)) {
+                return { added: false, reason: `${item.name} can split only into a location next to the ${name}; ${String(splitInto).slice(0, 20)} is not next to the ${name}.` };
+            }
+            // The free slots after the last item in the location; the rest goes into the adjacent location.
+            const here = this.getSlotCount(location) - Walker._usedLength(this._layout(false).slots[location]);
+            const rest = sized.slots - here;
+            const candidates = splitInto !== undefined ? [splitInto] : WALKER_ADJACENT_LOCATIONS[location];
+            const into = here > 0 ? candidates.find((other) => {
+                if (this._placementRefusal(item, other, false, this._mounts)) return false;
+                return this._mountFits({ ...mount, split: { location: other, slots: rest } });
+            }) : undefined;
+            if (!into) {
+                const names = candidates.map((other) => this.getLocationName(other)).join(", ");
+                return { added: false, reason: `${item.name} needs ${sized.slots} slots; the ${name} has ${Math.max(0, here)} free, and no one adjacent location (${names}) can take the other ${Math.max(0, rest)}.` };
+            }
+            mount.split = { location: into, slots: rest };
         }
         this._mounts.push(mount);
         return { added: true, uuid: mount.uuid };
@@ -733,10 +778,12 @@ export default class Walker implements IGameSettingsUnit {
         const slots = {} as Record<WalkerLocation, (string | null)[]>;
         const mounts = extra ? [...this._mounts, extra] : this._mounts;
         const equipment = this._resolveMounts(mounts);
-        for (const location of WALKER_LOCATIONS) {
-            const list: (string | null)[] = [...this._fixedItems(location)];
-            for (const each of equipment) if (each.location === location && !each.inTurret) Walker._place(list, each.name, each.slots);
-            slots[location] = list;
+        for (const location of WALKER_LOCATIONS) slots[location] = [...this._fixedItems(location)];
+        for (const each of equipment) {
+            if (each.inTurret) continue;
+            const rest = each.split ? Math.min(each.split.slots, each.slots) : 0;
+            Walker._place(slots[each.location], each.name, each.slots - rest);
+            if (each.split && rest > 0) Walker._place(slots[each.split.location], each.name, rest);
         }
         const turretItems = equipment.filter((each) => each.location === "cs" && each.inTurret);
         // The control section keeps room for the turret mechanism and the turret's items below it.
@@ -864,7 +911,8 @@ export default class Walker implements IGameSettingsUnit {
         const equipment = this.getEquipment();
         for (const each of equipment) {
             const others = this._mounts.filter((mount) => mount.uuid !== each.uuid);
-            const problem = this.getChassisRefusal(each.item) ?? this._placementRefusal(each.item, each.location, each.inTurret, others);
+            const problem = this.getChassisRefusal(each.item) ?? this._placementRefusal(each.item, each.location, each.inTurret, others)
+                ?? (each.split ? this._placementRefusal(each.item, each.split.location, false, others) : null);
             if (problem) issues.push(problem);
         }
         const weapons = equipment.filter((each) => !each.isAmmo).map((each) => each.item);
@@ -905,6 +953,7 @@ export default class Walker implements IGameSettingsUnit {
                     tag: mount.tag, location: mount.location,
                     ...(mount.inTurret ? { inTurret: true } : {}),
                     ...(mount.size !== undefined ? { size: mount.size } : {}),
+                    ...(mount.split ? { split: { ...mount.split } } : {}),
                 })),
             } : {}),
             heatSinks: this.getHeatSinks(),
@@ -985,7 +1034,22 @@ export default class Walker implements IGameSettingsUnit {
                 continue;
             }
             const size = typeof raw.size === "number" && Number.isFinite(raw.size) && raw.size > 0 ? raw.size : undefined;
-            this._mounts.push({ uuid: generateUUID(), tag: record.tag, location: raw.location, inTurret: raw.inTurret === true, ...(size !== undefined ? { size } : {}) });
+            // A split into a location next to this one, with at least one slot there; anything else is dropped with an
+            // issue and the item is read whole (getIssues then reports a location over its slots).
+            let split: IWalkerSplit | undefined;
+            if (raw.split !== undefined) {
+                const into = raw.split?.location;
+                const slots = raw.split?.slots;
+                if (isWalkerLocation(into) && WALKER_ADJACENT_LOCATIONS[raw.location].includes(into) && Number.isInteger(slots) && slots >= 1 && raw.inTurret !== true) {
+                    split = { location: into, slots };
+                } else {
+                    issues.push(`${record.name}: the saved split into "${String(into).slice(0, 20)}" is not allowed; read as one piece in the ${this.getLocationName(raw.location)}.`);
+                }
+            }
+            this._mounts.push({
+                uuid: generateUUID(), tag: record.tag, location: raw.location, inTurret: raw.inTurret === true,
+                ...(size !== undefined ? { size } : {}), ...(split ? { split } : {}),
+            });
         }
         this._heatSinkType = (WALKER_HEAT_SINK_TYPES as readonly unknown[]).includes(data.heatSinkType) ? data.heatSinkType! : "single";
         if (data.heatSinkType !== undefined && data.heatSinkType !== this._heatSinkType) issues.push(`Unknown heat sink type "${String(data.heatSinkType).slice(0, 30)}": read as single.`);

@@ -223,6 +223,25 @@ export function getWalkerLocationsForMechLocations(mechLocations: readonly strin
     return WALKER_LOCATIONS.filter((location) => found.has(location));
 }
 
+/**
+ * Locations an item too big for one location may split into (owner ruling 2026-11-14: "big items can split across
+ * adjacent sections, but only into one and only if there is enough room"). Which are adjacent is ours, from the walker's
+ * plan view: the four outer torsos around the center torso, a leg at each corner touching the two torsos beside it. The
+ * control section takes no split item, as a 'Mech's head takes none (ours).
+ */
+export const WALKER_ADJACENT_LOCATIONS: Record<WalkerLocation, readonly WalkerLocation[]> = {
+    ct: ["ft", "rrt", "lt", "rt"],
+    ft: ["ct", "lfl", "rfl"],
+    rrt: ["ct", "lrl", "rrl"],
+    lt: ["ct", "lfl", "lrl"],
+    rt: ["ct", "rfl", "rrl"],
+    lfl: ["ft", "lt"],
+    rfl: ["ft", "rt"],
+    lrl: ["rrt", "lt"],
+    rrl: ["rrt", "rt"],
+    cs: [],
+};
+
 /** Heat sink types a walker can take (ours, Chunk B): single and double. An industrial walker: single only (TM p.71). */
 export const WALKER_HEAT_SINK_TYPES = ["single", "double"] as const;
 export type WalkerHeatSinkType = typeof WALKER_HEAT_SINK_TYPES[number];

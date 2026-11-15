@@ -200,6 +200,10 @@ Done 2026-11-14 (home): tests in `src/classes/walker-equipment.test.ts`; the led
 and power amplifiers have their own getters. **For Chunk D:** `addEquipment` returns the refusal reason to show;
 `getEquipmentOffer()` is the picker's list. **For Chunk F:** jump jets and the heat sinks the engine cannot hold are
 placed automatically (legs first for jets; outer torsos first for heat sinks), so their slots follow from the design.
+**Owner ruling (2026-11-14):** "big items can split across adjacent sections, but only into one and only if there is
+enough room." Built: `WALKER_ADJACENT_LOCATIONS` (ours: outer torsos around the center torso, legs at the corners; the
+control section takes no split), `addEquipment(..., { splitInto })`, `IWalkerEquipment.split`. Chunk D's criticals page
+and Chunk E's sheet show a split item in both locations; Chunk F's critical hits read both.
 
 ## Chunk C: Cost and Battle Value (provisional)
 
