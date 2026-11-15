@@ -21,8 +21,25 @@ import {
     isEquipmentOffered,
     isUnderUnitLimit,
 } from "../data/equipment-registry";
+import { getAmmoBattleValuePerTon, getItemBattleValue as getCatalogBattleValue } from "../data/equipment-registry";
 import { matchesTag } from "../data/tag-match";
-import { VariableEquipmentFormula, getTargetingComputerWeaponWeight, sizeVariableEquipment } from "../data/variable-equipment";
+import { VariableEquipmentFormula, getTargetingComputerWeaponWeight, isTargetingComputerWeapon, sizeVariableEquipment } from "../data/variable-equipment";
+import { CalcTrace, ICalcBreakdown, formatCalcNumber } from "../data/calc-steps";
+import { NO_BATTLE_VALUE_STEPS } from "../data/calc-steps-mech-bv1";
+import { WALKER_BV2_STEPS, WALKER_COST_STEPS, getWalkerBv1Steps } from "../data/calc-steps-walker";
+import {
+    editionHasBattleValue,
+    getBattleValue1Ammo,
+    getBattleValueEdition,
+    getBattleValueFor,
+    getBattleValueRules,
+    getSpeedFactor,
+    isBattleValue1Defensive,
+    rateBattleValue1,
+} from "../data/battle-value";
+import { getEditionStats, getRulesEdition } from "../data/rules-editions";
+import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
+import { getMovementModifier } from "../utils";
 import { describeEngineRequirement, engineMeetsRequirement } from "../data/mech-engine-types";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechJumpJetTypes } from "../data/mech-jump-jet-types";
@@ -79,8 +96,8 @@ import {
 
 // A Walker (#172): Clell Flint's four-legged 'Mech from Future Wars, a unit type of its own (owner ruling 2,
 // 2026-11-13). Ten locations, its own structure table and slot counts (walker-construction.ts); the 'Mech engine, gyro
-// and cockpit data. Custom Homebrew. Chunks A (construction core) and B (equipment, turret, heat sinks, jump jets,
-// ammunition) of docs/superpowers/plans/2026-11-13-future-wars-walkers.md.
+// and cockpit data. Custom Homebrew. Chunks A (construction core), B (equipment, turret, heat sinks, jump jets,
+// ammunition) and C (cost and Battle Value, both provisional) of docs/superpowers/plans/2026-11-13-future-wars-walkers.md.
 
 export type WalkerTechTag = "is" | "clan";
 
@@ -450,14 +467,14 @@ export default class Walker implements IGameSettingsUnit {
     }
 
     /** Weight and slots of an item on this walker: sized items by their formula with the walker's figures (ours). */
-    private _sized(item: IEquipmentItem, mount: Pick<IWalkerMount, "size">, weaponWeight: number): { weight: number; slots: number } {
+    private _sized(item: IEquipmentItem, mount: Pick<IWalkerMount, "size">, weaponWeight: number): { weight: number; slots: number; cbills?: number } {
         const formula = item.variableFormula as VariableEquipmentFormula | undefined;
         if (formula) {
             const size = sizeVariableEquipment(formula, {
                 tonnage: this._tons, engineRating: this.getEngineRating(), engineWeight: this.getEngineWeight(),
                 directFireWeaponWeight: weaponWeight, isQuad: true, size: mount.size ?? item.size,
             });
-            if (size) return { weight: size.weight, slots: size.slots };
+            if (size) return { weight: size.weight, slots: size.slots, cbills: size.cbills };
         }
         return { weight: item.weight || 0, slots: Math.max(0, item.space.battlemech) };
     }
@@ -467,13 +484,14 @@ export default class Walker implements IGameSettingsUnit {
             .filter((each): each is { mount: IWalkerMount; item: IEquipmentItem } => !!each.item);
         const weaponWeight = getTargetingComputerWeaponWeight(records.map((each) => each.item));
         return records.map(({ mount, item }) => {
-            const { weight, slots } = this._sized(item, mount, weaponWeight);
+            const { weight, slots, cbills } = this._sized(item, mount, weaponWeight);
             return {
                 uuid: mount.uuid, tag: mount.tag, name: item.name, location: mount.location, inTurret: mount.inTurret,
                 weight, slots, heat: item.heat || 0, isAmmo: !!item.isAmmo,
                 antiInfantryOnly: mount.location === "ct" && isWalkerAntiInfantryWeapon(item),
                 ...(mount.split ? { split: { ...mount.split } } : {}),
-                item: { ...item, weight, criticals: slots },
+                // A sized item's price is its formula's (the cost, Chunk C).
+                item: { ...item, weight, criticals: slots, ...(cbills !== undefined ? { cbills } : {}) },
             };
         });
     }
@@ -922,6 +940,547 @@ export default class Walker implements IGameSettingsUnit {
         return issues;
     }
     public isLegal(): boolean { return this.getIssues().length === 0; }
+
+    // Cost (Chunk C) --------------------------------------------------------------------------------------------------
+
+    /**
+     * The C-bill cost, step by step. Flint printed none: this is the BattleMech Costs Table (TechManual pp.274-285) run
+     * over a walker (ours), every step provisional (calc-steps-walker.ts says how each row reads a walker). Four legs'
+     * actuators; the turret mechanism at 7,500 C-bills a ton (owner ruling); an industrial walker as an
+     * IndustrialMech. Ammunition is left out and shown as a loaded cost, as for a 'Mech.
+     */
+    public getCostBreakdown(): ICalcBreakdown {
+        const trace = new CalcTrace(WALKER_COST_STEPS);
+        const commas = (value: number): string => value.toLocaleString("en-US");
+        const tons = this._tons;
+        let total = 0;
+        const add = (id: string, label: string, detail: string | undefined, value: number): void => {
+            total += value;
+            trace.add(id, { label, detail, value, total });
+        };
+        const cockpit = getCockpitType(!this._industrial ? "standard" : this._advancedFireControl ? "industrial-advanced-fire-control" : "industrial");
+        add("walker.cost.cockpit", this.getCockpitName(), undefined, cockpit.cost);
+        add("walker.cost.life-support", "Life support", undefined, 50000);
+        add("walker.cost.sensors", "Sensors", `2,000 x ${tons} tons`, 2000 * tons);
+        add("walker.cost.musculature", "Musculature (standard)", `2,000 x ${tons} tons`, 2000 * tons);
+        const structure = mechInternalStructureTypes.find((type) => type.tag === (this._industrial ? "industrial" : "standard"));
+        const structureCost = structure?.cost ?? (this._industrial ? 300 : 400);
+        add("walker.cost.structure", this._industrial ? "Industrial internal structure" : "Internal structure", `${commas(structureCost)} x ${tons} tons`, structureCost * tons);
+        // Upper leg 150, lower leg 80, foot 120 C-bills a ton (TM p.278), in each of four legs.
+        add("walker.cost.actuators", "Leg actuators, four legs", `4 x (150 + 80 + 120) x ${tons} tons`, WALKER_LEGS.length * (150 + 80 + 120) * tons);
+        const engine = this._engineRecord();
+        add("walker.cost.engine", `Engine (${engine.name} ${this.getEngineRating()})`, `${commas(engine.costMultiplier)} x rating ${this.getEngineRating()} x ${tons} tons / 75`,
+            engine.costMultiplier * this.getEngineRating() * tons / 75);
+        const gyro = this._gyroRecord();
+        add("walker.cost.gyro", gyro.name, `${commas(gyro.costMultiplier)} x ${this.getGyroWeight()} tons`, gyro.costMultiplier * this.getGyroWeight());
+        if (this._jumpJets > 0) {
+            const jet = this._jumpJetRecord();
+            add("walker.cost.jump-jets", `${jet.name} (${this._jumpJets})`, `${commas(jet.costMultiplier)} x ${this._jumpJets} squared x ${tons} tons`, jet.costMultiplier * this._jumpJets * this._jumpJets * tons);
+        }
+        const sink = this._heatSinkRecord();
+        const freeSinks = Math.min(this.getFreeHeatSinks(), sink.freeSinks ?? (this._heatSinkType === "single" ? 10 : 0));
+        const paidSinks = Math.max(0, this.getHeatSinks() - freeSinks);
+        add("walker.cost.heat-sinks", `${sink.name} (${this.getHeatSinks()})`, `${commas(sink.cost)} x ${paidSinks}${freeSinks > 0 ? `; ${freeSinks} free` : ""}`, sink.cost * paidSinks);
+        if (this._turret) {
+            // Owner ruling 2026-11-14: 7,500 C-bills a ton, midway between the 'Mech turret (10,000) and the vehicle's (5,000).
+            add("walker.cost.turret", "Turret mechanism", `7,500 x ${this.getTurretWeight()} tons`, 7500 * this.getTurretWeight());
+        }
+        if (this.getPowerAmplifierWeight() > 0) {
+            add("walker.cost.power-amplifiers", "Power amplifiers", `20,000 x ${this.getPowerAmplifierWeight()} tons`, 20000 * this.getPowerAmplifierWeight());
+        }
+        add("walker.cost.armor", "Armor (standard)", `10,000 x ${this.getArmorWeight()} tons`, 10000 * this.getArmorWeight());
+        let ammoCost = 0;
+        for (const each of this.getEquipment()) {
+            const price = each.item.cbills || 0;
+            const place = `${this.getLocationName(each.location)}${each.inTurret ? ", turret" : ""}`;
+            if (Walker._isAmmoItem(each.item)) {
+                ammoCost += price * each.weight;
+                trace.add("walker.cost.ammo", { label: `${each.name} (${place})`, detail: `${each.weight} tons x ${commas(price)}; not in the cost`, value: price * each.weight });
+            } else {
+                add("walker.cost.equipment", `${each.name} (${place})`, undefined, price);
+            }
+        }
+        trace.add("walker.cost.subtotal", { label: "Structure, weapons and equipment", value: total, emphasis: true });
+        const divisor = this._industrial ? 400 : 100;
+        const multiplier = 1 + tons / divisor;
+        trace.add("walker.cost.tonnage-multiplier", { label: "Tonnage multiplier", detail: `1 + ${tons} / ${divisor}${this._industrial ? " (industrial walker)" : ""}`, value: multiplier });
+        const result = Math.round(total * multiplier);
+        trace.add("walker.cost.final", { label: "Final cost (provisional)", detail: `${commas(total)} x ${multiplier}, rounded`, value: result, emphasis: true });
+        if (ammoCost > 0) {
+            trace.add("walker.cost.final.loaded", { label: "Loaded cost, with the ammunition carried", value: result + ammoCost, emphasis: true });
+        }
+        return { kind: "cost", edition: this._rulesEdition, steps: trace.steps, result };
+    }
+    public getCBillCost(): number { return this.getCostBreakdown().result ?? 0; }
+
+    // Battle Value (Chunk C; provisional) ---------------------------------------------------------------------------------
+
+    /** No Battle Value is published for a Future Wars Walker: ours is always provisional. */
+    public isBattleValueProvisional(): true { return true; }
+
+    private static _isAmmoItem(item: IEquipmentItem): boolean { return !!item.isAmmo || item.tag.startsWith("ammo-"); }
+    /** Ammunition, or an item that explodes as ammunition does: each slot costs Battle Value (TM p.302). */
+    private static _isExplosiveAmmo(item: IEquipmentItem): boolean { return item.explosive === true && (item.isAmmo === true || item.explosiveAsAmmo === true); }
+    private static _isExplosiveComponent(item: IEquipmentItem): boolean { return !item.isAmmo && !item.explosiveAsAmmo && (item.gauss === true || item.explosive === true); }
+    /** The weapon a bin feeds: the first mounted one that fires it (a walker's bins are not bound to a weapon). */
+    private static _binWeapon(items: readonly IEquipmentItem[], bin: IEquipmentItem): IEquipmentItem | null {
+        return items.find((item) => !item.isAmmo && !item.isEquipment && getCompatibleAmmo(item, bin)) ?? null;
+    }
+    /** The slots an item fills in each of its locations: a split item's in both. */
+    private static _slotsByLocation(each: IWalkerEquipment): [WalkerLocation, number][] {
+        const rest = each.split ? Math.min(each.split.slots, each.slots) : 0;
+        return each.split && rest > 0 ? [[each.location, each.slots - rest], [each.split.location, rest]] : [[each.location, each.slots]];
+    }
+    private static _hasTag(equipment: readonly IWalkerEquipment[], location: WalkerLocation, tags: readonly string[]): boolean {
+        return equipment.some((each) => each.location === location && tags.some((tag) => matchesTag(each.item, tag)));
+    }
+
+    /** Running MP for Battle Value: MASC or a Supercharger engaged (x 2; both x 2.5), on the four-legged Walking MP. */
+    private _battleValueRunMP(equipment: readonly IWalkerEquipment[]): number {
+        const walk = this.getWalkerWalkMP();
+        const masc = equipment.some((each) => isMASC(each.item));
+        const supercharger = equipment.some((each) => each.item.variableFormula === "supercharger");
+        return masc && supercharger ? Math.ceil(walk * 2.5) : masc || supercharger ? walk * 2 : this.getRunMP();
+    }
+    /**
+     * The most heat moving makes, as a BattleMech (TM p.303): running 2 (an XXL engine 6) or the jump (1 a hex, at least
+     * 3; improved jets half; an XXL engine twice, at least 6); an ICE industrial walker none.
+     */
+    private _maxMovementHeat(): number {
+        if (this._industrial && this._engineType === "ice") return 0;
+        const xxl = this._engineType === "xxl" || this._engineType === "clan_xxl";
+        const jumpMP = this._jumpJetType === "improved" ? Math.ceil(this._jumpJets / 2) : this._jumpJets;
+        const jump = this._jumpJets <= 0 ? 0 : xxl ? Math.max(6, jumpMP * 2) : Math.max(3, jumpMP);
+        return Math.max(xxl ? 6 : 2, jump);
+    }
+    /** Heat the walker sheds: its heat sinks, and any equipment that sheds heat. */
+    private _heatSinkCapacity(equipment: readonly IWalkerEquipment[]): number {
+        return this.getHeatDissipation() + equipment.reduce((sum, each) => sum + (each.item.heatDissipation ?? 0), 0);
+    }
+
+    /**
+     * Our provisional BV2: the TechManual BattleMech procedure (pp.302-304) over a walker's ten locations. The armor and
+     * structure of every location; explosive slots by location (center torso, control section and legs always cost;
+     * the four outer torsos are read as side torsos); every weapon in full, the turret's too; the movement the walker
+     * makes on four legs, with no bonus for its piloting modifier; an industrial walker as an IndustrialMech.
+     */
+    private _calcBattleValue2(trace: CalcTrace): number {
+        const fmt = formatCalcNumber;
+        const equipment = this.getEquipment();
+        const items = equipment.map((each) => each.item);
+        const isAmmo = Walker._isAmmoItem;
+        const isDefensive = (item: IEquipmentItem): boolean => item.battleValueDefensive === true;
+        const binWeapon = (bin: IEquipmentItem) => Walker._binWeapon(items, bin);
+        const place = (each: IWalkerEquipment): string => `${this.getLocationName(each.location)}${each.inTurret ? ", turret" : ""}`;
+
+        // Step 1: Defensive Battle Rating.
+        const armor = this.getArmorPoints() * 2.5;
+        trace.add("walker.bv2.def.armor", { label: "Armor", detail: `${this.getArmorPoints()} points x 2.5`, value: armor });
+        const structureType = this._industrial ? 0.5 : 1;
+        const structurePoints = this.getTotalStructure() * 1.5 * structureType;
+        trace.add("walker.bv2.def.structure", { label: "Internal structure", detail: `${this.getTotalStructure()} points x 1.5 x ${structureType} (${this._industrial ? "Industrial" : "Standard"})`, value: structurePoints });
+        const engineModifier = ({ light: 0.75, clan_xl: 0.75, xl: 0.5, xxl: 0.25, clan_xxl: 0.5 } as Record<string, number>)[this._engineType] ?? 1;
+        const structure = structurePoints * engineModifier;
+        trace.add("walker.bv2.def.engine", { label: `Engine modifier (${this.getEngineName()})`, detail: `${fmt(structurePoints)} x ${engineModifier}`, value: structure });
+        const gyroModifier = this._gyroType === "heavy-duty" ? 1 : 0.5;
+        const gyro = this._tons * gyroModifier;
+        trace.add("walker.bv2.def.gyro", { label: `Gyro (${this.getGyroName()})`, detail: `${this._tons} tons x ${gyroModifier}`, value: gyro });
+
+        let defensiveGear = 0;
+        let defensiveAmmo = 0;
+        let defensiveAmmoCap = 0;
+        for (const each of equipment) {
+            const item = each.item;
+            if (isAmmo(item)) {
+                const fed = binWeapon(item);
+                if (!fed || !isDefensive(fed)) continue;
+                const worth = getAmmoBattleValuePerTon(fed, item) * each.weight;
+                defensiveAmmo += worth;
+                trace.add("walker.bv2.def.equipment.ams-ammo", { label: `${each.name} (${place(each)})`, detail: `ammunition for ${fed.name}`, value: worth });
+            } else if (isDefensive(item)) {
+                defensiveGear += item.battleValue || 0;
+                if (item.weaponType?.includes("AMS")) defensiveAmmoCap += item.battleValue || 0;
+                trace.add("walker.bv2.def.equipment", { label: `${each.name} (${place(each)})`, value: item.battleValue || 0 });
+            }
+        }
+        if (defensiveAmmo > defensiveAmmoCap) {
+            trace.add("walker.bv2.def.equipment.ams-ammo", { label: "Defensive ammunition capped at the AMS BV (Excessive Ammunition rule)", detail: `${fmt(defensiveAmmo)} is over ${defensiveAmmoCap}`, value: defensiveAmmoCap });
+            defensiveAmmo = defensiveAmmoCap;
+        }
+        defensiveGear += defensiveAmmo;
+        if (defensiveGear !== 0) trace.add("walker.bv2.def.equipment.total", { label: "Total defensive equipment", value: defensiveGear });
+
+        // Explosive slots, location by location (TM pp.302-303, read for a walker as calc-steps-walker.ts says).
+        const clan = this._tech === "clan";
+        const outer = (location: WalkerLocation): boolean => WALKER_OUTER_TORSOS.includes(location);
+        const caseIIIn = (location: WalkerLocation): boolean => Walker._hasTag(equipment, location, ["case-ii", "clan-case-ii"]);
+        // CASE II covers its location and the ones that pass damage into it, the legs excepted (TO:AUE p.193).
+        const hasCaseII = (location: WalkerLocation): boolean => caseIIIn(location) || (outer(location) && caseIIIn("ct"));
+        const hasCase = (location: WalkerLocation, prototype: boolean): boolean =>
+            clan || Walker._hasTag(equipment, location, prototype ? ["case", "case-prototype"] : ["case"]);
+        // Three or more engine slots in the left and right torso: CASE there cannot save the walker (TM p.302).
+        const engineSideSlots = this._engineRecord().criticals?.[this._tech]?.lt ?? 0;
+        const penalised = (location: WalkerLocation, prototype = true): boolean => {
+            if (hasCaseII(location)) return false;
+            if (!outer(location)) return true;
+            return !hasCase(location, prototype) || ((location === "lt" || location === "rt") && engineSideSlots >= 3);
+        };
+        let explosive = 0;
+        const cappedSlots = new Map<string, number>();
+        for (const each of equipment) {
+            const item = each.item;
+            const ammo = Walker._isExplosiveAmmo(item);
+            const component = Walker._isExplosiveComponent(item);
+            if (!ammo && !component) continue;
+            for (const [location, slotsHere] of Walker._slotsByLocation(each)) {
+                const name = this.getLocationName(location);
+                let slots = ammo ? (item.explosiveAsAmmo ? Math.max(1, slotsHere) : 1) : Math.max(1, slotsHere);
+                if (component && item.explosiveBattleValueSlots !== undefined) {
+                    // A record can cap the slots counted over the whole item (an HVAC counts as one, TO:AUE p.195).
+                    const counted = cappedSlots.get(each.uuid) ?? 0;
+                    slots = Math.max(0, Math.min(slots, item.explosiveBattleValueSlots - counted));
+                    cappedSlots.set(each.uuid, counted + slots);
+                    if (slots === 0) continue;
+                }
+                if (penalised(location)) {
+                    const each1 = ammo ? 15 : 1;
+                    for (let slot = 0; slot < (ammo ? slots : 1); slot++) {
+                        const cost = ammo ? each1 : slots;
+                        explosive += cost;
+                        trace.add(ammo ? "walker.bv2.def.explosive.ammo" : "walker.bv2.def.explosive.component", {
+                            label: `Explosive ${ammo ? "ammunition" : "component"}: ${each.name} in the ${name}`, value: -cost,
+                        });
+                    }
+                } else if (ammo && penalised(location, false)) {
+                    // Spared only by prototype CASE: each ammunition slot costs 8, not 15 (IO:AE p.189).
+                    explosive += 8 * slots;
+                    trace.add("walker.bv2.def.explosive.prototype-case", { label: `Explosive ammunition: ${each.name} in the ${name} behind prototype CASE`, value: -8 * slots });
+                } else if (!clan || hasCaseII(location)) {
+                    trace.add("walker.bv2.def.explosive.protected", {
+                        label: `Explosive ${ammo ? "ammunition" : "component"} (${each.name}) in the ${name} protected by ${hasCaseII(location) ? "CASE II" : "CASE"}. Penalty negated`, value: 0,
+                    });
+                }
+            }
+        }
+        let subtotal = armor + structure + gyro + defensiveGear - explosive;
+        trace.add("walker.bv2.def.subtotal", { label: "Defensive Subtotal", detail: `${fmt(armor)} + ${fmt(structure)} + ${fmt(gyro)} + ${fmt(defensiveGear)} - ${explosive}`, value: subtotal, emphasis: true });
+        if (explosive > 0 && subtotal < 1) {
+            subtotal = 1;
+            trace.add("walker.bv2.def.floor", { label: "Penalties cannot take the total below 1: Defensive Subtotal set to 1", value: 1 });
+        }
+        const run = this._battleValueRunMP(equipment);
+        const jump = this.getJumpMP();
+        const runModifier = getMovementModifier(run);
+        const jumpModifier = jump > 0 ? getMovementModifier(jump) + 1 : 0;
+        const moveModifier = Math.max(runModifier, jumpModifier);
+        trace.add("walker.bv2.def.tmm", { label: "Best Base TMM", detail: `Running MP ${run}: ${runModifier}; Jumping MP ${jump}: ${jumpModifier}`, value: moveModifier });
+        const factor = 1 + moveModifier / 10;
+        trace.add("walker.bv2.def.factor", { label: "Defensive Factor", detail: `1 + ${moveModifier} / 10`, value: factor });
+        let defensive = subtotal * factor;
+        if (defensive < 1) {
+            defensive = 1;
+            trace.add("walker.bv2.def.floor", { label: "The Defensive Battle Rating cannot fall below 1", value: 1 });
+        }
+        trace.add("walker.bv2.def.rating", { label: "Defensive Battle Rating", detail: `${fmt(subtotal)} x ${fmt(factor)}`, value: defensive, emphasis: true });
+
+        // Step 2: Offensive Battle Rating.
+        const hasTargetingComputer = items.some((item) => !!item.variableFormula?.startsWith("targeting-computer"));
+        const drone = items.some((item) => item.variableFormula === "drone-operating-system");
+        /** A weapon's BV: a machine gun array 0.67 x its (up to four) guns in the same place; x 1.25 with a targeting computer. */
+        const weaponValue = (each: IWalkerEquipment): number => {
+            const item = each.item;
+            const multiplier = drone ? 0.8 : 1;
+            if (item.linkedWeaponTags?.length) {
+                const same = (other: IWalkerEquipment): boolean => other.location === each.location && other.inTurret === each.inTurret;
+                const arrays = equipment.filter((other) => other.tag === each.tag && same(other));
+                const turn = arrays.indexOf(each);
+                const linked = equipment
+                    .filter((other) => same(other) && !other.item.linkedWeaponTags?.length && item.linkedWeaponTags!.includes(other.item.tag))
+                    .filter((_gun, index) => index % arrays.length === turn)
+                    .slice(0, 4);
+                return linked.reduce((sum, gun) => sum + (gun.item.battleValue || 0), 0) * 0.67 * multiplier;
+            }
+            const base = getCatalogBattleValue(item, this._tech);
+            return (hasTargetingComputer && isTargetingComputerWeapon(item) ? base * 1.25 : base) * multiplier;
+        };
+        const ammoByWeapon = new Map<string, number>();
+        const weaponsByTag = new Map<string, number>();
+        for (const each of equipment) {
+            const item = each.item;
+            if (isAmmo(item)) {
+                const fed = binWeapon(item);
+                if (!fed) {
+                    trace.add("walker.bv2.off.ammo.unused", { label: `Ignoring ammunition: ${each.name} (${place(each)}), no mounted weapon fires it`, value: 0 });
+                    continue;
+                }
+                if (isDefensive(fed)) continue;
+                const perTon = getAmmoBattleValuePerTon(fed, item);
+                const worth = perTon * each.weight;
+                ammoByWeapon.set(fed.tag, (ammoByWeapon.get(fed.tag) ?? 0) + worth);
+                trace.add("walker.bv2.off.ammo", { label: `${each.name} (${place(each)})`, detail: `for ${fed.name}: ${perTon} BV x ${each.weight} tons`, value: worth });
+            } else if (!isDefensive(item)) {
+                weaponsByTag.set(item.tag, (weaponsByTag.get(item.tag) ?? 0) + weaponValue(each));
+            }
+        }
+        let ammoTotal = 0;
+        for (const [tag, worth] of ammoByWeapon) {
+            const cap = weaponsByTag.get(tag) ?? 0;
+            if (!cap) continue;
+            if (worth > cap) {
+                trace.add("walker.bv2.off.ammo.cap", { label: `Excessive Ammunition: ammo for ${tag} capped at its weapons' BV`, detail: `${fmt(worth)} is over ${fmt(cap)}`, value: cap });
+            }
+            ammoTotal += Math.min(worth, cap);
+        }
+        if (ammoTotal !== 0) trace.add("walker.bv2.off.ammo.total", { label: "Total ammunition BV", value: ammoTotal });
+
+        // Heat efficiency: 6 + what the heat sinks shed - the most heat moving makes (TM p.303).
+        const sinks = this.getHeatSinks();
+        let capacity = this._heatSinkCapacity(equipment);
+        if (items.some((item) => matchesTag(item, "radical-heat-sink-system"))) {
+            const radical = capacity + Math.ceil(sinks * 0.4);
+            trace.add("walker.bv2.off.heat.radical", { label: "Radical Heat Sink System", detail: `heat sink capacity ${capacity} + ${sinks} heat sinks x 0.4`, value: radical });
+            capacity = radical;
+        }
+        const movementHeat = this._maxMovementHeat();
+        let efficiency = 6 + capacity - movementHeat;
+        if (items.some((item) => matchesTag(item, "risc-emergency-coolant-system"))) {
+            efficiency += 4;
+            trace.add("walker.bv2.off.heat.emergency-coolant", { label: "RISC Emergency Coolant System: +4 heat efficiency", value: 4 });
+        }
+        const coolantPods = items.filter((item) => item.coolantPod).length;
+        if (coolantPods > 0) {
+            const pods = Math.min(Math.ceil(sinks * coolantPods / 5), sinks * 2);
+            efficiency += pods;
+            trace.add("walker.bv2.off.heat.coolant-pod", { label: "Coolant pods", detail: `${coolantPods} x ${sinks} heat sinks / 5`, value: pods });
+        }
+        trace.add("walker.bv2.off.heat.efficiency", { label: "Heat efficiency", detail: `6 + ${capacity} heat sink capacity - ${movementHeat} movement heat`, value: efficiency });
+
+        const firing = equipment.filter((each) => !isAmmo(each.item) && !isDefensive(each.item)).map((each) => {
+            const item = each.item;
+            const worth = weaponValue(each);
+            let heat = item.battleValueHeat ?? +(item.heat || 0);
+            // "Include the heat generated by the capacitor with that generated by the weapon" (TO:AUE p.194).
+            if (/(^|-)ppc-capacitor$/.test(item.tag)) heat += 5;
+            if (item.isOneShot) heat /= 4;
+            else if (item.isStreak) heat /= 2;
+            else if (item.isUltra) heat *= 2;
+            else if (item.isRotary) heat *= 6;
+            return { each, worth, heat };
+        }).filter((entry) => entry.heat > 0 || entry.worth > 0);
+        const weaponHeat = firing.reduce((sum, entry) => sum + entry.heat, 0);
+        trace.add("walker.bv2.off.heat.weapons", { label: "Total weapon heat", detail: firing.length > 0 ? firing.map((entry) => fmt(entry.heat)).join(" + ") : "0", value: weaponHeat });
+        // Highest BV first and, between equals, the one that makes the least heat (TM p.303).
+        const ordered = [...firing].sort((a, b) => b.worth - a.worth || a.heat - b.heat);
+        let weaponTotal = 0;
+        let runningHeat = 0;
+        let halving = false;
+        for (const entry of ordered) {
+            const notes = [`Base BV ${fmt(entry.worth)}, heat ${fmt(entry.heat)}`];
+            let share = 1;
+            let overheated = false;
+            if (weaponHeat >= efficiency) {
+                if (halving && entry.heat > 0) {
+                    share = 0.5;
+                    overheated = true;
+                    notes.push("halved: over heat efficiency");
+                }
+                runningHeat += entry.heat;
+                if (!halving && runningHeat >= efficiency && entry.heat > 0) {
+                    halving = true;
+                    notes.push("this weapon reaches the heat efficiency; later weapons count half");
+                }
+            }
+            if (entry.each.antiInfantryOnly) notes.push("anti-infantry only, counted in full");
+            weaponTotal += entry.worth * share;
+            trace.add(overheated ? "walker.bv2.off.weapon.overheat" : entry.each.inTurret ? "walker.bv2.off.weapon.turret" : "walker.bv2.off.weapon", {
+                label: `${entry.each.name} (${place(entry.each)})`, detail: notes.join("; "), value: entry.worth * share, total: weaponTotal,
+            });
+        }
+        trace.add("walker.bv2.off.weapons.total", { label: "Total weapon BV", value: weaponTotal, emphasis: true });
+        const base = weaponTotal + ammoTotal + this._tons;
+        trace.add("walker.bv2.off.tonnage", { label: "Tonnage", detail: `weapons ${fmt(weaponTotal)} + ammunition ${fmt(ammoTotal)} + tonnage ${this._tons}`, value: this._tons, total: base });
+        const speedMP = run + Math.round(jump / 2);
+        const speed = getSpeedFactor(speedMP);
+        trace.add("walker.bv2.off.speed", { label: "Speed Factor", detail: `Running MP ${run} + half of Jumping MP ${jump} = MP ${speedMP}`, value: speed });
+        let offensive = base * speed;
+        const fireControl = !this._industrial || this._advancedFireControl;
+        trace.add("walker.bv2.off.rating", { label: "Offensive Battle Rating", detail: `${fmt(base)} x ${speed}`, value: offensive, emphasis: fireControl });
+        if (!fireControl) {
+            trace.add("walker.bv2.off.industrial", { label: "Industrial walker without Advanced Fire Control", detail: `${fmt(offensive)} x 0.9`, value: offensive * 0.9, emphasis: true });
+            offensive *= 0.9;
+        }
+
+        // Step 3: the final Battle Value.
+        let battleValue = defensive + offensive;
+        trace.add("walker.bv2.final.sum", { label: "Defensive + Offensive Battle Rating", detail: `${fmt(defensive)} + ${fmt(offensive)}`, value: battleValue });
+        const finalMultipliers = new Map<string, IEquipmentItem>();
+        for (const item of items) if (item.battleValueFinalMultiplier) finalMultipliers.set(item.tag, item);
+        for (const item of finalMultipliers.values()) {
+            battleValue *= item.battleValueFinalMultiplier!;
+            trace.add(item.variableFormula === "drone-operating-system" ? "walker.bv2.final.drone" : "walker.bv2.final.equipment",
+                { label: `${item.name}: total multiplied by ${item.battleValueFinalMultiplier}`, value: battleValue });
+        }
+        const result = Math.round(battleValue);
+        trace.add("walker.bv2.final.round", { label: "Battle Value (provisional)", detail: `${fmt(battleValue)} rounded`, value: result, emphasis: true });
+        return result;
+    }
+
+    /**
+     * Our provisional BV1: the Master Rules BattleMech procedure (BMR pp.139-141; BMR(R) pp.152-154) of `edition` over a
+     * walker, with its printing of Maximum Tech for Level 3 gear. The Master Rules have no IndustrialMech: an industrial
+     * walker is rated as any other.
+     */
+    private _calcBattleValue1(edition: string, trace: CalcTrace): number {
+        const fmt = formatCalcNumber;
+        const equipment = this.getEquipment();
+        const items = equipment.map((each) => each.item);
+        const isAmmo = Walker._isAmmoItem;
+        const isDefensive = isBattleValue1Defensive;
+        const levelThree = getBattleValueRules(edition, "mech").levelThree;
+        const rate = (item: IEquipmentItem, weapon?: IEquipmentItem) => rateBattleValue1(edition, this._tech, false, item, weapon);
+        const valueOf = (item: IEquipmentItem, weapon?: IEquipmentItem): number => rate(item, weapon).value;
+        const binWeapon = (bin: IEquipmentItem) => Walker._binWeapon(items, bin);
+        const itemStep = (source: string, listed: string): string =>
+            source === "unlisted" ? "walker.bv1.off.weapon.unlisted" : source === "level-three" ? "walker.bv1.l3.item"
+                : source === "artemis-v" ? "walker.bv1.l3.item.artemis-v" : listed;
+
+        // Step 1: Defensive Battle Rating.
+        const levelThreeEngine = levelThree?.engines[this._engineType];
+        const engineFactor = levelThreeEngine ?? ({ xl: 0.75, light: 1.125, clan_xl: 1.125 } as Record<string, number>)[this._engineType] ?? 1.5;
+        const armor = this.getArmorPoints() * 2;
+        const structure = this.getTotalStructure() * engineFactor;
+        trace.add("walker.bv1.def.armor", { label: "Armor", detail: `${this.getArmorPoints()} points x 2`, value: armor });
+        const structureStep = levelThreeEngine !== undefined ? "walker.bv1.l3.def.engine" : this._engineType === "clan_xl" ? "walker.bv1.def.structure.clan-xl"
+            : this._engineType === "light" ? "walker.bv1.def.structure.light-engine" : "walker.bv1.def.structure";
+        trace.add(structureStep, { label: `Internal structure (${this.getEngineName()})`, detail: `${this.getTotalStructure()} points x ${engineFactor}`, value: structure });
+        trace.add("walker.bv1.def.tonnage", { label: "Tonnage", value: this._tons });
+        let defensiveGear = getBattleValue1Ammo(items, binWeapon, valueOf, true);
+        if (defensiveGear) trace.add("walker.bv1.def.equipment", { label: "Ammunition for defensive equipment", value: defensiveGear });
+        for (const item of items) {
+            if (isAmmo(item) || !isDefensive(item)) continue;
+            const rating = rate(item);
+            defensiveGear += rating.value;
+            if (rating.value) trace.add(itemStep(rating.source, "walker.bv1.def.equipment"), { label: item.name, value: rating.value });
+        }
+        if (levelThree && this._gyroType === "heavy-duty") {
+            defensiveGear += 30;
+            trace.add("walker.bv1.l3.def.gyro", { label: "Heavy-duty gyro", value: 30 });
+        }
+        // 20 a ton of explosive ammunition, a Gauss rifle counting as a ton (BMR(R) pp.152-153); CASE II 5 a ton (Level 3).
+        const innerSphereXL = (this._engineRecord().criticals?.[this._tech]?.lt ?? 0) >= 3;
+        const caseII = (location: WalkerLocation): boolean => !!levelThree && Walker._hasTag(equipment, location, ["case-ii", "clan-case-ii"]);
+        const hasCase = (location: WalkerLocation): boolean => this._tech === "clan" || Walker._hasTag(equipment, location, ["case", "case-prototype"]) || caseII(location);
+        const penalised = (location: WalkerLocation): boolean => innerSphereXL || !WALKER_OUTER_TORSOS.includes(location) || !hasCase(location);
+        let explosive = 0;
+        for (const each of equipment) {
+            const tons = Walker._isExplosiveAmmo(each.item) ? each.weight : Walker._isExplosiveComponent(each.item) && each.item.gauss ? 1 : 0;
+            if (tons <= 0 || !penalised(each.location)) continue;
+            const perTon = caseII(each.location) ? 5 : 20;
+            explosive += perTon * tons;
+            trace.add(perTon === 5 ? "walker.bv1.l3.def.case-ii" : "walker.bv1.def.explosive", {
+                label: `Explosive: ${each.name} in the ${this.getLocationName(each.location)}${perTon === 5 ? " behind CASE II" : ""}`,
+                detail: `${fmt(tons)} ${tons === 1 ? "ton" : "tons"} x ${perTon}`, value: -perTon * tons,
+            });
+        }
+        // Maximum heat: every weapon (Ultra x 2, Streak / 2) and the hotter of running and jumping.
+        const firing = items.filter((item) => !isAmmo(item) && !isDefensive(item));
+        const statsEdition = getBattleValueEdition(edition);
+        const heatOf = (item: IEquipmentItem): number => (getEditionStats(item, statsEdition)?.heat ?? item.heat ?? 0) * (item.isUltra ? 2 : item.isStreak ? 0.5 : 1);
+        const maxHeat = firing.reduce((sum, item) => sum + heatOf(item), 0) + this._maxMovementHeat();
+        const coolantPods = levelThree ? items.filter((item) => item.coolantPod).length : 0;
+        const sinkCapacity = this._heatSinkCapacity(equipment) + coolantPods;
+        const heatPenalty = Math.max(0, maxHeat - sinkCapacity) * 5;
+        if (coolantPods) trace.add("walker.bv1.l3.def.coolant-pod", { label: "Coolant pods", detail: `${coolantPods} added to the heat sink capacity` });
+        if (heatPenalty) trace.add("walker.bv1.def.heat", { label: "Heat the heat sinks cannot shed", detail: `(${fmt(maxHeat)} maximum heat - ${fmt(sinkCapacity)} heat sink capacity) x 5`, value: -heatPenalty });
+        const unfloored = armor + structure + this._tons + defensiveGear - explosive - heatPenalty;
+        const subtotal = Math.max(1, unfloored);
+        trace.add("walker.bv1.def.subtotal", { label: "Defensive subtotal", detail: unfloored < 1 ? "the subtractions cannot take it below 1" : undefined, value: subtotal });
+        // Target Movement Modifiers of the Attack Modifiers Table: up to +4, 1 more for jumping; MASC counts.
+        const tmm = (mp: number): number => Math.min(getMovementModifier(mp), 4);
+        const jump = this.getJumpMP();
+        const movementModifier = Math.max(tmm(this._battleValueRunMP(equipment)), jump > 0 ? tmm(jump) + 1 : 0);
+        const hasSupercharger = items.some((item) => item.variableFormula === "supercharger");
+        const movementFactor = Math.round((1 + movementModifier / 10) * 100) / 100;
+        const defensive = subtotal * movementFactor;
+        if (levelThree && hasSupercharger) trace.add("walker.bv1.l3.def.factor.supercharger", { label: "Supercharger", detail: "its movement counts toward the Target Movement Modifier" });
+        trace.add("walker.bv1.def.factor", { label: "Defensive Movement Factor", detail: `Target Movement Modifier +${movementModifier}`, value: movementFactor });
+        trace.add("walker.bv1.def.rating", { label: "Defensive Battle Rating", detail: `${fmt(subtotal)} x ${movementFactor}`, value: defensive, emphasis: true });
+
+        // Step 2: Offensive Battle Rating. A walker has no rear weapons: each counts in full.
+        const weapons = firing.map((item) => ({ item, rating: rate(item) })).filter((entry) => entry.rating.value > 0);
+        const weaponBV = weapons.reduce((sum, entry) => sum + entry.rating.value, 0);
+        for (const entry of weapons) trace.add(itemStep(entry.rating.source, "walker.bv1.off.weapon"), { label: entry.item.name, value: entry.rating.value });
+        // A targeting computer: 20% of the weapons it links; Level 3: a variable-range targeting system 10% more.
+        const hasTargetingComputer = items.some((item) => !!item.variableFormula?.startsWith("targeting-computer"));
+        const variableRange = !!levelThree && items.some((item) => matchesTag(item, "targeting-variable-range"));
+        const linkedBV = weapons.reduce((sum, entry) => sum + (isTargetingComputerWeapon(entry.item) ? entry.rating.value : 0), 0);
+        const computerBV = ((hasTargetingComputer ? 0.2 : 0) + (variableRange ? 0.1 : 0)) * linkedBV;
+        if (hasTargetingComputer) trace.add("walker.bv1.off.targeting-computer", { label: "Targeting computer", detail: `${fmt(linkedBV)} of linked weapons x 0.2`, value: 0.2 * linkedBV });
+        if (variableRange) trace.add("walker.bv1.l3.off.targeting.variable-range", { label: "Variable-range targeting system", detail: `${fmt(linkedBV)} of linked weapons x 0.1`, value: 0.1 * linkedBV });
+        const ammoBV = getBattleValue1Ammo(items, binWeapon, valueOf, false);
+        for (const bin of items.filter(isAmmo)) {
+            const fed = binWeapon(bin);
+            if (!fed || isDefensive(fed)) continue;
+            const rating = rate(bin, fed);
+            if (!rating.value) continue;
+            trace.add(rating.source === "unlisted" ? "walker.bv1.off.weapon.unlisted" : rating.multiplier !== 1 ? "walker.bv1.l3.ammo.special" : "walker.bv1.off.ammo", {
+                label: bin.name,
+                detail: `${fmt(bin.weight)} ${bin.weight === 1 ? "ton" : "tons"} x ${fmt(rating.value)}${rating.multiplier !== 1 ? ` (standard ammunition x ${rating.multiplier})` : ""}`,
+                value: rating.value * bin.weight,
+            });
+        }
+        let base = weaponBV + computerBV + ammoBV;
+        trace.add("walker.bv1.off.base", { label: "Base Weapon Battle Rating", detail: `weapons ${fmt(weaponBV)} + targeting ${fmt(computerBV)} + ammunition ${fmt(ammoBV)}`, value: base });
+        // Weapons that cannot be fired once the walker overheats are worth half.
+        if (maxHeat > sinkCapacity) {
+            const x = sinkCapacity * base / maxHeat;
+            const y = (base - x) / 2;
+            base = x + y;
+            trace.add("walker.bv1.off.heat", { label: "Modified Weapon Battle Rating", detail: `X = ${fmt(sinkCapacity)} x base / ${fmt(maxHeat)} = ${fmt(x)}; Y = (base - X) / 2 = ${fmt(y)}; X + Y`, value: base });
+        }
+        // Speed Factor MP: Running + Jumping, 1 more with MASC or a Supercharger (Maximum Tech p.91).
+        const enhanced = hasSupercharger || items.some(isMASC);
+        const speedMP = this.getRunMP() + jump + (enhanced ? 1 : 0);
+        const speedFactor = getSpeedFactor(speedMP);
+        const offensive = base * speedFactor;
+        if (hasSupercharger) trace.add("walker.bv1.l3.off.speed.supercharger", { label: "Supercharger", detail: "counts as MASC does: 1 added to the MP" });
+        trace.add("walker.bv1.off.speed", { label: "Speed Factor", detail: `Running ${this.getRunMP()} + Jumping ${jump}${enhanced ? " + 1" : ""} = MP ${speedMP}`, value: speedFactor });
+        trace.add("walker.bv1.off.rating", { label: "Offensive Battle Rating", detail: `${fmt(base)} x ${fmt(speedFactor)}`, value: offensive, emphasis: true });
+
+        const result = Math.round(defensive + offensive);
+        trace.add("walker.bv1.final.round", { label: "Battle Value (provisional)", detail: `${fmt(defensive)} + ${fmt(offensive)}, rounded`, value: result, emphasis: true });
+        return result;
+    }
+
+    /**
+     * The Battle Value under `edition`, step by step: the edition's BattleMech procedure over a walker (BV1 under the
+     * Master Rules editions, BV2 from Total Warfare on), every step provisional. An edition older than the Battle Value
+     * system has none, and says so in one step.
+     */
+    public getBattleValueBreakdown(edition: string = this._rulesEdition): ICalcBreakdown {
+        if (!editionHasBattleValue(edition, "walker")) {
+            const trace = new CalcTrace(NO_BATTLE_VALUE_STEPS);
+            trace.add("none.no-battle-value", { label: `${getRulesEdition(edition).name} has no Battle Value. Battle Value first appears in the BattleTech Master Rules (1998)` });
+            return { kind: "battle-value", edition, scheme: "none", steps: trace.steps, result: null };
+        }
+        return getBattleValueFor<ICalcBreakdown>(edition, "walker", {
+            bv1: () => {
+                const trace = new CalcTrace(getWalkerBv1Steps(edition));
+                return { kind: "battle-value", edition, scheme: "bv1", result: this._calcBattleValue1(edition, trace), steps: trace.steps };
+            },
+            bv2: () => {
+                const trace = new CalcTrace(WALKER_BV2_STEPS);
+                return { kind: "battle-value", edition, scheme: "bv2", result: this._calcBattleValue2(trace), steps: trace.steps };
+            },
+        });
+    }
+    /** The provisional Battle Value under `edition`; under an edition with no Battle Value, the BV2 figure (as a 'Mech's). */
+    public getBattleValue(edition: string = this._rulesEdition): number {
+        return getBattleValueFor(edition, "walker", {
+            bv1: () => this._calcBattleValue1(edition, new CalcTrace(getWalkerBv1Steps(edition))),
+            bv2: () => this._calcBattleValue2(new CalcTrace(WALKER_BV2_STEPS)),
+        });
+    }
 
     // Save ----------------------------------------------------------------------------------------------------------
 

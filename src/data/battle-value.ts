@@ -97,6 +97,15 @@ const AT2 = bv1("AeroTech 2 pp.53-54 (with BMR equipment BVs); AT2 errata 1.2 bo
 const AT2R = bv1("AeroTech 2, Revised Edition pp.81-82 (with BMR(R) equipment BVs)");
 const BV2: IBattleValueRules = { scheme: "bv2", source: "TechManual pp.302-319, replaced by Battle Value v4.1 (2024) and TM errata v8.0 tables pp.315-319" };
 
+const MECH_MASTER_RULES: IBattleValueRules = { ...bv1("BattleTech Master Rules pp.139-145; FanPro BMR errata p.12; Maximum Tech (FASA) pp.90-92 (Level 3)", true), armCaseInwardOnly: true, levelThree: MAX_TECH_FASA };
+const MECH_MASTER_RULES_REVISED: IBattleValueRules = { ...bv1("BattleTech Master Rules, Revised Edition pp.152-159; Maximum Tech, Revised pp.90-92 (Level 3)", true), levelThree: MAX_TECH };
+/**
+ * A Future Wars Walker (#172, Custom Homebrew) has no published Battle Value. Ours is the edition's BattleMech procedure
+ * run over the walker's locations, always provisional (Walker.isBattleValueProvisional).
+ */
+const asWalker = (mech: IBattleValueRules): IBattleValueRules =>
+    ({ ...mech, source: `${mech.source}; a BattleMech's rules, provisional: none are published for a Future Wars Walker` });
+
 /**
  * Battle Value rules by edition tag, then unit type. An edition not listed reads the newest edition before it that is
  * (the CBT box set reads BMR(R); the BattleMech Manual and Core Rulebook read Total Warfare); a unit type an edition
@@ -104,14 +113,14 @@ const BV2: IBattleValueRules = { scheme: "bv2", source: "TechManual pp.302-319, 
  */
 export const BV_RULES: Record<string, Partial<Record<BattleValueUnitType, IBattleValueRules>>> = {
     "master-rules": {
-        mech: { ...bv1("BattleTech Master Rules pp.139-145; FanPro BMR errata p.12; Maximum Tech (FASA) pp.90-92 (Level 3)", true), armCaseInwardOnly: true, levelThree: MAX_TECH_FASA },
+        mech: MECH_MASTER_RULES, walker: asWalker(MECH_MASTER_RULES),
         vehicle: { ...bv1("BattleTech Master Rules pp.141-142; FanPro BMR errata p.12; Maximum Tech (FASA) pp.90-92 (Level 3)", true), levelThree: MAX_TECH_FASA },
         fighter: AT2, "small-craft": AT2, "capital-ship": AT2,
         infantry: bv1("BattleTech Master Rules p.142 (table); FanPro BMR errata p.12"),
         "battle-armor": bv1("BattleTech Master Rules p.142 (table)"),
     },
     "master-rules-revised": {
-        mech: { ...bv1("BattleTech Master Rules, Revised Edition pp.152-159; Maximum Tech, Revised pp.90-92 (Level 3)", true), levelThree: MAX_TECH },
+        mech: MECH_MASTER_RULES_REVISED, walker: asWalker(MECH_MASTER_RULES_REVISED),
         vehicle: { ...bv1("BattleTech Master Rules, Revised Edition pp.154-155; Maximum Tech, Revised pp.90-92 (Level 3)", true), levelThree: MAX_TECH },
         fighter: AT2R, "small-craft": AT2R, "capital-ship": AT2R,
         protomech: bv1("BattleTech Master Rules, Revised Edition pp.155-156"),
@@ -120,7 +129,7 @@ export const BV_RULES: Record<string, Partial<Record<BattleValueUnitType, IBattl
         "battle-armor": bv1("Classic BattleTech Companion pp.187-191"),
     },
     "total-warfare": {
-        mech: BV2, vehicle: BV2, fighter: BV2, "small-craft": BV2, infantry: BV2, "battle-armor": BV2, protomech: BV2,
+        mech: BV2, walker: asWalker(BV2), vehicle: BV2, fighter: BV2, "small-craft": BV2, infantry: BV2, "battle-armor": BV2, protomech: BV2,
         "capital-ship": { scheme: "bv2", source: "Strategic Operations: Advanced Aerospace pp.148-149" },
     },
 };

@@ -209,15 +209,23 @@ and Chunk E's sheet show a split item in both locations; Chunk F's critical hits
 
 **Files:** Create `src/data/calc-steps-walker.ts`; modify `src/classes/walker.ts` (+ test), `src/data/battle-value.ts`.
 
-- [ ] **Step 1: Read** the 'Mech cost table (TechManual) and the BV2 procedure, using the #599 step tables
+- [x] **Step 1: Read** the 'Mech cost table (TechManual) and the BV2 procedure, using the #599 step tables
   (`calc-steps-mech-bv2.ts`, `calc-steps-mech-cost.ts`) for the pages; list in the ledger, one line each, how each step
   reads a Walker's ten locations (structure and armor totals; the turret's cost as a vehicle turret or a 'Mech
   turret: read both, pick, say which).
-- [ ] **Step 2: Failing tests** pinning the steps on two hand-built walkers (a 25-ton light and an 80-ton assault),
+- [x] **Step 2: Failing tests** pinning the steps on two hand-built walkers (a 25-ton light and an 80-ton assault),
   not a target number; every step `provisional`.
-- [ ] **Step 3:** Implement `getCBillCost`, `getCostBreakdown`, `getBattleValue(edition?)`,
+- [x] **Step 3:** Implement `getCBillCost`, `getCostBreakdown`, `getBattleValue(edition?)`,
   `getBattleValueBreakdown(edition?)`, `isBattleValueProvisional(): true`; unit tests; `npm run check`.
-- [ ] **Step 4:** Commit `Custom Homebrew: Walker cost and Battle Value (#172)`, push, ledger, handoff.
+- [x] **Step 4:** Commit `Custom Homebrew: Walker cost and Battle Value (#172)`, push, ledger, handoff.
+
+Done 2026-11-14 (home): tests in `src/classes/walker-cost-bv.test.ts`; the ledger lists every call that was ours.
+**Owner ruling (2026-11-14):** the turret mechanism costs 7,500 C-bills a ton, midway between the 'Mech turret's 10,000
+(TO:AUE p.223) and the vehicle's 5,000 (TM p.279). A BV1 edition gets the Master Rules steps, a BV2 edition the
+TechManual's; an older edition has no Battle Value. **For Chunk D:** the step ids are `walker.*` (`walker.cost.*`,
+`walker.bv2.*`, `walker.bv1.*`, tables in `src/data/calc-steps-walker.ts`), every step is provisional and its note
+opens with the not-published line: show the breakdowns with their notes, as the Micro-Mech summary does. There is no
+skill-adjusted Battle Value yet (no Gunnery / Piloting on the unit): the roster and play chunks owe it.
 
 ## Chunk D: Creator, saves, menus
 
