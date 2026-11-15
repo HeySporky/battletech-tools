@@ -28,6 +28,7 @@ import {
     lookupAcesTable,
     TAcesMotiveEffect,
     TAcesVehicleCritical,
+    getAcesRulesType,
 } from "../data/aces-rules";
 import { AlphaStrikeUnit } from "./alpha-strike-unit";
 
@@ -798,7 +799,8 @@ const rollAcesCriticalHitByTable = (
     isEmplacement: boolean,
     rng: IAcesRngState,
 ): IAcesCriticalResult => {
-    const type = unitType.toUpperCase();
+    // A walker reads as a 'Mech: WK as BM, IWK as IM (an IndustrialMech rolls twice). Custom Homebrew.
+    const type = getAcesRulesType( unitType );
     if( ruleset === "aces" ) {
         if( isEmplacement ) return { roll: null, effect: "weapon", label: "Weapon Hit (emplacements always take a Weapon Hit, Aces p.6)" };
         if( type === "CI" || type === "BA" ) return { roll: null, effect: "weapon", label: "Weapon Hit (infantry always take a Weapon Hit, Aces p.5)" };

@@ -10,6 +10,8 @@ import {
     getAcesPlayerForcePVPercent,
     getAcesPurchaseCost,
     getAcesRepairCost,
+    getAcesRepairSize,
+    getAcesSalvageTarget,
     getAcesSalePrice,
     getAcesSortiePVLimit,
     IAcesRosterUnit,
@@ -22,6 +24,7 @@ import {
     acesPilotSkillThresholds,
     getAcesAdvancedForceTypes,
     getAcesNamedPilotTypes,
+    getAcesRulesType,
 } from "../data/aces-rules";
 
 const rosterUnit = ( name: string, chassis: string, variant: string, type: string, pv: number ): IAcesRosterUnit => ( {
@@ -117,11 +120,30 @@ describe("Aces force creation (Aces p.26)", () => {
         expect( validateAcesStartingForce( aerospace, true, ACES_STARTING_PV, true ).length ).toBe( 1 );
     });
 
-    it("lists MM for advanced creation and Named Pilots only with custom units on", () => {
+    it("lists MM and WK for advanced creation and Named Pilots only with custom units on", () => {
         expect( getAcesAdvancedForceTypes( false ) ).toEqual( [ "BM", "BA", "CV", "CI" ] );
-        expect( getAcesAdvancedForceTypes( true ) ).toEqual( [ "BM", "BA", "CV", "CI", "MM" ] );
+        expect( getAcesAdvancedForceTypes( true ) ).toEqual( [ "BM", "BA", "CV", "CI", "MM", "WK" ] );
         expect( getAcesNamedPilotTypes( false ) ).toEqual( [ "BM", "CV", "BA" ] );
-        expect( getAcesNamedPilotTypes( true ) ).toEqual( [ "BM", "CV", "BA", "MM" ] );
+        expect( getAcesNamedPilotTypes( true ) ).toEqual( [ "BM", "CV", "BA", "MM", "WK" ] );
+    });
+
+    it("reads a walker as a 'Mech: WK as BM, IWK as IM (Custom Homebrew, TRO - JBT: Walkers)", () => {
+        expect( getAcesRulesType( "WK" ) ).toBe( "BM" );
+        expect( getAcesRulesType( " iwk " ) ).toBe( "IM" );
+        expect( getAcesRulesType( "MM" ) ).toBe( "MM" );
+        expect( getAcesRulesType( "cv" ) ).toBe( "CV" );
+        // Repairs: a walker at full Size as a BattleMech; an industrial walker at half, as an IndustrialMech.
+        expect( getAcesRepairSize( "WK", 3 ) ).toBe( 3 );
+        expect( getAcesRepairSize( "IWK", 3 ) ).toBe( 1.5 );
+        expect( getAcesSalvageTarget( "WK" ) ).toBe( getAcesSalvageTarget( "BM" ) );
+        expect( getAcesSalvageTarget( "IWK" ) ).toBe( getAcesSalvageTarget( "IM" ) );
+    });
+
+    it("holds walkers to the 'Mech chassis limit in advanced force creation", () => {
+        const walkers = Array.from( { length: 8 }, ( _unused, index ) => rosterUnit( String( index + 1 ), index < 3 ? "Strider" : "Unit " + index, "W-" + index, index < 3 ? "WK" : "BM", 20 ) );
+        const plain = Array.from( { length: 8 }, ( _unused, index ) => rosterUnit( String( index + 1 ), index < 3 ? "Strider" : "Unit " + index, "W-" + index, "BM", 20 ) );
+        expect( validateAcesStartingForce( walkers, true, ACES_STARTING_PV, true ).map( ( issue ) => issue.message ) )
+            .toEqual( validateAcesStartingForce( plain, true ).map( ( issue ) => issue.message ) );
     });
 
     it("saves and loads the custom units switch, off by default", () => {

@@ -64,6 +64,9 @@ describe("Aces target numbers (ASCE p.44, Aces pp.3-6)", () => {
             partialCover: true,
         };
         expect( calculateAcesToHit( { ...base, targetType: "BM" } ).targetNumber ).toBe( 6 );
+        // A walker is a 'Mech: it takes partial cover, industrial or not (Custom Homebrew).
+        expect( calculateAcesToHit( { ...base, targetType: "WK" } ).targetNumber ).toBe( 6 );
+        expect( calculateAcesToHit( { ...base, targetType: "IWK" } ).targetNumber ).toBe( 6 );
         expect( calculateAcesToHit( { ...base, targetType: "CV" } ).targetNumber ).toBe( 5 );
         expect( calculateAcesToHit( { ...base, targetType: "BA" } ).targetNumber ).toBe( 6 );
     });

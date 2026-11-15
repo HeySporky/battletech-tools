@@ -14,6 +14,7 @@ import {
     ACES_MOVE_FIRST_PRIORITY,
     ACES_MOVE_LAST_PRIORITY,
     TAcesDeckId,
+    getAcesRulesType,
 } from "../data/aces-rules";
 import { IAcesCommandOrder } from "../data/aces-cards";
 import { AlphaStrikeUnit } from "./alpha-strike-unit";
@@ -131,7 +132,8 @@ export const getAcesTargetMovementModifier = (
 
 /** Only 'Mechs get partial cover: vehicles, infantry and other token units never do (Aces pp.3-5). */
 export const canClaimAcesPartialCover = ( targetType: string ): boolean => {
-    const type = targetType.trim().toUpperCase();
+    // A walker reads as a 'Mech (WK as BM, IWK as IM; Custom Homebrew).
+    const type = getAcesRulesType( targetType );
     return type === "BM" || type === "IM";
 }
 

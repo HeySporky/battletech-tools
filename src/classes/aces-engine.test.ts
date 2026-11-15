@@ -355,6 +355,13 @@ describe("Aces rules switch: critical hits (Aces pp.4-6)", () => {
         const mech = newAcesRngState( 5 );
         rollAcesCriticalHit( "asce", "BM", false, mech );
         expect( mech.calls ).toBe( 2 );
+        // A walker rolls as a 'Mech, an industrial walker twice as an IndustrialMech (Custom Homebrew).
+        const walker = newAcesRngState( 5 );
+        expect( rollAcesCriticalHit( "asce", "WK", false, walker ).also ).toBeUndefined();
+        expect( walker.calls ).toBe( 2 );
+        const industrialWalker = newAcesRngState( 5 );
+        expect( rollAcesCriticalHit( "asce", "IWK", false, industrialWalker ).also ).toBeDefined();
+        expect( industrialWalker.calls ).toBe( 4 );
     });
 
     it("gives a Micro-Mech's Engine Hit the MCR reading (Custom Homebrew): a Weapon Hit too, unless ENE; the second destroys it", () => {

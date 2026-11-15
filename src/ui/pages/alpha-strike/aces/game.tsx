@@ -35,6 +35,7 @@ import {
     acesNonCampaignDifficulty,
     getAcesDeck,
     TAcesDeckId,
+    getAcesRulesType,
 } from '../../../../data/aces-rules';
 import { generateScenarioDeployments, getDeploymentById } from '../../../../data/alpha-strike-mp-deployments';
 import { generateAvailableScenarios, getScenarioById } from '../../../../data/alpha-strike-mp-scenarios';
@@ -167,7 +168,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
     private _readerUnit = ( unit: AlphaStrikeUnit ): IAcesReaderUnit => {
         return {
             name: this._name( unit ),
-            isBattleMech: unit.type.toUpperCase() === "BM",
+            isBattleMech: getAcesRulesType( unit.type ) === "BM",
             canJump: unit.jumpMove > 0 || unit.move.some( ( move ) => move.type.toLowerCase() === "j" ),
             canIndirectFire: getAcesAbilityValue( unit, "IF" ) !== null,
             // The Overheat Value is the card's own field; the ability list only carries OVL.

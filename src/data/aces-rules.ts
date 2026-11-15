@@ -364,9 +364,22 @@ export const ACES_NAMED_PILOT_TYPES = [ "BM", "CV", "BA" ];
 
 /**
  * Unit types the campaign's "custom units" switch adds to advanced force creation and
- * Named Pilots. Custom Homebrew, not in Aces: Micro-Mechs (TRO - JBT: Micro-Mechs).
+ * Named Pilots. Custom Homebrew, not in Aces: Micro-Mechs (TRO - JBT: Micro-Mechs) and
+ * walkers (TRO - JBT: Walkers). An industrial walker (IWK) is left out, as an IndustrialMech is.
  */
-export const ACES_CUSTOM_UNIT_TYPES = [ "MM" ];
+export const ACES_CUSTOM_UNIT_TYPES = [ "MM", "WK" ];
+
+/**
+ * The unit type Aces and ASCE rules read a card as. A walker (WK) is a four-legged 'Mech and
+ * reads as BM, an industrial walker (IWK) as IM (Custom Homebrew, TRO - JBT: Walkers); every
+ * other type is its own. Upper case, trimmed.
+ */
+export const getAcesRulesType = ( type: string ): string => {
+    const upper = type.trim().toUpperCase();
+    if( upper === "WK" ) return "BM";
+    if( upper === "IWK" ) return "IM";
+    return upper;
+};
 
 export const getAcesAdvancedForceTypes = ( customUnits: boolean ): string[] => {
     return customUnits ? [ ...ACES_ADVANCED_FORCE_TYPES, ...ACES_CUSTOM_UNIT_TYPES ] : [ ...ACES_ADVANCED_FORCE_TYPES ];
