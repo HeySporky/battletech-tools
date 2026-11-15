@@ -679,10 +679,13 @@ export const acesSpotterAttacks = ( spotterDamage: number, indirectFireTotal: nu
  * Command cards (Aces pp.8, 10, 21)
  * ------------------------------------------------------------------------------------------------------------- */
 
+/** A printed "None." order is the card saying it has no order. */
+export const isAcesNoOrder = ( text: string ): boolean => /^\s*none\.?\s*$/i.test( text );
+
 /** Orders on a Command card that apply to a phase. */
 export const getAcesOrdersForPhase = ( card: IAcesCommandCard | null, phase: string ): IAcesCommandOrder[] => {
     if( !card ) return [];
-    return card.orders.filter( ( order ) => order.phase === phase || order.phase === "any" );
+    return card.orders.filter( ( order ) => ( order.phase === phase || order.phase === "any" ) && !isAcesNoOrder( order.text ) );
 }
 
 /**

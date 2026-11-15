@@ -12,6 +12,8 @@ import {
     acesSupportCardAllowed,
     applyAcesCriticalToUnit,
     chooseAcesTokenUnit,
+    getAcesOrdersForPhase,
+    isAcesNoOrder,
     determineAcesBehavior,
     evaluateAcesStrategy,
     findAcesCard,
@@ -335,6 +337,17 @@ describe("Aces Command cards (Aces pp.8, 21)", () => {
             { ...enemy( "c", { "damage-m": 5 } ), eligible: false },
         ] );
         expect( result.unitId ).toBe( "b" );
+    });
+
+    it("treats a \"None.\" order as no order (#637)", () => {
+        const card = { ...acesSampleStarCaptainB, orders: [
+            { phase: "any", text: "None." },
+            { phase: "end", text: "none" },
+            { phase: "end", text: "Real order" },
+        ] } as typeof acesSampleStarCaptainB;
+        expect( getAcesOrdersForPhase( card, "end" ).map( ( order ) => order.text ) ).toEqual( [ "Real order" ] );
+        expect( isAcesNoOrder( "  None " ) ).toBe( true );
+        expect( isAcesNoOrder( "None of the above" ) ).toBe( false );
     });
 
     it("reads strategy decisions top down, first true row wins", () => {

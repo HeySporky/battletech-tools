@@ -10,7 +10,7 @@ import {
     IAcesScenario,
     IAcesSpecialOrder,
 } from '../../../../data/aces-cards';
-import { acesBehaviorLabel } from '../../../../classes/aces-engine';
+import { acesBehaviorLabel, isAcesNoOrder } from '../../../../classes/aces-engine';
 import AcesText from './_aces-text';
 
 /*
@@ -94,6 +94,7 @@ export const AcesCardView = ( props: { card: IAcesCard } ): JSX.Element => {
 
 export const AcesCommandCardView = ( props: { card: IAcesCommandCard } ): JSX.Element => {
     const card = props.card;
+    const orders = card.orders.filter( ( order ) => !isAcesNoOrder( order.text ) );
     return (
         <div className="aces-card-view">
             <div className="aces-card-head">
@@ -101,8 +102,8 @@ export const AcesCommandCardView = ( props: { card: IAcesCommandCard } ): JSX.El
                 <span className="aces-priority">{card.letter}</span>
                 {card.sample ? <span className="aces-muted"> sample</span> : null}
             </div>
-            {card.orders.length > 0 ? (
-                <ul>{card.orders.map( ( order, index ) => <li key={index}><em>{order.phase}:</em> <AcesText text={order.text} />{order.filter ? <> <AcesText text={order.filter} /></> : null}</li> )}</ul>
+            {orders.length > 0 ? (
+                <ul>{orders.map( ( order, index ) => <li key={index}><em>{order.phase}:</em> <AcesText text={order.text} />{order.filter ? <> <AcesText text={order.filter} /></> : null}</li> )}</ul>
             ) : null}
             <div className="aces-card-columns">
                 <div className="aces-card-column aces-red"><h5>Red</h5><AcesRuleList rules={card.red} /></div>

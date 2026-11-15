@@ -25,6 +25,18 @@ describe("Aces ideal targets list (#630)", () => {
         expect( text ).toContain( "Ideal BLUE:" );
     } );
 
+    it("names the unit with the higher printed armor for a rule with no stat (#637)", () => {
+        const card = { ...acesSampleStarCaptainB, red: [ { text: "[highest] Starting Armor" } ] };
+        const targets = getAcesIdealTargets( [
+            { id: "locust", name: "Locust", stats: stats( { "armor-start": 2 } ) },
+            { id: "atlas", name: "Atlas", stats: stats( { "armor-start": 9 } ) },
+        ], card );
+        render( <AcesIdealTargets targets={targets} /> );
+        const text = document.body.textContent || "";
+        expect( text ).toContain( "Ideal RED: Atlas" );
+        expect( text ).not.toContain( "needs your answer" );
+    });
+
     it("shows nothing without a Command card", () => {
         render( <AcesIdealTargets targets={[]} /> );
         expect( document.body.textContent ).toBe( "" );

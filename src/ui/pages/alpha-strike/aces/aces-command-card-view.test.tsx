@@ -16,4 +16,11 @@ describe("Aces Command card view", () => {
         const emplacements = Array.from( document.querySelectorAll( "h5" ) ).find( ( h ) => ( h.textContent || "" ).startsWith( "Emplacements" ) );
         expect( emplacements!.closest( ".aces-card-columns" ) ).toBeTruthy();
     });
+
+    it("renders no order row for a \"None.\" order (#637)", () => {
+        const card = { ...acesSampleStarCaptainB, orders: [ { phase: "any", text: "None." } ] } as typeof acesSampleStarCaptainB;
+        render( <AcesCommandCardView card={card} /> );
+        const rows = Array.from( document.querySelectorAll( "li" ) ).filter( ( li ) => ( li.textContent || "" ).includes( "None" ) );
+        expect( rows ).toHaveLength( 0 );
+    });
 });
