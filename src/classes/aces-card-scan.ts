@@ -58,7 +58,7 @@ export const fuzzyIs = ( text: string, target: string ): boolean => {
     return editDistance( word, target ) <= 2;
 }
 
-const editDistance = ( a: string, b: string ): number => {
+export const editDistance = ( a: string, b: string ): number => {
     const row = Array.from( { length: b.length + 1 }, ( _, index ) => index );
     for( let i = 1; i <= a.length; i++ ) {
         let previous = row[0];

@@ -64,9 +64,9 @@ const header: IPlaced[] = [
 const frontLines: IPlaced[] = [
     ...header,
     { text: "Initiative Phase:", x: 960, y: 560, modes: [ "panel" ] },
-    { text: "Add 1 to your test roll and", x: 960, y: 610, modes: [ "panel" ] },
-    { text: "assign the MOVE FIRST token to", x: 960, y: 660, modes: [ "panel" ] },
-    { text: "your unit with ( PV).", x: 960, y: 710, modes: [ "panel" ] },
+    { text: "Wave a flag, then the", x: 960, y: 610, modes: [ "panel" ] },
+    { text: "MOVE FIRST token goes to", x: 960, y: 660, modes: [ "panel" ] },
+    { text: "the test unit with ( PV).", x: 960, y: 710, modes: [ "panel" ] },
     { text: "1. M damage", x: 220, y: 1560, modes: [ "panel" ] },
     { text: "2. starting", x: 220, y: 1620, modes: [ "panel" ] },
     { text: "Armor", x: 230, y: 1665, modes: [ "panel" ] },
@@ -77,7 +77,7 @@ const frontLines: IPlaced[] = [
 ];
 const frontPatches: IPatch[] = [
     ...band,
-    icon( "blue", 1215, 710 ),
+    icon( "blue", 1275, 710 ),
     icon( "blue", 265, 1560 ), icon( "blue", 265, 1620 ), icon( "red", 265, 1720 ),
     icon( "red", 785, 1620 ), icon( "blue", 1305, 1560 ),
 ];
@@ -97,7 +97,7 @@ describe( "Aces Command card scan: orders side", () => {
         expect( scan.blue.map( ( rule ) => rule.text ) ).toEqual( [ "[highest] PV" ] );
         expect( scan.orders.length ).toBe( 1 );
         expect( scan.orders[0].phase ).toBe( "initiative" );
-        expect( scan.orders[0].text ).toBe( "Add 1 to your test roll and assign the MOVE FIRST token to your unit with ([highest] PV)." );
+        expect( scan.orders[0].text ).toBe( "Wave a flag, then the MOVE FIRST token goes to the test unit with ([highest] PV)." );
         expect( scan.orders[0].token ).toBe( "move-first" );
         expect( scan.deck ).toBe( "Test Deck" );
         expect( scan.faction ).toBe( "Clan Nowhere" );
@@ -108,17 +108,17 @@ describe( "Aces Command card scan: orders side", () => {
     it( "splits orders at each phase heading and keeps an order's movement filter apart", async () => {
         const lines: IPlaced[] = [
             ...header,
-            { text: "For the rest of the test,", x: 960, y: 560, modes: [ "panel" ] },
-            { text: "nothing happens.", x: 960, y: 610, modes: [ "panel" ] },
+            { text: "Hum a tune quietly,", x: 960, y: 560, modes: [ "panel" ] },
+            { text: "then stop.", x: 960, y: 610, modes: [ "panel" ] },
             { text: "Movement Phase:", x: 960, y: 660, modes: [ "panel" ] },
-            { text: "Test units add this filter:", x: 960, y: 710, modes: [ "panel" ] },
-            { text: "0. cover vs enemies", x: 960, y: 760, modes: [ "panel" ] },
+            { text: "Test units pick this:", x: 960, y: 710, modes: [ "panel" ] },
+            { text: "0. puddles near tests", x: 960, y: 760, modes: [ "panel" ] },
             { text: "1. PV", x: 220, y: 1560, modes: [ "panel" ] },
         ];
-        const scan = await scanAcesCommandCard( fakeCard( lines, [ ...band, icon( "blue", 1140, 760 ), icon( "blue", 265, 1560 ) ] ) );
+        const scan = await scanAcesCommandCard( fakeCard( lines, [ ...band, icon( "blue", 1200, 760 ), icon( "blue", 265, 1560 ) ] ) );
         expect( scan.orders.map( ( order ) => [ order.phase, order.text, order.filter ] ) ).toEqual( [
-            [ "any", "For the rest of the test, nothing happens.", "" ],
-            [ "movement", "Test units add this filter:", "0. cover vs [highest] enemies" ],
+            [ "any", "Hum a tune quietly, then stop.", "" ],
+            [ "movement", "Test units pick this:", "0. puddles near [highest] tests" ],
         ] );
     } );
 } );
@@ -129,7 +129,7 @@ describe( "Aces Command card scan: support side", () => {
         { text: "CLAN NOWHERE", x: 230, y: 260 },
         { text: "C", x: 1600, y: 230, modes: [ "bright" ] },
         { text: "SUPPORT ORDERS", x: 250, y: 470, modes: [ "plain" ] },
-        { text: "Spend up to 3 test cards.", x: 250, y: 540, modes: [ "dark" ] },
+        { text: "Bake 3 test muffins.", x: 250, y: 540, modes: [ "dark" ] },
         { text: "EMPLACEMENTS", x: 230, y: 760, modes: [ "plain" ] },
         { text: "ARTILLERY", x: 770, y: 760, modes: [ "plain" ] },
         { text: "BSP CARDS", x: 1300, y: 760, modes: [ "plain" ] },
@@ -141,15 +141,15 @@ describe( "Aces Command card scan: support side", () => {
         { text: "2. PV", x: 780, y: 940, modes: [ "panel" ] },
         { text: "1. Size", x: 1310, y: 840, modes: [ "panel" ] },
         { text: "STRATEGY DECISIONS", x: 230, y: 1600, modes: [ "plain" ] },
-        { text: "A: If the test is over", x: 230, y: 1690, modes: [ "dark" ] },
-        { text: "B: If you lost PV worth of tests", x: 230, y: 1750, modes: [ "dark" ] },
-        { text: "C: If a test unit has TMM", x: 230, y: 1810, modes: [ "dark" ] },
-        { text: "4 or more", x: 230, y: 1860, modes: [ "dark" ] },
+        { text: "A: If the moon is out", x: 230, y: 1690, modes: [ "dark" ] },
+        { text: "B: If the kettle has PV", x: 230, y: 1750, modes: [ "dark" ] },
+        { text: "C: If a teapot is", x: 230, y: 1810, modes: [ "dark" ] },
+        { text: "quite warm", x: 230, y: 1860, modes: [ "dark" ] },
         { text: "8/10", x: 230, y: 2340, modes: [ "bright" ] },
     ];
     const patches: IPatch[] = [
         icon( "red", 285, 980 ), icon( "blue", 825, 840 ), icon( "blue", 825, 940 ), icon( "red", 1355, 840 ),
-        icon( "blue", 455, 1750 ),
+        icon( "blue", 545, 1750 ),
     ];
 
     it( "reads support orders, the three lists and the strategy rows", async () => {
@@ -158,21 +158,21 @@ describe( "Aces Command card scan: support side", () => {
         expect( scan.side ).toBe( "support" );
         expect( scan.orders ).toEqual( [] );
         expect( scan.red ).toEqual( [] );
-        expect( scan.supportOrders ).toBe( "Spend up to 3 test cards." );
+        expect( scan.supportOrders ).toBe( "Bake 3 test muffins." );
         expect( scan.emplacementZoneRings ).toEqual( [ 30 ] );
         expect( scan.emplacements!.map( ( rule ) => rule.text ) ).toEqual( [ "Rear", "[lowest] TMM" ] );
         expect( scan.artillery!.map( ( rule ) => rule.text ) ).toEqual( [ "[highest] Structure lost", "[highest] PV" ] );
         expect( scan.bsp!.map( ( rule ) => rule.text ) ).toEqual( [ "[lowest] Size" ] );
         expect( scan.strategy!.map( ( row ) => row.letter + " " + row.text ) ).toEqual( [
-            "A If the test is over",
-            "B If you lost [highest] PV worth of tests",
-            "C If a test unit has TMM 4 or more",
+            "A If the moon is out",
+            "B If the kettle has [highest] PV",
+            "C If a teapot is quite warm",
         ] );
         expect( scan.letter ).toBe( "C" );
         expect( scan.cardNumber ).toBe( "8/10" );
 
         const card = applyAcesCommandScan( null, scan );
-        expect( card.supportOrders ).toBe( "Spend up to 3 test cards." );
+        expect( card.supportOrders ).toBe( "Bake 3 test muffins." );
         expect( card.bsp[0].stat ).toBe( "size" );
         expect( card.strategy.length ).toBe( 3 );
     } );

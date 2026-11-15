@@ -10,7 +10,7 @@ import {
     parseAcesStrategyLine,
     TAcesOrderPhase,
 } from "../data/aces-cards";
-import { acesScanTagColour, allWords, clampRect, fuzzyIs, parseAcesScanFooter, parseZone } from "./aces-card-scan";
+import { acesScanTagColour, allWords, clampRect, editDistance, fuzzyIs, parseAcesScanFooter, parseZone } from "./aces-card-scan";
 import { ICardScanIO, ICardScanLine, ICardScanOptions, ICardScanRect, ICardScanWord, TCardScanMode } from "./card-scan-io";
 import { getMULFactionIDs, getMULFactionLabels } from "../utils/mulUtilities";
 
@@ -255,7 +255,7 @@ const lineWithIcons = ( line: ICardScanLine, io: ICardScanIO, panel: ICardScanRe
 const tidyText = ( text: string ): string => text
     .replace( /\b([SML])(damage)\b/gi, "$1 $2" )
     .replace( /\bMv\b/g, "MV" )
-    .replace( /\b(cover|damage|units?)vs\b/g, "$1 vs" )
+    .replace( /\b([a-z]{3,})vs\b/g, "$1 vs" )
     .replace( /\b(the|a|of|your) \d\b(?! ?[/.,%])/g, "$1" )
     .replace( /\b[1t][0o](?= (your|the|its|a|any|move)\b)/g, "to" )
     .replace( /\b(1|jf|Jf)(?= (they|it|there|an|you|this)\b)/g, "If" )
@@ -313,20 +313,6 @@ const cardRows = ( lines: ICardScanLine[] ): ICardScanLine[] => {
 }
 
 const letters = ( text: string ): string => text.toLowerCase().replace( /[^a-z]/g, "" );
-
-const editDistance = ( a: string, b: string ): number => {
-    const row = Array.from( { length: b.length + 1 }, ( _, index ) => index );
-    for( let i = 1; i <= a.length; i++ ) {
-        let previous = row[0];
-        row[0] = i;
-        for( let j = 1; j <= b.length; j++ ) {
-            const current = row[j];
-            row[j] = Math.min( row[j] + 1, row[j - 1] + 1, previous + ( a[i - 1] === b[j - 1] ? 0 : 1 ) );
-            previous = current;
-        }
-    }
-    return row[b.length];
-}
 
 /** The stats a list can rank by (aces-cards.ts), and the destroy objective. */
 const listPhrases = [ ...acesStats.map( ( stat ) => stat.label ), "Objective" ];
@@ -646,7 +632,7 @@ export const applyAcesCommandScan = ( card: IAcesCommandCard | null, scan: IAces
     }
     if( scan.side === "support" ) {
         rv.supportOrders = scan.supportOrders;
-        rv.supportOnlyIfStructure = /only\s+spend.*structure/i.test( scan.supportOrders );
+        rv.supportOnlyIfStructure = /hit[^.]*structure/i.test( scan.supportOrders );
         rv.emplacementZoneRings = scan.emplacementZoneRings;
         rv.emplacements = scan.emplacements;
         rv.artillery = scan.artillery;

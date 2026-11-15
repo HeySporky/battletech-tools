@@ -92,7 +92,7 @@ describe( "Aces card scan in the library", () => {
 
 const commandScan = ( found: boolean ): IAcesCommandScanResult => ( {
     found, side: found ? "orders" : null, deck: found ? "Test Deck" : "", faction: found ? "Clan Nowhere" : "", letter: found ? "B" : "", cardNumber: found ? "7/10" : "",
-    orders: found ? [ { phase: "initiative", text: "Add 1 to your test roll.", token: null, tokenRank: [], behavior: null, filter: "" } ] : [],
+    orders: found ? [ { phase: "initiative", text: "Bake a test muffin.", token: null, tokenRank: [], behavior: null, filter: "" } ] : [],
     red: found ? [ { text: "[highest] PV", stat: "pv", direction: "highest" } ] : [], yellow: [], blue: [],
     supportOrders: "", emplacementZoneRings: [], emplacements: [], artillery: [], bsp: [], strategy: [],
     warnings: found ? [ "Check every line against the card." ] : [ "This looks like a behavior card, not a Command card: read it from a behavior card's form." ],
