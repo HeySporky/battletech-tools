@@ -3,6 +3,8 @@ import { IAcesGameSupportCard } from '../../../../classes/aces-game';
 
 interface IAcesSupportCardsProps {
     cards: IAcesGameSupportCard[];
+    /** The current game turn; cards spent this turn count against the limit. */
+    turn: number;
     /** The most cards the Command card lets the automated force spend at once; null when it names none. */
     limit: number | null;
     onlyIfStructure: boolean;
@@ -46,12 +48,13 @@ export default class AcesSupportCards extends React.Component<IAcesSupportCardsP
         const inHand = cards.filter( ( card ) => card.spentTurn === null );
         const spent = cards.filter( ( card ) => card.spentTurn !== null );
         const ticked = this.state.ticked.filter( ( id ) => inHand.some( ( card ) => card.id === id ) );
-        const full = limit !== null && ticked.length >= limit;
+        const spentThisTurn = spent.filter( ( card ) => card.spentTurn === this.props.turn ).length;
+        const full = limit !== null && ticked.length + spentThisTurn >= limit;
         return (
             <div className="aces-support-cards">
                 <h4>Battlefield Support cards</h4>
                 {onlyIfStructure ? <p>Battlefield Support is only spent when its damage gets through the target's armor.</p> : null}
-                {limit !== null ? <p className="aces-muted">Spend up to {limit} this turn.</p> : null}
+                {limit !== null ? <p className="aces-muted">Spend up to {limit} this turn ({spentThisTurn} spent so far).</p> : null}
                 {inHand.length > 0 ? (
                     <ul className="list-unstyled">
                         {inHand.map( ( card ) => {

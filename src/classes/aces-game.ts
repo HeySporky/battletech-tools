@@ -318,8 +318,9 @@ export class AcesGame {
     public spendSupportCards( ids: string[], limit: number | null ): { ok: boolean; reason: string } {
         const unique = ids.filter( ( id, index ) => ids.indexOf( id ) === index );
         if( unique.length === 0 ) return { ok: false, reason: "Choose at least one card." };
-        if( limit !== null && unique.length > limit ) {
-            return { ok: false, reason: "The Command card allows up to " + limit + " Battlefield Support card" + ( limit === 1 ? "" : "s" ) + "; " + unique.length + " chosen." };
+        const alreadySpent = this.supportCards.filter( ( card ) => card.spentTurn === this.turn && unique.indexOf( card.id ) === -1 ).length;
+        if( limit !== null && alreadySpent + unique.length > limit ) {
+            return { ok: false, reason: "The Command card allows up to " + limit + " Battlefield Support card" + ( limit === 1 ? "" : "s" ) + " per turn; " + alreadySpent + " already spent this turn, " + unique.length + " chosen." };
         }
         const chosen = unique.map( ( id ) => this.supportCards.find( ( card ) => card.id === id ) );
         if( chosen.some( ( card ) => !card || card.spentTurn !== null ) ) {

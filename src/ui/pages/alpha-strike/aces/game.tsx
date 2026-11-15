@@ -808,6 +808,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         const card = this._commandCard();
         const game = this.state.game!;
         const holdsCards = game.supportCards.length > 0;
+        const spendLimit = card ? getAcesSupportSpendLimit( card.supportOrders ) : null;
         if( !holdsCards && ( !card || ( card.emplacements.length === 0 && card.artillery.length === 0 && card.bsp.length === 0 && !card.supportOrders ) ) ) return null;
         return (
             <details>
@@ -816,12 +817,12 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                 {card && card.supportOrders ? <p><AcesText text={card.supportOrders} /></p> : null}
                 <AcesSupportCards
                     cards={game.supportCards}
-                    limit={card ? getAcesSupportSpendLimit( card.supportOrders ) : null}
+                    turn={game.turn}
+                    limit={spendLimit}
                     onlyIfStructure={acesSupportOnlyIfStructure( card )}
                     onSpend={( ids ) => {
-                        const limit = card ? getAcesSupportSpendLimit( card.supportOrders ) : null;
                         let result = { ok: true, reason: "" };
-                        this._update( ( g ) => { result = g.spendSupportCards( ids, limit ); } );
+                        this._update( ( g ) => { result = g.spendSupportCards( ids, spendLimit ); } );
                         return result;
                     }}
                     onAdd={( name ) => this._update( ( g ) => { g.addSupportCard( name ); } )}

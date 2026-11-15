@@ -430,6 +430,19 @@ describe("Aces game tracker, Battlefield Support cards (#605)", () => {
         expect( game.supportCards.every( ( card ) => card.spentTurn === null ) ).toBe( true );
     });
 
+    it("applies the limit per turn, not per call", () => {
+        const { game, a, b } = withCards();
+        const c = game.addSupportCard( "Made Up Volley" );
+        const d = game.addSupportCard( "Made Up Salvo" );
+        expect( game.spendSupportCards( [ a.id ], 2 ).ok ).toBe( true );
+        expect( game.spendSupportCards( [ b.id, c.id ], 2 ).ok ).toBe( false );
+        expect( game.supportCards.filter( ( card ) => card.spentTurn !== null ).length ).toBe( 1 );
+        expect( game.spendSupportCards( [ b.id ], 2 ).ok ).toBe( true );
+        expect( game.spendSupportCards( [ c.id ], 2 ).ok ).toBe( false );
+        game.turn = 4;
+        expect( game.spendSupportCards( [ c.id, d.id ], 2 ).ok ).toBe( true );
+    });
+
     it("refuses unknown and already spent ids, and removes cards", () => {
         const { game, a, b } = withCards();
         game.spendSupportCards( [ a.id ], null );
