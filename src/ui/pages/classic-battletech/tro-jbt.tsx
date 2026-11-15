@@ -5,6 +5,10 @@ import falconetArt from '../../../../docs/lore/artvee-falconet.svg';
 import artveeText from '../../../../docs/lore/artvee-tro.md?raw';
 import introductionText from '../../../../docs/lore/tro-jbt.md?raw';
 import microMechsText from '../../../../docs/lore/micro-mechs-tro.md?raw';
+import walkersText from '../../../../docs/lore/walkers-tro.md?raw';
+import Walker from '../../../classes/walker';
+import { getWalkerReadout } from '../../../classes/walker-readout';
+import { getWalkerSamples } from '../../../data/walker-samples';
 import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
@@ -16,6 +20,11 @@ export const TRO_INTRODUCTION = unixLines(introductionText);
 export const ARTVEE_READOUT = unixLines(artveeText);
 export const AMMUNITION_READOUT = unixLines(ammunitionText);
 export const MICRO_MECHS_READOUT = unixLines(microMechsText);
+// The walker text, then an entry for each sample walker made from the design itself, so the figures match the creator.
+export const WALKERS_READOUT = [
+    unixLines(walkersText).trim(),
+    ...getWalkerSamples().map((sample) => getWalkerReadout(new Walker(JSON.stringify(sample.save)))),
+].join("\n\n") + "\n";
 
 export interface ITroDocument {
     slug: string;
@@ -52,6 +61,15 @@ export const TRO_DOCUMENTS: ITroDocument[] = [
         fileName: "micro-mechs-tro.md",
         text: MICRO_MECHS_READOUT,
         pageStart: /^## /,
+    },
+    {
+        slug: "walkers",
+        title: "Walkers",
+        summary: "Clell Flint's four-legged 'Mechs from Future Wars: what they are, our Alpha Strike rules for them and three sample designs of ours.",
+        fileName: "walkers-tro.md",
+        text: WALKERS_READOUT,
+        // Each sample walker's entry is a page of its own, as in a printed TRO.
+        pageStart: /^(## |### .* [A-Z]{2,4}-\d)/,
     },
 ];
 

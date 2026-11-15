@@ -107,7 +107,7 @@ export default class ClassicBattleTechRouter extends React.Component<IClassicBat
                     />
                 }/>
 
-                {["artvee", "ammunition", "micro-mechs"].map((slug) => (
+                {["artvee", "ammunition", "micro-mechs", "walkers"].map((slug) => (
                     <Route key={slug} path={`tro-jbt/${slug}`} element={
                         <TroReader
                             appGlobals={this.props.appGlobals}

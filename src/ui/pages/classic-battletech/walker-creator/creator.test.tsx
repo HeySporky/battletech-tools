@@ -9,6 +9,7 @@ import WalkerCreatorChassis from "./chassis";
 import WalkerCreatorCriticals from "./criticals";
 import WalkerCreatorEquipment from "./equipment";
 import WalkerCreatorHome from "./home";
+import WalkerCreatorPrintAS from "./print-as";
 import WalkerCreatorSummary from "./summary";
 
 afterEach(cleanup);
@@ -178,6 +179,39 @@ describe("Walker Creator, critical slots and summary pages", () => {
         render(<Harness Page={WalkerCreatorSummary} globals={makeGlobals(heavy)} />);
         expect(screen.getByTestId("walker-summary-issues").textContent).toContain("tons");
     });
+
+    it("shows the Alpha Strike figures on the summary, marked not official, with a link to the card", () => {
+        const walker = mule();
+        walker.addEquipment("medium-laser", "ft");
+        walker.addEquipment("small-laser", "ct");
+        render(<Harness Page={WalkerCreatorSummary} globals={makeGlobals(walker)} />);
+        const text = screen.getByTestId("walker-alpha-strike").textContent ?? "";
+        expect(text).toContain("Type: WK");
+        expect(text).toContain('Move: 10"');
+        expect(text).toContain("Damage (S/M/L): 1/1/0");
+        expect(text).toContain("Specials: AIF0*, ENE, WLK");
+        expect(screen.getByTestId("walker-alpha-strike-log").textContent).toContain("Armor: 60 / 30");
+        expect(screen.getByText("View Alpha Strike Card").getAttribute("href")).toContain("/walker-creator/print-as");
+        expect(screen.getByText(/NOT OFFICIAL\./).parentElement?.textContent).toContain("BattleMech lines");
+    });
+
+    it("prints the Alpha Strike card with the WLK rules and the AIF target number of the printing under it", () => {
+        const walker = mule();
+        walker.addEquipment("small-laser", "ct");
+        render(<Harness Page={WalkerCreatorPrintAS} globals={makeGlobals(walker)} />);
+        const rules = screen.getByTestId("walker-as-rules").textContent ?? "";
+        expect(rules).toContain("NOT OFFICIAL.");
+        expect(rules).toContain("Unit type WK is a walker");
+        expect(rules).toContain("WLK (Walker)");
+        expect(rules).toContain("-2 on Control Rolls");
+        expect(screen.getByTestId("walker-as-aif").textContent).toContain("target number is 6");
+        expect(rules).toContain("Walker rules by Clell Flint");
+        cleanup();
+
+        walker.setEdition("future-wars-11");
+        render(<Harness Page={WalkerCreatorPrintAS} globals={makeGlobals(walker)} />);
+        expect(screen.getByTestId("walker-as-aif").textContent).toContain("target number is -2");
+    });
 });
 
 describe("Walker Creator, home page", () => {
@@ -207,5 +241,20 @@ describe("Walker Creator, home page", () => {
         render(<Harness Page={WalkerCreatorHome} globals={globals} />);
         fireEvent.click(screen.getByTitle("Load Mule MUL-4W into the editor"));
         expect((globals.currentWalker as Walker).getName()).toBe("Mule MUL-4W");
+    });
+
+    it("lists the three sample walkers, marked ours, and loads one into the editor", () => {
+        const globals = makeGlobals(new Walker(), 2);
+        render(<Harness Page={WalkerCreatorHome} globals={globals} />);
+        const table = screen.getByTestId("walker-samples");
+        expect(table.textContent).toContain("Harrowhound HRH-1");
+        expect(table.textContent).toContain("Ironback IBK-2T");
+        expect(table.textContent).toContain("Steppe Titan STN-5V");
+        expect(screen.getByText(/NOT OFFICIAL\): Flint printed no walker designs/)).toBeTruthy();
+        fireEvent.click(screen.getByTestId("walker-sample-ironback-ibk-2t"));
+        const loaded = globals.currentWalker as Walker;
+        expect(loaded.getName()).toBe("Ironback IBK-2T");
+        expect(loaded.getTurretWeight()).toBeGreaterThan(0);
+        expect(loaded.getIssues()).toEqual([]);
     });
 });

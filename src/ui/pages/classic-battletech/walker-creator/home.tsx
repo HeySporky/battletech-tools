@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { FaArrowCircleRight, FaFile, FaFolderOpen, FaSave, FaTrash } from "react-icons/fa";
 import Walker, { IWalkerExport } from '../../../../classes/walker';
 import { WALKER_EDITION_RULES, getWalkerCredit } from '../../../../data/walker-construction';
+import { getWalkerSamples } from '../../../../data/walker-samples';
 import { IAppGlobals } from '../../../app-router';
 import { WalkerCreatorSideMenu } from '../../../components/creator-side-menus';
 import TextSection from '../../../components/text-section';
@@ -50,6 +51,12 @@ export default class WalkerCreatorHome extends React.Component<IHomeProps> {
         e.preventDefault();
         const save = (this.props.appGlobals.walkerSaves || [])[saveIndex];
         if (save) this.replaceDesign(() => this.props.appGlobals.saveCurrentWalker(new Walker(JSON.stringify(save))));
+    }
+
+    loadSample = (e: React.FormEvent<HTMLButtonElement>, sampleId: string): void => {
+        e.preventDefault();
+        const sample = getWalkerSamples().find((each) => each.id === sampleId);
+        if (sample) this.replaceDesign(() => this.props.appGlobals.saveCurrentWalker(new Walker(JSON.stringify(sample.save))));
     }
 
     saveOver = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
@@ -165,6 +172,32 @@ export default class WalkerCreatorHome extends React.Component<IHomeProps> {
                                     )) : (
                                         <tr><td colSpan={4}>You have no saved Walkers yet.</td></tr>
                                     )}
+                                </tbody>
+                            </table>
+                        </TextSection>
+
+                        <TextSection label="Sample Walkers">
+                            <p className="smaller-text">
+                                Three designs of ours (Custom Homebrew, NOT OFFICIAL): Flint printed no walker designs, so we built a light
+                                walker, a heavy with a turret and an assault under his variant slots. Loading one replaces the design you
+                                are working on. Their readouts are in <Link to={`${process.env.PUBLIC_URL}/classic-battletech/tro-jbt/walkers`}>TRO - JBT: Walkers</Link>.
+                            </p>
+                            <table className="table" data-testid="walker-samples">
+                                <thead>
+                                    <tr><th>Name</th><th>Size</th><th><span className="visually-hidden">Actions</span></th></tr>
+                                </thead>
+                                <tbody>
+                                    {getWalkerSamples().map((sample) => (
+                                        <tr key={sample.id}>
+                                            <td>{sample.name}</td>
+                                            <td>{sample.save.tons} tons</td>
+                                            <td className="text-right">
+                                                <button className="btn btn-sm btn-primary" type="button" data-testid={"walker-sample-" + sample.id} title={"Load " + sample.name + " into the editor"} onClick={(e) => this.loadSample(e, sample.id)}>
+                                                    <FolderOpen />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </TextSection>

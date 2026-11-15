@@ -3,8 +3,11 @@ import { describe, expect, it } from "vitest";
 import Vehicle from "../../../classes/vehicle";
 import { ammoCustom } from "../../../data/ammo-custom";
 import { ARTVEE_SAMPLES } from "../../../data/artvee-samples";
-import { MICRO_MECH_AS_ABILITY_TEXT } from "../../../data/alpha-strike-special-abilities";
-import { AMMUNITION_READOUT, ARTVEE_READOUT, MICRO_MECHS_READOUT, ReadoutText, TRO_DOCUMENTS, TRO_INTRODUCTION, readoutPageTitle, readoutPages, readoutSectionId } from "./tro-jbt";
+import { CONST_AS_SPECIAL_ABILITIES, MICRO_MECH_AS_ABILITY_TEXT, WALKER_AS_ABILITY_TEXT } from "../../../data/alpha-strike-special-abilities";
+import Walker from "../../../classes/walker";
+import { getWalkerStatBlock } from "../../../classes/walker-readout";
+import { getWalkerSamples } from "../../../data/walker-samples";
+import { AMMUNITION_READOUT, ARTVEE_READOUT, MICRO_MECHS_READOUT, WALKERS_READOUT, ReadoutText, TRO_DOCUMENTS, TRO_INTRODUCTION, readoutPageTitle, readoutPages, readoutSectionId } from "./tro-jbt";
 
 /** The text of one `#### name` section of the readout. */
 function section(name: string): string {
@@ -61,7 +64,7 @@ describe("ArtVee readout", () => {
 describe("TRO - JBT", () => {
     it("opens with the introduction and a card for the ArtVees, then the ammunition", () => {
         expect(TRO_INTRODUCTION).toContain("## Explanation");
-        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "ammunition", "micro-mechs"]);
+        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "ammunition", "micro-mechs", "walkers"]);
     });
 
     it.each(TRO_DOCUMENTS.map((document) => [document.slug, document] as const))("renders every page of %s and loses no text", (_slug, document) => {
@@ -118,5 +121,63 @@ describe("Micro-Mechs readout", () => {
 
     it("explains every code a Micro-Mech card can print", () => {
         for (const code of ["MM", "MCR", "ENE", "CASE", "SEAL", "IF#", "LRM", "HT", "ECM", "PRB", "RCN", "TAG", "C3S", "SNARC", "JMPW#"]) expect(flat, code).toContain(code);
+    });
+});
+
+describe("Walkers readout (Custom Homebrew, #172)", () => {
+    const flat = WALKERS_READOUT.replace(/\*\*/g, "").replace(/\*/g, "").replace(/\s+/g, " ").replace(/’/g, "'");
+    const document = TRO_DOCUMENTS.find((each) => each.slug === "walkers")!;
+    const pages = readoutPages(document.text, document.pageStart);
+
+    it("credits Clell Flint and both printings, and says what is ours and not official", () => {
+        for (const text of ["Clell Flint", "Future Wars #11", "The Best of Future Wars, Volume One (1991", "Inspired by", "not canon", "NOT OFFICIAL", "the fault lies with NGCFells"]) {
+            expect(flat, text).toContain(text);
+        }
+    });
+
+    it("explains each rule of the WLK ability the card popup shows, and the AIF# to-hit of both printings", () => {
+        for (const line of WALKER_AS_ABILITY_TEXT.slice(1)) {
+            const name = line.slice(0, line.indexOf(":") + 1).replace(/’/g, "'");
+            expect(flat, line).toContain(`- ${name}`);
+        }
+        expect(flat).toContain("The target number is 6 under The Best of Future Wars (8 - 2) or -2 under Future Wars #11");
+        for (const code of ["WK, IWK", "WLK", "AIF#", "REAR#/#/#", "TUR(#/#/#)", "OVL", "BFC"]) expect(flat, code).toContain(code);
+    });
+
+    it("cites the page the WLK and AIF# abilities are on", () => {
+        const page = pages.findIndex((each) => readoutPageTitle(each, "") === "Alpha Strike Rules") + 1;
+        for (const tag of ["WLK", "AIF#"]) {
+            const ability = CONST_AS_SPECIAL_ABILITIES.find((each) => each.tag === tag)!;
+            expect(ability.source).toEqual({ book: "TRO - JBT: Walkers (Custom Homebrew, NOT OFFICIAL)", page });
+            expect(pages[page - 1]).toContain(`The ${tag} Special Ability`);
+        }
+    });
+
+    it("prints each sample walker on a page of its own, as a TRO entry: header, history, stat block, then the card", () => {
+        for (const sample of getWalkerSamples()) {
+            const page = pages.find((each) => readoutPageTitle(each, "") === sample.name);
+            expect(page, sample.name).toBeDefined();
+            const order = ["**Mass:**", "#### Overview", "#### Capabilities", "#### Deployment", "Type: " + sample.name, "Internal", "Weapons and Ammo", "#### Alpha Strike (NOT OFFICIAL)", "NOT OFFICIAL. A design of ours"]
+                .map((text) => page!.indexOf(text));
+            expect(order.every((at) => at >= 0), sample.name).toBe(true);
+            expect([...order].sort((a, b) => a - b)).toEqual(order);
+            // All ten locations in the structure / armor table.
+            for (const location of ["Control Section", "Front Torso", "Left Torso", "Center Torso", "Right Torso", "Rear Torso", "Left Front Leg", "Right Front Leg", "Left Rear Leg", "Right Rear Leg"]) {
+                expect(page, location).toContain(location);
+            }
+        }
+    });
+
+    it("draws the stat block from the design, so it matches the creator", () => {
+        const sample = getWalkerSamples().find((each) => each.id === "ironback-ibk-2t")!;
+        const walker = new Walker(JSON.stringify(sample.save));
+        const block = getWalkerStatBlock(walker);
+        expect(block).toContain(`Battle Value: ${walker.getBattleValue().toLocaleString("en-US")} (provisional)`);
+        expect(block).toMatch(/Walking MP: 5 \(4 rated, on two legs\)/);
+        expect(block).toMatch(/PPC\s+CS \(T\)\s+3\s+7/);
+        expect(block).toMatch(/Turret:\s+3/);
+        expect(block).toMatch(/Armor Factor:\s+176\s+11/);
+        const card = walker.getAlphaStrikeStats();
+        expect(WALKERS_READOUT).toContain(`| ${card.type} | ${card.size} | ${card.move} | ${card.tmm} | ${card.armor} / ${card.structure} |`);
     });
 });
