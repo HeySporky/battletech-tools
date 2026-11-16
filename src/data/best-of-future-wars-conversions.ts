@@ -114,6 +114,7 @@ const swingFire = (baseTag: string): IEquipmentItem => {
         conversion: { kind: "swing-fire", baseTag, arcDegrees: 180 },
         notes: `${cite("Karl Sanders", "The Swing Fire Missile System", 27)} A ${rack.name} rebuilt on a swivel: the pilot can turn its line of sight `
             + "180 degrees in combat. Delicate, and the swivel's give costs accuracy; the page prints no number, so the +1 to-hit is ours. "
+            + (/^(lrt|srt)-/.test(baseTag) ? "The page names missile racks only; the torpedo version is ours. It fires only into or through water, as any torpedo rack. " : "")
             + `+3 tons, +2 slots and +75,000 C-bills on the rack. ${UNVALUED} Dates are unverified.`,
     });
 };
@@ -167,7 +168,11 @@ export const futureWarsPomPoms = (): IEquipmentItem[] => [
     pomPom("autocannon-standard-a", 2), pomPom("autocannon-standard-b", 5), pomPom("autocannon-standard-c", 10), pomPom("autocannon-standard-d", 20),
 ];
 
-export const futureWarsSwingFires = (): IEquipmentItem[] => ["lrm-5", "lrm-10", "lrm-15", "lrm-20", "srm-2", "srm-4", "srm-6"].map(swingFire);
+// The torpedo racks are the owner's extension; p.27 names missile racks only.
+export const futureWarsSwingFires = (): IEquipmentItem[] => [
+    "lrm-5", "lrm-10", "lrm-15", "lrm-20", "srm-2", "srm-4", "srm-6",
+    "lrt-5", "lrt-10", "lrt-15", "lrt-20", "srt-2", "srt-4", "srt-6",
+].map(swingFire);
 
 /** The boosted weapons; the Gatling Laser is passed in from the custom energy catalog that defines it. */
 export const futureWarsBoostedWeapons = (gatling: IEquipmentItem): IEquipmentItem[] => [

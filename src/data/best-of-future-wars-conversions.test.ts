@@ -23,6 +23,9 @@ const SWING_FIRES: [string, string][] = [
     ["custom-swing-fire-lrm-5", "lrm-5"], ["custom-swing-fire-lrm-10", "lrm-10"], ["custom-swing-fire-lrm-15", "lrm-15"],
     ["custom-swing-fire-lrm-20", "lrm-20"], ["custom-swing-fire-srm-2", "srm-2"], ["custom-swing-fire-srm-4", "srm-4"],
     ["custom-swing-fire-srm-6", "srm-6"],
+    ["custom-swing-fire-lrt-5", "lrt-5"], ["custom-swing-fire-lrt-10", "lrt-10"], ["custom-swing-fire-lrt-15", "lrt-15"],
+    ["custom-swing-fire-lrt-20", "lrt-20"], ["custom-swing-fire-srt-2", "srt-2"], ["custom-swing-fire-srt-4", "srt-4"],
+    ["custom-swing-fire-srt-6", "srt-6"],
 ];
 // The p.28 chart: weapon, extra heat, extra damage, added range.
 const BOOSTED: [string, string, number, number, number][] = [
@@ -84,6 +87,13 @@ describe("Swing Fire Missile System, p.27", () => {
         expect(getCompatibleAmmo(find("custom-swing-fire-lrm-10"), find("ammo-lrm-standard"))).toBe(true);
         expect(getCompatibleAmmo(find("custom-swing-fire-srm-6"), find("ammo-srm-standard"))).toBe(true);
         expect(getCompatibleAmmo(find("custom-swing-fire-srm-6"), find("ammo-lrm-standard"))).toBe(false);
+    });
+
+    it("torpedo racks feed from torpedo ammunition only", () => {
+        expect(getCompatibleAmmo(find("custom-swing-fire-lrt-10"), find("ammo-lrt-standard"))).toBe(true);
+        expect(getCompatibleAmmo(find("custom-swing-fire-srt-6"), find("ammo-srt-standard"))).toBe(true);
+        expect(getCompatibleAmmo(find("custom-swing-fire-lrt-10"), find("ammo-lrm-standard"))).toBe(false);
+        expect(getCompatibleAmmo(find("custom-swing-fire-srt-6"), find("ammo-srm-standard"))).toBe(false);
     });
 });
 
