@@ -6,7 +6,7 @@ import { AcesGame, IAcesGameExport } from '../../../../classes/aces-game';
 import { IAcesCardLibrary } from '../../../../data/aces-cards';
 import { getAcesDeck } from '../../../../data/aces-rules';
 import { getAcesCardLibrary, getAcesGame } from '../../../../dataSaves';
-import { AcesCardView, AcesCommandCardView, AcesScenarioView, AcesSpecialOrderView } from './_aces-card-view';
+import { AcesCardView, AcesCommandCardView, AcesEdgeCardView, AcesScenarioView, AcesSpecialOrderView } from './_aces-card-view';
 import './aces.scss';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const PrintIcon = FaPrint as any;
@@ -16,12 +16,13 @@ const PrintIcon = FaPrint as any;
  * objectives, automated roster and log.
  */
 
-type TPrintPart = "cards" | "commandCards" | "specialOrders" | "scenarios" | "game";
+type TPrintPart = "cards" | "commandCards" | "specialOrders" | "edgeCards" | "scenarios" | "game";
 
 const partLabels: { [part in TPrintPart]: string } = {
     cards: "Aces cards",
     commandCards: "Command cards",
     specialOrders: "Special Orders",
+    edgeCards: "Edge cards",
     scenarios: "Sorties",
     game: "Game sheet",
 };
@@ -32,7 +33,7 @@ export default class AcesPrintPage extends React.Component<IAcesPrintPageProps, 
         this.state = {
             library: null,
             game: null,
-            parts: { cards: true, commandCards: true, specialOrders: true, scenarios: true, game: false },
+            parts: { cards: true, commandCards: true, specialOrders: true, edgeCards: true, scenarios: true, game: false },
         };
         this.props.appGlobals.makeDocumentTitle("Printing Aces Cards");
     }
@@ -106,6 +107,9 @@ export default class AcesPrintPage extends React.Component<IAcesPrintPageProps, 
                 ) : null}
                 {parts.specialOrders && library.specialOrders.length > 0 ? (
                     <div className="aces-print-section"><h2>Special Orders</h2><div className="aces-print-grid">{library.specialOrders.map( ( order ) => <AcesSpecialOrderView key={order.id} order={order} /> )}</div></div>
+                ) : null}
+                {parts.edgeCards && ( library.edgeCards || [] ).length > 0 ? (
+                    <div className="aces-print-section"><h2>Edge cards</h2><div className="aces-print-grid">{library.edgeCards.map( ( card ) => <AcesEdgeCardView key={card.id} card={card} /> )}</div></div>
                 ) : null}
                 {parts.scenarios && library.scenarios.length > 0 ? (
                     <div className="aces-print-section"><h2>Sorties</h2>{library.scenarios.map( ( scenario ) => <AcesScenarioView key={scenario.id} scenario={scenario} /> )}</div>

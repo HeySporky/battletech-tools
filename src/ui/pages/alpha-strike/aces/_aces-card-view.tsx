@@ -6,6 +6,7 @@ import {
     IAcesBehaviorColumn,
     IAcesCard,
     IAcesCommandCard,
+    IAcesEdgeCard,
     IAcesPriorityRule,
     IAcesScenario,
     IAcesSpecialOrder,
@@ -151,6 +152,28 @@ export const AcesSpecialOrderView = ( props: { order: IAcesSpecialOrder } ): JSX
             ) : null}
             {order.source ? <p className="aces-muted">{order.source.book} p.{order.source.page}</p> : null}
             {order.notes ? <p className="aces-muted">{order.notes}</p> : null}
+        </div>
+    );
+}
+
+const edgePhaseLabels: { [key: string]: string } = { initiative: "Initiative", movement: "Movement", combat: "Combat", end: "End", any: "Any phase" };
+const edgeTriggerLabels: { [key: string]: string } = { moving: "Moving", attacking: "Attacking", attacked: "Being attacked", "critical-hit": "Critical hit", "enemy-rear": "Enemy in the rear", damaged: "Damaged", other: "Other" };
+
+export const AcesEdgeCardView = ( props: { card: IAcesEdgeCard } ): JSX.Element => {
+    const card = props.card;
+    const timing = [ edgePhaseLabels[card.phase] || "", edgeTriggerLabels[card.trigger] || "" ].filter( ( item ) => item ).join( " · " );
+    return (
+        <div className="aces-card-view">
+            <div className="aces-card-head">
+                <strong>{card.name || "Edge card?"}</strong> {card.cardNumber}
+                {card.cost !== null ? <span className="aces-priority">{card.cost} Edge</span> : null}
+                {card.sample ? <span className="aces-muted"> sample</span> : null}
+            </div>
+            {card.category || timing ? <p className="aces-muted">{[ card.category, timing ].filter( ( item ) => item ).join( " · " )}</p> : null}
+            {card.condition ? <p><em><AcesText text={card.condition} /></em></p> : null}
+            {card.text ? <p><AcesText text={card.text} /></p> : null}
+            {card.source ? <p className="aces-muted">{card.source.book} p.{card.source.page}</p> : null}
+            {card.notes ? <p className="aces-muted">{card.notes}</p> : null}
         </div>
     );
 }
