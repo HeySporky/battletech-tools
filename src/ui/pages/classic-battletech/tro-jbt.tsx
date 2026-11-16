@@ -6,6 +6,7 @@ import artveeText from '../../../../docs/lore/artvee-tro.md?raw';
 import introductionText from '../../../../docs/lore/tro-jbt.md?raw';
 import microMechsText from '../../../../docs/lore/micro-mechs-tro.md?raw';
 import walkersText from '../../../../docs/lore/walkers-tro.md?raw';
+import bestOfFutureWarsText from '../../../../docs/lore/best-of-future-wars-tro.md?raw';
 import Walker from '../../../classes/walker';
 import { getWalkerReadout } from '../../../classes/walker-readout';
 import { getWalkerSamples } from '../../../data/walker-samples';
@@ -20,6 +21,7 @@ export const TRO_INTRODUCTION = unixLines(introductionText);
 export const ARTVEE_READOUT = unixLines(artveeText);
 export const AMMUNITION_READOUT = unixLines(ammunitionText);
 export const MICRO_MECHS_READOUT = unixLines(microMechsText);
+export const BEST_OF_FUTURE_WARS_READOUT = unixLines(bestOfFutureWarsText);
 // The walker text, then an entry for each sample walker made from the design itself, so the figures match the creator.
 export const WALKERS_READOUT = [
     unixLines(walkersText).trim(),
@@ -70,6 +72,14 @@ export const TRO_DOCUMENTS: ITroDocument[] = [
         text: WALKERS_READOUT,
         // Each sample walker's entry is a page of its own, as in a printed TRO.
         pageStart: /^(## |### .* [A-Z]{2,4}-\d)/,
+    },
+    {
+        slug: "best-of-future-wars",
+        title: "The Best of Future Wars Equipment",
+        summary: "Fan-made weapons and shells from The Best of Future Wars, Volume One: the EII Point Defense System, Gatling Laser, Long Range Flamer, Penitrator, Gauss shells and SABOT rounds.",
+        fileName: "best-of-future-wars-tro.md",
+        text: BEST_OF_FUTURE_WARS_READOUT,
+        pageStart: /^## /,
     },
 ];
 
