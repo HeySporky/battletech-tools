@@ -1,19 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
-import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../data/rules-level-options";
+import { buildMech } from "../test-support/builders";
 
 /** Compact 'Mechs plan, Chunk D (#172): critical hits in Flint's longer locations, rolled in tables of six. */
 const BEST_OF = "best-of-future-wars-construction";
 
-const build = (tonnage: number): BattleMech => {
-    const mech = new BattleMech();
-    mech.setTech("is");
-    mech.setEra("dark-ages");
-    mech.setTonnage(tonnage);
-    mech.setWalkSpeed(4);
-    mech.applyGameSettings({ ...mech.getGameSettings(CUSTOM_HOMEBREW_RULES_LEVEL), rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, rulesets: [BEST_OF] });
-    return mech;
-};
+const build = (tonnage: number): BattleMech => buildMech({ tonnage, homebrew: [BEST_OF] });
 
 describe("critical hits under Future Wars construction (#172)", () => {
     it("rolls the table, then the line, in a 20-slot center torso; an empty line and a number with no table are rolled again", () => {

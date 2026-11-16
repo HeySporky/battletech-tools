@@ -5,13 +5,10 @@ import { DEFAULT_RULES_EDITION, editionHasPrices, getRulesEdition, getSelectable
 import { editionHasBattleValue } from "../data/battle-value";
 import { getTargetToHitFromWeapon } from "../utils";
 import { BattleMech } from "./battlemech";
+import { buildMech } from "../test-support/builders";
 
 const build = (edition?: string, tonnage: number = 50, walk: number = 4): BattleMech => {
-    const mech = new BattleMech();
-    mech.setTech("is");
-    mech.setEra("dark-ages");
-    mech.setTonnage(tonnage);
-    mech.setWalkSpeed(walk);
+    const mech = buildMech({ tonnage, walk });
     if (edition) mech.setRulesEdition(edition);
     return mech;
 };

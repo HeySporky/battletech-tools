@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import { BattleMech } from "../../../classes/battlemech";
-import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../../../data/rules-level-options";
 import BattleMechSVG from "./battlemech-svg";
+import { buildMech } from "../../../test-support/builders";
 
 /**
  * Compact 'Mechs plan, Chunk D (#172): Clell Flint's slot counts on the record sheet. Our rule (no text for bipeds):
@@ -11,15 +11,7 @@ import BattleMechSVG from "./battlemech-svg";
  */
 const BEST_OF = "best-of-future-wars-construction";
 
-const build = (tonnage: number, rulesets: string[] = [BEST_OF]): BattleMech => {
-    const mech = new BattleMech();
-    mech.setTech("is");
-    mech.setEra("dark-ages");
-    mech.setTonnage(tonnage);
-    mech.setWalkSpeed(4);
-    mech.applyGameSettings({ ...mech.getGameSettings(CUSTOM_HOMEBREW_RULES_LEVEL), rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, rulesets });
-    return mech;
-};
+const build = (tonnage: number, rulesets: string[] = [BEST_OF]): BattleMech => buildMech({ tonnage, homebrew: rulesets });
 
 const sheet = (mech: BattleMech, inPlay = false) => renderToStaticMarkup(<BattleMechSVG mechData={mech} inPlay={inPlay} />);
 

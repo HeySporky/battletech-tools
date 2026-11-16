@@ -11,17 +11,10 @@ import {
 } from "../data/walker-construction";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../data/rules-level-options";
 import { mechEngineOptions } from "../data/mech-engine-options";
+import { buildWalker as build } from "../test-support/builders";
 
 // Clell Flint's walkers (#172), Chunk A of docs/superpowers/plans/2026-11-13-future-wars-walkers.md. Every table value
 // below was read on the page images: Best-of pp.36-38 (PDF 45-47) and Future Wars #11 pp.25-27.
-
-const build = (tons: number, walk: number, variant = false): Walker => {
-    const walker = new Walker();
-    expect(walker.setTons(tons)).toBe(true);
-    expect(walker.setWalkMP(walk)).toBe(true);
-    if (variant) walker.gameSettings.set(CUSTOM_HOMEBREW_RULES_LEVEL, ["best-of-future-wars-construction"]);
-    return walker;
-};
 
 describe("Walker structure table (Best-of p.37, #11 p.26)", () => {
     // [tons, center torso, other torsos, legs, control section]

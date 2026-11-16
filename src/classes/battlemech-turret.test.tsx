@@ -3,16 +3,10 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import { BattleMech } from "./battlemech";
 import BattleMechSVG from "../ui/components/svg/battlemech-svg";
+import { buildMech } from "../test-support/builders";
 
 // BattleMech Turrets (TO:AUE pp.158-159, BV p.194; #88).
-const build = () => {
-    const mech = new BattleMech();
-    mech.setTech("is");
-    mech.setEra("dark-ages");
-    mech.setTonnage(50);
-    mech.setWalkSpeed(4);
-    return mech;
-};
+const build = () => buildMech();
 const placeIn = (mech: BattleMech, tag: string, location: string, key: string) => {
     const item = mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
     const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);

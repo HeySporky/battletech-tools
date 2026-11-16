@@ -6,6 +6,7 @@ import {
     FUTURE_WARS_CONSTRUCTION_RULESETS, FUTURE_WARS_WEIGHT_CLASSES, getFutureWarsCockpit, getFutureWarsEngineSlots,
     getFutureWarsGyroSlots, getFutureWarsSlots,
 } from "../data/future-wars-construction";
+import { buildMech } from "../test-support/builders";
 
 /**
  * Compact 'Mechs plan, Chunk B (#172): Clell Flint's "Alternate Rules for Building Mechs in BattleTech" (The Best of
@@ -14,16 +15,8 @@ import {
 const BEST_OF = "best-of-future-wars-construction";
 const ISSUE_11 = "future-wars-11-construction";
 
-const build = (tonnage: number, walk: number = 4, rulesets: string[] = [BEST_OF], type: string = "biped"): BattleMech => {
-    const mech = new BattleMech();
-    mech.setTech("is");
-    mech.setEra("dark-ages");
-    mech.setMechType(type);
-    mech.setTonnage(tonnage);
-    mech.setWalkSpeed(walk);
-    mech.applyGameSettings({ ...mech.getGameSettings(CUSTOM_HOMEBREW_RULES_LEVEL), rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, rulesets });
-    return mech;
-};
+const build = (tonnage: number, walk: number = 4, rulesets: string[] = [BEST_OF], type: string = "biped"): BattleMech =>
+    buildMech({ type, tonnage, walk, homebrew: rulesets });
 
 type Slots = Record<string, ({ tag: string; name: string; placeholder?: boolean; uuid: string } | null)[]>;
 const criticals = (mech: BattleMech) => mech.getCriticals() as unknown as Slots;

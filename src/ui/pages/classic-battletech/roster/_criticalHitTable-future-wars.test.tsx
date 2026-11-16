@@ -2,22 +2,14 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { BattleMech } from "../../../../classes/battlemech";
-import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../../../../data/rules-level-options";
 import type { IAppGlobals } from "../../../app-router";
 import InPlayCriticalHitTable, { getPlayCritSlotCount } from "./_criticalHitTable";
+import { buildMech } from "../../../../test-support/builders";
 
 /** Compact 'Mechs plan, Chunk D (#172): the play-mode critical hit table in tables of six. */
 afterEach(cleanup);
 
-const build = (tonnage: number): BattleMech => {
-    const mech = new BattleMech();
-    mech.setTech("is");
-    mech.setEra("dark-ages");
-    mech.setTonnage(tonnage);
-    mech.setWalkSpeed(4);
-    mech.applyGameSettings({ ...mech.getGameSettings(CUSTOM_HOMEBREW_RULES_LEVEL), rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, rulesets: ["best-of-future-wars-construction"] });
-    return mech;
-};
+const build = (tonnage: number): BattleMech => buildMech({ tonnage, homebrew: ["best-of-future-wars-construction"] });
 
 const table = (mech: BattleMech, location: string, critData: any[], numberCritSlots: number) => render(
     <InPlayCriticalHitTable appGlobals={{} as IAppGlobals} mechData={mech} location={location} critData={critData} numberCritSlots={numberCritSlots} onChange={vi.fn()} />

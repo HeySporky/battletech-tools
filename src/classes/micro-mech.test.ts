@@ -4,17 +4,9 @@ import { MICRO_MECH_SLOTS, MICRO_MECH_VERSION_RULES, MicroMechLayout, getMicroMe
 import MicroMech, { normalizeMicroMechExport } from "./micro-mech";
 import { CalcStepDefs, ICalcBreakdown, findCalcDefProblems } from "../data/calc-steps";
 import { MICRO_MECH_BV1_STEPS, MICRO_MECH_BV2_STEPS, MICRO_MECH_COST_STEPS } from "../data/calc-steps-micro-mech";
+import { buildMicroMech as build } from "../test-support/builders";
 
 // Fixtures: the four sample designs of "Micro-Mechs" 6.1.0.2 (their weight tables), chassis only: equipment is Chunk B.
-const build = (tons: number, layout: MicroMechLayout, walk: number, jets: number): MicroMech => {
-    const micro = new MicroMech();
-    micro.setLayout(layout);
-    micro.setTons(tons);
-    micro.setWalkMP(walk);
-    micro.setJumpJets(jets);
-    return micro;
-};
-
 /** The Storm STM-3X: 11 tons, biped, Walk 6, 6 jets, 46 points of armor. */
 const storm = (): MicroMech => {
     const micro = build(11, "biped", 6, 6);

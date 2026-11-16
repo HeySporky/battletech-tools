@@ -1,27 +1,10 @@
 import { describe, expect, it } from "vitest";
 import Vehicle from "./vehicle";
-import Pilot from "./pilot";
 import { getDualTurretHit, getFacingAfterFallDirection, getSuperheavyVehicleHitLocation } from "../data/vehicle-hit-tables";
+import { buildVehicle as build } from "../test-support/builders";
 
 // Combat Vehicle rules from Total Warfare (corrected 2010 PDF): Combat Vehicles pp. 192-199, Firing
 // Arcs p. 104, turret rotation p. 99, Facing After a Fall p. 68 and underwater hull breaches p. 121.
-const build = (motive: string, tonnage: number = 50): Vehicle => {
-    const vehicle = new Vehicle();
-    vehicle.setMotiveType(motive);
-    vehicle.setTonnage(tonnage);
-    vehicle.setEngineType("ice");
-    vehicle.setCruiseMP(motive === "vtol" ? 8 : 5);
-    if (motive !== "vtol") vehicle.setHasTurret(true);
-    for (const loc of vehicle.getLocations()) {
-        vehicle.setArmorAllocation(loc.tag, loc.tag === "rotor" ? 2 : 10);
-    }
-    const pilot = new Pilot();
-    pilot.gunnery = 4;
-    pilot.piloting = 5;
-    vehicle.setPilot(pilot);
-    return vehicle;
-};
-
 const mount = (vehicle: Vehicle, tag: string, location: string) => {
     vehicle.addEquipmentFromTag(tag);
     const item = vehicle.getEquipmentList()[vehicle.getEquipmentList().length - 1];

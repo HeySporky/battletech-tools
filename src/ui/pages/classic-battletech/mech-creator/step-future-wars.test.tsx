@@ -9,21 +9,14 @@ import type { IAppGlobals } from "../../../app-router";
 import MechCreatorStep2 from "./step2";
 import MechCreatorStep4 from "./step4";
 import MechCreatorStep6 from "./step6";
+import { buildMech } from "../../../../test-support/builders";
 
 /** Compact 'Mechs plan, Chunk C (#172): Clell Flint's construction rules in the 'Mech creator. */
 afterEach(cleanup);
 
 const BEST_OF = "best-of-future-wars-construction";
 
-const build = (tonnage: number, rulesets: string[] = [BEST_OF]): BattleMech => {
-    const mech = new BattleMech();
-    mech.setTech("is");
-    mech.setEra("dark-ages");
-    mech.setTonnage(tonnage);
-    mech.setWalkSpeed(4);
-    mech.applyGameSettings({ ...mech.getGameSettings(CUSTOM_HOMEBREW_RULES_LEVEL), rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, rulesets });
-    return mech;
-};
+const build = (tonnage: number, rulesets: string[] = [BEST_OF]): BattleMech => buildMech({ tonnage, homebrew: rulesets });
 
 const globals = (mech: BattleMech, mechRulesFilter: number = CUSTOM_HOMEBREW_RULES_LEVEL): IAppGlobals => ({
     appSettings: { developerMenu: false, uiTheme: "", equipmentFilter: "", installEquipCategory: "", mechRulesFilter },

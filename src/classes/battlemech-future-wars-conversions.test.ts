@@ -1,21 +1,12 @@
 import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
-import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../data/rules-level-options";
+import { buildMech } from "../test-support/builders";
 
 /**
  * Best of Future Wars plan, Chunk B (#172): the Pom-Pom, Swing Fire and Power Booster on a 'Mech. A converted weapon is
  * one record, so it cannot be left behind by its weapon; the leg and jump-jet boosters are items of their own.
  */
-const build = (jump: number = 0): BattleMech => {
-    const mech = new BattleMech();
-    mech.setTech("is");
-    mech.setEra("dark-ages");
-    mech.setTonnage(65);
-    mech.setWalkSpeed(4);
-    mech.setJumpSpeed(jump);
-    mech.applyGameSettings({ ...mech.getGameSettings(CUSTOM_HOMEBREW_RULES_LEVEL), rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL });
-    return mech;
-};
+const build = (jump: number = 0): BattleMech => buildMech({ tonnage: 65, jump, homebrew: true });
 const mount = (mech: BattleMech, tag: string) => mech.addEquipmentFromTag(tag, "is", "un", false, null, "", false, [], undefined, undefined, -1, "", true);
 
 describe("Best of Future Wars conversions on a 'Mech", () => {

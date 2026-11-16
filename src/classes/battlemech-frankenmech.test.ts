@@ -1,17 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
+import { buildMech } from "../test-support/builders";
 
 // FrankenMechs (CO pp.213-214): a 'Mech assembled from the body locations of others. The worked example is
 // "Shorty" Sneede's 60-ton FrankenMech (CO pp.213-214); the Schwerer Gustav (XTRO:Mercenaries p.7) checks a
 // hybrid of standard and endo steel structure.
 
 const build = (options: { tech?: string, type?: string, tonnage?: number, walk?: number } = {}) => {
-    const mech = new BattleMech();
-    mech.setTech(options.tech ?? "is");
-    mech.setEra("dark-ages");
-    if (options.type) mech.setMechType(options.type);
-    mech.setTonnage(options.tonnage ?? 60);
-    mech.setWalkSpeed(options.walk ?? 4);
+    const mech = buildMech({ ...options, tonnage: options.tonnage ?? 60 });
     if (mech.mirrorArmorAllocations) mech.toggleMirrorArmorAllocations();
     return mech;
 };

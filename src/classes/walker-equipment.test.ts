@@ -2,18 +2,12 @@ import { describe, expect, it } from "vitest";
 import Walker from "./walker";
 import { WALKER_LOCATIONS, WalkerLocation } from "../data/walker-construction";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../data/rules-level-options";
+import { buildWalker as build } from "../test-support/builders";
 
 // Clell Flint's walkers (#172), Chunk B of docs/superpowers/plans/2026-11-13-future-wars-walkers.md: equipment, the
 // center-torso rule (Best-of p.36; Future Wars #11 p.26, read on the page images), the turret, heat sinks, jump jets
 // and ammunition. What the text is silent on is ours, as the ledger lists.
 
-const build = (tons: number, walk: number, variant = false): Walker => {
-    const walker = new Walker();
-    expect(walker.setTons(tons)).toBe(true);
-    expect(walker.setWalkMP(walk)).toBe(true);
-    if (variant) walker.gameSettings.set(CUSTOM_HOMEBREW_RULES_LEVEL, ["best-of-future-wars-construction"]);
-    return walker;
-};
 const latestEra = (walker: Walker): void => {
     const eras = walker.getAvailableEras();
     expect(walker.setEra(eras[eras.length - 1].tag)).toBe(true);

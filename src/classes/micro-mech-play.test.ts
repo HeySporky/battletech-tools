@@ -1,19 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { MicroMechLayout, MicroMechVersion } from "../data/micro-mech-construction";
+import { MicroMechVersion } from "../data/micro-mech-construction";
 import { getBattleValueSkillEdition, getSkillMultiplier } from "../data/battle-value";
 import MicroMech from "./micro-mech";
+import { buildMicroMech as build } from "../test-support/builders";
 
 // Chunk F (#173): play mode. Rules from the "Micro-Mech Rules" section of "Micro-Mechs" 6.1.0.2 (raw text lines
 // 37-182) and of Solarmech's 2019 post; where they say "as for Battlemechs", Total Warfare (2022 printing).
-
-const build = (tons: number, layout: MicroMechLayout, walk: number, jets: number): MicroMech => {
-    const micro = new MicroMech();
-    micro.setLayout(layout);
-    micro.setTons(tons);
-    micro.setWalkMP(walk);
-    micro.setJumpJets(jets);
-    return micro;
-};
 
 /** The Storm STM-3X as the document prints it: ER Small Laser (RA), Machine Gun (LA), 500 kg of its ammunition in the torso. */
 const storm = (version: MicroMechVersion = "6.1.0.2"): MicroMech => {

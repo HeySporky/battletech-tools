@@ -1,29 +1,14 @@
 import { describe, expect, it } from "vitest";
 import Vehicle from "./vehicle";
-import Pilot from "./pilot";
 import { getWeaponExplosionDamage } from "../data/weapon-explosions";
 import { equipmentBallistic } from "../data/equipment-ballistic";
+import { buildVehicle as build } from "../test-support/builders";
 
 const isBallisticList = equipmentBallistic.filter((item) => item.techBase === "is");
 const clanBallisticList = equipmentBallistic.filter((item) => item.techBase === "clan");
 
 // Combat Vehicle rules automated in play mode and construction: Total Warfare (corrected 2010 PDF) and
 // Tactical Operations (2008).
-const build = (motive: string, tonnage: number = 50): Vehicle => {
-    const vehicle = new Vehicle();
-    vehicle.setMotiveType(motive);
-    vehicle.setTonnage(tonnage);
-    vehicle.setEngineType("ice");
-    vehicle.setCruiseMP(motive === "vtol" ? 8 : 5);
-    if (motive !== "vtol") vehicle.setHasTurret(true);
-    for (const loc of vehicle.getLocations()) vehicle.setArmorAllocation(loc.tag, loc.tag === "rotor" ? 2 : 10);
-    const pilot = new Pilot();
-    pilot.gunnery = 4;
-    pilot.piloting = 5;
-    vehicle.setPilot(pilot);
-    return vehicle;
-};
-
 const mount = (vehicle: Vehicle, tag: string, location: string) => {
     vehicle.addEquipmentFromTag(tag);
     const item = vehicle.getEquipmentList()[vehicle.getEquipmentList().length - 1];
