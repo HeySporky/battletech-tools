@@ -60,6 +60,7 @@ import SpaceTrackerBar from './_spaceTrackerBar';
 import { AntiOrbitalGunControls, SpaceResolutionDialog } from './_antiOrbitalControls';
 import QuirksInPlay from '../../../components/quirks-in-play';
 import FutureWarsPlayPanel, { getBoostedMoveNote, showFutureWarsPlay } from './_futureWarsPlay';
+import FutureWarsRulesetTools, { showFutureWarsRulesetTools } from './_futureWarsRulesetTools';
 import { getCarrierQuirkEffects, IQuirkCarrier } from '../../../../utils/quirk-effects';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
@@ -3245,6 +3246,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
               {showFutureWarsPlay(selectedMech) ? (
                 <FutureWarsPlayPanel
                   key={"fw" + selectedMech.uuid}
+                  mech={selectedMech}
+                  onChange={() => this.onFutureWarsChange()}
+                />
+              ) : null}
+              {showFutureWarsRulesetTools(selectedMech) ? (
+                <FutureWarsRulesetTools
+                  key={"fwr" + selectedMech.uuid}
                   mech={selectedMech}
                   onChange={() => this.onFutureWarsChange()}
                 />

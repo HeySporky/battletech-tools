@@ -1,0 +1,201 @@
+import { getFutureWarsPlayRules } from "../data/future-wars-play-rules";
+
+/**
+ * Best of Future Wars (#172), Chunk E: the numbers behind the five play-rule rulesets' tools in roster play, as plain
+ * functions `BattleMech`, the to-hit and the play panel read. Pages are the printed pages of *The Best of Future Wars,
+ * Volume One* (1991); the rules summaries and full tables are in `src/data/future-wars-play-rules.ts`.
+ */
+
+export const FW_OPPORTUNITY_FIRE = "fw-opportunity-fire";
+export const FW_STRATEGIC_MOVEMENT = "fw-strategic-movement";
+export const FW_MORALE = "fw-morale";
+export const FW_WEAPON_MALFUNCTIONS = "fw-weapon-malfunctions";
+export const FW_LONG_RANGE_WARS = "fw-long-range-wars";
+
+/** A table row's text, read from the rules summary so the two never drift apart. */
+const rowText = (rulesetId: string, titleStart: string, label: string): string => {
+    const table = getFutureWarsPlayRules(rulesetId)?.tables.find((entry) => entry.title.startsWith(titleStart));
+    return table?.rows.find(([key]) => key === label)?.[1] ?? "";
+};
+
+// --- Strategic Movement, pp.18-19.
+
+/** Walking and running MP doubled. */
+export function getStrategicMovementMP(walk: number, run: number): { walk: number; run: number } {
+    return { walk: walk * 2, run: run * 2 };
+}
+
+/**
+ * Heat for a Strategic Movement move: 2, plus 1 a walking MP or 2 a running MP beyond the unit's normal MP (the
+ * article's Atlas, 3 / 5, runs 10 for 12 heat; Chunk D's ruling on "every MP used").
+ */
+export function getStrategicMovementHeat(mode: "w" | "r", mp: number, walk: number, run: number): number {
+    return mode === "w" ? 2 + Math.max(0, mp - walk) : 2 + 2 * Math.max(0, mp - run);
+}
+
+// --- Opportunity Fire, p.17.
+
+export type OpportunityFireBand = "short" | "medium" | "long";
+export type OpportunityFireTargetMove = "walked" | "ran" | "jumped";
+
+const OPPORTUNITY_FIRE_BASE: Record<OpportunityFireBand, number> = { short: 6, medium: 8, long: 10 };
+const OPPORTUNITY_FIRE_TARGET: Record<OpportunityFireTargetMove, number> = { walked: 0, ran: 1, jumped: 2 };
+/** The firer moved this turn. */
+export const OPPORTUNITY_FIRE_FIRER_MOVED = 2;
+/** The firer's other weapons in the Weapon Attack Phase. */
+export const OPPORTUNITY_FIRE_OTHER_WEAPONS = 1;
+
+/** An opportunity shot's to-hit: 6 / 8 / 10 at Gunnery 4 (ours: another skill moves it by the difference). */
+export function getOpportunityFireToHit(shot: { gunnery: number; band: OpportunityFireBand; targetMove: OpportunityFireTargetMove; firerMoved: boolean; other: number }): number {
+    return OPPORTUNITY_FIRE_BASE[shot.band] + (shot.gunnery - 4) + OPPORTUNITY_FIRE_TARGET[shot.targetMove]
+        + (shot.firerMoved ? OPPORTUNITY_FIRE_FIRER_MOVED : 0) + shot.other;
+}
+
+// --- Morale, pp.22-26 ('Mechs; vehicles and infantry are not on the 'Mech play page).
+
+export const MORALE_CLASSES = ["Militia", "Green", "Regular", "Veteran", "Elite", "Crack"] as const;
+const MORALE_BASE = [7, 7, 6, 6, 5, 5];
+const MECH_MORALE_CLASS_MODIFIER = [-2, -1, 0, 1, 2, 3];
+
+export type MoraleStatus = "disorganized" | "broken" | "routed";
+const MECH_MORALE_STATUS_MODIFIER: Record<MoraleStatus, number> = { disorganized: -1, broken: -2, routed: -3 };
+
+/** The class's number to pass a check (p.24). */
+export function getMoraleBase(classIndex: number): number {
+    return MORALE_BASE[Math.max(0, Math.min(MORALE_BASE.length - 1, classIndex))];
+}
+
+/** 2D6 equal to the class's number or more passes (Chunk D ruling). */
+export function isMoralePass(classIndex: number, roll: number): boolean {
+    return roll >= getMoraleBase(classIndex);
+}
+
+/** The modifiers the 'Mech carries into the results roll: its class, its status, earlier Carry On results, and the rest. */
+export function getMechMoraleModifier(classIndex: number, status: MoraleStatus | undefined, laterRollModifier: number, other: number): number {
+    return MECH_MORALE_CLASS_MODIFIER[Math.max(0, Math.min(MECH_MORALE_CLASS_MODIFIER.length - 1, classIndex))]
+        + (status ? MECH_MORALE_STATUS_MODIFIER[status] : 0) + laterRollModifier + other;
+}
+
+export interface IMoraleResult {
+    /** The row on the results table. */
+    label: string;
+    text: string;
+    status?: MoraleStatus;
+    turns?: number;
+    /** Firing: a to-hit modifier, or "none" when the unit may not fire. */
+    fire?: number | "none";
+    /** Steps down the morale scale, for the rest of the game. */
+    scaleDrop?: number;
+    /** Added to later rolls on this table. */
+    laterRollModifier?: number;
+    /** Every friendly unit within 10 hexes and in LOS checks morale. */
+    friendsCheck?: boolean;
+}
+
+const MECH_MORALE_RESULTS: Record<string, Omit<IMoraleResult, "label" | "text">> = {
+    "-5": { status: "routed", turns: 3, fire: "none", friendsCheck: true },
+    "-4": { status: "routed", turns: 2, fire: "none" },
+    "-3": { status: "routed", turns: 1, fire: "none" },
+    "-2": { status: "broken", turns: 4, fire: "none" },
+    "-1": { status: "broken", turns: 3, fire: "none" },
+    "0": { status: "broken", turns: 2, fire: "none" },
+    "1": { status: "broken", turns: 3, fire: "none" },
+    "2": { status: "broken", turns: 2, fire: "none" },
+    "3": { status: "broken", turns: 1, fire: "none" },
+    "4": { status: "disorganized", turns: 2, fire: 5 },
+    "5": { status: "disorganized", turns: 1, fire: 3 },
+    "6": { status: "disorganized", turns: 1, fire: 2 },
+    "7": { status: "disorganized", turns: 1, fire: 1 },
+    "8": { scaleDrop: 2 },
+    "9": { scaleDrop: 1 },
+    "10": { laterRollModifier: -2 },
+    "11": { laterRollModifier: -1 },
+    "12": { laterRollModifier: 1 },
+    "13": { laterRollModifier: 2 },
+    "14+": {},
+};
+
+/** The 'Mech results row for a total (2D6 + modifiers); -5 or less is the "-5" row, 14 or more "14+". */
+export function getMechMoraleResult(total: number): IMoraleResult {
+    const label = total <= -5 ? "-5" : total >= 14 ? "14+" : String(total);
+    return { label, text: rowText(FW_MORALE, "'Mech results", label), ...MECH_MORALE_RESULTS[label] };
+}
+
+// --- Weapon Malfunctions, p.29.
+
+export type MalfunctionTable = "flamer" | "missile" | "ac" | "laser";
+
+export const MALFUNCTION_DICE: Record<MalfunctionTable, { label: string; min: number; max: number }> = {
+    flamer: { label: "1D6", min: 1, max: 6 },
+    missile: { label: "2D6", min: 2, max: 12 },
+    ac: { label: "2D6", min: 2, max: 12 },
+    laser: { label: "3D6", min: 3, max: 18 },
+};
+
+const MALFUNCTION_TABLE_TITLES: Record<MalfunctionTable, string> = { flamer: "Flamers", missile: "Missiles", ac: "Autocannons", laser: "Lasers" };
+
+/**
+ * Which malfunction table a weapon rolls on (Chunk D ruling): flamers, lasers (pulse lasers too), missile launchers
+ * (Streak and the rest; not anti-missile systems), autocannons and machine guns. Any other weapon has none.
+ */
+export function getMalfunctionTable(weapon: { name: string; category: string; tag: string }): MalfunctionTable | undefined {
+    const name = weapon.name;
+    if (/flamer/i.test(name)) return "flamer";
+    if (/laser/i.test(name)) return "laser";
+    if (/anti-missile|(^|-)ams(-|$)/i.test(name) || /(^|-)ams(-|$)/.test(weapon.tag)) return undefined;
+    if (weapon.category === "Missile Weapons") return "missile";
+    if (/autocannon|(^|[^a-z])ac([^a-z]|$)|machine gun/i.test(name)) return "ac";
+    return undefined;
+}
+
+export interface IMalfunctionEffect {
+    text: string;
+    toHit: number;
+    heat: number;
+    /** The weapon may not fire. */
+    out: boolean;
+    /** A jam a roll can clear (the text says how); otherwise out of action until repaired. */
+    clearable?: boolean;
+    noEffect?: boolean;
+}
+
+type EffectNumbers = Partial<Omit<IMalfunctionEffect, "text">>;
+const MALFUNCTION_EFFECTS: Record<MalfunctionTable, Record<number, EffectNumbers>> = {
+    flamer: { 3: { heat: 2 }, 5: { toHit: 2, heat: 2 } },
+    missile: { 4: { out: true, clearable: true }, 6: { out: true, clearable: true }, 8: { out: true, clearable: true }, 9: { toHit: 2 }, 10: { toHit: 1 }, 11: { heat: 2 } },
+    // 4, casing fails to clear: fires at +1 and +1 heat a turn fired, growing; the first turn's numbers are applied (ours).
+    ac: { 3: { out: true, clearable: true }, 4: { toHit: 1, heat: 1 }, 5: { heat: 1 }, 6: { out: true, clearable: true }, 9: { toHit: 2 }, 10: { toHit: 1 }, 11: { out: true, clearable: false }, 12: { out: true, clearable: false } },
+    // 18, total burn-through: out of action as a burned-out laser is (ours).
+    laser: { 6: { heat: 1 }, 7: { heat: 2 }, 9: { toHit: 1, heat: 2 }, 10: { toHit: 1, heat: 3 }, 11: { toHit: 2, heat: 2 }, 13: { heat: 4 }, 14: { toHit: 2, heat: 3 }, 15: { toHit: 3, heat: 5 }, 16: { toHit: 5, heat: 5 }, 17: { out: true, clearable: false }, 18: { out: true, clearable: false } },
+};
+
+/** What a malfunction roll does to the weapon, with the table's text. */
+export function getMalfunctionEffect(table: MalfunctionTable, roll: number): IMalfunctionEffect {
+    const text = rowText(FW_WEAPON_MALFUNCTIONS, MALFUNCTION_TABLE_TITLES[table], String(roll));
+    const numbers = MALFUNCTION_EFFECTS[table][roll] ?? {};
+    return { text, toHit: 0, heat: 0, out: false, ...numbers, noEffect: text === "No effect" };
+}
+
+// --- The Long Range Wars, pp.55-56.
+
+/** Extended range 2 x long (base 10), extreme 2 x extended (base 13): +6 and +9 over Gunnery, as 10 and 13 at Gunnery 4 (ours). */
+export function getLongRangeWarsBand(range: number, long: number): { band: "extended" | "extreme"; modifier: number } | undefined {
+    if (long <= 0 || range <= long) return undefined;
+    if (range <= long * 2) return { band: "extended", modifier: 6 };
+    if (range <= long * 4) return { band: "extreme", modifier: 9 };
+    return undefined;
+}
+
+/** The firer's own movement at extended and extreme range: walked +2, ran +3, jumped +5. */
+export function getLongRangeWarsFirerModifier(movementMode: string): number {
+    return movementMode === "w" ? 2 : movementMode === "r" ? 3 : movementMode === "j" ? 5 : 0;
+}
+
+/**
+ * The target movement modifier at extended and extreme range, from the standard one the target dialog holds: 7-9
+ * hexes (standard +3) is +4, 10 or more (+4 and up) is +5; 6 hexes or less keeps the standard modifier (ours: the
+ * article prints nothing for it).
+ */
+export function getLongRangeWarsTargetModifier(standard: number): number {
+    return standard <= 2 ? standard : standard === 3 ? 4 : 5;
+}

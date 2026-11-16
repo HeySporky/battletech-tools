@@ -53,6 +53,11 @@ import {
     getBoostedJumpHeat, getBoostedJumpMP, getBoostedRunHeat, getFutureWarsPlayKind, getInfernoGaussAmmoCritHeat, getLRFlamerBurn,
     getPowerBoosterRoll, INFERNO_GAUSS_HEAT_PER_TURN, INFERNO_GAUSS_TURNS_PER_HIT, LR_FLAMER_BURN_TURNS, MAX_EXTERNAL_HEAT_PER_TURN, PDS_INTEGRAL_BURSTS, PowerBoosterResult,
 } from "../utils/future-wars-play";
+import {
+    FW_LONG_RANGE_WARS, FW_MORALE, FW_OPPORTUNITY_FIRE, FW_STRATEGIC_MOVEMENT, FW_WEAPON_MALFUNCTIONS, getMalfunctionEffect, getMalfunctionTable,
+    getMechMoraleModifier, getMechMoraleResult, getStrategicMovementHeat, getStrategicMovementMP, IMalfunctionEffect, IMoraleResult,
+    isMoralePass, MoraleStatus,
+} from "../utils/future-wars-ruleset-tools";
 import { calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
 import { addsNoAlphaStrikeWeaponHeat, alphaStrikeExtraHeat, alphaStrikeMovementHeat, applyAlphaStrikeHeat } from "../utils/alphaStrikeHeat";
 import { isAlphaStrikeAbilityCode } from "../data/alpha-strike-special-abilities";
@@ -289,6 +294,27 @@ export interface IFutureWarsPlayState {
     boostedRunHexes?: number;
     /** Heat from inside the 'Mech waiting for this turn's heat phase (Inferno Gauss shells igniting). */
     pendingHeat?: number;
+    // The play-rule rulesets (Chunk E; src/utils/future-wars-ruleset-tools.ts).
+    /** Strategic Movement this turn: walking or running, and the MP used (pp.18-19). */
+    strategicMovement?: { mode: "w" | "r"; mp: number };
+    /** The weapon that took an opportunity shot this turn (p.17). */
+    opportunityShot?: string;
+    /** Morale (pp.22-26): class (0 Militia to 5 Crack; Regular when unset), status, Carry On modifier and routs. */
+    morale?: IFutureWarsMoraleState;
+    /** Malfunction rolls recorded on each weapon, by its uuid (p.29). */
+    malfunctions?: Record<string, number[]>;
+    /** Long Range Wars ranging: turns in a row this 'Mech has fired at the same target, -1 each (p.56). */
+    ranging?: number;
+}
+
+export interface IFutureWarsMoraleState {
+    classIndex?: number;
+    /** `pending` until the turn it was rolled ends; then `turnsLeft` counts the turns after it. */
+    status?: { kind: MoraleStatus; turnsLeft: number; pending?: boolean; label: string; fire?: number | "none" };
+    laterRollModifier?: number;
+    routs?: number;
+    /** The last check's outcome, for the panel. */
+    last?: string;
 }
 
 export interface IBattleMechExport {
@@ -6030,6 +6056,10 @@ export class BattleMech {
             if( eq.target ) {
                 // A weapon its Power Booster burned out cannot fire (The Best of Future Wars p.28).
                 if( eq.uuid && this.isFutureWarsSystemBurnedOut(eq.uuid) ) continue;
+                // A malfunction that puts the weapon out of action, or adds heat (The Best of Future Wars p.29).
+                const malfunction = eq.uuid ? this.getWeaponMalfunction(eq.uuid) : undefined;
+                if( malfunction?.out ) continue;
+                rv += malfunction?.heat ?? 0;
                 // A cooling jacket quirk changes the weapon's heat when fired (CO pp.227, 234).
                 rv += quirksInPlay && eq.uuid
                     ? getQuirkWeaponHeat(this.quirks, installedUuids, this.getQuirkPlayYear(), eq.uuid, getMountedHeat(eq))
@@ -6203,6 +6233,147 @@ export class BattleMech {
         }
         delete play.boostedRunHexes;
         delete play.pendingHeat;
+        delete play.strategicMovement;
+        delete play.opportunityShot;
+        const status = play.morale?.status;
+        if( status ) {
+            if( status.pending ) delete status.pending;
+            else if( --status.turnsLeft <= 0 ) delete play.morale!.status;
+        }
+    }
+
+    // --- The Best of Future Wars play-rule rulesets (#172, Chunk E; src/utils/future-wars-ruleset-tools.ts).
+
+    public hasFutureWarsRuleset(id: string): boolean {
+        return this.getRulesets().includes(id);
+    }
+
+    /** The play rulesets this 'Mech carries, in the order the panel shows them. */
+    public getFutureWarsPlayRulesets(): string[] {
+        return [FW_STRATEGIC_MOVEMENT, FW_OPPORTUNITY_FIRE, FW_MORALE, FW_WEAPON_MALFUNCTIONS, FW_LONG_RANGE_WARS].filter((id) => this.hasFutureWarsRuleset(id));
+    }
+
+    /** Strategic Movement's MP: walking and running doubled (pp.18-19). */
+    public getStrategicMovementMP(): { walk: number; run: number } {
+        return getStrategicMovementMP(this.getWalkSpeed(), this.getRunSpeed());
+    }
+
+    /** Strategic Movement this turn (null: none). Its heat takes the place of the movement heat. */
+    public setStrategicMovement(mode: "w" | "r" | null, mp: number = 0): void {
+        if( !mode ) { delete this.futureWarsPlay.strategicMovement; return; }
+        const max = this.getStrategicMovementMP()[mode === "w" ? "walk" : "run"];
+        this.futureWarsPlay.strategicMovement = { mode, mp: Math.max(0, Math.min(max, mp)) };
+    }
+
+    /** An opportunity shot by this weapon this turn (null: none): the other weapons fire at +1 later (p.17). */
+    public recordOpportunityShot(uuid: string | null): void {
+        if( uuid ) this.futureWarsPlay.opportunityShot = uuid; else delete this.futureWarsPlay.opportunityShot;
+    }
+
+    public getMoraleClassIndex(): number {
+        return this.futureWarsPlay.morale?.classIndex ?? 2;
+    }
+
+    public setMoraleClassIndex(index: number): void {
+        this.futureWarsPlay.morale = { ...this.futureWarsPlay.morale, classIndex: Math.max(0, Math.min(5, index)) };
+    }
+
+    /** The modifier on a results roll now: class, status and Carry On results, plus `other`. */
+    public getMoraleModifier(other: number = 0): number {
+        const morale = this.futureWarsPlay.morale;
+        return getMechMoraleModifier(this.getMoraleClassIndex(), morale?.status?.kind, morale?.laterRollModifier ?? 0, other);
+    }
+
+    /**
+     * A morale check: `check` (2D6) against the class's number; on a failure `resultRoll` (2D6) plus the modifiers is
+     * read on the 'Mech results table and applied: a status in place of any earlier one, a drop on the morale scale, a
+     * modifier on later rolls; routs are counted (two mean surrender).
+     */
+    public rollMorale(check: number, resultRoll: number, other: number): { passed: boolean; total?: number; result?: IMoraleResult } {
+        if( isMoralePass(this.getMoraleClassIndex(), check) ) {
+            this.futureWarsPlay.morale = { ...this.futureWarsPlay.morale, last: "Passed (" + check + ")" };
+            return { passed: true };
+        }
+        const total = resultRoll + this.getMoraleModifier(other);
+        const result = getMechMoraleResult(total);
+        const morale: IFutureWarsMoraleState = { ...this.futureWarsPlay.morale, last: "Failed (" + check + "), " + total + ": " + result.text };
+        if( result.status ) {
+            morale.status = { kind: result.status, turnsLeft: result.turns ?? 1, pending: true, label: result.label, fire: result.fire };
+            if( result.status === "routed" ) morale.routs = (morale.routs ?? 0) + 1;
+        }
+        if( result.scaleDrop ) morale.classIndex = Math.max(0, this.getMoraleClassIndex() - result.scaleDrop);
+        if( result.laterRollModifier ) morale.laterRollModifier = (morale.laterRollModifier ?? 0) + result.laterRollModifier;
+        this.futureWarsPlay.morale = morale;
+        return { passed: false, total, result };
+    }
+
+    /** Two routs: the 'Mech surrenders (p.24). */
+    public isMoraleSurrendered(): boolean {
+        return (this.futureWarsPlay.morale?.routs ?? 0) >= 2;
+    }
+
+    private _malfunctionTable(uuid: string) {
+        const weapon = this.equipmentList.find((item) => item.uuid === uuid);
+        return weapon ? getMalfunctionTable(weapon) : undefined;
+    }
+
+    /** Records a malfunction roll on a weapon (a "No effect" roll records nothing); undefined for a weapon with no table (p.29). */
+    public recordWeaponMalfunction(uuid: string, roll: number): IMalfunctionEffect | undefined {
+        const table = this._malfunctionTable(uuid);
+        if( !table ) return undefined;
+        const effect = getMalfunctionEffect(table, roll);
+        if( !effect.noEffect ) {
+            this.futureWarsPlay.malfunctions = { ...this.futureWarsPlay.malfunctions, [uuid]: [...(this.futureWarsPlay.malfunctions?.[uuid] ?? []), roll] };
+        }
+        return effect;
+    }
+
+    /** A jam cleared or a repair made: drops one recorded roll. */
+    public clearWeaponMalfunction(uuid: string, index: number): void {
+        const rolls = (this.futureWarsPlay.malfunctions?.[uuid] ?? []).filter((_roll, at) => at !== index);
+        const malfunctions = { ...this.futureWarsPlay.malfunctions };
+        if( rolls.length ) malfunctions[uuid] = rolls; else delete malfunctions[uuid];
+        if( Object.keys(malfunctions).length ) this.futureWarsPlay.malfunctions = malfunctions; else delete this.futureWarsPlay.malfunctions;
+    }
+
+    /** A weapon's recorded malfunctions together: to-hit and heat added up (ours: they stack), out if any puts it out of action. */
+    public getWeaponMalfunction(uuid: string): { toHit: number; heat: number; out: boolean; effects: IMalfunctionEffect[] } | undefined {
+        const rolls = this.futureWarsPlay.malfunctions?.[uuid];
+        const table = rolls?.length ? this._malfunctionTable(uuid) : undefined;
+        if( !rolls?.length || !table ) return undefined;
+        const effects = rolls.map((roll) => getMalfunctionEffect(table, roll));
+        return {
+            toHit: effects.reduce((sum, effect) => sum + effect.toHit, 0),
+            heat: effects.reduce((sum, effect) => sum + effect.heat, 0),
+            out: effects.some((effect) => effect.out),
+            effects,
+        };
+    }
+
+    /**
+     * Why a weapon may not fire under a play ruleset, or undefined: Strategic Movement, a morale status, its opportunity
+     * shot already taken, or a malfunction.
+     */
+    public getFutureWarsRulesetNoFire(uuid: string | undefined): string | undefined {
+        const play = this.futureWarsPlay;
+        if( play.strategicMovement ) return "No firing while using Strategic Movement (The Best of Future Wars p.18).";
+        const status = play.morale?.status;
+        if( status?.fire === "none" ) return "No firing while " + status.kind + " (morale, The Best of Future Wars p.24).";
+        if( uuid && play.opportunityShot === uuid ) return "This weapon took its opportunity shot this turn (The Best of Future Wars p.17).";
+        if( uuid && this.getWeaponMalfunction(uuid)?.out ) return "Out of action from a malfunction (The Best of Future Wars p.29).";
+        return undefined;
+    }
+
+    /** The play rulesets' to-hit modifiers on a weapon that may fire, with labels. */
+    public getFutureWarsRulesetToHit(uuid: string | undefined): { modifier: number; label: string }[] {
+        const play = this.futureWarsPlay;
+        const rv: { modifier: number; label: string }[] = [];
+        if( play.opportunityShot && play.opportunityShot !== uuid ) rv.push({ modifier: 1, label: "Opportunity Fire" });
+        const status = play.morale?.status;
+        if( status && typeof status.fire === "number" && status.fire ) rv.push({ modifier: status.fire, label: "Morale: " + status.kind });
+        const malfunction = uuid ? this.getWeaponMalfunction(uuid) : undefined;
+        if( malfunction?.toHit ) rv.push({ modifier: malfunction.toHit, label: "Malfunction" });
+        return rv;
     }
 
     public getTurnHeatDifference(
@@ -6255,6 +6426,9 @@ export class BattleMech {
     public getActiveMoveHeat(): number {
         // A jump pack generates no heat (Maximum Tech p.81; TO:AUE p.105).
         if( this._isJumpPackJump() ) return 0;
+        // Strategic Movement's heat takes the place of the table's (The Best of Future Wars pp.18-19).
+        const strategic = this.futureWarsPlay.strategicMovement;
+        if( strategic ) return getStrategicMovementHeat(strategic.mode, strategic.mp, this.getWalkSpeed(), this.getRunSpeed());
         const heat = this._unboostedMoveHeat();
         // A Power Booster on: legs, 1 heat a hex run (the boosted run MP until the hexes are entered); jump jets, double
         // heat a hex (The Best of Future Wars p.28). The booster's heat takes the place of the standard table's (run 2,

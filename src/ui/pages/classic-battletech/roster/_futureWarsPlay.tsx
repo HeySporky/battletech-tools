@@ -40,7 +40,7 @@ const FAIL_ON = ["", "5", "9", "11"];
  * `commitOnBlur`, only when the box is left or Enter is pressed); anything else waits for the box to be left, then is
  * brought into range. So typing "12" into a 2-12 box does not jump to 2 on the "1".
  */
-const NumberBox = (props: { testId: string; value: number; min: number; max: number; label: string; commitOnBlur?: boolean; onChange: (value: number) => void }) => {
+export const NumberBox = (props: { testId: string; value: number; min: number; max: number; label: string; commitOnBlur?: boolean; onChange: (value: number) => void }) => {
     const [draft, setDraft] = useState<string | null>(null);
     const commit = (text: string) => {
         setDraft(null);

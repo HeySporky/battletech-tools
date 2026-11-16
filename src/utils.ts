@@ -9,6 +9,7 @@ import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 import { getQuirkToHit } from "./utils/quirk-effects";
 import { getFutureWarsPlayKind, getLRFlamerRangeModifier } from "./utils/future-wars-play";
+import { FW_LONG_RANGE_WARS, getLongRangeWarsBand, getLongRangeWarsFirerModifier, getLongRangeWarsTargetModifier } from "./utils/future-wars-ruleset-tools";
 import { unitHasAbility } from "./utils/mulAbilities";
 import { resolveMULEraFilter } from "./utils/mulUtilities";
 import { filterMULByRulesets, IMULSearchFilters } from "./utils/mulSearchFilters";
@@ -916,6 +917,8 @@ export function getTargetToHitFromWeapon(
             // The Heat Scale's fire modifier (TW pp.158-160; BD p.13).
             systemModifier( mech.getHeatToHitModifier(), "Heat" );
             systemModifier( mech.getSensorToHitModifier(), "Sensor Hits" );
+            // The Best of Future Wars play rulesets: after an opportunity shot, a morale status, a malfunction.
+            for( const { modifier, label } of mech.getFutureWarsRulesetToHit( weapon?.uuid ) ) systemModifier( modifier, label );
             // Woods, jungle or smoke: +1 a light hex, +2 a heavy hex (BD p.10; TW p.117). Enhanced Imaging: each hex 1
             // less, at least +1, and no darkness modifier (IO:AE p.69); Maximum Tech: any light woods +1 in all, heavy or
             // smoke +1 a hex, no night modifier (p.61).
@@ -1012,8 +1015,38 @@ export function getTargetToHitFromWeapon(
                 gator.rangeModifier = longModifier;
                 gator.rangeExplanation = "Long";
             } else {
+                // The Long Range Wars: extended and extreme range, with their own firer and target movement modifiers in
+                // place of the standard ones, and ranging (The Best of Future Wars pp.55-56).
+                const longRangeWars = mech.hasFutureWarsRuleset( FW_LONG_RANGE_WARS ) ? getLongRangeWarsBand( target.range, weaponRange.long ) : undefined;
+                if( longRangeWars ) {
+                    const mode = mech.currentMovementMode;
+                    const standardFirer = mode === "w" ? 1 : mode === "r" ? 2 : mode === "j" ? 3 : 0;
+                    const firer = getLongRangeWarsFirerModifier( mode );
+                    const targetModifier = getLongRangeWarsTargetModifier( target.movement );
+                    gator.finalToHit += longRangeWars.modifier + ( firer - standardFirer ) + ( targetModifier - target.movement );
+                    gator.rangeModifier = longRangeWars.modifier;
+                    gator.attackerMovementModifier = firer;
+                    gator.targetMovementModifier = targetModifier;
+                    gator.rangeExplanation = longRangeWars.band === "extended" ? "Extended" : "Extreme";
+                    const ranging = mech.futureWarsPlay.ranging ?? 0;
+                    if( ranging > 0 ) {
+                        gator.finalToHit -= ranging;
+                        gator.otherModifiers -= ranging;
+                        otherModifiersExplanation.push( "Ranging (-" + ranging + ")" );
+                        gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
+                    }
+                } else {
+                    gator.finalToHit = -1;
+                    gator.explanation = "The target is out of this weapon's range.";
+                }
+            }
+
+            // The Best of Future Wars play rulesets: a weapon that may not fire this turn (Strategic Movement, morale,
+            // an opportunity shot already taken, a malfunction).
+            const noFire = gator.finalToHit > 0 ? mech.getFutureWarsRulesetNoFire( weapon.uuid ) : undefined;
+            if( noFire ) {
                 gator.finalToHit = -1;
-                gator.explanation = "The target is out of this weapon's range.";
+                gator.explanation = noFire;
             }
 
             // Design quirks, with the game's "Use design quirks" switch on (CO pp.225-234).
