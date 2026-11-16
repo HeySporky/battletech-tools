@@ -133,7 +133,7 @@ describe("Best of Future Wars rulesets in play", () => {
         mech.currentMovementMode = "j";
         expect(toHit(mech, laser, 15, 3).finalToHit).toBe(4 + 6 + 5 + 4);
         mech.futureWarsPlay.ranging = 3;
-        expect(toHit(mech, laser, 15, 3).finalToHit).toBe(4 + 6 + 5 + 4 - 3);
+        expect(toHit(mech, laser, 15, 2).finalToHit).toBe(4 + 6 + 5 + 2 - 3);
         // Ranging is for extended and extreme range only.
         mech.currentMovementMode = "n";
         expect(toHit(mech, laser, 2).finalToHit).toBe(4);
@@ -147,5 +147,40 @@ describe("Best of Future Wars rulesets in play", () => {
         const copy = new BattleMech();
         copy.importJSON(mech.exportJSON());
         expect(copy.futureWarsPlay).toEqual(mech.futureWarsPlay);
+    });
+
+    // Final review fixes.
+    it("a weapon that may not fire stays at no to-hit when the LR Flamer's own range penalty runs after", () => {
+        const mech = build(["fw-strategic-movement"]);
+        const flamer = mount(mech, "custom-lr-flamer");
+        mech.setStrategicMovement("w", 6);
+        expect(toHit(mech, flamer, 6).finalToHit).toBe(-1);
+        expect(toHit(mech, flamer, 10).finalToHit).toBe(-1);
+    });
+
+    it("ranging counts only against a target that moved 6 hexes or less (standard modifier +2 or less)", () => {
+        const mech = build(["fw-long-range-wars"]);
+        const laser = mount(mech, "medium-laser");
+        mech.futureWarsPlay.ranging = 3;
+        expect(toHit(mech, laser, 15, 2).finalToHit).toBe(4 + 6 + 2 - 3);
+        expect(toHit(mech, laser, 15, 3).finalToHit).toBe(4 + 6 + 4);
+    });
+
+    it("weapons that may not fire add no heat; the opportunity weapon's heat counts once, targeted or not", () => {
+        const mech = build(["fw-strategic-movement", "fw-opportunity-fire", "fw-morale"]);
+        const laser = mount(mech, "medium-laser");
+        const heat = mech.getActiveWeaponHeat();
+        expect(heat).toBe(3);
+        mech.setStrategicMovement("w", 6);
+        expect(mech.getActiveWeaponHeat()).toBe(0);
+        mech.setStrategicMovement(null);
+        mech.rollMorale(2, 2, 0); // broken: no firing
+        expect(mech.getActiveWeaponHeat()).toBe(0);
+        mech.futureWarsPlay.morale = {};
+        const uuid = mech.equipmentList[laser].uuid!;
+        mech.recordOpportunityShot(uuid);
+        expect(mech.getActiveWeaponHeat()).toBe(heat);
+        mech.equipmentList[laser].target = undefined;
+        expect(mech.getActiveWeaponHeat()).toBe(heat);
     });
 });

@@ -6053,9 +6053,13 @@ export class BattleMech {
         let rv = 0;
 
         for( const eq of equipmentList) {
-            if( eq.target ) {
+            // The weapon that took an opportunity shot this turn fired, targeted now or not (The Best of Future Wars p.17).
+            const opportunityShot = !!eq.uuid && eq.uuid === this.futureWarsPlay.opportunityShot;
+            if( eq.target || opportunityShot ) {
                 // A weapon its Power Booster burned out cannot fire (The Best of Future Wars p.28).
                 if( eq.uuid && this.isFutureWarsSystemBurnedOut(eq.uuid) ) continue;
+                // Nor one a play ruleset forbids this turn: Strategic Movement, a morale status, a malfunction.
+                if( !opportunityShot && this.getFutureWarsRulesetNoFire(eq.uuid) ) continue;
                 // A malfunction that puts the weapon out of action, or adds heat (The Best of Future Wars p.29).
                 const malfunction = eq.uuid ? this.getWeaponMalfunction(eq.uuid) : undefined;
                 if( malfunction?.out ) continue;

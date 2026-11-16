@@ -981,6 +981,7 @@ export function getTargetToHitFromWeapon(
             gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
 
             const [shortModifier, mediumModifier, longModifier] = system?.targetingSystem?.ranges ?? [0, 2, 4];
+            let inRange = true;
             if(
                 target.range <= weaponRange.short
             ) {
@@ -1028,7 +1029,8 @@ export function getTargetToHitFromWeapon(
                     gator.attackerMovementModifier = firer;
                     gator.targetMovementModifier = targetModifier;
                     gator.rangeExplanation = longRangeWars.band === "extended" ? "Extended" : "Extreme";
-                    const ranging = mech.futureWarsPlay.ranging ?? 0;
+                    // Ranging only on a target that stayed still or moved 6 hexes or less (standard modifier +2 or less).
+                    const ranging = target.movement <= 2 ? mech.futureWarsPlay.ranging ?? 0 : 0;
                     if( ranging > 0 ) {
                         gator.finalToHit -= ranging;
                         gator.otherModifiers -= ranging;
@@ -1036,17 +1038,10 @@ export function getTargetToHitFromWeapon(
                         gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
                     }
                 } else {
+                    inRange = false;
                     gator.finalToHit = -1;
                     gator.explanation = "The target is out of this weapon's range.";
                 }
-            }
-
-            // The Best of Future Wars play rulesets: a weapon that may not fire this turn (Strategic Movement, morale,
-            // an opportunity shot already taken, a malfunction).
-            const noFire = gator.finalToHit > 0 ? mech.getFutureWarsRulesetNoFire( weapon.uuid ) : undefined;
-            if( noFire ) {
-                gator.finalToHit = -1;
-                gator.explanation = noFire;
             }
 
             // Design quirks, with the game's "Use design quirks" switch on (CO pp.225-234).
@@ -1074,6 +1069,14 @@ export function getTargetToHitFromWeapon(
                     otherModifiersExplanation.push( ...quirkToHit.labels );
                     gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
                 }
+            }
+
+            // The Best of Future Wars play rulesets: a weapon that may not fire this turn (Strategic Movement, morale,
+            // an opportunity shot already taken, a malfunction). Last, so no modifier after it lifts the -1.
+            const noFire = inRange ? mech.getFutureWarsRulesetNoFire( weapon.uuid ) : undefined;
+            if( noFire ) {
+                gator.finalToHit = -1;
+                gator.explanation = noFire;
             }
         }
     }
