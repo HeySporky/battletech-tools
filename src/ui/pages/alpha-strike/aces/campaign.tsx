@@ -32,7 +32,8 @@ import {
     TAcesRepairCategory,
 } from '../../../../data/aces-rules';
 import { generateUUID } from '../../../../utils/generateUUID';
-import { getAcesCampaigns, saveAcesCampaigns } from '../../../../dataSaves';
+import { IAcesEdgeCard } from '../../../../data/aces-cards';
+import { getAcesCampaigns, getAcesCardLibrary, saveAcesCampaigns } from '../../../../dataSaves';
 import './aces.scss';
 
 const emptyLedgerInput = (): IAcesSortieLedgerInput => {
@@ -124,6 +125,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
         super(props);
         this.state = {
             loaded: false,
+            edgeCards: [],
             campaigns: [],
             currentId: "",
             newPilotCallsign: "",
@@ -166,8 +168,15 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                 "", true, null, 0,
             );
         }
+        let edgeCards: IAcesEdgeCard[] = [];
+        try {
+            edgeCards = ( await getAcesCardLibrary( this.props.appGlobals.appSettings ) ).edgeCards || [];
+        } catch( error ) {
+            console.error("Unable to read the Aces card library for Edge cards", error);
+        }
         this.setState({
             loaded: true,
+            edgeCards: edgeCards,
             campaigns: campaigns,
             currentId: campaigns.length > 0 ? campaigns[0].id : "",
             sortie: newSortieDraft( campaigns.length > 0 ? campaigns[0] : null ),
@@ -357,6 +366,51 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
         );
     }
 
+    /** Edge abilities are picked from the player's entered Edge cards (samples included, as they are marked in the library); names are stored so older saves keep working. */
+    private _renderEdgePicker = ( pilot: AcesNamedPilot ): JSX.Element => {
+        const cardNames: string[] = [];
+        for( const card of this.state.edgeCards ) {
+            const name = card.name.trim();
+            if( name && cardNames.indexOf( name ) === -1 ) cardNames.push( name );
+        }
+        if( cardNames.length === 0 ) {
+            return (
+                <input
+                    type="text"
+                    placeholder="Edge abilities chosen"
+                    value={pilot.edgeAbilities.join( ", " )}
+                    onChange={( e ) => { const value = e.currentTarget.value; this._update( () => { pilot.edgeAbilities = value.split( "," ).map( ( entry ) => entry.trimStart() ); } ); }}
+                />
+            );
+        }
+        const typed = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" && cardNames.indexOf( name ) === -1 );
+        const picked = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" ).length;
+        const toggle = ( name: string, on: boolean ) => {
+            this._update( () => {
+                const others = pilot.edgeAbilities.filter( ( entry ) => entry !== name );
+                pilot.edgeAbilities = on ? others.concat( name ) : others;
+            } );
+        };
+        return (
+            <fieldset className="aces-muted">
+                <legend className="visually-hidden">Edge abilities chosen</legend>
+                {cardNames.map( ( name ) => (
+                    <div key={name}>
+                        <label><input type="checkbox" checked={pilot.edgeAbilities.indexOf( name ) > -1} onChange={( e ) => toggle( name, e.currentTarget.checked )} /> {name}</label>
+                    </div>
+                ) )}
+                {typed.map( ( name ) => (
+                    <div key={"typed-" + name}>
+                        <label><input type="checkbox" checked onChange={( e ) => toggle( name, e.currentTarget.checked )} /> {name} <em>(typed)</em></label>
+                    </div>
+                ) )}
+                {picked > pilot.edgeAbilityCount ? (
+                    <div className="aces-issue-error">{picked} Edge abilities picked, more than the {pilot.edgeAbilityCount} this pilot has.</div>
+                ) : null}
+            </fieldset>
+        );
+    }
+
     private _renderPilots = ( campaign: AcesCampaign ): JSX.Element => {
         return (
             <>
@@ -374,12 +428,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                                         {pilot.wounded ? ", wounded (sits out the next sortie)" : ""}{pilot.killed ? ", killed" : ""}
                                     </span>
                                     <br />
-                                    <input
-                                        type="text"
-                                        placeholder="Edge abilities chosen"
-                                        value={pilot.edgeAbilities.join( ", " )}
-                                        onChange={( e ) => { const value = e.currentTarget.value; this._update( () => { pilot.edgeAbilities = value.split( "," ).map( ( entry ) => entry.trimStart() ); } ); }}
-                                    />
+                                    {this._renderEdgePicker( pilot )}
                                 </td>
                                 {this._renderTrack( pilot, "skill", "Skill", pilot.skill, pilot.skillSP, acesPilotSkillThresholds )}
                                 {this._renderTrack( pilot, "edgeTokens", "Edge", pilot.edgeTokens, pilot.edgeTokenSP, acesPilotEdgeTokenThresholds )}
@@ -755,6 +804,7 @@ interface IAcesCampaignPageProps {
 
 interface IAcesCampaignPageState {
     loaded: boolean;
+    edgeCards: IAcesEdgeCard[];
     campaigns: AcesCampaign[];
     currentId: string;
     newPilotCallsign: string;
