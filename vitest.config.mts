@@ -20,6 +20,9 @@ const CHANNEL = process.env.PLAYWRIGHT_CHANNEL;
 export default defineConfig((env) =>
     mergeConfig(viteConfig(env), {
         test: {
+            // Default 5 s is too short for the heavy-load tests (SSW Zeus X / Skinwalker B, bundled Ares, roster Skunk
+            // Werks) when the whole suite runs in parallel; they take 5-6 s there and under 5 s alone. Projects inherit it.
+            testTimeout: 20000,
             projects: [
                 {
                     extends: true,
