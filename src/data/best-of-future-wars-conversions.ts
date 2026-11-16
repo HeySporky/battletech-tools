@@ -100,22 +100,37 @@ const pomPom = (baseTag: string, size: number): IEquipmentItem => {
 // --- The Swing Fire Missile System, p.27 (same article run as the Gatling Laser).
 const worseBy = (modifier: IEquipmentItem["accuracyModifier"], by: number): IEquipmentItem["accuracyModifier"] =>
     typeof modifier === "object" ? { short: modifier.short + by, medium: modifier.medium + by, long: modifier.long + by } : (modifier ?? 0) + by;
+// Owner lore (2026-11-16): the swivel is a Star League (SLDF) mount of about 2750. It was never wholly lost in the Inner
+// Sphere (delicate copies kept running through the Succession Wars, which is where the fanzine met it), and the Clans took
+// it with the Exodus. A rack's Swing Fire dates from the later of the mount and the rack, and shares the rack's gaps.
+const SWING_FIRE_MOUNT_INTRODUCED = 2750;
+const SWING_FIRE_MOUNT = { is: { weight: 3, slots: 2 }, clan: { weight: 1.5, slots: 1 } };
 const swingFire = (baseTag: string): IEquipmentItem => {
     const rack = canonRecord(equipmentMissile, baseTag);
+    const clan = rack.techBase === "clan";
+    const mount = clan ? SWING_FIRE_MOUNT.clan : SWING_FIRE_MOUNT.is;
+    const pageRack = /^(lrm|srm)-\d+$/.test(baseTag);
+    const torpedo = /(^|-)(lrt|srt)-\d+$/.test(baseTag);
     return converted(rack, {
         name: `${rack.name} (Swing Fire)`,
         tag: `custom-swing-fire-${baseTag}`,
         sort: `${rack.sort}, swing fire`,
-        weight: rack.weight + 3,
-        space: mechOnly(rack.space.battlemech + 2),
+        weight: rack.weight + mount.weight,
+        space: mechOnly(rack.space.battlemech + mount.slots),
         cbills: rack.cbills + 75000,
         accuracyModifier: worseBy(rack.accuracyModifier, 1),
+        introduced: Math.max(rack.introduced ?? rack.prototype ?? SWING_FIRE_MOUNT_INTRODUCED, SWING_FIRE_MOUNT_INTRODUCED),
+        extinct: rack.extinct ?? null,
+        reintroduced: rack.reintroduced ?? null,
         page: 27,
         conversion: { kind: "swing-fire", baseTag, arcDegrees: 180 },
         notes: `${cite("Karl Sanders", "The Swing Fire Missile System", 27)} A ${rack.name} rebuilt on a swivel: the pilot can turn its line of sight `
             + "180 degrees in combat. Delicate, and the swivel's give costs accuracy; the page prints no number, so the +1 to-hit is ours. "
-            + (/^(lrt|srt)-/.test(baseTag) ? "The page names missile racks only; the torpedo version is ours. It fires only into or through water, as any torpedo rack. " : "")
-            + `+3 tons, +2 slots and +75,000 C-bills on the rack. ${UNVALUED} Dates are unverified.`,
+            + (pageRack ? "" : `The page names the Inner Sphere LRM and SRM only; the ${torpedo ? "torpedo" : rack.name} version is ours. `)
+            + (torpedo ? "It fires only into or through water, as any torpedo rack. " : "")
+            + `+${mount.weight} tons, +${mount.slots} slot${mount.slots === 1 ? "" : "s"} and +75,000 C-bills on the rack`
+            + (clan ? " (the Clan mount is ours: half the page's weight, as Clan launchers run about half the Inner Sphere's). " : ". ")
+            + `${UNVALUED} Dates are ours: a Star League mount of about 2750, kept alive in the Inner Sphere and taken by the Clans in the Exodus.`,
     });
 };
 
@@ -168,10 +183,15 @@ export const futureWarsPomPoms = (): IEquipmentItem[] => [
     pomPom("autocannon-standard-a", 2), pomPom("autocannon-standard-b", 5), pomPom("autocannon-standard-c", 10), pomPom("autocannon-standard-d", 20),
 ];
 
-// The torpedo racks are the owner's extension; p.27 names missile racks only.
+// p.27 names the Inner Sphere LRM and SRM; every other rack is the owner's extension (2026-11-16).
+const sizes = (family: string, list: number[]) => list.map((size) => `${family}-${size}`);
+const LRM = [5, 10, 15, 20];
+const SRM = [2, 4, 6];
 export const futureWarsSwingFires = (): IEquipmentItem[] => [
-    "lrm-5", "lrm-10", "lrm-15", "lrm-20", "srm-2", "srm-4", "srm-6",
-    "lrt-5", "lrt-10", "lrt-15", "lrt-20", "srt-2", "srt-4", "srt-6",
+    ...sizes("lrm", LRM), ...sizes("srm", SRM), ...sizes("lrt", LRM), ...sizes("srt", SRM),
+    ...sizes("streak-srm", SRM), ...sizes("enhanced-lrm", LRM), ...sizes("enhanced-lrt", LRM), ...sizes("extended-lrm", LRM),
+    ...sizes("clan-lrm", LRM), ...sizes("clan-srm", SRM), ...sizes("clan-lrt", LRM), ...sizes("clan-srt", SRM),
+    ...sizes("clan-streak-srm", SRM), ...sizes("clan-improved-lrm", LRM), ...sizes("clan-improved-srm", SRM), ...sizes("streak-lrm", LRM),
 ].map(swingFire);
 
 /** The boosted weapons; the Gatling Laser is passed in from the custom energy catalog that defines it. */

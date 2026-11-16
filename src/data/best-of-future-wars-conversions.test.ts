@@ -19,14 +19,18 @@ const POM_POMS: [string, string][] = [
     ["custom-pom-pom-ac-2", "autocannon-standard-a"], ["custom-pom-pom-ac-5", "autocannon-standard-b"],
     ["custom-pom-pom-ac-10", "autocannon-standard-c"], ["custom-pom-pom-ac-20", "autocannon-standard-d"],
 ];
-const SWING_FIRES: [string, string][] = [
-    ["custom-swing-fire-lrm-5", "lrm-5"], ["custom-swing-fire-lrm-10", "lrm-10"], ["custom-swing-fire-lrm-15", "lrm-15"],
-    ["custom-swing-fire-lrm-20", "lrm-20"], ["custom-swing-fire-srm-2", "srm-2"], ["custom-swing-fire-srm-4", "srm-4"],
-    ["custom-swing-fire-srm-6", "srm-6"],
-    ["custom-swing-fire-lrt-5", "lrt-5"], ["custom-swing-fire-lrt-10", "lrt-10"], ["custom-swing-fire-lrt-15", "lrt-15"],
-    ["custom-swing-fire-lrt-20", "lrt-20"], ["custom-swing-fire-srt-2", "srt-2"], ["custom-swing-fire-srt-4", "srt-4"],
-    ["custom-swing-fire-srt-6", "srt-6"],
-];
+const sizes = (family: string, list: number[]) => list.map((size) => `${family}-${size}`);
+const LRM = [5, 10, 15, 20];
+const SRM = [2, 4, 6];
+// The page's own mount (+3 t, +2 slots) on every Inner Sphere rack: the 1991 LRM / SRM, and (owner, 2026-11-16) the
+// torpedo racks and the later Streak, Enhanced and Extended racks.
+const IS_RACKS = [...sizes("lrm", LRM), ...sizes("srm", SRM), ...sizes("lrt", LRM), ...sizes("srt", SRM),
+    ...sizes("streak-srm", SRM), ...sizes("enhanced-lrm", LRM), ...sizes("enhanced-lrt", LRM), ...sizes("extended-lrm", LRM)];
+// The Clan mount (ours): +1.5 t, +1 slot.
+const CLAN_RACKS = [...sizes("clan-lrm", LRM), ...sizes("clan-srm", SRM), ...sizes("clan-lrt", LRM), ...sizes("clan-srt", SRM),
+    ...sizes("clan-streak-srm", SRM), ...sizes("clan-improved-lrm", LRM), ...sizes("clan-improved-srm", SRM), ...sizes("streak-lrm", LRM)];
+const swingRows = (racks: string[]): [string, string][] => racks.map((rack) => [`custom-swing-fire-${rack}`, rack]);
+const SWING_FIRES: [string, string][] = [...swingRows(IS_RACKS), ...swingRows(CLAN_RACKS)];
 // The p.28 chart: weapon, extra heat, extra damage, added range.
 const BOOSTED: [string, string, number, number, number][] = [
     ["custom-power-booster-ppc", "standard-ppc", 3, 5, 3],
@@ -65,12 +69,27 @@ describe("Rapid Fire Autocannon (Pom-Pom), p.27", () => {
 });
 
 describe("Swing Fire Missile System, p.27", () => {
-    it.each(SWING_FIRES)("%s: +3 t, +2 slots, +75,000 C, the rack's own missiles", (tag, baseTag) => {
+    it.each(swingRows(IS_RACKS))("%s: +3 t, +2 slots, +75,000 C, the rack's own missiles", (tag, baseTag) => {
         const swing = find(tag);
         const rack = find(baseTag);
+        expect(swing.techBase).toBe("is");
         expect(swing.weight).toBe(rack.weight + 3);
         expect(swing.space.battlemech).toBe(rack.space.battlemech + 2);
         expect(swing.cbills).toBe(rack.cbills + 75000);
+        expect(swing.heat).toBe(rack.heat);
+        expect(swing.range).toEqual(rack.range);
+        expect(swing.conversion).toMatchObject({ kind: "swing-fire", baseTag, arcDegrees: 180 });
+    });
+
+    it.each(swingRows(CLAN_RACKS))("%s: the Clan mount, +1.5 t, +1 slot, +75,000 C", (tag, baseTag) => {
+        const swing = find(tag);
+        const rack = find(baseTag);
+        expect(swing.techBase).toBe("clan");
+        expect(swing.weight).toBe(rack.weight + 1.5);
+        expect(swing.space.battlemech).toBe(rack.space.battlemech + 1);
+        expect(swing.cbills).toBe(rack.cbills + 75000);
+        expect(swing.accuracyModifier).toBe(1);
+        expect(swing.notes).toContain("the Clan mount is ours");
         expect(swing.heat).toBe(rack.heat);
         expect(swing.range).toEqual(rack.range);
         expect(swing.conversion).toMatchObject({ kind: "swing-fire", baseTag, arcDegrees: 180 });
@@ -87,6 +106,27 @@ describe("Swing Fire Missile System, p.27", () => {
         expect(getCompatibleAmmo(find("custom-swing-fire-lrm-10"), find("ammo-lrm-standard"))).toBe(true);
         expect(getCompatibleAmmo(find("custom-swing-fire-srm-6"), find("ammo-srm-standard"))).toBe(true);
         expect(getCompatibleAmmo(find("custom-swing-fire-srm-6"), find("ammo-lrm-standard"))).toBe(false);
+    });
+
+    // Owner lore (2026-11-16): a Star League (SLDF) mount, never wholly lost in the Inner Sphere; the Clans took it with
+    // the Exodus. A Swing Fire rack dates from the later of the mount (2750) and its rack, and shares the rack's gaps.
+    it.each([
+        ["custom-swing-fire-lrm-10", 2750, null, null],
+        ["custom-swing-fire-streak-srm-2", 2750, 2845, 3035],
+        ["custom-swing-fire-enhanced-lrm-10", 3082, null, null],
+        ["custom-swing-fire-clan-lrm-10", 2824, null, null],
+        ["custom-swing-fire-clan-improved-lrm-10", 2818, 2831, 3080],
+    ] as [string, number, number | null, number | null][])("%s dates: %i, extinct %s, back %s", (tag, introduced, extinct, reintroduced) => {
+        const swing = find(tag);
+        expect(swing.introduced).toBe(introduced);
+        expect(swing.extinct).toBe(extinct);
+        expect(swing.reintroduced).toBe(reintroduced);
+        expect(swing.notes).toContain("Star League");
+    });
+
+    it("Tandem-Charge loads in a Swing Fire SRM, as in its rack", () => {
+        expect(getCompatibleAmmo(find("custom-swing-fire-srm-6"), find("ammo-is-srm-tandem-charge"))).toBe(true);
+        expect(getCompatibleAmmo(find("custom-swing-fire-clan-srm-6"), find("ammo-is-srm-tandem-charge"))).toBe(true);
     });
 
     it("torpedo racks feed from torpedo ammunition only", () => {
