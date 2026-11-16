@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import { sswTestFixtures } from "../data/ssw/sswTestFixtures";
 import { BattleMech } from "./battlemech";
+import { buildMech } from "../test-support/builders";
 import Pilot from "./pilot";
 import { ICalcStep } from "../data/calc-steps";
 import { getSkillMultiplier } from "../data/battle-value";
@@ -1138,11 +1139,7 @@ describe("BattleMech engine construction", () => {
         mech.getCriticals()[location].filter(item => item?.tag === "engine")
             .reduce((total, item) => total + (item?.crits ?? 1), 0);
     const build = (tonnage: number, walk: number, engine: string, tech = "is", era = "jihad") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(walk);
+        const mech = buildMech({ tech, era, tonnage, walk });
         mech.setEngineType(engine);
         mech.calcAlphaStrike();
         return mech;
@@ -1340,11 +1337,7 @@ describe("BattleMech heat sink and gyro availability", () => {
         expect(heatSink("clan", "jihad", "compact", 4).available).toBe(false);
         expect(heatSink("is", "clan-inv", "compact", 4).availableAsPrototype).toBe(true);
 
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("jihad");
-        mech.setTonnage(50);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ era: "jihad" });
         mech.setHeatSinksType("compact");
         mech.setAdditionalHeatSinks(10);
         // 200-rated engine holds floor(200 / 25) x 2 = 16 of the 20 sinks; 4 remain, two per slot.
@@ -1389,11 +1382,7 @@ describe("BattleMech internal structure availability", () => {
 
 describe("BattleMech variable-size equipment", () => {
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("jihad");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ era: "jihad", tonnage });
         return mech;
     };
     const add = (mech: BattleMech, tag: string, location = "ra") =>
@@ -1433,11 +1422,7 @@ describe("BattleMech variable-size equipment", () => {
 
 describe("BattleMech myomer and MP boosters", () => {
     const build = (tech = "is", era = "jihad") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(55);
-        mech.setWalkSpeed(5);
+        const mech = buildMech({ tech, era, tonnage: 55, walk: 5 });
         return mech;
     };
 
@@ -1477,11 +1462,7 @@ describe("BattleMech myomer and MP boosters", () => {
 
 describe("BattleMech spread, movement and limb equipment", () => {
     const build = (tonnage = 50, walk = 5, tech = "is", era = "dark-age") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(walk);
+        const mech = buildMech({ tech, era, tonnage, walk });
         return mech;
     };
     const add = (mech: BattleMech, tag: string, location = "", tech = "is") =>
@@ -4121,11 +4102,7 @@ describe("Batch 15 saved designs keep custom-catalog equipment", () => {
 
 describe("Batch 16 large engines", () => {
     const build = (tonnage: number, walk: number, engine: string, tech = "is", era = "late-rep") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(walk);
+        const mech = buildMech({ tech, era, tonnage, walk });
         mech.setEngineType(engine);
         return mech;
     };
@@ -4241,11 +4218,7 @@ describe("Batch 16 large engines", () => {
 
 describe("Batch 17 explosive weapons in Battle Value (TO:AUE pp.194-195)", () => {
     const mount = (tag: string) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const item = mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
         const slot = mech.getCriticals().rightArm.findIndex(critical => !critical);
@@ -4288,11 +4261,7 @@ describe("Batch 17 explosive weapons in Battle Value (TO:AUE pp.194-195)", () =>
 
 describe("Batch 17 Battle Value follows critical slot moves", () => {
     it("recalculates when an explosive item is placed, without waiting for another change", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const gauss = mech.addEquipmentFromTag("standard-gauss-rifle", "is", "", false, undefined, "", false, [], undefined, undefined)!;
         const unplaced = mech.getBattleValue();
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === gauss.uuid);
@@ -4671,11 +4640,7 @@ describe("Batch 12d saved designs keep equipment from the other tech base", () =
 
 describe("Batch 21 Superheavy 'Mech equipment limits (IO:AE p.156)", () => {
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("late-rep");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ era: "late-rep", tonnage, walk: 2 });
         return mech;
     };
     const offered = (mech: BattleMech) => new Map(mech.getAvailableEquipment(false, 4).map(item => [item.tag, !!item.available]));
@@ -4872,11 +4837,7 @@ describe("Batch 24 cockpit critical slots (IO:AE record sheets, pp.128, 156, 159
 
 describe("Batch 24 Superheavy 'Mech critical space (IO:AE pp.155-157)", () => {
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ tonnage, walk: 2 });
         return mech;
     };
     const add = (mech: BattleMech, tag: string) =>
@@ -5117,11 +5078,7 @@ describe("Batch 26 explosive ammunition penalty by location (TM p.302, TO:AUE p.
 describe("Batch 27 Weapon Battle Rating order (TM p.303)", () => {
     // 75 tons, Walk 4 (Run 6: 2 heat), ten single heat sinks: Heat Efficiency 6 + 10 - 2 = 14.
     const build = () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         return mech;
     };
     const add = (mech: BattleMech, tag: string, rear = false) =>
@@ -5313,11 +5270,7 @@ describe("Batch 29 unit slot columns of the TO:AUE construction tables (pp.217-2
 
 describe("Batch 29 Long Tom artillery on 'Mechs (TO:AUE p.217, IO:AE p.157)", () => {
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ tonnage, walk: 2 });
         return mech;
     };
     const offered = (mech: BattleMech, tag: string) => mech.getAvailableEquipment(false, 4).find(item => item.tag === tag)?.available;
@@ -5345,11 +5298,7 @@ describe("Batch 30 Superheavy ammunition shares critical slots (IO:AE p.157)", (
         hd: "head", ct: "centerTorso", lt: "leftTorso", rt: "rightTorso", la: "leftArm", ra: "rightArm", ll: "leftLeg", rl: "rightLeg",
     };
     const build = (tonnage: number) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(tonnage);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ tonnage, walk: 2 });
         return mech;
     };
     const add = (mech: BattleMech, tag: string) =>
@@ -5511,11 +5460,7 @@ describe("Batch 31 Vehicular Grenade Launcher and Recon Camera (TO:AUE pp.127, 1
     });
 
     it("counts the launcher as an offensive weapon worth 15, at a quarter of its heat", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("clan-inv");
-        mech.setTonnage(50);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ era: "clan-inv" });
         const before = mech.getBattleValue();
         mech.addEquipmentFromTag("vehicular-grenade-launcher", "is", "", false, undefined, "", false, [], undefined, undefined);
         expect(bvRound2(bvLast(mech, "bv2.off.weapons.total").value)).toBe(15);
@@ -5659,11 +5604,7 @@ describe("Batch 35 TSEMP weapons and RISC Viral Jammers (IO:AE pp.84, 88, 190, 2
     });
 
     it("counts a TSEMP Cannon like a Gauss weapon for the defensive rating: one point a slot", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const item = mech.addEquipmentFromTag("tsemp-cannon", "is", "", false, undefined, "", false, [], undefined, undefined)!;
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
         expect(mech.moveCritical("un", from, "ra", mech.getCriticals().rightArm.findIndex(critical => !critical))).toBe(true);
@@ -5672,11 +5613,7 @@ describe("Batch 35 TSEMP weapons and RISC Viral Jammers (IO:AE pp.84, 88, 190, 2
 
     it("counts a RISC Emergency Coolant System like a Gauss weapon for the defensive rating: one point a slot (IO:AE p.190)", () => {
         // A critical hit on it is a 5-point explosion (IO:AE p.86); the Battle Value table marks the row.
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const item = mech.addEquipmentFromTag("risc-emergency-coolant-system", "is", "", false, undefined, "", false, [], undefined, undefined)!;
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === item.uuid);
         expect(mech.moveCritical("un", from, "lt", mech.getCriticals().leftTorso.findIndex(critical => !critical))).toBe(true);
@@ -5703,11 +5640,7 @@ describe("Batch 36 BattleMech Taser (TO:AUE pp.157-158)", () => {
     });
 
     it("feeds the weapon and counts both in Battle Value", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const add = (tag: string) => mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
         expect(add("mech-taser")).not.toBeNull();
         expect(add("ammo-is-mech-taser-standard")).not.toBeNull();
@@ -5718,11 +5651,7 @@ describe("Batch 36 BattleMech Taser (TO:AUE pp.157-158)", () => {
 
 describe("Batch 37 engine requirements and the one-jammer limit (IO:AE pp.85, 88; TO:AUE p.158)", () => {
     const build = (engine: string) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(50);
-        mech.setWalkSpeed(3);
+        const mech = buildMech({ walk: 3 });
         mech.setEngineType(engine);
         expect(mech.getEngineType().tag).toBe(engine);
         return mech;
@@ -5792,11 +5721,7 @@ describe("Batch 38 Coolant Pod (TO:AUE pp.116, 193)", () => {
 
     // Heat Efficiency from the Battle Value log.
     const efficiency = (pods: number, additionalHeatSinks = 0) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         mech.setAdditionalHeatSinks(additionalHeatSinks);
         for (let pod = 0; pod < pods; pod++) {
             mech.addEquipmentFromTag("coolant-pod", "is", "", false, undefined, "", false, [], undefined, undefined);
@@ -5817,11 +5742,7 @@ describe("Batch 38 Coolant Pod (TO:AUE pp.116, 193)", () => {
     });
 
     it("takes one point off the defensive rating for each unprotected pod slot", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         const pod = mech.addEquipmentFromTag("coolant-pod", "is", "", false, undefined, "", false, [], undefined, undefined)!;
         const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === pod.uuid);
         expect(mech.moveCritical("un", from, "ct", mech.getCriticals().centerTorso.findIndex(critical => !critical))).toBe(true);
@@ -5831,11 +5752,7 @@ describe("Batch 38 Coolant Pod (TO:AUE pp.116, 193)", () => {
 
 describe("Batch 39 RISC Heat Sink Override Kit (IO:AE pp.86, 190, 215)", () => {
     const build = () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tonnage: 75 });
         mech.addEquipmentFromTag("standard-ppc", "is", "", false, undefined, "", false, [], undefined, undefined);
         return mech;
     };
@@ -5873,11 +5790,7 @@ describe("Batch 39 RISC Heat Sink Override Kit (IO:AE pp.86, 190, 215)", () => {
 
 describe("Batch 40 Prototype Improved Jump Jets (IO:AE p.97)", () => {
     const build = (tech = "is", era = "succession-wars") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra(era);
-        mech.setTonnage(55);
-        mech.setWalkSpeed(5);
+        const mech = buildMech({ tech, era, tonnage: 55, walk: 5 });
         return mech;
     };
     const offered = (mech: BattleMech, rulesLevel: number) =>
@@ -6071,11 +5984,7 @@ describe("Batch 41 cockpit selection and IndustrialMech fire control (TM pp.69, 
 describe("Batch 43 HarJel II and III repair systems (IO:AE pp.82-83, 185, 215)", () => {
     const space = { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 };
     const build = (options: { armor?: string, structure?: string } = {}) => {
-        const mech = new BattleMech();
-        mech.setTech("clan");
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tech: "clan", tonnage: 75 });
         if (options.structure) mech.setInternalStructureType(options.structure);
         if (options.armor) mech.setArmorType(options.armor);
         mech.setArmorWeight(10);
@@ -6222,11 +6131,7 @@ describe("Batch 44 RISC Laser Pulse Module (IO:AE pp.87, 190, 215)", () => {
 
     it("counts the weapon at x1.15 and one explosive slot in the Battle Value", () => {
         const build = (tag: string) => {
-            const mech = new BattleMech();
-            mech.setTech("is");
-            mech.setEra("dark-ages");
-            mech.setTonnage(50);
-            mech.setWalkSpeed(4);
+            const mech = buildMech();
             const laser = mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined)!;
             const from = mech.unallocatedCriticals.findIndex(critical => critical?.uuid === laser.uuid);
             expect(mech.moveCritical("un", from, "la", mech.getCriticals().leftArm.findIndex(critical => !critical))).toBe(true);
@@ -6310,11 +6215,7 @@ describe("Batch 45 MRM Apollo Fire Control System (TO:AUE pp.143, 195, 221)", ()
 
 describe("Batch 46 C3 Remote Sensor Launcher (TO:AUE pp.110, 195, 217)", () => {
     const build = (structure?: string) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(55);
-        mech.setWalkSpeed(5);
+        const mech = buildMech({ tonnage: 55, walk: 5 });
         if (structure) mech.setInternalStructureType(structure);
         return mech;
     };
@@ -6388,11 +6289,7 @@ describe("Batch 46 C3 Remote Sensor Launcher (TO:AUE pp.110, 195, 217)", () => {
 describe("Batch 47 Collapsible Command Module, Full-Head Ejection System, IndustrialMech Ejection Seat", () => {
     const mechOnly = { protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 };
     const build = (options: { tech?: string, era?: string, structure?: string } = {}) => {
-        const mech = new BattleMech();
-        mech.setTech(options.tech ?? "is");
-        mech.setEra(options.era ?? "dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tech: options.tech ?? "is", era: options.era ?? "dark-ages", tonnage: 75 });
         if (options.structure) mech.setInternalStructureType(options.structure);
         return mech;
     };
@@ -6470,11 +6367,7 @@ describe("Batch 47 Collapsible Command Module, Full-Head Ejection System, Indust
 
 describe("Batch 48 superheavy IndustrialMechs and superheavy engines (IO:AE pp.155-156, 215)", () => {
     const build = (structure?: string) => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(150);
-        mech.setWalkSpeed(2);
+        const mech = buildMech({ tonnage: 150, walk: 2 });
         if (structure) mech.setInternalStructureType(structure);
         return mech;
     };
@@ -6543,11 +6436,7 @@ describe("Batch 48 superheavy IndustrialMechs and superheavy engines (IO:AE pp.1
 
 describe("Batch 50 IndustrialMech armor (TM pp.72, 205, 278, 315)", () => {
     const build = (structure?: string, tech = "is") => {
-        const mech = new BattleMech();
-        mech.setTech(tech);
-        mech.setEra("dark-ages");
-        mech.setTonnage(75);
-        mech.setWalkSpeed(4);
+        const mech = buildMech({ tech: tech, tonnage: 75 });
         if (structure) mech.setInternalStructureType(structure);
         return mech;
     };
@@ -6640,11 +6529,7 @@ describe("Batch 54 industrial equipment on 'Mechs (TM pp.344-345)", () => {
     });
 
     it("mounts a 10-ton Cargo Container in one slot", () => {
-        const mech = new BattleMech();
-        mech.setTech("is");
-        mech.setEra("dark-ages");
-        mech.setTonnage(50);
-        mech.setWalkSpeed(4);
+        const mech = buildMech();
         const tons = mech.getRemainingTonnage();
         const slots = mech.getUnallocatedCritCount();
         mech.addEquipmentFromTag("cargo-container", "is", "", false, undefined, "", false, [], undefined, undefined);
