@@ -1,17 +1,27 @@
 import { describe, expect, it } from "vitest";
-import { newAcesSpecialOrder } from "../data/aces-cards";
+import { newAcesBehaviorColumn, newAcesSpecialOrder } from "../data/aces-cards";
 import {
+    acesSpecialOrderHasMinus,
+    acesSpecialOrderIconMeasure,
     acesSpecialOrderIconShape,
     acesSpecialOrderKindOf,
+    acesSpecialOrderOtsu,
+    acesSpecialOrderPreFilterLabel,
     acesSpecialOrderScanOptions,
+    acesSpecialOrderSplitGlued,
+    acesSpecialOrderTabOf,
     applyAcesSpecialOrderScan,
+    balanceBrackets,
     IAcesSpecialOrderPanelRow,
     joinAcesSpecialOrderItems,
+    newAcesSpecialOrderIconMemory,
     parseAcesSpecialOrderCardNumber,
     parseAcesSpecialOrderPanel,
     parseAcesSpecialOrderPriority,
     placeAcesSpecialOrderIcons,
+    resolveAcesSpecialOrderIcons,
     scanAcesSpecialOrder,
+    tidyAcesSpecialOrderText,
 } from "./aces-special-order-scan";
 import { ICardScanColours, ICardScanIO, ICardScanLine, ICardScanRect, TCardScanMode } from "./card-scan-io";
 
@@ -31,6 +41,23 @@ describe( "Special Order header fields", () => {
         expect( parseAcesSpecialOrderPriority( "000" ) ).toEqual( { priority: 0, priorityIsModifier: false } );
         expect( parseAcesSpecialOrderPriority( "OO0" ) ).toEqual( { priority: 0, priorityIsModifier: false } );
         expect( parseAcesSpecialOrderPriority( "8" ) ).toEqual( { priority: null, priorityIsModifier: false } );
+    } );
+
+    it( "reads a plus as a positive modifier, and no three digits out of a longer number", () => {
+        expect( parseAcesSpecialOrderPriority( "+300" ) ).toEqual( { priority: 300, priorityIsModifier: true } );
+        expect( parseAcesSpecialOrderPriority( "+ 300" ) ).toEqual( { priority: 300, priorityIsModifier: true } );
+        expect( parseAcesSpecialOrderPriority( "1500" ) ).toEqual( { priority: null, priorityIsModifier: false } );
+        expect( parseAcesSpecialOrderPriority( "-1500" ) ).toEqual( { priority: null, priorityIsModifier: false } );
+    } );
+
+    it( "sees a minus only as a short wide bar just left of the first digit", () => {
+        const digit = ( x: number ) => ( { x0: x, y0: 10, x1: x + 20, y1: 50 } );
+        const digits = [ digit( 100 ), digit( 125 ), digit( 150 ) ];
+        expect( acesSpecialOrderHasMinus( [ { x0: 80, y0: 27, x1: 96, y1: 33 }, ...digits ] ) ).toBe( true );
+        expect( acesSpecialOrderHasMinus( digits ) ).toBe( false );
+        // A tall mark (a 1 or the box's edge) is not a minus, nor a bar far from the digits.
+        expect( acesSpecialOrderHasMinus( [ { x0: 90, y0: 12, x1: 96, y1: 48 }, ...digits ] ) ).toBe( false );
+        expect( acesSpecialOrderHasMinus( [ { x0: 20, y0: 27, x1: 36, y1: 33 }, ...digits ] ) ).toBe( false );
     } );
 
     it( "takes the kind from the name, allowing a slip, and other for any other name", () => {
@@ -67,6 +94,48 @@ describe( "Special Order panels", () => {
             "Fill the kettle and wait for the whistle.",
             "Bring a spare umbrella.",
         ] );
+    } );
+
+    it( "tidies OCR slips in plain text", () => {
+        expect( tidyAcesSpecialOrderText( "fly the kitevs the wind" ) ).toBe( "fly the kite vs the wind" );
+        expect( tidyAcesSpecialOrderText( "lfthe kettle sings" ) ).toBe( "If the kettle sings" );
+        expect( tidyAcesSpecialOrderText( "1f it rains" ) ).toBe( "If it rains" );
+        expect( tidyAcesSpecialOrderText( "tw0 kites 0nly" ) ).toBe( "two kites only" );
+        expect( tidyAcesSpecialOrderText( "the kite’s “tail”" ) ).toBe( "the kite's \"tail\"" );
+        expect( tidyAcesSpecialOrderText( "fold it ( neatly )  , then stop ." ) ).toBe( "fold it (neatly), then stop." );
+        // Numbers stay numbers.
+        expect( tidyAcesSpecialOrderText( "bake 10 buns at 200" ) ).toBe( "bake 10 buns at 200" );
+    } );
+
+    it( "drops the brackets OCR saw in a round icon, and keeps brackets that pair up", () => {
+        expect( balanceBrackets( "paint the Kite Objectives ([moveobj]) and [destroyobj] stickers)." ) ).toBe( "paint the Kite Objectives ([moveobj] and [destroyobj] stickers)." );
+        expect( balanceBrackets( "polish [moveobj]) teapot" ) ).toBe( "polish [moveobj] teapot" );
+        expect( balanceBrackets( "polish ([moveobj] teapot" ) ).toBe( "polish [moveobj] teapot" );
+        expect( balanceBrackets( "kites ([moveobj]) fly (high)" ) ).toBe( "kites ([moveobj]) fly (high)" );
+    } );
+
+    it( "splits a function word OCR ran into the word before it only where the print shows a space", () => {
+        // "flewto": six letters over 120 px, a 9 px gap where "to" starts, words 14 px apart on the line.
+        expect( acesSpecialOrderSplitGlued( "flewto", 120, [ { start: 4, end: 6 }, { start: 77, end: 86 } ], 14 ) ).toBe( "flew to" );
+        expect( acesSpecialOrderSplitGlued( "flewto.", 120, [ { start: 77, end: 86 } ], 14 ) ).toBe( "flew to." );
+        // A letter's gap is no word space, and a gap elsewhere doesn't split the function word off.
+        expect( acesSpecialOrderSplitGlued( "potato", 120, [ { start: 78, end: 81 } ], 14 ) ).toBe( "potato" );
+        expect( acesSpecialOrderSplitGlued( "flewto", 120, [ { start: 20, end: 30 } ], 14 ) ).toBe( "flewto" );
+        expect( acesSpecialOrderSplitGlued( "teapot", 120, [ { start: 77, end: 86 } ], 14 ) ).toBe( "teapot" );
+    } );
+
+    it( "takes 0a, Ob. and o c: as pre-filter labels, but not other letters or numbers", () => {
+        for( const label of [ "0a. count", "Ob. count", "o c: count", "*0d, count" ] ) expect( acesSpecialOrderPreFilterLabel.test( label ) ).toBe( true );
+        for( const label of [ "0x. count", "1. count", "Oak tree", "on a shelf" ] ) expect( acesSpecialOrderPreFilterLabel.test( label ) ).toBe( false );
+    } );
+
+    it( "reads a movement tab from a row with no words: red jumps, yellow sprints", () => {
+        expect( acesSpecialOrderTabOf( row( "", 100, { red: 0.2 } ) ) ).toBe( "jump" );
+        expect( acesSpecialOrderTabOf( row( "[s)", 100, { yellow: 0.2 } ) ) ).toBe( "sprint" );
+        // OCR can take the tab's letter for an icon: the token is not a word.
+        expect( acesSpecialOrderTabOf( row( "[?standstill]", 100, { yellow: 0.2 } ) ) ).toBe( "sprint" );
+        expect( acesSpecialOrderTabOf( row( "fly the yellow kite", 100, { yellow: 0.2 } ) ) ).toBeNull();
+        expect( acesSpecialOrderTabOf( row( "", 100 ) ) ).toBeNull();
     } );
 
     it( "places an icon from the objective named before it, or the icon word after it", () => {
@@ -237,7 +306,11 @@ describe( "Special Order icon shapes", () => {
             "...........",
             ".#########.",
             ".#...#...#.",
+            ".#...#...#.",
+            ".#...#...#.",
             ".#########.",
+            ".#...#...#.",
+            ".#...#...#.",
             ".#...#...#.",
             ".#########.",
             "...........",
@@ -257,6 +330,70 @@ describe( "Special Order icon shapes", () => {
             ".####.",
             "......",
         ] ) ).toBe( "" );
+    } );
+
+    it( "reads the no line of sight icon printed as three parts: two halves and the slash between them", () => {
+        expect( shape( [
+            "..............",
+            "........##....",
+            "..##...##..##.",
+            ".###...##..###",
+            ".###..##...###",
+            "..##..##...##.",
+            "......#.......",
+            "..............",
+        ] ) ).toBe( "[?nolos]" );
+    } );
+
+    it( "gives no hint for a ring with holes that is not roughly square", () => {
+        expect( shape( [
+            "......................",
+            ".####################.",
+            ".#...#....#....#....#.",
+            ".####################.",
+            ".#...#....#....#....#.",
+            ".####################.",
+            "......................",
+        ] ) ).toBe( "" );
+    } );
+
+    it( "finds grey print with a threshold fitted to the picture", () => {
+        // Faint ink (160) on paper (250): the fixed threshold sees nothing, Otsu's sees the ring.
+        const rows = [
+            "........",
+            ".######.",
+            ".#....#.",
+            ".#....#.",
+            ".#....#.",
+            ".#....#.",
+            ".######.",
+            "........",
+        ];
+        const pixels: number[] = [];
+        for( const line of rows ) for( const char of line ) {
+            const value = char === "#" ? 160 : 250;
+            pixels.push( value, value, value, 255 );
+        }
+        expect( acesSpecialOrderIconShape( pixels, 8, 8 ) ).toBe( "" );
+        const threshold = acesSpecialOrderOtsu( pixels, 8, 8 );
+        expect( threshold ).toBeGreaterThan( 160 );
+        expect( threshold ).toBeLessThanOrEqual( 250 );
+        expect( acesSpecialOrderIconShape( pixels, 8, 8, threshold ) ).toBe( "[?standstill]" );
+    } );
+
+    it( "names an icon the shapes couldn't from a matching one named on the same card", () => {
+        const memory = newAcesSpecialOrderIconMemory();
+        const ring = { pixels: picture( [ "........", ".######.", ".#....#.", ".#....#.", ".######.", "........" ] ) };
+        const measured = acesSpecialOrderIconMeasure( ring.pixels.pixels, ring.pixels.width, ring.pixels.height );
+        expect( measured.signature ).not.toBeNull();
+        memory.known.push( { signature: measured.signature!, token: "[los]" } );
+        memory.unknown.push( { ...measured.signature!, aspect: measured.signature!.aspect * 1.05 } );
+        memory.unknown.push( { ...measured.signature!, holes: 3 } );
+        expect( resolveAcesSpecialOrderIcons( "1. [?U0] tallest kite", memory ) ).toBe( "1. [los] tallest kite" );
+        expect( resolveAcesSpecialOrderIcons( "wave at [U1] clouds", memory ) ).toBe( "wave at [?] clouds" );
+        // Two named icons that match disagree: no guess.
+        memory.known.push( { signature: measured.signature!, token: "[standstill]" } );
+        expect( resolveAcesSpecialOrderIcons( "1. [?U0] tallest kite", memory ) ).toBe( "1. [?] tallest kite" );
     } );
 
     it( "lets a shape guess fill an icon the words don't place", () => {
@@ -284,7 +421,7 @@ describe( "Special Order scan", () => {
     it( "returns nothing for a wrong card: a behavior card's photo is not a Special Order", async () => {
         const scan = await scanAcesSpecialOrder( fakePhoto( [
             { text: "AGGRESSIVE BALANCED CAUTIOUS", x: 200, y: 300 },
-            { text: "Special Order 2/5", x: 120, y: 1345 },
+            { text: "TARGET COMBAT", x: 200, y: 1345 },
         ] ) );
         expect( scan.found ).toBe( false );
         expect( scan.warnings ).toHaveLength( 1 );
@@ -304,6 +441,16 @@ describe( "Special Order scan", () => {
         expect( scan.warnings[0] ).toMatch( /Command card/ );
     } );
 
+    it( "reads a Special Order whose whole-photo read garbled \"Special\", even with category words a behavior card also prints", async () => {
+        const scan = await scanAcesSpecialOrder( fakePhoto( [
+            ...cardLines.filter( ( line ) => !/Special/.test( line.text ) ),
+            { text: "Special Order 2/5", x: 120, y: 1345, modes: [ "bright" ] },
+            { text: "Spcial Ordr TARGET COMBAT", x: 120, y: 1345, modes: [ "plain" ] },
+        ] ) );
+        expect( scan.found ).toBe( true );
+        expect( scan.cardNumber ).toBe( "2/5" );
+    } );
+
     it( "doesn't find a card with no panels or no Special Order footer", async () => {
         expect( ( await scanAcesSpecialOrder( fakePhoto( cardLines, false ) ) ).found ).toBe( false );
         expect( ( await scanAcesSpecialOrder( fakePhoto( cardLines.filter( ( line ) => !/Special/.test( line.text ) ) ) ) ).found ).toBe( false );
@@ -321,5 +468,25 @@ describe( "Special Order scan", () => {
         expect( order.rules ).toEqual( [ "Bring a spare umbrella." ] );
         expect( order.preFilters ).toEqual( [ "count the marbles" ] );
         expect( order.notes ).toBe( "mine" );
+    } );
+
+    it( "keeps what the player typed for the fields the scan didn't read", () => {
+        const typed = {
+            ...newAcesSpecialOrder(), kind: "fleeing" as const, priority: -500, priorityIsModifier: true,
+            preFilters: [ "count the marbles" ], spotter: [ "owns a ladder" ],
+            column: { ...newAcesBehaviorColumn(), condition: "If the kite is up" },
+        };
+        const scan = {
+            found: true, name: "", kind: "other" as const, cardNumber: "", priority: null, priorityIsModifier: false,
+            rules: [ "Bring a spare umbrella." ], column: null, preFilters: [], spotter: [], warnings: [],
+        };
+        const order = applyAcesSpecialOrderScan( typed, scan );
+        expect( order.kind ).toBe( "fleeing" );
+        expect( order.priority ).toBe( -500 );
+        expect( order.priorityIsModifier ).toBe( true );
+        expect( order.column ).toEqual( typed.column );
+        expect( order.preFilters ).toEqual( [ "count the marbles" ] );
+        expect( order.spotter ).toEqual( [ "owns a ladder" ] );
+        expect( order.rules ).toEqual( [ "Bring a spare umbrella." ] );
     } );
 } );

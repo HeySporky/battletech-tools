@@ -165,4 +165,16 @@ describe( "Aces Special Order scan in the library", () => {
         expect( screen.getByText( /looks like a behavior card/ ) ).toBeTruthy();
         expect( container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Not read" );
     } );
+
+    it( "leaves a Special Order alone when the photo shows no card it can find", async () => {
+        scanResult.current = {
+            ...specialScan( false ), warnings: [ "Couldn't find the Special Order's panels and its \"Special Order\" footer. Take the photo straight on, with one card filling the frame." ],
+        } as unknown as IAcesScanResult;
+        const { container } = await openNewSpecialOrder();
+        await choosePhoto( container );
+        expect( ( container.querySelector( "input[placeholder='1/5']" ) as HTMLInputElement ).value ).toBe( "" );
+        expect( screen.getByText( /Couldn't find the Special Order's panels/ ) ).toBeTruthy();
+        expect( container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Not read" );
+        expect( ( screen.getByText( "Save" ) as HTMLButtonElement ).disabled ).toBe( false );
+    } );
 } );
