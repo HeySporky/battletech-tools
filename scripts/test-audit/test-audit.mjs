@@ -33,7 +33,7 @@ function run(outName) {
     const result = spawnSync(
         "npx",
         [
-            "vitest", "run", "--project", "unit", "--coverage",
+            "vitest", "run", "--project", "unit", "--project", "data", "--coverage",
             "--coverage.reporter=json-summary", `--coverage.reportsDirectory=${join(out, "coverage")}`,
             "--reporter=json", `--outputFile=${join(out, "results.json")}`,
         ],

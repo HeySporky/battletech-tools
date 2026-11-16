@@ -8,6 +8,8 @@ import viteConfig from "./vite.config.mts";
 // Projects:
 //   unit     `*.test.ts(x)` in Node. Component tests opt into a DOM per file with `// @vitest-environment happy-dom`.
 //            Runs everywhere, including Android/Termux. This is what `npm test` runs.
+//   data     the bundled-design sweeps (DATA_SWEEPS), several minutes between them. `npm run check` and CI run
+//            them with `npm run test:data`; plain `npm test` skips them so the everyday run stays quick.
 //   browser  `*.browser.test.ts(x)` in real Chromium, Firefox and WebKit via Playwright (desktop and CI only).
 //            Run with `npm run test:browser` after `npx playwright install`.
 //            VITEST_BROWSERS=chromium,webkit limits the engines; PLAYWRIGHT_CHANNEL=msedge|chrome uses an installed
@@ -16,6 +18,13 @@ const BROWSERS = (process.env.VITEST_BROWSERS ?? "chromium,firefox,webkit").spli
     "chromium" | "firefox" | "webkit"
 )[];
 const CHANNEL = process.env.PLAYWRIGHT_CHANNEL;
+const DATA_SWEEPS = [
+    "src/data/bundled-mechs.test.ts",
+    "src/data/bundled-mechs-build.test.ts",
+    "src/data/bundled-units.test.ts",
+];
+// scripts/test-audit/test-audit.mjs sets TEST_AUDIT_DIR to count expect() calls per test.
+const AUDIT_SETUP = process.env.TEST_AUDIT_DIR ? ["scripts/test-audit/assertion-count.setup.ts"] : [];
 
 export default defineConfig((env) =>
     mergeConfig(viteConfig(env), {
@@ -30,9 +39,17 @@ export default defineConfig((env) =>
                         name: "unit",
                         environment: "node",
                         include: ["src/**/*.test.{ts,tsx}"],
-                        exclude: ["src/**/*.browser.test.{ts,tsx}"],
-                        // scripts/test-audit/test-audit.mjs sets TEST_AUDIT_DIR to count expect() calls per test.
-                        setupFiles: process.env.TEST_AUDIT_DIR ? ["scripts/test-audit/assertion-count.setup.ts"] : [],
+                        exclude: ["src/**/*.browser.test.{ts,tsx}", ...DATA_SWEEPS],
+                        setupFiles: AUDIT_SETUP,
+                    },
+                },
+                {
+                    extends: true,
+                    test: {
+                        name: "data",
+                        environment: "node",
+                        include: DATA_SWEEPS,
+                        setupFiles: AUDIT_SETUP,
                     },
                 },
                 {
