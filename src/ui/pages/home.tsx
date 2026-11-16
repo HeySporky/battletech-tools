@@ -197,6 +197,10 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                         <li><strong>Change the automated force mid-game (issue #638).</strong> Units can be added to or removed from the automated force during a game, searching the MUL including the custom list. Thanks to Rekikire for the report.</li>
                         <li><strong>Battlefield Support (issue #605).</strong> Battlefield Support cards can be chosen and spent, up to the Command card's limit per turn. Thanks to Rekikire for the report.</li>
                         <li><strong>Aces emplacements (issue #191).</strong> The Light (3x AC/2), Medium (2x AC/5) and Heavy (AC/20) Emplacements from the <em>Aces: Scouring Sands</em> Battlefield Support cards are in the custom unit list, as printed (the MUL lists none; thanks to Rekikire for the card photos). The Scouring Sands sorties that call for them now bring them in at Skill 4, and the Aces game marks them as emplacements with no deck.</li>
+                        <li><strong>Aces card photos.</strong> The Alpha Strike Aces card library can now read photos of Command cards, Special Orders cards and Edge cards, as well as the behavior cards it read before. Photos turned sideways or upside down now read too. Thanks to Rekikire for the card photos.</li>
+                        <li><strong>Edge cards.</strong> Edge cards are a new kind in the card library: add them with a form, see them in a list, import and export them as JSON, or read them from a photo.</li>
+                        <li><strong>Edge abilities for Named Pilots.</strong> A Named Pilot in a campaign now picks Edge abilities from the Edge cards you entered. Names typed earlier still work.</li>
+                        <li><strong>Edge reminders in play.</strong> During a campaign game, each phase lists the Edge abilities of your living Named Pilots that apply: the cost, your condition line and a short hint.</li>
                       </ul>
                   </li>
                   <li>
