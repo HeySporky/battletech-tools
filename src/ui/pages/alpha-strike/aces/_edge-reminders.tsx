@@ -39,6 +39,19 @@ export const getAcesEdgeReminders = ( pilots: IAcesEdgeReminderPilot[], cards: I
     return reminders;
 }
 
+/** The reminders for a game: null when the game has no linked campaign, or the campaign is not found. */
+export const getAcesGameEdgeReminders = (
+    campaignId: string,
+    campaigns: { id: string, pilots: IAcesEdgeReminderPilot[] }[],
+    cards: IAcesEdgeCard[],
+    phase: TAcesPhase,
+): { pilot: string; card: IAcesEdgeCard }[] | null => {
+    if( !campaignId ) return null;
+    const campaign = campaigns.find( ( item ) => item.id === campaignId );
+    if( !campaign ) return null;
+    return getAcesEdgeReminders( campaign.pilots, cards, phase );
+}
+
 interface IAcesEdgeRemindersProps {
     pilots: IAcesEdgeReminderPilot[];
     cards: IAcesEdgeCard[];
@@ -48,6 +61,13 @@ interface IAcesEdgeRemindersProps {
 /** Edge abilities the campaign's living Named Pilots can use in this phase; nothing when there are none. */
 export default function AcesEdgeReminders( props: IAcesEdgeRemindersProps ): JSX.Element | null {
     const reminders = getAcesEdgeReminders( props.pilots, props.cards, props.phase );
+    if( reminders.length === 0 ) return null;
+    return <AcesEdgeReminderList reminders={reminders} />;
+}
+
+/** The list of reminders, already gathered for the phase. */
+export function AcesEdgeReminderList( props: { reminders: { pilot: string; card: IAcesEdgeCard }[] } ): JSX.Element | null {
+    const reminders = props.reminders;
     if( reminders.length === 0 ) return null;
     return (
         <div className="aces-edge-reminders">

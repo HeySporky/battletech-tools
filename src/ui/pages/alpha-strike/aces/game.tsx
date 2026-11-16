@@ -5,7 +5,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import AlphaStrikeMPMaps from '../../../components/svg/alpha-strike-mp-maps';
-import AcesEdgeReminders from './_edge-reminders';
+import { AcesEdgeReminderList, getAcesGameEdgeReminders } from './_edge-reminders';
 import { IAcesNamedPilotExport } from '../../../../classes/aces-campaign';
 import { AcesGame, acesPhases, getAcesAbilityValue, TAcesPhase } from '../../../../classes/aces-game';
 import {
@@ -148,10 +148,8 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
     /** Edge abilities of the linked campaign living Named Pilots for a phase (campaign games only). */
     private _renderEdge = ( phase: TAcesPhase ): JSX.Element | null => {
         const game = this.state.game!;
-        if( !game.campaignId ) return null;
-        const campaign = this.state.campaigns.find( ( item ) => item.id === game.campaignId );
-        if( !campaign ) return null;
-        return <AcesEdgeReminders pilots={campaign.pilots} cards={this.state.library.edgeCards} phase={phase} />;
+        const reminders = getAcesGameEdgeReminders( game.campaignId, this.state.campaigns, this.state.library.edgeCards, phase );
+        return reminders ? <AcesEdgeReminderList reminders={reminders} /> : null;
     }
 
     /** The face-up Command card, when the players entered their Command deck in the library. */

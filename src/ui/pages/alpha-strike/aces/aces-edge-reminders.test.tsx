@@ -3,7 +3,7 @@ import { cleanup, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { AcesNamedPilot } from "../../../../classes/aces-campaign";
 import { IAcesEdgeCard, newAcesEdgeCard } from "../../../../data/aces-cards";
-import AcesEdgeReminders, { getAcesEdgeReminders } from "./_edge-reminders";
+import AcesEdgeReminders, { getAcesEdgeReminders, getAcesGameEdgeReminders } from "./_edge-reminders";
 
 afterEach( cleanup );
 
@@ -52,10 +52,23 @@ describe( "Edge reminders during play", () => {
         const text = document.body.textContent || "";
         expect( text ).toContain( "Kite" );
         expect( text ).toContain( "Teapot Dash" );
-        expect( text ).toContain( "2" );
+        expect( text ).toContain( "(cost 2)" );
         expect( text ).toContain( "While the kite flies" );
         expect( text ).toContain( "if the unit is in an enemy's rear arc" );
         expect( text ).not.toContain( "Hidden body text" );
+    } );
+
+    it( "gives no panel without a campaign, or when the campaign is not found", () => {
+        const cards = [ card( "Teapot Dash", "movement" ) ];
+        const campaigns = [ { id: "c1", pilots: [ pilot( "Kite", [ "Teapot Dash" ] ) ] } ];
+        expect( getAcesGameEdgeReminders( "", campaigns, cards, "movement" ) ).toBeNull();
+        expect( getAcesGameEdgeReminders( "missing", campaigns, cards, "movement" ) ).toBeNull();
+    } );
+
+    it( "gives reminders for the matching campaign", () => {
+        const cards = [ card( "Teapot Dash", "movement" ) ];
+        const campaigns = [ { id: "c0", pilots: [] }, { id: "c1", pilots: [ pilot( "Kite", [ "Teapot Dash" ] ) ] } ];
+        expect( getAcesGameEdgeReminders( "c1", campaigns, cards, "movement" )?.map( ( r ) => r.pilot ) ).toEqual( [ "Kite" ] );
     } );
 
     it( "gives no reminder for a name with no entered card", () => {
