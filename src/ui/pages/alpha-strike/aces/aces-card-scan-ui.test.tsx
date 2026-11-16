@@ -197,8 +197,10 @@ describe( "Aces Edge card scan in the library", () => {
         const { container } = await openNewEdgeCard();
         expect( screen.getByText( "The card reader isn't perfect." ) ).toBeTruthy();
         expect( screen.getByText( /Photo of the Edge card/ ) ).toBeTruthy();
+        expect( screen.queryByText( /Do each side separately/ ) ).toBeNull();
         await choosePhoto( container );
-        expect( ( container.querySelector( "input[placeholder='1/5']" ) as HTMLInputElement ).value ).toBe( "4/12" );
+        expect( container.querySelector( "img.aces-scan-photo" )!.getAttribute( "alt" ) ).toBe( "Your photo of the card" );
+        expect( ( container.querySelector( "input[placeholder='1/12']" ) as HTMLInputElement ).value ).toBe( "4/12" );
         expect( screen.getByDisplayValue( "STEADY KITE" ) ).toBeTruthy();
         expect( screen.getByDisplayValue( "KITES, BM ONLY" ) ).toBeTruthy();
         expect( screen.getByDisplayValue( "When the wind drops:" ) ).toBeTruthy();
@@ -214,7 +216,7 @@ describe( "Aces Edge card scan in the library", () => {
         scanResult.current = edgeScan( false ) as unknown as IAcesScanResult;
         const { container } = await openNewEdgeCard();
         await choosePhoto( container );
-        expect( ( container.querySelector( "input[placeholder='1/5']" ) as HTMLInputElement ).value ).toBe( "" );
+        expect( ( container.querySelector( "input[placeholder='1/12']" ) as HTMLInputElement ).value ).toBe( "" );
         expect( screen.getByText( /looks like a Special Order/ ) ).toBeTruthy();
         expect( container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Not read" );
         expect( ( screen.getByText( "Save" ) as HTMLButtonElement ).disabled ).toBe( false );

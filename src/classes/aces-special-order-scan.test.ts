@@ -19,6 +19,7 @@ import {
     parseAcesSpecialOrderPanel,
     parseAcesSpecialOrderPriority,
     placeAcesSpecialOrderIcons,
+    resolveAcesSpecialOrderColumn,
     resolveAcesSpecialOrderIcons,
     scanAcesSpecialOrder,
     tidyAcesSpecialOrderText,
@@ -394,6 +395,15 @@ describe( "Special Order icon shapes", () => {
         // Two named icons that match disagree: no guess.
         memory.known.push( { signature: measured.signature!, token: "[standstill]" } );
         expect( resolveAcesSpecialOrderIcons( "1. [?U0] tallest kite", memory ) ).toBe( "1. [?] tallest kite" );
+    } );
+
+    it( "resolves icon placeholders in every text field of a column, leaving none unmarked", () => {
+        const memory = newAcesSpecialOrderIconMemory();
+        const column = { ...newAcesBehaviorColumn(), condition: "kite [?U0] up", altMoveWhen: "if [?U0] teapots", filters: [ "0. [?U1] kites" ] };
+        const resolved = resolveAcesSpecialOrderColumn( column, memory );
+        expect( JSON.stringify( resolved ) ).not.toMatch( /\[\??U\d+\]/ );
+        expect( resolved.altMoveWhen ).toBe( "if [?] teapots" );
+        expect( column.altMoveWhen ).toBe( "if [?U0] teapots" );
     } );
 
     it( "lets a shape guess fill an icon the words don't place", () => {

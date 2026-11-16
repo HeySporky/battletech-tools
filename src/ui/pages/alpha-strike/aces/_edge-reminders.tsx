@@ -27,9 +27,10 @@ export const acesEdgeTriggerHints: { [trigger in TAcesEdgeTrigger]: string } = {
  */
 export const getAcesEdgeReminders = ( pilots: IAcesEdgeReminderPilot[], cards: IAcesEdgeCard[], phase: TAcesPhase ): { pilot: string; card: IAcesEdgeCard }[] => {
     const reminders: { pilot: string; card: IAcesEdgeCard }[] = [];
-    for( const pilot of pilots ) {
-        if( pilot.killed ) continue;
-        for( const name of pilot.edgeAbilities ) {
+    // Campaign records read from storage are only parsed, so a damaged one may lack either list.
+    for( const pilot of Array.isArray( pilots ) ? pilots : [] ) {
+        if( !pilot || pilot.killed ) continue;
+        for( const name of pilot.edgeAbilities || [] ) {
             const card = acesEdgeCardForName( cards, name );
             if( card && ( card.phase === "any" || card.phase === phase ) ) {
                 reminders.push( { pilot: pilot.callsign || "Unnamed pilot", card } );

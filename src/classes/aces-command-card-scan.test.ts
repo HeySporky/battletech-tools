@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { newAcesCommandCard } from "../data/aces-cards";
-import { acesCommandCardScanOptions, applyAcesCommandScan, scanAcesCommandCard, snapAcesFaction } from "./aces-command-card-scan";
+import { IAcesCommandCard, newAcesCommandCard } from "../data/aces-cards";
+import { acesCommandCardScanOptions, applyAcesCommandScan, IAcesCommandScanResult, scanAcesCommandCard, snapAcesFaction } from "./aces-command-card-scan";
 import { ICardScanColours, ICardScanIO, ICardScanLine, ICardScanRect, TCardScanMode } from "./card-scan-io";
 
 // Synthetic cards: the text below is made up for the tests, laid out the way a Command card prints it.
@@ -212,6 +212,37 @@ describe( "Aces Command card scan: not a Command card", () => {
         expect( card.red.length ).toBe( 3 );
         expect( card.orders[0].phase ).toBe( "initiative" );
         expect( existing.red.length ).toBe( 0 );
+    } );
+} );
+
+describe( "Aces Command card scan: apply never wipes typed lists", () => {
+    const rule = ( text: string ) => ( { text } as unknown as IAcesCommandCard["blue"][number] );
+    const scanOf = ( side: "orders" | "support", extra: Partial<IAcesCommandScanResult> ): IAcesCommandScanResult => ( {
+        found: true, side, deck: "", faction: "", letter: "", cardNumber: "", orders: [], red: [], yellow: [], blue: [],
+        supportOrders: "", emplacementZoneRings: [], emplacements: [], artillery: [], bsp: [], strategy: [], warnings: [], ...extra,
+    } );
+
+    it( "keeps the typed blue list when an orders-side scan read none", () => {
+        const typed = { ...newAcesCommandCard(), blue: [ rule( "kite" ) ], red: [ rule( "teapot" ) ] };
+        const card = applyAcesCommandScan( typed, scanOf( "orders", { red: [ rule( "muffin" ) ], blue: [] } ) );
+        expect( card.blue.length ).toBe( 1 );
+        expect( card.red[0].text ).toBe( "muffin" );
+    } );
+
+    it( "keeps the typed support lists and flag when a support-side scan read none", () => {
+        const typed = { ...newAcesCommandCard(), supportOrders: "Kept.", supportOnlyIfStructure: true, artillery: [ rule( "kite" ) ], emplacementZoneRings: [ 2 ] };
+        const card = applyAcesCommandScan( typed, scanOf( "support", {} ) );
+        expect( card.supportOrders ).toBe( "Kept." );
+        expect( card.supportOnlyIfStructure ).toBe( true );
+        expect( card.artillery.length ).toBe( 1 );
+        expect( card.emplacementZoneRings ).toEqual( [ 2 ] );
+    } );
+
+    it( "sets supportOnlyIfStructure when the scan read it", () => {
+        const card = applyAcesCommandScan( newAcesCommandCard(), scanOf( "support", { supportOrders: "Fire only if a hit would damage a structure." } ) );
+        expect( card.supportOnlyIfStructure ).toBe( true );
+        const other = applyAcesCommandScan( { ...newAcesCommandCard(), supportOnlyIfStructure: true }, scanOf( "support", { supportOrders: "Fire at a teapot." } ) );
+        expect( other.supportOnlyIfStructure ).toBe( false );
     } );
 } );
 

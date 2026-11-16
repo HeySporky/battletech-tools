@@ -254,7 +254,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
                 <legend>Read a card from a photo</legend>
                 <p className="aces-muted">
                     Photograph one side of the card straight on, filling the frame, and the text is read into the form
-                    below for you to check. Do each side separately. The photo stays on your device.
+                    below for you to check.{this.state.kind === "edgeCards" || this.state.kind === "specialOrders" ? "" : " Do each side separately."} The photo stays on your device.
                 </p>
                 <p className="aces-muted aces-scan-note">
                     <strong>The card reader isn't perfect.</strong> It misreads some words, numbers and icons. Check every line of the form against your card before you save it.
@@ -271,7 +271,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
                             {scan.side ? ": filled in below. Check every line against the photo; OCR gets some words and icons wrong, and [?] marks an icon it couldn't place." : null}
                         </p>
                         {scan.warnings.length > 0 ? <ul className="aces-issue-error">{scan.warnings.map( ( warning, warningIndex ) => <li key={warningIndex}>{warning}</li> )}</ul> : null}
-                        <a href={scan.photo} target="_blank" rel="noopener noreferrer"><img className="aces-scan-photo" src={scan.photo} alt={"Your photo of the card's " + ( scan.side || "" ) + " side"} /></a>
+                        <a href={scan.photo} target="_blank" rel="noopener noreferrer"><img className="aces-scan-photo" src={scan.photo} alt={this.state.kind === "edgeCards" || this.state.kind === "specialOrders" ? "Your photo of the card" : "Your photo of the card's " + ( scan.side || "" ) + " side"} /></a>
                     </div>
                 ) )}
                 {this.state.scans.some( ( scan ) => scan.side ) ? (
@@ -657,7 +657,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
                 <div className="aces-inline">
                     {this._text( "Name", [ "name" ] )}
                     {this._text( "Category", [ "category" ] )}
-                    {this._text( "Card", [ "cardNumber" ], "1/5" )}
+                    {this._text( "Card", [ "cardNumber" ], "1/12" )}
                     {this._number( "Cost", [ "cost" ] )}
                 </div>
                 <div className="aces-inline">
@@ -825,7 +825,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
                                     <tr key={record.id}>
                                         <td>
                                             {summary( kind, record )}
-                                            {record.sample ? <span className="aces-muted"> (sample, {record.source ? record.source.book + " p." + record.source.page : ""})</span> : null}
+                                            {record.sample ? <span className="aces-muted"> ({record.source ? "sample, " + record.source.book + " p." + record.source.page : "sample"})</span> : null}
                                             {issues.length > 0 ? <><br /><span className="aces-issue-error">{issues.join( " " )}</span></> : null}
                                         </td>
                                         <td className="text-right">

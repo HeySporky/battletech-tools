@@ -289,6 +289,17 @@ describe( "Edge card scan", () => {
         expect( result.warnings[0] ).toMatch( /Edge card/ );
     } );
 
+    it( "turns down a Special Order card whose panel mentions an edge but spends none", async () => {
+        const result = await scanAcesEdgeCard( fakePhoto( [
+            { text: "TEAPOT", x: 260, y: 900, tall: 60, modes: [ "bright", "plain" ] },
+            { text: "Pour the tea at the table edge.", x: 260, y: 1140, modes: [ "panel", "plain" ] },
+            { text: "SPECIAL ORDER 3/9", x: 230, y: 1700, modes: [ "bright", "plain" ] },
+        ] ) );
+        expect( result.found ).toBe( false );
+        expect( result.warnings ).toHaveLength( 1 );
+        expect( result.warnings[0] ).toMatch( /looks like a Special Order/ );
+    } );
+
     it( "turns down a photo with no light panel", async () => {
         const result = await scanAcesEdgeCard( fakePhoto( cardLines, false ) );
         expect( result.found ).toBe( false );

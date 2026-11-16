@@ -497,7 +497,7 @@ const rowText = ( line: ICardScanLine, io: ICardScanIO, margin = -Infinity ): st
 /** A name or category word as printed: capitals, with OCR's stray marks dropped. */
 const bandWords = ( line: ICardScanLine ): string => line.words.map( ( word ) => word.text.replace( /[^A-Za-z0-9$'/-]/g, "" ) ).filter( ( word ) => word.length >= 2 || word === "/" ).join( " " );
 
-/** Edge cards print portrait; a scan that found the light panel and a "Spend ... Edge" text found the card. */
+/** Edge cards print portrait; a scan that found the light panel with the word "edge" in it (and not another kind's headings) found the card. */
 export const acesEdgeCardScanOptions: ICardScanOptions<IAcesEdgeScanResult> = { shape: "portrait", found: ( result ) => result.found };
 
 export const scanAcesEdgeCard = async ( io: ICardScanIO ): Promise<IAcesEdgeScanResult> => {
@@ -522,8 +522,9 @@ export const scanAcesEdgeCard = async ( io: ICardScanIO ): Promise<IAcesEdgeScan
     const panelRows = acesEdgePanelRows( await io.recognize( layout.panel, "panel" ), layout.panel );
     const margin = rowsLeft( panelRows );
     const body = joinAcesEdgeRows( panelRows.map( ( line ) => rowText( line, io, margin ) ) );
-    // Every Edge card spends Edge; the other kinds' panels never say so.
-    if( !/\bedge\b/i.test( body ) || behavior || command ) return notFound();
+    // Every Edge card spends Edge; the other kinds' panels never say so. A Special Order footer with no Edge cost
+    // read is that card, even if its panel uses the word "edge" in passing.
+    if( !/\bedge\b/i.test( body ) || behavior || command || ( special && parseAcesEdgeCost( body ) === null ) ) return notFound();
     result.found = true;
     const split = splitAcesEdgeCondition( body );
     result.condition = split.condition;

@@ -481,7 +481,7 @@ export const acesEdgeCardForName = ( cards: IAcesEdgeCard[], name: string ): IAc
     return cards.find( ( card ) => normalizeAcesEdgeName( card.name ) === wanted );
 }
 
-export const newAcesEdgeCard =(): IAcesEdgeCard => {
+export const newAcesEdgeCard = ():IAcesEdgeCard => {
     return {
         id: generateUUID(),
         name: "",
@@ -733,7 +733,7 @@ export const normalizeAcesEdgeCard = ( value: unknown ): IAcesEdgeCard | null =>
     };
 }
 
-const normalizeScenarioUnit =( value: unknown ): IAcesScenarioUnit | null => {
+const normalizeScenarioUnit = (value: unknown ): IAcesScenarioUnit | null => {
     const data = obj( value );
     if( typeof data.name !== "string" ) return null;
     return {
@@ -1088,7 +1088,7 @@ export const validateAcesEdgeCard = ( card: IAcesEdgeCard ): string[] => {
     return rv;
 }
 
-export const validateAcesScenario =( scenario: IAcesScenario ): string[] => {
+export const validateAcesScenario = (scenario: IAcesScenario ): string[] => {
     const rv: string[] = [];
     if( !scenario.name.trim() ) rv.push( "Sortie name is missing." );
     if( scenario.opposingUnits.length === 0 ) rv.push( "No opposing units listed." );

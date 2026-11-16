@@ -625,19 +625,22 @@ export const applyAcesCommandScan = ( card: IAcesCommandCard | null, scan: IAces
     if( scan.letter ) rv.letter = scan.letter;
     if( scan.cardNumber && !rv.cardNumber ) rv.cardNumber = scan.cardNumber;
     if( scan.side === "orders" ) {
-        rv.orders = scan.orders;
-        rv.red = scan.red;
-        rv.yellow = scan.yellow;
-        rv.blue = scan.blue;
+        // Each list is assigned only when the scan read it, so a re-scan never wipes what the player typed.
+        if( scan.orders.length ) rv.orders = scan.orders;
+        if( scan.red.length ) rv.red = scan.red;
+        if( scan.yellow.length ) rv.yellow = scan.yellow;
+        if( scan.blue.length ) rv.blue = scan.blue;
     }
     if( scan.side === "support" ) {
-        rv.supportOrders = scan.supportOrders;
-        rv.supportOnlyIfStructure = /hit[^.]*structure/i.test( scan.supportOrders );
-        rv.emplacementZoneRings = scan.emplacementZoneRings;
-        rv.emplacements = scan.emplacements;
-        rv.artillery = scan.artillery;
-        rv.bsp = scan.bsp;
-        rv.strategy = scan.strategy;
+        if( scan.supportOrders ) {
+            rv.supportOrders = scan.supportOrders;
+            rv.supportOnlyIfStructure = /hit[^.]*structure/i.test( scan.supportOrders );
+        }
+        if( scan.emplacementZoneRings.length ) rv.emplacementZoneRings = scan.emplacementZoneRings;
+        if( scan.emplacements.length ) rv.emplacements = scan.emplacements;
+        if( scan.artillery.length ) rv.artillery = scan.artillery;
+        if( scan.bsp.length ) rv.bsp = scan.bsp;
+        if( scan.strategy.length ) rv.strategy = scan.strategy;
     }
     return JSON.parse( JSON.stringify( rv ) );
 }

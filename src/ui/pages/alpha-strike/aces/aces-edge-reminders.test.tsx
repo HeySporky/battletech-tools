@@ -40,6 +40,13 @@ describe( "Edge reminders during play", () => {
         }
     } );
 
+    it( "does not throw on a raw campaign pilot record with no edgeAbilities, or a campaign with no pilots", () => {
+        const cards = [ card( "Teapot Dash", "movement" ) ];
+        const raw = { callsign: "Kite", killed: false } as unknown as AcesNamedPilot;
+        expect( getAcesEdgeReminders( [ raw, pilot( "Teapot", [ "Teapot Dash" ] ) ], cards, "movement" ).map( ( r ) => r.pilot ) ).toEqual( [ "Teapot" ] );
+        expect( getAcesEdgeReminders( undefined as unknown as AcesNamedPilot[], cards, "movement" ) ).toEqual( [] );
+    } );
+
     it( "skips a killed pilot's cards", () => {
         const cards = [ card( "Teapot Dash", "movement" ) ];
         const pilots = [ pilot( "Gone", [ "Teapot Dash" ], true ), pilot( "Kite", [ "Teapot Dash" ] ) ];

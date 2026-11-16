@@ -108,7 +108,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         this.setState({
             game: game,
             library: library,
-            campaigns: campaigns.map( ( campaign ) => ( { id: campaign.id, name: campaign.name || "Unnamed campaign", pilots: campaign.pilots } ) ),
+            campaigns: campaigns.map( ( campaign ) => ( { id: campaign.id, name: campaign.name || "Unnamed campaign", pilots: Array.isArray( campaign.pilots ) ? campaign.pilots : [] } ) ),
             showSetup: game.getAutomatedUnits().length === 0,
         });
     }
@@ -373,7 +373,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                     <legend>Card library and sortie</legend>
                     <p className="aces-muted">
                         Your library holds {this.state.library.cards.length} Aces cards, {this.state.library.commandCards.length} Command
-                        cards, {this.state.library.specialOrders.length} Special Orders and {this.state.library.scenarios.length} sorties.
+                        cards, {this.state.library.specialOrders.length} Special Orders, {this.state.library.edgeCards.length} Edge cards and {this.state.library.scenarios.length} sorties.
                         {" "}<Link to={`${process.env.PUBLIC_URL}/alpha-strike/aces/library`}>Open the Card Library</Link>
                     </p>
                     <div className="aces-inline">

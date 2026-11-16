@@ -291,6 +291,14 @@ export const resolveAcesSpecialOrderIcons = ( text: string, memory: IAcesSpecial
     return tokens.length === 1 ? tokens[0] : "[?]";
 } );
 
+/** A behavior column with the icons resolved in each of its text fields (condition, the alternative's condition, filters). */
+export const resolveAcesSpecialOrderColumn = ( column: IAcesBehaviorColumn, memory: IAcesSpecialOrderIconMemory ): IAcesBehaviorColumn => ( {
+    ...column,
+    condition: resolveAcesSpecialOrderIcons( column.condition, memory ),
+    altMoveWhen: resolveAcesSpecialOrderIcons( column.altMoveWhen, memory ),
+    filters: column.filters.map( ( text ) => resolveAcesSpecialOrderIcons( text, memory ) ),
+} );
+
 /**
  * A word OCR ran together with a short function word after it ("flewto"), split where the print shows a word's space:
  * blanks are the runs of empty columns inside the word's box (pixels from its left edge), wordSpace the line's usual
@@ -848,10 +856,7 @@ export const scanAcesSpecialOrder = async ( io: ICardScanIO ): Promise<IAcesSpec
     result.rules = resolve( result.rules );
     result.preFilters = resolve( result.preFilters );
     result.spotter = resolve( result.spotter );
-    if( result.column ) {
-        result.column.filters = resolve( result.column.filters );
-        result.column.condition = resolve( [ result.column.condition ] )[0];
-    }
+    if( result.column ) result.column = resolveAcesSpecialOrderColumn( result.column, memory );
 
     if( !result.name ) result.warnings.push( "Card name not read." );
     if( !result.cardNumber ) result.warnings.push( "Card number (e.g. 2/5) not read." );
