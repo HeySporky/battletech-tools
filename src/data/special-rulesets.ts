@@ -15,6 +15,7 @@
 
 import { RulesEditionUnitType } from "./rules-editions";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
+import { FUTURE_WARS_PLAY_SOURCES } from "./future-wars-play-rules";
 
 // Special Rulesets (#324): optional and homebrew rules that change how the game plays or how units are built. They
 // are chosen first in the shared settings block, so each can set the minimum edition and narrow every list below it.
@@ -78,6 +79,53 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         source: { title: "Clell Flint, 'Alternative Rules for Building Mechs in BattleTech', Future Wars #11, p.24" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["mechConstruction"],
+    },
+    // The fanzine's optional play rules (#172, Best of Future Wars plan Chunk D). Each changes one thing no other ruleset
+    // does, so all five may be used together; the rules summaries are in future-wars-play-rules.ts.
+    {
+        id: "fw-opportunity-fire",
+        name: "Future Wars: Opportunity Fire",
+        description: "A 'Mech may shoot one non-missile weapon at an enemy during the Movement Phase as it crosses the firer's line of sight, "
+            + "at 6 / 8 / 10 to hit; its other weapons then fire at +1.",
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-opportunity-fire"] },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["firePhase"],
+    },
+    {
+        id: "fw-strategic-movement",
+        name: "Future Wars: Strategic Movement",
+        description: "On more than four map sheets, a unit out of the fight may move at double speed, for extra heat and no firing; "
+            + "it stops the moment it is attacked.",
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-strategic-movement"] },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["movementModes"],
+    },
+    {
+        id: "fw-morale",
+        name: "Future Wars: Morale",
+        description: "Units rated Militia to Crack check morale when hurt, and may carry on, become disorganized, break or rout; "
+            + "'Mechs, vehicles and infantry each have their own tables.",
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-morale"] },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["morale"],
+    },
+    {
+        id: "fw-weapon-malfunctions",
+        name: "Future Wars: Weapon Malfunctions",
+        description: "A to-hit roll of 2 misses, and flamers, missiles, autocannons and lasers then roll for a jam, a damaged sight, "
+            + "extra heat or worse.",
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-weapon-malfunctions"] },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["weaponFailure"],
+    },
+    {
+        id: "fw-long-range-wars",
+        name: "Future Wars: The Long Range Wars",
+        description: "Two range bands past long: extended (twice long, to-hit 10) and extreme (twice extended, to-hit 13), with ranging "
+            + "on a slow target and an eight-sided-dice option.",
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-long-range-wars"] },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["weaponRanges"],
     },
     {
         id: "sample-no-clans",

@@ -133,6 +133,13 @@ in-play helpers (+ tests).
 
 ## Chunk D: Play-rule rulesets
 
+**Done 2026-11-16.** Registry entries in `special-rulesets.ts`; summaries and full tables in
+`src/data/future-wars-play-rules.ts`; `FutureWarsRulesReference` shows one, folded, in the Special Rulesets window.
+**For Chunk E:** rosters keep rulesets only as search filters, so the play tools read each unit's own rulesets
+(`getUnitRulesets`), and `<FutureWarsRulesReference rulesetId=... />` drops into the play panel. The ledger lists the
+calls that were ours (Strategic Movement heat per MP beyond normal, morale pass on base or more, malfunction tables
+for the four printed kinds only, no ranging cap).
+
 **Files:** `src/data/special-rulesets.ts` (+ test); a summary component per ruleset after
 `src/ui/components/battledroids-rules-reference.tsx`.
 

@@ -1,6 +1,7 @@
 import React, { useState, type JSX } from 'react';
 import { RulesEditionUnitType } from '../../data/rules-editions';
 import { getRulesetConflict, getSpecialRulesets, UNIT_TYPE_PLURALS } from '../../data/special-rulesets';
+import FutureWarsRulesReference from './future-wars-rules-reference';
 import StandardModal from './standard-modal';
 
 /**
@@ -67,6 +68,7 @@ export default function SpecialRulesetsStep(props: {
                                 {clash ? <span className="color-red"> Clashes with {clash.name}.</span> : null}
                                 {removesThis && props.unitType ? <span className="color-red"> {UNIT_TYPE_PLURALS[props.unitType]} do not exist under this ruleset.</span> : null}
                             </p>
+                            <FutureWarsRulesReference rulesetId={ruleset.id} />
                         </div>
                     );
                 })}

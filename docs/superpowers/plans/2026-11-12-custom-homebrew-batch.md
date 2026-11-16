@@ -329,6 +329,17 @@ PPC-X (#266, u/Distinct-Duck-7120, post 1hqnzwy), Superheavy PPC (#265, u/Feddit
 u/Magical_Savior, 1mhvhwp), Tandem Charge SRM (#264, u/Magical_Savior, 1jamkvn), Re-Engineered Fusion Engine (#267,
 u/Bookwyrm517, 1iky8lg).
 
+**Owner ruling 2026-11-16, PPC-X:** the PPC-X is **Apocryphal, not Custom Homebrew**: it is a MechWarrior 5
+weapon (the post also names the BattleTech 2018 Snub-Nose). Record it at `APOCRYPHAL_RULES_LEVEL` in the apocryphal
+catalog layout (`hailstorm-apocryphal.ts` / `equipment-energy.ts` line ~116 show the pattern), sourced to the game,
+with the Reddit tabletop conversion credited as "Inspired by". Before choosing the stat line: find the PPC-X's stats
+in MW5 (damage, heat, range, weight, slots, cooldown, projectile behaviour) and the same stats for the other MW5 PPCs
+(Light, standard, Heavy, Snub-Nose, ER; IS and Clan as MW5 has them). Write a table in the ledger: how the PPC-X
+sits against those in the game, how the tabletop PPCs map from their MW5 numbers, what that mapping predicts for a
+tabletop PPC-X, and how u/Severe_Ad_5022's line (7 t, 3 slots, 10 heat, 5/9/12, 12 damage in 3s on the cluster
+table, -1 to hit) and u/Omega_Chris_8352's (Snub-Nose on the cluster table, 5 x 2) compare. Bring the table and a
+recommended stat line to the owner before writing the record.
+
 - [ ] **Step 1:** Check `C:/repo/ResourceLibrary/scrapes/reddit/` for a file per post id. For any that is missing,
   say so in the handoff and skip that item.
 - [ ] **Step 2:** For each saved post: the equipment items follow Chunk 3 (extend `custom-homebrew-batch.test.ts`,
