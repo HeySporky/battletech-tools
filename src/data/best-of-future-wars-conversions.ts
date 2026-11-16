@@ -75,6 +75,10 @@ const converted = (weapon: IEquipmentItem, fields: Partial<IEquipmentItem> & { c
 // --- Rapid Fire Autocannon (Pom-Pom Guns), p.27: unsigned, it runs on in Karl Sanders' article after the Gatling Laser, as the
 // Long Range Flamer and the Power Booster do (Chunk A credits the Flamer to him the same way).
 const POM_POM_AUTHOR = "Karl Sanders";
+/** In-character Technical Readout text (ours). */
+const POM_POM_LORE = "A Pom-Pom conversion rebuilds an autocannon's feed and breech to cycle two shells in the time the original fired one. "
+    + "The faster cycle costs the barrel some of its reach and doubles the heat it sheds, and the strain makes an already temperamental "
+    + "weapon more prone to jams. Most technicians treat it as a field modification rather than a factory weapon.";
 
 const pomPom = (baseTag: string, size: number): IEquipmentItem => {
     const ac = canonRecord(equipmentBallistic, baseTag);
@@ -95,6 +99,7 @@ const pomPom = (baseTag: string, size: number): IEquipmentItem => {
             + "Same damage and rounds per ton as the autocannon; range cut by 1 hex at short, 2 at medium and 3 at long. "
             + "Still prone to breakdown: roll twice on the weapons malfunction table and take the worse. "
             + "+5 tons, +2 slots and +100,000 C-bills on the autocannon.",
+        lore: POM_POM_LORE,
     });
 };
 
@@ -150,6 +155,10 @@ const swingFire = (baseTag: string): IEquipmentItem => {
 
 // --- Power Booster, p.28. The chart: extra heat, extra damage, added range.
 const BOOSTER_NOTES = `${cite("Karl Sanders", "Power Booster", 28)} ${UNSIGNED} Dates are unverified.`;
+/** In-character Technical Readout text (ours): the shared booster paragraph, then what it drives. */
+const boosterLore = (driven: string) => "A Power Booster is a bank of capacitors and overdriven couplings that pushes a system past its rated "
+    + "output for a few seconds at a time. Every use strains the hardware, and a booster run hard turn after turn will burn itself out, "
+    + `sometimes taking the system it drives with it. ${driven}`;
 const boosterRules = (system: string) => `A Power Booster hooked to ${system}, noted on the sheet. ${BURN_OUT} 2 tons, 1 slot, 750,000 C-bills.`;
 
 const boostedWeapon = (weapon: IEquipmentItem, tag: string, name: string, booster: NonNullable<IEquipmentConversion["booster"]>): IEquipmentItem => {
@@ -166,6 +175,7 @@ const boostedWeapon = (weapon: IEquipmentItem, tag: string, name: string, booste
         notes: `${BOOSTER_NOTES} The chart gives a single "Added Range" figure; adding it to each band is our reading. ${UNVALUED}`,
         rules: `${boosterRules(`a ${name}`)} Fires as the plain weapon; a boosted shot is +${booster.extraHeat} heat, ${extraDamage} and `
             + `+${booster.addedRange} hex${booster.addedRange === 1 ? "" : "es"} of range in each band.`,
+        lore: boosterLore(`Wired to a ${name}, it pours extra power into a shot for more damage and reach, at the price of heat.`),
     });
 };
 
@@ -185,6 +195,9 @@ const boosterItem = (target: "running" | "jumping"): IEquipmentItem => ({
     rules: target === "running"
         ? `${boosterRules("the legs")} Running only: +2 MP to the running speed (no use when walking), at 1 heat a hex run.`
         : `${boosterRules("the jump jets")} +50% jump (a jump 6 'Mech jumps 9), at double heat a hex. Needs jump jets.`,
+    lore: boosterLore(target === "running"
+        ? "Wired to the leg actuators, it lends a 'Mech a burst of speed at a run, though it does nothing for a walking pace."
+        : "Wired to the jump jets, it stretches each jump by half again, while the jets run twice as hot."),
     damage: 0, damageAero: 0, accuracyModifier: 0, cbills: 750000, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 0, heatAero: 0, weight: 2,
     range: { min: 0, short: 0, medium: 0, long: 0 },
     space: mechOnly(1),

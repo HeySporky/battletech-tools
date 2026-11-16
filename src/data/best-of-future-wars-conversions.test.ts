@@ -240,6 +240,13 @@ describe("Best of Future Wars conversions: catalog", () => {
         }
     });
 
+    it("every record carries Technical Readout lore, free of the source notes", () => {
+        for (const tag of ALL_TAGS) {
+            expect(find(tag).lore, tag).toBeTruthy();
+            expect(find(tag).lore, tag).not.toMatch(/\bours\b|unverified|Inspired by/);
+        }
+    });
+
     it("every Swing Fire rack carries Technical Readout lore", () => {
         for (const item of futureWarsSwingFires()) {
             expect(item.lore, item.tag).toContain("Star League Defense Force");

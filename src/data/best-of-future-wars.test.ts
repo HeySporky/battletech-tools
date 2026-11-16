@@ -62,10 +62,10 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(flamer.cbills).toBe(65000);
         expect(flamer.shotsPerTon).toBe(15);
         expect(ammo.roundsPerTon).toBe(15);
-        expect(flamer.notes).toContain("2 plus 5");
-        expect(flamer.notes).toContain("0 plus 5");
+        expect(flamer.rules).toContain("2 plus 5");
+        expect(flamer.rules).toContain("0 plus 5");
         expect(ammo.explosive).toBe(true);
-        expect(ammo.notes).toContain("hit that many times");
+        expect(ammo.rules).toContain("hit that many times");
         expect(getCompatibleAmmo(flamer, ammo)).toBe(true);
         expect(getWeaponShotsPerTon(flamer, ammo)).toBe(15);
     });
@@ -78,7 +78,7 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(pds.damage).toBe(4);
         expect(pds.heat).toBe(0);
         expect(pds.range).toMatchObject({ min: 0, short: 1, medium: 2, long: 3 });
-        expect(pds.notes).toContain("50 bursts");
+        expect(pds.rules).toContain("50 bursts");
         expect(ammo.roundsPerTon).toBe(100);
         expect(getCompatibleAmmo(pds, ammo)).toBe(true);
         expect(getWeaponShotsPerTon(pds, ammo)).toBe(100);
@@ -92,8 +92,8 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         const gauss = canon("standard-gauss-rifle");
         expect(vhe.roundsPerTon).toBe(5);
         expect(vhe.range).toMatchObject({ min: 0, short: 4, medium: 12, long: 19 });
-        expect(vhe.notes).toContain("20");
-        expect(vhe.notes).toContain("30 points");
+        expect(vhe.rules).toContain("20");
+        expect(vhe.rules).toContain("30 points");
         expect(vhe.introduced).toBe(3040);
         expect(getCompatibleAmmo(gauss, vhe)).toBe(true);
         expect(getWeaponShotsPerTon(gauss, vhe)).toBe(5);
@@ -104,8 +104,8 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         const gauss = canon("standard-gauss-rifle");
         expect(inferno.roundsPerTon).toBe(8);
         expect(inferno.range).toMatchObject({ min: 0, short: 7, medium: 15, long: 22 });
-        expect(inferno.notes).toContain("30 heat");
-        expect(inferno.notes).toContain("20");
+        expect(inferno.rules).toContain("30 heat");
+        expect(inferno.rules).toContain("20");
         // An ammo hit adds heat (p.11), not damage: the generic explosion code must stay off it.
         expect(inferno.explosive).toBe(false);
         expect(inferno.notes).toContain("heat, not damage");
@@ -124,8 +124,8 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
             const ammo = find(ammoTag);
             const weapon = canon(weaponTag);
             expect(ammo.roundsPerTon, ammoTag).toBe(rounds);
-            expect(ammo.notes, ammoTag).toContain(damage);
-            expect(ammo.notes, ammoTag).toContain("+1");
+            expect(ammo.rules, ammoTag).toContain(damage);
+            expect(ammo.rules, ammoTag).toContain("+1");
             expect(getCompatibleAmmo(weapon, ammo), ammoTag).toBe(true);
             expect(getWeaponShotsPerTon(weapon, ammo), ammoTag).toBe(rounds);
         }
@@ -140,11 +140,11 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(launcher.range).toMatchObject({ min: 8, short: 12, medium: 24, long: 36 });
         expect(missile.roundsPerTon).toBe(2);
         expect(missile.cbills).toBe(250000);
-        expect(launcher.notes).toContain("1d8");
-        expect(launcher.notes).toContain("1d6");
-        expect(launcher.notes).toContain("1d4");
-        expect(launcher.notes).toContain("1d4/2");
-        expect(launcher.notes).toMatch(/critical/);
+        expect(launcher.rules).toContain("1d8");
+        expect(launcher.rules).toContain("1d6");
+        expect(launcher.rules).toContain("1d4");
+        expect(launcher.rules).toContain("1d4/2");
+        expect(launcher.rules).toMatch(/critical/);
         expect(launcher.notes).toContain("minimum range of 8 is ours");
         expect(getCompatibleAmmo(launcher, missile)).toBe(true);
         expect(getWeaponShotsPerTon(launcher, missile)).toBe(2);
@@ -161,6 +161,18 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
             expect(item.page, tag).toBe(page);
             expect(item.notes, tag).toContain(`${author}, '`);
             expect(item.notes, tag).toContain("*The Best of Future Wars, Volume One* (1991), p");
+        }
+    });
+
+    // Owner ruling (2026-11-16): notes keep the source and credit, Rules hold the play text, Lore the in-character TRO text.
+    it("every record splits credit notes, play Rules and TRO Lore", () => {
+        for (const tag of [...WEAPONS, ...AMMO]) {
+            const item = find(tag);
+            expect(item.rules, tag).toBeTruthy();
+            expect(item.lore, tag).toBeTruthy();
+            expect(item.rules, tag).not.toContain("Custom Homebrew");
+            expect(item.lore, tag).not.toContain("Custom Homebrew");
+            expect(item.lore, tag).not.toMatch(/\bours\b|unverified/);
         }
     });
 

@@ -653,12 +653,17 @@ export const missileCustom: IEquipmentItem[] = [
     // The Best of Future Wars, Volume One (1991), Chunk A of the fanzine plan (#172). Custom Homebrew: fan material.
     {
         name: "The Penitrator", tag: "custom-penitrator", techBase: "universal", catalog: "custom", altNames: ["Penitrator Launcher"], sort: "missile, penitrator", category: "Missile Weapons",
-        notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *The Best of Future Wars, Volume One* (1991), p.20. A long-range solid-fuel missile with a soft shaped-charge head that "
-            + "gets critical hits through armor rather than damaging it. Captured from the 'Mech called the Blaster, which carried 4 missiles and a 3-ton launcher, the SRM 6's weight, "
-            + "fitted on top of its torso (the article names no 'Mech location, so none is restricted here). Roll a critical hit check for each missile that hits. Damage and "
-            + "internal structure damage by range, bands out to 8, 12, 24 and 36 hexes: 1d4/2 and 1 inside 8 hexes (the missile has not reached speed and is harder to hit there; the page gives no to-hit number), 1d8 and 3 to 12, 1d6 and 2 to 24, "
-            + "1d4 and 1 to 36. Only the Federated Commonwealth has them, and very few. Not printed in The Best of Future Wars: the minimum range of 8 is ours, a way to carry the inside-8-hexes band in the range field, since the page only says the damage drops and the shot is harder there; the launcher's slots are ours, 2, as the SRM 6's; "
+        notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *The Best of Future Wars, Volume One* (1991), p.20. "
+            + "The article names no 'Mech location (the Blaster carried it on top of its torso), so none is restricted here; it gives no to-hit number inside 8 hexes. "
+            + "Not printed in The Best of Future Wars: the minimum range of 8 is ours, a way to carry the inside-8-hexes band in the range field, since the page only says the damage drops and the shot is harder there; the launcher's slots are ours, 2, as the SRM 6's; "
             + "its cost, Battle Value, dates and tech rating are unverified (cost 0, Battle Value 0).",
+        rules: "A 3-ton launcher, 2 slots, firing missiles 2 a ton (ammo-custom-penitrator-standard). Roll a critical hit check for each missile that hits. "
+            + "Damage and internal structure damage by range: 1d4/2 and 1 inside 8 hexes (the missile has not reached speed and is harder to hit there), "
+            + "1d8 and 3 to 12, 1d6 and 2 to 24, 1d4 and 1 to 36.",
+        lore: "The Penitrator is a long-range solid-fuel missile with a soft shaped-charge warhead that spends its force past the armor, among the "
+            + "machinery inside, rather than on it. The design was captured from the 'Mech known as the Blaster, which carried four of the missiles "
+            + "in a launcher on top of its torso. The missile needs distance to reach speed, so it is weak and hard to aim up close. Only the "
+            + "Federated Commonwealth fields it, in very small numbers.",
         damage: 0, damageAero: 0, accuracyModifier: 0, cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 0, heatAero: 0, weight: 3,
         range: { min: 8, short: 12, medium: 24, long: 36 }, space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
         shotsPerTon: 2, ammoTypes: ["ammo-custom-penitrator-standard"], minAmmoTons: 1, explosive: false, weaponType: [], techRating: "x", book: "The Best of Future Wars, Volume One", page: 20, rulesLevel: 6,

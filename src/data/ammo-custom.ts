@@ -139,10 +139,15 @@ const sabotShells = (ac: "2" | "5" | "10" | "20", sabotRounds: number, chartRoun
     alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
     catalog: "custom",
     rulesLevel: 6,
-    notes: `Custom Homebrew: Charles J. Tomaszewski, 'How to Kick Goliath Where it Counts', *The Best of Future Wars, Volume One* (1991), p.21. A depleted-uranium penetrator that sheds its sheath in flight: `
-        + `half the normal damage outside and a quarter inside, fractions rounded up, which for the AC/${ac} the article's chart gives as ${external} external, ${internal} internal. `
-        + `On a hit, make a critical hit check with a +1 modifier. Only 1 round in 5 of the ton is SABOT: the chart's ${chartRounds} rounds a ton hold ${sabotRounds}, so the record counts those ${sabotRounds}. `
-        + `The chart's ${chartRounds} rounds a ton is the article's figure, not this catalog's standard AC/${ac} count. The article calls the shells generic to any side, in limited quantities, and gives no year. ${NOT_PRINTED_AMMO}`
+    notes: `Custom Homebrew: Charles J. Tomaszewski, 'How to Kick Goliath Where it Counts', *The Best of Future Wars, Volume One* (1991), p.21. `
+        + `Only 1 round in 5 of the ton is SABOT: the chart's ${chartRounds} rounds a ton hold ${sabotRounds}, so the record counts those ${sabotRounds}. `
+        + `The chart's ${chartRounds} rounds a ton is the article's figure, not this catalog's standard AC/${ac} count. The article gives no year. ${NOT_PRINTED_AMMO}`,
+    rules: `A depleted-uranium penetrator that sheds its sheath in flight: half the normal damage outside and a quarter inside, fractions rounded up, `
+        + `which for the AC/${ac} is ${external} external, ${internal} internal. On a hit, make a critical hit check with a +1 modifier. `
+        + `${sabotRounds} SABOT round${sabotRounds === 1 ? "" : "s"} to the ton.`,
+    lore: "A SABOT shell carries a dense depleted-uranium dart inside a light sheath that falls away as the round leaves the barrel. The dart strikes "
+        + "with less force than a full shell but drives deep, seeking the machinery beneath the armor. Quartermasters on every side can supply "
+        + "SABOT rounds, though only in limited numbers, and they are issued one round in five.",
 });
 
 export const ammoCustom: IEquipmentItem[] = [
@@ -1223,9 +1228,12 @@ export const ammoCustom: IEquipmentItem[] = [
         roundsPerTon: 15, explosive: true, techRating: "x", book: BEST_OF, page: 28,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
-        notes: "Custom Homebrew: Karl Sanders, 'Long Range Flamer', *The Best of Future Wars, Volume One* (1991), p.28. 15 shots a ton for the Long Range Flamer (custom-lr-flamer). "
-            + "If the ammunition is hit, the damage is scaled as if the unit had been hit that many times by the weapon (p.28), so it is marked explosive. "
-            + "Not printed in The Best of Future Wars: cost and Battle Value are left at 0 (unverified); dates and tech rating are unverified."
+        notes: "Custom Homebrew: Karl Sanders, 'Long Range Flamer', *The Best of Future Wars, Volume One* (1991), p.28. "
+            + "Not printed in The Best of Future Wars: cost and Battle Value are left at 0 (unverified); dates and tech rating are unverified.",
+        rules: "15 shots a ton for the Long Range Flamer (custom-lr-flamer). Explosive: if the ammunition is hit, the damage is scaled as if the unit "
+            + "had been hit that many times by the weapon.",
+        lore: "Long Range Flamer fuel is a thickened, sticky gel carried in armored tanks. A breached tank sprays its carrier with the same burning "
+            + "gel it was meant to deliver."
     },
     {
         isAmmo: true, isSpecialAmmo: false, name: "EII Point Defense System - Standard Ammo", altNames: ["EII PDS Ammo"], tag: "ammo-custom-eii-pds-standard", techBase: "universal", altTags: [],
@@ -1235,9 +1243,11 @@ export const ammoCustom: IEquipmentItem[] = [
         roundsPerTon: 100, explosive: true, techRating: "x", book: BEST_OF, page: 8,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
-        notes: "Custom Homebrew: Mike Reese, 'Ellena Industries Inc. Point Defense System (EII PDS)', *The Best of Future Wars, Volume One* (1991), p.8. The extra magazine of an EII "
-            + "Point Defense System (custom-eii-pds): a ton is 100 bursts, one burst against each salvo of incoming missiles; the system's own half ton, built in, is 50. "
-            + "Not printed in The Best of Future Wars: whether it explodes (marked explosive here, ours, as machine gun ammunition is); cost and Battle Value are left at 0 (unverified); tech rating is unverified."
+        notes: "Custom Homebrew: Mike Reese, 'Ellena Industries Inc. Point Defense System (EII PDS)', *The Best of Future Wars, Volume One* (1991), p.8. "
+            + "Not printed in The Best of Future Wars: whether it explodes (marked explosive here, ours, as machine gun ammunition is); cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
+        rules: "The extra magazine of an EII Point Defense System (custom-eii-pds): a ton is 100 bursts, one burst against each salvo of incoming missiles; "
+            + "the system's own half ton, built in, is 50. Explosive, as machine gun ammunition is.",
+        lore: "Ellena Industries ships extra belts for its Point Defense System in sealed one-ton magazines that feed the gun alongside its built-in drum."
     },
     {
         isAmmo: true, isSpecialAmmo: true, name: "Gauss Rifle - VHE Shell", altNames: ["VHE Gauss Shell"], tag: "ammo-is-gauss-rifle-vhe", techBase: "is", altTags: [],
@@ -1247,11 +1257,15 @@ export const ammoCustom: IEquipmentItem[] = [
         roundsPerTon: 5, explosive: true, techRating: "x", book: BEST_OF, page: 11,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
-        notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11. Very High Explosive: a shaped charge with a hollow "
-            + "HE body, heavier than the standard round, so 5 shots a ton against 8 and a range 3 hexes shorter (1-4, 5-12, 13-19). On a hit it does 20 to the location struck and 5 to each "
-            + "adjacent location; a critical hit adds one more critical check for the charge, so one shell can cause as many as four. If the ammunition takes a critical hit, each shell "
-            + "does 30 points of damage as it cooks off. Dated 3040, the year the article has Hanse Davion commission the research (the story's year, not a fielding date). Not printed in The "
-            + "Best of Future Wars: cost and Battle Value are left at 0 (unverified); tech rating is unverified."
+        notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11. Dated 3040, the year the article has Hanse Davion commission the research (the story's year, not a fielding date). Not printed in The "
+            + "Best of Future Wars: cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
+        rules: "Very High Explosive: heavier than the standard round, so 5 shots a ton against 8 and a range 3 hexes shorter (1-4, 5-12, 13-19). "
+            + "On a hit it does 20 to the location struck and 5 to each adjacent location; a critical hit adds one more critical check for the charge, "
+            + "so one shell can cause as many as four. If the ammunition takes a critical hit, each shell does 30 points of damage as it cooks off.",
+        lore: "In 3040 Prince Hanse Davion commissioned research into a heavier Gauss round. The Very High Explosive shell that came of it wraps a "
+            + "shaped charge in a hollow high-explosive body: the charge drives into the plate it strikes while the casing bursts across the armor "
+            + "around it. The added mass shortens the round's flight and cuts the shells to a ton, and a magazine of VHE shells is far more "
+            + "dangerous to its owner than inert slugs."
     },
     {
         isAmmo: true, isSpecialAmmo: true, name: "Gauss Rifle - Inferno Shell (Liao)", altNames: ["Liao Inferno Gauss Shell"], tag: "ammo-is-gauss-rifle-inferno", techBase: "is", altTags: [],
@@ -1261,12 +1275,17 @@ export const ammoCustom: IEquipmentItem[] = [
         roundsPerTon: 8, explosive: false, techRating: "x", book: BEST_OF, page: 11,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
-        notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11 (the Liao Inferno shell, stats on p.11). Dr Xhiao Zing's "
-            + "napalm-filled round. On impact the target takes 2 points of damage and 10 heat a turn for 5 turns; as with standard inferno rounds, more shells only lengthen the heat. "
-            + "If the ammunition takes a critical hit, the player takes 30 heat (20 if CASE is installed) and 1 more for each shell (p.11). That is heat, not damage, so the "
-            + "record is not marked explosive, to keep the generic ammunition-explosion damage off it; the heat from an ammunition hit is modelled later. 8 shots a ton, range 1-7, 8-15, 16-22. "
+        notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11 (the Liao Inferno shell, stats on p.11). "
+            + "An ammunition hit causes heat, not damage, so the record is not marked explosive, to keep the generic ammunition-explosion damage off it; "
+            + "the heat from an ammunition hit is modelled later. "
             + "Not printed in The Best of Future Wars: the article gives no year of its own for it (the research was contemporary with the VHE shell, 3040, so it is left at no date); "
-            + "cost and Battle Value are left at 0 (unverified); tech rating is unverified."
+            + "cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
+        rules: "On impact the target takes 2 points of damage and 10 heat a turn for 5 turns; as with standard inferno rounds, more shells only lengthen the heat. "
+            + "If the ammunition takes a critical hit, the player takes 30 heat (20 if CASE is installed) and 1 more for each shell. "
+            + "8 shots a ton, range 1-7, 8-15, 16-22.",
+        lore: "The Capellan researcher Dr Xhiao Zing answered the Davion VHE program with a Gauss round of a different kind: a thin casing filled "
+            + "with napalm that bursts over the target and clings, cooking a 'Mech from the outside for several turns. The light load keeps the "
+            + "full reach of a standard slug. A struck magazine floods its carrier with burning napalm rather than exploding."
     },
     sabotShells("2", 4, 20, 1, 1),
     sabotShells("5", 3, 15, 3, 2),
@@ -1280,8 +1299,11 @@ export const ammoCustom: IEquipmentItem[] = [
         roundsPerTon: 2, explosive: false, techRating: "x", book: BEST_OF, page: 20,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
-        notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *The Best of Future Wars, Volume One* (1991), p.20. Each missile weighs half a ton, so 2 a ton; almost half of that is solid fuel. "
-            + "The author puts the cost at around 250,000 C-bills a ton, almost 10 times a normal missile, and expects it to be the only estimate ever made. Fired by the Penitrator (custom-penitrator). "
-            + "Not printed in The Best of Future Wars: whether it explodes (left as not, ours); Battle Value is left at 0 (unverified); dates and tech rating are unverified."
+        notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *The Best of Future Wars, Volume One* (1991), p.20. "
+            + "The author puts the cost at around 250,000 C-bills a ton, almost 10 times a normal missile, and expects it to be the only estimate ever made. "
+            + "Not printed in The Best of Future Wars: whether it explodes (left as not, ours); Battle Value is left at 0 (unverified); dates and tech rating are unverified.",
+        rules: "Missiles for the Penitrator (custom-penitrator), half a ton each, so 2 a ton. Not explosive.",
+        lore: "Each Penitrator missile weighs half a ton, almost half of it solid fuel. They are built by hand and rank among the costliest munitions "
+            + "in the Inner Sphere, at roughly ten times the price of an ordinary missile."
     }
 ];
