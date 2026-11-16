@@ -170,6 +170,10 @@ so the answer holds.
 
 ## Chunk E: Play-rule tools
 
+**Done 2026-11-16.** `src/utils/future-wars-ruleset-tools.ts`, `BattleMech.futureWarsPlay` (strategicMovement,
+opportunityShot, morale, malfunctions, ranging), the to-hit in `getTargetToHitFromWeapon`, and the panel
+`roster/_futureWarsRulesetTools.tsx`. 'Mechs only (ruling); rulings and 9 deferred minors in the ledger.
+
 In roster play, shown only when the roster's ruleset is ticked: Strategic Movement (doubled MP and its heat, a
 reminder of what it forbids); Opportunity Fire (an opportunity attack's to-hit); Morale (a check button when a
 trigger in the article happens, the result applied as a status on the unit); Weapon Malfunctions (on a roll of 2,
