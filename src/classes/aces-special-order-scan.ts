@@ -312,7 +312,7 @@ export const acesSpecialOrderSplitGlued = ( text: string, width: number, blanks:
 }
 
 /** Runs of ink-free columns inside a box, as pixels from its left edge. */
-const blankColumns = ( io: ICardScanIO, box: ICardScanRect ): { start: number, end: number }[] => {
+export const acesScanBlankColumns = ( io: ICardScanIO, box: ICardScanRect ): { start: number, end: number }[] => {
     const pixels = io.pixels( box );
     const threshold = acesSpecialOrderOtsu( pixels, box.width, box.height );
     const inked: boolean[] = [];
@@ -386,7 +386,7 @@ const lineText = ( line: ICardScanLine, io: ICardScanIO, panel: ICardScanRect | 
         let read = text;
         if( /^[A-Za-z]{4,}[.,:;]?$/.test( text ) ) {
             const box = clampRect( { left: word.bbox.x0, top: word.bbox.y0, width: word.bbox.x1 - word.bbox.x0, height: word.bbox.y1 - word.bbox.y0 }, io.width, io.height );
-            if( box.width > 0 && box.height > 0 ) read = acesSpecialOrderSplitGlued( text, box.width, blankColumns( io, box ), wordSpace );
+            if( box.width > 0 && box.height > 0 ) read = acesSpecialOrderSplitGlued( text, box.width, acesScanBlankColumns( io, box ), wordSpace );
         }
         parts.push( read );
         previousEnd = word.bbox.x1;
@@ -456,7 +456,7 @@ const bulletLeftOf = ( io: ICardScanIO, readLeft: number, firstX: number, top: n
  * OCR lines as the card prints them, top to bottom: pieces of one row joined left to right, and lines far taller than
  * the rest (art read as text) dropped.
  */
-const cardRows = ( lines: ICardScanLine[] ): ICardScanLine[] => {
+export const acesScanCardRows = ( lines: ICardScanLine[] ): ICardScanLine[] => {
     const kept = lines.filter( ( line ) => line.text.trim() !== "" && line.words.length > 0 );
     const heights = kept.map( ( line ) => line.bbox.y1 - line.bbox.y0 ).sort( ( a, b ) => a - b );
     const rowHeight = heights.length > 0 ? heights[Math.floor( heights.length / 2 )] : 0;
@@ -750,7 +750,7 @@ export const scanAcesSpecialOrder = async ( io: ICardScanIO ): Promise<IAcesSpec
     if( !result.cardNumber ) result.cardNumber = parseAcesSpecialOrderCardNumber( linesIn( whole.filter( ( line ) => line.bbox.y0 > io.height * 0.75 ) ) );
 
     // The name is the band's tallest print, white on the blue banner.
-    const titleLines = cardRows( await io.recognize( layout.title, "bright" ) ).filter( ( line ) => /[A-Za-z]{3,}/.test( line.text ) );
+    const titleLines = acesScanCardRows( await io.recognize( layout.title, "bright" ) ).filter( ( line ) => /[A-Za-z]{3,}/.test( line.text ) );
     const tallest = titleLines.slice().sort( ( a, b ) => ( b.bbox.y1 - b.bbox.y0 ) - ( a.bbox.y1 - a.bbox.y0 ) )[0];
     const nameRead = tallest ? tallest.words.map( ( word ) => word.text.replace( /[^A-Za-z'-]/g, "" ) ).filter( ( word ) => word.length >= 2 ).join( " " ) : "";
     result.kind = acesSpecialOrderKindOf( nameRead );
@@ -789,7 +789,7 @@ export const scanAcesSpecialOrder = async ( io: ICardScanIO ): Promise<IAcesSpec
     const panelLines = async ( rect: ICardScanRect, blanks = false, widen = 0 ): Promise<IAcesSpecialOrderPanelRow[]> => {
         const lineColours = ( top: number, bottom: number ) => io.colours( clampRect( { left: rect.left, top: top, width: rect.width, height: Math.max( 1, bottom - top ) }, io.width, io.height ) );
         const read = async ( area: ICardScanRect ) => {
-            const lines = cardRows( await io.recognize( area, "panel" ) );
+            const lines = acesScanCardRows( await io.recognize( area, "panel" ) );
             return { lines, rows: lines.map( ( line ) => ( {
                 ...lineText( line, io, rect, memory, area.left ), top: line.bbox.y0, bottom: line.bbox.y1, colours: lineColours( line.bbox.y0, line.bbox.y1 ),
             } ) ) };

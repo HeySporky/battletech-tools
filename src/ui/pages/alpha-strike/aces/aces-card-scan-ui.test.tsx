@@ -6,6 +6,7 @@ import { newAcesCardLibrary } from "../../../../data/aces-cards";
 import { IAcesScanResult } from "../../../../classes/aces-card-scan";
 import { IAcesCommandScanResult } from "../../../../classes/aces-command-card-scan";
 import { IAcesSpecialOrderScanResult } from "../../../../classes/aces-special-order-scan";
+import { IAcesEdgeScanResult } from "../../../../classes/aces-edge-card-scan";
 import { IAppGlobals } from "../../../app-router";
 import { AppSettings } from "../../../classes/app_settings";
 import AcesLibraryPage from "./library";
@@ -174,6 +175,47 @@ describe( "Aces Special Order scan in the library", () => {
         await choosePhoto( container );
         expect( ( container.querySelector( "input[placeholder='1/5']" ) as HTMLInputElement ).value ).toBe( "" );
         expect( screen.getByText( /Couldn't find the Special Order's panels/ ) ).toBeTruthy();
+        expect( container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Not read" );
+        expect( ( screen.getByText( "Save" ) as HTMLButtonElement ).disabled ).toBe( false );
+    } );
+} );
+
+const edgeScan = ( found: boolean ): IAcesEdgeScanResult => found
+    ? { found: true, name: "STEADY KITE", category: "KITES, BM ONLY", cardNumber: "4/12", condition: "When the wind drops:", text: "Spend 1 Edge to keep your kite in the air.", cost: 1, phase: "movement", trigger: "moving", warnings: [ "Check every line against the card." ] }
+    : { found: false, name: "", category: "", cardNumber: "", condition: "", text: "", cost: null, phase: "any", trigger: "none", warnings: [ "This looks like a Special Order, not an Edge card: read it from a Special Order's form." ] };
+
+const openNewEdgeCard = async () => {
+    const view = render( <MemoryRouter><AcesLibraryPage appGlobals={appGlobals} /></MemoryRouter> );
+    fireEvent.click( await screen.findByText( /^Edge cards/ ) );
+    fireEvent.click( screen.getByText( "New" ) );
+    return view;
+}
+
+describe( "Aces Edge card scan in the library", () => {
+    it( "reads an Edge card photo into its form, through the same note and check as a behavior card", async () => {
+        scanResult.current = edgeScan( true ) as unknown as IAcesScanResult;
+        const { container } = await openNewEdgeCard();
+        expect( screen.getByText( "The card reader isn't perfect." ) ).toBeTruthy();
+        expect( screen.getByText( /Photo of the Edge card/ ) ).toBeTruthy();
+        await choosePhoto( container );
+        expect( ( container.querySelector( "input[placeholder='1/5']" ) as HTMLInputElement ).value ).toBe( "4/12" );
+        expect( screen.getByDisplayValue( "STEADY KITE" ) ).toBeTruthy();
+        expect( screen.getByDisplayValue( "KITES, BM ONLY" ) ).toBeTruthy();
+        expect( screen.getByDisplayValue( "When the wind drops:" ) ).toBeTruthy();
+        expect( screen.getByDisplayValue( "Spend 1 Edge to keep your kite in the air." ) ).toBeTruthy();
+        expect( container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Edge card" );
+        const save = screen.getByText( "Save" ) as HTMLButtonElement;
+        expect( save.disabled ).toBe( true );
+        fireEvent.click( screen.getByLabelText( /checked the form against my photos/ ) );
+        expect( save.disabled ).toBe( false );
+    } );
+
+    it( "leaves an Edge card alone when the photo is another kind of card", async () => {
+        scanResult.current = edgeScan( false ) as unknown as IAcesScanResult;
+        const { container } = await openNewEdgeCard();
+        await choosePhoto( container );
+        expect( ( container.querySelector( "input[placeholder='1/5']" ) as HTMLInputElement ).value ).toBe( "" );
+        expect( screen.getByText( /looks like a Special Order/ ) ).toBeTruthy();
         expect( container.querySelector( ".aces-scan-result strong" )!.textContent ).toBe( "Not read" );
         expect( ( screen.getByText( "Save" ) as HTMLButtonElement ).disabled ).toBe( false );
     } );
