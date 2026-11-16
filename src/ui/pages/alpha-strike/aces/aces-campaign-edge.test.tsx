@@ -83,15 +83,26 @@ describe( "Named Pilots pick Edge abilities from entered Edge cards", () => {
         expect( screen.queryByText( /more than/ ) ).toBeNull();
     } );
 
-    it( "lists a saved name with no card as typed, and keeps it", async () => {
+    it( "shows a saved name with no card in the free-text field beside the checkboxes, and keeps it", async () => {
         state.library.edgeCards = [ edgeCard( "Kite Day" ) ];
         pilotWith( [ "Old Kettle" ], 60 );
         await open();
-        const typed = await screen.findByLabelText( /Old Kettle/ ) as HTMLInputElement;
-        expect( typed.checked ).toBe( true );
-        expect( screen.getByText( /\(typed\)/ ) ).toBeTruthy();
+        const field = await screen.findByPlaceholderText( "Other Edge abilities" ) as HTMLInputElement;
+        expect( field.value ).toBe( "Old Kettle" );
         fireEvent.click( screen.getByLabelText( "Kite Day" ) );
-        expect( ( screen.getByLabelText( /Old Kettle/ ) as HTMLInputElement ).checked ).toBe( true );
+        expect( ( screen.getByPlaceholderText( "Other Edge abilities" ) as HTMLInputElement ).value ).toBe( "Old Kettle" );
+    } );
+
+    it( "typing in the free-text field keeps ticked cards", async () => {
+        state.library.edgeCards = [ edgeCard( "Kite Day" ) ];
+        pilotWith( [ "Kite Day" ], 180 );
+        await open();
+        const field = await screen.findByPlaceholderText( "Other Edge abilities" ) as HTMLInputElement;
+        fireEvent.change( field, { target: { value: "Brass Gull" } } );
+        const calls = vi.mocked( saveAcesCampaigns ).mock.calls;
+        const saved = ( calls[calls.length - 1][1] as { pilots: { edgeAbilities: string[] }[] }[] )[0].pilots[0].edgeAbilities;
+        expect( saved ).toEqual( [ "Kite Day", "Brass Gull" ] );
+        expect( ( screen.getByLabelText( "Kite Day" ) as HTMLInputElement ).checked ).toBe( true );
     } );
 
     it( "matches a saved name ignoring case and spaces, and does not list it as typed", async () => {
@@ -100,7 +111,7 @@ describe( "Named Pilots pick Edge abilities from entered Edge cards", () => {
         await open();
         expect( ( await screen.findByLabelText( "Kite Day" ) as HTMLInputElement ).checked ).toBe( true );
         expect( ( screen.getByLabelText( "Teapot Luck" ) as HTMLInputElement ).checked ).toBe( true );
-        expect( screen.queryByText( /\(typed\)/ ) ).toBeNull();
+        expect( ( screen.getByPlaceholderText( "Other Edge abilities" ) as HTMLInputElement ).value ).toBe( "" );
     } );
 
     it( "unticking removes the saved variant, and ticking does not duplicate it", async () => {

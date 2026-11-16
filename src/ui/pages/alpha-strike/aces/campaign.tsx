@@ -373,17 +373,19 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
             const name = card.name.trim();
             if( name && !cardNames.some( ( entry ) => normalizeAcesEdgeName( entry ) === normalizeAcesEdgeName( name ) ) ) cardNames.push( name );
         }
-        if( cardNames.length === 0 ) {
-            return (
-                <input
-                    type="text"
-                    placeholder="Edge abilities chosen"
-                    value={pilot.edgeAbilities.join( ", " )}
-                    onChange={( e ) => { const value = e.currentTarget.value; this._update( () => { pilot.edgeAbilities = value.split( "," ).map( ( entry ) => entry.trimStart() ); } ); }}
-                />
-            );
-        }
-        const typed = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" && !acesEdgeCardForName( this.state.edgeCards, name ) );
+        // The free-text field holds any ability that is not one of the entered cards; it is always shown, beside the card checkboxes.
+        const isCard = ( name: string ) => !!acesEdgeCardForName( this.state.edgeCards, name );
+        const freeLabel = cardNames.length === 0 ? "Edge abilities chosen" : "Other Edge abilities";
+        const freeText = (
+            <input
+                type="text"
+                placeholder={freeLabel}
+                aria-label={freeLabel}
+                value={pilot.edgeAbilities.filter( ( name ) => !isCard( name ) ).join( ", " )}
+                onChange={( e ) => { const value = e.currentTarget.value; this._update( () => { pilot.edgeAbilities = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" && isCard( name ) ).concat( value.split( "," ).map( ( entry ) => entry.trimStart() ) ); } ); }}
+            />
+        );
+        if( cardNames.length === 0 ) return freeText;
         const picked = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" ).length;
         const isPicked = ( name: string ) => pilot.edgeAbilities.some( ( entry ) => normalizeAcesEdgeName( entry ) === normalizeAcesEdgeName( name ) );
         // Matching ignores case and spaces; ticking stores the card's own name and unticking drops any saved variant.
@@ -401,11 +403,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                         <label><input type="checkbox" checked={isPicked( name )} onChange={( e ) => toggle( name, e.currentTarget.checked )} /> {name}</label>
                     </div>
                 ) )}
-                {typed.map( ( name ) => (
-                    <div key={"typed-" + name}>
-                        <label><input type="checkbox" checked onChange={( e ) => toggle( name, e.currentTarget.checked )} /> {name} <em>(typed)</em></label>
-                    </div>
-                ) )}
+                <div>{freeText}</div>
                 {picked > pilot.edgeAbilityCount ? (
                     <div className="aces-issue-error">{picked} Edge abilities picked, more than the {pilot.edgeAbilityCount} this pilot has.</div>
                 ) : null}
