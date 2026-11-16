@@ -155,4 +155,28 @@ describe("Best of Future Wars conversions: catalog", () => {
             expect(item.altNames ?? [], tag).toEqual([]);
         }
     });
+
+    // Review finding 1: a copied canon Alpha Strike block converted the weapon (wrongly) while its note said it did not.
+    it("no conversion carries an Alpha Strike conversion: unresolved, as every custom record", () => {
+        for (const tag of ALL_TAGS) {
+            expect(find(tag).alphaStrike, tag).toEqual({ heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] });
+        }
+    });
+
+    // Review finding 2: the articles convert 'Mech systems; vehicles, fighters and craft got the tonnage without the slots.
+    it("every conversion is 'Mech-only", () => {
+        for (const tag of ALL_TAGS) {
+            const { battlemech, ...others } = find(tag).space;
+            expect(battlemech, tag).toBeGreaterThan(0);
+            for (const [unit, slots] of Object.entries(others)) expect(slots, `${tag} ${unit}`).toBe(-1);
+        }
+    });
+
+    // Review finding 3 (owner rule): some stats are ours, so the credit reads "Inspired by"; the unsigned blocks say whose article they run in.
+    it("credits read 'Inspired by', and the unsigned blocks say so", () => {
+        for (const tag of ALL_TAGS) expect(find(tag).notes, tag).toContain("Inspired by: Karl Sanders, '");
+        for (const tag of ["custom-pom-pom-ac-5", "custom-power-booster-ppc", "custom-power-booster-running"]) {
+            expect(find(tag).notes, tag).toContain("unsigned");
+        }
+    });
 });

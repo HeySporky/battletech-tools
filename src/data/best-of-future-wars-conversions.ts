@@ -25,7 +25,13 @@ import { equipmentMissile } from "./equipment-missile";
  */
 
 const BOOK = "The Best of Future Wars, Volume One";
-const cite = (author: string, title: string, page: number) => `Custom Homebrew: ${author}, '${title}', *${BOOK}* (1991), p.${page}.`;
+// Some stats on every record are ours (Battle Value at least), so the credit reads "Inspired by" (owner rule, 2026-11-12).
+const cite = (author: string, title: string, page: number) => `Custom Homebrew. Inspired by: ${author}, '${title}', *${BOOK}* (1991), p.${page}.`;
+const UNSIGNED = "The block is unsigned; it runs on in Karl Sanders' article after his signed Gatling Laser, so the credit to him is ours.";
+const UNRESOLVED_ALPHA_STRIKE = { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] };
+/** The articles convert 'Mech systems: no vehicle, fighter or craft takes them. */
+const mechOnly = (battlemech: number): IEquipmentItem["space"] =>
+    ({ battlemech, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 });
 const UNVALUED = "Battle Value is the base weapon's: the article gives none for the conversion, so ours, unverified.";
 const BURN_OUT = "Each use rolls 2D6: 5 or less and the booster fails for good; on a second turn running it fails on 9 or less, "
     + "on a third on 11 or less, and a fourth turn running burns it out. At any time a 2 burns out the system it drives as well "
@@ -61,7 +67,8 @@ const converted = (weapon: IEquipmentItem, fields: Partial<IEquipmentItem> & { c
     extinct: null,
     reintroduced: null,
     book: BOOK,
-    alphaStrike: { ...weapon.alphaStrike, notes: ["Custom equipment: no Alpha Strike conversion"] },
+    // Unresolved, not the canon block: a copied block converts the weapon as the plain one and loses keywords the notes carried.
+    alphaStrike: { ...UNRESOLVED_ALPHA_STRIKE, notes: [...UNRESOLVED_ALPHA_STRIKE.notes] },
     ...fields,
 });
 
@@ -76,14 +83,14 @@ const pomPom = (baseTag: string, size: number): IEquipmentItem => {
         tag: `custom-pom-pom-ac-${size}`,
         sort: `autocannon, ${String(size).padStart(3, "0")}, rapid fire`,
         weight: ac.weight + 5,
-        space: { ...ac.space, battlemech: ac.space.battlemech + 2 },
+        space: mechOnly(ac.space.battlemech + 2),
         heat: ac.heat * 2,
         heatAero: (ac.heatAero ?? ac.heat) * 2,
         cbills: ac.cbills + 100000,
         range: { ...ac.range, short: ac.range.short - 1, medium: ac.range.medium - 2, long: ac.range.long - 3 },
         page: 27,
         conversion: { kind: "pom-pom", baseTag, shotsPerTurn: 2, malfunctionRolls: 2 },
-        notes: `${cite(POM_POM_AUTHOR, "Rapid Fire Autocannon (Pom-Pom Guns)", 27)} An AC/${size} converted to fire twice a turn, each shot rolled `
+        notes: `${cite(POM_POM_AUTHOR, "Rapid Fire Autocannon (Pom-Pom Guns)", 27)} ${UNSIGNED} An AC/${size} converted to fire twice a turn, each shot rolled `
             + "on its own, at double heat even when it fires once. Same damage and rounds per ton as the autocannon; range cut by 1 hex at short, "
             + "2 at medium and 3 at long. Still prone to breakdown: roll twice on the weapons malfunction table and take the worse. "
             + `+5 tons, +2 slots and +100,000 C-bills on the autocannon. ${UNVALUED} Dates are unverified.`,
@@ -100,7 +107,7 @@ const swingFire = (baseTag: string): IEquipmentItem => {
         tag: `custom-swing-fire-${baseTag}`,
         sort: `${rack.sort}, swing fire`,
         weight: rack.weight + 3,
-        space: { ...rack.space, battlemech: rack.space.battlemech + 2 },
+        space: mechOnly(rack.space.battlemech + 2),
         cbills: rack.cbills + 75000,
         accuracyModifier: worseBy(rack.accuracyModifier, 1),
         page: 27,
@@ -112,7 +119,7 @@ const swingFire = (baseTag: string): IEquipmentItem => {
 };
 
 // --- Power Booster, p.28. The chart: extra heat, extra damage, added range.
-const boosterNotes = (system: string) => `${cite("Karl Sanders", "Power Booster", 28)} A Power Booster hooked to ${system}, noted on the sheet. `
+const boosterNotes = (system: string) => `${cite("Karl Sanders", "Power Booster", 28)} ${UNSIGNED} A Power Booster hooked to ${system}, noted on the sheet. `
     + `${BURN_OUT} 2 tons, 1 slot, 750,000 C-bills. Dates are unverified.`;
 
 const boostedWeapon = (weapon: IEquipmentItem, tag: string, name: string, booster: NonNullable<IEquipmentConversion["booster"]>): IEquipmentItem => {
@@ -122,7 +129,7 @@ const boostedWeapon = (weapon: IEquipmentItem, tag: string, name: string, booste
         tag,
         sort: `${weapon.sort}, power booster`,
         weight: weapon.weight + 2,
-        space: { ...weapon.space, battlemech: weapon.space.battlemech + 1 },
+        space: mechOnly(weapon.space.battlemech + 1),
         cbills: weapon.cbills + 750000,
         page: 28,
         conversion: { kind: "power-booster", baseTag: weapon.tag, booster },
@@ -148,12 +155,12 @@ const boosterItem = (target: "running" | "jumping"): IEquipmentItem => ({
         : `${boosterNotes("the jump jets")} +50% jump (a jump 6 'Mech jumps 9), at double heat a hex. Needs jump jets.`,
     damage: 0, damageAero: 0, accuracyModifier: 0, cbills: 750000, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 0, heatAero: 0, weight: 2,
     range: { min: 0, short: 0, medium: 0, long: 0 },
-    space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+    space: mechOnly(1),
     shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: [], techRating: "x", book: BOOK, page: 28, rulesLevel: 6, maxPerUnit: 1,
     conversion: target === "running"
         ? { kind: "power-booster", booster: { target: "running", extraRunMP: 2, runHeatPerHex: 1 } }
         : { kind: "power-booster", booster: { target: "jumping", jumpMultiplier: 1.5, jumpHeatMultiplier: 2 } },
-    alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] },
+    alphaStrike: { ...UNRESOLVED_ALPHA_STRIKE, notes: [...UNRESOLVED_ALPHA_STRIKE.notes] },
 });
 
 export const futureWarsPomPoms = (): IEquipmentItem[] => [
