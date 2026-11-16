@@ -32,7 +32,7 @@ import {
     TAcesRepairCategory,
 } from '../../../../data/aces-rules';
 import { generateUUID } from '../../../../utils/generateUUID';
-import { IAcesEdgeCard } from '../../../../data/aces-cards';
+import { acesEdgeCardForName, IAcesEdgeCard, normalizeAcesEdgeName } from '../../../../data/aces-cards';
 import { getAcesCampaigns, getAcesCardLibrary, saveAcesCampaigns } from '../../../../dataSaves';
 import './aces.scss';
 
@@ -371,7 +371,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
         const cardNames: string[] = [];
         for( const card of this.state.edgeCards ) {
             const name = card.name.trim();
-            if( name && cardNames.indexOf( name ) === -1 ) cardNames.push( name );
+            if( name && !cardNames.some( ( entry ) => normalizeAcesEdgeName( entry ) === normalizeAcesEdgeName( name ) ) ) cardNames.push( name );
         }
         if( cardNames.length === 0 ) {
             return (
@@ -383,11 +383,13 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                 />
             );
         }
-        const typed = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" && cardNames.indexOf( name ) === -1 );
+        const typed = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" && !acesEdgeCardForName( this.state.edgeCards, name ) );
         const picked = pilot.edgeAbilities.filter( ( name ) => name.trim() !== "" ).length;
+        const isPicked = ( name: string ) => pilot.edgeAbilities.some( ( entry ) => normalizeAcesEdgeName( entry ) === normalizeAcesEdgeName( name ) );
+        // Matching ignores case and spaces; ticking stores the card's own name and unticking drops any saved variant.
         const toggle = ( name: string, on: boolean ) => {
             this._update( () => {
-                const others = pilot.edgeAbilities.filter( ( entry ) => entry !== name );
+                const others = pilot.edgeAbilities.filter( ( entry ) => normalizeAcesEdgeName( entry ) !== normalizeAcesEdgeName( name ) );
                 pilot.edgeAbilities = on ? others.concat( name ) : others;
             } );
         };
@@ -396,7 +398,7 @@ export default class AcesCampaignPage extends React.Component<IAcesCampaignPageP
                 <legend className="visually-hidden">Edge abilities chosen</legend>
                 {cardNames.map( ( name ) => (
                     <div key={name}>
-                        <label><input type="checkbox" checked={pilot.edgeAbilities.indexOf( name ) > -1} onChange={( e ) => toggle( name, e.currentTarget.checked )} /> {name}</label>
+                        <label><input type="checkbox" checked={isPicked( name )} onChange={( e ) => toggle( name, e.currentTarget.checked )} /> {name}</label>
                     </div>
                 ) )}
                 {typed.map( ( name ) => (

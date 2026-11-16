@@ -470,7 +470,18 @@ export const newAcesSpecialOrder = (): IAcesSpecialOrder => {
     };
 }
 
-export const newAcesEdgeCard = (): IAcesEdgeCard => {
+/** Names match ignoring case, edge spaces and runs of inner spaces, so older free-text saves still find their card. */
+export const normalizeAcesEdgeName = ( name: string ): string => {
+    return name.trim().replace( /\s+/g, " " ).toLowerCase();
+}
+
+export const acesEdgeCardForName = ( cards: IAcesEdgeCard[], name: string ): IAcesEdgeCard | undefined => {
+    const wanted = normalizeAcesEdgeName( name );
+    if( !wanted ) return undefined;
+    return cards.find( ( card ) => normalizeAcesEdgeName( card.name ) === wanted );
+}
+
+export const newAcesEdgeCard =(): IAcesEdgeCard => {
     return {
         id: generateUUID(),
         name: "",

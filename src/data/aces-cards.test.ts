@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+    acesEdgeCardForName,
     acesDeckIdFromName,
     acesLines,
     acesTextToPlain,
@@ -236,3 +237,16 @@ describe("Aces typed lines (library editor)", () => {
         expect( acesDeckIdFromName( "Nonsense" ) ).toBe( "" );
     });
 });
+
+describe( "acesEdgeCardForName", () => {
+    const card = newAcesEdgeCard();
+    card.name = "Kite Day";
+    it( "matches ignoring case, edge spaces and inner space runs", () => {
+        expect( acesEdgeCardForName( [ card ], "kite day " ) ).toBe( card );
+        expect( acesEdgeCardForName( [ card ], "KITE   DAY" ) ).toBe( card );
+    } );
+    it( "returns nothing for other or blank names", () => {
+        expect( acesEdgeCardForName( [ card ], "Teapot Luck" ) ).toBeUndefined();
+        expect( acesEdgeCardForName( [ card ], "  " ) ).toBeUndefined();
+    } );
+} );
