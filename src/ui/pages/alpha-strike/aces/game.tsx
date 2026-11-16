@@ -5,6 +5,8 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import AlphaStrikeMPMaps from '../../../components/svg/alpha-strike-mp-maps';
+import AcesEdgeReminders from './_edge-reminders';
+import { IAcesNamedPilotExport } from '../../../../classes/aces-campaign';
 import { AcesGame, acesPhases, getAcesAbilityValue, TAcesPhase } from '../../../../classes/aces-game';
 import {
     applyAcesCriticalToUnit,
@@ -106,7 +108,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
         this.setState({
             game: game,
             library: library,
-            campaigns: campaigns.map( ( campaign ) => ( { id: campaign.id, name: campaign.name || "Unnamed campaign" } ) ),
+            campaigns: campaigns.map( ( campaign ) => ( { id: campaign.id, name: campaign.name || "Unnamed campaign", pilots: campaign.pilots } ) ),
             showSetup: game.getAutomatedUnits().length === 0,
         });
     }
@@ -142,6 +144,15 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
     }
 
     /* ----- card library ----- */
+
+    /** Edge abilities of the linked campaign living Named Pilots for a phase (campaign games only). */
+    private _renderEdge = ( phase: TAcesPhase ): JSX.Element | null => {
+        const game = this.state.game!;
+        if( !game.campaignId ) return null;
+        const campaign = this.state.campaigns.find( ( item ) => item.id === game.campaignId );
+        if( !campaign ) return null;
+        return <AcesEdgeReminders pilots={campaign.pilots} cards={this.state.library.edgeCards} phase={phase} />;
+    }
 
     /** The face-up Command card, when the players entered their Command deck in the library. */
     private _commandCard = (): IAcesCommandCard | null => {
@@ -595,6 +606,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                     <button className="btn btn-primary btn-sm" onClick={() => this._update( ( g ) => { g.rollInitiative( this._commandCard() ); } )}>Roll Initiative</button>
                 </div>
                 {this._renderCommandOrders( "initiative" )}
+                {this._renderEdge( "initiative" )}
                 <p className="aces-muted">
                     Draw each automated unit's top Aces card and enter its movement priority below. Move First and Move
                     Last tokens override the number (<em>Aces</em> p.8).
@@ -739,6 +751,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                     <ol>{acesMovementSteps.map( ( step, index ) => <li key={index}>{step}</li> )}</ol>
                 </details>
                 {this._renderCommandOrders( "movement" )}
+                {this._renderEdge( "movement" )}
                 {this._renderReader( "movement", queue )}
                 {this._renderUnitTable( "movement" )}
             </>
@@ -768,6 +781,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                 </p>
                 {this.state.showToHit ? <AcesToHitCalculator automatedAttacker={true} /> : null}
                 {this._renderCommandOrders( "combat" )}
+                {this._renderEdge( "combat" )}
                 {this._renderReader( "combat", queue )}
                 {this.state.critMessage ? <p><strong>{this.state.critMessage}</strong></p> : null}
                 {this._renderSupport()}
@@ -797,6 +811,7 @@ export default class AcesGamePage extends React.Component<IAcesGamePageProps, IA
                     </button>
                 </p>
                 {this._renderCommandOrders( "end" )}
+                {this._renderEdge( "end" )}
                 {this._renderStrategy()}
                 {this._renderUnitTable( "end" )}
             </>
@@ -1175,7 +1190,7 @@ interface IAcesGamePageProps {
 
 interface IAcesGamePageState {
     game: AcesGame | null;
-    campaigns: { id: string, name: string }[];
+    campaigns: { id: string, name: string, pilots: IAcesNamedPilotExport[] }[];
     forceSource: string;
     showCards: boolean;
     showPlayerCards: boolean;
