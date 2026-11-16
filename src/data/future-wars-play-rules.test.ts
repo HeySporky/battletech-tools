@@ -82,6 +82,9 @@ describe("Best of Future Wars play rulesets (#172, Chunk D)", () => {
         expect(row("fw-morale", "Morale check", "Militia / Green / Regular / Veteran / Elite / Crack")).toBe("7 / 7 / 6 / 6 / 5 / 5");
         const mechResults = morale.tables.find((table) => table.title === "'Mech results (2D6 + modifiers)")!;
         expect(mechResults.rows.map(([roll]) => roll)).toEqual(["-5", "-4", "-3", "-2", "-1", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14+"]);
+        expect(row("fw-morale", "When a 'Mech checks", "Head hit")).toBe("A hit to the head (named in the text on p.23, not in the chart)");
+        expect(row("fw-morale", "When a 'Mech checks", "A friend routs")).toBe("A friendly unit within 10 hexes and in LOS rolls -5 on the results table");
+        expect(row("fw-morale", "When a 'Mech checks", "A friend breaks")).toBeUndefined();
         expect(row("fw-morale", "'Mech modifiers", "Lost leg")).toBe("-5");
         expect(row("fw-morale", "'Mech modifiers", "On fire from an Inferno round")).toBe("-4");
         expect(row("fw-morale", "Vehicle modifiers", "Immobile")).toBe("-4");

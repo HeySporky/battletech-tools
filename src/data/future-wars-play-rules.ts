@@ -109,10 +109,11 @@ const futureWarsPlayRules: Record<string, IFutureWarsPlayRules> = {
                 title: "When a 'Mech checks",
                 page: "BoFW p.23",
                 rows: [
+                    ["Head hit", "A hit to the head (named in the text on p.23, not in the chart)"],
                     ["Internal damage", "The first, and each later hit that does internal damage (one roll a hit)"],
                     ["Damage spread", "Three or more locations damaged, armor or internal"],
                     ["Hit while shaken", "Hit while disorganized, broken or routed"],
-                    ["A friend breaks", "A friendly unit within 10 hexes and in LOS rolls -5 on the results table"],
+                    ["A friend routs","A friendly unit within 10 hexes and in LOS rolls -5 on the results table"],
                     ["Piloting", "Each failed Piloting Skill Roll"],
                     ["Fire", "Set on fire (Inferno rounds)"],
                 ],
