@@ -3,14 +3,17 @@ import { newAcesEdgeCard } from "../data/aces-cards";
 import {
     acesEdgeCardScanOptions,
     acesEdgePanelRows,
+    acesEdgePhaseFromCondition,
     acesEdgePhaseOf,
     acesEdgeSlashAt,
     acesEdgeTriggerOf,
+    acesEdgeUnitType,
     applyAcesEdgeScan,
     IAcesEdgeScanResult,
     joinAcesEdgeRows,
     parseAcesEdgeCardNumber,
     parseAcesEdgeCategory,
+    parseAcesEdgeCategoryLine,
     parseAcesEdgeCost,
     placeAcesEdgeSlash,
     scanAcesEdgeCard,
@@ -110,31 +113,46 @@ describe( "Edge card fields", () => {
         expect( parseAcesEdgeCategory( "TEA PARTY BM / CV ONLY" ) ).toBe( "TEA PARTY, BM / CV ONLY" );
         expect( parseAcesEdgeCategory( "KITES BM ONLY" ) ).toBe( "KITES, BM ONLY" );
         expect( parseAcesEdgeCategory( "KITES — BM/CV ONLY." ) ).toBe( "KITES, BM / CV ONLY" );
-        // A code one character off snaps to the commonest unit type it could be.
+        // Only named OCR slips are mended (5 or 8 for B, G for C); the mend must land on exactly one unit type.
         expect( parseAcesEdgeCategory( "KITES 5M / GV ONLY" ) ).toBe( "KITES, BM / CV ONLY" );
         expect( parseAcesEdgeCategory( "KITES AND TEA" ) ).toBe( "KITES AND TEA" );
+        expect( acesEdgeUnitType( "8M" ) ).toBe( "BM" );
+        expect( acesEdgeUnitType( "AS" ) ).toBe( "" );
+        expect( acesEdgeUnitType( "IN" ) ).toBe( "" );
+        expect( acesEdgeUnitType( "AX" ) ).toBe( "" );
+        // A limit with a code it can't be sure of is left unread, not guessed: the category alone, flagged.
+        expect( parseAcesEdgeCategoryLine( "KITES BM / AS ONLY" ) ).toEqual( { category: "KITES", limitUnread: true } );
+        expect( parseAcesEdgeCategoryLine( "KITES BM ONLY" ) ).toEqual( { category: "KITES, BM ONLY", limitUnread: false } );
+        expect( parseAcesEdgeCategoryLine( "KITES" ) ).toEqual( { category: "KITES", limitUnread: false } );
     } );
 
     it( "gives the phase from the condition, then the category, then the text", () => {
-        expect( acesEdgePhaseOf( "KITES", "During the End Phase:", "" ) ).toBe( "end" );
+        expect( acesEdgePhaseOf( "KITES", "Once the kites are packed in the End Phase:", "" ) ).toBe( "end" );
         expect( acesEdgePhaseOf( "KITES", "At the start of the Initiative Phase:", "" ) ).toBe( "initiative" );
-        expect( acesEdgePhaseOf( "KITES", "When attacking a teapot, if you used kite movement:", "" ) ).toBe( "combat" );
+        // Damage, hits, targets and criticals don't say which phase: with no category or text to go on, "any".
+        expect( acesEdgePhaseOf( "KITES", "When a teapot takes damage:", "" ) ).toBe( "any" );
+        expect( acesEdgePhaseOf( "KITES", "When a kite scores a critical hit on a target:", "" ) ).toBe( "any" );
+        expect( acesEdgePhaseOf( "KITES", "The kite attacks a teapot after it moved:", "" ) ).toBe( "combat" );
         expect( acesEdgePhaseOf( "KITES", "When using kite movement:", "" ) ).toBe( "movement" );
         expect( acesEdgePhaseOf( "MOVEMENT", "When a kite lands:", "" ) ).toBe( "movement" );
         expect( acesEdgePhaseOf( "MELEE", "When a kite lands:", "" ) ).toBe( "combat" );
         expect( acesEdgePhaseOf( "KITES", "When a kite lands:", "Spend 1 Edge to fly again this Movement Phase." ) ).toBe( "movement" );
         expect( acesEdgePhaseOf( "KITES", "When a kite lands:", "Spend 1 Edge to fly again." ) ).toBe( "any" );
+        // Only a phase the condition names, or an attack or a move it describes, is sure; the rest is flagged.
+        expect( acesEdgePhaseFromCondition( "Once the kites are packed in the End Phase:" ) ).toBe( true );
+        expect( acesEdgePhaseFromCondition( "When using kite movement:" ) ).toBe( true );
+        expect( acesEdgePhaseFromCondition( "When a teapot takes damage:" ) ).toBe( false );
     } );
 
     it( "gives the trigger from the condition's words", () => {
         expect( acesEdgeTriggerOf( "When a kite swoops on a teapot from the rear:" ) ).toBe( "enemy-rear" );
         expect( acesEdgeTriggerOf( "When a teapot suffers a critical hit:" ) ).toBe( "critical-hit" );
-        expect( acesEdgeTriggerOf( "When you take damage from a falling kite:" ) ).toBe( "damaged" );
+        expect( acesEdgeTriggerOf( "Kites that take spray damage:" ) ).toBe( "damaged" );
         expect( acesEdgeTriggerOf( "When a friendly teapot takes damage:" ) ).toBe( "damaged" );
         expect( acesEdgeTriggerOf( "When you are attacked by a kite:" ) ).toBe( "attacked" );
-        expect( acesEdgeTriggerOf( "After rolling for an attack, if you used kite movement:" ) ).toBe( "attacking" );
+        expect( acesEdgeTriggerOf( "The kite attacks a teapot after it moved:" ) ).toBe( "attacking" );
         expect( acesEdgeTriggerOf( "When using kite movement:" ) ).toBe( "moving" );
-        expect( acesEdgeTriggerOf( "At the start of the Combat Phase:" ) ).toBe( "none" );
+        expect( acesEdgeTriggerOf( "At the end of the Initiative Phase:" ) ).toBe( "none" );
         expect( acesEdgeTriggerOf( "When pouring tea:" ) ).toBe( "other" );
         expect( acesEdgeTriggerOf( "" ) ).toBe( "none" );
     } );
@@ -245,6 +263,8 @@ describe( "Edge card scan", () => {
         expect( result.cost ).toBe( 2 );
         expect( result.phase ).toBe( "movement" );
         expect( result.trigger ).toBe( "other" );
+        // The condition names no phase, so the phase came from the card's text: flagged.
+        expect( result.warnings.some( ( warning ) => /Phase guessed from the card's text/.test( warning ) ) ).toBe( true );
         expect( acesEdgeCardScanOptions.shape ).toBe( "portrait" );
         expect( acesEdgeCardScanOptions.found( result ) ).toBe( true );
     } );

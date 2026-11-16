@@ -203,43 +203,71 @@ export const placeAcesEdgeSlash = ( read: string, at: IAcesEdgeGlyphs ): string 
 }
 
 /**
- * The category line: the category, then any unit type limit ("BM / CV ONLY"), which starts at the first two-letter
- * unit type code of a line ending in ONLY. They are kept together as "KITES, BM / CV ONLY".
+ * The category line: the category, then any unit type limit ("BM / CV ONLY"): the two-character codes (and slashes)
+ * just before a closing ONLY. They are kept together as "KITES, BM / CV ONLY". When a code there isn't surely a unit
+ * type, the limit is left unread (limitUnread) rather than guessed, and only the category is given.
  */
-export const parseAcesEdgeCategory = ( text: string ): string => {
+export const parseAcesEdgeCategoryLine = ( text: string ): { category: string, limitUnread: boolean } => {
     const tokens = text.replace( /[—–]/g, " " ).replace( /\//g, " / " ).split( /\s+/ ).filter( ( token ) => token !== "" );
-    const only = tokens.findIndex( ( token ) => /^[O0]NLY\W*$/i.test( token ) );
-    const limitAt = only > 0 ? tokens.findIndex( ( token, index ) => index < only && acesEdgeUnitType( token ) !== "" ) : -1;
     const words = ( list: string[] ) => list.map( ( token ) => token.replace( /[^A-Za-z'-]/g, "" ) ).filter( ( token ) => /[A-Za-z]{2,}/.test( token ) );
-    const category = words( limitAt >= 0 ? tokens.slice( 0, limitAt ) : tokens ).join( " " );
-    if( limitAt < 0 ) return category;
-    const types = tokens.slice( limitAt, only ).map( acesEdgeUnitType ).filter( ( type ) => type !== "" );
+    const only = tokens.findIndex( ( token ) => /^[O0]NLY\W*$/i.test( token ) );
+    if( only < 0 ) return { category: words( tokens ).join( " " ), limitUnread: false };
+    // Back from ONLY over the code-shaped tokens: slashes and two characters.
+    const codeShaped = ( token: string ) => token === "/" || token.replace( /[^A-Za-z0-9$]/g, "" ).length === 2;
+    let limitAt = only;
+    while( limitAt > 0 && codeShaped( tokens[limitAt - 1] ) ) limitAt--;
+    const category = words( tokens.slice( 0, limitAt ) ).join( " " );
+    const codes = tokens.slice( limitAt, only ).filter( ( token ) => token !== "/" );
+    const types = codes.map( acesEdgeUnitType );
+    if( codes.length === 0 || types.includes( "" ) ) return { category, limitUnread: true };
     const limit = types.join( " / " ) + " ONLY";
-    return category ? category + ", " + limit : limit;
+    return { category: category ? category + ", " + limit : limit, limitUnread: false };
 }
 
-/** Alpha Strike unit types, the commonest first. */
+/** The category line as one value (see parseAcesEdgeCategoryLine). */
+export const parseAcesEdgeCategory = ( text: string ): string => parseAcesEdgeCategoryLine( text ).category;
+
+/** Alpha Strike unit types. */
 const unitTypes = [ "BM", "CV", "PM", "IM", "BA", "CI", "SV", "AF", "CF", "MS", "DS", "DA", "SC", "WS", "SS", "JS" ];
 
+/** OCR slips in the band's white capitals: what a character read as could have been printed as. */
+const ocrSlips: { [read: string]: string[] } = {
+    "5": [ "S", "B" ], "8": [ "B" ], "3": [ "B" ], "$": [ "S" ], "G": [ "C" ], "6": [ "G", "C" ], "0": [ "O", "D" ],
+    "1": [ "I" ], "L": [ "I" ], "|": [ "I" ], "U": [ "V" ],
+};
+
 /**
- * A two-character unit type code as read ("5M", "GV"), snapped to the commonest Alpha Strike unit type it is one
- * character from; "" when it is none.
+ * A two-character unit type code as read ("5M", "GV"): the code itself when it is an Alpha Strike unit type, else
+ * the one unit type that named OCR slips (5 or 8 for B, G for C, ...) make of it; "" when none, or more than one.
  */
 export const acesEdgeUnitType = ( token: string ): string => {
-    const code = token.replace( /[^A-Za-z0-9$]/g, "" ).toUpperCase();
+    const code = token.replace( /[^A-Za-z0-9$|]/g, "" ).toUpperCase();
     if( code.length !== 2 || !/[A-Z]/.test( code ) ) return "";
     if( unitTypes.includes( code ) ) return code;
-    return unitTypes.find( ( type ) => ( type[0] === code[0] ) !== ( type[1] === code[1] ) ) || "";
+    const options = ( char: string ) => [ char, ...( ocrSlips[char] || [] ) ];
+    const found = new Set<string>();
+    for( const first of options( code[0] ) ) for( const second of options( code[1] ) ) {
+        if( unitTypes.includes( first + second ) ) found.add( first + second );
+    }
+    return found.size === 1 ? Array.from( found )[0] : "";
 }
 
 const phaseNamed = /\b(initiative|movement|combat|end)\s+phase\b/i;
-const combatWords = /\b(attack\w*|fir(e|es|ing)|shoot\w*|spott?\w*|damage\w*|target\w*|hits?|critical)\b/i;
+// What a unit does in the Combat Phase. Damage, hits, targets and criticals aren't here: they don't fix a phase.
+const combatWords = /\b(attack\w*|fir(e|es|ing)|shoot\w*|spott?\w*)\b/i;
 const movementWords = /\b(mov(e|es|ed|ing|ement)|jump\w*|sprint\w*)\b/i;
 const combatCategories = /\b(attack|melee|defen[cs]e|indirect|fire|physical|combat)\b/i;
 
 /**
- * The phase the card is played in: a phase the condition names; else combat for a condition about attacks, damage
- * or spotting, movement for one about moving; else what the category names; else a phase the card's text names;
+ * Whether the condition itself fixes the phase: it names a phase, or describes an attack or a move. When it doesn't,
+ * acesEdgePhaseOf falls back on the category or the card's text, a weaker guess the scan flags.
+ */
+export const acesEdgePhaseFromCondition = ( condition: string ): boolean =>
+    phaseNamed.test( condition ) || combatWords.test( condition ) || movementWords.test( condition );
+
+/**
+ * The phase the card is played in: a phase the condition names; else combat for a condition about attacking or
+ * spotting, movement for one about moving; else what the category names; else a phase the card's text names;
  * else any.
  */
 export const acesEdgePhaseOf = ( category: string, condition: string, text: string ): TAcesEdgePhase => {
@@ -526,22 +554,27 @@ export const scanAcesEdgeCard = async ( io: ICardScanIO ): Promise<IAcesEdgeScan
         result.name = voteAcesEdgeWords( names );
         const below = rowReads.filter( ( read ) => read.rect.top >= nameRead.rect.top + nameRead.rect.height * 0.7 ).sort( ( a, b ) => a.rect.top - b.rect.top )[0];
         if( below ) {
-            let category = parseAcesEdgeCategory( bandWords( below.line ) );
+            const first = parseAcesEdgeCategoryLine( bandWords( below.line ) );
+            let category = first.category;
+            let limitUnread = first.limitUnread;
             // The unit type limit prints greyer than the category: a darker cut can find it.
             if( !/ONLY$/.test( category ) ) {
                 const row = clampRect( { ...below.rect, left: layout.band.left, width: layout.band.width }, io.width, io.height );
                 for( const [ mode, single ] of [ [ "dim", true ], [ "dim", false ] ] as [ TCardScanMode, boolean ][] ) {
                     const dim = ( await io.recognize( row, mode, 1, single ) ).filter( ( line ) => /[A-Za-z]{2,}/.test( line.text ) )[0];
-                    const withLimit = dim ? parseAcesEdgeCategory( bandWords( dim ) ) : "";
-                    if( /ONLY$/.test( withLimit ) ) {
+                    const read = dim ? parseAcesEdgeCategoryLine( bandWords( dim ) ) : { category: "", limitUnread: false };
+                    limitUnread = limitUnread || read.limitUnread;
+                    if( /ONLY$/.test( read.category ) ) {
                         // The category word itself reads best in the white cut.
                         const word = category.split( "," )[0];
-                        const limit = withLimit.includes( ", " ) ? withLimit.substring( withLimit.indexOf( ", " ) + 2 ) : withLimit;
-                        category = word ? word + ", " + limit : withLimit;
+                        const limit = read.category.includes( ", " ) ? read.category.substring( read.category.indexOf( ", " ) + 2 ) : read.category;
+                        category = word ? word + ", " + limit : read.category;
+                        limitUnread = false;
                         break;
                     }
                 }
             }
+            if( limitUnread ) result.warnings.push( "The category's unit type limit (\"... ONLY\") couldn't be read for sure: type it in from the card." );
             result.category = category;
         }
     }
@@ -572,6 +605,10 @@ export const scanAcesEdgeCard = async ( io: ICardScanIO ): Promise<IAcesEdgeScan
 
     result.phase = acesEdgePhaseOf( result.category, result.condition, result.text );
     result.trigger = acesEdgeTriggerOf( result.condition );
+    if( result.phase !== "any" && !acesEdgePhaseFromCondition( result.condition ) ) {
+        const from = acesEdgePhaseOf( result.category, "", "" ) === result.phase ? "category" : "text";
+        result.warnings.push( "Phase guessed from the card's " + from + ", not its condition: check it." );
+    }
 
     if( !result.name ) result.warnings.push( "Card name not read." );
     if( !result.cardNumber ) result.warnings.push( "Card number (e.g. 3/12) not read." );
