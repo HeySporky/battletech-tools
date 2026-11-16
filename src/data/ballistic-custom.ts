@@ -289,5 +289,19 @@ export const ballisticCustom: IEquipmentItem[] = [
         shotsPerTon: 5, ammoTypes: ["ammo-custom-light-ac-20-standard"], minAmmoTons: 1, explosive: false, weaponType: ["DB", "S"], techRating: "d",
         book: "http://solaris7.com/thread/lostech-custom-weapons/", page: 0, rulesLevel: 6, rangeAero: "s",
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike conversion"] }
+    },
+    // The Best of Future Wars, Volume One (1991), Chunk A of the fanzine plan (#172). Custom Homebrew: fan material.
+    {
+        name: "EII Point Defense System", tag: "custom-eii-pds", techBase: "universal", catalog: "custom", altNames: ["EII PDS", "Point Defense System (EII)"], sort: "point defense system, eii", category: "Ballistic Weapons",
+        notes: "Custom Homebrew: Mike Reese, 'Ellena Industries Inc. Point Defense System (EII PDS)', *The Best of Future Wars, Volume One* (1991), p.8. An experimental gatling "
+            + "machine gun with its own radar, tied to the unit's fire control (an EII Mark 52 or later); one stood in for the AC/5 of a Marauder II. It weighs 2 tons including "
+            + "0.5 ton of ammunition built in, 50 bursts, in 2 slots (one for the gun, one for that ammunition); an extra ton is 100 bursts in a separate magazine (ammo-custom-eii-pds-standard). "
+            + "Damage 4 (it fires twice as fast as a machine gun), machine gun range with a longest of 3 hexes. When SRM or LRM fire is declared against the unit, "
+            + "the defender rolls a die: that many SRM, or that many plus 1 LRM, are shot down. One burst is spent per salvo, and it can answer every salvo in a turn. "
+            + "Not printed in The Best of Future Wars: cost and Battle Value are left at 0 (unverified); the article calls the system experimental and gives no year; tech rating unverified.",
+        damage: 4, damageAero: 4, accuracyModifier: 0, cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 0, heatAero: 0, weight: 2,
+        range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 2, protomech: -1, combatVehicle: 2, supportVehicle: 2, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        shotsPerTon: 100, ammoTypes: ["ammo-custom-eii-pds-standard"], minAmmoTons: 0, explosive: false, weaponType: ["DB"], techRating: "x", book: "The Best of Future Wars, Volume One", page: 8, rulesLevel: 6,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     }
 ];

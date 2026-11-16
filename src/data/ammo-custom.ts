@@ -103,6 +103,48 @@ const empMissiles = (standardTag: string): IEquipmentItem => {
     };
 };
 
+const BEST_OF = "The Best of Future Wars, Volume One";
+const NOT_PRINTED_AMMO = "Not printed in The Best of Future Wars: cost and Battle Value are left at 0 (unverified); tech rating is unverified.";
+
+/**
+ * SABOT shells (Charles J. Tomaszewski, 'How to Kick Goliath Where it Counts', The Best of Future Wars, Volume One (1991), p.21).
+ * The article's chart gives each autocannon's SABOT rounds out of a ton, one in five: 4 of 20 for the AC/2, 3 of 15 for the AC/5,
+ * 2 of 10 for the AC/10, 1 of 5 for the AC/20. The record is those rounds, so a weapon's shots a ton scale to the chart's count.
+ */
+const sabotShells = (ac: "2" | "5" | "10" | "20", sabotRounds: number, chartRounds: number, external: number, internal: number): IEquipmentItem => ({
+    isAmmo: true,
+    isSpecialAmmo: true,
+    name: `AC/${ac} - SABOT Ammo`,
+    altNames: [`AC/${ac} SABOT Shells`],
+    tag: `ammo-ac-${ac}-sabot`,
+    techBase: "universal",
+    altTags: [],
+    sort: `ammo, ac/${ac.padStart(3, "0")}, sabot`,
+    category: "Ammunition",
+    cbills: 0,
+    introduced: null,
+    extinct: null,
+    reintroduced: null,
+    battleValue: 0,
+    heat: 0,
+    heatAero: 0,
+    weight: 1,
+    range: { min: 0, short: 0, medium: 0, long: 0 },
+    space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+    roundsPerTon: sabotRounds,
+    explosive: true,
+    techRating: "x",
+    book: BEST_OF,
+    page: 21,
+    alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
+    catalog: "custom",
+    rulesLevel: 6,
+    notes: `Custom Homebrew: Charles J. Tomaszewski, 'How to Kick Goliath Where it Counts', *The Best of Future Wars, Volume One* (1991), p.21. A depleted-uranium penetrator that sheds its sheath in flight: `
+        + `half the normal damage outside and a quarter inside, fractions rounded up, which for the AC/${ac} the article's chart gives as ${external} external, ${internal} internal. `
+        + `On a hit, make a critical hit check with a +1 modifier. Only 1 round in 5 of the ton is SABOT: the chart's ${chartRounds} rounds a ton hold ${sabotRounds}, so the record counts those ${sabotRounds}. `
+        + `The chart's ${chartRounds} rounds a ton is the article's figure, not this catalog's standard AC/${ac} count. The article calls the shells generic to any side, in limited quantities, and gives no year. ${NOT_PRINTED_AMMO}`
+});
+
 export const ammoCustom: IEquipmentItem[] = [
     {
         isAmmo: true,
@@ -1172,4 +1214,72 @@ export const ammoCustom: IEquipmentItem[] = [
             + "three shots to the ton, and each shot explodes for 5 damage when the ton is hit. Inspired by: u/FweeCom. "
             + "Not given by the author, so ours: the dates follow the Pile Bunker; cost and Battle Value are not given and stay 0 (unverified)."
     },
+    // The Best of Future Wars, Volume One (1991), Chunk A of the fanzine plan (#172). Custom Homebrew: fan material.
+    {
+        isAmmo: true, isSpecialAmmo: false, name: "Long Range Flamer - Standard Ammo", altNames: ["LR Flamer Ammo"], tag: "ammo-custom-lr-flamer-standard", techBase: "universal", altTags: [],
+        sort: "ammo, long range flamer, standard", category: "Ammunition", cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0,
+        heat: 0, heatAero: 0, weight: 1, range: { min: 0, short: 4, medium: 8, long: 12 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        roundsPerTon: 15, explosive: true, techRating: "x", book: BEST_OF, page: 28,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
+        catalog: "custom", rulesLevel: 6,
+        notes: "Custom Homebrew: Karl Sanders, 'Long Range Flamer', *The Best of Future Wars, Volume One* (1991), p.28. 15 shots a ton for the Long Range Flamer (custom-lr-flamer). "
+            + "Not printed in The Best of Future Wars: whether it explodes (marked explosive here, ours, as fuel); cost and Battle Value are left at 0 (unverified); dates and tech rating are unverified."
+    },
+    {
+        isAmmo: true, isSpecialAmmo: false, name: "EII Point Defense System - Standard Ammo", altNames: ["EII PDS Ammo"], tag: "ammo-custom-eii-pds-standard", techBase: "universal", altTags: [],
+        sort: "ammo, eii point defense system, standard", category: "Ammunition", cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0,
+        heat: 0, heatAero: 0, weight: 1, range: { min: 0, short: 1, medium: 2, long: 3 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        roundsPerTon: 100, explosive: true, techRating: "x", book: BEST_OF, page: 8,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
+        catalog: "custom", rulesLevel: 6,
+        notes: "Custom Homebrew: Mike Reese, 'Ellena Industries Inc. Point Defense System (EII PDS)', *The Best of Future Wars, Volume One* (1991), p.8. The extra magazine of an EII "
+            + "Point Defense System (custom-eii-pds): a ton is 100 bursts, one burst against each salvo of incoming missiles; the system's own half ton, built in, is 50. "
+            + "Not printed in The Best of Future Wars: whether it explodes (marked explosive here, ours, as machine gun ammunition is); cost and Battle Value are left at 0 (unverified); tech rating is unverified."
+    },
+    {
+        isAmmo: true, isSpecialAmmo: true, name: "Gauss Rifle - VHE Shell", altNames: ["VHE Gauss Shell"], tag: "ammo-is-gauss-rifle-vhe", techBase: "is", altTags: [],
+        sort: "ammo, gauss rifle, vhe, is", category: "Ammunition", cbills: 0, introduced: 3040, extinct: null, reintroduced: null, battleValue: 0,
+        heat: 0, heatAero: 0, weight: 1, range: { min: 0, short: 4, medium: 12, long: 19 },
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        roundsPerTon: 5, explosive: true, techRating: "x", book: BEST_OF, page: 11,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
+        catalog: "custom", rulesLevel: 6,
+        notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11. Very High Explosive: a shaped charge with a hollow "
+            + "HE body, heavier than the standard round, so 5 shots a ton against 8 and a range 3 hexes shorter (1-4, 5-12, 13-19). On a hit it does 20 to the location struck and 5 to each "
+            + "adjacent location; a critical hit adds one more critical check for the charge, so one shell can cause as many as four. If the ammunition takes a critical hit, each shell "
+            + "does 30 points of damage as it cooks off. Dated 3040, the year the article has Hanse Davion commission the research (the story's year, not a fielding date). Not printed in The "
+            + "Best of Future Wars: cost and Battle Value are left at 0 (unverified); tech rating is unverified."
+    },
+    {
+        isAmmo: true, isSpecialAmmo: true, name: "Gauss Rifle - Inferno Shell (Liao)", altNames: ["Liao Inferno Gauss Shell"], tag: "ammo-is-gauss-rifle-inferno", techBase: "is", altTags: [],
+        sort: "ammo, gauss rifle, inferno, is", category: "Ammunition", cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0,
+        heat: 0, heatAero: 0, weight: 1, range: { min: 0, short: 7, medium: 15, long: 22 },
+        space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
+        roundsPerTon: 8, explosive: true, techRating: "x", book: BEST_OF, page: 11,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
+        catalog: "custom", rulesLevel: 6,
+        notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11 (the Liao Inferno shell, stats on p.11). Dr Xhiao Zing's "
+            + "napalm-filled round. On impact the target takes 2 points of damage and 10 heat a turn for 5 turns; as with standard inferno rounds, more shells only lengthen the heat. "
+            + "If the ammunition takes a critical hit, the player takes 30 heat (20 if CASE is installed) and 1 more for each shell. 8 shots a ton, range 1-7, 8-15, 16-22. "
+            + "Not printed in The Best of Future Wars: the article gives no year of its own for it (the research was contemporary with the VHE shell, 3040, so it is left at no date); "
+            + "cost and Battle Value are left at 0 (unverified); tech rating is unverified."
+    },
+    sabotShells("2", 4, 20, 1, 1),
+    sabotShells("5", 3, 15, 3, 2),
+    sabotShells("10", 2, 10, 5, 3),
+    sabotShells("20", 1, 5, 10, 5),
+    {
+        isAmmo: true, isSpecialAmmo: false, name: "Penitrator - Standard Ammo", altNames: ["Penitrator Missile"], tag: "ammo-custom-penitrator-standard", techBase: "universal", altTags: [],
+        sort: "ammo, penitrator, standard", category: "Ammunition", cbills: 250000, introduced: null, extinct: null, reintroduced: null, battleValue: 0,
+        heat: 0, heatAero: 0, weight: 1, range: { min: 8, short: 12, medium: 24, long: 36 },
+        space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        roundsPerTon: 2, explosive: false, techRating: "x", book: BEST_OF, page: 20,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
+        catalog: "custom", rulesLevel: 6,
+        notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *The Best of Future Wars, Volume One* (1991), p.20. Each missile weighs half a ton, so 2 a ton; almost half of that is solid fuel. "
+            + "The author puts the cost at around 250,000 C-bills a ton, almost 10 times a normal missile, and expects it to be the only estimate ever made. Fired by the Penitrator (custom-penitrator). "
+            + "Not printed in The Best of Future Wars: whether it explodes (left as not, ours); Battle Value is left at 0 (unverified); dates and tech rating are unverified."
+    }
 ];

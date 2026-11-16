@@ -323,5 +323,30 @@ export const energyCustom: IEquipmentItem[] = [
         range: { min: 0, short: 6, medium: 12, long: 18 }, space: { battlemech: 4, protomech: -1, combatVehicle: 4, supportVehicle: 4, aerospaceFighter: 4, smallCraft: 4, dropShip: -1 },
         shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE", "E"], techRating: "x", book: "Reddit u/heavyarmormecha", page: 0, rulesLevel: 6,
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
+    },
+    // The Best of Future Wars, Volume One (1991), Chunk A of the fanzine plan (#172). Custom Homebrew: fan material. Heat, Battle Value,
+    // dates and tech rating are left unverified where the article's stat block gives none.
+    {
+        name: "Gatling Laser", tag: "custom-gatling-laser", techBase: "universal", catalog: "custom", sort: "laser, gatling", category: "Energy Weapons",
+        notes: "Custom Homebrew: Karl Sanders, 'The Gatling Laser', *The Best of Future Wars, Volume One* (1991), p.27. A rotating-barrel laser: six shots a turn of 2 points each, "
+            + "rolled to hit on the SRM 6 cluster column. Ranges 1-2, 3-4, 5-6. The author's prose calls it 36% lighter than a medium laser and 75% cooler, but his stat block "
+            + "says 4 tons, and the block is used. Not printed in The Best of Future Wars: heat is ours, 1, the 75% cut read off a medium laser's 3 heat and rounded up (the block gives none); "
+            + "Battle Value is left at 0 (unverified); dates and tech rating are unverified.",
+        damageClusters: 6, damagePerCluster: 2, damageAero: 12, accuracyModifier: 0, cbills: 50000, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 1, heatAero: 1, weight: 4,
+        range: { min: 0, short: 2, medium: 4, long: 6 }, space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE", "C"], techRating: "x", book: "The Best of Future Wars, Volume One", page: 27, rulesLevel: 6,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
+    },
+    {
+        name: "Long Range Flamer", tag: "custom-lr-flamer", techBase: "universal", catalog: "custom", altNames: ["LR Flamer"], sort: "flamer, long range", category: "Energy Weapons",
+        notes: "Custom Homebrew: Karl Sanders, 'Long Range Flamer', *The Best of Future Wars, Volume One* (1991), p.28. Fuel-fed (ammo-custom-lr-flamer-standard, 15 shots a ton). "
+            + "The blaze sticks to the target as an inferno hit does: it does 5 plus 5 heat levels the first turn, 2 plus 5 the second and 0 plus 5 the third; a second hit adds its damage to "
+            + "the one still burning, and each earlier hit still burning adds 1 heat, to a most of 10 heat a turn. Harder to hit at range: +2 at medium, +3 at long. A miss "
+            + "scatters on a die: 1-3 one hex short of the target, 4 left, 5 right, 6 behind it, and the hexes struck catch fire. Not printed in The Best of Future Wars: "
+            + "Battle Value is left at 0 (unverified); dates and tech rating are unverified.",
+        damage: 5, damageAero: 5, accuracyModifier: 0, cbills: 65000, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 8, heatAero: 8, weight: 5,
+        range: { min: 0, short: 4, medium: 8, long: 12 }, space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        shotsPerTon: 15, ammoTypes: ["ammo-custom-lr-flamer-standard"], minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "x", book: "The Best of Future Wars, Volume One", page: 28, rulesLevel: 6,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     }
 ];
