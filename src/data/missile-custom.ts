@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { futureWarsSwingFires } from "./best-of-future-wars-conversions";
 
 /*
  * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -662,5 +663,7 @@ export const missileCustom: IEquipmentItem[] = [
         range: { min: 8, short: 12, medium: 24, long: 36 }, space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
         shotsPerTon: 2, ammoTypes: ["ammo-custom-penitrator-standard"], minAmmoTons: 1, explosive: false, weaponType: [], techRating: "x", book: "The Best of Future Wars, Volume One", page: 20, rulesLevel: 6,
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
-    }
+    },
+    // The Best of Future Wars (1991) p.27: Swing Fire Missile System (#172).
+    ...futureWarsSwingFires(),
 ];

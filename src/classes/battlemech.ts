@@ -3029,6 +3029,11 @@ export class BattleMech {
         }
         if (vss && !ecm) violations.push(`${vss.name} needs an ECM suite (TO:AUE p.161).`);
         if (stealth && !ecm) violations.push("Stealth Armor needs an ECM suite (TM p.213).");
+        // A Power Booster hooked to the jump jets has nothing to boost without them (The Best of Future Wars p.28, #172).
+        const jumpBooster = mounted.find(item => item.conversion?.booster?.target === "jumping");
+        if (jumpBooster && this.getJumpSpeed() <= 0) {
+            violations.push(`${jumpBooster.name} needs jump jets to boost (The Best of Future Wars p.28).`);
+        }
         return violations;
     }
 

@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { futureWarsBoostedWeapons } from "./best-of-future-wars-conversions";
 
 /*
  * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -14,7 +15,7 @@ import { IEquipmentItem } from "./data-interfaces";
  * excluded from the software's underlying license (GNU GPLv3).
  */
 
-export const energyCustom: IEquipmentItem[] = [
+const energyCustomBase: IEquipmentItem[] = [
     {
        name: "COIL-L",
         tag: "coil_l",
@@ -350,3 +351,8 @@ export const energyCustom: IEquipmentItem[] = [
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     }
 ];
+
+/** The Best of Future Wars (1991) p.28: weapons with a Power Booster (#172), the Gatling Laser built from the record above. */
+const gatlingLaser = energyCustomBase.find((item) => item.tag === "custom-gatling-laser");
+if (!gatlingLaser) throw new Error("energy-custom: custom-gatling-laser not found");
+export const energyCustom: IEquipmentItem[] = [...energyCustomBase, ...futureWarsBoostedWeapons(gatlingLaser)];

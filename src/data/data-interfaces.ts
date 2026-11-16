@@ -275,7 +275,36 @@ export type EngineRequirement = "fusion" | "fusion-or-fission" | "ice-or-fuel-ce
 /** The 'Mech locations a spread item's slots go in (see IEquipmentItem.spreadLocations). */
 export type SpreadLocations = "all" | "all-but-head" | "limbs-and-side-torsos" | "legs" | "side-torsos" | "torsos" | "one-side";
 
+/**
+ * A Best of Future Wars (1991) item that changes another (#172): a weapon converted to rapid fire (Pom-Pom) or a swivel
+ * (Swing Fire), or a Power Booster hooked to a weapon, the legs or the jump jets. Play reads it; construction uses the
+ * record's own stats.
+ */
+export interface IEquipmentConversion {
+    kind: "pom-pom" | "swing-fire" | "power-booster";
+    /** The canon weapon the record is built from. */
+    baseTag?: string;
+    /** Pom-Pom: shots a turn, each rolled on its own. */
+    shotsPerTurn?: number;
+    /** Pom-Pom: rolls on the weapons malfunction table, the worse taken. */
+    malfunctionRolls?: number;
+    /** Swing Fire: how far the rack turns. */
+    arcDegrees?: number;
+    booster?: {
+        target: "weapon" | "running" | "jumping";
+        extraHeat?: number;
+        extraDamage?: number;
+        extraDamagePerHit?: number;
+        addedRange?: number;
+        extraRunMP?: number;
+        runHeatPerHex?: number;
+        jumpMultiplier?: number;
+        jumpHeatMultiplier?: number;
+    };
+}
+
 export interface IEquipmentItem extends ICatalogStanding {
+    conversion?: IEquipmentConversion;
     catalog?: "is" | "clan" | "custom" | "universal";
     /**
      * Tech base of the record itself: Inner Sphere, Clan, or universal (identical for both). Stated on every bundled

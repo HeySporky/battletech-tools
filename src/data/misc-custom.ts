@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { futureWarsBoosterItems } from "./best-of-future-wars-conversions";
 
 /*
  * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -132,4 +133,6 @@ export const miscCustom: IEquipmentItem[] = [
         ammoTypes: ["ammo-custom-pile-bunker-standard"], shotsPerTon: 3, minAmmoTons: 1, explosive: false, weaponType: [], techRating: "x", book: "Reddit u/FweeCom", page: 0, rulesLevel: 6,
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     },
+    // The Best of Future Wars (1991) p.28: Power Boosters for the legs and the jump jets (#172).
+    ...futureWarsBoosterItems(),
 ];

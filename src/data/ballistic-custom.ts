@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { futureWarsPomPoms } from "./best-of-future-wars-conversions";
 import { equipmentBallistic } from "./equipment-ballistic";
 
 /*
@@ -303,5 +304,7 @@ export const ballisticCustom: IEquipmentItem[] = [
         range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 2, protomech: -1, combatVehicle: 2, supportVehicle: 2, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
         shotsPerTon: 100, ammoTypes: ["ammo-custom-eii-pds-standard"], minAmmoTons: 0, explosive: false, weaponType: ["DB"], techRating: "x", book: "The Best of Future Wars, Volume One", page: 8, rulesLevel: 6,
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
-    }
+    },
+    // The Best of Future Wars (1991) p.27: Rapid Fire Autocannon (#172).
+    ...futureWarsPomPoms(),
 ];
