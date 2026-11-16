@@ -305,6 +305,8 @@ export interface IEquipmentConversion {
 
 export interface IEquipmentItem extends ICatalogStanding {
     conversion?: IEquipmentConversion;
+    /** Ammunition whose explosion the source sets per shot, in place of the weapon's damage (VHE Gauss shell: 30). */
+    explosionDamagePerShot?: number;
     catalog?: "is" | "clan" | "custom" | "universal";
     /**
      * Tech base of the record itself: Inner Sphere, Clan, or universal (identical for both). Stated on every bundled

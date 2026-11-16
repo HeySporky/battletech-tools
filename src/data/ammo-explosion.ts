@@ -143,6 +143,11 @@ export function getAmmoDamagePerShot(weapon: IEquipmentItem): number {
     return weapon.damage?.short ?? 0;
 }
 
+/** One shot's explosion damage from `bin` fired by `weapon`: the bin's own figure where its source sets one, else the weapon's. */
+export function getBinDamagePerShot(bin: IEquipmentItem, weapon: IEquipmentItem): number {
+    return bin.explosionDamagePerShot ?? getAmmoDamagePerShot(weapon);
+}
+
 /**
  * An ammunition explosion of `bins`: each explosive bin's shots left times one shot's Damage Value. A bin with no
  * weapon aboard to fire it cannot be valued and is left out. Battle-armor-scale ammunition does 20 a quarter-ton left
@@ -166,8 +171,9 @@ export function getAmmoExplosion(
         const weapon = bin.isAmmo && bin.explosive ? binWeapon(bin) : undefined;
         if (!weapon) continue;
         const shots = Math.max(0, shotsLeft(bin));
-        if (shots > 0) shot = Math.max(shot, getAmmoDamagePerShot(weapon));
-        baseDamage += bin.battleArmorScale ? getBattleArmorScaleExplosionDamage(shots * (bin.kgPerShot ?? 0) / 1000) : shots * getAmmoDamagePerShot(weapon);
+        const perShot = getBinDamagePerShot(bin, weapon);
+        if (shots > 0) shot = Math.max(shot, perShot);
+        baseDamage += bin.battleArmorScale ? getBattleArmorScaleExplosionDamage(shots * (bin.kgPerShot ?? 0) / 1000) : shots * perShot;
     }
     let damage = rules.oneShot?.includes(protection) ? Math.min(shot, baseDamage) : baseDamage;
     const divisor = rules.damageDivisor?.[protection] ?? rules.damageDivisor?.none;
@@ -193,7 +199,7 @@ export function getHeatAmmoExplosion(
     protection: AmmoExplosionProtection = "none",
 ): (IAmmoExplosion & { bin: IEquipmentItem; spent: IEquipmentItem[] }) | undefined {
     const live = bins.filter((bin) => bin.isAmmo && bin.explosive && shotsLeft(bin) > 0 && binWeapon(bin));
-    const bin = live.reduce<IEquipmentItem | undefined>((best, item) => !best || getAmmoDamagePerShot(binWeapon(item)!) > getAmmoDamagePerShot(binWeapon(best)!) ? item : best, undefined);
+    const bin = live.reduce<IEquipmentItem | undefined>((best, item) => !best || getBinDamagePerShot(item, binWeapon(item)!) > getBinDamagePerShot(best, binWeapon(best)!) ? item : best, undefined);
     const spent = live.filter((item) => bin && binWeapon(item) === binWeapon(bin));
     const scope = getAmmoExplosionRules(editionTag, unitType)?.scope;
     const explosion = bin && getAmmoExplosion(editionTag, unitType, scope === "weapon" ? spent : [bin], binWeapon, shotsLeft, protection);

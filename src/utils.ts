@@ -8,6 +8,7 @@ import { DEFAULT_MUL_SOURCE_SELECTION, getMULRecordKey, loadMULListItems } from 
 import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 import { getQuirkToHit } from "./utils/quirk-effects";
+import { getFutureWarsPlayKind, getLRFlamerRangeModifier } from "./utils/future-wars-play";
 import { unitHasAbility } from "./utils/mulAbilities";
 import { resolveMULEraFilter } from "./utils/mulUtilities";
 import { filterMULByRulesets, IMULSearchFilters } from "./utils/mulSearchFilters";
@@ -1012,6 +1013,16 @@ export function getTargetToHitFromWeapon(
 
             // Design quirks, with the game's "Use design quirks" switch on (CO pp.225-234).
             const rangeBand = target.range <= weaponRange.short ? "short" : target.range <= weaponRange.medium ? "medium" : target.range <= weaponRange.long ? "long" : undefined;
+            // The Long Range Flamer's own penalty at range: +2 medium, +3 long (The Best of Future Wars p.28).
+            if( rangeBand && getFutureWarsPlayKind( weapon ) === "lr-flamer" ) {
+                const flamerModifier = getLRFlamerRangeModifier( rangeBand );
+                if( flamerModifier ) {
+                    gator.finalToHit += flamerModifier;
+                    gator.otherModifiers += flamerModifier;
+                    otherModifiersExplanation.push( "Long Range Flamer (+" + flamerModifier + ")" );
+                    gator.otherModifiersExplanation = otherModifiersExplanation.join(", ");
+                }
+            }
             if( quirksInPlay && rangeBand ) {
                 const quirkToHit = getQuirkToHit(mech.quirks, mech.getQuirkInstalledUuids(equipmentList), mech.getQuirkPlayYear(), {
                     weaponUuid: weapon.uuid,

@@ -49,6 +49,10 @@ import { getEditionTechBases, IGameSettings } from "../data/game-settings";
 import { getHexDistanceFromModifier, getLocationName, getMovementModifier } from "../utils";
 import { addCommas } from "../utils/addCommas";
 import { rollCriticalLine } from "../utils/critical-tables";
+import {
+    getBoostedJumpHeat, getBoostedJumpMP, getBoostedRunHeat, getFutureWarsPlayKind, getInfernoGaussAmmoCritHeat, getLRFlamerBurn,
+    getPowerBoosterRoll, INFERNO_GAUSS_HEAT_PER_TURN, INFERNO_GAUSS_TURNS_PER_HIT, LR_FLAMER_BURN_TURNS, PDS_INTEGRAL_BURSTS, PowerBoosterResult,
+} from "../utils/future-wars-play";
 import { calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
 import { addsNoAlphaStrikeWeaponHeat, alphaStrikeExtraHeat, alphaStrikeMovementHeat, applyAlphaStrikeHeat } from "../utils/alphaStrikeHeat";
 import { isAlphaStrikeAbilityCode } from "../data/alpha-strike-special-abilities";
@@ -259,9 +263,36 @@ export interface IFrankenMechExport {
     jumpJetClass?: FrankenMechJumpJetClass;
 }
 
+/** One Power Booster's track in play (The Best of Future Wars p.28), by the uuid of the item it is part of. */
+export interface IFutureWarsBoosterState {
+    /** Turns in a row it has been used, this one included when `usedThisTurn`. */
+    turnInARow: number;
+    usedThisTurn: boolean;
+    /** Its roll this turn succeeded: the boost is on. */
+    boostedThisTurn: boolean;
+    /** Failed for good (5 or less, and so on). */
+    failed?: boolean;
+    /** Burned out the system it drives as well (a 2, or a fourth turn). */
+    systemBurnedOut?: boolean;
+}
+
+/** The Best of Future Wars equipment in play (#172, Chunk C). Every field is absent until something happens. */
+export interface IFutureWarsPlayState {
+    boosters?: Record<string, IFutureWarsBoosterState>;
+    /** Built-in PDS bursts spent, by the PDS's uuid. */
+    pdsBurstsUsed?: Record<string, number>;
+    /** Long Range Flamer hits burning on this 'Mech: one entry a hit, its age in turns (0 the turn it hit). */
+    lrFlamerBurns?: number[];
+    /** Turns of Inferno Gauss heat left on this 'Mech. */
+    infernoGaussTurns?: number;
+    /** Hexes run this turn with the leg booster on (its heat is 1 a hex). */
+    boostedRunHexes?: number;
+}
+
 export interface IBattleMechExport {
 
     // in play variables
+    futureWarsPlay?: IFutureWarsPlayState;
 
     selectedMech?: boolean;
     currentMovementMode?: string;
@@ -487,6 +518,8 @@ export class BattleMech {
     /** How the jump pack left the 'Mech, empty while it is strapped on. */
     public jumpPackLost = "";
     public currentHeat: number = 0;
+    /** The Best of Future Wars equipment's play state (#172); see IFutureWarsPlayState. */
+    public futureWarsPlay: IFutureWarsPlayState = {};
     public damageLog: IMechDamageLog[] = [];
     public criticalDamage: Record<string, number[]> = {};
 
@@ -5993,13 +6026,141 @@ export class BattleMech {
 
         for( const eq of equipmentList) {
             if( eq.target ) {
+                // A weapon its Power Booster burned out cannot fire (The Best of Future Wars p.28).
+                if( eq.uuid && this.isFutureWarsSystemBurnedOut(eq.uuid) ) continue;
                 // A cooling jacket quirk changes the weapon's heat when fired (CO pp.227, 234).
                 rv += quirksInPlay && eq.uuid
                     ? getQuirkWeaponHeat(this.quirks, installedUuids, this.getQuirkPlayYear(), eq.uuid, getMountedHeat(eq))
                     : getMountedHeat(eq);
+                // A boosted shot's extra heat (p.28).
+                if( eq.uuid && this.isPowerBoosterOn(eq.uuid) ) rv += eq.conversion?.booster?.extraHeat ?? 0;
             }
         }
         return rv;
+    }
+
+    // --- The Best of Future Wars equipment in play (#172, Chunk C; src/utils/future-wars-play.ts).
+
+    private _booster(uuid: string): IFutureWarsBoosterState | undefined {
+        return this.futureWarsPlay.boosters?.[uuid];
+    }
+
+    /** The item `uuid` in the in-play list, if it is a Power Booster or a boosted weapon. */
+    private _boosterItem(uuid: string): IEquipmentItem | undefined {
+        return this.equipmentList.find((item) => item.uuid === uuid && item.conversion?.kind === "power-booster");
+    }
+
+    /** Turns in a row the booster will have been used if it is used this turn (1 for a first use). */
+    public getPowerBoosterTurnInARow(uuid: string): number {
+        const state = this._booster(uuid);
+        if( !state ) return 1;
+        return state.usedThisTurn ? state.turnInARow : state.turnInARow + 1;
+    }
+
+    /** "ready", "on" (boosted this turn), "used" (rolled this turn, no boost), "failed" or "burned-out". */
+    public getPowerBoosterStatus(uuid: string): "ready" | "on" | "used" | "failed" | "burned-out" {
+        const state = this._booster(uuid);
+        if( state?.systemBurnedOut ) return "burned-out";
+        if( state?.failed ) return "failed";
+        if( state?.boostedThisTurn ) return "on";
+        if( state?.usedThisTurn ) return "used";
+        return "ready";
+    }
+
+    /**
+     * Roll the Power Booster `uuid` for this turn with the players' 2D6 `roll` (p.28). Undefined when it cannot be used:
+     * not a booster, already rolled this turn, failed or burned out.
+     */
+    public rollPowerBooster(uuid: string, roll: number): PowerBoosterResult | undefined {
+        if( !this._boosterItem(uuid) || this.getPowerBoosterStatus(uuid) !== "ready" ) return undefined;
+        const turnInARow = this.getPowerBoosterTurnInARow(uuid);
+        const result = getPowerBoosterRoll(turnInARow, roll);
+        this.futureWarsPlay.boosters = {
+            ...this.futureWarsPlay.boosters,
+            [uuid]: {
+                turnInARow, usedThisTurn: true, boostedThisTurn: result === "boosted",
+                ...(result !== "boosted" ? { failed: true } : {}),
+                ...(result === "system-burned-out" ? { systemBurnedOut: true } : {}),
+            },
+        };
+        return result;
+    }
+
+    /** The booster `uuid` boosts this turn. */
+    public isPowerBoosterOn(uuid: string): boolean {
+        return !!this._booster(uuid)?.boostedThisTurn;
+    }
+
+    /** The system the booster `uuid` drives is burned out: a weapon must be replaced, jets cannot jump, legs cannot run. */
+    public isFutureWarsSystemBurnedOut(uuid: string): boolean {
+        return !!this._booster(uuid)?.systemBurnedOut;
+    }
+
+    private _boosterOnFor(target: "running" | "jumping"): boolean {
+        return this.equipmentList.some((item) => item.uuid && item.conversion?.booster?.target === target && this.isPowerBoosterOn(item.uuid));
+    }
+
+    /** The 'Mech's jump MP with its jump-jet booster on this turn: half again (p.28). */
+    public getBoostedJumpMP(): number {
+        return getBoostedJumpMP(this.getJumpSpeed());
+    }
+
+    /** A Long Range Flamer hit on this 'Mech: it burns this turn and the next two. */
+    public addLRFlamerHit(count: number = 1): void {
+        this.futureWarsPlay.lrFlamerBurns = [...(this.futureWarsPlay.lrFlamerBurns ?? []), ...Array.from({ length: Math.max(0, count) }, () => 0)];
+    }
+
+    /** What the Long Range Flamer burns on this 'Mech do this turn. */
+    public getLRFlamerBurnThisTurn(): { damage: number; heat: number } {
+        return getLRFlamerBurn(this.futureWarsPlay.lrFlamerBurns ?? []);
+    }
+
+    /** An Inferno Gauss shell hit on this 'Mech: 5 more turns of 10 heat (p.11). */
+    public addInfernoGaussHit(): void {
+        this.futureWarsPlay.infernoGaussTurns = (this.futureWarsPlay.infernoGaussTurns ?? 0) + INFERNO_GAUSS_TURNS_PER_HIT;
+    }
+
+    /** Heat put on this 'Mech this turn by fanzine weapons burning on it: Long Range Flamer and Inferno Gauss. */
+    public getFutureWarsIncomingHeat(): number {
+        return this.getLRFlamerBurnThisTurn().heat + ((this.futureWarsPlay.infernoGaussTurns ?? 0) > 0 ? INFERNO_GAUSS_HEAT_PER_TURN : 0);
+    }
+
+    /** Built-in bursts left in the PDS `uuid` (50 to start; an extra magazine is an ammunition bin). */
+    public getPDSIntegralBurstsLeft(uuid: string): number {
+        return Math.max(0, PDS_INTEGRAL_BURSTS - (this.futureWarsPlay.pdsBurstsUsed?.[uuid] ?? 0));
+    }
+
+    /** Spend one built-in burst of the PDS `uuid` on a salvo; false when none is left. */
+    public usePDSBurst(uuid: string): boolean {
+        if( this.getPDSIntegralBurstsLeft(uuid) <= 0 ) return false;
+        this.futureWarsPlay.pdsBurstsUsed = { ...this.futureWarsPlay.pdsBurstsUsed, [uuid]: (this.futureWarsPlay.pdsBurstsUsed?.[uuid] ?? 0) + 1 };
+        return true;
+    }
+
+    /** The items aboard that have a Best of Future Wars play rule. */
+    public getFutureWarsPlayItems(): IEquipmentItem[] {
+        return this.equipmentList.filter((item) => getFutureWarsPlayKind(item) !== undefined);
+    }
+
+    /** Next turn: burns age, Inferno heat counts down, a booster not used this turn starts its count again. */
+    private _advanceFutureWarsPlay(): void {
+        const play = this.futureWarsPlay;
+        if( play.lrFlamerBurns ) {
+            const burns = play.lrFlamerBurns.map((age) => age + 1).filter((age) => age < LR_FLAMER_BURN_TURNS);
+            if( burns.length ) play.lrFlamerBurns = burns; else delete play.lrFlamerBurns;
+        }
+        if( play.infernoGaussTurns ) {
+            play.infernoGaussTurns = Math.max(0, play.infernoGaussTurns - 1);
+            if( !play.infernoGaussTurns ) delete play.infernoGaussTurns;
+        }
+        if( play.boosters ) {
+            for( const state of Object.values(play.boosters) ) {
+                if( !state.usedThisTurn ) state.turnInARow = 0;
+                state.usedThisTurn = false;
+                state.boostedThisTurn = false;
+            }
+        }
+        delete play.boostedRunHexes;
     }
 
     public getTurnHeatDifference(
@@ -6012,7 +6173,7 @@ export class BattleMech {
         // A quirk's change to the heat built up (Combat Computer) never takes generated heat below 0 (CO p.225).
         const quirkHeat = quirksInPlay ? getQuirkHeatGenerated(this.quirks, this.getQuirkInstalledUuids(equipmentList), this.getQuirkPlayYear()) : 0;
         const generated = Math.max(0, this.getActiveMoveHeat() + this.getActiveWeaponHeat(equipmentList, quirksInPlay) + quirkHeat)
-            + this.getEngineHitHeat();
+            + this.getEngineHitHeat() + this.getFutureWarsIncomingHeat();
 
         return generated - this.getActiveHeatDissipation();
     }
@@ -6052,6 +6213,14 @@ export class BattleMech {
     public getActiveMoveHeat(): number {
         // A jump pack generates no heat (Maximum Tech p.81; TO:AUE p.105).
         if( this._isJumpPackJump() ) return 0;
+        // A Power Booster on: legs, 1 heat a hex run (the boosted run MP until the hexes are entered); jump jets, double
+        // heat a hex (The Best of Future Wars p.28). It takes the place of the movement heat of the engine's own table.
+        if( this.currentMovementMode === "r" && this._boosterOnFor("running") ) {
+            return getBoostedRunHeat(this.futureWarsPlay.boostedRunHexes ?? this.getRunSpeed() + 2);
+        }
+        if( this.currentMovementMode === "j" && this._boosterOnFor("jumping") ) {
+            return getBoostedJumpHeat(this.currentTargetJumpingMP);
+        }
         // An earlier edition's own Heat Point Table (Battledroids: walking 0, running 1, jumping 1 a hex, BD p.12).
         const editionMoveHeat = getEditionPlayRules(this._rulesEdition)?.moveHeat;
         if( editionMoveHeat ) {
@@ -6850,6 +7019,15 @@ export class BattleMech {
      * location with CASE vents it; damage over the edition's cap may strip armor where it stops. Returns the log lines.
      */
     private _onSlotHit(location: string, slot: ICriticalSlot | null | undefined): string[] {
+        // Liao Inferno Gauss shells burn rather than explode: 30 heat (20 with CASE) and 1 a shell (The Best of Future
+        // Wars p.11). The shells are spent; there is no damage.
+        const inferno = this._equipmentList.find(item => item.uuid === slot?.uuid && item.isAmmo && getFutureWarsPlayKind(item) === "inferno-gauss");
+        if (inferno) {
+            const heat = getInfernoGaussAmmoCritHeat(this.getAmmoBinRemaining(inferno), this._ammoExplosionProtection(location) !== "none");
+            inferno.currentAmmo = 0;
+            this.currentHeat += heat;
+            return [`${inferno.name} ignites: ${heat} heat (The Best of Future Wars p.11).`];
+        }
         const explosive = (uuid: string | undefined) => this._equipmentList.find(item => item.uuid === uuid && item.isAmmo && item.explosive);
         const bin = explosive(slot?.uuid);
         const rules = getAmmoExplosionRules(this._rulesEdition, "mech");
@@ -8676,6 +8854,7 @@ export class BattleMech {
         resetBubbleMatrix(this._structureBubbles);
         // CORE METRIC RECOVERY RESETS
         this.currentHeat = 0;
+        this.futureWarsPlay = {};
         this.jumpPackFuelUsed = 0;
         this.jumpPackLost = "";
         if (this.pilot) {
@@ -9230,6 +9409,7 @@ export class BattleMech {
             exportObject.currentTargetJumpingMP =_currentTargetJumpingMP;
             if( !noInPlayVariables && this.jumpPackFuelUsed ) exportObject.jumpPackFuelUsed = this.jumpPackFuelUsed;
             if( !noInPlayVariables && this.jumpPackLost ) exportObject.jumpPackLost = this.jumpPackLost;
+            if( !noInPlayVariables && Object.keys(this.futureWarsPlay).length ) exportObject.futureWarsPlay = JSON.parse(JSON.stringify(this.futureWarsPlay));
             exportObject.currentTargetModifier =_currentTargetModifier;
             exportObject.currentToHitMovementModifier =_currentToHitMovementModifier;
             exportObject.damageLog = this.damageLog;
@@ -9519,6 +9699,8 @@ export class BattleMech {
         this.targetingRangeSetting = importObject?.targetingRangeSetting ?? "normal";
         this.enhancedImagingOff = importObject?.enhancedImagingOff === true;
         this.jumpPackFuelUsed = importObject?.jumpPackFuelUsed ?? 0;
+        this.futureWarsPlay = importObject?.futureWarsPlay && typeof importObject.futureWarsPlay === "object"
+            ? JSON.parse(JSON.stringify(importObject.futureWarsPlay)) : {};
         this.jumpPackLost = importObject?.jumpPackLost ?? "";
 
         if( importObject && importObject.currentTargetModifier ) {
@@ -13456,6 +13638,7 @@ export class BattleMech {
         this.currentMovementMode = "n"
         this.currentToHitMovementModifier = -1;
         this.damageLog = [];
+        this._advanceFutureWarsPlay();
         for( const item of this._equipmentList ) {
             item.resolved = false;
             item.damageClusterHits = [];

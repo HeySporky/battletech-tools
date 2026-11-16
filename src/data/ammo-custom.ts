@@ -1256,7 +1256,7 @@ export const ammoCustom: IEquipmentItem[] = [
         space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
         roundsPerTon: 5, explosive: true, techRating: "x", book: BEST_OF, page: 11,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
-        catalog: "custom", rulesLevel: 6,
+        catalog: "custom", rulesLevel: 6, explosionDamagePerShot: 30,
         notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11. Dated 3040, the year the article has Hanse Davion commission the research (the story's year, not a fielding date). Not printed in The "
             + "Best of Future Wars: cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
         rules: "Very High Explosive: heavier than the standard round, so 5 shots a ton against 8 and a range 3 hexes shorter (1-4, 5-12, 13-19). "
@@ -1277,7 +1277,7 @@ export const ammoCustom: IEquipmentItem[] = [
         catalog: "custom", rulesLevel: 6,
         notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11 (the Liao Inferno shell, stats on p.11). "
             + "An ammunition hit causes heat, not damage, so the record is not marked explosive, to keep the generic ammunition-explosion damage off it; "
-            + "the heat from an ammunition hit is modelled later. "
+            + "in roster play an ammunition hit adds the heat to the 'Mech's heat scale. "
             + "Not printed in The Best of Future Wars: the article gives no year of its own for it (the research was contemporary with the VHE shell, 3040, so it is left at no date); "
             + "cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
         rules: "On impact the target takes 2 points of damage and 10 heat a turn for 5 turns; as with standard inferno rounds, more shells only lengthen the heat. "

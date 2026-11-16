@@ -59,6 +59,7 @@ import BuildingPlayPanel from './_buildingPlay';
 import SpaceTrackerBar from './_spaceTrackerBar';
 import { AntiOrbitalGunControls, SpaceResolutionDialog } from './_antiOrbitalControls';
 import QuirksInPlay from '../../../components/quirks-in-play';
+import FutureWarsPlayPanel, { showFutureWarsPlay } from './_futureWarsPlay';
 import { getCarrierQuirkEffects, IQuirkCarrier } from '../../../../utils/quirk-effects';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
@@ -878,6 +879,16 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       }
       this.setState({
         selectedVehicleUUID: uuid,
+      });
+    }
+
+    /** A Best of Future Wars counter or roll changed the selected 'Mech (#172): save the force. */
+    onFutureWarsChange = (): void => {
+      if(this.props.appGlobals.currentCBTForce) {
+        this.props.appGlobals.saveCurrentCBTForce( this.props.appGlobals.currentCBTForce );
+      }
+      this.setState({
+        updated: true,
       });
     }
 
@@ -2566,7 +2577,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         </span>}
 
                       </td>
-                      <td>{item.name}</td>
+                      <td>
+                        {item.name}
+                        {this.state.setTargetDialog && item.uuid && this.state.setTargetDialog.isFutureWarsSystemBurnedOut(item.uuid) ? (
+                          <span className="color-red" data-testid="mech-weapon-burned-out"> (burned out: cannot fire)</span>
+                        ) : this.state.setTargetDialog && item.uuid && this.state.setTargetDialog.isPowerBoosterOn(item.uuid) ? (
+                          <span data-testid="mech-weapon-boosted"> (boosted: +{item.conversion?.booster?.extraHeat ?? 0} heat)</span>
+                        ) : null}
+                      </td>
                       <td className=" min-width no-wrap text-center">{item.heat}</td>
                       <td className=" min-width no-wrap text-center">{itemDamage}</td>
                       <td className=" min-width no-wrap text-center">{item.range.short}</td>
@@ -3220,6 +3238,13 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                 viewGATOR={this.viewGATOR}
                 currentPhase={this.props.appGlobals.currentCBTForce.phase}
               />
+              {showFutureWarsPlay(selectedMech) ? (
+                <FutureWarsPlayPanel
+                  key={"fw" + selectedMech.uuid}
+                  mech={selectedMech}
+                  onChange={() => this.onFutureWarsChange()}
+                />
+              ) : null}
             </>
           ) : (
             <div className="text-center">
