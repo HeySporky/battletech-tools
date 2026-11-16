@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { IEquipmentItem } from "./data-interfaces";
 import { getCompatibleAmmo, getEquipmentCatalogDefinitions, getEquipmentRulesLevel } from "./equipment-registry";
-import { getPowerBoostedWeapon } from "./best-of-future-wars-conversions";
+import { futureWarsSwingFires, getPowerBoostedWeapon } from "./best-of-future-wars-conversions";
 import snapshot from "./__fixtures__/tech-lists.json";
 
 // Chunk B of the Best of Future Wars plan (#172): items that modify another. Every value was read on the page images of
@@ -89,7 +89,7 @@ describe("Swing Fire Missile System, p.27", () => {
         expect(swing.space.battlemech).toBe(rack.space.battlemech + 1);
         expect(swing.cbills).toBe(rack.cbills + 75000);
         expect(swing.accuracyModifier).toBe(1);
-        expect(swing.notes).toContain("the Clan mount is ours");
+        expect(swing.notes).toContain("The Clan mount is ours");
         expect(swing.heat).toBe(rack.heat);
         expect(swing.range).toEqual(rack.range);
         expect(swing.conversion).toMatchObject({ kind: "swing-fire", baseTag, arcDegrees: 180 });
@@ -175,10 +175,10 @@ describe("Power Booster, p.28", () => {
         }
     });
 
-    it("every booster carries the burn-out track in its notes", () => {
+    it("every booster carries the burn-out track in its rules", () => {
         for (const tag of [...BOOSTED.map(([t]) => t), "custom-power-booster-gatling-laser", ...BOOSTER_ITEMS]) {
-            expect(find(tag).notes, tag).toContain("5 or less");
-            expect(find(tag).notes, tag).toContain("a 2 burns out");
+            expect(find(tag).rules, tag).toContain("5 or less");
+            expect(find(tag).rules, tag).toContain("a 2 burns out");
         }
     });
 });
@@ -228,5 +228,26 @@ describe("Best of Future Wars conversions: catalog", () => {
         for (const tag of ["custom-pom-pom-ac-5", "custom-power-booster-ppc", "custom-power-booster-running"]) {
             expect(find(tag).notes, tag).toContain("unsigned");
         }
+    });
+
+    // Owner ruling (2026-11-16): notes keep the source and credit, Rules hold the play text, Lore the in-character TRO text.
+    it("every record keeps its play text in Rules, out of the credit notes", () => {
+        for (const tag of ALL_TAGS) {
+            const item = find(tag);
+            expect(item.rules, tag).toMatch(/C-bills/);
+            expect(item.notes, tag).not.toMatch(/C-bills/);
+            expect(item.rules, tag).not.toContain("Inspired by");
+        }
+    });
+
+    it("every Swing Fire rack carries Technical Readout lore", () => {
+        for (const item of futureWarsSwingFires()) {
+            expect(item.lore, item.tag).toContain("Star League Defense Force");
+            expect(item.lore, item.tag).not.toMatch(/\bours\b/);
+        }
+        expect(find("custom-swing-fire-clan-lrm-10").lore).toContain("Exodus");
+        expect(find("custom-swing-fire-lrm-10").lore).toContain("Succession Wars");
+        expect(find("custom-swing-fire-lrt-10").lore).toContain("torpedo");
+        expect(find("custom-swing-fire-lrm-10").lore).not.toContain("torpedo");
     });
 });

@@ -149,6 +149,24 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
         this.props.onChange( item );
     }
 
+    updateLore = (
+        e: React.ChangeEvent<HTMLTextAreaElement>,
+    ) => {
+        const item = this.props.editingItem;
+        item.lore = e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
+    updateRules = (
+        e: React.ChangeEvent<HTMLTextAreaElement>,
+    ) => {
+        const item = this.props.editingItem;
+        item.rules = e.currentTarget.value;
+
+        this.props.onChange( item );
+    }
+
     updateMinAmmoTons = (
         e: React.FormEvent<HTMLInputElement>,
     ) => {
@@ -731,6 +749,28 @@ export default class EquipmentEditForm extends React.Component<IEquipmentEditFor
                                 />
                             </fieldset>
                         ) : null}
+
+                        <fieldset className="fieldset">
+                            <legend>Lore and Rules</legend>
+                            <label>
+                                Lore
+                                <textarea
+                                    aria-label="Lore"
+                                    rows={5}
+                                    onChange={this.updateLore}
+                                    value={this.props.editingItem.lore ?? ""}
+                                />
+                            </label>
+                            <label>
+                                Rules
+                                <textarea
+                                    aria-label="Rules"
+                                    rows={5}
+                                    onChange={this.updateRules}
+                                    value={this.props.editingItem.rules ?? ""}
+                                />
+                            </label>
+                        </fieldset>
                     </div>
                 </div>
             </TextSection>

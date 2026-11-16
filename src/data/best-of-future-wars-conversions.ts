@@ -90,10 +90,11 @@ const pomPom = (baseTag: string, size: number): IEquipmentItem => {
         range: { ...ac.range, short: ac.range.short - 1, medium: ac.range.medium - 2, long: ac.range.long - 3 },
         page: 27,
         conversion: { kind: "pom-pom", baseTag, shotsPerTurn: 2, malfunctionRolls: 2 },
-        notes: `${cite(POM_POM_AUTHOR, "Rapid Fire Autocannon (Pom-Pom Guns)", 27)} ${UNSIGNED} An AC/${size} converted to fire twice a turn, each shot rolled `
-            + "on its own, at double heat even when it fires once. Same damage and rounds per ton as the autocannon; range cut by 1 hex at short, "
-            + "2 at medium and 3 at long. Still prone to breakdown: roll twice on the weapons malfunction table and take the worse. "
-            + `+5 tons, +2 slots and +100,000 C-bills on the autocannon. ${UNVALUED} Dates are unverified.`,
+        notes: `${cite(POM_POM_AUTHOR, "Rapid Fire Autocannon (Pom-Pom Guns)", 27)} ${UNSIGNED} ${UNVALUED} Dates are unverified.`,
+        rules: `An AC/${size} converted to fire twice a turn, each shot rolled on its own, at double heat even when it fires once. `
+            + "Same damage and rounds per ton as the autocannon; range cut by 1 hex at short, 2 at medium and 3 at long. "
+            + "Still prone to breakdown: roll twice on the weapons malfunction table and take the worse. "
+            + "+5 tons, +2 slots and +100,000 C-bills on the autocannon.",
     });
 };
 
@@ -105,6 +106,18 @@ const worseBy = (modifier: IEquipmentItem["accuracyModifier"], by: number): IEqu
 // it with the Exodus. A rack's Swing Fire dates from the later of the mount and the rack, and shares the rack's gaps.
 const SWING_FIRE_MOUNT_INTRODUCED = 2750;
 const SWING_FIRE_MOUNT = { is: { weight: 3, slots: 2 }, clan: { weight: 1.5, slots: 1 } };
+/** In-character Technical Readout text (ours, built on the owner's lore above). */
+const swingFireLore = (clan: boolean, torpedo: boolean): string => [
+    "The Star League Defense Force fielded the Swing Fire mount around 2750 to let a 'Mech's missiles reach targets outside its "
+    + "forward arc without turning the torso. The rack rides a powered ring that the pilot can swing through half a circle. "
+    + "The ring's bearings and feed couplings are delicate, and the slack in the mechanism spoils a launcher's aim.",
+    clan
+        ? "The mount left the Inner Sphere with the Exodus. Clan technicians rebuilt the ring in lighter alloys at half its old mass "
+          + "and bulk and fitted it to their own launchers, where it serves warriors who must cover a flank alone."
+        : "After the fall of the Star League few factories could build a new ring, but technicians kept salvaged mounts running "
+          + "through the Succession Wars, and Swing Fire racks still turn up on old 'Mechs handed down within a family or a unit.",
+    torpedo ? "Naval refits put the ring under a torpedo tube, letting a wading 'Mech cover the water around it." : "",
+].filter(Boolean).join(" ");
 const swingFire = (baseTag: string): IEquipmentItem => {
     const rack = canonRecord(equipmentMissile, baseTag);
     const clan = rack.techBase === "clan";
@@ -124,19 +137,20 @@ const swingFire = (baseTag: string): IEquipmentItem => {
         reintroduced: rack.reintroduced ?? null,
         page: 27,
         conversion: { kind: "swing-fire", baseTag, arcDegrees: 180 },
-        notes: `${cite("Karl Sanders", "The Swing Fire Missile System", 27)} A ${rack.name} rebuilt on a swivel: the pilot can turn its line of sight `
-            + "180 degrees in combat. Delicate, and the swivel's give costs accuracy; the page prints no number, so the +1 to-hit is ours. "
+        notes: `${cite("Karl Sanders", "The Swing Fire Missile System", 27)} The page prints no number for the lost accuracy, so the +1 to-hit is ours. `
             + (pageRack ? "" : `The page names the Inner Sphere LRM and SRM only; the ${torpedo ? "torpedo" : rack.name} version is ours. `)
-            + (torpedo ? "It fires only into or through water, as any torpedo rack. " : "")
-            + `+${mount.weight} tons, +${mount.slots} slot${mount.slots === 1 ? "" : "s"} and +75,000 C-bills on the rack`
-            + (clan ? " (the Clan mount is ours: half the page's weight, as Clan launchers run about half the Inner Sphere's). " : ". ")
+            + (clan ? "The Clan mount is ours: half the page's weight, as Clan launchers run about half the Inner Sphere's. " : "")
             + `${UNVALUED} Dates are ours: a Star League mount of about 2750, kept alive in the Inner Sphere and taken by the Clans in the Exodus.`,
+        rules: `A ${rack.name} on a swivel: the pilot can turn its line of sight 180 degrees in combat. +1 to-hit. `
+            + (torpedo ? "It fires only into or through water, as any torpedo rack. " : "")
+            + `+${mount.weight} tons, +${mount.slots} slot${mount.slots === 1 ? "" : "s"} and +75,000 C-bills on the rack.`,
+        lore: swingFireLore(clan, torpedo),
     });
 };
 
 // --- Power Booster, p.28. The chart: extra heat, extra damage, added range.
-const boosterNotes = (system: string) => `${cite("Karl Sanders", "Power Booster", 28)} ${UNSIGNED} A Power Booster hooked to ${system}, noted on the sheet. `
-    + `${BURN_OUT} 2 tons, 1 slot, 750,000 C-bills. Dates are unverified.`;
+const BOOSTER_NOTES = `${cite("Karl Sanders", "Power Booster", 28)} ${UNSIGNED} Dates are unverified.`;
+const boosterRules = (system: string) => `A Power Booster hooked to ${system}, noted on the sheet. ${BURN_OUT} 2 tons, 1 slot, 750,000 C-bills.`;
 
 const boostedWeapon = (weapon: IEquipmentItem, tag: string, name: string, booster: NonNullable<IEquipmentConversion["booster"]>): IEquipmentItem => {
     const extraDamage = booster.extraDamage !== undefined ? `+${booster.extraDamage} damage` : `+${booster.extraDamagePerHit} damage a hit`;
@@ -149,8 +163,9 @@ const boostedWeapon = (weapon: IEquipmentItem, tag: string, name: string, booste
         cbills: weapon.cbills + 750000,
         page: 28,
         conversion: { kind: "power-booster", baseTag: weapon.tag, booster },
-        notes: `${boosterNotes(`a ${name}`)} Fires as the plain weapon; a boosted shot is +${booster.extraHeat} heat, ${extraDamage} and `
-            + `+${booster.addedRange} hex${booster.addedRange === 1 ? "" : "es"} of range (added to each band: the chart's single "Added Range" figure read that way, ours). ${UNVALUED}`,
+        notes: `${BOOSTER_NOTES} The chart gives a single "Added Range" figure; adding it to each band is our reading. ${UNVALUED}`,
+        rules: `${boosterRules(`a ${name}`)} Fires as the plain weapon; a boosted shot is +${booster.extraHeat} heat, ${extraDamage} and `
+            + `+${booster.addedRange} hex${booster.addedRange === 1 ? "" : "es"} of range in each band.`,
     });
 };
 
@@ -166,9 +181,10 @@ const boosterItem = (target: "running" | "jumping"): IEquipmentItem => ({
     tag: `custom-power-booster-${target}`,
     techBase: "universal", catalog: "custom", altTags: [], altNames: [],
     sort: `equipment, power booster, ${target}`, category: "Custom Equipment",
-    notes: target === "running"
-        ? `${boosterNotes("the legs")} Running only: +2 MP to the running speed (no use when walking), at 1 heat a hex run.`
-        : `${boosterNotes("the jump jets")} +50% jump (a jump 6 'Mech jumps 9), at double heat a hex. Needs jump jets.`,
+    notes: BOOSTER_NOTES,
+    rules: target === "running"
+        ? `${boosterRules("the legs")} Running only: +2 MP to the running speed (no use when walking), at 1 heat a hex run.`
+        : `${boosterRules("the jump jets")} +50% jump (a jump 6 'Mech jumps 9), at double heat a hex. Needs jump jets.`,
     damage: 0, damageAero: 0, accuracyModifier: 0, cbills: 750000, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 0, heatAero: 0, weight: 2,
     range: { min: 0, short: 0, medium: 0, long: 0 },
     space: mechOnly(1),

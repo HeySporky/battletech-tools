@@ -338,7 +338,12 @@ export interface IEquipmentItem extends ICatalogStanding {
     count?: number;
     allocationIndex?: number;
     allocationLocation?: string;
+    /** Source and credit line ("Inspired by ..."), plus anything not printed. */
     notes?: string;
+    /** In-character Technical Readout text: who builds it, where it is fielded, how it came about. */
+    lore?: string;
+    /** Out-of-character play text: how the item works at the table. */
+    rules?: string;
     target?: string;
     name: string;
     isEquipment?: boolean;
