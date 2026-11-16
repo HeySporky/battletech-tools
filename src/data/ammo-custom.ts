@@ -1224,7 +1224,8 @@ export const ammoCustom: IEquipmentItem[] = [
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
         notes: "Custom Homebrew: Karl Sanders, 'Long Range Flamer', *The Best of Future Wars, Volume One* (1991), p.28. 15 shots a ton for the Long Range Flamer (custom-lr-flamer). "
-            + "Not printed in The Best of Future Wars: whether it explodes (marked explosive here, ours, as fuel); cost and Battle Value are left at 0 (unverified); dates and tech rating are unverified."
+            + "If the ammunition is hit, the damage is scaled as if the unit had been hit that many times by the weapon (p.28), so it is marked explosive. "
+            + "Not printed in The Best of Future Wars: cost and Battle Value are left at 0 (unverified); dates and tech rating are unverified."
     },
     {
         isAmmo: true, isSpecialAmmo: false, name: "EII Point Defense System - Standard Ammo", altNames: ["EII PDS Ammo"], tag: "ammo-custom-eii-pds-standard", techBase: "universal", altTags: [],
@@ -1257,12 +1258,13 @@ export const ammoCustom: IEquipmentItem[] = [
         sort: "ammo, gauss rifle, inferno, is", category: "Ammunition", cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0,
         heat: 0, heatAero: 0, weight: 1, range: { min: 0, short: 7, medium: 15, long: 22 },
         space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
-        roundsPerTon: 8, explosive: true, techRating: "x", book: BEST_OF, page: 11,
+        roundsPerTon: 8, explosive: false, techRating: "x", book: BEST_OF, page: 11,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
         notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11 (the Liao Inferno shell, stats on p.11). Dr Xhiao Zing's "
             + "napalm-filled round. On impact the target takes 2 points of damage and 10 heat a turn for 5 turns; as with standard inferno rounds, more shells only lengthen the heat. "
-            + "If the ammunition takes a critical hit, the player takes 30 heat (20 if CASE is installed) and 1 more for each shell. 8 shots a ton, range 1-7, 8-15, 16-22. "
+            + "If the ammunition takes a critical hit, the player takes 30 heat (20 if CASE is installed) and 1 more for each shell (p.11). That is heat, not damage, so the "
+            + "record is not marked explosive, to keep the generic ammunition-explosion damage off it; the heat from an ammunition hit is modelled later. 8 shots a ton, range 1-7, 8-15, 16-22. "
             + "Not printed in The Best of Future Wars: the article gives no year of its own for it (the research was contemporary with the VHE shell, 3040, so it is left at no date); "
             + "cost and Battle Value are left at 0 (unverified); tech rating is unverified."
     },

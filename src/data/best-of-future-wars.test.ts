@@ -48,7 +48,7 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         // The stat block prints no heat; ours, from the prose ("retards heat build-up by 75%").
         expect(gatling.heat).toBeGreaterThan(0);
         expect(gatling.notes).toContain("Not printed in The Best of Future Wars");
-        expect(gatling.notes).toMatch(/ours/);
+        expect(gatling.notes).toContain("heat is ours, 1");
     });
 
     it("Long Range Flamer: 5 + 5 heat, 1-4 / 5-8 / 9-12, 15 shots a ton, heat 8, 5 t, 2 slots, 65,000 C", () => {
@@ -64,6 +64,8 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(ammo.roundsPerTon).toBe(15);
         expect(flamer.notes).toContain("2 plus 5");
         expect(flamer.notes).toContain("0 plus 5");
+        expect(ammo.explosive).toBe(true);
+        expect(ammo.notes).toContain("hit that many times");
         expect(getCompatibleAmmo(flamer, ammo)).toBe(true);
         expect(getWeaponShotsPerTon(flamer, ammo)).toBe(15);
     });
@@ -104,6 +106,9 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(inferno.range).toMatchObject({ min: 0, short: 7, medium: 15, long: 22 });
         expect(inferno.notes).toContain("30 heat");
         expect(inferno.notes).toContain("20");
+        // An ammo hit adds heat (p.11), not damage: the generic explosion code must stay off it.
+        expect(inferno.explosive).toBe(false);
+        expect(inferno.notes).toContain("heat, not damage");
         expect(getCompatibleAmmo(gauss, inferno)).toBe(true);
         expect(getWeaponShotsPerTon(gauss, inferno)).toBe(8);
     });
@@ -140,6 +145,7 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(launcher.notes).toContain("1d4");
         expect(launcher.notes).toContain("1d4/2");
         expect(launcher.notes).toMatch(/critical/);
+        expect(launcher.notes).toContain("minimum range of 8 is ours");
         expect(getCompatibleAmmo(launcher, missile)).toBe(true);
         expect(getWeaponShotsPerTon(launcher, missile)).toBe(2);
     });
