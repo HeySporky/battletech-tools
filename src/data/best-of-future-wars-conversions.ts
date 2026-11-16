@@ -116,7 +116,7 @@ const swingFireLore = (clan: boolean, torpedo: boolean): string => [
           + "and bulk and fitted it to their own launchers, where it serves warriors who must cover a flank alone."
         : "After the fall of the Star League few factories could build a new ring, but technicians kept salvaged mounts running "
           + "through the Succession Wars, and Swing Fire racks still turn up on old 'Mechs handed down within a family or a unit.",
-    torpedo ? "Naval refits put the ring under a torpedo tube, letting a wading 'Mech cover the water around it." : "",
+    torpedo ? "Naval refits put the ring under a torpedo tube, letting a 'Mech wading in the shallows, or swimming on Underwater Maneuvering Units, cover the water around it." : "",
 ].filter(Boolean).join(" ");
 const swingFire = (baseTag: string): IEquipmentItem => {
     const rack = canonRecord(equipmentMissile, baseTag);

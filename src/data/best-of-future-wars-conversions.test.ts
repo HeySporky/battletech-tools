@@ -248,6 +248,7 @@ describe("Best of Future Wars conversions: catalog", () => {
         expect(find("custom-swing-fire-clan-lrm-10").lore).toContain("Exodus");
         expect(find("custom-swing-fire-lrm-10").lore).toContain("Succession Wars");
         expect(find("custom-swing-fire-lrt-10").lore).toContain("torpedo");
+        expect(find("custom-swing-fire-clan-srt-4").lore).toContain("Underwater Maneuvering Units");
         expect(find("custom-swing-fire-lrm-10").lore).not.toContain("torpedo");
     });
 });
