@@ -20,6 +20,7 @@ coverage/
 /playwright-report/
 /test-results/
 /blob-report/
+/.test-audit/
 /playwright/.cache/
 
 # node_modules/.vite is already covered; this catches caches outside it.

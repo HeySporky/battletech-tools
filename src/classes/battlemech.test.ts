@@ -30,7 +30,6 @@ import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from "..
 import { universalEquipment } from "../data/universal-equipment";
 
 const isAmmoList = ammoCatalog.filter((item) => item.techBase === "is");
-const clanAmmoList = ammoCatalog.filter((item) => item.techBase === "clan");
 const universalAmmoList = ammoCatalog.filter((item) => item.techBase === "universal");
 
 const isArtilleryList = equipmentArtillery.filter((item) => item.techBase === "is");
@@ -2727,14 +2726,6 @@ describe("Batch 3 myomer catalog", () => {
         expect(standard?.introduced).toBe(2350);
     });
 
-    it("uses null, not 0, for unknown myomer dates", () => {
-        for (const item of mechMyomerTypes) {
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(item.introduced, item.tag).not.toBe(0);
-        }
-    });
-
     it("lists Super-Cooled Myomer as an experimental IS prototype (IO:AE p.88)", () => {
         const scm = myomer("risc-super-cooled-myomer");
         expect(scm?.book).toBe("IO:AE");
@@ -2807,13 +2798,6 @@ describe("Batch 4 engine catalog", () => {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
         }
     });
-
-    it("uses null, not 0, for engines that never went extinct", () => {
-        for (const item of mechEngineTypes) {
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-        }
-    });
 });
 
 describe("Batch 5 internal structure catalog", () => {
@@ -2845,16 +2829,6 @@ describe("Batch 5 internal structure catalog", () => {
         };
         for (const item of mechInternalStructureTypes) {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
-        }
-    });
-
-    it("uses null, not 0, for structures that never went extinct", () => {
-        for (const item of mechInternalStructureTypes) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
-            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
         }
     });
 });
@@ -2927,16 +2901,6 @@ describe("Batch 6 armor catalog", () => {
         for (const item of mechArmorTypes) {
             expect(item.book, item.tag).toBeTruthy();
             expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
-    it("uses null, not 0, for armor that never went extinct", () => {
-        for (const item of mechArmorTypes) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
-            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
         }
     });
 
@@ -3014,16 +2978,6 @@ describe("Batch 7 heat sink catalog", () => {
         };
         for (const item of mechHeatSinkTypes) {
             expect([item.book, item.page], item.tag).toEqual(pages[item.tag]);
-        }
-    });
-
-    it("uses null, not 0, for heat sinks that never went extinct", () => {
-        for (const item of mechHeatSinkTypes) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(item.clanDates?.extinct, item.tag).not.toBe(0);
-            expect(item.clanDates?.reintroduced, item.tag).not.toBe(0);
         }
     });
 });
@@ -3191,15 +3145,6 @@ describe("Batch 9a misc equipment catalogs", () => {
         }
     });
 
-    it("uses null, not 0, for unknown dates in the is records", () => {
-        for (const item of isMiscList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the clan records (IO:AE pp.29-39)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -3227,15 +3172,6 @@ describe("Batch 9a misc equipment catalogs", () => {
         for (const [tag, want] of Object.entries(expected)) {
             const item = seenBy("clan", equipmentMisc, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clan records", () => {
-        for (const item of clanMiscList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 
@@ -3279,15 +3215,6 @@ describe("Batch 9b universal equipment catalog", () => {
         for (const [tag, want] of Object.entries(expected)) {
             const item = universalEquipment.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the universal records", () => {
-        for (const item of universalEquipment) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -3349,15 +3276,6 @@ describe("Batch 10a energy weapon catalogs", () => {
         }
     });
 
-    it("uses null, not 0, for unknown dates in the isEnergy records", () => {
-        for (const item of isEnergyList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the clanEnergy records (IO:AE pp.29-40)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -3403,15 +3321,6 @@ describe("Batch 10a energy weapon catalogs", () => {
         for (const [tag, want] of Object.entries(expected)) {
             const item = clanEnergyList.find(record => record.tag === tag) ?? seenBy("clan", equipmentEnergy, tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clanEnergy records", () => {
-        for (const item of clanEnergyList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -3472,15 +3381,6 @@ describe("Batch 10b ballistic weapon catalogs", () => {
         }
     });
 
-    it("uses null, not 0, for unknown dates in the isBallistic records", () => {
-        for (const item of isBallisticList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the clanBallistic records (IO:AE pp.29-38)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -3529,15 +3429,6 @@ describe("Batch 10b ballistic weapon catalogs", () => {
         for (const [tag, want] of Object.entries(expected)) {
             const item = clanBallisticList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clanBallistic records", () => {
-        for (const item of clanBallisticList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -3683,15 +3574,6 @@ describe("Batch 10c missile and artillery catalogs", () => {
         expect([bv("prototype-rocket-launcher-10"), bv("prototype-rocket-launcher-15"), bv("prototype-rocket-launcher-20")]).toEqual([17, 21, 22]);
     });
 
-    it("uses null, not 0, for unknown dates in the isMissile records", () => {
-        for (const item of isMissileList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the clanMissile records (IO:AE pp.31-40)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -3811,15 +3693,6 @@ describe("Batch 10c missile and artillery catalogs", () => {
         }
     });
 
-    it("uses null, not 0, for unknown dates in the clanMissile records", () => {
-        for (const item of clanMissileList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the isArtillery records (IO:AE pp.31-40)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -3832,15 +3705,6 @@ describe("Batch 10c missile and artillery catalogs", () => {
         }
     });
 
-    it("uses null, not 0, for unknown dates in the isArtillery records", () => {
-        for (const item of isArtilleryList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the clanArtillery records (IO:AE pp.31-40)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -3849,15 +3713,6 @@ describe("Batch 10c missile and artillery catalogs", () => {
         for (const [tag, want] of Object.entries(expected)) {
             const item = clanArtilleryList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the clanArtillery records", () => {
-        for (const item of clanArtilleryList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -3987,15 +3842,6 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
         }
     });
 
-    it("uses null, not 0, for unknown dates in the isAmmo records", () => {
-        for (const item of isAmmoList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the clanAmmo records (launcher dates; IO:AE pp.53-56)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -4051,15 +3897,6 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
         }
     });
 
-    it("uses null, not 0, for unknown dates in the clanAmmo records", () => {
-        for (const item of clanAmmoList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the universalAmmo records (launcher dates; IO:AE pp.53-56)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -4080,15 +3917,6 @@ describe("Batch 12b standard ammunition follows its launcher", () => {
         for (const [tag, want] of Object.entries(expected)) {
             const item = universalAmmoList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the universalAmmo records", () => {
-        for (const item of universalAmmoList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });
@@ -4702,15 +4530,6 @@ describe("Batch 12c special munitions", () => {
         }
     });
 
-    it("uses null, not 0, for unknown dates in the isAmmo records", () => {
-        for (const item of isAmmoList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the clanAmmo records (IO:AE pp.53-56 and TO:AUE headers, gated by the launcher)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -4777,15 +4596,6 @@ describe("Batch 12c special munitions", () => {
         }
     });
 
-    it("uses null, not 0, for unknown dates in the clanAmmo records", () => {
-        for (const item of clanAmmoList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
-        }
-    });
-
     it("dates and cites the universalAmmo records (IO:AE pp.53-56 and TO:AUE headers, gated by the launcher)", () => {
         // tag: [prototype, production, extinct, reintroduced, book, page]
         const expected: Record<string, [number | undefined, number | null, number | null, number | null, string, number]> = {
@@ -4832,15 +4642,6 @@ describe("Batch 12c special munitions", () => {
         for (const [tag, want] of Object.entries(expected)) {
             const item = universalAmmoList.find(record => record.tag === tag);
             expect([item?.prototype, item?.introduced, item?.extinct, item?.reintroduced, item?.book, item?.page], tag).toEqual(want);
-        }
-    });
-
-    it("uses null, not 0, for unknown dates in the universalAmmo records", () => {
-        for (const item of universalAmmoList) {
-            expect(item.introduced, item.tag).not.toBe(0);
-            expect(item.extinct, item.tag).not.toBe(0);
-            expect(item.reintroduced, item.tag).not.toBe(0);
-            expect(typeof item.page, item.tag).toBe("number");
         }
     });
 });

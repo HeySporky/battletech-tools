@@ -30,6 +30,7 @@
     "test": "vitest run --project unit",
     "test:watch": "vitest --project unit",
     "test:coverage": "vitest run --project unit --coverage",
+    "test:audit": "node scripts/test-audit/test-audit.mjs",
     "test:browser": "vitest run --project browser",
     "test:e2e": "playwright test --project=chromium --project=firefox --project=webkit --project=tablet-ipad",
     "test:e2e:mobile": "playwright test --project=mobile-android --project=mobile-ios",

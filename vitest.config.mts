@@ -31,6 +31,8 @@ export default defineConfig((env) =>
                         environment: "node",
                         include: ["src/**/*.test.{ts,tsx}"],
                         exclude: ["src/**/*.browser.test.{ts,tsx}"],
+                        // scripts/test-audit/test-audit.mjs sets TEST_AUDIT_DIR to count expect() calls per test.
+                        setupFiles: process.env.TEST_AUDIT_DIR ? ["scripts/test-audit/assertion-count.setup.ts"] : [],
                     },
                 },
                 {
