@@ -51,7 +51,7 @@ import { addCommas } from "../utils/addCommas";
 import { rollCriticalLine } from "../utils/critical-tables";
 import {
     getBoostedJumpHeat, getBoostedJumpMP, getBoostedRunHeat, getFutureWarsPlayKind, getInfernoGaussAmmoCritHeat, getLRFlamerBurn,
-    getPowerBoosterRoll, INFERNO_GAUSS_HEAT_PER_TURN, INFERNO_GAUSS_TURNS_PER_HIT, LR_FLAMER_BURN_TURNS, PDS_INTEGRAL_BURSTS, PowerBoosterResult,
+    getPowerBoosterRoll, INFERNO_GAUSS_HEAT_PER_TURN, INFERNO_GAUSS_TURNS_PER_HIT, LR_FLAMER_BURN_TURNS, MAX_EXTERNAL_HEAT_PER_TURN, PDS_INTEGRAL_BURSTS, PowerBoosterResult,
 } from "../utils/future-wars-play";
 import { calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
 import { addsNoAlphaStrikeWeaponHeat, alphaStrikeExtraHeat, alphaStrikeMovementHeat, applyAlphaStrikeHeat } from "../utils/alphaStrikeHeat";
@@ -287,6 +287,8 @@ export interface IFutureWarsPlayState {
     infernoGaussTurns?: number;
     /** Hexes run this turn with the leg booster on (its heat is 1 a hex). */
     boostedRunHexes?: number;
+    /** Heat from inside the 'Mech waiting for this turn's heat phase (Inferno Gauss shells igniting). */
+    pendingHeat?: number;
 }
 
 export interface IBattleMechExport {
@@ -6112,6 +6114,16 @@ export class BattleMech {
         return getBoostedJumpMP(this.getJumpSpeed());
     }
 
+    /** Running MP this turn in play: +2 with a leg booster on (p.28). */
+    public getPlayRunSpeed(): number {
+        return this.getRunSpeed() + (this._boosterOnFor("running") ? 2 : 0);
+    }
+
+    /** Jumping MP this turn in play: half again with a jump-jet booster on (p.28). */
+    public getPlayJumpSpeed(): number {
+        return this._boosterOnFor("jumping") ? this.getBoostedJumpMP() : this.getJumpSpeed();
+    }
+
     /** A Long Range Flamer hit on this 'Mech: it burns this turn and the next two. */
     public addLRFlamerHit(count: number = 1): void {
         this.futureWarsPlay.lrFlamerBurns = [...(this.futureWarsPlay.lrFlamerBurns ?? []), ...Array.from({ length: Math.max(0, count) }, () => 0)];
@@ -6127,20 +6139,42 @@ export class BattleMech {
         this.futureWarsPlay.infernoGaussTurns = (this.futureWarsPlay.infernoGaussTurns ?? 0) + INFERNO_GAUSS_TURNS_PER_HIT;
     }
 
-    /** Heat put on this 'Mech this turn by fanzine weapons burning on it: Long Range Flamer and Inferno Gauss. */
+    /**
+     * Heat this turn's heat phase adds from the fanzine rules: fires burning on the 'Mech (Long Range Flamer and Inferno
+     * Gauss), at most 15 a turn as all heat from outside the 'Mech (TW p.159), plus Inferno shells that ignited aboard
+     * (their own heat, outside that cap).
+     */
     public getFutureWarsIncomingHeat(): number {
-        return this.getLRFlamerBurnThisTurn().heat + ((this.futureWarsPlay.infernoGaussTurns ?? 0) > 0 ? INFERNO_GAUSS_HEAT_PER_TURN : 0);
+        const external = this.getLRFlamerBurnThisTurn().heat + ((this.futureWarsPlay.infernoGaussTurns ?? 0) > 0 ? INFERNO_GAUSS_HEAT_PER_TURN : 0);
+        return Math.min(MAX_EXTERNAL_HEAT_PER_TURN, external) + (this.futureWarsPlay.pendingHeat ?? 0);
     }
 
-    /** Built-in bursts left in the PDS `uuid` (50 to start; an extra magazine is an ammunition bin). */
+    /** Built-in bursts left in the PDS `uuid` (50 to start). */
     public getPDSIntegralBurstsLeft(uuid: string): number {
         return Math.max(0, PDS_INTEGRAL_BURSTS - (this.futureWarsPlay.pdsBurstsUsed?.[uuid] ?? 0));
     }
 
-    /** Spend one built-in burst of the PDS `uuid` on a salvo; false when none is left. */
+    /** The PDS's extra magazines aboard: its own ammunition bins. */
+    private _pdsMagazines(uuid: string): IEquipmentItem[] {
+        const pds = this.equipmentList.find((item) => item.uuid === uuid && getFutureWarsPlayKind(item) === "pds");
+        if( !pds ) return [];
+        return this.equipmentList.filter((item) => item.isAmmo && (pds.ammoTypes ?? []).includes(item.tag));
+    }
+
+    /** All bursts the PDS `uuid` has left: its built-in ones and those in its extra magazines. */
+    public getPDSBurstsLeft(uuid: string): number {
+        return this.getPDSIntegralBurstsLeft(uuid) + this._pdsMagazines(uuid).reduce((sum, bin) => sum + this.getAmmoBinRemaining(bin), 0);
+    }
+
+    /** Spend one burst of the PDS `uuid` on a salvo, the built-in ones first, then a magazine's; false when none is left. */
     public usePDSBurst(uuid: string): boolean {
-        if( this.getPDSIntegralBurstsLeft(uuid) <= 0 ) return false;
-        this.futureWarsPlay.pdsBurstsUsed = { ...this.futureWarsPlay.pdsBurstsUsed, [uuid]: (this.futureWarsPlay.pdsBurstsUsed?.[uuid] ?? 0) + 1 };
+        if( this.getPDSIntegralBurstsLeft(uuid) > 0 ) {
+            this.futureWarsPlay.pdsBurstsUsed = { ...this.futureWarsPlay.pdsBurstsUsed, [uuid]: (this.futureWarsPlay.pdsBurstsUsed?.[uuid] ?? 0) + 1 };
+            return true;
+        }
+        const bin = this._pdsMagazines(uuid).find((item) => this.getAmmoBinRemaining(item) > 0);
+        if( !bin ) return false;
+        bin.currentAmmo = this.getAmmoBinRemaining(bin) - 1;
         return true;
     }
 
@@ -6168,6 +6202,7 @@ export class BattleMech {
             }
         }
         delete play.boostedRunHexes;
+        delete play.pendingHeat;
     }
 
     public getTurnHeatDifference(
@@ -6220,14 +6255,22 @@ export class BattleMech {
     public getActiveMoveHeat(): number {
         // A jump pack generates no heat (Maximum Tech p.81; TO:AUE p.105).
         if( this._isJumpPackJump() ) return 0;
+        const heat = this._unboostedMoveHeat();
         // A Power Booster on: legs, 1 heat a hex run (the boosted run MP until the hexes are entered); jump jets, double
-        // heat a hex (The Best of Future Wars p.28). It takes the place of the movement heat of the engine's own table.
+        // heat a hex (The Best of Future Wars p.28). The booster's heat takes the place of the standard table's (run 2,
+        // jump 1 a hex, at least 3); what the engine or edition adds over that table (an XXL's) stays on top (ours).
         if( this.currentMovementMode === "r" && this._boosterOnFor("running") ) {
-            return getBoostedRunHeat(this.futureWarsPlay.boostedRunHexes ?? this.getRunSpeed() + 2);
+            return Math.max(0, heat + getBoostedRunHeat(this.futureWarsPlay.boostedRunHexes ?? this.getPlayRunSpeed()) - 2);
         }
         if( this.currentMovementMode === "j" && this._boosterOnFor("jumping") ) {
-            return getBoostedJumpHeat(this.currentTargetJumpingMP);
+            const standard = Math.max(3, this.currentTargetJumpingMP);
+            return Math.max(0, heat + getBoostedJumpHeat(this.currentTargetJumpingMP) - standard);
         }
+        return heat;
+    }
+
+    /** Movement heat by the engine's and edition's tables, without a Power Booster. */
+    private _unboostedMoveHeat(): number {
         // An earlier edition's own Heat Point Table (Battledroids: walking 0, running 1, jumping 1 a hex, BD p.12).
         const editionMoveHeat = getEditionPlayRules(this._rulesEdition)?.moveHeat;
         if( editionMoveHeat ) {
@@ -7034,7 +7077,8 @@ export class BattleMech {
         if (inferno) {
             const heat = getInfernoGaussAmmoCritHeat(this.getAmmoBinRemaining(inferno), this._ammoExplosionProtection(location) !== "none");
             inferno.currentAmmo = 0;
-            this.currentHeat += heat;
+            // Added in this turn's heat phase with the rest of the turn's heat.
+            this.futureWarsPlay.pendingHeat = (this.futureWarsPlay.pendingHeat ?? 0) + heat;
             return [`${inferno.name} ignites: ${heat} heat (The Best of Future Wars p.11).`];
         }
         const explosive = (uuid: string | undefined) => this._equipmentList.find(item => item.uuid === uuid && item.isAmmo && item.explosive);

@@ -144,10 +144,16 @@ describe("Best of Future Wars equipment in play", () => {
         item.currentAmmo = 6;
         const structure = mech.getCurrentStructure();
         const log = mech.rollCriticalHit("lt", { chance: 8, lines: [slot < 6 ? 1 : 4, slot % 6 + 1] });
-        expect(mech.currentHeat).toBe(36);
+        // The heat waits for the heat phase, with the turn's other heat, and is outside the 15 cap: it is the 'Mech's own.
+        expect(mech.currentHeat).toBe(0);
+        expect(mech.getFutureWarsIncomingHeat()).toBe(36);
         expect(mech.getCurrentStructure()).toBe(structure);
         expect(log.join(" ")).toContain("36 heat");
         expect(mech.getAmmoBinRemaining(item)).toBe(0);
+        const heatPhase = mech.getTurnHeatDifference();
+        endTurn(mech);
+        expect(mech.currentHeat).toBe(heatPhase);
+        expect(mech.getFutureWarsIncomingHeat()).toBe(0);
     });
 
     it("Inferno Gauss shells: 20 heat with CASE; an empty bin does not ignite", () => {
@@ -157,14 +163,14 @@ describe("Best of Future Wars equipment in play", () => {
         const loaded = placeIn(cased, "ammo-is-gauss-rifle-inferno", "lt", "leftTorso");
         loaded.item.currentAmmo = 3;
         cased.rollCriticalHit("lt", { chance: 8, lines: [loaded.slot < 6 ? 1 : 4, loaded.slot % 6 + 1] });
-        expect(cased.currentHeat).toBe(23);
+        expect(cased.getFutureWarsIncomingHeat()).toBe(23);
 
         const spent = build();
         mount(spent, "standard-gauss-rifle");
         const empty = placeIn(spent, "ammo-is-gauss-rifle-inferno", "lt", "leftTorso");
         empty.item.currentAmmo = 0;
         spent.rollCriticalHit("lt", { chance: 8, lines: [empty.slot < 6 ? 1 : 4, empty.slot % 6 + 1] });
-        expect(spent.currentHeat).toBe(0);
+        expect(spent.getFutureWarsIncomingHeat()).toBe(0);
     });
 
     it("a boosted weapon's to-hit reads the boosted range bands", () => {
@@ -252,5 +258,91 @@ describe("Best of Future Wars equipment in play", () => {
         expect(copy.futureWarsPlay).toEqual(mech.futureWarsPlay);
         mech.resetDamage();
         expect(mech.futureWarsPlay).toEqual({});
+    });
+
+    it("a booster on an XXL engine: the boosted heat replaces the standard table's, the XXL's extra stays", () => {
+        const runner = build();
+        runner.setEngineType("xxl");
+        expect(runner.isXXLEngine()).toBe(true);
+        mount(runner, "custom-power-booster-running");
+        runner.currentMovementMode = "r";
+        expect(runner.getActiveMoveHeat()).toBe(6);
+        runner.rollPowerBooster(inPlay(runner, "custom-power-booster-running").uuid!, 8);
+        runner.futureWarsPlay.boostedRunHexes = 8;
+        // XXL running 6 = standard 2 + 4 extra; boosted 8 hexes + 4 extra.
+        expect(runner.getActiveMoveHeat()).toBe(12);
+
+        const jumper = build(6);
+        jumper.setEngineType("xxl");
+        mount(jumper, "custom-power-booster-jumping");
+        jumper.currentMovementMode = "j";
+        jumper.currentTargetJumpingMP = 9;
+        expect(jumper.getActiveMoveHeat()).toBe(18);
+        jumper.rollPowerBooster(inPlay(jumper, "custom-power-booster-jumping").uuid!, 8);
+        // XXL jumping 18 = standard 9 + 9 extra; boosted 18 + 9 extra.
+        expect(jumper.getActiveMoveHeat()).toBe(27);
+    });
+
+    it("the play run and jump MP: +2 running with the leg booster on, half again jumping with the jets on", () => {
+        const mech = build(6);
+        mount(mech, "custom-power-booster-running");
+        mount(mech, "custom-power-booster-jumping");
+        expect(mech.getPlayRunSpeed()).toBe(mech.getRunSpeed());
+        expect(mech.getPlayJumpSpeed()).toBe(6);
+        mech.rollPowerBooster(inPlay(mech, "custom-power-booster-running").uuid!, 8);
+        mech.rollPowerBooster(inPlay(mech, "custom-power-booster-jumping").uuid!, 8);
+        expect(mech.getPlayRunSpeed()).toBe(mech.getRunSpeed() + 2);
+        expect(mech.getPlayJumpSpeed()).toBe(9);
+    });
+
+    it("a leg or jet booster's fourth turn in a row burns out the system", () => {
+        for (const [tag, mode] of [["custom-power-booster-running", "r"], ["custom-power-booster-jumping", "j"]]) {
+            const mech = build(4);
+            mount(mech, tag);
+            const booster = inPlay(mech, tag);
+            for (let turn = 0; turn < 3; turn++) {
+                expect(mech.rollPowerBooster(booster.uuid!, 12)).toBe("boosted");
+                endTurn(mech);
+            }
+            expect(mech.rollPowerBooster(booster.uuid!, 12)).toBe("system-burned-out");
+            expect(mech.canUseFutureWarsMovementMode(mode)).toBe(false);
+        }
+    });
+
+    it("a booster's track survives a save and load mid-game", () => {
+        const mech = build();
+        mount(mech, "custom-power-booster-ppc");
+        const ppc = inPlay(mech, "custom-power-booster-ppc");
+        mech.rollPowerBooster(ppc.uuid!, 7);
+        endTurn(mech);
+        const copy = new BattleMech();
+        copy.importJSON(mech.exportJSON());
+        expect(copy.getPowerBoosterTurnInARow(ppc.uuid!)).toBe(2);
+        expect(copy.rollPowerBooster(ppc.uuid!, 9)).toBe("failed");
+    });
+
+    it("heat from fires on the 'Mech is capped at 15 a turn (TW p.159)", () => {
+        const mech = build();
+        mech.addLRFlamerHit(3);
+        mech.addInfernoGaussHit();
+        expect(mech.getLRFlamerBurnThisTurn().heat).toBe(7);
+        expect(mech.getFutureWarsIncomingHeat()).toBe(15);
+    });
+
+    it("the PDS count takes in its extra magazine, spent after the built-in bursts", () => {
+        const mech = build();
+        mount(mech, "custom-eii-pds");
+        mount(mech, "ammo-custom-eii-pds-standard");
+        const pds = inPlay(mech, "custom-eii-pds");
+        const bin = inPlay(mech, "ammo-custom-eii-pds-standard");
+        expect(mech.getAmmoBinRemaining(bin)).toBe(100);
+        expect(mech.getPDSBurstsLeft(pds.uuid!)).toBe(150);
+        mech.futureWarsPlay.pdsBurstsUsed = { [pds.uuid!]: 50 };
+        expect(mech.getPDSBurstsLeft(pds.uuid!)).toBe(100);
+        expect(mech.usePDSBurst(pds.uuid!)).toBe(true);
+        expect(mech.getAmmoBinRemaining(bin)).toBe(99);
+        expect(mech.getPDSBurstsLeft(pds.uuid!)).toBe(99);
+        bin.currentAmmo = 0;
+        expect(mech.usePDSBurst(pds.uuid!)).toBe(false);
     });
 });

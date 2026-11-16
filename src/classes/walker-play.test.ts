@@ -274,6 +274,16 @@ describe("Walker critical hits (TW p.124, as a 'Mech)", () => {
         expect(hit(cased, "lt", "AC/5 - Standard Ammo").join(" ")).toMatch(/CASE/);
         expect(cased.getStructureLeft("ct")).toBe(cased.getStructure("ct"));
     });
+
+    it("a VHE shell bin explodes at 30 a shell, not the Gauss rifle's 15 (The Best of Future Wars p.10)", () => {
+        const walker = build();
+        const eras = walker.getAvailableEras();
+        walker.setEra(eras[eras.length - 1].tag);
+        expect(walker.addEquipment("standard-gauss-rifle", "rt").added).toBe(true);
+        expect(walker.addEquipment("ammo-is-gauss-rifle-vhe", "lt").added).toBe(true);
+        walker.setShotsFired(0, walker.getAmmoShots(0) - 2);
+        expect(hit(walker, "lt", "Gauss Rifle - VHE Shell")[0]).toMatch(/60 damage \(2 shots x 30\)/);
+    });
 });
 
 describe("Walker weapons in play", () => {

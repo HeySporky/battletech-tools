@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { BattleMech } from "../../../../classes/battlemech";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../../../../data/rules-level-options";
-import FutureWarsPlayPanel, { showFutureWarsPlay } from "./_futureWarsPlay";
+import FutureWarsPlayPanel, { getBoostedMoveNote, showFutureWarsPlay } from "./_futureWarsPlay";
 
 afterEach(cleanup);
 
@@ -77,5 +77,67 @@ describe("Best of Future Wars play panel", () => {
         expect(text).toMatch(/180 degrees/);
         expect(text).toMatch(/SRM 6/);
         expect(text).toMatch(/\+2 at medium, \+3 at long/);
+    });
+
+    it("says when a booster failed and when it burned out its system", () => {
+        const mech = build(["custom-power-booster-ppc", "custom-power-booster-running"]);
+        const ppc = mech.equipmentList.find((item) => item.tag === "custom-power-booster-ppc")!.uuid!;
+        const legs = mech.equipmentList.find((item) => item.tag === "custom-power-booster-running")!.uuid!;
+        mech.rollPowerBooster(ppc, 4);
+        mech.rollPowerBooster(legs, 2);
+        render(<FutureWarsPlayPanel mech={mech} onChange={vi.fn()} />);
+        expect(screen.getByTestId(`fw-booster-status-${ppc}`).textContent).toMatch(/Failed: the booster can no longer be used/);
+        expect(screen.getByTestId(`fw-booster-status-${legs}`).textContent).toMatch(/Burned out: the 'Mech cannot run/);
+    });
+
+    it("counts the PDS's extra magazine with its built-in bursts", () => {
+        const mech = build(["custom-eii-pds", "ammo-custom-eii-pds-standard"]);
+        render(<FutureWarsPlayPanel mech={mech} onChange={vi.fn()} />);
+        const uuid = mech.equipmentList.find((item) => item.tag === "custom-eii-pds")!.uuid!;
+        expect(screen.getByTestId(`fw-pds-bursts-${uuid}`).textContent).toBe("150");
+        expect(screen.getByTestId(`fw-pds-bursts-detail-${uuid}`).textContent).toMatch(/50 built-in \+ 100 in the magazine/);
+    });
+
+    it("saves the hexes run when the box is left, not on every keystroke", () => {
+        const mech = build(["custom-power-booster-running"]);
+        const legs = mech.equipmentList.find((item) => item.tag === "custom-power-booster-running")!.uuid!;
+        mech.rollPowerBooster(legs, 8);
+        const onChange = vi.fn();
+        render(<FutureWarsPlayPanel mech={mech} onChange={onChange} />);
+        const box = screen.getByTestId(`fw-booster-hexes-${legs}`);
+        fireEvent.change(box, { target: { value: "5" } });
+        expect(onChange).not.toHaveBeenCalled();
+        fireEvent.blur(box);
+        expect(mech.futureWarsPlay.boostedRunHexes).toBe(5);
+        expect(onChange).toHaveBeenCalledTimes(1);
+    });
+
+    it("limits the Penitrator die to the die of the range band", () => {
+        const mech = build(["custom-penitrator"]);
+        render(<FutureWarsPlayPanel mech={mech} onChange={vi.fn()} />);
+        const uuid = mech.equipmentList.find((item) => item.tag === "custom-penitrator")!.uuid!;
+        fireEvent.change(screen.getByTestId(`fw-penitrator-range-${uuid}`), { target: { value: "30" } });
+        expect(screen.getByTestId(`fw-penitrator-roll-${uuid}`).getAttribute("max")).toBe("4");
+    });
+
+    it("shows the 15-heat cap on fires and shells that ignited aboard", () => {
+        const mech = build([]);
+        mech.addLRFlamerHit(3);
+        mech.addInfernoGaussHit();
+        mech.futureWarsPlay.pendingHeat = 36;
+        render(<FutureWarsPlayPanel mech={mech} onChange={vi.fn()} />);
+        expect(screen.getByTestId("fw-external-heat").textContent).toMatch(/15 heat from fires this turn \(17, 15 at most\)/);
+        expect(screen.getByTestId("fw-pending-heat").textContent).toMatch(/36 heat/);
+    });
+
+    it("notes the boosted run and jump MP for the movement dialog", () => {
+        const mech = build(["custom-power-booster-running", "custom-power-booster-jumping"]);
+        expect(getBoostedMoveNote(mech, "r")).toBe("");
+        expect(getBoostedMoveNote(mech, "j")).toBe("");
+        mech.rollPowerBooster(mech.equipmentList.find((item) => item.tag === "custom-power-booster-running")!.uuid!, 8);
+        mech.rollPowerBooster(mech.equipmentList.find((item) => item.tag === "custom-power-booster-jumping")!.uuid!, 8);
+        expect(getBoostedMoveNote(mech, "r")).toBe(` (boosted ${mech.getRunSpeed() + 2})`);
+        expect(getBoostedMoveNote(mech, "j")).toBe(" (boosted 6)");
+        expect(getBoostedMoveNote(mech, "w")).toBe("");
     });
 });

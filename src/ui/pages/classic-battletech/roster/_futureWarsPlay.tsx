@@ -5,7 +5,7 @@ import { getPowerBoostedWeapon } from "../../../../data/best-of-future-wars-conv
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../../../../data/rules-level-options";
 import {
     getFutureWarsPlayKind, getLRFlamerScatter, getPDSInterception, getPenitratorDie, getPenitratorHit, getSabotDamage, getVHESplashLocations,
-    INFERNO_GAUSS_HEAT_PER_TURN, VHE_AMMO_EXPLOSION_PER_SHELL, VHE_DAMAGE,
+    INFERNO_GAUSS_HEAT_PER_TURN, MAX_EXTERNAL_HEAT_PER_TURN, VHE_AMMO_EXPLOSION_PER_SHELL, VHE_DAMAGE,
 } from "../../../../utils/future-wars-play";
 import { getLocationName } from "../../../../utils";
 
@@ -21,6 +21,13 @@ export function showFutureWarsPlay(mech: BattleMech): boolean {
         || mech.getRulesLevel(0) >= CUSTOM_HOMEBREW_RULES_LEVEL;
 }
 
+/** The movement dialog's note on the Run or Jump button when a Power Booster is on this turn: " (boosted N)" (p.28). */
+export function getBoostedMoveNote(mech: BattleMech, mode: string): string {
+    if (mode === "r" && mech.getPlayRunSpeed() !== mech.getRunSpeed()) return ` (boosted ${mech.getPlayRunSpeed()})`;
+    if (mode === "j" && mech.getPlayJumpSpeed() !== mech.getJumpSpeed()) return ` (boosted ${mech.getPlayJumpSpeed()})`;
+    return "";
+}
+
 interface IFutureWarsPlayPanelProps {
     mech: BattleMech;
     onChange: (mech: BattleMech) => void;
@@ -28,20 +35,44 @@ interface IFutureWarsPlayPanelProps {
 
 const FAIL_ON = ["", "5", "9", "11"];
 
-const NumberBox = (props: { testId: string; value: number; min: number; max: number; label: string; onChange: (value: number) => void }) => (
-    <label className="small-text">
-        {props.label}{" "}
-        <input
-            type="number"
-            data-testid={props.testId}
-            value={props.value}
-            min={props.min}
-            max={props.max}
-            style={{ width: "4em" }}
-            onChange={(e) => props.onChange(Math.max(props.min, Math.min(props.max, Number(e.currentTarget.value) || props.min)))}
-        />
-    </label>
-);
+/**
+ * A small number box. While typing, the text is kept as a draft: a whole number in range is taken at once (or, with
+ * `commitOnBlur`, only when the box is left or Enter is pressed); anything else waits for the box to be left, then is
+ * brought into range. So typing "12" into a 2-12 box does not jump to 2 on the "1".
+ */
+const NumberBox = (props: { testId: string; value: number; min: number; max: number; label: string; commitOnBlur?: boolean; onChange: (value: number) => void }) => {
+    const [draft, setDraft] = useState<string | null>(null);
+    const commit = (text: string) => {
+        setDraft(null);
+        const value = Math.max(props.min, Math.min(props.max, Math.round(Number(text)) || props.min));
+        if (value !== props.value) props.onChange(value);
+    };
+    return (
+        <label className="small-text">
+            {props.label}{" "}
+            <input
+                type="number"
+                data-testid={props.testId}
+                value={draft ?? props.value}
+                min={props.min}
+                max={props.max}
+                style={{ width: "4em" }}
+                onChange={(e) => {
+                    const text = e.currentTarget.value;
+                    const value = Number(text);
+                    if (!props.commitOnBlur && text !== "" && Number.isInteger(value) && value >= props.min && value <= props.max) {
+                        setDraft(null);
+                        props.onChange(value);
+                    } else {
+                        setDraft(text);
+                    }
+                }}
+                onBlur={(e) => { if (draft !== null) commit(e.currentTarget.value); }}
+                onKeyDown={(e) => { if (e.key === "Enter") e.currentTarget.blur(); }}
+            />
+        </label>
+    );
+};
 
 const FutureWarsPlayPanel = (props: IFutureWarsPlayPanelProps) => {
     const { mech } = props;
@@ -50,7 +81,7 @@ const FutureWarsPlayPanel = (props: IFutureWarsPlayPanelProps) => {
     const [, setTick] = useState(0);
     const changed = () => { setTick((tick) => tick + 1); props.onChange(mech); };
     const roll = (key: string, fallback: number) => rolls[key] ?? fallback;
-    const setRoll = (key: string, value: number) => setRolls({ ...rolls, [key]: value });
+    const setRoll = (key: string, value: number) => setRolls((previous) => ({ ...previous, [key]: value }));
 
     const booster = (item: IEquipmentItem, uuid: string) => {
         const status = mech.getPowerBoosterStatus(uuid);
@@ -85,29 +116,36 @@ const FutureWarsPlayPanel = (props: IFutureWarsPlayPanelProps) => {
                 ) : null}
                 {status === "on" && target === "running" ? (
                     <div>
-                        Run MP {mech.getRunSpeed() + 2}, 1 heat a hex run.{" "}
-                        <NumberBox testId={`fw-booster-hexes-${uuid}`} label="Hexes run" min={0} max={mech.getRunSpeed() + 2}
-                            value={mech.futureWarsPlay.boostedRunHexes ?? mech.getRunSpeed() + 2}
+                        Run MP {mech.getPlayRunSpeed()} (+2), 1 heat a hex run.{" "}
+                        <NumberBox testId={`fw-booster-hexes-${uuid}`} label="Hexes run" min={0} max={mech.getPlayRunSpeed()} commitOnBlur
+                            value={mech.futureWarsPlay.boostedRunHexes ?? mech.getPlayRunSpeed()}
                             onChange={(value) => { mech.futureWarsPlay.boostedRunHexes = value; changed(); }} />
                     </div>
                 ) : null}
-                {status === "on" && target === "jumping" ? <div>Jump MP {mech.getBoostedJumpMP()}, double heat a hex jumped.</div> : null}
+                {status === "on" && target === "jumping" ? <div>Jump MP {mech.getPlayJumpSpeed()} (half again), double heat a hex jumped.</div> : null}
             </div>
         );
     };
 
     const pds = (uuid: string) => (
         <div>
-            <div>Built-in bursts left: <strong data-testid={`fw-pds-bursts-${uuid}`}>{mech.getPDSIntegralBurstsLeft(uuid)}</strong> (an extra magazine is tracked as ammunition)</div>
+            <div>
+                Bursts left: <strong data-testid={`fw-pds-bursts-${uuid}`}>{mech.getPDSBurstsLeft(uuid)}</strong>{" "}
+                <span data-testid={`fw-pds-bursts-detail-${uuid}`}>
+                    ({mech.getPDSIntegralBurstsLeft(uuid)} built-in{mech.getPDSBurstsLeft(uuid) > mech.getPDSIntegralBurstsLeft(uuid)
+                        ? ` + ${mech.getPDSBurstsLeft(uuid) - mech.getPDSIntegralBurstsLeft(uuid)} in the magazine` : ""}; the built-in ones are spent first)
+                </span>
+            </div>
             <NumberBox testId={`fw-pds-hits-${uuid}`} label="Missiles hitting" min={0} max={40} value={roll(`pds-hits-${uuid}`, 0)} onChange={(value) => setRoll(`pds-hits-${uuid}`, value)} />{" "}
             <NumberBox testId={`fw-pds-roll-${uuid}`} label="1D6" min={1} max={6} value={roll(`pds-roll-${uuid}`, 1)} onChange={(value) => setRoll(`pds-roll-${uuid}`, value)} />{" "}
             {(["srm", "lrm"] as const).map((launcher) => (
                 <button key={launcher} className="btn btn-sm btn-primary" data-testid={launcher === "srm" ? `fw-pds-fire-${uuid}` : `fw-pds-fire-lrm-${uuid}`}
-                    disabled={mech.getPDSIntegralBurstsLeft(uuid) <= 0}
+                    disabled={mech.getPDSBurstsLeft(uuid) <= 0}
                     onClick={() => {
                         if (!mech.usePDSBurst(uuid)) return;
                         const result = getPDSInterception(roll(`pds-hits-${uuid}`, 0), roll(`pds-roll-${uuid}`, 1), launcher);
-                        setResults({ ...results, [`pds-${uuid}`]: `${launcher.toUpperCase()} salvo: ${result.stopped} stopped, ${result.through} ${result.through === 1 ? "hits" : "hit"}.` });
+                        const text = `${launcher.toUpperCase()} salvo: ${result.stopped} stopped, ${result.through} ${result.through === 1 ? "hits" : "hit"}.`;
+                        setResults((previous) => ({ ...previous, [`pds-${uuid}`]: text }));
                         changed();
                     }}>
                     {launcher === "srm" ? "Fire at SRMs" : "Fire at LRMs (+1)"}
@@ -124,7 +162,7 @@ const FutureWarsPlayPanel = (props: IFutureWarsPlayPanelProps) => {
         return (
             <div>
                 <NumberBox testId={`fw-penitrator-range-${uuid}`} label="Range" min={1} max={40} value={range} onChange={(value) => setRoll(`pen-range-${uuid}`, value)} />{" "}
-                <NumberBox testId={`fw-penitrator-roll-${uuid}`} label={`Die (1-${sides})`} min={1} max={8} value={roll(`pen-roll-${uuid}`, 1)} onChange={(value) => setRoll(`pen-roll-${uuid}`, value)} />
+                <NumberBox testId={`fw-penitrator-roll-${uuid}`} label={`Die (1-${sides})`} min={1} max={sides} value={Math.min(sides, roll(`pen-roll-${uuid}`, 1))} onChange={(value) => setRoll(`pen-roll-${uuid}`, value)} />
                 <div data-testid={`fw-penitrator-result-${uuid}`}>
                     {hit ? `A hit at ${hit.band} range (${hit.dice}): ${hit.external} to the armor and ${hit.internal} to the internal structure, then a critical hit check.`
                         : "Out of range (36 hexes)."}
@@ -171,6 +209,8 @@ const FutureWarsPlayPanel = (props: IFutureWarsPlayPanelProps) => {
 
     const burn = mech.getLRFlamerBurnThisTurn();
     const infernoTurns = mech.futureWarsPlay.infernoGaussTurns ?? 0;
+    const fireHeat = burn.heat + (infernoTurns ? INFERNO_GAUSS_HEAT_PER_TURN : 0);
+    const pendingHeat = mech.futureWarsPlay.pendingHeat ?? 0;
 
     return (
         <fieldset className="fieldset" data-testid="fw-play">
@@ -197,6 +237,17 @@ const FutureWarsPlayPanel = (props: IFutureWarsPlayPanelProps) => {
                 <div data-testid="fw-inferno">
                     Inferno Gauss: {infernoTurns ? `${INFERNO_GAUSS_HEAT_PER_TURN} heat a turn, ${infernoTurns} turns left` : "none"}
                 </div>
+                {fireHeat ? (
+                    <div data-testid="fw-external-heat">
+                        {Math.min(MAX_EXTERNAL_HEAT_PER_TURN, fireHeat)} heat from fires this turn
+                        {fireHeat > MAX_EXTERNAL_HEAT_PER_TURN ? ` (${fireHeat}, ${MAX_EXTERNAL_HEAT_PER_TURN} at most)` : ""}, added at the heat phase.
+                    </div>
+                ) : null}
+                {pendingHeat ? (
+                    <div data-testid="fw-pending-heat" className="color-red">
+                        Inferno shells ignited aboard: {pendingHeat} heat, added at the heat phase.
+                    </div>
+                ) : null}
                 <button className="btn btn-sm btn-secondary" data-testid="fw-lr-flamer-hit" onClick={() => { mech.addLRFlamerHit(); changed(); }}>
                     Hit by a Long Range Flamer
                 </button>{" "}

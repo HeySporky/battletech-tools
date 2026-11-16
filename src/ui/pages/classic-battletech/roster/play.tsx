@@ -59,7 +59,7 @@ import BuildingPlayPanel from './_buildingPlay';
 import SpaceTrackerBar from './_spaceTrackerBar';
 import { AntiOrbitalGunControls, SpaceResolutionDialog } from './_antiOrbitalControls';
 import QuirksInPlay from '../../../components/quirks-in-play';
-import FutureWarsPlayPanel, { showFutureWarsPlay } from './_futureWarsPlay';
+import FutureWarsPlayPanel, { getBoostedMoveNote, showFutureWarsPlay } from './_futureWarsPlay';
 import { getCarrierQuirkEffects, IQuirkCarrier } from '../../../../utils/quirk-effects';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
@@ -2086,7 +2086,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         numberPips={2}
       />
       </svg><br />
-      Run:  {this.state.setMovementDialog.getRunSpeed()}
+      Run:  {this.state.setMovementDialog.getRunSpeed()}{getBoostedMoveNote(this.state.setMovementDialog, "r")}
       </button>
       <br />
     {this.state.setMovementCanJump ? (
@@ -2110,7 +2110,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
         numberPips={3}
       />
       </svg><br />
-      Jump:  {this.state.setMovementDialog.getJumpingText()}
+      Jump:  {this.state.setMovementDialog.getJumpingText()}{getBoostedMoveNote(this.state.setMovementDialog, "j")}
       </button>
       </>
     ) : null}

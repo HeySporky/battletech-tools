@@ -179,11 +179,12 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
-                      <strong>November 16th, 2026</strong> - More Best of Future Wars equipment, and Lore and Rules for equipment
+                      <strong>November 16th, 2026</strong> - More Best of Future Wars equipment, now playable, and Lore and Rules for equipment
                     </h3>
                     <h4>Author - NGCFells</h4>
                       <ul>
-                        <li><strong>More Best of Future Wars equipment.</strong> Fan-made, NOT OFFICIAL, at the Custom Homebrew rules level, for 'Mechs only: the Rapid Fire (Pom-Pom) AC/2 to AC/20; Swing Fire missile racks that turn to fire 180 degrees, for Inner Sphere and Clan LRMs, SRMs, Streaks and torpedo racks; and Power Boosters for the PPC, the lasers, the legs and the jump jets (issue #172). How they play at the table is still to come.</li>
+                        <li><strong>More Best of Future Wars equipment.</strong> Fan-made, NOT OFFICIAL, at the Custom Homebrew rules level, for 'Mechs only: the Rapid Fire (Pom-Pom) AC/2 to AC/20; Swing Fire missile racks that turn to fire 180 degrees, for Inner Sphere and Clan LRMs, SRMs, Streaks and torpedo racks; and Power Boosters for the PPC, the lasers, the legs and the jump jets (issue #172).</li>
+                        <li><strong>Best of Future Wars equipment in play.</strong> On a roster's Play page, a 'Mech carrying fanzine equipment gets a Best of Future Wars panel. Power Boosters roll each turn and keep their turns-in-a-row count; a failed booster or burned-out system is shown, and the Movement dialog shows the boosted run and jump MP. Boosted heat stacks with an XXL engine's extra heat. The PDS counts its built-in bursts plus any extra magazine and resolves each salvo. Long Range Flamer and Inferno Gauss fires burn on the 'Mech for their turns, at most 15 heat a turn from outside, and burning Inferno shells add their heat at the heat phase. VHE and SABOT rounds, the Penitrator and the Long Range Flamer's to-hit are handled too. Fan-made, NOT OFFICIAL; where the fanzine is silent the rulings are ours.</li>
                         <li><strong>Lore and Rules.</strong> Equipment now has a Lore field, in-character Technical Readout text, and a Rules field, how it plays, beside the notes that credit the source. Both can be edited in the equipment editor. Every Best of Future Wars item has both, and the <em>Best of Future Wars Equipment</em> technical readout now carries the lore.</li>
                       </ul>
                   </li>

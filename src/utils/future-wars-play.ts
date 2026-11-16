@@ -77,6 +77,8 @@ export function getPDSInterception(missileHits: number, roll: number, launcher: 
 
 // --- Liao Inferno Gauss shell, p.11.
 export const INFERNO_GAUSS_HEAT_PER_TURN = 10;
+/** A unit takes at most 15 points of heat from outside it a turn: flamers, infernos and the like (TW p.159). */
+export const MAX_EXTERNAL_HEAT_PER_TURN = 15;
 /** Turns of heat a hit adds; more hits only lengthen the burn. */
 export const INFERNO_GAUSS_TURNS_PER_HIT = 5;
 

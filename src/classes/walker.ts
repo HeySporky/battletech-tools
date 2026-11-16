@@ -34,7 +34,7 @@ import { VariableEquipmentFormula, getTargetingComputerWeaponWeight, isTargeting
 import { CalcTrace, ICalcBreakdown, formatCalcNumber } from "../data/calc-steps";
 import { NO_BATTLE_VALUE_STEPS } from "../data/calc-steps-mech-bv1";
 import { WALKER_BV2_STEPS, WALKER_COST_STEPS, getWalkerBv1Steps } from "../data/calc-steps-walker";
-import { getAmmoDamagePerShot } from "../data/ammo-explosion";
+import { getBinDamagePerShot } from "../data/ammo-explosion";
 import { rollCriticalLine } from "../utils/critical-tables";
 import {
     editionHasBattleValue,
@@ -1887,7 +1887,7 @@ export default class Walker implements IGameSettingsUnit {
     private _explodeAmmo(location: WalkerLocation, binIndex: number): string[] {
         const bin = this.getAmmo()[binIndex];
         const weapon = this.getEquipment().find((each) => !each.isAmmo && getCompatibleAmmo(each.item, bin.item));
-        const perShot = weapon ? getAmmoDamagePerShot(weapon.item) : 0;
+        const perShot = weapon ? getBinDamagePerShot(bin.item, weapon.item) : 0;
         const shots = this.getShotsLeft(binIndex);
         const damage = shots * perShot;
         this.setShotsFired(binIndex, this.getAmmoShots(binIndex));
