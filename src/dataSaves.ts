@@ -910,7 +910,7 @@ export function restoreFullBackup(
 
     if( io.acesCardLibrary && typeof io.acesCardLibrary === "object" ) {
         const incomingLibrary = normalizeAcesCardLibrary( io.acesCardLibrary );
-        const count = incomingLibrary.cards.length + incomingLibrary.commandCards.length + incomingLibrary.specialOrders.length + incomingLibrary.scenarios.length;
+        const count = incomingLibrary.cards.length + incomingLibrary.commandCards.length + incomingLibrary.specialOrders.length + incomingLibrary.edgeCards.length + incomingLibrary.scenarios.length;
         if( count > 0 ) {
             restoreMessages.push({
                 severity: "add",

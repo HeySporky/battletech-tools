@@ -5,6 +5,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import {
     acesBehaviorIds,
+    acesEdgePhases,
     acesIconTokens,
     acesLines,
     acesMoveTypes,
@@ -20,17 +21,20 @@ import {
     IAcesCard,
     IAcesCardLibrary,
     IAcesCommandCard,
+    IAcesEdgeCard,
     IAcesScenario,
     IAcesSpecialOrder,
     mergeAcesCardLibrary,
     newAcesBehaviorColumn,
     newAcesCard,
     newAcesCommandCard,
+    newAcesEdgeCard,
     newAcesScenario,
     newAcesSpecialOrder,
     normalizeAcesCard,
     normalizeAcesCardLibrary,
     normalizeAcesCommandCard,
+    normalizeAcesEdgeCard,
     normalizeAcesScenario,
     normalizeAcesSpecialOrder,
     parseAcesCommandOrderLine,
@@ -43,9 +47,11 @@ import {
     parseAcesStrategyLine,
     parseAcesWaypointLine,
     parseAcesZone,
+    TAcesEdgeTrigger,
     TAcesSpecialOrderKind,
     validateAcesCard,
     validateAcesCommandCard,
+    validateAcesEdgeCard,
     validateAcesScenario,
 } from '../../../../data/aces-cards';
 import { getAcesSampleLibrary } from '../../../../data/aces-card-samples';
@@ -64,13 +70,14 @@ import './aces.scss';
  * icons written as bracket tokens; the card reader and the sortie loader read what is saved here.
  */
 
-type TLibraryKind = "cards" | "commandCards" | "specialOrders" | "scenarios";
-type TDraft = IAcesCard | IAcesCommandCard | IAcesSpecialOrder | IAcesScenario;
+type TLibraryKind = "cards" | "commandCards" | "specialOrders" | "edgeCards" | "scenarios";
+type TDraft = IAcesCard | IAcesCommandCard | IAcesSpecialOrder | IAcesEdgeCard | IAcesScenario;
 
 const kindLabels: { [kind in TLibraryKind]: string } = {
     cards: "Aces cards",
     commandCards: "Command cards",
     specialOrders: "Special Orders",
+    edgeCards: "Edge cards",
     scenarios: "Sorties",
 };
 
@@ -80,6 +87,17 @@ const specialOrderKinds: { id: TAcesSpecialOrderKind, label: string }[] = [
     { id: "movement-objective", label: "Movement Objective" },
     { id: "destroy-objective", label: "Destroy Objective" },
     { id: "indirect-attacks", label: "Indirect Attacks" },
+    { id: "other", label: "Other" },
+];
+
+const edgeTriggers: { id: TAcesEdgeTrigger, label: string }[] = [
+    { id: "none", label: "None" },
+    { id: "moving", label: "Moving" },
+    { id: "attacking", label: "Attacking" },
+    { id: "attacked", label: "Being attacked" },
+    { id: "critical-hit", label: "Critical hit" },
+    { id: "enemy-rear", label: "Enemy in the rear" },
+    { id: "damaged", label: "Damaged" },
     { id: "other", label: "Other" },
 ];
 
@@ -108,6 +126,7 @@ const validate = ( kind: TLibraryKind, record: TDraft ): string[] => {
     if( kind === "cards" ) return validateAcesCard( record as IAcesCard );
     if( kind === "commandCards" ) return validateAcesCommandCard( record as IAcesCommandCard );
     if( kind === "scenarios" ) return validateAcesScenario( record as IAcesScenario );
+    if( kind === "edgeCards" ) return validateAcesEdgeCard( record as IAcesEdgeCard );
     return ( record as IAcesSpecialOrder ).name.trim() ? [] : [ "Name is missing." ];
 }
 
@@ -115,6 +134,7 @@ const normalize = ( kind: TLibraryKind, value: unknown ): TDraft | null => {
     if( kind === "cards" ) return normalizeAcesCard( value );
     if( kind === "commandCards" ) return normalizeAcesCommandCard( value );
     if( kind === "scenarios" ) return normalizeAcesScenario( value );
+    if( kind === "edgeCards" ) return normalizeAcesEdgeCard( value );
     return normalizeAcesSpecialOrder( value );
 }
 
@@ -130,6 +150,10 @@ const summary = ( kind: TLibraryKind, record: TDraft ): string => {
     if( kind === "scenarios" ) {
         const scenario = record as IAcesScenario;
         return ( scenario.code ? scenario.code + " - " : "" ) + ( scenario.name || "?" ) + ( scenario.campaign ? " (" + scenario.campaign + ")" : "" );
+    }
+    if( kind === "edgeCards" ) {
+        const edge = record as IAcesEdgeCard;
+        return ( edge.name || "?" ) + ( edge.cost === null ? "" : " (" + edge.cost + " Edge)" );
     }
     const order = record as IAcesSpecialOrder;
     return order.name || "?";
@@ -277,6 +301,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
             cards: library.cards.filter( ( item ) => !item.sample ),
             commandCards: library.commandCards.filter( ( item ) => !item.sample ),
             specialOrders: library.specialOrders.filter( ( item ) => !item.sample ),
+            edgeCards: library.edgeCards.filter( ( item ) => !item.sample ),
             scenarios: library.scenarios.filter( ( item ) => !item.sample ),
         }, "Samples removed." );
     }
@@ -308,9 +333,9 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
             }
             try {
                 const incoming = normalizeAcesCardLibrary( JSON.parse( reader.result ) );
-                const count = incoming.cards.length + incoming.commandCards.length + incoming.specialOrders.length + incoming.scenarios.length;
+                const count = incoming.cards.length + incoming.commandCards.length + incoming.specialOrders.length + incoming.edgeCards.length + incoming.scenarios.length;
                 if( count === 0 ) {
-                    this.setState({ message: "That file holds no Aces cards, Command cards, Special Orders or sorties: nothing was imported." });
+                    this.setState({ message: "That file holds no Aces cards, Command cards, Special Orders, Edge cards or sorties: nothing was imported." });
                     return;
                 }
                 this._saveLibrary( mergeAcesCardLibrary( this.state.library, incoming ), "Imported " + count + " records." );
@@ -329,6 +354,7 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
         switch( this.state.kind ) {
             case "commandCards": draft = newAcesCommandCard(); break;
             case "specialOrders": draft = newAcesSpecialOrder(); break;
+            case "edgeCards": draft = newAcesEdgeCard(); break;
             case "scenarios": draft = newAcesScenario(); break;
             default: draft = newAcesCard();
         }
@@ -616,6 +642,30 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
         );
     }
 
+    private _renderEdgeCardForm = (): JSX.Element => {
+        const draft = this.state.draft as IAcesEdgeCard;
+        const phaseOptions = acesEdgePhases.map( ( id ) => ( { id: id, label: id.charAt( 0 ).toUpperCase() + id.slice( 1 ) } ) );
+        return (
+            <>
+                <div className="aces-inline">
+                    {this._text( "Name", [ "name" ] )}
+                    {this._text( "Category", [ "category" ] )}
+                    {this._text( "Card", [ "cardNumber" ], "1/5" )}
+                    {this._number( "Cost", [ "cost" ] )}
+                </div>
+                <div className="aces-inline">
+                    {this._select( "Phase", [ "phase" ], phaseOptions )}
+                    {this._select( "Trigger", [ "trigger" ], edgeTriggers )}
+                </div>
+                {this._text( "Condition", [ "condition" ], "Your own words from the card" )}
+                <label className="aces-field aces-field-wide">Card text
+                    <textarea rows={4} aria-label="Card text" value={draft.text} onChange={( e ) => this._change( [ "text" ], e.currentTarget.value )} />
+                    <span className="aces-muted">Type it in your own words; it stays in your library on this device.</span>
+                </label>
+            </>
+        );
+    }
+
     private _renderScenarioForm = (): JSX.Element => {
         return (
             <>
@@ -657,6 +707,17 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
         );
     }
 
+    private _renderEdgePreview = ( card: IAcesEdgeCard ): JSX.Element => {
+        return (
+            <div className="aces-card">
+                <h5>{card.name || "?"}{card.cost === null ? "" : " (" + card.cost + " Edge)"}</h5>
+                <p className="aces-muted">{[ card.category, card.cardNumber, card.phase ].filter( ( item ) => item ).join( " | " )}</p>
+                {card.condition ? <p><em>{card.condition}</em></p> : null}
+                <p>{card.text}</p>
+            </div>
+        );
+    }
+
     private _renderEditor = (): JSX.Element => {
         const draft = this.state.draft!;
         const kind = this.state.kind;
@@ -672,6 +733,10 @@ export default class AcesLibraryPage extends React.Component<IAcesLibraryPagePro
             case "specialOrders":
                 form = this._renderSpecialOrderForm();
                 preview = <AcesSpecialOrderView order={draft as IAcesSpecialOrder} />;
+                break;
+            case "edgeCards":
+                form = this._renderEdgeCardForm();
+                preview = this._renderEdgePreview( draft as IAcesEdgeCard );
                 break;
             case "scenarios":
                 form = this._renderScenarioForm();

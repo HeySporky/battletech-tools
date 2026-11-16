@@ -289,6 +289,33 @@ export interface IAcesSpecialOrder {
 }
 
 /* ---------------------------------------------------------------------------------------------------------------
+ * Edge cards (Alpha Strike: Aces)
+ * ------------------------------------------------------------------------------------------------------------- */
+
+export type TAcesEdgePhase = "initiative" | "movement" | "combat" | "end" | "any";
+export const acesEdgePhases: TAcesEdgePhase[] = [ "initiative", "movement", "combat", "end", "any" ];
+
+export type TAcesEdgeTrigger = "none" | "moving" | "attacking" | "attacked" | "critical-hit" | "enemy-rear" | "damaged" | "other";
+export const acesEdgeTriggers: TAcesEdgeTrigger[] = [ "none", "moving", "attacking", "attacked", "critical-hit", "enemy-rear", "damaged", "other" ];
+
+export interface IAcesEdgeCard {
+    id: string;
+    name: string;
+    category: string;
+    cardNumber: string;
+    /** Edge point cost, 0 to 9; null when not entered. */
+    cost: number | null;
+    phase: TAcesEdgePhase;
+    trigger: TAcesEdgeTrigger;
+    /** The player's own words from their card; stays in their library. */
+    condition: string;
+    text: string;
+    source: IAcesSource | null;
+    sample: boolean;
+    notes: string;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------
  * Sorties (Aces pp.28-33; Aces SS)
  * ------------------------------------------------------------------------------------------------------------- */
 
@@ -360,6 +387,7 @@ export interface IAcesCardLibrary {
     cards: IAcesCard[];
     commandCards: IAcesCommandCard[];
     specialOrders: IAcesSpecialOrder[];
+    edgeCards: IAcesEdgeCard[];
     scenarios: IAcesScenario[];
 }
 
@@ -442,6 +470,23 @@ export const newAcesSpecialOrder = (): IAcesSpecialOrder => {
     };
 }
 
+export const newAcesEdgeCard = (): IAcesEdgeCard => {
+    return {
+        id: generateUUID(),
+        name: "",
+        category: "",
+        cardNumber: "",
+        cost: null,
+        phase: "any",
+        trigger: "none",
+        condition: "",
+        text: "",
+        source: null,
+        sample: false,
+        notes: "",
+    };
+}
+
 export const newAcesScenario = (): IAcesScenario => {
     return {
         id: generateUUID(),
@@ -478,6 +523,7 @@ export const newAcesCardLibrary = (): IAcesCardLibrary => {
         cards: [],
         commandCards: [],
         specialOrders: [],
+        edgeCards: [],
         scenarios: [],
     };
 }
@@ -657,7 +703,26 @@ export const normalizeAcesSpecialOrder = ( value: unknown ): IAcesSpecialOrder |
     };
 }
 
-const normalizeScenarioUnit = ( value: unknown ): IAcesScenarioUnit | null => {
+export const normalizeAcesEdgeCard = ( value: unknown ): IAcesEdgeCard | null => {
+    const data = obj( value );
+    if( typeof data.name !== "string" ) return null;
+    return {
+        id: str( data.id ) || generateUUID(),
+        name: data.name,
+        category: str( data.category ),
+        cardNumber: str( data.cardNumber ),
+        cost: num( data.cost ),
+        phase: oneOf( data.phase, acesEdgePhases, "any" ),
+        trigger: oneOf( data.trigger, acesEdgeTriggers, "none" ),
+        condition: str( data.condition ),
+        text: str( data.text ),
+        source: source( data.source ),
+        sample: bool( data.sample ),
+        notes: str( data.notes ),
+    };
+}
+
+const normalizeScenarioUnit =( value: unknown ): IAcesScenarioUnit | null => {
     const data = obj( value );
     if( typeof data.name !== "string" ) return null;
     return {
@@ -733,6 +798,7 @@ export const normalizeAcesCardLibrary = ( value: unknown ): IAcesCardLibrary => 
         cards: arr( data.cards, normalizeAcesCard ),
         commandCards: arr( data.commandCards, normalizeAcesCommandCard ),
         specialOrders: arr( data.specialOrders, normalizeAcesSpecialOrder ),
+        edgeCards: arr( data.edgeCards, normalizeAcesEdgeCard ),
         scenarios: arr( data.scenarios, normalizeAcesScenario ),
     };
 }
@@ -747,6 +813,7 @@ export const mergeAcesCardLibrary = ( base: IAcesCardLibrary, incoming: IAcesCar
         cards: merge( base.cards, incoming.cards ),
         commandCards: merge( base.commandCards, incoming.commandCards ),
         specialOrders: merge( base.specialOrders, incoming.specialOrders ),
+        edgeCards: merge( base.edgeCards, incoming.edgeCards ),
         scenarios: merge( base.scenarios, incoming.scenarios ),
     };
 }
@@ -1003,7 +1070,14 @@ export const validateAcesCommandCard = ( card: IAcesCommandCard ): string[] => {
     return rv;
 }
 
-export const validateAcesScenario = ( scenario: IAcesScenario ): string[] => {
+export const validateAcesEdgeCard = ( card: IAcesEdgeCard ): string[] => {
+    const rv: string[] = [];
+    if( !card.name.trim() ) rv.push( "Name is missing." );
+    if( card.cost !== null && ( !Number.isInteger( card.cost ) || card.cost < 0 || card.cost > 9 ) ) rv.push( "Cost should be a whole number from 0 to 9." );
+    return rv;
+}
+
+export const validateAcesScenario =( scenario: IAcesScenario ): string[] => {
     const rv: string[] = [];
     if( !scenario.name.trim() ) rv.push( "Sortie name is missing." );
     if( scenario.opposingUnits.length === 0 ) rv.push( "No opposing units listed." );

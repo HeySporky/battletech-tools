@@ -16,6 +16,7 @@ import {
     IAcesCard,
     IAcesCardLibrary,
     IAcesCommandCard,
+    IAcesEdgeCard,
     IAcesScenario,
     IAcesSpecialOrder,
     ACES_CARD_LIBRARY_VERSION,
@@ -474,6 +475,22 @@ export const acesSampleBattleROMReview: IAcesScenario = {
     notes: "Requires the Multiple Attack Rolls and Front-Loaded optional rules (Aces SS p.4). Terrain setup is on the map on Aces SS p.5.",
 };
 
+/** An invented Edge card, here only to show how one is entered. It is not from any printed card. */
+export const acesSampleEdgeCard: IAcesEdgeCard = {
+    id: "aces-sample-edge-kite",
+    name: "Kite Over The Teapot",
+    category: "Sample",
+    cardNumber: "",
+    cost: 1,
+    phase: "movement",
+    trigger: "moving",
+    condition: "When a kite is flying over a teapot",
+    text: "The teapot whistles and the kite turns around.",
+    source: null,
+    sample: true,
+    notes: "NOT OFFICIAL: an invented card that only shows how to enter one. Type in your own cards from your own box.",
+};
+
 /** The samples as a library, for loading into the editor. */
 export const getAcesSampleLibrary = (): IAcesCardLibrary => {
     const copy = <T>( value: T ): T => JSON.parse( JSON.stringify( value ) );
@@ -487,6 +504,7 @@ export const getAcesSampleLibrary = (): IAcesCardLibrary => {
             copy( acesSampleDestroyObjective ),
             copy( acesSampleIndirectAttacks ),
         ],
+        edgeCards: [ copy( acesSampleEdgeCard ) ],
         scenarios: [ copy( acesSampleBattleROMReview ) ],
     };
 }

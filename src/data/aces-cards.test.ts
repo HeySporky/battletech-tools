@@ -20,6 +20,9 @@ import {
     parseAcesZone,
     mergeAcesCardLibrary,
     newAcesCard,
+    newAcesEdgeCard,
+    normalizeAcesEdgeCard,
+    validateAcesEdgeCard,
     newAcesCardLibrary,
     newAcesScenario,
     normalizeAcesCardLibrary,
@@ -29,7 +32,7 @@ import {
     validateAcesCommandCard,
     validateAcesScenario,
 } from "./aces-cards";
-import { acesSampleBattleROMReview, acesSampleBrawler383, acesSampleSniper475, acesSampleStarCaptainB, getAcesSampleLibrary } from "./aces-card-samples";
+import { acesSampleEdgeCard, acesSampleBattleROMReview, acesSampleBrawler383, acesSampleSniper475, acesSampleStarCaptainB, getAcesSampleLibrary } from "./aces-card-samples";
 
 describe("Aces card text", () => {
     it("splits icon tokens out of printed text", () => {
@@ -112,6 +115,55 @@ describe("Aces card library", () => {
     it("keeps the tutorial deck order as printed (Aces SS p.5)", () => {
         expect( acesSampleBattleROMReview.deckOrder[1].cards ).toEqual( [ "475", "535", "265", "625", "785", "345" ] );
         expect( acesSampleBattleROMReview.turnLimit ).toBe( 5 );
+    });
+});
+
+describe("Aces Edge cards", () => {
+    it("loads an old library without edgeCards as an empty list", () => {
+        const old = JSON.parse( JSON.stringify( getAcesSampleLibrary() ) );
+        delete old.edgeCards;
+        expect( normalizeAcesCardLibrary( old ).edgeCards ).toEqual( [] );
+        expect( newAcesCardLibrary().edgeCards ).toEqual( [] );
+    });
+
+    it("merges Edge cards by id", () => {
+        const base = newAcesCardLibrary();
+        base.edgeCards = [ { ...newAcesEdgeCard(), id: "kite", name: "Kite Day" } ];
+        const incoming = newAcesCardLibrary();
+        incoming.edgeCards = [ { ...newAcesEdgeCard(), id: "kite", name: "Kite Night" }, { ...newAcesEdgeCard(), id: "pot", name: "Teapot" } ];
+        const merged = mergeAcesCardLibrary( base, incoming );
+        expect( merged.edgeCards.map( ( card ) => card.name ) ).toEqual( [ "Kite Night", "Teapot" ] );
+    });
+
+    it("flags an empty name and an out-of-range cost", () => {
+        expect( validateAcesEdgeCard( newAcesEdgeCard() ) ).toContain( "Name is missing." );
+        const card = { ...newAcesEdgeCard(), name: "Kite Day" };
+        expect( validateAcesEdgeCard( card ) ).toEqual( [] );
+        expect( validateAcesEdgeCard( { ...card, cost: 0 } ) ).toEqual( [] );
+        expect( validateAcesEdgeCard( { ...card, cost: 9 } ) ).toEqual( [] );
+        expect( validateAcesEdgeCard( { ...card, cost: 10 } ).length ).toBe( 1 );
+        expect( validateAcesEdgeCard( { ...card, cost: -1 } ).length ).toBe( 1 );
+        expect( validateAcesEdgeCard( { ...card, cost: 2.5 } ).length ).toBe( 1 );
+    });
+
+    it("normalizes odd records and round-trips", () => {
+        expect( normalizeAcesEdgeCard( null ) ).toBeNull();
+        expect( normalizeAcesEdgeCard( { name: 7 } ) ).toBeNull();
+        const card = normalizeAcesEdgeCard( { name: "Teapot", phase: "bogus", trigger: "bogus", cost: "3", text: "A teapot whistles." } )!;
+        expect( card.phase ).toBe( "any" );
+        expect( card.trigger ).toBe( "none" );
+        expect( card.cost ).toBe( 3 );
+        expect( card.id ).not.toBe( "" );
+        expect( normalizeAcesEdgeCard( JSON.parse( JSON.stringify( card ) ) ) ).toEqual( card );
+    });
+
+    it("ships one sample of ours, marked not official", () => {
+        const library = getAcesSampleLibrary();
+        expect( library.edgeCards.length ).toBe( 1 );
+        expect( library.edgeCards[0] ).toEqual( acesSampleEdgeCard );
+        expect( acesSampleEdgeCard.sample ).toBe( true );
+        expect( acesSampleEdgeCard.notes ).toContain( "NOT OFFICIAL" );
+        expect( validateAcesEdgeCard( acesSampleEdgeCard ) ).toEqual( [] );
     });
 });
 
