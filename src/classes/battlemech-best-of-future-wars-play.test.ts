@@ -150,6 +150,64 @@ describe("Best of Future Wars equipment in play", () => {
         expect(mech.getAmmoBinRemaining(item)).toBe(0);
     });
 
+    it("Inferno Gauss shells: 20 heat with CASE; an empty bin does not ignite", () => {
+        const cased = build();
+        mount(cased, "standard-gauss-rifle");
+        placeIn(cased, "case", "lt", "leftTorso");
+        const loaded = placeIn(cased, "ammo-is-gauss-rifle-inferno", "lt", "leftTorso");
+        loaded.item.currentAmmo = 3;
+        cased.rollCriticalHit("lt", { chance: 8, lines: [loaded.slot < 6 ? 1 : 4, loaded.slot % 6 + 1] });
+        expect(cased.currentHeat).toBe(23);
+
+        const spent = build();
+        mount(spent, "standard-gauss-rifle");
+        const empty = placeIn(spent, "ammo-is-gauss-rifle-inferno", "lt", "leftTorso");
+        empty.item.currentAmmo = 0;
+        spent.rollCriticalHit("lt", { chance: 8, lines: [empty.slot < 6 ? 1 : 4, empty.slot % 6 + 1] });
+        expect(spent.currentHeat).toBe(0);
+    });
+
+    it("a boosted weapon's to-hit reads the boosted range bands", () => {
+        const mech = build();
+        mount(mech, "custom-power-booster-medium-laser");
+        const index = mech.equipmentList.findIndex((item) => item.tag === "custom-power-booster-medium-laser");
+        const laser = mech.equipmentList[index];
+        laser.target = "a";
+        const target: ITargetToHit = { ...mech.getTarget("a"), active: true, range: 10, movement: 0, otherMods: 0, primary: true } as ITargetToHit;
+        // A medium laser's long band ends at 9; the booster adds 2 to each band (p.28).
+        expect(getTargetToHitFromWeapon(mech, index, target).finalToHit).toBe(-1);
+        mech.rollPowerBooster(laser.uuid!, 8);
+        expect(getTargetToHitFromWeapon(mech, index, target).rangeExplanation).toBe("Long");
+    });
+
+    it("burned-out leg and jet boosters forbid running and jumping", () => {
+        const runner = build(4);
+        mount(runner, "custom-power-booster-running");
+        mount(runner, "custom-power-booster-jumping");
+        const legs = inPlay(runner, "custom-power-booster-running");
+        const jets = inPlay(runner, "custom-power-booster-jumping");
+        expect(runner.canUseFutureWarsMovementMode("r")).toBe(true);
+        expect(runner.canUseFutureWarsMovementMode("j")).toBe(true);
+        expect(runner.rollPowerBooster(legs.uuid!, 2)).toBe("system-burned-out");
+        expect(runner.rollPowerBooster(jets.uuid!, 2)).toBe("system-burned-out");
+        expect(runner.canUseFutureWarsMovementMode("r")).toBe(false);
+        expect(runner.canUseFutureWarsMovementMode("j")).toBe(false);
+        expect(runner.canUseFutureWarsMovementMode("w")).toBe(true);
+    });
+
+    it("a canon 'Mech's play heat is unchanged by the empty fanzine state", () => {
+        const mech = build(4);
+        mount(mech, "medium-laser");
+        mech.equipmentList.forEach((item) => { item.target = "a"; });
+        for (const mode of ["n", "w", "r", "j"]) {
+            mech.currentMovementMode = mode;
+            mech.currentTargetJumpingMP = 4;
+            expect(mech.getActiveMoveHeat()).toBe({ n: 0, w: 1, r: 2, j: 4 }[mode]);
+        }
+        expect(mech.getFutureWarsIncomingHeat()).toBe(0);
+        expect(mech.getActiveWeaponHeat()).toBe(3);
+    });
+
     it("a VHE shell bin cooks off at 30 a shell, not the Gauss rifle's 15", () => {
         const mech = build();
         mount(mech, "standard-gauss-rifle");

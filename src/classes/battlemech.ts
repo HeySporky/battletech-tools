@@ -6100,6 +6100,13 @@ export class BattleMech {
         return this.equipmentList.some((item) => item.uuid && item.conversion?.booster?.target === target && this.isPowerBoosterOn(item.uuid));
     }
 
+    /** False for running when a leg booster burned out its system, and for jumping when a jet booster did (p.28). */
+    public canUseFutureWarsMovementMode(mode: string): boolean {
+        const target = mode === "r" ? "running" : mode === "j" ? "jumping" : undefined;
+        if( !target ) return true;
+        return !this.equipmentList.some((item) => item.uuid && item.conversion?.booster?.target === target && this.isFutureWarsSystemBurnedOut(item.uuid));
+    }
+
     /** The 'Mech's jump MP with its jump-jet booster on this turn: half again (p.28). */
     public getBoostedJumpMP(): number {
         return getBoostedJumpMP(this.getJumpSpeed());
@@ -7020,8 +7027,10 @@ export class BattleMech {
      */
     private _onSlotHit(location: string, slot: ICriticalSlot | null | undefined): string[] {
         // Liao Inferno Gauss shells burn rather than explode: 30 heat (20 with CASE) and 1 a shell (The Best of Future
-        // Wars p.11). The shells are spent; there is no damage.
-        const inferno = this._equipmentList.find(item => item.uuid === slot?.uuid && item.isAmmo && getFutureWarsPlayKind(item) === "inferno-gauss");
+        // Wars p.11). The shells are spent; there is no damage. An empty bin does not ignite, as spent ammunition does
+        // not explode (TW p.125).
+        const inferno = this._equipmentList.find(item => item.uuid === slot?.uuid && item.isAmmo && getFutureWarsPlayKind(item) === "inferno-gauss"
+            && this.getAmmoBinRemaining(item) > 0);
         if (inferno) {
             const heat = getInfernoGaussAmmoCritHeat(this.getAmmoBinRemaining(inferno), this._ammoExplosionProtection(location) !== "none");
             inferno.currentAmmo = 0;

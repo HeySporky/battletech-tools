@@ -2070,6 +2070,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     <button
         className={this.state.setMovementMode === "r" ? "btn btn-primary" : "btn"}
         onClick={(e) => this.setMovementMode(e, "r")}
+        disabled={!this.state.setMovementDialog.canUseFutureWarsMovementMode("r")}
+        title={this.state.setMovementDialog.canUseFutureWarsMovementMode("r") ? undefined : "The leg Power Booster burned out the legs: walking only until a major overhaul"}
       >
     <svg
       width={40}
@@ -2092,6 +2094,8 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     <button
         className={this.state.setMovementMode === "j" ? "btn btn-primary" : "btn"}
         onClick={(e) => this.setMovementMode(e, "j")}
+        disabled={!this.state.setMovementDialog.canUseFutureWarsMovementMode("j")}
+        title={this.state.setMovementDialog.canUseFutureWarsMovementMode("j") ? undefined : "The jump-jet Power Booster burned out the jets: they must be replaced"}
       >
       <svg
       width={40}
@@ -2582,7 +2586,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
                         {this.state.setTargetDialog && item.uuid && this.state.setTargetDialog.isFutureWarsSystemBurnedOut(item.uuid) ? (
                           <span className="color-red" data-testid="mech-weapon-burned-out"> (burned out: cannot fire)</span>
                         ) : this.state.setTargetDialog && item.uuid && this.state.setTargetDialog.isPowerBoosterOn(item.uuid) ? (
-                          <span data-testid="mech-weapon-boosted"> (boosted: +{item.conversion?.booster?.extraHeat ?? 0} heat)</span>
+                          <span data-testid="mech-weapon-boosted"> (boosted: +{item.conversion?.booster?.extraHeat ?? 0} heat, {item.conversion?.booster?.extraDamagePerHit !== undefined ? `+${item.conversion.booster.extraDamagePerHit} damage a hit` : `+${item.conversion?.booster?.extraDamage ?? 0} damage`}, +{item.conversion?.booster?.addedRange ?? 0} range in each band, in the to-hit)</span>
                         ) : null}
                       </td>
                       <td className=" min-width no-wrap text-center">{item.heat}</td>

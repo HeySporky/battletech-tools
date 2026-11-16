@@ -840,7 +840,12 @@ export function getTargetToHitFromWeapon(
     const ammo = weapon?.selectedAmmoBinUUID
         ? equipmentList.find(item => item.uuid === weapon.selectedAmmoBinUUID)
         : undefined;
-    const weaponRange = ammo?.ammoProfile?.range ?? weapon?.range;
+    const baseRange = ammo?.ammoProfile?.range ?? weapon?.range;
+    // A Power Booster on this turn adds its range to each band (The Best of Future Wars p.28; as getPowerBoostedWeapon).
+    const boostedRange = weapon?.uuid && mech.isPowerBoosterOn( weapon.uuid ) ? weapon.conversion?.booster?.addedRange ?? 0 : 0;
+    const weaponRange = boostedRange && baseRange
+        ? { ...baseRange, short: baseRange.short + boostedRange, medium: baseRange.medium + boostedRange, long: baseRange.long + boostedRange }
+        : baseRange;
     gator.finalToHit = -1;
     if(
         equipmentList.length > index
