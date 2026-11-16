@@ -76,7 +76,7 @@ export const TRO_DOCUMENTS: ITroDocument[] = [
     {
         slug: "best-of-future-wars",
         title: "The Best of Future Wars Equipment",
-        summary: "Fan-made weapons and shells from The Best of Future Wars, Volume One: the EII Point Defense System, Gatling Laser, Long Range Flamer, Penitrator, Gauss shells and SABOT rounds.",
+        summary: "Fan-made equipment from The Best of Future Wars, Volume One: the EII Point Defense System, Gatling Laser, Long Range Flamer, Penitrator, Gauss shells, SABOT rounds, Pom-Pom autocannon, Swing Fire racks and Power Boosters.",
         fileName: "best-of-future-wars-tro.md",
         text: BEST_OF_FUTURE_WARS_READOUT,
         pageStart: /^## /,

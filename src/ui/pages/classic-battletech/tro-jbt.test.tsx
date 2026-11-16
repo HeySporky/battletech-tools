@@ -2,12 +2,13 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import Vehicle from "../../../classes/vehicle";
 import { ammoCustom } from "../../../data/ammo-custom";
+import { getEquipmentCatalogDefinitions } from "../../../data/equipment-registry";
 import { ARTVEE_SAMPLES } from "../../../data/artvee-samples";
 import { CONST_AS_SPECIAL_ABILITIES, MICRO_MECH_AS_ABILITY_TEXT, WALKER_AS_ABILITY_TEXT } from "../../../data/alpha-strike-special-abilities";
 import Walker from "../../../classes/walker";
 import { getWalkerStatBlock } from "../../../classes/walker-readout";
 import { getWalkerSamples } from "../../../data/walker-samples";
-import { AMMUNITION_READOUT, ARTVEE_READOUT, MICRO_MECHS_READOUT, WALKERS_READOUT, ReadoutText, TRO_DOCUMENTS, TRO_INTRODUCTION, readoutPageTitle, readoutPages, readoutSectionId } from "./tro-jbt";
+import { AMMUNITION_READOUT, ARTVEE_READOUT, BEST_OF_FUTURE_WARS_READOUT,MICRO_MECHS_READOUT, WALKERS_READOUT, ReadoutText, TRO_DOCUMENTS, TRO_INTRODUCTION, readoutPageTitle, readoutPages, readoutSectionId } from "./tro-jbt";
 
 /** The text of one `#### name` section of the readout. */
 function section(name: string): string {
@@ -179,5 +180,18 @@ describe("Walkers readout (Custom Homebrew, #172)", () => {
         expect(block).toMatch(/Armor Factor:\s+176\s+11/);
         const card = walker.getAlphaStrikeStats();
         expect(WALKERS_READOUT).toContain(`| ${card.type} | ${card.size} | ${card.move} | ${card.tmm} | ${card.armor} / ${card.structure} |`);
+    });
+});
+
+describe("Best of Future Wars readout", () => {
+    // The readout carries each record's Lore word for word, so the equipment editor and the readout never drift apart.
+    it("holds every sentence of every fanzine record's Lore", () => {
+        const fanzine = getEquipmentCatalogDefinitions().flatMap((definition) => definition.equipment)
+            .filter((item) => item.book === "The Best of Future Wars, Volume One");
+        expect(fanzine.length).toBeGreaterThan(80);
+        for (const item of fanzine) {
+            expect(item.lore, item.tag).toBeTruthy();
+            for (const sentence of item.lore!.split(/(?<=\.)\s+/)) expect(BEST_OF_FUTURE_WARS_READOUT, item.tag).toContain(sentence);
+        }
     });
 });

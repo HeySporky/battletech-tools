@@ -179,6 +179,16 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
+                      <strong>November 16th, 2026</strong> - More Best of Future Wars equipment, and Lore and Rules for equipment
+                    </h3>
+                    <h4>Author - NGCFells</h4>
+                      <ul>
+                        <li><strong>More Best of Future Wars equipment.</strong> Fan-made, NOT OFFICIAL, at the Custom Homebrew rules level, for 'Mechs only: the Rapid Fire (Pom-Pom) AC/2 to AC/20; Swing Fire missile racks that turn to fire 180 degrees, for Inner Sphere and Clan LRMs, SRMs, Streaks and torpedo racks; and Power Boosters for the PPC, the lasers, the legs and the jump jets (issue #172). How they play at the table is still to come.</li>
+                        <li><strong>Lore and Rules.</strong> Equipment now has a Lore field, in-character Technical Readout text, and a Rules field, how it plays, beside the notes that credit the source. Both can be edited in the equipment editor. Every Best of Future Wars item has both, and the <em>Best of Future Wars Equipment</em> technical readout now carries the lore.</li>
+                      </ul>
+                  </li>
+                  <li>
+                  <h3>
                       <strong>November 15th, 2026</strong> - Walkers join Custom Homebrew, and 'Mech Alpha Strike cards get their heat right
                     </h3>
                     <h4>Author - NGCFells</h4>

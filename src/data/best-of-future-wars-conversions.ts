@@ -175,7 +175,7 @@ const boostedWeapon = (weapon: IEquipmentItem, tag: string, name: string, booste
         notes: `${BOOSTER_NOTES} The chart gives a single "Added Range" figure; adding it to each band is our reading. ${UNVALUED}`,
         rules: `${boosterRules(`a ${name}`)} Fires as the plain weapon; a boosted shot is +${booster.extraHeat} heat, ${extraDamage} and `
             + `+${booster.addedRange} hex${booster.addedRange === 1 ? "" : "es"} of range in each band.`,
-        lore: boosterLore(`Wired to a ${name}, it pours extra power into a shot for more damage and reach, at the price of heat.`),
+        lore: boosterLore("Wired to a weapon, it pours extra power into a shot for more damage and reach, at the price of heat."),
     });
 };
 
