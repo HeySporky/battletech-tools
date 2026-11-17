@@ -9550,8 +9550,12 @@ export class BattleMech {
                 + (this.isEnhancedImagingActive() ? -1 : 0)
                 // Torso-Mounted Cockpit, blinded: three sensor hits, or two both in the head (TO:AUE p.113).
                 + (this.getCockpitType().tag === "torso-mounted" && (this.sensorHits() >= 3 || this.sensorHits(["hd"]) >= 2) ? 4 : 0)
-                // A 5-ton Power Armor suit has no gyro: a pilot of Piloting 4 is +2 on every roll (Best-of p.16; #172).
-                + (this._isFiveTonPowerArmor() && this._pilot.piloting === 4 ? 2 : 0);
+                + this.getPowerArmorPilotingModifier();
+        }
+
+        /** A 5-ton Power Armor suit has no gyro: a pilot of Piloting 4 is +2 on every Piloting Skill Roll (Best-of p.16; #172). */
+        public getPowerArmorPilotingModifier(): number {
+            return this._isFiveTonPowerArmor() && this._pilot.piloting === 4 ? 2 : 0;
         }
 
         public ignoresSecondaryTargetModifier(): boolean {

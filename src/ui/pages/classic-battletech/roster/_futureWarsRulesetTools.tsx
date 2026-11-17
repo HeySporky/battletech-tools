@@ -20,6 +20,16 @@ export function showFutureWarsRulesetTools(mech: BattleMech): boolean {
     return mech.getFutureWarsPlayRulesets().length > 0 || mech.usesPowerArmorConstruction();
 }
 
+/**
+ * Whether the Target dialog offers the Power Armor target flag (+1, Best-of p.14; #172): when any 'Mech in the force
+ * is a suit or plays a Best of Future Wars ruleset (ours: the opposing suit need not be in this force), and always
+ * while the flag is ticked, so a +1 left over from a suit that has gone can still be unticked.
+ */
+export function showPowerArmorTargetFlag(units: BattleMech[], ticked: boolean): boolean {
+    return ticked || units.some((unit) => unit.usesPowerArmorConstruction()
+        || unit.getRulesets().some((id) => id.startsWith("fw-") || id.startsWith("best-of-future-wars")));
+}
+
 interface IFutureWarsRulesetToolsProps {
     mech: BattleMech;
     onChange: (mech: BattleMech) => void;
@@ -228,12 +238,12 @@ const FutureWarsRulesetTools = (props: IFutureWarsRulesetToolsProps) => {
     const powerArmor = () => {
         const tons = mech.getTonnage();
         const exit = mech.getPowerArmorExit();
-        const pilot = mech.getPilot()?.piloting;
+        const pilotModifier = mech.getPowerArmorPilotingModifier();
         return (
             <div data-testid="fw-tool-power-armor" className="small-text" style={{ marginBottom: "0.75em" }}>
                 <strong>Power Armor</strong>
                 <div>+1 to hit this suit: tick Power Armor in the attacker&apos;s Target dialog.</div>
-                {tons === 5 && pilot === 4 ? <div data-testid="pa-pilot">No gyro, Piloting 4: +2 to every Piloting Skill Roll.</div> : null}
+                {pilotModifier ? <div data-testid="pa-pilot">{`No gyro, Piloting 4: +${pilotModifier} to every Piloting Skill Roll.`}</div> : null}
                 <div data-testid="pa-building">
                     {`Buildings (${tons} tons): `
                         + getPowerArmorBuildingRow(tons).map((cell) => `${cell.building} ${cell.mp} MP, +${cell.pilot}`).join("; ")

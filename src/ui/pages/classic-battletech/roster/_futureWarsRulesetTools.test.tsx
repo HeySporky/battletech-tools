@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { BattleMech } from "../../../../classes/battlemech";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../../../../data/rules-level-options";
-import FutureWarsRulesetTools, { showFutureWarsRulesetTools } from "./_futureWarsRulesetTools";
+import FutureWarsRulesetTools, { showFutureWarsRulesetTools, showPowerArmorTargetFlag } from "./_futureWarsRulesetTools";
 import { FW_POWER_ARMOR_RULESET } from "../../../../data/future-wars-power-armor";
 import { buildMech } from "../../../../test-support/builders";
 
@@ -118,6 +118,15 @@ describe("Power Armor in roster play", () => {
         mech.setPilotPiloting(4);
         render(<FutureWarsRulesetTools mech={mech} onChange={vi.fn()} />);
         expect(screen.getByTestId("pa-pilot").textContent).toMatch(/\+2 to every Piloting Skill Roll/);
+    });
+
+    it("offers the Target dialog's Power Armor flag for a Future Wars force, and keeps it in view while it is ticked", () => {
+        expect(showPowerArmorTargetFlag([build([])], false)).toBe(false);
+        expect(showPowerArmorTargetFlag([build([]), suit(10)], false)).toBe(true);
+        expect(showPowerArmorTargetFlag([build(["fw-morale"])], false)).toBe(true);
+        expect(showPowerArmorTargetFlag([], false)).toBe(false);
+        // Ticked, then the suit left the force: the +1 must still be in view to be unticked.
+        expect(showPowerArmorTargetFlag([build([])], true)).toBe(true);
     });
 
     it("unlatches the front plate, and calls it off", () => {

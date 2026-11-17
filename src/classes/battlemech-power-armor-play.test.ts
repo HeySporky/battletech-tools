@@ -59,6 +59,17 @@ describe("The suit's pilot (Best-of pp.15-16)", () => {
         expect(ten.getPilotingSkillModifier()).toBe(0);
     });
 
+    it("the suit's own Piloting modifier is one method, read by the roster panel and the Piloting Skill Roll", () => {
+        const five = build(5);
+        five.setPilotPiloting(4);
+        expect(five.getPowerArmorPilotingModifier()).toBe(2);
+        five.setPilotPiloting(3);
+        expect(five.getPowerArmorPilotingModifier()).toBe(0);
+        const mech = build(50, []);
+        mech.setPilotPiloting(4);
+        expect(mech.getPowerArmorPilotingModifier()).toBe(0);
+    });
+
     it("a critical hit on the pilot in the head kills the pilot", () => {
         const mech = build(10);
         // Head lines 3-4 are the pilot.

@@ -60,7 +60,7 @@ import SpaceTrackerBar from './_spaceTrackerBar';
 import { AntiOrbitalGunControls, SpaceResolutionDialog } from './_antiOrbitalControls';
 import QuirksInPlay from '../../../components/quirks-in-play';
 import FutureWarsPlayPanel, { getBoostedMoveNote, showFutureWarsPlay } from './_futureWarsPlay';
-import FutureWarsRulesetTools, { showFutureWarsRulesetTools } from './_futureWarsRulesetTools';
+import FutureWarsRulesetTools, { showFutureWarsRulesetTools, showPowerArmorTargetFlag } from './_futureWarsRulesetTools';
 import { getCarrierQuirkEffects, IQuirkCarrier } from '../../../../utils/quirk-effects';
 const ArrowCircleDown = FaArrowCircleDown as any;
 const ArrowCircleLeft = FaArrowCircleLeft as any;
@@ -758,13 +758,9 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
-    /**
-     * Whether any 'Mech in the force plays a Best of Future Wars ruleset (or is a Power Armor suit): then the Target
-     * dialog offers the Power Armor target flag (#172). Ours: the opposing suit need not be in this force.
-     */
-    _forceUsesFutureWars = (): boolean => {
-      return !!this.props.appGlobals.currentCBTForce?.groups.some( (group) => group.members.some( (unit) =>
-        unit.usesPowerArmorConstruction() || unit.getRulesets().some( (id) => id.startsWith( "fw-" ) || id.startsWith( "best-of-future-wars" ) ) ) );
+    // The Target dialog's Power Armor flag (#172): see showPowerArmorTargetFlag.
+    _showPowerArmorTargetFlag = ( ticked: boolean ): boolean => {
+      return showPowerArmorTargetFlag( this.props.appGlobals.currentCBTForce?.groups.flatMap( (group) => group.members ) ?? [], ticked );
     }
 
     // Woods, jungle or smoke hexes and darkness, which Enhanced Imaging reduces, and aimed shots, which it allows (IO:AE
@@ -804,7 +800,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             min={0}
             max={10}
           />
-          {this._forceUsesFutureWars() ? (
+          {this._showPowerArmorTargetFlag( !!data.powerArmor ) ? (
             <InputCheckbox
               label="Power Armor"
               checked={!!data.powerArmor}
