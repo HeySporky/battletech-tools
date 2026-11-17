@@ -1,5 +1,8 @@
 # Best of Future Wars Implementation Plan (#172, the rest of the fanzine)
 
+> **2026-11-17: Chunks F to L are re-planned in `2026-11-17-future-wars-originals.md`**, against the original
+> *Future Wars* issues. Read that plan first; the chunk text below still holds where it does not override it.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan. The owner's
 > execution method is **one chunk per session**, each ending with a commit, a ledger entry and a handoff, and the
 > session is cleared before the next chunk. Do not run two chunks in one session. Steps use checkbox (`- [ ]`) syntax.
