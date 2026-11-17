@@ -38,6 +38,10 @@ import { isUniversalEquipment } from "../data/universal-equipment";
 import { mechEngineOptions } from "../data/mech-engine-options";
 import { describeEngineRequirement, engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
+import {
+    FW_POWER_ARMOR_RULESET, POWER_ARMOR_FIVE_TON_STRUCTURE, POWER_ARMOR_FIVE_TON_WEAPONS, POWER_ARMOR_PILOT_SLOTS,
+    POWER_ARMOR_WALDO, getPowerArmorShieldingWeight, getPowerArmorSlots, isPowerArmorTonnage, needsPowerArmorShielding,
+} from "../data/future-wars-power-armor";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
 import { mechJumpJetTypes, mechJumpPack } from "../data/mech-jump-jet-types";
@@ -2627,6 +2631,8 @@ export class BattleMech {
     }
 
     public getGyroWeight() {
+        // "5 ton power armors do not require a gyro" (Best-of p.16).
+        if (this._isFiveTonPowerArmor()) return 0;
         if( this._engine ) {
             // Superheavy Mechs (>100 tons) of any chassis type must mount the Superheavy Gyro:
             // it weighs as a Heavy-Duty gyro, engine rating / 100 rounded up, then doubled
@@ -2648,6 +2654,8 @@ export class BattleMech {
         const superheavy = this._tonnage > 100;
         if (this.isTripod()) return getCockpitType(superheavy ? "superheavy-tripod" : "tripod");
         if (this.isQuadVee()) return getCockpitType("quadvee");
+        // A Power Armor suit has no cockpit, only its waldo system (Best-of p.16).
+        if (this.usesPowerArmorConstruction()) return POWER_ARMOR_WALDO;
         // A Primitive 'Mech mounts the 5-ton Primitive cockpit of its kind (IO:AE p.117).
         if (this._primitive) {
             return getCockpitType(!this.isIndustrialMech() ? "primitive"
@@ -2718,7 +2726,9 @@ export class BattleMech {
      */
     public getAvailableCockpits(rulesLevel: number = 2): ICockpitType[] {
         const current = this.getCockpitType();
-        const superheavyIndustrial = this.isSuperheavy() && this.isIndustrialMech() && !this.isTripod();
+        // The waldo is outside the cockpit catalog and is the suit's only choice.
+        if (current.tag === POWER_ARMOR_WALDO.tag) return [{ ...POWER_ARMOR_WALDO, available: true, availableAsPrototype: false }];
+        const superheavyIndustrial =this.isSuperheavy() && this.isIndustrialMech() && !this.isTripod();
         // A Primitive 'Mech's cockpit is part of what makes it Primitive, so its dates never withhold it.
         const mandatory = this._primitive
             || (!superheavyIndustrial && ["tripod", "superheavy-tripod", "quadvee", "superheavy"].includes(current.tag));
@@ -4355,7 +4365,11 @@ export class BattleMech {
             weight: this.getInternalStructureWeight()
         });
 
-        if (typeTag === "quadvee" || typeTag === "tripod") {
+        if (this.usesPowerArmorConstruction()) {
+            // The waldo system replaces the cockpit (Best-of p.16).
+            this._cockpitWeight = POWER_ARMOR_WALDO.weight;
+            this._weights.push({ name: POWER_ARMOR_WALDO.name, weight: POWER_ARMOR_WALDO.weight });
+        } else if (typeTag === "quadvee" || typeTag === "tripod") {
             this._cockpitWeight = this.getCockpitType().weight;
             this._weights.push({
                 name: typeTag === "tripod" ? "Tripod Multi-Pilot Cockpit" : "QuadVee Dual Cockpit",
@@ -4436,9 +4450,13 @@ export class BattleMech {
             });
 
             this._weights.push({
-                name: this._gyro.name,
+                name: this.getGyroName(),
                 weight: this.getGyroWeight()
             });
+            // A 5-ton suit shields a fusion engine with half its weight (Best-of p.16).
+            if (this._isFiveTonPowerArmor() && needsPowerArmorShielding(this._engineType.tag)) {
+                this._weights.push({ name: "Fusion Engine Shielding", weight: getPowerArmorShieldingWeight(this.getEngineWeight() ?? 0) });
+            }
 
         }
 
@@ -4861,6 +4879,54 @@ export class BattleMech {
         return !!this._futureWarsRuleset() && this._mechType.tag.toLowerCase() === "biped" && !!getFutureWarsWeightClass(this._tonnage);
     }
 
+    // ---- Bill Swisher's Power Armor (#172; src/data/future-wars-power-armor.ts) ----
+
+    private _powerArmorTicked(): boolean {
+        return this._rulesets.includes(FW_POWER_ARMOR_RULESET) && !!findSpecialRuleset(FW_POWER_ARMOR_RULESET);
+    }
+
+    /**
+     * Is this 'Mech a Power Armor suit? Only a two-legged 'Mech of 5, 10 or 15 tons (Best-of p.16; ours: no other
+     * weight or type). Any other 'Mech with the ruleset ticked is built by the standard rules and reported.
+     */
+    public usesPowerArmorConstruction(): boolean {
+        return this._powerArmorTicked() && this._mechType.tag.toLowerCase() === "biped" && isPowerArmorTonnage(this._tonnage);
+    }
+
+    /** A 5-ton suit: no gyro, its own structure, shielding and weapon list (Best-of p.16). */
+    private _isFiveTonPowerArmor(): boolean {
+        return this._tonnage === 5 && this.usesPowerArmorConstruction();
+    }
+
+    private static _isPowerArmorWeapon(item: IEquipmentItem): boolean {
+        return !item.isAmmo && /weapons$|^(ballistic|energy|missile|artillery|melee)$/i.test(item.category ?? "");
+    }
+
+    /** What the Power Armor rules leave wrong on this design. */
+    private _getPowerArmorIssues(): string[] {
+        if (!this._powerArmorTicked()) return [];
+        if (!this.usesPowerArmorConstruction()) {
+            return [`Power Armor (Special Ruleset) is built at 5, 10 or 15 tons on two legs; this ${this._tonnage}-ton ${this._mechType.name} is built by the standard rules.`];
+        }
+        const issues: string[] = [];
+        if (this.isArmless()) {
+            issues.push("Power Armor needs both arms, with their upper and lower arm actuators (Best-of p.16).");
+        }
+        if (this._armorAllocation.head > this.getMaxHeadArmor()) {
+            issues.push(`Head armor ${this._armorAllocation.head} is more than twice the head's ${this._internalStructure.head} internal structure points (Power Armor, Best-of p.16): at most ${this.getMaxHeadArmor()}.`);
+        }
+        for (const item of this._equipmentList) {
+            if (!item || !BattleMech._isPowerArmorWeapon(item)) continue;
+            if (item.location === "hd" || item.location === "ct") {
+                issues.push(`${item.name} is in the ${item.location === "hd" ? "head" : "center torso"}: Power Armor carries no weapons in the head or center torso (Best-of p.15).`);
+            }
+            if (this._isFiveTonPowerArmor() && !(POWER_ARMOR_FIVE_TON_WEAPONS as readonly string[]).includes(item.tag)) {
+                issues.push(`${item.name}: a 5-ton Power Armor suit carries only flamers, machine guns and small lasers (Best-of p.16).`);
+            }
+        }
+        return issues;
+    }
+
     /** Flint's cockpit for this 'Mech, when the ruleset is in use and the cockpit is one it replaces. */
     private _getFutureWarsCockpit(): IFutureWarsCockpit | undefined {
         if (!this.usesFutureWarsConstruction() || this._primitive) return undefined;
@@ -4902,7 +4968,9 @@ export class BattleMech {
 
     /** The head's armor cap: 9, or twice the head's structure under Flint's rules (Best-of p.35). */
     public getMaxHeadArmor(): number {
-        return this.usesFutureWarsConstruction() ? (this._internalStructure.head ?? 0) * 2 : 9;
+        // Power Armor: "since the head only has 1structure point it can only hold 2 points of armor" (Best-of p.16),
+        // read as twice the head's structure at every weight (ours).
+        return this.usesFutureWarsConstruction() || this.usesPowerArmorConstruction() ? (this._internalStructure.head ?? 0) * 2 : 9;
     }
 
     /** " on a light 'Mech under Clell Flint's construction rules", or nothing without them. */
@@ -4979,6 +5047,11 @@ export class BattleMech {
             if ((key === "leftArm" || key === "rightArm") && this.isArmless()) return 0;
             return getFutureWarsSlots(this._tonnage, key) ?? 0;
         }
+        // Power Armor: six slots a location and twelve in the center torso, as the FW #14 sheets print them.
+        if (this.usesPowerArmorConstruction()) {
+            if ((key === "leftArm" || key === "rightArm") && this.isArmless()) return 0;
+            return getPowerArmorSlots(this._tonnage, key) ?? 0;
+        }
         const typeTag = this._mechType.tag.toLowerCase();
         const fourLegged = typeTag === "quad" || typeTag === "quadvee";
         switch (key) {
@@ -5040,6 +5113,14 @@ export class BattleMech {
             for (let slot = 0; slot < lifeSupport; slot++) this._addCriticalItem("life-support", "Life Support", 1, "hd", headSlot++);
             for (let slot = 0; slot < sensors; slot++) this._addCriticalItem("sensors", "Sensors", 1, "hd", headSlot++);
             this._addCriticalItem(cockpitTag, cockpitName, futureWarsCockpit.slots, "hd", headSlot);
+        } else if (this.usesPowerArmorConstruction()) {
+            // Every FW #14 sheet keeps the printed Life Support and Sensors and writes "Pilot" in head slots 3-4; the
+            // pilot's other two slots are center torso 11-12, placed after the engine below.
+            this._addCriticalItem("life-support", "Life Support", 1, "hd", 0);
+            this._addCriticalItem("sensors", "Sensors", 1, "hd", 1);
+            this._addCriticalItem(cockpitTag, "Pilot", POWER_ARMOR_PILOT_SLOTS.size, "hd", POWER_ARMOR_PILOT_SLOTS.head);
+            this._addCriticalItem("sensors", "Sensors", 1, "hd", 4);
+            this._addCriticalItem("life-support", "Life Support", 1, "hd", 5);
         } else if( torsoMountedCockpit ) {
             // The head keeps its 2 sensor slots; cockpit and sensors go in the center torso, and Life Support in
             // each side torso, after the engine and gyro below (TO:AUE p.112).
@@ -5159,7 +5240,8 @@ export class BattleMech {
         }
         // GYRO POSITIONING (Slots 4-6): Injected immediately below the upper engine core as is tradition and as I saw all the way back in 1989.
         // Superheavy Mechs mount the Superheavy Gyro, which takes only 2 center torso slots (IO:AE p.156).
-        this._addCriticalItem(
+        // A 5-ton Power Armor suit has none.
+        if (!this._isFiveTonPowerArmor()) this._addCriticalItem(
             "gyro",
             this._gyro.name,
             // Flint: "Gyroscopes take up one critical space per ton" (Best-of p.36).
@@ -5170,11 +5252,14 @@ export class BattleMech {
         const remainingEngineAllocation = engineCriticalTorso - initialEngineAllocation;
         if (remainingEngineAllocation > 0) {
             this._addCriticalItem(
-                "engine", 
-                engineName, 
-                remainingEngineAllocation, 
+                "engine",
+                engineName,
+                remainingEngineAllocation,
                 "ct"
             );
+        }
+        if (this.usesPowerArmorConstruction()) {
+            this._addCriticalItem(cockpitTag, "Pilot", POWER_ARMOR_PILOT_SLOTS.size, "ct", POWER_ARMOR_PILOT_SLOTS.centerTorso);
         }
         // TORSO SHIELDING: Distribute side shield critical slots
         if (engineCrits.rt) {
@@ -5529,6 +5614,8 @@ export class BattleMech {
     ) {
         if( this.isArmless() )
             return false;
+        // "Suits must have both upper and lower arm actuators" (Best-of p.16).
+        if (this.usesPowerArmorConstruction()) return true;
         if( location === "ra" )
             if( this._no_right_arm_lower_actuator)
                 return false;
@@ -5554,6 +5641,8 @@ export class BattleMech {
     public removeLowerArmActuator(
         location: string,
     ) {
+        // A Power Armor suit keeps its lower arm actuators (Best-of p.16).
+        if (this.usesPowerArmorConstruction()) return;
         if( location === "ra" ) {
             this._no_right_arm_hand_actuator = true;
             this._no_right_arm_lower_actuator = true;
@@ -6996,7 +7085,9 @@ export class BattleMech {
         return null;
     }
 
+    /** The gyro as built: none on a 5-ton Power Armor suit, which keeps the chosen one for when the ruleset is unticked. */
     public getGyro() {
+        if (this._isFiveTonPowerArmor()) return findByTag(mechGyroTypes, "none") ?? this._gyro;
         return this._gyro;
     }
 
@@ -7446,9 +7537,10 @@ export class BattleMech {
      */
     public applyGameSettings(settings: IGameSettings): void {
         const futureWarsBefore = this.usesFutureWarsConstruction();
+        const powerArmorBefore = this.usesPowerArmorConstruction();
         this._applyGameSettings(settings);
-        // Ticking or unticking Flint's construction rules changes the head's structure and every location's slots.
-        if (this.usesFutureWarsConstruction() !== futureWarsBefore) {
+        // Ticking or unticking Flint's construction rules or Power Armor changes the structure and every location's slots.
+        if (this.usesFutureWarsConstruction() !== futureWarsBefore || this.usesPowerArmorConstruction() !== powerArmorBefore) {
             this.setTonnage(this._tonnage);
         }
     }
@@ -7854,7 +7946,7 @@ export class BattleMech {
     }
 
     getGyroName() {
-        return this._gyro.name;
+        return this.getGyro().name;
     }
 
     getName() {
@@ -8748,7 +8840,7 @@ export class BattleMech {
 
     /** Chassis-specific equipment limits (LAM Bomb Bays and other per-unit caps). */
     public getChassisEquipmentViolations(): string[] {
-        const violations: string[] = this._getFutureWarsConstructionIssues();
+        const violations: string[] = [...this._getFutureWarsConstructionIssues(), ...this._getPowerArmorIssues()];
         // The Clans do not build superheavy 'Mechs (IO:AE p.154).
         if (this.isSuperheavy() && (this._tech.tag === "clan" || this._tech.tag === "mclan")) {
             violations.push("Superheavy 'Mechs are available only to the Inner Sphere tech base.");
@@ -9143,7 +9235,9 @@ export class BattleMech {
       // Fetch the normalized structural data block for this specific tonnage
       // An earlier edition's own Internal Structure Table comes first (Battledroids' runs down to 5 tons, BD p.24).
       const listedStructure = this._selectedInternalStructure.perMechType[mechTypeKey][this.getTonnage()];
-      const editionBoxes = getEditionStructure(mechInternalStructureTypes[0], this._rulesEdition, this.getTonnage(), !listedStructure);
+      // A 5-ton Power Armor suit has its own row (Best-of p.16), whatever the structure type.
+      const editionBoxes = this._isFiveTonPowerArmor() ? { ...POWER_ARMOR_FIVE_TON_STRUCTURE }
+        : getEditionStructure(mechInternalStructureTypes[0], this._rulesEdition, this.getTonnage(), !listedStructure);
       const structureData: IInternalStructurePerTon = editionBoxes ? {
         tonnage: this.getTonnage(), head: editionBoxes.head, centerTorso: editionBoxes.ct, leftTorso: editionBoxes.torso, rightTorso: editionBoxes.torso,
         leftLeg: editionBoxes.leg, rightLeg: editionBoxes.leg,

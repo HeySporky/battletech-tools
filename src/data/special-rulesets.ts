@@ -16,6 +16,7 @@
 import { RulesEditionUnitType } from "./rules-editions";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
 import { FUTURE_WARS_PLAY_SOURCES } from "./future-wars-play-rules";
+import { FW_POWER_ARMOR_RULESET } from "./future-wars-power-armor";
 
 // Special Rulesets (#324): optional and homebrew rules that change how the game plays or how units are built. They
 // are chosen first in the shared settings block, so each can set the minimum edition and narrow every list below it.
@@ -77,6 +78,23 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         name: "Future Wars: Alternate 'Mech construction (Future Wars #11 printing)",
         description: FUTURE_WARS_CONSTRUCTION_DESCRIPTION,
         source: { title: "Clell Flint, 'Alternative Rules for Building Mechs in BattleTech', Future Wars #11, p.24" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["mechConstruction"],
+    },
+    // Bill Swisher's Power Armor (#172, Power Armor plan): a suit is a small BattleMech, so it is built by the 'Mech
+    // rules with these changes and cannot sit with Flint's construction rules.
+    {
+        id: FW_POWER_ARMOR_RULESET,
+        name: "Future Wars: Power Armor",
+        description: "Bill Swisher's Power Armor, \"the poor man's BattleMech\": suits of 5, 10 or 15 tons, built as two-legged 'Mechs with "
+            + "fewer critical slots (six a location, the center torso full: 3 free per arm, 6 per side torso, 2 per leg). Upper and lower arm "
+            + "actuators are required. No cockpit: a half-ton waldo system (50,000 C-bills), the pilot in head slots 3-4 and center torso "
+            + "slots 11-12 as the Future Wars #14 sample sheets show. A 5-ton suit has no gyro, internal structure H1 CT3 ST2 A1 L1, "
+            + "shielding of half the engine's weight with a fusion engine, and only flamers, machine guns and small lasers. "
+            + "No weapons in the head or center torso. Ours, not Swisher's: no other tonnage; head armor at most twice head structure at "
+            + "every weight; the later variants of the 5-ton weapons (ER, pulse, light and heavy machine guns) are refused; shielding "
+            + "rounded up to the half ton.",
+        source: { title: "Bill Swisher, 'Power Armor: The Poor Man's Battlemech', Future Wars #14 (1989), p.39; reprinted in The Best of Future Wars, Volume One (1991), pp.14-16 (rules read from the reprint: the library's scan of #14 lacks pp.39-42)" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["mechConstruction"],
     },
