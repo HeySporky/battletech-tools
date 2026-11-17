@@ -31,12 +31,45 @@ export const UNIT_TYPE_PLURALS: Record<RulesEditionUnitType, string> = {
     infantry: "Infantry", "battle-armor": "Battle Armor", protomech: "ProtoMechs", building: "Buildings", walker: "Walkers",
 };
 
+/** The Special Rulesets window's groups. */
+export type RulesetCategory = "construction" | "play" | "campaign" | "setting";
+
+/** The window's groups, in the order it shows them. */
+export const RULESET_CATEGORIES: { id: RulesetCategory; label: string }[] = [
+    { id: "construction", label: "Construction" },
+    { id: "play", label: "Play" },
+    { id: "campaign", label: "Campaign & Economics" },
+    { id: "setting", label: "Setting" },
+];
+
+/** Each `changes` key in words, for "Clashes with X (both change <label>)". */
+export const CHANGE_LABELS: Record<string, string> = {
+    mechConstruction: "'Mech construction",
+    firePhase: "the fire phase",
+    movementModes: "movement modes",
+    morale: "morale",
+    weaponFailure: "weapon failures",
+    weaponRanges: "weapon ranges",
+    tandemChargeSrm: "Tandem-Charge SRM ammunition",
+    techBases: "the tech bases",
+};
+
 export interface ISpecialRuleset {
     id: string;
     name: string;
+    /** One line, at most 120 characters, our words: the window's row text. */
+    summary: string;
     description: string;
-    /** Where the ruleset comes from, printed on every unit built with it. */
-    source: { title: string; url?: string };
+    category: RulesetCategory;
+    /**
+     * Where the ruleset comes from, printed on every unit built with it. `publication` feeds the window's source filter,
+     * `tag` is the short label on its row (e.g. "FW #14"), `author` the writer when known.
+     */
+    source: { title: string; url?: string; publication: string; tag: string; author?: string };
+    /** Rulesets that cannot be used with this one, beyond a shared `changes` key; it works in both directions. */
+    excludes?: string[];
+    /** Rulesets that must be ticked before this one. */
+    requires?: string[];
     /** Edition tag; editions before it are not offered. */
     minEdition?: string;
     minRulesLevel?: number;
@@ -67,17 +100,21 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
     // Both printings print the same rules for two-legged 'Mechs; they differ only on walkers (owner ruling 3, 2026-11-13).
     {
         id: "best-of-future-wars-construction",
+        summary: "Clell Flint's 'Mech building: critical slots by weight class, cockpit by weight, engine and gyro slots by weight.",
+        category: "construction",
         name: "Future Wars: Alternate 'Mech construction (Best of Future Wars printing)",
         description: FUTURE_WARS_CONSTRUCTION_DESCRIPTION,
-        source: { title: "Clell Flint, 'Alternate Rules for Building Mechs in BattleTech', The Best of Future Wars, Volume One (1991), pp.35-36" },
+        source: { title: "Clell Flint, 'Alternate Rules for Building Mechs in BattleTech', The Best of Future Wars, Volume One (1991), pp.35-36", publication: "Future Wars", tag: "Best of FW", author: "Clell Flint" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["mechConstruction"],
     },
     {
         id: "future-wars-11-construction",
+        summary: "Clell Flint's 'Mech building: critical slots by weight class, cockpit by weight, engine and gyro slots by weight.",
+        category: "construction",
         name: "Future Wars: Alternate 'Mech construction (Future Wars #11 printing)",
         description: FUTURE_WARS_CONSTRUCTION_DESCRIPTION,
-        source: { title: "Clell Flint, 'Alternative Rules for Building Mechs in BattleTech', Future Wars #11, p.24" },
+        source: { title: "Clell Flint, 'Alternative Rules for Building Mechs in BattleTech', Future Wars #11, p.24", publication: "Future Wars", tag: "FW #11", author: "Clell Flint" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["mechConstruction"],
     },
@@ -85,6 +122,8 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
     // rules with these changes and cannot sit with Flint's construction rules.
     {
         id: FW_POWER_ARMOR_RULESET,
+        summary: "Build 5, 10 or 15-ton suits as small two-legged 'Mechs, piloted through a waldo instead of a cockpit.",
+        category: "construction",
         name: "Future Wars: Power Armor",
         description: "Bill Swisher's Power Armor, \"the poor man's BattleMech\": suits of 5, 10 or 15 tons, built as two-legged 'Mechs with "
             + "fewer critical slots (six a location, the center torso full: 3 free per arm, 6 per side torso, 2 per leg). Upper and lower arm "
@@ -94,7 +133,7 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
             + "No weapons in the head or center torso. Ours, not Swisher's: no other tonnage; head armor at most twice head structure at "
             + "every weight; the later variants of the 5-ton weapons (ER, pulse, light and heavy machine guns) are refused; shielding "
             + "rounded up to the half ton.",
-        source: { title: "Bill Swisher, 'Power Armor: The Poor Man's Battlemech', Future Wars #14 (1989), p.39; reprinted in The Best of Future Wars, Volume One (1991), pp.14-16 (rules read from the reprint: the library's scan of #14 lacks pp.39-42)" },
+        source: { title: "Bill Swisher, 'Power Armor: The Poor Man's Battlemech', Future Wars #14 (1989), p.39; reprinted in The Best of Future Wars, Volume One (1991), pp.14-16 (rules read from the reprint: the library's scan of #14 lacks pp.39-42)", publication: "Future Wars", tag: "FW #14", author: "Bill Swisher" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["mechConstruction"],
     },
@@ -102,51 +141,63 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
     // does, so all five may be used together; the rules summaries are in future-wars-play-rules.ts.
     {
         id: "fw-opportunity-fire",
+        summary: "Shoot one non-missile weapon during the Movement Phase as an enemy crosses your line of sight.",
+        category: "play",
         name: "Future Wars: Opportunity Fire",
         description: "A 'Mech may shoot one non-missile weapon at an enemy during the Movement Phase as it crosses the firer's line of sight, "
             + "at 6 / 8 / 10 to hit; its other weapons then fire at +1.",
-        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-opportunity-fire"] },
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-opportunity-fire"], publication: "Future Wars", tag: "Best of FW", author: "Charles J. Tomaszewski" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["firePhase"],
     },
     {
         id: "fw-strategic-movement",
+        summary: "Units out of the fight move at double speed on big maps, for extra heat and no firing.",
+        category: "play",
         name: "Future Wars: Strategic Movement",
         description: "On more than four map sheets, a unit out of the fight may move at double speed, for extra heat and no firing; "
             + "it stops the moment it is attacked.",
-        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-strategic-movement"] },
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-strategic-movement"], publication: "Future Wars", tag: "Best of FW", author: "Herb Barents" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["movementModes"],
     },
     {
         id: "fw-morale",
+        summary: "Hurt units of Militia to Crack quality check morale and may become disorganized, break or rout.",
+        category: "play",
         name: "Future Wars: Morale",
         description: "Units rated Militia to Crack check morale when hurt, and may carry on, become disorganized, break or rout; "
             + "'Mechs, vehicles and infantry each have their own tables.",
-        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-morale"] },
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-morale"], publication: "Future Wars", tag: "Best of FW", author: "Herb Barents" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["morale"],
     },
     {
         id: "fw-weapon-malfunctions",
+        summary: "A to-hit roll of 2 misses, and the weapon may then jam, lose its sight or overheat.",
+        category: "play",
         name: "Future Wars: Weapon Malfunctions",
         description: "A to-hit roll of 2 misses, and flamers, missiles, autocannons and lasers then roll for a jam, a damaged sight, "
             + "extra heat or worse.",
-        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-weapon-malfunctions"] },
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-weapon-malfunctions"], publication: "Future Wars", tag: "Best of FW", author: "Karl Bruanning" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["weaponFailure"],
     },
     {
         id: "fw-long-range-wars",
+        summary: "Two range bands past long, extended and extreme, with ranging on slow targets.",
+        category: "play",
         name: "Future Wars: The Long Range Wars",
         description: "Two range bands past long: extended (twice long, to-hit 10) and extreme (twice extended, to-hit 13), with ranging "
             + "on a slow target and an eight-sided-dice option.",
-        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-long-range-wars"] },
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-long-range-wars"], publication: "Future Wars", tag: "Best of FW", author: "Herb Barents" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["weaponRanges"],
     },
     {
         id: "tandem-charge-srm-house-rule",
+        summary: "Tandem-Charge SRM ammo holds half the rounds a ton and gets a free critical check by launcher size.",
+        category: "play",
         name: "House rule: Tandem Charge SRMs (u/Magical_Savior)",
         description: "An alternate rule for the existing Tandem-Charge SRM ammunition, which its author finds far too strong for its Battle Value. "
             + "A ton holds half the rounds, rounded up. Each attack gets one free critical check, as armor-piercing rounds do, by launcher size: "
@@ -155,15 +206,17 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
             + "for every 3 missiles, as with Infernos. Against Hardened armor and Ferro-Lamellor armor the rounds get no critical check. "
             + "Inspired by: u/Magical_Savior. Ours, not in the post: the launcher sizes are read from its grouped lines (size /2 (3), /4 (5), /6 (7)) as 2-3, 4-5 and 6-7 tubes, "
             + "and the rule is recorded as text only, so a ton still holds the ammunition's printed rounds in the builder.",
-        source: { title: "u/Magical_Savior, 'Tandem Charge SRM - House Rules', r/battletech", url: "https://www.reddit.com/r/battletech/comments/1jamkvn/" },
+        source: { title: "u/Magical_Savior, 'Tandem Charge SRM - House Rules', r/battletech", url: "https://www.reddit.com/r/battletech/comments/1jamkvn/", publication: "r/battletech", tag: "r/battletech", author: "u/Magical_Savior" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["tandemChargeSrm"],
     },
     {
         id: "sample-no-clans",
+        summary: "A sample alternate universe in which the Clans never formed: no Clan or Mixed tech, no ProtoMechs.",
+        category: "setting",
         name: "Sample: The Clans never existed (alternate universe)",
         description: "A sample alternate universe in which the Clans never formed: no Clan or Mixed tech. A placeholder until real rulesets are added.",
-        source: { title: "Sample ruleset (#324)" },
+        source: { title: "Sample ruleset (#324)", publication: "Samples", tag: "Sample" },
         removesTechBases: ["clan", "mclan", "mis"],
         // ProtoMechs are a Clan creation: they do not exist either (user ruling 2026-10-26).
         removesUnitTypes: ["protomech"],
@@ -189,7 +242,12 @@ export interface IRulesetCredit {
 export function getRulesetCredits(ids: readonly string[]): IRulesetCredit[] {
     return [...new Set(ids)].map((id) => {
         const ruleset = findSpecialRuleset(id);
-        return ruleset ? { name: ruleset.name, source: ruleset.source } : { name: `${id} (ruleset no longer listed)` };
+        if (!ruleset) {
+            return { name: `${id} (ruleset no longer listed)` };
+        }
+        // A credit carries the title and link only; the window's tag and publication are not printed on sheets.
+        const { title, url } = ruleset.source;
+        return { name: ruleset.name, source: url ? { title, url } : { title } };
     });
 }
 

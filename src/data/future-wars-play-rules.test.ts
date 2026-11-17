@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
 import { btSpecialRulesets, findSpecialRuleset, getRulesetConflict } from "./special-rulesets";
 import { FUTURE_WARS_PLAY_RULESET_IDS, getFutureWarsPlayRules } from "./future-wars-play-rules";
+import { testSpecialRuleset } from "../test-support/rulesets";
 
 /** Best of Future Wars plan, Chunk D (#172): the fanzine's five optional play rules as Special Rulesets. */
 const BOOK = "The Best of Future Wars, Volume One (1991)";
@@ -46,7 +47,7 @@ describe("Best of Future Wars play rulesets (#172, Chunk D)", () => {
     });
 
     it("refuses another ruleset that changes the weapon ranges alongside The Long Range Wars", () => {
-        btSpecialRulesets.push({ id: "test-ranges", name: "Test ranges", description: "", source: { title: "test" }, changes: ["weaponRanges"] });
+        btSpecialRulesets.push(testSpecialRuleset({ id: "test-ranges", name: "Test ranges", changes: ["weaponRanges"] }));
         expect(getRulesetConflict(["fw-long-range-wars"], "test-ranges")?.id).toBe("fw-long-range-wars");
     });
 

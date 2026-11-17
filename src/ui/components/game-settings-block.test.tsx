@@ -8,6 +8,7 @@ import { btSpecialRulesets } from "../../data/special-rulesets";
 import Vehicle from "../../classes/vehicle";
 import { IAppGlobals } from "../app-router";
 import GameSettingsBlock, { UnitGameSettingsBlock, unitRulesLevel } from "./game-settings-block";
+import { testSpecialRuleset } from "../../test-support/rulesets";
 
 afterEach(() => {
     cleanup();
@@ -64,7 +65,7 @@ describe("GameSettingsBlock (#324)", () => {
     });
 
     it("a clashing ruleset is disabled and names the one it clashes with", () => {
-        btSpecialRulesets.push({ id: "test-clash", name: "Test clash", description: "", source: { title: "test" }, changes: ["techBases"] });
+        btSpecialRulesets.push(testSpecialRuleset({ id: "test-clash", name: "Test clash", changes: ["techBases"] }));
         render(<Harness start={{ ...base, techBase: "is", era: "star-league", rulesets: ["sample-no-clans"] }} />);
         fireEvent.click(screen.getByRole("button", { name: /Choose rulesets/ }));
         const clash = screen.getByRole("checkbox", { name: /Test clash/ }) as HTMLInputElement;
@@ -105,14 +106,14 @@ describe("GameSettingsBlock (#324)", () => {
     });
 
     it("a stored edition the rulesets do not offer stays selected and flagged", () => {
-        btSpecialRulesets.push({ id: "test-clash", name: "Test min edition", description: "", source: { title: "test" }, minEdition: DEFAULT_RULES_EDITION, changes: ["edition"] });
+        btSpecialRulesets.push(testSpecialRuleset({ id: "test-clash", name: "Test min edition", minEdition: DEFAULT_RULES_EDITION, changes: ["edition"] }));
         render(<Harness start={{ ...base, edition: "battledroids", techBase: "is", rulesets: ["test-clash"] }} />);
         expect(select(/Rules Edition/).value).toBe("battledroids");
         expect(select(/Rules Edition/).selectedOptions[0].textContent).toMatch(/not offered under the ticked rulesets/);
     });
 
     it("a clashing ruleset's checkbox is described by its clash", () => {
-        btSpecialRulesets.push({ id: "test-clash", name: "Test clash", description: "", source: { title: "test" }, changes: ["techBases"] });
+        btSpecialRulesets.push(testSpecialRuleset({ id: "test-clash", name: "Test clash", changes: ["techBases"] }));
         render(<Harness start={{ ...base, techBase: "is", era: "star-league", rulesets: ["sample-no-clans"] }} />);
         fireEvent.click(screen.getByRole("button", { name: /Choose rulesets/ }));
         const clash = screen.getByRole("checkbox", { name: /Test clash/ });

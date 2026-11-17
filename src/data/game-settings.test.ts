@@ -4,6 +4,7 @@ import { btTechOptions } from "./tech-options";
 import { btSpecialRulesets, getRulesetRemovingUnitType } from "./special-rulesets";
 import { DEFAULT_RULES_EDITION, getSelectableRulesEditions } from "./rules-editions";
 import { findEraByTag, getClosestEraForTech, getErasForTech } from "./era-options";
+import { testSpecialRuleset } from "../test-support/rulesets";
 
 const base: IGameSettings = { rulesets: [], edition: DEFAULT_RULES_EDITION, rulesLevel: 1, techBase: "clan", era: "clan-inv" };
 
@@ -72,7 +73,7 @@ describe("shared game settings (#324)", () => {
     });
 
     it("refuses a ruleset that clashes with one already ticked", () => {
-        btSpecialRulesets.push({ id: "test-techs", name: "test", description: "", source: { title: "test" }, changes: ["techBases"] });
+        btSpecialRulesets.push(testSpecialRuleset({ id: "test-techs", name: "test", changes: ["techBases"] }));
         const ticked: IGameSettings = { ...base, techBase: "is", rulesets: ["sample-no-clans"] };
         const result = changeGameSetting(ticked, { step: "rulesets", toggle: "test-techs" }, "mech");
         expect(result.refused?.id).toBe("sample-no-clans");
@@ -119,7 +120,7 @@ describe("shared game settings (#324)", () => {
     });
 
     it("drops editions before a ruleset's minimum edition", () => {
-        btSpecialRulesets.push({ id: "test-techs", name: "test", description: "", source: { title: "test" }, minEdition: DEFAULT_RULES_EDITION, changes: ["edition"] });
+        btSpecialRulesets.push(testSpecialRuleset({ id: "test-techs", name: "test", minEdition: DEFAULT_RULES_EDITION, changes: ["edition"] }));
         const tags = getGameSettingOptions({ ...base, rulesets: ["test-techs"] }, "mech").editions.map((edition) => edition.tag);
         expect(tags[0]).toBe(DEFAULT_RULES_EDITION);
         expect(tags).not.toContain("battledroids");
