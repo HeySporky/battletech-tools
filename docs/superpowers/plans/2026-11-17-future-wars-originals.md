@@ -105,6 +105,8 @@ As the batch plan's Chunk 7. No change.
 
 ## Chunk F: Power Armor (read, design, plan)
 
+**Done 2026-11-17:** `2026-11-17-future-wars-power-armor.md` (a construction Special Ruleset on `BattleMech`).
+
 As the Best-of plan's Chunk F, plus:
 
 - [ ] **Step 1a:** Read FW #14 PDF pp.31-33 (printed 43-45): the three record sheets, every value from the image at
