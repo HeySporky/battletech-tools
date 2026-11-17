@@ -6,7 +6,7 @@ Fan-made equipment from *The Best of Future Wars, Volume One* (1991), offered at
 
 *Mike Reese, p.8.* An experimental gatling machine gun with its own radar, tied to the unit's fire control.
 
-Ellena Industries built its Point Defense System as an experiment in stopping missiles before they strike. A gatling machine gun that fires twice as fast as a standard model is slaved to its own radar and to the host's fire control, an EII Mark 52 or later, and sweeps incoming salvos from the sky. The test installation took the place of the AC/5 on a Marauder II. Ellena has announced no production run.
+Ellena Industries built its Point Defense System as an experiment in stopping missiles before they strike. A gatling machine gun that fires twice as fast as a standard model is slaved to its own radar and to the host's fire control, an EII Mark 52 or later, and sweeps incoming salvos from the sky. The test installation took the place of the AC/5 on a Marauder II. Ellena has announced no production run. Ellena Industries sits on the planet UR in the Capellan Confederation, near Tikonov, and the Ellena family has run it for generations. It began as a small shop making simple goods for its own world, became a secret factory for the long-gone Mitchel Vehicle Interstellar in the early years of the First Succession War, and soon outgrew its patron. Since the war it has built JumpShips and DropShips (the Union, Leopard, Thunderwolf and Backlash classes), tracked and hover vehicles, VTOLs and BattleMech modifications, and it repairs almost anything, with sales of over a billion C-Bills a year. The Point Defense System is its latest development and its first move into 'Mech equipment.
 
 Ellena Industries ships extra belts for its Point Defense System in sealed one-ton magazines that feed the gun alongside its built-in drum.
 
@@ -15,6 +15,7 @@ Ellena Industries ships extra belts for its Point Defense System in sealed one-t
 | **Weight** | 2 tons (0.5 ton of ammunition built in, 50 bursts) |
 | **Slots** | 2 |
 | **Damage** | 4 |
+| **Heat** | 1 |
 | **Range** | 1 / 2 / 3 |
 | **Extra ammunition** | 100 bursts a ton |
 

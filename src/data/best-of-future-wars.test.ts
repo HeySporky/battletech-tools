@@ -77,7 +77,8 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(pds.weight).toBe(2);
         expect(pds.space.battlemech).toBe(2);
         expect(pds.damage).toBe(4);
-        expect(pds.heat).toBe(0);
+        // Heat 1 is from the original table in Future Wars #24, p.10.
+        expect(pds.heat).toBe(1);
         expect(pds.range).toMatchObject({ min: 0, short: 1, medium: 2, long: 3 });
         expect(pds.rules).toContain("50 bursts");
         expect(ammo.roundsPerTon).toBe(100);
