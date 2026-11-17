@@ -680,7 +680,7 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
     updateTargetFlag = (
       e: React.FormEvent<HTMLInputElement>,
       target: "a" | "b" | "c",
-      field: "airborne" | "immobile",
+      field: "airborne" | "immobile" | "powerArmor",
     ) => {
       if( e && e.preventDefault ) {
         e.preventDefault();
@@ -758,6 +758,15 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
       })
     }
 
+    /**
+     * Whether any 'Mech in the force plays a Best of Future Wars ruleset (or is a Power Armor suit): then the Target
+     * dialog offers the Power Armor target flag (#172). Ours: the opposing suit need not be in this force.
+     */
+    _forceUsesFutureWars = (): boolean => {
+      return !!this.props.appGlobals.currentCBTForce?.groups.some( (group) => group.members.some( (unit) =>
+        unit.usesPowerArmorConstruction() || unit.getRulesets().some( (id) => id.startsWith( "fw-" ) || id.startsWith( "best-of-future-wars" ) ) ) );
+    }
+
     // Woods, jungle or smoke hexes and darkness, which Enhanced Imaging reduces, and aimed shots, which it allows (IO:AE
     // p.69; Maximum Tech p.61).
     renderTargetConditions = ( mech: BattleMech, target: "a" | "b" | "c" ) => {
@@ -795,6 +804,14 @@ export default class ClassicBattleTechRosterPlay extends React.Component<IPlayPr
             min={0}
             max={10}
           />
+          {this._forceUsesFutureWars() ? (
+            <InputCheckbox
+              label="Power Armor"
+              checked={!!data.powerArmor}
+              description="The target is a Power Armor suit: +1 to hit (Custom Homebrew, The Best of Future Wars p.14)"
+              onChange={(e) => this.updateTargetFlag(e, target, "powerArmor")}
+            />
+          ) : null}
           {mech.getEditionPlayRules()?.immobileTargetModifier !== 0 ? (
             <>
               <InputCheckbox

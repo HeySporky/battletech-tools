@@ -919,6 +919,8 @@ export function getTargetToHitFromWeapon(
             systemModifier( mech.getSensorToHitModifier(), "Sensor Hits" );
             // The Best of Future Wars play rulesets: after an opportunity shot, a morale status, a malfunction.
             for( const { modifier, label } of mech.getFutureWarsRulesetToHit( weapon?.uuid ) ) systemModifier( modifier, label );
+            // A Power Armor suit is +1 to hit "due to its small size" (The Best of Future Wars p.14; #172).
+            systemModifier( target.powerArmor ? 1 : 0, "Power Armor Target" );
             // Woods, jungle or smoke: +1 a light hex, +2 a heavy hex (BD p.10; TW p.117). Enhanced Imaging: each hex 1
             // less, at least +1, and no darkness modifier (IO:AE p.69); Maximum Tech: any light woods +1 in all, heavy or
             // smoke +1 a hex, no night modifier (p.61).

@@ -25,6 +25,7 @@ import DieSVG from './die-svg';
 import HeatSinksSVG from './heat-sink-svg';
 import HeatTrackSVG from './heat-track-svg';
 import PilotHitTrackSVG from './pilot-hit-track-svg';
+import PowerArmorRulesBoxSVG from './power-armor-rules-box-svg';
 import QuadArmorCircles from './quad-armor-circles';
 import QuadArmorDiagramSVG from './quad-armor-diagram-svg';
 import QuadDamageTransferDiagramSVG from './quad-damage-transfer-diagram-svg';
@@ -535,7 +536,7 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         style={{fontWeight: 700}}
         fontSize={65}
     >
-        BATTLEMECH
+        {this.props.mechData.usesPowerArmorConstruction() ? "POWER ARMOR" : "BATTLEMECH"}
     </text>
     <text
         x={this.docWidth / 2 - 25}
@@ -644,6 +645,18 @@ export default class BattleMechSVG extends React.Component<IBattleMechSVGProps, 
         boxStrokeColor={this.props.currentPhase === 2 ? currentPhaseGroupColor : undefined}
         openSetTargetDialog={this.props.openSetTargetDialog}
     />
+
+    {/* Power Armor (#172): the Building Effects Table and the play rules at the foot of the Weapons and Equipment box. */}
+    {this.props.mechData.usesPowerArmorConstruction() ? (
+        <PowerArmorRulesBoxSVG
+            mech={this.props.mechData}
+            xLoc={20}
+            bottom={1075}
+            width={1195}
+            strokeColor={strokeColor}
+            bgColor={bgColor}
+        />
+    ) : null}
 
     {this.props.inPlay ? (
         <>

@@ -4,6 +4,8 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { BattleMech } from "../../../../classes/battlemech";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../../../../data/rules-level-options";
 import FutureWarsRulesetTools, { showFutureWarsRulesetTools } from "./_futureWarsRulesetTools";
+import { FW_POWER_ARMOR_RULESET } from "../../../../data/future-wars-power-armor";
+import { buildMech } from "../../../../test-support/builders";
 
 afterEach(cleanup);
 
@@ -95,5 +97,38 @@ describe("Best of Future Wars ruleset tools", () => {
         expect(line).toMatch(/extreme 19-36: 13\+/);
         fireEvent.change(screen.getByTestId("fw-ranging"), { target: { value: "2" } });
         expect(mech.futureWarsPlay.ranging).toBe(2);
+    });
+});
+
+/** Power Armor plan, Chunk C (#172): the suit's rules in roster play (The Best of Future Wars pp.14-15). */
+describe("Power Armor in roster play", () => {
+    const suit = (tons: number): BattleMech => buildMech({ type: "biped", tonnage: tons, walk: 6, homebrew: [FW_POWER_ARMOR_RULESET] });
+
+    it("shows a Power Armor section for a suit only, with its building row and rules", () => {
+        expect(showFutureWarsRulesetTools(suit(10))).toBe(true);
+        render(<FutureWarsRulesetTools mech={suit(10)} onChange={vi.fn()} />);
+        const section = screen.getByTestId("fw-tool-power-armor");
+        expect(screen.getByTestId("pa-building").textContent).toBe("Buildings (10 tons): Light 1 MP, +0; Medium 2 MP, +1; Heavy 3 MP, +2; Hardened 4 MP, +3 to the Piloting Skill Roll.");
+        expect(section.textContent).toMatch(/tick Power Armor in the attacker's Target dialog/);
+        expect(section.textContent).toMatch(/Pilot critical in the center torso: 1D6 hits/);
+    });
+
+    it("tells a 5-ton suit's Piloting 4 pilot of the +2", () => {
+        const mech = suit(5);
+        mech.setPilotPiloting(4);
+        render(<FutureWarsRulesetTools mech={mech} onChange={vi.fn()} />);
+        expect(screen.getByTestId("pa-pilot").textContent).toMatch(/\+2 to every Piloting Skill Roll/);
+    });
+
+    it("unlatches the front plate, and calls it off", () => {
+        const mech = suit(15);
+        const onChange = vi.fn();
+        render(<FutureWarsRulesetTools mech={mech} onChange={onChange} />);
+        fireEvent.click(screen.getByTestId("pa-exit"));
+        expect(mech.getPowerArmorExit()).toBe("unlatching");
+        expect(onChange).toHaveBeenCalled();
+        expect(screen.getByTestId("pa-exit-state").textContent).toMatch(/Unlatching the front plate/);
+        fireEvent.click(screen.getByTestId("pa-exit-cancel"));
+        expect(mech.getPowerArmorExit()).toBeUndefined();
     });
 });

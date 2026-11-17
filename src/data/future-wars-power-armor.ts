@@ -110,3 +110,34 @@ export const POWER_ARMOR_BUILDING_EFFECTS: Record<number, Record<PowerArmorBuild
     10: { light: [1, 0], medium: [2, 1], heavy: [3, 2], hardened: [4, 3] },
     15: { light: [2, 0], medium: [3, 1], heavy: [4, 2], hardened: [5, 4] },
 };
+
+const BUILDING_NAMES: Record<PowerArmorBuildingClass, string> = { light: "Light", medium: "Medium", heavy: "Heavy", hardened: "Hardened" };
+
+/** The suit's own row of the Building Effects Table, for its sheet and roster play; empty for another tonnage. */
+export function getPowerArmorBuildingRow(tons: number): { building: string; mp: number; pilot: number }[] {
+    const row = POWER_ARMOR_BUILDING_EFFECTS[tons];
+    if (!row) return [];
+    return (Object.keys(BUILDING_NAMES) as PowerArmorBuildingClass[]).map(key => ({ building: BUILDING_NAMES[key], mp: row[key][0], pilot: row[key][1] }));
+}
+
+/**
+ * The play rules in short, for the suit's sheet and the roster's Power Armor panel (Best-of pp.14-16, rules 1-12 and
+ * the 5-ton pilot rule; our wording).
+ */
+export function getPowerArmorSheetRules(tons: number): string[] {
+    const rules = [
+        "+1 to hit this suit. A one-level target. Up to 14 suits a hex, 7 with one other unit.",
+        "It punches, kicks and charges on its own level only, and may punch infantry in its hex while standing; "
+            + "it clubs (a girder only) its own level or the one above.",
+        "A 'Mech may kick it but not punch it on its level; 'Mech physical damage uses the ranged hit table, a DFA the punch table.",
+        "Pilot: a head hit, 1 hit; head destroyed or Pilot critical in the head: killed; Pilot critical in the center torso: 1D6 hits; "
+            + "ammo explosion: 1 hit, killed if it reaches the center torso; its own failed DFA: 1 hit and a Piloting Skill Roll against another.",
+        "No ejection: unlatching takes a full turn with no moving or firing (a center torso hit meanwhile: 1D3 hits); "
+            + "alive and conscious in the End Phase, the pilot may leave the suit.",
+    ];
+    if (tons === 5) rules.push("No gyro: Piloting 3 or better; 4, +2 to every Piloting Skill Roll; 5 or worse cannot pilot it.");
+    return rules;
+}
+
+/** Cited under the rules on the sheet and in the panel. */
+export const POWER_ARMOR_RULES_CITE = "Bill Swisher, The Best of Future Wars pp.14-16";

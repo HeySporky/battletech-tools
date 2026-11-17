@@ -8,6 +8,7 @@ import {
     getMoraleBase, getOpportunityFireToHit, getStrategicMovementHeat, MALFUNCTION_DICE, MORALE_CLASSES, OpportunityFireBand, OpportunityFireTargetMove,
 } from "../../../../utils/future-wars-ruleset-tools";
 import { NumberBox } from "./_futureWarsPlay";
+import { getPowerArmorBuildingRow, getPowerArmorSheetRules, POWER_ARMOR_RULES_CITE } from "../../../../data/future-wars-power-armor";
 
 /**
  * Best of Future Wars (#172), Chunk E: the play-rule rulesets' tools in roster play, one section for each of the five
@@ -16,7 +17,7 @@ import { NumberBox } from "./_futureWarsPlay";
  */
 
 export function showFutureWarsRulesetTools(mech: BattleMech): boolean {
-    return mech.getFutureWarsPlayRulesets().length > 0;
+    return mech.getFutureWarsPlayRulesets().length > 0 || mech.usesPowerArmorConstruction();
 }
 
 interface IFutureWarsRulesetToolsProps {
@@ -221,6 +222,45 @@ const FutureWarsRulesetTools = (props: IFutureWarsRulesetToolsProps) => {
         );
     };
 
+    // Power Armor (Power Armor plan Chunk C): the app has no 'Mech physical attacks or hexes, so those rules are shown
+    // as text; the +1 to hit goes through the attacker's Target dialog, pilot criticals and explosions through the
+    // critical hit log, and the exit turn is tracked here.
+    const powerArmor = () => {
+        const tons = mech.getTonnage();
+        const exit = mech.getPowerArmorExit();
+        const pilot = mech.getPilot()?.piloting;
+        return (
+            <div data-testid="fw-tool-power-armor" className="small-text" style={{ marginBottom: "0.75em" }}>
+                <strong>Power Armor</strong>
+                <div>+1 to hit this suit: tick Power Armor in the attacker&apos;s Target dialog.</div>
+                {tons === 5 && pilot === 4 ? <div data-testid="pa-pilot">No gyro, Piloting 4: +2 to every Piloting Skill Roll.</div> : null}
+                <div data-testid="pa-building">
+                    {`Buildings (${tons} tons): `
+                        + getPowerArmorBuildingRow(tons).map((cell) => `${cell.building} ${cell.mp} MP, +${cell.pilot}`).join("; ")
+                        + " to the Piloting Skill Roll."}
+                </div>
+                <ul style={{ marginBottom: "0.25em" }}>
+                    {getPowerArmorSheetRules(tons).slice(1).map((rule) => <li key={rule}>{rule}</li>)}
+                </ul>
+                <div data-testid="pa-exit-state" className={exit ? "color-red" : ""}>
+                    {exit === "out" ? "The pilot has left the suit."
+                        : exit === "unlatching" ? "Unlatching the front plate: no moving or firing this turn; a center torso hit is 1D3 hits to the pilot. Out in the End Phase."
+                            : "The pilot is in the suit."}{" "}
+                    {exit ? (
+                        <button className="btn btn-sm btn-secondary" data-testid="pa-exit-cancel" onClick={() => { mech.cancelPowerArmorExit(); changed(); }}>
+                            {exit === "out" ? "Back in" : "Call it off"}
+                        </button>
+                    ) : (
+                        <button className="btn btn-sm btn-primary" data-testid="pa-exit" onClick={() => { mech.startPowerArmorExit(); changed(); }}>
+                            Unlatch the front plate
+                        </button>
+                    )}
+                </div>
+                <div className="text-muted">{POWER_ARMOR_RULES_CITE}.</div>
+            </div>
+        );
+    };
+
     const sections: Record<string, { title: string; body: () => React.ReactElement }> = {
         [FW_STRATEGIC_MOVEMENT]: { title: "Strategic Movement", body: strategicMovement },
         [FW_OPPORTUNITY_FIRE]: { title: "Opportunity Fire", body: opportunityFire },
@@ -232,6 +272,7 @@ const FutureWarsRulesetTools = (props: IFutureWarsRulesetToolsProps) => {
     return (
         <fieldset className="fieldset" data-testid="fw-ruleset-tools">
             <legend>Future Wars Rules</legend>
+            {mech.usesPowerArmorConstruction() ? powerArmor() : null}
             {mech.getFutureWarsPlayRulesets().map((id) => (
                 <div key={id} data-testid={`fw-tool-${id}`} className="small-text" style={{ marginBottom: "0.75em" }}>
                     <strong>{sections[id].title}</strong>

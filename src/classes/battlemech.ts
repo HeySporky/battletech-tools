@@ -309,6 +309,8 @@ export interface IFutureWarsPlayState {
     malfunctions?: Record<string, number[]>;
     /** Long Range Wars ranging: turns in a row this 'Mech has fired at the same target, -1 each (p.56). */
     ranging?: number;
+    /** A Power Armor suit's pilot getting out: unlatching the front plate this turn, then out of the suit (p.15). */
+    powerArmorExit?: "unlatching" | "out";
 }
 
 export interface IFutureWarsMoraleState {
@@ -448,6 +450,8 @@ export interface ITargetToHit {
     immobile?: boolean;
     /** The hit location an aimed shot names ("hd", "ct", "la" and so on), or unset for none. */
     aimedLocation?: string;
+    /** A Power Armor suit: +1 to hit it (The Best of Future Wars p.14; #172). */
+    powerArmor?: boolean;
 }
 
 export interface IGATOR {
@@ -6355,6 +6359,8 @@ export class BattleMech {
                 state.boostedThisTurn = false;
             }
         }
+        // The pilot who spent the turn unlatching the plate leaves the suit in the End Phase (Best-of p.15, rule 12).
+        if( play.powerArmorExit === "unlatching" ) play.powerArmorExit = "out";
         delete play.boostedRunHexes;
         delete play.pendingHeat;
         delete play.strategicMovement;
@@ -6480,12 +6486,31 @@ export class BattleMech {
      */
     public getFutureWarsRulesetNoFire(uuid: string | undefined): string | undefined {
         const play = this.futureWarsPlay;
+        if( play.powerArmorExit === "out" ) return "The pilot has left the suit (Power Armor, The Best of Future Wars p.15).";
+        if( play.powerArmorExit === "unlatching" ) return "No moving or firing while unlatching the front plate (Power Armor, The Best of Future Wars p.15).";
         if( play.strategicMovement ) return "No firing while using Strategic Movement (The Best of Future Wars p.18).";
         const status = play.morale?.status;
         if( status?.fire === "none" ) return "No firing while " + status.kind + " (morale, The Best of Future Wars p.24).";
         if( uuid && play.opportunityShot === uuid ) return "This weapon took its opportunity shot this turn (The Best of Future Wars p.17).";
         if( uuid && this.getWeaponMalfunction(uuid)?.out ) return "Out of action from a malfunction (The Best of Future Wars p.29).";
         return undefined;
+    }
+
+    // --- Power Armor in play (#172, Power Armor plan Chunk C; Best-of pp.14-15).
+
+    /** Where the suit's pilot is in getting out: unlatching this turn, out of the suit, or undefined (inside). */
+    public getPowerArmorExit(): "unlatching" | "out" | undefined {
+        return this.futureWarsPlay.powerArmorExit;
+    }
+
+    /** "The pilot must unlatch a plate ... this process takes one full turn" (p.15, rule 12); a suit only. */
+    public startPowerArmorExit(): void {
+        if( this.usesPowerArmorConstruction() ) this.futureWarsPlay.powerArmorExit = "unlatching";
+    }
+
+    /** Called off before the End Phase: the pilot stays in. */
+    public cancelPowerArmorExit(): void {
+        delete this.futureWarsPlay.powerArmorExit;
     }
 
     /** The play rulesets' to-hit modifiers on a weapon that may fire, with labels. */
@@ -7369,6 +7394,16 @@ export class BattleMech {
      * location with CASE vents it; damage over the edition's cap may strip armor where it stops. Returns the log lines.
      */
     private _onSlotHit(location: string, slot: ICriticalSlot | null | undefined): string[] {
+        const powerArmor = this.usesPowerArmorConstruction();
+        // A Power Armor suit's pilot: a critical in the head kills, in the center torso 1D6 hits (Best-of p.15, rules
+        // 9-10; #172). Ours: logged for the player to mark, as other pilot hits are.
+        if (powerArmor && slot?.name === "Pilot") {
+            if (location === "hd") return ["The pilot is killed (Power Armor, The Best of Future Wars p.15)."];
+            if (location === "ct") {
+                const hits = 1 + Math.floor(Math.random() * 6);
+                return [`The pilot takes 1D6 = ${hits} hits: mark them on the Hits track (Power Armor, The Best of Future Wars p.15).`];
+            }
+        }
         // Liao Inferno Gauss shells burn rather than explode: 30 heat (20 with CASE) and 1 a shell (The Best of Future
         // Wars p.11). The shells are spent; there is no damage. An empty bin does not ignite, as spent ammunition does
         // not explode (TW p.125).
@@ -7393,7 +7428,15 @@ export class BattleMech {
         if (!explosion?.baseDamage) return [];
         for (const item of bins) item.currentAmmo = 0;
         const vents = (at: string) => this._ammoExplosionProtection(at) !== "none";
+        const centerTorsoLost = () => Array.from({ length: 40 }, (_, index) => this.structureDamaged("ct", index)).filter(Boolean).length;
+        const centerTorsoBefore = centerTorsoLost();
         this.takeDamage(explosion.damage, location, false, { structureOnly: true, ventAt: vents });
+        // A suit's pilot takes 1 hit, or is killed when the blast reaches the center torso: "the blast came from INSIDE
+        // the armor" (Best-of p.15, rule 11; #172).
+        const pilotLog = !powerArmor ? explosion.log
+            : location === "ct" || centerTorsoLost() > centerTorsoBefore
+                ? ["The explosion reaches the center torso: the pilot is killed (Power Armor, The Best of Future Wars p.15)."]
+                : ["The pilot takes 1 hit (Power Armor, The Best of Future Wars p.15)."];
         let at = location;
         while (!this._locationHasStructure(at) && !vents(at) && at !== "ct" && at !== "hd") at = this._moveDamageLocationIn(at, false);
         const excess = explosion.baseDamage - explosion.damage;
@@ -7406,7 +7449,7 @@ export class BattleMech {
             this._calc();
         }
         const vented = protection === "none" ? [] : [`${protection === "case" ? "CASE" : "CASE II"} vents the rest.`];
-        return [`${bins.map(item => item.name).join(", ")} explode${bins.length > 1 ? "" : "s"} for ${explosion.baseDamage} damage.`, ...vented, ...explosion.log];
+        return [`${bins.map(item => item.name).join(", ")} explode${bins.length > 1 ? "" : "s"} for ${explosion.baseDamage} damage.`, ...vented, ...pilotLog];
     }
 
     /** A head or limb blown off: its armor and internal structure are gone. */
@@ -9506,7 +9549,9 @@ export class BattleMech {
             return (this.isTripod() ? -1 : 0) + (this.hasActiveModularArmor() ? 1 : 0) + this.getFrankenMechLegPilotingModifier()
                 + (this.isEnhancedImagingActive() ? -1 : 0)
                 // Torso-Mounted Cockpit, blinded: three sensor hits, or two both in the head (TO:AUE p.113).
-                + (this.getCockpitType().tag === "torso-mounted" && (this.sensorHits() >= 3 || this.sensorHits(["hd"]) >= 2) ? 4 : 0);
+                + (this.getCockpitType().tag === "torso-mounted" && (this.sensorHits() >= 3 || this.sensorHits(["hd"]) >= 2) ? 4 : 0)
+                // A 5-ton Power Armor suit has no gyro: a pilot of Piloting 4 is +2 on every roll (Best-of p.16; #172).
+                + (this._isFiveTonPowerArmor() && this._pilot.piloting === 4 ? 2 : 0);
         }
 
         public ignoresSecondaryTargetModifier(): boolean {

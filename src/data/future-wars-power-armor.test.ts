@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
     FW_POWER_ARMOR_RULESET, POWER_ARMOR_BUILDING_EFFECTS, POWER_ARMOR_FIVE_TON_STRUCTURE, POWER_ARMOR_FIVE_TON_WEAPONS,
     POWER_ARMOR_TONNAGES, POWER_ARMOR_WALDO, getPowerArmorShieldingWeight, getPowerArmorSlots, isPowerArmorTonnage,
-    needsPowerArmorShielding,
+    needsPowerArmorShielding, getPowerArmorBuildingRow, getPowerArmorSheetRules,
 } from "./future-wars-power-armor";
 import { findSpecialRuleset, getRulesetConflict } from "./special-rulesets";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
@@ -59,6 +59,24 @@ describe("Power Armor tables (Best-of pp.14-16, Future Wars #14 pp.43-45)", () =
             10: { light: [1, 0], medium: [2, 1], heavy: [3, 2], hardened: [4, 3] },
             15: { light: [2, 0], medium: [3, 1], heavy: [4, 2], hardened: [5, 4] },
         });
+    });
+
+    it("gives the sheet one row of the Building Effects Table, the suit's own", () => {
+        expect(getPowerArmorBuildingRow(5)).toEqual([
+            { building: "Light", mp: 1, pilot: 0 }, { building: "Medium", mp: 2, pilot: 0 },
+            { building: "Heavy", mp: 2, pilot: 1 }, { building: "Hardened", mp: 3, pilot: 2 },
+        ]);
+        expect(getPowerArmorBuildingRow(15).map(cell => `${cell.mp}/${cell.pilot}`)).toEqual(["2/0", "3/1", "4/2", "5/4"]);
+        expect(getPowerArmorBuildingRow(20)).toEqual([]);
+    });
+
+    it("prints the play rules on the sheet, the no-gyro pilot rule on a 5-ton suit only", () => {
+        const ten = getPowerArmorSheetRules(10);
+        expect(ten[0]).toMatch(/^\+1 to hit this suit/);
+        expect(ten.join(" ")).toMatch(/Pilot critical in the center torso: 1D6 hits/);
+        expect(ten.join(" ")).toMatch(/1D3 hits/);
+        expect(ten.join(" ")).not.toMatch(/No gyro/);
+        expect(getPowerArmorSheetRules(5).at(-1)).toMatch(/^No gyro: Piloting 3 or better; 4, \+2 to every Piloting Skill Roll/);
     });
 });
 

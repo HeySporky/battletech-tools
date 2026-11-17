@@ -113,6 +113,8 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     // clickFunction={this.to}
                 />
 
+                {/* A 5-ton Power Armor suit has no gyro (Best-of p.16), so no Gyro Hits boxes. */}
+                {this.props.mechData.getGyro().tag === "none" ? null : <>
                 <text
 
                     x={this.props.xLoc + textRightLine}
@@ -146,6 +148,7 @@ export default class ComponentDamageSVG extends React.Component<IComponentDamage
                     bgColorFilled={"rgb(200,0,0)"}
                     // clickFunction={this.to}
                 />
+                </>}
 
                 <text
 
