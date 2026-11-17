@@ -179,13 +179,14 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
-                      <strong>November 17th, 2026</strong> - Power Armor in the 'Mech Creator, on the record sheet and in play
+                      <strong>November 17th, 2026</strong> - Power Armor in the 'Mech Creator, on the record sheet and in play; a new Special Rulesets window
                     </h3>
                     <h4>Author - NGCFells</h4>
                       <ul>
                         <li><strong>Future Wars: Power Armor.</strong> Bill Swisher's "poor man's BattleMech" from Future Wars #14 (reprinted in The Best of Future Wars) is a Special Ruleset at the Custom Homebrew level. Tick it in step 1 and the 'Mech Creator builds a suit of 5, 10 or 15 tons: six slots a location, a half-ton waldo system in place of the cockpit, no gyro at 5 tons, and a 5-ton suit carries only flamers, machine guns and small lasers. Step 6 lists what the rules leave wrong. Inner Sphere only. Fan-made, NOT OFFICIAL; where the article is silent the rulings are ours (issue #172).</li>
                         <li><strong>Power Armor record sheet.</strong> A suit's record sheet is titled Power Armor. It shows six lines a location with the Pilot in the waldo's slots, and a box with the suit's row of the Building Effects Table and its play rules in short. A 5-ton suit has no Gyro Hits.</li>
                         <li><strong>Power Armor in play.</strong> Tick Power Armor in the Target dialog for +1 to hit a suit. A Pilot critical in the head kills the pilot; one in the center torso rolls 1D6 hits. An ammunition explosion is 1 hit, or kills the pilot if it reaches the center torso. A 5-ton suit's Piloting 4 pilot takes +2 on every Piloting Skill Roll. The Future Wars panel in roster play lists the suit's building costs and rules, and a button unlatches the front plate so the pilot can leave the suit. Punches, kicks and death from above are shown as rules text; apply them by hand. Fan-made, NOT OFFICIAL (Bill Swisher, The Best of Future Wars pp.14-16; issue #172).</li>
+                        <li><strong>Special Rulesets window.</strong> The window is now a checklist grouped by Construction, Play, Campaign &amp; Economics and Setting, with each ruleset's source and a one-line summary. Search it, filter it by source, hide what cannot be ticked, or show only what is ticked. A greyed-out ruleset says why (for example, two rulesets that change 'Mech construction). More info opens a ruleset's full description, tables, source and author in the same window (issue #324).</li>
                       </ul>
                   </li>
                   <li>
