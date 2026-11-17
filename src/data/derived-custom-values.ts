@@ -111,6 +111,8 @@ interface IEraRuling {
     reintroduced?: number | null;
     /** The day of the owner's ruling, if not 2026-11-16. */
     date?: string;
+    /** Who settled it, if not an owner ruling (an era review that read the original article). */
+    by?: string;
     note: string;
 }
 
@@ -123,6 +125,23 @@ export const ERA_RULINGS: Record<string, IEraRuling> = {
         date: "2026-11-17", prototype: 3025, introduced: 3028, extinct: null,
         note: "it boosts the Gatling Laser and so follows its dates: prototype 3025, in service 3028 (our year).",
     },
+    ...Object.fromEntries([2, 5, 10, 20].map((size) => [`custom-pom-pom-ac-${size}`, {
+        by: "era review of the original article", date: "2026-11-17", techBase: "is", introduced: 3025, extinct: null,
+        note: "Future Wars #11 draws the Krupp Rapid Fire Auto Cannon only on a lost-plans super-assault design that was never built; the Best of Future Wars (p.27) says House Marik 'has finally come up with a system that is fairly reliable' after long work, "
+            + "fitted to Riflemen and an Atlas variant. So it is an Inner Sphere, House Marik field modification of the Succession Wars, in service at the 3025 baseline (our year); never extinct.",
+    } as IEraRuling])),
+    ...Object.fromEntries(["custom-penitrator", "ammo-custom-penitrator-standard"].map((tag) => [tag, {
+        by: "era review of the original article", date: "2026-11-17", techBase: "is", introduced: 3025, extinct: null,
+        note: "Future Wars #3 (Nov 1987, 'Mech War Times) has the Silveradoes of the 113th Regiment capture it on Glow, a moon of Harvest: 'only House Steiner has these weapons'; the 1991 reprint says the Federated Commonwealth. A Steiner, Inner Sphere weapon of the 3025 baseline; never extinct.",
+    } as IEraRuling])),
+    ...Object.fromEntries([2, 5, 10, 20].map((size) => [`ammo-ac-${size}-sabot`, {
+        by: "era review of the original article", date: "2026-11-17", techBase: "is", introduced: 3025, extinct: null,
+        note: "Future Wars #15 (C. Tomaszewski) presents it as a way to 'kick Goliath where it counts' against the super-assault 'Mechs of the 3025 setting; Future Wars #32 (Gargoyle Industries, p.17) says independent researchers developed it and Gargoyle licensed, produced and marketed it in the early Clan war. An Inner Sphere round, introduced 3025 (our year), never extinct.",
+    } as IEraRuling])),
+    ...Object.fromEntries(["ppc", "large-laser", "medium-laser", "small-laser", "running", "jumping"].map((kind) => [`custom-power-booster-${kind}`, {
+        by: "era review of the original article", date: "2026-11-17", introduced: 3025, extinct: null,
+        note: "Future Wars #14 (Karl Sanders) prints it with the Hellborer and the Gatling Laser in the super-assault 'Mech series, and the Gatling Laser it also boosts is a 3025 prototype; so the booster is a Succession Wars item at the 3025 baseline (our year), never extinct.",
+    } as IEraRuling])),
     "custom-smoker": {
         techBase: "universal", introduced: 1950, extinct: null,
         note: "very old, simple tech that has never gone out of style: a tank of oil and a nozzle, found in the 'Mech parks of the Inner Sphere and the Clans alike. Introduced 1950, never extinct (the vehicle flamer's dates).",
@@ -295,7 +314,7 @@ export function applyDerivedValues(items: IEquipmentItem[]): IEquipmentItem[] {
             for (const field of ["prototype", "introduced", "extinct", "reintroduced"] as const) {
                 if (field in ruling) (item as unknown as Record<string, number | null | undefined>)[field] = ruling[field];
             }
-            item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Era (owner ruling, ${ruling.date ?? "2026-11-16"}): ${ruling.note}`;
+            item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Era (${ruling.by ?? "owner ruling"}, ${ruling.date ?? "2026-11-16"}):${ruling.note}`;
         }
         const dating = DATING_RULES[item.tag];
         if (dating) applyDating(item, dating, byTag);

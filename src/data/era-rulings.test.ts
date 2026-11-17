@@ -4,6 +4,7 @@ import { ballisticCustom } from "./ballistic-custom";
 import { energyCustom } from "./energy-custom";
 import { equipmentEnergy } from "./equipment-energy";
 import { miscCustom } from "./misc-custom";
+import { missileCustom } from "./missile-custom";
 import { IEquipmentItem } from "./data-interfaces";
 
 // The owner's era rulings of 2026-11-16: where and when each of these items belongs in the setting, and why.
@@ -80,6 +81,24 @@ describe("era rulings", () => {
         expect(pds.notes).toContain("Tikonov");
         expect(pds.notes).toContain("JumpShips");
         expect(dates(record("ammo-custom-eii-pds-standard")).prototype).toBe(3028);
+    });
+
+    it("era review of the original articles: Pom-Pom (Marik), Penitrator (Steiner), SABOT (Gargoyle) are Inner Sphere 3025 items; the boosters are 3025", () => {
+        const every: IEquipmentItem[] = [...all, ...missileCustom];
+        const find = (tag: string) => every.find((item) => item.tag === tag);
+        for (const tag of ["custom-pom-pom-ac-2", "custom-pom-pom-ac-20", "custom-penitrator", "ammo-custom-penitrator-standard", "ammo-ac-5-sabot", "ammo-ac-10-sabot"]) {
+            const item = find(tag);
+            expect(item, tag).toBeDefined();
+            expect(item!.techBase, tag).toBe("is");
+            expect(item!.introduced, tag).toBe(3025);
+            expect(item!.notes, tag).toContain("Era (era review of the original article, 2026-11-17)");
+        }
+        expect(find("custom-pom-pom-ac-10")!.notes).toContain("House Marik");
+        expect(find("custom-penitrator")!.notes).toContain("only House Steiner");
+        expect(find("ammo-ac-20-sabot")!.notes).toContain("Gargoyle");
+        for (const kind of ["ppc", "large-laser", "medium-laser", "small-laser", "running", "jumping"]) {
+            expect(find(`custom-power-booster-${kind}`)!.introduced, kind).toBe(3025);
+        }
     });
 
     it("Gatling Laser and its Power Booster: field-tested 3025, in service 3028, never extinct", () => {
