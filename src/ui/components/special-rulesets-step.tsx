@@ -1,7 +1,8 @@
 import React, { useState, type JSX } from 'react';
 import { RulesEditionUnitType } from '../../data/rules-editions';
-import { getRulesetConflict, getSpecialRulesets, UNIT_TYPE_PLURALS } from '../../data/special-rulesets';
-import FutureWarsRulesReference from './future-wars-rules-reference';
+import { RulesetCategory } from '../../data/special-rulesets';
+import { EMPTY_RULESET_FILTER, IRulesetListFilter } from '../../utils/ruleset-list';
+import RulesetList from './special-rulesets/ruleset-list';
 import StandardModal from './standard-modal';
 
 /**
@@ -18,6 +19,9 @@ export default function SpecialRulesetsStep(props: {
     onToggle: (ids: string[]) => void;
 }): JSX.Element {
     const [windowOpen, setWindowOpen] = useState(false);
+    // The list's search, filters and folded groups last while the step is on the page.
+    const [filter, setFilter] = useState<IRulesetListFilter>(EMPTY_RULESET_FILTER);
+    const [openGroups, setOpenGroups] = useState<Partial<Record<RulesetCategory, boolean>>>({});
     const using = props.rulesets.length > 0 || windowOpen;
 
     const choose = (value: string): void => {
@@ -46,32 +50,16 @@ export default function SpecialRulesetsStep(props: {
 
             <StandardModal show={windowOpen} title="Special Rulesets" className="modal-xl" onClose={() => setWindowOpen(false)}>
                 {props.notice ? <p className="smaller-text">{props.notice}</p> : null}
-                {getSpecialRulesets().map((ruleset) => {
-                    const ticked = props.rulesets.includes(ruleset.id);
-                    const clash = ticked ? undefined : getRulesetConflict(props.rulesets, ruleset.id);
-                    const removesThis = !ticked && !!props.unitType && !!ruleset.removesUnitTypes?.includes(props.unitType);
-                    return (
-                        <div key={ruleset.id}>
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    checked={ticked}
-                                    disabled={!!clash || removesThis}
-                                    aria-describedby={"ruleset-about-" + ruleset.id}
-                                    onChange={() => props.onToggle([ruleset.id])}
-                                />{" "}
-                                {ruleset.name}
-                            </label>
-                            <p className="smaller-text" id={"ruleset-about-" + ruleset.id}>
-                                {ruleset.description}{" "}
-                                Source: {ruleset.source.url ? <a href={ruleset.source.url} target="_blank" rel="noopener noreferrer">{ruleset.source.title}</a> : ruleset.source.title}.
-                                {clash ? <span className="color-red"> Clashes with {clash.name}.</span> : null}
-                                {removesThis && props.unitType ? <span className="color-red"> {UNIT_TYPE_PLURALS[props.unitType]} do not exist under this ruleset.</span> : null}
-                            </p>
-                            <FutureWarsRulesReference rulesetId={ruleset.id} />
-                        </div>
-                    );
-                })}
+                <RulesetList
+                    tickedIds={props.rulesets}
+                    unitType={props.unitType}
+                    filter={filter}
+                    onFilter={setFilter}
+                    openGroups={openGroups}
+                    onGroupToggle={(category, open) => setOpenGroups((groups) => ({ ...groups, [category]: open }))}
+                    onToggle={props.onToggle}
+                    onMoreInfo={() => undefined}
+                />
             </StandardModal>
         </>
     );
