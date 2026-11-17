@@ -52,6 +52,8 @@ export const DERIVATION_RULES: Record<string, DerivationRule> = {
     "custom-fusion-lance": { kind: "fusion-lance" },
     // Physical weapons.
     "custom-pile-bunker": { kind: "melee" },
+    "custom-plasma-lance": { kind: "melee" },
+    "custom-pilebunker-xenosama": { kind: "melee" },
     "ammo-custom-pile-bunker-standard": { kind: "ammo-of-weapon", weaponBattleValue: meleeBattleValue(15) },
     // Launchers of 8 and 10 tubes.
     ...Object.fromEntries(([["srm", "srm"], ["srt", "srt"], ["streak-srm", "streak-srm"], ["streak-srt", "streak-srm"]] as const).flatMap(([name, family]) =>
@@ -156,6 +158,8 @@ export const DATING_RULES: Record<string, IDating> = {
     "custom-fusion-lance": { rating: { like: "heavy-ppc" }, why: "the post gives none, and an energy weapon of its heat rates as the canon Heavy PPC" },
     "custom-omni-laser": { rating: { like: "risc-hyper-laser" }, why: "the post gives none, and it is introduced in the 3150s, the age of the RISC Hyper Laser, so its rating" },
     "custom-disruptor": { rating: { like: "large-laser" }, why: "the catalog already gives it the Standard Large Laser's dates, so its rating" },
+    "custom-plasma-lance": { rating: { like: "risc-hyper-laser" }, why: "the post gives none, and it is introduced in 3138, the age of the RISC Hyper Laser, so its rating" },
+    "custom-pilebunker-xenosama": { rating: { like: "risc-hyper-laser" }, why: "the post gives none, and it is introduced in 3138, the age of the RISC Hyper Laser, so its rating" },
     "custom-pile-bunker": { rating: { like: "pile-driver" }, why: "the catalog already gives it the Heavy-Duty Pile Driver's dates, so its rating" },
     "ammo-custom-pile-bunker-standard": { rating: { like: "pile-driver" }, why: "it follows the Pile Bunker, which follows the Heavy-Duty Pile Driver" },
     "custom-null-signature-system": { rating: { like: "null-signature-system" }, why: "it is a fan version of the canon Null Signature System" },
