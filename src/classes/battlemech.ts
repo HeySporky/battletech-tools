@@ -1093,6 +1093,7 @@ export class BattleMech {
                 engineModifier = 0.75;
                 break;
             case "xl":
+            case BattleMech.RFE_TAG: // Lost with a side torso as an XL engine is (ours, #267)
                 engineModifier = 0.5; // IS XL (TM p.302)
                 break;
             case "xxl":
@@ -1751,7 +1752,7 @@ export class BattleMech {
         // structure counts double and composite half (Maximum Tech pp.91-92).
         const engineTag = (this.getLargeEngineType() ?? this._engineType).tag;
         const levelThreeEngine = levelThree?.engines[engineTag];
-        const engineFactor = levelThreeEngine ?? ({ xl: 0.75, light: 1.125, clan_xl: 1.125 } as Record<string, number>)[this._engineType.tag] ?? 1.5;
+        const engineFactor = levelThreeEngine ?? ({ xl: 0.75, light: 1.125, clan_xl: 1.125, [BattleMech.RFE_TAG]: 0.75 } as Record<string, number>)[this._engineType.tag] ?? 1.5;
         const structureTypeFactor = levelThree ? ({ reinforced: 2, composite: 0.5 } as Record<string, number>)[this.getInternalStructureType()] ?? 1 : 1;
         const structureFactor = engineFactor * structureTypeFactor;
         // Hardened armor points count x 4, patchwork ones too (Maximum Tech pp.90-91).
@@ -2467,6 +2468,10 @@ export class BattleMech {
                 const fractionalWeight = getFractionalEngineWeight(weightTag, this._engine.weight.standard);
                 if( fractionalWeight !== null ) return fractionalWeight;
             }
+            // A third lighter than the standard engine of the rating, to the half ton up (u/Bookwyrm517, #267).
+            if( this._engineType.tag === BattleMech.RFE_TAG ) {
+                return Math.ceil(this._engine.weight.standard * 0.67 * 2) / 2;
+            }
             switch( weightTag ) {
                 case "standard": {
                     // An earlier edition's own Engine Table (Battledroids prints the 170 at 6.5 tons).
@@ -2515,11 +2520,17 @@ export class BattleMech {
      * rating (u/VanillaPhysics, #249); every other type reads its own column.
      */
     public static getEngineWeightTag(engineTag: string): string {
-        return engineTag === BattleMech.MINI_ENGINE_TAG ? "light" : engineTag;
+        if( engineTag === BattleMech.MINI_ENGINE_TAG ) return "light";
+        // The Re-Engineered Fusion Engine is worked out from the standard engine (a third off).
+        if( engineTag === BattleMech.RFE_TAG ) return "standard";
+        return engineTag;
     }
 
     /** Custom Homebrew Mini Engine (mech-custom-engine-types.ts, #249). */
     public static readonly MINI_ENGINE_TAG = "mini-engine";
+
+    /** Custom Homebrew Re-Engineered Fusion Engine (mech-custom-engine-types.ts, #267). */
+    public static readonly RFE_TAG = "re-engineered-fusion";
 
     public getEngineRating() {
         if( this._engine && this._engine.rating)
@@ -2551,6 +2562,7 @@ export class BattleMech {
             case "clan_xxl":
                 return large ? "clanLargeXxl" : "clanXxl";
             case "xl":
+            case BattleMech.RFE_TAG:
                 return "isXl";
             case "light":
                 return large ? "isXl" : "isLight";
@@ -8744,6 +8756,8 @@ export class BattleMech {
         if (this._engineType.tag === BattleMech.MINI_ENGINE_TAG && (this.isSuperheavy() || this.isLargeEngine())) {
             // The post (#249) covers neither, so we do not build them.
             violations.push("The Mini Engine is not built above a rating of 400 or for superheavy 'Mechs.");
+        } else if (this._engineType.tag === BattleMech.RFE_TAG && (this.isSuperheavy() || this.isLargeEngine())) {
+            violations.push("The Re-Engineered Fusion Engine is not built above a rating of 400 or for superheavy 'Mechs.");
         } else if (!this._isSuperheavyLegalEngine(this._engineType.tag)) {
             violations.push(this.isIndustrialMech()
                 ? "Superheavy IndustrialMechs may use only standard fusion engines."
@@ -11640,6 +11654,7 @@ export class BattleMech {
                     && (!custom || rulesLevel >= CUSTOM_HOMEBREW_RULES_LEVEL)
                     // The Mini Engine's post covers neither large engines nor superheavies (#249).
                     && (engine.tag !== BattleMech.MINI_ENGINE_TAG || (!large && !this.isSuperheavy()))
+                    && (engine.tag !== BattleMech.RFE_TAG || (!large && !this.isSuperheavy()))
                     && this._isSuperheavyLegalEngine(engine.tag)
                     && this._isChassisLegalEngine(engine.tag)
                     && (!this._isNonFusionBattleMechEngine(engine.tag) || rulesLevel >= this._nonFusionBattleMechRulesLevel())

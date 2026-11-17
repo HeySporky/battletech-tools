@@ -325,6 +325,33 @@ const energyCustomBase: IEquipmentItem[] = [
         shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE", "E"], techRating: "x", book: "Reddit u/heavyarmormecha", page: 0, rulesLevel: 6,
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     },
+    {
+        name: "Superheavy PPC", tag: "custom-superheavy-ppc", techBase: "universal", catalog: "custom", sort: "ppc, 3, superheavy", category: "Energy Weapons",
+        notes: "Custom Homebrew by u/FedditSuns, 'Custom Weapon Feedback: Superheavy PPC', r/battletech (https://www.reddit.com/r/battletech/comments/1bhfssf/). "
+            + "From the post: 13 tons, 5 slots, 20 heat, 20 damage, range 3/6/12/18, aerospace range medium, Battle Value 422, cost 300,000 C-Bills. "
+            + "Inspired by: u/FedditSuns. Not given in the post, so ours: the tech base is left universal and the dates and tech rating are unverified.",
+        damage: 20, damageAero: 20, accuracyModifier: 0, cbills: 300000, introduced: null, extinct: null, reintroduced: null, battleValue: 422, heat: 20, heatAero: 20, weight: 13,
+        range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 5, protomech: -1, combatVehicle: 5, supportVehicle: 5, aerospaceFighter: 5, smallCraft: -1, dropShip: -1 },
+        shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], rangeAero: "m", techRating: "x", book: "Reddit u/FedditSuns", page: 0, rulesLevel: 6,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
+    },
+    {
+        name: "Fusion Lance", tag: "custom-fusion-lance", techBase: "universal", catalog: "custom", sort: "lance, fusion", category: "Energy Weapons",
+        notes: "Custom Homebrew by u/Magical_Savior, 'Weapon Idea - Fusion Lance', r/battletech (https://www.reddit.com/r/battletech/comments/1mhvhwp/). "
+            + "The first draft was 5 damage per 100 of engine rating; u/sokttocs called it too weak for 30 heat and 3 hexes, and the author replied with the revised damage used here. "
+            + "From the post: 4 tons, 2 slots, 30 heat, a 3-hex attack range. "
+            + "Inspired by: u/Magical_Savior, u/sokttocs. Not given in the post, so ours: the record's damage is the smallest the formula gives (15, for an engine rated 100 or less) "
+            + "because a record holds one number; the rules text carries the formula. Range is read as 1 / 2 / 3 hexes for the weapon's 3-hex reach with its 5-a-hex falloff. "
+            + "Battle Value and cost are unverified, 0; dates and tech rating are unverified. The Engine-slot mounting is not enforced by the builder.",
+        rules: "Mounted only where there are Engine critical slots. Activating it costs 30 heat; its attack reaches 3 hexes. Damage is 10 plus 5 for each 100 of "
+            + "engine rating or part of 100 (15 at the least, 30 at the most), less 5 for each hex after the first, and it does full damage to infantry. "
+            + "Each activation needs a Supercharger roll, and activations stack with a mounted Supercharger. A failed roll is a critical hit on the topmost engine slot, "
+            + "applied at once. Each engine hit takes 5 off the damage.",
+        damage: 15, damageAero: 15, accuracyModifier: 0, cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 30, heatAero: 30, weight: 4,
+        range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "x", book: "Reddit u/Magical_Savior", page: 0, rulesLevel: 6,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
+    },
     // The Best of Future Wars, Volume One (1991), Chunk A of the fanzine plan (#172). Custom Homebrew: fan material. Heat, Battle Value,
     // dates and tech rating are left unverified where the article's stat block gives none.
     {

@@ -52,5 +52,41 @@ export const mechCustomEngineTypes: IEngineType[] = [
 			+ "running heat needs; the saving grows with larger engines. Why engine modifier 1.0: the modifier prices losing "
 			+ "the engine with a side torso, and this engine has no side torso slots; its higher heat is already charged "
 			+ "through heat efficiency."
+	},
+	{
+		// r/battletech post 1iky8lg (#267). Weight is a third under the standard engine's (battlemech.ts: getEngineWeight);
+		// the three side torso slots make hasXLEngine() true, so a lost side torso destroys it.
+		name: "Re-Engineered Fusion Engine",
+		alternateName: "RFE",
+		tag: "re-engineered-fusion",
+		rulesLevel: 6,
+		techBase: "is",
+		editions: [],
+		criticals: {
+			is: { ct: 3, lt: 3, rt: 3 }
+		},
+		// Not given in the post: cost and dates. Ours: the light engine's dates, the XL engine's cost.
+		costMultiplier: 20000,
+		introduced: 3062,
+		extinct: null,
+		reintroduced: null,
+		rating: 0,
+		book: "https://www.reddit.com/r/battletech/comments/1iky8lg/",
+		page: 0,
+		notes: "Custom Homebrew by u/Bookwyrm517, 'Feedback for a custom engine type', r/battletech: "
+			+ "https://www.reddit.com/r/battletech/comments/1iky8lg/. From the post: 33% lighter than a standard engine; three "
+			+ "slots in each side torso and three in the center torso, which frees three center torso slots as a compact engine does; "
+			+ "it is destroyed if a side torso is lost, which the author kept on purpose so it does not outlast a light engine. "
+			+ "The post asks for feedback and leaves open a way to survive a side torso loss for a time; none is adopted here. "
+			+ "Side ideas from the replies, not adopted: u/FweeCom suggested a side benefit such as more heat sinks in the engine or "
+			+ "movement that builds no heat, and u/MasonStonewall engine rating divided by 20 heat sinks. "
+			+ "Inspired by: u/Bookwyrm517. Ours, not in the post: the weight is 0.67 of the standard engine's, rounded up to the half ton; "
+			+ "heat is a standard engine's; it takes three engine hits to destroy, as every fusion engine; Battle Value and Alpha Strike "
+			+ "count it as an XL engine (engine modifier 0.5); cost is the XL engine's and the dates are the light engine's; it is not "
+			+ "offered above a rating of 400 or on superheavy 'Mechs, which the post does not cover. "
+			+ "Owner's observation (2026-11-16), not the author's: the freed center torso slots make it a good match for tripods and for "
+			+ "'Mechs with a center torso cockpit, which are short of center torso space. "
+			+ "Why Custom Homebrew and not Munchkin: against an XL engine it is heavier and takes more slots; against a light engine it is "
+			+ "lighter but dies with a side torso, so it trades survival for weight and center torso room."
 	}
 ];

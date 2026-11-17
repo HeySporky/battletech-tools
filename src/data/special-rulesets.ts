@@ -128,6 +128,20 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         changes: ["weaponRanges"],
     },
     {
+        id: "tandem-charge-srm-house-rule",
+        name: "House rule: Tandem Charge SRMs (u/Magical_Savior)",
+        description: "An alternate rule for the existing Tandem-Charge SRM ammunition, which its author finds far too strong for its Battle Value. "
+            + "A ton holds half the rounds, rounded up. Each attack gets one free critical check, as armor-piercing rounds do, by launcher size: "
+            + "roll 2D6 once, at the first location hit, for each launcher; a critical hit on a 12 for a launcher of 2 or 3 tubes, an 11 for 4 or 5, "
+            + "a 10 for 6 or 7, and a 9 for the MML-9. Against vehicles and battle armor, which are critically hit automatically, one critical hit comes "
+            + "for every 3 missiles, as with Infernos. Against Hardened armor and Ferro-Lamellor armor the rounds get no critical check. "
+            + "Inspired by: u/Magical_Savior. Ours, not in the post: the launcher sizes are read from its grouped lines (size /2 (3), /4 (5), /6 (7)) as 2-3, 4-5 and 6-7 tubes, "
+            + "and the rule is recorded as text only, so a ton still holds the ammunition's printed rounds in the builder.",
+        source: { title: "u/Magical_Savior, 'Tandem Charge SRM - House Rules', r/battletech", url: "https://www.reddit.com/r/battletech/comments/1jamkvn/" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["tandemChargeSrm"],
+    },
+    {
         id: "sample-no-clans",
         name: "Sample: The Clans never existed (alternate universe)",
         description: "A sample alternate universe in which the Clans never formed: no Clan or Mixed tech. A placeholder until real rulesets are added.",
