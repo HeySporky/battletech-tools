@@ -81,4 +81,12 @@ describe("era rulings", () => {
         expect(pds.notes).toContain("JumpShips");
         expect(dates(record("ammo-custom-eii-pds-standard")).prototype).toBe(3028);
     });
+
+    it("Gatling Laser and its Power Booster: field-tested 3025, in service 3028, never extinct", () => {
+        for (const tag of ["custom-gatling-laser", "custom-power-booster-gatling-laser"]) {
+            const found = [...energyCustom, ...miscCustom].find((item) => item.tag === tag);
+            expect(found, tag).toBeDefined();
+            expect(dates(found!), tag).toEqual({ prototype: 3025, introduced: 3028, extinct: null, reintroduced: null });
+        }
+    });
 });

@@ -109,10 +109,20 @@ interface IEraRuling {
     introduced?: number | null;
     extinct?: number | null;
     reintroduced?: number | null;
+    /** The day of the owner's ruling, if not 2026-11-16. */
+    date?: string;
     note: string;
 }
 
 export const ERA_RULINGS: Record<string, IEraRuling> = {
+    "custom-gatling-laser": {
+        date: "2026-11-17", prototype: 3025, introduced: 3028, extinct: null,
+        note: "Future Wars #8 (the 'New Technology' column, Karl Sanders) has it 'being tested in the field right now', a Charger refit the example, so we date the prototype 3025; by Future Wars #12, whose cover is the Fourth Succession War, 'Mechs and VTOLs carry it, so it enters service in 3028 (our year). Never extinct.",
+    },
+    "custom-power-booster-gatling-laser": {
+        date: "2026-11-17", prototype: 3025, introduced: 3028, extinct: null,
+        note: "it boosts the Gatling Laser and so follows its dates: prototype 3025, in service 3028 (our year).",
+    },
     "custom-smoker": {
         techBase: "universal", introduced: 1950, extinct: null,
         note: "very old, simple tech that has never gone out of style: a tank of oil and a nozzle, found in the 'Mech parks of the Inner Sphere and the Clans alike. Introduced 1950, never extinct (the vehicle flamer's dates).",
@@ -285,7 +295,7 @@ export function applyDerivedValues(items: IEquipmentItem[]): IEquipmentItem[] {
             for (const field of ["prototype", "introduced", "extinct", "reintroduced"] as const) {
                 if (field in ruling) (item as unknown as Record<string, number | null | undefined>)[field] = ruling[field];
             }
-            item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Era (owner ruling, 2026-11-16): ${ruling.note}`;
+            item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Era (owner ruling, ${ruling.date ?? "2026-11-16"}): ${ruling.note}`;
         }
         const dating = DATING_RULES[item.tag];
         if (dating) applyDating(item, dating, byTag);
