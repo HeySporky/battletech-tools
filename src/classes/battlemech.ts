@@ -4909,6 +4909,10 @@ export class BattleMech {
             return [`Power Armor (Special Ruleset) is built at 5, 10 or 15 tons on two legs; this ${this._tonnage}-ton ${this._mechType.name} is built by the standard rules.`];
         }
         const issues: string[] = [];
+        // Owner ruling 2026-11-17: Swisher's suits are Inner Sphere (3027); the Clans have ProtoMechs instead.
+        if (this._tech.tag === "clan" || this._tech.tag === "mclan") {
+            issues.push("Power Armor is built on an Inner Sphere base only (Inner Sphere, or Mixed Tech on an Inner Sphere base); this suit has a Clan base.");
+        }
         if (this.isArmless()) {
             issues.push("Power Armor needs both arms, with their upper and lower arm actuators (Best-of p.16).");
         }
