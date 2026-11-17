@@ -1,6 +1,7 @@
 // @vitest-environment happy-dom
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { getFutureWarsPlayRules } from "../../data/future-wars-play-rules";
 import { btSpecialRulesets, findSpecialRuleset } from "../../data/special-rulesets";
 import { testSpecialRuleset } from "../../test-support/rulesets";
 import SpecialRulesetsStep from "./special-rulesets-step";
@@ -87,6 +88,56 @@ describe("SpecialRulesetsStep list", () => {
         fireEvent.click(screen.getByLabelText("Hide unavailable"));
         expect(screen.queryByTestId("ruleset-row-future-wars-11-construction")).toBeNull();
         expect(screen.getByTestId("ruleset-row-fw-power-armor")).toBeTruthy();
+    });
+
+    it("opens More info in the same window and comes back to the same list", () => {
+        openFromNo();
+        fireEvent.change(screen.getByLabelText("Search rulesets"), { target: { value: "Barents" } });
+        const button = moreInfo("Future Wars: Morale");
+        fireEvent.click(button);
+        const detail = screen.getByTestId("ruleset-detail-fw-morale");
+        expect(detail.textContent).toContain("Author: Herb Barents");
+        expect(detail.textContent).toContain(getFutureWarsPlayRules("fw-morale")!.tables[0].title);
+        expect(detail.textContent).toContain(findSpecialRuleset("fw-morale")!.description);
+        expect(screen.getByTestId("ruleset-row-fw-morale").closest("[hidden]")).not.toBeNull();
+        expect(document.activeElement?.textContent).toContain("Back to list");
+        fireEvent.click(screen.getByRole("button", { name: /Back to list/ }));
+        expect(screen.queryByTestId("ruleset-detail-fw-morale")).toBeNull();
+        expect((screen.getByLabelText("Search rulesets") as HTMLInputElement).value).toBe("Barents");
+        expect(document.activeElement).toBe(moreInfo("Future Wars: Morale"));
+    });
+
+    it("ticks and unticks from More info, refusing what the list refuses", () => {
+        const onToggle = vi.fn();
+        open(["fw-power-armor"], onToggle);
+        fireEvent.click(moreInfo(FLINT_11));
+        const tick = screen.getByRole("button", { name: "Tick this ruleset" }) as HTMLButtonElement;
+        expect(tick.disabled).toBe(true);
+        expect(screen.getByTestId("ruleset-detail-future-wars-11-construction").textContent).toContain("Clashes with Future Wars: Power Armor");
+        fireEvent.click(screen.getByRole("button", { name: /Back to list/ }));
+        fireEvent.click(moreInfo("Future Wars: Power Armor"));
+        fireEvent.click(screen.getByRole("button", { name: "Untick this ruleset" }));
+        expect(onToggle).toHaveBeenCalledWith(["fw-power-armor"]);
+    });
+
+    it("lists what a ruleset cannot be used with", () => {
+        openFromNo();
+        fireEvent.click(moreInfo("Future Wars: Power Armor"));
+        const text = screen.getByTestId("ruleset-detail-fw-power-armor").textContent ?? "";
+        expect(text).toContain("Cannot be used with:");
+        expect(text).toContain(FLINT_11);
+        expect(text).toContain("Future Wars: Alternate 'Mech construction (Best of Future Wars printing)");
+        expect(text).toContain("Changes: 'Mech construction");
+        expect(text).toContain("Category: Construction");
+    });
+
+    it("reopens on the list after closing from More info", () => {
+        open(["fw-morale"]);
+        fireEvent.click(moreInfo("Future Wars: Morale"));
+        fireEvent.click(screen.getAllByRole("button", { name: "Close" })[0]);
+        fireEvent.click(screen.getByText("Choose rulesets", { selector: "button" }));
+        expect(screen.queryByTestId("ruleset-detail-fw-morale")).toBeNull();
+        expect(screen.getByTestId("ruleset-row-fw-morale").closest("[hidden]")).toBeNull();
     });
 
     it("calls onToggle with the ruleset id", () => {
