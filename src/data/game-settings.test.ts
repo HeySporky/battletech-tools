@@ -80,6 +80,26 @@ describe("shared game settings (#324)", () => {
         expect(result.settings).toEqual(ticked);
         expect(result.moves).toEqual([]);
     });
+
+    it("refuses a ruleset whose requirement is not ticked, and the untick of a requirement in use", () => {
+        btSpecialRulesets.push(
+            testSpecialRuleset({ id: "test-req-c", name: "C", changes: ["c"] }),
+            testSpecialRuleset({ id: "test-req-d", name: "D", changes: ["d"], requires: ["test-req-c"] }),
+        );
+        try {
+            const missing = changeGameSetting(base, { step: "rulesets", toggle: "test-req-d" }, "mech");
+            expect(missing.settings).toEqual(base);
+            expect(missing.block).toMatchObject({ kind: "needs", reason: "Needs C" });
+            expect(missing.refused?.id).toBe("test-req-c");
+            const both: IGameSettings = { ...base, rulesets: ["test-req-c", "test-req-d"] };
+            const untick = changeGameSetting(both, { step: "rulesets", toggle: "test-req-c" }, "mech");
+            expect(untick.settings).toEqual(both);
+            expect(untick.block).toMatchObject({ kind: "neededBy", reason: "Needed by D" });
+            expect(changeGameSetting(both, { step: "rulesets", toggle: "test-req-d" }, "mech").settings.rulesets).toEqual(["test-req-c"]);
+        } finally {
+            for (const id of ["test-req-c", "test-req-d"]) btSpecialRulesets.splice(btSpecialRulesets.findIndex((entry) => entry.id === id), 1);
+        }
+    });
     // Final review fixes.
     it("moves an unknown edition to the default edition, not the oldest", () => {
         const result = changeGameSetting({ ...base, edition: "edition-from-the-future" }, { step: "rulesets", toggle: "sample-no-clans" }, "mech");

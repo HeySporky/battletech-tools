@@ -16,7 +16,7 @@ import { IEras, IRulesLevelOption } from "./data-interfaces";
 import { findEraByTag, fitTechToBases, getClosestEraForTech, getErasForTech } from "./era-options";
 import { getEquipmentCatalogDefinitions } from "./equipment-registry";
 import { btRulesEditions, DEFAULT_RULES_EDITION, fitRulesLevel, getRulesEdition, getRulesLevelOptionsForEdition, getSelectableRulesEditions, isEarlierRulesEdition, isInRulesEdition, IRulesEdition, RulesEditionUnitType } from "./rules-editions";
-import { findSpecialRuleset, GameSettingStep, getRulesetConflict, getRulesetRemovingUnitType, ISpecialRuleset } from "./special-rulesets";
+import { findSpecialRuleset, GameSettingStep, getRulesetBlock, getRulesetRemovingUnitType, IRulesetBlock, ISpecialRuleset } from "./special-rulesets";
 import { btTechOptions } from "./tech-options";
 
 // The shared settings block (#324): Special Rulesets, Edition, Rules Level, Tech Base, Era, in that order. Each step
@@ -159,23 +159,27 @@ export function changeGameSetting(
     settings: IGameSettings,
     change: GameSettingChange,
     unitType: RulesEditionUnitType,
-): { settings: IGameSettings; moves: IGameSettingMove[]; refused?: ISpecialRuleset; removesUnitType?: boolean } {
+): { settings: IGameSettings; moves: IGameSettingMove[]; refused?: ISpecialRuleset; removesUnitType?: boolean; block?: IRulesetBlock } {
     const next: IGameSettings = { ...settings, rulesets: [...settings.rulesets] };
     const values = next as unknown as Record<GameSettingStep, string | number>;
     let firstLater = 0;
     if (change.step === "rulesets") {
         if (next.rulesets.includes(change.toggle)) {
+            // Only a ticked ruleset that another ticked one needs stays; a warning on a saved pair does not hold it.
+            const block = getRulesetBlock(next.rulesets, change.toggle);
+            if (block?.kind === "neededBy") {
+                return { settings, moves: [], refused: block.by, block };
+            }
             next.rulesets = next.rulesets.filter((id) => id !== change.toggle);
         } else if (!findSpecialRuleset(change.toggle)) {
             return { settings, moves: [] };
         } else {
-            const removing = getRulesetRemovingUnitType([change.toggle], unitType);
-            if (removing) {
-                return { settings, moves: [], refused: removing, removesUnitType: true };
+            const block = getRulesetBlock(next.rulesets, change.toggle, unitType);
+            if (block?.kind === "unitType") {
+                return { settings, moves: [], refused: findSpecialRuleset(change.toggle), removesUnitType: true, block };
             }
-            const refused = getRulesetConflict(next.rulesets, change.toggle);
-            if (refused) {
-                return { settings, moves: [], refused };
+            if (block) {
+                return { settings, moves: [], refused: block.by, block };
             }
             next.rulesets.push(change.toggle);
         }

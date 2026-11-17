@@ -266,14 +266,97 @@ export function getRulesetRemovingUnitType(tickedIds: string[], unitType: RulesE
     return tickedIds.map(findSpecialRuleset).find((ruleset) => !!ruleset?.removesUnitTypes?.includes(unitType));
 }
 
-/** The ticked ruleset that clashes with `candidateId` (they change the same thing), or undefined. */
+/** Whether one of the two names the other in its `excludes`. */
+function excludesEither(one: ISpecialRuleset, other: ISpecialRuleset): boolean {
+    return !!one.excludes?.includes(other.id) || !!other.excludes?.includes(one.id);
+}
+
+/** The first `changes` key the two share, or undefined. */
+function sharedChange(one: ISpecialRuleset, other: ISpecialRuleset): string | undefined {
+    return one.changes.find((change) => other.changes.includes(change));
+}
+
+/** The listed rulesets among `ids`, leaving out `exceptId`. */
+function listedRulesets(ids: readonly string[], exceptId: string): ISpecialRuleset[] {
+    return ids.filter((id) => id !== exceptId).map(findSpecialRuleset).filter((ruleset): ruleset is ISpecialRuleset => !!ruleset);
+}
+
+/** The ticked ruleset that cannot sit with `candidateId` (an exclusion either way, or a shared change), or undefined. */
 export function getRulesetConflict(tickedIds: string[], candidateId: string): ISpecialRuleset | undefined {
     const candidate = findSpecialRuleset(candidateId);
     if (!candidate) {
         return undefined;
     }
-    return tickedIds
-        .filter((id) => id !== candidateId)
-        .map(findSpecialRuleset)
-        .find((ticked) => !!ticked && ticked.changes.some((change) => candidate.changes.includes(change)));
+    const others = listedRulesets(tickedIds, candidateId);
+    return others.find((ticked) => excludesEither(candidate, ticked)) ?? others.find((ticked) => !!sharedChange(candidate, ticked));
+}
+
+export type RulesetBlockKind = "clash" | "excluded" | "needs" | "neededBy" | "unitType";
+
+/** Why a ruleset cannot be ticked (or, when ticked, unticked or kept without a warning), with the reason in words. */
+export interface IRulesetBlock {
+    kind: RulesetBlockKind;
+    by?: ISpecialRuleset;
+    reason: string;
+}
+
+/**
+ * Why `id` cannot be ticked now, or undefined. For an unticked ruleset: the unit type, an exclusion, a clash, then the
+ * first missing requirement. For a ticked one: a ticked ruleset that needs it (it cannot be unticked), then an exclusion
+ * or clash with the other ticked rulesets, as a warning on a saved combination that no longer fits.
+ */
+export function getRulesetBlock(tickedIds: readonly string[], id: string, unitType?: RulesEditionUnitType): IRulesetBlock | undefined {
+    const ruleset = findSpecialRuleset(id);
+    if (!ruleset) {
+        return undefined;
+    }
+    const others = listedRulesets(tickedIds, id);
+    const excluded = others.find((other) => excludesEither(ruleset, other));
+    const clash = others.find((other) => !!sharedChange(ruleset, other));
+    const clashOrExclusion = (): IRulesetBlock | undefined => {
+        if (excluded) {
+            return { kind: "excluded", by: excluded, reason: `Cannot be used with ${excluded.name}` };
+        }
+        if (clash) {
+            const change = sharedChange(ruleset, clash)!;
+            return { kind: "clash", by: clash, reason: `Clashes with ${clash.name} (both change ${CHANGE_LABELS[change] ?? change})` };
+        }
+        return undefined;
+    };
+    if (tickedIds.includes(id)) {
+        const dependant = others.find((other) => !!other.requires?.includes(id));
+        if (dependant) {
+            return { kind: "neededBy", by: dependant, reason: `Needed by ${dependant.name}` };
+        }
+        return clashOrExclusion();
+    }
+    if (unitType && ruleset.removesUnitTypes?.includes(unitType)) {
+        return { kind: "unitType", reason: `${UNIT_TYPE_PLURALS[unitType]} do not exist under this ruleset` };
+    }
+    const blocked = clashOrExclusion();
+    if (blocked) {
+        return blocked;
+    }
+    const missing = (ruleset.requires ?? []).find((required) => !tickedIds.includes(required));
+    if (missing) {
+        const needed = findSpecialRuleset(missing);
+        return { kind: "needs", by: needed, reason: `Needs ${needed?.name ?? missing}` };
+    }
+    return undefined;
+}
+
+/** Who a ruleset cannot be used with, needs and is needed by, for its More info view. */
+export function getRulesetRelations(id: string): { clashesWith: ISpecialRuleset[]; excludes: ISpecialRuleset[]; requires: ISpecialRuleset[]; requiredBy: ISpecialRuleset[] } {
+    const ruleset = findSpecialRuleset(id);
+    if (!ruleset) {
+        return { clashesWith: [], excludes: [], requires: [], requiredBy: [] };
+    }
+    const others = btSpecialRulesets.filter((other) => other.id !== id);
+    const excludes = others.filter((other) => excludesEither(ruleset, other));
+    return {
+        excludes,
+        clashesWith: others.filter((other) => !excludes.includes(other) && !!sharedChange(ruleset, other)),
+        requires: (ruleset.requires ?? []).map(findSpecialRuleset).filter((other): other is ISpecialRuleset => !!other),
+        requiredBy: others.filter((other) => !!other.requires?.includes(id)),
+    };
 }

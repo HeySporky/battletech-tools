@@ -120,6 +120,19 @@ export function changeMULSearchFilters(filters: IMULSearchFilters, changes: Part
             if (clash) moves.push("Clashes with " + clash.name);
             else kept.push(id);
         }
+        // A ruleset whose requirement is not kept goes too, until nothing changes (dropping one may strand another).
+        let dropped = true;
+        while (dropped) {
+            dropped = false;
+            for (const id of [...kept]) {
+                const missing = findSpecialRuleset(id)?.requires?.find((required) => !kept.includes(required));
+                if (missing) {
+                    kept.splice(kept.indexOf(id), 1);
+                    moves.push("Needs " + (findSpecialRuleset(missing)?.name ?? missing));
+                    dropped = true;
+                }
+            }
+        }
         next.rulesets = kept;
     }
     if (!("tech" in changes) && !isMULTechOffered(next.tech, next.rulesets)) {

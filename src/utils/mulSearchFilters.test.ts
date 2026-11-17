@@ -73,6 +73,21 @@ describe("MUL search rulesets (#324 round 4)", () => {
         }
     });
 
+    it("drops a ruleset whose requirement is missing, saying so", () => {
+        btSpecialRulesets.push(
+            testSpecialRuleset({ id: "test-req-c", name: "C", changes: ["c"] }),
+            testSpecialRuleset({ id: "test-req-d", name: "D", changes: ["d"], requires: ["test-req-c"] }),
+        );
+        try {
+            const alone = changeMULSearchFilters(newMULSearchFilters(), { rulesets: ["test-req-d"] });
+            expect(alone.filters.rulesets).toEqual([]);
+            expect(alone.moves).toContain("Needs C");
+            expect(changeMULSearchFilters(newMULSearchFilters(), { rulesets: ["test-req-d", "test-req-c"] }).filters.rulesets).toEqual(["test-req-d", "test-req-c"]);
+        } finally {
+            for (const id of ["test-req-c", "test-req-d"]) btSpecialRulesets.splice(btSpecialRulesets.findIndex((entry) => entry.id === id), 1);
+        }
+    });
+
     it("unticking does not move values back", () => {
         const ticked = changeMULSearchFilters(newMULSearchFilters({ tech: "clan", type: 23 }), { rulesets: [NO_CLANS] }).filters;
         const { filters, moves } = changeMULSearchFilters(ticked, { rulesets: [] });

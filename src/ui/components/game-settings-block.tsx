@@ -46,6 +46,7 @@ export default function GameSettingsBlock(props: {
             lines.push(...result.moves.filter((move) => move.step === "rulesLevel" || shown(move.step))
                 .map((move) => describeGameSettingMove(move, next.edition)));
             if (result.removesUnitType) lines.push(`${UNIT_TYPE_PLURALS[props.unitType]} do not exist under ${result.refused?.name}`);
+            else if (result.block) lines.push(result.block.reason);
             else if (result.refused) lines.push("Clashes with " + result.refused.name);
         }
         setNotice({ text: lines.join("; "), made: JSON.stringify(next) });
