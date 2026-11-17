@@ -81,15 +81,15 @@ export const equipmentEnergy: IEquipmentItem[] = [
         category: "Energy Weapons",
         // BattleTech Gothic, Weapons and Equipment Table p.93: Heat 6, Damage 7, no minimum, 1-3 / 4-6 / 7-9. Gothic
         // has no construction rules, so weight, slots, cost, Battle Value and dates are not printed (2026-10-17).
-        notes: "BattleTech Gothic only (Weapons and Equipment Table p.93; Abomination-Mounted Weapons Table p.92 gives 1K shots per ton for Abominations). Gothic prints no weight, slots, cost, Battle Value or dates. Provisional: 2 tons inferred from the FS9-B Firestarter, which trades its two medium lasers, two machine guns and ammunition for a pair of light blazers (Gothic p.107); 2 slots by analogy with the Binary Laser Cannon, which takes the slots of the two lasers it pairs. Cost and Battle Value unknown (0).",
+        notes: "BattleTech Gothic only (Weapons and Equipment Table p.93; Abomination-Mounted Weapons Table p.92 gives 1K shots per ton for Abominations). Gothic prints no weight, slots, cost, Battle Value or dates. Provisional: 2 tons inferred from the FS9-B Firestarter, which trades its two medium lasers, two machine guns and ammunition for a pair of light blazers (Gothic p.107); 2 slots by analogy with the Binary Laser Cannon, which takes the slots of the two lasers it pairs. Cost and Battle Value are not printed, so derived (derived-values.ts): Battle Value 63 is its 7 damage over the 9 hexes it reaches (the same method gives the canon medium laser 45 against 46 printed); cost 83,000 C-Bills is that Battle Value at the canon energy median of 1,310 C-Bills a point. BV1 reads the same figure.",
         damage: 7,
         damageAero: 7,
         accuracyModifier: 0,
-        cbills: 0,
+        cbills: 83000,
         introduced: null,
         extinct: null,
         reintroduced: null,
-        battleValue: 0,
+        battleValue: 63,
         heat: 6,
         weight: 2,
         range: {
@@ -626,6 +626,74 @@ export const equipmentEnergy: IEquipmentItem[] = [
             notes: []
         },
         heatAero: 15,
+        rangeAero: "m"
+    },
+    {
+        isAmmo: false,
+        name: "PPC-X",
+        altNames: ["PPC-X (Solaris Arms)", "Ion Separator PPC"],
+        tag: "ppc-x",
+        editions: [],
+        techBase: "is",
+        sort: "ppc, x",
+        category: "Energy Weapons",
+        rulesLevel: 5, // Apocryphal: licensed, outside the main BattleTech setting.
+        notes: "Apocryphal: a weapon of the MechWarrior 5: Mercenaries expansion Solaris Showdown, listed by Sarna as 'effectively an LB-X version of the PPC', a PPC "
+            + "with an ion separator that fires eight ion bolts and leaves brief disruption fields where they land (https://www.sarna.net/wiki/Particle_Projector_Cannon). "
+            + "The game's brand for it is Solaris Arms; its stock version (tier 0) is 7 tons, 19.2 damage, 20 rounds a minute, 8.4 heat and 600 m, against the game's PPC at "
+            + "10 damage, 10 rounds a minute, 9.6 heat and 736 m (https://www.sarna.net/wiki/MechWarrior_5:_Mercenaries/Equipment). "
+            + "Tabletop line from the r/battletech thread https://www.reddit.com/r/battletech/comments/1hqnzwy/ (the question by u/Distinct-Duck-7120, whose account is deleted): "
+            + "u/Severe_Ad_5022's 7 tons, 3 slots, 10 heat, range 5/9/12 with no minimum, -1 to hit, on the cluster table; u/Omega_Chris_8352 had made a Snub-Nose PPC roll "
+            + "on the cluster table for 5 shots of 2. Inspired by: u/Severe_Ad_5022 and u/Omega_Chris_8352. "
+            + "Ours, by owner ruling 2026-11-16: damage is three groups of 5 for 15, a compromise between u/Severe_Ad_5022's 12 and the game's PPC-X (about 20 at tabletop scale). "
+            + "Also ours, in step with the game: Inner Sphere (Solaris Arms is a Lyran Commonwealth firm on Solaris VII); introduced 3015, the year the game is set, with no "
+            + "prototype date and no extinction (Solaris Arms stayed in production through the Jihad); tech rating E, as the Snub-Nose PPC. Derived, not given by the author: Battle Value 180 is its 15 damage over the 12 hexes it reaches "
+            + "(derived-values.ts; the same method gives the canon PPC 180 against 176 printed); cost 236,000 C-Bills is that Battle Value at the canon energy median of "
+            + "1,310 C-Bills a point. BV1 reads the same figure. Nothing adjusts for the -1 to hit. The Alpha Strike conversion is none.",
+        lore: "The PPC-X began in the stables of Solaris VII. Solaris Arms, the Lyran firm that builds a few arena 'Mechs a year for the great games, wanted a weapon that gave "
+            + "the crowd more to watch than one blue-white bolt. Its engineers fitted a PPC with an ion separator at the muzzle, a ring of field coils that splits each "
+            + "discharge into a spread of ion bolts. Where a PPC pours all its energy into one hole, the PPC-X scatters it: every bolt strikes in a different place, and each "
+            + "leaves a brief disruption field where it lands. Fewer duels end in one blow and more end in stripped arms, legs and weapons, which is what a stable's sponsors "
+            + "pay to see. Built by a small works for a single market, it never reached the Lyran armies. It is found in the arena stables, and in the hands of mercenaries "
+            + "who buy it on Solaris.",
+        rules: "The ion separator splits the shot into three bolts of 5 damage each. Roll on the Cluster Hits Table, 3 column, for how many strike, and roll a hit location "
+            + "for each group. The weapon is -1 to hit, has no minimum range and reaches 5 / 9 / 12 hexes.",
+        damage: 15,
+        damageAero: 15,
+        damageClusters: 3,
+        damagePerCluster: 5,
+        accuracyModifier: -1,
+        cbills: 236000,
+        introduced: 3015,
+        extinct: null,
+        reintroduced: null,
+        battleValue: 180,
+        heat: 10,
+        weight: 7,
+        range: {
+            min: 0,
+            short: 5,
+            medium: 9,
+            long: 12
+        },
+        space: {
+            battlemech: 3,
+            protomech: -1,
+            combatVehicle: 3,
+            supportVehicle: 3,
+            aerospaceFighter: 3,
+            smallCraft: -1,
+            dropShip: -1
+        },
+        shotsPerTon: 0,
+        minAmmoTons: 0,
+        explosive: false,
+        weaponType: ["DE", "C"],
+        techRating: "e",
+        book: "MechWarrior 5: Mercenaries, Solaris Showdown",
+        page: 0,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Apocryphal: no Alpha Strike conversion"] },
+        heatAero: 10,
         rangeAero: "m"
     },
     {

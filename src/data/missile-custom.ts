@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { applyDerivedValues } from "./derived-custom-values";
 import { futureWarsSwingFires } from "./best-of-future-wars-conversions";
 
 /*
@@ -15,7 +16,7 @@ import { futureWarsSwingFires } from "./best-of-future-wars-conversions";
  * excluded from the software's underlying license (GNU GPLv3).
  */
 
-export const missileCustom: IEquipmentItem[] = [
+export const missileCustom: IEquipmentItem[] = applyDerivedValues([
     {
         isAmmo: false,
         name: "SRM-8",
@@ -671,4 +672,4 @@ export const missileCustom: IEquipmentItem[] = [
     },
     // The Best of Future Wars (1991) p.27: Swing Fire Missile System (#172).
     ...futureWarsSwingFires(),
-];
+]);

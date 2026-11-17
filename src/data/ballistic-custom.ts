@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { applyDerivedValues } from "./derived-custom-values";
 import { futureWarsPomPoms } from "./best-of-future-wars-conversions";
 import { equipmentBallistic } from "./equipment-ballistic";
 
@@ -51,7 +52,7 @@ const improvedMechTaser = (): IEquipmentItem => {
     };
 };
 
-export const ballisticCustom: IEquipmentItem[] = [
+export const ballisticCustom: IEquipmentItem[] = applyDerivedValues([
     improvedMechTaser(),
     {
         name: "AC/15 (Solaris7)", tag: "custom-ac-15", techBase: "universal", sort: "ac, 15", category: "Custom Equipment", notes: "Unverified placeholder based on the Kronos Battle Systems 'Class 15 autocannons' homebrew rules (Solaris7 forum thread, archived).",
@@ -295,7 +296,7 @@ export const ballisticCustom: IEquipmentItem[] = [
     {
         name: "EII Point Defense System", tag: "custom-eii-pds", techBase: "universal", catalog: "custom", altNames: ["EII PDS", "Point Defense System (EII)"], sort: "point defense system, eii", category: "Ballistic Weapons",
         notes: "Custom Homebrew: Mike Reese, 'Ellena Industries Inc. Point Defense System (EII PDS)', *The Best of Future Wars, Volume One* (1991), p.8. "
-            + "Not printed in The Best of Future Wars: cost and Battle Value are left at 0 (unverified); the article calls the system experimental and gives no year; tech rating unverified.",
+            + "Not printed in The Best of Future Wars: the article calls the system experimental and gives no year; tech rating unverified.",
         rules: "A gatling machine gun with its own radar, tied to the unit's fire control. 2 tons including 0.5 ton of ammunition built in, 50 bursts, in 2 slots "
             + "(one for the gun, one for that ammunition); an extra ton is 100 bursts in a separate magazine (ammo-custom-eii-pds-standard). "
             + "Damage 4 (it fires twice as fast as a machine gun), machine gun range with a longest of 3 hexes. When SRM or LRM fire is declared against the unit, "
@@ -310,4 +311,4 @@ export const ballisticCustom: IEquipmentItem[] = [
     },
     // The Best of Future Wars (1991) p.27: Rapid Fire Autocannon (#172).
     ...futureWarsPomPoms(),
-];
+]);

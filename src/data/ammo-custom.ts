@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { applyDerivedValues } from "./derived-custom-values";
 import { ammoCatalog } from "./ammo";
 
 /*
@@ -150,7 +151,7 @@ const sabotShells = (ac: "2" | "5" | "10" | "20", sabotRounds: number, chartRoun
         + "SABOT rounds, though only in limited numbers, and they are issued one round in five.",
 });
 
-export const ammoCustom: IEquipmentItem[] = [
+export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
     {
         isAmmo: true,
         isSpecialAmmo: false,
@@ -1217,7 +1218,7 @@ export const ammoCustom: IEquipmentItem[] = [
         rulesLevel: 6,
         notes: "Ammunition for the Pile Bunker (custom-pile-bunker), homebrew by u/FweeCom (https://www.reddit.com/r/battletech/comments/1dak8pu/homebrew_equipment_pile_bunker/): "
             + "three shots to the ton, and each shot explodes for 5 damage when the ton is hit. Inspired by: u/FweeCom. "
-            + "Not given by the author, so ours: the dates follow the Pile Bunker; cost and Battle Value are not given and stay 0 (unverified)."
+            + "Not given by the author, so ours: the dates follow the Pile Bunker."
     },
     // The Best of Future Wars, Volume One (1991), Chunk A of the fanzine plan (#172). Custom Homebrew: fan material.
     {
@@ -1306,4 +1307,4 @@ export const ammoCustom: IEquipmentItem[] = [
         lore: "Each Penitrator missile weighs half a ton, almost half of it solid fuel. They are built by hand and rank among the costliest munitions "
             + "in the Inner Sphere, at roughly ten times the price of an ordinary missile."
     }
-];
+]);

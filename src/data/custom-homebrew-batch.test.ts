@@ -58,9 +58,9 @@ describe("Pile Bunker and Omni-Laser (Custom Homebrew)", () => {
         const ammo = pileAmmo() as unknown as { roundsPerTon: number; explosive: boolean };
         expect(ammo.roundsPerTon).toBe(3);
         expect(ammo.explosive).toBe(true);
-        // The author did not give a cost or a Battle Value.
-        expect(bunker.cbills).toBe(0);
-        expect(bunker.battleValue).toBe(0);
+        // The author did not give a cost or a Battle Value: derived (derived-cost-and-bv.test.ts).
+        expect(bunker.cbills).toBe(25000);
+        expect(bunker.battleValue).toBe(19);
         expect(bunker.notes).toMatch(/not given|unverified/i);
     });
 
@@ -73,8 +73,8 @@ describe("Pile Bunker and Omni-Laser (Custom Homebrew)", () => {
         expect(laser.range).toMatchObject({ short: 6, medium: 12, long: 18 });
         expect(laser.heat).toBe(20);
         expect(laser.damage).toBe(16);
-        expect(laser.battleValue).toBe(0);
-        expect(laser.cbills).toBe(0);
+        expect(laser.battleValue).toBe(288);
+        expect(laser.cbills).toBe(377000);
         for (const mode of ["Focus", "Pulse", "Dazzler"]) expect(laser.notes).toContain(mode);
     });
 

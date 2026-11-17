@@ -2,13 +2,23 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import Vehicle from "../../../classes/vehicle";
 import { ammoCustom } from "../../../data/ammo-custom";
+import { energyCustom } from "../../../data/energy-custom";
+import { equipmentEnergy } from "../../../data/equipment-energy";
+import { equipmentMisc } from "../../../data/equipment-misc";
+import { miscCustom } from "../../../data/misc-custom";
+import { mechCustomEngineTypes } from "../../../data/mech-custom-engine-types";
+import { ballisticCustom } from "../../../data/ballistic-custom";
+import { equipmentArtillery } from "../../../data/equipment-artillery";
+import { missileCustom } from "../../../data/missile-custom";
+import { canonRecord, COST_PER_BV, directFireBattleValue, extrapolate, interpolate } from "../../../data/derived-values";
+import { sizeVariableEquipment } from "../../../data/variable-equipment";
 import { getEquipmentCatalogDefinitions } from "../../../data/equipment-registry";
 import { ARTVEE_SAMPLES } from "../../../data/artvee-samples";
 import { CONST_AS_SPECIAL_ABILITIES, MICRO_MECH_AS_ABILITY_TEXT, WALKER_AS_ABILITY_TEXT } from "../../../data/alpha-strike-special-abilities";
 import Walker from "../../../classes/walker";
 import { getWalkerStatBlock } from "../../../classes/walker-readout";
 import { getWalkerSamples } from "../../../data/walker-samples";
-import { AMMUNITION_READOUT, ARTVEE_READOUT, BEST_OF_FUTURE_WARS_READOUT,MICRO_MECHS_READOUT, WALKERS_READOUT, ReadoutText, TRO_DOCUMENTS, TRO_INTRODUCTION, readoutPageTitle, readoutPages, readoutSectionId } from "./tro-jbt";
+import { AMMUNITION_READOUT, ARTVEE_READOUT, BEST_OF_FUTURE_WARS_READOUT, HOMEBREW_EQUIPMENT_READOUT, MICRO_MECHS_READOUT, WALKERS_READOUT, ReadoutText, TRO_DOCUMENTS, TRO_INTRODUCTION, readoutPageTitle, readoutPages, readoutSectionId } from "./tro-jbt";
 
 /** The text of one `#### name` section of the readout. */
 function section(name: string): string {
@@ -65,7 +75,7 @@ describe("ArtVee readout", () => {
 describe("TRO - JBT", () => {
     it("opens with the introduction and a card for the ArtVees, then the ammunition", () => {
         expect(TRO_INTRODUCTION).toContain("## Explanation");
-        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "ammunition", "micro-mechs", "walkers", "best-of-future-wars"]);
+        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "ammunition", "micro-mechs", "walkers", "best-of-future-wars", "homebrew-equipment"]);
     });
 
     it.each(TRO_DOCUMENTS.map((document) => [document.slug, document] as const))("renders every page of %s and loses no text", (_slug, document) => {
@@ -193,5 +203,105 @@ describe("Best of Future Wars readout", () => {
             expect(item.lore, item.tag).toBeTruthy();
             for (const sentence of item.lore!.split(/(?<=\.)\s+/)) expect(BEST_OF_FUTURE_WARS_READOUT, item.tag).toContain(sentence);
         }
+    });
+});
+
+describe("Homebrew and Apocryphal equipment readout", () => {
+    const text = HOMEBREW_EQUIPMENT_READOUT;
+    const find = (list: { tag: string }[], tag: string) => {
+        const found = list.find((item) => item.tag === tag);
+        if (!found) throw new Error(`no record ${tag}`);
+        return found as (typeof equipmentEnergy)[number];
+    };
+    const money = (value: number) => value.toLocaleString("en-US");
+
+    it("states each derived figure as the catalog holds it", () => {
+        for (const [list, tag] of [[equipmentEnergy, "ppc-x"], [energyCustom, "custom-omni-laser"], [miscCustom, "custom-pile-bunker"]] as const) {
+            const item = find(list, tag);
+            expect(text, tag).toContain(`| **Battle Value** | ${item.battleValue} (derived) |`);
+            expect(text, tag).toContain(`| **Cost** | ${money(item.cbills ?? 0)} C-Bills (derived) |`);
+        }
+        const ammo = find(ammoCustom, "ammo-custom-pile-bunker-standard");
+        expect(text).toContain(`BV ${ammo.battleValue} and ${money(ammo.cbills ?? 0)} C-Bills a ton (derived)`);
+        const superheavy = find(energyCustom, "custom-superheavy-ppc");
+        expect(text).toContain(`| **Battle Value** | ${superheavy.battleValue} (the author's) |`);
+        expect(text).toContain(`| **Cost** | ${money(superheavy.cbills ?? 0)} C-Bills (the author's) |`);
+        // The table of other items.
+        const table: [string, string, string][] = [
+            ["custom-srm-8", "custom-srm-10", "79 and 99"], ["custom-srm-8-os", "custom-srm-10-os", "16 and 20"],
+            ["custom-streak-srm-8", "custom-streak-srm-10", "119 and 149"], ["custom-streak-srm-8-os", "custom-streak-srm-10-os", "24 and 30"],
+        ];
+        for (const [a, b, shown] of table) expect(`${find(missileCustom, a).battleValue} and ${find(missileCustom, b).battleValue}`, a).toBe(shown);
+        expect(find(ballisticCustom, "custom-ac-15").battleValue).toBe(151);
+        expect(text).toContain("| AC/15 (Solaris7) | 151 | 250,000 C-Bills |");
+        expect(find(ballisticCustom, "custom-lb-15x-ac").battleValue).toBe(193);
+        expect(find(ballisticCustom, "custom-ultra-ac-15").battleValue).toBe(246);
+        expect(find(energyCustom, "custom-disruptor")).toMatchObject({ battleValue: 150, cbills: 197000 });
+        expect(find(energyCustom, "custom-gatling-laser").battleValue).toBe(72);
+        expect(find(energyCustom, "custom-lr-flamer").battleValue).toBe(60);
+        expect(find(equipmentEnergy, "light-blazer")).toMatchObject({ battleValue: 63, cbills: 83000 });
+        expect(find(missileCustom, "custom-penitrator")).toMatchObject({ battleValue: 103, cbills: 135000 });
+        expect(find(ballisticCustom, "custom-eii-pds")).toMatchObject({ battleValue: 32, cbills: 100000 });
+        expect(find(miscCustom, "custom-null-signature-system").cbills).toBe(1400000);
+        expect(text).toContain("| Disruptor (MekTek) | 150 | 197,000 C-Bills |");
+        expect(text).toContain("| The Penitrator | 103 | 135,000 C-Bills |");
+        expect(text).toContain("| Light Blazer (Gothic, Apocryphal) | 63 | 83,000 C-Bills |");
+    });
+
+    it("prints the Fusion Lance's figures as the formula gives them", () => {
+        const sized = (rating: number) => sizeVariableEquipment("fusion-lance", { tonnage: 50, engineRating: rating, engineWeight: 10, directFireWeaponWeight: 0 })!;
+        expect([sized(100).battleValue, sized(250).battleValue, sized(400).battleValue]).toEqual([30, 60, 75]);
+        expect([sized(100).cbills, sized(250).cbills, sized(400).cbills]).toEqual([39000, 79000, 98000]);
+        expect(text).toContain("30 for a rating of 100 or less, 60 for 250, 75 for 400");
+        expect(text).toContain("39,000, 79,000 and 98,000 C-Bills");
+    });
+
+    it("quotes the canon check table as the catalog and the method give it", () => {
+        const bv = (tag: string) => canonRecord(tag).battleValue!;
+        const rows: [string, number, number][] = [
+            ["PPC", directFireBattleValue(10, { short: 6, medium: 12, long: 18 }), bv("standard-ppc")],
+            ["ER PPC", directFireBattleValue(10, { short: 7, medium: 14, long: 23 }), bv("er-ppc")],
+            ["Large laser", directFireBattleValue(8, { short: 5, medium: 10, long: 15 }), bv("large-laser")],
+            ["Medium laser", directFireBattleValue(5, { short: 3, medium: 6, long: 9 }), bv("medium-laser")],
+            ["Heavy PPC", directFireBattleValue(15, { short: 6, medium: 12, long: 18 }), bv("heavy-ppc")],
+            ["Snub-Nose PPC", directFireBattleValue(canonRecord("snub-nose-ppc").damage!, canonRecord("snub-nose-ppc").range!), bv("snub-nose-ppc")],
+            ["SRM 6", Math.round(extrapolate([2, bv("srm-2")], [4, bv("srm-4")], 6)), bv("srm-6")],
+            ["Streak SRM 6", Math.round(extrapolate([2, bv("streak-srm-2")], [4, bv("streak-srm-4")], 6)), bv("streak-srm-6")],
+            ["LRM 20", Math.round(extrapolate([5, bv("lrm-5")], [10, bv("lrm-10")], 20)), bv("lrm-20")],
+            ["AC/5", Math.round(interpolate([2, bv("autocannon-standard-a")], [10, bv("autocannon-standard-c")], 5)), bv("autocannon-standard-b")],
+            ["LB 5-X", Math.round(interpolate([2, bv("autocannon-lbx-2")], [10, bv("autocannon-lbx-10")], 5)), bv("autocannon-lbx-5")],
+            ["Ultra AC/5", Math.round(interpolate([2, bv("autocannon-ultra-a")], [10, bv("autocannon-ultra-c")], 5)), bv("autocannon-ultra-b")],
+        ];
+        for (const [label, derived, printed] of rows) {
+            const row = text.split("\n").find((line) => line.startsWith(`| ${label}`));
+            expect(row, label).toBeDefined();
+            expect(row, label).toContain(`| ${derived} | ${printed} |`);
+            const percent = Math.round(100 * Math.abs(derived - printed) / printed);
+            expect(row, label).toMatch(percent === 0 ? /0%/ : new RegExp(`${percent}% (high|low)`));
+        }
+    });
+
+    it("quotes the canon neighbours, the MML and ATM and the cost median as the catalog has them", () => {
+        expect(text).toContain(`The canon MML-5 is ${canonRecord("mml-5").battleValue}, the same as the LRM-5`);
+        expect(canonRecord("lrm-5").battleValue).toBe(canonRecord("mml-5").battleValue);
+        expect(text).toContain(`The canon ATM-3 carries one figure, ${canonRecord("atm-3").battleValue}`);
+        expect(text).toContain(`The canon SRM is ${canonRecord("srm-4").battleValue} at 4 tubes and ${canonRecord("srm-6").battleValue} at 6`);
+        expect(text).toContain(`The canon AC/10 is ${canonRecord("autocannon-standard-c").battleValue} and the AC/20 ${canonRecord("autocannon-standard-d").battleValue}`);
+        expect(text).toContain(`BV x ${money(COST_PER_BV)} C-Bills`);
+        expect(text).toContain("the Long Tom is 171 in BV1 and 368 in BV2");
+        const longTom = equipmentArtillery.find((item) => item.tag === "long-tom-artillery")!;
+        expect(longTom.battleValue).toBe(368);
+        expect((longTom.editionStats as Record<string, { battleValue?: number }>)["master-rules"].battleValue).toBe(171);
+        expect(Math.round(100 * (1 - 360 / find(energyCustom, "custom-superheavy-ppc").battleValue!))).toBe(15);
+    });
+
+    it("credits every author and prints the engine's figures", () => {
+        for (const handle of ["u/FedditSuns", "u/Magical_Savior", "u/sokttocs", "u/heavyarmormecha", "u/FweeCom", "u/Severe_Ad_5022", "u/Omega_Chris_8352", "u/Distinct-Duck-7120", "u/Bookwyrm517", "u/MasonStonewall"]) {
+            expect(text, handle).toContain(handle);
+        }
+        const engine = mechCustomEngineTypes.find((record) => record.tag === "re-engineered-fusion")!;
+        expect(engine.criticals.is).toEqual({ ct: 3, lt: 3, rt: 3 });
+        expect(text).toContain("3 in the center torso and 3 in each side torso");
+        expect(text).toContain("0.67 of the standard weight");
     });
 });

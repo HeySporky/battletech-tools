@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { costFromBattleValue, fusionLanceBattleValue, fusionLanceDamage } from "./derived-values";
 
 /*
 * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -49,7 +50,8 @@ export type VariableEquipmentFormula =
     | "naval-tug-adaptor"
     | "light-sail"
     | "mech-turret"
-    | "modular-c3";
+    | "modular-c3"
+    | "fusion-lance";
 
 export interface IVariableEquipmentContext {
     /** Unit tonnage. */
@@ -309,6 +311,14 @@ export function sizeVariableEquipment(
         case "modular-c3": {
             const weight = 1 + 0.5 * (Math.min(11, Math.max(1, ctx.size ?? 1)) - 1);
             return { weight, slots: Math.ceil(weight - 1e-9), cbills: 250000 * weight, battleValue: 0 };
+        }
+        // Custom Homebrew (u/Magical_Savior, r/battletech 1mhvhwp): 4 tons, 2 slots; damage 10 plus 5 per 100 of engine rating or part
+        // of 100 (15 to 30), 5 less each hex after the first, over 3 hexes. The author gave no Battle Value or cost, so both follow
+        // what the weapon does (derived-values.ts): Battle Value is its damage over the hexes it reaches, cost the canon energy
+        // median per Battle Value.
+        case "fusion-lance": {
+            const battleValue = fusionLanceBattleValue(ctx.engineRating);
+            return { weight: 4, slots: 2, cbills: costFromBattleValue(battleValue), damage: fusionLanceDamage(ctx.engineRating), battleValue };
         }
     }
     return null;

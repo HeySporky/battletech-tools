@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { applyDerivedValues } from "./derived-custom-values";
 import { futureWarsBoostedWeapons } from "./best-of-future-wars-conversions";
 
 /*
@@ -15,7 +16,7 @@ import { futureWarsBoostedWeapons } from "./best-of-future-wars-conversions";
  * excluded from the software's underlying license (GNU GPLv3).
  */
 
-const energyCustomBase: IEquipmentItem[] = [
+const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
     {
        name: "COIL-L",
         tag: "coil_l",
@@ -319,7 +320,8 @@ const energyCustomBase: IEquipmentItem[] = [
             + "Dazzler: 12 heat, fifteen 1-damage shots on the 15 column; against infantry, battle armor or ProtoMechs a hit does 4d6 in 5-damage clusters. "
             + "A targeting computer and laser insulation apply; a power amplifier is needed on ICE and fuel cell units. Inspired by: u/heavyarmormecha. "
             + "The record carries the Focus mode's heat and damage; the other modes are play text. "
-            + "Not given by the author, so ours: cost and Battle Value stay 0 (unverified), and the author's Experimental availability is read as introduced 3150.",
+            + "Not given by the author, so ours: the author's Experimental availability is read as introduced 3150; cost and Battle Value are priced at the Focus mode, the strongest of its three, "
+            + "as the canon MML is priced at its LRM mode (the MML 5 is 45, the LRM 5's, not LRM plus SRM); the other two modes add nothing.",
         damage: 16, damageAero: 16, accuracyModifier: 0, cbills: 0, introduced: 3150, extinct: null, reintroduced: null, battleValue: 0, heat: 20, heatAero: 20, weight: 10,
         range: { min: 0, short: 6, medium: 12, long: 18 }, space: { battlemech: 4, protomech: -1, combatVehicle: 4, supportVehicle: 4, aerospaceFighter: 4, smallCraft: 4, dropShip: -1 },
         shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE", "E"], techRating: "x", book: "Reddit u/heavyarmormecha", page: 0, rulesLevel: 6,
@@ -342,14 +344,14 @@ const energyCustomBase: IEquipmentItem[] = [
             + "From the post: 4 tons, 2 slots, 30 heat, a 3-hex attack range. "
             + "Inspired by: u/Magical_Savior, u/sokttocs. Not given in the post, so ours: the record's damage is the smallest the formula gives (15, for an engine rated 100 or less) "
             + "because a record holds one number; the rules text carries the formula. Range is read as 1 / 2 / 3 hexes for the weapon's 3-hex reach with its 5-a-hex falloff. "
-            + "Battle Value and cost are unverified, 0; dates and tech rating are unverified. The Engine-slot mounting is not enforced by the builder.",
+            + "Dates and tech rating are unverified. The Engine-slot mounting is not enforced by the builder.",
         rules: "Mounted only where there are Engine critical slots. Activating it costs 30 heat; its attack reaches 3 hexes. Damage is 10 plus 5 for each 100 of "
             + "engine rating or part of 100 (15 at the least, 30 at the most), less 5 for each hex after the first, and it does full damage to infantry. "
             + "Each activation needs a Supercharger roll, and activations stack with a mounted Supercharger. A failed roll is a critical hit on the topmost engine slot, "
             + "applied at once. Each engine hit takes 5 off the damage.",
         damage: 15, damageAero: 15, accuracyModifier: 0, cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 30, heatAero: 30, weight: 4,
         range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
-        shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "x", book: "Reddit u/Magical_Savior", page: 0, rulesLevel: 6,
+        shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "x", book: "Reddit u/Magical_Savior", page: 0, rulesLevel: 6, variableFormula: "fusion-lance",
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     },
     // The Best of Future Wars, Volume One (1991), Chunk A of the fanzine plan (#172). Custom Homebrew: fan material. Heat, Battle Value,
@@ -358,7 +360,7 @@ const energyCustomBase: IEquipmentItem[] = [
         name: "Gatling Laser", tag: "custom-gatling-laser", techBase: "universal", catalog: "custom", sort: "laser, gatling", category: "Energy Weapons",
         notes: "Custom Homebrew: Karl Sanders, 'The Gatling Laser', *The Best of Future Wars, Volume One* (1991), p.27. The author's prose calls it 36% lighter than a medium laser and 75% cooler, but his stat block "
             + "says 4 tons, and the block is used. Not printed in The Best of Future Wars: heat is ours, 1, the 75% cut read off a medium laser's 3 heat and rounded up (the block gives none); "
-            + "Battle Value is left at 0 (unverified); dates and tech rating are unverified.",
+            + "dates and tech rating are unverified.",
         rules: "A rotating-barrel laser: six shots a turn of 2 points each, rolled to hit on the SRM 6 cluster column. Ranges 1-2, 3-4, 5-6. 1 heat.",
         lore: "The Gatling Laser spins six small focusing barrels around a common power feed, so each pulse leaves through a barrel that has had a "
             + "moment to cool. Its designers set out to match a medium laser's punch for far less waste heat, and the weapon trades one heavy bolt "
@@ -371,7 +373,7 @@ const energyCustomBase: IEquipmentItem[] = [
     {
         name: "Long Range Flamer", tag: "custom-lr-flamer", techBase: "universal", catalog: "custom", altNames: ["LR Flamer"], sort: "flamer, long range", category: "Energy Weapons",
         notes: "Custom Homebrew: Karl Sanders, 'Long Range Flamer', *The Best of Future Wars, Volume One* (1991), p.28. Not printed in The Best of Future Wars: "
-            + "Battle Value is left at 0 (unverified); dates and tech rating are unverified.",
+            + "dates and tech rating are unverified.",
         rules: "Fuel-fed (ammo-custom-lr-flamer-standard, 15 shots a ton). "
             + "The blaze sticks to the target as an inferno hit does: it does 5 plus 5 heat levels the first turn, 2 plus 5 the second and 0 plus 5 the third; a second hit adds its damage to "
             + "the one still burning, and each earlier hit still burning adds 1 heat, to a most of 10 heat a turn. Harder to hit at range: +2 at medium, +3 at long. A miss "
@@ -384,7 +386,7 @@ const energyCustomBase: IEquipmentItem[] = [
         shotsPerTon: 15, ammoTypes: ["ammo-custom-lr-flamer-standard"], minAmmoTons: 1, explosive: false, weaponType: ["DE"], techRating: "x", book: "The Best of Future Wars, Volume One", page: 28, rulesLevel: 6,
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
     }
-];
+]);
 
 /** The Best of Future Wars (1991) p.28: weapons with a Power Booster (#172), the Gatling Laser built from the record above. */
 const gatlingLaser = energyCustomBase.find((item) => item.tag === "custom-gatling-laser");

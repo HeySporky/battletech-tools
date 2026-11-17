@@ -44,7 +44,8 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(gatling.weight).toBe(4);
         expect(gatling.space.battlemech).toBe(2);
         expect(gatling.cbills).toBe(50000);
-        expect(gatling.battleValue).toBe(0);
+        // Printed in no stat block: Battle Value is derived (derived-cost-and-bv.test.ts), 12 damage over 6 hexes.
+        expect(gatling.battleValue).toBe(72);
         // The stat block prints no heat; ours, from the prose ("retards heat build-up by 75%").
         expect(gatling.heat).toBeGreaterThan(0);
         expect(gatling.notes).toContain("Not printed in The Best of Future Wars");
@@ -82,8 +83,8 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(ammo.roundsPerTon).toBe(100);
         expect(getCompatibleAmmo(pds, ammo)).toBe(true);
         expect(getWeaponShotsPerTon(pds, ammo)).toBe(100);
-        // Printed in no stat block: cost (left unverified).
-        expect(pds.cbills).toBe(0);
+        // Printed in no stat block: cost, derived from the Anti-Missile System that does the same job (derived-cost-and-bv.test.ts).
+        expect(pds.cbills).toBe(100000);
         expect(pds.introduced).toBeNull();
     });
 

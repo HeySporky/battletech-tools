@@ -63,12 +63,32 @@ describe("Superheavy PPC and Fusion Lance (Custom Homebrew)", () => {
         expect(lance.heat).toBe(30);
         expect(lance.range.long).toBe(3);
         expect(lance.damage).toBe(15);
-        expect(lance.battleValue).toBe(0);
-        expect(lance.cbills).toBe(0);
+        expect(lance.battleValue).toBe(30);
+        expect(lance.cbills).toBe(39000);
         expect(lance.rules).toMatch(/Engine/);
         expect(lance.rules).toMatch(/Supercharger/);
         expect(lance.rules).toMatch(/10 plus 5/);
         expect(lance.notes).toMatch(/not given|unverified/i);
+        expect(lance.variableFormula).toBe("fusion-lance");
+    });
+
+    it("Fusion Lance: damage, Battle Value and cost follow the 'Mech's engine (the formula, not a fixed figure)", () => {
+        const sized = (tonnage: number, walk: number) => {
+            const mech = new BattleMech();
+            mech.setTech("is");
+            mech.setEra("dark-ages");
+            mech.setTonnage(tonnage);
+            mech.setWalkSpeed(walk);
+            return { rating: mech.getEngineRating(), item: mech.sizeEquipmentForUnit(find("custom-fusion-lance")) };
+        };
+        // A 50-ton 'Mech at walk 5 has a 250 engine: damage 10 + 5 x 3 = 25, over 3 hexes 25 + 20 + 15 = 60 BV.
+        const medium = sized(50, 5);
+        expect(medium.rating).toBe(250);
+        expect(medium.item).toMatchObject({ damage: 25, battleValue: 60, cbills: 79000, weight: 4 });
+        // A 100-ton 'Mech at walk 4 has a 400 engine: the top of the range, 30 damage, 30 + 25 + 20 = 75 BV.
+        expect(sized(100, 4).item).toMatchObject({ damage: 30, battleValue: 75, cbills: 98000 });
+        // A light 'Mech with a 100 engine: 15 damage, 30 BV.
+        expect(sized(20, 5).item).toMatchObject({ damage: 15, battleValue: 30, cbills: 39000 });
     });
 
     it("a 'Mech carrying each has a finite Battle Value and counts the weapon's heat", () => {

@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { applyDerivedValues } from "./derived-custom-values";
 import { futureWarsBoosterItems } from "./best-of-future-wars-conversions";
 
 /*
@@ -24,7 +25,7 @@ import { futureWarsBoosterItems } from "./best-of-future-wars-conversions";
 
 const derived = (analog: string) => `Not printed in Future Wars #32: cost, Battle Value, dates, tech rating${analog}.`;
 
-export const miscCustom: IEquipmentItem[] = [
+export const miscCustom: IEquipmentItem[] = applyDerivedValues([
     {
         name: "Smoker", tag: "custom-smoker", techBase: "universal", catalog: "custom", sort: "equipment, smoker", category: "Custom Equipment",
         notes: "Smoke generator. While it runs, the 'Mech leaves a trail of smoke behind and around its movement path, reducing visibility. "
@@ -126,7 +127,7 @@ export const miscCustom: IEquipmentItem[] = [
             + "It is a little harder to hit with (+1), builds 2 heat from the charge, and fires three times to the ton of ammunition (ammo-custom-pile-bunker-standard); "
             + "a hit on that ammunition does 5 damage a shot. Inspired by: u/FweeCom. "
             + "Not given by the author, so ours: the dates are those of the Heavy-Duty Pile Driver (1950, never extinct), the nearest canon melee tool. "
-            + "Cost and Battle Value are not given and stay 0 (unverified), so a 'Mech's Battle Value and cost leave this weapon out.",
+            + "Cost and Battle Value are not given.",
         damage: 15, damageAero: 0, accuracyModifier: 1, cbills: 0, introduced: 1950, extinct: null, reintroduced: null,
         battleValue: 0, heat: 2, heatAero: 0, weight: 5,
         range: { min: 0, short: 0, medium: 0, long: 0 }, space: { battlemech: 5, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
@@ -135,4 +136,4 @@ export const miscCustom: IEquipmentItem[] = [
     },
     // The Best of Future Wars (1991) p.28: Power Boosters for the legs and the jump jets (#172).
     ...futureWarsBoosterItems(),
-];
+]);
