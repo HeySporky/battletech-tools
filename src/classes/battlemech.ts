@@ -8651,10 +8651,13 @@ export class BattleMech {
         return tag === "cockpit" || tag === "multi-pilot-cockpit" || tag === "command-console";
     }
 
-    /** SSW names the rear quad legs RLL and RRL. */
-    private static _sswCriticalLocation(location: string): string {
+    /**
+     * SSW names the rear quad legs RLL and RRL, and a quad's front legs LA and RA (as the MTF converter writes them).
+     * Quads have no arm slots, so the front legs go to FLL and FRL.
+     */
+    private _sswCriticalLocation(location: string): string {
         const code = location.toLowerCase().trim();
-        return code === "rll" ? "ll" : code === "rrl" ? "rl" : code;
+        return this._normalizeLocation(code === "rll" ? "ll" : code === "rrl" ? "rl" : code);
     }
 
     private _criticalArrayFor(loc: string): ICriticalSlot[] | undefined {
@@ -14150,7 +14153,7 @@ export class BattleMech {
             this.moveCritical(
                 "un",
                 foundIndex,
-                loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
+                loc["#text"] ? this._sswCriticalLocation( String( loc["#text"] ) ) : "un",
                 loc["@_index"] ? +loc["@_index"] : -1,
             );
         }
@@ -14161,7 +14164,7 @@ export class BattleMech {
         if( !sswLocations || typeof sswLocations !== "object" ) return;
         this._calcCriticals();
         for( const loc of Array.isArray( sswLocations ) ? sswLocations : [ sswLocations ] ) {
-            const location = BattleMech._sswCriticalLocation( String( loc?.["#text"] ?? "" ) );
+            const location = this._sswCriticalLocation( String( loc?.["#text"] ?? "" ) );
             const index = Number( loc?.["@_index"] );
             const slots = this._criticalArrayFor( location );
             if( !slots || !Number.isInteger( index ) || index < 0 || index >= slots.length ) continue;
@@ -14209,13 +14212,14 @@ export class BattleMech {
         }
         const firstSlot = new Map<string, number>();
         for( const loc of Array.isArray( sswLocations ) ? sswLocations : [ sswLocations ] ) {
-            const location = String( loc?.["#text"] ?? "" ).toLowerCase().trim();
+            const location = this._sswCriticalLocation( String( loc?.["#text"] ?? "" ) );
             const index = Number( loc?.["@_index"] );
             if( location && Number.isInteger( index ) ) firstSlot.set( location, Math.min( index, firstSlot.get( location ) ?? index ) );
         }
         const slotsOf: Record<string, ICriticalSlot[] | undefined> = {
             hd: this._criticals.head, ct: this._criticals.centerTorso, lt: this._criticals.leftTorso, rt: this._criticals.rightTorso,
             la: this._criticals.leftArm, ra: this._criticals.rightArm, ll: this._criticals.leftLeg, rl: this._criticals.rightLeg,
+            fll: this._criticals.frontLeftLeg, frl: this._criticals.frontRightLeg, cl: this._criticals.centerLeg,
         };
         for( const [ location, target ] of firstSlot ) {
             const slots = slotsOf[ location ];
@@ -14305,7 +14309,7 @@ export class BattleMech {
             ...( [] as any[] ).concat( baseloadout?.leg_aes?.location ?? [] ).map( ( aes ) => ( { kind: "leg", loc: aes?.["#text"] ?? aes, index: aes?.["@_index"] } ) ),
         ];
         for( const slot of aesSlots ) {
-            const location = BattleMech._sswCriticalLocation( String( slot.loc ?? "" ) );
+            const location = this._sswCriticalLocation( String( slot.loc ?? "" ) );
             const item = add( ( clan ? "clan-aes-" : "aes-" ) + slot.kind );
             if( !item ) {
                 this._sswImportErrors.push( "Cannot import the " + slot.kind + " Actuator Enhancement System in the " + location );
@@ -14336,7 +14340,7 @@ export class BattleMech {
                 continue;
             }
             for( const slot of ( [] as any[] ).concat( multislot?.location ?? [] ) ) {
-                const location = BattleMech._sswCriticalLocation( String( slot?.["#text"] ?? slot ?? "" ) );
+                const location = this._sswCriticalLocation( String( slot?.["#text"] ?? slot ?? "" ) );
                 this._calcCriticals();
                 const piece = this._unallocatedCriticals.findIndex( ( record ) => record && record.tag === item.tag );
                 if( piece < 0 || !this.moveCritical( "un", piece, location, Number( slot?.["@_index"] ) ) ) {
@@ -15108,7 +15112,7 @@ export class BattleMech {
                                     this.moveCritical(
                                         "un",
                                         foundIndex,
-                                        loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
+                                        loc["#text"] ? this._sswCriticalLocation( String( loc["#text"] ) ) : "un",
                                         loc["@_index"] ? +loc["@_index"] : -1,
                                     );
                                 }
@@ -15174,7 +15178,7 @@ export class BattleMech {
                             this.moveCritical(
                                 "un",
                                 foundIndex,
-                                loc["#text"] ? loc["#text"].toLowerCase().trim() : "un",
+                                loc["#text"] ? this._sswCriticalLocation( String( loc["#text"] ) ) : "un",
                                 loc["@_index"] ? +loc["@_index"] : -1,
                             );
                         }
