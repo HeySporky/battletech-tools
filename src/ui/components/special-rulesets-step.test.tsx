@@ -107,6 +107,19 @@ describe("SpecialRulesetsStep list", () => {
         expect(document.activeElement).toBe(moreInfo("Future Wars: Morale"));
     });
 
+    it("puts the list back where it was scrolled, on whichever ancestor scrolls", () => {
+        openFromNo();
+        // In the browser the whole .modal scrolls, not .modal-body: fake that layout.
+        const modal = document.querySelector(".modal") as HTMLElement;
+        Object.defineProperty(modal, "scrollHeight", { configurable: true, value: 2000 });
+        Object.defineProperty(modal, "clientHeight", { configurable: true, value: 500 });
+        modal.scrollTop = 300;
+        fireEvent.click(moreInfo("Future Wars: Morale"));
+        modal.scrollTop = 0;
+        fireEvent.click(screen.getByRole("button", { name: /Back to list/ }));
+        expect(modal.scrollTop).toBe(300);
+    });
+
     it("ticks and unticks from More info, refusing what the list refuses", () => {
         const onToggle = vi.fn();
         open(["fw-power-armor"], onToggle);

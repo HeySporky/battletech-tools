@@ -6,6 +6,16 @@ import RulesetDetail from './special-rulesets/ruleset-detail';
 import RulesetList from './special-rulesets/ruleset-list';
 import StandardModal from './standard-modal';
 
+/** The nearest ancestor that scrolls (in the browser the whole .modal does, not .modal-body), else the .modal. */
+function findScroller(from: Element): Element | null {
+    for (let node = from.parentElement; node; node = node.parentElement) {
+        if (node.scrollHeight > node.clientHeight && /(auto|scroll)/.test(getComputedStyle(node).overflowY)) {
+            return node;
+        }
+    }
+    return from.closest(".modal");
+}
+
 /**
  * The Special Rulesets step (#324), first in the settings block and in the roster MUL searches: a yes/no, a button
  * that reopens the window, and the window itself: a grouped checklist with search and filters, and a More info view
@@ -39,7 +49,7 @@ export default function SpecialRulesetsStep(props: {
     };
 
     const openDetail = (id: string, button: HTMLButtonElement): void => {
-        const scroller = button.closest(".modal-body");
+        const scroller = findScroller(button);
         returnTo.current = { id, scrollTop: scroller?.scrollTop ?? 0, scroller };
         setDetailId(id);
     };
