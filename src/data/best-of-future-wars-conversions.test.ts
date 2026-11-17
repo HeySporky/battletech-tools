@@ -108,11 +108,11 @@ describe("Swing Fire Missile System, p.27", () => {
         expect(getCompatibleAmmo(find("custom-swing-fire-srm-6"), find("ammo-lrm-standard"))).toBe(false);
     });
 
-    // Owner lore (2026-11-16): a Star League (SLDF) mount, never wholly lost in the Inner Sphere; the Clans took it with
-    // the Exodus. A Swing Fire rack dates from the later of the mount (2750) and its rack, and shares the rack's gaps.
+    // Owner lore (2026-11-17): a Star League (SLDF) mount; the Clans took it with the Exodus and kept it; the Inner Sphere lost it
+    // (2830) and found a schematics cache in the Third Succession War (2880). A Swing Fire rack dates from the later of the mount (2750) and its rack, and shares the rack's gaps.
     it.each([
-        ["custom-swing-fire-lrm-10", 2750, null, null],
-        ["custom-swing-fire-streak-srm-2", 2750, 2845, 3035],
+        ["custom-swing-fire-lrm-10", 2750, 2830, 2880],
+        ["custom-swing-fire-streak-srm-2", 2750, 2830, 3035],
         ["custom-swing-fire-enhanced-lrm-10", 3082, null, null],
         ["custom-swing-fire-clan-lrm-10", 2824, null, null],
         ["custom-swing-fire-clan-improved-lrm-10", 2818, 2831, 3080],

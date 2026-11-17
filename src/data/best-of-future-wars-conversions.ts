@@ -110,6 +110,9 @@ const worseBy = (modifier: IEquipmentItem["accuracyModifier"], by: number): IEqu
 // Sphere (delicate copies kept running through the Succession Wars, which is where the fanzine met it), and the Clans took
 // it with the Exodus. A rack's Swing Fire dates from the later of the mount and the rack, and shares the rack's gaps.
 const SWING_FIRE_MOUNT_INTRODUCED = 2750;
+/** Owner ruling 2026-11-17: the Inner Sphere lost the mount (our year 2830) and found it again in the Third Succession War (our year 2880); the Clans kept it. */
+const SWING_FIRE_IS_LOST = 2830;
+const SWING_FIRE_IS_REDISCOVERED = 2880;
 const SWING_FIRE_MOUNT = { is: { weight: 3, slots: 2 }, clan: { weight: 1.5, slots: 1 } };
 /** In-character Technical Readout text (ours, built on the owner's lore above). */
 const swingFireLore = (clan: boolean, torpedo: boolean): string => [
@@ -119,8 +122,8 @@ const swingFireLore = (clan: boolean, torpedo: boolean): string => [
     clan
         ? "The mount left the Inner Sphere with the Exodus. Clan technicians rebuilt the ring in lighter alloys at half its old mass "
           + "and bulk and fitted it to their own launchers, where it serves warriors who must cover a flank alone."
-        : "After the fall of the Star League few factories could build a new ring, but technicians kept salvaged mounts running "
-          + "through the Succession Wars, and Swing Fire racks still turn up on old 'Mechs handed down within a family or a unit.",
+        : "The Star League's mount was lost in the Succession Wars. In the Third Succession War a cache of design schematics and technical "
+          + "manuals turned up, and engineers reverse engineered the ring, so Swing Fire racks are back on Inner Sphere 'Mechs, though few factories build them.",
     torpedo ? "Naval refits put the ring under a torpedo tube, letting a 'Mech wading in the shallows, or swimming on Underwater Maneuvering Units, cover the water around it." : "",
 ].filter(Boolean).join(" ");
 const swingFire = (baseTag: string): IEquipmentItem => {
@@ -129,6 +132,8 @@ const swingFire = (baseTag: string): IEquipmentItem => {
     const mount = clan ? SWING_FIRE_MOUNT.clan : SWING_FIRE_MOUNT.is;
     const pageRack = /^(lrm|srm)-\d+$/.test(baseTag);
     const torpedo = /(^|-)(lrt|srt)-\d+$/.test(baseTag);
+    const introduced = Math.max(rack.introduced ?? rack.prototype ?? SWING_FIRE_MOUNT_INTRODUCED, SWING_FIRE_MOUNT_INTRODUCED);
+    const lostAndFound = !clan && introduced < SWING_FIRE_IS_LOST;
     return converted(rack, {
         name: `${rack.name} (Swing Fire)`,
         tag: `custom-swing-fire-${baseTag}`,
@@ -137,15 +142,15 @@ const swingFire = (baseTag: string): IEquipmentItem => {
         space: mechOnly(rack.space.battlemech + mount.slots),
         cbills: rack.cbills + 75000,
         accuracyModifier: worseBy(rack.accuracyModifier, 1),
-        introduced: Math.max(rack.introduced ?? rack.prototype ?? SWING_FIRE_MOUNT_INTRODUCED, SWING_FIRE_MOUNT_INTRODUCED),
-        extinct: rack.extinct ?? null,
-        reintroduced: rack.reintroduced ?? null,
+        introduced,
+        extinct: lostAndFound ? Math.min(rack.extinct ?? SWING_FIRE_IS_LOST, SWING_FIRE_IS_LOST) : rack.extinct ?? null,
+        reintroduced: lostAndFound ? Math.max(rack.reintroduced ?? 0, SWING_FIRE_IS_REDISCOVERED) : rack.reintroduced ?? null,
         page: 27,
         conversion: { kind: "swing-fire", baseTag, arcDegrees: 180 },
         notes: `${cite("Karl Sanders", "The Swing Fire Missile System", 27)} The page prints no number for the lost accuracy, so the +1 to-hit is ours. `
             + (pageRack ? "" : `The page names the Inner Sphere LRM and SRM only; the ${torpedo ? "torpedo" : rack.name} version is ours. `)
             + (clan ? "The Clan mount is ours: half the page's weight, as Clan launchers run about half the Inner Sphere's. " : "")
-            + `${UNVALUED} Dates are ours: a Star League mount of about 2750, kept alive in the Inner Sphere and taken by the Clans in the Exodus.`,
+            + `${UNVALUED} Dates are ours (owner ruling 2026-11-17): a Star League mount of about 2750 that the Clans took in the Exodus and kept; the Inner Sphere lost it in the Succession Wars (about 2830) and found a cache of design schematics and technical manuals in the Third Succession War (about 2880), from which it was reverse engineered.`,
         rules: `A ${rack.name} on a swivel: the pilot can turn its line of sight 180 degrees in combat. +1 to-hit. `
             + (torpedo ? "It fires only into or through water, as any torpedo rack. " : "")
             + `+${mount.weight} tons, +${mount.slots} slot${mount.slots === 1 ? "" : "s"} and +75,000 C-bills on the rack.`,

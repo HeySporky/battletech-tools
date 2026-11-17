@@ -119,7 +119,7 @@ Roll twice on the weapons malfunction table and take the worse.
 
 The Star League Defense Force fielded the Swing Fire mount around 2750 to let a 'Mech's missiles reach targets outside its forward arc without turning the torso. The rack rides a powered ring that the pilot can swing through half a circle. The ring's bearings and feed couplings are delicate, and the slack in the mechanism spoils a launcher's aim.
 
-After the fall of the Star League few factories could build a new ring, but technicians kept salvaged mounts running through the Succession Wars, and Swing Fire racks still turn up on old 'Mechs handed down within a family or a unit.
+The Star League's mount was lost in the Succession Wars. In the Third Succession War a cache of design schematics and technical manuals turned up, and engineers reverse engineered the ring, so Swing Fire racks are back on Inner Sphere 'Mechs, though few factories build them.
 
 The mount left the Inner Sphere with the Exodus. Clan technicians rebuilt the ring in lighter alloys at half its old mass and bulk and fitted it to their own launchers, where it serves warriors who must cover a flank alone.
 
