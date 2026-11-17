@@ -85,8 +85,9 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(getWeaponShotsPerTon(pds, ammo)).toBe(100);
         // Printed in no stat block: cost, derived from the Anti-Missile System that does the same job (derived-cost-and-bv.test.ts).
         expect(pds.cbills).toBe(100000);
-        // Not printed: the year is ours, the 3025 baseline of the fanzine (derived-custom-values.ts).
-        expect(pds.introduced).toBe(3025);
+        // Not printed: a prototype of about 3028 (the owner ruling), with no production run.
+        expect(pds.introduced).toBeNull();
+        expect(pds.prototype).toBe(3028);
     });
 
     it("VHE Gauss shell: 5 shots a ton, damage 20 / 5, 1-4 / 5-12 / 13-19, feeds the Gauss Rifle, introduced 3040", () => {

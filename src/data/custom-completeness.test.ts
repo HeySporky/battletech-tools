@@ -35,8 +35,8 @@ describe("custom, Apocryphal and Munchkin equipment is complete", () => {
         expect(low).toEqual([]);
     });
 
-    it("every item has an introduction date and a tech rating", () => {
-        const missing = fan.filter(({ item }) => item.introduced === null || item.introduced === undefined || !item.techRating || item.techRating === "x").map(({ item }) => item.tag);
+    it("every item has an introduction date (or, for a prototype that never went into production, a prototype date) and a tech rating", () => {
+        const missing = fan.filter(({ item }) => ((item.introduced === null || item.introduced === undefined) && !item.prototype) || !item.techRating || item.techRating === "x").map(({ item }) => item.tag);
         expect(missing).toEqual([]);
     });
 

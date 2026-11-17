@@ -117,11 +117,14 @@ const BESPOKE: Record<string, Builder> = {
         rules: `Fires every Improved Narc pod (homing, ECM, explosive, haywire, Nemesis) and follows the iNarc's rules (${tons(item)}, ${slots(item)}, range ${hex(item)}, ${item.shotsPerTon} pods a ton).`,
     }),
     "custom-smoker": (item) => ({
-        lore: "A smoke generator for the 'Mech that wants to be hard to see: a tank of oil burned in a nozzle behind the legs, leaving a screen along the path the machine has walked.",
+        lore: "The Smoker is some of the oldest and simplest equipment on a 'Mech: a tank of oil burned in a nozzle behind the legs, leaving a screen along the path the machine has walked. "
+            + "It has never gone out of style. Every age of the game has used it, from the Age of War to the Clans, because nothing replaces a cheap wall of smoke for a machine that wants to be hard to see.",
         rules: `A smoke generator (${tons(item)}, ${slots(item)}, ${item.heat} heat a turn while it runs). While it runs, the 'Mech leaves a trail of smoke behind and around its movement path, reducing visibility; each ton of fuel provides 50 hexes of level 2 smoke. A hit to the fuel results in a small fire, doing 5 points of damage and generating 10 points of heat.`,
     }),
     "custom-buckler-smoke-dispenser": (item) => ({
-        lore: "Gargoyle Industries' Buckler Smoke Dispenser is a shield-mounted canister bank that throws a wall of smoke around its carrier in a moment, a last resort for a machine that cannot outrun what is shooting at it.",
+        lore: "The Buckler Smoke Dispenser is an SLDF design of the Star League's middle years, a shield-mounted canister bank that throws a wall of smoke around its carrier in a moment, a last resort for a machine that cannot outrun what is shooting at it. "
+            + "It suits the units that want to hide: second-line and garrison forces, and the ArtVees (artillery vehicles) that the SLDF fielded and the Clans kept. It left with the Exodus, and the Clans still carry it in their second-line Solahma units, though seldom in a front-line Clan. "
+            + "In the Inner Sphere it was never lost, only overlooked, until Gargoyle Industries began selling it again in the early Clan war.",
         rules: `Blocks line of sight to all attacks (${tons(item)}, ${slots(item)}, ${item.shotsPerTon} shots, integral; no range). Generates smoke as per the Compendium, in the unit's own hex. The unit must remain stationary in the turn it activates, and the smoke takes effect immediately after the Movement Phase in which it is declared. It cannot be mounted on VTOLs.`,
     }),
     "custom-null-signature-system": () => ({
@@ -133,7 +136,9 @@ const BESPOKE: Record<string, Builder> = {
         rules: "One in each foot (each leg location), 1 slot each; works only with a working grapple in every foot. Each roll to stay attached to a hull, station or other metal surface in zero or low gravity is made at -1. Jumping still leaves the hull. No effect anywhere else.",
     }),
     "custom-mech-periscope": (item) => ({
-        lore: "Thunder's sensor mast raises a camera and sensor head above the 'Mech's shoulders so it can look over cover and spot for its own indirect fire without a drone.",
+        lore: "The 'Mech periscope is a Succession Wars invention, born in the Houses' campaigns on water worlds, where a machine wading or half-submerged needs its sensors above the surface. "
+            + "A mast raises a camera and sensor head above the 'Mech's shoulders so it can look over the waves, or over cover on dry land, and spot for its own indirect fire without a drone. "
+            + "It is an Inner Sphere device: the Clans took no part in those wars and do not field it.",
         rules: `Works as the VTOL Mast Mount does (${tons(item)}, ${slots(item)}): the 'Mech spots and traces line of sight for spotting as if 1 level higher than it stands; it cannot make direct-fire attacks from the mast. One a unit.`,
     }),
     "custom-chaff-pod-2": (item) => ({
@@ -154,7 +159,10 @@ const BESPOKE: Record<string, Builder> = {
         rules: `A PPC (${statLine(item)}). The Battle Value and cost are the author's.`,
     }),
     "custom-fusion-lance": (item) => ({
-        lore: "A Fusion Lance taps the engine itself, tearing a stream of plasma from the reactor's own output and throwing it a few hexes. Nothing else a 'Mech carries hits so hard at so short a reach; the price is heat that can cook a pilot, a failed Supercharger roll that cracks the engine, and a shot that fades fast with distance.",
+        lore: "The Tikograd Lances were built in a hurry on Tikonov III in the autumn of 3028. When the Federated Suns' Crucis Lancers came down on the Capellan world, the Night Riders had cleared the sky and the walls of Tikograd were already breaking under artillery. "
+            + "In the heavy-engine shops of the industrial sector, a chief technician named Natalya Orlova argued that a 'Mech's best weapon was its own reactor: bleed the plasma through a magnetic nozzle on the chest and throw the engine's heart at the enemy, harder the bigger the engine. "
+            + "Pavel Ridzik, who had nothing else, let her build them. A lance could kill a heavy 'Mech in two shots at a range of three hexes, and the same surge that fired it could crack the carrier's own engine and cook its pilot. "
+            + "The few that were built slowed the Seventh Crucis Lancers in the industrial sector, but Tikograd surrendered on 18 October. The Davion technicians who found the shops judged the design too dangerous to build, and the idea outlived the city: a 'Mech can be made to fire its own engine, for those with nothing left to lose.",
         rules: `${item.rules ?? ""}`,
     }),
     "custom-omni-laser": (item) => ({

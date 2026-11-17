@@ -100,6 +100,48 @@ export const DERIVATION_RULES: Record<string, DerivationRule> = {
         [`ammo-is-${family}-emp`, { kind: "no-battle-value", like: ["ammo-lrm-standard", "ammo-srm-standard"], why: "missile ammunition's Battle Value rides on the launcher, and the canon missile ammunition records read 0." } as DerivationRule])),
 };
 
+/** An owner ruling on an item's era, applied over the record (owner, 2026-11-16): tech base, dates, and a note saying who ruled and why. */
+interface IEraRuling {
+    techBase?: IEquipmentItem["techBase"];
+    prototype?: number | null;
+    introduced?: number | null;
+    extinct?: number | null;
+    reintroduced?: number | null;
+    note: string;
+}
+
+export const ERA_RULINGS: Record<string, IEraRuling> = {
+    "custom-smoker": {
+        techBase: "universal", introduced: 1950, extinct: null,
+        note: "very old, simple tech that has never gone out of style: a tank of oil and a nozzle, found in the 'Mech parks of the Inner Sphere and the Clans alike. Introduced 1950, never extinct (the vehicle flamer's dates).",
+    },
+    "custom-mech-periscope": {
+        techBase: "is", introduced: 2900, extinct: null,
+        note: "developed in the Succession Wars (we date it 2900, our year) for the Houses' water-world campaigns, where a 'Mech wading or half-submerged needs its sensors above the surface. An Inner Sphere item: the Clans took no part in those wars and do not field it.",
+    },
+    "custom-buckler-smoke-dispenser": {
+        techBase: "universal", introduced: 2650, extinct: null,
+        note: "designed by the SLDF about 2650 (our year, the middle of the Star League) as a smoke screen for units that want to hide, so it is common in second-line and garrison units and on ArtVees (artillery vehicles), which the SLDF fielded and the Clans kept, "
+            + "and in the Clans' second-line Solahma units rather than their front line. It left with the Exodus (2784) and stayed in the Inner Sphere; never extinct, though Future Wars #32 calls it 'an old idea that has been largely overlooked'. "
+            + "Gargoyle Industries, an Inner Sphere firm selling in the early Clan war (the 3050s), markets it; the article gives no end to that production.",
+    },
+    "custom-fusion-lance": {
+        techBase: "is", prototype: 3028, introduced: 3028, extinct: null,
+        note: "a Succession Wars desperation weapon built in Tikograd on Tikonov III, a Capellan Confederation world, during the Battle of Tikonov (23 September to 18 October 3028, Operation RAT), "
+            + "when the Federated Suns' Crucis Lancers under Charles Duncan besieged it and Pavel Ridzik commanded the defence. The world, the battle, the dates and the Houses are from Sarna; the workshop, the technician Natalya Orlova and the number built are ours. "
+            + "Prototype and introduced 3028; never extinct, as the idea outlived the city.",
+    },
+    "custom-eii-pds": {
+        prototype: 3028, introduced: null,
+        note: "a prototype of the late Succession Wars, about 3028 (the year of Future Wars #36's campaign near Tikonov, where Ellena Industries is named). Ellena Industries, near Tikonov in Capellan space, is one of the few yards still able to build JumpShips; the PDS is its first move into 'Mech equipment. "
+            + "One system is known and no production was announced, so it has a prototype date and no introduction date.",
+    },
+    "ammo-custom-eii-pds-standard": {
+        prototype: 3028, introduced: null,
+        note: "it follows the Point Defense System, a prototype of about 3028 with no production run.",
+    },
+};
+
 /** Where a missing date or tech rating comes from: a canon neighbour's, a sibling record's in the same list, or a stated figure. */
 type DatingSource = { like: string } | { local: string } | { value: number | string };
 interface IDating { introduced?: DatingSource; prototype?: DatingSource; rating?: DatingSource; why: string }
@@ -111,7 +153,7 @@ const FANZINE_WHY = "The Best of Future Wars (1991) prints no year or tech ratin
 export const DATING_RULES: Record<string, IDating> = {
     "light-blazer": { introduced: { like: "medium-laser" }, rating: { like: "medium-laser" }, why: "BattleTech Gothic prints neither, and a blazer is a laser, so the canon medium laser's" },
     "custom-superheavy-ppc": { introduced: { like: "heavy-ppc" }, prototype: { like: "heavy-ppc" }, rating: { like: "heavy-ppc" }, why: "the post gives none, and it is the Heavy PPC enlarged, so the Heavy PPC's" },
-    "custom-fusion-lance": { introduced: { like: "supercharger" }, rating: { like: "heavy-ppc" }, why: "the post gives none: the lance needs the Supercharger's technology, so its date, and an energy weapon of its heat rates as the Heavy PPC" },
+    "custom-fusion-lance": { rating: { like: "heavy-ppc" }, why: "the post gives none, and an energy weapon of its heat rates as the canon Heavy PPC" },
     "custom-omni-laser": { rating: { like: "risc-hyper-laser" }, why: "the post gives none, and it is introduced in the 3150s, the age of the RISC Hyper Laser, so its rating" },
     "custom-disruptor": { rating: { like: "large-laser" }, why: "the catalog already gives it the Standard Large Laser's dates, so its rating" },
     "custom-pile-bunker": { rating: { like: "pile-driver" }, why: "the catalog already gives it the Heavy-Duty Pile Driver's dates, so its rating" },
@@ -122,8 +164,8 @@ export const DATING_RULES: Record<string, IDating> = {
     "custom-power-booster-gatling-laser": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; it rates as the Gatling Laser it boosts` },
     "custom-lr-flamer": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; a flamer rates as the canon energy weapons of its day` },
     "ammo-custom-lr-flamer-standard": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; it follows the Long Range Flamer` },
-    "custom-eii-pds": { introduced: FANZINE_YEAR, rating: { like: "is-ams" }, why: `${FANZINE_WHY}; it does the job of the canon Anti-Missile System, so its rating` },
-    "ammo-custom-eii-pds-standard": { introduced: FANZINE_YEAR, rating: { like: "is-ams" }, why: `${FANZINE_WHY}; it follows the Point Defense System` },
+    "custom-eii-pds": { rating: { like: "is-ams" }, why: "the article prints no rating, and it does the job of the canon Anti-Missile System, so its rating" },
+    "ammo-custom-eii-pds-standard": { rating: { like: "is-ams" }, why: "the article prints no rating, and it follows the Point Defense System" },
     "custom-penitrator": { introduced: FANZINE_YEAR, rating: { like: "lrm-5" }, why: `${FANZINE_WHY}; a missile launcher rates as the canon LRM` },
     "ammo-custom-penitrator-standard": { introduced: FANZINE_YEAR, rating: { like: "lrm-5" }, why: `${FANZINE_WHY}; it follows the Penitrator` },
     "custom-power-booster-running": { introduced: FANZINE_YEAR, rating: { like: "masc" }, why: `${FANZINE_WHY}; a movement booster rates as the canon MASC` },
@@ -233,6 +275,14 @@ function derive(rule: DerivationRule, item: IEquipmentItem): IFigures {
 export function applyDerivedValues(items: IEquipmentItem[]): IEquipmentItem[] {
     const byTag = new Map(items.map((item) => [item.tag, item]));
     for (const item of items) {
+        const ruling = ERA_RULINGS[item.tag];
+        if (ruling) {
+            if (ruling.techBase) item.techBase = ruling.techBase;
+            for (const field of ["prototype", "introduced", "extinct", "reintroduced"] as const) {
+                if (field in ruling) (item as unknown as Record<string, number | null | undefined>)[field] = ruling[field];
+            }
+            item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Era (owner ruling, 2026-11-16): ${ruling.note}`;
+        }
         const dating = DATING_RULES[item.tag];
         if (dating) applyDating(item, dating, byTag);
         const rule = DERIVATION_RULES[item.tag];
