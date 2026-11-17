@@ -4,17 +4,16 @@
 
 | Reason | Files |
 |---|---|
-| duplicate of a design already kept | 3200 |
+| duplicate of a design already kept | 3232 |
 | BV differs from the MUL | 188 |
-| different submodel, same name and model: equipment | 161 |
+| different submodel, same name and model: equipment | 142 |
 | different submodel, same name and model: ammo type | 110 |
 | different submodel, same name and model: actuators | 87 |
-| the import could not carry all of it over | 83 |
+| the import could not carry all of it over | 76 |
 | no Master Unit List entry to check its BV against | 54 |
 | configuration BV differs from the MUL | 44 |
 | duplicate of a design already kept, differs only in armor spread | 36 |
 | import errors | 30 |
-| duplicate of a design already kept, differs only in engine heat sinks in crit slots | 6 |
 | does not survive the compact format | 6 |
 | different submodel, same name and model: heat sinks placed | 6 |
 | BV differs from the file (no MUL entry) | 2 |
@@ -512,7 +511,7 @@
 - `megamek/3039u/Flashman FLS-7K.mtf`: duplicate of a design already kept: Flashman FLS-7K
 - `megamek/3039u/Flea FLE-15.mtf`: duplicate of a design already kept: Flea FLE-15
 - `megamek/3039u/Flea FLE-4.mtf`: duplicate of a design already kept: Flea FLE-4
-- `megamek/3039u/Goliath GOL-1H.mtf`: duplicate of a design already kept, differs only in engine heat sinks in crit slots: Goliath GOL-1H
+- `megamek/3039u/Goliath GOL-1H.mtf`: duplicate of a design already kept: Goliath GOL-1H
 - `megamek/3039u/Grand Dragon DRG-1G.mtf`: duplicate of a design already kept: Grand Dragon DRG-1G
 - `megamek/3039u/Grasshopper GHR-5H.mtf`: duplicate of a design already kept: Grasshopper GHR-5H
 - `megamek/3039u/Griffin GRF-1E Sparky.mtf`: duplicate of a design already kept: Griffin GRF-1E "Sparky"
@@ -1208,7 +1207,7 @@
 - `megamek/3055U/Grand Titan T-IT-N10M.mtf`: duplicate of a design already kept: Grand Titan T-IT-N10M
 - `megamek/3055U/Grand Titan T-IT-N11M.mtf`: duplicate of a design already kept: Grand Titan T-IT-N11M
 - `megamek/3055U/Great Turtle GTR-1.mtf`: duplicate of a design already kept: Great Turtle GTR-1
-- `megamek/3055U/Great Turtle GTR-2.mtf`: the import could not carry all of it over: Cannot armor slot 1 of the la; Cannot armor slot 1 of the ra
+- `megamek/3055U/Great Turtle GTR-2.mtf`: duplicate of a design already kept: Great Turtle GTR-2
 - `megamek/3055U/Grim Reaper GRM-R-PR29.mtf`: duplicate of a design already kept: Grim Reaper GRM-R-PR29
 - `megamek/3055U/Grim Reaper GRM-R-PR30.mtf`: duplicate of a design already kept: Grim Reaper GRM-R-PR30
 - `megamek/3055U/Grim Reaper GRM-R-PR31.mtf`: duplicate of a design already kept: Grim Reaper GRM-R-PR31
@@ -1339,9 +1338,9 @@
 - `megamek/3055U/Stealth STH-2D1.mtf`: duplicate of a design already kept: Stealth STH-2D1
 - `megamek/3055U/Stealth STH-2D2.mtf`: duplicate of a design already kept: Stealth STH-2D2
 - `megamek/3055U/Stealth STH-3S.mtf`: duplicate of a design already kept: Stealth STH-3S
-- `megamek/3055U/Tarantula ZPH-1.mtf`: different submodel, same name and model: equipment: Tarantula ZPH-1
-- `megamek/3055U/Tarantula ZPH-2A.mtf`: different submodel, same name and model: equipment: Tarantula ZPH-2A
-- `megamek/3055U/Tarantula ZPH-3A.mtf`: different submodel, same name and model: equipment: Tarantula ZPH-3A
+- `megamek/3055U/Tarantula ZPH-1.mtf`: duplicate of a design already kept: Tarantula ZPH-1
+- `megamek/3055U/Tarantula ZPH-2A.mtf`: duplicate of a design already kept: Tarantula ZPH-2A
+- `megamek/3055U/Tarantula ZPH-3A.mtf`: duplicate of a design already kept: Tarantula ZPH-3A
 - `megamek/3055U/Tarantula ZPH-4A.mtf`: duplicate of a design already kept: Tarantula ZPH-4A
 - `megamek/3055U/Tempest TMP-3G.mtf`: duplicate of a design already kept: Tempest TMP-3G
 - `megamek/3055U/Tempest TMP-3M.mtf`: duplicate of a design already kept: Tempest TMP-3M
@@ -1603,7 +1602,7 @@
 - `megamek/3060u/Enforcer III ENF-6M.mtf`: duplicate of a design already kept: Enforcer III ENF-6M
 - `megamek/3060u/Enforcer III ENF-6NAIS.mtf`: duplicate of a design already kept: Enforcer III ENF-6NAIS
 - `megamek/3060u/Fire Scorpion 2.mtf`: different submodel, same name and model: equipment: Fire Scorpion 2
-- `megamek/3060u/Fire Scorpion 3.mtf`: different submodel, same name and model: equipment: Fire Scorpion 3
+- `megamek/3060u/Fire Scorpion 3.mtf`: duplicate of a design already kept: Fire Scorpion 3
 - `megamek/3060u/Fire Scorpion.mtf`: different submodel, same name and model: equipment: Fire Scorpion 
 - `megamek/3060u/Garm GRM-01A.mtf`: duplicate of a design already kept: Garm GRM-01A
 - `megamek/3060u/Garm GRM-01A2.mtf`: duplicate of a design already kept: Garm GRM-01A2
@@ -1662,13 +1661,13 @@
 - `megamek/3060u/Shugenja SJA-8H.mtf`: duplicate of a design already kept: Shugenja SJA-8H
 - `megamek/3060u/Sirocco SRC-3C.mtf`: duplicate of a design already kept: Sirocco SRC-3C
 - `megamek/3060u/Sirocco SRC-5C.mtf`: duplicate of a design already kept: Sirocco SRC-5C
-- `megamek/3060u/Sirocco SRC-6C.mtf`: different submodel, same name and model: equipment: Sirocco SRC-6C
+- `megamek/3060u/Sirocco SRC-6C.mtf`: duplicate of a design already kept: Sirocco SRC-6C
 - `megamek/3060u/Snow Fox 2.mtf`: duplicate of a design already kept: Snow Fox 2
 - `megamek/3060u/Snow Fox 3.mtf`: duplicate of a design already kept: Snow Fox 3
 - `megamek/3060u/Snow Fox.mtf`: duplicate of a design already kept: Snow Fox 
-- `megamek/3060u/Stalking Spider 2.mtf`: different submodel, same name and model: equipment: Stalking Spider 2
-- `megamek/3060u/Stalking Spider 3.mtf`: different submodel, same name and model: equipment: Stalking Spider 3
-- `megamek/3060u/Stalking Spider.mtf`: different submodel, same name and model: equipment: Stalking Spider 
+- `megamek/3060u/Stalking Spider 2.mtf`: duplicate of a design already kept: Stalking Spider 2
+- `megamek/3060u/Stalking Spider 3.mtf`: duplicate of a design already kept: Stalking Spider 3
+- `megamek/3060u/Stalking Spider.mtf`: duplicate of a design already kept: Stalking Spider 
 - `megamek/3060u/Star Adder (Blood Asp) A.mtf`: duplicate of a design already kept: Blood Asp (Star Adder)  A
 - `megamek/3060u/Star Adder (Blood Asp) B.mtf`: duplicate of a design already kept: Blood Asp (Star Adder)  B
 - `megamek/3060u/Star Adder (Blood Asp) C.mtf`: duplicate of a design already kept: Blood Asp (Star Adder)  C
@@ -1683,9 +1682,9 @@
 - `megamek/3060u/Stooping Hawk Prime.mtf`: duplicate of a design already kept: Stooping Hawk  Prime
 - `megamek/3060u/Tai-sho TSH-7S.mtf`: duplicate of a design already kept: Tai-sho TSH-7S
 - `megamek/3060u/Tai-sho TSH-8S.mtf`: duplicate of a design already kept: Tai-Sho TSH-8S
-- `megamek/3060u/Thunder Stallion 2.mtf`: different submodel, same name and model: equipment: Thunder Stallion 2 "Fire Stallion"
+- `megamek/3060u/Thunder Stallion 2.mtf`: duplicate of a design already kept: Thunder Stallion 2 "Fire Stallion"
 - `megamek/3060u/Thunder Stallion 3.mtf`: duplicate of a design already kept: Thunder Stallion 3
-- `megamek/3060u/Thunder Stallion.mtf`: different submodel, same name and model: equipment: Thunder Stallion 
+- `megamek/3060u/Thunder Stallion.mtf`: duplicate of a design already kept: Thunder Stallion 
 - `megamek/3060u/Ti Ts'ang TSG-9C.mtf`: duplicate of a design already kept: Ti Ts'ang TSG-9C
 - `megamek/3060u/Ti Ts'ang TSG-9H.mtf`: duplicate of a design already kept: Ti Ts'ang TSG-9H
 - `megamek/3060u/Ti Ts'ang TSG-9J.mtf`: duplicate of a design already kept: Ti Ts'ang TSG-9J
@@ -1771,8 +1770,8 @@
 - `megamek/3067 Unabridged/IS Meks/Vanquisher VQR-7V.mtf`: duplicate of a design already kept: Vanquisher VQR-7V
 - `megamek/3067 Unabridged/IS Meks/Verfolger VR6-C.mtf`: duplicate of a design already kept: Verfolger VR6-C
 - `megamek/3067 Unabridged/IS Meks/Verfolger VR6-T.mtf`: duplicate of a design already kept: Verfolger VR6-T
-- `megamek/3067 Unabridged/IS Meks/White Flame WHF-3C.mtf`: different submodel, same name and model: equipment: White Flame WHF-3C
-- `megamek/3067 Unabridged/IS Meks/White Flame WHF-4C.mtf`: different submodel, same name and model: equipment: White Flame WHF-4C
+- `megamek/3067 Unabridged/IS Meks/White Flame WHF-3C.mtf`: duplicate of a design already kept: White Flame WHF-3C
+- `megamek/3067 Unabridged/IS Meks/White Flame WHF-4C.mtf`: duplicate of a design already kept: White Flame WHF-4C
 - `megamek/3067/Akuma AKU-1X.mtf`: duplicate of a design already kept: Akuma AKU-1X
 - `megamek/3067/Akuma AKU-1XJ.mtf`: different submodel, same name and model: ammo type: Akuma AKU-1XJ
 - `megamek/3067/Anubis ABS-3L.mtf`: duplicate of a design already kept: Anubis ABS-3L
@@ -1860,7 +1859,7 @@
 - `megamek/3067/Vanquisher VQR-2A.mtf`: duplicate of a design already kept: Vanquisher VQR-2A
 - `megamek/3067/Vanquisher VQR-2B.mtf`: duplicate of a design already kept: Vanquisher VQR-2B
 - `megamek/3067/Verfolger VR5-R.mtf`: different submodel, same name and model: ammo type: Verfolger VR5-R
-- `megamek/3067/White Flame WHF-3B.mtf`: different submodel, same name and model: equipment: White Flame WHF-3B
+- `megamek/3067/White Flame WHF-3B.mtf`: duplicate of a design already kept: White Flame WHF-3B
 - `megamek/3075/Archangel C-ANG-OC Comminus.mtf`: BV differs from the MUL: C-ANG-OC Comminus: BV 2010, MUL 2014
 - `megamek/3075/Atlas II AS7-D-H.mtf`: duplicate of a design already kept: Atlas II AS7-D-H
 - `megamek/3075/Atlas II AS7-D-H2.mtf`: duplicate of a design already kept: Atlas II AS7-D-H2
@@ -2009,9 +2008,9 @@
 - `megamek/3075/Wight WGT-3SC.mtf`: duplicate of a design already kept: Wight WGT-3SC
 - `megamek/3075/Wolverine II WVR-7H.mtf`: duplicate of a design already kept: Wolverine II WVR-7H
 - `megamek/3075/Wyvern WVE-5Nb.mtf`: duplicate of a design already kept: Wyvern WVE-5Nb
-- `megamek/3075/Xanthos XNT-3O.mtf`: duplicate of a design already kept, differs only in engine heat sinks in crit slots: Xanthos XNT-3O
+- `megamek/3075/Xanthos XNT-3O.mtf`: duplicate of a design already kept: Xanthos XNT-3O
 - `megamek/3075/Xanthos XNT-4O.mtf`: duplicate of a design already kept: Xanthos XNT-4O
-- `megamek/3075/Xanthos XNT-5O.mtf`: different submodel, same name and model: equipment: Xanthos XNT-5O
+- `megamek/3075/Xanthos XNT-5O.mtf`: duplicate of a design already kept: Xanthos XNT-5O
 - `megamek/3075/Ymir BWP-2B.mtf`: duplicate of a design already kept: Ymir BWP-2B
 - `megamek/3075/Ymir BWP-2E.mtf`: duplicate of a design already kept: Ymir BWP-2E
 - `megamek/3075/Ymir BWP-3A.mtf`: duplicate of a design already kept: Ymir BWP-3A
@@ -2137,10 +2136,10 @@
 - `megamek/3085u/Cutting Edge/Targe TRG-2N.mtf`: different submodel, same name and model: ammo type: Targe TRG-2N
 - `megamek/3085u/Cutting Edge/Thunder Fox TFT-A9.mtf`: duplicate of a design already kept: Thunder Fox TFT-A9
 - `megamek/3085u/Cutting Edge/Thunder Fox TFT-C3.mtf`: duplicate of a design already kept: Thunder Fox TFT-C3
-- `megamek/3085u/Cutting Edge/Thunder Fox TFT-L8.mtf`: different submodel, same name and model: equipment: Thunder Fox TFT-L8
-- `megamek/3085u/Cutting Edge/Trebaruna TR-XB.mtf`: different submodel, same name and model: equipment: Trebaruna TR-XB
-- `megamek/3085u/Cutting Edge/Trebaruna TR-XJ.mtf`: different submodel, same name and model: equipment: Trebaruna TR-XJ
-- `megamek/3085u/Cutting Edge/Trebaruna TR-XL.mtf`: different submodel, same name and model: equipment: Trebaruna TR-XL
+- `megamek/3085u/Cutting Edge/Thunder Fox TFT-L8.mtf`: duplicate of a design already kept: Thunder Fox TFT-L8
+- `megamek/3085u/Cutting Edge/Trebaruna TR-XB.mtf`: duplicate of a design already kept: Trebaruna TR-XB
+- `megamek/3085u/Cutting Edge/Trebaruna TR-XJ.mtf`: duplicate of a design already kept: Trebaruna TR-XJ
+- `megamek/3085u/Cutting Edge/Trebaruna TR-XL.mtf`: duplicate of a design already kept: Trebaruna TR-XL
 - `megamek/3085u/Cutting Edge/Tundra Wolf 2.mtf`: duplicate of a design already kept: Tundra Wolf 2
 - `megamek/3085u/Cutting Edge/Tundra Wolf 3.mtf`: duplicate of a design already kept: Tundra Wolf 3
 - `megamek/3085u/Cutting Edge/Tundra Wolf 4.mtf`: duplicate of a design already kept: Tundra Wolf 4
@@ -2246,7 +2245,7 @@
 - `megamek/3085u/Phoenix/Crusader CRD-7W.mtf`: duplicate of a design already kept: Crusader CRD-7W
 - `megamek/3085u/Phoenix/Crusader CRD-8L.mtf`: duplicate of a design already kept, differs only in armor spread: Crusader CRD-8L
 - `megamek/3085u/Phoenix/Crusader CRD-8S.mtf`: duplicate of a design already kept: Crusader CRD-8S
-- `megamek/3085u/Phoenix/Goliath GOL-2H.mtf`: duplicate of a design already kept, differs only in engine heat sinks in crit slots: Goliath GOL-2H
+- `megamek/3085u/Phoenix/Goliath GOL-2H.mtf`: duplicate of a design already kept: Goliath GOL-2H
 - `megamek/3085u/Phoenix/Goliath GOL-3L.mtf`: duplicate of a design already kept: Goliath GOL-3L
 - `megamek/3085u/Phoenix/Goliath GOL-4S.mtf`: BV differs from the MUL: GOL-4S: BV 1923, MUL 1912
 - `megamek/3085u/Phoenix/Goliath GOL-5D.mtf`: duplicate of a design already kept: Goliath GOL-5D
@@ -3276,8 +3275,8 @@
 - `megamek/Rec Guides ilClan/Vol 22/Doom Courser C.mtf`: the import could not carry all of it over: Turret-mounted 'CLLRM15' is not converted yet
 - `megamek/Rec Guides ilClan/Vol 22/Doom Courser D.mtf`: the import could not carry all of it over: Turret-mounted 'CLERPPC' is not converted yet
 - `megamek/Rec Guides ilClan/Vol 22/Doom Courser Prime.mtf`: the import could not carry all of it over: Turret-mounted 'CLLRM20' is not converted yet; Turret-mounted 'CLArtemisIV' is not converted yet; Turret-mounted 'CLERPPC' is not converted yet
-- `megamek/Rec Guides ilClan/Vol 22/Goliath GOL-3M.mtf`: duplicate of a design already kept, differs only in engine heat sinks in crit slots: Goliath GOL-3M
-- `megamek/Rec Guides ilClan/Vol 22/Goliath GOL-3M2.mtf`: duplicate of a design already kept, differs only in engine heat sinks in crit slots: Goliath GOL-3M2
+- `megamek/Rec Guides ilClan/Vol 22/Goliath GOL-3M.mtf`: duplicate of a design already kept: Goliath GOL-3M
+- `megamek/Rec Guides ilClan/Vol 22/Goliath GOL-3M2.mtf`: duplicate of a design already kept: Goliath GOL-3M2
 - `megamek/Rec Guides ilClan/Vol 22/Goliath GOL-7C.mtf`: duplicate of a design already kept: Goliath GOL-7C
 - `megamek/Rec Guides ilClan/Vol 22/Goliath GOL-7K.mtf`: duplicate of a design already kept: Goliath GOL-7K
 - `megamek/Rec Guides ilClan/Vol 22/Goliath GOL-7R.mtf`: duplicate of a design already kept: Goliath GOL-7R
@@ -3659,7 +3658,7 @@
 - `megamek/TRO Irregulars/Firebee WI-WAM MilitiaMech.mtf`: duplicate of a design already kept: Firebee WI-WAM MilitiaMech
 - `megamek/TRO Irregulars/Ground Pounder DVM-2 MiningMech.mtf`: duplicate of a design already kept: Ground Pounder DVM-2 MiningMech
 - `megamek/TRO Irregulars/Ground Pounder DVM-2M MiningMech MOD.mtf`: duplicate of a design already kept: Ground Pounder DVM-2M MiningMech MOD
-- `megamek/TRO Irregulars/Guard GS-107X SecurityMech.mtf`: duplicate of a design already kept, differs only in engine heat sinks in crit slots: Guard SecurityMech GS-107X
+- `megamek/TRO Irregulars/Guard GS-107X SecurityMech.mtf`: duplicate of a design already kept: Guard SecurityMech GS-107X
 - `megamek/TRO Irregulars/Guard GS-54 SecurityMech.mtf`: duplicate of a design already kept: Guard SecurityMech GS-54
 - `megamek/TRO Irregulars/Gulon C SolahmaMech.mtf`: duplicate of a design already kept: Gulon C SolahmaMech 
 - `megamek/TRO Irregulars/Gulon GLN-1A MiningMech.mtf`: duplicate of a design already kept: Gulon SecurityMech GLN-1A
@@ -3669,8 +3668,8 @@
 - `megamek/TRO Irregulars/Harvester HVR-199M-B AgroMech MOD.mtf`: duplicate of a design already kept: Harvester HVR-199M-B AgroMech MOD
 - `megamek/TRO Irregulars/Heavy Forester HFL-1 LoggerMech.mtf`: duplicate of a design already kept: Heavy Forester HFL-1 LoggerMech
 - `megamek/TRO Irregulars/Heavy Forester HFL-1M LoggerMech MOD.mtf`: duplicate of a design already kept: Heavy Forester HFL-1M LoggerMech MOD
-- `megamek/TRO Irregulars/Heavy Lifter HCL-1M CargoMech MOD.mtf`: the import could not carry all of it over: Cannot place the Environmental Sealing in the la; Cannot place the Environmental Sealing in the ra; Unallocated Criticals: 2; - Environmental Sealing (environmental-sealing); - Environmental Sealing (environmental-sealing)
-- `megamek/TRO Irregulars/Heavy Lifter HCL-1MM MilitiaMech.mtf`: the import could not carry all of it over: Cannot place the Environmental Sealing in the la; Cannot place the Environmental Sealing in the ra; Unallocated Criticals: 2; - Environmental Sealing (environmental-sealing); - Environmental Sealing (environmental-sealing)
+- `megamek/TRO Irregulars/Heavy Lifter HCL-1M CargoMech MOD.mtf`: duplicate of a design already kept: Heavy Lifter HCL-1M CargoMech MOD
+- `megamek/TRO Irregulars/Heavy Lifter HCL-1MM MilitiaMech.mtf`: duplicate of a design already kept: Heavy Lifter HCL-1MM MilitiaMech
 - `megamek/TRO Irregulars/Inquisitor ITW-80 SecurityMech.mtf`: duplicate of a design already kept: Inquisitor ITW-80 SecurityMech
 - `megamek/TRO Irregulars/Inquisitor ITW-85 SecurityMech.mtf`: duplicate of a design already kept: Inquisitor ITW-85 SecurityMech
 - `megamek/TRO Irregulars/MuckRaker GMMM-2 MiningMech.mtf`: the import could not carry all of it over: Cannot find any equipment named 'Dumper (Front)'; Cannot find any equipment named 'Dumper (Front)'
@@ -3724,7 +3723,7 @@
 - `megamek/TRO Vehicle Annex/Harvester Ant KIC-3M AgroMech MOD.mtf`: duplicate of a design already kept: Harvester Ant KIC-3 (MG)
 - `megamek/TRO Vehicle Annex/Harvester Ant KIC-3M-B AgroMech MOD.mtf`: duplicate of a design already kept: Harvester Ant KIC-3 (LRM)
 - `megamek/TRO Vehicle Annex/Harvester HVR-99 Agromech .mtf`: different submodel, same name and model: actuators: Harvester HVR-99 AgroMech
-- `megamek/TRO Vehicle Annex/Heavy Lifter HCL-1 CargoMech.mtf`: the import could not carry all of it over: Cannot place the Environmental Sealing in the la; Cannot place the Environmental Sealing in the ra; Unallocated Criticals: 2; - Environmental Sealing (environmental-sealing); - Environmental Sealing (environmental-sealing)
+- `megamek/TRO Vehicle Annex/Heavy Lifter HCL-1 CargoMech.mtf`: different submodel, same name and model: equipment: Heavy Lifter HCL-1 CargoMech
 - `megamek/TRO Vehicle Annex/Jabberwocky MilitiaMech JAW-67.mtf`: duplicate of a design already kept: Jabberwocky JAW-67 MilitiaMech
 - `megamek/TRO Vehicle Annex/Lumberjack LM5M.mtf`: duplicate of a design already kept: Lumberjack LM5/M MilitiaMech
 - `megamek/TRO Vehicle Annex/Marco MR-6.mtf`: duplicate of a design already kept: Marco MR-6 ExplorerMech
@@ -3744,10 +3743,10 @@
 - `megamek/TRO Vehicle Annex/Shugosha LAW-QM2 Q-Mech.mtf`: the import could not carry all of it over: Cannot find any equipment named 'ISBoobyTrap'
 - `megamek/TRO Vehicle Annex/Shugosha LAW-QM3 Q-Mech.mtf`: duplicate of a design already kept, differs only in armor spread: Shugosha LAW-QM3 Q-Mech
 - `megamek/TRO Vehicle Annex/Shugosha PTN-LAW LoaderMech.mtf`: duplicate of a design already kept, differs only in armor spread: Shugosha PTN-LAW LoaderMech
-- `megamek/TRO Vehicle Annex/Uni ATAE-70 CargoMech.mtf`: the import could not carry all of it over: Cannot place the Environmental Sealing in the la; Cannot place the Environmental Sealing in the ra; Unallocated Criticals: 2; - Environmental Sealing (environmental-sealing); - Environmental Sealing (environmental-sealing)
-- `megamek/TRO Vehicle Annex/Uni ATAE-70 MilitiaMech.mtf`: the import could not carry all of it over: Cannot place the Environmental Sealing in the la; Cannot place the Environmental Sealing in the ra; Unallocated Criticals: 2; - Environmental Sealing (environmental-sealing); - Environmental Sealing (environmental-sealing)
+- `megamek/TRO Vehicle Annex/Uni ATAE-70 CargoMech.mtf`: duplicate of a design already kept: Uni ATAE-70 CargoMech
+- `megamek/TRO Vehicle Annex/Uni ATAE-70 MilitiaMech.mtf`: duplicate of a design already kept: Uni ATAE-70M MilitiaMech
 - `megamek/TRO Vehicle Annex/Uni ATAE-70T CargoMech.mtf`: different submodel, same name and model: equipment: Uni ATAE-70T CargoMech
-- `megamek/TRO Vehicle Annex/Vampyr SC-V-1 SalvageMech.mtf`: the import could not carry all of it over: Cannot place the Environmental Sealing in the la; Cannot place the Environmental Sealing in the ra; Unallocated Criticals: 2; - Environmental Sealing (environmental-sealing); - Environmental Sealing (environmental-sealing)
+- `megamek/TRO Vehicle Annex/Vampyr SC-V-1 SalvageMech.mtf`: different submodel, same name and model: equipment: Vampyr SC-V-1 SalvageMech
 - `megamek/Total Chaos/Atlas II AS7-D-H (Devlin).mtf`: duplicate of a design already kept: Atlas II AS7-D-H (Devlin)
 - `megamek/Total Chaos/Awesome AWS-10KM (Cameron).mtf`: duplicate of a design already kept: Awesome AWS-10KM (Cameron)
 - `megamek/Tukayyid/Archer ARC-5CS.mtf`: duplicate of a design already kept: Archer ARC-5CS
@@ -3804,9 +3803,9 @@
 - `megamek/Turning Points/OTP Falcon Incursion/BattleMaster BLR-3M (Rogers).mtf`: BV differs from the MUL: BLR-3M (Rogers): BV 1819, MUL 1818
 - `megamek/Turning Points/OTP Falcon Incursion/Nightstar NSR-9J Brubaker.mtf`: different submodel, same name and model: ammo type: Nightstar NSR-9J (Brubaker)
 - `megamek/Turning Points/OTP Hanseatic Crusade/Cazador.mtf`: different submodel, same name and model: ammo type: Cazador 
-- `megamek/Turning Points/OTP Hanseatic Crusade/Snow Fox (Omni) A.mtf`: different submodel, same name and model: equipment: Snow Fox (Omni) A
-- `megamek/Turning Points/OTP Hanseatic Crusade/Snow Fox (Omni) B.mtf`: different submodel, same name and model: equipment: Snow Fox (Omni) B
-- `megamek/Turning Points/OTP Hanseatic Crusade/Snow Fox (Omni) Prime.mtf`: different submodel, same name and model: equipment: Snow Fox (Omni) Prime
+- `megamek/Turning Points/OTP Hanseatic Crusade/Snow Fox (Omni) A.mtf`: duplicate of a design already kept: Snow Fox (Omni) A
+- `megamek/Turning Points/OTP Hanseatic Crusade/Snow Fox (Omni) B.mtf`: duplicate of a design already kept: Snow Fox (Omni) B
+- `megamek/Turning Points/OTP Hanseatic Crusade/Snow Fox (Omni) Prime.mtf`: duplicate of a design already kept: Snow Fox (Omni) Prime
 - `megamek/Turning Points/OTP Hanseatic Crusade/Surtur SUR-T1.mtf`: duplicate of a design already kept: Surtur SUR-T1
 - `megamek/Turning Points/OTP Hanseatic Crusade/Tolva.mtf`: the import could not carry all of it over: Turret-mounted 'CLERMediumLaser' is not converted yet
 - `megamek/Turning Points/OTP Red Corsair/BattleMaster BLR-1G Red Corsair.mtf`: duplicate of a design already kept: Battlemaster BLR-1G (Red Corsair)
