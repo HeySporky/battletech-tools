@@ -722,7 +722,9 @@ export const missileCustom: IEquipmentItem[] = applyDerivedValues([
         lore: "The Penitrator is a long-range solid-fuel missile with a soft shaped-charge warhead that spends its force past the armor, among the "
             + "machinery inside, rather than on it. The design was captured from the 'Mech known as the Blaster, which carried four of the missiles "
             + "in a launcher on top of its torso. The missile needs distance to reach speed, so it is weak and hard to aim up close. Only the "
-            + "Federated Commonwealth fields it, in very small numbers.",
+            + "Federated Commonwealth fields it, in very small numbers. In the original article (Mech War Times, reprinted in Future Wars #3, November 1987) "
+            + "the 113th Regiment's recon company, the Silveradoes, captured the Blasters on Glow, the first moon of Harvest, and the 113th's techs took the "
+            + "missiles apart: House Steiner alone held the weapon, and only a very few. The Federated Commonwealth wording is the 1991 reprint's.",
         damage: 0, damageAero: 0, accuracyModifier: 0, cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 0, heatAero: 0, weight: 3,
         range: { min: 8, short: 12, medium: 24, long: 36 }, space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
         shotsPerTon: 2, ammoTypes: ["ammo-custom-penitrator-standard"], minAmmoTons: 1, explosive: false, weaponType: [], techRating: "x", book: "The Best of Future Wars, Volume One", page: 20, rulesLevel: 6,
