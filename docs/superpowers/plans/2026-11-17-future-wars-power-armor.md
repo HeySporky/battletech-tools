@@ -85,9 +85,9 @@ vehicle rules; 10 and 15 tons do not; (7) a 5-ton suit carries only **flamers, m
 
 | Printed p. | Type | Tons | MP | Weapons | Other slots |
 |---|---|---|---|---|---|
-| 43 | (none written) | 10 | 14 / 21 / 0 | small laser RA | heat sink LA 5, LL 5-6, RL 5-6 |
-| 44 | PA-2 | 10 | 7 / 11 / 3 | medium laser RA; 2 small lasers LA | HS RA 6, LT 1 and 3, RT 1; jump jets LT 2, RT 2 (**two jets for jump 3**: a finding); HS legs 5-6 |
-| 45 | top of the type line cut off | 15 | 3 / 5 / 2 | large laser RA; medium laser LA; small laser LT; small laser RT | HS LA 6, LT 2-3, RT 2-3; jump jets LT 4, RT 4; HS legs 5-6 |
+| 43 | (type line not on the scan: the sheet's top is cut off above Tonnage) | 10 | 14 / 21 / 0 | small laser RA | heat sink LA 5, LL 5-6, RL 5-6 |
+| 44 | IPA-2 (written "I PA - 2") | 10 | 7 / 11 / 3 | medium laser RA; 2 small lasers LA | HS RA 6, LT 1 and 3, RT 1; jump jets LT 2, RT 2 (**two jets for jump 3**: a finding); HS legs 5-6 |
+| 45 | top half of the type line cut off; the lower halves fit "I PA - 3" | 15 | 3 / 5 / 2 | large laser RA; medium laser LA; small laser LT; small laser RT | HS LA 6, LT 2-3, RT 2-3; jump jets LT 4, RT 4; HS legs 5-6 |
 
 All three put the pilot in head slots 3-4 and center torso slots 11-12 and keep the standard ten heat sinks
 (engine-integral plus outside = 10 on each sheet: 5 + 5, 2 + 8, 1 + 9).
@@ -115,7 +115,8 @@ to 1. The 10- and 15-ton suits use the edition's table.
 
 ## Questions for the owner
 
-Only one, at Chunk D: the Alpha Strike card (no source). The re-plan's Q4 (the samples) gates Chunk E.
+Only one, at Chunk D: the Alpha Strike card (no source). The re-plan's Q4 (the samples) was answered yes on 2026-11-17:
+see Chunk E.
 
 ---
 
@@ -162,13 +163,20 @@ above), `src/data/mech-cockpit-types.ts` or the custom cockpit catalog (the wald
   proposal first (candidates: a size-1 BattleMech card with a special ability for the +1 to hit, after the Micro-Mech
   ruleset in `micro-mech.ts`). Commit `Custom Homebrew: Power Armor values and readout (#172)`.
 
-## Chunk E: The FW #14 sample suits (if the owner says yes)
+## Chunk E: The FW #14 sample suits (OWNER: YES, 2026-11-17)
 
-- [ ] `src/data/power-armor-samples.ts` after `walker-samples.ts`: the three sheets as printed (table above). Armor is
-  not printed: ours, spread by each location's maximum, labelled. The PA-2's jump 3 on two jets: add a third jet in a
-  free side-torso slot (RT 3) or build it at jump 2; bring the choice to the owner. The 15-ton suit's type
-  line is cut off: name it from the page if a better scan shows it, otherwise "Power Armor (FW #14 p.45)". Tests:
-  each builds with no issue other than the noted ones and matches its sheet.
+OWNER RULINGS 2026-11-17 (re-plan Q4 answered yes):
+- Armor: not printed on any sheet. Spread it as we would for a standard BattleMech (the creator's usual allocation up
+  to each location's maximum); the notes say the armor is ours.
+- IPA-2 jump 3 on two jets: add the missing third jump jet in the free right torso slot (RT 3); the notes say so.
+- Names: the owner asked whether the others share a naming theme. They do: p.44 is written "I PA - 2", and p.45's
+  cut-off type line keeps the lower halves of "I PA - 3"; p.43's type line is not on the scan at all (the top of the
+  sheet is cut off). So: p.43 = **IPA-1**, p.44 = **IPA-2**, p.45 = **IPA-3**. For IPA-1 and IPA-3 the notes say we
+  could not determine the original name from the scan and chose our own after the series (IPA-3's partial line fits it).
+
+- [ ] `src/data/power-armor-samples.ts` after `walker-samples.ts`: the three sheets as printed (table above), with the
+  rulings above. Tests: each builds with no issue other than the noted ones and matches its sheet (weapons, slots,
+  heat sinks, movement; the IPA-2 at jump 3 with three jets).
 
 ## Chunk F: Verify and report
 
