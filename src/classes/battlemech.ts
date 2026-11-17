@@ -39,7 +39,7 @@ import { mechEngineOptions } from "../data/mech-engine-options";
 import { describeEngineRequirement, engineMeetsRequirement, FUSION_ENGINE_TAGS, getLargeEngineType, mechEngineTypes } from "../data/mech-engine-types";
 import { mechGyroTypes } from "../data/mech-gyro-types";
 import {
-    FW_POWER_ARMOR_RULESET, POWER_ARMOR_FIVE_TON_STRUCTURE, POWER_ARMOR_FIVE_TON_WEAPONS, POWER_ARMOR_PILOT_SLOTS,
+    FW_POWER_ARMOR_RULESET, POWER_ARMOR_FIVE_TON_STRUCTURE, POWER_ARMOR_FIVE_TON_WEAPONS, POWER_ARMOR_PILOT_SLOTS, POWER_ARMOR_TONNAGES,
     POWER_ARMOR_WALDO, getPowerArmorShieldingWeight, getPowerArmorSlots, isPowerArmorTonnage, needsPowerArmorShielding,
 } from "../data/future-wars-power-armor";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
@@ -4893,13 +4893,24 @@ export class BattleMech {
         return this._powerArmorTicked() && this._mechType.tag.toLowerCase() === "biped" && isPowerArmorTonnage(this._tonnage);
     }
 
+    /**
+     * The only tonnages a construction ruleset builds, for the creator's tonnage list: Power Armor's 5, 10 and 15 on a
+     * two-legged 'Mech with the ruleset ticked, or undefined when the usual list applies.
+     */
+    public getConstructionTonnages(): readonly number[] | undefined {
+        return this._powerArmorTicked() && this._mechType.tag.toLowerCase() === "biped" ? POWER_ARMOR_TONNAGES : undefined;
+    }
+
     /** A 5-ton suit: no gyro, its own structure, shielding and weapon list (Best-of p.16). */
     private _isFiveTonPowerArmor(): boolean {
         return this._tonnage === 5 && this.usesPowerArmorConstruction();
     }
 
+    /** A weapon by its category, or a custom item that does damage (custom weapons are filed under "Custom Equipment"). */
     private static _isPowerArmorWeapon(item: IEquipmentItem): boolean {
-        return !item.isAmmo && /weapons$|^(ballistic|energy|missile|artillery|melee)$/i.test(item.category ?? "");
+        if (item.isAmmo) return false;
+        return /weapons$|^(ballistic|energy|missile|artillery|melee)$/i.test(item.category ?? "")
+            || (item.category === "Custom Equipment" && Number(item.damage) > 0);
     }
 
     /** What the Power Armor rules leave wrong on this design. */
@@ -4916,6 +4927,9 @@ export class BattleMech {
         if (this.isArmless()) {
             issues.push("Power Armor needs both arms, with their upper and lower arm actuators (Best-of p.16).");
         }
+        if (this._isFiveTonPowerArmor() && this._pilot.piloting >= 5) {
+            issues.push(`A 5-ton Power Armor suit has no gyro: a pilot of Piloting 5 or worse cannot pilot it (3 or better can; 4 at +2 to every Piloting Skill Roll), and this pilot has ${this._pilot.piloting} (Best-of p.16).`);
+        }
         if (this._armorAllocation.head > this.getMaxHeadArmor()) {
             issues.push(`Head armor ${this._armorAllocation.head} is more than twice the head's ${this._internalStructure.head} internal structure points (Power Armor, Best-of p.16): at most ${this.getMaxHeadArmor()}.`);
         }
@@ -4928,7 +4942,8 @@ export class BattleMech {
                 issues.push(`${item.name}: a 5-ton Power Armor suit carries only flamers, machine guns and small lasers (Best-of p.16).`);
             }
         }
-        return issues;
+        // One line for two of a weapon: the creator keys its issue list by text.
+        return [...new Set(issues)];
     }
 
     /** Flint's cockpit for this 'Mech, when the ruleset is in use and the cockpit is one it replaces. */
@@ -11903,6 +11918,11 @@ export class BattleMech {
 
     public getAvailableGyros(rulesLevel: number = 2): IGyro[] {
         const returnValue: IGyro[] = [];
+        // A 5-ton Power Armor suit has no gyro and no choice of one (Best-of p.16).
+        if (this._isFiveTonPowerArmor()) {
+            const none = findByTag(mechGyroTypes, "none");
+            if (none) return [{ ...none, available: true, availableAsPrototype: false }];
+        }
 
         for (const gyro of mechGyroTypes.map(entry => ({ ...entry }))) {
             const availability = this._datesAvailability(gyro, rulesLevel);
@@ -12616,6 +12636,11 @@ export class BattleMech {
             return false;
         }
         if (item.industrialMechOnly && !this.isIndustrialMech()) {
+            return false;
+        }
+        // "5 ton suits may only use flamers, MG's, and small lasers" (Best-of p.16).
+        if (this._isFiveTonPowerArmor() && BattleMech._isPowerArmorWeapon(item)
+            && !(POWER_ARMOR_FIVE_TON_WEAPONS as readonly string[]).includes(item.tag)) {
             return false;
         }
         // Nowhere to put it on this chassis: wrecking balls and salvage arms on a quad (TM pp.248-249).

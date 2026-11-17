@@ -143,10 +143,58 @@ describe("The 5-ton suit (Best-of p.16)", () => {
         const mech = build(5, 6);
         addWeapon(mech, "small-laser");
         addWeapon(mech, "machine-gun");
-        expect(mech.getChassisEquipmentViolations().filter(v => /5-ton Power Armor/.test(v))).toEqual([]);
+        expect(mech.getChassisEquipmentViolations().filter(v => /carries only/.test(v))).toEqual([]);
         addWeapon(mech, "medium-laser");
         expect(mech.getChassisEquipmentViolations()).toContain("Medium Laser: a 5-ton Power Armor suit carries only flamers, machine guns and small lasers (Best-of p.16).");
-        expect(build(10, 6).getChassisEquipmentViolations().filter(v => /5-ton Power Armor/.test(v))).toEqual([]);
+        expect(build(10, 6).getChassisEquipmentViolations().filter(v => /carries only/.test(v))).toEqual([]);
+        // Two of a weapon give one line: the creator keys its issue list by text.
+        addWeapon(mech, "medium-laser");
+        expect(mech.getChassisEquipmentViolations().filter(v => /^Medium Laser: a 5-ton/.test(v))).toHaveLength(1);
+    });
+});
+
+describe("Power Armor for the creator (Chunk B)", () => {
+    it("offers 5, 10 and 15 tons only to a two-legged 'Mech with the ruleset ticked", () => {
+        expect(build(10).getConstructionTonnages()).toEqual([5, 10, 15]);
+        expect(build(20).getConstructionTonnages()).toEqual([5, 10, 15]);
+        expect(build(10, 4, []).getConstructionTonnages()).toBeUndefined();
+        expect(build(10, 4, [PA], "quad").getConstructionTonnages()).toBeUndefined();
+    });
+
+    it("offers a 5-ton suit no gyro and nothing else; a 10-ton suit no 'No Gyro'", () => {
+        const offered = (mech: BattleMech) => mech.getAvailableGyros(CUSTOM_HOMEBREW_RULES_LEVEL).filter(gyro => gyro.available).map(gyro => gyro.tag);
+        expect(offered(build(5, 6))).toEqual(["none"]);
+        expect(offered(build(10))).not.toContain("none");
+        expect(offered(build(10))).toContain("standard");
+    });
+
+    it("withholds from a 5-ton suit every weapon off the article's list", () => {
+        const available = (mech: BattleMech, tag: string) =>
+            mech.getAvailableEquipment(true, CUSTOM_HOMEBREW_RULES_LEVEL).find(item => item.tag === tag)?.available;
+        const suit = build(5, 6);
+        for (const tag of ["small-laser", "machine-gun", "standard-flamer"]) expect(available(suit, tag), tag).toBe(true);
+        expect(available(suit, "medium-laser")).toBe(false);
+        expect(available(suit, "srm-2")).toBe(false);
+        expect(available(suit, "heat-sink-single") ?? true).toBe(true);
+        // Custom weapons are filed under "Custom Equipment": still weapons; the Smoker (no damage) is not one.
+        expect(available(suit, "custom-ac-15")).toBe(false);
+        expect(available(suit, "custom-disruptor")).toBe(false);
+        expect(available(suit, "custom-pile-bunker")).toBe(false);
+        expect(available(suit, "custom-smoker")).toBe(true);
+        expect(available(build(10), "medium-laser")).toBe(true);
+        expect(available(build(5, 6, []), "medium-laser")).toBe(true);
+    });
+
+    it("reports a 5-ton suit's pilot of Piloting 5 or worse, not 4 or better (Best-of p.16)", () => {
+        const pilotIssues = (tons: number, piloting: number) => {
+            const mech = build(tons, 6);
+            mech.setPilotPiloting(piloting);
+            return mech.getChassisEquipmentViolations().filter(v => /Piloting/.test(v));
+        };
+        expect(pilotIssues(5, 3)).toEqual([]);
+        expect(pilotIssues(5, 4)).toEqual([]);
+        expect(pilotIssues(5, 5)).toEqual(["A 5-ton Power Armor suit has no gyro: a pilot of Piloting 5 or worse cannot pilot it (3 or better can; 4 at +2 to every Piloting Skill Roll), and this pilot has 5 (Best-of p.16)."]);
+        expect(pilotIssues(10, 6)).toEqual([]);
     });
 });
 

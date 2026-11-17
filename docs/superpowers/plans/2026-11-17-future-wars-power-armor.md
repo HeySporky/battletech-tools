@@ -174,6 +174,12 @@ OWNER RULINGS 2026-11-17 (re-plan Q4 answered yes):
   sheet is cut off). So: p.43 = **IPA-1**, p.44 = **IPA-2**, p.45 = **IPA-3**. For IPA-1 and IPA-3 the notes say we
   could not determine the original name from the scan and chose our own after the series (IPA-3's partial line fits it).
 
+- OWNER REQUEST 2026-11-17 (Chunk B session): also ship a 5-ton suit of our own, **IPA-4** (no FW #14 sheet is 5 tons;
+  next number in the series; notes say design and name are ours). Built and saved as
+  `C:/repo/JBTToolsSupportFiles/designs/power-armor/IPA-4.json`: 5 t, Standard Fusion 30 (+0.5 t shielding), walk 6 / run 9 / jump 0,
+  no gyro, waldo, small laser LA 5 and RA 5, ten single heat sinks (1 in the engine; RA 6, LT 1-2, RT 1-2, LL 5-6, RL 5-6), standard
+  armor 1.5 t = 24 points (each location at its maximum, CT 5 + 1 rear), pilot 4/3; no issues; BV 139, 184,065 C at build
+  (provisional until Chunk D). Era late-sw-rn. Load it as the fourth sample.
 - [ ] `src/data/power-armor-samples.ts` after `walker-samples.ts`: the three sheets as printed (table above), with the
   rulings above. Tests: each builds with no issue other than the noted ones and matches its sheet (weapons, slots,
   heat sinks, movement; the IPA-2 at jump 3 with three jets).

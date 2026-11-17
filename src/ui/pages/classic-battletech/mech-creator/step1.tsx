@@ -2,7 +2,7 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { BattleMech, IFrankenMechDonor } from '../../../../classes/battlemech';
-import { getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
+import { btMechTonnages, getAvailableTonnagesForMechType, getTonnageBoundsForMechType } from '../../../../data/mech-tonnages';
 import { mechTypeOptions } from '../../../../data/mech-type-options';
 import { getRulesLevelOptions } from '../../../../data/rules-level-options';
 import { editionEditsPrintedUnitsAfterWarning, editionHasPrices, getRulesEdition, getShownRulesLevel } from '../../../../data/rules-editions';
@@ -192,8 +192,16 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       if( currentMech.isOmnimech && !currentMech.canBeOmniMech( rulesLevel ) ) {
         currentMech.toggleOmni( rulesLevel );
       }
-      const { min, max } = getTonnageBoundsForMechType( tonnageChassisTag( currentMech ), rulesLevel, currentMech.getTech().tag, currentMech.getRulesEdition() );
       const tonnage = currentMech.getTonnage();
+      // A construction ruleset's own tonnages (Power Armor: 5, 10, 15): the nearest one, the heavier on a tie.
+      const rulesetTonnages = currentMech.getConstructionTonnages();
+      if( rulesetTonnages ) {
+        if( !rulesetTonnages.includes( tonnage ) ) {
+          currentMech.setTonnage( rulesetTonnages.reduce( (best, tons) => Math.abs( tons - tonnage ) <= Math.abs( best - tonnage ) ? tons : best ) );
+        }
+        return;
+      }
+      const { min, max } = getTonnageBoundsForMechType( tonnageChassisTag( currentMech ), rulesLevel, currentMech.getTech().tag, currentMech.getRulesEdition() );
       const lamMax = currentMech.getLAMMaxTonnage();
       if( lamMax !== null && tonnage > lamMax ) {
         currentMech.setTonnage( lamMax );
@@ -512,12 +520,17 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               value={this.props.appGlobals.currentBattleMech.getTonnage()}
                               onChange={this.updateTonnage}
                             >
-                            {getAvailableTonnagesForMechType(
-                              tonnageChassisTag( this.props.appGlobals.currentBattleMech ),
-                              mechRulesLevel(this.props.appGlobals),
-                              this.props.appGlobals.currentBattleMech.getTech().tag,
-                              this.props.appGlobals.currentBattleMech.getRulesEdition()
-                            ).filter( (option) => option.tons <= ( this.props.appGlobals.currentBattleMech?.getLAMMaxTonnage() ?? Infinity )
+                            {(() => {
+                              const rulesetTonnages = this.props.appGlobals.currentBattleMech.getConstructionTonnages();
+                              return rulesetTonnages
+                                ? btMechTonnages.filter( (option) => rulesetTonnages.includes( option.tons ) )
+                                : getAvailableTonnagesForMechType(
+                                  tonnageChassisTag( this.props.appGlobals.currentBattleMech ),
+                                  mechRulesLevel(this.props.appGlobals),
+                                  this.props.appGlobals.currentBattleMech.getTech().tag,
+                                  this.props.appGlobals.currentBattleMech.getRulesEdition()
+                                );
+                            })().filter( (option) => option.tons <= ( this.props.appGlobals.currentBattleMech?.getLAMMaxTonnage() ?? Infinity )
                               && ( !this.props.appGlobals.currentBattleMech?.isPermanentAirMech() || option.tons >= 20 ) ).map( (option) => {
                               return (
                                 <option key={option.tons} value={option.tons}>{option.tons} ({option.type})</option>

@@ -179,6 +179,15 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
+                      <strong>November 17th, 2026</strong> - Power Armor in the 'Mech Creator
+                    </h3>
+                    <h4>Author - NGCFells</h4>
+                      <ul>
+                        <li><strong>Future Wars: Power Armor.</strong> Bill Swisher's "poor man's BattleMech" from Future Wars #14 (reprinted in The Best of Future Wars) is a Special Ruleset at the Custom Homebrew level. Tick it in step 1 and the 'Mech Creator builds a suit of 5, 10 or 15 tons: six slots a location, a half-ton waldo system in place of the cockpit, no gyro at 5 tons, and a 5-ton suit carries only flamers, machine guns and small lasers. Step 6 lists what the rules leave wrong. Inner Sphere only. Record sheet and play rules come next. Fan-made, NOT OFFICIAL; where the article is silent the rulings are ours (issue #172).</li>
+                      </ul>
+                  </li>
+                  <li>
+                  <h3>
                       <strong>November 16th, 2026</strong> - More Best of Future Wars equipment, now playable, and Lore and Rules for equipment
                     </h3>
                     <h4>Author - NGCFells</h4>
