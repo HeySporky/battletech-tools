@@ -142,6 +142,10 @@ export const ERA_RULINGS: Record<string, IEraRuling> = {
         by: "era review of the original article", date: "2026-11-17", introduced: 3025, extinct: null,
         note: "Future Wars #14 (Karl Sanders) prints it with the Hellborer and the Gatling Laser in the super-assault 'Mech series, and the Gatling Laser it also boosts is a 3025 prototype; so the booster is a Succession Wars item at the 3025 baseline (our year), never extinct.",
     } as IEraRuling])),
+    ...Object.fromEntries(["custom-lr-flamer", "ammo-custom-lr-flamer-standard"].map((tag) => [tag, {
+        date: "2026-11-17", introduced: 1950, extinct: null,
+        note: "the Best of Future Wars (p.28) prints stats only: 15 shots a ton of fuel, 4/8/12 hexes. It is a pressurised vehicle flamer, simple old tech that is still with us, so it takes the vehicle flamer's dates: introduced 1950, never extinct.",
+    } as IEraRuling])),
     "custom-smoker": {
         techBase: "universal", introduced: 1950, extinct: null,
         note: "very old, simple tech that has never gone out of style: a tank of oil and a nozzle, found in the 'Mech parks of the Inner Sphere and the Clans alike. Introduced 1950, never extinct (the vehicle flamer's dates).",
@@ -195,8 +199,8 @@ export const DATING_RULES: Record<string, IDating> = {
     // The Best of Future Wars.
     "custom-gatling-laser": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; a laser rates as the canon medium laser` },
     "custom-power-booster-gatling-laser": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; it rates as the Gatling Laser it boosts` },
-    "custom-lr-flamer": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; a flamer rates as the canon energy weapons of its day` },
-    "ammo-custom-lr-flamer-standard": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; it follows the Long Range Flamer` },
+    "custom-lr-flamer": { rating: { like: "vehicle-flamer" }, why: "the article prints no rating, and it is a pressurised vehicle flamer, so the canon Vehicle Flamer's" },
+    "ammo-custom-lr-flamer-standard": { rating: { like: "vehicle-flamer" }, why: "it follows the Long Range Flamer" },
     "custom-eii-pds": { rating: { like: "is-ams" }, why: "the article prints no rating, and it does the job of the canon Anti-Missile System, so its rating" },
     "ammo-custom-eii-pds-standard": { rating: { like: "is-ams" }, why: "the article prints no rating, and it follows the Point Defense System" },
     "custom-penitrator": { introduced: FANZINE_YEAR, rating: { like: "lrm-5" }, why: `${FANZINE_WHY}; a missile launcher rates as the canon LRM` },

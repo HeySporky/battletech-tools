@@ -101,6 +101,16 @@ describe("era rulings", () => {
         }
     });
 
+    it("Long Range Flamer and its fuel: the vehicle flamer's dates (1950, never extinct) and rating", () => {
+        const vehicle = all.find((item) => item.tag === "vehicle-flamer")!;
+        for (const tag of ["custom-lr-flamer", "ammo-custom-lr-flamer-standard"]) {
+            const item = all.find((entry) => entry.tag === tag);
+            expect(item, tag).toBeDefined();
+            expect(dates(item!), tag).toEqual(dates(vehicle));
+            expect(item!.techRating, tag).toBe(vehicle.techRating);
+        }
+    });
+
     it("Gatling Laser and its Power Booster: field-tested 3025, in service 3028, never extinct", () => {
         for (const tag of ["custom-gatling-laser", "custom-power-booster-gatling-laser"]) {
             const found = [...energyCustom, ...miscCustom].find((item) => item.tag === tag);
