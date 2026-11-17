@@ -88,7 +88,8 @@ export default function RulesetList(props: {
                 </p>
             ) : null}
             {groups.map((group) => {
-                const open = props.openGroups[group.category] ?? (group.ticked > 0 || filtering || all.length <= OPEN_ALL_UP_TO);
+                // While a search or filter is on every shown group is open, so no match hides in a folded group.
+                const open = filtering || (props.openGroups[group.category] ?? (group.ticked > 0 || all.length <= OPEN_ALL_UP_TO));
                 return (
                     <details key={group.category} open={open} data-testid={"ruleset-group-" + group.category}
                         onToggle={(event) => {

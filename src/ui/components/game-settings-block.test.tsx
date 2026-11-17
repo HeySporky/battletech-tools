@@ -46,6 +46,23 @@ describe("GameSettingsBlock (#324)", () => {
         expect(screen.getByText(/the Clans never formed/)).toBeTruthy();
     });
 
+    it("No clears a requirement and the ruleset that needs it in one go", () => {
+        btSpecialRulesets.push(
+            testSpecialRuleset({ id: "test-clash", name: "C", changes: ["c"] }),
+            testSpecialRuleset({ id: "test-needs-c", name: "D", changes: ["d"], requires: ["test-clash"] }),
+        );
+        try {
+            const onChange = vi.fn();
+            render(<Harness start={{ ...base, rulesets: ["test-clash", "test-needs-c"] }} onChange={onChange} />);
+            fireEvent.change(select(/Special Rulesets/), { target: { value: "no" } });
+            expect(onChange.mock.calls.at(-1)?.[0].rulesets).toEqual([]);
+            expect(select(/Special Rulesets/).value).toBe("no");
+        } finally {
+            const index = btSpecialRulesets.findIndex((ruleset) => ruleset.id === "test-needs-c");
+            if (index >= 0) btSpecialRulesets.splice(index, 1);
+        }
+    });
+
     it("ticking the no-Clans universe on a Clan design moves Tech Base and reports it", () => {
         render(<Harness start={base} />);
         fireEvent.change(select(/Special Rulesets/), { target: { value: "yes" } });

@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { isKnownEditionTag } from "./rules-editions";
 import { testSpecialRuleset } from "../test-support/rulesets";
-import { btSpecialRulesets, CHANGE_LABELS, findSpecialRuleset, getRulesetBlock, getRulesetConflict, getRulesetCredits, getRulesetRelations, getRulesetsAttribution, ISpecialRuleset, RULESET_CATEGORIES } from "./special-rulesets";
+import { btSpecialRulesets, CHANGE_LABELS, findSpecialRuleset, getRulesetBlock, getRulesetConflict, getRulesetCredits, getRulesetRelations, getRulesetsAttribution, ISpecialRuleset, orderForUntick, RULESET_CATEGORIES } from "./special-rulesets";
 
 const testRuleset = (id: string, changes: string[]): ISpecialRuleset => testSpecialRuleset({ id, changes });
 
@@ -72,6 +72,17 @@ describe("Special Rulesets (#324)", () => {
         it("warns, without refusing, on a saved pair that no longer fits", () => {
             pushPairs();
             expect(getRulesetBlock(["test-a", "test-b"], "test-a")).toMatchObject({ kind: "excluded", reason: "Cannot be used with B" });
+        });
+
+        it("warns, without refusing, on a saved ruleset whose requirement is not ticked", () => {
+            pushPairs();
+            expect(getRulesetBlock(["test-d"], "test-d")).toMatchObject({ kind: "needs", reason: "Needs C" });
+        });
+
+        it("orders ids for unticking with dependants before what they need", () => {
+            pushPairs();
+            expect(orderForUntick(["test-c", "test-d", "test-a"])).toEqual(["test-d", "test-c", "test-a"]);
+            expect(orderForUntick(["test-d", "test-c"])).toEqual(["test-d", "test-c"]);
         });
 
         it("names the unit type first", () => {

@@ -83,6 +83,16 @@ describe("SpecialRulesetsStep list", () => {
         expect(rows().length).toBe(btSpecialRulesets.length);
     });
 
+    it("opens a folded group while a search is on", () => {
+        openFromNo();
+        const play = screen.getByTestId("ruleset-group-play") as HTMLDetailsElement;
+        play.open = false;
+        fireEvent(play, new Event("toggle"));
+        expect(play.open).toBe(false);
+        fireEvent.change(screen.getByLabelText("Search rulesets"), { target: { value: "Barents" } });
+        expect((screen.getByTestId("ruleset-group-play") as HTMLDetailsElement).open).toBe(true);
+    });
+
     it("hides unavailable rulesets on request", () => {
         open(["fw-power-armor"]);
         fireEvent.click(screen.getByLabelText("Hide unavailable"));

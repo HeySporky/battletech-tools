@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState, type JSX } from 'react';
 import { RulesEditionUnitType } from '../../data/rules-editions';
-import { RulesetCategory } from '../../data/special-rulesets';
+import { orderForUntick, RulesetCategory } from '../../data/special-rulesets';
 import { EMPTY_RULESET_FILTER, IRulesetListFilter } from '../../utils/ruleset-list';
 import RulesetDetail from './special-rulesets/ruleset-detail';
 import RulesetList from './special-rulesets/ruleset-list';
@@ -44,7 +44,8 @@ export default function SpecialRulesetsStep(props: {
         if (value === "yes") {
             setWindowOpen(true);
         } else {
-            props.onToggle(props.rulesets);
+            // Dependants first, so a requirement is never refused as still needed part way through.
+            props.onToggle(orderForUntick(props.rulesets));
         }
     };
 

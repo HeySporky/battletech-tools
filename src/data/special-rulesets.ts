@@ -328,7 +328,17 @@ export function getRulesetBlock(tickedIds: readonly string[], id: string, unitTy
         if (dependant) {
             return { kind: "neededBy", by: dependant, reason: `Needed by ${dependant.name}` };
         }
-        return clashOrExclusion();
+        const warning = clashOrExclusion();
+        if (warning) {
+            return warning;
+        }
+        // A saved ruleset whose requirement is not ticked (it gained `requires` later): a warning, not a refusal.
+        const unmet = (ruleset.requires ?? []).find((required) => !tickedIds.includes(required));
+        if (unmet) {
+            const needed = findSpecialRuleset(unmet);
+            return { kind: "needs", by: needed, reason: `Needs ${needed?.name ?? unmet}` };
+        }
+        return undefined;
     }
     if (unitType && ruleset.removesUnitTypes?.includes(unitType)) {
         return { kind: "unitType", reason: `${UNIT_TYPE_PLURALS[unitType]} do not exist under this ruleset` };
@@ -343,6 +353,21 @@ export function getRulesetBlock(tickedIds: readonly string[], id: string, unitTy
         return { kind: "needs", by: needed, reason: `Needs ${needed?.name ?? missing}` };
     }
     return undefined;
+}
+
+/**
+ * `ids` in an order that can be unticked one at a time: each ruleset before any ruleset it needs, so no untick is
+ * refused as "Needed by". Otherwise the order is kept.
+ */
+export function orderForUntick(ids: readonly string[]): string[] {
+    const left = [...ids];
+    const ordered: string[] = [];
+    while (left.length > 0) {
+        // The first id no other remaining id needs; with a cycle (never shipped), the first one, so this always ends.
+        const index = Math.max(0, left.findIndex((id) => !left.some((other) => !!findSpecialRuleset(other)?.requires?.includes(id))));
+        ordered.push(...left.splice(index, 1));
+    }
+    return ordered;
 }
 
 /** Who a ruleset cannot be used with, needs and is needed by, for its More info view. */
