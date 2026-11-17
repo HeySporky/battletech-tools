@@ -58,20 +58,33 @@ Guns"); FW #32 (Pulsar, Plasma Pulse Generator).
 
 ## Order and models
 
+Owner order (2026-11-17): Special Rulesets window refactor (`2026-11-17-special-rulesets-window.md`) -> Power Armor
+Chunks D, E, F -> R -> G / H / K + K2. Every alternate method below is its own selectable ruleset, built on the
+refactor's eligibility model (`changes`, `excludes`, `requires`).
+
 | Chunk | Work | Model | Needs |
 |---|---|---|---|
-| 7 (batch) | Rebuild bundled data, verify, ask about shipping | Sonnet 5.5 | nothing |
+| 7 (batch) | Rebuild bundled data, verify, ask about shipping | Sonnet 5.5 | done 2026-11-17 |
+| UI | Special Rulesets window refactor (own plan) | Opus 5.5 | nothing; before G, H, K |
 | R | Re-check built items (Best-of Chunks A-E) against the originals | Sonnet 5.5 | nothing |
-| F | Power Armor: read, design, write its plan | Fable 5.2 or Opus 5.5 | nothing |
-| G | DropShips: read the five articles, compare with canon, recommend, write its plan | Fable 5.2 | owner answer Q1 |
-| H | Game Management "Future Wars" section: read and design (economics from FW #5) | Fable 5.2 | owner answer Q3 |
+| F | Power Armor: read, design, write its plan | Fable 5.2 or Opus 5.5 | done 2026-11-17 |
+| G | DropShips: all four methods (Stock; Stock + Eid; Reese; Houseman), each its own ruleset | Fable 5.2 | Q1 answered, UI |
+| H | Game Management "Future Wars" section; Economics in both versions (FW #5 numbers; reprint's "double or triple") as alternate rules | Fable 5.2 | Q3 answered, UI |
 | I | Build H | Sonnet 5.5 | H |
 | J | *Future Wars* #33 designs (nine) | Sonnet 5.5 | nothing |
-| K | Pulsar: Kin weapons it needs, then the two designs | Opus 5.5 | owner answer Q2 |
-| K2 | (only if the owner widens Q2) the Kin arsenal and designs of FW #25 and #34 | read-and-plan first | K |
+| K | Pulsar: Kin weapons it needs, then the two designs | Opus 5.5 | Q2 answered, UI |
+| K2 | The whole Kin arsenal and designs of FW #25 and #34: read and plan, then build | read-and-plan first | K |
+| COIL-alt | Seer's COIL charge ruleset (topic 71729) and Izzy193's other COIL design (topic 88212) as alternate rules that replace ours when ticked (read 88212 first: ruleset or equipment variant, ask the owner) | Opus 5.5 | UI |
 | L | Verify and report on #172 | Sonnet 5.5 | all |
 
 ## Questions for the owner (one message)
+
+**ANSWERED 2026-11-17 ("I want them all. Everything."):** the recommendations below are NOT used.
+- Q1: all four DropShip methods, each its own ruleset: Stock, Stock + Eid, Reese, Houseman. They change the same thing
+  (`dropshipConstruction`), so one at a time; Stock + Eid is a ruleset of its own that includes Stock's rules.
+- Q2: the whole Kin arsenal and the designs of FW #25 and #34 (Chunk K2 is in scope), not only the Pulsar's needs.
+- Q3: both versions as alternate rules: the original FW #5 numbers, and the reprint's "double or triple" rule.
+- Q4: yes (answered earlier the same day; in the Power Armor plan's Chunk E).
 
 1. **DropShips:** the Best-of method is Stock's (FW #16). Erik Eid revised it (FW #25), and Mike Reese (FW #36) says
    both fail to rebuild a FASA Union and wrote his own (which also says FASA's masses are too low); Doug Houseman wrote a
