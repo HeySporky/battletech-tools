@@ -45,6 +45,8 @@ export const mechCustomArmorTypes: IArmorType[] = [
 		page: 0,
 		notes: "Munchkin by Nightstalker666, Solaris7 forum ('Nanotube armor plating', November 2018): 24 armor points a ton, no critical slots, 75,000 C-bills a ton. "
 			+ "Made only in specialized plants, five times as costly and ten times slower than other armor factories. The drawbacks he asked about (an extra point "
-			+ "of damage per 5 or 10 ballistic damage, an extra critical hit) were never settled and are not applied. Not printed: dates are Ferro-Fibrous's."
+			+ "of damage per 5 or 10 ballistic damage, an extra critical hit) were never settled and are not applied. Not printed: dates are Ferro-Fibrous's.",
+		lore: "Nanotube armor weaves carbon nanotubes into plate so strong and so thin that it takes no critical slots at all, yet protects half as much again as the best canon armor. Only a few specialized plants can make it, five times as costly and ten times slower than an ordinary armor factory, and its makers guard the process.",
+		rules: "24 armor points a ton, no critical slots, 75,000 C-Bills a ton, for BattleMechs only. The drawbacks its author raised (an extra point of damage per 5 or 10 ballistic damage, an extra critical hit) were never settled and are not applied."
 	}
 ];

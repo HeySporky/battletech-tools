@@ -1,5 +1,5 @@
-import { IEquipmentItem } from "./data-interfaces";
-import { costFromBattleValue, fusionLanceBattleValue, fusionLanceDamage } from "./derived-values";
+import { IDamagePerRange, IEquipmentItem } from "./data-interfaces";
+import { coilBattleValue, costFromBattleValue, fusionLanceBattleValue, fusionLanceHexDamage } from "./derived-values";
 
 /*
 * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -51,7 +51,10 @@ export type VariableEquipmentFormula =
     | "light-sail"
     | "mech-turret"
     | "modular-c3"
-    | "fusion-lance";
+    | "fusion-lance"
+    | "coil-s"
+    | "coil-m"
+    | "coil-l";
 
 export interface IVariableEquipmentContext {
     /** Unit tonnage. */
@@ -90,7 +93,7 @@ export interface IVariableEquipmentSize {
     weight: number;
     slots: number;
     cbills: number;
-    damage?: number;
+    damage?: number | IDamagePerRange;
     battleValue?: number;
 }
 
@@ -318,7 +321,20 @@ export function sizeVariableEquipment(
         // median per Battle Value.
         case "fusion-lance": {
             const battleValue = fusionLanceBattleValue(ctx.engineRating);
-            return { weight: 4, slots: 2, cbills: costFromBattleValue(battleValue), damage: fusionLanceDamage(ctx.engineRating), battleValue };
+            const [first, second, third] = fusionLanceHexDamage(ctx.engineRating);
+            // Damage by hex, one hex to a band: the first, 5 less in the second, 10 less in the third.
+            const damage: IDamagePerRange = { short: first, medium: second, long: third, aeroShort: first, aeroMedium: second, aeroLong: third };
+            return { weight: 4, slots: 2, cbills: costFromBattleValue(battleValue), damage, battleValue };
+        }
+        // Apocryphal (BATTLETECH, Heavy Metal): the COIL weapons, at DevianID's tabletop Final Stats ("A Hare-Brained Weapon"). Damage and
+        // heat are multiplied by the movement modifier when it is over +1, so Battle Value is priced at the 'Mech's running speed. Cost
+        // is the catalog's (the game's own).
+        case "coil-s":
+        case "coil-m":
+        case "coil-l": {
+            const stats = { "coil-s": { weight: 2, slots: 4, damage: 3, reach: 3, cbills: 110000 }, "coil-m": { weight: 3, slots: 6, damage: 5, reach: 9, cbills: 220000 },
+                "coil-l": { weight: 4, slots: 8, damage: 7, reach: 15, cbills: 360000 } }[formula];
+            return { weight: stats.weight, slots: stats.slots, cbills: stats.cbills, damage: stats.damage, battleValue: coilBattleValue(stats.damage, stats.reach, ctx.runMP ?? 0) };
         }
     }
     return null;

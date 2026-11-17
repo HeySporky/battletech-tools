@@ -103,7 +103,7 @@ describe("physical weapons", () => {
     it("the melee multiplier is the median of the canon hatchet, sword, mace, lance and claw", () => {
         const multipliers = (["hatchet", "sword", "mace", "lance", "claw"] as const).map((formula) => {
             const size = sizeVariableEquipment(formula, { tonnage: 100, engineRating: 300, engineWeight: 19, directFireWeaponWeight: 0 })!;
-            return size.battleValue! / size.damage!;
+            return size.battleValue! / (size.damage as number);
         });
         expect(median(multipliers)).toBe(MELEE_BV_PER_DAMAGE);
         expect(meleeBattleValue(15)).toBe(19);
@@ -123,6 +123,6 @@ describe("Fusion Lance: Battle Value by engine rating", () => {
 
     it("is sized per unit by the variable-equipment formula, with its cost", () => {
         const size = sizeVariableEquipment("fusion-lance", { tonnage: 50, engineRating: 250, engineWeight: 12.5, directFireWeaponWeight: 0 })!;
-        expect(size).toMatchObject({ weight: 4, slots: 2, damage: 25, battleValue: 60, cbills: costFromBattleValue(60) });
+        expect(size).toMatchObject({ weight: 4, slots: 2, damage: { short: 25, medium: 20, long: 15 }, battleValue: 60, cbills: costFromBattleValue(60) });
     });
 });

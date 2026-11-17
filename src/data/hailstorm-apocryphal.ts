@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { applyLoreAndRules } from "./custom-lore-rules";
 import { ammoCatalog } from "./ammo";
 import { equipmentArtillery } from "./equipment-artillery";
 
@@ -25,7 +26,7 @@ const toHailstorm = (text: string) => text.replace(/long-tom/g, "hailstorm").rep
 
 const apocryphalAlphaStrike = { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Apocryphal: no Alpha Strike conversion"] };
 
-export const artilleryApocryphal: IEquipmentItem[] = [{
+export const artilleryApocryphal: IEquipmentItem[] = applyLoreAndRules([{
     isAmmo: false,
     name: "Hailstorm Artillery",
     altNames: ["Hailstorm", "Hailstorm Artillery Tube"],
@@ -65,9 +66,9 @@ export const artilleryApocryphal: IEquipmentItem[] = [{
     page: 0,
     alphaStrike: apocryphalAlphaStrike,
     heatAero: Math.round(longTom.heat * SCALE),
-}];
+}]);
 
-export const ammoApocryphal: IEquipmentItem[] = ammoCatalog
+export const ammoApocryphal: IEquipmentItem[] = applyLoreAndRules(ammoCatalog
     .filter((item) => sharedMunitions.some((munition) => item.tag.replace(/^ammo-(is|clan)-/, "ammo-") === `ammo-long-tom-${munition}`))
     .map((item): IEquipmentItem => ({
         isAmmo: true,
@@ -103,4 +104,4 @@ export const ammoApocryphal: IEquipmentItem[] = ammoCatalog
         notes: `Hailstorm round (Apocryphal, MechWarrior 5 video games): rules as the Long Tom's ${item.name.replace(/^Long Tom Artillery - /, "")} `
             + `(${item.book} p.${item.page}). Where that round's damage follows the Long Tom's 25, use the Hailstorm's 35 (our provisional reading). `
             + `Cost and Battle Value are the Long Tom round's x 1.12 (35/25 a shot, 4 shots a ton against 5).`,
-    }));
+    })));

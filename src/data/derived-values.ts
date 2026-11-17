@@ -86,5 +86,22 @@ export const fusionLanceHexDamage = (engineRating: number): number[] => {
 export const fusionLanceBattleValue = (engineRating: number): number =>
     Math.round(BV_PER_DAMAGE_HEX * fusionLanceHexDamage(engineRating).reduce((sum, damage) => sum + damage, 0));
 
+/** A target's movement modifier for a 'Mech that moved `hexes` hexes: 0-2 none, 3-4 +1, 5-6 +2, 7-9 +3, 10-17 +4, 18-24 +5, 25 or more +6. */
+export const movementModifierForHexes = (hexes: number): number =>
+    hexes <= 2 ? 0 : hexes <= 4 ? 1 : hexes <= 6 ? 2 : hexes <= 9 ? 3 : hexes <= 17 ? 4 : hexes <= 24 ? 5 : 6;
+
+/** COIL weapons multiply damage by the movement modifier when it is over +1 (DevianID's Final Stats, "A Hare-Brained Weapon"). */
+export const coilMultiplier = (hexesMoved: number): number => Math.max(1, movementModifierForHexes(hexesMoved));
+
+/** COIL Battle Value: its base damage times the multiplier of the 'Mech's running speed, over the hexes it reaches. */
+export const coilBattleValue = (baseDamage: number, longRange: number, runMP: number): number =>
+    Math.round(BV_PER_DAMAGE_HEX * baseDamage * coilMultiplier(runMP) * longRange);
+
+/** A reloadable launcher's Battle Value from its one-shot twin's: the one-shot is a fifth of it. */
+export const reloadableBattleValue = (oneShotBattleValue: number): number => Math.round(oneShotBattleValue / ONE_SHOT_FRACTION);
+
+/** A reloadable launcher's cost from its one-shot twin's: the canon one-shot costs half (SRM 6 40,000 against 80,000). */
+export const reloadableCost = (oneShotCost: number): number => oneShotCost * 2;
+
 /** The words for a derived figure, for a record's notes. */
 export const derivedNote = (text: string): string => `Derived, not given by the author: ${text}`;

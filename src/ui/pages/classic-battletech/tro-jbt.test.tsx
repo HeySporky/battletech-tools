@@ -295,6 +295,29 @@ describe("Homebrew and Apocryphal equipment readout", () => {
         expect(Math.round(100 * (1 - 360 / find(energyCustom, "custom-superheavy-ppc").battleValue!))).toBe(15);
     });
 
+    it("prints the COIL and Reloading Rocket Launcher tables as the catalog has them", () => {
+        const coil = (tag: string) => find(equipmentEnergy, tag);
+        const coilText = text.slice(text.indexOf("## COIL-S"), text.indexOf("## Reloading Rocket"));
+        const row = (label: string) => coilText.split("\n").find((line) => line.startsWith(`| **${label}**`))!;
+        expect(row("Weight")).toContain(`| ${coil("coil_s").weight} tons | ${coil("coil_m").weight} tons | ${coil("coil_l").weight} tons |`);
+        expect(row("Slots")).toContain(`| ${coil("coil_s").space.battlemech} | ${coil("coil_m").space.battlemech} | ${coil("coil_l").space.battlemech} |`);
+        expect(row("Damage")).toContain(`| ${coil("coil_s").damage} | ${coil("coil_m").damage} | ${coil("coil_l").damage} |`);
+        expect(row("Heat")).toContain(`| ${coil("coil_s").heat} | ${coil("coil_m").heat} | ${coil("coil_l").heat} |`);
+        for (const [tag, text1] of [["coil_s", "1 / 2 / 3"], ["coil_m", "3 / 6 / 9"], ["coil_l", "5 / 10 / 15"]] as const) {
+            expect(`${coil(tag).range.short} / ${coil(tag).range.medium} / ${coil(tag).range.long}`).toBe(text1);
+            expect(text).toContain(text1);
+        }
+        expect(row("Cost")).toContain(`| ${money(coil("coil_s").cbills!)} C-Bills | ${money(coil("coil_m").cbills!)} C-Bills | ${money(coil("coil_l").cbills!)} C-Bills |`);
+        const rrl = (size: number) => find(missileCustom, `custom-rrl-${size}`);
+        expect(text).toContain(`| **Battle Value** | ${rrl(10).battleValue} | ${rrl(15).battleValue} | ${rrl(20).battleValue} |`);
+        expect(text).toContain(`| **Cost** | ${money(rrl(10).cbills!)} C-Bills | ${money(rrl(15).cbills!)} C-Bills | ${money(rrl(20).cbills!)} C-Bills |`);
+        expect(text).toContain(`| **Salvos a ton** | ${rrl(10).shotsPerTon} | ${rrl(15).shotsPerTon} | ${rrl(20).shotsPerTon} |`);
+        expect(text).toContain(`(18, 23 and 24) and twice its cost (15,000, 30,000 and 45,000)`);
+        expect([10, 15, 20].map((size) => `${canonRecord(`rocket-launcher-${size}`).battleValue}`)).toEqual(["18", "23", "24"]);
+        expect([10, 15, 20].map((size) => money(canonRecord(`rocket-launcher-${size}`).cbills!))).toEqual(["15,000", "30,000", "45,000"]);
+        expect(text).toContain("The test file checks 23 canon weapons");
+    });
+
     it("credits every author and prints the engine's figures", () => {
         for (const handle of ["u/FedditSuns", "u/Magical_Savior", "u/sokttocs", "u/heavyarmormecha", "u/FweeCom", "u/Severe_Ad_5022", "u/Omega_Chris_8352", "u/Distinct-Duck-7120", "u/Bookwyrm517", "u/MasonStonewall"]) {
             expect(text, handle).toContain(handle);

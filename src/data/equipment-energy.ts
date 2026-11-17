@@ -1,4 +1,6 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { applyLoreAndRules } from "./custom-lore-rules";
+import { applyDerivedAlphaStrike } from "./derived-alpha-strike";
 
 /*
  * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -81,15 +83,16 @@ export const equipmentEnergy: IEquipmentItem[] = [
         category: "Energy Weapons",
         // BattleTech Gothic, Weapons and Equipment Table p.93: Heat 6, Damage 7, no minimum, 1-3 / 4-6 / 7-9. Gothic
         // has no construction rules, so weight, slots, cost, Battle Value and dates are not printed (2026-10-17).
-        notes: "BattleTech Gothic only (Weapons and Equipment Table p.93; Abomination-Mounted Weapons Table p.92 gives 1K shots per ton for Abominations). Gothic prints no weight, slots, cost, Battle Value or dates. Provisional: 2 tons inferred from the FS9-B Firestarter, which trades its two medium lasers, two machine guns and ammunition for a pair of light blazers (Gothic p.107); 2 slots by analogy with the Binary Laser Cannon, which takes the slots of the two lasers it pairs. Cost and Battle Value are not printed, so derived (derived-values.ts): Battle Value 63 is its 7 damage over the 9 hexes it reaches (the same method gives the canon medium laser 45 against 46 printed); cost 83,000 C-Bills is that Battle Value at the canon energy median of 1,310 C-Bills a point. BV1 reads the same figure.",
+        notes: "BattleTech Gothic only (Weapons and Equipment Table p.93; Abomination-Mounted Weapons Table p.92 gives 1K shots per ton for Abominations). Gothic prints no weight, slots, cost, Battle Value or dates. Provisional: 2 tons inferred from the FS9-B Firestarter, which trades its two medium lasers, two machine guns and ammunition for a pair of light blazers (Gothic p.107); 2 slots by analogy with the Binary Laser Cannon, which takes the slots of the two lasers it pairs. Cost and Battle Value are not printed, so derived (derived-values.ts): Battle Value 63 is its 7 damage over the 9 hexes it reaches (the same method gives the canon medium laser 45 against 46 printed); cost 83,000 C-Bills is that Battle Value at the canon energy median of 1,310 C-Bills a point. BV1 reads the same figure. Not given by the source, so ours: introduced 2300 and tech rating C, because BattleTech Gothic prints neither, and a blazer is a laser, so the canon medium laser's.",
         damage: 7,
         damageAero: 7,
         accuracyModifier: 0,
         cbills: 83000,
-        introduced: null,
+        introduced: 2300,
         extinct: null,
         reintroduced: null,
         battleValue: 63,
+        techRating: "c",
         heat: 6,
         weight: 2,
         range: {
@@ -695,6 +698,117 @@ export const equipmentEnergy: IEquipmentItem[] = [
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Apocryphal: no Alpha Strike conversion"] },
         heatAero: 10,
         rangeAero: "m"
+    },
+    {
+        isAmmo: false,
+        name: "COIL-S",
+        altNames: ["COIL Small", "Small COIL"],
+        tag: "coil_s",
+        editions: [],
+        techBase: "is",
+        sort: "laser, coil small",
+        category: "Energy Weapons",
+        rulesLevel: 5, // Apocryphal: from a video game, outside the main BattleTech setting.
+        variableFormula: "coil-s",
+        notes: "Apocryphal: a weapon of the BATTLETECH video game (Harebrained Schemes, Heavy Metal expansion), where COIL stands for 'Contained Overflow Inertia Linkage' (https://www.sarna.net/wiki/Coil-M). The video game's own numbers are in meters and at five times the tabletop damage (COIL-L: 35 damage, 450 m); the figures here are the tabletop 'Final Stats' of DevianID in the battletech.com forum thread 'A Hare-Brained Weapon' (https://battletech.com/forums/index.php?topic=71729.0, 7 December 2020): COIL-S heat 2, damage 3, range 1/2/3, 2 tons, 4 slots; COIL-M heat 4, damage 5, range 3/6/9, 3 tons, 6 slots; COIL-L heat 9, damage 7, range 5/10/15, 4 tons, 8 slots. The thread's original post is namar13766's, Speedbump's table of 25 November 2020 matches the weights and slots, and Hopalong posted the game's data. Inspired by: DevianID, with Speedbump and namar13766. Not adopted: Seer's fuller ruleset in the same thread (movement points charge the weapon, up to three shots an activation, ammunition explosions of 15, 10 and 5), which is a different weapon to play. Ours, not in the thread: Inner Sphere; introduced 3025, the era of the thread's title ('3025 era advanced tech'); cost is the catalog's earlier figure, the game's own scale; Battle Value is derived (derived-values.ts): base damage over the hexes it reaches, times the movement multiplier of the 'Mech's running speed, so it follows the 'Mech (a running speed of 6, a modifier of +2, doubles it); the figure on this record is for a 'Mech whose running speed gives no bonus. BV1 reads the same figure. The Alpha Strike conversion is none. The ranges were meters in the catalog (30 meters a hex); COIL-L's medium band, 315 meters, is 10 hexes, the last whole hex it covers.",
+        lore: "COIL stands for Contained Overflow Inertia Linkage. Where other energy weapons draw on the reactor, a COIL banks the energy of the 'Mech's own stride in a set of batteries and spends it in a single beam: the faster the machine moves before it fires, the harder the shot, while a jump, which gives the batteries nothing to catch, adds nothing. Standing still, a COIL is a weak, hot weapon; at a run it is among the most punishing beams on the field. The batteries are also its weakness, and a COIL that is damaged can dump everything it holds into the 'Mech that carries it. The make seen on the salvage markets, the Herakleion, was recovered from the derelict JumpShip Dobrev.",
+        rules: "Damage and heat are multiplied by the movement modifier when it is over +1: a 'Mech that moved 5-6 hexes does twice the base, 7-9 hexes three times, 10-17 hexes four times. A 'Mech that stood still, moved 4 hexes or fewer, or jumped fires at the base figures (the original post says a jump cannot fuel a shot). The COIL is +1 to hit. A critical hit to it deals half its damage to the 'Mech as an explosion.",
+        damage: 3,
+        damageAero: 3,
+        accuracyModifier: 1,
+        cbills: 110000,
+        introduced: 3025,
+        extinct: null,
+        reintroduced: null,
+        battleValue: 9,
+        heat: 2,
+        heatAero: 2,
+        weight: 2,
+        range: { min: 0, short: 1, medium: 2, long: 3 },
+        space: { battlemech: 4, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        shotsPerTon: 0,
+        minAmmoTons: 0,
+        explosive: true,
+        weaponType: ["DE"],
+        techRating: "f",
+        book: "BATTLETECH (Heavy Metal); tabletop figures: DevianID, battletech.com forums, 'A Hare-Brained Weapon'",
+        page: 0,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Apocryphal: no Alpha Strike conversion"] },
+        rangeAero: "s"
+    },
+    {
+        isAmmo: false,
+        name: "COIL-M",
+        altNames: ["COIL Medium", "Medium COIL"],
+        tag: "coil_m",
+        editions: [],
+        techBase: "is",
+        sort: "laser, coil medium",
+        category: "Energy Weapons",
+        rulesLevel: 5, // Apocryphal: from a video game, outside the main BattleTech setting.
+        variableFormula: "coil-m",
+        notes: "Apocryphal: a weapon of the BATTLETECH video game (Harebrained Schemes, Heavy Metal expansion), where COIL stands for 'Contained Overflow Inertia Linkage' (https://www.sarna.net/wiki/Coil-M). The video game's own numbers are in meters and at five times the tabletop damage (COIL-L: 35 damage, 450 m); the figures here are the tabletop 'Final Stats' of DevianID in the battletech.com forum thread 'A Hare-Brained Weapon' (https://battletech.com/forums/index.php?topic=71729.0, 7 December 2020): COIL-S heat 2, damage 3, range 1/2/3, 2 tons, 4 slots; COIL-M heat 4, damage 5, range 3/6/9, 3 tons, 6 slots; COIL-L heat 9, damage 7, range 5/10/15, 4 tons, 8 slots. The thread's original post is namar13766's, Speedbump's table of 25 November 2020 matches the weights and slots, and Hopalong posted the game's data. Inspired by: DevianID, with Speedbump and namar13766. Not adopted: Seer's fuller ruleset in the same thread (movement points charge the weapon, up to three shots an activation, ammunition explosions of 15, 10 and 5), which is a different weapon to play. Ours, not in the thread: Inner Sphere; introduced 3025, the era of the thread's title ('3025 era advanced tech'); cost is the catalog's earlier figure, the game's own scale; Battle Value is derived (derived-values.ts): base damage over the hexes it reaches, times the movement multiplier of the 'Mech's running speed, so it follows the 'Mech (a running speed of 6, a modifier of +2, doubles it); the figure on this record is for a 'Mech whose running speed gives no bonus. BV1 reads the same figure. The Alpha Strike conversion is none. The ranges were meters in the catalog (30 meters a hex); COIL-L's medium band, 315 meters, is 10 hexes, the last whole hex it covers.",
+        lore: "COIL stands for Contained Overflow Inertia Linkage. Where other energy weapons draw on the reactor, a COIL banks the energy of the 'Mech's own stride in a set of batteries and spends it in a single beam: the faster the machine moves before it fires, the harder the shot, while a jump, which gives the batteries nothing to catch, adds nothing. Standing still, a COIL is a weak, hot weapon; at a run it is among the most punishing beams on the field. The batteries are also its weakness, and a COIL that is damaged can dump everything it holds into the 'Mech that carries it. The make seen on the salvage markets, the Herakleion, was recovered from the derelict JumpShip Dobrev.",
+        rules: "Damage and heat are multiplied by the movement modifier when it is over +1: a 'Mech that moved 5-6 hexes does twice the base, 7-9 hexes three times, 10-17 hexes four times. A 'Mech that stood still, moved 4 hexes or fewer, or jumped fires at the base figures (the original post says a jump cannot fuel a shot). The COIL is +1 to hit. A critical hit to it deals half its damage to the 'Mech as an explosion.",
+        damage: 5,
+        damageAero: 5,
+        accuracyModifier: 1,
+        cbills: 220000,
+        introduced: 3025,
+        extinct: null,
+        reintroduced: null,
+        battleValue: 45,
+        heat: 4,
+        heatAero: 4,
+        weight: 3,
+        range: { min: 0, short: 3, medium: 6, long: 9 },
+        space: { battlemech: 6, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        shotsPerTon: 0,
+        minAmmoTons: 0,
+        explosive: true,
+        weaponType: ["DE"],
+        techRating: "f",
+        book: "BATTLETECH (Heavy Metal); tabletop figures: DevianID, battletech.com forums, 'A Hare-Brained Weapon'",
+        page: 0,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Apocryphal: no Alpha Strike conversion"] },
+        rangeAero: "m"
+    },
+    {
+        isAmmo: false,
+        name: "COIL-L",
+        altNames: ["COIL Large", "Large COIL"],
+        tag: "coil_l",
+        editions: [],
+        techBase: "is",
+        sort: "laser, coil large",
+        category: "Energy Weapons",
+        rulesLevel: 5, // Apocryphal: from a video game, outside the main BattleTech setting.
+        variableFormula: "coil-l",
+        notes: "Apocryphal: a weapon of the BATTLETECH video game (Harebrained Schemes, Heavy Metal expansion), where COIL stands for 'Contained Overflow Inertia Linkage' (https://www.sarna.net/wiki/Coil-M). The video game's own numbers are in meters and at five times the tabletop damage (COIL-L: 35 damage, 450 m); the figures here are the tabletop 'Final Stats' of DevianID in the battletech.com forum thread 'A Hare-Brained Weapon' (https://battletech.com/forums/index.php?topic=71729.0, 7 December 2020): COIL-S heat 2, damage 3, range 1/2/3, 2 tons, 4 slots; COIL-M heat 4, damage 5, range 3/6/9, 3 tons, 6 slots; COIL-L heat 9, damage 7, range 5/10/15, 4 tons, 8 slots. The thread's original post is namar13766's, Speedbump's table of 25 November 2020 matches the weights and slots, and Hopalong posted the game's data. Inspired by: DevianID, with Speedbump and namar13766. Not adopted: Seer's fuller ruleset in the same thread (movement points charge the weapon, up to three shots an activation, ammunition explosions of 15, 10 and 5), which is a different weapon to play. Ours, not in the thread: Inner Sphere; introduced 3025, the era of the thread's title ('3025 era advanced tech'); cost is the catalog's earlier figure, the game's own scale; Battle Value is derived (derived-values.ts): base damage over the hexes it reaches, times the movement multiplier of the 'Mech's running speed, so it follows the 'Mech (a running speed of 6, a modifier of +2, doubles it); the figure on this record is for a 'Mech whose running speed gives no bonus. BV1 reads the same figure. The Alpha Strike conversion is none. The ranges were meters in the catalog (30 meters a hex); COIL-L's medium band, 315 meters, is 10 hexes, the last whole hex it covers.",
+        lore: "COIL stands for Contained Overflow Inertia Linkage. Where other energy weapons draw on the reactor, a COIL banks the energy of the 'Mech's own stride in a set of batteries and spends it in a single beam: the faster the machine moves before it fires, the harder the shot, while a jump, which gives the batteries nothing to catch, adds nothing. Standing still, a COIL is a weak, hot weapon; at a run it is among the most punishing beams on the field. The batteries are also its weakness, and a COIL that is damaged can dump everything it holds into the 'Mech that carries it. The make seen on the salvage markets, the Herakleion, was recovered from the derelict JumpShip Dobrev.",
+        rules: "Damage and heat are multiplied by the movement modifier when it is over +1: a 'Mech that moved 5-6 hexes does twice the base, 7-9 hexes three times, 10-17 hexes four times. A 'Mech that stood still, moved 4 hexes or fewer, or jumped fires at the base figures (the original post says a jump cannot fuel a shot). The COIL is +1 to hit. A critical hit to it deals half its damage to the 'Mech as an explosion.",
+        damage: 7,
+        damageAero: 7,
+        accuracyModifier: 1,
+        cbills: 360000,
+        introduced: 3025,
+        extinct: null,
+        reintroduced: null,
+        battleValue: 105,
+        heat: 9,
+        heatAero: 9,
+        weight: 4,
+        range: { min: 0, short: 5, medium: 10, long: 15 },
+        space: { battlemech: 8, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
+        shotsPerTon: 0,
+        minAmmoTons: 0,
+        explosive: true,
+        weaponType: ["DE"],
+        techRating: "f",
+        book: "BATTLETECH (Heavy Metal); tabletop figures: DevianID, battletech.com forums, 'A Hare-Brained Weapon'",
+        page: 0,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Apocryphal: no Alpha Strike conversion"] },
+        rangeAero: "l"
     },
     {
         isAmmo: false,
@@ -3426,3 +3540,7 @@ export const equipmentEnergy: IEquipmentItem[] = [
         rangeAero: "s"
     },
 ];
+
+// The Gothic and video game weapons in this list carry lore and rules like the custom ones (custom-lore-rules.ts).
+applyLoreAndRules(equipmentEnergy);
+applyDerivedAlphaStrike(equipmentEnergy.filter((item) => (item.rulesLevel ?? 0) >= 5));

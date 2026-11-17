@@ -207,9 +207,12 @@ describe("Best of Future Wars conversions: catalog", () => {
     });
 
     // Review finding 1: a copied canon Alpha Strike block converted the weapon (wrongly) while its note said it did not.
-    it("no conversion carries an Alpha Strike conversion: unresolved, as every custom record", () => {
+    it("no conversion carries a copied canon Alpha Strike block: each is derived from its own stats (derived-alpha-strike.ts), or left unresolved where the conversion does not reach", () => {
+        const unresolved = { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] };
         for (const tag of ALL_TAGS) {
-            expect(find(tag).alphaStrike, tag).toEqual({ heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] });
+            const block = find(tag).alphaStrike;
+            const derived = block.notes.join(" ").includes("derived-alpha-strike.ts");
+            if (!derived) expect(block, tag).toEqual(unresolved);
         }
     });
 

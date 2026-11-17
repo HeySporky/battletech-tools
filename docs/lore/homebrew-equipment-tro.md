@@ -20,6 +20,18 @@ Most fan posts give a weapon's weight, slots, heat, damage and range and stop th
 - **Equipment that is not a weapon:** BV 0, as the canon C3 computer and MASC. The notes say so rather than leaving a bare 0.
 - **Cost:** BV x 1,310 C-Bills, the median cost per BV point of the canon energy weapons, to the nearest 1,000. Where a canon neighbour exists (an anti-missile system, a null-signature system) we take its cost.
 
+**Alpha Strike values.** A unit's Alpha Strike card adds up each weapon's own Alpha Strike block, so a weapon with an empty block adds nothing to the card. For fan weapons we derive the block from the weapon's own stats by the conversion the canon weapons follow:
+
+- **Damage** in each bracket is the weapon's expected damage divided by 10; a cluster weapon's expected damage is its hits on a roll of 7 on the Cluster Hits Table times the damage of each (the canon SRM 6: 4 hits x 2 = 8, which is 0.8).
+- **Brackets** are reached when the weapon's long range reaches into them: short from 1 hex, medium from 4, long from 16, extreme from 24.
+- **A minimum range** cuts the short bracket by a twelfth for each hex of it, to a quarter (the canon PPC, minimum 3: 0.75; the LRM, minimum 6: 0.5).
+- **A bonus to hit** adds a twentieth a point (pulse lasers 10 per cent, extended-range pulse lasers 5); an **Ultra** autocannon counts half again the damage and twice the heat.
+- **Heat** is the weapon's heat. The conversion does not cover long-range missiles, mortars, arrays, tasers, anti-missile systems or artillery, which keep their blocks as they are.
+
+The test file checks 23 canon weapons (lasers, PPCs, autocannon, SRMs, heavy Gauss) and each comes out within 0.02 of the printed value. A weapon whose block already held values is never touched.
+
+**Dates and tech ratings** the sources do not give come from a named canon neighbour (the Heavy PPC's for the Superheavy PPC, the Supercharger's for the Fusion Lance, the medium laser's for a laser, the Anti-Missile System's for the point defense system) or, for the Best of Future Wars items, from the catalog's 3025 baseline, since the fanzine prints no year. Each item's notes say which, and mark it as ours.
+
 **Weapons with several modes are priced at their strongest mode.** The canon MML-5 is 45, the same as the LRM-5 and not the sum of its LRM and SRM figures; only one mode fires a turn. The canon ATM-3 carries one figure, 53, and its other loads are priced as ammunition. The Omni-Laser follows this: its Focus mode is the strongest, so Focus sets the BV.
 
 **How far the method runs from canon.** Each line is checked in the test file:
@@ -170,6 +182,42 @@ It is destroyed if a side torso is lost, as an XL engine is; the author kept tha
 
 The launcher sizes are our reading of the post's grouped lines. The rule is recorded as text only, so the builder still gives the ammunition its printed rounds a ton.
 
+## COIL-S, COIL-M and COIL-L
+
+*Apocryphal. Weapons of the BATTLETECH video game (Harebrained Schemes, Heavy Metal expansion); tabletop figures by DevianID in the battletech.com forum thread "A Hare-Brained Weapon", with Speedbump and namar13766.* COIL stands for "Contained Overflow Inertia Linkage": a weapon that banks the energy of the 'Mech's own stride and spends it in one beam.
+
+| Item | COIL-S | COIL-M | COIL-L |
+| --- | --- | --- | --- |
+| **Weight** | 2 tons | 3 tons | 4 tons |
+| **Slots** | 4 | 6 | 8 |
+| **Damage** | 3 | 5 | 7 |
+| **Heat** | 2 | 4 | 9 |
+| **Range** | 1 / 2 / 3 | 3 / 6 / 9 | 5 / 10 / 15 |
+| **To hit** | +1 | +1 | +1 |
+| **Cost** | 110,000 C-Bills | 220,000 C-Bills | 360,000 C-Bills |
+| **Battle Value** | 9 x the multiplier | 45 x the multiplier | 105 x the multiplier |
+
+Damage and heat are multiplied by the movement modifier when it is over +1: a 'Mech that moved 5-6 hexes does twice the base, 7-9 hexes three times, 10-17 hexes four times; a 'Mech that stood still, moved 4 hexes or fewer, or jumped fires at the base figures. A critical hit to a COIL deals half its damage to the 'Mech as an explosion.
+
+**What was wrong, and the fix.** The catalog held the game's own numbers: ranges in meters (450 for the COIL-L), five times the tabletop damage, and the Standard rules level, so a 35-damage laser was offered in a Standard game. The ranges are now in hexes (30 meters a hex; the COIL-L's 315-meter medium band is 10 hexes, the last whole hex it covers), the damage and heat are the forum thread's, and the weapons sit at the Apocryphal level.
+
+**How the Battle Value is derived.** The damage depends on how the 'Mech moved, so the Battle Value follows the 'Mech's running speed, as the Fusion Lance's follows its engine: base damage times the multiplier of the running speed times the hexes it reaches. A COIL-L on a 'Mech that walks 4 and runs 6 (a +2 modifier, twice the base) is 7 x 2 x 15 = 210; the figure on the catalog record is for a 'Mech whose running speed gives no bonus. The thread's other tabletop conversion, Izzy193's COIL-L, COIL-M and COIL-H with their own numbers, is a different design and is not used.
+
+## Reloading Rocket Launchers
+
+*Custom Homebrew, ours: no author.* The catalog held rocket ammunition (240 rockets a ton, 45,000 C-Bills a ton, introduced 3067) with no launcher to fire it, and no published rule has a reloadable rocket launcher: the canon Rocket Launchers 10, 15 and 20 are one-shot, reloaded after a mission. So the three launchers are ours, built from the canon ones.
+
+| Item | RRL 10 | RRL 15 | RRL 20 |
+| --- | --- | --- | --- |
+| **Weight** | 0.5 ton | 1 ton | 1.5 tons |
+| **Slots** | 1 | 2 | 3 |
+| **Heat** | 3 | 4 | 5 |
+| **Salvos a ton** | 24 | 16 | 12 |
+| **Battle Value** | 90 | 115 | 120 |
+| **Cost** | 30,000 C-Bills | 60,000 C-Bills | 90,000 C-Bills |
+
+The weight, slots, heat and ranges are the canon launcher's. The Battle Value and cost follow a rule the canon shows across the SRM, Streak SRM, SRT and LRM lines: a one-shot launcher is a fifth of its reloadable twin in Battle Value and half in cost, so the reloading launcher is five times the one-shot's Battle Value (18, 23 and 24) and twice its cost (15,000, 30,000 and 45,000). The ammunition ton rides on the launcher at an eighth of its Battle Value, 11, 14 and 15.
+
 ## Other Items Priced the Same Way
 
 The same pass filled in every other Custom Homebrew, Apocryphal and Munchkin item that lacked a Battle Value or cost. A figure the author gave was never changed.
@@ -195,4 +243,4 @@ The same pass filled in every other Custom Homebrew, Apocryphal and Munchkin ite
 | Rotary rifle ammunition (light, medium, heavy) | 6, 9 and 13 a ton | as given | An eighth of the weapon's BV |
 | Laser arrays, modular C3, power boosters, periscope, magnetic grapples, EMP ammunition | 0 | as given | The canon figure for their kind; the notes say so |
 
-Two groups are not priced, and the notes say why: the COIL weapons, whose ranges are not in hexes and so cannot be summed, and the standard rocket launcher ammunition, which has no weapon to follow.
+Every Custom Homebrew, Apocryphal and Munchkin item now has its source note, lore, rules, introduction date, tech rating, rules level, cost, and Battle Value (or a stated reason for a 0), and every weapon the Alpha Strike conversion covers has Alpha Strike values. A test, `custom-completeness.test.ts`, fails if a new fan item lacks any of them.

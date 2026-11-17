@@ -699,7 +699,7 @@ describe("Batch 23 Rotary AC Caseless rounds", () => {
     it("stay available as Custom records under their old tags, statistics unchanged", () => {
         const custom = tags.map(tag => ammoCustom.find(item => item.tag === tag));
         for (const item of custom) {
-            expect(item).toMatchObject({ isSpecialAmmo: true, book: "Custom", page: 0, techRating: "x" });
+            expect(item).toMatchObject({ isSpecialAmmo: true, book: "Custom", page: 0, techRating: "e" });
             expect(item?.alphaStrike?.notes?.join(" ")).toContain("No canon source");
         }
         expect(custom.map(item => [item?.cbills, item?.battleValue, item?.roundsPerTon])).toEqual([

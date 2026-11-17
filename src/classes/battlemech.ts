@@ -11530,10 +11530,11 @@ export class BattleMech {
         const directFireWeaponWeight = getTargetingComputerWeaponWeight(this._equipmentList);
         // Only a Ram Plate reads the charge figures.
         const hasRamPlate = this._equipmentList.some(item => item?.variableFormula === "ram-plate");
+        const hasCoil = this._equipmentList.some(item => /^coil-[sml]$/.test(item?.variableFormula ?? ""));
         const spikedTorsos = hasRamPlate
             ? ["lt", "ct", "rt"].filter(loc => this._equipmentList.some(item => item?.tag === "spikes" && item.location === loc)).length : 0;
         return {
-            ...(hasRamPlate ? { runMP: this.getBVRunSpeed(), torsoSpikes: spikedTorsos } : {}),
+            ...(hasRamPlate ? { runMP: this.getBVRunSpeed(), torsoSpikes: spikedTorsos } : hasCoil ? { runMP: this.getBVRunSpeed() } : {}),
             tonnage: this.getTonnage(),
             engineRating: this.getEngine()?.rating ?? 0,
             engineWeight: this.getEngineWeight() ?? 0,

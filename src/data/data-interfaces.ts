@@ -144,6 +144,9 @@ export interface IArmorType extends ICatalogStanding {
     book?: string;
     page?: number | null;
     notes?: string;
+    /** In-character Technical Readout text, and how it plays (custom records). */
+    lore?: string;
+    rules?: string;
     critLocs?: ArmorCriticalLocationsByChassis;
     /**
      * Patchwork Armor: the critical slots this armor takes in each 'Mech location that carries it, and its
@@ -226,6 +229,9 @@ export interface IEngineType extends ICatalogStanding {
     largeOf?: string;
     /** Source, credit and anything not printed (custom records). */
     notes?: string;
+    /** In-character Technical Readout text, and how it plays (custom records). */
+    lore?: string;
+    rules?: string;
 }
 
 export interface IDamagePerRange {

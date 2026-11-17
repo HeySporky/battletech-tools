@@ -18,159 +18,6 @@ import { futureWarsBoostedWeapons } from "./best-of-future-wars-conversions";
 
 const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
     {
-       name: "COIL-L",
-        tag: "coil_l",
-        techBase: "universal",
-        sort: "laser, coil large",
-        category: "Energy Weapons",
-        damage: 35,
-        damageAero: 35,
-        accuracyModifier: 0,
-        cbills: 360000,
-        introduced: 3025,
-        extinct: null,
-        reintroduced: null,
-        battleValue: 0,
-        heat: 70,
-        weight: 8,
-        range: {
-            min: 90,
-            short: 180,
-            medium: 315,
-            long: 450
-        },
-        space: {
-            battlemech: 4,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 4,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        shotsPerTon: 0,
-        minAmmoTons: 0,
-        explosive: true,
-        weaponType: [
-            "DE"
-        ],
-        techRating: "f",
-        book: "HM",
-        page: 0,
-        alphaStrike: {
-            heat: 14,
-            rangeShort: 3.5,
-            rangeMedium: 3.5,
-            rangeLong: 0,
-            rangeExtreme: 0,
-            tc: false,
-            notes: ["Explosive, Unverified custom equipment"]
-        },
-        heatAero: 70
-    },
-    {
-        name: "COIL-M",
-        tag: "coil_m",
-        techBase: "universal",
-        sort: "laser, coil medium",
-        category: "Energy Weapons",
-        damage: 25,
-        damageAero: 25,
-        accuracyModifier: 0,
-        cbills: 220000,
-        introduced: 3025,
-        extinct: null,
-        reintroduced: null,
-        battleValue: 0,
-        heat: 40,
-        weight: 4,
-        range: {
-            min: 0,
-            short: 90,
-            medium: 180,
-            long: 270
-        },
-        space: {
-            battlemech: 3,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 3,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        shotsPerTon: 0,
-        minAmmoTons: 0,
-        explosive: true,
-        weaponType: [
-            "DE"
-        ],
-        techRating: "f",
-        book: "HM",
-        page: 0,
-        alphaStrike: {
-            heat: 8,
-            rangeShort: 2.5,
-            rangeMedium: 2.5,
-            rangeLong: 0,
-            rangeExtreme: 0,
-            tc: false,
-            notes: ["Explosive, Unverified custom equipment"]
-        },
-        heatAero: 40
-    },
-    {
-        name: "COIL-S",
-        tag: "coil_s",
-        techBase: "universal",
-        sort: "laser, coil small",
-        category: "Energy Weapons",
-        damage: 15,
-        damageAero: 15,
-        accuracyModifier: 0,
-        cbills: 110000,
-        introduced: 3025,
-        extinct: null,
-        reintroduced: null,
-        battleValue: 0,
-        heat: 30,
-        weight: 2,
-        range: {
-            min: 0,
-            short: 30,
-            medium: 60,
-            long: 90
-        },
-        space: {
-            battlemech: 2,
-            protomech: -1,
-            combatVehicle: 1,
-            supportVehicle: 2,
-            aerospaceFighter: 1,
-            smallCraft: 1,
-            dropShip: 1
-        },
-        shotsPerTon: 0,
-        minAmmoTons: 0,
-        explosive: true,
-        weaponType: [
-            "DE"
-        ],
-        techRating: "f",
-        book: "HM",
-        page: 0,
-        alphaStrike: {
-            heat: 6,
-            rangeShort: 1.5,
-            rangeMedium: 0,
-            rangeLong: 0,
-            rangeExtreme: 0,
-            tc: false,
-            notes: ["Explosive, Unverified custom equipment"]
-        },
-        heatAero: 30
-    },
-    {
         name: "Disruptor (MekTek)", tag: "custom-disruptor", techBase: "universal", sort: "disruptor", category: "Custom Equipment", notes: "Unverified placeholder associated with MekTek Issue 2.",
         damage: 10, damageAero: 10, accuracyModifier: 0, cbills: 0, introduced: 2316, prototype: 2306, extinct: null, reintroduced: null, battleValue: 0, heat: 8, heatAero: 8, weight: 6, // Dates of the Standard Large Laser, which shares its heat and ranges (IO p.43).
         range: { min: 0, short: 5, medium: 10, long: 15 }, space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 },
@@ -349,7 +196,7 @@ const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
             + "engine rating or part of 100 (15 at the least, 30 at the most), less 5 for each hex after the first, and it does full damage to infantry. "
             + "Each activation needs a Supercharger roll, and activations stack with a mounted Supercharger. A failed roll is a critical hit on the topmost engine slot, "
             + "applied at once. Each engine hit takes 5 off the damage.",
-        damage: 15, damageAero: 15, accuracyModifier: 0, cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 30, heatAero: 30, weight: 4,
+        damage: { short: 15, medium: 10, long: 5, aeroShort: 15, aeroMedium: 10, aeroLong: 5 }, damageAero: 15, accuracyModifier: 0, cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 30, heatAero: 30, weight: 4,
         range: { min: 0, short: 1, medium: 2, long: 3 }, space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
         shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], techRating: "x", book: "Reddit u/Magical_Savior", page: 0, rulesLevel: 6, variableFormula: "fusion-lance",
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] }
@@ -391,4 +238,5 @@ const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
 /** The Best of Future Wars (1991) p.28: weapons with a Power Booster (#172), the Gatling Laser built from the record above. */
 const gatlingLaser = energyCustomBase.find((item) => item.tag === "custom-gatling-laser");
 if (!gatlingLaser) throw new Error("energy-custom: custom-gatling-laser not found");
-export const energyCustom: IEquipmentItem[] = [...energyCustomBase, ...futureWarsBoostedWeapons(gatlingLaser)];
+// The boosted weapons are built from records the first pass has filled, and take the same pass themselves (a figure already there is never changed).
+export const energyCustom: IEquipmentItem[] = applyDerivedValues([...energyCustomBase, ...futureWarsBoostedWeapons(gatlingLaser)]);

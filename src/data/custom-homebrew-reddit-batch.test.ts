@@ -52,7 +52,8 @@ describe("Superheavy PPC and Fusion Lance (Custom Homebrew)", () => {
         expect(ppc.cbills).toBe(300000);
         expect(ppc.rangeAero).toBe("m");
         // The post gives no tech base or dates.
-        expect(ppc.introduced).toBeNull();
+        // Not given in the post: the Heavy PPC's date, which it enlarges (derived-custom-values.ts).
+        expect(ppc.introduced).toBe(3067);
         expect(ppc.notes).toMatch(/not given|unverified/i);
     });
 
@@ -62,7 +63,7 @@ describe("Superheavy PPC and Fusion Lance (Custom Homebrew)", () => {
         expect(lance.space.battlemech).toBe(2);
         expect(lance.heat).toBe(30);
         expect(lance.range.long).toBe(3);
-        expect(lance.damage).toBe(15);
+        expect(lance.damage).toEqual({ short: 15, medium: 10, long: 5, aeroShort: 15, aeroMedium: 10, aeroLong: 5 });
         expect(lance.battleValue).toBe(30);
         expect(lance.cbills).toBe(39000);
         expect(lance.rules).toMatch(/Engine/);
@@ -84,11 +85,11 @@ describe("Superheavy PPC and Fusion Lance (Custom Homebrew)", () => {
         // A 50-ton 'Mech at walk 5 has a 250 engine: damage 10 + 5 x 3 = 25, over 3 hexes 25 + 20 + 15 = 60 BV.
         const medium = sized(50, 5);
         expect(medium.rating).toBe(250);
-        expect(medium.item).toMatchObject({ damage: 25, battleValue: 60, cbills: 79000, weight: 4 });
+        expect(medium.item).toMatchObject({ damage: { short: 25, medium: 20, long: 15 }, battleValue: 60, cbills: 79000, weight: 4 });
         // A 100-ton 'Mech at walk 4 has a 400 engine: the top of the range, 30 damage, 30 + 25 + 20 = 75 BV.
-        expect(sized(100, 4).item).toMatchObject({ damage: 30, battleValue: 75, cbills: 98000 });
+        expect(sized(100, 4).item).toMatchObject({ damage: { short: 30, medium: 25, long: 20 }, battleValue: 75, cbills: 98000 });
         // A light 'Mech with a 100 engine: 15 damage, 30 BV.
-        expect(sized(20, 5).item).toMatchObject({ damage: 15, battleValue: 30, cbills: 39000 });
+        expect(sized(20, 5).item).toMatchObject({ damage: { short: 15, medium: 10, long: 5 }, battleValue: 30, cbills: 39000 });
     });
 
     it("a 'Mech carrying each has a finite Battle Value and counts the weapon's heat", () => {

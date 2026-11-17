@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "./data-interfaces";
+import { applyDerivedValues } from "./derived-custom-values";
 import { equipmentBallistic } from "./equipment-ballistic";
 import { universalEquipment } from "./universal-equipment";
 
@@ -88,7 +89,7 @@ function comboGun(row: IComboGunRow, techBase: "is" | "clan"): IEquipmentItem {
     };
 }
 
-export const artilleryCustom: IEquipmentItem[] = [
+export const artilleryCustom: IEquipmentItem[] = applyDerivedValues([
     ...comboRows.map((row) => comboGun(row, "is")),
     ...comboRows.map((row) => comboGun(row, "clan")),
     {
@@ -110,7 +111,7 @@ export const artilleryCustom: IEquipmentItem[] = [
         book: "http://solaris7.com/thread/custom-senario-weapon-comments-and-criticisms-needed/", page: 0, rulesLevel: 7,
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike conversion"] },
     },
-];
+]);
 
 /** The canon artillery piece a ComboGun fires as in Siege Mode, or undefined for any other item. */
 export function getComboArtillery(item: IEquipmentItem): IEquipmentItem | undefined {

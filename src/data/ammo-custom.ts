@@ -662,7 +662,14 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         techRating: "e",
         book: "Custom",
         page: 0,
-        alphaStrike: { specialAbility: ["MSL"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] }
+        alphaStrike: { specialAbility: ["MSL"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+        catalog: "custom",
+        rulesLevel: 6,
+        notes: "Custom Homebrew, ours: rocket ammunition for the Reloading Rocket Launchers (custom-rrl-10, -15 and -20), 240 rockets a ton, 45,000 C-Bills a ton (the canon Rocket Launcher 20's price), "
+            + "introduced 3067, the Rocket Launcher's date in the Jihad. The catalog held it with no launcher to fire it; no published rule has reloadable rockets, so the launchers and this record are ours.",
+        rules: "Rockets for the Reloading Rocket Launchers, 240 a ton: a salvo is the launcher's size (10, 15 or 20 rockets), so a ton holds 24, 16 or 12 salvos. The ammunition explodes.",
+        lore: "A magazine ton of unguided rockets, packed loose in feed trays for the reloading launchers, cheap to make and dangerous to carry: a hit that finds the magazine "
+            + "sets off every rocket in it."
     },
     {
         isAmmo: true,

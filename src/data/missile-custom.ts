@@ -1,5 +1,6 @@
 import { IEquipmentItem } from "./data-interfaces";
 import { applyDerivedValues } from "./derived-custom-values";
+import { equipmentMissile } from "./equipment-missile";
 import { futureWarsSwingFires } from "./best-of-future-wars-conversions";
 
 /*
@@ -15,6 +16,63 @@ import { futureWarsSwingFires } from "./best-of-future-wars-conversions";
  * to challenge any copyright or trademark status, and this data is explicitly 
  * excluded from the software's underlying license (GNU GPLv3).
  */
+
+/**
+ * The Reloading Rocket Launcher 10, 15 and 20 (Custom Homebrew, ours): the canon one-shot Rocket Launchers fed from ammunition each turn, for the
+ * catalog's rocket ammunition (ammo-rocket-launcher-standard, 240 rockets a ton), which had no launcher to fire it. Weight, slots, heat and ranges are
+ * the canon launcher's; Battle Value and cost are derived from it (derived-custom-values.ts, "reloadable-twin").
+ */
+const reloadingRocketLauncher = (size: number): IEquipmentItem => {
+    const canon = equipmentMissile.find((item) => item.tag === `rocket-launcher-${size}`);
+    if (!canon) throw new Error(`missile-custom: canon rocket-launcher-${size} not found`);
+    return {
+        isAmmo: false,
+        name: `Reloading Rocket Launcher ${size}`,
+        altNames: [`RRL ${size}`, `RRL-${size}`, `Reloadable Rocket Launcher ${size}`],
+        tag: `custom-rrl-${size}`,
+        techBase: "is",
+        altTags: [],
+        sort: `missile, rocket launcher ${size}, reloading`,
+        category: "Missile Weapons",
+        catalog: "custom",
+        rulesLevel: 6,
+        notes: `Custom Homebrew, ours: the catalog held rocket ammunition (ammo-rocket-launcher-standard, 240 rockets a ton, introduced 3067, source "Custom") with no launcher to fire it, and no published rule has a reloadable rocket launcher `
+            + `(Sarna's Rocket Launcher pages show only the one-shot RL 10, 15 and 20, and the Master Rules Revised price list reloads one after a mission for 1,000 C-Bills), so these three launchers are ours, not an author's. `
+            + `They are the canon Rocket Launcher ${size} (${canon.weight} tons, ${canon.space.battlemech} slot${canon.space.battlemech === 1 ? "" : "s"}, heat ${canon.heat}, ranges ${canon.range.short}/${canon.range.medium}/${canon.range.long}) fed from ammunition each turn instead of fired once a game: `
+            + `the same weight, slots, heat and ranges; shots a ton are 240 rockets over ${size}, ${240 / size}. Introduced 3067, the ammunition's date; tech rating E, the ammunition's.`,
+        rules: `Resolved as the canon Rocket Launcher ${size}: an LRM attack of ${size} unguided rockets on the Cluster Hits Table, with the launcher's own ranges and +1 to hit; no special munitions, Artemis IV or Narc homing; ECM has no effect and an anti-missile system may engage it. `
+            + `Unlike the canon launcher it fires every turn, spending one salvo of rocket ammunition (${size} rockets) a shot: a ton holds ${240 / size} salvos. The ammunition explodes.`,
+        lore: "The Marian Hegemony's rocket launchers were built to be thrown away: a bank of unguided tubes fired once and refilled between missions. "
+            + "The Reloading Rocket Launcher keeps the same dead-fire tubes but feeds them from a magazine ton of rockets, so it can fire turn after turn for as long as the magazine lasts, "
+            + "at the price of the tonnage and the explosive risk of that magazine. Quartermasters with no pods to spare in the Jihad's long campaigns welcomed it; gunners "
+            + "found it as inaccurate as the pods.",
+        damage: 0,
+        damageAero: canon.damageAero,
+        accuracyModifier: 1,
+        cbills: 0,
+        introduced: 3067,
+        extinct: null,
+        reintroduced: null,
+        battleValue: 0,
+        heat: canon.heat,
+        heatAero: canon.heatAero,
+        weight: canon.weight,
+        range: { ...canon.range },
+        space: { ...canon.space },
+        shotsPerTon: 240 / size,
+        ammoTypes: ["ammo-rocket-launcher-standard"],
+        minAmmoTons: 1,
+        explosive: false,
+        weaponType: ["MS"],
+        techRating: "e",
+        book: "Custom",
+        page: 0,
+        damageClusters: size,
+        damagePerCluster: 1,
+        rangeAero: canon.rangeAero,
+        alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+    };
+};
 
 export const missileCustom: IEquipmentItem[] = applyDerivedValues([
     {
@@ -672,4 +730,5 @@ export const missileCustom: IEquipmentItem[] = applyDerivedValues([
     },
     // The Best of Future Wars (1991) p.27: Swing Fire Missile System (#172).
     ...futureWarsSwingFires(),
+    ...[10, 15, 20].map(reloadingRocketLauncher),
 ]);

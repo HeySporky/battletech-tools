@@ -1,5 +1,7 @@
 import { IEquipmentItem } from "./data-interfaces";
-import { ammoBattleValueFromWeapon, ammoCostFromBattleValue, canonRecord, costFromBattleValue, COST_PER_BV, derivedNote, directFireBattleValue, extrapolate,
+import { applyLoreAndRules } from "./custom-lore-rules";
+import { applyDerivedAlphaStrike } from "./derived-alpha-strike";
+import { ammoBattleValueFromWeapon, ammoCostFromBattleValue, canonRecord, costFromBattleValue, COST_PER_BV, derivedNote, directFireBattleValue, extrapolate, reloadableBattleValue, reloadableCost,
     fusionLanceBattleValue, interpolate, meleeBattleValue, oneShotBattleValue } from "./derived-values";
 
 /*
@@ -26,6 +28,8 @@ export type DerivationRule =
     | { kind: "ammo-of-weapon"; weaponBattleValue: number }
     /** A ton of ammunition between the canon size 10 and 20 of a family, by their weapons' ammunition BV. */
     | { kind: "ammo-interpolated"; low: string; high: string; size: number }
+    /** A reloadable launcher from its one-shot twin: a fifth of the Battle Value and half the cost mean the reloadable is 5 and 2 times them. */
+    | { kind: "reloadable-twin"; oneShotTag: string }
     /** A weapon whose damage is rolled by range band: the average roll over each band's hexes (hexes 1 to the long range). */
     | { kind: "dice-bands"; bands: { hexes: number; average: number }[] }
     /** Battle Value 0 is the canon figure for this kind of item; each tag named has 0 in the catalog. */
@@ -67,6 +71,10 @@ export const DERIVATION_RULES: Record<string, DerivationRule> = {
     "custom-eii-pds": { kind: "copy-of", tag: "is-ams" },
     "ammo-custom-eii-pds-standard": { kind: "copy-of", tag: "ammo-is-ams-standard" },
     "custom-null-signature-system": { kind: "copy-of", tag: "null-signature-system" },
+    // The reloading rocket launchers, from the canon one-shot rocket launchers.
+    ...Object.fromEntries([10, 15, 20].map((size) => [`custom-rrl-${size}`, { kind: "reloadable-twin", oneShotTag: `rocket-launcher-${size}` } as DerivationRule])),
+    "ammo-custom-penitrator-standard": { kind: "no-battle-value", like: ["ammo-lrm-standard", "ammo-srm-standard"], why: "missile ammunition's Battle Value rides on the launcher, and the canon missile ammunition records read 0." },
+    "ammo-rocket-launcher-standard": { kind: "no-battle-value", like: ["ammo-lrm-standard", "ammo-srm-standard"], why: "missile ammunition's Battle Value rides on the launcher, and the canon missile ammunition records read 0." },
     // A launcher whose damage is rolled by range band.
     "custom-penitrator": { kind: "dice-bands", bands: [{ hexes: 7, average: 1.25 }, { hexes: 5, average: 4.5 }, { hexes: 12, average: 3.5 }, { hexes: 12, average: 2.5 }] },
     // Special ammunition: the canon special round carries its standard round's Battle Value (AC/2 Flak and AP: 5 and 5).
@@ -91,6 +99,72 @@ export const DERIVATION_RULES: Record<string, DerivationRule> = {
     ...Object.fromEntries(["lrm", "srm", "mrm", "enhanced-lrm", "extended-lrm", "lrt", "srt", "enhanced-lrt"].map((family) =>
         [`ammo-is-${family}-emp`, { kind: "no-battle-value", like: ["ammo-lrm-standard", "ammo-srm-standard"], why: "missile ammunition's Battle Value rides on the launcher, and the canon missile ammunition records read 0." } as DerivationRule])),
 };
+
+/** Where a missing date or tech rating comes from: a canon neighbour's, a sibling record's in the same list, or a stated figure. */
+type DatingSource = { like: string } | { local: string } | { value: number | string };
+interface IDating { introduced?: DatingSource; prototype?: DatingSource; rating?: DatingSource; why: string }
+
+const FANZINE_YEAR = { value: 3025 };
+const FANZINE_WHY = "The Best of Future Wars (1991) prints no year or tech rating, and its setting is the Succession Wars, so the date is the catalog's 3025 baseline";
+
+/** Dates and tech ratings the sources do not give, each from the canon neighbour named (ours, labelled in the notes). */
+export const DATING_RULES: Record<string, IDating> = {
+    "light-blazer": { introduced: { like: "medium-laser" }, rating: { like: "medium-laser" }, why: "BattleTech Gothic prints neither, and a blazer is a laser, so the canon medium laser's" },
+    "custom-superheavy-ppc": { introduced: { like: "heavy-ppc" }, prototype: { like: "heavy-ppc" }, rating: { like: "heavy-ppc" }, why: "the post gives none, and it is the Heavy PPC enlarged, so the Heavy PPC's" },
+    "custom-fusion-lance": { introduced: { like: "supercharger" }, rating: { like: "heavy-ppc" }, why: "the post gives none: the lance needs the Supercharger's technology, so its date, and an energy weapon of its heat rates as the Heavy PPC" },
+    "custom-omni-laser": { rating: { like: "risc-hyper-laser" }, why: "the post gives none, and it is introduced in the 3150s, the age of the RISC Hyper Laser, so its rating" },
+    "custom-disruptor": { rating: { like: "large-laser" }, why: "the catalog already gives it the Standard Large Laser's dates, so its rating" },
+    "custom-pile-bunker": { rating: { like: "pile-driver" }, why: "the catalog already gives it the Heavy-Duty Pile Driver's dates, so its rating" },
+    "ammo-custom-pile-bunker-standard": { rating: { like: "pile-driver" }, why: "it follows the Pile Bunker, which follows the Heavy-Duty Pile Driver" },
+    "custom-null-signature-system": { rating: { like: "null-signature-system" }, why: "it is a fan version of the canon Null Signature System" },
+    // The Best of Future Wars.
+    "custom-gatling-laser": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; a laser rates as the canon medium laser` },
+    "custom-power-booster-gatling-laser": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; it rates as the Gatling Laser it boosts` },
+    "custom-lr-flamer": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; a flamer rates as the canon energy weapons of its day` },
+    "ammo-custom-lr-flamer-standard": { introduced: FANZINE_YEAR, rating: { like: "medium-laser" }, why: `${FANZINE_WHY}; it follows the Long Range Flamer` },
+    "custom-eii-pds": { introduced: FANZINE_YEAR, rating: { like: "is-ams" }, why: `${FANZINE_WHY}; it does the job of the canon Anti-Missile System, so its rating` },
+    "ammo-custom-eii-pds-standard": { introduced: FANZINE_YEAR, rating: { like: "is-ams" }, why: `${FANZINE_WHY}; it follows the Point Defense System` },
+    "custom-penitrator": { introduced: FANZINE_YEAR, rating: { like: "lrm-5" }, why: `${FANZINE_WHY}; a missile launcher rates as the canon LRM` },
+    "ammo-custom-penitrator-standard": { introduced: FANZINE_YEAR, rating: { like: "lrm-5" }, why: `${FANZINE_WHY}; it follows the Penitrator` },
+    "custom-power-booster-running": { introduced: FANZINE_YEAR, rating: { like: "masc" }, why: `${FANZINE_WHY}; a movement booster rates as the canon MASC` },
+    "custom-power-booster-jumping": { introduced: FANZINE_YEAR, rating: { like: "masc" }, why: `${FANZINE_WHY}; a movement booster rates as the canon MASC` },
+    ...Object.fromEntries(["ppc", "large-laser", "medium-laser", "small-laser"].map((weapon) => [`custom-power-booster-${weapon}`, { introduced: FANZINE_YEAR, why: FANZINE_WHY } as IDating])),
+    ...Object.fromEntries([2, 5, 10, 20].map((size) => [`custom-pom-pom-ac-${size}`, { introduced: FANZINE_YEAR, why: FANZINE_WHY } as IDating])),
+    ...Object.fromEntries([2, 5, 10, 20].map((size) => [`ammo-ac-${size}-sabot`, { introduced: FANZINE_YEAR, rating: { like: `ammo-ac-${size}-standard` }, why: `${FANZINE_WHY}; the round rates as the standard round it replaces` } as IDating])),
+    "ammo-is-gauss-rifle-vhe": { rating: { like: "ammo-is-gauss-rifle-standard" }, why: "the article gives a date but no rating; the round rates as the standard Gauss round" },
+    "ammo-is-gauss-rifle-inferno": { introduced: { local: "ammo-is-gauss-rifle-vhe" }, rating: { like: "ammo-is-gauss-rifle-standard" }, why: "the article gives the VHE shell a date and neither a date nor a rating for the Inferno shell, so the VHE's date and the standard Gauss round's rating" },
+    // Kronos Battle Systems 15-class autocannon ammunition and the older caseless rounds.
+    ...Object.fromEntries(["ammo-ac-15-standard", "ammo-lb-15x-standard", "ammo-lb-15x-cluster", "ammo-ultra-ac-15-standard"].map((tag) =>
+        [tag, { rating: { value: "f" }, why: "the Class 15 autocannons it feeds are rated F" } as IDating])),
+    ...Object.fromEntries([["is", 2], ["is", 5], ["clan", 2], ["clan", 5]].map(([base, size]) =>
+        [`ammo-${base}-rotary-ac-${size}-caseless`, { rating: { like: `ammo-${base}-rotary-ac-${size}-standard` }, why: "caseless rounds rate as the standard round of the same autocannon" } as IDating])),
+};
+
+const sourceValue = (source: DatingSource, byTag: Map<string, IEquipmentItem>, field: "introduced" | "prototype" | "techRating"): number | string | undefined => {
+    if ("value" in source) return source.value;
+    const neighbour = "like" in source ? canonRecord(source.like) : byTag.get(source.local);
+    if (!neighbour) throw new Error(`derived-custom-values: dating neighbour not found`);
+    return neighbour[field] ?? undefined;
+};
+
+function applyDating(item: IEquipmentItem, dating: IDating, byTag: Map<string, IEquipmentItem>): boolean {
+    const said: string[] = [];
+    if ((item.introduced === null || item.introduced === undefined) && dating.introduced) {
+        const year = sourceValue(dating.introduced, byTag, "introduced");
+        if (typeof year === "number") { item.introduced = year; said.push(`introduced ${year}`); }
+    }
+    if ((item.prototype === null || item.prototype === undefined) && dating.prototype) {
+        const year = sourceValue(dating.prototype, byTag, "prototype");
+        if (typeof year === "number") { item.prototype = year; said.push(`prototype ${year}`); }
+    }
+    if ((!item.techRating || item.techRating === "x") && dating.rating) {
+        const rating = sourceValue(dating.rating, byTag, "techRating");
+        if (typeof rating === "string") { item.techRating = rating; said.push(`tech rating ${rating.toUpperCase()}`); }
+    }
+    if (!said.length) return false;
+    item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Not given by the source, so ours: ${said.join(", ")}, because ${dating.why}.`;
+    return true;
+}
 
 interface IFigures { battleValue?: number; cbills?: number; ammoBattleValue?: number; defensive?: boolean; text: string }
 
@@ -134,6 +208,12 @@ function derive(rule: DerivationRule, item: IEquipmentItem): IFigures {
             return { battleValue, cbills: ammoCostFromBattleValue(battleValue),
                 text: `Battle Value ${battleValue} a ton is an eighth of its weapon's ${rule.weaponBattleValue} (the canon ammunition ratio, .122 to .135)${item.cbills ? "" : `; cost ${n(ammoCostFromBattleValue(battleValue))} C-Bills a ton is that at the canon median of 450 C-Bills a point`} (derived-values.ts).` };
         }
+        case "reloadable-twin": {
+            const twin = canonRecord(rule.oneShotTag);
+            const battleValue = reloadableBattleValue(twin.battleValue!), cbills = reloadableCost(twin.cbills!);
+            return { battleValue, cbills, ammoBattleValue: ammoBattleValueFromWeapon(battleValue),
+                text: `the canon ${twin.name} is one-shot (BV ${twin.battleValue}, ${n(twin.cbills!)} C-Bills); a one-shot launcher is a fifth of its reloadable twin in Battle Value and half in cost in the canon SRM, Streak SRM, SRT and LRM lines, so this launcher is Battle Value ${battleValue} and ${n(cbills)} C-Bills, and its ton of ammunition ${ammoBattleValueFromWeapon(battleValue)}, an eighth of the weapon's, riding on the launcher as a canon missile launcher's does (derived-values.ts). BV1 reads the same figure.` };
+        }
         case "dice-bands": {
             const battleValue = Math.round(rule.bands.reduce((sum, band) => sum + band.hexes * band.average, 0));
             return { battleValue, cbills: costFromBattleValue(battleValue), ammoBattleValue: ammoBattleValueFromWeapon(battleValue),
@@ -151,7 +231,10 @@ function derive(rule: DerivationRule, item: IEquipmentItem): IFigures {
 
 /** Fills the missing Battle Value and cost of the listed items and notes how; returns the same list. */
 export function applyDerivedValues(items: IEquipmentItem[]): IEquipmentItem[] {
+    const byTag = new Map(items.map((item) => [item.tag, item]));
     for (const item of items) {
+        const dating = DATING_RULES[item.tag];
+        if (dating) applyDating(item, dating, byTag);
         const rule = DERIVATION_RULES[item.tag];
         if (!rule) continue;
         const figures = derive(rule, item);
@@ -163,5 +246,5 @@ export function applyDerivedValues(items: IEquipmentItem[]): IEquipmentItem[] {
         if (rule.kind === "no-battle-value" && !item.notes?.includes("Battle Value 0 is deliberate")) fills.push("note");
         if (fills.length) item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}${rule.kind === "no-battle-value" ? figures.text : derivedNote(figures.text)}`;
     }
-    return items;
+    return applyDerivedAlphaStrike(applyLoreAndRules(items, true));
 }
