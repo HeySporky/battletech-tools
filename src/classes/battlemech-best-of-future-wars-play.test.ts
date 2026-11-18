@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { BattleMech } from "./battlemech";
+import { findSpecialRuleset } from "../data/special-rulesets";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "../data/rules-level-options";
 import { getTargetToHitFromWeapon } from "../utils";
 import { ITargetToHit } from "./battlemech";
@@ -344,5 +345,73 @@ describe("Best of Future Wars equipment in play", () => {
         expect(mech.getPDSBurstsLeft(pds.uuid!)).toBe(99);
         bin.currentAmmo = 0;
         expect(mech.usePDSBurst(pds.uuid!)).toBe(false);
+    });
+
+    describe("with Future Wars: equipment as first printed (#172, printing alternates)", () => {
+        const first = (jump: number = 0): BattleMech => {
+            const mech = build(jump);
+            mech.applyGameSettings({ ...mech.getGameSettings(CUSTOM_HOMEBREW_RULES_LEVEL), rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, rulesets: ["fw-equipment-first-printings"] });
+            return mech;
+        };
+
+        it("is a Custom Homebrew ruleset of its own", () => {
+            expect(findSpecialRuleset("fw-equipment-first-printings")).toMatchObject({ category: "play", changes: ["futureWarsEquipment"], minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL });
+            expect(first().usesFutureWarsEquipmentFirstPrintings()).toBe(true);
+            expect(build().usesFutureWarsEquipmentFirstPrintings()).toBe(false);
+        });
+
+        it("the PDS makes no heat when fired or in the weapon heat; Battle Value is unchanged", () => {
+            const plain = build();
+            mount(plain, "custom-eii-pds");
+            const mech = first();
+            mount(mech, "custom-eii-pds");
+            expect(plain.getWeaponHeat()).toBe(1);
+            expect(mech.getWeaponHeat()).toBe(0);
+            inPlay(mech, "custom-eii-pds").target = "a";
+            inPlay(plain, "custom-eii-pds").target = "a";
+            expect(plain.getActiveWeaponHeat()).toBe(1);
+            expect(mech.getActiveWeaponHeat()).toBe(0);
+            const weaponHeat = (unit: BattleMech) => unit.getBattleValueBreakdown().steps.filter((step) => step.id === "bv2.off.heat.weapons").pop()?.value;
+            // BV2 counts the PDS as defensive equipment (as AMS), so its heat is in neither printing's weapon heat.
+            expect(weaponHeat(mech)).toBe(weaponHeat(plain));
+            expect(mech.getBattleValue()).toBe(plain.getBattleValue());
+        });
+
+        it("a fourth turn boosting is rolled at 11 or less, not burned out", () => {
+            const mech = first();
+            mount(mech, "custom-power-booster-ppc");
+            const ppc = inPlay(mech, "custom-power-booster-ppc");
+            for (let turn = 1; turn <= 3; turn++) {
+                expect(mech.rollPowerBooster(ppc.uuid!, 12)).toBe("boosted");
+                endTurn(mech);
+            }
+            expect(mech.rollPowerBooster(ppc.uuid!, 12)).toBe("boosted");
+        });
+
+        it("a hit on Inferno Gauss shells is 30 heat and 1 damage a shell", () => {
+            const mech = first();
+            mount(mech, "standard-gauss-rifle");
+            const { item, slot } = placeIn(mech, "ammo-is-gauss-rifle-inferno", "lt", "leftTorso");
+            item.currentAmmo = 6;
+            const structure = mech.getCurrentStructure();
+            const log = mech.rollCriticalHit("lt", { chance: 8, lines: [slot < 6 ? 1 : 4, slot % 6 + 1] });
+            expect(mech.getFutureWarsIncomingHeat()).toBe(30);
+            expect(mech.getCurrentStructure()).toBe(structure - 6);
+            expect(log.join(" ")).toContain("30 heat and 6 damage");
+            expect(mech.getAmmoBinRemaining(item)).toBe(0);
+        });
+
+        it("a hit on Long Range Flamer fuel is 2 damage and 3 heat a round left", () => {
+            const mech = first();
+            mount(mech, "custom-lr-flamer");
+            const { item, slot } = placeIn(mech, "ammo-custom-lr-flamer-standard", "lt", "leftTorso");
+            item.currentAmmo = 5;
+            const structure = mech.getCurrentStructure();
+            const log = mech.rollCriticalHit("lt", { chance: 8, lines: [slot < 6 ? 1 : 4, slot % 6 + 1] });
+            expect(mech.getFutureWarsIncomingHeat()).toBe(15);
+            expect(mech.getCurrentStructure()).toBe(structure - 10);
+            expect(log.join(" ")).toContain("10 damage and 15 heat");
+            expect(mech.getAmmoBinRemaining(item)).toBe(0);
+        });
     });
 });

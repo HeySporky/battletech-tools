@@ -1,4 +1,5 @@
 import { IEquipmentItem } from "../data/data-interfaces";
+import type { FutureWarsPrinting } from "./future-wars-ruleset-tools";
 
 /**
  * Best of Future Wars (#172), Chunk C: the play rules of the fanzine equipment, as plain functions the 'Mech play panel
@@ -82,9 +83,25 @@ export const MAX_EXTERNAL_HEAT_PER_TURN = 15;
 /** Turns of heat a hit adds; more hits only lengthen the burn. */
 export const INFERNO_GAUSS_TURNS_PER_HIT = 5;
 
-/** Heat from a critical hit on Inferno Gauss shells: 30 (20 with CASE) and 1 a shell. */
-export function getInfernoGaussAmmoCritHeat(shellsLeft: number, hasCASE: boolean): number {
-    return (hasCASE ? 20 : 30) + Math.max(0, shellsLeft);
+/**
+ * A critical hit on Inferno Gauss shells: 30 heat (20 with CASE), and 1 more heat a shell in the reprint (Best-of
+ * p.11); as Future Wars #14 first printed it, 1 damage a shell instead (#172, printing alternates).
+ */
+export function getInfernoGaussAmmoCrit(shellsLeft: number, hasCASE: boolean, printing: FutureWarsPrinting = "best-of"): { heat: number; damage: number } {
+    const shells = Math.max(0, shellsLeft);
+    const heat = hasCASE ? 20 : 30;
+    return printing === "original" ? { heat, damage: shells } : { heat: heat + shells, damage: 0 };
+}
+
+/** A hit on Long Range Flamer fuel as first printed: 2 damage and 3 heat a round left (the reprint scales it as an explosion). */
+export function getLRFlamerAmmoHit(roundsLeft: number): { damage: number; heat: number } {
+    const rounds = Math.max(0, roundsLeft);
+    return { damage: 2 * rounds, heat: 3 * rounds };
+}
+
+/** The EII PDS's heat: 1 from Future Wars #24's table (the record's), 0 as Future Wars #14 first printed it. */
+export function getPDSHeat(printing: FutureWarsPrinting = "best-of"): number {
+    return printing === "original" ? 0 : 1;
 }
 
 // --- VHE Gauss shell, p.10.
@@ -145,9 +162,10 @@ export type PowerBoosterResult = "boosted" | "failed" | "system-burned-out";
  * A Power Booster's roll on its `turnInARow`-th turn of use (1 for a first use): it fails for good on 5 or less, on 9 or
  * less the second turn running, 11 or less the third; a fourth turn, or a 2 at any time, burns out the system it drives.
  */
-export function getPowerBoosterRoll(turnInARow: number, roll: number): PowerBoosterResult {
-    if (turnInARow >= 4 || roll <= 2) return "system-burned-out";
-    const failOn = turnInARow === 3 ? 11 : turnInARow === 2 ? 9 : 5;
+export function getPowerBoosterRoll(turnInARow: number, roll: number, printing: FutureWarsPrinting = "best-of"): PowerBoosterResult {
+    // Future Wars #14 p.34 has no fourth-turn burnout; NGCFells ruled (2026-11-17) that later turns keep 11 or less.
+    if (roll <= 2 || (printing !== "original" && turnInARow >= 4)) return "system-burned-out";
+    const failOn = turnInARow >= 3 ? 11 : turnInARow === 2 ? 9 : 5;
     return roll <= failOn ? "failed" : "boosted";
 }
 

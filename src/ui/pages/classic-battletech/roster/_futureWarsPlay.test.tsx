@@ -79,6 +79,22 @@ describe("Best of Future Wars play panel", () => {
         expect(text).toMatch(/\+2 at medium, \+3 at long/);
     });
 
+    it("gives the first printings' reminders with Future Wars: equipment as first printed", () => {
+        const mech = build(["custom-swing-fire-lrm-10", "custom-lr-flamer", "ammo-custom-lr-flamer-standard", "custom-power-booster-running"]);
+        mech.applyGameSettings({ ...mech.getGameSettings(CUSTOM_HOMEBREW_RULES_LEVEL), rulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL, rulesets: ["fw-equipment-first-printings"] });
+        const legs = mech.equipmentList.find((item) => item.tag === "custom-power-booster-running")!.uuid!;
+        mech.futureWarsPlay.boosters = { [legs]: { turnInARow: 3, usedThisTurn: false, boostedThisTurn: false } };
+        render(<FutureWarsPlayPanel mech={mech} onChange={vi.fn()} />);
+        const text = screen.getByTestId("fw-play").textContent ?? "";
+        expect(text).toContain("As first printed: swinging takes a turn; on AeroTech maps it fires into the front or rear arc; a critical hit on its own slot stops the swing.");
+        expect(text).toContain("If this fuel is hit, it does 2 damage and 3 heat for each round left (the critical hit roll applies it).");
+        expect(screen.getByTestId(`fw-booster-status-${legs}`).textContent).toBe("Ready: turn 4 in a row, fails on 11 or less, a 2 burns out the system");
+        mech.futureWarsPlay.boosters = { [legs]: { turnInARow: 1, usedThisTurn: true, boostedThisTurn: false, failed: true, systemBurnedOut: true } };
+        cleanup();
+        render(<FutureWarsPlayPanel mech={mech} onChange={vi.fn()} />);
+        expect(screen.getByTestId(`fw-booster-status-${legs}`).textContent).toBe("Burned out: the 'Mech can walk but not run");
+    });
+
     it("says when a booster failed and when it burned out its system", () => {
         const mech = build(["custom-power-booster-ppc", "custom-power-booster-running"]);
         const ppc = mech.equipmentList.find((item) => item.tag === "custom-power-booster-ppc")!.uuid!;

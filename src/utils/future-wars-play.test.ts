@@ -5,7 +5,9 @@ import {
     getLRFlamerRangeModifier,
     getLRFlamerScatter,
     getPDSInterception,
-    getInfernoGaussAmmoCritHeat,
+    getInfernoGaussAmmoCrit,
+    getLRFlamerAmmoHit,
+    getPDSHeat,
     INFERNO_GAUSS_TURNS_PER_HIT,
     INFERNO_GAUSS_HEAT_PER_TURN,
     getVHESplashLocations,
@@ -57,9 +59,9 @@ describe("Best of Future Wars in play: the rules", () => {
     it("Liao Inferno Gauss shell: 10 heat a turn for 5 turns; an ammo critical is 30 heat (20 with CASE) + 1 a shell (p.11)", () => {
         expect(INFERNO_GAUSS_HEAT_PER_TURN).toBe(10);
         expect(INFERNO_GAUSS_TURNS_PER_HIT).toBe(5);
-        expect(getInfernoGaussAmmoCritHeat(8, false)).toBe(38);
-        expect(getInfernoGaussAmmoCritHeat(8, true)).toBe(28);
-        expect(getInfernoGaussAmmoCritHeat(0, false)).toBe(30);
+        expect(getInfernoGaussAmmoCrit(8, false)).toEqual({ heat: 38, damage: 0 });
+        expect(getInfernoGaussAmmoCrit(8, true)).toEqual({ heat: 28, damage: 0 });
+        expect(getInfernoGaussAmmoCrit(0, false)).toEqual({ heat: 30, damage: 0 });
     });
 
     it("VHE shell splashes 5 on each adjacent location: the center torso's are the head, both torsos and both legs (p.10)", () => {
@@ -118,5 +120,36 @@ describe("Best of Future Wars in play: the rules", () => {
         expect(kinds).toEqual(["lr-flamer", "pds", "penitrator", "gatling", "pom-pom", "swing-fire", "booster-weapon", "booster-running", "booster-jumping",
             "vhe", "inferno-gauss", "sabot", "lr-flamer-ammo"]);
         expect(getFutureWarsPlayKind(getEquipmentByTag("medium-laser")!)).toBeUndefined();
+    });
+});
+
+describe("Future Wars equipment as first printed (#172, printing alternates)", () => {
+    it("Power Booster, FW #14 p.34: fails on 5 / 9 / 11 or less, a 2 burns out the system, and no fourth-turn burnout", () => {
+        expect(getPowerBoosterRoll(1, 5, "original")).toBe("failed");
+        expect(getPowerBoosterRoll(1, 6, "original")).toBe("boosted");
+        expect(getPowerBoosterRoll(2, 9, "original")).toBe("failed");
+        expect(getPowerBoosterRoll(3, 12, "original")).toBe("boosted");
+        // NGCFells ruled (2026-11-17): the fourth turn and later keep the third turn's 11 or less.
+        expect(getPowerBoosterRoll(4, 7, "original")).toBe("failed");
+        expect(getPowerBoosterRoll(4, 11, "original")).toBe("failed");
+        expect(getPowerBoosterRoll(4, 12, "original")).toBe("boosted");
+        expect(getPowerBoosterRoll(9, 12, "original")).toBe("boosted");
+        expect(getPowerBoosterRoll(4, 12)).toBe("system-burned-out");
+        expect(getPowerBoosterRoll(1, 2, "original")).toBe("system-burned-out");
+    });
+
+    it("Inferno Gauss shells hit, FW #14: 30 heat (20 with CASE) and 1 damage a shell, not 1 heat a shell", () => {
+        expect(getInfernoGaussAmmoCrit(8, false, "original")).toEqual({ heat: 30, damage: 8 });
+        expect(getInfernoGaussAmmoCrit(8, true, "original")).toEqual({ heat: 20, damage: 8 });
+    });
+
+    it("Long Range Flamer fuel hit, as first printed: 2 damage and 3 heat a round left", () => {
+        expect(getLRFlamerAmmoHit(5)).toEqual({ damage: 10, heat: 15 });
+        expect(getLRFlamerAmmoHit(0)).toEqual({ damage: 0, heat: 0 });
+    });
+
+    it("the EII PDS's heat: 1 from the FW #24 table, 0 as FW #14 first printed it", () => {
+        expect(getPDSHeat("best-of")).toBe(1);
+        expect(getPDSHeat("original")).toBe(0);
     });
 });

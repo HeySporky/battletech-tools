@@ -88,12 +88,16 @@ const FutureWarsPlayPanel = (props: IFutureWarsPlayPanelProps) => {
         const turn = mech.getPowerBoosterTurnInARow(uuid);
         const target = item.conversion?.booster?.target;
         const boosted = getPowerBoostedWeapon(item);
+        // As first printed (Future Wars #14 p.46): no fourth-turn burnout, later turns at 11 or less (NGCFells's ruling),
+        // and a burned-out leg booster leaves the 'Mech walking, with no word of an overhaul.
+        const firstPrinting = mech.usesFutureWarsEquipmentFirstPrintings();
         const statusText = {
-            ready: turn >= 4 ? "Ready: a 4th turn running burns out the system" : `Ready: turn ${turn} in a row, fails on ${FAIL_ON[turn]} or less, a 2 burns out the system`,
+            ready: turn >= 4 && !firstPrinting ? "Ready: a 4th turn running burns out the system"
+                : `Ready: turn ${turn} in a row, fails on ${FAIL_ON[Math.min(3, turn)]} or less, a 2 burns out the system`,
             on: "Boosted this turn",
             used: "Rolled this turn",
             failed: "Failed: the booster can no longer be used",
-            "burned-out": target === "running" ? "Burned out: the 'Mech cannot run until a major overhaul"
+            "burned-out": target === "running" ? (firstPrinting ? "Burned out: the 'Mech can walk but not run" : "Burned out: the 'Mech cannot run until a major overhaul")
                 : target === "jumping" ? "Burned out: the jump jets must be replaced" : "Burned out: the weapon must be replaced before it fires again",
         }[status];
         return (
@@ -178,21 +182,27 @@ const FutureWarsPlayPanel = (props: IFutureWarsPlayPanelProps) => {
         </div>
     );
 
+    const firstPrinting = mech.usesFutureWarsEquipmentFirstPrintings();
     const reminder = (item: IEquipmentItem): string => {
         switch (getFutureWarsPlayKind(item)) {
             case "lr-flamer": return "Burns the 'Mech it hits for three turns: 5, 2, then 0 damage, 5 heat each turn (+1 heat a hit still burning, 10 at most). Its own +2 at medium, +3 at long is in the to-hit.";
-            case "lr-flamer-ammo": return "If this fuel is hit, the damage is as many Long Range Flamer hits as it has shots left.";
+            case "lr-flamer-ammo": return firstPrinting
+                ? "If this fuel is hit, it does 2 damage and 3 heat for each round left (the critical hit roll applies it)."
+                : "If this fuel is hit, the damage is as many Long Range Flamer hits as it has shots left.";
             case "pds": return "Declare it when missiles are fired at this 'Mech; one burst against each salvo, any number of salvos a turn.";
             case "penitrator": return "Roll a critical hit check for each missile that hits. Inside 8 hexes it is harder to hit: the minimum-range modifier applies.";
             case "gatling": return "Six shots a round: roll on the cluster table as an SRM 6 (the Target dialog does), 2 damage a hit.";
             case "pom-pom": return "Fires twice a turn, each shot rolled on its own and using a round; double heat even firing once (in the to-hit and heat already). Breakdowns: roll twice on the malfunction table, take the worse.";
-            case "swing-fire": return "The rack swings through 180 degrees: it may fire into the rear arc. Its +1 to-hit is in the weapon's accuracy.";
+            case "swing-fire": return "The rack swings through 180 degrees: it may fire into the rear arc. Its +1 to-hit is in the weapon's accuracy."
+                + (firstPrinting ? " As first printed: swinging takes a turn; on AeroTech maps it fires into the front or rear arc; a critical hit on its own slot stops the swing." : "");
             case "vhe": {
                 return `A hit does ${VHE_DAMAGE.hit} to the location and ${VHE_DAMAGE.adjacent} to each adjacent one (from the center torso: `
                     + `${getVHESplashLocations("ct").map((location) => getLocationName(location, false)).join(", ")}). A critical hit adds one more critical hit. `
                     + `An ammunition hit cooks off at ${VHE_AMMO_EXPLOSION_PER_SHELL} a shell (the critical hit roll applies it).`;
             }
-            case "inferno-gauss": return `A hit does 2 damage and ${INFERNO_GAUSS_HEAT_PER_TURN} heat a turn for 5 turns (mark it on the target below). An ammunition hit is heat, not damage (the critical hit roll applies it).`;
+            case "inferno-gauss": return `A hit does 2 damage and ${INFERNO_GAUSS_HEAT_PER_TURN} heat a turn for 5 turns (mark it on the target below). `
+                + (firstPrinting ? "An ammunition hit is 30 heat (20 with CASE) and 1 damage a shell (the critical hit roll applies it)."
+                    : "An ammunition hit is heat, not damage (the critical hit roll applies it).");
             case "sabot": {
                 const weapon = mech.getAmmoBinWeapon(item);
                 const damage = typeof weapon?.damage === "number" ? getSabotDamage(weapon.damage) : undefined;

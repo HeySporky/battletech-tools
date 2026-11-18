@@ -50,6 +50,7 @@ export const CHANGE_LABELS: Record<string, string> = {
     morale: "morale",
     weaponFailure: "weapon failures",
     weaponRanges: "weapon ranges",
+    futureWarsEquipment: "Future Wars equipment rules",
     tandemChargeSrm: "Tandem-Charge SRM ammunition",
     techBases: "the tech bases",
 };
@@ -232,6 +233,23 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         source: { title: FUTURE_WARS_PLAY_SOURCES["fw-long-range-wars-12"], publication: "Future Wars", tag: "FW #12", author: "Herb Barents" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["weaponRanges"],
+    },
+    {
+        id: "fw-equipment-first-printings",
+        summary: "Future Wars equipment as the original issues printed it: Power Booster, Inferno Gauss, LR Flamer, PDS and Swing Fire.",
+        category: "play",
+        name: "Future Wars: equipment as first printed",
+        description: "Unticked, the fanzine equipment plays as The Best of Future Wars (1991) reprints it. Ticked, as the original "
+            + "issues printed it: the Power Booster has no fourth-turn burnout (later turns fail on 11 or less, NGCFells's "
+            + "ruling); a hit on Inferno Gauss shells does 30 heat (20 with CASE) and 1 damage a shell; a hit on Long Range "
+            + "Flamer fuel does 2 damage and 3 heat a round left; the EII PDS makes no heat; and Swing Fire's three extra rules apply.",
+        source: {
+            title: "Herb Barents and others, *Future Wars* #14 (1989) and the issues each item first appeared in; the 1991 reprint is "
+                + "The Best of Future Wars, Volume One",
+            publication: "Future Wars", tag: "FW originals", author: "Herb Barents",
+        },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["futureWarsEquipment"],
     },
     {
         id: "tandem-charge-srm-house-rule",
