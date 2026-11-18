@@ -206,7 +206,7 @@ const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
     {
         name: "Gatling Laser", tag: "custom-gatling-laser", techBase: "universal", catalog: "custom", sort: "laser, gatling", category: "Energy Weapons",
         notes: "Custom Homebrew: Karl Sanders, 'The Gatling Laser', *The Best of Future Wars, Volume One* (1991), p.27. The author's prose calls it 36% lighter than a medium laser and 75% cooler, but his stat block "
-            + "says 4 tons, and the block is used. Not printed in The Best of Future Wars: heat is ours, 1, the 75% cut read off a medium laser's 3 heat and rounded up (the block gives none); "
+            + "says 4 tons, and the block is used. Not printed in The Best of Future Wars: heat is NGCFells's, 1, the 75% cut read off a medium laser's 3 heat and rounded up (the block gives none); "
             + "dates and tech rating are unverified.",
         rules: "A rotating-barrel laser: six shots a turn of 2 points each, rolled to hit on the SRM 6 cluster column. Ranges 1-2, 3-4, 5-6. 1 heat.",
         lore: "The Gatling Laser spins six small focusing barrels around a common power feed, so each pulse leaves through a barrel that has had a "

@@ -1,6 +1,6 @@
 # Technical Readout: The Best of Future Wars Equipment
 
-Fan-made equipment from *The Best of Future Wars, Volume One* (1991), offered at the Custom Homebrew rules level. NOT OFFICIAL. Where a number is ours rather than the article's, the item's notes in the equipment list say so; cost and Battle Value left at 0 are unverified. The in-character text under each heading is ours, written for this readout.
+Fan-made equipment from *The Best of Future Wars, Volume One* (1991), offered at the Custom Homebrew rules level. NOT OFFICIAL. Where a number is NGCFells's rather than the article's, the item's notes in the equipment list say so; cost and Battle Value left at 0 are unverified. The in-character text under each heading is NGCFells's, written for this readout.
 
 ## EII Point Defense System
 
@@ -32,7 +32,7 @@ The Gatling Laser spins six small focusing barrels around a common power feed, s
 | **Weight** | 4 tons |
 | **Slots** | 2 |
 | **Damage** | 6 shots of 2, rolled on the SRM 6 cluster column |
-| **Heat** | 1 (ours; the stat block gives none) |
+| **Heat** | 1 (NGCFells's; the stat block gives none) |
 | **Range** | 2 / 4 / 6 |
 
 ## Long Range Flamer
@@ -72,7 +72,7 @@ Roll a critical hit check for each missile that hits. Damage falls off with rang
 
 ## Gauss Rifle Shells: VHE and Inferno
 
-*Chris Congdon, "The Development of the VHE Shell", pp.9-11.* Special shells for the Gauss Rifle: the Very High Explosive shell and the Liao Inferno shell. Both also feed the Clan Gauss Rifle in this app (our choice). The Inferno shell is not explosive.
+*Chris Congdon, "The Development of the VHE Shell", pp.9-11.* Special shells for the Gauss Rifle: the Very High Explosive shell and the Liao Inferno shell. Both also feed the Clan Gauss Rifle in this app (NGCFells's choice). The Inferno shell is not explosive.
 
 In 3040 Prince Hanse Davion commissioned research into a heavier Gauss round. The Very High Explosive shell that came of it wraps a shaped charge in a hollow high-explosive body: the charge drives into the plate it strikes while the casing bursts across the armor around it. The added mass shortens the round's flight and cuts the shells to a ton, and a magazine of VHE shells is far more dangerous to its owner than inert slugs.
 
@@ -100,7 +100,7 @@ On a hit, make a critical hit check with a +1 modifier.
 
 ## Rapid Fire Autocannon (Pom-Pom)
 
-*Karl Sanders, p.27 (unsigned; the credit is ours).* An AC/2, AC/5, AC/10 or AC/20 converted to fire twice a turn.
+*Karl Sanders, p.27 (unsigned; the credit is NGCFells's).* An AC/2, AC/5, AC/10 or AC/20 converted to fire twice a turn.
 
 A Pom-Pom conversion rebuilds an autocannon's feed and breech to cycle two shells in the time the original fired one. The faster cycle costs the barrel some of its reach and doubles the heat it sheds, and the strain makes an already temperamental weapon more prone to jams. Most technicians treat it as a field modification rather than a factory weapon.
 
@@ -115,7 +115,7 @@ Roll twice on the weapons malfunction table and take the worse.
 
 ## Swing Fire Missile System
 
-*Karl Sanders, p.27.* A missile rack on a swivel. The page names the Inner Sphere LRM and SRM; the other racks, the Clan mount and the dates are ours.
+*Karl Sanders, p.27.* A missile rack on a swivel. The page names the Inner Sphere LRM and SRM; the other racks, the Clan mount and the dates are NGCFells's.
 
 The Star League Defense Force fielded the Swing Fire mount around 2750 to let a 'Mech's missiles reach targets outside its forward arc without turning the torso. The rack rides a powered ring that the pilot can swing through half a circle. The ring's bearings and feed couplings are delicate, and the slack in the mechanism spoils a launcher's aim.
 
@@ -130,11 +130,11 @@ Naval refits put the ring under a torpedo tube, letting a 'Mech wading in the sh
 | **Inner Sphere** | +3 tons, +2 slots, +75,000 C-bills |
 | **Clan** | +1.5 tons, +1 slot, +75,000 C-bills |
 
-The pilot can turn the rack's line of sight 180 degrees in combat, at +1 to-hit (ours; the page gives no number). Torpedo racks fire only into or through water.
+The pilot can turn the rack's line of sight 180 degrees in combat, at +1 to-hit (NGCFells's; the page gives no number). Torpedo racks fire only into or through water.
 
 ## Power Booster
 
-*Karl Sanders, p.28 (unsigned; the credit is ours).* A booster for an energy weapon, the legs or the jump jets.
+*Karl Sanders, p.28 (unsigned; the credit is NGCFells's).* A booster for an energy weapon, the legs or the jump jets.
 
 A Power Booster is a bank of capacitors and overdriven couplings that pushes a system past its rated output for a few seconds at a time. Every use strains the hardware, and a booster run hard turn after turn will burn itself out, sometimes taking the system it drives with it.
 

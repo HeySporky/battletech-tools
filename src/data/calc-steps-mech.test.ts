@@ -30,7 +30,7 @@ describe("'Mech BV2 step definitions", () => {
         }
     });
 
-    it("price the Dark Age armors from IO:AE p.190, as the MUL and record sheets do (owner ruling 2026-11-10)", () => {
+    it("price the Dark Age armors from IO:AE p.190, as the MUL and record sheets do (NGCFells's ruling 2026-11-10)", () => {
         // p.185 prints 1.05 and 1.2; with those, all 30 bundled designs with these armors left their MUL/file BV.
         const multiplier = (tag: string) => mechArmorTypes.find(armor => armor.tag === tag)?.bvMultiplier ?? 1;
         expect(["anti-penetrative-ablation", "heat-dissipating", "impact-resistant", "ballistic-reinforced"].map(multiplier))
@@ -41,7 +41,7 @@ describe("'Mech BV2 step definitions", () => {
         for (const id of Object.keys(MECH_BV2_STEPS)) expect(ledger, id).toContain("`" + id + "`");
     });
 
-    it("name a document for every source-missing step, and the ledger lists it for the owner", () => {
+    it("name a document for every source-missing step, and the ledger lists it for NGCFells", () => {
         for (const [id, def] of Object.entries(MECH_BV2_STEPS)) {
             if (def.status !== "source-missing") continue;
             expect(ledger, id).toContain(def.note!);

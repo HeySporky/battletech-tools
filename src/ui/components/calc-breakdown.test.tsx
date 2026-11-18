@@ -74,12 +74,12 @@ describe("CalcBreakdown (#599)", () => {
         const provisional = screen.getByText("Armored gyro").closest("tr") as HTMLElement;
         expect(provisional.textContent).toContain("Provisional: Follows the record sheets.");
         const missing = screen.getByText("Satellite uplink").closest("tr") as HTMLElement;
-        expect(missing.textContent).toContain("Source not yet in our library: Needs the 1997 printing.");
+        expect(missing.textContent).toContain("Source not yet in NGCFells's library: Needs the 1997 printing.");
     });
 
     // A weapon list repeats one long note on every row: it is printed once, and the later rows point back to it.
     it("prints a note shared by several steps once, and points the later steps back to it", () => {
-        const note = "Each price comes from our equipment records.";
+        const note = "Each price comes from the JBT equipment records.";
         renderIt({ battleValue: () => bv2([
             step({ label: "Medium Laser", status: "provisional", note }),
             step({ label: "Large Laser", status: "provisional", note }),

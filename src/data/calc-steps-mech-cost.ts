@@ -5,7 +5,7 @@
  * docs/superpowers/plans/2026-11-10-cited-bv-ledger.md. The cost follows the current rules (TechManual pp.274-285,
  * with Tactical Operations: Advanced Units & Equipment and Interstellar Operations: Alternate Eras for the gear they
  * add) under every rules edition. A component's price is `cited` only where its own table row was read: the
- * READ_ROWS lists below. Any other component reads the `.record` step, which says its price is from our records.
+ * READ_ROWS lists below. Any other component reads the `.record` step, which says its price is from the JBT records.
  * Change a citation only after reading the page.
  */
 import { CalcStepDefs, CalcStepStatus, ICalcCitation, ICalcStepDef } from "./calc-steps";
@@ -19,18 +19,18 @@ const step = (section: string, cites: ICalcCitation[], status: CalcStepStatus = 
     note ? { section, cites, status, note } : { section, cites, status };
 const provisional = (section: string, cites: ICalcCitation[], note: string): ICalcStepDef => step(section, cites, "provisional", note);
 
-const RECORD_NOTE = "This price comes from our equipment records. Its row in the cost tables was not re-read for this breakdown.";
+const RECORD_NOTE = "This price comes from the JBT equipment records. Its row in the cost tables was not re-read for this breakdown.";
 
 export const MECH_COST_STEPS: CalcStepDefs = {
     // ---- Structure and systems (TM tables pp.277-278) ----
     "cost.cockpit": step(STRUCTURE, [at("tm", "277")]),
     "cost.cockpit.record": provisional(STRUCTURE, [], RECORD_NOTE),
     "cost.cockpit.primitive": provisional(STRUCTURE, [at("ioae", "117"), at("ioae", "215")],
-        "The book prints two prices. Its rules text says a primitive cockpit costs what the standard one does (p.117: 200,000; 100,000 for the industrial one); its table prints 100,000 and 50,000 (p.215). We follow the rules text."),
+        "The book prints two prices. Its rules text says a primitive cockpit costs what the standard one does (p.117: 200,000; 100,000 for the industrial one); its table prints 100,000 and 50,000 (p.215). NGCFells follows the rules text."),
     "cost.cockpit.command-console": step(STRUCTURE, [at("toaue", "219")]),
     "cost.cockpit.enhanced-imaging": provisional(STRUCTURE, [], RECORD_NOTE),
     "cost.cockpit.robotic": provisional(STRUCTURE, [at("ioae", "215")],
-        "Only the Smart Robotic Control System's row was read (5,000 + 10,000 x its tonnage). The other robotic control prices come from our records."),
+        "Only the Smart Robotic Control System's row was read (5,000 + 10,000 x its tonnage). The other robotic control prices come from the JBT records."),
     "cost.life-support": step(STRUCTURE, [at("tm", "277")]),
     "cost.sensors": step(STRUCTURE, [at("tm", "277")]),
     "cost.musculature": step(STRUCTURE, [at("tm", "277")]),
@@ -65,13 +65,13 @@ export const MECH_COST_STEPS: CalcStepDefs = {
 
     // ---- Weapons and equipment (TM p.282) ----
     "cost.equipment": provisional(EQUIPMENT, [at("tm", "282")],
-        "The rule is read: every weapon and item adds its listed cost. The price of each item comes from our equipment records; the items' table rows were not re-read for this breakdown."),
+        "The rule is read: every weapon and item adds its listed cost. The price of each item comes from the JBT equipment records; the items' table rows were not re-read for this breakdown."),
     "cost.ammo": provisional(EQUIPMENT, [at("tm", "282")],
-        "The rule is read: ammunition need not be bought to find a unit's cost, so it is left out of the cost and shown only in the loaded cost. Each ton's price comes from our equipment records."),
+        "The rule is read: ammunition need not be bought to find a unit's cost, so it is left out of the cost and shown only in the loaded cost. Each ton's price comes from the JBT equipment records."),
     "cost.armored-components": step(EQUIPMENT, [at("toaue", "217")]),
     "cost.quadvee-motive": step(EQUIPMENT, [at("ioae", "215"), at("tm", "278")]),
     "cost.conversion": provisional(EQUIPMENT, [at("ioae", "215"), at("ioae", "218")],
-        "The table prices LAM and QuadVee conversion gear as a share of \"WSC\", which its notes define as the cost of the unit's weapons, equipment and internal structure. We take the share of the whole cost so far, as the book's worked examples do (owner ruling 2026-10-26)."),
+        "The table prices LAM and QuadVee conversion gear as a share of \"WSC\", which its notes define as the cost of the unit's weapons, equipment and internal structure. NGCFells takes the share of the whole cost so far, as the book's worked examples do (NGCFells's ruling 2026-10-26)."),
     "cost.conversion.homebrew": provisional(EQUIPMENT, [],
         "A fan rule, not a rulebook one: the VTOL LAM is priced at the bimodal LAM's share."),
     "cost.subtotal": step(EQUIPMENT, [at("tm", "282")]),
@@ -82,7 +82,7 @@ export const MECH_COST_STEPS: CalcStepDefs = {
         "A fan rule, not a rulebook one: an Omni-LAM costs 1.75 times a normal 'Mech in place of the OmniMech's 1.25."),
     "cost.tonnage-multiplier": step(FINAL, [at("tm", "285")]),
     "cost.final": provisional(FINAL, [at("tm", "274"), at("tm", "285")],
-        "The book gives two rounding rules. Its text says to round up to the nearest hundredth of a C-bill once the final multipliers are applied (p.274). Its worked examples round down to the whole C-bill (p.285). We round to the nearest whole C-bill."),
+        "The book gives two rounding rules. Its text says to round up to the nearest hundredth of a C-bill once the final multipliers are applied (p.274). Its worked examples round down to the whole C-bill (p.285). NGCFells rounds to the nearest whole C-bill."),
     "cost.final.loaded": provisional(FINAL, [at("tm", "282")],
         "The loaded cost adds the ammunition carried to the final cost. The book does not define a loaded cost; it only says ammunition need not be bought."),
     "cost.rules-edition": provisional(FINAL, [],

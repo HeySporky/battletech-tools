@@ -10,7 +10,7 @@ const load = (id: string): Walker => {
     return walker;
 };
 
-describe("sample walkers (Custom Homebrew, ours)", () => {
+describe("sample walkers (Custom Homebrew, by NGCFells)", () => {
     it("lists three walkers: a light, a heavy with a turret and an assault under the variant slots", () => {
         expect(getWalkerSamples().map((sample) => sample.name)).toEqual(["Harrowhound HRH-1", "Ironback IBK-2T", "Steppe Titan STN-5V"]);
         expect(load("harrowhound-hrh-1").getTons()).toBeLessThan(40);
@@ -18,7 +18,7 @@ describe("sample walkers (Custom Homebrew, ours)", () => {
         expect(load("steppe-titan-stn-5v").usesVariantSlots()).toBe(true);
     });
 
-    it.each(["harrowhound-hrh-1", "ironback-ibk-2t", "steppe-titan-stn-5v"])("%s is legal, at its full weight, and says it is ours", (id) => {
+    it.each(["harrowhound-hrh-1", "ironback-ibk-2t", "steppe-titan-stn-5v"])("%s is legal, at its full weight, and says it is NGCFells's", (id) => {
         const walker = load(id);
         expect(walker.getIssues()).toEqual([]);
         expect(walker.getRemainingWeight()).toBeGreaterThanOrEqual(0);

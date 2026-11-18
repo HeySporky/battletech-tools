@@ -25,9 +25,9 @@ import { equipmentMissile } from "./equipment-missile";
  */
 
 const BOOK = "The Best of Future Wars, Volume One";
-// Some stats on every record are ours (Battle Value at least), so the credit reads "Inspired by" (owner rule, 2026-11-12).
+// Some stats on every record are NGCFells's (Battle Value at least), so the credit reads "Inspired by" (NGCFells's rule, 2026-11-12).
 const cite = (author: string, title: string, page: number) => `Custom Homebrew. Inspired by: ${author}, '${title}', *${BOOK}* (1991), p.${page}.`;
-const UNSIGNED = "The block is unsigned; it runs on in Karl Sanders' article after his signed Gatling Laser, so the credit to him is ours.";
+const UNSIGNED = "The block is unsigned; it runs on in Karl Sanders' article after his signed Gatling Laser, so the credit to him is NGCFells's.";
 const UNRESOLVED_ALPHA_STRIKE = { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] };
 /** The articles convert 'Mech systems: no vehicle, fighter or craft takes them. */
 const mechOnly = (battlemech: number): IEquipmentItem["space"] =>
@@ -75,7 +75,7 @@ const converted = (weapon: IEquipmentItem, fields: Partial<IEquipmentItem> & { c
 // --- Rapid Fire Autocannon (Pom-Pom Guns), p.27: unsigned, it runs on in Karl Sanders' article after the Gatling Laser, as the
 // Long Range Flamer and the Power Booster do (Chunk A credits the Flamer to him the same way).
 const POM_POM_AUTHOR = "Karl Sanders";
-/** In-character Technical Readout text (ours). */
+/** In-character Technical Readout text (NGCFells's). */
 const POM_POM_LORE = "A Pom-Pom conversion rebuilds an autocannon's feed and breech to cycle two shells in the time the original fired one. "
     + "The faster cycle costs the barrel some of its reach and doubles the heat it sheds, and the strain makes an already temperamental "
     + "weapon more prone to jams. Most technicians treat it as a field modification rather than a factory weapon.";
@@ -106,15 +106,15 @@ const pomPom = (baseTag: string, size: number): IEquipmentItem => {
 // --- The Swing Fire Missile System, p.27 (same article run as the Gatling Laser).
 const worseBy = (modifier: IEquipmentItem["accuracyModifier"], by: number): IEquipmentItem["accuracyModifier"] =>
     typeof modifier === "object" ? { short: modifier.short + by, medium: modifier.medium + by, long: modifier.long + by } : (modifier ?? 0) + by;
-// Owner lore (2026-11-16): the swivel is a Star League (SLDF) mount of about 2750. It was never wholly lost in the Inner
+// NGCFells's lore (2026-11-16): the swivel is a Star League (SLDF) mount of about 2750. It was never wholly lost in the Inner
 // Sphere (delicate copies kept running through the Succession Wars, which is where the fanzine met it), and the Clans took
 // it with the Exodus. A rack's Swing Fire dates from the later of the mount and the rack, and shares the rack's gaps.
 const SWING_FIRE_MOUNT_INTRODUCED = 2750;
-/** Owner ruling 2026-11-17: the Inner Sphere lost the mount (our year 2830) and found it again in the Third Succession War (our year 2880); the Clans kept it. */
+/** NGCFells's ruling 2026-11-17: the Inner Sphere lost the mount (NGCFells's year 2830) and found it again in the Third Succession War (NGCFells's year 2880); the Clans kept it. */
 const SWING_FIRE_IS_LOST = 2830;
 const SWING_FIRE_IS_REDISCOVERED = 2880;
 const SWING_FIRE_MOUNT = { is: { weight: 3, slots: 2 }, clan: { weight: 1.5, slots: 1 } };
-/** In-character Technical Readout text (ours, built on the owner's lore above). */
+/** In-character Technical Readout text (NGCFells's, built on NGCFells's lore above). */
 const swingFireLore = (clan: boolean, torpedo: boolean): string => [
     "The Star League Defense Force fielded the Swing Fire mount around 2750 to let a 'Mech's missiles reach targets outside its "
     + "forward arc without turning the torso. The rack rides a powered ring that the pilot can swing through half a circle. "
@@ -147,10 +147,10 @@ const swingFire = (baseTag: string): IEquipmentItem => {
         reintroduced: lostAndFound ? Math.max(rack.reintroduced ?? 0, SWING_FIRE_IS_REDISCOVERED) : rack.reintroduced ?? null,
         page: 27,
         conversion: { kind: "swing-fire", baseTag, arcDegrees: 180 },
-        notes: `${cite("Karl Sanders", "The Swing Fire Missile System", 27)} The page prints no number for the lost accuracy, so the +1 to-hit is ours. `
-            + (pageRack ? "" : `The page names the Inner Sphere LRM and SRM only; the ${torpedo ? "torpedo" : rack.name} version is ours. `)
-            + (clan ? "The Clan mount is ours: half the page's weight, as Clan launchers run about half the Inner Sphere's. " : "")
-            + `${UNVALUED} Dates are ours (owner ruling 2026-11-17): a Star League mount of about 2750 that the Clans took in the Exodus and kept; the Inner Sphere lost it in the Succession Wars (about 2830) and found a cache of design schematics and technical manuals in the Third Succession War (about 2880), from which it was reverse engineered.`,
+        notes: `${cite("Karl Sanders", "The Swing Fire Missile System", 27)} The page prints no number for the lost accuracy, so the +1 to-hit is NGCFells's. `
+            + (pageRack ? "" : `The page names the Inner Sphere LRM and SRM only; the ${torpedo ? "torpedo" : rack.name} version is NGCFells's. `)
+            + (clan ? "The Clan mount is NGCFells's: half the page's weight, as Clan launchers run about half the Inner Sphere's. " : "")
+            + `${UNVALUED} Dates are NGCFells's (NGCFells's ruling 2026-11-17): a Star League mount of about 2750 that the Clans took in the Exodus and kept; the Inner Sphere lost it in the Succession Wars (about 2830) and found a cache of design schematics and technical manuals in the Third Succession War (about 2880), from which it was reverse engineered.`,
         rules: `A ${rack.name} on a swivel: the pilot can turn its line of sight 180 degrees in combat. +1 to-hit. `
             + (torpedo ? "It fires only into or through water, as any torpedo rack. " : "")
             + `+${mount.weight} tons, +${mount.slots} slot${mount.slots === 1 ? "" : "s"} and +75,000 C-bills on the rack.`,
@@ -160,7 +160,7 @@ const swingFire = (baseTag: string): IEquipmentItem => {
 
 // --- Power Booster, p.28. The chart: extra heat, extra damage, added range.
 const BOOSTER_NOTES = `${cite("Karl Sanders", "Power Booster", 28)} ${UNSIGNED} Dates are unverified.`;
-/** In-character Technical Readout text (ours): the shared booster paragraph, then what it drives. */
+/** In-character Technical Readout text (NGCFells's): the shared booster paragraph, then what it drives. */
 const boosterLore = (driven: string) => "A Power Booster is a bank of capacitors and overdriven couplings that pushes a system past its rated "
     + "output for a few seconds at a time. Every use strains the hardware, and a booster run hard turn after turn will burn itself out, "
     + `sometimes taking the system it drives with it. ${driven}`;
@@ -177,7 +177,7 @@ const boostedWeapon = (weapon: IEquipmentItem, tag: string, name: string, booste
         cbills: weapon.cbills + 750000,
         page: 28,
         conversion: { kind: "power-booster", baseTag: weapon.tag, booster },
-        notes: `${BOOSTER_NOTES} The chart gives a single "Added Range" figure; adding it to each band is our reading. ${UNVALUED}`,
+        notes: `${BOOSTER_NOTES} The chart gives a single "Added Range" figure; adding it to each band is NGCFells's reading. ${UNVALUED}`,
         rules: `${boosterRules(`a ${name}`)} Fires as the plain weapon; a boosted shot is +${booster.extraHeat} heat, ${extraDamage} and `
             + `+${booster.addedRange} hex${booster.addedRange === 1 ? "" : "es"} of range in each band.`,
         lore: boosterLore("Wired to a weapon, it pours extra power into a shot for more damage and reach, at the price of heat."),
@@ -217,7 +217,7 @@ export const futureWarsPomPoms = (): IEquipmentItem[] => [
     pomPom("autocannon-standard-a", 2), pomPom("autocannon-standard-b", 5), pomPom("autocannon-standard-c", 10), pomPom("autocannon-standard-d", 20),
 ];
 
-// p.27 names the Inner Sphere LRM and SRM; every other rack is the owner's extension (2026-11-16).
+// p.27 names the Inner Sphere LRM and SRM; every other rack is NGCFells's extension (2026-11-16).
 const sizes = (family: string, list: number[]) => list.map((size) => `${family}-${size}`);
 const LRM = [5, 10, 15, 20];
 const SRM = [2, 4, 6];

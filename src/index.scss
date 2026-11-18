@@ -1530,9 +1530,31 @@ body.retro {
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: 1rem;
   margin-top: 1em;
-  a { display: block; padding: 1em; border: 1px solid currentcolor; border-radius: 0.25rem; text-decoration: none; }
+  .tro-card { padding: 1em; border: 1px solid currentcolor; border-radius: 0.25rem; overflow-wrap: anywhere; }
+  .tro-card > a { display: block; text-decoration: none; }
   strong, span { display: block; }
   strong { margin-bottom: 0.25em; }
+  .tro-examples { margin-top: 0.5em; font-size: 0.9em; }
+}
+
+.tro-category-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1.25em;
+  margin: 1em 0;
+  font-weight: bold;
+}
+
+.tro-category {
+  margin-top: 1.5em;
+  scroll-margin-top: 4em;
+  h3 { margin-bottom: 0.25em; }
+}
+
+.tro-entries {
+  padding-left: 1.25em;
+  li { margin-bottom: 0.5em; overflow-wrap: anywhere; }
+  .tro-entry-source { display: block; font-size: 0.85em; }
 }
 
 .tro-pager {
@@ -1545,6 +1567,18 @@ body.retro {
 }
 
 // The readouts: stat blocks and tables scroll on their own on a phone.
+.tro-contents {
+  margin: 1em 0;
+  padding: 0.5em 1em;
+  border: 1px solid currentcolor;
+  border-radius: 0.25rem;
+  summary { cursor: pointer; font-weight: bold; }
+  ol { margin: 0.5em 0 0; padding-left: 1.5em; }
+  ul { margin: 0; padding-left: 1.25em; font-size: 0.9em; }
+  li { overflow-wrap: anywhere; }
+  a[aria-current="page"] { font-weight: bold; }
+}
+
 .tro-readout {
   pre, table { display: block; max-width: 100%; overflow-x: auto; }
   pre { font-size: 0.85em; }

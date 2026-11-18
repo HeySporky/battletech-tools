@@ -21,7 +21,7 @@ export const MECH_BV2_STEPS: CalcStepDefs = {
     // Armor factor x 2.5 x the Armor Type Modifier (TM tables p.315; advanced types TO:AUE p.192).
     "bv2.def.armor": step(DEFENSIVE, [at("tm", "302"), at("tm", "315"), at("toaue", "192")]),
     "bv2.def.armor.dark-age": provisional(DEFENSIVE, [at("ioae", "185"), at("ioae", "190")],
-        "The book prints two sets of multipliers. The table on p.185 gives Heat-Dissipating 1.05, Impact-Resistant 1 and Ballistic-Reinforced 1.2; the table on p.190 gives Heat-Dissipating 1.1, none for Impact-Resistant and Ballistic-Reinforced 1.5. Both give Anti-Penetrative Ablation 1.2. Errata v3.01 does not settle it. We use p.190: it matches the 2016 Interstellar Operations tables, and the Master Unit List and published record sheets compute with it (every design we hold with these armors matches only on p.190's figures)."),
+        "The book prints two sets of multipliers. The table on p.185 gives Heat-Dissipating 1.05, Impact-Resistant 1 and Ballistic-Reinforced 1.2; the table on p.190 gives Heat-Dissipating 1.1, none for Impact-Resistant and Ballistic-Reinforced 1.5. Both give Anti-Penetrative Ablation 1.2. Errata v3.01 does not settle it. NGCFells uses p.190: it matches the 2016 Interstellar Operations tables, and the Master Unit List and published record sheets compute with it (every design we hold with these armors matches only on p.190's figures)."),
     "bv2.def.armor.patchwork": step(DEFENSIVE, [at("toaue", "194")]),
     "bv2.def.armor.torso-cockpit": step(DEFENSIVE, [at("toaue", "193")]),
     "bv2.def.armor.modular": step(DEFENSIVE, [at("toaue", "192")]),
@@ -40,7 +40,7 @@ export const MECH_BV2_STEPS: CalcStepDefs = {
     "bv2.def.equipment.ams-ammo": step(DEFENSIVE, [at("tm", "302")]),
     "bv2.def.equipment.armored": step(DEFENSIVE, [at("toaue", "192"), at("toaue", "195")]),
     "bv2.def.equipment.armored-gyro": provisional(DEFENSIVE, [at("toaue", "192")],
-        "The rule is 5 percent of the protected item's BV for each slot, or 5 points a slot for an item with no BV. A gyro has no BV in the tables; we count its gyro points (tonnage x gyro modifier) as its BV."),
+        "The rule is 5 percent of the protected item's BV for each slot, or 5 points a slot for an item with no BV. A gyro has no BV in the tables; NGCFells counts its gyro points (tonnage x gyro modifier) as its BV."),
     "bv2.def.equipment.total": step(DEFENSIVE, [at("tm", "302")]),
     // 15 points for each slot of explosive ammunition that the location's CASE, tech base and engine do not excuse.
     "bv2.def.explosive.ammo": step(DEFENSIVE, [at("tm", "302-303"), at("toaue", "193")]),
@@ -48,7 +48,7 @@ export const MECH_BV2_STEPS: CalcStepDefs = {
     // 1 point for each slot of a Gauss weapon, or of an item the tables mark "treat as Gauss" or "explodes".
     "bv2.def.explosive.component": step(DEFENSIVE, [at("tm", "303"), at("toaue", "192-193"), at("toaue", "195")]),
     "bv2.def.explosive.jump-jet": provisional(DEFENSIVE, [at("tm", "303"), at("ioae", "97")],
-        "Prototype improved jump jets explode when hit, but no Battle Value rule names them. We count each slot as an explosive component: 1 point."),
+        "Prototype improved jump jets explode when hit, but no Battle Value rule names them. NGCFells counts each slot as an explosive component: 1 point."),
     "bv2.def.explosive.protected": step(DEFENSIVE, [at("tm", "302-303"), at("toaue", "193")]),
     "bv2.def.explosive.arm-case-xl": provisional(DEFENSIVE, [at("tm", "302")],
         "For a 'Mech with an Inner Sphere XL engine the rule counts explosive ammunition in any location. We do not count an arm that has its own CASE, since that CASE keeps the blast out of the side torso."),
@@ -62,7 +62,7 @@ export const MECH_BV2_STEPS: CalcStepDefs = {
     "bv2.def.tmm": step(DEFENSIVE, [at("tm", "303"), at("tm", "316"), at("tw", "117"), at("toaue", "192"), at("toaue", "194")]),
     "bv2.def.tmm.lam": step(DEFENSIVE, [at("ioae", "186")]),
     "bv2.def.tmm.umu": provisional(DEFENSIVE, [at("toaue", "192")],
-        "The rule says to calculate a UMU system as if it were jump jets. We use the UMU movement modifier without the +1 a jump earns, because a submerged 'Mech is not airborne."),
+        "The rule says to calculate a UMU system as if it were jump jets. NGCFells uses the UMU movement modifier without the +1 a jump earns, because a submerged 'Mech is not airborne."),
     "bv2.def.factor": step(DEFENSIVE, [at("tm", "303"), at("tm", "316")]),
     // Stealth armor at its greatest effect: +2 to hit at long range.
     "bv2.def.factor.stealth": step(DEFENSIVE, [at("tm", "303"), at("tw", "142")]),
@@ -70,7 +70,7 @@ export const MECH_BV2_STEPS: CalcStepDefs = {
     "bv2.def.factor.chameleon": step(DEFENSIVE, [at("toaue", "193"), at("toaue", "112")]),
     "bv2.def.factor.void-signature": step(DEFENSIVE, [at("toaue", "194")]),
     "bv2.def.factor.power-armor": provisional(DEFENSIVE, [at("best-of-future-wars", "14"), at("tm", "304")],
-        "Custom Homebrew, ours: Bill Swisher's Power Armor gives no Battle Value. His rules put attacks on a suit at +1 to hit, so we count it as one more point of Target Movement Modifier: +0.1 to the Defensive Factor (TM p.304)."),
+        "Custom Homebrew, by NGCFells: Bill Swisher's Power Armor gives no Battle Value. His rules put attacks on a suit at +1 to hit, so NGCFells counts it as one more point of Target Movement Modifier: +0.1 to the Defensive Factor (TM p.304)."),
     "bv2.def.rating": step(DEFENSIVE, [at("tm", "303")]),
 
     // ---- Step 2: Offensive Battle Rating ----
@@ -82,11 +82,11 @@ export const MECH_BV2_STEPS: CalcStepDefs = {
     // 6 + heat sink capacity - the heat of the hottest movement (stealth armor +10; an ICE IndustrialMech 0).
     "bv2.off.heat.efficiency": step(OFFENSIVE, [at("tm", "303")]),
     "bv2.off.heat.radical": provisional(OFFENSIVE, [at("ioae", "185"), at("ioae", "190")],
-        "The rule text on p.185 says to multiply the heat sink capacity by 1.4, but its own example (15 double heat sinks give 36) and the table on p.190 add the number of heat sinks x 0.4, rounded up. We follow the table and the example's result."),
+        "The rule text on p.185 says to multiply the heat sink capacity by 1.4, but its own example (15 double heat sinks give 36) and the table on p.190 add the number of heat sinks x 0.4, rounded up. NGCFells follows the table and the example's result."),
     "bv2.off.heat.signature": provisional(OFFENSIVE, [at("tm", "303"), at("toaue", "112, 148, 161")],
-        "No rule says how the heat a Null-Signature, Void-Signature or Chameleon system makes while it runs enters the calculation. We take it off the heat efficiency, as stealth armor's 10 points come off through movement heat."),
+        "No rule says how the heat a Null-Signature, Void-Signature or Chameleon system makes while it runs enters the calculation. NGCFells takes it off the heat efficiency, as stealth armor's 10 points come off through movement heat."),
     "bv2.off.heat.partial-wing": provisional(OFFENSIVE, [at("toaue", "192"), at("toaue", "105")],
-        "The Battle Value rule for a partial wing names only its jump bonus. We also add the heat it sheds in a standard atmosphere to the heat efficiency."),
+        "The Battle Value rule for a partial wing names only its jump bonus. NGCFells also adds the heat it sheds in a standard atmosphere to the heat efficiency."),
     "bv2.off.heat.lam": step(OFFENSIVE, [at("ioae", "186")]),
     "bv2.off.heat.emergency-coolant": step(OFFENSIVE, [at("ioae", "190")]),
     "bv2.off.heat.coolant-pod": step(OFFENSIVE, [at("toaue", "193")]),
@@ -118,7 +118,7 @@ export const MECH_BV2_STEPS: CalcStepDefs = {
         "This item's record multiplies the final Battle Value, and its rule has not yet been read on the page."),
     "bv2.final.round": step(FINAL, [at("tm", "302"), at("tm", "304")]),
     "bv2.final.lam-bombs": provisional(FINAL, [at("tm", "315"), at("ioae", "186")],
-        "The LAM rules do not say how loaded bombs count. We add their BV after rounding, as external stores are added to a fighter's base BV."),
+        "The LAM rules do not say how loaded bombs count. NGCFells adds their BV after rounding, as external stores are added to a fighter's base BV."),
 };
 
 /** Where each modifier inside a weapon's Modified BV comes from: added to that weapon's step when it applies. */

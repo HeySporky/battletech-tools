@@ -8,11 +8,11 @@ marked NOT OFFICIAL.
 
 **Power Armor is the work of Bill Swisher.** His article "Power Armor: The Poor Man's Battlemech" first ran in
 *Future Wars* #14 (1989, p. 39), a BattleTech fanzine, and was reprinted in *The Best of Future Wars, Volume One*
-(1991, pp. 14-16). The scan of issue #14 in our library lacks printed pages 39-42, so the app's rules are read from
+(1991, pp. 14-16). The scan of issue #14 in NGCFells's library lacks printed pages 39-42, so the app's rules are read from
 the reprint. Issue #14 also printed three sample suits on standard 'Mech record sheets (pp. 43-45), which the reprint
 left out; they show where the pilot sits and how the slots are laid out.
 
-**What is ours, and not Swisher's:** no tonnage but 5, 10 and 15, and two legs only; the waldo's place on the sheet
+**What is NGCFells's, and not Swisher's:** no tonnage but 5, 10 and 15, and two legs only; the waldo's place on the sheet
 as the samples show it; head armor at most twice head structure at every weight; the 5-ton weapon list held to the
 weapons of the article's era; shielding rounded up to the half ton; the Battle Value and cost below; and the whole of
 the Alpha Strike rules, Inspired by Swisher's play rules. If any of it is incorrect, the fault lies with NGCFells.
@@ -70,10 +70,10 @@ Wars: Power Armor" in step 1. It cannot be ticked with Clell Flint's constructio
 Swisher gives neither, so a suit is priced by the edition's rules on the design as built, the waldo standing in for
 the cockpit. Shielding adds weight, not cost: the vehicle rules cost it inside the engine.
 
-One figure is ours. The +1 to hit a suit counts as one more point of Target Movement Modifier, which adds 0.1 to the
+One figure is NGCFells's. The +1 to hit a suit counts as one more point of Target Movement Modifier, which adds 0.1 to the
 Defensive Factor (TechManual p. 304).
 
-The owner's 5-ton IPA-4 (two small lasers, 24 points of armor, walking 6) shows the figures:
+NGCFells's 5-ton IPA-4 (two small lasers, 24 points of armor, walking 6) shows the figures:
 
 | Figure | Working | Result |
 | --- | --- | --- |

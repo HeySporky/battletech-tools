@@ -99,7 +99,7 @@ export const mechEngineTypes: IEngineType[] = [
 		introduced: 2579,
 		extinct: 2865,
 		reintroduced: 3035,
-		// Retirement date set by the project owner (2026-09-30), in line with the Clans' other Star League
+		// Retirement date set by NGCFells (2026-09-30), in line with the Clans' other Star League
 		// copies (~2850); no published extinction date.
 		clanDates: { prototype: 2556, introduced: 2579, extinct: 2850, reintroduced: null },
 		rating: 0

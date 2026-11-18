@@ -66,7 +66,7 @@ import {
 // Play mode (in-play state saved with the roster) follows the rules sections of both texts (Chunk F of
 // docs/superpowers/plans/2026-11-13-micro-mechs.md).
 
-/** Alpha Strike unit type code for a Micro-Mech, and the ability that carries its play rules. Both are ours. */
+/** Alpha Strike unit type code for a Micro-Mech, and the ability that carries its play rules. Both are NGCFells's. */
 export const MICRO_MECH_AS_TYPE = "MM";
 export const MICRO_MECH_AS_ABILITY = "MCR";
 
@@ -321,7 +321,7 @@ export default class MicroMech implements IGameSettingsUnit {
     public getTechTag(): string { return this.getRules().techBase; }
     public setTechTag(_tag: string): void { /* Inner Sphere only */ }
     public chooseEra(tag: string): void { this.setEra(tag); }
-    /** No date limit on the chassis (owner ruling 7): every Inner Sphere 'Mech era. */
+    /** No date limit on the chassis (NGCFells's ruling 7): every Inner Sphere 'Mech era. */
     public getEra(): IEras { return this._era; }
     public getAvailableEras(): IEras[] { return getUnitTypeEras("mech", this.getTechTag()); }
     public setEra(tag: string): boolean {
@@ -864,8 +864,8 @@ export default class MicroMech implements IGameSettingsUnit {
     }
 
     /**
-     * Our provisional BV2 (owner ruling 2): the TechManual BattleMech procedure (pp.302-304) with each of the document's
-     * changes carried across, each item at the BV2 figure our catalog holds for it. Every step says what was done.
+     * Our provisional BV2 (NGCFells's ruling 2): the TechManual BattleMech procedure (pp.302-304) with each of the document's
+     * changes carried across, each item at the BV2 figure the JBT catalog holds for it. Every step says what was done.
      */
     private _calcBattleValue2(trace: CalcTrace): number {
         const mounts = this.getMounts();
@@ -966,7 +966,7 @@ export default class MicroMech implements IGameSettingsUnit {
     }
 
     /**
-     * The Battle Value steps under `edition`: the document's under a Battle Value 1 edition, our provisional BV2 under
+     * The Battle Value steps under `edition`: the document's under a Battle Value 1 edition, NGCFells's provisional BV2 under
      * a BV2 edition, and one step with a null result under an edition older than the Battle Value system.
      */
     public getBattleValueBreakdown(edition: string = this._rulesEdition): ICalcBreakdown {
@@ -986,7 +986,7 @@ export default class MicroMech implements IGameSettingsUnit {
             },
         });
     }
-    /** The Battle Value under `edition`; an edition with no Battle Value system reads our BV2, as a BattleMech does. */
+    /** The Battle Value under `edition`; an edition with no Battle Value system reads NGCFells's BV2, as a BattleMech does. */
     public getBattleValue(edition: string = this._rulesEdition): number {
         return getBattleValueFor(edition, "mech", {
             bv1: () => this._calcBattleValue1(new CalcTrace(MICRO_MECH_BV1_STEPS)),
@@ -1086,7 +1086,7 @@ export default class MicroMech implements IGameSettingsUnit {
         return this.getLocations().filter((location) => MICRO_MECH_SLOTS[location].fixed.includes(MICRO_MECH_UPPER_LEG));
     }
     /**
-     * Where the jump jets sit (ours: the texts say only "on the legs and torso"): one to each leg in turn while a
+     * Where the jump jets sit (NGCFells's: the texts say only "on the legs and torso"): one to each leg in turn while a
      * leg has a free slot, then the torso.
      */
     private _jetPlacement(): Partial<Record<MicroMechLocation, number>> {
@@ -1408,7 +1408,7 @@ export default class MicroMech implements IGameSettingsUnit {
     /**
      * The modifier on every Piloting Skill Roll now. "+1 bonus to all piloting rolls" (-1 on the target number). The
      * document's table: Lower Leg +2, Upper Leg +4, Gyro +4, Leg destroyed +5 (no modifiers for that leg's actuators).
-     * The critical hit text gives the Upper Leg +2; the table's +4 is followed (owner ruling, 2026-11-14). A quad with all four legs takes
+     * The critical hit text gives the Upper Leg +2; the table's +4 is followed (NGCFells's ruling, 2026-11-14). A quad with all four legs takes
      * the BattleMech -2 (TW p.122: lost with a leg). 2019: an optional neurohelmet, a further -1.
      */
     public getPilotingModifier(): IMicroMechModifier {
@@ -1557,7 +1557,7 @@ export default class MicroMech implements IGameSettingsUnit {
     }
 
     // Alpha Strike ------------------------------------------------------------------------------------------------
-    // Our ruleset (owner approved 2026-11-14): docs/superpowers/specs/2026-11-14-micro-mech-alpha-strike.md. NOT OFFICIAL.
+    // Our ruleset (approved by NGCFells 2026-11-14): docs/superpowers/specs/2026-11-14-micro-mech-alpha-strike.md. NOT OFFICIAL.
 
     /** Shots carried for a mount, all its lots together. */
     private _mountShots(mountIndex: number): number {
@@ -1606,7 +1606,7 @@ export default class MicroMech implements IGameSettingsUnit {
                 heat[range] += factor > 0 ? value.heat[range] : 0;
                 (Object.keys(sums) as (keyof typeof sums)[]).forEach((key) => { if (value[key]) sums[key][range] += each; });
             });
-            const how = value.source === "catalog" ? "" : value.source === "cluster" ? " (ours: the Cluster Hits Table for this tube count)" : value.source === "ours" ? " (ours: damage / 10 by range)" : " (no value)";
+            const how = value.source === "catalog" ? "" : value.source === "cluster" ? " (NGCFells's: the Cluster Hits Table for this tube count)" : value.source === "ours" ? " (NGCFells's: damage / 10 by range)" : " (no value)";
             log.push(`${mount.item.name}${artemis.has(index) ? " with Artemis IV" : ""}: ${damage.map((each) => each.toFixed(3)).join(" / ")}${how}${shots === 0 ? ", no ammunition" : factor < 1 ? `, ${shots} shots: x 0.75` : ""}`);
         });
         const value = (damage: number): IMicroMechASDamageValue =>
@@ -1616,7 +1616,7 @@ export default class MicroMech implements IGameSettingsUnit {
         const damageValues = { short: value(total[0]), medium: value(total[1]), long: value(total[2]) };
         log.push(`Damage: ${total.map((each) => each.toFixed(3)).join(" / ")}, giving ${formatMicroMechASDamage(damageValues.short)}/${formatMicroMechASDamage(damageValues.medium)}/${formatMicroMechASDamage(damageValues.long)}. No Overheat`);
 
-        // Special abilities (ASC pp.117-133), and MCR, which is ours.
+        // Special abilities (ASC pp.117-133), and MCR, which is NGCFells's.
         const triple = (values: number[], ranges: number): string => values.slice(0, ranges).map((each) => formatMicroMechASDamage(rated(each))).join("/");
         if (sums.lrm[1] >= 1 - 1e-9) add(`LRM${triple(sums.lrm, 3)}`);
         if (sums.srm[1] >= 1 - 1e-9) add(`SRM${triple(sums.srm, 2)}`);

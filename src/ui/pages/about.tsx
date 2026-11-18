@@ -83,7 +83,7 @@ export default class About extends React.Component<IAboutProps, IAboutState> {
             label="Bundled Designs"
           >
             <p>The bundled BattleMechs and IndustrialMechs are converted from the <a href="https://github.com/Solaris-Skunk-Werks/SSW-Master">Solaris Skunk Werks</a> project's files, those it has no file for from MegaMek's, and the canon 'Mechs neither has a file for from the MegaMek-format files <a href="https://www.mordel.net">mordel.net</a> generates.</p>
-            <p>Those 'Mechs, and the bundled battle armor, ProtoMechs, Small Craft and DropShips and Support Vehicles, are converted from <a href="https://github.com/MegaMek/megamek">MegaMek</a>'s unit files: MegaMek Data &copy; 2025-2026 by The MegaMek Team, licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. A design we have checked against its printed Technical Readout is our own transcription and no longer carries this notice.</p>
+            <p>Those 'Mechs, and the bundled battle armor, ProtoMechs, Small Craft and DropShips and Support Vehicles, are converted from <a href="https://github.com/MegaMek/megamek">MegaMek</a>'s unit files: MegaMek Data &copy; 2025-2026 by The MegaMek Team, licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>. A design NGCFells has checked against its printed Technical Readout is NGCFells's own transcription and no longer carries this notice.</p>
           </TextSection>
           <TextSection
             label="Special Rulesets"

@@ -6,7 +6,7 @@ import { getCompatibleAmmo, getWeaponShotsPerTon } from "./equipment-registry";
 import { missileCustom } from "./missile-custom";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
 
-// The Reloading Rocket Launchers: the catalog held rocket ammunition (240 rockets a ton) with no launcher to fire it, so the launchers are ours,
+// The Reloading Rocket Launchers: the catalog held rocket ammunition (240 rockets a ton) with no launcher to fire it, so the launchers are NGCFells's,
 // built from the canon one-shot Rocket Launchers 10, 15 and 20.
 
 const rrl = (size: number) => {
@@ -20,7 +20,7 @@ const ammo = () => {
     return found;
 };
 
-describe("Reloading Rocket Launchers (Custom Homebrew, ours)", () => {
+describe("Reloading Rocket Launchers (Custom Homebrew, by NGCFells)", () => {
     for (const [size, battleValue, cbills, ammoBattleValue] of [[10, 90, 30000, 11], [15, 115, 60000, 14], [20, 120, 90000, 15]] as const) {
         it(`RRL ${size}: the canon launcher's weight, slots, heat and ranges; BV ${battleValue}, ${cbills} C-Bills, ${240 / size} salvos a ton`, () => {
             const canon = canonRecord(`rocket-launcher-${size}`);
@@ -55,10 +55,10 @@ describe("Reloading Rocket Launchers (Custom Homebrew, ours)", () => {
         }
     });
 
-    it("notes, lore and rules say where it comes from, what is ours and how it plays", () => {
+    it("notes, lore and rules say where it comes from, what is NGCFells's and how it plays", () => {
         for (const size of [10, 15, 20]) {
             const item = rrl(size);
-            expect(item.notes).toContain("ours, not an author's");
+            expect(item.notes).toContain("NGCFells's, not an author's");
             expect(item.notes).toContain("Derived, not given by the author");
             expect(item.notes).toContain(`Rocket Launcher ${size}`);
             expect(item.lore).toContain("Marian Hegemony");
@@ -67,10 +67,10 @@ describe("Reloading Rocket Launchers (Custom Homebrew, ours)", () => {
         }
     });
 
-    it("the ammunition is Custom Homebrew, ours, with lore and rules, and its Battle Value 0 is deliberate", () => {
+    it("the ammunition is Custom Homebrew, by NGCFells, with lore and rules, and its Battle Value 0 is deliberate", () => {
         expect(ammo().rulesLevel).toBe(CUSTOM_HOMEBREW_RULES_LEVEL);
         expect(ammo().roundsPerTon).toBe(240);
-        expect(ammo().notes).toContain("ours");
+        expect(ammo().notes).toContain("by NGCFells");
         expect(ammo().lore).toBeTruthy();
         expect(ammo().rules).toBeTruthy();
         expect(ammo().battleValue).toBe(0);

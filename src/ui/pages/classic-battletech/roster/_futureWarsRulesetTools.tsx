@@ -22,7 +22,7 @@ export function showFutureWarsRulesetTools(mech: BattleMech): boolean {
 
 /**
  * Whether the Target dialog offers the Power Armor target flag (+1, Best-of p.14; #172): when any 'Mech in the force
- * is a suit or plays a Best of Future Wars ruleset (ours: the opposing suit need not be in this force), and always
+ * is a suit or plays a Best of Future Wars ruleset (NGCFells's: the opposing suit need not be in this force), and always
  * while the flag is ticked, so a +1 left over from a suit that has gone can still be unticked.
  */
 export function showPowerArmorTargetFlag(units: BattleMech[], ticked: boolean): boolean {

@@ -54,7 +54,7 @@ export const MICRO_MECH_TRANSPORT_AS_ABILITY_TEXT: string[] = [
 
 /**
  * What the WLK ability means on the table: Clell Flint's walker (Future Wars #11; The Best of Future Wars, Volume One)
- * in Alpha Strike. Ours (owner answers 2026-11-15): docs/superpowers/specs/2026-11-15-walker-alpha-strike.md.
+ * in Alpha Strike. Ours (NGCFells's answers 2026-11-15): docs/superpowers/specs/2026-11-15-walker-alpha-strike.md.
  */
 export const WALKER_AS_ABILITY_TEXT: string[] = [
     "Every walker (unit type WK; IWK for an industrial walker) has this ability. It is a Custom Homebrew rule of this app, not an official one, after Clell Flint’s walker rules in Future Wars.",
@@ -68,7 +68,7 @@ export const WALKER_AS_ABILITY_TEXT: string[] = [
 
 /**
  * What the PWA ability means on the table: Bill Swisher's Power Armor (Future Wars #14; The Best of Future Wars, Volume
- * One, pp.14-16) in Alpha Strike. Ours (owner ruling 2026-11-17): the converter's BattleMech card plus this ability.
+ * One, pp.14-16) in Alpha Strike. Ours (NGCFells's ruling 2026-11-17): the converter's BattleMech card plus this ability.
  */
 export const POWER_ARMOR_AS_ABILITY_TEXT: string[] = [
     "Every Power Armor suit (a 5, 10 or 15-ton suit built under Bill Swisher’s Power Armor rules from Future Wars) has this ability. It is a Custom Homebrew rule of this app, not an official one. The suit is otherwise a BattleMech (BM) of Size 1.",
@@ -1550,10 +1550,10 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
     },
 
     /* ***************************
-      Custom Homebrew (ours; in no rulebook)
+      Custom Homebrew (NGCFells's; in no rulebook)
     ***************************** */
     {
-        // Micro-Mechs (#173): the Alpha Strike ruleset is ours, from the play rules of "Micro-Mechs" by Solarmech
+        // Micro-Mechs (#173): the Alpha Strike ruleset is NGCFells's, from the play rules of "Micro-Mechs" by Solarmech
         // (version 6.1.0.2 revised by an unnamed editor with Discord). docs/superpowers/specs/2026-11-14-micro-mech-alpha-strike.md
         tag: "MCR",
         name: "Micro-Mech",
@@ -1589,7 +1589,7 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         type: ESpecialAbilityType.Standard,
     },
     {
-        // Walkers (#172): the Alpha Strike ruleset is ours, from Clell Flint's walker rules (Future Wars #11; The Best
+        // Walkers (#172): the Alpha Strike ruleset is NGCFells's, from Clell Flint's walker rules (Future Wars #11; The Best
         // of Future Wars, Volume One). docs/superpowers/specs/2026-11-15-walker-alpha-strike.md
         tag: "WLK",
         name: "Walker",

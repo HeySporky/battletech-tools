@@ -76,7 +76,7 @@ const MAX_TECH: IBattleValueLevelThree = {
 
 /**
  * Maximum Tech (FASA 1700, corrected second printing) pp.90-92: written for the 1998 Master Rules (its p.90 names
- * their pp.139-145), so it is that edition's Level 3 (owner ruling 2026-11-10). Read on the page images on
+ * their pp.139-145), so it is that edition's Level 3 (NGCFells's ruling 2026-11-10). Read on the page images on
  * 2026-11-11: every table and figure above is the same in this printing.
  */
 const MAX_TECH_FASA: IBattleValueLevelThree = { ...MAX_TECH, source: "Maximum Tech (FASA) pp.90-92" };

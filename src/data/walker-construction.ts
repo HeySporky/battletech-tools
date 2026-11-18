@@ -15,15 +15,15 @@
 
 import { FutureWarsWeightClass, getFutureWarsWeightClass } from "./future-wars-construction";
 
-// Clell Flint's four-legged 'Mechs, "walkers" (#172): a unit type of their own (owner ruling 2, 2026-11-13). Read on
+// Clell Flint's four-legged 'Mechs, "walkers" (#172): a unit type of their own (NGCFells's ruling 2, 2026-11-13). Read on
 // the page images of both printings: Future Wars #11, "Rules for Building 4 Legged Mechs in BattleTech", pp.25-27,
 // and The Best of Future Wars, Volume One (1991), "Optional Rules for Building Walkers", printed pp.36-38 (PDF 45-47).
-// Every rule that differs between the printings is a field of WALKER_EDITION_RULES (owner ruling 3: editions).
+// Every rule that differs between the printings is a field of WALKER_EDITION_RULES (NGCFells's ruling 3: editions).
 // Plan: docs/superpowers/plans/2026-11-13-future-wars-walkers.md.
 
 export type WalkerEdition = "future-wars-11" | "best-of-1991";
 export const WALKER_EDITIONS: readonly WalkerEdition[] = ["best-of-1991", "future-wars-11"];
-/** The Best-of is the text of record (owner ruling 3). A save with no edition was made under it. */
+/** The Best-of is the text of record (NGCFells's ruling 3). A save with no edition was made under it. */
 export const WALKER_DEFAULT_EDITION: WalkerEdition = "best-of-1991";
 
 export const isWalkerEdition = (value: unknown): value is WalkerEdition => (WALKER_EDITIONS as readonly unknown[]).includes(value);
@@ -63,7 +63,7 @@ export const WALKER_EDITION_RULES: Record<WalkerEdition, IWalkerEditionRules> = 
         assaultControlSlots: 14,
         immobilizedKnockOver: null,
         firingArcs: "The Best of Future Wars refers to a firing arc sheet it does not reprint (p.36); the arcs of Future Wars #11 (p.27) "
-            + "are used (ours).",
+            + "are used (NGCFells's).",
     },
 };
 
@@ -163,10 +163,10 @@ export function getWalkerTurret(tons: number, variant: boolean): IWalkerTurret {
     } as const)[weightClass.tag];
 }
 
-/** Every engine a walker can save: the 'Mech engine table's types to rating 400; no primitive or large engine (ours). */
+/** Every engine a walker can save: the 'Mech engine table's types to rating 400; no primitive or large engine (NGCFells's). */
 export const WALKER_ENGINE_TYPES = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl", "ice", "cell", "fission"] as const;
 export type WalkerEngineType = typeof WALKER_ENGINE_TYPES[number];
-/** A BattleMech walker's engines: the fusion types (ours). */
+/** A BattleMech walker's engines: the fusion types (NGCFells's). */
 export const WALKER_BATTLEMECH_ENGINE_TYPES: readonly WalkerEngineType[] = ["standard", "xl", "clan_xl", "light", "compact", "xxl", "clan_xxl"];
 /** An industrial walker's engines: the IndustrialMech's, standard fusion, ICE, fuel cell or fission (TechManual pp.66-71, as the app's IndustrialMech check has it). */
 export const WALKER_INDUSTRIAL_ENGINE_TYPES: readonly WalkerEngineType[] = ["standard", "ice", "cell", "fission"];
@@ -177,7 +177,7 @@ export type WalkerGyroType = typeof WALKER_GYRO_TYPES[number];
 export const WALKER_INDUSTRIAL_GYRO_TYPES: readonly WalkerGyroType[] = ["standard"];
 
 /**
- * Industrial walkers (owner ruling, 2026-11-14): Flint prints none. Ours, inspired by his walker rules and the
+ * Industrial walkers (NGCFells's ruling, 2026-11-14): Flint prints none. Ours, inspired by his walker rules and the
  * IndustrialMech rules (TechManual pp.66-71): his structure points on industrial internal structure (twice the weight,
  * 20 percent), the IndustrialMech's engines, gyro and cockpit (with Advanced Fire Control as an option), and later its
  * heat sink, jump jet and equipment limits.
@@ -200,7 +200,7 @@ export const isWalkerAntiInfantryWeapon = (item: { tag: string; isAmmo?: boolean
     isWalkerWeapon(item) && /machine-gun|flamer|small.*laser|laser.*small/.test(item.tag.toLowerCase());
 
 /**
- * Variable-size 'Mech equipment a walker can carry, sized with the walker's tonnage, engine and weapons (ours). The
+ * Variable-size 'Mech equipment a walker can carry, sized with the walker's tonnage, engine and weapons (NGCFells's). The
  * rest is for arms (hatchets, swords, claws, maces, lances, AES), spreads over 'Mech locations (talons, tracks, wings,
  * jump boosters, sealing) or belongs to another chassis (the 'Mech turret, the ram plate, QuadVee wheels, naval gear).
  */
@@ -210,7 +210,7 @@ export const WALKER_VARIABLE_FORMULAS: readonly string[] = [
 ];
 
 /**
- * Where a 'Mech item limited to some locations goes on a walker (ours): the head is the control section, the center
+ * Where a 'Mech item limited to some locations goes on a walker (NGCFells's): the head is the control section, the center
  * torso the center torso, a side torso any outer torso, a leg any leg; an arm has no walker counterpart.
  */
 export function getWalkerLocationsForMechLocations(mechLocations: readonly string[]): WalkerLocation[] {
@@ -225,10 +225,10 @@ export function getWalkerLocationsForMechLocations(mechLocations: readonly strin
 }
 
 /**
- * Locations an item too big for one location may split into (owner ruling 2026-11-14: "big items can split across
- * adjacent sections, but only into one and only if there is enough room"). Which are adjacent is ours, from the walker's
+ * Locations an item too big for one location may split into (NGCFells's ruling 2026-11-14: "big items can split across
+ * adjacent sections, but only into one and only if there is enough room"). Which are adjacent is NGCFells's, from the walker's
  * plan view: the four outer torsos around the center torso, a leg at each corner touching the two torsos beside it. The
- * control section takes no split item, as a 'Mech's head takes none (ours).
+ * control section takes no split item, as a 'Mech's head takes none (NGCFells's).
  */
 export const WALKER_ADJACENT_LOCATIONS: Record<WalkerLocation, readonly WalkerLocation[]> = {
     ct: ["ft", "rrt", "lt", "rt"],
@@ -243,16 +243,16 @@ export const WALKER_ADJACENT_LOCATIONS: Record<WalkerLocation, readonly WalkerLo
     cs: [],
 };
 
-/** Heat sink types a walker can take (ours, Chunk B): single and double. An industrial walker: single only (TM p.71). */
+/** Heat sink types a walker can take (NGCFells's, Chunk B): single and double. An industrial walker: single only (TM p.71). */
 export const WALKER_HEAT_SINK_TYPES = ["single", "double"] as const;
 export type WalkerHeatSinkType = typeof WALKER_HEAT_SINK_TYPES[number];
-/** Jump jet types (ours, Chunk B): standard and improved. An industrial walker: standard only (TM p.69). */
+/** Jump jet types (NGCFells's, Chunk B): standard and improved. An industrial walker: standard only (TM p.69). */
 export const WALKER_JUMP_JET_TYPES = ["standard", "improved"] as const;
 export type WalkerJumpJetType = typeof WALKER_JUMP_JET_TYPES[number];
 
-/** Jump jets go in the legs first, then the outer torsos, one location at a time in turn (ours). */
+/** Jump jets go in the legs first, then the outer torsos, one location at a time in turn (NGCFells's). */
 export const WALKER_JUMP_JET_LOCATIONS: readonly WalkerLocation[] = ["lfl", "rfl", "lrl", "rrl", "ft", "rrt", "lt", "rt"];
-/** Heat sinks the engine cannot hold fill the outer torsos, then the legs, the center torso and the control section (ours). */
+/** Heat sinks the engine cannot hold fill the outer torsos, then the legs, the center torso and the control section (NGCFells's). */
 export const WALKER_HEAT_SINK_LOCATIONS: readonly WalkerLocation[] = ["lt", "rt", "ft", "rrt", "lfl", "rfl", "lrl", "rrl", "ct", "cs"];
 
 /**
@@ -298,7 +298,7 @@ export const WALKER_ATTACK_DIRECTIONS: readonly IWalkerAttackDirection[] = [
 /**
  * Reads a printed hit table cell into a location. "X/(Y)" gives X for an attack through a front face (front, right
  * front, left front) and Y through a rear face; "Fr"/"Rr" name the front or rear torso, or with "Rt"/"Lt" a leg.
- * "CS Critical" is a control section hit with a roll for a critical hit, as a 'Mech's 2 (ours: the table prints no
+ * "CS Critical" is a control section hit with a roll for a critical hit, as a 'Mech's 2 (NGCFells's: the table prints no
  * meaning for it).
  */
 export function readWalkerHitCell(cell: string, rear: boolean): { location: WalkerLocation; critical: boolean } {
@@ -317,7 +317,7 @@ export function readWalkerHitCell(cell: string, rear: boolean): { location: Walk
 }
 
 /**
- * Where damage goes past a location whose structure is gone (ours, from the 'Mech rule, TW: a limb to its torso, a
+ * Where damage goes past a location whose structure is gone (NGCFells's, from the 'Mech rule, TW: a limb to its torso, a
  * torso or the head to the center torso): a leg to the outer torso on its side, an outer torso and the control section
  * to the center torso. Past the center torso the walker is destroyed and the rest is lost.
  */
@@ -330,7 +330,7 @@ export const WALKER_DAMAGE_TRANSFER: Record<WalkerLocation, WalkerLocation | nul
  * turret's all-round fire. "Weapons mounted in the control section that are not in a turret are either front or rear.
  * Turrets use the standard turret rules. Legs fire into both the arcs in their quadrant, i.e. weapons on the right front
  * leg could fire into both the front and the right arc" (#11 p.26; Best-of p.36). The outer torsos fire into the arc
- * they face (ours). Center torso weapons fire only into the walker's own hex (no arc).
+ * they face (NGCFells's). Center torso weapons fire only into the walker's own hex (no arc).
  */
 export type WalkerFiringArc = "F" | "RS" | "R" | "LS";
 export const WALKER_ALL_ARCS: readonly WalkerFiringArc[] = ["F", "RS", "R", "LS"];

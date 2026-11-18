@@ -82,7 +82,7 @@ describe("Future Wars construction tables (Best-of pp.35-36)", () => {
     });
 });
 
-describe("The two Future Wars rulesets (owner ruling 3)", () => {
+describe("The two Future Wars rulesets (NGCFells's ruling 3)", () => {
     it("lists the Best-of printing first, both at Custom Homebrew, both changing 'Mech construction", () => {
         expect([...FUTURE_WARS_CONSTRUCTION_RULESETS]).toEqual([BEST_OF, ISSUE_11]);
         const ids = btSpecialRulesets.map(r => r.id);

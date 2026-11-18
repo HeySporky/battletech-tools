@@ -74,7 +74,7 @@ export const POWER_ARMOR_WALDO: ICockpitType = {
     page: 16,
     notes: "Replaces the cockpit of a Power Armor suit: the pilot wears the suit. Bill Swisher, 'Power Armor: The Poor Man's Battlemech', "
         + "Future Wars #14 (1989), p.39; reprinted in The Best of Future Wars, Volume One (1991), p.16. Slots from the sample sheets, "
-        + "Future Wars #14 pp.43-45 (ours: placed as the sheets show).",
+        + "Future Wars #14 pp.43-45 (NGCFells's: placed as the sheets show).",
     prototype: 2963,
     introduced: 3027,
     extinct: null,
@@ -97,7 +97,7 @@ export function needsPowerArmorShielding(engineTag: string): boolean {
     return SHIELDED_ENGINE_TAGS.includes(engineTag);
 }
 
-/** Shielding of half the engine's weight, rounded up to the half ton as vehicle shielding is (ours). */
+/** Shielding of half the engine's weight, rounded up to the half ton as vehicle shielding is (NGCFells's). */
 export function getPowerArmorShieldingWeight(engineTons: number): number {
     return engineTons > 0 ? Math.ceil(engineTons) / 2 : 0;
 }
@@ -140,7 +140,7 @@ export function getPowerArmorSheetRules(tons: number): string[] {
 }
 
 /**
- * PWA, Power Armor, on a suit's Alpha Strike card (owner ruling 2026-11-17: ours). The card is the converter's BattleMech
+ * PWA, Power Armor, on a suit's Alpha Strike card (NGCFells's ruling 2026-11-17: ours). The card is the converter's BattleMech
  * card; PWA carries the article's play rules, and the Point Value counts its +1 to hit as +1 TMM in the defense factor.
  */
 export const POWER_ARMOR_AS_ABILITY = "PWA";

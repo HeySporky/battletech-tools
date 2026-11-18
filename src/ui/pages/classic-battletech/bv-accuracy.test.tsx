@@ -53,7 +53,7 @@ describe("Battle Value accuracy page (#599)", () => {
         expect(rows).toHaveLength(3);
         const archer = screen.getByText("Archer ARC-5R").closest("tr") as HTMLElement;
         expect(within(archer).getAllByRole("cell").slice(0, 4).map((cell) => cell.textContent)).toEqual(["", "1,672", "1,674", "-2"]);
-        expect(archer.textContent).toContain("Our bug");
+        expect(archer.textContent).toContain("JBT bug");
         expect(archer.textContent).toContain("We miss the armored gyro.");
         expect(within(archer).getByRole("link", { name: "#640" }).getAttribute("href")).toBe("https://github.com/ngcfells/battletech-tools/issues/640");
         const wolf = screen.getByText("Alpha Wolf").closest("tr") as HTMLElement;

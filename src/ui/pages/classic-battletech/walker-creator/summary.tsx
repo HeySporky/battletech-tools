@@ -86,8 +86,8 @@ export default class WalkerCreatorSummary extends React.Component<ISummaryProps>
 
                             <h3>Battle Value and Cost Calculation</h3>
                             <p className="smaller-text" data-testid="walker-provisional">
-                                No Battle Value or cost is published for a Walker. These are the BattleMech rules applied to a Walker (ours), and every step is
-                                marked provisional; the turret mechanism costs 7,500 C-bills a ton (owner ruling, midway between the 'Mech and vehicle turrets).
+                                No Battle Value or cost is published for a Walker. These are the BattleMech rules applied to a Walker (NGCFells's), and every step is
+                                marked provisional; the turret mechanism costs 7,500 C-bills a ton (NGCFells's ruling, midway between the 'Mech and vehicle turrets).
                             </p>
                             <CalcBreakdown
                                 battleValue={(edition) => walker.getBattleValueBreakdown(edition)}

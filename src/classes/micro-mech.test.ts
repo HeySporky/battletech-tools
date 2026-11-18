@@ -699,11 +699,11 @@ describe("Micro-Mech step definitions", () => {
         expect(findCalcDefProblems(defs)).toEqual([]);
     });
 
-    it("every BV2 step is provisional and says it is ours", () => {
+    it("every BV2 step is provisional and says it is NGCFells's", () => {
         for (const def of Object.values(MICRO_MECH_BV2_STEPS)) {
             expect(def.status).toBe("provisional");
         }
-        expect(MICRO_MECH_BV2_STEPS["mm.bv2.def.armor"].note).toMatch(/ours, not the document's/);
+        expect(MICRO_MECH_BV2_STEPS["mm.bv2.def.armor"].note).toMatch(/NGCFells's, not the document's/);
     });
 });
 
@@ -851,7 +851,7 @@ describe("Micro-Mech Battle Value (6.1.0.2 appendix, BV1 editions)", () => {
         ["the torso, CASE in the torso", "torso", ["micro-case", "torso"], -30, "mm.bv1.def.explosive"],
         ["the torso, CASE II there", "torso", ["micro-case-ii", "torso"], -5, "mm.bv1.def.explosive"],
         ["an arm, CASE II there", "la", ["micro-case-ii", "la"], -5, "mm.bv1.def.explosive"],
-        ["the head (ours: as the torso)", "head", undefined, -30, "mm.bv1.def.explosive.head"],
+        ["the head (NGCFells's: as the torso)", "head", undefined, -30, "mm.bv1.def.explosive.head"],
     ] as [string, "la" | "torso" | "ll" | "head", ["micro-case" | "micro-case-ii", "la" | "torso"] | undefined, number, string][])(
         "a ton of ammunition in %s", (_name, ammoAt, caseAt, points, id) => {
             const bv = withAmmo(ammoAt, caseAt).getBattleValueBreakdown(BV1);
@@ -930,7 +930,7 @@ describe("Micro-Mech Battle Value (6.1.0.2 appendix, BV1 editions)", () => {
     });
 });
 
-describe("Micro-Mech provisional BV2 (ours)", () => {
+describe("Micro-Mech provisional BV2 (NGCFells's)", () => {
     it("the Storm, step by step", () => {
         const bv = stormArmed().getBattleValueBreakdown(BV2);
         expect(bv.scheme).toBe("bv2");
@@ -962,7 +962,7 @@ describe("Micro-Mech provisional BV2 (ours)", () => {
         expect(valueOf(micro.getBattleValueBreakdown(BV2), "mm.bv2.off.weapon")).toEqual([229, 62]);
     });
 
-    it("an item with a BV2 figure in our catalog uses it; one without keeps the document's", () => {
+    it("an item with a BV2 figure in the JBT catalog uses it; one without keeps the document's", () => {
         const micro = build(19, "biped", 3, 0);
         // Large Laser: the document prints 124, BV2 is 123. Heavy Flamer: 20 and 3 a ton against BV2's 15 and 2.
         micro.addMount("micro-laser-large", "torso");

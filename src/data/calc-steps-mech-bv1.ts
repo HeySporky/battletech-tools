@@ -20,8 +20,8 @@ const step = (section: string, cites: ICalcCitation[], status: CalcStepStatus = 
     note ? { section, cites, status, note } : { section, cites, status };
 const provisional = (section: string, cites: ICalcCitation[], note: string): ICalcStepDef => step(section, cites, "provisional", note);
 
-const CLAN_XL_NOTE = "The rules text gives x 0.75 for an XL engine and does not name the Clan XL. The book's worked example, a Goshawk with a Clan XL engine, multiplies its internal structure by 1.125. We follow the example.";
-const UNLISTED_NOTE = "This edition's equipment tables print no Battle Value for the item. We use its current (BV2) figure so the item is not worth nothing.";
+const CLAN_XL_NOTE = "The rules text gives x 0.75 for an XL engine and does not name the Clan XL. The book's worked example, a Goshawk with a Clan XL engine, multiplies its internal structure by 1.125. NGCFells follows the example.";
+const UNLISTED_NOTE = "This edition's equipment tables print no Battle Value for the item. NGCFells uses its current (BV2) figure so the item is not worth nothing.";
 
 /**
  * Maximum Tech's Level 3 steps (pp.90-92). The FASA printing (`mt`) and the FanPro Revised (`mt-revised`) print these
@@ -58,14 +58,14 @@ const MASTER_RULES: CalcStepDefs = {
     "bv1.def.structure": step(DEFENSIVE, [at("bmr", "139")]),
     "bv1.def.structure.clan-xl": provisional(DEFENSIVE, [at("bmr", "139"), at("bmr", "145")], CLAN_XL_NOTE),
     "bv1.def.structure.light-engine": provisional(DEFENSIVE, [at("bmrr", "152")],
-        "The 1998 Master Rules have no Light engine. We use the Revised Edition's multiplier, 1.125."),
+        "The 1998 Master Rules have no Light engine. NGCFells uses the Revised Edition's multiplier, 1.125."),
     "bv1.def.tonnage": step(DEFENSIVE, [at("bmr", "139")]),
     "bv1.def.equipment": step(DEFENSIVE, [at("bmr", "139"), at("bmr", "142-144")]),
     // The errata rewrites the arm line: only CASE in the next location inward excuses ammunition in an arm.
     "bv1.def.explosive": step(DEFENSIVE, [at("bmr", "139-140"), at("bmr-errata", "12")]),
     "bv1.def.heat": step(DEFENSIVE, [at("bmr", "140")]),
     "bv1.def.heat.stealth": provisional(DEFENSIVE, [at("bmrr", "154")],
-        "The 1998 Master Rules have no Stealth armor. We use the Revised Edition's rule: 10 more heat."),
+        "The 1998 Master Rules have no Stealth armor. NGCFells uses the Revised Edition's rule: 10 more heat."),
     "bv1.def.subtotal": step(DEFENSIVE, [at("bmr", "139")]),
     // The Defensive Movement Factors table (p.140) reads the Target Movement Modifier rows of the Attack Modifiers Table (p.32).
     "bv1.def.factor": step(DEFENSIVE, [at("bmr", "140"), at("bmr", "32")]),
@@ -80,7 +80,7 @@ const MASTER_RULES: CalcStepDefs = {
     "bv1.off.heat": step(OFFENSIVE, [at("bmr", "140-141"), at("bmr-errata", "12")]),
     "bv1.off.speed": step(OFFENSIVE, [at("bmr", "140-141"), at("bmr-errata", "12")]),
     "bv1.off.speed.stealth": provisional(OFFENSIVE, [at("bmrr", "154")],
-        "The 1998 Master Rules have no Stealth armor. We use the Revised Edition's rule: 0.2 added to the Speed Factor."),
+        "The 1998 Master Rules have no Stealth armor. NGCFells uses the Revised Edition's rule: 0.2 added to the Speed Factor."),
     "bv1.off.rating": step(OFFENSIVE, [at("bmr", "141")]),
 
     // ---- Step 3: Final Battle Value ----

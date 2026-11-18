@@ -6,7 +6,7 @@ import { buildWalker as build } from "../test-support/builders";
 
 // Clell Flint's walkers (#172), Chunk B of docs/superpowers/plans/2026-11-13-future-wars-walkers.md: equipment, the
 // center-torso rule (Best-of p.36; Future Wars #11 p.26, read on the page images), the turret, heat sinks, jump jets
-// and ammunition. What the text is silent on is ours, as the ledger lists.
+// and ammunition. What the text is silent on is NGCFells's, as the ledger lists.
 
 const latestEra = (walker: Walker): void => {
     const eras = walker.getAvailableEras();
@@ -169,9 +169,9 @@ describe("Walker equipment", () => {
     });
 });
 
-// Owner ruling 2026-11-14: "big items can split across adjacent sections, but only into one and only if there is
-// enough room." Which locations are adjacent is ours (WALKER_ADJACENT_LOCATIONS).
-describe("Walker split items (owner ruling)", () => {
+// NGCFells's ruling 2026-11-14: "big items can split across adjacent sections, but only into one and only if there is
+// enough room." Which locations are adjacent is NGCFells's (WALKER_ADJACENT_LOCATIONS).
+describe("Walker split items (NGCFells's ruling)", () => {
     const gaussWalker = (): Walker => {
         const walker = build(50, 4);
         latestEra(walker);
@@ -273,7 +273,7 @@ describe("Walker heat sinks (as on a 'Mech)", () => {
     });
 });
 
-describe("Walker jump jets (ours: legs and outer torsos, by the 'Mech rule)", () => {
+describe("Walker jump jets (NGCFells's: legs and outer torsos, by the 'Mech rule)", () => {
     it("places jump jets in the legs first, weighs them by weight class (TM p.51), at most the biped Walking MP", () => {
         const walker = build(50, 4);
         expect(walker.setJumpJets(4)).toBe(true);

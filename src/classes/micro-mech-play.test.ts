@@ -36,7 +36,7 @@ const slotOf = (micro: MicroMech, location: Parameters<MicroMech["getPlaySlots"]
 };
 
 describe("Micro-Mech play: the slots", () => {
-    it("places the jump jets in the free leg slots first, then the torso (ours), filling the Storm's 25 of 26", () => {
+    it("places the jump jets in the free leg slots first, then the torso (NGCFells's), filling the Storm's 25 of 26", () => {
         const micro = storm();
         expect(micro.getPlaySlots("ll")).toEqual(["Upper Leg Actuator Group", "Lower Leg Actuator Group", "Jump Jet"]);
         expect(micro.getPlaySlots("rl")).toEqual(["Upper Leg Actuator Group", "Lower Leg Actuator Group", "Jump Jet"]);
@@ -280,7 +280,7 @@ describe("Micro-Mech play: movement and piloting", () => {
         expect(micro.getPilotingModifier().total).toBe(3);
     });
 
-    it("halves Walking MP (round up, before the Lower Leg -2, TW pp.127-128 as errata'd) and adds +4 for an Upper Leg hit (the document's Piloting Skill Roll Table; owner ruling 2026-11-14), cumulative", () => {
+    it("halves Walking MP (round up, before the Lower Leg -2, TW pp.127-128 as errata'd) and adds +4 for an Upper Leg hit (the document's Piloting Skill Roll Table; NGCFells's ruling 2026-11-14), cumulative", () => {
         const micro = storm();
         micro.setSlotHit("ll", 0, true);
         expect(micro.getPlayMovement()).toMatchObject({ walk: 3, run: 5 });

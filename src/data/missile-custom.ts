@@ -18,7 +18,7 @@ import { futureWarsSwingFires } from "./best-of-future-wars-conversions";
  */
 
 /**
- * The Reloading Rocket Launcher 10, 15 and 20 (Custom Homebrew, ours): the canon one-shot Rocket Launchers fed from ammunition each turn, for the
+ * The Reloading Rocket Launcher 10, 15 and 20 (Custom Homebrew, by NGCFells): the canon one-shot Rocket Launchers fed from ammunition each turn, for the
  * catalog's rocket ammunition (ammo-rocket-launcher-standard, 240 rockets a ton), which had no launcher to fire it. Weight, slots, heat and ranges are
  * the canon launcher's; Battle Value and cost are derived from it (derived-custom-values.ts, "reloadable-twin").
  */
@@ -36,8 +36,8 @@ const reloadingRocketLauncher = (size: number): IEquipmentItem => {
         category: "Missile Weapons",
         catalog: "custom",
         rulesLevel: 6,
-        notes: `Custom Homebrew, ours: the catalog held rocket ammunition (ammo-rocket-launcher-standard, 240 rockets a ton, introduced 3067, source "Custom") with no launcher to fire it, and no published rule has a reloadable rocket launcher `
-            + `(Sarna's Rocket Launcher pages show only the one-shot RL 10, 15 and 20, and the Master Rules Revised price list reloads one after a mission for 1,000 C-Bills), so these three launchers are ours, not an author's. `
+        notes: `Custom Homebrew, by NGCFells: the catalog held rocket ammunition (ammo-rocket-launcher-standard, 240 rockets a ton, introduced 3067, source "Custom") with no launcher to fire it, and no published rule has a reloadable rocket launcher `
+            + `(Sarna's Rocket Launcher pages show only the one-shot RL 10, 15 and 20, and the Master Rules Revised price list reloads one after a mission for 1,000 C-Bills), so these three launchers are NGCFells's, not an author's. `
             + `They are the canon Rocket Launcher ${size} (${canon.weight} tons, ${canon.space.battlemech} slot${canon.space.battlemech === 1 ? "" : "s"}, heat ${canon.heat}, ranges ${canon.range.short}/${canon.range.medium}/${canon.range.long}) fed from ammunition each turn instead of fired once a game: `
             + `the same weight, slots, heat and ranges; shots a ton are 240 rockets over ${size}, ${240 / size}. Introduced 3067, the ammunition's date; tech rating E, the ammunition's.`,
         rules: `Resolved as the canon Rocket Launcher ${size}: an LRM attack of ${size} unguided rockets on the Cluster Hits Table, with the launcher's own ranges and +1 to hit; no special munitions, Artemis IV or Narc homing; ECM has no effect and an anti-missile system may engage it. `
@@ -714,7 +714,7 @@ export const missileCustom: IEquipmentItem[] = applyDerivedValues([
         name: "The Penitrator", tag: "custom-penitrator", techBase: "universal", catalog: "custom", altNames: ["Penitrator Launcher"], sort: "missile, penitrator", category: "Missile Weapons",
         notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *The Best of Future Wars, Volume One* (1991), p.20. "
             + "The article names no 'Mech location (the Blaster carried it on top of its torso), so none is restricted here; it gives no to-hit number inside 8 hexes. "
-            + "Not printed in The Best of Future Wars: the minimum range of 8 is ours, a way to carry the inside-8-hexes band in the range field, since the page only says the damage drops and the shot is harder there; the launcher's slots are ours, 2, as the SRM 6's; "
+            + "Not printed in The Best of Future Wars: the minimum range of 8 is NGCFells's, a way to carry the inside-8-hexes band in the range field, since the page only says the damage drops and the shot is harder there; the launcher's slots are NGCFells's, 2, as the SRM 6's; "
             + "its cost, Battle Value, dates and tech rating are unverified (cost 0, Battle Value 0).",
         rules: "A 3-ton launcher, 2 slots, firing missiles 2 a ton (ammo-custom-penitrator-standard). Roll a critical hit check for each missile that hits. "
             + "Damage and internal structure damage by range: 1d4/2 and 1 inside 8 hexes (the missile has not reached speed and is harder to hit there), "

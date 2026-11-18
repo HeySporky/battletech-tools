@@ -93,7 +93,7 @@ describe("Re-Engineered Fusion Engine (#267)", () => {
         expect(engineStep(makeMech("xl"))?.[2]).toMatch(/x 0\.5$/);
     });
 
-    it("notes record the owner's observation about tripods and center torso cockpits", () => {
+    it("notes record NGCFells's observation about tripods and center torso cockpits", () => {
         const record = mechCustomEngineTypes.find((engine) => engine.tag === TAG)!;
         expect(record.notes).toMatch(/tripod/i);
         expect(record.notes).toMatch(/center torso cockpit/i);

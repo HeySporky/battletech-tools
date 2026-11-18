@@ -6,7 +6,7 @@ import { getAllPowerArmorSamples, getPowerArmorSamples } from "./power-armor-sam
 
 /**
  * Power Armor plan, Chunk E (#172): the three suits Future Wars #14 printed on 'Mech record sheets (pp.43-45, read from
- * the page images) and the owner's IPA-4, as samples for the 'Mech Creator.
+ * the page images) and NGCFells's IPA-4, as samples for the 'Mech Creator.
  */
 const load = (id: string): BattleMech => {
     const sample = getAllPowerArmorSamples().find(entry => entry.id === id);
@@ -107,7 +107,7 @@ describe("Sample Power Armor (Future Wars #14 pp.43-45, and IPA-4)", () => {
         expect(load("ipa-1").getBattleValue()).toBe(177);
     });
 
-    it("loads IPA-4 as the owner saved it: the Chunk D figures (BV 147, 184,065 C-bills, 9 PV)", () => {
+    it("loads IPA-4 as NGCFells saved it: the Chunk D figures (BV 147, 184,065 C-bills, 9 PV)", () => {
         const mech = load("ipa-4");
         const fixture = JSON.parse(readFileSync(new URL("./__fixtures__/power-armor-ipa-4.json", import.meta.url), "utf8"));
         expect(mech.getArmorAllocation()).toEqual(fixture.armor_allocation);
@@ -117,13 +117,13 @@ describe("Sample Power Armor (Future Wars #14 pp.43-45, and IPA-4)", () => {
         expect(mech.getPilot().piloting).toBe(3);
     });
 
-    it("credits Swisher and Future Wars #14 and says what is ours", () => {
+    it("credits Swisher and Future Wars #14 and says what is NGCFells's", () => {
         const notes = (id: string) => (load(id).export(true) as unknown as { tro?: { text?: { notes?: string } } }).tro?.text?.notes ?? "";
         for (const id of ["ipa-1", "ipa-2", "ipa-3", "ipa-4"]) expect(notes(id), id).toMatch(/Bill Swisher.*Future Wars #14.*NOT OFFICIAL|NOT OFFICIAL.*Bill Swisher.*Future Wars #14/);
-        expect(notes("ipa-1")).toMatch(/name is ours/);
-        expect(notes("ipa-3")).toMatch(/name is ours/);
+        expect(notes("ipa-1")).toMatch(/name is NGCFells's/);
+        expect(notes("ipa-3")).toMatch(/name is NGCFells's/);
         expect(notes("ipa-2")).toMatch(/third in the free right torso slot \(RT 3\)/);
-        expect(notes("ipa-2")).toMatch(/armor is ours/);
-        expect(notes("ipa-4")).toMatch(/IPA-4 is ours/);
+        expect(notes("ipa-2")).toMatch(/armor is NGCFells's/);
+        expect(notes("ipa-4")).toMatch(/IPA-4 is NGCFells's/);
     });
 });

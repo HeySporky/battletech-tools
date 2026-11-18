@@ -1058,5 +1058,5 @@ Smoker Fuel (50 hexes)            Body          1.0
 - **Inner Sphere names:** siege engines.
 - **Powerplant:** XL fusion, or XXL where the tech allows, because the engine has to power everything while the tank
   sits still. All nine patterns here use XL.
-- **Technology:** every pattern is current production technology in its era, so none that we built as samples
+- **Technology:** every pattern is current production technology in its era, so none that NGCFells built as samples
   currently carries the prototype Armored Motive System that the rules recommend to really give that armored siege feel.

@@ -180,7 +180,7 @@ export function buildBundledUnits(megamekDir: string, mulDir: string, prepare: (
     // The custom list as it stands: an earlier build's MegaMek entries keep their ids; new ones take the next free.
     const customIds = loadMegaMekCustomIds(mulDir, isOurs);
     const customRecords: IASMULUnit[] = [];
-    // A MegaMek entry is ours, not a BV to check a file against.
+    // A MegaMek entry is NGCFells's, not a BV to check a file against.
     const work = Object.fromEntries(types.map((type) => [type, { kind: BLK_KINDS[type], mul: loadMULIndex(mulDir, (unit) => !isMegaMekCustom(unit) && BLK_KINDS[type].mul(unit)), taken: new Set<string>(),
         kept: [] as { header: Omit<IBundledDesignHeader, "id">; design: Record<string, unknown> }[], leftOut: [] as IBundledBuild["leftOut"] }])) as
         Record<BundledUnitType, { kind: IBlkKind; mul: Map<string, IASMULUnit>; taken: Set<string>; kept: { header: Omit<IBundledDesignHeader, "id">; design: Record<string, unknown> }[]; leftOut: IBundledBuild["leftOut"] }>;

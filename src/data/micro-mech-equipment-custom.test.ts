@@ -103,7 +103,7 @@ describe("Micro-Mech equipment table", () => {
         // No LRM 9 in any book: the LRM family's range, and the notes say so.
         expect(getMicroMechItemRange(row("micro-lrm-9"))).toEqual({ min: 6, short: 7, medium: 14, long: 21 });
         expect(row("micro-lrm-9").rangeExtrapolated).toBe(true);
-        expect(row("micro-lrm-9").notes).toMatch(/extrapolated by us/);
+        expect(row("micro-lrm-9").notes).toMatch(/extrapolated by NGCFells/);
     });
 
     it("takes the date from the catalog record, none where there is none", () => {

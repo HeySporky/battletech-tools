@@ -4,8 +4,8 @@ import { MicroMechLayout } from "../data/micro-mech-construction";
 import { findMicroMechItem, getMicroMechItemAlphaStrike, microMechItems } from "../data/micro-mech-equipment-custom";
 import MicroMech, { MICRO_MECH_AS_ABILITY, formatMicroMechASDamage } from "./micro-mech";
 
-// The Alpha Strike ruleset for Micro-Mechs is ours (docs/superpowers/specs/2026-11-14-micro-mech-alpha-strike.md,
-// owner approved 2026-11-14). The four samples of "Micro-Mechs" 6.1.0.2 are pinned to that spec's section 6.
+// The Alpha Strike ruleset for Micro-Mechs is NGCFells's (docs/superpowers/specs/2026-11-14-micro-mech-alpha-strike.md,
+// approved by NGCFells 2026-11-14). The four samples of "Micro-Mechs" 6.1.0.2 are pinned to that spec's section 6.
 const build = (name: string, tons: number, layout: MicroMechLayout, walk: number, jets: number, armor: Record<string, number>): MicroMech => {
     const micro = new MicroMech();
     micro.setName(name);
@@ -53,7 +53,7 @@ const damageText = (micro: MicroMech): string => {
 };
 const item = (tag: string) => findMicroMechItem(tag)!;
 
-describe("Micro-Mech Alpha Strike conversion (ours, NOT OFFICIAL)", () => {
+describe("Micro-Mech Alpha Strike conversion (NGCFells's, NOT OFFICIAL)", () => {
     it.each([
         // name, builder, move, TMM, armor, damage, specials, Point Value
         ["Storm STM-3X", storm, '12"j', 2, 2, "1/0*/0", "MCR", 11],

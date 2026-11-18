@@ -65,7 +65,7 @@ export default class WalkerCreatorEquipment extends React.Component<IEquipmentPr
                         <WalkerStatusBar walker={walker} />
                         <TextSection label="Step 4: Turret, Weapons, Heat Sinks and Equipment">
                             <p className="smaller-text">
-                                An item that does not fit whole in a location splits into one adjacent location with room (ours), except in the control
+                                An item that does not fit whole in a location splits into one adjacent location with room (NGCFells's), except in the control
                                 section. {WALKER_CENTER_TORSO_RULE}
                             </p>
                             {this.state.message ? <p className="color-red" data-testid="walker-message">{this.state.message}</p> : null}

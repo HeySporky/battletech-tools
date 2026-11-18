@@ -6,7 +6,7 @@ import { weaponDamageText } from './vehicle-record-sheet-svg';
 
 // A Structure Record Sheet laid out like the Tactical Operations one (TO:AUE p.215): structure data, the weapons and
 // equipment inventory, a CF and armor line for every hex, crew data and a structure map to mark the building's
-// footprint on, level by level. To those we add the rules a player looks up in play: what entering each hex costs,
+// footprint on, level by level. To those NGCFells adds the rules a player looks up in play: what entering each hex costs,
 // the Damage Threshold and the damage the building soaks up or deals (TO:AR pp.117-118, 124-125), and the Advanced
 // Building Critical Hits Table (TO:AR pp.118-119). Hexes and weapons past the first page go on continuation pages.
 // Our own map drawing; no official art.

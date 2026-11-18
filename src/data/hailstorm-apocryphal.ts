@@ -9,7 +9,7 @@ import { equipmentArtillery } from "./equipment-artillery";
  * (Support Vehicle trailers); 35 damage at 12 mapsheets (the Long Tom does 25 at 30, TO:AUE p.96); 25 tons; 4 shots
  * a ton; the Long Tom's dates; the munitions the Long Tom, Sniper and Thumper all fire.
  *
- * Derived from the Long Tom (our method, not a published one): cost 15,000 C-bills a ton, as the Long Tom and Sniper;
+ * Derived from the Long Tom (NGCFells's method, not a published one): cost 15,000 C-bills a ton, as the Long Tom and Sniper;
  * Battle Value 368 x 35/25; heat 20 x 35/25; Support Vehicle slots half the tonnage, rounded down, as the canon tubes.
  * Each round costs and counts per shot as the Long Tom's round x 35/25, so a ton of 4 is x 1.12 the Long Tom's ton of 5.
  */
@@ -102,6 +102,6 @@ export const ammoApocryphal: IEquipmentItem[] = applyLoreAndRules(ammoCatalog
         rulesLevel: 5,
         prototype: item.prototype,
         notes: `Hailstorm round (Apocryphal, MechWarrior 5 video games): rules as the Long Tom's ${item.name.replace(/^Long Tom Artillery - /, "")} `
-            + `(${item.book} p.${item.page}). Where that round's damage follows the Long Tom's 25, use the Hailstorm's 35 (our provisional reading). `
+            + `(${item.book} p.${item.page}). Where that round's damage follows the Long Tom's 25, use the Hailstorm's 35 (NGCFells's provisional reading). `
             + `Cost and Battle Value are the Long Tom round's x 1.12 (35/25 a shot, 4 shots a ton against 5).`,
     })));

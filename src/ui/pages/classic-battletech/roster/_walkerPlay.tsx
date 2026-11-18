@@ -12,7 +12,7 @@ const COLUMN_NAMES = { rightFront: "Right Front/(Rear)", front: "Front/(Rear)", 
  * Play panel for a walker (Clell Flint's, Custom Homebrew, #172) in the roster: the sheet's armor, structure, critical
  * slots, pilot hits and ammunition, with the working legs, movement, modifiers and firing arcs they leave. Inspired by
  * Flint's rules (Best-of pp.36-37; Future Wars #11 pp.25-27); Total Warfare where he says "as a regular mech"; what he
- * leaves open is ours (the ledger lists it).
+ * leaves open is NGCFells's (the ledger lists it).
  */
 export default class WalkerPlayPanel extends React.Component<IWalkerPlayPanelProps, IWalkerPlayPanelState> {
 

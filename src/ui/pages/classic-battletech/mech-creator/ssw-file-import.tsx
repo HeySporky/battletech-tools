@@ -87,7 +87,7 @@ export default class MechCreatorSSWFileImport extends React.Component<ISSWFileIm
                             {this.state.message ? <div className="alert alert-success">{this.state.message}</div> : null}
                             {this.state.results.length > 0 ? (
                                 <table className="table table-sm">
-                                    <thead><tr><th><span className="visually-hidden">Actions</span></th><th>File</th><th>Design</th><th>Status</th><th className="text-end">BV (ours / SSW)</th><th className="text-end">Issues</th><th><span className="visually-hidden">Actions</span></th></tr></thead>
+                                    <thead><tr><th><span className="visually-hidden">Actions</span></th><th>File</th><th>Design</th><th>Status</th><th className="text-end">BV (JBT / SSW)</th><th className="text-end">Issues</th><th><span className="visually-hidden">Actions</span></th></tr></thead>
                                     <tbody>
                                         {this.state.results.map((result, index) => (
                                             <tr key={result.fileName + index}>

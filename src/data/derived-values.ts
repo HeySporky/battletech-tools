@@ -7,7 +7,7 @@ import { equipmentMissile } from "./equipment-missile";
 
 /*
  * Derived Battle Value and cost for fan equipment whose author gave none (Custom Homebrew, Apocryphal and Munchkin items).
- * The methods are ours, not a published table. Each is checked against canon weapons in derived-values.test.ts, which prints
+ * The methods are NGCFells's, not a published table. Each is checked against canon weapons in derived-values.test.ts, which prints
  * how far the method runs from the printed figure, and each is written up in the "Homebrew and Apocryphal Equipment"
  * readout (docs/lore/homebrew-equipment-tro.md) so that others can use it. BV1 (Master Rules) prints nothing for these
  * items, so a BV1 total reads the same figure through the catalog fallback (battle-value.ts, rateBattleValue1).

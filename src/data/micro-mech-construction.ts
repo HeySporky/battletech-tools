@@ -183,7 +183,7 @@ export const MICRO_MECH_VERSION_RULES: Record<MicroMechVersion, IMicroMechVersio
         jumpJetKg: 125,
         heatSinkKg: 125,
         maxExtraHeatSinks: 10,
-        // Owner ruling 5 (2026-11-13): "divide the engine rating by 10 and round down all fractions".
+        // NGCFells's ruling 5 (2026-11-13): "divide the engine rating by 10 and round down all fractions".
         freeHeatSinks: (rating) => Math.floor(rating / 10),
         powerAmplifiers: "per-10-tons",
         armorTypes: ["standard"],

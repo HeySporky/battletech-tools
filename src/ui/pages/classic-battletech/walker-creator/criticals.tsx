@@ -35,7 +35,7 @@ export default class WalkerCreatorCriticals extends React.Component<ICriticalsPr
                         <TextSection label="Step 5: Critical Slots">
                             <p className="smaller-text">
                                 Engine, gyro, actuators and the control section are placed for you, as on a 'Mech. Jump jets go in the legs and outer
-                                torsos and the heat sinks the engine cannot hold where there is room (ours). An item split between two locations is listed in both.
+                                torsos and the heat sinks the engine cannot hold where there is room (NGCFells's). An item split between two locations is listed in both.
                             </p>
                             <div className="row" data-testid="walker-criticals">
                                 {walker.getLocations().map((location) => {

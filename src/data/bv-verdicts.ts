@@ -118,45 +118,45 @@ export const BV_VERDICTS: Record<string, IBvVerdict> = {
     // Cataphract CTF-2X (George)
     "mul:103219": { verdict: "mul-suspect", note: "The list's value equals ours when the three prototype double heat sinks each sink 1 heat. The rule has them work as Inner Sphere double heat sinks, and the Battle Value table gives them no adjustment.", cites: [{ source: "ioae", page: "65" }, { source: "ioae", page: "189" }] },
     // Anzu ZU-G60
-    "mul:103922": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rs-dark-age", page: "134" }] },
+    "mul:103922": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-dark-age", page: "134" }] },
     // Archangel C-ANG-OC Comminus
-    "mul:105936": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rs-jihad", page: "272" }] },
+    "mul:105936": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-jihad", page: "272" }] },
     // Archer ARC-5R
-    "mul:107400": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rg-ilclan-10", page: "27" }] },
+    "mul:107400": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rg-ilclan-10", page: "27" }] },
     // Demeter WLD-1-M AgroMech MOD
-    "mul:103855": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "tro-irregulars", page: "97" }] },
+    "mul:103855": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "tro-irregulars", page: "97" }] },
     // Gargoyle (Man O' War) T
-    "mul:107466": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rg-ilclan-11", page: "39" }] },
+    "mul:107466": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rg-ilclan-11", page: "39" }] },
     // Grand Crusader GRN-D-01-X
-    "mul:100807": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's. The 2021 printing of the same sheet prints the list's value; the 2022 printing prints ours.", cites: [{ source: "rg-ilclan-23", page: "37" }] },
+    "mul:100807": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's. The 2021 printing of the same sheet prints the list's value; the 2022 printing prints ours.", cites: [{ source: "rg-ilclan-23", page: "37" }] },
     // Hierofalcon A
-    "mul:106181": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rg-ilclan-3", page: "20" }] },
+    "mul:106181": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rg-ilclan-3", page: "20" }] },
     // Ice Ferret (Fenris) J
-    "mul:103579": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rg-ilclan-4", page: "25" }] },
+    "mul:103579": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rg-ilclan-4", page: "25" }] },
     // Jackalope JLP-NH 'Tepoztecatl'
-    "mul:101228": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rs-shrapnel-2", page: "14" }] },
+    "mul:101228": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-shrapnel-2", page: "14" }] },
     // Merlin MLN-1P
-    "mul:101501": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rg-ilclan-26", page: "25" }] },
+    "mul:101501": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rg-ilclan-26", page: "25" }] },
     // Poseidon PSD-V2
-    "mul:100025": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rs-dark-age", page: "261" }] },
+    "mul:100025": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-dark-age", page: "261" }] },
     // Regent A
-    "mul:104973": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's. The 2021 printing of the same sheet prints the list's value; the 2022 printing prints ours.", cites: [{ source: "rg-ilclan-21", page: "27" }] },
+    "mul:104973": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's. The 2021 printing of the same sheet prints the list's value; the 2022 printing prints ours.", cites: [{ source: "rg-ilclan-21", page: "27" }] },
     // Savage Wolf (Mad Cat Mk IV) Prime
-    "mul:102249": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rs-dark-age", page: "192" }] },
+    "mul:102249": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-dark-age", page: "192" }] },
     // Scarecrow UCU-F4r
-    "mul:100976": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rs-dark-age", page: "72" }] },
+    "mul:100976": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-dark-age", page: "72" }] },
     // Shogun SHG-3E
-    "mul:108235": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rs-tro3150", page: "296" }] },
+    "mul:108235": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-tro3150", page: "296" }] },
     // Templar III TLR2-OB
-    "mul:105868": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "rs-tro3150", page: "216" }] },
+    "mul:105868": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-tro3150", page: "216" }] },
     // Vision Quest VQ-1NC
-    "mul:104965": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints our value, not the list's.", cites: [{ source: "tro-golden-century", page: "101" }] },
+    "mul:104965": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "tro-golden-century", page: "101" }] },
     // Hercules HRC-LS-9004
     "mul:107622": { verdict: "mul-suspect", note: "The list's value equals ours when the Blue Shield slot in the right arm is counted as explosive. A hit on an active Blue Shield is an explosion that CASE contains, and no reduction is taken for explosive slots in the location of CASE II or one location out from it: the right torso carries CASE II, so the right arm's slot is spared with the torso's.", cites: [{ source: "toaue", page: "108" }, { source: "toaue", page: "193" }] },
     // Buccaneer BCN-6PX 'Pan'
     "mul:100620": { verdict: "mul-suspect", note: "The list's value equals ours when the ER Medium Laser is the Clan model. The published record sheet gives the Inner Sphere weapon's damage and ranges.", cites: [{ source: "xtro-royal-fantasy", page: "45" }] },
     // Kraken (Bane) XR
-    "mul:102778": { verdict: "mul-suspect", note: "The publisher's write-up for this design prints our value, not the list's.", cites: [{ source: "xtro-clans", page: "8" }] },
+    "mul:102778": { verdict: "mul-suspect", note: "The publisher's write-up for this design prints the JBT value, not the list's.", cites: [{ source: "xtro-clans", page: "8" }] },
     // Savage Coyote Z
     "mul:106163": { verdict: "mul-suspect", note: "The list's value equals ours when both ER Medium Lasers count in full. The first of them takes the weapon heat past what the design can sink, and the rule halves every weapon after that one.", cites: [{ source: "tm", page: "303" }] },
     // Gladiator GLD-1R (Keller)
@@ -170,7 +170,7 @@ export const BV_VERDICTS: Record<string, IBvVerdict> = {
     // Malak C-MK-OS Caelestis
     "mul:101689": { verdict: "mul-suspect", note: "The list's value equals ours when one slot of the ER PPC and its capacitor is counted as explosive, not all four. The Battle Value table marks a PPC with a capacitor to be treated as a Gauss weapon in the defensive rating, 1 point a slot.", cites: [{ source: "toaue", page: "194" }, { source: "toaue", page: "195" }] },
     // Griffin GRF-1RG
-    "mul:108074": { verdict: "import", note: "The file we import carries fewer armor points than the published record sheet (Recognition Guide: ilClan, vol. 1). With the sheet's armor our value equals the list's." },
+    "mul:108074": { verdict: "import", note: "The file JBT imports carries fewer armor points than the published record sheet (Recognition Guide: ilClan, vol. 1). With the sheet's armor the JBT value equals the list's." },
     // Osprey OSP-36
     "mul:102563": { verdict: "mul-suspect", note: "The list's value equals ours when the engine modifier is 1.0. The design carries an Inner Sphere XL engine, for which the table gives 0.5.", cites: [{ source: "tm", page: "302" }, { source: "tm", page: "315" }] },
     // Antlion LK-3D
@@ -186,7 +186,7 @@ export const BV_VERDICTS: Record<string, IBvVerdict> = {
     // Pariah (Septicemia) US
     "mul:108567": { verdict: "mul-suspect", note: "The list's value equals ours when both Spot Welders are counted in full. A Spot Welder generates 2 heat, so each counts half once the heat efficiency is passed.", cites: [{ source: "tm", page: "303" }, { source: "tm", page: "344" }] },
     // Trebuchet TBT-7MM 'Merida'
-    "mul:105864": { verdict: "import", note: "The file we import carries one armor point fewer on the right arm than the published record sheet (XTRO: Royal Fantasy). With the sheet's armor our value equals the list's.", cites: [{ source: "xtro-royal-fantasy", page: "55" }] },
+    "mul:105864": { verdict: "import", note: "The file JBT imports carries one armor point fewer on the right arm than the published record sheet (XTRO: Royal Fantasy). With the sheet's armor the JBT value equals the list's.", cites: [{ source: "xtro-royal-fantasy", page: "55" }] },
     // Prey Seeker PY-SR30
     "mul:101223": { verdict: "mul-suspect", note: "The list's value equals ours when the machine gun arrays count 6.7 less. The Battle Value table gives an array the total of all its machine guns multiplied by 0.67, and the other designs with light machine gun arrays agree with the list under that rule.", cites: [{ source: "tm", page: "317" }] },
     // Skinwalker (Ryoken III-XP) C

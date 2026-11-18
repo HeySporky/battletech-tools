@@ -3,7 +3,7 @@ import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
 /*
  * Sample VTOLAMs (Custom Homebrew), loadable from the 'Mech Creator's step 1 at the Custom Homebrew level, under the two
  * fan rule sets (LAM_TYPE_RULES). BishopSteiner's Locust (deviantart.com/bishopsteiner/art/LOCUST-VTOLAM-concept-899660337,
- * 2021): the author gives its role, movement, engine rating and weapons, and the rest of the build is ours. professorheyteen's
+ * 2021): the author gives its role, movement, engine rating and weapons, and the rest of the build is NGCFells's. professorheyteen's
  * seven (Battletech Into The Future, battletechfuture.com, 2024) are built as published.
  */
 export const VTOLAM_SAMPLES: { id: string; name: string; save: object }[] = [
@@ -192,7 +192,7 @@ export const VTOLAM_SAMPLES: { id: string; name: string; save: object }[] = [
                     "capabilities": "Still an 8/12 LCT-1V at heart, the VTOLAM spends its extra 5 tons on the conversion gear. In VTOL mode it cannot fly in vacuum and is far slower than a fighter, but it needs no fuel, its conversion gear is less intrusive, and it may use non-standard engines and gyros; this sample uses an XL engine to carry its 1V-style armor.",
                     "deployment": "As of 3150, two prototypes are on Hellespont's testing grounds, showing promise as scouts, raiders and search-and-rescue units. Bergan builds the Locust for the CCAF, but for security reasons Hellespont oversees the project.",
                     "variants": "A third prototype removes the TAG and one machine gun to mount a Guardian ECM in the right arm, to work with Stealth Armor; so far the conversion geometry has kept the armor from working reliably, and even then at about 65% efficacy. A Bimodal (fighter) prototype is also kept for testing.",
-                    "notes": "Custom Homebrew. The VTOLAM and the Locust VTOLAM concept are by BishopSteiner, \"LOCUST VTOLAM concept\" (2021), on DeviantArt: https://www.deviantart.com/bishopsteiner/art/LOCUST-VTOLAM-concept-899660337. The author's rules are fan rules, \"by no means official\". This sample's engine, armor and equipment layout are our build of the author's 8/12, 25-ton Locust with its medium laser, two machine guns and TAG."
+                    "notes": "Custom Homebrew. The VTOLAM and the Locust VTOLAM concept are by BishopSteiner, \"LOCUST VTOLAM concept\" (2021), on DeviantArt: https://www.deviantart.com/bishopsteiner/art/LOCUST-VTOLAM-concept-899660337. The author's rules are fan rules, \"by no means official\". This sample's engine, armor and equipment layout are NGCFells's build of the author's 8/12, 25-ton Locust with its medium laser, two machine guns and TAG."
                 }
             }
         },
@@ -619,7 +619,7 @@ export const VTOLAM_SAMPLES: { id: string; name: string; save: object }[] = [
                 "text": {
                     "overview": "Clan Hell's Horses' build of the Locust VTOLAM, the Rim Worlds Republic design of 2764 that Interstellar Expeditions and a Jackson Jaguar unit recovered in 3144.",
                     "capabilities": "A Clan medium pulse laser and two AP Gauss rifles on an endo-steel, ferro-fibrous chassis that flies on its jump jets in VTOL mode.",
-                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-05-29): https://battletechfuture.com/2024/05/29/locust-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3152. Weights, armor, equipment and Battle Value as published; the slot layout is ours where the post does not give it."
+                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-05-29): https://battletechfuture.com/2024/05/29/locust-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3152. Weights, armor, equipment and Battle Value as published; the slot layout is NGCFells's where the post does not give it."
                 }
             }
         }
@@ -1109,7 +1109,7 @@ export const VTOLAM_SAMPLES: { id: string; name: string; save: object }[] = [
                 "text": {
                     "overview": "The Lyran Commonwealth Armed Forces' build of the recovered Locust VTOLAM.",
                     "capabilities": "An ER medium laser and two small X-pulse lasers, with light ferro-fibrous armor on an endo-steel chassis.",
-                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-05-29): https://battletechfuture.com/2024/05/29/locust-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3152. Weights, armor, equipment and Battle Value as published; the slot layout is ours where the post does not give it."
+                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-05-29): https://battletechfuture.com/2024/05/29/locust-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3152. Weights, armor, equipment and Battle Value as published; the slot layout is NGCFells's where the post does not give it."
                 }
             }
         }
@@ -1579,7 +1579,7 @@ export const VTOLAM_SAMPLES: { id: string; name: string; save: object }[] = [
                 "text": {
                     "overview": "The LCAF's second VTOLAM testbed, built from the Firefly by Defiance on Tharkad in tiny numbers.",
                     "capabilities": "A light engine and endo-steel make room for the conversion equipment, which also displaced the anti-missile system. Three ER medium lasers and an MML-5; the prototype's Clan ER medium lasers proved too hard to mass-produce.",
-                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-05-30): https://battletechfuture.com/2024/05/30/firefly-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3153. Weights, armor, equipment and Battle Value as published; the slot layout is ours where the post does not give it."
+                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-05-30): https://battletechfuture.com/2024/05/30/firefly-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3153. Weights, armor, equipment and Battle Value as published; the slot layout is NGCFells's where the post does not give it."
                 }
             }
         }
@@ -2071,7 +2071,7 @@ export const VTOLAM_SAMPLES: { id: string; name: string; save: object }[] = [
                 "text": {
                     "overview": "After the Locust, Clan Hell's Horses converted the Icestorm, left behind when Clan Ice Hellion fell.",
                     "capabilities": "Speed was cut to make room for the conversion, but ten jump jets were added. Hell's Horses' scientists then moved on to an OmniVTOLAM.",
-                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-05-31): https://battletechfuture.com/2024/05/31/icestorm-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3152. Weights, armor, equipment and Battle Value as published; the slot layout is ours where the post does not give it."
+                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-05-31): https://battletechfuture.com/2024/05/31/icestorm-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3152. Weights, armor, equipment and Battle Value as published; the slot layout is NGCFells's where the post does not give it."
                 }
             }
         }
@@ -2587,7 +2587,7 @@ export const VTOLAM_SAMPLES: { id: string; name: string; save: object }[] = [
                 "text": {
                     "overview": "Earthwerks first tried to buy the Locust plans from Defiance, then bought them cheaply from Interstellar Expeditions.",
                     "capabilities": "Jump jets from the Stinger carry a heavy load of incendiary and anti-cavalry weapons, two medium X-pulse lasers and two ER flamers, on light armor.",
-                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-06-03): https://battletechfuture.com/2024/06/03/flea-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3071. Weights, armor, equipment and Battle Value as published; the slot layout is ours where the post does not give it."
+                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-06-03): https://battletechfuture.com/2024/06/03/flea-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3071. Weights, armor, equipment and Battle Value as published; the slot layout is NGCFells's where the post does not give it."
                 }
             }
         }
@@ -3073,7 +3073,7 @@ export const VTOLAM_SAMPLES: { id: string; name: string; save: object }[] = [
                     "overview": "The DCMS ignored the VTOLAM at first; Nimakachi then bought the Locust plans from Interstellar Expeditions, reverse-engineered them, and copied elements of the Hell's Horses Icestorm.",
                     "capabilities": "Meant as a fast scout, it carries two medium re-engineered lasers and 6.5 tons of ballistic-reinforced armor against missiles and flak.",
                     "deployment": "Yori Kurita bought the whole first run to rearm her forces after the Davion counter-attack.",
-                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-06-05): https://battletechfuture.com/2024/06/05/spider-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3153. Weights, armor, equipment and Battle Value as published; the slot layout is ours where the post does not give it."
+                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-06-05): https://battletechfuture.com/2024/06/05/spider-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3153. Weights, armor, equipment and Battle Value as published; the slot layout is NGCFells's where the post does not give it."
                 }
             }
         }
@@ -3466,7 +3466,7 @@ export const VTOLAM_SAMPLES: { id: string; name: string; save: object }[] = [
                 "text": {
                     "overview": "The AFFS built the Valkyrie VTOLAM after capturing Raven and Spider VTOLAMs and buying the Locust VTOLAM's basic specification. Corean builds it on New Avalon; Clan Sea Fox supplies the engine and missile launcher and took a quarter of the first run to sell.",
                     "capabilities": "Unlike most VTOLAMs it is slower on the ground than in the air: improved jump jets give it 8 MP in VTOL mode. A re-engineered medium laser in the arm and an LRM-10 with one ton of ammunition.",
-                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-06-06): https://battletechfuture.com/2024/06/06/valkyrie-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3132. Weights, armor, equipment and Battle Value as published; the slot layout is ours where the post does not give it."
+                    "notes": "Custom Homebrew. Design and VTOLAM rules by professorheyteen, Battletech Into The Future (2024-06-06): https://battletechfuture.com/2024/06/06/valkyrie-vtolam/. The VTOLAM rules: https://battletechfuture.com/2024/05/28/the-vtolam/. Production year 3132. Weights, armor, equipment and Battle Value as published; the slot layout is NGCFells's where the post does not give it."
                 }
             }
         }

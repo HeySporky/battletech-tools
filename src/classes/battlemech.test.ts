@@ -1827,7 +1827,7 @@ describe("Bimodal LAM", () => {
     });
 });
 
-// The Permanent Air 'Mech (Custom Homebrew; inspired by Red Pins, BattleTech forums topic 44833; the rules are ours).
+// The Permanent Air 'Mech (Custom Homebrew; inspired by Red Pins, BattleTech forums topic 44833; the rules are NGCFells's).
 describe("Permanent Air 'Mech", () => {
     const makePAM = (tonnage = 30) => {
         const lam = new BattleMech();
@@ -1909,7 +1909,7 @@ describe("Permanent Air 'Mech", () => {
         expect(tags).toContain("lam-fuel-tank");
     });
 
-    it("credits the author and says the rules are ours", () => {
+    it("credits the author and says the rules are NGCFells's", () => {
         const notes = makePAM().getLAMTypeNotes();
         expect(notes).toContain("Inspired by: Red Pins");
         expect(notes).toContain("topic 44833");
@@ -6830,7 +6830,7 @@ describe("Battle Value worked examples (BV v4.1 pp.3-7)", () => {
     });
 
     // Maximum Tech's Level 3 BV1 (pp.90-92) on the Enforcer III above: Defensive 377.25 x 1.3, Offensive 936.71889. The
-    // Each Master Rules edition has its own printing of Maximum Tech, and both print the same Level 3 rules (owner
+    // Each Master Rules edition has its own printing of Maximum Tech, and both print the same Level 3 rules (NGCFells
     // ruling 2026-11-10; read 2026-11-11), so the 'Mech reads the same under BMR and BMR(R).
     describe("Maximum Tech Level 3 BV1 (pp.90-92)", () => {
         const enforcer3 = (structure = "endo-steel", engine = "xl", armor = "standard") => {

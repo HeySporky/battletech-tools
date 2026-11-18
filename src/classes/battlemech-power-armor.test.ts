@@ -30,7 +30,7 @@ const addWeapon = (mech: BattleMech, tag: string) =>
     mech.addEquipmentFromTag(tag, "is", "", false, undefined, "", false, [], undefined, undefined);
 
 describe("Power Armor construction (Best-of p.16)", () => {
-    it("is built on an Inner Sphere base only: Inner Sphere and Mixed (Inner Sphere base), not Clan (owner ruling)", () => {
+    it("is built on an Inner Sphere base only: Inner Sphere and Mixed (Inner Sphere base), not Clan (NGCFells's ruling)", () => {
         const issue = (tech: string) => buildMech({ type: "biped", tonnage: 10, walk: 4, homebrew: [PA], tech })
             .getChassisEquipmentViolations().filter(v => /Inner Sphere base/.test(v));
         expect(issue("is")).toEqual([]);

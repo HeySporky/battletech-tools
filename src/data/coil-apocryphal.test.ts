@@ -45,7 +45,7 @@ describe("COIL weapons (Apocryphal)", () => {
         }
     });
 
-    it("credits the game, the forum thread and its authors; says what is ours", () => {
+    it("credits the game, the forum thread and its authors; says what is NGCFells's", () => {
         for (const [tag] of FINAL_STATS) {
             const notes = coil(tag).notes!;
             for (const text of ["Contained Overflow Inertia Linkage", "Heavy Metal", "DevianID", "Speedbump", "namar13766", "Inspired by",

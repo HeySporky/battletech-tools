@@ -100,7 +100,7 @@ const empMissiles = (standardTag: string): IEquipmentItem => {
         rulesLevel: 6,
         notes: `Custom Homebrew by VoiceOfAN, Battletech Into The Future (2024-04-27). On a hit, roll 2D6 for each hit location: on 11+ the target shuts down. `
             + `Twice the standard ${launcher} round's cost and 2.5 times its Battle Value; otherwise as the standard round. Word of Blake, available 3136; `
-            + "tech rating E is ours (the PDF gives none)."
+            + "tech rating E is NGCFells's (the PDF gives none)."
     };
 };
 
@@ -665,8 +665,8 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         alphaStrike: { specialAbility: ["MSL"], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
         catalog: "custom",
         rulesLevel: 6,
-        notes: "Custom Homebrew, ours: rocket ammunition for the Reloading Rocket Launchers (custom-rrl-10, -15 and -20), 240 rockets a ton, 45,000 C-Bills a ton (the canon Rocket Launcher 20's price), "
-            + "introduced 3067, the Rocket Launcher's date in the Jihad. The catalog held it with no launcher to fire it; no published rule has reloadable rockets, so the launchers and this record are ours.",
+        notes: "Custom Homebrew, by NGCFells: rocket ammunition for the Reloading Rocket Launchers (custom-rrl-10, -15 and -20), 240 rockets a ton, 45,000 C-Bills a ton (the canon Rocket Launcher 20's price), "
+            + "introduced 3067, the Rocket Launcher's date in the Jihad. The catalog held it with no launcher to fire it; no published rule has reloadable rockets, so the launchers and this record are NGCFells's.",
         rules: "Rockets for the Reloading Rocket Launchers, 240 a ton: a salvo is the launcher's size (10, 15 or 20 rockets), so a ton holds 24, 16 or 12 salvos. The ammunition explodes.",
         lore: "A magazine ton of unguided rockets, packed loose in feed trays for the reloading launchers, cheap to make and dangerous to carry: a hit that finds the magazine "
             + "sets off every rocket in it."

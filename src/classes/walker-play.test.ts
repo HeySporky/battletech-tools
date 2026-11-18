@@ -4,7 +4,7 @@ import { WALKER_ATTACK_DIRECTIONS, WALKER_LOCATIONS, WalkerAttackDirection, Walk
 
 // Clell Flint's walkers (#172), Chunk F of docs/superpowers/plans/2026-11-13-future-wars-walkers.md: play mode. The
 // play rules are Best-of pp.36-37 and Future Wars #11 pp.25-27, read on the page images; where Flint says "as a
-// regular mech", Total Warfare. What the text is silent on is ours, as the ledger lists.
+// regular mech", Total Warfare. What the text is silent on is NGCFells's, as the ledger lists.
 
 /** A 50-ton walker, biped Walking MP 4 (5 on four legs), standard rules: legs Hip / Upper / Lower / Foot. */
 const build = (edition?: "future-wars-11" | "best-of-1991"): Walker => {

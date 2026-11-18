@@ -11,7 +11,7 @@ import { buildMech } from "../test-support/builders";
  * hand against TechManual's cost and BV2 procedures and the Alpha Strike Companion's Point Value (errata v1.6).
  */
 
-/** IPA-4: the owner's 5-ton suit (ours), saved from the creator; Chunk E makes it a sample. */
+/** IPA-4: NGCFells's 5-ton suit (NGCFells's), saved from the creator; Chunk E makes it a sample. */
 const ipa4 = (): BattleMech => {
     const mech = new BattleMech();
     expect(mech.importJSON(readFileSync(new URL("../data/__fixtures__/power-armor-ipa-4.json", import.meta.url), "utf8"))).toBeTruthy();
@@ -45,7 +45,7 @@ describe("A suit's Battle Value (BV2)", () => {
     });
 });
 
-describe("A suit's Alpha Strike card (owner ruling 2026-11-17)", () => {
+describe("A suit's Alpha Strike card (NGCFells's ruling 2026-11-17)", () => {
     it("is a BattleMech card of Size 1 with the PWA special ability", () => {
         const mech = ipa4();
         const unit = mech.calcAlphaStrike();

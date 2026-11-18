@@ -8,7 +8,7 @@
  *
  * `cited` here means the step follows the document or the Master Rules page as read. Every Battle Value is still
  * provisional as a whole: no official Battle Value exists for a fan-made unit (MicroMech.isBattleValueProvisional).
- * The BV2 table is ours (owner ruling 2, 2026-11-13): the document's changes run over the TechManual procedure. Each
+ * The BV2 table is NGCFells's (NGCFells's ruling 2, 2026-11-13): the document's changes run over the TechManual procedure. Each
  * of its steps is `provisional` and says what we did. Change a citation only after reading the page.
  */
 import { CalcStepDefs, CalcStepStatus, ICalcCitation, ICalcStepDef } from "./calc-steps";
@@ -26,7 +26,7 @@ const step = (section: string, cites: ICalcCitation[], status: CalcStepStatus = 
     note ? { section, cites, status, note } : { section, cites, status };
 const provisional = (section: string, cites: ICalcCitation[], note: string): ICalcStepDef => step(section, cites, "provisional", note);
 
-const BORROWED = "Solarmech's 2019 post prints no cost or Battle Value rules. This design uses those of version 6.1.0.2 with its own 2019 weights; joining the two is our choice.";
+const BORROWED = "Solarmech's 2019 post prints no cost or Battle Value rules. This design uses those of version 6.1.0.2 with its own 2019 weights; joining the two is NGCFells's choice.";
 const PRINTED = "The document's readout of this sample design prints this figure. Ours follows the rules text and is not adjusted to match.";
 
 export const MICRO_MECH_COST_STEPS: CalcStepDefs = {
@@ -45,20 +45,20 @@ export const MICRO_MECH_COST_STEPS: CalcStepDefs = {
     "mm.cost.gyro": step(STRUCTURE, [at("bmrr", "149")]),
     "mm.cost.armor": step(STRUCTURE, [at("bmrr", "149")]),
     "mm.cost.heat-sinks": provisional(STRUCTURE, [at("bmrr", "149")],
-        "The BattleMech table prices each heat sink over 10. A Micro-Mech's engine gives fewer than 10 free, and the document does not change the row. We follow the table as written: only heat sinks beyond the tenth cost anything."),
+        "The BattleMech table prices each heat sink over 10. A Micro-Mech's engine gives fewer than 10 free, and the document does not change the row. NGCFells follows the table as written: only heat sinks beyond the tenth cost anything."),
     "mm.cost.power-amplifiers": provisional(STRUCTURE, [at("tm", "278")],
-        "Neither the document nor the Master Rules cost table prices power amplifiers. We use the TechManual's price, 20,000 C-bills a ton."),
+        "Neither the document nor the Master Rules cost table prices power amplifiers. NGCFells uses the TechManual's price, 20,000 C-bills a ton."),
 
     // ---- Weapons and equipment (the document's tables) ----
     "mm.cost.equipment": step(EQUIPMENT, [at(DOC, "7-9")]),
     "mm.cost.ammo": provisional(EQUIPMENT, [at(DOC, "9-11")],
-        "The document's sample designs count the ammunition they carry in their Total Cost, so we do too (owner ruling, 2026-11-13), at the table's cost per ton for the weight carried. Special munitions are not offered yet."),
+        "The document's sample designs count the ammunition they carry in their Total Cost, so we do too (NGCFells's ruling, 2026-11-13), at the table's cost per ton for the weight carried. Special munitions are not offered yet."),
     "mm.cost.subtotal": step(EQUIPMENT, [at("bmrr", "149")]),
 
     // ---- Final cost ----
     "mm.cost.multiplier": step(FINAL_COST, [at("bmrr", "149")]),
     "mm.cost.final": provisional(FINAL_COST, [at(DOC, "16, 20, 22")],
-        "Neither text says how to round. Rounding each fraction up to the whole C-bill gives the printed cost of the three sound sample designs exactly (Storm 695,853; Hillman 852,898; Slayer 1,073,387), so we round up (owner ruling, 2026-11-13)."),
+        "Neither text says how to round. Rounding each fraction up to the whole C-bill gives the printed cost of the three sound sample designs exactly (Storm 695,853; Hillman 852,898; Slayer 1,073,387), so NGCFells rounds up (NGCFells's ruling, 2026-11-13)."),
     "mm.cost.printed": provisional(FINAL_COST, [at(DOC, "16-22")], PRINTED),
     "mm.cost.borrowed": provisional(FINAL_COST, [], BORROWED),
 };
@@ -100,7 +100,7 @@ export const MICRO_MECH_BV1_STEPS: CalcStepDefs = {
     "mm.bv1.final.borrowed": provisional(FINAL, [], BORROWED),
 };
 
-const OURS = "This Battle Value 2 is ours, not the document's (owner ruling, 2026-11-13). ";
+const OURS = "This Battle Value 2 is NGCFells's, not the document's (NGCFells's ruling, 2026-11-13). ";
 
 /** Our provisional BV2: the TechManual BattleMech procedure with each of the document's changes carried across. */
 export const MICRO_MECH_BV2_STEPS: CalcStepDefs = {
@@ -110,9 +110,9 @@ export const MICRO_MECH_BV2_STEPS: CalcStepDefs = {
     "mm.bv2.def.tonnage": provisional(DEFENSIVE, [at("tm", "302"), at(DOC, "12")],
         `${OURS}The document counts the Micro-Mech's tonnage in the defensive rating. Under BV2 the tonnage enters there through the gyro: tonnage x 0.5, the standard gyro's figure.`),
     "mm.bv2.def.equipment": provisional(DEFENSIVE, [at("tm", "302")],
-        `${OURS}Defensive equipment (ECM and, under BV2, active probes) at the Battle Value our catalog holds for the same item.`),
+        `${OURS}Defensive equipment (ECM and, under BV2, active probes) at the Battle Value the JBT catalog holds for the same item.`),
     "mm.bv2.def.explosive": provisional(DEFENSIVE, [at("tm", "302-303"), at(DOC, "12")],
-        `${OURS}BV2 takes 15 points for each slot of explosive ammunition where Battle Value 1 took 20 a ton, and the document changes that 20 to 30, 30 and 20. We keep the document's proportions, by weight: 22.5 points a ton in the torso, legs or head, or in an arm when the torso has no CASE; 15 a ton in an arm when the torso has CASE. CASE II excuses its location, as BV2 has it. A part ton counts its fraction.`),
+        `${OURS}BV2 takes 15 points for each slot of explosive ammunition where Battle Value 1 took 20 a ton, and the document changes that 20 to 30, 30 and 20. NGCFells keeps the document's proportions, by weight: 22.5 points a ton in the torso, legs or head, or in an arm when the torso has no CASE; 15 a ton in an arm when the torso has CASE. CASE II excuses its location, as BV2 has it. A part ton counts its fraction.`),
     "mm.bv2.def.subtotal": provisional(DEFENSIVE, [at("tm", "302-303")], `${OURS}Additions less subtractions, never below 1.`),
     "mm.bv2.def.factor": provisional(DEFENSIVE, [at("tm", "303"), at("tm", "316"), at(DOC, "12")],
         `${OURS}The BattleMech's defensive factor, plus the 0.1 the document adds for a Micro-Mech.`),
@@ -120,12 +120,12 @@ export const MICRO_MECH_BV2_STEPS: CalcStepDefs = {
 
     // ---- Step 2: Offensive Battle Rating ----
     "mm.bv2.off.weapon": provisional(OFFENSIVE, [at("tm", "303-304")],
-        `${OURS}Each weapon at the BV2 figure our catalog holds for the same weapon. A Micro-Mech makes no heat, so there is no heat efficiency limit: every weapon counts in full.`),
+        `${OURS}Each weapon at the BV2 figure the JBT catalog holds for the same weapon. A Micro-Mech makes no heat, so there is no heat efficiency limit: every weapon counts in full.`),
     "mm.bv2.off.weapon.document": provisional(OFFENSIVE, [at(DOC, "7-9")],
         `${OURS}No book prints a BV2 figure for this item, so it keeps the document's own figure.`),
     "mm.bv2.off.weapon.artemis": provisional(OFFENSIVE, [at("tm", "303"), at(DOC, "9")],
         `${OURS}Artemis IV adds 20 percent to its launcher, not to the ammunition. Each Artemis IV is read as fitted to one LRM or SRM launcher, in the order they were mounted.`),
-    "mm.bv2.off.equipment": provisional(OFFENSIVE, [at("tm", "303-304")], `${OURS}Other equipment at the BV2 figure our catalog holds for it.`),
+    "mm.bv2.off.equipment": provisional(OFFENSIVE, [at("tm", "303-304")], `${OURS}Other equipment at the BV2 figure the JBT catalog holds for it.`),
     "mm.bv2.off.force": provisional(OFFENSIVE, [at("tm", "315")],
         `${OURS}C3 and TAG have no Battle Value of their own; their value is worked out for the force. Nothing is added here.`),
     "mm.bv2.off.ammo": provisional(OFFENSIVE, [at("tm", "303"), at(DOC, "12")],

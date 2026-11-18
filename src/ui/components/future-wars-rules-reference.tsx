@@ -29,7 +29,7 @@ export default function FutureWarsRulesReference(props: { rulesetId: string; ope
                     </tbody>
                 </table>
             ))}
-            <p className="smaller-text">Source: {ruleset.source.title}. Summary in our words; see the article for the full rules.</p>
+            <p className="smaller-text">Source: {ruleset.source.title}. Summary in NGCFells's words; see the article for the full rules.</p>
         </details>
     );
 }

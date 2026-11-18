@@ -131,7 +131,7 @@ describe("Walker cost", () => {
         expect(value(cost, "walker.cost.engine")).toBe(5000 * 240 * 80 / 75);
         expect(value(cost, "walker.cost.gyro")).toBe(300000 * 3);
         expect(value(cost, "walker.cost.jump-jets")).toBe(200 * 3 * 3 * 80);
-        // Flint's standard turret mechanism weighs 3 tons: 7,500 C-bills a ton (owner ruling 2026-11-14), midway between
+        // Flint's standard turret mechanism weighs 3 tons: 7,500 C-bills a ton (NGCFells's ruling 2026-11-14), midway between
         // the 'Mech turret's 10,000 (TO:AUE p.223) and a vehicle's 5,000 (TM p.279).
         expect(walker.getTurretWeight()).toBe(3);
         expect(value(cost, "walker.cost.turret")).toBe(22500);

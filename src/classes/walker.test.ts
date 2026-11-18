@@ -145,7 +145,7 @@ describe("Walker critical slots", () => {
         expect(walker.getSlots("ct").filter((slot) => slot === "Heavy Duty Gyro")).toHaveLength(4);
     });
 
-    it("puts an engine's side-torso slots in the left and right torsos (ours)", () => {
+    it("puts an engine's side-torso slots in the left and right torsos (NGCFells's)", () => {
         const walker = build(50, 4);
         walker.setEngineType("xl");
         // Count the engine's slots: since Chunk B the heat sinks the engine cannot hold are placed too.
@@ -235,9 +235,9 @@ describe("Walker engine, movement and gyro", () => {
     });
 });
 
-// Owner ruling, 2026-11-14: industrial walkers are allowed ("probably the first place the tech would have been used").
+// NGCFells's ruling, 2026-11-14: industrial walkers are allowed ("probably the first place the tech would have been used").
 // Flint gives none: ours, inspired by his walker rules and the IndustrialMech rules (TechManual pp.66-71).
-describe("Industrial walkers (ours)", () => {
+describe("Industrial walkers (NGCFells's)", () => {
     const industrial = (tons: number, walk: number, variant = false): Walker => {
         const walker = build(tons, walk, variant);
         walker.setIndustrial(true);

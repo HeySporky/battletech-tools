@@ -8,7 +8,7 @@ const Trash = FaTrash as any;
 /**
  * The Walkers (fan-made four-legged 'Mechs, Custom Homebrew) in a Classic BattleTech roster group: add saved designs
  * from the Walker Creator. They are not on the Master Unit List, so there is no search button. The pilot's skills
- * adjust the provisional Battle Value on the 'Mech skill table (ours), with the design's own shown as the base.
+ * adjust the provisional Battle Value on the 'Mech skill table (NGCFells's), with the design's own shown as the base.
  */
 export default class WalkerGroupTable extends React.Component<IWalkerGroupTableProps, IWalkerGroupTableState> {
 

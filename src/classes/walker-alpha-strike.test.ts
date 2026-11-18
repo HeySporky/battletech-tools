@@ -5,8 +5,8 @@ import { calculateGroundPointValue } from "../utils/alphaStrikeGroundPointValue"
 import { BattleMech } from "./battlemech";
 import Walker, { WALKER_AS_ABILITY, WALKER_AS_TYPE, WALKER_INDUSTRIAL_AS_TYPE, formatWalkerASDamage } from "./walker";
 
-// The Alpha Strike ruleset for Clell Flint's walkers (#172) is ours: docs/superpowers/specs/2026-11-15-walker-alpha-strike.md,
-// answered by the owner 2026-11-15 (a type of its own; one damage line; AIF by printing; structure scaled to the walker's
+// The Alpha Strike ruleset for Clell Flint's walkers (#172) is NGCFells's: docs/superpowers/specs/2026-11-15-walker-alpha-strike.md,
+// answered by NGCFells 2026-11-15 (a type of its own; one damage line; AIF by printing; structure scaled to the walker's
 // ten locations; the Companion's four-legged rules). NOT OFFICIAL.
 
 /** A walker with `armorPoints` spread over its locations in order, each to its maximum. */
@@ -45,7 +45,7 @@ const damageText = (walker: Walker): string => {
     return [values.short, values.medium, values.long].map(formatWalkerASDamage).join("/");
 };
 
-describe("Walker Alpha Strike conversion (ours, NOT OFFICIAL)", () => {
+describe("Walker Alpha Strike conversion (NGCFells's, NOT OFFICIAL)", () => {
     it("converts the spec's worked 50-ton walker (section 6)", () => {
         const walker = worked();
         expect(walker.getArmorPoints()).toBe(152);
@@ -62,7 +62,7 @@ describe("Walker Alpha Strike conversion (ours, NOT OFFICIAL)", () => {
         expect(stats.pointValue).toBe(27);
     });
 
-    it("has a type of its own: WK, and IWK for an industrial walker (owner, 2026-11-15)", () => {
+    it("has a type of its own: WK, and IWK for an industrial walker (NGCFells, 2026-11-15)", () => {
         expect(WALKER_AS_TYPE).toBe("WK");
         expect(WALKER_INDUSTRIAL_AS_TYPE).toBe("IWK");
         expect(WALKER_AS_ABILITY).toBe("WLK");
@@ -98,7 +98,7 @@ describe("Walker Alpha Strike conversion (ours, NOT OFFICIAL)", () => {
         // tons, engine, structure: the ASC p.98 value x the walker's structure points / a biped's, rounded
         [10, "standard", 1], [50, "standard", 4], [55, "standard", 5], [60, "standard", 6], [100, "standard", 9],
         [70, "xl", 4], [90, "compact", 12], [100, "xxl", 4],
-    ])("structure is the 'Mech table scaled to the walker's ten locations: %i tons, %s engine, %i (owner, 2026-11-15)", (tons, engine, structure) => {
+    ])("structure is the 'Mech table scaled to the walker's ten locations: %i tons, %s engine, %i (NGCFells, 2026-11-15)", (tons, engine, structure) => {
         const walker = build(tons, 2);
         expect(walker.setEngineType(engine)).toBe(true);
         expect(walker.getAlphaStrikeStats().structure).toBe(structure);
@@ -332,7 +332,7 @@ describe("WLK and AIF# in the special abilities reference", () => {
         expect(isAlphaStrikeAbilityCode("AIF0*")).toBe(true);
     });
 
-    it("WLK spells out the four-legged rules of the Companion, not Flint's Piloting bonus (owner, 2026-11-15)", () => {
+    it("WLK spells out the four-legged rules of the Companion, not Flint's Piloting bonus (NGCFells, 2026-11-15)", () => {
         const text = WALKER_AS_ABILITY_TEXT.join(" ");
         expect(text).toMatch(/-2/);
         expect(text).toMatch(/Control Roll/);

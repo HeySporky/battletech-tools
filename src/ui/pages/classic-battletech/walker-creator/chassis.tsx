@@ -84,7 +84,7 @@ export default class WalkerCreatorChassis extends React.Component<IChassisProps>
                             <label>
                                 <input type="checkbox" data-testid="walker-industrial" checked={industrial}
                                     onChange={(e) => { const value = e.currentTarget.checked; this.update((w) => w.setIndustrial(value)); }} />
-                                &nbsp;Industrial walker (ours, inspired by Flint and the IndustrialMech rules)
+                                &nbsp;Industrial walker (NGCFells's, inspired by Flint and the IndustrialMech rules)
                             </label>
                             {industrial ? (
                                 <label>
@@ -165,7 +165,7 @@ export default class WalkerCreatorChassis extends React.Component<IChassisProps>
                                     </select>
                                 </label>
                             ) : null}
-                            <p className="smaller-text">Jump jets are placed automatically in the legs and outer torsos (ours; Flint neither allows nor bans them).</p>
+                            <p className="smaller-text">Jump jets are placed automatically in the legs and outer torsos (NGCFells's; Flint neither allows nor bans them).</p>
 
                             <h3>Armor</h3>
                             <p className="smaller-text" data-testid="walker-armor-text">

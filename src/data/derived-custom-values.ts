@@ -102,16 +102,16 @@ export const DERIVATION_RULES: Record<string, DerivationRule> = {
         [`ammo-is-${family}-emp`, { kind: "no-battle-value", like: ["ammo-lrm-standard", "ammo-srm-standard"], why: "missile ammunition's Battle Value rides on the launcher, and the canon missile ammunition records read 0." } as DerivationRule])),
 };
 
-/** An owner ruling on an item's era, applied over the record (owner, 2026-11-16): tech base, dates, and a note saying who ruled and why. */
+/** A ruling by NGCFells on an item's era, applied over the record (NGCFells, 2026-11-16): tech base, dates, and a note saying who ruled and why. */
 interface IEraRuling {
     techBase?: IEquipmentItem["techBase"];
     prototype?: number | null;
     introduced?: number | null;
     extinct?: number | null;
     reintroduced?: number | null;
-    /** The day of the owner's ruling, if not 2026-11-16. */
+    /** The day of NGCFells's ruling, if not 2026-11-16. */
     date?: string;
-    /** Who settled it, if not an owner ruling (an era review that read the original article). */
+    /** Who settled it, if not a ruling by NGCFells (an era review that read the original article). */
     by?: string;
     note: string;
 }
@@ -119,16 +119,16 @@ interface IEraRuling {
 export const ERA_RULINGS: Record<string, IEraRuling> = {
     "custom-gatling-laser": {
         date: "2026-11-17", prototype: 3025, introduced: 3028, extinct: null,
-        note: "Future Wars #8 (the 'New Technology' column, Karl Sanders) has it 'being tested in the field right now', a Charger refit the example, so we date the prototype 3025; by Future Wars #12, whose cover is the Fourth Succession War, 'Mechs and VTOLs carry it, so it enters service in 3028 (our year). Never extinct.",
+        note: "Future Wars #8 (the 'New Technology' column, Karl Sanders) has it 'being tested in the field right now', a Charger refit the example, so NGCFells dates the prototype 3025; by Future Wars #12, whose cover is the Fourth Succession War, 'Mechs and VTOLs carry it, so it enters service in 3028 (NGCFells's year). Never extinct.",
     },
     "custom-power-booster-gatling-laser": {
         date: "2026-11-17", prototype: 3025, introduced: 3028, extinct: null,
-        note: "it boosts the Gatling Laser and so follows its dates: prototype 3025, in service 3028 (our year).",
+        note: "it boosts the Gatling Laser and so follows its dates: prototype 3025, in service 3028 (NGCFells's year).",
     },
     ...Object.fromEntries([2, 5, 10, 20].map((size) => [`custom-pom-pom-ac-${size}`, {
         by: "era review of the original article", date: "2026-11-17", techBase: "is", introduced: 3025, extinct: null,
         note: "Future Wars #11 draws the Krupp Rapid Fire Auto Cannon only on a lost-plans super-assault design that was never built; the Best of Future Wars (p.27) says House Marik 'has finally come up with a system that is fairly reliable' after long work, "
-            + "fitted to Riflemen and an Atlas variant. So it is an Inner Sphere, House Marik field modification of the Succession Wars, in service at the 3025 baseline (our year); never extinct.",
+            + "fitted to Riflemen and an Atlas variant. So it is an Inner Sphere, House Marik field modification of the Succession Wars, in service at the 3025 baseline (NGCFells's year); never extinct.",
     } as IEraRuling])),
     ...Object.fromEntries(["custom-penitrator", "ammo-custom-penitrator-standard"].map((tag) => [tag, {
         by: "era review of the original article", date: "2026-11-17", techBase: "is", introduced: 3025, extinct: null,
@@ -136,11 +136,11 @@ export const ERA_RULINGS: Record<string, IEraRuling> = {
     } as IEraRuling])),
     ...Object.fromEntries([2, 5, 10, 20].map((size) => [`ammo-ac-${size}-sabot`, {
         by: "era review of the original article", date: "2026-11-17", techBase: "is", introduced: 3025, extinct: null,
-        note: "Future Wars #15 (C. Tomaszewski) presents it as a way to 'kick Goliath where it counts' against the super-assault 'Mechs of the 3025 setting; Future Wars #32 (Gargoyle Industries, p.17) says independent researchers developed it and Gargoyle licensed, produced and marketed it in the early Clan war. An Inner Sphere round, introduced 3025 (our year), never extinct.",
+        note: "Future Wars #15 (C. Tomaszewski) presents it as a way to 'kick Goliath where it counts' against the super-assault 'Mechs of the 3025 setting; Future Wars #32 (Gargoyle Industries, p.17) says independent researchers developed it and Gargoyle licensed, produced and marketed it in the early Clan war. An Inner Sphere round, introduced 3025 (NGCFells's year), never extinct.",
     } as IEraRuling])),
     ...Object.fromEntries(["ppc", "large-laser", "medium-laser", "small-laser", "running", "jumping"].map((kind) => [`custom-power-booster-${kind}`, {
         by: "era review of the original article", date: "2026-11-17", introduced: 3025, extinct: null,
-        note: "Future Wars #14 (Karl Sanders) prints it with the Hellborer and the Gatling Laser in the super-assault 'Mech series, and the Gatling Laser it also boosts is a 3025 prototype; so the booster is a Succession Wars item at the 3025 baseline (our year), never extinct.",
+        note: "Future Wars #14 (Karl Sanders) prints it with the Hellborer and the Gatling Laser in the super-assault 'Mech series, and the Gatling Laser it also boosts is a 3025 prototype; so the booster is a Succession Wars item at the 3025 baseline (NGCFells's year), never extinct.",
     } as IEraRuling])),
     ...Object.fromEntries(["custom-lr-flamer", "ammo-custom-lr-flamer-standard"].map((tag) => [tag, {
         date: "2026-11-17", introduced: 1950, extinct: null,
@@ -152,18 +152,18 @@ export const ERA_RULINGS: Record<string, IEraRuling> = {
     },
     "custom-mech-periscope": {
         techBase: "is", introduced: 2900, extinct: null,
-        note: "developed in the Succession Wars (we date it 2900, our year) for the Houses' water-world campaigns, where a 'Mech wading or half-submerged needs its sensors above the surface. An Inner Sphere item: the Clans took no part in those wars and do not field it.",
+        note: "developed in the Succession Wars (NGCFells dates it 2900) for the Houses' water-world campaigns, where a 'Mech wading or half-submerged needs its sensors above the surface. An Inner Sphere item: the Clans took no part in those wars and do not field it.",
     },
     "custom-buckler-smoke-dispenser": {
         techBase: "universal", introduced: 2650, extinct: null,
-        note: "designed by the SLDF about 2650 (our year, the middle of the Star League) as a smoke screen for units that want to hide, so it is common in second-line and garrison units and on ArtVees (artillery vehicles), which the SLDF fielded and the Clans kept, "
+        note: "designed by the SLDF about 2650 (NGCFells's year, the middle of the Star League) as a smoke screen for units that want to hide, so it is common in second-line and garrison units and on ArtVees (artillery vehicles), which the SLDF fielded and the Clans kept, "
             + "and in the Clans' second-line Solahma units rather than their front line. It left with the Exodus (2784) and stayed in the Inner Sphere; never extinct, though Future Wars #32 calls it 'an old idea that has been largely overlooked'. "
             + "Gargoyle Industries, an Inner Sphere firm selling in the early Clan war (the 3050s), markets it; the article gives no end to that production.",
     },
     "custom-fusion-lance": {
         techBase: "is", prototype: 3028, introduced: 3028, extinct: null,
         note: "a Succession Wars desperation weapon built in Tikograd on Tikonov III, a Capellan Confederation world, during the Battle of Tikonov (23 September to 18 October 3028, Operation RAT), "
-            + "when the Federated Suns' Crucis Lancers under Charles Duncan besieged it and Pavel Ridzik commanded the defence. The world, the battle, the dates and the Houses are from Sarna; the workshop, the technician Natalya Orlova and the number built are ours. "
+            + "when the Federated Suns' Crucis Lancers under Charles Duncan besieged it and Pavel Ridzik commanded the defence. The world, the battle, the dates and the Houses are from Sarna; the workshop, the technician Natalya Orlova and the number built are NGCFells's. "
             + "Prototype and introduced 3028; never extinct, as the idea outlived the city.",
     },
     "custom-eii-pds": {
@@ -184,7 +184,7 @@ interface IDating { introduced?: DatingSource; prototype?: DatingSource; rating?
 const FANZINE_YEAR = { value: 3025 };
 const FANZINE_WHY = "The Best of Future Wars (1991) prints no year or tech rating, and its setting is the Succession Wars, so the date is the catalog's 3025 baseline";
 
-/** Dates and tech ratings the sources do not give, each from the canon neighbour named (ours, labelled in the notes). */
+/** Dates and tech ratings the sources do not give, each from the canon neighbour named (NGCFells's, labelled in the notes). */
 export const DATING_RULES: Record<string, IDating> = {
     "light-blazer": { introduced: { like: "medium-laser" }, rating: { like: "medium-laser" }, why: "BattleTech Gothic prints neither, and a blazer is a laser, so the canon medium laser's" },
     "custom-superheavy-ppc": { introduced: { like: "heavy-ppc" }, prototype: { like: "heavy-ppc" }, rating: { like: "heavy-ppc" }, why: "the post gives none, and it is the Heavy PPC enlarged, so the Heavy PPC's" },
@@ -318,7 +318,7 @@ export function applyDerivedValues(items: IEquipmentItem[]): IEquipmentItem[] {
             for (const field of ["prototype", "introduced", "extinct", "reintroduced"] as const) {
                 if (field in ruling) (item as unknown as Record<string, number | null | undefined>)[field] = ruling[field];
             }
-            item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Era (${ruling.by ?? "owner ruling"}, ${ruling.date ?? "2026-11-16"}):${ruling.note}`;
+            item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Era (${ruling.by ?? "NGCFells's ruling"}, ${ruling.date ?? "2026-11-16"}):${ruling.note}`;
         }
         const dating = DATING_RULES[item.tag];
         if (dating) applyDating(item, dating, byTag);

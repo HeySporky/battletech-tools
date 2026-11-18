@@ -249,7 +249,7 @@ export function sizeVariableEquipment(
             return { weight, slots: Math.ceil(weight), cbills: 500 * weight, battleValue: 0 };
         }
         // OTP: Hanseatic Crusade p.30: 1 ton per 10 tons of the unit, 1 slot in each torso; no cost printed.
-        // No Battle Value is printed either. Owner ruling 2026-11-12: half the greatest charge damage (tonnage x
+        // No Battle Value is printed either. NGCFells's ruling 2026-11-12: half the greatest charge damage (tonnage x
         // running MP / 10, each step rounded down), plus 1 for each torso carrying Spikes, times 1.1, in the
         // Offensive Battle Rating. It reproduces the 2,124 of the book's own Rhino record sheet (p.40).
         case "ram-plate": {

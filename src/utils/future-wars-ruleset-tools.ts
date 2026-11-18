@@ -45,7 +45,7 @@ export const OPPORTUNITY_FIRE_FIRER_MOVED = 2;
 /** The firer's other weapons in the Weapon Attack Phase. */
 export const OPPORTUNITY_FIRE_OTHER_WEAPONS = 1;
 
-/** An opportunity shot's to-hit: 6 / 8 / 10 at Gunnery 4 (ours: another skill moves it by the difference). */
+/** An opportunity shot's to-hit: 6 / 8 / 10 at Gunnery 4 (NGCFells's: another skill moves it by the difference). */
 export function getOpportunityFireToHit(shot: { gunnery: number; band: OpportunityFireBand; targetMove: OpportunityFireTargetMove; firerMoved: boolean; other: number }): number {
     return OPPORTUNITY_FIRE_BASE[shot.band] + (shot.gunnery - 4) + OPPORTUNITY_FIRE_TARGET[shot.targetMove]
         + (shot.firerMoved ? OPPORTUNITY_FIRE_FIRER_MOVED : 0) + shot.other;
@@ -163,9 +163,9 @@ type EffectNumbers = Partial<Omit<IMalfunctionEffect, "text">>;
 const MALFUNCTION_EFFECTS: Record<MalfunctionTable, Record<number, EffectNumbers>> = {
     flamer: { 3: { heat: 2 }, 5: { toHit: 2, heat: 2 } },
     missile: { 4: { out: true, clearable: true }, 6: { out: true, clearable: true }, 8: { out: true, clearable: true }, 9: { toHit: 2 }, 10: { toHit: 1 }, 11: { heat: 2 } },
-    // 4, casing fails to clear: fires at +1 and +1 heat a turn fired, growing; the first turn's numbers are applied (ours).
+    // 4, casing fails to clear: fires at +1 and +1 heat a turn fired, growing; the first turn's numbers are applied (NGCFells's).
     ac: { 3: { out: true, clearable: true }, 4: { toHit: 1, heat: 1 }, 5: { heat: 1 }, 6: { out: true, clearable: true }, 9: { toHit: 2 }, 10: { toHit: 1 }, 11: { out: true, clearable: false }, 12: { out: true, clearable: false } },
-    // 18, total burn-through: out of action as a burned-out laser is (ours).
+    // 18, total burn-through: out of action as a burned-out laser is (NGCFells's).
     laser: { 6: { heat: 1 }, 7: { heat: 2 }, 9: { toHit: 1, heat: 2 }, 10: { toHit: 1, heat: 3 }, 11: { toHit: 2, heat: 2 }, 13: { heat: 4 }, 14: { toHit: 2, heat: 3 }, 15: { toHit: 3, heat: 5 }, 16: { toHit: 5, heat: 5 }, 17: { out: true, clearable: false }, 18: { out: true, clearable: false } },
 };
 
@@ -178,7 +178,7 @@ export function getMalfunctionEffect(table: MalfunctionTable, roll: number): IMa
 
 // --- The Long Range Wars, pp.55-56.
 
-/** Extended range 2 x long (base 10), extreme 2 x extended (base 13): +6 and +9 over Gunnery, as 10 and 13 at Gunnery 4 (ours). */
+/** Extended range 2 x long (base 10), extreme 2 x extended (base 13): +6 and +9 over Gunnery, as 10 and 13 at Gunnery 4 (NGCFells's). */
 export function getLongRangeWarsBand(range: number, long: number): { band: "extended" | "extreme"; modifier: number } | undefined {
     if (long <= 0 || range <= long) return undefined;
     if (range <= long * 2) return { band: "extended", modifier: 6 };
@@ -193,7 +193,7 @@ export function getLongRangeWarsFirerModifier(movementMode: string): number {
 
 /**
  * The target movement modifier at extended and extreme range, from the standard one the target dialog holds: 7-9
- * hexes (standard +3) is +4, 10 or more (+4 and up) is +5; 6 hexes or less keeps the standard modifier (ours: the
+ * hexes (standard +3) is +4, 10 or more (+4 and up) is +5; 6 hexes or less keeps the standard modifier (NGCFells's: the
  * article prints nothing for it).
  */
 export function getLongRangeWarsTargetModifier(standard: number): number {

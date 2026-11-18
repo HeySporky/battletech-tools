@@ -12,7 +12,7 @@ Walkers" in *The Best of Future Wars, Volume One* (1991, pp. 36-38). The app off
 differ (the anti-infantry to-hit number, the assault control section's slots, an immobilized walker being knocked
 over), the walker follows the one it is built under.
 
-**What is ours, and not Flint's:** the industrial walker (Inspired by Flint's rules and the IndustrialMech rules of
+**What is NGCFells's, and not Flint's:** the industrial walker (Inspired by Flint's rules and the IndustrialMech rules of
 *TechManual*, pp. 66-71), the Battle Value, the cost, the split of an item between two locations, the whole of the Alpha Strike
 rules below, and the three sample designs. Flint printed no walker designs; the art in the fanzine has no stats. If
 any of it is incorrect, the fault lies with NGCFells.
@@ -117,7 +117,7 @@ Alpha Strike rulebook says they mean.
 
 ## The Sample Walkers
 
-Flint printed no walker designs, so these three are ours (Custom Homebrew, NOT OFFICIAL): a light walker, a heavy
+Flint printed no walker designs, so these three are NGCFells's (Custom Homebrew, NOT OFFICIAL): a light walker, a heavy
 with a turret, and an assault built under the variant slots. Their figures are worked out by the app from the
 designs, so they always match the creator. You can load all three from the Walker Creator's home page, under
 "Sample Walkers".

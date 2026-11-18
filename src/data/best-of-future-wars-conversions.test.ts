@@ -22,11 +22,11 @@ const POM_POMS: [string, string][] = [
 const sizes = (family: string, list: number[]) => list.map((size) => `${family}-${size}`);
 const LRM = [5, 10, 15, 20];
 const SRM = [2, 4, 6];
-// The page's own mount (+3 t, +2 slots) on every Inner Sphere rack: the 1991 LRM / SRM, and (owner, 2026-11-16) the
+// The page's own mount (+3 t, +2 slots) on every Inner Sphere rack: the 1991 LRM / SRM, and (NGCFells, 2026-11-16) the
 // torpedo racks and the later Streak, Enhanced and Extended racks.
 const IS_RACKS = [...sizes("lrm", LRM), ...sizes("srm", SRM), ...sizes("lrt", LRM), ...sizes("srt", SRM),
     ...sizes("streak-srm", SRM), ...sizes("enhanced-lrm", LRM), ...sizes("enhanced-lrt", LRM), ...sizes("extended-lrm", LRM)];
-// The Clan mount (ours): +1.5 t, +1 slot.
+// The Clan mount (NGCFells's): +1.5 t, +1 slot.
 const CLAN_RACKS = [...sizes("clan-lrm", LRM), ...sizes("clan-srm", SRM), ...sizes("clan-lrt", LRM), ...sizes("clan-srt", SRM),
     ...sizes("clan-streak-srm", SRM), ...sizes("clan-improved-lrm", LRM), ...sizes("clan-improved-srm", SRM), ...sizes("streak-lrm", LRM)];
 const swingRows = (racks: string[]): [string, string][] => racks.map((rack) => [`custom-swing-fire-${rack}`, rack]);
@@ -89,17 +89,17 @@ describe("Swing Fire Missile System, p.27", () => {
         expect(swing.space.battlemech).toBe(rack.space.battlemech + 1);
         expect(swing.cbills).toBe(rack.cbills + 75000);
         expect(swing.accuracyModifier).toBe(1);
-        expect(swing.notes).toContain("The Clan mount is ours");
+        expect(swing.notes).toContain("The Clan mount is NGCFells's");
         expect(swing.heat).toBe(rack.heat);
         expect(swing.range).toEqual(rack.range);
         expect(swing.conversion).toMatchObject({ kind: "swing-fire", baseTag, arcDegrees: 180 });
     });
 
-    it("loses accuracy: the page prints no number, so +1 is ours and says so", () => {
+    it("loses accuracy: the page prints no number, so +1 is NGCFells's and says so", () => {
         const swing = find("custom-swing-fire-lrm-10");
         expect(find("lrm-10").accuracyModifier).toBe(0);
         expect(swing.accuracyModifier).toBe(1);
-        expect(swing.notes).toContain("+1 to-hit is ours");
+        expect(swing.notes).toContain("+1 to-hit is NGCFells's");
     });
 
     it("feeds from the rack's ammunition", () => {
@@ -108,7 +108,7 @@ describe("Swing Fire Missile System, p.27", () => {
         expect(getCompatibleAmmo(find("custom-swing-fire-srm-6"), find("ammo-lrm-standard"))).toBe(false);
     });
 
-    // Owner lore (2026-11-17): a Star League (SLDF) mount; the Clans took it with the Exodus and kept it; the Inner Sphere lost it
+    // NGCFells's lore (2026-11-17): a Star League (SLDF) mount; the Clans took it with the Exodus and kept it; the Inner Sphere lost it
     // (2830) and found a schematics cache in the Third Succession War (2880). A Swing Fire rack dates from the later of the mount (2750) and its rack, and shares the rack's gaps.
     it.each([
         ["custom-swing-fire-lrm-10", 2750, 2830, 2880],
@@ -225,7 +225,7 @@ describe("Best of Future Wars conversions: catalog", () => {
         }
     });
 
-    // Review finding 3 (owner rule): some stats are ours, so the credit reads "Inspired by"; the unsigned blocks say whose article they run in.
+    // Review finding 3 (NGCFells's rule): some stats are NGCFells's, so the credit reads "Inspired by"; the unsigned blocks say whose article they run in.
     it("credits read 'Inspired by', and the unsigned blocks say so", () => {
         for (const tag of ALL_TAGS) expect(find(tag).notes, tag).toContain("Inspired by: Karl Sanders, '");
         for (const tag of ["custom-pom-pom-ac-5", "custom-power-booster-ppc", "custom-power-booster-running"]) {
@@ -233,7 +233,7 @@ describe("Best of Future Wars conversions: catalog", () => {
         }
     });
 
-    // Owner ruling (2026-11-16): notes keep the source and credit, Rules hold the play text, Lore the in-character TRO text.
+    // NGCFells's ruling (2026-11-16): notes keep the source and credit, Rules hold the play text, Lore the in-character TRO text.
     it("every record keeps its play text in Rules, out of the credit notes", () => {
         for (const tag of ALL_TAGS) {
             const item = find(tag);

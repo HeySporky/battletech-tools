@@ -197,7 +197,7 @@ export default class MicroMechCreatorEquipment extends React.Component<IEquipmen
                                     ))}
                                 </tbody>
                             </table>
-                            <p className="smaller-text">Jump jets take {micro.getJumpJets()} slots: one to each leg in turn while a leg has room, then the torso (our placement; the texts say only "the legs and torso").</p>
+                            <p className="smaller-text">Jump jets take {micro.getJumpJets()} slots: one to each leg in turn while a leg has room, then the torso (NGCFells's placement; the texts say only "the legs and torso").</p>
 
                             <div className="clear-both overflow-hidden">
                                 <hr />

@@ -9,7 +9,7 @@ import { MICRO_MECH_CREDIT } from '../../../../data/micro-mech-construction';
 import { MICRO_MECH_AS_ABILITY } from '../../../../classes/micro-mech';
 
 /**
- * The Micro-Mech's Alpha Strike card. The conversion is ours (docs/superpowers/specs/2026-11-14-micro-mech-alpha-strike.md):
+ * The Micro-Mech's Alpha Strike card. The conversion is NGCFells's (docs/superpowers/specs/2026-11-14-micro-mech-alpha-strike.md):
  * the card is marked NOT OFFICIAL, and the MCR ability, which no rulebook explains, is spelled out under it.
  */
 export default class MicroMechCreatorPrintAS extends React.Component<IPrintASProps> {

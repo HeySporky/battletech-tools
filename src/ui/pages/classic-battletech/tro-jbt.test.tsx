@@ -78,7 +78,7 @@ describe("ArtVee readout", () => {
 describe("TRO - JBT", () => {
     it("opens with the introduction and a card for the ArtVees, then the ammunition", () => {
         expect(TRO_INTRODUCTION).toContain("## Explanation");
-        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "ammunition", "micro-mechs", "walkers", "power-armor", "best-of-future-wars", "homebrew-equipment"]);
+        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "micro-mechs", "walkers", "power-armor", "best-of-future-wars", "homebrew-equipment", "ammunition"]);
     });
 
     it.each(TRO_DOCUMENTS.map((document) => [document.slug, document] as const))("renders every page of %s and loses no text", (_slug, document) => {
@@ -143,7 +143,7 @@ describe("Walkers readout (Custom Homebrew, #172)", () => {
     const document = TRO_DOCUMENTS.find((each) => each.slug === "walkers")!;
     const pages = readoutPages(document.text, document.pageStart);
 
-    it("credits Clell Flint and both printings, and says what is ours and not official", () => {
+    it("credits Clell Flint and both printings, and says what is NGCFells's and not official", () => {
         for (const text of ["Clell Flint", "Future Wars #11", "The Best of Future Wars, Volume One (1991", "Inspired by", "not canon", "NOT OFFICIAL", "the fault lies with NGCFells"]) {
             expect(flat, text).toContain(text);
         }
@@ -209,7 +209,7 @@ describe("Power Armor readout (Custom Homebrew, #172)", () => {
     const document = TRO_DOCUMENTS.find((each) => each.slug === "power-armor")!;
     const pages = readoutPages(document.text, document.pageStart);
 
-    it("credits Bill Swisher and both printings, and says what is ours and not official", () => {
+    it("credits Bill Swisher and both printings, and says what is NGCFells's and not official", () => {
         for (const text of ["Bill Swisher", "Future Wars #14 (1989, p. 39)", "The Best of Future Wars, Volume One (1991, pp. 14-16)", "lacks printed pages 39-42",
             "Inspired by", "not canon", "NOT OFFICIAL", "the fault lies with NGCFells"]) {
             expect(flat, text).toContain(text);
@@ -225,8 +225,8 @@ describe("Power Armor readout (Custom Homebrew, #172)", () => {
             expect(row, sample.id).toBeDefined();
             expect(row).toContain(`| ${mech.getBattleValue()} | ${mech.getCostBreakdown().result?.toLocaleString("en-US")} | ${mech.calcAlphaStrike()?.basePoints} |`);
         }
-        expect(page).toContain("| IPA-4 | ours | 5 | 6 / 9 / 0 | 2 Small Laser | 24 | 147 | 184,065 | 9 |");
-        expect(flat).toContain("both names are ours");
+        expect(page).toContain("| IPA-4 | NGCFells | 5 | 6 / 9 / 0 | 2 Small Laser | 24 | 147 | 184,065 | 9 |");
+        expect(flat).toContain("both names are NGCFells's");
     });
 
     it("dates the suit from the article's history", () => {

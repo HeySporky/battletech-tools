@@ -3,7 +3,7 @@
  *
  * Clell Flint's Walkers ("Walkers", Future Wars #11 and The Best of Future Wars, 1991) print no cost and no Battle
  * Value: the article was written before either system reached its present form. Ours are the BattleMech's rules run
- * over a walker's ten locations (owner ruling 2026-11-13), so every step here is `provisional`. Each one keeps the
+ * over a walker's ten locations (NGCFells's ruling 2026-11-13), so every step here is `provisional`. Each one keeps the
  * pages of the BattleMech step it follows (the #599 tables: calc-steps-mech-cost.ts, calc-steps-mech-bv2.ts,
  * calc-steps-mech-bv1.ts) and says how that step reads a walker. Nothing here is published by anyone.
  */
@@ -64,7 +64,7 @@ export const WALKER_COST_STEPS: CalcStepDefs = {
     ...derive(MECH_COST_STEPS, WALKER_COST_NOTE, COST_HOW),
     // Both turret rows were read (2026-11-14). Flint's turret is a mechanism of fixed weight in the control section.
     "walker.cost.turret": ours("Structure and Systems", [at("toaue", "223"), at("tm", "279")], WALKER_COST_NOTE,
-        "Flint's turret mechanism is priced at 7,500 C-bills for each ton of the mechanism (owner ruling 2026-11-14): midway between a BattleMech turret's 10,000 C-bills a ton and a combat vehicle turret's 5,000."),
+        "Flint's turret mechanism is priced at 7,500 C-bills for each ton of the mechanism (NGCFells's ruling 2026-11-14): midway between a BattleMech turret's 10,000 C-bills a ton and a combat vehicle turret's 5,000."),
 };
 
 // ---- Battle Value 2: the TechManual BattleMech procedure (pp.302-304) --------------------------------------------

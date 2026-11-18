@@ -927,7 +927,7 @@ title="View this unit's Alpha Strike Card"
                 </tr>
             </thead>
             {this.props.appGlobals.microMechSaves.map( (save, unitIndex) => {
-                // Converted from the saved design by our own ruleset: a Micro-Mech is on no Master Unit List.
+                // Converted from the saved design by NGCFells's own ruleset: a Micro-Mech is on no Master Unit List.
                 const micro = new MicroMech( JSON.stringify(save) );
                 const asUnit = micro.getAlphaStrikeUnit();
                 const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
@@ -997,7 +997,7 @@ title="View this unit's Alpha Strike Card"
                 </tr>
             </thead>
             {this.props.appGlobals.walkerSaves.map( (save, unitIndex) => {
-                // Converted from the saved design by our own ruleset: a walker is on no Master Unit List.
+                // Converted from the saved design by NGCFells's own ruleset: a walker is on no Master Unit List.
                 const walker = new Walker( JSON.stringify(save) );
                 const asUnit = walker.getAlphaStrikeUnit();
                 const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];

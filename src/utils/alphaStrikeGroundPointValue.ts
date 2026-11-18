@@ -85,7 +85,7 @@ function ratingValue(text: string | undefined): number {
 export function calculateGroundPointValue(input: IGroundPVInput): IGroundPVResult {
     const log: string[] = [];
     const given = input.type.trim().toUpperCase();
-    // A walker (Custom Homebrew, ours): WK is priced on the BattleMech lines, IWK on the IndustrialMech's.
+    // A walker (Custom Homebrew, by NGCFells): WK is priced on the BattleMech lines, IWK on the IndustrialMech's.
     const type = given === "WK" ? "BM" : given === "IWK" ? "IM" : given;
     // The Master Unit List prints a space before the rating ("IF 1", "ARTAIS -1"); the card prints none.
     const specials = input.specials.map((code) => code.replace(/\s+/g, "").toUpperCase()).filter((code) => code !== "");
@@ -115,7 +115,7 @@ export function calculateGroundPointValue(input: IGroundPVInput): IGroundPVResul
     const addOffensive = (label: string, amount: number): void => {
         if (amount > 0) { offensive += amount; offensiveParts.push(`${amount} (${label})`); }
     };
-    // A Micro-Mech ("MM", Custom Homebrew, ours) is priced on the BattleMech lines.
+    // A Micro-Mech ("MM", Custom Homebrew, by NGCFells) is priced on the BattleMech lines.
     if (type === "BM" || type === "IM" || type === "PM" || type === "MM") addOffensive("half its Size", input.size / 2);
     let overheat = input.overheat > 1 ? 1 + (input.overheat - 1) / 2 : input.overheat;
     if (shortOnly) overheat /= 2;
@@ -213,7 +213,7 @@ export function calculateGroundPointValue(input: IGroundPVInput): IGroundPVResul
     if (vehicle && ["v", "g"].includes(bestGroundMode)) modifier += 1;
     if (has("LG") || has("VLG") || has("SLG")) modifier -= 1;
     if (has("STL")) modifier += 1;
-    // PWA, Power Armor (Custom Homebrew, ours, owner ruling 2026-11-17): +1 to hit the suit, priced as STL's +1.
+    // PWA, Power Armor (Custom Homebrew, NGCFells's ruling 2026-11-17): +1 to hit the suit, priced as STL's +1.
     if (has("PWA")) modifier += 1;
     modifier += ratingOf("JMPS") / 2 + ratingOf("SUBS") / 2;
     const defenseFactor = 1 + (modifier > 2 ? 0.25 : 0.1) * modifier;

@@ -124,7 +124,7 @@ const PENITRATOR_BANDS: { band: string; upTo: number; dice: string; sides: numbe
 
 /**
  * One Penitrator missile's hit at `range` hexes with `roll` on the band's die: the armor damage, the internal structure
- * damage, and the die. Undefined beyond 36 hexes. Inside 8 hexes half the 1D4, rounded up (ours: the page prints "1D4/2").
+ * damage, and the die. Undefined beyond 36 hexes. Inside 8 hexes half the 1D4, rounded up (NGCFells's: the page prints "1D4/2").
  */
 export function getPenitratorHit(range: number, roll: number): { band: string; external: number; internal: number; dice: string } | undefined {
     const row = PENITRATOR_BANDS.find((band) => range <= band.upTo);

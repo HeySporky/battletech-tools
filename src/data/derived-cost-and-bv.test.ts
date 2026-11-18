@@ -10,7 +10,7 @@ import { miscCustom } from "./misc-custom";
 import { missileCustom } from "./missile-custom";
 import { IEquipmentItem } from "./data-interfaces";
 
-// Custom Homebrew batch chunk 6 follow-up (owner, 2026-11-16): items whose authors gave no Battle Value or cost get a derived one,
+// Custom Homebrew batch chunk 6 follow-up (NGCFells, 2026-11-16): items whose authors gave no Battle Value or cost get a derived one,
 // by the methods checked against canon in derived-values.test.ts. BV1 (Master Rules) prints nothing for them, so it reads the same figure.
 
 const all: IEquipmentItem[] = [...equipmentEnergy, ...energyCustom, ...miscCustom, ...ballisticCustom, ...missileCustom, ...ammoCustom];

@@ -13,16 +13,16 @@ const UNIT_TYPE_NAMES: Record<IBundledAccuracy["unitType"], string> = { mechs: "
 
 const VERDICT_NAMES: Record<BvVerdict, string> = {
     "open": "Open",
-    "our-bug": "Our bug",
+    "our-bug": "JBT bug",
     "import": "Import fault",
     "mul-suspect": "Master Unit List questioned",
 };
 
 const VERDICT_MEANINGS: Record<BvVerdict, string> = {
-    "open": "not looked into yet. Until it is, treat our number as the one in doubt.",
-    "our-bug": "our calculation is wrong; the issue linked tracks the fix.",
-    "import": "the design file we convert is wrong or we read it wrongly, so we are not comparing the same unit.",
-    "mul-suspect": "the rules, read on the page cited, give our number and not the list's.",
+    "open": "not looked into yet. Until it is, treat the JBT number as the one in doubt.",
+    "our-bug": "the JBT calculation is wrong; the issue linked tracks the fix.",
+    "import": "the design file JBT converts is wrong or is read wrongly, so the two numbers are not for the same unit.",
+    "mul-suspect": "the rules, read on the page cited, give the JBT number and not the list's.",
 };
 
 const formatNumber = (value: number): string => value.toLocaleString("en-US");
@@ -75,7 +75,7 @@ export default function BvAccuracy(props: IBvAccuracyProps): JSX.Element {
                     <p>
                         We work out every Battle Value from the rulebooks and their errata, step by step, and show the steps and
                         the page each one comes from. This page compares the result with the Master Unit List. Every unit where
-                        the two differ is listed here, including the ones that are our own open bugs. Nothing is left off to make
+                        the two differ is listed here, including the ones that are open JBT bugs. Nothing is left off to make
                         the count look better.
                     </p>
                     <p>
@@ -115,7 +115,7 @@ export default function BvAccuracy(props: IBvAccuracyProps): JSX.Element {
                                     })}
                                 </tbody>
                             </table>
-                            <p className="small-text">Match: our Battle Value equals the list&apos;s. Match rate: the share of the units compared that match, rounded down. Other unit types join this record as their calculations are cited.</p>
+                            <p className="small-text">Match: the JBT Battle Value equals the list&apos;s. Match rate: the share of the units compared that match, rounded down. Other unit types join this record as their calculations are cited.</p>
 
                             <h3>Units whose Battle Value differs</h3>
                             <dl className="bv-accuracy-verdicts">
@@ -144,7 +144,7 @@ export default function BvAccuracy(props: IBvAccuracyProps): JSX.Element {
                                                     <tr>
                                                         <th scope="col">Unit</th>
                                                         <th scope="col">Configuration</th>
-                                                        <th scope="col">Our BV</th>
+                                                        <th scope="col">JBT BV</th>
                                                         <th scope="col">List BV</th>
                                                         <th scope="col">Difference</th>
                                                         <th scope="col">Verdict</th>
@@ -159,7 +159,7 @@ export default function BvAccuracy(props: IBvAccuracyProps): JSX.Element {
                                                             <tr key={`${miss.mulId ?? miss.file}:${miss.config ?? ""}`}>
                                                                 <th scope="row">{miss.name}</th>
                                                                 <td data-label="Configuration">{miss.config ?? ""}</td>
-                                                                <td data-label="Our BV" className="bv-accuracy-number">{formatNumber(miss.ours)}</td>
+                                                                <td data-label="JBT BV" className="bv-accuracy-number">{formatNumber(miss.ours)}</td>
                                                                 <td data-label="List BV" className="bv-accuracy-number">{formatNumber(miss.mul)}</td>
                                                                 <td data-label="Difference" className="bv-accuracy-number">{difference > 0 ? "+" : "-"}{formatNumber(Math.abs(difference))}</td>
                                                                 <td data-label="Verdict">{VERDICT_NAMES[entry?.verdict ?? "open"]}</td>

@@ -41,7 +41,7 @@ export const mechCustomEngineTypes: IEngineType[] = [
 			+ "exactly as an XXL engine (2 standing, 4 walking, 6 running, double jumping heat; the author confirmed this in the "
 			+ "comments). In play it is destroyed after two engine hits: mark the first hit as two. "
 			+ "Engine-hit heat follows the XXL engine, which has no rule of its own for it (TO:AUE p.121), so the Heat Point Table "
-			+ "applies (TW p.159): the first hit, marked as two, adds 10 heat a turn (owner ruling, 2026-11-12; the post left "
+			+ "applies (TW p.159): the first hit, marked as two, adds 10 heat a turn (NGCFells's ruling, 2026-11-12; the post left "
 			+ "this open when u/Bookwyrm517 asked). "
 			+ "Inspired by: u/VanillaPhysics. Ours, not in the post: Battle Value counts it as a standard engine (engine modifier 1.0, "
 			+ "no side torso slots); cost and introduction date are the light engine's; it is not offered above a rating of 400 or on "
@@ -86,7 +86,7 @@ export const mechCustomEngineTypes: IEngineType[] = [
 			+ "heat is a standard engine's; it takes three engine hits to destroy, as every fusion engine; Battle Value and Alpha Strike "
 			+ "count it as an XL engine (engine modifier 0.5); cost is the XL engine's and the dates are the light engine's; it is not "
 			+ "offered above a rating of 400 or on superheavy 'Mechs, which the post does not cover. "
-			+ "Owner's observation (2026-11-16), not the author's: the freed center torso slots make it a good match for tripods and for "
+			+ "NGCFells's observation (2026-11-16), not the author's: the freed center torso slots make it a good match for tripods and for "
 			+ "'Mechs with a center torso cockpit, which are short of center torso space. "
 			+ "Why Custom Homebrew and not Munchkin: against an XL engine it is heavier and takes more slots; against a light engine it is "
 			+ "lighter but dies with a side torso, so it trades survival for weight and center torso room.",

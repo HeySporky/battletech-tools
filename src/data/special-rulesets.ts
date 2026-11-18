@@ -97,7 +97,7 @@ const FUTURE_WARS_CONSTRUCTION_DESCRIPTION = "Clell Flint's alternate rules for 
     + "the slot, re-rolling a number with no slot as for an empty one.";
 
 export const btSpecialRulesets: ISpecialRuleset[] = [
-    // Both printings print the same rules for two-legged 'Mechs; they differ only on walkers (owner ruling 3, 2026-11-13).
+    // Both printings print the same rules for two-legged 'Mechs; they differ only on walkers (NGCFells's ruling 3, 2026-11-13).
     {
         id: "best-of-future-wars-construction",
         summary: "Clell Flint's 'Mech building: critical slots by weight class, cockpit by weight, engine and gyro slots by weight.",
@@ -134,7 +134,7 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
             + "every weight; the later variants of the 5-ton weapons (ER, pulse, light and heavy machine guns) are refused; shielding "
             + "rounded up to the half ton. "
             + "Dates from the article's history: prototype 2963 (a Tharkan research project), introduced 3027 (Defiance Industries, Hesperus II). "
-            + "Battle Value and cost by the edition's rules on the suit as built; ours: the +1 to hit a suit counts as +1 TMM. Alpha Strike (ours): "
+            + "Battle Value and cost by the edition's rules on the suit as built; ours: the +1 to hit a suit counts as +1 TMM. Alpha Strike (NGCFells's): "
             + "a BattleMech card of Size 1 with the PWA special ability. More in TRO - JBT: Power Armor.",
         source: { title: "Bill Swisher, 'Power Armor: The Poor Man's Battlemech', Future Wars #14 (1989), p.39; reprinted in The Best of Future Wars, Volume One (1991), pp.14-16 (rules read from the reprint: the library's scan of #14 lacks pp.39-42)", publication: "Future Wars", tag: "FW #14", author: "Bill Swisher" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,

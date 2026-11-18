@@ -47,7 +47,7 @@ const formatNumber =(value: number): string => value.toLocaleString("en-US", { m
 
 const STATUS_TEXT = {
     "provisional": "Provisional:",
-    "source-missing": "Source not yet in our library:",
+    "source-missing": "Source not yet in NGCFells's library:",
 } as const;
 
 /** The steps as rows of label, arithmetic, result and citation, under a heading row per section. Text only: no markup is read from a step. */

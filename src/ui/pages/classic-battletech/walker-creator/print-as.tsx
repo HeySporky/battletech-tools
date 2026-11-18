@@ -8,7 +8,7 @@ import { WALKER_AS_ABILITY_TEXT, getWalkerAntiInfantryFireText } from '../../../
 import { WALKER_AS_ABILITY } from '../../../../classes/walker';
 
 /**
- * The walker's Alpha Strike card. The conversion is ours (docs/superpowers/specs/2026-11-15-walker-alpha-strike.md):
+ * The walker's Alpha Strike card. The conversion is NGCFells's (docs/superpowers/specs/2026-11-15-walker-alpha-strike.md):
  * the card is marked NOT OFFICIAL, and the WLK and AIF# abilities, which no rulebook explains, are spelled out under it.
  */
 export default class WalkerCreatorPrintAS extends React.Component<IPrintASProps> {

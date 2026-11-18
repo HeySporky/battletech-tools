@@ -56,7 +56,7 @@ describe("Future Wars #32 smoke devices (Custom Homebrew)", () => {
     });
 
     // Cost, BV and tech rating from the nearest canon device (user ruling 2026-10-21): Smoker = Vehicle Flamer (TM p.218),
-    // fuel = Vehicle Flamer / Fluid Gun obscurant ammo, Buckler = Vehicular Grenade Launcher (TO:AUE p.127). The Buckler is dated 2650 by the owner (2026-11-16): an SLDF design.
+    // fuel = Vehicle Flamer / Fluid Gun obscurant ammo, Buckler = Vehicular Grenade Launcher (TO:AUE p.127). The Buckler is dated 2650 by NGCFells (2026-11-16): an SLDF design.
     it("cost, BV, dates and tech rating come from the analog devices", () => {
         const fuel = ammoCustom.find((item) => item.tag === "ammo-custom-smoker-fuel")!;
         expect(find("custom-smoker")).toMatchObject({ cbills: 7500, battleValue: 5, battleValueDefensive: true, introduced: 1950, extinct: null, techRating: "b" });

@@ -4,7 +4,7 @@ import { equipmentEnergy } from "./equipment-energy";
 import { APOCRYPHAL_RULES_LEVEL } from "./rules-level-options";
 
 // PPC-X (#266): a MechWarrior 5 (Solaris Showdown) weapon, Apocryphal. Tabletop line from u/Severe_Ad_5022 with the damage
-// set by the owner (2026-11-16) to three 5-point groups, a compromise between that line (12) and the game's PPC-X (about 20).
+// set by NGCFells (2026-11-16) to three 5-point groups, a compromise between that line (12) and the game's PPC-X (about 20).
 
 const ppcX = () => {
     const found = equipmentEnergy.find((item) => item.tag === "ppc-x");
@@ -44,7 +44,7 @@ describe("PPC-X (Apocryphal, #266)", () => {
         expect(ppcX().rules).toMatch(/3 column|three/i);
     });
 
-    it("lore says who, why, where and when, and what is ours", () => {
+    it("lore says who, why, where and when, and what is NGCFells's", () => {
         const lore = ppcX().lore ?? "";
         for (const part of ["Solaris Arms", "Solaris", "arena", "ion"]) expect(lore, part).toContain(part);
         expect(ppcX().notes).toMatch(/Ours/);

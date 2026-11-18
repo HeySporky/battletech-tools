@@ -114,7 +114,7 @@ test("ArtVee readout: the sample list links to the Technical Readout, which list
 
     await page.getByRole("link", { name: "Back to TRO - JBT" }).click();
     await expect(page.getByTestId("tro-introduction").getByRole("heading", { name: "Explanation" })).toBeVisible();
-    await page.getByTestId("tro-card-ammunition").click();
+    await page.getByTestId("tro-category-ammunition").getByRole("link", { name: "Long Tom Artillery: Anti-Orbital Ammo" }).click();
     await expect(page.getByTestId("tro-readout").getByRole("heading", { name: "Long Tom Artillery: Anti-Orbital Ammo" })).toBeVisible();
     expect(errors).toEqual([]);
 });

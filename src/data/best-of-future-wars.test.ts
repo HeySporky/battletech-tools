@@ -49,7 +49,7 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         // The stat block prints no heat; ours, from the prose ("retards heat build-up by 75%").
         expect(gatling.heat).toBeGreaterThan(0);
         expect(gatling.notes).toContain("Not printed in The Best of Future Wars");
-        expect(gatling.notes).toContain("heat is ours, 1");
+        expect(gatling.notes).toContain("heat is NGCFells's, 1");
     });
 
     it("Long Range Flamer: 5 + 5 heat, 1-4 / 5-8 / 9-12, 15 shots a ton, heat 8, 5 t, 2 slots, 65,000 C", () => {
@@ -86,7 +86,7 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(getWeaponShotsPerTon(pds, ammo)).toBe(100);
         // Printed in no stat block: cost, derived from the Anti-Missile System that does the same job (derived-cost-and-bv.test.ts).
         expect(pds.cbills).toBe(100000);
-        // Not printed: a prototype of about 3028 (the owner ruling), with no production run.
+        // Not printed: a prototype of about 3028 (the NGCFells's ruling), with no production run.
         expect(pds.introduced).toBeNull();
         expect(pds.prototype).toBe(3028);
     });
@@ -149,7 +149,7 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(launcher.rules).toContain("1d4");
         expect(launcher.rules).toContain("1d4/2");
         expect(launcher.rules).toMatch(/critical/);
-        expect(launcher.notes).toContain("minimum range of 8 is ours");
+        expect(launcher.notes).toContain("minimum range of 8 is NGCFells's");
         expect(getCompatibleAmmo(launcher, missile)).toBe(true);
         expect(getWeaponShotsPerTon(launcher, missile)).toBe(2);
     });
@@ -168,7 +168,7 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         }
     });
 
-    // Owner ruling (2026-11-16): notes keep the source and credit, Rules hold the play text, Lore the in-character TRO text.
+    // NGCFells's ruling (2026-11-16): notes keep the source and credit, Rules hold the play text, Lore the in-character TRO text.
     it("every record splits credit notes, play Rules and TRO Lore", () => {
         for (const tag of [...WEAPONS, ...AMMO]) {
             const item = find(tag);

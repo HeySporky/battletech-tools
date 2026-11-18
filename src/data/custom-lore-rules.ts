@@ -3,7 +3,7 @@ import { IDamagePerRange, IEquipmentItem } from "./data-interfaces";
 /*
  * Lore (in-character Technical Readout text) and rules (how the item plays) for the Custom Homebrew, Apocryphal and Munchkin equipment
  * that had only notes. Nothing here adds a fact the item's notes and stats do not give: the rules restate what the notes say in play
- * terms, the lore is our own flavour built on the same facts and says nothing the source contradicts. Only a missing field is filled; an
+ * terms, the lore is NGCFells's own flavour built on the same facts and says nothing the source contradicts. Only a missing field is filled; an
  * item that already has lore, rules or notes keeps them.
  */
 

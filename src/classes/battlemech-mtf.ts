@@ -317,7 +317,7 @@ export function convertMtfToSSW(file: IMtfFile): { xml: string; issues: string[]
                 index += run; continue;
             }
 
-            // One-shot launchers: MegaMek's "(OS)", "(IOS)" and "(I-OS)" are our records' "-os" and "-ios".
+            // One-shot launchers: MegaMek's "(OS)", "(IOS)" and "(I-OS)" are the JBT records' "-os" and "-ios".
             const oneShot = /\s*\((OS|IOS|I-OS)\)$/i.exec(name);
             const baseName = oneShot ? name.replace(oneShot[0], "") : name;
             const itemFaction: ImportFaction = /^(CL|Clan )/.test(baseName) ? "clan" : /^IS/.test(baseName) ? "is" : faction;

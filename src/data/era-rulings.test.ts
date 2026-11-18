@@ -7,7 +7,7 @@ import { miscCustom } from "./misc-custom";
 import { missileCustom } from "./missile-custom";
 import { IEquipmentItem } from "./data-interfaces";
 
-// The owner's era rulings of 2026-11-16: where and when each of these items belongs in the setting, and why.
+// NGCFells's era rulings of 2026-11-16: where and when each of these items belongs in the setting, and why.
 
 const all: IEquipmentItem[] = [...equipmentEnergy, ...energyCustom, ...miscCustom, ...ballisticCustom, ...ammoCustom];
 const record = (tag: string): IEquipmentItem => {
@@ -46,7 +46,7 @@ describe("era rulings", () => {
         for (const text of ["Tikonov", "Tikograd", "Capellan", "Crucis Lancers", "Pavel Ridzik", "23 September to 18 October 3028", "Charles Duncan"]) {
             expect(`${lance.lore} ${lance.notes}`, text).toContain(text);
         }
-        expect(lance.notes).toContain("are ours");
+        expect(lance.notes).toContain("are NGCFells's");
         // The Supercharger is only a roll the post borrows; its date plays no part.
         expect(lance.notes).not.toMatch(/Supercharger's technology/);
     });

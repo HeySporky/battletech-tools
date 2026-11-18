@@ -149,7 +149,7 @@ describe("BV1 equipment values (BMR pp.142-144; BMR(R) pp.156-158)", () => {
 
     it("reads Maximum Tech's Level 3 values (p.90) under both Master Rules editions, Artemis V at the launcher's x 1.3", () => {
         expect(getItemBattleValue(record("er_large_pulse_laser"), "master-rules-revised")).toBe(271);
-        // The FASA printing (written for the 1998 Master Rules, p.90) prints the same table (owner ruling 2026-11-10).
+        // The FASA printing (written for the 1998 Master Rules, p.90) prints the same table (NGCFells's ruling 2026-11-10).
         expect(getItemBattleValue(record("er_large_pulse_laser"), "master-rules")).toBe(271);
         expect(getItemBattleValue(record("er_large_pulse_laser"), "total-warfare")).toBe(272);
         expect(getItemBattleValue(record("thunderbolt-15"), "master-rules-revised", "ammoBattleValue")).toBe(26);

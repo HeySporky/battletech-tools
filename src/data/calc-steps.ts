@@ -94,7 +94,7 @@ export const formatCalcNumber = (value: number): string => Number.isInteger(valu
 
 const STATUS_PREFIX: Record<Exclude<CalcStepStatus, "cited">, string> = {
     "provisional": "provisional",
-    "source-missing": "source not yet in our library",
+    "source-missing": "source not yet in NGCFells's library",
 };
 
 /** One step as a line of plain text: "Armor: 152 x 2.5 = 380 (TM p.302) -> 504.5". */

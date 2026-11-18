@@ -4,7 +4,7 @@ import type { MicroMechLocation } from "./micro-mech-construction";
 /*
  * Sample Micro-Mechs (Custom Homebrew), the four designs "Micro-Mechs" 6.1.0.2 prints (PDF pages 16 to 22), loadable from
  * the Micro-Mech Creator's home. The rules are Solarmech's; this version of them was revised by an unnamed editor with
- * Discord. Each design is the document's, built under our Micro-Mech rules (6.1.0.2), and its notes say every place where
+ * Discord. Each design is the document's, built under NGCFells's Micro-Mech rules (6.1.0.2), and its notes say every place where
  * our figure or the document's text differs from its print.
  */
 
@@ -22,7 +22,7 @@ interface IMicroMechSampleSpec {
     differences: string;
 }
 
-const CREDIT = "Custom Homebrew, NOT OFFICIAL. Design from \"Micro-Mechs\" version 6.1.0.2 (rules by Solarmech; this version revised by an unnamed editor with Discord), built under our Micro-Mech rules.";
+const CREDIT = "Custom Homebrew, NOT OFFICIAL. Design from \"Micro-Mechs\" version 6.1.0.2 (rules by Solarmech; this version revised by an unnamed editor with Discord), built under NGCFells's Micro-Mech rules.";
 
 const SPECS: IMicroMechSampleSpec[] = [
     {
@@ -46,7 +46,7 @@ const SPECS: IMicroMechSampleSpec[] = [
             { tag: "micro-recoilless-rifle-heavy", location: "la", ammo: [{ type: "standard", kg: 500, location: "la" }] },
         ],
         overview: "A tunnel and city scout: a probe, a grenade launcher in the head and a heavy recoilless rifle in the arm that has no hand.",
-        differences: "Weight (12,975 kg) agrees with the print. The print's mass (90 tons), jump (0), cost (8,993,460), Battle Value (1,117) and BattleForce armor are corrupt, so the cost (990,510) and Battle Value (309) here are ours. The print lists 6 free heat sinks; the text says the rating divided by ten, rounded down, which is 5. Under Solarmech's 2019 post it is not legal (a head weapon, arm ammunition).",
+        differences: "Weight (12,975 kg) agrees with the print. The print's mass (90 tons), jump (0), cost (8,993,460), Battle Value (1,117) and BattleForce armor are corrupt, so the cost (990,510) and Battle Value (309) here are NGCFells's. The print lists 6 free heat sinks; the text says the rating divided by ten, rounded down, which is 5. Under Solarmech's 2019 post it is not legal (a head weapon, arm ammunition).",
     },
     {
         id: "hillman-hmn-2x", name: "Hillman HMN-2X", tons: 15, layout: "quad", walkMP: 5, jumpJets: 0,

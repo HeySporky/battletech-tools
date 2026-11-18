@@ -418,7 +418,7 @@ export interface IMechMUL {
     mul1ById: Map<number, IASMULUnit>;
 }
 
-// A MegaMek entry is ours, written from the file, not a BV to check the file against.
+// A MegaMek entry is NGCFells's, written from the file, not a BV to check the file against.
 export const loadMechMUL = (mulDir: string): IMechMUL => ({ mul: loadMULIndex(mulDir, (unit) => isMULMech(unit) && !isMegaMekCustom(unit)), mul1ById: loadMUL1ById(mulDir, isMULMech) });
 
 const hashText = (text: string): string => {

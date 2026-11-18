@@ -19,7 +19,7 @@
 // Future Wars #11 p.24, prints the same tables for two-legged 'Mechs. Flint's four-legged walkers are a unit type of
 // their own (docs/superpowers/plans/2026-11-13-future-wars-walkers.md).
 
-/** The two printings, as two Special Rulesets with the same rules (owner ruling 3, 2026-11-13). Best-of first. */
+/** The two printings, as two Special Rulesets with the same rules (NGCFells's ruling 3, 2026-11-13). Best-of first. */
 export const FUTURE_WARS_CONSTRUCTION_RULESETS = ["best-of-future-wars-construction", "future-wars-11-construction"] as const;
 
 export type FutureWarsWeightClass = "light" | "medium" | "heavy" | "assault";
@@ -67,7 +67,7 @@ export function getFutureWarsSlots(tons: number, location: string): number | und
 /**
  * Center torso slots of an engine of this weight (Best-of p.36): 0.5-4.0 tons 4, 4.5-6.0 5, 6.5-9.0 6, 9.5-12.0 7,
  * 12.5-16.0 8, 16.5-30.0 9, 30.5 and up 10. The printed bands step by the half ton; a weight between them (Fractional
- * Accounting) takes the band it does not exceed (ours). No engine, no slots.
+ * Accounting) takes the band it does not exceed (NGCFells's). No engine, no slots.
  */
 export function getFutureWarsEngineSlots(engineTons: number): number {
     if (!(engineTons > 0)) return 0;
@@ -75,7 +75,7 @@ export function getFutureWarsEngineSlots(engineTons: number): number {
     return bands.find(([upTo]) => engineTons <= upTo)?.[1] ?? 10;
 }
 
-/** "Gyroscopes take up one critical space per ton" (Best-of p.36); a part ton takes a whole slot (ours). */
+/** "Gyroscopes take up one critical space per ton" (Best-of p.36); a part ton takes a whole slot (NGCFells's). */
 export function getFutureWarsGyroSlots(gyroTons: number): number {
     return gyroTons > 0 ? Math.ceil(gyroTons) : 0;
 }

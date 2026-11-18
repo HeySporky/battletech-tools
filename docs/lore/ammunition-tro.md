@@ -1,6 +1,6 @@
 # Technical Readout: Custom Ammunition
 
-Custom rounds built for this app (rules level 6), not canon.
+Custom rounds built by NGCFells (rules level 6), not canon.
 
 ## Long Tom Artillery: Anti-Orbital Ammo
 

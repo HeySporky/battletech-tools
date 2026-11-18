@@ -113,7 +113,7 @@ import {
     isWalkerEdition,
 } from "../data/walker-construction";
 
-// A Walker (#172): Clell Flint's four-legged 'Mech from Future Wars, a unit type of its own (owner ruling 2,
+// A Walker (#172): Clell Flint's four-legged 'Mech from Future Wars, a unit type of its own (NGCFells's ruling 2,
 // 2026-11-13). Ten locations, its own structure table and slot counts (walker-construction.ts); the 'Mech engine, gyro
 // and cockpit data. Custom Homebrew. Chunks A (construction core), B (equipment, turret, heat sinks, jump jets,
 // ammunition) and C (cost and Battle Value, both provisional) of docs/superpowers/plans/2026-11-13-future-wars-walkers.md.
@@ -143,7 +143,7 @@ export interface IWalkerExport {
     techBase: WalkerTechTag;
     engineType: WalkerEngineType;
     gyroType: WalkerGyroType;
-    /** An industrial walker (ours); absent means a BattleMech walker. */
+    /** An industrial walker (NGCFells's); absent means a BattleMech walker. */
     industrial?: boolean;
     /** An industrial walker's Advanced Fire Control (TechManual p.69). */
     advancedFireControl?: boolean;
@@ -235,7 +235,7 @@ export interface IWalkerMountExport {
     inTurret?: boolean;
     /** The chosen size of a sized item (a cargo bay's tons, a modular C3's links). */
     size?: number;
-    /** An item split into one adjacent location: that location and the slots it takes there (owner ruling 2026-11-14). */
+    /** An item split into one adjacent location: that location and the slots it takes there (NGCFells's ruling 2026-11-14). */
     split?: IWalkerSplit;
 }
 
@@ -315,7 +315,7 @@ const isGyroType = (value: unknown): value is WalkerGyroType => (WALKER_GYRO_TYP
 const isTonnage = (tons: number): boolean => Number.isInteger(tons) && tons >= WALKER_MIN_TONS && tons <= WALKER_MAX_TONS && tons % WALKER_TON_STEP === 0;
 const emptyArmor = (): Record<WalkerLocation, number> => ({ cs: 0, ft: 0, lt: 0, ct: 0, rt: 0, rrt: 0, lfl: 0, rfl: 0, lrl: 0, rrl: 0 });
 
-/** A walker's Alpha Strike unit type: one of its own (owner, 2026-11-15), read as BM wherever Alpha Strike asks the type. */
+/** A walker's Alpha Strike unit type: one of its own (NGCFells, 2026-11-15), read as BM wherever Alpha Strike asks the type. */
 export const WALKER_AS_TYPE = "WK";
 /** An industrial walker's: read as IM. */
 export const WALKER_INDUSTRIAL_AS_TYPE = "IWK";
@@ -401,7 +401,7 @@ export default class Walker implements IGameSettingsUnit {
     private _heatSinkType: WalkerHeatSinkType = "single";
     private _jumpJets: number = 0;
     private _jumpJetType: WalkerJumpJetType = "standard";
-    /** Flint wrote for the 3025 rules: the late Succession Wars (ours). */
+    /** Flint wrote for the 3025 rules: the late Succession Wars (NGCFells's). */
     private _era: IEras = findEraByTag("late-sw-lt") ?? btEraOptions[btEraOptions.length - 1];
     private _gunnery: number = 4;
     private _piloting: number = 5;
@@ -444,14 +444,14 @@ export default class Walker implements IGameSettingsUnit {
         return true;
     }
 
-    /** The printing of Flint's rules (owner ruling 3). */
+    /** The printing of Flint's rules (NGCFells's ruling 3). */
     public getEdition(): WalkerEdition { return this._edition; }
     public getEditionRules(): IWalkerEditionRules { return WALKER_EDITION_RULES[this._edition]; }
     public setEdition(edition: WalkerEdition): void { if (isWalkerEdition(edition)) this._edition = edition; }
     public getCredit(): string { return getWalkerCredit(this._edition, this._industrial); }
 
     /**
-     * An industrial walker (owner ruling 2026-11-14; ours, inspired by Flint and the IndustrialMech rules). Switching
+     * An industrial walker (NGCFells's ruling 2026-11-14; ours, inspired by Flint and the IndustrialMech rules). Switching
      * keeps the engine and gyro; one the chassis does not allow is reported by getIssues, nothing is changed.
      */
     public isIndustrial(): boolean { return this._industrial; }
@@ -548,7 +548,7 @@ export default class Walker implements IGameSettingsUnit {
     private _variantCockpit() {
         return this.usesVariantSlots() ? getFutureWarsCockpit(this._tons, this.getLargeCockpit()) : undefined;
     }
-    /** Under the variant Flint's cockpit weight applies to an industrial walker too (ours, as on a Compact IndustrialMech). */
+    /** Under the variant Flint's cockpit weight applies to an industrial walker too (NGCFells's, as on a Compact IndustrialMech). */
     public getCockpitWeight(): number { return this._variantCockpit()?.tons ?? (this._industrial ? getCockpitType("industrial").weight : STANDARD_COCKPIT_TONS); }
     /** The cockpit's name: the IndustrialMech cockpit, with or without Advanced Fire Control (TechManual p.211), or "Cockpit". */
     public getCockpitName(): string {
@@ -591,7 +591,7 @@ export default class Walker implements IGameSettingsUnit {
         return record ? { ...record, space: { ...record.space } } : undefined;
     }
 
-    /** Weight and slots of an item on this walker: sized items by their formula with the walker's figures (ours). */
+    /** Weight and slots of an item on this walker: sized items by their formula with the walker's figures (NGCFells's). */
     private _sized(item: IEquipmentItem, mount: Pick<IWalkerMount, "size">, weaponWeight: number): { weight: number; slots: number; cbills?: number } {
         const formula = item.variableFormula as VariableEquipmentFormula | undefined;
         if (formula) {
@@ -630,18 +630,18 @@ export default class Walker implements IGameSettingsUnit {
     }
 
     /**
-     * Why a 'Mech item cannot go on this walker at all, or null (owner ruling 4: "any equipment that makes sense"). Arm
+     * Why a 'Mech item cannot go on this walker at all, or null (NGCFells's ruling 4: "any equipment that makes sense"). Arm
      * items, items of another 'Mech type, items spread over 'Mech locations and variable items outside
-     * WALKER_VARIABLE_FORMULAS are ours to refuse; the IndustrialMech limits are TM pp.69-70.
+     * WALKER_VARIABLE_FORMULAS are NGCFells's to refuse; the IndustrialMech limits are TM pp.69-70.
      */
     public getChassisRefusal(item: IEquipmentItem): string | null {
         const name = item.name;
         if (item.space.battlemech < 0 || item.bombBaySlots) return `${name} cannot be mounted on a 'Mech.`;
         if (needsArm(item)) return `${name} needs an arm, and a walker has none.`;
         if ((item.chassisTypes?.length ?? 0) > 0 || item.tag === "mech-turret-head") return `${name} is built for another kind of 'Mech.`;
-        if (item.spreadLocations || item.spreadSlots) return `${name} spreads over a 'Mech's locations; a walker does not take it (ours).`;
+        if (item.spreadLocations || item.spreadSlots) return `${name} spreads over a 'Mech's locations; a walker does not take it (NGCFells's).`;
         if ((item.variableFormula && !WALKER_VARIABLE_FORMULAS.includes(item.variableFormula)) || (item.variableSize && !item.variableFormula)) {
-            return `${name} is not offered on a walker (ours).`;
+            return `${name} is not offered on a walker (NGCFells's).`;
         }
         if (item.allowedLocations && !item.armTool && getWalkerLocationsForMechLocations(item.allowedLocations).length === 0) {
             return `${name} has no place on a walker.`;
@@ -664,7 +664,7 @@ export default class Walker implements IGameSettingsUnit {
         if (location === "ct" && isWalkerWeapon(item) && !isWalkerAntiInfantryWeapon(item)) return `${name}: ${WALKER_CENTER_TORSO_RULE}`;
         if (item.armTool) {
             // Ours: a walker has no arms; its tools go on the legs or the outer torsos.
-            if (!WALKER_LEGS.includes(location) && !WALKER_OUTER_TORSOS.includes(location)) return `${name} goes in the legs or outer torsos (ours: a walker has no arms).`;
+            if (!WALKER_LEGS.includes(location) && !WALKER_OUTER_TORSOS.includes(location)) return `${name} goes in the legs or outer torsos (NGCFells's: a walker has no arms).`;
         } else if (item.allowedLocations) {
             const allowed = getWalkerLocationsForMechLocations(item.allowedLocations);
             if (!allowed.includes(location)) return `${name} must be placed in: ${allowed.map((each) => this.getLocationName(each)).join(", ")}.`;
@@ -707,7 +707,7 @@ export default class Walker implements IGameSettingsUnit {
     /**
      * Mounts a 'Mech catalog item. Refused, with the reason, when the walker cannot take it, the place breaks a rule, the
      * walker would be over its tonnage or there is no room. An item too big for the location's free slots fills them and
-     * splits the rest into one adjacent location with room (owner ruling 2026-11-14), `options.splitInto` or the first in
+     * splits the rest into one adjacent location with room (NGCFells's ruling 2026-11-14), `options.splitInto` or the first in
      * WALKER_ADJACENT_LOCATIONS that takes it; a turret item never splits. The era and rules level are the offer's
      * business (getEquipmentOffer), as on a 'Mech.
      */
@@ -799,7 +799,7 @@ export default class Walker implements IGameSettingsUnit {
     }
     public getHeatDissipation(): number { return this.getHeatSinks() * this._heatSinkRecord().dissipation; }
 
-    // Jump jets (ours: in the legs and outer torsos, by the 'Mech rule) ---------------------------------------------
+    // Jump jets (NGCFells's: in the legs and outer torsos, by the 'Mech rule) ---------------------------------------------
 
     private _jumpJetRecord(): IJumpJet { return mechJumpJetTypes.find((type) => type.tag === this._jumpJetType)!; }
     public getJumpJetType(): WalkerJumpJetType { return this._jumpJetType; }
@@ -821,7 +821,7 @@ export default class Walker implements IGameSettingsUnit {
         this._jumpJetType = type;
         return true;
     }
-    /** Jump MP is at most the biped Walking MP, the Running MP with improved jets (ours: the x 1.25 is the legs, not the engine). */
+    /** Jump MP is at most the biped Walking MP, the Running MP with improved jets (NGCFells's: the x 1.25 is the legs, not the engine). */
     public getMaxJumpMP(): number { return this._jumpJetType === "improved" ? Math.ceil(this._walkMP * 1.5) : this._walkMP; }
     public getJumpJets(): number { return this._jumpJets; }
     public getJumpMP(): number { return this._jumpJets; }
@@ -838,7 +838,7 @@ export default class Walker implements IGameSettingsUnit {
 
     public getStructure(location: WalkerLocation): number { return getWalkerStructure(location, this._tons); }
     public getTotalStructure(): number { return WALKER_LOCATIONS.reduce((sum, location) => sum + this.getStructure(location), 0); }
-    /** "Tons Required" is 10 percent of the walker's weight (Best-of p.37); industrial structure twice that (ours, TechManual p.66). */
+    /** "Tons Required" is 10 percent of the walker's weight (Best-of p.37); industrial structure twice that (NGCFells's, TechManual p.66). */
     public getStructureWeight(): number { return this._tons * (this._industrial ? WALKER_INDUSTRIAL_STRUCTURE_FACTOR : 0.1); }
 
     /** At most twice the structure in every location (Best-of p.37); with no location, the whole walker's. */
@@ -871,7 +871,7 @@ export default class Walker implements IGameSettingsUnit {
         if (location === "ct") {
             const variant = this.usesVariantSlots();
             const ctSlots = variant ? getFutureWarsEngineSlots(this.getEngineWeight()) : engineSlots.ct ?? 0;
-            // Standard: three engine slots, the gyro, the rest of the engine (as a 'Mech). Variant: half the engine first (ours, as the Compact 'Mech).
+            // Standard: three engine slots, the gyro, the rest of the engine (as a 'Mech). Variant: half the engine first (NGCFells's, as the Compact 'Mech).
             const first = variant ? Math.ceil(ctSlots / 2) : Math.min(3, ctSlots);
             const gyro: string[] = Array(this._gyroSlots()).fill(this.getGyroName());
             return [...Array(first).fill(engine), ...gyro, ...Array(ctSlots - first).fill(engine)];
@@ -880,7 +880,7 @@ export default class Walker implements IGameSettingsUnit {
         if (location === "cs") {
             const cockpit = this._variantCockpit();
             if (!cockpit) return ["Life Support", "Sensors", "Cockpit", null, "Sensors", "Life Support"];
-            // Flint's head order, as the Compact 'Mech's (ours): life support, sensors, cockpit; the turret follows (_layout).
+            // Flint's head order, as the Compact 'Mech's (NGCFells's): life support, sensors, cockpit; the turret follows (_layout).
             const lifeSupport = cockpit.lifeSupportSlots + (this.hasExtraLifeSupport() ? 1 : 0);
             const sensors = FUTURE_WARS_SENSOR_SLOTS + (this.hasExtraSensors() ? 1 : 0);
             return [...Array(lifeSupport).fill("Life Support"), ...Array(sensors).fill("Sensors"), ...Array(cockpit.slots).fill("Cockpit")];
@@ -925,7 +925,7 @@ export default class Walker implements IGameSettingsUnit {
      * Every location's slots in order: the fixed items, the equipment, then (with `auto`) the jump jets and the heat sinks
      * the engine cannot hold. In the control section the turret mechanism and the turret's items come last: "anything on
      * the critical chart listed below the turret mechanism" is in the turret (Best-of p.36). Jump jets and heat sinks are
-     * placed where there is room (ours); what finds no room is counted in `unplaced`.
+     * placed where there is room (NGCFells's); what finds no room is counted in `unplaced`.
      */
     private _layout(auto: boolean = true, extra?: IWalkerMount): {
         slots: Record<WalkerLocation, (string | null)[]>; owners: Record<WalkerLocation, (string | null)[]>; unplacedJets: number; unplacedSinks: number;
@@ -1095,8 +1095,8 @@ export default class Walker implements IGameSettingsUnit {
 
     /**
      * The C-bill cost, step by step. Flint printed none: this is the BattleMech Costs Table (TechManual pp.274-285) run
-     * over a walker (ours), every step provisional (calc-steps-walker.ts says how each row reads a walker). Four legs'
-     * actuators; the turret mechanism at 7,500 C-bills a ton (owner ruling); an industrial walker as an
+     * over a walker (NGCFells's), every step provisional (calc-steps-walker.ts says how each row reads a walker). Four legs'
+     * actuators; the turret mechanism at 7,500 C-bills a ton (NGCFells's ruling); an industrial walker as an
      * IndustrialMech. Ammunition is left out and shown as a loaded cost, as for a 'Mech.
      */
     public getCostBreakdown(): ICalcBreakdown {
@@ -1132,7 +1132,7 @@ export default class Walker implements IGameSettingsUnit {
         const paidSinks = Math.max(0, this.getHeatSinks() - freeSinks);
         add("walker.cost.heat-sinks", `${sink.name} (${this.getHeatSinks()})`, `${commas(sink.cost)} x ${paidSinks}${freeSinks > 0 ? `; ${freeSinks} free` : ""}`, sink.cost * paidSinks);
         if (this._turret) {
-            // Owner ruling 2026-11-14: 7,500 C-bills a ton, midway between the 'Mech turret (10,000) and the vehicle's (5,000).
+            // NGCFells's ruling 2026-11-14: 7,500 C-bills a ton, midway between the 'Mech turret (10,000) and the vehicle's (5,000).
             add("walker.cost.turret", "Turret mechanism", `7,500 x ${this.getTurretWeight()} tons`, 7500 * this.getTurretWeight());
         }
         if (this.getPowerAmplifierWeight() > 0) {
@@ -1634,13 +1634,13 @@ export default class Walker implements IGameSettingsUnit {
 
     // Play (Chunk F) ----------------------------------------------------------------------------------------------
     // Flint's play rules (Best-of pp.36-37; Future Wars #11 pp.25-27, read on the page images). Where he says "as a
-    // regular mech", Total Warfare (2022 printing) is followed and cited. What he leaves open is ours, and says so.
+    // regular mech", Total Warfare (2022 printing) is followed and cited. What he leaves open is NGCFells's, and says so.
 
     public getGunnery(): number { return this._gunnery; }
     public setGunnery(skill: number): void { this._gunnery = clampInt(skill, 0, 8, 4); }
     public getPiloting(): number { return this._piloting; }
     public setPiloting(skill: number): void { this._piloting = clampInt(skill, 0, 8, 5); }
-    /** The 'Mech skill table (ours: a walker is a 'Mech with four legs). */
+    /** The 'Mech skill table (NGCFells's: a walker is a 'Mech with four legs). */
     public getSkillMultiplier(edition: string = this._rulesEdition): number {
         return getSkillMultiplier(this._gunnery, this._piloting, "mech", getBattleValueSkillEdition(edition, "mech")) ?? 1;
     }
@@ -1725,7 +1725,7 @@ export default class Walker implements IGameSettingsUnit {
     /** A standard, XL or compact gyro is destroyed by two hits, a heavy-duty one by three (TW p.128; TM p.214). */
     public isGyroDestroyed(): boolean { return this.getGyroHits() >= (this._gyroType === "heavy-duty" ? 3 : 2); }
     public getSensorHits(): number { return this._fixedHits("cs", "Sensors"); }
-    /** Two sensor hits end weapon attacks (TW p.128); an IndustrialMech's sensors go with one (TW p.128), as an industrial walker's (ours). */
+    /** Two sensor hits end weapon attacks (TW p.128); an IndustrialMech's sensors go with one (TW p.128), as an industrial walker's (NGCFells's). */
     public areSensorsDestroyed(): boolean { return this.getSensorHits() >= (this._industrial ? 1 : 2); }
 
     /** +2 on the Determining Critical Hits Table against an industrial walker, as against an IndustrialMech (TW p.124). */
@@ -1734,7 +1734,7 @@ export default class Walker implements IGameSettingsUnit {
     /**
      * Rolls on the Determining Critical Hits Table as for a 'Mech (TW p.124: 8-9 one hit, 10-11 two, 12 three in a torso
      * or a limb blown off; an industrial walker's 13 counts as 12 and 14 or more is four hits or the limb blown off).
-     * A leg is a limb; so is the control section, as a 'Mech's head (ours). The line is rolled in tables of six, as the
+     * A leg is a limb; so is the control section, as a 'Mech's head (NGCFells's). The line is rolled in tables of six, as the
      * sheet prints them, again on an empty line, CASE or a line already hit (TW p.124). `dice` supplies the players'
      * rolls in order; `extraModifier` is added to the chance roll (a fall).
      */
@@ -1799,7 +1799,7 @@ export default class Walker implements IGameSettingsUnit {
     /**
      * An industrial walker's End Phase damage check, made in a turn in which it fell or was the target of a successful
      * physical attack, as an IndustrialMech's (TW pp.68, 144): a location on the Front column, read as from the front
-     * (ours), then the Determining Critical Hits Table with +1 a level fallen above 1.
+     * (NGCFells's), then the Determining Critical Hits Table with +1 a level fallen above 1.
      */
     public rollIndustrialDamageCheck(levelsFallen: number = 0, dice: { location?: number; chance?: number; lines?: number[] } = {}): string[] {
         if (!this._industrial) return [];
@@ -1835,7 +1835,7 @@ export default class Walker implements IGameSettingsUnit {
         const name = this.getSlots(location)[slot] ?? "";
         if (owner === "jet") return ["A jump jet is lost: -1 Jump MP."];
         if (owner === "sink") return [`A heat sink is lost: ${this._heatSinkType === "double" ? 2 : 1} less heat dissipated a turn.`];
-        if (owner === "turret") return ["Turret mechanism hit: the turret is locked facing where it last fired (ours, as a vehicle's turret lock)."];
+        if (owner === "turret") return ["Turret mechanism hit: the turret is locked facing where it last fired (NGCFells's, as a vehicle's turret lock)."];
         if (owner && owner !== "fixed") {
             const ammoIndex = this.getAmmo().findIndex((each) => each.uuid === owner);
             if (ammoIndex >= 0) return this._explodeAmmo(location, ammoIndex);
@@ -1873,7 +1873,7 @@ export default class Walker implements IGameSettingsUnit {
         }
     }
 
-    /** CASE in the location: a CASE item, or a Clan walker's built-in CASE (ours, as a Clan 'Mech's). */
+    /** CASE in the location: a CASE item, or a Clan walker's built-in CASE (NGCFells's, as a Clan 'Mech's). */
     private _hasCaseAt(location: WalkerLocation): boolean {
         if (this._tech === "clan") return true;
         return this.getEquipment().some((each) => isRollAgainTag(each.tag) && (each.location === location || each.split?.location === location));
@@ -1935,7 +1935,7 @@ export default class Walker implements IGameSettingsUnit {
     /**
      * Damage "as on a regular mech": armor, then internal structure; a location whose structure is gone passes the rest
      * on (WALKER_DAMAGE_TRANSFER, ours). Each hit on the control section (the turret is part of it for damage, Best-of
-     * p.36) gives the pilot a hit, as a hit on a 'Mech's head does (ours). A walker has no rear armor: the rear torso is
+     * p.36) gives the pilot a hit, as a hit on a 'Mech's head does (NGCFells's). A walker has no rear armor: the rear torso is
      * a location of its own.
      */
     public applyDamage(location: WalkerLocation, points: number): string[] {
@@ -1984,7 +1984,7 @@ export default class Walker implements IGameSettingsUnit {
     /**
      * The legs (Best-of p.37; #11 p.26). A leg "ceases to function" with a hip critical, all its structure lost, or
      * blown off. "Hip criticals taken after one leg ceases to function ... affect a walker the way they would a normal
-     * mech." The sheet keeps no order of events, so (ours): with a leg's structure gone, every hip hit on a standing leg
+     * mech." The sheet keeps no order of events, so (NGCFells's): with a leg's structure gone, every hip hit on a standing leg
      * is a 'Mech hip; with none gone, the first hipped leg has ceased and any other hip hit is a 'Mech hip. Actuator hits
      * count only on standing legs without a hip hit (a hip supersedes them).
      */
@@ -2026,7 +2026,7 @@ export default class Walker implements IGameSettingsUnit {
     /**
      * Movement now (Best-of p.37). Four legs: the biped Walking MP x 1.25, less one for each actuator hit ("actuator hits
      * reduce MP's off a walker's current movement base"). One leg out: the biped Walking MP, each 'Mech hip halving it
-     * (round up; two leave none, TW p.128), less the actuator hits. Two out: it crawls, 1 MP (ours), no running or
+     * (round up; two leave none, TW p.128), less the actuator hits. Two out: it crawls, 1 MP (NGCFells's), no running or
      * jumping. Three or more: none. Running is figured from the walking figure. A destroyed gyro: no movement.
      */
     public getPlayMovement(): IWalkerPlayMovement {
@@ -2050,7 +2050,7 @@ export default class Walker implements IGameSettingsUnit {
             canRun = false;
             canJump = false;
             crawl = true;
-            notes.push("Two legs are out: it may only crawl (Best-of p.37); 1 hex a turn, no running or jumping (ours).");
+            notes.push("Two legs are out: it may only crawl (Best-of p.37); 1 hex a turn, no running or jumping (NGCFells's).");
         } else {
             canRun = false;
             canJump = false;
@@ -2075,7 +2075,7 @@ export default class Walker implements IGameSettingsUnit {
     /**
      * The modifier on every Piloting Skill Roll now (target number; negative is easier). Four working legs: the "+3"
      * piloting bonus, -3 (Best-of p.37). Each actuator hit on a standing leg +1, a 'Mech hip +2, a gyro hit +3 (TW
-     * p.128). Each leg out past the first +5, as a 'Mech's destroyed leg (ours: with one out it moves as a biped).
+     * p.128). Each leg out past the first +5, as a 'Mech's destroyed leg (NGCFells's: with one out it moves as a biped).
      */
     public getPilotingModifier(): IWalkerModifier {
         const model = this._legModel();
@@ -2160,11 +2160,11 @@ export default class Walker implements IGameSettingsUnit {
     public getPlayNotes(): string[] {
         const rules = this.getEditionRules();
         const notes = [
-            "Hit locations: roll on the column for the hex face the attack comes through; the plain reading from a front face, the one in brackets from a rear face. A 12 is a control section hit and a critical hit roll (ours).",
+            "Hit locations: roll on the column for the hex face the attack comes through; the plain reading from a front face, the one in brackets from a rear face. A 12 is a control section hit and a critical hit roll (NGCFells's).",
             "Infantry and vehicles in the walker's hex use the Front/(Rear) column, front or rear at random; a control section hit is a center torso hit.",
             `Firing arcs: ${rules.firingArcs} Legs fire into both arcs of their quadrant; control section weapons not in the turret fire front or rear; the turret fires all round.`,
             "No punches. Kicks in any direction while all four legs work; none once a leg is out.",
-            "Damage passes from a leg to the torso on its side, and from an outer torso or the control section to the center torso (ours). The turret is part of the control section for damage.",
+            "Damage passes from a leg to the torso on its side, and from an outer torso or the control section to the center torso (NGCFells's). The turret is part of the control section for damage.",
         ];
         if (rules.immobilizedKnockOver) notes.push(rules.immobilizedKnockOver);
         if (this._industrial) notes.push("Industrial walker: +2 on critical hit rolls, and an End Phase damage check after a fall or a successful physical attack (as an IndustrialMech, TW pp.68, 124, 144).");
@@ -2172,14 +2172,14 @@ export default class Walker implements IGameSettingsUnit {
     }
 
     // Alpha Strike --------------------------------------------------------------------------------------------------
-    // Our ruleset (owner answers 2026-11-15): docs/superpowers/specs/2026-11-15-walker-alpha-strike.md. NOT OFFICIAL.
+    // Our ruleset (NGCFells's answers 2026-11-15): docs/superpowers/specs/2026-11-15-walker-alpha-strike.md. NOT OFFICIAL.
 
     /** Flint's base to-hit less his 2, in place of the pilot's Skill for an AIF attack: 6 (Best-of) or -2 (#11). */
     public getAlphaStrikeAntiInfantryTargetNumber(): number { return this.getEditionRules().antiInfantryBaseToHit - 2; }
 
     /**
      * Structure: the 'Mech Structure Conversion Table (ASC p.98) by tonnage and engine, scaled by the walker's own
-     * structure points (ten locations) against a biped 'Mech's (eight), rounded normally, at least 1 (owner, 2026-11-15).
+     * structure points (ten locations) against a biped 'Mech's (eight), rounded normally, at least 1 (NGCFells, 2026-11-15).
      */
     public getAlphaStrikeStructure(): { structure: number; table: number; column: AlphaStrikeStructureColumn; bipedPoints: number } {
         const columns: Partial<Record<WalkerEngineType, AlphaStrikeStructureColumn>> = {
@@ -2284,7 +2284,7 @@ export default class Walker implements IGameSettingsUnit {
         const heat = applyAlphaStrikeHeat({ subtotals: [...base, 0], heatOutput: heatAll, longHeatOutput: heatLong, dissipation });
         const { modified, overheat, factor } = heat;
         const damageValues = { short: heat.values[0], medium: heat.values[1], long: heat.values[2] };
-        // OVL only when there is an Overheat to use at Long range (ours: it does nothing otherwise).
+        // OVL only when there is an Overheat to use at Long range (NGCFells's: it does nothing otherwise).
         if (heat.ovl && overheat > 0) add("OVL");
         log.push(`Heat: ${moveHeat} for movement + ${heatAll - moveHeat - extraHeat} for the ${rearHotter ? "rear (hotter than the forward)" : "forward"} weapons${extraHeat > 0 ? ` + ${extraHeat} for AMS` : ""} = ${heatAll} (Long range ${heatLong}), less 4, against ${dissipation} dissipated`);
         log.push(`Damage: ${base.map((value) => value.toFixed(2)).join(" / ")}${heat.hot ? `, heat-modified to ${modified.slice(0, 3).map((value) => value.toFixed(2)).join(" / ")}` : ""}, giving ${[damageValues.short, damageValues.medium, damageValues.long].map(formatWalkerASDamage).join("/")}; Overheat ${overheat}${heat.ovl ? ", OVL" : ""}`);
@@ -2317,7 +2317,7 @@ export default class Walker implements IGameSettingsUnit {
         // weapon set counted, and the forward line is modified by it). Ours.
         const rearVector = vector(sum(rear), "normal");
         if (/[^-/]/.test(rearVector)) add(`REAR${rearVector}`);
-        // TUR is heat-modified: its weapons' heat is in the output (ours).
+        // TUR is heat-modified: its weapons' heat is in the output (NGCFells's).
         if (turret.length > 0) add(`TUR(${[vector(sum(turret), "up", factor), ...families(turret)].join(",")})`);
         // AIF#: the center-torso weapons' Short values, rounded normally; under 0.5 is AIF0*.
         const bellyShort = sum(belly)[0];

@@ -47,7 +47,7 @@ describe("Micro-Mech Bay", () => {
         expect(loaded.getBayWeight(loaded.getBays()[0])).toBe(150);
     });
 
-    it("gives a DropShip MMT# (ours) with its doors, and the canon unit-bay codes beside it, as the vehicles print them", () => {
+    it("gives a DropShip MMT# (NGCFells's) with its doors, and the canon unit-bay codes beside it, as the vehicles print them", () => {
         const ship = new SmallCraft();
         ship.setCraftType("dropShip");
         ship.setTonnage(3000);

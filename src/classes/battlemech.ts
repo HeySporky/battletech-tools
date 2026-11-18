@@ -260,7 +260,7 @@ export const LAM_TYPE_RULES: Record<LAMType, ILAMTypeRules> = {
         notes: "VTOLAM (Custom Homebrew; fan rules by professorheyteen, Battletech Into The Future): conversion equipment is 10% of tonnage, at most 35 tons, with rotor equipment in each side torso and conversion equipment in each leg; any equipment a BattleMech can use. It takes 'Mech hit locations in both modes, but a hit roll of 2 is a rotor hit: the first gives +3 to every Piloting roll in VTOL mode, the second destroys the rotor and the VTOLAM crashes, taking falling damage for its flight level (1 level with a successful Piloting roll). A critical hit on the rotor or conversion equipment ends transformation (in VTOL mode it reverts to 'Mech mode). It converts during the Movement Phase while jumping or at cruising speed, and may convert without its arms.",
     },
     // Red Pins, BattleTech forums, "Custom Weapons and Equipment" (topic 44833), reply #5, 21 Feb 2015. The full rules
-    // were never published; everything below the one line is our extrapolation (owner rulings 2026-11-12).
+    // were never published; everything below the one line is our extrapolation (NGCFells's rulings 2026-11-12).
     pam: {
         name: "Permanent Air 'Mech", conversion: 0, costRate: 0, modes: ["airmech"], minJumpMP: 3, maxTonnage: 75, lamLimits: true, homebrew: true,
         notes: "Permanent Air 'Mech (Custom Homebrew). Inspired by: Red Pins, BattleTech forums, \"Custom Weapons and Equipment\" (topic 44833) and topics 13127 and 41508, who described it as an AirMech with only one mode, with Heavy PAMs of 60 to 75 tons on a reduced jump multiplier; and LAMFAN's Air-Slip Mechs (topic 83239). The rules here are our own extrapolation from the Land-Air 'Mech rules: it is a single-mode LAM that is always in AirMech mode and never converts, so it carries no conversion equipment (no weight, no cost). Its wings weigh the Inner Sphere Partial Wing's 7% of its mass, rounded up to the half ton, with no slots of their own; it keeps the LAM avionics (head and each side torso) and has no landing gear: it lands on its feet. Its AirMech Cruise MP is its Jump MP x 3, so it needs at least 3 Jump MP. A Heavy PAM (56 to 75 tons) flies on Jump MP x 2 and its wings weigh 15% of its mass; it may hover like any AirMech. It keeps every other LAM limit (engine, gyro, armor, structure, single-location equipment, biped, Inner Sphere) and carries no bomb bays: it never takes Fighter Mode to drop them. With no conversion equipment to hold it, the LAM's ton of fuel (80 points) is a required 1 ton of its own; AirMech movement on the ground map spends none, and Fuel Tanks may be added for space. Battle Value uses the LAM rules unchanged and is provisional.",
@@ -1101,7 +1101,7 @@ export class BattleMech {
                 engineModifier = 0.75;
                 break;
             case "xl":
-            case BattleMech.RFE_TAG: // Lost with a side torso as an XL engine is (ours, #267)
+            case BattleMech.RFE_TAG: // Lost with a side torso as an XL engine is (NGCFells's, #267)
                 engineModifier = 0.5; // IS XL (TM p.302)
                 break;
             case "xxl":
@@ -2674,7 +2674,7 @@ export class BattleMech {
         if (superheavy) return getCockpitType(this.isIndustrialMech() && !this._advancedFireControl ? "superheavy-industrial" : "superheavy");
         if (this.isIndustrialMech()) return getCockpitType(this._advancedFireControl ? "industrial-advanced-fire-control" : "industrial");
         // Flint's cockpit rule replaces the cockpit choice: a small, torso-mounted or interface cockpit chosen before the
-        // ruleset was ticked is built as his (owner ruling 4, 2026-11-13).
+        // ruleset was ticked is built as his (NGCFells's ruling 4, 2026-11-13).
         if (this.usesFutureWarsConstruction()) return getCockpitType("standard");
         return getCockpitType(this._torsoMountedCockpit ? "torso-mounted" : this._smallCockpit ? "small" : this._interfaceCockpit ? "interface" : "standard");
     }
@@ -3592,7 +3592,7 @@ export class BattleMech {
         this._alphaStrikeForceStats.overheat = final_overheat_value;
         this._alphaStrikeForceStats.longOverheat = final_long_overheat_value;
 
-        // Power Armor (#172, owner ruling 2026-11-17, ours): the BattleMech card plus PWA, which the Point Value prices.
+        // Power Armor (#172, NGCFells's ruling 2026-11-17, ours): the BattleMech card plus PWA, which the Point Value prices.
         if (this.usesPowerArmorConstruction()) {
             this._alphaStrikeForceStats.abilityCodes.push(POWER_ARMOR_AS_ABILITY);
             this._calcLogAS += "Power Armor suit: gets the PWA ability (Custom Homebrew)<br />\n";
@@ -4417,7 +4417,7 @@ export class BattleMech {
             });
         }
         // Clell Flint's cockpit weighs by class, its life support included (Best-of p.35); a Primitive cockpit keeps
-        // its own weight (ours). Extra sensors and extra life support are half a ton each.
+        // its own weight (NGCFells's). Extra sensors and extra life support are half a ton each.
         const futureWarsCockpit = this._getFutureWarsCockpit();
         if (futureWarsCockpit) {
             this._cockpitWeight = futureWarsCockpit.tons;
@@ -4887,7 +4887,7 @@ export class BattleMech {
 
     /**
      * Is this 'Mech built under Clell Flint's construction rules? Only a two-legged BattleMech or IndustrialMech of up
-     * to 100 tons (ours: his four-legged rules are the Walker unit type, and his tables stop at 100 tons); any other
+     * to 100 tons (NGCFells's: his four-legged rules are the Walker unit type, and his tables stop at 100 tons); any other
      * type with the ruleset ticked is built by the standard rules and reported (getChassisEquipmentViolations).
      */
     public usesFutureWarsConstruction(): boolean {
@@ -4935,7 +4935,7 @@ export class BattleMech {
             return [`Power Armor (Special Ruleset) is built at 5, 10 or 15 tons on two legs; this ${this._tonnage}-ton ${this._mechType.name} is built by the standard rules.`];
         }
         const issues: string[] = [];
-        // Owner ruling 2026-11-17: Swisher's suits are Inner Sphere (3027); the Clans have ProtoMechs instead.
+        // NGCFells's ruling 2026-11-17: Swisher's suits are Inner Sphere (3027); the Clans have ProtoMechs instead.
         if (this._tech.tag === "clan" || this._tech.tag === "mclan") {
             issues.push("Power Armor is built on an Inner Sphere base only (Inner Sphere, or Mixed Tech on an Inner Sphere base); this suit has a Clan base.");
         }
@@ -5003,7 +5003,7 @@ export class BattleMech {
     /** The head's armor cap: 9, or twice the head's structure under Flint's rules (Best-of p.35). */
     public getMaxHeadArmor(): number {
         // Power Armor: "since the head only has 1structure point it can only hold 2 points of armor" (Best-of p.16),
-        // read as twice the head's structure at every weight (ours).
+        // read as twice the head's structure at every weight (NGCFells's).
         return this.usesFutureWarsConstruction() || this.usesPowerArmorConstruction() ? (this._internalStructure.head ?? 0) * 2 : 9;
     }
 
@@ -5145,7 +5145,7 @@ export class BattleMech {
             : undefined;
         if( futureWarsCockpit ) {
             // Clell Flint's head (Best-of p.35): the cockpit's life support, two sensor slots, the cockpit, in that
-            // order (ours), each extra beside its kind. The rest of the head is free.
+            // order (NGCFells's), each extra beside its kind. The rest of the head is free.
             const lifeSupport = futureWarsCockpit.lifeSupportSlots + (this._extraLifeSupport ? 1 : 0);
             const sensors = FUTURE_WARS_SENSOR_SLOTS + (this._extraSensors ? 1 : 0);
             let headSlot = 0;
@@ -5196,7 +5196,7 @@ export class BattleMech {
         }
         // The console sits beside the cockpit, in the cockpit's own location (TO:AUE p.112).
         if (this.hasCommandConsole()) {
-            // Under Flint's rules the console takes the head's first free slot (ours).
+            // Under Flint's rules the console takes the head's first free slot (NGCFells's).
             this._addCriticalItem("command-console", "Command Console", 1, "hd", futureWarsCockpit ? null : 3);
         }
         if (typeTag === "quadvee") {
@@ -5263,7 +5263,7 @@ export class BattleMech {
         // If an engine takes 6 slots, we limit the first sequential chunk to exactly 3 slots. Currently unless I can find something canonical or homebrew somewhere
         // A superheavy 'Mech's engine takes half its usual slots in each location, rounded up (IO:AE p.156).
         // Under Clell Flint's rules every engine's center torso slots go by its weight (Best-of p.36); half go before
-        // the gyro and the rest after it (ours, as the standard 3 + 3).
+        // the gyro and the rest after it (NGCFells's, as the standard 3 + 3).
         const engineCriticalTorso = futureWarsCockpit
             ? getFutureWarsEngineSlots(this.getEngineWeight() ?? 0)
             : this.getCriticalSlots((engineCrits.ct ?? 0) + (this.isLargeEngine() && !largeEngineCrits ? 2 : 0));
@@ -5322,7 +5322,7 @@ export class BattleMech {
             this._addCriticalItem("lam-avionics", "LAM Avionics", 1, "rt");
             // A VTOLAM's landing gear is retractable skids, one slot in each side torso and none in the center.
             const gearName = this.isVTOLAM() ? "VTOLAM Landing Skids" : "LAM Landing Gear";
-            // A Permanent Air 'Mech has no landing gear: it lands on its feet (owner ruling 2026-11-12).
+            // A Permanent Air 'Mech has no landing gear: it lands on its feet (NGCFells's ruling 2026-11-12).
             if (!this.isPermanentAirMech()) {
                 if (!this.isVTOLAM()) this._addCriticalItem("lam-landing-gear", gearName, 1, "ct");
                 this._addCriticalItem("lam-landing-gear", gearName, 1, "lt");
@@ -6482,7 +6482,7 @@ export class BattleMech {
         if( Object.keys(malfunctions).length ) this.futureWarsPlay.malfunctions = malfunctions; else delete this.futureWarsPlay.malfunctions;
     }
 
-    /** A weapon's recorded malfunctions together: to-hit and heat added up (ours: they stack), out if any puts it out of action. */
+    /** A weapon's recorded malfunctions together: to-hit and heat added up (NGCFells's: they stack), out if any puts it out of action. */
     public getWeaponMalfunction(uuid: string): { toHit: number; heat: number; out: boolean; effects: IMalfunctionEffect[] } | undefined {
         const rolls = this.futureWarsPlay.malfunctions?.[uuid];
         const table = rolls?.length ? this._malfunctionTable(uuid) : undefined;
@@ -6597,7 +6597,7 @@ export class BattleMech {
         const heat = this._unboostedMoveHeat();
         // A Power Booster on: legs, 1 heat a hex run (the boosted run MP until the hexes are entered); jump jets, double
         // heat a hex (The Best of Future Wars p.28). The booster's heat takes the place of the standard table's (run 2,
-        // jump 1 a hex, at least 3); what the engine or edition adds over that table (an XXL's) stays on top (ours).
+        // jump 1 a hex, at least 3); what the engine or edition adds over that table (an XXL's) stays on top (NGCFells's).
         if( this.currentMovementMode === "r" && this._boosterOnFor("running") ) {
             return Math.max(0, heat + getBoostedRunHeat(this.futureWarsPlay.boostedRunHexes ?? this.getPlayRunSpeed()) - 2);
         }
@@ -7299,7 +7299,7 @@ export class BattleMech {
     /**
      * Roll on the Determining Critical Hits Table for a location (TW p.124), or by the edition's own rule when it has
      * one (see rollEditionCriticalHit). Under Clell Flint's construction rules a location is longer; its line is rolled
-     * in tables of six (ours, src/utils/critical-tables.ts). 8-9 is one critical hit, 10-11 two, 12 three in a torso or the head or limb
+     * in tables of six (NGCFells's, src/utils/critical-tables.ts). 8-9 is one critical hit, 10-11 two, 12 three in a torso or the head or limb
      * blown off. An IndustrialMech's modified 13 counts as 12 and 14 or more is four hits in a torso or the head or limb
      * blown off (TW p.124; IO:AE p.114); a Primitive BattleMech's 13 or more counts as 12. Each hit rolls a line on
      * the location's table, rolling again on an empty line, a line that cannot take a critical hit (endo steel,
@@ -8110,7 +8110,7 @@ export class BattleMech {
 
     /**
      * A Permanent Air 'Mech's wings: the Inner Sphere Partial Wing's 7% of mass, rounded up to the half ton (TO:AUE
-     * p.104), 15% for a Heavy PAM, with no slots of their own: the LAM avionics stand for them (owner rulings 2026-11-12).
+     * p.104), 15% for a Heavy PAM, with no slots of their own: the LAM avionics stand for them (NGCFells's rulings 2026-11-12).
      */
     public getPermanentAirMechWingWeight(): number {
         if (!this.isPermanentAirMech()) return 0;
@@ -8621,7 +8621,7 @@ export class BattleMech {
 
     /**
      * LAM fuel points: 80 from the conversion equipment plus 80 per Fuel Tank (IO:AE pp.180, 214). A Permanent Air
-     * 'Mech carries that first ton as a required weight instead (owner ruling 2026-11-12).
+     * 'Mech carries that first ton as a required weight instead (NGCFells's ruling 2026-11-12).
      */
     public getLAMFuelPoints(): number {
         if (!this.isLAM() || this.isVTOLAM()) return 0;
@@ -12735,7 +12735,7 @@ export class BattleMech {
         const name = item.name.toLowerCase();
         // A VTOLAM has no fighter mode, so no fuel tanks or bomb bays.
         if (this.isVTOLAM() && (tag === BattleMech.LAM_FUEL_TANK_TAG || tag === BattleMech.LAM_BOMB_BAY_TAG)) return false;
-        // A Permanent Air 'Mech never takes Fighter Mode, so torso bomb bays could not drop (owner ruling 2026-11-12).
+        // A Permanent Air 'Mech never takes Fighter Mode, so torso bomb bays could not drop (NGCFells's ruling 2026-11-12).
         if (this.isPermanentAirMech() && tag === BattleMech.LAM_BOMB_BAY_TAG) return false;
         // Battletech Into The Future: "A VTOLAM can use any equipment a normal battlemech can use".
         if (!this._hasLAMLimits()) return true;

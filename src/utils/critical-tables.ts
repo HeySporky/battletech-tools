@@ -2,7 +2,7 @@
  * A location's critical slots as the tables a player rolls on. Canon (TW p.124): a 6-slot location is one table, its
  * line picked by one die; a 12-slot location is two tables of six, 1-3 picking the first and 4-6 the second, then a die
  * for the line. Clell Flint's construction rules (#172) give bipeds locations of other lengths and no rule for them, so
- * this is ours, the canon method stretched: tables of six, the last one short; when the tables divide 6 evenly each
+ * this is NGCFells's, the canon method stretched: tables of six, the last one short; when the tables divide 6 evenly each
  * gets that share of the die (three tables: 1-2, 3-4, 5-6), otherwise one number each and the rest are rolled again
  * (four tables: 1, 2, 3, 4). A line past the end of a short table is rolled again, as an empty line is.
  */

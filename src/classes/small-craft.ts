@@ -1892,7 +1892,7 @@ export default class SmallCraft implements IGameSettingsUnit {
         const infantry = this._bays.filter((bay) => findTransportBayType(bay.tag)?.infantry).reduce((sum, bay) => sum + this.getBayWeight(bay), 0);
         if (infantry > 0) specials.push(`IT${Math.round(infantry * 10) / 10}`);
         // Unit bays: the number of units carried, with the doors of those bays (ASC:CE pp.87-88; written as the
-        // vehicles' bays are, after MegaMek's converter). MMT is ours (Custom Homebrew): the Micro-Mech Bay.
+        // vehicles' bays are, after MegaMek's converter). MMT is NGCFells's (Custom Homebrew): the Micro-Mech Bay.
         for (const [code, tag] of [["AT", "fighter"], ["ST", "small-craft"], ["MT", "mech"], ["PT", "protomech"],
             ["VTM", "vehicle-light"], ["VTH", "vehicle-heavy"], ["VTS", "vehicle-superheavy"], ["MMT", "micro-mech"]] as [string, string][]) {
             const unitBays = this._bays.filter((bay) => bay.tag === tag);

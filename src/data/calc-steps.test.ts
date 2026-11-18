@@ -4,7 +4,7 @@ import { CalcStepDefs, CalcTrace, findCalcDefProblems, formatCitation, formatCit
 
 const defs: CalcStepDefs = {
     "armor": { section: "Defensive Battle Rating", cites: [{ source: "tm", page: "302" }], status: "cited" },
-    "guess": { section: "Final", cites: [], status: "provisional", note: "The rule is silent; we round normally." },
+    "guess": { section: "Final", cites: [], status: "provisional", note: "The rule is silent; NGCFells rounds normally." },
     "lost": { section: "Final", cites: [], status: "source-missing", note: "Needs Record Sheets: 3055." },
 };
 
@@ -78,7 +78,7 @@ describe("renderCalcStepsHtml", () => {
         expect(html).toContain("<strong>Final</strong>");
         expect(html).toContain("Armor: 152 x 2.5 = 380 (TM p.302)<br />");
         expect(html).toContain("Structure: 83 x 1.5 = 124.5 (TM p.302) -&gt; 504.5<br />");
-        expect(html).toContain("<strong>Round: 505 (provisional: The rule is silent; we round normally.)</strong><br />");
+        expect(html).toContain("<strong>Round: 505 (provisional: The rule is silent; NGCFells rounds normally.)</strong><br />");
     });
 
     it("escapes labels and details", () => {
@@ -96,8 +96,8 @@ describe("renderCalcStepsHtml", () => {
         trace.add("guess", { label: "Round", value: 1 });
         trace.add("lost", { label: "Sheet value" });
         const html = renderCalcStepsHtml(trace.steps);
-        expect(html).toContain("(provisional: The rule is silent; we round normally.)");
-        expect(html).toContain("(source not yet in our library: Needs Record Sheets: 3055.)");
+        expect(html).toContain("(provisional: The rule is silent; NGCFells rounds normally.)");
+        expect(html).toContain("(source not yet in NGCFells&#39;s library: Needs Record Sheets: 3055.)");
     });
 
     it("renders no steps as an empty string", () => {
