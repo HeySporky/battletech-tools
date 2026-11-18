@@ -65,7 +65,7 @@ Each Penitrator missile weighs half a ton, almost half of it solid fuel. They ar
 | Item | Value |
 | --- | --- |
 | **Launcher** | 3 tons, 2 slots (slots ours, as the SRM 6) |
-| **Ammunition** | 2 missiles a ton |
+| **Ammunition** | 2 missiles a ton, about 250,000 C-bills a ton (the author's estimate) |
 | **Range** | minimum 8; 12 / 24 / 36 |
 
 Roll a critical hit check for each missile that hits. Damage falls off with range; the rules give each band.

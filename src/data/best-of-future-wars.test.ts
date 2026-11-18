@@ -143,7 +143,7 @@ describe("Best of Future Wars equipment (Custom Homebrew)", () => {
         expect(launcher.weight).toBe(3);
         expect(launcher.range).toMatchObject({ min: 8, short: 12, medium: 24, long: 36 });
         expect(missile.roundsPerTon).toBe(2);
-        expect(missile.cbills).toBe(250000);
+        expect(missile.cbills).toBe(250000); // the author's figure, kept by NGCFells (2026-11-18)
         expect(launcher.rules).toContain("1d8");
         expect(launcher.rules).toContain("1d6");
         expect(launcher.rules).toContain("1d4");
