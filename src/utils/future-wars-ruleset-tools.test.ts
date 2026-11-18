@@ -3,7 +3,26 @@ import {
     getLongRangeWarsBand, getLongRangeWarsFirerModifier, getLongRangeWarsTargetModifier, getMalfunctionEffect, getMalfunctionTable,
     getMechMoraleModifier, getMechMoraleResult, getOpportunityFireToHit, getStrategicMovementHeat, getStrategicMovementMP,
     isMoralePass, MALFUNCTION_DICE,
+    FUTURE_WARS_PRINTING_IDS, FW_EQUIPMENT_FIRST_PRINTINGS, FW_LONG_RANGE_WARS, FW_LONG_RANGE_WARS_12, FW_MORALE, FW_MORALE_17,
+    FW_WEAPON_MALFUNCTIONS, FW_WEAPON_MALFUNCTIONS_9,
 } from "./future-wars-ruleset-tools";
+import { getRulesetBlock } from "../data/special-rulesets";
+
+describe("Future Wars printing alternates (#172)", () => {
+    it("names each printed rule's two rulesets, which clash either way round", () => {
+        expect(FUTURE_WARS_PRINTING_IDS).toEqual({
+            morale: { "best-of": FW_MORALE, original: FW_MORALE_17 },
+            malfunctions: { "best-of": FW_WEAPON_MALFUNCTIONS, original: FW_WEAPON_MALFUNCTIONS_9 },
+            longRangeWars: { "best-of": FW_LONG_RANGE_WARS, original: FW_LONG_RANGE_WARS_12 },
+        });
+        expect([FW_MORALE_17, FW_WEAPON_MALFUNCTIONS_9, FW_LONG_RANGE_WARS_12, FW_EQUIPMENT_FIRST_PRINTINGS])
+            .toEqual(["fw-morale-17", "fw-weapon-malfunctions-9", "fw-long-range-wars-12", "fw-equipment-first-printings"]);
+        for (const pair of Object.values(FUTURE_WARS_PRINTING_IDS)) {
+            expect(getRulesetBlock([pair["best-of"]], pair.original)?.kind, pair.original).toBe("clash");
+            expect(getRulesetBlock([pair.original], pair["best-of"])?.kind, pair["best-of"]).toBe("clash");
+        }
+    });
+});
 
 /** Best of Future Wars plan, Chunk E (#172): the numbers behind the play-rule tools (BoFW pp.17-29, 55-56). */
 describe("Best of Future Wars ruleset tools", () => {

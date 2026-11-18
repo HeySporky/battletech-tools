@@ -31,7 +31,7 @@ describe("FutureWarsRulesReference", () => {
         fireEvent.change(screen.getByLabelText("Special Rulesets:"), { target: { value: "yes" } });
         for (const id of FUTURE_WARS_PLAY_RULESET_IDS) {
             const name = findSpecialRuleset(id)!.name;
-            fireEvent.click(screen.getByRole("button", { name: new RegExp("^More info\\s*: " + name + "$") }));
+            fireEvent.click(screen.getByRole("button", { name: new RegExp("^More info\\s*: " + name.replace(/[()]/g, "\\$&") + "$") }));
             const panel = screen.getByTestId(`future-wars-rules-${id}`);
             expect((panel as HTMLDetailsElement).open, id).toBe(true);
             expect(panel.textContent).toContain(getFutureWarsPlayRules(id)!.tables[0].title);

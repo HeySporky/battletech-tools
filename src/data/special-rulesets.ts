@@ -168,10 +168,24 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         id: "fw-morale",
         summary: "Hurt units of Militia to Crack quality check morale and may become disorganized, break or rout.",
         category: "play",
-        name: "Future Wars: Morale",
+        name: "Future Wars: Morale (Best of Future Wars printing)",
         description: "Units rated Militia to Crack check morale when hurt, and may carry on, become disorganized, break or rout; "
             + "'Mechs, vehicles and infantry each have their own tables.",
         source: { title: FUTURE_WARS_PLAY_SOURCES["fw-morale"], publication: "Future Wars", tag: "Best of FW", author: "Herb Barents" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["morale"],
+    },
+    // The original printings (#172, printing alternates; NGCFells 2026-11-17): where the 1991 reprint changed a rule,
+    // the original is offered too. Each shares its reprint twin's change, so the two refuse each other.
+    {
+        id: "fw-morale-17",
+        summary: "Morale as Future Wars #17 first printed it: shaken units check at a higher number, and routs last until off the board.",
+        category: "play",
+        name: "Future Wars: Morale (Future Wars #17 printing)",
+        description: "The 1990 original of the morale rules: a disorganized, broken or routed unit needs 1, 2 or 3 more to pass; "
+            + "a 'Mech checks on every hit once three locations have internal damage; a rout lasts until the unit is off the "
+            + "board; a 13 raises the unit 1 on the morale scale.",
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-morale-17"], publication: "Future Wars", tag: "FW #17", author: "Herb Barents" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["morale"],
     },
@@ -179,7 +193,7 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         id: "fw-weapon-malfunctions",
         summary: "A to-hit roll of 2 misses, and the weapon may then jam, lose its sight or overheat.",
         category: "play",
-        name: "Future Wars: Weapon Malfunctions",
+        name: "Future Wars: Weapon Malfunctions (Best of Future Wars printing)",
         description: "A to-hit roll of 2 misses, and flamers, missiles, autocannons and lasers then roll for a jam, a damaged sight, "
             + "extra heat or worse.",
         source: { title: FUTURE_WARS_PLAY_SOURCES["fw-weapon-malfunctions"], publication: "Future Wars", tag: "Best of FW", author: "Karl Bruanning and Herb Barents" },
@@ -187,13 +201,35 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         changes: ["weaponFailure"],
     },
     {
+        id: "fw-weapon-malfunctions-9",
+        summary: "Weapon Malfunctions as Future Wars #9 first printed them, with its own flamer, autocannon and laser rows.",
+        category: "play",
+        name: "Future Wars: Weapon Malfunctions (Future Wars #9 printing)",
+        description: "The 1988 original of the malfunction tables: a to-hit roll of 2 misses and rolls on the weapon's table; a "
+            + "flamer has no row 5, a jammed autocannon on 11 can still fire, and a laser burned out on 17 is gone for good.",
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-weapon-malfunctions-9"], publication: "Future Wars", tag: "FW #9", author: "Karl Bruanning and Herb Barents" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["weaponFailure"],
+    },
+    {
         id: "fw-long-range-wars",
         summary: "Two range bands past long, extended and extreme, with ranging on slow targets.",
         category: "play",
-        name: "Future Wars: The Long Range Wars",
+        name: "Future Wars: The Long Range Wars (Best of Future Wars printing)",
         description: "Two range bands past long: extended (twice long, to-hit 10) and extreme (twice extended, to-hit 13), with ranging "
             + "on a slow target and an eight-sided-dice option.",
         source: { title: FUTURE_WARS_PLAY_SOURCES["fw-long-range-wars"], publication: "Future Wars", tag: "Best of FW", author: "Herb Barents" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["weaponRanges"],
+    },
+    {
+        id: "fw-long-range-wars-12",
+        summary: "The Long Range Wars as FW #12 first printed it: ranging on any target, and 2 or 3 malfunctions on eight-sided dice.",
+        category: "play",
+        name: "Future Wars: The Long Range Wars (Future Wars #12 printing)",
+        description: "The 1989 original: extended and extreme range bands (to-hit 10 and 13), ranging on any target the same 'Mech "
+            + "keeps firing at, and an eight-sided-dice option where a to-hit roll of 2 or 3 malfunctions.",
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-long-range-wars-12"], publication: "Future Wars", tag: "FW #12", author: "Herb Barents" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["weaponRanges"],
     },

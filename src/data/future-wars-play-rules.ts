@@ -30,14 +30,19 @@ export const FUTURE_WARS_PLAY_RULESET_IDS = [
     "fw-morale",
     "fw-weapon-malfunctions",
     "fw-long-range-wars",
+    // The original printings where the reprint changed a rule (#172, printing alternates): each refuses its reprint twin.
+    "fw-morale-17",
+    "fw-weapon-malfunctions-9",
+    "fw-long-range-wars-12",
 ] as const;
 
 const BOOK = "The Best of Future Wars, Volume One (1991)";
 
 /**
  * Source titles for the registry: the original issue first, then the reprint (Chunk R, 2026-11-17: each checked
- * against the original's page image). Where the reprint changed a rule, the tables below still follow the reprint
- * until NGCFells rules; the differences are in the Chunk R ledger.
+ * against the original's page image). Where the reprint changed a rule, NGCFells ruled (2026-11-17) that both
+ * printings are offered: the reprint's rulesets keep their ids, and each original printing is a twin ruleset
+ * ("-17", "-9", "-12") citing only the original issue.
  */
 export const FUTURE_WARS_PLAY_SOURCES: Record<typeof FUTURE_WARS_PLAY_RULESET_IDS[number], string> = {
     "fw-opportunity-fire": `Charles J. Tomaszewski, 'Battletech Rule Variant #1: Using Oppurtunity Fire in BattleTech', *Future Wars* #13 (1989), pp.16-17; reprinted as 'Rules Variant: Opportunity Fire', ${BOOK}, p.17`,
@@ -45,6 +50,9 @@ export const FUTURE_WARS_PLAY_SOURCES: Record<typeof FUTURE_WARS_PLAY_RULESET_ID
     "fw-morale": `Herb Barents, 'Stand I Say!!! Morale in BattleTech', *Future Wars* #17 (1990), pp.36-40; reprinted in ${BOOK}, pp.22-26`,
     "fw-weapon-malfunctions": `Karl Bruanning and Herb Barents, 'Weapon Malfunctions during Combat', *Future Wars* #9 (1988), pp.10-11; reprinted (Bruanning only) as 'Weapons Malfunctions During Combat', ${BOOK}, p.29`,
     "fw-long-range-wars": `Herb Barents, 'The Long Range Wars', *Future Wars* #12 (1989), pp.12-13; reprinted in ${BOOK}, pp.55-56`,
+    "fw-morale-17": "Herb Barents, 'Stand I Say!!! Morale in BattleTech', *Future Wars* #17 (1990), pp.36-40",
+    "fw-weapon-malfunctions-9": "Karl Bruanning and Herb Barents, 'Weapon Malfunctions during Combat', *Future Wars* #9 (1988), pp.10-11",
+    "fw-long-range-wars-12": "Herb Barents, 'The Long Range Wars', *Future Wars* #12 (1989), pp.12-13",
 };
 
 const futureWarsPlayRules: Record<string, IFutureWarsPlayRules> = {
@@ -408,7 +416,105 @@ const futureWarsPlayRules: Record<string, IFutureWarsPlayRules> = {
     },
 };
 
-/** The rules summary for a Best of Future Wars play ruleset, or undefined for any other ruleset. */
+type RowEdit = [label: string, row: [string, string] | null];
+
+/**
+ * One of the reprint's tables as the original printed it: `edits` replace a row in place (null drops it), `added` rows
+ * follow, and `note` replaces the reprint's note (null drops it; omitted keeps it).
+ */
+function asFirstPrinted(id: string, title: string, page: string, edits: RowEdit[] = [], added: [string, string][] = [], note?: string | null): IBattledroidsRulesTable {
+    const reprint = futureWarsPlayRules[id].tables.find((table) => table.title === title);
+    if (!reprint) throw new Error(`No ${id} table "${title}"`);
+    const rows: [string, string][] = [];
+    for (const row of reprint.rows) {
+        const edit = edits.find(([label]) => label === row[0]);
+        if (!edit) rows.push(row);
+        else if (edit[1]) rows.push(edit[1]);
+    }
+    const table: IBattledroidsRulesTable = { title, page, rows: [...rows, ...added] };
+    const kept = note === undefined ? reprint.note : note ?? undefined;
+    if (kept) table.note = kept;
+    return table;
+}
+
+const MECH_RESULTS = "'Mech results (2D6 + modifiers)";
+
+// Morale as Future Wars #17 (1990) printed it, read from the page images (PDF 39-42 = printed pp.37-40).
+futureWarsPlayRules["fw-morale-17"] = {
+    summary: "A unit has a morale class: Militia, Green, Regular, Veteran, Elite or Crack. When a check is called for, roll 2D6: "
+        + "the class's number, raised by 1, 2 or 3 if the unit is already disorganized, broken or routed, or more passes. On a "
+        + "failure, roll 2D6 again, add the modifiers, and apply the result on the unit's table. Results last one turn unless the "
+        + "table says otherwise; a rout lasts until the unit is off the board, and a second rout (or a rout and a broken, for "
+        + "vehicles and infantry) means surrender. Drops on the morale scale last the game. Results may be kept secret on the "
+        + "record sheet.",
+    tables: [
+        asFirstPrinted("fw-morale", "Morale check", "FW #17 pp.37-38", [], [
+            ["Disorganized / broken / routed", "+1 / +2 / +3 to the class's number"],
+        ]),
+        asFirstPrinted("fw-morale", "When a 'Mech checks", "FW #17 p.37", [
+            ["Head hit", ["Head hit", "A hit to the head (named in the text on p.37, not in the chart)"]],
+            ["Internal damage", ["Internal damage", "The first, and each later time it takes internal damage (several hits at once: one roll)"]],
+            ["Damage spread", ["Internal damage spread", "Once three locations have internal damage, every time it takes damage"]],
+        ]),
+        asFirstPrinted("fw-morale", "'Mech modifiers", "FW #17 pp.38-39"),
+        asFirstPrinted("fw-morale", MECH_RESULTS, "FW #17 p.38", [
+            ["-5", ["-5", "Routed until off the board; leaves the battle as soon as it can; no fighting back of any kind; every unit within 10 hexes and in sight checks morale"]],
+            ["-4", ["-4", "Routed until off the board; leaves the battle as soon as it can; no fighting"]],
+            ["-3", ["-3", "Routed until off the board; leaves the battle as soon as it can; no firing; physical attacks in defense only, at +8"]],
+            ["12", ["12", "Carry on; enraged: +1 on later rolls on this table"]],
+            ["13", ["13", "Carry on; enraged: up 1 on the morale scale"]],
+        ]),
+        asFirstPrinted("fw-morale", "When a vehicle checks", "FW #17 p.39"),
+        asFirstPrinted("fw-morale", "Vehicle modifiers", "FW #17 p.39"),
+        asFirstPrinted("fw-morale", "Vehicle results (2D6 + modifiers)", "FW #17 p.39"),
+        asFirstPrinted("fw-morale", "When infantry checks", "FW #17 p.39"),
+        asFirstPrinted("fw-morale", "Infantry modifiers", "FW #17 pp.39-40"),
+        asFirstPrinted("fw-morale", "Infantry results (2D6 + modifiers)", "FW #17 p.40"),
+    ],
+};
+
+// Weapon Malfunctions as Future Wars #9 (1988) printed them (printed pp.10-11, transcribed from the page images).
+futureWarsPlayRules["fw-weapon-malfunctions-9"] = {
+    summary: futureWarsPlayRules["fw-weapon-malfunctions"].summary,
+    tables: [
+        asFirstPrinted("fw-weapon-malfunctions", "Flamers (1D6)", "FW #9 p.10", [
+            ["5", ["5", "No effect (the original prints no row 5; NGCFells ruled a 5 does nothing)"]],
+        ]),
+        asFirstPrinted("fw-weapon-malfunctions", "Missiles (2D6)", "FW #9 p.10", [
+            ["8", ["8", "Catastrophic jam: three Piloting Skill Rolls in a row, at +3, +2 and +1, with no firing or jumping of any kind, clear it"]],
+        ]),
+        asFirstPrinted("fw-weapon-malfunctions", "Autocannons and machine guns (2D6)", "FW #9 p.11", [
+            ["3", ["3", "Round jams: a Piloting Skill Roll at +3 clears it, with no movement or firing while clearing; firing it while still jammed blows it up"]],
+            ["4", ["4", "Casing fails to clear: a Piloting Skill Roll at +2 with no firing clears it. Until then it can fire at +1 to-hit and +1 heat for each turn fired (the third turn: +3 and +3); after 5 turns of firing it stays jammed until repaired at base"]],
+            ["6", ["6", "Ammo jam: a Piloting Skill Roll at +1 and a Gunnery Skill Roll clear it"]],
+            ["11", ["11", "Casing partly jams in the ejector: no way to clear it; it can still fire, but on a to-hit roll of 2, 3 or 4 roll twice on this table"]],
+        ]),
+        asFirstPrinted("fw-weapon-malfunctions", "Lasers (3D6)", "FW #9 p.11", [
+            ["16", ["16", "+2 to-hit, +5 heat when used"]],
+            ["17", ["17", "Burned out: it can no longer be used"]],
+        ]),
+    ],
+};
+
+// The Long Range Wars as Future Wars #12 (1989) printed it (printed pp.12-13, checked against the page images).
+futureWarsPlayRules["fw-long-range-wars-12"] = {
+    summary: "For big games on many map sheets: two range bands past long. Extended range is twice long range and extreme twice "
+        + "extended, with base to-hit numbers of 10 and 13 and their own movement modifiers. A firer ranges in on its target: "
+        + "each turn in a row the same 'Mech fires at it, the to-hit drops by 1 more. An option replaces the six-sided to-hit "
+        + "dice with two eight-sided dice; the article suggests dropping ranging with it, and with Weapon Malfunctions a to-hit "
+        + "roll of 2 or 3 malfunctions.",
+    tables: [
+        asFirstPrinted("fw-long-range-wars", "New range bands", "FW #12 p.12"),
+        asFirstPrinted("fw-long-range-wars", "Modifiers at extended and extreme range", "FW #12 p.13", [
+            ["Ranging", ["Ranging", "-1 for each turn in a row the same 'Mech fires at the target"]],
+        ]),
+        asFirstPrinted("fw-long-range-wars", "Option: eight-sided dice", "FW #12 p.13", [], [
+            ["Weapon Malfunctions", "A malfunction on a to-hit roll of 2 or 3"],
+        ]),
+    ],
+};
+
+/** The rules summary for a Future Wars play ruleset (either printing), or undefined for any other ruleset. */
 export function getFutureWarsPlayRules(rulesetId: string): IFutureWarsPlayRules | undefined {
     return futureWarsPlayRules[rulesetId];
 }

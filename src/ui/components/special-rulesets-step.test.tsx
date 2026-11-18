@@ -15,6 +15,7 @@ afterEach(() => {
     }
 });
 
+const MORALE = "Future Wars: Morale (Best of Future Wars printing)";
 const FLINT_11 = "Future Wars: Alternate 'Mech construction (Future Wars #11 printing)";
 const open = (rulesets: string[] = [], onToggle: (ids: string[]) => void = () => undefined) => {
     render(<SpecialRulesetsStep rulesets={rulesets} notice="" onToggle={onToggle} />);
@@ -33,7 +34,7 @@ describe("SpecialRulesetsStep list", () => {
     it("groups the rulesets by category with ticked counts", () => {
         open(["fw-power-armor"]);
         expect(screen.getByText("Construction (1 of 3 ticked)")).toBeTruthy();
-        expect(screen.getByText("Play (0 of 6 ticked)")).toBeTruthy();
+        expect(screen.getByText("Play (0 of 9 ticked)")).toBeTruthy();
         expect(screen.getByText("Setting (0 of 1 ticked)")).toBeTruthy();
     });
 
@@ -71,7 +72,7 @@ describe("SpecialRulesetsStep list", () => {
         openFromNo();
         expect(rows().length).toBe(btSpecialRulesets.length);
         fireEvent.change(screen.getByLabelText("Search rulesets"), { target: { value: "Bruanning" } });
-        expect(rows().length).toBe(1);
+        expect(rows().length).toBe(2); // Weapon Malfunctions in both printings
         fireEvent.change(screen.getByLabelText("Search rulesets"), { target: { value: "" } });
         fireEvent.change(screen.getByLabelText("Source"), { target: { value: "r/battletech" } });
         expect(rows().length).toBe(1);
@@ -103,7 +104,7 @@ describe("SpecialRulesetsStep list", () => {
     it("opens More info in the same window and comes back to the same list", () => {
         openFromNo();
         fireEvent.change(screen.getByLabelText("Search rulesets"), { target: { value: "Barents" } });
-        const button = moreInfo("Future Wars: Morale");
+        const button = moreInfo(MORALE);
         fireEvent.click(button);
         const detail = screen.getByTestId("ruleset-detail-fw-morale");
         expect(detail.textContent).toContain("Author: Herb Barents");
@@ -114,7 +115,7 @@ describe("SpecialRulesetsStep list", () => {
         fireEvent.click(screen.getByRole("button", { name: /Back to list/ }));
         expect(screen.queryByTestId("ruleset-detail-fw-morale")).toBeNull();
         expect((screen.getByLabelText("Search rulesets") as HTMLInputElement).value).toBe("Barents");
-        expect(document.activeElement).toBe(moreInfo("Future Wars: Morale"));
+        expect(document.activeElement).toBe(moreInfo(MORALE));
     });
 
     it("puts the list back where it was scrolled, on whichever ancestor scrolls", () => {
@@ -124,7 +125,7 @@ describe("SpecialRulesetsStep list", () => {
         Object.defineProperty(modal, "scrollHeight", { configurable: true, value: 2000 });
         Object.defineProperty(modal, "clientHeight", { configurable: true, value: 500 });
         modal.scrollTop = 300;
-        fireEvent.click(moreInfo("Future Wars: Morale"));
+        fireEvent.click(moreInfo(MORALE));
         modal.scrollTop = 0;
         fireEvent.click(screen.getByRole("button", { name: /Back to list/ }));
         expect(modal.scrollTop).toBe(300);
@@ -156,7 +157,7 @@ describe("SpecialRulesetsStep list", () => {
 
     it("reopens on the list after closing from More info", () => {
         open(["fw-morale"]);
-        fireEvent.click(moreInfo("Future Wars: Morale"));
+        fireEvent.click(moreInfo(MORALE));
         fireEvent.click(screen.getAllByRole("button", { name: "Close" })[0]);
         fireEvent.click(screen.getByText("Choose rulesets", { selector: "button" }));
         expect(screen.queryByTestId("ruleset-detail-fw-morale")).toBeNull();
@@ -166,7 +167,7 @@ describe("SpecialRulesetsStep list", () => {
     it("calls onToggle with the ruleset id", () => {
         const onToggle = vi.fn();
         openFromNo([], onToggle);
-        fireEvent.click(screen.getByLabelText("Future Wars: Morale"));
+        fireEvent.click(screen.getByLabelText(MORALE));
         expect(onToggle).toHaveBeenCalledWith(["fw-morale"]);
     });
 });

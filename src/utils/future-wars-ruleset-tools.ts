@@ -11,6 +11,22 @@ export const FW_STRATEGIC_MOVEMENT = "fw-strategic-movement";
 export const FW_MORALE = "fw-morale";
 export const FW_WEAPON_MALFUNCTIONS = "fw-weapon-malfunctions";
 export const FW_LONG_RANGE_WARS = "fw-long-range-wars";
+// The original printings (#172, printing alternates): each refuses its Best of Future Wars twin above.
+export const FW_MORALE_17 = "fw-morale-17";
+export const FW_WEAPON_MALFUNCTIONS_9 = "fw-weapon-malfunctions-9";
+export const FW_LONG_RANGE_WARS_12 = "fw-long-range-wars-12";
+/** The equipment rules as the original issues printed them (Power Booster, Inferno Gauss, LR Flamer, PDS, Swing Fire). */
+export const FW_EQUIPMENT_FIRST_PRINTINGS = "fw-equipment-first-printings";
+
+/** Which printing a Future Wars rule follows: the 1991 reprint, or the issue it first appeared in. */
+export type FutureWarsPrinting = "best-of" | "original";
+export type FutureWarsPrintedRule = "morale" | "malfunctions" | "longRangeWars";
+
+export const FUTURE_WARS_PRINTING_IDS: Record<FutureWarsPrintedRule, Record<FutureWarsPrinting, string>> = {
+    morale: { "best-of": FW_MORALE, original: FW_MORALE_17 },
+    malfunctions: { "best-of": FW_WEAPON_MALFUNCTIONS, original: FW_WEAPON_MALFUNCTIONS_9 },
+    longRangeWars: { "best-of": FW_LONG_RANGE_WARS, original: FW_LONG_RANGE_WARS_12 },
+};
 
 /** A table row's text, read from the rules summary so the two never drift apart. */
 const rowText = (rulesetId: string, titleStart: string, label: string): string => {

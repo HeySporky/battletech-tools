@@ -15,7 +15,7 @@ describe("ruleset list", () => {
     });
 
     it("searches author and tag", () => {
-        expect(ids({ query: "Bruanning" })).toEqual(["fw-weapon-malfunctions"]);
+        expect(ids({ query: "Bruanning" })).toEqual(["fw-weapon-malfunctions", "fw-weapon-malfunctions-9"]);
         expect(ids({ query: "FW #14" })).toEqual(["fw-power-armor"]);
     });
 
@@ -40,7 +40,7 @@ describe("ruleset list", () => {
         expect(groupRulesets(btSpecialRulesets, shown, ticked).map((group) => group.category)).toEqual(["construction"]);
         const all = groupRulesets(btSpecialRulesets, btSpecialRulesets, ticked);
         expect(all.map((group) => group.category)).toEqual(["construction", "play", "setting"]);
-        expect(all.find((group) => group.category === "play")).toMatchObject({ label: "Play", ticked: 1, total: 6 });
+        expect(all.find((group) => group.category === "play")).toMatchObject({ label: "Play", ticked: 1, total: 9 });
         expect(all[0]).toMatchObject({ label: "Construction", ticked: 0, total: 3 });
     });
 
