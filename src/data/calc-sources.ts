@@ -47,6 +47,7 @@ export const CALC_SOURCES: Record<string, ICalcSource> = {
     "xtro-clans": { short: "XTRO: Clans", title: "Experimental Technical Readout: Clans", printing: "2011 PDF, by PDF page" },
     "xtro-royal-fantasy": { short: "XTRO: Royal Fantasy", title: "Experimental Technical Readout: Royal Fantasy", printing: "2014 PDF, by PDF page" },
     // Fan-made, Custom Homebrew (#173). The document carries no page numbers: the page given is the page of the PDF.
+    "best-of-future-wars": { short: "Best of FW", title: "The Best of Future Wars, Volume One (fanzine reprint)", printing: "1991, by printed page" },
     "micro-mechs-6.1.0.2": { short: "Micro-Mechs 6.1.0.2", title: "Micro-Mechs (by Solarmech; revised, with appendices by Discord)", printing: "Version 6.1.0.2, by PDF page" },
     "ioae-errata-3.01": { short: "IO:AE errata v3.01", title: "Interstellar Operations: Alternate Eras errata", printing: "v3.01 (17 January 2023)", errataOf: "ioae" },
 };

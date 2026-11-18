@@ -69,6 +69,8 @@ export const MECH_BV2_STEPS: CalcStepDefs = {
     "bv2.def.factor.null-signature": step(DEFENSIVE, [at("toaue", "194"), at("toaue", "148")]),
     "bv2.def.factor.chameleon": step(DEFENSIVE, [at("toaue", "193"), at("toaue", "112")]),
     "bv2.def.factor.void-signature": step(DEFENSIVE, [at("toaue", "194")]),
+    "bv2.def.factor.power-armor": provisional(DEFENSIVE, [at("best-of-future-wars", "14"), at("tm", "304")],
+        "Custom Homebrew, ours: Bill Swisher's Power Armor gives no Battle Value. His rules put attacks on a suit at +1 to hit, so we count it as one more point of Target Movement Modifier: +0.1 to the Defensive Factor (TM p.304)."),
     "bv2.def.rating": step(DEFENSIVE, [at("tm", "303")]),
 
     // ---- Step 2: Offensive Battle Rating ----

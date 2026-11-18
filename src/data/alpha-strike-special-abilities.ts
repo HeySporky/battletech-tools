@@ -66,6 +66,20 @@ export const WALKER_AS_ABILITY_TEXT: string[] = [
     "Legs: no leg is tracked. An MP Hit on the ’Mech critical hit column stands for a lost leg.",
 ];
 
+/**
+ * What the PWA ability means on the table: Bill Swisher's Power Armor (Future Wars #14; The Best of Future Wars, Volume
+ * One, pp.14-16) in Alpha Strike. Ours (owner ruling 2026-11-17): the converter's BattleMech card plus this ability.
+ */
+export const POWER_ARMOR_AS_ABILITY_TEXT: string[] = [
+    "Every Power Armor suit (a 5, 10 or 15-ton suit built under Bill Swisher’s Power Armor rules from Future Wars) has this ability. It is a Custom Homebrew rule of this app, not an official one. The suit is otherwise a BattleMech (BM) of Size 1.",
+    "Hard to hit: every attack against the suit is at +1 to hit.",
+    "Low profile: the suit is 1 inch (1 level) tall, as a vehicle, for line of sight.",
+    "Stacking: on a hex map, up to 14 suits may share a hex, or 7 when they share it with one other unit.",
+    "Physical attacks: it may make a standard physical attack or a charge only against a unit on its own level, and a Death From Above; it may not make a melee attack. A failed Death From Above also wounds its pilot.",
+    "No ejection: the pilot cannot eject. Leaving the suit takes a full turn in which it neither moves nor attacks.",
+    "Point Value: the +1 to hit is priced as +1 to the unit’s movement modifier in the defense factor, as Stealth (STL) is.",
+];
+
 /** AIF#, Anti-Infantry Fire: a walker's center-torso weapons. Ours, from Flint; the two printings give the base to-hit differently. */
 export const WALKER_AIF_AS_ABILITY_TEXT: string[] = [
     "A walker’s center-torso weapons (machine guns, small lasers, flamers) fire only at infantry and vehicles under it. It is a Custom Homebrew rule of this app, not an official one, after Clell Flint’s walker rules in Future Wars.",
@@ -1588,6 +1602,14 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         name: "Anti-Infantry Fire",
         summary: WALKER_AIF_AS_ABILITY_TEXT,
         source: { book: "TRO - JBT: Walkers (Custom Homebrew, NOT OFFICIAL)", page: 4 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Power Armor (#172): ours, after Bill Swisher's rules (Future Wars #14; The Best of Future Wars, Volume One).
+        tag: "PWA",
+        name: "Power Armor",
+        summary: POWER_ARMOR_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Power Armor (Custom Homebrew, NOT OFFICIAL)", page: 6 },
         type: ESpecialAbilityType.Custom
     }
 

@@ -139,5 +139,11 @@ export function getPowerArmorSheetRules(tons: number): string[] {
     return rules;
 }
 
+/**
+ * PWA, Power Armor, on a suit's Alpha Strike card (owner ruling 2026-11-17: ours). The card is the converter's BattleMech
+ * card; PWA carries the article's play rules, and the Point Value counts its +1 to hit as +1 TMM in the defense factor.
+ */
+export const POWER_ARMOR_AS_ABILITY = "PWA";
+
 /** Cited under the rules on the sheet and in the panel. */
 export const POWER_ARMOR_RULES_CITE = "Bill Swisher, The Best of Future Wars pp.14-16";

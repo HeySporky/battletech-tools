@@ -40,7 +40,7 @@ import { describeEngineRequirement, engineMeetsRequirement, FUSION_ENGINE_TAGS, 
 import { mechGyroTypes } from "../data/mech-gyro-types";
 import {
     FW_POWER_ARMOR_RULESET, POWER_ARMOR_FIVE_TON_STRUCTURE, POWER_ARMOR_FIVE_TON_WEAPONS, POWER_ARMOR_PILOT_SLOTS, POWER_ARMOR_TONNAGES,
-    POWER_ARMOR_WALDO, getPowerArmorShieldingWeight, getPowerArmorSlots, isPowerArmorTonnage, needsPowerArmorShielding,
+    POWER_ARMOR_AS_ABILITY, POWER_ARMOR_WALDO, getPowerArmorShieldingWeight, getPowerArmorSlots, isPowerArmorTonnage, needsPowerArmorShielding,
 } from "../data/future-wars-power-armor";
 import { mechHeatSinkTypes } from "../data/mech-heat-sink-types";
 import { mechInternalStructureTypes } from "../data/mech-internal-structure-types";
@@ -1346,6 +1346,11 @@ export class BattleMech {
         if (hasEquipmentTag("chameleon-lps")) {
             defensiveFactorModifier += 0.2;
             addFactor("bv2.def.factor.chameleon", "Chameleon Light Polarization Shield (+0.2)", 0.2);
+        }
+        // Power Armor (#172, ours): "+1 to hit a suit" (Best-of p.14) counted as one more point of TMM.
+        if (this.usesPowerArmorConstruction()) {
+            defensiveFactorModifier += 0.1;
+            addFactor("bv2.def.factor.power-armor", "Power Armor: +1 to hit the suit (+0.1)", 0.1);
         }
         if (hasEquipmentTag("void-signature-system")) {
             const voidBonus = moveModifier < 3 ? (3 - moveModifier) / 10 : moveModifier === 3 ? 0.1 : 0;
@@ -3587,6 +3592,12 @@ export class BattleMech {
         this._alphaStrikeForceStats.overheat = final_overheat_value;
         this._alphaStrikeForceStats.longOverheat = final_long_overheat_value;
 
+        // Power Armor (#172, owner ruling 2026-11-17, ours): the BattleMech card plus PWA, which the Point Value prices.
+        if (this.usesPowerArmorConstruction()) {
+            this._alphaStrikeForceStats.abilityCodes.push(POWER_ARMOR_AS_ABILITY);
+            this._calcLogAS += "Power Armor suit: gets the PWA ability (Custom Homebrew)<br />\n";
+        }
+
         // Offensive Special Ability Factor
         // TODO
 
@@ -5050,6 +5061,11 @@ export class BattleMech {
 
     /** The note on a Battle Value or cost breakdown worked out under Flint's rules, which give neither. */
     private _futureWarsBreakdownNotes(edition: string): string[] | undefined {
+        if (this.usesPowerArmorConstruction()) {
+            return [`Built under Bill Swisher's Power Armor rules (Future Wars), which give neither; Battle Value and cost by ${getRulesEdition(edition).name} `
+                + "on the suit as built, with the waldo system's 50,000 C-bills in place of a cockpit's. Ours: the +1 to hit a suit counts as +1 TMM "
+                + "in the Defensive Factor (BV2)."];
+        }
         if (!this.usesFutureWarsConstruction()) return undefined;
         return [`Built under Clell Flint's alternate construction rules (Future Wars); Battle Value and cost by ${getRulesEdition(edition).name} on the design as built.`];
     }

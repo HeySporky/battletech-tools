@@ -213,6 +213,8 @@ export function calculateGroundPointValue(input: IGroundPVInput): IGroundPVResul
     if (vehicle && ["v", "g"].includes(bestGroundMode)) modifier += 1;
     if (has("LG") || has("VLG") || has("SLG")) modifier -= 1;
     if (has("STL")) modifier += 1;
+    // PWA, Power Armor (Custom Homebrew, ours, owner ruling 2026-11-17): +1 to hit the suit, priced as STL's +1.
+    if (has("PWA")) modifier += 1;
     modifier += ratingOf("JMPS") / 2 + ratingOf("SUBS") / 2;
     const defenseFactor = 1 + (modifier > 2 ? 0.25 : 0.1) * modifier;
     const dir = roundToHalf((input.armor * armorMultiplier + input.structure * structureMultiplier) * defenseFactor);

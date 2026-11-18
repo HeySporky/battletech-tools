@@ -162,6 +162,10 @@ above), `src/data/mech-cockpit-types.ts` or the custom cockpit catalog (the wald
   the ruleset readout; lore from the history above in our words; a TRO - JBT entry. Alpha Strike: bring the owner a
   proposal first (candidates: a size-1 BattleMech card with a special ability for the +1 to hit, after the Micro-Mech
   ruleset in `micro-mech.ts`). Commit `Custom Homebrew: Power Armor values and readout (#172)`.
+- OWNER RULING 2026-11-17 (Alpha Strike): keep the converter's BattleMech card (type BM, Size 1; IPA-4 converts to
+  MV 12", A1/S1, 1/0/0, ENE, 7 PV) and add a Custom special **PWA** (Power Armor), text written like WLK / MCR: +1 to
+  hit it; 1 level tall (low profile, as MCR); stacking reminder; no ejection; physical attacks as the article. The Point
+  Value counts the +1 to hit as +1 TMM in the defensive factor (ours, labelled).
 
 ## Chunk E: The FW #14 sample suits (OWNER: YES, 2026-11-17)
 

@@ -1,3 +1,4 @@
+import { readFileSync } from "fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import Vehicle from "../../../classes/vehicle";
@@ -14,11 +15,11 @@ import { canonRecord, COST_PER_BV, directFireBattleValue, extrapolate, interpola
 import { sizeVariableEquipment } from "../../../data/variable-equipment";
 import { getEquipmentCatalogDefinitions } from "../../../data/equipment-registry";
 import { ARTVEE_SAMPLES } from "../../../data/artvee-samples";
-import { CONST_AS_SPECIAL_ABILITIES, MICRO_MECH_AS_ABILITY_TEXT, WALKER_AS_ABILITY_TEXT } from "../../../data/alpha-strike-special-abilities";
+import { CONST_AS_SPECIAL_ABILITIES, MICRO_MECH_AS_ABILITY_TEXT, POWER_ARMOR_AS_ABILITY_TEXT, WALKER_AS_ABILITY_TEXT } from "../../../data/alpha-strike-special-abilities";
 import Walker from "../../../classes/walker";
 import { getWalkerStatBlock } from "../../../classes/walker-readout";
 import { getWalkerSamples } from "../../../data/walker-samples";
-import { AMMUNITION_READOUT, ARTVEE_READOUT, BEST_OF_FUTURE_WARS_READOUT, HOMEBREW_EQUIPMENT_READOUT, MICRO_MECHS_READOUT, WALKERS_READOUT, ReadoutText, TRO_DOCUMENTS, TRO_INTRODUCTION, readoutPageTitle, readoutPages, readoutSectionId } from "./tro-jbt";
+import { AMMUNITION_READOUT, ARTVEE_READOUT, BEST_OF_FUTURE_WARS_READOUT, HOMEBREW_EQUIPMENT_READOUT, MICRO_MECHS_READOUT, POWER_ARMOR_READOUT, WALKERS_READOUT, ReadoutText, TRO_DOCUMENTS, TRO_INTRODUCTION, readoutPageTitle, readoutPages, readoutSectionId } from "./tro-jbt";
 
 /** The text of one `#### name` section of the readout. */
 function section(name: string): string {
@@ -75,7 +76,7 @@ describe("ArtVee readout", () => {
 describe("TRO - JBT", () => {
     it("opens with the introduction and a card for the ArtVees, then the ammunition", () => {
         expect(TRO_INTRODUCTION).toContain("## Explanation");
-        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "ammunition", "micro-mechs", "walkers", "best-of-future-wars", "homebrew-equipment"]);
+        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "ammunition", "micro-mechs", "walkers", "power-armor", "best-of-future-wars", "homebrew-equipment"]);
     });
 
     it.each(TRO_DOCUMENTS.map((document) => [document.slug, document] as const))("renders every page of %s and loses no text", (_slug, document) => {
@@ -190,6 +191,43 @@ describe("Walkers readout (Custom Homebrew, #172)", () => {
         expect(block).toMatch(/Armor Factor:\s+176\s+11/);
         const card = walker.getAlphaStrikeStats();
         expect(WALKERS_READOUT).toContain(`| ${card.type} | ${card.size} | ${card.move} | ${card.tmm} | ${card.armor} / ${card.structure} |`);
+    });
+});
+
+describe("TRO - JBT routes", () => {
+    it("gives every card a page to open (a card without one led to the 404)", () => {
+        const router = readFileSync(new URL("./_router.tsx", import.meta.url), "utf8");
+        const listed = /\{\[([^\]]*)\]\.map\(\(slug\) =>/.exec(router)![1];
+        for (const document of TRO_DOCUMENTS) expect(listed, document.slug).toContain(`"${document.slug}"`);
+    });
+});
+
+describe("Power Armor readout (Custom Homebrew, #172)", () => {
+    const flat = POWER_ARMOR_READOUT.replace(/\*\*/g, "").replace(/\*/g, "").replace(/\s+/g, " ").replace(/’/g, "'");
+    const document = TRO_DOCUMENTS.find((each) => each.slug === "power-armor")!;
+    const pages = readoutPages(document.text, document.pageStart);
+
+    it("credits Bill Swisher and both printings, and says what is ours and not official", () => {
+        for (const text of ["Bill Swisher", "Future Wars #14 (1989, p. 39)", "The Best of Future Wars, Volume One (1991, pp. 14-16)", "lacks printed pages 39-42",
+            "Inspired by", "not canon", "NOT OFFICIAL", "the fault lies with NGCFells"]) {
+            expect(flat, text).toContain(text);
+        }
+    });
+
+    it("dates the suit from the article's history", () => {
+        expect(flat).toContain("prototype 2963 (the Tharkan project), introduced 3027 (Defiance Industries, Hesperus II), never extinct");
+    });
+
+    it("explains each rule of the PWA ability the card popup shows, on the page its source cites", () => {
+        for (const line of POWER_ARMOR_AS_ABILITY_TEXT.slice(1)) {
+            const name = line.slice(0, line.indexOf(":") + 1).replace(/’/g, "'");
+            expect(flat, line).toContain(`- ${name}`);
+            expect(flat, line).toContain(line.replace(/’/g, "'"));
+        }
+        const page = pages.findIndex((each) => readoutPageTitle(each, "") === "Alpha Strike Rules") + 1;
+        expect(page).toBeGreaterThan(0);
+        expect(CONST_AS_SPECIAL_ABILITIES.find((each) => each.tag === "PWA")!.source).toEqual({ book: "TRO - JBT: Power Armor (Custom Homebrew, NOT OFFICIAL)", page });
+        expect(pages[page - 1]).toContain("The PWA Special Ability");
     });
 });
 

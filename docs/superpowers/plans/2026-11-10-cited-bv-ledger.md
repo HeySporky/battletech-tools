@@ -79,6 +79,7 @@ Code: `_calcBattleValue` and its helpers in `src/classes/battlemech.ts`.
 | `bv2.def.factor.null-signature` | TO:AUE p.194, p.148 | Add the long-range modifier (+2). | Yes | |
 | `bv2.def.factor.chameleon` | TO:AUE p.193, p.112 | Add the long-range modifier (+2). | Yes | |
 | `bv2.def.factor.void-signature` | TO:AUE p.194 | Use the 'Mech's own modifier or the system's +3, whichever is higher; on a tie add 1. | Yes | |
+| `bv2.def.factor.power-armor` | Best of FW p.14, TM p.304 | Swisher: "+1 to hit" a suit; no BV given. Ours: one more point of TMM, +0.1 to the Defensive Factor. | Provisional (Custom Homebrew) | Power Armor plan Chunk D, 2026-11-17 |
 | `bv2.def.rating` | TM p.303 | Running total x defensive factor. | Yes | |
 
 ### Offensive Battle Rating
