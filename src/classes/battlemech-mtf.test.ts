@@ -322,6 +322,19 @@ describe("MegaMek 'Mech import", () => {
         expect(steps.filter((step) => step.id === "bv2.def.explosive.ammo" && step.label.includes("rightTorso"))).toHaveLength(0);
     });
 
+    // Treated as a Clan 'Mech where CASE protects it (IO:AE p.188), and a Clan 'Mech still pays for explosives in the
+    // center torso, legs and head (TM p.302): CASE there saves nothing.
+    it("still charges a superheavy 'Mech's center torso ammunition behind CASE, as for a Clan 'Mech (IO:AE p.188, TM p.302)", () => {
+        const ct = superheavy.replace(location("Center Torso", ...fill(3, "Fusion Engine"), ...fill(2, "Gyro")).join("\n"),
+            location("Center Torso", ...fill(3, "Fusion Engine"), ...fill(2, "Gyro"), "IS LB 10-X AC Ammo|IS LB 10-X Cluster Ammo", "ISCASE").join("\n"));
+        const { mech, issues } = importBattleMechMtf(ct);
+        expect(issues).toEqual([]);
+        const steps = mech!.getBattleValueBreakdown().steps;
+        // One slot holds both tons: -15 once.
+        expect(steps.filter((step) => step.id === "bv2.def.explosive.ammo" && step.label.includes("centerTorso")).map((step) => step.value)).toEqual([-15]);
+        expect(steps.filter((step) => step.id === "bv2.def.explosive.superheavy" && step.label.includes("centerTorso"))).toHaveLength(0);
+    });
+
     // "Superheavy 'Mechs may ignore the torso-only mounting restrictions applied to Heavy Gauss Rifles (standard and
     // improved), and may place these items in the arms" (IO:AE p.157): the Ares ARS-V1A Hera's right-arm rifle.
     it("mounts an Improved Heavy Gauss Rifle in a superheavy 'Mech's arm (IO:AE p.157)", () => {
@@ -491,6 +504,20 @@ describe("MegaMek 'Mech import", () => {
         // The import applies the table: the Temax Cat's right rear torso is 6 on XTRO:Boondocks p.6 (MegaMek has 8).
         const temax = brawler.replace("chassis:Test Brawler", "chassis:Temax Cat Ninjabolt").replace("model:TB-2", "model:TMC-NB");
         expect(importBattleMechMtf(temax).mech!.getArmorAllocation().rightTorsoRear).toBe(6);
+    });
+
+    // A sheet can differ from the file in a slot: a weapon the file mounts facing forward fires to the rear, say.
+    it("corrects a slot from its printed sheet, by location and slot number", () => {
+        const file = parseMtfFile(brawler)!;
+        const before = [...file.slots["Right Torso"]];
+        correctMtfDesign(file, { "Test Brawler TB-2": { slots: { "Right Torso": { 1: "Medium Laser (R)" } }, source: "test" } });
+        expect(file.slots["Right Torso"]).toEqual(["Medium Laser (R)", ...before.slice(1)]);
+        // A slot the file does not have, or a location it lacks, is not invented.
+        expect(() => correctMtfDesign(parseMtfFile(brawler)!, { "Test Brawler TB-2": { slots: { "Right Torso": { 13: "Medium Laser" } }, source: "test" } })).toThrow(/slot 13/);
+        expect(() => correctMtfDesign(parseMtfFile(brawler)!, { "Test Brawler TB-2": { slots: { "Front Left Leg": { 1: "Hip" } }, source: "test" } })).toThrow(/Front Left Leg/);
+        // The import applies it: the corrected laser fires to the rear.
+        const rear = importBattleMechMtf(brawler, { "Test Brawler TB-2": { slots: { "Right Torso": { 1: "Medium Laser (R)" } }, source: "test" } }).mech!;
+        expect(rear.getInstalledEquipment().filter((item) => item.rear).map((item) => item.name)).toEqual(["Medium Laser"]);
     });
 
     // The Skinwalker (Ryoken III): an interface cockpit with no gyro. MegaMek packs the engine into center torso

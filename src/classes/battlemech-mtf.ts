@@ -114,6 +114,15 @@ const xml = (text: string): string => text.replace(/&/g, "&amp;").replace(/</g, 
 export const correctMtfDesign = (file: IMtfFile, corrections = DESIGN_CORRECTIONS): void => {
     const correction = corrections[`${value(file, "chassis")} ${value(file, "model")}`.trim()];
     for (const [key, line] of Object.entries(correction?.values ?? {})) file.values[key] = [line];
+    // A slot is replaced only where the file has it: a correction never adds a location or a slot.
+    for (const [location, slots] of Object.entries(correction?.slots ?? {})) {
+        const list = file.slots[location];
+        if (!list) throw new Error(`Design correction for ${value(file, "chassis")} ${value(file, "model")}: the file has no ${location}`);
+        for (const [number, name] of Object.entries(slots)) {
+            if (!(+number >= 1 && +number <= list.length)) throw new Error(`Design correction for ${value(file, "chassis")} ${value(file, "model")}: ${location} has no slot ${number}`);
+            list[+number - 1] = name;
+        }
+    }
 };
 
 /** A slot name without MegaMek's markers: rear, pod, turret and armored, and a variable size. */
@@ -467,10 +476,10 @@ const asBlkFile = (file: IMtfFile): IBlkFile => {
 };
 
 /** Imports a MegaMek 'Mech file. Issues name what could not be carried over. */
-export function importBattleMechMtf(text: string): { mech: BattleMech | null; issues: string[]; xml: string } {
+export function importBattleMechMtf(text: string, corrections = DESIGN_CORRECTIONS): { mech: BattleMech | null; issues: string[]; xml: string } {
     const file = parseMtfFile(text);
     if (!file) return { mech: null, issues: ["Not a MegaMek 'Mech file"], xml: "" };
-    correctMtfDesign(file);
+    correctMtfDesign(file, corrections);
     const { xml: sswXml, issues, quad, frankenMech } = convertMtfToSSW(file);
     const mech = new BattleMech();
     mech.importSSWXML(sswXml);
