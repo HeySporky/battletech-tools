@@ -108,7 +108,7 @@ export default class ClassicBattleTechRouter extends React.Component<IClassicBat
                 }/>
 
                 {/* Every TRO_DOCUMENTS slug (tro-jbt.tsx); kept as a list here so the lazy page stays out of this bundle. */}
-                {["artvee", "ammunition", "micro-mechs", "walkers", "power-armor", "best-of-future-wars", "homebrew-equipment"].map((slug) => (
+                {["artvee", "ammunition", "micro-mechs", "walkers", "power-armor", "vtolam", "permanent-air-mech", "best-of-future-wars", "homebrew-equipment"].map((slug) => (
                     <Route key={slug} path={`tro-jbt/${slug}`} element={
                         <TroReader
                             appGlobals={this.props.appGlobals}

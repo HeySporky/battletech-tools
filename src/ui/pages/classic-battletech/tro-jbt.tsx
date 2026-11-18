@@ -14,6 +14,11 @@ import { getWalkerReadout } from '../../../classes/walker-readout';
 import { getWalkerSamples } from '../../../data/walker-samples';
 import { getPowerArmorSamplesReadout } from '../../../data/power-armor-samples';
 import { MICRO_MECH_SAMPLES } from '../../../data/micro-mech-samples';
+import { getPAMSamplesReadout, getVTOLAMSamplesReadout, lamSampleDesignName } from '../../../data/lam-samples-readout';
+import { PAM_SAMPLES } from '../../../data/pam-samples';
+import { VTOLAM_SAMPLES } from '../../../data/vtolam-samples';
+import vtolamText from '../../../../docs/lore/vtolam-tro.md?raw';
+import permanentAirMechText from '../../../../docs/lore/permanent-air-mech-tro.md?raw';
 import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
@@ -29,6 +34,9 @@ export const BEST_OF_FUTURE_WARS_READOUT = unixLines(bestOfFutureWarsText);
 export const HOMEBREW_EQUIPMENT_READOUT = unixLines(homebrewEquipmentText);
 // The Power Armor text, then the sample suits, their figures read from the designs.
 export const POWER_ARMOR_READOUT = `${unixLines(powerArmorText).trim()}\n\n${getPowerArmorSamplesReadout()}\n`;
+// The VTOLAM and Permanent Air 'Mech texts, then a page for each sample design, its figures read from the design.
+export const VTOLAM_READOUT = `${unixLines(vtolamText).trim()}\n\n${getVTOLAMSamplesReadout()}\n`;
+export const PERMANENT_AIR_MECH_READOUT = `${unixLines(permanentAirMechText).trim()}\n\n${getPAMSamplesReadout()}\n`;
 // The walker text, then an entry for each sample walker made from the design itself, so the figures match the creator.
 export const WALKERS_READOUT = [
     unixLines(walkersText).trim(),
@@ -104,6 +112,26 @@ export const TRO_DOCUMENTS: ITroDocument[] = [
         pageStart: /^## /,
         category: "unit-types",
         examples: ["IPA-1", "IPA-2", "IPA-3", "IPA-4"],
+    },
+    {
+        slug: "vtolam",
+        title: "VTOLAM",
+        summary: "The Land-Air 'Mech that becomes a VTOL: BishopSteiner's and professorheyteen's rules, a history from the Rim Worlds Republic to Hellespont, and eight sample designs.",
+        fileName: "vtolam-tro.md",
+        text: VTOLAM_READOUT,
+        pageStart: /^#{2,3} /,
+        category: "unit-types",
+        examples: VTOLAM_SAMPLES.map((sample) => lamSampleDesignName(sample.name)),
+    },
+    {
+        slug: "permanent-air-mech",
+        title: "Permanent Air 'Mech",
+        summary: "Red Pins' one-mode AirMech and LAMFAN's Air-Slip Mechs of the Logan Prime Militia: what sets one apart, NGCFells's rules for it and five sample designs.",
+        fileName: "permanent-air-mech-tro.md",
+        text: PERMANENT_AIR_MECH_READOUT,
+        pageStart: /^#{2,3} /,
+        category: "unit-types",
+        examples: PAM_SAMPLES.map((sample) => lamSampleDesignName(sample.name)),
     },
     {
         slug: "best-of-future-wars",
@@ -225,11 +253,15 @@ export function readoutContents(pages: string[], fallback: string): IReadoutCont
     });
 }
 
-/** Bold, italics and links to a web address; the readout has no other inline marks. */
+/** A bare web address in the text, so that every source can be followed; trailing punctuation stays text. */
+const BARE_URL = /^https:\/\/\S*[^\s.,;:)]$/;
+
+/** Bold, italics, links and bare web addresses; the readout has no other inline marks. */
 function inline(text: string): React.ReactNode[] {
-    return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\(https:\/\/[^)\s]+\))/).map((part, index) => {
+    return text.split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\(https:\/\/[^)\s]+\)|https:\/\/\S*[^\s.,;:)])/).map((part, index) => {
         const link = /^\[([^\]]+)\]\((https:\/\/[^)\s]+)\)$/.exec(part);
         if (link) return <a key={index} href={link[2]} target="_blank" rel="noopener noreferrer">{link[1]}</a>;
+        if (BARE_URL.test(part)) return <a key={index} href={part} target="_blank" rel="noopener noreferrer">{part}</a>;
         if (part.startsWith("**")) return <strong key={index}>{part.slice(2, -2)}</strong>;
         if (part.startsWith("*") && part.length > 1) return <em key={index}>{part.slice(1, -1)}</em>;
         return part;

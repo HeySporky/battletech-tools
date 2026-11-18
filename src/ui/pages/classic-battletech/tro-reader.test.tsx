@@ -42,7 +42,7 @@ describe("TRO - JBT contents", () => {
     it("files every readout by category: unit types with their example designs, then equipment, ammunition and other", () => {
         const index = troIndex();
         expect(TRO_CATEGORIES.map((category) => category.title)).toEqual(["Unit Types", "Equipment", "Ammunition", "Other"]);
-        expect(index["unit-types"].map((entry) => entry.slug)).toEqual(["artvee", "micro-mechs", "walkers", "power-armor"]);
+        expect(index["unit-types"].map((entry) => entry.slug)).toEqual(["artvee", "micro-mechs", "walkers", "power-armor", "vtolam", "permanent-air-mech"]);
         const walkers = index["unit-types"].find((entry) => entry.slug === "walkers")!;
         expect(walkers.examples).toEqual(expect.arrayContaining([{ name: "Ironback IBK-2T", hash: "ironback-ibk-2t" }]));
         for (const entry of index["unit-types"]) {

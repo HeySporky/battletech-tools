@@ -4,7 +4,7 @@ import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
  * Sample Permanent Air 'Mechs (Custom Homebrew), loadable from the 'Mech Creator's step 1 at the Custom Homebrew level.
  * The designs are LAMFAN's "Air-Slip Mechs" (BattleTech forums topic 83239, 22 Nov 2023), the light 'Mechs of the Logan
  * Prime Militia; Red Pins answered in that thread (reply #4) that he calls the same idea "Permanent Air-Mechs" (topic 44833).
- * They are rebuilt here under our Permanent Air 'Mech rules (LAM_TYPE_RULES.pam), so each note says what changed.
+ * They are rebuilt here under NGCFells's Permanent Air 'Mech rules (LAM_TYPE_RULES.pam), so each note says what changed.
  */
 
 type Loc = "hd" | "ct" | "lt" | "rt" | "la" | "ra" | "ll" | "rl";
@@ -39,7 +39,7 @@ const ML = (loc: Loc): Item => ["medium-laser", loc, "Medium Laser", 1, 1];
 const SRM4 = (loc: Loc): Item => ["srm-4", loc, "SRM 4", 1, 2];
 const SRM_AMMO = (loc: Loc): Item => ["ammo-srm-standard", loc, "SRM - Standard Ammo", 1, 1];
 
-const SOURCE = "Custom Homebrew. Design by LAMFAN, \"Air-Slip Mechs\", BattleTech forums topic 83239 (22 Nov 2023): https://battletech.com/forums/index.php?topic=83239.0. Inspired by: LAMFAN's Air-Slip Mechs and Red Pins' Permanent Air-Mechs (topic 44833; Red Pins, topic 83239 reply #4). Built under our Permanent Air 'Mech rules, our extrapolation from the LAM rules, not the author's:";
+const SOURCE = "Custom Homebrew. Design by LAMFAN, \"Air-Slip Mechs\", BattleTech forums topic 83239 (22 Nov 2023): https://battletech.com/forums/index.php?topic=83239.0. Inspired by: LAMFAN's Air-Slip Mechs and Red Pins' Permanent Air-Mechs (topic 44833; Red Pins, topic 83239 reply #4). Built under NGCFells's Permanent Air 'Mech rules, NGCFells's extrapolation from the LAM rules, not the author's:";
 const COMMON = "the wings weigh as the post's Partial Wing but take no slots and add no Jump MP; a required ton of fuel; AirMech Cruise MP is Jump MP x 3 (the post uses (jump jets + 2) x 2) and no bomb bays; standard armor for the post's Durallex Light; the slot layout is NGCFells's where the post does not give it.";
 const FUEL_CUT = "Two jump jets (1 ton) come out to carry the fuel";
 

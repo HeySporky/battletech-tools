@@ -174,7 +174,7 @@ export default class MicroMechCreatorHome extends React.Component<IHomeProps> {
 
                         <TextSection label="Sample Micro-Mechs">
                             <p className="smaller-text">
-                                The four designs the 6.1.0.2 document prints, built under our rules. Loading one replaces the design
+                                The four designs the 6.1.0.2 document prints, built under NGCFells's rules. Loading one replaces the design
                                 you are working on; its Technical Readout notes say where it differs from the print.
                             </p>
                             <table className="table" data-testid="mm-samples">
