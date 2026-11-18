@@ -9,7 +9,7 @@ import { IAppGlobals } from "./ui/app-router";
 import { replaceAll } from "./utils/replaceAll";
 import { getQuirkToHit } from "./utils/quirk-effects";
 import { getFutureWarsPlayKind, getLRFlamerRangeModifier } from "./utils/future-wars-play";
-import { FW_LONG_RANGE_WARS, getLongRangeWarsBand, getLongRangeWarsFirerModifier, getLongRangeWarsTargetModifier } from "./utils/future-wars-ruleset-tools";
+import { getLongRangeWarsBand, getLongRangeWarsFirerModifier, getLongRangeWarsTargetModifier } from "./utils/future-wars-ruleset-tools";
 import { unitHasAbility } from "./utils/mulAbilities";
 import { resolveMULEraFilter } from "./utils/mulUtilities";
 import { filterMULByRulesets, IMULSearchFilters } from "./utils/mulSearchFilters";
@@ -1020,7 +1020,7 @@ export function getTargetToHitFromWeapon(
             } else {
                 // The Long Range Wars: extended and extreme range, with their own firer and target movement modifiers in
                 // place of the standard ones, and ranging (The Best of Future Wars pp.55-56).
-                const longRangeWars = mech.hasFutureWarsRuleset( FW_LONG_RANGE_WARS ) ? getLongRangeWarsBand( target.range, weaponRange.long ) : undefined;
+                const longRangeWars = mech.getFutureWarsPrinting( "longRangeWars" ) !== undefined ? getLongRangeWarsBand( target.range, weaponRange.long ) : undefined;
                 if( longRangeWars ) {
                     const mode = mech.currentMovementMode;
                     const standardFirer = mode === "w" ? 1 : mode === "r" ? 2 : mode === "j" ? 3 : 0;

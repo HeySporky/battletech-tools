@@ -76,14 +76,18 @@ const MECH_MORALE_CLASS_MODIFIER = [-2, -1, 0, 1, 2, 3];
 export type MoraleStatus = "disorganized" | "broken" | "routed";
 const MECH_MORALE_STATUS_MODIFIER: Record<MoraleStatus, number> = { disorganized: -1, broken: -2, routed: -3 };
 
-/** The class's number to pass a check (p.24). */
-export function getMoraleBase(classIndex: number): number {
-    return MORALE_BASE[Math.max(0, Math.min(MORALE_BASE.length - 1, classIndex))];
+/** FW #17 p.38: "If disorganized +1, If broken +2, If routed +3" to the check number; the reprint drops it. */
+const ORIGINAL_MORALE_STATUS_ADJUSTMENT: Record<MoraleStatus, number> = { disorganized: 1, broken: 2, routed: 3 };
+
+/** The class's number to pass a check (p.24); under the FW #17 printing a shaken unit's number rises by 1 / 2 / 3. */
+export function getMoraleBase(classIndex: number, status?: MoraleStatus, printing: FutureWarsPrinting = "best-of"): number {
+    const base = MORALE_BASE[Math.max(0, Math.min(MORALE_BASE.length - 1, classIndex))];
+    return base + (printing === "original" && status ? ORIGINAL_MORALE_STATUS_ADJUSTMENT[status] : 0);
 }
 
 /** 2D6 equal to the class's number or more passes (Chunk D ruling). */
-export function isMoralePass(classIndex: number, roll: number): boolean {
-    return roll >= getMoraleBase(classIndex);
+export function isMoralePass(classIndex: number, roll: number, status?: MoraleStatus, printing: FutureWarsPrinting = "best-of"): boolean {
+    return roll >= getMoraleBase(classIndex, status, printing);
 }
 
 /** The modifiers the 'Mech carries into the results roll: its class, its status, earlier Carry On results, and the rest. */
@@ -106,6 +110,10 @@ export interface IMoraleResult {
     laterRollModifier?: number;
     /** Every friendly unit within 10 hexes and in LOS checks morale. */
     friendsCheck?: boolean;
+    /** FW #17: the status lasts until the unit is off the board (no count of turns). */
+    untilOffBoard?: true;
+    /** FW #17 row 13: steps up the morale scale, for the rest of the game. */
+    scaleRise?: number;
 }
 
 const MECH_MORALE_RESULTS: Record<string, Omit<IMoraleResult, "label" | "text">> = {
@@ -131,10 +139,19 @@ const MECH_MORALE_RESULTS: Record<string, Omit<IMoraleResult, "label" | "text">>
     "14+": {},
 };
 
+/** FW #17 p.38's rows where they differ: the routs last until off the board ("Rout ... takes the units off the board", p.40); a 13 is +1 on the morale scale. */
+const ORIGINAL_MECH_MORALE_RESULTS: Record<string, Omit<IMoraleResult, "label" | "text">> = {
+    "-5": { status: "routed", untilOffBoard: true, fire: "none", friendsCheck: true },
+    "-4": { status: "routed", untilOffBoard: true, fire: "none" },
+    "-3": { status: "routed", untilOffBoard: true, fire: "none" },
+    "13": { scaleRise: 1 },
+};
+
 /** The 'Mech results row for a total (2D6 + modifiers); -5 or less is the "-5" row, 14 or more "14+". */
-export function getMechMoraleResult(total: number): IMoraleResult {
+export function getMechMoraleResult(total: number, printing: FutureWarsPrinting = "best-of"): IMoraleResult {
     const label = total <= -5 ? "-5" : total >= 14 ? "14+" : String(total);
-    return { label, text: rowText(FW_MORALE, "'Mech results", label), ...MECH_MORALE_RESULTS[label] };
+    const numbers = (printing === "original" ? ORIGINAL_MECH_MORALE_RESULTS[label] : undefined) ?? MECH_MORALE_RESULTS[label];
+    return { label, text: rowText(FUTURE_WARS_PRINTING_IDS.morale[printing], "'Mech results", label), ...numbers };
 }
 
 // --- Weapon Malfunctions, p.29.
@@ -185,11 +202,21 @@ const MALFUNCTION_EFFECTS: Record<MalfunctionTable, Record<number, EffectNumbers
     laser: { 6: { heat: 1 }, 7: { heat: 2 }, 9: { toHit: 1, heat: 2 }, 10: { toHit: 1, heat: 3 }, 11: { toHit: 2, heat: 2 }, 13: { heat: 4 }, 14: { toHit: 2, heat: 3 }, 15: { toHit: 3, heat: 5 }, 16: { toHit: 5, heat: 5 }, 17: { out: true, clearable: false }, 18: { out: true, clearable: false } },
 };
 
+/**
+ * FW #9 pp.10-11's rows where they differ: flamer 5 is not printed (NGCFells ruled 2026-11-17: no effect); autocannon
+ * 11 can still fire (its "roll twice on 2, 3 or 4" is left to the players); laser 16 is +2 to-hit, +5 heat.
+ */
+const ORIGINAL_MALFUNCTION_EFFECTS: Partial<Record<MalfunctionTable, Record<number, EffectNumbers>>> = {
+    flamer: { 5: {} },
+    ac: { 11: {} },
+    laser: { 16: { toHit: 2, heat: 5 } },
+};
+
 /** What a malfunction roll does to the weapon, with the table's text. */
-export function getMalfunctionEffect(table: MalfunctionTable, roll: number): IMalfunctionEffect {
-    const text = rowText(FW_WEAPON_MALFUNCTIONS, MALFUNCTION_TABLE_TITLES[table], String(roll));
-    const numbers = MALFUNCTION_EFFECTS[table][roll] ?? {};
-    return { text, toHit: 0, heat: 0, out: false, ...numbers, noEffect: text === "No effect" };
+export function getMalfunctionEffect(table: MalfunctionTable, roll: number, printing: FutureWarsPrinting = "best-of"): IMalfunctionEffect {
+    const text = rowText(FUTURE_WARS_PRINTING_IDS.malfunctions[printing], MALFUNCTION_TABLE_TITLES[table], String(roll));
+    const numbers = (printing === "original" ? ORIGINAL_MALFUNCTION_EFFECTS[table]?.[roll] : undefined) ?? MALFUNCTION_EFFECTS[table][roll] ?? {};
+    return { text, toHit: 0, heat: 0, out: false, ...numbers, noEffect: text.startsWith("No effect") };
 }
 
 // --- The Long Range Wars, pp.55-56.

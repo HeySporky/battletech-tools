@@ -58,9 +58,9 @@ import {
     getPowerBoosterRoll, INFERNO_GAUSS_HEAT_PER_TURN, INFERNO_GAUSS_TURNS_PER_HIT, LR_FLAMER_BURN_TURNS, MAX_EXTERNAL_HEAT_PER_TURN, PDS_INTEGRAL_BURSTS, PowerBoosterResult,
 } from "../utils/future-wars-play";
 import {
-    FW_LONG_RANGE_WARS, FW_MORALE, FW_OPPORTUNITY_FIRE, FW_STRATEGIC_MOVEMENT, FW_WEAPON_MALFUNCTIONS, getMalfunctionEffect, getMalfunctionTable,
-    getMechMoraleModifier, getMechMoraleResult, getStrategicMovementHeat, getStrategicMovementMP, IMalfunctionEffect, IMoraleResult,
-    isMoralePass, MoraleStatus,
+    FUTURE_WARS_PRINTING_IDS, FutureWarsPrintedRule, FutureWarsPrinting, FW_OPPORTUNITY_FIRE, FW_STRATEGIC_MOVEMENT, getMalfunctionEffect,
+    getMalfunctionTable, getMechMoraleModifier, getMechMoraleResult, getStrategicMovementHeat, getStrategicMovementMP, IMalfunctionEffect,
+    IMoraleResult, isMoralePass, MoraleStatus,
 } from "../utils/future-wars-ruleset-tools";
 import { calculateAlphaStrikeValue, IAlphaStrikeExport, isAlphaStrikeConversionKeyword } from "../utils/calculateAlphaStrikeValue";
 import { addsNoAlphaStrikeWeaponHeat, alphaStrikeExtraHeat, alphaStrikeMovementHeat, applyAlphaStrikeHeat } from "../utils/alphaStrikeHeat";
@@ -315,8 +315,11 @@ export interface IFutureWarsPlayState {
 
 export interface IFutureWarsMoraleState {
     classIndex?: number;
-    /** `pending` until the turn it was rolled ends; then `turnsLeft` counts the turns after it. */
-    status?: { kind: MoraleStatus; turnsLeft: number; pending?: boolean; label: string; fire?: number | "none" };
+    /**
+     * `pending` until the turn it was rolled ends; then `turnsLeft` counts the turns after it. `untilOffBoard` (FW #17
+     * routs) never counts down: it lasts until the 'Mech leaves the board.
+     */
+    status?: { kind: MoraleStatus; turnsLeft: number; pending?: boolean; label: string; fire?: number | "none"; untilOffBoard?: true };
     laterRollModifier?: number;
     routs?: number;
     /** The last check's outcome, for the panel. */
@@ -6384,7 +6387,7 @@ export class BattleMech {
         const status = play.morale?.status;
         if( status ) {
             if( status.pending ) delete status.pending;
-            else if( --status.turnsLeft <= 0 ) delete play.morale!.status;
+            else if( !status.untilOffBoard && --status.turnsLeft <= 0 ) delete play.morale!.status;
         }
     }
 
@@ -6394,9 +6397,25 @@ export class BattleMech {
         return this.getRulesets().includes(id);
     }
 
-    /** The play rulesets this 'Mech carries, in the order the panel shows them. */
+    /**
+     * Which printing of a Future Wars rule this 'Mech plays, or undefined when it carries neither (#172, printing
+     * alternates). The two rulesets clash, so at most one is ticked; were both, the reprint wins.
+     */
+    public getFutureWarsPrinting(rule: FutureWarsPrintedRule): FutureWarsPrinting | undefined {
+        const ids = FUTURE_WARS_PRINTING_IDS[rule];
+        if( this.hasFutureWarsRuleset(ids["best-of"]) ) return "best-of";
+        if( this.hasFutureWarsRuleset(ids.original) ) return "original";
+        return undefined;
+    }
+
+    /** The play rulesets this 'Mech carries, in the order the panel shows them (an original printing in its reprint's place). */
     public getFutureWarsPlayRulesets(): string[] {
-        return [FW_STRATEGIC_MOVEMENT, FW_OPPORTUNITY_FIRE, FW_MORALE, FW_WEAPON_MALFUNCTIONS, FW_LONG_RANGE_WARS].filter((id) => this.hasFutureWarsRuleset(id));
+        const printed = (rule: FutureWarsPrintedRule): string => {
+            const printing = this.getFutureWarsPrinting(rule);
+            return printing ? FUTURE_WARS_PRINTING_IDS[rule][printing] : "";
+        };
+        return [FW_STRATEGIC_MOVEMENT, FW_OPPORTUNITY_FIRE].filter((id) => this.hasFutureWarsRuleset(id))
+            .concat([printed("morale"), printed("malfunctions"), printed("longRangeWars")].filter((id) => id));
     }
 
     /** Strategic Movement's MP: walking and running doubled (pp.18-19). */
@@ -6436,18 +6455,21 @@ export class BattleMech {
      * modifier on later rolls; routs are counted (two mean surrender).
      */
     public rollMorale(check: number, resultRoll: number, other: number): { passed: boolean; total?: number; result?: IMoraleResult } {
-        if( isMoralePass(this.getMoraleClassIndex(), check) ) {
+        const printing = this.getFutureWarsPrinting("morale") ?? "best-of";
+        if( isMoralePass(this.getMoraleClassIndex(), check, this.futureWarsPlay.morale?.status?.kind, printing) ) {
             this.futureWarsPlay.morale = { ...this.futureWarsPlay.morale, last: "Passed (" + check + ")" };
             return { passed: true };
         }
         const total = resultRoll + this.getMoraleModifier(other);
-        const result = getMechMoraleResult(total);
+        const result = getMechMoraleResult(total, printing);
         const morale: IFutureWarsMoraleState = { ...this.futureWarsPlay.morale, last: "Failed (" + check + "), " + total + ": " + result.text };
         if( result.status ) {
-            morale.status = { kind: result.status, turnsLeft: result.turns ?? 1, pending: true, label: result.label, fire: result.fire };
+            morale.status = { kind: result.status, turnsLeft: result.turns ?? (result.untilOffBoard ? 0 : 1), pending: true, label: result.label, fire: result.fire };
+            if( result.untilOffBoard ) morale.status.untilOffBoard = true;
             if( result.status === "routed" ) morale.routs = (morale.routs ?? 0) + 1;
         }
         if( result.scaleDrop ) morale.classIndex = Math.max(0, this.getMoraleClassIndex() - result.scaleDrop);
+        if( result.scaleRise ) morale.classIndex = Math.min(5, this.getMoraleClassIndex() + result.scaleRise);
         if( result.laterRollModifier ) morale.laterRollModifier = (morale.laterRollModifier ?? 0) + result.laterRollModifier;
         this.futureWarsPlay.morale = morale;
         return { passed: false, total, result };
@@ -6467,7 +6489,7 @@ export class BattleMech {
     public recordWeaponMalfunction(uuid: string, roll: number): IMalfunctionEffect | undefined {
         const table = this._malfunctionTable(uuid);
         if( !table ) return undefined;
-        const effect = getMalfunctionEffect(table, roll);
+        const effect = getMalfunctionEffect(table, roll, this.getFutureWarsPrinting("malfunctions"));
         if( !effect.noEffect ) {
             this.futureWarsPlay.malfunctions = { ...this.futureWarsPlay.malfunctions, [uuid]: [...(this.futureWarsPlay.malfunctions?.[uuid] ?? []), roll] };
         }
@@ -6487,7 +6509,8 @@ export class BattleMech {
         const rolls = this.futureWarsPlay.malfunctions?.[uuid];
         const table = rolls?.length ? this._malfunctionTable(uuid) : undefined;
         if( !rolls?.length || !table ) return undefined;
-        const effects = rolls.map((roll) => getMalfunctionEffect(table, roll));
+        const printing = this.getFutureWarsPrinting("malfunctions");
+        const effects = rolls.map((roll) => getMalfunctionEffect(table, roll, printing));
         return {
             toHit: effects.reduce((sum, effect) => sum + effect.toHit, 0),
             heat: effects.reduce((sum, effect) => sum + effect.heat, 0),

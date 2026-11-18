@@ -33,6 +33,23 @@ describe("Best of Future Wars ruleset tools", () => {
         expect(screen.getByTestId("future-wars-rules-fw-morale")).toBeTruthy();
     });
 
+    it("shows an original printing's section under its own title, with its own tables, rules and statuses", () => {
+        const mech = build(["fw-morale-17", "fw-weapon-malfunctions-9", "fw-long-range-wars-12"]);
+        expect(showFutureWarsRulesetTools(mech)).toBe(true);
+        mech.rollMorale(2, 2, -6); // -4: routed until off the board
+        const laser = uuidOf(mech, "medium-laser");
+        mech.recordWeaponMalfunction(laser, 16);
+        render(<FutureWarsRulesetTools mech={mech} onChange={vi.fn()} />);
+        expect(screen.getByTestId("fw-tool-fw-morale-17").textContent).toContain("Morale (FW #17 printing)");
+        expect(screen.getByTestId("fw-tool-fw-weapon-malfunctions-9").textContent).toContain("Weapon Malfunctions (FW #9 printing)");
+        expect(screen.getByTestId("fw-tool-fw-long-range-wars-12").textContent).toContain("The Long Range Wars (FW #12 printing)");
+        expect(screen.getByTestId("future-wars-rules-fw-morale-17")).toBeTruthy();
+        expect(screen.getByTestId("fw-morale-status").textContent).toBe("Routed (result -4): until it is off the board; no firing.");
+        expect(screen.getByTestId("fw-tool-fw-morale-17").textContent).toContain("once three locations have internal damage, every hit");
+        expect(screen.getByTestId(`fw-malfunction-list-${laser}`).textContent).toContain("16: +2 to-hit, +5 heat when used");
+        expect(screen.getByTestId("fw-morale-class").textContent).toContain("Regular (6+; shaken: +1 / +2 / +3)");
+    });
+
     it("Strategic Movement: doubled MP, the move's heat, and what it forbids", () => {
         const mech = build(["fw-strategic-movement"]);
         const onChange = vi.fn();

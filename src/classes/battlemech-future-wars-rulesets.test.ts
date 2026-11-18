@@ -103,6 +103,50 @@ describe("Best of Future Wars rulesets in play", () => {
         expect(mech.rollMorale(2, 8, 0).total).toBe(8);
     });
 
+    it("under the FW #17 printing a shaken 'Mech needs more to pass, a rout lasts until it leaves, and a 13 raises it", () => {
+        const mech = build(["fw-morale-17"]);
+        expect(mech.getFutureWarsPrinting("morale")).toBe("original");
+        expect(mech.getFutureWarsPrinting("malfunctions")).toBeUndefined();
+        expect(mech.getFutureWarsPlayRulesets()).toEqual(["fw-morale-17"]);
+        expect(mech.rollMorale(2, 2, 0).result?.status).toBe("broken"); // Regular, total 2: broken 2 turns
+        expect(mech.rollMorale(7, 12, 0).passed).toBe(false); // broken Regular: 6 + 2 = 8 to pass
+        expect(mech.rollMorale(8, 2, 0).passed).toBe(true);
+
+        const routed = build(["fw-morale-17"]);
+        expect(routed.rollMorale(2, 2, -6)).toMatchObject({ total: -4, result: { status: "routed", untilOffBoard: true } });
+        for (let turn = 0; turn < 3; turn++) routed.turnReset();
+        expect(routed.futureWarsPlay.morale?.status).toMatchObject({ kind: "routed", untilOffBoard: true });
+
+        const enraged = build(["fw-morale-17"]);
+        enraged.rollMorale(2, 12, 1);
+        expect(enraged.getMoraleClassIndex()).toBe(3);
+        enraged.setMoraleClassIndex(5);
+        enraged.rollMorale(2, 10, 0); // Crack +3: 13
+        expect(enraged.getMoraleClassIndex()).toBe(5);
+
+        expect(build(["fw-morale"]).getFutureWarsPrinting("morale")).toBe("best-of");
+        expect(build([]).getFutureWarsPrinting("morale")).toBeUndefined();
+    });
+
+    it("under the FW #9 printing a laser's 16 is +2 to-hit and an autocannon's 11 still fires", () => {
+        const mech = build(["fw-weapon-malfunctions-9"]);
+        expect(mech.getFutureWarsPlayRulesets()).toEqual(["fw-weapon-malfunctions-9"]);
+        const laser = mount(mech, "medium-laser");
+        const before = toHit(mech, laser, 2).finalToHit;
+        expect(mech.recordWeaponMalfunction(mech.equipmentList[laser].uuid!, 16)).toMatchObject({ toHit: 2, heat: 5 });
+        expect(toHit(mech, laser, 2).finalToHit).toBe(before + 2);
+        const ac = mount(mech, "autocannon-5");
+        const acUuid = mech.equipmentList[ac].uuid!;
+        mech.recordWeaponMalfunction(acUuid, 11);
+        expect(mech.getWeaponMalfunction(acUuid)?.out).toBe(false);
+        expect(toHit(mech, ac, 2).finalToHit).toBeGreaterThan(0);
+    });
+
+    it("The Long Range Wars' range bands work under either printing", () => {
+        const mech = build(["fw-long-range-wars-12"]);
+        expect(toHit(mech, mount(mech, "medium-laser"), 15)).toMatchObject({ finalToHit: 4 + 6, rangeExplanation: "Extended" });
+    });
+
     it("a malfunction is recorded on the weapon: its to-hit and heat while it fires; out of action until cleared", () => {
         const mech = build(["fw-weapon-malfunctions"]);
         const laser = mount(mech, "medium-laser");

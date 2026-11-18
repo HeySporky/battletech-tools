@@ -4,7 +4,8 @@ import { IEquipmentItem } from "../../../../data/data-interfaces";
 import FutureWarsRulesReference from "../../../components/future-wars-rules-reference";
 import { getLocationName } from "../../../../utils";
 import {
-    FW_LONG_RANGE_WARS, FW_MORALE, FW_OPPORTUNITY_FIRE, FW_STRATEGIC_MOVEMENT, FW_WEAPON_MALFUNCTIONS, getMalfunctionEffect, getMalfunctionTable,
+    FW_LONG_RANGE_WARS, FW_LONG_RANGE_WARS_12, FW_MORALE, FW_MORALE_17, FW_OPPORTUNITY_FIRE, FW_STRATEGIC_MOVEMENT, FW_WEAPON_MALFUNCTIONS,
+    FW_WEAPON_MALFUNCTIONS_9, getMalfunctionEffect, getMalfunctionTable,
     getMoraleBase, getOpportunityFireToHit, getStrategicMovementHeat, MALFUNCTION_DICE, MORALE_CLASSES, OpportunityFireBand, OpportunityFireTargetMove,
 } from "../../../../utils/future-wars-ruleset-tools";
 import { NumberBox } from "./_futureWarsPlay";
@@ -137,22 +138,26 @@ const FutureWarsRulesetTools = (props: IFutureWarsRulesetToolsProps) => {
         const classIndex = mech.getMoraleClassIndex();
         const state = play.morale;
         const status = state?.status;
+        const original = mech.getFutureWarsPrinting("morale") === "original";
+        const statusText = (current: NonNullable<typeof status>): string => current.untilOffBoard
+            ? `${capitalize(current.kind)} (result ${current.label}): until it is off the board`
+            : `${capitalize(current.kind)} (result ${current.label}): ${current.pending ? `this turn, then ${current.turnsLeft}` : current.turnsLeft} turn${current.turnsLeft === 1 ? "" : "s"} more`;
         return (
             <div>
                 <label className="small-text">
                     Morale class{" "}
                     <select data-testid="fw-morale-class" value={classIndex} onChange={(e) => { mech.setMoraleClassIndex(Number(e.currentTarget.value)); changed(); }}>
-                        {MORALE_CLASSES.map((name, index) => <option key={name} value={index}>{name} ({getMoraleBase(index)}+)</option>)}
+                        {MORALE_CLASSES.map((name, index) => <option key={name} value={index}>{name} ({getMoraleBase(index)}+{original ? "; shaken: +1 / +2 / +3" : ""})</option>)}
                     </select>
                 </label>
                 <div data-testid="fw-morale-status" className={status || mech.isMoraleSurrendered() ? "color-red" : ""}>
                     {mech.isMoraleSurrendered() ? "Surrendered: a second rout." : status
-                        ? `${capitalize(status.kind)} (result ${status.label}): ${status.pending ? `this turn, then ${status.turnsLeft}` : status.turnsLeft} turn${status.turnsLeft === 1 ? "" : "s"} more`
+                        ? statusText(status)
                             + (status.fire === "none" ? "; no firing" : status.fire ? `; ${signed(status.fire)} to fire (in the to-hit)` : "") + "."
                         : "Steady."}
                     {state?.laterRollModifier ? ` ${signed(state.laterRollModifier)} on later results rolls.` : ""}
                 </div>
-                <div>Check when: a head hit; each hit doing internal damage; three or more locations damaged; hit while shaken; a friend within 10 hexes and in sight routs; each failed Piloting Skill Roll; set on fire.</div>
+                <div>Check when: a head hit; each hit doing internal damage; {original ? "once three locations have internal damage, every hit" : "three or more locations damaged"}; hit while shaken; a friend within 10 hexes and in sight routs; each failed Piloting Skill Roll; set on fire.</div>
                 <div>
                     <NumberBox testId="fw-morale-check" label="Check 2D6" min={2} max={12} value={roll("morale-check", 7)} onChange={(value) => setRoll("morale-check", value)} />{" "}
                     <NumberBox testId="fw-morale-result" label="If failed, 2D6" min={2} max={12} value={roll("morale-result", 7)} onChange={(value) => setRoll("morale-result", value)} />{" "}
@@ -193,7 +198,7 @@ const FutureWarsRulesetTools = (props: IFutureWarsRulesetToolsProps) => {
                         {recorded.length ? (
                             <ul data-testid={`fw-malfunction-list-${uuid}`} className="small-text" style={{ marginBottom: 0 }}>
                                 {recorded.map((value, at) => {
-                                    const effect = getMalfunctionEffect(table, value);
+                                    const effect = getMalfunctionEffect(table, value, mech.getFutureWarsPrinting("malfunctions"));
                                     const applied = effect.out ? " (cannot fire: applied)" : effect.toHit || effect.heat ? " (applied)" : "";
                                     return (
                                         <li key={at} className={effect.out ? "color-red" : ""}>
@@ -277,6 +282,10 @@ const FutureWarsRulesetTools = (props: IFutureWarsRulesetToolsProps) => {
         [FW_MORALE]: { title: "Morale", body: morale },
         [FW_WEAPON_MALFUNCTIONS]: { title: "Weapon Malfunctions", body: malfunctions },
         [FW_LONG_RANGE_WARS]: { title: "The Long Range Wars", body: longRangeWars },
+        // The original printings (#172, printing alternates): the same tools, reading the original's tables.
+        [FW_MORALE_17]: { title: "Morale (FW #17 printing)", body: morale },
+        [FW_WEAPON_MALFUNCTIONS_9]: { title: "Weapon Malfunctions (FW #9 printing)", body: malfunctions },
+        [FW_LONG_RANGE_WARS_12]: { title: "The Long Range Wars (FW #12 printing)", body: longRangeWars },
     };
 
     return (

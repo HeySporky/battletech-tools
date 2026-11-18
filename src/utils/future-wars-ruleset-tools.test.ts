@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
     getLongRangeWarsBand, getLongRangeWarsFirerModifier, getLongRangeWarsTargetModifier, getMalfunctionEffect, getMalfunctionTable,
-    getMechMoraleModifier, getMechMoraleResult, getOpportunityFireToHit, getStrategicMovementHeat, getStrategicMovementMP,
+    getMechMoraleModifier, getMechMoraleResult, getMoraleBase, getOpportunityFireToHit, getStrategicMovementHeat, getStrategicMovementMP,
     isMoralePass, MALFUNCTION_DICE,
     FUTURE_WARS_PRINTING_IDS, FW_EQUIPMENT_FIRST_PRINTINGS, FW_LONG_RANGE_WARS, FW_LONG_RANGE_WARS_12, FW_MORALE, FW_MORALE_17,
     FW_WEAPON_MALFUNCTIONS, FW_WEAPON_MALFUNCTIONS_9,
@@ -21,6 +21,41 @@ describe("Future Wars printing alternates (#172)", () => {
             expect(getRulesetBlock([pair["best-of"]], pair.original)?.kind, pair.original).toBe("clash");
             expect(getRulesetBlock([pair.original], pair["best-of"])?.kind, pair["best-of"]).toBe("clash");
         }
+    });
+
+    it("FW #17 raises the check number by 1 / 2 / 3 for a disorganized, broken or routed unit; the reprint does not", () => {
+        expect(getMoraleBase(2, "broken", "original")).toBe(8);
+        expect(getMoraleBase(2, "disorganized", "original")).toBe(7);
+        expect(getMoraleBase(4, "routed", "original")).toBe(8);
+        expect(getMoraleBase(2, undefined, "original")).toBe(6);
+        expect(getMoraleBase(2, "broken")).toBe(6);
+        expect(isMoralePass(2, 7, "broken", "original")).toBe(false);
+        expect(isMoralePass(2, 8, "broken", "original")).toBe(true);
+        expect(isMoralePass(2, 7, "broken")).toBe(true);
+    });
+
+    it("FW #17 routs last until the unit is off the board, and a 13 raises the unit on the morale scale", () => {
+        for (const total of [-6, -5, -4, -3]) {
+            const result = getMechMoraleResult(total, "original");
+            expect(result, String(total)).toMatchObject({ status: "routed", untilOffBoard: true });
+            expect(result.turns, String(total)).toBeUndefined();
+        }
+        expect(getMechMoraleResult(-4).turns).toBe(2);
+        expect(getMechMoraleResult(-4).untilOffBoard).toBeUndefined();
+        expect(getMechMoraleResult(13, "original")).toMatchObject({ scaleRise: 1, text: "Carry on; enraged: up 1 on the morale scale" });
+        expect(getMechMoraleResult(13, "original").laterRollModifier).toBeUndefined();
+        expect(getMechMoraleResult(13).laterRollModifier).toBe(2);
+        expect(getMechMoraleResult(-2, "original")).toEqual({ ...getMechMoraleResult(-2), text: getMechMoraleResult(-2).text });
+    });
+
+    it("FW #9's malfunction rows: laser 16 +2 / +5, autocannon 11 still fires, flamer 5 does nothing", () => {
+        expect(getMalfunctionEffect("laser", 16, "original")).toMatchObject({ toHit: 2, heat: 5, out: false });
+        expect(getMalfunctionEffect("laser", 16)).toMatchObject({ toHit: 5, heat: 5 });
+        expect(getMalfunctionEffect("ac", 11, "original")).toMatchObject({ out: false, noEffect: false });
+        expect(getMalfunctionEffect("ac", 11).out).toBe(true);
+        expect(getMalfunctionEffect("flamer", 5, "original")).toMatchObject({ toHit: 0, heat: 0, noEffect: true });
+        expect(getMalfunctionEffect("flamer", 5)).toMatchObject({ toHit: 2, heat: 2 });
+        expect(getMalfunctionEffect("laser", 17, "original")).toMatchObject({ out: true, text: "Burned out: it can no longer be used" });
     });
 });
 
