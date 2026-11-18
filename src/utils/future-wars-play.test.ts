@@ -138,7 +138,7 @@ describe("Future Wars equipment as first printed (#172, printing alternates)", (
         expect(getPowerBoosterRoll(1, 2, "original")).toBe("system-burned-out");
     });
 
-    it("Inferno Gauss shells hit, FW #14: 30 heat (20 with CASE) and 1 damage a shell, not 1 heat a shell", () => {
+    it("Inferno Gauss shells hit, FW #19: 30 heat (20 with CASE) and 1 damage a shell, not 1 heat a shell", () => {
         expect(getInfernoGaussAmmoCrit(8, false, "original")).toEqual({ heat: 30, damage: 8 });
         expect(getInfernoGaussAmmoCrit(8, true, "original")).toEqual({ heat: 20, damage: 8 });
     });

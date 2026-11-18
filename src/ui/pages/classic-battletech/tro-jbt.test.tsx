@@ -14,6 +14,7 @@ import { missileCustom } from "../../../data/missile-custom";
 import { canonRecord, COST_PER_BV, directFireBattleValue, extrapolate, interpolate } from "../../../data/derived-values";
 import { sizeVariableEquipment } from "../../../data/variable-equipment";
 import { getEquipmentCatalogDefinitions } from "../../../data/equipment-registry";
+import { findSpecialRuleset } from "../../../data/special-rulesets";
 import { ARTVEE_SAMPLES } from "../../../data/artvee-samples";
 import { CONST_AS_SPECIAL_ABILITIES, MICRO_MECH_AS_ABILITY_TEXT, POWER_ARMOR_AS_ABILITY_TEXT, WALKER_AS_ABILITY_TEXT } from "../../../data/alpha-strike-special-abilities";
 import Walker from "../../../classes/walker";
@@ -272,6 +273,15 @@ describe("Best of Future Wars readout", () => {
             "Karl Sander, \"Power booster\", Future Wars #14 (1989), p.46, where the column is signed",
         ]) expect(BEST_OF_FUTURE_WARS_READOUT).toContain(credit);
         expect(BEST_OF_FUTURE_WARS_READOUT).not.toContain("the credit is NGCFells's");
+    });
+
+    // Chunk R2: where the original issues and the 1991 reprint differ, each printing is a ruleset; the readout names them.
+    it("closes with the two printings, naming each alternate ruleset", () => {
+        expect(BEST_OF_FUTURE_WARS_READOUT).toContain("## Two printings");
+        for (const id of ["fw-morale", "fw-morale-17", "fw-weapon-malfunctions", "fw-weapon-malfunctions-9", "fw-long-range-wars", "fw-long-range-wars-12", "fw-equipment-first-printings"]) {
+            expect(BEST_OF_FUTURE_WARS_READOUT, id).toContain(findSpecialRuleset(id)!.name);
+        }
+        expect(BEST_OF_FUTURE_WARS_READOUT).toContain("Future Wars: Morale (Future Wars #17 printing)");
     });
 });
 

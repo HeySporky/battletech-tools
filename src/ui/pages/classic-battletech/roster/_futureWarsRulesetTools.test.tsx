@@ -50,6 +50,18 @@ describe("Best of Future Wars ruleset tools", () => {
         expect(screen.getByTestId("fw-morale-class").textContent).toContain("Regular (6+; shaken: +1 / +2 / +3)");
     });
 
+    it("shows the number a check needs, with the shaken adjustment under the FW #17 printing only", () => {
+        for (const [ruleset, need] of [["fw-morale-17", "8+"], ["fw-morale", "6+"]] as const) {
+            const mech = build([ruleset]);
+            mech.setMoraleClassIndex(2); // Regular
+            mech.rollMorale(2, 2, -2 - mech.getMoraleModifier()); // result 0: broken
+            expect(mech.futureWarsPlay.morale?.status?.kind).toBe("broken");
+            render(<FutureWarsRulesetTools mech={mech} onChange={vi.fn()} />);
+            expect(screen.getByTestId("fw-morale-need").textContent).toContain(`Passes on ${need}`);
+            cleanup();
+        }
+    });
+
     it("Strategic Movement: doubled MP, the move's heat, and what it forbids", () => {
         const mech = build(["fw-strategic-movement"]);
         const onChange = vi.fn();

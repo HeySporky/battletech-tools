@@ -7477,7 +7477,7 @@ export class BattleMech {
             if (printing !== "original") return [`${inferno.name} ignites: ${crit.heat} heat (The Best of Future Wars p.11).`];
             // As first printed, 1 damage a shell, from inside the 'Mech as an ammunition explosion's (CASE vents it).
             if (crit.damage > 0) this.takeDamage(crit.damage, location, false, { structureOnly: true, ventAt: ventsAt });
-            return [`${inferno.name} ignites: ${crit.heat} heat and ${crit.damage} damage (Future Wars #14, as first printed).`];
+            return [`${inferno.name} ignites: ${crit.heat} heat and ${crit.damage} damage (Future Wars #19, as first printed).`];
         }
         // Long Range Flamer fuel as first printed: 2 damage and 3 heat a round left, in place of the explosion.
         const fuel = this.usesFutureWarsEquipmentFirstPrintings()

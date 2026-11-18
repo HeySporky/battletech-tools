@@ -1237,7 +1237,7 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
         notes: "Custom Homebrew: Karl Sander, 'Long Range Flamer', *Future Wars* #9 (1988), p.27; reprinted in *The Best of Future Wars, Volume One* (1991), p.28. "
-            + "The ammunition-hit rule is the reprint's; the original has the 'Mech take 2 damage and 3 heat for each round left (NGCFells to rule). "
+            + "The ammunition-hit rule is the reprint's; the original has the 'Mech take 2 damage and 3 heat for each round left, which play applies with the 'Future Wars: equipment as first printed' Special Ruleset ticked. "
             + "Not printed in The Best of Future Wars: cost and Battle Value are left at 0 (unverified); dates and tech rating are unverified.",
         rules: "15 shots a ton for the Long Range Flamer (custom-lr-flamer). Explosive: if the ammunition is hit, the damage is scaled as if the unit "
             + "had been hit that many times by the weapon.",
@@ -1285,7 +1285,7 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
         notes: "Custom Homebrew: Chris Congdon, 'New Ammo:', *Future Wars* #19 (1990), pp.30-31; reprinted, rewritten, as 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11 (the Liao Inferno shell, stats on p.11). "
-            + "On an ammunition hit the original adds 1 point of damage for each shell left (the reprint says only '1 point per shell'); play adds heat only until NGCFells rules. "
+            + "On an ammunition hit the original adds 1 point of damage for each shell left (the reprint says only '1 point per shell', which play reads as heat); the 'Future Wars: equipment as first printed' Special Ruleset plays the original. "
             + "An ammunition hit causes heat, not damage, so the record is not marked explosive, to keep the generic ammunition-explosion damage off it; "
             + "in roster play an ammunition hit adds the heat to the 'Mech's heat scale. "
             + "Not printed in The Best of Future Wars: the article gives no year of its own for it (the research was contemporary with the VHE shell, 3040, so it is left at no date); "

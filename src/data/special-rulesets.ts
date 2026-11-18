@@ -244,9 +244,9 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
             + "ruling); a hit on Inferno Gauss shells does 30 heat (20 with CASE) and 1 damage a shell; a hit on Long Range "
             + "Flamer fuel does 2 damage and 3 heat a round left; the EII PDS makes no heat; and Swing Fire's three extra rules apply.",
         source: {
-            title: "Herb Barents and others, *Future Wars* #14 (1989) and the issues each item first appeared in; the 1991 reprint is "
+            title: "*Future Wars* #8 and #9 (1988), #14 (1989) and #19 (1990), where each item first appeared; the 1991 reprint is "
                 + "The Best of Future Wars, Volume One",
-            publication: "Future Wars", tag: "FW originals", author: "Herb Barents",
+            publication: "Future Wars", tag: "FW originals", author: "Karl Sander, Mike Reese and Chris Congdon",
         },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["futureWarsEquipment"],

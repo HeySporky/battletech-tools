@@ -37,7 +37,8 @@ const mechOnly = (battlemech: number): IEquipmentItem["space"] =>
     ({ battlemech, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 });
 const UNVALUED = "Battle Value is the base weapon's: the article gives none for the conversion, so ours, unverified.";
 // The reprint's wording; the original (Future Wars #14 p.46) has no fourth-turn burnout and says a burned-out leg
-// booster leaves the 'Mech able to walk but not run, with no word of an overhaul (Chunk R ledger; NGCFells to rule).
+// booster leaves the 'Mech able to walk but not run, with no word of an overhaul. The 'Future Wars: equipment as first
+// printed' ruleset plays the original (later turns fail on 11 or less: NGCFells's ruling, Chunk R2).
 const BURN_OUT = "Each use rolls 2D6: 5 or less and the booster fails for good; on a second turn running it fails on 9 or less, "
     + "on a third on 11 or less, and a fourth turn running burns it out. At any time a 2 burns out the system it drives as well "
     + "(a weapon or jump jets must be replaced; a leg booster leaves the 'Mech able only to walk until a major overhaul).";
@@ -152,7 +153,7 @@ const swingFire = (baseTag: string): IEquipmentItem => {
         reintroduced: lostAndFound ? Math.max(rack.reintroduced ?? 0, SWING_FIRE_IS_REDISCOVERED) : rack.reintroduced ?? null,
         page: 27,
         conversion: { kind: "swing-fire", baseTag, arcDegrees: 180 },
-        notes: `${cite("Karl Sanders", "Swing Fire Missle System", "*Future Wars* #8 (1988), p.37", 27)} The +1 to-hit is the original's (the reprint drops the number). The original also says the swing takes one turn, fires by AeroTech's front and rear arcs, and that a critical hit on the mount stops the swing; those are not yet in the rules (NGCFells to rule). `
+        notes: `${cite("Karl Sanders", "Swing Fire Missle System", "*Future Wars* #8 (1988), p.37", 27)} The +1 to-hit is the original's (the reprint drops the number). The original also says the swing takes one turn, fires by AeroTech's front and rear arcs, and that a critical hit on the mount stops the swing; those are reminders in roster play with the 'Future Wars: equipment as first printed' Special Ruleset ticked. `
             + (pageRack ? "" : `The page names the Inner Sphere LRM and SRM only; the ${torpedo ? "torpedo" : rack.name} version is NGCFells's. `)
             + (clan ? "The Clan mount is NGCFells's: half the page's weight, as Clan launchers run about half the Inner Sphere's. " : "")
             + `${UNVALUED} Dates are NGCFells's (NGCFells's ruling 2026-11-17): a Star League mount of about 2750 that the Clans took in the Exodus and kept; the Inner Sphere lost it in the Succession Wars (about 2830) and found a cache of design schematics and technical manuals in the Third Succession War (about 2880), from which it was reverse engineered.`,

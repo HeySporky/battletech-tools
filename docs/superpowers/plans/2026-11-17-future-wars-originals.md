@@ -29,7 +29,7 @@ rules otherwise, and the notes say what the reprint changed.
 | Best-of p. | Article | Original | Notes from the original |
 |---|---|---|---|
 | 7 | DropShip Construction (Mark Stock) | FW #16 p.32; Pioneer class p.34 | Stock (FW #21 letter): the printed Pioneer article was cut and reworded by the editor. Revised by Erik Eid, "Deluxe Dropship Construction", FW #25 p.6. Rival systems: Mike Reese, "More Drop Ship Construction", FW #36 pp.14-21 (says neither earlier method rebuilds FASA's Union: 738 t of cargo with nothing aboard); Doug Houseman, "Designing a Dropship", FW #36 p.22 |
-| 8 | EII Point Defense System (Mike Reese) | FW #14 (1989) p.46 "New Technology" | first printing heat 0; FW #24 p.10 table gives heat 1 (applied 2026-11-16; NGCFells to rule) |
+| 8 | EII Point Defense System (Mike Reese) | FW #14 (1989) p.46 "New Technology" | first printing heat 0; FW #24 p.10 table gives heat 1 (applied 2026-11-16); heat 0 is the "equipment as first printed" ruleset (Chunk R2) |
 | 9-11 | VHE / Liao Inferno Gauss (Chris Congdon) | FW #19 (1990) pp.30-31 "New Ammo:" | era read 2026-11-17 |
 | 14-16 | Power Armor (Bill Swisher) | FW #14 pp.39-45 | **scan lacks printed pp.39-42** (the text: use the Best-of); **pp.43-45 are three Power Armor record sheets** not reprinted in the Best-of (seen at low resolution only: two 10 t suits, one typed "PA-2" with jump jets, and a third; read them properly in Chunk F) |
 | 17 | Opportunity Fire (Tomaszewski) | FW #13 (1989) pp.16-17 | |
@@ -67,6 +67,7 @@ refactor's eligibility model (`changes`, `excludes`, `requires`).
 | 7 (batch) | Rebuild bundled data, verify, ask about shipping | Sonnet 5.5 | done 2026-11-17 |
 | UI | Special Rulesets window refactor (own plan) | Opus 5.5 | nothing; before G, H, K |
 | R | Re-check built items (Best-of Chunks A-E) against the originals | Sonnet 5.5 | nothing |
+| R2 | Original-printing alternates (`2026-11-17-future-wars-printing-alternates.md`) | Opus 5.5 | done 2026-11-17 |
 | F | Power Armor: read, design, write its plan | Fable 5.2 or Opus 5.5 | done 2026-11-17 |
 | G | DropShips: all four methods (Stock; Stock + Eid; Reese; Houseman), each its own ruleset | Fable 5.2 | Q1 answered, UI |
 | H | Game Management "Future Wars" section; Economics in both versions (FW #5 numbers; reprint's "double or triple") as alternate rules | Fable 5.2 | Q3 answered, UI |
@@ -125,6 +126,16 @@ As the batch plan's Chunk 7. No change.
   changes play (a damage, a range): bring it to the owner before changing it.
 - [x] **Step 3:** Notes credits gain the original issue and page. Unit tests, `npm run check`, commit `Custom
   Homebrew: Future Wars items checked against the original issues (#172)`, push, ledger, handoff.
+
+## Chunk R2: Original-printing alternates
+
+**Why:** NGCFells 2026-11-17: reprint misprints follow the original; real rule differences become alternate rulesets.
+Own plan: `2026-11-17-future-wars-printing-alternates.md`.
+
+- [x] **Task 1:** Original-printing tables for Morale (FW #17), Weapon Malfunctions (FW #9), The Long Range Wars (FW #12).
+- [x] **Task 2:** The twin rulesets, sharing each reprint ruleset's change so only one is ticked; play follows the ticked one.
+- [x] **Task 3:** "Future Wars: equipment as first printed" (Power Booster, Inferno Gauss, LR Flamer fuel, PDS, Swing Fire).
+- [x] **Task 4:** Panel pass number, notes, TRO readout "Two printings", news.
 
 ## Chunk F: Power Armor (read, design, plan)
 

@@ -149,7 +149,10 @@ const FutureWarsRulesetTools = (props: IFutureWarsRulesetToolsProps) => {
                     <select data-testid="fw-morale-class" value={classIndex} onChange={(e) => { mech.setMoraleClassIndex(Number(e.currentTarget.value)); changed(); }}>
                         {MORALE_CLASSES.map((name, index) => <option key={name} value={index}>{name} ({getMoraleBase(index)}+{original ? "; shaken: +1 / +2 / +3" : ""})</option>)}
                     </select>
-                </label>
+                </label>{" "}
+                <span className="small-text" data-testid="fw-morale-need">
+                    Passes on {getMoraleBase(classIndex, status?.kind, original ? "original" : "best-of")}+ on 2D6{original && status ? ` (${status.kind})` : ""}
+                </span>
                 <div data-testid="fw-morale-status" className={status || mech.isMoraleSurrendered() ? "color-red" : ""}>
                     {mech.isMoraleSurrendered() ? "Surrendered: a second rout." : status
                         ? statusText(status)

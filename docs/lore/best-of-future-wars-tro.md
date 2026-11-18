@@ -155,3 +155,28 @@ Wired to the jump jets, it stretches each jump by half again, while the jets run
 | **Jump Jets** | double a hex | | +50% jump |
 
 Each booster weighs 2 tons, takes 1 slot and costs 750,000 C-bills. Each use rolls 2D6: 5 or less and it fails for good, and the target rises the longer it runs; a 2 burns out the system it drives as well.
+
+## Two printings
+
+Most of this material appeared twice: first in the Future Wars fanzine (1987-1990), then in The Best of Future Wars, Volume One (1991). Where the reprint only fixed a slip, the app follows the original. Where the two printings give different rules, each printing is its own Special Ruleset at Custom Homebrew, so a group can play either one. The two printings of a rule cannot both be ticked.
+
+| Rule | The 1991 reprint | The original |
+| --- | --- | --- |
+| **Morale** | Future Wars: Morale (Best of Future Wars printing) | Future Wars: Morale (Future Wars #17 printing) |
+| **Weapon malfunctions** | Future Wars: Weapon Malfunctions (Best of Future Wars printing) | Future Wars: Weapon Malfunctions (Future Wars #9 printing) |
+| **Long range combat** | Future Wars: The Long Range Wars (Best of Future Wars printing) | Future Wars: The Long Range Wars (Future Wars #12 printing) |
+| **Equipment** | (the default: nothing to tick) | Future Wars: equipment as first printed |
+
+**Morale, Future Wars #17 (1990).** A disorganized, broken or routed unit needs 1, 2 or 3 more to pass a check. A 'Mech checks on every hit once three of its locations have internal damage. A rout lasts until the unit is off the board. A 12 enrages the unit (+1 on later rolls on the results table), and a 13 raises it 1 on the morale scale.
+
+**Weapon Malfunctions, Future Wars #9 (1988).** The flamer table prints no row 5, so a 5 does nothing (NGCFells's ruling). A missile rack's 8 forbids firing and jumping of any kind. Several autocannon rows differ, and on an 11 the casing jams in the ejector: the gun still fires, but a to-hit roll of 2, 3 or 4 rolls on the table again. A laser's 16 is +2 to-hit and +5 heat, and its 17 burns it out for good.
+
+**The Long Range Wars, Future Wars #12 (1989).** Ranging takes 1 off the to-hit for each turn in a row the same 'Mech fires at the same target, whatever the target's speed. With eight-sided dice, a to-hit roll of 2 or 3 is a weapon malfunction.
+
+**Equipment as first printed.** Untick it and the equipment plays as the reprint has it. Tick it and:
+
+- The Power Booster (Future Wars #14) has no fourth-turn burnout: the fourth and later turns in a row fail on 11 or less (NGCFells's ruling), and a burned-out leg booster leaves the 'Mech able to walk but not run.
+- A hit on Inferno Gauss shells (Future Wars #19) does 30 heat (20 with CASE) and 1 damage for each shell left.
+- A hit on Long Range Flamer fuel (Future Wars #9) does 2 damage and 3 heat for each round left.
+- The EII PDS (Future Wars #14) makes no heat.
+- Swing Fire (Future Wars #8): swinging the rack takes a turn; on AeroTech maps it fires into the front or rear arc; a critical hit on its own slot stops the swing.

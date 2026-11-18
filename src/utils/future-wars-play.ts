@@ -85,7 +85,7 @@ export const INFERNO_GAUSS_TURNS_PER_HIT = 5;
 
 /**
  * A critical hit on Inferno Gauss shells: 30 heat (20 with CASE), and 1 more heat a shell in the reprint (Best-of
- * p.11); as Future Wars #14 first printed it, 1 damage a shell instead (#172, printing alternates).
+ * p.11); as Future Wars #19 first printed it, 1 damage a shell instead (#172, printing alternates).
  */
 export function getInfernoGaussAmmoCrit(shellsLeft: number, hasCASE: boolean, printing: FutureWarsPrinting = "best-of"): { heat: number; damage: number } {
     const shells = Math.max(0, shellsLeft);
