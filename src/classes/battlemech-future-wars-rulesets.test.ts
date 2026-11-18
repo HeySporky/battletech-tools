@@ -210,6 +210,31 @@ describe("Best of Future Wars rulesets in play", () => {
         expect(toHit(mech, laser, 15, 3).finalToHit).toBe(4 + 6 + 4);
     });
 
+    it("ranging counts against any target under the Future Wars #12 printing (final review)", () => {
+        const mech = build(["fw-long-range-wars-12"]);
+        const laser = mount(mech, "medium-laser");
+        mech.futureWarsPlay.ranging = 3;
+        expect(toHit(mech, laser, 15, 3).finalToHit).toBe(4 + 6 + 4 - 3);
+    });
+
+    it("the no-firing reason cites the printing whose morale table set it (final review)", () => {
+        const original = build(["fw-morale-17"]);
+        original.rollMorale(2, 2, -2 - original.getMoraleModifier()); // result 0: broken
+        expect(original.getFutureWarsRulesetNoFire(undefined)).toBe("No firing while broken (morale, Future Wars #17 p.38).");
+        const reprint = build(["fw-morale"]);
+        reprint.rollMorale(2, 2, -2 - reprint.getMoraleModifier());
+        expect(reprint.getFutureWarsRulesetNoFire(undefined)).toBe("No firing while broken (morale, The Best of Future Wars p.24).");
+    });
+
+    it("a morale status can be cleared: a mistaken check, or a routed unit off the board (final review)", () => {
+        const mech = build(["fw-morale-17"]);
+        mech.rollMorale(2, 2, -6 - mech.getMoraleModifier()); // -4: routed until off the board
+        expect(mech.futureWarsPlay.morale?.status?.untilOffBoard).toBe(true);
+        mech.clearMoraleStatus();
+        expect(mech.futureWarsPlay.morale?.status).toBeUndefined();
+        expect(mech.getFutureWarsRulesetNoFire(undefined)).toBeUndefined();
+    });
+
     it("weapons that may not fire add no heat; the opportunity weapon's heat counts once, targeted or not", () => {
         const mech = build(["fw-strategic-movement", "fw-opportunity-fire", "fw-morale"]);
         const laser = mount(mech, "medium-laser");

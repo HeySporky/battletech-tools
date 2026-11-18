@@ -3,7 +3,6 @@ import { BattleMech, IGATOR } from "../../../classes/battlemech";
 import { getTargetColor, getTargetToHitFromWeapon } from '../../../utils';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
 import { getQuirkSheetLines } from '../../../utils/quirk-sheet-lines';
-import { getMountedHeat } from '../../../data/laser-insulator';
 
 /** Splits the unit's quirk lines into sheet lines of about `width` characters. */
 const wrapQuirks = (lines: string[], width: number): string[] => {
@@ -223,7 +222,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                 if(this.props.mechData.equipmentList[eq_count].heatPerShot) {
                     equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].heat}/shot</text> );
                 } else {
-                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{getMountedHeat(this.props.mechData.equipmentList[eq_count])}</text> );
+                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.getFutureWarsItemHeat(this.props.mechData.equipmentList[eq_count])}</text> );
                 }
                 if(this.props.mechData.equipmentList[eq_count].damagePerCluster) {
                     equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damagePerCluster}/hit</text> );

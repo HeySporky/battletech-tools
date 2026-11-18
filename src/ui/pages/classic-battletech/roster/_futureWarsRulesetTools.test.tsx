@@ -62,6 +62,17 @@ describe("Best of Future Wars ruleset tools", () => {
         }
     });
 
+    it("clears a morale status from the panel (final review)", () => {
+        const mech = build(["fw-morale-17"]);
+        mech.rollMorale(2, 2, -6 - mech.getMoraleModifier()); // -4: routed until off the board
+        const onChange = vi.fn();
+        render(<FutureWarsRulesetTools mech={mech} onChange={onChange} />);
+        fireEvent.click(screen.getByTestId("fw-morale-clear"));
+        expect(mech.futureWarsPlay.morale?.status).toBeUndefined();
+        expect(screen.getByTestId("fw-morale-status").textContent).toBe("Steady.");
+        expect(onChange).toHaveBeenCalledWith(mech);
+    });
+
     it("Strategic Movement: doubled MP, the move's heat, and what it forbids", () => {
         const mech = build(["fw-strategic-movement"]);
         const onChange = vi.fn();

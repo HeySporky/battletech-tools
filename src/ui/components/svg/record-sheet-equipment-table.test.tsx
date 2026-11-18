@@ -43,3 +43,27 @@ describe("a weapon with no medium or long bracket (issue 31)", () => {
         expect(markup).toContain("—");
     });
 });
+
+// Future Wars printing alternates, final review: the sheet's heat column follows "equipment as first printed".
+describe("the EII PDS's heat on the sheet", () => {
+    const heatCell = (rulesets: string[]): string => {
+        const mech = new BattleMech();
+        mech.setTonnage(50);
+        mech.setWalkSpeed(4);
+        mech.applyGameSettings({ ...mech.getGameSettings(6), rulesLevel: 6, rulesets });
+        mech.addEquipmentFromTag("custom-eii-pds", "is", "rt", false, undefined, "", false, [], undefined, undefined, -1, "", true);
+        expect(mech.equipmentList.length).toBe(1);
+        const markup = renderToStaticMarkup(
+            <svg><RecordSheetEquipmentTable mechData={mech} inPlay={false} quirksInPlay={false} xLoc={0} yLoc={0} width={1215} height={645} /></svg>,
+        );
+        const cells = Array.from(markup.matchAll(/<text[^>]*>([^<]*)<\/text>/g)).map((m) => m[1]);
+        const name = cells.findIndex((text) => /Point Defense/.test(text));
+        expect(name).toBeGreaterThanOrEqual(0);
+        return cells[name + 2];
+    };
+
+    it("is 1 as the reprint has it, 0 with Future Wars: equipment as first printed", () => {
+        expect(heatCell([])).toBe("1");
+        expect(heatCell(["fw-equipment-first-printings"])).toBe("0");
+    });
+});

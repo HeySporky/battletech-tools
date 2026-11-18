@@ -1031,8 +1031,10 @@ export function getTargetToHitFromWeapon(
                     gator.attackerMovementModifier = firer;
                     gator.targetMovementModifier = targetModifier;
                     gator.rangeExplanation = longRangeWars.band === "extended" ? "Extended" : "Extreme";
-                    // Ranging only on a target that stayed still or moved 6 hexes or less (standard modifier +2 or less).
-                    const ranging = target.movement <= 2 ? mech.futureWarsPlay.ranging ?? 0 : 0;
+                    // Ranging only on a target that stayed still or moved 6 hexes or less (standard modifier +2 or less) in
+                    // the reprint; on any target in Future Wars #12 as first printed.
+                    const anyTarget = mech.getFutureWarsPrinting( "longRangeWars" ) === "original";
+                    const ranging = anyTarget || target.movement <= 2 ? mech.futureWarsPlay.ranging ?? 0 : 0;
                     if( ranging > 0 ) {
                         gator.finalToHit -= ranging;
                         gator.otherModifiers -= ranging;

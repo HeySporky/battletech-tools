@@ -160,6 +160,10 @@ const FutureWarsRulesetTools = (props: IFutureWarsRulesetToolsProps) => {
                         : "Steady."}
                     {state?.laterRollModifier ? ` ${signed(state.laterRollModifier)} on later results rolls.` : ""}
                 </div>
+                {status ? (
+                    <button className="btn btn-sm btn-secondary" data-testid="fw-morale-clear" title="A check rolled by mistake, or a routed unit that has left the board"
+                        onClick={() => { mech.clearMoraleStatus(); changed(); }}>Clear status</button>
+                ) : null}
                 <div>Check when: a head hit; each hit doing internal damage; {original ? "once three locations have internal damage, every hit" : "three or more locations damaged"}; hit while shaken; a friend within 10 hexes and in sight routs; each failed Piloting Skill Roll; set on fire.</div>
                 <div>
                     <NumberBox testId="fw-morale-check" label="Check 2D6" min={2} max={12} value={roll("morale-check", 7)} onChange={(value) => setRoll("morale-check", value)} />{" "}
