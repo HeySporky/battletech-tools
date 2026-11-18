@@ -158,7 +158,7 @@ above), `src/data/mech-cockpit-types.ts` or the custom cockpit catalog (the wald
 
 ## Chunk D: Values, dates, lore, TRO
 
-- [ ] Battle Value and cost (call 6) with a test pinning one suit after a human check; dates (call 8) on the waldo and
+- [x] (DONE 2026-11-17, 3f522fc0e) Battle Value and cost (call 6) with a test pinning one suit after a human check; dates (call 8) on the waldo and
   the ruleset readout; lore from the history above in our words; a TRO - JBT entry. Alpha Strike: bring the owner a
   proposal first (candidates: a size-1 BattleMech card with a special ability for the +1 to hit, after the Micro-Mech
   ruleset in `micro-mech.ts`). Commit `Custom Homebrew: Power Armor values and readout (#172)`.
