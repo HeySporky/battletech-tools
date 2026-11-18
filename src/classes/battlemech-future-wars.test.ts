@@ -94,7 +94,7 @@ describe("The two Future Wars rulesets (NGCFells's ruling 3)", () => {
             expect(ruleset.removesUnitTypes).toBeUndefined();
         }
         expect(findSpecialRuleset(BEST_OF)!.source.title).toBe("Clell Flint, 'Alternate Rules for Building Mechs in BattleTech', The Best of Future Wars, Volume One (1991), pp.35-36");
-        expect(findSpecialRuleset(ISSUE_11)!.source.title).toBe("Clell Flint, 'Alternative Rules for Building Mechs in BattleTech', Future Wars #11, p.24");
+        expect(findSpecialRuleset(ISSUE_11)!.source.title).toBe("Clell Flint, 'Alternative Rules for Building Mechs in BattleTech', Future Wars #11 (1989), p.24");
     });
     it("cannot both be ticked (the conflict rule)", () => {
         expect(getRulesetConflict([BEST_OF], ISSUE_11)?.id).toBe(BEST_OF);

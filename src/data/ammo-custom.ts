@@ -140,7 +140,7 @@ const sabotShells = (ac: "2" | "5" | "10" | "20", sabotRounds: number, chartRoun
     alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
     catalog: "custom",
     rulesLevel: 6,
-    notes: `Custom Homebrew: Charles J. Tomaszewski, 'How to Kick Goliath Where it Counts', *The Best of Future Wars, Volume One* (1991), p.21. `
+    notes: `Custom Homebrew: Charles J. Tomaszewski, 'How to Kick Goliath Where it Counts', *Future Wars* #15 (1989), pp.31-32; reprinted in *The Best of Future Wars, Volume One* (1991), p.21. Every number matches the original. `
         + `Only 1 round in 5 of the ton is SABOT: the chart's ${chartRounds} rounds a ton hold ${sabotRounds}, so the record counts those ${sabotRounds}. `
         + `The chart's ${chartRounds} rounds a ton is the article's figure, not this catalog's standard AC/${ac} count. The article gives no year. ${NOT_PRINTED_AMMO}`,
     rules: `A depleted-uranium penetrator that sheds its sheath in flight: half the normal damage outside and a quarter inside, fractions rounded up, `
@@ -1236,7 +1236,8 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         roundsPerTon: 15, explosive: true, techRating: "x", book: BEST_OF, page: 28,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
-        notes: "Custom Homebrew: Karl Sanders, 'Long Range Flamer', *The Best of Future Wars, Volume One* (1991), p.28. "
+        notes: "Custom Homebrew: Karl Sander, 'Long Range Flamer', *Future Wars* #9 (1988), p.27; reprinted in *The Best of Future Wars, Volume One* (1991), p.28. "
+            + "The ammunition-hit rule is the reprint's; the original has the 'Mech take 2 damage and 3 heat for each round left (NGCFells to rule). "
             + "Not printed in The Best of Future Wars: cost and Battle Value are left at 0 (unverified); dates and tech rating are unverified.",
         rules: "15 shots a ton for the Long Range Flamer (custom-lr-flamer). Explosive: if the ammunition is hit, the damage is scaled as if the unit "
             + "had been hit that many times by the weapon.",
@@ -1251,8 +1252,8 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         roundsPerTon: 100, explosive: true, techRating: "x", book: BEST_OF, page: 8,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
-        notes: "Custom Homebrew: Mike Reese, 'Ellena Industries Inc. Point Defense System (EII PDS)', *The Best of Future Wars, Volume One* (1991), p.8. "
-            + "Not printed in The Best of Future Wars: whether it explodes (marked explosive here, ours, as machine gun ammunition is); cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
+        notes: "Custom Homebrew: Mike Reese, 'Ellena Industries Inc. Point Defense System (EII PDS)', *Future Wars* #14 (1989), p.46; reprinted in *The Best of Future Wars, Volume One* (1991), p.8. "
+            + "Not printed in either: whether it explodes (marked explosive here, ours, as machine gun ammunition is); cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
         rules: "The extra magazine of an EII Point Defense System (custom-eii-pds): a ton is 100 bursts, one burst against each salvo of incoming missiles; "
             + "the system's own half ton, built in, is 50. Explosive, as machine gun ammunition is.",
         lore: "Ellena Industries ships extra belts for its Point Defense System in sealed one-ton magazines that feed the gun alongside its built-in drum."
@@ -1265,7 +1266,7 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         roundsPerTon: 5, explosive: true, techRating: "x", book: BEST_OF, page: 11,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6, explosionDamagePerShot: 30,
-        notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11. Dated 3040, the year the article has Hanse Davion commission the research (the story's year, not a fielding date). Not printed in The "
+        notes: "Custom Homebrew: Chris Congdon, 'New Ammo:', *Future Wars* #19 (1990), pp.30-31; reprinted, rewritten, as 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11. Every number matches the original. Dated 3040, the year the article has Hanse Davion commission the research (the story's year, not a fielding date). Not printed in The "
             + "Best of Future Wars: cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
         rules: "Very High Explosive: heavier than the standard round, so 5 shots a ton against 8 and a range 3 hexes shorter (1-4, 5-12, 13-19). "
             + "On a hit it does 20 to the location struck and 5 to each adjacent location; a critical hit adds one more critical check for the charge, "
@@ -1283,7 +1284,8 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         roundsPerTon: 8, explosive: false, techRating: "x", book: BEST_OF, page: 11,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
-        notes: "Custom Homebrew: Chris Congdon, 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11 (the Liao Inferno shell, stats on p.11). "
+        notes: "Custom Homebrew: Chris Congdon, 'New Ammo:', *Future Wars* #19 (1990), pp.30-31; reprinted, rewritten, as 'The Development of the VHE Shell', *The Best of Future Wars, Volume One* (1991), pp.9-11 (the Liao Inferno shell, stats on p.11). "
+            + "On an ammunition hit the original adds 1 point of damage for each shell left (the reprint says only '1 point per shell'); play adds heat only until NGCFells rules. "
             + "An ammunition hit causes heat, not damage, so the record is not marked explosive, to keep the generic ammunition-explosion damage off it; "
             + "in roster play an ammunition hit adds the heat to the 'Mech's heat scale. "
             + "Not printed in The Best of Future Wars: the article gives no year of its own for it (the research was contemporary with the VHE shell, 3040, so it is left at no date); "

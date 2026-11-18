@@ -7,7 +7,7 @@ right and rear), a center torso and a control section that can carry a turret. I
 ## Credits
 
 **Walkers are the work of Clell Flint.** His rules first ran as "Rules for Building 4 Legged Mechs in BattleTech" in
-*Future Wars* #11 (pp. 25-27), a BattleTech fanzine, and were reprinted, with changes, as "Optional Rules for Building
+*Future Wars* #11 (1989, pp. 25-27), a BattleTech fanzine, and were reprinted, with changes, as "Optional Rules for Building
 Walkers" in *The Best of Future Wars, Volume One* (1991, pp. 36-38). The app offers both printings. Where they
 differ (the anti-infantry to-hit number, the assault control section's slots, an immobilized walker being knocked
 over), the walker follows the one it is built under.

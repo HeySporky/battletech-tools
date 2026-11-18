@@ -47,7 +47,7 @@ export const WALKER_EDITION_RULES: Record<WalkerEdition, IWalkerEditionRules> = 
     "future-wars-11": {
         tag: "future-wars-11",
         name: "Future Wars #11",
-        source: "Clell Flint, 'Rules for Building 4 Legged Mechs in BattleTech', Future Wars #11, pp.25-27",
+        source: "Clell Flint, 'Rules for Building 4 Legged Mechs in BattleTech', Future Wars #11 (1989), pp.25-27",
         antiInfantryBaseToHit: 0,
         assaultControlSlots: 16,
         immobilizedKnockOver: "A walker immobilized with at least one structure point in each leg, and not knocked over when it was immobilized, "
@@ -69,7 +69,7 @@ export const WALKER_EDITION_RULES: Record<WalkerEdition, IWalkerEditionRules> = 
 
 /** "Walker rules by Clell Flint, ..." naming the edition in use (plan, Global Constraints). */
 export function getWalkerCredit(edition: WalkerEdition, industrial: boolean = false): string {
-    return `Walker rules by Clell Flint, Future Wars #11; reprinted in The Best of Future Wars, Volume One (1991). `
+    return `Walker rules by Clell Flint, Future Wars #11 (1989); reprinted in The Best of Future Wars, Volume One (1991). `
         // "the Future Wars #11 printing", but "The Best of Future Wars ... printing" without a second "the".
         + `Built under ${WALKER_EDITION_RULES[edition].name.startsWith("The ") ? "" : "the "}${WALKER_EDITION_RULES[edition].name} printing.`
         + (industrial ? ` ${WALKER_INDUSTRIAL_CREDIT}` : "");

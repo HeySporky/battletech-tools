@@ -114,7 +114,7 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         category: "construction",
         name: "Future Wars: Alternate 'Mech construction (Future Wars #11 printing)",
         description: FUTURE_WARS_CONSTRUCTION_DESCRIPTION,
-        source: { title: "Clell Flint, 'Alternative Rules for Building Mechs in BattleTech', Future Wars #11, p.24", publication: "Future Wars", tag: "FW #11", author: "Clell Flint" },
+        source: { title: "Clell Flint, 'Alternative Rules for Building Mechs in BattleTech', Future Wars #11 (1989), p.24", publication: "Future Wars", tag: "FW #11", author: "Clell Flint" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["mechConstruction"],
     },
@@ -182,7 +182,7 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         name: "Future Wars: Weapon Malfunctions",
         description: "A to-hit roll of 2 misses, and flamers, missiles, autocannons and lasers then roll for a jam, a damaged sight, "
             + "extra heat or worse.",
-        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-weapon-malfunctions"], publication: "Future Wars", tag: "Best of FW", author: "Karl Bruanning" },
+        source: { title: FUTURE_WARS_PLAY_SOURCES["fw-weapon-malfunctions"], publication: "Future Wars", tag: "Best of FW", author: "Karl Bruanning and Herb Barents" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["weaponFailure"],
     },

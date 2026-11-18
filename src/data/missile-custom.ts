@@ -712,7 +712,8 @@ export const missileCustom: IEquipmentItem[] = applyDerivedValues([
     // The Best of Future Wars, Volume One (1991), Chunk A of the fanzine plan (#172). Custom Homebrew: fan material.
     {
         name: "The Penitrator", tag: "custom-penitrator", techBase: "universal", catalog: "custom", altNames: ["Penitrator Launcher"], sort: "missile, penitrator", category: "Missile Weapons",
-        notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *The Best of Future Wars, Volume One* (1991), p.20. "
+        notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *Mech War Times*, reprinted in *Future Wars* #3 (November 1987), p.5 (unsigned there; the 1991 reprint credits Barents); reprinted in *The Best of Future Wars, Volume One* (1991), p.20. "
+            + "Every number matches the original. The original also estimates the cost at '$250,000 per ton' of missiles, 'almost 10 times the cost of missile packs' (not applied; NGCFells to rule). "
             + "The article names no 'Mech location (the Blaster carried it on top of its torso), so none is restricted here; it gives no to-hit number inside 8 hexes. "
             + "Not printed in The Best of Future Wars: the minimum range of 8 is NGCFells's, a way to carry the inside-8-hexes band in the range field, since the page only says the damage drops and the shot is harder there; the launcher's slots are NGCFells's, 2, as the SRM 6's; "
             + "its cost, Battle Value, dates and tech rating are unverified (cost 0, Battle Value 0).",

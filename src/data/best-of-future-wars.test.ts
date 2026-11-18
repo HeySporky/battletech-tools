@@ -21,8 +21,8 @@ const AMMO = [
 ];
 const AUTHOR_AND_PAGE: Record<string, [string, number]> = {
     "custom-gatling-laser": ["Karl Sanders", 27],
-    "custom-lr-flamer": ["Karl Sanders", 28],
-    "ammo-custom-lr-flamer-standard": ["Karl Sanders", 28],
+    "custom-lr-flamer": ["Karl Sander", 28],
+    "ammo-custom-lr-flamer-standard": ["Karl Sander", 28],
     "custom-eii-pds": ["Mike Reese", 8],
     "ammo-custom-eii-pds-standard": ["Mike Reese", 8],
     "ammo-is-gauss-rifle-vhe": ["Chris Congdon", 11],

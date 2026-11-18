@@ -26,13 +26,18 @@ import { equipmentMissile } from "./equipment-missile";
 
 const BOOK = "The Best of Future Wars, Volume One";
 // Some stats on every record are NGCFells's (Battle Value at least), so the credit reads "Inspired by" (NGCFells's rule, 2026-11-12).
-const cite = (author: string, title: string, page: number) => `Custom Homebrew. Inspired by: ${author}, '${title}', *${BOOK}* (1991), p.${page}.`;
-const UNSIGNED = "The block is unsigned; it runs on in Karl Sanders' article after his signed Gatling Laser, so the credit to him is NGCFells's.";
+// The original issue comes first, then the reprint (Chunk R, 2026-11-17: each checked against the original's page image).
+const cite = (author: string, title: string, original: string, page: number) =>
+    `Custom Homebrew. Inspired by: ${author}, '${title}', ${original}; reprinted in *${BOOK}* (1991), p.${page}.`;
+/** Future Wars #9 p.27 and #14 p.46 sign the column "Karl Sander"; #8 p.37 signs it "Karl Sanders". */
+const SIGNED = "The original column is signed by Karl Sander; the reprint runs it on unsigned after his Gatling Laser.";
 const UNRESOLVED_ALPHA_STRIKE = { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Unverified custom equipment"] };
 /** The articles convert 'Mech systems: no vehicle, fighter or craft takes them. */
 const mechOnly = (battlemech: number): IEquipmentItem["space"] =>
     ({ battlemech, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 });
 const UNVALUED = "Battle Value is the base weapon's: the article gives none for the conversion, so ours, unverified.";
+// The reprint's wording; the original (Future Wars #14 p.46) has no fourth-turn burnout and says a burned-out leg
+// booster leaves the 'Mech able to walk but not run, with no word of an overhaul (Chunk R ledger; NGCFells to rule).
 const BURN_OUT = "Each use rolls 2D6: 5 or less and the booster fails for good; on a second turn running it fails on 9 or less, "
     + "on a third on 11 or less, and a fourth turn running burns it out. At any time a 2 burns out the system it drives as well "
     + "(a weapon or jump jets must be replaced; a leg booster leaves the 'Mech able only to walk until a major overhaul).";
@@ -72,9 +77,9 @@ const converted = (weapon: IEquipmentItem, fields: Partial<IEquipmentItem> & { c
     ...fields,
 });
 
-// --- Rapid Fire Autocannon (Pom-Pom Guns), p.27: unsigned, it runs on in Karl Sanders' article after the Gatling Laser, as the
-// Long Range Flamer and the Power Booster do (Chunk A credits the Flamer to him the same way).
-const POM_POM_AUTHOR = "Karl Sanders";
+// --- Rapid Fire Autocannon (Pom-Pom Guns): Future Wars #9 p.27, Karl Sander's "New Technology..." column (with the Long
+// Range Flamer); reprinted unsigned in the Best-of, p.27. Every number matches the original.
+const POM_POM_AUTHOR = "Karl Sander";
 /** In-character Technical Readout text (NGCFells's). */
 const POM_POM_LORE = "A Pom-Pom conversion rebuilds an autocannon's feed and breech to cycle two shells in the time the original fired one. "
     + "The faster cycle costs the barrel some of its reach and doubles the heat it sheds, and the strain makes an already temperamental "
@@ -94,7 +99,7 @@ const pomPom = (baseTag: string, size: number): IEquipmentItem => {
         range: { ...ac.range, short: ac.range.short - 1, medium: ac.range.medium - 2, long: ac.range.long - 3 },
         page: 27,
         conversion: { kind: "pom-pom", baseTag, shotsPerTurn: 2, malfunctionRolls: 2 },
-        notes: `${cite(POM_POM_AUTHOR, "Rapid Fire Autocannon (Pom-Pom Guns)", 27)} ${UNSIGNED} ${UNVALUED} Dates are unverified.`,
+        notes: `${cite(POM_POM_AUTHOR, "Rapid Fire Auto cannons: (Pom Pom Guns)", "*Future Wars* #9 (1988), p.27", 27)} ${SIGNED} ${UNVALUED} Dates are unverified.`,
         rules: `An AC/${size} converted to fire twice a turn, each shot rolled on its own, at double heat even when it fires once. `
             + "Same damage and rounds per ton as the autocannon; range cut by 1 hex at short, 2 at medium and 3 at long. "
             + "Still prone to breakdown: roll twice on the weapons malfunction table and take the worse. "
@@ -147,7 +152,7 @@ const swingFire = (baseTag: string): IEquipmentItem => {
         reintroduced: lostAndFound ? Math.max(rack.reintroduced ?? 0, SWING_FIRE_IS_REDISCOVERED) : rack.reintroduced ?? null,
         page: 27,
         conversion: { kind: "swing-fire", baseTag, arcDegrees: 180 },
-        notes: `${cite("Karl Sanders", "The Swing Fire Missile System", 27)} The page prints no number for the lost accuracy, so the +1 to-hit is NGCFells's. `
+        notes: `${cite("Karl Sanders", "Swing Fire Missle System", "*Future Wars* #8 (1988), p.37", 27)} The +1 to-hit is the original's (the reprint drops the number). The original also says the swing takes one turn, fires by AeroTech's front and rear arcs, and that a critical hit on the mount stops the swing; those are not yet in the rules (NGCFells to rule). `
             + (pageRack ? "" : `The page names the Inner Sphere LRM and SRM only; the ${torpedo ? "torpedo" : rack.name} version is NGCFells's. `)
             + (clan ? "The Clan mount is NGCFells's: half the page's weight, as Clan launchers run about half the Inner Sphere's. " : "")
             + `${UNVALUED} Dates are NGCFells's (NGCFells's ruling 2026-11-17): a Star League mount of about 2750 that the Clans took in the Exodus and kept; the Inner Sphere lost it in the Succession Wars (about 2830) and found a cache of design schematics and technical manuals in the Third Succession War (about 2880), from which it was reverse engineered.`,
@@ -159,7 +164,7 @@ const swingFire = (baseTag: string): IEquipmentItem => {
 };
 
 // --- Power Booster, p.28. The chart: extra heat, extra damage, added range.
-const BOOSTER_NOTES = `${cite("Karl Sanders", "Power Booster", 28)} ${UNSIGNED} Dates are unverified.`;
+const BOOSTER_NOTES = `${cite("Karl Sander", "Power booster", "*Future Wars* #14 (1989), p.46", 28)} ${SIGNED} The original's chart also boosts the Hellborer (+5 heat, +20 damage, +8 range), which the reprint drops. Dates are unverified.`;
 /** In-character Technical Readout text (NGCFells's): the shared booster paragraph, then what it drives. */
 const boosterLore = (driven: string) => "A Power Booster is a bank of capacitors and overdriven couplings that pushes a system past its rated "
     + "output for a few seconds at a time. Every use strains the hardware, and a booster run hard turn after turn will burn itself out, "

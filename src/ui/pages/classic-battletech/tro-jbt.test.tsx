@@ -144,7 +144,7 @@ describe("Walkers readout (Custom Homebrew, #172)", () => {
     const pages = readoutPages(document.text, document.pageStart);
 
     it("credits Clell Flint and both printings, and says what is NGCFells's and not official", () => {
-        for (const text of ["Clell Flint", "Future Wars #11", "The Best of Future Wars, Volume One (1991", "Inspired by", "not canon", "NOT OFFICIAL", "the fault lies with NGCFells"]) {
+        for (const text of ["Clell Flint", "Future Wars #11 (1989, pp. 25-27)","The Best of Future Wars, Volume One (1991", "Inspired by", "not canon", "NOT OFFICIAL", "the fault lies with NGCFells"]) {
             expect(flat, text).toContain(text);
         }
     });
@@ -256,6 +256,22 @@ describe("Best of Future Wars readout", () => {
             expect(item.lore, item.tag).toBeTruthy();
             for (const sentence of item.lore!.split(/(?<=\.)\s+/)) expect(BEST_OF_FUTURE_WARS_READOUT, item.tag).toContain(sentence);
         }
+    });
+
+    // Chunk R: each credit names the original issue first, read from its page image, then the reprint.
+    it("credits each item's original Future Wars issue before the reprint", () => {
+        for (const credit of [
+            "Mike Reese, \"New Technology\", Future Wars #14 (1989), p.46; reprinted in The Best of Future Wars, p.8.",
+            "Karl Sanders, \"New Technology\", Future Wars #8 (1988), p.37; reprinted in The Best of Future Wars, p.27.",
+            "Karl Sander, Future Wars #9 (1988), p.27; reprinted in The Best of Future Wars, p.28.",
+            "Herb Barents, Mech War Times, reprinted unsigned in Future Wars #3 (November 1987), p.5",
+            "Chris Congdon, \"New Ammo:\", Future Wars #19 (1990), pp.30-31",
+            "Future Wars #15 (1989), pp.31-32; reprinted in The Best of Future Wars, p.21.",
+            "Karl Sander, Future Wars #9 (1988), p.27, where the column is signed",
+            "Karl Sanders, \"Swing Fire Missle System\", Future Wars #8 (1988), p.37",
+            "Karl Sander, \"Power booster\", Future Wars #14 (1989), p.46, where the column is signed",
+        ]) expect(BEST_OF_FUTURE_WARS_READOUT).toContain(credit);
+        expect(BEST_OF_FUTURE_WARS_READOUT).not.toContain("the credit is NGCFells's");
     });
 });
 

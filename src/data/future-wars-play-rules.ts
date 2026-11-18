@@ -34,13 +34,17 @@ export const FUTURE_WARS_PLAY_RULESET_IDS = [
 
 const BOOK = "The Best of Future Wars, Volume One (1991)";
 
-/** Source titles for the registry, "<Author>, '<Title>', <book>, p.N". */
+/**
+ * Source titles for the registry: the original issue first, then the reprint (Chunk R, 2026-11-17: each checked
+ * against the original's page image). Where the reprint changed a rule, the tables below still follow the reprint
+ * until NGCFells rules; the differences are in the Chunk R ledger.
+ */
 export const FUTURE_WARS_PLAY_SOURCES: Record<typeof FUTURE_WARS_PLAY_RULESET_IDS[number], string> = {
-    "fw-opportunity-fire": `Charles J. Tomaszewski, 'Rules Variant: Opportunity Fire', ${BOOK}, p.17`,
-    "fw-strategic-movement": `H. Barents, 'Strategic Movement for BattleTech', ${BOOK}, pp.18-19`,
-    "fw-morale": `H. Barents, 'Stand, I Say!!! Morale in BattleTech', ${BOOK}, pp.22-26`,
-    "fw-weapon-malfunctions": `Karl Bruanning, 'Weapons Malfunctions During Combat', ${BOOK}, p.29`,
-    "fw-long-range-wars": `Herb Barents, 'The Long Range Wars', ${BOOK}, pp.55-56`,
+    "fw-opportunity-fire": `Charles J. Tomaszewski, 'Battletech Rule Variant #1: Using Oppurtunity Fire in BattleTech', *Future Wars* #13 (1989), pp.16-17; reprinted as 'Rules Variant: Opportunity Fire', ${BOOK}, p.17`,
+    "fw-strategic-movement": `Herb Barents, 'Strategic Movement for BattleTech', *Future Wars* #16 (1990), p.29; reprinted in ${BOOK}, pp.18-19`,
+    "fw-morale": `Herb Barents, 'Stand I Say!!! Morale in BattleTech', *Future Wars* #17 (1990), pp.36-40; reprinted in ${BOOK}, pp.22-26`,
+    "fw-weapon-malfunctions": `Karl Bruanning and Herb Barents, 'Weapon Malfunctions during Combat', *Future Wars* #9 (1988), pp.10-11; reprinted (Bruanning only) as 'Weapons Malfunctions During Combat', ${BOOK}, p.29`,
+    "fw-long-range-wars": `Herb Barents, 'The Long Range Wars', *Future Wars* #12 (1989), pp.12-13; reprinted in ${BOOK}, pp.55-56`,
 };
 
 const futureWarsPlayRules: Record<string, IFutureWarsPlayRules> = {

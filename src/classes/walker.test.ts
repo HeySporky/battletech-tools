@@ -339,7 +339,7 @@ describe("Walker tonnage, rules level, editions and saves", () => {
     it("defaults to the Best-of and credits the edition in use", () => {
         const walker = new Walker();
         expect(walker.getEdition()).toBe("best-of-1991");
-        expect(walker.getCredit()).toMatch(/Clell Flint, Future Wars #11; reprinted in The Best of Future Wars, Volume One \(1991\)/);
+        expect(walker.getCredit()).toMatch(/Clell Flint, Future Wars #11 \(1989\); reprinted in The Best of Future Wars, Volume One \(1991\)/);
         walker.setEdition("future-wars-11");
         expect(walker.getEditionRules()).toBe(WALKER_EDITION_RULES["future-wars-11"]);
         expect(walker.getCredit()).toMatch(/Future Wars #11 printing/);

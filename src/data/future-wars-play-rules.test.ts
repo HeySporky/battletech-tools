@@ -9,9 +9,9 @@ const BOOK = "The Best of Future Wars, Volume One (1991)";
 
 const EXPECTED: Array<[string, string, string, string]> = [
     ["fw-opportunity-fire", "Charles J. Tomaszewski", "p.17", "firePhase"],
-    ["fw-strategic-movement", "H. Barents", "pp.18-19", "movementModes"],
-    ["fw-morale", "H. Barents", "pp.22-26", "morale"],
-    ["fw-weapon-malfunctions", "Karl Bruanning", "p.29", "weaponFailure"],
+    ["fw-strategic-movement", "Herb Barents", "pp.18-19", "movementModes"],
+    ["fw-morale", "Herb Barents", "pp.22-26", "morale"],
+    ["fw-weapon-malfunctions", "Karl Bruanning and Herb Barents", "p.29", "weaponFailure"],
     ["fw-long-range-wars", "Herb Barents", "pp.55-56", "weaponRanges"],
 ];
 

@@ -1,10 +1,10 @@
 # Technical Readout: The Best of Future Wars Equipment
 
-Fan-made equipment from *The Best of Future Wars, Volume One* (1991), offered at the Custom Homebrew rules level. NOT OFFICIAL. Where a number is NGCFells's rather than the article's, the item's notes in the equipment list say so; cost and Battle Value left at 0 are unverified. The in-character text under each heading is NGCFells's, written for this readout.
+Fan-made equipment from the *Future Wars* fanzine (1987-1990), as collected in *The Best of Future Wars, Volume One* (1991), offered at the Custom Homebrew rules level. NOT OFFICIAL. Where a number is NGCFells's rather than the article's, the item's notes in the equipment list say so; cost and Battle Value left at 0 are unverified. The in-character text under each heading is NGCFells's, written for this readout.
 
 ## EII Point Defense System
 
-*Mike Reese, p.8.* An experimental gatling machine gun with its own radar, tied to the unit's fire control.
+*Mike Reese, "New Technology", Future Wars #14 (1989), p.46; reprinted in The Best of Future Wars, p.8.* An experimental gatling machine gun with its own radar, tied to the unit's fire control.
 
 Ellena Industries built its Point Defense System as an experiment in stopping missiles before they strike. A gatling machine gun that fires twice as fast as a standard model is slaved to its own radar and to the host's fire control, an EII Mark 52 or later, and sweeps incoming salvos from the sky. The test installation took the place of the AC/5 on a Marauder II. Ellena has announced no production run. Ellena Industries sits on the planet UR in the Capellan Confederation, near Tikonov, and the Ellena family has run it for generations. It began as a small shop making simple goods for its own world, became a secret factory for the long-gone Mitchel Vehicle Interstellar in the early years of the First Succession War, and soon outgrew its patron. Since the war it has built JumpShips and DropShips (the Union, Leopard, Thunderwolf and Backlash classes), tracked and hover vehicles, VTOLs and BattleMech modifications, and it repairs almost anything, with sales of over a billion C-Bills a year. The Point Defense System is its latest development and its first move into 'Mech equipment.
 
@@ -23,7 +23,7 @@ When SRM or LRM fire is declared against the unit, the defender rolls a die: tha
 
 ## Gatling Laser
 
-*Karl Sanders, p.27.* A rotating-barrel laser.
+*Karl Sanders, "New Technology", Future Wars #8 (1988), p.37; reprinted in The Best of Future Wars, p.27.* A rotating-barrel laser.
 
 The Gatling Laser spins six small focusing barrels around a common power feed, so each pulse leaves through a barrel that has had a moment to cool. Its designers set out to match a medium laser's punch for far less waste heat, and the weapon trades one heavy bolt for a stream of light hits scattered across the target.
 
@@ -37,7 +37,7 @@ The Gatling Laser spins six small focusing barrels around a common power feed, s
 
 ## Long Range Flamer
 
-*Karl Sanders, p.28.* A fuel-fed flamer whose blaze sticks to the target.
+*Karl Sander, Future Wars #9 (1988), p.27; reprinted in The Best of Future Wars, p.28.* A fuel-fed flamer whose blaze sticks to the target.
 
 Rather than vent plasma bled from the fusion reactor, the Long Range Flamer throws a jet of jellied fuel from tanks of its own. The fuel clings and keeps burning for several turns, and a stream that misses still sets the ground ablaze around its target. It reaches far beyond any standard flamer, at the price of a fuel supply that can turn on its carrier if the tanks are breached.
 
@@ -56,7 +56,7 @@ A miss scatters and sets the hexes it strikes on fire.
 
 ## The Penitrator
 
-*Herb Barents, p.20.* A long-range missile with a soft shaped-charge head that gets critical hits through armor rather than damaging it.
+*Herb Barents, Mech War Times, reprinted unsigned in Future Wars #3 (November 1987), p.5; reprinted in The Best of Future Wars, p.20.* A long-range missile with a soft shaped-charge head that gets critical hits through armor rather than damaging it.
 
 The Penitrator is a long-range solid-fuel missile with a soft shaped-charge warhead that spends its force past the armor, among the machinery inside, rather than on it. The design was captured from the 'Mech known as the Blaster, which carried four of the missiles in a launcher on top of its torso. The missile needs distance to reach speed, so it is weak and hard to aim up close. Only the Federated Commonwealth fields it, in very small numbers. In the original article (Mech War Times, reprinted in Future Wars #3, November 1987) the 113th Regiment's recon company, the Silveradoes, captured the Blasters on Glow, the first moon of Harvest, and the 113th's techs took the missiles apart: House Steiner alone held the weapon, and only a very few. The Federated Commonwealth wording is the 1991 reprint's.
 
@@ -72,7 +72,7 @@ Roll a critical hit check for each missile that hits. Damage falls off with rang
 
 ## Gauss Rifle Shells: VHE and Inferno
 
-*Chris Congdon, "The Development of the VHE Shell", pp.9-11.* Special shells for the Gauss Rifle: the Very High Explosive shell and the Liao Inferno shell. Both also feed the Clan Gauss Rifle in this app (NGCFells's choice). The Inferno shell is not explosive.
+*Chris Congdon, "New Ammo:", Future Wars #19 (1990), pp.30-31; rewritten as "The Development of the VHE Shell" in The Best of Future Wars, pp.9-11.* Special shells for the Gauss Rifle: the Very High Explosive shell and the Liao Inferno shell. Both also feed the Clan Gauss Rifle in this app (NGCFells's choice). The Inferno shell is not explosive.
 
 In 3040 Prince Hanse Davion commissioned research into a heavier Gauss round. The Very High Explosive shell that came of it wraps a shaped charge in a hollow high-explosive body: the charge drives into the plate it strikes while the casing bursts across the armor around it. The added mass shortens the round's flight and cuts the shells to a ton, and a magazine of VHE shells is far more dangerous to its owner than inert slugs.
 
@@ -85,7 +85,7 @@ The Capellan researcher Dr Xhiao Zing answered the Davion VHE program with a Gau
 
 ## Autocannon SABOT Rounds
 
-*Charles J. Tomaszewski, "How to Kick Goliath Where it Counts", p.21.* SABOT rounds for the AC/2, AC/5, AC/10 and AC/20.
+*Charles J. Tomaszewski, "How to Kick Goliath Where it Counts", Future Wars #15 (1989), pp.31-32; reprinted in The Best of Future Wars, p.21.* SABOT rounds for the AC/2, AC/5, AC/10 and AC/20.
 
 A SABOT shell carries a dense depleted-uranium dart inside a light sheath that falls away as the round leaves the barrel. The dart strikes with less force than a full shell but drives deep, seeking the machinery beneath the armor. Quartermasters on every side can supply SABOT rounds, though only in limited numbers, and they are issued one round in five.
 
@@ -100,7 +100,7 @@ On a hit, make a critical hit check with a +1 modifier.
 
 ## Rapid Fire Autocannon (Pom-Pom)
 
-*Karl Sanders, p.27 (unsigned; the credit is NGCFells's).* An AC/2, AC/5, AC/10 or AC/20 converted to fire twice a turn.
+*Karl Sander, Future Wars #9 (1988), p.27, where the column is signed; reprinted in The Best of Future Wars, p.27, which runs it unsigned.* An AC/2, AC/5, AC/10 or AC/20 converted to fire twice a turn.
 
 A Pom-Pom conversion rebuilds an autocannon's feed and breech to cycle two shells in the time the original fired one. The faster cycle costs the barrel some of its reach and doubles the heat it sheds, and the strain makes an already temperamental weapon more prone to jams. Most technicians treat it as a field modification rather than a factory weapon.
 
@@ -115,7 +115,7 @@ Roll twice on the weapons malfunction table and take the worse.
 
 ## Swing Fire Missile System
 
-*Karl Sanders, p.27.* A missile rack on a swivel. The page names the Inner Sphere LRM and SRM; the other racks, the Clan mount and the dates are NGCFells's.
+*Karl Sanders, "Swing Fire Missle System", Future Wars #8 (1988), p.37; reprinted in The Best of Future Wars, p.27.* A missile rack on a swivel. The page names the Inner Sphere LRM and SRM; the other racks, the Clan mount and the dates are NGCFells's.
 
 The Star League Defense Force fielded the Swing Fire mount around 2750 to let a 'Mech's missiles reach targets outside its forward arc without turning the torso. The rack rides a powered ring that the pilot can swing through half a circle. The ring's bearings and feed couplings are delicate, and the slack in the mechanism spoils a launcher's aim.
 
@@ -134,7 +134,7 @@ The pilot can turn the rack's line of sight 180 degrees in combat, at +1 to-hit 
 
 ## Power Booster
 
-*Karl Sanders, p.28 (unsigned; the credit is NGCFells's).* A booster for an energy weapon, the legs or the jump jets.
+*Karl Sander, "Power booster", Future Wars #14 (1989), p.46, where the column is signed; reprinted in The Best of Future Wars, p.28, which runs it unsigned.* A booster for an energy weapon, the legs or the jump jets.
 
 A Power Booster is a bank of capacitors and overdriven couplings that pushes a system past its rated output for a few seconds at a time. Every use strains the hardware, and a booster run hard turn after turn will burn itself out, sometimes taking the system it drives with it.
 

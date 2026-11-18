@@ -127,7 +127,7 @@ export const ERA_RULINGS: Record<string, IEraRuling> = {
     },
     ...Object.fromEntries([2, 5, 10, 20].map((size) => [`custom-pom-pom-ac-${size}`, {
         by: "era review of the original article", date: "2026-11-17", techBase: "is", introduced: 3025, extinct: null,
-        note: "Future Wars #11 draws the Krupp Rapid Fire Auto Cannon only on a lost-plans super-assault design that was never built; the Best of Future Wars (p.27) says House Marik 'has finally come up with a system that is fairly reliable' after long work, "
+        note: "Future Wars #11 draws the Krupp Rapid Fire Auto Cannon only on a lost-plans super-assault design that was never built; the article itself (Future Wars #9 (1988) p.27, reprinted in the Best of Future Wars p.27) says House Marik 'has come up witha very good system that is quite relyiable' after long work, "
             + "fitted to Riflemen and an Atlas variant. So it is an Inner Sphere, House Marik field modification of the Succession Wars, in service at the 3025 baseline (NGCFells's year); never extinct.",
     } as IEraRuling])),
     ...Object.fromEntries(["custom-penitrator", "ammo-custom-penitrator-standard"].map((tag) => [tag, {
@@ -140,11 +140,11 @@ export const ERA_RULINGS: Record<string, IEraRuling> = {
     } as IEraRuling])),
     ...Object.fromEntries(["ppc", "large-laser", "medium-laser", "small-laser", "running", "jumping"].map((kind) => [`custom-power-booster-${kind}`, {
         by: "era review of the original article", date: "2026-11-17", introduced: 3025, extinct: null,
-        note: "Future Wars #14 (Karl Sanders) prints it with the Hellborer and the Gatling Laser in the super-assault 'Mech series, and the Gatling Laser it also boosts is a 3025 prototype; so the booster is a Succession Wars item at the 3025 baseline (NGCFells's year), never extinct.",
+        note: "Future Wars #14 (1989, p.46, Karl Sander) prints it with the Hellborer and the Gatling Laser in the super-assault 'Mech series, and the Gatling Laser it also boosts is a 3025 prototype; so the booster is a Succession Wars item at the 3025 baseline (NGCFells's year), never extinct.",
     } as IEraRuling])),
     ...Object.fromEntries(["custom-lr-flamer", "ammo-custom-lr-flamer-standard"].map((tag) => [tag, {
         date: "2026-11-17", introduced: 1950, extinct: null,
-        note: "the Best of Future Wars (p.28) prints stats only: 15 shots a ton of fuel, 4/8/12 hexes. It is a pressurised vehicle flamer, simple old tech that is still with us, so it takes the vehicle flamer's dates: introduced 1950, never extinct.",
+        note: "the original (Future Wars #9 (1988) p.27) and the Best of Future Wars (p.28) print stats only: 15 shots a ton of fuel, 4/8/12 hexes. It is a pressurised vehicle flamer, simple old tech that is still with us, so it takes the vehicle flamer's dates: introduced 1950, never extinct.",
     } as IEraRuling])),
     "custom-smoker": {
         techBase: "universal", introduced: 1950, extinct: null,

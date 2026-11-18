@@ -95,11 +95,13 @@ describe("Swing Fire Missile System, p.27", () => {
         expect(swing.conversion).toMatchObject({ kind: "swing-fire", baseTag, arcDegrees: 180 });
     });
 
-    it("loses accuracy: the page prints no number, so +1 is NGCFells's and says so", () => {
+    // Chunk R: Future Wars #8 p.37 prints the +1 that the reprint dropped.
+    it("loses accuracy: +1, as the original issue prints it, and says so", () => {
         const swing = find("custom-swing-fire-lrm-10");
         expect(find("lrm-10").accuracyModifier).toBe(0);
         expect(swing.accuracyModifier).toBe(1);
-        expect(swing.notes).toContain("+1 to-hit is NGCFells's");
+        expect(swing.notes).toContain("*Future Wars* #8 (1988), p.37");
+        expect(swing.notes).toContain("+1 to-hit is the original's");
     });
 
     it("feeds from the rack's ammunition", () => {
@@ -225,11 +227,13 @@ describe("Best of Future Wars conversions: catalog", () => {
         }
     });
 
-    // Review finding 3 (NGCFells's rule): some stats are NGCFells's, so the credit reads "Inspired by"; the unsigned blocks say whose article they run in.
-    it("credits read 'Inspired by', and the unsigned blocks say so", () => {
-        for (const tag of ALL_TAGS) expect(find(tag).notes, tag).toContain("Inspired by: Karl Sanders, '");
-        for (const tag of ["custom-pom-pom-ac-5", "custom-power-booster-ppc", "custom-power-booster-running"]) {
-            expect(find(tag).notes, tag).toContain("unsigned");
+    // Review finding 3 (NGCFells's rule): some stats are NGCFells's, so the credit reads "Inspired by". Chunk R: the original
+    // issue comes first; Future Wars #9 and #14 sign the column "Karl Sander", which the reprint runs on unsigned.
+    it("credits read 'Inspired by', original issue first, and the signed columns say so", () => {
+        for (const tag of ALL_TAGS) expect(find(tag).notes, tag).toMatch(/Inspired by: Karl Sanders?, '[^']+', \*Future Wars\* #(8|9|14) \(198[89]\), p\.\d+; reprinted in/);
+        for (const [tag, issue] of [["custom-pom-pom-ac-5", "#9 (1988), p.27"], ["custom-power-booster-ppc", "#14 (1989), p.46"], ["custom-power-booster-running", "#14 (1989), p.46"]]) {
+            expect(find(tag).notes, tag).toContain(`*Future Wars* ${issue}`);
+            expect(find(tag).notes, tag).toContain("signed by Karl Sander");
         }
     });
 

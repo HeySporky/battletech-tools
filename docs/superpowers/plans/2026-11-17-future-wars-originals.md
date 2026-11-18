@@ -29,25 +29,25 @@ rules otherwise, and the notes say what the reprint changed.
 | Best-of p. | Article | Original | Notes from the original |
 |---|---|---|---|
 | 7 | DropShip Construction (Mark Stock) | FW #16 p.32; Pioneer class p.34 | Stock (FW #21 letter): the printed Pioneer article was cut and reworded by the editor. Revised by Erik Eid, "Deluxe Dropship Construction", FW #25 p.6. Rival systems: Mike Reese, "More Drop Ship Construction", FW #36 pp.14-21 (says neither earlier method rebuilds FASA's Union: 738 t of cargo with nothing aboard); Doug Houseman, "Designing a Dropship", FW #36 p.22 |
-| 8 | EII Point Defense System (Mike Reese) | FW #14 p.46 "New Technology" | FW #24 p.10 table gives heat 1 (applied 2026-11-16) |
-| 9-11 | VHE / Liao Inferno Gauss (Chris Congdon) | FW #19 | era read 2026-11-17 |
+| 8 | EII Point Defense System (Mike Reese) | FW #14 (1989) p.46 "New Technology" | first printing heat 0; FW #24 p.10 table gives heat 1 (applied 2026-11-16; NGCFells to rule) |
+| 9-11 | VHE / Liao Inferno Gauss (Chris Congdon) | FW #19 (1990) pp.30-31 "New Ammo:" | era read 2026-11-17 |
 | 14-16 | Power Armor (Bill Swisher) | FW #14 pp.39-45 | **scan lacks printed pp.39-42** (the text: use the Best-of); **pp.43-45 are three Power Armor record sheets** not reprinted in the Best-of (seen at low resolution only: two 10 t suits, one typed "PA-2" with jump jets, and a third; read them properly in Chunk F) |
-| 17 | Opportunity Fire (Tomaszewski) | FW #13 p.16 | |
-| 18-19 | Strategic Movement (Barents) | FW #16 p.29 | |
+| 17 | Opportunity Fire (Tomaszewski) | FW #13 (1989) pp.16-17 | |
+| 18-19 | Strategic Movement (Barents) | FW #16 (1990) p.29 | |
 | 20 | The Penitrator (Barents) | FW #3 p.5 (1987) | **checked 2026-11-17:** min 8 / 12 / 24 / 36, 1d4/2, 1d8, 1d6, 1d4, internal 1/3/2/1: matches our record. FW #25 p.22 prints a **Kin "Penetrator Missile"** with different bands (1-7, 8-16, 17-24, 25-36): a later Kin version, for Chunk K2, not a correction |
-| 21 | SABOT (Tomaszewski) | FW #15 | |
-| 22-26 | Stand, I Say!! Morale (Barents) | FW #17 p.22 | |
-| 27 | Gatling Laser, Swing Fire (Karl Sanders) | FW #8 p.37 "New Technology"; Gatling 'Mechs FW #12 | |
-| 27 | Pom-Pom / Rapid Fire AC (Sanders) | FW #11 ("Krupp Rapid Fire Auto Cannon") | |
-| 28 | Long Range Flamer (Sanders) | FW #9 (a design note, PDF line ~1749 of the extract) | locate the stat block on the image |
-| 28 | Power Booster (Sanders) | FW #14 | |
-| 29 | Weapons Malfunctions (Bruanning) | FW #9 p.10 | |
+| 21 | SABOT (Tomaszewski) | FW #15 (1989) pp.31-32 | |
+| 22-26 | Stand, I Say!! Morale (Barents) | FW #17 (1990) pp.36-40 | |
+| 27 | Gatling Laser, Swing Fire (Karl Sanders) | FW #8 (1988) p.37 "New Technology"; Gatling 'Mechs FW #12 | |
+| 27 | Pom-Pom / Rapid Fire AC (Sanders) | FW #9 (1988) p.27, signed Karl Sander | corrected in Chunk R (was FW #11, a different Krupp article) |
+| 28 | Long Range Flamer (Sanders) | FW #9 (1988) p.27, Karl Sander | read in Chunk R |
+| 28 | Power Booster (Sanders) | FW #14 (1989) p.46, signed Karl Sander | |
+| 29 | Weapons Malfunctions (Bruanning) | FW #9 (1988) pp.10-11, Karl Bruanning and Herb Barents | |
 | 33-34 | A Question on Economics (Barents) | **FW #5 pp.5-6** | **the original prints combination values the reprint dropped**: mining + refining + heavy manufacturing = 7 million C (not 3); two food + one processing = 6 million; oil + refining + processing = 12 million; "you cannot use ALL the dots in conjunction"; manufacturing, processing and refining yield more than other things; heavy manufacturing leads to light. Payday every three months. Page 6: destroying an area's dots (food easiest, heavy industry hardest) by the size of the fight. The reprint replaced the numbers with "double or even triple" and added a MechWarrior "pain factor" paragraph |
 | 35-38 | Walkers / Alternate Rules for Building Mechs (Clell Flint) | FW #11 p.24 | already checked against FW #11 when built (compact plan line 48) |
 | 42-52 | Planetary Assault Rules (Michael Reese) | FW #16 pp.14-25 | FW #30 has battle reports played with a victory-level table (76-90 strategic, 91+ crushing): check whether that is these rules |
 | 57-59 | MechWarrior in a Box (Mark Stock) | FW #12 p.8 | FW #12 also has the "pain factor" text |
 | 60-61 | City Raid (Barents) | **not found** | not in issues 11-41's text; issues 1-10 searched by keyword without a hit. Use the Best-of; a page-by-page look at issues 1-10 only if the owner wants it |
-| 55-56 | The Long Range Wars (Barents) | FW #12 | |
+| 55-56 | The Long Range Wars (Barents) | FW #12 (1989) pp.12-13 | |
 
 Material in the originals with no Best-of counterpart that the remaining chunks touch: the **Kin** (FW #25, the Kin
 special issue, pp.21-~45: large missiles M-15 and M-40, Penetrator Missiles, Sonic Guns small and medium, Plasma
@@ -83,6 +83,11 @@ refactor's eligibility model (`changes`, `excludes`, `requires`).
 - Q1: all four DropShip methods, each its own ruleset: Stock, Stock + Eid, Reese, Houseman. They change the same thing
   (`dropshipConstruction`), so one at a time; Stock + Eid is a ruleset of its own that includes Stock's rules.
 - Q2: the whole Kin arsenal and the designs of FW #25 and #34 (Chunk K2 is in scope), not only the Pulsar's needs.
+  **NGCFells ruling 2026-11-17: the Kin are ALTERNATE UNIVERSE material**, not Custom Homebrew in the BattleTech
+  canon, unless an article references the bird-like aliens of the novel *Far Country* (the only canon aliens in
+  BattleTech so far); only such a reference may be treated as in-universe. Kin rulesets, records, designs and
+  readouts say "alternate universe" (source tag, ruleset category, readout text). Where alternate-universe readouts are
+  filed in TRO - JBT is still to be asked.
 - Q3: both versions as alternate rules: the original FW #5 numbers, and the reprint's "double or triple" rule.
 - Q4: yes (answered earlier the same day; in the Power Armor plan's Chunk E).
 
@@ -107,13 +112,13 @@ As the batch plan's Chunk 7. No change.
 
 **Why:** Chunks A-E were read from the Best-of; the era review read the originals for dates and lore only.
 
-- [ ] **Step 1:** For each item in the table above that is built (PDS, VHE, Inferno, SABOT, Gatling Laser, Swing
+- [x] **Step 1:** For each item in the table above that is built (PDS, VHE, Inferno, SABOT, Gatling Laser, Swing
   Fire, Pom-Pom, LR Flamer, Power Booster, the five play rulesets), read the original article's page image and
   compare every number with the record or `future-wars-play-rules.ts`. The Penitrator is done (matches FW #3).
-- [ ] **Step 2:** Ledger: a row an item: same, or what differs and which the record follows. A difference where the
+- [x] **Step 2:** Ledger: a row an item: same, or what differs and which the record follows. A difference where the
   reprint changed the original: follow the original, failing test first, and say so in the notes. A difference that
   changes play (a damage, a range): bring it to the owner before changing it.
-- [ ] **Step 3:** Notes credits gain the original issue and page. Unit tests, `npm run check`, commit `Custom
+- [x] **Step 3:** Notes credits gain the original issue and page. Unit tests, `npm run check`, commit `Custom
   Homebrew: Future Wars items checked against the original issues (#172)`, push, ledger, handoff.
 
 ## Chunk F: Power Armor (read, design, plan)

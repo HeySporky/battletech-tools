@@ -205,7 +205,7 @@ const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
     // dates and tech rating are left unverified where the article's stat block gives none.
     {
         name: "Gatling Laser", tag: "custom-gatling-laser", techBase: "universal", catalog: "custom", sort: "laser, gatling", category: "Energy Weapons",
-        notes: "Custom Homebrew: Karl Sanders, 'The Gatling Laser', *The Best of Future Wars, Volume One* (1991), p.27. The author's prose calls it 36% lighter than a medium laser and 75% cooler, but his stat block "
+        notes: "Custom Homebrew: Karl Sanders, 'The Gatling Laser', *Future Wars* #8 (1988), p.37 ('New Technology'); reprinted in *The Best of Future Wars, Volume One* (1991), p.27. The original's prose cuts damage and range by a third, heat by over 75% and weight by a third (the reprint says 36% lighter), but the stat block "
             + "says 4 tons, and the block is used. Not printed in The Best of Future Wars: heat is NGCFells's, 1, the 75% cut read off a medium laser's 3 heat and rounded up (the block gives none); "
             + "dates and tech rating are unverified.",
         rules: "A rotating-barrel laser: six shots a turn of 2 points each, rolled to hit on the SRM 6 cluster column. Ranges 1-2, 3-4, 5-6. 1 heat.",
@@ -219,7 +219,7 @@ const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
     },
     {
         name: "Long Range Flamer", tag: "custom-lr-flamer", techBase: "universal", catalog: "custom", altNames: ["LR Flamer"], sort: "flamer, long range", category: "Energy Weapons",
-        notes: "Custom Homebrew: Karl Sanders, 'Long Range Flamer', *The Best of Future Wars, Volume One* (1991), p.28. Not printed in The Best of Future Wars: "
+        notes: "Custom Homebrew: Karl Sander, 'Long Range Flamer', *Future Wars* #9 (1988), p.27 ('New Technology...'); reprinted in *The Best of Future Wars, Volume One* (1991), p.28. Every number matches the original. Not printed in either: "
             + "dates and tech rating are unverified.",
         rules: "Fuel-fed (ammo-custom-lr-flamer-standard, 15 shots a ton). "
             + "The blaze sticks to the target as an inferno hit does: it does 5 plus 5 heat levels the first turn, 2 plus 5 the second and 0 plus 5 the third; a second hit adds its damage to "
