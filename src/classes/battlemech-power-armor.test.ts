@@ -239,3 +239,19 @@ describe("Without the ruleset", () => {
         expect(copy.getGyroWeight()).toBe(0);
     });
 });
+
+describe("Armor spread on a suit (bug found in Chunk E)", () => {
+    it("spreads armor (the creator's Best Guess) with the head held to twice its structure, not 9", () => {
+        for (const tonnage of [5, 10, 15]) {
+            const mech = build(tonnage, 4);
+            mech.setArmorWeight(mech.getMaxArmorTonnage());
+            mech.allocateArmorSane();
+            expect(mech.getArmorAllocation().head, `${tonnage} t`).toBe(mech.getMaxHeadArmor());
+            expect(mech.getChassisEquipmentViolations().filter(v => /Head armor/.test(v)), `${tonnage} t`).toEqual([]);
+        }
+        const plain = build(10, 4, []);
+        plain.setArmorWeight(plain.getMaxArmorTonnage());
+        plain.allocateArmorSane();
+        expect(plain.getArmorAllocation().head).toBe(9);
+    });
+});

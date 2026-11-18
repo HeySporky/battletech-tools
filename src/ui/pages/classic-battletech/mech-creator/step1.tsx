@@ -28,6 +28,9 @@ import EditionChoice from '../../../components/edition-choice';
 import ComponentTechBaseChoice from '../../../components/component-tech-base-choice';
 import { getVTOLAMSamples } from '../../../../data/vtolam-samples';
 import { getPAMSamples } from '../../../../data/pam-samples';
+import { getPowerArmorSamples } from '../../../../data/power-armor-samples';
+import { FW_POWER_ARMOR_RULESET } from '../../../../data/future-wars-power-armor';
+import { getRulesetBlock } from '../../../../data/special-rulesets';
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/rules-level-options';
 import { generateUUID } from '../../../../utils/generateUUID';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
@@ -160,11 +163,22 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
       this.loadSample( getPAMSamples( mechRulesLevel(this.props.appGlobals) ), e.currentTarget.value );
     }
 
-    loadSample = ( samples: { id: string; save: object }[], id: string ): void => {
+    // A suit needs its ruleset: keep the design's other rulesets, less any that cannot sit with Power Armor.
+    loadPowerArmorSample = ( e: React.FormEvent<HTMLSelectElement>): void => {
+      this.loadSample( getPowerArmorSamples( mechRulesLevel(this.props.appGlobals) ), e.currentTarget.value, (suit) => {
+        const level = mechRulesLevel( this.props.appGlobals );
+        const kept = suit.getRulesets().filter( (id) => id !== FW_POWER_ARMOR_RULESET && !getRulesetBlock( [FW_POWER_ARMOR_RULESET], id ) );
+        suit.applyGameSettings({ ...suit.getGameSettings( level ), rulesLevel: level, rulesets: [...kept, FW_POWER_ARMOR_RULESET] });
+      });
+    }
+
+    loadSample = ( samples: { id: string; save: object }[], id: string, adjust?: ( mech: BattleMech ) => void ): void => {
       const sample = samples.find( (entry) => entry.id === id );
       if( sample ) {
         replaceCurrentBattleMech( this.props.appGlobals, () => {
-          this.props.appGlobals.saveCurrentBattleMech( keepDesignSettings( this.props.appGlobals, new BattleMech( JSON.stringify( { ...sample.save, uuid: generateUUID() } ) ) ) );
+          const mech = keepDesignSettings( this.props.appGlobals, new BattleMech( JSON.stringify( { ...sample.save, uuid: generateUUID() } ) ) ) as BattleMech;
+          adjust?.( mech );
+          this.props.appGlobals.saveCurrentBattleMech( mech );
           this.setState({ updated: !this.state.updated });
         });
       }
@@ -419,6 +433,17 @@ export default class MechCreatorStep1 extends React.Component<IHomeProps, IHomeS
                               <select value="" onChange={this.loadPAMSample} data-testid="pam-samples">
                                 <option value="">Start from a sample Permanent Air 'Mech (optional)</option>
                                 {getPAMSamples( mechRulesLevel(this.props.appGlobals) ).map( (sample) => (
+                                  <option key={sample.id} value={sample.id}>{sample.name}</option>
+                                ))}
+                              </select>
+                            </label>
+                          ) : null}
+                          {getPowerArmorSamples( mechRulesLevel(this.props.appGlobals) ).length > 0 ? (
+                            <label>
+                              Sample Power Armor (Custom Homebrew):
+                              <select value="" onChange={this.loadPowerArmorSample} data-testid="power-armor-samples">
+                                <option value="">Start from a sample suit (optional)</option>
+                                {getPowerArmorSamples( mechRulesLevel(this.props.appGlobals) ).map( (sample) => (
                                   <option key={sample.id} value={sample.id}>{sample.name}</option>
                                 ))}
                               </select>

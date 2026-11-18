@@ -12799,6 +12799,8 @@ export class BattleMech {
         const isTripod = typeTag === "tripod";
 
         const allocation = this._armorAllocation;
+        // 9, or twice the head's structure under Flint's rules and Power Armor
+        const headMax = this.getMaxHeadArmor();
         const structureOf = (location: keyof IArmorAllocation): number =>
             (internalStructure as unknown as Record<string, number | undefined>)[location] || 0;
         // Room left in a location, honoring the shared front/rear torso caps
@@ -12809,7 +12811,7 @@ export class BattleMech {
             }
             switch (location) {
                 case "head":
-                    return 9 - value;
+                    return headMax - value;
                 case "centerTorso":
                 case "centerTorsoRear":
                     return structureOf("centerTorso") * 2 - allocation.centerTorso - allocation.centerTorsoRear;
@@ -12846,7 +12848,7 @@ export class BattleMech {
             for (const location of slot) {
                 let base: number;
                 if (location === "head") {
-                    base = 9 * percentage;
+                    base = headMax * percentage;
                 } else if (location === "centerTorsoRear" || location === "leftTorsoRear" || location === "rightTorsoRear") {
                     base = structureOf(location.replace("Rear", "") as keyof IArmorAllocation) * rearShare * percentage;
                 } else if (location === "centerTorso" || location === "leftTorso" || location === "rightTorso") {

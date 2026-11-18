@@ -80,3 +80,34 @@ describe("Power Armor in the 'Mech creator (#172)", () => {
         expect(text).toContain("a pilot of Piloting 5 or worse cannot pilot it");
     });
 });
+
+describe("Sample Power Armor in step 1 (Chunk E)", () => {
+    const loaded = (appGlobals: IAppGlobals): BattleMech => vi.mocked(appGlobals.saveCurrentBattleMech).mock.calls.at(-1)?.[0] as BattleMech;
+
+    it("loads a sample suit with the ruleset ticked, from a design without it", () => {
+        // A fresh design: nothing would be lost, so no confirmation is asked.
+        const appGlobals = globals(new BattleMech());
+        renderWith(<MechCreatorStep1 appGlobals={appGlobals} />);
+        fireEvent.change(screen.getByTestId("power-armor-samples"), { target: { value: "ipa-3" } });
+        const suit = loaded(appGlobals);
+        expect([suit.getModelName(), suit.getTonnage(), suit.usesPowerArmorConstruction()]).toEqual(["IPA-3", 15, true]);
+        expect(suit.getChassisEquipmentViolations()).toEqual([]);
+    });
+
+    it("drops a ruleset that cannot sit with Power Armor (Flint's construction) and keeps the others", () => {
+        const current = build(50, ["best-of-future-wars-construction", "fw-morale"]);
+        const appGlobals = globals(current);
+        // The current design is saved, so nothing would be lost and no confirmation is asked.
+        (appGlobals as unknown as { battleMechSaves: unknown[] }).battleMechSaves = [current.export()];
+        renderWith(<MechCreatorStep1 appGlobals={appGlobals} />);
+        fireEvent.change(screen.getByTestId("power-armor-samples"), { target: { value: "ipa-1" } });
+        expect([...loaded(appGlobals).getRulesets()].sort()).toEqual([PA, "fw-morale"].sort());
+    });
+
+    it("offers no sample suits below Custom Homebrew", () => {
+        const appGlobals = globals(new BattleMech());
+        (appGlobals.appSettings as { mechRulesFilter: number }).mechRulesFilter = 2;
+        renderWith(<MechCreatorStep1 appGlobals={appGlobals} />);
+        expect(screen.queryByTestId("power-armor-samples")).toBeNull();
+    });
+});

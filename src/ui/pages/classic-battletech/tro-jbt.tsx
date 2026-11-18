@@ -12,6 +12,7 @@ import powerArmorText from '../../../../docs/lore/power-armor-tro.md?raw';
 import Walker from '../../../classes/walker';
 import { getWalkerReadout } from '../../../classes/walker-readout';
 import { getWalkerSamples } from '../../../data/walker-samples';
+import { getPowerArmorSamplesReadout } from '../../../data/power-armor-samples';
 import { IAppGlobals } from '../../app-router';
 import TextSection from '../../components/text-section';
 import UIPage from '../../components/ui-page';
@@ -25,7 +26,8 @@ export const AMMUNITION_READOUT = unixLines(ammunitionText);
 export const MICRO_MECHS_READOUT = unixLines(microMechsText);
 export const BEST_OF_FUTURE_WARS_READOUT = unixLines(bestOfFutureWarsText);
 export const HOMEBREW_EQUIPMENT_READOUT = unixLines(homebrewEquipmentText);
-export const POWER_ARMOR_READOUT = unixLines(powerArmorText);
+// The Power Armor text, then the sample suits, their figures read from the designs.
+export const POWER_ARMOR_READOUT = `${unixLines(powerArmorText).trim()}\n\n${getPowerArmorSamplesReadout()}\n`;
 // The walker text, then an entry for each sample walker made from the design itself, so the figures match the creator.
 export const WALKERS_READOUT = [
     unixLines(walkersText).trim(),
@@ -80,7 +82,7 @@ export const TRO_DOCUMENTS: ITroDocument[] = [
     {
         slug: "power-armor",
         title: "Power Armor",
-        summary: "Bill Swisher's 5 to 15 ton suits from Future Wars: their history, what sets them apart, how we price them and our Alpha Strike rules.",
+        summary: "Bill Swisher's 5 to 15 ton suits from Future Wars: their history, what sets them apart, how we price them, our Alpha Strike rules and four sample suits.",
         fileName: "power-armor-tro.md",
         text: POWER_ARMOR_READOUT,
         pageStart: /^## /,

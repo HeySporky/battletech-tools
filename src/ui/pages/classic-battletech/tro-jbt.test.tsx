@@ -19,6 +19,8 @@ import { CONST_AS_SPECIAL_ABILITIES, MICRO_MECH_AS_ABILITY_TEXT, POWER_ARMOR_AS_
 import Walker from "../../../classes/walker";
 import { getWalkerStatBlock } from "../../../classes/walker-readout";
 import { getWalkerSamples } from "../../../data/walker-samples";
+import { BattleMech } from "../../../classes/battlemech";
+import { getAllPowerArmorSamples } from "../../../data/power-armor-samples";
 import { AMMUNITION_READOUT, ARTVEE_READOUT, BEST_OF_FUTURE_WARS_READOUT, HOMEBREW_EQUIPMENT_READOUT, MICRO_MECHS_READOUT, POWER_ARMOR_READOUT, WALKERS_READOUT, ReadoutText, TRO_DOCUMENTS, TRO_INTRODUCTION, readoutPageTitle, readoutPages, readoutSectionId } from "./tro-jbt";
 
 /** The text of one `#### name` section of the readout. */
@@ -212,6 +214,19 @@ describe("Power Armor readout (Custom Homebrew, #172)", () => {
             "Inspired by", "not canon", "NOT OFFICIAL", "the fault lies with NGCFells"]) {
             expect(flat, text).toContain(text);
         }
+    });
+
+    it("ends with the sample suits on a page of their own, each row read from its design", () => {
+        const page = pages.find((each) => readoutPageTitle(each, "") === "The Sample Suits");
+        expect(page).toBeDefined();
+        for (const sample of getAllPowerArmorSamples()) {
+            const mech = new BattleMech(JSON.stringify(sample.save));
+            const row = page!.split("\n").find((line) => line.startsWith(`| ${mech.getModelName()} |`));
+            expect(row, sample.id).toBeDefined();
+            expect(row).toContain(`| ${mech.getBattleValue()} | ${mech.getCostBreakdown().result?.toLocaleString("en-US")} | ${mech.calcAlphaStrike()?.basePoints} |`);
+        }
+        expect(page).toContain("| IPA-4 | ours | 5 | 6 / 9 / 0 | 2 Small Laser | 24 | 147 | 184,065 | 9 |");
+        expect(flat).toContain("both names are ours");
     });
 
     it("dates the suit from the article's history", () => {
