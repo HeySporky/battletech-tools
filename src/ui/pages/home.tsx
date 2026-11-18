@@ -76,6 +76,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                     <li>
                       <h3><Link to="classic-battletech">Classic BattleTech Tools</Link></h3>
                       <p>Every creator follows its edition's construction rules and gives the unit a record sheet, Technical Readout, Battle Value and C-Bill cost, and every unit but a building an Alpha Strike card. 'Mechs and vehicles also show BV1 under the <i>BattleTech Master Rules</i> editions. Each creator starts with the Rules Edition, then that edition's own Rules Levels (Introductory to Experimental, plus Apocryphal, Custom Homebrew and Munchkin for non-canon play), and only offers what those allow. Before a load, import or start over replaces your design, each creator offers to save it. Saved units go into the Classic Roster.</p>
+                      <p>Optional rules come as Special Rulesets: a searchable checklist grouped by Construction, Play, Campaign &amp; Economics and Setting, with each ruleset's source and author, a one-line summary, More info for the full text and tables, and the reason a greyed-out one cannot be ticked alongside the others. Fan-made rulesets sit at Custom Homebrew and are NOT OFFICIAL.</p>
                       <ul>
                         <li>
                           <h4><Link to="classic-battletech/mech-creator">'Mech Creator</Link></h4>
@@ -87,7 +88,16 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                             <li>Shields on the record sheet, marked off in play.</li>
                             <li>Patchwork Armor, Fractional Accounting and FrankenMechs.</li>
                             <li>Import Solaris Skunk Werks (.ssw) designs or pasted TRO text.</li>
+                            <li>Custom Homebrew: Compact 'Mechs (Clell Flint's construction rules, either printing) and Power Armor (Bill Swisher's 5, 10 and 15-ton suits from Future Wars #14, with four sample suits to load).</li>
                           </ul>
+                        </li>
+                        <li>
+                          <h4><Link to="classic-battletech/micro-mech-creator">Micro-Mech Creator</Link> (Custom Homebrew)</h4>
+                          <p>Solarmech's 10 to 19-ton Micro-Mechs, with step-by-step cost and Battle Value, record sheets, play mode, Alpha Strike cards and four sample designs. Offered once the rules level reaches Custom Homebrew.</p>
+                        </li>
+                        <li>
+                          <h4><Link to="classic-battletech/walker-creator">Walker Creator</Link> (Custom Homebrew)</h4>
+                          <p>Clell Flint's four-legged walkers from Future Wars, and an industrial walker Inspired by Flint and TechManual, with record sheets, play mode, Alpha Strike cards and three sample walkers. Offered once the rules level reaches Custom Homebrew.</p>
                         </li>
                         <li>
                           <h4><Link to="classic-battletech/vehicle-creator">Vehicle Creator</Link></h4>
@@ -133,6 +143,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                             <li>Take damage and critical hits by location, with each unit type's own damage rules</li>
                             <li>Apply heat for each 'Mech's movement mode and the weapons it fired</li>
                             <li>Play <i>Battledroids</i> (1984) rules games</li>
+                            <li>Run the Future Wars optional rules a unit carries (Opportunity Fire, Strategic Movement, Morale, Weapon Malfunctions, The Long Range Wars) and the fanzine's equipment from its own panels</li>
                             <li>Total the force's Battle Value under the rules edition you pick</li>
                             <li>Print the record sheets and Alpha Strike cards</li>
                           </ul>
@@ -143,7 +154,10 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                     <li>
                         <h3><Link to="classic-battletech/tro-jbt">TRO - JBT</Link></h3>
                         <ul>
-                          <li>NGCFells's custom creations: the ArtVee Technical Readout and Ammunition, read a page at a time or downloaded as Markdown.</li>
+                          <li>The home of fan-made BattleTech material, gathered by NGCFells with links to every original post, site and Discord server, read a page at a time or downloaded as Markdown.</li>
+                          <li>Unit Types: ArtVees, Micro-Mechs, Walkers, Power Armor, VTOLAMs and Permanent Air 'Mechs, each with its history, its rules and pages for its sample designs.</li>
+                          <li>Equipment and Ammunition: The Best of Future Wars, Community Homebrew and Apocryphal equipment, and custom ammunition.</li>
+                          <li>Each readout has a contents list to jump straight to a design or section.</li>
                         </ul>
                         <br />
                     </li>

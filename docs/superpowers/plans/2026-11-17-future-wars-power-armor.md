@@ -192,4 +192,4 @@ OWNER RULINGS 2026-11-17 (re-plan Q4 answered yes):
 
 ## Chunk F: Verify and report
 
-- [ ] `npm run check`; no bundled design changed; comment on #172; news line; deploy beta.
+- [x] `npm run check`; no bundled design changed; comment on #172; news line; deploy beta. (2026-11-17: check green; only 949bd6057, the quad-import rebuild, touched bundled data in A-E; the Nov 17 news bullet already covers Power Armor; home page Available Tools updated.)
