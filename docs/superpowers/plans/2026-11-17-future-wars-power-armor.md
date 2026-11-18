@@ -166,6 +166,8 @@ above), `src/data/mech-cockpit-types.ts` or the custom cockpit catalog (the wald
   MV 12", A1/S1, 1/0/0, ENE, 7 PV) and add a Custom special **PWA** (Power Armor), text written like WLK / MCR: +1 to
   hit it; 1 level tall (low profile, as MCR); stacking reminder; no ejection; physical attacks as the article. The Point
   Value counts the +1 to hit as +1 TMM in the defensive factor (ours, labelled).
+- OWNER RULING 2026-11-17 (Battle Value): KEEP the BV2 counterpart, +1 TMM (+0.1 Defensive Factor) for the +1 to hit
+  (`bv2.def.factor.power-armor`).
 
 ## Chunk E: The FW #14 sample suits (OWNER: YES, 2026-11-17)
 
