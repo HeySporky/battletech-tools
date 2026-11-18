@@ -713,7 +713,7 @@ export const missileCustom: IEquipmentItem[] = applyDerivedValues([
     {
         name: "The Penitrator", tag: "custom-penitrator", techBase: "universal", catalog: "custom", altNames: ["Penitrator Launcher"], sort: "missile, penitrator", category: "Missile Weapons",
         notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *Future Wars* #3 (November 1987), p.5 (unsigned; the page still carries the running head of *Mech War Times*, the zine's name for issues #1 and #2; the 1991 reprint credits Barents); reprinted in *The Best of Future Wars, Volume One* (1991), p.20. "
-            + "Every number matches the original. The original also estimates the cost at '$250,000 per ton' of missiles, 'almost 10 times the cost of missile packs' (not applied; NGCFells to rule). "
+            + "Every number matches the original. The lore follows the original's 'only House Steiner has these weapons'; the 1991 reprint's 'Federated Commonwealth' is a slip (the Lyran half of it, where Steiner rules). The original also estimates the cost at '$250,000 per ton' of missiles, 'almost 10 times the cost of missile packs' (not applied; NGCFells to rule). "
             + "The article names no 'Mech location (the Blaster carried it on top of its torso), so none is restricted here; it gives no to-hit number inside 8 hexes. "
             + "Not printed in The Best of Future Wars: the minimum range of 8 is NGCFells's, a way to carry the inside-8-hexes band in the range field, since the page only says the damage drops and the shot is harder there; the launcher's slots are NGCFells's, 2, as the SRM 6's; "
             + "its cost, Battle Value, dates and tech rating are unverified (cost 0, Battle Value 0).",
@@ -722,10 +722,9 @@ export const missileCustom: IEquipmentItem[] = applyDerivedValues([
             + "1d8 and 3 to 12, 1d6 and 2 to 24, 1d4 and 1 to 36.",
         lore: "The Penitrator is a long-range solid-fuel missile with a soft shaped-charge warhead that spends its force past the armor, among the "
             + "machinery inside, rather than on it. The design was captured from the 'Mech known as the Blaster, which carried four of the missiles "
-            + "in a launcher on top of its torso. The missile needs distance to reach speed, so it is weak and hard to aim up close. Only the "
-            + "Federated Commonwealth fields it, in very small numbers. In the original article (Future Wars #3, November 1987) "
-            + "the 113th Regiment's recon company, the Silveradoes, captured the Blasters on Glow, the first moon of Harvest, and the 113th's techs took the "
-            + "missiles apart: House Steiner alone held the weapon, and only a very few. The Federated Commonwealth wording is the 1991 reprint's.",
+            + "in a launcher on top of its torso. The missile needs distance to reach speed, so it is weak and hard to aim up close. Only "
+            + "House Steiner fields it, in very small numbers. The 113th Regiment's recon company, the Silveradoes, captured the Blasters on Glow, "
+            + "the first moon of Harvest, and the 113th's techs took the missiles apart.",
         damage: 0, damageAero: 0, accuracyModifier: 0, cbills: 0, introduced: null, extinct: null, reintroduced: null, battleValue: 0, heat: 0, heatAero: 0, weight: 3,
         range: { min: 8, short: 12, medium: 24, long: 36 }, space: { battlemech: 2, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 },
         shotsPerTon: 2, ammoTypes: ["ammo-custom-penitrator-standard"], minAmmoTons: 1, explosive: false, weaponType: [], techRating: "x", book: "The Best of Future Wars, Volume One", page: 20, rulesLevel: 6,
