@@ -264,7 +264,7 @@ describe("Best of Future Wars readout", () => {
             "Mike Reese, \"New Technology\", Future Wars #14 (1989), p.46; reprinted in The Best of Future Wars, p.8.",
             "Karl Sanders, \"New Technology\", Future Wars #8 (1988), p.37; reprinted in The Best of Future Wars, p.27.",
             "Karl Sander, Future Wars #9 (1988), p.27; reprinted in The Best of Future Wars, p.28.",
-            "Herb Barents, Mech War Times, reprinted unsigned in Future Wars #3 (November 1987), p.5",
+            "Herb Barents, Future Wars #3 (November 1987), p.5, unsigned, under the running head of Mech War Times",
             "Chris Congdon, \"New Ammo:\", Future Wars #19 (1990), pp.30-31",
             "Future Wars #15 (1989), pp.31-32; reprinted in The Best of Future Wars, p.21.",
             "Karl Sander, Future Wars #9 (1988), p.27, where the column is signed",

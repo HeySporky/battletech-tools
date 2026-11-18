@@ -132,7 +132,7 @@ export const ERA_RULINGS: Record<string, IEraRuling> = {
     } as IEraRuling])),
     ...Object.fromEntries(["custom-penitrator", "ammo-custom-penitrator-standard"].map((tag) => [tag, {
         by: "era review of the original article", date: "2026-11-17", techBase: "is", introduced: 3025, extinct: null,
-        note: "Future Wars #3 (Nov 1987, 'Mech War Times) has the Silveradoes of the 113th Regiment capture it on Glow, a moon of Harvest: 'only House Steiner has these weapons'; the 1991 reprint says the Federated Commonwealth. A Steiner, Inner Sphere weapon of the 3025 baseline; never extinct.",
+        note: "Future Wars #3 (Nov 1987, p.5, under the old Mech War Times running head) has the Silveradoes of the 113th Regiment capture it on Glow, a moon of Harvest: 'only House Steiner has these weapons'; the 1991 reprint says the Federated Commonwealth. A Steiner, Inner Sphere weapon of the 3025 baseline; never extinct.",
     } as IEraRuling])),
     ...Object.fromEntries([2, 5, 10, 20].map((size) => [`ammo-ac-${size}-sabot`, {
         by: "era review of the original article", date: "2026-11-17", techBase: "is", introduced: 3025, extinct: null,

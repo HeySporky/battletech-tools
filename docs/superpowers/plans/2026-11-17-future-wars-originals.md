@@ -86,8 +86,13 @@ refactor's eligibility model (`changes`, `excludes`, `requires`).
   **NGCFells ruling 2026-11-17: the Kin are ALTERNATE UNIVERSE material**, not Custom Homebrew in the BattleTech
   canon, unless an article references the bird-like aliens of the novel *Far Country* (the only canon aliens in
   BattleTech so far); only such a reference may be treated as in-universe. Kin rulesets, records, designs and
-  readouts say "alternate universe" (source tag, ruleset category, readout text). Where alternate-universe readouts are
-  filed in TRO - JBT is still to be asked.
+  readouts say "alternate universe" (source tag, ruleset category, readout text). **NGCFells 2026-11-17: each alternate
+  universe gets its own TRO - JBT readout** (the Kin first).
+- **Mech War Times** (found in Chunk R): the zine's name for issues #1 (6-12-87) and #2; FASA's letter of 8 Oct 1987
+  (printed in FW #3 p.2) made Barents rename it, and FW #3 (Nov 87) is the first *Future Wars*. The two scans were
+  listed as Future Wars 01 and 02; renamed `mech_war_times_0N_Qyhm8x.pdf` (JBTIICRework 51a41fdd) and
+  `mech-war-times-0N-Qyhm8x` (ResourceLibrary f4910f3a7). Sarna hosts the same scans as `media/magazines/future_wars_01.pdf`
+  and `_02.pdf`, and its wiki wrongly says #2 was the first *Future Wars*.
 - Q3: both versions as alternate rules: the original FW #5 numbers, and the reprint's "double or triple" rule.
 - Q4: yes (answered earlier the same day; in the Power Armor plan's Chunk E).
 
