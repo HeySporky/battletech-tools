@@ -12,6 +12,8 @@
  * excluded from the software's underlying license (GNU GPLv3).
  */
 
+import { getDropShipFreeHeatSinks } from "./small-craft-construction";
+
 /**
  * The four Future Wars DropShip construction methods (#172, plan 2026-11-19-future-wars-dropships.md), each a Special
  * Ruleset that replaces the TechManual's DropShip construction. Every table and rule is read from the page images (the
@@ -586,6 +588,8 @@ export function buildHousemanDropShip(design: IFwDropShipDesign): IFwDropShipRes
     const power = pct(0.02);
     // "One point of thrust per 100 tons ... weighs 3 tons": a Leopard (1,720 t) is 17 x 3 = 51 tons a point.
     const engineTons = 3 * Math.floor(t / 100) * design.thrust;
+    // NGCFells's ruling: Houseman is silent, so the TechManual's military DropShip free heat sinks, the thrusters as the engine (TM p.193).
+    const housemanFreeHeatSinks = getDropShipFreeHeatSinks(engineTons, design.shape, true);
     if (design.thrust > design.structuralIntegrity) issues.push("Houseman: thrust (in g) may not exceed structural integrity.");
     if (design.thrust > 6) issues.push("Houseman: six g is a normal crew maximum.");
     const fuelTons = 3 * design.thrust * design.fuelDays;
@@ -639,7 +643,7 @@ export function buildHousemanDropShip(design: IFwDropShipDesign): IFwDropShipRes
         line("Assault Ramps (40 tons a lane)", ramps),
         line("Drop Capsules (25% of the 'Mech)", capsules),
         line("Recycling Systems (1%)", recycling),
-        line(`Heat Sinks (${design.addedHeatSinks}, 1 ton each)`, design.addedHeatSinks, "Houseman has no heat-sink rule: NGCFells's call, a ton each and none free."),
+        line(`Heat Sinks (${housemanFreeHeatSinks} free, TM p.193; ${design.addedHeatSinks} added, 1 ton each)`, design.addedHeatSinks, "Houseman has no heat-sink rule: NGCFells's ruling, free heat sinks from the thrusters as a military DropShip's engine (TM p.193), added ones a ton each."),
     ];
     const limited = armorTons + landing + comms + hpg + secondComputer + fireControl + quarters + weapons + mechBays + smallCraftBays + launchTubes + recycling;
     if (limited >= 0.25 * t) issues.push(`Houseman: armor, landing, communications, quarters, weapons, bays, launch tubes and recycling must be less than 25% of the weight (${round2(limited).toLocaleString("en-US")} of ${round2(0.25 * t).toLocaleString("en-US")} tons).`);
@@ -647,7 +651,7 @@ export function buildHousemanDropShip(design: IFwDropShipDesign): IFwDropShipRes
     if (design.crew + design.officers < minimumCrew) issues.push(`Houseman's typical crew for this ship is at least ${minimumCrew}.`);
     const result = finish("houseman", design, lines, {
         engineTons, structureTons, bridgeTons: comms, thrustPointsPerTon: null, burnDay: 3, fuelTons,
-        armorPointsPerTon, armorTons, armorPoints, freeHeatSinks: 0, crew: design.crew + design.officers, issues,
+        armorPointsPerTon, armorTons, armorPoints, freeHeatSinks: housemanFreeHeatSinks, crew: design.crew + design.officers, issues,
     }, 1.1);
     if (choices.cargoHandling) {
         const handling = round2(result.cargoTons * 0.12);

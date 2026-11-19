@@ -72,7 +72,8 @@ cargo. Armor, landing, communications, quarters, weapons, bays, launch tubes and
 - **Houseman's integrity table** prints rows 1 to 8. NGCFells extended it with no cap, at 3% of mass, 10 internal
   structure, 20 armor and 1 g a point, "as large as needed to cover all dropships of whatever size". A build whose
   percentages pass 100% of its mass is an issue, not a cap.
-- **Houseman's heat sinks.** He gives no rule: a heat sink weighs a ton, and none are free.
+- **Houseman's heat sinks.** He gives no rule. NGCFells: the TechManual's free heat sinks for a military DropShip
+  (p.193), with his thrusters as the engine; added heat sinks weigh a ton each.
 - **Houseman's fuel.** He gives no thrust points a ton. NGCFells reads his 3 tons a thrust point a day against Reese's
   day at 1 g (1,440 thrust points) as 480 thrust points a ton.
 - **Battle Value and cost.** None of the four gives a Battle Value. Both are worked by the rules edition's DropShip

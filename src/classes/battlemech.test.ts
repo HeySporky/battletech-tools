@@ -5176,7 +5176,8 @@ describe("Batch 28 unit slot columns of the Weapons and Equipment Tables (TM pp.
             [isMissileList, "mml-7-artemis-iv", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [isMissileList, "mml-9-artemis-iv", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [isMiscList, "beagle-active-probe", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
-            [isMiscList, "ecm-suite", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
+            // NGCFells's ruling (2026-11-19): DropShips may mount ECM, as TM p.213 says ("Unit Restrictions: None") and AT2R p.25; the p.342 table prints NA.
+            [isMiscList, "ecm-suite", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [isMiscList, "masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
             [isMiscList, "targeting-computer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
             [isMiscList, "c3-computer-master", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
@@ -5204,7 +5205,7 @@ describe("Batch 28 unit slot columns of the Weapons and Equipment Tables (TM pp.
             [clanMissileList, "clan-streak-srm-6", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [clanMiscList, "clan-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
             [clanMiscList, "clan-light-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
-            [clanMiscList, "clan-ecm-system", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
+            [clanMiscList, "clan-ecm-system", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [clanMiscList, "clan-masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
             [clanMiscList, "clan-targeting-computer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
         ];

@@ -206,7 +206,7 @@ const SPECS: IDropShipSampleSpec[] = [
             { tag: "medium-laser", arc: "nose", count: 4 },
             { tag: "standard-ppc", arc: "left" }, { tag: "large-laser", arc: "left" }, { tag: "is-ams", arc: "left" },
             { tag: "standard-ppc", arc: "right" }, { tag: "large-laser", arc: "right" }, { tag: "is-ams", arc: "right" },
-            { tag: "is-tag", arc: "nose" },
+            { tag: "is-tag", arc: "nose" }, { tag: "ecm-suite", arc: "nose" },
         ],
         ammo: [{ tag: "ammo-is-ams-standard", tons: 2 }],
         bays: [{ tag: "vehicle-light", amount: 1, doors: 1 }, { tag: "infantry-jump", amount: 1 }, { tag: "cargo", amount: 23.5 }],
@@ -218,11 +218,11 @@ const SPECS: IDropShipSampleSpec[] = [
                 + "in the UR System; rare. It can lift 200 tons with outside cargo.",
             capabilities: "Four medium lasers in the nose; a PPC, a large laser and an anti-missile turret firing front and rear in each wing; Guardian ECM, a C3 computer and TAG.",
             notes: SHEET + "Mike Reese, Future Wars #36 (1993), p.20. Built to his rule: 20 burn-days of fuel (his minimum), where the sheet carries 108 tons, 7.5 "
-                + "burn-days, and his 8 tons a jump trooper make its platoon of 30 weigh 240 tons, so by his rules it is 366.5 tons over. "
+                + "burn-days, and his 8 tons a jump trooper make its platoon of 30 weigh 240 tons, so by his rules it is 368 tons over. "
                 + "The sheet prints \"E20+22\" heat sinks in its header and \"5, Added HS = 37\" in its stat block; the stat block is followed. "
                 + "Its armor allocation (nose 4, wings 44, fuselage 50, engine 25) adds to 167 of the 224 points 14 tons buy; the nose may be a misprint "
-                + "for 44. The sheet prints one 'Mech bay door with no 'Mech cubicle. Its Guardian ECM and C3 computer are left off: "
-                + "the TechManual table gives a DropShip neither (p.342; C3 also p.209, and AeroTech 2 bars C3 from every aerospace craft). TAG predates its canon introduction; the sheet's date is kept.",
+                + "for 44. The sheet prints one 'Mech bay door with no 'Mech cubicle. Its C3 computer is left off: no edition lets a DropShip "
+                + "mount one (TM p.209; AeroTech 2 errata). The sheet gives the ECM no location; it is in the nose with the TAG. TAG predates its canon introduction; the sheet's date is kept.",
         },
     },
     {

@@ -639,7 +639,7 @@ export default class SmallCraft implements IGameSettingsUnit {
         if (method === "reese" && this._engineTech === "clan") notes.push(`Reese: a Clan ship's XL engine weighs half, it may use double heat sinks, and its weapons fire with "a +2 bonus to hit" (FW #36 p.16).`);
         if (method === "houseman") {
             if (getHousemanIntegrity(this._structuralIntegrity).extended) notes.push(`Integrity ${this._structuralIntegrity} is past Houseman's printed table (1-8): NGCFells's extension, 3% of mass, 10 internal structure, 20 armor and 1 g a point.`);
-            notes.push("Houseman has no heat-sink rule: NGCFells's call, a ton each and none free.");
+            notes.push("Houseman has no heat-sink rule: NGCFells's ruling, free heat sinks from the thrusters as a military DropShip's engine (TM p.193), added ones a ton each.");
         }
         for (const bay of this.getFwUncoveredBays()) notes.push(`${this.getBayName(bay)}: no rule in this method, so weighed by the TechManual.`);
         return notes;

@@ -52,7 +52,8 @@ describe("Future Wars DropShips in the Small Craft builder", () => {
         craft.setSafeThrust(4);
         craft.setStructuralIntegrity(7);
         expect(craft.getEngineWeight()).toBe(204);
-        expect(craft.getFreeHeatSinks()).toBe(0);
+        // NGCFells: the TM p.193 military aerodyne rule on his 204-ton thrusters, 204 / 20.
+        expect(craft.getFreeHeatSinks()).toBe(10);
         expect(craft.getNotes().some((note) => note.includes("no heat-sink rule"))).toBe(true);
     });
 
