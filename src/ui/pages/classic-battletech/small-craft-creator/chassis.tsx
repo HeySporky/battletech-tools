@@ -10,6 +10,7 @@ import { SmallCraftCreatorSideMenu } from '../../../components/creator-side-menu
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SmallCraftStatusBar from './_statusBar';
+import FwDropShipStep from './_future-wars-dropship';
 import { UnitGameSettingsBlock, unitRulesLevel } from '../../../components/game-settings-block';
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -38,6 +39,8 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
         const craft = this.props.appGlobals.currentSmallCraft;
         if (!craft) return <></>;
         const rulesLevel = unitRulesLevel(this.props.appGlobals.currentSmallCraft, this.props.appGlobals.appSettings);
+        // A DropShip built by a Future Wars method (#172) has its own Step 2 and no Primitive option.
+        const fwMethod = craft.getFwDropShipMethod();
 
         return (
             <UIPage current="classic-battletech-small-craft-creator" appGlobals={this.props.appGlobals}>
@@ -77,7 +80,7 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                                 />
                                 {" "}Military design (a DropShip's crew, free heat sinks and fuel use depend on it, TM pp. 186-193)
                             </label>
-                            {craft.isPrimitive() || craft.canBePrimitive() ? (
+                            {!fwMethod && (craft.isPrimitive() || craft.canBePrimitive()) ? (
                                 <>
                                     <label>
                                         <input
@@ -177,6 +180,7 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                         </TextSection>
 
                         <TextSection label="Step 2: Engine, Fuel, Structure and Controls">
+                            {fwMethod ? <FwDropShipStep craft={craft} update={this.update} /> : <>
                             <label>
                                 Safe Thrust:
                                 <select data-testid="sc-thrust" value={craft.getSafeThrust()} onChange={(e) => { const value = +e.currentTarget.value; this.update((c) => c.setSafeThrust(value)); }}>
@@ -238,6 +242,7 @@ export default class SmallCraftCreatorChassis extends React.Component<IChassisPr
                                 Structural Integrity runs from Maximum Thrust to 30 times it, and weighs SI x tonnage / {craft.isAerodyne() ? 200 : 500} (TM
                                 p. 187). It sets the most armor the craft may carry and gives each facing that many armor points free (TM p. 191).
                             </p>
+                            </>}
 
                             <div className="clear-both overflow-hidden">
                                 <hr />

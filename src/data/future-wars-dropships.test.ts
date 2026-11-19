@@ -3,7 +3,7 @@ import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
 import { CHANGE_LABELS, findSpecialRuleset, getRulesetBlock } from "./special-rulesets";
 import {
     buildEidDropShip, buildHousemanDropShip, buildReeseDropShip, buildStockDropShip, DSJS_DROPSHIPS, EID_CHART_A, EID_CHART_B,
-    emptyFwDropShipDesign, FW_DROPSHIP_RULESET_IDS, getFwDropShipMethod, getHousemanDockingTons, getHousemanIntegrity,
+    emptyFwDropShipDesign, FW_DROPSHIP_RULESET_IDS, getEidFireFactorBonus, getFireFactor, getFwDropShipMethod, getHousemanDockingTons, getHousemanIntegrity,
     getReeseModelTonnage, IFwDropShipDesign, lookupFwBand, REESE_CHART_A, REESE_CHART_C, REESE_CHART_D, stockArmorPointsPerTon,
     stockBridgeMultiplier, stockBurnDay, stockCrew, stockHeatSinkDivisor, stockThrustPointsPerTon,
 } from "./future-wars-dropships";
@@ -188,6 +188,17 @@ describe("Houseman's worked example", () => {
         expect(result.issues.some((issue) => issue.includes("25%"))).toBe(true);
         const big = buildHousemanDropShip({ ...emptyFwDropShipDesign(100000, "spheroid"), thrust: 2, structuralIntegrity: 12 });
         expect(big.lines[0].note).toContain("NGCFells");
+    });
+});
+
+describe("Fire factors (the Compendium rule as Eid and Reese print it)", () => {
+    it("divides the maximum damage by ten, rounding up at .6", () => {
+        expect([0, 5, 15, 16, 25, 26, 40, 45].map(getFireFactor)).toEqual([0, 0, 1, 2, 2, 3, 4, 4]);
+    });
+
+    it("gives Eid's +1 for every +4 of to-hit bonus: four pulse lasers lend +2", () => {
+        expect(getEidFireFactorBonus(8)).toBe(2);
+        expect(getEidFireFactorBonus(3)).toBe(0);
     });
 });
 

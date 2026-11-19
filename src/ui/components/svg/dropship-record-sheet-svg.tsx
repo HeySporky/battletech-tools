@@ -3,6 +3,7 @@ import { getUnitRulesets } from '../../../classes/unit-game-settings';
 import SmallCraft from '../../../classes/small-craft';
 import { AEROSPACE_FIGHTER_CRITICAL_BLOCK } from '../../../data/aerospace-record-sheet';
 import { SMALL_CRAFT_ARCS, SmallCraftArc } from '../../../data/small-craft-construction';
+import { FW_DROPSHIP_SOURCES, getHousemanIntegrity } from '../../../data/future-wars-dropships';
 import { weaponBayName } from '../../../data/weapon-bays';
 import { aerospaceInventoryRows, aerospaceSheetBattleValue, IAerospaceInventoryRow } from '../aerospace-sheet-blocks';
 import { bayQuirkSuffix, getUnitQuirkSheetLines, weaponQuirkSuffix } from '../quirk-sheet-block';
@@ -156,6 +157,19 @@ export default class DropShipRecordSheetSVG extends React.Component<IDropShipRec
         const quirkLines = this.quirkLines;
         if (quirkLines.unit.length) notes.push(`Quirks: ${quirkLines.unit.join(", ")}`);
         craft.getBays().forEach((bay, index) => notes.push(`Bay ${index + 1}: ${craft.getBayName(bay)} (${bay.amount}) ${bay.doors} Door${bay.doors === 1 ? "" : "s"}`));
+        // Future Wars DropShip construction (#172): the method, its fire factors, Houseman's integrity row.
+        const method = craft.getFwDropShipMethod();
+        if (method) {
+            notes.push(`Construction: ${FW_DROPSHIP_SOURCES[method]}`);
+            const factors = SMALL_CRAFT_ARCS.map((arc) => [arc, craft.getArcFireFactors(arc)] as const)
+                .filter(([, value]) => !!value && value.factors > 0)
+                .map(([arc, value]) => `${craft.getArcName(arc)} ${value!.factors}${value!.bonus > 0 ? ` (+${value!.bonus} to hit)` : ""}`);
+            if (factors.length > 0) notes.push(`Fire Factors: ${factors.join(", ")}`);
+            if (method === "houseman") {
+                const row = getHousemanIntegrity(craft.getStructuralIntegrity());
+                notes.push(`Integrity ${row.integrity}: internal structure ${row.internalStructure}, armor at most ${row.maxArmor} a facing, ${row.acceleration} G${row.extended ? " (NGCFells's extension)" : ""}`);
+            }
+        }
         const play = this.play;
         if (play && play.doorsDamaged > 0) notes.push(`Doors damaged: ${play.doorsDamaged}`);
         if (play && play.cargoLostPercent > 0) notes.push(`Cargo lost: ${play.cargoLostPercent}%`);

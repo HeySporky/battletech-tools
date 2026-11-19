@@ -22,7 +22,7 @@ import { isTargetingComputerWeapon, sizeTonnageScaledEquipment } from "../data/v
 import { findByTag } from "../data/tag-match";
 import {
     FW_DROPSHIP_SOURCES, FwDropShipMethod, IFwDropShipDesign, IFwDropShipResult, IHousemanChoices, IStockChoices, buildFwDropShip,
-    getEidEquipmentIssues, getFwDropShipMethod, getHousemanIntegrity,
+    FW_FIRE_FACTOR_METHODS, getEidEquipmentIssues, getEidFireFactorBonus, getFireFactor, getFwDropShipMethod, getHousemanIntegrity,
 } from "../data/future-wars-dropships";
 import { IWeaponBay, capitalBayWeapon, groupWeaponBays, standardBayWeapon } from "../data/weapon-bays";
 import { IAerospaceArmorType, ICapitalWeapon, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
@@ -240,6 +240,23 @@ const HOUSEMAN_THRUST_POINTS_PER_TON = 1440 / 3;
 const FW_DROPSHIP_MAX_TONNAGE = 1000000;
 const FW_DROPSHIP_MIN_TONNAGE = 100;
 const FW_MAX_STRUCTURAL_INTEGRITY = 300;
+
+/**
+ * The most damage a weapon can do in one attack, for fire factors: every missile of a rack hitting. From the record's
+ * cluster fields, its damage, the highest of its damage by range, the rack size x the damage a missile (SRMs 2), or
+ * its aerospace value, the first the record has.
+ */
+export function getItemMaxDamage(item: IEquipmentItem): number {
+    if (item.damageClusters && item.damagePerCluster) return item.damageClusters * item.damagePerCluster;
+    if (typeof item.damage === "number" && item.damage > 0) return item.damage;
+    if (item.damage && typeof item.damage === "object") {
+        const values = Object.values(item.damage).filter((value): value is number => typeof value === "number");
+        if (values.length > 0) return Math.max(...values);
+    }
+    const rack = /\b(LRM|SRM|MRM|MML|ATM|Streak SRM|Streak LRM)[\s-]*(\d+)/i.exec(item.name);
+    if (rack) return +rack[2] * (/SRM|ATM/i.test(rack[1]) ? 2 : 1);
+    return item.damageAero ?? 0;
+}
 
 const emptyArmor = (): ISmallCraftArmorAllocation => ({ nose: 0, left: 0, right: 0, aft: 0 });
 const emptyQuarters = (): ISmallCraftQuarters => ({ firstClass: 0, secondClass: 0, crew: 0, steerage: 0 });
@@ -610,6 +627,10 @@ export default class SmallCraft implements IGameSettingsUnit {
             const set = this._fw.stock;
             const unset = (["thrustPointsPerTon", "burnDay", "crew", "armorPointsPerTon", "bridgeMultiplier", "heatSinkDivisor"] as (keyof IStockChoices)[]).filter((key) => set[key] === undefined);
             if (unset.length > 0) notes.push(`Stock's "look in DS/JS" values not set by hand use NGCFells's formulae fitted to DropShips and JumpShips (Inspired by Stock); a DS&JS ship of this size has a crew of about ${result.crew}.`);
+        }
+        if (method === "eid") {
+            notes.push("Eid leaves cost to the builder (\"typical values range from 30 million C-Bills for a Fury to 2 billion C-Bills for a Behemoth\"; "
+                + "salvaged 40% of new, destroyed half of salvaged, FW #25 p.7): the cost here is by the edition's rules.");
         }
         if (method === "eid" && this._tonnage >= 15000 && this._fw.eidBurnDay === undefined) {
             notes.push(`Eid leaves the burn-day above 15,000 tons to the builder ("up to 9"): ${result.burnDay} from NGCFells's DS&JS formula until one is set.`);
@@ -1181,6 +1202,20 @@ export default class SmallCraft implements IGameSettingsUnit {
         return this.getArcItems(arc).filter((item) => !item.isAmmo).reduce((sum, item) => sum + (item.heatAero ?? item.heat ?? 0), 0)
             + this.getArcCapitalWeapons(arc).reduce((sum, mount) => sum + this.getCapitalWeaponHeat(mount), 0);
     }
+    /**
+     * An arc's fire factors under Stock, Eid or Reese (future-wars-dropships.ts): its weapons' maximum damage / 10,
+     * rounding up at .6; under Eid, +1 to hit for every +4 of the weapons' to-hit bonus. Null under any other rules.
+     * Capital weapons count at ten times their capital-scale damage.
+     */
+    public getArcFireFactors(arc: SmallCraftArc): { factors: number; bonus: number; maxDamage: number } | null {
+        const method = this.getFwDropShipMethod();
+        if (!method || !FW_FIRE_FACTOR_METHODS.includes(method)) return null;
+        const weapons = this.getArcItems(arc).filter((item) => this._isWeapon(item));
+        const capital = this.getArcCapitalWeapons(arc).map((mount) => capitalBayWeapon(mount.weapon, this.getCapitalWeaponHeat(mount), mount.uuid).damage * 10);
+        const maxDamage = weapons.reduce((total, item) => total + getItemMaxDamage(item), 0) + capital.reduce((total, damage) => total + damage, 0);
+        const toHitBonus = weapons.reduce((total, item) => total + Math.max(0, -(typeof item.accuracyModifier === "number" ? item.accuracyModifier : 0)), 0);
+        return { factors: getFireFactor(maxDamage), bonus: method === "eid" ? getEidFireFactorBonus(toHitBonus) : 0, maxDamage };
+    }
     /** Weapons in an arc, for the limit of 12 (TM p.196). */
     public getArcWeaponCount(arc: SmallCraftArc): number { return this.getArcItems(arc).length + this.getArcCapitalWeapons(arc).length; }
     /** Extra fire control for an arc with more than 12 weapons (TM p.196). */
@@ -1501,6 +1536,10 @@ export default class SmallCraft implements IGameSettingsUnit {
         if (remaining < 0) issues.push(`Overweight by ${-remaining} tons.`);
         // A Future Wars method has its own limits for integrity, armor, crew, quarters and doors (future-wars-dropships.ts).
         const fw = this.getFwDropShipResult();
+        // A Future Wars DropShip keeps its weight when the method is unticked, which may be off the TechManual's steps.
+        if (!fw && (this._tonnage < this.getMinTonnage() || this._tonnage > this.getMaxTonnage() || Math.abs(this._tonnage / this.getTonnageStep() - Math.round(this._tonnage / this.getTonnageStep())) > 1e-9)) {
+            issues.push(`Tonnage must be from ${this.getMinTonnage().toLocaleString("en-US")} to ${this.getMaxTonnage().toLocaleString("en-US")} in steps of ${this.getTonnageStep()} (TM p.184).`);
+        }
         if (!fw && (this._structuralIntegrity < this.getMinStructuralIntegrity() || this._structuralIntegrity > this.getMaxStructuralIntegrity())) {
             issues.push(`Structural Integrity must be from ${this.getMinStructuralIntegrity()} to ${this.getMaxStructuralIntegrity()} (Maximum Thrust to 30 times it, TM p.187).`);
         }
@@ -2028,6 +2067,8 @@ export default class SmallCraft implements IGameSettingsUnit {
         for (const mount of this._capitalWeapons) level = Math.max(level, mount.weapon.rulesLevel);
         // Fractional Accounting is "experimental-level unit design" (TO:AUE p.188).
         if (this.usesFractionalAccounting()) level = Math.max(level, EXPERIMENTAL_RULES_LEVEL);
+        // A Future Wars DropShip method is a Custom Homebrew ruleset (#172).
+        if (this.getFwDropShipMethod()) level = Math.max(level, CUSTOM_HOMEBREW_RULES_LEVEL);
         // A bay from outside the rulebooks (the Micro-Mech Bay) needs its own level.
         return Math.max(level, getTransportBaysRulesLevel(this._bays));
     }

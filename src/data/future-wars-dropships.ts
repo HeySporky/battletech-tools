@@ -658,6 +658,27 @@ export function buildHousemanDropShip(design: IFwDropShipDesign): IFwDropShipRes
     return result;
 }
 
+// Fire factors ---------------------------------------------------------------------------------------------------------
+
+/** The methods whose sheets carry fire factors: Stock's "optional fire factors" (FW #16 p.32), Eid's and Reese's step. */
+export const FW_FIRE_FACTOR_METHODS: FwDropShipMethod[] = ["stock", "eid", "reese"];
+
+/**
+ * A location's fire factors "as per The BattleTech Compendium": the maximum damage of all its weapons, divided by ten,
+ * "rounding up at .6" (Eid, FW #25 p.6; Reese, FW #36 p.16). Stock names fire factors without a rule; his sheets use
+ * the same one here.
+ */
+export function getFireFactor(totalMaxDamage: number): number {
+    const tenths = totalMaxDamage / 10;
+    const whole = Math.floor(tenths + 1e-9);
+    return tenths - whole >= 0.6 - 1e-9 ? whole + 1 : whole;
+}
+
+/** Eid's bonus for advanced weapons (FW #25 p.6): +1 to hit for every +4 of to-hit bonus in the location. */
+export function getEidFireFactorBonus(totalToHitBonus: number): number {
+    return Math.max(0, Math.floor(totalToHitBonus / 4 + 1e-9));
+}
+
 export function buildFwDropShip(method: FwDropShipMethod, design: IFwDropShipDesign): IFwDropShipResult {
     switch (method) {
         case "stock": return buildStockDropShip(design);

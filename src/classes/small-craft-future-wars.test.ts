@@ -68,6 +68,23 @@ describe("Future Wars DropShips in the Small Craft builder", () => {
         expect(craft.getCurrentTonnage()).toBe(techManual);
     });
 
+    it("works out fire factors per arc: four large pulse lasers make 36 damage, 4 factors, and +2 under Eid", () => {
+        const craft = dropShip("eid", 3500, "spheroid");
+        for (let count = 0; count < 4; count++) craft.addEquipmentFromTag("large-pulse-laser", "nose");
+        craft.addEquipmentFromTag("lrm-20", "aft");
+        expect(craft.getArcFireFactors("nose")).toEqual({ factors: 4, bonus: 2, maxDamage: 36 });
+        expect(craft.getArcFireFactors("aft")).toEqual({ factors: 2, bonus: 0, maxDamage: 20 });
+        craft.gameSettings.set(CUSTOM_HOMEBREW_RULES_LEVEL, [FW_DROPSHIP_RULESET_IDS.reese]);
+        expect(craft.getArcFireFactors("nose")?.bonus).toBe(0);
+        craft.gameSettings.set(CUSTOM_HOMEBREW_RULES_LEVEL, [FW_DROPSHIP_RULESET_IDS.houseman]);
+        expect(craft.getArcFireFactors("nose")).toBeNull();
+    });
+
+    it("needs the Custom Homebrew rules level under a method", () => {
+        expect(dropShip(null, 3500, "spheroid").getRequiredRulesLevel()).toBeLessThan(CUSTOM_HOMEBREW_RULES_LEVEL);
+        expect(dropShip("houseman", 3500, "spheroid").getRequiredRulesLevel()).toBe(CUSTOM_HOMEBREW_RULES_LEVEL);
+    });
+
     it("never applies a method to a Small Craft", () => {
         const craft = new SmallCraft();
         craft.gameSettings.set(CUSTOM_HOMEBREW_RULES_LEVEL, [FW_DROPSHIP_RULESET_IDS.stock]);

@@ -20,6 +20,16 @@ const render = (ship: SmallCraft, props: { showPilot?: boolean; showDamage?: boo
     renderToStaticMarkup(<DropShipRecordSheetSVG craft={ship} {...props} />);
 
 describe("DropShip record sheet", () => {
+    it("names a Future Wars method and prints its fire factors in the notes (#172)", () => {
+        const ship = sample("aerodyne");
+        ship.gameSettings.set(4, ["fw-dropships-eid"]);
+        const markup = render(ship);
+        expect(markup).toContain("Construction: Erik Eid");
+        // Two large lasers (8 each) and three medium lasers (5 each): 31 damage, 3 fire factors.
+        expect(markup).toContain("Fire Factors: Nose 3");
+        expect(render(sample("aerodyne"))).not.toContain("Fire Factors");
+    });
+
     it("fills the K-F Boom and Docking Collar boxes once they are destroyed in play", () => {
         const ship = sample("aerodyne");
         ship.setKFBoomDestroyed(true);

@@ -10,6 +10,7 @@ import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import { unitRulesLevel } from '../../../components/game-settings-block';
 import { formatBattleValue } from '../../../../data/battle-value';
+import { btRulesLevelOptions } from '../../../../data/rules-level-options';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 
 export default class SmallCraftCreatorSummary extends React.Component<ISummaryProps> {
@@ -34,12 +35,12 @@ export default class SmallCraftCreatorSummary extends React.Component<ISummaryPr
                         <SmallCraftCreatorSideMenu appGlobals={this.props.appGlobals} current="summary" />
                     </div>
                     <div className="col-md-9 col-lg-10">
-                        <TextSection label={`Summary: ${`${craft.getName()} ${craft.getModel()}`.trim() || "Small Craft"}`}>
+                        <TextSection label={`Summary: ${`${craft.getName()} ${craft.getModel()}`.trim() || craft.getCraftTypeName()}`}>
                             {issues.length === 0 ? (
-                                <p data-testid="sc-legal"><strong>This Small Craft is legal under the construction rules.</strong></p>
+                                <p data-testid="sc-legal"><strong>This {craft.getCraftTypeName()} is legal under the construction rules.</strong></p>
                             ) : (
                                 <>
-                                    <p className="color-red"><strong>This Small Craft is not legal yet:</strong></p>
+                                    <p className="color-red"><strong>This {craft.getCraftTypeName()} is not legal yet:</strong></p>
                                     <ul className="color-red" data-testid="sc-summary-issues">
                                         {issues.map((issue, index) => <li key={index}>{issue}</li>)}
                                     </ul>
@@ -47,7 +48,7 @@ export default class SmallCraftCreatorSummary extends React.Component<ISummaryPr
                             )}
 
                             <p data-testid="sc-summary">
-                                <strong>Type</strong>: {craft.getShapeName()} Small Craft, {craft.getTonnage()} tons &nbsp;|&nbsp;
+                                <strong>Type</strong>: {craft.getShapeName()} {craft.getCraftTypeName()}, {craft.getTonnage()} tons &nbsp;|&nbsp;
                                 <strong>Tech</strong>: {craft.getTech().name} &nbsp;|&nbsp;
                                 <strong>Era</strong>: {craft.getEra().name} &nbsp;|&nbsp;
                                 <strong>Battle Value</strong>: {formatBattleValue((edition) => craft.getBattleValue(edition), "small-craft", craft.getRulesEdition())} &nbsp;|&nbsp;
@@ -60,7 +61,7 @@ export default class SmallCraftCreatorSummary extends React.Component<ISummaryPr
                                 <strong>Heat sinks</strong>: {craft.getTotalHeatSinks()} {craft.getHeatSinkType().name} &nbsp;|&nbsp;
                                 <strong>Fuel</strong>: {craft.getFuelPoints()} points &nbsp;|&nbsp;
                                 <strong>Crew</strong>: {craft.getCrew()}, passengers {craft.getPassengers()} &nbsp;|&nbsp;
-                                <strong>Rules level needed</strong>: {required <= 2 ? "Standard" : required === 3 ? "Advanced" : "Experimental"}
+                                <strong>Rules level needed</strong>: {required <= 2 ? "Standard" : btRulesLevelOptions.find((option) => option.id === required)?.name ?? "Experimental"}
                             </p>
                             {notes.length > 0 ? (
                                 <ul className="smaller-text" data-testid="sc-notes">
