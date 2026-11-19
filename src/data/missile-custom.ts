@@ -2,6 +2,7 @@ import { IEquipmentItem } from "./data-interfaces";
 import { applyDerivedValues } from "./derived-custom-values";
 import { equipmentMissile } from "./equipment-missile";
 import { futureWarsSwingFires } from "./best-of-future-wars-conversions";
+import { LOPUNNY_CREDIT } from "./ammo-custom";
 
 /*
  * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -71,6 +72,63 @@ const reloadingRocketLauncher = (size: number): IEquipmentItem => {
         damagePerCluster: 1,
         rangeAero: canon.rangeAero,
         alphaStrike: { heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
+    };
+};
+
+/**
+ * Thunderbolt torpedo launchers (Lopunny, Queer Tech Discord, 2026-11-17): the Thunderbolt's statistics as a torpedo launcher, introduced 3082.
+ * NGCFells ruled (2026-11-18) that they are launchers of their own, apart from the Thunderbolt missile launchers, as the LRT is apart from the LRM.
+ */
+const thunderboltTorpedo = (size: number): IEquipmentItem => {
+    const canon = equipmentMissile.find((item) => item.tag === `thunderbolt-${size}`);
+    if (!canon) throw new Error(`missile-custom: canon thunderbolt-${size} not found`);
+    return {
+        isAmmo: false,
+        name: `Thunderbolt Torpedo ${size}`,
+        altNames: [`Thunderbolt-T ${size}`, `Thunderbolt ${size} Torpedo Launcher`],
+        tag: `custom-thunderbolt-torpedo-${size}`,
+        techBase: "is",
+        altTags: [],
+        sort: `missile, thunderbolt torpedo ${size}`,
+        category: "Missile Weapons",
+        catalog: "custom",
+        rulesLevel: 6,
+        alternateName: `Thunderbolt-T ${size}`,
+        notes: `${LOPUNNY_CREDIT}, who asked for Thunderbolt torpedoes introduced in 3082, with the standard Thunderbolt launcher's statistics, either as a torpedo launcher or as torpedo ammunition for the missile launcher. `
+            + "NGCFells ruled (2026-11-18) that they are launchers of their own, as the canon LRT is apart from the LRM: a missile launcher must vent its exhaust, a torpedo tube needs pressurized air to launch. "
+            + `Every figure is the Thunderbolt ${size}'s (${canon.weight} tons, ${canon.space.battlemech} slot${canon.space.battlemech === 1 ? "" : "s"}, heat ${canon.heat}, ${canon.damage} damage, ranges ${canon.range.min}/${canon.range.short}/${canon.range.medium}/${canon.range.long}, `
+            + `Battle Value ${canon.battleValue}, ${canon.cbills.toLocaleString("en-US")} C-bills), as canon torpedo launchers carry their missile counterpart's statistics (the LRT and LRM are priced and valued alike). `
+            + "The tech rating is the Thunderbolt's. Inspired by: Lopunny, Queer Tech Discord.",
+        rules: `Resolved as the Thunderbolt ${size}: one missile for ${canon.damage} damage to a single location, minimum range ${canon.range.min}, ranges ${canon.range.short}/${canon.range.medium}/${canon.range.long}, heat ${canon.heat}. `
+            + "As a torpedo (the canon LRT and SRT rules): it fires only when the attacker is in a Water hex of Depth 1 or more, at a target in such a hex, with the line of sight traced through Water hexes. "
+            + `It fires only Thunderbolt Torpedo ${size} ammunition (ammo-is-thunderbolt-torpedo-${size}-standard), never missile ammunition, and has no special munitions.`,
+        lore: "The Thunderbolt's one big missile always looked like a torpedo to sailors, and the navies of the Federated Suns' water worlds finally built one in 3082. "
+            + "It could not simply be loaded into the old launcher: a missile tube is built to vent the motor's exhaust, a torpedo tube to throw its round out on a charge of pressurized gas before the motor lights, "
+            + "so the torpedo got a launcher of its own. Wet-navy crews call it the heaviest single blow a submarine or a wading 'Mech can throw.",
+        damage: canon.damage,
+        damageAero: canon.damageAero,
+        accuracyModifier: canon.accuracyModifier,
+        cbills: canon.cbills,
+        introduced: 3082,
+        extinct: null,
+        reintroduced: null,
+        battleValue: canon.battleValue,
+        heat: canon.heat,
+        heatAero: canon.heatAero,
+        weight: canon.weight,
+        range: { ...canon.range },
+        space: { ...canon.space },
+        shotsPerTon: canon.shotsPerTon,
+        ammoBattleValue: canon.ammoBattleValue,
+        ammoTypes: [`ammo-is-thunderbolt-torpedo-${size}-standard`],
+        minAmmoTons: canon.minAmmoTons,
+        explosive: false,
+        weaponType: [...(canon.weaponType ?? [])],
+        techRating: canon.techRating,
+        book: "Queer Tech Discord, Lopunny",
+        page: 0,
+        rangeAero: canon.rangeAero,
+        alphaStrike: { ...canon.alphaStrike, notes: ["Indirect Fire", "TOR", "Provisional workbook conversion"] },
     };
 };
 
@@ -733,4 +791,5 @@ export const missileCustom: IEquipmentItem[] = applyDerivedValues([
     // The Best of Future Wars (1991) p.27: Swing Fire Missile System (#172).
     ...futureWarsSwingFires(),
     ...[10, 15, 20].map(reloadingRocketLauncher),
+    ...[5, 10, 15, 20].map(thunderboltTorpedo),
 ]);

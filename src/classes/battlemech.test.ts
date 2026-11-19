@@ -4597,7 +4597,8 @@ describe("Batch 12c special munitions", () => {
             "ammo-thumper-flechette": [undefined, 2100, null, null, "TO:AUE", 167],
             "ammo-thumper-illumination": [undefined, 2100, null, null, "TO:AUE", 167],
             "ammo-thumper-smoke": [undefined, 1950, null, null, "TO:AUE", 168],
-            "ammo-lrm-heat-seeking": [2390, 2430, null, null, "TO:AUE", 181],
+            // TO:AUE p.181 and its tables print 2340; no printing gives a prototype year (the old 2390/2430 was a transposition).
+            "ammo-lrm-heat-seeking": [undefined, 2340, null, null, "TO:AUE", 181],
             "ammo-long-tom-fae": [2445, 2500, null, null, "IO:AE", 159],
             "ammo-sniper-fae": [undefined, 1950, null, null, "IO:AE", 159],
             "ammo-thumper-fae": [undefined, 1950, null, null, "IO:AE", 159],

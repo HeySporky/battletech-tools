@@ -236,6 +236,34 @@ The **Smoker** is some of the oldest and simplest equipment on a 'Mech, a tank o
 
 The weight, slots, heat and ranges are the canon launcher's. The Battle Value and cost follow a rule the canon shows across the SRM, Streak SRM, SRT and LRM lines: a one-shot launcher is a fifth of its reloadable twin in Battle Value and half in cost, so the reloading launcher is five times the one-shot's Battle Value (18, 23 and 24) and twice its cost (15,000, 30,000 and 45,000). The ammunition ton rides on the launcher at an eighth of its Battle Value, 11, 14 and 15.
 
+## Thunderbolt Torpedoes
+
+*Custom Homebrew by Lopunny, posted on the Queer Tech Discord server.* Lopunny asked for Thunderbolt torpedoes, with
+the standard Thunderbolt launcher's statistics, because the big single missile works "really cool as big torpedo's".
+Lopunny offered them as a torpedo launcher or as torpedo ammunition for the missile launcher; NGCFells ruled that they
+are launchers of their own, as the canon LRT is apart from the LRM. A missile launcher has to vent the motor's
+exhaust; a torpedo tube throws its round out on a charge of pressurized gas before the motor lights.
+
+| Item | Thunderbolt Torpedo 5 | Thunderbolt Torpedo 10 | Thunderbolt Torpedo 15 | Thunderbolt Torpedo 20 |
+| --- | --- | --- | --- | --- |
+| **Weight** | 3 tons | 7 tons | 11 tons | 15 tons |
+| **Slots** | 1 | 2 | 3 | 5 |
+| **Heat** | 3 | 5 | 7 | 8 |
+| **Damage** | 5 | 10 | 15 | 20 |
+| **Range** | 5 / 6 / 12 / 18 | 5 / 6 / 12 / 18 | 5 / 6 / 12 / 18 | 5 / 6 / 12 / 18 |
+| **Torpedoes a ton** | 12 | 6 | 4 | 3 |
+| **Battle Value** | 64 | 127 | 229 | 305 |
+| **Cost** | 50,000 C-Bills | 175,000 C-Bills | 325,000 C-Bills | 450,000 C-Bills |
+
+Inner Sphere, introduced 3082 (Lopunny's year), tech rating E. Every figure is the Thunderbolt missile launcher's, as
+canon torpedo launchers carry their missile counterpart's figures; the torpedoes cost and count as the standard
+Thunderbolt round (50,000 C-Bills a ton). The torpedo fires only when the attacker stands in a Water hex of Depth 1 or
+more, at a target in such a hex, with the line of sight traced through Water hexes. Torpedo launchers take only their
+own torpedoes, and Thunderbolt missile launchers cannot fire them.
+
+The Federated Suns' water-world navies built the torpedo in 3082. Wet-navy crews call it the heaviest single blow a
+submarine or a wading 'Mech can throw.
+
 ## Other Items Priced the Same Way
 
 The same pass filled in every other Custom Homebrew, Apocryphal and Munchkin item that lacked a Battle Value or cost. A figure the author gave was never changed.

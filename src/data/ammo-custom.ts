@@ -151,6 +151,106 @@ const sabotShells = (ac: "2" | "5" | "10" | "20", sabotRounds: number, chartRoun
         + "SABOT rounds, though only in limited numbers, and they are issued one round in five.",
 });
 
+/** Lopunny's entry, posted on the Queer Tech Discord server (2026-11-17; no post link). */
+export const LOPUNNY_CREDIT = "Custom Homebrew by Lopunny, posted on the Queer Tech Discord server (no post link)";
+const THUNDERBOLT_SIZES = [5, 10, 15, 20] as const;
+
+const thunderboltStandardAmmo = (size: number): IEquipmentItem => {
+    const canon = isAmmoList.find((item) => item.tag === `ammo-is-thunderbolt-${size}-standard`);
+    if (!canon) throw new Error(`Thunderbolt ammo: canon record ammo-is-thunderbolt-${size}-standard not found`);
+    return canon;
+};
+
+/**
+ * Heat-Seeking Thunderbolt ammunition (Lopunny): the canon Heat-Seeking missile rules (TO:AUE p.181) on the Thunderbolt's
+ * single big missile, but without the canon munition's halved rounds a ton. Cost x2 and BV x1.5 are the canon munition's factors.
+ */
+const thunderboltHeatSeekingAmmo = (size: number): IEquipmentItem => {
+    const canon = thunderboltStandardAmmo(size);
+    return {
+        isAmmo: true,
+        isSpecialAmmo: true,
+        name: `Thunderbolt ${size} - Heat-Seeking Ammo (IS)`,
+        altNames: [`Heat-Seeking Thunderbolt ${size} Ammo`, `Thunderbolt ${size} HS Ammo`],
+        tag: `ammo-is-thunderbolt-${size}-heat-seeking`,
+        techBase: "is",
+        altTags: [],
+        sort: canon.sort.replace("standard", "heat-seeking"),
+        category: "Ammunition",
+        cbills: canon.cbills * 2,
+        introduced: 3082,
+        extinct: null,
+        reintroduced: null,
+        battleValue: canon.battleValue,
+        heat: 0,
+        heatAero: 0,
+        weight: canon.weight,
+        range: { ...canon.range },
+        space: { ...canon.space },
+        roundsPerTon: canon.roundsPerTon,
+        explosive: canon.explosive,
+        techRating: canon.techRating,
+        book: "Queer Tech Discord, Lopunny",
+        page: 0,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
+        battleValueMultiplier: 1.5,
+        catalog: "custom",
+        rulesLevel: 6,
+        notes: `${LOPUNNY_CREDIT}. Introduced 3082, Lopunny's year (the year the canon Heat-Seeking Enhanced LRM round and the Enhanced LRT came into service). `
+            + `Lopunny's rule: the same rules as Heat-Seeking LRM ammunition, with no change to the ammunition's tonnage, so a ton still fires the Thunderbolt ${size}'s ${canon.roundsPerTon} shots `
+            + `(the canon Heat-Seeking munition packs half the rounds a ton). Not given by Lopunny, so NGCFells's: the cost is twice the standard round's and the Battle Value 1.5 times it, `
+            + `the canon Heat-Seeking munition's factors (TO:AUE p.181 and its munitions tables); the tech rating is the Thunderbolt round's. Inspired by: Lopunny, Queer Tech Discord.`,
+        rules: `Ammunition for the Thunderbolt ${size}, ${canon.roundsPerTon} shots a ton, explosive. As Heat-Seeking missiles (TO:AUE p.181): against a heat-tracking unit that has overheated, `
+            + `the to-hit modifier equals the target's heat-induced MP modifier (12 points of heat, -2 MP, gives -2 to hit), with a further -2 if the target is on fire `
+            + `or the attack passes through the aft side of a fighter, Small Craft, DropShip, JumpShip or WarShip. Against a unit that does not track heat or has not overheated, +1 to hit. `
+            + `Fired into or through a hex that is on fire, +2 to hit. Otherwise as the Thunderbolt ${size}'s standard missile.`,
+        lore: "The Thunderbolt's single heavy missile always had room to spare, and after the Jihad the Federated Suns' missile makers filled some of it with an infrared seeker, "
+            + "the same guidance the Terran Hegemony had put on LRMs centuries before. Unlike the small LRM, the Thunderbolt did not have to give up any warhead to fit it, so a ton of the new missiles "
+            + "fires as many shots as a ton of the old. Against a 'Mech running hot the missile is deadly; against a cold target, or near a burning hex, it loses its way.",
+    };
+};
+
+/**
+ * Thunderbolt torpedo ammunition (Lopunny): every figure is the standard Thunderbolt round's, as canon torpedo ammunition
+ * carries its missile counterpart's statistics. Fires only from the Thunderbolt Torpedo launcher of its size (missile-custom.ts).
+ */
+const thunderboltTorpedoAmmo = (size: number): IEquipmentItem => {
+    const canon = thunderboltStandardAmmo(size);
+    return {
+        isAmmo: true,
+        isSpecialAmmo: false,
+        name: `Thunderbolt Torpedo ${size} - Standard Ammo (IS)`,
+        altNames: [`Thunderbolt Torpedo ${size} Ammo`],
+        tag: `ammo-is-thunderbolt-torpedo-${size}-standard`,
+        techBase: "is",
+        altTags: [],
+        sort: canon.sort.replace("thunderbolt", "thunderbolt torpedo"),
+        category: "Ammunition",
+        cbills: canon.cbills,
+        introduced: 3082,
+        extinct: null,
+        reintroduced: null,
+        battleValue: canon.battleValue,
+        heat: 0,
+        heatAero: 0,
+        weight: canon.weight,
+        range: { ...canon.range },
+        space: { ...canon.space },
+        roundsPerTon: canon.roundsPerTon,
+        explosive: canon.explosive,
+        techRating: canon.techRating,
+        book: "Queer Tech Discord, Lopunny",
+        page: 0,
+        alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
+        catalog: "custom",
+        rulesLevel: 6,
+        notes: `${LOPUNNY_CREDIT}. Torpedoes for the Thunderbolt Torpedo ${size} launcher, introduced 3082 (Lopunny's year). Cost, Battle Value, shots a ton and tech rating are the standard Thunderbolt ${size} round's, `
+            + "as canon torpedo ammunition carries its missile counterpart's figures (LRT and LRM ammunition are priced alike). Inspired by: Lopunny, Queer Tech Discord.",
+        rules: `Ammunition for the Thunderbolt Torpedo ${size}, ${canon.roundsPerTon} torpedoes a ton, explosive. A torpedo launcher cannot fire missile ammunition, and a Thunderbolt missile launcher cannot fire torpedoes.`,
+        lore: "A Thunderbolt torpedo is the Thunderbolt missile's warhead and seeker in a sealed, heavier body with a water-breathing motor, sized to the same magazine racks so a quartermaster can store either.",
+    };
+};
+
 export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
     {
         isAmmo: true,
@@ -1315,5 +1415,8 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         rules: "Missiles for the Penitrator (custom-penitrator), half a ton each, so 2 a ton. Not explosive.",
         lore: "Each Penitrator missile weighs half a ton, almost half of it solid fuel. They are built by hand and rank among the costliest munitions "
             + "in the Inner Sphere, at roughly ten times the price of an ordinary missile."
-    }
+    },
+    // Lopunny, Queer Tech Discord (2026-11-17): Heat-Seeking Thunderbolt ammunition and Thunderbolt torpedoes.
+    ...THUNDERBOLT_SIZES.map(thunderboltHeatSeekingAmmo),
+    ...THUNDERBOLT_SIZES.map(thunderboltTorpedoAmmo),
 ]);

@@ -9581,7 +9581,7 @@ export const ammoCatalog: IEquipmentItem[] = [
         sort: "ammo, lrm, heat-seeking",
         category: "Ammunition",
         cbills: 60000,
-        introduced: 2430,
+        introduced: 2340,
         extinct: null,
         reintroduced: null,
         battleValue: 0,
@@ -9596,7 +9596,6 @@ export const ammoCatalog: IEquipmentItem[] = [
         book: "TO:AUE",
         page: 181,
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: [] },
-        prototype: 2390,
         battleValueMultiplier: 1.5
     },
     {
