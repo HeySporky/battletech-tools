@@ -53,7 +53,9 @@ describe("TRO - JBT contents", () => {
         expect(titles("equipment")).toEqual(expect.arrayContaining(["Gatling Laser", "Superheavy PPC", "COIL-S, COIL-M and COIL-L"]));
         expect(titles("ammunition")).toEqual(expect.arrayContaining(["Long Tom Artillery: Anti-Orbital Ammo", "Gauss Rifle Shells: VHE and Inferno", "Autocannon SABOT Rounds", "Tandem Charge SRM House Rule"]));
         expect(titles("equipment")).not.toContain("Autocannon SABOT Rounds");
-        expect(titles("other")).toEqual(["How NGCFells derives Battle Value and cost", "Other Items Priced the Same Way"]);
+        expect(titles("other")).toEqual(["How NGCFells derives Battle Value and cost", "Other Items Priced the Same Way",
+            "The Four Methods", "What NGCFells Filled In", "Their Own Arithmetic", "Canon and the Methods",
+            "Stock's Values from DropShips and JumpShips", "The Authors' Designs"]);
         // Every page of an equipment or ammunition readout is listed once, so nothing has to be hunted for.
         const listed = [...index.equipment, ...index.ammunition, ...index.other].length;
         const pages = TRO_DOCUMENTS.filter((document) => document.category !== "unit-types").reduce((sum, document) => sum + readoutPages(document.text, document.pageStart).length, 0);

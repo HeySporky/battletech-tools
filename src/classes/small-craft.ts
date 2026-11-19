@@ -621,7 +621,8 @@ export default class SmallCraft implements IGameSettingsUnit {
     }
 
     private _fwNotes(method: FwDropShipMethod): string[] {
-        const notes = [`Built by ${FW_DROPSHIP_SOURCES[method]}.`];
+        const notes = [`Built by ${FW_DROPSHIP_SOURCES[method]}.`,
+            "Battle Value and cost are worked by the rules edition's DropShip rules on the design as built (NGCFells's ruling); the article gives no Battle Value."];
         const result = this.getFwDropShipResult()!;
         if (method === "stock") {
             const set = this._fw.stock;

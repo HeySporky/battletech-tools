@@ -193,6 +193,16 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                   <ul className="news">
                   <li>
                   <h3>
+                      <strong>November 19th, 2026</strong> - Future Wars DropShips: four ways to build a DropShip
+                    </h3>
+                    <h4>Author - NGCFells</h4>
+                      <ul>
+                        <li><strong>Future Wars DropShip construction.</strong> Four fan methods from Future Wars are Special Rulesets in the Small Craft Creator at the Custom Homebrew level: Mark Stock's (#16, reprinted in The Best of Future Wars), Erik Eid's (#25), Mike Reese's and Doug Houseman's (#36). Tick one on a DropShip and step 2 weighs the ship by that author's rules: engine, structure, fuel, bridge, heat sinks, armor, bays and quarters. Where Stock says to look values up in DropShips and JumpShips, NGCFells fitted formulae to every DropShip in that book; you can still type your own. Houseman's integrity table is extended past its eighth row. Fire factors per arc print in the record sheet's notes. Fan-made, NOT OFFICIAL (issue #172).</li>
+                        <li><strong>Sample DropShips.</strong> The Small Craft Creator's home page loads Stock's Pioneer A, B and C and Reese's UNION-12, THUNDERWOLF and GOLIATH-R, each built to its author's rule with what the sheet prints in its notes, and NGCFells's verification builds: the canon Leopard, Union and Overlord weighed by each method. TRO - JBT has a Future Wars DropShips readout with the methods, the formulae beside every DS&amp;JS DropShip, and each design.</li>
+                      </ul>
+                  </li>
+                  <li>
+                  <h3>
                       <strong>November 18th, 2026</strong> - Heat-Seeking Thunderbolts and Thunderbolt torpedoes
                     </h3>
                     <h4>Author - NGCFells</h4>

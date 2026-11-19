@@ -8,6 +8,8 @@ import microMechsText from '../../../../docs/lore/micro-mechs-tro.md?raw';
 import walkersText from '../../../../docs/lore/walkers-tro.md?raw';
 import bestOfFutureWarsText from '../../../../docs/lore/best-of-future-wars-tro.md?raw';
 import homebrewEquipmentText from '../../../../docs/lore/homebrew-equipment-tro.md?raw';
+import futureWarsDropShipsText from '../../../../docs/lore/future-wars-dropships-tro.md?raw';
+import { getFwDropShipsGeneratedReadout } from '../../../data/future-wars-dropships-readout';
 import powerArmorText from '../../../../docs/lore/power-armor-tro.md?raw';
 import Walker from '../../../classes/walker';
 import { getWalkerReadout } from '../../../classes/walker-readout';
@@ -32,6 +34,8 @@ export const AMMUNITION_READOUT = unixLines(ammunitionText);
 export const MICRO_MECHS_READOUT = unixLines(microMechsText);
 export const BEST_OF_FUTURE_WARS_READOUT = unixLines(bestOfFutureWarsText);
 export const HOMEBREW_EQUIPMENT_READOUT = unixLines(homebrewEquipmentText);
+// The DropShip methods' text, then the DS&JS fit table, the verification builds and the sheet designs, read from the samples.
+export const FUTURE_WARS_DROPSHIPS_READOUT = `${unixLines(futureWarsDropShipsText).trim()}\n\n${getFwDropShipsGeneratedReadout()}\n`;
 // The Power Armor text, then the sample suits, their figures read from the designs.
 export const POWER_ARMOR_READOUT = `${unixLines(powerArmorText).trim()}\n\n${getPowerArmorSamplesReadout()}\n`;
 // The VTOLAM and Permanent Air 'Mech texts, then a page for each sample design, its figures read from the design.
@@ -156,6 +160,15 @@ export const TRO_DOCUMENTS: ITroDocument[] = [
             "Other Items Priced the Same Way": "other",
             "Tandem Charge SRM House Rule": "ammunition",
         },
+    },
+    {
+        slug: "future-wars-dropships",
+        title: "Future Wars DropShips",
+        summary: "Four fan methods for building a DropShip, by Stock, Eid, Reese and Houseman: how each works, NGCFells's formulae for Stock's DS&JS look-ups, canon verification builds and the authors' own designs.",
+        fileName: "future-wars-dropships-tro.md",
+        text: FUTURE_WARS_DROPSHIPS_READOUT,
+        pageStart: /^## /,
+        category: "other",
     },
     {
         slug: "ammunition",

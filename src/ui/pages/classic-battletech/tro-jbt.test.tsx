@@ -79,7 +79,7 @@ describe("ArtVee readout", () => {
 describe("TRO - JBT", () => {
     it("opens with the introduction and a card for the ArtVees, then the ammunition", () => {
         expect(TRO_INTRODUCTION).toContain("## Explanation");
-        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "micro-mechs", "walkers", "power-armor", "vtolam", "permanent-air-mech", "best-of-future-wars", "homebrew-equipment", "ammunition"]);
+        expect(TRO_DOCUMENTS.map((document) => document.slug)).toEqual(["artvee", "micro-mechs", "walkers", "power-armor", "vtolam", "permanent-air-mech", "best-of-future-wars", "homebrew-equipment", "future-wars-dropships", "ammunition"]);
     });
 
     it.each(TRO_DOCUMENTS.map((document) => [document.slug, document] as const))("renders every page of %s and loses no text", (_slug, document) => {
