@@ -17,6 +17,7 @@ import { RulesEditionUnitType } from "./rules-editions";
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from "./rules-level-options";
 import { FUTURE_WARS_PLAY_SOURCES } from "./future-wars-play-rules";
 import { FW_POWER_ARMOR_RULESET } from "./future-wars-power-armor";
+import { FW_DROPSHIP_RULESET_IDS, FW_DROPSHIP_SOURCES } from "./future-wars-dropships";
 
 // Special Rulesets (#324): optional and homebrew rules that change how the game plays or how units are built. They
 // are chosen first in the shared settings block, so each can set the minimum edition and narrow every list below it.
@@ -52,6 +53,7 @@ export const CHANGE_LABELS: Record<string, string> = {
     weaponRanges: "weapon ranges",
     futureWarsEquipment: "Future Wars equipment rules",
     tandemChargeSrm: "Tandem-Charge SRM ammunition",
+    dropshipConstruction: "DropShip construction",
     techBases: "the tech bases",
 };
 
@@ -250,6 +252,71 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
         },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
         changes: ["futureWarsEquipment"],
+    },
+    // The four Future Wars DropShip construction methods (#172, DropShips plan). Each replaces the TechManual's DropShip
+    // construction, so they refuse each other; the tables and weights are in future-wars-dropships.ts.
+    {
+        id: FW_DROPSHIP_RULESET_IDS.stock,
+        summary: "Mark Stock's DropShip building: engine, integrity, bridge and heat sinks from the DS&JS ships' own figures.",
+        category: "construction",
+        name: "Future Wars: DropShip construction (Stock)",
+        description: "DropShips only. Mark Stock's rules, written to build ships like those of DropShips and JumpShips (1988): engine "
+            + "tonnage / (15 / thrust), Structural Integrity x tonnage / 100, a bridge of 1 to 10 tons a crew member, free heat sinks "
+            + "of the engine / 10 to 25, cubicles 150 tons, doors 5 tons, heavy vehicles 100 and light 50, 5 tons a crew member or "
+            + "passenger (10 first class), 2 an infantry trooper and 3 jump or motorized. Where Stock says \"look in DS/JS\", "
+            + "NGCFells set formulae fitted to every DropShip in that book, which the builder may change: thrust points a ton of fuel, "
+            + "tons of fuel a burn-day, crew, armor points a ton, the bridge multiplier and the heat-sink divisor (Inspired by Stock). "
+            + "Battle Value and cost by the edition's rules on the ship as built. More in TRO - JBT: Future Wars DropShips.",
+        source: { title: FW_DROPSHIP_SOURCES.stock, publication: "Future Wars", tag: "FW #16", author: "Mark Stock" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["dropshipConstruction"],
+    },
+    {
+        id: FW_DROPSHIP_RULESET_IDS.eid,
+        summary: "Erik Eid's deluxe DropShip building: Stock's rules with charts for fuel, heat sinks and armor by size.",
+        category: "construction",
+        name: "Future Wars: DropShip construction (Eid)",
+        description: "DropShips only. Erik Eid's \"Deluxe Dropship Construction\", built on Stock's: engine tonnage / (16 / thrust), "
+            + "Structural Integrity greater than the Overthrust, thrust points a ton of fuel by tonnage (Chart A, to 100,000 tons), "
+            + "1.84 tons of fuel a burn-day under 15,000 tons, a bridge of 0.0075 x tonnage, free heat sinks of the engine / Chart B, "
+            + "armor points a ton by shape and size (Charts C and D). Cubicles 150 tons with weightless doors, at most eight (five with "
+            + "ferro-aluminum armor); 5 tons a crew member or passenger, 10 an officer or first-class passenger, 7 an infantry trooper "
+            + "and 8 jump or motorized; a crew of at least nine. His advanced-technology notes are warnings. NGCFells's: above 15,000 "
+            + "tons the burn-day the builder sets, else the Stock formula; Battle Value by the edition's rules, and cost by the "
+            + "edition's rules, as Eid leaves cost to the builder.",
+        source: { title: FW_DROPSHIP_SOURCES.eid, publication: "Future Wars", tag: "FW #25", author: "Erik Eid" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["dropshipConstruction"],
+    },
+    {
+        id: FW_DROPSHIP_RULESET_IDS.reese,
+        summary: "Mike Reese's DropShip building: Eid's charts extended past 100,000 tons, fuel by days, tonnage from a model.",
+        category: "construction",
+        name: "Future Wars: DropShip construction (Reese)",
+        description: "DropShips only. Mike Reese's rules, Eid's extended: tonnage measured from a 1/285 model (cubic centimeters x 23.1 "
+            + "x 0.07), engine tonnage / (16 / thrust), Structural Integrity from the Overthrust to three times it, 20 to 30 days of "
+            + "fuel at 1,440 thrust points a day, a bridge of 0.0075 x tonnage up to 25 tons, Eid's charts carried past 100,000 tons, "
+            + "at most eight doors for a combat drop, several engines allowed, and Clan ships with half-weight XL engines and double "
+            + "heat sinks. Every line rounds to the whole ton, as his worked examples do. Battle Value and cost by the edition's rules.",
+        source: { title: FW_DROPSHIP_SOURCES.reese, publication: "Future Wars", tag: "FW #36", author: "Mike Reese" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["dropshipConstruction"],
+    },
+    {
+        id: FW_DROPSHIP_RULESET_IDS.houseman,
+        summary: "Doug Houseman's DropShip design: every system a share of the hull's mass, with integrity, docking and quarters.",
+        category: "construction",
+        name: "Future Wars: DropShip construction (Houseman)",
+        description: "DropShips only. Doug Houseman's \"Designing a Dropship\": the hull's systems as shares of its mass (structure 3% "
+            + "a point of integrity, hull 5% spheroid or 10% aerodyne, power 2%, landing 10% or 15%, controls 3%, recycling 1%), "
+            + "thrusters of 3 tons a point a 100 tons, thrust no higher than integrity, fuel 3 tons a thrust point a day, a docking "
+            + "system by size, armor by size, quarters by the person, weapons x 1.5, bays at twice what they carry and cargo at 110%; "
+            + "armor, systems, quarters, weapons and bays under a quarter of the weight. NGCFells's: the integrity table carried past "
+            + "row 8 (3% of mass, 10 internal structure, 20 armor and 1 g a point), heat sinks a ton each with none free. Battle Value "
+            + "and cost by the edition's rules.",
+        source: { title: FW_DROPSHIP_SOURCES.houseman, publication: "Future Wars", tag: "FW #36", author: "Doug Houseman" },
+        minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
+        changes: ["dropshipConstruction"],
     },
     {
         id: "tandem-charge-srm-house-rule",
