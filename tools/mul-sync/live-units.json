@@ -14509,8 +14509,8 @@
       }
     },
     "0CHPZ8FF6P": {
-      "summaryHash": "[\"Shen Long Battle Armor\",\"[Pop-Up Mine] (Sqd4)\",2,3,7,1,1.5,16,241,3092,6,[2,57,85],null]",
-      "detailScrapedAt": "2026-09-25T17:09:29.481Z",
+      "summaryHash": "[\"Shen Long Battle Armor\",\"[Pop-Up Mine] (Sqd4)\",2,3,7,1,1.5,16,241,3092,6,[2,57],null]",
+      "detailScrapedAt": "2026-11-16T13:20:12.376Z",
       "record": {
         "Id": 100120,
         "MulUnitKey": "0CHPZ8FF6P",
@@ -14580,7 +14580,7 @@
         "BFDamageMediumMin": false,
         "BFDamageLongMin": false,
         "BFDamageExtremeMin": false,
-        "BFAbilities": "CAR 4,MAS,MDS 2",
+        "BFAbilities": "CAR 4,MAS",
         "Type": {
           "Id": 22,
           "Name": "Battle Armor",
@@ -14589,7 +14589,8 @@
         },
         "SubTypeId": 3,
         "BFThreshold": 0,
-        "Rules": "Standard"
+        "Rules": "Standard",
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/shen-long-0d7dc9.webp"
       }
     },
     "0CNHM2NBEZ": {
@@ -128598,13 +128599,13 @@
       }
     },
     "40GM5CBCSX": {
-      "summaryHash": "[\"Merchant JumpShip\",null,10,33,1,1,120000,20,0,2503,1,[],null]",
-      "detailScrapedAt": "2026-09-27T09:45:59.888Z",
+      "summaryHash": "[\"Merchant\",\"Inner Sphere\",10,33,1,1,120000,20,0,2503,1,[],null]",
+      "detailScrapedAt": "2026-11-16T13:20:39.073Z",
       "record": {
         "Id": 101108,
         "MulUnitKey": "40GM5CBCSX",
-        "Name": "Merchant JumpShip",
-        "Variant": null,
+        "Name": "Merchant",
+        "Variant": "Inner Sphere",
         "Class": "Aerospace Craft",
         "Tonnage": 120000,
         "BattleValue": 0,
@@ -128990,7 +128991,8 @@
           "right": {
             "spe": "ENE"
           }
-        }
+        },
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/merchant-js-d70ce8.webp"
       }
     },
     "40SZQV0ZZF": {
@@ -237350,13 +237352,13 @@
       }
     },
     "787XMNTVF3": {
-      "summaryHash": "[\"Invader JumpShip\",\"(PPC)\",10,33,1,1,152000,28,0,2631,2,[],null]",
-      "detailScrapedAt": "2026-09-27T15:48:37.172Z",
+      "summaryHash": "[\"Invader\",\"PPC\",10,33,1,1,152000,28,0,2631,2,[],null]",
+      "detailScrapedAt": "2026-11-16T13:21:02.822Z",
       "record": {
         "Id": 102035,
         "MulUnitKey": "787XMNTVF3",
-        "Name": "Invader JumpShip",
-        "Variant": "(PPC)",
+        "Name": "Invader",
+        "Variant": "PPC",
         "Class": "Aerospace Craft",
         "Tonnage": 152000,
         "BattleValue": 0,
@@ -237779,7 +237781,8 @@
             ],
             "spe": "ENE"
           }
-        }
+        },
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/invader-js-4fb16d.webp"
       }
     },
     "789J1MBT67": {
@@ -353063,8 +353066,8 @@
       }
     },
     "AZFXAH3MDH": {
-      "summaryHash": "[\"Shen Long Battle Armor\",\"[Pop-Up Mine] (Sqd6)\",2,3,7,1,1.5,19,416,3092,6,[2,57,85],null]",
-      "detailScrapedAt": "2026-09-27T19:20:00.470Z",
+      "summaryHash": "[\"Shen Long Battle Armor\",\"[Pop-Up Mine] (Sqd6)\",2,3,7,1,1.5,19,416,3092,6,[2,57],null]",
+      "detailScrapedAt": "2026-11-16T13:21:18.493Z",
       "record": {
         "Id": 103033,
         "MulUnitKey": "AZFXAH3MDH",
@@ -353111,10 +353114,11 @@
         "BFDamageMediumMin": false,
         "BFDamageLongMin": false,
         "BFDamageExtremeMin": false,
-        "BFAbilities": "CAR 6,MAS,MDS 1",
+        "BFAbilities": "CAR 6,MAS",
         "SubTypeId": 3,
         "BFThreshold": 0,
-        "Rules": "Standard"
+        "Rules": "Standard",
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/shen-long-0d7dc9.webp"
       }
     },
     "AZZBEAHESY": {
@@ -366743,13 +366747,13 @@
       }
     },
     "BE6EYF91FE": {
-      "summaryHash": "[\"Confederate\",\"(Clan)\",10,46,1,1,1900,50,0,2850,3,[],null]",
-      "detailScrapedAt": "2026-09-27T19:45:10.462Z",
+      "summaryHash": "[\"Confederate\",\"Clan\",10,46,1,1,1900,50,0,2850,3,[],null]",
+      "detailScrapedAt": "2026-11-16T13:21:41.784Z",
       "record": {
         "Id": 103149,
         "MulUnitKey": "BE6EYF91FE",
         "Name": "Confederate",
-        "Variant": "(Clan)",
+        "Variant": "Clan",
         "Class": "Aerospace Craft",
         "Tonnage": 1900,
         "BattleValue": 0,
@@ -367029,7 +367033,8 @@
             ],
             "spe": "ENE"
           }
-        }
+        },
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/confederate-ds-043263.webp"
       }
     },
     "BE9T38VGW8": {
@@ -553869,13 +553874,13 @@
       }
     },
     "HDQ6R5R78W": {
-      "summaryHash": "[\"Invader JumpShip\",null,10,33,1,1,152000,27,0,2631,2,[],null]",
-      "detailScrapedAt": "2026-09-28T01:18:52.178Z",
+      "summaryHash": "[\"Invader\",\"Inner Sphere\",10,33,1,1,152000,27,0,2631,2,[],null]",
+      "detailScrapedAt": "2026-11-16T13:22:03.880Z",
       "record": {
         "Id": 104732,
         "MulUnitKey": "HDQ6R5R78W",
-        "Name": "Invader JumpShip",
-        "Variant": null,
+        "Name": "Invader",
+        "Variant": "Inner Sphere",
         "Class": "Aerospace Craft",
         "Tonnage": 152000,
         "BattleValue": 0,
@@ -554268,7 +554273,8 @@
             ],
             "spe": "ENE"
           }
-        }
+        },
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/invader-js-4fb16d.webp"
       }
     },
     "HDS8R7Z2Q9": {
@@ -672683,8 +672689,8 @@
       }
     },
     "MXDMNG3T9C": {
-      "summaryHash": "[\"Sloth Battle Armor\",\"(Sqd6)\",2,3,2,1,1.5,12,312,3050,4,[2,85],null]",
-      "detailScrapedAt": "2026-09-28T04:51:28.730Z",
+      "summaryHash": "[\"Sloth Battle Armor\",\"(Sqd6)\",2,3,2,1,1.5,12,312,3050,4,[2],null]",
+      "detailScrapedAt": "2026-11-16T13:22:15.016Z",
       "record": {
         "Id": 105744,
         "MulUnitKey": "MXDMNG3T9C",
@@ -672731,10 +672737,11 @@
         "BFDamageMediumMin": false,
         "BFDamageLongMin": false,
         "BFDamageExtremeMin": false,
-        "BFAbilities": "CAR 6,MDS 1",
+        "BFAbilities": "CAR 6",
         "SubTypeId": 3,
         "BFThreshold": 0,
-        "Rules": "Standard"
+        "Rules": "Standard",
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/sloth-346ff6.webp"
       }
     },
     "MXDS8960VF": {
@@ -707032,8 +707039,8 @@
       }
     },
     "P673EG3R7G": {
-      "summaryHash": "[\"Shen Long Battle Armor\",\"[Pop-Up Mine] (Sqd5)\",2,3,7,1,1.5,19,324,3092,6,[2,57,85],null]",
-      "detailScrapedAt": "2026-09-28T05:59:40.073Z",
+      "summaryHash": "[\"Shen Long Battle Armor\",\"[Pop-Up Mine] (Sqd5)\",2,3,7,1,1.5,19,324,3092,6,[2,57],null]",
+      "detailScrapedAt": "2026-11-16T13:22:25.988Z",
       "record": {
         "Id": 106066,
         "MulUnitKey": "P673EG3R7G",
@@ -707080,10 +707087,11 @@
         "BFDamageMediumMin": false,
         "BFDamageLongMin": false,
         "BFDamageExtremeMin": false,
-        "BFAbilities": "CAR 5,MAS,MDS 1",
+        "BFAbilities": "CAR 5,MAS",
         "SubTypeId": 3,
         "BFThreshold": 0,
-        "Rules": "Standard"
+        "Rules": "Standard",
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/shen-long-0d7dc9.webp"
       }
     },
     "P6F4JS3S4J": {
@@ -724795,8 +724803,8 @@
       }
     },
     "PT5R79EA70": {
-      "summaryHash": "[\"Sloth Battle Armor\",\"(Sqd4)\",2,3,2,1,1.5,12,180,3050,4,[2,85],null]",
-      "detailScrapedAt": "2026-09-28T06:31:56.917Z",
+      "summaryHash": "[\"Sloth Battle Armor\",\"(Sqd4)\",2,3,2,1,1.5,12,180,3050,4,[2],null]",
+      "detailScrapedAt": "2026-11-16T13:22:36.370Z",
       "record": {
         "Id": 106222,
         "MulUnitKey": "PT5R79EA70",
@@ -724888,10 +724896,11 @@
         "BFDamageMediumMin": false,
         "BFDamageLongMin": false,
         "BFDamageExtremeMin": false,
-        "BFAbilities": "CAR 4,MDS 1",
+        "BFAbilities": "CAR 4",
         "SubTypeId": 3,
         "BFThreshold": 0,
-        "Rules": "Standard"
+        "Rules": "Standard",
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/sloth-346ff6.webp"
       }
     },
     "PTMBV92VYJ": {
@@ -820704,13 +820713,13 @@
       }
     },
     "SR3RM2X39F": {
-      "summaryHash": "[\"Star Lord JumpShip\",null,10,33,1,1,274000,23,0,2590,2,[],null]",
-      "detailScrapedAt": "2026-09-28T12:36:20.559Z",
+      "summaryHash": "[\"Star Lord\",\"Inner Sphere\",10,33,1,1,274000,23,0,2590,2,[],null]",
+      "detailScrapedAt": "2026-11-16T13:22:58.637Z",
       "record": {
         "Id": 107044,
         "MulUnitKey": "SR3RM2X39F",
-        "Name": "Star Lord JumpShip",
-        "Variant": null,
+        "Name": "Star Lord",
+        "Variant": "Inner Sphere",
         "Class": "Aerospace Craft",
         "Tonnage": 274000,
         "BattleValue": 0,
@@ -821080,7 +821089,8 @@
           "right": {
             "spe": "ENE"
           }
-        }
+        },
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/star-lord-js-d936fd.webp"
       }
     },
     "SR5QZHPYMM": {
@@ -838208,13 +838218,13 @@
       }
     },
     "T9NQV5BRNW": {
-      "summaryHash": "[\"Invader JumpShip\",\"(Clan)\",10,33,1,1,152000,29,0,2895,3,[],null]",
-      "detailScrapedAt": "2026-09-28T13:09:13.245Z",
+      "summaryHash": "[\"Invader\",\"Clan\",10,33,1,1,152000,29,0,2895,3,[],null]",
+      "detailScrapedAt": "2026-11-16T13:23:24.172Z",
       "record": {
         "Id": 107203,
         "MulUnitKey": "T9NQV5BRNW",
-        "Name": "Invader JumpShip",
-        "Variant": "(Clan)",
+        "Name": "Invader",
+        "Variant": "Clan",
         "Class": "Aerospace Craft",
         "Tonnage": 152000,
         "BattleValue": 0,
@@ -838419,7 +838429,8 @@
             ],
             "spe": "ENE"
           }
-        }
+        },
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/invader-js-4fb16d.webp"
       }
     },
     "T9Q24GHT4C": {
@@ -1001938,13 +1001949,13 @@
       }
     },
     "ZFHCFFY2CC": {
-      "summaryHash": "[\"Star Lord JumpShip\",\"(Clan)\",10,33,1,1,274000,23,0,2919,11,[],null]",
-      "detailScrapedAt": "2026-09-28T18:01:36.592Z",
+      "summaryHash": "[\"Star Lord\",\"Clan\",10,33,1,1,274000,23,0,2919,11,[],null]",
+      "detailScrapedAt": "2026-11-16T13:23:51.782Z",
       "record": {
         "Id": 108590,
         "MulUnitKey": "ZFHCFFY2CC",
-        "Name": "Star Lord JumpShip",
-        "Variant": "(Clan)",
+        "Name": "Star Lord",
+        "Variant": "Clan",
         "Class": "Aerospace Craft",
         "Tonnage": 274000,
         "BattleValue": 0,
@@ -1002199,7 +1002210,8 @@
           "right": {
             "spe": "ENE"
           }
-        }
+        },
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/star-lord-js-d936fd.webp"
       }
     },
     "ZFQYFEF9K4": {
@@ -1008477,8 +1008489,8 @@
       }
     },
     "ZNT8FQHA6H": {
-      "summaryHash": "[\"Sloth Battle Armor\",\"(Sqd5)\",2,3,2,1,1.5,12,243,3050,4,[2,85],null]",
-      "detailScrapedAt": "2026-09-28T18:12:44.905Z",
+      "summaryHash": "[\"Sloth Battle Armor\",\"(Sqd5)\",2,3,2,1,1.5,12,243,3050,4,[2],null]",
+      "detailScrapedAt": "2026-11-16T13:24:05.154Z",
       "record": {
         "Id": 108643,
         "MulUnitKey": "ZNT8FQHA6H",
@@ -1008525,10 +1008537,11 @@
         "BFDamageMediumMin": false,
         "BFDamageLongMin": false,
         "BFDamageExtremeMin": false,
-        "BFAbilities": "CAR 5,MDS 1",
+        "BFAbilities": "CAR 5",
         "SubTypeId": 3,
         "BFThreshold": 0,
-        "Rules": "Standard"
+        "Rules": "Standard",
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/sloth-346ff6.webp"
       }
     },
     "ZNXYYMKVX2": {
@@ -1014759,13 +1014772,13 @@
       }
     },
     "ZZ0DFRZRQ4": {
-      "summaryHash": "[\"Merchant JumpShip\",\"(Clan)\",10,33,1,1,120000,20,0,2899,3,[],null]",
-      "detailScrapedAt": "2026-09-28T18:24:54.716Z",
+      "summaryHash": "[\"Merchant\",\"Clan\",10,33,1,1,120000,20,0,2899,3,[],null]",
+      "detailScrapedAt": "2026-11-16T13:24:30.607Z",
       "record": {
         "Id": 108701,
         "MulUnitKey": "ZZ0DFRZRQ4",
-        "Name": "Merchant JumpShip",
-        "Variant": "(Clan)",
+        "Name": "Merchant",
+        "Variant": "Clan",
         "Class": "Aerospace Craft",
         "Tonnage": 120000,
         "BattleValue": 0,
@@ -1015021,7 +1015034,8 @@
           "right": {
             "spe": "ENE"
           }
-        }
+        },
+        "ImageUrl": "https://masterunitlist.battletech.com/point-backs/unit-art/manual/merchant-js-d70ce8.webp"
       }
     },
     "ZZ6JD71AQT": {
