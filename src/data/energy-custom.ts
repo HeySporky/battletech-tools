@@ -167,7 +167,7 @@ const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
             + "Dazzler: 12 heat, fifteen 1-damage shots on the 15 column; against infantry, battle armor or ProtoMechs a hit does 4d6 in 5-damage clusters. "
             + "A targeting computer and laser insulation apply; a power amplifier is needed on ICE and fuel cell units. Inspired by: u/heavyarmormecha. "
             + "The record carries the Focus mode's heat and damage; the other modes are play text. "
-            + "Not given by the author, so ours: the author's Experimental availability is read as introduced 3150; cost and Battle Value are priced at the Focus mode, the strongest of its three, "
+            + "Not given by the author, so NGCFells's: the author's Experimental availability is read as introduced 3150; cost and Battle Value are priced at the Focus mode, the strongest of its three, "
             + "as the canon MML is priced at its LRM mode (the MML 5 is 45, the LRM 5's, not LRM plus SRM); the other two modes add nothing.",
         damage: 16, damageAero: 16, accuracyModifier: 0, cbills: 0, introduced: 3150, extinct: null, reintroduced: null, battleValue: 0, heat: 20, heatAero: 20, weight: 10,
         range: { min: 0, short: 6, medium: 12, long: 18 }, space: { battlemech: 4, protomech: -1, combatVehicle: 4, supportVehicle: 4, aerospaceFighter: 4, smallCraft: 4, dropShip: -1 },
@@ -178,7 +178,7 @@ const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
         name: "Superheavy PPC", tag: "custom-superheavy-ppc", techBase: "universal", catalog: "custom", sort: "ppc, 3, superheavy", category: "Energy Weapons",
         notes: "Custom Homebrew by u/FedditSuns, 'Custom Weapon Feedback: Superheavy PPC', r/battletech (https://www.reddit.com/r/battletech/comments/1bhfssf/). "
             + "From the post: 13 tons, 5 slots, 20 heat, 20 damage, range 3/6/12/18, aerospace range medium, Battle Value 422, cost 300,000 C-Bills. "
-            + "Inspired by: u/FedditSuns. Not given in the post, so ours: the tech base is left universal and the dates and tech rating are unverified.",
+            + "Inspired by: u/FedditSuns. Not given in the post, so NGCFells's: the tech base is left universal and the dates and tech rating are unverified.",
         damage: 20, damageAero: 20, accuracyModifier: 0, cbills: 300000, introduced: null, extinct: null, reintroduced: null, battleValue: 422, heat: 20, heatAero: 20, weight: 13,
         range: { min: 3, short: 6, medium: 12, long: 18 }, space: { battlemech: 5, protomech: -1, combatVehicle: 5, supportVehicle: 5, aerospaceFighter: 5, smallCraft: -1, dropShip: -1 },
         shotsPerTon: 0, minAmmoTons: 0, explosive: false, weaponType: ["DE"], rangeAero: "m", techRating: "x", book: "Reddit u/FedditSuns", page: 0, rulesLevel: 6,
@@ -189,7 +189,7 @@ const energyCustomBase: IEquipmentItem[] = applyDerivedValues([
         notes: "Custom Homebrew by u/Magical_Savior, 'Weapon Idea - Fusion Lance', r/battletech (https://www.reddit.com/r/battletech/comments/1mhvhwp/). "
             + "The first draft was 5 damage per 100 of engine rating; u/sokttocs called it too weak for 30 heat and 3 hexes, and the author replied with the revised damage used here. "
             + "From the post: 4 tons, 2 slots, 30 heat, a 3-hex attack range. "
-            + "Inspired by: u/Magical_Savior, u/sokttocs. Not given in the post, so ours: the record's damage is the smallest the formula gives (15, for an engine rated 100 or less) "
+            + "Inspired by: u/Magical_Savior, u/sokttocs. Not given in the post, so NGCFells's: the record's damage is the smallest the formula gives (15, for an engine rated 100 or less) "
             + "because a record holds one number; the rules text carries the formula. Range is read as 1 / 2 / 3 hexes for the weapon's 3-hex reach with its 5-a-hex falloff. "
             + "Dates and tech rating are unverified. The Engine-slot mounting is not enforced by the builder.",
         rules: "Mounted only where there are Engine critical slots. Activating it costs 30 heat; its attack reaches 3 hexes. Damage is 10 plus 5 for each 100 of "

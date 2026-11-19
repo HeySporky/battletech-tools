@@ -960,7 +960,7 @@ export default class MicroMech implements IGameSettingsUnit {
         trace.add("mm.bv2.off.rating", { label: "Offensive Battle Rating", detail: `${formatCalcNumber(offensive)} x ${speed}`, value: offensiveRating, emphasis: true });
 
         const result = Math.round(defensiveRating + offensiveRating);
-        trace.add("mm.bv2.final.round", { label: "Battle Value 2 (provisional, ours)", detail: `${formatCalcNumber(defensiveRating)} + ${formatCalcNumber(offensiveRating)}, rounded`, value: result, emphasis: true });
+        trace.add("mm.bv2.final.round", { label: "Battle Value 2 (provisional, NGCFells's)", detail: `${formatCalcNumber(defensiveRating)} + ${formatCalcNumber(offensiveRating)}, rounded`, value: result, emphasis: true });
         if (this.getRules().borrowsTablesFrom) trace.add("mm.bv2.final.borrowed", { label: "Battle Value rules from version 6.1.0.2" });
         return result;
     }
@@ -1543,7 +1543,7 @@ export default class MicroMech implements IGameSettingsUnit {
         if (this.getArmorPoints() % 4 !== 0) {
             notes.push("The text buys armor by the quarter ton (4 points); the document's own samples use 2-point (125 kg) steps, as this design does.");
         }
-        notes.push("The Battle Value is provisional: the document's own under a Battle Value 1 rules edition, and one of ours under Battle Value 2.");
+        notes.push("The Battle Value is provisional: the document's own under a Battle Value 1 rules edition, and NGCFells's own under Battle Value 2.");
         if (this._engineKind === "ice") {
             notes.push("An ICE engine has no free heat sinks and needs power amplifiers for energy weapons.");
             notes.push(`Only a ${rules.vacuumEngines.join(" or ")} Micro-Mech may be sealed for vacuum.`);

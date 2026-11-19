@@ -130,7 +130,7 @@ export default function CalcBreakdown(props: ICalcBreakdownProps): JSX.Element {
                             {showMul ? (
                                 <p>
                                     Master Unit List: {formatNumber(props.mulBattleValue as number)}
-                                    {mulDifference !== 0 ? `. Ours differs by ${mulDifference > 0 ? "+" : "-"}${formatNumber(Math.abs(mulDifference))}. ` : null}
+                                    {mulDifference !== 0 ? `. The JBT value differs by ${mulDifference > 0 ? "+" : "-"}${formatNumber(Math.abs(mulDifference))}. ` : null}
                                     {mulDifference !== 0 && props.accuracyHref ? <Link to={props.accuracyHref}>See the Battle Value accuracy record</Link> : null}
                                 </p>
                             ) : null}

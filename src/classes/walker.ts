@@ -1944,7 +1944,7 @@ export default class Walker implements IGameSettingsUnit {
         const lines: string[] = [];
         if (location === "cs" && remaining > 0 && !this.isLocationDestroyed("cs")) {
             this.setPilotHits(this._storedPilotHits() + 1);
-            lines.push("A hit on the control section: the pilot takes a hit (as a 'Mech's head, ours).");
+            lines.push("A hit on the control section: the pilot takes a hit (as a 'Mech's head, NGCFells's ruling).");
         }
         let where: WalkerLocation | null = location;
         while (remaining > 0 && where) {

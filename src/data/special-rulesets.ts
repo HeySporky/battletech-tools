@@ -92,9 +92,9 @@ const FUTURE_WARS_CONSTRUCTION_DESCRIPTION = "Clell Flint's alternate rules for 
     + "11-slot center torso; an assault 'Mech 8, 12, 16 and 20). The head has 3 to 6 internal structure points by class and at most twice "
     + "that in armor. The cockpit is 2 tons for a light 'Mech, 3 for a medium or most heavies, 4 for a few heavies and every assault, "
     + "with its own life support; extra sensors and extra life support are a slot and half a ton each. The engine takes 4 to 10 center "
-    + "torso slots by its weight and the gyro one slot a ton. Ours, not Flint's: two-legged 'Mechs of up to 100 tons only (his "
+    + "torso slots by its weight and the gyro one slot a ton. NGCFells's rulings, not Flint's: two-legged 'Mechs of up to 100 tons only (his "
     + "four-legged rules are the Walker unit type); Battle Value and cost by the edition's rules on the design as built; the order of "
-    + "the head's items; half the engine before the gyro and half after; no small, torso-mounted or interface cockpit. Also ours: "
+    + "the head's items; half the engine before the gyro and half after; no small, torso-mounted or interface cockpit. Also NGCFells's: "
     + "a location's slots print in tables of six, the last one short. For a critical hit, roll 1D6 for the table when there is more "
     + "than one (two tables 1-3 / 4-6, three 1-2 / 3-4 / 5-6, four 1 / 2 / 3 / 4, re-rolling a number with no table), then 1D6 for "
     + "the slot, re-rolling a number with no slot as for an empty one.";
@@ -133,11 +133,11 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
             + "actuators are required. No cockpit: a half-ton waldo system (50,000 C-bills), the pilot in head slots 3-4 and center torso "
             + "slots 11-12 as the Future Wars #14 sample sheets show. A 5-ton suit has no gyro, internal structure H1 CT3 ST2 A1 L1, "
             + "shielding of half the engine's weight with a fusion engine, and only flamers, machine guns and small lasers. "
-            + "No weapons in the head or center torso. Ours, not Swisher's: no other tonnage; head armor at most twice head structure at "
+            + "No weapons in the head or center torso. NGCFells's rulings, not Swisher's: no other tonnage; head armor at most twice head structure at "
             + "every weight; the later variants of the 5-ton weapons (ER, pulse, light and heavy machine guns) are refused; shielding "
             + "rounded up to the half ton. "
             + "Dates from the article's history: prototype 2963 (a Tharkan research project), introduced 3027 (Defiance Industries, Hesperus II). "
-            + "Battle Value and cost by the edition's rules on the suit as built; ours: the +1 to hit a suit counts as +1 TMM. Alpha Strike (NGCFells's): "
+            + "Battle Value and cost by the edition's rules on the suit as built; NGCFells's ruling: the +1 to hit a suit counts as +1 TMM. Alpha Strike (NGCFells's): "
             + "a BattleMech card of Size 1 with the PWA special ability. More in TRO - JBT: Power Armor.",
         source: { title: "Bill Swisher, 'Power Armor: The Poor Man's Battlemech', Future Wars #14 (1989), p.39; reprinted in The Best of Future Wars, Volume One (1991), pp.14-16 (rules read from the reprint: the library's scan of #14 lacks pp.39-42)", publication: "Future Wars", tag: "FW #14", author: "Bill Swisher" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,
@@ -328,7 +328,7 @@ export const btSpecialRulesets: ISpecialRuleset[] = [
             + "roll 2D6 once, at the first location hit, for each launcher; a critical hit on a 12 for a launcher of 2 or 3 tubes, an 11 for 4 or 5, "
             + "a 10 for 6 or 7, and a 9 for the MML-9. Against vehicles and battle armor, which are critically hit automatically, one critical hit comes "
             + "for every 3 missiles, as with Infernos. Against Hardened armor and Ferro-Lamellor armor the rounds get no critical check. "
-            + "Inspired by: u/Magical_Savior. Ours, not in the post: the launcher sizes are read from its grouped lines (size /2 (3), /4 (5), /6 (7)) as 2-3, 4-5 and 6-7 tubes, "
+            + "Inspired by: u/Magical_Savior. NGCFells's reading, not in the post: the launcher sizes are read from its grouped lines (size /2 (3), /4 (5), /6 (7)) as 2-3, 4-5 and 6-7 tubes, "
             + "and the rule is recorded as text only, so a ton still holds the ammunition's printed rounds in the builder.",
         source: { title: "u/Magical_Savior, 'Tandem Charge SRM - House Rules', r/battletech", url: "https://www.reddit.com/r/battletech/comments/1jamkvn/", publication: "r/battletech", tag: "r/battletech", author: "u/Magical_Savior" },
         minRulesLevel: CUSTOM_HOMEBREW_RULES_LEVEL,

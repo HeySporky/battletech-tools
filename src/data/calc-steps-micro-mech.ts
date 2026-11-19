@@ -27,7 +27,7 @@ const step = (section: string, cites: ICalcCitation[], status: CalcStepStatus = 
 const provisional = (section: string, cites: ICalcCitation[], note: string): ICalcStepDef => step(section, cites, "provisional", note);
 
 const BORROWED = "Solarmech's 2019 post prints no cost or Battle Value rules. This design uses those of version 6.1.0.2 with its own 2019 weights; joining the two is NGCFells's choice.";
-const PRINTED = "The document's readout of this sample design prints this figure. Ours follows the rules text and is not adjusted to match.";
+const PRINTED = "The document's readout of this sample design prints this figure. The worked figure follows the rules text and is not adjusted to match.";
 
 export const MICRO_MECH_COST_STEPS: CalcStepDefs = {
     // ---- The rows the document changes (appendix "Micro-Mech Costs") ----

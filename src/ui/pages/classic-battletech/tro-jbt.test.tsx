@@ -172,7 +172,7 @@ describe("Walkers readout (Custom Homebrew, #172)", () => {
         for (const sample of getWalkerSamples()) {
             const page = pages.find((each) => readoutPageTitle(each, "") === sample.name);
             expect(page, sample.name).toBeDefined();
-            const order = ["**Mass:**", "#### Overview", "#### Capabilities", "#### Deployment", "Type: " + sample.name, "Internal", "Weapons and Ammo", "#### Alpha Strike (NOT OFFICIAL)", "NOT OFFICIAL. A design of ours"]
+            const order = ["**Mass:**", "#### Overview", "#### Capabilities", "#### Deployment", "Type: " + sample.name, "Internal", "Weapons and Ammo", "#### Alpha Strike (NOT OFFICIAL)", "NOT OFFICIAL. A design by NGCFells"]
                 .map((text) => page!.indexOf(text));
             expect(order.every((at) => at >= 0), sample.name).toBe(true);
             expect([...order].sort((a, b) => a - b)).toEqual(order);

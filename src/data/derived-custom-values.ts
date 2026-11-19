@@ -241,7 +241,7 @@ function applyDating(item: IEquipmentItem, dating: IDating, byTag: Map<string, I
         if (typeof rating === "string") { item.techRating = rating; said.push(`tech rating ${rating.toUpperCase()}`); }
     }
     if (!said.length) return false;
-    item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Not given by the source, so ours: ${said.join(", ")}, because ${dating.why}.`;
+    item.notes = `${item.notes ? item.notes.replace(/\s+$/, "") + " " : ""}Not given by the source, so NGCFells's: ${said.join(", ")}, because ${dating.why}.`;
     return true;
 }
 

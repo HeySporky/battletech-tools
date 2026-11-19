@@ -126,7 +126,7 @@ export const miscCustom: IEquipmentItem[] = applyDerivedValues([
             + "An explosive charge drives a spike out at force. Five tons, five slots, 15 damage on a hit, and the target makes a Piloting roll with a +1 modifier. "
             + "It is a little harder to hit with (+1), builds 2 heat from the charge, and fires three times to the ton of ammunition (ammo-custom-pile-bunker-standard); "
             + "a hit on that ammunition does 5 damage a shot. Inspired by: u/FweeCom. "
-            + "Not given by the author, so ours: the dates are those of the Heavy-Duty Pile Driver (1950, never extinct), the nearest canon melee tool. "
+            + "Not given by the author, so NGCFells's: the dates are those of the Heavy-Duty Pile Driver (1950, never extinct), the nearest canon melee tool. "
             + "Cost and Battle Value are not given.",
         damage: 15, damageAero: 0, accuracyModifier: 1, cbills: 0, introduced: 1950, extinct: null, reintroduced: null,
         battleValue: 0, heat: 2, heatAero: 0, weight: 5,
@@ -140,7 +140,7 @@ export const miscCustom: IEquipmentItem[] = applyDerivedValues([
             + "A lighter, shorter-bodied version of the canon Lance (TO:AUE p.102, melee-lance) with a plasma emitter wrapped around the head and jump jets for extra reach; same weight and size as the Lance it replaces. "
             + "As posted: 4 tons, 4 slots, heat 5 plus 1 for each hex of boost, a physical attack with range 0, boost up to 2 forward hexes, damage 5 plus tonnage times hexes moved over 20 (hexes moved counted to a maximum of 4), and 2 heat to the target on a hit. "
             + "The record's damage field, 15, is that formula for a 50-ton 'Mech at 4 hexes (NGCFells's choice, so the Battle Value has one number to rest on); in play use the formula. "
-            + "Unlike the canon Lance this is not a variable-size item, so the weight is the 4 tons posted. Cost and Battle Value are not given: ours, by the melee method (damage times the canon melee multiplier, cost at the Battle Value times 1,310). "
+            + "Unlike the canon Lance this is not a variable-size item, so the weight is the 4 tons posted. Cost and Battle Value are not given: NGCFells's, by the melee method (damage times the canon melee multiplier, cost at the Battle Value times 1,310). "
             + "Tech rating is NGCFells's, the RISC Hyper Laser's, as an item of the same years. Not the same item as any canon weapon.",
         rules: "A physical attack that replaces one normal physical attack (4 tons, 4 slots). Declare it before attack-phase movement. Boost: the lance may carry the 'Mech up to 2 hexes forward in the physical attack phase; the 'Mech cannot change facing during the boost, and the boost cannot be combined with a charge or a death from above. "
             + "Heat 5, plus 1 for each hex of boost. Damage 5 + (T x D / 20), where T is the 'Mech's tonnage and D the total hexes it moved that turn, counted to a maximum of 4. On a hit the target gains 2 heat.",
@@ -158,7 +158,7 @@ export const miscCustom: IEquipmentItem[] = applyDerivedValues([
             + "A different design from the Reddit Pile Bunker (custom-pile-bunker, u/FweeCom): the same idea reached separately, with its own weight, slots, damage, heat and rules, so both are kept, each credited to its own author. "
             + "As posted: 5 tons, 3 slots, 20 damage, heat 7, range 0, a physical attack that pierces armor, inspired by the old industrial Heavy Pile Driver and driven by AC/20 shells, with 1 ton of internal AC/20 ammunition and integral CASE II. "
             + "The ton of ammunition is internal to the 5 tons, so there is no separate ammunition record and the weapon carries no explosion risk beyond what CASE II allows. "
-            + "Cost and Battle Value are not given: ours, by the melee method (damage times the canon melee multiplier, cost at the Battle Value times 1,310). Tech rating is NGCFells's, the RISC Hyper Laser's, as an item of the same years.",
+            + "Cost and Battle Value are not given: NGCFells's, by the melee method (damage times the canon melee multiplier, cost at the Battle Value times 1,310). Tech rating is NGCFells's, the RISC Hyper Laser's, as an item of the same years.",
         rules: "A physical attack that replaces one normal physical attack (5 tons, 3 slots, with 1 ton of internal AC/20 ammunition and integral CASE II). 20 damage, heat 7. If the attacker moved at all this turn, +1 to the physical-attack target number. "
             + "If the final attack roll beats the modified target number by 2 or more, up to 5 points of the damage go straight to internal structure. It cannot be used with a charge or a death from above.",
         lore: "Inspired by the old industrial Heavy Pile Driver, R.I.S.C. built a version that fires AC/20 shells to drive pikes of superdense metal through armor, with CASE II built in so that the ammunition it carries does no harm to the 'Mech.",

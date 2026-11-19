@@ -5066,7 +5066,7 @@ export class BattleMech {
     private _futureWarsBreakdownNotes(edition: string): string[] | undefined {
         if (this.usesPowerArmorConstruction()) {
             return [`Built under Bill Swisher's Power Armor rules (Future Wars), which give neither; Battle Value and cost by ${getRulesEdition(edition).name} `
-                + "on the suit as built, with the waldo system's 50,000 C-bills in place of a cockpit's. Ours: the +1 to hit a suit counts as +1 TMM "
+                + "on the suit as built, with the waldo system's 50,000 C-bills in place of a cockpit's. NGCFells's ruling: the +1 to hit a suit counts as +1 TMM "
                 + "in the Defensive Factor (BV2)."];
         }
         if (!this.usesFutureWarsConstruction()) return undefined;

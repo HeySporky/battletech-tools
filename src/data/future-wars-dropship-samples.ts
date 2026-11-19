@@ -221,8 +221,8 @@ const SPECS: IDropShipSampleSpec[] = [
                 + "burn-days, and his 8 tons a jump trooper make its platoon of 30 weigh 240 tons, so by his rules it is 366.5 tons over. "
                 + "The sheet prints \"E20+22\" heat sinks in its header and \"5, Added HS = 37\" in its stat block; the stat block is followed. "
                 + "Its armor allocation (nose 4, wings 44, fuselage 50, engine 25) adds to 167 of the 224 points 14 tons buy; the nose may be a misprint "
-                + "for 44. The sheet prints one 'Mech bay door with no 'Mech cubicle. Its Guardian ECM and C3 computer are left off: the "
-                + "builder's catalog follows Total Warfare, where a DropShip mounts neither. TAG predates its canon introduction; the sheet's date is kept.",
+                + "for 44. The sheet prints one 'Mech bay door with no 'Mech cubicle. Its Guardian ECM and C3 computer are left off: "
+                + "the TechManual table gives a DropShip neither (p.342; C3 also p.209, and AeroTech 2 bars C3 from every aerospace craft). TAG predates its canon introduction; the sheet's date is kept.",
         },
     },
     {

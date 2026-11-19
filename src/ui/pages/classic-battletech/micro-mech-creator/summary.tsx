@@ -64,8 +64,8 @@ export default class MicroMechCreatorSummary extends React.Component<ISummaryPro
                             {printed ? (
                                 <p className="smaller-text" data-testid="mm-printed">
                                     {printed.corrupt
-                                        ? `The document prints this design as ${printed.name}, but its printed cost and Battle Value are unreadable; ours are worked out from the rules text.`
-                                        : `The document prints this design as ${printed.name}: Battle Value ${printed.battleValue}, cost ${printed.cost.toLocaleString("en-US")} C-bills. Ours are worked out from its rules text.`}
+                                        ? `The document prints this design as ${printed.name}, but its printed cost and Battle Value are unreadable; these are worked out from the rules text.`
+                                        : `The document prints this design as ${printed.name}: Battle Value ${printed.battleValue}, cost ${printed.cost.toLocaleString("en-US")} C-bills. These are worked out from its rules text.`}
                                 </p>
                             ) : null}
                             <ul className="smaller-text">

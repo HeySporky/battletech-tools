@@ -178,7 +178,7 @@ export default class WalkerCreatorHome extends React.Component<IHomeProps> {
 
                         <TextSection label="Sample Walkers">
                             <p className="smaller-text">
-                                Three designs of ours (Custom Homebrew, NOT OFFICIAL): Flint printed no walker designs, so we built a light
+                                Three designs by NGCFells (Custom Homebrew, NOT OFFICIAL): Flint printed no walker designs, so NGCFells built a light
                                 walker, a heavy with a turret and an assault under his variant slots. Loading one replaces the design you
                                 are working on. Their readouts are in <Link to={`${process.env.PUBLIC_URL}/classic-battletech/tro-jbt/walkers`}>TRO - JBT: Walkers</Link>.
                             </p>

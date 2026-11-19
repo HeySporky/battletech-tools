@@ -117,13 +117,15 @@ export default class SmallCraftCreatorHome extends React.Component<IHomeProps> {
                     <div className="col-md-9 col-lg-10">
                         <TextSection label="Small Craft Creator">
                             <p>
-                                Build a Small Craft under the TechManual construction rules (pp. 180-197): an aerodyne or spheroid
-                                craft of 100 to 200 tons. Choose its thrust, fuel and Structural Integrity, armor its four facings,
-                                mount weapons by firing arc, and give its crew and passengers quarters and its cargo a bay.
+                                Build a Small Craft or a DropShip under the TechManual construction rules (pp. 180-197): an aerodyne
+                                or spheroid Small Craft of 100 to 200 tons, or a DropShip of 200 to 35,000 tons (aerodyne) or 100,000
+                                tons (spheroid). Choose its thrust, fuel and Structural Integrity, armor its four facings, mount
+                                weapons by firing arc, and give its crew and passengers quarters and its cargo a bay.
                             </p>
                             <p className="smaller-text">
                                 The creator checks the weight and the rules as you go, and the summary gives the Battle Value, the
-                                cost, a record sheet and an Alpha Strike card. Primitive Small Craft are not built here yet.
+                                cost, a record sheet and an Alpha Strike card. Primitive Small Craft and DropShips are built to Interstellar
+                                Operations: Alternate Eras (pp. 119-121), and four Future Wars DropShip methods are Special Rulesets.
                             </p>
                             <div className="clear-both overflow-hidden">
                                 <hr />

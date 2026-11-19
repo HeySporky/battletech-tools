@@ -306,7 +306,7 @@ describe("Industrial walkers (NGCFells's)", () => {
 
     it("credits Flint with 'Inspired by' and names the IndustrialMech rules", () => {
         const walker = industrial(50, 4);
-        expect(walker.getCredit()).toMatch(/Industrial walker: ours\. Inspired by Clell Flint's walker rules and the IndustrialMech rules \(TechManual pp\.66-71\)/);
+        expect(walker.getCredit()).toMatch(/Industrial walker: NGCFells's. Inspired by Clell Flint's walker rules and the IndustrialMech rules \(TechManual pp\.66-71\)/);
         expect(build(50, 4).getCredit()).not.toMatch(/Industrial/);
     });
 

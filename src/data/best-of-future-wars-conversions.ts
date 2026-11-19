@@ -35,7 +35,7 @@ const UNRESOLVED_ALPHA_STRIKE = { heat: 0, rangeShort: 0, rangeMedium: 0, rangeL
 /** The articles convert 'Mech systems: no vehicle, fighter or craft takes them. */
 const mechOnly = (battlemech: number): IEquipmentItem["space"] =>
     ({ battlemech, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 });
-const UNVALUED = "Battle Value is the base weapon's: the article gives none for the conversion, so ours, unverified.";
+const UNVALUED = "Battle Value is the base weapon's: the article gives none for the conversion, so NGCFells's, unverified.";
 // The reprint's wording; the original (Future Wars #14 p.46) has no fourth-turn burnout and says a burned-out leg
 // booster leaves the 'Mech able to walk but not run, with no word of an overhaul. The 'Future Wars: equipment as first
 // printed' ruleset plays the original (later turns fail on 11 or less: NGCFells's ruling, Chunk R2).

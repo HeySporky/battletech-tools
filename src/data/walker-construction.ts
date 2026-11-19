@@ -177,12 +177,12 @@ export type WalkerGyroType = typeof WALKER_GYRO_TYPES[number];
 export const WALKER_INDUSTRIAL_GYRO_TYPES: readonly WalkerGyroType[] = ["standard"];
 
 /**
- * Industrial walkers (NGCFells's ruling, 2026-11-14): Flint prints none. Ours, inspired by his walker rules and the
+ * Industrial walkers (NGCFells's ruling, 2026-11-14): Flint prints none. NGCFells's, inspired by his walker rules and the
  * IndustrialMech rules (TechManual pp.66-71): his structure points on industrial internal structure (twice the weight,
  * 20 percent), the IndustrialMech's engines, gyro and cockpit (with Advanced Fire Control as an option), and later its
  * heat sink, jump jet and equipment limits.
  */
-export const WALKER_INDUSTRIAL_CREDIT = "Industrial walker: ours. Inspired by Clell Flint's walker rules and the IndustrialMech rules (TechManual pp.66-71).";
+export const WALKER_INDUSTRIAL_CREDIT = "Industrial walker: NGCFells's. Inspired by Clell Flint's walker rules and the IndustrialMech rules (TechManual pp.66-71).";
 export const WALKER_INDUSTRIAL_STRUCTURE_FACTOR = 0.2;
 export const WALKER_MAX_ENGINE_RATING = 400;
 

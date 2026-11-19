@@ -38,7 +38,7 @@ export interface IWalkerSample {
     save: IWalkerExport;
 }
 
-const OURS = "Custom Homebrew, NOT OFFICIAL. A design of ours under Clell Flint's walker rules (Best of Future Wars, 1991); Flint printed no designs.";
+const OURS = "Custom Homebrew, NOT OFFICIAL. A design by NGCFells under Clell Flint's walker rules (Best of Future Wars, 1991); Flint printed no designs.";
 
 const SPECS: IWalkerSampleSpec[] = [
     {

@@ -47,7 +47,7 @@ describe("PPC-X (Apocryphal, #266)", () => {
     it("lore says who, why, where and when, and what is NGCFells's", () => {
         const lore = ppcX().lore ?? "";
         for (const part of ["Solaris Arms", "Solaris", "arena", "ion"]) expect(lore, part).toContain(part);
-        expect(ppcX().notes).toMatch(/Ours/);
+        expect(ppcX().notes).toMatch(/NGCFells/);
         expect(ppcX().introduced).toBe(3015);
         expect(ppcX().extinct).toBeNull();
     });

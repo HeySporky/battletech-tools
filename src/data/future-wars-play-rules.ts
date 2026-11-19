@@ -95,7 +95,7 @@ const futureWarsPlayRules: Record<string, IFutureWarsPlayRules> = {
                 ["Combat", "No firing and no physical attacks; stops the moment the unit is attacked"],
                 ["To start", "A full turn before with no firing by the unit and none at it"],
             ],
-            note: "Article's example: an Atlas (3 / 5) runs 10 for 2 + 2 x 5 = 12 heat. Ours: the extra heat counts MP beyond the "
+            note: "Article's example: an Atlas (3 / 5) runs 10 for 2 + 2 x 5 = 12 heat. NGCFells's ruling: the extra heat counts MP beyond the "
                 + "unit's normal walk or run, as the example does (the closing summary says \"every MP used\").",
         }],
     },
@@ -292,7 +292,7 @@ const futureWarsPlayRules: Record<string, IFutureWarsPlayRules> = {
                     ["6", "Carry on; down 1 on the morale scale"],
                     ["7+", "No effect"],
                 ],
-                note: "Two routs, or a rout and a broken result, mean surrender. Ours: the article's \"1\" covers every lower total.",
+                note: "Two routs, or a rout and a broken result, mean surrender. NGCFells's ruling: the article's \"1\" covers every lower total.",
             },
         ],
     },

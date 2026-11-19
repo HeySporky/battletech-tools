@@ -1325,7 +1325,7 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         rulesLevel: 6,
         notes: "Ammunition for the Pile Bunker (custom-pile-bunker), homebrew by u/FweeCom (https://www.reddit.com/r/battletech/comments/1dak8pu/homebrew_equipment_pile_bunker/): "
             + "three shots to the ton, and each shot explodes for 5 damage when the ton is hit. Inspired by: u/FweeCom. "
-            + "Not given by the author, so ours: the dates follow the Pile Bunker."
+            + "Not given by the author, so NGCFells's: the dates follow the Pile Bunker."
     },
     // The Best of Future Wars, Volume One (1991), Chunk A of the fanzine plan (#172). Custom Homebrew: fan material.
     {
@@ -1353,7 +1353,7 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         alphaStrike: { specialAbility: [], heat: 0, rangeShort: 0, rangeMedium: 0, rangeLong: 0, rangeExtreme: 0, tc: false, notes: ["Custom equipment: no Alpha Strike effect"] },
         catalog: "custom", rulesLevel: 6,
         notes: "Custom Homebrew: Mike Reese, 'Ellena Industries Inc. Point Defense System (EII PDS)', *Future Wars* #14 (1989), p.46; reprinted in *The Best of Future Wars, Volume One* (1991), p.8. "
-            + "Not printed in either: whether it explodes (marked explosive here, ours, as machine gun ammunition is); cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
+            + "Not printed in either: whether it explodes (marked explosive here by NGCFells, as machine gun ammunition is); cost and Battle Value are left at 0 (unverified); tech rating is unverified.",
         rules: "The extra magazine of an EII Point Defense System (custom-eii-pds): a ton is 100 bursts, one burst against each salvo of incoming missiles; "
             + "the system's own half ton, built in, is 50. Explosive, as machine gun ammunition is.",
         lore: "Ellena Industries ships extra belts for its Point Defense System in sealed one-ton magazines that feed the gun alongside its built-in drum."
@@ -1411,7 +1411,7 @@ export const ammoCustom: IEquipmentItem[] = applyDerivedValues([
         catalog: "custom", rulesLevel: 6,
         notes: "Custom Homebrew: Herb Barents, 'The Penitrator', *The Best of Future Wars, Volume One* (1991), p.20. "
             + "The author puts the cost at around 250,000 C-bills a ton, almost 10 times a normal missile, and expects it to be the only estimate ever made. "
-            + "Not printed in The Best of Future Wars: whether it explodes (left as not, ours); Battle Value is left at 0 (unverified); dates and tech rating are unverified.",
+            + "Not printed in The Best of Future Wars: whether it explodes (left as not, NGCFells's ruling); Battle Value is left at 0 (unverified); dates and tech rating are unverified.",
         rules: "Missiles for the Penitrator (custom-penitrator), half a ton each, so 2 a ton. Not explosive.",
         lore: "Each Penitrator missile weighs half a ton, almost half of it solid fuel. They are built by hand and rank among the costliest munitions "
             + "in the Inner Sphere, at roughly ten times the price of an ordinary missile."

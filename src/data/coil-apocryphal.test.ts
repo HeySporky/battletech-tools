@@ -49,7 +49,7 @@ describe("COIL weapons (Apocryphal)", () => {
         for (const [tag] of FINAL_STATS) {
             const notes = coil(tag).notes!;
             for (const text of ["Contained Overflow Inertia Linkage", "Heavy Metal", "DevianID", "Speedbump", "namar13766", "Inspired by",
-                "https://battletech.com/forums/index.php?topic=71729.0", "https://www.sarna.net/wiki/Coil-M", "Ours, not in the thread"]) {
+                "https://battletech.com/forums/index.php?topic=71729.0", "https://www.sarna.net/wiki/Coil-M", "NGCFells's reading, not in the thread"]) {
                 expect(notes, `${tag} ${text}`).toContain(text);
             }
         }

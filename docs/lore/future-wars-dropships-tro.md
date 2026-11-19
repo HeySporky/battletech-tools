@@ -93,6 +93,12 @@ UNION-12 comes to 20,436 tons before its cargo and carried units, not 20,426, fr
 reader to use a pi of 3.145, but his own UNION-12 globe was worked with the true pi: by his rule a 12-inch globe makes
 22,885 tons, where his worked example gets 22,860. The UNION-12 sample keeps his 22,860.
 
+His UNION-12 sheet (p.19) takes its fire factors "from the book": nose 5, as *DropShips and JumpShips* prints for the
+Union (p.41), but sides 2 where the book prints 6. The book's figures (nose 5, sides 6, rear sides 2, aft 2) match an
+LRM-20 counted at 12, its average cluster. His rule, like Eid's, is the *Compendium*'s: add the maximum damage of every
+weapon in the arc, divide by ten, round up from .6 (FW #36 p.16; FW #25 p.6). At 20 for each LRM-20 that is nose 7
+(70 points), sides 8 (78), rear sides and aft 2 (18). The record sheet prints the rule's figures.
+
 ## Canon and the Methods
 
 *NGCFells's verification builds, from DropShips and JumpShips (FASA, 1988), pp.38-43.*
