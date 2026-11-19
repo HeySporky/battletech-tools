@@ -5175,7 +5175,8 @@ describe("Batch 28 unit slot columns of the Weapons and Equipment Tables (TM pp.
             [isMissileList, "mml-5-artemis-iv", { space: { battlemech: 4, protomech: -1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [isMissileList, "mml-7-artemis-iv", { space: { battlemech: 5, protomech: -1, combatVehicle: 1, supportVehicle: 5, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [isMissileList, "mml-9-artemis-iv", { space: { battlemech: 6, protomech: -1, combatVehicle: 1, supportVehicle: 6, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [isMiscList, "beagle-active-probe", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
+            // NGCFells's ECM precedent (2026-11-19) applied to active probes: TM p.204 "Unit Restrictions: None", AT2R p.25 and TO (2008) Bloodhound "Available To: ... DS" allow them; the TM p.342 table prints NA.
+            [isMiscList, "beagle-active-probe", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             // NGCFells's ruling (2026-11-19): DropShips may mount ECM, as TM p.213 says ("Unit Restrictions: None") and AT2R p.25; the p.342 table prints NA.
             [isMiscList, "ecm-suite", { space: { battlemech: 2, protomech: -1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [isMiscList, "masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
@@ -5203,8 +5204,8 @@ describe("Batch 28 unit slot columns of the Weapons and Equipment Tables (TM pp.
             [clanMissileList, "clan-lrm-20", { space: { battlemech: 4, protomech: 1, combatVehicle: 1, supportVehicle: 4, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [clanMissileList, "clan-srm-6", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [clanMissileList, "clan-streak-srm-6", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
-            [clanMiscList, "clan-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: -1 } }],
-            [clanMiscList, "clan-light-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [clanMiscList, "clan-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
+            [clanMiscList, "clan-light-active-probe", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [clanMiscList, "clan-ecm-system", { space: { battlemech: 1, protomech: 1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             [clanMiscList, "clan-masc", { space: { battlemech: 1, protomech: -1, combatVehicle: -1, supportVehicle: -1, aerospaceFighter: -1, smallCraft: -1, dropShip: -1 } }],
             [clanMiscList, "clan-targeting-computer", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 0, smallCraft: -1, dropShip: -1 } }],
@@ -5220,7 +5221,7 @@ describe("Batch 28 unit slot columns of the Weapons and Equipment Tables (TM pp.
 describe("Batch 29 unit slot columns of the TO:AUE construction tables (pp.217-223)", () => {
     it("gives advanced weapons and equipment their ProtoMech, vehicle and aerospace slot counts", () => {
         const expected: [{ tag: string }[], string, Record<string, unknown>][] = [
-            [isMiscList, "bloodhound-active-probe", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
+            [isMiscList, "bloodhound-active-probe", { space: { battlemech: 3, protomech: -1, combatVehicle: 1, supportVehicle: 3, aerospaceFighter: 1, smallCraft: 1, dropShip: 1 } }],
             // A merged IS/Clan twin takes the Clan ProtoMech column (catalog consolidation §2): ProtoMechs are Clan units.
             [isMiscList, "angel-ecm", { space: { battlemech: 2, protomech: 1, combatVehicle: 1, supportVehicle: 2, aerospaceFighter: 1, smallCraft: 1, dropShip: 0 } }],
             [isMiscList, "modular-armor", { space: { battlemech: 1, protomech: -1, combatVehicle: 1, supportVehicle: 1, aerospaceFighter: 2, smallCraft: -1, dropShip: -1 } }],
