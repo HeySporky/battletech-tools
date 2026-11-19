@@ -48,6 +48,31 @@ methods are built **as their authors wrote them**, not tuned to canon; the reado
    cost rule (new: the builder's choice; salvaged 40%; destroyed half of salvaged) shown as a note under his ruleset?
    Recommendation: yes.
 
+### NGCFells's answers (2026-11-19)
+
+1. "Lets do the work for them. Set up formulae based on weight, type, etc." Stock's "look in DS/JS" values (thrust
+   points a ton, burn-day consumption, crew, armor points a ton) come from **formulae fitted to every DropShip in
+   DS&JS** by tonnage and type (aerodyne / spheroid), not a nearest-ship lookup and not typed. Each formula is
+   NGCFells's extrapolation ("Inspired by"), printed with the DS&JS table it was fitted to and its fit error. The
+   player may still override a value (the sheet then says "set by the builder").
+2. "Stick to the rule and put the 990 in notes." The Pioneer sample is built to Stock's rule (engine 780 t); its
+   notes say the sheet prints 990 t.
+3. "Extended it, label as mine, go out as large as needed to cover all dropships of whatever size." Houseman's
+   integrity table becomes its rule with no cap: per point 3% of mass, 10 internal structure, 20 maximum armor, 1 g of
+   acceleration. Rows past 8 are labelled NGCFells's extension ("Inspired by" Houseman). It runs past the highest SI
+   of any DS&JS DropShip; a build whose percentages pass 100% of mass is an issue, not a cap.
+4. "Yes, calc with typing allowed too." Reese's volume calculator (box, cylinder, cone, sphere, wing triangle, at
+   1/285: cm3 x 23.1 x 0.07) fills the tonnage; the tonnage field stays typeable.
+5. "Yes, all of those plus any we build to verify the math." Samples: Pioneer A, B, C (FW #16), UNION-12,
+   THUNDERWOLF, GOLIATH-R (FW #36), plus the canon verification builds (Leopard, Union, Overlord under each method),
+   all read from the corrected extracts (ResourceLibrary 6ccff7bda, d2953fb4e).
+6. "Yes." BV and cost by the edition's rules on the design as built; Eid's cost rule as a note under his ruleset.
+
+Sheet facts read since the plan was written (page images, extracts corrected): the Pioneer sheet's First Introduced
+is 2989 (the hand's 9 looks like a 7; compare its "Brigadier 3900 QUAD" drive), consumption 2.98 t/day; the
+THUNDERWOLF is 404 t, thrust 2/3, SI 3, four 12.75 t engines, 100 TP/t, first introduced 3015 EII Industries; the
+GOLIATH-R 23,413 t, 3/5, SI 5, first introduced 2705 (Norton 40 series drive), 2,630 t conversion gear.
+
 ## Global constraints
 
 - Every ruleset: `summary` (at most 120 characters), `category: "construction"`, `source` (title with the original
@@ -73,8 +98,10 @@ methods are built **as their authors wrote them**, not tuned to canon; the reado
 - [ ] Tables as literal arrays, each with its page in a comment: Eid Charts A-D (FW #25 p.7); Reese's extended Charts
   A, C, D and Chart B (FW #36 p.18); Houseman's integrity, armor, docking and quarters tables (FW #36 pp.22-23).
   Test every row against the ledger.
-- [ ] If Q1 = (a): read every DropShip's data block in DS&JS from the page images (type, tonnage, thrust points a ton,
-  burn-day, crew, armor points a ton), fix the extract where the OCR is wrong, and add the table with its pages.
+- [ ] Q1: the DS&JS DropShip table (type, tonnage, thrust, thrust points a ton, burn-day, crew, armor points a ton,
+  bridge) parsed from the corrected extract, each row with its page; the fitted formulae beside it with their error
+  per ship, labelled NGCFells's extrapolation. Test: each formula against the table within its stated error.
+- [ ] Q3: Houseman's integrity rule uncapped (rows 1-8 his, past 8 NGCFells's), tested at 1, 8, 11 and 18.
 
 ## Task 2: The four methods as pure functions
 
