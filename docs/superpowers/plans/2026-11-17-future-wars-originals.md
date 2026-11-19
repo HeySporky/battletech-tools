@@ -152,11 +152,15 @@ As the Best-of plan's Chunk F, plus:
 
 ## Chunk G: DropShips (read, compare, recommend, plan)
 
-- [ ] **Step 1:** Read FW #16 pp.32-35 (Stock, Pioneer), FW #25 p.6 (Eid), FW #36 pp.14-23 (Reese, Houseman) and the
+**Done 2026-11-19:** plan `2026-11-19-future-wars-dropships.md` (six questions for NGCFells at its top); ledger
+"Future Wars Chunk G". The Best-of prints Stock's rules unchanged (no twin). No method rebuilds the canon Leopard,
+Union or Overlord at canon tonnage (Stock + Eid closest).
+
+- [x] **Step 1:** Read FW #16 pp.32-35 (Stock, Pioneer), FW #25 p.6 (Eid), FW #36 pp.14-23 (Reese, Houseman) and the
   Best-of p.7 (note what the reprint changed). Ledger: each method's steps and tables.
-- [ ] **Step 2:** Run each method on the canon Union, Leopard and Overlord (`DropShips and JumpShips`, FASA 1619, in
+- [x] **Step 2:** Run each method on the canon Union, Leopard and Overlord (`DropShips and JumpShips`, FASA 1619, in
   the library: `ResourceLibrary/INDEX.md`): does it give the canon mass, cargo and bays? A table in the ledger.
-- [ ] **Step 3:** Compare with `src/classes/small-craft.ts` and `src/data/small-craft-construction.ts`, then write
+- [x] **Step 3:** Compare with `src/classes/small-craft.ts` and `src/data/small-craft-construction.ts`, then write
   `docs/superpowers/plans/<date>-future-wars-dropships.md` for the method(s) the owner chose (Q1): a Special Ruleset
   on the small craft creator (`changes: ["dropshipConstruction"]`). Commit, push, ledger, handoff.
 
