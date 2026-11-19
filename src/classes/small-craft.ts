@@ -20,6 +20,10 @@ import Pilot, { IPilot } from "./pilot";
 import { IBattleValueTagShare, getBattleValueFor, getBattleValueSkillEdition, getBattleValueTagShare, getSkillMultiplier } from "../data/battle-value";
 import { isTargetingComputerWeapon, sizeTonnageScaledEquipment } from "../data/variable-equipment";
 import { findByTag } from "../data/tag-match";
+import {
+    FW_DROPSHIP_SOURCES, FwDropShipMethod, IFwDropShipDesign, IFwDropShipResult, IHousemanChoices, IStockChoices, buildFwDropShip,
+    getEidEquipmentIssues, getFwDropShipMethod, getHousemanIntegrity,
+} from "../data/future-wars-dropships";
 import { IWeaponBay, capitalBayWeapon, groupWeaponBays, standardBayWeapon } from "../data/weapon-bays";
 import { IAerospaceArmorType, ICapitalWeapon, IEquipmentItem, IEras, IHeatSync, ITechDates, ITechOptions } from "../data/data-interfaces";
 import {
@@ -180,6 +184,63 @@ export interface ISmallCraftInPlay {
     explodedAmmo: string[];
 }
 
+/**
+ * What the Future Wars DropShip methods ask beyond the TechManual's choices (#172): Reese's and Houseman's days of fuel,
+ * Reese's engine count, Stock's looked-up values (unset: the formulae fitted to DS&JS), Eid's burn-day above 15,000 tons,
+ * and Houseman's options.
+ */
+export interface ISmallCraftFwOptions {
+    fuelDays: number;
+    engines: number;
+    stock: IStockChoices;
+    eidBurnDay?: number;
+    houseman: IHousemanChoices;
+}
+export const defaultFwOptions = (): ISmallCraftFwOptions => ({ fuelDays: 20, engines: 1, stock: {}, houseman: {} });
+
+/** A saved or typed set of choices, kept to numbers in range and the known keys; anything else is dropped. */
+export function sanitizeFwOptions(raw: unknown): ISmallCraftFwOptions {
+    const source = typeof raw === "object" && raw !== null && !Array.isArray(raw) ? raw as Record<string, unknown> : {};
+    const num = (value: unknown, min: number, max: number): number | undefined =>
+        typeof value === "number" && Number.isFinite(value) ? Math.min(max, Math.max(min, value)) : undefined;
+    const record = (value: unknown): Record<string, unknown> => typeof value === "object" && value !== null && !Array.isArray(value) ? value as Record<string, unknown> : {};
+    const stockRaw = record(source.stock);
+    const stock: IStockChoices = {};
+    const stockRanges: Record<keyof IStockChoices, [number, number]> = {
+        bridgeMultiplier: [1, 10], heatSinkDivisor: [10, 25], crew: [1, 10000], thrustPointsPerTon: [1, 1000], burnDay: [0.01, 1000], armorPointsPerTon: [1, 100],
+    };
+    for (const key of Object.keys(stockRanges) as (keyof IStockChoices)[]) {
+        const value = num(stockRaw[key], ...stockRanges[key]);
+        if (value !== undefined) stock[key] = key === "crew" ? Math.floor(value) : value;
+    }
+    const housemanRaw = record(source.houseman);
+    const houseman: IHousemanChoices = {};
+    for (const key of ["heavyLanding", "hyperpulseGenerator", "secondComputer", "fireControl", "cargoHandling"] as const) {
+        if (housemanRaw[key] === true) houseman[key] = true;
+    }
+    for (const key of ["maxMechTons", "maxFighterTons", "maxSmallCraftTons", "maxHeavyVehicleTons", "maxLightVehicleTons", "launchTubes", "assaultRampLanes", "dropCapsules", "shifts"] as const) {
+        const value = num(housemanRaw[key], 0, 100000);
+        if (value !== undefined) houseman[key] = Math.floor(value);
+    }
+    const eidBurnDay = num(source.eidBurnDay, 0.01, 100);
+    return {
+        fuelDays: Math.floor(num(source.fuelDays, 1, 1000) ?? 20),
+        engines: Math.floor(num(source.engines, 1, 20) ?? 1),
+        stock,
+        ...(eidBurnDay !== undefined ? { eidBurnDay } : {}),
+        houseman,
+    };
+}
+
+/** The bays the Future Wars methods weigh themselves; any other bay is weighed by the TechManual. */
+const FW_COVERED_BAYS = ["mech", "fighter", "small-craft", "vehicle-light", "vehicle-heavy", "vehicle-superheavy", "infantry-foot", "infantry-jump", "infantry-motorized"];
+/** NGCFells's reading for Houseman, who gives no thrust points a ton: a day at 1 g is 1,440 thrust points (Reese, FW #36 p.17) on his 3 tons. */
+const HOUSEMAN_THRUST_POINTS_PER_TON = 1440 / 3;
+/** The largest Future Wars DropShip offered: Reese's charts run past 300,000 tons (NGCFells: "go out as large as needed"). */
+const FW_DROPSHIP_MAX_TONNAGE = 1000000;
+const FW_DROPSHIP_MIN_TONNAGE = 100;
+const FW_MAX_STRUCTURAL_INTEGRITY = 300;
+
 const emptyArmor = (): ISmallCraftArmorAllocation => ({ nose: 0, left: 0, right: 0, aft: 0 });
 const emptyQuarters = (): ISmallCraftQuarters => ({ firstClass: 0, secondClass: 0, crew: 0, steerage: 0 });
 const newInPlay = (): ISmallCraftInPlay => ({
@@ -244,6 +305,8 @@ export interface ISmallCraftExport {
     equipment: ISmallCraftEquipmentExport[];
     /** Capital and sub-capital weapons; absent in saves from before them. */
     capitalWeapons?: ISmallCraftCapitalExport[];
+    /** The Future Wars DropShip methods' own choices (#172); absent when none was ever set. */
+    futureWarsDropShip?: ISmallCraftFwOptions;
     pilot?: IPilot;
     inPlay?: ISmallCraftInPlay;
 }
@@ -331,6 +394,10 @@ export default class SmallCraft implements IGameSettingsUnit {
     private _equipmentList: IEquipmentItem[] = [];
     private _capitalWeapons: ISmallCraftCapitalMount[] = [];
     private _importIssues: string[] = [];
+    private _fw: ISmallCraftFwOptions = defaultFwOptions();
+    /** The method the last calculation used and its weights, so ticking a ruleset recalculates on the next read. */
+    private _fwMethod: FwDropShipMethod | undefined = undefined;
+    private _fwResult: IFwDropShipResult | undefined = undefined;
 
     /** The tonnage breakdown; equipment and capital weapon lines carry their item (the TRO construction table reads it). */
     private _weights: { name: string; weight: number; item?: IEquipmentItem | ISmallCraftCapitalMount }[] = [];
@@ -434,6 +501,128 @@ export default class SmallCraft implements IGameSettingsUnit {
     }
     private _primitiveFactors() { return this._primitiveYear === null ? null : getPrimitiveFactors(this._craftType, this._primitiveYear); }
 
+    // Future Wars DropShip construction (#172, future-wars-dropships.ts) ---------------------------------------------
+
+    /** The Future Wars method a DropShip is built by, from its ticked Special Rulesets; undefined for the TechManual's. */
+    public getFwDropShipMethod(): FwDropShipMethod | undefined {
+        return this.isDropShip() ? getFwDropShipMethod(this.gameSettings.getRulesets()) : undefined;
+    }
+
+    /** The method's weights, recalculated first when a ruleset was ticked or unticked since the last calculation. */
+    public getFwDropShipResult(): IFwDropShipResult | undefined {
+        if (this.getFwDropShipMethod() !== this._fwMethod) this._calc();
+        return this._fwResult;
+    }
+
+    public getFwOptions(): ISmallCraftFwOptions { return this._fw; }
+
+    /** Sets some of the methods' own choices; numbers are kept to sensible ranges, an unset Stock value goes back to its formula. */
+    public setFwOptions(patch: Partial<ISmallCraftFwOptions>): ISmallCraftFwOptions {
+        this._fw = sanitizeFwOptions({ ...this._fw, ...patch, stock: { ...this._fw.stock, ...patch.stock }, houseman: { ...this._fw.houseman, ...patch.houseman } });
+        this._calc();
+        return this._fw;
+    }
+
+    /** What the methods read from the craft as built: bays by kind, people by quarters, weapons and ammunition by weight. */
+    public getFwDropShipDesign(): IFwDropShipDesign {
+        const bays = (tags: string[]) => this._bays.filter((bay) => tags.includes(bay.tag));
+        const count = (...tags: string[]) => bays(tags).reduce((total, bay) => total + bay.amount, 0);
+        const doors = (tags: string[]) => bays(tags).reduce((total, bay) => total + bay.doors, 0);
+        const troopers = (tag: string) => count(tag) * (findTransportBayType(tag)?.personnel ?? 0);
+        const weaponTons = this._equipmentList.filter((item) => !item.isAmmo).reduce((total, item) => total + (item.weight || 0), 0)
+            + this._capitalWeapons.reduce((total, mount) => total + this.getCapitalWeaponWeight(mount), 0);
+        const ammoTons = this._equipmentList.filter((item) => item.isAmmo).reduce((total, item) => total + (item.weight || 0), 0);
+        const firstClass = Math.min(this._passengers, this._quarters.firstClass);
+        return {
+            tonnage: this._tonnage, shape: this._shape, thrust: this._safeThrust, structuralIntegrity: this._structuralIntegrity,
+            fuelTons: this._fuelTons, fuelDays: this._fw.fuelDays, armorPoints: 0, armorTons: this._armorTons,
+            addedHeatSinks: this._additionalHeatSinks, weaponTons: Math.round(weaponTons * 1000) / 1000, ammoTons: Math.round(ammoTons * 1000) / 1000,
+            weaponCount: this._equipmentList.filter((item) => !item.isAmmo).length + this._capitalWeapons.length,
+            mechCubicles: count("mech"), fighterCubicles: count("fighter"), smallCraftCubicles: count("small-craft"),
+            mechDoors: doors(["mech"]), fighterDoors: doors(["fighter", "small-craft"]),
+            cargoDoors: this._bays.filter((bay) => !["mech", "fighter", "small-craft"].includes(bay.tag)).reduce((total, bay) => total + bay.doors, 0),
+            heavyVehicles: count("vehicle-heavy", "vehicle-superheavy"), lightVehicles: count("vehicle-light"),
+            crew: Math.max(0, this._crew - this._officers), officers: this._officers,
+            passengers: this._passengers - firstClass, firstClassPassengers: firstClass,
+            footInfantry: troopers("infantry-foot"), jumpInfantry: troopers("infantry-jump"), motorizedInfantry: troopers("infantry-motorized"),
+            clan: this._engineTech === "clan", engines: this._fw.engines, ferroAluminum: this._armorType.tag.includes("ferro-aluminum"),
+            stock: this._fw.stock, eid: { burnDay: this._fw.eidBurnDay }, houseman: this._fw.houseman,
+        };
+    }
+
+    /** The weights list under a Future Wars method: its lines, with the craft's own items, cargo and other bays in place. */
+    private _fwWeights(result: IFwDropShipResult): { name: string; weight: number; item?: IEquipmentItem | ISmallCraftCapitalMount }[] {
+        const weaponLines = [
+            ...this._equipmentList.filter((item) => !item.isAmmo).map((item) => ({ name: item.name, weight: item.weight || 0, item })),
+            ...this._capitalWeapons.map((mount) => ({ name: mount.weapon.name, weight: this.getCapitalWeaponWeight(mount), item: mount })),
+        ];
+        const ammoLines = this._equipmentList.filter((item) => item.isAmmo).map((item) => ({ name: item.name, weight: item.weight || 0, item }));
+        const weights: { name: string; weight: number; item?: IEquipmentItem | ISmallCraftCapitalMount }[] = [];
+        let placedWeapons = false;
+        let placedAmmo = false;
+        for (const entry of result.lines) {
+            if (entry.kind === "weapons") { weights.push(...weaponLines); placedWeapons = true; }
+            else if (entry.kind === "ammo") { weights.push(...ammoLines); placedAmmo = true; }
+            else weights.push({ name: entry.label, weight: entry.tons });
+        }
+        if (!placedWeapons) weights.push(...weaponLines);
+        if (!placedAmmo) weights.push(...ammoLines);
+        // Houseman: cargo space is 110% of the cargo (FW #36 p.23); the others weigh it as carried.
+        const cargoShare = result.method === "houseman" ? 1.1 : 1;
+        for (const bay of this._bays) {
+            if (FW_COVERED_BAYS.includes(bay.tag)) continue;
+            const type = findTransportBayType(bay.tag);
+            const cargo = !!type?.cargoFactor;
+            weights.push({ name: `${this.getBayName(bay)} (${type?.tonsEach === null ? `${bay.amount} tons` : bay.amount})`, weight: Math.round(this.getBayWeight(bay) * (cargo ? cargoShare : 1) * 1000) / 1000 });
+        }
+        if (this._escapePods > 0) weights.push({ name: `Escape Pods (${this._escapePods})`, weight: this._escapePods * ESCAPE_SYSTEM_TONS });
+        if (this._lifeBoats > 0) weights.push({ name: `Lifeboats (${this._lifeBoats})`, weight: this._lifeBoats * ESCAPE_SYSTEM_TONS });
+        return weights;
+    }
+
+    /** The bays a Future Wars method has no rule for, weighed by the TechManual instead. */
+    public getFwUncoveredBays(): ISmallCraftBay[] {
+        return this.getFwDropShipMethod() ? this._bays.filter((bay) => !FW_COVERED_BAYS.includes(bay.tag) && !findTransportBayType(bay.tag)?.cargoFactor) : [];
+    }
+
+    private _fwIssues(result: IFwDropShipResult): string[] {
+        const issues = result.issues.filter((issue) => !issue.startsWith("The parts weigh"));
+        if (result.method === "eid") {
+            const ammoTons = this._equipmentList.filter((item) => item.isAmmo).reduce((total, item) => total + (item.weight || 0), 0);
+            const caseCount = this._equipmentList.filter((item) => /\bCASE\b/.test(item.name)).length;
+            issues.push(...getEidEquipmentIssues(this._equipmentList.map((item) => item.name), ammoTons, caseCount));
+        }
+        if (result.method === "houseman") {
+            // "The acceleration and armor capabilities are limited by the structural integrity" (FW #36 p.22): the
+            // integrity table's Max. Armor, read as each facing's limit (NGCFells's reading).
+            const maxArmor = getHousemanIntegrity(this._structuralIntegrity).maxArmor;
+            for (const facing of SMALL_CRAFT_FACINGS) {
+                if (this._armorAllocation[facing] > maxArmor) issues.push(`Houseman: ${this.getFacingName(facing)} armor is over ${maxArmor}, the most integrity ${this._structuralIntegrity} allows.`);
+            }
+        }
+        return issues;
+    }
+
+    private _fwNotes(method: FwDropShipMethod): string[] {
+        const notes = [`Built by ${FW_DROPSHIP_SOURCES[method]}.`];
+        const result = this.getFwDropShipResult()!;
+        if (method === "stock") {
+            const set = this._fw.stock;
+            const unset = (["thrustPointsPerTon", "burnDay", "crew", "armorPointsPerTon", "bridgeMultiplier", "heatSinkDivisor"] as (keyof IStockChoices)[]).filter((key) => set[key] === undefined);
+            if (unset.length > 0) notes.push(`Stock's "look in DS/JS" values not set by hand use NGCFells's formulae fitted to DropShips and JumpShips (Inspired by Stock); a DS&JS ship of this size has a crew of about ${result.crew}.`);
+        }
+        if (method === "eid" && this._tonnage >= 15000 && this._fw.eidBurnDay === undefined) {
+            notes.push(`Eid leaves the burn-day above 15,000 tons to the builder ("up to 9"): ${result.burnDay} from NGCFells's DS&JS formula until one is set.`);
+        }
+        if (method === "reese" && this._engineTech === "clan") notes.push(`Reese: a Clan ship's XL engine weighs half, it may use double heat sinks, and its weapons fire with "a +2 bonus to hit" (FW #36 p.16).`);
+        if (method === "houseman") {
+            if (getHousemanIntegrity(this._structuralIntegrity).extended) notes.push(`Integrity ${this._structuralIntegrity} is past Houseman's printed table (1-8): NGCFells's extension, 3% of mass, 10 internal structure, 20 armor and 1 g a point.`);
+            notes.push("Houseman has no heat-sink rule: NGCFells's call, a ton each and none free.");
+        }
+        for (const bay of this.getFwUncoveredBays()) notes.push(`${this.getBayName(bay)}: no rule in this method, so weighed by the TechManual.`);
+        return notes;
+    }
+
     public getKFBoom(): KFBoomType { return this._kfBoom; }
     public setKFBoom(tag: string): KFBoomType {
         this._kfBoom = KF_BOOM_TYPES.find((boom) => boom.tag === tag)?.tag ?? this._kfBoom;
@@ -441,13 +630,21 @@ export default class SmallCraft implements IGameSettingsUnit {
         return this._kfBoom;
     }
 
-    public getMinTonnage(): number { return this.isDropShip() ? DROPSHIP_MIN_TONNAGE : SMALL_CRAFT_MIN_TONNAGE; }
+    /** A Future Wars DropShip is any weight, by the ton: Reese's Chart A starts at 101 tons and his charts run on (FW #36 p.18). */
+    public getMinTonnage(): number {
+        if (this.getFwDropShipMethod()) return FW_DROPSHIP_MIN_TONNAGE;
+        return this.isDropShip() ? DROPSHIP_MIN_TONNAGE : SMALL_CRAFT_MIN_TONNAGE;
+    }
     /** A Primitive DropShip's limit follows its year and shape (IO:AE p.120). */
     public getMaxTonnage(): number {
         if (!this.isDropShip()) return SMALL_CRAFT_MAX_TONNAGE;
+        if (this.getFwDropShipMethod()) return FW_DROPSHIP_MAX_TONNAGE;
         return this._primitiveYear !== null ? getPrimitiveDropShipMaxTonnage(this._primitiveYear, this._shape) : DROPSHIP_MAX_TONNAGE[this._shape];
     }
-    public getTonnageStep(): number { return this.isDropShip() ? DROPSHIP_TONNAGE_STEP : SMALL_CRAFT_TONNAGE_STEP; }
+    public getTonnageStep(): number {
+        if (this.getFwDropShipMethod()) return 1;
+        return this.isDropShip() ? DROPSHIP_TONNAGE_STEP : SMALL_CRAFT_TONNAGE_STEP;
+    }
     private _steppedTonnage(tonnage: number): number {
         const step = this.getTonnageStep();
         return Math.min(this.getMaxTonnage(), Math.max(this.getMinTonnage(), Math.round(tonnage / step) * step));
@@ -529,11 +726,17 @@ export default class SmallCraft implements IGameSettingsUnit {
 
     /** Tonnage x Safe Thrust x 0.065 (0.061 for a Clan engine), or the Primitive factor of its year, rounded up to the half ton (TM p.185; IO:AE pp.119-121). */
     public getEngineWeight(): number {
+        const fw = this.getFwDropShipResult();
+        if (fw) return fw.engineTons;
         const primitive = this._primitiveFactors();
         return primitive ? this._round(this._tonnage * this._safeThrust * primitive.engine) : getSmallCraftEngineWeight(this._tonnage, this._safeThrust, this._engineTech, this._round);
     }
 
-    public getFuelTons(): number { return this._fuelTons; }
+    /** Reese and Houseman carry fuel by the day, so the tons are theirs to work out. */
+    public getFuelTons(): number {
+        const method = this.getFwDropShipMethod();
+        return method === "reese" || method === "houseman" ? this.getFwDropShipResult()!.fuelTons : this._fuelTons;
+    }
 
     /**
      * Fuel comes in whole or half tons (TM p.186). That is a lot size, not a calculated weight, so Fractional
@@ -548,22 +751,27 @@ export default class SmallCraft implements IGameSettingsUnit {
 
     /** 80 points a ton for a Small Craft; a DropShip's points fall with its weight (TM p.186). A Primitive craft divides them by its fuel factor, unrounded (IO:AE pp.119-120). */
     public getFuelPointsPerTon(): number {
+        const fw = this.getFwDropShipResult();
+        if (fw) return fw.thrustPointsPerTon ?? HOUSEMAN_THRUST_POINTS_PER_TON;
         return (this.isDropShip() ? getDropShipFuelPointsPerTon(this._tonnage) : SMALL_CRAFT_FUEL_POINTS_PER_TON) / (this._primitiveFactors()?.fuel ?? 1);
     }
-    public getFuelPoints(): number { return Math.floor(this._fuelTons * this.getFuelPointsPerTon()); }
-    /** Tanks and pumps: 2 percent of the fuel, rounded up to the half ton (TM p.186). */
-    public getFuelPumpWeight(): number { return this._round(this._fuelTons * SMALL_CRAFT_FUEL_PUMP_FACTOR); }
+    public getFuelPoints(): number { return Math.floor(this.getFuelTons() * this.getFuelPointsPerTon()); }
+    /** Tanks and pumps: 2 percent of the fuel, rounded up to the half ton (TM p.186). No Future Wars method weighs them. */
+    public getFuelPumpWeight(): number { return this.getFwDropShipMethod() ? 0 : this._round(this._fuelTons * SMALL_CRAFT_FUEL_PUMP_FACTOR); }
     /** Tons of fuel a day at 1 G: 1.84, or more for a large civilian DropShip (TM p.186); x the Primitive fuel factor, rounded up to 0.01 (IO:AE pp.119-120). */
     public getStrategicFuelPerDay(): number {
+        const fw = this.getFwDropShipResult();
+        if (fw) return fw.burnDay ?? SMALL_CRAFT_STRATEGIC_FUEL_TONS_PER_DAY;
         const perDay = this.isDropShip() ? getDropShipStrategicFuelPerDay(this._tonnage, this.isMilitary()) : SMALL_CRAFT_STRATEGIC_FUEL_TONS_PER_DAY;
         const primitive = this._primitiveFactors();
         return primitive ? Math.ceil(perDay * primitive.fuel * 100 - 1e-6) / 100 : perDay;
     }
-    public getBurnDays(): number { return Math.round(this._fuelTons / this.getStrategicFuelPerDay() * 100) / 100; }
+    public getBurnDays(): number { return Math.round(this.getFuelTons() / this.getStrategicFuelPerDay() * 100) / 100; }
 
     public getStructuralIntegrity(): number { return this._structuralIntegrity; }
-    public getMinStructuralIntegrity(): number { return this.getMaxThrust(); }
-    public getMaxStructuralIntegrity(): number { return this.getMaxThrust() * SMALL_CRAFT_MAX_SI_FACTOR; }
+    /** Under a Future Wars method any integrity can be set; each method's own limits are issues. */
+    public getMinStructuralIntegrity(): number { return this.getFwDropShipMethod() ? 1 : this.getMaxThrust(); }
+    public getMaxStructuralIntegrity(): number { return this.getFwDropShipMethod() ? FW_MAX_STRUCTURAL_INTEGRITY : this.getMaxThrust() * SMALL_CRAFT_MAX_SI_FACTOR; }
 
     /** From Maximum Thrust to 30 times it (TM p.187). */
     public setStructuralIntegrity(value: number): number {
@@ -574,11 +782,14 @@ export default class SmallCraft implements IGameSettingsUnit {
     }
 
     /** SI x tonnage / 200 for an aerodyne craft, / 500 for a spheroid, rounded up to the half ton (TM p.187). */
-    public getStructureWeight(): number { return getSmallCraftStructureWeight(this._tonnage, this._structuralIntegrity, this._shape, this._round); }
+    public getStructureWeight(): number { const fw = this.getFwDropShipResult(); return fw ? fw.structureTons : getSmallCraftStructureWeight(this._tonnage, this._structuralIntegrity, this._shape, this._round); }
 
     /** Tonnage x 0.0075, rounded up to the half ton (the kilogram under Fractional Accounting), or to the whole ton for a
      * DropShip (TM p.189). */
     public getControlsWeight(): number {
+        // Future Wars: the bridge (Houseman: communications and controls).
+        const fw = this.getFwDropShipResult();
+        if (fw) return fw.bridgeTons;
         // Primitive controls: tonnage x the factor of the year, rounded up to the half ton for both (IO:AE pp.119-121).
         const primitive = this._primitiveFactors();
         if (primitive) return this._round(this._tonnage * primitive.controls);
@@ -590,7 +801,7 @@ export default class SmallCraft implements IGameSettingsUnit {
     public usesFractionalAccounting(): boolean { return this._weightAccounting === "fractional"; }
 
     /** Fractional Accounting is "experimental-level unit design" (TO:AUE p.188): Experimental rules and above. */
-    public canUseFractionalAccounting(rulesLevel: number = 2): boolean { return rulesLevel >= EXPERIMENTAL_RULES_LEVEL; }
+    public canUseFractionalAccounting(rulesLevel: number = 2): boolean { return rulesLevel >= EXPERIMENTAL_RULES_LEVEL && !this.getFwDropShipMethod(); }
 
     /**
      * Turns the Fractional Accounting construction option on or off (TO:AUE p.188). It can be turned on only at
@@ -663,6 +874,8 @@ export default class SmallCraft implements IGameSettingsUnit {
     }
 
     public getArmorPointsPerTon(): number | null {
+        const fw = this.getFwDropShipResult();
+        if (fw) return fw.armorPointsPerTon;
         return getAerospaceArmorPointsPerTon(this._armorType.tag, this._armorUnit(), this._armorTechBase(this._armorType), this._tonnage);
     }
 
@@ -699,6 +912,8 @@ export default class SmallCraft implements IGameSettingsUnit {
     }
     /** Structural Integrity x 4.5 tons for an aerodyne craft, x 3.6 for a spheroid, in half tons (TM p.191). */
     public getMaxArmorTons(): number {
+        // No Future Wars method caps armor by weight (Houseman caps the points by integrity).
+        if (this.getFwDropShipMethod()) return this._tonnage;
         return Math.floor(this._structuralIntegrity * SMALL_CRAFT_MAX_ARMOR_TONS_PER_SI[this._shape] * 2 + 1e-9) / 2;
     }
 
@@ -716,7 +931,7 @@ export default class SmallCraft implements IGameSettingsUnit {
         return Math.floor(this._armorTons * (this.getArmorPointsPerTon() ?? 16) + 1e-9);
     }
     /** Free points from the structure: the Structural Integrity for each of the four facings (TM p.191). */
-    public getBonusArmorPoints(): number { return this._structuralIntegrity * SMALL_CRAFT_FACINGS.length; }
+    public getBonusArmorPoints(): number { return this.getFwDropShipMethod() ? 0 : this._structuralIntegrity * SMALL_CRAFT_FACINGS.length; }
     /** On a Primitive craft all the armor, the free points too, is x 0.66, rounded down (IO:AE pp.120-121). */
     public getAvailableArmorPoints(): number {
         const points = this.getPurchasedArmorPoints() + this.getBonusArmorPoints();
@@ -790,6 +1005,8 @@ export default class SmallCraft implements IGameSettingsUnit {
      * military DropShip (TM p.193); / 75 and x 1.3 for a Primitive DropShip (IO:AE p.121).
      */
     public getFreeHeatSinks(): number {
+        const fw = this.getFwDropShipResult();
+        if (fw) return fw.freeHeatSinks;
         if (!this.isDropShip()) return getSmallCraftFreeHeatSinks(this.getEngineWeight(), this._shape);
         return this.isPrimitive() ? getPrimitiveDropShipFreeHeatSinks(this.getEngineWeight(), this._shape)
             : getDropShipFreeHeatSinks(this.getEngineWeight(), this._shape, this.isMilitary());
@@ -821,7 +1038,7 @@ export default class SmallCraft implements IGameSettingsUnit {
     /** Three for a Small Craft; for a DropShip 3 (civilian) or 4 (military) and 1 for every 5,000 tons (TM p.189). */
     public getBaseCrew(): number { return this.isDropShip() ? getDropShipBaseCrew(this._tonnage, this.isMilitary()) : SMALL_CRAFT_BASE_CREW; }
     /** The base crew and the gunners (TM p.189). */
-    public getMinimumCrew(): number { return this.getBaseCrew() + this.getMinimumGunners(); }
+    public getMinimumCrew(): number { return this.getFwDropShipMethod() ? 1 : this.getBaseCrew() + this.getMinimumGunners(); }
     /** One crew member in five, rounded up, is an officer (TM p.189). */
     public getMinimumOfficers(): number { return Math.ceil(this._crew / 5); }
 
@@ -896,7 +1113,7 @@ export default class SmallCraft implements IGameSettingsUnit {
     public getBaysWeight(): number { return this._bays.reduce((sum, bay) => sum + this.getBayWeight(bay), 0); }
     public getBayDoors(): number { return this._bays.reduce((sum, bay) => sum + bay.doors, 0); }
     /** 2 on an aerodyne Small Craft, 4 on a spheroid; 7 plus the weight / 50,000 on a DropShip (TM p.196). */
-    public getMaxBayDoors(): number { return this.isDropShip() ? getDropShipMaxBayDoors(this._tonnage) : SMALL_CRAFT_MAX_BAY_DOORS[this._shape]; }
+    public getMaxBayDoors(): number { if (this.getFwDropShipMethod()) return 1000; return this.isDropShip() ? getDropShipMaxBayDoors(this._tonnage) : SMALL_CRAFT_MAX_BAY_DOORS[this._shape]; }
     /** Tons of cargo the cargo bays hold, after each kind's share is taken off (TM p.239). */
     public getCargoCapacity(): number {
         return Math.round(this._bays.reduce((sum, bay) => {
@@ -1271,19 +1488,23 @@ export default class SmallCraft implements IGameSettingsUnit {
 
     // Totals --------------------------------------------------------------------------------------------------
 
-    public getWeights(): { name: string; weight: number; item?: IEquipmentItem | ISmallCraftCapitalMount }[] { return this._weights; }
-    public getCurrentTonnage(): number { return this._currentTonnage; }
-    public getRemainingTonnage(): number { return Math.round((this._tonnage - this._currentTonnage) * 1000) / 1000; }
+    /** Ticking or unticking a Future Wars DropShip method does not pass through the craft, so a read catches up first. */
+    private _catchUp(): void { if (this.getFwDropShipMethod() !== this._fwMethod) this._calc(); }
+    public getWeights(): { name: string; weight: number; item?: IEquipmentItem | ISmallCraftCapitalMount }[] { this._catchUp(); return this._weights; }
+    public getCurrentTonnage(): number { this._catchUp(); return this._currentTonnage; }
+    public getRemainingTonnage(): number { return Math.round((this._tonnage - this.getCurrentTonnage()) * 1000) / 1000; }
 
     /** Everything that keeps the design from being legal under TechManual, in plain words. */
     public getIssues(rulesLevel: number = 2): string[] {
         const issues: string[] = [];
         const remaining = this.getRemainingTonnage();
         if (remaining < 0) issues.push(`Overweight by ${-remaining} tons.`);
-        if (this._structuralIntegrity < this.getMinStructuralIntegrity() || this._structuralIntegrity > this.getMaxStructuralIntegrity()) {
+        // A Future Wars method has its own limits for integrity, armor, crew, quarters and doors (future-wars-dropships.ts).
+        const fw = this.getFwDropShipResult();
+        if (!fw && (this._structuralIntegrity < this.getMinStructuralIntegrity() || this._structuralIntegrity > this.getMaxStructuralIntegrity())) {
             issues.push(`Structural Integrity must be from ${this.getMinStructuralIntegrity()} to ${this.getMaxStructuralIntegrity()} (Maximum Thrust to 30 times it, TM p.187).`);
         }
-        if (this.getArmorTons() > this.getMaxArmorTons()) {
+        if (!fw && this.getArmorTons() > this.getMaxArmorTons()) {
             issues.push(`Armor exceeds the maximum of ${this.getMaxArmorTons()} tons (Structural Integrity x ${SMALL_CRAFT_MAX_ARMOR_TONS_PER_SI[this._shape]}, TM p.191).`);
         }
         if (this.getUnallocatedArmorPoints() < 0) {
@@ -1319,15 +1540,15 @@ export default class SmallCraft implements IGameSettingsUnit {
                 issues.push(`${this.getArcName(arc)} and ${this.getArcName(other)} must carry the same weapons (TM p.195).`);
             }
         }
-        for (const shortfall of this.getAmmunitionShortfalls()) {
+        for (const shortfall of fw ? [] : this.getAmmunitionShortfalls()) {
             issues.push(`${shortfall.name}: ${shortfall.shots} shots carried, ${shortfall.needed} needed for 10 turns of fire for each (TM p.194).`);
         }
-        if (this._crew < this.getMinimumCrew()) issues.push(`The crew must be at least ${this.getMinimumCrew()} (${this.getBaseCrew()} and ${this.getMinimumGunners()} gunners, TM p.189).`);
+        if (!fw && this._crew < this.getMinimumCrew()) issues.push(`The crew must be at least ${this.getMinimumCrew()} (${this.getBaseCrew()} and ${this.getMinimumGunners()} gunners, TM p.189).`);
         const people = this._crew + this._passengers;
-        if (this.getQuartersCapacity() < people) {
+        if (!fw && this.getQuartersCapacity() < people) {
             issues.push(`Quarters for ${this.getQuartersCapacity()} of ${people} crew and passengers; everyone aboard needs quarters (TM p.195).`);
         }
-        if (this.getBayDoors() > this.getMaxBayDoors()) {
+        if (!fw && this.getBayDoors() > this.getMaxBayDoors()) {
             issues.push(`${this.getBayDoors()} bay doors; ${this.isDropShip() ? `a DropShip of ${this._tonnage.toLocaleString("en-US")} tons` : this.isAerodyne() ? "an aerodyne Small Craft" : "a spheroid Small Craft"} has no more than ${this.getMaxBayDoors()} (TM p.196).`);
         }
         // "Transport bays for any unit type other than infantry": a cargo bay carries no unit and needs none.
@@ -1335,12 +1556,12 @@ export default class SmallCraft implements IGameSettingsUnit {
         const unitBayDoors = this._bays.some((bay) => isUnitBay(findTransportBayType(bay.tag)) && bay.doors > 0);
         for (const bay of this._bays) {
             const type = findTransportBayType(bay.tag);
-            if (!type || bay.doors > 0) continue;
+            if (!type || bay.doors > 0 || fw) continue;
             if (isUnitBay(type)) issues.push(`${type.name}: a bay for units other than infantry needs a door (TM p.196).`);
             // Battle armor bays want a door too (TM p.196, SO:AA p.144), but the troopers can share another unit bay's.
             else if (type.battleArmor && !unitBayDoors) issues.push(`${type.name}: needs a door, or another unit bay's door to share (TM p.196).`);
         }
-        if (this._fuelTons <= 0) issues.push("The craft carries no fuel.");
+        if (this.getFuelTons() <= 0) issues.push("The craft carries no fuel.");
         if (this.isPrimitive() && !this.canBePrimitive()) issues.push("Primitive craft are built with Inner Sphere technology only (IO:AE pp.119-120).");
         if (this.isDropShip()) {
             const boom = this._kfBoom;
@@ -1349,14 +1570,17 @@ export default class SmallCraft implements IGameSettingsUnit {
             if (boom === "standard" && year < 2470) issues.push("The production K-F boom arrived in 2470; choose a prototype boom (2458) or none (IO:AE p.113).");
             if (boom === "prototype" && year < 2458) issues.push("The prototype K-F boom arrived in 2458; a DropShip built before it has none (IO:AE p.113).");
         }
+        if (fw) issues.push(...this._fwIssues(fw));
         return issues;
     }
 
     /** Things worth knowing that are not errors. */
     public getNotes(): string[] {
         const notes: string[] = [];
-        if (this._officers < this.getMinimumOfficers()) notes.push(`One crew member in five is normally an officer: ${this.getMinimumOfficers()} for this crew (TM p.189).`);
-        if (this._fuelTons > 0 && this._fuelTons < this._tonnage * 0.05) notes.push(`A ${this.getCraftTypeName()} should give at least 5 percent of its weight to fuel: ${roundUpToHalfTon(this._tonnage * 0.05)} tons (TM p.186).`);
+        const fwMethod = this.getFwDropShipMethod();
+        if (fwMethod) notes.push(...this._fwNotes(fwMethod));
+        if (!fwMethod && this._officers < this.getMinimumOfficers()) notes.push(`One crew member in five is normally an officer: ${this.getMinimumOfficers()} for this crew (TM p.189).`);
+        if (!fwMethod && this._fuelTons > 0 && this._fuelTons < this._tonnage * 0.05) notes.push(`A ${this.getCraftTypeName()} should give at least 5 percent of its weight to fuel: ${roundUpToHalfTon(this._tonnage * 0.05)} tons (TM p.186).`);
         const remaining = this.getRemainingTonnage();
         if (remaining > 0) notes.push(`${remaining} tons are unspent: cargo if a bay is added for them, wasted otherwise (TM p.184).`);
         if (this.getWeaponHeat() > this.getHeatDissipation()) notes.push(`Firing everything makes ${this.getWeaponHeat()} heat against ${this.getHeatDissipation()} dissipated; a Small Craft tracks heat as a fighter does (TM p.193).`);
@@ -1370,7 +1594,7 @@ export default class SmallCraft implements IGameSettingsUnit {
         }
         for (const arc of SMALL_CRAFT_ARCS) {
             const count = this.getArcWeaponCount(arc);
-            if (count > SMALL_CRAFT_WEAPONS_PER_ARC) notes.push(`${this.getArcName(arc)}: ${count} weapons, over the 12 an arc holds; ${this.getArcFireControlWeight(arc)} tons of extra fire control added (TM p.196).`);
+            if (!fwMethod && count > SMALL_CRAFT_WEAPONS_PER_ARC) notes.push(`${this.getArcName(arc)}: ${count} weapons, over the 12 an arc holds; ${this.getArcFireControlWeight(arc)} tons of extra fire control added (TM p.196).`);
         }
         return notes;
     }
@@ -1402,6 +1626,16 @@ export default class SmallCraft implements IGameSettingsUnit {
         const hasBattleArmorEquipment = this.defaultsToFractionalAccounting();
         if (hasBattleArmorEquipment && !this._hadBattleArmorEquipment) this._weightAccounting = "fractional";
         this._hadBattleArmorEquipment = hasBattleArmorEquipment;
+        // A Future Wars method weighs the ship itself; it reads only the craft's own values, never these getters.
+        this._fwMethod = this.getFwDropShipMethod();
+        this._fwResult = this._fwMethod ? buildFwDropShip(this._fwMethod, this.getFwDropShipDesign()) : undefined;
+        if (this._fwResult) {
+            this._weights = this._fwWeights(this._fwResult);
+            this._currentTonnage = Math.round(this._weights.reduce((sum, entry) => sum + entry.weight, 0) * 1000) / 1000;
+            this._calcBattleValue();
+            this._calcCost();
+            return;
+        }
         const quarters = quartersTypes.filter((type) => this._quarters[type.tag] > 0)
             .map((type) => ({ name: `Quarters, ${type.name} (${this._quarters[type.tag]})`, weight: this._quarters[type.tag] * type.tons }));
         const bays = this._bays.map((bay) => {
@@ -1435,10 +1669,10 @@ export default class SmallCraft implements IGameSettingsUnit {
 
     // Battle Value and cost -----------------------------------------------------------------------------------
 
-    public getBattleValue(edition: string = this._rulesEdition): number { return getBattleValueFor(edition, "small-craft", { bv2: () => this._battleValue }); }
-    public getBattleValueLog(edition: string = this._rulesEdition): string { return getBattleValueFor(edition, "small-craft", { bv2: () => this._calcLogBV }); }
-    public getCBillCost(): number { return this._cost; }
-    public getCBillCostLog(): string { return this._calcLogCost; }
+    public getBattleValue(edition: string = this._rulesEdition): number { this._catchUp(); return getBattleValueFor(edition, "small-craft", { bv2: () => this._battleValue }); }
+    public getBattleValueLog(edition: string = this._rulesEdition): string { this._catchUp(); return getBattleValueFor(edition, "small-craft", { bv2: () => this._calcLogBV }); }
+    public getCBillCost(): number { this._catchUp(); return this._cost; }
+    public getCBillCostLog(): string { this._catchUp(); return this._calcLogCost; }
 
     public hasTargetingComputer(): boolean {
         return this._equipmentList.some((item) => item.variableFormula?.startsWith("targeting-computer"));
@@ -2303,6 +2537,8 @@ export default class SmallCraft implements IGameSettingsUnit {
             name: this._name,
             ...(this._rulesEdition !== DEFAULT_RULES_EDITION ? { rulesEdition: this._rulesEdition } : {}),
             ...this.gameSettings.export(),
+            ...(this.getFwDropShipMethod() || JSON.stringify(this._fw) !== JSON.stringify(defaultFwOptions())
+                ? { futureWarsDropShip: { ...this._fw, stock: { ...this._fw.stock }, houseman: { ...this._fw.houseman } } } : {}),
             model: this._model,
             shape: this._shape,
             craftType: this._craftType,
@@ -2410,6 +2646,7 @@ export default class SmallCraft implements IGameSettingsUnit {
             this.setName(savedString(saved.name));
             this._rulesEdition = getSelectableRulesEditionTag(saved.rulesEdition, "small-craft");
             this.gameSettings.import(saved);
+            this._fw = sanitizeFwOptions(saved.futureWarsDropShip);
             this.setModel(savedString(saved.model));
             if (saved.shape !== undefined && saved.shape !== "aerodyne" && saved.shape !== "spheroid") issue("Ignored an unknown shape");
             this._shape = saved.shape === "spheroid" ? "spheroid" : "aerodyne";

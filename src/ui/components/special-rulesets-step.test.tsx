@@ -33,7 +33,7 @@ const reasonOf = (name: string) => document.getElementById(screen.getByLabelText
 describe("SpecialRulesetsStep list", () => {
     it("groups the rulesets by category with ticked counts", () => {
         open(["fw-power-armor"]);
-        expect(screen.getByText("Construction (1 of 3 ticked)")).toBeTruthy();
+        expect(screen.getByText("Construction (1 of 7 ticked)")).toBeTruthy();
         expect(screen.getByText("Play (0 of 10 ticked)")).toBeTruthy();
         expect(screen.getByText("Setting (0 of 1 ticked)")).toBeTruthy();
     });

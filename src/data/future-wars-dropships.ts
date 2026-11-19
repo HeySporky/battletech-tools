@@ -261,6 +261,8 @@ export interface IFwDropShipDesign {
     /** Reese (20 to 30) and Houseman: days of fuel. */
     fuelDays: number;
     armorPoints: number;
+    /** Armor bought by the ton instead, as the builder does: the points are then the tons x the method's points a ton. */
+    armorTons?: number;
     addedHeatSinks: number;
     weaponTons: number;
     ammoTons: number;
@@ -282,7 +284,7 @@ export interface IFwDropShipDesign {
     footInfantry: number;
     jumpInfantry: number;
     motorizedInfantry: number;
-    /** Reese: Clan technology (XL engine at half weight, half the tonnage for Chart A, double heat sinks, +2 to hit). */
+    /** Reese: Clan technology (XL engine at half weight, half the tonnage for Chart A, double heat sinks, "a +2 bonus to hit"). */
     clan?: boolean;
     /** Reese: the engine weight is split among this many engines, each armored. */
     engines?: number;
@@ -327,7 +329,8 @@ export interface IHousemanChoices {
     shifts?: number;
 }
 
-export interface IFwWeightLine { label: string; tons: number; note?: string }
+/** A line of the weight breakdown; the weapons and ammunition lines are tagged so a builder can list the items instead. */
+export interface IFwWeightLine { label: string; tons: number; note?: string; kind?: "weapons" | "ammo" | "weaponMounts" }
 
 export interface IFwDropShipResult {
     method: FwDropShipMethod;
@@ -344,6 +347,7 @@ export interface IFwDropShipResult {
     fuelTons: number;
     armorPointsPerTon: number;
     armorTons: number;
+    armorPoints: number;
     freeHeatSinks: number;
     crew: number;
     issues: string[];
@@ -354,6 +358,13 @@ export function getOverthrust(thrust: number): number { return Math.ceil(thrust 
 const round2 = (value: number): number => Math.round(value * 100) / 100;
 const sum = (lines: IFwWeightLine[]): number => round2(lines.reduce((total, line) => total + line.tons, 0));
 const line = (label: string, tons: number, note?: string): IFwWeightLine => (note ? { label, tons, note } : { label, tons });
+const tagged = (kind: IFwWeightLine["kind"], label: string, tons: number): IFwWeightLine => ({ label, tons, kind });
+
+/** The armor's tons and points: from the tons when the design gives them, else from the points (rounded the method's way). */
+function armorOf(design: IFwDropShipDesign, pointsPerTon: number, round: (value: number) => number): { tons: number; points: number } {
+    if (design.armorTons !== undefined) return { tons: design.armorTons, points: Math.floor(design.armorTons * pointsPerTon + 1e-9) };
+    return { tons: round(design.armorPoints / pointsPerTon), points: design.armorPoints };
+}
 
 function finish(method: FwDropShipMethod, design: IFwDropShipDesign, lines: IFwWeightLine[], rest: Omit<IFwDropShipResult, "method" | "lines" | "totalTons" | "cargoTons">, cargoShare = 1): IFwDropShipResult {
     const kept = lines.filter((entry) => entry.tons !== 0 || entry.note);
@@ -382,7 +393,7 @@ export function buildStockDropShip(design: IFwDropShipDesign): IFwDropShipResult
     if (divisor < 10 || divisor > 25) issues.push("Stock divides the engine by 10 to 25 for its heat sinks.");
     const freeHeatSinks = Math.floor(engineTons / divisor);
     const armorPointsPerTon = choices.armorPointsPerTon ?? stockArmorPointsPerTon(t);
-    const armorTons = round2(design.armorPoints / armorPointsPerTon);
+    const { tons: armorTons, points: armorPoints } = armorOf(design, armorPointsPerTon, round2);
     const suggestedCrew = choices.crew ?? stockCrew(t);
     const infantry = design.footInfantry * 2 + (design.jumpInfantry + design.motorizedInfantry) * 3;
     const lines = [
@@ -391,9 +402,9 @@ export function buildStockDropShip(design: IFwDropShipDesign): IFwDropShipResult
         line(`Fuel (${thrustPointsPerTon} thrust points a ton)`, design.fuelTons),
         line(`Bridge (${multiplier} x ${crew} crew)`, bridgeTons),
         line(`Heat Sinks (${freeHeatSinks} free, engine / ${divisor}; ${design.addedHeatSinks} added)`, design.addedHeatSinks),
-        line(`Armor (${design.armorPoints} points at ${armorPointsPerTon} a ton)`, armorTons),
-        line("Weapons", design.weaponTons),
-        line("Ammunition", design.ammoTons),
+        line(`Armor (${armorPoints} points at ${armorPointsPerTon} a ton)`, armorTons),
+        tagged("weapons", "Weapons", design.weaponTons),
+        tagged("ammo", "Ammunition", design.ammoTons),
         line(`Cubicles (${design.mechCubicles + design.fighterCubicles + design.smallCraftCubicles} at 150 tons)`, 150 * (design.mechCubicles + design.fighterCubicles + design.smallCraftCubicles)),
         line(`Doors (${design.mechDoors + design.fighterDoors + design.cargoDoors} at 5 tons)`, 5 * (design.mechDoors + design.fighterDoors + design.cargoDoors)),
         line(`Vehicles (${design.heavyVehicles} heavy, ${design.lightVehicles} light)`, 100 * design.heavyVehicles + 50 * design.lightVehicles),
@@ -403,7 +414,7 @@ export function buildStockDropShip(design: IFwDropShipDesign): IFwDropShipResult
     ];
     return finish("stock", design, lines, {
         engineTons, structureTons, bridgeTons, thrustPointsPerTon, burnDay, fuelTons: design.fuelTons,
-        armorPointsPerTon, armorTons, freeHeatSinks, crew: suggestedCrew, issues,
+        armorPointsPerTon, armorTons, armorPoints, freeHeatSinks, crew: suggestedCrew, issues,
     });
 }
 
@@ -428,7 +439,7 @@ export function buildEidDropShip(design: IFwDropShipDesign): IFwDropShipResult {
     const divisor = lookupFwBand(EID_CHART_B, engineTons);
     const freeHeatSinks = Math.floor(engineTons / divisor);
     const armorPointsPerTon = lookupFwBand(design.shape === "aerodyne" ? EID_CHART_C : EID_CHART_D, t);
-    const armorTons = round2(design.armorPoints / armorPointsPerTon);
+    const { tons: armorTons, points: armorPoints } = armorOf(design, armorPointsPerTon, round2);
     const cubicleDoors = design.mechDoors + design.fighterDoors;
     const doorLimit = design.ferroAluminum ? 5 : 8;
     if (cubicleDoors > doorLimit) issues.push(`Eid allows at most ${doorLimit} cubicle doors${design.ferroAluminum ? " with ferro-aluminum armor" : ""}.`);
@@ -442,9 +453,9 @@ export function buildEidDropShip(design: IFwDropShipDesign): IFwDropShipResult {
         line(`Fuel (${thrustPointsPerTon} thrust points a ton)`, design.fuelTons),
         line("Bridge (0.0075 of the tonnage)", bridgeTons),
         line(`Heat Sinks (${freeHeatSinks} free, engine / ${divisor}; ${design.addedHeatSinks} added)`, design.addedHeatSinks),
-        line(`Armor (${design.armorPoints} points at ${armorPointsPerTon} a ton)`, armorTons),
-        line("Weapons", design.weaponTons),
-        line("Ammunition", design.ammoTons),
+        line(`Armor (${armorPoints} points at ${armorPointsPerTon} a ton)`, armorTons),
+        tagged("weapons", "Weapons", design.weaponTons),
+        tagged("ammo", "Ammunition", design.ammoTons),
         line(`Cubicles (${cubicles} at 150 tons; doors weigh nothing)`, 150 * cubicles),
         line(`Vehicles (${design.heavyVehicles} heavy, ${design.lightVehicles} light)`, 100 * design.heavyVehicles + 50 * design.lightVehicles),
         line(`Crew (${design.crew} at 5 tons, ${design.officers} officers at 10)`, 5 * design.crew + 10 * design.officers),
@@ -453,7 +464,7 @@ export function buildEidDropShip(design: IFwDropShipDesign): IFwDropShipResult {
     ];
     return finish("eid", design, lines, {
         engineTons, structureTons, bridgeTons, thrustPointsPerTon, burnDay, fuelTons: design.fuelTons,
-        armorPointsPerTon, armorTons, freeHeatSinks, crew, issues,
+        armorPointsPerTon, armorTons, armorPoints, freeHeatSinks, crew, issues,
     });
 }
 
@@ -476,14 +487,14 @@ export function getEidEquipmentIssues(itemNames: readonly string[], ammoTons: nu
     return issues;
 }
 
-// Reese (FW #36 pp.15-18) ------------------------------------------------------------------------------------------------
+// Reese (FW #36 pp.16-18) ------------------------------------------------------------------------------------------------
 
 export function buildReeseDropShip(design: IFwDropShipDesign): IFwDropShipResult {
     const t = design.tonnage;
     const issues: string[] = [];
     const clan = design.clan === true;
     const overthrust = getOverthrust(design.thrust);
-    // Reese rounds every line to the whole ton, as his worked examples do (FW #36 p.17: 656, 385, 2,515, 53).
+    // Reese rounds every line to the whole ton, as his worked examples do (FW #36 pp.17-18: 656, 385, 2,515, 53).
     const engineTons = Math.round(t / (16 / design.thrust) * (clan ? 0.5 : 1));
     if (design.structuralIntegrity < overthrust || design.structuralIntegrity > 3 * overthrust) issues.push(`Reese's Structural Integrity runs from the Overthrust (${overthrust}) to three times it (${3 * overthrust}).`);
     const structureTons = Math.round(design.structuralIntegrity * t / 100);
@@ -496,7 +507,7 @@ export function buildReeseDropShip(design: IFwDropShipDesign): IFwDropShipResult
     const divisor = lookupFwBand(EID_CHART_B, engineTons);
     const freeHeatSinks = Math.round(engineTons / divisor);
     const armorPointsPerTon = lookupFwBand(design.shape === "aerodyne" ? REESE_CHART_C : REESE_CHART_D, t);
-    const armorTons = Math.round(design.armorPoints / armorPointsPerTon);
+    const { tons: armorTons, points: armorPoints } = armorOf(design, armorPointsPerTon, Math.round);
     const combatDoors = design.mechDoors + design.fighterDoors + design.cargoDoors;
     if (combatDoors > 8) issues.push("Reese: no more than eight doors for a combat drop, cargo doors counted.");
     const cubicles = design.mechCubicles + design.fighterCubicles + design.smallCraftCubicles;
@@ -507,23 +518,22 @@ export function buildReeseDropShip(design: IFwDropShipDesign): IFwDropShipResult
         line(`Fuel (${design.fuelDays} days at ${burnDay} tons, ${thrustPointsPerTon} thrust points a ton)`, fuelTons),
         line("Bridge (0.0075 of the tonnage, at most 25)", bridgeTons),
         line(`Heat Sinks (${freeHeatSinks} in the engine, / ${divisor}; ${design.addedHeatSinks} added)`, design.addedHeatSinks),
-        line(`Armor (${design.armorPoints} points at ${armorPointsPerTon} a ton)`, armorTons),
-        line("Weapons", design.weaponTons),
-        line("Ammunition", design.ammoTons),
+        line(`Armor (${armorPoints} points at ${armorPointsPerTon} a ton)`, armorTons),
+        tagged("weapons", "Weapons", design.weaponTons),
+        tagged("ammo", "Ammunition", design.ammoTons),
         line(`Cubicles (${cubicles} at 150 tons)`, 150 * cubicles),
         line(`Vehicle bays (${design.heavyVehicles} at 100 tons, ${design.lightVehicles} at 50)`, 100 * design.heavyVehicles + 50 * design.lightVehicles),
         line(`Crew (${design.crew} at 5 tons, ${design.officers} officers at 10)`, 5 * design.crew + 10 * design.officers),
         line(`Passengers (${design.passengers} at 5 tons, ${design.firstClassPassengers} first class at 10)`, 5 * design.passengers + 10 * design.firstClassPassengers),
         line("Infantry (7 tons a trooper, 8 jump or motorized)", 7 * design.footInfantry + 8 * (design.jumpInfantry + design.motorizedInfantry)),
     ];
-    if (clan) issues.push("Reese: Clan weapons fire at +2 to hit; Clan ships may use double heat sinks.");
     return finish("reese", design, lines, {
         engineTons, structureTons, bridgeTons, thrustPointsPerTon, burnDay, fuelTons,
-        armorPointsPerTon, armorTons, freeHeatSinks, crew: design.crew + design.officers, issues,
+        armorPointsPerTon, armorTons, armorPoints, freeHeatSinks, crew: design.crew + design.officers, issues,
     });
 }
 
-/** Reese's tonnage from a 1/285 model (FW #36 p.14): cubic centimeters x 23.1 = cubic meters, x 0.07 = tons. */
+/** Reese's tonnage from a 1/285 model (FW #36 p.16): cubic centimeters x 23.1 = cubic meters, x 0.07 = tons. */
 export type ReeseShape =
     | { kind: "box"; height: number; length: number; width: number }
     | { kind: "cylinder"; radius: number; height: number }
@@ -532,7 +542,7 @@ export type ReeseShape =
     | { kind: "triangle"; height: number; longestSide: number; thickness: number };
 
 /**
- * Reese's Pi, as his rule prints it (FW #36 p.15): 3.145. His own UNION-12 (p.17) works with the true value (a 30 cm
+ * Reese's Pi, as his rule prints it (FW #36 p.16): 3.145. His own UNION-12 (p.17) works with the true value (a 30 cm
  * sphere is 14,137 cubic centimeters, so 22,860 tons); by the rule it is 14,153 and 22,885 tons. The rule is kept, and
  * the tonnage field can always be typed.
  */
@@ -586,7 +596,7 @@ export function buildHousemanDropShip(design: IFwDropShipDesign): IFwDropShipRes
     const fireControl = choices.fireControl ? design.weaponCount : 0;
     const docking = getHousemanDockingTons(t);
     const armorPointsPerTon = lookupFwBand(HOUSEMAN_ARMOR, t);
-    const armorTons = round2(design.armorPoints / armorPointsPerTon);
+    const { tons: armorTons, points: armorPoints } = armorOf(design, armorPointsPerTon, round2);
     const q = HOUSEMAN_QUARTERS;
     const extra = choices.extraQuarters ?? {};
     const extraTons = (Object.keys(extra) as HousemanQuartersTag[]).reduce((total, tag) => total + (extra[tag] ?? 0) * q[tag], 0);
@@ -615,10 +625,11 @@ export function buildHousemanDropShip(design: IFwDropShipDesign): IFwDropShipRes
         line("Second Computer", secondComputer),
         line("Independent Fire Control (1 ton a weapon)", fireControl),
         line("Docking System", docking),
-        line(`Armor (${design.armorPoints} points at ${armorPointsPerTon} a ton)`, armorTons),
+        line(`Armor (${armorPoints} points at ${armorPointsPerTon} a ton)`, armorTons),
         line("Living Quarters", quarters),
-        line("Weapons (+50% for shutters and mounts)", weapons),
-        line("Ammunition", design.ammoTons),
+        tagged("weapons", "Weapons", design.weaponTons),
+        tagged("weaponMounts", "Weapon Shutters and Mounts (50% of the weapons)", round2(weapons - design.weaponTons)),
+        tagged("ammo", "Ammunition", design.ammoTons),
         line("Ammo Magazine (200% of the ammunition)", magazine),
         line(`'Mech Bays (${design.mechCubicles}, 200% of a ${mechTons}-ton 'Mech)`, mechBays),
         line("Small Craft Bays (200% of the craft)", smallCraftBays),
@@ -635,8 +646,8 @@ export function buildHousemanDropShip(design: IFwDropShipDesign): IFwDropShipRes
     const minimumCrew = getHousemanMinimumCrew(design);
     if (design.crew + design.officers < minimumCrew) issues.push(`Houseman's typical crew for this ship is at least ${minimumCrew}.`);
     const result = finish("houseman", design, lines, {
-        engineTons, structureTons, bridgeTons: comms, thrustPointsPerTon: null, burnDay: round2(3 * design.thrust), fuelTons,
-        armorPointsPerTon, armorTons, freeHeatSinks: 0, crew: design.crew + design.officers, issues,
+        engineTons, structureTons, bridgeTons: comms, thrustPointsPerTon: null, burnDay: 3, fuelTons,
+        armorPointsPerTon, armorTons, armorPoints, freeHeatSinks: 0, crew: design.crew + design.officers, issues,
     }, 1.1);
     if (choices.cargoHandling) {
         const handling = round2(result.cargoTons * 0.12);

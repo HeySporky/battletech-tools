@@ -41,7 +41,7 @@ describe("ruleset list", () => {
         const all = groupRulesets(btSpecialRulesets, btSpecialRulesets, ticked);
         expect(all.map((group) => group.category)).toEqual(["construction", "play", "setting"]);
         expect(all.find((group) => group.category === "play")).toMatchObject({ label: "Play", ticked: 1, total: 10 });
-        expect(all[0]).toMatchObject({ label: "Construction", ticked: 0, total: 3 });
+        expect(all[0]).toMatchObject({ label: "Construction", ticked: 0, total: 7 });
     });
 
     it("lists the publications, sorted", () => {

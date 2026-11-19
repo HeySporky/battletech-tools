@@ -126,14 +126,14 @@ describe("Stock's looked-up values, as formulae fitted to DS&JS (NGCFells's extr
     });
 });
 
-/** The DS&JS Union as Reese rebuilds it (FW #36 p.16): 3,500 tons, thrust 3, SI 11, 20 days, book weapons and bays. */
+/** The DS&JS Union as Reese rebuilds it (FW #36 p.17): 3,500 tons, thrust 3, SI 11, 20 days, book weapons and bays. */
 const reeseUnion: IFwDropShipDesign = {
     ...emptyFwDropShipDesign(3500, "spheroid"), thrust: 3, structuralIntegrity: 11, fuelDays: 20, armorPoints: 640,
     addedHeatSinks: 24, weaponTons: 166, ammoTons: 21, mechCubicles: 12, fighterCubicles: 2, officers: 6, crew: 28, passengers: 14,
 };
 
 describe("Reese's worked examples", () => {
-    it("rebuilds the book Union line for line (FW #36 p.16)", () => {
+    it("rebuilds the book Union line for line (FW #36 p.17)", () => {
         const result = buildReeseDropShip(reeseUnion);
         expect(result.engineTons).toBe(656);
         expect(result.structureTons).toBe(385);
@@ -148,7 +148,7 @@ describe("Reese's worked examples", () => {
         expect(result.totalTons - 40 - 10).toBe(8437);
     });
 
-    it("builds the UNION-12 (FW #36 p.17), his 20,426 tons but for the same 60-for-70 slip", () => {
+    it("builds the UNION-12 (FW #36 pp.17-18), his 20,426 tons but for the same 60-for-70 slip", () => {
         const union12: IFwDropShipDesign = { ...reeseUnion, tonnage: 22860, fuelDays: 30, addedHeatSinks: 0, officers: 12, crew: 56 };
         const result = buildReeseDropShip(union12);
         expect(result.engineTons).toBe(4286);
