@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { cardScanTurn } from "./card-scan-io";
+import { cardScanCrop, cardScanResize, cardScanTurn } from "./card-scan-io";
 
 // A 3x2 image whose pixels are numbered 1 to 6 (red channel), row by row:
 //   1 2 3
@@ -31,5 +31,25 @@ describe( "Card photo quarter turns", () => {
         for( let turn = 0; turn < 4; turn++ ) turned = cardScanTurn( turned.data, turned.width, turned.height, 1 );
         expect( [ turned.width, turned.height ] ).toEqual( [ 3, 2 ] );
         expect( Array.from( turned.data ) ).toEqual( Array.from( start ) );
+    } );
+} );
+
+describe( "Card photo crops and scaling (plain code, the same pixels in every browser)", () => {
+    it( "crops to whole pixels, rounding the region", () => {
+        const crop = cardScanCrop( { data: image(), width: 3, height: 2 }, { left: 0.6, top: 0.4, width: 1.6, height: 1.5 } );
+        expect( reds( crop ) ).toEqual( [ 2, 3, 5, 6 ] );
+    } );
+    it( "repeats the edge pixel for a region off the image", () => {
+        const crop = cardScanCrop( { data: image(), width: 3, height: 2 }, { left: -1, top: 1, width: 5, height: 2 } );
+        expect( reds( crop ) ).toEqual( [ 4, 4, 5, 6, 6, 4, 4, 5, 6, 6 ] );
+    } );
+    it( "scales by copying the source pixel each new pixel falls in", () => {
+        const up = cardScanResize( image(), 3, 2, 2 );
+        expect( [ up.width, up.height ] ).toEqual( [ 6, 4 ] );
+        expect( reds( up.data ).slice( 0, 6 ) ).toEqual( [ 1, 1, 2, 2, 3, 3 ] );
+        expect( reds( up.data ).slice( 18, 24 ) ).toEqual( [ 4, 4, 5, 5, 6, 6 ] );
+        const down = cardScanResize( image(), 3, 2, 2 / 3 );
+        expect( [ down.width, down.height ] ).toEqual( [ 2, 1 ] );
+        expect( reds( down.data ) ).toEqual( [ 1, 2 ] );
     } );
 } );

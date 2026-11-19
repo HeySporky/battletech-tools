@@ -195,6 +195,12 @@ export const BV_VERDICTS: Record<string, IBvVerdict> = {
     "mul:100943": { verdict: "mul-suspect", note: "The list's value equals the JBT value when the Prototype Streak SRM 4 counts 45. The Battle Value table gives it 59.", cites: [{ source: "ioae", page: "189" }] },
     // Starslayer STY-2C-EC
     "mul:102870": { verdict: "mul-suspect", note: "The list's value equals the JBT value when the Prototype Streak SRM 4 counts 45. The Battle Value table gives it 59.", cites: [{ source: "ioae", page: "189" }] },
+    // Grand Titan T-IT-N13M
+    "mul:103954": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-3145-ntnu", page: "195" }] },
+    // Deep Lord RCL-Z1M MilitiaMech
+    "mul:106834": { verdict: "mul-suspect", note: "The publisher's record sheet for this design prints the JBT value, not the list's.", cites: [{ source: "rs-prototypes", page: "70" }] },
+    // Temax Cat Ninjabolt TMC-NB
+    "mul:105409": { verdict: "mul-suspect", note: "The list's value (and the readout's) equals the JBT value when the HVAC/10 is charged 1 point for each of its slots as an explosive component. The Battle Value table counts an HVAC as a Gauss weapon of one slot.", cites: [{ source: "toaue", page: "195" }, { source: "toaue-errata-7.0", page: "195" }] },
 };
 
 /** "mul:<id>", "mul:<id>:<configuration>", or "file:<path>" where the Master Unit List has no entry. */

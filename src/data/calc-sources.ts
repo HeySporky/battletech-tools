@@ -34,6 +34,8 @@ export const CALC_SOURCES: Record<string, ICalcSource> = {
     "rs-dark-age": { short: "RS: Dark Age", title: "Record Sheets: Dark Age", printing: "2022 PDF, by PDF page" },
     "rs-jihad": { short: "RS: Jihad", title: "Record Sheets: Jihad", printing: "2022 PDF, by PDF page" },
     "rs-tro3150": { short: "RS: TRO 3150", title: "Record Sheets: Technical Readout 3150", printing: "2022 PDF, by PDF page" },
+    "rs-3145-ntnu": { short: "RS: 3145 NTNU", title: "Record Sheets: 3145 New Tech, New Upgrades", printing: "2013 PDF, by PDF page" },
+    "rs-prototypes": { short: "RS: Prototypes", title: "Record Sheets: Prototypes", printing: "2012 PDF, by PDF page" },
     "rs-shrapnel-2": { short: "RS: Shrapnel Year 2", title: "Record Sheets: Shrapnel Magazine, Year 2", printing: "2026 PDF, by PDF page" },
     "rg-ilclan-3": { short: "RG: ilClan 3", title: "Recognition Guide: ilClan, vol. 3", printing: "2022 PDF, by PDF page" },
     "rg-ilclan-4": { short: "RG: ilClan 4", title: "Recognition Guide: ilClan, vol. 4", printing: "2022 PDF, by PDF page" },

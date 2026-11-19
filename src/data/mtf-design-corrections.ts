@@ -1,6 +1,8 @@
 export interface IDesignCorrection {
     /** MegaMek file: replaces the file's "key:value" lines (keys in lower case, as parseMtfFile reads them). */
     values?: Record<string, string>;
+    /** MegaMek file: replaces slots, by the file's location name and the slot's number from 1 ("Medium Laser (R)"). */
+    slots?: Record<string, Record<number, string>>;
     /**
      * Skunk Werks file: each location's patchwork armor as "type:techbase" (SSW's names; 0 Inner Sphere, 1 Clan), and
      * equipment renamed in the design or, keyed with its name, one OmniMech configuration.
@@ -55,6 +57,30 @@ export const DESIGN_CORRECTIONS: Record<string, IDesignCorrection> = {
     "Temax Cat Ninjabolt TMC-NB": {
         values: { "rtr armor": "6", "rl structure": "IS Endo Steel:65" },
         source: "XTRO: Boondocks (2010) p.6",
+    },
+    // The sheet's second medium laser in each side torso fires to the rear (marked (R)); the MegaMek file mounts both
+    // facing forward.
+    "BattleMaster BLR-3M (Rogers)": {
+        slots: { "Left Torso": { 7: "Medium Laser (R)" }, "Right Torso": { 4: "Medium Laser (R)" } },
+        source: "Operational Turning Points: Falcon Incursion (2011), record sheet (PDF p.32), BV 1,818",
+    },
+    // The readout armors the cockpit and both sensors as well as the engine; the MegaMek file armors only the engine.
+    // It is a FrankenMech: a Marauder MAD-5R's arms (75 tons; 12 structure points each, as the readout prints) on the
+    // Warhammer, all IS endo steel. The MegaMek file builds it as a plain 70-ton Warhammer (11 a side).
+    "Warhammer WHM-X7 'The Lich'": {
+        values: {
+            "config": "Biped FrankenMek", "structure": "Hybrid",
+            "hd structure": "IS Endo Steel:70", "ct structure": "IS Endo Steel:70", "lt structure": "IS Endo Steel:70",
+            "rt structure": "IS Endo Steel:70", "la structure": "IS Endo Steel:75", "ra structure": "IS Endo Steel:75",
+            "ll structure": "IS Endo Steel:70", "rl structure": "IS Endo Steel:70",
+        },
+        slots: { "Head": { 2: "Sensors (ARMORED)", 3: "Cockpit (ARMORED)", 5: "Sensors (ARMORED)" } },
+        source: "XTRO: Gladiators (2010) p.7, BV 1,807",
+    },
+    // The readout mounts a third set of Spikes in the head; the MegaMek file has only the side torsos'.
+    "Celerity CLR-03OMM 'Rajah'": {
+        slots: { "Head": { 5: "Spikes" } },
+        source: "XTRO: Royal Fantasy (2014) p.6, BV 278",
     },
 };
 

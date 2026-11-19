@@ -1202,11 +1202,12 @@ export class BattleMech {
         //  An arm: without CASE of its own, when the torso inward costs BV. CASE in the arm still saves an XL
         //  engine 'Mech, as the MUL, SSW and MegaMek count it, though TM p.302 says "any location".
         // A Superheavy 'Mech counts as a Clan 'Mech where any CASE protects the explosives, else as an Inner Sphere one
-        // (IO:AE p.188).
+        // (IO:AE p.188). A Clan 'Mech still pays in the center torso, legs and head (TM p.302), so there CASE saves
+        // nothing; in a side torso or an arm it saves the slot.
         const isSuperheavy = this.isSuperheavy();
         const isPenalisedLocation = (loc: string, cases: Record<string, boolean> = caseMap): boolean => {
             if (hasCaseII(loc)) return false;
-            if (isSuperheavy && cases[loc]) return false;
+            if (isSuperheavy && cases[loc] && ["lt", "rt", "la", "ra"].includes(loc)) return false;
             if (loc === "lt" || loc === "rt") return !cases[loc] || engineSideSlots >= 3;
             if (loc === "la" || loc === "ra") return !cases[loc] && isPenalisedLocation(inward[loc], cases);
             return true;

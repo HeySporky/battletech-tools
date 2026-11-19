@@ -324,6 +324,34 @@ export const cardScanTurn = ( data: ArrayLike<number>, width: number, height: nu
     return { data: out, width: outWidth, height: outHeight };
 }
 
+/*
+ * The readers crop and scale in plain code, never on a canvas: a canvas resamples fractional crops and scaled draws,
+ * each browser its own way, and the readers' rules were tuned on exactly these pixels (the local photo harness
+ * uses the same two functions).
+ */
+
+/** A region of the image, rounded to whole pixels; any part off the image repeats the nearest edge pixel. */
+export const cardScanCrop = ( image: ICardScanImage, rect: ICardScanRect ): Uint8ClampedArray<ArrayBuffer> => {
+    const width = Math.round( rect.width ), height = Math.round( rect.height ), left = Math.round( rect.left ), top = Math.round( rect.top );
+    const out = new Uint8ClampedArray( width * height * 4 );
+    for( let y = 0; y < height; y++ ) for( let x = 0; x < width; x++ ) {
+        const sx = Math.min( image.width - 1, Math.max( 0, left + x ) ), sy = Math.min( image.height - 1, Math.max( 0, top + y ) );
+        for( let c = 0; c < 4; c++ ) out[( y * width + x ) * 4 + c] = image.data[( sy * image.width + sx ) * 4 + c];
+    }
+    return out;
+}
+
+/** The image scaled by `scale`, each new pixel copied from the source pixel it falls in. */
+export const cardScanResize = ( data: ArrayLike<number>, width: number, height: number, scale: number ): { data: Uint8ClampedArray<ArrayBuffer>, width: number, height: number } => {
+    const outWidth = Math.round( width * scale ), outHeight = Math.round( height * scale );
+    const out = new Uint8ClampedArray( outWidth * outHeight * 4 );
+    for( let y = 0; y < outHeight; y++ ) for( let x = 0; x < outWidth; x++ ) {
+        const sx = Math.min( width - 1, Math.floor( x / scale ) ), sy = Math.min( height - 1, Math.floor( y / scale ) );
+        for( let c = 0; c < 4; c++ ) out[( y * outWidth + x ) * 4 + c] = data[( sy * width + sx ) * 4 + c];
+    }
+    return { data: out, width: outWidth, height: outHeight };
+}
+
 /** How a card type is held: its printed shape, and whether a scan's result found the card at all. */
 export interface ICardScanOptions<T> {
     shape: "landscape" | "portrait";

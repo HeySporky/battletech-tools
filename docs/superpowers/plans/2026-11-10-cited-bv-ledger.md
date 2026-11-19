@@ -305,19 +305,27 @@ changed while reading. Each is decided in the queue (plan Task 11) or by the own
    +1 a jump earns. Shown as `provisional`.
 7. **A Superheavy with CASE in the center torso, legs or head.** IO:AE p.188 treats it as a Clan 'Mech there, and a
    Clan 'Mech still pays for those locations. Our code subtracts nothing in any Superheavy location with CASE.
+   FIXED 2026-11-18 (IO:AE p.188 read on the page: "treat the Superheavy 'Mech as a Clan 'Mech if the explosive
+   components are in a location protected by any form of CASE"): CASE now spares a Superheavy's side torsos and arms
+   only; its center torso, legs and head pay as a Clan 'Mech's do. No bundled design's BV moved (4,458 checked).
 8. **Heat of the signature systems.** No rule. The code comment says it follows MegaMek, SSW and the MUL. Shown as
    `provisional`.
 9. **Radical heat sinks.** IO:AE p.185's text (x 1.4) disagrees with its own example and with the table on p.190
    (heat sinks x 0.4). We follow the table. Shown as `provisional`; a question for Catalyst.
 10. **The Phoenix Hawk LAM example** (IO:AE p.186): the extract's columns run together and the printed arithmetic
     does not add up as extracted (a weapon rating of 271 x 3.00 is not 651). Read the page image before using it as
-    a test.
+    a test. READ 2026-11-18 (IO:AE 2nd corrected printing p.186, page image): the example is printed with arithmetic
+    that does not add up (defensive 472, then 457 x 1.6; weapons and tonnage 123 + 4 x 46 + 50 = 357, printed 271;
+    271 x 3.00 printed 651). It cannot be a test; its rules text (TMM from AirMech flank +1, fuel and bomb bay slots
+    15 each, heat sink capacity + 9, speed factor from 'Mech running + half AirMech flank) is what we follow.
 11. **Dead branches.** `_calcBattleValue` carries camouflage, prototype, standard and improved stealth and mimetic
     cases that are always false for a 'Mech. They are the battle armor rows of the TM p.316 table. Drop them when
-    converting; no number changes.
+    converting; no number changes. DONE (checked 2026-11-18): the battle armor rows are gone; the stealth and
+    mimetic armor steps that remain are 'Mech armor types.
 12. **Streak heat.** TM p.303 halves the heat of Streak SRMs. Our code halves every weapon flagged Streak (Streak
     LRMs too). Check TO:AUE's rule for Streak LRMs before changing anything.
-13. **Stale note.** The Drone Operating System record's notes say its BV rule is not modelled. It is.
+13. **Stale note.** The Drone Operating System record's notes say its BV rule is not modelled. It is. FIXED
+    2026-11-18: the note now gives the rule it follows (TO:AUE p.193).
 14. **"Greater than" against "at least".** TM p.304 starts the heat steps when total weapon heat is greater than the
     efficiency; our code starts them when it is equal too. The result is the same: at equality the last weapon is
     the one that reaches the limit and still counts in full.
@@ -360,3 +368,30 @@ changed while reading. Each is decided in the queue (plan Task 11) or by the own
     shown as `provisional`.
 23. **Cost: Environmental Sealing (withdrawn).** TM p.278 prices it at 225 x unit tonnage. Our code has it: the
     equipment item is priced that way (a test pins the Uni's 15,750). No finding.
+
+## Queue round 2026-11-18 (cloud session)
+
+Counts at the start: 102 differ, 85 with a verdict, 17 open. Tools used: `src/zz-local/bv-log.test.ts` (one file's
+steps) and `src/zz-local/bv-drift.test.ts` (every bundled design and configuration against its built BV; 4,458
+checked, 0 moved, before and after this round's rule change). No bundle rebuild was possible in the cloud (the
+mordel.net files are local only): the three design corrections below take effect at the next `npm run build:bundled`.
+
+- **Fixed by design correction (the MegaMek file differs from the print).** A correction can now replace a slot
+  (`slots` in `DESIGN_CORRECTIONS`).
+  - BattleMaster BLR-3M (Rogers): the sheet's second medium laser in each side torso fires to the rear; the file
+    mounts them forward. 1,819 -> 1,818 = MUL = sheet (Falcon Incursion PDF p.32).
+  - Celerity CLR-03OMM 'Rajah': the readout mounts Spikes in the head too. 272 -> 278 = MUL = XTRO: Royal Fantasy p.6.
+  - Warhammer WHM-X7 'The Lich': the readout armors the cockpit and both sensors (the file only the engine), and its
+    arms are a Marauder MAD-5R's (75-ton structure, 12 points a side; the file builds a plain 70-ton Warhammer).
+    1,785 -> 1,806; MUL and readout 1,807. One point still unexplained.
+- **Verdicts written (mul-suspect):** Grand Titan T-IT-N13M (RS: 3145 NTNU sheet prints 2,533 = ours; MUL 2,553),
+  Deep Lord RCL-Z1M (RS: Prototypes sheet prints 713 = ours; MUL 715), Temax Cat Ninjabolt TMC-NB (the printed and
+  listed 1,475 charge the HVAC/10 1 a slot; TO:AUE p.195 and errata v7.0 count one slot).
+- **Checked, still unexplained** (readout or sheet matches the file unless said; the rules MegaMek's BV code applies
+  to these items were compared with ours and agree: engine and gyro multipliers, armored components, armor types,
+  signature systems' TMM and heat, heat ordering, Radical Heat Sink, Artemis ammunition, explosive components):
+  Fennec FEC-5CM 1,498 (MUL 1,445, sheet 1,438; the sheet's Large Re-engineered Laser heat 10 is IO:AE's 9 now, and
+  does not move the BV), Thug THG-11ECX (Jose) 1,720 (1,668), Stealth STH-5X 2,155 (MUL 2,240, readout 2,222),
+  Schwerer Gustav 1,643 (1,796), Valkyrie VLK-QW5 689 (701), Trebuchet TBT-K7R 1,415 (1,408), Bandersnatch Horus
+  1,584 (1,587), Lumberjack LM4/C 316 (291, sheet 291), Patron PTN LoaderMech 73 (97; mordel file, not in the
+  cloud), and from earlier rounds 'Gestalt' D2X-G and Skinwalker (Ryoken III-XP) A.

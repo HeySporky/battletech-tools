@@ -1,57 +1,71 @@
 /*
- * Reading a photo of a printed card in the browser: the photo goes on a canvas, regions are cropped and cleaned
- * there, and tesseract.js reads them. Nothing leaves the device but the one-time download of tesseract's English data.
+ * Reading a photo of a printed card in the browser: the photo is decoded on a canvas, regions are cropped and cleaned
+ * in plain code (card-scan-io), and tesseract.js reads them. Nothing leaves the device but the one-time download of
+ * tesseract's English data.
  */
 import {
-    cardScanBinarize, cardScanColoursFromPixels, cardScanMargin, cardScanRotate, cardScanSkew, ICardScanImage, ICardScanIO, ICardScanLine, ICardScanOptions, ICardScanRect,
-    scanWithTurns, TCardScanMode,
+    cardScanBinarize, cardScanColoursFromPixels, cardScanCrop, cardScanMargin, cardScanResize, cardScanRotate, cardScanSkew, ICardScanImage, ICardScanIO, ICardScanLine,
+    ICardScanOptions, ICardScanRect, scanWithTurns, TCardScanMode,
 } from "./card-scan-io";
 
 /** The scan's layout rules were tuned on cards about this wide, so every photo is scaled to it. */
 const cardWidth = 2000;
 
-/** The photo's pixels, scaled to the card width. */
-const loadPhoto = async ( file: Blob ): Promise<ImageData> => {
-    const url = URL.createObjectURL( file );
+/**
+ * The photo as it was taken, upright by its EXIF orientation. Its colours are left as the camera stored them: phones
+ * tag photos Display P3, and the browser's usual conversion to sRGB shifts the very values the readers were tuned on.
+ */
+const decodePhoto = async ( file: Blob ): Promise<CanvasImageSource & { width: number, height: number, close?: () => void }> => {
     try {
-        const image = new Image();
-        image.src = url;
-        await image.decode();
-        const canvas = document.createElement( "canvas" );
-        canvas.width = cardWidth;
-        canvas.height = Math.round( image.naturalHeight * cardWidth / image.naturalWidth );
-        const context = canvas.getContext( "2d", { willReadFrequently: true } )!;
-        context.drawImage( image, 0, 0, canvas.width, canvas.height );
-        return context.getImageData( 0, 0, canvas.width, canvas.height );
-    } finally {
-        URL.revokeObjectURL( url );
+        return await createImageBitmap( file, { colorSpaceConversion: "none", imageOrientation: "from-image" } );
+    } catch {
+        // A browser that rejects those options: decoded as an image element, colours converted.
+        const url = URL.createObjectURL( file );
+        try {
+            const image = new Image();
+            image.src = url;
+            await image.decode();
+            return Object.assign( image, { width: image.naturalWidth, height: image.naturalHeight } );
+        } finally {
+            URL.revokeObjectURL( url );
+        }
     }
 }
 
-const toCanvas = ( image: ICardScanImage ): HTMLCanvasElement => {
+/** The photo's pixels, scaled smoothly to the card width (as the readers' test photos were). */
+const loadPhoto = async ( file: Blob ): Promise<ImageData> => {
+    const image = await decodePhoto( file );
+    try {
+        const canvas = document.createElement( "canvas" );
+        canvas.width = cardWidth;
+        canvas.height = Math.round( image.height * cardWidth / image.width );
+        const context = canvas.getContext( "2d", { willReadFrequently: true } )!;
+        context.imageSmoothingQuality = "high";
+        context.drawImage( image, 0, 0, canvas.width, canvas.height );
+        return context.getImageData( 0, 0, canvas.width, canvas.height );
+    } finally {
+        if( image.close ) image.close();
+    }
+}
+
+const toCanvas = ( data: ArrayLike<number>, width: number, height: number ): HTMLCanvasElement => {
     const canvas = document.createElement( "canvas" );
-    canvas.width = image.width;
-    canvas.height = image.height;
-    canvas.getContext( "2d" )!.putImageData( new ImageData( Uint8ClampedArray.from( image.data ), image.width, image.height ), 0, 0 );
+    canvas.width = width;
+    canvas.height = height;
+    canvas.getContext( "2d" )!.putImageData( new ImageData( Uint8ClampedArray.from( data ), width, height ), 0, 0 );
     return canvas;
 }
 
 /** The photo (perhaps turned) at the card width and straightened: the layout rules look for level rows. */
-const readyPhoto = ( image: ICardScanImage ): HTMLCanvasElement => {
-    const canvas = document.createElement( "canvas" );
-    canvas.width = cardWidth;
-    canvas.height = Math.round( image.height * cardWidth / image.width );
-    const context = canvas.getContext( "2d", { willReadFrequently: true } )!;
-    context.drawImage( toCanvas( image ), 0, 0, canvas.width, canvas.height );
-    // A photo taken at a slant is straightened.
-    const photo = context.getImageData( 0, 0, canvas.width, canvas.height );
+const readyPhoto = ( image: ICardScanImage ): ICardScanImage => {
+    let photo = image.width === cardWidth ? image : cardScanResize( image.data, image.width, image.height, cardWidth / image.width );
+    // A photo taken at a slant is straightened, then brought back to the card width the rules expect.
     const skew = cardScanSkew( photo.data, photo.width, photo.height );
-    if( skew === 0 ) return canvas;
-    const level = cardScanRotate( photo.data, photo.width, photo.height, skew );
-    // Back to the card width the rules expect.
-    canvas.height = Math.round( level.height * cardWidth / level.width );
-    context.drawImage( toCanvas( level ), 0, 0, canvas.width, canvas.height );
-    return canvas;
+    if( skew !== 0 ) {
+        const level = cardScanRotate( photo.data, photo.width, photo.height, skew );
+        photo = cardScanResize( level.data, level.width, level.height, photo.width / level.width );
+    }
+    return photo;
 }
 
 /**
@@ -66,27 +80,19 @@ export const scanCardPhoto = async <T,>( file: Blob, scan: ( io: ICardScanIO ) =
     const worker = await createWorker( "eng" );
     const makeIO = ( image: ICardScanImage ): ICardScanIO => {
         const photo = readyPhoto( image );
-        const photoContext = photo.getContext( "2d", { willReadFrequently: true } )!;
-        const pixels = ( rect: ICardScanRect ) => photoContext.getImageData( rect.left, rect.top, rect.width, rect.height ).data;
+        const pixels = ( rect: ICardScanRect ) => cardScanCrop( photo, rect );
         return {
             width: photo.width,
             height: photo.height,
             recognize: async ( rect: ICardScanRect, mode: TCardScanMode, scale = 1, singleLine = false, charset = "" ): Promise<ICardScanLine[]> => {
-                const canvas = document.createElement( "canvas" );
+                let canvas: HTMLCanvasElement;
                 let offset = 0;
                 if( mode === "plain" ) {
-                    canvas.width = rect.width;
-                    canvas.height = rect.height;
-                    canvas.getContext( "2d" )!.drawImage( photo, rect.left, rect.top, rect.width, rect.height, 0, 0, rect.width, rect.height );
+                    canvas = toCanvas( pixels( rect ), Math.round( rect.width ), Math.round( rect.height ) );
                 } else {
-                    const clean = cardScanBinarize( pixels( rect ), rect.width, rect.height, mode );
-                    const full = document.createElement( "canvas" );
-                    full.width = clean.width;
-                    full.height = clean.height;
-                    full.getContext( "2d" )!.putImageData( new ImageData( clean.data, clean.width, clean.height ), 0, 0 );
-                    canvas.width = Math.max( 1, Math.round( clean.width * scale ) );
-                    canvas.height = Math.max( 1, Math.round( clean.height * scale ) );
-                    canvas.getContext( "2d" )!.drawImage( full, 0, 0, canvas.width, canvas.height );
+                    const clean = cardScanBinarize( pixels( rect ), Math.round( rect.width ), Math.round( rect.height ), mode );
+                    const scaled = scale === 1 ? clean : cardScanResize( clean.data, clean.width, clean.height, scale );
+                    canvas = toCanvas( scaled.data, scaled.width, scaled.height );
                     offset = cardScanMargin;
                 }
                 const digits = mode === "digits" || mode === "dim-digits";
