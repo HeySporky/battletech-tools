@@ -17,6 +17,8 @@ import { IAbilitySource } from "./ability-source";
 export enum ESpecialAbilityType {
     Standard = 1,
     Optional = 2,
+    /** Ours, for a Custom Homebrew unit type: in no rulebook. */
+    Custom = 3,
 }
 export function getSpecialAbilityTypeName( type: ESpecialAbilityType ): string {
     switch( type ) {
@@ -24,8 +26,77 @@ export function getSpecialAbilityTypeName( type: ESpecialAbilityType ): string {
             return "Standard Special Ability";
         case ESpecialAbilityType.Optional:
             return "Optional Special Ability";
+        case ESpecialAbilityType.Custom:
+            return "Custom Homebrew Special Ability (NOT OFFICIAL)";
     }
 }
+/** What the MCR ability means on the table. One text, shown on the card popup, the creator's card page and TRO - JBT. */
+export const MICRO_MECH_AS_ABILITY_TEXT: string[] = [
+    "Every Micro-Mech (unit type MM) has this ability. It is a Custom Homebrew rule of this app, not an official one.",
+    "Low profile: the unit is 1 inch (1 level) tall, as a vehicle, for line of sight, and never has partial cover.",
+    "Stacking: it counts as a vehicle for stacking and displacement.",
+    "No heat: it has no Heat Scale and no Overheat value. A Heat (HT) attack against it does its heat points as damage.",
+    "Too small to swarm: it cannot be the target of an anti-\u2019Mech (AM) infantry attack.",
+    "Light frame: it may make a standard physical attack (damage 1) or a charge. It may not make a Death From Above or a melee attack.",
+    "Critical hits: roll on the \u2019Mech column. First Engine Hit: a unit with ENE can make no more weapon attacks; any other unit treats it as a Weapon Hit. A second Engine Hit destroys the unit.",
+    "Unsealed: without the SEAL ability it follows the IndustrialMech limits for deep water and vacuum.",
+];
+
+/**
+ * MMT#, the Micro-Mech Bay in Alpha Strike: ours, after MT# and PT# (ASC:CE pp.87-88), with Micro-Mechs 6.1.0.2's
+ * emergency rule (two in a 'Mech bay, deployment time doubled, no orbital drop) put in Alpha Strike terms.
+ */
+export const MICRO_MECH_TRANSPORT_AS_ABILITY_TEXT: string[] = [
+    "A unit with this special ability can transport, deploy, and drop the indicated number of Micro-Mechs (unit type MM), as ’Mech Transport (MT#) does for ’Mechs. It usually applies to DropShips and is always used with the Door special ability (see Transporting Non-Infantry Units and Dropping Troops). It is a Custom Homebrew rule of this app, not an official one.",
+    "Each bay holds one Micro-Mech. No other unit, ’Mechs included, may use it.",
+    "Emergency loading: a ’Mech Transport (MT#) bay may hold two Micro-Mechs in place of one ’Mech. Each such Micro-Mech counts as two units against the number its bay doors can deploy in a turn, and it may not be dropped (Dropping Troops).",
+];
+
+/**
+ * What the WLK ability means on the table: Clell Flint's walker (Future Wars #11; The Best of Future Wars, Volume One)
+ * in Alpha Strike. Ours (NGCFells's answers 2026-11-15): docs/superpowers/specs/2026-11-15-walker-alpha-strike.md.
+ */
+export const WALKER_AS_ABILITY_TEXT: string[] = [
+    "Every walker (unit type WK; IWK for an industrial walker) has this ability. It is a Custom Homebrew rule of this app, not an official one, after Clell Flint’s walker rules in Future Wars.",
+    "Unit type: wherever the rules ask a unit’s type, WK counts as a BattleMech (BM) and IWK as an IndustrialMech (IM): the ’Mech critical hit column, the Heat Scale and Overheat.",
+    "Four legs: the rules for a four-legged ’Mech apply: -2 on Control Rolls to avoid skidding, -1 on bog-down checks, no Climbing, no External Cargo.",
+    "Firing arc: the damage line is fired into the 90-degree Fore arc of a four-legged ’Mech; REAR into the rear arc; TUR all round.",
+    "Kicks only: it may make a standard physical attack (damage equal to its Size) or a charge, and a Death From Above if it jumps. It has no melee weapon.",
+    "Belly guns: a walker with AIF# may make that attack as well.",
+    "Legs: no leg is tracked. An MP Hit on the ’Mech critical hit column stands for a lost leg.",
+];
+
+/**
+ * What the PWA ability means on the table: Bill Swisher's Power Armor (Future Wars #14; The Best of Future Wars, Volume
+ * One, pp.14-16) in Alpha Strike. Ours (NGCFells's ruling 2026-11-17): the converter's BattleMech card plus this ability.
+ */
+export const POWER_ARMOR_AS_ABILITY_TEXT: string[] = [
+    "Every Power Armor suit (a 5, 10 or 15-ton suit built under Bill Swisher’s Power Armor rules from Future Wars) has this ability. It is a Custom Homebrew rule of this app, not an official one. The suit is otherwise a BattleMech (BM) of Size 1.",
+    "Hard to hit: every attack against the suit is at +1 to hit.",
+    "Low profile: the suit is 1 inch (1 level) tall, as a vehicle, for line of sight.",
+    "Stacking: on a hex map, up to 14 suits may share a hex, or 7 when they share it with one other unit.",
+    "Physical attacks: it may make a standard physical attack or a charge only against a unit on its own level, and a Death From Above; it may not make a melee attack. A failed Death From Above also wounds its pilot.",
+    "No ejection: the pilot cannot eject. Leaving the suit takes a full turn in which it neither moves nor attacks.",
+    "Point Value: the +1 to hit is priced as +1 to the unit’s movement modifier in the defense factor, as Stealth (STL) is.",
+];
+
+/** AIF#, Anti-Infantry Fire: a walker's center-torso weapons. Ours, from Flint; the two printings give the base to-hit differently. */
+export const WALKER_AIF_AS_ABILITY_TEXT: string[] = [
+    "A walker’s center-torso weapons (machine guns, small lasers, flamers) fire only at infantry and vehicles under it. It is a Custom Homebrew rule of this app, not an official one, after Clell Flint’s walker rules in Future Wars.",
+    "In addition to its other attacks, the unit may make one AIF attack on an infantry (CI, BA) or vehicle (CV, SV) unit in base contact, in any direction. It does the rating in damage (AIF0*: minimal damage). It is not a physical attack and needs no firing arc.",
+    "To-hit: Flint’s base number replaces the pilot’s Skill. The target number is 6 for a walker built under The Best of Future Wars, Volume One (8 - 2), or -2 under Future Wars #11 (0 - 2, which all but always hits), plus the target’s Target Movement Modifier and the other usual modifiers; no range modifier. The walker’s card page names its printing.",
+    "Heat: the attack builds no heat, and a flamer in the center torso gives no HT.",
+];
+
+/** The AIF text for one walker: the target number of the printing it is built under. */
+export function getWalkerAntiInfantryFireText(rules: { name: string; antiInfantryBaseToHit: number }): string[] {
+    return [
+        WALKER_AIF_AS_ABILITY_TEXT[1],
+        `To-hit: built under ${rules.name}, so the target number is ${rules.antiInfantryBaseToHit - 2} (Flint’s base ${rules.antiInfantryBaseToHit}, less 2) in place of the pilot’s Skill, plus the target’s Target Movement Modifier and the other usual modifiers; no range modifier.`,
+        WALKER_AIF_AS_ABILITY_TEXT[3],
+    ];
+}
+
 export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
     /* ***************************
       Standard Special Abilities
@@ -1476,6 +1547,70 @@ export const CONST_AS_SPECIAL_ABILITIES: IASSpecialAbility[] = [
         ],
         source: { book: "ASCE", page: 91 },
         type: ESpecialAbilityType.Optional
+    },
+
+    /* ***************************
+      Custom Homebrew (NGCFells's; in no rulebook)
+    ***************************** */
+    {
+        // Micro-Mechs (#173): the Alpha Strike ruleset is NGCFells's, from the play rules of "Micro-Mechs" by Solarmech
+        // (version 6.1.0.2 revised by an unnamed editor with Discord). docs/superpowers/specs/2026-11-14-micro-mech-alpha-strike.md
+        tag: "MCR",
+        name: "Micro-Mech",
+        summary: MICRO_MECH_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Micro-Mechs (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        tag: "MMT#",
+        name: "Micro-Mech Transport",
+        summary: MICRO_MECH_TRANSPORT_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Micro-Mechs (Custom Homebrew, NOT OFFICIAL)", page: 0 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // The Aces: Scouring Sands emplacement cards print these two (#191). The MUL lists no buildings.
+        tag: "IMMOBILE",
+        name: "Immobile (Emplacement)",
+        summary: [
+            "An emplacement cannot move. Attacks against it take the -4 immobile target modifier, and its own attacks and spotting take -1. It uses no Aces behavior deck.",
+            "Every critical hit is a Weapon Hit (-1 damage each). It is crippled when its damage drops to 0, and it never makes a Forced Withdrawal.",
+        ],
+        source: { book: "BattleTech: Aces", page: 6 },
+        type: ESpecialAbilityType.Standard,
+    },
+    {
+        tag: "CF#",
+        name: "Construction Factor",
+        summary: [
+            "The emplacement's Construction Factor, as printed on its Battlefield Support card.",
+        ],
+        source: { book: "BattleTech: Aces", page: 6 },
+        type: ESpecialAbilityType.Standard,
+    },
+    {
+        // Walkers (#172): the Alpha Strike ruleset is NGCFells's, from Clell Flint's walker rules (Future Wars #11; The Best
+        // of Future Wars, Volume One). docs/superpowers/specs/2026-11-15-walker-alpha-strike.md
+        tag: "WLK",
+        name: "Walker",
+        summary: WALKER_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Walkers (Custom Homebrew, NOT OFFICIAL)", page: 4 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        tag: "AIF#",
+        name: "Anti-Infantry Fire",
+        summary: WALKER_AIF_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Walkers (Custom Homebrew, NOT OFFICIAL)", page: 4 },
+        type: ESpecialAbilityType.Custom
+    },
+    {
+        // Power Armor (#172): ours, after Bill Swisher's rules (Future Wars #14; The Best of Future Wars, Volume One).
+        tag: "PWA",
+        name: "Power Armor",
+        summary: POWER_ARMOR_AS_ABILITY_TEXT,
+        source: { book: "TRO - JBT: Power Armor (Custom Homebrew, NOT OFFICIAL)", page: 6 },
+        type: ESpecialAbilityType.Custom
     }
 
 ]
@@ -1486,4 +1621,28 @@ export interface IASSpecialAbility {
     summary: string[];
     source: IAbilitySource;
     rawTag?: string; // this is for display of the tag on the popup
+}
+
+let abilityCodePatterns: RegExp[] | null = null;
+
+/** A catalog tag as a pattern: "#" is a number ("IF#" matches "IF1" and "IF 1"), "%" a letter code ("ART%-#"). */
+function getAbilityCodePattern(tag: string): RegExp | null {
+    const firstNumber = tag.indexOf("#");
+    const prefix = (firstNumber >= 0 ? tag.slice(0, firstNumber) : tag).trim();
+    if (!prefix) return null;
+    const escaped = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/%/g, "[A-Z]+");
+    const numbers = firstNumber >= 0 ? "\\s*[\\d*-]+(?:/[\\d*-]+)*" : "";
+    return new RegExp("^" + escaped + numbers + "$", "i");
+}
+
+/**
+ * Whether a code is an Alpha Strike special ability listed in CONST_AS_SPECIAL_ABILITIES, with its numbers if it
+ * takes any. TechManual weapon type codes ("DE", "DB") and descriptive notes are not.
+ */
+export function isAlphaStrikeAbilityCode(code: string): boolean {
+    abilityCodePatterns ??= CONST_AS_SPECIAL_ABILITIES
+        .map(ability => getAbilityCodePattern(ability.tag))
+        .filter((pattern): pattern is RegExp => pattern !== null);
+    const trimmed = code.trim();
+    return trimmed !== "" && abilityCodePatterns.some(pattern => pattern.test(trimmed));
 }

@@ -202,7 +202,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                     <table className="table">
                       <thead>
                         <tr>
-                          <th>&nbsp;</th>
+                          <th><span className="visually-hidden">Actions</span></th>
                           <th>Name</th>
                           <th className="min-width no-wrap">Points</th>
 
@@ -362,6 +362,7 @@ export default class CurrentForceList extends React.Component<ICurrentForceListP
                           <td colSpan={2}>
                             <strong>Available Bonuses</strong>:({asGroup.availableFormationBonuses.length-1})
                             <select
+                              aria-label="Formation bonus"
                               value={asGroup.formationBonus? asGroup.formationBonus.Name:"" }
                               onChange={(event:React.FormEvent<HTMLSelectElement>)=>this.updateFormationBonus(event, asGroupIndex)}
                             >

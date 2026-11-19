@@ -1,0 +1,100 @@
+.tro-sheet {
+    background: #fff;
+    color: #111;
+    font-family: Georgia, serif;
+    font-size: 11pt;
+    line-height: 1.35;
+    padding: 14px;
+    max-width: 8in;
+    margin: 0 auto;
+
+    h2 {
+        font-family: Arial, sans-serif;
+        font-size: 20pt;
+        letter-spacing: 1px;
+        margin: 0 0 2px;
+        text-transform: uppercase;
+    }
+
+    .tro-subtitle {
+        font-family: Arial, sans-serif;
+        font-size: 10pt;
+        color: #555;
+        margin-bottom: 8px;
+    }
+
+    // The spec block never splits across a printed page.
+    .tro-spec-row {
+        display: flex;
+        gap: 12px;
+        break-inside: avoid;
+    }
+
+    .tro-spec {
+        flex: 1;
+        font-family: Arial, sans-serif;
+        font-size: 10pt;
+
+        b {
+            display: inline-block;
+            min-width: 150px;
+        }
+    }
+
+    // Room for a unit image (Ideas #14).
+    .tro-image-space {
+        width: 34%;
+    }
+
+    .tro-text {
+        column-count: 2;
+        column-gap: 18px;
+        margin-top: 8px;
+
+        h3 {
+            font-family: Arial, sans-serif;
+            font-size: 11pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 8px 0 2px;
+            break-after: avoid;
+        }
+
+        p {
+            margin: 0 0 4px;
+        }
+    }
+
+    .tro-construction {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        font-size: 9pt;
+        margin-top: 10px;
+
+        th,
+        td {
+            padding: 1px 4px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .indent td:first-child {
+            padding-left: 16px;
+        }
+    }
+
+    .tro-footer {
+        font-family: Arial, sans-serif;
+        font-size: 8pt;
+        color: #666;
+        margin-top: 12px;
+        border-top: 1px solid #ccc;
+        padding-top: 4px;
+        break-inside: avoid;
+
+        p {
+            margin: 0 0 2px;
+        }
+    }
+}

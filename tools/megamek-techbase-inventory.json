@@ -1,0 +1,3897 @@
+{
+  "source": "MegaMek weapon subtree paths",
+  "stats_source": false,
+  "root": "C:\\repo\\megamek\\megamek\\src\\megamek\\common\\weapons",
+  "record_count": 642,
+  "counts_by_tech_base": {
+    "clan": 321,
+    "is": 321
+  },
+  "counts_by_family": {
+    "clan:autoCannons": 17,
+    "is:autoCannons": 23,
+    "clan:battleArmor": 64,
+    "is:battleArmor": 60,
+    "clan:bombs": 4,
+    "is:bombs": 5,
+    "clan:flamers": 3,
+    "is:flamers": 4,
+    "clan:gaussRifles": 6,
+    "is:gaussRifles": 6,
+    "clan:infantry/support": 6,
+    "clan:lasers": 23,
+    "is:lasers": 22,
+    "clan:lrms": 108,
+    "is:lrms": 36,
+    "clan:mgs": 6,
+    "is:mgs": 6,
+    "clan:missiles": 8,
+    "is:missiles": 33,
+    "clan:mortars": 4,
+    "is:mortars": 5,
+    "clan:other": 7,
+    "is:other": 15,
+    "clan:ppc": 4,
+    "is:ppc": 9,
+    "clan:prototypes": 13,
+    "is:prototypes": 10,
+    "clan:srms": 45,
+    "is:srms": 27,
+    "clan:unofficial": 3,
+    "is:unofficial": 60
+  },
+  "records": [
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLImprovedAC10.java",
+      "file_stem": "CLImprovedAC10"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLImprovedAC2.java",
+      "file_stem": "CLImprovedAC2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLImprovedAC20.java",
+      "file_stem": "CLImprovedAC20"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLImprovedAC5.java",
+      "file_stem": "CLImprovedAC5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLLB10XAC.java",
+      "file_stem": "CLLB10XAC"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLLB20XAC.java",
+      "file_stem": "CLLB20XAC"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLLB2XAC.java",
+      "file_stem": "CLLB2XAC"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLLB5XAC.java",
+      "file_stem": "CLLB5XAC"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLProtoMekAC2.java",
+      "file_stem": "CLProtoMekAC2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLProtoMekAC4.java",
+      "file_stem": "CLProtoMekAC4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLProtoMekAC8.java",
+      "file_stem": "CLProtoMekAC8"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLRAC2.java",
+      "file_stem": "CLRAC2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLRAC5.java",
+      "file_stem": "CLRAC5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLUAC10.java",
+      "file_stem": "CLUAC10"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLUAC2.java",
+      "file_stem": "CLUAC2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLUAC20.java",
+      "file_stem": "CLUAC20"
+    },
+    {
+      "tech_base": "clan",
+      "family": "autoCannons",
+      "path": "autoCannons/clan/CLUAC5.java",
+      "file_stem": "CLUAC5"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISAC10.java",
+      "file_stem": "ISAC10"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISAC2.java",
+      "file_stem": "ISAC2"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISAC20.java",
+      "file_stem": "ISAC20"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISAC5.java",
+      "file_stem": "ISAC5"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISHVAC10.java",
+      "file_stem": "ISHVAC10"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISHVAC2.java",
+      "file_stem": "ISHVAC2"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISHVAC5.java",
+      "file_stem": "ISHVAC5"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISLAC2.java",
+      "file_stem": "ISLAC2"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISLAC5.java",
+      "file_stem": "ISLAC5"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISLB10XAC.java",
+      "file_stem": "ISLB10XAC"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISLB20XAC.java",
+      "file_stem": "ISLB20XAC"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISLB2XAC.java",
+      "file_stem": "ISLB2XAC"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISLB5XAC.java",
+      "file_stem": "ISLB5XAC"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISNailAndRivetGun.java",
+      "file_stem": "ISNailAndRivetGun"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISRAC2.java",
+      "file_stem": "ISRAC2"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISRAC5.java",
+      "file_stem": "ISRAC5"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISRifleHeavy.java",
+      "file_stem": "ISRifleHeavy"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISRifleLight.java",
+      "file_stem": "ISRifleLight"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISRifleMedium.java",
+      "file_stem": "ISRifleMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISUAC10.java",
+      "file_stem": "ISUAC10"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISUAC2.java",
+      "file_stem": "ISUAC2"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISUAC20.java",
+      "file_stem": "ISUAC20"
+    },
+    {
+      "tech_base": "is",
+      "family": "autoCannons",
+      "path": "autoCannons/innerSphere/ISUAC5.java",
+      "file_stem": "ISUAC5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM1.java",
+      "file_stem": "CLAdvancedSRM1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM1OS.java",
+      "file_stem": "CLAdvancedSRM1OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM2.java",
+      "file_stem": "CLAdvancedSRM2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM2OS.java",
+      "file_stem": "CLAdvancedSRM2OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM3.java",
+      "file_stem": "CLAdvancedSRM3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM3OS.java",
+      "file_stem": "CLAdvancedSRM3OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM4.java",
+      "file_stem": "CLAdvancedSRM4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM4OS.java",
+      "file_stem": "CLAdvancedSRM4OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM5.java",
+      "file_stem": "CLAdvancedSRM5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM5OS.java",
+      "file_stem": "CLAdvancedSRM5OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM6.java",
+      "file_stem": "CLAdvancedSRM6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/advancedSRM/CLAdvancedSRM6OS.java",
+      "file_stem": "CLAdvancedSRM6OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBAAPGaussRifle.java",
+      "file_stem": "CLBAAPGaussRifle"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBACompactNarc.java",
+      "file_stem": "CLBACompactNarc"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBAFlamer.java",
+      "file_stem": "CLBAFlamer"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBAFlamerHeavy.java",
+      "file_stem": "CLBAFlamerHeavy"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBAGrenadeLauncherHeavy.java",
+      "file_stem": "CLBAGrenadeLauncherHeavy"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBALBX.java",
+      "file_stem": "CLBALBX"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBALightTAG.java",
+      "file_stem": "CLBALightTAG"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBAMicroBomb.java",
+      "file_stem": "CLBAMicroBomb"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBAMortarHeavy.java",
+      "file_stem": "CLBAMortarHeavy"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBAMortarLight.java",
+      "file_stem": "CLBAMortarLight"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBARecoillessRifleHeavy.java",
+      "file_stem": "CLBARecoillessRifleHeavy"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBARecoillessRifleLight.java",
+      "file_stem": "CLBARecoillessRifleLight"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBARecoillessRifleMedium.java",
+      "file_stem": "CLBARecoillessRifleMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/CLBASupportPPC.java",
+      "file_stem": "CLBASupportPPC"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBAERPulseLaserMedium.java",
+      "file_stem": "CLBAERPulseLaserMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBAERPulseLaserSmall.java",
+      "file_stem": "CLBAERPulseLaserSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBALaserERMedium.java",
+      "file_stem": "CLBALaserERMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBALaserERMicro.java",
+      "file_stem": "CLBALaserERMicro"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBALaserERSmall.java",
+      "file_stem": "CLBALaserERSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBALaserHeavyMedium.java",
+      "file_stem": "CLBALaserHeavyMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBALaserHeavySmall.java",
+      "file_stem": "CLBALaserHeavySmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBALaserSmall.java",
+      "file_stem": "CLBALaserSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBAPulseLaserMedium.java",
+      "file_stem": "CLBAPulseLaserMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBAPulseLaserMicro.java",
+      "file_stem": "CLBAPulseLaserMicro"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/laser/CLBAPulseLaserSmall.java",
+      "file_stem": "CLBAPulseLaserSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM1.java",
+      "file_stem": "CLBALRM1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM1OS.java",
+      "file_stem": "CLBALRM1OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM2.java",
+      "file_stem": "CLBALRM2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM2OS.java",
+      "file_stem": "CLBALRM2OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM3.java",
+      "file_stem": "CLBALRM3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM3OS.java",
+      "file_stem": "CLBALRM3OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM4.java",
+      "file_stem": "CLBALRM4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM4OS.java",
+      "file_stem": "CLBALRM4OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM5.java",
+      "file_stem": "CLBALRM5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/lrm/CLBALRM5OS.java",
+      "file_stem": "CLBALRM5OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/mg/CLBAMG.java",
+      "file_stem": "CLBAMG"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/mg/CLBAMGBearhunterSuperheavy.java",
+      "file_stem": "CLBAMGBearhunterSuperheavy"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/mg/CLBAMGBearhunterSuperheavyACi.java",
+      "file_stem": "CLBAMGBearhunterSuperheavyACi"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/mg/CLBAMGHeavy.java",
+      "file_stem": "CLBAMGHeavy"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/mg/CLBAMGLight.java",
+      "file_stem": "CLBAMGLight"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM1.java",
+      "file_stem": "CLBASRM1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM1OS.java",
+      "file_stem": "CLBASRM1OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM2.java",
+      "file_stem": "CLBASRM2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM2OS.java",
+      "file_stem": "CLBASRM2OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM3.java",
+      "file_stem": "CLBASRM3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM3OS.java",
+      "file_stem": "CLBASRM3OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM4.java",
+      "file_stem": "CLBASRM4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM4OS.java",
+      "file_stem": "CLBASRM4OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM5.java",
+      "file_stem": "CLBASRM5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM5OS.java",
+      "file_stem": "CLBASRM5OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM6.java",
+      "file_stem": "CLBASRM6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "battleArmor",
+      "path": "battleArmor/clan/srm/CLBASRM6OS.java",
+      "file_stem": "CLBASRM6OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/barl/ISBARL1.java",
+      "file_stem": "ISBARL1"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/barl/ISBARL2.java",
+      "file_stem": "ISBARL2"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/barl/ISBARL3.java",
+      "file_stem": "ISBARL3"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/barl/ISBARL4.java",
+      "file_stem": "ISBARL4"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/barl/ISBARL5.java",
+      "file_stem": "ISBARL5"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/gaussRifle/ISBAGaussRifleDavidLight.java",
+      "file_stem": "ISBAGaussRifleDavidLight"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/gaussRifle/ISBAGaussRifleGrandMauler.java",
+      "file_stem": "ISBAGaussRifleGrandMauler"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/gaussRifle/ISBAGaussRifleKingDavidLight.java",
+      "file_stem": "ISBAGaussRifleKingDavidLight"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/gaussRifle/ISBAGaussRifleMagshot.java",
+      "file_stem": "ISBAGaussRifleMagshot"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/gaussRifle/ISBAGaussRifleTsunami.java",
+      "file_stem": "ISBAGaussRifleTsunami"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBAAPDS.java",
+      "file_stem": "ISBAAPDS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBACompactNarc.java",
+      "file_stem": "ISBACompactNarc"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBAFiredrakeNeedler.java",
+      "file_stem": "ISBAFiredrakeNeedler"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBAGrenadeLauncherMicro.java",
+      "file_stem": "ISBAGrenadeLauncherMicro"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBAMGHeavy.java",
+      "file_stem": "ISBAMGHeavy"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBAPlasmaRifle.java",
+      "file_stem": "ISBAPlasmaRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBAPopUpMineLauncher.java",
+      "file_stem": "ISBAPopUpMineLauncher"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBASupportPPC.java",
+      "file_stem": "ISBASupportPPC"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBATaser.java",
+      "file_stem": "ISBATaser"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/ISBATubeArtillery.java",
+      "file_stem": "ISBATubeArtillery"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/laser/ISBALaserERMedium.java",
+      "file_stem": "ISBALaserERMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/laser/ISBALaserERSmall.java",
+      "file_stem": "ISBALaserERSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/laser/ISBALaserMedium.java",
+      "file_stem": "ISBALaserMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/laser/ISBALaserPulseMedium.java",
+      "file_stem": "ISBALaserPulseMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/laser/ISBALaserPulseSmall.java",
+      "file_stem": "ISBALaserPulseSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/laser/ISBALaserSmall.java",
+      "file_stem": "ISBALaserSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/laser/ISBALaserVSPMedium.java",
+      "file_stem": "ISBALaserVSPMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/laser/ISBALaserVSPSmall.java",
+      "file_stem": "ISBALaserVSPSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM1.java",
+      "file_stem": "ISBALRM1"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM1OS.java",
+      "file_stem": "ISBALRM1OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM2.java",
+      "file_stem": "ISBALRM2"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM2OS.java",
+      "file_stem": "ISBALRM2OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM3.java",
+      "file_stem": "ISBALRM3"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM3OS.java",
+      "file_stem": "ISBALRM3OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM4.java",
+      "file_stem": "ISBALRM4"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM4OS.java",
+      "file_stem": "ISBALRM4OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM5.java",
+      "file_stem": "ISBALRM5"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/lrm/ISBALRM5OS.java",
+      "file_stem": "ISBALRM5OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM1.java",
+      "file_stem": "ISBAMRM1"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM1OS.java",
+      "file_stem": "ISBAMRM1OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM2.java",
+      "file_stem": "ISBAMRM2"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM2OS.java",
+      "file_stem": "ISBAMRM2OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM3.java",
+      "file_stem": "ISBAMRM3"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM3OS.java",
+      "file_stem": "ISBAMRM3OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM4.java",
+      "file_stem": "ISBAMRM4"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM4OS.java",
+      "file_stem": "ISBAMRM4OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM5.java",
+      "file_stem": "ISBAMRM5"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/mrm/ISBAMRM5OS.java",
+      "file_stem": "ISBAMRM5OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM1.java",
+      "file_stem": "ISBASRM1"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM1OS.java",
+      "file_stem": "ISBASRM1OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM2.java",
+      "file_stem": "ISBASRM2"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM2OS.java",
+      "file_stem": "ISBASRM2OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM3.java",
+      "file_stem": "ISBASRM3"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM3OS.java",
+      "file_stem": "ISBASRM3OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM4.java",
+      "file_stem": "ISBASRM4"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM4OS.java",
+      "file_stem": "ISBASRM4OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM5.java",
+      "file_stem": "ISBASRM5"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM5OS.java",
+      "file_stem": "ISBASRM5OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM6.java",
+      "file_stem": "ISBASRM6"
+    },
+    {
+      "tech_base": "is",
+      "family": "battleArmor",
+      "path": "battleArmor/innerSphere/srm/ISBASRM6OS.java",
+      "file_stem": "ISBASRM6OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "bombs",
+      "path": "bombs/clan/CLAAAMissileWeapon.java",
+      "file_stem": "CLAAAMissileWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "bombs",
+      "path": "bombs/clan/CLASEWMissileWeapon.java",
+      "file_stem": "CLASEWMissileWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "bombs",
+      "path": "bombs/clan/CLASMissileWeapon.java",
+      "file_stem": "CLASMissileWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "bombs",
+      "path": "bombs/clan/CLLAAMissileWeapon.java",
+      "file_stem": "CLLAAMissileWeapon"
+    },
+    {
+      "tech_base": "is",
+      "family": "bombs",
+      "path": "bombs/innerSphere/ISAAAMissileWeapon.java",
+      "file_stem": "ISAAAMissileWeapon"
+    },
+    {
+      "tech_base": "is",
+      "family": "bombs",
+      "path": "bombs/innerSphere/ISASEWMissileWeapon.java",
+      "file_stem": "ISASEWMissileWeapon"
+    },
+    {
+      "tech_base": "is",
+      "family": "bombs",
+      "path": "bombs/innerSphere/ISASMissileWeapon.java",
+      "file_stem": "ISASMissileWeapon"
+    },
+    {
+      "tech_base": "is",
+      "family": "bombs",
+      "path": "bombs/innerSphere/ISBombTAG.java",
+      "file_stem": "ISBombTAG"
+    },
+    {
+      "tech_base": "is",
+      "family": "bombs",
+      "path": "bombs/innerSphere/ISLAAMissileWeapon.java",
+      "file_stem": "ISLAAMissileWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "flamers",
+      "path": "flamers/clan/CLERFlamer.java",
+      "file_stem": "CLERFlamer"
+    },
+    {
+      "tech_base": "clan",
+      "family": "flamers",
+      "path": "flamers/clan/CLFlamer.java",
+      "file_stem": "CLFlamer"
+    },
+    {
+      "tech_base": "clan",
+      "family": "flamers",
+      "path": "flamers/clan/CLHeavyFlamer.java",
+      "file_stem": "CLHeavyFlamer"
+    },
+    {
+      "tech_base": "is",
+      "family": "flamers",
+      "path": "flamers/innerSphere/ISERFlamer.java",
+      "file_stem": "ISERFlamer"
+    },
+    {
+      "tech_base": "is",
+      "family": "flamers",
+      "path": "flamers/innerSphere/ISFlamer.java",
+      "file_stem": "ISFlamer"
+    },
+    {
+      "tech_base": "is",
+      "family": "flamers",
+      "path": "flamers/innerSphere/ISHeavyFlamer.java",
+      "file_stem": "ISHeavyFlamer"
+    },
+    {
+      "tech_base": "is",
+      "family": "flamers",
+      "path": "flamers/innerSphere/ISVehicleFlamer.java",
+      "file_stem": "ISVehicleFlamer"
+    },
+    {
+      "tech_base": "clan",
+      "family": "gaussRifles",
+      "path": "gaussRifles/clan/CLAPGaussRifle.java",
+      "file_stem": "CLAPGaussRifle"
+    },
+    {
+      "tech_base": "clan",
+      "family": "gaussRifles",
+      "path": "gaussRifles/clan/CLGaussRifle.java",
+      "file_stem": "CLGaussRifle"
+    },
+    {
+      "tech_base": "clan",
+      "family": "gaussRifles",
+      "path": "gaussRifles/clan/CLHAG20.java",
+      "file_stem": "CLHAG20"
+    },
+    {
+      "tech_base": "clan",
+      "family": "gaussRifles",
+      "path": "gaussRifles/clan/CLHAG30.java",
+      "file_stem": "CLHAG30"
+    },
+    {
+      "tech_base": "clan",
+      "family": "gaussRifles",
+      "path": "gaussRifles/clan/CLHAG40.java",
+      "file_stem": "CLHAG40"
+    },
+    {
+      "tech_base": "clan",
+      "family": "gaussRifles",
+      "path": "gaussRifles/clan/CLImprovedGaussRifle.java",
+      "file_stem": "CLImprovedGaussRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "gaussRifles",
+      "path": "gaussRifles/innerSphere/ISGaussRifle.java",
+      "file_stem": "ISGaussRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "gaussRifles",
+      "path": "gaussRifles/innerSphere/ISHGaussRifle.java",
+      "file_stem": "ISHGaussRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "gaussRifles",
+      "path": "gaussRifles/innerSphere/ISImpHGaussRifle.java",
+      "file_stem": "ISImpHGaussRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "gaussRifles",
+      "path": "gaussRifles/innerSphere/ISLGaussRifle.java",
+      "file_stem": "ISLGaussRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "gaussRifles",
+      "path": "gaussRifles/innerSphere/ISMagshotGaussRifle.java",
+      "file_stem": "ISMagshotGaussRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "gaussRifles",
+      "path": "gaussRifles/innerSphere/ISSilverBulletGauss.java",
+      "file_stem": "ISSilverBulletGauss"
+    },
+    {
+      "tech_base": "clan",
+      "family": "infantry/support",
+      "path": "infantry/support/clan/InfantrySupportClanBearhunterAutocannonWeapon.java",
+      "file_stem": "InfantrySupportClanBearhunterAutocannonWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "infantry/support",
+      "path": "infantry/support/clan/InfantrySupportClanERHeavyLaserWeapon.java",
+      "file_stem": "InfantrySupportClanERHeavyLaserWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "infantry/support",
+      "path": "infantry/support/clan/InfantrySupportClanERLaserWeapon.java",
+      "file_stem": "InfantrySupportClanERLaserWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "infantry/support",
+      "path": "infantry/support/clan/InfantrySupportClanSemiPortableERLaserWeapon.java",
+      "file_stem": "InfantrySupportClanSemiPortableERLaserWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "infantry/support",
+      "path": "infantry/support/clan/InfantrySupportClanSemiPortableHeavyLaserWeapon.java",
+      "file_stem": "InfantrySupportClanSemiPortableHeavyLaserWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "infantry/support",
+      "path": "infantry/support/clan/InfantrySupportClanSemiPortablePulseLaserWeapon.java",
+      "file_stem": "InfantrySupportClanSemiPortablePulseLaserWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/CLChemicalLaserWeapon.java",
+      "file_stem": "CLChemicalLaserWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/CLERLaserMicro.java",
+      "file_stem": "CLERLaserMicro"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/CLPulseLaserMicro.java",
+      "file_stem": "CLPulseLaserMicro"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/large/CLChemicalLaserLarge.java",
+      "file_stem": "CLChemicalLaserLarge"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/large/CLERLaserLarge.java",
+      "file_stem": "CLERLaserLarge"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/large/CLERPulseLaserLarge.java",
+      "file_stem": "CLERPulseLaserLarge"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/large/CLHeavyLaserLarge.java",
+      "file_stem": "CLHeavyLaserLarge"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/large/CLImprovedHeavyLaserLarge.java",
+      "file_stem": "CLImprovedHeavyLaserLarge"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/large/CLImprovedLaserLarge.java",
+      "file_stem": "CLImprovedLaserLarge"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/large/CLImprovedPulseLaserLarge.java",
+      "file_stem": "CLImprovedPulseLaserLarge"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/large/CLPulseLaserLarge.java",
+      "file_stem": "CLPulseLaserLarge"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/medium/CLChemicalLaserMedium.java",
+      "file_stem": "CLChemicalLaserMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/medium/CLERLaserMedium.java",
+      "file_stem": "CLERLaserMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/medium/CLERPulseLaserMedium.java",
+      "file_stem": "CLERPulseLaserMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/medium/CLHeavyLaserMedium.java",
+      "file_stem": "CLHeavyLaserMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/medium/CLImprovedHeavyLaserMedium.java",
+      "file_stem": "CLImprovedHeavyLaserMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/medium/CLPulseLaserMedium.java",
+      "file_stem": "CLPulseLaserMedium"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/small/CLChemicalLaserSmall.java",
+      "file_stem": "CLChemicalLaserSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/small/CLERLaserSmall.java",
+      "file_stem": "CLERLaserSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/small/CLERPulseLaserSmall.java",
+      "file_stem": "CLERPulseLaserSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/small/CLHeavyLaserSmall.java",
+      "file_stem": "CLHeavyLaserSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/small/CLImprovedHeavyLaserSmall.java",
+      "file_stem": "CLImprovedHeavyLaserSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lasers",
+      "path": "lasers/clan/small/CLPulseLaserSmall.java",
+      "file_stem": "CLPulseLaserSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/ISBinaryLaserCannon.java",
+      "file_stem": "ISBinaryLaserCannon"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/ISBombastLaser.java",
+      "file_stem": "ISBombastLaser"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/ISLBinaryLaserCannon.java",
+      "file_stem": "ISLBinaryLaserCannon"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/ISRISCHyperLaser.java",
+      "file_stem": "ISRISCHyperLaser"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/large/ISERLaserLarge.java",
+      "file_stem": "ISERLaserLarge"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/large/ISLaserLarge.java",
+      "file_stem": "ISLaserLarge"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/large/ISPulseLaserLarge.java",
+      "file_stem": "ISPulseLaserLarge"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/large/ISReengineeredLaserLarge.java",
+      "file_stem": "ISReengineeredLaserLarge"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/large/ISVariableSpeedPulseLaserLarge.java",
+      "file_stem": "ISVariableSpeedPulseLaserLarge"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/large/ISXPulseLaserLarge.java",
+      "file_stem": "ISXPulseLaserLarge"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/medium/ISERLaserMedium.java",
+      "file_stem": "ISERLaserMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/medium/ISLaserMedium.java",
+      "file_stem": "ISLaserMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/medium/ISPulseLaserMedium.java",
+      "file_stem": "ISPulseLaserMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/medium/ISReengineeredLaserMedium.java",
+      "file_stem": "ISReengineeredLaserMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/medium/ISVariableSpeedPulseLaserMedium.java",
+      "file_stem": "ISVariableSpeedPulseLaserMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/medium/ISXPulseLaserMedium.java",
+      "file_stem": "ISXPulseLaserMedium"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/small/ISERLaserSmall.java",
+      "file_stem": "ISERLaserSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/small/ISLaserSmall.java",
+      "file_stem": "ISLaserSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/small/ISPulseLaserSmall.java",
+      "file_stem": "ISPulseLaserSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/small/ISReengineeredLaserSmall.java",
+      "file_stem": "ISReengineeredLaserSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/small/ISVariableSpeedPulseLaserSmall.java",
+      "file_stem": "ISVariableSpeedPulseLaserSmall"
+    },
+    {
+      "tech_base": "is",
+      "family": "lasers",
+      "path": "lasers/innerSphere/small/ISXPulseLaserSmall.java",
+      "file_stem": "ISXPulseLaserSmall"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM1.java",
+      "file_stem": "CLLRM1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM10.java",
+      "file_stem": "CLLRM10"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM11.java",
+      "file_stem": "CLLRM11"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM12.java",
+      "file_stem": "CLLRM12"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM13.java",
+      "file_stem": "CLLRM13"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM14.java",
+      "file_stem": "CLLRM14"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM15.java",
+      "file_stem": "CLLRM15"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM16.java",
+      "file_stem": "CLLRM16"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM17.java",
+      "file_stem": "CLLRM17"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM18.java",
+      "file_stem": "CLLRM18"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM19.java",
+      "file_stem": "CLLRM19"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM2.java",
+      "file_stem": "CLLRM2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM20.java",
+      "file_stem": "CLLRM20"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM3.java",
+      "file_stem": "CLLRM3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM4.java",
+      "file_stem": "CLLRM4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM5.java",
+      "file_stem": "CLLRM5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM6.java",
+      "file_stem": "CLLRM6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM7.java",
+      "file_stem": "CLLRM7"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM8.java",
+      "file_stem": "CLLRM8"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/CLLRM9.java",
+      "file_stem": "CLLRM9"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/improvedLRM/CLImprovedLRM10.java",
+      "file_stem": "CLImprovedLRM10"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/improvedLRM/CLImprovedLRM15.java",
+      "file_stem": "CLImprovedLRM15"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/improvedLRM/CLImprovedLRM20.java",
+      "file_stem": "CLImprovedLRM20"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/improvedLRM/CLImprovedLRM5.java",
+      "file_stem": "CLImprovedLRM5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM10IOS.java",
+      "file_stem": "CLLRM10IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM10OS.java",
+      "file_stem": "CLLRM10OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM15IOS.java",
+      "file_stem": "CLLRM15IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM15OS.java",
+      "file_stem": "CLLRM15OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM1OS.java",
+      "file_stem": "CLLRM1OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM20IOS.java",
+      "file_stem": "CLLRM20IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM20OS.java",
+      "file_stem": "CLLRM20OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM2OS.java",
+      "file_stem": "CLLRM2OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM3OS.java",
+      "file_stem": "CLLRM3OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM4OS.java",
+      "file_stem": "CLLRM4OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM5IOS.java",
+      "file_stem": "CLLRM5IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/oneShot/CLLRM5OS.java",
+      "file_stem": "CLLRM5OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM1.java",
+      "file_stem": "CLStreakLRM1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM10.java",
+      "file_stem": "CLStreakLRM10"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM11.java",
+      "file_stem": "CLStreakLRM11"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM12.java",
+      "file_stem": "CLStreakLRM12"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM13.java",
+      "file_stem": "CLStreakLRM13"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM14.java",
+      "file_stem": "CLStreakLRM14"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM15.java",
+      "file_stem": "CLStreakLRM15"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM16.java",
+      "file_stem": "CLStreakLRM16"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM17.java",
+      "file_stem": "CLStreakLRM17"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM18.java",
+      "file_stem": "CLStreakLRM18"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM19.java",
+      "file_stem": "CLStreakLRM19"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM2.java",
+      "file_stem": "CLStreakLRM2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM20.java",
+      "file_stem": "CLStreakLRM20"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM3.java",
+      "file_stem": "CLStreakLRM3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM4.java",
+      "file_stem": "CLStreakLRM4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM5.java",
+      "file_stem": "CLStreakLRM5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM6.java",
+      "file_stem": "CLStreakLRM6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM7.java",
+      "file_stem": "CLStreakLRM7"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM8.java",
+      "file_stem": "CLStreakLRM8"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/CLStreakLRM9.java",
+      "file_stem": "CLStreakLRM9"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM10IOS.java",
+      "file_stem": "CLStreakLRM10IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM10OS.java",
+      "file_stem": "CLStreakLRM10OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM11OS.java",
+      "file_stem": "CLStreakLRM11OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM12OS.java",
+      "file_stem": "CLStreakLRM12OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM13OS.java",
+      "file_stem": "CLStreakLRM13OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM14OS.java",
+      "file_stem": "CLStreakLRM14OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM15IOS.java",
+      "file_stem": "CLStreakLRM15IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM15OS.java",
+      "file_stem": "CLStreakLRM15OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM16OS.java",
+      "file_stem": "CLStreakLRM16OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM17OS.java",
+      "file_stem": "CLStreakLRM17OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM18OS.java",
+      "file_stem": "CLStreakLRM18OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM19OS.java",
+      "file_stem": "CLStreakLRM19OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM1OS.java",
+      "file_stem": "CLStreakLRM1OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM20IOS.java",
+      "file_stem": "CLStreakLRM20IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM20OS.java",
+      "file_stem": "CLStreakLRM20OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM2OS.java",
+      "file_stem": "CLStreakLRM2OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM3OS.java",
+      "file_stem": "CLStreakLRM3OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM4OS.java",
+      "file_stem": "CLStreakLRM4OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM5IOS.java",
+      "file_stem": "CLStreakLRM5IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM5OS.java",
+      "file_stem": "CLStreakLRM5OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM6OS.java",
+      "file_stem": "CLStreakLRM6OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM7OS.java",
+      "file_stem": "CLStreakLRM7OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM8OS.java",
+      "file_stem": "CLStreakLRM8OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/streak/oneShot/CLStreakLRM9OS.java",
+      "file_stem": "CLStreakLRM9OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT1.java",
+      "file_stem": "CLLRT1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT10.java",
+      "file_stem": "CLLRT10"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT11.java",
+      "file_stem": "CLLRT11"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT12.java",
+      "file_stem": "CLLRT12"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT13.java",
+      "file_stem": "CLLRT13"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT14.java",
+      "file_stem": "CLLRT14"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT15.java",
+      "file_stem": "CLLRT15"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT16.java",
+      "file_stem": "CLLRT16"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT17.java",
+      "file_stem": "CLLRT17"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT18.java",
+      "file_stem": "CLLRT18"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT19.java",
+      "file_stem": "CLLRT19"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT2.java",
+      "file_stem": "CLLRT2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT20.java",
+      "file_stem": "CLLRT20"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT3.java",
+      "file_stem": "CLLRT3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT4.java",
+      "file_stem": "CLLRT4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT5.java",
+      "file_stem": "CLLRT5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT6.java",
+      "file_stem": "CLLRT6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT7.java",
+      "file_stem": "CLLRT7"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT8.java",
+      "file_stem": "CLLRT8"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/CLLRT9.java",
+      "file_stem": "CLLRT9"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/oneShot/CLLRT10IOS.java",
+      "file_stem": "CLLRT10IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/oneShot/CLLRT10OS.java",
+      "file_stem": "CLLRT10OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/oneShot/CLLRT15IOS.java",
+      "file_stem": "CLLRT15IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/oneShot/CLLRT15OS.java",
+      "file_stem": "CLLRT15OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/oneShot/CLLRT20IOS.java",
+      "file_stem": "CLLRT20IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/oneShot/CLLRT20OS.java",
+      "file_stem": "CLLRT20OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/oneShot/CLLRT5IOS.java",
+      "file_stem": "CLLRT5IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "lrms",
+      "path": "lrms/clan/torpedo/oneShot/CLLRT5OS.java",
+      "file_stem": "CLLRT5OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/enhancedLRM/ISEnhancedLRM10.java",
+      "file_stem": "ISEnhancedLRM10"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/enhancedLRM/ISEnhancedLRM15.java",
+      "file_stem": "ISEnhancedLRM15"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/enhancedLRM/ISEnhancedLRM20.java",
+      "file_stem": "ISEnhancedLRM20"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/enhancedLRM/ISEnhancedLRM5.java",
+      "file_stem": "ISEnhancedLRM5"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/enhancedLRM/ISExtendedLRM10.java",
+      "file_stem": "ISExtendedLRM10"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/enhancedLRM/ISExtendedLRM15.java",
+      "file_stem": "ISExtendedLRM15"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/enhancedLRM/ISExtendedLRM20.java",
+      "file_stem": "ISExtendedLRM20"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/enhancedLRM/ISExtendedLRM5.java",
+      "file_stem": "ISExtendedLRM5"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/ISLRM10.java",
+      "file_stem": "ISLRM10"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/ISLRM15.java",
+      "file_stem": "ISLRM15"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/ISLRM20.java",
+      "file_stem": "ISLRM20"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/ISLRM5.java",
+      "file_stem": "ISLRM5"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/oneShot/ISLRM10IOS.java",
+      "file_stem": "ISLRM10IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/oneShot/ISLRM10OS.java",
+      "file_stem": "ISLRM10OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/oneShot/ISLRM15IOS.java",
+      "file_stem": "ISLRM15IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/oneShot/ISLRM15OS.java",
+      "file_stem": "ISLRM15OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/oneShot/ISLRM20IOS.java",
+      "file_stem": "ISLRM20IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/oneShot/ISLRM20OS.java",
+      "file_stem": "ISLRM20OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/oneShot/ISLRM5IOS.java",
+      "file_stem": "ISLRM5IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/oneShot/ISLRM5OS.java",
+      "file_stem": "ISLRM5OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/ISEnhancedLRT10.java",
+      "file_stem": "ISEnhancedLRT10"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/ISEnhancedLRT15.java",
+      "file_stem": "ISEnhancedLRT15"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/ISEnhancedLRT20.java",
+      "file_stem": "ISEnhancedLRT20"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/ISEnhancedLRT5.java",
+      "file_stem": "ISEnhancedLRT5"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/ISLRT10.java",
+      "file_stem": "ISLRT10"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/ISLRT15.java",
+      "file_stem": "ISLRT15"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/ISLRT20.java",
+      "file_stem": "ISLRT20"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/ISLRT5.java",
+      "file_stem": "ISLRT5"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/oneShot/ISLRT10IOS.java",
+      "file_stem": "ISLRT10IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/oneShot/ISLRT10OS.java",
+      "file_stem": "ISLRT10OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/oneShot/ISLRT15IOS.java",
+      "file_stem": "ISLRT15IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/oneShot/ISLRT15OS.java",
+      "file_stem": "ISLRT15OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/oneShot/ISLRT20IOS.java",
+      "file_stem": "ISLRT20IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/oneShot/ISLRT20OS.java",
+      "file_stem": "ISLRT20OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/oneShot/ISLRT5IOS.java",
+      "file_stem": "ISLRT5IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "lrms",
+      "path": "lrms/innerSphere/torpedo/oneShot/ISLRT5OS.java",
+      "file_stem": "ISLRT5OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mgs",
+      "path": "mgs/clan/CLHeavyMG.java",
+      "file_stem": "CLHeavyMG"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mgs",
+      "path": "mgs/clan/CLHeavyMGA.java",
+      "file_stem": "CLHeavyMGA"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mgs",
+      "path": "mgs/clan/CLLightMG.java",
+      "file_stem": "CLLightMG"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mgs",
+      "path": "mgs/clan/CLLightMGA.java",
+      "file_stem": "CLLightMGA"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mgs",
+      "path": "mgs/clan/CLMG.java",
+      "file_stem": "CLMG"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mgs",
+      "path": "mgs/clan/CLMGA.java",
+      "file_stem": "CLMGA"
+    },
+    {
+      "tech_base": "is",
+      "family": "mgs",
+      "path": "mgs/innerSphere/ISHeavyMG.java",
+      "file_stem": "ISHeavyMG"
+    },
+    {
+      "tech_base": "is",
+      "family": "mgs",
+      "path": "mgs/innerSphere/ISHeavyMGA.java",
+      "file_stem": "ISHeavyMGA"
+    },
+    {
+      "tech_base": "is",
+      "family": "mgs",
+      "path": "mgs/innerSphere/ISLightMG.java",
+      "file_stem": "ISLightMG"
+    },
+    {
+      "tech_base": "is",
+      "family": "mgs",
+      "path": "mgs/innerSphere/ISLightMGA.java",
+      "file_stem": "ISLightMGA"
+    },
+    {
+      "tech_base": "is",
+      "family": "mgs",
+      "path": "mgs/innerSphere/ISMG.java",
+      "file_stem": "ISMG"
+    },
+    {
+      "tech_base": "is",
+      "family": "mgs",
+      "path": "mgs/innerSphere/ISMGA.java",
+      "file_stem": "ISMGA"
+    },
+    {
+      "tech_base": "clan",
+      "family": "missiles",
+      "path": "missiles/clan/CLATM12.java",
+      "file_stem": "CLATM12"
+    },
+    {
+      "tech_base": "clan",
+      "family": "missiles",
+      "path": "missiles/clan/CLATM3.java",
+      "file_stem": "CLATM3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "missiles",
+      "path": "missiles/clan/CLATM6.java",
+      "file_stem": "CLATM6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "missiles",
+      "path": "missiles/clan/CLATM9.java",
+      "file_stem": "CLATM9"
+    },
+    {
+      "tech_base": "clan",
+      "family": "missiles",
+      "path": "missiles/clan/CLIATM12.java",
+      "file_stem": "CLIATM12"
+    },
+    {
+      "tech_base": "clan",
+      "family": "missiles",
+      "path": "missiles/clan/CLIATM3.java",
+      "file_stem": "CLIATM3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "missiles",
+      "path": "missiles/clan/CLIATM6.java",
+      "file_stem": "CLIATM6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "missiles",
+      "path": "missiles/clan/CLIATM9.java",
+      "file_stem": "CLIATM9"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mml/ISMML3.java",
+      "file_stem": "ISMML3"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mml/ISMML5.java",
+      "file_stem": "ISMML5"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mml/ISMML7.java",
+      "file_stem": "ISMML7"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mml/ISMML9.java",
+      "file_stem": "ISMML9"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/ISMRM10.java",
+      "file_stem": "ISMRM10"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/ISMRM20.java",
+      "file_stem": "ISMRM20"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/ISMRM30.java",
+      "file_stem": "ISMRM30"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/ISMRM40.java",
+      "file_stem": "ISMRM40"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/oneShot/ISMRM10IOS.java",
+      "file_stem": "ISMRM10IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/oneShot/ISMRM10OS.java",
+      "file_stem": "ISMRM10OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/oneShot/ISMRM20IOS.java",
+      "file_stem": "ISMRM20IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/oneShot/ISMRM20OS.java",
+      "file_stem": "ISMRM20OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/oneShot/ISMRM30IOS.java",
+      "file_stem": "ISMRM30IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/oneShot/ISMRM30OS.java",
+      "file_stem": "ISMRM30OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/oneShot/ISMRM40IOS.java",
+      "file_stem": "ISMRM40IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/mrm/oneShot/ISMRM40OS.java",
+      "file_stem": "ISMRM40OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/rocketLauncher/ISRL1.java",
+      "file_stem": "ISRL1"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/rocketLauncher/ISRL2.java",
+      "file_stem": "ISRL2"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/rocketLauncher/ISRL3.java",
+      "file_stem": "ISRL3"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/rocketLauncher/ISRL4.java",
+      "file_stem": "ISRL4"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/rocketLauncher/ISRL5.java",
+      "file_stem": "ISRL5"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/ISThunderbolt10.java",
+      "file_stem": "ISThunderbolt10"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/ISThunderbolt15.java",
+      "file_stem": "ISThunderbolt15"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/ISThunderbolt20.java",
+      "file_stem": "ISThunderbolt20"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/ISThunderbolt5.java",
+      "file_stem": "ISThunderbolt5"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/oneShot/ISThunderbolt10IOS.java",
+      "file_stem": "ISThunderbolt10IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/oneShot/ISThunderbolt10OS.java",
+      "file_stem": "ISThunderbolt10OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/oneShot/ISThunderbolt15IOS.java",
+      "file_stem": "ISThunderbolt15IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/oneShot/ISThunderbolt15OS.java",
+      "file_stem": "ISThunderbolt15OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/oneShot/ISThunderbolt20IOS.java",
+      "file_stem": "ISThunderbolt20IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/oneShot/ISThunderbolt20OS.java",
+      "file_stem": "ISThunderbolt20OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/oneShot/ISThunderbolt5IOS.java",
+      "file_stem": "ISThunderbolt5IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "missiles",
+      "path": "missiles/innerSphere/thunderbolt/oneShot/ISThunderbolt5OS.java",
+      "file_stem": "ISThunderbolt5OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mortars",
+      "path": "mortars/clan/CLMekMortar1.java",
+      "file_stem": "CLMekMortar1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mortars",
+      "path": "mortars/clan/CLMekMortar2.java",
+      "file_stem": "CLMekMortar2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mortars",
+      "path": "mortars/clan/CLMekMortar4.java",
+      "file_stem": "CLMekMortar4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "mortars",
+      "path": "mortars/clan/CLMekMortar8.java",
+      "file_stem": "CLMekMortar8"
+    },
+    {
+      "tech_base": "is",
+      "family": "mortars",
+      "path": "mortars/innerSphere/ISMekMortar1.java",
+      "file_stem": "ISMekMortar1"
+    },
+    {
+      "tech_base": "is",
+      "family": "mortars",
+      "path": "mortars/innerSphere/ISMekMortar2.java",
+      "file_stem": "ISMekMortar2"
+    },
+    {
+      "tech_base": "is",
+      "family": "mortars",
+      "path": "mortars/innerSphere/ISMekMortar4.java",
+      "file_stem": "ISMekMortar4"
+    },
+    {
+      "tech_base": "is",
+      "family": "mortars",
+      "path": "mortars/innerSphere/ISMekMortar8.java",
+      "file_stem": "ISMekMortar8"
+    },
+    {
+      "tech_base": "is",
+      "family": "mortars",
+      "path": "mortars/innerSphere/ISVehicularGrenadeLauncher.java",
+      "file_stem": "ISVehicularGrenadeLauncher"
+    },
+    {
+      "tech_base": "clan",
+      "family": "other",
+      "path": "other/clan/CLAMS.java",
+      "file_stem": "CLAMS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "other",
+      "path": "other/clan/CLFluidGun.java",
+      "file_stem": "CLFluidGun"
+    },
+    {
+      "tech_base": "clan",
+      "family": "other",
+      "path": "other/clan/CLFussilade.java",
+      "file_stem": "CLFussilade"
+    },
+    {
+      "tech_base": "clan",
+      "family": "other",
+      "path": "other/clan/CLLaserAMS.java",
+      "file_stem": "CLLaserAMS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "other",
+      "path": "other/clan/CLNarc.java",
+      "file_stem": "CLNarc"
+    },
+    {
+      "tech_base": "clan",
+      "family": "other",
+      "path": "other/clan/CLNarcIOS.java",
+      "file_stem": "CLNarcIOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "other",
+      "path": "other/clan/CLNarcOS.java",
+      "file_stem": "CLNarcOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISAMS.java",
+      "file_stem": "ISAMS"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISAPDS.java",
+      "file_stem": "ISAPDS"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISCenturionWeaponSystem.java",
+      "file_stem": "ISCenturionWeaponSystem"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISFireExtinguisher.java",
+      "file_stem": "ISFireExtinguisher"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISFluidGun.java",
+      "file_stem": "ISFluidGun"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISImprovedNarc.java",
+      "file_stem": "ISImprovedNarc"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISImprovedNarcOS.java",
+      "file_stem": "ISImprovedNarcOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISLaserAMS.java",
+      "file_stem": "ISLaserAMS"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISMekTaser.java",
+      "file_stem": "ISMekTaser"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISNarc.java",
+      "file_stem": "ISNarc"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISNarcIOS.java",
+      "file_stem": "ISNarcIOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISNarcOS.java",
+      "file_stem": "ISNarcOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISTSEMPCannon.java",
+      "file_stem": "ISTSEMPCannon"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISTSEMPOneShot.java",
+      "file_stem": "ISTSEMPOneShot"
+    },
+    {
+      "tech_base": "is",
+      "family": "other",
+      "path": "other/innerSphere/ISTSEMPRepeatingCannon.java",
+      "file_stem": "ISTSEMPRepeatingCannon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "ppc",
+      "path": "ppc/clan/CLEnhancedPPC.java",
+      "file_stem": "CLEnhancedPPC"
+    },
+    {
+      "tech_base": "clan",
+      "family": "ppc",
+      "path": "ppc/clan/CLERPPC.java",
+      "file_stem": "CLERPPC"
+    },
+    {
+      "tech_base": "clan",
+      "family": "ppc",
+      "path": "ppc/clan/CLImprovedPPC.java",
+      "file_stem": "CLImprovedPPC"
+    },
+    {
+      "tech_base": "clan",
+      "family": "ppc",
+      "path": "ppc/clan/CLPlasmaCannon.java",
+      "file_stem": "CLPlasmaCannon"
+    },
+    {
+      "tech_base": "is",
+      "family": "ppc",
+      "path": "ppc/innerSphere/ISERPPC.java",
+      "file_stem": "ISERPPC"
+    },
+    {
+      "tech_base": "is",
+      "family": "ppc",
+      "path": "ppc/innerSphere/ISHeavyPlasmaRifle.java",
+      "file_stem": "ISHeavyPlasmaRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "ppc",
+      "path": "ppc/innerSphere/ISHeavyPPC.java",
+      "file_stem": "ISHeavyPPC"
+    },
+    {
+      "tech_base": "is",
+      "family": "ppc",
+      "path": "ppc/innerSphere/ISKinsSlaughterPPC.java",
+      "file_stem": "ISKinsSlaughterPPC"
+    },
+    {
+      "tech_base": "is",
+      "family": "ppc",
+      "path": "ppc/innerSphere/ISLightPlasmaRifle.java",
+      "file_stem": "ISLightPlasmaRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "ppc",
+      "path": "ppc/innerSphere/ISLightPPC.java",
+      "file_stem": "ISLightPPC"
+    },
+    {
+      "tech_base": "is",
+      "family": "ppc",
+      "path": "ppc/innerSphere/ISPlasmaRifle.java",
+      "file_stem": "ISPlasmaRifle"
+    },
+    {
+      "tech_base": "is",
+      "family": "ppc",
+      "path": "ppc/innerSphere/ISPPC.java",
+      "file_stem": "ISPPC"
+    },
+    {
+      "tech_base": "is",
+      "family": "ppc",
+      "path": "ppc/innerSphere/ISSnubNosePPC.java",
+      "file_stem": "ISSnubNosePPC"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLERLaserMediumPrototype.java",
+      "file_stem": "CLERLaserMediumPrototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLERLaserSmallPrototype.java",
+      "file_stem": "CLERLaserSmallPrototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLLB20XACPrototype.java",
+      "file_stem": "CLLB20XACPrototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLLB2XACPrototype.java",
+      "file_stem": "CLLB2XACPrototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLLB5XACPrototype.java",
+      "file_stem": "CLLB5XACPrototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLLBXACPrototypeWeapon.java",
+      "file_stem": "CLLBXACPrototypeWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLPrototypeStreakSRMWeapon.java",
+      "file_stem": "CLPrototypeStreakSRMWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLPrototypeUACWeapon.java",
+      "file_stem": "CLPrototypeUACWeapon"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLStreakSRM4Prototype.java",
+      "file_stem": "CLStreakSRM4Prototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLStreakSRM6Prototype.java",
+      "file_stem": "CLStreakSRM6Prototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLUAC10Prototype.java",
+      "file_stem": "CLUAC10Prototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLUAC20Prototype.java",
+      "file_stem": "CLUAC20Prototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "prototypes",
+      "path": "prototypes/clan/CLUAC2Prototype.java",
+      "file_stem": "CLUAC2Prototype"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISERLaserLargePrototype.java",
+      "file_stem": "ISERLaserLargePrototype"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISGaussRiflePrototype.java",
+      "file_stem": "ISGaussRiflePrototype"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISLB10XACPrototype.java",
+      "file_stem": "ISLB10XACPrototype"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISNarcPrototype.java",
+      "file_stem": "ISNarcPrototype"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISPrototypeTAG.java",
+      "file_stem": "ISPrototypeTAG"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISPulseLaserLargePrototype.java",
+      "file_stem": "ISPulseLaserLargePrototype"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISPulseLaserMediumPrototype.java",
+      "file_stem": "ISPulseLaserMediumPrototype"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISPulseLaserMediumRecovered.java",
+      "file_stem": "ISPulseLaserMediumRecovered"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISPulseLaserSmallPrototype.java",
+      "file_stem": "ISPulseLaserSmallPrototype"
+    },
+    {
+      "tech_base": "is",
+      "family": "prototypes",
+      "path": "prototypes/innerSphere/ISUAC5Prototype.java",
+      "file_stem": "ISUAC5Prototype"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/CLSRM1.java",
+      "file_stem": "CLSRM1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/CLSRM2.java",
+      "file_stem": "CLSRM2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/CLSRM3.java",
+      "file_stem": "CLSRM3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/CLSRM4.java",
+      "file_stem": "CLSRM4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/CLSRM5.java",
+      "file_stem": "CLSRM5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/CLSRM6.java",
+      "file_stem": "CLSRM6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/improvedSRM/CLImprovedSRM2.java",
+      "file_stem": "CLImprovedSRM2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/improvedSRM/CLImprovedSRM4.java",
+      "file_stem": "CLImprovedSRM4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/improvedSRM/CLImprovedSRM6.java",
+      "file_stem": "CLImprovedSRM6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/oneShot/CLSRM1OS.java",
+      "file_stem": "CLSRM1OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/oneShot/CLSRM2IOS.java",
+      "file_stem": "CLSRM2IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/oneShot/CLSRM2OS.java",
+      "file_stem": "CLSRM2OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/oneShot/CLSRM3OS.java",
+      "file_stem": "CLSRM3OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/oneShot/CLSRM4IOS.java",
+      "file_stem": "CLSRM4IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/oneShot/CLSRM4OS.java",
+      "file_stem": "CLSRM4OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/oneShot/CLSRM5OS.java",
+      "file_stem": "CLSRM5OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/oneShot/CLSRM6IOS.java",
+      "file_stem": "CLSRM6IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/oneShot/CLSRM6OS.java",
+      "file_stem": "CLSRM6OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/CLStreakSRM1.java",
+      "file_stem": "CLStreakSRM1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/CLStreakSRM2.java",
+      "file_stem": "CLStreakSRM2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/CLStreakSRM3.java",
+      "file_stem": "CLStreakSRM3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/CLStreakSRM4.java",
+      "file_stem": "CLStreakSRM4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/CLStreakSRM5.java",
+      "file_stem": "CLStreakSRM5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/CLStreakSRM6.java",
+      "file_stem": "CLStreakSRM6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/oneShot/CLStreakSRM2IOS.java",
+      "file_stem": "CLStreakSRM2IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/oneShot/CLStreakSRM2OS.java",
+      "file_stem": "CLStreakSRM2OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/oneShot/CLStreakSRM4IOS.java",
+      "file_stem": "CLStreakSRM4IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/oneShot/CLStreakSRM4OS.java",
+      "file_stem": "CLStreakSRM4OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/oneShot/CLStreakSRM6IOS.java",
+      "file_stem": "CLStreakSRM6IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/streak/oneShot/CLStreakSRM6OS.java",
+      "file_stem": "CLStreakSRM6OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/CLSRT1.java",
+      "file_stem": "CLSRT1"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/CLSRT2.java",
+      "file_stem": "CLSRT2"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/CLSRT3.java",
+      "file_stem": "CLSRT3"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/CLSRT4.java",
+      "file_stem": "CLSRT4"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/CLSRT5.java",
+      "file_stem": "CLSRT5"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/CLSRT6.java",
+      "file_stem": "CLSRT6"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/oneShot/CLSRT1OS.java",
+      "file_stem": "CLSRT1OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/oneShot/CLSRT2IOS.java",
+      "file_stem": "CLSRT2IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/oneShot/CLSRT2OS.java",
+      "file_stem": "CLSRT2OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/oneShot/CLSRT3OS.java",
+      "file_stem": "CLSRT3OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/oneShot/CLSRT4IOS.java",
+      "file_stem": "CLSRT4IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/oneShot/CLSRT4OS.java",
+      "file_stem": "CLSRT4OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/oneShot/CLSRT5OS.java",
+      "file_stem": "CLSRT5OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/oneShot/CLSRT6IOS.java",
+      "file_stem": "CLSRT6IOS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "srms",
+      "path": "srms/clan/torpedo/oneShot/CLSRT6OS.java",
+      "file_stem": "CLSRT6OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/ISSRM2.java",
+      "file_stem": "ISSRM2"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/ISSRM4.java",
+      "file_stem": "ISSRM4"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/ISSRM6.java",
+      "file_stem": "ISSRM6"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/oneShot/ISSRM2IOS.java",
+      "file_stem": "ISSRM2IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/oneShot/ISSRM2OS.java",
+      "file_stem": "ISSRM2OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/oneShot/ISSRM4IOS.java",
+      "file_stem": "ISSRM4IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/oneShot/ISSRM4OS.java",
+      "file_stem": "ISSRM4OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/oneShot/ISSRM6IOS.java",
+      "file_stem": "ISSRM6IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/oneShot/ISSRM6OS.java",
+      "file_stem": "ISSRM6OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/streak/ISStreakSRM2.java",
+      "file_stem": "ISStreakSRM2"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/streak/ISStreakSRM4.java",
+      "file_stem": "ISStreakSRM4"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/streak/ISStreakSRM6.java",
+      "file_stem": "ISStreakSRM6"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/streak/oneShot/ISStreakSRM2IOS.java",
+      "file_stem": "ISStreakSRM2IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/streak/oneShot/ISStreakSRM2OS.java",
+      "file_stem": "ISStreakSRM2OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/streak/oneShot/ISStreakSRM4IOS.java",
+      "file_stem": "ISStreakSRM4IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/streak/oneShot/ISStreakSRM4OS.java",
+      "file_stem": "ISStreakSRM4OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/streak/oneShot/ISStreakSRM6IOS.java",
+      "file_stem": "ISStreakSRM6IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/streak/oneShot/ISStreakSRM6OS.java",
+      "file_stem": "ISStreakSRM6OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/torpedo/ISSRT2.java",
+      "file_stem": "ISSRT2"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/torpedo/ISSRT4.java",
+      "file_stem": "ISSRT4"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/torpedo/ISSRT6.java",
+      "file_stem": "ISSRT6"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/torpedo/oneShot/ISSRT2IOS.java",
+      "file_stem": "ISSRT2IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/torpedo/oneShot/ISSRT2OS.java",
+      "file_stem": "ISSRT2OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/torpedo/oneShot/ISSRT4IOS.java",
+      "file_stem": "ISSRT4IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/torpedo/oneShot/ISSRT4OS.java",
+      "file_stem": "ISSRT4OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/torpedo/oneShot/ISSRT6IOS.java",
+      "file_stem": "ISSRT6IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "srms",
+      "path": "srms/innerSphere/torpedo/oneShot/ISSRT6OS.java",
+      "file_stem": "ISSRT6OS"
+    },
+    {
+      "tech_base": "clan",
+      "family": "unofficial",
+      "path": "unofficial/clan/CLPlasmaRifle.java",
+      "file_stem": "CLPlasmaRifle"
+    },
+    {
+      "tech_base": "clan",
+      "family": "unofficial",
+      "path": "unofficial/clan/CLRAC10.java",
+      "file_stem": "CLRAC10"
+    },
+    {
+      "tech_base": "clan",
+      "family": "unofficial",
+      "path": "unofficial/clan/CLRAC20.java",
+      "file_stem": "CLRAC20"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ac/ISAC10i.java",
+      "file_stem": "ISAC10i"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ac/ISAC15.java",
+      "file_stem": "ISAC15"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ac/ISGAC2.java",
+      "file_stem": "ISGAC2"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ac/ISGAC4.java",
+      "file_stem": "ISGAC4"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ac/ISGAC6.java",
+      "file_stem": "ISGAC6"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ac/ISGAC8.java",
+      "file_stem": "ISGAC8"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ac/ISLAC10.java",
+      "file_stem": "ISLAC10"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ac/ISLAC20.java",
+      "file_stem": "ISLAC20"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ISLaserAMSTHB.java",
+      "file_stem": "ISLaserAMSTHB"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/ISRailGun.java",
+      "file_stem": "ISRailGun"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/lrm/ISLRM1.java",
+      "file_stem": "ISLRM1"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/lrm/ISLRM2.java",
+      "file_stem": "ISLRM2"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/lrm/ISLRM3.java",
+      "file_stem": "ISLRM3"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/lrm/ISLRM4.java",
+      "file_stem": "ISLRM4"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/lrm/oneShot/ISLRM1OS.java",
+      "file_stem": "ISLRM1OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/lrm/oneShot/ISLRM2OS.java",
+      "file_stem": "ISLRM2OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/lrm/oneShot/ISLRM3OS.java",
+      "file_stem": "ISLRM3OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/lrm/oneShot/ISLRM4OS.java",
+      "file_stem": "ISLRM4OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/ISMRM1.java",
+      "file_stem": "ISMRM1"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/ISMRM2.java",
+      "file_stem": "ISMRM2"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/ISMRM3.java",
+      "file_stem": "ISMRM3"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/ISMRM4.java",
+      "file_stem": "ISMRM4"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/ISMRM5.java",
+      "file_stem": "ISMRM5"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/oneShot/ISMRM1OS.java",
+      "file_stem": "ISMRM1OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/oneShot/ISMRM2OS.java",
+      "file_stem": "ISMRM2OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/oneShot/ISMRM3OS.java",
+      "file_stem": "ISMRM3OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/oneShot/ISMRM4OS.java",
+      "file_stem": "ISMRM4OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/mrm/oneShot/ISMRM5OS.java",
+      "file_stem": "ISMRM5OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/ISSRM1.java",
+      "file_stem": "ISSRM1"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/ISSRM10.java",
+      "file_stem": "ISSRM10"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/ISSRM3.java",
+      "file_stem": "ISSRM3"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/ISSRM5.java",
+      "file_stem": "ISSRM5"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/ISSRM8.java",
+      "file_stem": "ISSRM8"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/oneShot/ISSRM10IOS.java",
+      "file_stem": "ISSRM10IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/oneShot/ISSRM10OS.java",
+      "file_stem": "ISSRM10OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/oneShot/ISSRM1OS.java",
+      "file_stem": "ISSRM1OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/oneShot/ISSRM3OS.java",
+      "file_stem": "ISSRM3OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/oneShot/ISSRM5OS.java",
+      "file_stem": "ISSRM5OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/oneShot/ISSRM8IOS.java",
+      "file_stem": "ISSRM8IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/oneShot/ISSRM8OS.java",
+      "file_stem": "ISSRM8OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streak/ISStreakSRM10.java",
+      "file_stem": "ISStreakSRM10"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streak/ISStreakSRM8.java",
+      "file_stem": "ISStreakSRM8"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streak/torpedo/ISStreakSRT10.java",
+      "file_stem": "ISStreakSRT10"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streak/torpedo/ISStreakSRT8.java",
+      "file_stem": "ISStreakSRT8"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streakTorpedo/oneShot/ISStreakSRT4IOS.java",
+      "file_stem": "ISStreakSRT4IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streakTorpedo/oneShot/ISStreakSRT4OS.java",
+      "file_stem": "ISStreakSRT4OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streakTorpedo/oneShot/ISStreakSRT6IOS.java",
+      "file_stem": "ISStreakSRT6IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streakTorpedo/oneShot/ISStreakSRT6OS.java",
+      "file_stem": "ISStreakSRT6OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streakTorpedo/oneShot/ISStreakSRT8IOS.java",
+      "file_stem": "ISStreakSRT8IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/streakTorpedo/oneShot/ISStreakSRT8OS.java",
+      "file_stem": "ISStreakSRT8OS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/torpedo/ISSRT10.java",
+      "file_stem": "ISSRT10"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/torpedo/ISSRT8.java",
+      "file_stem": "ISSRT8"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/torpedo/oneShot/ISSRT10IOS.java",
+      "file_stem": "ISSRT10IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/srm/torpedo/oneShot/ISSRT8IOS.java",
+      "file_stem": "ISSRT8IOS"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/thb/ISTHBLB20XAC.java",
+      "file_stem": "ISTHBLB20XAC"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/thb/ISTHBLB2XAC.java",
+      "file_stem": "ISTHBLB2XAC"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/thb/ISTHBLB5XAC.java",
+      "file_stem": "ISTHBLB5XAC"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/thb/ISTHBUAC10.java",
+      "file_stem": "ISTHBUAC10"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/thb/ISTHBUAC2.java",
+      "file_stem": "ISTHBUAC2"
+    },
+    {
+      "tech_base": "is",
+      "family": "unofficial",
+      "path": "unofficial/innerSphere/thb/ISTHBUAC20.java",
+      "file_stem": "ISTHBUAC20"
+    }
+  ]
+}

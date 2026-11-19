@@ -14,6 +14,7 @@
         list-style: none;
         // display: inline-block;
         display: flex;
+        flex-wrap: wrap;
         margin: 0;
         padding: 0;
         width: 100%;
@@ -29,6 +30,16 @@
                 font-size: 2rem;
                 padding: 0 1rem;
                 cursor: pointer;
+
+                .mobile-menu-toggle {
+                    background: transparent;
+                    border: 0;
+                    padding: 0;
+                    color: inherit;
+                    font-size: inherit;
+                    line-height: inherit;
+                    cursor: pointer;
+                }
             }
             span, a {
                 display: block;
@@ -44,14 +55,12 @@
                 min-height: 2.5rem;
                 &:hover {
                     background: $primaryBGHover;
-                    color: $primaryTextColor;
+                    color: $onPrimaryTextColor;
                 }
 
                 &.current {
                     background: $primaryBG;
-                    color: $headerFooterBackground;
-
-                    color: $primaryTextColor;
+                    color: $onPrimaryTextColor;
                 }
             }
 
@@ -84,6 +93,26 @@
 }
 .mobile-menu {
 
+    .mobile-menu-group {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        background: none;
+        color: inherit;
+        font: inherit;
+        text-align: left;
+        border: solid 1px $primaryBG;
+        border-radius: .5rem;
+        padding: .5rem 1rem;
+        margin: 0 0 .5rem 0;
+        min-height: 2.75rem;
+        cursor: pointer;
+        &.open {
+            border-bottom-width: 3px;
+        }
+    }
+
     ul {
         padding-left: 0rem;
         li {
@@ -97,9 +126,8 @@
                 border-radius: .5rem;
                 &.current {
 
-                    color: $headerFooterBackground;
                     background: $primaryBG;
-                    color: $primaryTextColor;
+                    color: $onPrimaryTextColor;
                 }
 
             }
@@ -199,7 +227,7 @@ body.retro {
         ul.sub-menu {
             li {
                 a {
-                    font-size: .55rem;
+                    font-size: .75rem;
                     color: $retroPrimaryBG;
                     background: $headerFooterBackground;
                     border-right: dotted 2px $headerFooterBackground;
@@ -231,7 +259,7 @@ body.retro {
             li {
                 display: block;
                 a, span {
-                    font-size: .55rem;
+                    font-size: .75rem;
                     color: $retroPrimaryBG;
                     background: $headerFooterBackground;
                     border-right: dotted 2px $headerFooterBackground;
@@ -316,14 +344,12 @@ body.retro {
                     min-height: 2.5rem;
                     &:hover {
                         background: $primaryBGHover;
-                        color: $primaryTextColor;
+                        color: $onPrimaryTextColor;
                     }
 
                     &.current {
                         background: $primaryBG;
-                        color: $headerFooterBackground;
-
-                        color: $primaryTextColor;
+                        color: $onPrimaryTextColor;
                     }
                 }
 

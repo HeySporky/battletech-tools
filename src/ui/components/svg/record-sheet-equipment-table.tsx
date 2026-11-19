@@ -2,6 +2,22 @@ import React, { type JSX } from 'react';
 import { BattleMech, IGATOR } from "../../../classes/battlemech";
 import { getTargetColor, getTargetToHitFromWeapon } from '../../../utils';
 import RecordSheetGroupBoxSVG from './record-sheet-group-box-svg';
+import { getQuirkSheetLines } from '../../../utils/quirk-sheet-lines';
+
+/** Splits the unit's quirk lines into sheet lines of about `width` characters. */
+const wrapQuirks = (lines: string[], width: number): string[] => {
+    const wrapped: string[] = [];
+    let current = "Quirks:";
+    for (const line of lines) {
+        if (current.length + line.length + 2 > width && current !== "Quirks:") {
+            wrapped.push(current + ",");
+            current = "  " + line;
+        } else {
+            current += (current === "Quirks:" ? " " : ", ") + line;
+        }
+    }
+    return lines.length ? [...wrapped, current] : [];
+};
 
 export default class RecordSheetEquipmentTable extends React.Component<IRecordSheetEquipmentTableProps, IRecordSheetEquipmentTableState> {
     // bgColor = "rgb(255,255,255)";
@@ -58,25 +74,25 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
 
     render = (): JSX.Element => {
 
-        let weapAndEqpTop = this.props.yLoc;
-        let weapAndEqpLeft = this.props.xLoc;
+        const weapAndEqpTop = this.props.yLoc;
+        const weapAndEqpLeft = this.props.xLoc;
 
-        let wacCol1 = weapAndEqpLeft + 15;
-        let wacCol2 = weapAndEqpLeft + 90;
-        let wacCol3 = weapAndEqpLeft + 470;
-        let wacCol4 = weapAndEqpLeft + 550;
-        let wacCol5 = weapAndEqpLeft + 650;
-        let wacCol6 = weapAndEqpLeft + 770;
-        let wacCol7 = weapAndEqpLeft + 880;
-        let wacCol8 = weapAndEqpLeft + 990;
-        let wacCol9 = weapAndEqpLeft + 1100;
+        const wacCol1 = weapAndEqpLeft + 15;
+        const wacCol2 = weapAndEqpLeft + 90;
+        const wacCol3 = weapAndEqpLeft + 470;
+        const wacCol4 = weapAndEqpLeft + 550;
+        const wacCol5 = weapAndEqpLeft + 650;
+        const wacCol6 = weapAndEqpLeft + 770;
+        const wacCol7 = weapAndEqpLeft + 880;
+        const wacCol8 = weapAndEqpLeft + 990;
+        const wacCol9 = weapAndEqpLeft + 1100;
 
-        let equipmentList: JSX.Element[] = [];
+        const equipmentList: JSX.Element[] = [];
         let rearDesignation = "";
 
-        let colorVeryLightGray = "rgb(200, 200, 200)";
+        const colorVeryLightGray = "rgb(200, 200, 200)";
 
-        let eqLineHeight = 33;
+        const eqLineHeight = 33;
         let bgColor = "rgb(255,255,255)";
         let strokeColor = "rgb(0,0,0)";
         // landscape: boolean = false;
@@ -88,16 +104,23 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
             strokeColor = this.props.strokeColor;
         }
 
-        for( let eq_count = 0; eq_count < this.props.mechData.equipmentList.length; eq_count++) {
+        const installed = this.props.mechData.equipmentList;
+        const quirkLines = getQuirkSheetLines(
+            this.props.mechData.quirks.getActive(installed.map((item) => item.uuid ?? ""), undefined),
+            (uuid) => installed.find((item) => item.uuid === uuid)?.name,
+        );
+        // Each weapon's quirks print on a line of their own under its row, so later rows move down.
+        let row = 0;
+        for( let eq_count = 0; eq_count < this.props.mechData.equipmentList.length; eq_count++, row++) {
             if( eq_count % 2 === 0 )
-                equipmentList.push( <rect key={ eq_count.toString() + "a"}x={wacCol1 - 5 } y={weapAndEqpTop + 93 + eqLineHeight * eq_count} width={1180} height={eqLineHeight + 4} fill={colorVeryLightGray} /> );
+                equipmentList.push( <rect key={ eq_count.toString() + "a"}x={wacCol1 - 5 } y={weapAndEqpTop + 93 + eqLineHeight * row} width={1180} height={eqLineHeight + 4} fill={colorVeryLightGray} /> );
 
-            let ammoPerTon = this.props.mechData.getAmmoBinCapacity(this.props.mechData.equipmentList[ eq_count]);
-            let currentAmmo = this.props.mechData.getAmmoBinRemaining(this.props.mechData.equipmentList[ eq_count]);
-            let isAmmo = this.props.mechData.equipmentList[ eq_count].isAmmo ? true : false ;
-            let isEquipment = this.props.mechData.equipmentList[ eq_count].isEquipment ? true : false ;
-            let location = this.props.mechData.equipmentList[eq_count].location;
-            let uuid = this.props.mechData.equipmentList[ eq_count].uuid;
+            const ammoPerTon = this.props.mechData.getAmmoBinCapacity(this.props.mechData.equipmentList[ eq_count]);
+            const currentAmmo = this.props.mechData.getAmmoBinRemaining(this.props.mechData.equipmentList[ eq_count]);
+            const isAmmo = this.props.mechData.equipmentList[ eq_count].isAmmo ? true : false ;
+            const isEquipment = this.props.mechData.equipmentList[ eq_count].isEquipment ? true : false ;
+            const location = this.props.mechData.equipmentList[eq_count].location;
+            const uuid = this.props.mechData.equipmentList[ eq_count].uuid;
             const modularArmorPoints = this.props.mechData.equipmentList[eq_count].isModularArmor
                 ? this.props.mechData.getModularArmorCurrentPoints(this.props.mechData.equipmentList[eq_count])
                 : null;
@@ -108,10 +131,14 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
             if( this.props.inPlay && !isAmmo && !isEquipment ) {
 
 
-                let targetColor = getTargetColor( this.props.mechData.equipmentList[ eq_count].target );
-                let targetGATOR = getTargetToHitFromWeapon(
+                const targetColor = getTargetColor( this.props.mechData.equipmentList[ eq_count].target );
+                // The live sheet in Play Mode takes the game's "Use design quirks" switch, as the attack list does.
+                const targetGATOR = getTargetToHitFromWeapon(
                     this.props.mechData,
                     eq_count,
+                    null,
+                    null,
+                    !!this.props.quirksInPlay,
                 );
 
 
@@ -121,7 +148,7 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                             {this.props.mechData.equipmentList[ eq_count].target ? (
                                 <text
                                     x={ 18 }
-                                    y={weapAndEqpTop + 115 + eqLineHeight * eq_count }
+                                    y={weapAndEqpTop + 115 + eqLineHeight * row }
                                     textAnchor="start"
                                     fontFamily="sans-serif"
                                     fill={"black"}
@@ -148,14 +175,14 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                                 strokeWidth="3"
                                 fill={targetColor}
                                 cx={wacCol1 + 50 }
-                                cy={weapAndEqpTop + 110 + eqLineHeight * eq_count }
+                                cy={weapAndEqpTop + 110 + eqLineHeight * row }
                                 r={15}
                                 className="cursor-pointer"
                                 onClick={(e) => this.cycleTarget( e, eq_count)}
                             />
                             <text
                                 x={wacCol1 + 49 }
-                                y={weapAndEqpTop + 115 + eqLineHeight * eq_count }
+                                y={weapAndEqpTop + 115 + eqLineHeight * row }
                                 textAnchor="middle"
                                 fontFamily="sans-serif"
                                 fill={"white"}
@@ -170,44 +197,46 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                         );
                 }
             } else {
-                equipmentList.push( <text key={ eq_count.toString() + "b"} x={wacCol1 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].count}</text> );
+                equipmentList.push( <text key={ eq_count.toString() + "b"} x={wacCol1 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].count}</text> );
             }
 
             rearDesignation = "";
             if(  this.props.mechData.equipmentList[ eq_count].rear )
                 rearDesignation = " [R]"
+            else if( this.props.mechData.isTurretMounted( this.props.mechData.equipmentList[ eq_count] ) )
+                rearDesignation = " [T]"
 
             if( ammoPerTon && isAmmo )
-                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "c"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation} {currentAmmo}/{ammoPerTon} </text> );
+                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "c"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation} {currentAmmo}/{ammoPerTon} </text> );
             else
-                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "d"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation}{modularArmorPoints !== null ? ` ${modularArmorPoints}/10` : ""}</text> );
+                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "d"} x={wacCol2 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].name + rearDesignation}{modularArmorPoints !== null ? ` ${modularArmorPoints}/10` : ""}</text> );
 
 
             if( location ) {
-                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "e"} x={wacCol3 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{location.toUpperCase()}</text> );
+                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "e"} x={wacCol3 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{location.toUpperCase()}</text> );
             } else {
-                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "f"} x={wacCol3 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>-</text> );
+                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "f"} x={wacCol3 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>-</text> );
             }
 
             if(!isAmmo && !isEquipment) {
                 if(this.props.mechData.equipmentList[eq_count].heatPerShot) {
-                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].heat}/shot</text> );
+                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].heat}/shot</text> );
                 } else {
-                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].heat}</text> );
+                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "g"} x={wacCol4 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.getFutureWarsItemHeat(this.props.mechData.equipmentList[eq_count])}</text> );
                 }
                 if(this.props.mechData.equipmentList[eq_count].damagePerCluster) {
-                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damagePerCluster}/hit</text> );
+                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damagePerCluster}/hit</text> );
                 } else {
                     if(this.props.mechData.equipmentList[eq_count].damagePerShot) {
-                        equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damagePerShot}/shot</text> );
+                        equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damagePerShot}/shot</text> );
                     } else {
                         if( typeof(this.props.mechData.equipmentList[eq_count].damage) !== "undefined") {
                             if( typeof(this.props.mechData.equipmentList[eq_count].damage) === "number") {
                                 // @ts-expect-error Legacy compatibility type mismatch
-                                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damage}</text> );
+                                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damage}</text> );
                             } else {
                                 // @ts-expect-error Legacy compatibility type mismatch
-                                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damage.short} / {this.props.mechData.equipmentList[eq_count].damage.medium} / {this.props.mechData.equipmentList[eq_count].damage.long}</text> );
+                                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "h"} x={wacCol5 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].damage.short} / {this.props.mechData.equipmentList[eq_count].damage.medium} / {this.props.mechData.equipmentList[eq_count].damage.long}</text> );
                             }
                         }
                     }
@@ -215,19 +244,19 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
             }
 
             if( this.props.mechData.equipmentList[eq_count].isMelee ) {
-                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "i"} x={wacCol7 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}> MELEE </text> );
+                equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "i"} x={wacCol7 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}> MELEE </text> );
 
             } else {
 
                 if(!isAmmo && !isEquipment) {
 
                     if(this.props.mechData.equipmentList[eq_count].range.min === 0)
-                        equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "j"} x={wacCol6 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>-</text> );
+                        equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "j"} x={wacCol6 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>-</text> );
                     else
-                        equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "k"} x={wacCol6 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.min}</text> );
-                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "l"} x={wacCol7 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.short}</text> );
-                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "m"} x={wacCol8 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.medium}</text> );
-                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "n"} x={wacCol9 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * eq_count } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.long}</text> );
+                        equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "k"} x={wacCol6 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.min}</text> );
+                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "l"} x={wacCol7 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.short}</text> );
+                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "m"} x={wacCol8 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.medium || "—"}</text> );
+                    equipmentList.push( <text className={this.props.inPlay ? "cursor-pointer": ""} onClick={this.openSetTargetDialog} key={ eq_count.toString() + "n"} x={wacCol9 + 30 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="middle" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={30}>{this.props.mechData.equipmentList[eq_count].range.long || "—"}</text> );
                 }
 
             }
@@ -236,15 +265,25 @@ export default class RecordSheetEquipmentTable extends React.Component<IRecordSh
                     <line
                     key={ eq_count.toString() + "z"}
                     x1={ 10 }
-                    y1={weapAndEqpTop + 110 + eqLineHeight * eq_count }
+                    y1={weapAndEqpTop + 110 + eqLineHeight * row }
                     x2={ this.props.width - 10 }
-                    y2={weapAndEqpTop + 110 + eqLineHeight * eq_count }
+                    y2={weapAndEqpTop + 110 + eqLineHeight * row }
 
                     stroke={"rgb(200,0,0)"}
                     strokeWidth={4}
                 /> );
 
             }
+            const weaponQuirks = quirkLines.weapons.find((entry) => entry.uuid === this.props.mechData.equipmentList[eq_count].uuid);
+            if( weaponQuirks ) {
+                row++;
+                equipmentList.push( <text key={ eq_count.toString() + "q"} x={wacCol2 + 20 } y={weapAndEqpTop + 116 + eqLineHeight * row } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100, fontStyle: "italic"}} fontSize={24}>{weaponQuirks.text}</text> );
+            }
+        }
+
+        for( const line of wrapQuirks(quirkLines.unit, 95) ) {
+            equipmentList.push( <text key={ "quirks-" + row.toString()} x={wacCol1 } y={weapAndEqpTop + 120 + eqLineHeight * row } textAnchor="start" fontFamily="sans-serif" fill={strokeColor} style={{fontWeight: 100}} fontSize={26}>{line}</text> );
+            row++;
         }
 
         if( this.props.mechData.equipmentList.length === 0 ) {
@@ -291,6 +330,8 @@ interface IRecordSheetEquipmentTableProps {
     boxStrokeColor?: string;
     mechData: BattleMech;
     inPlay?: boolean;
+    /** The game's "Use design quirks" switch, for the to-hit numbers in play. */
+    quirksInPlay?: boolean;
     xLoc: number;
     yLoc: number;
     width: number;

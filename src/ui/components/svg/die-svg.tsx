@@ -49,9 +49,9 @@ export default class DieSVG extends React.Component<IDieSVGProps, IDieSVGState> 
             pipColor = this.props.pipColor;
         }
 
-        let pipRadius = width / 7;
+        const pipRadius = width / 7;
 
-        let pips: JSX.Element[] = [];
+        const pips: JSX.Element[] = [];
 
         switch( numberPips ) {
             case 1:

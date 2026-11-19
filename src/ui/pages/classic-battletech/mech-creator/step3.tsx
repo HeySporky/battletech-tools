@@ -2,13 +2,17 @@ import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
-import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
 import { makeRange } from "../../../../utils/makeRange";
+import { availabilityOptionLabel, isOptionShown } from '../../../components/availability-options';
+import DesignLockColumn, { mechRulesLevel } from '../../../components/design-lock';
+import EditionChoice from '../../../components/edition-choice';
+import ComponentTechBaseChoice from '../../../components/component-tech-base-choice';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 
@@ -25,7 +29,7 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
 
     setAdditionalHeatSinks = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setAdditionalHeatSinks( +event.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -33,7 +37,7 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
 
     setHeatSinkType = ( event: React.FormEvent<HTMLSelectElement>): void => {
       if( this.props.appGlobals.currentBattleMech ) {
-        let currentMech = this.props.appGlobals.currentBattleMech;
+        const currentMech = this.props.appGlobals.currentBattleMech;
         currentMech.setHeatSinksType( event.currentTarget.value);
         this.props.appGlobals.saveCurrentBattleMech( currentMech );
       }
@@ -56,33 +60,48 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                   current="step3"
                 />
               </div>
-              <div className="col-md-9 col-lg-10">
+              <DesignLockColumn appGlobals={this.props.appGlobals}>
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
                       <TextSection
                         label="Step 3: Add additional heat sinks"
                       >
 
-                          <p className="text-center">Your BattleMech includes 10 heat sinks.</p>
+                          <p className="text-center">
+                            {this.props.appGlobals.currentBattleMech.getFreeHeatSinks() === 0
+                              ? "This engine type comes with no heat sinks."
+                              : this.props.appGlobals.currentBattleMech.getFreeHeatSinks() === 1
+                                ? "This engine type comes with 1 heat sink."
+                                : "Your BattleMech includes " + this.props.appGlobals.currentBattleMech.getFreeHeatSinks() + " heat sinks."}
+                          </p>
 
-                          <label>
-                              Heat Sink Technology :
-                              <select
-                                value={this.props.appGlobals.currentBattleMech.getHeatSinksType()}
-                                onChange={this.setHeatSinkType}
-                              >
-                                {this.props.appGlobals.currentBattleMech.getAvailableHeatSinks(this.props.appGlobals.appSettings.mechRulesFilter).map( (heatSink) => {
-                                  const selected = heatSink.tag === this.props.appGlobals.currentBattleMech?.getHeatSinksType();
-                                  if( !heatSink.available && !selected && this.props.appGlobals.currentBattleMech?.hideNonAvailableEquipment ) {
-                                    return <React.Fragment key={heatSink.tag}></React.Fragment>;
-                                  }
-                                  return (
-                                    <option key={heatSink.tag} value={heatSink.tag} disabled={!heatSink.available && !selected}>{heatSink.name}{heatSink.availableAsPrototype ? " (Prototype)" : ""}</option>
-                                  );
-                                })}
+                          <EditionChoice earlierEdition={this.props.appGlobals.currentBattleMech.usesEarlierRulesEdition()}>
+                            <label>
+                                Heat Sink Technology :
+                                <select
+                                  value={this.props.appGlobals.currentBattleMech.getHeatSinksType()}
+                                  onChange={this.setHeatSinkType}
+                                >
+                                  {this.props.appGlobals.currentBattleMech.getAvailableHeatSinks(mechRulesLevel(this.props.appGlobals)).map( (heatSink) => {
+                                    const selected = heatSink.tag === this.props.appGlobals.currentBattleMech?.getHeatSinksType();
+                                    if( !isOptionShown(heatSink, selected) ) {
+                                      return <React.Fragment key={heatSink.tag}></React.Fragment>;
+                                    }
+                                    return (
+                                      <option key={heatSink.tag} value={heatSink.tag}>{availabilityOptionLabel(heatSink)}</option>
+                                    );
+                                  })}
 
-                              </select>
-                            </label>
+                                </select>
+                              </label>
+                          </EditionChoice>
+                          <ComponentTechBaseChoice
+                            label="Heat Sink Version"
+                            choices={this.props.appGlobals.currentBattleMech.getComponentTechBases("heatSink")}
+                            value={this.props.appGlobals.currentBattleMech.getHeatSinkTechBase()}
+                            clanDesign={this.props.appGlobals.currentBattleMech.getTech().tag === "clan"}
+                            onChange={(techBase) => { const mech = this.props.appGlobals.currentBattleMech; if (mech) { mech.setHeatSinkTechBase(techBase); this.props.appGlobals.saveCurrentBattleMech(mech); } }}
+                          />
                             {heatSinkObj.notes ? (
                               <p className="text-center smaller-text">{heatSinkObj.notes}{heatSinkObj.book ? " (" + heatSinkObj.book + (heatSinkObj.page ? " p." + heatSinkObj.page : "") + ")" : ""}</p>
                             ) : null}
@@ -133,7 +152,7 @@ export default class MechCreatorStep3 extends React.Component<IHomeProps, IHomeS
                     </TextSection>
                     </div>
                   </div>
-              </div>
+              </DesignLockColumn>
 
             </div>
 

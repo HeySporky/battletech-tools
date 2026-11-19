@@ -26,7 +26,6 @@
 
 
   "files": [
-    "./src/bin/convert-ssw-to-bttools.ts",
     "./src/bin/ssw-equipment-checker.ts",
   ]
 

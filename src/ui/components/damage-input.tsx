@@ -14,7 +14,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         if( !item.damageDivisor || item.damageDivisor < 1 ) {
             item.damageDivisor = 1;
@@ -31,7 +31,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         if(
             ( !this.props.editingItem.damageClusters || this.props.editingItem.damageClusters === 0 )
@@ -55,7 +55,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
 
         if( typeof(item.damage) === "number") {
             item.damage = {
@@ -79,7 +79,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.damageDivisor = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -91,7 +91,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.damageAero = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -103,7 +103,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.damagePerCluster = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -115,7 +115,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.damageClusters = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -127,7 +127,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.damage = +e.currentTarget.value;
 
         this.props.onChange( item );
@@ -139,7 +139,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         item.damagePerShot = e.currentTarget.checked;
 
         this.props.onChange( item );
@@ -151,7 +151,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.short = +e.currentTarget.value;
         }
@@ -165,7 +165,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.medium = +e.currentTarget.value;
         }
@@ -179,7 +179,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.long = +e.currentTarget.value;
         }
@@ -193,7 +193,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.aeroShort = +e.currentTarget.value;
         }
@@ -207,7 +207,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.aeroMedium = +e.currentTarget.value;
         }
@@ -221,7 +221,7 @@ export default class DamageInput extends React.Component<IDamageInputProps, IDam
         if( e && e.preventDefault ) {
             e.preventDefault();
         }
-        let item = this.props.editingItem;
+        const item = this.props.editingItem;
         if( typeof(item.damage) !== "undefined" && typeof(item.damage) !== "number") {
             item.damage.aeroLong = +e.currentTarget.value;
         }

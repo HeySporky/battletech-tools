@@ -6,7 +6,7 @@ export function joinListWithEndLabel(
 
     if( items.length > 1 ) {
 
-        for( let itemIndex in items ) {
+        for( const itemIndex in items ) {
             if( +itemIndex === items.length - 1 ) {
                 if( +itemIndex > 0 ) {
                     if( items.length > 2 ) {

@@ -33,7 +33,6 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
               )
             )
           );
-          console.log(this.props.appGlobals.currentASForce!.groups[i].availableFormationBonuses)
          }
         this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
       }
@@ -62,7 +61,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
 
     renameUnit = (event: React.FormEvent<HTMLInputElement>): void => {
       if(this.props.showASUnit) {
-        let asUnit = this.props.showASUnit;
+        const asUnit = this.props.showASUnit;
         asUnit.customName = event.currentTarget.value;
         this.setState({
           updated: true,
@@ -77,6 +76,7 @@ export default class AlphaStrikeUnitEditViewModal extends React.Component<IAlpha
     onClose={this.props.closeShowUnitDialog}
     show={this.props.showASUnit !== null}
     className="modal-xl"
+    printable={!this.props.editASUnit}
     title={
       this.props.showASUnit ?
        (

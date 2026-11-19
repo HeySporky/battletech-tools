@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Commando" model="COM-1A" tons="25" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>475</battle_value>
+    <cost>1548750.0</cost>
+    <rules_level>4</rules_level>
+    <era>0</era>
+    <productionera>0</productionera>
+    <mech_type>PrimitiveBattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">2463</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Primitive Structure</type>
+    </structure>
+    <engine rating="125" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Primitive Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Primitive Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="0">
+        <type>Primitive Armor</type>
+        <hd>5</hd>
+        <ct>7</ct>
+        <ctr>3</ctr>
+        <lt>5</lt>
+        <ltr>3</ltr>
+        <rt>5</rt>
+        <rtr>3</rtr>
+        <la>5</la>
+        <ra>5</ra>
+        <ll>6</ll>
+        <rl>6</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>XTRPrimitives I</source>
+        <info>Commando COM-1A 25t, 5/8/0, Pr FE, Prm; 5.0T/60% Pr. Armor; 10 SHS; 1 LL</info>
+        <battleforce pv="5" wt="1" mv="5" s="1" m="1" l="0" e="0" ov="0" armor="2" internal="2" abilities="ENE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="10" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="1">RT</location>
+            <location index="0">RT</location>
+            <location index="0">LT</location>
+            <location index="1">LT</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Large Laser</name>
+            <type>energy</type>
+            <location index="4">RA</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional>Unit Summation: Original Commando Primitive Chassis:br::br:Producer/Site: Coventry Defense Conglomerate, Coventry:br::br:Developing Engineer: Andre Barcalow:br::br:Introduction Date: 2463:br::br:Non-Production Equipment Analysis::br::br::tab:Primitive Engine:br::br::tab:Primitive Cockpit:br::br::tab:Primitive Armor</additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

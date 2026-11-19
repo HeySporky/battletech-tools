@@ -3,12 +3,30 @@ import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
+import TrademarkNoticeParagraphs from '../../../components/trademark-notice';
 import './print.scss';
 import BattleMechSVG from "../../../components/svg/battlemech-svg";
 import { CONST_BATTLETECH_URL } from "../../../../configVars";
 import RulesLevelStamp, { getHighestRulesLevel, printWithRulesLevelGuard } from "../../../components/rules-level-print";
 import VehicleRecordSheet from "../../../components/vehicle-record-sheet";
 import { vehicleName } from "./_vehicleGroupTable";
+import FighterRecordSheet from "../../../components/fighter-record-sheet";
+import SmallCraftRecordSheet from "../../../components/small-craft-record-sheet";
+import CapitalShipRecordSheet from "../../../components/capital-ship-record-sheet";
+import InfantryRecordSheet from "../../../components/infantry-record-sheet";
+import { infantrySheetLines } from "../../../components/svg/infantry-record-sheet-svg";
+import BattleArmorRecordSheet from "../../../components/battle-armor-record-sheet";
+import ProtoMechRecordSheet from "../../../components/protomech-record-sheet";
+import MicroMechRecordSheet from "../../../components/micro-mech-record-sheet";
+import WalkerRecordSheet from "../../../components/walker-record-sheet";
+import BattledroidsUnitRecordSheet from "../../../components/battledroids-unit-record-sheet";
+import BuildingRecordSheet from "../../../components/building-record-sheet";
+import { buildingSummary } from "./_buildingGroupTable";
+import { fighterName } from "./_fighterGroupTable";
+import { smallCraftName } from "./_smallCraftGroupTable";
+import { capitalShipName } from "./_capitalShipGroupTable";
+import { formatBattleValue } from '../../../../data/battle-value';
+import { DEFAULT_RULES_EDITION } from '../../../../data/rules-editions';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const PrintIcon = FaPrint as any;
 
@@ -29,6 +47,15 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
       const rulesLevels = [
         ...groups.flatMap( (group) => group.members ).map( (unit) => unit.getRequiredRulesLevel() ),
         ...groups.flatMap( (group) => group.vehicles ).map( (vehicle) => vehicle.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.fighters ).map( (fighter) => fighter.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.smallCraft ).map( (craft) => craft.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.capitalShips ).map( (ship) => ship.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.infantry ).map( (platoon) => platoon.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.battleArmor ).map( (squad) => squad.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.protoMechs ).map( (point) => point.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.microMechs ).map( (micro) => micro.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.walkers ).map( (walker) => walker.getRequiredRulesLevel() ),
+        ...groups.flatMap( (group) => group.buildings ).map( (building) => building.getRequiredRulesLevel() ),
       ];
       printWithRulesLevelGuard(
         getHighestRulesLevel( rulesLevels ),
@@ -70,7 +97,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                 <td className="text-center"><strong># Units:</strong> {this.props.appGlobals.currentCBTForce.getTotalUnits()}</td>
                 <td className="text-center"><strong>Tons:</strong> {this.props.appGlobals.currentCBTForce.getTotalTons()}</td>
                 <td className="text-center"><strong>Tech:</strong> {this.props.appGlobals.currentCBTForce.getTech()}</td>
-                <td className="text-center"><strong>Total BV2:</strong> {this.props.appGlobals.currentCBTForce.getTotalBV2()}</td>
+                <td className="text-center"><strong>Total BV:</strong> {this.props.appGlobals.currentCBTForce.getBattleValueText()}</td>
               </tr>
             </tbody>
           </table>
@@ -80,7 +107,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
             <strong># Units:</strong> {this.props.appGlobals.currentCBTForce.getTotalUnits()}<br />
             <strong>Tons:</strong> {this.props.appGlobals.currentCBTForce.getTotalTons()}<br />
             <strong>Tech:</strong> {this.props.appGlobals.currentCBTForce.getTech()}<br />
-            <strong>Total BV2:</strong> {this.props.appGlobals.currentCBTForce.getTotalBV2()}</p> */}
+            <strong>Total BV:</strong> {this.props.appGlobals.currentCBTForce.getBattleValueText()}</p> */}
             {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
               return (
                 <div className="group" key={groupIndex}>
@@ -101,7 +128,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                           &nbsp;|&nbsp;
                           {group.getTotalTons()} Tons - {group.getTech()}
                           &nbsp;|&nbsp;
-                          Group BV2: {group.getTotaBV2()}
+                          Group BV: {group.getBattleValueText(this.props.appGlobals.currentCBTForce?.rulesEdition ?? DEFAULT_RULES_EDITION, this.props.appGlobals.currentCBTForce?.groups, this.props.appGlobals.currentCBTForce?.c3Networks)}
                         </th>
                       </tr>
                       <tr>
@@ -121,10 +148,10 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         MW Gunnery
                         </th>
                         <th className="min-width no-wrap">
-                          Base BV2
+                          Base BV
                         </th>
                         <th className="min-width no-wrap">
-                          Adjusted BV2
+                          Adjusted BV
                         </th>
                       </tr>
                     </thead>
@@ -148,10 +175,10 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                           {unit.pilot.gunnery}
                         </td>
                         <td className="min-width no-wrap text-center">
-                          {unit.getBattleValue()}
+                          {formatBattleValue((edition) => unit.getBattleValue(edition), "mech", this.props.appGlobals.currentCBTForce?.rulesEdition)}
                         </td>
                         <td className="min-width no-wrap text-right">
-                          {unit.getPilotAdjustedBattleValue()}
+                          {formatBattleValue((edition) => unit.getPilotAdjustedBattleValue(edition), "mech", this.props.appGlobals.currentCBTForce?.rulesEdition)}
                         </td>
                       </tr>
                     </tbody>
@@ -176,11 +203,263 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                           {vehicle.getPilot().gunnery}
                         </td>
                         <td className="min-width no-wrap text-center">
-                          {vehicle.getBattleValue()}
+                          {formatBattleValue((edition) => vehicle.getBattleValue(edition), "vehicle", this.props.appGlobals.currentCBTForce?.rulesEdition)}
                         </td>
                         <td className="min-width no-wrap text-right">
-                          {vehicle.getPilotAdjustedBattleValue()}
+                          {formatBattleValue((edition) => vehicle.getPilotAdjustedBattleValue(edition), "vehicle", this.props.appGlobals.currentCBTForce?.rulesEdition)}
                         </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.fighters.map( (fighter) => (
+                    <tbody key={fighter.getUUID()}>
+                      <tr>
+                        <td>
+                          {fighterName(fighter)} ({fighter.getFighterTypeName()})
+                        </td>
+                        <td>
+                          {fighter.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {fighter.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {fighter.getPilot().piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {fighter.getPilot().gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {formatBattleValue((edition) => fighter.getBattleValue(edition), "fighter", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {formatBattleValue((edition) => fighter.getPilotAdjustedBattleValue(edition), "fighter", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.smallCraft.map( (craft) => (
+                    <tbody key={craft.getUUID()}>
+                      <tr>
+                        <td>
+                          {smallCraftName(craft)} ({craft.getShapeName()} Small Craft)
+                        </td>
+                        <td>
+                          {craft.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {craft.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {craft.getPilot().piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {craft.getPilot().gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {formatBattleValue((edition) => craft.getBattleValue(edition), "small-craft", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {formatBattleValue((edition) => craft.getPilotAdjustedBattleValue(edition), "small-craft", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.capitalShips.map( (ship) => (
+                    <tbody key={ship.getUUID()}>
+                      <tr>
+                        <td>
+                          {capitalShipName(ship)} ({ship.getShipTypeName()})
+                        </td>
+                        <td>
+                          {ship.getTonnage()}
+                        </td>
+                        <td className="small-text">
+                          {ship.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {ship.getPilot().piloting}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {ship.getPilot().gunnery}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {formatBattleValue((edition) => ship.getBattleValue(edition), "capital-ship", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {formatBattleValue((edition) => ship.getPilotAdjustedBattleValue(edition), "capital-ship", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.infantry.map( (platoon) => (
+                    <tbody key={platoon.getUUID()}>
+                      <tr>
+                        <td>
+                          {platoon.getDisplayName()} ({platoon.getMotive().name} infantry, {platoon.getTroopers()} troopers)
+                        </td>
+                        <td>
+                          {platoon.getWeight()}
+                        </td>
+                        <td className="small-text">
+                          {platoon.getTechName()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {platoon.canMakeAntiMechAttacks() ? platoon.getAntiMechSkill() : "-"}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {platoon.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {formatBattleValue((edition) => platoon.getBattleValue(edition), "infantry", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {formatBattleValue((edition) => platoon.getSkillAdjustedBattleValue(edition), "infantry", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.battleArmor.map( (squad) => (
+                    <tbody key={squad.getUUID()}>
+                      <tr>
+                        <td>
+                          {squad.getDisplayName()} ({squad.getWeightClass().name} battle armor, {squad.getSquadSize()} troopers)
+                        </td>
+                        <td>
+                          {squad.getSquadSize()}
+                        </td>
+                        <td className="small-text">
+                          {squad.getTechName()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {squad.getCapabilities().swarm || squad.getCapabilities().leg ? squad.getAntiMechSkill() : "-"}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {squad.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {formatBattleValue((edition) => squad.getBattleValue(edition), "battle-armor", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {formatBattleValue((edition) => squad.getSkillAdjustedBattleValue(edition), "battle-armor", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.protoMechs.map( (point) => (
+                    <tbody key={point.getUUID()}>
+                      <tr>
+                        <td>
+                          {point.getDisplayName()} ({point.getTons()}-ton {point.getChassisName()} ProtoMech, Point of {point.getPointSize()})
+                        </td>
+                        <td>
+                          {point.getTons() * point.getPointSize()}
+                        </td>
+                        <td className="small-text">
+                          {point.getTechName()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          -
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {point.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {formatBattleValue((edition) => point.getPointBattleValue(edition), "protomech", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {formatBattleValue((edition) => point.getSkillAdjustedPointBattleValue(edition), "protomech", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.microMechs.map( (micro) => (
+                    <tbody key={micro.getUUID()}>
+                      <tr>
+                        <td>
+                          {micro.getDisplayName()} ({micro.getTons()}-ton {micro.isQuad() ? "quad" : "biped"} Micro-Mech, fan-made)
+                        </td>
+                        <td>
+                          {micro.getTons()}
+                        </td>
+                        <td className="small-text">
+                          Inner Sphere
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          -
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          -
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {formatBattleValue((edition) => micro.getBattleValue(edition), "mech", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {formatBattleValue((edition) => micro.getBattleValue(edition), "mech", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.walkers.map( (walker) => (
+                    <tbody key={walker.getUUID()}>
+                      <tr>
+                        <td>
+                          {walker.getDisplayName()} ({walker.getTons()}-ton {walker.isIndustrial() ? "industrial " : ""}Walker, fan-made)
+                        </td>
+                        <td>
+                          {walker.getTons()}
+                        </td>
+                        <td className="small-text">
+                          {walker.getTechTag() === "clan" ? "Clan" : "Inner Sphere"}
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          -
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          -
+                        </td>
+                        <td className="min-width no-wrap text-center">
+                          {formatBattleValue((edition) => walker.getBattleValue(edition), "walker", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                        <td className="min-width no-wrap text-right">
+                          {formatBattleValue((edition) => walker.getBattleValue(edition), "walker", this.props.appGlobals.currentCBTForce?.rulesEdition)}
+                        </td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.battledroidsUnits.map( (unit) => (
+                    <tbody key={unit.getUUID()}>
+                      <tr>
+                        <td>
+                          {unit.getDisplayName()} ({unit.getKind().name}, Battledroids p.{unit.getDesign().page})
+                        </td>
+                        <td>-</td>
+                        <td className="small-text">Battledroids</td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-center">
+                          {unit.getGunnery()}
+                        </td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-right">-</td>
+                      </tr>
+                    </tbody>
+                    ))}
+                    {group.buildings.map( (building) => (
+                    <tbody key={building.getUUID()}>
+                      <tr>
+                        <td>
+                          {building.getDisplayName()} ({buildingSummary(building)})
+                        </td>
+                        <td>-</td>
+                        <td className="small-text">
+                          {building.getTech().name}
+                        </td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-center">
+                          {building.getMinimumGunners() > 0 ? building.getGunnery() : "-"}
+                        </td>
+                        <td className="min-width no-wrap text-center">-</td>
+                        <td className="min-width no-wrap text-right">-</td>
                       </tr>
                     </tbody>
                     ))}
@@ -193,7 +472,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                 <BattleTechLogo />
               </div>
               <p>Printed using Jeff's BattleTech Tools IIC at https://{window.location.hostname}/battletech-tools/. Huge thanks to the Master Unit List</p>
-              <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
+              <TrademarkNoticeParagraphs />
             </div>
           </div>
           {this.props.appGlobals.currentCBTForce.groups.map( (group, groupIndex) => {
@@ -232,6 +511,117 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                         />
                       </div>
                   ))}
+                  {group.fighters.map( (fighter) => (
+                      <div className={"page"} key={fighter.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={fighter.getRequiredRulesLevel()}
+                        />
+                        <FighterRecordSheet
+                          fighter={fighter}
+                          showPilot={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.smallCraft.map( (craft) => (
+                      <div className={"page"} key={craft.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={craft.getRequiredRulesLevel()}
+                        />
+                        <SmallCraftRecordSheet
+                          craft={craft}
+                          showPilot={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.capitalShips.map( (ship) => (
+                      <div className={"page"} key={ship.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={ship.getRequiredRulesLevel()}
+                        />
+                        <CapitalShipRecordSheet
+                          ship={ship}
+                          showPilot={true}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {/* Four infantry platoons or sub-platoons to a page, as on the record sheet books. */}
+                  {Array.from({ length: Math.ceil(infantrySheetLines(group.infantry).length / 4) }, (_, page) => infantrySheetLines(group.infantry).slice(page * 4, page * 4 + 4)).map( (lines) => (
+                      <div className={"page"} key={`${lines[0].platoon.getUUID()}-${lines[0].line}`}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={Math.max(...lines.map((entry) => entry.platoon.getRequiredRulesLevel()))}
+                        />
+                        <InfantryRecordSheet
+                          lines={lines}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {/* Five battle armor squads to a page, as on the Total Warfare sheet. */}
+                  {Array.from({ length: Math.ceil(group.battleArmor.length / 5) }, (_, page) => group.battleArmor.slice(page * 5, page * 5 + 5)).map( (squads) => (
+                      <div className={"page"} key={squads[0].getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={Math.max(...squads.map((squad) => squad.getRequiredRulesLevel()))}
+                        />
+                        <BattleArmorRecordSheet
+                          squads={squads}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.protoMechs.map( (point) => (
+                      <div className={"page"} key={point.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={point.getRequiredRulesLevel()}
+                        />
+                        <ProtoMechRecordSheet
+                          proto={point}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.microMechs.map( (micro) => (
+                      <div className={"page"} key={micro.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={micro.getRequiredRulesLevel()}
+                        />
+                        <MicroMechRecordSheet
+                          micro={micro}
+                        />
+                      </div>
+                  ))}
+                  {group.walkers.map( (walker) => (
+                      <div className={"page"} key={walker.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={walker.getRequiredRulesLevel()}
+                        />
+                        <WalkerRecordSheet
+                          walker={walker}
+                        />
+                      </div>
+                  ))}
+                  {/* Two Battledroids tanks, jeeps or infantry squads to a page, as the book prints its droid sheets. */}
+                  {Array.from({ length: Math.ceil(group.battledroidsUnits.length / 2) }, (_, page) => group.battledroidsUnits.slice(page * 2, page * 2 + 2)).map( (units) => (
+                      <div className={"page"} key={units[0].getUUID()}>
+                        <BattledroidsUnitRecordSheet
+                          units={units}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
+                  {group.buildings.map( (building) => (
+                      <div className={"page"} key={building.getUUID()}>
+                        <RulesLevelStamp
+                          requiredRulesLevel={building.getRequiredRulesLevel()}
+                        />
+                        <BuildingRecordSheet
+                          building={building}
+                          showDamage={true}
+                        />
+                      </div>
+                  ))}
 
               </div>
 
@@ -244,7 +634,7 @@ export default class ClassicBattleTechRosterPrint extends React.Component<IPrint
                 <BattleTechLogo />
               </div>
               <p>Printed using Jeff's BattleTech Tools at https://heysporky.github.io/battletech-tools/. Huge thanks to the Master Unit List</p>
-              <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
+              <TrademarkNoticeParagraphs />
             </footer> */}
             {/* <header className="print-header">&nbsp;</header> */}
 

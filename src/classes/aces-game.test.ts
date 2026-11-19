@@ -1,0 +1,476 @@
+import { describe, expect, it } from "vitest";
+import { acesSampleBattleROMReview, acesSampleSniper475, acesSampleStarCaptainB, getAcesSampleLibrary } from "../data/aces-card-samples";
+import { AcesGame } from "./aces-game";
+import AlphaStrikeForce from "./alpha-strike-force";
+import { AlphaStrikeUnit } from "./alpha-strike-unit";
+import { buildEmplacementMULRecords } from "../data/sample-mul";
+
+const makeUnit = ( name: string, role: string, pv: number, moveType: string = "" ): AlphaStrikeUnit => {
+    const unit = new AlphaStrikeUnit();
+    unit.name = name;
+    unit.class = name;
+    unit.role = role;
+    unit.type = "BM";
+    unit.size = 2;
+    unit.armor = 4;
+    unit.structure = 4;
+    unit.basePoints = pv;
+    unit.currentPoints = pv;
+    unit.move = [ { move: 8, currentMove: 8, type: moveType } ];
+    unit.damage = { short: 3, medium: 3, long: 1, extreme: 0, shortMinimal: false, mediumMinimal: false, longMinimal: false, extremeMinimal: false };
+    unit.calcCurrentValues();
+    return unit;
+}
+
+const byName = ( game: AcesGame, name: string ): AlphaStrikeUnit => {
+    return game.getAutomatedUnits().find( ( unit ) => unit.name === name )!;
+}
+
+const makeGame = ( units: AlphaStrikeUnit[] ): AcesGame => {
+    const force = new AlphaStrikeForce();
+    for( const unit of units ) {
+        force.addToGroup( unit, 0 );
+    }
+    const game = new AcesGame();
+    game.setAutomatedForce( force );
+    return game;
+}
+
+describe("Aces game tracker, units added during play", () => {
+    it("adds a unit with its own deck and a log line", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const added = game.addAutomatedUnit( makeUnit( "Jenner", "Striker", 25 ) );
+        expect( game.getAutomatedUnits().length ).toBe( 2 );
+        const state = game.getUnitState( added.uuid );
+        expect( state.deckId ).toBe( "striker" );
+        expect( state.addedDuringPlay ).toBe( true );
+        expect( game.log[game.log.length - 1] ).toContain( "joins the automated force" );
+    });
+
+    it("keeps the other units' state", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const brawler = game.getAutomatedUnits()[0];
+        game.cycleCard( brawler.uuid );
+        brawler.currentArmor = [ true, false, false, false ];
+        const cardIds = game.getUnitState( brawler.uuid ).cardIds.slice();
+        game.addAutomatedUnit( makeUnit( "Jenner", "Striker", 25 ) );
+        expect( game.getUnitState( brawler.uuid ).cardsCycled ).toBe( 1 );
+        expect( game.getUnitState( brawler.uuid ).cardIds ).toEqual( cardIds );
+        expect( brawler.currentArmor ).toEqual( [ true, false, false, false ] );
+    });
+
+    it("adds an emplacement card ticked, with no deck", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const card = new AlphaStrikeUnit();
+        card.importMUL( buildEmplacementMULRecords()[0] );
+        const added = game.addAutomatedUnit( card );
+        const state = game.getUnitState( added.uuid );
+        expect( [ state.isEmplacement, state.deckId ] ).toEqual( [ true, "" ] );
+    });
+
+    it("removes only units added during play", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const start = game.getAutomatedUnits()[0];
+        const added = game.addAutomatedUnit( makeUnit( "Jenner", "Striker", 25 ) );
+        expect( game.removeAutomatedUnit( added.uuid ) ).toBe( true );
+        expect( game.getAutomatedUnits().length ).toBe( 1 );
+        expect( game.log[game.log.length - 1] ).toContain( "leaves the automated force" );
+        expect( game.removeAutomatedUnit( start.uuid ) ).toBe( false );
+        expect( game.getAutomatedUnits().length ).toBe( 1 );
+    });
+
+    it("keeps added units through save and load", () => {
+        const game = makeGame( [ makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const added = game.addAutomatedUnit( makeUnit( "Jenner", "Striker", 25 ) );
+        const restored = new AcesGame( JSON.parse( JSON.stringify( game.export() ) ) );
+        expect( restored.getAutomatedUnits().length ).toBe( 2 );
+        expect( restored.getUnitState( added.uuid ).addedDuringPlay ).toBe( true );
+        expect( restored.removeAutomatedUnit( added.uuid ) ).toBe( true );
+    });
+});
+
+describe("Aces game tracker", () => {
+    // The Scouring Sands Battlefield Support cards (#191): an emplacement starts ticked and plays no deck (Aces pp.6, 31).
+    it("ticks an emplacement card as an emplacement, with no deck", () => {
+        const heavy = new AlphaStrikeUnit();
+        heavy.importMUL( buildEmplacementMULRecords()[2] );
+        const game = makeGame( [ heavy, makeUnit( "Thunderbolt", "Brawler", 38 ) ] );
+        const stateOf = ( type: string ) => game.getUnitState( game.getAutomatedUnits().find( ( unit ) => unit.type === type )!.uuid );
+        expect( [ stateOf( "BD" ).isEmplacement, stateOf( "BD" ).deckId ] ).toEqual( [ true, "" ] );
+        expect( [ stateOf( "BM" ).isEmplacement, stateOf( "BM" ).deckId ] ).toEqual( [ false, "brawler" ] );
+        expect( game.getUnitsUsingDeck( "brawler" ) ).toHaveLength( 1 );
+    });
+
+    it("copies the automated force with new unit ids and suggests decks by role (Aces p.10)", () => {
+        const brawler = makeUnit( "Thunderbolt", "Brawler", 38 );
+        const game = makeGame( [ brawler, makeUnit( "Jenner", "Striker", 25 ) ] );
+        const units = game.getAutomatedUnits();
+        expect( units.length ).toBe( 2 );
+        expect( units.some( ( unit ) => unit.uuid === brawler.uuid ) ).toBe( false );
+        const decks = units.map( ( unit ) => game.getUnitState( unit.uuid ).deckId ).sort();
+        expect( decks ).toEqual( [ "brawler", "striker" ] );
+    });
+
+    it("splits one Brawler deck between two Brawlers and reshuffles after three cards (Aces pp.19, 38)", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ), makeUnit( "B", "Brawler", 32 ) ] );
+        const a = byName( game, "A" );
+        const b = byName( game, "B" );
+        expect( game.getUnitState( a.uuid ).cardsInDeck ).toBe( 3 );
+        expect( game.getUnitState( b.uuid ).cardsInDeck ).toBe( 3 );
+        expect( game.cycleCard( a.uuid ) ).toBe( false );
+        expect( game.cycleCard( a.uuid ) ).toBe( false );
+        expect( game.cycleCard( a.uuid ) ).toBe( true );
+        expect( game.getUnitState( a.uuid ).cardsCycled ).toBe( 0 );
+
+        // With two Brawler decks owned, each unit keeps a full six-card deck.
+        game.decksOwned["brawler"] = 2;
+        game.dealDeck( "brawler" );
+        expect( game.getUnitState( a.uuid ).cardsInDeck ).toBe( 6 );
+    });
+
+    it("orders movement by priority with Forced Withdrawal and tokens, and discards tokens after moving", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ), makeUnit( "B", "Sniper", 32 ), makeUnit( "C", "Scout", 20 ) ] );
+        const a = byName( game, "A" );
+        const b = byName( game, "B" );
+        const c = byName( game, "C" );
+        game.getUnitState( a.uuid ).movePriority = 383;
+        game.getUnitState( b.uuid ).movePriority = 625;
+        game.getUnitState( b.uuid ).forcedWithdrawal = true;
+        game.getUnitState( c.uuid ).movePriority = 93;
+        expect( game.assignToken( c.uuid, "move-last" ) ).toBe( true );
+        expect( game.assignToken( b.uuid, "move-first" ) ).toBe( false );
+        expect( game.getMovementQueue().map( ( unit ) => unit.name ) ).toEqual( [ "B", "A", "C" ] );
+
+        game.markMoved( c.uuid );
+        expect( game.getUnitState( c.uuid ).token ).toBe( null );
+        expect( game.getMovementQueue().map( ( unit ) => unit.name ) ).toEqual( [ "B", "A" ] );
+    });
+
+    it("builds the front-loaded move order from the Initiative result (Aces p.6)", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ), makeUnit( "B", "Brawler", 30 ), makeUnit( "C", "Scout", 20 ) ] );
+        game.playerUnitsAbleToMove = 7;
+        game.setInitiativeWinner( "player" );
+        const order = game.getMoveOrder();
+        expect( order[0] ).toEqual( [ { side: "automated", count: 1 }, { side: "player", count: 3 } ] );
+    });
+
+    it("applies the campaign Initiative penalties (Aces p.32)", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ) ] );
+        game.campaignId = "campaign";
+        game.setInitiativeWinner( "automated" );
+        game.nextTurn();
+        expect( game.getInitiativeModifiers( "automated" ).map( ( mod ) => mod.value ) ).toEqual( [ -2 ] );
+        expect( game.getInitiativeModifiers( "player" ) ).toEqual( [] );
+        game.automatedCommanderUUID = game.getAutomatedUnits()[0].uuid;
+        game.getAutomatedUnits()[0].currentStructure = [ true, true, true, true ];
+        expect( game.isAutomatedCommanderDestroyed() ).toBe( true );
+    });
+
+    it("puts crippled units under Forced Withdrawal in the End Phase when the sortie uses it (Aces pp.16, 32)", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ) ] );
+        game.forcedWithdrawal = true;
+        const unit = game.getAutomatedUnits()[0];
+        unit.currentArmor = [ true, true, true, true ];
+        unit.currentStructure = [ true, true, false, false ];
+        const crippled = game.checkCrippled();
+        expect( crippled.length ).toBe( 1 );
+        expect( game.getUnitState( unit.uuid ).forcedWithdrawal ).toBe( true );
+    });
+
+    it("round-trips through export and import", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ) ] );
+        const id = game.getAutomatedUnits()[0].uuid;
+        game.getUnitState( id ).movePriority = 213;
+        game.scenario.scenarioId = 3;
+        const restored = new AcesGame( JSON.parse( JSON.stringify( game.export() ) ) );
+        expect( restored.getAutomatedUnits()[0].uuid ).toBe( id );
+        expect( restored.getUnitState( id ).movePriority ).toBe( 213 );
+        expect( restored.getUnitState( id ).deckId ).toBe( "brawler" );
+        expect( restored.scenario.scenarioId ).toBe( 3 );
+        // Old or partial saves still load.
+        const partial = new AcesGame( { version: 1 } as never );
+        expect( partial.phase ).toBe( "initiative" );
+    });
+});
+
+describe("Aces game: card library, sorties, dice and transport", () => {
+    it("deals virtual piles from the card library and stacks the tutorial order (Aces SS p.5)", () => {
+        const game = makeGame( [ makeUnit( "Pouncer", "Sniper", 40 ), makeUnit( "Timber Wolf", "Brawler", 73 ) ] );
+        const library = getAcesSampleLibrary();
+        const warnings = game.loadScenario( acesSampleBattleROMReview, library );
+        const pouncer = byName( game, "Pouncer" );
+        const state = game.getUnitState( pouncer.uuid );
+        expect( state.deckId ).toBe( "sniper" );
+        expect( game.getTopCard( pouncer.uuid, library )!.movePriority ).toBe( 475 );
+        expect( state.movePriority ).toBe( 475 );
+        expect( game.turnLimit ).toBe( 5 );
+        expect( game.commandCard ).toBe( "C" );
+        // Only one card of each deck ships as a sample; the rest must come from the players' own cards.
+        expect( warnings.some( ( line ) => line.indexOf( "535" ) > -1 ) ).toBe( true );
+    });
+
+    it("cycles the top library card under the pile", () => {
+        const game = makeGame( [ makeUnit( "Pouncer", "Sniper", 40 ) ] );
+        const library = getAcesSampleLibrary();
+        library.cards.push( { ...JSON.parse( JSON.stringify( acesSampleSniper475 ) ), id: "my-535", movePriority: 535, combatPriority: 535 } );
+        game.setDeckPoolsFromLibrary( library );
+        const pouncer = byName( game, "Pouncer" );
+        game.stackDeck( pouncer.uuid, [ "475", "535" ], library );
+        game.cycleCard( pouncer.uuid );
+        expect( game.getTopCard( pouncer.uuid, library )!.movePriority ).toBe( 535 );
+    });
+
+    it("ends the sortie after the final turn or when the primary objective is complete (Aces p.32)", () => {
+        const game = makeGame( [ makeUnit( "Pouncer", "Sniper", 40 ) ] );
+        game.loadScenario( acesSampleBattleROMReview );
+        expect( game.isSortieOver().over ).toBe( false );
+        game.objectives[0].complete = true;
+        expect( game.isSortieOver().over ).toBe( true );
+        game.objectives[0].complete = false;
+        game.turn = 6;
+        expect( game.isSortieOver().reason ).toContain( "Final turn" );
+    });
+
+    it("rolls Initiative from the saved seed, so a reload rolls the same", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ) ] );
+        game.rng = { seed: 99, calls: 0 };
+        const copy = new AcesGame( JSON.parse( JSON.stringify( game.export() ) ) );
+        expect( copy.rollInitiative() ).toEqual( game.rollInitiative() );
+        expect( copy.rng ).toEqual( game.rng );
+    });
+
+    it("adds the Command card's Initiative order to the automated force's roll (#604)", () => {
+        const card = { ...acesSampleStarCaptainB, orders: [ ...acesSampleStarCaptainB.orders, { phase: "initiative" as const, text: "Add +2 to the Initiative roll.", token: null, tokenRank: [], behavior: null, filter: "" } ] };
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ) ] );
+        game.rng = { seed: 99, calls: 0 };
+        const copy = new AcesGame( JSON.parse( JSON.stringify( game.export() ) ) );
+        expect( game.getInitiativeModifiers( "automated", card ).map( ( mod ) => mod.value ) ).toEqual( [ 2 ] );
+        expect( game.getInitiativeModifiers( "player", card ) ).toEqual( [] );
+        const plain = copy.rollInitiative();
+        const withOrder = game.rollInitiative( card );
+        expect( withOrder.automated ).toBe( plain.automated + 2 );
+        expect( withOrder.player ).toBe( plain.player );
+        expect( game.log.some( ( line ) => line.includes( "Command card Initiative order +2" ) ) ).toBe( true );
+    });
+
+    it("loads a version 1 save with the new fields defaulted", () => {
+        const game = makeGame( [ makeUnit( "A", "Brawler", 30 ) ] );
+        const data = JSON.parse( JSON.stringify( game.export() ) );
+        data.version = 1;
+        for( const key of [ "ruleset", "rng", "turnLimit", "waypoints", "objectives", "specialOrders", "deckPools" ] ) delete data[key];
+        for( const state of data.unitStates ) {
+            delete state.cardIds;
+            delete state.transportedBy;
+        }
+        const loaded = new AcesGame( data );
+        expect( loaded.ruleset ).toBe( "aces" );
+        expect( loaded.turnLimit ).toBeNull();
+        expect( loaded.unitStates[0].cardIds ).toEqual( [] );
+        expect( loaded.unitStates[0].transportedBy ).toBe( "" );
+    });
+
+    it("mounts infantry by IT/CAR capacity and keeps passengers out of the move order (Aces pp.5-6)", () => {
+        const apc = makeUnit( "APC", "Transport", 20 );
+        apc.type = "CV";
+        apc.abilities = [ "IT2" ];
+        const squad1 = makeUnit( "Squad 1", "Ambusher", 10 );
+        squad1.type = "CI";
+        squad1.abilities = [ "CAR1" ];
+        const squad2 = makeUnit( "Squad 2", "Ambusher", 10 );
+        squad2.type = "CI";
+        squad2.abilities = [ "CAR2" ];
+        const game = makeGame( [ apc, squad1, squad2 ] );
+        const transport = byName( game, "APC" );
+        const first = byName( game, "Squad 1" );
+        const second = byName( game, "Squad 2" );
+        expect( game.mount( first.uuid, transport.uuid, true ).ok ).toBe( false );
+        expect( game.mount( first.uuid, transport.uuid, false ).ok ).toBe( true );
+        expect( game.mount( second.uuid, transport.uuid, false ).ok ).toBe( false );
+        expect( game.getAutomatedUnitsAbleToMove() ).toBe( 2 );
+        game.nextPhase();
+        game.nextPhase();
+        expect( game.getCombatQueue().some( ( unit ) => unit.uuid === first.uuid ) ).toBe( false );
+        expect( game.dismount( first.uuid, false ).ok ).toBe( false );
+        game.nextTurn();
+        expect( game.dismount( first.uuid, true ).ok ).toBe( false );
+        expect( game.dismount( first.uuid, false ).ok ).toBe( true );
+    });
+
+    it("battle armor with MEC rides one Omni unit and survives its destruction (Aces p.5)", () => {
+        const omni = makeUnit( "Omni", "Brawler", 40 );
+        omni.abilities = [ "OMNI" ];
+        const ba = makeUnit( "Elementals", "Ambusher", 15 );
+        ba.type = "BA";
+        ba.abilities = [ "MEC" ];
+        const game = makeGame( [ omni, ba ] );
+        const carrier = byName( game, "Omni" );
+        const rider = byName( game, "Elementals" );
+        expect( game.mount( rider.uuid, carrier.uuid, false ).ok ).toBe( true );
+        const lines = game.handleTransportDestroyed( carrier.uuid );
+        expect( lines[0] ).toContain( "base contact" );
+        expect( rider.isWrecked() ).toBe( false );
+    });
+
+    it("kills infantry carried inside a destroyed transport (Aces p.5)", () => {
+        const apc = makeUnit( "APC", "Transport", 20 );
+        apc.type = "CV";
+        apc.abilities = [ "IT2" ];
+        const squad = makeUnit( "Squad", "Ambusher", 10 );
+        squad.type = "CI";
+        squad.abilities = [ "CAR2" ];
+        const game = makeGame( [ apc, squad ] );
+        const inside = byName( game, "Squad" );
+        game.mount( inside.uuid, byName( game, "APC" ).uuid, false );
+        game.handleTransportDestroyed( byName( game, "APC" ).uuid );
+        expect( inside.isWrecked() ).toBe( true );
+    });
+});
+
+describe("Aces player units able to move (#630)", () => {
+    it("counts the roster units still standing and able to move", () => {
+        const roster = new AlphaStrikeForce();
+        for( let index = 0; index < 6; index++ ) roster.addToGroup( makeUnit( "Mech " + index, "Brawler", 30 ), 0 );
+        const game = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        game.playerUnitsAbleToMove = 4;
+        game.setPlayerUnitsFromForce( roster );
+        expect( game.playerUnitsAbleToMove ).toBe( 6 );
+
+        roster.groups[0].members[0].currentHeat = 4; // shut down, so immobile
+        game.setPlayerUnitsFromForce( roster );
+        expect( game.playerUnitsAbleToMove ).toBe( 5 );
+    });
+    it("leaves the number alone when there is no roster", () => {
+        const game = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        game.playerUnitsAbleToMove = 3;
+        game.setPlayerUnitsFromForce( null );
+        expect( game.playerUnitsAbleToMove ).toBe( 3 );
+    });
+});
+
+describe("Aces Command card tokens (#630)", () => {
+    it("gives the token to the unit the card ranks first, and takes it back when the card changes", () => {
+        const weak = makeUnit( "Locust", "Scout", 20 );
+        weak.damage.medium = 1;
+        const strong = makeUnit( "Atlas", "Juggernaut", 60 );
+        strong.damage.medium = 5;
+        const game = makeGame( [ weak, strong ] );
+        // Star Captain B: MOVE LAST to the unit with the highest M damage, then the highest PV.
+        game.applyCommandTokens( acesSampleStarCaptainB );
+        expect( game.getUnitState( byName( game, "Atlas" ).uuid ).token ).toBe( "move-last" );
+        expect( game.getUnitState( byName( game, "Locust" ).uuid ).token ).toBe( null );
+
+        // A card with no token order clears the old token.
+        game.applyCommandTokens( null );
+        expect( game.getUnitState( byName( game, "Atlas" ).uuid ).token ).toBe( null );
+    });
+    it("leaves the token for the players when the card ranking is tied", () => {
+        const game = makeGame( [ makeUnit( "Twin A", "Brawler", 30 ), makeUnit( "Twin B", "Brawler", 30 ) ] );
+        game.applyCommandTokens( acesSampleStarCaptainB );
+        for( const unit of game.getAutomatedUnits() ) expect( game.getUnitState( unit.uuid ).token ).toBe( null );
+    });
+    it("does not give a token to a unit that has already moved this turn", () => {
+        const game = makeGame( [ makeUnit( "Locust", "Scout", 20 ), makeUnit( "Atlas", "Juggernaut", 60 ) ] );
+        game.markMoved( byName( game, "Atlas" ).uuid );
+        game.applyCommandTokens( acesSampleStarCaptainB );
+        expect( game.getUnitState( byName( game, "Atlas" ).uuid ).token ).toBe( null );
+        expect( game.getUnitState( byName( game, "Locust" ).uuid ).token ).toBe( "move-last" );
+    });
+});
+
+describe("Aces player units moved this turn (#630 point 2)", () => {
+    it("remembers which player units moved, clears the list on the next turn, and survives a save", () => {
+        const game = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        expect( game.playerUnitsMoved ).toEqual( [] );
+        game.setPlayerUnitMoved( "u1", true );
+        game.setPlayerUnitMoved( "u2", true );
+        game.setPlayerUnitMoved( "u1", true );
+        game.setPlayerUnitMoved( "u2", false );
+        expect( game.playerUnitsMoved ).toEqual( [ "u1" ] );
+        const again = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        again.import( game.export() );
+        expect( again.playerUnitsMoved ).toEqual( [ "u1" ] );
+        again.nextTurn();
+        expect( again.playerUnitsMoved ).toEqual( [] );
+    });
+    it("loads an older save with no list", () => {
+        const game = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        const data = game.export();
+        delete data.playerUnitsMoved;
+        const again = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        again.import( data );
+        expect( again.playerUnitsMoved ).toEqual( [] );
+    });
+});
+
+
+describe("Aces game tracker, Battlefield Support cards (#605)", () => {
+    const withCards = () => {
+        const game = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        game.turn = 3;
+        const a = game.addSupportCard( "Made Up Strike" );
+        const b = game.addSupportCard( "Made Up Barrage" );
+        return { game, a, b };
+    };
+
+    it("spends the chosen cards and logs them", () => {
+        const { game, a, b } = withCards();
+        const result = game.spendSupportCards( [ a.id ], 2 );
+        expect( result.ok ).toBe( true );
+        expect( game.supportCards.find( ( c ) => c.id === a.id )!.spentTurn ).toBe( 3 );
+        expect( game.supportCards.find( ( c ) => c.id === b.id )!.spentTurn ).toBeNull();
+        expect( game.log[game.log.length - 1] ).toContain( "Made Up Strike" );
+    });
+
+    it("refuses more than the limit and spends none", () => {
+        const { game, a, b } = withCards();
+        const c = game.addSupportCard( "Made Up Volley" );
+        const result = game.spendSupportCards( [ a.id, b.id, c.id ], 2 );
+        expect( result.ok ).toBe( false );
+        expect( result.reason.length ).toBeGreaterThan( 0 );
+        expect( game.supportCards.every( ( card ) => card.spentTurn === null ) ).toBe( true );
+    });
+
+    it("applies the limit per turn, not per call", () => {
+        const { game, a, b } = withCards();
+        const c = game.addSupportCard( "Made Up Volley" );
+        const d = game.addSupportCard( "Made Up Salvo" );
+        expect( game.spendSupportCards( [ a.id ], 2 ).ok ).toBe( true );
+        expect( game.spendSupportCards( [ b.id, c.id ], 2 ).ok ).toBe( false );
+        expect( game.supportCards.filter( ( card ) => card.spentTurn !== null ).length ).toBe( 1 );
+        expect( game.spendSupportCards( [ b.id ], 2 ).ok ).toBe( true );
+        expect( game.spendSupportCards( [ c.id ], 2 ).ok ).toBe( false );
+        game.turn = 4;
+        expect( game.spendSupportCards( [ c.id, d.id ], 2 ).ok ).toBe( true );
+    });
+
+    it("refuses unknown and already spent ids, and removes cards", () => {
+        const { game, a, b } = withCards();
+        game.spendSupportCards( [ a.id ], null );
+        expect( game.spendSupportCards( [ a.id ], null ).ok ).toBe( false );
+        expect( game.spendSupportCards( [ b.id, "nope" ], null ).ok ).toBe( false );
+        expect( game.supportCards.find( ( c ) => c.id === b.id )!.spentTurn ).toBeNull();
+        game.removeSupportCard( b.id );
+        expect( game.supportCards.map( ( c ) => c.id ) ).toEqual( [ a.id ] );
+    });
+
+    it("keeps support cards and spent turns through save and load", () => {
+        const { game, a } = withCards();
+        game.spendSupportCards( [ a.id ], 1 );
+        const again = makeGame( [ makeUnit( "Bot", "Brawler", 30 ) ] );
+        again.import( JSON.parse( JSON.stringify( game.export() ) ) );
+        expect( again.supportCards ).toEqual( game.supportCards );
+        expect( again.supportCards[0].spentTurn ).toBe( 3 );
+        const old = game.export();
+        delete old.supportCards;
+        again.import( old );
+        expect( again.supportCards ).toEqual( [] );
+    });
+
+    it("keeps the cards through reset but makes them unspent", () => {
+        const { game, a } = withCards();
+        game.spendSupportCards( [ a.id ], 1 );
+        game.reset();
+        expect( game.supportCards.length ).toBe( 2 );
+        expect( game.supportCards.every( ( card ) => card.spentTurn === null ) ).toBe( true );
+    });
+});

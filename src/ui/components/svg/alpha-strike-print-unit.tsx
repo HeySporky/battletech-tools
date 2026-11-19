@@ -5,6 +5,9 @@ import { IASSpecialAbility } from '../../../data/alpha-strike-special-abilities'
 import { IAppGlobals } from '../../app-router';
 import { safeImageURL } from '../../../utils/safeImageURL';
 import BattleTechLogo from '../battletech-logo';
+import { rulesetsAttributionSvg } from '../rulesets-attribution';
+import AlphaStrikeArcsSVG from './alpha-strike-arcs-svg';
+import { CARD_NOTICE } from './record-sheet-svg-kit';
 import './alpha-strike-card-svg.scss';
 
 export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrikePrintUnitSVGProps, IAlphaStrikePrintUnitSVGState> {
@@ -39,7 +42,7 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
         radius: number = 0,
         target: string = "armor",
     ): JSX.Element[] => {
-        let dots: JSX.Element[] = []
+        const dots: JSX.Element[] = []
         // We reduce the number of dots per row to accommodate a threshold number
         let maxCountInRow = this.props.asUnit && this.props.asUnit.threshold!==0 ? 15 : 17;
         if (!this.props.inPlay) {
@@ -47,7 +50,7 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
         }
         // If armor is more than 1 row, nudge the display upwards to make room for both above the structure.
         let yLoc = target === "armor" && this.props.asUnit && this.props.asUnit.armor > maxCountInRow ? -22 : -10;
-        let xLoc = this.props.inPlay ? 0 : 40;
+        const xLoc = this.props.inPlay ? 0 : 40;
 
         if( radius === 0 ) {
             radius = this.buttonRadius - 5;
@@ -87,9 +90,9 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
             return <></>
         }
 
-        let showHeat = this.props.asUnit.type.toLocaleLowerCase() === "bm" || this.props.asUnit.type.toLocaleLowerCase() === "af";
+        const showHeat = this.props.asUnit.type.toLocaleLowerCase() === "bm" || this.props.asUnit.type.toLocaleLowerCase() === "wk" || this.props.asUnit.type.toLocaleLowerCase() === "iwk" || this.props.asUnit.type.toLocaleLowerCase() === "af";
         let critLineStart = showHeat ? 63 : 72;
-        let critLineHeight = showHeat ? 33 : 36;
+        const critLineHeight = showHeat ? 33 : 36;
 
         let damageLabelColWidth = 110;
         let damageColWidth=170;
@@ -98,13 +101,13 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
             damageLabelColWidth = 100;
         }
 
-        let shortDamageX = damageLabelColWidth;
-        let mediumDamageX = damageLabelColWidth + damageColWidth;
-        let longDamageX = damageLabelColWidth + damageColWidth*2;
-        let extremeDamageX = damageLabelColWidth + damageColWidth*3;
+        const shortDamageX = damageLabelColWidth;
+        const mediumDamageX = damageLabelColWidth + damageColWidth;
+        const longDamageX = damageLabelColWidth + damageColWidth*2;
+        const extremeDamageX = damageLabelColWidth + damageColWidth*3;
 
-        let pilotAbilitiesList = this.props.asUnit.getPilotAbilityList();
-        let pilotAbilities = this.props.asUnit.getPilotAbilities();
+        const pilotAbilitiesList = this.props.asUnit.getPilotAbilityList();
+        const pilotAbilities = this.props.asUnit.getPilotAbilities();
 
         return (
 
@@ -139,7 +142,7 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
                             )}
                         {pilotAbilities.map( (ability, abilityIndex) => {
                             if (ability) {
-                                let comma = abilityIndex < pilotAbilitiesList.length - 1 ? ", " : "";
+                                const comma = abilityIndex < pilotAbilitiesList.length - 1 ? ", " : "";
                                 return <tspan key={abilityIndex}>{ability.ability}{comma}</tspan>;
                             } else {
                                 return null;
@@ -161,7 +164,11 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
                     {this.props.asUnit.currentPoints !== this.props.asUnit.basePoints ? (
                         <text x="-230" y="30" textAnchor="end" className='base small data-pair'><tspan>Base PV: </tspan>{this.props.asUnit.basePoints.toString().toUpperCase()}</text>
                     ) : null}
-                    
+                    {/* Stats from anywhere but MUL 2.0 (MUL 1.0, custom lists, the creators, a card photo) aren't official. */}
+                    {!this.props.asUnit.isOfficial() ? (
+                        <text data-testid="not-official" x="-6" y="108" textAnchor="end" fill="rgb(200,0,0)" stroke="rgb(255,255,255)" strokeWidth="4" paintOrder="stroke" fontFamily="sans-serif" fontWeight="bold" fontSize="26">NOT OFFICIAL</text>
+                    ) : null}
+
                 </g>
 
                 {/* Movement Box  */}
@@ -189,6 +196,10 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
                 <g transform={showHeat ? "translate(36, 286)" : "translate(36, 324)"}>
                     <rect x="0" y="0" width="540" height="90" fill="rgb(209,210,212)" stroke='rgb(0,0,0)' strokeWidth={3} rx="20" ry="20"></rect>
                     <text x="-45" y="25" className='vertical-text' textAnchor="middle" >DAMAGE</text>
+                    {this.props.asUnit.hasArcs() ? (
+                    <text x="270" y="55" textAnchor="middle" fontSize="24" fontFamily="sans-serif" data-testid="as-card-damage-by-arc">BY FIRING ARC: SEE CARD BACK</text>
+                    ) : (
+                    <>
 
                     <g transform={'translate(' + shortDamageX +',24)'} className="damage-column">
                         <text x="0" y="0">S (0)</text>
@@ -215,7 +226,8 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
                         <text x="0" y="56" className='range'>{this.props.measurementsInHexes ? ">22⬣" : '>42'}</text>
                     </g>
                     ) : null}
-
+                    </>
+                    )}
                 </g>
 
                 {/* Heat Scale Box */}
@@ -344,7 +356,7 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
                 <foreignObject x="14" y="3" width="512" height="70">
                     <p className='specials'>SPECIAL:&nbsp;
                     {this.props.asUnit.abilities.map( (word, wordIndex) => {
-                        let comma = this.props.asUnit && wordIndex < this.props.asUnit.abilities.length - 1 ? ", " : "";
+                        const comma = this.props.asUnit && wordIndex < this.props.asUnit.abilities.length - 1 ? ", " : "";
 
                         return (
                             <React.Fragment key={wordIndex}>{word}{comma}</React.Fragment>
@@ -427,7 +439,7 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
                 <text x={152 + (this.buttonRadius * 1.8)*4} y={critLineStart} textAnchor="start" className='crit-description'>+2 To Hit Each</text>
                 {critLineStart += critLineHeight}
 
-                {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' ? (
+                {this.props.asUnit.type.toLowerCase() === 'bm' || this.props.asUnit.type.toLowerCase() === 'pm' || this.props.asUnit.type.toLowerCase() === 'wk' || this.props.asUnit.type.toLowerCase() === 'iwk' ? (
                     <>
                         <text x="144" y={critLineStart} textAnchor="end" className='crit-label'>MP</text>
                         <circle
@@ -568,9 +580,13 @@ export default class AlphaStrikePrintUnitSVG extends React.Component<IAlphaStrik
                     altColor='rgb(105,106,108)'
                 />
 
-                <text x="-450" y="1020" transform="rotate(-90)" fontSize="15" fill="rgb(0,0,0)">©2018 The Topps Company. All rights reserved.</text>
+                {/* 12 points: it runs from the Critical Hits box up to the top frame, where 15 ran off the card. */}
+                <text x="-450" y="1020" transform="rotate(-90)" fontSize="12" fill="rgb(0,0,0)">{CARD_NOTICE( new Date().getFullYear() )}</text>
+                {/* The Special Rulesets the unit is built under (#324), down the edge beside the notice. */}
+                {rulesetsAttributionSvg(-720, 1040, this.props.asUnit.rulesets, { size: 13, maxWidth: 690, transform: "rotate(-90)" })}
 
                 </svg>
+                {this.props.asUnit.hasArcs() ? <AlphaStrikeArcsSVG asUnit={this.props.asUnit} className={this.props.className} width={1050} height={750} /> : null}
             </>
         )
     }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Conjurer (Hellhound)" model="8" tons="50" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>2197</battle_value>
+    <cost>9801500.0</cost>
+    <rules_level>3</rules_level>
+    <era>3</era>
+    <productionera>10</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Kallon Industries" location="Thermopolis">Mixed</techbase>
+    <year restricted="FALSE">3150</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Crucis-C" techbase="1">
+        <type>Endo-Steel</type>
+        <location index="4">LL</location>
+        <location index="4">RL</location>
+        <location index="5">LL</location>
+        <location index="5">RL</location>
+        <location index="8">LT</location>
+        <location index="9">LT</location>
+        <location index="11">CT</location>
+    </structure>
+    <engine rating="250" manufacturer="Hermes" lsstart="0" rsstart="0" techbase="0">XL Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <enhancement techbase="1">
+        <type>MASC</type>
+        <location index="9">RT</location>
+    </enhancement>
+    <armor manufacturer="Alpha Plate Special" techbase="1">
+        <type>Ferro-Fibrous</type>
+        <hd>9</hd>
+        <ct>23</ct>
+        <ctr>7</ctr>
+        <lt>19</lt>
+        <ltr>5</ltr>
+        <rt>19</rt>
+        <rtr>5</rtr>
+        <la>14</la>
+        <ra>14</ra>
+        <ll>24</ll>
+        <rl>24</rl>
+        <location index="4">LA</location>
+        <location index="5">LA</location>
+        <location index="6">LA</location>
+        <location index="7">LA</location>
+        <location index="10">LT</location>
+        <location index="11">LT</location>
+        <location index="11">RT</location>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RGiC 5</source>
+        <info>Conjurer (Hellhound) 8 50t, 5/8[10]/5 MASC, XLFE, ES; 8.5T/96% FF Armor; 10 DHS; 1 RAC5, 2 MPL, 1 SSRM6</info>
+        <battleforce pv="22" wt="2" mv="6/5j" s="5" m="5" l="0" e="0" ov="0" armor="5" internal="2" abilities="CASE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <jumpjets number="5">
+            <type>Standard Jump Jet</type>
+            <location index="4">RT</location>
+            <location index="10">CT</location>
+            <location index="3">LT</location>
+            <location index="4">LT</location>
+            <location index="3">RT</location>
+        </jumpjets>
+        <heatsinks number="10" techbase="1">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(CL) Streak SRM-6</name>
+            <type>missile</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="6">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Rotary AC/5</name>
+            <type>ballistic</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Rotary AC/5</name>
+            <type>ammunition</type>
+            <location index="11">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Rotary AC/5</name>
+            <type>ammunition</type>
+            <location index="10">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Rotary AC/5</name>
+            <type>ammunition</type>
+            <location index="8">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Rotary AC/5</name>
+            <type>ammunition</type>
+            <location index="7">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(CL) @ Streak SRM-6</name>
+            <type>ammunition</type>
+            <location index="7">LT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional>Features the following Design Quirks: Extended Torso Twist.</additional>
+        <jumpjet_model>BMP Mk. XXI</jumpjet_model>
+        <commsystem>Garret T-11b</commsystem>
+        <tandtsystem>Sync Tracker (39-42071)</tandtsystem>
+    </fluff>
+</mech>

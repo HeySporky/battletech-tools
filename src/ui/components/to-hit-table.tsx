@@ -21,7 +21,7 @@ export default class ToHitTable extends React.Component<IToHitTableProps, IToHit
     }
     render = (): JSX.Element => {
 
-        let toHitTable = getBattleMechToHitChart();
+        const toHitTable = getBattleMechToHitChart();
 
         return (
             <table style={{maxWidth: "500px"}} className={this.props.className ? this.props.className + " table text-center": "table text-center"}>

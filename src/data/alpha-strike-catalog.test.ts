@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { CONST_AS_PILOT_ABILITIES } from "./alpha-strike-pilot-abilities";
-import { CONST_AS_SPECIAL_ABILITIES } from "./alpha-strike-special-abilities";
+import { CONST_AS_SPECIAL_ABILITIES, ESpecialAbilityType } from "./alpha-strike-special-abilities";
 
 /*
  * DISCLAIMER: This file processes gameplay data derived from the BattleTech universe. 
@@ -22,7 +22,8 @@ describe("Alpha Strike catalogs", () => {
 
         expect(new Set(tags).size).toBe(tags.length);
         expect(CONST_AS_SPECIAL_ABILITIES.every(ability =>
-            ability.source.book.length > 0 && ability.source.page > 0
+            // A Custom Homebrew ability of ours is in no book, so it has no page.
+            ability.source.book.length > 0 && (ability.source.page > 0 || ability.type === ESpecialAbilityType.Custom)
         )).toBe(true);
         expect(tags).toContain("FLK#/#/#/#");
         expect(tags).toContain("MSL#/#/#/#");

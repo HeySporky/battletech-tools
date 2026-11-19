@@ -1,0 +1,330 @@
+{
+  "promotion_ready_count": 0,
+  "candidate_count": 14,
+  "candidates": [
+    {
+      "name": "Light Particle Projector Cannon",
+      "catalog": "is",
+      "source_file": "energy_weapons.md",
+      "alpha": {
+        "name": "Light Particle Projector Cannon",
+        "found": false,
+        "heat": null,
+        "short": null,
+        "medium": null,
+        "long": null,
+        "extreme": null,
+        "source_url": "",
+        "evidence": [],
+        "notes": ""
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated",
+        "Alpha Strike evidence incomplete"
+      ]
+    },
+    {
+      "name": "Particle Projector Cannon",
+      "catalog": "is",
+      "source_file": "energy_weapons.md",
+      "alpha": {
+        "name": "Particle Projector Cannon",
+        "found": false,
+        "heat": null,
+        "short": null,
+        "medium": null,
+        "long": null,
+        "extreme": null,
+        "source_url": "",
+        "evidence": [],
+        "notes": ""
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated",
+        "Alpha Strike evidence incomplete"
+      ]
+    },
+    {
+      "name": "Extended LRM 5",
+      "catalog": "is",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "Extended LRM 5",
+        "found": true,
+        "heat": 3,
+        "short": 12,
+        "medium": 22,
+        "long": 38,
+        "extreme": 44,
+        "source_url": "https://www.sarna.net/wiki/Extended_LRM_5",
+        "evidence": [
+          "The Extended Long-Range Missile (ELRM) system was designed by engineers in the Federated Commonwealth to offset the incredible range advantage of most Clan weapons. The ELRM pairs a standard LRM to a booster system that gives the missile more fuel, and thus, more range.",
+          "By 3080, all extended LRM launchers would enter limited production and start to appear on more technologically advanced combat units in the post-Jihad era.",
+          "The Extended LRM 5 has a Short Range of 1-12, Medium Range of 13-22, Long Range of 23-38, and Extreme Range of 39-44."
+        ],
+        "notes": "The weapon is classified as a Missile Weapon with a heat value of 3. The ranges are based on the standard Extended LRM 5 specifications from Sarna.net."
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated"
+      ]
+    },
+    {
+      "name": "Extended LRM 10",
+      "catalog": "is",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "Extended LRM 10",
+        "found": true,
+        "heat": 6,
+        "short": 12,
+        "medium": 22,
+        "long": 38,
+        "extreme": 44,
+        "source_url": "https://www.sarna.net/wiki/Extended_LRM_10",
+        "evidence": [
+          "Heat 6",
+          "Short Range 1-12",
+          "Medium Range 13-22",
+          "Long Range 23-38",
+          "Extreme Range 39-44"
+        ],
+        "notes": "The Extended LRM 10 is a missile weapon with a heat value of 6. It has a short range of 12, medium range of 22, long range of 38, and extreme range of 44."
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated"
+      ]
+    },
+    {
+      "name": "MML 7",
+      "catalog": "is",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "MML 7",
+        "found": false,
+        "error": "missing Alpha Strike field"
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated",
+        "Alpha Strike evidence incomplete"
+      ]
+    },
+    {
+      "name": "MML 9",
+      "catalog": "is",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "MML 9",
+        "found": true,
+        "heat": 5,
+        "short": 2,
+        "medium": 1,
+        "long": 1,
+        "extreme": 1,
+        "source_url": "https://www.sarna.net/wiki/MML_9",
+        "evidence": [
+          "The MML-9 fires nine missiles at a time, be they short-range or long-range. Ammo Type Minimum Short Medium Long Damage Ammo/Ton Ammo Cost SRM 0 1-3 4-6 7-9 2/missile 11 27,000 LRM 6 1-7 8-14 15-21 1/missile 13 30,000"
+        ],
+        "notes": "The MML 9 has a heat generation of 5. For damage, it fires 9 missiles with 2 damage per missile at short range and 1 damage per missile at medium, long, and extreme ranges."
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated"
+      ]
+    },
+    {
+      "name": "MRM 10",
+      "catalog": "is",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "MRM 10",
+        "found": true,
+        "heat": 4,
+        "short": 1,
+        "medium": 1,
+        "long": 1,
+        "extreme": 1,
+        "source_url": "https://www.sarna.net/wiki/MRM_10",
+        "evidence": [
+          "Heat 4",
+          "Damage 1/missile (10)",
+          "Short Range 1-3",
+          "Medium Range 4-8",
+          "Long Range 9-15"
+        ],
+        "notes": "The MRM 10 is a medium-range missile launcher with 10 missiles per salvo, dealing 1 damage at all ranges. It has a heat signature of 4 and is compatible with Alpha Strike rules."
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated"
+      ]
+    },
+    {
+      "name": "MRM 30",
+      "catalog": "is",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "MRM 30",
+        "found": true,
+        "heat": 10,
+        "short": 1,
+        "medium": 1,
+        "long": 1,
+        "extreme": 1,
+        "source_url": "https://www.sarna.net/wiki/MRM_30",
+        "evidence": [
+          "Heat 10",
+          "Short Range = 1-3",
+          "Medium Range = 4-8",
+          "Long Range = 9-15"
+        ],
+        "notes": "The MRM 30 is a Medium-Range Missile launcher with 10 heat generation, dealing 1 damage at all ranges (short, medium, long, and extreme)."
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated"
+      ]
+    },
+    {
+      "name": "MRM 40",
+      "catalog": "is",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "MRM 40",
+        "found": true,
+        "heat": 12,
+        "short": 1,
+        "medium": 1,
+        "long": 1,
+        "extreme": 1,
+        "source_url": "https://www.sarna.net/wiki/MRM_40",
+        "evidence": [
+          "Medium-Range Missile (MRM) 40",
+          "Heat 12",
+          "Damage 1/missile (40)",
+          "Short Range 1-3",
+          "Medium Range 4-8",
+          "Long Range 9-15"
+        ],
+        "notes": "The MRM 40 has a damage of 1/missile for 40 missiles. Alpha Strike damage is 1 for all ranges."
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated"
+      ]
+    },
+    {
+      "name": "Rocket Launcher 15",
+      "catalog": "is",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "Rocket Launcher 15",
+        "found": false,
+        "heat": null,
+        "short": null,
+        "medium": null,
+        "long": null,
+        "extreme": null,
+        "source_url": "",
+        "evidence": [],
+        "notes": ""
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated",
+        "Alpha Strike evidence incomplete"
+      ]
+    },
+    {
+      "name": "Rocket Launcher 20",
+      "catalog": "is",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "Rocket Launcher 20",
+        "found": false,
+        "heat": null,
+        "short": null,
+        "medium": null,
+        "long": null,
+        "extreme": null,
+        "source_url": "",
+        "evidence": [],
+        "notes": ""
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated",
+        "Alpha Strike evidence incomplete"
+      ]
+    },
+    {
+      "name": "Streak LRM 10",
+      "catalog": "clan",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "Streak LRM 10",
+        "found": false,
+        "error": "missing Alpha Strike field"
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated",
+        "Alpha Strike evidence incomplete"
+      ]
+    },
+    {
+      "name": "Streak LRM 15",
+      "catalog": "clan",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "Streak LRM 15",
+        "found": true,
+        "heat": 5,
+        "short": 15,
+        "medium": 15,
+        "long": 15,
+        "extreme": 15,
+        "source_url": "https://www.sarna.net/wiki/Streak_LRM_15",
+        "evidence": [
+          "| Heat = 5",
+          "| Short Range = 1-7",
+          "| Medium Range = 8-14",
+          "| Long Range = 15-21",
+          "| Extreme Range = 22-28"
+        ],
+        "notes": "The Streak LRM 15 has a damage value of 1/Missile (15) which applies to all ranges, but the Alpha Strike values are based on the maximum damage per range band. The weapon requires line of sight to lock on to targets and cannot make use of alternate ammunition types or enhanced guidance systems."
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated"
+      ]
+    },
+    {
+      "name": "Streak LRM 20",
+      "catalog": "clan",
+      "source_file": "missile_weapons.md",
+      "alpha": {
+        "name": "Streak LRM 20",
+        "found": false,
+        "heat": null,
+        "short": null,
+        "medium": null,
+        "long": null,
+        "extreme": null,
+        "source_url": "",
+        "evidence": [],
+        "notes": ""
+      },
+      "promotion_ready": false,
+      "blockers": [
+        "IEquipmentItem mapping not generated",
+        "Alpha Strike evidence incomplete"
+      ]
+    }
+  ],
+  "policy": "No staged model result is promoted automatically; complete source mapping and tests are required."
+}

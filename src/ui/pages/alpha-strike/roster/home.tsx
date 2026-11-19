@@ -2,19 +2,21 @@ import { FaDice, FaDownload, FaFileImport, FaPlusCircle, FaPrint, FaTrash, FaChe
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import AlphaStrikeGroup, { IASGroupExport } from '../../../../classes/alpha-strike-group';
-import { AlphaStrikeUnit, IASMULUnit } from '../../../../classes/alpha-strike-unit';
+import { AlphaStrikeUnit, getMULDisplayName } from '../../../../classes/alpha-strike-unit';
 import { makeURLSlug } from '../../../../utils/makeURLSlug';
 import { IAppGlobals } from '../../../app-router';
 import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
+import InputCheckbox from '../../../components/form_elements/input_checkbox';
+import InputNumeric from '../../../components/form_elements/input_numeric';
 import './home.scss';
 import AlphaStrikeAddUnitsView from './_AddUnitsPage';
 import CurrentForceList from './_CurrentForceList';
 import AlphaStrikeUnitEditViewModal from './_showAlphaStrikeUnit';
 import { CONST_FORCE_PACKS, IForcePack } from "../../../../data/force-packs-mechs";
+import { loadMULListItems } from "../../../../data/mul-list-items";
 import { joinListWithEndLabel } from "../../../../utils/joinListWithEndLabel";
-import { getMULASSearchResults } from "../../../../utils";
 import { formationBonuses } from '../../../..//data/formation-bonuses';
 const Dice = FaDice as any;
 const Download = FaDownload as any;
@@ -61,95 +63,32 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     ) => {
       if( e && e.preventDefault ) e.preventDefault();
 
-      let currentASForce = this.props.appGlobals.currentASForce;
+      const currentASForce = this.props.appGlobals.currentASForce;
       if( currentASForce) {
-        let newGroup = new AlphaStrikeGroup();
+        const newGroup = new AlphaStrikeGroup();
         newGroup.groupLabel = pack.groupLabel;
 
         newGroup.customName = pack.name;
 
-        for( let member of pack.members ) {
-          // we are searching for an explicit name match, nothing more.
-          let data: IASMULUnit[] = await getMULASSearchResults  (
-            member,
-            "", // Rules
-            "", // Tech
-            "", // Role
-            0, // FIXME? clan invasion
-            0, // Type Filter
-            [], //Faction Filter
-            !navigator.onLine,
-            false,
-            this.props.appGlobals,
-          );
-
-
-          data.sort( (
-            a: IASMULUnit,
-            b: IASMULUnit
-          ): number => {
-
-              if(
-                a.Name && b.Name &&
-                a.Name.toLowerCase().indexOf(" prime") > -1
-                &&
-                b.Name.toLowerCase().indexOf(" prime") === -1
-              ) {
-                return -1;
-              }if(
-                a.Name && b.Name &&
-                a.Name.toLowerCase().indexOf(" prime") === -1
-                &&
-                b.Name.toLowerCase().indexOf(" prime") > -1
-              ) {
-                return 1;
-              } if(
-                a.Name && b.Name &&
-                a.Name.toLowerCase().indexOf(" (standard)") > -1
-                &&
-                b.Name.toLowerCase().indexOf(" (standard)") === -1
-              ) {
-                return -1;
-              }if(
-                a.Name && b.Name &&
-                a.Name.toLowerCase().indexOf(" (standard)") === -1
-                &&
-                b.Name.toLowerCase().indexOf(" (standard)") > -1
-              ) {
-                return 1;
-              } else {
-                if( a.Name && b.Name && a.Name.toLowerCase().trim() > b.Name.toLowerCase().trim() ) {
-                  return 1;
-                } else if(a.Name && b.Name && a.Name.toLowerCase().trim() < b.Name.toLowerCase().trim() ) {
-                  return -1;
-                } else {
-                  return 0
-                }
-              }
-            }
-          )
-
-          // console.log( "data", data)
-          // looking for an exact name match only
-          let foundAUnit = false;
-          for( let item of data ) {
-            if( item.Name.toLowerCase().trim() === member.toLowerCase() ) {
-              let newUnit = new AlphaStrikeUnit();
-              newUnit.importMUL( item );
-              if( pack.tech === "clan" ) newUnit.setSkill(3);
-              newGroup.members.push(newUnit);
-              foundAUnit = true;
-              break;
-            }
+        // Members are looked up in the bundled MUL by full name (Name and Variant, e.g. "Locust IIC 4"), then in the
+        // custom unit list for the Aces emplacement cards the MUL does not list (#191).
+        const units = await loadMULListItems(["mul2", "custom"]);
+        pack.members.forEach((member, index) => {
+          const item = units.find((unit) => getMULDisplayName(unit).toLowerCase() === member.trim().toLowerCase());
+          if( !item ) {
+            console.warn("Force pack member not found in the bundled MUL: '" + member + "'");
+            return;
           }
-          if ( !foundAUnit ) {
-            console.log("No match found for '" + member +"' data", data);
-          }
-        }
+          const newUnit = new AlphaStrikeUnit();
+          newUnit.importMUL( item );
+          const skill = pack.skills?.[index] ?? (pack.tech === "clan" ? 3 : undefined);
+          if( skill !== undefined ) newUnit.setSkill(skill);
+          newGroup.members.push(newUnit);
+        });
 
         if( newGroup.members.length > 0 ) {
           newGroup.setAvailableFormationBonuses(formationBonuses.filter(x=>x.IsValid(newGroup, currentASForce?.groups ?? [])))
-          for(let group of currentASForce?.groups ?? []){
+          for(const group of currentASForce?.groups ?? []){
               if(group.needsToCheckBonuses()){
                   group.setAvailableFormationBonuses( formationBonuses.filter(x=>x.IsValid(group, currentASForce?.groups ?? [])));
               }
@@ -205,8 +144,25 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
       }
     }
 
+    // The Alpha Strike Companion's quirks in play (quirks design, plan 3); off by default.
+    setQuirksInPlay = ( newValue: boolean ): void => {
+      if( this.props.appGlobals.currentASForce ) {
+        this.props.appGlobals.currentASForce.quirksInPlay = newValue;
+        this.props.appGlobals.currentASForce.syncQuirksInPlay();
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      }
+    }
+
+    // The year play checks quirks' years against; a cleared box goes back to each design's era start.
+    setGameYear = ( newValue: number ): void => {
+      if( this.props.appGlobals.currentASForce ) {
+        this.props.appGlobals.currentASForce.setGameYear( newValue );
+        this.props.appGlobals.saveCurrentASForce( this.props.appGlobals.currentASForce );
+      }
+    }
+
     openViewUnit = ( theUnit: AlphaStrikeUnit ): void => {
-      let showASUnit = theUnit;
+      const showASUnit = theUnit;
 
       this.setState({
         showASUnit: showASUnit,
@@ -232,7 +188,7 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
     selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
       if( e && e.preventDefault ) e.preventDefault();
       if( e.currentTarget.files && e.currentTarget.files.length > 0 ) {
-        let foundFile = e.currentTarget.files[0];
+        const foundFile = e.currentTarget.files[0];
         // console.log( "test", foundFIle );
         if( foundFile.type === "application/json" ) {
           this.fileReader = new FileReader();
@@ -245,16 +201,16 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
     handleFileRead = (_e: any) => {
       if( this.fileReader ) {
-        let content = this.fileReader.result;
+        const content = this.fileReader.result;
 
         // console.log("content", content)
         try {
           if( content ) {
-            let data: IASGroupExport = JSON.parse( content.toString() )
+            const data: IASGroupExport = JSON.parse( content.toString() )
 
             // let btFavASGroup = this.props.appGlobals.favoriteASGroup;
             // for( let item of data ) {
-            let parsedItem =  new AlphaStrikeGroup(data);
+            const parsedItem =  new AlphaStrikeGroup(data);
             // }
 
             this.props.appGlobals.saveASGroupFavorite( parsedItem );
@@ -318,6 +274,22 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 
           {this.props.appGlobals.currentASForce && this.props.appGlobals.currentASForce.getTotalUnits() > 0 ? (
             <div className="row">
+              <div className="col-12">
+                <InputCheckbox
+                  label="Use design quirks"
+                  description="Applies the Alpha Strike Companion's quirks of units built in the app, in play"
+                  checked={this.props.appGlobals.currentASForce.quirksInPlay}
+                  setValue={this.setQuirksInPlay}
+                />
+                {this.props.appGlobals.currentASForce.quirksInPlay ? (
+                  <InputNumeric
+                    label="Game year"
+                    description="Quirks that have ended or not yet begun by this year don't apply; leave it blank to use each design's era start"
+                    value={this.props.appGlobals.currentASForce.gameYear ?? ""}
+                    setValue={this.setGameYear}
+                  />
+                ) : null}
+              </div>
               <div className="col-6">
                 <Link
                   to={`${process.env.PUBLIC_URL}/alpha-strike/roster/play`}
@@ -456,28 +428,27 @@ export default class AlphaStrikeRosterHome extends React.Component<IHomeProps, I
 <TextSection
 label="Quickly add a ForcePack"
 >
-{navigator && navigator.onLine ? (
-  <ul className="styleless">
+<ul className="styleless">
   {CONST_FORCE_PACKS.map( (pack, packindex) => {
     return (
-      <li key={packindex} className="overflow-hidden">
+      <li key={packindex} className="force-pack-row">
         <button
-          className="btn btn-md btn-primary pull-left margin-right"
+          className="btn btn-md btn-primary margin-right"
+          aria-label={`Add the ${pack.name}`}
           onClick={(e) => this.addForcePack( e, pack)}
         >
           <PlusCircle />
         </button>
-        {pack.name}<br />
-        <div className="small-text">{joinListWithEndLabel(pack.members, "and")}</div>
+        {/* Its own column, so wrapped text stays beside the button instead of running under it (issue 19). */}
+        <div className="force-pack-text">
+          {pack.name}<br />
+          <div className="small-text">{joinListWithEndLabel(pack.members, "and")}</div>
+          {pack.note ? <div className="small-text" data-testid="force-pack-note">{pack.note}</div> : null}
+        </div>
       </li>
     )
   })}
   </ul>
-) : (
-  <div className="alert alert-warning">
-    We're sorry, adding a Force Pack needs access to the Master Unit List for unit stats and requires an Internet connection, please connect to the Internet.
-  </div>
-)}
 </TextSection>
 
 <TextSection

@@ -3,12 +3,13 @@ import { FaArrowCircleRight, FaFile, FaFileExport, FaFolderOpen, FaSave, FaTrash
 import { Link } from 'react-router';
 import { BattleMech, IBattleMechExport } from '../../../../classes/battlemech';
 import { IAppGlobals } from '../../../app-router';
-import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import { confirmReplaceDesign, designWouldBeLost } from '../../../components/confirm-replace-design';
 const ArrowCircleRight = FaArrowCircleRight as any;
 const File = FaFile as any;
 const FileExport = FaFileExport as any;
@@ -31,15 +32,15 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
 
     handleFileRead = (_e: any) => {
       if( this.fileReader ) {
-        let content = this.fileReader.result;
+        const content = this.fileReader.result;
 
         // console.log("content", content)
         try {
           if( content ) {
-            let data: IBattleMechExport[] = JSON.parse( content.toString() )
+            const data: IBattleMechExport[] = JSON.parse( content.toString() )
 
-            let btData = this.props.appGlobals.battleMechSaves;
-            for( let item of data ) {
+            const btData = this.props.appGlobals.battleMechSaves;
+            for( const item of data ) {
               btData.push( item );
             }
 
@@ -55,7 +56,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
     selectFile = async (e: React.FormEvent<HTMLInputElement>): Promise<void> => {
       e.preventDefault();
       if( e.currentTarget.files && e.currentTarget.files.length > 0 ) {
-        let foundFile = e.currentTarget.files[0];
+        const foundFile = e.currentTarget.files[0];
         // console.log( "test", foundFIle );
         if( foundFile.type === "application/json" ) {
           this.fileReader = new FileReader();
@@ -119,11 +120,21 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
       }
     }
 
+    // Before the design is replaced, offer to save it first.
+    replaceDesign = (replace: () => void): void => {
+        confirmReplaceDesign(this.props.appGlobals, {
+            what: "'mech",
+            lost: designWouldBeLost(this.props.appGlobals.currentBattleMech, () => new BattleMech(), this.props.appGlobals.battleMechSaves || []),
+            save: () => this.saveAsNew({ preventDefault: () => {} } as React.FormEvent<HTMLButtonElement>),
+            replace,
+        });
+    }
+
     startNew = (e: React.FormEvent<HTMLButtonElement>): void => {
       e.preventDefault();
 
-      let currentBattleMech = new BattleMech();
-      this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
+      const currentBattleMech = new BattleMech();
+      this.replaceDesign(() => this.props.appGlobals.saveCurrentBattleMech( currentBattleMech ))
     }
 
     loadSave = (e: React.FormEvent<HTMLButtonElement>, saveIndex: number): void => {
@@ -133,7 +144,7 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
 
         currentBattleMech = new BattleMech();
         currentBattleMech.import( this.props.appGlobals.battleMechSaves[saveIndex] )
-        this.props.appGlobals.saveCurrentBattleMech( currentBattleMech )
+        this.replaceDesign(() => this.props.appGlobals.saveCurrentBattleMech( currentBattleMech ))
 
       }
     }
@@ -202,18 +213,24 @@ export default class MechCreatorHome extends React.Component<IHomeProps, IHomeSt
                           <th title="This is the current battle value for the 'mech">BV</th>
                           <th title="This is the Alpha Strike Value">ASV</th>
                           <th className="no-wrap" title="This is the C-Bill cost">C-Bills</th>
-                          <th></th>
+                          <th><span className="visually-hidden">Actions</span></th>
                         </tr>
                       </thead>
 
                       {this.props.appGlobals.battleMechSaves && this.props.appGlobals.battleMechSaves.length > 0 ? (
                         <>
                         {this.props.appGlobals.battleMechSaves.map( (mech, mechIndex) => {
-                          let mechObj = new BattleMech(JSON.stringify(mech));
+                          const mechObj = new BattleMech(JSON.stringify(mech));
+                          const incomplete = mechObj.getIncompleteCustomStats();
                           return (
                             <tbody key={mechIndex}>
                             <tr>
-                              <td title={"UUD: " + mech.uuid}>{mechObj.getName()}</td>
+                              <td title={"UUD: " + mech.uuid}>
+                                {mechObj.getName()}
+                                {incomplete.length > 0 ? (
+                                  <> <span className="badge bg-warning text-dark" title={"Incomplete custom stats (" + incomplete.join(", ") + "): BV, heat and cost are not reliable until the placeholders' stats are entered."}>Incomplete custom stats</span></>
+                                ) : null}
+                              </td>
                               <td>{mech.tech}</td>
                               <td className="min-width">{mech.tonnage}</td>
                               <td className="min-width">{mech.battle_value}</td>

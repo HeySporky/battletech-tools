@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Shadow Hawk" model="SHD-5S" tons="55" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>1590</battle_value>
+    <cost>1.224469E7</cost>
+    <rules_level>1</rules_level>
+    <era>2</era>
+    <productionera>5</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3054</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="0">
+        <type>Endo-Steel</type>
+        <location index="6">LA</location>
+        <location index="6">RA</location>
+        <location index="7">LA</location>
+        <location index="7">RA</location>
+        <location index="8">LA</location>
+        <location index="8">RA</location>
+        <location index="9">LT</location>
+        <location index="9">RT</location>
+        <location index="9">LA</location>
+        <location index="9">RA</location>
+        <location index="10">LA</location>
+        <location index="10">RA</location>
+        <location index="11">LA</location>
+        <location index="11">RA</location>
+    </structure>
+    <engine rating="330" manufacturer="Unknown" lsstart="0" rsstart="0" techbase="0">XL Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>27</ct>
+        <ctr>8</ctr>
+        <lt>19</lt>
+        <ltr>7</ltr>
+        <rt>19</rt>
+        <rtr>7</rtr>
+        <la>18</la>
+        <ra>18</ra>
+        <ll>26</ll>
+        <rl>26</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RGiC 12</source>
+        <info>Shadow Hawk SHD-5S 55t, 6/9/5, XLFE, ES; 11.5T/99% Armor; 13 DHS; 1 StndrdCrgo, 1 ECM, 4 ML, 1 BAP, 1 MPL, 1 TAG, 1 LL</info>
+        <battleforce pv="16" wt="2" mv="6/3j" s="4" m="4" l="0" e="0" ov="0" armor="6" internal="3" abilities="PRB, RCN, ECM, TAG, ENE, SRCH, ES, SEAL, SOA" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <jumpjets number="5">
+            <type>Standard Jump Jet</type>
+            <location index="3">LT</location>
+            <location index="10">CT</location>
+            <location index="3">RT</location>
+            <location index="4">LT</location>
+            <location index="4">RT</location>
+        </jumpjets>
+        <heatsinks number="13" techbase="0">
+            <type>Double Heat Sink</type>
+
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) Medium Pulse Laser</name>
+            <type>energy</type>
+            <location index="4">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Large Laser</name>
+            <type>energy</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="6">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="5">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) Medium Laser</name>
+            <type>energy</type>
+            <location index="6">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Beagle Active Probe</name>
+            <type>equipment</type>
+            <location index="7">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Guardian ECM Suite</name>
+            <type>equipment</type>
+            <location index="7">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">TAG</name>
+            <type>equipment</type>
+            <location index="5">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Cargo, Standard</name>
+            <type>equipment</type>
+            <tons>0.5</tons>
+            <location index="3">HD</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview>Debuting in 2467, less than thirty years after the Mackie, the Shadow Hawk is lovingly known as “The Shad” to billions of civilians thanks to a nickname bestowed upon it in the popular Immortal Warrior holoseries. To its pilots, however, it is better known as “The Shed,” due to its ruggedness and the boxy shape of the head assembly, which bears a more than passing resemblance to a line of sturdy prefabricated outbuildings popular throughout the Inner Sphere.:br::tab:Despite its age and the shifting trends of military doctrine, the Shadow Hawk has remained the go-to general purpose medium ’Mech throughout the Inner Sphere, instantly recognizable to virtually anyone with any knowledge of BattleMechs at all. Shadow Hawks can even be found within the ranks of Clan toumans, albeit in second-line units. While many older variations of the Shadow Hawk exist, the reborn Free Worlds League, the Magistracy of Canopus, and even the Federated Suns have produced new models of this venerable and versatile medium ’Mech that remain true to its classic form. After more than six hundred years of service, the Shadow Hawk is still going strong.</overview>
+        <capabilities>Shadow Hawk pilots often seem to vie with each other to bestow unflattering nicknames upon their mounts. This trait masks the deep affection held for this versatile ’Mech with its famously efficient life support system. A common refrain of Shadow Hawk pilots is: “pretty boys can do anything, but ugly ones have to.” Commanders like fielding the Shadow Hawk thanks to its consistent performance; unlike many more specialized designs, the ’Mech is rarely out of its element. During the Succession Wars, when advanced Star League designs sank into extinction and specialist ’Mechs were misused, the reliable Shadow Hawk soldiered on. As easy to modify as it is to maintain due to its simplicity, the Shadow Hawk has often been customized to meet the specific needs of its major users, but even these variants rarely stray far from the ’Mech’s tried-and-tested all-purpose design. The joint Magistracy-Rim Commonwealth -7H carries on this tradition, marrying the best traits of the original SHD-2H with powerful new systems.:br::tab:The Shadow Hawk is one of the few Federated Suns success stories in the past decade. In the wake of the Jihad, Kallon Industries abandoned salvaging their destroyed megaplex on Talon, instead concentrating on producing spare components to maintain their many BattleMechs serving the Federated Suns, fabricated at a major new facility covering much of the continent of Tonkya on Wernke III. After the catastrophe of Gray Monday, the facility began a mammoth transformation from producing a vast array of spares to building complete ’Mechs. A decade later, new SHD-6D Shadow Hawks, based on Kallon’s Jihad-era refits but featuring the familiar styling of classic models and fielding modern laser weaponry, are striding off the production lines and into action.</capabilities>
+        <battlehistory>During the final weeks of Operation Scour, Word of Blake Purifiers managed to infiltrate behind the Third Lyran Guards’ lines to attack a field hospital, scything through the conventional infantry assigned to rear-area security duties until a lone Star League-era SHD-2Hb Shadow Hawk appeared, seemingly out of nowhere, worn and still bearing recognizable SLDF insignia. The ancient ’Mech stood alone between the Lyran wounded and the Blakists, lashing out with its autocannon, SRMs, and lasers, and cutting down more than a dozen suits of battle armor before the Militia retreated. Then, badly battered but still functional, the Shadow Hawk jumped away. While many have scoffed at the tale as transparent Lyran propaganda, they have had more difficulty explaining the spent LB-X canisters with SLDF-era procurement markings on them.:br::tab:More recently, the Federated Suns assigned two of its new SHD-6D models to a raid on Palmyra which attempted to locate survivors of the Davion Heavy Guards. Intercepted by a Kuritan company at their drop site, the AFFS forces had to abandon their rescue mission and fight their way free of encirclement. The DCMS was reportedly intensely surprised by the durability afforded to the new ’Mechs by their CASE II system, which enabled them to shrug off catastrophic damage. The Combine company only managed to bring down a single Shadow Hawk thanks to a lucky gyro hit as it fought in the rearguard. The other Shadow Hawk accounted for a Grand Dragon and two Panthers before breaking contact, leaving the Combine with a grudging respect for the new design—and a salvaged SHD-6D of their own.</battlehistory>
+        <deployment></deployment>
+        <variants>The SHD-5M produced by House Marik was widely distributed within the FWLM and in foreign sales to mercenaries and House units during the Clan Invasion, enjoying a lengthy eighteen-year production run in record-shattering numbers before the Earthwerks facility was retooled as part of Project Phoenix. Classified for many years, the SHD-5S was a major field refit kit issued to -5M users to enable them to fight lengthy guerilla actions. The more recent -5R upgrade package is targeted at legacy users of the -5M, enabling them to retrofit the ’Mech into a hard-hitting but slower support design.:br::br::tab:Many Shadow Hawks fell into Clan hands during Operation Revival. In the invading Clans’ typical aversion to waste, these saw cursory upgrades and deployment to second-line forces, where their versatility made them surprisingly popular.:br::br::tab:Before Kallon revamped the Shadow Hawk around the time of the Jihad, they offered only a simple refit that continued the worrying Davion tradition of removing substantial amounts of the BattleMech’s armor for very little improvement in firepower.:br::br::tab:Majesty Metals managed to upgrade their Shadow Hawk lines during the Jihad to produce the Star Leagueera SHD-2Hb with improved weaponry. Nimachaki, on the other hand, produced a crude, primitive Shadow Hawk on Lesnovo as part of the RetroTech program to supply the Rim Commonality’s armed forces. After the end of the conflict, they turned to the Canopian company for technical assistance and upgraded the line to more modern standards with the SHD-4H model. This partnership led to a joint venture to develop the -7H, now produced by both firms.</variants>
+        <notables>Major Rebecca “Spreadsheet” Taylor: A Lyran idealist, Rebecca Taylor spontaneously abandoned her decade-long career as a forensic accountant on Tharkad to enlist in the SLDF in 2730, inspired by the dream of a united humanity. After a glittering twenty-five years of service to the League, she was granted the honor of a small landhold on Terra itself to live out her retirement, with her trusty Shadow Hawk standing as a gate guardian. Taylor passed away peacefully in bed in 2762, surrounded by her loved ones. When Amaris forces seized control of the planet in 2766, a group of refugees reported being saved from Rim Worlds forces  by a Shadow Hawk featuring Taylor’s distinctive crest. Her ’Mech resurfaced hundreds of years later during the Jihad, when it appeared, seemingly out of nowhere, to save a Lyran field hospital from Blakist battle armor, vanishing again as soon as the enemy was defeated.:br:Captain Dechan Fraser: Fraser was an exceptional Shadow Hawk pilot and company commander with the elite Wolf’s Dragoons hired on just before their fateful initial service with the Draconis Combine. On An Ting, Fraser killed the treacherous commander of the first Ryuken; on Misery, he was instrumental in the defeat of the Kuritans’ command lance. Afterward, he left the Dragoons with his Shadow Hawk to embark on a series of still-murky adventures with the notorious Bounty Hunter. Amazingly, he then helped train the Ryuken and Genyosha and introduce the Hatamoto-Chi for the DCMS before the War of 3039. Following the abortive duel between Takashi Kurita and Jaime Wolf, he returned to the Dragoons in time to play a pivotal part in the mercenary unit’s short and brutal civil war.:br:Colonel Lori Kalmar-Carlyle: Rising from poorly-trained Periphery cannon fodder, Lori Kalmar went on to marry Grayson Death Carlyle and became the second commander of the Gray Death Legion, one of the most renowned mercenary units in service to House Steiner. Although she piloted many BattleMechs during her long and illustrious career, Kalmar remains indelibly associated with Boss Lady. This Shadow Hawk, captured by Kalmar on Verthandi in 3025 and destroyed in the fighting on Glengarry in 3057, was accorded a prominent place on the cover of her critically-panned but commercially-successful book ’Mechs of Flesh and Blood. Lori’s great-granddaughter “Bel” Carlyle continues her legacy, piloting a Shadow Hawk dubbed Tyche in the LCAF’s Twenty-Sixth Arcturan Guards.:br:Överste-Löjtnant Maxim Tojal: An intelligence officer attached to the Free Rasalhague Republic’s Second Drakøns, Tojal masterminded the attempt to record Clan Wolf’s 328th Assault Cluster in action for intelligence purposes on Verthandi in 3050. Elementals destroyed both the recording equipment and Tojal’s Shadow Hawk as he attempted to defend it, but he killed a Bloodnamed Point Commander before he fell. MechWarrior Mordred: The Wolf warrior known as Mordred hailed from the FWL and served as an astech with the Twelfth Star Guards, where he also received basic MechWarrior training. Upon the Third’s destruction on Icar in 3050, he was taken as isorla by Clan Wolf. After the grievous losses of the Refusal War in 3057, he received an unprecedented opportunity to test up into the warrior caste. He eked out a narrow victory over a single ’Mech in his Trial of Position, and went on to serve in the Second Cavalry PGC as the pilot of a Shadow Hawk C.:br:“Colonel” Denham “Eclipse” Hardman: After his abrasive and dictatorial style led to the destruction of his small mercenary command by Blakist-backed forces in the Chaos March, Denham Hardman barely escaped to Solaris with his ’Mech and his life. There, the qualities that made him a poor commander left him an eminently entertaining holo personality. After an abortive career as a fighter, he became a color commentator for fights until the start of the Jihad. Hardman was killed in his SHD-5S Lucky 13 defending the VEST facilities from Blakist attack in 3071.:br:Captain Brennan Storhaug: A Shadow Hawk pilot with Alpha Regiment of Wolf’s Dragoons, Brennan Storhaug refused to relinquish his beloved ’Mech even after being promoted to command a company, citing its comfort and reliability. A veteran of the fierce fighting against Clan Jade Falcon on Morges and the Word of Blake in the Chaos March, he was listed as missing in action on Outreach while facing the Word:br:of Blake’s Sixth Division.:br:Brevet-Subaltern Zeinab Ghazawwi: A soldier in the Filtvelt Citizen’s Militia, Zeinab pilots one of the lightest ’Mechs in the Thumper Assault Regiment, an elderly Shadow Hawk that once served with the Malagrotta Crucis March Militia. Ghazawwi is a staunch Filtvelt patriot who is adamant that Filtvelt should remain independent, but tempers this sentiment with the belief that the Federated Suns are a friend in need, and that Filtvelt should strain every sinew to aid them against the DCMS. Though she has five kills of pirate ’Mechs, she has yet to face the DCMS, and agitates to be assigned to a raid against them sooner than later.:br:First Leutnant Denizan Miran: An agent of the Combine’s ISF, Denzan Miran was a deep-cover operative in a minor mercenary command in service to the Lyran Commonwealth when the LIC botched an attempt to capture and turn him in 3128. Miran managed to make it into his Shadow Hawk and stomped an elite Lohengrin snatch-and-grab squad out of existence before his ’Mech was brought down by a flight of local militia Meteors. After a lengthy period of “reconditioning,” he and his Shadow Hawk resurfaced in the service of Jasek Kelswa-Steiner’s Stormhammers.:br:Chu-i Bagwis Reyes: A lance commander in the DCMS, Reyes currently has the distinction of being the only Combine MechWarrior to pilot one of House Davion’s new SHD-6Ds, captured during the Suns’ raid on Palmyra. As his own Shadow Hawk was destroyed during the fighting, he regards this as an entirely appropriate turn of the karmic wheel. Reassigned to New Avalon, he expects to face the AFFS again very soon, and looks forward to turning their own design against them.:br:Lieutenant SG Xóchitl Tecuampil: A lance commander with the First Rim Commonality Guard, Lieutenant SG Tecuampil piloted her Lesnovo-built Shadow Hawk with great distinction during Operation Homecoming on Atreus, ambushing and destroying a Regulan combined-arms lance in the cramped confines of the Imstar Aerospace plant. She has petitioned her commanding officer to reassign her and her ’Mech, Ye Maca Timiquican, to a unit facing Lyran forces, as she is eager to fight the external enemies of the reunified Free Worlds League.:br:Sergeant David Jonathan Wayne-Smith: A descendant of an SLDF Gunslinger Program alumni, Wayne-Smith proudly wears his distant ancestor’s nickel-plated revolver on his hip. When his family’s refitted SHD-2D2 was destroyed on a raid into the so-called “Dragon’s Tongue,” Wayne-Smith was gifted one of the first SHD-6Ds from Wernke, named Ascalon, which he employed to deadly effect against the enemies of the Suns in the design’s debut raid on Palmyra.</notables>
+        <additional></additional>
+        <quirks>
+            <quirk postive="true" battlemech="true" industrialmech="true" combatvehicle="false" battlearmor="false" aerospacefighter="false" conventionalfigher="false" dropship="false" jumpship="false" warship="false" spacestation="false" protomech="false" isvariable="false">
+                <Name>Battlefists</Name>
+                <Cost>2</Cost>
+                <Description>The Battlefists quirk applies only to â€™Mechs that are equipped with hand actuators. This quirk reflects â€™Mechs that feature hands which are better designed for melee combat as a consequence of their unique configuration (such as the Awesomeâ€™s mace-like fist, or the Pillagerâ€™s sharpened â€œknucklesâ€�). This quirk is only paid for once, even if the â€™Mech has two fists. If the â€™Mech has two hands, and this quirk is only meant to apply to one of those hands, this must be specified (the cost remains the same). A â€™Mech with Battlefists receives a â€“1 Target Number modifier when making Punch attacks.</Description>
+            </quirk>
+            <quirk postive="true" battlemech="true" industrialmech="true" combatvehicle="false" battlearmor="false" aerospacefighter="true" conventionalfigher="true" dropship="false" jumpship="false" warship="false" spacestation="false" protomech="false" isvariable="false">
+                <Name>Improved Life Support</Name>
+                <Cost>1</Cost>
+                <Description>When determining damage to the MechWarrior or pilot as a result of heat following a life support critical hit, treat the unit&apos;s heat level as being 5 points lower. This quirk also doubles teh cockpit&apos;s standard life support time, from four days to eight.</Description>
+            </quirk>
+            <quirk postive="true" battlemech="true" industrialmech="true" combatvehicle="false" battlearmor="false" aerospacefighter="false" conventionalfigher="false" dropship="false" jumpship="false" warship="false" spacestation="false" protomech="false" isvariable="true">
+                <Name>Rugged</Name>
+                <Cost>1</Cost>
+                <Description>Some â€™Mechs are extremely reliable, reducing the frequency with which they require maintenance. The cost is 1 point if the â€˜Mech can go for two times as long between maintenance periods as normal, and 2 points if it can go up to three times as long.</Description>
+            </quirk>
+            <quirk postive="true" battlemech="true" industrialmech="true" combatvehicle="false" battlearmor="false" aerospacefighter="false" conventionalfigher="false" dropship="false" jumpship="false" warship="false" spacestation="false" protomech="false" isvariable="false">
+                <Name>Ubiquitous</Name>
+                <Cost>1</Cost>
+                <Description>Some â€™Mechs, such as the Archer, Wasp, and Locust, have been in production for literally centuries, with thousands or even tens of thousands produced in that time across multiple nations. For other â€™Mechs, the manufacturer has gone to exceptional lengths to ensure that parts are readily available, such as mass producing them or using parts from other, more common machines. Whatever the case, when attempting to locate replacement parts for these â€™Mechs, apply a â€“2 Target Number modifier.  Note that this quirk does not cross between the Clans and the Inner Sphere. For example, a machine Ubiquitous amongst the Clans would not be Ubiquitous in the Inner Sphere, and vice versa.</Description>
+            </quirk>
+        </quirks>
+        <jumpjet_model>Unknown</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

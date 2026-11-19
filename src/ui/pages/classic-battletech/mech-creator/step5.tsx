@@ -2,18 +2,20 @@ import React, { type JSX } from 'react';
 import { FaArrowCircleLeft, FaArrowCircleRight, FaPlus, FaTrash } from "react-icons/fa";
 import { Link } from 'react-router';
 import { IEquipmentItem } from '../../../../data/data-interfaces';
-import { isOmniFixedOnly } from '../../../../data/equipment-registry';
+import { CUSTOM_HOMEBREW_RULES_LEVEL, EXPERIMENTAL_RULES_LEVEL, isOmniFixedOnly } from '../../../../data/equipment-registry';
 import { sortEquipment } from '../../../../utils';
 import { IAppGlobals } from '../../../app-router';
 import AvailableEquipment from '../../../components/available-equipment';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
-import MechCreatorSideMenu from '../../../components/mech-creator-side-menu';
+import { MechCreatorSideMenu } from '../../../components/creator-side-menus';
 import MechCreatorStatusbar from '../../../components/mech-creator-status-bar';
 import SanitizedHTML from '../../../components/sanitized-html';
 import StandardModal from '../../../components/standard-modal';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+import DesignLockColumn, { mechRulesLevel } from '../../../components/design-lock';
+import { getShownRulesLevel } from '../../../../data/rules-editions';
 const ArrowCircleLeft = FaArrowCircleLeft as any;
 const ArrowCircleRight = FaArrowCircleRight as any;
 const Plus = FaPlus as any;
@@ -46,7 +48,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
           undefined,
           undefined,
           undefined,
-          this.props.appGlobals.appSettings.mechRulesFilter === 5,
+          mechRulesLevel(this.props.appGlobals) >= CUSTOM_HOMEBREW_RULES_LEVEL,
         );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
 
@@ -65,6 +67,27 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
     setFixed = ( itemUUID: string | undefined, fixed: boolean ): void => {
       if( this.props.appGlobals.currentBattleMech ) {
         this.props.appGlobals.currentBattleMech.setEquipmentFixed( itemUUID, fixed );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    setArmored = ( itemUUID: string | undefined, armored: boolean ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setEquipmentArmored( itemUUID, armored );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    setTurret = ( itemUUID: string | undefined, turret: boolean ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setEquipmentTurret( itemUUID, turret );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
+    setComponentArmored = ( componentKey: string, armored: boolean ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setComponentArmored( componentKey, armored );
         this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
       }
     }
@@ -152,6 +175,16 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       return false;
     }
 
+    setAmmoBinShots = (
+      itemUUID: string | undefined,
+      shots: number,
+    ): void => {
+      if( this.props.appGlobals.currentBattleMech ) {
+        this.props.appGlobals.currentBattleMech.setAmmoBinShots( itemUUID, shots );
+        this.props.appGlobals.saveCurrentBattleMech( this.props.appGlobals.currentBattleMech );
+      }
+    }
+
     setWeight = (
       itemUUID: string | undefined,
       weight: number,
@@ -187,7 +220,14 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
       const techTag = currentMech.getTech().tag;
       const includeClan = techTag === "clan" || techTag === "mis" || techTag === "mclan";
       const includeIS = techTag === "is" || techTag === "mis" || techTag === "mclan";
-      const includeCustom = this.props.appGlobals.appSettings.mechRulesFilter === 5;
+      // The level the edition shows: a stored level the edition does not list acts as the next one it does.
+      const shownLevel = getShownRulesLevel(currentMech.getRulesEdition(), mechRulesLevel(this.props.appGlobals));
+      const includeCustom = shownLevel >= CUSTOM_HOMEBREW_RULES_LEVEL;
+      // Armored components are Experimental (TO:AUE p.95); a design that has them always shows them.
+      // Superheavy 'Mechs may not use them (IO:AE p.156).
+      // A 'Mech with a BattleMech Turret marks what it carries (TO:AUE p.158).
+      const showTurret = currentMech.getInstalledEquipment().some((item) => item?.variableFormula === "mech-turret");
+      const showArmored = !currentMech.isSuperheavy() && (shownLevel >= EXPERIMENTAL_RULES_LEVEL || currentMech.hasArmoredComponents());
       return (
         <>
             <StandardModal
@@ -201,9 +241,9 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                   <div>
                       <AvailableEquipment
                         appGlobals={this.props.appGlobals}
-                        equipment={currentMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, includeCustom, this.props.appGlobals.appSettings.mechRulesFilter)}
+                        equipment={currentMech.getAvailableEquipmentByCatalog(this.state.equipmentCatalog, includeCustom, shownLevel)}
+                        mounted={currentMech.getInstalledEquipment()}
                         addFunction={this.addEquipment}
-                        hideUnavailable={this.props.appGlobals.currentBattleMech.hideNonAvailableEquipment}
                       />
                   </div>
               </div>
@@ -219,7 +259,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                   current="step5"
                 />
               </div>
-              <div className="col-md-9 col-lg-10">
+              <DesignLockColumn appGlobals={this.props.appGlobals}>
                   <div className="row">
                     <div className="col-md-12 col-lg-8">
                       <TextSection
@@ -318,7 +358,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                             </fieldset>
                           ) : null}
 
-                          {currentMech.isLAM() ? (
+                          {currentMech.isLAM() && !currentMech.isVTOLAM() ? (
                             <fieldset className="fieldset">
                               <legend>LAM Fuel and Bombs</legend>
                               <p>
@@ -344,7 +384,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                     </tr>
                                   </thead>
                                   <tbody>
-                                    {currentMech.getAvailableBombs(this.props.appGlobals.appSettings.mechRulesFilter).map( (bomb) => (
+                                    {currentMech.getAvailableBombs(shownLevel).map( (bomb) => (
                                       <tr key={bomb.tag}>
                                         <td>{bomb.name}</td>
                                         <td>{bomb.bombBaySlots}</td>
@@ -366,6 +406,16 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                             </fieldset>
                           ) : null}
 
+                          {this.props.appGlobals.currentBattleMech.getRulesEditionRuleIssues().length > 0 ? (
+                            <div className="color-red smaller-text">
+                              Against this rules edition:
+                              <ul>
+                                {this.props.appGlobals.currentBattleMech.getRulesEditionRuleIssues().map((issue) => (
+                                  <li key={issue}>{issue}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          ) : null}
                           {this.props.appGlobals.currentBattleMech.getInstalledEquipment().length > 0 ? (
 
                               <table className="table">
@@ -375,8 +425,10 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                     {/* <th>Sort</th> */}
                                     <th>Weight</th>
                                     <th>Rear</th>
+                                    {showTurret ? <th>Turret</th> : null}
                                     {this.props.appGlobals.currentBattleMech.isOmnimech ? <th>Fixed</th> : null}
-                                    <th>&nbsp;</th>
+                                    {showArmored ? <th>Armored</th> : null}
+                                    <th><span className="visually-hidden">Actions</span></th>
                                   </tr>
                                 </thead>
 
@@ -394,18 +446,31 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                               onChange={( event: React.FormEvent<HTMLSelectElement>) => this.setSize( item.uuid, +event.currentTarget.value)}
                                               className="width-auto"
                                             >
-                                              {Array.from({ length: item.sizeMax ?? 1 }, (_value, index) => index + 1).map( (option) => (
+                                              {Array.from({ length: Math.floor((item.sizeMax ?? 1) / (item.sizeStep ?? 1)) }, (_value, index) => (index + 1) * (item.sizeStep ?? 1)).map( (option) => (
                                                 <option key={option} value={option}>{option}</option>
                                               ))}
                                             </select>
                                           </label>
                                         ) : null}
                                         {item.spreadSlots ? (
-                                          <div className="smaller-text">{item.space.battlemech} slots, placed one at a time</div>
+                                          <div className="smaller-text">{this.props.appGlobals.currentBattleMech?.getSpreadSlotCount(item) ?? item.space.battlemech} slots, placed one at a time</div>
                                         ) : null}
                                       </td>
                                       <td>
-                                        {item.minAmmoTons && item.isAmmo && item.minAmmoTons < 1 ? (
+                                        {this.props.appGlobals.currentBattleMech?.canSetAmmoBinShots(item)
+                                          && this.props.appGlobals.currentBattleMech.getAmmoBinShotsPerTon(item) > 0 ? (
+                                          <label className="smaller-text" data-testid="fractional-ammo-shots">
+                                            {item.weight} tons,&nbsp;shots:&nbsp;
+                                            <input
+                                              type="number"
+                                              min={1}
+                                              max={this.props.appGlobals.currentBattleMech.getAmmoBinShotsPerTon(item)}
+                                              value={this.props.appGlobals.currentBattleMech.getAmmoBinCapacity(item)}
+                                              onChange={( event: React.FormEvent<HTMLInputElement>) => this.setAmmoBinShots( item.uuid, +event.currentTarget.value)}
+                                              className="width-auto"
+                                            />
+                                          </label>
+                                        ) : item.minAmmoTons && item.isAmmo && item.minAmmoTons < 1 ? (
                                           <select
                                             value={item.weight}
                                             onChange={( event: React.FormEvent<HTMLSelectElement>) => this.setWeight( item.uuid, +event.currentTarget.value)}
@@ -425,6 +490,20 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                           onChange={( event: React.FormEvent<HTMLInputElement>) => this.setRear( item.uuid, event.currentTarget.checked)}
                                         />
                                       </td>
+                                      {showTurret ? (
+                                        <td data-testid="turret-mount">
+                                          {currentMech.canTurretEquipment(item) ? (
+                                            <InputCheckbox
+                                              label=""
+                                              checked={!!item.turret}
+                                              onChange={( event: React.FormEvent<HTMLInputElement>) => this.setTurret( item.uuid, event.currentTarget.checked)}
+                                            />
+                                          ) : null}
+                                          {item.turret && !currentMech.isTurretMounted(item) ? (
+                                            <div className="smaller-text">Place it in a turret's location</div>
+                                          ) : null}
+                                        </td>
+                                      ) : null}
                                       {this.props.appGlobals.currentBattleMech?.isOmnimech ? (
                                         <td>
                                           <InputCheckbox
@@ -433,6 +512,17 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                                             readOnly={isOmniFixedOnly(item)}
                                             onChange={( event: React.FormEvent<HTMLInputElement>) => this.setFixed( item.uuid, event.currentTarget.checked)}
                                           />
+                                        </td>
+                                      ) : null}
+                                      {showArmored ? (
+                                        <td>
+                                          {currentMech.canArmorEquipment(item) ? (
+                                            <InputCheckbox
+                                              label=""
+                                              checked={item.armored ? true : false}
+                                              onChange={( event: React.FormEvent<HTMLInputElement>) => this.setArmored( item.uuid, event.currentTarget.checked)}
+                                            />
+                                          ) : null}
                                         </td>
                                       ) : null}
                                       <td className="text-right">
@@ -473,6 +563,28 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                             to the top left to install equipment.</p>
                             </>
                           )}
+                          {showArmored ? (
+                            <fieldset className="fieldset clear-both" data-testid="armored-components">
+                              <legend>Armored Components</legend>
+                              <p className="smaller-text">
+                                Each slot of an armored component ignores its first critical hit. 0.5 tons and 150,000 C-bills
+                                a slot; an armored cockpit adds 1 ton. Ammunition bins, CASE and roll-again slots cannot be
+                                armored (TO:AUE pp.94-95). Tick <strong>Armored</strong> above for equipment.
+                              </p>
+                              {currentMech.getArmorableComponents().map( (component) => (
+                                <InputCheckbox
+                                  key={component.key}
+                                  label={component.name}
+                                  checked={component.armored}
+                                  onChange={( event: React.FormEvent<HTMLInputElement>) => this.setComponentArmored( component.key, event.currentTarget.checked)}
+                                />
+                              ))}
+                              <p>
+                                Armored: <strong>{currentMech.getArmoredComponentSlots()}</strong> slots,
+                                &nbsp;<strong>{currentMech.getArmoredComponentWeight()}</strong> tons
+                              </p>
+                            </fieldset>
+                          ) : null}
                           <div className="clear-both overflow-hidden">
                             <hr />
                             <Link to={`${process.env.PUBLIC_URL}/classic-battletech/mech-creator/step6`} className="btn btn-primary pull-right btn-sm">Next Step <ArrowCircleRight /></Link>
@@ -494,7 +606,7 @@ export default class MechCreatorStep5 extends React.Component<IHomeProps, IHomeS
                     </div>
                   </div>
 
-              </div>
+              </DesignLockColumn>
 
               </div>
 

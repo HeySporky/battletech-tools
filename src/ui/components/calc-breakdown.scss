@@ -1,0 +1,167 @@
+// The Battle Value and cost breakdown (#599): rows of label, arithmetic, result and citation.
+.calc-breakdown {
+    text-align: left;
+    font-size: .8rem;
+
+    h4 {
+        margin-top: 1rem;
+    }
+
+    .calc-breakdown-result {
+        font-size: 1.1rem;
+        margin-bottom: .25rem;
+    }
+
+    p {
+        margin-bottom: .25rem;
+    }
+
+    select {
+        width: auto;
+        max-width: 100%;
+    }
+}
+
+.calc-breakdown-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 28rem), 1fr));
+    gap: 0 1.5rem;
+    align-items: start;
+
+    section {
+        min-width: 0;
+    }
+}
+
+.calc-breakdown-steps {
+    width: 100%;
+    border-collapse: collapse;
+    background: transparent;
+
+    thead, tbody {
+        border: none;
+        background: transparent !important;
+    }
+
+    tr {
+        background: transparent !important;
+    }
+
+    th, td {
+        padding: .15rem .4rem .15rem 0;
+        vertical-align: top;
+        border-bottom: 1px solid rgba(128, 128, 128, .25);
+        overflow-wrap: anywhere;
+    }
+
+    thead th {
+        font-weight: normal;
+        opacity: .75;
+        text-align: left;
+    }
+
+    .calc-breakdown-section th {
+        padding-top: .6rem;
+        text-align: left;
+        font-weight: bold;
+        border-bottom: 1px solid rgba(128, 128, 128, .6);
+    }
+
+    .calc-breakdown-emphasis td {
+        font-weight: bold;
+    }
+
+    .calc-breakdown-value {
+        text-align: right;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+
+    thead th:nth-child(3) {
+        text-align: right;
+    }
+
+    .calc-breakdown-running,
+    .calc-breakdown-status {
+        display: block;
+        font-weight: normal;
+    }
+
+    .calc-breakdown-running {
+        opacity: .75;
+    }
+
+    .calc-breakdown-status {
+        font-style: italic;
+    }
+
+    .calc-breakdown-cites {
+        width: 30%;
+    }
+}
+
+// A phone: each step stacks, label and result on one line, arithmetic and citation below.
+@media (max-width: 599px) {
+    .calc-breakdown-steps {
+        display: block;
+
+        thead {
+            display: none;
+        }
+
+        tbody {
+            display: block;
+        }
+
+        tr {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            border-bottom: 1px solid rgba(128, 128, 128, .25);
+            padding: .15rem 0;
+        }
+
+        th, td {
+            border-bottom: none;
+            padding: 0;
+        }
+
+        .calc-breakdown-section th {
+            grid-column: 1 / -1;
+        }
+
+        .calc-breakdown-label {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .calc-breakdown-value {
+            grid-column: 2;
+            grid-row: 1;
+            padding-left: .5rem;
+        }
+
+        .calc-breakdown-detail,
+        .calc-breakdown-cites {
+            grid-column: 1 / -1;
+            width: auto;
+            opacity: .85;
+        }
+
+        .calc-breakdown-detail:empty,
+        .calc-breakdown-cites:empty {
+            display: none;
+        }
+    }
+}
+
+// Print keeps every row.
+@media print {
+    .calc-breakdown-steps tr {
+        break-inside: avoid;
+    }
+
+    .calc-breakdown select {
+        border: none;
+        appearance: none;
+    }
+}

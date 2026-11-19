@@ -1,8 +1,11 @@
 import React, { type JSX } from 'react';
 import { AlphaStrikeUnit } from '../../../../classes/alpha-strike-unit';
 import { CUSTOM_HOMEBREW_RULES_LEVEL } from '../../../../data/equipment-registry';
-import { btRulesLevelOptions } from '../../../../data/rules-level-options';
+import { IGameSettings } from '../../../../data/game-settings';
+import { DEFAULT_RULES_EDITION, RulesEditionUnitType } from '../../../../data/rules-editions';
+import { getRulesetRemovingUnitType } from '../../../../data/special-rulesets';
 import { IAppGlobals } from '../../../app-router';
+import GameSettingsBlock from '../../../components/game-settings-block';
 import InputCheckbox from '../../../components/form_elements/input_checkbox';
 import InputField from '../../../components/form_elements/input_field';
 import InputNumeric from '../../../components/form_elements/input_numeric';
@@ -10,6 +13,9 @@ import SanitizedHTML from '../../../components/sanitized-html';
 import AlphaStrikeUnitSVG from '../../../components/svg/alpha-strike-unit-svg';
 import UIPage from '../../../components/ui-page';
 import './home.scss';
+
+/** The Classic unit type an Alpha Strike card type stands for, for the rulesets (call 18). */
+export const AS_CREATOR_UNIT_TYPES: Record<string, RulesEditionUnitType> = { BM: "mech", PM: "protomech", CV: "vehicle", AS: "fighter" };
 
 export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomeProps, IHomeState> {
 
@@ -19,16 +25,14 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
 
         let asUnit = new AlphaStrikeUnit();
         let calcLog = "";
-        let lsASUnit = localStorage.getItem("editing_as_unit");
+        const lsASUnit = localStorage.getItem("editing_as_unit");
         if( lsASUnit ) {
-            console.log("lsASUnit");
             try {
 
-                let unitInfo = JSON.parse( lsASUnit );
+                const unitInfo = JSON.parse( lsASUnit );
                 asUnit = new AlphaStrikeUnit();
                 asUnit.importUnit( unitInfo );
                 calcLog = asUnit.calc();
-                console.log("lsASUnit2");
             }
             catch {
 
@@ -53,7 +57,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     }
 
     toggleShortMinimal = (e: React.FormEvent<HTMLInputElement>) => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.damage.shortMinimal = e.currentTarget.checked;
         this.saveUnit();
         this.setState({
@@ -61,7 +65,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
         })
     }
     toggleMediumMinimal = (e: React.FormEvent<HTMLInputElement>) => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.damage.mediumMinimal = e.currentTarget.checked;
         this.saveUnit();
         this.setState({
@@ -69,7 +73,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
         })
     }
     toggleLongMinimal = (e: React.FormEvent<HTMLInputElement>) => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.damage.longMinimal = e.currentTarget.checked;
         this.saveUnit();
         this.setState({
@@ -77,7 +81,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
         })
     }
     toggleExtremeMinimal = (e: React.FormEvent<HTMLInputElement>) => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.damage.extremeMinimal = e.currentTarget.checked;
         this.saveUnit();
         this.setState({
@@ -90,14 +94,13 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     ) => {
         if(!doNotCalculate)
             this.state.editingASUnit.calc();
-        console.log("saveUnit", JSON.stringify(this.state.editingASUnit.export()) )
         localStorage.setItem("editing_as_unit", JSON.stringify(this.state.editingASUnit.export()));
     }
 
     updateShortRange = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.damage.short = +e.currentTarget.value;
         if( unit.damage.short > 0 ) {
             unit.damage.shortMinimal = false;
@@ -110,7 +113,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     updateMediumRange = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.damage.medium = +e.currentTarget.value;
         if( unit.damage.medium > 0 ) {
             unit.damage.mediumMinimal = false;
@@ -123,7 +126,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     updateLongRange = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.damage.long = +e.currentTarget.value;
         if( unit.damage.long > 0 ) {
             unit.damage.longMinimal = false;
@@ -136,7 +139,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     updateExtremeRange = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.damage.extreme = +e.currentTarget.value;
         if( unit.damage.extreme > 0 ) {
             unit.damage.extremeMinimal = false;
@@ -150,7 +153,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     setName = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.name = e.currentTarget.value;
         this.saveUnit(true);
         this.setState({
@@ -158,11 +161,12 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
         })
     }
 
-    setRulesLevel = (
-        e: React.FormEvent<HTMLSelectElement>,
-     ): void => {
-        let unit = this.state.editingASUnit;
-        unit.rulesLevel = +e.currentTarget.value;
+    // The shared settings block (#324) with only the steps the creator has: Special Rulesets and Rules Level. A
+    // hand-built card starts at Custom Homebrew, so its level does not become the app-wide default.
+    setGameSettings = ( settings: IGameSettings ): void => {
+        const unit = this.state.editingASUnit;
+        unit.rulesLevel = settings.rulesLevel;
+        unit.rulesets = settings.rulesets;
         this.saveUnit(true);
         this.setState({
             editingASUnit: unit,
@@ -172,7 +176,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     setRole = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.role = e.currentTarget.value;
         this.saveUnit(true);
         this.setState({
@@ -183,7 +187,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     setType = (
         e: React.FormEvent<HTMLSelectElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.type = e.currentTarget.value;
         this.saveUnit();
         this.setState({
@@ -194,7 +198,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     updateArmor = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.armor = +e.currentTarget.value;
         this.saveUnit();
         this.setState({
@@ -205,7 +209,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     updateSize = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.size = +e.currentTarget.value;
         this.saveUnit();
         this.setState({
@@ -216,7 +220,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     updateTMM = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.tmm = +e.currentTarget.value;
         this.saveUnit();
         this.setState({
@@ -227,7 +231,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     updateStructure = (
         e: React.FormEvent<HTMLInputElement>,
      ): void => {
-        let unit = this.state.editingASUnit;
+        const unit = this.state.editingASUnit;
         unit.structure = +e.currentTarget.value;
         this.saveUnit();
         this.setState({
@@ -236,6 +240,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
     }
 
     render = (): JSX.Element => {
+      const protoRemovedBy = getRulesetRemovingUnitType( this.state.editingASUnit.rulesets, "protomech" );
 
       return (
         <>
@@ -248,6 +253,21 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
 
                 <div className="row">
                     <div className="col-md-6">
+                        <fieldset className="fieldset">
+                            <GameSettingsBlock
+                                unitType={AS_CREATOR_UNIT_TYPES[this.state.editingASUnit.type] ?? "mech"}
+                                hiddenSteps={["edition", "techBase", "era"]}
+                                settings={{
+                                    rulesets: this.state.editingASUnit.rulesets,
+                                    edition: DEFAULT_RULES_EDITION,
+                                    rulesLevel: this.state.editingASUnit.rulesLevel ?? CUSTOM_HOMEBREW_RULES_LEVEL,
+                                    techBase: "is",
+                                    era: "",
+                                }}
+                                onChange={this.setGameSettings}
+                            />
+                            <p className="smaller-text">Printing asks for confirmation above the selected rules level and stamps anything above Standard.</p>
+                        </fieldset>
                         <fieldset className="fieldset">
                         <div className="row">
                                 <div className="col-md-12">
@@ -272,7 +292,7 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
                                         value={this.state.editingASUnit.type}
                                     >
                                         <option value="BM">BattleMech</option>
-                                        <option value="PM">ProtoMech</option>
+                                        <option value="PM" disabled={!!protoRemovedBy} title={protoRemovedBy ? `ProtoMechs do not exist under ${protoRemovedBy.name}.` : undefined}>ProtoMech</option>
                                         <option value="CV">Combat Vehicle</option>
                                         <option value="AS">Aerospace</option>
                                     </select>
@@ -301,26 +321,12 @@ export default class AlphaStrikeUnitCreatorHome extends React.Component<IHomePro
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-md-9">
+                            <div className="col-md-12">
                                 <InputField
                                     label="Role"
                                     value={this.state.editingASUnit.role}
                                     onChange={this.setRole}
                                 />
-                            </div>
-                            <div className="col-md-3">
-                                <label>
-                                    Rules Level:<br />
-                                    <select
-                                        onChange={this.setRulesLevel}
-                                        value={this.state.editingASUnit.rulesLevel}
-                                        title="Printing asks for confirmation above the selected rules level and stamps anything above Standard"
-                                    >
-                                        {btRulesLevelOptions.map( (option) => (
-                                            <option key={option.id} value={option.id}>{option.name}</option>
-                                        ))}
-                                    </select>
-                                </label>
                             </div>
 
                         </div>

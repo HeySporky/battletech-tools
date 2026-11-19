@@ -20,19 +20,19 @@ export default class SettingsHome extends React.Component<ISettingsHomeProps, IS
     }
 
     setUITheme = ( event: React.FormEvent<HTMLSelectElement>): void => {
-      let appSettingsHome = this.props.appGlobals.appSettings;
+      const appSettingsHome = this.props.appGlobals.appSettings;
       appSettingsHome.uiTheme = event.currentTarget.value;
       this.props.appGlobals.saveAppSettings( appSettingsHome );
     }
 
     setDeveloperMenu = ( event: React.FormEvent<HTMLInputElement>): void => {
-      let appSettingsHome = this.props.appGlobals.appSettings;
+      const appSettingsHome = this.props.appGlobals.appSettings;
       appSettingsHome.developerMenu = event.currentTarget.checked;
       this.props.appGlobals.saveAppSettings( appSettingsHome );
     }
 
     setAlphaStrikeMeasurementsInHexes = ( event: React.FormEvent<HTMLInputElement>): void => {
-      let appSettingsHome = this.props.appGlobals.appSettings;
+      const appSettingsHome = this.props.appGlobals.appSettings;
       appSettingsHome.alphaStrikeMeasurementsInHexes = event.currentTarget.checked;
       this.props.appGlobals.saveAppSettings( appSettingsHome );
     }

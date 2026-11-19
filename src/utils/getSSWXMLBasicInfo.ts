@@ -1,5 +1,4 @@
 import { IRulesLevelOption } from "../data/data-interfaces";
-
 import { XMLParser } from "fast-xml-parser";
 
 export interface ISSWBasicInfo {
@@ -21,11 +20,13 @@ export interface ISSWBasicInfo {
     year: number;
 }
 
-export function getSSWXMLBasicInfo(
-    ssw_xml: string,
-): ISSWBasicInfo | null {
-
-    const options = {
+/**
+ * Parses an SSW save file. It first repairs a defect SSW itself wrote into some files: the image attribute of the
+ * root tag missing its `="` (`sswimage../Images/No_Image.png"`), which the parser rejects (#42).
+ */
+export function parseSSWXML(ssw_xml: string) {
+    const repaired = ssw_xml.replace(/(<mech\s[^>]*?\ssswimage)(?!\s*=)([^\s">]*")/, '$1="$2');
+    const parser = new XMLParser({
         ignoreAttributes : false,
         // Security note: fast-xml-parser (>=4.4) rejects external and parameter entities
         // outright and caps internal-entity expansion at 10 000 chars, so XXE and
@@ -33,14 +34,20 @@ export function getSSWXMLBasicInfo(
         // legitimate SSW files use standard XML entities (&quot;, &apos;, &amp;) in
         // attribute values and disabling entity processing corrupts every mech name
         // containing a quote.
-    };
-    const parser = new XMLParser(options);
-    let jObj = parser.parse(ssw_xml);
+    });
+    return parser.parse(repaired);
+}
+
+export function getSSWXMLBasicInfo(
+    ssw_xml: string,
+): ISSWBasicInfo | null {
+
+    const jObj = parseSSWXML(ssw_xml);
 
     // console.log( "battlemech.importSSWXML() jObj", jObj)
     if( jObj && jObj.mech ) {
 
-        let rv: ISSWBasicInfo = {
+        const rv: ISSWBasicInfo = {
             model: "",
             name: "",
             tonnage: 0,

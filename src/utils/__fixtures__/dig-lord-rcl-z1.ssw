@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Dig Lord" model="RCL-Z1 Armed MiningMech" tons="65" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>681</battle_value>
+    <cost>2850558.75</cost>
+    <rules_level>3</rules_level>
+    <era>4</era>
+    <productionera>6</productionera>
+    <mech_type>IndustrialMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3081</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Industrial Structure</type>
+    </structure>
+    <engine rating="195" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fuel-Cell Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Industrial Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>9</hd>
+        <ct>16</ct>
+        <ctr>5</ctr>
+        <lt>14</lt>
+        <ltr>3</ltr>
+        <rt>14</rt>
+        <rtr>3</rtr>
+        <la>16</la>
+        <ra>16</ra>
+        <ll>16</ll>
+        <rl>16</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>XTRPeriphery</source>
+        <info>Dig Lord RCL-Z1 Armed MiningMech 65t, 3/5/0, FCE, Ind; 8.0T/61% Armor; 7 SHS; 1 MedVbrBld, 1 HvRfl, 1 MML5</info>
+        <battleforce pv="7" wt="3" mv="3" s="1" m="1" l="1" e="0" ov="1" armor="4" internal="5" abilities="MEL, SRCH, EE" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="7" techbase="2">
+            <type>Single Heat Sink</type>
+
+        </heatsinks>
+        <arm_aes location="RA" index="4"/>
+        <turret type="left torso" index="3"/>
+        <equipment>
+            <name manufacturer="">Medium Vibroblade</name>
+            <type>physical</type>
+            <location index="7">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) MML-5</name>
+            <type>missile</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ MML-5 (SRM)</name>
+            <type>ammunition</type>
+            <location index="4">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ MML-5 (LRM)</name>
+            <type>ammunition</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(T) (IS) Heavy Rifle</name>
+            <type>ballistic</type>
+            <location index="0">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Heavy Rifle</name>
+            <type>ammunition</type>
+            <location index="5">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ Heavy Rifle</name>
+            <type>ammunition</type>
+            <location index="4">LT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional>Field Testing Summation: Custom RCL-4 Refit:br::br:Producer/Site: Unknown Refit Facility / Erod’s Escape:br::br:Supervising Technician: Shaun Mulanax:br::br:Project Start Date: Early 3079:br::br:Non-Production Equipment Analysis::br::br::tab:Medium Vibroblade:br::br::tab:Heavy Rifle:br::br::tab:Actuator Enhancement System:br::br::tab:Shoulder Turret:br::br::br:Notes: *Mounted in a BattleMech Shoulder Turret; Features no Fire Control; Features the following Design Quirks: Prototype, Protected Actuators, Jettison-Capable Weapon (Medium Vibroblade).</additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

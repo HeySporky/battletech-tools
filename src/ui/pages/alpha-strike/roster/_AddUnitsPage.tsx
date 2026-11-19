@@ -1,20 +1,36 @@
 import * as React from 'react';
-import { FaBars, FaEye, FaPlus, FaTrash } from "react-icons/fa";
+import { FaBars, FaEye, FaPlus } from "react-icons/fa";
+import { Link } from 'react-router';
 import { AlphaStrikeUnit, getMULDisplayName, IASMULUnit } from '../../../../classes/alpha-strike-unit';
+import { getMULRecordStanding } from '../../../../utils/unit-standing';
+import UnitStandingBadge, { UnitStandingLegend } from '../../../components/unit-standing-badge';
 import { BattleMech } from '../../../../classes/battlemech';
-import { isMULSourceSelection, MUL_SOURCE_LABELS, MUL_SOURCE_SELECTIONS } from '../../../../data/mul-list-items';
+import AerospaceFighter from '../../../../classes/aerospace-fighter';
+import InfantryPlatoon from '../../../../classes/infantry-platoon';
+import BattleArmor from '../../../../classes/battle-armor';
+import ProtoMech from '../../../../classes/protomech';
+import MicroMech from '../../../../classes/micro-mech';
+import Walker from '../../../../classes/walker';
+import { loadMULListItems, MUL_SOURCE_LABELS } from '../../../../data/mul-list-items';
 import { getMULASSearchResults } from '../../../../utils';
-import { getMULAerospaceRoles, getMULEraIDs, getMULEraLabel, getMULFactionIDs, getMULFactionLabels, getMULGroundRoles, getMULTypeIDs, getMULTypeLabel } from '../../../../utils/mulUtilities';
+import { countAbilityCodes, IAbilityCodeCount } from '../../../../utils/mulAbilities';
+import { getMULEraLabel } from '../../../../utils/mulUtilities';
+import { filterMULByRulesets, filterMULByStanding, IMULSearchFilters } from '../../../../utils/mulSearchFilters';
 import { IAppGlobals } from '../../../app-router';
-import InputField from '../../../components/form_elements/input_field';
+import MULSearchFilters from '../../../components/mul-search-filters';
+import SearchResultsPager from '../../../components/search-results-pager';
 import TextSection from '../../../components/text-section';
 import CurrentForceList from './_CurrentForceList';
+import ScanUnitCard from './_ScanUnitCard';
 import { generateUUID } from '../../../../utils/generateUUID';
+import { paginate } from '../../../../utils/paginate';
 import type { JSX } from "react";
 const Bars = FaBars as any;
 const Eye = FaEye as any;
 const Plus = FaPlus as any;
-const Trash = FaTrash as any;
+
+// Rendering every match froze the page once a search returned the whole bundled MUL (~8.7k units).
+const SEARCH_RESULTS_PAGE_SIZE = 25;
 
 //TODO: Clearfix Hack for overflowing results
 /*
@@ -26,7 +42,6 @@ const Trash = FaTrash as any;
 
 */
 
-
 export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrikeAddUnitsViewProps, IAlphaStrikeAddUnitsViewState> {
 
     private searchTimeout: NodeJS.Timeout | null = null;
@@ -35,24 +50,36 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     // before it lands, which made every search look superseded and left "Searching..." up forever.
     private latestSearchId: string = '';
 
+    private searchResultsHeading = React.createRef<HTMLHeadingElement>();
+
     constructor( props: IAlphaStrikeAddUnitsViewProps ) {
         super(props)
 
 
         this.state = {
+          abilityCodes: [],
           searchResults: [],
             contextMenuSearch: -1,
             contextMenuSavedBattleMechs: -1,
             searchSort: 'Name',
-            isSearching: false
+            isSearching: false,
+            searchPage: 0,
         }
     }
 
       componentDidMount() {
-        if (this.props.appGlobals.appSettings.alphaStrikeSearchTerm.trim().length >= 3) {
-          void this.updateSearchResults();
-        }
+        // Search on opening even with no filters, so the unit lists show their units (#377).
+        void this.updateSearchResults();
+        void this.loadAbilityCodes();
       }
+
+    // Suggestions come from the abilities in the unit lists being searched.
+    loadAbilityCodes = async (): Promise<void> => {
+      const units = await loadMULListItems( this.props.appGlobals.appSettings.alphaStrikeMULSources );
+      this.setState({
+        abilityCodes: countAbilityCodes( units ),
+      });
+    }
 
     componentWillUnmount() {
         // Clean up timeout when component unmounts
@@ -85,132 +112,67 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         })
       }
 
-    updateSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
+    // The Alpha Strike search keeps its filters in its own flat settings; the shared filter UI works on IMULSearchFilters.
+    getSearchFilters = (): IMULSearchFilters => {
+        const settings = this.props.appGlobals.appSettings;
+        return {
+          term: settings.alphaStrikeSearchTerm,
+          rules: settings.alphaStrikeSearchRules,
+          tech: settings.alphaStrikeSearchTech,
+          role: settings.alphaStrikeSearchRole,
+          era: settings.alphaStrikeSearchEra,
+          type: settings.alphaStrikeSearchType,
+          factions: settings.alphaStrikeSearchFactions,
+          factionSearchTerm: settings.alphaStrikeFactionSearchTerm,
+          abilities: settings.alphaStrikeSearchAbilities,
+          abilitySearchTerm: settings.alphaStrikeAbilitySearchTerm,
+          sources: settings.alphaStrikeMULSources,
+          rulesets: settings.alphaStrikeSearchRulesets,
+          standings: settings.alphaStrikeSearchStandings,
+        };
+    }
 
-        let appSettings = this.props.appGlobals.appSettings;
+    updateSearchFilters = ( filters: IMULSearchFilters, search: boolean ): void => {
+        const settings = this.props.appGlobals.appSettings;
+        const termChanged = filters.term !== settings.alphaStrikeSearchTerm;
+        const sourcesChanged = filters.sources.join() !== settings.alphaStrikeMULSources.join();
+        settings.alphaStrikeSearchTerm = filters.term;
+        settings.alphaStrikeSearchRules = filters.rules;
+        settings.alphaStrikeSearchTech = filters.tech;
+        settings.alphaStrikeSearchRole = filters.role;
+        settings.alphaStrikeSearchEra = filters.era;
+        settings.alphaStrikeSearchType = filters.type;
+        settings.alphaStrikeSearchFactions = filters.factions;
+        settings.alphaStrikeFactionSearchTerm = filters.factionSearchTerm;
+        settings.alphaStrikeSearchAbilities = filters.abilities;
+        settings.alphaStrikeAbilitySearchTerm = filters.abilitySearchTerm;
+        settings.alphaStrikeMULSources = filters.sources;
+        settings.alphaStrikeSearchRulesets = filters.rulesets;
+        settings.alphaStrikeSearchStandings = filters.standings;
+        this.props.appGlobals.saveAppSettings( settings );
 
-        appSettings.alphaStrikeSearchTerm = event.currentTarget.value;
-        this.props.appGlobals.saveAppSettings( appSettings );
-
-        // Clear existing timeout
+        if( sourcesChanged ) {
+          void this.loadAbilityCodes();
+        }
+        if( !search ) {
+          return;
+        }
         if (this.searchTimeout) {
             clearTimeout(this.searchTimeout);
         }
-
-        // Set a new timeout to wait for user to stop typing (500ms delay)
-        this.searchTimeout = setTimeout(() => {
-            this.updateSearchResults();
-        }, 500);
-    }
-
-    updateRules = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchRules = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateTech = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchTech = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateRole = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchRole = event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateEra = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchEra = +event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateType = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeSearchType = +event.currentTarget.value;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateMULSources = ( event: React.FormEvent<HTMLSelectElement> ): void => {
-      const selection = event.currentTarget.value;
-      if( !isMULSourceSelection( selection ) ) {
-        return;
-      }
-
-      let appSettings = this.props.appGlobals.appSettings;
-
-      appSettings.alphaStrikeMULSources = selection;
-      this.props.appGlobals.saveAppSettings( appSettings );
-
-      this.updateSearchResults();
-    }
-
-    updateFactionSearch = ( event: React.FormEvent<HTMLInputElement> ): void => {
-        
-        let appSettings = this.props.appGlobals.appSettings;
-  
-        appSettings.alphaStrikeFactionSearchTerm = event.currentTarget.value;
-        if( appSettings.alphaStrikeFactionSearchTerm.length < 3 ) {
-          appSettings.alphaStrikeFactionSuggestions = [];
-          this.props.appGlobals.saveAppSettings( appSettings );
-          return;
+        if( termChanged ) {
+          // Wait for the user to stop typing (500ms delay)
+          this.searchTimeout = setTimeout(() => {
+              this.updateSearchResults();
+          }, 500);
+        } else {
+          this.updateSearchResults();
         }
-
-        let arrFound = [];
-        for( let factionID of getMULFactionIDs() ) {
-          if( getMULFactionLabels(factionID).toLowerCase().includes( appSettings.alphaStrikeFactionSearchTerm.toLowerCase() ) ) {
-            arrFound.push( factionID  );
-          }
-        }
-        appSettings.alphaStrikeFactionSuggestions = arrFound;
-        this.props.appGlobals.saveAppSettings( appSettings );
     }
-
-    addFactionSelected = ( factionID: number ): void => {
-      if( this.props.appGlobals.appSettings.alphaStrikeSearchFactions.includes( factionID ) ) {
-        return;
-      }
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.alphaStrikeSearchFactions.push( factionID );
-      this.props.appGlobals.saveAppSettings( appSettings );
-      this.updateSearchResults();
-    }
-
-    removeFactionSelected = ( factionID: number ): void => {
-      console.log('removeFactionSelected', factionID);
-      let appSettings = this.props.appGlobals.appSettings;
-      appSettings.alphaStrikeSearchFactions = appSettings.alphaStrikeSearchFactions.filter( (faction) => faction !== factionID );
-      console.log(appSettings.alphaStrikeSearchFactions);
-      this.props.appGlobals.saveAppSettings( appSettings );
-      this.updateSearchResults();
-    }
-
 
     updateSearchResults = async (): Promise<void> => {
 
-      let currentSearchId = generateUUID();
+      const currentSearchId = generateUUID();
       this.latestSearchId = currentSearchId;
 
       this.setState({
@@ -229,10 +191,13 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
           !navigator.onLine,
           false,
           this.props.appGlobals,
+          this.props.appGlobals.appSettings.alphaStrikeSearchAbilities,
         );
+        // The live search knows nothing of Special Rulesets (#324): their units are left out here.
+        data = filterMULByRulesets( data, this.props.appGlobals.appSettings.alphaStrikeSearchRulesets );
+        data = filterMULByStanding( data, this.props.appGlobals.appSettings.alphaStrikeSearchStandings );
 
         if(this.latestSearchId !== currentSearchId) {
-          console.log("updateSearchResults: searchId mismatch, aborting");
           // Don't set isSearching to false here - a newer search is running
           return;
         }
@@ -259,9 +224,10 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
         searchResults: data,
         contextMenuSearch: -1,
         isSearching: false,
+        searchPage: 0,
       });
 
-      let appSettings = this.props.appGlobals.appSettings;
+      const appSettings = this.props.appGlobals.appSettings;
 
       appSettings.alphasStrikeCachedSearchResults = data;
       // Search results stay in memory; saveAppSettings persists preferences and user work, not
@@ -296,6 +262,14 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     }
 
 
+    goToSearchPage = ( page: number ): void => {
+        this.setState({
+          searchPage: page,
+          contextMenuSearch: -1,
+        });
+        this.searchResultsHeading.current?.scrollIntoView({ block: "nearest" });
+    }
+
     handleSort = ({ target: { value } }: any) => {
         this.setState({ searchSort: value }, () => this.updateSearchResults());
     }
@@ -304,6 +278,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       if(!this.props.appGlobals.currentASForce) {
         return <></>
       }
+
+        const resultsPage = paginate( this.state.searchResults, this.state.searchPage, SEARCH_RESULTS_PAGE_SIZE );
 
         return(
             <>
@@ -325,169 +301,25 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 {navigator && navigator.onLine ? (
     <>
 
-<fieldset className="fieldset">
-                    <div className="row">
-                      <div className="col-md-6 text-center">
+<MULSearchFilters
+    filters={this.getSearchFilters()}
+    onChange={this.updateSearchFilters}
+    idPrefix="alphaStrike"
+    abilityCodes={this.state.abilityCodes}
+    sourcesNote={this.props.appGlobals.appSettings.developerMenu ? (
+      <>&nbsp;<Link to={`${process.env.PUBLIC_URL}/custom-mul-editor`}>Manage custom units</Link></>
+    ) : null}
+/>
 
-                    <InputField
-                         type="search"
-                         onChange={this.updateSearch}
-                         value={this.props.appGlobals.appSettings.alphaStrikeSearchTerm}
-                         label="Search Terms"
-                    />
-                      </div>
-                      <div className="col-md-6 text-center">
-                      <label>
-                      Search Rules:<br />
-                      <select
-                        onChange={this.updateRules}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchRules}
-                      >
-                        <option value="">All</option>
-                        <option value="introductory">Introductory</option>
-                        <option value="standard">Standard</option>
-                        <option value="advanced">Advanced</option>
-                      </select>
-                    </label>
-
-                      </div>
-</div>
-<div className="row">
-                      <div className="col-md-6 text-center">
-                      <label>
-                      Search Tech:<br />
-                      <select
-                        onChange={this.updateTech}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchTech}
-                      >
-                        <option value="">All</option>
-                        <option value="inner sphere">Inner Sphere</option>
-                        <option value="clan">Clan</option>
-                      </select>
-                    </label>
-
-                    <label>
-                      Type:<br />
-                      <select
-                        onChange={this.updateType}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchType}
-                      >
-                        <option value="">All</option>
-                        {getMULTypeIDs().map( (typeID ) => {
-                          return <option key={typeID} value={typeID}>{getMULTypeLabel( typeID )}</option>
-                        })}
-                        {/* {btEraOptions.map( (era, eraIndex) => {
-                          return (
-                            <option key={eraIndex} value={era.yearStart}>{era.name}</option>
-                          )
-                        })} */}
-                      </select>
-                    </label>
-                          
-                      
-                      </div>
-                      <div className="col-md-6 text-center">
-
-                      <label>
-                      Era:<br />
-                      <select
-                        onChange={this.updateEra}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchEra}
-                      >
-                        <option value="">All</option>
-                        {getMULEraIDs().map( (eraID ) => {
-                          return <option key={eraID} value={eraID}>{getMULEraLabel( eraID )}</option>
-                        })}
-                        {/* {btEraOptions.map( (era, eraIndex) => {
-                          return (
-                            <option key={eraIndex} value={era.yearStart}>{era.name}</option>
-                          )
-                        })} */}
-                      </select>
-                    </label>
-
-                    <label>
-                      Role:<br />
-                      <select
-                        onChange={this.updateRole}
-                        value={this.props.appGlobals.appSettings.alphaStrikeSearchRole}
-                      >
-                        <option value="">All</option>
-                        <optgroup label="Ground Unit Roles">
-                        {getMULGroundRoles().map( (role, roleIndex ) => {
-                          return <option key={roleIndex} value={role}>{role}</option>
-                        })}
-                        </optgroup>
-                        <optgroup label="Aerospace Roles">
-                        {getMULAerospaceRoles().map( (role, roleIndex ) => {
-                          return <option key={roleIndex} value={role}>{role}</option>
-                        })}
-                        </optgroup>
-
-
-                      </select>
-                    </label>
-                    
-                      </div>
-                     
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12 text-center">
-                      <InputField
-                         type="search"
-                         onChange={this.updateFactionSearch}
-                         value={this.props.appGlobals.appSettings.alphaStrikeFactionSearchTerm}
-                         label="Filter Availability By Factions"
-                         placeholder='Type 3 or more characters to search. MUL uses OR logic for multiple factions.'
-                        />
-                      </div>
-                      <div className="col-md-6 text-center">
-                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.length > 0 ? (
-                      <label htmlFor="factionFilter">
-                      Add to Faction Filter?<br />
-                      {this.props.appGlobals.appSettings.alphaStrikeFactionSuggestions.map( (factionID) => { 
-                        return <div className="text-left"><button onClick={() => this.addFactionSelected(factionID)} className="btn-sm btn btn-primary"><Plus /></button>&nbsp;{getMULFactionLabels(factionID)}</div>
-                      })}
-                      </label>
-                      ) : null}
-                      </div>
-                      <div className="col-md-6 text-center">
-                      {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.length > 0 ? (
-                    <label htmlFor="factionFilter">
-                      Current Faction Filter:<br />
-                      {this.props.appGlobals.appSettings.alphaStrikeSearchFactions.map( (factionID) => { 
-                        return <div className="text-left"><button onClick={() => this.removeFactionSelected(factionID)} className="btn btn-sm btn-danger"><Trash /></button>{getMULFactionLabels(factionID)}</div>
-                      })}
-                      </label>
-                    ):null}
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-md-12 text-center">
-                        <label>
-                          Unit Lists:<br />
-                          <select
-                            name="alphaStrikeMULSources"
-                            onChange={this.updateMULSources}
-                            value={this.props.appGlobals.appSettings.alphaStrikeMULSources}
-                          >
-                            {MUL_SOURCE_SELECTIONS.map( (option) => {
-                              return <option key={option.value} value={option.value}>{option.label}</option>
-                            })}
-                          </select>
-                        </label>
-                        <div className="small-text">
-                          {MUL_SOURCE_SELECTIONS.find( (option) => option.value === this.props.appGlobals.appSettings.alphaStrikeMULSources )?.description}
-                        </div>
-                      </div>
-                    </div>
-
-                  </fieldset>
-
-                <h3 className="text-center">
+                <h3 className="text-center" ref={this.searchResultsHeading}>
                   Search Results ({this.state.isSearching ? '...' : this.state.searchResults.length})
                   {this.state.isSearching && <span className="ms-2 text-muted">(Searching...)</span>}
                 </h3>
+                {!this.state.isSearching && resultsPage.totalPages > 1 ? (
+                  <div className="small-text text-center">
+                    Showing {resultsPage.firstIndex + 1}&ndash;{resultsPage.lastIndex + 1} of {this.state.searchResults.length}
+                  </div>
+                ) : null}
                 <div className="search-sort-wrapper">
                     Sort:
                     <span>
@@ -513,11 +345,13 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         <label htmlFor="search-sort-pv">PV</label>
                     </span>
                 </div>
+                  <UnitStandingLegend />
+                  {!this.state.isSearching ? <SearchResultsPager page={resultsPage} onGo={this.goToSearchPage} /> : null}
                   <div className="table-wrapper">
                     <table className="table">
                       <thead>
                         <tr>
-                          <th>&nbsp;</th>
+                          <th><span className="visually-hidden">Actions</span></th>
                           <th>Name</th>
                           <th>Rules</th>
                           <th>Tech</th>
@@ -527,7 +361,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                         </tr>
                         <tr>
-                          <th>&nbsp;</th>
+                          <th><span className="visually-hidden">Actions</span></th>
                           <th colSpan={4}>Notes</th>
                           <th colSpan={2}>Role</th>
                         </tr>
@@ -548,7 +382,9 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </tbody>
                       ) : this.state.searchResults.length > 0 ? (
                         <>
-                          {this.state.searchResults.map( (asUnit: IASMULUnit, unitIndex: number) => {
+                          {resultsPage.items.map( (asUnit: IASMULUnit, pageIndex: number) => {
+                            // Index into the full result list, so keys and the open context menu stay unique across pages.
+                            const unitIndex = resultsPage.firstIndex + pageIndex;
 
                             return (
                               <tbody key={unitIndex}>
@@ -573,7 +409,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
               <li
                 key={asGroupIndex}
                 onClick={() => {
-                  let unitObj = new AlphaStrikeUnit();
+                  const unitObj = new AlphaStrikeUnit();
                   unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
                   this.addToGroup( unitObj, asGroupIndex)
                 }}
@@ -591,7 +427,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
       <button
         className="btn-sm btn btn-primary no-right-margin"
         onClick={() => {
-          let unitObj = new AlphaStrikeUnit();
+          const unitObj = new AlphaStrikeUnit();
           unitObj.importMUL( JSON.parse(JSON.stringify(asUnit)) );
           this.addToGroup( unitObj, 0)
         }}
@@ -604,7 +440,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     <button
       className="btn btn-primary btn-sm"
       onClick={() => {
-        let unitObj = new AlphaStrikeUnit();
+        const unitObj = new AlphaStrikeUnit();
         unitObj.importMUL( asUnit );
         this.props.openViewUnit( unitObj )
       }}
@@ -614,14 +450,17 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
     </button>
   </td>
                                 <td>
+                                  <UnitStandingBadge standing={getMULRecordStanding(asUnit)} />
                                   {getMULDisplayName(asUnit)}
                                   {asUnit.MulSource && asUnit.MulSource !== "mul2" ? (
                                     <>
                                       &nbsp;<span
-                                        className="badge bg-secondary"
-                                        title="Legacy MUL 1.0 record not listed on the current MUL"
+                                        className={asUnit.MulSource === "custom" ? "badge bg-warning text-dark" : "badge bg-secondary"}
+                                        title={asUnit.CustomInfo
+                                          ? `Non-canonical custom by ${asUnit.CustomInfo.author}${asUnit.CustomInfo.source ? ` (${asUnit.CustomInfo.source})` : ""}${asUnit.CustomInfo.local ? " - saved in this browser only" : ""}`
+                                          : "Legacy MUL 1.0 record not listed on the current MUL"}
                                       >
-                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}
+                                        {MUL_SOURCE_LABELS[asUnit.MulSource]}{asUnit.CustomInfo?.local ? " (local)" : ""}
                                       </span>
                                       {asUnit.MulSource === "mul1" && !asUnit.BFPointValue ? (
                                         <span className="badge bg-danger" title="This legacy record has no Alpha Strike stats">&nbsp;No AS stats</span>
@@ -664,7 +503,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                         </>
                       ) : (
                         <>
-                        {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 ? (
+                        {this.props.appGlobals.appSettings.alphaStrikeSearchTerm.length < 3 && this.props.appGlobals.appSettings.alphaStrikeSearchAbilities.length === 0 ? (
                           <tbody>
                           <tr>
                             <td className="text-center" colSpan={7}>
@@ -686,6 +525,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                     </table>
                   </div>
+                  {!this.state.isSearching ? <SearchResultsPager page={resultsPage} onGo={this.goToSearchPage} below /> : null}
     </>
 ) : (
     <div className="alert alert-warning">
@@ -695,6 +535,8 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                 </TextSection>
 
+<ScanUnitCard appGlobals={this.props.appGlobals} addToGroup={this.addToGroup} />
+
 {this.props.appGlobals.battleMechSaves && this.props.appGlobals.battleMechSaves.length > 0 ? (
     <TextSection
         label="Your Created BattleMechs"
@@ -702,7 +544,7 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
                   <table className="table">
                     <thead>
                       <tr>
-                        <th>&nbsp;</th>
+                        <th><span className="visually-hidden">Actions</span></th>
                         <th>Name</th>
                         {/* <th>Rules</th>
                         <th>Tech</th>
@@ -712,17 +554,17 @@ export default class AlphaStrikeAddUnitsView extends React.Component<IAlphaStrik
 
                       </tr>
                       <tr>
-                        <th>&nbsp;</th>
+                        <th><span className="visually-hidden">Actions</span></th>
                         <th colSpan={3}>Notes</th>
 
                       </tr>
                     </thead>
 
         {this.props.appGlobals.battleMechSaves.map( (bm, unitIndex) => {
-            let bmObj = new BattleMech();
+            const bmObj = new BattleMech();
             bmObj.import( bm );
 
-            let asUnit = bmObj.calcAlphaStrike();
+            const asUnit = bmObj.calcAlphaStrike();
 
             return (
                 <tbody key={unitIndex}>
@@ -804,6 +646,409 @@ title="View this unit's Alpha Strike Card"
             </table>
     </TextSection>
 ) : null}
+
+{this.props.appGlobals.fighterSaves && this.props.appGlobals.fighterSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Fighters"
+    >
+        <table className="table">
+            <thead>
+                <tr>
+                    <th><span className="visually-hidden">Actions</span></th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.fighterSaves.map( (save, unitIndex) => {
+                // Converted from the saved design; a published fighter should use its Master Unit List card.
+                const asUnit = new AerospaceFighter( JSON.stringify(save) ).getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this fighter to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this fighter to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this fighter's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.overheat && asUnit.overheat > 0 ? <>&nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}</> : null}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                )
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.infantrySaves && this.props.appGlobals.infantrySaves.length > 0 ? (
+    <TextSection
+        label="Your Created Infantry"
+    >
+        <table className="table">
+            <thead>
+                <tr>
+                    <th><span className="visually-hidden">Actions</span></th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.infantrySaves.map( (save, unitIndex) => {
+                // Converted from the saved platoon; a published platoon should use its Master Unit List card.
+                const asUnit = new InfantryPlatoon( JSON.stringify(save) ).getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this platoon to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this platoon to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this platoon's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.overheat && asUnit.overheat > 0 ? <>&nbsp;|&nbsp;<strong title="Overheat Value">OHV</strong>: {asUnit.overheat}</> : null}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                )
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.battleArmorSaves && this.props.appGlobals.battleArmorSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Battle Armor"
+    >
+        <table className="table" data-testid="as-battle-armor-saves">
+            <thead>
+                <tr>
+                    <th><span className="visually-hidden">Actions</span></th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.battleArmorSaves.flatMap( (save, unitIndex) => {
+                // Converted from the saved suit, the base design and each loadout; a published suit should use its Master Unit List card.
+                const suit = new BattleArmor( JSON.stringify(save) );
+                const suits = [suit, ...suit.getLoadouts().map( (_loadout, loadoutIndex) => suit.getLoadoutSuit(loadoutIndex) )];
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return suits.map( (item, itemIndex) => {
+                    const asUnit = item.getAlphaStrikeUnit();
+                    return (
+                    <tbody key={`${unitIndex}-${itemIndex}`}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this squad to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this squad to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this squad's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {item.getAlphaStrikeStats().move}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                    );
+                });
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.protoMechSaves && this.props.appGlobals.protoMechSaves.length > 0 ? (
+    <TextSection
+        label="Your Created ProtoMechs"
+    >
+        <table className="table" data-testid="as-protomech-saves">
+            <thead>
+                <tr>
+                    <th><span className="visually-hidden">Actions</span></th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.protoMechSaves.map( (save, unitIndex) => {
+                // Converted from the saved design, one ProtoMech to a card; a published ProtoMech should use its Master Unit List card.
+                const proto = new ProtoMech( JSON.stringify(save) );
+                const asUnit = proto.getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this ProtoMech to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this ProtoMech to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this ProtoMech's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {proto.getAlphaStrikeStats().move}&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                );
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.microMechSaves && this.props.appGlobals.microMechSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Micro-Mechs"
+    >
+        <p className="med-small-text">
+            Custom Homebrew, NOT OFFICIAL: the Alpha Strike rules for a Micro-Mech (type MM, the MCR ability) are this app's own.
+            {" "}<Link to={`${process.env.PUBLIC_URL}/classic-battletech/tro-jbt/micro-mechs`}>They are explained in TRO - JBT: Micro-Mechs.</Link>
+        </p>
+        <table className="table" data-testid="as-micro-mech-saves">
+            <thead>
+                <tr>
+                    <th><span className="visually-hidden">Actions</span></th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.microMechSaves.map( (save, unitIndex) => {
+                // Converted from the saved design by NGCFells's own ruleset: a Micro-Mech is on no Master Unit List.
+                const micro = new MicroMech( JSON.stringify(save) );
+                const asUnit = micro.getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this Micro-Mech to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this Micro-Mech to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this Micro-Mech's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {micro.getAlphaStrikeStats().move}&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                );
+            })}
+        </table>
+    </TextSection>
+) : null}
+
+{this.props.appGlobals.walkerSaves && this.props.appGlobals.walkerSaves.length > 0 ? (
+    <TextSection
+        label="Your Created Walkers"
+    >
+        <p className="med-small-text">
+            Custom Homebrew, NOT OFFICIAL: the Alpha Strike rules for a walker (type WK, or IWK for an industrial walker; the WLK and AIF abilities)
+            are this app's own, after Clell Flint's walker rules in Future Wars. View a card to read them.
+        </p>
+        <table className="table" data-testid="as-walker-saves">
+            <thead>
+                <tr>
+                    <th><span className="visually-hidden">Actions</span></th>
+                    <th>Name</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            {this.props.appGlobals.walkerSaves.map( (save, unitIndex) => {
+                // Converted from the saved design by NGCFells's own ruleset: a walker is on no Master Unit List.
+                const walker = new Walker( JSON.stringify(save) );
+                const asUnit = walker.getAlphaStrikeUnit();
+                const groups = this.props.appGlobals.currentASForce ? this.props.appGlobals.currentASForce.groups : [];
+                return (
+                    <tbody key={unitIndex}>
+                        <tr>
+                            <td className="text-left min-width no-wrap">
+                                {groups.length > 1 ? groups.map( (asGroup, asGroupIndex) => (
+                                    <button
+                                        key={asGroupIndex}
+                                        className="btn btn-primary btn-sm"
+                                        onClick={() => this.addToGroup(asUnit, asGroupIndex)}
+                                        title={"Adds this walker to your group '" + asGroup.getName(asGroupIndex + 1) + "'"}
+                                    >
+                                        <Plus />&nbsp;{asGroupIndex + 1}
+                                    </button>
+                                )) : (
+                                    <button
+                                        className="btn btn-primary btn-sm no-right-margin"
+                                        onClick={() => this.addToGroup(asUnit, 0)}
+                                        title="Add this walker to your current group"
+                                    >
+                                        <Plus />
+                                    </button>
+                                )}
+                                <button
+                                    className="btn btn-primary btn-sm"
+                                    onClick={() => this.props.openViewUnit(asUnit)}
+                                    title="View this walker's Alpha Strike Card"
+                                >
+                                    <Eye />
+                                </button>
+                            </td>
+                            <td>{asUnit.name}</td>
+                            <td>{asUnit.basePoints}</td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colSpan={2} className="med-small-text">
+                                <strong title="Alpha Strike Type">Type</strong>: {asUnit.type}&nbsp;|&nbsp;
+                                <strong title="Alpha Strike Move">Move</strong>: {walker.getAlphaStrikeStats().move}&nbsp;
+                                <strong title="Alpha Strike Damage Bands">Damage</strong>: {asUnit.damage.short}/{asUnit.damage.medium}/{asUnit.damage.long}
+                                {asUnit.abilities.length > 0 ? <>&nbsp;|&nbsp;<strong title="Special Abilities">Special</strong>: {asUnit.abilities.join(", ")}</> : null}
+                            </td>
+                        </tr>
+                    </tbody>
+                );
+            })}
+        </table>
+    </TextSection>
+) : null}
     </div>
   </div>
             </>
@@ -818,9 +1063,11 @@ interface IAlphaStrikeAddUnitsViewProps {
 }
 
 interface IAlphaStrikeAddUnitsViewState {
+    abilityCodes: IAbilityCodeCount[];
     searchResults: IASMULUnit[];
     contextMenuSearch: number;
     contextMenuSavedBattleMechs: number;
     searchSort: 'Name' | 'BFPointValue';
     isSearching: boolean;
+    searchPage: number;
 }

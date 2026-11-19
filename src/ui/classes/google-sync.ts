@@ -44,4 +44,4 @@
 //         }
 //     });
 // }
-export var dummy: string = "12";
+export const dummy: string = "12";

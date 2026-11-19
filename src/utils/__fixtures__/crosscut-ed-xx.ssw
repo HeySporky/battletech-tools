@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Crosscut" model="ED-XX &quot;Ichabod&quot;" tons="30" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>442</battle_value>
+    <cost>2015098.75</cost>
+    <rules_level>3</rules_level>
+    <era>2</era>
+    <productionera>0</productionera>
+    <mech_type>IndustrialMech</mech_type>
+    <techbase manufacturer="Unknown" location="Unknown">Inner Sphere</techbase>
+    <year restricted="FALSE">3075</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Unknown" techbase="2">
+        <type>Industrial Structure</type>
+    </structure>
+    <engine rating="90" manufacturer="Unknown" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type>Torso-Mounted Cockpit</type>
+        <location index="10">CT</location>
+        <location index="11">CT</location>
+        <location index="0">LT</location>
+        <location index="0">RT</location>
+    </cockpit>
+    <armor manufacturer="Unknown" techbase="2">
+        <type>Standard Armor</type>
+        <hd>6</hd>
+        <ct>12</ct>
+        <ctr>4</ctr>
+        <lt>6</lt>
+        <ltr>3</ltr>
+        <rt>6</rt>
+        <rtr>3</rtr>
+        <la>6</la>
+        <ra>6</ra>
+        <ll>6</ll>
+        <rl>6</rl>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>XTRGladiators</source>
+        <info>Crosscut ED-XX "Ichabod" 30t, 3/5/0, Std FE, Ind; 4.0T/61% Armor; 10 SHS; 1 TSR, 1 ChnSw, 1 ERML, 1 ERSL</info>
+        <battleforce pv="4" wt="1" mv="3" s="1" m="1" l="0" e="0" ov="0" armor="2" internal="3" abilities="MEL, SAW, CASE, SRCH" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="FALSE"/>
+        <clancase>FALSE</clancase>
+        <heatsinks number="10" techbase="2">
+            <type>Single Heat Sink</type>
+
+            <location index="1">RT</location>
+            <location index="3">RA</location>
+            <location index="1">LT</location>
+            <location index="2">HD</location>
+            <location index="4">LA</location>
+            <location index="4">RL</location>
+            <location index="4">LL</location>
+        </heatsinks>
+        <equipment>
+            <name manufacturer="">(IS) ER Medium Laser</name>
+            <type>energy</type>
+            <location index="4">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) ER Small Laser</name>
+            <type>energy</type>
+            <location index="3">HD</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(IS) BattleMech Taser</name>
+            <type>ballistic</type>
+            <location index="5">LA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">Chainsaw</name>
+            <type>physical</type>
+            <location index="4">RA</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">(IS) @ BattleMech Taser</name>
+            <type>ammunition</type>
+            <location index="2">LT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">CASE</name>
+            <type>CASE</type>
+            <location index="3">LT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>Unknown</commsystem>
+        <tandtsystem>Unknown</tandtsystem>
+    </fluff>
+</mech>

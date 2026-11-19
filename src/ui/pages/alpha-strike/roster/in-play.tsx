@@ -20,6 +20,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
     constructor(props: IInPlayProps) {
         super(props);
+        // Units added on the roster since the force was loaded take the "Use design quirks" switch here.
+        this.props.appGlobals.currentASForce?.syncQuirksInPlay();
 
 
         this.state = {
@@ -43,8 +45,8 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         "Cancel",
         () => {
           if (this.props.appGlobals.currentASForce) {
-            for (let group of this.props.appGlobals.currentASForce.groups) {
-              for( let unit of group.members ) {
+            for (const group of this.props.appGlobals.currentASForce.groups) {
+              for( const unit of group.members ) {
                 unit.applyRound();
               }
             }
@@ -64,7 +66,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
 
       if( e && e.preventDefault ) e.preventDefault();
 
-      let appSettings = this.props.appGlobals.appSettings;
+      const appSettings = this.props.appGlobals.appSettings;
 
       if (appSettings.alphaStrikeInPlayColumns < 5) {
         appSettings.alphaStrikeInPlayColumns++;
@@ -90,7 +92,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
         "Yes",
         "No, Thank you",
         () => {
-          for( let unit of group.members ) {
+          for( const unit of group.members ) {
             if( unit && unit.reset ) {
               unit.reset();
             }
@@ -167,7 +169,7 @@ export default class AlphaStrikeRosterInPlay extends React.Component<IInPlayProp
   show={true}
   onClose={this.closeSpecialAbility}
 >
-  <div className='text-center'><em>{getSpecialAbilityTypeName(this.state.showSpecialAbility.type)}</em> - <span title={this.state.showSpecialAbility.source.book}>{this.state.showSpecialAbility.source.book} p{this.state.showSpecialAbility.source.page}</span></div>
+  <div className='text-center'><em>{getSpecialAbilityTypeName(this.state.showSpecialAbility.type)}</em> - <span title={this.state.showSpecialAbility.source.book}>{this.state.showSpecialAbility.source.book}{this.state.showSpecialAbility.source.page > 0 ? ` p${this.state.showSpecialAbility.source.page}` : ""}</span></div>
 
   {this.state.showSpecialAbility.summary.map( (line, lineIndex) => {
     return (

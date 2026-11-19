@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding ="UTF-8"?>
+<mech name="Howler (Baboon)" model="6" tons="20" omnimech="FALSE" solaris7id="0" solaris7imageid="0" sswimage="">
+    <ssw_savefile_version>3</ssw_savefile_version>
+    <battle_value>550</battle_value>
+    <cost>2072240.0</cost>
+    <rules_level>3</rules_level>
+    <era>2</era>
+    <productionera>8</productionera>
+    <mech_type>BattleMech</mech_type>
+    <techbase manufacturer="CJF Factory Zone 5" location="Blackjack">Clan</techbase>
+    <year restricted="FALSE">3086</year>
+    <motive_type>Biped</motive_type>
+    <structure manufacturer="Type-A" techbase="1">
+        <type>Endo-Steel</type>
+        <location index="0">LT</location>
+        <location index="1">LT</location>
+        <location index="2">LT</location>
+        <location index="6">RT</location>
+        <location index="7">RT</location>
+        <location index="8">RT</location>
+        <location index="10">CT</location>
+    </structure>
+    <engine rating="140" manufacturer="Firebox" lsstart="-1" rsstart="-1" techbase="2">Fusion Engine</engine>
+    <gyro techbase="2">Standard Gyro</gyro>
+    <cockpit>
+        <type ejectionseat="FALSE" commandconsole="FALSE" fhes="FALSE">Standard Cockpit</type>
+    </cockpit>
+    <armor manufacturer="Compound H17" techbase="1">
+        <type>Ferro-Fibrous</type>
+        <hd>7</hd>
+        <ct>8</ct>
+        <ctr>2</ctr>
+        <lt>7</lt>
+        <ltr>2</ltr>
+        <rt>7</rt>
+        <rtr>2</rtr>
+        <la>5</la>
+        <ra>5</ra>
+        <ll>6</ll>
+        <rl>6</rl>
+        <location index="3">LT</location>
+        <location index="4">LT</location>
+        <location index="5">LT</location>
+        <location index="9">RT</location>
+        <location index="10">RT</location>
+        <location index="11">CT</location>
+        <location index="11">RT</location>
+    </armor>
+    <baseloadout fcsa4="FALSE" fcsa5="FALSE" fcsapollo="FALSE">
+        <source>RGiC 8</source>
+        <info>Howler (Baboon) 6 20t, 7/11/0, Std FE, ES; 3.0T/83% FF Armor; 10 DHS; 2 SRM6</info>
+        <battleforce pv="6" wt="1" mv="7" s="2" m="2" l="0" e="0" ov="0" armor="2" internal="2" abilities="CASEII, CASE, SRCH, ES, SEAL, SOA, SRM 2/2/0" />
+        <actuators lla="TRUE" lh="TRUE" rla="TRUE" rh="TRUE"/>
+        <clancase>TRUE</clancase>
+        <heatsinks number="10" techbase="1">
+            <type>Double Heat Sink</type>
+
+            <location index="6">LA</location>
+            <location index="4">LA</location>
+            <location index="8">LA</location>
+            <location index="4">RL</location>
+            <location index="4">LL</location>
+        </heatsinks>
+        <turret type="right torso" index="4"/>
+        <equipment>
+            <name manufacturer="">(T) (CL) SRM-6</name>
+            <type>missile</type>
+            <location index="1">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(T) (CL) SRM-6</name>
+            <type>missile</type>
+            <location index="0">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ SRM-6</name>
+            <type>ammunition</type>
+            <location index="3">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="Unknown">@ SRM-6</name>
+            <type>ammunition</type>
+            <location index="2">RT</location>
+        </equipment>
+        <equipment>
+            <name manufacturer="">(CL) CASE II</name>
+            <type>CASEII</type>
+            <location index="5">RT</location>
+        </equipment>
+    </baseloadout>
+    <fluff>
+        <overview></overview>
+        <capabilities></capabilities>
+        <battlehistory></battlehistory>
+        <deployment></deployment>
+        <variants></variants>
+        <notables></notables>
+        <additional></additional>
+        <quirks>
+            <quirk postive="true" battlemech="true" industrialmech="true" combatvehicle="false" battlearmor="false" aerospacefighter="false" conventionalfigher="false" dropship="false" jumpship="false" warship="false" spacestation="false" protomech="true" isvariable="false">
+                <Name>Extended Torso Twist</Name>
+                <Cost>3</Cost>
+                <Description>When torso twisting, the `Mech can change its facing by one or two hexsides. Quad â€™Mechs normally cannot torso twist at all. However, a quad â€™Mech with this quirk can perform a normal (not extended) torso twist.</Description>
+            </quirk>
+            <quirk postive="true" battlemech="true" industrialmech="true" combatvehicle="true" battlearmor="false" aerospacefighter="false" conventionalfigher="false" dropship="false" jumpship="false" warship="false" spacestation="false" protomech="false" isvariable="false">
+                <Name>Narrow/Low Profile</Name>
+                <Cost>2</Cost>
+                <Description>If the Margin of Success for a weapon attack made against a Narrow/low profile Unit is 0 or 1, the hit is considered a Glancing Blow.</Description>
+            </quirk>
+        </quirks>
+        <jumpjet_model>None</jumpjet_model>
+        <commsystem>JNE Integrated</commsystem>
+        <tandtsystem>Mark 4 TTS</tandtsystem>
+    </fluff>
+</mech>

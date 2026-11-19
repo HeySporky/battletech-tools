@@ -311,14 +311,18 @@ describe("Vehicle play mode: save and roster", () => {
         expect(tank.export(true).inPlay).toBeUndefined();
     });
 
-    it("adjusts BV for crew skill with the TM p. 305 table used for 'Mechs (G4/P5 x1.00, G3/P4 x1.38)", () => {
+    it("adjusts BV for crew skill by the rules edition's table (TM p. 315: G4/P5 x1.00, G3/P4 x1.32)", () => {
         const tank = buildTank();
         expect(tank.getPilotAdjustedBattleValue()).toBe(tank.getBattleValue());
         const pilot = new Pilot();
         pilot.gunnery = 3;
         pilot.piloting = 4;
         tank.setPilot(pilot);
-        expect(tank.getPilotAdjustedBattleValue()).toBe(Math.round(tank.getBattleValue() * 1.38));
+        expect(tank.getPilotAdjustedBattleValue()).toBe(Math.round(tank.getBattleValue() * 1.32));
+        // A BV1 reads its own edition's table (Master Rules p.144: 1.25); the 1987 Manual has no Battle Value, so it
+        // shows BV2 on the TechManual table (plan ruling 2).
+        expect(tank.getPilotAdjustedBattleValue("master-rules")).toBe(Math.round(tank.getBattleValue("master-rules") * 1.25));
+        expect(tank.getPilotAdjustedBattleValue("battletech-manual")).toBe(Math.round(tank.getBattleValue() * 1.32));
     });
 
     it("groups carry vehicles in totals and in saves; older saves without vehicles still load", () => {
@@ -327,7 +331,7 @@ describe("Vehicle play mode: save and roster", () => {
         group.vehicles.push(tank);
         expect(group.getTotalUnits()).toBe(1);
         expect(group.getTotalTons()).toBe(50);
-        expect(group.getTotaBV2()).toBe(tank.getBattleValue());
+        expect(group.getTotalBattleValue()).toBe(tank.getBattleValue());
         const reloaded = new BattleMechGroup(group.export());
         expect(reloaded.vehicles.length).toBe(1);
 

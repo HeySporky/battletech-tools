@@ -11,7 +11,6 @@
  * to challenge any copyright or trademark status, and this data is explicitly 
  * excluded from the software's underlying license (GNU GPLv3).
  */
-
 export const unitGroupNames: string[] = [
     "Lance",
     "Star",

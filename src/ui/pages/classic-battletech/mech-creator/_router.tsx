@@ -6,7 +6,10 @@ import MechCreatorExports from './exports';
 import Home from './home';
 import MechCreatorImports from './imports';
 import MechCreatorPrintAS from './print-as';
+import { CreatorPrintTRO, CreatorTechnicalReadoutStep } from '../../../components/creator-tro-pages';
+import { MECH_TRO } from '../creator-tro-configs';
 import MechCreatorPrintRS from './print-rs';
+import MechCreatorSSWFileImport from './ssw-file-import';
 import MechCreatorStep1 from './step1';
 import MechCreatorStep2 from './step2';
 import MechCreatorStep3 from './step3';
@@ -60,6 +63,10 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
                     />
                 }/>
 
+                <Route path={`step7`} element={
+                    <CreatorTechnicalReadoutStep appGlobals={this.props.appGlobals} config={MECH_TRO} />
+                }/>
+
                 <Route path={`summary`} element={
                     <MechCreatorSummary
                         appGlobals={this.props.appGlobals}
@@ -78,6 +85,12 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
                     />
                 }/>
 
+                <Route path={`ssw-file-import`} element={
+                    <MechCreatorSSWFileImport
+                        appGlobals={this.props.appGlobals}
+                    />
+                }/>
+
                 <Route path={`print-rs`} element={
                     <MechCreatorPrintRS
                         appGlobals={this.props.appGlobals}
@@ -87,6 +100,10 @@ export default class MechCreatorRouter extends React.Component<IMechCreatorRoute
                     <MechCreatorPrintAS
                         appGlobals={this.props.appGlobals}
                     />
+                }/>
+
+                <Route path={`print-tro`} element={
+                    <CreatorPrintTRO appGlobals={this.props.appGlobals} config={MECH_TRO} />
                 }/>
 
                 <Route path="*" element={

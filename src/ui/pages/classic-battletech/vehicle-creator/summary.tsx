@@ -1,11 +1,15 @@
 import React, { type JSX } from 'react';
 import { Link } from 'react-router';
 import { IAppGlobals } from '../../../app-router';
-import VehicleCreatorSideMenu from '../../../components/vehicle-creator-side-menu';
+import { VehicleCreatorSideMenu } from '../../../components/creator-side-menus';
+import QuirkPicker from '../../../components/quirk-picker';
 import TextSection from '../../../components/text-section';
 import UIPage from '../../../components/ui-page';
 import SanitizedHTML from '../../../components/sanitized-html';
 import { formatVehicleASDamage } from '../../../../classes/vehicle';
+import { getArtVeeIssues, getArtVeeWarnings } from '../../../../classes/vehicle-artvee';
+import { unitRulesLevel } from '../../../components/game-settings-block';
+import { formatBattleValue } from '../../../../data/battle-value';
 
 export default class VehicleCreatorSummary extends React.Component<ISummaryProps, ISummaryState> {
     constructor(props: ISummaryProps) {
@@ -22,6 +26,8 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
         const structure = vehicle.getStructureAllocation();
         const maxArmor = vehicle.getMaxArmorAllocation();
         const armor = vehicle.getArmorAllocation();
+        const artVeeIssues = getArtVeeIssues(vehicle);
+        const artVeeWarnings = vehicle.isArtVee() ? getArtVeeWarnings(vehicle, unitRulesLevel(this.props.appGlobals.currentVehicle, this.props.appGlobals.appSettings)) : [];
 
         return (
             <UIPage current="classic-battletech-vehicle-creator" appGlobals={this.props.appGlobals}>
@@ -32,15 +38,22 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                     <div className="col-md-9 col-lg-10">
                         <TextSection label={`${vehicle.getModel()} ${vehicle.getName()}`.trim() || "Vehicle Summary"}>
                             <p>
-                                <strong>{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons
+                                <strong>{vehicle.isOmni() ? "Omni " : ""}{vehicle.getMotiveType().name}</strong> - {vehicle.getTonnage()} tons
                                 {vehicle.hasTurret() ? ` - ${vehicle.getTurretName()}` : " - No Turret"}
                                 {` - Cruise ${vehicle.getCruiseMP()} / Flank ${vehicle.getFlankMP()}${vehicle.getJumpMP() > 0 ? ` / Jump ${vehicle.getJumpMP()}` : ""} - ${vehicle.getEngineType().name} ${vehicle.getEngineRating()} - Crew ${vehicle.getCrew()} - Item Slots ${vehicle.getUsedItemSlots()}/${vehicle.getTotalItemSlots()}`}
                             </p>
 
                             <p>
-                                <strong>Battle Value</strong>: {vehicle.getBattleValue()} &nbsp;|&nbsp;
+                                <strong>Battle Value</strong>: {formatBattleValue((edition) => vehicle.getBattleValue(edition), "vehicle", vehicle.getRulesEdition())} &nbsp;|&nbsp;
                                 <strong>C-Bill Cost</strong>: {vehicle.getCBillCost().toLocaleString()}
                             </p>
+
+                            {artVeeIssues.map((issue) => (
+                                <p key={issue} className="color-red" data-testid="artvee-issue">{issue}</p>
+                            ))}
+                            {artVeeWarnings.map((warning) => (
+                                <p key={warning} className="smaller-text" data-testid="artvee-warning">{warning}</p>
+                            ))}
 
                             <h3>Weight Summary</h3>
                             <table className="table">
@@ -89,6 +102,17 @@ export default class VehicleCreatorSummary extends React.Component<ISummaryProps
                                 MUL card.
                             </p>
                             <Link to={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/print-as`} className="btn btn-primary btn-sm">Print Alpha Strike Card</Link>
+                            {" "}
+                            <Link to={`${process.env.PUBLIC_URL}/classic-battletech/vehicle-creator/print-tro`} className="btn btn-primary btn-sm">Print the TRO sheet</Link>
+
+                            <QuirkPicker
+                                quirks={vehicle.quirks}
+                                unitType={vehicle.getQuirkUnitType()}
+                                editionTag={vehicle.getRulesEdition()}
+                                rulesLevel={unitRulesLevel(this.props.appGlobals.currentVehicle, this.props.appGlobals.appSettings)}
+                                {...vehicle.getQuirkTargets()}
+                                onChange={() => this.props.appGlobals.saveCurrentVehicle(vehicle)}
+                            />
 
                             <h3>Battle Value Calculation</h3>
                             <SanitizedHTML raw={true} html={vehicle.getBattleValueLog()} />

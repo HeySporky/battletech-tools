@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { CONST_BATTLETECH_URL } from '../../../../configVars';
 import { IAppGlobals } from '../../../app-router';
 import BattleTechLogo from '../../../components/battletech-logo';
+import TrademarkNoticeParagraphs from '../../../components/trademark-notice';
 import AlphaStrikePilotCardSVG from '../../../components/svg/alpha-strike-pilot-card-svg';
 import AlphaStrikePrintUnitSVG from '../../../components/svg/alpha-strike-print-unit';
 import './print.scss';
@@ -45,10 +46,10 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
 
     render = (): JSX.Element => {
       // Create a running list of pilot ability cards to render on the last page.
-      let forceSPAs: any[] = [];
-      let formationBonus: any[] = [];
+      const forceSPAs: any[] = [];
+      const formationBonus: any[] = [];
 
-      let pages: PrintPage[] = [];
+      const pages: PrintPage[] = [];
       pages.push({
         units: 0,
         groups: [],
@@ -59,7 +60,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
       }
 
       
-      for (let group of this.props.appGlobals.currentASForce.groups) {
+      for (const group of this.props.appGlobals.currentASForce.groups) {
         // Find a home for this group
         let placed = false;
         for (let index = 0; index < pages.length; index++) {
@@ -261,7 +262,7 @@ export default class AlphaStrikeRosterPrint extends React.Component<IPrintProps,
                     />
               </div>
               <p>Printed using Jeff's BattleTech Tools IIC at https://{window.location.hostname}/battletech-tools/. Huge thanks to the Master Unit List</p>
-              <p>MechWarrior, BattleMech, ‘Mech and AeroTech are registered trademarks of The Topps Company, Inc. All Rights Reserved.</p>
+              <TrademarkNoticeParagraphs />
             </footer>
           </div>
 

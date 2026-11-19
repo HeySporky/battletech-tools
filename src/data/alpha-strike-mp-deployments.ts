@@ -15,9 +15,9 @@ import { generateUUID } from "../utils/generateUUID";
  */
 
 export function generateScenarioDeployments(deploymentSet: IAlphaStrikeMPDeploymentSet, numberOfDeploments: number): IAlphaStrikeMPDeployment[] {
-    let returnDeployments: IAlphaStrikeMPDeployment[] = [];
-    let totalDeploymentWeight = deploymentSet.deploymentWeights.reduce((a, b) => a + b, 0);
-    let weightedDeployments: number[] = [];
+    const returnDeployments: IAlphaStrikeMPDeployment[] = [];
+    const totalDeploymentWeight = deploymentSet.deploymentWeights.reduce((a, b) => a + b, 0);
+    const weightedDeployments: number[] = [];
 
     for (let i = 0; i < deploymentSet.deploymentIds.length; i++) {
         for (let j = 0; j < deploymentSet.deploymentWeights[i]; j++) {
@@ -30,8 +30,8 @@ export function generateScenarioDeployments(deploymentSet: IAlphaStrikeMPDeploym
     }
 
     while(returnDeployments.length < numberOfDeploments) {
-        let randomIndex = Math.floor(Math.random() * totalDeploymentWeight);
-        let deploymentId = weightedDeployments[randomIndex];
+        const randomIndex = Math.floor(Math.random() * totalDeploymentWeight);
+        const deploymentId = weightedDeployments[randomIndex];
         if(returnDeployments.find((d) => d.id === deploymentId) !== undefined) {
             continue;
         }
@@ -42,7 +42,7 @@ export function generateScenarioDeployments(deploymentSet: IAlphaStrikeMPDeploym
 }
 
 export const getDeploymentById = (deploymentId: number): IAlphaStrikeMPDeployment => {
-    let deployment = alphaStrikeMPDeployments.find((d) => d.id === deploymentId);
+    const deployment = alphaStrikeMPDeployments.find((d) => d.id === deploymentId);
     if(deployment === undefined) {
         throw new Error(`Deployment with id ${deploymentId} not found`);
     }else{

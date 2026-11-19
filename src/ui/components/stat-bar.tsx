@@ -14,12 +14,12 @@ export default class StarBar extends React.Component<IStarBarProps, IStarBarStat
 
     render = (): JSX.Element => {
 
-        let statBarCurrentStyle: React.CSSProperties = {
+        const statBarCurrentStyle: React.CSSProperties = {
             width: this.props.currentPercentage + "%",
             height: this.props.height + "px",
         }
 
-        let statBarStyle: React.CSSProperties = {
+        const statBarStyle: React.CSSProperties = {
             height: this.props.height + "px",
         }
 

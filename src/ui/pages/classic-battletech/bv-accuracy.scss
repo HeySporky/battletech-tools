@@ -1,0 +1,110 @@
+// The Battle Value accuracy record (#599).
+.bv-accuracy {
+    text-align: left;
+
+    p {
+        max-width: 70ch;
+    }
+
+    table {
+        width: 100%;
+
+        th, td {
+            text-align: left;
+            vertical-align: top;
+            overflow-wrap: anywhere;
+        }
+    }
+
+    .bv-accuracy-counts {
+        max-width: 50rem;
+
+        th, td {
+            overflow-wrap: normal;
+        }
+
+        td, thead th:not(:first-child) {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    .bv-accuracy-number,
+    .bv-accuracy-units thead th:nth-child(n+3):nth-child(-n+5) {
+        text-align: right;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .bv-accuracy-verdicts {
+        max-width: 70ch;
+
+        div {
+            margin-bottom: .25rem;
+        }
+
+        dt, dd {
+            display: inline;
+            margin: 0;
+        }
+
+        dt::after {
+            content: ": ";
+        }
+    }
+
+    .bv-accuracy-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .5rem;
+        align-items: center;
+        margin: 1rem 0 .5rem;
+
+        label {
+            width: auto;
+            margin: 0;
+        }
+
+        select, input {
+            display: inline-block;
+            width: auto;
+            max-width: 100%;
+            margin-right: 1rem;
+        }
+    }
+}
+
+// A phone: each unit is a card, its figures labelled.
+@media (max-width: 599px) {
+    .bv-accuracy .bv-accuracy-units {
+        display: block;
+
+        thead {
+            display: none;
+        }
+
+        tbody, tr, th, td {
+            display: block;
+        }
+
+        tr {
+            padding: .5rem 0;
+            border-bottom: 1px solid rgba(128, 128, 128, .4);
+        }
+
+        th, td {
+            border: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        td:empty {
+            display: none;
+        }
+
+        td::before {
+            content: attr(data-label) ": ";
+            opacity: .75;
+        }
+    }
+}
