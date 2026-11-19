@@ -92,16 +92,16 @@ GOLIATH-R 23,413 t, 3/5, SI 5, first introduced 2705 (Norton 40 series drive), 2
 
 **Files:** `src/data/future-wars-dropships.ts` (new), `src/data/special-rulesets.ts`, tests beside them.
 
-- [ ] Read the covers of FW #25 and #36 for their years; fill the four `source.title`s.
-- [ ] The four rulesets and the `CHANGE_LABELS` entry. Test: ticking any two is a clash ("both change DropShip
+- [x] Read the covers of FW #25 and #36 for their years; fill the four `source.title`s.
+- [x] The four rulesets and the `CHANGE_LABELS` entry. Test: ticking any two is a clash ("both change DropShip
   construction"); each is offered only at Custom Homebrew.
-- [ ] Tables as literal arrays, each with its page in a comment: Eid Charts A-D (FW #25 p.7); Reese's extended Charts
+- [x] Tables as literal arrays, each with its page in a comment: Eid Charts A-D (FW #25 p.7); Reese's extended Charts
   A, C, D and Chart B (FW #36 p.18); Houseman's integrity, armor, docking and quarters tables (FW #36 pp.22-23).
   Test every row against the ledger.
-- [ ] Q1: the DS&JS DropShip table (type, tonnage, thrust, thrust points a ton, burn-day, crew, armor points a ton,
+- [x] Q1: the DS&JS DropShip table (type, tonnage, thrust, thrust points a ton, burn-day, crew, armor points a ton,
   bridge) parsed from the corrected extract, each row with its page; the fitted formulae beside it with their error
   per ship, labelled NGCFells's extrapolation. Test: each formula against the table within its stated error.
-- [ ] Q3: Houseman's integrity rule uncapped (rows 1-8 his, past 8 NGCFells's), tested at 1, 8, 11 and 18.
+- [x] Q3: Houseman's integrity rule uncapped (rows 1-8 his, past 8 NGCFells's), tested at 1, 8, 11 and 18.
 
 ## Task 2: The four methods as pure functions
 
@@ -110,25 +110,25 @@ GOLIATH-R 23,413 t, 3/5, SI 5, first introduced 2705 (Norton 40 series drive), 2
 One function per method taking the design's inputs (tonnage, shape, thrust, SI, fuel tons, bays, doors, quarters,
 people, vehicles, weapons tonnage, the method's own choices) and returning weighed lines plus issues.
 
-- [ ] Stock: engine `t / (15 / thrust)`; SI `si x t / 100`; bridge 1-10 x crew (player's multiplier); engine heat
+- [x] Stock: engine `t / (15 / thrust)`; SI `si x t / 100`; bridge 1-10 x crew (player's multiplier); engine heat
   sinks `engine / divisor`, divisor 10-25 chosen in the band for small (10-12), medium (13-16) or large (17-25)
   engines (the size bands are not defined in the article: NGCFells to name them, else the player picks the divisor);
   cubicles 150 t; 'Mech, fighter and cargo doors 5 t each; vehicles 100 / 50; people 5 / 10 / 2 / 3 / 3 / 5.
-- [ ] Eid: engine `t / (16 / thrust)`; overthrust 1.5 x; SI above overthrust; Chart A; burn-day 1.84 under 15,000 t,
+- [x] Eid: engine `t / (16 / thrust)`; overthrust 1.5 x; SI above overthrust; Chart A; burn-day 1.84 under 15,000 t,
   else the player's figure up to about 9; bridge `t x 0.0075`; free sinks `floor(engine / Chart B)`; Charts C/D;
   cubicles 150 t, doors weightless, at most 8 (5 with ferro-aluminum), cargo doors unlimited (10 with ferro-aluminum);
   people 5 / 10, infantry +2 / +3; minimum crew 2 pilots, 4 engineers, 3 second engineers; the advanced-tech list as
   issues (no C3, no TSM, no MASC, no Endo II, no targeting computer, no AP pods, no Thunder; CASE a ton of ammo).
-- [ ] Reese: as Eid, plus SI from overthrust to 3 x overthrust; fuel `days x 1,440 / Chart A`, days 20-30; bridge at
+- [x] Reese: as Eid, plus SI from overthrust to 3 x overthrust; fuel `days x 1,440 / Chart A`, days 20-30; bridge at
   most 25 t; extended charts; vehicle bays 100 t (over 50 t) / 50 t (two small in a 100 t bay); people 5 / 10 / 7 / 8;
   at most 8 combat doors, cargo doors counted; Clan: XL engine half weight, half the ship's weight for Chart A, double
   heat sinks, Clan weapons +2 to hit (a sheet note); several engines, each armored.
-- [ ] Houseman: SI 3% of mass a point; hull 5% / 10%; internal power 2%; thrusters 3 t a thrust point a 100 t (thrust
+- [x] Houseman: SI 3% of mass a point; hull 5% / 10%; internal power 2%; thrusters 3 t a thrust point a 100 t (thrust
   at most integrity, six g crew limit as a warning); fuel 3 t a thrust point a day (player's days); landing 10% / 15%;
   comms 3% (+ hyperpulse 100 t, second computer 5 t, fire control 1 t a weapon, each optional); docking by table;
   quarters table; weapons x1.5; bays and doors by his percentages; cargo 110%; cargo handling 12%; ammo magazine
   200%; drop capsules 25%; launch tubes 200 t; recycling 1%; the 25% limit on c+g+h+j+k+l+m+n+o as an issue.
-- [ ] Tests: the ledger's canon table (Leopard, Union, Overlord under each method, assumptions as in the ledger);
+- [x] Tests: the ledger's canon table (Leopard, Union, Overlord under each method, assumptions as in the ledger);
   Reese's worked UNION-12 (22,860 t: engine 4,286, SI 2,515, fuel 10,800, bridge 25, 126 free sinks, 53 t armor) and
   his book Union (8,437 t); Houseman's Leopard thrusters (17 x 3 = 51 t a point, 204 t at thrust 4).
 
@@ -136,37 +136,37 @@ people, vehicles, weapons tonnage, the method's own choices) and returning weigh
 
 **Files:** `src/classes/small-craft.ts`, `src/classes/small-craft-future-wars-dropships.test.ts` (new).
 
-- [ ] `getDropShipConstructionMethod()`: the ticked method, or undefined (DropShip only, not Primitive).
-- [ ] Route through it, as the Primitive path does today (`getEngineWeight` line ~531): engine, structure, fuel
+- [x] `getDropShipConstructionMethod()`: the ticked method, or undefined (DropShip only, not Primitive).
+- [x] Route through it, as the Primitive path does today (`getEngineWeight` line ~531): engine, structure, fuel
   points a ton and burn-day, controls (bridge), free heat sinks, armor points a ton (no SI bonus armor: the TechManual's
   `getBonusArmorPoints` is 0 under a method), bays, doors, quarters, and the method's extra lines (Houseman's hull,
   landing, comms, docking, power, recycling, cargo handling). TechManual-only weights (fuel pumps, fire control,
   gunners) are 0 under a method unless the author has them.
-- [ ] Issues from Task 2 appear in the creator's issue list; save and load keep the ruleset and the method's choices
+- [x] Issues from Task 2 appear in the creator's issue list; save and load keep the ruleset and the method's choices
   (new optional fields on `ISmallCraftExport`; absent = TechManual).
-- [ ] Regression: every bundled DropShip weighs the same as before with no ruleset ticked.
+- [x] Regression: every bundled DropShip weighs the same as before with no ruleset ticked.
 
 ## Task 4: Creator, sheet and play
 
 **Files:** `src/ui/pages/classic-battletech/small-craft-creator/{chassis,armor,crew,summary,record-sheet}.tsx`,
 `src/ui/components/svg/dropship-record-sheet-svg.tsx`.
 
-- [ ] Chassis step: the method's choices (Stock bridge multiplier and divisor; Eid / Reese burn-day; Reese days and,
+- [x] Chassis step: the method's choices (Stock bridge multiplier and divisor; Eid / Reese burn-day; Reese days and,
   if Q4, the volume calculator; Houseman landing type, fuel days, optional comms items, docking).
-- [ ] Summary: the weight breakdown in the method's own lines, the ruleset named at the top.
-- [ ] Record sheet: a short rules box naming the method and its source; fire factors per arc (Compendium rule as Eid
+- [x] Summary: the weight breakdown in the method's own lines, the ruleset named at the top.
+- [x] Record sheet: a short rules box naming the method and its source; fire factors per arc (Compendium rule as Eid
   and Reese print it: sum of maximum damage / 10, rounding up at .6, +1 per +4 of to-hit bonus) under Stock, Eid and
   Reese. Play is unchanged (the methods change construction only).
-- [ ] Checked in Chromium (dev server): build a 3,500 t spheroid under each method, switch between them, reload.
+- [x] Checked in Chromium (dev server): build a 3,500 t spheroid under each method, switch between them, reload.
 
 ## Task 5: Values, samples, readout, news
 
-- [ ] Values per Q6 (breakdown notes say which rules were used).
-- [ ] If Q5: the six sample designs from the sheets (`src/data/future-wars-dropship-samples.ts`), each with its
+- [x] Values per Q6 (breakdown notes say which rules were used).
+- [x] If Q5: the six sample designs from the sheets (`src/data/future-wars-dropship-samples.ts`), each with its
   issue and page, era from its sheet (Pioneer prototype and introduction 2989, Brigadier Corporation; UNION-12 3008,
   EII Industries, UR; GOLIATH-R 2705; THUNDERWOLF from its sheet), and a test reading each back.
-- [ ] TRO - JBT: a "DropShip construction" page in the Best of Future Wars readout (`docs/lore/`), filed under Other
+- [x] TRO - JBT: a "DropShip construction" page in the Best of Future Wars readout (`docs/lore/`), filed under Other
   (DropShips are a CGL unit type): the four methods, credits with the original issue and page, the canon test table,
   and the samples. Test that its numbers match the tables. Link the original scans only where a real URL exists.
-- [ ] News line; `npm run check`; commit `Custom Homebrew: Future Wars DropShip construction, four methods (#172)`;
+- [x] News line; `npm run check`; commit `Custom Homebrew: Future Wars DropShip construction, four methods (#172)`;
   ff beta, push, deploy beta; ledger; handoff.
