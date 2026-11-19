@@ -76,7 +76,7 @@ const reloadingRocketLauncher = (size: number): IEquipmentItem => {
 };
 
 /**
- * Thunderbolt torpedo launchers (Lopunny, Queer Tech Discord, 2026-11-17): the Thunderbolt's statistics as a torpedo launcher, introduced 3082.
+ * Thunderbolt torpedo launchers (Lopunny, QueerTech Discord, 2026-11-17): the Thunderbolt's statistics as a torpedo launcher, introduced 3082.
  * NGCFells ruled (2026-11-18) that they are launchers of their own, apart from the Thunderbolt missile launchers, as the LRT is apart from the LRM.
  */
 const thunderboltTorpedo = (size: number): IEquipmentItem => {
@@ -98,7 +98,7 @@ const thunderboltTorpedo = (size: number): IEquipmentItem => {
             + "NGCFells ruled (2026-11-18) that they are launchers of their own, as the canon LRT is apart from the LRM: a missile launcher must vent its exhaust, a torpedo tube needs pressurized air to launch. "
             + `Every figure is the Thunderbolt ${size}'s (${canon.weight} tons, ${canon.space.battlemech} slot${canon.space.battlemech === 1 ? "" : "s"}, heat ${canon.heat}, ${canon.damage} damage, ranges ${canon.range.min}/${canon.range.short}/${canon.range.medium}/${canon.range.long}, `
             + `Battle Value ${canon.battleValue}, ${canon.cbills.toLocaleString("en-US")} C-bills), as canon torpedo launchers carry their missile counterpart's statistics (the LRT and LRM are priced and valued alike). `
-            + "The tech rating is the Thunderbolt's. Inspired by: Lopunny, Queer Tech Discord.",
+            + "The tech rating is the Thunderbolt's. Inspired by: Lopunny, QueerTech Discord.",
         rules: `Resolved as the Thunderbolt ${size}: one missile for ${canon.damage} damage to a single location, minimum range ${canon.range.min}, ranges ${canon.range.short}/${canon.range.medium}/${canon.range.long}, heat ${canon.heat}. `
             + "As a torpedo (the canon LRT and SRT rules): it fires only when the attacker is in a Water hex of Depth 1 or more, at a target in such a hex, with the line of sight traced through Water hexes. "
             + `It fires only Thunderbolt Torpedo ${size} ammunition (ammo-is-thunderbolt-torpedo-${size}-standard), never missile ammunition, and has no special munitions.`,
@@ -125,7 +125,7 @@ const thunderboltTorpedo = (size: number): IEquipmentItem => {
         explosive: false,
         weaponType: [...(canon.weaponType ?? [])],
         techRating: canon.techRating,
-        book: "Queer Tech Discord, Lopunny",
+        book: "QueerTech Discord, Lopunny",
         page: 0,
         rangeAero: canon.rangeAero,
         alphaStrike: { ...canon.alphaStrike, notes: ["Indirect Fire", "TOR", "Provisional workbook conversion"] },

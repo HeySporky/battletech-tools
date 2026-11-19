@@ -7,7 +7,7 @@ import { getAmmoBattleValuePerTon, getCompatibleAmmo, getWeaponShotsPerTon } fro
 import ammunitionReadout from "../../docs/lore/ammunition-tro.md?raw";
 import equipmentReadout from "../../docs/lore/homebrew-equipment-tro.md?raw";
 
-// Lopunny's entry (Queer Tech Discord, 2026-11-17): Heat-Seeking Thunderbolt ammunition and Thunderbolt torpedo launchers, both introduced 3082.
+// Lopunny's entry (QueerTech Discord, 2026-11-17): Heat-Seeking Thunderbolt ammunition and Thunderbolt torpedo launchers, both introduced 3082.
 
 const SIZES = [5, 10, 15, 20] as const;
 const byTag = <T extends { tag: string }>(list: T[], tag: string): T => {
@@ -51,7 +51,7 @@ describe("Lopunny's Heat-Seeking Thunderbolt ammunition", () => {
     it("credits Lopunny and the server, and carries the Heat-Seeking rules", () => {
         const round = heatSeeking(10);
         expect(round.notes).toContain("Lopunny");
-        expect(round.notes).toContain("Queer Tech Discord");
+        expect(round.notes).toContain("QueerTech Discord");
         expect(round.notes).toContain("Inspired by");
         expect(round.rules).toContain("+1");
         expect(round.rules).toContain("on fire");
@@ -93,7 +93,7 @@ describe("Lopunny's Thunderbolt torpedo launchers", () => {
     it("credits Lopunny, names NGCFells's ruling and keeps the water rule", () => {
         const tube = torpedo(15);
         expect(tube.notes).toContain("Lopunny");
-        expect(tube.notes).toContain("Queer Tech Discord");
+        expect(tube.notes).toContain("QueerTech Discord");
         expect(tube.notes).toContain("NGCFells");
         expect(tube.rules).toContain("Water");
         expect(tube.lore).toBeTruthy();
@@ -121,7 +121,7 @@ describe("Lopunny's items in TRO - JBT", () => {
             expect(equipmentReadout).toContain(`| ${tube.battleValue} `);
             expect(equipmentReadout).toContain(`${tube.cbills.toLocaleString("en-US")} C-Bills`);
         }
-        expect(ammunitionReadout).toContain("Queer Tech Discord");
-        expect(equipmentReadout).toContain("Queer Tech Discord");
+        expect(ammunitionReadout).toContain("QueerTech Discord");
+        expect(equipmentReadout).toContain("QueerTech Discord");
     });
 });

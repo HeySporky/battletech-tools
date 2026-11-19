@@ -238,7 +238,7 @@ The weight, slots, heat and ranges are the canon launcher's. The Battle Value an
 
 ## Thunderbolt Torpedoes
 
-*Custom Homebrew by Lopunny, posted on the Queer Tech Discord server.* Lopunny asked for Thunderbolt torpedoes, with
+*Custom Homebrew by Lopunny, posted on the QueerTech Discord server.* Lopunny asked for Thunderbolt torpedoes, with
 the standard Thunderbolt launcher's statistics, because the big single missile works "really cool as big torpedo's".
 Lopunny offered them as a torpedo launcher or as torpedo ammunition for the missile launcher; NGCFells ruled that they
 are launchers of their own, as the canon LRT is apart from the LRM. A missile launcher has to vent the motor's

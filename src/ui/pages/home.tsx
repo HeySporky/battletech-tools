@@ -197,7 +197,7 @@ export default class Home extends React.Component<IHomeProps, IHomeState> {
                     </h3>
                     <h4>Author - NGCFells</h4>
                       <ul>
-                        <li><strong>Lopunny's Thunderbolts (Queer Tech Discord).</strong> Heat-Seeking ammunition for the Thunderbolt 5, 10, 15 and 20 (the canon Heat-Seeking rules, with the Thunderbolt's full shots a ton), and Thunderbolt Torpedo launchers with the Thunderbolt's statistics, both introduced 3082, as Custom Homebrew. NGCFells ruled the torpedoes are launchers of their own, as the LRT is apart from the LRM. Both are in TRO - JBT. Thanks, Lopunny!</li>
+                        <li><strong>Lopunny's Thunderbolts (QueerTech Discord).</strong> Heat-Seeking ammunition for the Thunderbolt 5, 10, 15 and 20 (the canon Heat-Seeking rules, with the Thunderbolt's full shots a ton), and Thunderbolt Torpedo launchers with the Thunderbolt's statistics, both introduced 3082, as Custom Homebrew. NGCFells ruled the torpedoes are launchers of their own, as the LRT is apart from the LRM. Both are in TRO - JBT. Thanks, Lopunny!</li>
                         <li><strong>Fix.</strong> Heat-Seeking LRM ammunition is introduced in 2340, as Tactical Operations prints it; the catalog had the year transposed to 2430.</li>
                       </ul>
                   </li>

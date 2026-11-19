@@ -61,7 +61,7 @@ reach to orbit adds no range on the ground map, so range does not change the fig
 
 ## Thunderbolt: Heat-Seeking Ammo
 
-*Custom Homebrew by Lopunny, posted on the Queer Tech Discord server.* Lopunny's note: it is surprising there are no
+*Custom Homebrew by Lopunny, posted on the QueerTech Discord server.* Lopunny's note: it is surprising there are no
 alternate Thunderbolt munitions, with so much room to work with in each missile.
 
 | Item | Thunderbolt 5 | Thunderbolt 10 | Thunderbolt 15 | Thunderbolt 20 |
@@ -87,4 +87,4 @@ canon Heat-Seeking munition packs half the rounds a ton, and these keep the Thun
 **Cost and Battle Value:** Lopunny gave none, so NGCFells used the canon Heat-Seeking munition's factors: twice the
 standard round's cost (50,000 C-bills) and 1.5 times its Battle Value.
 
-**Credit:** Lopunny, Queer Tech Discord. Inspired by: Lopunny.
+**Credit:** Lopunny, QueerTech Discord. Inspired by: Lopunny.
